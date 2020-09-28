@@ -59,6 +59,9 @@
                   Identifier = "ArticleManualPerformanceTests">
                </Test>
                <Test
+                  Identifier = "ArticleViewControllerTests">
+               </Test>
+               <Test
                   Identifier = "LegacyCoreDataMigratorTests">
                </Test>
                <Test

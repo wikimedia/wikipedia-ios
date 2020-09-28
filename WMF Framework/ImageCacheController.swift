@@ -6,22 +6,6 @@ enum ImageCacheControllerError: Error {
 }
 
 public final class ImageCacheController: CacheController {
-    
-    public static let shared: ImageCacheController? = {
-        
-        guard let cacheBackgroundContext = CacheController.backgroundCacheContext else {
-            return nil
-        }
-        
-        let imageFetcher = ImageFetcher()
-        
-        let imageFileWriter = CacheFileWriter(fetcher: imageFetcher)
-
-        let imageDBWriter = ImageCacheDBWriter(imageFetcher: imageFetcher, cacheBackgroundContext: cacheBackgroundContext)
-
-        return ImageCacheController(dbWriter: imageDBWriter, fileWriter: imageFileWriter, imageFetcher: imageFetcher)
-    }()
-    
     // MARK: Permanent Cache
     
     //batch inserts to db and selectively decides which file variant to download. Used when inserting multiple image urls from media-list endpoint via ArticleCacheController.
@@ -54,10 +38,12 @@ public final class ImageCacheController: CacheController {
     private let imageFetcher: ImageFetcher
     fileprivate let memoryCache: NSCache<NSString, Image>
     
-    init(dbWriter: CacheDBWriting, fileWriter: CacheFileWriter, imageFetcher: ImageFetcher) {
-        self.imageFetcher = imageFetcher
+    init(moc: NSManagedObjectContext, session: Session, configuration: Configuration) {
+        self.imageFetcher = ImageFetcher(session: session, configuration: configuration)
         memoryCache = NSCache<NSString, Image>()
         memoryCache.totalCostLimit = 10000000 //pixel count
+        let fileWriter = CacheFileWriter(fetcher: imageFetcher)
+        let dbWriter = ImageCacheDBWriter(imageFetcher: imageFetcher, cacheBackgroundContext: moc)
         super.init(dbWriter: dbWriter, fileWriter: fileWriter)
     }
     
@@ -78,6 +64,18 @@ public final class ImageCacheController: CacheController {
         addToMemoryCache(image, url: url)
     }
     
+    // MARK: Errors
+    public enum FetchError: Error {
+        case dataNotFound
+        case invalidOrEmptyURL
+        case invalidImageCache
+        case invalidResponse
+        case duplicateRequest
+        case fileError
+        case dbError
+        case `deinit`
+    }
+    
     // MARK: Fetching
     
     /// Fetches data from a given URL. Coalesces completion blocks so the same data isn't requested multiple times.
@@ -91,13 +89,19 @@ public final class ImageCacheController: CacheController {
         
         let token = UUID().uuidString
         let completion = ImageControllerDataCompletion(success: success, failure: failure)
-        dataCompletionManager.add(completion, priority: priority, forIdentifier: uniqueKey, token: token) { (isFirst) in
+        dataCompletionManager.add(completion, priority: priority, forIdentifier: uniqueKey, token: token) { [weak self] (isFirst) in
+            guard let self = self else {
+                return
+            }
             guard isFirst else {
                 return
             }
             let schemedURL = (url as NSURL).wmf_urlByPrependingSchemeIfSchemeless() as URL
             let acceptAnyContentType = ["Accept": "*/*"]
-            let task = self.imageFetcher.dataForURL(schemedURL, persistType: .image, headers: acceptAnyContentType) { (result) in
+            let task = self.imageFetcher.dataForURL(schemedURL, persistType: .image, headers: acceptAnyContentType) { [weak self] (result) in
+                guard let self = self else {
+                    return
+                }
                 switch result {
                 case .failure(let error):
                     guard !self.isCancellationError(error) else {
@@ -133,10 +137,10 @@ public final class ImageCacheController: CacheController {
     }
     
     /// Fetches an image from a given URL. Coalesces completion blocks so the same data isn't requested multiple times.
-    func fetchImage(withURL url: URL?, priority: Float, failure: @escaping (Error) -> Void, success: @escaping (ImageDownload) -> Void) -> String? {
+    public func fetchImage(withURL url: URL?, priority: Float, failure: @escaping (Error) -> Void, success: @escaping (ImageDownload) -> Void) -> String? {
         assert(Thread.isMainThread)
         guard let url = url else {
-            failure(ImageControllerError.invalidOrEmptyURL)
+            failure(FetchError.invalidOrEmptyURL)
             return nil
         }
         if let memoryCachedImage = memoryCachedImage(withURL: url) {
@@ -146,7 +150,7 @@ public final class ImageCacheController: CacheController {
         return fetchData(withURL: url, priority: priority, failure: failure) { (data, response) in
             guard let image = self.createImage(data: data, mimeType: response.mimeType) else {
                 DispatchQueue.main.async {
-                    failure(ImageControllerError.invalidResponse)
+                    failure(FetchError.invalidResponse)
                 }
                 return
             }
@@ -161,7 +165,7 @@ public final class ImageCacheController: CacheController {
         let _ = fetchImage(withURL: url, priority: URLSessionTask.defaultPriority, failure: failure, success: success)
     }
     
-   func cancelFetch(withURL url: URL?, token: String?) {
+   public func cancelFetch(withURL url: URL?, token: String?) {
     
         guard let url = url,
             let uniqueKey = imageFetcher.uniqueKeyForURL(url, type: .image),
@@ -292,46 +296,17 @@ fileprivate extension Error {
     }
 }
 
-@objc(WMFImageCacheControllerWrapper)
-public final class ImageCacheControllerWrapper: NSObject {
+
+
+@objc(WMFTypedImageData)
+open class TypedImageData: NSObject {
+    @objc public let data:Data?
+    @objc public let MIMEType:String?
     
-    /// Performs any necessary migrations on the CacheController's internal storage
-    /// Exists on this @objc ImageCacheControllerWrapper so it can be accessed from WMFDataStore
-    @objc public static func performLibraryUpdates(_ completion: @escaping (Error?) -> Void) {
-        CacheController.performLibraryUpdates(completion)
-    }
-    
-    private let imageCacheController = ImageCacheController.shared
-    
-    @objc public static let shared: ImageCacheControllerWrapper = {
-        return ImageCacheControllerWrapper()
-    }()
-    
-    @objc public func fetchImage(withURL url: URL?, failure: @escaping (Error) -> Void, success: @escaping (ImageDownload) -> Void) {
-        let _ = imageCacheController?.fetchImage(withURL: url, failure: failure, success: success)
-    }
-    
-    @objc func memoryCachedImage(withURL url: URL) -> Image? {
-        return imageCacheController?.memoryCachedImage(withURL: url)
-    }
-    
-    @objc func fetchImage(withURL url: URL?, priority: Float, failure: @escaping (Error) -> Void, success: @escaping (ImageDownload) -> Void) -> String? {
-        return imageCacheController?.fetchImage(withURL: url, priority: priority, failure: failure, success: success)
-    }
-    
-    @objc func cancelFetch(withURL url: URL?, token: String?) {
-        imageCacheController?.cancelFetch(withURL: url, token: token)
-    }
-    
-    @objc func cachedImage(withURL url: URL?) -> Image? {
-        return imageCacheController?.cachedImage(withURL: url)
-    }
-    
-    @objc func fetchData(withURL url: URL, failure: @escaping (Error) -> Void, success: @escaping (Data, URLResponse) -> Void) {
-        imageCacheController?.fetchData(withURL: url, failure: failure, success: success)
-    }
-    
-    @objc public func data(withURL url: URL) -> TypedImageData? {
-        return imageCacheController?.data(withURL: url)
+    @objc public init(data data_: Data?, MIMEType type_: String?) {
+        data = data_
+        MIMEType = type_
     }
 }
+
+let WMFExtendedFileAttributeNameMIMEType = "org.wikimedia.MIMEType"

@@ -114,7 +114,8 @@ EventLoggingLabel const EventLoggingLabelPictureOfTheDay = @"picture_of_the_day"
 }
 
 - (NSNumber *)isAnon {
-    BOOL isAnon = ![WMFAuthenticationManager sharedInstance].isLoggedIn;
+    // SINGLETONTODO
+    BOOL isAnon = !MWKDataStore.shared.authenticationManager.isLoggedIn;
     return [NSNumber numberWithBool:isAnon];
 }
 

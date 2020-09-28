@@ -63,7 +63,10 @@ final class CacheFileWriter: CacheTaskTracking {
     func add(groupKey: String, urlRequest: URLRequest, completion: @escaping (CacheFileWriterAddResult) -> Void) {
         
         let untrackKey = UUID().uuidString
-        let task = fetcher.dataForURLRequest(urlRequest) { (response) in
+        let task = fetcher.dataForURLRequest(urlRequest) { [weak self] (response) in
+            guard let self = self else {
+                return
+            }
             
             defer {
                 self.untrackTask(untrackKey: untrackKey, from: groupKey)

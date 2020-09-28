@@ -65,6 +65,10 @@ public class EPC: NSObject {
         return EPC(legacyEventLoggingService: legacyEventLoggingService)
     }()
     
+    // SINGLETONTODO
+    /// Session for requesting data
+    let session = MWKDataStore.shared().session
+    
     /**
      * Streams are the event stream identifiers that can be utilized with the EventPlatformClientLibrary. They should
      *  correspond to the `$id` of a schema in
@@ -840,6 +844,7 @@ private extension EPC {
         case missingResponse
         case unexepectedResponse(_ httpCode: Int)
     }
+    
     /**
      * HTTP POST
      * - Parameter url: Where to POST data (`body`) to
@@ -847,8 +852,8 @@ private extension EPC {
      */
     private func httpPost(url: URL, body: Data? = nil, completion: @escaping ((Result<Void, PostEventError>) -> Void)) {
         DDLogDebug("EPC: Attempting to POST data to \(url.absoluteString)")
-        let request = Session.shared.request(with: url, method: .post, bodyData: body, bodyEncoding: .json)
-        let task = Session.shared.dataTask(with: request, completionHandler: { (_, response, error) in
+        let request = session.request(with: url, method: .post, bodyData: body, bodyEncoding: .json)
+        let task = session.dataTask(with: request, completionHandler: { (_, response, error) in
             let fail: (PostEventError) ->  Void = { error in
                 DDLogDebug("EPC: An error occurred sending the request: \(error)")
                 completion(.failure(error))
@@ -878,7 +883,7 @@ private extension EPC {
         DDLogDebug("EPC: Attempting to GET data from \(url.absoluteString)")
         var request = URLRequest.init(url: url) // httpMethod = "GET" by default
         request.setValue(WikipediaAppUtils.versionedUserAgent(), forHTTPHeaderField: "User-Agent")
-        let task = Session.shared.dataTask(with: request, completionHandler: completion)
+        let task = session.dataTask(with: request, completionHandler: completion)
         task?.resume()
     }
 }

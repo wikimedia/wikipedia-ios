@@ -35,7 +35,7 @@ class AccountViewController: SubSettingsViewController {
     
     private lazy var sections: [Section] = {
         
-        guard let username = WMFAuthenticationManager.sharedInstance.loggedInUsername else {
+        guard let username = dataStore.authenticationManager.loggedInUsername else {
             assertionFailure("Should not reach this screen if user isn't logged in.")
             return []
         }
@@ -112,8 +112,8 @@ class AccountViewController: SubSettingsViewController {
         case .logout:
             showLogoutAlert()
         case .talkPage:
-            if let username = WMFAuthenticationManager.sharedInstance.loggedInUsername,
-                let language = MWKDataStore.shared().languageLinkController.appLanguage {
+            if let username = dataStore.authenticationManager.loggedInUsername,
+               let language = dataStore.languageLinkController.appLanguage {
                 let siteURL = language.siteURL()
                 let title = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: username, siteURL: siteURL)
                 

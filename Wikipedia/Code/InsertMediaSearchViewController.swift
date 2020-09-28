@@ -13,7 +13,8 @@ final class InsertMediaSearchViewController: UIViewController {
     var progressController: FakeProgressController!
 
     private let searchFetcher = WMFSearchFetcher()
-    private let imageInfoFetcher = MWKImageInfoFetcher()
+    // SINGLETONTODO
+    private let imageInfoFetcher = MWKImageInfoFetcher(dataStore: MWKDataStore.shared())
 
     weak var delegate: InsertMediaSearchViewControllerDelegate?
     weak var searchBarDelegate: UISearchBarDelegate?

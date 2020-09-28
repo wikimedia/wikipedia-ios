@@ -109,7 +109,7 @@ public typealias ReadingListsController = WMFReadingListsController
     @objc public static let userDidSaveOrUnsaveArticleNotification = NSNotification.Name(rawValue: "WMFUserDidSaveOrUnsaveArticleNotification")
 
     internal weak var dataStore: MWKDataStore!
-    internal let apiController = ReadingListsAPIController()
+    internal let apiController: ReadingListsAPIController
         
     private let operationQueue = OperationQueue()
     
@@ -127,6 +127,7 @@ public typealias ReadingListsController = WMFReadingListsController
     
     @objc init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
+        self.apiController = ReadingListsAPIController(session: dataStore.session, configuration: dataStore.configuration)
         super.init()
         operationQueue.maxConcurrentOperationCount = 1
     }

@@ -10,9 +10,16 @@
 @implementation WMFLegacyFetcher
 
 - (instancetype)init {
+    // SINGLETONTODO
+    MWKDataStore *dataStore = [MWKDataStore shared];
+    self = [self initWithSession:dataStore.session configuration:dataStore.configuration];
+    return self;
+}
+
+- (instancetype)initWithSession:(WMFSession *)session configuration:(WMFConfiguration *)configuration {
     self = [super init];
     if (self) {
-        self.fetcher = [[WMFFetcher alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current]];
+        self.fetcher = [[WMFFetcher alloc] initWithSession:session configuration:configuration];
     }
     return self;
 }

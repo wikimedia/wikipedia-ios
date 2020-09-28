@@ -19,7 +19,8 @@ open class Fetcher: NSObject {
     private let semaphore = DispatchSemaphore.init(value: 1)
     
     @objc override public convenience init() {
-        self.init(session: Session.shared, configuration: Configuration.current)
+        let dataStore = MWKDataStore.shared()
+        self.init(session: dataStore.session, configuration: dataStore.configuration)
     }
     
     @objc required public init(session: Session, configuration: Configuration) {
@@ -155,18 +156,6 @@ open class Fetcher: NSObject {
             completionHandler(.success(result), response as? HTTPURLResponse)
         }
         
-        track(task: task, for: key)
-        return task
-    }
-    
-    /// Deprecated - use jsonDecodableTask for new work
-    @discardableResult public func performRESTBaseGET<T: Decodable>(for URL: URL?, pathComponents: [String], cachePolicy: URLRequest.CachePolicy? = nil, priority: Float = URLSessionTask.defaultPriority, completionHandler: @escaping (_ result: T?, _ response: URLResponse?,  _ error: Error?) -> Swift.Void) -> URLSessionTask? {
-        let taskURL = configuration.pageContentServiceAPIURLComponentsForHost(URL?.host, appending: pathComponents).url
-        let key = UUID().uuidString
-        let task = session.jsonDecodableTask(with: taskURL, cachePolicy: cachePolicy, priority: priority) { (result: T?, response: URLResponse?, error: Error?) in
-            completionHandler(result, response, error)
-            self.untrack(taskFor: key)
-        }
         track(task: task, for: key)
         return task
     }

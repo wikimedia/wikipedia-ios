@@ -21,7 +21,7 @@
     static NSCharacterSet *wmf_relativePathAndFragmentAllowedCharacterSet;
     dispatch_once(&onceToken, ^{
         NSMutableCharacterSet *pathAllowedCharacterSet = [[NSCharacterSet URLPathAllowedCharacterSet] mutableCopy];
-        [pathAllowedCharacterSet addCharactersInString:@"#"];
+        [pathAllowedCharacterSet addCharactersInString:@"#?"];
         wmf_relativePathAndFragmentAllowedCharacterSet = [pathAllowedCharacterSet copy];
     });
     return wmf_relativePathAndFragmentAllowedCharacterSet;

@@ -1156,6 +1156,7 @@
 		8368BB8624129F3D00BC88BA /* ViewController+ArticleErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8368BB8324129F3D00BC88BA /* ViewController+ArticleErrorHandling.swift */; };
 		8368BB8724129F3D00BC88BA /* ViewController+ArticleErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8368BB8324129F3D00BC88BA /* ViewController+ArticleErrorHandling.swift */; };
 		836944DC1F572452007BD6DA /* ThemeableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82E954B1F15397D007BD960 /* ThemeableTextField.swift */; };
+		837E619B2510E47400C67494 /* ArticleSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D3FC12223A8BCD0048384B /* ArticleSummary.swift */; };
 		8380753720DC7481000D222C /* ColumnarCollectionViewLayoutInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380753620DC7481000D222C /* ColumnarCollectionViewLayoutInfo.swift */; };
 		8380753920DC7684000D222C /* ColumarCollectionViewLayoutSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380753820DC7684000D222C /* ColumarCollectionViewLayoutSection.swift */; };
 		8380753B20DC7D04000D222C /* ColumnarCollectionViewLayoutMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8380753A20DC7D04000D222C /* ColumnarCollectionViewLayoutMetrics.swift */; };
@@ -1221,6 +1222,8 @@
 		83A72BBF24E70BB200732493 /* localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A72BBE24E70BB200732493 /* localization.swift */; };
 		83A8E34121A431F100B3FF82 /* WMFLegacySerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A8E33F21A431F100B3FF82 /* WMFLegacySerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83A8E34221A431F100B3FF82 /* WMFLegacySerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A8E34021A431F100B3FF82 /* WMFLegacySerializer.m */; };
+		83A933462514C491006EB48A /* WMFCrossProcessCoreDataSynchronizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A933442514C491006EB48A /* WMFCrossProcessCoreDataSynchronizer.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		83A933472514C491006EB48A /* WMFCrossProcessCoreDataSynchronizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A933452514C491006EB48A /* WMFCrossProcessCoreDataSynchronizer.m */; };
 		83ACAA9924E6D112003B3035 /* Collection+AsyncMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D826C51421766E570012F940 /* Collection+AsyncMap.swift */; };
 		83ACAA9C24E6D8F8003B3035 /* PageNamespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4170D8229EFC2A00251582 /* PageNamespace.swift */; };
 		83ACAA9E24E6D94C003B3035 /* MWKSearchResult+PageNamespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ACAA9D24E6D94C003B3035 /* MWKSearchResult+PageNamespace.swift */; };
@@ -1295,8 +1298,8 @@
 		83CA612D20D1675800EF0C4A /* ExploreCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */; };
 		83CCB289209CA4E600D31565 /* NSRegularExpression+HTML.h in Headers */ = {isa = PBXBuildFile; fileRef = 83CCB287209CA4E600D31565 /* NSRegularExpression+HTML.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83CCB28A209CA4E600D31565 /* NSRegularExpression+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CCB288209CA4E600D31565 /* NSRegularExpression+HTML.m */; };
+		83CDC7D425122A1700A2F8A1 /* PermanentCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CDC7D325122A1700A2F8A1 /* PermanentCacheController.swift */; };
 		83D05189246EA70D00DA92C6 /* NSMutableAttributedString+Mutations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D05188246EA70D00DA92C6 /* NSMutableAttributedString+Mutations.swift */; };
-		83D3FC13223A8BCD0048384B /* ArticleSummaryFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D3FC12223A8BCD0048384B /* ArticleSummaryFetcher.swift */; };
 		83D5EC871F755E1F003DE6F2 /* SwipeableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D5EC861F755E1F003DE6F2 /* SwipeableCell.swift */; };
 		83DAA9B023FEB611002D5716 /* ReferenceBackLinksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DAA9AF23FEB611002D5716 /* ReferenceBackLinksViewController.swift */; };
 		83DAA9B123FEB611002D5716 /* ReferenceBackLinksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DAA9AF23FEB611002D5716 /* ReferenceBackLinksViewController.swift */; };
@@ -1316,7 +1319,7 @@
 		83DE45BA2449C09B00671878 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DE45B72449C09B00671878 /* SplashScreenViewController.swift */; };
 		83DE45BB2449C09B00671878 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DE45B72449C09B00671878 /* SplashScreenViewController.swift */; };
 		83DE45BC2449C09B00671878 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DE45B72449C09B00671878 /* SplashScreenViewController.swift */; };
-		83DF1D1424F53878007E08D8 /* WMFPrefferedLanguageCodesProviding.h in Headers */ = {isa = PBXBuildFile; fileRef = 83DF1D1324F53878007E08D8 /* WMFPrefferedLanguageCodesProviding.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		83DF1D1424F53878007E08D8 /* WMFPreferredLanguageCodesProviding.h in Headers */ = {isa = PBXBuildFile; fileRef = 83DF1D1324F53878007E08D8 /* WMFPreferredLanguageCodesProviding.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83E3E7252440F1FE00AA2E9A /* LoadingAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E3E7242440F1FE00AA2E9A /* LoadingAnimationViewController.swift */; };
 		83E3E7262440F1FE00AA2E9A /* LoadingAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E3E7242440F1FE00AA2E9A /* LoadingAnimationViewController.swift */; };
 		83E3E7272440F1FE00AA2E9A /* LoadingAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E3E7242440F1FE00AA2E9A /* LoadingAnimationViewController.swift */; };
@@ -2347,7 +2350,6 @@
 		D8B1668D1FD97FE000097D8B /* WMFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B1668B1FD97FE000097D8B /* WMFViewController.m */; };
 		D8B1668E1FD97FE000097D8B /* WMFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B1668B1FD97FE000097D8B /* WMFViewController.m */; };
 		D8B1668F1FD97FE000097D8B /* WMFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B1668B1FD97FE000097D8B /* WMFViewController.m */; };
-		D8B29B8C1D77251F00161291 /* ImageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E805C41C0CE5250065EBC0 /* ImageController.swift */; };
 		D8B3D7661EC34F5B00930C21 /* SaveButtonsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B3D7651EC34F5B00930C21 /* SaveButtonsController.swift */; };
 		D8B3D7671EC34F5B00930C21 /* SaveButtonsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B3D7651EC34F5B00930C21 /* SaveButtonsController.swift */; };
 		D8B3D7681EC34F5B00930C21 /* SaveButtonsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B3D7651EC34F5B00930C21 /* SaveButtonsController.swift */; };
@@ -2582,7 +2584,6 @@
 		D8D92B681DF22E1700B95311 /* NotificationButtonBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B571DF22E1700B95311 /* NotificationButtonBackground.png */; };
 		D8D92B691DF22E1700B95311 /* NotificationButtonBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B581DF22E1700B95311 /* NotificationButtonBackground@2x.png */; };
 		D8D92B6A1DF22E1700B95311 /* TSMessagesDefaultDesign.json in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B591DF22E1700B95311 /* TSMessagesDefaultDesign.json */; };
-		D8DAD49F1E97FE6C004F6110 /* WMFImageControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DAD49E1E97FE6C004F6110 /* WMFImageControllerTests.swift */; };
 		D8DC16F31D6F6F2C00D6D9FB /* NSUserDefaults+WMFExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8494ADC1D6C85C500337433 /* NSUserDefaults+WMFExtensions.swift */; };
 		D8E27BA11F82B38100F9D2B3 /* RMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8E27B9E1F82AFE600F9D2B3 /* RMessageView.m */; };
 		D8E27BA21F82B38100F9D2B3 /* RMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8E27B9E1F82AFE600F9D2B3 /* RMessageView.m */; };
@@ -3680,6 +3681,8 @@
 		83A72BBE24E70BB200732493 /* localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = localization.swift; path = "Command Line Tools/Update Localizations/localization.swift"; sourceTree = SOURCE_ROOT; };
 		83A8E33F21A431F100B3FF82 /* WMFLegacySerializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMFLegacySerializer.h; path = "WMF Framework/WMFLegacySerializer.h"; sourceTree = SOURCE_ROOT; };
 		83A8E34021A431F100B3FF82 /* WMFLegacySerializer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WMFLegacySerializer.m; path = "WMF Framework/WMFLegacySerializer.m"; sourceTree = SOURCE_ROOT; };
+		83A933442514C491006EB48A /* WMFCrossProcessCoreDataSynchronizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFCrossProcessCoreDataSynchronizer.h; sourceTree = "<group>"; };
+		83A933452514C491006EB48A /* WMFCrossProcessCoreDataSynchronizer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFCrossProcessCoreDataSynchronizer.m; sourceTree = "<group>"; };
 		83ACAA9D24E6D94C003B3035 /* MWKSearchResult+PageNamespace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MWKSearchResult+PageNamespace.swift"; sourceTree = "<group>"; };
 		83ACAAA124E6E38A003B3035 /* Wikipedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wikipedia.swift; sourceTree = "<group>"; };
 		83ACAAA324E6E42A003B3035 /* wikipedia-languages.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "wikipedia-languages.json"; sourceTree = "<group>"; };
@@ -3707,17 +3710,18 @@
 		83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCardViewController.swift; sourceTree = "<group>"; };
 		83CCB287209CA4E600D31565 /* NSRegularExpression+HTML.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSRegularExpression+HTML.h"; sourceTree = "<group>"; };
 		83CCB288209CA4E600D31565 /* NSRegularExpression+HTML.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSRegularExpression+HTML.m"; sourceTree = "<group>"; };
+		83CDC7D325122A1700A2F8A1 /* PermanentCacheController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermanentCacheController.swift; sourceTree = "<group>"; };
 		83CF71432326D47E009DEC00 /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sl; path = sl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		83CF71442326D48A009DEC00 /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = sl; path = sl.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		83D05188246EA70D00DA92C6 /* NSMutableAttributedString+Mutations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Mutations.swift"; sourceTree = "<group>"; };
-		83D3FC12223A8BCD0048384B /* ArticleSummaryFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSummaryFetcher.swift; sourceTree = "<group>"; };
+		83D3FC12223A8BCD0048384B /* ArticleSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSummary.swift; sourceTree = "<group>"; };
 		83D5EC861F755E1F003DE6F2 /* SwipeableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeableCell.swift; sourceTree = "<group>"; };
 		83DAA9AF23FEB611002D5716 /* ReferenceBackLinksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceBackLinksViewController.swift; sourceTree = "<group>"; };
 		83DB0A5623EEDE2100DA5F58 /* MobileviewToMobileHTMLConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MobileviewToMobileHTMLConverter.swift; sourceTree = "<group>"; };
 		83DB0A5D23EEDE4400DA5F58 /* LegacyArticle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegacyArticle.swift; sourceTree = "<group>"; };
 		83DB440F244A57590046FABE /* RootNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationController.swift; sourceTree = "<group>"; };
 		83DE45B72449C09B00671878 /* SplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
-		83DF1D1324F53878007E08D8 /* WMFPrefferedLanguageCodesProviding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFPrefferedLanguageCodesProviding.h; sourceTree = "<group>"; };
+		83DF1D1324F53878007E08D8 /* WMFPreferredLanguageCodesProviding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFPreferredLanguageCodesProviding.h; sourceTree = "<group>"; };
 		83E3E7242440F1FE00AA2E9A /* LoadingAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAnimationViewController.swift; sourceTree = "<group>"; };
 		83E3E7292440F24300AA2E9A /* LoadingAnimationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingAnimationViewController.xib; sourceTree = "<group>"; };
 		83E52BB21F681F940045E776 /* ShareAFactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareAFactViewController.swift; sourceTree = "<group>"; };
@@ -4002,7 +4006,6 @@
 		B0E805991C0CE2E40065EBC0 /* WMFSearchFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSearchFunnel.m; path = Wikipedia/Code/WMFSearchFunnel.m; sourceTree = SOURCE_ROOT; };
 		B0E8059B1C0CE2F50065EBC0 /* WMFShareFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFShareFunnel.h; path = Wikipedia/Code/WMFShareFunnel.h; sourceTree = SOURCE_ROOT; };
 		B0E8059C1C0CE2F50065EBC0 /* WMFShareFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFShareFunnel.m; path = Wikipedia/Code/WMFShareFunnel.m; sourceTree = SOURCE_ROOT; };
-		B0E805C41C0CE5250065EBC0 /* ImageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageController.swift; path = Wikipedia/Code/ImageController.swift; sourceTree = SOURCE_ROOT; };
 		B0E805C61C0CE5250065EBC0 /* ImageDownload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageDownload.swift; path = Wikipedia/Code/ImageDownload.swift; sourceTree = SOURCE_ROOT; };
 		B0E805CF1C0CE5420065EBC0 /* WMFFaceDetectionCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFFaceDetectionCache.h; path = Wikipedia/Code/WMFFaceDetectionCache.h; sourceTree = SOURCE_ROOT; };
 		B0E805D01C0CE5420065EBC0 /* WMFFaceDetectionCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFFaceDetectionCache.m; path = Wikipedia/Code/WMFFaceDetectionCache.m; sourceTree = SOURCE_ROOT; };
@@ -4666,7 +4669,6 @@
 		D8D92B571DF22E1700B95311 /* NotificationButtonBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NotificationButtonBackground.png; sourceTree = "<group>"; };
 		D8D92B581DF22E1700B95311 /* NotificationButtonBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NotificationButtonBackground@2x.png"; sourceTree = "<group>"; };
 		D8D92B591DF22E1700B95311 /* TSMessagesDefaultDesign.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TSMessagesDefaultDesign.json; sourceTree = "<group>"; };
-		D8DAD49E1E97FE6C004F6110 /* WMFImageControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFImageControllerTests.swift; sourceTree = "<group>"; };
 		D8DC16FC1D6F709300D6D9FB /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		D8E27B9D1F82AFE600F9D2B3 /* RMessage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RMessage.m; sourceTree = "<group>"; };
 		D8E27B9E1F82AFE600F9D2B3 /* RMessageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RMessageView.m; sourceTree = "<group>"; };
@@ -5367,7 +5369,6 @@
 				D8D365191E955C9000593A38 /* WMFLegacyImageCache.m */,
 				D80ACD261EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.h */,
 				D80ACD271EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.m */,
-				B0E805C41C0CE5250065EBC0 /* ImageController.swift */,
 				D8D365141E953C7100593A38 /* ImageControllerCompletionManager.swift */,
 				B0E805C61C0CE5250065EBC0 /* ImageDownload.swift */,
 				B0E806781C0CE9C70065EBC0 /* Cancellable.swift */,
@@ -5380,6 +5381,8 @@
 			children = (
 				B0E807C11C0CF04A0065EBC0 /* MWKDataStore.h */,
 				B0E807C21C0CF04A0065EBC0 /* MWKDataStore.m */,
+				83A933442514C491006EB48A /* WMFCrossProcessCoreDataSynchronizer.h */,
+				83A933452514C491006EB48A /* WMFCrossProcessCoreDataSynchronizer.m */,
 				D8BD63BE1EA7E28700BBC082 /* SummaryExtensions.swift */,
 				D81930D81E9F97B200554B19 /* WMFExploreFeedContentController.h */,
 				D81930D91E9F97B200554B19 /* WMFExploreFeedContentController.m */,
@@ -5387,7 +5390,7 @@
 				B0E807B41C0CF0180065EBC0 /* MWKSavedPageList.h */,
 				B0E807B51C0CF0180065EBC0 /* MWKSavedPageList.m */,
 				D8C41DDA23FC09EE00353DCE /* NSManagedObjectContext+History.swift */,
-				83DF1D1324F53878007E08D8 /* WMFPrefferedLanguageCodesProviding.h */,
+				83DF1D1324F53878007E08D8 /* WMFPreferredLanguageCodesProviding.h */,
 			);
 			name = "User DataStore";
 			sourceTree = "<group>";
@@ -5897,6 +5900,7 @@
 		678C7C2823BE6766001AC4D5 /* Cache */ = {
 			isa = PBXGroup;
 			children = (
+				83CDC7D325122A1700A2F8A1 /* PermanentCacheController.swift */,
 				67A6F13423BFB4E700736539 /* ImageCache */,
 				67F9AE5423AD7FF1003D4F5E /* MobileHTML Article Cache */,
 				678C7C3923BE944F001AC4D5 /* BaseCache */,
@@ -6088,6 +6092,7 @@
 				B0E8065F1C0CE9030065EBC0 /* MWKImageInfoFetcher.h */,
 				B0E806601C0CE9030065EBC0 /* MWKImageInfoFetcher.m */,
 				676A8A8223A4013D0084B967 /* ArticleFetcher.swift */,
+				83D3FC12223A8BCD0048384B /* ArticleSummary.swift */,
 				67A6F13D23BFEF4200736539 /* ArticleCacheController.swift */,
 				678F511823A4B92000CE5357 /* ArticleCacheDBWriter.swift */,
 				6773B2012411D8600022A70E /* ArticleCacheDBWriter+SyncResources.swift */,
@@ -6429,14 +6434,6 @@
 				83B019CF24F6ACAA0014B5EF /* main.swift */,
 			);
 			path = "Update Languages";
-			sourceTree = "<group>";
-		};
-		83D3FC11223A8BB70048384B /* Fetchers */ = {
-			isa = PBXGroup;
-			children = (
-				83D3FC12223A8BCD0048384B /* ArticleSummaryFetcher.swift */,
-			);
-			name = Fetchers;
 			sourceTree = "<group>";
 		};
 		A452F9F524081A3400D8ED09 /* MockLocationManager */ = {
@@ -7388,7 +7385,6 @@
 				679FA102242E64FC0095F3C6 /* Article Tests */,
 				67E8B0AA226A6DB000537BC9 /* TalkPageTests */,
 				8330533223F0388E00123141 /* DataStoreTests.swift */,
-				D8DAD49E1E97FE6C004F6110 /* WMFImageControllerTests.swift */,
 				D8BDA8C01E71C0760031F4BF /* WMFBlocksKitTests.m */,
 				B39427411E71F79700D3146D /* NSDictionaryBlocksKitTest.m */,
 				B39427421E71F79700D3146D /* NSSetBlocksKitTest.m */,
@@ -7836,7 +7832,6 @@
 				B0E8046E1C0CE0B40065EBC0 /* CIDetector+WMFFaceDetection.m */,
 				83A8E33F21A431F100B3FF82 /* WMFLegacySerializer.h */,
 				83A8E34021A431F100B3FF82 /* WMFLegacySerializer.m */,
-				83D3FC11223A8BB70048384B /* Fetchers */,
 				D895D09A1D9C2983005418C1 /* Controllers */,
 				D844D96F1D6CB2600042D692 /* Info.plist */,
 				7A255D3D215162AF0081A068 /* Remote Notifications */,
@@ -8396,8 +8391,9 @@
 				D844D9B71D6CB7940042D692 /* MWKRecentSearchList.h in Headers */,
 				D8FA18BD1E1BD891009675C3 /* NSFileManager+WMFExtendedFileAttributes.h in Headers */,
 				D8FA18B01E1BD891009675C3 /* NSBundle+WMFInfoUtils.h in Headers */,
+				83A933462514C491006EB48A /* WMFCrossProcessCoreDataSynchronizer.h in Headers */,
 				D8FA18AD1E1BD891009675C3 /* NSDictionary+WMFPageViewsSortedByDate.h in Headers */,
-				83DF1D1424F53878007E08D8 /* WMFPrefferedLanguageCodesProviding.h in Headers */,
+				83DF1D1424F53878007E08D8 /* WMFPreferredLanguageCodesProviding.h in Headers */,
 				D8FA18EA1E1BD8B9009675C3 /* WMFHashing.h in Headers */,
 				D8FA18B21E1BD891009675C3 /* WMFNumberOfExtractCharacters.h in Headers */,
 			);
@@ -9813,7 +9809,6 @@
 				B0E809371C0D1A420065EBC0 /* MWKLanguageLinkControllerTests.m in Sources */,
 				D8BBBCE11D94603800DECA36 /* WMFLocaleTests.m in Sources */,
 				B0E809411C0D1A820065EBC0 /* NSURL+WMFLinkParsingTests.m in Sources */,
-				D8DAD49F1E97FE6C004F6110 /* WMFImageControllerTests.swift in Sources */,
 				B0E808981C0D16430065EBC0 /* XCTestCase+WMFLocaleTesting.m in Sources */,
 				BC45FF4B1C1B22C200BAE501 /* NSObject+WMFReflection.m in Sources */,
 				A452F9FD24081B0200D8ED09 /* MockUIDevice.swift in Sources */,
@@ -10360,6 +10355,7 @@
 				6779D45A2400822B002840CA /* MWKImageInfoFetcher.h in Sources */,
 				D844D9C01D6CB7BA0042D692 /* MWKDataStore.m in Sources */,
 				D844482B1DDB632100425630 /* WMFArticle+CoreDataProperties.m in Sources */,
+				837E619B2510E47400C67494 /* ArticleSummary.swift in Sources */,
 				832A7A6023EAE03200D0A750 /* String+JavaScript.swift in Sources */,
 				D837B5A81F06E5C600DCB9CD /* DateFormatter+WikipediaLanguage.swift in Sources */,
 				D81EFDE41D775B6B0035F2EB /* SavedPageSpotlightManager.swift in Sources */,
@@ -10540,6 +10536,7 @@
 				D84C363C1F32428A00895FA1 /* CircledRankView.swift in Sources */,
 				678F512A23A7EE5100CE5357 /* ArticleCacheDBWriter.swift in Sources */,
 				D82972941E4361BF0061550A /* WMFKeyValue+CoreDataClass.m in Sources */,
+				83A933472514C491006EB48A /* WMFCrossProcessCoreDataSynchronizer.m in Sources */,
 				D84C361B1F32403D00895FA1 /* OnThisDayCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
 				D8FA18C91E1BD891009675C3 /* WMFGeometry.c in Sources */,
 				D8EBD1B81FBB13EE00AA7DA9 /* ReadingList+JSON.swift in Sources */,
@@ -10572,7 +10569,6 @@
 				D87F1D3D1EC0ACC400575CF8 /* AsyncOperation.swift in Sources */,
 				D8650B7C20350FEE0044DFFA /* NSString+SHA256.m in Sources */,
 				D8FA18BA1E1BD891009675C3 /* NSDate+WMFRelativeDate.m in Sources */,
-				D8B29B8C1D77251F00161291 /* ImageController.swift in Sources */,
 				D844D99D1D6CB61B0042D692 /* NSString+WMFExtras.m in Sources */,
 				D837B5B21F0D68B800DCB9CD /* URL+LinkParsing.swift in Sources */,
 				8387CE8824C8C70A00439D93 /* WMFSecureUnarchiveFromDataTransformer.swift in Sources */,
@@ -10590,6 +10586,7 @@
 				D837B5AA1F0D0D1600DCB9CD /* WMFFeedOnThisDayEvent+LocalizedDates.swift in Sources */,
 				D844480F1DDA33D900425630 /* Wikipedia.xcdatamodeld in Sources */,
 				D84C35F21F323CD100895FA1 /* ArticleCollectionViewCell.swift in Sources */,
+				83CDC7D425122A1700A2F8A1 /* PermanentCacheController.swift in Sources */,
 				0E87683B1DDE00D600B8CACD /* WMFAnnouncementsFetcher.m in Sources */,
 				67DAEDA123CD1BC9003AA208 /* CacheGatekeeper.swift in Sources */,
 				D881B1131E32874500D33F62 /* WMFArticle+QuadKey.swift in Sources */,
@@ -10602,7 +10599,6 @@
 				D8726D431EBA052900A107D0 /* Localization.swift in Sources */,
 				0E8768401DDE012300B8CACD /* WMFAnnouncement.m in Sources */,
 				D8DC16F31D6F6F2C00D6D9FB /* NSUserDefaults+WMFExtensions.swift in Sources */,
-				83D3FC13223A8BCD0048384B /* ArticleSummaryFetcher.swift in Sources */,
 				0E728D1B1DAEE2B50074EB4B /* WMFFeedDayResponse.m in Sources */,
 				0E728D461DAEEE880074EB4B /* NSString+WMFDistance.m in Sources */,
 				8380753720DC7481000D222C /* ColumnarCollectionViewLayoutInfo.swift in Sources */,
@@ -16626,7 +16622,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
-					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
 					"WMF_UX_STUDY_ENABLED=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
@@ -16875,7 +16870,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
-					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
 					"WMF_UX_STUDY_ENABLED=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
@@ -18198,7 +18192,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
-					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
 					"WMF_UX_STUDY_ENABLED=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
@@ -18377,7 +18370,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
-					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
 					"WMF_UX_STUDY_ENABLED=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
@@ -19542,7 +19534,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
-					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
 					"WMF_UX_STUDY_ENABLED=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
@@ -19656,7 +19647,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
-					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
 					"WMF_UX_STUDY_ENABLED=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
@@ -20145,7 +20135,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
-					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
 					"WMF_UX_STUDY_ENABLED=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
@@ -20364,7 +20353,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
-					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
 					"WMF_UX_STUDY_ENABLED=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);

@@ -19,20 +19,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFRandomContentSource
 
-- (instancetype)initWithSiteURL:(NSURL *)siteURL {
+- (instancetype)initWithSiteURL:(NSURL *)siteURL session:(WMFSession *)session configuration:(WMFConfiguration *)configuration {
     NSParameterAssert(siteURL);
     self = [super init];
     if (self) {
         self.siteURL = siteURL;
+        self.fetcher = [[WMFRandomArticleFetcher alloc] initWithSession:session configuration:configuration];
     }
     return self;
-}
-
-- (WMFRandomArticleFetcher *)fetcher {
-    if (_fetcher == nil) {
-        _fetcher = [[WMFRandomArticleFetcher alloc] init];
-    }
-    return _fetcher;
 }
 
 #pragma mark - WMFContentSource

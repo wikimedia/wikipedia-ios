@@ -80,8 +80,8 @@
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "_XCWidgetKind"
-            value = "org.wikimedia.wikipedia.widgets.topRead"
-            isEnabled = "NO">
+            value = "org.wikimedia.wikipedia.widgets.potd"
+            isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "_XCWidgetDefaultView"
@@ -91,7 +91,7 @@
          <EnvironmentVariable
             key = "_XCWidgetFamily"
             value = "large"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
    </LaunchAction>

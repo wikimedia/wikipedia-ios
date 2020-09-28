@@ -39,7 +39,6 @@ class WMFTodayContinueReadingWidgetViewController: ExtensionViewController, NCWi
         
         emptyDescriptionLabel.text = WMFLocalizedString("continue-reading-empty-title", value:"No recently read articles", comment: "No recently read articles")
         emptyDescriptionLabel.text = WMFLocalizedString("continue-reading-empty-description", value:"Explore Wikipedia for more articles to read", comment: "Explore Wikipedia for more articles to read")
-        _ = updateView()
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleTapGestureRecognizer(_:))))
     }
@@ -55,18 +54,16 @@ class WMFTodayContinueReadingWidgetViewController: ExtensionViewController, NCWi
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        _ = updateView()
-    }
-    
+
     func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
-        let didUpdate = updateView()
-        
-        if didUpdate {
-            completionHandler(.newData)
-        } else {
-            completionHandler(.noData)
+        WidgetController.shared.startWidgetUpdateTask(completionHandler) { (dataStore, completion) in
+            self.updateView(with: dataStore) { didUpdate in
+                if didUpdate {
+                    completion(.newData)
+                } else {
+                    completion(.noData)
+                }
+            }
         }
     }
     
@@ -90,9 +87,7 @@ class WMFTodayContinueReadingWidgetViewController: ExtensionViewController, NCWi
         }
     }
     
-    func updateView() -> Bool {
-        let dataStore = MWKDataStore.shared()
-        
+    func updateView(with dataStore: MWKDataStore, completion: @escaping (Bool) -> Void) {
         let article: WMFArticle
         
         if let openArticleURL = dataStore.viewContext.openArticleURL, let openArticle = dataStore.fetchArticle(with: openArticleURL) {
@@ -100,7 +95,8 @@ class WMFTodayContinueReadingWidgetViewController: ExtensionViewController, NCWi
         } else if let mostRecentHistoryEntry = dataStore.viewContext.mostRecentlyReadArticle {
             article = mostRecentHistoryEntry
         } else {
-            return false
+            completion(false)
+            return
         }
         
         let newArticleURL: URL?
@@ -111,7 +107,8 @@ class WMFTodayContinueReadingWidgetViewController: ExtensionViewController, NCWi
         }
         
         guard newArticleURL != nil, newArticleURL?.absoluteString != articleURL?.absoluteString else {
-            return false
+            completion(false)
+            return
         }
 
         articleURL = newArticleURL
@@ -139,28 +136,36 @@ class WMFTodayContinueReadingWidgetViewController: ExtensionViewController, NCWi
         
         self.titleLabel.attributedText = article.displayTitleHTML.byAttributingHTML(with: .headline, matching: traitCollection)
         
+        let combinedCompletion = {
+            self.updatePreferredContentSize()
+            completion(true)
+        }
         if let imageURL = article.imageURL(forWidth: self.traitCollection.wmf_nearbyThumbnailWidth) {
             self.collapseImageAndWidenLabels = false
+            self.imageView.wmf_imageController = dataStore.cacheController
             self.imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: { (error) in
                 self.collapseImageAndWidenLabels = true
+                combinedCompletion()
             }) {
                 self.collapseImageAndWidenLabels = false
+                combinedCompletion()
             }
         } else {
             self.collapseImageAndWidenLabels = true
+            combinedCompletion()
         }
-        
+    }
+    
+    func updatePreferredContentSize() {
         var fitSize = UIView.layoutFittingCompressedSize
         fitSize.width = view.bounds.size.width
         fitSize = view.systemLayoutSizeFitting(fitSize, withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.defaultLow)
         preferredContentSize = fitSize
-        
-        return true
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        _ = updateView()
+        updatePreferredContentSize()
     }
     
     @IBAction func continueReading(_ sender: AnyObject) {

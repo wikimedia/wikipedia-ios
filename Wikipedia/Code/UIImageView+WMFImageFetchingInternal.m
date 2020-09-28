@@ -15,23 +15,9 @@ static const char *const MWKFaceDetectionURLToCancelAssociationKey = "MWKFaceDet
 
 static const char *const MWKTokenToCancelAssociationKey = "MWKTokenToCancel";
 
-static const char *const WMFImageControllerAssociationKey = "WMFImageCacheControllerWrapper";
-
 @implementation UIImageView (WMFImageFetchingInternal)
 
 #pragma mark - Associated Objects
-
-- (WMFImageCacheControllerWrapper *__nullable)wmf_imageController {
-    WMFImageCacheControllerWrapper *controller = objc_getAssociatedObject(self, WMFImageControllerAssociationKey);
-    if (!controller) {
-        controller = [WMFImageCacheControllerWrapper shared];
-    }
-    return controller;
-}
-
-- (void)wmf_setImageController:(nullable WMFImageCacheControllerWrapper *)imageController {
-    objc_setAssociatedObject(self, WMFImageControllerAssociationKey, imageController, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
 
 - (NSURL *__nullable)wmf_imageURL {
     return objc_getAssociatedObject(self, MWKURLAssociationKey);
@@ -232,8 +218,15 @@ static const char *const WMFImageControllerAssociationKey = "WMFImageCacheContro
 }
 
 - (void)wmf_cancelImageDownload {
-    [self.wmf_imageController cancelFetchWithURL:[self wmf_imageURLToCancel] token:[self wmf_imageTokenToCancel]];
-    [[UIImageView faceDetectionCache] cancelFaceDetectionForURL:[self wmf_faceDetectionImageURLToCancel]];
+    NSURL *imageURLToCancel = [self wmf_imageURLToCancel];
+    NSString *imageTokenToCancel = [self wmf_imageTokenToCancel];
+    if (imageURLToCancel || imageTokenToCancel) {
+        [self.wmf_imageController cancelImageFetchWithURL:imageURLToCancel token:imageTokenToCancel];
+    }
+    NSURL *faceDetectionURLToCancel = [self wmf_faceDetectionImageURLToCancel];
+    if (faceDetectionURLToCancel) {
+        [[UIImageView faceDetectionCache] cancelFaceDetectionForURL:faceDetectionURLToCancel];
+    }
     self.wmf_imageURL = nil;
     self.wmf_imageURLToCancel = nil;
     self.wmf_imageTokenToCancel = nil;

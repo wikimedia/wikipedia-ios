@@ -21,11 +21,7 @@ extension MWKDataStore {
             return
         }
 
-        guard let articleCacheController = ArticleCacheController.shared else {
-            completionHandler(MigrateMobileviewToMobileHTMLIfNecessaryError.noArticleCacheController)
-            return
-        }
-
+        let articleCacheController = cacheController.articleCache
         let articleFolderURL = URL(fileURLWithPath: path(forArticleURL: articleURL))
         guard let legacyArticle = LegacyArticle(articleFolderURL: articleFolderURL) else {
             completionHandler(MigrateMobileviewToMobileHTMLIfNecessaryError.noLegacyArticleData)

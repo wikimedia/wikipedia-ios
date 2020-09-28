@@ -69,19 +69,21 @@ struct SparklineGrid: View {
 	var body: some View {
 		switch gridStyle {
 		case .horizontal:
-			// TODO: Fix this
-			/*
-			VStack {
-				Spacer()
-				Rectangle().frame(height: 1)
-				Spacer()
-				Rectangle().frame(height: 1)
-				Spacer()
-				Rectangle().frame(height: 1)
-				Spacer()
+			GeometryReader { proxy in
+				let yOffset = proxy.size.height / 2.0
+
+				Path { path in
+					path.move(to: CGPoint(x: 0, y: yOffset))
+					path.addLine(to: CGPoint(x: proxy.size.width, y: yOffset))
+
+					path.move(to: CGPoint(x: 0, y: yOffset / 2.0))
+					path.addLine(to: CGPoint(x: proxy.size.width, y: yOffset / 2.0))
+
+					path.move(to: CGPoint(x: 0, y: yOffset * 1.5))
+					path.addLine(to: CGPoint(x: proxy.size.width, y: yOffset * 1.5))
+				}
+				.stroke(style: StrokeStyle(lineWidth: 1.0, lineCap: .round))
 			}
-		*/
-			Spacer()
 		case .horizontalAndVertical:
 			ZStack {
 				VStack {
@@ -173,8 +175,8 @@ struct Sparkline: View {
 					SparklineShape(data: timeSeries)
 						.stroke(
 							LinearGradient(gradient: Gradient(colors: [gradientStartColor, gradientEndColor]), startPoint: /*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/, endPoint: /*@START_MENU_TOKEN@*/.trailing/*@END_MENU_TOKEN@*/), style: StrokeStyle(lineWidth: lineWidth, lineCap: .round, lineJoin: .round))
-						.frame(width: 30, alignment: .leading)
-						.padding([.top, .bottom], 3)
+						.frame(width: style == .compact ? 22 : 30, alignment: .leading)
+						.padding([.top, .bottom, .leading, .trailing], 3)
 				}
 				if style == .compactWithViewCount {
 					Text("\(currentViewCountOrEmpty)")

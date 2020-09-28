@@ -1,11 +1,28 @@
 
 import CocoaLumberjackSwift
 
+@objc protocol WMFAuthenticationManagerDelegate: NSObjectProtocol {
+    var loginSiteURL: URL? { get }
+    func authenticationManagerDidLogin()
+    func authenticationManagerDidReset()
+}
+
 /**
  *  This class provides a simple interface for performing authentication tasks.
  */
-public class WMFAuthenticationManager: Fetcher {
-    let dataStore: MWKDataStore = MWKDataStore.shared()
+@objc public class WMFAuthenticationManager: Fetcher {
+    @objc weak var delegate: WMFAuthenticationManagerDelegate?
+    
+    fileprivate let loginInfoFetcher: WMFAuthLoginInfoFetcher
+    fileprivate let accountLogin: WMFAccountLogin
+    fileprivate let currentlyLoggedInUserFetcher: WMFCurrentlyLoggedInUserFetcher
+
+    public required init(session: Session, configuration: Configuration) {
+        loginInfoFetcher = WMFAuthLoginInfoFetcher(session: session, configuration: configuration)
+        accountLogin = WMFAccountLogin(session: session, configuration: configuration)
+        currentlyLoggedInUserFetcher = WMFCurrentlyLoggedInUserFetcher(session: session, configuration: configuration)
+        super.init(session: session, configuration: configuration)
+    }
     
     public enum AuthenticationResult {
         case success(_: WMFAccountLoginResult)
@@ -97,19 +114,9 @@ public class WMFAuthenticationManager: Fetcher {
         return true
     }
     
-    fileprivate let loginInfoFetcher = WMFAuthLoginInfoFetcher()
-    fileprivate let accountLogin = WMFAccountLogin()
-    fileprivate let currentlyLoggedInUserFetcher = WMFCurrentlyLoggedInUserFetcher()
-    
-    /**
-     *  Get the shared instance of this class
-     *
-     *  @return The shared Authentication Manager
-     */
-    @objc public static let sharedInstance = WMFAuthenticationManager()
-    
+
     var loginSiteURL: URL? {
-        return dataStore.languageLinkController.appLanguage?.siteURL() ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
+        return delegate?.loginSiteURL ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
     }
     
     public func attemptLogin(reattemptOn401Response: Bool = false, completion: @escaping AuthenticationResultHandler) {
@@ -154,7 +161,7 @@ public class WMFAuthenticationManager: Fetcher {
                 KeychainCredentialsManager.shared.username = normalizedUserName
                 KeychainCredentialsManager.shared.password = password
                 self.session.cloneCentralAuthCookies()
-                self.dataStore.clearMemoryCache()
+                self.delegate?.authenticationManagerDidLogin()
                 completion(.success(result))
             }
         }, failure: { (error) in
@@ -233,9 +240,7 @@ public class WMFAuthenticationManager: Fetcher {
 
         session.removeAllCookies()
         
-        dataStore.clearMemoryCache()
-        
-        dataStore.readingListsController.setSyncEnabled(false, shouldDeleteLocalLists: false, shouldDeleteRemoteLists: false)
+        delegate?.authenticationManagerDidReset()
         
         // Reset so can show for next logged in user.
         UserDefaults.standard.wmf_setDidShowEnableReadingListSyncPanel(false)
@@ -279,6 +284,20 @@ extension WMFAuthenticationManager {
     @objc public func attemptLogin(completion: @escaping () -> Void = {}) {
         let completion: AuthenticationResultHandler = { result in
             completion()
+        }
+        attemptLogin(completion: completion)
+    }
+    
+    @objc(attemptLoginWithLogoutOnFailureInitiatedBy:completion:)
+    public func attemptLoginWithLogoutOnFailure(initiatedBy: LogoutInitiator, completion: @escaping () -> Void = {}) {
+        let completion: AuthenticationResultHandler = { loginResult in
+            switch loginResult {
+            case .failure(let error):
+                DDLogDebug("\n\nloginWithSavedCredentials failed with error \(error).\n\n")
+                self.logout(initiatedBy: initiatedBy)
+            default:
+                break
+            }
         }
         attemptLogin(completion: completion)
     }

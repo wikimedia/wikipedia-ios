@@ -88,7 +88,7 @@ class SectionEditorViewController: ViewController {
         
         configureWebView()
         
-        WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials { (_) in }
+        dataStore.authenticationManager.loginWithSavedCredentials { (_) in }
         
         webView.scrollView.delegate = self
         scrollView = webView.scrollView
@@ -560,6 +560,7 @@ extension SectionEditorViewController: EditPreviewViewControllerDelegate {
         guard let vc = EditSaveViewController.wmf_initialViewControllerFromClassStoryboard() else {
             return
         }
+        vc.dataStore = dataStore
         vc.articleURL = self.articleURL
         vc.sectionID = self.sectionID
         vc.language = self.language

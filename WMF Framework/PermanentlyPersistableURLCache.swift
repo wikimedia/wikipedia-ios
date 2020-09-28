@@ -21,9 +21,12 @@ public struct Header {
 }
 
 class PermanentlyPersistableURLCache: URLCache {
-    private lazy var cacheManagedObjectContext = {
-        return CacheController.backgroundCacheContext
-    }()
+    let cacheManagedObjectContext: NSManagedObjectContext
+    
+    init(moc: NSManagedObjectContext) {
+        cacheManagedObjectContext = moc
+        super.init(memoryCapacity: URLCache.shared.memoryCapacity, diskCapacity: URLCache.shared.diskCapacity, diskPath: nil)
+    }
     
 //MARK: Public - Overrides
     
@@ -121,12 +124,11 @@ extension PermanentlyPersistableURLCache {
     }
     
     func isCachedWithURLRequest(_ urlRequest: URLRequest, completion: @escaping (Bool) -> Void) {
-        guard let itemKey = itemKeyForURLRequest(urlRequest),
-        let moc = cacheManagedObjectContext else {
+        guard let itemKey = itemKeyForURLRequest(urlRequest) else {
             completion(false)
             return
         }
-        
+        let moc = cacheManagedObjectContext
         let variant = variantForURLRequest(urlRequest)
         
         return CacheDBWriterHelper.isCached(itemKey: itemKey, variant: variant, in: moc, completion: completion)
@@ -510,10 +512,11 @@ extension PermanentlyPersistableURLCache {
         
         guard let itemKey = customCacheUpdatingItemKeyForURLRequest(request),
             let httpResponse = cachedResponse.response as? HTTPURLResponse,
-            let moc = cacheManagedObjectContext,
             httpResponse.statusCode == 200 else {
             return
         }
+        
+        let moc = cacheManagedObjectContext
         
         CacheDBWriterHelper.isCached(itemKey: itemKey, variant: variant, in: moc, completion: { (isCached) in
             guard isCached else {
@@ -594,8 +597,7 @@ private extension PermanentlyPersistableURLCache {
         if let persistedCachedResponse = persistedResponseWithURLRequest(request) {
             return persistedCachedResponse
         //2. else try pulling a fallback from Persistent Cache
-        } else if let moc = cacheManagedObjectContext,
-            let fallbackCachedResponse = fallbackPersistedResponse(urlRequest: request, moc: moc) {
+        } else if let fallbackCachedResponse = fallbackPersistedResponse(urlRequest: request, moc: cacheManagedObjectContext) {
             return fallbackCachedResponse
         }
         

@@ -28,11 +28,14 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     @IBOutlet weak var searchSuggestionView: UITableView!
     @IBOutlet var emptySearchOverlayView: PlaceSearchEmptySearchOverlayView!
     
-    @objc public var dataStore: MWKDataStore!
-
+    @objc public var dataStore: MWKDataStore! {
+        didSet {
+            wikidataFetcher =  WikidataFetcher(session: dataStore.session, configuration: dataStore.configuration)
+        }
+    }
+    fileprivate var wikidataFetcher: WikidataFetcher!
     fileprivate let locationSearchFetcher = WMFLocationSearchFetcher()
     fileprivate let searchFetcher = WMFSearchFetcher()
-    fileprivate let wikidataFetcher = WikidataFetcher(session: Session.shared, configuration: Configuration.current)
     fileprivate let locationManager = LocationManager()
     fileprivate let animationDuration = 0.6
     fileprivate let animationScale = CGFloat(0.6)
@@ -56,7 +59,8 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     fileprivate var previouslySelectedArticlePlaceIdentifier: Int?
     fileprivate var didYouMeanSearch: PlaceSearch?
     fileprivate var searching: Bool = false
-    fileprivate let imageController = ImageCacheController.shared
+    // SINGLETONTODO
+    fileprivate let imageController = MWKDataStore.shared().cacheController.imageCache
 
     fileprivate var _displayCountForTopPlaces: Int?
     fileprivate var displayCountForTopPlaces: Int {
@@ -1471,7 +1475,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                     nextCoordinate = coordinate
                     coordinate = previousPlace.coordinate
                     if let thumbnailURL = article.thumbnailURL {
-                        imageController?.prefetch(withURL: thumbnailURL)
+                        imageController.prefetch(withURL: thumbnailURL)
                     }
                 }
                 

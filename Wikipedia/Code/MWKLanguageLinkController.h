@@ -1,5 +1,5 @@
 #import <WMF/MWKLanguageFilter.h>
-#import <WMF/WMFPrefferedLanguageCodesProviding.h>
+#import <WMF/WMFPreferredLanguageCodesProviding.h>
 @class NSManagedObjectContext;
 @class MWKLanguageLink;
 @class MWKDataStore;
