@@ -1,6 +1,7 @@
 import UIKit
 import NotificationCenter
 import WMF
+import CocoaLumberjackSwift
 
 class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProviding {
     
