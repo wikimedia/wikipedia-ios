@@ -149,11 +149,11 @@ extension ArticleCacheDBWriter {
                 let networkItemsForAdd: Set<NetworkItem> = Set(offlineResourceItems + finalMediaListItems + imageInfoItems)
                 let networkItemsForRemove: Set<NetworkItem> = Set([mobileHTMLNetworkItem] + [mediaListNetworkItem] + offlineResourceItems + finalMediaListItems + imageInfoItems)
                 
-                self.context.perform { [weak self] in
+                self.contextProvider.perform { [weak self] moc in
                     guard let self = self else {
                         return
                     }
-                    guard let group = CacheDBWriterHelper.cacheGroup(with: groupKey, in: self.context) else {
+                    guard let group = CacheDBWriterHelper.cacheGroup(with: groupKey, in: moc) else {
                         completion(.failure(ArticleCacheDBWriterSyncError.cannotFindCacheGroup))
                         return
                     }
@@ -213,9 +213,9 @@ extension ArticleCacheDBWriter {
     }
     
     private func cacheItems(groupKey: String, items: Set<NetworkItem>, completion: @escaping ((SaveResult) -> Void)) {
-        context.perform {
+        contextProvider.perform { moc in
 
-            guard let group = CacheDBWriterHelper.fetchOrCreateCacheGroup(with: groupKey, in: self.context) else {
+            guard let group = CacheDBWriterHelper.fetchOrCreateCacheGroup(with: groupKey, in: moc) else {
                 completion(.failure(ArticleCacheDBWriterError.failureFetchOrCreateCacheGroup))
                 return
             }
@@ -231,7 +231,7 @@ extension ArticleCacheDBWriter {
                 let itemKey = item.itemKeyAndVariant.itemKey
                 let variant = item.itemKeyAndVariant.variant
                 
-                guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: url, itemKey: itemKey, variant: variant, in: self.context) else {
+                guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: url, itemKey: itemKey, variant: variant, in: moc) else {
                     completion(.failure(ArticleCacheDBWriterSyncError.failureFetchOrCreateCacheItem))
                     return
                 }
@@ -239,7 +239,7 @@ extension ArticleCacheDBWriter {
                 group.addToCacheItems(item)
             }
             
-            CacheDBWriterHelper.save(moc: self.context, completion: completion)
+            CacheDBWriterHelper.save(moc: moc, completion: completion)
         }
     }
 }

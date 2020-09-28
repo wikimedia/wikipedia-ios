@@ -32,13 +32,20 @@ struct OnThisDayProvider: TimelineProvider {
     // MARK: TimelineProvider
 
     func placeholder(in: Context) -> OnThisDayEntry {
-        return dataStore.placeholderEntry
+        return dataStore.placeholderEntryFromLanguage(nil)
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<OnThisDayEntry>) -> Void) {
         dataStore.fetchLatestAvailableOnThisDayEntry { entry in
             let currentDate = Date()
-            let timeline = Timeline(entries: [entry], policy: .after(currentDate.dateAtMidnight() ?? currentDate))
+            let nextUpdate: Date
+            if entry.error == nil {
+                nextUpdate = currentDate.dateAtMidnight() ?? currentDate
+            } else {
+                let components = DateComponents(hour: 2)
+                nextUpdate = Calendar.current.date(byAdding: components, to: currentDate) ?? currentDate
+            }
+            let timeline = Timeline(entries: [entry], policy: .after(nextUpdate))
             completion(timeline)
             
         }
@@ -83,70 +90,82 @@ final class OnThisDayData {
     static let shared = OnThisDayData()
 
     // From https://en.wikipedia.org/api/rest_v1/feed/onthisday/events/01/15, taken on 03 Sept 2020.
-    let placeholderEntry = OnThisDayEntry(isRTLLanguage: false,
+    func placeholderEntryFromLanguage(_ language: MWKLanguageLink?) -> OnThisDayEntry {
+        let locale = NSLocale.wmf_locale(for: language?.languageCode)
+        let isRTL = (MWLanguageInfo.semanticContentAttribute(forWMFLanguage: language?.languageCode) == UISemanticContentAttribute.forceRightToLeft)
+
+        let fullDate: String
+        let eventYear: String
+        let monthDay: String
+        let calendar = NSCalendar.wmf_utcGregorian()
+        let date = calendar?.date(from: DateComponents(year: 2001, month: 01, day: 15, hour: 0, minute: 0, second: 0))
+        if let date = date {
+            let fullDateFormatter = DateFormatter.wmf_longDateGMTFormatter(for: language?.languageCode)
+            fullDate = fullDateFormatter.string(from: date)
+            let yearWithEraFormatter = DateFormatter.wmf_yearGMTDateFormatter(for: language?.languageCode)
+            eventYear = yearWithEraFormatter.string(from: date)
+            let monthDayFormatter = DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: language?.languageCode)
+            monthDay = monthDayFormatter.string(from: date)
+        } else {
+            fullDate = "January 15, 2001"
+            eventYear = "2001"
+            monthDay = "January 15"
+        }
+
+        let eventSnippet = WMFLocalizedString("widget-onthisday-placeholder-event-snippet", language: language?.languageCode, value: "Wikipedia, a free wiki content encyclopedia, goes online.", comment: "Placeholder text for On This Day widget: Event describing launch of Wikipedia")
+        let articleSnippet = WMFLocalizedString("widget-onthisday-placeholder-article-snippet", language: language?.languageCode, value: "Free online encyclopedia that anyone can edit", comment: "Placeholder text for On This Day widget: Article description for an article about Wikipedia")
+
+        // It seems that projects whose article is not titled "Wikipedia" (Arabic, for instance) all redirect this URL appropriately.
+        let articleURL = URL(string: ((language?.siteURL().absoluteString ?? "https://en.wikipedia.org") + "/wiki/Wikipedia"))
+
+        let entry: OnThisDayEntry = OnThisDayEntry(isRTLLanguage: isRTL,
                                           error: nil,
-                                          onThisDayTitle: "On this day",
-                                          monthDay: "January 15",
-                                          fullDate: "January 15, 2001",
-                                          otherEventsText: "49 more historical events on this day",
-                                          contentURL: URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today")!,
-                                          eventSnippet: "Wikipedia, a free wiki content encyclopedia, goes online.",
-                                          eventYear: "2001",
-                                          eventYearsAgo: "\(Calendar.current.component(.year, from: Date()) - 2001) years ago",
-                                          articleTitle: "Wikipedia",
-                                          articleSnippet: "Free online encyclopedia that anyone can edit",
+
+                                          onThisDayTitle: CommonStrings.onThisDayTitle(with: language?.languageCode),
+                                          monthDay: monthDay,
+                                          fullDate: fullDate,
+                                          otherEventsText: CommonStrings.onThisDayFooterWith(with: 49, language: language?.languageCode),
+                                          contentURL: URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today"),
+                                          eventSnippet: eventSnippet,
+                                          eventYear: eventYear,
+                                          eventYearsAgo: String(format: WMFLocalizedDateFormatStrings.yearsAgo(forWikiLanguage: language?.languageCode), locale: locale, (Calendar.current.component(.year, from: Date()) - 2001)),
+                                          articleTitle: CommonStrings.plainWikipediaName(with: language?.languageCode),
+                                          articleSnippet: articleSnippet,
                                           articleImage: UIImage(named: "W"),
-                                          articleURL: URL(string: "https://en.wikipedia.org/wiki/Wikipedia"),
-                                          yearRange: CommonStrings.onThisDayHeaderDateRangeMessage(with: "en", locale: Locale(identifier: "en"), lastEvent: "69", firstEvent: "2019"))
+                                          articleURL: articleURL,
+                                          yearRange: CommonStrings.onThisDayHeaderDateRangeMessage(with: language?.languageCode, locale: locale, lastEvent: "69", firstEvent: "2019"))
+        return entry
+    }
 
     // MARK: Public
     
     func fetchLatestAvailableOnThisDayEntry(usingCache: Bool = false, _ userCompletion: @escaping (OnThisDayEntry) -> Void) {
-        WidgetController.shared.startWidgetUpdateTask(userCompletion) { (dataStore, completion) in
+        let widgetController = WidgetController.shared
+        widgetController.startWidgetUpdateTask(userCompletion) { (dataStore, widgetTaskCompletion) in
             guard let appLanguage = dataStore.languageLinkController.appLanguage,
                 WMFOnThisDayEventsFetcher.isOnThisDaySupported(by: appLanguage.languageCode) else {
                 let errorEntry = OnThisDayEntry.errorEntry(for: .featureNotSupportedInLanguage)
-                completion(errorEntry)
+                widgetTaskCompletion(errorEntry)
                 return
             }
-            let siteURL = appLanguage.siteURL()
-            let moc = dataStore.viewContext
-            moc.perform {
-                guard let latest = moc.newestGroup(of: .onThisDay, forSiteURL: siteURL),
-                      latest.isForToday
-                else {
-                    guard !usingCache else {
-                        completion(self.placeholderEntry)
-                        return
-                    }
-                    self.fetchLatestOnThisDayEntryFromNetwork(with: dataStore, siteURL: siteURL, completion)
+            widgetController.fetchNewestWidgetContentGroup(with: .onThisDay, in: dataStore, isNetworkFetchAllowed: !usingCache) { (contentGroup) in
+                guard let contentGroup = contentGroup else {
+                    widgetTaskCompletion(self.placeholderEntryFromLanguage(dataStore.languageLinkController.appLanguage))
                     return
                 }
-                self.assembleOnThisDayFromContentGroup(latest, dataStore: dataStore, completion: completion)
+                self.assembleOnThisDayFromContentGroup(contentGroup, dataStore: dataStore, usingImageCache: usingCache, completion: widgetTaskCompletion)
             }
         }
     }
     
-    func fetchLatestOnThisDayEntryFromNetwork(with dataStore: MWKDataStore, siteURL: URL, _ completion: @escaping (OnThisDayEntry) -> Void) {
-        dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
-            let moc = dataStore.viewContext
-            moc.perform {
-                guard let latest = moc.newestGroup(of: .onThisDay, forSiteURL: siteURL) else {
-                    // If there's no content even after a network fetch, it's likely an error
-                    self.handleNoInternetError(completion)
-                    return
-                }
-                self.assembleOnThisDayFromContentGroup(latest, dataStore: dataStore, completion: completion)
-            }
-        }
-    }
-    
-    func assembleOnThisDayFromContentGroup(_ contentGroup: WMFContentGroup, dataStore: MWKDataStore, completion: @escaping (OnThisDayEntry) -> Void) {
+    private func assembleOnThisDayFromContentGroup(_ contentGroup: WMFContentGroup, dataStore: MWKDataStore, usingImageCache: Bool = false, completion: @escaping (OnThisDayEntry) -> Void) {
+
         guard let previewEvents = contentGroup.contentPreview as? [WMFFeedOnThisDayEvent],
               let previewEvent = previewEvents.first,
               let entry = OnThisDayEntry(contentGroup)
         else {
-            completion(placeholderEntry)
+            let language = dataStore.languageLinkController.appLanguage
+            completion(placeholderEntryFromLanguage(language))
             return
         }
         
@@ -155,15 +174,21 @@ final class OnThisDayData {
             entryWithImage.articleImage = image
             completion(entryWithImage)
         }
-        if let imageURL = previewEvent.articlePreviews?.first?.thumbnailURL  {
-            DispatchQueue.main.async {
-                dataStore.cacheController.imageCache.fetchImage(withURL: imageURL, failure: { _ in
-                    sendDataToWidget(nil)
-                }, success: { fetchedImage in
-                    sendDataToWidget(fetchedImage.image.staticImage)
-                })
-            }
+        
+        let imageURLRaw = previewEvent.articlePreviews?.first?.thumbnailURL
+        guard let imageURL = imageURLRaw, !usingImageCache else {
+                    /// The argument sent to `sendDataToWidget` on the next line could be nil because `imageURLRaw` is nil, or `cachedImage` returns nil.
+                    /// `sendDataToWidget` will appropriately handle a nil image, so we don't need to worry about that here.
+            let cachedImage = dataStore.cacheController.imageCache.cachedImage(withURL: imageURLRaw)?.staticImage
+            sendDataToWidget(cachedImage)
+            return
         }
+        
+        dataStore.cacheController.imageCache.fetchImage(withURL: imageURL, failure: { _ in
+            sendDataToWidget(nil)
+        }, success: { fetchedImage in
+            sendDataToWidget(fetchedImage.image.staticImage)
+        })
     }
     
     private func handleNoInternetError(_ completion: @escaping (OnThisDayEntry) -> Void) {
@@ -183,7 +208,7 @@ struct OnThisDayEntry: TimelineEntry {
     let monthDay: String
     let fullDate: String
     let otherEventsText: String
-    let contentURL: URL
+    let contentURL: URL?
     let eventSnippet: String?
     let eventYear: String
     let eventYearsAgo: String?
@@ -242,13 +267,13 @@ extension OnThisDayEntry {
            let dynamicURL = URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today?\(previewEventIndex)") {
             contentURL = dynamicURL
         } else {
-            contentURL = URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today")!
+            contentURL = URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today")
         }
     }
 
     static func errorEntry(for error: OnThisDayData.ErrorType) -> OnThisDayEntry {
         let isRTL = Locale.lineDirection(forLanguage: Locale.autoupdatingCurrent.languageCode ?? "en") == .rightToLeft
-        let destinationURL = URL(string: "wikipedia://explore")!
+        let destinationURL = URL(string: "wikipedia://explore")
         return OnThisDayEntry(isRTLLanguage: isRTL, error: error, onThisDayTitle: "", monthDay: "", fullDate: "", otherEventsText: "", contentURL: destinationURL, eventSnippet: nil, eventYear: "", eventYearsAgo: nil, articleTitle: nil, articleSnippet: nil, articleImage: nil, articleURL: nil, yearRange: "")
     }
 }

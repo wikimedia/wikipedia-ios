@@ -275,12 +275,12 @@ public class Session: NSObject {
     
     public func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask? {
         
-        let cachedCompletion = { (data: Data?, response: URLResponse?, error: Error?) -> Swift.Void in
+        let cachedCompletion = { [weak self] (data: Data?, response: URLResponse?, error: Error?) -> Swift.Void in
             
             if let httpResponse = response as? HTTPURLResponse,
                 httpResponse.statusCode == 304 {
                 
-                if let cachedResponse = self.permanentCache?.urlCache.cachedResponse(for: request) {
+                if let cachedResponse = self?.permanentCache?.urlCache.cachedResponse(for: request) {
                     completionHandler(cachedResponse.data, cachedResponse.response, nil)
                     return
                 }
@@ -288,7 +288,7 @@ public class Session: NSObject {
             
             if let _ = error {
                 
-                if let cachedResponse = self.permanentCache?.urlCache.cachedResponse(for: request) {
+                if let cachedResponse = self?.permanentCache?.urlCache.cachedResponse(for: request) {
                     completionHandler(cachedResponse.data, cachedResponse.response, nil)
                     return
                 }

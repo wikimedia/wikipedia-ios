@@ -39,27 +39,9 @@ public class CacheController {
     public static var totalCacheSizeInBytes: Int64 {
         return FileManager.default.sizeOfDirectory(at: cacheURL)
     }
-    
-    /// Performs any necessary migrations on the CacheController's internal storage
-    static func setupCoreDataStack(_ completion: @escaping (NSManagedObjectContext?, CacheControllerError?) -> Void) {
-        // Expensive file & db operations happen as a part of this migration, so async it to a non-main queue
-        DispatchQueue.global(qos: .default).async {
-            // Instantiating the moc will perform the migrations in CacheItemMigrationPolicy
-            guard let moc = createCacheContext(cacheURL: cacheURL) else {
-                completion(nil, .unableToCreateBackgroundCacheContext)
-                return
-            }
-            // do a moc.perform in case anything else needs to be run before the context is ready
-            moc.perform {
-                DispatchQueue.main.async {
-                    completion(moc, nil)
-                }
-            }
-        }
-    }
 
-    static func createCacheContext(cacheURL: URL) -> NSManagedObjectContext? {
-        
+    static func createCacheContext(cacheURL: URL? = nil) -> NSManagedObjectContext? {
+        let cacheURL = cacheURL ?? self.cacheURL
         //create cacheURL directory
         do {
             try FileManager.default.createDirectory(at: cacheURL, withIntermediateDirectories: true, attributes: nil)
@@ -173,6 +155,11 @@ public class CacheController {
     public func cancelTasks(groupKey: String) {
         dbWriter.cancelTasks(for: groupKey)
         fileWriter.cancelTasks(for: groupKey)
+    }
+    
+    public func cancelAllTasks() {
+        dbWriter.cancelAllTasks()
+        fileWriter.cancelAllTasks()
     }
     
     func shouldDownloadVariantForAllVariantItems(variant: String?, _ allVariantItems: [CacheController.ItemKeyAndVariant]) -> Bool {

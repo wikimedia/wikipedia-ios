@@ -21,7 +21,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     return [MWKDataStoreValidImageSitePrefix stringByAppendingString:path];
 }
 
-@interface MWKDataStore () <WMFAuthenticationManagerDelegate, WMFSessionAuthenticationDelegate>
+@interface MWKDataStore () <WMFAuthenticationManagerDelegate, WMFSessionAuthenticationDelegate, WMFManagedObjectContextProvidingDelegate>
 
 @property (nonatomic, strong) WMFSession *session;
 @property (nonatomic, strong) WMFConfiguration *configuration;
@@ -107,11 +107,24 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
         self.wikidataDescriptionEditingController = [[WikidataDescriptionEditingController alloc] initWithSession:session configuration:configuration];
         self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWithSession:session configuration:configuration preferredLanguageCodesProvider:self.languageLinkController];
         self.notificationsController = [[WMFNotificationsController alloc] initWithDataStore:self];
-        WMFArticleSummaryFetcher *fetcher = [[WMFArticleSummaryFetcher alloc] initWithSession:session configuration:configuration];
-        self.articleSummaryController = [[WMFArticleSummaryController alloc] initWithFetcher:fetcher dataStore:self];
+        self.articleSummaryController = [[WMFArticleSummaryController alloc] initWithSession:session configuration:configuration dataStore:self];
         self.mobileviewConverter = [[MobileviewToMobileHTMLConverter alloc] init];
+        WMFPermanentCacheController *permanentCacheController = [[WMFPermanentCacheController alloc] initWithSession:session configuration:configuration preferredLanguageDelegate:self.languageLinkController cacheContextProvider:nil cacheContextProviderDelegate:self];
+        self.cacheController = permanentCacheController;
     }
     return self;
+}
+
+- (void)teardown:(nullable dispatch_block_t)completion {
+    if (self.cacheController) {
+        [self.cacheController teardown:^{
+            if (completion) {
+                completion();
+            }
+        }];
+    } else if (completion) {
+        completion();
+    }
 }
 
 - (void)setupCoreDataSynchronizersWithContainerURL:(NSURL *)containerURL {
@@ -158,6 +171,10 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 
 - (void)startSynchronizingCacheContext:(NSManagedObjectContext *)moc {
     [self.cacheSynchronizer startSynchronizingContexts:@[moc]];
+}
+
+- (void)managedObjectContextProvider:(id<WMFManagedObjectContextProviding>)provider didCreate:(NSManagedObjectContext *)managedObjectContext {
+    [self startSynchronizingCacheContext:managedObjectContext];
 }
 
 - (void)stopCoreDataSynchronizers {
@@ -418,17 +435,9 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 /// They can also be used to perform migrations when the underlying Core Data model has not changed version but the apps' logic has changed in a way that requires data migration.
 - (void)performLibraryUpdates:(dispatch_block_t)completion needsMigrateBlock:(dispatch_block_t)needsMigrateBlock {
     dispatch_block_t combinedCompletion = ^{
-        [WMFPermanentCacheController setupCoreDataStack:^(NSManagedObjectContext * _Nullable moc, NSError * _Nullable error) {
-            if (error) {
-                DDLogError(@"Error during cache controller migration: %@", error);
-            }
-            WMFPermanentCacheController *permanentCacheController = [[WMFPermanentCacheController alloc] initWithMoc:moc session:self.session configuration:self.configuration preferredLanguageDelegate:self.languageLinkController];
-            self.cacheController = permanentCacheController;
-            [self startSynchronizingCacheContext:moc];
-            if (completion) {
-                completion();
-            }
-        }];
+        if (completion) {
+            completion();
+        }
     };
     NSNumber *libraryVersionNumber = [self.viewContext wmf_numberValueForKey:WMFLibraryVersionKey];
     // If the library value doesn't exist, it's a new library and can be set to the latest version
@@ -459,13 +468,6 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
         DDLogError(@"Error performing initial library setup: %@", setupError);
     }
 }
-
-#if TEST
-- (void)performTestLibrarySetup {
-    WMFPermanentCacheController *permanentCacheController = [WMFPermanentCacheController testControllerWith:self.containerURL dataStore:self];
-    self.cacheController = permanentCacheController;
-}
-#endif
 
 - (void)markAllDownloadedArticlesInManagedObjectContextAsNeedingConversionFromMobileview:(NSManagedObjectContext *)moc {
     NSFetchRequest *request = [WMFArticle fetchRequest];

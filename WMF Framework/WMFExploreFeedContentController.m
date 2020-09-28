@@ -107,9 +107,19 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     }];
 }
 
+- (WMFFeedContentSource *)onThisDayContentSource {
+    return [self.contentSources wmf_match:^BOOL(id<WMFContentSource> obj) {
+        return [obj isKindOfClass:[WMFOnThisDayContentSource class]];
+    }];
+}
+
 - (NSArray<id<WMFContentSource>> *)contentSources {
     NSParameterAssert(self.dataStore);
     NSParameterAssert(self.siteURLs);
+    WMFSession *session = self.dataStore.session;
+    WMFConfiguration *configuration = self.dataStore.configuration;
+    NSParameterAssert(session);
+    NSParameterAssert(configuration);
     if (!_contentSources) {
         NSMutableArray *mutableContentSources = [NSMutableArray arrayWithCapacity:2 + self.siteURLs.count * 7];
         [mutableContentSources addObject:[[WMFRelatedPagesContentSource alloc] init]];
@@ -120,9 +130,9 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
             feedContentSource.notificationSchedulingEnabled = YES;
             [mutableContentSources addObjectsFromArray: @[[[WMFNearbyContentSource alloc] initWithSiteURL:siteURL  dataStore:self.dataStore],
                                 feedContentSource,
-                                [[WMFRandomContentSource alloc] initWithSiteURL:siteURL],
-                                [[WMFAnnouncementsContentSource alloc] initWithSiteURL:siteURL],
-                                [[WMFOnThisDayContentSource alloc] initWithSiteURL:siteURL]]];
+                                [[WMFRandomContentSource alloc] initWithSiteURL:siteURL session:session configuration:configuration],
+                                [[WMFAnnouncementsContentSource alloc] initWithSiteURL:siteURL session:session configuration:configuration],
+                                [[WMFOnThisDayContentSource alloc] initWithSiteURL:siteURL session:session configuration:configuration]]];
         }
         _contentSources = [mutableContentSources copy];
     }
@@ -284,6 +294,13 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 
         [group enter];
         [[self randomContentSource] loadNewContentInManagedObjectContext:moc
+                                                                   force:NO
+                                                              completion:^{
+                                                                  [group leave];
+                                                              }];
+        
+        [group enter];
+        [[self onThisDayContentSource] loadNewContentInManagedObjectContext:moc
                                                                    force:NO
                                                               completion:^{
                                                                   [group leave];
@@ -804,6 +821,22 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 
 - (void)performBackgroundFetch:(void (^)(UIBackgroundFetchResult))completion {
     [self updateBackgroundSourcesWithCompletion:completion];
+}
+
+- (void)performDeduplicatedFetch:(nullable dispatch_block_t)completion {
+    WMFAssertMainThread(@"performDeduplicatedFetch: must be called on the main thread");
+    if (self.operationQueue.operationCount > 0) {
+        NSAssert(self.operationQueue.maxConcurrentOperationCount == 1, @"The strategy of adding this block as a completion doesn't work if the maxConcurrentOperationCount != 1");
+        if (completion) {
+            [self.operationQueue addOperationWithBlock:completion];
+        }
+        return;
+    }
+    [self performBackgroundFetch:^(UIBackgroundFetchResult fetchResult) {
+        if (completion) {
+            completion();
+        }
+    }];
 }
 
 @end

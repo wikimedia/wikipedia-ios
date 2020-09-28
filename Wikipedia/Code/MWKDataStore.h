@@ -55,6 +55,9 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 
 - (instancetype)initWithContainerURL:(NSURL *)containerURL NS_DESIGNATED_INITIALIZER;
 
+/// Call to cancel any async tasks and wait for completion
+- (void)teardown:(nullable dispatch_block_t)completion;
+
 @property (readonly, strong, nonatomic) NSURL *containerURL;
 @property (readonly, strong, nonatomic) WMFSession *session;
 @property (readonly, strong, nonatomic) WMFConfiguration *configuration;
@@ -62,9 +65,6 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 
 - (void)performLibraryUpdates:(dispatch_block_t)completion needsMigrateBlock:(dispatch_block_t)needsMigrateBlock;
 - (void)performInitialLibrarySetup;
-#if TEST
-- (void)performTestLibrarySetup;
-#endif
 
 - (void)updateLocalConfigurationFromRemoteConfigurationWithCompletion:(nullable void (^)(NSError *nullable))completion;
 @property (readwrite, nonatomic) BOOL isLocalConfigUpdateAllowed;

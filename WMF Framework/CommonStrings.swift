@@ -6,6 +6,11 @@ import Foundation
 
 @objc(WMFCommonStrings)
 public class CommonStrings: NSObject {
+    @objc public static let plainWikipediaName = CommonStrings.plainWikipediaName()
+    @objc public static func plainWikipediaName(with language: String? = nil) -> String {
+        WMFLocalizedString("about-wikipedia", language: language, value:"Wikipedia", comment: "Wikipedia {{Identical|Wikipedia}}")
+    }
+
     @objc public static let articleCountFormat = WMFLocalizedString("places-filter-top-articles-count", value:"{{PLURAL:%1$d|%1$d article|%1$d articles}}", comment: "Describes how many top articles are found in the top articles filter - %1$d is replaced with the number of articles")
     @objc public static let readingListCountFormat = WMFLocalizedString("reading-lists-count", value:"{{PLURAL:%1$d|%1$d reading list|%1$d reading lists}}", comment: "Describes the number of reading lists - %1$d is replaced with the number of reading lists")
     
