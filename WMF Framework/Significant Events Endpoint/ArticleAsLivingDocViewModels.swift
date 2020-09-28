@@ -686,7 +686,16 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             set = Set<String>()
         }
         
-        return set
+        //strip == signs from all section titles
+        let finalSet = set.map { (section) -> String in
+            if let match = section.range(of: "(?<==)[^=]+", options: .regularExpression) {
+                return String(section[match])
+            }
+            
+            return section
+        }
+        
+        return Set(finalSet)
     }
     
     private func localizedStringFromSections(sections: [String]) -> String? {
@@ -726,11 +735,14 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             }
         }
 
+        var offset = 0
         for range in ranges {
             let italicStart = "<i>"
             let italicEnd = "</i>"
-            mutableLocalizedString.insert(italicStart, at: range.location)
-            mutableLocalizedString.insert(italicEnd, at: range.location + italicStart.count + range.length)
+            mutableLocalizedString.insert(italicStart, at: range.location + offset)
+            offset += italicStart.count
+            mutableLocalizedString.insert(italicEnd, at: range.location + range.length + offset)
+            offset += italicEnd.count
         }
         
         if let returnString = mutableLocalizedString.copy() as? NSString {
