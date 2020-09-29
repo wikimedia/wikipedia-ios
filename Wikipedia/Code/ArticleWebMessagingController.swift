@@ -584,7 +584,9 @@ extension ArticleWebMessagingController {
                 DDLogDebug("Failure in customUpdateMargins")
             }
             
-            completion?()
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+                completion?()
+            }
         }
     }
 }
