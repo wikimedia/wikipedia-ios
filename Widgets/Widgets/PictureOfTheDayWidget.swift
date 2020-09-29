@@ -35,7 +35,7 @@ final class PictureOfTheDayData {
     func fetchLatestAvailablePictureEntry(for imageSize: CGSize, usingCache: Bool = false, completion userCompletion: @escaping (PictureOfTheDayEntry) -> Void) {
         let widgetController = WidgetController.shared
         widgetController.startWidgetUpdateTask(userCompletion) { (dataStore, widgetUpdateTaskCompletion) in
-            widgetController.fetchNewestWidgetContentGroup(with: .pictureOfTheDay, in: dataStore, isNetworkFetchAllowed: !usingCache) { (contentGroup) in
+            widgetController.fetchNewestWidgetContentGroup(with: .pictureOfTheDay, in: dataStore, isNetworkFetchAllowed: !usingCache, isAnyLanguageAllowed: true) { (contentGroup) in
                 guard let contentGroup = contentGroup else {
                     widgetUpdateTaskCompletion(self.placeholderEntry)
                     return
