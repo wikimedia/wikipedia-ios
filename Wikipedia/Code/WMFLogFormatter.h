@@ -1,4 +1,4 @@
-@import CocoaLumberjack.DDDispatchQueueLogFormatter;
+@class DDDispatchQueueLogFormatter;
 
 @interface WMFLogFormatter : DDDispatchQueueLogFormatter
 
