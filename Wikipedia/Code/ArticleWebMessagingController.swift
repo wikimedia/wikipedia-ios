@@ -480,6 +480,8 @@ extension ArticleWebMessagingController {
                  if (seContainer) {
                         seContainer.style.marginLeft = "-\(layoutMargins.left)px";
                         seContainer.style.marginRight = "-\(layoutMargins.right)px";
+                        seContainer.style.paddingLeft = "\(layoutMargins.left)px";
+                        seContainer.style.paddingRight = "\(layoutMargins.right)px";
                         return true;
                  } else {
                       return false;
