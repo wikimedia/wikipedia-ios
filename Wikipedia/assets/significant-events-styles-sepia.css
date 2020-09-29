@@ -81,28 +81,28 @@ p#significant-changes-read-more{
 }
 div#new-changes-inner-container{
     background-color: #00af89;
-    border-radius: 5%;
+    border-radius: 3pt;
     display: inline-block;
-    padding: .07em .5em .15em .5em;
+    padding: 0em .5em .2em .5em;
 }
 span#new-changes-dot {
-    height: .6em;
-    width: .6em;
+    height: .5em;
+    width: .5em;
     background-color: #fff;
     border-radius: 50%;
     display: inline-block;
 }
 span#new-changes-text {
-    font-size: 93%;
-    font-weight: 700;
+    font-size: 85%;
+    font-weight: 650;
     color: #fff;
     padding-left: .5em;
 }
 span#new-changes-timestamp {
-    font-size: 93%;
+    font-size: 85%;
     color: #646059;
     padding-left: .5em;
 }
 div#new-changes-container {
-    padding: .5em 0em .5em 0em;
+    padding: .3em 0em .5em 0em;
 }
