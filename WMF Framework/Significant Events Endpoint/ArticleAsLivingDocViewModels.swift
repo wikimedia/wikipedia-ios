@@ -10,15 +10,17 @@ public struct ArticleAsLivingDocViewModel {
     public let sections: [SectionHeader]
     public let articleInsertHtmlSnippets: [String]
     public let newChangesTimestamp: String?
+    public let lastUpdatedTimestamp: String?
     public let summaryText: String?
     
-    public init(nextRvStartId: UInt?, sha: String?, sections: [SectionHeader], summaryText: String?, articleInsertHtmlSnippets: [String], newChangesTimestamp: String?) {
+    public init(nextRvStartId: UInt?, sha: String?, sections: [SectionHeader], summaryText: String?, articleInsertHtmlSnippets: [String], newChangesTimestamp: String?, lastUpdatedTimestamp: String?) {
         self.nextRvStartId = nextRvStartId
         self.sha = sha
         self.sections = sections
         self.summaryText = summaryText
         self.articleInsertHtmlSnippets = articleInsertHtmlSnippets
         self.newChangesTimestamp = newChangesTimestamp
+        self.lastUpdatedTimestamp = lastUpdatedTimestamp
     }
     
     public init?(significantEvents: SignificantEvents) {
@@ -148,31 +150,67 @@ public struct ArticleAsLivingDocViewModel {
         //grab first 3 large event html snippets
         var articleInsertHtmlSnippets: [String] = []
         var newChangesTimestamp: String?
+        var lastUpdatedTimestamp: String?
         let htmlSnippetCountMax = 3
         
         outerLoop: for (sectionIndex, section) in finalSections.enumerated() {
             for (itemIndex, event) in section.typedEvents.enumerated() {
                 switch event {
+                case .small(let smallEvent):
+                    if lastUpdatedTimestamp == nil {
+                        lastUpdatedTimestamp = smallEvent.timestampForDisplay()
+                    }
                 case .large(let largeEvent):
+                    if lastUpdatedTimestamp == nil {
+                        lastUpdatedTimestamp = largeEvent.fullyRelativeTimestampForDisplay()
+                    }
                     let indexPath = IndexPath(item: itemIndex, section: sectionIndex)
                     if let htmlSnippet = largeEvent.articleInsertHtmlSnippet(isFirst: articleInsertHtmlSnippets.count == 0, indexPath: indexPath) {
                         if articleInsertHtmlSnippets.count < htmlSnippetCountMax {
                             articleInsertHtmlSnippets.append(htmlSnippet)
                             if articleInsertHtmlSnippets.count == 1 {
-                                newChangesTimestamp = largeEvent.timestampForDisplay()
+                                newChangesTimestamp = largeEvent.fullyRelativeTimestampForDisplay()
                             }
                         } else {
-                            break outerLoop
+                            if lastUpdatedTimestamp != nil {
+                                break outerLoop
+                            }
                         }
                     }
-                default:
-                    continue
                 }
             }
         }
         
         self.articleInsertHtmlSnippets = articleInsertHtmlSnippets
         self.newChangesTimestamp = newChangesTimestamp
+        self.lastUpdatedTimestamp = lastUpdatedTimestamp
+    }
+    
+    static func displayTimestamp(timestampString: String, fullyRelative: Bool) -> String? {
+        if let isoDateFormatter = DateFormatter.wmf_iso8601(),
+           let timeDateFormatter = DateFormatter.wmf_24hshortTimeWithUTCTimeZone(),
+           let date = isoDateFormatter.date(from: timestampString) {
+            if fullyRelative {
+                let relativeTime = (date as NSDate).wmf_fullyLocalizedRelativeDateStringFromLocalDateToNow()
+                return relativeTime
+            } else {
+                let calendar = NSCalendar.current
+                let unitFlags:Set<Calendar.Component> = [.day]
+                let components = calendar.dateComponents(unitFlags, from: date, to: Date())
+                if let numberOfDays = components.day {
+                    switch numberOfDays {
+                    case 0:
+                        let relativeTime = (date as NSDate).wmf_fullyLocalizedRelativeDateStringFromLocalDateToNow()
+                        return relativeTime
+                    default:
+                        let shortTime = timeDateFormatter.string(from: date)
+                        return shortTime
+                    }
+                }
+            }
+        }
+        
+        return nil
     }
 }
 
@@ -279,6 +317,18 @@ public extension ArticleAsLivingDocViewModel {
             
             public static func == (lhs: ArticleAsLivingDocViewModel.Event.Small, rhs: ArticleAsLivingDocViewModel.Event.Small) -> Bool {
                 return lhs.smallChanges == rhs.smallChanges
+            }
+            
+            //Only used in the html portion of the feature
+            func timestampForDisplay() -> String? {
+                
+                guard let timestampString = smallChanges.first?.timestampString else {
+                    return nil
+                }
+                
+                let displayTimestamp = ArticleAsLivingDocViewModel.displayTimestamp(timestampString: timestampString, fullyRelative: true)
+                
+                return displayTimestamp
             }
         }
         
@@ -430,7 +480,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     }
     
     func articleInsertHtmlSnippet(isFirst: Bool = false, indexPath: IndexPath) -> String? {
-        guard let timestampForDisplay = self.timestampForDisplay(),
+        guard let timestampForDisplay = self.fullyRelativeTimestampForDisplay(),
               let eventDescription = eventDescriptionHtmlSnippet(indexPath: indexPath),
               let userInfo = userInfoHtmlSnippet() else {
             return nil
@@ -1214,44 +1264,39 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         
     }
     
+    private func getTimestampString() -> String? {
+        switch typedEvent {
+        case .newTalkPageTopic(let newTalkPageTopic):
+            return newTalkPageTopic.timestampString
+        case .large(let largeChange):
+            return largeChange.timestampString
+        case .vandalismRevert(let vandalismRevert):
+            return vandalismRevert.timestampString
+        case .small:
+            return nil
+        }
+    }
+    
+    //Only used in the html portion of the feature
+    func fullyRelativeTimestampForDisplay() -> String? {
+        
+        guard let timestampString = getTimestampString() else {
+            return nil
+        }
+        
+        return ArticleAsLivingDocViewModel.displayTimestamp(timestampString: timestampString, fullyRelative: true)
+    }
+    
     func timestampForDisplay() -> String? {
         if let displayTimestamp = displayTimestamp {
             return displayTimestamp
         }
         
-        let timestampString: String
-        switch typedEvent {
-        case .newTalkPageTopic(let newTalkPageTopic):
-            timestampString = newTalkPageTopic.timestampString
-        case .large(let largeChange):
-            timestampString = largeChange.timestampString
-        case .vandalismRevert(let vandalismRevert):
-            timestampString = vandalismRevert.timestampString
-        case .small:
-            assertionFailure("Shouldn't reach this point")
-            return nil
+        if let timestampString = getTimestampString() {
+            let displayTimestamp = ArticleAsLivingDocViewModel.displayTimestamp(timestampString: timestampString, fullyRelative: false)
+            self.displayTimestamp = displayTimestamp
         }
         
-        var displayTimestamp = timestampString
-        if let isoDateFormatter = DateFormatter.wmf_iso8601(),
-           let timeDateFormatter = DateFormatter.wmf_24hshortTimeWithUTCTimeZone(),
-           let date = isoDateFormatter.date(from: timestampString) {
-            let calendar = NSCalendar.current
-            let unitFlags:Set<Calendar.Component> = [.day]
-            let components = calendar.dateComponents(unitFlags, from: date, to: Date())
-            if let numberOfDays = components.day {
-                switch numberOfDays {
-                case 0:
-                    let relativeTime = (date as NSDate).wmf_fullyLocalizedRelativeDateStringFromLocalDateToNow()
-                    displayTimestamp = relativeTime
-                default:
-                    let shortTime = timeDateFormatter.string(from: date)
-                    displayTimestamp = shortTime
-                }
-            }
-        }
-        
-        self.displayTimestamp = displayTimestamp
         return displayTimestamp
     }
     

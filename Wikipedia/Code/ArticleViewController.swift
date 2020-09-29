@@ -77,7 +77,8 @@ class ArticleViewController: ViewController, HintPresenting {
                     let appendedSections = oldModel.sections + newValue.sections
                     let oldHtmlSnippets = oldModel.articleInsertHtmlSnippets
                     let oldNewChangesTimestamp = oldModel.newChangesTimestamp
-                    _articleAsLivingDocViewModel = ArticleAsLivingDocViewModel(nextRvStartId: newValue.nextRvStartId, sha: oldModel.sha, sections: appendedSections, summaryText: newValue.summaryText, articleInsertHtmlSnippets: oldHtmlSnippets, newChangesTimestamp: oldNewChangesTimestamp)
+                    let oldLastUpdatedTimestamp = oldModel.lastUpdatedTimestamp
+                    _articleAsLivingDocViewModel = ArticleAsLivingDocViewModel(nextRvStartId: newValue.nextRvStartId, sha: oldModel.sha, sections: appendedSections, summaryText: newValue.summaryText, articleInsertHtmlSnippets: oldHtmlSnippets, newChangesTimestamp: oldNewChangesTimestamp, lastUpdatedTimestamp: oldLastUpdatedTimestamp)
                     articleAsLivingDocViewController?.appendSections(newValue.sections)
                     
                 } else {
@@ -497,7 +498,9 @@ class ArticleViewController: ViewController, HintPresenting {
                 let htmlSnippets = viewModel.articleInsertHtmlSnippets
                 let shaKey = "significant-events-sha"
                 let shouldShowNewChangesBadge = viewModel.sha != nil ? UserDefaults.standard.string(forKey: shaKey) != viewModel.sha : false
-                self.messagingController.injectArticleAsLivingDocContent(articleInsertHtmlSnippets: htmlSnippets, shouldShowNewChangesBadge: shouldShowNewChangesBadge, newChangesTimestamp: viewModel.newChangesTimestamp) { (success) in
+                let topBadgeType: ArticleWebMessagingController.TopBadgeType = shouldShowNewChangesBadge ? .newChanges : .lastUpdated
+                let timestamp = shouldShowNewChangesBadge ? viewModel.newChangesTimestamp : viewModel.lastUpdatedTimestamp
+                self.messagingController.injectArticleAsLivingDocContent(articleInsertHtmlSnippets: htmlSnippets, topBadgeType: topBadgeType, timestamp: timestamp) { (success) in
                     self.toggleContentVisibilityExceptLeadImage(shouldHide: false)
                     UserDefaults.standard.setValue(viewModel.sha, forKey: shaKey)
                     if (success) {

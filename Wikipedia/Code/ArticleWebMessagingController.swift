@@ -376,8 +376,14 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
 //Significant Events
 
 extension ArticleWebMessagingController {
+    
+    enum TopBadgeType {
+        case lastUpdated
+        case newChanges
+    }
+    
     //tonitodo: possible way to have overlay link work - https://stackoverflow.com/a/46707009
-    func injectArticleAsLivingDocContent(articleInsertHtmlSnippets: [String], shouldShowNewChangesBadge: Bool = false, newChangesTimestamp: String? = nil, _ completion: ((Bool) -> Void)? = nil) {
+    func injectArticleAsLivingDocContent(articleInsertHtmlSnippets: [String], topBadgeType: TopBadgeType = .lastUpdated, timestamp: String? = nil, _ completion: ((Bool) -> Void)? = nil) {
         
         guard articleInsertHtmlSnippets.count > 0 else {
             completion?(false)
@@ -418,11 +424,16 @@ extension ArticleWebMessagingController {
 
             
         
-        if shouldShowNewChangesBadge {
-            var newChangesBadgeHTML = "<div id='new-changes-container'><div id='new-changes-inner-container'><span id='new-changes-dot'></span><span id='new-changes-text'>New changes</span></div>"
-            if let newChangesTimestamp = newChangesTimestamp {
-                newChangesBadgeHTML += "<span id='new-changes-timestamp'>\(newChangesTimestamp)</span>"
+        if let timestamp = timestamp {
+            let innerContainerID = topBadgeType == .lastUpdated ? "significant-changes-top-inner-container-last-updated" : "significant-changes-top-inner-container-new-changes"
+            let topTextID = topBadgeType == .lastUpdated ? "significant-changes-top-text-last-updated" : "significant-changes-top-text-new-changes"
+            let badgeText = topBadgeType == .lastUpdated ? "Last updated" : "New changes"
+            var newChangesBadgeHTML = "<div id='significant-changes-top-container'><div id='\(innerContainerID)'>"
+            if topBadgeType == .newChanges {
+                newChangesBadgeHTML += "<span id='significant-changes-top-dot'></span>"
             }
+            newChangesBadgeHTML += "<span id='\(topTextID)'>\(badgeText)</span></div>"
+            newChangesBadgeHTML += "<span id='significant-changes-top-timestamp'>\(timestamp)</span>"
             newChangesBadgeHTML += "</div>"
             
             javascript += """

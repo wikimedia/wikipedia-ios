@@ -79,30 +79,41 @@ p#significant-changes-read-more{
     color:#36c;
     padding-bottom:.8em
 }
-div#new-changes-inner-container{
+div#significant-changes-top-container {
+    padding: .3em 0em .5em 0em;
+}
+div#significant-changes-top-inner-container-new-changes {
     background-color: #00af89;
     border-radius: 3pt;
     display: inline-block;
     padding: 0em .5em .2em .5em;
 }
-span#new-changes-dot {
+div#significant-changes-top-inner-container-last-updated {
+    background-color: #202122;
+    border-radius: 3pt;
+    display: inline-block;
+    padding: 0em .5em .2em .5em;
+}
+span#significant-changes-top-dot {
     height: .5em;
     width: .5em;
     background-color: #fff;
     border-radius: 50%;
     display: inline-block;
 }
-span#new-changes-text {
+span#significant-changes-top-text-new-changes {
     font-size: 85%;
     font-weight: 650;
     color: #fff;
     padding-left: .5em;
 }
-span#new-changes-timestamp {
+span#significant-changes-top-text-last-updated {
+    font-size: 85%;
+    font-weight: 650;
+    color: #C8CCD1;
+}
+span#significant-changes-top-timestamp {
     font-size: 85%;
     color: #C8CCD1;
     padding-left: .5em;
-}
-div#new-changes-container {
-    padding: .3em 0em .5em 0em;
 }
