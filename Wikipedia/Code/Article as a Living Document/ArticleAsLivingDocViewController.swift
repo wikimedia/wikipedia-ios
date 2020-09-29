@@ -173,7 +173,6 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
             configureHeaderView(headerView)
             navigationBar.isBarHidingEnabled = false
             navigationBar.isUnderBarViewHidingEnabled = true
-            useNavigationBarVisibleHeightForScrollViewInsets = true
             navigationBar.addUnderNavigationBarView(headerView)
             navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
             navigationBar.title = headerText

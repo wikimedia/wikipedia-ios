@@ -65,6 +65,9 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     @objc public weak var delegate: UIViewController? {
         didSet {
             updateNavigationItems()
+            if needsUnderBarHack {
+                underBarViewTopBarBottomConstraint.constant = -12
+            }
         }
     }
     
@@ -215,6 +218,11 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     var underBarViewTopBarBottomConstraint: NSLayoutConstraint!
     var underBarViewTopTitleBarBottomConstraint: NSLayoutConstraint!
     var underBarViewTopBottomConstraint: NSLayoutConstraint!
+
+    /// See `updateHackyConstraint` for details
+    var needsUnderBarHack: Bool {
+        return delegate?.modalPresentationStyle == .pageSheet
+    }
     
     override open func setup() {
         super.setup()
@@ -273,8 +281,9 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         
         underBarViewHeightConstraint = underBarView.heightAnchor.constraint(equalToConstant: 0)
         underBarView.addConstraint(underBarViewHeightConstraint)
-        
-        underBarViewTopBarBottomConstraint = bar.bottomAnchor.constraint(equalTo: underBarView.topAnchor)
+
+        /// See `updateHackyConstraint` for explanation of the constant on the next line.
+        underBarViewTopBarBottomConstraint = bar.bottomAnchor.constraint(equalTo: underBarView.topAnchor, constant: needsUnderBarHack ? -12 : 0)
         underBarViewTopTitleBarBottomConstraint = titleBar.bottomAnchor.constraint(equalTo: underBarView.topAnchor)
         underBarViewTopBottomConstraint = topAnchor.constraint(equalTo: underBarView.topAnchor)
 
@@ -315,6 +324,17 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         updateShadowHeightConstraintConstant()
+    }
+
+    /// This function covers for a layout bug in iOS: When presenting a `pageSheet`, the navigation bar doesn't size appropraitely. The top of the `underBarView` is appropriately pinned to the bottom of the navigation bar. The navigation bar's content view has a larger height than the actual navigation bar used in the constraint, however, and that causes the weird view: https://github.com/wikimedia/wikipedia-ios/pull/3683#issuecomment-693732339
+    /// This is an issue that others experience as well: https://developer.apple.com/forums/thread/121861 , https://stackoverflow.com/questions/57784596/how-to-prevent-gap-between-uinavigationbar-and-view-in-ios-13 , and https://stackoverflow.com/questions/58296535/ios-13-new-pagesheet-formsheet-navigationbar-height .
+    /// The layout bug will clear itself if you rotate the screen to landscape, then rotate it back to portrait. This allows it to also look good when the screen loads.
+    /// From the links above, others have fixed this by forcing a layout pass on the navigation bar. Unfortunately that doesn't fix it in our case. (Perhaps because our nav bar is on the View Controller and not the Navigation Controller?)
+    /// Hopefully some day this and `needsUnderBarHack` can be removed. To test if iOS has fixed it: Set `needsUnderBarHack` to always return `false`, open a modal w/ a presentation style of `pageSheet` and an underbar view (ex: `ArticleAsLivingDocViewController`, and ensure the top of the underbar view is not hidden behind the nav bar.
+    public func updateHackyConstraint() {
+        if needsUnderBarHack && underBarViewTopBarBottomConstraint.constant != 0 {
+            underBarViewTopBarBottomConstraint.constant = 0
+        }
     }
 
     private func updateShadowHeightConstraintConstant() {
