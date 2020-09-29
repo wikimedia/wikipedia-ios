@@ -44,6 +44,35 @@ public final class WidgetController: NSObject {
         }
     }
     
+    public func fetchNewestWidgetContentGroup(with kind: WMFContentGroupKind, in dataStore: MWKDataStore, isNetworkFetchAllowed: Bool, isAnyLanguageAllowed: Bool = false, completion:  @escaping (WMFContentGroup?) -> Void) {
+        fetchCachedWidgetContentGroup(with: kind, isAnyLanguageAllowed: isAnyLanguageAllowed, in: dataStore) { (contentGroup) in
+            guard let todaysContentGroup = contentGroup, todaysContentGroup.isForToday else {
+                guard isNetworkFetchAllowed else {
+                    completion(contentGroup)
+                    return
+                }
+                self.updateFeedContent(in: dataStore) {
+                    // if there's no cached content group after update, return nil
+                    self.fetchCachedWidgetContentGroup(with: kind, isAnyLanguageAllowed: isAnyLanguageAllowed, in: dataStore, completion: completion)
+                }
+                return
+            }
+            completion(todaysContentGroup)
+        }
+    }
+    
+    private func fetchCachedWidgetContentGroup(with kind: WMFContentGroupKind, isAnyLanguageAllowed: Bool, in dataStore: MWKDataStore, completion:  @escaping (WMFContentGroup?) -> Void) {
+        let moc = dataStore.viewContext
+        let siteURL = isAnyLanguageAllowed ? dataStore.languageLinkController.appLanguage?.siteURL() : nil
+        moc.perform {
+            completion(moc.newestGroup(of: kind, forSiteURL: siteURL))
+        }
+    }
+    
+    public func updateFeedContent(in dataStore: MWKDataStore, completion: @escaping () -> Void) {
+        dataStore.feedContentController.performDeduplicatedFetch(completion)
+    }
+    
     private var dataStoreRetainCount: Int = 0
     private var _dataStore: MWKDataStore?
     private var completions: [(MWKDataStore) -> Void] = []
@@ -87,22 +116,31 @@ public final class WidgetController: NSObject {
             completion()
             return
         }
-        _dataStore = nil
         dataStoreRetainCount = 0
         let asyncBackgroundActivity = backgroundActivity
-        // Give a bit of a buffer for other async activity to cease
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(10)) {
-            completion()
+        defer {
+            backgroundActivity = nil
+        }
+        let finishBackgroundActivity = {
             if let asyncBackgroundActivity = asyncBackgroundActivity {
                 ProcessInfo.processInfo.endActivity(asyncBackgroundActivity)
             }
+        }
+        guard let dataStoreToTeardown = _dataStore else {
+            completion()
+            finishBackgroundActivity()
+            return
+        }
+        _dataStore = nil
+        dataStoreToTeardown.teardown {
+            completion()
+            finishBackgroundActivity()
             #if DEBUG
             let openFiles = self.openFilePaths()
             let openSqliteFile = openFiles.first(where: { $0.hasSuffix(".sqlite") })
             assert(openSqliteFile == nil, "There should be no open sqlite files (which in our case are Core Data persistent stores) in the shared app container after the data store is released. The widget still has a lock on these files: \(openFiles)")
             #endif
         }
-        backgroundActivity = nil
     }
     
     #if DEBUG

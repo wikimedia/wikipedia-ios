@@ -577,6 +577,9 @@ public typealias ReadingListsController = WMFReadingListsController
     }
     
     @objc public func sync() {
+        guard !Bundle.main.isAppExtension else {
+            return
+        }
         #if TEST
         #else
             assert(Thread.isMainThread)

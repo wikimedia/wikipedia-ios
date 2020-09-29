@@ -32,38 +32,19 @@ final class TopReadData {
     }
 
     func fetchLatestAvailableTopRead(usingCache: Bool = false, completion userCompletion: @escaping (TopReadEntry) -> Void) {
-        WidgetController.shared.startWidgetUpdateTask(userCompletion) { (dataStore, completion) in
-            let moc = dataStore.viewContext
-            let siteURL = dataStore.languageLinkController.appLanguage?.siteURL()
-            moc.perform {
-                guard let latest = moc.newestGroup(of: .topRead, forSiteURL: siteURL), latest.isForToday else {
-                    guard !usingCache else {
-                        completion(self.placeholder)
-                        return
-                    }
-                    self.fetchLatestAvailableTopReadFromNetwork(from: dataStore, completion: completion)
+        let widgetController = WidgetController.shared
+        widgetController.startWidgetUpdateTask(userCompletion) { (dataStore, widgetUpdateTaskCompletion) in
+            widgetController.fetchNewestWidgetContentGroup(with: .topRead, in: dataStore, isNetworkFetchAllowed: !usingCache) { (contentGroup) in
+                guard let contentGroup = contentGroup else {
+                    widgetUpdateTaskCompletion(self.placeholder)
                     return
                 }
-                self.assembleTopReadFromContentGroup(latest, with: dataStore, usingImageCache: usingCache, completion: completion)
+                self.assembleTopReadFromContentGroup(contentGroup, with: dataStore, usingImageCache: usingCache, completion: widgetUpdateTaskCompletion)
             }
         }
     }
 
     // MARK: Private
-    
-    private func fetchLatestAvailableTopReadFromNetwork(from dataStore: MWKDataStore, completion: @escaping (TopReadEntry) -> Void) {
-        dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
-            let moc = dataStore.viewContext
-            let siteURL = dataStore.languageLinkController.appLanguage?.siteURL()
-            moc.perform {
-                guard let latest = moc.newestGroup(of: .topRead, forSiteURL: siteURL) else {
-                    completion(self.placeholder)
-                    return
-                }
-                self.assembleTopReadFromContentGroup(latest, with: dataStore, completion: completion)
-            }
-        }
-    }
     
     private func assembleTopReadFromContentGroup(_ topRead: WMFContentGroup, with dataStore: MWKDataStore, usingImageCache: Bool = false, completion: @escaping (TopReadEntry) -> Void) {
         guard let results = topRead.contentPreview as? [WMFFeedTopReadArticlePreview] else {

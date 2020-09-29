@@ -321,43 +321,30 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
     }
 
     func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
-        WidgetController.shared.startWidgetUpdateTask(completionHandler) { (dataStore, completion) in
-            self.fetch(dataStore: dataStore, completionHandler: completion)
+        WidgetController.shared.startWidgetUpdateTask(completionHandler) { (dataStore, updateTaskCompletion) in
+            self.updateUIWithTopRead(with: dataStore, moc: dataStore.viewContext, completionHandler: updateTaskCompletion)
         }
     }
     
     func updateUIWithTopRead(with dataStore: MWKDataStore, moc: NSManagedObjectContext, completionHandler: @escaping ((NCUpdateResult) -> Void)) {
-        let siteURL = dataStore.languageLinkController.appLanguage?.siteURL()
-        guard let topRead = moc.newestGroup(of: .topRead, forSiteURL: siteURL),
-              let content = topRead.contentPreview as? [WMFFeedTopReadArticlePreview] else {
-            completionHandler(.failed)
-            return
-        }
-        if let previousGroupURL = self.groupURL,
-            let topReadURL = topRead.url,
-            !self.results.isEmpty,
-            previousGroupURL == topReadURL {
-            completionHandler(.noData)
-            return
-        }
-        self.groupURL = topRead.url
-        self.results = content
-        self.updateViewAsync(with: dataStore) { didUpdate in
-            completionHandler(didUpdate ? .newData : .noData)
-        }
-    }
-
-    func fetch(dataStore: MWKDataStore, completionHandler: @escaping ((NCUpdateResult) -> Void)) {
-        updateUIWithTopRead(with: dataStore, moc: dataStore.viewContext) { result in
-            guard result == .failed else {
-                completionHandler(result)
+        WidgetController.shared.fetchNewestWidgetContentGroup(with: .topRead, in: dataStore, isNetworkFetchAllowed: true) { (contentGroup) in
+            guard let topRead = contentGroup,
+                  let content = topRead.contentPreview as? [WMFFeedTopReadArticlePreview]
+            else {
+                completionHandler(.failed)
                 return
             }
-            dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
-                let moc = dataStore.viewContext
-                moc.perform {
-                    self.updateUIWithTopRead(with: dataStore, moc: moc, completionHandler: completionHandler)
-                }
+            if let previousGroupURL = self.groupURL,
+                let topReadURL = topRead.url,
+                !self.results.isEmpty,
+                previousGroupURL == topReadURL {
+                completionHandler(.noData)
+                return
+            }
+            self.groupURL = topRead.url
+            self.results = content
+            self.updateViewAsync(with: dataStore) { didUpdate in
+                completionHandler(didUpdate ? .newData : .noData)
             }
         }
     }
