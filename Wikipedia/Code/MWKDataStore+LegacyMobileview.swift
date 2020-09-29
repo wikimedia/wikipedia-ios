@@ -1,3 +1,4 @@
+import CocoaLumberjackSwift
 
 enum MigrateMobileviewToMobileHTMLIfNecessaryError: Error {
     case noArticleURL

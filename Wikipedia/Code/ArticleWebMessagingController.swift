@@ -1,5 +1,6 @@
 
 import Foundation
+import CocoaLumberjackSwift
 
 protocol ArticleWebMessageHandling: class {
     func didRecieve(action: ArticleWebMessagingController.Action)

@@ -1,6 +1,7 @@
 import UIKit
 import NotificationCenter
 import WMF
+import CocoaLumberjackSwift
 
 private final class EmptyView: SetupView, Themeable {
     private let label = UILabel()
