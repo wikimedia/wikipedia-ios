@@ -33,37 +33,20 @@ final class PictureOfTheDayData {
     // MARK: Public
 
     func fetchLatestAvailablePictureEntry(for imageSize: CGSize, usingCache: Bool = false, completion userCompletion: @escaping (PictureOfTheDayEntry) -> Void) {
-        WidgetController.shared.startWidgetUpdateTask(userCompletion) { (dataStore, completion) in
-            let moc = dataStore.viewContext
-            moc.perform {
-                guard let latest = moc.newestGroup(of: .pictureOfTheDay), latest.isForToday else {
-                    guard !usingCache else {
-                        completion(self.sampleEntry)
-                        return
-                    }
-                    self.fetchLatestAvailablePictureEntryFromNetwork(with: dataStore, imageSize: imageSize, completion: completion)
+        let widgetController = WidgetController.shared
+        widgetController.startWidgetUpdateTask(userCompletion) { (dataStore, widgetUpdateTaskCompletion) in
+            widgetController.fetchNewestWidgetContentGroup(with: .pictureOfTheDay, in: dataStore, isNetworkFetchAllowed: !usingCache, isAnyLanguageAllowed: true) { (contentGroup) in
+                guard let contentGroup = contentGroup else {
+                    widgetUpdateTaskCompletion(self.placeholderEntry)
                     return
                 }
-                self.assemblePictureEntryFromContentGroup(latest, dataStore: dataStore, imageSize: imageSize, usingImageCache: usingCache, completion: completion)
+                self.assemblePictureEntryFromContentGroup(contentGroup, dataStore: dataStore, imageSize: imageSize, usingImageCache: usingCache, completion: widgetUpdateTaskCompletion)
             }
         }
     }
 
     // MARK: Private
 
-    private func fetchLatestAvailablePictureEntryFromNetwork(with dataStore: MWKDataStore, imageSize: CGSize, completion: @escaping (PictureOfTheDayEntry) -> Void) {
-        dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
-            let moc = dataStore.viewContext
-            moc.perform {
-                guard let latest = moc.newestGroup(of: .pictureOfTheDay) else {
-                    completion(self.sampleEntry)
-                    return
-                }
-                self.assemblePictureEntryFromContentGroup(latest, dataStore: dataStore, imageSize: imageSize, completion: completion)
-            }
-        }
-
-    }
 
     private func assemblePictureEntryFromContentGroup(_ contentGroup: WMFContentGroup, dataStore: MWKDataStore, imageSize: CGSize, usingImageCache: Bool = false, completion: @escaping (PictureOfTheDayEntry) -> Void) {
         guard let imageContent = contentGroup.contentPreview as? WMFFeedImage else {
