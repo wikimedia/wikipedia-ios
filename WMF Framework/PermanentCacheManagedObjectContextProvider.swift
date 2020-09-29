@@ -1,5 +1,5 @@
 import CoreData
-import WMF.WMFCrossProcessCoreDataSynchronizer
+import CocoaLumberjackSwift
 
 @objc(WMFManagedObjectContextProvidingDelegate)
 public protocol ManagedObjectContextProvidingDelegate: NSObjectProtocol {
@@ -19,23 +19,7 @@ class PermanentCacheManagedObjectContextProvider: NSObject, ManagedObjectContext
     weak var delegate: ManagedObjectContextProvidingDelegate?
     let contextCreationQueue = DispatchQueue(label: "org.wikimedia.wikipedia.cacheContextCreation")
     func perform(_ block: @escaping (NSManagedObjectContext) -> Void) {
-        contextCreationQueue.async { [weak self] in
-            guard let self = self else {
-                return
-            }
-            if let context = self.managedObjectContext {
-                context.perform {
-                    block(context)
-                }
-                return
-            }
-            guard let context = CacheController.createCacheContext() else {
-                DDLogError("Unable to create cache context")
-                assert(false)
-                return
-            }
-            self.delegate?.managedObjectContextProvider(self, didCreate: context)
-            self.managedObjectContext = context
+        createContext { (context) in
             context.perform {
                 block(context)
             }
@@ -43,11 +27,18 @@ class PermanentCacheManagedObjectContextProvider: NSObject, ManagedObjectContext
     }
     
     func performAndWait(_ block: (NSManagedObjectContext) -> Void) {
+        createContext { (context) in
+            context.performAndWait {
+                block(context)
+            }
+        }
+    }
+    
+    private func createContext(_ block: (NSManagedObjectContext) -> Void) {
+        // Expensive file & db operations happen as a part of this migration, so async it to a non-main queue
         contextCreationQueue.sync {
             if let context = managedObjectContext {
-                context.performAndWait {
-                    block(context)
-                }
+                block(context)
                 return
             }
             guard let context = CacheController.createCacheContext() else {
@@ -56,9 +47,7 @@ class PermanentCacheManagedObjectContextProvider: NSObject, ManagedObjectContext
                 return
             }
             managedObjectContext = context
-            context.performAndWait {
-                block(context)
-            }
+            block(context)
         }
     }
 }
