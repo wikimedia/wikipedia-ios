@@ -379,7 +379,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  String to display to the user for the receiver's date.
  *
  *  "Most read" articles are computed for UTC dates. UTC time zone is used because converting to the user's time zone
- *  might accidentally change the "day" the app displays based on the the offset between UTC & the device's default time
+ *  might accidentally change the "day" the app displays based on the offset between UTC & the device's default time
  *  zone.  For example: 02/12/2016 01:26 UTC converted to EST is 02/11/2016 20:26, one day off!
  *
  *  @return A string formatted with the current locale, in the UTC time zone.

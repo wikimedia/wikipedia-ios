@@ -9,7 +9,7 @@ class TextSizeChangeExampleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         apply(theme: self.theme)
-        textSizeChangeExampleLabel.text = WMFLocalizedString("appearance-settings-text-sizing-example-text", value: "Drag the slider to change the article text sizing. Utilize your system text size to resize other text areas in the app.", comment: "Example text of the the Adjust article text sizing section in Appearance settings")
+        textSizeChangeExampleLabel.text = WMFLocalizedString("appearance-settings-text-sizing-example-text", value: "Drag the slider to change the article text sizing. Utilize your system text size to resize other text areas in the app.", comment: "Example text of the Adjust article text sizing section in Appearance settings")
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.textSizeChanged(notification:)), name: NSNotification.Name(rawValue: FontSizeSliderViewController.WMFArticleFontSizeUpdatedNotification), object: nil)
     }
