@@ -1,7 +1,26 @@
 
 import Foundation
+import UIKit
 
-extension ArticleViewController {
+protocol ArticleAsLivingDocControllerDelegate: class {
+    var articleURL: URL { get }
+    var article: WMFArticle { get }
+    var messagingController: ArticleWebMessagingController { get }
+    var theme: Theme { get }
+    var webView: WKWebView { get }
+    var leadImageContainerView: UIView { get }
+    func updateArticleMargins()
+}
+
+public class ArticleAsLivingDocController: NSObject {
+    
+    enum Errors: Error {
+        case viewModelInstantiationFailure
+    }
+    
+    private weak var delegate: (ArticleAsLivingDocControllerDelegate & ArticleAsLivingDocViewControllerDelegate & UIViewController)?
+    
+    var _articleAsLivingDocViewModel: ArticleAsLivingDocViewModel?
     var articleAsLivingDocViewModel: ArticleAsLivingDocViewModel? {
         get {
             return _articleAsLivingDocViewModel
@@ -34,13 +53,26 @@ extension ArticleViewController {
             }
         }
     }
+    var articleAsLivingDocEditMetrics: [NSNumber]?
+    
+    
+    //making lazy to be able to limit just this property to 13+
+    @available(iOS 13.0, *)
+    lazy var articleAsLivingDocViewController: ArticleAsLivingDocViewController? = {
+        return nil
+    }()
     
     var shouldAttemptToShowArticleAsLivingDoc: Bool {
+        
+        guard let delegate = delegate,
+              let view = delegate.view else {
+            return false
+        }
         
         //todo: need A/B test logic (falls in test and visiting article in allowed list)
         let isDeviceRTL = view.effectiveUserInterfaceLayoutDirection == .rightToLeft
         let isENWikipediaArticle: Bool
-        if let host = articleURL.host,
+        if let host = delegate.articleURL.host,
            host == Configuration.Domain.englishWikipedia {
             isENWikipediaArticle = true
         } else {
@@ -68,23 +100,79 @@ extension ArticleViewController {
         return false
     }
     
-    func scheduleInjectArticleAsLivingDocSkeleton() {
+    var injectingSkeleton = false
+    var loadingArticleContent = true
+    var isPullToRefreshing = true
+
+    required init(delegate: (ArticleAsLivingDocControllerDelegate & ArticleAsLivingDocViewControllerDelegate & UIViewController)) {
+        self.delegate = delegate
+    }
+    
+    func articleTitleAndSiteURL() -> (title: String, siteURL: URL)? {
+        
+        guard let delegate = delegate else {
+            return nil
+        }
+        
+        if let title = delegate.articleURL.wmf_title?.denormalizedPageTitle,
+           let siteURL = delegate.articleURL.wmf_site {
+            return (title, siteURL)
+        }
+        
+        return nil
+    }
+    
+    func articleDidTriggerPullToRefresh() {
+        articleAsLivingDocViewModel = nil
+        isPullToRefreshing = true
+    }
+    
+    func articleContentFinishedLoading() {
+        self.loadingArticleContent = false
+        let delay = self.isPullToRefreshing ? 0.0 : 0.3
+        self.isPullToRefreshing = false
+        if self.articleAsLivingDocViewModel != nil {
+            self.configureForArticleAsLivingDocResult()
+        } else {
+            self.scheduleInjectArticleAsLivingDocSkeletonAfterDelay(delay)
+        }
+    }
+    
+    func articleContentWillBeginLoading() {
+        loadingArticleContent = true
+        articleAsLivingDocViewModel = nil
+        fetchInitialArticleAsLivingDoc()
+    }
+    
+    func setupLeadImageView() {
+        if (shouldAttemptToShowArticleAsLivingDoc) {
+            toggleContentVisibilityExceptLeadImage(shouldHide: true)
+        }
+    }
+    
+    func scheduleInjectArticleAsLivingDocSkeletonAfterDelay(_ delay: TimeInterval) {
         
         guard shouldAttemptToShowArticleAsLivingDoc,
               articleAsLivingDocViewModel == nil else {
             return
         }
-        perform(#selector(injectArticleAsLivingDocSkeletonIfNeeded), with: nil, afterDelay: 0.5)
+        
+        if delay > 0 {
+            perform(#selector(injectArticleAsLivingDocSkeletonIfNeeded), with: nil, afterDelay: delay)
+        } else {
+            injectArticleAsLivingDocSkeletonIfNeeded()
+        }
     }
     
     @objc func injectArticleAsLivingDocSkeletonIfNeeded() {
         guard shouldAttemptToShowArticleAsLivingDoc,
-              articleAsLivingDocViewModel == nil else {
+              articleAsLivingDocViewModel == nil,
+              let delegate = delegate else {
             return
         }
         
         injectingSkeleton = true
-        messagingController.injectSkeletonArticleAsLivingDocContent { [weak self] (success) in
+        delegate.messagingController.injectSkeletonArticleAsLivingDocContent { [weak self] (success) in
             
             guard let self = self else {
                 return
@@ -94,14 +182,13 @@ extension ArticleViewController {
                 self.injectingSkeleton = false
                 self.toggleContentVisibilityExceptLeadImage(shouldHide: false)
                 if self.articleAsLivingDocViewModel != nil {
-                    self.injectArticleAsALivingDocument {
-                        //nothing for now
-                    }
+                    self.injectArticleAsALivingDocument()
                 }
             }
             
             if (success) {
-                self.updateArticleMargins(completion: completion)
+                self.delegate?.updateArticleMargins()
+                completion()
             } else {
                 completion()
             }
@@ -113,11 +200,17 @@ extension ArticleViewController {
         // triggered via initial load or pull to refresh
         
         guard let articleTitleAndSiteURL = self.articleTitleAndSiteURL(),
-              shouldAttemptToShowArticleAsLivingDoc else {
+              shouldAttemptToShowArticleAsLivingDoc,
+              let delegate = delegate else {
             return
         }
         
-        articleAsLivingDocController.fetchArticleAsLivingDocViewModel(rvStartId: nil, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL) { (result) in
+        fetchArticleAsLivingDocViewModel(rvStartId: nil, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL) { [weak self] (result) in
+            
+            guard let self = self else {
+                return
+            }
+            
             defer {
                 self.configureForArticleAsLivingDocResult()
             }
@@ -130,7 +223,7 @@ extension ArticleViewController {
         }
         
         //tonitodo: might want to consider dispatch group here, to confirm edit metrics are there before view configuration occurs
-        articleAsLivingDocController.fetchEditMetrics(for: articleTitleAndSiteURL.title, pageURL: articleURL) { [weak self] result in
+        fetchEditMetrics(for: articleTitleAndSiteURL.title, pageURL: delegate.articleURL) { [weak self] result in
             DispatchQueue.main.async {
                 guard let self = self else {
                     return
@@ -148,18 +241,25 @@ extension ArticleViewController {
     
     func configureForArticleAsLivingDocResult() {
         
+        guard !loadingArticleContent else {
+            return
+        }
+        
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(injectArticleAsLivingDocSkeletonIfNeeded), object: nil)
         
         guard !injectingSkeleton else {
             return
         }
         
-        injectArticleAsALivingDocument {
-            self.toggleContentVisibilityExceptLeadImage(shouldHide: false)
-        }
+        injectArticleAsALivingDocument()
     }
     
-    func injectArticleAsALivingDocument(completion: @escaping () -> Void) {
+    func injectArticleAsALivingDocument() {
+        
+        guard let delegate = delegate else {
+            return
+        }
+        
         if let viewModel = articleAsLivingDocViewModel,
            shouldShowArticleAsLivingDoc {
             let htmlSnippets = viewModel.articleInsertHtmlSnippets
@@ -168,43 +268,75 @@ extension ArticleViewController {
             let topBadgeType: ArticleWebMessagingController.TopBadgeType = shouldShowNewChangesBadge ? .newChanges : .lastUpdated
             let timestamp = shouldShowNewChangesBadge ? viewModel.newChangesTimestamp : viewModel.lastUpdatedTimestamp
             
-            self.messagingController.injectArticleAsLivingDocContent(articleInsertHtmlSnippets: htmlSnippets, topBadgeType: topBadgeType, timestamp: timestamp) { (success) in
-                UserDefaults.standard.setValue(viewModel.sha, forKey: shaKey)
+            delegate.messagingController.injectArticleAsLivingDocContent(articleInsertHtmlSnippets: htmlSnippets, topBadgeType: topBadgeType, timestamp: timestamp) { [weak self, weak delegate] (success) in
+                
+                guard let self = self else {
+                    return
+                }
                 
                 if (success) {
-                    self.updateArticleMargins(completion: completion)
-                } else {
-                    completion()
+                    delegate?.updateArticleMargins()
                 }
+                
+                UserDefaults.standard.setValue(viewModel.sha, forKey: shaKey)
+                self.toggleContentVisibilityExceptLeadImage(shouldHide: false)
             }
-        } else if self.shouldAttemptToShowArticleAsLivingDoc {
-            self.toggleContentVisibilityExceptLeadImage(shouldHide: false)
+        } else if shouldAttemptToShowArticleAsLivingDoc {
+            toggleContentVisibilityExceptLeadImage(shouldHide: false)
         }
     }
     
     func presentArticleAsLivingDoc(scrollToInitialIndexPath initialIndexPath: IndexPath? = nil) {
+        
+        guard let delegate = delegate else {
+            return
+        }
+        
         if #available(iOS 13.0, *) {
             if let _ = articleAsLivingDocViewModel {
                 
-                articleAsLivingDocViewController = ArticleAsLivingDocViewController(articleTitle: article.displayTitle, editMetrics: articleAsLivingDocEditMetrics, theme: theme, delegate: self, scrollToInitialIndexPath: initialIndexPath)
-                articleAsLivingDocViewController?.apply(theme: theme)
+                articleAsLivingDocViewController = ArticleAsLivingDocViewController(articleTitle: delegate.article.displayTitle, editMetrics: articleAsLivingDocEditMetrics, theme: delegate.theme, delegate: delegate, scrollToInitialIndexPath: initialIndexPath)
+                articleAsLivingDocViewController?.apply(theme: delegate.theme)
                 
                 if let articleAsLivingDocViewController = articleAsLivingDocViewController {
-                    let navigationController = WMFThemeableNavigationController(rootViewController: articleAsLivingDocViewController, theme: theme)
+                    let navigationController = WMFThemeableNavigationController(rootViewController: articleAsLivingDocViewController, theme: delegate.theme)
                     navigationController.modalPresentationStyle = .pageSheet
                     navigationController.isNavigationBarHidden = true
-                    present(navigationController, animated: true)
+                    delegate.present(navigationController, animated: true)
                 }
             }
         }
     }
     
     func toggleContentVisibilityExceptLeadImage(shouldHide: Bool) {
-        webView.scrollView.subviews.forEach { (view) in
-            if view != leadImageContainerView {
-                view.isHidden = shouldHide
+        //seems usually thanks to a margin update taking a little bit of time, pushing the
+        //unhide out a little bit gives us a smoother experience
+        
+        guard let delegate = delegate else {
+            return
+        }
+        
+        let toggleBlock = { [weak delegate] in
+            
+            guard let delegate = delegate else {
+                return
+            }
+            
+            delegate.webView.scrollView.subviews.forEach { (view) in
+                if view != delegate.leadImageContainerView {
+                    view.isHidden = shouldHide
+                }
             }
         }
+        
+        if !shouldHide {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
+                toggleBlock()
+            }
+        } else {
+            toggleBlock()
+        }
+        
     }
     
     func handleArticleAsLivingDocLinkForAnchor(_ anchor: String) {
@@ -223,9 +355,38 @@ extension ArticleViewController {
         let indexPath = IndexPath(item: item, section: section)
         presentArticleAsLivingDoc(scrollToInitialIndexPath: indexPath)
     }
-}
-
-extension ArticleViewController: ArticleAsLivingDocViewControllerDelegate {
+    
+    //MARK: Fetcher Methods
+    private let fetcher = SignificantEventsFetcher()
+    func fetchArticleAsLivingDocViewModel(rvStartId: UInt? = nil, title: String, siteURL: URL, completion: @escaping ((Result<ArticleAsLivingDocViewModel, Error>) -> Void)) {
+        fetcher.fetchSignificantEvents(rvStartId: rvStartId, title: title, siteURL: siteURL) { (result) in
+            switch result {
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
+            case .success(let significantEvents):
+                if let viewModel = ArticleAsLivingDocViewModel(significantEvents: significantEvents) {
+                    DispatchQueue.main.async {
+                        completion(.success(viewModel))
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        completion(.failure(ArticleAsLivingDocController.Errors.viewModelInstantiationFailure))
+                    }
+                }
+            }
+        }
+    }
+    
+    func fetchEditMetrics(for pageTitle: String, pageURL: URL, completion: @escaping (Result<[NSNumber], Error>) -> Void ) {
+        fetcher.fetchEditMetrics(for: pageTitle, pageURL: pageURL) { (result) in
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }
+    }
+    
     func fetchNextPage(nextRvStartId: UInt) {
         if #available(iOS 13.0, *) {
             guard let articleTitleAndSiteURL = self.articleTitleAndSiteURL(),
@@ -233,7 +394,12 @@ extension ArticleViewController: ArticleAsLivingDocViewControllerDelegate {
                 return
             }
             
-            articleAsLivingDocController.fetchArticleAsLivingDocViewModel(rvStartId: nextRvStartId, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL) { (result) in
+            fetchArticleAsLivingDocViewModel(rvStartId: nextRvStartId, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL) { [weak self] (result) in
+                
+                guard let self = self else {
+                    return
+                }
+                
                 switch result {
                 case .failure(let error):
                     DDLogDebug("Failure fetching next significant events page \(error)")

@@ -56,17 +56,7 @@ class ArticleViewController: ViewController, HintPresenting {
     
     internal lazy var fetcher: ArticleFetcher = ArticleFetcher(session: session, configuration: configuration)
     
-    //Begin: ---Article As Living Doc Properties---
-    var _articleAsLivingDocViewModel: ArticleAsLivingDocViewModel?
-    var articleAsLivingDocEditMetrics: [NSNumber]?
-    //making lazy to be able to limit just this property to 13+
-    @available(iOS 13.0, *)
-    lazy var articleAsLivingDocViewController: ArticleAsLivingDocViewController? = {
-        return nil
-    }()
-    lazy var articleAsLivingDocController = ArticleAsLivingDocController()
-    var injectingSkeleton = false
-    //End: ---Article As Living Doc Properties---
+    lazy var articleAsLivingDocController = ArticleAsLivingDocController(delegate: self)
 
     private var leadImageHeight: CGFloat = 210
 
@@ -262,19 +252,16 @@ class ArticleViewController: ViewController, HintPresenting {
         updateArticleMargins()
     }
     
-    internal func updateArticleMargins(completion: (() -> Void)? = nil) {
+    internal func updateArticleMargins() {
         
-        if (shouldShowArticleAsLivingDoc) {
+        if (articleAsLivingDocController.shouldShowArticleAsLivingDoc) {
             var margins = articleMargins
             margins.left = 0
             margins.right = 0
             messagingController.updateMargins(with: margins, leadImageHeight: leadImageHeightConstraint.constant)
-            messagingController.customUpdateMargins(with: articleMargins) {
-                completion?()
-            }
+            messagingController.customUpdateMargins(with: articleMargins)
         } else {
             messagingController.updateMargins(with: articleMargins, leadImageHeight: leadImageHeightConstraint.constant)
-            completion?()
         }
         
         updateLeadImageMargins()
@@ -345,8 +332,6 @@ class ArticleViewController: ViewController, HintPresenting {
             self.navigationItem.backButtonTitle = articleURL.wmf_title
             self.navigationItem.backButtonDisplayMode = .generic
         }
-        
-        fetchInitialArticleAsLivingDoc()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -409,15 +394,6 @@ class ArticleViewController: ViewController, HintPresenting {
         }
     }
     
-    func articleTitleAndSiteURL() -> (title: String, siteURL: URL)? {
-        if let title = articleURL.wmf_title?.denormalizedPageTitle,
-           let siteURL = articleURL.wmf_site {
-            return (title, siteURL)
-        }
-        
-        return nil
-    }
-    
     /// Waits for the article and article summary to finish loading (or re-loading) and performs post load actions
     func setupArticleLoadWaitGroup() {
         assert(Thread.isMainThread)
@@ -434,10 +410,11 @@ class ArticleViewController: ViewController, HintPresenting {
                 return
             }
             
+            self.articleAsLivingDocController.articleContentFinishedLoading()
+            
             self.setupFooter()
             self.shareIfNecessary()
             self.articleLoadWaitGroup = nil
-            self.scheduleInjectArticleAsLivingDocSkeleton()
         }
         
         guard let key = article.key else {
@@ -478,6 +455,7 @@ class ArticleViewController: ViewController, HintPresenting {
             return
         }
 
+        articleAsLivingDocController.articleContentWillBeginLoading()
         webView.load(request)
     }
     
@@ -694,7 +672,7 @@ class ArticleViewController: ViewController, HintPresenting {
     }
 
     internal func performWebViewRefresh(_ revisionID: UInt64? = nil) {
-        articleAsLivingDocViewModel = nil
+        articleAsLivingDocController.articleDidTriggerPullToRefresh()
         #if WMF_LOCAL_PAGE_CONTENT_SERVICE // on local PCS builds, reload everything including JS and CSS
             webView.reloadFromOrigin()
         #else // on release builds, just reload the page with a different cache policy
@@ -728,7 +706,7 @@ class ArticleViewController: ViewController, HintPresenting {
             return
         }
         
-        handleArticleAsLivingDocLinkForAnchor(anchor)
+        articleAsLivingDocController.handleArticleAsLivingDocLinkForAnchor(anchor)
     }
     
     // MARK: Table of contents
@@ -919,9 +897,7 @@ private extension ArticleViewController {
         let imageBottomConstraint = leadImageContainerView.bottomAnchor.constraint(equalTo: leadImageView.bottomAnchor, constant: leadImageBorderHeight)
         NSLayoutConstraint.activate([topConstraint, leadingConstraint, trailingConstraint, leadImageHeightConstraint, imageTopConstraint, imageBottomConstraint, leadImageLeadingMarginConstraint, leadImageTrailingMarginConstraint])
         
-        if (shouldAttemptToShowArticleAsLivingDoc) {
-            toggleContentVisibilityExceptLeadImage(shouldHide: true)
-        }
+        articleAsLivingDocController.setupLeadImageView()
     }
     
     func setupPageContentServiceJavaScriptInterface(with completion: @escaping () -> Void) {
@@ -947,7 +923,7 @@ private extension ArticleViewController {
     
     func setupPageContentServiceJavaScriptInterface(with userGroups: [String]) {
         let areTablesInitiallyExpanded = UserDefaults.standard.wmf_isAutomaticTableOpeningEnabled
-        messagingController.shouldAttemptToShowArticleAsLivingDoc = shouldAttemptToShowArticleAsLivingDoc
+        messagingController.shouldAttemptToShowArticleAsLivingDoc = articleAsLivingDocController.shouldAttemptToShowArticleAsLivingDoc
         messagingController.setup(with: webView, language: articleLanguage, theme: theme, layoutMargins: articleMargins, leadImageHeight: leadImageHeight, areTablesInitiallyExpanded: areTablesInitiallyExpanded, userGroups: userGroups)
     }
     
@@ -1114,4 +1090,18 @@ extension ViewController  { // Putting extension on ViewController rather than A
             return viewForCalculation.readableContentGuide.layoutFrame.minX
         }
     }
+}
+
+extension ArticleViewController: ArticleAsLivingDocViewControllerDelegate {
+    var articleAsLivingDocViewModel: ArticleAsLivingDocViewModel? {
+        return articleAsLivingDocController.articleAsLivingDocViewModel
+    }
+    
+    func fetchNextPage(nextRvStartId: UInt) {
+        articleAsLivingDocController.fetchNextPage(nextRvStartId: nextRvStartId)
+    }
+}
+
+extension ArticleViewController: ArticleAsLivingDocControllerDelegate {
+    
 }

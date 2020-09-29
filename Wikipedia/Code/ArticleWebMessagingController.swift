@@ -409,7 +409,11 @@ extension ArticleWebMessagingController {
     func createAndInsertArticleContainerScript(innerHTML: String) -> String {
         return """
              //then create and insert new element
-             var sections = document.getElementById('pcs').getElementsByTagName('section');
+             var pcs = document.getElementById('pcs');
+             if (!pcs) {
+                return false;
+             }
+             var sections = pcs.getElementsByTagName('section');
              if (sections.length === 0) {
                  return false;
              }
@@ -427,7 +431,11 @@ extension ArticleWebMessagingController {
     func createAndInsertBadgeScript(innerHTML: String) -> String {
         return """
                     //then create and insert new element
-                    var headers = document.getElementById('pcs').getElementsByTagName('header');
+                    var pcs = document.getElementById('pcs');
+                    if (!pcs) {
+                        return false;
+                    }
+                    var headers = pcs.getElementsByTagName('header');
                     if (headers.length === 0) {
                         return false;
                     }
@@ -556,7 +564,7 @@ extension ArticleWebMessagingController {
     //should be used only when significant events is active
     //we are manually suppressing left and right body margins in standard view
     //and adding back in as padding so we get the edge to edge gray background
-    func customUpdateMargins(with layoutMargins: UIEdgeInsets, completion: (() -> Void)? = nil) {
+    func customUpdateMargins(with layoutMargins: UIEdgeInsets) {
         let javascript = """
             function customUpdateMargins() {
                  document.body.style.paddingLeft = "\(layoutMargins.left)px";
@@ -582,10 +590,6 @@ extension ArticleWebMessagingController {
             if let success = success as? Bool,
                success == false {
                 DDLogDebug("Failure in customUpdateMargins")
-            }
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-                completion?()
             }
         }
     }
