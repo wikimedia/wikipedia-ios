@@ -291,7 +291,7 @@ struct MainOnThisDayElement: View {
                             .font(.caption)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.top, 9)
-                            .padding(.bottom, (widgetSize == .systemSmall ? 16 : 8))
+                            .padding(.bottom, (widgetSize == .systemMedium ? 4 : 8))
                 ).layoutPriority(1.0)
             }
         }.layoutPriority(1.0)
@@ -429,12 +429,12 @@ struct OnThisDayAdditionalEventsElement: View {
                 .lineLimit(1)
                 .foregroundColor(OnThisDayColors.blueColor(colorScheme))
                 .frame(maxWidth: .infinity, alignment: .topLeading)
-            .padding(.top, 8)
+            .padding(.top, 2)
             .overlay (
                 GeometryReader { geometryProxy in
                   Color.clear
-                    .preference(key: SmallYValuePreferenceKey.self, value: startYOfCircle(viewHeight: geometryProxy.size.height, circleHeight: TimelineSmallCircleElement.smallCircleHeight, topPadding: 4))
-                    /// The padding of 4 is a little arbitrary. These views aren't perfectly laid out in SwiftUI - see the "+20" comment above - and we needed an extra 4 points to make this layout properly.
+                    .preference(key: SmallYValuePreferenceKey.self, value: startYOfCircle(viewHeight: geometryProxy.size.height, circleHeight: TimelineSmallCircleElement.smallCircleHeight, topPadding: 0))
+                    /// The padding of 0 is a little arbitrary. These views aren't perfectly laid out in SwiftUI - see the "+20" comment above - and depending on spacing/padding we sometims need to tweak the padding to make this layout properly.
                 }
             )
             .padding(.bottom, 16)
