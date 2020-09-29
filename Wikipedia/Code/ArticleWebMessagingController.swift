@@ -382,6 +382,100 @@ extension ArticleWebMessagingController {
         case newChanges
     }
     
+    var articleAsLivingDocBoxContainerID: String {
+        return "significant-changes-container"
+    }
+    var badgeHTMLContainerID: String {
+        return "significant-changes-top-container"
+    }
+    var articleAsLivingDocBoxContainerHTMLStart: String {
+        return "<div id='\(articleAsLivingDocBoxContainerID)'>"
+    }
+    var articleAsLivingDocBoxInnerContainerHTMLStart: String {
+        return "<div id='significant-changes-inner-container'>"
+    }
+    var articleAsLivingDocBoxInnerContainerHTMLEnd: String {
+        return "</div>"
+    }
+    var articleAsLivingDocBoxContainerHTMLEnd: String {
+        return "</div>"
+    }
+    var badgeHTMLContainerStart: String {
+        return "<div id='\(badgeHTMLContainerID)'>"
+    }
+    var badgeHTMLContainerEnd: String {
+        return "</div>"
+    }
+    func createAndInsertArticleContainerScript(innerHTML: String) -> String {
+        return """
+             //then create and insert new element
+             var sections = document.getElementById('pcs').getElementsByTagName('section');
+             if (sections.length === 0) {
+                 return false;
+             }
+             var firstSection = sections[0];
+             var pTags = firstSection.getElementsByTagName('p');
+             if (pTags.length === 0) {
+                 return false;
+             }
+             var firstParagraph = pTags[0];
+             firstParagraph.insertAdjacentHTML("afterend","\(articleAsLivingDocBoxContainerHTMLStart + innerHTML + articleAsLivingDocBoxContainerHTMLEnd)");
+             return true;
+        """
+    }
+    
+    func createAndInsertBadgeScript(innerHTML: String) -> String {
+        return """
+                    //then create and insert new element
+                    var headers = document.getElementById('pcs').getElementsByTagName('header');
+                    if (headers.length === 0) {
+                        return false;
+                    }
+                    var firstHeader = headers[0];
+                    firstHeader.insertAdjacentHTML("afterbegin","\(badgeHTMLContainerStart + innerHTML + badgeHTMLContainerEnd)");
+                    return true;
+        """
+    }
+    
+    func injectSkeletonArticleAsLivingDocContent(completion: ((Bool) -> Void)? = nil) {
+        
+        let innerBoxHTML = "<div id='significant-changes-skeleton'></div>"
+        let innerBadgeHTML = "<div id='significant-changes-top-skeleton'></div>"
+        
+        let javascript = """
+            function injectSignificantEventsContent() {
+                \(createAndInsertArticleContainerScript(innerHTML: innerBoxHTML))
+            }
+            injectSignificantEventsContent();
+
+            function injectNewChangesBadge() {
+                \(createAndInsertBadgeScript(innerHTML: innerBadgeHTML))
+            }
+            injectNewChangesBadge();
+        """
+        
+        webView?.evaluateJavaScript(javascript) { (result, error) in
+            DispatchQueue.main.async {
+                if let error = error {
+                    DDLogDebug("Failure in injectSkeletonArticleAsLivingDocContent: \(error)")
+                    completion?(false)
+                    return
+                }
+                
+                if let boolResult = result as? Bool {
+                    if !boolResult {
+                        DDLogDebug("Failure in injectSkeletonArticleAsLivingDocContent")
+                    }
+                    completion?(boolResult)
+                    return
+                }
+                
+                DDLogDebug("Failure in injectSkeletonArticleAsLivingDocContent")
+                completion?(false)
+            }
+        }
+    }
+    
     //tonitodo: possible way to have overlay link work - https://stackoverflow.com/a/46707009
     func injectArticleAsLivingDocContent(articleInsertHtmlSnippets: [String], topBadgeType: TopBadgeType = .lastUpdated, timestamp: String? = nil, _ completion: ((Bool) -> Void)? = nil) {
         
@@ -390,67 +484,47 @@ extension ArticleWebMessagingController {
             return
         }
         
-        var articleAsLivingDocBoxHTML = "<div id='significant-changes-container'><div id='significant-changes-inner-container'><h4 id='significant-changes-header'>RECENT CHANGES</h4><ul id='significant-changes-list'>"
+        var articleAsLivingDocBoxInnerHTML = "\(articleAsLivingDocBoxInnerContainerHTMLStart)<h4 id='significant-changes-header'>RECENT CHANGES</h4><ul id='significant-changes-list'>"
         
         for articleInsertHtmlSnippet in articleInsertHtmlSnippets {
-            articleAsLivingDocBoxHTML += articleInsertHtmlSnippet
+            articleAsLivingDocBoxInnerHTML += articleInsertHtmlSnippet
         }
         
-        articleAsLivingDocBoxHTML += "</ul><hr id='significant-changes-hr'><p id='significant-changes-read-more'><a href='#significant-events-read-more'>Read more updates</a></p></div></div>"
+        articleAsLivingDocBoxInnerHTML += "</ul><hr id='significant-changes-hr'><p id='significant-changes-read-more'><a href='#significant-events-read-more'>Read more updates</a></p>\(articleAsLivingDocBoxInnerContainerHTMLEnd)"
         
         var javascript = """
             function injectSignificantEventsContent() {
                  //first remove existing element if it's there
-                 var existing = document.getElementById('significant-changes-container');
+                 var existing = document.getElementById('\(articleAsLivingDocBoxContainerID)');
                  if (existing) {
-                     existing.remove();
+                     existing.innerHTML = "\(articleAsLivingDocBoxInnerHTML)";
+                     return true;
                  }
-                 //then create and insert new element
-                 var sections = document.getElementById('pcs').getElementsByTagName('section');
-                 if (sections.length === 0) {
-                     return false;
-                 }
-                 var firstSection = sections[0];
-                 var pTags = firstSection.getElementsByTagName('p');
-                 if (pTags.length === 0) {
-                     return false;
-                 }
-                 var firstParagraph = pTags[0];
-                 firstParagraph.insertAdjacentHTML("afterend","\(articleAsLivingDocBoxHTML)");
-                 return true;
+                 \(createAndInsertArticleContainerScript(innerHTML: articleAsLivingDocBoxInnerHTML))
             }
             injectSignificantEventsContent();
         """
-
-            
         
         if let timestamp = timestamp {
             let innerContainerID = topBadgeType == .lastUpdated ? "significant-changes-top-inner-container-last-updated" : "significant-changes-top-inner-container-new-changes"
             let topTextID = topBadgeType == .lastUpdated ? "significant-changes-top-text-last-updated" : "significant-changes-top-text-new-changes"
             let badgeText = topBadgeType == .lastUpdated ? "Last updated" : "New changes"
-            var newChangesBadgeHTML = "<div id='significant-changes-top-container'><div id='\(innerContainerID)'>"
+            var badgeInnerHTML = "<div id='significant-changes-top-container'><div id='\(innerContainerID)'>"
             if topBadgeType == .newChanges {
-                newChangesBadgeHTML += "<span id='significant-changes-top-dot'></span>"
+                badgeInnerHTML += "<span id='significant-changes-top-dot'></span>"
             }
-            newChangesBadgeHTML += "<span id='\(topTextID)'>\(badgeText)</span></div>"
-            newChangesBadgeHTML += "<span id='significant-changes-top-timestamp'>\(timestamp)</span>"
-            newChangesBadgeHTML += "</div>"
+            badgeInnerHTML += "<span id='\(topTextID)'>\(badgeText)</span></div>"
+            badgeInnerHTML += "<span id='significant-changes-top-timestamp'>\(timestamp)</span>"
             
             javascript += """
                 function injectNewChangesBadge() {
                     //first remove existing element if it's there
-                    var existing = document.getElementById('new-changes-container');
+                    var existing = document.getElementById('\(badgeHTMLContainerID)');
                     if (existing) {
-                        existing.remove();
+                        existing.innerHTML = "\(badgeInnerHTML)";
+                        return true;
                     }
-                    //then create and insert new element
-                    var headers = document.getElementById('pcs').getElementsByTagName('header');
-                    if (headers.length === 0) {
-                        return false;
-                    }
-                    var firstHeader = headers[0];
-                    firstHeader.insertAdjacentHTML("afterbegin","\(newChangesBadgeHTML)");
-                    return true;
+                    \(createAndInsertBadgeScript(innerHTML: badgeInnerHTML))
                 }
                 
                 injectNewChangesBadge();
@@ -482,7 +556,7 @@ extension ArticleWebMessagingController {
     //should be used only when significant events is active
     //we are manually suppressing left and right body margins in standard view
     //and adding back in as padding so we get the edge to edge gray background
-    func customUpdateMargins(with layoutMargins: UIEdgeInsets) {
+    func customUpdateMargins(with layoutMargins: UIEdgeInsets, completion: (() -> Void)? = nil) {
         let javascript = """
             function customUpdateMargins() {
                  document.body.style.paddingLeft = "\(layoutMargins.left)px";
@@ -509,6 +583,8 @@ extension ArticleWebMessagingController {
                success == false {
                 DDLogDebug("Failure in customUpdateMargins")
             }
+            
+            completion?()
         }
     }
 }

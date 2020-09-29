@@ -292,15 +292,16 @@ class ArticleViewController: ViewController, HintPresenting {
         updateArticleMargins()
     }
     
-    internal func updateArticleMargins() {
+    internal func updateArticleMargins(completion: (() -> Void)? = nil) {
         if (shouldShowArticleAsLivingDoc) {
             var margins = articleMargins
             margins.left = 0
             margins.right = 0
             messagingController.updateMargins(with: margins, leadImageHeight: leadImageHeightConstraint.constant)
-            messagingController.customUpdateMargins(with: articleMargins)
+            messagingController.customUpdateMargins(with: articleMargins, completion: completion)
         } else {
             messagingController.updateMargins(with: articleMargins, leadImageHeight: leadImageHeightConstraint.constant)
+            completion?()
         }
         
         updateLeadImageMargins()
@@ -493,24 +494,8 @@ class ArticleViewController: ViewController, HintPresenting {
             
             self.setupFooter()
             self.shareIfNecessary()
-            if let viewModel = self.articleAsLivingDocViewModel,
-               self.shouldShowArticleAsLivingDoc {
-                let htmlSnippets = viewModel.articleInsertHtmlSnippets
-                let shaKey = "significant-events-sha"
-                let shouldShowNewChangesBadge = viewModel.sha != nil ? UserDefaults.standard.string(forKey: shaKey) != viewModel.sha : false
-                let topBadgeType: ArticleWebMessagingController.TopBadgeType = shouldShowNewChangesBadge ? .newChanges : .lastUpdated
-                let timestamp = shouldShowNewChangesBadge ? viewModel.newChangesTimestamp : viewModel.lastUpdatedTimestamp
-                self.messagingController.injectArticleAsLivingDocContent(articleInsertHtmlSnippets: htmlSnippets, topBadgeType: topBadgeType, timestamp: timestamp) { (success) in
-                    self.toggleContentVisibilityExceptLeadImage(shouldHide: false)
-                    UserDefaults.standard.setValue(viewModel.sha, forKey: shaKey)
-                    if (success) {
-                        self.updateArticleMargins()
-                    }
-                }
-            } else if self.shouldAttemptToShowArticleAsLivingDoc {
-                self.toggleContentVisibilityExceptLeadImage(shouldHide: false)
-            }
             self.articleLoadWaitGroup = nil
+            self.scheduleInjectArticleAsLivingDocSkeleton()
         }
         
         guard let key = article.key else {
@@ -539,14 +524,50 @@ class ArticleViewController: ViewController, HintPresenting {
             }
         }
         
-        fetchInitialSignificantEvents {
-            articleLoadWaitGroup?.enter()
-        } didLoadBlock: {
-            self.articleLoadWaitGroup?.leave()
+        fetchInitialArticleAsLivingDoc()
+    }
+    
+    func scheduleInjectArticleAsLivingDocSkeleton() {
+        
+        guard shouldAttemptToShowArticleAsLivingDoc,
+              articleAsLivingDocViewModel == nil else {
+            return
+        }
+        
+        perform(#selector(injectArticleAsLivingDocSkeletonIfNeeded), with: nil, afterDelay: 0.5)
+    }
+    
+    var injectingSkeleton = false
+    @objc func injectArticleAsLivingDocSkeletonIfNeeded() {
+        guard shouldAttemptToShowArticleAsLivingDoc,
+              articleAsLivingDocViewModel == nil else {
+            return
+        }
+        
+        injectingSkeleton = true
+        messagingController.injectSkeletonArticleAsLivingDocContent { [weak self] (success) in
+            
+            guard let self = self else {
+                return
+            }
+            
+            let completion = {
+                if self.articleAsLivingDocViewModel != nil {
+                    self.injectArticleAsALivingDocument()
+                }
+                self.injectingSkeleton = false
+                self.toggleContentVisibilityExceptLeadImage(shouldHide: false)
+            }
+            
+            if (success) {
+                self.updateArticleMargins(completion: completion)
+            } else {
+                completion()
+            }
         }
     }
     
-    func fetchInitialSignificantEvents(willLoadBlock: () -> Void, didLoadBlock: @escaping () -> Void) {
+    func fetchInitialArticleAsLivingDoc() {
         
         // triggered via initial load or pull to refresh
         
@@ -555,11 +576,9 @@ class ArticleViewController: ViewController, HintPresenting {
             return
         }
         
-        willLoadBlock()
-        
         articleAsLivingDocController.fetchArticleAsLivingDocViewModel(rvStartId: nil, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL) { (result) in
             defer {
-                didLoadBlock()
+                self.configureForArticleAsLivingDocResult()
             }
             switch result {
             case .success(let articleAsLivingDocViewModel):
@@ -569,9 +588,7 @@ class ArticleViewController: ViewController, HintPresenting {
             }
         }
         
-        // purposefully not calling willLoadBlock or didLoadBlock here
-        // don't want to block article loading on yet another call
-        // if it seems to be a problem we'll add it back in.
+        //tonitodo: might want to consider dispatch group here, to confirm edit metrics are there before view configuration occurs
         articleAsLivingDocController.fetchEditMetrics(for: articleTitleAndSiteURL.title, pageURL: articleURL) { [weak self] result in
             DispatchQueue.main.async {
                 guard let self = self else {
@@ -585,6 +602,44 @@ class ArticleViewController: ViewController, HintPresenting {
                     self.articleAsLivingDocEditMetrics = timeseriesOfEditCounts
                 }
             }
+        }
+    }
+    
+    func configureForArticleAsLivingDocResult() {
+        
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(injectArticleAsLivingDocSkeletonIfNeeded), object: nil)
+        
+        guard !injectingSkeleton else {
+            return
+        }
+        
+        injectArticleAsALivingDocument()
+    }
+    
+    func injectArticleAsALivingDocument() {
+        if let viewModel = articleAsLivingDocViewModel,
+           shouldShowArticleAsLivingDoc {
+            let htmlSnippets = viewModel.articleInsertHtmlSnippets
+            let shaKey = "significant-events-sha"
+            let shouldShowNewChangesBadge = viewModel.sha != nil ? UserDefaults.standard.string(forKey: shaKey) != viewModel.sha : false
+            let topBadgeType: ArticleWebMessagingController.TopBadgeType = shouldShowNewChangesBadge ? .newChanges : .lastUpdated
+            let timestamp = shouldShowNewChangesBadge ? viewModel.newChangesTimestamp : viewModel.lastUpdatedTimestamp
+            
+            self.messagingController.injectArticleAsLivingDocContent(articleInsertHtmlSnippets: htmlSnippets, topBadgeType: topBadgeType, timestamp: timestamp) { (success) in
+                UserDefaults.standard.setValue(viewModel.sha, forKey: shaKey)
+                
+                let completion = {
+                    self.toggleContentVisibilityExceptLeadImage(shouldHide: false)
+                }
+                
+                if (success) {
+                    self.updateArticleMargins(completion: completion)
+                } else {
+                    completion()
+                }
+            }
+        } else if self.shouldAttemptToShowArticleAsLivingDoc {
+            self.toggleContentVisibilityExceptLeadImage(shouldHide: false)
         }
     }
     
@@ -1072,6 +1127,14 @@ private extension ArticleViewController {
         
         if (shouldAttemptToShowArticleAsLivingDoc) {
             toggleContentVisibilityExceptLeadImage(shouldHide: true)
+        }
+    }
+    
+    func toggleContentVisibilityExceptLeadImage(shouldHide: Bool) {
+        webView.scrollView.subviews.forEach { (view) in
+            if view != leadImageContainerView {
+                view.isHidden = shouldHide
+            }
         }
     }
     

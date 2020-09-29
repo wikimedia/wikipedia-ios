@@ -9,6 +9,11 @@ div#significant-changes-inner-container{
     box-shadow: none;
     padding:.75em .75em .1em
 }
+div#significant-changes-skeleton{
+    background-color:#ff0000;
+    width: 100%;
+    height: 20em;
+}
 h4#significant-changes-header{
     color:#646059;
     font-size:100%
@@ -81,6 +86,11 @@ p#significant-changes-read-more{
 }
 div#significant-changes-top-container {
     padding: .3em 0em .5em 0em;
+}
+div#significant-changes-top-skeleton{
+    background-color:#ff0000;
+    width: 8em;
+    height: 1.5em;
 }
 div#significant-changes-top-inner-container-new-changes {
     background-color: #00af89;
