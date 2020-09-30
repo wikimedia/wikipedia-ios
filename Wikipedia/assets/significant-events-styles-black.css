@@ -10,9 +10,20 @@ div#significant-changes-inner-container{
     padding:.75em .75em .1em
 }
 div#significant-changes-skeleton{
-    background-color:#ff0000;
+    background: #000000;
     width: 100%;
     height: 20em;
+    animation : shimmer 2s infinite;
+    background: linear-gradient(to right, #000000 0%, #202122 20%, #000000 80%);
+    background-size: 100% 100%;
+}
+@keyframes shimmer {
+  0% {
+    background-position: -20em 0;
+  }
+  100% {
+    background-position: 22em 0;
+  }
 }
 h4#significant-changes-header{
     color:#C8CCD1;
@@ -88,9 +99,21 @@ div#significant-changes-top-container {
     padding: .3em 0em .5em 0em;
 }
 div#significant-changes-top-skeleton{
-    background-color:#ff0000;
+    margin: .3em 0em .5em 0em;
+    background: #000000;
     width: 8em;
-    height: 1.5em;
+    height: 1.6em;
+    animation : shimmertop 2s infinite;
+    background: linear-gradient(to right, #000000 0%, #202122 20%, #000000 80%);
+    background-size: 100% 100%;
+}
+@keyframes shimmertop {
+  0% {
+    background-position: -8em 0;
+  }
+  100% {
+    background-position: 8em 0;
+  }
 }
 div#significant-changes-top-inner-container-new-changes {
     background-color: #00af89;

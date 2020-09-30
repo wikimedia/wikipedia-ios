@@ -10,9 +10,21 @@ div#significant-changes-inner-container{
     padding:.75em .75em .1em
 }
 div#significant-changes-skeleton{
-    background-color:#ff0000;
+    box-shadow:1px 3px 5px rgba(0,0,0,0.1);
+    background: #e9ebee;
     width: 100%;
     height: 20em;
+    animation : shimmer 2s infinite;
+    background: linear-gradient(to right, #e9ebee 0%, #f4f5f6 20%, #e9ebee 80%);
+    background-size: 100% 100%;
+}
+@keyframes shimmer {
+  0% {
+    background-position: -20em 0;
+  }
+  100% {
+    background-position: 22em 0;
+  }
 }
 h4#significant-changes-header{
     color:#72777d;
@@ -88,9 +100,21 @@ div#significant-changes-top-container {
     padding: .3em 0em .5em 0em;
 }
 div#significant-changes-top-skeleton{
-    background-color:#ff0000;
+    margin: .3em 0em .5em 0em;
+    background: #e9ebee;
     width: 8em;
-    height: 1.5em;
+    height: 1.6em;
+    animation : shimmertop 2s infinite;
+    background: linear-gradient(to right, #e9ebee 0%, #f4f5f6 20%, #e9ebee 80%);
+    background-size: 100% 100%;
+}
+@keyframes shimmertop {
+  0% {
+    background-position: -8em 0;
+  }
+  100% {
+    background-position: 8em 0;
+  }
 }
 div#significant-changes-top-inner-container-new-changes {
     background-color: #00af89;

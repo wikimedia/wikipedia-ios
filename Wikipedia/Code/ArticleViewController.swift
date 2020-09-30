@@ -254,7 +254,7 @@ class ArticleViewController: ViewController, HintPresenting {
     
     internal func updateArticleMargins() {
         
-        if (articleAsLivingDocController.shouldShowArticleAsLivingDoc) {
+        if (articleAsLivingDocController.shouldAttemptToShowArticleAsLivingDoc) {
             var margins = articleMargins
             margins.left = 0
             margins.right = 0
