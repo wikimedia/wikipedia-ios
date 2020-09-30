@@ -214,7 +214,7 @@ class ReadingListsAPIController: Fetcher {
      */
     func createList(name: String, description: String?, completion: @escaping (_ listID: Int64?,_ error: Error?) -> Swift.Void ) {
         let bodyParams = ["name": name.precomposedStringWithCanonicalMapping, "description": description ?? ""]
-        // empty string path is required to add the the trailing slash, server 404s otherwise
+        // empty string path is required to add the trailing slash, server 404s otherwise
         post(path: [""], bodyParameters: bodyParams) { (result, response, error) in
             guard let id = result?["id"] as? Int64 else {
                 completion(nil, error ?? ReadingListError.unableToCreateList)
@@ -502,7 +502,7 @@ class ReadingListsAPIController: Fetcher {
         if let next = next {
             queryParameters = ["next": next]
         }
-        // empty string path is required to add the the trailing slash, server 404s otherwise
+        // empty string path is required to add the trailing slash, server 404s otherwise
         get(path: [""], queryParameters: queryParameters) { (apiListsResponse: APIReadingLists?, response, error) in
             guard let apiListsResponse = apiListsResponse else {
                 completion([], nil, error)
