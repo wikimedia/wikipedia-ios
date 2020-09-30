@@ -1,4 +1,5 @@
 import UIKit
+import CocoaLumberjackSwift
 
 protocol ExploreCardViewControllerDelegate {
     var saveButtonsController: SaveButtonsController { get }

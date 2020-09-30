@@ -26,6 +26,17 @@ public final class PermanentCacheController: NSObject {
         CacheController.setupCoreDataStack(completion)
     }
     
+    /// Performs any necessary teardown on CacheController's internal storage
+    /// Exists on this @objc PermanentCacheController so it can be accessed from WMFDataStore
+    @objc public func teardown(_ completion: @escaping () -> Void) {
+        imageCache.cancelAllTasks()
+        articleCache.cancelAllTasks()
+        managedObjectContext.perform {
+            // Give a bit of a buffer for other async activity to cease
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100), execute: completion)
+        }
+    }
+    
     @objc public func fetchImage(withURL url: URL?, failure: @escaping (Error) -> Void, success: @escaping (ImageDownload) -> Void) {
         let _ = imageCache.fetchImage(withURL: url, failure: failure, success: success)
     }
