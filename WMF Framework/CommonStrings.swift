@@ -326,5 +326,8 @@ public class CommonStrings: NSObject {
     public static func onThisDayFooterWith(with eventCount: Int, language: String? = nil, locale: Locale = Locale.autoupdatingCurrent) -> String {
         return String(format: WMFLocalizedString("on-this-day-footer-with-event-count", language: language, value: "%1$d more historical events on this day", comment: "Footer for presenting user option to see longer list of 'On this day' articles. %1$@ will be substituted with the number of events"), locale: locale, eventCount)
     }
+    public static let articleAsLivingDocErrorTitle = WMFLocalizedString("aaald-error-title", value: "Unable to load inline article history", comment: "Title of error banner that appears at the bottom of an article when significant events fail to load.")
+    
+    public static let articleAsLivingDocErrorSubtitle = WMFLocalizedString("aaald-error-subitle", value: "Refresh to try again", comment: "Subtitle of error banner that appears at the bottom of an article when significant events fail to load.")
 }
 

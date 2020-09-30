@@ -1104,5 +1104,5 @@ extension ArticleViewController: ArticleAsLivingDocViewControllerDelegate {
 }
 
 extension ArticleViewController: ArticleAsLivingDocControllerDelegate {
-    
+
 }

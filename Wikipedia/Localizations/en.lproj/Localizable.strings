@@ -1,6 +1,8 @@
 "aaald-added-text-description" = "{{PLURAL:$1|0=0 characters|$1 character|$1 characters}} added";
 "aaald-article-description-updated-description" = "Article title description updated";
 "aaald-deleted-text-description" = "{{PLURAL:$1|0=0 characters|$1 character|$1 characters}} deleted";
+"aaald-error-subitle" = "Refresh to try again";
+"aaald-error-title" = "Unable to load inline article history";
 "aaald-many-sections-description" = "in $1 sections";
 "aaald-multiple-changes-description" = "Multiple changes made";
 "aaald-multiple-descriptions-delimiter" = ", ";

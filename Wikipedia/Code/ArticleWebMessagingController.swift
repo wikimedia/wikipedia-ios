@@ -374,7 +374,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
     }
 }
 
-//Significant Events
+//Article as a Living Document Scripts
 
 extension ArticleWebMessagingController {
     
@@ -383,6 +383,12 @@ extension ArticleWebMessagingController {
         case newChanges
     }
     
+    var articleAsLivingDocBoxSkeletonContainerID: String {
+        return "significant-changes-skeleton"
+    }
+    var badgeHTMLSkeletonContainerID: String {
+        return "significant-changes-top-skeleton"
+    }
     var articleAsLivingDocBoxContainerID: String {
         return "significant-changes-container"
     }
@@ -446,10 +452,60 @@ extension ArticleWebMessagingController {
         """
     }
     
+    func removeArticleAsLivingDocContent(completion: ((Bool) -> Void)? = nil) {
+        let javascript = """
+            function removeSignificantEventsContent() {
+                var boxSkeleton = document.getElementById('\(articleAsLivingDocBoxContainerID)');
+                var missingSkeletons = false;
+                if (boxSkeleton) {
+                    boxSkeleton.remove();
+                } else {
+                    missingSkeletons = true;
+                }
+
+                var topSkeleton = document.getElementById('\(badgeHTMLContainerID)');
+                if (topSkeleton) {
+                    topSkeleton.remove();
+                } else {
+                    missingSkeletons = true;
+                }
+                
+                if (missingSkeletons == true) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+            removeSignificantEventsContent();
+        """
+        
+        webView?.evaluateJavaScript(javascript) { (result, error) in
+            DispatchQueue.main.async {
+                if let error = error {
+                    DDLogDebug("Failure in removeSkeletonArticleAsLivingDocContent: \(error)")
+                    completion?(false)
+                    return
+                }
+                
+                if let boolResult = result as? Bool {
+                    if !boolResult {
+                        DDLogDebug("Failure in removeSkeletonArticleAsLivingDocContent")
+                    }
+                    completion?(boolResult)
+                    return
+                }
+                
+                DDLogDebug("Failure in removeSkeletonArticleAsLivingDocContent")
+                completion?(false)
+            }
+        }
+    }
+    
     func injectSkeletonArticleAsLivingDocContent(completion: ((Bool) -> Void)? = nil) {
         
-        let innerBoxHTML = "<div id='significant-changes-skeleton'></div>"
-        let innerBadgeHTML = "<div id='significant-changes-top-skeleton'></div>"
+        let innerBoxHTML = "<div id='\(articleAsLivingDocBoxSkeletonContainerID)'></div>"
+        let innerBadgeHTML = "<div id='\(badgeHTMLSkeletonContainerID)'></div>"
         
         let javascript = """
             function injectSignificantEventsContent() {
@@ -570,16 +626,23 @@ extension ArticleWebMessagingController {
             function customUpdateMargins() {
                  document.body.style.paddingLeft = "\(layoutMargins.left)px";
                  document.body.style.paddingRight = "\(layoutMargins.right)px";
-                 var seContainer = document.getElementById('significant-changes-container');
+                 var seContainer = document.getElementById('\(articleAsLivingDocBoxContainerID)');
+                 var skeletonContainer = document.getElementById('\(articleAsLivingDocBoxSkeletonContainerID)');
                  if (seContainer) {
                         seContainer.style.marginLeft = "-\(layoutMargins.left)px";
                         seContainer.style.marginRight = "-\(layoutMargins.right)px";
                         seContainer.style.paddingLeft = "\(layoutMargins.left)px";
                         seContainer.style.paddingRight = "\(layoutMargins.right)px";
-                        return true;
-                 } else {
-                      return false;
                  }
+
+                 if (skeletonContainer) {
+                        skeletonContainer.style.marginLeft = "-\(layoutMargins.left)px";
+                        skeletonContainer.style.marginRight = "-\(layoutMargins.right)px";
+                        skeletonContainer.style.paddingLeft = "\(layoutMargins.left)px";
+                        skeletonContainer.style.paddingRight = "\(layoutMargins.right)px";
+                 }
+
+                 return true;
             }
             customUpdateMargins();
         """

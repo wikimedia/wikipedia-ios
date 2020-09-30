@@ -386,6 +386,10 @@
 		67985A552523D80000EBF353 /* ArticleAsLivingDocController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6798036024F94CEE00D765AA /* ArticleAsLivingDocController.swift */; };
 		67985A562523D80000EBF353 /* ArticleAsLivingDocController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6798036024F94CEE00D765AA /* ArticleAsLivingDocController.swift */; };
 		67985A572523D80100EBF353 /* ArticleAsLivingDocController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6798036024F94CEE00D765AA /* ArticleAsLivingDocController.swift */; };
+		67985A862524E05F00EBF353 /* ArticleAsLivingDocHintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67985A852524E05F00EBF353 /* ArticleAsLivingDocHintViewController.swift */; };
+		67985A872524E05F00EBF353 /* ArticleAsLivingDocHintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67985A852524E05F00EBF353 /* ArticleAsLivingDocHintViewController.swift */; };
+		67985A882524E05F00EBF353 /* ArticleAsLivingDocHintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67985A852524E05F00EBF353 /* ArticleAsLivingDocHintViewController.swift */; };
+		67985A892524E05F00EBF353 /* ArticleAsLivingDocHintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67985A852524E05F00EBF353 /* ArticleAsLivingDocHintViewController.swift */; };
 		679F0AA92456FADE00EF4A6A /* ArticleCacheReadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679F0AA82456FADE00EF4A6A /* ArticleCacheReadingTests.swift */; };
 		679F0AAD24574AD400EF4A6A /* ArticleViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679F0AAC24574AD400EF4A6A /* ArticleViewControllerTests.swift */; };
 		679FA104242E651C0095F3C6 /* ArticleManualPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679FA103242E651C0095F3C6 /* ArticleManualPerformanceTests.swift */; };
@@ -3446,6 +3450,7 @@
 		6798036A24F94D6700D765AA /* SignificantEventsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignificantEventsModels.swift; sourceTree = "<group>"; };
 		6798331922C174ED0073CE6F /* LinkOnlyTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkOnlyTextView.swift; sourceTree = "<group>"; };
 		6798332822C3F28A0073CE6F /* UITextView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extensions.swift"; sourceTree = "<group>"; };
+		67985A852524E05F00EBF353 /* ArticleAsLivingDocHintViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocHintViewController.swift; sourceTree = "<group>"; };
 		679F0AA82456FADE00EF4A6A /* ArticleCacheReadingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCacheReadingTests.swift; sourceTree = "<group>"; };
 		679F0AAC24574AD400EF4A6A /* ArticleViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewControllerTests.swift; sourceTree = "<group>"; };
 		679FA103242E651C0095F3C6 /* ArticleManualPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleManualPerformanceTests.swift; sourceTree = "<group>"; };
@@ -6024,6 +6029,7 @@
 				67E2E48E250452E60070F12D /* ArticleAsLivingDocHeaderView.swift */,
 				6771C9532509FE6B00A7254B /* ArticleAsLivingDocHeaderView.xib */,
 				6798036024F94CEE00D765AA /* ArticleAsLivingDocController.swift */,
+				67985A852524E05F00EBF353 /* ArticleAsLivingDocHintViewController.swift */,
 			);
 			path = "Article as a Living Document";
 			sourceTree = "<group>";
@@ -10349,6 +10355,7 @@
 				B0E8071F1C0CEC8A0065EBC0 /* main.m in Sources */,
 				0E8DC0951C74F0D700622CBD /* WMFDailyStatsLoggingFunnel.m in Sources */,
 				D84F2BFC1D2FEE6300963D42 /* WMFRandomDiceButton.m in Sources */,
+				67985A862524E05F00EBF353 /* ArticleAsLivingDocHintViewController.swift in Sources */,
 				7A6ED51720ADBF950001849F /* UserHistoryFunnel.swift in Sources */,
 				7A1C4995227265CD00230ED2 /* InsertMediaSelectedImageViewController.swift in Sources */,
 				7A71566E22697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.swift in Sources */,
@@ -10926,6 +10933,7 @@
 				7A4D228021B1CD8600D889BD /* TextFormattingTableViewCell.swift in Sources */,
 				B0524B78214856A400D8FD8D /* UIViewController+DescriptionWelcomeStoryboard.swift in Sources */,
 				D8A42A9A1E815A9C00D8E281 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
+				67985A892524E05F00EBF353 /* ArticleAsLivingDocHintViewController.swift in Sources */,
 				7A6ED50C20ADBF950001849F /* SessionsFunnel.swift in Sources */,
 				D8A42A9B1E815A9C00D8E281 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
 				673411572273578A005B31DA /* TalkPageFetcher.swift in Sources */,
@@ -11640,6 +11648,7 @@
 				D8CE25D31E698E2400DAE2E0 /* Array<UITextField>+WMFAllFieldsFilled.swift in Sources */,
 				D8CE25D41E698E2400DAE2E0 /* NewsViewController.swift in Sources */,
 				D8CE25D51E698E2400DAE2E0 /* main.m in Sources */,
+				67985A882524E05F00EBF353 /* ArticleAsLivingDocHintViewController.swift in Sources */,
 				7AB809D122675B2300BFAB7C /* ThemeableTextView.swift in Sources */,
 				D8CE25D71E698E2400DAE2E0 /* WMFDailyStatsLoggingFunnel.m in Sources */,
 				83927D821F705B7B00051890 /* SearchResultsViewController.swift in Sources */,
@@ -11850,6 +11859,7 @@
 				7A35CB891FD82B6300AAF3B7 /* ReadingListDetailViewController.swift in Sources */,
 				7A9A612021124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */,
 				6782DBD52343FE03003FA21B /* DiffListGroupViewModel.swift in Sources */,
+				67985A872524E05F00EBF353 /* ArticleAsLivingDocHintViewController.swift in Sources */,
 				67E0690B22399D1C008550AC /* ReadingThemesControlsViewController.swift in Sources */,
 				67E069122239B33D008550AC /* FindAndReplaceKeyboardBar.swift in Sources */,
 				67DC5BF123A1427D00B03A84 /* ActionHandlerScript.swift in Sources */,

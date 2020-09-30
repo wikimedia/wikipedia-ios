@@ -19,7 +19,7 @@ public class ArticleAsLivingDocController: NSObject {
         case viewModelInstantiationFailure
     }
     
-    private weak var delegate: (ArticleAsLivingDocControllerDelegate & ArticleAsLivingDocViewControllerDelegate & UIViewController)?
+    private weak var delegate: (ArticleAsLivingDocControllerDelegate & ArticleAsLivingDocViewControllerDelegate & UIViewController & HintPresenting)?
     
     var _articleAsLivingDocViewModel: ArticleAsLivingDocViewModel?
     var articleAsLivingDocViewModel: ArticleAsLivingDocViewModel? {
@@ -102,10 +102,14 @@ public class ArticleAsLivingDocController: NSObject {
     }
     
     var injectingSkeleton = false
+    var hasSkeleton = false
     var loadingArticleContent = true
-    var isPullToRefreshing = true
+    var isPullToRefreshing = false
+    var failedLastInitialFetch = false
+    
+    var hintController: HintController?
 
-    required init(delegate: (ArticleAsLivingDocControllerDelegate & ArticleAsLivingDocViewControllerDelegate & UIViewController)) {
+    required init(delegate: (ArticleAsLivingDocControllerDelegate & ArticleAsLivingDocViewControllerDelegate & UIViewController & HintPresenting)) {
         self.delegate = delegate
     }
     
@@ -181,9 +185,12 @@ public class ArticleAsLivingDocController: NSObject {
             
             let completion = {
                 self.injectingSkeleton = false
+                self.hasSkeleton = true
                 self.toggleContentVisibilityExceptLeadImage(shouldHide: false)
                 if self.articleAsLivingDocViewModel != nil {
                     self.injectArticleAsALivingDocument()
+                } else if self.failedLastInitialFetch {
+                    self.showError()
                 }
             }
             
@@ -206,7 +213,8 @@ public class ArticleAsLivingDocController: NSObject {
             return
         }
         
-        fetchArticleAsLivingDocViewModel(rvStartId: nil, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL) { [weak self] (result) in
+        failedLastInitialFetch = false
+        fetchArticleAsLivingDocViewModel(rvStartId: nil, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL) { [weak self, weak delegate] (result) in
             
             guard let self = self else {
                 return
@@ -219,6 +227,11 @@ public class ArticleAsLivingDocController: NSObject {
             case .success(let articleAsLivingDocViewModel):
                 self.articleAsLivingDocViewModel = articleAsLivingDocViewModel
             case .failure(let error):
+                if self.hasSkeleton {
+                    self.showError()
+                } else {
+                    self.failedLastInitialFetch = true
+                }
                 DDLogDebug("Failure getting article as living doc view models: \(error)")
             }
         }
@@ -238,6 +251,11 @@ public class ArticleAsLivingDocController: NSObject {
                 }
             }
         }
+    }
+    
+    func showError() {
+        delegate?.messagingController.removeArticleAsLivingDocContent()
+        self.show(hintViewController: ArticleAsLivingDocHintViewController())
     }
     
     func configureForArticleAsLivingDocResult() {
@@ -276,6 +294,7 @@ public class ArticleAsLivingDocController: NSObject {
                 }
                 
                 if (success) {
+                    self.hasSkeleton = false
                     delegate?.updateArticleMargins()
                 }
                 
@@ -355,6 +374,26 @@ public class ArticleAsLivingDocController: NSObject {
         
         let indexPath = IndexPath(item: item, section: section)
         presentArticleAsLivingDoc(scrollToInitialIndexPath: indexPath)
+    }
+    
+    private func show(hintViewController: HintViewController){
+        
+        guard let delegate = delegate else {
+            return
+        }
+        
+        let showHint = {
+            self.hintController = HintController(hintViewController: hintViewController)
+            self.hintController?.toggle(presenter: delegate, context: nil, theme: delegate.theme)
+            self.hintController?.setHintHidden(false)
+        }
+        if let hintController = self.hintController {
+            hintController.setHintHidden(true) {
+                showHint()
+            }
+        } else {
+            showHint()
+        }
     }
     
     //MARK: Fetcher Methods
