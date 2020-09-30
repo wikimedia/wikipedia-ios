@@ -66,8 +66,13 @@ public class TimelineView: UIView {
         }
     }
 
-    private let dotRadius:CGFloat = 9.0
-    private let dotMinRadiusNormal:CGFloat = 0.4
+    private var dotRadius: CGFloat {
+        switch decoration {
+        case .singleDot: return 7.0
+        default: return 9.0
+        }
+    }
+    private let dotMinRadiusNormal: CGFloat = 0.4
 
     // At a height of less than 30, (due to rounding) the squiggle's curves don't perfectly align with the straight lines.
     private let squiggleHeight: CGFloat = 30.0

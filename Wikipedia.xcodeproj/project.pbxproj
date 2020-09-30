@@ -2086,7 +2086,6 @@
 		D84C36201F32404700895FA1 /* OnThisDayExploreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04034371F059243001B837B /* OnThisDayExploreCollectionViewCell.swift */; };
 		D84C36391F3241ED00895FA1 /* WMFGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8043E1C0CDF850065EBC0 /* WMFGradientView.m */; };
 		D84C363A1F3241F100895FA1 /* WMFGradientView.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8043D1C0CDF850065EBC0 /* WMFGradientView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D84C363B1F32422D00895FA1 /* OnThisDayTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B423721EFE20E300D3DC4C /* OnThisDayTimelineView.swift */; };
 		D84C363C1F32428A00895FA1 /* CircledRankView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8497F631EE09BE600100CBD /* CircledRankView.swift */; };
 		D84C363D1F32438B00895FA1 /* SizeThatFitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8497F681EE09D0200100CBD /* SizeThatFitsView.swift */; };
 		D84C363E1F32441800895FA1 /* WMFDynamicTypeExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D1B4591DDD02BB004FCAE6 /* WMFDynamicTypeExtentions.swift */; };
@@ -3924,7 +3923,6 @@
 		B0B423601EF9D69C00D3DC4C /* OnThisDayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnThisDayViewController.swift; sourceTree = "<group>"; };
 		B0B423661EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnThisDayViewControllerHeader.swift; sourceTree = "<group>"; };
 		B0B423671EF9D6D500D3DC4C /* OnThisDayViewControllerHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OnThisDayViewControllerHeader.xib; sourceTree = "<group>"; };
-		B0B423721EFE20E300D3DC4C /* OnThisDayTimelineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OnThisDayTimelineView.swift; path = Wikipedia/Code/OnThisDayTimelineView.swift; sourceTree = SOURCE_ROOT; };
 		B0B423781F0211A000D3DC4C /* WMFFeedArticlePreview+DescriptionOrSnippet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WMFFeedArticlePreview+DescriptionOrSnippet.swift"; sourceTree = "<group>"; };
 		B0B4CF081CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleLanguagesSectionHeader.h; sourceTree = "<group>"; };
 		B0B4CF091CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleLanguagesSectionHeader.m; sourceTree = "<group>"; };
@@ -8346,7 +8344,6 @@
 				7A2432EC1FCF469100FB4BA5 /* SetupView.swift */,
 				B0016CBE2136105900FA1096 /* SetupButton.swift */,
 				D8497F681EE09D0200100CBD /* SizeThatFitsView.swift */,
-				B0B423721EFE20E300D3DC4C /* OnThisDayTimelineView.swift */,
 				B0D1B4591DDD02BB004FCAE6 /* WMFDynamicTypeExtentions.swift */,
 				7A3159CE206458B000143119 /* ReadingListAlertType.swift */,
 				D84C36061F323FEE00895FA1 /* Collection View Cells */,
@@ -10771,7 +10768,6 @@
 				D82972951E4361C60061550A /* WMFKeyValue+CoreDataProperties.m in Sources */,
 				D8C41DDB23FC09EE00353DCE /* NSManagedObjectContext+History.swift in Sources */,
 				67F1375E23C986CD00512B61 /* CacheTaskTracking.swift in Sources */,
-				D84C363B1F32422D00895FA1 /* OnThisDayTimelineView.swift in Sources */,
 				835A042D223AD63000D4D758 /* ArticleSummaryController.swift in Sources */,
 				D844D9B81D6CB7980042D692 /* MWKRecentSearchEntry.m in Sources */,
 				D8FA18AF1E1BD891009675C3 /* NSNumberFormatter+WMFExtras.swift in Sources */,
