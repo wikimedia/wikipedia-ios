@@ -175,6 +175,11 @@ public class CacheController {
         fileWriter.cancelTasks(for: groupKey)
     }
     
+    public func cancelAllTasks() {
+        dbWriter.cancelAllTasks()
+        fileWriter.cancelAllTasks()
+    }
+    
     func shouldDownloadVariantForAllVariantItems(variant: String?, _ allVariantItems: [CacheController.ItemKeyAndVariant]) -> Bool {
         return dbWriter.shouldDownloadVariantForAllVariantItems(variant: variant, allVariantItems)
     }

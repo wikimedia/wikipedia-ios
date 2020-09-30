@@ -72,8 +72,11 @@ NS_ASSUME_NONNULL_BEGIN
     double maxScale = MAX(widthScale, heightScale);
     NSInteger targetWidth = imageWidth * maxScale;
     NSInteger targetHeight = imageHeight * maxScale;
-    if (targetHeight > WMFImageWidthExtraExtraLarge) {
-        double scaleDownForTooTallImage = (double)WMFImageWidthExtraLarge / targetHeight;
+    // The thumbnail service only constrains the width. In the case of a vertical panorama this
+    // could lead to downloading a very large image. To work around this, limit the maximum height.
+    NSInteger heightLimit = 1.5 * WMFImageWidthExtraExtraLarge;
+    if (targetHeight >  heightLimit) {
+        double scaleDownForTooTallImage = (double)heightLimit / targetHeight;
         targetWidth = targetWidth * scaleDownForTooTallImage;
     }
     if (targetWidth > imageWidth) {

@@ -1,4 +1,5 @@
 import Foundation
+import CocoaLumberjackSwift
 
 @objc(WMFArticleSummaryController)
 public class ArticleSummaryController: NSObject {

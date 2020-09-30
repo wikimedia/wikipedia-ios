@@ -1,5 +1,5 @@
 import WMF
-
+import CocoaLumberjackSwift
 
 extension ArticleViewController {
     func showAnnouncementIfNeeded() {

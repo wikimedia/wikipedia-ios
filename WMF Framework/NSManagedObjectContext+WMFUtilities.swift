@@ -1,3 +1,5 @@
+import CocoaLumberjackSwift
+
 public extension NSManagedObjectContext {
     func wmf_create<T: NSManagedObject>(entityNamed entityName: String, withValue value: Any, forKey key: String) -> T? {
         let object = NSEntityDescription.insertNewObject(forEntityName: entityName, into: self) as? T

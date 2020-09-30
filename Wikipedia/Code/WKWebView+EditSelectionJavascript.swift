@@ -1,5 +1,6 @@
 
 import WebKit
+import CocoaLumberjackSwift
 
 extension WKWebView {
     private func selectedTextEditInfo(from dictionary: Dictionary<String, Any>) -> SelectedTextEditInfo? {

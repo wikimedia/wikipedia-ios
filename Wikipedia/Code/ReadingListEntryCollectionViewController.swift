@@ -1,4 +1,5 @@
 import UIKit
+import CocoaLumberjackSwift
 
 protocol ReadingListEntryCollectionViewControllerDelegate: NSObjectProtocol {
     func readingListEntryCollectionViewController(_ viewController: ReadingListEntryCollectionViewController, didUpdate collectionView: UICollectionView)

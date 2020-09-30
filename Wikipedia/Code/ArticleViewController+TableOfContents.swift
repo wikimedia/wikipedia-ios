@@ -1,3 +1,5 @@
+import CocoaLumberjackSwift
+
 extension ArticleViewController : ArticleTableOfContentsDisplayControllerDelegate {
     func getVisibleSection(with completion: @escaping (_ sectionID: Int, _ anchor: String) -> Void) {
         webView.evaluateJavaScript("window.wmf.elementLocation.getFirstOnScreenSection(\(navigationBar.visibleHeight))") { (result, error) in

@@ -1,4 +1,5 @@
 import Foundation
+import CocoaLumberjackSwift
 
 enum EventLoggingError {
     case generic

@@ -1,4 +1,5 @@
 import Foundation
+import CocoaLumberjackSwift
 
 // https://bugs.swift.org/browse/SR-6795
 // https://github.com/apple/swift/pull/20103
