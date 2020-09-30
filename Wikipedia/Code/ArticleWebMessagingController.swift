@@ -540,8 +540,7 @@ extension ArticleWebMessagingController {
             }
         }
     }
-    
-    //tonitodo: possible way to have overlay link work - https://stackoverflow.com/a/46707009
+
     func injectArticleAsLivingDocContent(articleInsertHtmlSnippets: [String], topBadgeType: TopBadgeType = .lastUpdated, timestamp: String? = nil, _ completion: ((Bool) -> Void)? = nil) {
         
         guard articleInsertHtmlSnippets.count > 0 else {

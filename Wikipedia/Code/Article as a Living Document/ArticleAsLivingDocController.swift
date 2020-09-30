@@ -13,7 +13,8 @@ protocol ArticleAsLivingDocControllerDelegate: class {
     func updateArticleMargins()
 }
 
-public class ArticleAsLivingDocController: NSObject {
+@available(iOS 13.0, *)
+class ArticleAsLivingDocController: NSObject {
     
     enum Errors: Error {
         case viewModelInstantiationFailure
@@ -27,30 +28,28 @@ public class ArticleAsLivingDocController: NSObject {
             return _articleAsLivingDocViewModel
         }
         set {
-            if #available(iOS 13.0, *) {
-                guard let newValue = newValue else {
-                    //should only occur when resetting to nil shortly before a pull to refresh was triggered.
-                    _articleAsLivingDocViewModel = nil
-                    return
-                }
+            guard let newValue = newValue else {
+                //should only occur when resetting to nil shortly before a pull to refresh was triggered.
+                _articleAsLivingDocViewModel = nil
+                return
+            }
+            
+            if let oldModel = _articleAsLivingDocViewModel {
+                // should only be triggered via paging.
+                // update everything except sha and htmlInsert and
+                // append sections instead of replace sections
+                let appendedSections = oldModel.sections + newValue.sections
+                let oldHtmlSnippets = oldModel.articleInsertHtmlSnippets
+                let oldNewChangesTimestamp = oldModel.newChangesTimestamp
+                let oldLastUpdatedTimestamp = oldModel.lastUpdatedTimestamp
+                _articleAsLivingDocViewModel = ArticleAsLivingDocViewModel(nextRvStartId: newValue.nextRvStartId, sha: oldModel.sha, sections: appendedSections, summaryText: newValue.summaryText, articleInsertHtmlSnippets: oldHtmlSnippets, newChangesTimestamp: oldNewChangesTimestamp, lastUpdatedTimestamp: oldLastUpdatedTimestamp)
+                //articleAsLivingDocViewController?.appendSections(newValue.sections)
                 
-                if let oldModel = _articleAsLivingDocViewModel {
-                    // should only be triggered via paging.
-                    // update everything except sha and htmlInsert and
-                    // append sections instead of replace sections
-                    let appendedSections = oldModel.sections + newValue.sections
-                    let oldHtmlSnippets = oldModel.articleInsertHtmlSnippets
-                    let oldNewChangesTimestamp = oldModel.newChangesTimestamp
-                    let oldLastUpdatedTimestamp = oldModel.lastUpdatedTimestamp
-                    _articleAsLivingDocViewModel = ArticleAsLivingDocViewModel(nextRvStartId: newValue.nextRvStartId, sha: oldModel.sha, sections: appendedSections, summaryText: newValue.summaryText, articleInsertHtmlSnippets: oldHtmlSnippets, newChangesTimestamp: oldNewChangesTimestamp, lastUpdatedTimestamp: oldLastUpdatedTimestamp)
-                    articleAsLivingDocViewController?.appendSections(newValue.sections)
-                    
-                } else {
-                    // should only be triggered via pull to refresh or fresh load. update everything
-                    _articleAsLivingDocViewModel = newValue
-                    //note, we aren't updating data source in VC here. So far we won't reach this situation where a refresh
-                    //is triggered while the events modal is still on screen, so not needed at this point.
-                }
+            } else {
+                // should only be triggered via pull to refresh or fresh load. update everything
+                _articleAsLivingDocViewModel = newValue
+                //note, we aren't updating data source in VC here. So far we won't reach this situation where a refresh
+                //is triggered while the events modal is still on screen, so not needed at this point.
             }
         }
     }
@@ -214,7 +213,8 @@ public class ArticleAsLivingDocController: NSObject {
         }
         
         failedLastInitialFetch = false
-        fetchArticleAsLivingDocViewModel(rvStartId: nil, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL) { [weak self, weak delegate] (result) in
+
+        fetchArticleAsLivingDocViewModel(rvStartId: nil, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL) { [weak self] (result) in
             
             guard let self = self else {
                 return
@@ -312,18 +312,16 @@ public class ArticleAsLivingDocController: NSObject {
             return
         }
         
-        if #available(iOS 13.0, *) {
-            if let _ = articleAsLivingDocViewModel {
-                
-                articleAsLivingDocViewController = ArticleAsLivingDocViewController(articleTitle: delegate.article.displayTitle, editMetrics: articleAsLivingDocEditMetrics, theme: delegate.theme, delegate: delegate, scrollToInitialIndexPath: initialIndexPath)
-                articleAsLivingDocViewController?.apply(theme: delegate.theme)
-                
-                if let articleAsLivingDocViewController = articleAsLivingDocViewController {
-                    let navigationController = WMFThemeableNavigationController(rootViewController: articleAsLivingDocViewController, theme: delegate.theme)
-                    navigationController.modalPresentationStyle = .pageSheet
-                    navigationController.isNavigationBarHidden = true
-                    delegate.present(navigationController, animated: true)
-                }
+        if let _ = articleAsLivingDocViewModel {
+            
+            articleAsLivingDocViewController = ArticleAsLivingDocViewController(articleTitle: delegate.article.displayTitle, editMetrics: articleAsLivingDocEditMetrics, theme: delegate.theme, delegate: delegate, scrollToInitialIndexPath: initialIndexPath)
+            articleAsLivingDocViewController?.apply(theme: delegate.theme)
+            
+            if let articleAsLivingDocViewController = articleAsLivingDocViewController {
+                let navigationController = WMFThemeableNavigationController(rootViewController: articleAsLivingDocViewController, theme: delegate.theme)
+                navigationController.modalPresentationStyle = .pageSheet
+                navigationController.isNavigationBarHidden = true
+                delegate.present(navigationController, animated: true)
             }
         }
     }
@@ -428,24 +426,23 @@ public class ArticleAsLivingDocController: NSObject {
     }
     
     func fetchNextPage(nextRvStartId: UInt) {
-        if #available(iOS 13.0, *) {
-            guard let articleTitleAndSiteURL = self.articleTitleAndSiteURL(),
-                  shouldAttemptToShowArticleAsLivingDoc else {
+
+        guard let articleTitleAndSiteURL = self.articleTitleAndSiteURL(),
+              shouldAttemptToShowArticleAsLivingDoc else {
+            return
+        }
+        
+        fetchArticleAsLivingDocViewModel(rvStartId: nextRvStartId, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL) { [weak self] (result) in
+            
+            guard let self = self else {
                 return
             }
             
-            fetchArticleAsLivingDocViewModel(rvStartId: nextRvStartId, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL) { [weak self] (result) in
-                
-                guard let self = self else {
-                    return
-                }
-                
-                switch result {
-                case .failure(let error):
-                    DDLogDebug("Failure fetching next significant events page \(error)")
-                case .success(let articleAsLivingDocViewModel):
-                    self.articleAsLivingDocViewModel = articleAsLivingDocViewModel
-                }
+            switch result {
+            case .failure(let error):
+                DDLogDebug("Failure fetching next significant events page \(error)")
+            case .success(let articleAsLivingDocViewModel):
+                self.articleAsLivingDocViewModel = articleAsLivingDocViewModel
             }
         }
     }

@@ -57,6 +57,7 @@ class ArticleViewController: ViewController, HintPresenting {
     
     internal lazy var fetcher: ArticleFetcher = ArticleFetcher(session: session, configuration: configuration)
     
+    @available(iOS 13.0, *)
     lazy var articleAsLivingDocController = ArticleAsLivingDocController(delegate: self)
 
     private var leadImageHeight: CGFloat = 210
@@ -255,14 +256,22 @@ class ArticleViewController: ViewController, HintPresenting {
     
     internal func updateArticleMargins() {
         
-        if (articleAsLivingDocController.shouldAttemptToShowArticleAsLivingDoc) {
-            var margins = articleMargins
-            margins.left = 0
-            margins.right = 0
-            messagingController.updateMargins(with: margins, leadImageHeight: leadImageHeightConstraint.constant)
-            messagingController.customUpdateMargins(with: articleMargins)
+        let defaultUpdateBlock = {
+            self.messagingController.updateMargins(with: self.articleMargins, leadImageHeight: self.leadImageHeightConstraint.constant)
+        }
+        
+        if #available(iOS 13.0, *) {
+            if (articleAsLivingDocController.shouldAttemptToShowArticleAsLivingDoc) {
+                var margins = articleMargins
+                margins.left = 0
+                margins.right = 0
+                messagingController.updateMargins(with: margins, leadImageHeight: leadImageHeightConstraint.constant)
+                messagingController.customUpdateMargins(with: articleMargins)
+            } else {
+                defaultUpdateBlock()
+            }
         } else {
-            messagingController.updateMargins(with: articleMargins, leadImageHeight: leadImageHeightConstraint.constant)
+            defaultUpdateBlock()
         }
         
         updateLeadImageMargins()
@@ -411,7 +420,9 @@ class ArticleViewController: ViewController, HintPresenting {
                 return
             }
             
-            self.articleAsLivingDocController.articleContentFinishedLoading()
+            if #available(iOS 13.0, *) {
+                self.articleAsLivingDocController.articleContentFinishedLoading()
+            }
             
             self.setupFooter()
             self.shareIfNecessary()
@@ -456,7 +467,10 @@ class ArticleViewController: ViewController, HintPresenting {
             return
         }
 
-        articleAsLivingDocController.articleContentWillBeginLoading()
+        if #available(iOS 13.0, *) {
+            articleAsLivingDocController.articleContentWillBeginLoading()
+        }
+
         webView.load(request)
     }
     
@@ -673,7 +687,11 @@ class ArticleViewController: ViewController, HintPresenting {
     }
 
     internal func performWebViewRefresh(_ revisionID: UInt64? = nil) {
-        articleAsLivingDocController.articleDidTriggerPullToRefresh()
+
+        if #available(iOS 13.0, *) {
+            articleAsLivingDocController.articleDidTriggerPullToRefresh()
+        }
+
         #if WMF_LOCAL_PAGE_CONTENT_SERVICE // on local PCS builds, reload everything including JS and CSS
             webView.reloadFromOrigin()
         #else // on release builds, just reload the page with a different cache policy
@@ -707,7 +725,10 @@ class ArticleViewController: ViewController, HintPresenting {
             return
         }
         
-        articleAsLivingDocController.handleArticleAsLivingDocLinkForAnchor(anchor)
+        if #available(iOS 13.0, *) {
+            articleAsLivingDocController.handleArticleAsLivingDocLinkForAnchor(anchor)
+        }
+
     }
     
     // MARK: Table of contents
@@ -898,7 +919,10 @@ private extension ArticleViewController {
         let imageBottomConstraint = leadImageContainerView.bottomAnchor.constraint(equalTo: leadImageView.bottomAnchor, constant: leadImageBorderHeight)
         NSLayoutConstraint.activate([topConstraint, leadingConstraint, trailingConstraint, leadImageHeightConstraint, imageTopConstraint, imageBottomConstraint, leadImageLeadingMarginConstraint, leadImageTrailingMarginConstraint])
         
-        articleAsLivingDocController.setupLeadImageView()
+        if #available(iOS 13.0, *) {
+            articleAsLivingDocController.setupLeadImageView()
+        }
+
     }
     
     func setupPageContentServiceJavaScriptInterface(with completion: @escaping () -> Void) {
@@ -924,7 +948,11 @@ private extension ArticleViewController {
     
     func setupPageContentServiceJavaScriptInterface(with userGroups: [String]) {
         let areTablesInitiallyExpanded = UserDefaults.standard.wmf_isAutomaticTableOpeningEnabled
-        messagingController.shouldAttemptToShowArticleAsLivingDoc = articleAsLivingDocController.shouldAttemptToShowArticleAsLivingDoc
+
+        if #available(iOS 13.0, *) {
+            messagingController.shouldAttemptToShowArticleAsLivingDoc = articleAsLivingDocController.shouldAttemptToShowArticleAsLivingDoc
+        }
+
         messagingController.setup(with: webView, language: articleLanguage, theme: theme, layoutMargins: articleMargins, leadImageHeight: leadImageHeight, areTablesInitiallyExpanded: areTablesInitiallyExpanded, userGroups: userGroups)
     }
     
@@ -1093,6 +1121,7 @@ extension ViewController  { // Putting extension on ViewController rather than A
     }
 }
 
+@available(iOS 13.0, *)
 extension ArticleViewController: ArticleAsLivingDocViewControllerDelegate {
     var articleAsLivingDocViewModel: ArticleAsLivingDocViewModel? {
         return articleAsLivingDocController.articleAsLivingDocViewModel

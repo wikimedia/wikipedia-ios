@@ -131,10 +131,7 @@ final class PageContentService   {
             super.init(source: StyleScript.source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
         }
     }
-    
-    //tonitodo: this doesn't work for some reason 😩
-    //adding to styleoverrides instead
-    //but we should fix this to be in it's own css file so that we can easily theme later
+
     final class SignificantEventsStyleScript: PageUserScript {
         
         static func sourceForTheme(_ theme: String) -> String {
