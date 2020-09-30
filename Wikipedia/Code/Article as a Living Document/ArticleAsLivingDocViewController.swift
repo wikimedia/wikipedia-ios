@@ -4,10 +4,11 @@ import WMF
 
 protocol ArticleAsLivingDocViewControllerDelegate: class {
     func fetchNextPage(nextRvStartId: UInt)
+    func showEditHistory()
+    func handleLink(with href: String)
     var articleAsLivingDocViewModel: ArticleAsLivingDocViewModel? {
         get
     }
-    func showEditHistory()
 }
 
 @available(iOS 13.0, *)
@@ -274,6 +275,8 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
         guard let articleAsLivingDocViewModel = delegate?.articleAsLivingDocViewModel else {
             return
         }
+
+        (cell as? ArticleAsLivingDocLargeEventCollectionViewCell)?.delegate = self
         
         let numSections = dataSource.numberOfSections(in: collectionView)
         let numEvents = dataSource.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
@@ -299,5 +302,15 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
 
     override func collectionViewFooterButtonWasPressed(_ collectionViewFooter: CollectionViewFooter) {
         tappedViewFullHistoryButton()
+    }
+}
+
+// MARK:- ArticleAsLivingDocHorizontallyScrollingCellDelegate
+@available(iOS 13.0, *)
+extension ArticleAsLivingDocViewController: ArticleAsLivingDocHorizontallyScrollingCellDelegate {
+    func tappedLink(_ url: URL, cell: ArticleAsLivingDocHorizontallyScrollingCell, sourceView: UIView, sourceRect: CGRect?) {
+        self.dismiss(animated: true) {
+            self.delegate?.handleLink(with: url.absoluteString)
+        }
     }
 }

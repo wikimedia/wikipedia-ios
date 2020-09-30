@@ -25,6 +25,8 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
     }()
     
     let timelineView = TimelineView()
+
+    weak var delegate: ArticleAsLivingDocHorizontallyScrollingCellDelegate?
     
     private var largeEvent: ArticleAsLivingDocViewModel.Event.Large? {
         didSet {
@@ -372,6 +374,6 @@ extension ArticleAsLivingDocLargeEventCollectionViewCell: UICollectionViewDelega
 
 extension ArticleAsLivingDocLargeEventCollectionViewCell: ArticleAsLivingDocHorizontallyScrollingCellDelegate {
     func tappedLink(_ url: URL, cell: ArticleAsLivingDocHorizontallyScrollingCell, sourceView: UIView, sourceRect: CGRect?) {
-        print("tapped link")
+        delegate?.tappedLink(url, cell: cell, sourceView: sourceView, sourceRect: sourceRect)
     }
 }
