@@ -359,7 +359,14 @@ public extension ArticleAsLivingDocViewModel {
                 case thankAndViewChanges(userId: UInt, revisionId: UInt)
                 case viewDiscussion(sectionName: String)
             }
-            
+
+            static let editCountFormatter: NumberFormatter = {
+                let numberFormatter = NumberFormatter()
+                numberFormatter.usesGroupingSeparator = true
+                numberFormatter.numberStyle = .decimal
+                return numberFormatter
+            }()
+
             private let typedEvent: SignificantEvents.TypedEvent
             private(set) var eventDescription: NSAttributedString?
             private(set) var changeDetails: [ChangeDetail]?
@@ -1378,8 +1385,8 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         var attributedString: NSAttributedString
         if let editCount = editCount,
            userType != .anonymous {
-            
-            let userInfo = String.localizedStringWithFormat( CommonStrings.revisionUserInfo, userName, String(editCount))
+            let formattedEditCount = ArticleAsLivingDocViewModel.Event.Large.editCountFormatter.string(from: NSNumber(value: editCount)) ?? String(editCount)
+            let userInfo = String.localizedStringWithFormat( CommonStrings.revisionUserInfo, userName, formattedEditCount)
             
             let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
             let attributes = [NSAttributedString.Key.font: font,

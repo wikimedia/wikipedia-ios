@@ -66,8 +66,13 @@ public class TimelineView: UIView {
         }
     }
 
-    private let dotRadius:CGFloat = 9.0
-    private let dotMinRadiusNormal:CGFloat = 0.4
+    private var dotRadius: CGFloat {
+        switch decoration {
+        case .singleDot: return 7.0
+        default: return 9.0
+        }
+    }
+    private let dotMinRadiusNormal: CGFloat = 0.4
 
     // At a height of less than 30, (due to rounding) the squiggle's curves don't perfectly align with the straight lines.
     private let squiggleHeight: CGFloat = 30.0
@@ -131,52 +136,6 @@ public class TimelineView: UIView {
         }
         return shape
     }()
-
-//    private var newSquiggleShapeLayer: CAShapeLayer {
-//        let shape = CAShapeLayer()
-//        let squiggle = UIBezierPath()
-//
-//        if false {
-//            let startY = dotsY - squiggleHeight/2 // squiggle's middle (not top) should be startY
-//            let top = CGPoint(x: bounds.midX, y: startY)
-//            let midPoint = CGPoint(x: bounds.midX, y: startY + (squiggleHeight*3/6))
-//            let bottom = CGPoint(x: bounds.midX, y: startY + squiggleHeight)
-//
-//            let middleLeading1 = CGPoint(x: 0, y: startY + (squiggleHeight*1/6))
-//            let middleTrailing1 = CGPoint(x: bounds.maxX, y: startY + (squiggleHeight*2/6))
-//            let middleLeading2 = CGPoint(x: 0, y: startY + (squiggleHeight*4/6))
-//            let middleTrailing2 = CGPoint(x: bounds.maxX, y: startY + (squiggleHeight*5/6))
-//
-//            squiggle.move(to: top)
-//            squiggle.addCurve(to: midPoint, controlPoint1: middleLeading1, controlPoint2: middleTrailing1)
-//            squiggle.addCurve(to: bottom, controlPoint1: middleLeading2, controlPoint2: middleTrailing2)
-//        } else if false {
-//            let startY = dotsY - squiggleHeight/2 // squiggle's middle (not top) should be startY
-//            let top = CGPoint(x: bounds.midX, y: startY)
-//            let midPoint = CGPoint(x: bounds.midX, y: startY + (squiggleHeight*3/6))
-//            let bottom = CGPoint(x: bounds.midX, y: startY + squiggleHeight)
-//
-//            let quarterOnePoint = CGPoint(x: bounds.midX, y: startY + (squiggleHeight*1/4))
-//            let quarterThreePoint = CGPoint(x: bounds.midX, y: startY + (squiggleHeight*3/4))
-//            let controlPoint1 = CGPoint(x: 0, y: midPoint.y)
-//            let controlPoint2 = CGPoint(x: bounds.maxX, y: top.y)
-//            let controlPoint3 = CGPoint(x: 0, y: bottom.y)
-//            let controlPoint4 = CGPoint(x: bounds.maxX, y: midPoint.y)
-//
-//            squiggle.move(to: top)
-//            squiggle.addQuadCurve(to: quarterOnePoint, controlPoint: controlPoint1)
-//            squiggle.addQuadCurve(to: midPoint, controlPoint: controlPoint2)
-//            squiggle.addQuadCurve(to: quarterThreePoint, controlPoint: controlPoint3)
-//            squiggle.addQuadCurve(to: bottom, controlPoint: controlPoint4)
-//        } else {
-//            shape.updateSquiggleLocation(height: squiggleHeight, decorationMidY: dotsY, midX: bounds.midX)
-//            shape.strokeColor = color
-//            shape.fillColor = backgroundColor?.cgColor ?? UIColor.white.cgColor
-//            shape.lineWidth = verticalLineWidth
-//            self.layer.addSublayer(shape)
-//            return shape
-//        }
-//    }
 
     private lazy var displayLink: CADisplayLink? = {
         guard decoration == .doubleDot, shouldAnimateDots == true else {
