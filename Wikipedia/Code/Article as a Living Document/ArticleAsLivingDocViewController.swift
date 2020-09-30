@@ -2,6 +2,7 @@
 import UIKit
 import WMF
 
+@available(iOS 13.0, *)
 protocol ArticleAsLivingDocViewControllerDelegate: class {
     func fetchNextPage(nextRvStartId: UInt)
     func showEditHistory()
