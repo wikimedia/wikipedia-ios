@@ -1,6 +1,7 @@
 
 import Foundation
 import UIKit
+import CocoaLumberjackSwift
 
 protocol ArticleAsLivingDocControllerDelegate: class {
     var articleURL: URL { get }
