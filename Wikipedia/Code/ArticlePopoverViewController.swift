@@ -54,7 +54,7 @@ class ArticlePopoverViewController: UIViewController {
         let shareButtonSize = shareButton.sizeThatFits(sizeToFit)
         let saveButtonSize = saveButton.sizeThatFits(sizeToFit)
         let readButtonSize = readButton.sizeThatFits(sizeToFit)
-        // If any of the the titles don't fit, fill proportionally and remove the titles for share and save
+        // If any of the titles don't fit, fill proportionally and remove the titles for share and save
         showSaveAndShareTitles = shareButtonSize.width < widthToCheck && saveButtonSize.width < widthToCheck && readButtonSize.width < widthToCheck
         if !showSaveAndShareTitles {
             shareButton.setTitle(nil, for: .normal)

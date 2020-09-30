@@ -17,7 +17,7 @@
 /**
  *  UTC Gregorian Calendar
  *
- *  Used for comparing @c NSDate objects relative to the the device's current time zone.
+ *  Used for comparing @c NSDate objects relative to the device's current time zone.
  *
  *  @return A calendar initialized with the Gregorian calendar identfier and the device's current time zone.
  */
