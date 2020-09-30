@@ -151,6 +151,9 @@ final class PageContentService   {
                 let originalFileURL = Bundle.wmf.url(forResource: "styleoverrides", withExtension: "css", subdirectory: "assets"),
                 let originalData = try? Data(contentsOf: originalFileURL),
                 let originalCssString = String(data: originalData, encoding: .utf8)?.sanitizedForJavaScriptTemplateLiterals,
+                let baseFileURL = Bundle.wmf.url(forResource: "significant-events-styles-base", withExtension: "css", subdirectory: "assets"),
+                let baseData = try? Data(contentsOf: baseFileURL),
+                let baseCssString = String(data: baseData, encoding: .utf8)?.sanitizedForJavaScriptTemplateLiterals,
                 let fileURL = Bundle.wmf.url(forResource: cssFileName, withExtension: "css", subdirectory: "assets"),
                 let data = try? Data(contentsOf: fileURL),
                 let cssString = String(data: data, encoding: .utf8)?.sanitizedForJavaScriptTemplateLiterals
@@ -164,7 +167,7 @@ final class PageContentService   {
                     }
                     var style = document.createElement('style');
                     style.id = 'significant-events-styles';
-                    style.innerHTML = `\(originalCssString + cssString)`;
+                    style.innerHTML = `\(originalCssString + baseCssString + cssString)`;
                     document.head.appendChild(style);
                 """
         }
