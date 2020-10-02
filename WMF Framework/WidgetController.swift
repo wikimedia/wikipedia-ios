@@ -137,7 +137,7 @@ public final class WidgetController: NSObject {
             completion()
             finishBackgroundActivity()
             #if DEBUG
-            guard self._dataStore == nil else { // Don't check open files if another MWKDataStore was created after this one was destroyed
+            guard !self.isCreatingDataStore, self._dataStore == nil else { // Don't check open files if another MWKDataStore was created after this one was destroyed
                 return
             }
             let openFiles = self.openFilePaths()
