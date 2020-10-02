@@ -10,6 +10,7 @@ protocol ArticleAsLivingDocViewControllerDelegate: class {
     var articleAsLivingDocViewModel: ArticleAsLivingDocViewModel? {
         get
     }
+    var articleURL: URL { get }
 }
 
 @available(iOS 13.0, *)
@@ -318,8 +319,20 @@ extension ArticleAsLivingDocViewController: ArticleAsLivingDocHorizontallyScroll
             navController.modalPresentationStyle = .pageSheet
             self.present(navController, animated: true, completion: nil)
         } else {
-            self.dismiss(animated: true) {
-                self.delegate?.handleLink(with: url.absoluteString)
+            if let linkURL = delegate?.articleURL.resolvingRelativeWikiHref(url.absoluteString) {
+                switch Configuration.current.router.destination(for: linkURL) {
+                case .externalLink(_):
+                    // We're going to open link in default webbrowser, no need to dismiss current VC
+                    self.delegate?.handleLink(with: url.absoluteString)
+                default:
+                    self.dismiss(animated: true) {
+                        self.delegate?.handleLink(with: url.absoluteString)
+                    }
+                }
+            } else {
+                self.dismiss(animated: true) {
+                    self.delegate?.handleLink(with: url.absoluteString)
+                }
             }
         }
     }
