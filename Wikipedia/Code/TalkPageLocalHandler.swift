@@ -1,5 +1,6 @@
 
 import Foundation
+import CocoaLumberjackSwift
 
 extension NSManagedObjectContext {
     func talkPage(with managedObjectID: NSManagedObjectID) -> TalkPage? {

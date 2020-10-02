@@ -1,5 +1,6 @@
 
 import UIKit
+import CocoaLumberjackSwift
 
 enum ArticleFetcherError: LocalizedError {
     case doesNotExist

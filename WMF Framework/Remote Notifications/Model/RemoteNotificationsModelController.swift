@@ -1,3 +1,5 @@
+import CocoaLumberjackSwift
+
 @objc enum RemoteNotificationsModelChangeType: Int {
     case addedNewNotifications
     case updatedExistingNotifications

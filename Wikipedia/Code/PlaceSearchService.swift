@@ -1,6 +1,7 @@
 import Foundation
 import MapKit
 import WMF
+import CocoaLumberjackSwift
 
 struct PlaceSearchResult
 {

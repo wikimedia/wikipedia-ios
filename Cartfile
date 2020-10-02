@@ -1,9 +1,7 @@
 github "Mantle/Mantle" ~> 2.0.0
-github "CocoaLumberjack/CocoaLumberjack" ~> 3.4.2
 github "wikimedia/NYTPhotoViewer" "wmf"
 github "wikimedia/Tweaks" "master"
 
 github "luisobo/Nocilla"
-github "uber/ios-snapshot-test-case" ~> 6.1.0
 
 github "wikimedia/wikipedia-ios-codemirror" "master"

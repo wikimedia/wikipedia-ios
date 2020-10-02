@@ -37,6 +37,7 @@
  */
 
 import Foundation
+import CocoaLumberjackSwift
 
 /**
  * Event Platform Client (EPC)

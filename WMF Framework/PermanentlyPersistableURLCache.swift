@@ -1,4 +1,5 @@
 import Foundation
+import CocoaLumberjackSwift
 
 public struct Header {
     public static let persistentCacheItemType = "Persistent-Cache-Item-Type"

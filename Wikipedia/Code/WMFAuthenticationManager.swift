@@ -1,9 +1,12 @@
 
+import CocoaLumberjackSwift
+
 @objc protocol WMFAuthenticationManagerDelegate: NSObjectProtocol {
     var loginSiteURL: URL? { get }
     func authenticationManagerDidLogin()
     func authenticationManagerDidReset()
 }
+
 /**
  *  This class provides a simple interface for performing authentication tasks.
  */
