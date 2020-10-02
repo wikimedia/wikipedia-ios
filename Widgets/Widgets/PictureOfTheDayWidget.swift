@@ -27,8 +27,8 @@ final class PictureOfTheDayData {
 
     static let shared = PictureOfTheDayData()
 
-    let sampleEntry = PictureOfTheDayEntry(date: Date(), image: UIImage(named: "PictureOfTheYear_2019"), imageDescription:  PictureOfTheDayWidget.LocalizedStrings.sampleEntryDescription)
-    let placeholderEntry = PictureOfTheDayEntry(date: Date(), contentDate: nil, contentURL: nil, imageURL: nil, image: nil, imageDescription: nil)
+    static let sampleEntry = PictureOfTheDayEntry(date: Date(), image: UIImage(named: "PictureOfTheYear_2019"), imageDescription:  PictureOfTheDayWidget.LocalizedStrings.sampleEntryDescription)
+    static let placeholderEntry = PictureOfTheDayEntry(date: Date(), contentDate: nil, contentURL: nil, imageURL: nil, image: nil, imageDescription: nil)
 
     // MARK: Public
 
@@ -37,7 +37,7 @@ final class PictureOfTheDayData {
         widgetController.startWidgetUpdateTask(userCompletion) { (dataStore, widgetUpdateTaskCompletion) in
             widgetController.fetchNewestWidgetContentGroup(with: .pictureOfTheDay, in: dataStore, isNetworkFetchAllowed: !usingCache, isAnyLanguageAllowed: true) { (contentGroup) in
                 guard let contentGroup = contentGroup else {
-                    widgetUpdateTaskCompletion(self.placeholderEntry)
+                    widgetUpdateTaskCompletion(PictureOfTheDayData.placeholderEntry)
                     return
                 }
                 self.assemblePictureEntryFromContentGroup(contentGroup, dataStore: dataStore, imageSize: imageSize, usingImageCache: usingCache, completion: widgetUpdateTaskCompletion)
@@ -50,11 +50,11 @@ final class PictureOfTheDayData {
 
     private func assemblePictureEntryFromContentGroup(_ contentGroup: WMFContentGroup, dataStore: MWKDataStore, imageSize: CGSize, usingImageCache: Bool = false, completion: @escaping (PictureOfTheDayEntry) -> Void) {
         guard let imageContent = contentGroup.contentPreview as? WMFFeedImage else {
-            completion(self.sampleEntry)
+            completion(PictureOfTheDayData.sampleEntry)
             return
         }
 
-        let sampleEntry = self.sampleEntry
+        let sampleEntry = PictureOfTheDayData.sampleEntry
         let contentDate = contentGroup.date
         let contentURL = contentGroup.url
         let canonicalPageTitle = imageContent.canonicalPageTitle
@@ -165,14 +165,14 @@ struct PictureOfTheDayProvider: TimelineProvider {
     // MARK: TimelineProvider
 
     func placeholder(in: Context) -> PictureOfTheDayEntry {
-        return dataStore.placeholderEntry
+        return PictureOfTheDayData.placeholderEntry
     }
     
     func getTimeline(in context: Context, completion: @escaping (Timeline<PictureOfTheDayEntry>) -> Void) {
         dataStore.fetchLatestAvailablePictureEntry(for: context.imageSize) { entry in
             let currentDate = Date()
             let nextUpdate: Date
-            let isError = (entry.image == nil || entry.image == dataStore.sampleEntry.image)
+            let isError = (entry.image == nil || entry.image === PictureOfTheDayData.sampleEntry.image)
             if !isError {
                 nextUpdate = currentDate.dateAtMidnight() ?? currentDate
             } else {
@@ -301,7 +301,7 @@ struct PictureOfTheDayOverlayView: View {
 
 struct PictureOfTheDayWidget_Previews: PreviewProvider {
     static var previews: some View {
-        PictureOfTheDayView(entry: PictureOfTheDayData.shared.placeholderEntry)
+        PictureOfTheDayView(entry: PictureOfTheDayData.placeholderEntry)
             .previewContext(WidgetPreviewContext(family: .systemLarge))
     }
 }
