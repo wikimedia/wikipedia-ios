@@ -261,6 +261,18 @@ public class Session: NSObject {
     
     public func dataTask(with request: URLRequest, callback: Callback) -> URLSessionTask? {
         
+        //odd workaround to show an article as living doc bot icon in the article content web view.
+        let botIconName = ArticleAsLivingDocViewModel.Event.Large.botIconName
+        if let url = request.url,
+           url.absoluteString.contains(botIconName),
+           let imageData = UIImage(named: botIconName)?.pngData() {
+            let response = URLResponse(url: url, mimeType: "image/png", expectedContentLength: imageData.count, textEncodingName: nil)
+            callback.response?(response)
+            callback.data?(imageData)
+            callback.success()
+            return nil
+        }
+        
         if request.cachePolicy == .returnCacheDataElseLoad,
             let cachedResponse = permanentCache?.urlCache.cachedResponse(for: request) {
             callback.response?(cachedResponse.response)
