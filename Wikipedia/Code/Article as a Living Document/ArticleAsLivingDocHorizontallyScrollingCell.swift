@@ -2,7 +2,7 @@
 import UIKit
 
 protocol ArticleAsLivingDocHorizontallyScrollingCellDelegate: class {
-    func tappedLink(_ url: URL, cell: ArticleAsLivingDocHorizontallyScrollingCell, sourceView: UIView, sourceRect: CGRect?)
+    func tappedLink(_ url: URL, cell: ArticleAsLivingDocHorizontallyScrollingCell?, sourceView: UIView, sourceRect: CGRect?)
 }
 
 class ArticleAsLivingDocHorizontallyScrollingCell: CollectionViewCell {

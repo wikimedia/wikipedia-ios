@@ -57,6 +57,8 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         timestampLabel.isOpaque = true
         descriptionLabel.isOpaque = true
         userInfoTextView.isOpaque = true
+
+        userInfoTextView.delegate = self
         
         timelineView.decoration = .singleDot
         contentView.insertSubview(timelineView, belowSubview: collectionView)
@@ -373,7 +375,14 @@ extension ArticleAsLivingDocLargeEventCollectionViewCell: UICollectionViewDelega
 }
 
 extension ArticleAsLivingDocLargeEventCollectionViewCell: ArticleAsLivingDocHorizontallyScrollingCellDelegate {
-    func tappedLink(_ url: URL, cell: ArticleAsLivingDocHorizontallyScrollingCell, sourceView: UIView, sourceRect: CGRect?) {
+    func tappedLink(_ url: URL, cell: ArticleAsLivingDocHorizontallyScrollingCell?, sourceView: UIView, sourceRect: CGRect?) {
         delegate?.tappedLink(url, cell: cell, sourceView: sourceView, sourceRect: sourceRect)
+    }
+}
+
+extension ArticleAsLivingDocLargeEventCollectionViewCell: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        delegate?.tappedLink(url, cell: nil, sourceView: textView, sourceRect: textView.frame(of: characterRange))
+        return false
     }
 }

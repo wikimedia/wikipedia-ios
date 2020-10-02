@@ -309,9 +309,17 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
 // MARK:- ArticleAsLivingDocHorizontallyScrollingCellDelegate
 @available(iOS 13.0, *)
 extension ArticleAsLivingDocViewController: ArticleAsLivingDocHorizontallyScrollingCellDelegate {
-    func tappedLink(_ url: URL, cell: ArticleAsLivingDocHorizontallyScrollingCell, sourceView: UIView, sourceRect: CGRect?) {
-        self.dismiss(animated: true) {
-            self.delegate?.handleLink(with: url.absoluteString)
+    func tappedLink(_ url: URL, cell: ArticleAsLivingDocHorizontallyScrollingCell?, sourceView: UIView, sourceRect: CGRect?) {
+        if url.absoluteString.removingPercentEncoding?.contains("/User:") == true {
+            // User talk page, should open it in a modal
+            let singlePageWebVC = SinglePageWebViewController(url: url, theme: theme, doesUseSimpleNavigationBar: true)
+            let navController = WMFThemeableNavigationController(rootViewController: singlePageWebVC, theme: theme)
+            navController.modalPresentationStyle = .pageSheet
+            self.present(navController, animated: true, completion: nil)
+        } else {
+            self.dismiss(animated: true) {
+                self.delegate?.handleLink(with: url.absoluteString)
+            }
         }
     }
 }
