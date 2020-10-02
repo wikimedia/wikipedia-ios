@@ -1103,7 +1103,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
            let archiveUrl = URL(string: archiveUrlString) {
             let archiveLinkText = CommonStrings.newWebsiteReferenceArchiveUrlText
             let range = NSRange(location: 0, length: archiveLinkText.count)
-            let archiveLinkMutableAttributedString = NSMutableAttributedString(string: titleString, attributes: attributes)
+            let archiveLinkMutableAttributedString = NSMutableAttributedString(string: archiveLinkText, attributes: attributes)
             archiveLinkMutableAttributedString.addAttributes([NSAttributedString.Key.link : archiveUrl,
                                          NSAttributedString.Key.foregroundColor: theme.colors.link], range: range)
             
