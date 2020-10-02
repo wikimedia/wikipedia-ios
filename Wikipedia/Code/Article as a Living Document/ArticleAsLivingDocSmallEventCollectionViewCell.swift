@@ -8,6 +8,8 @@ class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
     private var theme: Theme = Theme.standard
     
     private var smallEvent: ArticleAsLivingDocViewModel.Event.Small?
+
+    weak var delegate: EditHistoryShowing?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -20,12 +22,15 @@ class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
     override func reset() {
         super.reset()
         descriptionTextView.attributedText = nil
+        descriptionTextView.gestureRecognizers?.removeAll()
     }
     
     override func setup() {
         super.setup()
         contentView.addSubview(descriptionTextView)
         timelineView.decoration = .squiggle
+        descriptionTextView.isEditable = false
+        descriptionTextView.isSelectable = false
         contentView.addSubview(timelineView)
     }
     
@@ -57,7 +62,10 @@ class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
         self.smallEvent = viewModel
         
         descriptionTextView.attributedText = viewModel.eventDescriptionForTraitCollection(traitCollection, theme: theme)
-        
+
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedSmallChanges))
+        descriptionTextView.addGestureRecognizer(tapGestureRecognizer)
+
         apply(theme: theme)
     }
     
@@ -71,6 +79,13 @@ class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
         if let smallEvent = smallEvent {
             descriptionTextView.attributedText = smallEvent.eventDescriptionForTraitCollection(traitCollection, theme: theme)
         }
+    }
+
+    @objc private func tappedSmallChanges() {
+        guard let revisionID = smallEvent?.smallChanges.first?.revId else {
+            return
+        }
+        delegate?.goToHistory(scrolledTo: Int(revisionID))
     }
 }
 

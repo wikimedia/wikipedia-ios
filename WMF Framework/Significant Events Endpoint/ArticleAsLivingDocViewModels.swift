@@ -453,7 +453,7 @@ public extension ArticleAsLivingDocViewModel.Event.Small {
         
         let font = UIFont.wmf_font(.italicSubheadline, compatibleWithTraitCollection: traitCollection)
         let attributes = [NSAttributedString.Key.font: font,
-                          NSAttributedString.Key.foregroundColor: theme.colors.primaryText]
+                          NSAttributedString.Key.foregroundColor: theme.colors.link]
         
         let localizedString = String.localizedStringWithFormat(
             CommonStrings.smallChangeDescription,

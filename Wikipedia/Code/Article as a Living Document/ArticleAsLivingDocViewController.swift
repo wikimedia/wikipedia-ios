@@ -4,13 +4,15 @@ import WMF
 
 @available(iOS 13.0, *)
 protocol ArticleAsLivingDocViewControllerDelegate: class {
-    func fetchNextPage(nextRvStartId: UInt)
-    func showEditHistory()
-    func handleLink(with href: String)
-    var articleAsLivingDocViewModel: ArticleAsLivingDocViewModel? {
-        get
-    }
+    var articleAsLivingDocViewModel: ArticleAsLivingDocViewModel? { get }
     var articleURL: URL { get }
+    func fetchNextPage(nextRvStartId: UInt)
+    func showEditHistory(scrolledTo revisionID: Int?)
+    func handleLink(with href: String)
+}
+
+protocol EditHistoryShowing: class {
+    func goToHistory(scrolledTo revisionID: Int?)
 }
 
 @available(iOS 13.0, *)
@@ -134,7 +136,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
                 }
             }
         }
-        
+
         for section in sections {
             if !existingSections.contains(section) {
                 currentSnapshot.appendSections([section])
@@ -218,7 +220,9 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
     }
 
     @objc func tappedViewFullHistoryButton() {
-        self.dismiss(animated: true, completion: delegate?.showEditHistory)
+        self.dismiss(animated: true) {
+            self.delegate?.showEditHistory(scrolledTo: nil)
+        }
     }
 
     // MARK:- CollectionView functions
@@ -280,6 +284,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
         }
 
         (cell as? ArticleAsLivingDocLargeEventCollectionViewCell)?.delegate = self
+        (cell as? ArticleAsLivingDocSmallEventCollectionViewCell)?.delegate = self
         
         let numSections = dataSource.numberOfSections(in: collectionView)
         let numEvents = dataSource.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
@@ -334,6 +339,15 @@ extension ArticleAsLivingDocViewController: ArticleAsLivingDocHorizontallyScroll
                     self.delegate?.handleLink(with: url.absoluteString)
                 }
             }
+        }
+    }
+}
+
+@available(iOS 13.0, *)
+extension ArticleAsLivingDocViewController: EditHistoryShowing {
+    func goToHistory(scrolledTo revisionID: Int? = nil) {
+        self.dismiss(animated: true) {
+            self.delegate?.showEditHistory(scrolledTo: revisionID)
         }
     }
 }
