@@ -65,9 +65,6 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     @objc public weak var delegate: UIViewController? {
         didSet {
             updateNavigationItems()
-            if needsUnderBarHack {
-                underBarViewTopBarBottomConstraint.constant = -12
-            }
         }
     }
     
@@ -220,8 +217,10 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     var underBarViewTopBottomConstraint: NSLayoutConstraint!
 
     /// See `updateHackyConstraint` for details
-    var needsUnderBarHack: Bool {
-        return delegate?.modalPresentationStyle == .pageSheet
+    public var needsUnderBarHack: Bool = false {
+        didSet {
+            underBarViewTopBarBottomConstraint.constant = (needsUnderBarHack ? -12 : 0)
+        }
     }
     
     override open func setup() {
