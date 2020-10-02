@@ -43,8 +43,7 @@ class ArticleAsLivingDocController: NSObject {
                 let oldNewChangesTimestamp = oldModel.newChangesTimestamp
                 let oldLastUpdatedTimestamp = oldModel.lastUpdatedTimestamp
                 _articleAsLivingDocViewModel = ArticleAsLivingDocViewModel(nextRvStartId: newValue.nextRvStartId, sha: oldModel.sha, sections: appendedSections, summaryText: newValue.summaryText, articleInsertHtmlSnippets: oldHtmlSnippets, newChangesTimestamp: oldNewChangesTimestamp, lastUpdatedTimestamp: oldLastUpdatedTimestamp)
-                //articleAsLivingDocViewController?.appendSections(newValue.sections)
-                
+                articleAsLivingDocViewController?.appendSections(newValue.sections)
             } else {
                 // should only be triggered via pull to refresh or fresh load. update everything
                 _articleAsLivingDocViewModel = newValue
