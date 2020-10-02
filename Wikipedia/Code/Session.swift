@@ -138,9 +138,9 @@ public class Session: NSObject {
         defaultURLSession.invalidateAndCancel()
     }
     
-    public func cancelAllRequests() {
+    @objc public func teardown() {
         defaultURLSession.invalidateAndCancel()
-        defaultURLSession = Session.getURLSession(with: permanentCache, delegate: sessionDelegate)
+        defaultURLSession = URLSession.shared
     }
     
     public let wifiOnlyURLSession: URLSession = {
