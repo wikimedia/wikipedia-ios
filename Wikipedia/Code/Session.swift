@@ -135,10 +135,13 @@ public class Session: NSObject {
     }
     
     deinit {
-        defaultURLSession.invalidateAndCancel()
+        teardown()
     }
     
     @objc public func teardown() {
+        guard defaultURLSession !== URLSession.shared else { // [NSURLSession sharedSession] may not be invalidated
+            return
+        }
         defaultURLSession.invalidateAndCancel()
         defaultURLSession = URLSession.shared
     }
