@@ -284,6 +284,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
         }
 
         (cell as? ArticleAsLivingDocLargeEventCollectionViewCell)?.delegate = self
+        (cell as? ArticleAsLivingDocLargeEventCollectionViewCell)?.historyDelegate = self
         (cell as? ArticleAsLivingDocSmallEventCollectionViewCell)?.delegate = self
         
         let numSections = dataSource.numberOfSections(in: collectionView)
