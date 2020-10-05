@@ -1,0 +1,29 @@
+# Transform localizations from TranslateWiki.net
+#
+# As of late 2020, TranslateWiki creates PRs automatically, in line with
+# how they work with other repos. However, the strings still need to be
+# translated to work well with the iOS app. This script runs when a new PR
+# is created by TranslateWiki, to add everything the app needs to the PR.
+#
+name: Update localizations from TranslateWiki
+
+on:
+  pull-request:
+    branches:
+        - twn
+
+jobs:
+  update-app-localizations:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Update localizations within app
+      continue-on-error: true
+      run: |
+        $GITHUB_WORKSPACE/scripts/localization $GITHUB_WORKSPACE
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git add .
+        git commit -m "Translate TranslateWiki strings for iOS app"
+        git push
