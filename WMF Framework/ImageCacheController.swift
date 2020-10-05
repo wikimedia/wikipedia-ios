@@ -279,6 +279,11 @@ public final class ImageCacheController: CacheController {
         case .rightMirrored: return .rightMirrored
         }
     }
+    
+    public override func cancelAllTasks() {
+        super.cancelAllTasks()
+        dataCompletionManager.cancelAll()
+    }
 }
 
 private extension ImageCacheController {
