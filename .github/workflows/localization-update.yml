@@ -8,7 +8,7 @@
 name: Update localizations from TranslateWiki
 
 on:
-  pull-request:
+  pull_request:
     branches:
         - twn
 
