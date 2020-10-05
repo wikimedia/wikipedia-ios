@@ -63,11 +63,10 @@ public final class WidgetController: NSObject {
     }
     
     private func fetchCachedWidgetContentGroup(with kind: WMFContentGroupKind, isAnyLanguageAllowed: Bool, in dataStore: MWKDataStore, completion:  @escaping (WMFContentGroup?) -> Void) {
+        assert(Thread.isMainThread, "Cached widget content group must be fetched from the main queue")
         let moc = dataStore.viewContext
         let siteURL = isAnyLanguageAllowed ? dataStore.languageLinkController.appLanguage?.siteURL() : nil
-        moc.perform {
-            completion(moc.newestGroup(of: kind, forSiteURL: siteURL))
-        }
+        completion(moc.newestGroup(of: kind, forSiteURL: siteURL))
     }
     
     public func updateFeedContent(in dataStore: MWKDataStore, completion: @escaping () -> Void) {
