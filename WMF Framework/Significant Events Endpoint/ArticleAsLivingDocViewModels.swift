@@ -1327,6 +1327,10 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         return (userName: userName, editCount: editCount)
     }
     
+    static var botIconName: String {
+        return "article-as-living-doc-bot"
+    }
+    
     private func userInfoHtmlSnippet() -> String? {
         guard let userNameAndEditCount = self.userNameAndEditCount() else {
             assertionFailure("Shouldn't reach this point")
@@ -1337,8 +1341,8 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         
         if let editCount = editCount,
            userType != .anonymous {
-            
-            let userInfo = String.localizedStringWithFormat( CommonStrings.revisionUserInfo, userName, String(editCount))
+            let formattedEditCount = ArticleAsLivingDocViewModel.Event.Large.editCountFormatter.string(from: NSNumber(value: editCount)) ?? String(editCount)
+            let userInfo = String.localizedStringWithFormat( CommonStrings.revisionUserInfo, userName, formattedEditCount)
             
             let rangeOfUserName = (userInfo as NSString).range(of: userName)
             let rangeValid = rangeOfUserName.location != NSNotFound && rangeOfUserName.location + rangeOfUserName.length <= userInfo.count
@@ -1347,7 +1351,12 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                 
                 let mutableUserInfo = NSMutableString(string: userInfo)
                 
-                let linkStartInsert = "<a href='\(userNameHrefString)'>"
+                let linkStartInsert: String
+                if userType == .bot {
+                    linkStartInsert = "<a href='\(userNameHrefString)'><img src='\(Self.botIconName)' style='margin: 0em .2em .35em .1em; width: 1em' />"
+                } else {
+                    linkStartInsert = "<a href='\(userNameHrefString)'>"
+                }
                 let linkEndInsert = "</a>"
                 mutableUserInfo.insert(linkStartInsert, at: rangeOfUserName.location)
                 mutableUserInfo.insert(linkEndInsert, at: rangeOfUserName.location + rangeOfUserName.length + linkStartInsert.count)

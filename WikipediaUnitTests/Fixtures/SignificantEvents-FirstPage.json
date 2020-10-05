@@ -2,7 +2,20 @@
     "nextRvStartId": 973922738,
     "sha": "5ecb5d13f31361ffd24427a143ec9d32cc83edb0fd99b3af85c98b6b3462a088",
     "timeline": [{
+<<<<<<< HEAD
         "count": 3,
+=======
+        "revid": 975463557,
+        "timestamp": "2020-08-28T17:22:52Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 975254565,
+        "timestamp": "2020-08-27T16:45:43Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 975241291,
+        "timestamp": "2020-08-27T15:15:41Z",
+>>>>>>> T258208-content-insert
         "outputType": "small-change"
     }, {
         "revid": 975240668,
@@ -22,7 +35,11 @@
             "sections": ["== Etymology =="]
         }],
         "userGroups": ["extendedconfirmed", "*", "user", "autoconfirmed"],
+<<<<<<< HEAD
         "userEditCount": 2675
+=======
+        "userEditCount": 2733
+>>>>>>> T258208-content-insert
     }, {
         "revid": 975161579,
         "timestamp": "2020-08-27T02:27:42Z",
@@ -37,9 +54,24 @@
             "sections": ["== Etymology =="]
         }],
         "userGroups": ["sysop", "*", "user", "autoconfirmed"],
+<<<<<<< HEAD
         "userEditCount": 95217
     }, {
         "count": 3,
+=======
+        "userEditCount": 97421
+    }, {
+        "revid": 975109951,
+        "timestamp": "2020-08-26T19:49:48Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 975109442,
+        "timestamp": "2020-08-26T19:47:16Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 975107672,
+        "timestamp": "2020-08-26T19:37:58Z",
+>>>>>>> T258208-content-insert
         "outputType": "small-change"
     }, {
         "revid": 974757284,
@@ -59,7 +91,11 @@
             "sections": ["Intro"]
         }],
         "userGroups": ["extendedconfirmed", "reviewer", "rollbacker", "*", "user", "autoconfirmed"],
+<<<<<<< HEAD
         "userEditCount": 46318
+=======
+        "userEditCount": 46548
+>>>>>>> T258208-content-insert
     }, {
         "revid": 974751956,
         "timestamp": "2020-08-24T20:14:59Z",
@@ -78,9 +114,36 @@
             "sections": ["Intro"]
         }],
         "userGroups": ["*", "user", "autoconfirmed"],
+<<<<<<< HEAD
         "userEditCount": 59
     }, {
         "count": 6,
+=======
+        "userEditCount": 61
+    }, {
+        "revid": 974687598,
+        "timestamp": "2020-08-24T12:18:20Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 974419099,
+        "timestamp": "2020-08-22T22:44:46Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 974086316,
+        "timestamp": "2020-08-21T01:12:04Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 974079460,
+        "timestamp": "2020-08-21T00:07:35Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 974052624,
+        "timestamp": "2020-08-20T20:30:31Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 974051684,
+        "timestamp": "2020-08-20T20:24:11Z",
+>>>>>>> T258208-content-insert
         "outputType": "small-change"
     }, {
         "revid": 974045914,
@@ -100,6 +163,7 @@
             "sections": ["=== Parties and elections ==="]
         }],
         "userGroups": ["extendedconfirmed", "*", "user", "autoconfirmed"],
+<<<<<<< HEAD
         "userEditCount": 1109
     }, {
         "count": 3,
@@ -109,5 +173,25 @@
         "earliestTimestamp": "2020-08-20T02:51:13Z",
         "numChanges": 20,
         "numUsers": 15
+=======
+        "userEditCount": 1129
+    }, {
+        "revid": 973949664,
+        "timestamp": "2020-08-20T05:58:09Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 973948985,
+        "timestamp": "2020-08-20T05:52:43Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 973931265,
+        "timestamp": "2020-08-20T02:51:13Z",
+        "outputType": "small-change"
+    }],
+    "summary": {
+        "earliestTimestamp": "2020-08-13T20:44:28Z",
+        "numChanges": 80,
+        "numUsers": 44
+>>>>>>> T258208-content-insert
     }
 }

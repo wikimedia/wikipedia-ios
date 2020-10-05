@@ -262,11 +262,7 @@ class ArticleViewController: ViewController, HintPresenting {
         
         if #available(iOS 13.0, *) {
             if (articleAsLivingDocController.shouldAttemptToShowArticleAsLivingDoc) {
-                var margins = articleMargins
-                margins.left = 0
-                margins.right = 0
-                messagingController.updateMargins(with: margins, leadImageHeight: leadImageHeightConstraint.constant)
-                messagingController.customUpdateMargins(with: articleMargins)
+                messagingController.customUpdateMargins(with: articleMargins, leadImageHeight: self.leadImageHeightConstraint.constant)
             } else {
                 defaultUpdateBlock()
             }

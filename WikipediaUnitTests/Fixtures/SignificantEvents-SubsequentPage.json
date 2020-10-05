@@ -2,7 +2,48 @@
     "nextRvStartId": 972790429,
     "sha": null,
     "timeline": [{
+<<<<<<< HEAD
         "count": 10,
+=======
+        "revid": 973922738,
+        "timestamp": "2020-08-20T01:32:43Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 973922647,
+        "timestamp": "2020-08-20T01:31:36Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 973747230,
+        "timestamp": "2020-08-19T00:42:51Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 973744764,
+        "timestamp": "2020-08-19T00:19:48Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 973720964,
+        "timestamp": "2020-08-18T21:07:11Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 973596973,
+        "timestamp": "2020-08-18T03:42:50Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 973553021,
+        "timestamp": "2020-08-17T21:27:24Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 973552941,
+        "timestamp": "2020-08-17T21:26:37Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 973552834,
+        "timestamp": "2020-08-17T21:25:47Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 973552716,
+        "timestamp": "2020-08-17T21:24:55Z",
+>>>>>>> T258208-content-insert
         "outputType": "small-change"
     }, {
         "revid": 973550989,
@@ -22,9 +63,16 @@
             "sections": ["=== World War I, Great Depression, and World War II ==="]
         }],
         "userGroups": ["extendedconfirmed", "*", "user", "autoconfirmed"],
+<<<<<<< HEAD
         "userEditCount": 31337
     }, {
         "count": 1,
+=======
+        "userEditCount": 31815
+    }, {
+        "revid": 973409619,
+        "timestamp": "2020-08-17T01:57:36Z",
+>>>>>>> T258208-content-insert
         "outputType": "small-change"
     }, {
         "revid": 973409110,
@@ -44,9 +92,24 @@
             "sections": ["=== World War I, Great Depression, and World War II ==="]
         }],
         "userGroups": ["*", "user", "autoconfirmed"],
+<<<<<<< HEAD
         "userEditCount": 30
     }, {
         "count": 3,
+=======
+        "userEditCount": 46
+    }, {
+        "revid": 973134678,
+        "timestamp": "2020-08-15T15:34:58Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 973103869,
+        "timestamp": "2020-08-15T11:03:32Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 973103828,
+        "timestamp": "2020-08-15T11:03:13Z",
+>>>>>>> T258208-content-insert
         "outputType": "small-change"
     }, {
         "revid": 973092925,
@@ -57,14 +120,38 @@
         "userid": 88116,
         "section": "== Discontinuous region category ==",
         "userGroups": ["extendedconfirmed", "*", "user", "autoconfirmed"],
+<<<<<<< HEAD
         "userEditCount": 3640
     }, {
         "count": 4,
+=======
+        "userEditCount": 3690
+    }, {
+        "revid": 972997868,
+        "timestamp": "2020-08-14T21:27:23Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 972863880,
+        "timestamp": "2020-08-14T05:19:17Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 972816238,
+        "timestamp": "2020-08-13T23:07:43Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 972790992,
+        "timestamp": "2020-08-13T20:44:28Z",
+>>>>>>> T258208-content-insert
         "outputType": "small-change"
     }],
     "summary": {
         "earliestTimestamp": "2020-08-13T20:44:28Z",
+<<<<<<< HEAD
         "numChanges": 40,
         "numUsers": 24
+=======
+        "numChanges": 82,
+        "numUsers": 45
+>>>>>>> T258208-content-insert
     }
 }

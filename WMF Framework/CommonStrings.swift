@@ -245,7 +245,7 @@ public class CommonStrings: NSObject {
     
     static let vandalismRevertDescription = WMFLocalizedString("aaald-vandalism-revert-description", value: "Suspected Vandalism reverted", comment: "Title displayed in an article as a living document timeline cell explaining that a vandalism revision was reverted.")
     
-    static let multipleChangesMadeDescription = WMFLocalizedString("aaald-multiple-changes-description", value: "Multiple changes made", comment: "title discplayed in article as a living document content insert explaining that multiple changes were made in a revision.")
+    static let multipleChangesMadeDescription = WMFLocalizedString("aaald-multiple-changes-description", value: "Multiple changes made", comment: "Title displayed in article as a living document content insert explaining that multiple changes were made in a revision.")
     
     static let twoDescriptionsFormat = WMFLocalizedString("aaald-two-descriptions-format", value: "%1$@ and %2$@", comment: "Format for two change types to insert into a revision's event description in an article as a living document timeline cell. %1$@ is replaced by the first change type and %2$@ is replaced by the second change type, e.g. '612 characters added and 323 characters removed'")
     
@@ -269,13 +269,13 @@ public class CommonStrings: NSObject {
                                                                        comment:"Title displayed in an article as a living document cell when multiple references were added (and no other changes) to a revision.")
     
     static let numericalMultipleReferencesAddedDescription = WMFLocalizedString("aaald-numerical-multiple-references-added-description", value:"{{PLURAL:%1$d|0=0 references|%1$d reference|%1$d references}} added",
-    comment:"Title displayed in an article as a living document cell explaining that multiple references were added to a revision. This string is use alongside other changes types like added characters. %1$d is replaced with the number of references.")
+    comment:"Title displayed in an article as a living document cell explaining that multiple references were added to a revision. This string is used alongside other changes types like added characters. %1$d is replaced with the number of references.")
     
-    static let oneSectionDescription = WMFLocalizedString("aaald-one-section-description", value: "in the %1$@ section", comment: "Text explaining what section an article as a living document event change occured in, if occured in only one section. %1$@ is replaced with the section name.")
+    static let oneSectionDescription = WMFLocalizedString("aaald-one-section-description", value: "in the %1$@ section", comment: "Text explaining what section an article as a living document event change occurred in, if occurred in only one section. %1$@ is replaced with the section name.")
     
-    static let twoSectionsDescription = WMFLocalizedString("aaald-two-sections-description", value: "in the %1$@ and %2$@ sections", comment: "Text explaining what sections an article as a living document event change occured in, if occured in two sections. %1$@ is replaced with the first section name, %2$@ with the second.")
+    static let twoSectionsDescription = WMFLocalizedString("aaald-two-sections-description", value: "in the %1$@ and %2$@ sections", comment: "Text explaining what sections an article as a living document event change occurred in, if occurred in two sections. %1$@ is replaced with the first section name, %2$@ with the second.")
     
-    static let manySectionsDescription = WMFLocalizedString("aaald-many-sections-description", value: "in %1$d sections", comment: "Text explaining what sections an article as a living document change occured in, if occured in 3+ sections. %1$d is replaced with the number of sections.")
+    static let manySectionsDescription = WMFLocalizedString("aaald-many-sections-description", value: "in %1$d sections", comment: "Text explaining what sections an article as a living document change occurred in, if occurred in 3+ sections. %1$d is replaced with the number of sections.")
     
     static let newBookReferenceTitle = WMFLocalizedString("aaald-new-book-reference-title",
     value:"Book", comment: "Header text for a new book reference type that was added in an article as a living document cell.")
@@ -296,7 +296,7 @@ public class CommonStrings: NSObject {
     value:"via %1$@ ", comment: "Database text for a new journal reference type that was added in an article as a living document cell. %1$@ is replaced by the database volume number of the reference.")
     
     static let newWebsiteReferenceArchiveUrlText =  WMFLocalizedString("aaald-new-website-reference-archive-url-text",
-    value:"Archive.org URL", comment: "Archive.org url text for a new website reference type that was added in an article as a living document cell. This will be turned into a link that goes to the reference's archive.org url.")
+    value:"Archive.org URL", comment: "Archive.org URL text for a new website reference type that was added in an article as a living document cell. This will be turned into a link that goes to the reference's Archive.org URL.")
     
     static let newWebsiteReferenceArchiveDateText = WMFLocalizedString("aaald-new-website-reference-archive-date-text",
     value:" from the original on %1$@", comment: "Text in a new website reference in an article as a living document cell that describes when the reference was retrieved for Archive.org. %1$@ is replaced with the reference's archive date.")
@@ -310,7 +310,7 @@ public class CommonStrings: NSObject {
     value:"Edit by %1$@ (%2$@ edits)", comment: "Text describing details about the user that made a significant revision in the article as a living document view. %1$@ is replaced by the editor name and %2$d is replaced by the number of edits they have made.")
     
     static let revisionUserInfoAnonymous = WMFLocalizedString("aaald-revision-userInfo-anonymous",
-    value:"Edit by %1$@", comment: "Text describing details about the anonyous user that made a significant revision in the article as a living document view. %1$@ is replaced by the editor's anonymous name.")
+    value:"Edit by %1$@", comment: "Text describing details about the anonymous user that made a significant revision in the article as a living document view. %1$@ is replaced by the editor's anonymous name.")
     
     static let articleAsLivingDocSummaryTitle = WMFLocalizedString(
         "aaald-summary-title",

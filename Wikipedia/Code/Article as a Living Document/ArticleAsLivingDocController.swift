@@ -272,17 +272,35 @@ class ArticleAsLivingDocController: NSObject {
         injectArticleAsALivingDocument()
     }
     
+    
+    private let userDefaultsKey = "article-as-living-doc-shas"
+    func getPersistedShaForArticleKey(_ articleKey: String) -> String? {
+        guard let shas = UserDefaults.standard.dictionary(forKey: userDefaultsKey),
+              let sha = shas[articleKey] as? String else {
+            return nil
+        }
+        
+        return  sha
+    }
+    
+    func persistShaForArticleKey(_ articleKey: String, sha: String) {
+        var shas = UserDefaults.standard.dictionary(forKey: userDefaultsKey) ?? [:]
+        shas[articleKey] = sha
+        UserDefaults.standard.setValue(shas, forKey: userDefaultsKey)
+    }
+    
     func injectArticleAsALivingDocument() {
         
-        guard let delegate = delegate else {
+        guard let delegate = delegate,
+              let articleKey = delegate.article.key else {
             return
         }
         
         if let viewModel = articleAsLivingDocViewModel,
            shouldShowArticleAsLivingDoc {
             let htmlSnippets = viewModel.articleInsertHtmlSnippets
-            let shaKey = "significant-events-sha"
-            let shouldShowNewChangesBadge = viewModel.sha != nil ? UserDefaults.standard.string(forKey: shaKey) != viewModel.sha : false
+            let lastPersistedSha = getPersistedShaForArticleKey(articleKey)
+            let shouldShowNewChangesBadge = viewModel.sha != nil ? lastPersistedSha != viewModel.sha : false
             let topBadgeType: ArticleWebMessagingController.TopBadgeType = shouldShowNewChangesBadge ? .newChanges : .lastUpdated
             let timestamp = shouldShowNewChangesBadge ? viewModel.newChangesTimestamp : viewModel.lastUpdatedTimestamp
             
@@ -297,7 +315,10 @@ class ArticleAsLivingDocController: NSObject {
                     delegate?.updateArticleMargins()
                 }
                 
-                UserDefaults.standard.setValue(viewModel.sha, forKey: shaKey)
+                if let sha = viewModel.sha {
+                    self.persistShaForArticleKey(articleKey, sha: sha)
+                }
+                
                 self.toggleContentVisibilityExceptLeadImage(shouldHide: false)
             }
         } else if shouldAttemptToShowArticleAsLivingDoc {

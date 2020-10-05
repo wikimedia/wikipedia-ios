@@ -30,7 +30,12 @@
         "userGroups": ["autoreviewer", "extendedconfirmed", "*", "user", "autoconfirmed"],
         "userEditCount": 15850
     }, {
+<<<<<<< HEAD
         "count": 1,
+=======
+        "revid": 670574458,
+        "timestamp": "2015-07-08T20:59:32Z",
+>>>>>>> T258208-content-insert
         "outputType": "small-change"
     }, {
         "revid": 670572707,
@@ -79,7 +84,16 @@
         "userGroups": ["autoreviewer", "extendedconfirmed", "*", "user", "autoconfirmed"],
         "userEditCount": 15850
     }, {
+<<<<<<< HEAD
         "count": 2,
+=======
+        "revid": 670571268,
+        "timestamp": "2015-07-08T20:38:01Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 670570763,
+        "timestamp": "2015-07-08T20:34:48Z",
+>>>>>>> T258208-content-insert
         "outputType": "small-change"
     }, {
         "revid": 670570693,
@@ -173,7 +187,16 @@
         "userGroups": ["autoreviewer", "extendedconfirmed", "*", "user", "autoconfirmed"],
         "userEditCount": 15850
     }, {
+<<<<<<< HEAD
         "count": 2,
+=======
+        "revid": 670566127,
+        "timestamp": "2015-07-08T20:03:46Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 670565873,
+        "timestamp": "2015-07-08T20:02:00Z",
+>>>>>>> T258208-content-insert
         "outputType": "small-change"
     }],
     "summary": {

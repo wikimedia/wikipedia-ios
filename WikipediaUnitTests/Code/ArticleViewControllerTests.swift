@@ -48,7 +48,7 @@ class ArticleViewControllerTests: XCTestCase {
             XCTAssert(schemeHandler.accessed, "SchemeHandler was not accessed during article load.")
             UIApplication.shared.keyWindow?.rootViewController = nil
             dataStore.clearTemporaryCache()
-            dataStore.session.cancelAllRequests()
+            dataStore.session.teardown()
         }
             
         UIApplication.shared.keyWindow?.rootViewController = articleVC
