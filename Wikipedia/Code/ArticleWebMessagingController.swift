@@ -620,11 +620,14 @@ extension ArticleWebMessagingController {
     //should be used only when significant events is active
     //we are manually suppressing left and right body margins in standard view
     //and adding back in as padding so we get the edge to edge gray background
-    func customUpdateMargins(with layoutMargins: UIEdgeInsets) {
+    func customUpdateMargins(with layoutMargins: UIEdgeInsets, leadImageHeight: CGFloat) {
         let javascript = """
             function customUpdateMargins() {
+                 document.body.style.marginLeft = "0px";
+                 document.body.style.marginRight = "0px";
                  document.body.style.paddingLeft = "\(layoutMargins.left)px";
                  document.body.style.paddingRight = "\(layoutMargins.right)px";
+                 document.body.style.marginTop = "\(leadImageHeight + layoutMargins.top)px";
                  var seContainer = document.getElementById('\(articleAsLivingDocBoxContainerID)');
                  var skeletonContainer = document.getElementById('\(articleAsLivingDocBoxSkeletonContainerID)');
                  if (seContainer) {
