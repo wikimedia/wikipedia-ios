@@ -114,8 +114,9 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 }
 
 - (void)teardown:(nullable dispatch_block_t)completion {
+    [self stopCoreDataSynchronizers];
+    [self.session teardown];
     if (self.cacheController) {
-        [self.session teardown];
         [self.cacheController teardown:^{
             if (completion) {
                 completion();
