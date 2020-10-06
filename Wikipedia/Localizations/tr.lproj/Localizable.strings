@@ -340,7 +340,7 @@
 "explore-feed-preferences-global-cards-title" = "Küresel kartlar";
 "explore-feed-preferences-hide-card-action-title" = "Bu kartı gizle";
 "explore-feed-preferences-hide-feed-cards-action-title" = "Tüm “$1” kartlarını gizle";
-"explore-feed-preferences-in-the-news-description" = "Güncel olaylar hakkında makaleler";
+"explore-feed-preferences-in-the-news-description" = "Güncel olaylar hakkında maddeler";
 "explore-feed-preferences-languages-footer-text" = "Tüm Keşfet akış kartlarını tüm dillerinde gizlemek Keşfet sekmesini kapatır.";
 "explore-feed-preferences-on-this-day-description" = "Tarihte bugün gerçekleşen olaylar";
 "explore-feed-preferences-places-description" = "Bulunduğunuz yere yakın Vikipedi maddeleri";
@@ -633,7 +633,7 @@
 "reading-list-keep-sync-disabled-additional-subtitle" = "Senkronizasyonu kapatma, bu maddeleri hesabınızdan kaldıracaktır. Bunları cihazınızdan kaldırırsanız gelecekte tekrar senkronizasyonu açarak geri getiremezsiniz.";
 "reading-list-keep-sync-disabled-remove-article-button-title" = "Hayır, maddeleri hem cihazdan hem Vikipedi hesabımdan kaldır";
 "reading-list-keep-title" = "Kaydedilen maddeleri cihazda saklasın mı?";
-"reading-list-limit-hit-for-unsorted-articles-button-title" = "Makaleleri sırala";
+"reading-list-limit-hit-for-unsorted-articles-button-title" = "Maddeleri sırala";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "5000 adet sıralanmamış madde sınırı var. Sıralanmamış maddelerin senkronizasyonuna devam etmek için lütfen mevcut maddelerinizi listelere ayırın.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Sıralanmamış maddeler için limit sayısı";
 "reading-list-list-limit-exceeded-message" = "Bu okuma listesi ve bu listeye kaydedilen maddeler senkronize edilmeyecektir, lütfen bu listenin senkronizasyonunu devam ettirmek için listelerinizi şu sayıya düşürün: $1";
@@ -814,8 +814,8 @@
 "talk-page-new-banner-subtitle" = "Unutma, burada hepimiz insanız.";
 "talk-page-new-banner-title" = "Lütfen nazik ol";
 "talk-page-new-body-textfield-accessibility-label" = "Tartışma Organı";
-"talk-page-new-reply-body-accessibility-label" = "Cevap oluştur";
-"talk-page-new-reply-body-placeholder-text" = "Cevap yaz";
+"talk-page-new-reply-body-accessibility-label" = "Yanıt oluştur";
+"talk-page-new-reply-body-placeholder-text" = "Yanıt oluştur";
 "talk-page-new-reply-success-text" = "Cevabınız başarıyla yayımlandı";
 "talk-page-new-subject-clear-button-accessibility" = "Konuyu temizle";
 "talk-page-new-subject-placeholder-text" = "Konu";
