@@ -1,5 +1,6 @@
 import Foundation
 import WidgetKit
+import CocoaLumberjackSwift
 
 @objc(WMFWidgetController)
 public final class WidgetController: NSObject {
@@ -62,11 +63,10 @@ public final class WidgetController: NSObject {
     }
     
     private func fetchCachedWidgetContentGroup(with kind: WMFContentGroupKind, isAnyLanguageAllowed: Bool, in dataStore: MWKDataStore, completion:  @escaping (WMFContentGroup?) -> Void) {
+        assert(Thread.isMainThread, "Cached widget content group must be fetched from the main queue")
         let moc = dataStore.viewContext
         let siteURL = isAnyLanguageAllowed ? dataStore.languageLinkController.appLanguage?.siteURL() : nil
-        moc.perform {
-            completion(moc.newestGroup(of: kind, forSiteURL: siteURL))
-        }
+        completion(moc.newestGroup(of: kind, forSiteURL: siteURL))
     }
     
     public func updateFeedContent(in dataStore: MWKDataStore, completion: @escaping () -> Void) {
@@ -136,6 +136,9 @@ public final class WidgetController: NSObject {
             completion()
             finishBackgroundActivity()
             #if DEBUG
+            guard !self.isCreatingDataStore, self._dataStore == nil else { // Don't check open files if another MWKDataStore was created after this one was destroyed
+                return
+            }
             let openFiles = self.openFilePaths()
             let openSqliteFile = openFiles.first(where: { $0.hasSuffix(".sqlite") })
             assert(openSqliteFile == nil, "There should be no open sqlite files (which in our case are Core Data persistent stores) in the shared app container after the data store is released. The widget still has a lock on these files: \(openFiles)")

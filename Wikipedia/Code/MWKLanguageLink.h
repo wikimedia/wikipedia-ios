@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Title text for the page linked to by the receiver.
 @property (readonly, copy, nonatomic, nonnull) NSString *pageTitleText;
 
-/// User-readable name for @c languageCode in the the language specified in the current device language.
+/// User-readable name for @c languageCode in the language specified in the current device language.
 @property (readonly, copy, nonatomic, nonnull) NSString *localizedName;
 
 /// User-readable name for @c languageCode in the language specified by @c languageCode.

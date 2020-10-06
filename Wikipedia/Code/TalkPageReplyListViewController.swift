@@ -1,5 +1,6 @@
 
 import UIKit
+import CocoaLumberjackSwift
 
 protocol TalkPageReplyListViewControllerDelegate: class {
     func tappedLink(_ url: URL, viewController: TalkPageReplyListViewController, sourceView: UIView, sourceRect: CGRect?)

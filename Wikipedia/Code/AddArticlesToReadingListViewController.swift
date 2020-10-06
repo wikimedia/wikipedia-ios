@@ -1,4 +1,5 @@
 import UIKit
+import CocoaLumberjackSwift
 
 protocol AddArticlesToReadingListDelegate: NSObjectProtocol {
     func addArticlesToReadingListWillClose(_ addArticlesToReadingList: AddArticlesToReadingListViewController)

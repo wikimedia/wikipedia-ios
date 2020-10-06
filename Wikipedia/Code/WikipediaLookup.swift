@@ -1,5 +1,6 @@
 import Foundation
 import WMF.WMFLogging
+import CocoaLumberjackSwift
 
 @objc class WikipediaLookup: NSObject {
     static let allWikipedias: [Wikipedia] = {

@@ -1,4 +1,5 @@
 import WebKit
+import CocoaLumberjackSwift
 
 class SinglePageWebViewController: ViewController {
     let url: URL

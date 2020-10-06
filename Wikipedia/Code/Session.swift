@@ -1,4 +1,5 @@
 import Foundation
+import CocoaLumberjackSwift
 
 public enum WMFCachePolicy {
     case foundation(URLRequest.CachePolicy)
@@ -134,12 +135,15 @@ public class Session: NSObject {
     }
     
     deinit {
-        defaultURLSession.invalidateAndCancel()
+        teardown()
     }
     
-    public func cancelAllRequests() {
+    @objc public func teardown() {
+        guard defaultURLSession !== URLSession.shared else { // [NSURLSession sharedSession] may not be invalidated
+            return
+        }
         defaultURLSession.invalidateAndCancel()
-        defaultURLSession = Session.getURLSession(with: permanentCache, delegate: sessionDelegate)
+        defaultURLSession = URLSession.shared
     }
     
     public let wifiOnlyURLSession: URLSession = {
