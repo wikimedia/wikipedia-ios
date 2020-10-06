@@ -56,8 +56,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
                 
                 largeEventCell.configure(with: largeEvent, theme: theme)
                 cell = largeEventCell
-                //tonitodo: look into this commented out need
-                //significantEventsSideScrollingCell.timelineView.extendTimelineAboveDot = indexPath.item == 0 ? true : false
+                largeEventCell.timelineView.extendTimelineAboveDot = indexPath.item == 0 ? false : true
             case .small(let smallEvent):
                 guard let smallEventCell = collectionView.dequeueReusableCell(withReuseIdentifier: ArticleAsLivingDocSmallEventCollectionViewCell.identifier, for: indexPath) as? ArticleAsLivingDocSmallEventCollectionViewCell else {
                     return nil
@@ -90,6 +89,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
                     return UICollectionReusableView()
                 }
 
+                sectionHeaderView.layoutMargins = self.layout.itemLayoutMargins
                 sectionHeaderView.configure(viewModel: section, theme: theme)
                 return sectionHeaderView
             } else if kind == UICollectionView.elementKindSectionFooter {
@@ -168,6 +168,18 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
         if let viewModel = delegate?.articleAsLivingDocViewModel {
             addInitialSections(sections: viewModel.sections)
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        // for some reason the initial calls to metrics(with size: CGSize...) (triggered from viewDidLoad) have an incorrect view size passed in.
+        // this retriggers that method with the correct size, so that we have correct
+        // layout margins on load
+        if isFirstAppearance {
+            collectionView.reloadData()
+        }
+        super.viewWillAppear(animated)
+
     }
     
     private func setupNavigationBar() {

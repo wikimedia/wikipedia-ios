@@ -3,7 +3,7 @@ import UIKit
 
 class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
     private let descriptionTextView = UITextView()
-    private let timelineView = TimelineView()
+    let timelineView = TimelineView()
 
     private var theme: Theme = Theme.standard
     
@@ -22,7 +22,6 @@ class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
     override func reset() {
         super.reset()
         descriptionTextView.attributedText = nil
-        descriptionTextView.gestureRecognizers?.removeAll()
     }
     
     override func setup() {
@@ -32,10 +31,18 @@ class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
         descriptionTextView.isEditable = false
         descriptionTextView.isSelectable = false
         contentView.addSubview(timelineView)
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedSmallChanges))
+                        descriptionTextView.addGestureRecognizer(tapGestureRecognizer)
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        layoutMarginsAdditions = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: -5)
+        
+        if (traitCollection.horizontalSizeClass == .compact) {
+            layoutMarginsAdditions = UIEdgeInsets(top: 0, left: -5, bottom: 20, right: 0)
+        } else {
+            layoutMarginsAdditions = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
+        }
         
         let layoutMargins = calculatedLayoutMargins
         
@@ -63,10 +70,8 @@ class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
         
         descriptionTextView.attributedText = viewModel.eventDescriptionForTraitCollection(traitCollection, theme: theme)
 
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedSmallChanges))
-        descriptionTextView.addGestureRecognizer(tapGestureRecognizer)
-
         apply(theme: theme)
+        setNeedsLayout()
     }
     
     override func layoutSublayers(of layer: CALayer) {
@@ -80,13 +85,13 @@ class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
             descriptionTextView.attributedText = smallEvent.eventDescriptionForTraitCollection(traitCollection, theme: theme)
         }
     }
-
+    
     @objc private func tappedSmallChanges() {
-        guard let revisionID = smallEvent?.smallChanges.first?.revId else {
-            return
+            guard let revisionID = smallEvent?.smallChanges.first?.revId else {
+                return
+            }
+            delegate?.goToHistory(scrolledTo: Int(revisionID))
         }
-        delegate?.goToHistory(scrolledTo: Int(revisionID))
-    }
 }
 
 extension ArticleAsLivingDocSmallEventCollectionViewCell: Themeable {

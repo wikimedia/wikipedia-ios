@@ -46,7 +46,7 @@ class ArticleAsLivingDocViewModelTests: XCTestCase {
                         XCTAssertEqual(font.pointSize, 15.0)
                         XCTAssertEqual(font.familyName, ".AppleSystemUIFont")
                         XCTAssertEqual(font.fontName, ".SFUI-RegularItalic")
-                        XCTAssertEqual(color, Theme.light.colors.primaryText)
+                        XCTAssertEqual(color, Theme.light.colors.link)
 
                         //bump up the dynamic type and change theme, confirm font size & color changes
 
@@ -58,7 +58,7 @@ class ArticleAsLivingDocViewModelTests: XCTestCase {
                         XCTAssertEqual(font.pointSize, 17.0)
                         XCTAssertEqual(font.familyName, ".AppleSystemUIFont")
                         XCTAssertEqual(font.fontName, ".SFUI-RegularItalic")
-                        XCTAssertEqual(color, Theme.black.colors.primaryText)
+                        XCTAssertEqual(color, Theme.black.colors.link)
                     default:
                         XCTFail("Unexpected first event type")
                     }

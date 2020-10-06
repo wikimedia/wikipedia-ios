@@ -3,14 +3,8 @@
     "sha": null,
     "timeline": [],
     "summary": {
-<<<<<<< HEAD
-        "earliestTimestamp": "2020-08-01T04:19:44Z",
-        "numChanges": 60,
-        "numUsers": 33
-=======
         "earliestTimestamp": "2020-06-14T01:07:03Z",
         "numChanges": 282,
         "numUsers": 112
->>>>>>> T258208-content-insert
     }
 }

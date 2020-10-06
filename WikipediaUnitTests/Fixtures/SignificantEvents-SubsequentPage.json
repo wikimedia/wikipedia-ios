@@ -2,9 +2,6 @@
     "nextRvStartId": 972790429,
     "sha": null,
     "timeline": [{
-<<<<<<< HEAD
-        "count": 10,
-=======
         "revid": 973922738,
         "timestamp": "2020-08-20T01:32:43Z",
         "outputType": "small-change"
@@ -43,7 +40,6 @@
     }, {
         "revid": 973552716,
         "timestamp": "2020-08-17T21:24:55Z",
->>>>>>> T258208-content-insert
         "outputType": "small-change"
     }, {
         "revid": 973550989,
@@ -63,16 +59,10 @@
             "sections": ["=== World War I, Great Depression, and World War II ==="]
         }],
         "userGroups": ["extendedconfirmed", "*", "user", "autoconfirmed"],
-<<<<<<< HEAD
-        "userEditCount": 31337
-    }, {
-        "count": 1,
-=======
         "userEditCount": 31815
     }, {
         "revid": 973409619,
         "timestamp": "2020-08-17T01:57:36Z",
->>>>>>> T258208-content-insert
         "outputType": "small-change"
     }, {
         "revid": 973409110,
@@ -92,11 +82,6 @@
             "sections": ["=== World War I, Great Depression, and World War II ==="]
         }],
         "userGroups": ["*", "user", "autoconfirmed"],
-<<<<<<< HEAD
-        "userEditCount": 30
-    }, {
-        "count": 3,
-=======
         "userEditCount": 46
     }, {
         "revid": 973134678,
@@ -109,7 +94,6 @@
     }, {
         "revid": 973103828,
         "timestamp": "2020-08-15T11:03:13Z",
->>>>>>> T258208-content-insert
         "outputType": "small-change"
     }, {
         "revid": 973092925,
@@ -120,11 +104,6 @@
         "userid": 88116,
         "section": "== Discontinuous region category ==",
         "userGroups": ["extendedconfirmed", "*", "user", "autoconfirmed"],
-<<<<<<< HEAD
-        "userEditCount": 3640
-    }, {
-        "count": 4,
-=======
         "userEditCount": 3690
     }, {
         "revid": 972997868,
@@ -141,17 +120,11 @@
     }, {
         "revid": 972790992,
         "timestamp": "2020-08-13T20:44:28Z",
->>>>>>> T258208-content-insert
         "outputType": "small-change"
     }],
     "summary": {
         "earliestTimestamp": "2020-08-13T20:44:28Z",
-<<<<<<< HEAD
-        "numChanges": 40,
-        "numUsers": 24
-=======
         "numChanges": 82,
         "numUsers": 45
->>>>>>> T258208-content-insert
     }
 }

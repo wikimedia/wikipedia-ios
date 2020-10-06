@@ -62,7 +62,6 @@ class ArticleAsLivingDocHorizontallyScrollingCell: CollectionViewCell {
         descriptionTextView.isEditable = false
         descriptionTextView.isScrollEnabled = false
         descriptionTextView.delegate = self
-        descriptionTextView.textContainer.maximumNumberOfLines = 3
         descriptionTextView.textContainer.lineBreakMode = .byTruncatingTail
         descriptionTextView.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         contentView.addSubview(descriptionTextView)

@@ -237,8 +237,12 @@ public class CommonStrings: NSObject {
     public static let viewFullHistoryText = WMFLocalizedString("aaald-view-full-history-button", value: "View full article history", comment: "Text displayed in a button for pushing to the full article history view on the article as a living document screen.")
     static let smallChangeDescription = WMFLocalizedString(
         "aaald-small-change-description",
-        value:"{{PLURAL:%1$d|0=No small changes|%1$d small change|%1$d small changes}} made",
+        value:"{{PLURAL:%1$d|0=No small changes|%1$d small change|%1$d small changes}}",
         comment:"Describes how many small changes are batched together in the article as a living document timeline view. %1$d is replaced with the number of small changes.")
+    static let smallChangeDescriptionSuffix = WMFLocalizedString(
+        "aaald-small-change-description-suffix",
+        value:"made",
+        comment:"Suffix added to the end of the number of small changes description in an article as a living document timeline view . e.g. '4 small changes made'.")
     
     static let newTalkTopicDescriptionFormat = WMFLocalizedString("aaald-new-talk-topic-description-format", value: "%1$@ about this article", comment: "Title displayed in an article as a living document timeline cell and content insert explaining that a new article talk page topic has been posted. %1$@ is replaced by `New discussion` text.")
     static let newTalkTopicDiscussion = WMFLocalizedString("aaald-new-discussion", value: "New discussion", comment: "Portion of title displayed in article as a living document timeline cell and content insert explaining that a new article talk page topic has been posted.")

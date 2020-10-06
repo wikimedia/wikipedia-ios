@@ -8,7 +8,7 @@ class ArticleAsLivingDocReferenceCollectionViewCell: ArticleAsLivingDocHorizonta
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         
-        let adjustedMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        let adjustedMargins = ArticleAsLivingDocViewModel.Event.Large.padding
         
         var availableTitleWidth = size.width - adjustedMargins.left - adjustedMargins.right
         let availableDescriptionWidth = availableTitleWidth
@@ -28,12 +28,12 @@ class ArticleAsLivingDocReferenceCollectionViewCell: ArticleAsLivingDocHorizonta
         let titleOrigin = CGPoint(x: adjustedMargins.left, y: adjustedMargins.top)
         let titleFrame = titleLabel.wmf_preferredFrame(at: titleOrigin, maximumWidth: availableTitleWidth, alignedBy: .forceLeftToRight, apply: apply)
         
-        let titleDescriptionSpacing = CGFloat(10)
+        let titleDescriptionSpacing = ArticleAsLivingDocViewModel.Event.Large.changeDetailReferenceTitleDescriptionSpacing
         let descriptionOrigin = CGPoint(x: adjustedMargins.left, y: titleFrame.maxY + titleDescriptionSpacing)
         
-        let descriptionTextViewFrame = descriptionTextView.wmf_preferredFrame(at: descriptionOrigin, maximumWidth: availableDescriptionWidth, alignedBy: .forceLeftToRight, apply: apply)
+        let _ = descriptionTextView.wmf_preferredFrame(at: descriptionOrigin, maximumWidth: availableDescriptionWidth, alignedBy: .forceLeftToRight, apply: apply)
         
-        let finalSize = CGSize(width: size.width, height: descriptionTextViewFrame.maxY + adjustedMargins.bottom)
+        let finalSize = CGSize(width: size.width, height: size.height)
         
         if (apply) {
             layer.shadowPath = UIBezierPath(roundedRect: CGRect(origin: .zero, size: finalSize), cornerRadius: backgroundView?.layer.cornerRadius ?? 0).cgPath
@@ -88,7 +88,7 @@ class ArticleAsLivingDocReferenceCollectionViewCell: ArticleAsLivingDocHorizonta
     
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        titleLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+        titleLabel.font = UIFont.wmf_font(ArticleAsLivingDocViewModel.Event.Large.changeDetailReferenceTitleStyle, compatibleWithTraitCollection: traitCollection)
         iconTitleBadge?.updateFonts(with: traitCollection)
     }
     

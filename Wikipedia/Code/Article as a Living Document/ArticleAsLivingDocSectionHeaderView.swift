@@ -29,7 +29,7 @@ class ArticleAsLivingDocSectionHeaderView: SizeThatFitsReusableView {
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        let adjustedMargins = UIEdgeInsets(top: layoutMargins.top, left: layoutMargins.left, bottom: layoutMargins.bottom, right: layoutMargins.right)
+        let adjustedMargins = UIEdgeInsets(top: layoutMargins.top + 24, left: layoutMargins.left, bottom: layoutMargins.bottom + 12, right: layoutMargins.right)
         
         let maximumWidth = size.width - adjustedMargins.left - adjustedMargins.right
         
@@ -49,13 +49,14 @@ class ArticleAsLivingDocSectionHeaderView: SizeThatFitsReusableView {
         
         self.titleLabel.text = viewModel.title
         self.subtitleLabel.text = viewModel.subtitleTimestampDisplay
+        setNeedsLayout()
         
         apply(theme: theme)
     }
     
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        titleLabel.font = UIFont.wmf_font(.boldSubheadline, compatibleWithTraitCollection: traitCollection)
+        titleLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
         subtitleLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
     }
 }

@@ -25,6 +25,7 @@ import UIKit
     public static let boldFootnote = DynamicTextStyle(.system, .footnote, .bold)
 
     public static let boldTitle1 = DynamicTextStyle(.system, .title1, .bold)
+    public static let mediumTitle1 = DynamicTextStyle(.system, .title1, .medium)
     public static let heavyTitle1 = DynamicTextStyle(.system, .title1, .heavy)
 
     public static let boldTitle2 = DynamicTextStyle(.system, .title2, .bold)

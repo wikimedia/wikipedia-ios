@@ -15,13 +15,16 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
     private let userInfoTextView = UITextView()
     //tonitodo: clean this button configuration up
     private lazy var thankButton: AlignedImageButton = {
-        return actionButton(with: #imageLiteral(resourceName: "places-more"), text: WMFLocalizedString("aaald-events-thank-title", value: "Thank", comment: "Button title that thanks users for their edit in article as a living document screen"))
+        let image = UIImage(named: "thank")
+        return actionButton(with: image, text: WMFLocalizedString("aaald-events-thank-title", value: "Thank", comment: "Button title that thanks users for their edit in article as a living document screen"))
     }()
     private lazy var viewChangesButton: AlignedImageButton = {
-        return actionButton(with: #imageLiteral(resourceName: "places-more"), text: WMFLocalizedString("aaald-view-changes", value: "View changes", comment: "Button title on a article as a living document cell that sends user to the revision history screen."))
+        let image = UIImage(named: "document")
+        return actionButton(with: image, text: WMFLocalizedString("aaald-view-changes", value: "View changes", comment: "Button title on a article as a living document cell that sends user to the revision history screen."))
     }()
     private lazy var viewDiscussionButton: AlignedImageButton = {
-        return actionButton(with: #imageLiteral(resourceName: "places-more"), text: WMFLocalizedString("aaald-view-discussion", value: "View discussion", comment: "Button title on an article as a living document cell that sends a user to the event's talk page topic."))
+        let image = UIImage(named: "document")
+        return actionButton(with: image, text: WMFLocalizedString("aaald-view-discussion", value: "View discussion", comment: "Button title on an article as a living document cell that sends a user to the event's talk page topic."))
     }()
     
     let timelineView = TimelineView()
@@ -41,13 +44,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
     }
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
-    private let snippetPrototypeCell = ArticleAsLivingDocSnippetCollectionViewCell()
-    private let referencePrototypeCell = ArticleAsLivingDocReferenceCollectionViewCell()
-    
     private var collectionViewHeight: CGFloat = 0
-    private var cachedItemHeights: [String: CGFloat] = [:]
-    
-    private let maximumSideScrollingCellWidth = CGFloat(250)
     
     override func setup() {
         contentView.addSubview(descriptionLabel)
@@ -66,9 +63,6 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         
         wmf_configureSubviewsForDynamicType()
         
-        snippetPrototypeCell.isHidden = true
-        referencePrototypeCell.isHidden = true
-        
         descriptionLabel.numberOfLines = 0
         flowLayout?.scrollDirection = .horizontal
         collectionView.register(ArticleAsLivingDocSnippetCollectionViewCell.self, forCellWithReuseIdentifier: ArticleAsLivingDocSnippetCollectionViewCell.identifier)
@@ -78,17 +72,20 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.alwaysBounceHorizontal = true
-        collectionView.clipsToBounds = false
         
         super.setup()
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        layoutMarginsAdditions = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: -5)
+        if (traitCollection.horizontalSizeClass == .compact) {
+            layoutMarginsAdditions = UIEdgeInsets(top: 0, left: -5, bottom: 20, right: 0)
+        } else {
+            layoutMarginsAdditions = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
+        }
         
         let layoutMargins = calculatedLayoutMargins
         
-        let timelineTextSpacing = CGFloat(5)
+        let timelineTextSpacing = CGFloat(7)
         let timelineWidth = CGFloat(15)
         let x = layoutMargins.left + timelineWidth + timelineTextSpacing
         let widthToFit = size.width - layoutMargins.right - x
@@ -102,32 +99,31 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         
         let timestampFrame = timestampLabel.wmf_preferredFrame(at: timestampOrigin, maximumSize: CGSize(width: widthToFit, height: UIView.noIntrinsicMetric), minimumSize: NoIntrinsicSize, alignedBy: .forceLeftToRight, apply: apply)
         
-        let timestampDescriptionSpacing = CGFloat(6)
+        let timestampDescriptionSpacing = CGFloat(8)
         
         let descriptionOrigin = CGPoint(x: x, y: timestampFrame.maxY + timestampDescriptionSpacing)
         
         let descriptionFrame = descriptionLabel.wmf_preferredFrame(at: descriptionOrigin, maximumSize: CGSize(width: widthToFit, height: UIView.noIntrinsicMetric), minimumSize: NoIntrinsicSize, alignedBy: .forceLeftToRight, apply: apply)
         
-        let descriptionCollectionViewSpacing = CGFloat(5)
+        let descriptionCollectionViewSpacing = CGFloat(10)
         
         let collectionViewOrigin = CGPoint(x: x, y: descriptionFrame.maxY + descriptionCollectionViewSpacing)
         
-        collectionViewHeight = largestItemHeightForWidth(maximumSideScrollingCellWidth)
+        collectionViewHeight = largeEvent?.calculateTallestChangeDetailHeightForTraitCollection(traitCollection) ?? 0
         let collectionViewItemSpacing = CGFloat(10)
 
         if (apply) {
             flowLayout?.minimumInteritemSpacing = collectionViewItemSpacing
             flowLayout?.minimumLineSpacing = 15
-            flowLayout?.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            flowLayout?.sectionInset = UIEdgeInsets(top: 0, left: x, bottom: 0, right: layoutMargins.right)
             collectionView.frame = CGRect(x: 0, y: collectionViewOrigin.y, width: size.width, height: collectionViewHeight)
-            collectionView.contentInset = UIEdgeInsets(top: 0, left: x, bottom: 0, right: 0)
             collectionView.reloadData()
             collectionView.layoutIfNeeded()
         }
         
-        let collectionViewUserInfoLabelSpacing = CGFloat(5)
+        let collectionViewUserInfoLabelSpacing = CGFloat(0)
         
-        let userInfoOrigin = CGPoint(x: x, y: descriptionFrame.maxY + collectionViewHeight + collectionViewUserInfoLabelSpacing)
+        let userInfoOrigin = CGPoint(x: x, y: descriptionFrame.maxY + collectionViewHeight + descriptionCollectionViewSpacing + collectionViewUserInfoLabelSpacing)
         
         let userInfoFrame =
             userInfoTextView.wmf_preferredFrame(at: userInfoOrigin, maximumWidth: widthToFit, alignedBy: .forceLeftToRight, apply: apply)
@@ -137,7 +133,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
             return CGSize(width: size.width, height: finalHeight)
         }
         
-        let userInfoButtonsSpacing = CGFloat(4)
+        let userInfoButtonsSpacing = CGFloat(6)
         let buttonsSpacing = CGFloat(20)
         let mysteriousButtonXOriginOffsetNeeded = CGFloat(10)
         
@@ -168,41 +164,13 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         return "\(index)-\(width)"
     }
     
-    private func largestItemHeightForWidth(_ width: CGFloat) -> CGFloat {
-        var largestItemHeight: CGFloat = 0
-        for (i, change) in changeDetails.enumerated() {
-            let key = itemHeightCacheKeyForWidth(width, index: i)
-            let height: CGFloat
-            if let cachedHeight = cachedItemHeights[key] {
-                height = cachedHeight
-            } else {
-                switch change {
-                case .snippet:
-                    snippetPrototypeCell.configure(change: change, theme: theme, delegate: self)
-                    height = snippetPrototypeCell.wmf_preferredHeight(at: .zero, maximumWidth: width, alignedBy: .forceLeftToRight, spacing: 0, apply: false)
-                    cachedItemHeights[key] = height
-                case .reference:
-                    referencePrototypeCell.configure(change: change, theme: theme, delegate: self)
-                    height = referencePrototypeCell.wmf_preferredHeight(at: .zero, maximumWidth: width, alignedBy: .forceLeftToRight, spacing: 0, apply: false)
-                    cachedItemHeights[key] = height
-                }
-            }
-            
-            if largestItemHeight < height {
-                largestItemHeight = height
-            }
-        }
-        
-        return largestItemHeight
-    }
-    
-    private func actionButton(with image: UIImage, text: String) -> AlignedImageButton {
+    private func actionButton(with image: UIImage?, text: String) -> AlignedImageButton {
         let button = AlignedImageButton()
-        button.setImage(image, for: .normal) //tonitodo: proper image
+        button.setImage(image, for: .normal)
         button.titleLabel?.numberOfLines = 1
         button.titleLabel?.textAlignment = .left
-        button.horizontalSpacing = 2
-        button.verticalPadding = 4
+        button.horizontalSpacing = 6
+        button.verticalPadding = 2
         button.leftPadding = 10
         button.rightPadding = 10
         button.titleLabel?.setContentCompressionResistancePriority(.required, for: .horizontal)
@@ -266,7 +234,6 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         thankButton.removeFromSuperview()
         viewChangesButton.removeFromSuperview()
         viewDiscussionButton.removeFromSuperview()
-        cachedItemHeights.removeAll()
         collectionViewHeight = 0
     }
     
@@ -289,8 +256,8 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
             contentView.addSubview(thankButton)
             contentView.addSubview(viewChangesButton)
             
-            thankButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-            viewChangesButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+            thankButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+            viewChangesButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
             
             thankButton.setTitleColor(theme.colors.link, for: .normal)
             viewChangesButton.setTitleColor(theme.colors.link, for: .normal)
@@ -306,7 +273,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
             
             contentView.addSubview(viewDiscussionButton)
             
-            viewDiscussionButton.titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+            viewDiscussionButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
             viewDiscussionButton.setTitleColor(theme.colors.link, for: .normal)
             
             viewDiscussionButton.setNeedsLayout()
@@ -368,20 +335,7 @@ extension ArticleAsLivingDocLargeEventCollectionViewCell: UICollectionViewDataSo
 extension ArticleAsLivingDocLargeEventCollectionViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let changeDetail = changeDetails[indexPath.item]
-        let cacheKey = itemHeightCacheKeyForWidth(maximumSideScrollingCellWidth, index: indexPath.item)
-        if let height = cachedItemHeights[cacheKey] {
-            return CGSize(width: maximumSideScrollingCellWidth, height: height)
-        }
-        
-        switch changeDetail {
-        case .snippet:
-            snippetPrototypeCell.configure(change: changeDetail, theme: theme, delegate: self)
-            return snippetPrototypeCell.sizeThatFits(CGSize(width: maximumSideScrollingCellWidth, height: collectionViewHeight), apply: false)
-        case .reference:
-            referencePrototypeCell.configure(change: changeDetail, theme: theme, delegate: self)
-            return referencePrototypeCell.sizeThatFits(CGSize(width: maximumSideScrollingCellWidth, height: collectionViewHeight), apply: false)
-        }
+        return CGSize(width: ArticleAsLivingDocViewModel.Event.Large.sideScrollingCellWidth, height: collectionViewHeight - ArticleAsLivingDocViewModel.Event.Large.additionalPointsForShadow)
     }
 }
 

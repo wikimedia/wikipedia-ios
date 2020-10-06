@@ -369,6 +369,7 @@ public extension ArticleAsLivingDocViewModel {
 
             private let typedEvent: SignificantEvents.TypedEvent
             private(set) var eventDescription: NSAttributedString?
+            private(set) var tallestChangeDetailHeight: CGFloat?
             private(set) var changeDetails: [ChangeDetail]?
             private(set) var displayTimestamp: String?
             private(set) var userInfo: NSAttributedString?
@@ -452,39 +453,40 @@ public extension ArticleAsLivingDocViewModel.Event.Small {
         }
         
         let font = UIFont.wmf_font(.italicSubheadline, compatibleWithTraitCollection: traitCollection)
-        let attributes = [NSAttributedString.Key.font: font,
+        let linkAttributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor: theme.colors.link]
+        let suffixAttributes = [NSAttributedString.Key.font: font,
+                          NSAttributedString.Key.foregroundColor: theme.colors.secondaryText]
         
-        let localizedString = String.localizedStringWithFormat(
+        
+        let descriptionLocalizedString = String.localizedStringWithFormat(
             CommonStrings.smallChangeDescription,
             smallChanges.count)
+        let suffixString = CommonStrings.smallChangeDescriptionSuffix
         
-        let eventDescription = NSAttributedString(string: localizedString, attributes: attributes)
+        
+        
+        let linkAttString = NSAttributedString(string: descriptionLocalizedString, attributes: linkAttributes as [NSAttributedString.Key : Any])
+        let suffixAttrString = NSAttributedString(string: suffixString, attributes: suffixAttributes)
+        
+        let mutableAttString = NSMutableAttributedString()
+        mutableAttString.append(linkAttString)
+        mutableAttString.append(NSAttributedString(string: " "))
+        mutableAttString.append(suffixAttrString)
+        
+        guard let nsAttString = mutableAttString.copy() as? NSAttributedString else {
+            return NSAttributedString()
+        }
         
         self.lastTraitCollection = traitCollection
-        self.eventDescription = eventDescription
-        return eventDescription
+        self.eventDescription = nsAttString
+        return nsAttString
     }
 }
 
 //MARK: Large Event Type Helper methods
 
 public extension ArticleAsLivingDocViewModel.Event.Large {
-    
-    func firstSnippetFromPrototypeModel(traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString? {
-        let changeDetails = changeDetailsForTraitCollection(traitCollection, theme: theme)
-        if changeDetails.count > 0 {
-            let firstChangeDetail = changeDetails[0]
-            switch firstChangeDetail {
-            case .snippet(let snippet):
-                return snippet.displayText
-            default:
-                return nil
-            }
-        }
-        
-        return nil
-    }
     
     func articleInsertHtmlSnippet(isFirst: Bool = false, indexPath: IndexPath) -> String? {
         guard let timestampForDisplay = self.fullyRelativeTimestampForDisplay(),
@@ -844,6 +846,93 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         return attributedString
     }
     
+    static let padding = UIEdgeInsets(top: 17, left: 15, bottom: 17, right: 15)
+    static let sideScrollingCellWidth = CGFloat(250)
+    static let availableSideScrollingCellWidth = {
+        return sideScrollingCellWidth - padding.left - padding.right
+    }()
+    
+    static let changeDetailDescriptionTextStyle = DynamicTextStyle.subheadline
+    static let changeDetailDescriptionTextStyleItalic = DynamicTextStyle.italicSubheadline
+    static let changeDetailDescriptionFontWeight = UIFont.Weight.regular
+    static let changeDetailReferenceTitleStyle = DynamicTextStyle.semiboldSubheadline
+    static let changeDetailReferenceTitleDescriptionSpacing = CGFloat(13)
+    static let additionalPointsForShadow = CGFloat(16)
+    
+    func calculateTallestChangeDetailHeightForTraitCollection(_ traitCollection: UITraitCollection) -> CGFloat {
+        
+        //theme shouldn't affect sizing, so defaulting to light
+        let changeDetails = changeDetailsForTraitCollection(traitCollection, theme: .light)
+        
+        if let lastTraitCollection = lastTraitCollection,
+           let tallestChangeDetailHeight = tallestChangeDetailHeight {
+            if lastTraitCollection == traitCollection {
+                return tallestChangeDetailHeight
+            }
+        }
+        
+        //first get maximum height for 3 line snippet
+        //create attributed string
+        let snippetFont = UIFont.wmf_font(Self.changeDetailDescriptionTextStyle, compatibleWithTraitCollection: traitCollection)
+        let referenceTitleFont = UIFont.wmf_font(Self.changeDetailReferenceTitleStyle, compatibleWithTraitCollection: traitCollection)
+        
+        let snippetAttributes = [NSAttributedString.Key.font: snippetFont]
+        let referenceTitleAttributes = [NSAttributedString.Key.font: referenceTitleFont]
+        
+        let threeLineSnippetText = """
+                                1
+                                2
+                                3
+                            """
+        let oneLineSnippetText = "1"
+        
+        let threeLineAttString = NSAttributedString(string: threeLineSnippetText, attributes: snippetAttributes)
+        let oneLineAttString = NSAttributedString(string: oneLineSnippetText, attributes: referenceTitleAttributes)
+        
+        let threeLineSnippetHeight = ceil(threeLineAttString.boundingRect(with: CGSize(width: Self.availableSideScrollingCellWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height)
+        let oneLineSnippetHeight = ceil(oneLineAttString.boundingRect(with: CGSize(width: Self.availableSideScrollingCellWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height)
+        
+        var tallestSnippetChangeDetailHeight: CGFloat = 0
+        var tallestReferenceChangeDetailHeight: CGFloat = 0
+        let availableWidth = Self.availableSideScrollingCellWidth - Self.padding.left - Self.padding.right
+        changeDetails.forEach { (changeDetail) in
+            switch changeDetail {
+            case .snippet(let snippet):
+                let heightOfEntireSnippet = ceil(snippet.displayText.boundingRect(with: CGSize(width: availableWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height) + Self.padding.top + Self.padding.bottom
+                
+                if tallestSnippetChangeDetailHeight < heightOfEntireSnippet {
+                    tallestSnippetChangeDetailHeight = heightOfEntireSnippet
+                }
+                
+            case .reference(let reference):
+                let titleHeight = oneLineSnippetHeight
+                let descriptionHeight = ceil(reference.description.boundingRect(with: CGSize(width: availableWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height)
+                let totalHeight = Self.padding.top + titleHeight + Self.changeDetailReferenceTitleDescriptionSpacing + descriptionHeight + Self.padding.bottom
+                
+                if tallestReferenceChangeDetailHeight < totalHeight {
+                    tallestReferenceChangeDetailHeight = totalHeight
+                }
+            }
+        }
+        
+        lastTraitCollection = traitCollection
+
+        var nearlyFinalHeight: CGFloat = 0
+        if tallestSnippetChangeDetailHeight == 0 {
+            nearlyFinalHeight = tallestReferenceChangeDetailHeight
+        } else if tallestReferenceChangeDetailHeight == 0 {
+            nearlyFinalHeight = min(tallestSnippetChangeDetailHeight, threeLineSnippetHeight + Self.padding.top + Self.padding.bottom)
+        } else {
+            let finalSnippetHeight = min(tallestSnippetChangeDetailHeight, threeLineSnippetHeight)
+            nearlyFinalHeight = max(tallestReferenceChangeDetailHeight, finalSnippetHeight)
+        }
+        
+        
+        let finalHeight = nearlyFinalHeight + Self.additionalPointsForShadow
+        self.tallestChangeDetailHeight = finalHeight
+        return finalHeight
+    }
+    
     func changeDetailsForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> [ChangeDetail] {
         if let lastTraitCollection = lastTraitCollection,
            let changeDetails = changeDetails {
@@ -856,7 +945,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         
         switch typedEvent {
         case .newTalkPageTopic(let newTalkPageTopic):
-            let attributedString = newTalkPageTopic.snippet.byAttributingHTML(with: .subheadline, boldWeight: .regular, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true)
+            let attributedString = newTalkPageTopic.snippet.byAttributingHTML(with: Self.changeDetailDescriptionTextStyle, boldWeight: Self.changeDetailDescriptionFontWeight, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true)
             let changeDetail = ChangeDetail.snippet(Snippet(displayText: attributedString))
             changeDetails.append(changeDetail)
         case .large(let largeChange):
@@ -868,7 +957,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                         continue
                     }
                     
-                    let attributedString = snippet.byAttributingHTML(with: .subheadline, boldWeight: .regular, matching: traitCollection, color: theme.colors.primaryText, handlingLinks: true, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true)
+                    let attributedString = snippet.byAttributingHTML(with: Self.changeDetailDescriptionTextStyle, boldWeight: Self.changeDetailDescriptionFontWeight, matching: traitCollection, color: theme.colors.primaryText, handlingLinks: true, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true)
                     let changeDetail = ChangeDetail.snippet(Snippet(displayText: attributedString))
                     changeDetails.append(changeDetail)
                 case .deletedText:
@@ -878,7 +967,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                         
                         switch template {
                         case .articleDescription(let articleDescription):
-                            let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+                            let font = UIFont.wmf_font(Self.changeDetailDescriptionTextStyle, compatibleWithTraitCollection: traitCollection)
                             let attributes = [NSAttributedString.Key.font: font,
                                               NSAttributedString.Key.foregroundColor:
                                                 theme.colors.primaryText]
@@ -978,8 +1067,8 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     
     private func descriptionForJournalCitation(_ journalCitation: SignificantEvents.Citation.Journal, traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
         
-        let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
-        let boldFont = UIFont.wmf_font(.italicSubheadline, compatibleWithTraitCollection: traitCollection)
+        let font = UIFont.wmf_font(Self.changeDetailDescriptionTextStyle, compatibleWithTraitCollection: traitCollection)
+        let boldFont = UIFont.wmf_font(Self.changeDetailDescriptionTextStyleItalic, compatibleWithTraitCollection: traitCollection)
         let attributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor:
                             theme.colors.primaryText]
@@ -1055,8 +1144,8 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     }
     
     private func descriptionForWebsiteCitation(_ websiteCitation: SignificantEvents.Citation.Website, traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
-        let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
-        let italicFont = UIFont.wmf_font(.italicSubheadline, compatibleWithTraitCollection: traitCollection)
+        let font = UIFont.wmf_font(Self.changeDetailDescriptionTextStyle, compatibleWithTraitCollection: traitCollection)
+        let italicFont = UIFont.wmf_font(Self.changeDetailDescriptionTextStyleItalic, compatibleWithTraitCollection: traitCollection)
         let attributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor:
                             theme.colors.primaryText]
@@ -1065,7 +1154,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                             theme.colors.primaryText]
         
         let titleAttributedString: NSAttributedString
-        let titleString = "\"\(websiteCitation.title)\""
+        let titleString = "\"\(websiteCitation.title)\" "
         let range = NSRange(location: 0, length: titleString.count)
         let mutableAttributedString = NSMutableAttributedString(string: titleString, attributes: attributes)
         let urlString = websiteCitation.urlString
@@ -1125,8 +1214,8 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     
     private func descriptionForNewsCitation(_ newsCitation: SignificantEvents.Citation.News, traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
         
-        let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
-        let italicFont = UIFont.wmf_font(.italicSubheadline, compatibleWithTraitCollection: traitCollection)
+        let font = UIFont.wmf_font(Self.changeDetailDescriptionTextStyle, compatibleWithTraitCollection: traitCollection)
+        let italicFont = UIFont.wmf_font(Self.changeDetailDescriptionTextStyleItalic, compatibleWithTraitCollection: traitCollection)
         let attributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor:
                             theme.colors.primaryText]
@@ -1135,7 +1224,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                             theme.colors.primaryText]
         
         let titleAttributedString: NSAttributedString
-        let titleString = "\"\(newsCitation.title)\""
+        let titleString = "\"\(newsCitation.title)\" "
         let range = NSRange(location: 0, length: titleString.count)
         let mutableAttributedString = NSMutableAttributedString(string: titleString, attributes: attributes)
         if let urlString = newsCitation.urlString,
@@ -1152,11 +1241,11 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         var descriptionStart = ""
         if let firstName = newsCitation.firstName {
             if let lastName = newsCitation.lastName {
-                descriptionStart += "\(lastName), \(firstName)"
+                descriptionStart += "\(lastName), \(firstName) "
             }
         } else {
             if let lastName = newsCitation.lastName {
-                descriptionStart += "\(lastName)"
+                descriptionStart += "\(lastName) "
             }
         }
          
@@ -1180,7 +1269,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             retrievedString = String.localizedStringWithFormat(CommonStrings.newNewsReferenceRetrievedDate, accessDate)
         }
         
-        let retrievedDateAttributedString = NSAttributedString(string: retrievedString, attributes: attributes)
+        let retrievedDateAttributedString = NSAttributedString(string: "\(retrievedString) ", attributes: attributes)
         
         let finalMutableAttributedString = NSMutableAttributedString(string: "")
         finalMutableAttributedString.append(descriptionStartAttributedString)
@@ -1194,8 +1283,8 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     
     private func descriptionForBookCitation(_ bookCitation: SignificantEvents.Citation.Book, traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
         
-        let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
-        let italicFont = UIFont.wmf_font(.italicSubheadline, compatibleWithTraitCollection: traitCollection)
+        let font = UIFont.wmf_font(Self.changeDetailDescriptionTextStyle, compatibleWithTraitCollection: traitCollection)
+        let italicFont = UIFont.wmf_font(Self.changeDetailDescriptionTextStyleItalic, compatibleWithTraitCollection: traitCollection)
         let attributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor:
                             theme.colors.primaryText]

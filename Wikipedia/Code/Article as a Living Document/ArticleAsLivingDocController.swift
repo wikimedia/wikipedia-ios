@@ -141,10 +141,10 @@ class ArticleAsLivingDocController: NSObject {
         }
     }
     
-    func articleContentWillBeginLoading() {
+    func articleContentWillBeginLoading(traitCollection: UITraitCollection? = nil) {
         loadingArticleContent = true
         articleAsLivingDocViewModel = nil
-        fetchInitialArticleAsLivingDoc()
+        fetchInitialArticleAsLivingDoc(traitCollection: traitCollection)
     }
     
     func setupLeadImageView() {
@@ -201,7 +201,7 @@ class ArticleAsLivingDocController: NSObject {
         }
     }
     
-    func fetchInitialArticleAsLivingDoc() {
+    func fetchInitialArticleAsLivingDoc(traitCollection: UITraitCollection? = nil) {
         
         // triggered via initial load or pull to refresh
         
@@ -213,7 +213,7 @@ class ArticleAsLivingDocController: NSObject {
         
         failedLastInitialFetch = false
 
-        fetchArticleAsLivingDocViewModel(rvStartId: nil, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL) { [weak self] (result) in
+        fetchArticleAsLivingDocViewModel(rvStartId: nil, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL, traitCollection: traitCollection) { [weak self] (result) in
             
             guard let self = self else {
                 return
@@ -416,7 +416,7 @@ class ArticleAsLivingDocController: NSObject {
     
     //MARK: Fetcher Methods
     private let fetcher = SignificantEventsFetcher()
-    func fetchArticleAsLivingDocViewModel(rvStartId: UInt? = nil, title: String, siteURL: URL, completion: @escaping ((Result<ArticleAsLivingDocViewModel, Error>) -> Void)) {
+    func fetchArticleAsLivingDocViewModel(rvStartId: UInt? = nil, title: String, siteURL: URL, traitCollection: UITraitCollection? = nil, completion: @escaping ((Result<ArticleAsLivingDocViewModel, Error>) -> Void)) {
         fetcher.fetchSignificantEvents(rvStartId: rvStartId, title: title, siteURL: siteURL) { (result) in
             switch result {
             case .failure(let error):
@@ -425,6 +425,22 @@ class ArticleAsLivingDocController: NSObject {
                 }
             case .success(let significantEvents):
                 if let viewModel = ArticleAsLivingDocViewModel(significantEvents: significantEvents) {
+                    
+                    //Pre-calculate max snippet heights
+                    if let traitCollection = traitCollection {
+                        viewModel.sections.forEach { (section) in
+                            section.typedEvents.forEach { (typedEvent) in
+                                switch typedEvent {
+                                case .small:
+                                    break
+                                case .large(let largeEvent):
+                                    largeEvent.calculateTallestChangeDetailHeightForTraitCollection(traitCollection)
+                                }
+                            }
+                        }
+                    }
+                    
+                    
                     DispatchQueue.main.async {
                         completion(.success(viewModel))
                     }
@@ -445,14 +461,14 @@ class ArticleAsLivingDocController: NSObject {
         }
     }
     
-    func fetchNextPage(nextRvStartId: UInt) {
+    func fetchNextPage(nextRvStartId: UInt, traitCollection: UITraitCollection? = nil) {
 
         guard let articleTitleAndSiteURL = self.articleTitleAndSiteURL(),
               shouldAttemptToShowArticleAsLivingDoc else {
             return
         }
         
-        fetchArticleAsLivingDocViewModel(rvStartId: nextRvStartId, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL) { [weak self] (result) in
+        fetchArticleAsLivingDocViewModel(rvStartId: nextRvStartId, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL, traitCollection: traitCollection) { [weak self] (result) in
             
             guard let self = self else {
                 return

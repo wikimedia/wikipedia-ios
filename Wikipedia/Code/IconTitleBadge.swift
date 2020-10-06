@@ -29,7 +29,7 @@ class IconTitleBadge: SizeThatFitsView {
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         
-        let padding = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        let padding = UIEdgeInsets(top: 3, left: 5, bottom: 3, right: 5)
         let maximumWidth = size.width - padding.left - padding.right
         
         var x = padding.left

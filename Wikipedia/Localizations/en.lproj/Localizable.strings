@@ -24,7 +24,8 @@
 "aaald-revision-userInfo" = "Edit by $1 ($2 edits)";
 "aaald-revision-userInfo-anonymous" = "Edit by $1";
 "aaald-single-reference-added-description" = "Reference added";
-"aaald-small-change-description" = "{{PLURAL:$1|0=No small changes|$1 small change|$1 small changes}} made";
+"aaald-small-change-description" = "{{PLURAL:$1|0=No small changes|$1 small change|$1 small changes}}";
+"aaald-small-change-description-suffix" = "made";
 "aaald-summary-title" = "{{PLURAL:$1|0=0 changes|$1 change|$1 changes}} by {{PLURAL:$2|0=0 editors|$2 editor|$2 editors}} in {{PLURAL:$3|0=0 days|$3 day|$3 days}}";
 "aaald-two-descriptions-format" = "$1 and $2";
 "aaald-two-sections-description" = "in the $1 and $2 sections";

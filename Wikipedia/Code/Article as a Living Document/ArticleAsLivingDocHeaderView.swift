@@ -10,6 +10,8 @@ class ArticleAsLivingDocHeaderView: UIView {
     @IBOutlet private var sparklineView: WMFSparklineView!
     @IBOutlet var viewFullHistoryButton: ActionButton!
     @IBOutlet private var dividerView: UIView!
+    @IBOutlet var divHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var headerTitleStackView: UIStackView!
     
     private var editMetrics: [NSNumber]? {
         didSet {
@@ -49,6 +51,8 @@ class ArticleAsLivingDocHeaderView: UIView {
         summaryLabel.numberOfLines = 0
         
         viewFullHistoryButton.setTitle(CommonStrings.viewFullHistoryText, for: .normal)
+        
+        divHeightConstraint.constant = 1 / UIScreen.main.scale
     }
     
     func configure(headerText: String, titleText: String?, summaryText: String?, editMetrics: [NSNumber]?, theme: Theme) {
@@ -90,7 +94,7 @@ class ArticleAsLivingDocHeaderView: UIView {
     
     func updateFonts(with traitCollection: UITraitCollection) {
         headerLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-        titleLabel.font = UIFont.wmf_font(.boldTitle1, compatibleWithTraitCollection: traitCollection)
+        titleLabel.font = UIFont.wmf_font(.mediumTitle1, compatibleWithTraitCollection: traitCollection)
         summaryLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
         viewFullHistoryButton.updateFonts(with: traitCollection)
     }
