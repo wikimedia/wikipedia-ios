@@ -14,12 +14,23 @@ public protocol ManagedObjectContextProviding: NSObjectProtocol {
 }
 
 class PermanentCacheManagedObjectContextProvider: NSObject, ManagedObjectContextProviding {
-    var cacheURL: URL?
-    var managedObjectContext: NSManagedObjectContext?
     weak var delegate: ManagedObjectContextProvidingDelegate?
-    let contextCreationQueue = DispatchQueue(label: "org.wikimedia.wikipedia.cacheContextCreation")
+
+    private let contextCreationQueue = DispatchQueue(label: "org.wikimedia.wikipedia.cacheContextCreation")
+    private lazy var managedObjectContext: NSManagedObjectContext? = {
+        guard let context = CacheController.createCacheContext() else {
+            DDLogError("Unable to create cache context")
+            assert(false)
+            return nil
+        }
+        return context
+    }()
+    
     func perform(_ block: @escaping (NSManagedObjectContext) -> Void) {
-        createContext { (context) in
+        contextCreationQueue.async { [weak self] in
+            guard let context = self?.managedObjectContext else {
+                return
+            }
             context.perform {
                 block(context)
             }
@@ -27,27 +38,13 @@ class PermanentCacheManagedObjectContextProvider: NSObject, ManagedObjectContext
     }
     
     func performAndWait(_ block: (NSManagedObjectContext) -> Void) {
-        createContext { (context) in
+        contextCreationQueue.sync {
+            guard let context = managedObjectContext else {
+                return
+            }
             context.performAndWait {
                 block(context)
             }
-        }
-    }
-    
-    private func createContext(_ block: (NSManagedObjectContext) -> Void) {
-        // Expensive file & db operations happen as a part of this migration, so async it to a non-main queue
-        contextCreationQueue.sync {
-            if let context = managedObjectContext {
-                block(context)
-                return
-            }
-            guard let context = CacheController.createCacheContext() else {
-                DDLogError("Unable to create cache context")
-                assert(false)
-                return
-            }
-            managedObjectContext = context
-            block(context)
         }
     }
 }
