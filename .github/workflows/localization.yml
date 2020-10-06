@@ -1,9 +1,9 @@
-# Imports localizations from TranslateWiki.net
+# Transform localizations from TranslateWiki.net
 #
-# Commits are periodically made to the twn branch with new translations from 
-# TranslateWiki. This workflow is activated by those commits. It runs the 
-# script that reads the localizations from TranslateWiki and imports them 
-# into the app. The workflow then commits the result.
+# As of late 2020, TranslateWiki creates PRs automatically, in line with
+# how they work with other repos. However, the strings still need to be
+# translated to work well with the iOS app. This script runs when a new PR
+# is created by TranslateWiki, to add everything the app needs to the PR.
 #
 name: Import localizations from TranslateWiki
 
