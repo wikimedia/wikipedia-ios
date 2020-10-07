@@ -58,13 +58,14 @@ final class PictureOfTheDayData {
 
         let contentDate = contentGroup.date
         let contentURL = contentGroup.url
+        let isCurrent = contentGroup.isForToday
         let canonicalPageTitle = imageContent.canonicalPageTitle
         let imageThumbnailURL: URL = imageContent.getImageURL(forWidth: Double(imageSize.width), height: Double(imageSize.height)) ?? imageContent.imageThumbURL
         let imageDescription = imageContent.imageDescription
 
         guard !usingImageCache else {
             if let cachedImage = dataStore.cacheController.imageCache.cachedImage(withURL: imageThumbnailURL) {
-                let entry = PictureOfTheDayEntry(date: Date(), kind: .entry, contentDate: contentDate, contentURL: contentURL, imageURL: imageThumbnailURL, image: cachedImage.staticImage, imageDescription: imageDescription)
+                let entry = PictureOfTheDayEntry(date: Date(), isCurrent: isCurrent, kind: .entry, contentDate: contentDate, contentURL: contentURL, imageURL: imageThumbnailURL, image: cachedImage.staticImage, imageDescription: imageDescription)
                 completion(entry)
             } else {
                 completion(sampleEntry)
@@ -132,6 +133,7 @@ struct PictureOfTheDayEntry: TimelineEntry {
     // MARK: Properties
     
 	let date: Date // for Timeline Entry
+    var isCurrent: Bool = false
     let kind: Kind
 	var contentDate: Date? = nil
 	var contentURL: URL? = nil
@@ -178,8 +180,8 @@ struct PictureOfTheDayProvider: TimelineProvider {
         PictureOfTheDayData.fetchLatestAvailablePictureEntry(for: context.imageSize) { entry in
             let currentDate = Date()
             let nextUpdate: Date
-            if entry.kind == .entry {
-                nextUpdate = currentDate.dateAtMidnight() ?? currentDate
+            if entry.kind == .entry && entry.isCurrent {
+                nextUpdate = currentDate.randomDateShortlyAfterMidnight() ?? currentDate
             } else {
                 let components = DateComponents(hour: 2)
                 nextUpdate = Calendar.current.date(byAdding: components, to: currentDate) ?? currentDate

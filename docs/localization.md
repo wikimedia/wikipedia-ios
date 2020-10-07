@@ -128,8 +128,8 @@ More information about MediaWiki plural support can be found [on Translatewiki's
 2. Developer builds & runs the app. The app has two run script build phases that automatically extracts the strings from source and adds them to the appropriate localization bundles (for both the app `Wikipedia/iOS Native Localizations` & TWN `Wikipedia/Localizations`)
 3. A script maintained by Translatewiki pulls the repo, reads the new strings from `Wikipedia/Localizations`, and adds them to Translatewiki
 4. Volunteer translators translate the strings
-5. The same script maintained by Translatewiki adds the new translations to the `Wikipedia/Localizations` folder in the TWN format and pushes the changes to the `twn` branch.
-6. Our Jenkins `localization` job notices the changes to the twn branch, runs `scripts/localization import` which adds the iOS-formatted strings to `Wikipedia/iOS Native Localizations` and submits a PR.
+5. The same script maintained by Translatewiki adds the new translations to the `Wikipedia/Localizations` folder in the TWN format, pushes the changes to the `twn` branch, and opens a pull request.
+6. GitHub notices the pull request, and via a GitHub Action (`.github/workflows/localization-update.yaml`) runs `scripts/localization import` which adds the iOS-formatted strings to `Wikipedia/iOS Native Localizations`.
 
 ### Script specifics
 `scripts/localization_extract` extracts those strings from source, generates the `en` translation inside of `Wikipedia/iOS Native Localizations`.
