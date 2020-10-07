@@ -9,10 +9,12 @@ protocol ArticleAsLivingDocViewControllerDelegate: class {
     func fetchNextPage(nextRvStartId: UInt)
     func showEditHistory(scrolledTo revisionID: Int?)
     func handleLink(with href: String)
+    func showTalkPage()
 }
 
-protocol EditHistoryShowing: class {
+protocol ArticleDetailsShowing: class {
     func goToHistory(scrolledTo revisionID: Int?)
+    func showTalkPage()
 }
 
 @available(iOS 13.0, *)
@@ -296,7 +298,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
         }
 
         (cell as? ArticleAsLivingDocLargeEventCollectionViewCell)?.delegate = self
-        (cell as? ArticleAsLivingDocLargeEventCollectionViewCell)?.historyDelegate = self
+        (cell as? ArticleAsLivingDocLargeEventCollectionViewCell)?.articleDelegate = self
         (cell as? ArticleAsLivingDocSmallEventCollectionViewCell)?.delegate = self
         
         let numSections = dataSource.numberOfSections(in: collectionView)
@@ -357,7 +359,13 @@ extension ArticleAsLivingDocViewController: ArticleAsLivingDocHorizontallyScroll
 }
 
 @available(iOS 13.0, *)
-extension ArticleAsLivingDocViewController: EditHistoryShowing {
+extension ArticleAsLivingDocViewController: ArticleDetailsShowing {
+    func showTalkPage() {
+        self.dismiss(animated: true) {
+            self.delegate?.showTalkPage()
+        }
+    }
+
     func goToHistory(scrolledTo revisionID: Int? = nil) {
         self.dismiss(animated: true) {
             self.delegate?.showEditHistory(scrolledTo: revisionID)
