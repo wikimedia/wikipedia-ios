@@ -50,14 +50,10 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         return comparisonSelectionViewController
     }()
 
-    convenience init(pageTitle: String, pageURL: URL, scrollToRevision: Int? = nil) {
-        self.init(pageTitle: pageTitle, pageURL: pageURL)
-        self.revisionToScrollTo = scrollToRevision
-    }
-
-    @objc init(pageTitle: String, pageURL: URL) {
+    init(pageTitle: String, pageURL: URL, scrollToRevision: Int? = nil) {
         self.pageTitle = pageTitle
         self.pageURL = pageURL
+        self.revisionToScrollTo = scrollToRevision
         self.pageHistoryFetcherParams = PageHistoryRequestParameters(title: pageTitle)
         super.init()
     }
@@ -189,28 +185,6 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         getPageHistory()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        guard let initialRevID = revisionToScrollTo else {
-            return
-        }
-
-        var initialCell: Int? = nil
-        let initialSection = pageHistorySections.firstIndex(where: { historySection in
-            if let foundIndex = historySection.items.firstIndex(where: {$0.revisionID == initialRevID}) {
-                initialCell = foundIndex
-                return true
-            }
-            return false
-        })
-        if let initialSection = initialSection, let initialCell = initialCell {
-            let indexPathOfRevision = IndexPath(item: initialCell, section: initialSection)
-            collectionView.scrollToItem(at: indexPathOfRevision, at: .top, animated: true)
-        }
-
-        revisionToScrollTo = nil
-    }
-
     private func getEditCounts() {
         pageHistoryFetcher.fetchFirstRevision(for: pageTitle, pageURL: pageURL) { [weak self] result in
             DispatchQueue.main.async {
@@ -325,8 +299,23 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 self.appendSections(from: results)
                 self.pageHistoryFetcherParams = results.getPageHistoryRequestParameters(self.pageURL)
                 self.batchComplete = results.batchComplete()
-                self.isLoadingData = false
-                self.collectionView.reloadData()
+                let completeLoad = {
+                    self.isLoadingData = false
+                    self.collectionView.reloadData()
+                }
+
+                if let revisionToScrollTo = self.revisionToScrollTo {
+                    let hasScrollRevisionBeenLoaded = (revisionToScrollTo >= (results.lastRevision?.revisionID ?? 0))
+                    if !hasScrollRevisionBeenLoaded {
+                        // Load through the target revision
+                        self.getPageHistory()
+                    } else {
+                        completeLoad()
+                        self.scrollToInitialRevision()
+                    }
+                } else {
+                    completeLoad()
+                }
             }
         }
     }
@@ -337,6 +326,26 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             return
         }
         getPageHistory()
+    }
+
+    private func scrollToInitialRevision() {
+        guard let initialRevID = revisionToScrollTo else {
+            return
+        }
+
+        var initialCell: Int? = nil
+        let initialSection = pageHistorySections.firstIndex(where: { historySection in
+            if let foundIndex = historySection.items.firstIndex(where: {$0.revisionID == initialRevID}) {
+                initialCell = foundIndex
+                return true
+            }
+            return false
+        })
+        if let initialSection = initialSection, let initialCell = initialCell {
+            let indexPathOfRevision = IndexPath(item: initialCell, section: initialSection)
+            collectionView.scrollToItem(at: indexPathOfRevision, at: .top, animated: true)
+            revisionToScrollTo = nil
+        }
     }
 
     @objc private func compare(_ sender: UIBarButtonItem) {
