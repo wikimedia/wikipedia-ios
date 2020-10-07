@@ -56,7 +56,7 @@ final class TopReadData {
         // re-accessing it from the main queue or another queue might lead to unexpected behavior
         let layoutDirection: LayoutDirection = topRead.isRTL ? .rightToLeft : .leftToRight
         let groupURL = topRead.url
-        let isCurrent = topRead.isForToday
+        let isCurrent = topRead.isForToday // even though the top read data is from yesterday, the content group is for today
         var rankedElements: [TopReadEntry.RankedElement] = []
         for article in results {
             if let articlePreview = dataStore.fetchArticle(with: article.articleURL) {
