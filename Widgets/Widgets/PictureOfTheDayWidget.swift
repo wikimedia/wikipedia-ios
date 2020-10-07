@@ -174,7 +174,7 @@ struct PictureOfTheDayProvider: TimelineProvider {
             let nextUpdate: Date
             let isError = (entry.image == nil || entry.image == dataStore.sampleEntry.image)
             if !isError {
-                nextUpdate = currentDate.dateAtMidnight() ?? currentDate
+                nextUpdate = currentDate.randomDateShortlyAfterMidnight() ?? currentDate
             } else {
                 let components = DateComponents(hour: 2)
                 nextUpdate = Calendar.current.date(byAdding: components, to: currentDate) ?? currentDate
