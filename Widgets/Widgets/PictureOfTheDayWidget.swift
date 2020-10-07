@@ -57,13 +57,14 @@ final class PictureOfTheDayData {
         let sampleEntry = self.sampleEntry
         let contentDate = contentGroup.date
         let contentURL = contentGroup.url
+        let isCurrent = contentGroup.isForToday
         let canonicalPageTitle = imageContent.canonicalPageTitle
         let imageThumbnailURL: URL = imageContent.getImageURL(forWidth: Double(imageSize.width), height: Double(imageSize.height)) ?? imageContent.imageThumbURL
         let imageDescription = imageContent.imageDescription
 
         guard !usingImageCache else {
             if let cachedImage = dataStore.cacheController.imageCache.cachedImage(withURL: imageThumbnailURL) {
-                let entry = PictureOfTheDayEntry(date: Date(), contentDate: contentDate, contentURL: contentURL, imageURL: imageThumbnailURL, image: cachedImage.staticImage, imageDescription: imageDescription)
+                let entry = PictureOfTheDayEntry(date: Date(), isCurrent: isCurrent, contentDate: contentDate, contentURL: contentURL, imageURL: imageThumbnailURL, image: cachedImage.staticImage, imageDescription: imageDescription)
                 completion(entry)
             } else {
                 completion(sampleEntry)
@@ -125,6 +126,7 @@ struct PictureOfTheDayEntry: TimelineEntry {
     // MARK: Properties
 
 	let date: Date // for Timeline Entry
+    var isCurrent: Bool = false
 	var contentDate: Date? = nil
 	var contentURL: URL? = nil
 	var imageURL: URL? = nil
@@ -172,7 +174,7 @@ struct PictureOfTheDayProvider: TimelineProvider {
         dataStore.fetchLatestAvailablePictureEntry(for: context.imageSize) { entry in
             let currentDate = Date()
             let nextUpdate: Date
-            let isError = (entry.image == nil || entry.image == dataStore.sampleEntry.image)
+            let isError = (entry.image == nil || entry.image == dataStore.sampleEntry.image || !entry.isCurrent)
             if !isError {
                 nextUpdate = currentDate.randomDateShortlyAfterMidnight() ?? currentDate
             } else {

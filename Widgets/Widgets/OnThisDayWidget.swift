@@ -39,7 +39,7 @@ struct OnThisDayProvider: TimelineProvider {
         dataStore.fetchLatestAvailableOnThisDayEntry { entry in
             let currentDate = Date()
             let nextUpdate: Date
-            if entry.error == nil {
+            if entry.error == nil && entry.isCurrent {
                 nextUpdate = currentDate.randomDateShortlyAfterMidnight() ?? currentDate
             } else {
                 let components = DateComponents(hour: 2)
@@ -201,6 +201,7 @@ final class OnThisDayData {
 
 struct OnThisDayEntry: TimelineEntry {
     let date = Date()
+    var isCurrent: Bool = false
     let isRTLLanguage: Bool
     let error: OnThisDayData.ErrorType?
 
@@ -269,6 +270,7 @@ extension OnThisDayEntry {
         } else {
             contentURL = URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today")
         }
+        isCurrent = contentGroup.isForToday
     }
 
     static func errorEntry(for error: OnThisDayData.ErrorType) -> OnThisDayEntry {
