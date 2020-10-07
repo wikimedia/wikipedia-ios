@@ -30,7 +30,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
     let timelineView = TimelineView()
 
     weak var delegate: ArticleAsLivingDocHorizontallyScrollingCellDelegate?
-    weak var historyDelegate: EditHistoryShowing?
+    weak var articleDelegate: ArticleDetailsShowing?
     
     private var largeEvent: ArticleAsLivingDocViewModel.Event.Large?
     private var changeDetails: [ArticleAsLivingDocViewModel.Event.Large.ChangeDetail] = []
@@ -274,6 +274,9 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
             
             viewDiscussionButton.setNeedsLayout()
             viewDiscussionButton.layoutIfNeeded()
+
+            viewDiscussionButton.removeTarget(nil, action: nil, for: .allEvents)
+            viewDiscussionButton.addTarget(self, action: #selector(viewDiscussionTapped), for: .touchUpInside)
         }
         
         apply(theme: theme)
@@ -286,7 +289,11 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         guard let revisionID = largeEvent?.revId else {
             return
         }
-        historyDelegate?.goToHistory(scrolledTo: Int(revisionID))
+        articleDelegate?.goToHistory(scrolledTo: Int(revisionID))
+    }
+
+    @objc private func viewDiscussionTapped() {
+        articleDelegate?.showTalkPage()
     }
 }
 

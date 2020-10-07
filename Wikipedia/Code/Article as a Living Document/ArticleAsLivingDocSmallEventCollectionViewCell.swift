@@ -9,7 +9,7 @@ class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
     
     private var smallEvent: ArticleAsLivingDocViewModel.Event.Small?
 
-    weak var delegate: EditHistoryShowing?
+    weak var delegate: ArticleDetailsShowing?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,7 +33,7 @@ class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
         contentView.addSubview(timelineView)
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedSmallChanges))
-                        descriptionTextView.addGestureRecognizer(tapGestureRecognizer)
+        descriptionTextView.addGestureRecognizer(tapGestureRecognizer)
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
