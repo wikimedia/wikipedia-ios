@@ -32,11 +32,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
     weak var delegate: ArticleAsLivingDocHorizontallyScrollingCellDelegate?
     weak var historyDelegate: EditHistoryShowing?
     
-    private var largeEvent: ArticleAsLivingDocViewModel.Event.Large? {
-        didSet {
-            calculateChangeDetails()
-        }
-    }
+    private var largeEvent: ArticleAsLivingDocViewModel.Event.Large?
     private var changeDetails: [ArticleAsLivingDocViewModel.Event.Large.ChangeDetail] = []
     
     private var flowLayout: UICollectionViewFlowLayout? {
@@ -281,6 +277,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         }
         
         apply(theme: theme)
+        calculateChangeDetails()
         resetContentOffset()
         setNeedsLayout()
     }

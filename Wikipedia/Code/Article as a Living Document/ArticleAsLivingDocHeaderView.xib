@@ -17,7 +17,6 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xjf-wn-S9n" customClass="WMFSparklineView" customModule="WMF">
                     <rect key="frame" x="133.5" y="56.5" width="74.5" height="88"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="K02-KZ-r7w">
                     <rect key="frame" x="15" y="24" width="103.5" height="132"/>

@@ -290,6 +290,7 @@ public extension ArticleAsLivingDocViewModel {
             
             public private(set) var eventDescription: NSAttributedString?
             private var lastTraitCollection: UITraitCollection?
+            private var lastTheme: Theme?
             public let smallChanges: [SignificantEvents.Event.Small]
             
             init?(typedEvents: [SignificantEvents.TypedEvent]) {
@@ -376,7 +377,12 @@ public extension ArticleAsLivingDocViewModel {
             let userId: UInt
             let userType: UserType
             public let buttonsToDisplay: ButtonsToDisplay
-            private var lastTraitCollection: UITraitCollection?
+            private var lastEventDescriptionTraitCollection: UITraitCollection?
+            private var lastEventDescriptionTheme: Theme?
+            private var lastUserInfoTraitCollection: UITraitCollection?
+            private var lastUserInfoTheme: Theme?
+            private var lastChangeDetailsTraitCollection: UITraitCollection?
+            private var lastChangeDetailsTheme: Theme?
             public var revId: UInt = 0
             
             init?(typedEvent: SignificantEvents.TypedEvent) {
@@ -446,8 +452,9 @@ public extension ArticleAsLivingDocViewModel.Event.Small {
     
     func eventDescriptionForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
         if let lastTraitCollection = lastTraitCollection,
+           let lastTheme = lastTheme,
            let eventDescription = eventDescription {
-            if lastTraitCollection == traitCollection {
+            if lastTraitCollection == traitCollection && lastTheme == theme {
                 return eventDescription
             }
         }
@@ -479,6 +486,7 @@ public extension ArticleAsLivingDocViewModel.Event.Small {
         }
         
         self.lastTraitCollection = traitCollection
+        self.lastTheme = theme
         self.eventDescription = nsAttString
         return nsAttString
     }
@@ -603,9 +611,10 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         let sections = sectionsSet()
         let sectionsAttributedString = localizedSectionAttributedString(sectionsSet: sections, traitCollection: traitCollection, theme: theme)
         
-        if let lastTraitCollection = lastTraitCollection,
+        if let lastTraitCollection = lastEventDescriptionTraitCollection,
+           let lastTheme = lastEventDescriptionTheme,
            let eventDescription = eventDescription {
-            if lastTraitCollection == traitCollection {
+            if lastTraitCollection == traitCollection && lastTheme == theme {
                 return eventDescription
             }
         }
@@ -651,12 +660,14 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             assertionFailure("This should not happen")
             let empty = NSAttributedString(string: "")
             eventDescription = empty
-            self.lastTraitCollection = traitCollection
+            self.lastEventDescriptionTraitCollection = traitCollection
+            self.lastEventDescriptionTheme = theme
             return empty
         }
         
         eventDescription = finalEventAttributedString
-        self.lastTraitCollection = traitCollection
+        self.lastEventDescriptionTraitCollection = traitCollection
+        self.lastEventDescriptionTheme = theme
         return finalEventAttributedString
     }
     
@@ -864,7 +875,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         //theme shouldn't affect sizing, so defaulting to light
         let changeDetails = changeDetailsForTraitCollection(traitCollection, theme: .light)
         
-        if let lastTraitCollection = lastTraitCollection,
+        if let lastTraitCollection = lastChangeDetailsTraitCollection,
            let tallestChangeDetailHeight = tallestChangeDetailHeight {
             if lastTraitCollection == traitCollection {
                 return tallestChangeDetailHeight
@@ -914,8 +925,6 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                 }
             }
         }
-        
-        lastTraitCollection = traitCollection
 
         var nearlyFinalHeight: CGFloat = 0
         if tallestSnippetChangeDetailHeight == 0 {
@@ -934,9 +943,10 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     }
     
     func changeDetailsForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> [ChangeDetail] {
-        if let lastTraitCollection = lastTraitCollection,
+        if let lastTraitCollection = lastChangeDetailsTraitCollection,
+           let lastTheme = lastChangeDetailsTheme,
            let changeDetails = changeDetails {
-            if lastTraitCollection == traitCollection {
+            if lastTraitCollection == traitCollection && lastTheme == theme {
                 return changeDetails
             }
         }
@@ -1014,7 +1024,8 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             return []
         }
         
-        self.lastTraitCollection = traitCollection
+        self.lastChangeDetailsTraitCollection = traitCollection
+        self.lastChangeDetailsTheme = theme
         self.changeDetails = changeDetails
         return changeDetails
     }
@@ -1466,9 +1477,10 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     }
     
     func userInfoForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
-        if let lastTraitCollection = lastTraitCollection,
+        if let lastTraitCollection = lastUserInfoTraitCollection,
+           let lastTheme = lastUserInfoTheme,
            let userInfo = userInfo {
-            if lastTraitCollection == traitCollection {
+            if lastTraitCollection == traitCollection && lastTheme == theme {
                 return userInfo
             }
         }
@@ -1526,7 +1538,8 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         }
         
         self.userInfo = attributedString
-        self.lastTraitCollection = traitCollection
+        self.lastUserInfoTraitCollection = traitCollection
+        self.lastUserInfoTheme = theme
         return attributedString
     }
     

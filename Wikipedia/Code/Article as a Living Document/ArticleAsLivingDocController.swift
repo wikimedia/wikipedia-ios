@@ -434,7 +434,7 @@ class ArticleAsLivingDocController: NSObject {
                                 case .small:
                                     break
                                 case .large(let largeEvent):
-                                    largeEvent.calculateTallestChangeDetailHeightForTraitCollection(traitCollection)
+                                    let _ = largeEvent.calculateTallestChangeDetailHeightForTraitCollection(traitCollection)
                                 }
                             }
                         }
