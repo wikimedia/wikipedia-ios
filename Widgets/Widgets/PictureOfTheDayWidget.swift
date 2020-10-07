@@ -77,7 +77,7 @@ final class PictureOfTheDayData {
             completion(sampleEntry)
         }, success: { fetchedImage in
             self.fetchImageLicense(from: dataStore, canonicalPageTitle: canonicalPageTitle) { license in
-                let entry = PictureOfTheDayEntry(date: Date(), kind: .entry, contentDate: contentDate, contentURL: contentURL, imageURL: imageThumbnailURL, image: fetchedImage.image.staticImage, imageDescription: imageDescription, licenseCode: license?.code)
+                let entry = PictureOfTheDayEntry(date: Date(), isCurrent: isCurrent, kind: .entry, contentDate: contentDate, contentURL: contentURL, imageURL: imageThumbnailURL, image: fetchedImage.image.staticImage, imageDescription: imageDescription, licenseCode: license?.code)
                 completion(entry)
             }
         })
