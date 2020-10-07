@@ -259,7 +259,7 @@ private typealias RevisionsByDay = [Int: PageHistorySection]
 private typealias PagingInfo = (continueKey: String?, rvContinueKey: String?, batchComplete: Bool)
 open class HistoryFetchResults: NSObject {
     fileprivate let pagingInfo: PagingInfo
-    fileprivate let lastRevision: WMFPageHistoryRevision?
+    let lastRevision: WMFPageHistoryRevision?
     fileprivate var revisionsByDay: RevisionsByDay
     
     @objc open func getPageHistoryRequestParameters(_ articleURL: URL) -> PageHistoryRequestParameters {
