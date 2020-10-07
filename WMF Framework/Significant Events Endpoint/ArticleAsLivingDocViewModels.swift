@@ -1292,7 +1292,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                           NSAttributedString.Key.foregroundColor:
                             theme.colors.primaryText]
         
-        let titleAttributedString = NSAttributedString(string: bookCitation.title, attributes: italicAttributes)
+        let titleAttributedString = NSAttributedString(string: "\(bookCitation.title) ", attributes: italicAttributes)
         
         var descriptionStart = ""
         if let firstName = bookCitation.firstName {
@@ -1417,7 +1417,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     }
     
     static var botIconName: String {
-        return "article-as-living-doc-bot"
+        return "article-as-living-doc-svg-bot"
     }
     
     private func userInfoHtmlSnippet() -> String? {
@@ -1498,6 +1498,14 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                     let mutableAttributedString = NSMutableAttributedString(string: userInfo, attributes: attributes)
                     mutableAttributedString.addAttribute(NSAttributedString.Key.link, value: userNameURL as NSURL, range: rangeOfUserName)
                     mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: theme.colors.link, range: rangeOfUserName)
+                    
+                    if userType == .bot {
+                        let imageAttachment = NSTextAttachment()
+                        imageAttachment.image = UIImage(named: Self.botIconName)
+                        let imageString = NSAttributedString(attachment: imageAttachment)
+                        mutableAttributedString.insert(imageString, at: rangeOfUserName.location)
+                        mutableAttributedString.insert(NSAttributedString(string: " "), at: rangeOfUserName.location + imageString.length)
+                    }
                     
                     if let attributedString = mutableAttributedString.copy() as? NSAttributedString {
                         return attributedString
