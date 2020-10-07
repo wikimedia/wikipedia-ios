@@ -12,11 +12,11 @@ public struct SignificantEvents: Decodable {
     public let summary: Summary
     
     enum CodingKeys: String, CodingKey {
-            case nextRvStartId
-            case sha
-            case untypedEvents = "timeline"
-            case typedEvents
-            case summary
+        case nextRvStartId
+        case sha
+        case untypedEvents = "timeline"
+        case typedEvents
+        case summary
     }
     
     public struct Summary: Decodable {
@@ -25,10 +25,10 @@ public struct SignificantEvents: Decodable {
         public let numUsers: UInt
         
         enum CodingKeys: String, CodingKey {
-                case earliestTimestampString = "earliestTimestamp"
-                case numChanges
-                case numUsers
-            }
+            case earliestTimestampString = "earliestTimestamp"
+            case numChanges
+            case numUsers
+        }
     }
     
     public init(from decoder: Decoder) throws {
