@@ -122,6 +122,7 @@
 "article-about-title" = "關於此條目";
 "article-delete" = "刪除";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|條目|條目}}已刪除";
+"article-fetcher-error-updated-content-timeout" = "應用程式無法即時檢索更新的內容。請稍後重新整理此頁面，以查看您所做出的更改。";
 "article-languages-filter-placeholder" = "尋找語言";
 "article-languages-label" = "選擇語言";
 "article-languages-others" = "其他語言";
@@ -149,6 +150,7 @@
 "compass-direction" = "在 $1 時";
 "continue-reading-empty-description" = "瀏覽維基百科以閱讀更多條目";
 "continue-reading-empty-title" = "沒有最近讀取的條目";
+"data-migration-status" = "更新中…";
 "description-add-title" = "添加描述";
 "description-edit-for-article" = "$1的標題描述";
 "description-edit-learn-more" = "了解更多";
@@ -679,6 +681,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "語法突顯";
 "reading-themes-controls-accessibility-text-size-slider" = "文字大小滑動桿";
 "reading-themes-controls-syntax-highlighting" = "語法突顯";
+"reference-section-button-accessibility-label" = "跳到參考資料段落";
 "reference-title" = "參考資料 $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=今天|1=昨天|$1 天前}}";
 "relative-date-hours-abbreviated" = "$1 小時";
@@ -789,6 +792,7 @@
 "table-of-contents-close-accessibility-label" = "關閉目錄";
 "table-of-contents-heading" = "內容";
 "table-of-contents-hide-button-label" = "隱藏目錄";
+"table-of-contents-subheading-label" = "副標題$1";
 "talk-page-add-discussion-accessibility-label" = "新增討論";
 "talk-page-discussion-accessibility-hint" = "輕觸兩次來開啟討論串";
 "talk-page-discussion-read-accessibility-label" = "已讀";
