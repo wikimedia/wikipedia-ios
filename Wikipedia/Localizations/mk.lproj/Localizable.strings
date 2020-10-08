@@ -103,6 +103,7 @@
 "article-about-title" = "За статијава";
 "article-delete" = "Избриши";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|Статијата е избришана|Статиите се избришани}}";
+"article-fetcher-error-updated-content-timeout" = "Прилогот не можеше навреме да ги добие подновените содржини. Превчитајте ја страницата подоцна за да ги видите спроведените промени.";
 "article-languages-filter-placeholder" = "Најди јазик";
 "article-languages-label" = "Изберете јазик";
 "article-languages-others" = "Други јазици";
@@ -130,6 +131,7 @@
 "compass-direction" = "во $1 часот";
 "continue-reading-empty-description" = "Истражете ја Википедија — прочитајте повеќе статии";
 "continue-reading-empty-title" = "Немате неодамна прочитани статии";
+"data-migration-status" = "Подновувам...";
 "description-add-title" = "Додај опис";
 "description-edit-for-article" = "Опис на насловот „$1“";
 "description-edit-learn-more" = "Дознајте повеќе";
@@ -660,6 +662,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "Истакнување на синтакса";
 "reading-themes-controls-accessibility-text-size-slider" = "Лизгач за големина на текстот";
 "reading-themes-controls-syntax-highlighting" = "Истакнување на синтакса";
+"reference-section-button-accessibility-label" = "Прејди на наводите";
 "reference-title" = "Навод $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=денес|1=вчера|пред $1 дена}}";
 "relative-date-hours-abbreviated" = "$1 ч.";
@@ -770,6 +773,7 @@
 "table-of-contents-close-accessibility-label" = "Затвори ја Содржината";
 "table-of-contents-heading" = "Содржина";
 "table-of-contents-hide-button-label" = "Скриј содржина";
+"table-of-contents-subheading-label" = "Поднаслов $1";
 "talk-page-add-discussion-accessibility-label" = "Додај расправа";
 "talk-page-discussion-accessibility-hint" = "Допрете двапати за да ја отворите расправата";
 "talk-page-discussion-read-accessibility-label" = "Прочитано";
