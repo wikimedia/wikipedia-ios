@@ -15,7 +15,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
     private let userInfoTextView = UITextView()
     //tonitodo: clean this button configuration up
     private lazy var thankButton: AlignedImageButton = {
-        let image = UIImage(named: "thank")
+        let image = UIImage(named: "thank-unfilled")?.withRenderingMode(.alwaysTemplate)
         return actionButton(with: image, text: WMFLocalizedString("aaald-events-thank-title", value: "Thank", comment: "Button title that thanks users for their edit in article as a living document screen"))
     }()
     private lazy var viewChangesButton: AlignedImageButton = {
@@ -45,6 +45,10 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     private var collectionViewHeight: CGFloat = 0
+
+    private var isLoggedIn: Bool {
+        return MWKDataStore.shared().authenticationManager.isLoggedIn
+    }
     
     override func setup() {
         contentView.addSubview(descriptionLabel)
@@ -93,7 +97,6 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         if apply {
             timelineView.frame = CGRect(x: layoutMargins.left, y: 0, width: timelineWidth, height: size.height)
         }
-        
         
         let timestampOrigin = CGPoint(x: x, y: layoutMargins.top)
         
@@ -213,10 +216,15 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         if let largeEvent = largeEvent {
             switch largeEvent.buttonsToDisplay {
             case .thankAndViewChanges:
-                thankButton.backgroundColor = theme.colors.midBackground
+                thankButton.backgroundColor = largeEvent.wereThanksSent ? theme.colors.hintBackground : theme.colors.midBackground
+                thankButton.setTitleColor(!isLoggedIn ? theme.colors.disabledLink : theme.colors.link, for: .normal)
+                thankButton.tintColor = (!isLoggedIn ? theme.colors.disabledLink : theme.colors.link)
+
                 viewChangesButton.backgroundColor = theme.colors.midBackground
+                viewChangesButton.setTitleColor(theme.colors.link, for: .normal)
             case .viewDiscussion:
                 viewDiscussionButton.backgroundColor = theme.colors.midBackground
+                viewDiscussionButton.setTitleColor(theme.colors.link, for: .normal)
             }
         }
         
@@ -258,14 +266,22 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
             
             thankButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
             viewChangesButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
-            
-            thankButton.setTitleColor(theme.colors.link, for: .normal)
-            viewChangesButton.setTitleColor(theme.colors.link, for: .normal)
-            
+
+            if largeEvent.wereThanksSent {
+                thankButton.setImage(UIImage(named: "thank")?.withRenderingMode(.alwaysTemplate), for: .normal)
+                thankButton.setTitle(WMFLocalizedString("aaald-events-thanked-title", value: "Thanked", comment: "Button title after a user thanks an editor - past tense of 'thank'"), for: .normal)
+            } else {
+                thankButton.setImage(UIImage(named: "thank-unfilled")?.withRenderingMode(.alwaysTemplate), for: .normal)
+                thankButton.setTitle(WMFLocalizedString("aaald-events-thank-title", value: "Thank", comment: "Button title that thanks users for their edit in article as a living document screen"), for: .normal)
+            }
+
             thankButton.setNeedsLayout()
             thankButton.layoutIfNeeded()
             viewChangesButton.setNeedsLayout()
             viewChangesButton.layoutIfNeeded()
+
+            thankButton.removeTarget(nil, action: nil, for: .allEvents)
+            thankButton.addTarget(self, action: #selector(thankButtonTapped), for: .touchUpInside)
 
             viewChangesButton.removeTarget(nil, action: nil, for: .allEvents)
             viewChangesButton.addTarget(self, action: #selector(viewChangesTapped), for: .touchUpInside)
@@ -274,7 +290,6 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
             contentView.addSubview(viewDiscussionButton)
             
             viewDiscussionButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
-            viewDiscussionButton.setTitleColor(theme.colors.link, for: .normal)
             
             viewDiscussionButton.setNeedsLayout()
             viewDiscussionButton.layoutIfNeeded()
@@ -286,6 +301,14 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         apply(theme: theme)
         resetContentOffset()
         setNeedsLayout()
+    }
+
+    @objc private func thankButtonTapped() {
+        guard let revisionID = largeEvent?.revId else {
+            return
+        }
+        let isUserAnonymous = (largeEvent?.userType == .anonymous)
+        articleDelegate?.thankButtonTapped(for: Int(revisionID), isUserAnonymous: isUserAnonymous)
     }
 
     @objc private func viewChangesTapped() {

@@ -15,6 +15,7 @@ protocol ArticleAsLivingDocViewControllerDelegate: class {
 protocol ArticleDetailsShowing: class {
     func goToHistory(scrolledTo revisionID: Int?)
     func showTalkPage()
+    func thankButtonTapped(for revisionID: Int, isUserAnonymous: Bool)
 }
 
 @available(iOS 13.0, *)
@@ -370,5 +371,64 @@ extension ArticleAsLivingDocViewController: ArticleDetailsShowing {
         self.dismiss(animated: true) {
             self.delegate?.showEditHistory(scrolledTo: revisionID)
         }
+    }
+
+    func thankButtonTapped(for revisionID: Int, isUserAnonymous: Bool) {
+        self.tappedThank(for: revisionID, isUserAnonymous: isUserAnonymous)
+    }
+}
+
+@available(iOS 13.0, *)
+extension ArticleAsLivingDocViewController: ThanksGiving {
+    var url: URL? {
+        return self.delegate?.articleURL.wmf_site
+    }
+
+    var bottomSpacing: CGFloat? {
+        return 0
+    }
+
+    func didLogIn() {
+        self.apply(theme: theme)
+    }
+
+    func wereThanksSent(for revisionID: Int) -> Bool {
+        let currentSnapshot = dataSource.snapshot()
+
+        for section in currentSnapshot.sectionIdentifiers {
+            for event in section.typedEvents {
+                switch event {
+                case .large(let largeEvent):
+                    if largeEvent.revId == revisionID {
+                        return largeEvent.wereThanksSent
+                    }
+                default: continue
+                }
+            }
+        }
+
+        return false
+    }
+
+    func thanksWereSent(for revisionID: Int) {
+        let currentSnapshot = dataSource.snapshot()
+
+        for section in currentSnapshot.sectionIdentifiers {
+            for event in section.typedEvents {
+                switch event {
+                case .large(let largeEvent):
+                    if largeEvent.revId == revisionID {
+                        largeEvent.wereThanksSent = true
+                        break
+                    }
+                default: continue
+                }
+            }
+        }
+
+        dataSource.apply(currentSnapshot, animatingDifferences: true)
+
+        /// We shouldn't have to `reloadData` here. The diffable data source should take care of everything, especially because `wereThanksSent` is part of hashable and equatable. But it wasn't updating without the following line.
+        self.reloadData()
     }
 }
