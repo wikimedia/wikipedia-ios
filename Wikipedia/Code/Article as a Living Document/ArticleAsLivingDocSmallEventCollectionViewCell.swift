@@ -87,11 +87,11 @@ class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
     }
     
     @objc private func tappedSmallChanges() {
-            guard let revisionID = smallEvent?.smallChanges.first?.revId else {
-                return
-            }
-            delegate?.goToHistory(scrolledTo: Int(revisionID))
+        guard let revisionID = smallEvent?.smallChanges.first?.revId else {
+            return
         }
+        delegate?.goToHistory(scrolledTo: Int(revisionID))
+    }
 }
 
 extension ArticleAsLivingDocSmallEventCollectionViewCell: Themeable {

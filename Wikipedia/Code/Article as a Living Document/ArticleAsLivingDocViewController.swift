@@ -55,8 +55,10 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
                 guard let largeEventCell = collectionView.dequeueReusableCell(withReuseIdentifier: ArticleAsLivingDocLargeEventCollectionViewCell.identifier, for: indexPath) as? ArticleAsLivingDocLargeEventCollectionViewCell else {
                     return nil
                 }
-                
+
                 largeEventCell.configure(with: largeEvent, theme: theme)
+                largeEventCell.delegate = self
+                largeEventCell.articleDelegate = self
                 cell = largeEventCell
                 largeEventCell.timelineView.extendTimelineAboveDot = indexPath.item == 0 ? false : true
             case .small(let smallEvent):
@@ -65,6 +67,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
                 }
                 
                 smallEventCell.configure(viewModel: smallEvent, theme: theme)
+                smallEventCell.delegate = self
                 cell = smallEventCell
             }
             
@@ -148,15 +151,8 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
         
         dataSource.apply(currentSnapshot, animatingDifferences: true)
     }
-    
-    func reloadData() {
-        collectionView.reloadData()
-    }
 
     override func viewDidLoad() {
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("close-button", value: "Close", comment: "Close button used in navigation bar that closes out a presented modal screen."), style: .done, target: self, action: #selector(closeButtonPressed))
-        
         super.viewDidLoad()
 
         layoutManager.register(ArticleAsLivingDocLargeEventCollectionViewCell.self, forCellWithReuseIdentifier: ArticleAsLivingDocLargeEventCollectionViewCell.identifier, addPlaceholder: true)
@@ -175,8 +171,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         // for some reason the initial calls to metrics(with size: CGSize...) (triggered from viewDidLoad) have an incorrect view size passed in.
-        // this retriggers that method with the correct size, so that we have correct
-        // layout margins on load
+        // this retriggers that method with the correct size, so that we have correct layout margins on load
         if isFirstAppearance {
             collectionView.reloadData()
         }
@@ -185,6 +180,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
     }
     
     private func setupNavigationBar() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("close-button", value: "Close", comment: "Close button used in navigation bar that closes out a presented modal screen."), style: .done, target: self, action: #selector(closeButtonPressed))
         
         navigationMode = .forceBar
         if let headerView = ArticleAsLivingDocHeaderView.wmf_viewFromClassNib() {
@@ -296,10 +292,6 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
         guard let articleAsLivingDocViewModel = delegate?.articleAsLivingDocViewModel else {
             return
         }
-
-        (cell as? ArticleAsLivingDocLargeEventCollectionViewCell)?.delegate = self
-        (cell as? ArticleAsLivingDocLargeEventCollectionViewCell)?.articleDelegate = self
-        (cell as? ArticleAsLivingDocSmallEventCollectionViewCell)?.delegate = self
         
         let numSections = dataSource.numberOfSections(in: collectionView)
         let numEvents = dataSource.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
