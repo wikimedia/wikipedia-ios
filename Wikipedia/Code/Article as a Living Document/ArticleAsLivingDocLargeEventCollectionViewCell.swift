@@ -13,7 +13,6 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
     private let descriptionLabel = UILabel()
     private let timestampLabel = UILabel()
     private let userInfoTextView = UITextView()
-    //tonitodo: clean this button configuration up
     private lazy var thankButton: AlignedImageButton = {
         let image = UIImage(named: "thank")
         return actionButton(with: image, text: WMFLocalizedString("aaald-events-thank-title", value: "Thank", comment: "Button title that thanks users for their edit in article as a living document screen"))
@@ -92,19 +91,16 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         
         
         let timestampOrigin = CGPoint(x: x, y: layoutMargins.top)
-        
         let timestampFrame = timestampLabel.wmf_preferredFrame(at: timestampOrigin, maximumSize: CGSize(width: widthToFit, height: UIView.noIntrinsicMetric), minimumSize: NoIntrinsicSize, alignedBy: .forceLeftToRight, apply: apply)
-        
+
         let timestampDescriptionSpacing = CGFloat(8)
         
         let descriptionOrigin = CGPoint(x: x, y: timestampFrame.maxY + timestampDescriptionSpacing)
-        
         let descriptionFrame = descriptionLabel.wmf_preferredFrame(at: descriptionOrigin, maximumSize: CGSize(width: widthToFit, height: UIView.noIntrinsicMetric), minimumSize: NoIntrinsicSize, alignedBy: .forceLeftToRight, apply: apply)
         
         let descriptionCollectionViewSpacing = CGFloat(10)
         
         let collectionViewOrigin = CGPoint(x: x, y: descriptionFrame.maxY + descriptionCollectionViewSpacing)
-        
         collectionViewHeight = largeEvent?.calculateTallestChangeDetailHeightForTraitCollection(traitCollection) ?? 0
         let collectionViewItemSpacing = CGFloat(10)
 
@@ -120,7 +116,6 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         let collectionViewUserInfoLabelSpacing = CGFloat(0)
         
         let userInfoOrigin = CGPoint(x: x, y: descriptionFrame.maxY + collectionViewHeight + descriptionCollectionViewSpacing + collectionViewUserInfoLabelSpacing)
-        
         let userInfoFrame =
             userInfoTextView.wmf_preferredFrame(at: userInfoOrigin, maximumWidth: widthToFit, alignedBy: .forceLeftToRight, apply: apply)
         

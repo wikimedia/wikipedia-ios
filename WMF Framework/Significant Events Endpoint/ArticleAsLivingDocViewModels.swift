@@ -465,13 +465,10 @@ public extension ArticleAsLivingDocViewModel.Event.Small {
         let suffixAttributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor: theme.colors.secondaryText]
         
-        
         let descriptionLocalizedString = String.localizedStringWithFormat(
             CommonStrings.smallChangeDescription,
             smallChanges.count)
         let suffixString = CommonStrings.smallChangeDescriptionSuffix
-        
-        
         
         let linkAttString = NSAttributedString(string: descriptionLocalizedString, attributes: linkAttributes as [NSAttributedString.Key : Any])
         let suffixAttrString = NSAttributedString(string: suffixString, attributes: suffixAttributes)

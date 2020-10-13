@@ -325,7 +325,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         updateShadowHeightConstraintConstant()
     }
 
-    /// This function covers for a layout bug in iOS: When presenting a `pageSheet`, the navigation bar doesn't size appropraitely. The top of the `underBarView` is appropriately pinned to the bottom of the navigation bar. The navigation bar's content view has a larger height than the actual navigation bar used in the constraint, however, and that causes the weird view: https://github.com/wikimedia/wikipedia-ios/pull/3683#issuecomment-693732339
+    /// This function covers for a layout bug in iOS: When presenting a `pageSheet`, the navigation bar doesn't size appropriately. The top of the `underBarView` is appropriately pinned to the bottom of the navigation bar. The navigation bar's content view has a larger height than the actual navigation bar used in the constraint, however, and that causes the weird view: https://github.com/wikimedia/wikipedia-ios/pull/3683#issuecomment-693732339
     /// This is an issue that others experience as well: https://developer.apple.com/forums/thread/121861 , https://stackoverflow.com/questions/57784596/how-to-prevent-gap-between-uinavigationbar-and-view-in-ios-13 , and https://stackoverflow.com/questions/58296535/ios-13-new-pagesheet-formsheet-navigationbar-height .
     /// The layout bug will clear itself if you rotate the screen to landscape, then rotate it back to portrait. This allows it to also look good when the screen loads.
     /// From the links above, others have fixed this by forcing a layout pass on the navigation bar. Unfortunately that doesn't fix it in our case. (Perhaps because our nav bar is on the View Controller and not the Navigation Controller?)
