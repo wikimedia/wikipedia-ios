@@ -63,8 +63,7 @@ public struct ArticleAsLivingDocViewModel {
             var maybeEvent: TypedEvent? = nil
             if let smallEventViewModel = Event.Small(typedEvents: [originalEvent]) {
                 maybeEvent = .small(smallEventViewModel)
-            } else
-            if let largeEventViewModel = Event.Large(typedEvent: originalEvent) {
+            } else if let largeEventViewModel = Event.Large(typedEvent: originalEvent) {
                 maybeEvent = .large(largeEventViewModel)
             }
             
