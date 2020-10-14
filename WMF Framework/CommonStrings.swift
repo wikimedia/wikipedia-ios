@@ -253,10 +253,6 @@ public class CommonStrings: NSObject {
     
     static let twoDescriptionsFormat = WMFLocalizedString("aaald-two-descriptions-format", value: "%1$@ and %2$@", comment: "Format for two change types to insert into a revision's event description in an article as a living document timeline cell. %1$@ is replaced by the first change type and %2$@ is replaced by the second change type, e.g. '612 characters added and 323 characters removed'")
     
-    static let finalDelimiter = WMFLocalizedString("aaald-multiple-descriptions-last-delimiter", value: " and ", comment: "Text to show as the last delimiter in a list of multiple event changes. These changes are shown in the description area of an article as a living document timeline cell. e.g. '3 references added, 612 characters added and 100 characters removed'")
-    
-    static let midDelimiter = WMFLocalizedString("aaald-multiple-descriptions-delimiter", value: ", ", comment: "Text to show as the delimiters in a list of multiple event changes. These changes are shown in the description area of an article as a living document cell. e.g. '3 references added, 612 characters added and 100 characters removed'")
-    
     static let addedTextDescription = WMFLocalizedString("aaald-added-text-description", value:"{{PLURAL:%1$d|0=0 characters|%1$d character|%1$d characters}} added",
     comment:"Title displayed in an article as a living document cell explaining that a revision has a certain number of characters added. %1$d is replaced by the number of characters added.")
     

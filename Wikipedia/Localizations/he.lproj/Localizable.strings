@@ -114,6 +114,7 @@
 "article-about-title" = "מידע על הערך הזה";
 "article-delete" = "מחיקה";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|הערך נמחק|הערכים נמחקו}}";
+"article-fetcher-error-updated-content-timeout" = "היישומון לא הצליח לקבל את התוכן העדכני בזמן. נא לרענן את העמוד מאוחר יותר כדי לראות את השפעת השינויים שערכת.";
 "article-languages-filter-placeholder" = "מציאת שפה";
 "article-languages-label" = "בחירת שפה";
 "article-languages-others" = "שפות אחרות";
@@ -141,6 +142,7 @@
 "compass-direction" = "בשעה $1";
 "continue-reading-empty-description" = "לגלות עוד ערכים לקרוא בוויקיפדיה";
 "continue-reading-empty-title" = "אין ערכים שנקראו לאחרונה";
+"data-migration-status" = "מתבצע עדכון…";
 "description-add-title" = "הוספת תיאור";
 "description-edit-for-article" = "תיאור כותרת עבור $1";
 "description-edit-learn-more" = "מידע נוסף";
@@ -671,6 +673,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "הדגשת תחביר";
 "reading-themes-controls-accessibility-text-size-slider" = "מחלק גודל טקסט";
 "reading-themes-controls-syntax-highlighting" = "הדגשת תחביר";
+"reference-section-button-accessibility-label" = "מעבר לסעיף המקורות";
 "reference-title" = "הערה $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=היום|1=אתמול|2=שלשום|לפני $1 ימים}}";
 "relative-date-hours-abbreviated" = "$1 שע׳";
@@ -781,6 +784,7 @@
 "table-of-contents-close-accessibility-label" = "סגירת תוכן העניינים";
 "table-of-contents-heading" = "תוכן עניינים";
 "table-of-contents-hide-button-label" = "הסתרת תוכן העניינים";
+"table-of-contents-subheading-label" = "כותרת־משנה $1";
 "talk-page-add-discussion-accessibility-label" = "הוספת דיון";
 "talk-page-discussion-accessibility-hint" = "יש לגעת נגיעה כפולה כדי לפתוח שרשור דיון";
 "talk-page-discussion-read-accessibility-label" = "נקרא";

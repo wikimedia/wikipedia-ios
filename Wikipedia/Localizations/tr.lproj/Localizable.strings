@@ -131,6 +131,7 @@
 "article-about-title" = "Bu madde hakkında";
 "article-delete" = "Sil";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|madde|madde}} silindi";
+"article-fetcher-error-updated-content-timeout" = "Uygulama, güncellenen içeriği zamanında alamadı. Değişikliklerinizin yansıdığını görmek için lütfen bu sayfayı daha sonra yenileyin.";
 "article-languages-filter-placeholder" = "Dil bul";
 "article-languages-label" = "Dil seç";
 "article-languages-others" = "Diğer diller";
@@ -158,6 +159,7 @@
 "compass-direction" = "saat $1 yönünde";
 "continue-reading-empty-description" = "Daha fazla madde okumak için Vikipedi'yi keşfedin";
 "continue-reading-empty-title" = "Son okunan madde yok";
+"data-migration-status" = "Güncelleniyor...";
 "description-add-title" = "Açıklama ekle";
 "description-edit-for-article" = "$1 için başlık açıklaması";
 "description-edit-learn-more" = "Daha fazla bilgi edinin";
@@ -688,6 +690,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "Sözdizimi Vurgulama";
 "reading-themes-controls-accessibility-text-size-slider" = "Metin boyutu kaydırıcısı";
 "reading-themes-controls-syntax-highlighting" = "Sözdizimi Vurgulama";
+"reference-section-button-accessibility-label" = "Kaynak bölümüne atla";
 "reference-title" = "$1 referansı";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Bugün|1=Dün|$1 gün önce}}";
 "relative-date-hours-abbreviated" = "$1st";
@@ -798,6 +801,7 @@
 "table-of-contents-close-accessibility-label" = "İçindekileri kapat";
 "table-of-contents-heading" = "Konu başlıkları";
 "table-of-contents-hide-button-label" = "İçindekiler tablosunu gizle";
+"table-of-contents-subheading-label" = "Alt başlık $1";
 "talk-page-add-discussion-accessibility-label" = "Tartışma ekle";
 "talk-page-discussion-accessibility-hint" = "Tartışma başlığını açmak için iki kez hafifçe vurun";
 "talk-page-discussion-read-accessibility-label" = "Oku";
