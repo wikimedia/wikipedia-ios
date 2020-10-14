@@ -33,13 +33,7 @@ class ArticleAsLivingDocHorizontallyScrollingCell: CollectionViewCell {
         setupDescription(for: change)
         updateFonts(with: traitCollection)
         
-        backgroundView?.layer.cornerRadius = 3
-        backgroundView?.layer.masksToBounds = true
-        selectedBackgroundView?.layer.cornerRadius = 3
-        selectedBackgroundView?.layer.masksToBounds = true
-        layer.shadowOffset = CGSize(width: 0, height: 2)
-        layer.shadowOpacity = 0.3
-        layer.shadowRadius = 3
+        setNeedsLayout()
         
         apply(theme: theme)
         self.delegate = delegate
@@ -59,6 +53,15 @@ class ArticleAsLivingDocHorizontallyScrollingCell: CollectionViewCell {
     }
     
     override func setup() {
+        
+        backgroundView?.layer.cornerRadius = 3
+        backgroundView?.layer.masksToBounds = true
+        selectedBackgroundView?.layer.cornerRadius = 3
+        selectedBackgroundView?.layer.masksToBounds = true
+        layer.shadowOffset = CGSize(width: 0, height: 2)
+        layer.shadowOpacity = 0.3
+        layer.shadowRadius = 3
+        
         descriptionTextView.isEditable = false
         descriptionTextView.isScrollEnabled = false
         descriptionTextView.delegate = self

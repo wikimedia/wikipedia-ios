@@ -56,7 +56,7 @@
 			<string>0 references</string>
 		</dict>
 	</dict>
-	<key>aaald-small-change-description</key>
+	<key>aaald-small-change-description-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v1@</string>

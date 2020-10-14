@@ -460,25 +460,32 @@ public extension ArticleAsLivingDocViewModel.Event.Small {
         }
         
         let font = UIFont.wmf_font(.italicSubheadline, compatibleWithTraitCollection: traitCollection)
-        let linkAttributes = [NSAttributedString.Key.font: font,
+        let linkCountAttributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor: theme.colors.link]
-        let suffixAttributes = [NSAttributedString.Key.font: font,
+        let actionAttributes = [NSAttributedString.Key.font: font,
                           NSAttributedString.Key.foregroundColor: theme.colors.secondaryText]
         
-        let descriptionLocalizedString = String.localizedStringWithFormat(
-            CommonStrings.smallChangeDescription,
+        let descriptionCountLocalizedString = String.localizedStringWithFormat(
+            CommonStrings.smallChangeDescriptionCount,
             smallChanges.count)
-        let suffixString = CommonStrings.smallChangeDescriptionSuffix
+        let descriptionActionLocalizedString = CommonStrings.smallChangeDescriptionAction
+        let descriptionLocalizedString = String.localizedStringWithFormat(CommonStrings.smallChangeDescriptionFormat, descriptionCountLocalizedString, descriptionActionLocalizedString)
         
-        let linkAttString = NSAttributedString(string: descriptionLocalizedString, attributes: linkAttributes as [NSAttributedString.Key : Any])
-        let suffixAttrString = NSAttributedString(string: suffixString, attributes: suffixAttributes)
+        let rangeOfCount = (descriptionLocalizedString as NSString).range(of: descriptionCountLocalizedString)
+        let rangeOfAction = (descriptionLocalizedString as NSString).range(of: descriptionActionLocalizedString)
+        let countRangeValid = rangeOfCount.location != NSNotFound && rangeOfCount.location + rangeOfCount.length <= descriptionLocalizedString.count
+        let actionRangeValid = rangeOfAction.location != NSNotFound && rangeOfAction.location + rangeOfAction.length <= descriptionLocalizedString.count
         
-        let mutableAttString = NSMutableAttributedString()
-        mutableAttString.append(linkAttString)
-        mutableAttString.append(NSAttributedString(string: " "))
-        mutableAttString.append(suffixAttrString)
+        let mutableDescriptionAttributedString = NSMutableAttributedString(string: descriptionLocalizedString)
+        if countRangeValid && actionRangeValid {
+            mutableDescriptionAttributedString.addAttributes(linkCountAttributes, range: rangeOfCount)
+            mutableDescriptionAttributedString.addAttributes(actionAttributes, range: rangeOfAction)
+        } else {
+            //if something went wrong with range detection for styles, just make it all the link style
+            mutableDescriptionAttributedString.addAttributes(linkCountAttributes, range: NSRange(location: 0, length: descriptionLocalizedString.count))
+        }
         
-        guard let nsAttString = mutableAttString.copy() as? NSAttributedString else {
+        guard let nsAttString = mutableDescriptionAttributedString.copy() as? NSAttributedString else {
             return NSAttributedString()
         }
         
@@ -1075,7 +1082,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                             theme.colors.primaryText]
         
         let titleAttributedString: NSAttributedString
-        let titleString = "\"\(journalCitation.title)\""
+        let titleString = "\"\(journalCitation.title)\" "
         let range = NSRange(location: 0, length: titleString.count)
         let mutableAttributedString = NSMutableAttributedString(string: titleString, attributes: attributes)
         if let urlString = journalCitation.urlString,
@@ -1101,7 +1108,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         }
          
         if let sourceDate = journalCitation.sourceDateString {
-            descriptionStart += "(\(sourceDate)). "
+            descriptionStart += " (\(sourceDate)). "
         } else {
             descriptionStart += ". "
         }
@@ -1112,15 +1119,15 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         if let volumeNumber = journalCitation.volumeNumber {
             volumeString = String.localizedStringWithFormat(CommonStrings.newJournalReferenceVolume, volumeNumber)
         }
-        let volumeAttributedString = NSAttributedString(string: volumeString, attributes: boldAttributes)
+        let volumeAttributedString = NSAttributedString(string: "\(volumeString) ", attributes: boldAttributes)
         
         var descriptionEnd = ""
         if let database = journalCitation.database {
             let viaDatabaseString = String.localizedStringWithFormat(CommonStrings.newJournalReferenceDatabase, database)
             if let pages = journalCitation.pages {
-                descriptionEnd += "\(pages) - \(viaDatabaseString). "
+                descriptionEnd += "\(pages) - \(viaDatabaseString)."
             } else {
-                descriptionEnd += "\(viaDatabaseString). "
+                descriptionEnd += "\(viaDatabaseString)."
             }
         } else {
             if let pages = journalCitation.pages {
@@ -1196,9 +1203,9 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             
             if let archiveLinkAttributedString = archiveLinkMutableAttributedString.copy() as? NSAttributedString {
                 
-                let lastText =  String.localizedStringWithFormat(CommonStrings.newWebsiteReferenceArchiveDateText, archiveDateString)
+                let lastText = String.localizedStringWithFormat(CommonStrings.newWebsiteReferenceArchiveDateText, archiveDateString)
                 
-                let lastAttributedString = NSAttributedString(string: lastText, attributes: attributes)
+                let lastAttributedString = NSAttributedString(string: " \(lastText)", attributes: attributes)
                 
                 finalMutableAttributedString.append(archiveLinkAttributedString)
                 finalMutableAttributedString.append(lastAttributedString)
@@ -1304,7 +1311,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         }
          
         if let yearOfPub = bookCitation.yearPublished {
-            descriptionStart += "(\(yearOfPub)). "
+            descriptionStart += " (\(yearOfPub)). "
         } else {
             descriptionStart += ". "
         }
@@ -1325,17 +1332,18 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         }
         
         if let pagesCited = bookCitation.pagesCited {
-            descriptionMiddle += "pp. \(pagesCited)"
+            descriptionMiddle += "pp. \(pagesCited) "
         }
         
         let descriptionMiddleAttributedString = NSAttributedString(string: descriptionMiddle, attributes: attributes)
         
         let isbnAttributedString: NSAttributedString
         if let isbn = bookCitation.isbn {
-            let mutableAttributedString = NSMutableAttributedString(string: isbn, attributes: attributes)
+            let isbnPrefix = "ISBN: "
+            let mutableAttributedString = NSMutableAttributedString(string: "\(isbnPrefix + isbn)", attributes: attributes)
             let isbnTitle = "Special:BookSources"
             let isbnURL = Configuration.current.articleURLForHost(Configuration.Domain.englishWikipedia, appending: [isbnTitle, isbn]).url
-            let range = NSRange(location: 0, length: isbn.count)
+            let range = NSRange(location: 0, length: isbnPrefix.count + isbn.count)
             if let isbnURL = isbnURL {
                 mutableAttributedString.addAttributes([NSAttributedString.Key.link : isbnURL,
                                              NSAttributedString.Key.foregroundColor: theme.colors.link], range: range)
