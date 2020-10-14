@@ -118,6 +118,7 @@
 "article-about-title" = "Om denna artikel";
 "article-delete" = "Radera";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|artikel|artiklar}} raderades";
+"article-fetcher-error-updated-content-timeout" = "Appen kunde inte hämta det uppdaterade innehållet i tid. Uppdatera denna sida senare för att se dina ändringar.";
 "article-languages-filter-placeholder" = "Hitta språk";
 "article-languages-label" = "Välj språk";
 "article-languages-others" = "Andra språk";
@@ -145,6 +146,7 @@
 "compass-direction" = "mot klockan $1";
 "continue-reading-empty-description" = "Utforska Wikipedia för fler artiklar att läsa";
 "continue-reading-empty-title" = "Inga nyligen lästa artiklar";
+"data-migration-status" = "Uppdaterar...";
 "description-add-title" = "Lägg till beskrivning";
 "description-edit-for-article" = "Titelbeskrivning för $1";
 "description-edit-learn-more" = "Läs mer";
@@ -675,6 +677,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "Syntaxmarkering";
 "reading-themes-controls-accessibility-text-size-slider" = "Reglage för textstorlek";
 "reading-themes-controls-syntax-highlighting" = "Syntaxmarkering";
+"reference-section-button-accessibility-label" = "Hoppa till referensavsnittet";
 "reference-title" = "Referens $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Idag|1=Igår|$1 dygn sedan}}";
 "relative-date-hours-abbreviated" = "$1h";
@@ -785,6 +788,7 @@
 "table-of-contents-close-accessibility-label" = "Stäng innehållsförteckning";
 "table-of-contents-heading" = "Innehåll";
 "table-of-contents-hide-button-label" = "Dölj innehållsförteckning";
+"table-of-contents-subheading-label" = "Underrubrik $1";
 "talk-page-add-discussion-accessibility-label" = "Lägg till diskussion";
 "talk-page-discussion-accessibility-hint" = "Dubbelknacka för att öppna diskussionstråden";
 "talk-page-discussion-read-accessibility-label" = "Läst";
