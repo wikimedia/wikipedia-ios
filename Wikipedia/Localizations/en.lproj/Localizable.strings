@@ -14,7 +14,7 @@
 "aaald-new-news-reference-retrieved-date" = "Retrieved $1";
 "aaald-new-news-reference-title" = "News";
 "aaald-new-talk-topic-description-format" = "$1 about this article";
-"aaald-new-website-reference-archive-date-text" = " from the original on $1";
+"aaald-new-website-reference-archive-date-text" = "from the original on $1";
 "aaald-new-website-reference-archive-url-text" = "Archive.org URL";
 "aaald-new-website-reference-title" = "Website";
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 references|$1 reference|$1 references}} added";

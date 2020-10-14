@@ -846,13 +846,9 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     
     static let padding = UIEdgeInsets(top: 17, left: 15, bottom: 17, right: 15)
     static let sideScrollingCellWidth = CGFloat(250)
-    static let availableSideScrollingCellWidth = {
-        return sideScrollingCellWidth - padding.left - padding.right
-    }()
-    
-    static let changeDetailDescriptionTextStyle = DynamicTextStyle.subheadline
-    static let changeDetailDescriptionTextStyleItalic = DynamicTextStyle.italicSubheadline
-    static let changeDetailDescriptionFontWeight = UIFont.Weight.regular
+    private static let changeDetailDescriptionTextStyle = DynamicTextStyle.subheadline
+    private static let changeDetailDescriptionTextStyleItalic = DynamicTextStyle.italicSubheadline
+    private static let changeDetailDescriptionFontWeight = UIFont.Weight.regular
     static let changeDetailReferenceTitleStyle = DynamicTextStyle.semiboldSubheadline
     static let changeDetailReferenceTitleDescriptionSpacing = CGFloat(13)
     static let additionalPointsForShadow = CGFloat(16)
@@ -886,13 +882,14 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         
         let threeLineAttString = NSAttributedString(string: threeLineSnippetText, attributes: snippetAttributes)
         let oneLineAttString = NSAttributedString(string: oneLineSnippetText, attributes: referenceTitleAttributes)
+        let availableSideScrollingCellWidth = Self.sideScrollingCellWidth - Self.padding.left - Self.padding.right
         
-        let threeLineSnippetHeight = ceil(threeLineAttString.boundingRect(with: CGSize(width: Self.availableSideScrollingCellWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height)
-        let oneLineSnippetHeight = ceil(oneLineAttString.boundingRect(with: CGSize(width: Self.availableSideScrollingCellWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height)
+        let threeLineSnippetHeight = ceil(threeLineAttString.boundingRect(with: CGSize(width: availableSideScrollingCellWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height)
+        let oneLineSnippetHeight = ceil(oneLineAttString.boundingRect(with: CGSize(width: availableSideScrollingCellWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height)
         
         var tallestSnippetChangeDetailHeight: CGFloat = 0
         var tallestReferenceChangeDetailHeight: CGFloat = 0
-        let availableWidth = Self.availableSideScrollingCellWidth - Self.padding.left - Self.padding.right
+        let availableWidth = availableSideScrollingCellWidth - Self.padding.left - Self.padding.right
         changeDetails.forEach { (changeDetail) in
             switch changeDetail {
             case .snippet(let snippet):
@@ -1196,7 +1193,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             
             if let archiveLinkAttributedString = archiveLinkMutableAttributedString.copy() as? NSAttributedString {
                 
-                let lastText =  String.localizedStringWithFormat(CommonStrings.newWebsiteReferenceArchiveDateText, archiveDateString)
+                let lastText = " \(String.localizedStringWithFormat(CommonStrings.newWebsiteReferenceArchiveDateText, archiveDateString))"
                 
                 let lastAttributedString = NSAttributedString(string: lastText, attributes: attributes)
                 

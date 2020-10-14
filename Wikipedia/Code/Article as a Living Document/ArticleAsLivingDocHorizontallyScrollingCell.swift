@@ -7,17 +7,9 @@ protocol ArticleAsLivingDocHorizontallyScrollingCellDelegate: class {
 
 class ArticleAsLivingDocHorizontallyScrollingCell: CollectionViewCell {
     let descriptionTextView = UITextView()
-    var theme: Theme?
+    private var theme: Theme?
     
     weak var delegate: ArticleAsLivingDocHorizontallyScrollingCellDelegate?
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
     
     override func reset() {
         super.reset()
