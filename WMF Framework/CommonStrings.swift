@@ -246,9 +246,7 @@ public class CommonStrings: NSObject {
     static let vandalismRevertDescription = WMFLocalizedString("aaald-vandalism-revert-description", value: "Suspected Vandalism reverted", comment: "Title displayed in an article as a living document timeline cell explaining that a vandalism revision was reverted.")
     
     static let multipleChangesMadeDescription = WMFLocalizedString("aaald-multiple-changes-description", value: "Multiple changes made", comment: "Title displayed in article as a living document content insert explaining that multiple changes were made in a revision.")
-    
-    static let twoDescriptionsFormat = WMFLocalizedString("aaald-two-descriptions-format", value: "%1$@ and %2$@", comment: "Format for two change types to insert into a revision's event description in an article as a living document timeline cell. %1$@ is replaced by the first change type and %2$@ is replaced by the second change type, e.g. '612 characters added and 323 characters removed'")
-    
+
     static let addedTextDescription = WMFLocalizedString("aaald-added-text-description", value:"{{PLURAL:%1$d|0=0 characters|%1$d character|%1$d characters}} added",
     comment:"Title displayed in an article as a living document cell explaining that a revision has a certain number of characters added. %1$d is replaced by the number of characters added.")
     
