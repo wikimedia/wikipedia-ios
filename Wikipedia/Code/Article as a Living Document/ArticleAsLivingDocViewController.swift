@@ -428,7 +428,7 @@ extension ArticleAsLivingDocViewController: ThanksGiving {
 
         dataSource.apply(currentSnapshot, animatingDifferences: true)
 
-        /// We shouldn't have to `reloadData` here. The diffable data source should take care of everything, especially because `wereThanksSent` is part of hashable and equatable. But it wasn't updating without the following line.
+        /// We shouldn't have to `reloadData` here. The diffable data source should take care of everything, especially because `wereThanksSent` is part of hashable and equatable. But it wasn't updating without the following line. (Forcing a layout pass didn't seem to help.)
         self.reloadData()
     }
 }
