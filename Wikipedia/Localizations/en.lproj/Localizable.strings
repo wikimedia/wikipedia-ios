@@ -5,8 +5,6 @@
 "aaald-error-title" = "Unable to load inline article history";
 "aaald-many-sections-description" = "in $1 sections";
 "aaald-multiple-changes-description" = "Multiple changes made";
-"aaald-multiple-descriptions-delimiter" = ", ";
-"aaald-multiple-descriptions-last-delimiter" = " and ";
 "aaald-multiple-references-added-description" = "Multiple references added";
 "aaald-new-book-reference-title" = "Book";
 "aaald-new-discussion" = "New discussion";

@@ -578,21 +578,11 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             let mergedDescription = String.localizedStringWithFormat(CommonStrings.twoDescriptionsFormat, firstDescription, secondDescription)
             return mergedDescription
         default:
-            //Note: This will not work properly in translations but for now this is works for an English-only feature
-            let finalDelimiter = CommonStrings.finalDelimiter
-            let midDelimiter = CommonStrings.midDelimiter
-                
-            var finalDescription: String = ""
-            for (index, description) in sortedDescriptions.enumerated() {
-                
-                let delimiter = index == sortedDescriptions.count - 2 ? finalDelimiter : midDelimiter
-                finalDescription += description.text
-                if index < sortedDescriptions.count - 1 {
-                    finalDescription += delimiter
-                }
+            if #available(iOSApplicationExtension 13.0, *) {
+                return ListFormatter.localizedString(byJoining: sortedDescriptions.map { $0.text })
+            } else {
+                return nil
             }
-            
-            return finalDescription
         }
     }
     

@@ -5,8 +5,6 @@
 "aaald-error-title" = "Title of error banner that appears at the bottom of an article when significant events fail to load.";
 "aaald-many-sections-description" = "Text explaining what sections an article as a living document change occurred in, if occurred in 3+ sections. $1 is replaced with the number of sections.";
 "aaald-multiple-changes-description" = "Title displayed in article as a living document content insert explaining that multiple changes were made in a revision.";
-"aaald-multiple-descriptions-delimiter" = "Text to show as the delimiters in a list of multiple event changes. These changes are shown in the description area of an article as a living document cell. e.g. '3 references added, 612 characters added and 100 characters removed'";
-"aaald-multiple-descriptions-last-delimiter" = "Text to show as the last delimiter in a list of multiple event changes. These changes are shown in the description area of an article as a living document timeline cell. e.g. '3 references added, 612 characters added and 100 characters removed'";
 "aaald-multiple-references-added-description" = "Title displayed in an article as a living document cell when multiple references were added (and no other changes) to a revision.";
 "aaald-new-book-reference-title" = "Header text for a new book reference type that was added in an article as a living document cell.";
 "aaald-new-discussion" = "Portion of title displayed in article as a living document timeline cell and content insert explaining that a new article talk page topic has been posted.";

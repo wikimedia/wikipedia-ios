@@ -1,17 +1,8 @@
 import Foundation
 
 extension DateFormatter {
+    
     // Returns year string - i.e. '1000' or '200 BC'. (Negative years are 'BC')
-    
-    //tonitodo: consider combining with NSDateFormatter WMFExtensions implementation (either via bridging or convert all intances to this swift usage)
-    public static var wmf_iso8601Formatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"
-        dateFormatter.locale = Locale(identifier: "en")
-        return dateFormatter
-    }()
-    
     class func wmf_yearString(for year: Int, with wikipediaLanguage: String?) -> String? {
         var components = DateComponents()
         components.year = year
