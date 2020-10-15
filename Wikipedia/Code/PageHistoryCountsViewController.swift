@@ -39,7 +39,6 @@ class PageHistoryCountsViewController: UIViewController {
             }
             sparklineView.setTransparent(timeseriesOfEditsCounts.isEmpty)
             sparklineView.dataValues = timeseriesOfEditsCounts
-            sparklineView.updateMinAndMaxFromDataValues()
         }
     }
 

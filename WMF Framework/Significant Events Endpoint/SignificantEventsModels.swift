@@ -36,7 +36,7 @@ public struct SignificantEvents: Decodable {
         nextRvStartId = try? container.decode(UInt.self, forKey: .nextRvStartId)
         sha = try? container.decode(String.self, forKey: .sha)
         summary = try container.decode(Summary.self, forKey: .summary)
-        untypedEvents = try container.decode([UntypedEvent].self, forKey: .untypedEvents)
+        let untypedEvents = try container.decode([UntypedEvent].self, forKey: .untypedEvents)
         
         var typedEvents: [TypedEvent] = []
         
@@ -61,11 +61,14 @@ public struct SignificantEvents: Decodable {
             }
         }
 
-        guard typedEvents.count > 0 else {
+        //zero untyped events is a valid case if the user has paged to the end of the endpoint cache
+        //unTypedEvents > 0 and typedEvents == 0 is invalid, meaning all events failed to convert
+        guard typedEvents.count > 0 || untypedEvents.count == 0 else {
             throw SignificantEventsDecodeError.unableToParseIntoTypedEvents
         }
         
         self.typedEvents = typedEvents
+        self.untypedEvents = untypedEvents
     }
     
     public enum SnippetType: Int, Decodable {

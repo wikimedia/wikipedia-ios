@@ -18,7 +18,6 @@ class ArticleAsLivingDocHeaderView: UIView {
             if shouldShowSparkline {
                 sparklineView.isHidden = false
                 sparklineView.dataValues = editMetrics ?? []
-                sparklineView.updateMinAndMaxFromDataValues()
             } else {
                 sparklineView.isHidden = true
             }
@@ -27,7 +26,7 @@ class ArticleAsLivingDocHeaderView: UIView {
     
     private var shouldShowSparkline: Bool {
         guard let editMetrics = editMetrics,
-              editMetrics.count > 0 else {
+              editMetrics.count > 1 else {
             return false
         }
         
