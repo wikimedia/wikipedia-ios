@@ -10,8 +10,7 @@ class ArticleAsLivingDocHeaderView: UIView {
     @IBOutlet private var sparklineView: WMFSparklineView!
     @IBOutlet var viewFullHistoryButton: ActionButton!
     @IBOutlet private var dividerView: UIView!
-    @IBOutlet var divHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var headerTitleStackView: UIStackView!
+    @IBOutlet private var divHeightConstraint: NSLayoutConstraint!
     
     private var editMetrics: [NSNumber]? {
         didSet {

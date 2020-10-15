@@ -341,7 +341,7 @@ public extension ArticleAsLivingDocViewModel {
             }
             
             public struct Snippet {
-                public let displayText: NSAttributedString
+                public let description: NSAttributedString
             }
             
             public struct Reference {
@@ -900,7 +900,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         changeDetails.forEach { (changeDetail) in
             switch changeDetail {
             case .snippet(let snippet):
-                let heightOfEntireSnippet = ceil(snippet.displayText.boundingRect(with: CGSize(width: availableWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height) + Self.padding.top + Self.padding.bottom
+                let heightOfEntireSnippet = ceil(snippet.description.boundingRect(with: CGSize(width: availableWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height) + Self.padding.top + Self.padding.bottom
                 
                 if tallestSnippetChangeDetailHeight < heightOfEntireSnippet {
                     tallestSnippetChangeDetailHeight = heightOfEntireSnippet
@@ -947,7 +947,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         switch typedEvent {
         case .newTalkPageTopic(let newTalkPageTopic):
             let attributedString = newTalkPageTopic.snippet.byAttributingHTML(with: Self.changeDetailDescriptionTextStyle, boldWeight: Self.changeDetailDescriptionFontWeight, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true)
-            let changeDetail = ChangeDetail.snippet(Snippet(displayText: attributedString))
+            let changeDetail = ChangeDetail.snippet(Snippet(description: attributedString))
             changeDetails.append(changeDetail)
         case .large(let largeChange):
             for typedChange in largeChange.typedChanges {
@@ -959,7 +959,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                     }
                     
                     let attributedString = snippet.byAttributingHTML(with: Self.changeDetailDescriptionTextStyle, boldWeight: Self.changeDetailDescriptionFontWeight, matching: traitCollection, color: theme.colors.primaryText, handlingLinks: true, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true)
-                    let changeDetail = ChangeDetail.snippet(Snippet(displayText: attributedString))
+                    let changeDetail = ChangeDetail.snippet(Snippet(description: attributedString))
                     changeDetails.append(changeDetail)
                 case .deletedText:
                     continue;
@@ -973,7 +973,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                                               NSAttributedString.Key.foregroundColor:
                                                 theme.colors.primaryText]
                             let attributedString = NSAttributedString(string: articleDescription.text, attributes: attributes)
-                            let changeDetail = ChangeDetail.snippet(Snippet(displayText: attributedString))
+                            let changeDetail = ChangeDetail.snippet(Snippet(description: attributedString))
                             changeDetails.append(changeDetail)
                             //tonitodo: these code blocks are all very similar. make a generic method instead?
                         case .bookCitation(let bookCitation):

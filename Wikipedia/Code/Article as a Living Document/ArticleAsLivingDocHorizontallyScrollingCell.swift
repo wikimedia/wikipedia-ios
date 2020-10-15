@@ -36,7 +36,7 @@ class ArticleAsLivingDocHorizontallyScrollingCell: CollectionViewCell {
         let description: NSAttributedString
         switch change {
         case .snippet(let snippet):
-            description = snippet.displayText
+            description = snippet.description
         case .reference(let reference):
             description = reference.description
         }
