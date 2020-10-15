@@ -55,13 +55,8 @@ class ArticleAsLivingDocHeaderView: UIView {
     
     func configure(headerText: String, titleText: String?, summaryText: String?, editMetrics: [NSNumber]?, theme: Theme) {
         self.headerLabel.text = headerText
-        if let titleText = titleText {
-            self.titleLabel.text = titleText
-        }
-        
-        if let summaryText = summaryText {
-            self.summaryLabel.text = summaryText
-        }
+        self.titleLabel.text = titleText
+        self.summaryLabel.text = summaryText
         
         self.editMetrics = editMetrics
         

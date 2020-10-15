@@ -46,10 +46,6 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         contentView.addSubview(userInfoTextView)
         contentView.addSubview(timestampLabel)
         contentView.addSubview(collectionView)
-        timelineView.isOpaque = true
-        timestampLabel.isOpaque = true
-        descriptionLabel.isOpaque = true
-        userInfoTextView.isOpaque = true
 
         userInfoTextView.delegate = self
         
@@ -151,10 +147,6 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         return CGSize(width: size.width, height: finalFinalHeight)
     }
     
-    func itemHeightCacheKeyForWidth(_ width: CGFloat, index: Int) -> String {
-        return "\(index)-\(width)"
-    }
-    
     private func actionButton(with image: UIImage?, text: String) -> AlignedImageButton {
         let button = AlignedImageButton()
         button.setImage(image, for: .normal)
@@ -233,7 +225,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         collectionView.contentOffset = CGPoint(x: x, y: 0)
     }
     
-    func configure(with largeEvent: ArticleAsLivingDocViewModel.Event.Large, theme: Theme) {
+    func configure(with largeEvent: ArticleAsLivingDocViewModel.Event.Large, theme: Theme, extendTimelineAboveDot: Bool? = nil) {
 
         self.largeEvent = largeEvent
     
@@ -241,6 +233,10 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         userInfoTextView.attributedText = largeEvent.userInfoForTraitCollection(traitCollection, theme: theme)
         timestampLabel.text = largeEvent.timestampForDisplay()
         timestampLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+
+        if let extendTimelineAboveDot = extendTimelineAboveDot {
+            timelineView.extendTimelineAboveDot = extendTimelineAboveDot
+        }
 
         switch largeEvent.buttonsToDisplay {
         case .thankAndViewChanges(let userId, let revisionId):
@@ -302,7 +298,10 @@ extension ArticleAsLivingDocLargeEventCollectionViewCell: UICollectionViewDataSo
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
+        guard indexPath.item < changeDetails.count else {
+            return UICollectionViewCell()
+        }
+
         let changeDetailForCell = changeDetails[indexPath.item]
         
         switch changeDetailForCell {

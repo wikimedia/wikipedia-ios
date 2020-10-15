@@ -434,12 +434,11 @@ class ArticleAsLivingDocController: NSObject {
                                 case .small:
                                     break
                                 case .large(let largeEvent):
-                                    let _ = largeEvent.calculateTallestChangeDetailHeightForTraitCollection(traitCollection)
+                                    largeEvent.calculateTallestChangeDetailHeightForTraitCollection(traitCollection)
                                 }
                             }
                         }
                     }
-                    
                     
                     DispatchQueue.main.async {
                         completion(.success(viewModel))

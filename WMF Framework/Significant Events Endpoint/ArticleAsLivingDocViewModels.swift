@@ -860,7 +860,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     static let changeDetailReferenceTitleDescriptionSpacing = CGFloat(13)
     static let additionalPointsForShadow = CGFloat(16)
     
-    func calculateTallestChangeDetailHeightForTraitCollection(_ traitCollection: UITraitCollection) -> CGFloat {
+    @discardableResult func calculateTallestChangeDetailHeightForTraitCollection(_ traitCollection: UITraitCollection) -> CGFloat {
         
         //theme shouldn't affect sizing, so defaulting to light
         let changeDetails = changeDetailsForTraitCollection(traitCollection, theme: .light)

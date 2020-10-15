@@ -56,11 +56,10 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
                     return nil
                 }
 
-                largeEventCell.configure(with: largeEvent, theme: theme)
+                largeEventCell.configure(with: largeEvent, theme: theme, extendTimelineAboveDot: indexPath.item != 0)
                 largeEventCell.delegate = self
                 largeEventCell.articleDelegate = self
                 cell = largeEventCell
-                largeEventCell.timelineView.extendTimelineAboveDot = indexPath.item == 0 ? false : true
             case .small(let smallEvent):
                 guard let smallEventCell = collectionView.dequeueReusableCell(withReuseIdentifier: ArticleAsLivingDocSmallEventCollectionViewCell.identifier, for: indexPath) as? ArticleAsLivingDocSmallEventCollectionViewCell else {
                     return nil
