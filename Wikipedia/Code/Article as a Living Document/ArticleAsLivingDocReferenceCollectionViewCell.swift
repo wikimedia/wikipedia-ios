@@ -33,7 +33,7 @@ class ArticleAsLivingDocReferenceCollectionViewCell: ArticleAsLivingDocHorizonta
         let titleDescriptionSpacing = ArticleAsLivingDocViewModel.Event.Large.changeDetailReferenceTitleDescriptionSpacing
         let descriptionOrigin = CGPoint(x: adjustedMargins.left, y: titleFrame.maxY + titleDescriptionSpacing)
         
-        let _ = descriptionTextView.wmf_preferredFrame(at: descriptionOrigin, maximumWidth: availableDescriptionWidth, alignedBy: .forceLeftToRight, apply: apply)
+        descriptionTextView.wmf_preferredFrame(at: descriptionOrigin, maximumWidth: availableDescriptionWidth, alignedBy: .forceLeftToRight, apply: apply)
         
         layer.shadowPath = UIBezierPath(roundedRect: CGRect(origin: .zero, size: size), cornerRadius: backgroundView?.layer.cornerRadius ?? 0).cgPath
         
