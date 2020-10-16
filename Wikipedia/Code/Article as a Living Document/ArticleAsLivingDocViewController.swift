@@ -26,7 +26,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
     private let editMetrics: [NSNumber]?
     private weak var delegate: ArticleAsLivingDocViewControllerDelegate?
     
-    private var dataSource: UICollectionViewDiffableDataSource<ArticleAsLivingDocViewModel.SectionHeader, ArticleAsLivingDocViewModel.TypedEvent>!
+    private lazy var dataSource: UICollectionViewDiffableDataSource<ArticleAsLivingDocViewModel.SectionHeader, ArticleAsLivingDocViewModel.TypedEvent> = createDataSource()
     private var initialIndexPath: IndexPath?
     
     required public init?(coder aDecoder: NSCoder) {
@@ -46,69 +46,6 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
         self.delegate = delegate
         self.initialIndexPath = initialIndexPath
         footerButtonTitle = CommonStrings.viewFullHistoryText
-        
-        dataSource = UICollectionViewDiffableDataSource<ArticleAsLivingDocViewModel.SectionHeader, ArticleAsLivingDocViewModel.TypedEvent>(collectionView: collectionView) { (collectionView: UICollectionView, indexPath: IndexPath, event: ArticleAsLivingDocViewModel.TypedEvent) -> UICollectionViewCell? in
-            
-            let theme = self.theme
-            let cell: CollectionViewCell
-            switch event {
-            case .large(let largeEvent):
-                guard let largeEventCell = collectionView.dequeueReusableCell(withReuseIdentifier: ArticleAsLivingDocLargeEventCollectionViewCell.identifier, for: indexPath) as? ArticleAsLivingDocLargeEventCollectionViewCell else {
-                    return nil
-                }
-
-                largeEventCell.configure(with: largeEvent, theme: theme, extendTimelineAboveDot: indexPath.item != 0)
-                largeEventCell.delegate = self
-                largeEventCell.articleDelegate = self
-                cell = largeEventCell
-            case .small(let smallEvent):
-                guard let smallEventCell = collectionView.dequeueReusableCell(withReuseIdentifier: ArticleAsLivingDocSmallEventCollectionViewCell.identifier, for: indexPath) as? ArticleAsLivingDocSmallEventCollectionViewCell else {
-                    return nil
-                }
-                
-                smallEventCell.configure(viewModel: smallEvent, theme: theme)
-                smallEventCell.delegate = self
-                cell = smallEventCell
-            }
-            
-            if let layout = collectionView.collectionViewLayout as? ColumnarCollectionViewLayout {
-                cell.layoutMargins = layout.itemLayoutMargins
-            }
-            
-            return cell
-
-        }
-        
-
-        dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
-
-            guard kind == UICollectionView.elementKindSectionHeader || kind == UICollectionView.elementKindSectionFooter else {
-                return UICollectionReusableView()
-            }
-
-            let theme = self.theme
-            
-            if kind == UICollectionView.elementKindSectionHeader {
-                let section = self.dataSource.snapshot()
-                    .sectionIdentifiers[indexPath.section]
-
-                guard let sectionHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ArticleAsLivingDocSectionHeaderView.identifier, for: indexPath) as? ArticleAsLivingDocSectionHeaderView else {
-                    return UICollectionReusableView()
-                }
-
-                sectionHeaderView.layoutMargins = self.layout.itemLayoutMargins
-                sectionHeaderView.configure(viewModel: section, theme: theme)
-                return sectionHeaderView
-            } else if kind == UICollectionView.elementKindSectionFooter {
-                guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionViewFooter.identifier, for: indexPath) as? CollectionViewFooter else {
-                    return UICollectionReusableView()
-                }
-                self.configure(footer: footer, forSectionAt: indexPath.section, layoutOnly: false)
-                return footer
-            }
-
-            return UICollectionReusableView()
-        }
     }
 
     override func viewDidLoad() {
@@ -136,6 +73,73 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
         }
         super.viewWillAppear(animated)
 
+    }
+
+    private func createDataSource() -> UICollectionViewDiffableDataSource<ArticleAsLivingDocViewModel.SectionHeader, ArticleAsLivingDocViewModel.TypedEvent> {
+        let dataSource = UICollectionViewDiffableDataSource<ArticleAsLivingDocViewModel.SectionHeader, ArticleAsLivingDocViewModel.TypedEvent>(collectionView: collectionView) { (collectionView: UICollectionView, indexPath: IndexPath, event: ArticleAsLivingDocViewModel.TypedEvent) -> UICollectionViewCell? in
+
+            let theme = self.theme
+            let cell: CollectionViewCell
+            switch event {
+            case .large(let largeEvent):
+                guard let largeEventCell = collectionView.dequeueReusableCell(withReuseIdentifier: ArticleAsLivingDocLargeEventCollectionViewCell.identifier, for: indexPath) as? ArticleAsLivingDocLargeEventCollectionViewCell else {
+                    return nil
+                }
+
+                largeEventCell.configure(with: largeEvent, theme: theme, extendTimelineAboveDot: indexPath.item != 0)
+                largeEventCell.delegate = self
+                largeEventCell.articleDelegate = self
+                cell = largeEventCell
+            case .small(let smallEvent):
+                guard let smallEventCell = collectionView.dequeueReusableCell(withReuseIdentifier: ArticleAsLivingDocSmallEventCollectionViewCell.identifier, for: indexPath) as? ArticleAsLivingDocSmallEventCollectionViewCell else {
+                    return nil
+                }
+
+                smallEventCell.configure(viewModel: smallEvent, theme: theme)
+                smallEventCell.delegate = self
+                cell = smallEventCell
+            }
+
+            if let layout = collectionView.collectionViewLayout as? ColumnarCollectionViewLayout {
+                cell.layoutMargins = layout.itemLayoutMargins
+            }
+
+            return cell
+
+        }
+
+
+        dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+
+            guard kind == UICollectionView.elementKindSectionHeader || kind == UICollectionView.elementKindSectionFooter else {
+                return UICollectionReusableView()
+            }
+
+            let theme = self.theme
+
+            if kind == UICollectionView.elementKindSectionHeader {
+                let section = self.dataSource.snapshot()
+                    .sectionIdentifiers[indexPath.section]
+
+                guard let sectionHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ArticleAsLivingDocSectionHeaderView.identifier, for: indexPath) as? ArticleAsLivingDocSectionHeaderView else {
+                    return UICollectionReusableView()
+                }
+
+                sectionHeaderView.layoutMargins = self.layout.itemLayoutMargins
+                sectionHeaderView.configure(viewModel: section, theme: theme)
+                return sectionHeaderView
+            } else if kind == UICollectionView.elementKindSectionFooter {
+                guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionViewFooter.identifier, for: indexPath) as? CollectionViewFooter else {
+                    return UICollectionReusableView()
+                }
+                self.configure(footer: footer, forSectionAt: indexPath.section, layoutOnly: false)
+                return footer
+            }
+
+            return UICollectionReusableView()
+        }
+
+        return dataSource
     }
 
     func addInitialSections(sections: [ArticleAsLivingDocViewModel.SectionHeader]) {
