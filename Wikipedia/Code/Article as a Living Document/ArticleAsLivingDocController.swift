@@ -16,11 +16,13 @@ protocol ArticleAsLivingDocControllerDelegate: class {
 @available(iOS 13.0, *)
 class ArticleAsLivingDocController: NSObject {
     
+    typealias ArticleAsLivingDocConformingViewController = ArticleAsLivingDocControllerDelegate & UIViewController & HintPresenting //will need ArticleAsLivingDocViewControllerDelegate
+    
     enum Errors: Error {
         case viewModelInstantiationFailure
     }
     
-    private weak var delegate: (ArticleAsLivingDocControllerDelegate & UIViewController & HintPresenting)? //will need ArticleAsLivingDocViewControllerDelegate
+    private weak var delegate: ArticleAsLivingDocConformingViewController?
     
     var _articleAsLivingDocViewModel: ArticleAsLivingDocViewModel?
     var articleAsLivingDocViewModel: ArticleAsLivingDocViewModel? {
@@ -71,21 +73,9 @@ class ArticleAsLivingDocController: NSObject {
         
         //todo: need A/B test logic (falls in test and visiting article in allowed list)
         let isDeviceRTL = view.effectiveUserInterfaceLayoutDirection == .rightToLeft
-        let isENWikipediaArticle: Bool
-        if let host = delegate.articleURL.host,
-           host == Configuration.Domain.englishWikipedia {
-            isENWikipediaArticle = true
-        } else {
-            isENWikipediaArticle = false
-        }
+        let isENWikipediaArticle = delegate.articleURL.host == Configuration.Domain.englishWikipedia
         
-        let shouldAttemptToShowArticleAsLivingDoc: Bool
-        if let _ = articleTitleAndSiteURL(),
-           !isDeviceRTL && isENWikipediaArticle {
-            shouldAttemptToShowArticleAsLivingDoc = true
-        } else {
-            shouldAttemptToShowArticleAsLivingDoc = false
-        }
+        let shouldAttemptToShowArticleAsLivingDoc = articleTitleAndSiteURL() != nil && !isDeviceRTL && isENWikipediaArticle
         
         return shouldAttemptToShowArticleAsLivingDoc
     }
@@ -108,22 +98,19 @@ class ArticleAsLivingDocController: NSObject {
     
     var hintController: HintController?
 
-    required init(delegate: (ArticleAsLivingDocControllerDelegate & UIViewController & HintPresenting)) { //will need ArticleAsLivingDocViewControllerDelegate
+    required init(delegate: ArticleAsLivingDocConformingViewController) {
         self.delegate = delegate
     }
     
     func articleTitleAndSiteURL() -> (title: String, siteURL: URL)? {
         
-        guard let delegate = delegate else {
+        guard let delegate = delegate,
+              let title = delegate.articleURL.wmf_title?.denormalizedPageTitle,
+              let siteURL = delegate.articleURL.wmf_site else {
             return nil
         }
         
-        if let title = delegate.articleURL.wmf_title?.denormalizedPageTitle,
-           let siteURL = delegate.articleURL.wmf_site {
-            return (title, siteURL)
-        }
-        
-        return nil
+        return (title, siteURL)
     }
     
     func articleDidTriggerPullToRefresh() {
