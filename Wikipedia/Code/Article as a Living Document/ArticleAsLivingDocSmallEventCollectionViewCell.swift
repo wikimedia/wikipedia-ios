@@ -11,14 +11,6 @@ class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
 
     weak var delegate: ArticleDetailsShowing?
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
     override func reset() {
         super.reset()
         descriptionTextView.attributedText = nil

@@ -56,11 +56,10 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
                     return nil
                 }
 
-                largeEventCell.configure(with: largeEvent, theme: theme)
+                largeEventCell.configure(with: largeEvent, theme: theme, extendTimelineAboveDot: indexPath.item != 0)
                 largeEventCell.delegate = self
                 largeEventCell.articleDelegate = self
                 cell = largeEventCell
-                largeEventCell.timelineView.extendTimelineAboveDot = indexPath.item == 0 ? false : true
             case .small(let smallEvent):
                 guard let smallEventCell = collectionView.dequeueReusableCell(withReuseIdentifier: ArticleAsLivingDocSmallEventCollectionViewCell.identifier, for: indexPath) as? ArticleAsLivingDocSmallEventCollectionViewCell else {
                     return nil
@@ -325,7 +324,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
 extension ArticleAsLivingDocViewController: ArticleAsLivingDocHorizontallyScrollingCellDelegate {
     func tappedLink(_ url: URL, cell: ArticleAsLivingDocHorizontallyScrollingCell?, sourceView: UIView, sourceRect: CGRect?) {
         if url.absoluteString.removingPercentEncoding?.contains("/User:") == true {
-            // User talk page, should open it in a modal
+            // User page, should open it in a modal
             let singlePageWebVC = SinglePageWebViewController(url: url, theme: theme, doesUseSimpleNavigationBar: true)
             let navController = WMFThemeableNavigationController(rootViewController: singlePageWebVC, theme: theme)
             navController.modalPresentationStyle = .pageSheet

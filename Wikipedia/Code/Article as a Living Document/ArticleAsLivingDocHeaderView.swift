@@ -10,8 +10,7 @@ class ArticleAsLivingDocHeaderView: UIView {
     @IBOutlet private var sparklineView: WMFSparklineView!
     @IBOutlet var viewFullHistoryButton: ActionButton!
     @IBOutlet private var dividerView: UIView!
-    @IBOutlet var divHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var headerTitleStackView: UIStackView!
+    @IBOutlet private var divHeightConstraint: NSLayoutConstraint!
     
     private var editMetrics: [NSNumber]? {
         didSet {
@@ -56,13 +55,8 @@ class ArticleAsLivingDocHeaderView: UIView {
     
     func configure(headerText: String, titleText: String?, summaryText: String?, editMetrics: [NSNumber]?, theme: Theme) {
         self.headerLabel.text = headerText
-        if let titleText = titleText {
-            self.titleLabel.text = titleText
-        }
-        
-        if let summaryText = summaryText {
-            self.summaryLabel.text = summaryText
-        }
+        self.titleLabel.text = titleText
+        self.summaryLabel.text = summaryText
         
         self.editMetrics = editMetrics
         

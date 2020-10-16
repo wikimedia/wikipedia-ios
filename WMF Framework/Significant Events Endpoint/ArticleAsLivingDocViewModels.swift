@@ -341,7 +341,7 @@ public extension ArticleAsLivingDocViewModel {
             }
             
             public struct Snippet {
-                public let displayText: NSAttributedString
+                public let description: NSAttributedString
             }
             
             public struct Reference {
@@ -854,18 +854,16 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     
     static let sideScrollingCellPadding = UIEdgeInsets(top: 17, left: 15, bottom: 17, right: 15)
     static let sideScrollingCellWidth = CGFloat(250)
-    static let availableSideScrollingCellWidth = {
-        return sideScrollingCellWidth - sideScrollingCellPadding.left - sideScrollingCellPadding.right
-    }()
-    
-    static let changeDetailDescriptionTextStyle = DynamicTextStyle.subheadline
-    static let changeDetailDescriptionTextStyleItalic = DynamicTextStyle.italicSubheadline
-    static let changeDetailDescriptionFontWeight = UIFont.Weight.regular
+
+    private static let changeDetailDescriptionTextStyle = DynamicTextStyle.subheadline
+    private static let changeDetailDescriptionTextStyleItalic = DynamicTextStyle.italicSubheadline
+    private static let changeDetailDescriptionFontWeight = UIFont.Weight.regular
+
     static let changeDetailReferenceTitleStyle = DynamicTextStyle.semiboldSubheadline
     static let changeDetailReferenceTitleDescriptionSpacing = CGFloat(13)
     static let additionalPointsForShadow = CGFloat(16)
     
-    func calculateTallestChangeDetailHeightForTraitCollection(_ traitCollection: UITraitCollection) -> CGFloat {
+    @discardableResult func calculateTallestChangeDetailHeightForTraitCollection(_ traitCollection: UITraitCollection) -> CGFloat {
         
         //theme shouldn't affect sizing, so defaulting to light
         let changeDetails = changeDetailsForTraitCollection(traitCollection, theme: .light)
@@ -894,17 +892,18 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         
         let threeLineSnippetAttString = NSAttributedString(string: threeLineSnippetText, attributes: snippetAttributes)
         let oneLineTitleAttString = NSAttributedString(string: oneLineTitleText, attributes: referenceTitleAttributes)
+        let availableSideScrollingCellWidth = Self.sideScrollingCellWidth - Self.sideScrollingCellPadding.left - Self.sideScrollingCellPadding.right
         
-        let threeLineSnippetHeight = ceil(threeLineSnippetAttString.boundingRect(with: CGSize(width: Self.availableSideScrollingCellWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height) + Self.sideScrollingCellPadding.top + Self.sideScrollingCellPadding.bottom
-        let oneLineTitleHeight = ceil(oneLineTitleAttString.boundingRect(with: CGSize(width: Self.availableSideScrollingCellWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height)
+        let threeLineSnippetHeight = ceil(threeLineSnippetAttString.boundingRect(with: CGSize(width: availableSideScrollingCellWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height) + Self.sideScrollingCellPadding.top + Self.sideScrollingCellPadding.bottom
+        let oneLineTitleHeight = ceil(oneLineTitleAttString.boundingRect(with: CGSize(width: availableSideScrollingCellWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height)
         
         var tallestSnippetChangeDetailHeight: CGFloat = 0
         var tallestReferenceChangeDetailHeight: CGFloat = 0
-        let availableWidth = Self.availableSideScrollingCellWidth
+        let availableWidth = availableSideScrollingCellWidth
         changeDetails.forEach { (changeDetail) in
             switch changeDetail {
             case .snippet(let snippet):
-                let heightOfEntireSnippet = ceil(snippet.displayText.boundingRect(with: CGSize(width: availableWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height) + Self.sideScrollingCellPadding.top + Self.sideScrollingCellPadding.bottom
+                let heightOfEntireSnippet = ceil(snippet.description.boundingRect(with: CGSize(width: availableWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height) + Self.sideScrollingCellPadding.top + Self.sideScrollingCellPadding.bottom
                 
                 if tallestSnippetChangeDetailHeight < heightOfEntireSnippet {
                     tallestSnippetChangeDetailHeight = heightOfEntireSnippet
@@ -952,7 +951,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         switch typedEvent {
         case .newTalkPageTopic(let newTalkPageTopic):
             let attributedString = newTalkPageTopic.snippet.byAttributingHTML(with: Self.changeDetailDescriptionTextStyle, boldWeight: Self.changeDetailDescriptionFontWeight, matching: traitCollection, color: theme.colors.primaryText, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true)
-            let changeDetail = ChangeDetail.snippet(Snippet(displayText: attributedString))
+            let changeDetail = ChangeDetail.snippet(Snippet(description: attributedString))
             changeDetails.append(changeDetail)
         case .large(let largeChange):
             for typedChange in largeChange.typedChanges {
@@ -964,7 +963,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                     }
                     
                     let attributedString = snippet.byAttributingHTML(with: Self.changeDetailDescriptionTextStyle, boldWeight: Self.changeDetailDescriptionFontWeight, matching: traitCollection, color: theme.colors.primaryText, handlingLinks: true, linkColor: theme.colors.link, handlingLists: true, handlingSuperSubscripts: true)
-                    let changeDetail = ChangeDetail.snippet(Snippet(displayText: attributedString))
+                    let changeDetail = ChangeDetail.snippet(Snippet(description: attributedString))
                     changeDetails.append(changeDetail)
                 case .deletedText:
                     continue;
@@ -978,7 +977,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                                               NSAttributedString.Key.foregroundColor:
                                                 theme.colors.primaryText]
                             let attributedString = NSAttributedString(string: articleDescription.text, attributes: attributes)
-                            let changeDetail = ChangeDetail.snippet(Snippet(displayText: attributedString))
+                            let changeDetail = ChangeDetail.snippet(Snippet(description: attributedString))
                             changeDetails.append(changeDetail)
                             //tonitodo: these code blocks are all very similar. make a generic method instead?
                         case .bookCitation(let bookCitation):
@@ -1204,9 +1203,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                                          NSAttributedString.Key.foregroundColor: theme.colors.link], range: range)
             
             if let archiveLinkAttributedString = archiveLinkMutableAttributedString.copy() as? NSAttributedString {
-                
                 let lastText = String.localizedStringWithFormat(CommonStrings.newWebsiteReferenceArchiveDateText, archiveDateString)
-                
                 let lastAttributedString = NSAttributedString(string: " \(lastText)", attributes: attributes)
                 
                 finalMutableAttributedString.append(archiveLinkAttributedString)

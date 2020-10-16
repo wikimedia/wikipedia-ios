@@ -6,14 +6,6 @@ class ArticleAsLivingDocSectionHeaderView: SizeThatFitsReusableView {
     private let subtitleLabel = UILabel()
     private var theme: Theme?
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
     override func setup() {
         addSubview(titleLabel)
         titleLabel.numberOfLines = 1
