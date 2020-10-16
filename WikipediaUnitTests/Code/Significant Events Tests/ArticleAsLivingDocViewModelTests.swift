@@ -27,7 +27,9 @@ class ArticleAsLivingDocViewModelTests: XCTestCase {
             switch result {
             case .success(let significantEvents):
 
-                if let viewModel = ArticleAsLivingDocViewModel(significantEvents: significantEvents) {
+                let regularTraitCollection = UITraitCollection(preferredContentSizeCategory: UIContentSizeCategory.large)
+                let lightTheme = Theme.light
+                if let viewModel = ArticleAsLivingDocViewModel(significantEvents: significantEvents, traitCollection: regularTraitCollection, theme: lightTheme) {
                     XCTAssertEqual(viewModel.nextRvStartId, 979853162)
                     XCTAssertEqual(viewModel.sha, "ddb855b98e213935bfa5b23fb37e2d7034fe63eec9673f1fd66f43512c2c92a7")
 
@@ -37,11 +39,9 @@ class ArticleAsLivingDocViewModelTests: XCTestCase {
                     switch firstEvent {
                     case .small(let smallEvent):
                         XCTAssertNil(smallEvent.eventDescription)
-
-                        let traitCollection = UITraitCollection(preferredContentSizeCategory: UIContentSizeCategory.large)
-                        let lightTheme = Theme.light
-                        smallEvent.resetAttributedStringsIfNeededWithTraitCollection(traitCollection, theme: lightTheme)
-                        let attributedText = smallEvent.eventDescriptionForTraitCollection(traitCollection, theme: lightTheme)
+                        
+                        smallEvent.resetAttributedStringsIfNeededWithTraitCollection(regularTraitCollection, theme: lightTheme)
+                        let attributedText = smallEvent.eventDescriptionForTraitCollection(regularTraitCollection, theme: lightTheme)
                         var attributes = attributedText.attributes(at: 0, effectiveRange: nil)
                         var font = attributes[NSAttributedString.Key.font] as! UIFont
                         var color = attributes[NSAttributedString.Key.foregroundColor] as! UIColor
@@ -89,7 +89,9 @@ class ArticleAsLivingDocViewModelTests: XCTestCase {
             switch result {
             case .success(let significantEvents):
 
-                if let viewModel = ArticleAsLivingDocViewModel(significantEvents: significantEvents) {
+                let regularTraitCollection = UITraitCollection(preferredContentSizeCategory: UIContentSizeCategory.large)
+                let lightTheme = Theme.light
+                if let viewModel = ArticleAsLivingDocViewModel(significantEvents: significantEvents, traitCollection: regularTraitCollection, theme: lightTheme) {
                     XCTAssertEqual(viewModel.nextRvStartId, 979853162)
                     XCTAssertEqual(viewModel.sha, "ddb855b98e213935bfa5b23fb37e2d7034fe63eec9673f1fd66f43512c2c92a7")
 
@@ -100,10 +102,8 @@ class ArticleAsLivingDocViewModelTests: XCTestCase {
                     case .large(let largeEvent):
                         XCTAssertNil(largeEvent.eventDescription)
 
-                        let traitCollection = UITraitCollection(preferredContentSizeCategory: UIContentSizeCategory.large)
-                        let lightTheme = Theme.light
-                        largeEvent.resetAttributedStringsIfNeededWithTraitCollection(traitCollection, theme: lightTheme)
-                        let attributedText = largeEvent.eventDescriptionForTraitCollection(traitCollection, theme: lightTheme)
+                        largeEvent.resetAttributedStringsIfNeededWithTraitCollection(regularTraitCollection, theme: lightTheme)
+                        let attributedText = largeEvent.eventDescriptionForTraitCollection(regularTraitCollection, theme: lightTheme)
                         var attributes = attributedText.attributes(at: 0, effectiveRange: nil)
                         var font = attributes[NSAttributedString.Key.font] as! UIFont
                         var color = attributes[NSAttributedString.Key.foregroundColor] as! UIColor
