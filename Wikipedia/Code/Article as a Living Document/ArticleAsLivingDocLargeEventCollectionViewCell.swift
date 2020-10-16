@@ -8,7 +8,7 @@ import WMF
 // Also note, as experiment is EN-only, this class doesn't support RTL
 class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
     
-    private var theme: Theme = Theme.standard
+    private var theme: Theme?
     
     private let descriptionLabel = UILabel()
     private let timestampLabel = UILabel()
@@ -97,7 +97,13 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         let descriptionCollectionViewSpacing = CGFloat(10)
         
         let collectionViewOrigin = CGPoint(x: x, y: descriptionFrame.maxY + descriptionCollectionViewSpacing)
-        collectionViewHeight = largeEvent?.calculateTallestChangeDetailHeightForTraitCollection(traitCollection) ?? 0
+        
+        if let theme = theme,
+           let largestChangeDetailHeight = largeEvent?.calculateTallestChangeDetailHeightForTraitCollection(traitCollection, theme: theme) {
+            collectionViewHeight = largestChangeDetailHeight
+        } else {
+            collectionViewHeight = 0
+        }
         let collectionViewItemSpacing = CGFloat(10)
 
         if (apply) {
@@ -170,43 +176,62 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         timelineView.dotsY = timestampLabel.convert(timestampLabel.bounds, to: timelineView).midY
     }
     
-    private func calculateChangeDetails() {
-        if let largeEvent = largeEvent {
-            changeDetails = largeEvent.changeDetailsForTraitCollection(traitCollection, theme: theme)
-            collectionView.reloadData()
+    func setAttributedStringViews(needsViewModelReset: Bool = false) {
+        
+        guard let largeEvent = largeEvent,
+              let theme = theme else {
+            return
         }
+        
+        descriptionLabel.attributedText = largeEvent.eventDescriptionForTraitCollection(traitCollection, theme: theme)
+        userInfoTextView.attributedText = largeEvent.userInfoForTraitCollection(traitCollection, theme: theme)
+        
+        changeDetails = largeEvent.changeDetailsForTraitCollection(traitCollection, theme: theme)
+        collectionView.reloadData()
     }
     
     override public func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        calculateChangeDetails()
         
-        if let largeEvent = largeEvent {
-            configure(with: largeEvent, theme: theme)
+        if let theme = theme {
+            largeEvent?.resetAttributedStringsIfNeededWithTraitCollection(traitCollection, theme: theme)
         }
+        
+        setAttributedStringViews()
+        
+        timestampLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+        thankButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        viewChangesButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        viewDiscussionButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
     }
     
     func apply(theme: Theme) {
+        
+        if let oldTheme = self.theme,
+           theme.webName == oldTheme.webName {
+            return
+        }
+        
         self.theme = theme
+        
+        largeEvent?.resetAttributedStringsIfNeededWithTraitCollection(traitCollection, theme: theme)
+        
         timelineView.backgroundColor = theme.colors.paperBackground
         timelineView.tintColor = theme.colors.accent
         timestampLabel.textColor = theme.colors.accent
         userInfoTextView.backgroundColor = theme.colors.paperBackground
         descriptionLabel.textColor = theme.colors.primaryText
         
+        thankButton.setTitleColor(theme.colors.link, for: .normal)
+        viewChangesButton.setTitleColor(theme.colors.link, for: .normal)
+        thankButton.backgroundColor = theme.colors.midBackground
+        viewChangesButton.backgroundColor = theme.colors.midBackground
+        viewDiscussionButton.setTitleColor(theme.colors.link, for: .normal)
+        viewDiscussionButton.backgroundColor = theme.colors.midBackground
+        
         collectionView.backgroundColor = .clear
-        collectionView.reloadData()
         
-        if let largeEvent = largeEvent {
-            switch largeEvent.buttonsToDisplay {
-            case .thankAndViewChanges:
-                thankButton.backgroundColor = theme.colors.midBackground
-                viewChangesButton.backgroundColor = theme.colors.midBackground
-            case .viewDiscussion:
-                viewDiscussionButton.backgroundColor = theme.colors.midBackground
-            }
-        }
-        
+        setAttributedStringViews()
     }
     
     override func reset() {
@@ -232,12 +257,11 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
     func configure(with largeEvent: ArticleAsLivingDocViewModel.Event.Large, theme: Theme, extendTimelineAboveDot: Bool? = nil) {
 
         self.largeEvent = largeEvent
+        self.largeEvent?.resetAttributedStringsIfNeededWithTraitCollection(traitCollection, theme: theme)
+        apply(theme: theme)
     
-        descriptionLabel.attributedText = largeEvent.eventDescriptionForTraitCollection(traitCollection, theme: theme)
-        userInfoTextView.attributedText = largeEvent.userInfoForTraitCollection(traitCollection, theme: theme)
         timestampLabel.text = largeEvent.timestampForDisplay()
-        timestampLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-
+        
         if let extendTimelineAboveDot = extendTimelineAboveDot {
             timelineView.extendTimelineAboveDot = extendTimelineAboveDot
         }
@@ -246,13 +270,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         case .thankAndViewChanges(let userId, let revisionId):
             contentView.addSubview(thankButton)
             contentView.addSubview(viewChangesButton)
-            
-            thankButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
-            viewChangesButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
-            
-            thankButton.setTitleColor(theme.colors.link, for: .normal)
-            viewChangesButton.setTitleColor(theme.colors.link, for: .normal)
-            
+
             thankButton.setNeedsLayout()
             thankButton.layoutIfNeeded()
             viewChangesButton.setNeedsLayout()
@@ -263,10 +281,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         case .viewDiscussion(let sectionName):
             
             contentView.addSubview(viewDiscussionButton)
-            
-            viewDiscussionButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
-            viewDiscussionButton.setTitleColor(theme.colors.link, for: .normal)
-            
+
             viewDiscussionButton.setNeedsLayout()
             viewDiscussionButton.layoutIfNeeded()
 
@@ -274,8 +289,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
             viewDiscussionButton.addTarget(self, action: #selector(viewDiscussionTapped), for: .touchUpInside)
         }
         
-        apply(theme: theme)
-        calculateChangeDetails()
+        setAttributedStringViews()
         resetContentOffset()
         setNeedsLayout()
     }
@@ -302,7 +316,8 @@ extension ArticleAsLivingDocLargeEventCollectionViewCell: UICollectionViewDataSo
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard indexPath.item < changeDetails.count else {
+        guard indexPath.item < changeDetails.count,
+              let theme = theme else {
             return UICollectionViewCell()
         }
 

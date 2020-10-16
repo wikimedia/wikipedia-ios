@@ -6,7 +6,7 @@ import WMF
 protocol ArticleAsLivingDocViewControllerDelegate: class {
     var articleAsLivingDocViewModel: ArticleAsLivingDocViewModel? { get }
     var articleURL: URL { get }
-    func fetchNextPage(nextRvStartId: UInt)
+    func fetchNextPage(nextRvStartId: UInt, theme: Theme)
     func showEditHistory(scrolledTo revisionID: Int?)
     func handleLink(with href: String)
     func showTalkPage()
@@ -302,7 +302,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
                 return
             }
             
-            delegate?.fetchNextPage(nextRvStartId: nextRvStartId)
+            delegate?.fetchNextPage(nextRvStartId: nextRvStartId, theme: theme)
         }
     }
     

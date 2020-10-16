@@ -141,10 +141,10 @@ class ArticleAsLivingDocController: NSObject {
         }
     }
     
-    func articleContentWillBeginLoading(traitCollection: UITraitCollection? = nil) {
+    func articleContentWillBeginLoading(traitCollection: UITraitCollection? = nil, theme: Theme) {
         loadingArticleContent = true
         articleAsLivingDocViewModel = nil
-        fetchInitialArticleAsLivingDoc(traitCollection: traitCollection)
+        fetchInitialArticleAsLivingDoc(traitCollection: traitCollection, theme: theme)
     }
     
     func setupLeadImageView() {
@@ -201,7 +201,7 @@ class ArticleAsLivingDocController: NSObject {
         }
     }
     
-    func fetchInitialArticleAsLivingDoc(traitCollection: UITraitCollection? = nil) {
+    func fetchInitialArticleAsLivingDoc(traitCollection: UITraitCollection? = nil, theme: Theme) {
         
         // triggered via initial load or pull to refresh
         
@@ -213,7 +213,7 @@ class ArticleAsLivingDocController: NSObject {
         
         failedLastInitialFetch = false
 
-        fetchArticleAsLivingDocViewModel(rvStartId: nil, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL, traitCollection: traitCollection) { [weak self] (result) in
+        fetchArticleAsLivingDocViewModel(rvStartId: nil, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL, traitCollection: traitCollection, theme: theme) { [weak self] (result) in
             
             guard let self = self else {
                 return
@@ -416,7 +416,7 @@ class ArticleAsLivingDocController: NSObject {
     
     //MARK: Fetcher Methods
     private let fetcher = SignificantEventsFetcher()
-    func fetchArticleAsLivingDocViewModel(rvStartId: UInt? = nil, title: String, siteURL: URL, traitCollection: UITraitCollection? = nil, completion: @escaping ((Result<ArticleAsLivingDocViewModel, Error>) -> Void)) {
+    func fetchArticleAsLivingDocViewModel(rvStartId: UInt? = nil, title: String, siteURL: URL, traitCollection: UITraitCollection? = nil, theme: Theme, completion: @escaping ((Result<ArticleAsLivingDocViewModel, Error>) -> Void)) {
         fetcher.fetchSignificantEvents(rvStartId: rvStartId, title: title, siteURL: siteURL) { (result) in
             switch result {
             case .failure(let error):
@@ -434,7 +434,7 @@ class ArticleAsLivingDocController: NSObject {
                                 case .small:
                                     break
                                 case .large(let largeEvent):
-                                    largeEvent.calculateTallestChangeDetailHeightForTraitCollection(traitCollection)
+                                    largeEvent.calculateTallestChangeDetailHeightForTraitCollection(traitCollection, theme: theme)
                                 }
                             }
                         }
@@ -460,14 +460,14 @@ class ArticleAsLivingDocController: NSObject {
         }
     }
     
-    func fetchNextPage(nextRvStartId: UInt, traitCollection: UITraitCollection? = nil) {
+    func fetchNextPage(nextRvStartId: UInt, traitCollection: UITraitCollection? = nil, theme: Theme) {
 
         guard let articleTitleAndSiteURL = self.articleTitleAndSiteURL(),
               shouldAttemptToShowArticleAsLivingDoc else {
             return
         }
         
-        fetchArticleAsLivingDocViewModel(rvStartId: nextRvStartId, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL, traitCollection: traitCollection) { [weak self] (result) in
+        fetchArticleAsLivingDocViewModel(rvStartId: nextRvStartId, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL, traitCollection: traitCollection, theme: theme) { [weak self] (result) in
             
             guard let self = self else {
                 return

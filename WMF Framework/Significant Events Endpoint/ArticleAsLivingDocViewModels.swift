@@ -288,9 +288,9 @@ public extension ArticleAsLivingDocViewModel {
         
         public class Small: Equatable {
             
-            public private(set) var eventDescription: NSAttributedString?
             private var lastTraitCollection: UITraitCollection?
             private var lastTheme: Theme?
+            private var eventDescription: NSAttributedString?
             public let smallChanges: [SignificantEvents.Event.Small]
             
             init?(typedEvents: [SignificantEvents.TypedEvent]) {
@@ -367,8 +367,12 @@ public extension ArticleAsLivingDocViewModel {
                 numberFormatter.numberStyle = .decimal
                 return numberFormatter
             }()
-
+            
             private let typedEvent: SignificantEvents.TypedEvent
+            
+            private var lastTraitCollection: UITraitCollection?
+            private var lastTheme: Theme?
+            
             private(set) var eventDescription: NSAttributedString?
             private(set) var tallestChangeDetailHeight: CGFloat?
             private(set) var changeDetails: [ChangeDetail]?
@@ -377,13 +381,6 @@ public extension ArticleAsLivingDocViewModel {
             let userId: UInt
             let userType: UserType
             public let buttonsToDisplay: ButtonsToDisplay
-            private var lastEventDescriptionTraitCollection: UITraitCollection?
-            private var lastEventDescriptionTheme: Theme?
-            private var lastUserInfoTraitCollection: UITraitCollection?
-            private var lastUserInfoTheme: Theme?
-            private var lastChangeDetailsTraitCollection: UITraitCollection?
-            private var lastChangeDetailsTheme: Theme?
-            private var lastCalculateTallestTraitCollection: UITraitCollection?
             public var revId: UInt = 0
             
             init?(typedEvent: SignificantEvents.TypedEvent) {
@@ -451,13 +448,22 @@ public extension ArticleAsLivingDocViewModel {
 
 public extension ArticleAsLivingDocViewModel.Event.Small {
     
-    func eventDescriptionForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
+    // if trait collection or theme is different from the last time attributed strings were generated,
+    // reset to nil to trigger generation again the next time it's requested
+    func resetAttributedStringsIfNeededWithTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) {
         if let lastTraitCollection = lastTraitCollection,
            let lastTheme = lastTheme,
-           let eventDescription = eventDescription {
-            if lastTraitCollection == traitCollection && lastTheme == theme {
-                return eventDescription
-            }
+           lastTraitCollection != traitCollection || lastTheme != theme {
+            eventDescription = nil
+        }
+        
+        lastTraitCollection = traitCollection
+        lastTheme = theme
+    }
+    
+    func eventDescriptionForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
+        if let eventDescription = eventDescription {
+            return eventDescription
         }
         
         let font = UIFont.wmf_font(.italicSubheadline, compatibleWithTraitCollection: traitCollection)
@@ -490,8 +496,6 @@ public extension ArticleAsLivingDocViewModel.Event.Small {
             return NSAttributedString()
         }
         
-        self.lastTraitCollection = traitCollection
-        self.lastTheme = theme
         self.eventDescription = nsAttString
         return nsAttString
     }
@@ -601,17 +605,29 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         }
     }
     
+    // if trait collection or theme is different from the last time attributed strings were generated,
+    // reset to nil to trigger generation again the next time it's requested
+    func resetAttributedStringsIfNeededWithTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) {
+        if let lastTraitCollection = lastTraitCollection,
+           let lastTheme = lastTheme,
+           lastTraitCollection != traitCollection || lastTheme != theme {
+            eventDescription = nil
+            tallestChangeDetailHeight = nil
+            changeDetails = nil
+            userInfo = nil
+        }
+        
+        lastTraitCollection = traitCollection
+        lastTheme = theme
+    }
+    
     func eventDescriptionForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
         
         let sections = sectionsSet()
         let sectionsAttributedString = localizedSectionAttributedString(sectionsSet: sections, traitCollection: traitCollection, theme: theme)
         
-        if let lastTraitCollection = lastEventDescriptionTraitCollection,
-           let lastTheme = lastEventDescriptionTheme,
-           let eventDescription = eventDescription {
-            if lastTraitCollection == traitCollection && lastTheme == theme {
-                return eventDescription
-            }
+        if let eventDescription = eventDescription {
+            return eventDescription
         }
         
         let font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
@@ -655,14 +671,10 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             assertionFailure("This should not happen")
             let empty = NSAttributedString(string: "")
             eventDescription = empty
-            self.lastEventDescriptionTraitCollection = traitCollection
-            self.lastEventDescriptionTheme = theme
             return empty
         }
         
         eventDescription = finalEventAttributedString
-        self.lastEventDescriptionTraitCollection = traitCollection
-        self.lastEventDescriptionTheme = theme
         return finalEventAttributedString
     }
     
@@ -863,17 +875,13 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     static let changeDetailReferenceTitleDescriptionSpacing = CGFloat(13)
     static let additionalPointsForShadow = CGFloat(16)
     
-    @discardableResult func calculateTallestChangeDetailHeightForTraitCollection(_ traitCollection: UITraitCollection) -> CGFloat {
+    @discardableResult func calculateTallestChangeDetailHeightForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> CGFloat {
         
-        //theme shouldn't affect sizing, so defaulting to light
-        let changeDetails = changeDetailsForTraitCollection(traitCollection, theme: .light)
-        
-        if let lastTraitCollection = lastCalculateTallestTraitCollection,
-           let tallestChangeDetailHeight = tallestChangeDetailHeight {
-            if lastTraitCollection == traitCollection {
-                return tallestChangeDetailHeight
-            }
+        if let tallestChangeDetailHeight = tallestChangeDetailHeight {
+            return tallestChangeDetailHeight
         }
+        
+        let changeDetails = changeDetailsForTraitCollection(traitCollection, theme: theme)
         
         //first get maximum height for 3 line snippet
         //create attributed string
@@ -899,11 +907,10 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         
         var tallestSnippetChangeDetailHeight: CGFloat = 0
         var tallestReferenceChangeDetailHeight: CGFloat = 0
-        let availableWidth = availableSideScrollingCellWidth
         changeDetails.forEach { (changeDetail) in
             switch changeDetail {
             case .snippet(let snippet):
-                let heightOfEntireSnippet = ceil(snippet.description.boundingRect(with: CGSize(width: availableWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height) + Self.sideScrollingCellPadding.top + Self.sideScrollingCellPadding.bottom
+                let heightOfEntireSnippet = ceil(snippet.description.boundingRect(with: CGSize(width: availableSideScrollingCellWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height) + Self.sideScrollingCellPadding.top + Self.sideScrollingCellPadding.bottom
                 
                 if tallestSnippetChangeDetailHeight < heightOfEntireSnippet {
                     tallestSnippetChangeDetailHeight = heightOfEntireSnippet
@@ -911,7 +918,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                 
             case .reference(let reference):
                 let titleHeight = oneLineTitleHeight
-                let descriptionHeight = ceil(reference.description.boundingRect(with: CGSize(width: availableWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height)
+                let descriptionHeight = ceil(reference.description.boundingRect(with: CGSize(width: availableSideScrollingCellWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height)
                 let totalHeight = Self.sideScrollingCellPadding.top + titleHeight + Self.changeDetailReferenceTitleDescriptionSpacing + descriptionHeight + Self.sideScrollingCellPadding.bottom
                 
                 if tallestReferenceChangeDetailHeight < totalHeight {
@@ -933,17 +940,12 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         
         let finalHeight = nearlyFinalHeight + Self.additionalPointsForShadow
         self.tallestChangeDetailHeight = finalHeight
-        lastCalculateTallestTraitCollection = traitCollection
         return finalHeight
     }
     
     func changeDetailsForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> [ChangeDetail] {
-        if let lastTraitCollection = lastChangeDetailsTraitCollection,
-           let lastTheme = lastChangeDetailsTheme,
-           let changeDetails = changeDetails {
-            if lastTraitCollection == traitCollection && lastTheme == theme {
-                return changeDetails
-            }
+        if let changeDetails = changeDetails {
+            return changeDetails
         }
         
         var changeDetails: [ChangeDetail] = []
@@ -1019,8 +1021,6 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             return []
         }
         
-        self.lastChangeDetailsTraitCollection = traitCollection
-        self.lastChangeDetailsTheme = theme
         self.changeDetails = changeDetails
         return changeDetails
     }
@@ -1471,12 +1471,8 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     }
     
     func userInfoForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
-        if let lastTraitCollection = lastUserInfoTraitCollection,
-           let lastTheme = lastUserInfoTheme,
-           let userInfo = userInfo {
-            if lastTraitCollection == traitCollection && lastTheme == theme {
-                return userInfo
-            }
+        if let userInfo = userInfo {
+            return userInfo
         }
         
         guard let userNameAndEditCount = self.userNameAndEditCount() else {
@@ -1532,8 +1528,6 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         }
         
         self.userInfo = attributedString
-        self.lastUserInfoTraitCollection = traitCollection
-        self.lastUserInfoTheme = theme
         return attributedString
     }
     
