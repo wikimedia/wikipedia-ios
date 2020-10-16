@@ -49,6 +49,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
         
         dataSource = UICollectionViewDiffableDataSource<ArticleAsLivingDocViewModel.SectionHeader, ArticleAsLivingDocViewModel.TypedEvent>(collectionView: collectionView) { (collectionView: UICollectionView, indexPath: IndexPath, event: ArticleAsLivingDocViewModel.TypedEvent) -> UICollectionViewCell? in
             
+            let theme = self.theme
             let cell: CollectionViewCell
             switch event {
             case .large(let largeEvent):
@@ -85,6 +86,8 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
                 return UICollectionReusableView()
             }
 
+            let theme = self.theme
+            
             if kind == UICollectionView.elementKindSectionHeader {
                 let section = self.dataSource.snapshot()
                     .sectionIdentifiers[indexPath.section]
@@ -226,6 +229,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
         super.apply(theme: theme)
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
         navigationController?.navigationBar.barTintColor = theme.colors.cardButtonBackground //tonitodo: this doesn't seem to work
+        headerView?.apply(theme: theme)
     }
 
     @objc func tappedViewFullHistoryButton() {

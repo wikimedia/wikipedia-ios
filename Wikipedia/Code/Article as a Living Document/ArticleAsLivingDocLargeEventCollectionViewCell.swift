@@ -176,7 +176,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         timelineView.dotsY = timestampLabel.convert(timestampLabel.bounds, to: timelineView).midY
     }
     
-    func setAttributedStringViews(needsViewModelReset: Bool = false) {
+    func setAttributedStringViews() {
         
         guard let largeEvent = largeEvent,
               let theme = theme else {
