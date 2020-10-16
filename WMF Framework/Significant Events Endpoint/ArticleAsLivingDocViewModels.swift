@@ -290,7 +290,7 @@ public extension ArticleAsLivingDocViewModel {
             
             private var lastTraitCollection: UITraitCollection?
             private var lastTheme: Theme?
-            private var eventDescription: NSAttributedString?
+            private(set) var eventDescription: NSAttributedString?
             public let smallChanges: [SignificantEvents.Event.Small]
             
             init?(typedEvents: [SignificantEvents.TypedEvent]) {
