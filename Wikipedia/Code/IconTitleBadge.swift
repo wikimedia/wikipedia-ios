@@ -35,7 +35,7 @@ class IconTitleBadge: SizeThatFitsView {
         var x = padding.left
         var y = padding.top
         
-        let imageTitleSpacing = CGFloat(5)
+        let imageTitleSpacing: CGFloat = 5
         
         var imageFrame: CGRect?
         if let imageView = iconImageView {

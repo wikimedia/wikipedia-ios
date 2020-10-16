@@ -84,8 +84,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         if apply {
             timelineView.frame = CGRect(x: layoutMargins.left, y: 0, width: timelineWidth, height: size.height)
         }
-        
-        
+
         let timestampOrigin = CGPoint(x: x, y: layoutMargins.top)
         let timestampFrame = timestampLabel.wmf_preferredFrame(at: timestampOrigin, maximumSize: CGSize(width: widthToFit, height: UIView.noIntrinsicMetric), minimumSize: NoIntrinsicSize, alignedBy: .forceLeftToRight, apply: apply)
 
@@ -139,7 +138,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
             let thankFrame = thankButton.wmf_preferredFrame(at: thankOrigin, maximumWidth: widthToFit, horizontalAlignment: .left, apply: apply)
             
             let viewChangesOrigin = CGPoint(x: thankFrame.maxX + buttonsSpacing, y: userInfoFrame.maxY + userInfoButtonsSpacing)
-            let _ = viewChangesButton.wmf_preferredFrame(at: viewChangesOrigin, maximumWidth: widthToFit, horizontalAlignment: .left, apply: apply)
+            viewChangesButton.wmf_preferredFrame(at: viewChangesOrigin, maximumWidth: widthToFit, horizontalAlignment: .left, apply: apply)
             finalHeight = thankFrame.maxY
             thankButton.cornerRadius = thankFrame.height / 2
             viewChangesButton.cornerRadius = thankFrame.height / 2
