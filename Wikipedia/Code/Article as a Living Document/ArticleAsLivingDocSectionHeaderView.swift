@@ -28,7 +28,7 @@ class ArticleAsLivingDocSectionHeaderView: SizeThatFitsReusableView {
         let titleOrigin = CGPoint(x: adjustedMargins.left, y: adjustedMargins.top)
         let titleFrame = titleLabel.wmf_preferredFrame(at: titleOrigin, maximumSize: CGSize(width: maximumWidth, height: UIView.noIntrinsicMetric), minimumSize: NoIntrinsicSize, alignedBy: .forceLeftToRight, apply: apply)
         
-        let titleSubtitleSpacing = CGFloat(7)
+        let titleSubtitleSpacing: CGFloat = 7
         let subtitleOrigin = CGPoint(x: adjustedMargins.left, y: titleFrame.maxY + titleSubtitleSpacing)
         let subtitleFrame = subtitleLabel.wmf_preferredFrame(at: subtitleOrigin, maximumSize: CGSize(width: maximumWidth, height: UIView.noIntrinsicMetric), minimumSize: NoIntrinsicSize, alignedBy: .forceLeftToRight, apply: apply)
         

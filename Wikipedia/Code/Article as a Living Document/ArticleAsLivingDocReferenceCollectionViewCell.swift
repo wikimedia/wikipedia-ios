@@ -23,7 +23,7 @@ class ArticleAsLivingDocReferenceCollectionViewCell: ArticleAsLivingDocHorizonta
             let iconBadgeFrame = iconTitleBadge.wmf_preferredFrame(at: iconBadgeOrigin, maximumWidth: maximumBadgeWidth, alignedBy: .forceLeftToRight, apply: false)
             let iconTitleBadgeX = size.width - adjustedMargins.right - iconBadgeFrame.width
                 iconTitleBadge.frame = CGRect(x: iconTitleBadgeX, y: iconBadgeFrame.minY, width: iconBadgeFrame.width, height: iconBadgeFrame.height)
-            let titleBadgeSpacing = CGFloat(10)
+            let titleBadgeSpacing: CGFloat = 10
             availableTitleWidth -= iconBadgeFrame.width + titleBadgeSpacing
         }
         

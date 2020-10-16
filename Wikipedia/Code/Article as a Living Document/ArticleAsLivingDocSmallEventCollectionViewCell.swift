@@ -38,8 +38,8 @@ class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
         
         let layoutMargins = calculatedLayoutMargins
         
-        let timelineTextSpacing = CGFloat(5)
-        let timelineWidth = CGFloat(15)
+        let timelineTextSpacing: CGFloat = 5
+        let timelineWidth: CGFloat = 15
         let x = layoutMargins.left + timelineWidth + timelineTextSpacing
         let widthToFit = size.width - layoutMargins.right - x
         

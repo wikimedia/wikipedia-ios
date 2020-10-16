@@ -76,8 +76,8 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         
         let layoutMargins = calculatedLayoutMargins
         
-        let timelineTextSpacing = CGFloat(7)
-        let timelineWidth = CGFloat(15)
+        let timelineTextSpacing: CGFloat = 7
+        let timelineWidth: CGFloat = 15
         let x = layoutMargins.left + timelineWidth + timelineTextSpacing
         let widthToFit = size.width - layoutMargins.right - x
         
@@ -89,12 +89,12 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         let timestampOrigin = CGPoint(x: x, y: layoutMargins.top)
         let timestampFrame = timestampLabel.wmf_preferredFrame(at: timestampOrigin, maximumSize: CGSize(width: widthToFit, height: UIView.noIntrinsicMetric), minimumSize: NoIntrinsicSize, alignedBy: .forceLeftToRight, apply: apply)
 
-        let timestampDescriptionSpacing = CGFloat(8)
+        let timestampDescriptionSpacing: CGFloat = 8
         
         let descriptionOrigin = CGPoint(x: x, y: timestampFrame.maxY + timestampDescriptionSpacing)
         let descriptionFrame = descriptionLabel.wmf_preferredFrame(at: descriptionOrigin, maximumSize: CGSize(width: widthToFit, height: UIView.noIntrinsicMetric), minimumSize: NoIntrinsicSize, alignedBy: .forceLeftToRight, apply: apply)
         
-        let descriptionCollectionViewSpacing = CGFloat(10)
+        let descriptionCollectionViewSpacing: CGFloat = 10
         
         let collectionViewOrigin = CGPoint(x: x, y: descriptionFrame.maxY + descriptionCollectionViewSpacing)
         
@@ -104,7 +104,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         } else {
             collectionViewHeight = 0
         }
-        let collectionViewItemSpacing = CGFloat(10)
+        let collectionViewItemSpacing: CGFloat = 10
 
         if (apply) {
             flowLayout?.minimumInteritemSpacing = collectionViewItemSpacing
@@ -115,7 +115,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
             collectionView.layoutIfNeeded()
         }
         
-        let collectionViewUserInfoLabelSpacing = CGFloat(0)
+        let collectionViewUserInfoLabelSpacing: CGFloat = 0
         
         let userInfoOrigin = CGPoint(x: x, y: descriptionFrame.maxY + collectionViewHeight + descriptionCollectionViewSpacing + collectionViewUserInfoLabelSpacing)
         let userInfoFrame =
@@ -126,8 +126,8 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
             return CGSize(width: size.width, height: finalHeight)
         }
         
-        let userInfoButtonsSpacing = CGFloat(6)
-        let buttonsSpacing = CGFloat(20)
+        let userInfoButtonsSpacing: CGFloat = 6
+        let buttonsSpacing: CGFloat = 20
         var finalHeight = userInfoFrame.maxY
         switch largeEvent.buttonsToDisplay {
         case .thankAndViewChanges:

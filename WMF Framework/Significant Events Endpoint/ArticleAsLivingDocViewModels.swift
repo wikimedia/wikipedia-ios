@@ -865,15 +865,15 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     }
     
     static let sideScrollingCellPadding = UIEdgeInsets(top: 17, left: 15, bottom: 17, right: 15)
-    static let sideScrollingCellWidth = CGFloat(250)
+    static let sideScrollingCellWidth: CGFloat = 250
 
     private static let changeDetailDescriptionTextStyle = DynamicTextStyle.subheadline
     private static let changeDetailDescriptionTextStyleItalic = DynamicTextStyle.italicSubheadline
     private static let changeDetailDescriptionFontWeight = UIFont.Weight.regular
 
     static let changeDetailReferenceTitleStyle = DynamicTextStyle.semiboldSubheadline
-    static let changeDetailReferenceTitleDescriptionSpacing = CGFloat(13)
-    static let additionalPointsForShadow = CGFloat(16)
+    static let changeDetailReferenceTitleDescriptionSpacing: CGFloat = 13
+    static let additionalPointsForShadow: CGFloat = 16
     
     @discardableResult func calculateTallestChangeDetailHeightForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> CGFloat {
         
