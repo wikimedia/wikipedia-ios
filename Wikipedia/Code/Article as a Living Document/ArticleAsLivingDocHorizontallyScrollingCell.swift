@@ -2,7 +2,7 @@
 import UIKit
 
 protocol ArticleAsLivingDocHorizontallyScrollingCellDelegate: class {
-    func tappedLink(_ url: URL, cell: ArticleAsLivingDocHorizontallyScrollingCell?, sourceView: UIView, sourceRect: CGRect?)
+    func tappedLink(_ url: URL)
 }
 
 class ArticleAsLivingDocHorizontallyScrollingCell: CollectionViewCell {
@@ -32,16 +32,12 @@ class ArticleAsLivingDocHorizontallyScrollingCell: CollectionViewCell {
     }
     
     func setupDescription(for change: ArticleAsLivingDocViewModel.Event.Large.ChangeDetail) {
-        
-        let description: NSAttributedString
         switch change {
         case .snippet(let snippet):
-            description = snippet.description
+            descriptionTextView.attributedText = snippet.description
         case .reference(let reference):
-            description = reference.description
+            descriptionTextView.attributedText = reference.description
         }
-        
-        descriptionTextView.attributedText = description
     }
     
     override func setup() {
@@ -66,7 +62,7 @@ class ArticleAsLivingDocHorizontallyScrollingCell: CollectionViewCell {
 
 extension ArticleAsLivingDocHorizontallyScrollingCell: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        delegate?.tappedLink(URL, cell: self, sourceView: textView, sourceRect: textView.frame(of: characterRange))
+        delegate?.tappedLink(URL)
         return false
     }
 }

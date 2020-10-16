@@ -110,49 +110,6 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
             return UICollectionReusableView()
         }
     }
-    
-    func addInitialSections(sections: [ArticleAsLivingDocViewModel.SectionHeader]) {
-        var snapshot = NSDiffableDataSourceSnapshot<ArticleAsLivingDocViewModel.SectionHeader, ArticleAsLivingDocViewModel.TypedEvent>()
-        snapshot.appendSections(sections)
-        for section in sections {
-            snapshot.appendItems(section.typedEvents, toSection: section)
-        }
-        dataSource.apply(snapshot, animatingDifferences: true) {
-            self.scrollToInitialIndexPathIfNeeded()
-        }
-    }
-    
-    func scrollToInitialIndexPathIfNeeded() {
-        guard let initialIndexPath = initialIndexPath else {
-            return
-        }
-        
-        collectionView.scrollToItem(at: initialIndexPath, at: .top, animated: true)
-    }
-    
-    func appendSections(_ sections: [ArticleAsLivingDocViewModel.SectionHeader]) {
-        
-        var currentSnapshot = dataSource.snapshot()
-        
-        var existingSections: [ArticleAsLivingDocViewModel.SectionHeader] = []
-        for currentSection in currentSnapshot.sectionIdentifiers {
-            for proposedSection in sections {
-                if currentSection == proposedSection {
-                    currentSnapshot.appendItems(proposedSection.typedEvents, toSection: currentSection)
-                    existingSections.append(proposedSection)
-                }
-            }
-        }
-
-        for section in sections {
-            if !existingSections.contains(section) {
-                currentSnapshot.appendSections([section])
-                currentSnapshot.appendItems(section.typedEvents, toSection: section)
-            }
-        }
-        
-        dataSource.apply(currentSnapshot, animatingDifferences: true)
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -179,6 +136,49 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
         }
         super.viewWillAppear(animated)
 
+    }
+
+    func addInitialSections(sections: [ArticleAsLivingDocViewModel.SectionHeader]) {
+        var snapshot = NSDiffableDataSourceSnapshot<ArticleAsLivingDocViewModel.SectionHeader, ArticleAsLivingDocViewModel.TypedEvent>()
+        snapshot.appendSections(sections)
+        for section in sections {
+            snapshot.appendItems(section.typedEvents, toSection: section)
+        }
+        dataSource.apply(snapshot, animatingDifferences: true) {
+            self.scrollToInitialIndexPathIfNeeded()
+        }
+    }
+
+    func scrollToInitialIndexPathIfNeeded() {
+        guard let initialIndexPath = initialIndexPath else {
+            return
+        }
+
+        collectionView.scrollToItem(at: initialIndexPath, at: .top, animated: true)
+    }
+
+    func appendSections(_ sections: [ArticleAsLivingDocViewModel.SectionHeader]) {
+
+        var currentSnapshot = dataSource.snapshot()
+
+        var existingSections: [ArticleAsLivingDocViewModel.SectionHeader] = []
+        for currentSection in currentSnapshot.sectionIdentifiers {
+            for proposedSection in sections {
+                if currentSection == proposedSection {
+                    currentSnapshot.appendItems(proposedSection.typedEvents, toSection: currentSection)
+                    existingSections.append(proposedSection)
+                }
+            }
+        }
+
+        for section in sections {
+            if !existingSections.contains(section) {
+                currentSnapshot.appendSections([section])
+                currentSnapshot.appendItems(section.typedEvents, toSection: section)
+            }
+        }
+
+        dataSource.apply(currentSnapshot, animatingDifferences: true)
     }
     
     private func setupNavigationBar() {
@@ -326,7 +326,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
 // MARK:- ArticleAsLivingDocHorizontallyScrollingCellDelegate
 @available(iOS 13.0, *)
 extension ArticleAsLivingDocViewController: ArticleAsLivingDocHorizontallyScrollingCellDelegate {
-    func tappedLink(_ url: URL, cell: ArticleAsLivingDocHorizontallyScrollingCell?, sourceView: UIView, sourceRect: CGRect?) {
+    func tappedLink(_ url: URL) {
         if url.absoluteString.removingPercentEncoding?.contains("/User:") == true {
             // User page, should open it in a modal
             let singlePageWebVC = SinglePageWebViewController(url: url, theme: theme, doesUseSimpleNavigationBar: true)

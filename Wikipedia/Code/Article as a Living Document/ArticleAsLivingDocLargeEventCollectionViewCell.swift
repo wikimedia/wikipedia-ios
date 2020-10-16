@@ -48,6 +48,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         contentView.addSubview(collectionView)
 
         userInfoTextView.delegate = self
+        userInfoTextView.isEditable = false
         
         timelineView.decoration = .singleDot
         contentView.insertSubview(timelineView, belowSubview: collectionView)
@@ -84,8 +85,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         if apply {
             timelineView.frame = CGRect(x: layoutMargins.left, y: 0, width: timelineWidth, height: size.height)
         }
-        
-        
+
         let timestampOrigin = CGPoint(x: x, y: layoutMargins.top)
         let timestampFrame = timestampLabel.wmf_preferredFrame(at: timestampOrigin, maximumSize: CGSize(width: widthToFit, height: UIView.noIntrinsicMetric), minimumSize: NoIntrinsicSize, alignedBy: .forceLeftToRight, apply: apply)
 
@@ -139,7 +139,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
             let thankFrame = thankButton.wmf_preferredFrame(at: thankOrigin, maximumWidth: widthToFit, horizontalAlignment: .left, apply: apply)
             
             let viewChangesOrigin = CGPoint(x: thankFrame.maxX + buttonsSpacing, y: userInfoFrame.maxY + userInfoButtonsSpacing)
-            let _ = viewChangesButton.wmf_preferredFrame(at: viewChangesOrigin, maximumWidth: widthToFit, horizontalAlignment: .left, apply: apply)
+            viewChangesButton.wmf_preferredFrame(at: viewChangesOrigin, maximumWidth: widthToFit, horizontalAlignment: .left, apply: apply)
             finalHeight = thankFrame.maxY
             thankButton.cornerRadius = thankFrame.height / 2
             viewChangesButton.cornerRadius = thankFrame.height / 2
@@ -267,7 +267,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         }
 
         switch largeEvent.buttonsToDisplay {
-        case .thankAndViewChanges(let userId, let revisionId):
+        case .thankAndViewChanges:
             contentView.addSubview(thankButton)
             contentView.addSubview(viewChangesButton)
 
@@ -278,7 +278,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
 
             viewChangesButton.removeTarget(nil, action: nil, for: .allEvents)
             viewChangesButton.addTarget(self, action: #selector(viewChangesTapped), for: .touchUpInside)
-        case .viewDiscussion(let sectionName):
+        case .viewDiscussion:
             
             contentView.addSubview(viewDiscussionButton)
 
@@ -357,14 +357,14 @@ extension ArticleAsLivingDocLargeEventCollectionViewCell: UICollectionViewDelega
 }
 
 extension ArticleAsLivingDocLargeEventCollectionViewCell: ArticleAsLivingDocHorizontallyScrollingCellDelegate {
-    func tappedLink(_ url: URL, cell: ArticleAsLivingDocHorizontallyScrollingCell?, sourceView: UIView, sourceRect: CGRect?) {
-        delegate?.tappedLink(url, cell: cell, sourceView: sourceView, sourceRect: sourceRect)
+    func tappedLink(_ url: URL) {
+        delegate?.tappedLink(url)
     }
 }
 
 extension ArticleAsLivingDocLargeEventCollectionViewCell: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        delegate?.tappedLink(url, cell: nil, sourceView: textView, sourceRect: textView.frame(of: characterRange))
+        delegate?.tappedLink(url)
         return false
     }
 }

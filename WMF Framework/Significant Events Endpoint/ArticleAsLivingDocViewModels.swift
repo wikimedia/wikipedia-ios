@@ -1027,7 +1027,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     
     private func calculateTallestSnippetContentHeightInChangeDetails(changeDetails: [ChangeDetail]) -> CGFloat {
         var tallestSnippetChangeDetailHeight: CGFloat = 0
-        
+
         changeDetails.forEach { (changeDetail) in
             switch changeDetail {
             case .snippet(let snippet):
