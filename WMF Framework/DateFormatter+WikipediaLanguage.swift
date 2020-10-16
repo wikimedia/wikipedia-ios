@@ -1,6 +1,7 @@
 import Foundation
 
 extension DateFormatter {
+    
     // Returns year string - i.e. '1000' or '200 BC'. (Negative years are 'BC')
     class func wmf_yearString(for year: Int, with wikipediaLanguage: String?) -> String? {
         var components = DateComponents()
