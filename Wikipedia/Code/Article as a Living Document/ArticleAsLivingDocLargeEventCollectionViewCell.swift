@@ -126,12 +126,13 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         
         let userInfoButtonsSpacing = CGFloat(6)
         let buttonsSpacing = CGFloat(20)
-        let mysteriousButtonXOriginOffsetNeeded = CGFloat(10)
-        
         var finalHeight = userInfoFrame.maxY
         switch largeEvent.buttonsToDisplay {
         case .thankAndViewChanges:
-            let thankOrigin = CGPoint(x: x + mysteriousButtonXOriginOffsetNeeded, y: userInfoFrame.maxY + userInfoButtonsSpacing)
+            
+            //Note: AlignedImageButton overrides wmf_preferredFrame and adjusts the frame origin x value by the leftPadding amount. I'm not sure why it does this but to prevent risk with tinkering on a widespread view we are resetting that offset here.
+            let thankXOffset = thankButton.leftPadding
+            let thankOrigin = CGPoint(x: x + thankXOffset, y: userInfoFrame.maxY + userInfoButtonsSpacing)
 
             let thankFrame = thankButton.wmf_preferredFrame(at: thankOrigin, maximumWidth: widthToFit, horizontalAlignment: .left, apply: apply)
             
@@ -141,7 +142,10 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
             thankButton.cornerRadius = thankFrame.height / 2
             viewChangesButton.cornerRadius = thankFrame.height / 2
         case .viewDiscussion:
-            let viewDiscussionOrigin = CGPoint(x: x + mysteriousButtonXOriginOffsetNeeded, y: userInfoFrame.maxY + userInfoButtonsSpacing)
+            
+            //Note: See above note on thankXOffset for reasons for this offset.
+            let viewDiscussionXOffset = viewDiscussionButton.leftPadding
+            let viewDiscussionOrigin = CGPoint(x: x + viewDiscussionXOffset, y: userInfoFrame.maxY + userInfoButtonsSpacing)
             let viewDiscussionFrame = viewDiscussionButton.wmf_preferredFrame(at: viewDiscussionOrigin, maximumWidth: widthToFit, horizontalAlignment: .left, apply: apply)
             finalHeight = viewDiscussionFrame.maxY
             viewDiscussionButton.cornerRadius = viewDiscussionFrame.height / 2

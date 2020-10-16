@@ -58,6 +58,7 @@ class ArticleAsLivingDocSectionHeaderView: SizeThatFitsReusableView {
         super.updateFonts(with: traitCollection)
         titleLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
         subtitleLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        setNeedsLayout()
     }
 }
 

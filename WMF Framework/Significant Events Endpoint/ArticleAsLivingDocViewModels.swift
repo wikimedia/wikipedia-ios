@@ -383,6 +383,7 @@ public extension ArticleAsLivingDocViewModel {
             private var lastUserInfoTheme: Theme?
             private var lastChangeDetailsTraitCollection: UITraitCollection?
             private var lastChangeDetailsTheme: Theme?
+            private var lastCalculateTallestTraitCollection: UITraitCollection?
             public var revId: UInt = 0
             
             init?(typedEvent: SignificantEvents.TypedEvent) {
@@ -851,10 +852,10 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         return attributedString
     }
     
-    static let padding = UIEdgeInsets(top: 17, left: 15, bottom: 17, right: 15)
+    static let sideScrollingCellPadding = UIEdgeInsets(top: 17, left: 15, bottom: 17, right: 15)
     static let sideScrollingCellWidth = CGFloat(250)
     static let availableSideScrollingCellWidth = {
-        return sideScrollingCellWidth - padding.left - padding.right
+        return sideScrollingCellWidth - sideScrollingCellPadding.left - sideScrollingCellPadding.right
     }()
     
     static let changeDetailDescriptionTextStyle = DynamicTextStyle.subheadline
@@ -869,7 +870,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         //theme shouldn't affect sizing, so defaulting to light
         let changeDetails = changeDetailsForTraitCollection(traitCollection, theme: .light)
         
-        if let lastTraitCollection = lastChangeDetailsTraitCollection,
+        if let lastTraitCollection = lastCalculateTallestTraitCollection,
            let tallestChangeDetailHeight = tallestChangeDetailHeight {
             if lastTraitCollection == traitCollection {
                 return tallestChangeDetailHeight
@@ -889,30 +890,30 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                                 2
                                 3
                             """
-        let oneLineSnippetText = "1"
+        let oneLineTitleText = "1"
         
-        let threeLineAttString = NSAttributedString(string: threeLineSnippetText, attributes: snippetAttributes)
-        let oneLineAttString = NSAttributedString(string: oneLineSnippetText, attributes: referenceTitleAttributes)
+        let threeLineSnippetAttString = NSAttributedString(string: threeLineSnippetText, attributes: snippetAttributes)
+        let oneLineTitleAttString = NSAttributedString(string: oneLineTitleText, attributes: referenceTitleAttributes)
         
-        let threeLineSnippetHeight = ceil(threeLineAttString.boundingRect(with: CGSize(width: Self.availableSideScrollingCellWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height)
-        let oneLineSnippetHeight = ceil(oneLineAttString.boundingRect(with: CGSize(width: Self.availableSideScrollingCellWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height)
+        let threeLineSnippetHeight = ceil(threeLineSnippetAttString.boundingRect(with: CGSize(width: Self.availableSideScrollingCellWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height) + Self.sideScrollingCellPadding.top + Self.sideScrollingCellPadding.bottom
+        let oneLineTitleHeight = ceil(oneLineTitleAttString.boundingRect(with: CGSize(width: Self.availableSideScrollingCellWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height)
         
         var tallestSnippetChangeDetailHeight: CGFloat = 0
         var tallestReferenceChangeDetailHeight: CGFloat = 0
-        let availableWidth = Self.availableSideScrollingCellWidth - Self.padding.left - Self.padding.right
+        let availableWidth = Self.availableSideScrollingCellWidth
         changeDetails.forEach { (changeDetail) in
             switch changeDetail {
             case .snippet(let snippet):
-                let heightOfEntireSnippet = ceil(snippet.displayText.boundingRect(with: CGSize(width: availableWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height) + Self.padding.top + Self.padding.bottom
+                let heightOfEntireSnippet = ceil(snippet.displayText.boundingRect(with: CGSize(width: availableWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height) + Self.sideScrollingCellPadding.top + Self.sideScrollingCellPadding.bottom
                 
                 if tallestSnippetChangeDetailHeight < heightOfEntireSnippet {
                     tallestSnippetChangeDetailHeight = heightOfEntireSnippet
                 }
                 
             case .reference(let reference):
-                let titleHeight = oneLineSnippetHeight
+                let titleHeight = oneLineTitleHeight
                 let descriptionHeight = ceil(reference.description.boundingRect(with: CGSize(width: availableWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height)
-                let totalHeight = Self.padding.top + titleHeight + Self.changeDetailReferenceTitleDescriptionSpacing + descriptionHeight + Self.padding.bottom
+                let totalHeight = Self.sideScrollingCellPadding.top + titleHeight + Self.changeDetailReferenceTitleDescriptionSpacing + descriptionHeight + Self.sideScrollingCellPadding.bottom
                 
                 if tallestReferenceChangeDetailHeight < totalHeight {
                     tallestReferenceChangeDetailHeight = totalHeight
@@ -924,7 +925,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         if tallestSnippetChangeDetailHeight == 0 {
             nearlyFinalHeight = tallestReferenceChangeDetailHeight
         } else if tallestReferenceChangeDetailHeight == 0 {
-            nearlyFinalHeight = min(tallestSnippetChangeDetailHeight, threeLineSnippetHeight + Self.padding.top + Self.padding.bottom)
+            nearlyFinalHeight = min(tallestSnippetChangeDetailHeight, threeLineSnippetHeight)
         } else {
             let finalSnippetHeight = min(tallestSnippetChangeDetailHeight, threeLineSnippetHeight)
             nearlyFinalHeight = max(tallestReferenceChangeDetailHeight, finalSnippetHeight)
@@ -933,6 +934,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         
         let finalHeight = nearlyFinalHeight + Self.additionalPointsForShadow
         self.tallestChangeDetailHeight = finalHeight
+        lastCalculateTallestTraitCollection = traitCollection
         return finalHeight
     }
     
