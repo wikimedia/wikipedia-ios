@@ -99,7 +99,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         let collectionViewOrigin = CGPoint(x: x, y: descriptionFrame.maxY + descriptionCollectionViewSpacing)
         
         if let theme = theme,
-           let largestChangeDetailHeight = largeEvent?.calculateTallestChangeDetailHeightForTraitCollection(traitCollection, theme: theme) {
+           let largestChangeDetailHeight = largeEvent?.calculateSideScrollingCollectionViewHeightForTraitCollection(traitCollection, theme: theme) {
             collectionViewHeight = largestChangeDetailHeight
         } else {
             collectionViewHeight = 0

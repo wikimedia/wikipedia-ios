@@ -23,7 +23,7 @@ public struct ArticleAsLivingDocViewModel {
         self.lastUpdatedTimestamp = lastUpdatedTimestamp
     }
     
-    public init?(significantEvents: SignificantEvents) {
+    public init?(significantEvents: SignificantEvents, traitCollection: UITraitCollection, theme: Theme) {
         
         guard let isoDateFormatter = DateFormatter.wmf_iso8601(),
               let dayMonthNumberYearDateFormatter = DateFormatter.wmf_monthNameDayOfMonthNumberYear() else {
@@ -65,6 +65,10 @@ public struct ArticleAsLivingDocViewModel {
                 maybeEvent = .small(smallEventViewModel)
             } else
             if let largeEventViewModel = Event.Large(typedEvent: originalEvent) {
+                
+                //this is just an optimization to have collection view height calculations sooner so it doesn't happen while the user is scrolling
+                largeEventViewModel.calculateSideScrollingCollectionViewHeightForTraitCollection(traitCollection, theme: theme)
+                
                 maybeEvent = .large(largeEventViewModel)
             }
             
@@ -374,7 +378,7 @@ public extension ArticleAsLivingDocViewModel {
             private var lastTheme: Theme?
             
             private(set) var eventDescription: NSAttributedString?
-            private(set) var tallestChangeDetailHeight: CGFloat?
+            private(set) var sideScrollingCollectionViewHeight: CGFloat?
             private(set) var changeDetails: [ChangeDetail]?
             private(set) var displayTimestamp: String?
             private(set) var userInfo: NSAttributedString?
@@ -612,9 +616,11 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
            let lastTheme = lastTheme,
            lastTraitCollection != traitCollection || lastTheme != theme {
             eventDescription = nil
-            tallestChangeDetailHeight = nil
+            sideScrollingCollectionViewHeight = nil
             changeDetails = nil
             userInfo = nil
+            Self.heightForThreeLineSnippet = nil
+            Self.heightForReferenceTitle = nil
         }
         
         lastTraitCollection = traitCollection
@@ -623,12 +629,12 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     
     func eventDescriptionForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
         
-        let sections = sectionsSet()
-        let sectionsAttributedString = localizedSectionAttributedString(sectionsSet: sections, traitCollection: traitCollection, theme: theme)
-        
         if let eventDescription = eventDescription {
             return eventDescription
         }
+        
+        let sections = sectionsSet()
+        let sectionsAttributedString = localizedSectionAttributedString(sectionsSet: sections, traitCollection: traitCollection, theme: theme)
         
         let font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
         let attributes = [NSAttributedString.Key.font: font,
@@ -866,6 +872,9 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     
     static let sideScrollingCellPadding = UIEdgeInsets(top: 17, left: 15, bottom: 17, right: 15)
     static let sideScrollingCellWidth: CGFloat = 250
+    static var availableSideScrollingCellWidth: CGFloat = {
+        return sideScrollingCellWidth - sideScrollingCellPadding.left - sideScrollingCellPadding.right
+    }()
 
     private static let changeDetailDescriptionTextStyle = DynamicTextStyle.subheadline
     private static let changeDetailDescriptionTextStyleItalic = DynamicTextStyle.italicSubheadline
@@ -875,71 +884,21 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     static let changeDetailReferenceTitleDescriptionSpacing: CGFloat = 13
     static let additionalPointsForShadow: CGFloat = 16
     
-    @discardableResult func calculateTallestChangeDetailHeightForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> CGFloat {
+    @discardableResult func calculateSideScrollingCollectionViewHeightForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> CGFloat {
         
-        if let tallestChangeDetailHeight = tallestChangeDetailHeight {
-            return tallestChangeDetailHeight
+        if let sideScrollingCollectionViewHeight = sideScrollingCollectionViewHeight {
+            return sideScrollingCollectionViewHeight
         }
         
         let changeDetails = changeDetailsForTraitCollection(traitCollection, theme: theme)
         
-        //first get maximum height for 3 line snippet
-        //create attributed string
-        let snippetFont = UIFont.wmf_font(Self.changeDetailDescriptionTextStyle, compatibleWithTraitCollection: traitCollection)
-        let referenceTitleFont = UIFont.wmf_font(Self.changeDetailReferenceTitleStyle, compatibleWithTraitCollection: traitCollection)
-        
-        let snippetAttributes = [NSAttributedString.Key.font: snippetFont]
-        let referenceTitleAttributes = [NSAttributedString.Key.font: referenceTitleFont]
-        
-        let threeLineSnippetText = """
-                                1
-                                2
-                                3
-                            """
-        let oneLineTitleText = "1"
-        
-        let threeLineSnippetAttString = NSAttributedString(string: threeLineSnippetText, attributes: snippetAttributes)
-        let oneLineTitleAttString = NSAttributedString(string: oneLineTitleText, attributes: referenceTitleAttributes)
-        let availableSideScrollingCellWidth = Self.sideScrollingCellWidth - Self.sideScrollingCellPadding.left - Self.sideScrollingCellPadding.right
-        
-        let threeLineSnippetHeight = ceil(threeLineSnippetAttString.boundingRect(with: CGSize(width: availableSideScrollingCellWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height) + Self.sideScrollingCellPadding.top + Self.sideScrollingCellPadding.bottom
-        let oneLineTitleHeight = ceil(oneLineTitleAttString.boundingRect(with: CGSize(width: availableSideScrollingCellWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height)
-        
-        var tallestSnippetChangeDetailHeight: CGFloat = 0
-        var tallestReferenceChangeDetailHeight: CGFloat = 0
-        changeDetails.forEach { (changeDetail) in
-            switch changeDetail {
-            case .snippet(let snippet):
-                let heightOfEntireSnippet = ceil(snippet.description.boundingRect(with: CGSize(width: availableSideScrollingCellWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height) + Self.sideScrollingCellPadding.top + Self.sideScrollingCellPadding.bottom
-                
-                if tallestSnippetChangeDetailHeight < heightOfEntireSnippet {
-                    tallestSnippetChangeDetailHeight = heightOfEntireSnippet
-                }
-                
-            case .reference(let reference):
-                let titleHeight = oneLineTitleHeight
-                let descriptionHeight = ceil(reference.description.boundingRect(with: CGSize(width: availableSideScrollingCellWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height)
-                let totalHeight = Self.sideScrollingCellPadding.top + titleHeight + Self.changeDetailReferenceTitleDescriptionSpacing + descriptionHeight + Self.sideScrollingCellPadding.bottom
-                
-                if tallestReferenceChangeDetailHeight < totalHeight {
-                    tallestReferenceChangeDetailHeight = totalHeight
-                }
-            }
-        }
+        let tallestSnippetContentHeight: CGFloat = calculateTallestSnippetContentHeightInChangeDetails(changeDetails: changeDetails)
+        let tallestReferenceChangeDetailHeight: CGFloat = calculateTallestReferenceContentHeightInChangeDetails(changeDetails: changeDetails, traitCollection: traitCollection, theme: theme)
 
-        var nearlyFinalHeight: CGFloat = 0
-        if tallestSnippetChangeDetailHeight == 0 {
-            nearlyFinalHeight = tallestReferenceChangeDetailHeight
-        } else if tallestReferenceChangeDetailHeight == 0 {
-            nearlyFinalHeight = min(tallestSnippetChangeDetailHeight, threeLineSnippetHeight)
-        } else {
-            let finalSnippetHeight = min(tallestSnippetChangeDetailHeight, threeLineSnippetHeight)
-            nearlyFinalHeight = max(tallestReferenceChangeDetailHeight, finalSnippetHeight)
-        }
-        
-        
-        let finalHeight = nearlyFinalHeight + Self.additionalPointsForShadow
-        self.tallestChangeDetailHeight = finalHeight
+        let maxContentHeight = maxContentHeightFromTallestSnippetContentHeight(tallestSnippetContentHeight: tallestSnippetContentHeight, tallestReferenceContentHeight: tallestReferenceChangeDetailHeight, traitCollection: traitCollection, theme: theme)
+
+        let finalHeight = maxContentHeight == 0 ? 0 : maxContentHeight + Self.sideScrollingCellPadding.top + Self.sideScrollingCellPadding.bottom + Self.additionalPointsForShadow
+        self.sideScrollingCollectionViewHeight = finalHeight
         return finalHeight
     }
     
@@ -1023,6 +982,103 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         
         self.changeDetails = changeDetails
         return changeDetails
+    }
+    
+    // Note: heightForThreeLineSnippet and heightForReferenceTitle methods are placeholder calculations when determining a side scrolling cell's content height.
+    // When there are no reference cells, we are capping off article content snippet cells at 3 lines. If there are reference cells, snippet cells are allowed to show lines to the full height of the tallest reference cell.
+    // Reference cells titles are only ever 1 line, so we are using placeholder text to calculate that rather than going up against actual view model title values, since the height will be the same regardless of the size of the title value
+    // heightForThreeLine and heightForReferenceTitle only ever needs to be calculated once per traitCollection's preferredContentSize, so we are optimizing in the similar way that ArticleAsLivingDocViewModel's various NSAttributedStrings are optimized, i.e. calculate once, then reset when the traitCollection changes via resetAttributedStringsIfNeededWithTraitCollection.
+    private static var heightForThreeLineSnippet: CGFloat?
+    private static func heightForThreeLineSnippetForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> CGFloat {
+        
+        if let heightForThreeLineSnippet = heightForThreeLineSnippet {
+            return heightForThreeLineSnippet
+        }
+        
+        let snippetFont = UIFont.wmf_font(Self.changeDetailDescriptionTextStyle, compatibleWithTraitCollection: traitCollection)
+        let snippetAttributes = [NSAttributedString.Key.font: snippetFont]
+        let threeLineSnippetText = """
+                                1
+                                2
+                                3
+                            """
+        let threeLineSnippetAttString = NSAttributedString(string: threeLineSnippetText, attributes: snippetAttributes)
+        
+        let finalHeight = ceil(threeLineSnippetAttString.boundingRect(with: CGSize(width: Self.availableSideScrollingCellWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height)
+        heightForThreeLineSnippet = finalHeight
+        return finalHeight
+    }
+    
+    private static var heightForReferenceTitle: CGFloat?
+    private static func heightForReferenceTitleForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> CGFloat {
+        
+        if let heightForReferenceTitle = heightForReferenceTitle {
+            return heightForReferenceTitle
+        }
+        
+        let referenceTitleFont = UIFont.wmf_font(Self.changeDetailReferenceTitleStyle, compatibleWithTraitCollection: traitCollection)
+        let referenceTitleAttributes = [NSAttributedString.Key.font: referenceTitleFont]
+        let oneLineTitleText = "1"
+        let oneLineTitleAttString = NSAttributedString(string: oneLineTitleText, attributes: referenceTitleAttributes)
+        let finalHeight = ceil(oneLineTitleAttString.boundingRect(with: CGSize(width: Self.availableSideScrollingCellWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height)
+        heightForReferenceTitle = finalHeight
+        return finalHeight
+    }
+    
+    private func calculateTallestSnippetContentHeightInChangeDetails(changeDetails: [ChangeDetail]) -> CGFloat {
+        var tallestSnippetChangeDetailHeight: CGFloat = 0
+        
+        changeDetails.forEach { (changeDetail) in
+            switch changeDetail {
+            case .snippet(let snippet):
+                let snippetHeight = ceil(snippet.description.boundingRect(with: CGSize(width: Self.availableSideScrollingCellWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height)
+                
+                if tallestSnippetChangeDetailHeight < snippetHeight {
+                    tallestSnippetChangeDetailHeight = snippetHeight
+                }
+                
+            case .reference:
+                break
+            }
+        }
+        
+        return tallestSnippetChangeDetailHeight
+    }
+    
+    private func calculateTallestReferenceContentHeightInChangeDetails(changeDetails: [ChangeDetail], traitCollection: UITraitCollection, theme: Theme) -> CGFloat {
+        var tallestReferenceChangeDetailHeight: CGFloat = 0
+        
+        changeDetails.forEach { (changeDetail) in
+            switch changeDetail {
+            case .snippet:
+                break
+            case .reference(let reference):
+                let titleHeight = Self.heightForReferenceTitleForTraitCollection(traitCollection, theme: theme)
+                let descriptionHeight = ceil(reference.description.boundingRect(with: CGSize(width: Self.availableSideScrollingCellWidth, height: CGFloat.infinity), options: [.usesLineFragmentOrigin], context: nil).height)
+                let totalHeight = titleHeight + Self.changeDetailReferenceTitleDescriptionSpacing + descriptionHeight
+                
+                if tallestReferenceChangeDetailHeight < totalHeight {
+                    tallestReferenceChangeDetailHeight = totalHeight
+                }
+            }
+        }
+        
+        return tallestReferenceChangeDetailHeight
+    }
+    
+    private func maxContentHeightFromTallestSnippetContentHeight(tallestSnippetContentHeight: CGFloat, tallestReferenceContentHeight: CGFloat, traitCollection: UITraitCollection, theme: Theme) -> CGFloat {
+        
+        guard tallestSnippetContentHeight > 0 else {
+            return tallestReferenceContentHeight
+        }
+        
+        let threeLineSnippetHeight = Self.heightForThreeLineSnippetForTraitCollection(traitCollection, theme: theme)
+        if tallestReferenceContentHeight == 0 {
+            return min(tallestSnippetContentHeight, threeLineSnippetHeight)
+        } else {
+            let finalSnippetHeight = min(tallestSnippetContentHeight, threeLineSnippetHeight)
+            return max(tallestReferenceContentHeight, finalSnippetHeight)
+        }
     }
     
     private func referenceTypeForTemplate(_ template: SignificantEvents.Template, traitCollection: UITraitCollection, theme: Theme) -> String {
@@ -1479,55 +1535,60 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             assertionFailure("Shouldn't reach this point")
             return NSAttributedString(string: "")
         }
-        let userName = userNameAndEditCount.userName
-        let editCount = userNameAndEditCount.editCount
         
-        var attributedString: NSAttributedString
-        if let editCount = editCount,
-           userType != .anonymous {
-            let formattedEditCount = ArticleAsLivingDocViewModel.Event.Large.editCountFormatter.string(from: NSNumber(value: editCount)) ?? String(editCount)
-            let userInfo = String.localizedStringWithFormat( CommonStrings.revisionUserInfo, userName, formattedEditCount)
-            
-            let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
-            let attributes = [NSAttributedString.Key.font: font,
-                              NSAttributedString.Key.foregroundColor: theme.colors.secondaryText]
-            let rangeOfUserName = (userInfo as NSString).range(of: userName)
-            let rangeValid = rangeOfUserName.location != NSNotFound && rangeOfUserName.location + rangeOfUserName.length <= userInfo.count
-            if let title = "User:\(userName)".percentEncodedPageTitleForPathComponents {
-                let userNameURL = Configuration.current.articleURLForHost(Configuration.Domain.englishWikipedia, appending: [title]).url
-                if let userNameURL = userNameURL,
-                   rangeValid {
-                    let mutableAttributedString = NSMutableAttributedString(string: userInfo, attributes: attributes)
-                    mutableAttributedString.addAttribute(NSAttributedString.Key.link, value: userNameURL as NSURL, range: rangeOfUserName)
-                    mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: theme.colors.link, range: rangeOfUserName)
-                    
-                    if userType == .bot {
-                        let imageAttachment = NSTextAttachment()
-                        imageAttachment.image = UIImage(named: Self.botIconName)
-                        let imageString = NSAttributedString(attachment: imageAttachment)
-                        mutableAttributedString.insert(imageString, at: rangeOfUserName.location)
-                        mutableAttributedString.insert(NSAttributedString(string: " "), at: rangeOfUserName.location + imageString.length)
-                    }
-                    
-                    if let attributedString = mutableAttributedString.copy() as? NSAttributedString {
-                        return attributedString
-                    } else {
-                        assertionFailure("This shouldn't happen")
-                    }
-                }
-            }
-            
-            attributedString = NSAttributedString(string: userInfo, attributes: attributes)
-        } else {
+        let userName = userNameAndEditCount.userName
+        let maybeEditCount = userNameAndEditCount.editCount
+        var attributedString = NSAttributedString()
+        
+        defer {
+            self.userInfo = attributedString
+        }
+        
+        guard let editCount = maybeEditCount,
+               userType != .anonymous else {
             let anonymousUserInfo = String.localizedStringWithFormat(CommonStrings.revisionUserInfoAnonymous, userName)
             
             let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
             let attributes = [NSAttributedString.Key.font: font,
                               NSAttributedString.Key.foregroundColor: theme.colors.secondaryText]
             attributedString = NSAttributedString(string: anonymousUserInfo, attributes: attributes)
+            return attributedString
         }
         
-        self.userInfo = attributedString
+        
+        let formattedEditCount = ArticleAsLivingDocViewModel.Event.Large.editCountFormatter.string(from: NSNumber(value: editCount)) ?? String(editCount)
+        let userInfo = String.localizedStringWithFormat( CommonStrings.revisionUserInfo, userName, formattedEditCount)
+        
+        let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        let attributes = [NSAttributedString.Key.font: font,
+                          NSAttributedString.Key.foregroundColor: theme.colors.secondaryText]
+        let rangeOfUserName = (userInfo as NSString).range(of: userName)
+        let rangeValid = rangeOfUserName.location != NSNotFound && rangeOfUserName.location + rangeOfUserName.length <= userInfo.count
+        
+        guard let title = "User:\(userName)".percentEncodedPageTitleForPathComponents,
+              let userNameURL = Configuration.current.articleURLForHost(Configuration.Domain.englishWikipedia, appending: [title]).url,
+              rangeValid else {
+            attributedString = NSAttributedString(string: userInfo, attributes: attributes)
+            return attributedString
+        }
+
+        let mutableAttributedString = NSMutableAttributedString(string: userInfo, attributes: attributes)
+        mutableAttributedString.addAttribute(NSAttributedString.Key.link, value: userNameURL as NSURL, range: rangeOfUserName)
+        mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: theme.colors.link, range: rangeOfUserName)
+        
+        if userType == .bot {
+            let imageAttachment = NSTextAttachment()
+            imageAttachment.image = UIImage(named: Self.botIconName)
+            let imageString = NSAttributedString(attachment: imageAttachment)
+            mutableAttributedString.insert(imageString, at: rangeOfUserName.location)
+            mutableAttributedString.insert(NSAttributedString(string: " "), at: rangeOfUserName.location + imageString.length)
+        }
+        
+        guard let maybeAttString = mutableAttributedString.copy() as? NSAttributedString else {
+            return attributedString
+        }
+        
+        attributedString = maybeAttString
         return attributedString
     }
     
