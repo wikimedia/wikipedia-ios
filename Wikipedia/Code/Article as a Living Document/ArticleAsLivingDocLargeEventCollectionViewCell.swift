@@ -48,6 +48,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         contentView.addSubview(collectionView)
 
         userInfoTextView.delegate = self
+        userInfoTextView.isEditable = false
         
         timelineView.decoration = .singleDot
         contentView.insertSubview(timelineView, belowSubview: collectionView)
@@ -266,7 +267,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         }
 
         switch largeEvent.buttonsToDisplay {
-        case .thankAndViewChanges(let userId, let revisionId):
+        case .thankAndViewChanges:
             contentView.addSubview(thankButton)
             contentView.addSubview(viewChangesButton)
 
@@ -277,7 +278,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
 
             viewChangesButton.removeTarget(nil, action: nil, for: .allEvents)
             viewChangesButton.addTarget(self, action: #selector(viewChangesTapped), for: .touchUpInside)
-        case .viewDiscussion(let sectionName):
+        case .viewDiscussion:
             
             contentView.addSubview(viewDiscussionButton)
 
@@ -356,14 +357,14 @@ extension ArticleAsLivingDocLargeEventCollectionViewCell: UICollectionViewDelega
 }
 
 extension ArticleAsLivingDocLargeEventCollectionViewCell: ArticleAsLivingDocHorizontallyScrollingCellDelegate {
-    func tappedLink(_ url: URL, cell: ArticleAsLivingDocHorizontallyScrollingCell?, sourceView: UIView, sourceRect: CGRect?) {
-        delegate?.tappedLink(url, cell: cell, sourceView: sourceView, sourceRect: sourceRect)
+    func tappedLink(_ url: URL) {
+        delegate?.tappedLink(url)
     }
 }
 
 extension ArticleAsLivingDocLargeEventCollectionViewCell: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        delegate?.tappedLink(url, cell: nil, sourceView: textView, sourceRect: textView.frame(of: characterRange))
+        delegate?.tappedLink(url)
         return false
     }
 }
