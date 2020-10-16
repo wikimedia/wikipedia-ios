@@ -280,7 +280,7 @@ class ArticleAsLivingDocController: NSObject {
             return nil
         }
         
-        return  sha
+        return sha
     }
     
     func persistShaForArticleKey(_ articleKey: String, sha: String) {
