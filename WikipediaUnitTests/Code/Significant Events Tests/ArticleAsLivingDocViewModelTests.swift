@@ -39,7 +39,9 @@ class ArticleAsLivingDocViewModelTests: XCTestCase {
                         XCTAssertNil(smallEvent.eventDescription)
 
                         let traitCollection = UITraitCollection(preferredContentSizeCategory: UIContentSizeCategory.large)
-                        let attributedText = smallEvent.eventDescriptionForTraitCollection(traitCollection, theme: Theme.light)
+                        let lightTheme = Theme.light
+                        smallEvent.resetAttributedStringsIfNeededWithTraitCollection(traitCollection, theme: lightTheme)
+                        let attributedText = smallEvent.eventDescriptionForTraitCollection(traitCollection, theme: lightTheme)
                         var attributes = attributedText.attributes(at: 0, effectiveRange: nil)
                         var font = attributes[NSAttributedString.Key.font] as! UIFont
                         var color = attributes[NSAttributedString.Key.foregroundColor] as! UIColor
@@ -49,9 +51,10 @@ class ArticleAsLivingDocViewModelTests: XCTestCase {
                         XCTAssertEqual(color, Theme.light.colors.link)
 
                         //bump up the dynamic type and change theme, confirm font size & color changes
-
                         let largerTraitCollection = UITraitCollection(preferredContentSizeCategory: UIContentSizeCategory.extraLarge)
-                        let largerAttributedText = smallEvent.eventDescriptionForTraitCollection(largerTraitCollection, theme: Theme.black)
+                        let darkTheme = Theme.black
+                        smallEvent.resetAttributedStringsIfNeededWithTraitCollection(largerTraitCollection, theme: darkTheme)
+                        let largerAttributedText = smallEvent.eventDescriptionForTraitCollection(largerTraitCollection, theme: darkTheme)
                         attributes = largerAttributedText.attributes(at: 0, effectiveRange: nil)
                         font = attributes[NSAttributedString.Key.font] as! UIFont
                         color = attributes[NSAttributedString.Key.foregroundColor] as! UIColor
@@ -98,7 +101,9 @@ class ArticleAsLivingDocViewModelTests: XCTestCase {
                         XCTAssertNil(largeEvent.eventDescription)
 
                         let traitCollection = UITraitCollection(preferredContentSizeCategory: UIContentSizeCategory.large)
-                        let attributedText = largeEvent.eventDescriptionForTraitCollection(traitCollection, theme: Theme.light)
+                        let lightTheme = Theme.light
+                        largeEvent.resetAttributedStringsIfNeededWithTraitCollection(traitCollection, theme: lightTheme)
+                        let attributedText = largeEvent.eventDescriptionForTraitCollection(traitCollection, theme: lightTheme)
                         var attributes = attributedText.attributes(at: 0, effectiveRange: nil)
                         var font = attributes[NSAttributedString.Key.font] as! UIFont
                         var color = attributes[NSAttributedString.Key.foregroundColor] as! UIColor
@@ -110,7 +115,9 @@ class ArticleAsLivingDocViewModelTests: XCTestCase {
                         //bump up the dynamic type and change theme, confirm font size & color changes
 
                         let largerTraitCollection = UITraitCollection(preferredContentSizeCategory: UIContentSizeCategory.extraLarge)
-                        let largerAttributedText = largeEvent.eventDescriptionForTraitCollection(largerTraitCollection, theme: Theme.black)
+                        let darkTheme = Theme.black
+                        largeEvent.resetAttributedStringsIfNeededWithTraitCollection(largerTraitCollection, theme: darkTheme)
+                        let largerAttributedText = largeEvent.eventDescriptionForTraitCollection(largerTraitCollection, theme: darkTheme)
                         attributes = largerAttributedText.attributes(at: 0, effectiveRange: nil)
                         font = attributes[NSAttributedString.Key.font] as! UIFont
                         color = attributes[NSAttributedString.Key.foregroundColor] as! UIColor
