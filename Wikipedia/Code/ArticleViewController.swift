@@ -56,6 +56,9 @@ class ArticleViewController: ViewController, HintPresenting {
     }
     
     internal lazy var fetcher: ArticleFetcher = ArticleFetcher(session: session, configuration: configuration)
+    
+    @available(iOS 13.0, *)
+    lazy var articleAsLivingDocController = ArticleAsLivingDocController(delegate: self)
 
     private var leadImageHeight: CGFloat = 210
 
@@ -252,7 +255,21 @@ class ArticleViewController: ViewController, HintPresenting {
     }
     
     internal func updateArticleMargins() {
-        messagingController.updateMargins(with: articleMargins, leadImageHeight: leadImageHeightConstraint.constant)
+        
+        let defaultUpdateBlock = {
+            self.messagingController.updateMargins(with: self.articleMargins, leadImageHeight: self.leadImageHeightConstraint.constant)
+        }
+        
+        if #available(iOS 13.0, *) {
+            if (articleAsLivingDocController.shouldAttemptToShowArticleAsLivingDoc) {
+                messagingController.customUpdateMargins(with: articleMargins, leadImageHeight: self.leadImageHeightConstraint.constant)
+            } else {
+                defaultUpdateBlock()
+            }
+        } else {
+            defaultUpdateBlock()
+        }
+        
         updateLeadImageMargins()
     }
 
@@ -386,7 +403,7 @@ class ArticleViewController: ViewController, HintPresenting {
     /// Waits for the article and article summary to finish loading (or re-loading) and performs post load actions
     func setupArticleLoadWaitGroup() {
         assert(Thread.isMainThread)
-        
+
         guard articleLoadWaitGroup == nil else {
             return
         }
@@ -394,9 +411,18 @@ class ArticleViewController: ViewController, HintPresenting {
         articleLoadWaitGroup = DispatchGroup()
         articleLoadWaitGroup?.enter() // will leave on setup complete
         articleLoadWaitGroup?.notify(queue: DispatchQueue.main) { [weak self] in
-            self?.setupFooter()
-            self?.shareIfNecessary()
-            self?.articleLoadWaitGroup = nil
+            
+            guard let self = self else {
+                return
+            }
+            
+            if #available(iOS 13.0, *) {
+                self.articleAsLivingDocController.articleContentFinishedLoading()
+            }
+            
+            self.setupFooter()
+            self.shareIfNecessary()
+            self.articleLoadWaitGroup = nil
         }
         
         guard let key = article.key else {
@@ -437,6 +463,9 @@ class ArticleViewController: ViewController, HintPresenting {
             return
         }
 
+        if #available(iOS 13.0, *) {
+            articleAsLivingDocController.articleContentWillBeginLoading()
+        }
         webView.load(request)
     }
     
@@ -653,6 +682,9 @@ class ArticleViewController: ViewController, HintPresenting {
     }
 
     internal func performWebViewRefresh(_ revisionID: UInt64? = nil) {
+        if #available(iOS 13.0, *) {
+            articleAsLivingDocController.articleDidTriggerPullToRefresh()
+        }
         #if WMF_LOCAL_PAGE_CONTENT_SERVICE // on local PCS builds, reload everything including JS and CSS
             webView.reloadFromOrigin()
         #else // on release builds, just reload the page with a different cache policy
@@ -685,7 +717,10 @@ class ArticleViewController: ViewController, HintPresenting {
         guard let anchor = resolvedURL.fragment?.removingPercentEncoding else {
             return
         }
-        scroll(to: anchor, animated: true)
+        
+        if #available(iOS 13.0, *) {
+            articleAsLivingDocController.handleArticleAsLivingDocLinkForAnchor(anchor)
+        }
     }
     
     // MARK: Table of contents
@@ -875,6 +910,10 @@ private extension ArticleViewController {
         imageTopConstraint.priority = UILayoutPriority(rawValue: 999)
         let imageBottomConstraint = leadImageContainerView.bottomAnchor.constraint(equalTo: leadImageView.bottomAnchor, constant: leadImageBorderHeight)
         NSLayoutConstraint.activate([topConstraint, leadingConstraint, trailingConstraint, leadImageHeightConstraint, imageTopConstraint, imageBottomConstraint, leadImageLeadingMarginConstraint, leadImageTrailingMarginConstraint])
+        
+        if #available(iOS 13.0, *) {
+            articleAsLivingDocController.setupLeadImageView()
+        }
     }
     
     func setupPageContentServiceJavaScriptInterface(with completion: @escaping () -> Void) {
@@ -900,6 +939,9 @@ private extension ArticleViewController {
     
     func setupPageContentServiceJavaScriptInterface(with userGroups: [String]) {
         let areTablesInitiallyExpanded = UserDefaults.standard.wmf_isAutomaticTableOpeningEnabled
+        if #available(iOS 13.0, *) {
+            messagingController.shouldAttemptToShowArticleAsLivingDoc = articleAsLivingDocController.shouldAttemptToShowArticleAsLivingDoc
+        }
         messagingController.setup(with: webView, language: articleLanguage, theme: theme, layoutMargins: articleMargins, leadImageHeight: leadImageHeight, areTablesInitiallyExpanded: areTablesInitiallyExpanded, userGroups: userGroups)
     }
     
@@ -1066,4 +1108,18 @@ extension ViewController  { // Putting extension on ViewController rather than A
             return viewForCalculation.readableContentGuide.layoutFrame.minX
         }
     }
+}
+
+//extension ArticleViewController: ArticleAsLivingDocViewControllerDelegate {
+//    var articleAsLivingDocViewModel: ArticleAsLivingDocViewModel? {
+//        return articleAsLivingDocController.articleAsLivingDocViewModel
+//    }
+//    
+//    func fetchNextPage(nextRvStartId: UInt) {
+//        articleAsLivingDocController.fetchNextPage(nextRvStartId: nextRvStartId)
+//    }
+//}
+
+extension ArticleViewController: ArticleAsLivingDocControllerDelegate {
+
 }

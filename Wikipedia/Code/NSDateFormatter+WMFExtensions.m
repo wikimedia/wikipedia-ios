@@ -236,6 +236,16 @@ static NSString *const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     return _dateFormatter;
 }
 
++ (instancetype)wmf_monthNameDayOfMonthNumberYearDateFormatter {
+    static NSDateFormatter *_dateFormatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        [_dateFormatter setLocalizedDateFormatFromTemplate:@"MMMM d, yyyy"];
+    });
+    return _dateFormatter;
+}
+
 + (instancetype)wmf_yearMonthDayZDateFormatter {
     static NSDateFormatter *_dateFormatter;
     static dispatch_once_t onceToken;
