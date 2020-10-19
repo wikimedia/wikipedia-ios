@@ -232,7 +232,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
 
         super.apply(theme: theme)
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
-        navigationController?.navigationBar.barTintColor = theme.colors.cardButtonBackground //tonitodo: this doesn't seem to work
+        navigationController?.navigationBar.barTintColor = theme.colors.cardButtonBackground
         headerView?.apply(theme: theme)
     }
 

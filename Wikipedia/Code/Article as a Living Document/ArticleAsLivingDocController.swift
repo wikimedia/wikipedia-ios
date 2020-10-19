@@ -222,7 +222,6 @@ class ArticleAsLivingDocController: NSObject {
             }
         }
         
-        //tonitodo: might want to consider dispatch group here, to confirm edit metrics are there before view configuration occurs
         fetchEditMetrics(for: articleTitleAndSiteURL.title, pageURL: delegate.articleURL) { [weak self] result in
             DispatchQueue.main.async {
                 guard let self = self else {
