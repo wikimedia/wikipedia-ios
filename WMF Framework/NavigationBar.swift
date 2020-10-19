@@ -51,6 +51,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     @objc public var isTopSpacingHidingEnabled: Bool = true
     @objc public var isBarHidingEnabled: Bool = true
     @objc public var isUnderBarViewHidingEnabled: Bool = false
+    public var isUnderBarFadingEnabled: Bool = true
     @objc public var isExtendedViewHidingEnabled: Bool = false
     @objc public var isExtendedViewFadingEnabled: Bool = true // fade out extended view as it hides
     public var shouldTransformUnderBarViewWithBar: Bool = false // hide/show underbar view when bar is hidden/shown // TODO: change this stupid name
@@ -573,7 +574,10 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         
         let underBarTransform = CGAffineTransform(translationX: 0, y: 0 - barTransformHeight - underBarTransformHeight)
         self.underBarView.transform = underBarTransform
-        self.underBarView.alpha = 1.0 - underBarViewPercentHidden
+
+        if isUnderBarFadingEnabled {
+            self.underBarView.alpha = 1.0 - underBarViewPercentHidden
+        }
         
         self.extendedView.transform = totalTransform
         
