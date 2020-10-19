@@ -34,37 +34,25 @@ class ArticleAsLivingDocViewModelTests: XCTestCase {
                     XCTAssertEqual(viewModel.sha, "ddb855b98e213935bfa5b23fb37e2d7034fe63eec9673f1fd66f43512c2c92a7")
 
                     let firstSection = viewModel.sections[0]
-                    let firstEvent = firstSection.typedEvents[0]
 
-                    switch firstEvent {
+                    switch firstSection.typedEvents[0] {
                     case .small(let smallEvent):
-                        XCTAssertNil(smallEvent.eventDescription)
-                        
-                        smallEvent.resetAttributedStringsIfNeededWithTraitCollection(regularTraitCollection, theme: lightTheme)
-                        let attributedText = smallEvent.eventDescriptionForTraitCollection(regularTraitCollection, theme: lightTheme)
-                        var attributes = attributedText.attributes(at: 0, effectiveRange: nil)
-                        var font = attributes[NSAttributedString.Key.font] as! UIFont
-                        var color = attributes[NSAttributedString.Key.foregroundColor] as! UIColor
-                        XCTAssertEqual(font.pointSize, 15.0)
-                        XCTAssertEqual(font.familyName, ".AppleSystemUIFont")
-                        XCTAssertEqual(font.fontName, ".SFUI-RegularItalic")
-                        XCTAssertEqual(color, Theme.light.colors.link)
+                        XCTAssertEqual(smallEvent.eventDescription, "1 small change made", "Unexpected small change event description")
 
-                        //bump up the dynamic type and change theme, confirm font size & color changes
-                        let largerTraitCollection = UITraitCollection(preferredContentSizeCategory: UIContentSizeCategory.extraLarge)
-                        let darkTheme = Theme.black
-                        smallEvent.resetAttributedStringsIfNeededWithTraitCollection(largerTraitCollection, theme: darkTheme)
-                        let largerAttributedText = smallEvent.eventDescriptionForTraitCollection(largerTraitCollection, theme: darkTheme)
-                        attributes = largerAttributedText.attributes(at: 0, effectiveRange: nil)
-                        font = attributes[NSAttributedString.Key.font] as! UIFont
-                        color = attributes[NSAttributedString.Key.foregroundColor] as! UIColor
-                        XCTAssertEqual(font.pointSize, 17.0)
-                        XCTAssertEqual(font.familyName, ".AppleSystemUIFont")
-                        XCTAssertEqual(font.fontName, ".SFUI-RegularItalic")
-                        XCTAssertEqual(color, Theme.black.colors.link)
                     default:
                         XCTFail("Unexpected first event type")
                     }
+                    
+                    let secondSection = viewModel.sections[1]
+                    
+                    switch secondSection.typedEvents[0] {
+                    case .small(let smallEvent):
+                        XCTAssertEqual(smallEvent.eventDescription, "2 small changes made", "Unexpected small change event description")
+
+                    default:
+                        XCTFail("Unexpected first event type")
+                    }
+                    
                 } else {
                     XCTFail("Failure to instantiate view model")
                 }
@@ -103,7 +91,12 @@ class ArticleAsLivingDocViewModelTests: XCTestCase {
                         XCTAssertNil(largeEvent.eventDescription)
 
                         largeEvent.resetAttributedStringsIfNeededWithTraitCollection(regularTraitCollection, theme: lightTheme)
-                        let attributedText = largeEvent.eventDescriptionForTraitCollection(regularTraitCollection, theme: lightTheme)
+                        
+                        guard let attributedText = largeEvent.eventDescriptionForTraitCollection(regularTraitCollection, theme: lightTheme) else {
+                            XCTFail("Expected large event to return eventDescription")
+                            return
+                        }
+                        
                         var attributes = attributedText.attributes(at: 0, effectiveRange: nil)
                         var font = attributes[NSAttributedString.Key.font] as! UIFont
                         var color = attributes[NSAttributedString.Key.foregroundColor] as! UIColor
@@ -117,7 +110,12 @@ class ArticleAsLivingDocViewModelTests: XCTestCase {
                         let largerTraitCollection = UITraitCollection(preferredContentSizeCategory: UIContentSizeCategory.extraLarge)
                         let darkTheme = Theme.black
                         largeEvent.resetAttributedStringsIfNeededWithTraitCollection(largerTraitCollection, theme: darkTheme)
-                        let largerAttributedText = largeEvent.eventDescriptionForTraitCollection(largerTraitCollection, theme: darkTheme)
+                        
+                        guard let largerAttributedText = largeEvent.eventDescriptionForTraitCollection(largerTraitCollection, theme: darkTheme) else {
+                            XCTFail("Expected large event to return eventDescription")
+                            return
+                        }
+                        
                         attributes = largerAttributedText.attributes(at: 0, effectiveRange: nil)
                         font = attributes[NSAttributedString.Key.font] as! UIFont
                         color = attributes[NSAttributedString.Key.foregroundColor] as! UIColor
