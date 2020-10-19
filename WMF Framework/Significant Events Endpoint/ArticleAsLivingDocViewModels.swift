@@ -292,7 +292,11 @@ public extension ArticleAsLivingDocViewModel {
             
             private var lastTraitCollection: UITraitCollection?
             private var lastTheme: Theme?
-            private(set) var eventDescription: NSAttributedString?
+            public lazy var eventDescription = {
+                return String.localizedStringWithFormat(
+                    CommonStrings.smallChangeDescription,
+                    smallChanges.count)
+            }()
             public let smallChanges: [SignificantEvents.Event.Small]
             
             init?(typedEvents: [SignificantEvents.TypedEvent]) {
@@ -443,63 +447,6 @@ public extension ArticleAsLivingDocViewModel {
             
         }
 
-    }
-}
-
-//MARK: Small Event Type Helper methods
-
-public extension ArticleAsLivingDocViewModel.Event.Small {
-    
-    // if trait collection or theme is different from the last time attributed strings were generated,
-    // reset to nil to trigger generation again the next time it's requested
-    func resetAttributedStringsIfNeededWithTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) {
-        if let lastTraitCollection = lastTraitCollection,
-           let lastTheme = lastTheme,
-           lastTraitCollection != traitCollection || lastTheme != theme {
-            eventDescription = nil
-        }
-        
-        lastTraitCollection = traitCollection
-        lastTheme = theme
-    }
-    
-    func eventDescriptionForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
-        if let eventDescription = eventDescription {
-            return eventDescription
-        }
-        
-        let font = UIFont.wmf_font(.italicSubheadline, compatibleWithTraitCollection: traitCollection)
-        let linkCountAttributes = [NSAttributedString.Key.font: font,
-                          NSAttributedString.Key.foregroundColor: theme.colors.link]
-        let actionAttributes = [NSAttributedString.Key.font: font,
-                          NSAttributedString.Key.foregroundColor: theme.colors.secondaryText]
-        
-        let descriptionCountLocalizedString = String.localizedStringWithFormat(
-            CommonStrings.smallChangeDescriptionCount,
-            smallChanges.count)
-        let descriptionActionLocalizedString = CommonStrings.smallChangeDescriptionAction
-        let descriptionLocalizedString = String.localizedStringWithFormat(CommonStrings.smallChangeDescriptionFormat, descriptionCountLocalizedString, descriptionActionLocalizedString)
-        
-        let rangeOfCount = (descriptionLocalizedString as NSString).range(of: descriptionCountLocalizedString)
-        let rangeOfAction = (descriptionLocalizedString as NSString).range(of: descriptionActionLocalizedString)
-        let countRangeValid = rangeOfCount.location != NSNotFound && rangeOfCount.location + rangeOfCount.length <= descriptionLocalizedString.count
-        let actionRangeValid = rangeOfAction.location != NSNotFound && rangeOfAction.location + rangeOfAction.length <= descriptionLocalizedString.count
-        
-        let mutableDescriptionAttributedString = NSMutableAttributedString(string: descriptionLocalizedString)
-        if countRangeValid && actionRangeValid {
-            mutableDescriptionAttributedString.addAttributes(linkCountAttributes, range: rangeOfCount)
-            mutableDescriptionAttributedString.addAttributes(actionAttributes, range: rangeOfAction)
-        } else {
-            //if something went wrong with range detection for styles, just make it all the link style
-            mutableDescriptionAttributedString.addAttributes(linkCountAttributes, range: NSRange(location: 0, length: descriptionLocalizedString.count))
-        }
-        
-        guard let nsAttString = mutableDescriptionAttributedString.copy() as? NSAttributedString else {
-            return NSAttributedString()
-        }
-        
-        self.eventDescription = nsAttString
-        return nsAttString
     }
 }
 

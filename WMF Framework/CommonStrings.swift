@@ -236,14 +236,9 @@ public class CommonStrings: NSObject {
 
     public static let viewFullHistoryText = WMFLocalizedString("aaald-view-full-history-button", value: "View full article history", comment: "Text displayed in a button for pushing to the full article history view on the article as a living document screen.")
     
-    static let smallChangeDescriptionFormat = WMFLocalizedString("aaald-small-change-description-format", value: "%1$@ %2$@", comment: "Format of the small changes count description and action description to display in the article as a living document timeline view for a small event. %1$@ is replaced with the count from the 'aaald-small-change-description-count' translation, and %2$@ is replaced with the action verb from the 'aaald-small-change-description-action' translation, e.g. '4 small changes made'. If unable to display the action verb in a separated format for a particular language, update value to '%1$@%2$@' and leave 'aaald-small-change-description-action' value as an empty string. ''. Integrate action value into 'aaald-small-change-description-count' and entire translation will show as linked.")
-    static let smallChangeDescriptionCount = WMFLocalizedString("aaald-small-change-description-count",
-        value:"{{PLURAL:%1$d|0=No small changes|%1$d small change|%1$d small changes}}",
+    static let smallChangeDescription = WMFLocalizedString("aaald-small-change-description",
+        value:"{{PLURAL:%1$d|0=No small changes made|%1$d small change made|%1$d small changes made}}",
         comment:"Describes how many small changes are batched together in the article as a living document timeline view. %1$d is replaced with the number of small changes.")
-    static let smallChangeDescriptionAction = WMFLocalizedString(
-        "aaald-small-change-description-action",
-        value:"made",
-        comment:"Action verb added to the small changes description in an article as a living document timeline view. It will be displayed alongside the 'aaald-small-change-description-count' translation, e.g. '4 small changes made'.")
     
     static let newTalkTopicDescriptionFormat = WMFLocalizedString("aaald-new-talk-topic-description-format", value: "%1$@ about this article", comment: "Title displayed in an article as a living document timeline cell and content insert explaining that a new article talk page topic has been posted. %1$@ is replaced by `New discussion` text.")
     static let newTalkTopicDiscussion = WMFLocalizedString("aaald-new-discussion", value: "New discussion", comment: "Portion of title displayed in article as a living document timeline cell and content insert explaining that a new article talk page topic has been posted.")
