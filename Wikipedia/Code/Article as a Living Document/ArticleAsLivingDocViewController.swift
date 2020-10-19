@@ -6,7 +6,7 @@ import WMF
 protocol ArticleAsLivingDocViewControllerDelegate: class {
     var articleAsLivingDocViewModel: ArticleAsLivingDocViewModel? { get }
     var articleURL: URL { get }
-    func fetchNextPage(nextRvStartId: UInt)
+    func fetchNextPage(nextRvStartId: UInt, theme: Theme)
     func showEditHistory(scrolledTo revisionID: Int?)
     func handleLink(with href: String)
     func showTalkPage()
@@ -27,7 +27,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
     private let editMetrics: [NSNumber]?
     private weak var delegate: ArticleAsLivingDocViewControllerDelegate?
     
-    private var dataSource: UICollectionViewDiffableDataSource<ArticleAsLivingDocViewModel.SectionHeader, ArticleAsLivingDocViewModel.TypedEvent>!
+    private lazy var dataSource: UICollectionViewDiffableDataSource<ArticleAsLivingDocViewModel.SectionHeader, ArticleAsLivingDocViewModel.TypedEvent> = createDataSource()
     private var initialIndexPath: IndexPath?
     
     required public init?(coder aDecoder: NSCoder) {
@@ -47,42 +47,76 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
         self.delegate = delegate
         self.initialIndexPath = initialIndexPath
         footerButtonTitle = CommonStrings.viewFullHistoryText
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        layoutManager.register(ArticleAsLivingDocLargeEventCollectionViewCell.self, forCellWithReuseIdentifier: ArticleAsLivingDocLargeEventCollectionViewCell.identifier, addPlaceholder: true)
+        layoutManager.register(ArticleAsLivingDocSmallEventCollectionViewCell.self, forCellWithReuseIdentifier: ArticleAsLivingDocSmallEventCollectionViewCell.identifier, addPlaceholder: true)
+        layoutManager.register(ArticleAsLivingDocSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ArticleAsLivingDocSectionHeaderView.identifier, addPlaceholder: true)
         
-        dataSource = UICollectionViewDiffableDataSource<ArticleAsLivingDocViewModel.SectionHeader, ArticleAsLivingDocViewModel.TypedEvent>(collectionView: collectionView) { (collectionView: UICollectionView, indexPath: IndexPath, event: ArticleAsLivingDocViewModel.TypedEvent) -> UICollectionViewCell? in
-            
+        self.title = headerText
+        
+        setupNavigationBar()
+        
+        if let viewModel = delegate?.articleAsLivingDocViewModel {
+            addInitialSections(sections: viewModel.sections)
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        // for some reason the initial calls to metrics(with size: CGSize...) (triggered from viewDidLoad) have an incorrect view size passed in.
+        // this retriggers that method with the correct size, so that we have correct layout margins on load
+        if isFirstAppearance {
+            collectionView.reloadData()
+        }
+        super.viewWillAppear(animated)
+
+    }
+
+    private func createDataSource() -> UICollectionViewDiffableDataSource<ArticleAsLivingDocViewModel.SectionHeader, ArticleAsLivingDocViewModel.TypedEvent> {
+        let dataSource = UICollectionViewDiffableDataSource<ArticleAsLivingDocViewModel.SectionHeader, ArticleAsLivingDocViewModel.TypedEvent>(collectionView: collectionView) { (collectionView: UICollectionView, indexPath: IndexPath, event: ArticleAsLivingDocViewModel.TypedEvent) -> UICollectionViewCell? in
+
+            let theme = self.theme
             let cell: CollectionViewCell
             switch event {
             case .large(let largeEvent):
                 guard let largeEventCell = collectionView.dequeueReusableCell(withReuseIdentifier: ArticleAsLivingDocLargeEventCollectionViewCell.identifier, for: indexPath) as? ArticleAsLivingDocLargeEventCollectionViewCell else {
                     return nil
                 }
-                
-                largeEventCell.configure(with: largeEvent, theme: theme)
+
+                largeEventCell.configure(with: largeEvent, theme: theme, extendTimelineAboveDot: indexPath.item != 0)
+                largeEventCell.delegate = self
+                largeEventCell.articleDelegate = self
                 cell = largeEventCell
-                largeEventCell.timelineView.extendTimelineAboveDot = indexPath.item == 0 ? false : true
             case .small(let smallEvent):
                 guard let smallEventCell = collectionView.dequeueReusableCell(withReuseIdentifier: ArticleAsLivingDocSmallEventCollectionViewCell.identifier, for: indexPath) as? ArticleAsLivingDocSmallEventCollectionViewCell else {
                     return nil
                 }
-                
+
                 smallEventCell.configure(viewModel: smallEvent, theme: theme)
+                smallEventCell.delegate = self
                 cell = smallEventCell
             }
-            
+
             if let layout = collectionView.collectionViewLayout as? ColumnarCollectionViewLayout {
                 cell.layoutMargins = layout.itemLayoutMargins
             }
-            
+
             return cell
 
         }
-        
+
 
         dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
 
             guard kind == UICollectionView.elementKindSectionHeader || kind == UICollectionView.elementKindSectionFooter else {
                 return UICollectionReusableView()
             }
+
+            let theme = self.theme
 
             if kind == UICollectionView.elementKindSectionHeader {
                 let section = self.dataSource.snapshot()
@@ -105,8 +139,10 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
 
             return UICollectionReusableView()
         }
+
+        return dataSource
     }
-    
+
     func addInitialSections(sections: [ArticleAsLivingDocViewModel.SectionHeader]) {
         var snapshot = NSDiffableDataSourceSnapshot<ArticleAsLivingDocViewModel.SectionHeader, ArticleAsLivingDocViewModel.TypedEvent>()
         snapshot.appendSections(sections)
@@ -117,19 +153,19 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
             self.scrollToInitialIndexPathIfNeeded()
         }
     }
-    
+
     func scrollToInitialIndexPathIfNeeded() {
         guard let initialIndexPath = initialIndexPath else {
             return
         }
-        
+
         collectionView.scrollToItem(at: initialIndexPath, at: .top, animated: true)
     }
-    
+
     func appendSections(_ sections: [ArticleAsLivingDocViewModel.SectionHeader]) {
-        
+
         var currentSnapshot = dataSource.snapshot()
-        
+
         var existingSections: [ArticleAsLivingDocViewModel.SectionHeader] = []
         for currentSection in currentSnapshot.sectionIdentifiers {
             for proposedSection in sections {
@@ -146,46 +182,12 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
                 currentSnapshot.appendItems(section.typedEvents, toSection: section)
             }
         }
-        
+
         dataSource.apply(currentSnapshot, animatingDifferences: true)
     }
     
-    func reloadData() {
-        collectionView.reloadData()
-    }
-
-    override func viewDidLoad() {
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("close-button", value: "Close", comment: "Close button used in navigation bar that closes out a presented modal screen."), style: .done, target: self, action: #selector(closeButtonPressed))
-        
-        super.viewDidLoad()
-
-        layoutManager.register(ArticleAsLivingDocLargeEventCollectionViewCell.self, forCellWithReuseIdentifier: ArticleAsLivingDocLargeEventCollectionViewCell.identifier, addPlaceholder: true)
-        layoutManager.register(ArticleAsLivingDocSmallEventCollectionViewCell.self, forCellWithReuseIdentifier: ArticleAsLivingDocSmallEventCollectionViewCell.identifier, addPlaceholder: true)
-        layoutManager.register(ArticleAsLivingDocSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ArticleAsLivingDocSectionHeaderView.identifier, addPlaceholder: true)
-        
-        self.title = headerText
-        
-        setupNavigationBar()
-        
-        if let viewModel = delegate?.articleAsLivingDocViewModel {
-            addInitialSections(sections: viewModel.sections)
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
-        // for some reason the initial calls to metrics(with size: CGSize...) (triggered from viewDidLoad) have an incorrect view size passed in.
-        // this retriggers that method with the correct size, so that we have correct
-        // layout margins on load
-        if isFirstAppearance {
-            collectionView.reloadData()
-        }
-        super.viewWillAppear(animated)
-
-    }
-    
     private func setupNavigationBar() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: WMFLocalizedString("close-button", value: "Close", comment: "Close button used in navigation bar that closes out a presented modal screen."), style: .done, target: self, action: #selector(closeButtonPressed))
         
         navigationMode = .forceBar
         if let headerView = ArticleAsLivingDocHeaderView.wmf_viewFromClassNib() {
@@ -193,6 +195,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
             configureHeaderView(headerView)
             navigationBar.isBarHidingEnabled = false
             navigationBar.isUnderBarViewHidingEnabled = true
+            navigationBar.isUnderBarFadingEnabled = false
             navigationBar.addUnderNavigationBarView(headerView)
             navigationBar.needsUnderBarHack = true
             navigationBar.underBarViewPercentHiddenForShowingTitle = 0.6
@@ -231,7 +234,8 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
 
         super.apply(theme: theme)
         navigationItem.rightBarButtonItem?.tintColor = theme.colors.link
-        navigationController?.navigationBar.barTintColor = theme.colors.cardButtonBackground //tonitodo: this doesn't seem to work
+        navigationController?.navigationBar.barTintColor = theme.colors.cardButtonBackground
+        headerView?.apply(theme: theme)
     }
 
     @objc func tappedViewFullHistoryButton() {
@@ -297,10 +301,6 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
         guard let articleAsLivingDocViewModel = delegate?.articleAsLivingDocViewModel else {
             return
         }
-
-        (cell as? ArticleAsLivingDocLargeEventCollectionViewCell)?.delegate = self
-        (cell as? ArticleAsLivingDocLargeEventCollectionViewCell)?.articleDelegate = self
-        (cell as? ArticleAsLivingDocSmallEventCollectionViewCell)?.delegate = self
         
         let numSections = dataSource.numberOfSections(in: collectionView)
         let numEvents = dataSource.collectionView(collectionView, numberOfItemsInSection: indexPath.section)
@@ -312,7 +312,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
                 return
             }
             
-            delegate?.fetchNextPage(nextRvStartId: nextRvStartId)
+            delegate?.fetchNextPage(nextRvStartId: nextRvStartId, theme: theme)
         }
     }
     
@@ -332,9 +332,9 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
 // MARK:- ArticleAsLivingDocHorizontallyScrollingCellDelegate
 @available(iOS 13.0, *)
 extension ArticleAsLivingDocViewController: ArticleAsLivingDocHorizontallyScrollingCellDelegate {
-    func tappedLink(_ url: URL, cell: ArticleAsLivingDocHorizontallyScrollingCell?, sourceView: UIView, sourceRect: CGRect?) {
+    func tappedLink(_ url: URL) {
         if url.absoluteString.removingPercentEncoding?.contains("/User:") == true {
-            // User talk page, should open it in a modal
+            // User page, should open it in a modal
             let singlePageWebVC = SinglePageWebViewController(url: url, theme: theme, doesUseSimpleNavigationBar: true)
             let navController = WMFThemeableNavigationController(rootViewController: singlePageWebVC, theme: theme)
             navController.modalPresentationStyle = .pageSheet
@@ -429,6 +429,6 @@ extension ArticleAsLivingDocViewController: ThanksGiving {
         dataSource.apply(currentSnapshot, animatingDifferences: true)
 
         /// We shouldn't have to `reloadData` here. The diffable data source should take care of everything, especially because `wereThanksSent` is part of hashable and equatable. But it wasn't updating without the following line. (Forcing a layout pass didn't seem to help.)
-        self.reloadData()
+        collectionView.reloadData()
     }
 }

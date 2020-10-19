@@ -464,7 +464,7 @@ class ArticleViewController: ViewController, HintPresenting {
         }
 
         if #available(iOS 13.0, *) {
-            articleAsLivingDocController.articleContentWillBeginLoading(traitCollection: traitCollection)
+            articleAsLivingDocController.articleContentWillBeginLoading(traitCollection: traitCollection, theme: theme)
         }
 
         webView.load(request)
@@ -1123,8 +1123,8 @@ extension ArticleViewController: ArticleAsLivingDocViewControllerDelegate {
         return articleAsLivingDocController.articleAsLivingDocViewModel
     }
     
-    func fetchNextPage(nextRvStartId: UInt) {
-        articleAsLivingDocController.fetchNextPage(nextRvStartId: nextRvStartId, traitCollection: traitCollection)
+    func fetchNextPage(nextRvStartId: UInt, theme: Theme) {
+        articleAsLivingDocController.fetchNextPage(nextRvStartId: nextRvStartId, traitCollection: traitCollection, theme: theme)
     }
 }
 

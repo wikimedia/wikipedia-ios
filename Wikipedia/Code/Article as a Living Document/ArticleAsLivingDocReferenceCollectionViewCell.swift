@@ -8,7 +8,11 @@ class ArticleAsLivingDocReferenceCollectionViewCell: ArticleAsLivingDocHorizonta
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         
-        let adjustedMargins = ArticleAsLivingDocViewModel.Event.Large.padding
+        guard apply else {
+            return size
+        }
+        
+        let adjustedMargins = ArticleAsLivingDocViewModel.Event.Large.sideScrollingCellPadding
         
         var availableTitleWidth = size.width - adjustedMargins.left - adjustedMargins.right
         let availableDescriptionWidth = availableTitleWidth
@@ -17,11 +21,9 @@ class ArticleAsLivingDocReferenceCollectionViewCell: ArticleAsLivingDocHorizonta
             let maximumBadgeWidth = min(size.width - adjustedMargins.right - adjustedMargins.left, size.width / 3)
             let iconBadgeOrigin = CGPoint(x: size.width - adjustedMargins.right, y: adjustedMargins.top)
             let iconBadgeFrame = iconTitleBadge.wmf_preferredFrame(at: iconBadgeOrigin, maximumWidth: maximumBadgeWidth, alignedBy: .forceLeftToRight, apply: false)
-            if (apply) {
-                let iconTitleBadgeX = size.width - adjustedMargins.right - iconBadgeFrame.width
+            let iconTitleBadgeX = size.width - adjustedMargins.right - iconBadgeFrame.width
                 iconTitleBadge.frame = CGRect(x: iconTitleBadgeX, y: iconBadgeFrame.minY, width: iconBadgeFrame.width, height: iconBadgeFrame.height)
-            }
-            let titleBadgeSpacing = CGFloat(10)
+            let titleBadgeSpacing: CGFloat = 10
             availableTitleWidth -= iconBadgeFrame.width + titleBadgeSpacing
         }
         
@@ -31,15 +33,11 @@ class ArticleAsLivingDocReferenceCollectionViewCell: ArticleAsLivingDocHorizonta
         let titleDescriptionSpacing = ArticleAsLivingDocViewModel.Event.Large.changeDetailReferenceTitleDescriptionSpacing
         let descriptionOrigin = CGPoint(x: adjustedMargins.left, y: titleFrame.maxY + titleDescriptionSpacing)
         
-        let _ = descriptionTextView.wmf_preferredFrame(at: descriptionOrigin, maximumWidth: availableDescriptionWidth, alignedBy: .forceLeftToRight, apply: apply)
+        descriptionTextView.wmf_preferredFrame(at: descriptionOrigin, maximumWidth: availableDescriptionWidth, alignedBy: .forceLeftToRight, apply: apply)
         
-        let finalSize = CGSize(width: size.width, height: size.height)
+        layer.shadowPath = UIBezierPath(roundedRect: CGRect(origin: .zero, size: size), cornerRadius: backgroundView?.layer.cornerRadius ?? 0).cgPath
         
-        if (apply) {
-            layer.shadowPath = UIBezierPath(roundedRect: CGRect(origin: .zero, size: finalSize), cornerRadius: backgroundView?.layer.cornerRadius ?? 0).cgPath
-        }
-        
-        return finalSize
+        return size
     }
     
     override func setup() {

@@ -3450,7 +3450,7 @@
 		6798035B24F94CE300D765AA /* SignificantEventsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignificantEventsFetcher.swift; sourceTree = "<group>"; };
 		6798036024F94CEE00D765AA /* ArticleAsLivingDocController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocController.swift; sourceTree = "<group>"; };
 		6798036524F94D0300D765AA /* ArticleAsLivingDocViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocViewModels.swift; sourceTree = "<group>"; usesTabs = 0; };
-		6798036A24F94D6700D765AA /* SignificantEventsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignificantEventsModels.swift; sourceTree = "<group>"; };
+		6798036A24F94D6700D765AA /* SignificantEventsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignificantEventsModels.swift; sourceTree = "<group>"; usesTabs = 0; };
 		6798331922C174ED0073CE6F /* LinkOnlyTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkOnlyTextView.swift; sourceTree = "<group>"; };
 		6798332822C3F28A0073CE6F /* UITextView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extensions.swift"; sourceTree = "<group>"; };
 		67985A852524E05F00EBF353 /* ArticleAsLivingDocHintViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocHintViewController.swift; sourceTree = "<group>"; };

@@ -6,14 +6,6 @@ class ArticleAsLivingDocSectionHeaderView: SizeThatFitsReusableView {
     private let subtitleLabel = UILabel()
     private var theme: Theme?
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
     override func setup() {
         addSubview(titleLabel)
         titleLabel.numberOfLines = 1
@@ -36,7 +28,7 @@ class ArticleAsLivingDocSectionHeaderView: SizeThatFitsReusableView {
         let titleOrigin = CGPoint(x: adjustedMargins.left, y: adjustedMargins.top)
         let titleFrame = titleLabel.wmf_preferredFrame(at: titleOrigin, maximumSize: CGSize(width: maximumWidth, height: UIView.noIntrinsicMetric), minimumSize: NoIntrinsicSize, alignedBy: .forceLeftToRight, apply: apply)
         
-        let titleSubtitleSpacing = CGFloat(7)
+        let titleSubtitleSpacing: CGFloat = 7
         let subtitleOrigin = CGPoint(x: adjustedMargins.left, y: titleFrame.maxY + titleSubtitleSpacing)
         let subtitleFrame = subtitleLabel.wmf_preferredFrame(at: subtitleOrigin, maximumSize: CGSize(width: maximumWidth, height: UIView.noIntrinsicMetric), minimumSize: NoIntrinsicSize, alignedBy: .forceLeftToRight, apply: apply)
         
@@ -58,6 +50,7 @@ class ArticleAsLivingDocSectionHeaderView: SizeThatFitsReusableView {
         super.updateFonts(with: traitCollection)
         titleLabel.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
         subtitleLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        setNeedsLayout()
     }
 }
 

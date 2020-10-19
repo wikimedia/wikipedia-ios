@@ -5,19 +5,11 @@ class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
     private let descriptionTextView = UITextView()
     let timelineView = TimelineView()
 
-    private var theme: Theme = Theme.standard
+    private var theme: Theme?
     
     private var smallEvent: ArticleAsLivingDocViewModel.Event.Small?
 
     weak var delegate: ArticleDetailsShowing?
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
     
     override func reset() {
         super.reset()
@@ -46,8 +38,8 @@ class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
         
         let layoutMargins = calculatedLayoutMargins
         
-        let timelineTextSpacing = CGFloat(5)
-        let timelineWidth = CGFloat(15)
+        let timelineTextSpacing: CGFloat = 5
+        let timelineWidth: CGFloat = 15
         let x = layoutMargins.left + timelineWidth + timelineTextSpacing
         let widthToFit = size.width - layoutMargins.right - x
         
@@ -67,11 +59,20 @@ class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
     func configure(viewModel: ArticleAsLivingDocViewModel.Event.Small, theme: Theme) {
         
         self.smallEvent = viewModel
-        
-        descriptionTextView.attributedText = viewModel.eventDescriptionForTraitCollection(traitCollection, theme: theme)
-
+        self.smallEvent?.resetAttributedStringsIfNeededWithTraitCollection(traitCollection, theme: theme)
         apply(theme: theme)
+        setAttributedStringViews()
         setNeedsLayout()
+    }
+    
+    func setAttributedStringViews() {
+        
+        guard let smallEvent = smallEvent,
+              let theme = theme else {
+            return
+        }
+        
+        descriptionTextView.attributedText = smallEvent.eventDescriptionForTraitCollection(traitCollection, theme: theme)
     }
     
     override func layoutSublayers(of layer: CALayer) {
@@ -81,22 +82,34 @@ class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
     
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
-        if let smallEvent = smallEvent {
-            descriptionTextView.attributedText = smallEvent.eventDescriptionForTraitCollection(traitCollection, theme: theme)
+        
+        if let theme = theme {
+            smallEvent?.resetAttributedStringsIfNeededWithTraitCollection(traitCollection, theme: theme)
         }
+        
+        setAttributedStringViews()
     }
     
     @objc private func tappedSmallChanges() {
-            guard let revisionID = smallEvent?.smallChanges.first?.revId else {
-                return
-            }
-            delegate?.goToHistory(scrolledTo: Int(revisionID))
+        guard let revisionID = smallEvent?.smallChanges.first?.revId else {
+            return
         }
+        delegate?.goToHistory(scrolledTo: Int(revisionID))
+    }
 }
 
 extension ArticleAsLivingDocSmallEventCollectionViewCell: Themeable {
     func apply(theme: Theme) {
+        
+        if let oldTheme = self.theme,
+           theme.webName == oldTheme.webName {
+            return
+        }
+        
         self.theme = theme
+        smallEvent?.resetAttributedStringsIfNeededWithTraitCollection(traitCollection, theme: theme)
+
+        setAttributedStringViews()
         descriptionTextView.backgroundColor = theme.colors.paperBackground
         timelineView.backgroundColor = theme.colors.paperBackground
         timelineView.tintColor = theme.colors.accent

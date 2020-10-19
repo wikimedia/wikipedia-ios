@@ -12,11 +12,11 @@ public struct SignificantEvents: Decodable {
     public let summary: Summary
     
     enum CodingKeys: String, CodingKey {
-            case nextRvStartId
-            case sha
-            case untypedEvents = "timeline"
-            case typedEvents
-            case summary
+        case nextRvStartId
+        case sha
+        case untypedEvents = "timeline"
+        case typedEvents
+        case summary
     }
     
     public struct Summary: Decodable {
@@ -25,10 +25,10 @@ public struct SignificantEvents: Decodable {
         public let numUsers: UInt
         
         enum CodingKeys: String, CodingKey {
-                case earliestTimestampString = "earliestTimestamp"
-                case numChanges
-                case numUsers
-            }
+            case earliestTimestampString = "earliestTimestamp"
+            case numChanges
+            case numUsers
+        }
     }
     
     public init(from decoder: Decoder) throws {
@@ -36,7 +36,7 @@ public struct SignificantEvents: Decodable {
         nextRvStartId = try? container.decode(UInt.self, forKey: .nextRvStartId)
         sha = try? container.decode(String.self, forKey: .sha)
         summary = try container.decode(Summary.self, forKey: .summary)
-        untypedEvents = try container.decode([UntypedEvent].self, forKey: .untypedEvents)
+        let untypedEvents = try container.decode([UntypedEvent].self, forKey: .untypedEvents)
         
         var typedEvents: [TypedEvent] = []
         
@@ -61,11 +61,14 @@ public struct SignificantEvents: Decodable {
             }
         }
 
-        guard typedEvents.count == untypedEvents.count else {
+        //zero untyped events is a valid case if the user has paged to the end of the endpoint cache
+        //unTypedEvents > 0 and typedEvents == 0 is invalid, meaning all events failed to convert
+        guard typedEvents.count > 0 || untypedEvents.count == 0 else {
             throw SignificantEventsDecodeError.unableToParseIntoTypedEvents
         }
         
         self.typedEvents = typedEvents
+        self.untypedEvents = untypedEvents
     }
     
     public enum SnippetType: Int, Decodable {
@@ -310,29 +313,18 @@ public extension SignificantEvents {
                     guard let name = untypedTemplate["name"] else {
                         continue
                     }
-                    let lowercaseName = name.lowercased()
-                    if lowercaseName.contains("cite") {
-                        if lowercaseName.contains("book") {
-                            if let bookCitation = Citation.Book(dict: untypedTemplate) {
-                                typedTemplates.append(.bookCitation(bookCitation))
-                            }
-                        } else if lowercaseName.contains("journal") {
-                            if let journalCitation = Citation.Journal(dict: untypedTemplate) {
-                                typedTemplates.append(.journalCitation(journalCitation))
-                            }
-                        } else if lowercaseName.contains("web") {
-                            if let webCitation = Citation.Website(dict: untypedTemplate) {
-                                typedTemplates.append(.websiteCitation(webCitation))
-                            }
-                        } else if lowercaseName.contains("news") {
-                            if let newsCitation = Citation.News(dict: untypedTemplate) {
-                                typedTemplates.append(.newsCitation(newsCitation))
-                            }
+                    if name.localizedCaseInsensitiveContains("cite") {
+                        if name.localizedCaseInsensitiveContains("book"), let bookCitation = Citation.Book(dict: untypedTemplate) {
+                            typedTemplates.append(.bookCitation(bookCitation))
+                        } else if name.localizedCaseInsensitiveContains("journal"), let journalCitation = Citation.Journal(dict: untypedTemplate) {
+                            typedTemplates.append(.journalCitation(journalCitation))
+                        } else if name.localizedCaseInsensitiveContains("web"), let webCitation = Citation.Website(dict: untypedTemplate) {
+                            typedTemplates.append(.websiteCitation(webCitation))
+                        } else if name.localizedCaseInsensitiveContains("news"), let newsCitation = Citation.News(dict: untypedTemplate) {
+                            typedTemplates.append(.newsCitation(newsCitation))
                         }
-                    } else if lowercaseName.contains("short description") {
-                        if let articleDescription = ArticleDescription(dict: untypedTemplate) {
-                            typedTemplates.append(.articleDescription(articleDescription))
-                        }
+                    } else if name.localizedCaseInsensitiveContains("short description"), let articleDescription = ArticleDescription(dict: untypedTemplate) {
+                        typedTemplates.append(.articleDescription(articleDescription))
                     }
                 }
                 
@@ -409,10 +401,8 @@ public extension SignificantEvents {
                 self.pagesCited = dict.nonEmptyValueForKey(key: "pages") ??
                     dict.nonEmptyValueForKey(key: "pp")
                 
-                self.isbn = dict.nonEmptyValueForKey(key: "isbn") ??
-                            dict.nonEmptyValueForKey(key: "ISBN13") ??
-                            dict.nonEmptyValueForKey(key: "isbn13") ??
-                            dict.nonEmptyValueForKey(key: "ISBN")
+                self.isbn = dict.nonEmptyValueForKey(key: "isbn", caseInsensitive: true) ??
+                            dict.nonEmptyValueForKey(key: "isbn13", caseInsensitive: true)
             }
         }
         
@@ -447,7 +437,7 @@ public extension SignificantEvents {
                 dict.nonEmptyValueForKey(key: "first1")
                 
                 self.sourceDateString = dict.nonEmptyValueForKey(key: "date")
-                self.urlString = dict.nonEmptyValueForKey(key: "url")
+                self.urlString = dict.nonEmptyValueForKey(key: "url", caseInsensitive: true)
                 self.volumeNumber = dict.nonEmptyValueForKey(key: "volume")
                 self.pages = dict.nonEmptyValueForKey(key: "pages")
                 self.database = dict.nonEmptyValueForKey(key: "via")
@@ -487,7 +477,7 @@ public extension SignificantEvents {
                                     dict.nonEmptyValueForKey(key: "newspaper") ??
                                     dict.nonEmptyValueForKey(key: "website")
                 
-                self.urlString = dict.nonEmptyValueForKey(key: "url")
+                self.urlString = dict.nonEmptyValueForKey(key: "url", caseInsensitive: true)
                 self.accessDateString = dict.nonEmptyValueForKey(key: "access-date") ?? dict.nonEmptyValueForKey(key: "accessdate")
             }
         }
@@ -504,7 +494,7 @@ public extension SignificantEvents {
             
             init?(dict: [String: String]) {
                 guard let title = dict.nonEmptyValueForKey(key: "title"),
-                      let urlString = dict.nonEmptyValueForKey(key: "url") else {
+                      let urlString = dict.nonEmptyValueForKey(key: "url", caseInsensitive: true) else {
                     return nil
                 }
                 
@@ -606,11 +596,17 @@ public extension SignificantEvents {
 }
 
 private extension Dictionary where Key == String, Value == String {
-    func nonEmptyValueForKey(key: String) -> String? {
+    func nonEmptyValueForKey(key: String, caseInsensitive: Bool = false) -> String? {
+        guard let key = caseInsensitive
+                ? keys.first(where: {$0.caseInsensitiveCompare(key) == .orderedSame})
+                : key else {
+                    return nil
+         }
+
         if let value = self[key], !value.isEmpty {
             return value
         }
-        
+
         return nil
     }
 }

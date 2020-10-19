@@ -2,22 +2,14 @@
 import UIKit
 
 protocol ArticleAsLivingDocHorizontallyScrollingCellDelegate: class {
-    func tappedLink(_ url: URL, cell: ArticleAsLivingDocHorizontallyScrollingCell?, sourceView: UIView, sourceRect: CGRect?)
+    func tappedLink(_ url: URL)
 }
 
 class ArticleAsLivingDocHorizontallyScrollingCell: CollectionViewCell {
     let descriptionTextView = UITextView()
-    var theme: Theme?
+    private var theme: Theme?
     
     weak var delegate: ArticleAsLivingDocHorizontallyScrollingCellDelegate?
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
     
     override func reset() {
         super.reset()
@@ -33,6 +25,23 @@ class ArticleAsLivingDocHorizontallyScrollingCell: CollectionViewCell {
         setupDescription(for: change)
         updateFonts(with: traitCollection)
         
+        setNeedsLayout()
+        
+        apply(theme: theme)
+        self.delegate = delegate
+    }
+    
+    func setupDescription(for change: ArticleAsLivingDocViewModel.Event.Large.ChangeDetail) {
+        switch change {
+        case .snippet(let snippet):
+            descriptionTextView.attributedText = snippet.description
+        case .reference(let reference):
+            descriptionTextView.attributedText = reference.description
+        }
+    }
+    
+    override func setup() {
+        
         backgroundView?.layer.cornerRadius = 3
         backgroundView?.layer.masksToBounds = true
         selectedBackgroundView?.layer.cornerRadius = 3
@@ -41,24 +50,6 @@ class ArticleAsLivingDocHorizontallyScrollingCell: CollectionViewCell {
         layer.shadowOpacity = 0.3
         layer.shadowRadius = 3
         
-        apply(theme: theme)
-        self.delegate = delegate
-    }
-    
-    func setupDescription(for change: ArticleAsLivingDocViewModel.Event.Large.ChangeDetail) {
-        
-        let description: NSAttributedString
-        switch change {
-        case .snippet(let snippet):
-            description = snippet.displayText
-        case .reference(let reference):
-            description = reference.description
-        }
-        
-        descriptionTextView.attributedText = description
-    }
-    
-    override func setup() {
         descriptionTextView.isEditable = false
         descriptionTextView.isScrollEnabled = false
         descriptionTextView.delegate = self
@@ -71,7 +62,7 @@ class ArticleAsLivingDocHorizontallyScrollingCell: CollectionViewCell {
 
 extension ArticleAsLivingDocHorizontallyScrollingCell: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        delegate?.tappedLink(URL, cell: self, sourceView: textView, sourceRect: textView.frame(of: characterRange))
+        delegate?.tappedLink(URL)
         return false
     }
 }

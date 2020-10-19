@@ -235,14 +235,15 @@ public class CommonStrings: NSObject {
     //Article As A Living Doucment Strings - for some reason build script doesn't auto generate these when used directly in SignificantEventsViewModels.swift
 
     public static let viewFullHistoryText = WMFLocalizedString("aaald-view-full-history-button", value: "View full article history", comment: "Text displayed in a button for pushing to the full article history view on the article as a living document screen.")
-    static let smallChangeDescription = WMFLocalizedString(
-        "aaald-small-change-description",
+    
+    static let smallChangeDescriptionFormat = WMFLocalizedString("aaald-small-change-description-format", value: "%1$@ %2$@", comment: "Format of the small changes count description and action description to display in the article as a living document timeline view for a small event. %1$@ is replaced with the count from the 'aaald-small-change-description-count' translation, and %2$@ is replaced with the action verb from the 'aaald-small-change-description-action' translation, e.g. '4 small changes made'. If unable to display the action verb in a separated format for a particular language, update value to '%1$@%2$@' and leave 'aaald-small-change-description-action' value as an empty string. ''. Integrate action value into 'aaald-small-change-description-count' and entire translation will show as linked.")
+    static let smallChangeDescriptionCount = WMFLocalizedString("aaald-small-change-description-count",
         value:"{{PLURAL:%1$d|0=No small changes|%1$d small change|%1$d small changes}}",
         comment:"Describes how many small changes are batched together in the article as a living document timeline view. %1$d is replaced with the number of small changes.")
-    static let smallChangeDescriptionSuffix = WMFLocalizedString(
-        "aaald-small-change-description-suffix",
+    static let smallChangeDescriptionAction = WMFLocalizedString(
+        "aaald-small-change-description-action",
         value:"made",
-        comment:"Suffix added to the end of the number of small changes description in an article as a living document timeline view . e.g. '4 small changes made'.")
+        comment:"Action verb added to the small changes description in an article as a living document timeline view. It will be displayed alongside the 'aaald-small-change-description-count' translation, e.g. '4 small changes made'.")
     
     static let newTalkTopicDescriptionFormat = WMFLocalizedString("aaald-new-talk-topic-description-format", value: "%1$@ about this article", comment: "Title displayed in an article as a living document timeline cell and content insert explaining that a new article talk page topic has been posted. %1$@ is replaced by `New discussion` text.")
     static let newTalkTopicDiscussion = WMFLocalizedString("aaald-new-discussion", value: "New discussion", comment: "Portion of title displayed in article as a living document timeline cell and content insert explaining that a new article talk page topic has been posted.")
@@ -250,13 +251,7 @@ public class CommonStrings: NSObject {
     static let vandalismRevertDescription = WMFLocalizedString("aaald-vandalism-revert-description", value: "Suspected Vandalism reverted", comment: "Title displayed in an article as a living document timeline cell explaining that a vandalism revision was reverted.")
     
     static let multipleChangesMadeDescription = WMFLocalizedString("aaald-multiple-changes-description", value: "Multiple changes made", comment: "Title displayed in article as a living document content insert explaining that multiple changes were made in a revision.")
-    
-    static let twoDescriptionsFormat = WMFLocalizedString("aaald-two-descriptions-format", value: "%1$@ and %2$@", comment: "Format for two change types to insert into a revision's event description in an article as a living document timeline cell. %1$@ is replaced by the first change type and %2$@ is replaced by the second change type, e.g. '612 characters added and 323 characters removed'")
-    
-    static let finalDelimiter = WMFLocalizedString("aaald-multiple-descriptions-last-delimiter", value: " and ", comment: "Text to show as the last delimiter in a list of multiple event changes. These changes are shown in the description area of an article as a living document timeline cell. e.g. '3 references added, 612 characters added and 100 characters removed'")
-    
-    static let midDelimiter = WMFLocalizedString("aaald-multiple-descriptions-delimiter", value: ", ", comment: "Text to show as the delimiters in a list of multiple event changes. These changes are shown in the description area of an article as a living document cell. e.g. '3 references added, 612 characters added and 100 characters removed'")
-    
+
     static let addedTextDescription = WMFLocalizedString("aaald-added-text-description", value:"{{PLURAL:%1$d|0=0 characters|%1$d character|%1$d characters}} added",
     comment:"Title displayed in an article as a living document cell explaining that a revision has a certain number of characters added. %1$d is replaced by the number of characters added.")
     
@@ -294,16 +289,16 @@ public class CommonStrings: NSObject {
                                                              value:"Website", comment: "Header text for a new website reference type that was added in an article as an living document cell.")
     
     static let newJournalReferenceVolume = WMFLocalizedString("aaald-new-journal-reference-volume",
-    value:"Volume %1$@: ", comment: "Volume text for a new journal reference type that was added in an article as a living document cell. %1$@ is replaced by the journal volume number of the reference.")
+    value:"Volume %1$@:", comment: "Volume text for a new journal reference type that was added in an article as a living document cell. %1$@ is replaced by the journal volume number of the reference.")
     
     static let newJournalReferenceDatabase = WMFLocalizedString("aaald-new-journal-reference-database",
-    value:"via %1$@ ", comment: "Database text for a new journal reference type that was added in an article as a living document cell. %1$@ is replaced by the database volume number of the reference.")
+    value:"via %1$@", comment: "Database text for a new journal reference type that was added in an article as a living document cell. %1$@ is replaced by the database volume number of the reference.")
     
     static let newWebsiteReferenceArchiveUrlText =  WMFLocalizedString("aaald-new-website-reference-archive-url-text",
     value:"Archive.org URL", comment: "Archive.org URL text for a new website reference type that was added in an article as a living document cell. This will be turned into a link that goes to the reference's Archive.org URL.")
     
     static let newWebsiteReferenceArchiveDateText = WMFLocalizedString("aaald-new-website-reference-archive-date-text",
-    value:" from the original on %1$@", comment: "Text in a new website reference in an article as a living document cell that describes when the reference was retrieved for Archive.org. %1$@ is replaced with the reference's archive date.")
+    value:"from the original on %1$@", comment: "Text in a new website reference in an article as a living document cell that describes when the reference was retrieved for Archive.org. %1$@ is replaced with the reference's archive date.")
     
     static let newNewsReferenceRetrievedDate = WMFLocalizedString("aaald-new-news-reference-retrieved-date",
     value:"Retrieved %1$@", comment: "Retrieved date text for a new news reference type that was added in an article as a living document cell. %1$@ is replaced by the reference's retrieved date.")

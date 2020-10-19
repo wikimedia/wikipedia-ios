@@ -17,7 +17,6 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xjf-wn-S9n" customClass="WMFSparklineView" customModule="WMF">
                     <rect key="frame" x="133.5" y="56.5" width="74.5" height="88"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="K02-KZ-r7w">
                     <rect key="frame" x="15" y="24" width="103.5" height="132"/>
@@ -93,7 +92,6 @@
                 <outlet property="divHeightConstraint" destination="tO9-Es-pAJ" id="Xqg-7z-2Oy"/>
                 <outlet property="dividerView" destination="enx-OC-MFJ" id="tfX-MN-E0U"/>
                 <outlet property="headerLabel" destination="lBn-Ef-aNN" id="JPh-X3-hdc"/>
-                <outlet property="headerTitleStackView" destination="K02-KZ-r7w" id="rY4-AU-sIy"/>
                 <outlet property="sparklineView" destination="xjf-wn-S9n" id="oZa-fw-cVn"/>
                 <outlet property="summaryLabel" destination="qdK-ca-qOW" id="sfO-uT-UOt"/>
                 <outlet property="titleLabel" destination="KBg-zC-dDz" id="AXM-ZS-akU"/>

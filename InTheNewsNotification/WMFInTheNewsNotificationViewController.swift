@@ -112,7 +112,6 @@ class WMFInTheNewsNotificationViewController: ExtensionViewController, UNNotific
             
         sparklineView.dataValues = viewCounts
         sparklineView.showsVerticalGridlines = true
-        sparklineView.updateMinAndMaxFromDataValues()
         
         guard let count = viewCounts.last else {
             readerCountLabel.text = ""

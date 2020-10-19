@@ -4,6 +4,7 @@
 // Author: Bencemac
 // Author: Csega
 // Author: Dj
+// Author: Hanna Tardos
 // Author: Macofe
 // Author: MeskoBalazs
 // Author: Misibacsi
@@ -107,6 +108,7 @@
 "appearance-settings-theme-options" = "Témabeállítások";
 "article-delete" = "Törlés";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|szócikk|szócikk}} törölve";
+"article-fetcher-error-updated-content-timeout" = "Az applikációnak nem sikerült időben lehívnia a frissített tartalmat. Kérjük, frissítsd az oldalt később a változások megtekintéséhez.";
 "article-languages-filter-placeholder" = "Nyelv keresése";
 "article-languages-label" = "Nyelvválasztás";
 "article-languages-others" = "Más nyelvek";
@@ -132,6 +134,7 @@
 "compass-direction" = "$1 óra irányban";
 "continue-reading-empty-description" = "Fedezd fel a Wikipédiát több szócikkért";
 "continue-reading-empty-title" = "Nincsenek nemrég olvasott szócikkek";
+"data-migration-status" = "Frissítés...";
 "description-add-title" = "Leírás hozzáadása";
 "description-edit-learn-more" = "Tudj meg többet";
 "description-edit-length-warning" = "$1/$2";
@@ -514,6 +517,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "Szintaxiskiemelés";
 "reading-themes-controls-accessibility-text-size-slider" = "Szövegméret csúszka";
 "reading-themes-controls-syntax-highlighting" = "Szintaxiskiemelés";
+"reference-section-button-accessibility-label" = "Ugrás a referenciákhoz";
 "reference-title" = "Forráshivatkozás $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Ma|1=Tegnap|$1 napja}}";
 "relative-date-hours-abbreviated" = "$1 óra";
@@ -594,6 +598,7 @@
 "table-of-contents-close-accessibility-hint" = "Bezárás";
 "table-of-contents-close-accessibility-label" = "Tartalomjegyzék bezárása";
 "table-of-contents-heading" = "Tartalom";
+"table-of-contents-subheading-label" = "Alcím $1";
 "talk-page-discussion-read-accessibility-label" = "Olvasott";
 "talk-page-discussion-unread-accessibility-label" = "Olvasatlan";
 "talk-page-error-unable-to-post-reply" = "Nincs internetkapcsolat, nem sikerült elküldeni a választ.";

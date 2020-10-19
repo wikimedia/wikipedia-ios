@@ -128,13 +128,6 @@
             isEnabled = "NO">
          </EnvironmentVariable>
       </EnvironmentVariables>
-      <AdditionalOptions>
-         <AdditionalOption
-            key = "NSZombieEnabled"
-            value = "YES"
-            isEnabled = "YES">
-         </AdditionalOption>
-      </AdditionalOptions>
       <DeviceAppData
          resolvedPath = "../4.0.6 extreme memory test data.xcappdata">
       </DeviceAppData>

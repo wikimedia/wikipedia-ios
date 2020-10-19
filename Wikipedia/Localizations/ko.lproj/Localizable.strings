@@ -154,6 +154,7 @@
 "compass-direction" = "$1시에";
 "continue-reading-empty-description" = "더 많은 문서를 읽기 위해 위키백과 둘러보기";
 "continue-reading-empty-title" = "최근에 읽은 문서 없음";
+"data-migration-status" = "업데이트 중...";
 "description-add-title" = "설명 추가";
 "description-edit-for-article" = "$1의 제목 설명";
 "description-edit-learn-more" = "더 알아보기";
