@@ -32,6 +32,35 @@
 // Author: Walesson
 // Author: Webysther
 
+"aaald-added-text-description" = "{{PLURAL:$1|0=0 caracteres adicionados|$1 character adicionado|$1 caracteres adicionados}}";
+"aaald-article-description-updated-description" = "Descrição do título do artigo atualizada";
+"aaald-deleted-text-description" = "{{PLURAL:$1|0=0 caracteres excluídos|$1 character excluído|$1 caracteres excluídos}}";
+"aaald-error-subitle" = "Atualize para tentar novamente";
+"aaald-error-title" = "Não é possível carregar o histórico do artigo embutido";
+"aaald-many-sections-description" = "em $1 seções";
+"aaald-multiple-changes-description" = "Várias alterações feitas";
+"aaald-multiple-references-added-description" = "Múltiplas referências adicionadas";
+"aaald-new-book-reference-title" = "Livro";
+"aaald-new-discussion" = "Nova discussão";
+"aaald-new-journal-reference-database" = "via $1";
+"aaald-new-journal-reference-title" = "Diário";
+"aaald-new-journal-reference-volume" = "Volume $1:";
+"aaald-new-news-reference-retrieved-date" = "Recuperado $1";
+"aaald-new-news-reference-title" = "Notícias";
+"aaald-new-talk-topic-description-format" = "$1 sobre este artigo";
+"aaald-new-website-reference-archive-date-text" = "do original em $1";
+"aaald-new-website-reference-archive-url-text" = "URL do Archive.org";
+"aaald-new-website-reference-title" = "Site";
+"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 referências adicionadas|$1 referência adicionada|$1 referências adicionadas}}";
+"aaald-one-section-description" = "na seção $1";
+"aaald-revision-userInfo" = "Editar por $1 ($2 edições)";
+"aaald-revision-userInfo-anonymous" = "Editado por $1";
+"aaald-single-reference-added-description" = "Referência adicionada";
+"aaald-small-change-description" = "{{PLURAL:$1|0=Sem pequenas mudanças feitas|$1 Sem pequena mudança feita|$1 Sem pequenas mudanças feitas}}";
+"aaald-summary-title" = "{{PLURAL:$1|0=0 mudanças|$1 mudança|$1 mudanças}} por {{PLURAL:$2|0=0 editores|$2 editor|$2 editores}} em {{PLURAL:$3|0=0 dias|$3 dia|$3 dias}}";
+"aaald-two-sections-description" = "nas seções $1 e $2";
+"aaald-vandalism-revert-description" = "Suspeita de vandalismo revertida";
+"aaald-view-full-history-button" = "Ver o histórico completo do artigo";
 "about-content-license" = "Licença de conteúdo";
 "about-content-license-details" = "A menos que especificado o contrário, o conteúdo está disponível sob a $1.";
 "about-content-license-details-share-alike-license" = "Licença Creative Commons Atribuição-PartilhaIgual";

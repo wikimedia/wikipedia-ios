@@ -8,6 +8,35 @@
 // Author: Vlad5250
 // Author: Монтехристо
 
+"aaald-added-text-description" = "{{PLURAL:$1|0=Додадени 0 знаци|Додаден $1 знак|Додадени $1 знаци}}";
+"aaald-article-description-updated-description" = "Описот на насловот на статијата е подновен";
+"aaald-deleted-text-description" = "{{PLURAL:$1|0=Избришани 0 знаци|Избришан $1 знак|Избришани $1 знаци}}";
+"aaald-error-subitle" = "Превчитајте за да пробате пак";
+"aaald-error-title" = "Не можев да ја вчитам воредната историја на статијата";
+"aaald-many-sections-description" = "во $1 поднаслови";
+"aaald-multiple-changes-description" = "Направени повеќе промени";
+"aaald-multiple-references-added-description" = "Додадени повеќе наводи";
+"aaald-new-book-reference-title" = "Книга";
+"aaald-new-discussion" = "Нова расправа";
+"aaald-new-journal-reference-database" = "преку $1";
+"aaald-new-journal-reference-title" = "Списание";
+"aaald-new-journal-reference-volume" = "Том $1:";
+"aaald-new-news-reference-retrieved-date" = "Посетено на $1";
+"aaald-new-news-reference-title" = "Вести";
+"aaald-new-talk-topic-description-format" = "$1 за статијава";
+"aaald-new-website-reference-archive-date-text" = "од изворникот на $1";
+"aaald-new-website-reference-archive-url-text" = "Адреса на Archive.org";
+"aaald-new-website-reference-title" = "Мреж. место";
+"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=Додадени 0 наводи|Додаден $1 навод|Додадени $1 наводи}}";
+"aaald-one-section-description" = "во поднасловот $1";
+"aaald-revision-userInfo" = "Уредување на $1 ($2 уредувања)";
+"aaald-revision-userInfo-anonymous" = "Уредување на $1";
+"aaald-single-reference-added-description" = "Додаден навод";
+"aaald-small-change-description" = "{{PLURAL:$1|0=Нема ситни промени|Направена $1 ситна промена|Направени $1 ситни промени}}";
+"aaald-summary-title" = "{{PLURAL:$1|0=0 промени|$1 промена|$1 промени}} од {{PLURAL:$2|0=0 уредници|$2 уредник|$2 уредници}} за {{PLURAL:$3|0=0 дена|$3 ден|$3 дена}}";
+"aaald-two-sections-description" = "во поднасловите $1 и $2";
+"aaald-vandalism-revert-description" = "Отповикан осомничен вандализам";
+"aaald-view-full-history-button" = "Целосна историја на статијата";
 "about-content-license" = "Лиценца на содржината";
 "about-content-license-details" = "Ако не е поинаку укажано, содржината е достапна под $1.";
 "about-content-license-details-share-alike-license" = "лиценцата Криејтив комонс Наведи извор-Сподели под исти услови";
