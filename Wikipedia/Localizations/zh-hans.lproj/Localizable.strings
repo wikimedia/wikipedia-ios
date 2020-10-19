@@ -41,6 +41,12 @@
 // Author: 科劳
 // Author: 铁桶
 
+"aaald-new-discussion" = "新讨论";
+"aaald-new-website-reference-archive-url-text" = "互联网档案馆URL";
+"aaald-new-website-reference-title" = "网站";
+"aaald-revision-userInfo-anonymous" = "由$1编辑";
+"aaald-single-reference-added-description" = "已添加来源";
+"aaald-view-full-history-button" = "查看完整的条目修订历史";
 "about-content-license" = "内容许可协议";
 "about-content-license-details" = "除非另有声明，内容基于$1授权。";
 "about-content-license-details-share-alike-license" = "知识共享-署名-相同方式共享许可协议";

@@ -15,6 +15,16 @@
 // Author: Tacsipacsi
 // Author: Urbalazs
 
+"aaald-added-text-description" = "$1 karakter hozzáadva";
+"aaald-article-description-updated-description" = "Cikk címleírás frissítve";
+"aaald-deleted-text-description" = "$1 karakter törölve";
+"aaald-error-subitle" = "Frissítsd és próbáld újra";
+"aaald-multiple-references-added-description" = "Referenciák hozzáadva";
+"aaald-new-book-reference-title" = "Könyv";
+"aaald-new-news-reference-title" = "Hírek";
+"aaald-new-talk-topic-description-format" = "$1 erről a szócikkről";
+"aaald-new-website-reference-title" = "Weboldal";
+"aaald-single-reference-added-description" = "Referencia hozzáadva";
 "about-content-license" = "Tartalom licence";
 "about-content-license-details" = "Ha nincs másképp jelezve, a tartalom $1 alatt érhető el.";
 "about-content-license-details-share-alike-license" = "Creative Commons Nevezd meg! – Így add tovább! licenc";
