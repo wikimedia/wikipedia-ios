@@ -238,6 +238,11 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
             }
         }
     }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        navigationBar.updateHackyConstraint()
+    }
  
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()

@@ -540,7 +540,7 @@ extension ArticleWebMessagingController {
             }
         }
     }
-    
+
     func injectArticleAsLivingDocContent(articleInsertHtmlSnippets: [String], topBadgeType: TopBadgeType = .lastUpdated, timestamp: String? = nil, _ completion: ((Bool) -> Void)? = nil) {
         
         guard articleInsertHtmlSnippets.count > 0 else {

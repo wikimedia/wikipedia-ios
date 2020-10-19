@@ -170,6 +170,7 @@ public class NavigationBarHider: NSObject {
     }
     
     @objc public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        
         guard let navigationBar = navigationBar, navigationBar.isInteractiveHidingEnabled else {
             return
         }

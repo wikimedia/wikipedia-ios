@@ -235,9 +235,9 @@ public class CommonStrings: NSObject {
     //Article As A Living Doucment Strings - for some reason build script doesn't auto generate these when used directly in SignificantEventsViewModels.swift
 
     public static let viewFullHistoryText = WMFLocalizedString("aaald-view-full-history-button", value: "View full article history", comment: "Text displayed in a button for pushing to the full article history view on the article as a living document screen.")
-    static let smallChangeDescription = WMFLocalizedString(
-        "aaald-small-change-description",
-        value:"{{PLURAL:%1$d|0=No small changes|%1$d small change|%1$d small changes}} made",
+    
+    static let smallChangeDescription = WMFLocalizedString("aaald-small-change-description",
+        value:"{{PLURAL:%1$d|0=No small changes made|%1$d small change made|%1$d small changes made}}",
         comment:"Describes how many small changes are batched together in the article as a living document timeline view. %1$d is replaced with the number of small changes.")
     
     static let newTalkTopicDescriptionFormat = WMFLocalizedString("aaald-new-talk-topic-description-format", value: "%1$@ about this article", comment: "Title displayed in an article as a living document timeline cell and content insert explaining that a new article talk page topic has been posted. %1$@ is replaced by `New discussion` text.")
@@ -284,10 +284,10 @@ public class CommonStrings: NSObject {
                                                              value:"Website", comment: "Header text for a new website reference type that was added in an article as an living document cell.")
     
     static let newJournalReferenceVolume = WMFLocalizedString("aaald-new-journal-reference-volume",
-    value:"Volume %1$@: ", comment: "Volume text for a new journal reference type that was added in an article as a living document cell. %1$@ is replaced by the journal volume number of the reference.")
+    value:"Volume %1$@:", comment: "Volume text for a new journal reference type that was added in an article as a living document cell. %1$@ is replaced by the journal volume number of the reference.")
     
     static let newJournalReferenceDatabase = WMFLocalizedString("aaald-new-journal-reference-database",
-    value:"via %1$@ ", comment: "Database text for a new journal reference type that was added in an article as a living document cell. %1$@ is replaced by the database volume number of the reference.")
+    value:"via %1$@", comment: "Database text for a new journal reference type that was added in an article as a living document cell. %1$@ is replaced by the database volume number of the reference.")
     
     static let newWebsiteReferenceArchiveUrlText =  WMFLocalizedString("aaald-new-website-reference-archive-url-text",
     value:"Archive.org URL", comment: "Archive.org URL text for a new website reference type that was added in an article as a living document cell. This will be turned into a link that goes to the reference's Archive.org URL.")

@@ -16,7 +16,7 @@ protocol ArticleAsLivingDocControllerDelegate: class {
 @available(iOS 13.0, *)
 class ArticleAsLivingDocController: NSObject {
     
-    typealias ArticleAsLivingDocConformingViewController = ArticleAsLivingDocControllerDelegate & UIViewController & HintPresenting //will need ArticleAsLivingDocViewControllerDelegate
+    typealias ArticleAsLivingDocConformingViewController = ArticleAsLivingDocControllerDelegate & UIViewController & HintPresenting & ArticleAsLivingDocViewControllerDelegate
     
     enum Errors: Error {
         case viewModelInstantiationFailure
@@ -45,8 +45,7 @@ class ArticleAsLivingDocController: NSObject {
                 let oldNewChangesTimestamp = oldModel.newChangesTimestamp
                 let oldLastUpdatedTimestamp = oldModel.lastUpdatedTimestamp
                 _articleAsLivingDocViewModel = ArticleAsLivingDocViewModel(nextRvStartId: newValue.nextRvStartId, sha: oldModel.sha, sections: appendedSections, summaryText: newValue.summaryText, articleInsertHtmlSnippets: oldHtmlSnippets, newChangesTimestamp: oldNewChangesTimestamp, lastUpdatedTimestamp: oldLastUpdatedTimestamp)
-                //articleAsLivingDocViewController?.appendSections(newValue.sections)
-                
+                articleAsLivingDocViewController?.appendSections(newValue.sections)
             } else {
                 // should only be triggered via pull to refresh or fresh load. update everything
                 _articleAsLivingDocViewModel = newValue
@@ -59,10 +58,10 @@ class ArticleAsLivingDocController: NSObject {
     
     
     //making lazy to be able to limit just this property to 13+
-//    @available(iOS 13.0, *)
-//    lazy var articleAsLivingDocViewController: ArticleAsLivingDocViewController? = {
-//        return nil
-//    }()
+    @available(iOS 13.0, *)
+    lazy var articleAsLivingDocViewController: ArticleAsLivingDocViewController? = {
+        return nil
+    }()
     
     var shouldAttemptToShowArticleAsLivingDoc: Bool {
         
@@ -129,10 +128,10 @@ class ArticleAsLivingDocController: NSObject {
         }
     }
     
-    func articleContentWillBeginLoading() {
+    func articleContentWillBeginLoading(traitCollection: UITraitCollection, theme: Theme) {
         loadingArticleContent = true
         articleAsLivingDocViewModel = nil
-        fetchInitialArticleAsLivingDoc()
+        fetchInitialArticleAsLivingDoc(traitCollection: traitCollection, theme: theme)
     }
     
     func setupLeadImageView() {
@@ -189,7 +188,7 @@ class ArticleAsLivingDocController: NSObject {
         }
     }
     
-    func fetchInitialArticleAsLivingDoc() {
+    func fetchInitialArticleAsLivingDoc(traitCollection: UITraitCollection, theme: Theme) {
         
         // triggered via initial load or pull to refresh
         
@@ -200,7 +199,8 @@ class ArticleAsLivingDocController: NSObject {
         }
         
         failedLastInitialFetch = false
-        fetchArticleAsLivingDocViewModel(rvStartId: nil, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL) { [weak self] (result) in
+
+        fetchArticleAsLivingDocViewModel(rvStartId: nil, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL, traitCollection: traitCollection, theme: theme) { [weak self] (result) in
             
             guard let self = self else {
                 return
@@ -222,7 +222,6 @@ class ArticleAsLivingDocController: NSObject {
             }
         }
         
-        //tonitodo: might want to consider dispatch group here, to confirm edit metrics are there before view configuration occurs
         fetchEditMetrics(for: articleTitleAndSiteURL.title, pageURL: delegate.articleURL) { [weak self] result in
             DispatchQueue.main.async {
                 guard let self = self else {
@@ -315,24 +314,22 @@ class ArticleAsLivingDocController: NSObject {
     
     func presentArticleAsLivingDoc(scrollToInitialIndexPath initialIndexPath: IndexPath? = nil) {
         
-//        guard let delegate = delegate else {
-//            return
-//        }
-//
-//        if #available(iOS 13.0, *) {
-//            if let _ = articleAsLivingDocViewModel {
-//
-//                articleAsLivingDocViewController = ArticleAsLivingDocViewController(articleTitle: delegate.article.displayTitle, editMetrics: articleAsLivingDocEditMetrics, theme: delegate.theme, delegate: delegate, scrollToInitialIndexPath: initialIndexPath)
-//                articleAsLivingDocViewController?.apply(theme: delegate.theme)
-//
-//                if let articleAsLivingDocViewController = articleAsLivingDocViewController {
-//                    let navigationController = WMFThemeableNavigationController(rootViewController: articleAsLivingDocViewController, theme: delegate.theme)
-//                    navigationController.modalPresentationStyle = .pageSheet
-//                    navigationController.isNavigationBarHidden = true
-//                    delegate.present(navigationController, animated: true)
-//                }
-//            }
-//        }
+        guard let delegate = delegate else {
+            return
+        }
+        
+        if let _ = articleAsLivingDocViewModel {
+            
+            articleAsLivingDocViewController = ArticleAsLivingDocViewController(articleTitle: delegate.article.displayTitle, editMetrics: articleAsLivingDocEditMetrics, theme: delegate.theme, delegate: delegate, scrollToInitialIndexPath: initialIndexPath)
+            articleAsLivingDocViewController?.apply(theme: delegate.theme)
+            
+            if let articleAsLivingDocViewController = articleAsLivingDocViewController {
+                let navigationController = WMFThemeableNavigationController(rootViewController: articleAsLivingDocViewController, theme: delegate.theme)
+                navigationController.modalPresentationStyle = .pageSheet
+                navigationController.isNavigationBarHidden = true
+                delegate.present(navigationController, animated: true)
+            }
+        }
     }
     
     func toggleContentVisibilityExceptLeadImage(shouldHide: Bool) {
@@ -405,7 +402,7 @@ class ArticleAsLivingDocController: NSObject {
     
     //MARK: Fetcher Methods
     private let fetcher = SignificantEventsFetcher()
-    func fetchArticleAsLivingDocViewModel(rvStartId: UInt? = nil, title: String, siteURL: URL, completion: @escaping ((Result<ArticleAsLivingDocViewModel, Error>) -> Void)) {
+    func fetchArticleAsLivingDocViewModel(rvStartId: UInt? = nil, title: String, siteURL: URL, traitCollection: UITraitCollection, theme: Theme, completion: @escaping ((Result<ArticleAsLivingDocViewModel, Error>) -> Void)) {
         fetcher.fetchSignificantEvents(rvStartId: rvStartId, title: title, siteURL: siteURL) { (result) in
             switch result {
             case .failure(let error):
@@ -413,7 +410,7 @@ class ArticleAsLivingDocController: NSObject {
                     completion(.failure(error))
                 }
             case .success(let significantEvents):
-                if let viewModel = ArticleAsLivingDocViewModel(significantEvents: significantEvents) {
+                if let viewModel = ArticleAsLivingDocViewModel(significantEvents: significantEvents, traitCollection: traitCollection, theme: theme) {
                     DispatchQueue.main.async {
                         completion(.success(viewModel))
                     }
@@ -434,13 +431,14 @@ class ArticleAsLivingDocController: NSObject {
         }
     }
     
-    func fetchNextPage(nextRvStartId: UInt) {
+    func fetchNextPage(nextRvStartId: UInt, traitCollection: UITraitCollection, theme: Theme) {
+
         guard let articleTitleAndSiteURL = self.articleTitleAndSiteURL(),
               shouldAttemptToShowArticleAsLivingDoc else {
             return
         }
         
-        fetchArticleAsLivingDocViewModel(rvStartId: nextRvStartId, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL) { [weak self] (result) in
+        fetchArticleAsLivingDocViewModel(rvStartId: nextRvStartId, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL, traitCollection: traitCollection, theme: theme) { [weak self] (result) in
             
             guard let self = self else {
                 return

@@ -126,6 +126,9 @@ class ArticleTestHelpers {
             let wikiBooksLogoImageData = bundle.wmf_data(fromContentsOfFile:"54pxWikibooksLogo.svg", ofType:"webp"),
             let wikiNewsLogoImageData = bundle.wmf_data(fromContentsOfFile:"54pxWikinewsLogo.svg", ofType:"webp"),
             let genericDogImageData = bundle.wmf_data(fromContentsOfFile:"640pxDogMorphologicalVariation", ofType:"png"),
+            let significantEventsData = bundle.wmf_data(fromContentsOfFile:"SignificantEventsDog", ofType: "json"),
+            let dailyMetricsData = bundle.wmf_data(fromContentsOfFile:"DogDailyMetrics", ofType: "json"),
+            let dailyMetricsRegex = try? NSRegularExpression(pattern: "https://wikimedia.org/api/rest_v1/metrics/edits/per-page/en.wikipedia.org/Dog/all-editor-types/daily/(.*?)/(.*?)", options: []),
             let imageRegex = try? NSRegularExpression(pattern: "https://upload.wikimedia.org/wikipedia/commons/thumb.*", options: []) else {
             assertionFailure("Error setting up fixtures.")
             return
@@ -148,6 +151,14 @@ class ArticleTestHelpers {
         let _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/page/mobile-html/Dog" as NSString)
             .andReturn(200)?
             .withBody(mobileHTMLData as NSData)
+        
+        let _ = stubRequest("GET", "https://mobileapps-ios-experiments.wmflabs.org/en.wikipedia.org/v1/page/significant-events/Dog" as NSString)
+            .andReturn(200)?
+            .withBody(significantEventsData as NSData)
+        
+        let _ = stubRequest("GET", dailyMetricsRegex)
+            .andReturn(200)?
+            .withBody(dailyMetricsData as NSData)
         
         let _ = stubRequest("GET", "https://meta.wikimedia.org/api/rest_v1/data/css/mobile/base" as NSString)
             .andReturn(200)?

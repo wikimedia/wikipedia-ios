@@ -20,7 +20,11 @@ class HelpViewController: SinglePageWebViewController {
     required init(url: URL, theme: Theme) {
         fatalError("init(url:theme:) has not been implemented")
     }
-    
+
+    required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false) {
+        fatalError("init(url:theme:doesUseSimpleNavigationBar:) has not been implemented")
+    }
+
     lazy var sendEmailToolbarItem: UIBarButtonItem = {
         return UIBarButtonItem(title: WMFLocalizedString("button-report-a-bug", value: "Report a bug", comment: "Button text for reporting a bug"), style: .plain, target: self, action: #selector(sendEmail))
     }()

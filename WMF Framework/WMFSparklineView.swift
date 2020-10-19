@@ -83,6 +83,7 @@ open class WMFSparklineView : UIView, Themeable {
     open var dataValues: [NSNumber] = [] {
         didSet {
             setNeedsLayout()
+            updateMinAndMaxFromDataValues()
         }
     }
     

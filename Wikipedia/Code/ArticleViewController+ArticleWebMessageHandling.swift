@@ -1,4 +1,5 @@
 extension ArticleViewController: ArticleWebMessageHandling {
+    
     func didRecieve(action: ArticleWebMessagingController.Action) {
         dismissReferencesPopover()
         switch action {
