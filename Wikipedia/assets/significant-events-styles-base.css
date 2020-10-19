@@ -89,7 +89,8 @@ div#significant-changes-top-container {
     padding: .3em 0em .5em 0em;
 }
 
-div#significant-changes-top-skeleton{
+div#significant-changes-top-skeleton {
+    border-radius: 3pt;
     margin: .3em 0em .5em 0em;
     width: 8em;
     height: 1.6em;

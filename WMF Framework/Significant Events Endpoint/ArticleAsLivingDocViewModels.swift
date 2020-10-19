@@ -63,12 +63,10 @@ public struct ArticleAsLivingDocViewModel {
             var maybeEvent: TypedEvent? = nil
             if let smallEventViewModel = Event.Small(typedEvents: [originalEvent]) {
                 maybeEvent = .small(smallEventViewModel)
-            } else
-            if let largeEventViewModel = Event.Large(typedEvent: originalEvent) {
+            } else if let largeEventViewModel = Event.Large(typedEvent: originalEvent) {
                 
                 //this is just an optimization to have collection view height calculations sooner so it doesn't happen while the user is scrolling
                 largeEventViewModel.calculateSideScrollingCollectionViewHeightForTraitCollection(traitCollection, theme: theme)
-                
                 maybeEvent = .large(largeEventViewModel)
             }
             
@@ -588,24 +586,11 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             }
         }
         
-        switch sortedDescriptions.count {
-        case 0:
-            assertionFailure("This should not happen")
+        if #available(iOSApplicationExtension 13.0, *) {
+            let mergedDescription = ListFormatter.localizedString(byJoining: sortedDescriptions.map { $0.text })
+            return mergedDescription.isEmpty ? nil : mergedDescription
+        } else {
             return nil
-        case 1:
-            let description = sortedDescriptions[0].text
-            return description
-        case 2:
-            let firstDescription = sortedDescriptions[0].text
-            let secondDescription = sortedDescriptions[1].text
-            let mergedDescription = String.localizedStringWithFormat(CommonStrings.twoDescriptionsFormat, firstDescription, secondDescription)
-            return mergedDescription
-        default:
-            if #available(iOSApplicationExtension 13.0, *) {
-                return ListFormatter.localizedString(byJoining: sortedDescriptions.map { $0.text })
-            } else {
-                return nil
-            }
         }
     }
     
