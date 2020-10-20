@@ -23,6 +23,10 @@
         "timestamp": "2020-09-29T14:35:47Z",
         "outputType": "small-change"
     }, {
+        "revid": 980967939,
+        "timestamp": "2020-09-29T13:35:47Z",
+        "outputType": "small-change"
+    }, {
         "revid": 980949579,
         "timestamp": "2020-09-29T12:24:30Z",
         "outputType": "large-change",

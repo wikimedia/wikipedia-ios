@@ -293,7 +293,11 @@ public extension ArticleAsLivingDocViewModel {
             
             private var lastTraitCollection: UITraitCollection?
             private var lastTheme: Theme?
-            private(set) var eventDescription: NSAttributedString?
+            public lazy var eventDescription = {
+                return String.localizedStringWithFormat(
+                    CommonStrings.smallChangeDescription,
+                    smallChanges.count)
+            }()
             public let smallChanges: [SignificantEvents.Event.Small]
             
             init?(typedEvents: [SignificantEvents.TypedEvent]) {
@@ -351,6 +355,16 @@ public extension ArticleAsLivingDocViewModel {
                 public let type: String
                 public let description: NSAttributedString
                 public let accessDateYearDisplay: String?
+                
+                init?(type: String, description: NSAttributedString?, accessDateYearDisplay: String?) {
+                    guard let description = description else {
+                        return nil
+                    }
+                    
+                    self.type = type
+                    self.description = description
+                    self.accessDateYearDisplay = accessDateYearDisplay
+                }
             }
             
             public enum UserType {
@@ -445,63 +459,6 @@ public extension ArticleAsLivingDocViewModel {
             
         }
 
-    }
-}
-
-//MARK: Small Event Type Helper methods
-
-public extension ArticleAsLivingDocViewModel.Event.Small {
-    
-    // if trait collection or theme is different from the last time attributed strings were generated,
-    // reset to nil to trigger generation again the next time it's requested
-    func resetAttributedStringsIfNeededWithTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) {
-        if let lastTraitCollection = lastTraitCollection,
-           let lastTheme = lastTheme,
-           lastTraitCollection != traitCollection || lastTheme != theme {
-            eventDescription = nil
-        }
-        
-        lastTraitCollection = traitCollection
-        lastTheme = theme
-    }
-    
-    func eventDescriptionForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
-        if let eventDescription = eventDescription {
-            return eventDescription
-        }
-        
-        let font = UIFont.wmf_font(.italicSubheadline, compatibleWithTraitCollection: traitCollection)
-        let linkCountAttributes = [NSAttributedString.Key.font: font,
-                          NSAttributedString.Key.foregroundColor: theme.colors.link]
-        let actionAttributes = [NSAttributedString.Key.font: font,
-                          NSAttributedString.Key.foregroundColor: theme.colors.secondaryText]
-        
-        let descriptionCountLocalizedString = String.localizedStringWithFormat(
-            CommonStrings.smallChangeDescriptionCount,
-            smallChanges.count)
-        let descriptionActionLocalizedString = CommonStrings.smallChangeDescriptionAction
-        let descriptionLocalizedString = String.localizedStringWithFormat(CommonStrings.smallChangeDescriptionFormat, descriptionCountLocalizedString, descriptionActionLocalizedString)
-        
-        let rangeOfCount = (descriptionLocalizedString as NSString).range(of: descriptionCountLocalizedString)
-        let rangeOfAction = (descriptionLocalizedString as NSString).range(of: descriptionActionLocalizedString)
-        let countRangeValid = rangeOfCount.location != NSNotFound && rangeOfCount.location + rangeOfCount.length <= descriptionLocalizedString.count
-        let actionRangeValid = rangeOfAction.location != NSNotFound && rangeOfAction.location + rangeOfAction.length <= descriptionLocalizedString.count
-        
-        let mutableDescriptionAttributedString = NSMutableAttributedString(string: descriptionLocalizedString)
-        if countRangeValid && actionRangeValid {
-            mutableDescriptionAttributedString.addAttributes(linkCountAttributes, range: rangeOfCount)
-            mutableDescriptionAttributedString.addAttributes(actionAttributes, range: rangeOfAction)
-        } else {
-            //if something went wrong with range detection for styles, just make it all the link style
-            mutableDescriptionAttributedString.addAttributes(linkCountAttributes, range: NSRange(location: 0, length: descriptionLocalizedString.count))
-        }
-        
-        guard let nsAttString = mutableDescriptionAttributedString.copy() as? NSAttributedString else {
-            return NSAttributedString()
-        }
-        
-        self.eventDescription = nsAttString
-        return nsAttString
     }
 }
 
@@ -614,7 +571,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         lastTheme = theme
     }
     
-    func eventDescriptionForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
+    func eventDescriptionForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString? {
         
         if let eventDescription = eventDescription {
             return eventDescription
@@ -662,9 +619,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         
         guard let finalEventAttributedString = eventDescriptionMutableAttributedString.copy() as? NSAttributedString else {
             assertionFailure("This should not happen")
-            let empty = NSAttributedString(string: "")
-            eventDescription = empty
-            return empty
+            return nil
         }
         
         eventDescription = finalEventAttributedString
@@ -932,30 +887,34 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                             let typeText = referenceTypeForTemplate(template, traitCollection: traitCollection, theme: theme)
                             let accessYear = accessDateYearForTemplate(template, traitCollection: traitCollection, theme: theme)
                             let bookCitationDescription = descriptionForBookCitation(bookCitation, traitCollection: traitCollection, theme: theme)
-                            let reference = Reference(type: typeText, description: bookCitationDescription, accessDateYearDisplay: accessYear)
-                            let changeDetail = ChangeDetail.reference(reference)
-                            changeDetails.append(changeDetail)
+                            if let reference = Reference(type: typeText, description: bookCitationDescription, accessDateYearDisplay: accessYear) {
+                                let changeDetail = ChangeDetail.reference(reference)
+                                changeDetails.append(changeDetail)
+                            }
                         case .journalCitation(let journalCitation):
                             let typeText = referenceTypeForTemplate(template, traitCollection: traitCollection, theme: theme)
                             let accessYear = accessDateYearForTemplate(template, traitCollection: traitCollection, theme: theme)
                             let citationDescription = descriptionForJournalCitation(journalCitation, traitCollection: traitCollection, theme: theme)
-                            let reference = Reference(type: typeText, description: citationDescription, accessDateYearDisplay: accessYear)
-                            let changeDetail = ChangeDetail.reference(reference)
-                            changeDetails.append(changeDetail)
+                            if let reference = Reference(type: typeText, description: citationDescription, accessDateYearDisplay: accessYear) {
+                                let changeDetail = ChangeDetail.reference(reference)
+                                changeDetails.append(changeDetail)
+                            }
                         case .newsCitation(let newsCitation):
                             let typeText = referenceTypeForTemplate(template, traitCollection: traitCollection, theme: theme)
                             let accessYear = accessDateYearForTemplate(template, traitCollection: traitCollection, theme: theme)
                             let citationDescription = descriptionForNewsCitation(newsCitation, traitCollection: traitCollection, theme: theme)
-                            let reference = Reference(type: typeText, description: citationDescription, accessDateYearDisplay: accessYear)
-                            let changeDetail = ChangeDetail.reference(reference)
-                            changeDetails.append(changeDetail)
+                            if let reference = Reference(type: typeText, description: citationDescription, accessDateYearDisplay: accessYear) {
+                                let changeDetail = ChangeDetail.reference(reference)
+                                changeDetails.append(changeDetail)
+                            }
                         case .websiteCitation(let websiteCitation):
                             let typeText = referenceTypeForTemplate(template, traitCollection: traitCollection, theme: theme)
                             let accessYear = accessDateYearForTemplate(template, traitCollection: traitCollection, theme: theme)
                             let citationDescription = descriptionForWebsiteCitation(websiteCitation, traitCollection: traitCollection, theme: theme)
-                            let reference = Reference(type: typeText, description: citationDescription, accessDateYearDisplay: accessYear)
-                            let changeDetail = ChangeDetail.reference(reference)
-                            changeDetails.append(changeDetail)
+                            if let reference = Reference(type: typeText, description: citationDescription, accessDateYearDisplay: accessYear) {
+                                let changeDetail = ChangeDetail.reference(reference)
+                                changeDetails.append(changeDetail)
+                            }
                         }
                     }
                 }
@@ -1114,7 +1073,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         
     }
     
-    private func descriptionForJournalCitation(_ journalCitation: SignificantEvents.Citation.Journal, traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
+    private func descriptionForJournalCitation(_ journalCitation: SignificantEvents.Citation.Journal, traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString? {
         
         let font = UIFont.wmf_font(Self.changeDetailDescriptionTextStyle, compatibleWithTraitCollection: traitCollection)
         let boldFont = UIFont.wmf_font(Self.changeDetailDescriptionTextStyleItalic, compatibleWithTraitCollection: traitCollection)
@@ -1125,7 +1084,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                           NSAttributedString.Key.foregroundColor:
                             theme.colors.primaryText]
         
-        let titleAttributedString: NSAttributedString
+        let titleAttributedString: NSAttributedString?
         let titleString = "\"\(journalCitation.title)\" "
         let range = NSRange(location: 0, length: titleString.count)
         let mutableAttributedString = NSMutableAttributedString(string: titleString, attributes: attributes)
@@ -1138,7 +1097,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             mutableAttributedString.addAttributes(attributes, range: range)
         }
         
-        titleAttributedString = mutableAttributedString.copy() as? NSAttributedString ?? NSAttributedString(string: "")
+        titleAttributedString = mutableAttributedString.copy() as? NSAttributedString
         
         var descriptionStart = ""
         if let firstName = journalCitation.firstName {
@@ -1181,18 +1140,19 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         
         let descriptionEndAttributedString = NSAttributedString(string: descriptionEnd, attributes: attributes)
 
-        
         let finalMutableAttributedString = NSMutableAttributedString(string: "")
         finalMutableAttributedString.append(descriptionStartAttributedString)
-        finalMutableAttributedString.append(titleAttributedString)
+        if let titleAttributedString = titleAttributedString {
+            finalMutableAttributedString.append(titleAttributedString)
+        }
         finalMutableAttributedString.append(volumeAttributedString)
         finalMutableAttributedString.append(descriptionEndAttributedString)
         
-        return finalMutableAttributedString.copy() as? NSAttributedString ?? NSAttributedString(string: "")
+        return finalMutableAttributedString.copy() as? NSAttributedString
         
     }
     
-    private func descriptionForWebsiteCitation(_ websiteCitation: SignificantEvents.Citation.Website, traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
+    private func descriptionForWebsiteCitation(_ websiteCitation: SignificantEvents.Citation.Website, traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString? {
         let font = UIFont.wmf_font(Self.changeDetailDescriptionTextStyle, compatibleWithTraitCollection: traitCollection)
         let italicFont = UIFont.wmf_font(Self.changeDetailDescriptionTextStyleItalic, compatibleWithTraitCollection: traitCollection)
         let attributes = [NSAttributedString.Key.font: font,
@@ -1202,7 +1162,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                           NSAttributedString.Key.foregroundColor:
                             theme.colors.primaryText]
         
-        let titleAttributedString: NSAttributedString
+        let titleAttributedString: NSAttributedString?
         let titleString = "\"\(websiteCitation.title)\" "
         let range = NSRange(location: 0, length: titleString.count)
         let mutableAttributedString = NSMutableAttributedString(string: titleString, attributes: attributes)
@@ -1215,7 +1175,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             mutableAttributedString.addAttributes(attributes, range: range)
         }
         
-        titleAttributedString = mutableAttributedString.copy() as? NSAttributedString ?? NSAttributedString(string: "")
+        titleAttributedString = mutableAttributedString.copy() as? NSAttributedString
         
         var publisherText = ""
         if let publisher = websiteCitation.publisher {
@@ -1232,7 +1192,9 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         let accessDateAttributedString = NSAttributedString(string: accessDateString, attributes: attributes)
         
         let finalMutableAttributedString = NSMutableAttributedString(string: "")
-        finalMutableAttributedString.append(titleAttributedString)
+        if let titleAttributedString = titleAttributedString {
+            finalMutableAttributedString.append(titleAttributedString)
+        }
         finalMutableAttributedString.append(publisherAttributedString)
         finalMutableAttributedString.append(accessDateAttributedString)
         
@@ -1256,10 +1218,10 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             
         }
         
-        return finalMutableAttributedString.copy() as? NSAttributedString ?? NSAttributedString(string: "")
+        return finalMutableAttributedString.copy() as? NSAttributedString
     }
     
-    private func descriptionForNewsCitation(_ newsCitation: SignificantEvents.Citation.News, traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
+    private func descriptionForNewsCitation(_ newsCitation: SignificantEvents.Citation.News, traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString? {
         
         let font = UIFont.wmf_font(Self.changeDetailDescriptionTextStyle, compatibleWithTraitCollection: traitCollection)
         let italicFont = UIFont.wmf_font(Self.changeDetailDescriptionTextStyleItalic, compatibleWithTraitCollection: traitCollection)
@@ -1270,7 +1232,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                           NSAttributedString.Key.foregroundColor:
                             theme.colors.primaryText]
         
-        let titleAttributedString: NSAttributedString
+        let titleAttributedString: NSAttributedString?
         let titleString = "\"\(newsCitation.title)\" "
         let range = NSRange(location: 0, length: titleString.count)
         let mutableAttributedString = NSMutableAttributedString(string: titleString, attributes: attributes)
@@ -1283,7 +1245,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             mutableAttributedString.addAttributes(attributes, range: range)
         }
         
-        titleAttributedString = mutableAttributedString.copy() as? NSAttributedString ?? NSAttributedString(string: "")
+        titleAttributedString = mutableAttributedString.copy() as? NSAttributedString
         
         var descriptionStart = ""
         if let firstName = newsCitation.firstName {
@@ -1320,15 +1282,17 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         
         let finalMutableAttributedString = NSMutableAttributedString(string: "")
         finalMutableAttributedString.append(descriptionStartAttributedString)
-        finalMutableAttributedString.append(titleAttributedString)
+        if let titleAttributedString = titleAttributedString {
+            finalMutableAttributedString.append(titleAttributedString)
+        }
         finalMutableAttributedString.append(publicationAttributedString)
         finalMutableAttributedString.append(retrievedDateAttributedString)
         
-        return finalMutableAttributedString.copy() as? NSAttributedString ?? NSAttributedString(string: "")
+        return finalMutableAttributedString.copy() as? NSAttributedString
         
     }
     
-    private func descriptionForBookCitation(_ bookCitation: SignificantEvents.Citation.Book, traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
+    private func descriptionForBookCitation(_ bookCitation: SignificantEvents.Citation.Book, traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString? {
         
         let font = UIFont.wmf_font(Self.changeDetailDescriptionTextStyle, compatibleWithTraitCollection: traitCollection)
         let italicFont = UIFont.wmf_font(Self.changeDetailDescriptionTextStyleItalic, compatibleWithTraitCollection: traitCollection)
@@ -1379,7 +1343,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         
         let descriptionMiddleAttributedString = NSAttributedString(string: descriptionMiddle, attributes: attributes)
         
-        let isbnAttributedString: NSAttributedString
+        var isbnAttributedString: NSAttributedString?
         if let isbn = bookCitation.isbn {
             let isbnPrefix = "ISBN: "
             let mutableAttributedString = NSMutableAttributedString(string: "\(isbnPrefix + isbn)", attributes: attributes)
@@ -1393,18 +1357,18 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                 mutableAttributedString.addAttributes(attributes, range: range)
             }
             
-            isbnAttributedString = mutableAttributedString.copy() as? NSAttributedString ?? NSAttributedString(string: "")
-        } else {
-            isbnAttributedString = NSAttributedString(string: "")
+            isbnAttributedString = mutableAttributedString.copy() as? NSAttributedString
         }
         
         let finalMutableAttributedString = NSMutableAttributedString(string: "")
         finalMutableAttributedString.append(descriptionStartAttributedString)
         finalMutableAttributedString.append(titleAttributedString)
         finalMutableAttributedString.append(descriptionMiddleAttributedString)
-        finalMutableAttributedString.append(isbnAttributedString)
+        if let isbnAttributedString = isbnAttributedString {
+            finalMutableAttributedString.append(isbnAttributedString)
+        }
         
-        return finalMutableAttributedString.copy() as? NSAttributedString ?? NSAttributedString(string: "")
+        return finalMutableAttributedString.copy() as? NSAttributedString
         
     }
     
@@ -1513,23 +1477,18 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         return nil
     }
     
-    func userInfoForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString {
+    func userInfoForTraitCollection(_ traitCollection: UITraitCollection, theme: Theme) -> NSAttributedString? {
         if let userInfo = userInfo {
             return userInfo
         }
         
         guard let userNameAndEditCount = self.userNameAndEditCount() else {
             assertionFailure("Shouldn't reach this point")
-            return NSAttributedString(string: "")
+            return nil
         }
         
         let userName = userNameAndEditCount.userName
         let maybeEditCount = userNameAndEditCount.editCount
-        var attributedString = NSAttributedString()
-        
-        defer {
-            self.userInfo = attributedString
-        }
         
         guard let editCount = maybeEditCount,
                userType != .anonymous else {
@@ -1538,7 +1497,8 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
             let attributes = [NSAttributedString.Key.font: font,
                               NSAttributedString.Key.foregroundColor: theme.colors.secondaryText]
-            attributedString = NSAttributedString(string: anonymousUserInfo, attributes: attributes)
+            let attributedString = NSAttributedString(string: anonymousUserInfo, attributes: attributes)
+            self.userInfo = attributedString
             return attributedString
         }
         
@@ -1555,7 +1515,8 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         guard let title = "User:\(userName)".percentEncodedPageTitleForPathComponents,
               let userNameURL = Configuration.current.articleURLForHost(Configuration.Domain.englishWikipedia, appending: [title]).url,
               rangeValid else {
-            attributedString = NSAttributedString(string: userInfo, attributes: attributes)
+            let attributedString = NSAttributedString(string: userInfo, attributes: attributes)
+            self.userInfo = attributedString
             return attributedString
         }
 
@@ -1571,11 +1532,11 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             mutableAttributedString.insert(NSAttributedString(string: " "), at: rangeOfUserName.location + imageString.length)
         }
         
-        guard let maybeAttString = mutableAttributedString.copy() as? NSAttributedString else {
-            return attributedString
+        guard let attributedString = mutableAttributedString.copy() as? NSAttributedString else {
+            return nil
         }
         
-        attributedString = maybeAttString
+        self.userInfo = attributedString
         return attributedString
     }
     

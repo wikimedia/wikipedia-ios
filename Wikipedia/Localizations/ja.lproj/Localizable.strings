@@ -118,7 +118,7 @@
 "add-articles-to-reading-list" = "$1記事をあとで読むリストに追加";
 "add-citation-title" = "引用を追加";
 "announcements-dismiss" = "断る";
-"app-store-keywords" = "ウィキペディア, 参考資料, ウィキ, 百科事典, 情報, 知識, リサーチ, 情報, 発見, 学習";
+"app-store-keywords" = "ウィキペディア、参考資料、ウィキ、百科事典、情報、知識、リサーチ、情報、発見、学習";
 "app-store-release-notes" = "「探してみよう」フィードが読みやすくなり、細かなカスタマイズもできるようになりました。日本語化、パフォーマンスの向上とバグ修正を実施しました。";
 "app-store-short-description" = "ウィキペディアアプリをダウンロードして、お近くのスポットを探したり、オフラインで読む記事を同期したり、記事の読み方をカスタマイズしたりしてみましょう。";
 "app-store-subtitle" = "フリー百科事典";
@@ -155,11 +155,11 @@
 "button-saved-remove" = "保存したページから除去";
 "button-skip" = "スキップ";
 "cancel" = "キャンセル";
-"cc-zero" = "クリエイティブ・コモンズ - CC0";
+"cc-zero" = "クリエイティブ・コモンズ CC0";
 "clear-title-accessibility-label" = "消去";
 "close-button-accessibility-label" = "閉じる";
 "compass-direction" = "$1時の位置";
-"continue-reading-empty-description" = "Wikipediaでさらに多くの記事を読む";
+"continue-reading-empty-description" = "ウィキペディアでさらに多くの記事を読む";
 "continue-reading-empty-title" = "最近読んだ記事はありません";
 "data-migration-status" = "更新中...";
 "description-add-title" = "説明を追加";
@@ -390,7 +390,7 @@
 "explore-nearby-placeholder-heading" = "場所";
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1版ウィキペディアより";
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "ウィキペディアより";
-"explore-nearby-sub-heading-your-location" = "自分の位置";
+"explore-nearby-sub-heading-your-location" = "あなたの位置";
 "explore-nearby-sub-heading-your-location-from-language-wikipedia" = "$1版ウィキペディアより付近の記事";
 "explore-potd-heading" = "今日の一枚";
 "explore-potd-sub-heading" = "ウィキメディア・コモンズより";
@@ -410,7 +410,7 @@
 "field-backup-token-title" = "バックアップコード";
 "field-captcha-placeholder" = "CAPTCHA テキスト";
 "field-captcha-title" = "上記のテキストを入力してください";
-"field-email-placeholder" = "メールアドレスを入力";
+"field-email-placeholder" = "example@example.org";
 "field-email-title" = "メールアドレス";
 "field-email-title-optional" = "メールアドレス (省略可能)";
 "field-new-password-confirm-placeholder" = "新しいパスワードを再入力";
@@ -434,7 +434,7 @@
 "forgot-password-button-title" = "リセット";
 "forgot-password-email-sent" = "パスワードリセットの指示が記載されたメールが送信されました";
 "forgot-password-instructions" = "下記のいずれかのフィールドを入力して、電子メールでパスワードリセットの指示を受け取ります";
-"forgot-password-title" = "パスワードリセット";
+"forgot-password-title" = "パスワードをリセット";
 "forgot-password-username-or-email-title" = "または";
 "history-clear-all" = "消去";
 "history-clear-cancel" = "キャンセル";
@@ -546,6 +546,7 @@
 "page-history-bot-edits" = "ボット編集";
 "page-history-compare-accessibility-hint" = "比較する2つの版をタップして選択してください";
 "page-history-compare-title" = "比較";
+"page-history-graph-accessibility-label" = "時系列の編集状況グラフ";
 "page-history-minor-edits" = "細部の編集";
 "page-history-revision-author-accessibility-label" = "作者: $1";
 "page-history-revision-comment-accessibility-label" = "コメント $1";

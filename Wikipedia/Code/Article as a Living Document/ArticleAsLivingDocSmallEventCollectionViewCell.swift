@@ -2,7 +2,7 @@
 import UIKit
 
 class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
-    private let descriptionTextView = UITextView()
+    private let descriptionLabel = UILabel()
     let timelineView = TimelineView()
 
     private var theme: Theme?
@@ -13,19 +13,19 @@ class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
     
     override func reset() {
         super.reset()
-        descriptionTextView.attributedText = nil
+        descriptionLabel.text = nil
     }
     
     override func setup() {
         super.setup()
-        contentView.addSubview(descriptionTextView)
+        contentView.addSubview(descriptionLabel)
         timelineView.decoration = .squiggle
-        descriptionTextView.isEditable = false
-        descriptionTextView.isSelectable = false
         contentView.addSubview(timelineView)
         
+        descriptionLabel.numberOfLines = 1
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedSmallChanges))
-        descriptionTextView.addGestureRecognizer(tapGestureRecognizer)
+        descriptionLabel.addGestureRecognizer(tapGestureRecognizer)
+        descriptionLabel.isUserInteractionEnabled = true
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
@@ -47,9 +47,9 @@ class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
             timelineView.frame = CGRect(x: layoutMargins.left, y: 0, width: timelineWidth, height: size.height)
         }
         
-        let descriptionOrigin = CGPoint(x: x, y: layoutMargins.top)
+        let descriptionOrigin = CGPoint(x: x + 3, y: layoutMargins.top)
         
-        let descriptionFrame = descriptionTextView.wmf_preferredFrame(at: descriptionOrigin, maximumSize: CGSize(width: widthToFit, height: UIView.noIntrinsicMetric), minimumSize: NoIntrinsicSize, alignedBy: .forceLeftToRight, apply: apply)
+        let descriptionFrame = descriptionLabel.wmf_preferredFrame(at: descriptionOrigin, maximumSize: CGSize(width: widthToFit, height: UIView.noIntrinsicMetric), minimumSize: NoIntrinsicSize, alignedBy: .forceLeftToRight, apply: apply)
         
         let finalHeight = descriptionFrame.maxY + layoutMargins.bottom
         
@@ -59,35 +59,20 @@ class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
     func configure(viewModel: ArticleAsLivingDocViewModel.Event.Small, theme: Theme) {
         
         self.smallEvent = viewModel
-        self.smallEvent?.resetAttributedStringsIfNeededWithTraitCollection(traitCollection, theme: theme)
+        descriptionLabel.text = viewModel.eventDescription
         apply(theme: theme)
-        setAttributedStringViews()
         setNeedsLayout()
-    }
-    
-    func setAttributedStringViews() {
-        
-        guard let smallEvent = smallEvent,
-              let theme = theme else {
-            return
-        }
-        
-        descriptionTextView.attributedText = smallEvent.eventDescriptionForTraitCollection(traitCollection, theme: theme)
     }
     
     override func layoutSublayers(of layer: CALayer) {
         super.layoutSublayers(of: layer)
-        timelineView.dotsY = descriptionTextView.convert(descriptionTextView.bounds, to: timelineView).midY
+        timelineView.dotsY = descriptionLabel.convert(descriptionLabel.bounds, to: timelineView).midY
     }
     
     override func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
         
-        if let theme = theme {
-            smallEvent?.resetAttributedStringsIfNeededWithTraitCollection(traitCollection, theme: theme)
-        }
-        
-        setAttributedStringViews()
+        descriptionLabel.font = UIFont.wmf_font(.italicSubheadline, compatibleWithTraitCollection: traitCollection)
     }
     
     @objc private func tappedSmallChanges() {
@@ -107,10 +92,8 @@ extension ArticleAsLivingDocSmallEventCollectionViewCell: Themeable {
         }
         
         self.theme = theme
-        smallEvent?.resetAttributedStringsIfNeededWithTraitCollection(traitCollection, theme: theme)
 
-        setAttributedStringViews()
-        descriptionTextView.backgroundColor = theme.colors.paperBackground
+        descriptionLabel.textColor = theme.colors.link
         timelineView.backgroundColor = theme.colors.paperBackground
         timelineView.tintColor = theme.colors.accent
     }

@@ -27,6 +27,35 @@
 // Author: 烈羽
 // Author: 神樂坂秀吉
 
+"aaald-added-text-description" = "增加 {{PLURAL:$1|0=0|$1|$1}} 個字元";
+"aaald-article-description-updated-description" = "條目標題描述已更新";
+"aaald-deleted-text-description" = "刪除 {{PLURAL:$1|0=0|$1|$1}} 個字元";
+"aaald-error-subitle" = "重新整理來再次嘗試";
+"aaald-error-title" = "無法載入內嵌條目的歷史紀錄";
+"aaald-many-sections-description" = "在第 $1 段";
+"aaald-multiple-changes-description" = "做出多次更改";
+"aaald-multiple-references-added-description" = "添加多個參考資料";
+"aaald-new-book-reference-title" = "書籍";
+"aaald-new-discussion" = "新討論";
+"aaald-new-journal-reference-database" = "透過 $1";
+"aaald-new-journal-reference-title" = "期刊";
+"aaald-new-journal-reference-volume" = "卷 $1：";
+"aaald-new-news-reference-retrieved-date" = "檢索於 $1";
+"aaald-new-news-reference-title" = "新聞";
+"aaald-new-talk-topic-description-format" = "關於此條目的$1";
+"aaald-new-website-reference-archive-date-text" = "來自於 $1 的原有內容";
+"aaald-new-website-reference-archive-url-text" = "Archive.org URL";
+"aaald-new-website-reference-title" = "網站";
+"aaald-numerical-multiple-references-added-description" = "增加 {{PLURAL:$1|0=0|$1|$1}} 個參考資料";
+"aaald-one-section-description" = "在$1段落";
+"aaald-revision-userInfo" = "由$1編輯（$2 次編輯數）";
+"aaald-revision-userInfo-anonymous" = "由$1編輯";
+"aaald-single-reference-added-description" = "參考資料已添加";
+"aaald-small-change-description" = "做出 {{PLURAL:$1|0=0|$1|$1}} 次小更改";
+"aaald-summary-title" = "在 {{PLURAL:$3|0=0|$3|$3}} 天裡由 {{PLURAL:$2|0=0|$2|$2}} 位編者做出 {{PLURAL:$1|0=0|$1|$1}} 更改";
+"aaald-two-sections-description" = "在$1與$2段落";
+"aaald-vandalism-revert-description" = "疑似故意破壞";
+"aaald-view-full-history-button" = "查看完整的條目歷史";
 "about-content-license" = "內容許可協議";
 "about-content-license-details" = "除非另有聲明，內容皆基於$1授權。";
 "about-content-license-details-share-alike-license" = "創作共用 姓名標示 - 相同方式分享";
@@ -107,7 +136,7 @@
 "add-articles-to-reading-list" = "新增 {{PLURAL:$1|$1 個條目|$1 個條目}}至閱讀清單";
 "add-citation-title" = "新增引用";
 "announcements-dismiss" = "關閉";
-"app-store-keywords" = "維基百科,參考,wiki,百科全書,訊息,知識,研究,資訊,探索,學習";
+"app-store-keywords" = "維基百科、參考資料、wiki、百科全書、訊息、知識、研究、資訊、探索、學習";
 "app-store-release-notes" = "可完整客製化，且更容易讀取探索摘要。在地化、性能改進、並修正程式錯誤。";
 "app-store-short-description" = "下載維基百科應用程式來探索您附近的地點，同步條目以離線閱讀，並自訂化您的閱讀體驗。";
 "app-store-subtitle" = "自由的百科全書";
