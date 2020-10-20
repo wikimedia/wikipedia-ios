@@ -14,7 +14,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
     private let timestampLabel = UILabel()
     private let userInfoTextView = UITextView()
     private lazy var thankButton: AlignedImageButton = {
-        let image = UIImage(named: "thank-unfilled")?.withRenderingMode(.alwaysTemplate)
+        let image = UIImage(named: "thank-unfilled")
         return actionButton(with: image, text: WMFLocalizedString("aaald-events-thank-title", value: "Thank", comment: "Button title that thanks users for their edit in article as a living document screen"))
     }()
     private lazy var viewChangesButton: AlignedImageButton = {
@@ -210,12 +210,6 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
     }
     
     func apply(theme: Theme) {
-        
-        if let oldTheme = self.theme,
-           theme.webName == oldTheme.webName {
-            return
-        }
-        
         self.theme = theme
         
         largeEvent?.resetAttributedStringsIfNeededWithTraitCollection(traitCollection, theme: theme)
@@ -225,13 +219,6 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         timestampLabel.textColor = theme.colors.accent
         userInfoTextView.backgroundColor = theme.colors.paperBackground
         descriptionLabel.textColor = theme.colors.primaryText
-        
-        thankButton.setTitleColor(theme.colors.link, for: .normal)
-        viewChangesButton.setTitleColor(theme.colors.link, for: .normal)
-        thankButton.backgroundColor = theme.colors.midBackground
-        viewChangesButton.backgroundColor = theme.colors.midBackground
-        viewDiscussionButton.setTitleColor(theme.colors.link, for: .normal)
-        viewDiscussionButton.backgroundColor = theme.colors.midBackground
 
         if let largeEvent = largeEvent {
             switch largeEvent.buttonsToDisplay {
@@ -294,10 +281,10 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
             viewChangesButton.titleLabel?.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
 
             if largeEvent.wereThanksSent {
-                thankButton.setImage(UIImage(named: "thank")?.withRenderingMode(.alwaysTemplate), for: .normal)
+                thankButton.setImage(UIImage(named: "thank"), for: .normal)
                 thankButton.setTitle(WMFLocalizedString("aaald-events-thanked-title", value: "Thanked", comment: "Button title after a user thanks an editor - past tense of 'thank'"), for: .normal)
             } else {
-                thankButton.setImage(UIImage(named: "thank-unfilled")?.withRenderingMode(.alwaysTemplate), for: .normal)
+                thankButton.setImage(UIImage(named: "thank-unfilled"), for: .normal)
                 thankButton.setTitle(WMFLocalizedString("aaald-events-thank-title", value: "Thank", comment: "Button title that thanks users for their edit in article as a living document screen"), for: .normal)
             }
 
