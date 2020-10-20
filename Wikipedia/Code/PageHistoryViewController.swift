@@ -30,6 +30,8 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     private var cellLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
     private var firstRevision: WMFPageHistoryRevision?
 
+    private var revisionToScrollTo: Int?
+
     var shouldLoadNewData: Bool {
         if batchComplete || isLoadingData {
             return false
@@ -48,9 +50,10 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         return comparisonSelectionViewController
     }()
 
-    @objc init(pageTitle: String, pageURL: URL) {
+    init(pageTitle: String, pageURL: URL, scrollToRevision: Int? = nil) {
         self.pageTitle = pageTitle
         self.pageURL = pageURL
+        self.revisionToScrollTo = scrollToRevision
         self.pageHistoryFetcherParams = PageHistoryRequestParameters(title: pageTitle)
         super.init()
     }
@@ -296,8 +299,23 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 self.appendSections(from: results)
                 self.pageHistoryFetcherParams = results.getPageHistoryRequestParameters(self.pageURL)
                 self.batchComplete = results.batchComplete()
-                self.isLoadingData = false
-                self.collectionView.reloadData()
+                let completeLoad = {
+                    self.isLoadingData = false
+                    self.collectionView.reloadData()
+                }
+
+                if let revisionToScrollTo = self.revisionToScrollTo {
+                    let hasScrollRevisionBeenLoaded = (revisionToScrollTo >= (results.lastRevision?.revisionID ?? 0))
+                    if !hasScrollRevisionBeenLoaded {
+                        // Load through the target revision
+                        self.getPageHistory()
+                    } else {
+                        completeLoad()
+                        self.scrollToInitialRevision()
+                    }
+                } else {
+                    completeLoad()
+                }
             }
         }
     }
@@ -308,6 +326,26 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             return
         }
         getPageHistory()
+    }
+
+    private func scrollToInitialRevision() {
+        guard let initialRevID = revisionToScrollTo else {
+            return
+        }
+
+        var initialCell: Int? = nil
+        let initialSection = pageHistorySections.firstIndex(where: { historySection in
+            if let foundIndex = historySection.items.firstIndex(where: {$0.revisionID == initialRevID}) {
+                initialCell = foundIndex
+                return true
+            }
+            return false
+        })
+        if let initialSection = initialSection, let initialCell = initialCell {
+            let indexPathOfRevision = IndexPath(item: initialCell, section: initialSection)
+            collectionView.scrollToItem(at: indexPathOfRevision, at: .top, animated: true)
+            revisionToScrollTo = nil
+        }
     }
 
     @objc private func compare(_ sender: UIBarButtonItem) {

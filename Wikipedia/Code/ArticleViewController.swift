@@ -464,8 +464,9 @@ class ArticleViewController: ViewController, HintPresenting {
         }
 
         if #available(iOS 13.0, *) {
-            articleAsLivingDocController.articleContentWillBeginLoading()
+            articleAsLivingDocController.articleContentWillBeginLoading(traitCollection: traitCollection, theme: theme)
         }
+
         webView.load(request)
     }
     
@@ -682,9 +683,11 @@ class ArticleViewController: ViewController, HintPresenting {
     }
 
     internal func performWebViewRefresh(_ revisionID: UInt64? = nil) {
+
         if #available(iOS 13.0, *) {
             articleAsLivingDocController.articleDidTriggerPullToRefresh()
         }
+
         #if WMF_LOCAL_PAGE_CONTENT_SERVICE // on local PCS builds, reload everything including JS and CSS
             webView.reloadFromOrigin()
         #else // on release builds, just reload the page with a different cache policy
@@ -721,6 +724,7 @@ class ArticleViewController: ViewController, HintPresenting {
         if #available(iOS 13.0, *) {
             articleAsLivingDocController.handleArticleAsLivingDocLinkForAnchor(anchor)
         }
+
     }
     
     // MARK: Table of contents
@@ -914,6 +918,7 @@ private extension ArticleViewController {
         if #available(iOS 13.0, *) {
             articleAsLivingDocController.setupLeadImageView()
         }
+
     }
     
     func setupPageContentServiceJavaScriptInterface(with completion: @escaping () -> Void) {
@@ -939,9 +944,11 @@ private extension ArticleViewController {
     
     func setupPageContentServiceJavaScriptInterface(with userGroups: [String]) {
         let areTablesInitiallyExpanded = UserDefaults.standard.wmf_isAutomaticTableOpeningEnabled
+
         if #available(iOS 13.0, *) {
             messagingController.shouldAttemptToShowArticleAsLivingDoc = articleAsLivingDocController.shouldAttemptToShowArticleAsLivingDoc
         }
+
         messagingController.setup(with: webView, language: articleLanguage, theme: theme, layoutMargins: articleMargins, leadImageHeight: leadImageHeight, areTablesInitiallyExpanded: areTablesInitiallyExpanded, userGroups: userGroups)
     }
     
@@ -1110,15 +1117,16 @@ extension ViewController  { // Putting extension on ViewController rather than A
     }
 }
 
-//extension ArticleViewController: ArticleAsLivingDocViewControllerDelegate {
-//    var articleAsLivingDocViewModel: ArticleAsLivingDocViewModel? {
-//        return articleAsLivingDocController.articleAsLivingDocViewModel
-//    }
-//    
-//    func fetchNextPage(nextRvStartId: UInt) {
-//        articleAsLivingDocController.fetchNextPage(nextRvStartId: nextRvStartId)
-//    }
-//}
+@available(iOS 13.0, *)
+extension ArticleViewController: ArticleAsLivingDocViewControllerDelegate {
+    var articleAsLivingDocViewModel: ArticleAsLivingDocViewModel? {
+        return articleAsLivingDocController.articleAsLivingDocViewModel
+    }
+    
+    func fetchNextPage(nextRvStartId: UInt, theme: Theme) {
+        articleAsLivingDocController.fetchNextPage(nextRvStartId: nextRvStartId, traitCollection: traitCollection, theme: theme)
+    }
+}
 
 extension ArticleViewController: ArticleAsLivingDocControllerDelegate {
 

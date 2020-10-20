@@ -131,7 +131,7 @@ final class PageContentService   {
             super.init(source: StyleScript.source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
         }
     }
-    
+
     final class SignificantEventsStyleScript: PageUserScript {
         
         static func sourceForTheme(_ theme: String) -> String {

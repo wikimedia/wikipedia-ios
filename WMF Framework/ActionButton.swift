@@ -2,6 +2,9 @@
 import UIKit
 
 class ActionButton: SetupButton {
+    
+    var titleLabelFont = DynamicTextStyle.semiboldSubheadline
+    
     override func setup() {
         super.setup()
         contentEdgeInsets = UIEdgeInsets(top: layoutMargins.top + 1, left: layoutMargins.left + 7, bottom: layoutMargins.bottom + 1, right: layoutMargins.right + 7)
@@ -28,7 +31,7 @@ class ActionButton: SetupButton {
     
     // Override this method and call super
     open func updateFonts(with traitCollection: UITraitCollection) {
-        titleLabel?.font = UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+        titleLabel?.font = UIFont.wmf_font(titleLabelFont, compatibleWithTraitCollection: traitCollection)
     }
 }
 

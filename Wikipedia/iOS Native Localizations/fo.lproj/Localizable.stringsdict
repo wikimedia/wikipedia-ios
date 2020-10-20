@@ -59,7 +59,7 @@
 	<key>aaald-small-change-description</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ made</string>
+		<string>%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -67,11 +67,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d small change</string>
+			<string>%1$d small change made</string>
 			<key>other</key>
-			<string>%1$d small changes</string>
+			<string>%1$d small changes made</string>
 			<key>zero</key>
-			<string>No small changes</string>
+			<string>No small changes made</string>
 		</dict>
 	</dict>
 	<key>aaald-summary-title</key>

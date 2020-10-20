@@ -17,6 +17,7 @@
 // Author: Greis
 // Author: JackLantern
 // Author: Lorelai87
+// Author: Luca.favorido
 // Author: Macofe
 // Author: Manfredi26
 // Author: Martinligabue
@@ -36,6 +37,15 @@
 // Author: Superpes15
 // Author: Yacine Boussoufa
 
+"aaald-many-sections-description" = "nella sezione $1";
+"aaald-new-book-reference-title" = "Libro";
+"aaald-new-discussion" = "Nuova discussione";
+"aaald-new-journal-reference-database" = "tramite $1";
+"aaald-new-talk-topic-description-format" = "$1 su questa voce";
+"aaald-new-website-reference-title" = "Sito web";
+"aaald-one-section-description" = "nella sezione  $1";
+"aaald-revision-userInfo-anonymous" = "Modificato da $1";
+"aaald-single-reference-added-description" = "Riferimenti aggiunti";
 "about-content-license" = "Licenza contenuto";
 "about-content-license-details" = "Se non diversamente specificato, il contenuto è disponibile il base alla $1.";
 "about-content-license-details-share-alike-license" = "Licenza Creative Commons Attribuzione-Condividi allo stesso modo";
@@ -144,6 +154,7 @@
 "compass-direction" = "alle ore $1";
 "continue-reading-empty-description" = "Esplorare Wikipedia per altre voci da leggere";
 "continue-reading-empty-title" = "Nessuna voce letta recentemente";
+"data-migration-status" = "Aggiornamento...";
 "description-add-title" = "Aggiungi descrizione";
 "description-edit-for-article" = "Descrizione del titolo per $1";
 "description-edit-learn-more" = "Ulteriori informazioni";
