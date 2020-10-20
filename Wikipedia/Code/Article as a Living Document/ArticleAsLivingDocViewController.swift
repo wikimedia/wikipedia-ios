@@ -411,7 +411,7 @@ extension ArticleAsLivingDocViewController: ThanksGiving {
     }
 
     func thanksWereSent(for revisionID: Int) {
-        let currentSnapshot = dataSource.snapshot()
+        var currentSnapshot = dataSource.snapshot()
 
         for section in currentSnapshot.sectionIdentifiers {
             for event in section.typedEvents {
@@ -419,6 +419,7 @@ extension ArticleAsLivingDocViewController: ThanksGiving {
                 case .large(let largeEvent):
                     if largeEvent.revId == revisionID {
                         largeEvent.wereThanksSent = true
+                        currentSnapshot.reloadSections([section])
                         break
                     }
                 default: continue
@@ -427,8 +428,5 @@ extension ArticleAsLivingDocViewController: ThanksGiving {
         }
 
         dataSource.apply(currentSnapshot, animatingDifferences: true)
-
-        /// We shouldn't have to `reloadData` here. The diffable data source should take care of everything, especially because `wereThanksSent` is part of hashable and equatable. But it wasn't updating without the following line. (Forcing a layout pass didn't seem to help.)
-        collectionView.reloadData()
     }
 }
