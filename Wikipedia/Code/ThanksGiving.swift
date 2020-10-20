@@ -1,9 +1,5 @@
 import Foundation
 
-enum ThankingViewController {
-    case diffContainer, articleAsLivingDocModal
-}
-
 protocol ThanksGiving: HintPresenting {
     var url: URL? { get }
     var hintController: HintController? { get set }
@@ -15,7 +11,7 @@ protocol ThanksGiving: HintPresenting {
 
 extension ThanksGiving where Self: ViewController {
     var isFromDiffContainerVC: Bool {
-        return (self as? DiffContainerViewController) != nil
+        return (self is DiffContainerViewController)
     }
 
     var isLoggedIn: Bool {
