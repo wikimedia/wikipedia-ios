@@ -38,7 +38,7 @@ public extension UIColor {
     static let base0 = UIColor(0x000000)
     static let base10 = UIColor(0x202122)
     static let base20 = UIColor(0x54595D)
-    static let base30 = UIColor(0x72777D)
+    static let base30 = UIColor(0x72777D) // formerly battleship grey
     static let base50 = UIColor(0xA2A9B1)
     static let base70 = UIColor(0xC8CCD1)
     static let base80 = UIColor(0xEAECF0)

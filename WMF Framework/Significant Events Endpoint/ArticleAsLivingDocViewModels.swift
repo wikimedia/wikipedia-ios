@@ -279,6 +279,7 @@ public extension ArticleAsLivingDocViewModel {
                 smallEvent.smallChanges.forEach { hasher.combine($0.revId) }
             case .large(let largeEvent):
                 hasher.combine(largeEvent.revId)
+                hasher.combine(largeEvent.wereThanksSent)
             }
         }
     }
@@ -366,7 +367,7 @@ public extension ArticleAsLivingDocViewModel {
                 }
             }
             
-            enum UserType {
+            public enum UserType {
                 case standard
                 case anonymous
                 case bot
@@ -395,9 +396,10 @@ public extension ArticleAsLivingDocViewModel {
             private(set) var displayTimestamp: String?
             private(set) var userInfo: NSAttributedString?
             let userId: UInt
-            let userType: UserType
+            public let userType: UserType
             public let buttonsToDisplay: ButtonsToDisplay
             public var revId: UInt = 0
+            public var wereThanksSent = false
             
             init?(typedEvent: SignificantEvents.TypedEvent) {
                 
@@ -452,7 +454,7 @@ public extension ArticleAsLivingDocViewModel {
             }
             
             public static func == (lhs: ArticleAsLivingDocViewModel.Event.Large, rhs: ArticleAsLivingDocViewModel.Event.Large) -> Bool {
-                return lhs.revId == rhs.revId
+                return lhs.revId == rhs.revId && lhs.wereThanksSent == rhs.wereThanksSent
             }
             
         }

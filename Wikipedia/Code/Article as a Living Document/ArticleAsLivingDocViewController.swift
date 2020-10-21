@@ -15,6 +15,7 @@ protocol ArticleAsLivingDocViewControllerDelegate: class {
 protocol ArticleDetailsShowing: class {
     func goToHistory(scrolledTo revisionID: Int?)
     func showTalkPage()
+    func thankButtonTapped(for revisionID: Int, isUserAnonymous: Bool)
 }
 
 @available(iOS 13.0, *)
@@ -383,9 +384,67 @@ extension ArticleAsLivingDocViewController: ArticleDetailsShowing {
         guard let articleURL = delegate?.articleURL, let title = articleURL.wmf_title else {
                 showGenericError()
                 return
-            }
-            let historyVC = PageHistoryViewController(pageTitle: title, pageURL: articleURL, scrollToRevision: revisionID)
-            historyVC.apply(theme: theme)
-            push(historyVC)
         }
+        
+        let historyVC = PageHistoryViewController(pageTitle: title, pageURL: articleURL, scrollToRevision: revisionID)
+        historyVC.apply(theme: theme)
+        push(historyVC)
+    }
+
+    func thankButtonTapped(for revisionID: Int, isUserAnonymous: Bool) {
+        self.tappedThank(for: revisionID, isUserAnonymous: isUserAnonymous)
+    }
+}
+
+@available(iOS 13.0, *)
+extension ArticleAsLivingDocViewController: ThanksGiving {
+    var url: URL? {
+        return self.delegate?.articleURL.wmf_site
+    }
+
+    var bottomSpacing: CGFloat? {
+        return 0
+    }
+
+    func didLogIn() {
+        self.apply(theme: theme)
+    }
+
+    func wereThanksSent(for revisionID: Int) -> Bool {
+        let currentSnapshot = dataSource.snapshot()
+
+        for section in currentSnapshot.sectionIdentifiers {
+            for event in section.typedEvents {
+                switch event {
+                case .large(let largeEvent):
+                    if largeEvent.revId == revisionID {
+                        return largeEvent.wereThanksSent
+                    }
+                default: continue
+                }
+            }
+        }
+
+        return false
+    }
+
+    func thanksWereSent(for revisionID: Int) {
+        var currentSnapshot = dataSource.snapshot()
+
+        for section in currentSnapshot.sectionIdentifiers {
+            for event in section.typedEvents {
+                switch event {
+                case .large(let largeEvent):
+                    if largeEvent.revId == revisionID {
+                        largeEvent.wereThanksSent = true
+                        currentSnapshot.reloadSections([section])
+                        break
+                    }
+                default: continue
+                }
+            }
+        }
+
+        dataSource.apply(currentSnapshot, animatingDifferences: true)
+    }
 }
