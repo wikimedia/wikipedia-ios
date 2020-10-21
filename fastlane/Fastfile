@@ -250,6 +250,7 @@ platform :ios do
       app_identifier: "org.wikimedia.wikipedia.tfalpha",
       build: build
     )
+    tag(prefix: tag_prefix, build_number: build)
   end
 
   lane :get_latest_tag_with_prefix do |options|
