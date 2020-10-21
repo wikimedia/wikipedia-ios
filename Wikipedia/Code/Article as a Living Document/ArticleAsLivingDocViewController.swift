@@ -238,9 +238,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
     }
 
     @objc func tappedViewFullHistoryButton() {
-        self.dismiss(animated: true) {
-            self.delegate?.showEditHistory(scrolledTo: nil)
-        }
+        self.goToHistory(scrolledTo: nil)
     }
 
     // MARK:- CollectionView functions
@@ -331,29 +329,42 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
 // MARK:- ArticleAsLivingDocHorizontallyScrollingCellDelegate
 @available(iOS 13.0, *)
 extension ArticleAsLivingDocViewController: ArticleAsLivingDocHorizontallyScrollingCellDelegate {
-    func tappedLink(_ url: URL) {
-        if url.absoluteString.removingPercentEncoding?.contains("/User:") == true {
-            // User page, should open it in a modal
-            let singlePageWebVC = SinglePageWebViewController(url: url, theme: theme, doesUseSimpleNavigationBar: true)
-            let navController = WMFThemeableNavigationController(rootViewController: singlePageWebVC, theme: theme)
-            navController.modalPresentationStyle = .pageSheet
-            self.present(navController, animated: true, completion: nil)
+    // THIS FUNCTION WAS COPIED OUT OF EDITPREVIEWVIEWCONTROLLER - DO NOT MERGE THIS INTO MASTER. IF EXPERIMENT GOES WELL, REFACTOR THIS INTO VIEWCONTROLLER OR A PROTOCOL EXTENSION
+    func showInternalLink(url: URL) {
+        let exists: Bool
+        if let query = url.query {
+            exists = !query.contains("redlink=1")
         } else {
-            if let linkURL = delegate?.articleURL.resolvingRelativeWikiHref(url.absoluteString) {
-                switch Configuration.current.router.destination(for: linkURL) {
-                case .externalLink(_):
-                    // We're going to open link in default webbrowser, no need to dismiss current VC
-                    self.delegate?.handleLink(with: url.absoluteString)
-                default:
-                    self.dismiss(animated: true) {
-                        self.delegate?.handleLink(with: url.absoluteString)
-                    }
-                }
-            } else {
-                self.dismiss(animated: true) {
-                    self.delegate?.handleLink(with: url.absoluteString)
-                }
-            }
+            exists = true
+        }
+        if !exists {
+            showRedLinkInAlert()
+            return
+        }
+        let dataStore = MWKDataStore.shared()
+        let internalLinkViewController = EditPreviewInternalLinkViewController(articleURL: url, dataStore: dataStore)
+        internalLinkViewController.modalPresentationStyle = .overCurrentContext
+        internalLinkViewController.modalTransitionStyle = .crossDissolve
+        internalLinkViewController.apply(theme: theme)
+        present(internalLinkViewController, animated: true, completion: nil)
+    }
+
+    // THIS FUNCTION WAS COPIED OUT OF EDITPREVIEWVIEWCONTROLLER - DO NOT MERGE THIS INTO MASTER. IF EXPERIMENT GOES WELL, REFACTOR THIS INTO VIEWCONTROLLER OR A PROTOCOL EXTENSION
+    func showRedLinkInAlert() {
+        let title = WMFLocalizedString("wikitext-preview-link-not-found-preview-title", value: "No internal link found", comment: "Title for nonexistent link preview popup")
+        let message = WMFLocalizedString("wikitext-preview-link-not-found-preview-description", value: "Wikipedia does not have an article with this exact name", comment: "Description for nonexistent link preview popup")
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: CommonStrings.okTitle, style: .default))
+        present(alertController, animated: true)
+    }
+
+    func tappedLink(_ url: URL) {
+        guard let fullURL = delegate?.articleURL.resolvingRelativeWikiHref(url.absoluteString) else {
+            return
+        }
+        switch Configuration.current.router.destination(for: fullURL) {
+            case .article(let articleURL): showInternalLink(url: articleURL)
+            default: navigate(to: fullURL)
         }
     }
 }
@@ -361,14 +372,20 @@ extension ArticleAsLivingDocViewController: ArticleAsLivingDocHorizontallyScroll
 @available(iOS 13.0, *)
 extension ArticleAsLivingDocViewController: ArticleDetailsShowing {
     func showTalkPage() {
-        self.dismiss(animated: true) {
-            self.delegate?.showTalkPage()
+        guard let talkPageURL = delegate?.articleURL.articleTalkPage else {
+            showGenericError()
+            return
         }
+        navigate(to: talkPageURL)
     }
 
     func goToHistory(scrolledTo revisionID: Int? = nil) {
-        self.dismiss(animated: true) {
-            self.delegate?.showEditHistory(scrolledTo: revisionID)
+        guard let articleURL = delegate?.articleURL, let title = articleURL.wmf_title else {
+                showGenericError()
+                return
+            }
+            let historyVC = PageHistoryViewController(pageTitle: title, pageURL: articleURL, scrollToRevision: revisionID)
+            historyVC.apply(theme: theme)
+            push(historyVC)
         }
-    }
 }
