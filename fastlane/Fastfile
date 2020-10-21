@@ -248,7 +248,7 @@ platform :ios do
     push(
       product_name: "Experimental",
       app_identifier: "org.wikimedia.wikipedia.tfalpha",
-      build: options[:build]
+      build: build
     )
   end
 
