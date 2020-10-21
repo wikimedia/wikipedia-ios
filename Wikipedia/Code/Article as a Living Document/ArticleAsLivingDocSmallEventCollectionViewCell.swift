@@ -76,10 +76,11 @@ class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
     }
     
     @objc private func tappedSmallChanges() {
-        guard let revisionID = smallEvent?.smallChanges.first?.revId else {
+        guard let revisionID = smallEvent?.smallChanges.first?.revId,
+              let parentId = smallEvent?.smallChanges.first?.parentId else {
             return
         }
-        delegate?.goToHistory(scrolledTo: Int(revisionID))
+        delegate?.goToDiff(revisionId: revisionID, parentId: parentId)
     }
 }
 

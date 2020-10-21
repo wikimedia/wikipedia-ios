@@ -323,10 +323,11 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
     }
 
     @objc private func viewChangesTapped() {
-        guard let revisionID = largeEvent?.revId else {
+        guard let revisionID = largeEvent?.revId,
+              let parentID = largeEvent?.parentId else {
             return
         }
-        articleDelegate?.goToHistory(scrolledTo: Int(revisionID))
+        articleDelegate?.goToDiff(revisionId: revisionID, parentId: parentID)
     }
 
     @objc private func viewDiscussionTapped() {
