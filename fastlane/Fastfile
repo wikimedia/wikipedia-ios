@@ -243,6 +243,8 @@ platform :ios do
   
   desc "Updates version, builds, and pushes experimental build to TestFlight. Only releases to internal testers."
   lane :push_experimental do |options|
+    tag_prefix = "alphas"
+    build = options[:build] || get_latest_build_number(prefix: tag_prefix) + 1
     push(
       product_name: "Experimental",
       app_identifier: "org.wikimedia.wikipedia.tfalpha",
@@ -267,7 +269,7 @@ platform :ios do
     product_name = options[:product_name] || "Wikipedia"
     app_identifier = options[:app_identifier] || "org.wikimedia.wikipedia"
     ipa_path = "#{build_dir}/#{product_name}.ipa"
-    build_number =  options[:build] || get_latest_alpha_or_beta_build_number + 1
+    build_number =  options[:build] || get_latest_build_number(prefix: "betas") + 1
     version = get_version_number_from_options(options)
 
     increment_build_number(
