@@ -26,7 +26,6 @@ class DiffController {
     let diffFetcher: DiffFetcher
     let pageHistoryFetcher: PageHistoryFetcher?
     let globalUserInfoFetcher: GlobalUserInfoFetcher
-    let diffThanker: DiffThanker
     let siteURL: URL
     let type: DiffContainerViewModel.DiffType
     private weak var revisionRetrievingDelegate: DiffRevisionRetrieving?
@@ -37,7 +36,6 @@ class DiffController {
         self.diffFetcher = diffFetcher
         self.pageHistoryFetcher = pageHistoryFetcher
         self.globalUserInfoFetcher = GlobalUserInfoFetcher()
-        self.diffThanker = DiffThanker()
         self.siteURL = siteURL
         self.revisionRetrievingDelegate = revisionRetrievingDelegate
         self.type = type
@@ -51,10 +49,6 @@ class DiffController {
 
     func fetchIntermediateCounts(for pageTitle: String, pageURL: URL, from fromRevisionID: Int , to toRevisionID: Int, completion: @escaping (Result<EditCountsGroupedByType, Error>) -> Void) {
         pageHistoryFetcher?.fetchEditCounts(.edits, .editors, for: pageTitle, pageURL: pageURL, from: fromRevisionID, to: toRevisionID, completion: completion)
-    }
-    
-    func thankRevisionAuthor(toRevisionId: Int, completion: @escaping ((Result<DiffThankerResult, Error>) -> Void)) {
-        diffThanker.thank(siteURL: siteURL, rev: toRevisionId, completion: completion)
     }
     
     func fetchFirstRevisionModel(articleTitle: String, completion: @escaping ((Result<WMFPageHistoryRevision, Error>) -> Void)) {
