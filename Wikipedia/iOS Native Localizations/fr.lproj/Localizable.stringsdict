@@ -2,6 +2,122 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>aaald-added-text-description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d caractère ajouté</string>
+			<key>other</key>
+			<string>%1$d caractères ajoutés</string>
+			<key>zero</key>
+			<string>aucun caractère ajouté</string>
+		</dict>
+	</dict>
+	<key>aaald-deleted-text-description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d caractère supprimé</string>
+			<key>other</key>
+			<string>%1$d caractères supprimés</string>
+			<key>zero</key>
+			<string>aucun caractère supprimé</string>
+		</dict>
+	</dict>
+	<key>aaald-numerical-multiple-references-added-description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d référence ajoutée</string>
+			<key>other</key>
+			<string>%1$d références ajoutées</string>
+			<key>zero</key>
+			<string>Aucune référence ajoutée</string>
+		</dict>
+	</dict>
+	<key>aaald-small-change-description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d changement mineur réalisé</string>
+			<key>other</key>
+			<string>%1$d changements mineurs réalisés</string>
+			<key>zero</key>
+			<string>Aucun changement mineur réalisé</string>
+		</dict>
+	</dict>
+	<key>aaald-summary-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ par %#@v2@ depuis %#@v3@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d changement</string>
+			<key>other</key>
+			<string>%1$d changements</string>
+			<key>zero</key>
+			<string>aucun changement</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d rédacteur</string>
+			<key>other</key>
+			<string>%2$d rédacteurs</string>
+			<key>zero</key>
+			<string>aucun rédacteur</string>
+		</dict>
+		<key>v3</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%3$d jour</string>
+			<key>other</key>
+			<string>%3$d jours</string>
+			<key>zero</key>
+			<string>aujourd’hui</string>
+		</dict>
+	</dict>
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
