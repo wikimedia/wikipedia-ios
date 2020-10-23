@@ -326,7 +326,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         guard let revisionID = largeEvent?.revId else {
             return
         }
-        articleDelegate?.goToHistory(scrolledTo: Int(revisionID))
+        articleDelegate?.goToHistory(scrolledTo: [Int(revisionID)])
     }
 
     @objc private func viewDiscussionTapped() {

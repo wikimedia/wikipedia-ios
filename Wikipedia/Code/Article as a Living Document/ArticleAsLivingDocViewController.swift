@@ -7,13 +7,13 @@ protocol ArticleAsLivingDocViewControllerDelegate: class {
     var articleAsLivingDocViewModel: ArticleAsLivingDocViewModel? { get }
     var articleURL: URL { get }
     func fetchNextPage(nextRvStartId: UInt, theme: Theme)
-    func showEditHistory(scrolledTo revisionID: Int?)
+    func showEditHistory(scrolledTo revisionIDs: [Int])
     func handleLink(with href: String)
     func showTalkPage()
 }
 
 protocol ArticleDetailsShowing: class {
-    func goToHistory(scrolledTo revisionID: Int?)
+    func goToHistory(scrolledTo revisionIDs: [Int])
     func showTalkPage()
     func thankButtonTapped(for revisionID: Int, isUserAnonymous: Bool)
 }
@@ -240,7 +240,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
 
     @objc func tappedViewFullHistoryButton() {
         self.dismiss(animated: true) {
-            self.delegate?.showEditHistory(scrolledTo: nil)
+            self.delegate?.showEditHistory(scrolledTo: [])
         }
     }
 
@@ -367,9 +367,9 @@ extension ArticleAsLivingDocViewController: ArticleDetailsShowing {
         }
     }
 
-    func goToHistory(scrolledTo revisionID: Int? = nil) {
+    func goToHistory(scrolledTo revisionIDs: [Int] = []) {
         self.dismiss(animated: true) {
-            self.delegate?.showEditHistory(scrolledTo: revisionID)
+            self.delegate?.showEditHistory(scrolledTo: revisionIDs)
         }
     }
 
