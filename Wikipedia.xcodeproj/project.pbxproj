@@ -140,6 +140,9 @@
 		671F5E012367EDC600111116 /* GlobalUserInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */; };
 		671F5E022367EDC600111116 /* GlobalUserInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */; };
 		671F5E0B236B8CAF00111116 /* EmptyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 671F5E0A236B8CAF00111116 /* EmptyViewController.xib */; };
+		672285722540B56D0038E332 /* ReferenceBackLinksViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD7B85524B3B384005C2471 /* ReferenceBackLinksViewControllerDelegate.swift */; };
+		672285732540B56D0038E332 /* ReferenceBackLinksViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD7B85524B3B384005C2471 /* ReferenceBackLinksViewControllerDelegate.swift */; };
+		672286282540DB330038E332 /* AppTabBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE891452445150B0058B642 /* AppTabBarDelegate.swift */; };
 		6724288E23612AF000490629 /* DiffListContextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF25E234FCA8100D5CA6C /* DiffListContextCell.xib */; };
 		6724288F23612AF000490629 /* DiffListContextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF25E234FCA8100D5CA6C /* DiffListContextCell.xib */; };
 		6724289023612AF100490629 /* DiffListContextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67CEF25E234FCA8100D5CA6C /* DiffListContextCell.xib */; };
@@ -10875,6 +10878,7 @@
 				8321FCCF2387231E0079F3C7 /* ViewControllerRouter.swift in Sources */,
 				D850A53D1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,
 				D8A42A6F1E815A9C00D8E281 /* UIApplication+RTL.swift in Sources */,
+				672285732540B56D0038E332 /* ReferenceBackLinksViewControllerDelegate.swift in Sources */,
 				D8A42A721E815A9C00D8E281 /* WMFWelcomePanelViewController.swift in Sources */,
 				7A1469C8220BC223000A20F1 /* EditHintController.swift in Sources */,
 				83023C2220E6584F00EC7592 /* SearchTransition.swift in Sources */,
@@ -10964,6 +10968,7 @@
 				D837CC3A231FE9CC00BA6130 /* ThemeableViewController.swift in Sources */,
 				B0FFFB2D21C9BED1001E787E /* TextFormattingButton.swift in Sources */,
 				7AF6F76922395BEC00949393 /* EditingWelcomeViewController.swift in Sources */,
+				672286282540DB330038E332 /* AppTabBarDelegate.swift in Sources */,
 				D8A42AA71E815A9C00D8E281 /* WMFArticleLanguagesSectionHeader.m in Sources */,
 				D818D3891ED750E40076110D /* ArticleCollectionViewController.swift in Sources */,
 				B0524B54214854E900D8FD8D /* DescriptionWelcomeContainerViewController.swift in Sources */,
@@ -11659,6 +11664,7 @@
 				83927D821F705B7B00051890 /* SearchResultsViewController.swift in Sources */,
 				41FCAA3721C844CB001D8411 /* ReadingListEntryCollectionViewController.swift in Sources */,
 				7A1C4990227254EC00230ED2 /* InsertMediaSearchViewController.swift in Sources */,
+				672285722540B56D0038E332 /* ReferenceBackLinksViewControllerDelegate.swift in Sources */,
 				D8CE25D81E698E2400DAE2E0 /* WMFRandomDiceButton.m in Sources */,
 				678D79EB235E5959006161FF /* DiffListChangeItemViewModel.swift in Sources */,
 				6734EE7722976AED00F00B05 /* ActionButton.swift in Sources */,
