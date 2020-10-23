@@ -30,6 +30,35 @@
 // Author: Wladek92
 // Author: Zarisi
 
+"aaald-added-text-description" = "{{PLURAL:$1|0=aucun caractère ajouté|$1 caractère ajouté|$1 caractères ajoutés}}";
+"aaald-article-description-updated-description" = "Description du titre de l’article mise à jour";
+"aaald-deleted-text-description" = "{{PLURAL:$1|0=aucun caractère supprimé|$1 caractère supprimé|$1 caractères supprimés}}";
+"aaald-error-subitle" = "Actualisez pour essayer à nouveau";
+"aaald-error-title" = "Impossible de charger l’historique en ligne de l’article";
+"aaald-many-sections-description" = "Dans les sections $1";
+"aaald-multiple-changes-description" = "Changements multiples réalisés";
+"aaald-multiple-references-added-description" = "Multiples références ajoutées";
+"aaald-new-book-reference-title" = "Livre";
+"aaald-new-discussion" = "Nouvelle discussion";
+"aaald-new-journal-reference-database" = "via $1";
+"aaald-new-journal-reference-title" = "Journal";
+"aaald-new-journal-reference-volume" = "Volume $1 :";
+"aaald-new-news-reference-retrieved-date" = "Récupéré le $1";
+"aaald-new-news-reference-title" = "Actualités";
+"aaald-new-talk-topic-description-format" = "$1 concernant cet article";
+"aaald-new-website-reference-archive-date-text" = "depuis l’original sur $1";
+"aaald-new-website-reference-archive-url-text" = "URL sur archive.org";
+"aaald-new-website-reference-title" = "Site web";
+"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=Aucune référence ajoutée|$1 référence ajoutée|$1 références ajoutées}}";
+"aaald-one-section-description" = "dans la section $1";
+"aaald-revision-userInfo" = "Modifié par $1 ($2 modifications)";
+"aaald-revision-userInfo-anonymous" = "Modifié par $1";
+"aaald-single-reference-added-description" = "Référence ajoutée";
+"aaald-small-change-description" = "{{PLURAL:$1|0=Aucun changement mineur réalisé|$1 changement mineur réalisé|$1 changements mineurs réalisés}}";
+"aaald-summary-title" = "{{PLURAL:$1|0=aucun changement|$1 changement|$1 changements}} par {{PLURAL:$2|0=aucun rédacteur|$2 rédacteur|$2 rédacteurs}} depuis {{PLURAL:$3|0=aujourd’hui|$3 jour|$3 jours}}";
+"aaald-two-sections-description" = "dans les sections $1 et $2";
+"aaald-vandalism-revert-description" = "Vandalisme suspecté annulé";
+"aaald-view-full-history-button" = "Voir l’historique complet de l’article";
 "about-content-license" = "Licence du contenu";
 "about-content-license-details" = "À moins d’indication contraire, le contenu est disponible sous $1.";
 "about-content-license-details-share-alike-license" = "Creative Commons Attribution – Partage à l’identique";
