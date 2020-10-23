@@ -56,6 +56,7 @@
 "aaald-revision-userInfo" = "Editar por $1 ($2 edições)";
 "aaald-revision-userInfo-anonymous" = "Editado por $1";
 "aaald-single-reference-added-description" = "Referência adicionada";
+// Fuzzy
 "aaald-small-change-description" = "{{PLURAL:$1|0=Sem pequenas mudanças feitas|$1 Sem pequena mudança feita|$1 Sem pequenas mudanças feitas}}";
 "aaald-summary-title" = "{{PLURAL:$1|0=0 mudanças|$1 mudança|$1 mudanças}} por {{PLURAL:$2|0=0 editores|$2 editor|$2 editores}} em {{PLURAL:$3|0=0 dias|$3 dia|$3 dias}}";
 "aaald-two-sections-description" = "nas seções $1 e $2";

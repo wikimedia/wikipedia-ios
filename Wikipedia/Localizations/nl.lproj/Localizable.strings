@@ -39,6 +39,7 @@
 "aaald-new-talk-topic-description-format" = "$1 over dit artikel";
 "aaald-new-website-reference-title" = "Website";
 "aaald-revision-userInfo" = "Bewerking door $1 ($2 bewerkingen)";
+// Fuzzy
 "aaald-small-change-description" = "{{PLURAL:$1|0=Geen kleine aanpassingen|$1 kleine aanpassing|$1 kleine aanpassingen}} uitgevoerd";
 "about-content-license" = "Inhoudslicentie";
 "about-content-license-details" = "Tenzij anders vermeld, is de inhoud beschikbaar onder een $1.";
