@@ -1,10 +1,10 @@
 
 div#significant-changes-container{
-    background-color:#000;
+    background-color:#222;
     box-shadow: none;
 }
 div#significant-changes-inner-container{
-    background-color:#202122;
+    background-color:#000;
     box-shadow: none;
 }
 div#significant-changes-skeleton{
