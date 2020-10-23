@@ -2,6 +2,110 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>aaald-added-text-description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ eklendi</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d karakter</string>
+			<key>zero</key>
+			<string>0 karakter</string>
+		</dict>
+	</dict>
+	<key>aaald-deleted-text-description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ silindi</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d karakter</string>
+			<key>zero</key>
+			<string>0 karakter</string>
+		</dict>
+	</dict>
+	<key>aaald-numerical-multiple-references-added-description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ eklendi</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d kaynak</string>
+			<key>other</key>
+			<string>%1$d kaynakça</string>
+			<key>zero</key>
+			<string>0 kaynakça</string>
+		</dict>
+	</dict>
+	<key>aaald-small-change-description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d küçük değişiklik yapıldı</string>
+			<key>zero</key>
+			<string>Küçük değişiklik yapılmadı</string>
+		</dict>
+	</dict>
+	<key>aaald-summary-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v3@ içinde %#@v2@ tarafından %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d değişiklik</string>
+			<key>zero</key>
+			<string>0 değişiklik</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%2$d editör</string>
+			<key>zero</key>
+			<string>0 editör</string>
+		</dict>
+		<key>v3</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%3$d gün</string>
+			<key>zero</key>
+			<string>0 gün</string>
+		</dict>
+	</dict>
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
