@@ -548,7 +548,7 @@ extension ArticleWebMessagingController {
             return
         }
         
-        var articleAsLivingDocBoxInnerHTML = "\(articleAsLivingDocBoxInnerContainerHTMLStart)<h4 id='significant-changes-header'>RECENT CHANGES</h4><ul id='significant-changes-list'>"
+        var articleAsLivingDocBoxInnerHTML = "\(articleAsLivingDocBoxInnerContainerHTMLStart)<h4 id='significant-changes-header'>SIGNIFICANT EVENTS</h4><ul id='significant-changes-list'>"
         
         for articleInsertHtmlSnippet in articleInsertHtmlSnippets {
             articleAsLivingDocBoxInnerHTML += articleInsertHtmlSnippet
@@ -635,13 +635,6 @@ extension ArticleWebMessagingController {
                         seContainer.style.marginRight = "-\(layoutMargins.right)px";
                         seContainer.style.paddingLeft = "\(layoutMargins.left)px";
                         seContainer.style.paddingRight = "\(layoutMargins.right)px";
-                 }
-
-                 if (skeletonContainer) {
-                        skeletonContainer.style.marginLeft = "-\(layoutMargins.left)px";
-                        skeletonContainer.style.marginRight = "-\(layoutMargins.right)px";
-                        skeletonContainer.style.paddingLeft = "\(layoutMargins.left)px";
-                        skeletonContainer.style.paddingRight = "\(layoutMargins.right)px";
                  }
 
                  return true;
