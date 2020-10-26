@@ -30,7 +30,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     private var cellLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
     private var firstRevision: WMFPageHistoryRevision?
 
-    private var revisionToScrollTo: Int?
+    private var revisionsToScrollTo: [Int]
 
     var shouldLoadNewData: Bool {
         if batchComplete || isLoadingData {
@@ -50,10 +50,10 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         return comparisonSelectionViewController
     }()
 
-    init(pageTitle: String, pageURL: URL, scrollToRevision: Int? = nil) {
+    init(pageTitle: String, pageURL: URL, scrollToRevisions:[Int] = []) {
         self.pageTitle = pageTitle
         self.pageURL = pageURL
-        self.revisionToScrollTo = scrollToRevision
+        self.revisionsToScrollTo = scrollToRevisions
         self.pageHistoryFetcherParams = PageHistoryRequestParameters(title: pageTitle)
         super.init()
     }
@@ -304,7 +304,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                     self.collectionView.reloadData()
                 }
 
-                if let revisionToScrollTo = self.revisionToScrollTo {
+                if let revisionToScrollTo = self.revisionsToScrollTo.last {
                     let hasScrollRevisionBeenLoaded = (revisionToScrollTo >= (results.lastRevision?.revisionID ?? 0))
                     if !hasScrollRevisionBeenLoaded {
                         // Load through the target revision
@@ -329,7 +329,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     }
 
     private func scrollToInitialRevision() {
-        guard let initialRevID = revisionToScrollTo else {
+        guard let initialRevID = revisionsToScrollTo.first else {
             return
         }
 
@@ -344,7 +344,6 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         if let initialSection = initialSection, let initialCell = initialCell {
             let indexPathOfRevision = IndexPath(item: initialCell, section: initialSection)
             collectionView.scrollToItem(at: indexPathOfRevision, at: .top, animated: true)
-            revisionToScrollTo = nil
         }
     }
 
@@ -456,7 +455,8 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     private func configure(cell: PageHistoryCollectionViewCell, for item: WMFPageHistoryRevision? = nil, at indexPath: IndexPath) {
         let item = item ?? pageHistorySections[indexPath.section].items[indexPath.item]
         let revisionID = NSNumber(value: item.revisionID)
-        let isSelected = indexPathsSelectedForComparison.contains(indexPath)
+        let isTargetOfScroll = revisionsToScrollTo.contains(item.revisionID)
+        let isSelected = indexPathsSelectedForComparison.contains(indexPath) || isTargetOfScroll
         defer {
             cell.setEditing(state == .editing)
             if !isSelected {
@@ -483,10 +483,21 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                     cell.isSelected = false
                 }
                 cell.selectionOrder = SelectionOrder(cachedCellContent.selectionOrderRawValue)
+            } else if isTargetOfScroll {
+                cell.selectionThemeModel = firstSelectionThemeModel
+                collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
+                let selectionOffCompletion = {
+                    cell.selectionThemeModel = nil
+                    self.collectionView.deselectItem(at: indexPath, animated: false)
+                    self.revisionsToScrollTo.removeAll(where: {$0 == item.revisionID})
+                    UIView.animate(withDuration: 0.5, animations: {
+                        cell.apply(theme: self.theme)
+                    })
+                }
+                dispatchOnMainQueueAfterDelayInSeconds(0.75, selectionOffCompletion)
             } else {
                 cell.selectionOrder = nil
                 cell.selectionThemeModel = nil
-                cell.isSelected = false
             }
         } else {
             if let date = item.revisionDate {
@@ -508,6 +519,19 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
                 cell.selectionThemeModel = selectionIndex == 0 ? firstSelectionThemeModel : secondSelectionThemeModel
                 cell.selectionOrder = SelectionOrder(rawValue: selectionIndex)
+            } else if isTargetOfScroll {
+                cell.selectionThemeModel = firstSelectionThemeModel
+                collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [.centeredVertically])
+                let selectionOffCompletion = {
+                    cell.selectionThemeModel = nil
+                    self.collectionView.deselectItem(at: indexPath, animated: false)
+                    self.revisionsToScrollTo.removeAll(where: {$0 == item.revisionID})
+                    UIView.animate(withDuration: 0.5, animations: {
+                        cell.apply(theme: self.theme)
+                    })
+                }
+
+                dispatchOnMainQueueAfterDelayInSeconds(0.75, selectionOffCompletion)
             } else {
                 cell.selectionThemeModel = maxNumberOfRevisionsSelected ? disabledSelectionThemeModel : nil
             }
