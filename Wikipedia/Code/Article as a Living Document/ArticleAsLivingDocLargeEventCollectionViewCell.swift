@@ -327,7 +327,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
               let parentID = largeEvent?.parentId else {
             return
         }
-        articleDelegate?.goToDiff(revisionId: revisionID, parentId: parentID)
+        articleDelegate?.goToDiff(revisionId: revisionID, parentId: parentID, diffType: .single)
     }
 
     @objc private func viewDiscussionTapped() {

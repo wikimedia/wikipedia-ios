@@ -14,7 +14,7 @@ protocol ArticleAsLivingDocViewControllerDelegate: class {
 
 protocol ArticleDetailsShowing: class {
     func goToHistory(scrolledTo revisionID: Int?)
-    func goToDiff(revisionId: UInt, parentId: UInt)
+    func goToDiff(revisionId: UInt, parentId: UInt, diffType: DiffContainerViewModel.DiffType)
     func showTalkPage()
     func thankButtonTapped(for revisionID: Int, isUserAnonymous: Bool)
 }
@@ -381,14 +381,15 @@ extension ArticleAsLivingDocViewController: ArticleDetailsShowing {
         navigate(to: talkPageURL)
     }
     
-    func goToDiff(revisionId: UInt, parentId: UInt) {
+    func goToDiff(revisionId: UInt, parentId: UInt, diffType: DiffContainerViewModel.DiffType) {
         
         guard let title = delegate?.articleURL.wmf_title,
               let siteURL = delegate?.articleURL.wmf_site else {
             return
         }
         
-        let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: Int(parentId), toRevisionID: Int(revisionId), type: .single, articleTitle: title)
+        let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: Int(parentId), toRevisionID: Int(revisionId), type: diffType, articleTitle: title, needsSetNavDelegate: true)
+
         push(diffContainerVC)
     }
 

@@ -3,10 +3,12 @@
     "sha": "ddb855b98e213935bfa5b23fb37e2d7034fe63eec9673f1fd66f43512c2c92a7",
     "timeline": [{
         "revid": 981273839,
+        "parentid": 981252697,
         "timestamp": "2020-10-01T09:46:36Z",
         "outputType": "small-change"
     }, {
         "revid": 981252697,
+        "parentid": 980967940,
         "timestamp": "2020-10-01T06:09:55Z",
         "outputType": "large-change",
         "user": "E-960",
@@ -20,14 +22,17 @@
         "userEditCount": 8075
     }, {
         "revid": 980967940,
+        "parentid": 980967939,
         "timestamp": "2020-09-29T14:35:47Z",
         "outputType": "small-change"
     }, {
         "revid": 980967939,
+        "parentid": 980949579,
         "timestamp": "2020-09-29T13:35:47Z",
         "outputType": "small-change"
     }, {
         "revid": 980949579,
+        "parentid": 980920405,
         "timestamp": "2020-09-29T12:24:30Z",
         "outputType": "large-change",
         "user": "Moxy",
@@ -47,6 +52,7 @@
         "userEditCount": 103975
     }, {
         "revid": 980920405,
+        "parentid": 980661618,
         "timestamp": "2020-09-29T07:34:48Z",
         "outputType": "large-change",
         "user": "PCommission",
@@ -97,6 +103,7 @@
         "userEditCount": 1929
     }, {
         "revid": 980661618,
+        "parentid": 980632994,
         "timestamp": "2020-09-27T19:05:35Z",
         "outputType": "large-change",
         "user": "Rwebogora",
@@ -112,10 +119,12 @@
         "userEditCount": 2257
     }, {
         "revid": 980633578,
+        "parentid": 981273839,
         "timestamp": "2020-09-27T16:10:03Z",
         "outputType": "small-change"
     }, {
         "revid": 980632994,
+        "parentid": 980559873,
         "timestamp": "2020-09-27T16:05:53Z",
         "outputType": "large-change",
         "user": "Mason.Jones",
@@ -135,6 +144,7 @@
         "userEditCount": 2733
     }, {
         "revid": 980559873,
+        "parentid": 980541206,
         "timestamp": "2020-09-27T05:47:53Z",
         "outputType": "large-change",
         "user": "Dhtwiki",
@@ -148,6 +158,7 @@
         "userEditCount": 31815
     }, {
         "revid": 980541206,
+        "parentid": 980513972,
         "timestamp": "2020-09-27T03:09:24Z",
         "outputType": "large-change",
         "user": "PCommission",
@@ -194,10 +205,12 @@
         "userEditCount": 1929
     }, {
         "revid": 980513972,
+        "parentid": 980265831,
         "timestamp": "2020-09-26T23:15:43Z",
         "outputType": "small-change"
     }, {
         "revid": 980265831,
+        "parentid": 980215564,
         "timestamp": "2020-09-25T14:39:18Z",
         "outputType": "new-talk-page-topic",
         "snippet": "The US is an amazing place and I am recently doing a bibliography on the US even though I live here!<a href=\"./Special:Contributions/2600:1014:B128:D297:A993:4AFC:1B8D:C5F1\" title=\"Special:Contributions/2600:1014:B128:D297:A993:4AFC:1B8D:C5F1\">2600:1014:B128:D297:A993:4AFC:1B8D:C5F1</a> (talk) 14:14, 25 September 2020 (UTC)",
@@ -208,6 +221,7 @@
         "userEditCount": 4791
     }, {
         "revid": 980215564,
+        "parentid": 980150407,
         "timestamp": "2020-09-25T07:39:01Z",
         "outputType": "vandalism-revert",
         "user": "MelbourneStar",
@@ -217,34 +231,42 @@
         "userEditCount": 80818
     }, {
         "revid": 980215449,
+        "parentid": 981273839,
         "timestamp": "2020-09-25T07:38:08Z",
         "outputType": "small-change"
     }, {
         "revid": 980150407,
+        "parentid": 980083603,
         "timestamp": "2020-09-24T22:07:57Z",
         "outputType": "small-change"
     }, {
         "revid": 980083603,
+        "parentid": 980016288,
         "timestamp": "2020-09-24T14:18:58Z",
         "outputType": "small-change"
     }, {
         "revid": 980016288,
+        "parentid": 980016198,
         "timestamp": "2020-09-24T03:36:15Z",
         "outputType": "small-change"
     }, {
         "revid": 980016198,
+        "parentid": 980016096,
         "timestamp": "2020-09-24T03:35:26Z",
         "outputType": "small-change"
     }, {
         "revid": 980016096,
+        "parentid": 980015628,
         "timestamp": "2020-09-24T03:34:39Z",
         "outputType": "small-change"
     }, {
         "revid": 980015628,
+        "parentid": 979959432,
         "timestamp": "2020-09-24T03:29:25Z",
         "outputType": "small-change"
     }, {
         "revid": 979959432,
+        "parentid": 979959431,
         "timestamp": "2020-09-23T19:33:06Z",
         "outputType": "large-change",
         "user": "Mossypiglet",

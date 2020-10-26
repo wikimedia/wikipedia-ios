@@ -77,10 +77,13 @@ class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
     
     @objc private func tappedSmallChanges() {
         guard let revisionID = smallEvent?.smallChanges.first?.revId,
-              let parentId = smallEvent?.smallChanges.first?.parentId else {
+              let parentId = smallEvent?.smallChanges.last?.parentId else {
             return
         }
-        delegate?.goToDiff(revisionId: revisionID, parentId: parentId)
+        
+        let diffType: DiffContainerViewModel.DiffType = (smallEvent?.smallChanges.count ?? 0) > 1 ? .compare : .single
+        
+        delegate?.goToDiff(revisionId: revisionID, parentId: parentId, diffType: diffType)
     }
 }
 
