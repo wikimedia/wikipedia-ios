@@ -301,4 +301,20 @@ extension PageHistoryCollectionViewCell: Themeable {
         }
         selectView.apply(theme: theme)
     }
+
+    func brieflyHighlightBackground(with color: UIColor, shouldAnimateIn: Bool = false) {
+        let animationTime = 0.75
+        let fullHighlightTime = 0.5
+
+        dispatchOnMainQueueAfterDelayInSeconds(0, {
+            UIView.animate(withDuration: shouldAnimateIn ? animationTime : 0, animations: {
+                self.roundedContent.backgroundColor = color
+            },
+            completion: { _ in
+                UIView.animate(withDuration: animationTime, delay: fullHighlightTime, animations: {
+                    self.apply(theme: self.theme)
+                })
+            })
+        })
+    }
 }

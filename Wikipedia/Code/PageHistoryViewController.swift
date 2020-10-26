@@ -483,18 +483,6 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                     cell.isSelected = false
                 }
                 cell.selectionOrder = SelectionOrder(cachedCellContent.selectionOrderRawValue)
-            } else if isTargetOfScroll {
-                cell.selectionThemeModel = firstSelectionThemeModel
-                collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
-                let selectionOffCompletion = {
-                    cell.selectionThemeModel = nil
-                    self.collectionView.deselectItem(at: indexPath, animated: false)
-                    self.revisionsToScrollTo.removeAll(where: {$0 == item.revisionID})
-                    UIView.animate(withDuration: 0.5, animations: {
-                        cell.apply(theme: self.theme)
-                    })
-                }
-                dispatchOnMainQueueAfterDelayInSeconds(0.75, selectionOffCompletion)
             } else {
                 cell.selectionOrder = nil
                 cell.selectionThemeModel = nil
@@ -519,19 +507,6 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
                 cell.selectionThemeModel = selectionIndex == 0 ? firstSelectionThemeModel : secondSelectionThemeModel
                 cell.selectionOrder = SelectionOrder(rawValue: selectionIndex)
-            } else if isTargetOfScroll {
-                cell.selectionThemeModel = firstSelectionThemeModel
-                collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [.centeredVertically])
-                let selectionOffCompletion = {
-                    cell.selectionThemeModel = nil
-                    self.collectionView.deselectItem(at: indexPath, animated: false)
-                    self.revisionsToScrollTo.removeAll(where: {$0 == item.revisionID})
-                    UIView.animate(withDuration: 0.5, animations: {
-                        cell.apply(theme: self.theme)
-                    })
-                }
-
-                dispatchOnMainQueueAfterDelayInSeconds(0.75, selectionOffCompletion)
             } else {
                 cell.selectionThemeModel = maxNumberOfRevisionsSelected ? disabledSelectionThemeModel : nil
             }
@@ -544,6 +519,10 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 
         cell.apply(theme: theme)
         cell.updateAccessibilityLabel()
+
+        if isTargetOfScroll {
+            cell.brieflyHighlightBackground(with: firstSelectionThemeModel.borderColor)
+        }
     }
 
     private func revisionID(forItemAtIndexPath indexPath: IndexPath) -> NSNumber {
