@@ -32,6 +32,7 @@
 "aaald-revision-userInfo" = "Уредување на $1 ($2 уредувања)";
 "aaald-revision-userInfo-anonymous" = "Уредување на $1";
 "aaald-single-reference-added-description" = "Додаден навод";
+// Fuzzy
 "aaald-small-change-description" = "{{PLURAL:$1|0=Нема ситни промени|Направена $1 ситна промена|Направени $1 ситни промени}}";
 "aaald-summary-title" = "{{PLURAL:$1|0=0 промени|$1 промена|$1 промени}} од {{PLURAL:$2|0=0 уредници|$2 уредник|$2 уредници}} за {{PLURAL:$3|0=0 дена|$3 ден|$3 дена}}";
 "aaald-two-sections-description" = "во поднасловите $1 и $2";

@@ -3,13 +3,15 @@ div#significant-changes-container{
     padding:1.25em
 }
 div#significant-changes-inner-container{
-    padding:.80em 1.2em .1em
+    padding:.80em 1.2em .1em;
+    border-radius: 2pt;
 }
 div#significant-changes-skeleton{
     width: 100%;
     height: 20em;
     animation : shimmer 2s infinite;
     background-size: 100% 100%;
+    border-radius: 2pt;
 }
 @keyframes shimmer {
   0% {
@@ -41,8 +43,8 @@ ul#significant-changes-list li:before{
     position:absolute;
     bottom:0;
     top:0;
-    left:.5em;
-    width:.03em;
+    left:.45em;
+    width:.07em;
 }
 ul#significant-changes-list li:after{
     content:'';
@@ -58,6 +60,15 @@ li#significant-changes-first-list{
 ul#significant-changes-list li#significant-changes-first-list:after{
     top:1em;
 }
+
+ul#significant-changes-list li#significant-changes-last-list{
+    padding-bottom:0em;
+}
+
+ul#significant-changes-list li#significant-changes-last-list p#significant-changes-userInfo-last {
+    padding-bottom:0px;
+}
+
 li#significant-changes-list li p{
     margin:0;
     padding:0
@@ -74,8 +85,7 @@ p.significant-changes-userInfo{
     font-size:80%;
 }
 hr#significant-changes-hr{
-    margin-left:20px;
-    margin-right:20px;
+    margin-top: 1.5em;
 }
 p#significant-changes-read-more{
     text-align:center;
