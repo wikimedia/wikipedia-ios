@@ -548,13 +548,17 @@ extension ArticleWebMessagingController {
             return
         }
         
-        var articleAsLivingDocBoxInnerHTML = "\(articleAsLivingDocBoxInnerContainerHTMLStart)<h4 id='significant-changes-header'>RECENT CHANGES</h4><ul id='significant-changes-list'>"
+        let insertHeaderText = WMFLocalizedString("aaald-article-insert-header", value: "Significant Events", comment: "Header text in article content insert section that displays recent significant article updates.")
+        
+        var articleAsLivingDocBoxInnerHTML = "\(articleAsLivingDocBoxInnerContainerHTMLStart)<h4 id='significant-changes-header'>\(insertHeaderText.uppercased(with: Locale.current))</h4><ul id='significant-changes-list'>"
         
         for articleInsertHtmlSnippet in articleInsertHtmlSnippets {
             articleAsLivingDocBoxInnerHTML += articleInsertHtmlSnippet
         }
         
-        articleAsLivingDocBoxInnerHTML += "</ul><hr id='significant-changes-hr'><p id='significant-changes-read-more'><a href='#significant-events-read-more'>Read more updates</a></p>\(articleAsLivingDocBoxInnerContainerHTMLEnd)"
+        let readMoreUpdatesText = WMFLocalizedString("aaald-article-insert-read-more", value: "Read more updates", comment: "Footer text in article content insert section of recent significant article updates that invites user to read more updates on another screen.")
+        
+        articleAsLivingDocBoxInnerHTML += "</ul><hr id='significant-changes-hr'><p id='significant-changes-read-more'><a href='#significant-events-read-more'>\(readMoreUpdatesText)</a></p>\(articleAsLivingDocBoxInnerContainerHTMLEnd)"
         
         var javascript = """
             function injectSignificantEventsContent() {
@@ -569,10 +573,13 @@ extension ArticleWebMessagingController {
             injectSignificantEventsContent();
         """
         
+        let newChangesText = WMFLocalizedString("aaald-article-insert-new-changes", value: "New changes", comment: "Badge text in article content showing that there have been new significant updates to the article since the user last viewed it.")
+        let lastUpdatedText = WMFLocalizedString("aaald-article-insert-last-updated", value: "Last updated", comment: "Badge text in article content showing when the article as last updated.")
+        
         if let timestamp = timestamp {
             let innerContainerID = topBadgeType == .lastUpdated ? "significant-changes-top-inner-container-last-updated" : "significant-changes-top-inner-container-new-changes"
             let topTextID = topBadgeType == .lastUpdated ? "significant-changes-top-text-last-updated" : "significant-changes-top-text-new-changes"
-            let badgeText = topBadgeType == .lastUpdated ? "Last updated" : "New changes"
+            let badgeText = topBadgeType == .lastUpdated ? lastUpdatedText : newChangesText
             var badgeInnerHTML = "<div id='significant-changes-top-container'><div id='\(innerContainerID)'>"
             if topBadgeType == .newChanges {
                 badgeInnerHTML += "<span id='significant-changes-top-dot'></span>"
@@ -629,19 +636,11 @@ extension ArticleWebMessagingController {
                  document.body.style.paddingRight = "\(layoutMargins.right)px";
                  document.body.style.marginTop = "\(leadImageHeight + layoutMargins.top)px";
                  var seContainer = document.getElementById('\(articleAsLivingDocBoxContainerID)');
-                 var skeletonContainer = document.getElementById('\(articleAsLivingDocBoxSkeletonContainerID)');
                  if (seContainer) {
                         seContainer.style.marginLeft = "-\(layoutMargins.left)px";
                         seContainer.style.marginRight = "-\(layoutMargins.right)px";
                         seContainer.style.paddingLeft = "\(layoutMargins.left)px";
                         seContainer.style.paddingRight = "\(layoutMargins.right)px";
-                 }
-
-                 if (skeletonContainer) {
-                        skeletonContainer.style.marginLeft = "-\(layoutMargins.left)px";
-                        skeletonContainer.style.marginRight = "-\(layoutMargins.right)px";
-                        skeletonContainer.style.paddingLeft = "\(layoutMargins.left)px";
-                        skeletonContainer.style.paddingRight = "\(layoutMargins.right)px";
                  }
 
                  return true;
