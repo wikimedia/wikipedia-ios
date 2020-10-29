@@ -23,100 +23,6 @@ public struct ArticleAsLivingDocViewModel {
         self.lastUpdatedTimestamp = lastUpdatedTimestamp
     }
 
-    /// Collapses sequential sections that contain only small events into one section, including a date range that represents the collected events
-    public static func collapseSmallEvents(from sections: [SectionHeader]) -> [SectionHeader] {
-        guard let dayMonthNumberYearDateFormatter = DateFormatter.wmf_monthNameDayOfMonthNumberYear(), let isoDateFormatter = DateFormatter.wmf_iso8601() else {
-            return sections
-        }
-
-        let enumeratedSections = sections.enumerated()
-        var mutatedSections: [SectionHeader] = []
-        var rangesToCollapse: [ClosedRange<Int>] = []
-
-        for (outerIndex, outerSection) in enumeratedSections {
-            let startIndex = outerIndex
-            var endIndex = outerIndex
-
-            if outerSection.containsOnlySmallEvents {
-                for (innerIndex, innerSection) in enumeratedSections {
-                    guard innerIndex >= startIndex + 1, !rangesToCollapse.contains(where: {$0.contains(innerIndex) }) else {
-                        continue
-                    }
-
-                    if innerSection.containsOnlySmallEvents {
-                        endIndex = innerIndex
-                    } else {
-                        break
-                    }
-                }
-            }
-
-            if startIndex != endIndex {
-                // This range is eligible to be collapsed
-                rangesToCollapse.append(startIndex...endIndex)
-            }
-        }
-
-        var typedEvents: [TypedEvent] = []
-        var collapsedSections: [(section: SectionHeader, sectionHashes:[Int])] = []
-        var collapsedSectionHashes: [Int] = []
-
-        // Create new sections for each collapsed range
-        for range in rangesToCollapse {
-            for sectionElement in sections[range] {
-                typedEvents.append(contentsOf: sectionElement.typedEvents)
-            }
-
-            collapsedSectionHashes.append(contentsOf: sections[range].compactMap { $0.hashValue })
-
-            if let startIndex = range.first {
-                var smallChanges: [SignificantEvents.Event.Small] = []
-                for event in typedEvents {
-                    switch event {
-                    case .small(let small):
-                        smallChanges.append(contentsOf: small.smallChanges)
-                    default:
-                        // Shouldn't occur
-                        continue
-                    }
-                }
-
-                let collapsedSmallEvent = Event.Small(smallChanges: smallChanges)
-                let smallTypedEvent = TypedEvent.small(collapsedSmallEvent)
-
-                let smallChangeDates = smallChanges.compactMap { isoDateFormatter.date(from: $0.timestampString) }
-                var dateRange: DateInterval?
-                if let minDate = smallChangeDates.min(), let maxDate = smallChangeDates.max() {
-                    dateRange = DateInterval(start: minDate, end: maxDate)
-                }
-
-                let section = SectionHeader(timestamp: sections[startIndex].timestamp, typedEvents: [smallTypedEvent], subtitleDateFormatter: dayMonthNumberYearDateFormatter, dateRange: dateRange)
-                collapsedSections.append((section, collapsedSectionHashes))
-            }
-
-            typedEvents = []
-            collapsedSectionHashes = []
-        }
-
-        var newlyCollapsedSectionHashes: [Int] = []
-
-        // Reconstruct sections with newly eligible small event sections collapsed in proper order
-        for section in sections {
-            if collapsedSections.contains(where: { $0.1.compactMap{ $0 }.contains { $0 == section.hashValue} }) && !newlyCollapsedSectionHashes.contains(section.hashValue) {
-                if let collapsedSection = collapsedSections.first(where: { $0.1.compactMap { $0 }.contains(section.hashValue) }) {
-                    mutatedSections.append(collapsedSection.section)
-                    newlyCollapsedSectionHashes.append(contentsOf: collapsedSection.sectionHashes)
-                }
-            }
-
-            if !newlyCollapsedSectionHashes.contains(section.hashValue) {
-                mutatedSections.append(section)
-            }
-        }
-
-        return mutatedSections
-    }
-    
     public init?(significantEvents: SignificantEvents, traitCollection: UITraitCollection, theme: Theme) {
         
         guard let isoDateFormatter = DateFormatter.wmf_iso8601(),
@@ -281,6 +187,100 @@ public struct ArticleAsLivingDocViewModel {
         self.articleInsertHtmlSnippets = articleInsertHtmlSnippets
         self.newChangesTimestamp = newChangesTimestamp
         self.lastUpdatedTimestamp = lastUpdatedTimestamp
+    }
+
+    /// Collapses sequential sections that contain only small events into one section, including a date range that represents the collected events
+    static func collapseSmallEvents(from sections: [SectionHeader]) -> [SectionHeader] {
+        guard let dayMonthNumberYearDateFormatter = DateFormatter.wmf_monthNameDayOfMonthNumberYear(), let isoDateFormatter = DateFormatter.wmf_iso8601() else {
+            return sections
+        }
+
+        let enumeratedSections = sections.enumerated()
+        var mutatedSections: [SectionHeader] = []
+        var rangesToCollapse: [ClosedRange<Int>] = []
+
+        for (outerIndex, outerSection) in enumeratedSections {
+            let startIndex = outerIndex
+            var endIndex = outerIndex
+
+            if outerSection.containsOnlySmallEvents {
+                for (innerIndex, innerSection) in enumeratedSections {
+                    guard innerIndex >= startIndex + 1, !rangesToCollapse.contains(where: {$0.contains(innerIndex) }) else {
+                        continue
+                    }
+
+                    if innerSection.containsOnlySmallEvents {
+                        endIndex = innerIndex
+                    } else {
+                        break
+                    }
+                }
+            }
+
+            if startIndex != endIndex {
+                // This range is eligible to be collapsed
+                rangesToCollapse.append(startIndex...endIndex)
+            }
+        }
+
+        var typedEvents: [TypedEvent] = []
+        var collapsedSections: [(section: SectionHeader, sectionHashes:[Int])] = []
+        var collapsedSectionHashes: [Int] = []
+
+        // Create new sections for each collapsed range
+        for range in rangesToCollapse {
+            for sectionElement in sections[range] {
+                typedEvents.append(contentsOf: sectionElement.typedEvents)
+            }
+
+            collapsedSectionHashes.append(contentsOf: sections[range].compactMap { $0.hashValue })
+
+            if let startIndex = range.first {
+                var smallChanges: [SignificantEvents.Event.Small] = []
+                for event in typedEvents {
+                    switch event {
+                    case .small(let small):
+                        smallChanges.append(contentsOf: small.smallChanges)
+                    default:
+                        // Shouldn't occur
+                        continue
+                    }
+                }
+
+                let collapsedSmallEvent = Event.Small(smallChanges: smallChanges)
+                let smallTypedEvent = TypedEvent.small(collapsedSmallEvent)
+
+                let smallChangeDates = smallChanges.compactMap { isoDateFormatter.date(from: $0.timestampString) }
+                var dateRange: DateInterval?
+                if let minDate = smallChangeDates.min(), let maxDate = smallChangeDates.max() {
+                    dateRange = DateInterval(start: minDate, end: maxDate)
+                }
+
+                let section = SectionHeader(timestamp: sections[startIndex].timestamp, typedEvents: [smallTypedEvent], subtitleDateFormatter: dayMonthNumberYearDateFormatter, dateRange: dateRange)
+                collapsedSections.append((section, collapsedSectionHashes))
+            }
+
+            typedEvents = []
+            collapsedSectionHashes = []
+        }
+
+        var newlyCollapsedSectionHashes: [Int] = []
+
+        // Reconstruct sections with newly eligible small event sections collapsed in proper order
+        for section in sections {
+            if collapsedSections.contains(where: { $0.1.compactMap{ $0 }.contains { $0 == section.hashValue} }) && !newlyCollapsedSectionHashes.contains(section.hashValue) {
+                if let collapsedSection = collapsedSections.first(where: { $0.1.compactMap { $0 }.contains(section.hashValue) }) {
+                    mutatedSections.append(collapsedSection.section)
+                    newlyCollapsedSectionHashes.append(contentsOf: collapsedSection.sectionHashes)
+                }
+            }
+
+            if !newlyCollapsedSectionHashes.contains(section.hashValue) {
+                mutatedSections.append(section)
+            }
+        }
+
+        return mutatedSections
     }
     
     static func displayTimestamp(timestampString: String, fullyRelative: Bool) -> String? {
