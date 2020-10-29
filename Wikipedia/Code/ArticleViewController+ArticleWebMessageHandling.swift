@@ -31,6 +31,8 @@ extension ArticleViewController: ArticleWebMessageHandling {
             scrollToAnchorCompletions.popLast()?(anchor, rect)
         case .viewInBrowser:
             navigate(to: self.articleURL, useSafari: true)
+        case .aaaldInsertOnScreen(let isOnScreen):
+            print("log event here: \(isOnScreen)")
         }
     }
     

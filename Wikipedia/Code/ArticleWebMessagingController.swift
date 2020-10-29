@@ -183,6 +183,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case leadImage(source: String?, width: Int?, height: Int?)
         case tableOfContents(items: [TableOfContentsItem])
         case scrollToAnchor(anchor: String, rect: CGRect)
+        case aaaldInsertOnScreen(isOnScreen: Bool)
         case unknown(href: String)
     }
     
@@ -203,6 +204,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case leadImage
         case tableOfContents
         case scrollToAnchor = "scroll_to_anchor"
+        case aaaldInsertOnScreen
         init?(pcsActionString: String) {
             let cleaned = pcsActionString.replacingOccurrences(of: "_clicked", with: "")
             self.init(rawValue: cleaned)
@@ -237,6 +239,8 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
                 return getTableOfContentsAction(with: data)
             case .scrollToAnchor:
                 return getScrollToAnchorAction(with: data)
+            case .aaaldInsertOnScreen:
+                return getAaaldInsertOnScreenAction(with: data)
             }
         }
         func getLeadImageAction(with data: [String: Any]?) -> Action? {
@@ -352,6 +356,13 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
             let rect = CGRect(x: x, y: y, width: width, height: height)
             return .scrollToAnchor(anchor: anchor, rect: rect)
         }
+        
+        static fileprivate var aaaldBodyDataBoolKey: String {
+            "isOnScreen"
+        }
+        func getAaaldInsertOnScreenAction(with data: [String: Any]?) -> Action? {
+            return .aaaldInsertOnScreen(isOnScreen: data?[Self.aaaldBodyDataBoolKey] as? Bool ?? false)
+        }
     }
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
@@ -398,8 +409,11 @@ extension ArticleWebMessagingController {
     var articleAsLivingDocBoxContainerHTMLStart: String {
         return "<div id='\(articleAsLivingDocBoxContainerID)'>"
     }
+    var articleAsLivingDocBoxInnerContainerID: String {
+        return "significant-changes-inner-container"
+    }
     var articleAsLivingDocBoxInnerContainerHTMLStart: String {
-        return "<div id='significant-changes-inner-container'>"
+        return "<div id='\(articleAsLivingDocBoxInnerContainerID)'>"
     }
     var articleAsLivingDocBoxInnerContainerHTMLEnd: String {
         return "</div>"
@@ -599,6 +613,42 @@ extension ArticleWebMessagingController {
                 }
                 
                 injectNewChangesBadge();
+            """
+            
+            javascript += """
+
+                function isInViewport(el) {
+                    const rect = el.getBoundingClientRect();
+                    return (
+                        (rect.top >= 0 && rect.top <= (window.innerHeight || document.documentElement.clientHeight)) ||
+                        (rect.bottom >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight))
+                    );
+                }
+
+                var aaaldInsertElementForScrollDetection = document.getElementById('\(articleAsLivingDocBoxInnerContainerID)');
+                var lastAaaaLDOnScreenCalculation = false;
+
+                function detectIfInsertIsOnScreen() {
+                    if (!aaaldInsertElementForScrollDetection) {
+                        aaaldInsertElementForScrollDetection = document.getElementById('\(articleAsLivingDocBoxInnerContainerID)');
+                    }
+                    if (aaaldInsertElementForScrollDetection) {
+                        const isOnScreen = isInViewport(aaaldInsertElementForScrollDetection);
+                        if (lastAaaaLDOnScreenCalculation !== isOnScreen) {
+                            window.webkit.messageHandlers.\(PageContentService.messageHandlerName).postMessage({"\(bodyActionKey)": "\(PCSAction.aaaldInsertOnScreen.rawValue)","\(bodyDataKey)": {"\(PCSAction.aaaldBodyDataBoolKey)": isOnScreen}});
+                            lastAaaaLDOnScreenCalculation = isOnScreen;
+                        }
+                        
+                    }
+                }
+
+                document.addEventListener('scroll', function () {
+                    detectIfInsertIsOnScreen();
+                }, {
+                    passive: true
+                });
+
+                detectIfInsertIsOnScreen();
             """
         }
         
