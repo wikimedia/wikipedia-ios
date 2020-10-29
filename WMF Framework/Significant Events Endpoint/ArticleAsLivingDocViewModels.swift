@@ -238,13 +238,7 @@ public struct ArticleAsLivingDocViewModel {
             if let startIndex = range.first {
                 var smallChanges: [SignificantEvents.Event.Small] = []
                 for event in typedEvents {
-                    switch event {
-                    case .small(let small):
-                        smallChanges.append(contentsOf: small.smallChanges)
-                    default:
-                        // Shouldn't occur
-                        continue
-                    }
+                    smallChanges.append(contentsOf: event.smallChanges)
                 }
 
                 let collapsedSmallEvent = Event.Small(smallChanges: smallChanges)
