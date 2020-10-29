@@ -189,7 +189,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
                         currentSnapshot.appendItems([collapsedSmallEvent], toSection: currentSection)
                         currentSnapshot.appendItems(proposedSectionCollapsed.typedEvents, toSection: currentSection)
                         existingSections.append(proposedSectionCollapsed)
-                        } else {
+                    } else {
                         currentSnapshot.appendItems(proposedSection.typedEvents, toSection: currentSection)
                         existingSections.append(proposedSection)
                     }
