@@ -18,8 +18,17 @@ class ActivityIndicatorCollectionViewFooter: UICollectionReusableView {
         let stackView = UIStackView(arrangedSubviews: [loadingIndicator, loadingLabel])
         stackView.axis = .vertical
         stackView.spacing = 4.0
+        stackView.alignment = .center
 
-        wmf_addSubview(stackView, withConstraintsToEdgesWithInsets: UIEdgeInsets(top: 30, left: 30, bottom: 30, right: 30))
+        addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 30),
+            stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -30),
+            stackView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 30),
+            stackView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -30),
+            stackView.centerXAnchor.constraint(equalTo: centerXAnchor)
+        ])
         loadingIndicator.startAnimating()
     }
 }
