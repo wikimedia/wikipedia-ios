@@ -1126,6 +1126,10 @@ extension ArticleViewController: ArticleAsLivingDocViewControllerDelegate {
     func fetchNextPage(nextRvStartId: UInt, theme: Theme) {
         articleAsLivingDocController.fetchNextPage(nextRvStartId: nextRvStartId, traitCollection: traitCollection, theme: theme)
     }
+
+    var isFetchingAdditionalPages: Bool {
+        return articleAsLivingDocController.isFetchingAdditionalPages
+    }
 }
 
 extension ArticleViewController: ArticleAsLivingDocControllerDelegate {
