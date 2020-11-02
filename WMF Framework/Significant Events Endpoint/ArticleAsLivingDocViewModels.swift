@@ -332,14 +332,7 @@ public extension ArticleAsLivingDocViewModel {
         // MARK: - Helpers
 
         public var containsOnlySmallEvents: Bool {
-            typedEvents.count == 1 && typedEvents.allSatisfy { event in
-                switch event {
-                case .small(_):
-                    return true
-                default:
-                    return false
-                }
-            }
+            typedEvents.count == 1 && typedEvents.allSatisfy { event in event.isSmall }
         }
 
     }
