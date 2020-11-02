@@ -229,11 +229,7 @@ public struct ArticleAsLivingDocViewModel {
             collapsedSectionHashes.append(contentsOf: sections[range].compactMap { $0.hashValue })
 
             if let startIndex = range.first {
-                var smallChanges: [SignificantEvents.Event.Small] = []
-                for event in typedEvents {
-                    smallChanges.append(contentsOf: event.smallChanges)
-                }
-
+                let smallChanges = typedEvents.flatMap { $0.smallChanges }
                 let collapsedSmallEvent = Event.Small(smallChanges: smallChanges)
                 let smallTypedEvent = TypedEvent.small(collapsedSmallEvent)
 
