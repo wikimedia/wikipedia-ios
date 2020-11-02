@@ -15,19 +15,20 @@ class ActivityIndicatorCollectionViewFooter: UICollectionReusableView {
         loadingLabel.font = UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
         loadingLabel.text = WMFLocalizedString("loading-indicator-text", value: "Loading", comment: "Text shown underneath loading indicator.").uppercased()
 
-        let stackView = UIStackView(arrangedSubviews: [loadingIndicator, loadingLabel])
-        stackView.axis = .vertical
-        stackView.spacing = 4.0
-        stackView.alignment = .center
+        addSubview(loadingLabel)
+        addSubview(loadingIndicator)
+        loadingLabel.translatesAutoresizingMaskIntoConstraints = false
+        loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
 
-        addSubview(stackView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        // Need to give this a non-1000 priority to avoid constraint issues in the logs.
+        let separationConstraint = loadingLabel.topAnchor.constraint(equalTo: loadingIndicator.bottomAnchor, constant: 4)
+        separationConstraint.priority = UILayoutPriority(999)
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 30),
-            stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -30),
-            stackView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 30),
-            stackView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -30),
-            stackView.centerXAnchor.constraint(equalTo: centerXAnchor)
+            loadingIndicator.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 30),
+            separationConstraint,
+            loadingLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -30),
+            loadingIndicator.centerXAnchor.constraint(equalTo: centerXAnchor),
+            loadingLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
         loadingIndicator.startAnimating()
     }
