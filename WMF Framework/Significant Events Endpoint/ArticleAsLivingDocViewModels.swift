@@ -9,17 +9,15 @@ public struct ArticleAsLivingDocViewModel {
     public let sha: String?
     public let sections: [SectionHeader]
     public let articleInsertHtmlSnippets: [String]
-    public let newChangesTimestamp: String?
     public let lastUpdatedTimestamp: String?
     public let summaryText: String?
     
-    public init(nextRvStartId: UInt?, sha: String?, sections: [SectionHeader], summaryText: String?, articleInsertHtmlSnippets: [String], newChangesTimestamp: String?, lastUpdatedTimestamp: String?) {
+    public init(nextRvStartId: UInt?, sha: String?, sections: [SectionHeader], summaryText: String?, articleInsertHtmlSnippets: [String], lastUpdatedTimestamp: String?) {
         self.nextRvStartId = nextRvStartId
         self.sha = sha
         self.sections = sections
         self.summaryText = summaryText
         self.articleInsertHtmlSnippets = articleInsertHtmlSnippets
-        self.newChangesTimestamp = newChangesTimestamp
         self.lastUpdatedTimestamp = lastUpdatedTimestamp
     }
 
@@ -152,7 +150,6 @@ public struct ArticleAsLivingDocViewModel {
 
         //grab first 3 large event html snippets
         var articleInsertHtmlSnippets: [String] = []
-        var newChangesTimestamp: String?
         var lastUpdatedTimestamp: String?
         let htmlSnippetCountMax = 3
         
@@ -168,12 +165,9 @@ public struct ArticleAsLivingDocViewModel {
                         lastUpdatedTimestamp = largeEvent.fullyRelativeTimestampForDisplay()
                     }
                     let indexPath = IndexPath(item: itemIndex, section: sectionIndex)
-                    if let htmlSnippet = largeEvent.articleInsertHtmlSnippet(isFirst: articleInsertHtmlSnippets.count == 0, indexPath: indexPath) {
+                    if let htmlSnippet = largeEvent.articleInsertHtmlSnippet(isFirst: articleInsertHtmlSnippets.count == 0, isLast: articleInsertHtmlSnippets.count == htmlSnippetCountMax - 1, indexPath: indexPath) {
                         if articleInsertHtmlSnippets.count < htmlSnippetCountMax {
                             articleInsertHtmlSnippets.append(htmlSnippet)
-                            if articleInsertHtmlSnippets.count == 1 {
-                                newChangesTimestamp = largeEvent.fullyRelativeTimestampForDisplay()
-                            }
                         } else {
                             if lastUpdatedTimestamp != nil {
                                 break outerLoop
@@ -185,7 +179,6 @@ public struct ArticleAsLivingDocViewModel {
         }
         
         self.articleInsertHtmlSnippets = articleInsertHtmlSnippets
-        self.newChangesTimestamp = newChangesTimestamp
         self.lastUpdatedTimestamp = lastUpdatedTimestamp
     }
 
@@ -386,6 +379,7 @@ public extension ArticleAsLivingDocViewModel {
                 smallEvent.smallChanges.forEach { hasher.combine($0.revId) }
             case .large(let largeEvent):
                 hasher.combine(largeEvent.revId)
+                hasher.combine(largeEvent.wereThanksSent)
             }
         }
 
@@ -492,7 +486,7 @@ public extension ArticleAsLivingDocViewModel {
                 }
             }
             
-            enum UserType {
+            public enum UserType {
                 case standard
                 case anonymous
                 case bot
@@ -521,9 +515,10 @@ public extension ArticleAsLivingDocViewModel {
             private(set) var displayTimestamp: String?
             private(set) var userInfo: NSAttributedString?
             let userId: UInt
-            let userType: UserType
+            public let userType: UserType
             public let buttonsToDisplay: ButtonsToDisplay
             public var revId: UInt = 0
+            public var wereThanksSent = false
             
             init?(typedEvent: SignificantEvents.TypedEvent) {
                 
@@ -578,7 +573,7 @@ public extension ArticleAsLivingDocViewModel {
             }
             
             public static func == (lhs: ArticleAsLivingDocViewModel.Event.Large, rhs: ArticleAsLivingDocViewModel.Event.Large) -> Bool {
-                return lhs.revId == rhs.revId
+                return lhs.revId == rhs.revId && lhs.wereThanksSent == rhs.wereThanksSent
             }
             
         }
@@ -590,16 +585,18 @@ public extension ArticleAsLivingDocViewModel {
 
 public extension ArticleAsLivingDocViewModel.Event.Large {
     
-    func articleInsertHtmlSnippet(isFirst: Bool = false, indexPath: IndexPath) -> String? {
+    func articleInsertHtmlSnippet(isFirst: Bool = false, isLast: Bool = false, indexPath: IndexPath) -> String? {
         guard let timestampForDisplay = self.fullyRelativeTimestampForDisplay(),
               let eventDescription = eventDescriptionHtmlSnippet(indexPath: indexPath),
               let userInfo = userInfoHtmlSnippet() else {
             return nil
         }
         
-        let liElementIdName = isFirst ? "significant-changes-first-list" : "significant-changes-list"
+        let liElementIdName = isFirst ? "significant-changes-first-list" : isLast ? "significant-changes-last-list" : "significant-changes-list"
         
-        return "<li id='\(liElementIdName)'><p class='significant-changes-timestamp'>\(timestampForDisplay)</p><p class='significant-changes-description'>\(eventDescription)</p><p class='significant-changes-userInfo'>\(userInfo)</p></li>"
+        let lastUserInfoIdAdditions = isLast ? " id='significant-changes-userInfo-last'" : ""
+        
+        return "<li id='\(liElementIdName)'><p class='significant-changes-timestamp'>\(timestampForDisplay)</p><p class='significant-changes-description'>\(eventDescription)</p><p class='significant-changes-userInfo'\(lastUserInfoIdAdditions)>\(userInfo)</p></li>"
     }
     
     private func htmlSignificantEventsLinkOpeningTagForIndexPath(_ indexPath: IndexPath) -> String {

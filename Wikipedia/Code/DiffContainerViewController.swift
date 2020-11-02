@@ -14,7 +14,7 @@ protocol DiffRevisionRetrieving: class {
     func retrieveNextRevision(with sourceRevision: WMFPageHistoryRevision) -> WMFPageHistoryRevision?
 }
 
-class DiffContainerViewController: ViewController, HintPresenting {
+class DiffContainerViewController: ViewController {
     
     struct NextPrevModel {
         let from: WMFPageHistoryRevision
@@ -622,54 +622,6 @@ private extension DiffContainerViewController {
             break
         }
     }
-
-    private func show(hintViewController: HintViewController){
-        
-        guard let toolbarView =  diffToolbarView else {
-            return
-        }
-        
-        let showHint = {
-            self.hintController = HintController(hintViewController: hintViewController)
-            self.hintController?.toggle(presenter: self, context: nil, theme: self.theme, additionalBottomSpacing: toolbarView.toolbarHeight)
-            self.hintController?.setHintHidden(false)
-        }
-        if let hintController = self.hintController {
-            hintController.setHintHidden(true) {
-                showHint()
-            }
-        } else {
-            showHint()
-        }
-    }
-    
-    private func thankRevisionAuthor(completion: @escaping ((Error?) -> Void)) {
-        
-        guard let toModel = toModel else {
-            return
-        }
-        
-        switch type {
-        case .single:
-            diffController.thankRevisionAuthor(toRevisionId: toModel.revisionID) { [weak self] (result) in
-                guard let self = self else {
-                    return
-                }
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let result):
-                        self.show(hintViewController: RevisionAuthorThankedHintVC(recipient: result.recipient))
-                        completion(nil)
-                    case .failure(let error as NSError):
-                        self.show(hintViewController: RevisionAuthorThanksErrorHintVC(error: error))
-                        completion(error)
-                    }
-                }
-            }
-        case .compare:
-            break
-        }
-    }
     
     func fetchIntermediateCountIfNeeded() {
         
@@ -1060,6 +1012,28 @@ extension DiffContainerViewController: DiffHeaderActionDelegate {
     }
 }
 
+extension DiffContainerViewController: ThanksGiving {
+    var url: URL? {
+        return siteURL
+    }
+
+    var bottomSpacing: CGFloat? {
+        return diffToolbarView?.toolbarHeight
+    }
+
+    func didLogIn() {
+        self.apply(theme: self.theme)
+    }
+
+    func wereThanksSent(for revisionID: Int) -> Bool {
+        return diffToolbarView?.isThankSelected ?? false
+    }
+
+    func thanksWereSent(for revisionID: Int) {
+        diffToolbarView?.isThankSelected = true
+    }
+}
+
 class AuthorAlreadyThankedHintVC: HintViewController {
     override func configureSubviews() {
         viewType = .warning
@@ -1168,59 +1142,13 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         
         present(activityViewController, animated: true)
     }
-    
-    func tappedThank(isAlreadySelected: Bool) {
-        
-        guard let toModel = toModel else {
-            return
-        }
-        
-        EditHistoryCompareFunnel.shared.logThankTry(siteURL: siteURL)
-        
-        guard !isAlreadySelected else {
-            EditHistoryCompareFunnel.shared.logThankFail(siteURL: siteURL)
-            self.show(hintViewController: AuthorAlreadyThankedHintVC())
-            return
-        }
-        
-        guard !toModel.isAnon else {
-            EditHistoryCompareFunnel.shared.logThankFail(siteURL: siteURL)
-            self.show(hintViewController: AnonymousUsersCannotBeThankedHintVC())
-            return
-        }
-        
-        guard isLoggedIn else {
-            wmf_showLoginOrCreateAccountToThankRevisionAuthorPanel(theme: theme, dismissHandler: nil, loginSuccessCompletion: {
-                self.apply(theme: self.theme)
-            }, loginDismissedCompletion: nil)
-            return
-        }
-        
-        let thankCompletion: (Error?) -> Void = { (error) in
-            if error == nil {
-                self.diffToolbarView?.isThankSelected = true
-                EditHistoryCompareFunnel.shared.logThankSuccess(siteURL: self.siteURL)
-            } else {
-                EditHistoryCompareFunnel.shared.logThankFail(siteURL: self.siteURL)
-            }
-        }
 
-        guard !UserDefaults.standard.wmf_didShowThankRevisionAuthorEducationPanel() else {
-            thankRevisionAuthor(completion: thankCompletion)
+    func tappedThankButton() {
+        guard type == .single else {
             return
         }
-
-        wmf_showThankRevisionAuthorEducationPanel(theme: theme, sendThanksHandler: {_ in
-            UserDefaults.standard.wmf_setDidShowThankRevisionAuthorEducationPanel(true)
-            self.dismiss(animated: true, completion: {
-                self.thankRevisionAuthor(completion: thankCompletion)
-            })
-        })
-    }
-    
-    var isLoggedIn: Bool {
-        // SINGLETONTODO
-        return MWKDataStore.shared().authenticationManager.isLoggedIn
+        let isUserAnonymous = toModel?.isAnon ?? true
+        tappedThank(for: toModelRevisionID, isUserAnonymous: isUserAnonymous)
     }
 }
 

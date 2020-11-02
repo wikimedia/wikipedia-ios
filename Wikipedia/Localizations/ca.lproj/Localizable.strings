@@ -13,12 +13,15 @@
 // Author: Maceleiro
 // Author: Macofe
 // Author: Nemo bis
+// Author: Rbndev
 // Author: SMP
 // Author: Ssola
 // Author: Toniher
 // Author: Vriullop
 // Author: Xavier Dengra
 
+"aaald-new-book-reference-title" = "Llibre";
+"aaald-new-website-reference-title" = "Lloc web";
 "about-content-license" = "Contingut de la llicència";
 "about-content-license-details" = "Llevat que s'especifiqui el contrari, el contingut és disponible sota $1.";
 "about-content-license-details-share-alike-license" = "Creative Commons Reconeixement-Compartir Igual";
@@ -141,6 +144,7 @@
 "compass-direction" = "a les $1 en punt";
 "continue-reading-empty-description" = "Exploreu la Viquipèdia per a llegir més articles";
 "continue-reading-empty-title" = "No hi ha cap article llegit recentment";
+"data-migration-status" = "Actualitzant...";
 "description-add-title" = "Afegeix una descripció";
 "description-edit-for-article" = "Descripció del títol de $1";
 "description-edit-learn-more" = "Més informació";

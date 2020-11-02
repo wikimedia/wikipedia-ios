@@ -5,7 +5,7 @@ protocol DiffToolbarViewDelegate: class {
     func tappedPrevious()
     func tappedNext()
     func tappedShare(_ sender: UIBarButtonItem)
-    func tappedThank(isAlreadySelected: Bool)
+    func tappedThankButton()
     var isLoggedIn: Bool { get }
 }
 
@@ -96,7 +96,7 @@ class DiffToolbarView: UIView {
     }
     
     @objc func tappedThank(_ sender: UIBarButtonItem) {
-        delegate?.tappedThank(isAlreadySelected: isThankSelected)
+        delegate?.tappedThankButton()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

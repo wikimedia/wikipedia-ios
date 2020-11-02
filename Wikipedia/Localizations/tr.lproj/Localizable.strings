@@ -36,6 +36,35 @@
 // Author: Vito Genovese
 // Author: Ömer Berkay
 
+"aaald-added-text-description" = "{{PLURAL:$1|0=0 karakter|$1 karakter}} eklendi";
+"aaald-article-description-updated-description" = "Madde başlığı açıklaması güncellendi";
+"aaald-deleted-text-description" = "{{PLURAL:$1|0=0 karakter|$1 karakter}} silindi";
+"aaald-error-subitle" = "Tekrar denemek için yenileyin";
+"aaald-error-title" = "Satır içi madde geçmişi yüklenemiyor";
+"aaald-many-sections-description" = "$1 bölümlerde";
+"aaald-multiple-changes-description" = "Birden çok değişiklik yapıldı";
+"aaald-multiple-references-added-description" = "Çoklu kaynakça eklendi";
+"aaald-new-book-reference-title" = "Kitap";
+"aaald-new-discussion" = "Yeni tartışma";
+"aaald-new-journal-reference-database" = "$1 üzerinden";
+"aaald-new-journal-reference-title" = "Dergi";
+"aaald-new-journal-reference-volume" = "$1 sesi:";
+"aaald-new-news-reference-retrieved-date" = "$1 tarihinde alındı";
+"aaald-new-news-reference-title" = "Haberler";
+"aaald-new-talk-topic-description-format" = "Bu madde hakkında $1";
+"aaald-new-website-reference-archive-date-text" = "orijinalinden $1 tarihinde";
+"aaald-new-website-reference-archive-url-text" = "Archive.org URL'si";
+"aaald-new-website-reference-title" = "Web sitesi";
+"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 kaynakça|$1 kaynak|$1 kaynakça}} eklendi";
+"aaald-one-section-description" = "$1 bölümünde";
+"aaald-revision-userInfo" = "$1 tarafından düzenlendi ($2 düzenleme)";
+"aaald-revision-userInfo-anonymous" = "$1 tarafından düzenlendi";
+"aaald-single-reference-added-description" = "Kaynak eklendi";
+"aaald-small-change-description" = "{{PLURAL:$1|0=Küçük değişiklik yapılmadı|$1 küçük değişiklik yapıldı}}";
+"aaald-summary-title" = "{{PLURAL:$3|0=0 gün|$3 gün}} içinde {{PLURAL:$2|0=0 editör|$2 editör}} tarafından {{PLURAL:$1|0=0 değişiklik|$1 değişiklik}}";
+"aaald-two-sections-description" = "$1 ve $2 bölümlerinde";
+"aaald-vandalism-revert-description" = "Şüpheli Vandalizm geri alındı";
+"aaald-view-full-history-button" = "Tam madde geçmişini gör";
 "about-content-license" = "İçerik lisansı";
 "about-content-license-details" = "Aksi belirtilmediği sürece, içeriğe $1 altında erişilebilir.";
 "about-content-license-details-share-alike-license" = "Creative Commons Attribution-ShareAlike Lisansı";

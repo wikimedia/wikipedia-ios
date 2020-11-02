@@ -38,6 +38,10 @@
 // Author: ネイ
 // Author: 아라
 
+"aaald-new-discussion" = "新規議論";
+"aaald-new-journal-reference-database" = "$1経由";
+"aaald-new-journal-reference-title" = "ジャーナル";
+"aaald-new-news-reference-title" = "ニュース";
 "about-content-license" = "コンテンツのライセンス";
 "about-content-license-details" = "特記なき場合、コンテンツは $1 で利用可能です";
 "about-content-license-details-share-alike-license" = "クリエイティブ・コモンズ 表示-継承 (CC BY-SA)";

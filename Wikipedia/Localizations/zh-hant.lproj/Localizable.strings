@@ -51,6 +51,7 @@
 "aaald-revision-userInfo" = "由$1編輯（$2 次編輯數）";
 "aaald-revision-userInfo-anonymous" = "由$1編輯";
 "aaald-single-reference-added-description" = "參考資料已添加";
+// Fuzzy
 "aaald-small-change-description" = "做出 {{PLURAL:$1|0=0|$1|$1}} 次小更改";
 "aaald-summary-title" = "在 {{PLURAL:$3|0=0|$3|$3}} 天裡由 {{PLURAL:$2|0=0|$2|$2}} 位編者做出 {{PLURAL:$1|0=0|$1|$1}} 更改";
 "aaald-two-sections-description" = "在$1與$2段落";

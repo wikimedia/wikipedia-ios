@@ -42,9 +42,8 @@ class ArticleAsLivingDocController: NSObject {
                 // append sections instead of replace sections
                 let appendedSections = oldModel.sections + newValue.sections
                 let oldHtmlSnippets = oldModel.articleInsertHtmlSnippets
-                let oldNewChangesTimestamp = oldModel.newChangesTimestamp
                 let oldLastUpdatedTimestamp = oldModel.lastUpdatedTimestamp
-                _articleAsLivingDocViewModel = ArticleAsLivingDocViewModel(nextRvStartId: newValue.nextRvStartId, sha: oldModel.sha, sections: appendedSections, summaryText: newValue.summaryText, articleInsertHtmlSnippets: oldHtmlSnippets, newChangesTimestamp: oldNewChangesTimestamp, lastUpdatedTimestamp: oldLastUpdatedTimestamp)
+                _articleAsLivingDocViewModel = ArticleAsLivingDocViewModel(nextRvStartId: newValue.nextRvStartId, sha: oldModel.sha, sections: appendedSections, summaryText: newValue.summaryText, articleInsertHtmlSnippets: oldHtmlSnippets, lastUpdatedTimestamp: oldLastUpdatedTimestamp)
                 articleAsLivingDocViewController?.appendSections(newValue.sections)
             } else {
                 // should only be triggered via pull to refresh or fresh load. update everything
@@ -288,7 +287,7 @@ class ArticleAsLivingDocController: NSObject {
             let lastPersistedSha = getPersistedShaForArticleKey(articleKey)
             let shouldShowNewChangesBadge = viewModel.sha != nil ? lastPersistedSha != viewModel.sha : false
             let topBadgeType: ArticleWebMessagingController.TopBadgeType = shouldShowNewChangesBadge ? .newChanges : .lastUpdated
-            let timestamp = shouldShowNewChangesBadge ? viewModel.newChangesTimestamp : viewModel.lastUpdatedTimestamp
+            let timestamp = viewModel.lastUpdatedTimestamp
             
             delegate.messagingController.injectArticleAsLivingDocContent(articleInsertHtmlSnippets: htmlSnippets, topBadgeType: topBadgeType, timestamp: timestamp) { [weak self, weak delegate] (success) in
                 
