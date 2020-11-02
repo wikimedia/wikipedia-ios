@@ -596,7 +596,7 @@ extension ArticleWebMessagingController {
             }
 
             var aaaldInsertElementForScrollDetection = document.getElementById('\(articleAsLivingDocBoxInnerContainerID)');
-            var lastAaaaLDOnScreenCalculation = false;
+            var detectedIsOnScreen = false;
 
             function detectIfInsertIsOnScreen() {
                 if (!aaaldInsertElementForScrollDetection) {
@@ -604,9 +604,9 @@ extension ArticleWebMessagingController {
                 }
                 if (aaaldInsertElementForScrollDetection) {
                     const isOnScreen = isInViewport(aaaldInsertElementForScrollDetection);
-                    if (lastAaaaLDOnScreenCalculation !== isOnScreen) {
+                    if (detectedIsOnScreen === false && isOnScreen === true) {
                         window.webkit.messageHandlers.\(PageContentService.messageHandlerName).postMessage({"\(bodyActionKey)": "\(PCSAction.aaaldInsertOnScreen.rawValue)","\(bodyDataKey)": {"\(PCSAction.aaaldBodyDataBoolKey)": isOnScreen}});
-                        lastAaaaLDOnScreenCalculation = isOnScreen;
+                        detectedIsOnScreen = true;
                     }
                 }
             }
