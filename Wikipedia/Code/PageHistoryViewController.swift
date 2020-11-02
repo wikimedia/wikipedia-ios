@@ -30,8 +30,6 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     private var cellLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
     private var firstRevision: WMFPageHistoryRevision?
 
-    private var revisionsToScrollTo: [Int]
-
     var shouldLoadNewData: Bool {
         if batchComplete || isLoadingData {
             return false
@@ -50,10 +48,9 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         return comparisonSelectionViewController
     }()
 
-    init(pageTitle: String, pageURL: URL, scrollToRevisions:[Int] = []) {
+    init(pageTitle: String, pageURL: URL) {
         self.pageTitle = pageTitle
         self.pageURL = pageURL
-        self.revisionsToScrollTo = scrollToRevisions
         self.pageHistoryFetcherParams = PageHistoryRequestParameters(title: pageTitle)
         super.init()
     }
@@ -299,23 +296,8 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 self.appendSections(from: results)
                 self.pageHistoryFetcherParams = results.getPageHistoryRequestParameters(self.pageURL)
                 self.batchComplete = results.batchComplete()
-                let completeLoad = {
-                    self.isLoadingData = false
-                    self.collectionView.reloadData()
-                }
-
-                if let revisionToScrollTo = self.revisionsToScrollTo.last {
-                    let hasScrollRevisionBeenLoaded = (revisionToScrollTo >= (results.lastRevision?.revisionID ?? 0))
-                    if !hasScrollRevisionBeenLoaded {
-                        // Load through the target revision
-                        self.getPageHistory()
-                    } else {
-                        completeLoad()
-                        self.scrollToInitialRevision()
-                    }
-                } else {
-                    completeLoad()
-                }
+                self.isLoadingData = false
+                self.collectionView.reloadData()
             }
         }
     }
@@ -326,25 +308,6 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             return
         }
         getPageHistory()
-    }
-
-    private func scrollToInitialRevision() {
-        guard let initialRevID = revisionsToScrollTo.first else {
-            return
-        }
-
-        var initialCell: Int? = nil
-        let initialSection = pageHistorySections.firstIndex(where: { historySection in
-            if let foundIndex = historySection.items.firstIndex(where: {$0.revisionID == initialRevID}) {
-                initialCell = foundIndex
-                return true
-            }
-            return false
-        })
-        if let initialSection = initialSection, let initialCell = initialCell {
-            let indexPathOfRevision = IndexPath(item: initialCell, section: initialSection)
-            collectionView.scrollToItem(at: indexPathOfRevision, at: .top, animated: true)
-        }
     }
 
     @objc private func compare(_ sender: UIBarButtonItem) {
@@ -455,8 +418,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
     private func configure(cell: PageHistoryCollectionViewCell, for item: WMFPageHistoryRevision? = nil, at indexPath: IndexPath) {
         let item = item ?? pageHistorySections[indexPath.section].items[indexPath.item]
         let revisionID = NSNumber(value: item.revisionID)
-        let isTargetOfScroll = revisionsToScrollTo.contains(item.revisionID)
-        let isSelected = indexPathsSelectedForComparison.contains(indexPath) || isTargetOfScroll
+        let isSelected = indexPathsSelectedForComparison.contains(indexPath)
         defer {
             cell.setEditing(state == .editing)
             if !isSelected {
@@ -483,18 +445,6 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                     cell.isSelected = false
                 }
                 cell.selectionOrder = SelectionOrder(cachedCellContent.selectionOrderRawValue)
-            } else if isTargetOfScroll {
-                cell.selectionThemeModel = firstSelectionThemeModel
-                collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
-                let selectionOffCompletion = {
-                    cell.selectionThemeModel = nil
-                    self.collectionView.deselectItem(at: indexPath, animated: false)
-                    self.revisionsToScrollTo.removeAll(where: {$0 == item.revisionID})
-                    UIView.animate(withDuration: 0.5, animations: {
-                        cell.apply(theme: self.theme)
-                    })
-                }
-                dispatchOnMainQueueAfterDelayInSeconds(0.75, selectionOffCompletion)
             } else {
                 cell.selectionOrder = nil
                 cell.selectionThemeModel = nil
@@ -519,19 +469,6 @@ class PageHistoryViewController: ColumnarCollectionViewController {
                 collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
                 cell.selectionThemeModel = selectionIndex == 0 ? firstSelectionThemeModel : secondSelectionThemeModel
                 cell.selectionOrder = SelectionOrder(rawValue: selectionIndex)
-            } else if isTargetOfScroll {
-                cell.selectionThemeModel = firstSelectionThemeModel
-                collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [.centeredVertically])
-                let selectionOffCompletion = {
-                    cell.selectionThemeModel = nil
-                    self.collectionView.deselectItem(at: indexPath, animated: false)
-                    self.revisionsToScrollTo.removeAll(where: {$0 == item.revisionID})
-                    UIView.animate(withDuration: 0.5, animations: {
-                        cell.apply(theme: self.theme)
-                    })
-                }
-
-                dispatchOnMainQueueAfterDelayInSeconds(0.75, selectionOffCompletion)
             } else {
                 cell.selectionThemeModel = maxNumberOfRevisionsSelected ? disabledSelectionThemeModel : nil
             }

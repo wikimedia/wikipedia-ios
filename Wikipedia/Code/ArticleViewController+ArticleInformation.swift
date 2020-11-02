@@ -26,7 +26,7 @@ extension ArticleViewController {
         push(listVC)
     }
     
-    func showEditHistory(scrolledTo revisionIDs: [Int] = []) {
+    func showEditHistory() {
         
         guard let title = articleURL.wmf_title else {
             showGenericError()
@@ -35,7 +35,7 @@ extension ArticleViewController {
         
         EditHistoryCompareFunnel.shared.logShowHistory(articleURL: articleURL)
         
-        let historyVC = PageHistoryViewController(pageTitle: title, pageURL: articleURL, scrollToRevisions: revisionIDs)
+        let historyVC = PageHistoryViewController(pageTitle: title, pageURL: articleURL)
         historyVC.apply(theme: theme)
         push(historyVC)
     }
