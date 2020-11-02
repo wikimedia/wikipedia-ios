@@ -7,13 +7,13 @@ protocol ArticleAsLivingDocViewControllerDelegate: class {
     var articleAsLivingDocViewModel: ArticleAsLivingDocViewModel? { get }
     var articleURL: URL { get }
     func fetchNextPage(nextRvStartId: UInt, theme: Theme)
-    func showEditHistory(scrolledTo revisionID: Int?)
+    func showEditHistory(scrolledTo revisionIDs: [Int])
     func handleLink(with href: String)
     func showTalkPage()
 }
 
 protocol ArticleDetailsShowing: class {
-    func goToHistory(scrolledTo revisionID: Int?)
+    func goToHistory(scrolledTo revisionIDs: [Int])
     func goToDiff(revisionId: UInt, parentId: UInt, diffType: DiffContainerViewModel.DiffType)
     func showTalkPage()
     func thankButtonTapped(for revisionID: Int, isUserAnonymous: Bool)
@@ -240,7 +240,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
     }
 
     @objc func tappedViewFullHistoryButton() {
-        self.goToHistory(scrolledTo: nil)
+        self.goToHistory(scrolledTo: [])
     }
 
     // MARK:- CollectionView functions
@@ -393,13 +393,13 @@ extension ArticleAsLivingDocViewController: ArticleDetailsShowing {
         push(diffContainerVC)
     }
 
-    func goToHistory(scrolledTo revisionID: Int? = nil) {
+    func goToHistory(scrolledTo revisionIDs: [Int] = []) {
         guard let articleURL = delegate?.articleURL, let title = articleURL.wmf_title else {
                 showGenericError()
                 return
         }
         
-        let historyVC = PageHistoryViewController(pageTitle: title, pageURL: articleURL, scrollToRevision: revisionID)
+        let historyVC = PageHistoryViewController(pageTitle: title, pageURL: articleURL, scrollToRevisions: revisionIDs)
         historyVC.apply(theme: theme)
         push(historyVC)
     }
