@@ -217,7 +217,10 @@ public struct ArticleAsLivingDocViewModel {
         }
 
         var typedEvents: [TypedEvent] = []
-        var collapsedSections: [(section: SectionHeader, sectionHashes:[Int])] = []
+
+        typealias CollapsedSection = (section: SectionHeader, sectionHashes: [Int])
+
+        var collapsedSections: [CollapsedSection] = []
         var collapsedSectionHashes: [Int] = []
 
         // Create new sections for each collapsed range
@@ -249,13 +252,19 @@ public struct ArticleAsLivingDocViewModel {
 
         var newlyCollapsedSectionHashes: [Int] = []
 
+        // Returns the small event collapsed section that represents the `sectionHash`, if one exists
+        func firstCollapsedSectionContaining(sectionHash: Int) -> CollapsedSection? {
+            return collapsedSections
+                .first { collapsedSection in collapsedSection.sectionHashes.compactMap { $0 }
+                    .contains(sectionHash)
+                }
+        }
+
         // Reconstruct sections with newly eligible small event sections collapsed in proper order
         for section in sections {
-            if collapsedSections.contains(where: { $0.1.compactMap{ $0 }.contains { $0 == section.hashValue} }) && !newlyCollapsedSectionHashes.contains(section.hashValue) {
-                if let collapsedSection = collapsedSections.first(where: { $0.1.compactMap { $0 }.contains(section.hashValue) }) {
-                    mutatedSections.append(collapsedSection.section)
-                    newlyCollapsedSectionHashes.append(contentsOf: collapsedSection.sectionHashes)
-                }
+            if let collapsedSection = firstCollapsedSectionContaining(sectionHash: section.hashValue), !newlyCollapsedSectionHashes.contains(section.hashValue) {
+                mutatedSections.append(collapsedSection.section)
+                newlyCollapsedSectionHashes.append(contentsOf: collapsedSection.sectionHashes)
             }
 
             if !newlyCollapsedSectionHashes.contains(section.hashValue) {
