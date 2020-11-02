@@ -1,5 +1,9 @@
 "aaald-added-text-description" = "{{PLURAL:$1|0=0 characters|$1 character|$1 characters}} added";
 "aaald-article-description-updated-description" = "Article title description updated";
+"aaald-article-insert-header" = "Significant Events";
+"aaald-article-insert-last-updated" = "Last updated";
+"aaald-article-insert-new-changes" = "New changes";
+"aaald-article-insert-read-more" = "Read more updates";
 "aaald-deleted-text-description" = "{{PLURAL:$1|0=0 characters|$1 character|$1 characters}} deleted";
 "aaald-error-subitle" = "Refresh to try again";
 "aaald-error-title" = "Unable to load inline article history";
