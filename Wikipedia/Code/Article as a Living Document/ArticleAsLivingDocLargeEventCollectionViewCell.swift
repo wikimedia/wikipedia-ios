@@ -223,7 +223,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         if let largeEvent = largeEvent {
             switch largeEvent.buttonsToDisplay {
             case .thankAndViewChanges:
-                thankButton.backgroundColor = largeEvent.wereThanksSent ? theme.colors.hintBackground : theme.colors.cardButtonBackground
+                thankButton.backgroundColor = largeEvent.wereThanksSent ? theme.colors.shadow : theme.colors.cardButtonBackground
                 thankButton.setTitleColor(!isLoggedIn ? theme.colors.disabledLink : theme.colors.link, for: .normal)
                 thankButton.tintColor = (!isLoggedIn ? theme.colors.disabledLink : theme.colors.link)
 
