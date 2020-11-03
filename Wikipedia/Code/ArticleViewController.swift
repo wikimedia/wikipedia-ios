@@ -722,7 +722,7 @@ class ArticleViewController: ViewController, HintPresenting {
         }
         
         if #available(iOS 13.0, *) {
-            articleAsLivingDocController.handleArticleAsLivingDocLinkForAnchor(anchor)
+            articleAsLivingDocController.handleArticleAsLivingDocLinkForAnchor(anchor, articleURL: articleURL)
         }
 
     }

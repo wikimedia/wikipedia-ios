@@ -183,7 +183,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case leadImage(source: String?, width: Int?, height: Int?)
         case tableOfContents(items: [TableOfContentsItem])
         case scrollToAnchor(anchor: String, rect: CGRect)
-        case aaaldInsertOnScreen(isOnScreen: Bool)
+        case aaaldInsertOnScreen
         case unknown(href: String)
     }
     
@@ -240,7 +240,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
             case .scrollToAnchor:
                 return getScrollToAnchorAction(with: data)
             case .aaaldInsertOnScreen:
-                return getAaaldInsertOnScreenAction(with: data)
+                return .aaaldInsertOnScreen
             }
         }
         func getLeadImageAction(with data: [String: Any]?) -> Action? {
@@ -355,13 +355,6 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
             }
             let rect = CGRect(x: x, y: y, width: width, height: height)
             return .scrollToAnchor(anchor: anchor, rect: rect)
-        }
-        
-        static fileprivate var aaaldBodyDataBoolKey: String {
-            "isOnScreen"
-        }
-        func getAaaldInsertOnScreenAction(with data: [String: Any]?) -> Action? {
-            return .aaaldInsertOnScreen(isOnScreen: data?[Self.aaaldBodyDataBoolKey] as? Bool ?? false)
         }
     }
     
@@ -605,7 +598,7 @@ extension ArticleWebMessagingController {
                 if (aaaldInsertElementForScrollDetection) {
                     const isOnScreen = isInViewport(aaaldInsertElementForScrollDetection);
                     if (detectedIsOnScreen === false && isOnScreen === true) {
-                        window.webkit.messageHandlers.\(PageContentService.messageHandlerName).postMessage({"\(bodyActionKey)": "\(PCSAction.aaaldInsertOnScreen.rawValue)","\(bodyDataKey)": {"\(PCSAction.aaaldBodyDataBoolKey)": isOnScreen}});
+                        window.webkit.messageHandlers.\(PageContentService.messageHandlerName).postMessage({"\(bodyActionKey)": "\(PCSAction.aaaldInsertOnScreen.rawValue)"});
                         detectedIsOnScreen = true;
                     }
                 }

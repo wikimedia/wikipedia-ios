@@ -473,8 +473,8 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         return "<li id='\(liElementIdName)'><p class='significant-changes-timestamp'>\(timestampForDisplay)</p><p class='significant-changes-description'>\(eventDescription)</p><p class='significant-changes-userInfo'\(lastUserInfoIdAdditions)>\(userInfo)</p></li>"
     }
     
-    private func htmlSignificantEventsLinkOpeningTagForIndexPath(_ indexPath: IndexPath) -> String {
-        return "<a href='#significant-events-\(indexPath.item)-\(indexPath.section)'>"
+    private func htmlSignificantEventsLinkOpeningTagForIndexPath(_ indexPath: IndexPath, loggingDescriptionType: ArticleAsLivingDocFunnel.ArticleContentInsertEventDescriptionType) -> String {
+        return "<a href='#significant-events-\(indexPath.item)-\(indexPath.section)-\(loggingDescriptionType.rawValue)'>"
     }
     
     private var htmlSignificantEventsLinkEndingTag: String {
@@ -489,10 +489,10 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         let eventDescription: String
         switch typedEvent {
         case .newTalkPageTopic:
-            let discussionText = htmlSignificantEventsLinkOpeningTagForIndexPath(indexPath) + CommonStrings.newTalkTopicDiscussion + htmlSignificantEventsLinkEndingTag
+            let discussionText = htmlSignificantEventsLinkOpeningTagForIndexPath(indexPath, loggingDescriptionType: .discussion) + CommonStrings.newTalkTopicDiscussion + htmlSignificantEventsLinkEndingTag
             eventDescription = String.localizedStringWithFormat(CommonStrings.newTalkTopicDescriptionFormat, discussionText)
         case .vandalismRevert:
-            let event = htmlSignificantEventsLinkOpeningTagForIndexPath(indexPath) + CommonStrings.vandalismRevertDescription + htmlSignificantEventsLinkEndingTag
+            let event = htmlSignificantEventsLinkOpeningTagForIndexPath(indexPath, loggingDescriptionType: .vandalism) + CommonStrings.vandalismRevertDescription + htmlSignificantEventsLinkEndingTag
             if let sectionsHtml = sectionsHtml {
                 eventDescription = event + sectionsHtml
             } else {
@@ -534,9 +534,9 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                 return nil
             case 1:
                 let description = sortedDescriptions[0].text
-                return htmlSignificantEventsLinkOpeningTagForIndexPath(htmlInsertIndexPath) + description + htmlSignificantEventsLinkEndingTag
+                return htmlSignificantEventsLinkOpeningTagForIndexPath(htmlInsertIndexPath, loggingDescriptionType: .single) + description + htmlSignificantEventsLinkEndingTag
             default:
-                return htmlSignificantEventsLinkOpeningTagForIndexPath(htmlInsertIndexPath) + CommonStrings.multipleChangesMadeDescription + htmlSignificantEventsLinkEndingTag
+                return htmlSignificantEventsLinkOpeningTagForIndexPath(htmlInsertIndexPath, loggingDescriptionType: .multiple) + CommonStrings.multipleChangesMadeDescription + htmlSignificantEventsLinkEndingTag
             }
         }
         
@@ -1442,7 +1442,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             
             let rangeOfUserName = (userInfo as NSString).range(of: userName)
             let rangeValid = rangeOfUserName.location != NSNotFound && rangeOfUserName.location + rangeOfUserName.length <= userInfo.count
-            let userNameHrefString = "./User:\(userName)"
+            let userNameHrefString = "#significant-events-username-\(userName)"
             if rangeValid {
                 
                 let mutableUserInfo = NSMutableString(string: userInfo)
