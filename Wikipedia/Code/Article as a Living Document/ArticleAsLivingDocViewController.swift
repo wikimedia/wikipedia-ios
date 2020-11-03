@@ -170,19 +170,67 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
     }
 
     func appendSections(_ sections: [ArticleAsLivingDocViewModel.SectionHeader]) {
+		guard let dayMonthNumberYearDateFormatter = DateFormatter.wmf_monthNameDayOfMonthNumberYear(), let isoDateFormatter = DateFormatter.wmf_iso8601() else {
+			return
+		}
 
         var currentSnapshot = dataSource.snapshot()
-
         var existingSections: [ArticleAsLivingDocViewModel.SectionHeader] = []
+
         for currentSection in currentSnapshot.sectionIdentifiers {
             for proposedSection in sections {
                 if currentSection == proposedSection {
-                    currentSnapshot.appendItems(proposedSection.typedEvents, toSection: currentSection)
-                    existingSections.append(proposedSection)
+                    if
+                        let lastCurrentEvent = currentSection.typedEvents.last, lastCurrentEvent.isSmall,
+                        let firstProposedEvent = proposedSection.typedEvents.first, firstProposedEvent.isSmall {
+                        // Collapse sequential small events if appending to the same section
+                        let smallChanges = lastCurrentEvent.smallChanges + firstProposedEvent.smallChanges
+                        let collapsedSmallEvent = ArticleAsLivingDocViewModel.TypedEvent.small(.init(smallChanges: smallChanges))
+
+                        let proposedSectionCollapsed = proposedSection
+                        let currentSectionCollapsed = currentSection
+
+                        proposedSectionCollapsed.typedEvents.removeFirst()
+                        currentSectionCollapsed.typedEvents.removeLast()
+
+                        currentSnapshot.deleteItems([lastCurrentEvent])
+                        currentSnapshot.appendItems([collapsedSmallEvent], toSection: currentSection)
+                        currentSnapshot.appendItems(proposedSectionCollapsed.typedEvents, toSection: currentSection)
+                        existingSections.append(proposedSectionCollapsed)
+                    } else {
+                        currentSnapshot.appendItems(proposedSection.typedEvents, toSection: currentSection)
+                        existingSections.append(proposedSection)
+                    }
                 }
             }
         }
 
+        // Collapse first proposed section into last current section if both only contain small events
+        if
+            let lastCurrentSection = currentSnapshot.sectionIdentifiers.last, lastCurrentSection.containsOnlySmallEvents,
+            let firstProposedSection = sections.first, firstProposedSection.containsOnlySmallEvents {
+
+            let smallChanges = lastCurrentSection.typedEvents.flatMap { $0.smallChanges } + firstProposedSection.typedEvents.flatMap { $0.smallChanges }
+            let collapsedSmallEvent = ArticleAsLivingDocViewModel.Event.Small(smallChanges: smallChanges)
+            let smallTypedEvent = ArticleAsLivingDocViewModel.TypedEvent.small(collapsedSmallEvent)
+
+            let smallChangeDates = smallChanges.compactMap { isoDateFormatter.date(from: $0.timestampString) }
+            var dateRange: DateInterval?
+            if let minDate = smallChangeDates.min(), let maxDate = smallChangeDates.max() {
+                dateRange = DateInterval(start: minDate, end: maxDate)
+            }
+
+            let collapsedSection = ArticleAsLivingDocViewModel.SectionHeader(timestamp: lastCurrentSection.timestamp, typedEvents: [smallTypedEvent], subtitleDateFormatter: dayMonthNumberYearDateFormatter, dateRange: dateRange)
+
+            currentSnapshot.deleteItems(lastCurrentSection.typedEvents)
+            currentSnapshot.insertSections([collapsedSection], afterSection: lastCurrentSection)
+            currentSnapshot.deleteSections([lastCurrentSection])
+            currentSnapshot.appendItems(collapsedSection.typedEvents, toSection: collapsedSection)
+            existingSections.append(lastCurrentSection)
+            existingSections.append(firstProposedSection)
+        }
+
+        // Appending remaining new sections to the snapshot
         for section in sections {
             if !existingSections.contains(section) {
                 currentSnapshot.appendSections([section])

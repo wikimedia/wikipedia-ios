@@ -179,7 +179,8 @@ extension URL {
         mutableComponents.append(mp3Filename)
 
         var urlComponents = URLComponents(url: self, resolvingAgainstBaseURL: true)
-        urlComponents?.percentEncodedPath = "/" + mutableComponents.joined(separator: "/")
+        let path = "/" + mutableComponents.joined(separator: "/")
+        urlComponents?.percentEncodedPath = path.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) ?? path
         return urlComponents?.url ?? self
     }
 }
