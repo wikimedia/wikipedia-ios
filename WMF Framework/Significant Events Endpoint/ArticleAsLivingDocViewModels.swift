@@ -255,9 +255,7 @@ public struct ArticleAsLivingDocViewModel {
         // Returns the small event collapsed section that represents the `sectionHash`, if one exists
         func firstCollapsedSectionContaining(sectionHash: Int) -> CollapsedSection? {
             return collapsedSections
-                .first { collapsedSection in collapsedSection.sectionHashes.map { $0 }
-                    .contains(sectionHash)
-                }
+                .first { collapsedSection in collapsedSection.sectionHashes.contains(sectionHash) }
         }
 
         // Reconstruct sections with newly eligible small event sections collapsed in proper order
