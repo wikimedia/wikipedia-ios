@@ -15,7 +15,7 @@ protocol ArticleAsLivingDocViewControllerDelegate: class {
 protocol ArticleDetailsShowing: class {
     func goToHistory(scrolledTo revisionID: Int?)
     func showTalkPage()
-    func thankButtonTapped(for revisionID: Int, isUserAnonymous: Bool)
+    func thankButtonTapped(for revisionID: Int, isUserAnonymous: Bool, loggingPosition: Int)
 }
 
 @available(iOS 13.0, *)
@@ -63,6 +63,8 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
         if let viewModel = delegate?.articleAsLivingDocViewModel {
             addInitialSections(sections: viewModel.sections)
         }
+        
+        self.navigationController?.presentationController?.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -142,6 +144,28 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
 
         return dataSource
     }
+    
+    private func updateLoggingPositionsForItemsInSections(_ sections: [ArticleAsLivingDocViewModel.SectionHeader]) {
+        var currentPosition: Int = 1
+        for section in sections {
+            for item in section.typedEvents {
+                switch item {
+                case .large(let largeEvent):
+                    
+                    if largeEvent.loggingPosition == 0 {
+                        largeEvent.loggingPosition = currentPosition
+                    }
+                    
+                case .small(let smallEvent):
+                    if smallEvent.loggingPosition == 0 {
+                        smallEvent.loggingPosition = currentPosition
+                    }
+                }
+                
+                currentPosition = currentPosition + 1
+            }
+        }
+    }
 
     func addInitialSections(sections: [ArticleAsLivingDocViewModel.SectionHeader]) {
         var snapshot = NSDiffableDataSourceSnapshot<ArticleAsLivingDocViewModel.SectionHeader, ArticleAsLivingDocViewModel.TypedEvent>()
@@ -149,6 +173,8 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
         for section in sections {
             snapshot.appendItems(section.typedEvents, toSection: section)
         }
+        
+        updateLoggingPositionsForItemsInSections(snapshot.sectionIdentifiers)
         dataSource.apply(snapshot, animatingDifferences: true) {
             self.scrollToInitialIndexPathIfNeeded()
         }
@@ -182,7 +208,8 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
                 currentSnapshot.appendItems(section.typedEvents, toSection: section)
             }
         }
-
+        
+        updateLoggingPositionsForItemsInSections(currentSnapshot.sectionIdentifiers)
         dataSource.apply(currentSnapshot, animatingDifferences: true)
     }
     
@@ -207,6 +234,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
     }
     
     @objc private func closeButtonPressed() {
+        ArticleAsLivingDocFunnel.shared.logModalCloseButtonTapped()
         dismiss(animated: true, completion: nil)
     }
     
@@ -224,7 +252,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
         headerView.configure(headerText: headerText, titleText: articleTitle, summaryText: articleAsLivingDocViewModel.summaryText, editMetrics: editMetrics, theme: theme)
         headerView.apply(theme: theme)
 
-        headerView.viewFullHistoryButton.addTarget(self, action: #selector(tappedViewFullHistoryButton), for: .touchUpInside)
+        headerView.viewFullHistoryButton.addTarget(self, action: #selector(tappedViewFullHistoryButtonInHeader), for: .touchUpInside)
     }
 
     override func apply(theme: Theme) {
@@ -237,8 +265,21 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
         navigationController?.navigationBar.barTintColor = theme.colors.cardButtonBackground
         headerView?.apply(theme: theme)
     }
+    
+    @objc func tappedViewFullHistoryButtonInFooter() {
+        
+        ArticleAsLivingDocFunnel.shared.logModalViewFullHistoryBottomButtonTapped()
+        tappedViewFullHistoryButton()
+    }
+    
+    @objc func tappedViewFullHistoryButtonInHeader() {
+        
+        ArticleAsLivingDocFunnel.shared.logModalViewFullHistoryTopButtonTapped()
+        tappedViewFullHistoryButton()
+    }
 
-    @objc func tappedViewFullHistoryButton() {
+    private func tappedViewFullHistoryButton() {
+        
         self.dismiss(animated: true) {
             self.delegate?.showEditHistory(scrolledTo: nil)
         }
@@ -325,7 +366,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
     }
 
     override func collectionViewFooterButtonWasPressed(_ collectionViewFooter: CollectionViewFooter) {
-        tappedViewFullHistoryButton()
+        tappedViewFullHistoryButtonInFooter()
     }
 }
 
@@ -373,8 +414,8 @@ extension ArticleAsLivingDocViewController: ArticleDetailsShowing {
         }
     }
 
-    func thankButtonTapped(for revisionID: Int, isUserAnonymous: Bool) {
-        self.tappedThank(for: revisionID, isUserAnonymous: isUserAnonymous)
+    func thankButtonTapped(for revisionID: Int, isUserAnonymous: Bool, loggingPosition: Int) {
+        self.tappedThank(for: revisionID, isUserAnonymous: isUserAnonymous, loggingPosition: loggingPosition)
     }
 }
 
@@ -428,5 +469,12 @@ extension ArticleAsLivingDocViewController: ThanksGiving {
         }
 
         dataSource.apply(currentSnapshot, animatingDifferences: true)
+    }
+}
+
+@available(iOS 13.0, *)
+extension ArticleAsLivingDocViewController: UIAdaptivePresentationControllerDelegate {
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        ArticleAsLivingDocFunnel.shared.logModalSwipedToDismiss()
     }
 }

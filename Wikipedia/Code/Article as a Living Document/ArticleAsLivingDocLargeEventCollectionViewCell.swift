@@ -315,21 +315,31 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
     }
 
     @objc private func thankButtonTapped() {
-        guard let revisionID = largeEvent?.revId else {
+        guard let largeEvent = largeEvent else {
             return
         }
-        let isUserAnonymous = (largeEvent?.userType == .anonymous)
-        articleDelegate?.thankButtonTapped(for: Int(revisionID), isUserAnonymous: isUserAnonymous)
+        let isUserAnonymous = (largeEvent.userType == .anonymous)
+        articleDelegate?.thankButtonTapped(for: Int(largeEvent.revId), isUserAnonymous: isUserAnonymous, loggingPosition: largeEvent.loggingPosition)
     }
 
     @objc private func viewChangesTapped() {
-        guard let revisionID = largeEvent?.revId else {
+        guard let largeEvent = largeEvent else {
             return
         }
-        articleDelegate?.goToHistory(scrolledTo: Int(revisionID))
+        
+        let loggingPosition = largeEvent.loggingPosition
+        let eventTypes = ArticleAsLivingDocFunnel.EventType.eventTypesFromLargeEvent(largeEvent)
+        ArticleAsLivingDocFunnel.shared.logModalViewChangesButtonTapped(position: loggingPosition, types: eventTypes)
+        
+        articleDelegate?.goToHistory(scrolledTo: Int(largeEvent.revId))
     }
 
     @objc private func viewDiscussionTapped() {
+        
+        if let loggingPosition = largeEvent?.loggingPosition {
+            ArticleAsLivingDocFunnel.shared.logModalViewDiscussionButtonTapped(position: loggingPosition)
+        }
+        
         articleDelegate?.showTalkPage()
     }
 }

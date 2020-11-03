@@ -79,6 +79,11 @@ class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
         guard let revisionID = smallEvent?.smallChanges.first?.revId else {
             return
         }
+        
+        if let loggingPosition = smallEvent?.loggingPosition {
+            ArticleAsLivingDocFunnel.shared.logModalSmallEventsLinkTapped(position: loggingPosition)
+        }
+        
         delegate?.goToHistory(scrolledTo: Int(revisionID))
     }
 }

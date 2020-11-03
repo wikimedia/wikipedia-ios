@@ -9,9 +9,28 @@ protocol ThanksGiving: HintPresenting {
     func thanksWereSent(for revisionID: Int)
 }
 
+enum ThanksGivingSource {
+    case diff
+    case articleAsLivingDoc
+    case unknown
+}
+
 extension ThanksGiving where Self: ViewController {
-    var isFromDiffContainerVC: Bool {
-        return (self is DiffContainerViewController)
+
+    var source: ThanksGivingSource {
+        
+        if #available(iOS 13.0, *) {
+            if self is ArticleAsLivingDocViewController {
+                return .articleAsLivingDoc
+            }
+        }
+        
+        switch self {
+        case is DiffContainerViewController:
+            return .diff
+        default:
+            return .unknown
+        }
     }
 
     var isLoggedIn: Bool {
@@ -19,27 +38,47 @@ extension ThanksGiving where Self: ViewController {
         return MWKDataStore.shared().authenticationManager.isLoggedIn
     }
 
-    func tappedThank(for revisionID: Int?, isUserAnonymous: Bool) {
+    func tappedThank(for revisionID: Int?, isUserAnonymous: Bool, loggingPosition: Int? = nil) {
         guard let revisionID = revisionID, let siteURL = url else {
             return
         }
-
-        if isFromDiffContainerVC {
+        
+        switch source {
+        case .diff:
             EditHistoryCompareFunnel.shared.logThankTry(siteURL: siteURL)
+        case .articleAsLivingDoc:
+            if let loggingPosition = loggingPosition {
+                ArticleAsLivingDocFunnel.shared.logModalThankTryButtonTapped(position: loggingPosition)
+            }
+        default:
+            break
+        }
+        
+        let logFail = {
+            switch self.source {
+            case .diff:
+                EditHistoryCompareFunnel.shared.logThankFail(siteURL: siteURL)
+            case .articleAsLivingDoc:
+                if let loggingPosition = loggingPosition {
+                    ArticleAsLivingDocFunnel.shared.logModalThankFail(position: loggingPosition)
+                }
+            default:
+                break
+            }
         }
 
         guard !wereThanksSent(for: revisionID) else {
-            if isFromDiffContainerVC {
-                EditHistoryCompareFunnel.shared.logThankFail(siteURL: siteURL)
-            }
+    
+            logFail()
+            
             self.show(hintViewController: AuthorAlreadyThankedHintVC())
             return
         }
 
         guard !isUserAnonymous else {
-            if isFromDiffContainerVC {
-                EditHistoryCompareFunnel.shared.logThankFail(siteURL: siteURL)
-            }
+            
+            logFail()
+            
             self.show(hintViewController: AnonymousUsersCannotBeThankedHintVC())
             return
         }
@@ -54,11 +93,20 @@ extension ThanksGiving where Self: ViewController {
         let thankCompletion: (Error?) -> Void = { (error) in
             if error == nil {
                 self.thanksWereSent(for: revisionID)
-                if self.isFromDiffContainerVC {
+                
+                switch self.source {
+                case .diff:
                     EditHistoryCompareFunnel.shared.logThankSuccess(siteURL: siteURL)
+                case .articleAsLivingDoc:
+                    if let loggingPosition = loggingPosition {
+                        ArticleAsLivingDocFunnel.shared.logModalThankSuccess(position: loggingPosition)
+                    }
+                default:
+                    break
                 }
-            } else if self.isFromDiffContainerVC {
-                EditHistoryCompareFunnel.shared.logThankFail(siteURL: siteURL)
+                
+            } else {
+                logFail()
             }
         }
 

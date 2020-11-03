@@ -64,6 +64,40 @@ public final class ArticleAsLivingDocFunnel: EventLoggingFunnel, EventLoggingSta
         case vandalism
         case smallChanges = "small_changes"
         case descChange = "desc_change"
+        
+        public static func eventTypesFromLargeEvent(_ largeEvent: ArticleAsLivingDocViewModel.Event.Large) -> [EventType] {
+            let underlyingTypedEvent = largeEvent.typedEvent
+            
+            switch underlyingTypedEvent {
+            case .large(let large):
+                var returnEvents: Set<EventType> = []
+                for change in large.typedChanges {
+                    switch change {
+                    case .addedText:
+                        returnEvents.insert(.charAdded)
+                    case .deletedText:
+                        returnEvents.insert(.charDeleted)
+                    case .newTemplate(let template):
+                        for template in template.typedTemplates {
+                            switch template {
+                            case .articleDescription:
+                                returnEvents.insert(.descChange)
+                            default:
+                                returnEvents.insert(.reference)
+                            }
+                        }
+                    }
+                }
+                return Array(returnEvents)
+            case .newTalkPageTopic:
+                return [.discussion]
+            case .vandalismRevert:
+                return [.vandalism]
+            case .small:
+                assertionFailure("Unexpected underlying typed event for determining event type to log")
+                return []
+            }
+        }
     }
     
     var baseEvent: [String: Any] {

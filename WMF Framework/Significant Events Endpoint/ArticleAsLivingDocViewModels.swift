@@ -292,6 +292,7 @@ public extension ArticleAsLivingDocViewModel {
                     smallChanges.count)
             }()
             public let smallChanges: [SignificantEvents.Event.Small]
+            public var loggingPosition = 0
             
             init?(typedEvents: [SignificantEvents.TypedEvent]) {
                 
@@ -378,7 +379,7 @@ public extension ArticleAsLivingDocViewModel {
                 return numberFormatter
             }()
             
-            private let typedEvent: SignificantEvents.TypedEvent
+            public let typedEvent: SignificantEvents.TypedEvent
             
             private var lastTraitCollection: UITraitCollection?
             private var lastTheme: Theme?
@@ -393,6 +394,7 @@ public extension ArticleAsLivingDocViewModel {
             public let buttonsToDisplay: ButtonsToDisplay
             public var revId: UInt = 0
             public var wereThanksSent = false
+            public var loggingPosition = 0
             
             init?(typedEvent: SignificantEvents.TypedEvent) {
                 
