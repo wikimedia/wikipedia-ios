@@ -6,6 +6,7 @@ import WMF
 protocol ArticleAsLivingDocViewControllerDelegate: class {
     var articleAsLivingDocViewModel: ArticleAsLivingDocViewModel? { get }
     var articleURL: URL { get }
+    var isFetchingAdditionalPages: Bool { get }
     func fetchNextPage(nextRvStartId: UInt, theme: Theme)
     func showEditHistory(scrolledTo revisionID: Int?)
     func handleLink(with href: String)
@@ -55,6 +56,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
         layoutManager.register(ArticleAsLivingDocLargeEventCollectionViewCell.self, forCellWithReuseIdentifier: ArticleAsLivingDocLargeEventCollectionViewCell.identifier, addPlaceholder: true)
         layoutManager.register(ArticleAsLivingDocSmallEventCollectionViewCell.self, forCellWithReuseIdentifier: ArticleAsLivingDocSmallEventCollectionViewCell.identifier, addPlaceholder: true)
         layoutManager.register(ArticleAsLivingDocSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ArticleAsLivingDocSectionHeaderView.identifier, addPlaceholder: true)
+        layoutManager.register(ActivityIndicatorCollectionViewFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: ActivityIndicatorCollectionViewFooter.identifier, addPlaceholder: false)
         
         self.title = headerText
         
@@ -130,6 +132,11 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
                 sectionHeaderView.configure(viewModel: section, theme: theme)
                 return sectionHeaderView
             } else if kind == UICollectionView.elementKindSectionFooter {
+                if self.delegate?.isFetchingAdditionalPages == true,
+                    let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ActivityIndicatorCollectionViewFooter.identifier, for: indexPath) as? ActivityIndicatorCollectionViewFooter {
+                    footer.apply(theme: theme)
+                    return footer
+                }
                 guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionViewFooter.identifier, for: indexPath) as? CollectionViewFooter else {
                     return UICollectionReusableView()
                 }

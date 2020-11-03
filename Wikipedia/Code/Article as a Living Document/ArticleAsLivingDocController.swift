@@ -93,6 +93,11 @@ class ArticleAsLivingDocController: NSObject {
     var loadingArticleContent = true
     var isPullToRefreshing = false
     var failedLastInitialFetch = false
+
+    private var currentFetchRvStartIds: [UInt] = []
+    var isFetchingAdditionalPages: Bool {
+        return !currentFetchRvStartIds.isEmpty
+    }
     
     var hintController: HintController?
 
@@ -436,13 +441,21 @@ class ArticleAsLivingDocController: NSObject {
               shouldAttemptToShowArticleAsLivingDoc else {
             return
         }
-        
+
+        currentFetchRvStartIds.append(nextRvStartId)
+
         fetchArticleAsLivingDocViewModel(rvStartId: nextRvStartId, title: articleTitleAndSiteURL.title, siteURL: articleTitleAndSiteURL.siteURL, traitCollection: traitCollection, theme: theme) { [weak self] (result) in
-            
             guard let self = self else {
                 return
             }
-            
+
+            defer {
+                self.currentFetchRvStartIds.removeAll(where: {$0 == nextRvStartId})
+                if self.currentFetchRvStartIds.isEmpty {
+                    self.articleAsLivingDocViewController?.collectionView.reloadData()
+                }
+            }
+
             switch result {
             case .failure(let error):
                 DDLogDebug("Failure fetching next significant events page \(error)")
