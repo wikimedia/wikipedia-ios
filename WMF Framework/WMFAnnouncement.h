@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //only applies to survey types
 @property (nonatomic, copy, readonly, nullable) NSArray<NSString *> *articleTitles;
+@property(nonatomic, copy, readonly, nullable) NSNumber *percentReceivingExperiment;
 @property (nonatomic, strong, readonly, nullable) NSNumber *displayDelay;
 
 - (nullable NSURL *)actionURLReplacingPlaceholder:(nonnull NSString *)placeholder withValue: (nonnull NSString *)value;

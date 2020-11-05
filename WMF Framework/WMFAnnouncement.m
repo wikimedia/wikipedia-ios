@@ -29,7 +29,8 @@
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, beta): @"beta",
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, domain): @"domain",
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, articleTitles): @"articleTitles",
-        WMF_SAFE_KEYPATH(WMFAnnouncement.new, displayDelay): @"displayDelay"
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, displayDelay): @"displayDelay",
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, percentReceivingExperiment): @"percent_receiving_experiment"
     };
 }
 
