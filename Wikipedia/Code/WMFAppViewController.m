@@ -924,6 +924,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             [self.dataStore.feedContentController updateContentSource:[WMFContinueReadingContentSource class] force:YES completion:NULL];
         }
 
+        [resumeAndAnnouncementsCompleteGroup enter];
         [self.dataStore.feedContentController updateContentSource:[WMFAnnouncementsContentSource class] force:YES completion:^{
                     [resumeAndAnnouncementsCompleteGroup leave];
         }];

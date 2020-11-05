@@ -84,6 +84,7 @@ public class ABTestsController: NSObject {
         }
         
         setBucket(bucket, forExperiment: experiment)
+        try setPercentage(percentage, forExperiment: experiment)
         
         return bucket
     }
