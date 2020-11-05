@@ -67,11 +67,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d Sem pequena mudança feita</string>
+			<string>%1$d edição menor realizada</string>
 			<key>other</key>
-			<string>%1$d Sem pequenas mudanças feitas</string>
+			<string>%1$d edições menores realizadas</string>
 			<key>zero</key>
-			<string>Sem pequenas mudanças feitas</string>
+			<string>Nenhuma edição menor realizada</string>
 		</dict>
 	</dict>
 	<key>aaald-summary-title</key>

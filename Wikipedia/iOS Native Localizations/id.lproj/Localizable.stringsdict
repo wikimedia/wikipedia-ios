@@ -2,6 +2,122 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>aaald-added-text-description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ ditambahkan</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d karakter</string>
+			<key>other</key>
+			<string>%1$d karakter</string>
+			<key>zero</key>
+			<string>0 karakter</string>
+		</dict>
+	</dict>
+	<key>aaald-deleted-text-description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ dihapus</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d karakter</string>
+			<key>other</key>
+			<string>%1$d karakter</string>
+			<key>zero</key>
+			<string>0 karakter</string>
+		</dict>
+	</dict>
+	<key>aaald-numerical-multiple-references-added-description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ ditambahkan</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d referensi</string>
+			<key>other</key>
+			<string>%1$d referensi</string>
+			<key>zero</key>
+			<string>0 referensi</string>
+		</dict>
+	</dict>
+	<key>aaald-small-change-description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d penyuntingan kecil dibuat</string>
+			<key>other</key>
+			<string>%1$d penyuntingan kecil dibuat</string>
+			<key>zero</key>
+			<string>Tidak ada penyuntingan kecil dibuat</string>
+		</dict>
+	</dict>
+	<key>aaald-summary-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ by %#@v2@ in %#@v3@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d perubahan</string>
+			<key>other</key>
+			<string>%1$d perubahan</string>
+			<key>zero</key>
+			<string>0 perubahan</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d penyunting</string>
+			<key>other</key>
+			<string>%2$d penyunting</string>
+			<key>zero</key>
+			<string>0 penyunting</string>
+		</dict>
+		<key>v3</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%3$d hari</string>
+			<key>other</key>
+			<string>%3$d hari</string>
+			<key>zero</key>
+			<string>0 hari</string>
+		</dict>
+	</dict>
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -230,6 +346,24 @@
 			<string>%1$d menit yang lalu</string>
 			<key>zero</key>
 			<string>Baru saja</string>
+		</dict>
+	</dict>
+	<key>relative-date-months-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Bulan lalu</string>
+			<key>other</key>
+			<string>%1$d bulan lalu</string>
+			<key>zero</key>
+			<string>Bulan ini</string>
 		</dict>
 	</dict>
 	<key>relative-date-years-ago</key>
