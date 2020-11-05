@@ -26,6 +26,10 @@ class ViewControllerRouter: NSObject {
             }
         }
 
+        if let vc = viewController as? SinglePageWebViewController, navigationController.modalPresentationStyle == .pageSheet {
+            vc.navigationBar.isBarHidingEnabled = false
+        }
+
         if let presentedVC = navigationController.presentedViewController {
             presentedVC.dismiss(animated: false, completion: showNewVC)
         } else {
