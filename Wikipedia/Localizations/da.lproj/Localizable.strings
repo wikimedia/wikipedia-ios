@@ -14,8 +14,16 @@
 // Author: Sarrus
 // Author: Weblars
 
+"aaald-article-insert-last-updated" = "Sidst opdateret";
+"aaald-article-insert-new-changes" = "Nye ændringer";
+"aaald-article-insert-read-more" = "Læs flere opdateringer";
 "aaald-new-book-reference-title" = "Bog";
+"aaald-new-discussion" = "Ny diskussion";
 "aaald-new-news-reference-title" = "Nyheder";
+"aaald-new-website-reference-title" = "Webside";
+"aaald-revision-userInfo" = "Redigering af $1 ($2 redigeringer)";
+"aaald-revision-userInfo-anonymous" = "Redigeret af $1";
+"aaald-view-full-history-button" = "Vis den fulde historik for siden";
 "about-content-license" = "Indholdslicens";
 "about-content-license-details" = "Medmindre andet er specificeret er indholdet tilgængeligt under $1.";
 "about-content-license-details-share-alike-license" = "Creative Commons Kreditering-DelPåSammeVilkår-licensen";
@@ -66,8 +74,8 @@
 "action-add-to-reading-list" = "Tilføj til læseliste";
 "action-add-to-reading-list-short" = "Tilføj til liste";
 "action-cancel" = "Annuller";
-// Fuzzy
-"action-find-in-page" = "Søg på siden";
+"action-find-in-page" = "Find på siden";
+"action-language-accessibility" = "Skift sprog";
 "action-move-to" = "Flyt til ...";
 "action-move-to-reading-list" = "Flyt til læseliste";
 "action-read" = "Læs";
@@ -82,7 +90,6 @@
 "action-share-accessibility" = "Del";
 "action-sort" = "Sorter";
 "action-thank-user-accessibility" = "Tak bruger";
-// Fuzzy
 "action-undo" = "Fortryd";
 "action-unsave" = "Gem ikke";
 "action-unsaved-accessibility-notification" = "Artikel ikke længere gemt";
@@ -100,12 +107,14 @@
 // Fuzzy
 "appearance-settings-text-sizing-example-text" = "Træk skyderen oven over for at ændre størrelsen på artikelteksten. Udnyt din tekststørrelse fra systemet til at ændre størrelse på andre tekstområder i programmet.";
 "appearance-settings-theme-options" = "Temaindstillinger";
+"article-about-title" = "Om denne artikel";
 "article-delete" = "Slet";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|artikel|artikler}} slettet";
 "article-languages-filter-placeholder" = "Find sprog";
 "article-languages-label" = "Vælg sprog";
 "article-languages-others" = "Andre sprog";
 "article-languages-yours" = "Dine sprog";
+"article-read-more-title" = "Læs mere";
 "article-share" = "Del";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Styring af læsetemaer";
 "back-button-accessibility-label" = "Tilbage";
@@ -126,6 +135,7 @@
 "compass-direction" = "mod klokken $1";
 "continue-reading-empty-description" = "Udforsk Wikipedia for flere artikler at læse";
 "continue-reading-empty-title" = "Ingen seneste læste artikler";
+"data-migration-status" = "Opdaterer...";
 "description-add-title" = "Tilføj beskrivelse";
 "description-edit-for-article" = "Titelbeskrivelse for $1";
 "description-edit-learn-more" = "Lær mere";
@@ -159,10 +169,13 @@
 "diff-context-lines-expanded-button-title" = "Skjul";
 "diff-paragraph-moved-direction-down" = "ned";
 "diff-paragraph-moved-direction-up" = "op";
+"diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 redigering|$1 redigeringer}}";
+"diff-single-line-format" = "Linje $1";
 "diff-thanks-sent" = "Din 'Tak' blev sendt til $1";
 "dim-images" = "Mørklæg billeder";
 "edit-clear-formatting-accessibility-label" = "Fjern formatering";
 "edit-comment-accessibility-label" = "Tilføj kommentarsyntaks";
+"edit-link-display-text-title" = "Vis tekst";
 "edit-menu-item" = "Rediger";
 "edit-minor-learn-more-text" = "Lær mere om mindre ændringer";
 "edit-minor-text" = "Dette er en mindre ændring";
@@ -195,8 +208,7 @@
 "empty-no-feed-message" = "Du kan se dine anbefalede artikler når du har internetforbindelse";
 "empty-no-history-message" = "Hold styr på hvad du har læst her";
 "empty-no-history-title" = "Ingen historik at vise";
-// Fuzzy
-"empty-no-reading-lists-message" = "Tryk på det blå »+« for at oprette lister for steder at rejse til, favoritemner og meget mere";
+"empty-no-reading-lists-message" = "Opret lister for steder at rejse til, favoritemner og meget mere";
 "empty-no-reading-lists-title" = "Organiser gemte artikler med læselister";
 "empty-no-saved-pages-message" = "Gem sider for at læse dem senere, selv offline";
 "empty-no-saved-pages-title" = "Ingen gemte sider endnu";
@@ -296,8 +308,7 @@
 "in-the-news-currently-trending" = "Populært nu";
 "in-the-news-notification-read-now-action-title" = "Læs nu";
 "in-the-news-notification-save-for-later-action-title" = "Gem til senere";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Del...";
+"in-the-news-notification-share-action-title" = "Del…";
 "in-the-news-sub-title-from-language-wikipedia" = "Fra $1 Wikipedia";
 "in-the-news-sub-title-from-wikipedia" = "Fra Wikipedia";
 "in-the-news-title" = "I nyhederne";
@@ -365,11 +376,13 @@
 "page-history-minor-edits" = "mindre redigeringer";
 "page-history-revision-minor-edit-accessibility-label" = "Mindre ændring";
 "page-history-revision-size-diff-addition" = "Tilføjede {{PLURAL:$1|$1 byte|$1 bytes}}";
+"page-history-user-edits" = "brugerredigeringer";
 "page-protected-autoconfirmed" = "Denne side er delvis beskyttet.";
 "page-protected-can-not-edit" = "Du har ikke rettigheder til at redigere denne side";
 "page-protected-can-not-edit-title" = "Denne side er beskyttet";
 "page-protected-other" = "Denne side er beskyttet til følgende niveauer: $1";
 "page-protected-sysop" = "Denne side er beskyttet.";
+"page-similar-titles" = "Lignende sider";
 "pictured" = "billedet";
 "places-accessibility-clear-saved-searches" = "Ryd gemte søgninger";
 "places-accessibility-group" = "$1 artikler";
@@ -562,7 +575,12 @@
 "table-of-contents-close-accessibility-hint" = "Afslut";
 "table-of-contents-close-accessibility-label" = "Luk indholdsfortegnelse";
 "table-of-contents-heading" = "Indhold";
+"table-of-contents-hide-button-label" = "Skjul indholdsfortegnelsen";
+"talk-page-add-discussion-accessibility-label" = "Tilføj diskussion";
 "talk-page-link-user-action-sheet-title" = "Brugersider";
+"talk-page-new-subject-clear-button-accessibility" = "Ryd emne";
+"talk-page-new-subject-placeholder-text" = "Emne";
+"talk-page-new-subject-textfield-accessibility-label" = "Emne";
 "talk-page-reply-title" = "Svar";
 "talk-page-title-user-talk" = "Brugerdiskussion";
 "talk-page-topic-title" = "Diskussion";
