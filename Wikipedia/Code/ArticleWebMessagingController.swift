@@ -548,7 +548,7 @@ extension ArticleWebMessagingController {
             return
         }
         
-        let insertHeaderText = WMFLocalizedString("aaald-article-insert-header", value: "Significant Events", comment: "Header text in article content insert section that displays recent significant article updates.")
+        let insertHeaderText = WMFLocalizedString("aaald-article-insert-header", value: "Significant Updates", comment: "Header text in article content insert section that displays recent significant article updates.")
         
         var articleAsLivingDocBoxInnerHTML = "\(articleAsLivingDocBoxInnerContainerHTMLStart)<h4 id='significant-changes-header'>\(insertHeaderText.uppercased(with: Locale.current))</h4><ul id='significant-changes-list'>"
         
