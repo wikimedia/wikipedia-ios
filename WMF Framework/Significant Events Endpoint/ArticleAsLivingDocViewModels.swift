@@ -11,7 +11,9 @@ public struct ArticleAsLivingDocViewModel {
     public let articleInsertHtmlSnippets: [String]
     public let lastUpdatedTimestamp: String?
     public let summaryText: String?
-    
+
+    private let isoDateFormatter = ISO8601DateFormatter()
+
     public init(nextRvStartId: UInt?, sha: String?, sections: [SectionHeader], summaryText: String?, articleInsertHtmlSnippets: [String], lastUpdatedTimestamp: String?) {
         self.nextRvStartId = nextRvStartId
         self.sha = sha
@@ -22,9 +24,7 @@ public struct ArticleAsLivingDocViewModel {
     }
 
     public init?(significantEvents: SignificantEvents, traitCollection: UITraitCollection, theme: Theme) {
-        
-        guard let isoDateFormatter = DateFormatter.wmf_iso8601(),
-              let dayMonthNumberYearDateFormatter = DateFormatter.wmf_monthNameDayOfMonthNumberYear() else {
+        guard let dayMonthNumberYearDateFormatter = DateFormatter.wmf_monthNameDayOfMonthNumberYear() else {
             assertionFailure("Unable to generate date formatters for Significant Events View Models")
             return nil
         }
@@ -140,7 +140,7 @@ public struct ArticleAsLivingDocViewModel {
                 collapsedEventViewModels.append(.small(Event.Small(smallChanges: currentSmallChanges)))
                 currentSmallChanges.removeAll()
             }
-            
+
             let collapsedSection = SectionHeader(timestamp: section.timestamp, typedEvents: collapsedEventViewModels, subtitleDateFormatter: dayMonthNumberYearDateFormatter)
             finalSections.append(collapsedSection)
         }
@@ -272,6 +272,32 @@ public struct ArticleAsLivingDocViewModel {
 
         return mutatedSections
     }
+
+    static func eventDisplayTimestamp(timestampString: String) -> String? {
+        let isoDateFormatter = ISO8601DateFormatter()
+
+        guard
+            let shortFormatter = DateFormatter.wmf_24hshortTimeWithUTCTimeZone(),
+            let date = isoDateFormatter.date(from: timestampString) else {
+                return nil
+        }
+
+        let calendar = NSCalendar.current
+        let components = calendar.dateComponents([.hour, .minute], from: date, to: Date())
+
+        if let hours = components.hour, let minutes = components.minute {
+            switch hours {
+            case ..<1:
+                return String.localizedStringWithFormat(WMFLocalizedDateFormatStrings.minutesAgo(), minutes)
+            case ..<24:
+                return String.localizedStringWithFormat(WMFLocalizedDateFormatStrings.hoursAgo(), hours)
+            default:
+                break
+            }
+        }
+
+        return shortFormatter.string(from: date)
+    }
     
     static func displayTimestamp(timestampString: String, fullyRelative: Bool) -> String? {
         if let isoDateFormatter = DateFormatter.wmf_iso8601(),
@@ -311,24 +337,78 @@ public extension ArticleAsLivingDocViewModel {
         public let timestamp: Date
         public let dateRange: DateInterval?
         public var typedEvents: [TypedEvent]
+
+        private let sectionTimestampIdentifier: String
+
+        private static let calendar: Calendar = Calendar.current
+
+        private static let relativeDateFormatter: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.doesRelativeDateFormatting = true
+            formatter.timeStyle = .none
+            formatter.dateStyle = .short
+            return formatter
+        }()
+
+        private static let dayMonthYearFormatter: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.setLocalizedDateFormatFromTemplate("MMMM d, yyyy")
+            return formatter
+        }()
+
+        private static let dayMonthFormatter: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.setLocalizedDateFormatFromTemplate("MMMM d")
+            return formatter
+        }()
+
         public init(timestamp: Date, typedEvents: [TypedEvent], subtitleDateFormatter: DateFormatter, dateRange: DateInterval? = nil) {
-            let nsTimestamp = timestamp as NSDate
-            // TODO: In timestamp PR, use `dateRange` to construct proper title and subtitle as needed
-            self.title = nsTimestamp.wmf_isTodayUTC()
-                ? nsTimestamp.wmf_localizedRelativeDateFromMidnightUTCDate()
-                : nsTimestamp.wmf_localizedRelativeDateStringFromLocalDate(toLocalDate: Date())
-            self.subtitleTimestampDisplay = subtitleDateFormatter.string(from: timestamp)
+
+            // If today or yesterday, show friendly localized relative format ("Today", "Yesterday")
+            func relativelyFormat(date: Date) -> String {
+                let nsTimestamp = timestamp as NSDate
+                if SectionHeader.calendar.isDateInToday(date) || SectionHeader.calendar.isDateInYesterday(date) {
+                    return SectionHeader.relativeDateFormatter.string(from: date)
+                } else {
+                    return nsTimestamp.wmf_fullyLocalizedRelativeDateStringFromLocalDateToNow()
+                }
+            }
+
+            self.title = relativelyFormat(date: timestamp)
+
+            if let dateRange = dateRange {
+                var dateRangeStrings: [String] = []
+
+                let startDate = dateRange.start
+                let endDate = dateRange.end
+
+                if SectionHeader.calendar.isDateInToday(endDate) || SectionHeader.calendar.isDateInYesterday(endDate) {
+                    let endString = relativelyFormat(date: endDate)
+                    let startString = SectionHeader.dayMonthYearFormatter.string(from: startDate)
+                    dateRangeStrings.append(contentsOf: [endString, startString])
+                } else {
+                    let endString = SectionHeader.dayMonthFormatter.string(from: endDate)
+                    let startString = SectionHeader.dayMonthYearFormatter.string(from: startDate)
+                    dateRangeStrings.append(contentsOf: [endString, startString])
+                }
+
+                self.subtitleTimestampDisplay = dateRangeStrings.joined(separator: " - ")
+            } else {
+                self.subtitleTimestampDisplay = SectionHeader.dayMonthYearFormatter.string(from: timestamp)
+            }
+
             self.dateRange = dateRange
             self.timestamp = timestamp
             self.typedEvents = typedEvents
+            self.sectionTimestampIdentifier = subtitleDateFormatter.string(from: timestamp)
         }
         
         public static func == (lhs: ArticleAsLivingDocViewModel.SectionHeader, rhs: ArticleAsLivingDocViewModel.SectionHeader) -> Bool {
-            return lhs.subtitleTimestampDisplay == rhs.subtitleTimestampDisplay
+            return lhs.sectionTimestampIdentifier == rhs.sectionTimestampIdentifier
         }
         
         public func hash(into hasher: inout Hasher) {
-            hasher.combine(subtitleTimestampDisplay)
+            hasher.combine(sectionTimestampIdentifier)
             hasher.combine(typedEvents)
         }
 
@@ -1515,13 +1595,10 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     func timestampForDisplay() -> String? {
         if let displayTimestamp = displayTimestamp {
             return displayTimestamp
+        } else if let timestampString = getTimestampString() {
+            self.displayTimestamp = ArticleAsLivingDocViewModel.eventDisplayTimestamp(timestampString: timestampString)
         }
-        
-        if let timestampString = getTimestampString() {
-            let displayTimestamp = ArticleAsLivingDocViewModel.displayTimestamp(timestampString: timestampString, fullyRelative: false)
-            self.displayTimestamp = displayTimestamp
-        }
-        
+
         return displayTimestamp
     }
     
