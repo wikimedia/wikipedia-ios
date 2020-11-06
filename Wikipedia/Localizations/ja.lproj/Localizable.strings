@@ -38,10 +38,24 @@
 // Author: ネイ
 // Author: 아라
 
+"aaald-added-text-description" = "$1文字追加しました";
+"aaald-article-description-updated-description" = "記事タイトルの説明が更新されました";
+"aaald-article-insert-last-updated" = "最終更新";
+"aaald-article-insert-new-changes" = "新しい変更";
+"aaald-deleted-text-description" = "{{PLURAL:$1|$1文字}}削除しました";
+"aaald-new-book-reference-title" = "本";
 "aaald-new-discussion" = "新規議論";
 "aaald-new-journal-reference-database" = "$1経由";
 "aaald-new-journal-reference-title" = "ジャーナル";
+"aaald-new-journal-reference-volume" = "$1巻:";
 "aaald-new-news-reference-title" = "ニュース";
+"aaald-new-website-reference-archive-date-text" = "$1 にあるオリジナルから";
+"aaald-new-website-reference-archive-url-text" = "Archive.org の URL";
+"aaald-new-website-reference-title" = "ウェブサイト";
+"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|$1つの参考文献}}を追加しました";
+"aaald-revision-userInfo-anonymous" = "$1 による編集";
+"aaald-single-reference-added-description" = "参考文献を追加しました";
+"aaald-view-full-history-button" = "すべての記事履歴を表示";
 "about-content-license" = "コンテンツのライセンス";
 "about-content-license-details" = "特記なき場合、コンテンツは $1 で利用可能です";
 "about-content-license-details-share-alike-license" = "クリエイティブ・コモンズ 表示-継承 (CC BY-SA)";
