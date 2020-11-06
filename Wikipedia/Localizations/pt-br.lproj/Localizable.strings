@@ -34,6 +34,10 @@
 
 "aaald-added-text-description" = "{{PLURAL:$1|0=0 caracteres adicionados|$1 character adicionado|$1 caracteres adicionados}}";
 "aaald-article-description-updated-description" = "Descrição do título do artigo atualizada";
+"aaald-article-insert-header" = "Eventos significativos";
+"aaald-article-insert-last-updated" = "Última atualização";
+"aaald-article-insert-new-changes" = "Novas alterações";
+"aaald-article-insert-read-more" = "Leia mais atualizações";
 "aaald-deleted-text-description" = "{{PLURAL:$1|0=0 caracteres excluídos|$1 character excluído|$1 caracteres excluídos}}";
 "aaald-error-subitle" = "Atualize para tentar novamente";
 "aaald-error-title" = "Não é possível carregar o histórico do artigo embutido";
@@ -56,8 +60,7 @@
 "aaald-revision-userInfo" = "Editar por $1 ($2 edições)";
 "aaald-revision-userInfo-anonymous" = "Editado por $1";
 "aaald-single-reference-added-description" = "Referência adicionada";
-// Fuzzy
-"aaald-small-change-description" = "{{PLURAL:$1|0=Sem pequenas mudanças feitas|$1 Sem pequena mudança feita|$1 Sem pequenas mudanças feitas}}";
+"aaald-small-change-description" = "{{PLURAL:$1|0=Nenhuma edição menor realizada|$1 edição menor realizada|$1 edições menores realizadas}}";
 "aaald-summary-title" = "{{PLURAL:$1|0=0 mudanças|$1 mudança|$1 mudanças}} por {{PLURAL:$2|0=0 editores|$2 editor|$2 editores}} em {{PLURAL:$3|0=0 dias|$3 dia|$3 dias}}";
 "aaald-two-sections-description" = "nas seções $1 e $2";
 "aaald-vandalism-revert-description" = "Suspeita de vandalismo revertida";

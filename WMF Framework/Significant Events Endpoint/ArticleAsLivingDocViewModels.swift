@@ -20,7 +20,7 @@ public struct ArticleAsLivingDocViewModel {
         self.articleInsertHtmlSnippets = articleInsertHtmlSnippets
         self.lastUpdatedTimestamp = lastUpdatedTimestamp
     }
-    
+
     public init?(significantEvents: SignificantEvents, traitCollection: UITraitCollection, theme: Theme) {
         
         guard let isoDateFormatter = DateFormatter.wmf_iso8601(),
@@ -144,9 +144,10 @@ public struct ArticleAsLivingDocViewModel {
             let collapsedSection = SectionHeader(timestamp: section.timestamp, typedEvents: collapsedEventViewModels, subtitleDateFormatter: dayMonthNumberYearDateFormatter)
             finalSections.append(collapsedSection)
         }
-            
+
+        finalSections = ArticleAsLivingDocViewModel.collapseSmallEvents(from: finalSections)
         self.sections = finalSections
-        
+
         //grab first 3 large event html snippets
         var articleInsertHtmlSnippets: [String] = []
         var lastUpdatedTimestamp: String?
@@ -179,6 +180,97 @@ public struct ArticleAsLivingDocViewModel {
         
         self.articleInsertHtmlSnippets = articleInsertHtmlSnippets
         self.lastUpdatedTimestamp = lastUpdatedTimestamp
+    }
+
+    /// Collapses sequential sections that contain only small events into one section, including a date range that represents the collected events
+    static func collapseSmallEvents(from sections: [SectionHeader]) -> [SectionHeader] {
+        guard let dayMonthNumberYearDateFormatter = DateFormatter.wmf_monthNameDayOfMonthNumberYear(), let isoDateFormatter = DateFormatter.wmf_iso8601() else {
+            return sections
+        }
+
+        let enumeratedSections = sections.enumerated()
+        var mutatedSections: [SectionHeader] = []
+        var rangesToCollapse: [ClosedRange<Int>] = []
+
+        for (outerIndex, outerSection) in enumeratedSections {
+            let startIndex = outerIndex
+            var endIndex = outerIndex
+
+            if outerSection.containsOnlySmallEvents {
+                for (innerIndex, innerSection) in enumeratedSections {
+                    guard innerIndex >= startIndex + 1, !rangesToCollapse.contains(where: {$0.contains(innerIndex) }) else {
+                        continue
+                    }
+
+                    if innerSection.containsOnlySmallEvents {
+                        endIndex = innerIndex
+                    } else {
+                        break
+                    }
+                }
+            }
+
+            if startIndex != endIndex {
+                // This range is eligible to be collapsed
+                rangesToCollapse.append(startIndex...endIndex)
+            }
+        }
+
+        var typedEvents: [TypedEvent] = []
+
+        typealias CollapsedSection = (section: SectionHeader, sectionHashes: [Int])
+
+        var collapsedSections: [CollapsedSection] = []
+        var collapsedSectionHashes: [Int] = []
+
+        // Create new sections for each collapsed range
+        for range in rangesToCollapse {
+            for sectionElement in sections[range] {
+                typedEvents.append(contentsOf: sectionElement.typedEvents)
+            }
+
+            collapsedSectionHashes.append(contentsOf: sections[range].compactMap { $0.hashValue })
+
+            if let startIndex = range.first {
+                let smallChanges = typedEvents.flatMap { $0.smallChanges }
+                let collapsedSmallEvent = Event.Small(smallChanges: smallChanges)
+                let smallTypedEvent = TypedEvent.small(collapsedSmallEvent)
+
+                let smallChangeDates = smallChanges.compactMap { isoDateFormatter.date(from: $0.timestampString) }
+                var dateRange: DateInterval?
+                if let minDate = smallChangeDates.min(), let maxDate = smallChangeDates.max() {
+                    dateRange = DateInterval(start: minDate, end: maxDate)
+                }
+
+                let section = SectionHeader(timestamp: sections[startIndex].timestamp, typedEvents: [smallTypedEvent], subtitleDateFormatter: dayMonthNumberYearDateFormatter, dateRange: dateRange)
+                collapsedSections.append((section, collapsedSectionHashes))
+            }
+
+            typedEvents = []
+            collapsedSectionHashes = []
+        }
+
+        var newlyCollapsedSectionHashes: [Int] = []
+
+        // Returns the small event collapsed section that represents the `sectionHash`, if one exists
+        func firstCollapsedSectionContaining(sectionHash: Int) -> CollapsedSection? {
+            return collapsedSections
+                .first { collapsedSection in collapsedSection.sectionHashes.contains(sectionHash) }
+        }
+
+        // Reconstruct sections with newly eligible small event sections collapsed in proper order
+        for section in sections {
+            if let collapsedSection = firstCollapsedSectionContaining(sectionHash: section.hashValue), !newlyCollapsedSectionHashes.contains(section.hashValue) {
+                mutatedSections.append(collapsedSection.section)
+                newlyCollapsedSectionHashes.append(contentsOf: collapsedSection.sectionHashes)
+            }
+
+            if !newlyCollapsedSectionHashes.contains(section.hashValue) {
+                mutatedSections.append(section)
+            }
+        }
+
+        return mutatedSections
     }
     
     static func displayTimestamp(timestampString: String, fullyRelative: Bool) -> String? {
@@ -217,13 +309,16 @@ public extension ArticleAsLivingDocViewModel {
         public let title: String
         public let subtitleTimestampDisplay: String
         public let timestamp: Date
-        public let typedEvents: [TypedEvent]
-        init(timestamp: Date, typedEvents: [TypedEvent], subtitleDateFormatter: DateFormatter) {
+        public let dateRange: DateInterval?
+        public var typedEvents: [TypedEvent]
+        public init(timestamp: Date, typedEvents: [TypedEvent], subtitleDateFormatter: DateFormatter, dateRange: DateInterval? = nil) {
             let nsTimestamp = timestamp as NSDate
+            // TODO: In timestamp PR, use `dateRange` to construct proper title and subtitle as needed
             self.title = nsTimestamp.wmf_isTodayUTC()
                 ? nsTimestamp.wmf_localizedRelativeDateFromMidnightUTCDate()
                 : nsTimestamp.wmf_localizedRelativeDateStringFromLocalDate(toLocalDate: Date())
             self.subtitleTimestampDisplay = subtitleDateFormatter.string(from: timestamp)
+            self.dateRange = dateRange
             self.timestamp = timestamp
             self.typedEvents = typedEvents
         }
@@ -234,7 +329,15 @@ public extension ArticleAsLivingDocViewModel {
         
         public func hash(into hasher: inout Hasher) {
             hasher.combine(subtitleTimestampDisplay)
+            hasher.combine(typedEvents)
         }
+
+        // MARK: - Helpers
+
+        public var containsOnlySmallEvents: Bool {
+            typedEvents.count == 1 && typedEvents.allSatisfy { event in event.isSmall }
+        }
+
     }
 }
 
@@ -275,6 +378,26 @@ public extension ArticleAsLivingDocViewModel {
                 hasher.combine(largeEvent.wereThanksSent)
             }
         }
+
+        // MARK: - Helpers
+
+        public var isSmall: Bool {
+            switch self {
+            case .small(_):
+                return true
+            default:
+                return false
+            }
+        }
+
+        public var smallChanges: [SignificantEvents.Event.Small] {
+            switch self {
+            case .small(let small):
+                return small.smallChanges
+            default:
+                return []
+            }
+        }
     }
 }
 
@@ -293,8 +416,7 @@ public extension ArticleAsLivingDocViewModel {
             }()
             public let smallChanges: [SignificantEvents.Event.Small]
             
-            init?(typedEvents: [SignificantEvents.TypedEvent]) {
-                
+            public init?(typedEvents: [SignificantEvents.TypedEvent]) {                
                 var smallChanges: [SignificantEvents.Event.Small] = []
                 for event in typedEvents {
                     switch event {
@@ -312,7 +434,7 @@ public extension ArticleAsLivingDocViewModel {
                 self.smallChanges = smallChanges
             }
             
-            init(smallChanges: [SignificantEvents.Event.Small]) {
+            public init(smallChanges: [SignificantEvents.Event.Small]) {
                 self.smallChanges = smallChanges
             }
             
