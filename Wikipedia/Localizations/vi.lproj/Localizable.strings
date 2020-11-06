@@ -312,7 +312,7 @@
 "more-languages-tooltip-title" = "Thêm ngôn ngữ";
 "move-articles-to-reading-list" = "Di chuyển {{PLURAL:$1|$1 bài viết|$1 bài viết}} vào danh sách đọc";
 "navbar-title-mode-edit-wikitext-preview" = "Xem trước";
-"nearby-distance-label-feet" = "$1 foot";
+"nearby-distance-label-feet" = "$1 bộ";
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 dặm";

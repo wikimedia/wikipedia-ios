@@ -98,6 +98,33 @@
 			<string>%1$d بایت حذف شد</string>
 		</dict>
 	</dict>
+	<key>intermediate-edits-editors-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>(%#@v1@ ویرایش شده توسط %#@v2@ نشان داده نشده)</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>۱ نسخهٔ میانی</string>
+			<key>other</key>
+			<string>%1$d نسخه‌ٔ میانی</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>۱ کاربر</string>
+			<key>other</key>
+			<string>%2$d کاربر</string>
+		</dict>
+	</dict>
 	<key>move-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
