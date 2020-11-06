@@ -385,36 +385,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
 
 // MARK:- ArticleAsLivingDocHorizontallyScrollingCellDelegate
 @available(iOS 13.0, *)
-extension ArticleAsLivingDocViewController: ArticleAsLivingDocHorizontallyScrollingCellDelegate {
-    // THIS FUNCTION WAS COPIED OUT OF EDITPREVIEWVIEWCONTROLLER - DO NOT MERGE THIS INTO MASTER. IF EXPERIMENT GOES WELL, REFACTOR THIS INTO VIEWCONTROLLER OR A PROTOCOL EXTENSION
-    func showInternalLink(url: URL) {
-        let exists: Bool
-        if let query = url.query {
-            exists = !query.contains("redlink=1")
-        } else {
-            exists = true
-        }
-        if !exists {
-            showRedLinkInAlert()
-            return
-        }
-        let dataStore = MWKDataStore.shared()
-        let internalLinkViewController = EditPreviewInternalLinkViewController(articleURL: url, dataStore: dataStore)
-        internalLinkViewController.modalPresentationStyle = .overCurrentContext
-        internalLinkViewController.modalTransitionStyle = .crossDissolve
-        internalLinkViewController.apply(theme: theme)
-        present(internalLinkViewController, animated: true, completion: nil)
-    }
-
-    // THIS FUNCTION WAS COPIED OUT OF EDITPREVIEWVIEWCONTROLLER - DO NOT MERGE THIS INTO MASTER. IF EXPERIMENT GOES WELL, REFACTOR THIS INTO VIEWCONTROLLER OR A PROTOCOL EXTENSION
-    func showRedLinkInAlert() {
-        let title = WMFLocalizedString("wikitext-preview-link-not-found-preview-title", value: "No internal link found", comment: "Title for nonexistent link preview popup")
-        let message = WMFLocalizedString("wikitext-preview-link-not-found-preview-description", value: "Wikipedia does not have an article with this exact name", comment: "Description for nonexistent link preview popup")
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: CommonStrings.okTitle, style: .default))
-        present(alertController, animated: true)
-    }
-
+extension ArticleAsLivingDocViewController: ArticleAsLivingDocHorizontallyScrollingCellDelegate, InternalLinkPreviewing {
     func tappedLink(_ url: URL) {
         guard let fullURL = delegate?.articleURL.resolvingRelativeWikiHref(url.absoluteString) else {
             return
