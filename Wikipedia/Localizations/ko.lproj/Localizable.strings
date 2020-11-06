@@ -32,6 +32,14 @@
 // Author: 밥풀떼기
 // Author: 아라
 
+"aaald-article-insert-last-updated" = "최근 업데이트";
+"aaald-article-insert-new-changes" = "새 변경사항";
+"aaald-article-insert-read-more" = "더 많은 업데이트 읽기";
+"aaald-new-book-reference-title" = "책";
+"aaald-new-discussion" = "새 토론";
+"aaald-new-journal-reference-title" = "저널";
+"aaald-new-talk-topic-description-format" = "이 문서의 $1";
+"aaald-new-website-reference-title" = "웹사이트";
 "about-content-license" = "콘텐츠 라이선스";
 "about-content-license-details" = "특별한 언급이 없는 경우, 콘텐츠는 $1 하에 이용이 가능합니다.";
 "about-content-license-details-share-alike-license" = "크리에이티브 커먼즈 저작권표시-동일조건변경허락 라이선스";
