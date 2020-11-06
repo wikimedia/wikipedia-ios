@@ -18,13 +18,13 @@ extension UIScrollView {
     }
 
     public var isAtTop: Bool {
-        /// 0.5 is to account for  rounding errors. Sometimes when we expect them to be equal, these are less than .2 different (due to rounding) - and with multiple layout passes, it caused a large scrolling bug on a VC's launch.
-        return contentOffset.y <= topOffsetY + 0.5
+        /// Rounded: Sometimes when we expect them to be equal, these are less than .2 different (due to rounding in earleir calculation) - and with multiple layout passes, it caused a large scrolling bug on a VC's launch.
+        return contentOffset.y.rounded(.up) <= topOffsetY.rounded(.up)
     }
 
     private var isAtBottom: Bool {
-        /// 0.5 is to account for  rounding errors. Sometimes when we expect them to be equal, these are less than .2 different (due to rounding) - and with multiple layout passes, it caused a large scrolling bug on a VC's launch.
-        return contentOffset.y >= bottomOffsetY - 0.5
+        /// Rounded: Sometimes when we expect them to be equal, these are less than .2 different (due to rounding in earleir calculation) - and with multiple layout passes, it caused a large scrolling bug on a VC's launch.
+        return contentOffset.y.rounded(.up) >= bottomOffsetY.rounded(.up)
     }
     
     public var verticalOffsetPercentage: CGFloat {
