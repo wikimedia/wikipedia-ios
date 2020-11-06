@@ -17,14 +17,26 @@
 
 "aaald-added-text-description" = "$1 karakter hozzáadva";
 "aaald-article-description-updated-description" = "Cikk címleírás frissítve";
+"aaald-article-insert-header" = "Kiemelt események";
+"aaald-article-insert-last-updated" = "Utoljára frissítve";
+"aaald-article-insert-new-changes" = "Új változtatások";
+"aaald-article-insert-read-more" = "További frissítések elolvasása";
 "aaald-deleted-text-description" = "$1 karakter törölve";
 "aaald-error-subitle" = "Frissítsd és próbáld újra";
+"aaald-multiple-changes-description" = "Több változtatás is történt";
 "aaald-multiple-references-added-description" = "Referenciák hozzáadva";
 "aaald-new-book-reference-title" = "Könyv";
+"aaald-new-discussion" = "Új téma";
 "aaald-new-news-reference-title" = "Hírek";
 "aaald-new-talk-topic-description-format" = "$1 erről a szócikkről";
+"aaald-new-website-reference-archive-url-text" = "Archive.org URL";
 "aaald-new-website-reference-title" = "Weboldal";
+"aaald-numerical-multiple-references-added-description" = "$1 referencia hozzáadva";
+"aaald-revision-userInfo" = "Szerkesztette $1 ($2 szerkesztés)";
+"aaald-revision-userInfo-anonymous" = "Szerkesztette $1";
 "aaald-single-reference-added-description" = "Referencia hozzáadva";
+"aaald-summary-title" = "Az elmúlt $3 napban $2 szerkesztő $1 változtatást végzett";
+"aaald-view-full-history-button" = "Teljes cikktörténet megtekintése";
 "about-content-license" = "Tartalom licence";
 "about-content-license-details" = "Ha nincs másképp jelezve, a tartalom $1 alatt érhető el.";
 "about-content-license-details-share-alike-license" = "Creative Commons Nevezd meg! – Így add tovább! licenc";
