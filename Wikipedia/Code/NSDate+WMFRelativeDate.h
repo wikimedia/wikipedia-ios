@@ -6,6 +6,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)yearsAgoForWikiLanguage:(nullable NSString *)language;
 
++ (NSString *)hoursAgo;
+
++ (NSString *)minutesAgo;
+
 @end
 
 extern NSString *const WMFAbbreviatedRelativeDateAgo;
