@@ -25,7 +25,7 @@ public class ABTestsController: NSObject {
     public enum Experiment {
         case articleAsLivingDoc
         
-        func config() -> ExperimentConfig {
+        var config: ExperimentConfig {
             switch self {
             case .articleAsLivingDoc:
                 return ABTestsController.articleAsLivingDocConfig
@@ -93,7 +93,7 @@ public class ABTestsController: NSObject {
     
     func percentageForExperiment(_ experiment: Experiment) -> NSNumber? {
         
-        let key = experiment.config().percentageKey.rawValue
+        let key = experiment.config.percentageKey.rawValue
         return persistanceService.libraryValue(for: key) as? NSNumber
     }
     
@@ -103,13 +103,13 @@ public class ABTestsController: NSObject {
             throw ABTestsError.invalidPercentage
         }
         
-        let key = experiment.config().percentageKey.rawValue
+        let key = experiment.config.percentageKey.rawValue
         persistanceService.setLibraryValue(percentage, for: key)
     }
     
     public func bucketForExperiment(_ experiment: Experiment) -> BucketValue? {
         
-        let key = experiment.config().bucketKey.rawValue
+        let key = experiment.config.bucketKey.rawValue
         guard let rawValue = persistanceService.libraryValue(for: key) as? String else {
             return nil
         }
@@ -119,7 +119,7 @@ public class ABTestsController: NSObject {
     
     func setBucket(_ bucket: BucketValue, forExperiment experiment: Experiment) {
         
-        let key = experiment.config().bucketKey.rawValue
+        let key = experiment.config.bucketKey.rawValue
         persistanceService.setLibraryValue((bucket.rawValue as NSString), for: key)
     }
 }
