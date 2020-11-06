@@ -29,6 +29,10 @@
 
 "aaald-added-text-description" = "增加 {{PLURAL:$1|0=0|$1|$1}} 個字元";
 "aaald-article-description-updated-description" = "條目標題描述已更新";
+"aaald-article-insert-header" = "重要事件";
+"aaald-article-insert-last-updated" = "上一次更新";
+"aaald-article-insert-new-changes" = "新的更改";
+"aaald-article-insert-read-more" = "閱讀更多更新內容";
 "aaald-deleted-text-description" = "刪除 {{PLURAL:$1|0=0|$1|$1}} 個字元";
 "aaald-error-subitle" = "重新整理來再次嘗試";
 "aaald-error-title" = "無法載入內嵌條目的歷史紀錄";
@@ -51,7 +55,6 @@
 "aaald-revision-userInfo" = "由$1編輯（$2 次編輯數）";
 "aaald-revision-userInfo-anonymous" = "由$1編輯";
 "aaald-single-reference-added-description" = "參考資料已添加";
-// Fuzzy
 "aaald-small-change-description" = "做出 {{PLURAL:$1|0=0|$1|$1}} 次小更改";
 "aaald-summary-title" = "在 {{PLURAL:$3|0=0|$3|$3}} 天裡由 {{PLURAL:$2|0=0|$2|$2}} 位編者做出 {{PLURAL:$1|0=0|$1|$1}} 更改";
 "aaald-two-sections-description" = "在$1與$2段落";
