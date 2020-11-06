@@ -25,6 +25,10 @@
 
 "aaald-added-text-description" = "{{PLURAL:$1|0=0 tecken|$1 tecken|$1 tecken}} lades till";
 "aaald-article-description-updated-description" = "Artikelns titelbeskrivning uppdaterades";
+"aaald-article-insert-header" = "Betydande händelser";
+"aaald-article-insert-last-updated" = "Senast uppdaterad";
+"aaald-article-insert-new-changes" = "Nya ändringar";
+"aaald-article-insert-read-more" = "Läs fler uppdateringar";
 "aaald-deleted-text-description" = "{{PLURAL:$1|0=0 tecken|$1 tecken|$1 tecken}} raderades";
 "aaald-error-subitle" = "Uppdatera för att försöka igen";
 "aaald-error-title" = "Kunde inte läsa in artikelhistoriken";
@@ -47,8 +51,7 @@
 "aaald-revision-userInfo" = "Redigering av $1 ($2 redigeringar)";
 "aaald-revision-userInfo-anonymous" = "Redigering av $1";
 "aaald-single-reference-added-description" = "Referens lades till";
-// Fuzzy
-"aaald-small-change-description" = "{{PLURAL:$1|0=Inga mindre ändringar|$1 mindre ändring|$1 mindre ändringar}} gjordes";
+"aaald-small-change-description" = "{{PLURAL:$1|0=Inga mindre ändringar gjordes|$1 mindre ändring gjordes|$1 mindre ändringar gjordes}}";
 "aaald-summary-title" = "{{PLURAL:$1|0=0 ändringar|$1 ändring|$1 ändringar}} av {{PLURAL:$2|0=0 redigerare|$2 redigerare|$2 redigerare}} under {{PLURAL:$3|0=0 dag|$3 dag|$3 dagar}}";
 "aaald-two-sections-description" = "i avsnitten $1 och $2";
 "aaald-vandalism-revert-description" = "Misstänkt vandalism återställdes";
@@ -815,7 +818,7 @@
 "status-saving-for-later" = "Spara till senare...";
 "table-of-contents-button-label" = "Innehållsförteckning";
 "table-of-contents-close-accessibility-hint" = "Stäng";
-"table-of-contents-close-accessibility-label" = "Stäng innehållsförteckning";
+"table-of-contents-close-accessibility-label" = "Fäll ihop innehållsförteckning";
 "table-of-contents-heading" = "Innehåll";
 "table-of-contents-hide-button-label" = "Dölj innehållsförteckning";
 "table-of-contents-subheading-label" = "Underrubrik $1";
