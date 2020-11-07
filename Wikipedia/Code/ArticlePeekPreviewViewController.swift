@@ -38,6 +38,7 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
                 completion?()
             }
             guard let article = article else {
+                self.activityIndicatorView.stopAnimating()
                 return
             }
             self.updateView(with: article)
