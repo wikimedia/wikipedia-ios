@@ -26,12 +26,14 @@ class ViewControllerRouter: NSObject {
             }
         }
 
-if #available(iOS 13.0, *), navigationController.children.contains(where: { $0 is ArticleAsLivingDocViewController }) {
-	// All article as living document specific behavior
-	if UIDevice.current.userInterfaceIdiom == .pad, let vc = viewController as? SinglePageWebViewController, navigationController.modalPresentationStyle == .pageSheet {
-		vc.navigationBar.isBarHidingEnabled = false
-	}
-}
+        /// For Article as a Living Doc modal - fix the nav bar in place
+        if #available(iOS 13.0, *), navigationController.children.contains(where: { $0 is ArticleAsLivingDocViewController }) {
+            if UIDevice.current.userInterfaceIdiom == .pad, let vc = viewController as? SinglePageWebViewController, navigationController.modalPresentationStyle == .pageSheet {
+                vc.doesUseSimpleNavigationBar = true
+                vc.navigationBar.isBarHidingEnabled = false
+            }
+        }
+
         if let presentedVC = navigationController.presentedViewController {
             presentedVC.dismiss(animated: false, completion: showNewVC)
         } else {

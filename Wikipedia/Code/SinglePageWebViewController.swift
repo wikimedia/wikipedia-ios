@@ -3,7 +3,14 @@ import CocoaLumberjackSwift
 
 class SinglePageWebViewController: ViewController {
     let url: URL
-    let doesUseSimpleNavigationBar: Bool
+    var doesUseSimpleNavigationBar: Bool {
+        didSet {
+            if doesUseSimpleNavigationBar {
+                navigationItem.setRightBarButtonItems([], animated: false)
+                navigationItem.titleView = nil
+            }
+        }
+    }
 
     required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false) {
         self.url = url
