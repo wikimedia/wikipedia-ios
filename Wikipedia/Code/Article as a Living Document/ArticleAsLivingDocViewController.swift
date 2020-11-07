@@ -8,13 +8,14 @@ protocol ArticleAsLivingDocViewControllerDelegate: class {
     var articleURL: URL { get }
     var isFetchingAdditionalPages: Bool { get }
     func fetchNextPage(nextRvStartId: UInt, theme: Theme)
-    func showEditHistory(scrolledTo revisionID: Int?)
+    func showEditHistory()
     func handleLink(with href: String)
     func showTalkPage()
 }
 
 protocol ArticleDetailsShowing: class {
-    func goToHistory(scrolledTo revisionID: Int?)
+    func goToHistory()
+    func goToDiff(revisionId: UInt, parentId: UInt, diffType: DiffContainerViewModel.DiffType)
     func showTalkPage()
     func thankButtonTapped(for revisionID: Int, isUserAnonymous: Bool)
 }
@@ -294,9 +295,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
     }
 
     @objc func tappedViewFullHistoryButton() {
-        self.dismiss(animated: true) {
-            self.delegate?.showEditHistory(scrolledTo: nil)
-        }
+        self.goToHistory()
     }
 
     // MARK:- CollectionView functions
@@ -386,30 +385,14 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
 
 // MARK:- ArticleAsLivingDocHorizontallyScrollingCellDelegate
 @available(iOS 13.0, *)
-extension ArticleAsLivingDocViewController: ArticleAsLivingDocHorizontallyScrollingCellDelegate {
+extension ArticleAsLivingDocViewController: ArticleAsLivingDocHorizontallyScrollingCellDelegate, InternalLinkPreviewing {
     func tappedLink(_ url: URL) {
-        if url.absoluteString.removingPercentEncoding?.contains("/User:") == true {
-            // User page, should open it in a modal
-            let singlePageWebVC = SinglePageWebViewController(url: url, theme: theme, doesUseSimpleNavigationBar: true)
-            let navController = WMFThemeableNavigationController(rootViewController: singlePageWebVC, theme: theme)
-            navController.modalPresentationStyle = .pageSheet
-            self.present(navController, animated: true, completion: nil)
-        } else {
-            if let linkURL = delegate?.articleURL.resolvingRelativeWikiHref(url.absoluteString) {
-                switch Configuration.current.router.destination(for: linkURL) {
-                case .externalLink(_):
-                    // We're going to open link in default webbrowser, no need to dismiss current VC
-                    self.delegate?.handleLink(with: url.absoluteString)
-                default:
-                    self.dismiss(animated: true) {
-                        self.delegate?.handleLink(with: url.absoluteString)
-                    }
-                }
-            } else {
-                self.dismiss(animated: true) {
-                    self.delegate?.handleLink(with: url.absoluteString)
-                }
-            }
+        guard let fullURL = delegate?.articleURL.resolvingRelativeWikiHref(url.absoluteString) else {
+            return
+        }
+        switch Configuration.current.router.destination(for: fullURL) {
+            case .article(let articleURL): showInternalLink(url: articleURL)
+            default: navigate(to: fullURL)
         }
     }
 }
@@ -417,15 +400,34 @@ extension ArticleAsLivingDocViewController: ArticleAsLivingDocHorizontallyScroll
 @available(iOS 13.0, *)
 extension ArticleAsLivingDocViewController: ArticleDetailsShowing {
     func showTalkPage() {
-        self.dismiss(animated: true) {
-            self.delegate?.showTalkPage()
+        guard let talkPageURL = delegate?.articleURL.articleTalkPage else {
+            showGenericError()
+            return
         }
+        navigate(to: talkPageURL)
+    }
+    
+    func goToDiff(revisionId: UInt, parentId: UInt, diffType: DiffContainerViewModel.DiffType) {
+        
+        guard let title = delegate?.articleURL.wmf_title,
+              let siteURL = delegate?.articleURL.wmf_site else {
+            return
+        }
+        
+        let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: Int(parentId), toRevisionID: Int(revisionId), type: diffType, articleTitle: title, needsSetNavDelegate: true)
+
+        push(diffContainerVC)
     }
 
-    func goToHistory(scrolledTo revisionID: Int? = nil) {
-        self.dismiss(animated: true) {
-            self.delegate?.showEditHistory(scrolledTo: revisionID)
+    func goToHistory() {
+        guard let articleURL = delegate?.articleURL, let title = articleURL.wmf_title else {
+                showGenericError()
+                return
         }
+        
+        let historyVC = PageHistoryViewController(pageTitle: title, pageURL: articleURL)
+        historyVC.apply(theme: theme)
+        push(historyVC)
     }
 
     func thankButtonTapped(for revisionID: Int, isUserAnonymous: Bool) {

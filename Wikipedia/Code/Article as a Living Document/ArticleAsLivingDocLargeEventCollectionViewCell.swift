@@ -223,7 +223,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         if let largeEvent = largeEvent {
             switch largeEvent.buttonsToDisplay {
             case .thankAndViewChanges:
-                thankButton.backgroundColor = largeEvent.wereThanksSent ? theme.colors.hintBackground : theme.colors.cardButtonBackground
+                thankButton.backgroundColor = largeEvent.wereThanksSent ? theme.colors.cardButtonSelectedBackground : theme.colors.cardButtonBackground
                 thankButton.setTitleColor(!isLoggedIn ? theme.colors.disabledLink : theme.colors.link, for: .normal)
                 thankButton.tintColor = (!isLoggedIn ? theme.colors.disabledLink : theme.colors.link)
 
@@ -323,10 +323,11 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
     }
 
     @objc private func viewChangesTapped() {
-        guard let revisionID = largeEvent?.revId else {
+        guard let revisionID = largeEvent?.revId,
+              let parentID = largeEvent?.parentId else {
             return
         }
-        articleDelegate?.goToHistory(scrolledTo: Int(revisionID))
+        articleDelegate?.goToDiff(revisionId: revisionID, parentId: parentID, diffType: .single)
     }
 
     @objc private func viewDiscussionTapped() {

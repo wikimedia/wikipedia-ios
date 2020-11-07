@@ -2960,6 +2960,10 @@
 		FF2B2111254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2B210F254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift */; };
 		FF2B2112254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2B210F254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift */; };
 		FF2B2113254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2B210F254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift */; };
+		FF59DF4D2555E0CB0048E66C /* InternalLinkPreviewing.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF59DF4C2555E0CB0048E66C /* InternalLinkPreviewing.swift */; };
+		FF59DF4E2555E0CB0048E66C /* InternalLinkPreviewing.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF59DF4C2555E0CB0048E66C /* InternalLinkPreviewing.swift */; };
+		FF59DF4F2555E0CB0048E66C /* InternalLinkPreviewing.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF59DF4C2555E0CB0048E66C /* InternalLinkPreviewing.swift */; };
+		FF59DF502555E0CB0048E66C /* InternalLinkPreviewing.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF59DF4C2555E0CB0048E66C /* InternalLinkPreviewing.swift */; };
 		FF921857252E8F4F00C39A8F /* ThanksGiving.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF921856252E8F4F00C39A8F /* ThanksGiving.swift */; };
 		FF92187C252F7EA300C39A8F /* ThanksGiving.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF921856252E8F4F00C39A8F /* ThanksGiving.swift */; };
 		FF921887252F7EA500C39A8F /* ThanksGiving.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF921856252E8F4F00C39A8F /* ThanksGiving.swift */; };
@@ -4835,6 +4839,7 @@
 		D8FFF6942031CB4000A028E0 /* tcy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = tcy; path = tcy.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		FF2090EE2500247100849774 /* ThreeLineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeLineHeaderView.swift; sourceTree = "<group>"; };
 		FF2B210F254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorCollectionViewFooter.swift; sourceTree = "<group>"; };
+		FF59DF4C2555E0CB0048E66C /* InternalLinkPreviewing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalLinkPreviewing.swift; sourceTree = "<group>"; };
 		FF921856252E8F4F00C39A8F /* ThanksGiving.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThanksGiving.swift; sourceTree = "<group>"; };
 		FF9416D724E203030070FEE7 /* OnThisDayWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnThisDayWidget.swift; sourceTree = "<group>"; usesTabs = 0; };
 		FF9416DD24E2098C0070FEE7 /* OnThisDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnThisDayView.swift; sourceTree = "<group>"; };
@@ -6428,6 +6433,7 @@
 				FFD7B84524AEAB3F005C2471 /* ArticleScrolling.swift */,
 				FFD7B85824B3CA7A005C2471 /* ReferenceShowing.swift */,
 				FF921856252E8F4F00C39A8F /* ThanksGiving.swift */,
+				FF59DF4C2555E0CB0048E66C /* InternalLinkPreviewing.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -10074,6 +10080,7 @@
 				67F73E792267B9510079DEEF /* TalkPageTopicNewViewController.swift in Sources */,
 				B00050141C52D73800515F70 /* UIApplication+RTL.swift in Sources */,
 				8321FCCC2387231E0079F3C7 /* ViewControllerRouter.swift in Sources */,
+				FF59DF4D2555E0CB0048E66C /* InternalLinkPreviewing.swift in Sources */,
 				7A610CBD220A582A00C266AE /* HintController.swift in Sources */,
 				7A13A8992028BB3600F28254 /* ReadingListsAlertController.swift in Sources */,
 				D850A53A1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,
@@ -10888,6 +10895,7 @@
 				7A610CC0220A582A00C266AE /* HintController.swift in Sources */,
 				8321FCCF2387231E0079F3C7 /* ViewControllerRouter.swift in Sources */,
 				D850A53D1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,
+				FF59DF502555E0CB0048E66C /* InternalLinkPreviewing.swift in Sources */,
 				D8A42A6F1E815A9C00D8E281 /* UIApplication+RTL.swift in Sources */,
 				672285732540B56D0038E332 /* ReferenceBackLinksViewControllerDelegate.swift in Sources */,
 				D8A42A721E815A9C00D8E281 /* WMFWelcomePanelViewController.swift in Sources */,
@@ -11746,6 +11754,7 @@
 				83B01F7823DA5348001185F4 /* ArticleViewController+ArticleToolbarHandling.swift in Sources */,
 				D8CE26031E698E2400DAE2E0 /* WMFLegacyReference.swift in Sources */,
 				7A13A89A2028BB3600F28254 /* ReadingListsAlertController.swift in Sources */,
+				FF59DF4F2555E0CB0048E66C /* InternalLinkPreviewing.swift in Sources */,
 				D8CE26041E698E2400DAE2E0 /* WMFWelcomePageViewController.swift in Sources */,
 				67059DB62260D619009811AA /* SchemeHandler.swift in Sources */,
 				D8CE26051E698E2400DAE2E0 /* MKCoordinateRegion+Dimensions.swift in Sources */,
@@ -12218,6 +12227,7 @@
 				83B01F7923DA5348001185F4 /* ArticleViewController+ArticleToolbarHandling.swift in Sources */,
 				D8EC3F021E9BDA35006712EB /* WMFLegacyReference.swift in Sources */,
 				7A13A89B2028BB3600F28254 /* ReadingListsAlertController.swift in Sources */,
+				FF59DF4E2555E0CB0048E66C /* InternalLinkPreviewing.swift in Sources */,
 				D8EC3F031E9BDA35006712EB /* WMFWelcomePageViewController.swift in Sources */,
 				67059DB72260D61A009811AA /* SchemeHandler.swift in Sources */,
 				834CC34D21075B7600F62818 /* UITabBar+Theme.swift in Sources */,
