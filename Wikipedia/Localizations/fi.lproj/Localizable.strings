@@ -21,6 +21,12 @@
 // Author: Surjection
 // Author: Valtlait
 
+"aaald-new-book-reference-title" = "Kirja";
+"aaald-new-discussion" = "Uusi keskustelu";
+"aaald-new-news-reference-title" = "Uutiset";
+"aaald-new-talk-topic-description-format" = "$1 tästä artikkelista";
+"aaald-new-website-reference-archive-url-text" = "Archive.org URL-osoite";
+"aaald-new-website-reference-title" = "Verkkosivu";
 "about-content-license" = "Sisältölisenssi";
 "about-content-license-details" = "Ellei toisin mainita, sisältö on saatavilla $1 -lisenssillä.";
 "about-content-license-details-share-alike-license" = "Creative Commons Nimeä-JaaSamoin -lisenssi";
