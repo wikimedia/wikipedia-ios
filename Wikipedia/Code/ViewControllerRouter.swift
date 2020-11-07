@@ -26,10 +26,12 @@ class ViewControllerRouter: NSObject {
             }
         }
 
-        if let vc = viewController as? SinglePageWebViewController, navigationController.modalPresentationStyle == .pageSheet {
-            vc.navigationBar.isBarHidingEnabled = false
-        }
-
+if #available(iOS 13.0, *), navigationController.children.contains(where: { $0 is ArticleAsLivingDocViewController }) {
+	// All article as living document specific behavior
+	if UIDevice.current.userInterfaceIdiom == .pad, let vc = viewController as? SinglePageWebViewController, navigationController.modalPresentationStyle == .pageSheet {
+		vc.navigationBar.isBarHidingEnabled = false
+	}
+}
         if let presentedVC = navigationController.presentedViewController {
             presentedVC.dismiss(animated: false, completion: showNewVC)
         } else {
