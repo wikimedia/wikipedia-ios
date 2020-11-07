@@ -58,7 +58,7 @@ class ArticleViewController: ViewController, HintPresenting {
     internal lazy var fetcher: ArticleFetcher = ArticleFetcher(session: session, configuration: configuration)
     
     @available(iOS 13.0, *)
-    lazy var articleAsLivingDocController = ArticleAsLivingDocController(delegate: self)
+    lazy var articleAsLivingDocController = ArticleAsLivingDocController(delegate: self, surveyController: SurveyAnnouncementsController.shared, abTestsController: dataStore.abTestsController)
 
     private var leadImageHeight: CGFloat = 210
 

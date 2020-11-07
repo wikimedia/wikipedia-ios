@@ -361,12 +361,17 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 // When the user launches from a terminated state, resume might not finish before didBecomeActive, so these tasks are held until both items complete
 - (void)performTasksThatShouldOccurAfterBecomeActiveAndResume {
     [[SessionsFunnel shared] logSessionStart];
-    [UserHistoryFunnel.shared logSnapshot];
     [self checkRemoteAppConfigIfNecessary];
     [self.periodicWorkerController start];
     [self.savedArticlesFetcher start];
     [self.mobileViewToMobileHTMLMigrationController start];
     self.notificationsController.applicationActive = YES;
+}
+
+-(void)performTasksThatShouldOccurAfterAnnouncementsUpdated {
+    if (self.isResumeComplete) {
+        [UserHistoryFunnel.shared logSnapshot];
+    }
 }
 
 - (void)appDidBecomeActiveWithNotification:(NSNotification *)note {
@@ -379,6 +384,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     if (self.isResumeComplete) {
         [self performTasksThatShouldOccurAfterBecomeActiveAndResume];
+        [UserHistoryFunnel.shared logSnapshot];
     }
 
 #if WMF_TWEAKS_ENABLED
@@ -868,6 +874,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     [[WMFDailyStatsLoggingFunnel shared] logAppNumberOfDaysSinceInstall];
 
+    WMFTaskGroup *resumeAndAnnouncementsCompleteGroup = [WMFTaskGroup new];
+    [resumeAndAnnouncementsCompleteGroup enter];
     [self.dataStore.authenticationManager
         attemptLoginWithCompletion:^{
             [self checkRemoteAppConfigIfNecessary];
@@ -888,6 +896,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                                                  }];
             }
             self.resumeComplete = YES;
+            [resumeAndAnnouncementsCompleteGroup leave];
             [self performTasksThatShouldOccurAfterBecomeActiveAndResume];
             [self showLoggedOutPanelIfNeeded];
         }];
@@ -900,9 +909,11 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     BOOL locationAuthorized = [LocationManagerFactory coarseLocationManager].isAuthorized;
     if (!feedRefreshDate || [now timeIntervalSinceDate:feedRefreshDate] > [self timeBeforeRefreshingExploreFeed] || [[NSCalendar wmf_gregorianCalendar] wmf_daysFromDate:feedRefreshDate toDate:now] > 0) {
+        [resumeAndAnnouncementsCompleteGroup enter];
         [self.exploreViewController updateFeedSourcesWithDate:nil
                                                 userInitiated:NO
                                                    completion:^{
+                                                        [resumeAndAnnouncementsCompleteGroup leave];
                                                    }];
     } else {
         if (locationAuthorized != [defaults wmf_locationAuthorized]) {
@@ -913,8 +924,15 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             [self.dataStore.feedContentController updateContentSource:[WMFContinueReadingContentSource class] force:YES completion:NULL];
         }
 
-        [self.dataStore.feedContentController updateContentSource:[WMFAnnouncementsContentSource class] force:YES completion:NULL];
+        [resumeAndAnnouncementsCompleteGroup enter];
+        [self.dataStore.feedContentController updateContentSource:[WMFAnnouncementsContentSource class] force:YES completion:^{
+                    [resumeAndAnnouncementsCompleteGroup leave];
+        }];
     }
+    
+    [resumeAndAnnouncementsCompleteGroup waitInBackgroundWithCompletion:^{
+        [self performTasksThatShouldOccurAfterAnnouncementsUpdated];
+    }];
 
     [defaults wmf_setLocationAuthorized:locationAuthorized];
 
