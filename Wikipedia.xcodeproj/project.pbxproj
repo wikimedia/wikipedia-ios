@@ -3702,7 +3702,7 @@
 		8320332022B90548004A9EDA /* NSManagedObjectContext+NavigationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "NSManagedObjectContext+NavigationState.swift"; path = "WMF Framework/NSManagedObjectContext+NavigationState.swift"; sourceTree = SOURCE_ROOT; };
 		8320332222B906A0004A9EDA /* NavigationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NavigationState.swift; path = "WMF Framework/NavigationState.swift"; sourceTree = SOURCE_ROOT; };
 		8321FCC923871D8F0079F3C7 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Router.swift; path = "WMF Framework/Router.swift"; sourceTree = SOURCE_ROOT; };
-		8321FCCB2387231E0079F3C7 /* ViewControllerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerRouter.swift; sourceTree = "<group>"; };
+		8321FCCB2387231E0079F3C7 /* ViewControllerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerRouter.swift; sourceTree = "<group>"; usesTabs = 0; };
 		83222DAD1F8E554800338BE5 /* WMFContent+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WMFContent+CoreDataProperties.h"; sourceTree = "<group>"; };
 		83222DAE1F8E554800338BE5 /* WMFContent+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WMFContent+CoreDataClass.h"; sourceTree = "<group>"; };
 		83222DAF1F8E554800338BE5 /* WMFContent+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WMFContent+CoreDataClass.m"; sourceTree = "<group>"; };
