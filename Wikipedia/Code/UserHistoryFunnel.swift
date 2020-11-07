@@ -21,7 +21,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
     let dataStore: MWKDataStore
     required init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
-        super.init(schema: "MobileWikiAppiOSUserHistory", version: 19074748)
+        super.init(schema: "MobileWikiAppiOSUserHistory", version: 20339865)
     }
     
     private func event() -> Dictionary<String, Any> {
@@ -48,6 +48,10 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         }
 
         event["feed_enabled_list"] = feedEnabledListPayload()
+        
+        if let articleAsLivingDocBucket = dataStore.abTestsController.bucketForExperiment(.articleAsLivingDoc) {
+            event["test_group"] = articleAsLivingDocBucket.rawValue
+        }
         
         return wholeEvent(with: event)
     }

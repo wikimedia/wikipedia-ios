@@ -23,6 +23,9 @@ class ArticleAsLivingDocController: NSObject {
     }
     
     private weak var delegate: ArticleAsLivingDocConformingViewController?
+    private let abTestsController: ABTestsController
+    private let surveyController: SurveyAnnouncementsController
+    
     
     var _articleAsLivingDocViewModel: ArticleAsLivingDocViewModel?
     var articleAsLivingDocViewModel: ArticleAsLivingDocViewModel? {
@@ -69,11 +72,19 @@ class ArticleAsLivingDocController: NSObject {
             return false
         }
         
-        //todo: need A/B test logic (falls in test and visiting article in allowed list)
+        let isInValidSurveyCampaignAndArticleList = surveyController.activeSurveyAnnouncementResultForArticleURL(delegate.articleURL) != nil
+        
+        let isInExperimentBucket: Bool
+        if let bucket = abTestsController.bucketForExperiment(.articleAsLivingDoc) {
+            isInExperimentBucket = bucket == .articleAsLivingDocTest
+        } else {
+            isInExperimentBucket = false
+        }
+        
         let isDeviceRTL = view.effectiveUserInterfaceLayoutDirection == .rightToLeft
         let isENWikipediaArticle = delegate.articleURL.host == Configuration.Domain.englishWikipedia
         
-        let shouldAttemptToShowArticleAsLivingDoc = articleTitleAndSiteURL() != nil && !isDeviceRTL && isENWikipediaArticle
+        let shouldAttemptToShowArticleAsLivingDoc = articleTitleAndSiteURL() != nil && !isDeviceRTL && isENWikipediaArticle && isInValidSurveyCampaignAndArticleList && isInExperimentBucket
         
         return shouldAttemptToShowArticleAsLivingDoc
     }
@@ -101,8 +112,10 @@ class ArticleAsLivingDocController: NSObject {
     
     var hintController: HintController?
 
-    required init(delegate: ArticleAsLivingDocConformingViewController) {
+    required init(delegate: ArticleAsLivingDocConformingViewController, surveyController: SurveyAnnouncementsController, abTestsController: ABTestsController) {
         self.delegate = delegate
+        self.surveyController = surveyController
+        self.abTestsController = abTestsController
     }
     
     func articleTitleAndSiteURL() -> (title: String, siteURL: URL)? {

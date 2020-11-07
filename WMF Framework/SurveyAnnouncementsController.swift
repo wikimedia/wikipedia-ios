@@ -19,15 +19,36 @@ public final class SurveyAnnouncementsController: NSObject {
         public let displayDelay: TimeInterval
     }
     
-    @objc public func setAnnouncements(_ announcements: [WMFAnnouncement], forSiteURL siteURL: URL) {
+    public private(set) var failureDeterminingABTestBucket = false
+    
+    @objc public func setAnnouncements(_ announcements: [WMFAnnouncement], forSiteURL siteURL: URL, dataStore: MWKDataStore) {
         
         guard let components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false),
             let host = components.host else {
                 return
         }
         
+        let surveyAnnouncements = announcements.filter { $0.announcementType == .survey }
+        
         queue.sync {
-            announcementsByHost[host] = announcements.filter { $0.announcementType == .survey }
+            announcementsByHost[host] = surveyAnnouncements
+        }
+        
+        //assign and persist ab test bucket &  percentage
+        //this works for now since we only have one experiment for this release but will likely need to change as we expand
+        if let articleAsLivingDocAnnouncement = surveyAnnouncements.first(where: { $0.identifier == "IOSSURVEY20IOSV4EN" }),
+           let percentage = articleAsLivingDocAnnouncement.percentReceivingExperiment {
+            
+            do {
+                if dataStore.abTestsController.percentageForExperiment(.articleAsLivingDoc) == nil {
+                    try dataStore.abTestsController.setPercentage(percentage, forExperiment: .articleAsLivingDoc)
+                }
+                
+                try dataStore.abTestsController.determineBucketForExperiment(.articleAsLivingDoc, withPercentage: percentage)
+                failureDeterminingABTestBucket = false
+            } catch {
+                failureDeterminingABTestBucket = true
+            }
         }
     }
     
@@ -47,7 +68,11 @@ public final class SurveyAnnouncementsController: NSObject {
     
     //Use for determining whether to show user a survey prompt or not.
     //Considers domain, campaign start/end dates, article title in campaign, and whether survey has already been acted upon or not.
-    public func activeSurveyAnnouncementResultForTitle(_ articleTitle: String, siteURL: URL) -> SurveyAnnouncementResult? {
+    public func activeSurveyAnnouncementResultForArticleURL(_ articleURL: URL) -> SurveyAnnouncementResult? {
+        
+        guard let articleTitle = articleURL.wmf_title?.denormalizedPageTitle, let siteURL = articleURL.wmf_site else {
+            return nil
+        }
 
         guard let announcements = getAnnouncementsForSiteURL(siteURL) else {
             return nil
@@ -67,8 +92,10 @@ public final class SurveyAnnouncementsController: NSObject {
                 let googleFormattedArticleTitle = normalizedArticleTitle.googleFormPercentEncodedPageTitle else {
                     continue
             }
-            
-            guard let actionURL = announcement.actionURLReplacingPlaceholder("{{articleTitle}}", withValue: googleFormattedArticleTitle) else {
+    
+            //TODO: need to create this elsewhere to capture didSeeModal and isInExperiment
+            //old url calculation was announcement.actionURLReplacingPlaceholder("{{articleTitle}}", withValue: googleFormattedArticleTitle)
+            guard let actionURL = URL(string: "https://en.wikipedia.org") else {
                 continue
             }
                 
