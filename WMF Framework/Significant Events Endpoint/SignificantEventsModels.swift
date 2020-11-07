@@ -113,6 +113,7 @@ public extension SignificantEvents {
         public struct Large {
             let outputType: EventOutputType
             public let revId: UInt
+            public let parentId: UInt
             public let timestampString: String
             public let user: String
             public let userId: UInt
@@ -122,6 +123,7 @@ public extension SignificantEvents {
             
             init?(untypedEvent: UntypedEvent) {
                 guard let revId = untypedEvent.revId,
+                      let parentId = untypedEvent.parentId,
                       let timestampString = untypedEvent.timestampString,
                       let user = untypedEvent.user,
                       let userId = untypedEvent.userId,
@@ -131,6 +133,7 @@ public extension SignificantEvents {
                 
                 self.outputType = untypedEvent.outputType
                 self.revId = revId
+                self.parentId = parentId
                 self.timestampString = timestampString
                 self.user = user
                 self.userId = userId
@@ -167,16 +170,19 @@ public extension SignificantEvents {
         public struct Small: Equatable {
             let outputType: EventOutputType
             public let revId: UInt
+            public let parentId: UInt
             public let timestampString: String
             
             fileprivate init?(untypedEvent: UntypedEvent) {
                 guard let revId = untypedEvent.revId,
+                      let parentId = untypedEvent.parentId,
                       let timestampString = untypedEvent.timestampString else {
                     return nil
                 }
                 
                 self.outputType = untypedEvent.outputType
                 self.revId = revId
+                self.parentId = parentId
                 self.timestampString = timestampString
             }
             
@@ -188,6 +194,7 @@ public extension SignificantEvents {
         public struct VandalismRevert {
             let outputType: EventOutputType
             public let revId: UInt
+            public let parentId: UInt
             public let timestampString: String
             public let user: String
             public let userId: UInt
@@ -197,6 +204,7 @@ public extension SignificantEvents {
             
             fileprivate init?(untypedEvent: UntypedEvent) {
                 guard let revId = untypedEvent.revId,
+                      let parentId = untypedEvent.parentId,
                       let timestampString = untypedEvent.timestampString,
                       let user = untypedEvent.user,
                       let userId = untypedEvent.userId,
@@ -206,6 +214,7 @@ public extension SignificantEvents {
                 
                 self.outputType = untypedEvent.outputType
                 self.revId = revId
+                self.parentId = parentId
                 self.timestampString = timestampString
                 self.user = user
                 self.userId = userId
@@ -218,6 +227,7 @@ public extension SignificantEvents {
         public struct NewTalkPageTopic {
             let outputType: EventOutputType
             let revId: UInt
+            let parentId: UInt
             public let timestampString: String
             public let user: String
             public let userId: UInt
@@ -228,6 +238,7 @@ public extension SignificantEvents {
             
             fileprivate init?(untypedEvent: UntypedEvent) {
                 guard let revId = untypedEvent.revId,
+                      let parentId = untypedEvent.parentId,
                       let timestampString = untypedEvent.timestampString,
                       let user = untypedEvent.user,
                       let userId = untypedEvent.userId,
@@ -238,6 +249,7 @@ public extension SignificantEvents {
                 
                 self.outputType = untypedEvent.outputType
                 self.revId = revId
+                self.parentId = parentId
                 self.timestampString = timestampString
                 self.user = user
                 self.userId = userId
@@ -533,6 +545,7 @@ public extension SignificantEvents {
     struct UntypedEvent: Decodable {
         let outputType: EventOutputType
         let revId: UInt?
+        let parentId: UInt?
         let timestampString: String?
         let user: String?
         let userId: UInt?
@@ -546,6 +559,7 @@ public extension SignificantEvents {
         
         enum CodingKeys: String, CodingKey {
                 case revId = "revid"
+                case parentId = "parentid"
                 case timestampString = "timestamp"
                 case outputType
                 case user
@@ -558,22 +572,6 @@ public extension SignificantEvents {
                 case snippet
                 case untypedChanges = "significantChanges"
             }
-        
-        init(forPrototypeText prototypeText: String) {
-            self.outputType = .large
-            self.revId = 1
-            self.timestampString = "2015-07-08T21:16:25Z"
-            self.user = "Test.Name"
-            self.userId = 2
-            self.userGroups = ["autoreviewer", "extendedconfirmed", "*", "user", "autoconfirmed"]
-            self.userEditCount = 3
-            self.count = nil
-            self.sections = ["== Test =="]
-            self.section = nil
-            self.snippet = prototypeText
-            let untypedChange = SignificantEvents.UntypedChange(outputType: .addedText, sections: ["== Test =="], snippet: prototypeText, snippetType: .addedLine, characterCount: UInt(prototypeText.count), untypedTemplates: nil)
-            self.untypedChanges = [untypedChange]
-        }
     }
     
     struct UntypedChange: Decodable {

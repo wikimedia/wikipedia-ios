@@ -593,7 +593,8 @@ public extension ArticleAsLivingDocViewModel {
             let userId: UInt
             public let userType: UserType
             public let buttonsToDisplay: ButtonsToDisplay
-            public var revId: UInt = 0
+            public let revId: UInt
+            public let parentId: UInt
             public var wereThanksSent = false
             
             init?(typedEvent: SignificantEvents.TypedEvent) {
@@ -629,23 +630,19 @@ public extension ArticleAsLivingDocViewModel {
                 switch typedEvent {
                 case .large(let largeChange):
                     revId = largeChange.revId
+                    parentId = largeChange.parentId
                 case .newTalkPageTopic(let newTalkPageTopic):
                     revId = newTalkPageTopic.revId
+                    parentId = newTalkPageTopic.parentId
                 case .vandalismRevert(let vandalismRevert):
                     revId = vandalismRevert.revId
+                    parentId = vandalismRevert.parentId
                 default:
                     assertionFailure("Shouldn't happen")
+                    revId = 0
+                    parentId = 0
                 }
                 
-            }
-            
-            public convenience init?(forPrototypeText prototypeText: String) {
-                let originalUntypedEvent = SignificantEvents.UntypedEvent(forPrototypeText: prototypeText)
-                guard let originalLargeChange = SignificantEvents.Event.Large(untypedEvent: originalUntypedEvent) else {
-                    return nil
-                }
-                let originalTypedEvent = SignificantEvents.TypedEvent.large(originalLargeChange)
-                self.init(typedEvent: originalTypedEvent)
             }
             
             public static func == (lhs: ArticleAsLivingDocViewModel.Event.Large, rhs: ArticleAsLivingDocViewModel.Event.Large) -> Bool {
