@@ -501,6 +501,7 @@
 		67E8B093226A57EA00537BC9 /* TalkPageTopicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F73E702267B8020079DEEF /* TalkPageTopicListViewController.swift */; };
 		67E8B094226A57EA00537BC9 /* TalkPageTopicNewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F73E782267B9500079DEEF /* TalkPageTopicNewViewController.swift */; };
 		67E8B096226A57EA00537BC9 /* TalkPageReplyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F73E742267B9070079DEEF /* TalkPageReplyListViewController.swift */; };
+		67E9A11C25536B6F00C5ED31 /* ABTestsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E9A11B25536B6F00C5ED31 /* ABTestsController.swift */; };
 		67EA9E10228F0358008D9EFD /* TalkPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675A7CFD227A3F7C0034D9D9 /* TalkPageHeaderView.swift */; };
 		67EA9E11228F0359008D9EFD /* TalkPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675A7CFD227A3F7C0034D9D9 /* TalkPageHeaderView.swift */; };
 		67EA9E12228F0359008D9EFD /* TalkPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675A7CFD227A3F7C0034D9D9 /* TalkPageHeaderView.swift */; };
@@ -2955,6 +2956,14 @@
 		D8FEECCD1DE3729400B883F0 /* WMFChange.m in Sources */ = {isa = PBXBuildFile; fileRef = D8FEECCC1DE3729400B883F0 /* WMFChange.m */; };
 		E1CFD6E6210C103900D8E37C /* ExploreCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */; };
 		FF2090F02500247100849774 /* ThreeLineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2090EE2500247100849774 /* ThreeLineHeaderView.swift */; };
+		FF2B2110254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2B210F254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift */; };
+		FF2B2111254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2B210F254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift */; };
+		FF2B2112254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2B210F254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift */; };
+		FF2B2113254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2B210F254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift */; };
+		FF59DF4D2555E0CB0048E66C /* InternalLinkPreviewing.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF59DF4C2555E0CB0048E66C /* InternalLinkPreviewing.swift */; };
+		FF59DF4E2555E0CB0048E66C /* InternalLinkPreviewing.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF59DF4C2555E0CB0048E66C /* InternalLinkPreviewing.swift */; };
+		FF59DF4F2555E0CB0048E66C /* InternalLinkPreviewing.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF59DF4C2555E0CB0048E66C /* InternalLinkPreviewing.swift */; };
+		FF59DF502555E0CB0048E66C /* InternalLinkPreviewing.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF59DF4C2555E0CB0048E66C /* InternalLinkPreviewing.swift */; };
 		FF921857252E8F4F00C39A8F /* ThanksGiving.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF921856252E8F4F00C39A8F /* ThanksGiving.swift */; };
 		FF92187C252F7EA300C39A8F /* ThanksGiving.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF921856252E8F4F00C39A8F /* ThanksGiving.swift */; };
 		FF921887252F7EA500C39A8F /* ThanksGiving.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF921856252E8F4F00C39A8F /* ThanksGiving.swift */; };
@@ -3406,7 +3415,7 @@
 		676070A1227CE60800A81F09 /* TalkPageReplyFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageReplyFooterView.swift; sourceTree = "<group>"; };
 		676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkPageTopicNewViewController.xib; sourceTree = "<group>"; };
 		676A8A8223A4013D0084B967 /* ArticleFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArticleFetcher.swift; path = ../Wikipedia/Code/ArticleFetcher.swift; sourceTree = "<group>"; };
-		6771298E24FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocViewController.swift; sourceTree = "<group>"; };
+		6771298E24FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		6771299324FF775E00E89CA5 /* ArticleAsLivingDocLargeEventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocLargeEventCollectionViewCell.swift; sourceTree = "<group>"; };
 		6771299F24FFF43000E89CA5 /* ArticleAsLivingDocHorizontallyScrollingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocHorizontallyScrollingCell.swift; sourceTree = "<group>"; };
 		6771C9532509FE6B00A7254B /* ArticleAsLivingDocHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArticleAsLivingDocHeaderView.xib; sourceTree = "<group>"; };
@@ -3501,6 +3510,7 @@
 		67E8B0AB226A6DCA00537BC9 /* TalkPageNetworkDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageNetworkDataTests.swift; sourceTree = "<group>"; };
 		67E8B0AD226A74C200537BC9 /* TalkPageFetcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageFetcherTests.swift; sourceTree = "<group>"; };
 		67E8B0B6226F5E3800537BC9 /* Wikipedia 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Wikipedia 2.xcdatamodel"; sourceTree = "<group>"; };
+		67E9A11B25536B6F00C5ED31 /* ABTestsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABTestsController.swift; sourceTree = "<group>"; };
 		67ED8EB024F99FF400DD5D39 /* SignificantEventsFetcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignificantEventsFetcherTests.swift; sourceTree = "<group>"; };
 		67F1375D23C986CD00512B61 /* CacheTaskTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheTaskTracking.swift; sourceTree = "<group>"; };
 		67F35A6523E875B900C3D6C7 /* WMFLanguagesViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFLanguagesViewControllerDelegate.h; sourceTree = "<group>"; };
@@ -4828,6 +4838,8 @@
 		D8FFF6932031CB3E00A028E0 /* cy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = cy; path = cy.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		D8FFF6942031CB4000A028E0 /* tcy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = tcy; path = tcy.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		FF2090EE2500247100849774 /* ThreeLineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeLineHeaderView.swift; sourceTree = "<group>"; };
+		FF2B210F254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorCollectionViewFooter.swift; sourceTree = "<group>"; };
+		FF59DF4C2555E0CB0048E66C /* InternalLinkPreviewing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalLinkPreviewing.swift; sourceTree = "<group>"; };
 		FF921856252E8F4F00C39A8F /* ThanksGiving.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThanksGiving.swift; sourceTree = "<group>"; };
 		FF9416D724E203030070FEE7 /* OnThisDayWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnThisDayWidget.swift; sourceTree = "<group>"; usesTabs = 0; };
 		FF9416DD24E2098C0070FEE7 /* OnThisDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnThisDayView.swift; sourceTree = "<group>"; };
@@ -6036,6 +6048,7 @@
 				6771C9532509FE6B00A7254B /* ArticleAsLivingDocHeaderView.xib */,
 				6798036024F94CEE00D765AA /* ArticleAsLivingDocController.swift */,
 				67985A852524E05F00EBF353 /* ArticleAsLivingDocHintViewController.swift */,
+				FF2B210F254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift */,
 			);
 			path = "Article as a Living Document";
 			sourceTree = "<group>";
@@ -6420,6 +6433,7 @@
 				FFD7B84524AEAB3F005C2471 /* ArticleScrolling.swift */,
 				FFD7B85824B3CA7A005C2471 /* ReferenceShowing.swift */,
 				FF921856252E8F4F00C39A8F /* ThanksGiving.swift */,
+				FF59DF4C2555E0CB0048E66C /* InternalLinkPreviewing.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -7957,6 +7971,7 @@
 				7A255D3D215162AF0081A068 /* Remote Notifications */,
 				7A45AB7F20AB2A4C006A92F5 /* Dictionary+Equality.swift */,
 				0062597224DE0A2500C95037 /* WidgetController.swift */,
+				67E9A11B25536B6F00C5ED31 /* ABTestsController.swift */,
 			);
 			path = "WMF Framework";
 			sourceTree = "<group>";
@@ -10065,6 +10080,7 @@
 				67F73E792267B9510079DEEF /* TalkPageTopicNewViewController.swift in Sources */,
 				B00050141C52D73800515F70 /* UIApplication+RTL.swift in Sources */,
 				8321FCCC2387231E0079F3C7 /* ViewControllerRouter.swift in Sources */,
+				FF59DF4D2555E0CB0048E66C /* InternalLinkPreviewing.swift in Sources */,
 				7A610CBD220A582A00C266AE /* HintController.swift in Sources */,
 				7A13A8992028BB3600F28254 /* ReadingListsAlertController.swift in Sources */,
 				D850A53A1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,
@@ -10370,6 +10386,7 @@
 				83FBE9751F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */,
 				D8A47C8A23D728A4002AA823 /* ArticleTableOfContentsDisplayController.swift in Sources */,
 				D84F2C031D30162700963D42 /* WMFFirstRandomViewController.m in Sources */,
+				FF2B2110254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift in Sources */,
 				7A28126320D3F84A009B42B5 /* FeedCardSettingsViewController.swift in Sources */,
 				67E466FA241BED770014149B /* EditHistoryCompareFunnel.swift in Sources */,
 				8386BDF62386D735007EE89D /* ViewController+URLHandling.swift in Sources */,
@@ -10500,6 +10517,7 @@
 				D81EFDE21D775B140035F2EB /* NSUserActivity+WMFExtensions.m in Sources */,
 				8320332122B90548004A9EDA /* NSManagedObjectContext+NavigationState.swift in Sources */,
 				67D6C00C24058714005709B1 /* CacheItemMappingModel.xcmappingmodel in Sources */,
+				67E9A11C25536B6F00C5ED31 /* ABTestsController.swift in Sources */,
 				6798037224F99AB200D765AA /* SignificantEventsModels.swift in Sources */,
 				7A9133AA22B162E8002AEBCF /* RemoteNotifications.xcdatamodeld in Sources */,
 				D8733C941ECA16940011E379 /* HasText.swift in Sources */,
@@ -10877,6 +10895,7 @@
 				7A610CC0220A582A00C266AE /* HintController.swift in Sources */,
 				8321FCCF2387231E0079F3C7 /* ViewControllerRouter.swift in Sources */,
 				D850A53D1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,
+				FF59DF502555E0CB0048E66C /* InternalLinkPreviewing.swift in Sources */,
 				D8A42A6F1E815A9C00D8E281 /* UIApplication+RTL.swift in Sources */,
 				672285732540B56D0038E332 /* ReferenceBackLinksViewControllerDelegate.swift in Sources */,
 				D8A42A721E815A9C00D8E281 /* WMFWelcomePanelViewController.swift in Sources */,
@@ -11182,6 +11201,7 @@
 				D8A42B541E815A9C00D8E281 /* WMFRandomDiceButton.m in Sources */,
 				7A1C4998227265CD00230ED2 /* InsertMediaSelectedImageViewController.swift in Sources */,
 				D8A47C8D23D728A4002AA823 /* ArticleTableOfContentsDisplayController.swift in Sources */,
+				FF2B2113254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift in Sources */,
 				7A71567122697AAF0066FEC4 /* InsertMediaCustomImageSizeSettingTableViewCell.swift in Sources */,
 				D8A42B5B1E815A9C00D8E281 /* WMFFirstRandomViewController.m in Sources */,
 				D8A42B5D1E815A9C00D8E281 /* ArticlePopoverViewController.swift in Sources */,
@@ -11369,6 +11389,7 @@
 				6782DBB02343B812003FA21B /* DiffHeaderCompareView.swift in Sources */,
 				83DAA9B123FEB611002D5716 /* ReferenceBackLinksViewController.swift in Sources */,
 				7A9524D822669A8B00C55CDC /* InsertMediaSettingsButtonView.swift in Sources */,
+				FF2B2112254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift in Sources */,
 				8351CE7920D4424100E32FC1 /* CollectionViewHeader.swift in Sources */,
 				7A20AE092057F39C005FB5DF /* UIView+Identifier.swift in Sources */,
 				D8E27BA21F82B38100F9D2B3 /* RMessageView.m in Sources */,
@@ -11733,6 +11754,7 @@
 				83B01F7823DA5348001185F4 /* ArticleViewController+ArticleToolbarHandling.swift in Sources */,
 				D8CE26031E698E2400DAE2E0 /* WMFLegacyReference.swift in Sources */,
 				7A13A89A2028BB3600F28254 /* ReadingListsAlertController.swift in Sources */,
+				FF59DF4F2555E0CB0048E66C /* InternalLinkPreviewing.swift in Sources */,
 				D8CE26041E698E2400DAE2E0 /* WMFWelcomePageViewController.swift in Sources */,
 				67059DB62260D619009811AA /* SchemeHandler.swift in Sources */,
 				D8CE26051E698E2400DAE2E0 /* MKCoordinateRegion+Dimensions.swift in Sources */,
@@ -11840,6 +11862,7 @@
 				6782DBB12343B812003FA21B /* DiffHeaderCompareView.swift in Sources */,
 				83DAA9B223FEB611002D5716 /* ReferenceBackLinksViewController.swift in Sources */,
 				7A9524D922669A8B00C55CDC /* InsertMediaSettingsButtonView.swift in Sources */,
+				FF2B2111254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift in Sources */,
 				83023C2120E6584F00EC7592 /* SearchTransition.swift in Sources */,
 				D8EC3DF61E9BDA35006712EB /* NSDate+WMFPOTDTitle.m in Sources */,
 				D8EC3DF71E9BDA35006712EB /* WMFTableHeaderFooterLabelView.m in Sources */,
@@ -12204,6 +12227,7 @@
 				83B01F7923DA5348001185F4 /* ArticleViewController+ArticleToolbarHandling.swift in Sources */,
 				D8EC3F021E9BDA35006712EB /* WMFLegacyReference.swift in Sources */,
 				7A13A89B2028BB3600F28254 /* ReadingListsAlertController.swift in Sources */,
+				FF59DF4E2555E0CB0048E66C /* InternalLinkPreviewing.swift in Sources */,
 				D8EC3F031E9BDA35006712EB /* WMFWelcomePageViewController.swift in Sources */,
 				67059DB72260D61A009811AA /* SchemeHandler.swift in Sources */,
 				834CC34D21075B7600F62818 /* UITabBar+Theme.swift in Sources */,

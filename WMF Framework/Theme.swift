@@ -164,6 +164,7 @@ public class Colors: NSObject {
         cardBorder: .lightBorder,
         cardShadow: .base10,
         cardButtonBackground: .lightBorder,
+        cardButtonSelectedBackground: .accent90,
         secondaryAction: .accent30,
         icon: nil,
         iconBackground: nil,
@@ -229,7 +230,8 @@ public class Colors: NSObject {
         selectedCardBackground: .sepiaBase85,
         cardBorder: .sepiaBorder,
         cardShadow: .clear,
-        cardButtonBackground: .sepiaBase85,
+        cardButtonBackground: .sepiaBase90,
+        cardButtonSelectedBackground: .sepiaGray80,
         secondaryAction: .accent30,
         icon: .sepiaGray40,
         iconBackground: .sepiaBase85,
@@ -296,6 +298,7 @@ public class Colors: NSObject {
         cardBorder: .darkBase20,
         cardShadow: .clear,
         cardButtonBackground: .darkBase30,
+        cardButtonSelectedBackground: .base10,
         secondaryAction: .accent30,
         icon: .base70,
         iconBackground: .darkBase10,
@@ -361,7 +364,8 @@ public class Colors: NSObject {
         selectedCardBackground: .darkBase05,
         cardBorder: .darkBase10,
         cardShadow: .clear,
-        cardButtonBackground: .darkBase20,
+        cardButtonBackground: .darkBase30,
+        cardButtonSelectedBackground: .base10,
         secondaryAction: .accent30,
         icon: .base70,
         iconBackground: .darkBase10,
@@ -428,6 +432,7 @@ public class Colors: NSObject {
         cardBorder: .clear,
         cardShadow: .base0,
         cardButtonBackground: .base0,
+        cardButtonSelectedBackground: .base80,
         secondaryAction: .accent30,
         icon: nil,
         iconBackground: nil,
@@ -484,6 +489,7 @@ public class Colors: NSObject {
         cardBorder: .darkBase10,
         cardShadow: .clear,
         cardButtonBackground: .darkBase20,
+        cardButtonSelectedBackground: .base10,
         secondaryAction: .accent30,
         icon: .base70,
         iconBackground: .darkBase10,
@@ -548,6 +554,7 @@ public class Colors: NSObject {
     @objc public let cardBorder: UIColor
     @objc public let cardShadow: UIColor
     @objc public let cardButtonBackground: UIColor
+    @objc public let cardButtonSelectedBackground: UIColor
     
     @objc public let icon: UIColor?
     @objc public let iconBackground: UIColor?
@@ -602,7 +609,7 @@ public class Colors: NSObject {
     public let diffCompareChangeHeading: UIColor
     
     //Someday, when the app is all swift, make this class a struct.
-    init(baseBackground: UIColor, midBackground: UIColor, paperBackground: UIColor, chromeBackground: UIColor, popoverBackground: UIColor, subCellBackground: UIColor, overlayBackground: UIColor, batchSelectionBackground: UIColor, referenceHighlightBackground: UIColor, hintBackground: UIColor, hintWarningBackground: UIColor, animationBackground: UIColor, overlayText: UIColor, searchFieldBackground: UIColor, keyboardBarSearchFieldBackground: UIColor, primaryText: UIColor, secondaryText: UIColor, tertiaryText: UIColor, disabledText: UIColor, disabledLink: UIColor, chromeText: UIColor, link: UIColor, accent: UIColor, border: UIColor, shadow: UIColor, chromeShadow: UIColor, cardBackground: UIColor, selectedCardBackground: UIColor, cardBorder: UIColor, cardShadow: UIColor, cardButtonBackground: UIColor, secondaryAction: UIColor, icon: UIColor?, iconBackground: UIColor?, destructive: UIColor, error: UIColor, warning: UIColor, unselected: UIColor, blurEffectStyle: UIBlurEffect.Style, blurEffectBackground: UIColor, tagText: UIColor, tagBackground: UIColor, tagSelectedBackground: UIColor, rankGradientStart: UIColor, rankGradientEnd: UIColor, distanceBorder: UIColor, descriptionBackground: UIColor, descriptionWarning: UIColor, inputAccessoryBackground: UIColor, inputAccessoryButtonTint: UIColor, pageIndicator: UIColor, pageIndicatorCurrent: UIColor, unreadIndicator: UIColor, depthMarker: UIColor, diffTextAdd: UIColor = .base10, diffTextDelete: UIColor = .base10, diffHighlightAdd: UIColor? = .green90, diffHighlightDelete: UIColor? = .red90, diffStrikethroughColor: UIColor = .base0, diffContextItemBackground: UIColor = .base90, diffContextItemBorder: UIColor = .darkBase90, diffMoveParagraphBackground: UIColor = .base90, diffCompareAccent: UIColor = .orange50, diffCompareChangeHeading: UIColor = .base100) {
+    init(baseBackground: UIColor, midBackground: UIColor, paperBackground: UIColor, chromeBackground: UIColor, popoverBackground: UIColor, subCellBackground: UIColor, overlayBackground: UIColor, batchSelectionBackground: UIColor, referenceHighlightBackground: UIColor, hintBackground: UIColor, hintWarningBackground: UIColor, animationBackground: UIColor, overlayText: UIColor, searchFieldBackground: UIColor, keyboardBarSearchFieldBackground: UIColor, primaryText: UIColor, secondaryText: UIColor, tertiaryText: UIColor, disabledText: UIColor, disabledLink: UIColor, chromeText: UIColor, link: UIColor, accent: UIColor, border: UIColor, shadow: UIColor, chromeShadow: UIColor, cardBackground: UIColor, selectedCardBackground: UIColor, cardBorder: UIColor, cardShadow: UIColor, cardButtonBackground: UIColor, cardButtonSelectedBackground: UIColor, secondaryAction: UIColor, icon: UIColor?, iconBackground: UIColor?, destructive: UIColor, error: UIColor, warning: UIColor, unselected: UIColor, blurEffectStyle: UIBlurEffect.Style, blurEffectBackground: UIColor, tagText: UIColor, tagBackground: UIColor, tagSelectedBackground: UIColor, rankGradientStart: UIColor, rankGradientEnd: UIColor, distanceBorder: UIColor, descriptionBackground: UIColor, descriptionWarning: UIColor, inputAccessoryBackground: UIColor, inputAccessoryButtonTint: UIColor, pageIndicator: UIColor, pageIndicatorCurrent: UIColor, unreadIndicator: UIColor, depthMarker: UIColor, diffTextAdd: UIColor = .base10, diffTextDelete: UIColor = .base10, diffHighlightAdd: UIColor? = .green90, diffHighlightDelete: UIColor? = .red90, diffStrikethroughColor: UIColor = .base0, diffContextItemBackground: UIColor = .base90, diffContextItemBorder: UIColor = .darkBase90, diffMoveParagraphBackground: UIColor = .base90, diffCompareAccent: UIColor = .orange50, diffCompareChangeHeading: UIColor = .base100) {
         self.baseBackground = baseBackground
         self.midBackground = midBackground
         self.subCellBackground = subCellBackground
@@ -615,6 +622,7 @@ public class Colors: NSObject {
         self.cardBorder = cardBorder
         self.cardShadow = cardShadow
         self.cardButtonBackground = cardButtonBackground
+        self.cardButtonSelectedBackground = cardButtonSelectedBackground
         self.overlayBackground = overlayBackground
         self.batchSelectionBackground = batchSelectionBackground
         self.hintBackground = hintBackground

@@ -131,7 +131,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
             [mutableContentSources addObjectsFromArray: @[[[WMFNearbyContentSource alloc] initWithSiteURL:siteURL  dataStore:self.dataStore],
                                 feedContentSource,
                                 [[WMFRandomContentSource alloc] initWithSiteURL:siteURL session:session configuration:configuration],
-                                [[WMFAnnouncementsContentSource alloc] initWithSiteURL:siteURL session:session configuration:configuration],
+                                [[WMFAnnouncementsContentSource alloc] initWithSiteURL:siteURL userDataStore:self.dataStore],
                                 [[WMFOnThisDayContentSource alloc] initWithSiteURL:siteURL session:session configuration:configuration]]];
         }
         _contentSources = [mutableContentSources copy];

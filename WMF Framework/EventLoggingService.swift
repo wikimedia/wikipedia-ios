@@ -62,7 +62,12 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         DDLogDebug("EventLoggingService: Events persistent store: \(permanentStorageURL)")
         
         // SINGLETONTODO
-        return EventLoggingService(session: MWKDataStore.shared().session, permanentStorageURL: permanentStorageURL)
+        let eventLoggingService = EventLoggingService(session: MWKDataStore.shared().session, permanentStorageURL: permanentStorageURL)
+        if let eventLoggingService = eventLoggingService {
+            MWKDataStore.shared().setupAbTestsController(withPersistenceService: eventLoggingService)
+        }
+        
+        return eventLoggingService
     }()
     
     @objc
@@ -348,7 +353,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     private var semaphore = DispatchSemaphore(value: 1)
     
     private var libraryValueCache: [String: NSCoding] = [:]
-    private func libraryValue(for key: String) -> NSCoding? {
+    public func libraryValue(for key: String) -> NSCoding? {
         semaphore.wait()
         defer {
             semaphore.signal()
@@ -377,7 +382,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         return value
     }
     
-    private func setLibraryValue(_ value: NSCoding?, for key: String) {
+    public func setLibraryValue(_ value: NSCoding?, for key: String) {
         semaphore.wait()
         defer {
             semaphore.signal()
@@ -508,4 +513,8 @@ extension EventLoggingService: BackgroundFetcher {
             completion(.noData)
         }
     }
+}
+
+extension EventLoggingService: ABTestsPersisting {
+    
 }
