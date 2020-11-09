@@ -86,8 +86,8 @@ class ArticleAsLivingDocController: NSObject {
         
         let shouldAttemptToShowArticleAsLivingDoc = articleTitleAndSiteURL() != nil && !isDeviceRTL && isENWikipediaArticle && isInValidSurveyCampaignAndArticleList && isInExperimentBucket
 
-		return true
-		// TODO: Put back in place when announcement patch is merged
+        return true
+        // TODO: Put back in place when announcement patch is merged
         // return shouldAttemptToShowArticleAsLivingDoc
     }
     
