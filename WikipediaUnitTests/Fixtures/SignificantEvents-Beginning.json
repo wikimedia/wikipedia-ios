@@ -3,6 +3,7 @@
     "sha": null,
     "timeline": [{
         "revid": 670576931,
+        "parentid": 670574458,
         "timestamp": "2015-07-08T21:16:25Z",
         "outputType": "large-change",
         "user": "CoffeeWithMarkets",
@@ -31,10 +32,12 @@
         "userEditCount": 15850
     }, {
         "revid": 670574458,
+        "parentid": 670572707,
         "timestamp": "2015-07-08T20:59:32Z",
         "outputType": "small-change"
     }, {
         "revid": 670572707,
+        "parentid": 670572410,
         "timestamp": "2015-07-08T20:47:43Z",
         "outputType": "large-change",
         "user": "CoffeeWithMarkets",
@@ -54,6 +57,7 @@
         "userEditCount": 15850
     }, {
         "revid": 670572410,
+        "parentid": 670571268,
         "timestamp": "2015-07-08T20:45:43Z",
         "outputType": "large-change",
         "user": "CoffeeWithMarkets",
@@ -81,14 +85,17 @@
         "userEditCount": 15850
     }, {
         "revid": 670571268,
+        "parentid": 670570763,
         "timestamp": "2015-07-08T20:38:01Z",
         "outputType": "small-change"
     }, {
         "revid": 670570763,
+        "parentid": 670570693,
         "timestamp": "2015-07-08T20:34:48Z",
         "outputType": "small-change"
     }, {
         "revid": 670570693,
+        "parentid": 670569662,
         "timestamp": "2015-07-08T20:34:22Z",
         "outputType": "large-change",
         "user": "CoffeeWithMarkets",
@@ -104,6 +111,7 @@
         "userEditCount": 15850
     }, {
         "revid": 670569662,
+        "parentid": 670568587,
         "timestamp": "2015-07-08T20:28:04Z",
         "outputType": "large-change",
         "user": "CoffeeWithMarkets",
@@ -123,6 +131,7 @@
         "userEditCount": 15850
     }, {
         "revid": 670568587,
+        "parentid": 670567738,
         "timestamp": "2015-07-08T20:21:48Z",
         "outputType": "large-change",
         "user": "CoffeeWithMarkets",
@@ -142,6 +151,7 @@
         "userEditCount": 15850
     }, {
         "revid": 670567738,
+        "parentid": 670566911,
         "timestamp": "2015-07-08T20:16:24Z",
         "outputType": "large-change",
         "user": "CoffeeWithMarkets",
@@ -161,6 +171,7 @@
         "userEditCount": 15850
     }, {
         "revid": 670566911,
+        "parentid": 670566127,
         "timestamp": "2015-07-08T20:09:59Z",
         "outputType": "large-change",
         "user": "CoffeeWithMarkets",
@@ -180,10 +191,12 @@
         "userEditCount": 15850
     }, {
         "revid": 670566127,
+        "parentid": 670565873,
         "timestamp": "2015-07-08T20:03:46Z",
         "outputType": "small-change"
     }, {
         "revid": 670565873,
+        "parentid": 670565872,
         "timestamp": "2015-07-08T20:02:00Z",
         "outputType": "small-change"
     }],

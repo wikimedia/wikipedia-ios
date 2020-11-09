@@ -6,14 +6,16 @@ import WMF
 protocol ArticleAsLivingDocViewControllerDelegate: class {
     var articleAsLivingDocViewModel: ArticleAsLivingDocViewModel? { get }
     var articleURL: URL { get }
+    var isFetchingAdditionalPages: Bool { get }
     func fetchNextPage(nextRvStartId: UInt, theme: Theme)
-    func showEditHistory(scrolledTo revisionID: Int?)
+    func showEditHistory()
     func handleLink(with href: String)
     func showTalkPage()
 }
 
 protocol ArticleDetailsShowing: class {
-    func goToHistory(scrolledTo revisionID: Int?)
+    func goToHistory()
+    func goToDiff(revisionId: UInt, parentId: UInt, diffType: DiffContainerViewModel.DiffType)
     func showTalkPage()
     func thankButtonTapped(for revisionID: Int, isUserAnonymous: Bool, loggingPosition: Int)
 }
@@ -55,6 +57,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
         layoutManager.register(ArticleAsLivingDocLargeEventCollectionViewCell.self, forCellWithReuseIdentifier: ArticleAsLivingDocLargeEventCollectionViewCell.identifier, addPlaceholder: true)
         layoutManager.register(ArticleAsLivingDocSmallEventCollectionViewCell.self, forCellWithReuseIdentifier: ArticleAsLivingDocSmallEventCollectionViewCell.identifier, addPlaceholder: true)
         layoutManager.register(ArticleAsLivingDocSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ArticleAsLivingDocSectionHeaderView.identifier, addPlaceholder: true)
+        layoutManager.register(ActivityIndicatorCollectionViewFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: ActivityIndicatorCollectionViewFooter.identifier, addPlaceholder: false)
         
         self.title = headerText
         
@@ -132,6 +135,11 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
                 sectionHeaderView.configure(viewModel: section, theme: theme)
                 return sectionHeaderView
             } else if kind == UICollectionView.elementKindSectionFooter {
+                if self.delegate?.isFetchingAdditionalPages == true,
+                    let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ActivityIndicatorCollectionViewFooter.identifier, for: indexPath) as? ActivityIndicatorCollectionViewFooter {
+                    footer.apply(theme: theme)
+                    return footer
+                }
                 guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionViewFooter.identifier, for: indexPath) as? CollectionViewFooter else {
                     return UICollectionReusableView()
                 }
@@ -189,19 +197,67 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
     }
 
     func appendSections(_ sections: [ArticleAsLivingDocViewModel.SectionHeader]) {
+		guard let dayMonthNumberYearDateFormatter = DateFormatter.wmf_monthNameDayOfMonthNumberYear(), let isoDateFormatter = DateFormatter.wmf_iso8601() else {
+			return
+		}
 
         var currentSnapshot = dataSource.snapshot()
-
         var existingSections: [ArticleAsLivingDocViewModel.SectionHeader] = []
+
         for currentSection in currentSnapshot.sectionIdentifiers {
             for proposedSection in sections {
                 if currentSection == proposedSection {
-                    currentSnapshot.appendItems(proposedSection.typedEvents, toSection: currentSection)
-                    existingSections.append(proposedSection)
+                    if
+                        let lastCurrentEvent = currentSection.typedEvents.last, lastCurrentEvent.isSmall,
+                        let firstProposedEvent = proposedSection.typedEvents.first, firstProposedEvent.isSmall {
+                        // Collapse sequential small events if appending to the same section
+                        let smallChanges = lastCurrentEvent.smallChanges + firstProposedEvent.smallChanges
+                        let collapsedSmallEvent = ArticleAsLivingDocViewModel.TypedEvent.small(.init(smallChanges: smallChanges))
+
+                        let proposedSectionCollapsed = proposedSection
+                        let currentSectionCollapsed = currentSection
+
+                        proposedSectionCollapsed.typedEvents.removeFirst()
+                        currentSectionCollapsed.typedEvents.removeLast()
+
+                        currentSnapshot.deleteItems([lastCurrentEvent])
+                        currentSnapshot.appendItems([collapsedSmallEvent], toSection: currentSection)
+                        currentSnapshot.appendItems(proposedSectionCollapsed.typedEvents, toSection: currentSection)
+                        existingSections.append(proposedSectionCollapsed)
+                    } else {
+                        currentSnapshot.appendItems(proposedSection.typedEvents, toSection: currentSection)
+                        existingSections.append(proposedSection)
+                    }
                 }
             }
         }
 
+        // Collapse first proposed section into last current section if both only contain small events
+        if
+            let lastCurrentSection = currentSnapshot.sectionIdentifiers.last, lastCurrentSection.containsOnlySmallEvents,
+            let firstProposedSection = sections.first, firstProposedSection.containsOnlySmallEvents {
+
+            let smallChanges = lastCurrentSection.typedEvents.flatMap { $0.smallChanges } + firstProposedSection.typedEvents.flatMap { $0.smallChanges }
+            let collapsedSmallEvent = ArticleAsLivingDocViewModel.Event.Small(smallChanges: smallChanges)
+            let smallTypedEvent = ArticleAsLivingDocViewModel.TypedEvent.small(collapsedSmallEvent)
+
+            let smallChangeDates = smallChanges.compactMap { isoDateFormatter.date(from: $0.timestampString) }
+            var dateRange: DateInterval?
+            if let minDate = smallChangeDates.min(), let maxDate = smallChangeDates.max() {
+                dateRange = DateInterval(start: minDate, end: maxDate)
+            }
+
+            let collapsedSection = ArticleAsLivingDocViewModel.SectionHeader(timestamp: lastCurrentSection.timestamp, typedEvents: [smallTypedEvent], subtitleDateFormatter: dayMonthNumberYearDateFormatter, dateRange: dateRange)
+
+            currentSnapshot.deleteItems(lastCurrentSection.typedEvents)
+            currentSnapshot.insertSections([collapsedSection], afterSection: lastCurrentSection)
+            currentSnapshot.deleteSections([lastCurrentSection])
+            currentSnapshot.appendItems(collapsedSection.typedEvents, toSection: collapsedSection)
+            existingSections.append(lastCurrentSection)
+            existingSections.append(firstProposedSection)
+        }
+
+        // Appending remaining new sections to the snapshot
         for section in sections {
             if !existingSections.contains(section) {
                 currentSnapshot.appendSections([section])
@@ -279,10 +335,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
     }
 
     private func tappedViewFullHistoryButton() {
-        
-        self.dismiss(animated: true) {
-            self.delegate?.showEditHistory(scrolledTo: nil)
-        }
+        self.goToHistory()
     }
 
     // MARK:- CollectionView functions
@@ -372,30 +425,14 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
 
 // MARK:- ArticleAsLivingDocHorizontallyScrollingCellDelegate
 @available(iOS 13.0, *)
-extension ArticleAsLivingDocViewController: ArticleAsLivingDocHorizontallyScrollingCellDelegate {
+extension ArticleAsLivingDocViewController: ArticleAsLivingDocHorizontallyScrollingCellDelegate, InternalLinkPreviewing {
     func tappedLink(_ url: URL) {
-        if url.absoluteString.removingPercentEncoding?.contains("/User:") == true {
-            // User page, should open it in a modal
-            let singlePageWebVC = SinglePageWebViewController(url: url, theme: theme, doesUseSimpleNavigationBar: true)
-            let navController = WMFThemeableNavigationController(rootViewController: singlePageWebVC, theme: theme)
-            navController.modalPresentationStyle = .pageSheet
-            self.present(navController, animated: true, completion: nil)
-        } else {
-            if let linkURL = delegate?.articleURL.resolvingRelativeWikiHref(url.absoluteString) {
-                switch Configuration.current.router.destination(for: linkURL) {
-                case .externalLink(_):
-                    // We're going to open link in default webbrowser, no need to dismiss current VC
-                    self.delegate?.handleLink(with: url.absoluteString)
-                default:
-                    self.dismiss(animated: true) {
-                        self.delegate?.handleLink(with: url.absoluteString)
-                    }
-                }
-            } else {
-                self.dismiss(animated: true) {
-                    self.delegate?.handleLink(with: url.absoluteString)
-                }
-            }
+        guard let fullURL = delegate?.articleURL.resolvingRelativeWikiHref(url.absoluteString) else {
+            return
+        }
+        switch Configuration.current.router.destination(for: fullURL) {
+            case .article(let articleURL): showInternalLink(url: articleURL)
+            default: navigate(to: fullURL)
         }
     }
 }
@@ -403,15 +440,34 @@ extension ArticleAsLivingDocViewController: ArticleAsLivingDocHorizontallyScroll
 @available(iOS 13.0, *)
 extension ArticleAsLivingDocViewController: ArticleDetailsShowing {
     func showTalkPage() {
-        self.dismiss(animated: true) {
-            self.delegate?.showTalkPage()
+        guard let talkPageURL = delegate?.articleURL.articleTalkPage else {
+            showGenericError()
+            return
         }
+        navigate(to: talkPageURL)
+    }
+    
+    func goToDiff(revisionId: UInt, parentId: UInt, diffType: DiffContainerViewModel.DiffType) {
+        
+        guard let title = delegate?.articleURL.wmf_title,
+              let siteURL = delegate?.articleURL.wmf_site else {
+            return
+        }
+        
+        let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: Int(parentId), toRevisionID: Int(revisionId), type: diffType, articleTitle: title, needsSetNavDelegate: true)
+
+        push(diffContainerVC)
     }
 
-    func goToHistory(scrolledTo revisionID: Int? = nil) {
-        self.dismiss(animated: true) {
-            self.delegate?.showEditHistory(scrolledTo: revisionID)
+    func goToHistory() {
+        guard let articleURL = delegate?.articleURL, let title = articleURL.wmf_title else {
+                showGenericError()
+                return
         }
+        
+        let historyVC = PageHistoryViewController(pageTitle: title, pageURL: articleURL)
+        historyVC.apply(theme: theme)
+        push(historyVC)
     }
 
     func thankButtonTapped(for revisionID: Int, isUserAnonymous: Bool, loggingPosition: Int) {

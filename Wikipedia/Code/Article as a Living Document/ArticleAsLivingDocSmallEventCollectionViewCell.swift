@@ -76,7 +76,8 @@ class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
     }
     
     @objc private func tappedSmallChanges() {
-        guard let revisionID = smallEvent?.smallChanges.first?.revId else {
+        guard let revisionID = smallEvent?.smallChanges.first?.revId,
+              let parentId = smallEvent?.smallChanges.last?.parentId else {
             return
         }
         
@@ -84,7 +85,9 @@ class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
             ArticleAsLivingDocFunnel.shared.logModalSmallEventsLinkTapped(position: loggingPosition)
         }
         
-        delegate?.goToHistory(scrolledTo: Int(revisionID))
+        let diffType: DiffContainerViewModel.DiffType = (smallEvent?.smallChanges.count ?? 0) > 1 ? .compare : .single
+        
+        delegate?.goToDiff(revisionId: revisionID, parentId: parentId, diffType: diffType)
     }
 }
 

@@ -64,6 +64,8 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 
 @property (readwrite, nonatomic) RemoteConfigOption remoteConfigsThatFailedUpdate;
 
+@property (readwrite, strong, nonatomic) WMFABTestsController *abTestsController;
+
 @end
 
 @implementation MWKDataStore
@@ -977,6 +979,12 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 
 - (void)deauthenticate {
     [self.authenticationManager logoutInitiatedBy:LogoutInitiatorServer completion:^{}];
+}
+
+#pragma mark - ABTestsManaging
+
+- (void)setupAbTestsControllerWithPersistenceService: (id<ABTestsPersisting>)persistenceService {
+    self.abTestsController = [[WMFABTestsController alloc] initWithPersistanceService:persistenceService];
 }
 
 @end
