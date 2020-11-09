@@ -38,7 +38,7 @@
 
 "aaald-added-text-description" = "{{PLURAL:$1|0=0 karakter|$1 karakter}} eklendi";
 "aaald-article-description-updated-description" = "Madde başlığı açıklaması güncellendi";
-"aaald-article-insert-header" = "Önemli Olaylar";
+"aaald-article-insert-header" = "Önemli Güncellemeler";
 "aaald-article-insert-last-updated" = "Son güncelleme";
 "aaald-article-insert-new-changes" = "Yeni değişiklikler";
 "aaald-article-insert-read-more" = "Daha fazla güncelleme okuyun";

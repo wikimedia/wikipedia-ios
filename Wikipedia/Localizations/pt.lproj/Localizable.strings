@@ -20,6 +20,7 @@
 
 "aaald-added-text-description" = "{{PLURAL:$1|0=nenhum caráter adicionado|$1 caráter adicionado|$1 carateres adicionados}}";
 "aaald-article-description-updated-description" = "Título de descrição do artigo atualizado";
+// Fuzzy
 "aaald-article-insert-header" = "Acontecimentos importantes";
 "aaald-article-insert-last-updated" = "Última atualização";
 "aaald-article-insert-new-changes" = "Mudanças recentes";
