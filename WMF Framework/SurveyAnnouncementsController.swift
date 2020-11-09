@@ -13,9 +13,10 @@ public final class SurveyAnnouncementsController: NSObject {
     private var announcementsByHost: [AnnouncementsHost: [WMFAnnouncement]] = [:]
     
     public struct SurveyAnnouncementResult {
+
         public let campaignIdentifier: String
         public let announcement: WMFAnnouncement
-        public let actionURL: URL
+        public let actionURLString: String
         public let displayDelay: TimeInterval
     }
     
@@ -89,16 +90,10 @@ public final class SurveyAnnouncementsController: NSObject {
                 let host = components.host,
                 let identifier = announcement.identifier,
                 let normalizedArticleTitle = articleTitle.normalizedPageTitle,
-                let googleFormattedArticleTitle = normalizedArticleTitle.googleFormPercentEncodedPageTitle else {
+                let actionURLString = announcement.actionURLString else {
                     continue
             }
     
-            //TODO: need to create this elsewhere to capture didSeeModal and isInExperiment
-            //old url calculation was announcement.actionURLReplacingPlaceholder("{{articleTitle}}", withValue: googleFormattedArticleTitle)
-            guard let actionURL = URL(string: "https://en.wikipedia.org") else {
-                continue
-            }
-                
             let now = Date()
             
             //do not show if user has already seen and answered for this campaign, even if the value is an NSNumber set to false, any answer is an indication that it shouldn't be shown
@@ -107,7 +102,7 @@ public final class SurveyAnnouncementsController: NSObject {
             }
             
             if now > startTime && now < endTime && host == domain, articleTitles.contains(normalizedArticleTitle) {
-                return SurveyAnnouncementResult(campaignIdentifier: identifier, announcement: announcement, actionURL: actionURL, displayDelay: displayDelay.doubleValue)
+                return SurveyAnnouncementResult(campaignIdentifier: identifier, announcement: announcement, actionURLString: actionURLString, displayDelay: displayDelay.doubleValue)
             }
         }
         

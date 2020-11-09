@@ -41,7 +41,6 @@ class ArticleViewController: ViewController, HintPresenting {
     internal let dataStore: MWKDataStore
     
     private let cacheController: ArticleCacheController
-    let surveyTimerController: ArticleSurveyTimerController
     
     var session: Session {
         return dataStore.session
@@ -56,9 +55,6 @@ class ArticleViewController: ViewController, HintPresenting {
     }
     
     internal lazy var fetcher: ArticleFetcher = ArticleFetcher(session: session, configuration: configuration)
-    
-    @available(iOS 13.0, *)
-    lazy var articleAsLivingDocController = ArticleAsLivingDocController(delegate: self, surveyController: SurveyAnnouncementsController.shared, abTestsController: dataStore.abTestsController)
 
     private var leadImageHeight: CGFloat = 210
 
@@ -84,6 +80,17 @@ class ArticleViewController: ViewController, HintPresenting {
         return tapGR
     }()
     
+    //BEGIN: Article As Living Doc properties
+    private(set) var surveyTimerController: ArticleSurveyTimerController?
+    
+    @available(iOS 13.0, *)
+    lazy var articleAsLivingDocController = ArticleAsLivingDocController(delegate: self)
+    
+    var surveyAnnouncementResult: SurveyAnnouncementsController.SurveyAnnouncementResult? {
+        SurveyAnnouncementsController.shared.activeSurveyAnnouncementResultForArticleURL(articleURL)
+    }
+    //END: Article As Living Doc properties
+    
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil) {
         guard let article = dataStore.fetchOrCreateArticle(with: articleURL) else {
                 return nil
@@ -97,10 +104,10 @@ class ArticleViewController: ViewController, HintPresenting {
         self.dataStore = dataStore
         self.schemeHandler = schemeHandler ?? SchemeHandler(scheme: "app", session: dataStore.session)
         self.cacheController = cacheController
-
-        self.surveyTimerController = ArticleSurveyTimerController(articleURL: articleURL, surveyController: SurveyAnnouncementsController.shared)
         
         super.init(theme: theme)
+        
+        self.surveyTimerController = ArticleSurveyTimerController(delegate: self)
     }
     
     deinit {
@@ -331,8 +338,17 @@ class ArticleViewController: ViewController, HintPresenting {
         setupToolbar() // setup toolbar needs to be after super.viewDidLoad because the superview owns the toolbar
         apply(theme: theme)
         setupForStateRestorationIfNecessary()
-        surveyTimerController.timerFireBlock = { [weak self] result in
-            self?.showSurveyAnnouncementPanel(surveyAnnouncementResult: result)
+        surveyTimerController?.timerFireBlock = { [weak self] in
+            guard let self = self,
+                  let result = self.surveyAnnouncementResult else {
+                return
+            }
+            
+            if #available(iOS 13.0, *) {
+                self.showSurveyAnnouncementPanel(surveyAnnouncementResult: result, linkState: self.articleAsLivingDocController.surveyLinkState)
+            } else {
+                self.showSurveyAnnouncementPanel(surveyAnnouncementResult: result, linkState: .notInExperiment)
+            }
         }
         if #available(iOS 14.0, *) {
             self.navigationItem.backButtonTitle = articleURL.wmf_title
@@ -346,7 +362,7 @@ class ArticleViewController: ViewController, HintPresenting {
         toolbarController.update()
         loadIfNecessary()
         startSignificantlyViewedTimer()
-        surveyTimerController.viewWillAppear(withState: state)
+        surveyTimerController?.viewWillAppear(withState: state)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -377,7 +393,7 @@ class ArticleViewController: ViewController, HintPresenting {
         cancelWIconPopoverDisplay()
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
-        surveyTimerController.viewWillDisappear(withState: state)
+        surveyTimerController?.viewWillDisappear(withState: state)
     }
     
     // MARK: Article load
@@ -856,12 +872,12 @@ private extension ArticleViewController {
     @objc func applicationWillResignActive(_ notification: Notification) {
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
-        surveyTimerController.willResignActive(withState: state)
+        surveyTimerController?.willResignActive(withState: state)
     }
     
     @objc func applicationDidBecomeActive(_ notification: Notification) {
         startSignificantlyViewedTimer()
-        surveyTimerController.didBecomeActive(withState: state)
+        surveyTimerController?.didBecomeActive(withState: state)
     }
     
     func setupSearchButton() {
@@ -1117,6 +1133,8 @@ extension ViewController  { // Putting extension on ViewController rather than A
     }
 }
 
+//MARK: Article As Living Doc Protocols
+
 @available(iOS 13.0, *)
 extension ArticleViewController: ArticleAsLivingDocViewControllerDelegate {
     var articleAsLivingDocViewModel: ArticleAsLivingDocViewModel? {
@@ -1133,5 +1151,47 @@ extension ArticleViewController: ArticleAsLivingDocViewControllerDelegate {
 }
 
 extension ArticleViewController: ArticleAsLivingDocControllerDelegate {
+    var abTestsController: ABTestsController {
+        return dataStore.abTestsController
+    }
+    
+    var isInValidSurveyCampaignAndArticleList: Bool {
+        surveyAnnouncementResult != nil
+    }
+    
+    func extendTimerForPresentingModal() {
+        surveyTimerController?.extendTimer()
+    }
+}
 
+extension ArticleViewController: ArticleSurveyTimerControllerDelegate {
+    var displayDelay: TimeInterval? {
+        surveyAnnouncementResult?.displayDelay
+    }
+    
+    var shouldAttemptToShowArticleAsLivingDoc: Bool {
+        if #available(iOS 13.0, *) {
+            return articleAsLivingDocController.shouldAttemptToShowArticleAsLivingDoc
+        } else {
+            return false
+        }
+    }
+    
+    var shouldShowArticleAsLivingDoc: Bool {
+        if #available(iOS 13.0, *) {
+            return articleAsLivingDocController.shouldShowArticleAsLivingDoc
+        } else {
+            return false
+        }
+    }
+    
+    var livingDocSurveyLinkState: ArticleAsLivingDocSurveyLinkState {
+        if #available(iOS 13.0, *) {
+            return articleAsLivingDocController.surveyLinkState
+        } else {
+            return .notInExperiment
+        }
+    }
+    
+    
 }
