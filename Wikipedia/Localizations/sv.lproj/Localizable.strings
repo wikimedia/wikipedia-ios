@@ -25,6 +25,7 @@
 
 "aaald-added-text-description" = "{{PLURAL:$1|0=0 tecken|$1 tecken|$1 tecken}} lades till";
 "aaald-article-description-updated-description" = "Artikelns titelbeskrivning uppdaterades";
+// Fuzzy
 "aaald-article-insert-header" = "Betydande händelser";
 "aaald-article-insert-last-updated" = "Senast uppdaterad";
 "aaald-article-insert-new-changes" = "Nya ändringar";

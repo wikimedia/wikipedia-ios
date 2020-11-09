@@ -17,6 +17,7 @@
 
 "aaald-added-text-description" = "$1 karakter hozzáadva";
 "aaald-article-description-updated-description" = "Cikk címleírás frissítve";
+// Fuzzy
 "aaald-article-insert-header" = "Kiemelt események";
 "aaald-article-insert-last-updated" = "Utoljára frissítve";
 "aaald-article-insert-new-changes" = "Új változtatások";
