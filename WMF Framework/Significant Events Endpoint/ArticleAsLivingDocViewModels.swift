@@ -572,13 +572,6 @@ public extension ArticleAsLivingDocViewModel {
                 case thankAndViewChanges(userId: UInt, revisionId: UInt)
                 case viewDiscussion(sectionName: String)
             }
-
-            static let editCountFormatter: NumberFormatter = {
-                let numberFormatter = NumberFormatter()
-                numberFormatter.usesGroupingSeparator = true
-                numberFormatter.numberStyle = .decimal
-                return numberFormatter
-            }()
             
             private let typedEvent: SignificantEvents.TypedEvent
             
