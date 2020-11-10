@@ -10,6 +10,7 @@
 
 "aaald-added-text-description" = "{{PLURAL:$1|0=Додадени 0 знаци|Додаден $1 знак|Додадени $1 знаци}}";
 "aaald-article-description-updated-description" = "Описот на насловот на статијата е подновен";
+// Fuzzy
 "aaald-article-insert-header" = "Значајни настани";
 "aaald-article-insert-last-updated" = "Последна поднова";
 "aaald-article-insert-new-changes" = "Нови промени";

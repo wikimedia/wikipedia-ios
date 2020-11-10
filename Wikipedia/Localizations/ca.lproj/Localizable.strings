@@ -22,7 +22,7 @@
 
 "aaald-added-text-description" = "{{PLURAL:$1|0=0 caràcters|$1 caràcter|$1 caràcters}} afegits";
 "aaald-article-description-updated-description" = "La descripció del títol de l'article s'ha actualitzat";
-"aaald-article-insert-header" = "Esdeveniments significatius";
+"aaald-article-insert-header" = "Actualitzacions significatives";
 "aaald-article-insert-last-updated" = "Darrera actualització";
 "aaald-article-insert-new-changes" = "Canvis recents";
 "aaald-article-insert-read-more" = "Mostra les darreres actualitzacions";

@@ -319,7 +319,10 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
             return
         }
         let isUserAnonymous = (largeEvent.userType == .anonymous)
-        articleDelegate?.thankButtonTapped(for: Int(largeEvent.revId), isUserAnonymous: isUserAnonymous, loggingPosition: largeEvent.loggingPosition)
+        let eventTypes = ArticleAsLivingDocFunnel.EventType.eventTypesFromLargeEvent(largeEvent)
+        let position = largeEvent.loggingPosition
+        let livingDocLoggingValues = ArticleAsLivingDocLoggingValues(position: position, eventTypes: eventTypes)
+        articleDelegate?.thankButtonTapped(for: Int(largeEvent.revId), isUserAnonymous: isUserAnonymous, livingDocLoggingValues: livingDocLoggingValues)
     }
 
     @objc private func viewChangesTapped() {
@@ -398,12 +401,31 @@ extension ArticleAsLivingDocLargeEventCollectionViewCell: UICollectionViewDelega
 
 extension ArticleAsLivingDocLargeEventCollectionViewCell: ArticleAsLivingDocHorizontallyScrollingCellDelegate {
     func tappedLink(_ url: URL) {
+        
+        guard let largeEvent = largeEvent else {
+            return
+        }
+        
+        let loggingPosition = largeEvent.loggingPosition
+        let eventTypes = ArticleAsLivingDocFunnel.EventType.eventTypesFromLargeEvent(largeEvent)
+        ArticleAsLivingDocFunnel.shared.logModalSideScrollingCellLinkTapped(position: loggingPosition, types: eventTypes)
+        
         delegate?.tappedLink(url)
     }
 }
 
 extension ArticleAsLivingDocLargeEventCollectionViewCell: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        
+        guard let largeEvent = largeEvent else {
+            return false
+        }
+        
+        //note for now only userInfoTextView's delegate is self, and the only link possible in that text view is the username, so it's safe to log this
+        let loggingPosition = largeEvent.loggingPosition
+        let eventTypes = ArticleAsLivingDocFunnel.EventType.eventTypesFromLargeEvent(largeEvent)
+        ArticleAsLivingDocFunnel.shared.logModalEditorNameTapped(position: loggingPosition, types: eventTypes)
+        
         delegate?.tappedLink(url)
         return false
     }

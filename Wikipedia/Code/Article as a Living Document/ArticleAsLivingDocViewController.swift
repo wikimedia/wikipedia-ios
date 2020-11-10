@@ -19,7 +19,7 @@ protocol ArticleDetailsShowing: class {
     func goToHistory()
     func goToDiff(revisionId: UInt, parentId: UInt, diffType: DiffContainerViewModel.DiffType)
     func showTalkPage()
-    func thankButtonTapped(for revisionID: Int, isUserAnonymous: Bool, loggingPosition: Int)
+    func thankButtonTapped(for revisionID: Int, isUserAnonymous: Bool, livingDocLoggingValues: ArticleAsLivingDocLoggingValues)
 }
 
 @available(iOS 13.0, *)
@@ -476,8 +476,8 @@ extension ArticleAsLivingDocViewController: ArticleDetailsShowing {
         push(historyVC)
     }
 
-    func thankButtonTapped(for revisionID: Int, isUserAnonymous: Bool, loggingPosition: Int) {
-        self.tappedThank(for: revisionID, isUserAnonymous: isUserAnonymous, loggingPosition: loggingPosition)
+    func thankButtonTapped(for revisionID: Int, isUserAnonymous: Bool, livingDocLoggingValues: ArticleAsLivingDocLoggingValues) {
+        self.tappedThank(for: revisionID, isUserAnonymous: isUserAnonymous, livingDocLoggingValues: livingDocLoggingValues)
     }
 }
 
