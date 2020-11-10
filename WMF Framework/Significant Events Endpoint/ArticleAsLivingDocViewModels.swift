@@ -1369,7 +1369,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         
         if let archiveDateString = websiteCitation.archiveDateString,
            let archiveUrlString = websiteCitation.archiveDotOrgUrlString,
-           let _ = URL(string: archiveUrlString) {
+           URL(string: archiveUrlString) != nil {
             let archiveLinkText = CommonStrings.newWebsiteReferenceArchiveUrlText
             let archiveLinkMutableAttributedString = mutableString(from: archiveLinkText, linkedTo: archiveUrlString, with: attributes, linkColor: theme.colors.link)
 
