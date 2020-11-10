@@ -1276,21 +1276,10 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         let boldAttributes = [NSAttributedString.Key.font: boldFont,
                           NSAttributedString.Key.foregroundColor:
                             theme.colors.primaryText]
-        
-        let titleAttributedString: NSAttributedString?
+
         let titleString = "\"\(journalCitation.title)\" "
-        let range = NSRange(location: 0, length: titleString.count)
-        let mutableAttributedString = NSMutableAttributedString(string: titleString, attributes: attributes)
-        if let urlString = journalCitation.urlString,
-           let url = URL(string: urlString) {
-            
-                mutableAttributedString.addAttributes([NSAttributedString.Key.link : url,
-                                             NSAttributedString.Key.foregroundColor: theme.colors.link], range: range)
-        } else {
-            mutableAttributedString.addAttributes(attributes, range: range)
-        }
-        
-        titleAttributedString = mutableAttributedString.copy() as? NSAttributedString
+        let mutableAttributedString = mutableString(from: titleString, linkedTo: journalCitation.urlString, with: attributes, linkColor: theme.colors.link)
+        let titleAttributedString = mutableAttributedString.copy() as? NSAttributedString
         
         var descriptionStart = ""
         if let firstName = journalCitation.firstName {
@@ -1355,20 +1344,9 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                           NSAttributedString.Key.foregroundColor:
                             theme.colors.primaryText]
         
-        let titleAttributedString: NSAttributedString?
         let titleString = "\"\(websiteCitation.title)\" "
-        let range = NSRange(location: 0, length: titleString.count)
-        let mutableAttributedString = NSMutableAttributedString(string: titleString, attributes: attributes)
-        let urlString = websiteCitation.urlString
-        if let url = URL(string: urlString) {
-            
-                mutableAttributedString.addAttributes([NSAttributedString.Key.link : url,
-                                             NSAttributedString.Key.foregroundColor: theme.colors.link], range: range)
-        } else {
-            mutableAttributedString.addAttributes(attributes, range: range)
-        }
-        
-        titleAttributedString = mutableAttributedString.copy() as? NSAttributedString
+        let mutableAttributedString = mutableString(from: titleString, linkedTo: websiteCitation.urlString, with: attributes, linkColor: theme.colors.link)
+        let titleAttributedString = mutableAttributedString.copy() as? NSAttributedString
         
         var publisherText = ""
         if let publisher = websiteCitation.publisher {
@@ -1393,13 +1371,10 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         
         if let archiveDateString = websiteCitation.archiveDateString,
            let archiveUrlString = websiteCitation.archiveDotOrgUrlString,
-           let archiveUrl = URL(string: archiveUrlString) {
+           let _ = URL(string: archiveUrlString) {
             let archiveLinkText = CommonStrings.newWebsiteReferenceArchiveUrlText
-            let range = NSRange(location: 0, length: archiveLinkText.count)
-            let archiveLinkMutableAttributedString = NSMutableAttributedString(string: archiveLinkText, attributes: attributes)
-            archiveLinkMutableAttributedString.addAttributes([NSAttributedString.Key.link : archiveUrl,
-                                         NSAttributedString.Key.foregroundColor: theme.colors.link], range: range)
-            
+            let archiveLinkMutableAttributedString = mutableString(from: archiveLinkText, linkedTo: archiveUrlString, with: attributes, linkColor: theme.colors.link)
+
             if let archiveLinkAttributedString = archiveLinkMutableAttributedString.copy() as? NSAttributedString {
                 let lastText = String.localizedStringWithFormat(CommonStrings.newWebsiteReferenceArchiveDateText, archiveDateString)
                 let lastAttributedString = NSAttributedString(string: " \(lastText)", attributes: attributes)
@@ -1425,20 +1400,9 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                           NSAttributedString.Key.foregroundColor:
                             theme.colors.primaryText]
         
-        let titleAttributedString: NSAttributedString?
         let titleString = "\"\(newsCitation.title)\" "
-        let range = NSRange(location: 0, length: titleString.count)
-        let mutableAttributedString = NSMutableAttributedString(string: titleString, attributes: attributes)
-        if let urlString = newsCitation.urlString,
-           let url = URL(string: urlString) {
-            
-                mutableAttributedString.addAttributes([NSAttributedString.Key.link : url,
-                                             NSAttributedString.Key.foregroundColor: theme.colors.link], range: range)
-        } else {
-            mutableAttributedString.addAttributes(attributes, range: range)
-        }
-        
-        titleAttributedString = mutableAttributedString.copy() as? NSAttributedString
+        let mutableAttributedString = mutableString(from: titleString, linkedTo: newsCitation.urlString, with: attributes, linkColor: theme.colors.link)
+        let titleAttributedString = mutableAttributedString.copy() as? NSAttributedString
         
         var descriptionStart = ""
         if let firstName = newsCitation.firstName {
@@ -1564,7 +1528,29 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         return finalMutableAttributedString.copy() as? NSAttributedString
         
     }
-    
+
+    private func mutableString(from text: String, linkedTo urlString: String?, with textAttributes: [NSAttributedString.Key:Any], linkColor: UIColor) -> NSMutableAttributedString {
+        let mutableAttributedString: NSMutableAttributedString
+        if let urlString = urlString, let url = URL(string: urlString), let externalLinkIcon = UIImage(named: "mini-external") {
+            if #available(iOSApplicationExtension 13.0, *) {
+                mutableAttributedString = NSMutableAttributedString(string: text.trimmingCharacters(in: .whitespaces), attributes: textAttributes)
+                let externalLinkString = NSAttributedString(attachment: NSTextAttachment(image: externalLinkIcon))
+                mutableAttributedString.append(externalLinkString)
+                mutableAttributedString.append(NSAttributedString(string: " "))
+            } else {
+                mutableAttributedString = NSMutableAttributedString(string: text, attributes: textAttributes)
+            }
+            let range = NSRange(location: 0, length: mutableAttributedString.length)
+            mutableAttributedString.addAttributes([NSAttributedString.Key.link : url,
+                                             NSAttributedString.Key.foregroundColor: linkColor], range: range)
+        } else {
+            mutableAttributedString = NSMutableAttributedString(string: text, attributes: textAttributes)
+            let range = NSRange(location: 0, length: text.count)
+            mutableAttributedString.addAttributes(textAttributes, range: range)
+        }
+        return mutableAttributedString
+    }
+
     private func getTimestampString() -> String? {
         switch typedEvent {
         case .newTalkPageTopic(let newTalkPageTopic):
