@@ -572,13 +572,6 @@ public extension ArticleAsLivingDocViewModel {
                 case thankAndViewChanges(userId: UInt, revisionId: UInt)
                 case viewDiscussion(sectionName: String)
             }
-
-            static let editCountFormatter: NumberFormatter = {
-                let numberFormatter = NumberFormatter()
-                numberFormatter.usesGroupingSeparator = true
-                numberFormatter.numberStyle = .decimal
-                return numberFormatter
-            }()
             
             private let typedEvent: SignificantEvents.TypedEvent
             
@@ -832,10 +825,14 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         for typedChange in typedChanges {
             switch typedChange {
             case .addedText(let addedText):
-                let description = String.localizedStringWithFormat(CommonStrings.addedTextDescription, addedText.characterCount)
+                let countNumber = NSNumber(value: addedText.characterCount)
+                let characterCount = "\(NumberFormatter.localizedThousandsStringFromNumber(countNumber).localizedLowercase) " + String.localizedStringWithFormat(CommonStrings.charactersTextDescription, addedText.characterCount)
+                let description = String.localizedStringWithFormat(CommonStrings.addedTextDescription, characterCount)
                 descriptions.append(IndividualDescription(priority: 1, text: description))
             case .deletedText(let deletedText):
-                let description = String.localizedStringWithFormat(CommonStrings.deletedTextDescription, deletedText.characterCount)
+                let countNumber = NSNumber(value: deletedText.characterCount)
+                let characterCount = "\(NumberFormatter.localizedThousandsStringFromNumber(countNumber).localizedLowercase) " + String.localizedStringWithFormat(CommonStrings.charactersTextDescription, deletedText.characterCount)
+                let description = String.localizedStringWithFormat(CommonStrings.deletedTextDescription, characterCount)
                 descriptions.append(IndividualDescription(priority: 2, text: description))
             case .newTemplate(let newTemplate):
                 var numArticleDescriptions = 0
@@ -1619,8 +1616,8 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         
         if let editCount = editCount,
            userType != .anonymous {
-            let formattedEditCount = ArticleAsLivingDocViewModel.Event.Large.editCountFormatter.string(from: NSNumber(value: editCount)) ?? String(editCount)
-            let userInfo = String.localizedStringWithFormat( CommonStrings.revisionUserInfo, userName, formattedEditCount)
+            let formattedEditCount = NumberFormatter.localizedThousandsStringFromNumber(NSNumber(value: editCount)).localizedLowercase
+            let userInfo = String.localizedStringWithFormat(CommonStrings.revisionUserInfo, userName, formattedEditCount)
             
             let rangeOfUserName = (userInfo as NSString).range(of: userName)
             let rangeValid = rangeOfUserName.location != NSNotFound && rangeOfUserName.location + rangeOfUserName.length <= userInfo.count
@@ -1678,9 +1675,8 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             self.userInfo = attributedString
             return attributedString
         }
-        
-        
-        let formattedEditCount = ArticleAsLivingDocViewModel.Event.Large.editCountFormatter.string(from: NSNumber(value: editCount)) ?? String(editCount)
+
+        let formattedEditCount = NumberFormatter.localizedThousandsStringFromNumber(NSNumber(value: editCount)).localizedLowercase
         let userInfo = String.localizedStringWithFormat( CommonStrings.revisionUserInfo, userName, formattedEditCount)
         
         let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)

@@ -2,42 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>aaald-added-text-description</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>增加 %#@v1@ 個字元</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d</string>
-			<key>other</key>
-			<string>%1$d</string>
-			<key>zero</key>
-			<string>0</string>
-		</dict>
-	</dict>
-	<key>aaald-deleted-text-description</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>刪除 %#@v1@ 個字元</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d</string>
-			<key>other</key>
-			<string>%1$d</string>
-			<key>zero</key>
-			<string>0</string>
-		</dict>
-	</dict>
 	<key>aaald-numerical-multiple-references-added-description</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
