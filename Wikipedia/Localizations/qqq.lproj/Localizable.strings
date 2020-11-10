@@ -1,11 +1,11 @@
-"aaald-added-text-description" = "Title displayed in an article as a living document cell explaining that a revision has a certain number of characters added. $1 is replaced by a formatted string representing characters added.";
+"aaald-added-text-description-2" = "Title displayed in an article as a living document cell explaining that a revision has a certain number of characters added. $1 is replaced by a formatted string representing characters added.";
 "aaald-article-description-updated-description" = "Title displayed in an article as a living document cell explaining that an article's title description was updated in a revision.";
 "aaald-article-insert-header" = "Header text in article content insert section that displays recent significant article updates.";
 "aaald-article-insert-last-updated" = "Badge text in article content showing when the article as last updated.";
 "aaald-article-insert-new-changes" = "Badge text in article content showing that there have been new significant updates to the article since the user last viewed it.";
 "aaald-article-insert-read-more" = "Footer text in article content insert section of recent significant article updates that invites user to read more updates on another screen.";
 "aaald-characters-text-description" = "Displayed in an article as a living document cell explaining that a revision has a certain number of characters added or deleted. $1 is the number of characters added or deleted.";
-"aaald-deleted-text-description" = "Title displayed in an article as a living document cell explaining that a revision has a certain number of characters deleted. $1 is replaced by a formatted string representing characters deleted.";
+"aaald-deleted-text-description-2" = "Title displayed in an article as a living document cell explaining that a revision has a certain number of characters deleted. $1 is replaced by a formatted string representing characters deleted.";
 "aaald-error-subitle" = "Subtitle of error banner that appears at the bottom of an article when significant events fail to load.";
 "aaald-error-title" = "Title of error banner that appears at the bottom of an article when significant events fail to load.";
 "aaald-many-sections-description" = "Text explaining what sections an article as a living document change occurred in, if occurred in 3+ sections. $1 is replaced with the number of sections.";
