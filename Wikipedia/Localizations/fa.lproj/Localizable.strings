@@ -1,6 +1,7 @@
 // Messages for Persian (فارسی)
 // Exported from translatewiki.net
 // Author: Ahmad252
+// Author: Ajam
 // Author: Alifakoor
 // Author: Alirezaaa
 // Author: Alp Er Tunqa
@@ -36,8 +37,8 @@
 // Author: درفش کاویانی
 
 "aaald-article-description-updated-description" = "توضیحات عنوان مقاله بارگذاری شده";
-"aaald-article-insert-header" = "رویدادهای مهم";
-"aaald-article-insert-last-updated" = "آخرین روزآمدسازی";
+"aaald-article-insert-header" = "به‌روزرسانی‌های مهم";
+"aaald-article-insert-last-updated" = "آخرین به‌روزرسانی";
 "aaald-article-insert-new-changes" = "نمایش تغییرات";
 "aaald-article-insert-read-more" = "خواندن به‌روزسانی‌های بیشتر";
 "aaald-error-subitle" = "نوسازی برای تلاش مجدد";

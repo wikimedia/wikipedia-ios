@@ -29,6 +29,7 @@
 
 "aaald-added-text-description" = "增加 {{PLURAL:$1|0=0|$1|$1}} 個字元";
 "aaald-article-description-updated-description" = "條目標題描述已更新";
+// Fuzzy
 "aaald-article-insert-header" = "重要事件";
 "aaald-article-insert-last-updated" = "上一次更新";
 "aaald-article-insert-new-changes" = "新的更改";
