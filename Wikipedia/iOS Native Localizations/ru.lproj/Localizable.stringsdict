@@ -11,11 +11,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>@</string>
 			<key>one</key>
-			<string>%1$d символ добавлен</string>
+			<string>%1$@ символ добавлен</string>
 			<key>other</key>
-			<string>%1$d символов добавлено</string>
+			<string>%1$@ символов добавлено</string>
 			<key>zero</key>
 			<string>0 символов добавлено</string>
 		</dict>
@@ -29,11 +29,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>@</string>
 			<key>one</key>
-			<string>%1$d символ удалён</string>
+			<string>%1$@ символ удалён</string>
 			<key>other</key>
-			<string>%1$d символов удалено</string>
+			<string>%1$@ символов удалено</string>
 			<key>zero</key>
 			<string>0 символов удалено</string>
 		</dict>

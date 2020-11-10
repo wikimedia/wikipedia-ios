@@ -11,11 +11,11 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>@</string>
 			<key>one</key>
 			<string>תו אחד נמחק</string>
 			<key>other</key>
-			<string>%1$d תווים נמחקו</string>
+			<string>%1$@ תווים נמחקו</string>
 			<key>zero</key>
 			<string>0 תווים נמחקו</string>
 		</dict>

@@ -1,10 +1,11 @@
-"aaald-added-text-description" = "{{PLURAL:$1|0=0 characters|$1 character|$1 characters}} added";
+"aaald-added-text-description" = "$1 added";
 "aaald-article-description-updated-description" = "Article title description updated";
 "aaald-article-insert-header" = "Significant Updates";
 "aaald-article-insert-last-updated" = "Last updated";
 "aaald-article-insert-new-changes" = "New changes";
 "aaald-article-insert-read-more" = "Read more updates";
-"aaald-deleted-text-description" = "{{PLURAL:$1|0=0 characters|$1 character|$1 characters}} deleted";
+"aaald-characters-text-description" = "{{PLURAL:$1|0=characters|character|characters}}";
+"aaald-deleted-text-description" = "$1 deleted";
 "aaald-error-subitle" = "Refresh to try again";
 "aaald-error-title" = "Unable to load inline article history";
 "aaald-many-sections-description" = "in $1 sections";

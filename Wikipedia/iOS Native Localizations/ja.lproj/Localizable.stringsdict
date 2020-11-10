@@ -11,9 +11,9 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
+			<string>@</string>
 			<key>other</key>
-			<string>%1$d文字</string>
+			<string>%1$@文字</string>
 		</dict>
 	</dict>
 	<key>aaald-numerical-multiple-references-added-description</key>
