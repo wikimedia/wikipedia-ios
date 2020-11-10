@@ -88,8 +88,7 @@ public final class SurveyAnnouncementsController: NSObject {
                 let components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false),
                 let host = components.host,
                 let identifier = announcement.identifier,
-                let normalizedArticleTitle = articleTitle.normalizedPageTitle,
-                let googleFormattedArticleTitle = normalizedArticleTitle.googleFormPercentEncodedPageTitle else {
+                let normalizedArticleTitle = articleTitle.normalizedPageTitle else {
                     continue
             }
     
