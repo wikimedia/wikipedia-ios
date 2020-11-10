@@ -17,8 +17,8 @@ fileprivate extension Dictionary where Key == String, Value == Any {
     
     func appendingTypes(types: [ArticleAsLivingDocFunnel.EventType]) -> [String: Any] {
         var mutableDict = self
-        let rawTypes = types.map { $0.rawValue }
-        mutableDict["types"] = rawTypes
+        let type = types.map { $0.rawValue }.joined(separator: ",")
+        mutableDict["type"] = type
         return mutableDict
     }
 }
@@ -28,7 +28,7 @@ public final class ArticleAsLivingDocFunnel: EventLoggingFunnel, EventLoggingSta
     public static let shared = ArticleAsLivingDocFunnel()
     
     private override init() {
-        super.init(schema: "MobileWikiAppiOSLivingDoc", version: 20471010)
+        super.init(schema: "MobileWikiAppiOSLivingDoc", version: 20636844)
     }
     
     public enum ArticleContentInsertEventDescriptionType: Int {
@@ -47,13 +47,15 @@ public final class ArticleAsLivingDocFunnel: EventLoggingFunnel, EventLoggingSta
         case cardVandalism = "card_vandalism"
         case cardMultiple = "card_multiple"
         case recentChanges = "recent_changes"
+        case recentSwipe = "recent_swipe"
+        case recentCell = "recent_cell"
+        case recentEditor = "recent_editor"
         case recentHistoryTop = "recent_history_top"
         case recentHistoryEnd = "recent_history_end"
         case recentThankTry = "recent_thank_try"
         case recentThankSuccess = "recent_thank_success"
         case recentThankFail = "recent_thank_fail"
         case recentClose = "recent_close"
-        case recentSwipe = "recent_swipe"
     }
     
     public enum EventType: String, Codable {
@@ -163,20 +165,28 @@ public final class ArticleAsLivingDocFunnel: EventLoggingFunnel, EventLoggingSta
         log(event(action: .recentChanges, position: position, types: [.discussion]))
     }
     
+    public func logModalEditorNameTapped(position: Int, types: [EventType]) {
+        log(event(action: .recentEditor, position: position, types: types))
+    }
+    
+    public func logModalSideScrollingCellLinkTapped(position: Int, types: [EventType]) {
+        log(event(action: .recentCell, position: position, types: types))
+    }
+    
     public func logModalSmallEventsLinkTapped(position: Int) {
         log(event(action: .recentChanges, position: position, types: [.smallChanges]))
     }
     
-    public func logModalThankTryButtonTapped(position: Int) {
-        log(event(action: .recentThankTry, position: position))
+    public func logModalThankTryButtonTapped(position: Int, types: [EventType]) {
+        log(event(action: .recentThankTry, position: position, types: types))
     }
     
-    public func logModalThankSuccess(position: Int) {
-        log(event(action: .recentThankSuccess, position: position))
+    public func logModalThankSuccess(position: Int, types: [EventType]) {
+        log(event(action: .recentThankSuccess, position: position, types: types))
     }
     
-    public func logModalThankFail(position: Int) {
-        log(event(action: .recentThankFail, position: position))
+    public func logModalThankFail(position: Int, types: [EventType]) {
+        log(event(action: .recentThankFail, position: position, types: types))
     }
     
     public func logModalViewFullHistoryTopButtonTapped() {
