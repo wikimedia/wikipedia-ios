@@ -7,6 +7,7 @@ protocol ArticleSurveyTimerControllerDelegate: class {
     var userHasSeenSurveyPrompt: Bool { get }
     var displayDelay: TimeInterval? { get }
     var livingDocSurveyLinkState: ArticleAsLivingDocSurveyLinkState { get }
+    var willShowFundraisingAnnouncement: Bool { get }
 }
 
  // Manages the timer used to display survey announcements on articles
@@ -36,7 +37,6 @@ final class ArticleSurveyTimerController {
 
     func articleContentDidLoad() {
         
-        //do not kick off timer on ArticleViewController load if experiment is running.
         guard let delegate = delegate,
               !delegate.shouldAttemptToShowArticleAsLivingDoc else {
             return
@@ -88,7 +88,8 @@ final class ArticleSurveyTimerController {
         }
         
         if delegate.isInValidSurveyCampaignAndArticleList,
-           !delegate.userHasSeenSurveyPrompt {
+           !delegate.userHasSeenSurveyPrompt,
+           !delegate.willShowFundraisingAnnouncement {
             
             pauseTimer()
             let newTimeInterval = (timeIntervalRemainingWhenPaused ?? 0) + 5
@@ -105,7 +106,8 @@ final class ArticleSurveyTimerController {
         
         if state == .loaded,
            delegate.isInValidSurveyCampaignAndArticleList,
-           !delegate.userHasSeenSurveyPrompt {
+           !delegate.userHasSeenSurveyPrompt,
+           !delegate.willShowFundraisingAnnouncement {
             shouldPauseOnBackground = true
             startTimer()
         }
@@ -120,7 +122,8 @@ final class ArticleSurveyTimerController {
         
         if state == .loaded,
            delegate.isInValidSurveyCampaignAndArticleList,
-           !delegate.userHasSeenSurveyPrompt {
+           !delegate.userHasSeenSurveyPrompt,
+           !delegate.willShowFundraisingAnnouncement {
             
             shouldPauseOnBackground = false
             stopTimer()

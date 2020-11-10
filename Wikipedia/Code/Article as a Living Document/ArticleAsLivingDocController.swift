@@ -15,6 +15,7 @@ protocol ArticleAsLivingDocControllerDelegate: class {
     var isInValidSurveyCampaignAndArticleList: Bool { get }
     var abTestsController: ABTestsController { get }
     func extendTimerForPresentingModal()
+    var willShowFundraisingAnnouncement: Bool { get }
 }
 
 enum ArticleAsLivingDocSurveyLinkState {
@@ -77,7 +78,8 @@ class ArticleAsLivingDocController: NSObject {
     var shouldAttemptToShowArticleAsLivingDoc: Bool {
         
         guard let delegate = delegate,
-              let view = delegate.view else {
+              let view = delegate.view,
+              !delegate.willShowFundraisingAnnouncement else {
             return false
         }
         

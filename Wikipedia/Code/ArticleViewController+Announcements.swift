@@ -2,6 +2,11 @@ import WMF
 import CocoaLumberjackSwift
 
 extension ArticleViewController {
+    
+    var willShowFundraisingAnnouncement: Bool {
+        return UserDefaults.standard.shouldCheckForArticleAnnouncements
+    }
+    
     func showAnnouncementIfNeeded() {
         guard UserDefaults.standard.shouldCheckForArticleAnnouncements else {
             return
