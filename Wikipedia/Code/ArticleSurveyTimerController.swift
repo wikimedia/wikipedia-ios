@@ -57,7 +57,6 @@ final class ArticleSurveyTimerController {
 
     func viewWillAppear(withState state: ArticleViewController.ViewState) {
         
-        //do not kick off timer on ArticleViewController appearance if experiment is running.
         guard let delegate = delegate else {
             return
         }
