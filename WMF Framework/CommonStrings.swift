@@ -247,11 +247,12 @@ public class CommonStrings: NSObject {
     
     static let multipleChangesMadeDescription = WMFLocalizedString("aaald-multiple-changes-description", value: "Multiple changes made", comment: "Title displayed in article as a living document content insert explaining that multiple changes were made in a revision.")
 
-    static let addedTextDescription = WMFLocalizedString("aaald-added-text-description", value:"{{PLURAL:%1$d|0=0 characters|%1$d character|%1$d characters}} added",
-    comment:"Title displayed in an article as a living document cell explaining that a revision has a certain number of characters added. %1$d is replaced by the number of characters added.")
+    static let addedTextDescription = WMFLocalizedString("aaald-added-text-description-2", value:"%1$@ added", comment:"Title displayed in an article as a living document cell explaining that a revision has a certain number of characters added. %1$@ is replaced by a formatted string representing characters added.")
     
-    static let deletedTextDescription = WMFLocalizedString("aaald-deleted-text-description", value:"{{PLURAL:%1$d|0=0 characters|%1$d character|%1$d characters}} deleted",
-                                                           comment:"Title displayed in an article as a living document cell explaining that a revision has a certain number of characters deleted. %1$d is replaced by the number of characters deleted.")
+    static let deletedTextDescription = WMFLocalizedString("aaald-deleted-text-description-2", value:"%1$@ deleted", comment:"Title displayed in an article as a living document cell explaining that a revision has a certain number of characters deleted. %1$@ is replaced by a formatted string representing characters deleted.")
+    
+    static let charactersTextDescription = WMFLocalizedString("aaald-characters-text-description", value:"{{PLURAL:%1$d|0=characters|character|characters}}",
+                                                              comment:"Displayed in an article as a living document cell explaining that a revision has a certain number of characters added or deleted. %1$d is the number of characters added or deleted.")
     
     static let articleDescriptionUpdatedDescription =  WMFLocalizedString("aaald-article-description-updated-description", value:"Article title description updated",
     comment:"Title displayed in an article as a living document cell explaining that an article's title description was updated in a revision.")
