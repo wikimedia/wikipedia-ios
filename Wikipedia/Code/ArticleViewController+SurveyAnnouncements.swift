@@ -38,15 +38,15 @@ extension ArticleViewController {
             return
         }
         
-        var vcToPresentSurvey: UIViewController = self
+        var vcToPresentSurvey: UIViewController? = self
         if #available(iOS 13.0, *) {
             if let presentedNavVC = presentedViewController as? UINavigationController,
                let livingDocVC = presentedNavVC.viewControllers.first as? ArticleAsLivingDocViewController {
-                vcToPresentSurvey = livingDocVC
+                vcToPresentSurvey = presentedNavVC.viewControllers.count == 1 ? livingDocVC : nil
             }
         }
         
-        vcToPresentSurvey.wmf_showAnnouncementPanel(announcement: surveyAnnouncementResult.announcement, style: .minimal, primaryButtonTapHandler: { (sender) in
+        vcToPresentSurvey?.wmf_showAnnouncementPanel(announcement: surveyAnnouncementResult.announcement, style: .minimal, primaryButtonTapHandler: { (sender) in
             self.navigate(to: actionURL, useSafari: true)
             // dismiss handler is called
         }, secondaryButtonTapHandler: { (sender) in

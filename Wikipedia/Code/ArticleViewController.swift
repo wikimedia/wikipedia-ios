@@ -1137,6 +1137,14 @@ extension ViewController  { // Putting extension on ViewController rather than A
 
 @available(iOS 13.0, *)
 extension ArticleViewController: ArticleAsLivingDocViewControllerDelegate {
+    func livingDocViewWillPush() {
+        surveyTimerController?.livingDocViewWillPush(withState: state)
+    }
+    
+    func livingDocViewWillAppear() {
+        surveyTimerController?.livingDocViewWillAppear(withState: state)
+    }
+    
     var articleAsLivingDocViewModel: ArticleAsLivingDocViewModel? {
         return articleAsLivingDocController.articleAsLivingDocViewModel
     }
@@ -1175,6 +1183,15 @@ extension ArticleViewController: ArticleSurveyTimerControllerDelegate {
         } else {
             return false
         }
+    }
+    
+    var userHasSeenSurveyPrompt: Bool {
+        
+        guard let identifier = surveyAnnouncementResult?.campaignIdentifier else {
+            return false
+        }
+        
+        return SurveyAnnouncementsController.shared.userHasSeenSurveyPrompt(forCampaignIdentifier: identifier)
     }
     
     var shouldShowArticleAsLivingDoc: Bool {

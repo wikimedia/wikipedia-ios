@@ -11,6 +11,8 @@ protocol ArticleAsLivingDocViewControllerDelegate: class {
     func showEditHistory()
     func handleLink(with href: String)
     func showTalkPage()
+    func livingDocViewWillAppear()
+    func livingDocViewWillPush()
 }
 
 protocol ArticleDetailsShowing: class {
@@ -79,6 +81,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
         }
         super.viewWillAppear(animated)
 
+        delegate?.livingDocViewWillAppear()
     }
 
     private func createDataSource() -> UICollectionViewDiffableDataSource<ArticleAsLivingDocViewModel.SectionHeader, ArticleAsLivingDocViewModel.TypedEvent> {
@@ -456,6 +459,7 @@ extension ArticleAsLivingDocViewController: ArticleDetailsShowing {
         
         let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: Int(parentId), toRevisionID: Int(revisionId), type: diffType, articleTitle: title, needsSetNavDelegate: true)
 
+        delegate?.livingDocViewWillPush()
         push(diffContainerVC)
     }
 
@@ -467,6 +471,8 @@ extension ArticleAsLivingDocViewController: ArticleDetailsShowing {
         
         let historyVC = PageHistoryViewController(pageTitle: title, pageURL: articleURL)
         historyVC.apply(theme: theme)
+        
+        delegate?.livingDocViewWillPush()
         push(historyVC)
     }
 
