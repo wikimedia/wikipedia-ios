@@ -86,7 +86,7 @@ class ArticleAsLivingDocController: NSObject {
         let isENWikipediaArticle = delegate.articleURL.host == Configuration.Domain.englishWikipedia
         
         let shouldAttemptToShowArticleAsLivingDoc = articleTitleAndSiteURL() != nil && !isDeviceRTL && isENWikipediaArticle && isInValidSurveyCampaignAndArticleList && isInExperimentBucket
-        
+
         return shouldAttemptToShowArticleAsLivingDoc
     }
     
