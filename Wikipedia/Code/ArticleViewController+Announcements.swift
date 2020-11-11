@@ -4,7 +4,20 @@ import CocoaLumberjackSwift
 extension ArticleViewController {
     
     var willShowFundraisingAnnouncement: Bool {
-        return UserDefaults.standard.shouldCheckForArticleAnnouncements
+        guard UserDefaults.standard.shouldCheckForArticleAnnouncements else {
+            return false
+        }
+        let predicate = NSPredicate(format: "placement == %@", "article")
+        let contentGroup = dataStore.viewContext.newestVisibleGroup(of: .announcement, with: predicate)
+        guard
+            contentGroup?.url != nil,
+            let announcement = contentGroup?.contentPreview as? WMFAnnouncement,
+            announcement.actionURL != nil
+        else {
+            return false
+        }
+        
+        return true
     }
     
     func showAnnouncementIfNeeded() {
