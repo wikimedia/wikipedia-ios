@@ -27,14 +27,14 @@
 // Author: 烈羽
 // Author: 神樂坂秀吉
 
-"aaald-added-text-description" = "增加 {{PLURAL:$1|0=0|$1|$1}} 個字元";
+"aaald-added-text-description-2" = "$1已新增";
 "aaald-article-description-updated-description" = "條目標題描述已更新";
-// Fuzzy
-"aaald-article-insert-header" = "重要事件";
+"aaald-article-insert-header" = "重要更新";
 "aaald-article-insert-last-updated" = "上一次更新";
 "aaald-article-insert-new-changes" = "新的更改";
 "aaald-article-insert-read-more" = "閱讀更多更新內容";
-"aaald-deleted-text-description" = "刪除 {{PLURAL:$1|0=0|$1|$1}} 個字元";
+"aaald-characters-text-description" = "{{PLURAL:$1|0=字元|字元|字元}}";
+"aaald-deleted-text-description-2" = "$1已刪除";
 "aaald-error-subitle" = "重新整理來再次嘗試";
 "aaald-error-title" = "無法載入內嵌條目的歷史紀錄";
 "aaald-many-sections-description" = "在第 $1 段";
@@ -404,7 +404,7 @@
 "explore-hide-card-prompt" = "隱藏此卡片";
 "explore-main-page-description" = "維基媒體計畫首頁";
 "explore-main-page-heading" = "維基百科今日";
-"explore-most-read-footer" = "所有被最多閱讀的條目";
+"explore-most-read-footer" = "所有被閱讀最多次的條目";
 "explore-most-read-generic-heading" = "最多閱讀";
 "explore-most-read-more-list-title-for-date" = "在 $1 的熱門條目";
 "explore-most-read-sub-heading-on-language-wikipedia" = "在$1維基百科";
@@ -613,9 +613,9 @@
 "places-filter-button-title" = "篩選";
 "places-filter-no-saved-places" = "您已沒有儲存的地方";
 "places-filter-saved-articles" = "已儲存條目";
-"places-filter-top-articles" = "最多閱讀";
+"places-filter-top-articles" = "被閱讀最多次";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 個條目|$1 個條目}}";
-"places-filter-top-read-articles" = "被最多閱讀的條目";
+"places-filter-top-read-articles" = "被閱讀最多次的條目";
 "places-location-enabled" = "位置已啟用";
 "places-no-saved-articles-have-location" = "您所儲存的條目皆未有位置訊息";
 "places-search-articles-that-match" = "$1符合「$2」";
@@ -781,7 +781,7 @@
 "settings-languages-feed-customization" = "透過自訂您的探索摘要設定，您可以管理在您的探索摘要裡所要顯示出的語言。";
 "settings-my-languages" = "我的語言";
 "settings-notifications" = "通知";
-"settings-notifications-info" = "經由我們推發通知提醒注意在維基百科上的被最多閱讀以及趨勢條目。所有提供內容皆考量到隱私及最新資料。";
+"settings-notifications-info" = "經由我們推發通知提醒注意在維基百科上的被閱讀最多次以及趨勢條目。所有提供內容皆考量到隱私及最新資料。";
 "settings-notifications-learn-more" = "了解更多通知內容";
 "settings-notifications-push-notifications" = "推發通知";
 "settings-notifications-system-turn-on" = "開啟通知";
@@ -866,7 +866,7 @@
 "theme-sepia-display-name" = "深褐";
 "top-read-header-generic" = "維基百科";
 "top-read-header-with-language" = "$1維基百科";
-"top-read-see-more" = "查看其它最多閱讀";
+"top-read-see-more" = "查看更多熱門條目";
 "two-factor-login-continue" = "繼續登入";
 "two-factor-login-instructions" = "請輸入雙重驗證代碼";
 "two-factor-login-title" = "登入至您的帳號";

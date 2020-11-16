@@ -38,11 +38,9 @@
 // Author: ネイ
 // Author: 아라
 
-"aaald-added-text-description" = "$1文字追加しました";
 "aaald-article-description-updated-description" = "記事タイトルの説明が更新されました";
 "aaald-article-insert-last-updated" = "最終更新";
 "aaald-article-insert-new-changes" = "新しい変更";
-"aaald-deleted-text-description" = "{{PLURAL:$1|$1文字}}削除しました";
 "aaald-new-book-reference-title" = "本";
 "aaald-new-discussion" = "新規議論";
 "aaald-new-journal-reference-database" = "$1経由";

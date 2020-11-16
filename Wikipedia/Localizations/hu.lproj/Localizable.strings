@@ -15,14 +15,12 @@
 // Author: Tacsipacsi
 // Author: Urbalazs
 
-"aaald-added-text-description" = "$1 karakter hozzáadva";
 "aaald-article-description-updated-description" = "Cikk címleírás frissítve";
 // Fuzzy
 "aaald-article-insert-header" = "Kiemelt események";
 "aaald-article-insert-last-updated" = "Utoljára frissítve";
 "aaald-article-insert-new-changes" = "Új változtatások";
 "aaald-article-insert-read-more" = "További frissítések elolvasása";
-"aaald-deleted-text-description" = "$1 karakter törölve";
 "aaald-error-subitle" = "Frissítsd és próbáld újra";
 "aaald-multiple-changes-description" = "Több változtatás is történt";
 "aaald-multiple-references-added-description" = "Referenciák hozzáadva";

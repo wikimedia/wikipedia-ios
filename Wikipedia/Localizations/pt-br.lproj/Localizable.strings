@@ -32,13 +32,14 @@
 // Author: Walesson
 // Author: Webysther
 
-"aaald-added-text-description" = "{{PLURAL:$1|0=0 caracteres adicionados|$1 character adicionado|$1 caracteres adicionados}}";
+"aaald-added-text-description-2" = "$1 adicionado";
 "aaald-article-description-updated-description" = "Descrição do título do artigo atualizada";
 "aaald-article-insert-header" = "Atualizações significativas";
 "aaald-article-insert-last-updated" = "Última atualização";
 "aaald-article-insert-new-changes" = "Novas alterações";
 "aaald-article-insert-read-more" = "Leia mais atualizações";
-"aaald-deleted-text-description" = "{{PLURAL:$1|0=0 caracteres excluídos|$1 character excluído|$1 caracteres excluídos}}";
+"aaald-characters-text-description" = "{{PLURAL:$1|0=caracteres|character|caracteres}}";
+"aaald-deleted-text-description-2" = "$1 excluído";
 "aaald-error-subitle" = "Atualize para tentar novamente";
 "aaald-error-title" = "Não é possível carregar o histórico do artigo embutido";
 "aaald-many-sections-description" = "em $1 seções";

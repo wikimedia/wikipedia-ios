@@ -51,8 +51,6 @@
 // Author: Александр Сигачёв
 // Author: Марио
 
-"aaald-added-text-description" = "{{PLURAL:$1|0=0 символов добавлено|$1 символ добавлен|$1 символов добавлено}}";
-"aaald-deleted-text-description" = "{{PLURAL:$1|0=0 символов удалено|$1 символ удалён|$1 символов удалено}}";
 "aaald-error-subitle" = "Обновите, чтобы попробовать еще раз";
 "aaald-many-sections-description" = "в $1 разделах";
 "aaald-multiple-changes-description" = "Сделано несколько изменений";
