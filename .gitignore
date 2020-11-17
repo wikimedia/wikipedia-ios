@@ -56,6 +56,9 @@ xcbaselines/
 # Provisioning Profiles
 *.mobileprovision
 
+# IntelliJ config files
+.idea/
+
 # CocoaPods
 #
 # We're committing the Pods folder in order to facilitate setup
