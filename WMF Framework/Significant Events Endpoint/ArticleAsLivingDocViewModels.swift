@@ -571,7 +571,7 @@ public extension ArticleAsLivingDocViewModel {
             
             public enum ButtonsToDisplay {
                 case thankAndViewChanges(userId: UInt, revisionId: UInt)
-                case viewDiscussion(sectionName: String)
+                case viewDiscussion(sectionName: String?)
             }
             
             public let typedEvent: SignificantEvents.TypedEvent
@@ -599,7 +599,13 @@ public extension ArticleAsLivingDocViewModel {
                 case .newTalkPageTopic(let newTalkPageTopic):
                     self.userId = newTalkPageTopic.userId
                     userGroups = newTalkPageTopic.userGroups
-                    self.buttonsToDisplay = .viewDiscussion(sectionName: newTalkPageTopic.section)
+                    
+                    if let talkPageSection = newTalkPageTopic.section {
+                        self.buttonsToDisplay = .viewDiscussion(sectionName: Self.sectionTitleWithEqualSignsStripped(originalTitle: talkPageSection))
+                    } else {
+                        self.buttonsToDisplay = .viewDiscussion(sectionName: nil)
+                    }
+                    
                 case .large(let largeChange):
                     self.userId = largeChange.userId
                     userGroups = largeChange.userGroups
@@ -637,7 +643,6 @@ public extension ArticleAsLivingDocViewModel {
                     revId = 0
                     parentId = 0
                 }
-                
             }
             
             public static func == (lhs: ArticleAsLivingDocViewModel.Event.Large, rhs: ArticleAsLivingDocViewModel.Event.Large) -> Bool {
@@ -905,15 +910,21 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         }
         
         //strip == signs from all section titles
-        let finalSet = set.map { (section) -> String in
-            if let match = section.range(of: "(?<==)[^=]+", options: .regularExpression) {
-                return String(section[match])
-            }
-            
-            return section
-        }
+        let finalSet = set.map { Self.sectionTitleWithEqualSignsStripped(originalTitle: $0) }
         
         return Set(finalSet)
+    }
+    
+    private static func sectionTitleWithEqualSignsStripped(originalTitle: String) -> String {
+        var loopTitle = originalTitle
+        let regex = "\\s*[=]{2,}\\s*"
+        var maybeMatch = loopTitle.range(of: regex, options: .regularExpression)
+        while let match = maybeMatch {
+            loopTitle.removeSubrange(match)
+            maybeMatch = loopTitle.range(of: regex, options: .regularExpression)
+        }
+
+        return loopTitle
     }
     
     private func localizedStringFromSections(sections: [String]) -> String? {
