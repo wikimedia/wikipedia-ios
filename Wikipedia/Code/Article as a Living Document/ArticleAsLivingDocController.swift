@@ -2,6 +2,7 @@
 import Foundation
 import UIKit
 import CocoaLumberjackSwift
+import WMF
 
 protocol ArticleAsLivingDocControllerDelegate: class {
     var articleURL: URL { get }
@@ -380,18 +381,41 @@ class ArticleAsLivingDocController: NSObject {
         
     }
     
-    func handleArticleAsLivingDocLinkForAnchor(_ anchor: String) {
+    func handleArticleAsLivingDocLinkForAnchor(_ anchor: String, articleURL: URL) {
         guard anchor.contains("significant-events") else {
             return
         }
         
         let splitItems = anchor.split(separator: "-")
-        guard splitItems.count == 4,
+        
+        if splitItems.count == 4,
+           splitItems[2] == "username",
+           let userName = String(splitItems[3]).addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) {
+
+            let href = "./User:\(userName)"
+            guard let resolvedURL = articleURL.resolvingRelativeWikiHref(href) else {
+                assertionFailure("Unable to read link as article as a living doc link.")
+                return
+            }
+            
+            ArticleAsLivingDocFunnel.shared.logArticleContentInsertEditorTapped()
+            delegate?.navigate(to: resolvedURL)
+            return
+        }
+        
+        //example: anchor of "significant-events-1-2-3" means scroll to initial index path (item: 1, section: 2) and log ArticleContentInsertEventDescriptionType(rawValue: 3)
+        guard splitItems.count == 5,
               let item = Int(splitItems[2]),
-              let section = Int(splitItems[3]) else { //last two items are initialIndexPath to scroll to
+              let section = Int(splitItems[3]),
+              let loggingDescriptionTypeRaw = Int(splitItems[4]),
+              let loggingDescriptionType = ArticleAsLivingDocFunnel.ArticleContentInsertEventDescriptionType(rawValue: loggingDescriptionTypeRaw) else {
+            
+            ArticleAsLivingDocFunnel.shared.logArticleContentInsertReadMoreUpdatesTapped()
             presentArticleAsLivingDoc()
             return
         }
+
+        ArticleAsLivingDocFunnel.shared.logArticleContentInsertEventDescriptionTapped(descriptionType: loggingDescriptionType)
         
         let indexPath = IndexPath(item: item, section: section)
         presentArticleAsLivingDoc(scrollToInitialIndexPath: indexPath)

@@ -315,22 +315,36 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
     }
 
     @objc private func thankButtonTapped() {
-        guard let revisionID = largeEvent?.revId else {
+        guard let largeEvent = largeEvent else {
             return
         }
-        let isUserAnonymous = (largeEvent?.userType == .anonymous)
-        articleDelegate?.thankButtonTapped(for: Int(revisionID), isUserAnonymous: isUserAnonymous)
+        let isUserAnonymous = (largeEvent.userType == .anonymous)
+        let eventTypes = ArticleAsLivingDocFunnel.EventType.eventTypesFromLargeEvent(largeEvent)
+        let position = largeEvent.loggingPosition
+        let livingDocLoggingValues = ArticleAsLivingDocLoggingValues(position: position, eventTypes: eventTypes)
+        articleDelegate?.thankButtonTapped(for: Int(largeEvent.revId), isUserAnonymous: isUserAnonymous, livingDocLoggingValues: livingDocLoggingValues)
     }
 
     @objc private func viewChangesTapped() {
-        guard let revisionID = largeEvent?.revId,
-              let parentID = largeEvent?.parentId else {
+        
+        guard let largeEvent = largeEvent else {
             return
         }
-        articleDelegate?.goToDiff(revisionId: revisionID, parentId: parentID, diffType: .single)
+        
+        let loggingPosition = largeEvent.loggingPosition
+        let eventTypes = ArticleAsLivingDocFunnel.EventType.eventTypesFromLargeEvent(largeEvent)
+        ArticleAsLivingDocFunnel.shared.logModalViewChangesButtonTapped(position: loggingPosition, types: eventTypes)
+        
+        articleDelegate?.goToDiff(revisionId: largeEvent.revId, parentId: largeEvent.parentId, diffType: .single)
+
     }
 
     @objc private func viewDiscussionTapped() {
+        
+        if let loggingPosition = largeEvent?.loggingPosition {
+            ArticleAsLivingDocFunnel.shared.logModalViewDiscussionButtonTapped(position: loggingPosition)
+        }
+        
         articleDelegate?.showTalkPage()
     }
 }
@@ -387,12 +401,31 @@ extension ArticleAsLivingDocLargeEventCollectionViewCell: UICollectionViewDelega
 
 extension ArticleAsLivingDocLargeEventCollectionViewCell: ArticleAsLivingDocHorizontallyScrollingCellDelegate {
     func tappedLink(_ url: URL) {
+        
+        guard let largeEvent = largeEvent else {
+            return
+        }
+        
+        let loggingPosition = largeEvent.loggingPosition
+        let eventTypes = ArticleAsLivingDocFunnel.EventType.eventTypesFromLargeEvent(largeEvent)
+        ArticleAsLivingDocFunnel.shared.logModalSideScrollingCellLinkTapped(position: loggingPosition, types: eventTypes)
+        
         delegate?.tappedLink(url)
     }
 }
 
 extension ArticleAsLivingDocLargeEventCollectionViewCell: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        
+        guard let largeEvent = largeEvent else {
+            return false
+        }
+        
+        //note for now only userInfoTextView's delegate is self, and the only link possible in that text view is the username, so it's safe to log this
+        let loggingPosition = largeEvent.loggingPosition
+        let eventTypes = ArticleAsLivingDocFunnel.EventType.eventTypesFromLargeEvent(largeEvent)
+        ArticleAsLivingDocFunnel.shared.logModalEditorNameTapped(position: loggingPosition, types: eventTypes)
+        
         delegate?.tappedLink(url)
         return false
     }
