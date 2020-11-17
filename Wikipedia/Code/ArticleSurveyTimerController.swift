@@ -7,7 +7,6 @@ protocol ArticleSurveyTimerControllerDelegate: class {
     var userHasSeenSurveyPrompt: Bool { get }
     var displayDelay: TimeInterval? { get }
     var livingDocSurveyLinkState: ArticleAsLivingDocSurveyLinkState { get }
-    var willShowFundraisingAnnouncement: Bool { get }
 }
 
  // Manages the timer used to display survey announcements on articles
@@ -35,14 +34,11 @@ final class ArticleSurveyTimerController {
 
     // MARK: - Public
 
-    func articleContentDidLoad() {
+    func articleContentDidLoad(withState state: ArticleViewController.ViewState) {
         
-        guard let delegate = delegate,
-              !delegate.shouldAttemptToShowArticleAsLivingDoc else {
-            return
+        if timer == nil {
+            kickoffTimer(withState: state)
         }
-        
-        startTimer()
     }
     
     func livingDocViewWillAppear(withState state: ArticleViewController.ViewState) {
@@ -87,8 +83,7 @@ final class ArticleSurveyTimerController {
         }
         
         if delegate.isInValidSurveyCampaignAndArticleList,
-           !delegate.userHasSeenSurveyPrompt,
-           !delegate.willShowFundraisingAnnouncement {
+           !delegate.userHasSeenSurveyPrompt {
             
             pauseTimer()
             let newTimeInterval = (timeIntervalRemainingWhenPaused ?? 0) + 5
@@ -105,8 +100,7 @@ final class ArticleSurveyTimerController {
         
         if state == .loaded,
            delegate.isInValidSurveyCampaignAndArticleList,
-           !delegate.userHasSeenSurveyPrompt,
-           !delegate.willShowFundraisingAnnouncement {
+           !delegate.userHasSeenSurveyPrompt {
             shouldPauseOnBackground = true
             startTimer()
         }
@@ -121,8 +115,7 @@ final class ArticleSurveyTimerController {
         
         if state == .loaded,
            delegate.isInValidSurveyCampaignAndArticleList,
-           !delegate.userHasSeenSurveyPrompt,
-           !delegate.willShowFundraisingAnnouncement {
+           !delegate.userHasSeenSurveyPrompt {
             
             shouldPauseOnBackground = false
             stopTimer()
