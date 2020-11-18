@@ -30,9 +30,7 @@ class ViewControllerRouter: NSObject {
         if #available(iOS 13.0, *), navigationController.children.contains(where: { $0 is ArticleAsLivingDocViewController }) {
             if let vc = viewController as? SinglePageWebViewController, navigationController.modalPresentationStyle == .pageSheet {
                 vc.doesUseSimpleNavigationBar = true
-                if UIDevice.current.userInterfaceIdiom == .pad {
-                    vc.navigationBar.isBarHidingEnabled = false
-                }
+                vc.navigationBar.isBarHidingEnabled = false
             }
         }
 
