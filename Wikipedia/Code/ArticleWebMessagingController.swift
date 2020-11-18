@@ -183,6 +183,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case leadImage(source: String?, width: Int?, height: Int?)
         case tableOfContents(items: [TableOfContentsItem])
         case scrollToAnchor(anchor: String, rect: CGRect)
+        case aaaldInsertOnScreen
         case unknown(href: String)
     }
     
@@ -203,6 +204,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
         case leadImage
         case tableOfContents
         case scrollToAnchor = "scroll_to_anchor"
+        case aaaldInsertOnScreen
         init?(pcsActionString: String) {
             let cleaned = pcsActionString.replacingOccurrences(of: "_clicked", with: "")
             self.init(rawValue: cleaned)
@@ -237,6 +239,8 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
                 return getTableOfContentsAction(with: data)
             case .scrollToAnchor:
                 return getScrollToAnchorAction(with: data)
+            case .aaaldInsertOnScreen:
+                return .aaaldInsertOnScreen
             }
         }
         func getLeadImageAction(with data: [String: Any]?) -> Action? {
@@ -398,8 +402,11 @@ extension ArticleWebMessagingController {
     var articleAsLivingDocBoxContainerHTMLStart: String {
         return "<div id='\(articleAsLivingDocBoxContainerID)'>"
     }
+    var articleAsLivingDocBoxInnerContainerID: String {
+        return "significant-changes-inner-container"
+    }
     var articleAsLivingDocBoxInnerContainerHTMLStart: String {
-        return "<div id='significant-changes-inner-container'>"
+        return "<div id='\(articleAsLivingDocBoxInnerContainerID)'>"
     }
     var articleAsLivingDocBoxInnerContainerHTMLEnd: String {
         return "</div>"
@@ -540,16 +547,10 @@ extension ArticleWebMessagingController {
             }
         }
     }
-
-    func injectArticleAsLivingDocContent(articleInsertHtmlSnippets: [String], topBadgeType: TopBadgeType = .lastUpdated, timestamp: String? = nil, _ completion: ((Bool) -> Void)? = nil) {
-        
-        guard articleInsertHtmlSnippets.count > 0 else {
-            completion?(false)
-            return
-        }
-        
+    
+    func aaaldContentInsertJS(articleInsertHtmlSnippets: [String]) -> String {
         let insertHeaderText = WMFLocalizedString("aaald-article-insert-header", value: "Significant Updates", comment: "Header text in article content insert section that displays recent significant article updates.")
-        
+
         var articleAsLivingDocBoxInnerHTML = "\(articleAsLivingDocBoxInnerContainerHTMLStart)<h4 id='significant-changes-header'>\(insertHeaderText.uppercased(with: Locale.current))</h4><ul id='significant-changes-list'>"
         
         for articleInsertHtmlSnippet in articleInsertHtmlSnippets {
@@ -560,7 +561,7 @@ extension ArticleWebMessagingController {
         
         articleAsLivingDocBoxInnerHTML += "</ul><hr id='significant-changes-hr'><p id='significant-changes-read-more'><a href='#significant-events-read-more'>\(readMoreUpdatesText)</a></p>\(articleAsLivingDocBoxInnerContainerHTMLEnd)"
         
-        var javascript = """
+        let js = """
             function injectSignificantEventsContent() {
                  //first remove existing element if it's there
                  var existing = document.getElementById('\(articleAsLivingDocBoxContainerID)');
@@ -573,36 +574,93 @@ extension ArticleWebMessagingController {
             injectSignificantEventsContent();
         """
         
+        return js
+    }
+    
+    func aaaldScrollViewDetectionJS() -> String {
+        return """
+
+            function isInViewport(el) {
+                const rect = el.getBoundingClientRect();
+                return (
+                    (rect.top >= 0 && rect.top <= (window.innerHeight || document.documentElement.clientHeight)) ||
+                    (rect.bottom >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight))
+                );
+            }
+
+            var aaaldInsertElementForScrollDetection = document.getElementById('\(articleAsLivingDocBoxInnerContainerID)');
+            var detectedIsOnScreen = false;
+
+            function detectIfInsertIsOnScreen() {
+                if (!aaaldInsertElementForScrollDetection) {
+                    aaaldInsertElementForScrollDetection = document.getElementById('\(articleAsLivingDocBoxInnerContainerID)');
+                }
+                if (aaaldInsertElementForScrollDetection) {
+                    const isOnScreen = isInViewport(aaaldInsertElementForScrollDetection);
+                    if (detectedIsOnScreen === false && isOnScreen === true) {
+                        window.webkit.messageHandlers.\(PageContentService.messageHandlerName).postMessage({"\(bodyActionKey)": "\(PCSAction.aaaldInsertOnScreen.rawValue)"});
+                        detectedIsOnScreen = true;
+                    }
+                }
+            }
+
+            document.addEventListener('scroll', function () {
+                detectIfInsertIsOnScreen();
+            }, {
+                passive: true
+            });
+
+            detectIfInsertIsOnScreen();
+        """
+    }
+    
+    func aaaldTopBadgeJS(timestamp: String?, topBadgeType: TopBadgeType) -> String {
         let newChangesText = WMFLocalizedString("aaald-article-insert-new-changes", value: "New changes", comment: "Badge text in article content showing that there have been new significant updates to the article since the user last viewed it.")
         let lastUpdatedText = WMFLocalizedString("aaald-article-insert-last-updated", value: "Last updated", comment: "Badge text in article content showing when the article as last updated.")
         
-        if let timestamp = timestamp {
-            let innerContainerID = topBadgeType == .lastUpdated ? "significant-changes-top-inner-container-last-updated" : "significant-changes-top-inner-container-new-changes"
-            let topTextID = topBadgeType == .lastUpdated ? "significant-changes-top-text-last-updated" : "significant-changes-top-text-new-changes"
-            let badgeText = topBadgeType == .lastUpdated ? lastUpdatedText : newChangesText
-            var badgeInnerHTML = "<div id='significant-changes-top-container'><div id='\(innerContainerID)'>"
-            if topBadgeType == .newChanges {
-                badgeInnerHTML += "<span id='significant-changes-top-dot'></span>"
-            }
-            badgeInnerHTML += "<span id='\(topTextID)'>\(badgeText)</span></div>"
-            badgeInnerHTML += "<span id='significant-changes-top-timestamp'>\(timestamp)</span>"
-            
-            javascript += """
-                function injectNewChangesBadge() {
-                    //first remove existing element if it's there
-                    var existing = document.getElementById('\(badgeHTMLContainerID)');
-                    if (existing) {
-                        existing.innerHTML = "\(badgeInnerHTML)";
-                        return true;
-                    }
-                    \(createAndInsertBadgeScript(innerHTML: badgeInnerHTML))
-                }
-                
-                injectNewChangesBadge();
-            """
+        guard let timestamp = timestamp else {
+            return ""
         }
         
-        webView?.evaluateJavaScript(javascript) { (result, error) in
+        let innerContainerID = topBadgeType == .lastUpdated ? "significant-changes-top-inner-container-last-updated" : "significant-changes-top-inner-container-new-changes"
+        let topTextID = topBadgeType == .lastUpdated ? "significant-changes-top-text-last-updated" : "significant-changes-top-text-new-changes"
+        let badgeText = topBadgeType == .lastUpdated ? lastUpdatedText : newChangesText
+        var badgeInnerHTML = "<div id='significant-changes-top-container'><div id='\(innerContainerID)'>"
+        if topBadgeType == .newChanges {
+            badgeInnerHTML += "<span id='significant-changes-top-dot'></span>"
+        }
+        badgeInnerHTML += "<span id='\(topTextID)'>\(badgeText)</span></div>"
+        badgeInnerHTML += "<span id='significant-changes-top-timestamp'>\(timestamp)</span>"
+        
+        return """
+            function injectNewChangesBadge() {
+                //first remove existing element if it's there
+                var existing = document.getElementById('\(badgeHTMLContainerID)');
+                if (existing) {
+                    existing.innerHTML = "\(badgeInnerHTML)";
+                    return true;
+                }
+                \(createAndInsertBadgeScript(innerHTML: badgeInnerHTML))
+            }
+            
+            injectNewChangesBadge();
+        """
+    }
+
+    func injectArticleAsLivingDocContent(articleInsertHtmlSnippets: [String], topBadgeType: TopBadgeType = .lastUpdated, timestamp: String? = nil, _ completion: ((Bool) -> Void)? = nil) {
+        
+        guard articleInsertHtmlSnippets.count > 0 else {
+            completion?(false)
+            return
+        }
+        
+        let contentInsertJS = aaaldContentInsertJS(articleInsertHtmlSnippets: articleInsertHtmlSnippets)
+        let scrollViewDetectionJS = aaaldScrollViewDetectionJS()
+        let topBadgeJS = aaaldTopBadgeJS(timestamp: timestamp, topBadgeType: topBadgeType)
+        
+        let finalInjectJS = contentInsertJS + scrollViewDetectionJS + topBadgeJS
+        
+        webView?.evaluateJavaScript(finalInjectJS) { (result, error) in
             DispatchQueue.main.async {
                 if let error = error {
                     DDLogDebug("Failure in injectArticleAsLivingDocContent: \(error)")

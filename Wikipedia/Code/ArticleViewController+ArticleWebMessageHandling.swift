@@ -1,3 +1,5 @@
+import WMF
+
 extension ArticleViewController: ArticleWebMessageHandling {
     
     func didRecieve(action: ArticleWebMessagingController.Action) {
@@ -31,6 +33,8 @@ extension ArticleViewController: ArticleWebMessageHandling {
             scrollToAnchorCompletions.popLast()?(anchor, rect)
         case .viewInBrowser:
             navigate(to: self.articleURL, useSafari: true)
+        case .aaaldInsertOnScreen:
+            handleAaaLDInsertOnScreenEvent()
         }
     }
     
@@ -100,5 +104,9 @@ extension ArticleViewController: ArticleWebMessageHandling {
             menuItems.append(.coordinate)
         }
         messagingController.addFooter(articleURL: articleURL, restAPIBaseURL: baseURL, menuItems: menuItems, lastModified: article.lastModifiedDate)
+    }
+    
+    func handleAaaLDInsertOnScreenEvent() {
+        ArticleAsLivingDocFunnel.shared.logArticleContentInsertShown()
     }
 }
