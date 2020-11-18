@@ -1607,6 +1607,8 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     static var botIconName: String {
         return "article-as-living-doc-svg-bot"
     }
+
+    static var anonymousIconName: String = "article-as-living-doc-svg-anon"
     
     private func userInfoHtmlSnippet() -> String? {
         guard let userNameAndEditCount = self.userNameAndEditCount() else {
@@ -1646,8 +1648,8 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                 }
             }
         } else {
-            let anonymousUserInfo = String.localizedStringWithFormat(CommonStrings.revisionUserInfoAnonymous, userName)
-            return anonymousUserInfo
+            return "<img src='\(Self.anonymousIconName)' style='margin: 0em .2em .35em .1em; width: 1em' />\(CommonStrings.revisionUserInfoAnonymous)"
+
         }
         
         return nil
@@ -1668,12 +1670,19 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         
         guard let editCount = maybeEditCount,
                userType != .anonymous else {
-            let anonymousUserInfo = String.localizedStringWithFormat(CommonStrings.revisionUserInfoAnonymous, userName)
+            let anonymousUserInfo = CommonStrings.revisionUserInfoAnonymous
             
             let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
             let attributes = [NSAttributedString.Key.font: font,
                               NSAttributedString.Key.foregroundColor: theme.colors.secondaryText]
-            let attributedString = NSAttributedString(string: anonymousUserInfo, attributes: attributes)
+            let mutableAttributedString = NSMutableAttributedString(string: anonymousUserInfo, attributes: attributes)
+            addIcon(to: mutableAttributedString, at: 0, for: userType)
+            // Need this next line to appropriately color the icon
+            mutableAttributedString.addAttributes(attributes, range: NSRange(location: 0, length: 2))
+            guard let attributedString = mutableAttributedString.copy() as? NSAttributedString else {
+                return nil
+            }
+
             self.userInfo = attributedString
             return attributedString
         }
@@ -1698,21 +1707,25 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         let mutableAttributedString = NSMutableAttributedString(string: userInfo, attributes: attributes)
         mutableAttributedString.addAttribute(NSAttributedString.Key.link, value: userNameURL as NSURL, range: rangeOfUserName)
         mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: theme.colors.link, range: rangeOfUserName)
-        
-        if userType == .bot {
-            let imageAttachment = NSTextAttachment()
-            imageAttachment.image = UIImage(named: Self.botIconName)
-            let imageString = NSAttributedString(attachment: imageAttachment)
-            mutableAttributedString.insert(imageString, at: rangeOfUserName.location)
-            mutableAttributedString.insert(NSAttributedString(string: " "), at: rangeOfUserName.location + imageString.length)
-        }
-        
+
+        addIcon(to: mutableAttributedString, at: rangeOfUserName.location, for: userType)
+
         guard let attributedString = mutableAttributedString.copy() as? NSAttributedString else {
             return nil
         }
         
         self.userInfo = attributedString
         return attributedString
+    }
+
+    func addIcon(to mutableAttributedString: NSMutableAttributedString, at location: Int, for userType: UserType) {
+        if userType == .bot || userType == .anonymous {
+            let imageAttachment = NSTextAttachment()
+            imageAttachment.image = UIImage(named: (userType == .bot ? Self.botIconName : Self.anonymousIconName))
+            let imageString = NSAttributedString(attachment: imageAttachment)
+            mutableAttributedString.insert(imageString, at: location)
+            mutableAttributedString.insert(NSAttributedString(string: " "), at: location + imageString.length)
+        }
     }
     
 }
