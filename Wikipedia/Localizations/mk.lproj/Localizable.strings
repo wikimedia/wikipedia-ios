@@ -8,14 +8,14 @@
 // Author: Vlad5250
 // Author: Монтехристо
 
-"aaald-added-text-description" = "{{PLURAL:$1|0=Додадени 0 знаци|Додаден $1 знак|Додадени $1 знаци}}";
+"aaald-added-text-description-2" = "Додадени $1";
 "aaald-article-description-updated-description" = "Описот на насловот на статијата е подновен";
-// Fuzzy
-"aaald-article-insert-header" = "Значајни настани";
+"aaald-article-insert-header" = "Значајни поднови";
 "aaald-article-insert-last-updated" = "Последна поднова";
 "aaald-article-insert-new-changes" = "Нови промени";
 "aaald-article-insert-read-more" = "Погл. уште поднови";
-"aaald-deleted-text-description" = "{{PLURAL:$1|0=Избришани 0 знаци|Избришан $1 знак|Избришани $1 знаци}}";
+"aaald-characters-text-description" = "{{PLURAL:$1|0=знаци|знак|знаци}}";
+"aaald-deleted-text-description-2" = "Избиришани $1";
 "aaald-error-subitle" = "Превчитајте за да пробате пак";
 "aaald-error-title" = "Не можев да ја вчитам воредната историја на статијата";
 "aaald-many-sections-description" = "во $1 поднаслови";

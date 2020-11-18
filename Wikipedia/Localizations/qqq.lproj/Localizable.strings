@@ -24,8 +24,8 @@
 "aaald-new-website-reference-title" = "Header text for a new website reference type that was added in an article as an living document cell.";
 "aaald-numerical-multiple-references-added-description" = "Title displayed in an article as a living document cell explaining that multiple references were added to a revision. This string is used alongside other changes types like added characters. $1 is replaced with the number of references.";
 "aaald-one-section-description" = "Text explaining what section an article as a living document event change occurred in, if occurred in only one section. $1 is replaced with the section name.";
+"aaald-revision-by-anonymous" = "Text describing the anonymous user that made a significant revision in the article as a living document view.";
 "aaald-revision-userInfo" = "Text describing details about the user that made a significant revision in the article as a living document view. $1 is replaced by the editor name and $2 is replaced by the number of edits they have made.";
-"aaald-revision-userInfo-anonymous" = "Text describing details about the anonymous user that made a significant revision in the article as a living document view. $1 is replaced by the editor's anonymous name.";
 "aaald-single-reference-added-description" = "Title displayed in an article as a living document timeline cell when a reference was added (and no other changes) to a revision.";
 "aaald-small-change-description" = "Describes how many small changes are batched together in the article as a living document timeline view. $1 is replaced with the number of small changes.";
 "aaald-summary-title" = "Describes how many small changes are batched together in the article as a living document timeline view. $1 is replaced by the number of accumulated changes editors made, $2 is replaced by the number of editors that made that change and $3 is replaced with relative timeframe date that the edit counting started (e.g. 10 days).";
