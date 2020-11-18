@@ -18,14 +18,12 @@
 // Author: Vitorvicentevalente
 // Author: Webysther
 
-"aaald-added-text-description" = "{{PLURAL:$1|0=nenhum caráter adicionado|$1 caráter adicionado|$1 carateres adicionados}}";
 "aaald-article-description-updated-description" = "Título de descrição do artigo atualizado";
 // Fuzzy
 "aaald-article-insert-header" = "Acontecimentos importantes";
 "aaald-article-insert-last-updated" = "Última atualização";
 "aaald-article-insert-new-changes" = "Mudanças recentes";
 "aaald-article-insert-read-more" = "Ler mais atualizações";
-"aaald-deleted-text-description" = "{{PLURAL:$1|0=nenhum caráter eliminado|$1 caráter eliminado|$1 carateres eliminados}}";
 "aaald-error-subitle" = "Atualizar para tentar novamente";
 "aaald-error-title" = "Não é possível carregar o histórico do artigo";
 "aaald-many-sections-description" = "em $1 secções";

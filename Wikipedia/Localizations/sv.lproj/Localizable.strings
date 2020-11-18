@@ -20,17 +20,18 @@
 // Author: Rockyfelle
 // Author: Sabelöga
 // Author: Skalman
+// Author: Smetanakaviar
 // Author: Technic2
 // Author: WikiPhoenix
 
-"aaald-added-text-description" = "{{PLURAL:$1|0=0 tecken|$1 tecken|$1 tecken}} lades till";
+"aaald-added-text-description-2" = "$1 lades till";
 "aaald-article-description-updated-description" = "Artikelns titelbeskrivning uppdaterades";
-// Fuzzy
-"aaald-article-insert-header" = "Betydande händelser";
+"aaald-article-insert-header" = "Betydande uppdateringar";
 "aaald-article-insert-last-updated" = "Senast uppdaterad";
 "aaald-article-insert-new-changes" = "Nya ändringar";
 "aaald-article-insert-read-more" = "Läs fler uppdateringar";
-"aaald-deleted-text-description" = "{{PLURAL:$1|0=0 tecken|$1 tecken|$1 tecken}} raderades";
+"aaald-characters-text-description" = "{{PLURAL:$1|0=tecken|tecken|tecken}}{{PLURAL:$1|}}";
+"aaald-deleted-text-description-2" = "$1 raderades";
 "aaald-error-subitle" = "Uppdatera för att försöka igen";
 "aaald-error-title" = "Kunde inte läsa in artikelhistoriken";
 "aaald-many-sections-description" = "i $1 avsnitt";
