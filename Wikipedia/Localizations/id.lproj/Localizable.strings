@@ -27,9 +27,7 @@
 // Author: Ulinfaizah
 // Author: WongKentir
 
-"aaald-added-text-description" = "{{PLURAL:$1|0=0 karakter|$1 karakter|$1 karakter}} ditambahkan";
 "aaald-article-description-updated-description" = "Deskripsi artikel diperbarui";
-"aaald-deleted-text-description" = "{{PLURAL:$1|0=0 karakter|$1 karakter|$1 karakter}} dihapus";
 "aaald-error-subitle" = "Muat ulang untuk mencoba lagi";
 "aaald-error-title" = "Tidak dapat memuat riwayat artikel";
 "aaald-many-sections-description" = "di $1 bagian";

@@ -30,14 +30,14 @@
 // Author: Wladek92
 // Author: Zarisi
 
-"aaald-added-text-description" = "{{PLURAL:$1|0=aucun caractère ajouté|$1 caractère ajouté|$1 caractères ajoutés}}";
+"aaald-added-text-description-2" = "$1 ajouté";
 "aaald-article-description-updated-description" = "Description du titre de l’article mise à jour";
-// Fuzzy
-"aaald-article-insert-header" = "Événements significatifs";
+"aaald-article-insert-header" = "Mises à jour significatives";
 "aaald-article-insert-last-updated" = "Dernière mise à jour";
 "aaald-article-insert-new-changes" = "Nouvelles modifications";
 "aaald-article-insert-read-more" = "Voir plus de mises à jour";
-"aaald-deleted-text-description" = "{{PLURAL:$1|0=aucun caractère supprimé|$1 caractère supprimé|$1 caractères supprimés}}";
+"aaald-characters-text-description" = "{{PLURAL:$1|0=caractère|caractère|caractères}}";
+"aaald-deleted-text-description-2" = "$1 supprimé";
 "aaald-error-subitle" = "Actualisez pour essayer à nouveau";
 "aaald-error-title" = "Impossible de charger l’historique en ligne de l’article";
 "aaald-many-sections-description" = "Dans les sections $1";
