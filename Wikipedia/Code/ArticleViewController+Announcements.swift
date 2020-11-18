@@ -8,7 +8,7 @@ extension ArticleViewController {
               ((shouldAttemptToShowArticleAsLivingDoc && userHasSeenSurveyPrompt) || !shouldAttemptToShowArticleAsLivingDoc) else {
             return
         }
-        let predicate = NSPredicate(format: "placement == %@", "article")
+        let predicate = NSPredicate(format: "placement == 'article'")
         let contentGroup = dataStore.viewContext.newestVisibleGroup(of: .announcement, with: predicate)
         guard
             let contentGroupURL = contentGroup?.url,
