@@ -7,11 +7,27 @@ protocol ArticleSurveyTimerControllerDelegate: class {
     var userHasSeenSurveyPrompt: Bool { get }
     var displayDelay: TimeInterval? { get }
     var livingDocSurveyLinkState: ArticleAsLivingDocSurveyLinkState { get }
-    var willShowFundraisingAnnouncement: Bool { get }
 }
 
  // Manages the timer used to display survey announcements on articles
 final class ArticleSurveyTimerController {
+    
+    private var isInExperimentAndAllowedArticleList: Bool {
+        
+        guard let delegate = delegate else {
+            return false
+        }
+        
+        return delegate.shouldAttemptToShowArticleAsLivingDoc && delegate.isInValidSurveyCampaignAndArticleList
+    }
+    
+    private var isInControlAndAllowedArticleList: Bool {
+        guard let delegate = delegate else {
+            return false
+        }
+        
+        return !delegate.shouldAttemptToShowArticleAsLivingDoc && delegate.isInValidSurveyCampaignAndArticleList
+    }
 
     // MARK: - Public Properties
 
@@ -38,7 +54,8 @@ final class ArticleSurveyTimerController {
     func articleContentDidLoad() {
         
         guard let delegate = delegate,
-              !delegate.shouldAttemptToShowArticleAsLivingDoc else {
+              !delegate.userHasSeenSurveyPrompt,
+              isInControlAndAllowedArticleList else {
             return
         }
         
@@ -46,9 +63,16 @@ final class ArticleSurveyTimerController {
     }
     
     func livingDocViewWillAppear(withState state: ArticleViewController.ViewState) {
-        if timer == nil {
-            kickoffTimer(withState: state)
+        
+        guard let delegate = delegate,
+              state == .loaded,
+              !delegate.userHasSeenSurveyPrompt,
+              timer == nil,
+              isInExperimentAndAllowedArticleList else {
+            return
         }
+        
+        startTimer()
     }
     
     func livingDocViewWillPush(withState state: ArticleViewController.ViewState) {
@@ -57,76 +81,56 @@ final class ArticleSurveyTimerController {
 
     func viewWillAppear(withState state: ArticleViewController.ViewState) {
         
-        guard let delegate = delegate else {
+        guard let delegate = delegate,
+              state == .loaded,
+              !delegate.userHasSeenSurveyPrompt,
+              ((isInExperimentAndAllowedArticleList && didScrollPastLivingDocContentInsertAndStartedTimer) || isInControlAndAllowedArticleList) else {
             return
         }
         
-        if delegate.shouldAttemptToShowArticleAsLivingDoc && didScrollPastLivingDocContentInsertAndStartedTimer {
-            kickoffTimer(withState: state)
-        } else if !delegate.shouldAttemptToShowArticleAsLivingDoc {
-            kickoffTimer(withState: state)
-        }
+        startTimer()
     }
     
     func userDidScrollPastLivingDocArticleContentInsert(withState state: ArticleViewController.ViewState) {
         
         guard let delegate = delegate,
-              delegate.shouldShowArticleAsLivingDoc else {
+              state == .loaded,
+              !delegate.userHasSeenSurveyPrompt,
+              isInExperimentAndAllowedArticleList else {
             return
         }
         
         didScrollPastLivingDocContentInsertAndStartedTimer = true
         
-        kickoffTimer(withState: state)
+        startTimer()
     }
     
     func extendTimer() {
         
-        guard let delegate = delegate else {
+        guard let delegate = delegate,
+            !delegate.userHasSeenSurveyPrompt,
+            isInExperimentAndAllowedArticleList else {
             return
         }
+                
+        pauseTimer()
+        let newTimeInterval = (timeIntervalRemainingWhenPaused ?? 0) + 5
+        startTimer(withTimeInterval: newTimeInterval)
         
-        if delegate.isInValidSurveyCampaignAndArticleList,
-           !delegate.userHasSeenSurveyPrompt,
-           !delegate.willShowFundraisingAnnouncement {
-            
-            pauseTimer()
-            let newTimeInterval = (timeIntervalRemainingWhenPaused ?? 0) + 5
-            startTimer(withTimeInterval: newTimeInterval)
-        }
-        
-    }
-    
-    private func kickoffTimer(withState state: ArticleViewController.ViewState) {
-        
-        guard let delegate = delegate else {
-            return
-        }
-        
-        if state == .loaded,
-           delegate.isInValidSurveyCampaignAndArticleList,
-           !delegate.userHasSeenSurveyPrompt,
-           !delegate.willShowFundraisingAnnouncement {
-            shouldPauseOnBackground = true
-            startTimer()
-        }
     }
 
     func viewWillDisappear(withState state: ArticleViewController.ViewState) {
         // Do not listen for background/foreground notifications to pause and resume survey if this article is not on screen anymore
         
-        guard let delegate = delegate else {
+        guard let delegate = delegate,
+              state == .loaded,
+              !delegate.userHasSeenSurveyPrompt,
+              (isInControlAndAllowedArticleList || isInExperimentAndAllowedArticleList) else {
             return
         }
         
-        if state == .loaded,
-           delegate.isInValidSurveyCampaignAndArticleList,
-           !delegate.userHasSeenSurveyPrompt,
-           !delegate.willShowFundraisingAnnouncement {
-            
-            shouldPauseOnBackground = false
-            stopTimer()
-        }
+        shouldPauseOnBackground = false
+        stopTimer()
     }
 
     func willResignActive(withState state: ArticleViewController.ViewState) {

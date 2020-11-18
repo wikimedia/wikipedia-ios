@@ -15,7 +15,6 @@ protocol ArticleAsLivingDocControllerDelegate: class {
     var isInValidSurveyCampaignAndArticleList: Bool { get }
     var abTestsController: ABTestsController { get }
     func extendTimerForPresentingModal()
-    var willShowFundraisingAnnouncement: Bool { get }
 }
 
 enum ArticleAsLivingDocSurveyLinkState {
@@ -79,7 +78,8 @@ class ArticleAsLivingDocController: NSObject {
         
         guard let delegate = delegate,
               let view = delegate.view,
-              !delegate.willShowFundraisingAnnouncement else {
+              view.effectiveUserInterfaceLayoutDirection == .leftToRight,
+              delegate.articleURL.host == Configuration.Domain.englishWikipedia else {
             return false
         }
         
@@ -90,10 +90,7 @@ class ArticleAsLivingDocController: NSObject {
             isInExperimentBucket = false
         }
         
-        let isDeviceRTL = view.effectiveUserInterfaceLayoutDirection == .rightToLeft
-        let isENWikipediaArticle = delegate.articleURL.host == Configuration.Domain.englishWikipedia
-        
-        let shouldAttemptToShowArticleAsLivingDoc = articleTitleAndSiteURL() != nil && !isDeviceRTL && isENWikipediaArticle && delegate.isInValidSurveyCampaignAndArticleList && isInExperimentBucket
+        let shouldAttemptToShowArticleAsLivingDoc = articleTitleAndSiteURL() != nil && delegate.isInValidSurveyCampaignAndArticleList && isInExperimentBucket
         
         return shouldAttemptToShowArticleAsLivingDoc
     }
