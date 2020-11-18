@@ -304,8 +304,8 @@ public class CommonStrings: NSObject {
     "aaald-revision-userInfo",
     value:"Edit by %1$@ (%2$@ edits)", comment: "Text describing details about the user that made a significant revision in the article as a living document view. %1$@ is replaced by the editor name and %2$d is replaced by the number of edits they have made.")
     
-    static let revisionUserInfoAnonymous = WMFLocalizedString("aaald-revision-userInfo-anonymous",
-    value:"Edit by %1$@", comment: "Text describing details about the anonymous user that made a significant revision in the article as a living document view. %1$@ is replaced by the editor's anonymous name.")
+    static let revisionUserInfoAnonymous = WMFLocalizedString("aaald-revision-by-anonymous",
+    value:"Edit by anonymous user", comment: "Text describing the anonymous user that made a significant revision in the article as a living document view.")
     
     static let articleAsLivingDocSummaryTitle = WMFLocalizedString(
         "aaald-summary-title",
