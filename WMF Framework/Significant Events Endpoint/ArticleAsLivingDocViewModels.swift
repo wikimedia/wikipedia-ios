@@ -1534,6 +1534,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         if let urlString = urlString, let url = URL(string: urlString), let externalLinkIcon = UIImage(named: "mini-external") {
             if #available(iOSApplicationExtension 13.0, *) {
                 mutableAttributedString = NSMutableAttributedString(string: text.trimmingCharacters(in: .whitespaces), attributes: textAttributes)
+                mutableAttributedString.append(NSAttributedString(string: " "))
                 let externalLinkString = NSAttributedString(attachment: NSTextAttachment(image: externalLinkIcon))
                 mutableAttributedString.append(externalLinkString)
                 mutableAttributedString.append(NSAttributedString(string: " "))
