@@ -77,7 +77,9 @@ class ArticleAsLivingDocController: NSObject {
     var shouldAttemptToShowArticleAsLivingDoc: Bool {
         
         guard let delegate = delegate,
-              let view = delegate.view else {
+              let view = delegate.view,
+              view.effectiveUserInterfaceLayoutDirection == .leftToRight,
+              delegate.articleURL.host == Configuration.Domain.englishWikipedia else {
             return false
         }
         
@@ -88,10 +90,7 @@ class ArticleAsLivingDocController: NSObject {
             isInExperimentBucket = false
         }
         
-        let isDeviceRTL = view.effectiveUserInterfaceLayoutDirection == .rightToLeft
-        let isENWikipediaArticle = delegate.articleURL.host == Configuration.Domain.englishWikipedia
-        
-        let shouldAttemptToShowArticleAsLivingDoc = articleTitleAndSiteURL() != nil && !isDeviceRTL && isENWikipediaArticle && delegate.isInValidSurveyCampaignAndArticleList && isInExperimentBucket
+        let shouldAttemptToShowArticleAsLivingDoc = articleTitleAndSiteURL() != nil && delegate.isInValidSurveyCampaignAndArticleList && isInExperimentBucket
         
         return shouldAttemptToShowArticleAsLivingDoc
     }
