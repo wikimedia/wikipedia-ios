@@ -55,7 +55,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         state = .loaded
         showWIconPopoverIfNecessary()
         refreshControl.endRefreshing()
-        surveyTimerController?.articleContentDidLoad(withState: state)
+        surveyTimerController?.articleContentDidLoad()
         initialSetupCompletion?()
         initialSetupCompletion = nil
     }

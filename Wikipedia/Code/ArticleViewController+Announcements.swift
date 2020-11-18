@@ -5,7 +5,7 @@ extension ArticleViewController {
     
     func showAnnouncementIfNeeded() {
         guard UserDefaults.standard.shouldCheckForArticleAnnouncements,
-              (shouldAttemptToShowArticleAsLivingDoc && userHasSeenSurveyPrompt || !shouldAttemptToShowArticleAsLivingDoc) else {
+              ((shouldAttemptToShowArticleAsLivingDoc && userHasSeenSurveyPrompt) || !shouldAttemptToShowArticleAsLivingDoc) else {
             return
         }
         let predicate = NSPredicate(format: "placement == %@", "article")
