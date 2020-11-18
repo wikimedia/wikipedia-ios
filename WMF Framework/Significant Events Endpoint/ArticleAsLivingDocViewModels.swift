@@ -601,7 +601,7 @@ public extension ArticleAsLivingDocViewModel {
                     userGroups = newTalkPageTopic.userGroups
                     
                     if let talkPageSection = newTalkPageTopic.section {
-                        self.buttonsToDisplay = .viewDiscussion(sectionName: Self.sectionTitleWithEqualSignsStripped(originalTitle: talkPageSection))
+                        self.buttonsToDisplay = .viewDiscussion(sectionName: Self.sectionTitleWithWikitextStripped(originalTitle: talkPageSection))
                     } else {
                         self.buttonsToDisplay = .viewDiscussion(sectionName: nil)
                     }
@@ -910,14 +910,16 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         }
         
         //strip == signs from all section titles
-        let finalSet = set.map { Self.sectionTitleWithEqualSignsStripped(originalTitle: $0) }
+        let finalSet = set.map { Self.sectionTitleWithWikitextStripped(originalTitle: $0) }
         
         return Set(finalSet)
     }
     
-    private static func sectionTitleWithEqualSignsStripped(originalTitle: String) -> String {
+    //remove one or more equal signs and zero or more spaces on either side of the title text
+    private static func sectionTitleWithWikitextStripped(originalTitle: String) -> String {
         var loopTitle = originalTitle
-        let regex = "\\s*[=]{2,}\\s*"
+        
+        let regex = "^=+\\s*|\\s*=+$"
         var maybeMatch = loopTitle.range(of: regex, options: .regularExpression)
         while let match = maybeMatch {
             loopTitle.removeSubrange(match)
