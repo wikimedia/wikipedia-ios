@@ -1608,7 +1608,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         return "article-as-living-doc-svg-bot"
     }
 
-    static var anonymousIconName: String = "anon"
+    static var anonymousIconName: String = "article-as-living-doc-svg-anon"
     
     private func userInfoHtmlSnippet() -> String? {
         guard let userNameAndEditCount = self.userNameAndEditCount() else {
@@ -1648,8 +1648,8 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                 }
             }
         } else {
-            let anonymousUserInfo = String.localizedStringWithFormat(CommonStrings.revisionUserInfoAnonymous, userName)
-            return anonymousUserInfo
+            return "<img src='\(Self.anonymousIconName)' style='margin: 0em .2em .35em .1em; width: 1em' />\(CommonStrings.revisionUserInfoAnonymous)"
+
         }
         
         return nil
