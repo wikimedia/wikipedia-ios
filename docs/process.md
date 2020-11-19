@@ -20,4 +20,4 @@ Pull request has a question that needs answering.
 The code change in the pull request doesn't affect more than a few files or is just a refactor.
 
 ## Merging pull requests
-Generally, pull requests require code review approval from at least two other developers before merging. If a pull request is labeled as Low Impact, it can be merged after a review from one other developer. After the pull request is merged, delete the branch, unless it's the TWN branch. **Never delete the twn branch** as it's [required by translatewiki to import translations](localization.md).
+Pull requests require code review approval from one other developer before merging. After the pull request is merged, delete the branch, unless it's the TWN branch. **Never delete the twn branch** as it's [required by translatewiki to import translations](localization.md).
