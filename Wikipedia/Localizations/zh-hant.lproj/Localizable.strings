@@ -53,8 +53,8 @@
 "aaald-new-website-reference-title" = "網站";
 "aaald-numerical-multiple-references-added-description" = "增加 {{PLURAL:$1|0=0|$1|$1}} 個參考資料";
 "aaald-one-section-description" = "在$1段落";
+"aaald-revision-by-anonymous" = "由匿名使用者做出的編輯";
 "aaald-revision-userInfo" = "由$1編輯（$2 次編輯數）";
-"aaald-revision-userInfo-anonymous" = "由$1編輯";
 "aaald-single-reference-added-description" = "參考資料已添加";
 "aaald-small-change-description" = "做出 {{PLURAL:$1|0=0|$1|$1}} 次小更改";
 "aaald-summary-title" = "在 {{PLURAL:$3|0=0|$3|$3}} 天裡由 {{PLURAL:$2|0=0|$2|$2}} 位編者做出 {{PLURAL:$1|0=0|$1|$1}} 更改";
@@ -567,7 +567,7 @@
 "on-this-day-detail-header-date-range" = "從 $1 到 $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 個歷史事件|$1 個歷史事件}}";
 "on-this-day-footer" = "更多歷史上的今天事件";
-"on-this-day-footer-with-event-count" = "更多 $1 個歷史上的今天事件";
+"on-this-day-footer-showing-event-count" = "更多 {{PLURAL:$1|$1|$1}} 個在今天的歷史事件";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "來自於$2維基百科的 $1";
 "on-this-day-title" = "歷史上的今天";
 "original-tab-button-popover-description" = "輕觸「W」來返回至您起始的分頁";

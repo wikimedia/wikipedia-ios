@@ -482,7 +482,6 @@
 "on-this-day-detail-header-date-range" = "$1–$2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 istorijski događaj|$1 istorijska događaja|$1 istorijskih događaja}}";
 "on-this-day-footer" = "Više istorijskih događaja na današnji dan";
-"on-this-day-footer-with-event-count" = "Još $1 istorijskih događaja na današnji dan";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 sa $2 Vikipedije";
 "on-this-day-title" = "Na današnji dan";
 "original-tab-button-popover-description" = "Dodirnite „W” da biste se vratili na početnu karticu";

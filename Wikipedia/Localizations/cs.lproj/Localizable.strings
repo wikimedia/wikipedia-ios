@@ -543,7 +543,6 @@
 "on-this-day-detail-header-date-range" = "mezi $1 až $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historická událost|$1 historické události|$1 historických událostí}}";
 "on-this-day-footer" = "Další historické události tento den";
-"on-this-day-footer-with-event-count" = "$1 dalších historických událostí v tento den";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 z Wikipedie v jazyce $2";
 "on-this-day-title" = "Dnešek v minulosti";
 "original-tab-button-popover-description" = "Klepnutím na W se vrátíte na kartu, ze které jste začali";

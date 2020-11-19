@@ -32,7 +32,6 @@
 "aaald-new-website-reference-title" = "Weboldal";
 "aaald-numerical-multiple-references-added-description" = "$1 referencia hozzáadva";
 "aaald-revision-userInfo" = "Szerkesztette $1 ($2 szerkesztés)";
-"aaald-revision-userInfo-anonymous" = "Szerkesztette $1";
 "aaald-single-reference-added-description" = "Referencia hozzáadva";
 "aaald-summary-title" = "Az elmúlt $3 napban $2 szerkesztő $1 változtatást végzett";
 "aaald-view-full-history-button" = "Teljes cikktörténet megtekintése";
@@ -438,7 +437,6 @@
 "on-this-day-detail-header-date-range" = "$1 és $2 között";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 történelmi esemény|$1 történelmi esemény}}";
 "on-this-day-footer" = "Több történelmi esemény ezen a napon";
-"on-this-day-footer-with-event-count" = "$1 további történelmi esemény ezen a napon";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 a(z) $2 Wikipédiáról";
 "on-this-day-title" = "Ezen a napon";
 "page-history-anonymous-edits" = "névtelen szerkesztés";

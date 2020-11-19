@@ -47,7 +47,6 @@
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 приміток|$1 примітка|$1 примітки|$1 приміток}} додано";
 "aaald-one-section-description" = "у розділі $1";
 "aaald-revision-userInfo" = "Відредаговано $1 ($2 змін)";
-"aaald-revision-userInfo-anonymous" = "Відредаговано $1";
 "aaald-single-reference-added-description" = "Примітку додано";
 "aaald-small-change-description" = "{{PLURAL:$1|0=Не виконано жодних малих редагувань|Виконано $1 мале редагування|Виконано $1 малі редагування|Виконано $1 малих редагувань}}";
 "aaald-summary-title" = "{{PLURAL:$1|0=0 змін|$1 зміна|$1 зміни|$1 змін}} від {{PLURAL:$2|0=0 дописувачів|$2 дописувача|$2 дописувачів}} протягом {{PLURAL:$3|0=0 днів|$3 день|$3 днів}}";
@@ -560,7 +559,6 @@
 "on-this-day-detail-header-date-range" = "з $1 по $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 історична подія|$1 історичні події|$1 історичних подій}}";
 "on-this-day-footer" = "Більше історичних подій цього дня";
-"on-this-day-footer-with-event-count" = "Ще {{PLURAL:$1|$1 історична подія, яка сталася|$1 історичні події, які сталися|$1 історичних подій, які сталися}} цього дня";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 у Вікіпедії мовою «$2»";
 "on-this-day-title" = "Цього дня";
 "original-tab-button-popover-description" = "Натисніть «W», аби повернутися до вкладинки, з якої ви почали";

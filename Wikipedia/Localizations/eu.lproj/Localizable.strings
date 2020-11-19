@@ -310,7 +310,6 @@
 "on-this-day-detail-header-date-range" = "$1tik $2ra";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 gertakizun historikoa|$1 gertakizun historikoak}}";
 "on-this-day-footer" = "Egun honetako ekintza historiko gehiago";
-"on-this-day-footer-with-event-count" = "Egun honetako $1 gertaera historiko gehiago";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 $2 Wikipediatik";
 "on-this-day-title" = "Gaurkoan";
 "original-tab-button-popover-description" = "Sakatu 'W' jatorrizko lehiatilara bueltatzeko";

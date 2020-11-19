@@ -505,7 +505,6 @@
 "on-this-day-detail-header-date-range" = "von $1 bis $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|Ein historisches Ereignis|$1 historische Ereignisse}}";
 "on-this-day-footer" = "Weitere historische Ereignisse an diesem Tag";
-"on-this-day-footer-with-event-count" = "$1 weitere historische Ereignisse an diesem Tag";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 von der Wikipedia auf $2";
 "on-this-day-title" = "Heute";
 "original-tab-button-popover-description" = "Tippe auf das W, um zu dem Reiter zurückzukehren, von dem du gestartet bist.";

@@ -43,7 +43,6 @@
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=Nenhuma referência adicionada|$1 referência adicionada|$1 referências adicionadas}}";
 "aaald-one-section-description" = "na secção $1";
 "aaald-revision-userInfo" = "Editado por $1 ($2 edições)";
-"aaald-revision-userInfo-anonymous" = "Editado por $1";
 "aaald-single-reference-added-description" = "Referência adicionada";
 "aaald-small-change-description" = "{{PLURAL:$1|0=Nenhuma edição menor realizada|$1 edição menor realizada|$1 edições menores realizadas}}";
 "aaald-summary-title" = "{{PLURAL:$1|0=nenhuma mudança feita|$1 mudança feita|$1 mudanças feitas}} por {{PLURAL:$2|0=nenhum editor|$2 editor|$2 editores}} em {{PLURAL:$3|0=0 dias|$3 dia|$3 dias}}";
@@ -556,7 +555,6 @@
 "on-this-day-detail-header-date-range" = "de $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 acontecimento histórico|$1 acontecimentos históricos}}";
 "on-this-day-footer" = "Mais acontecimentos históricos neste dia";
-"on-this-day-footer-with-event-count" = "Mais $1 acontecimentos históricos neste dia";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 da Wikipédia em $2";
 "on-this-day-title" = "Neste dia";
 "original-tab-button-popover-description" = "Toque no 'W' para regressar ao separador de onde começou";

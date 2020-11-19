@@ -69,7 +69,6 @@
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 примечаний|$1 примечание|$1 примечаний}} добавлено";
 "aaald-one-section-description" = "в разделе $1";
 "aaald-revision-userInfo" = "Отредактировано $1 ($2 правок)";
-"aaald-revision-userInfo-anonymous" = "Отредактировано $1";
 "aaald-single-reference-added-description" = "Примечание добавлено";
 "aaald-small-change-description" = "{{PLURAL:$1|0=Не сделано малых изменений|Сделано $1 малое изменение|Сделано $1 малых изменений}}";
 "aaald-summary-title" = "{{PLURAL:$1|0=0 изменений|$1 изменение|$1 изменений}} от {{PLURAL:$2|0=0 редакторов|$2 редактора|$2 редакторов}} за {{PLURAL:$3|0=0 дней|$3 день|$3 дней}}";
@@ -554,7 +553,6 @@
 "on-this-day-detail-header-date-range" = "с $1 по $2";
 "on-this-day-detail-header-title" = "$1 {{PLURAL:$1|историческое событие|исторических события|исторических событий}}";
 "on-this-day-footer" = "Больше исторических событий этого дня";
-"on-this-day-footer-with-event-count" = "Ещё $1 исторических событий, произошедших в этот день";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 в Википедии: $2 раздел";
 "on-this-day-title" = "В этот день…";
 "original-tab-button-popover-description" = "Нажмите 'W', чтобы вернуться к вкладке, с которой вы начали";

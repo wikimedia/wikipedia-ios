@@ -549,7 +549,6 @@
 "on-this-day-detail-header-date-range" = "de $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 acontecimiento histórico|$1 acontecimientos históricos}}";
 "on-this-day-footer" = "Más acontecimientos históricos en este día";
-"on-this-day-footer-with-event-count" = "$1 eventos históricos más en un día como hoy";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1, de Wikipedia en $2";
 "on-this-day-title" = "Un día como hoy";
 "original-tab-button-popover-description" = "Pulsa en la 'W' para volver a la pestaña desde la que comenzaste";

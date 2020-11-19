@@ -286,7 +286,6 @@
 "on-this-day-detail-header-date-range" = "$1 سے $2 تک";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 تاریخی واقعہ|$1 تاریخی واقعات}}";
 "on-this-day-footer" = "اس دن کے مزید تاریخی واقعات";
-"on-this-day-footer-with-event-count" = "اس دن کے مزید $1 تاریخی واقعات";
 "on-this-day-title" = "آج کے دن";
 "page-protected-autoconfirmed" = "یہ صفحہ نیم محفوظ رہا ہے۔";
 "page-protected-can-not-edit" = "آپ کے پاس اس صفحہ کو ترمیم کرنے کے حقوق نہیں ہیں";

@@ -509,7 +509,6 @@
 "on-this-day-detail-header-date-range" = "Tussen $1 en $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historisch evenement|$1 historische evenementen}}";
 "on-this-day-footer" = "Historische gebeurtenissen op deze dag";
-"on-this-day-footer-with-event-count" = "nog $1 historische gebeurtenissen op deze dag";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 van Wikipedia in het $2";
 "on-this-day-title" = "Op deze dag";
 "original-tab-button-popover-description" = "Tik op de 'W' om terug te gaan naar het tabblad waar u vandaan kwam";

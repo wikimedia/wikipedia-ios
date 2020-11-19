@@ -501,7 +501,6 @@
 "on-this-day-detail-header-date-range" = "$1–$2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 историјски догађај|$1 историјска догађаја|$1 историјских догађаја}}";
 "on-this-day-footer" = "Више историјских догађаја на данашњи дан";
-"on-this-day-footer-with-event-count" = "Још $1 историјских догађаја на данашњи дан";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 са $2 Википедије";
 "on-this-day-title" = "На данашњи дан";
 "original-tab-button-popover-description" = "Додирните „W” да бисте се вратили на почетну картицу";
