@@ -12,21 +12,30 @@ protocol ArticleAsLivingDocControllerDelegate: class {
     var webView: WKWebView { get }
     var leadImageContainerView: UIView { get }
     func updateArticleMargins()
+    var isInValidSurveyCampaignAndArticleList: Bool { get }
+    var abTestsController: ABTestsController { get }
+    func extendTimerForPresentingModal()
+}
+
+enum ArticleAsLivingDocSurveyLinkState {
+    case notInExperiment
+    case inExperimentLoadingEvents
+    case inExperimentFailureLoadingEvents
+    case inExperimentLoadedEventsDidNotSeeModal
+    case inExperimentLoadedEventsDidSeeModal
 }
 
 @available(iOS 13.0, *)
 class ArticleAsLivingDocController: NSObject {
-    
-    typealias ArticleAsLivingDocConformingViewController = ArticleAsLivingDocControllerDelegate & UIViewController & HintPresenting & ArticleAsLivingDocViewControllerDelegate
-    
+
     enum Errors: Error {
         case viewModelInstantiationFailure
     }
     
+    typealias ArticleAsLivingDocConformingViewController = ArticleAsLivingDocControllerDelegate & UIViewController & HintPresenting & ArticleAsLivingDocViewControllerDelegate
+
     private weak var delegate: ArticleAsLivingDocConformingViewController?
-    private let abTestsController: ABTestsController
-    private let surveyController: SurveyAnnouncementsController
-    
+    private(set) var surveyLinkState: ArticleAsLivingDocSurveyLinkState
     
     var _articleAsLivingDocViewModel: ArticleAsLivingDocViewModel?
     var articleAsLivingDocViewModel: ArticleAsLivingDocViewModel? {
@@ -59,7 +68,6 @@ class ArticleAsLivingDocController: NSObject {
     }
     var articleAsLivingDocEditMetrics: [NSNumber]?
     
-    
     //making lazy to be able to limit just this property to 13+
     @available(iOS 13.0, *)
     lazy var articleAsLivingDocViewController: ArticleAsLivingDocViewController? = {
@@ -69,24 +77,22 @@ class ArticleAsLivingDocController: NSObject {
     var shouldAttemptToShowArticleAsLivingDoc: Bool {
         
         guard let delegate = delegate,
-              let view = delegate.view else {
+              delegate.articleURL.host == Configuration.Domain.englishWikipedia,
+              let view = delegate.view,
+              view.effectiveUserInterfaceLayoutDirection == .leftToRight
+               else {
             return false
         }
         
-        let isInValidSurveyCampaignAndArticleList = surveyController.activeSurveyAnnouncementResultForArticleURL(delegate.articleURL) != nil
-        
         let isInExperimentBucket: Bool
-        if let bucket = abTestsController.bucketForExperiment(.articleAsLivingDoc) {
+        if let bucket = delegate.abTestsController.bucketForExperiment(.articleAsLivingDoc) {
             isInExperimentBucket = bucket == .articleAsLivingDocTest
         } else {
             isInExperimentBucket = false
         }
         
-        let isDeviceRTL = view.effectiveUserInterfaceLayoutDirection == .rightToLeft
-        let isENWikipediaArticle = delegate.articleURL.host == Configuration.Domain.englishWikipedia
+        let shouldAttemptToShowArticleAsLivingDoc = articleTitleAndSiteURL() != nil && delegate.isInValidSurveyCampaignAndArticleList && isInExperimentBucket
         
-        let shouldAttemptToShowArticleAsLivingDoc = articleTitleAndSiteURL() != nil && !isDeviceRTL && isENWikipediaArticle && isInValidSurveyCampaignAndArticleList && isInExperimentBucket
-
         return shouldAttemptToShowArticleAsLivingDoc
     }
     
@@ -113,10 +119,15 @@ class ArticleAsLivingDocController: NSObject {
     
     var hintController: HintController?
 
-    required init(delegate: ArticleAsLivingDocConformingViewController, surveyController: SurveyAnnouncementsController, abTestsController: ABTestsController) {
+    required init(delegate: ArticleAsLivingDocConformingViewController) {
         self.delegate = delegate
-        self.surveyController = surveyController
-        self.abTestsController = abTestsController
+        surveyLinkState = .notInExperiment
+        
+        super.init()
+        
+        if shouldAttemptToShowArticleAsLivingDoc {
+            surveyLinkState = .inExperimentLoadingEvents
+        }
     }
     
     func articleTitleAndSiteURL() -> (title: String, siteURL: URL)? {
@@ -230,12 +241,14 @@ class ArticleAsLivingDocController: NSObject {
             switch result {
             case .success(let articleAsLivingDocViewModel):
                 self.articleAsLivingDocViewModel = articleAsLivingDocViewModel
+                self.surveyLinkState = .inExperimentLoadedEventsDidNotSeeModal
             case .failure(let error):
                 if self.hasSkeleton {
                     self.showError()
                 } else {
                     self.failedLastInitialFetch = true
                 }
+                self.surveyLinkState = .inExperimentFailureLoadingEvents
                 DDLogDebug("Failure getting article as living doc view models: \(error)")
             }
         }
@@ -345,6 +358,8 @@ class ArticleAsLivingDocController: NSObject {
                 let navigationController = WMFThemeableNavigationController(rootViewController: articleAsLivingDocViewController, theme: delegate.theme)
                 navigationController.modalPresentationStyle = .pageSheet
                 navigationController.isNavigationBarHidden = true
+                surveyLinkState = .inExperimentLoadedEventsDidSeeModal
+                delegate.extendTimerForPresentingModal()
                 delegate.present(navigationController, animated: true)
             }
         }

@@ -13,9 +13,10 @@ public final class SurveyAnnouncementsController: NSObject {
     private var announcementsByHost: [AnnouncementsHost: [WMFAnnouncement]] = [:]
     
     public struct SurveyAnnouncementResult {
+
         public let campaignIdentifier: String
         public let announcement: WMFAnnouncement
-        public let actionURL: URL
+        public let actionURLString: String
         public let displayDelay: TimeInterval
     }
     
@@ -67,7 +68,7 @@ public final class SurveyAnnouncementsController: NSObject {
     }
     
     //Use for determining whether to show user a survey prompt or not.
-    //Considers domain, campaign start/end dates, article title in campaign, and whether survey has already been acted upon or not.
+    //Considers domain, campaign start/end dates, and whether articleURL is within allowlist of article titles in campaign
     public func activeSurveyAnnouncementResultForArticleURL(_ articleURL: URL) -> SurveyAnnouncementResult? {
         
         guard let articleTitle = articleURL.wmf_title?.denormalizedPageTitle, let siteURL = articleURL.wmf_site else {
@@ -88,29 +89,29 @@ public final class SurveyAnnouncementsController: NSObject {
                 let components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false),
                 let host = components.host,
                 let identifier = announcement.identifier,
-                let normalizedArticleTitle = articleTitle.normalizedPageTitle else {
+                let normalizedArticleTitle = articleTitle.normalizedPageTitle,
+                let actionURLString = announcement.actionURLString else {
                     continue
             }
     
-            //TODO: need to create this elsewhere to capture didSeeModal and isInExperiment
-            //old url calculation was announcement.actionURLReplacingPlaceholder("{{articleTitle}}", withValue: googleFormattedArticleTitle)
-            guard let actionURL = URL(string: "https://en.wikipedia.org") else {
-                continue
-            }
-                
             let now = Date()
             
-            //do not show if user has already seen and answered for this campaign, even if the value is an NSNumber set to false, any answer is an indication that it shouldn't be shown
-            guard UserDefaults.standard.object(forKey: identifier) == nil else {
-                continue
-            }
-            
             if now > startTime && now < endTime && host == domain, articleTitles.contains(normalizedArticleTitle) {
-                return SurveyAnnouncementResult(campaignIdentifier: identifier, announcement: announcement, actionURL: actionURL, displayDelay: displayDelay.doubleValue)
+                return SurveyAnnouncementResult(campaignIdentifier: identifier, announcement: announcement, actionURLString: actionURLString, displayDelay: displayDelay.doubleValue)
             }
         }
         
         return nil
+    }
+    
+    public func userHasSeenSurveyPrompt(forCampaignIdentifier identifier: String) -> Bool {
+        // Note any value indicates survey was seen.
+        // true = they tapped through to the Google survey, false = they dismissed the survey prompt.
+        guard UserDefaults.standard.object(forKey: identifier) == nil else {
+            return true
+        }
+        
+        return false
     }
     
     public func markSurveyAnnouncementAnswer(_ answer: Bool, campaignIdentifier: String) {
