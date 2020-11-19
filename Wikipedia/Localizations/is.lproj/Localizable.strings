@@ -509,7 +509,6 @@
 "on-this-day-detail-header-date-range" = "frá $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 sögulegur atburður|$1 sögulegir atburðir}}";
 "on-this-day-footer" = "Fleiri sögulegir atburðir á þessum degi";
-"on-this-day-footer-with-event-count" = "$1 fleiri sögulegir atburðir á þessum degi";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 af $2 Wikipedia";
 "on-this-day-title" = "Á þessum degi";
 "original-tab-button-popover-description" = "Ýttu á 'W'-ið til að fara til baka á flipann þar sem þú varst";

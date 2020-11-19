@@ -326,7 +326,6 @@
 "number-thousands" = "$1 D";
 "on-this-day-detail-header-date-range" = "vu(n) $1 bis $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|een historescht Evenement|$1 historesch Evenementer}}";
-"on-this-day-footer-with-event-count" = "$1 weider historesch Evenementer op dësem Dag";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 vu Wikipedia op $2";
 "on-this-day-title" = "Op dësem Dag";
 "page-history-anonymous-edits" = "anonym Ännerungen";

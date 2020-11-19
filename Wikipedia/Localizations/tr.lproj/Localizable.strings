@@ -62,8 +62,8 @@
 "aaald-new-website-reference-title" = "Web sitesi";
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 kaynakça|$1 kaynak|$1 kaynakça}} eklendi";
 "aaald-one-section-description" = "$1 bölümünde";
+"aaald-revision-by-anonymous" = "Anonim kullanıcı tarafından düzenleyin";
 "aaald-revision-userInfo" = "$1 tarafından düzenlendi ($2 düzenleme)";
-"aaald-revision-userInfo-anonymous" = "$1 tarafından düzenlendi";
 "aaald-single-reference-added-description" = "Kaynak eklendi";
 "aaald-small-change-description" = "{{PLURAL:$1|0=Küçük değişiklik yapılmadı|$1 küçük değişiklik yapıldı}}";
 "aaald-summary-title" = "{{PLURAL:$3|0=0 gün|$3 gün}} içinde {{PLURAL:$2|0=0 editör|$2 editör}} tarafından {{PLURAL:$1|0=0 değişiklik|$1 değişiklik}}";
@@ -576,7 +576,7 @@
 "on-this-day-detail-header-date-range" = "$2-$1 döneminde";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 tarihi olay|$1 tarihi olay}}";
 "on-this-day-footer" = "Bugünden daha fazla tarihi olay";
-"on-this-day-footer-with-event-count" = "Tarihte bugün gerçekleşen diğer $1 olay";
+"on-this-day-footer-showing-event-count" = "Bu günde $1 daha tarihi olay";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1, $2 Vikipedi'den";
 "on-this-day-title" = "Tarihte bugün";
 "original-tab-button-popover-description" = "Başladığınız sekmeye geri dönmek için 'W' düğmesine dokunun.";

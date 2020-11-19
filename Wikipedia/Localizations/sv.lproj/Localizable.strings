@@ -51,7 +51,6 @@
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 referens|$1 referens|$1 referenser}} lades till";
 "aaald-one-section-description" = "i avsnittet $1";
 "aaald-revision-userInfo" = "Redigering av $1 ($2 redigeringar)";
-"aaald-revision-userInfo-anonymous" = "Redigering av $1";
 "aaald-single-reference-added-description" = "Referens lades till";
 "aaald-small-change-description" = "{{PLURAL:$1|0=Inga mindre ändringar gjordes|$1 mindre ändring gjordes|$1 mindre ändringar gjordes}}";
 "aaald-summary-title" = "{{PLURAL:$1|0=0 ändringar|$1 ändring|$1 ändringar}} av {{PLURAL:$2|0=0 redigerare|$2 redigerare|$2 redigerare}} under {{PLURAL:$3|0=0 dag|$3 dag|$3 dagar}}";
@@ -564,7 +563,6 @@
 "on-this-day-detail-header-date-range" = "från $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historisk händelse|$1 historiska händelser}}";
 "on-this-day-footer" = "Fler historiska händelser på denna dag";
-"on-this-day-footer-with-event-count" = "$1 fler historiska händelser på denna dag";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 från Wikipedia på $2";
 "on-this-day-title" = "På denna dag";
 "original-tab-button-popover-description" = "Tryck på \"W\" för att återvända till fliken du började ifrån";

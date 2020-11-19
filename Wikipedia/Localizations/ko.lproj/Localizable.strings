@@ -32,14 +32,21 @@
 // Author: 밥풀떼기
 // Author: 아라
 
+"aaald-article-insert-header" = "중요 업데이트";
 "aaald-article-insert-last-updated" = "최근 업데이트";
 "aaald-article-insert-new-changes" = "새 변경사항";
 "aaald-article-insert-read-more" = "더 많은 업데이트 읽기";
+"aaald-characters-text-description" = "{{PLURAL:$1|0=자|자|자}}";
+"aaald-error-subitle" = "다시 시도하려면 새로 고침을 하십시오";
 "aaald-new-book-reference-title" = "책";
 "aaald-new-discussion" = "새 토론";
 "aaald-new-journal-reference-title" = "저널";
 "aaald-new-talk-topic-description-format" = "이 문서의 $1";
+"aaald-new-website-reference-archive-url-text" = "Archive.org URL";
 "aaald-new-website-reference-title" = "웹사이트";
+"aaald-revision-userInfo" = "편집자: $1 (편집 $2개)";
+"aaald-single-reference-added-description" = "각주 추가됨";
+"aaald-view-full-history-button" = "모든 문서 역사 보기";
 "about-content-license" = "콘텐츠 라이선스";
 "about-content-license-details" = "특별한 언급이 없는 경우, 콘텐츠는 $1 하에 이용이 가능합니다.";
 "about-content-license-details-share-alike-license" = "크리에이티브 커먼즈 저작권표시-동일조건변경허락 라이선스";
@@ -135,6 +142,7 @@
 "article-about-title" = "이 문서의 정보";
 "article-delete" = "삭제";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|문서}}가 삭제됨";
+"article-fetcher-error-updated-content-timeout" = "이 앱은 업데이트된 내용을 제때에 검색하지 못했습니다. 반영된 변경사항을 보려면 나중에 이 페이지를 새로 고침해 주십시오.";
 "article-languages-filter-placeholder" = "언어 찾기";
 "article-languages-label" = "언어 선택";
 "article-languages-others" = "다른 언어";
@@ -545,7 +553,6 @@
 "on-this-day-detail-header-date-range" = "$1 - $2 사이";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1개의 역사적 사건}}";
 "on-this-day-footer" = "이 날에 있었던 더 많은 역사적 사건";
-"on-this-day-footer-with-event-count" = "이 날에 있었던 더 많은 역사적 사건 $1개";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 위키백과에서 $1";
 "on-this-day-title" = "오늘의 역사";
 "original-tab-button-popover-description" = "시작한 탭으로 돌아가려면 'W'를 탭하세요";
@@ -693,6 +700,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "문법 강조";
 "reading-themes-controls-accessibility-text-size-slider" = "텍스트 크기 슬라이더";
 "reading-themes-controls-syntax-highlighting" = "문법 강조";
+"reference-section-button-accessibility-label" = "각주 문단으로 이동";
 "reference-title" = "각주 $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=오늘|1=어제|$1일 전}}";
 "relative-date-hours-abbreviated" = "$1시간";

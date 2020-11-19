@@ -24,10 +24,17 @@
 // Author: Presidenvolksraad
 // Author: Relly Komaruzaman
 // Author: Rizkiahmadz
+// Author: Sonic Speedy
 // Author: Ulinfaizah
 // Author: WongKentir
 
+"aaald-added-text-description-2" = "$1 ditambahkan";
 "aaald-article-description-updated-description" = "Deskripsi artikel diperbarui";
+"aaald-article-insert-header" = "Pembaruan Signifikan";
+"aaald-article-insert-last-updated" = "Terakhir diperbarui";
+"aaald-article-insert-new-changes" = "Perubahan terbaru";
+"aaald-article-insert-read-more" = "Baca lebih banyak pembaruan";
+"aaald-deleted-text-description-2" = "$1 dihapus";
 "aaald-error-subitle" = "Muat ulang untuk mencoba lagi";
 "aaald-error-title" = "Tidak dapat memuat riwayat artikel";
 "aaald-many-sections-description" = "di $1 bagian";
@@ -47,7 +54,6 @@
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 referensi|$1 referensi|$1 referensi}} ditambahkan";
 "aaald-one-section-description" = "di dalam bagian $1";
 "aaald-revision-userInfo" = "Penyuntingan oleh $1 ($2 penyuntingan)";
-"aaald-revision-userInfo-anonymous" = "Penyuntingan oleh $1";
 "aaald-single-reference-added-description" = "Referensi telah ditambahkan";
 "aaald-small-change-description" = "{{PLURAL:$1|0=Tidak ada penyuntingan kecil dibuat|$1 penyuntingan kecil dibuat|$1 penyuntingan kecil dibuat}}";
 "aaald-summary-title" = "{{PLURAL:$1|0=0 perubahan|$1 perubahan|$1 perubahan}} by {{PLURAL:$2|0=0 penyunting|$2 penyunting|$2 penyunting}} in {{PLURAL:$3|0=0 hari|$3 hari|$3 hari}}";
@@ -560,7 +566,6 @@
 "on-this-day-detail-header-date-range" = "dari $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 peristiwa bersejarah|$1 peristiwa bersejarah}}";
 "on-this-day-footer" = "Peristiwa bersejarah lainnya pada hari ini";
-"on-this-day-footer-with-event-count" = "$1 peristiwa bersejarah lainnya pada hari ini";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 dari Wikipedia $2";
 "on-this-day-title" = "Pada hari ini";
 "original-tab-button-popover-description" = "Ketuk 'W' untuk kembali ke tab yang Anda mulai dari";

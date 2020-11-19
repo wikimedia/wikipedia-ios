@@ -408,7 +408,6 @@
 "on-this-day-detail-header-date-range" = "dari $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 peristiwa sejarah|$1 peristiwa sejarah}}";
 "on-this-day-footer" = "Lebih banyak peristiwa bersejarah pada hari ini";
-"on-this-day-footer-with-event-count" = "Lebih banyak $1 peristiwa bersejarah pada hari ini";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 dari Wikipedia $2";
 "on-this-day-title" = "Pada hari ini";
 "original-tab-button-popover-description" = "Ketik pada 'W' untuk kembali ke tab yang anda bermula";

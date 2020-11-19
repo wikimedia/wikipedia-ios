@@ -44,7 +44,6 @@
 "aaald-new-discussion" = "新讨论";
 "aaald-new-website-reference-archive-url-text" = "互联网档案馆URL";
 "aaald-new-website-reference-title" = "网站";
-"aaald-revision-userInfo-anonymous" = "由$1编辑";
 "aaald-single-reference-added-description" = "已添加来源";
 "aaald-view-full-history-button" = "查看完整的条目修订历史";
 "about-content-license" = "内容许可协议";
@@ -551,7 +550,6 @@
 "on-this-day-detail-header-date-range" = "从$1到$2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1个历史事件}}";
 "on-this-day-footer" = "这一天的更多历史事件";
-"on-this-day-footer-with-event-count" = "今天的$1个更多历史活动";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1来自$2维基百科";
 "on-this-day-title" = "历史上的今天";
 "original-tab-button-popover-description" = "点按“W”以返回您开始来自的标签";

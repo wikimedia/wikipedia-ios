@@ -47,7 +47,6 @@
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 referències|$1 referència|$1 referències}} afegides";
 "aaald-one-section-description" = "a la secció $1";
 "aaald-revision-userInfo" = "Modificat per $1 ($2 modificacions)";
-"aaald-revision-userInfo-anonymous" = "Modificat per $1";
 "aaald-single-reference-added-description" = "Referència afegida";
 "aaald-small-change-description" = "{{PLURAL:$1|0=No s'ha fet cap canvi menor|S'ha fet $1 canvi menor|S'han fet $1 canvis menors}}";
 "aaald-summary-title" = "{{PLURAL:$1|0=0 canvis|$1 canvi|$1 canvis}} per {{PLURAL:$2|0=0 editors|$2 editor|$2 editors}} en {{PLURAL:$3|0=0 dies|$3 dia|$3 dies}}";
@@ -560,7 +559,6 @@
 "on-this-day-detail-header-date-range" = "de $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 esdeveniment històric|$1 esdeveniments històrics}}";
 "on-this-day-footer" = "Més esdeveniments històrics d'aquest dia";
-"on-this-day-footer-with-event-count" = "$1 més esdeveniments històrics aquest dia";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 de la Viquipèdia en $2";
 "on-this-day-title" = "Tal dia com avui";
 "original-tab-button-popover-description" = "Feu un toc a la 'W' per tornar a la pestanya d'on heu començat";

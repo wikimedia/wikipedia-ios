@@ -44,7 +44,6 @@
 "aaald-multiple-references-added-description" = "Podano wiele przypisów";
 "aaald-new-book-reference-title" = "Książka";
 "aaald-one-section-description" = "w sekcji „$1”";
-"aaald-revision-userInfo-anonymous" = "Edytowany przez $1";
 "aaald-vandalism-revert-description" = "Wycofano domniemany wandalizm";
 "about-content-license" = "Licencja";
 "about-content-license-details" = "O ile nie zaznaczono inaczej, treść jest dostępna na licencji $1.";
@@ -541,7 +540,6 @@
 "on-this-day-detail-header-date-range" = "Pomiędzy $1 a $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 wydarzenie historyczne|$1 wydarzenia historyczne|$1 wydarzeń historycznych}}";
 "on-this-day-footer" = "Więcej wydarzeń historycznych w tym dniu";
-"on-this-day-footer-with-event-count" = "$1 więcej wydarzeń historycznych tego dnia";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 z $2 Wikipedii";
 "on-this-day-title" = "W tym dniu...";
 "original-tab-button-popover-description" = "Stuknij w 'W' żeby powrócić to początkowej karty";
