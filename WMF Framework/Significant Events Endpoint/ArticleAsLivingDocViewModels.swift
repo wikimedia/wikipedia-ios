@@ -660,7 +660,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     
     func articleInsertHtmlSnippet(isFirst: Bool = false, isLast: Bool = false, indexPath: IndexPath) -> String? {
         guard let timestampForDisplay = self.fullyRelativeTimestampForDisplay(),
-              let eventDescription = eventDescriptionHtmlSnippet(indexPath: indexPath),
+              let eventDescription = eventDescriptionHtmlSnippet(indexPath: indexPath)?.removingHTML,
               let userInfo = userInfoHtmlSnippet() else {
             return nil
         }
@@ -944,7 +944,9 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         default:
             localizedString = String.localizedStringWithFormat(CommonStrings.manySectionsDescription, sections.count)
         }
-        
+
+        // Uncomment to remove extraneous HTML in the modal
+        // return " " + localizedString.removingHTML
         return " " + localizedString
     }
     
