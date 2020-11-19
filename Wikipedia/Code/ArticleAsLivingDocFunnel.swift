@@ -11,7 +11,7 @@ fileprivate extension Dictionary where Key == String, Value == Any {
     
     func appendingPosition(position: Int) -> [String: Any] {
         var mutableDict = self
-        mutableDict["position"] = "\(position)"
+        mutableDict["position"] = position
         return mutableDict
     }
     

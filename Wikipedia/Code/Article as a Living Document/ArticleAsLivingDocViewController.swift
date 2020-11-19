@@ -156,7 +156,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
     }
     
     private func updateLoggingPositionsForItemsInSections(_ sections: [ArticleAsLivingDocViewModel.SectionHeader]) {
-        var currentPosition: Int = 1
+        var currentPosition: Int = 0
         for section in sections {
             for item in section.typedEvents {
                 switch item {
