@@ -20,13 +20,14 @@
 // Author: Vriullop
 // Author: Xavier Dengra
 
-"aaald-added-text-description" = "{{PLURAL:$1|0=0 caràcters|$1 caràcter|$1 caràcters}} afegits";
+"aaald-added-text-description-2" = "$1 afegit";
 "aaald-article-description-updated-description" = "La descripció del títol de l'article s'ha actualitzat";
 "aaald-article-insert-header" = "Actualitzacions significatives";
 "aaald-article-insert-last-updated" = "Darrera actualització";
 "aaald-article-insert-new-changes" = "Canvis recents";
 "aaald-article-insert-read-more" = "Mostra les darreres actualitzacions";
-"aaald-deleted-text-description" = "{{PLURAL:$1|0=S'han suprimit 0 caràcters|S'ha suprimit $1 caràcter|S'han suprimit $1 caràcters}}";
+"aaald-characters-text-description" = "{{PLURAL:$1|0=caràcters|caràcter|caràcters}}";
+"aaald-deleted-text-description-2" = "$1 eliminat";
 "aaald-error-subitle" = "Refresqueu per a tornar-ho a provar";
 "aaald-error-title" = "No s'ha pogut carregar en línia l'historial de l'article";
 "aaald-many-sections-description" = "a $1 seccions";

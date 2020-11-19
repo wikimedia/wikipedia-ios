@@ -35,7 +35,10 @@
 // Author: Wiochman
 // Author: Woytecr
 
+"aaald-added-text-description-2" = "Dodano $1";
 "aaald-article-insert-header" = "Istotne aktualizacje";
+"aaald-characters-text-description" = "{{PLURAL:$1|symbol|symbole|symboli}}";
+"aaald-deleted-text-description-2" = "Usunięto $1";
 "aaald-many-sections-description" = "w $1 sekcjach";
 "aaald-multiple-changes-description" = "Wykonano wiele zmian";
 "aaald-multiple-references-added-description" = "Podano wiele przypisów";
