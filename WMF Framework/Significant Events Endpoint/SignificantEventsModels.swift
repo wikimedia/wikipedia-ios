@@ -231,7 +231,7 @@ public extension SignificantEvents {
             public let timestampString: String
             public let user: String
             public let userId: UInt
-            public let section: String
+            public let section: String?
             public let snippet: String
             public let userGroups: [String]?
             public let userEditCount: UInt?
@@ -242,7 +242,6 @@ public extension SignificantEvents {
                       let timestampString = untypedEvent.timestampString,
                       let user = untypedEvent.user,
                       let userId = untypedEvent.userId,
-                      let section = untypedEvent.section,
                       let snippet = untypedEvent.snippet else {
                     return nil
                 }
@@ -253,7 +252,7 @@ public extension SignificantEvents {
                 self.timestampString = timestampString
                 self.user = user
                 self.userId = userId
-                self.section = section
+                self.section = untypedEvent.section
                 self.snippet = snippet
                 self.userGroups = untypedEvent.userGroups
                 self.userEditCount = untypedEvent.userEditCount

@@ -10,7 +10,6 @@ protocol ArticleAsLivingDocViewControllerDelegate: class {
     func fetchNextPage(nextRvStartId: UInt, theme: Theme)
     func showEditHistory()
     func handleLink(with href: String)
-    func showTalkPage()
     func livingDocViewWillAppear()
     func livingDocViewWillPush()
 }
@@ -18,7 +17,7 @@ protocol ArticleAsLivingDocViewControllerDelegate: class {
 protocol ArticleDetailsShowing: class {
     func goToHistory()
     func goToDiff(revisionId: UInt, parentId: UInt, diffType: DiffContainerViewModel.DiffType)
-    func showTalkPage()
+    func showTalkPageWithSectionName(_ sectionName: String?)
     func thankButtonTapped(for revisionID: Int, isUserAnonymous: Bool, livingDocLoggingValues: ArticleAsLivingDocLoggingValues)
 }
 
@@ -442,11 +441,19 @@ extension ArticleAsLivingDocViewController: ArticleAsLivingDocHorizontallyScroll
 
 @available(iOS 13.0, *)
 extension ArticleAsLivingDocViewController: ArticleDetailsShowing {
-    func showTalkPage() {
-        guard let talkPageURL = delegate?.articleURL.articleTalkPage else {
+    func showTalkPageWithSectionName(_ sectionName: String?) {
+        
+        var maybeTalkPageURL = delegate?.articleURL.articleTalkPage
+        if let convertedSectionName = sectionName?.asTalkPageFragment,
+           let talkPageURL = maybeTalkPageURL {
+            maybeTalkPageURL = URL(string: talkPageURL.absoluteString + "#" + convertedSectionName)
+        }
+        
+        guard let talkPageURL = maybeTalkPageURL else {
             showGenericError()
             return
         }
+
         navigate(to: talkPageURL)
     }
     

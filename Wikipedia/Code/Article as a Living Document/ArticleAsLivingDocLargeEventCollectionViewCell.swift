@@ -345,7 +345,17 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
             ArticleAsLivingDocFunnel.shared.logModalViewDiscussionButtonTapped(position: loggingPosition)
         }
         
-        articleDelegate?.showTalkPage()
+        guard let largeEvent = largeEvent else {
+            return
+        }
+        
+        switch largeEvent.buttonsToDisplay {
+        case .viewDiscussion(let sectionName):
+            articleDelegate?.showTalkPageWithSectionName(sectionName)
+        default:
+            assertionFailure("Unexpected button type")
+            articleDelegate?.showTalkPageWithSectionName(nil)
+        }
     }
 }
 

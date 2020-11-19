@@ -50,6 +50,12 @@ public extension String {
         return replacingOccurrences(of: " ", with: "_").precomposedStringWithCanonicalMapping
      }
     
+    var asTalkPageFragment: String? {
+        let denormalizedName = replacingOccurrences(of: " ", with: "_")
+        let unlinkedName = denormalizedName.replacingOccurrences(of: "[[", with: "").replacingOccurrences(of: "]]", with: "")
+        return unlinkedName.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.wmf_encodeURIComponentAllowed())
+    }
+    
     //assumes string is already normalized
     var googleFormPercentEncodedPageTitle: String? {
         return googleFormPageTitle?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
