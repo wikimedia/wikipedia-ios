@@ -77,9 +77,10 @@ class ArticleAsLivingDocController: NSObject {
     var shouldAttemptToShowArticleAsLivingDoc: Bool {
         
         guard let delegate = delegate,
+              delegate.articleURL.host == Configuration.Domain.englishWikipedia,
               let view = delegate.view,
-              view.effectiveUserInterfaceLayoutDirection == .leftToRight,
-              delegate.articleURL.host == Configuration.Domain.englishWikipedia else {
+              view.effectiveUserInterfaceLayoutDirection == .leftToRight
+               else {
             return false
         }
         
