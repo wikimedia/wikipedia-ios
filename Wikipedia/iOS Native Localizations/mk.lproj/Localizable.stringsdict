@@ -335,6 +335,22 @@
 			<string>%1$d историски настани</string>
 		</dict>
 	</dict>
+	<key>on-this-day-footer-showing-event-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ на денешен ден</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Уште %1$d историски настан</string>
+			<key>other</key>
+			<string>Уште %1$d историски настани</string>
+		</dict>
+	</dict>
 	<key>page-history-revision-size-diff-addition</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
