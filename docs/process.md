@@ -13,7 +13,7 @@ Don't merge yet. Needs more discussion with product & design or is blocked by so
 #### Changes welcome
 Just make the suggested change rather than adding a code review comment.
 #### Update branch before merging
-Pull request contains changes from another pull request. Updating from develop after the dependent PR is merged will clean up the diff.
+Pull request contains changes from another pull request. Updating from main after the dependent PR is merged will clean up the diff.
 #### Question/Design Question
 Pull request has a question that needs answering.
 #### Low impact
