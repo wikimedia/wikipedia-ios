@@ -181,11 +181,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     switch (type) {
         case WMFSettingsMenuItemType_SendUsageReports: {
             WMFEventLoggingService *eventLoggingService = [WMFEventLoggingService sharedInstance];
-            WMFEventPlatformClient *epc = [WMFEventPlatformClient sharedInstance];
-            eventLoggingService.isEnabled = isOn;
+            WMFEventPlatformClient *eventPlatformClient = [WMFEventPlatformClient sharedInstance];
+            NSUserDefaults.standardUserDefaults.wmf_sendUsageReports = isOn;
             if (isOn) {
                 [eventLoggingService reset];
-                [epc reset];
+                [eventPlatformClient reset];
                 [[WMFDailyStatsLoggingFunnel shared] logAppNumberOfDaysSinceInstall];
                 [[SessionsFunnel shared] logSessionStart];
                 [[UserHistoryFunnel shared] logStartingSnapshot];
@@ -193,7 +193,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
                 [[SessionsFunnel shared] logSessionEnd];
                 [[UserHistoryFunnel shared] logSnapshot];
                 [eventLoggingService reset];
-                [epc reset];
+                [eventPlatformClient reset];
             }
         } break;
         default:
