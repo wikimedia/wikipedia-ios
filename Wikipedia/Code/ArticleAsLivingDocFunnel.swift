@@ -28,7 +28,7 @@ public final class ArticleAsLivingDocFunnel: EventLoggingFunnel, EventLoggingSta
     public static let shared = ArticleAsLivingDocFunnel()
     
     private override init() {
-        super.init(schema: "MobileWikiAppiOSLivingDoc", version: 20636844)
+        super.init(schema: "MobileWikiAppiOSLivingDoc", version: 20692447)
     }
     
     public enum ArticleContentInsertEventDescriptionType: Int {
