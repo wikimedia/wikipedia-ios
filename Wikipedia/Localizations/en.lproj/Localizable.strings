@@ -518,7 +518,7 @@
 "main-menu-title" = "More";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "menu-cancel-accessibility-label" = "Cancel";
-"more-languages-tooltip-description" = "Search Wikipedia in nearly 300 languages";
+"more-languages-tooltip-description" = "Search Wikipedia in over 300 languages";
 "more-languages-tooltip-title" = "Add languages";
 "move-articles-to-reading-list" = "Move {{PLURAL:$1|$1 article|$1 articles}} to reading list";
 "navbar-title-mode-edit-wikitext-preview" = "Preview";
@@ -854,7 +854,7 @@
 "welcome-explore-continue-button" = "Get started";
 "welcome-explore-new-ways-title" = "New ways to explore";
 "welcome-explore-tell-me-more-done-button" = "Got it";
-"welcome-intro-free-encyclopedia-description" = "Wikipedia is written collaboratively by volunteers and consists of more than 40 million articles in nearly 300 languages.";
+"welcome-intro-free-encyclopedia-description" = "Wikipedia is written collaboratively by volunteers and consists of more than 40 million articles in over 300 languages.";
 "welcome-intro-free-encyclopedia-more" = "Learn more about Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "About Wikipedia";
 "welcome-intro-free-encyclopedia-more-description" = "Wikipedia is a global project to build free encyclopedias in all languages of the world. Virtually anyone with Internet access is free to participate by contributing neutral, cited information.";
@@ -862,7 +862,7 @@
 "welcome-languages-add-button" = "Add another language";
 "welcome-languages-add-or-edit-button" = "Add or edit preferred languages";
 "welcome-languages-description" = "We've found the following languages on your device:";
-"welcome-languages-search-title" = "Search in nearly 300 languages";
+"welcome-languages-search-title" = "Search in over 300 languages";
 "welcome-notifications-tell-me-more-creation" = "Notifications are created and delivered on your device by the app, not from our (or third party) servers.";
 "welcome-notifications-tell-me-more-storage" = "Notification preferences are stored on device and not based on personal information or activity.";
 "welcome-notifications-tell-me-more-title" = "More about notifications";
