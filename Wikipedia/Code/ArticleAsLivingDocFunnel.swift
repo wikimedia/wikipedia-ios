@@ -17,7 +17,7 @@ fileprivate extension Dictionary where Key == String, Value == Any {
     
     func appendingTypes(types: [ArticleAsLivingDocFunnel.EventType]) -> [String: Any] {
         var mutableDict = self
-        let type = types.map { $0.rawValue }.joined(separator: ",")
+        let type = types.map { "'\($0.rawValue)'" }.joined(separator: ",")
         mutableDict["type"] = type
         return mutableDict
     }
