@@ -660,7 +660,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     
     func articleInsertHtmlSnippet(isFirst: Bool = false, isLast: Bool = false, indexPath: IndexPath) -> String? {
         guard let timestampForDisplay = self.fullyRelativeTimestampForDisplay(),
-              let eventDescription = eventDescriptionHtmlSnippet(indexPath: indexPath)?.removingHTML,
+              let eventDescription = eventDescriptionHtmlSnippet(indexPath: indexPath),
               let userInfo = userInfoHtmlSnippet() else {
             return nil
         }
@@ -911,7 +911,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         
         //strip == signs from all section titles
         let finalSet = set.map { Self.sectionTitleWithWikitextStripped(originalTitle: $0) }
-        
+
         return Set(finalSet)
     }
     
@@ -945,9 +945,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             localizedString = String.localizedStringWithFormat(CommonStrings.manySectionsDescription, sections.count)
         }
 
-        // Uncomment to remove extraneous HTML in the modal
-        // return " " + localizedString.removingHTML
-        return " " + localizedString
+        return " " + localizedString.removingHTML
     }
     
     private func localizedSectionHtmlSnippet(sectionsSet: Set<String>) -> String? {
