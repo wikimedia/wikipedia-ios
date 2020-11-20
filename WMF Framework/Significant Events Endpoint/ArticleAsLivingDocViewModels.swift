@@ -601,7 +601,7 @@ public extension ArticleAsLivingDocViewModel {
                     userGroups = newTalkPageTopic.userGroups
                     
                     if let talkPageSection = newTalkPageTopic.section {
-                        self.buttonsToDisplay = .viewDiscussion(sectionName: Self.sectionTitleWithWikitextStripped(originalTitle: talkPageSection))
+                        self.buttonsToDisplay = .viewDiscussion(sectionName: Self.sectionTitleWithWikitextAndHtmlStripped(originalTitle: talkPageSection))
                     } else {
                         self.buttonsToDisplay = .viewDiscussion(sectionName: nil)
                     }
@@ -910,14 +910,15 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         }
         
         //strip == signs from all section titles
-        let finalSet = set.map { Self.sectionTitleWithWikitextStripped(originalTitle: $0) }
+        let finalSet = set.map { Self.sectionTitleWithWikitextAndHtmlStripped(originalTitle: $0) }
 
         return Set(finalSet)
     }
     
     //remove one or more equal signs and zero or more spaces on either side of the title text
-    private static func sectionTitleWithWikitextStripped(originalTitle: String) -> String {
-        var loopTitle = originalTitle
+    //also removing html for display and potential javascript injection issues - https://phabricator.wikimedia.org/T268201
+    private static func sectionTitleWithWikitextAndHtmlStripped(originalTitle: String) -> String {
+        var loopTitle = originalTitle.removingHTML
         
         let regex = "^=+\\s*|\\s*=+$"
         var maybeMatch = loopTitle.range(of: regex, options: .regularExpression)
@@ -945,7 +946,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             localizedString = String.localizedStringWithFormat(CommonStrings.manySectionsDescription, sections.count)
         }
 
-        return " " + localizedString.removingHTML
+        return " " + localizedString
     }
     
     private func localizedSectionHtmlSnippet(sectionsSet: Set<String>) -> String? {
