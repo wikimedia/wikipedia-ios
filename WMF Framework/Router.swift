@@ -166,7 +166,11 @@ public class Router: NSObject {
     
     internal func destinationForWikipediaHostURL(_ url: URL) -> Destination {
         let canonicalURL = url.canonical
-        
+
+        if url.host == "thankyou.wikipedia.org" {
+            return .externalLink(url)
+        }
+
         if let wikiResourcePathInfo = destinationForWikiResourceURL(canonicalURL) {
             return wikiResourcePathInfo
         }
