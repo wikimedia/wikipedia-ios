@@ -11,13 +11,13 @@ fileprivate extension Dictionary where Key == String, Value == Any {
     
     func appendingPosition(position: Int) -> [String: Any] {
         var mutableDict = self
-        mutableDict["position"] = "\(position)"
+        mutableDict["position"] = position
         return mutableDict
     }
     
     func appendingTypes(types: [ArticleAsLivingDocFunnel.EventType]) -> [String: Any] {
         var mutableDict = self
-        let type = types.map { $0.rawValue }.joined(separator: ",")
+        let type = types.map { "'\($0.rawValue)'" }.joined(separator: ",")
         mutableDict["type"] = type
         return mutableDict
     }
@@ -28,7 +28,7 @@ public final class ArticleAsLivingDocFunnel: EventLoggingFunnel, EventLoggingSta
     public static let shared = ArticleAsLivingDocFunnel()
     
     private override init() {
-        super.init(schema: "MobileWikiAppiOSLivingDoc", version: 20636844)
+        super.init(schema: "MobileWikiAppiOSLivingDoc", version: 20692447)
     }
     
     public enum ArticleContentInsertEventDescriptionType: Int {
