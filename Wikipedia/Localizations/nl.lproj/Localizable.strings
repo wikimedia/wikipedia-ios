@@ -1,5 +1,6 @@
 // Messages for Dutch (Nederlands)
 // Exported from translatewiki.net
+// Author: Aranka
 // Author: Bouman4
 // Author: Duckson32
 // Author: Elroy
@@ -32,6 +33,14 @@
 // Author: Wikibelgiaan
 // Author: Xbaked potatox
 
+"aaald-new-book-reference-title" = "Boek";
+"aaald-new-discussion" = "Nieuw overleg";
+"aaald-new-news-reference-title" = "Nieuws";
+"aaald-new-talk-topic-description-format" = "$1 over dit artikel";
+"aaald-new-website-reference-title" = "Website";
+"aaald-revision-userInfo" = "Bewerking door $1 ($2 bewerkingen)";
+// Fuzzy
+"aaald-small-change-description" = "{{PLURAL:$1|0=Geen kleine aanpassingen|$1 kleine aanpassing|$1 kleine aanpassingen}} uitgevoerd";
 "about-content-license" = "Inhoudslicentie";
 "about-content-license-details" = "Tenzij anders vermeld, is de inhoud beschikbaar onder een $1.";
 "about-content-license-details-share-alike-license" = "Creative Commons Naamsvermelding-Gelijk delen-licentie";
@@ -500,7 +509,6 @@
 "on-this-day-detail-header-date-range" = "Tussen $1 en $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historisch evenement|$1 historische evenementen}}";
 "on-this-day-footer" = "Historische gebeurtenissen op deze dag";
-"on-this-day-footer-with-event-count" = "nog $1 historische gebeurtenissen op deze dag";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 van Wikipedia in het $2";
 "on-this-day-title" = "Op deze dag";
 "original-tab-button-popover-description" = "Tik op de 'W' om terug te gaan naar het tabblad waar u vandaan kwam";

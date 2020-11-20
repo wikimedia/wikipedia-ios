@@ -13,12 +13,46 @@
 // Author: Maceleiro
 // Author: Macofe
 // Author: Nemo bis
+// Author: Rbndev
 // Author: SMP
 // Author: Ssola
 // Author: Toniher
 // Author: Vriullop
 // Author: Xavier Dengra
 
+"aaald-added-text-description-2" = "$1 afegit";
+"aaald-article-description-updated-description" = "La descripció del títol de l'article s'ha actualitzat";
+"aaald-article-insert-header" = "Actualitzacions significatives";
+"aaald-article-insert-last-updated" = "Darrera actualització";
+"aaald-article-insert-new-changes" = "Canvis recents";
+"aaald-article-insert-read-more" = "Mostra les darreres actualitzacions";
+"aaald-characters-text-description" = "{{PLURAL:$1|0=caràcters|caràcter|caràcters}}";
+"aaald-deleted-text-description-2" = "$1 eliminat";
+"aaald-error-subitle" = "Refresqueu per a tornar-ho a provar";
+"aaald-error-title" = "No s'ha pogut carregar en línia l'historial de l'article";
+"aaald-many-sections-description" = "a $1 seccions";
+"aaald-multiple-changes-description" = "Múltiples modificacions realitzades";
+"aaald-multiple-references-added-description" = "Múltiples referències afegides";
+"aaald-new-book-reference-title" = "Llibre";
+"aaald-new-discussion" = "Nova discussió";
+"aaald-new-journal-reference-database" = "via $1";
+"aaald-new-journal-reference-title" = "Publicació";
+"aaald-new-journal-reference-volume" = "Volum $1:";
+"aaald-new-news-reference-retrieved-date" = "Consultat a $1";
+"aaald-new-news-reference-title" = "Notícia";
+"aaald-new-talk-topic-description-format" = "$1 sobre aquest article";
+"aaald-new-website-reference-archive-date-text" = "a partir de l'original de $1";
+"aaald-new-website-reference-archive-url-text" = "URL d'archive.org";
+"aaald-new-website-reference-title" = "Lloc web";
+"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 referències|$1 referència|$1 referències}} afegides";
+"aaald-one-section-description" = "a la secció $1";
+"aaald-revision-userInfo" = "Modificat per $1 ($2 modificacions)";
+"aaald-single-reference-added-description" = "Referència afegida";
+"aaald-small-change-description" = "{{PLURAL:$1|0=No s'ha fet cap canvi menor|S'ha fet $1 canvi menor|S'han fet $1 canvis menors}}";
+"aaald-summary-title" = "{{PLURAL:$1|0=0 canvis|$1 canvi|$1 canvis}} per {{PLURAL:$2|0=0 editors|$2 editor|$2 editors}} en {{PLURAL:$3|0=0 dies|$3 dia|$3 dies}}";
+"aaald-two-sections-description" = "a les seccions $1 i $2";
+"aaald-vandalism-revert-description" = "Sospita de vandalisme revertit";
+"aaald-view-full-history-button" = "Vegeu l'historial complet de l'article";
 "about-content-license" = "Contingut de la llicència";
 "about-content-license-details" = "Llevat que s'especifiqui el contrari, el contingut és disponible sota $1.";
 "about-content-license-details-share-alike-license" = "Creative Commons Reconeixement-Compartir Igual";
@@ -114,6 +148,7 @@
 "article-about-title" = "Sobre aquest article";
 "article-delete" = "Elimina";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|S'ha eliminat l'article|S'han eliminat els articles}}";
+"article-fetcher-error-updated-content-timeout" = "L'aplicació no ha pogut recuperar el contingut actualitzat a temps. Refresqueu la pàgina més endavant per a veure com s'hi han reflectit els canvis.";
 "article-languages-filter-placeholder" = "Cerca una llengua";
 "article-languages-label" = "Trieu un idioma";
 "article-languages-others" = "Altres llengües";
@@ -141,6 +176,7 @@
 "compass-direction" = "a les $1 en punt";
 "continue-reading-empty-description" = "Exploreu la Viquipèdia per a llegir més articles";
 "continue-reading-empty-title" = "No hi ha cap article llegit recentment";
+"data-migration-status" = "Actualitzant...";
 "description-add-title" = "Afegeix una descripció";
 "description-edit-for-article" = "Descripció del títol de $1";
 "description-edit-learn-more" = "Més informació";
@@ -523,7 +559,6 @@
 "on-this-day-detail-header-date-range" = "de $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 esdeveniment històric|$1 esdeveniments històrics}}";
 "on-this-day-footer" = "Més esdeveniments històrics d'aquest dia";
-"on-this-day-footer-with-event-count" = "$1 més esdeveniments històrics aquest dia";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 de la Viquipèdia en $2";
 "on-this-day-title" = "Tal dia com avui";
 "original-tab-button-popover-description" = "Feu un toc a la 'W' per tornar a la pestanya d'on heu començat";
@@ -671,6 +706,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "Ressaltat de la sintaxi";
 "reading-themes-controls-accessibility-text-size-slider" = "Lliscador de la mida del text";
 "reading-themes-controls-syntax-highlighting" = "Ressaltat de la sintaxi";
+"reference-section-button-accessibility-label" = "Vés a la secció de referències";
 "reference-title" = "Referència $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Avui|1=Ahir|Fa $1 dies}}";
 "relative-date-hours-abbreviated" = "$1 h";
@@ -781,6 +817,7 @@
 "table-of-contents-close-accessibility-label" = "Tanca la taula de continguts";
 "table-of-contents-heading" = "Continguts";
 "table-of-contents-hide-button-label" = "Amaga la taula de continguts";
+"table-of-contents-subheading-label" = "Subtítol $1";
 "talk-page-add-discussion-accessibility-label" = "Afegeix una discussió";
 "talk-page-discussion-accessibility-hint" = "Feu un toc doble per obrir el fil de discussió";
 "talk-page-discussion-read-accessibility-label" = "Llegit";

@@ -1,12 +1,14 @@
 import WMF
-
+import CocoaLumberjackSwift
 
 extension ArticleViewController {
+    
     func showAnnouncementIfNeeded() {
-        guard UserDefaults.standard.shouldCheckForArticleAnnouncements else {
+        guard UserDefaults.standard.shouldCheckForArticleAnnouncements,
+              ((isInValidSurveyCampaignAndArticleList && userHasSeenSurveyPrompt) || !isInValidSurveyCampaignAndArticleList) else {
             return
         }
-        let predicate = NSPredicate(format: "placement == %@", "article")
+        let predicate = NSPredicate(format: "placement == 'article'")
         let contentGroup = dataStore.viewContext.newestVisibleGroup(of: .announcement, with: predicate)
         guard
             let contentGroupURL = contentGroup?.url,

@@ -1,4 +1,7 @@
+import WMF
+
 extension ArticleViewController: ArticleWebMessageHandling {
+    
     func didRecieve(action: ArticleWebMessagingController.Action) {
         dismissReferencesPopover()
         switch action {
@@ -30,6 +33,8 @@ extension ArticleViewController: ArticleWebMessageHandling {
             scrollToAnchorCompletions.popLast()?(anchor, rect)
         case .viewInBrowser:
             navigate(to: self.articleURL, useSafari: true)
+        case .aaaldInsertOnScreen:
+            handleAaaLDInsertOnScreenEvent()
         }
     }
     
@@ -50,7 +55,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         state = .loaded
         showWIconPopoverIfNecessary()
         refreshControl.endRefreshing()
-        surveyTimerController.articleContentDidLoad()
+        surveyTimerController?.articleContentDidLoad()
         loadSummary()
         initialSetupCompletion?()
         initialSetupCompletion = nil
@@ -100,5 +105,10 @@ extension ArticleViewController: ArticleWebMessageHandling {
             menuItems.append(.coordinate)
         }
         messagingController.addFooter(articleURL: articleURL, restAPIBaseURL: baseURL, menuItems: menuItems, lastModified: article.lastModifiedDate)
+    }
+    
+    func handleAaaLDInsertOnScreenEvent() {
+        surveyTimerController?.userDidScrollPastLivingDocArticleContentInsert(withState: state)
+        ArticleAsLivingDocFunnel.shared.logArticleContentInsertShown()
     }
 }

@@ -6510,7 +6510,7 @@ function onDragStart(cm, e) {
   e.dataTransfer.setData("Text", cm.getSelection());
   e.dataTransfer.effectAllowed = "copyMove";
 
-  // Use standard image instead of default browsers image.
+  // Use dummy image instead of default browsers image.
   // Recent Safari (~6.0.2) have a tendency to segfault when this happens, so we don't do it there.
   if (e.dataTransfer.setDragImage && !safari) {
     var img = elt("img", null, null, "position: fixed; left: 0; top: 0;");

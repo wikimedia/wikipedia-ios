@@ -30,6 +30,40 @@
 // Author: Wladek92
 // Author: Zarisi
 
+"aaald-added-text-description-2" = "$1 ajouté";
+"aaald-article-description-updated-description" = "Description du titre de l’article mise à jour";
+"aaald-article-insert-header" = "Mises à jour significatives";
+"aaald-article-insert-last-updated" = "Dernière mise à jour";
+"aaald-article-insert-new-changes" = "Nouvelles modifications";
+"aaald-article-insert-read-more" = "Voir plus de mises à jour";
+"aaald-characters-text-description" = "{{PLURAL:$1|0=caractère|caractère|caractères}}";
+"aaald-deleted-text-description-2" = "$1 supprimé";
+"aaald-error-subitle" = "Actualisez pour essayer à nouveau";
+"aaald-error-title" = "Impossible de charger l’historique en ligne de l’article";
+"aaald-many-sections-description" = "Dans les sections $1";
+"aaald-multiple-changes-description" = "Changements multiples réalisés";
+"aaald-multiple-references-added-description" = "Multiples références ajoutées";
+"aaald-new-book-reference-title" = "Livre";
+"aaald-new-discussion" = "Nouvelle discussion";
+"aaald-new-journal-reference-database" = "via $1";
+"aaald-new-journal-reference-title" = "Journal";
+"aaald-new-journal-reference-volume" = "Volume $1 :";
+"aaald-new-news-reference-retrieved-date" = "Récupéré le $1";
+"aaald-new-news-reference-title" = "Actualités";
+"aaald-new-talk-topic-description-format" = "$1 concernant cet article";
+"aaald-new-website-reference-archive-date-text" = "depuis l’original sur $1";
+"aaald-new-website-reference-archive-url-text" = "URL sur archive.org";
+"aaald-new-website-reference-title" = "Site web";
+"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=Aucune référence ajoutée|$1 référence ajoutée|$1 références ajoutées}}";
+"aaald-one-section-description" = "dans la section $1";
+"aaald-revision-by-anonymous" = "Modifié par un utilisateur anonyme";
+"aaald-revision-userInfo" = "Modifié par $1 ($2 modifications)";
+"aaald-single-reference-added-description" = "Référence ajoutée";
+"aaald-small-change-description" = "{{PLURAL:$1|0=Aucun changement mineur réalisé|$1 changement mineur réalisé|$1 changements mineurs réalisés}}";
+"aaald-summary-title" = "{{PLURAL:$1|0=aucun changement|$1 changement|$1 changements}} par {{PLURAL:$2|0=aucun rédacteur|$2 rédacteur|$2 rédacteurs}} depuis {{PLURAL:$3|0=aujourd’hui|$3 jour|$3 jours}}";
+"aaald-two-sections-description" = "dans les sections $1 et $2";
+"aaald-vandalism-revert-description" = "Vandalisme suspecté annulé";
+"aaald-view-full-history-button" = "Voir l’historique complet de l’article";
 "about-content-license" = "Licence du contenu";
 "about-content-license-details" = "À moins d’indication contraire, le contenu est disponible sous $1.";
 "about-content-license-details-share-alike-license" = "Creative Commons Attribution – Partage à l’identique";
@@ -125,6 +159,7 @@
 "article-about-title" = "À propos de cet article";
 "article-delete" = "Supprimer";
 "article-deleted-accessibility-notification" = "Article{{PLURAL:$1||s}} supprimé{{PLURAL:$1||s}}";
+"article-fetcher-error-updated-content-timeout" = "L’appli n’a pas pu récupérer le contenu mis à jour dans le temp imparti. Veuillez actualiser cette page plus tard pour voir vos changements apportés.";
 "article-languages-filter-placeholder" = "Trouver la langue";
 "article-languages-label" = "Choisir la langue";
 "article-languages-others" = "Autres langues";
@@ -152,6 +187,7 @@
 "compass-direction" = "à $1 heures";
 "continue-reading-empty-description" = "Explorer Wikipédia pour plus d’articles à lire";
 "continue-reading-empty-title" = "Aucun article lu récemment";
+"data-migration-status" = "Mise à jour...";
 "description-add-title" = "Ajouter une description";
 "description-edit-for-article" = "Description du titre pour $1";
 "description-edit-learn-more" = "En savoir plus";
@@ -333,7 +369,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Indépendant de la langue";
 "explore-feed-preferences-global-cards-title" = "Cartes globales";
 "explore-feed-preferences-hide-card-action-title" = "Masquer cette carte";
-"explore-feed-preferences-hide-feed-cards-action-title" = "Masquer toutes les cartes « $1 »";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Masquer toutes les cartes « $1 »";
 "explore-feed-preferences-in-the-news-description" = "Articles sur les événements actuels";
 "explore-feed-preferences-languages-footer-text" = "Masquer toutes les cartes du fil d’exploration dans toutes vos langues désactivera l’onglet Explorer.";
 "explore-feed-preferences-on-this-day-description" = "Événements de ce jour dans l’historique";
@@ -534,7 +570,7 @@
 "on-this-day-detail-header-date-range" = "de $1 à $2";
 "on-this-day-detail-header-title" = "$1 événement{{PLURAL:$1||s}} historique{{PLURAL:$1||s}}";
 "on-this-day-footer" = "Plus d’événements historiques de ce jour";
-"on-this-day-footer-with-event-count" = "$1 autres événements historiques de ce jour";
+"on-this-day-footer-showing-event-count" = "{{PLURAL:$1|$1 événement historique de plus|$1 événements historiques de plus}} ce jour";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 sur Wikipédia en $2";
 "on-this-day-title" = "Ce jour-là";
 "original-tab-button-popover-description" = "Tapez sur l’icône « W » pour revenir à l’onglet avec lequel vous avez commencé";
@@ -682,6 +718,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "Mise en évidence de la syntaxe";
 "reading-themes-controls-accessibility-text-size-slider" = "Curseur de la taille du texte";
 "reading-themes-controls-syntax-highlighting" = "Mise en évidence de la syntaxe";
+"reference-section-button-accessibility-label" = "Sauter vers la section référence";
 "reference-title" = "Référence $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Aujourd’hui|1=Hier|Il y a $1 jours}}";
 "relative-date-hours-abbreviated" = "$1 h";
@@ -792,6 +829,7 @@
 "table-of-contents-close-accessibility-label" = "Fermer la table des matières";
 "table-of-contents-heading" = "Contenus";
 "table-of-contents-hide-button-label" = "Masquer la table des matières";
+"table-of-contents-subheading-label" = "Sous-titre $1";
 "talk-page-add-discussion-accessibility-label" = "Ajouter une discussion";
 "talk-page-discussion-accessibility-hint" = "Taper deux fois pour ouvrir un fil de discussion";
 "talk-page-discussion-read-accessibility-label" = "Lu";

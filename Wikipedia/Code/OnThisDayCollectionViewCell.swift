@@ -2,7 +2,7 @@ import UIKit
 
 public class OnThisDayCollectionViewCell: SideScrollingCollectionViewCell {
 
-    public let timelineView = OnThisDayTimelineView()
+    public let timelineView = TimelineView()
         
     override public func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)

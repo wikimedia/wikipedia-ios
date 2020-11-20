@@ -61,9 +61,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>מקטע אחד</string>
+			<string>פרק אחד</string>
 			<key>other</key>
-			<string>%1$d מקטעים</string>
+			<string>%1$d פרקים</string>
 		</dict>
 	</dict>
 	<key>diff-single-header-editor-number-edits-format</key>

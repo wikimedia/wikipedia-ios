@@ -8,6 +8,40 @@
 // Author: Vlad5250
 // Author: Монтехристо
 
+"aaald-added-text-description-2" = "Додадени $1";
+"aaald-article-description-updated-description" = "Описот на насловот на статијата е подновен";
+"aaald-article-insert-header" = "Значајни поднови";
+"aaald-article-insert-last-updated" = "Последна поднова";
+"aaald-article-insert-new-changes" = "Нови промени";
+"aaald-article-insert-read-more" = "Погл. уште поднови";
+"aaald-characters-text-description" = "{{PLURAL:$1|0=знаци|знак|знаци}}";
+"aaald-deleted-text-description-2" = "Избиришани $1";
+"aaald-error-subitle" = "Превчитајте за да пробате пак";
+"aaald-error-title" = "Не можев да ја вчитам воредната историја на статијата";
+"aaald-many-sections-description" = "во $1 поднаслови";
+"aaald-multiple-changes-description" = "Направени повеќе промени";
+"aaald-multiple-references-added-description" = "Додадени повеќе наводи";
+"aaald-new-book-reference-title" = "Книга";
+"aaald-new-discussion" = "Нова расправа";
+"aaald-new-journal-reference-database" = "преку $1";
+"aaald-new-journal-reference-title" = "Списание";
+"aaald-new-journal-reference-volume" = "Том $1:";
+"aaald-new-news-reference-retrieved-date" = "Посетено на $1";
+"aaald-new-news-reference-title" = "Вести";
+"aaald-new-talk-topic-description-format" = "$1 за статијава";
+"aaald-new-website-reference-archive-date-text" = "од изворникот на $1";
+"aaald-new-website-reference-archive-url-text" = "Адреса на Archive.org";
+"aaald-new-website-reference-title" = "Мреж. место";
+"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=Додадени 0 наводи|Додаден $1 навод|Додадени $1 наводи}}";
+"aaald-one-section-description" = "во поднасловот $1";
+"aaald-revision-by-anonymous" = "Уредување на анонимен корисник";
+"aaald-revision-userInfo" = "Уредување на $1 ($2 уредувања)";
+"aaald-single-reference-added-description" = "Додаден навод";
+"aaald-small-change-description" = "{{PLURAL:$1|0=Нема ситни промени|Направена $1 ситна промена|Направени $1 ситни промени}}";
+"aaald-summary-title" = "{{PLURAL:$1|0=0 промени|$1 промена|$1 промени}} од {{PLURAL:$2|0=0 уредници|$2 уредник|$2 уредници}} за {{PLURAL:$3|0=0 дена|$3 ден|$3 дена}}";
+"aaald-two-sections-description" = "во поднасловите $1 и $2";
+"aaald-vandalism-revert-description" = "Отповикан осомничен вандализам";
+"aaald-view-full-history-button" = "Целосна историја на статијата";
 "about-content-license" = "Лиценца на содржината";
 "about-content-license-details" = "Ако не е поинаку укажано, содржината е достапна под $1.";
 "about-content-license-details-share-alike-license" = "лиценцата Криејтив комонс Наведи извор-Сподели под исти услови";
@@ -103,6 +137,7 @@
 "article-about-title" = "За статијава";
 "article-delete" = "Избриши";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|Статијата е избришана|Статиите се избришани}}";
+"article-fetcher-error-updated-content-timeout" = "Прилогот не можеше навреме да ги добие подновените содржини. Превчитајте ја страницата подоцна за да ги видите спроведените промени.";
 "article-languages-filter-placeholder" = "Најди јазик";
 "article-languages-label" = "Изберете јазик";
 "article-languages-others" = "Други јазици";
@@ -130,6 +165,7 @@
 "compass-direction" = "во $1 часот";
 "continue-reading-empty-description" = "Истражете ја Википедија — прочитајте повеќе статии";
 "continue-reading-empty-title" = "Немате неодамна прочитани статии";
+"data-migration-status" = "Подновувам...";
 "description-add-title" = "Додај опис";
 "description-edit-for-article" = "Опис на насловот „$1“";
 "description-edit-learn-more" = "Дознајте повеќе";
@@ -512,7 +548,7 @@
 "on-this-day-detail-header-date-range" = "од $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 историски настан|$1 историски настани}}";
 "on-this-day-footer" = "Повеќе историски настани на денешен ден";
-"on-this-day-footer-with-event-count" = "Уште $1 историски настани на денешен ден";
+"on-this-day-footer-showing-event-count" = "{{PLURAL:$1|Уште $1 историски настан|Уште $1 историски настани}} на денешен ден";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 од Википедија на $2";
 "on-this-day-title" = "На денешен ден";
 "original-tab-button-popover-description" = "Допрете на „W“ за да се вратите на почетното јазиче";
@@ -660,6 +696,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "Истакнување на синтакса";
 "reading-themes-controls-accessibility-text-size-slider" = "Лизгач за големина на текстот";
 "reading-themes-controls-syntax-highlighting" = "Истакнување на синтакса";
+"reference-section-button-accessibility-label" = "Прејди на наводите";
 "reference-title" = "Навод $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=денес|1=вчера|пред $1 дена}}";
 "relative-date-hours-abbreviated" = "$1 ч.";
@@ -770,6 +807,7 @@
 "table-of-contents-close-accessibility-label" = "Затвори ја Содржината";
 "table-of-contents-heading" = "Содржина";
 "table-of-contents-hide-button-label" = "Скриј содржина";
+"table-of-contents-subheading-label" = "Поднаслов $1";
 "talk-page-add-discussion-accessibility-label" = "Додај расправа";
 "talk-page-discussion-accessibility-hint" = "Допрете двапати за да ја отворите расправата";
 "talk-page-discussion-read-accessibility-label" = "Прочитано";

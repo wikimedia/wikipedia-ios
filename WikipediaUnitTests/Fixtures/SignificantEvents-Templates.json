@@ -1,0 +1,144 @@
+{
+    "nextRvStartId": 973922738,
+    "sha": "5ecb5d13f31361ffd24427a143ec9d32cc83edb0fd99b3af85c98b6b3462a088",
+    "timeline": [{
+        "revid": 670576931,
+        "parentid": 670576930,
+        "timestamp": "2015-07-08T21:16:25Z",
+        "outputType": "large-change",
+        "user": "CoffeeWithMarkets",
+        "userid": 17771490,
+        "significantChanges": [{
+            "outputType": "new-template",
+            "sections": ["==Maine Coon=="],
+            "templates": [{
+                "name": "citebook",
+                "ISBN": "9781118813768",
+                "author1": "Kara Burns",
+                "author2": "Lori Renda-Franci",
+                "date": "2014",
+                "publisher": "John Wiley & Sons",
+                "title": "Textbook for the Veterinary Assistant",
+                "url": "https://books.google.com/books?id=EtZjAwAAQBAJ&pg=PT156&dq=Maine+Coon+dog-like&hl=en&sa=X&ei=vpGdVYGLBM7noAS9gaiYBg&ved=0CDEQ6AEwAg#v=onepage&q=Maine%20Coon%20dog-like&f=false"
+            }, {
+                "name": "cite web ",
+                "access-date": "September 8, 2013",
+                "date": "May 2013",
+                "first1": "Rebecca",
+                "first2": "Milla",
+                "first3": "John",
+                "last1": "Ray",
+                "last2": "Sanes",
+                "last3": "Schmitt",
+                "publisher": "[[Center for Economic and Policy Research]]",
+                "title": "No-Vacation Nation Revisited",
+                "url": "http://www.cepr.net/documents/publications/no-vacation-update-2013-05.pdf",
+                "website": ""
+            }, {
+                "name": "cite web ",
+                "access-date": "May 29, 2017",
+                "archive-date": "February 12, 2020",
+                "archive-url": "https://archive.today/20200212213140/http://factfinder.census.gov/faces/tableservices/jsf/pages/productview.xhtml?pid=ACS_10_1YR_B16001&prodType=table",
+                "first": "U.S. Census",
+                "last": "Bureau",
+                "publisher": "",
+                "title": "American FactFinder—Results",
+                "url": "http://factfinder.census.gov/faces/tableservices/jsf/pages/productview.xhtml?pid=ACS_10_1YR_B16001&prodType=table",
+                "url-status": "dead"
+            }, {
+                "name": "cite web ",
+                "accessdate": "15 June 2020",
+                "first1": "Simon",
+                "last1": "Tisdall",
+                "title": "US's global reputation hits rock-bottom over Trump's coronavirus response",
+                "url": "https://www.theguardian.com/us-news/2020/apr/12/us-global-reputation-rock-bottom-donald-trump-coronavirus",
+                "website": "The Guardian"
+            }, {
+                "name": "Cite web",
+                "access-date": "January 5, 2020",
+                "language": "en",
+                "title": "U.S. Census Bureau QuickFacts: United States",
+                "url": "https://www.census.gov/quickfacts/fact/table/US/PST045219",
+                "website": "www.census.gov"
+            }, {
+                "name": "cite web ",
+                "accessdate": "June 30, 2020",
+                "title": "Places: New Hampshire.",
+                "url": "https://www.forbes.com/places/nh/",
+                "website": "Forbes"
+            }, {
+                "name": "cite news",
+                "accessdate": "October 19, 2014",
+                "date": "October 19, 2014",
+                "first": "David",
+                "id": "",
+                "last": "Agren",
+                "location": "Melbourne, FL",
+                "newspaper": "Florida Today—USA Today",
+                "pages": "4B",
+                "title": "Mexico crime belies government claims of progress",
+                "url": "https://www.usatoday.com/story/news/world/2014/10/18/mexico-violence-crime/17048757",
+                "work": ""
+            }, {
+                "name": "cite news ",
+                "access-date": "August 27, 2013",
+                "date": "February 22, 2013",
+                "first": "Tara Siegel",
+                "last": "Bernard",
+                "newspaper": "The New York Times",
+                "title": "In Paid Family Leave, U.S. Trails Most of the Globe",
+                "url": "https://www.nytimes.com/2013/02/23/your-money/us-trails-much-of-the-world-in-providing-paid-family-leave.html"
+            }, {
+                "name": "cite news ",
+                "accessdate": "September 8, 2013",
+                "date": "April 4, 2012",
+                "title": "Student Loan Debt Exceeds One Trillion Dollars",
+                "url": "https://www.npr.org/2012/04/24/151305380/student-loan-debt-exceeds-one-trillion-dollars",
+                "work": "NPR"
+            }, {
+                "name": "cite news",
+                "date": "August 18, 2016",
+                "title": "Trends in Family Wealth, 1989 to 2013",
+                "url": "https://www.cbo.gov/publication/51846",
+                "work": "[[Congressional Budget Office]]"
+            }, {
+                "name": "cite book ",
+                "authorlink": "Howard Zinn",
+                "first": "Howard",
+                "isbn": "978-0-06-083865-2",
+                "last": "Zinn",
+                "location": "",
+                "publisher": "[[Harper Perennial]] Modern Classics",
+                "ref": "Zinn",
+                "title": "A People's History of the United States",
+                "title-link": "A People's History of the United States",
+                "year": "2005"
+            }, {
+                "name": "cite journal ",
+                "date": "March 2020",
+                "doi": "10.1056/NEJMoa2001191",
+                "issue": "10",
+                "journal": "N. Engl. J. Med.",
+                "pages": "929–936",
+                "pmc": "7092802",
+                "pmid": "32004427",
+                "title": "First Case of 2019 Novel Coronavirus in the United States",
+                "vauthors": "Holshue ML, DeBolt C, Lindquist S, Lofy KH, et al",
+                "volume": "382"
+            }]
+        }, {
+            "outputType": "added-text",
+            "snippet": "One of the largest breeds of cats, the origin of the <a href=\"./Maine_Coon\" title=\"Maine Coon\">Maine Coon</a> has been shrouded in a great deal of myths and legends. The felines are labeled frequently as being similar to dogs not just in terms of their size and stature but also their pleasant mannerisms and tendency to closely follow their owners. Maine Coon cats also are often trainable given their intelligence and affectionate nature.<sup class=\"mw-ref\" id=\"cite_ref-textbook_1-0\"><a href=\"./Puppy_cat#cite_note-textbook-1\" style=\"counter-reset: mw-Ref 1;\">[1]</a></sup>\n",
+            "snippetType": 1,
+            "characterCount": 775,
+            "sections": ["==Maine Coon=="]
+        }],
+        "userGroups": ["autoreviewer", "extendedconfirmed", "*", "user", "autoconfirmed"],
+        "userEditCount": 15850
+    }],
+    "summary": {
+        "earliestTimestamp": "2020-08-20T02:51:13Z",
+        "numChanges": 20,
+        "numUsers": 15
+    }
+}

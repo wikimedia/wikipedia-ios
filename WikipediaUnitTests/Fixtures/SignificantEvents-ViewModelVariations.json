@@ -1,0 +1,310 @@
+{
+    "nextRvStartId": 979853162,
+    "sha": "ddb855b98e213935bfa5b23fb37e2d7034fe63eec9673f1fd66f43512c2c92a7",
+    "timeline": [{
+        "revid": 981273839,
+        "parentid": 981252697,
+        "timestamp": "2020-10-01T09:46:36Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 981252697,
+        "parentid": 980967940,
+        "timestamp": "2020-10-01T06:09:55Z",
+        "outputType": "large-change",
+        "user": "E-960",
+        "userid": 22259717,
+        "significantChanges": [{
+            "outputType": "deleted-text",
+            "characterCount": 179,
+            "sections": ["=== Music ==="]
+        }],
+        "userGroups": ["extendedconfirmed", "*", "user", "autoconfirmed"],
+        "userEditCount": 8075
+    }, {
+        "revid": 980967940,
+        "parentid": 980967939,
+        "timestamp": "2020-09-29T14:35:47Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 980967939,
+        "parentid": 980949579,
+        "timestamp": "2020-09-29T13:35:47Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 980949579,
+        "parentid": 980920405,
+        "timestamp": "2020-09-29T12:24:30Z",
+        "outputType": "large-change",
+        "user": "Moxy",
+        "userid": 8729451,
+        "significantChanges": [{
+            "outputType": "added-text",
+            "snippet": "...<span class='highlight-start'></a>.</span>...",
+            "snippetType": 3,
+            "characterCount": 1,
+            "sections": ["=== Further immigration, expansion, and industrialization ==="]
+        }, {
+            "outputType": "deleted-text",
+            "characterCount": 875,
+            "sections": ["=== Further immigration, expansion, and industrialization ==="]
+        }],
+        "userGroups": ["extendedconfirmed", "extendedmover", "reviewer", "rollbacker", "templateeditor", "*", "user", "autoconfirmed"],
+        "userEditCount": 103975
+    }, {
+        "revid": 980920405,
+        "parentid": 980661618,
+        "timestamp": "2020-09-29T07:34:48Z",
+        "outputType": "large-change",
+        "user": "PCommission",
+        "userid": 39561325,
+        "significantChanges": [{
+            "outputType": "new-template",
+            "sections": ["=== Further immigration, expansion, and industrialization ==="],
+            "templates": [{
+                "name": "cite journal",
+                "first": "Michael",
+                "issue": "5",
+                "journal": "Latin American Perspectives",
+                "jstor": "2634086",
+                "last": "Gonzalez-Cruz",
+                "pages": "7–26",
+                "title": "The U.S. Invasion of Puerto Rico: Occupation and Resistance to the Colonial State, 1898 to the Present",
+                "volume": "25",
+                "year": "1998"
+            }, {
+                "name": "cite journal",
+                "doi": "10.1353/jaas.2013.0000",
+                "first": "E.",
+                "issue": "16(1)",
+                "last": "Dyke",
+                "pages": "131-133",
+                "title": "Review of the book Suspended Apocalypse: White Supremacy, Genocide, and the Filipino Condition, by Dylan Rodríguez",
+                "year": "2013"
+            }, {
+                "name": "cite journal",
+                "first": "Megan",
+                "journal": "California State University, San Bernardino ScholarWorks",
+                "last": "Medeiros",
+                "title": "Hawaiian History: The Dispossession of Native Hawaiians' Identity, and Their Struggle for Sovereignty",
+                "year": "2017"
+            }]
+        }, {
+            "outputType": "added-text",
+            "snippet": "...<span class='highlight-start'></a>,</span>...",
+            "snippetType": 3,
+            "characterCount": 876,
+            "sections": ["=== Further immigration, expansion, and industrialization ==="]
+        }, {
+            "outputType": "deleted-text",
+            "characterCount": 1,
+            "sections": ["=== Further immigration, expansion, and industrialization ==="]
+        }],
+        "userGroups": ["extendedconfirmed", "*", "user", "autoconfirmed"],
+        "userEditCount": 1929
+    }, {
+        "revid": 980661618,
+        "parentid": 980632994,
+        "timestamp": "2020-09-27T19:05:35Z",
+        "outputType": "large-change",
+        "user": "Rwebogora",
+        "userid": 37062076,
+        "significantChanges": [{
+            "outputType": "added-text",
+            "snippet": null,
+            "snippetType": 1,
+            "characterCount": 119,
+            "sections": ["=== Music ==="]
+        }],
+        "userGroups": ["extendedconfirmed", "*", "user", "autoconfirmed"],
+        "userEditCount": 2257
+    }, {
+        "revid": 980633578,
+        "parentid": 981273839,
+        "timestamp": "2020-09-27T16:10:03Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 980632994,
+        "parentid": 980559873,
+        "timestamp": "2020-09-27T16:05:53Z",
+        "outputType": "large-change",
+        "user": "Mason.Jones",
+        "userid": 246091,
+        "significantChanges": [{
+            "outputType": "added-text",
+            "snippet": "...<span class='highlight-start'> improvements in</span> health <span class='highlight-start'>and longevity outside the</span> <span class='highlight-start'>U.S.</span> contributed to lowering the country's rank in life expectancy <span class='highlight-start'>(</span>from 11th in the world in 1987 to 42nd in 2007<span class='highlight-start'>).</span> <span class='highlight-start'>In</span> 2017<span class='highlight-start'>,</span> the <span class='highlight-start'>United States</span> had the lowest life expectancy among Japan, Canada, Australia, the United Kingdom, and seven <span class='highlight-start'>nations</span> <span class='highlight-start'>in</span>...",
+            "snippetType": 3,
+            "characterCount": 73,
+            "sections": ["=== Health ==="]
+        }, {
+            "outputType": "deleted-text",
+            "characterCount": 46,
+            "sections": ["=== Health ==="]
+        }],
+        "userGroups": ["extendedconfirmed", "*", "user", "autoconfirmed"],
+        "userEditCount": 2733
+    }, {
+        "revid": 980559873,
+        "parentid": 980541206,
+        "timestamp": "2020-09-27T05:47:53Z",
+        "outputType": "large-change",
+        "user": "Dhtwiki",
+        "userid": 9475572,
+        "significantChanges": [{
+            "outputType": "deleted-text",
+            "characterCount": 2915,
+            "sections": ["=== Further immigration, expansion, and industrialization ==="]
+        }],
+        "userGroups": ["extendedconfirmed", "*", "user", "autoconfirmed"],
+        "userEditCount": 31815
+    }, {
+        "revid": 980541206,
+        "parentid": 980513972,
+        "timestamp": "2020-09-27T03:09:24Z",
+        "outputType": "large-change",
+        "user": "PCommission",
+        "userid": 39561325,
+        "significantChanges": [{
+            "outputType": "new-template",
+            "sections": ["=== Further immigration, expansion, and industrialization ==="],
+            "templates": [{
+                "name": "cite news",
+                "archivedate": "September 28, 2007",
+                "archiveurl": "https://web.archive.org/web/20070928140712/http://www.modelminority.com/article750.html",
+                "date": "January 4, 2004",
+                "publisher": "[[Aboriginal Intelligence]]",
+                "title": "The Passions of Suzie Wong Revisited, by Rev. Sequoyah Ade",
+                "url": "http://www.modelminority.com/article750.html",
+                "url-status": "dead"
+            }, {
+                "name": "cite book ",
+                "author": "Benjamin R. Beede",
+                "date": "21 August 2013",
+                "isbn": "978-1-136-74691-8",
+                "page": "74",
+                "publisher": "Routledge",
+                "quote": "By the end of the operation, the estimated 600 Muslims in Bud Daju were wiped out.",
+                "title": "The War of 1898 and U.S. Interventions, 1898T1934: An Encyclopedia",
+                "url": "https://books.google.com/books?id=cf-AAAAAQBAJ&pg=PA74"
+            }, {
+                "name": "cite web",
+                "accessdate": "2007-05-25",
+                "author": "Jim Zwick",
+                "date": "March 4, 1996",
+                "publisher": "[[Syracuse University]]",
+                "title": "Remembering St. Louis, 1904: A World on Display and Bontoc Eulogy",
+                "url": "http://www.lib.berkeley.edu/MRC/Bontoc.html"
+            }]
+        }, {
+            "outputType": "added-text",
+            "snippet": "The United States fought <a href=\"./American_Indian_Wars\" title=\"American Indian Wars\">Indian Wars</a> west of the Mississippi River from 1810 to at least 1890.<sup class=\"mw-ref\" id=\"cite_ref-1\"><a href=\"./United_States#cite_note-1\" style=\"counter-reset: mw-Ref 1;\">[1]</a></sup> Most of these conflicts ended with the cession of Native American territory and their confinement to <a href=\"./Indian_reservation\" title=\"Indian reservation\">Indian reservations</a>. Additionally, the <a href=\"./Trail_of_Tears\" title=\"Trail of Tears\">Trail of Tears</a> in the 1830s exemplified the <a href=\"./Indian_Removal_Act\" title=\"Indian Removal Act\">Indian removal policy</a> that forcibly resettled Indians. This further expanded acreage under mechanical cultivation, increasing surpluses for international markets.<sup class=\"mw-ref\" id=\"cite_ref-2\"><a href=\"./United_States#cite_note-2\" style=\"counter-reset: mw-Ref 2;\">[2]</a></sup> Mainland expansion also included the <a href=\"./Alaska_Purchase\" title=\"Alaska Purchase\">purchase of Alaska</a> from <a href=\"./Russian_Empire\" title=\"Russian Empire\">Russia</a> in 1867.<sup class=\"mw-ref\" id=\"cite_ref-3\"><a href=\"./United_States#cite_note-3\" style=\"counter-reset: mw-Ref 3;\">[3]</a></sup> In 1893, pro-American elements in Hawaii <a href=\"./Overthrow_of_the_Kingdom_of_Hawaii\" title=\"Overthrow of the Kingdom of Hawaii\" class=\"mw-redirect\">overthrew</a> the <a href=\"./Kingdom_of_Hawaii\" title=\"Kingdom of Hawaii\" class=\"mw-redirect\">monarchy</a> and formed the <a href=\"./Republic_of_Hawaii\" title=\"Republic of Hawaii\">Republic of Hawaii</a>, which the U.S. <a href=\"./Newlands_Resolution\" title=\"Newlands Resolution\">annexed</a> in 1898. <a href=\"./Puerto_Rico\" title=\"Puerto Rico\">Puerto Rico</a>, <a href=\"./Guam\" title=\"Guam\">Guam</a>, and the <a href=\"./Philippines\" title=\"Philippines\">Philippines</a> were ceded by Spain in the same year, following the <a href=\"./Spanish–American_War\" title=\"Spanish–American War\">Spanish–American War</a>.<sup class=\"mw-ref\" id=\"cite_ref-4\"><a href=\"./United_States#cite_note-4\" style=\"counter-reset: mw-Ref 4;\">[4]</a></sup> <a href=\"./American_Samoa\" title=\"American Samoa\">American Samoa</a> was acquired by the United States in 1900 after the end of the <a href=\"./Second_Samoan_Civil_War\" title=\"Second Samoan Civil War\">Second Samoan Civil War</a>.<sup class=\"mw-ref\" id=\"cite_ref-5\"><a href=\"./United_States#cite_note-5\" style=\"counter-reset: mw-Ref 5;\">[5]</a></sup> The <a href=\"./United_States_Virgin_Islands\" title=\"United States Virgin Islands\">U.S. Virgin Islands</a> were purchased from Denmark in 1917.<sup class=\"mw-ref\" id=\"cite_ref-6\"><a href=\"./United_States#cite_note-6\" style=\"counter-reset: mw-Ref 6;\">[6]</a></sup> Various abuses were committed by the Americans against natives of colonized lands,<sup class=\"mw-ref\" id=\"cite_ref-7\"><a href=\"./United_States#cite_note-7\" style=\"counter-reset: mw-Ref 7;\">[7]</a></sup><sup class=\"mw-ref\" id=\"cite_ref-8\"><a href=\"./United_States#cite_note-8\" style=\"counter-reset: mw-Ref 8;\">[8]</a></sup> ranging from <a href=\"./Genocide\" title=\"Genocide\">mass executions</a><sup class=\"mw-ref\" id=\"cite_ref-9\"><a href=\"./United_States#cite_note-9\" style=\"counter-reset: mw-Ref 9;\">[9]</a></sup><sup class=\"mw-ref\" id=\"cite_ref-smith_10-0\"><a href=\"./United_States#cite_note-smith-10\" style=\"counter-reset: mw-Ref 10;\">[10]</a></sup> to <a href=\"./Human_zoo\" title=\"Human zoo\">human zoos</a>.<sup class=\"mw-ref\" id=\"cite_ref-11\"><a href=\"./United_States#cite_note-11\" style=\"counter-reset: mw-Ref 11;\">[11]</a></sup><sup class=\"mw-ref\" id=\"cite_ref-12\"><a href=\"./United_States#cite_note-12\" style=\"counter-reset: mw-Ref 12;\">[12]</a></sup>\n",
+            "snippetType": 3,
+            "characterCount": 2915,
+            "sections": ["=== Further immigration, expansion, and industrialization ==="]
+        }],
+        "userGroups": ["extendedconfirmed", "*", "user", "autoconfirmed"],
+        "userEditCount": 1929
+    }, {
+        "revid": 980513972,
+        "parentid": 980265831,
+        "timestamp": "2020-09-26T23:15:43Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 980265831,
+        "parentid": 980215564,
+        "timestamp": "2020-09-25T14:39:18Z",
+        "outputType": "new-talk-page-topic",
+        "snippet": "The US is an amazing place and I am recently doing a bibliography on the US even though I live here!<a href=\"./Special:Contributions/2600:1014:B128:D297:A993:4AFC:1B8D:C5F1\" title=\"Special:Contributions/2600:1014:B128:D297:A993:4AFC:1B8D:C5F1\">2600:1014:B128:D297:A993:4AFC:1B8D:C5F1</a> (talk) 14:14, 25 September 2020 (UTC)",
+        "user": "Neonorange",
+        "userid": 6982000,
+        "section": "== Semi-protected edit request on 24 September 2020 ==",
+        "userGroups": ["extendedconfirmed", "reviewer", "rollbacker", "*", "user", "autoconfirmed"],
+        "userEditCount": 4791
+    }, {
+        "revid": 980215564,
+        "parentid": 980150407,
+        "timestamp": "2020-09-25T07:39:01Z",
+        "outputType": "vandalism-revert",
+        "user": "MelbourneStar",
+        "userid": 13478039,
+        "sections": ["Intro"],
+        "userGroups": ["autoreviewer", "extendedconfirmed", "reviewer", "rollbacker", "*", "user", "autoconfirmed"],
+        "userEditCount": 80818
+    }, {
+        "revid": 980215449,
+        "parentid": 981273839,
+        "timestamp": "2020-09-25T07:38:08Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 980150407,
+        "parentid": 980083603,
+        "timestamp": "2020-09-24T22:07:57Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 980083603,
+        "parentid": 980016288,
+        "timestamp": "2020-09-24T14:18:58Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 980016288,
+        "parentid": 980016198,
+        "timestamp": "2020-09-24T03:36:15Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 980016198,
+        "parentid": 980016096,
+        "timestamp": "2020-09-24T03:35:26Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 980016096,
+        "parentid": 980015628,
+        "timestamp": "2020-09-24T03:34:39Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 980015628,
+        "parentid": 979959432,
+        "timestamp": "2020-09-24T03:29:25Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 979959432,
+        "parentid": 979959431,
+        "timestamp": "2020-09-23T19:33:06Z",
+        "outputType": "large-change",
+        "user": "Mossypiglet",
+        "userid": 32619427,
+        "significantChanges": [{
+            "outputType": "new-template",
+            "sections": ["=== Military ==="],
+            "templates": [{
+                "name": "cite book ",
+                "archive-date": "2020-09-22",
+                "archive-url": "https://conifer.rhizome.org/mossypiglet/wikipedia-citations/20200923020721/https://www.iiss.org/publications/the-military-balance/the-military-balance-2019",
+                "author": "<!--Staff writer(s); no by-line.-->",
+                "date": "2019",
+                "isbn": "9781857439885",
+                "location": "London",
+                "page": "47",
+                "publisher": "International Institute for Strategic Studies",
+                "title": "The Military Balance 2019",
+                "url": "https://www.iiss.org/publications/the-military-balance/the-military-balance-2019",
+                "url-status": "live"
+            }]
+        }, {
+            "outputType": "added-text",
+            "snippet": "...<span class='highlight-start'> therefore</span> appoints its leaders, the <a href=\"./United_States_Secretary_of_Defense\" title=\"United States Secretary of Defense\">secretary of <span class='highlight-start'>defense</span></a> and the <a href=\"./Joint_Chiefs_of_Staff\" title=\"Joint Chiefs of Staff\">Joint Chiefs of Staff</a>. The <a href=\"./United_States_Department_of_Defense\" title=\"United States Department of Defense\">Department of Defense</a> administers the armed forces, which are made up of the <a href=\"./United_States_Army\" title=\"United States Army\">Army</a>, <a href=\"./United_States_Marine_Corps\" title=\"United States Marine Corps\">Marine Corps</a>, <a href=\"./United_States_Navy\" title=\"United States Navy\">Navy</a>, <a href=\"./United_States_Air_Force\" title=\"United States Air Force\">Air Force</a>, and <a href=\"./United_States_Space_Force\" title=\"United States Space Force\">Space Force</a>. The <a href=\"./United_States_Coast_Guard\" title=\"United States Coast Guard\">Coast Guard</a> is run by the <a href=\"./United_States_Department_of_Homeland_Security\" title=\"United States Department of Homeland Security\">Department of Homeland Security</a> in peacetime and by the <a href=\"./United_States_Department_of_the_Navy\" title=\"United States Department of the Navy\">Department of the Navy</a> <span class='highlight-start'>in</span> <span class='highlight-start'>wartime</span>. In <span class='highlight-start'>2019</span>, the armed forces had 1.4 million personnel on active duty.<span class='highlight-start'><sup class=\"mw-ref\" id=\"cite_ref-IISS_1-0\"><a href=\"./United_States#cite_note-IISS-1\" style=\"counter-reset: mw-Ref 1;\">[1]</a></sup></span> The <a href=\"./Reserve_components_of_the_United_States_Armed_Forces\" title=\"Reserve components of the United States Armed Forces\">Reserves</a> and <a href=\"./National_Guard_of_the_United_States\" title=\"National Guard of the United States\" class=\"mw-redirect\">National Guard</a> brought the total number of troops to 2.3 million.<span class='highlight-start'><sup class=\"mw-ref\" id=\"cite_ref-IISS_1-1\"><a href=\"./United_States#cite_note-IISS-1\" style=\"counter-reset: mw-Ref 1;\">[1]</a></sup></span> The Department of Defense also employed about 700,000 civilians, not including<span class='highlight-start'> <a href=\"./Military-industrial_complex\" title=\"Military-industrial complex\" class=\"mw-redirect\"></span> contractors<span class='highlight-start'></span>...",
+            "snippetType": 3,
+            "characterCount": 2444,
+            "sections": ["=== Military ==="]
+        }, {
+            "outputType": "deleted-text",
+            "characterCount": 1706,
+            "sections": ["=== Military ==="]
+        }],
+        "userGroups": ["*", "user", "autoconfirmed"],
+        "userEditCount": 313
+    }],
+    "summary": {
+        "earliestTimestamp": "2020-06-14T01:07:03Z",
+        "numChanges": 282,
+        "numUsers": 112
+    }
+}

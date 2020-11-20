@@ -1,5 +1,6 @@
 
 import UIKit
+import CocoaLumberjackSwift
 
 struct StubRevisionModel {
     let revisionId: Int
@@ -13,7 +14,7 @@ protocol DiffRevisionRetrieving: class {
     func retrieveNextRevision(with sourceRevision: WMFPageHistoryRevision) -> WMFPageHistoryRevision?
 }
 
-class DiffContainerViewController: ViewController, HintPresenting {
+class DiffContainerViewController: ViewController {
     
     struct NextPrevModel {
         let from: WMFPageHistoryRevision
@@ -33,6 +34,7 @@ class DiffContainerViewController: ViewController, HintPresenting {
     private let toModelRevisionID: Int?
     private let siteURL: URL
     private var articleTitle: String?
+    private let needsSetNavDelegate: Bool
     private let safeAreaBottomAlignView = UIView()
     
     private let type: DiffContainerViewModel.DiffType
@@ -103,7 +105,7 @@ class DiffContainerViewController: ViewController, HintPresenting {
         }
     }
     
-    init(siteURL: URL, theme: Theme, fromRevisionID: Int?, toRevisionID: Int?, type: DiffContainerViewModel.DiffType, articleTitle: String?) {
+    init(siteURL: URL, theme: Theme, fromRevisionID: Int?, toRevisionID: Int?, type: DiffContainerViewModel.DiffType, articleTitle: String?, needsSetNavDelegate: Bool = false) {
     
         self.siteURL = siteURL
         self.type = type
@@ -118,6 +120,7 @@ class DiffContainerViewController: ViewController, HintPresenting {
         self.revisionRetrievingDelegate = nil
         self.toModel = nil
         self.fromModel = nil
+        self.needsSetNavDelegate = needsSetNavDelegate
         
         super.init()
         
@@ -128,7 +131,7 @@ class DiffContainerViewController: ViewController, HintPresenting {
         }
     }
     
-    init(articleTitle: String, siteURL: URL, type: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, pageHistoryFetcher: PageHistoryFetcher? = nil, theme: Theme, revisionRetrievingDelegate: DiffRevisionRetrieving?, firstRevision: WMFPageHistoryRevision?) {
+    init(articleTitle: String, siteURL: URL, type: DiffContainerViewModel.DiffType, fromModel: WMFPageHistoryRevision?, toModel: WMFPageHistoryRevision, pageHistoryFetcher: PageHistoryFetcher? = nil, theme: Theme, revisionRetrievingDelegate: DiffRevisionRetrieving?, firstRevision: WMFPageHistoryRevision?, needsSetNavDelegate: Bool = false) {
 
         self.type = type
         
@@ -143,6 +146,8 @@ class DiffContainerViewController: ViewController, HintPresenting {
         self.diffController = DiffController(siteURL: siteURL, pageHistoryFetcher: pageHistoryFetcher, revisionRetrievingDelegate: revisionRetrievingDelegate, type: type)
 
         self.containerViewModel = DiffContainerViewModel(type: type, fromModel: fromModel, toModel: toModel, listViewModel: nil, articleTitle: articleTitle, byteDifference: nil, theme: theme)
+        
+        self.needsSetNavDelegate = needsSetNavDelegate
         
         super.init()
         
@@ -375,6 +380,11 @@ private extension DiffContainerViewController {
     func startSetup() {
         setupToolbarIfNeeded()
         containerViewModel.state = .loading
+        
+        //For some reason this is needed when coming from Article As A Living Document screens
+        if (needsSetNavDelegate) {
+            navigationController?.delegate = self
+        }
     }
     
     func midSetup() {
@@ -614,54 +624,6 @@ private extension DiffContainerViewController {
                         case .failure:
                             break
                         }
-                    }
-                }
-            }
-        case .compare:
-            break
-        }
-    }
-
-    private func show(hintViewController: HintViewController){
-        
-        guard let toolbarView =  diffToolbarView else {
-            return
-        }
-        
-        let showHint = {
-            self.hintController = HintController(hintViewController: hintViewController)
-            self.hintController?.toggle(presenter: self, context: nil, theme: self.theme, additionalBottomSpacing: toolbarView.toolbarHeight)
-            self.hintController?.setHintHidden(false)
-        }
-        if let hintController = self.hintController {
-            hintController.setHintHidden(true) {
-                showHint()
-            }
-        } else {
-            showHint()
-        }
-    }
-    
-    private func thankRevisionAuthor(completion: @escaping ((Error?) -> Void)) {
-        
-        guard let toModel = toModel else {
-            return
-        }
-        
-        switch type {
-        case .single:
-            diffController.thankRevisionAuthor(toRevisionId: toModel.revisionID) { [weak self] (result) in
-                guard let self = self else {
-                    return
-                }
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let result):
-                        self.show(hintViewController: RevisionAuthorThankedHintVC(recipient: result.recipient))
-                        completion(nil)
-                    case .failure(let error as NSError):
-                        self.show(hintViewController: RevisionAuthorThanksErrorHintVC(error: error))
-                        completion(error)
                     }
                 }
             }
@@ -1054,8 +1016,30 @@ extension DiffContainerViewController: DiffHeaderActionDelegate {
         
         EditHistoryCompareFunnel.shared.logRevisionView(url: siteURL)
         
-        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single, fromModel: nil, toModel: revision, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate,  firstRevision: firstRevision)
+        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single, fromModel: nil, toModel: revision, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate,  firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate)
         push(singleDiffVC, animated: true)
+    }
+}
+
+extension DiffContainerViewController: ThanksGiving {
+    var url: URL? {
+        return siteURL
+    }
+
+    var bottomSpacing: CGFloat? {
+        return diffToolbarView?.toolbarHeight
+    }
+
+    func didLogIn() {
+        self.apply(theme: self.theme)
+    }
+
+    func wereThanksSent(for revisionID: Int) -> Bool {
+        return diffToolbarView?.isThankSelected ?? false
+    }
+
+    func thanksWereSent(for revisionID: Int) {
+        diffToolbarView?.isThankSelected = true
     }
 }
 
@@ -1138,7 +1122,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
                 return
         }
         
-        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single, fromModel: fromModel, toModel: toModel, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision)
+        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single, fromModel: fromModel, toModel: toModel, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate)
         replaceLastAndPush(with: singleDiffVC)
     }
     
@@ -1152,7 +1136,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
             return
         }
         
-        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single, fromModel: nextModel.from, toModel: nextModel.to, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision)
+        let singleDiffVC = DiffContainerViewController(articleTitle: articleTitle, siteURL: siteURL, type: .single, fromModel: nextModel.from, toModel: nextModel.to, theme: theme, revisionRetrievingDelegate: revisionRetrievingDelegate, firstRevision: firstRevision, needsSetNavDelegate: needsSetNavDelegate)
         replaceLastAndPush(with: singleDiffVC)
     }
     
@@ -1167,59 +1151,13 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         
         present(activityViewController, animated: true)
     }
-    
-    func tappedThank(isAlreadySelected: Bool) {
-        
-        guard let toModel = toModel else {
-            return
-        }
-        
-        EditHistoryCompareFunnel.shared.logThankTry(siteURL: siteURL)
-        
-        guard !isAlreadySelected else {
-            EditHistoryCompareFunnel.shared.logThankFail(siteURL: siteURL)
-            self.show(hintViewController: AuthorAlreadyThankedHintVC())
-            return
-        }
-        
-        guard !toModel.isAnon else {
-            EditHistoryCompareFunnel.shared.logThankFail(siteURL: siteURL)
-            self.show(hintViewController: AnonymousUsersCannotBeThankedHintVC())
-            return
-        }
-        
-        guard isLoggedIn else {
-            wmf_showLoginOrCreateAccountToThankRevisionAuthorPanel(theme: theme, dismissHandler: nil, loginSuccessCompletion: {
-                self.apply(theme: self.theme)
-            }, loginDismissedCompletion: nil)
-            return
-        }
-        
-        let thankCompletion: (Error?) -> Void = { (error) in
-            if error == nil {
-                self.diffToolbarView?.isThankSelected = true
-                EditHistoryCompareFunnel.shared.logThankSuccess(siteURL: self.siteURL)
-            } else {
-                EditHistoryCompareFunnel.shared.logThankFail(siteURL: self.siteURL)
-            }
-        }
 
-        guard !UserDefaults.standard.wmf_didShowThankRevisionAuthorEducationPanel() else {
-            thankRevisionAuthor(completion: thankCompletion)
+    func tappedThankButton() {
+        guard type == .single else {
             return
         }
-
-        wmf_showThankRevisionAuthorEducationPanel(theme: theme, sendThanksHandler: {_ in
-            UserDefaults.standard.wmf_setDidShowThankRevisionAuthorEducationPanel(true)
-            self.dismiss(animated: true, completion: {
-                self.thankRevisionAuthor(completion: thankCompletion)
-            })
-        })
-    }
-    
-    var isLoggedIn: Bool {
-        // SINGLETONTODO
-        return MWKDataStore.shared().authenticationManager.isLoggedIn
+        let isUserAnonymous = toModel?.isAnon ?? true
+        tappedThank(for: toModelRevisionID, isUserAnonymous: isUserAnonymous)
     }
 }
 

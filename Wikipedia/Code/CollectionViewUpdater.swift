@@ -1,4 +1,5 @@
 import Foundation
+import CocoaLumberjackSwift
 
 protocol CollectionViewUpdaterDelegate: NSObjectProtocol {
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView)

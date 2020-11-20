@@ -39,8 +39,8 @@ struct OnThisDayProvider: TimelineProvider {
         dataStore.fetchLatestAvailableOnThisDayEntry { entry in
             let currentDate = Date()
             let nextUpdate: Date
-            if entry.error == nil {
-                nextUpdate = currentDate.dateAtMidnight() ?? currentDate
+            if entry.error == nil && entry.isCurrent {
+                nextUpdate = currentDate.randomDateShortlyAfterMidnight() ?? currentDate
             } else {
                 let components = DateComponents(hour: 2)
                 nextUpdate = Calendar.current.date(byAdding: components, to: currentDate) ?? currentDate
@@ -140,41 +140,20 @@ final class OnThisDayData {
     // MARK: Public
     
     func fetchLatestAvailableOnThisDayEntry(usingCache: Bool = false, _ userCompletion: @escaping (OnThisDayEntry) -> Void) {
-        WidgetController.shared.startWidgetUpdateTask(userCompletion) { (dataStore, completion) in
+        let widgetController = WidgetController.shared
+        widgetController.startWidgetUpdateTask(userCompletion) { (dataStore, widgetTaskCompletion) in
             guard let appLanguage = dataStore.languageLinkController.appLanguage,
                 WMFOnThisDayEventsFetcher.isOnThisDaySupported(by: appLanguage.languageCode) else {
                 let errorEntry = OnThisDayEntry.errorEntry(for: .featureNotSupportedInLanguage)
-                completion(errorEntry)
+                widgetTaskCompletion(errorEntry)
                 return
             }
-            let siteURL = appLanguage.siteURL()
-            let moc = dataStore.viewContext
-            moc.perform {
-                guard let latest = moc.newestGroup(of: .onThisDay, forSiteURL: siteURL),
-                      latest.isForToday
-                else {
-                    guard !usingCache else {
-                        completion(self.placeholderEntryFromLanguage(appLanguage))
-                        return
-                    }
-                    self.fetchLatestOnThisDayEntryFromNetwork(with: dataStore, siteURL: siteURL, completion)
+            widgetController.fetchNewestWidgetContentGroup(with: .onThisDay, in: dataStore, isNetworkFetchAllowed: !usingCache) { (contentGroup) in
+                guard let contentGroup = contentGroup else {
+                    widgetTaskCompletion(self.placeholderEntryFromLanguage(dataStore.languageLinkController.appLanguage))
                     return
                 }
-                self.assembleOnThisDayFromContentGroup(latest, dataStore: dataStore, usingImageCache: usingCache, completion: completion)
-            }
-        }
-    }
-    
-    func fetchLatestOnThisDayEntryFromNetwork(with dataStore: MWKDataStore, siteURL: URL, _ completion: @escaping (OnThisDayEntry) -> Void) {
-        dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
-            let moc = dataStore.viewContext
-            moc.perform {
-                guard let latest = moc.newestGroup(of: .onThisDay, forSiteURL: siteURL) else {
-                    // If there's no content even after a network fetch, it's likely an error
-                    self.handleNoInternetError(completion)
-                    return
-                }
-                self.assembleOnThisDayFromContentGroup(latest, dataStore: dataStore, completion: completion)
+                self.assembleOnThisDayFromContentGroup(contentGroup, dataStore: dataStore, usingImageCache: usingCache, completion: widgetTaskCompletion)
             }
         }
     }
@@ -222,6 +201,7 @@ final class OnThisDayData {
 
 struct OnThisDayEntry: TimelineEntry {
     let date = Date()
+    var isCurrent: Bool = false
     let isRTLLanguage: Bool
     let error: OnThisDayData.ErrorType?
 
@@ -290,6 +270,7 @@ extension OnThisDayEntry {
         } else {
             contentURL = URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today")
         }
+        isCurrent = contentGroup.isForToday
     }
 
     static func errorEntry(for error: OnThisDayData.ErrorType) -> OnThisDayEntry {

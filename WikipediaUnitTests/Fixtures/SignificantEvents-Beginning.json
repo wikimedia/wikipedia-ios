@@ -1,0 +1,208 @@
+{
+    "nextRvStartId": 0,
+    "sha": null,
+    "timeline": [{
+        "revid": 670576931,
+        "parentid": 670574458,
+        "timestamp": "2015-07-08T21:16:25Z",
+        "outputType": "large-change",
+        "user": "CoffeeWithMarkets",
+        "userid": 17771490,
+        "significantChanges": [{
+            "outputType": "new-template",
+            "sections": ["==Maine Coon=="],
+            "templates": [{
+                "name": "citebook",
+                "ISBN": "9781118813768",
+                "author1": "Kara Burns",
+                "author2": "Lori Renda-Franci",
+                "date": "2014",
+                "publisher": "John Wiley & Sons",
+                "title": "Textbook for the Veterinary Assistant",
+                "url": "https://books.google.com/books?id=EtZjAwAAQBAJ&pg=PT156&dq=Maine+Coon+dog-like&hl=en&sa=X&ei=vpGdVYGLBM7noAS9gaiYBg&ved=0CDEQ6AEwAg#v=onepage&q=Maine%20Coon%20dog-like&f=false"
+            }]
+        }, {
+            "outputType": "added-text",
+            "snippet": "One of the largest breeds of cats, the origin of the <a href=\"./Maine_Coon\" title=\"Maine Coon\">Maine Coon</a> has been shrouded in a great deal of myths and legends. The felines are labeled frequently as being similar to dogs not just in terms of their size and stature but also their pleasant mannerisms and tendency to closely follow their owners. Maine Coon cats also are often trainable given their intelligence and affectionate nature.<sup class=\"mw-ref\" id=\"cite_ref-textbook_1-0\"><a href=\"./Puppy_cat#cite_note-textbook-1\" style=\"counter-reset: mw-Ref 1;\">[1]</a></sup>\n",
+            "snippetType": 1,
+            "characterCount": 775,
+            "sections": ["==Maine Coon=="]
+        }],
+        "userGroups": ["autoreviewer", "extendedconfirmed", "*", "user", "autoconfirmed"],
+        "userEditCount": 15850
+    }, {
+        "revid": 670574458,
+        "parentid": 670572707,
+        "timestamp": "2015-07-08T20:59:32Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 670572707,
+        "parentid": 670572410,
+        "timestamp": "2015-07-08T20:47:43Z",
+        "outputType": "large-change",
+        "user": "CoffeeWithMarkets",
+        "userid": 17771490,
+        "significantChanges": [{
+            "outputType": "added-text",
+            "snippet": "...<span class='highlight-start'> name=taylor</span>&gt; Unknown parameter <code class=\"cs1-code\"><span>|</span>publisher</span>=</code> ignored (<a href=\"./Help:CS1_errors#parameter_ignored\" title=\"Help:CS1 errors\">help</a>); Unknown parameter <code class=\"cs1-code\"><span>|</span>last<span class='highlight-start'>=</code> ignored (<a href=\"./Help:CS1_errors#parameter_ignored\" title=\"Help:CS1 errors\">help</a>); <code class=\"cs1-code\"><span>|</span>first=</code> missing <code class=\"cs1-code\"><span>|</span>last=</code> (<a href=\"./Help:CS1_errors#first_missing_last\" title=\"Help:CS1 errors\">help</a>); Check date values in: <code class=\"cs1-code\"><span>|</span>date=</code> (<a href=\"./Help:CS1_errors#bad_date\" title=\"Help:CS1 errors\">help</a>)&lt;/ref&gt;&lt;ref<span class='highlight-start'> name=md</span>&gt;<span class='highlight-start'></span>...",
+            "snippetType": 3,
+            "characterCount": 286,
+            "sections": ["==Manx=="]
+        }, {
+            "outputType": "deleted-text",
+            "characterCount": 7,
+            "sections": ["==Manx=="]
+        }],
+        "userGroups": ["autoreviewer", "extendedconfirmed", "*", "user", "autoconfirmed"],
+        "userEditCount": 15850
+    }, {
+        "revid": 670572410,
+        "parentid": 670571268,
+        "timestamp": "2015-07-08T20:45:43Z",
+        "outputType": "large-change",
+        "user": "CoffeeWithMarkets",
+        "userid": 17771490,
+        "significantChanges": [{
+            "outputType": "new-template",
+            "sections": ["==Manx=="],
+            "templates": [{
+                "name": "citebook",
+                "ISBN": "9780715336410",
+                "date": "2011",
+                "first": "David Taylor",
+                "last": "David & Charles",
+                "pages": "22",
+                "title": "The Complete Contented Cat"
+            }]
+        }, {
+            "outputType": "added-text",
+            "snippet": "...<span class='highlight-start'></span>whistle<span class='highlight-start'></span> or call their names<span class='highlight-start'>. Cats of this breed are known for jumping and climbing about obstacles as well as burying things, even collecting and burying toys at times</span>. Manx felines will also display strong affection generally.<span class='highlight-start'><sup class=\"mw-ref\" id=\"cite_ref-1\"><a href=\"./Puppy_cat#cite_note-1\" style=\"counter-reset: mw-Ref 1;\">[1]</a></sup></span>...",
+            "snippetType": 3,
+            "characterCount": 278,
+            "sections": ["==Manx=="]
+        }],
+        "userGroups": ["autoreviewer", "extendedconfirmed", "*", "user", "autoconfirmed"],
+        "userEditCount": 15850
+    }, {
+        "revid": 670571268,
+        "parentid": 670570763,
+        "timestamp": "2015-07-08T20:38:01Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 670570763,
+        "parentid": 670570693,
+        "timestamp": "2015-07-08T20:34:48Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 670570693,
+        "parentid": 670569662,
+        "timestamp": "2015-07-08T20:34:22Z",
+        "outputType": "large-change",
+        "user": "CoffeeWithMarkets",
+        "userid": 17771490,
+        "significantChanges": [{
+            "outputType": "added-text",
+            "snippet": "While these attributes are found desirable <a href=\"./Human_interaction_with_cats\" title=\"Human interaction with cats\">for owners interacting with their cats</a>, problems can occur when the felines are <a href=\"./Dog–cat_relationship\" title=\"Dog–cat relationship\" class=\"mw-redirect\">exposed to dogs</a> and strange people, with the cats possibly being too trusting and too friendly for their own good.<sup class=\"mw-ref\" id=\"cite_ref-ideal_1-0\"><a href=\"./Puppy_cat#cite_note-ideal-1\" style=\"counter-reset: mw-Ref 1;\">[1]</a></sup>\n",
+            "snippetType": 1,
+            "characterCount": 336,
+            "sections": ["Intro", "==See also=="]
+        }],
+        "userGroups": ["autoreviewer", "extendedconfirmed", "*", "user", "autoconfirmed"],
+        "userEditCount": 15850
+    }, {
+        "revid": 670569662,
+        "parentid": 670568587,
+        "timestamp": "2015-07-08T20:28:04Z",
+        "outputType": "large-change",
+        "user": "CoffeeWithMarkets",
+        "userid": 17771490,
+        "significantChanges": [{
+            "outputType": "added-text",
+            "snippet": "...<span class='highlight-start'>fur</span>. The <a href=\"./Cat_Fanciers_Association\" title=\"Cat Fanciers Association\" class=\"mw-redirect\">Cat Fanciers Association</a> recognized the breed in 1993 in the 'miscellaneous' class. Physically, the cats generally have light-colored coats with <a href=\"./Siamese_cat\" title=\"Siamese cat\">Siamese</a>-like <span class='highlight-start'><a href=\"./Point_coloration\" title=\"Point coloration\"></span>points<span class='highlight-start'></span></a>, <span class='highlight-start'>with</span> <span class='highlight-start'>darker</span> <span class='highlight-start'>edges</span>...",
+            "snippetType": 3,
+            "characterCount": 114,
+            "sections": ["Intro", "==Ragdoll==", "==See also=="]
+        }, {
+            "outputType": "deleted-text",
+            "characterCount": 55,
+            "sections": ["Intro", "==Ragdoll=="]
+        }],
+        "userGroups": ["autoreviewer", "extendedconfirmed", "*", "user", "autoconfirmed"],
+        "userEditCount": 15850
+    }, {
+        "revid": 670568587,
+        "parentid": 670567738,
+        "timestamp": "2015-07-08T20:21:48Z",
+        "outputType": "large-change",
+        "user": "CoffeeWithMarkets",
+        "userid": 17771490,
+        "significantChanges": [{
+            "outputType": "added-text",
+            "snippet": "...<span class='highlight-start'>. The felines will sometime even play games such as 'fetch' given their love for socializing-type activities</span>...",
+            "snippetType": 3,
+            "characterCount": 200,
+            "sections": ["==Ragdoll=="]
+        }, {
+            "outputType": "deleted-text",
+            "characterCount": 9,
+            "sections": ["==Ragdoll=="]
+        }],
+        "userGroups": ["autoreviewer", "extendedconfirmed", "*", "user", "autoconfirmed"],
+        "userEditCount": 15850
+    }, {
+        "revid": 670567738,
+        "parentid": 670566911,
+        "timestamp": "2015-07-08T20:16:24Z",
+        "outputType": "large-change",
+        "user": "CoffeeWithMarkets",
+        "userid": 17771490,
+        "significantChanges": [{
+            "outputType": "added-text",
+            "snippet": "<span class='highlight-start'>Ann Baker, a <a href=\"./Persian_cat\" title=\"Persian cat\">Persian cat</a> breeder, developed the Ragdoll in the <a href=\"./1960s\" title=\"1960s\">1960s</a>, <a href=\"./Selective_breeding\" title=\"Selective breeding\">selecting for</a> positive temperaments, pleasing looks, and non-matting coats. The <a href=\"./Cat_Fanciers_Association\" title=\"Cat Fanciers Association\" class=\"mw-redirect\">Cat Fanciers Association</a> recognized the breed in 1993 in the 'miscellaneous' class. Physically, the cats generally have light-colored coats with <a href=\"./Siamese_cat\" title=\"Siamese cat\">Siamese</a>-like points, dark edges shown in areas such as the cats' paws and ears. </span>...",
+            "snippetType": 3,
+            "characterCount": 440,
+            "sections": ["==Ragdoll=="]
+        }, {
+            "outputType": "deleted-text",
+            "characterCount": 10,
+            "sections": ["==Ragdoll=="]
+        }],
+        "userGroups": ["autoreviewer", "extendedconfirmed", "*", "user", "autoconfirmed"],
+        "userEditCount": 15850
+    }, {
+        "revid": 670566911,
+        "parentid": 670566127,
+        "timestamp": "2015-07-08T20:09:59Z",
+        "outputType": "large-change",
+        "user": "CoffeeWithMarkets",
+        "userid": 17771490,
+        "significantChanges": [{
+            "outputType": "added-text",
+            "snippet": "...<span class='highlight-start'>tendencies within the general, broad scope of <a href=\"./Cat_behavior\" title=\"Cat behavior\" class=\"mw-redirect\">feline behavior</span></a> being enhanced through <span class='highlight-start'>selective</span> breeding. Specific examples include the tendency to follow owners and other people around from room to room, the desire to receive frequent moments of physical affection such as being held and <a href=\"./Petting\" title=\"Petting\" class=\"mw-redirect\">pet</a>, a lack of aggression toward some fellow animals (such as other <span class='highlight-start'>felines</span>), and a general placid nature. \"Puppy cat\" and related terms (such as \"dog-like cat\") have been used to label breeds such as the '<a href=\"./Ragdoll\" title=\"Ragdoll\">Ragdoll</a>',&lt;ref name=vca&gt; External link in <code class=\"cs1-code\"><span>|</span>publisher=</code> (<a href=\"./Help:CS1_errors#param_has_ext_link\" title=\"Help:CS1 errors\">help</a>)&lt;/ref<span class='highlight-start'>&gt;&lt;ref name=ideal/</span>...",
+            "snippetType": 3,
+            "characterCount": 252,
+            "sections": ["Intro", "==Manx==", "==Ragdoll=="]
+        }, {
+            "outputType": "deleted-text",
+            "characterCount": 92,
+            "sections": ["Intro", "==Manx==", "==Ragdoll=="]
+        }],
+        "userGroups": ["autoreviewer", "extendedconfirmed", "*", "user", "autoconfirmed"],
+        "userEditCount": 15850
+    }, {
+        "revid": 670566127,
+        "parentid": 670565873,
+        "timestamp": "2015-07-08T20:03:46Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 670565873,
+        "parentid": 670565872,
+        "timestamp": "2015-07-08T20:02:00Z",
+        "outputType": "small-change"
+    }],
+    "summary": {
+        "earliestTimestamp": "2015-07-08T20:02:00Z",
+        "numChanges": 133,
+        "numUsers": 25
+    }
+}

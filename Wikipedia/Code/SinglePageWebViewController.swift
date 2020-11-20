@@ -1,10 +1,20 @@
 import WebKit
+import CocoaLumberjackSwift
 
 class SinglePageWebViewController: ViewController {
     let url: URL
-    
-    required init(url: URL, theme: Theme) {
+    var doesUseSimpleNavigationBar: Bool {
+        didSet {
+            if doesUseSimpleNavigationBar {
+                navigationItem.setRightBarButtonItems([], animated: false)
+                navigationItem.titleView = nil
+            }
+        }
+    }
+
+    required init(url: URL, theme: Theme, doesUseSimpleNavigationBar: Bool = false) {
         self.url = url
+        self.doesUseSimpleNavigationBar = doesUseSimpleNavigationBar
         super.init()
         self.theme = theme
         if #available(iOS 14.0, *) {
@@ -48,12 +58,15 @@ class SinglePageWebViewController: ViewController {
         view.wmf_addSubviewWithConstraintsToEdges(webView)
         scrollView = webView.scrollView
         scrollView?.delegate = self
-        let safariItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(tappedAction(_:)))
-        let searchItem = AppSearchBarButtonItem.newAppSearchBarButtonItem
-        navigationItem.setRightBarButtonItems([searchItem, safariItem], animated: false)
-        
-        setupWButton()
-        
+
+        if !doesUseSimpleNavigationBar {
+            let safariItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(tappedAction(_:)))
+            let searchItem = AppSearchBarButtonItem.newAppSearchBarButtonItem
+            navigationItem.setRightBarButtonItems([searchItem, safariItem], animated: false)
+
+            setupWButton()
+        }
+
         super.viewDidLoad()
     }
     

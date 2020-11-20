@@ -517,7 +517,6 @@
 "on-this-day-detail-header-date-range" = "$1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historická udalosť|$1 historické udalosti|$1 historických udalostí}}";
 "on-this-day-footer" = "Ďalšie historické udalosti, ktoré sa odohrali v tento deň";
-"on-this-day-footer-with-event-count" = "$1 ďalších historických udalostí v tento deň";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 z Wikipédie v jazyku $2";
 "on-this-day-title" = "Dnes";
 "original-tab-button-popover-description" = "Ťuknutím na W sa vrátite na kartu, z ktorej ste začali";

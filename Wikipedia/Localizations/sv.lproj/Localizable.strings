@@ -20,9 +20,43 @@
 // Author: Rockyfelle
 // Author: Sabelöga
 // Author: Skalman
+// Author: Smetanakaviar
 // Author: Technic2
 // Author: WikiPhoenix
 
+"aaald-added-text-description-2" = "$1 lades till";
+"aaald-article-description-updated-description" = "Artikelns titelbeskrivning uppdaterades";
+"aaald-article-insert-header" = "Betydande uppdateringar";
+"aaald-article-insert-last-updated" = "Senast uppdaterad";
+"aaald-article-insert-new-changes" = "Nya ändringar";
+"aaald-article-insert-read-more" = "Läs fler uppdateringar";
+"aaald-characters-text-description" = "{{PLURAL:$1|0=tecken|tecken|tecken}}{{PLURAL:$1|}}";
+"aaald-deleted-text-description-2" = "$1 raderades";
+"aaald-error-subitle" = "Uppdatera för att försöka igen";
+"aaald-error-title" = "Kunde inte läsa in artikelhistoriken";
+"aaald-many-sections-description" = "i $1 avsnitt";
+"aaald-multiple-changes-description" = "Flera ändringar gjordes";
+"aaald-multiple-references-added-description" = "Flera referenser lades till";
+"aaald-new-book-reference-title" = "Bok";
+"aaald-new-discussion" = "Ny diskussion";
+"aaald-new-journal-reference-database" = "via $1";
+"aaald-new-journal-reference-title" = "Journal";
+"aaald-new-journal-reference-volume" = "Volym $1:";
+"aaald-new-news-reference-retrieved-date" = "Hämtade $1";
+"aaald-new-news-reference-title" = "Nyheter";
+"aaald-new-talk-topic-description-format" = "$1 om denna artikel";
+"aaald-new-website-reference-archive-date-text" = "från originalet den $1";
+"aaald-new-website-reference-archive-url-text" = "Webbadress för Archive.org";
+"aaald-new-website-reference-title" = "Webbplats";
+"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 referens|$1 referens|$1 referenser}} lades till";
+"aaald-one-section-description" = "i avsnittet $1";
+"aaald-revision-userInfo" = "Redigering av $1 ($2 redigeringar)";
+"aaald-single-reference-added-description" = "Referens lades till";
+"aaald-small-change-description" = "{{PLURAL:$1|0=Inga mindre ändringar gjordes|$1 mindre ändring gjordes|$1 mindre ändringar gjordes}}";
+"aaald-summary-title" = "{{PLURAL:$1|0=0 ändringar|$1 ändring|$1 ändringar}} av {{PLURAL:$2|0=0 redigerare|$2 redigerare|$2 redigerare}} under {{PLURAL:$3|0=0 dag|$3 dag|$3 dagar}}";
+"aaald-two-sections-description" = "i avsnitten $1 och $2";
+"aaald-vandalism-revert-description" = "Misstänkt vandalism återställdes";
+"aaald-view-full-history-button" = "Visa artikelns fullständiga historik";
 "about-content-license" = "Innehållslicens";
 "about-content-license-details" = "Om inget annat anges är innehållet tillgängligt under $1.";
 "about-content-license-details-share-alike-license" = "Creative Commons Attribution-DelaLika";
@@ -118,6 +152,7 @@
 "article-about-title" = "Om denna artikel";
 "article-delete" = "Radera";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|artikel|artiklar}} raderades";
+"article-fetcher-error-updated-content-timeout" = "Appen kunde inte hämta det uppdaterade innehållet i tid. Uppdatera denna sida senare för att se dina ändringar.";
 "article-languages-filter-placeholder" = "Hitta språk";
 "article-languages-label" = "Välj språk";
 "article-languages-others" = "Andra språk";
@@ -145,6 +180,7 @@
 "compass-direction" = "mot klockan $1";
 "continue-reading-empty-description" = "Utforska Wikipedia för fler artiklar att läsa";
 "continue-reading-empty-title" = "Inga nyligen lästa artiklar";
+"data-migration-status" = "Uppdaterar...";
 "description-add-title" = "Lägg till beskrivning";
 "description-edit-for-article" = "Titelbeskrivning för $1";
 "description-edit-learn-more" = "Läs mer";
@@ -527,7 +563,6 @@
 "on-this-day-detail-header-date-range" = "från $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historisk händelse|$1 historiska händelser}}";
 "on-this-day-footer" = "Fler historiska händelser på denna dag";
-"on-this-day-footer-with-event-count" = "$1 fler historiska händelser på denna dag";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 från Wikipedia på $2";
 "on-this-day-title" = "På denna dag";
 "original-tab-button-popover-description" = "Tryck på \"W\" för att återvända till fliken du började ifrån";
@@ -675,6 +710,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "Syntaxmarkering";
 "reading-themes-controls-accessibility-text-size-slider" = "Reglage för textstorlek";
 "reading-themes-controls-syntax-highlighting" = "Syntaxmarkering";
+"reference-section-button-accessibility-label" = "Hoppa till referensavsnittet";
 "reference-title" = "Referens $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Idag|1=Igår|$1 dygn sedan}}";
 "relative-date-hours-abbreviated" = "$1h";
@@ -782,9 +818,10 @@
 "status-saving-for-later" = "Spara till senare...";
 "table-of-contents-button-label" = "Innehållsförteckning";
 "table-of-contents-close-accessibility-hint" = "Stäng";
-"table-of-contents-close-accessibility-label" = "Stäng innehållsförteckning";
+"table-of-contents-close-accessibility-label" = "Fäll ihop innehållsförteckning";
 "table-of-contents-heading" = "Innehåll";
 "table-of-contents-hide-button-label" = "Dölj innehållsförteckning";
+"table-of-contents-subheading-label" = "Underrubrik $1";
 "talk-page-add-discussion-accessibility-label" = "Lägg till diskussion";
 "talk-page-discussion-accessibility-hint" = "Dubbelknacka för att öppna diskussionstråden";
 "talk-page-discussion-read-accessibility-label" = "Läst";

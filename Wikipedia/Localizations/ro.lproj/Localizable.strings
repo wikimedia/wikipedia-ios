@@ -513,7 +513,6 @@
 "on-this-day-detail-header-date-range" = "de la $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 eveniment istoric|$1 evenimente istorice}}";
 "on-this-day-footer" = "Mai multe evenimente istorice în această zi";
-"on-this-day-footer-with-event-count" = "$1 mai multe evenimente istorice din această zi";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 de la $2 Wikipedia";
 "on-this-day-title" = "Astăzi în istorie";
 "original-tab-button-popover-description" = "Atingeți „W” pentru a reveni la fila de la care ați început";

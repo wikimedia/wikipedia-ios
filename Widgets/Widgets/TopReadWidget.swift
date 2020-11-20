@@ -32,38 +32,19 @@ final class TopReadData {
     }
 
     func fetchLatestAvailableTopRead(usingCache: Bool = false, completion userCompletion: @escaping (TopReadEntry) -> Void) {
-        WidgetController.shared.startWidgetUpdateTask(userCompletion) { (dataStore, completion) in
-            let moc = dataStore.viewContext
-            let siteURL = dataStore.languageLinkController.appLanguage?.siteURL()
-            moc.perform {
-                guard let latest = moc.newestGroup(of: .topRead, forSiteURL: siteURL), latest.isForToday else {
-                    guard !usingCache else {
-                        completion(self.placeholder)
-                        return
-                    }
-                    self.fetchLatestAvailableTopReadFromNetwork(from: dataStore, completion: completion)
+        let widgetController = WidgetController.shared
+        widgetController.startWidgetUpdateTask(userCompletion) { (dataStore, widgetUpdateTaskCompletion) in
+            widgetController.fetchNewestWidgetContentGroup(with: .topRead, in: dataStore, isNetworkFetchAllowed: !usingCache) { (contentGroup) in
+                guard let contentGroup = contentGroup else {
+                    widgetUpdateTaskCompletion(self.placeholder)
                     return
                 }
-                self.assembleTopReadFromContentGroup(latest, with: dataStore, usingImageCache: usingCache, completion: completion)
+                self.assembleTopReadFromContentGroup(contentGroup, with: dataStore, usingImageCache: usingCache, completion: widgetUpdateTaskCompletion)
             }
         }
     }
 
     // MARK: Private
-    
-    private func fetchLatestAvailableTopReadFromNetwork(from dataStore: MWKDataStore, completion: @escaping (TopReadEntry) -> Void) {
-        dataStore.feedContentController.updateFeedSourcesUserInitiated(false) {
-            let moc = dataStore.viewContext
-            let siteURL = dataStore.languageLinkController.appLanguage?.siteURL()
-            moc.perform {
-                guard let latest = moc.newestGroup(of: .topRead, forSiteURL: siteURL) else {
-                    completion(self.placeholder)
-                    return
-                }
-                self.assembleTopReadFromContentGroup(latest, with: dataStore, completion: completion)
-            }
-        }
-    }
     
     private func assembleTopReadFromContentGroup(_ topRead: WMFContentGroup, with dataStore: MWKDataStore, usingImageCache: Bool = false, completion: @escaping (TopReadEntry) -> Void) {
         guard let results = topRead.contentPreview as? [WMFFeedTopReadArticlePreview] else {
@@ -75,7 +56,7 @@ final class TopReadData {
         // re-accessing it from the main queue or another queue might lead to unexpected behavior
         let layoutDirection: LayoutDirection = topRead.isRTL ? .rightToLeft : .leftToRight
         let groupURL = topRead.url
-        
+        let isCurrent = topRead.isForToday // even though the top read data is from yesterday, the content group is for today
         var rankedElements: [TopReadEntry.RankedElement] = []
         for article in results {
             if let articlePreview = dataStore.fetchArticle(with: article.articleURL) {
@@ -115,7 +96,7 @@ final class TopReadData {
         }
 
         group.notify(queue: .main) {
-            completion(TopReadEntry(date: Date(), rankedElements: rankedElements, groupURL: groupURL, contentLayoutDirection: layoutDirection))
+            completion(TopReadEntry(date: Date(), rankedElements: rankedElements, groupURL: groupURL, isCurrent: isCurrent, contentLayoutDirection: layoutDirection))
         }
     }
 
@@ -138,6 +119,7 @@ struct TopReadEntry: TimelineEntry {
     let date: Date // for Timeline Entry
     var rankedElements: [RankedElement] = Array(repeating: RankedElement.init(title: "–", description: "–", image: nil, viewCounts: [.init(floatLiteral: 0)]), count: 4)
     var groupURL: URL? = nil
+    var isCurrent: Bool = false
     var contentLayoutDirection: LayoutDirection = .leftToRight
 }
 
@@ -161,17 +143,16 @@ struct TopReadProvider: TimelineProvider {
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<TopReadEntry>) -> Void) {
         dataStore.fetchLatestAvailableTopRead { entry in
-            let timeline: Timeline<TopReadEntry>
-            let isError = (entry.groupURL == nil)
+            let isError = entry.groupURL == nil || !entry.isCurrent
+            let nextUpdate: Date
+            let currentDate = Date()
             if !isError {
-                timeline = Timeline(entries: [entry], policy: .atEnd)
+                nextUpdate = currentDate.randomDateShortlyAfterMidnight() ?? currentDate
             } else {
-                let currentDate = Date()
                 let components = DateComponents(hour: 2)
-                let nextUpdate = Calendar.current.date(byAdding: components, to: currentDate) ?? currentDate
-                timeline = Timeline(entries: [entry], policy: .after(nextUpdate))
+                nextUpdate = Calendar.current.date(byAdding: components, to: currentDate) ?? currentDate
             }
-            completion(timeline)
+            completion(Timeline(entries: [entry], policy: .after(nextUpdate)))
         }
     }
 

@@ -312,7 +312,7 @@
 "more-languages-tooltip-title" = "Thêm ngôn ngữ";
 "move-articles-to-reading-list" = "Di chuyển {{PLURAL:$1|$1 bài viết|$1 bài viết}} vào danh sách đọc";
 "navbar-title-mode-edit-wikitext-preview" = "Xem trước";
-"nearby-distance-label-feet" = "$1 foot";
+"nearby-distance-label-feet" = "$1 bộ";
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 dặm";
@@ -325,7 +325,6 @@
 "on-this-day-detail-header-date-range" = "từ $1–$2";
 "on-this-day-detail-header-title" = "$1 sự kiện trong lịch sử";
 "on-this-day-footer" = "Thêm sự kiện xảy ra ngày nay năm xưa";
-"on-this-day-footer-with-event-count" = "$1 sự kiện nữa xảy ra ngày này năm xưa";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 từ Wikipedia tiếng $2";
 "on-this-day-title" = "Ngày này năm xưa";
 "original-tab-button-popover-description" = "Chạm vào chữ “W” để quay lại thẻ ban đầu";

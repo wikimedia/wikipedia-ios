@@ -543,11 +543,6 @@
         return;
     }
     
-#if WMF_ANNOUNCEMENT_DATE_IGNORE
-    if (!self.isVisible) {
-        self.isVisible = YES;
-    }
-#else
     if (!announcement.startTime || !announcement.endTime) {
         if (self.isVisible) {
             self.isVisible = NO;
@@ -565,8 +560,6 @@
             self.isVisible = NO;
         }
     }
-#endif
-    
 }
 @end
 

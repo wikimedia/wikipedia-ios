@@ -29,7 +29,8 @@
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, beta): @"beta",
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, domain): @"domain",
         WMF_SAFE_KEYPATH(WMFAnnouncement.new, articleTitles): @"articleTitles",
-        WMF_SAFE_KEYPATH(WMFAnnouncement.new, displayDelay): @"displayDelay"
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, displayDelay): @"displayDelay",
+        WMF_SAFE_KEYPATH(WMFAnnouncement.new, percentReceivingExperiment): @"percent_receiving_experiment"
     };
 }
 
@@ -43,13 +44,6 @@
     }
     
     return _actionURL;
-}
-
-- (nullable NSURL *)actionURLReplacingPlaceholder:(nonnull NSString *)placeholder withValue: (nonnull NSString *)value {
-    
-    NSString *urlString = [self.actionURLString stringByReplacingOccurrencesOfString:placeholder withString:value];
-    
-    return [NSURL URLWithString:urlString];
 }
 
 + (NSValueTransformer *)imageURLJSONTransformer {

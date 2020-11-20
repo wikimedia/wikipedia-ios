@@ -27,6 +27,40 @@
 // Author: 烈羽
 // Author: 神樂坂秀吉
 
+"aaald-added-text-description-2" = "$1已新增";
+"aaald-article-description-updated-description" = "條目標題描述已更新";
+"aaald-article-insert-header" = "重要更新";
+"aaald-article-insert-last-updated" = "上一次更新";
+"aaald-article-insert-new-changes" = "新的更改";
+"aaald-article-insert-read-more" = "閱讀更多更新內容";
+"aaald-characters-text-description" = "{{PLURAL:$1|0=字元|字元|字元}}";
+"aaald-deleted-text-description-2" = "$1已刪除";
+"aaald-error-subitle" = "重新整理來再次嘗試";
+"aaald-error-title" = "無法載入內嵌條目的歷史紀錄";
+"aaald-many-sections-description" = "在第 $1 段";
+"aaald-multiple-changes-description" = "做出多次更改";
+"aaald-multiple-references-added-description" = "添加多個參考資料";
+"aaald-new-book-reference-title" = "書籍";
+"aaald-new-discussion" = "新討論";
+"aaald-new-journal-reference-database" = "透過 $1";
+"aaald-new-journal-reference-title" = "期刊";
+"aaald-new-journal-reference-volume" = "卷 $1：";
+"aaald-new-news-reference-retrieved-date" = "檢索於 $1";
+"aaald-new-news-reference-title" = "新聞";
+"aaald-new-talk-topic-description-format" = "關於此條目的$1";
+"aaald-new-website-reference-archive-date-text" = "來自於 $1 的原有內容";
+"aaald-new-website-reference-archive-url-text" = "Archive.org URL";
+"aaald-new-website-reference-title" = "網站";
+"aaald-numerical-multiple-references-added-description" = "增加 {{PLURAL:$1|0=0|$1|$1}} 個參考資料";
+"aaald-one-section-description" = "在$1段落";
+"aaald-revision-by-anonymous" = "由匿名使用者做出的編輯";
+"aaald-revision-userInfo" = "由$1編輯（$2 次編輯數）";
+"aaald-single-reference-added-description" = "參考資料已添加";
+"aaald-small-change-description" = "做出 {{PLURAL:$1|0=0|$1|$1}} 次小更改";
+"aaald-summary-title" = "在 {{PLURAL:$3|0=0|$3|$3}} 天裡由 {{PLURAL:$2|0=0|$2|$2}} 位編者做出 {{PLURAL:$1|0=0|$1|$1}} 更改";
+"aaald-two-sections-description" = "在$1與$2段落";
+"aaald-vandalism-revert-description" = "疑似故意破壞";
+"aaald-view-full-history-button" = "查看完整的條目歷史";
 "about-content-license" = "內容許可協議";
 "about-content-license-details" = "除非另有聲明，內容皆基於$1授權。";
 "about-content-license-details-share-alike-license" = "創作共用 姓名標示 - 相同方式分享";
@@ -107,7 +141,7 @@
 "add-articles-to-reading-list" = "新增 {{PLURAL:$1|$1 個條目|$1 個條目}}至閱讀清單";
 "add-citation-title" = "新增引用";
 "announcements-dismiss" = "關閉";
-"app-store-keywords" = "維基百科,參考,wiki,百科全書,訊息,知識,研究,資訊,探索,學習";
+"app-store-keywords" = "維基百科、參考資料、wiki、百科全書、訊息、知識、研究、資訊、探索、學習";
 "app-store-release-notes" = "可完整客製化，且更容易讀取探索摘要。在地化、性能改進、並修正程式錯誤。";
 "app-store-short-description" = "下載維基百科應用程式來探索您附近的地點，同步條目以離線閱讀，並自訂化您的閱讀體驗。";
 "app-store-subtitle" = "自由的百科全書";
@@ -122,6 +156,7 @@
 "article-about-title" = "關於此條目";
 "article-delete" = "刪除";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|條目|條目}}已刪除";
+"article-fetcher-error-updated-content-timeout" = "應用程式無法即時檢索更新的內容。請稍後重新整理此頁面，以查看您所做出的更改。";
 "article-languages-filter-placeholder" = "尋找語言";
 "article-languages-label" = "選擇語言";
 "article-languages-others" = "其他語言";
@@ -149,6 +184,7 @@
 "compass-direction" = "在 $1 時";
 "continue-reading-empty-description" = "瀏覽維基百科以閱讀更多條目";
 "continue-reading-empty-title" = "沒有最近讀取的條目";
+"data-migration-status" = "更新中…";
 "description-add-title" = "添加描述";
 "description-edit-for-article" = "$1的標題描述";
 "description-edit-learn-more" = "了解更多";
@@ -368,7 +404,7 @@
 "explore-hide-card-prompt" = "隱藏此卡片";
 "explore-main-page-description" = "維基媒體計畫首頁";
 "explore-main-page-heading" = "維基百科今日";
-"explore-most-read-footer" = "所有被最多閱讀的條目";
+"explore-most-read-footer" = "所有被閱讀最多次的條目";
 "explore-most-read-generic-heading" = "最多閱讀";
 "explore-most-read-more-list-title-for-date" = "在 $1 的熱門條目";
 "explore-most-read-sub-heading-on-language-wikipedia" = "在$1維基百科";
@@ -531,7 +567,7 @@
 "on-this-day-detail-header-date-range" = "從 $1 到 $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 個歷史事件|$1 個歷史事件}}";
 "on-this-day-footer" = "更多歷史上的今天事件";
-"on-this-day-footer-with-event-count" = "更多 $1 個歷史上的今天事件";
+"on-this-day-footer-showing-event-count" = "更多 {{PLURAL:$1|$1|$1}} 個在今天的歷史事件";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "來自於$2維基百科的 $1";
 "on-this-day-title" = "歷史上的今天";
 "original-tab-button-popover-description" = "輕觸「W」來返回至您起始的分頁";
@@ -577,9 +613,9 @@
 "places-filter-button-title" = "篩選";
 "places-filter-no-saved-places" = "您已沒有儲存的地方";
 "places-filter-saved-articles" = "已儲存條目";
-"places-filter-top-articles" = "最多閱讀";
+"places-filter-top-articles" = "被閱讀最多次";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 個條目|$1 個條目}}";
-"places-filter-top-read-articles" = "被最多閱讀的條目";
+"places-filter-top-read-articles" = "被閱讀最多次的條目";
 "places-location-enabled" = "位置已啟用";
 "places-no-saved-articles-have-location" = "您所儲存的條目皆未有位置訊息";
 "places-search-articles-that-match" = "$1符合「$2」";
@@ -679,6 +715,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "語法突顯";
 "reading-themes-controls-accessibility-text-size-slider" = "文字大小滑動桿";
 "reading-themes-controls-syntax-highlighting" = "語法突顯";
+"reference-section-button-accessibility-label" = "跳到參考資料段落";
 "reference-title" = "參考資料 $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=今天|1=昨天|$1 天前}}";
 "relative-date-hours-abbreviated" = "$1 小時";
@@ -744,7 +781,7 @@
 "settings-languages-feed-customization" = "透過自訂您的探索摘要設定，您可以管理在您的探索摘要裡所要顯示出的語言。";
 "settings-my-languages" = "我的語言";
 "settings-notifications" = "通知";
-"settings-notifications-info" = "經由我們推發通知提醒注意在維基百科上的被最多閱讀以及趨勢條目。所有提供內容皆考量到隱私及最新資料。";
+"settings-notifications-info" = "經由我們推發通知提醒注意在維基百科上的被閱讀最多次以及趨勢條目。所有提供內容皆考量到隱私及最新資料。";
 "settings-notifications-learn-more" = "了解更多通知內容";
 "settings-notifications-push-notifications" = "推發通知";
 "settings-notifications-system-turn-on" = "開啟通知";
@@ -789,6 +826,7 @@
 "table-of-contents-close-accessibility-label" = "關閉目錄";
 "table-of-contents-heading" = "內容";
 "table-of-contents-hide-button-label" = "隱藏目錄";
+"table-of-contents-subheading-label" = "副標題$1";
 "talk-page-add-discussion-accessibility-label" = "新增討論";
 "talk-page-discussion-accessibility-hint" = "輕觸兩次來開啟討論串";
 "talk-page-discussion-read-accessibility-label" = "已讀";
@@ -828,7 +866,7 @@
 "theme-sepia-display-name" = "深褐";
 "top-read-header-generic" = "維基百科";
 "top-read-header-with-language" = "$1維基百科";
-"top-read-see-more" = "查看其它最多閱讀";
+"top-read-see-more" = "查看更多熱門條目";
 "two-factor-login-continue" = "繼續登入";
 "two-factor-login-instructions" = "請輸入雙重驗證代碼";
 "two-factor-login-title" = "登入至您的帳號";

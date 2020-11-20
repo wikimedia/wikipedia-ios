@@ -10,6 +10,7 @@ import UIKit
     @objc public static let semiboldSubheadline = DynamicTextStyle(.system, .subheadline, .semibold)
     public static let mediumSubheadline = DynamicTextStyle(.system, .subheadline, .medium)
     public static let boldSubheadline = DynamicTextStyle(.system, .subheadline, .bold)
+    public static let italicSubheadline = DynamicTextStyle(.system, .subheadline, .regular,  [UIFontDescriptor.SymbolicTraits.traitItalic])
     
     public static let headline = DynamicTextStyle(.system, .headline)
     public static let mediumHeadline = DynamicTextStyle(.system, .headline, .medium)
@@ -24,6 +25,7 @@ import UIKit
     public static let boldFootnote = DynamicTextStyle(.system, .footnote, .bold)
 
     public static let boldTitle1 = DynamicTextStyle(.system, .title1, .bold)
+    public static let mediumTitle1 = DynamicTextStyle(.system, .title1, .medium)
     public static let heavyTitle1 = DynamicTextStyle(.system, .title1, .heavy)
 
     public static let boldTitle2 = DynamicTextStyle(.system, .title2, .bold)

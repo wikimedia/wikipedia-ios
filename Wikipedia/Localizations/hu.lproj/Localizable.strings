@@ -4,6 +4,7 @@
 // Author: Bencemac
 // Author: Csega
 // Author: Dj
+// Author: Hanna Tardos
 // Author: Macofe
 // Author: MeskoBalazs
 // Author: Misibacsi
@@ -14,6 +15,26 @@
 // Author: Tacsipacsi
 // Author: Urbalazs
 
+"aaald-article-description-updated-description" = "Cikk címleírás frissítve";
+// Fuzzy
+"aaald-article-insert-header" = "Kiemelt események";
+"aaald-article-insert-last-updated" = "Utoljára frissítve";
+"aaald-article-insert-new-changes" = "Új változtatások";
+"aaald-article-insert-read-more" = "További frissítések elolvasása";
+"aaald-error-subitle" = "Frissítsd és próbáld újra";
+"aaald-multiple-changes-description" = "Több változtatás is történt";
+"aaald-multiple-references-added-description" = "Referenciák hozzáadva";
+"aaald-new-book-reference-title" = "Könyv";
+"aaald-new-discussion" = "Új téma";
+"aaald-new-news-reference-title" = "Hírek";
+"aaald-new-talk-topic-description-format" = "$1 erről a szócikkről";
+"aaald-new-website-reference-archive-url-text" = "Archive.org URL";
+"aaald-new-website-reference-title" = "Weboldal";
+"aaald-numerical-multiple-references-added-description" = "$1 referencia hozzáadva";
+"aaald-revision-userInfo" = "Szerkesztette $1 ($2 szerkesztés)";
+"aaald-single-reference-added-description" = "Referencia hozzáadva";
+"aaald-summary-title" = "Az elmúlt $3 napban $2 szerkesztő $1 változtatást végzett";
+"aaald-view-full-history-button" = "Teljes cikktörténet megtekintése";
 "about-content-license" = "Tartalom licence";
 "about-content-license-details" = "Ha nincs másképp jelezve, a tartalom $1 alatt érhető el.";
 "about-content-license-details-share-alike-license" = "Creative Commons Nevezd meg! – Így add tovább! licenc";
@@ -107,6 +128,7 @@
 "appearance-settings-theme-options" = "Témabeállítások";
 "article-delete" = "Törlés";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|szócikk|szócikk}} törölve";
+"article-fetcher-error-updated-content-timeout" = "Az applikációnak nem sikerült időben lehívnia a frissített tartalmat. Kérjük, frissítsd az oldalt később a változások megtekintéséhez.";
 "article-languages-filter-placeholder" = "Nyelv keresése";
 "article-languages-label" = "Nyelvválasztás";
 "article-languages-others" = "Más nyelvek";
@@ -132,6 +154,7 @@
 "compass-direction" = "$1 óra irányban";
 "continue-reading-empty-description" = "Fedezd fel a Wikipédiát több szócikkért";
 "continue-reading-empty-title" = "Nincsenek nemrég olvasott szócikkek";
+"data-migration-status" = "Frissítés...";
 "description-add-title" = "Leírás hozzáadása";
 "description-edit-learn-more" = "Tudj meg többet";
 "description-edit-length-warning" = "$1/$2";
@@ -414,7 +437,6 @@
 "on-this-day-detail-header-date-range" = "$1 és $2 között";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 történelmi esemény|$1 történelmi esemény}}";
 "on-this-day-footer" = "Több történelmi esemény ezen a napon";
-"on-this-day-footer-with-event-count" = "$1 további történelmi esemény ezen a napon";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 a(z) $2 Wikipédiáról";
 "on-this-day-title" = "Ezen a napon";
 "page-history-anonymous-edits" = "névtelen szerkesztés";
@@ -514,6 +536,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "Szintaxiskiemelés";
 "reading-themes-controls-accessibility-text-size-slider" = "Szövegméret csúszka";
 "reading-themes-controls-syntax-highlighting" = "Szintaxiskiemelés";
+"reference-section-button-accessibility-label" = "Ugrás a referenciákhoz";
 "reference-title" = "Forráshivatkozás $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Ma|1=Tegnap|$1 napja}}";
 "relative-date-hours-abbreviated" = "$1 óra";
@@ -594,6 +617,7 @@
 "table-of-contents-close-accessibility-hint" = "Bezárás";
 "table-of-contents-close-accessibility-label" = "Tartalomjegyzék bezárása";
 "table-of-contents-heading" = "Tartalom";
+"table-of-contents-subheading-label" = "Alcím $1";
 "talk-page-discussion-read-accessibility-label" = "Olvasott";
 "talk-page-discussion-unread-accessibility-label" = "Olvasatlan";
 "talk-page-error-unable-to-post-reply" = "Nincs internetkapcsolat, nem sikerült elküldeni a választ.";

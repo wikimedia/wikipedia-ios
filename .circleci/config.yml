@@ -6,7 +6,7 @@ version: 2.1
 executors:
   xcode:
     macos:
-      xcode: 12.0.0
+      xcode: 12.2.0
 
 commands:
   install_dependencies:
@@ -19,6 +19,13 @@ commands:
           key: 1-gems-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
+  work_around_swift_package_manager_bug:
+    description: "Work around a Swift package manager bug" # https://support.circleci.com/hc/en-us/articles/360044709573?input_string=unable%2Bto%2Baccess%2Bprivate%2Bswift%2Bpackage%2Brepository
+    steps:
+      - run: sudo defaults write com.apple.dt.Xcode IDEPackageSupportUseBuiltinSCM YES
+      - run: rm ~/.ssh/id_rsa || true
+      - run: for ip in $(dig @8.8.8.8 bitbucket.org +short); do ssh-keyscan bitbucket.org,$ip; ssh-keyscan $ip; done 2>/dev/null >> ~/.ssh/known_hosts || true
+      - run: for ip in $(dig @8.8.8.8 github.com +short); do ssh-keyscan github.com,$ip; ssh-keyscan $ip; done 2>/dev/null >> ~/.ssh/known_hosts || true
 
 jobs:
   test_pr:
@@ -26,6 +33,7 @@ jobs:
     steps:
       - checkout
       - install_dependencies
+      - work_around_swift_package_manager_bug
       - run:
           name: Fastlane
           command: bundle exec fastlane verify_pull_request

@@ -32,6 +32,40 @@
 // Author: Walesson
 // Author: Webysther
 
+"aaald-added-text-description-2" = "$1 adicionado";
+"aaald-article-description-updated-description" = "Descrição do título do artigo atualizada";
+"aaald-article-insert-header" = "Atualizações significativas";
+"aaald-article-insert-last-updated" = "Última atualização";
+"aaald-article-insert-new-changes" = "Novas alterações";
+"aaald-article-insert-read-more" = "Leia mais atualizações";
+"aaald-characters-text-description" = "{{PLURAL:$1|0=caracteres|character|caracteres}}";
+"aaald-deleted-text-description-2" = "$1 excluído";
+"aaald-error-subitle" = "Atualize para tentar novamente";
+"aaald-error-title" = "Não é possível carregar o histórico do artigo embutido";
+"aaald-many-sections-description" = "em $1 seções";
+"aaald-multiple-changes-description" = "Várias alterações feitas";
+"aaald-multiple-references-added-description" = "Múltiplas referências adicionadas";
+"aaald-new-book-reference-title" = "Livro";
+"aaald-new-discussion" = "Nova discussão";
+"aaald-new-journal-reference-database" = "via $1";
+"aaald-new-journal-reference-title" = "Diário";
+"aaald-new-journal-reference-volume" = "Volume $1:";
+"aaald-new-news-reference-retrieved-date" = "Recuperado $1";
+"aaald-new-news-reference-title" = "Notícias";
+"aaald-new-talk-topic-description-format" = "$1 sobre este artigo";
+"aaald-new-website-reference-archive-date-text" = "do original em $1";
+"aaald-new-website-reference-archive-url-text" = "URL do Archive.org";
+"aaald-new-website-reference-title" = "Site";
+"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 referências adicionadas|$1 referência adicionada|$1 referências adicionadas}}";
+"aaald-one-section-description" = "na seção $1";
+"aaald-revision-by-anonymous" = "Editar por usuário anônimo";
+"aaald-revision-userInfo" = "Editar por $1 ($2 edições)";
+"aaald-single-reference-added-description" = "Referência adicionada";
+"aaald-small-change-description" = "{{PLURAL:$1|0=Nenhuma edição menor realizada|$1 edição menor realizada|$1 edições menores realizadas}}";
+"aaald-summary-title" = "{{PLURAL:$1|0=0 mudanças|$1 mudança|$1 mudanças}} por {{PLURAL:$2|0=0 editores|$2 editor|$2 editores}} em {{PLURAL:$3|0=0 dias|$3 dia|$3 dias}}";
+"aaald-two-sections-description" = "nas seções $1 e $2";
+"aaald-vandalism-revert-description" = "Suspeita de vandalismo revertida";
+"aaald-view-full-history-button" = "Ver o histórico completo do artigo";
 "about-content-license" = "Licença de conteúdo";
 "about-content-license-details" = "A menos que especificado o contrário, o conteúdo está disponível sob a $1.";
 "about-content-license-details-share-alike-license" = "Licença Creative Commons Atribuição-PartilhaIgual";
@@ -127,6 +161,7 @@
 "article-about-title" = "Sobre este artigo";
 "article-delete" = "Deletar";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|artigo eliminado|artigos eliminados}}";
+"article-fetcher-error-updated-content-timeout" = "O aplicativo não conseguiu recuperar o conteúdo atualizado a tempo. Atualize esta página mais tarde para ver suas alterações refletidas.";
 "article-languages-filter-placeholder" = "Encontrar idioma";
 "article-languages-label" = "Escolha um idioma";
 "article-languages-others" = "Outros idiomas";
@@ -154,6 +189,7 @@
 "compass-direction" = "às $1 horas";
 "continue-reading-empty-description" = "Explorar a Wikipédia para ler mais artigos";
 "continue-reading-empty-title" = "Nenhum artigo lido recentemente";
+"data-migration-status" = "Atualizando...";
 "description-add-title" = "Adicionar descrição";
 "description-edit-for-article" = "Descrição do título para $1";
 "description-edit-learn-more" = "Saiba mais";
@@ -536,7 +572,7 @@
 "on-this-day-detail-header-date-range" = "de $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 evento histórico|$1 eventos históricos}}";
 "on-this-day-footer" = "Mais eventos históricos neste dia";
-"on-this-day-footer-with-event-count" = "$1 mais eventos históricos neste dia";
+"on-this-day-footer-showing-event-count" = "{{PLURAL:$1|Mais $1 evento histórico|Mais $1 eventos históricos}} nesse dia";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 a partir de $2 Wikipedia";
 "on-this-day-title" = "Neste dia";
 "original-tab-button-popover-description" = "Toque no 'W' para voltar a a guia onde começou";
@@ -684,6 +720,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "Realce de sintaxe";
 "reading-themes-controls-accessibility-text-size-slider" = "Controlador de tamanho de texto";
 "reading-themes-controls-syntax-highlighting" = "Realce de sintaxe";
+"reference-section-button-accessibility-label" = "Ir para a seção de referência";
 "reference-title" = "Referências $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Today|1=Ontem|$1 dias atrás}}";
 "relative-date-hours-abbreviated" = "$1h";
@@ -794,6 +831,7 @@
 "table-of-contents-close-accessibility-label" = "Fechar Tabela de conteúdos";
 "table-of-contents-heading" = "Conteúdo";
 "table-of-contents-hide-button-label" = "Ocultar sumário";
+"table-of-contents-subheading-label" = "Subtítulo $1";
 "talk-page-add-discussion-accessibility-label" = "Adicionar discussão";
 "talk-page-discussion-accessibility-hint" = "Toque duas vezes para abrir o tópico de discussão";
 "talk-page-discussion-read-accessibility-label" = "Ler";

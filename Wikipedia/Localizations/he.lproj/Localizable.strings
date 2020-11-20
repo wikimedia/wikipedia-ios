@@ -16,9 +16,38 @@
 // Author: YaronSh
 // Author: איתן96
 // Author: דגש חזק
+// Author: ישראל קלר
 // Author: נדב ס
 // Author: שמזן
 
+"aaald-article-description-updated-description" = "תיאור כותרת הערך עודכן";
+// Fuzzy
+"aaald-article-insert-header" = "אירועים משמעותיים";
+"aaald-article-insert-last-updated" = "עדכון אחרון";
+"aaald-article-insert-new-changes" = "שינויים חדשים";
+"aaald-article-insert-read-more" = "לקרוא עדכונים נוספים";
+"aaald-error-subitle" = "נא לרענן כדי לנסות שוב";
+"aaald-error-title" = "לא ניתן לטעון היסטוריית ערך להצגה פנימית";
+"aaald-many-sections-description" = "ב־$1 פרקים";
+"aaald-multiple-changes-description" = "בוצעו מספר שינויים";
+"aaald-multiple-references-added-description" = "נוספו מספר הפניות";
+"aaald-new-book-reference-title" = "ספר";
+"aaald-new-discussion" = "דיון חדש";
+"aaald-new-journal-reference-database" = "דרך $1";
+"aaald-new-journal-reference-title" = "כתב־עת";
+"aaald-new-journal-reference-volume" = "כרך $1:";
+"aaald-new-news-reference-retrieved-date" = "התקבל ב־$1";
+"aaald-new-news-reference-title" = "חדשות";
+"aaald-new-talk-topic-description-format" = "$ 1 על מאמר זה";
+"aaald-new-website-reference-archive-date-text" = "מהמקור ב־$1";
+"aaald-new-website-reference-archive-url-text" = "כתובת אצל Archive.org";
+"aaald-new-website-reference-title" = "אתר אינטרנט";
+"aaald-one-section-description" = "בפרק $1";
+"aaald-revision-userInfo" = "עריכה מאת $1 ($2 עריכות)";
+"aaald-single-reference-added-description" = "נוסף מקור";
+"aaald-two-sections-description" = "בפרקים $1 ו$2";
+"aaald-vandalism-revert-description" = "חשש להשחתה הוחזר למוטב";
+"aaald-view-full-history-button" = "הצגת ההיסטוריה המלאה של הערך";
 "about-content-license" = "רישיון תוכן";
 "about-content-license-details" = "אלא אם נאמר אחרת, התוכן זמין לפי תנאי $1.";
 "about-content-license-details-share-alike-license" = "קריאייטיב קומונז–ייחוס–שיתוף זהה";
@@ -44,7 +73,7 @@
 "about-wikipedia" = "ויקיפדיה";
 "abuse-filter-disallow-heading" = "לא ניתן לפרסם את העריכה הזאת.";
 "abuse-filter-disallow-unconstructive" = "מסנן אוטומטי זיהה את העריכה הזאת בתור בלתי־מועילה או בתור ניסיון השחתה. נא לחזור ולשנות את העריכה שלך.";
-"abuse-filter-warning-blanking" = "מחיקת פסקאות או ערכים שלמים";
+"abuse-filter-warning-blanking" = "מחיקת פרקים או ערכים שלמים";
 "abuse-filter-warning-caps" = "הקלדה באותיות גדולות";
 "abuse-filter-warning-heading" = "עריכה זו זוהתה כעריכה בלתי מועילה. האם ברצונך לפרסם אותה?";
 "abuse-filter-warning-irrelevant" = "קישורים חיצוניים או צילומים בלתי־רלוונטיים";
@@ -114,6 +143,7 @@
 "article-about-title" = "מידע על הערך הזה";
 "article-delete" = "מחיקה";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|הערך נמחק|הערכים נמחקו}}";
+"article-fetcher-error-updated-content-timeout" = "היישומון לא הצליח לקבל את התוכן העדכני בזמן. נא לרענן את העמוד מאוחר יותר כדי לראות את השפעת השינויים שערכת.";
 "article-languages-filter-placeholder" = "מציאת שפה";
 "article-languages-label" = "בחירת שפה";
 "article-languages-others" = "שפות אחרות";
@@ -141,6 +171,7 @@
 "compass-direction" = "בשעה $1";
 "continue-reading-empty-description" = "לגלות עוד ערכים לקרוא בוויקיפדיה";
 "continue-reading-empty-title" = "אין ערכים שנקראו לאחרונה";
+"data-migration-status" = "מתבצע עדכון…";
 "description-add-title" = "הוספת תיאור";
 "description-edit-for-article" = "תיאור כותרת עבור $1";
 "description-edit-learn-more" = "מידע נוסף";
@@ -187,7 +218,7 @@
 "diff-paragraph-moved-direction-down" = "מטה";
 "diff-paragraph-moved-direction-up" = "מעלה";
 "diff-paragraph-moved-distance-line" = "{{PLURAL:$1|שורה אחת|$1 שורות}}";
-"diff-paragraph-moved-distance-section" = "{{PLURAL:$1|מקטע אחד|$1 מקטעים}}";
+"diff-paragraph-moved-distance-section" = "{{PLURAL:$1|פרק אחד|$1 פרקים}}";
 "diff-paragraph-moved-format" = "פסקה הועברה $1 $2";
 "diff-revision-error-title" = "לא ניתן לטעון גרסה";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|עריכה אחת|$1 עריכות}}";
@@ -523,7 +554,6 @@
 "on-this-day-detail-header-date-range" = "מ־$1 עד $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|אירוע היסטורי|$1 אירועים היסטוריים}}";
 "on-this-day-footer" = "עוד אירועים היסטוריים ביום הזה";
-"on-this-day-footer-with-event-count" = "$1 אירועים היסטוריים נוספים ביום הזה";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 מתוך ויקיפדיה ב$2";
 "on-this-day-title" = "ביום הזה";
 "original-tab-button-popover-description" = "ניתן ללחוץ על 'W' כדי לחזור ללשונית שהתחלת ממנה";
@@ -671,6 +701,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "הדגשת תחביר";
 "reading-themes-controls-accessibility-text-size-slider" = "מחלק גודל טקסט";
 "reading-themes-controls-syntax-highlighting" = "הדגשת תחביר";
+"reference-section-button-accessibility-label" = "מעבר לפרק המקורות";
 "reference-title" = "הערה $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=היום|1=אתמול|2=שלשום|לפני $1 ימים}}";
 "relative-date-hours-abbreviated" = "$1 שע׳";
@@ -781,6 +812,7 @@
 "table-of-contents-close-accessibility-label" = "סגירת תוכן העניינים";
 "table-of-contents-heading" = "תוכן עניינים";
 "table-of-contents-hide-button-label" = "הסתרת תוכן העניינים";
+"table-of-contents-subheading-label" = "כותרת־משנה $1";
 "talk-page-add-discussion-accessibility-label" = "הוספת דיון";
 "talk-page-discussion-accessibility-hint" = "יש לגעת נגיעה כפולה כדי לפתוח שרשור דיון";
 "talk-page-discussion-read-accessibility-label" = "נקרא";

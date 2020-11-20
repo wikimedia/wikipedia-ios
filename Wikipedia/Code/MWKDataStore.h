@@ -16,6 +16,9 @@
 @class WMFPermanentCacheController;
 @class WMFNotificationsController;
 @class WMFAuthenticationManager;
+@class WMFABTestsController;
+
+@protocol ABTestsPersisting;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -54,6 +57,9 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 - (instancetype)init;
 
 - (instancetype)initWithContainerURL:(NSURL *)containerURL NS_DESIGNATED_INITIALIZER;
+
+/// Call to cancel any async tasks and wait for completion
+- (void)teardown:(nullable dispatch_block_t)completion;
 
 @property (readonly, strong, nonatomic) NSURL *containerURL;
 @property (readonly, strong, nonatomic) WMFSession *session;
@@ -135,6 +141,12 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 // Storage helper methods
 
 - (NSError *)removeFolderAtBasePath;
+
+#pragma mark - ABTestsController
+
+@property (readonly, strong, nonatomic) WMFABTestsController *abTestsController;
+
+- (void)setupAbTestsControllerWithPersistenceService: (id<ABTestsPersisting>)persistenceService;
 
 @end
 

@@ -1,5 +1,6 @@
 import UIKit
 import WMF
+import CocoaLumberjackSwift
 
 @objc(WMFArticleViewController)
 class ArticleViewController: ViewController, HintPresenting {
@@ -38,7 +39,6 @@ class ArticleViewController: ViewController, HintPresenting {
     internal let dataStore: MWKDataStore
     
     private let cacheController: ArticleCacheController
-    let surveyTimerController: ArticleSurveyTimerController
     
     var session: Session {
         return dataStore.session
@@ -78,6 +78,17 @@ class ArticleViewController: ViewController, HintPresenting {
         return tapGR
     }()
     
+    //BEGIN: Article As Living Doc properties
+    private(set) var surveyTimerController: ArticleSurveyTimerController?
+    
+    @available(iOS 13.0, *)
+    lazy var articleAsLivingDocController = ArticleAsLivingDocController(delegate: self)
+    
+    var surveyAnnouncementResult: SurveyAnnouncementsController.SurveyAnnouncementResult? {
+        SurveyAnnouncementsController.shared.activeSurveyAnnouncementResultForArticleURL(articleURL)
+    }
+    //END: Article As Living Doc properties
+    
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil) {
         guard let article = dataStore.fetchOrCreateArticle(with: articleURL) else {
                 return nil
@@ -91,10 +102,10 @@ class ArticleViewController: ViewController, HintPresenting {
         self.dataStore = dataStore
         self.schemeHandler = schemeHandler ?? SchemeHandler(scheme: "app", session: dataStore.session)
         self.cacheController = cacheController
-
-        self.surveyTimerController = ArticleSurveyTimerController(articleURL: articleURL, surveyController: SurveyAnnouncementsController.shared)
         
         super.init(theme: theme)
+        
+        self.surveyTimerController = ArticleSurveyTimerController(delegate: self)
     }
     
     deinit {
@@ -247,7 +258,21 @@ class ArticleViewController: ViewController, HintPresenting {
     }
     
     internal func updateArticleMargins() {
-        messagingController.updateMargins(with: articleMargins, leadImageHeight: leadImageHeightConstraint.constant)
+        
+        let defaultUpdateBlock = {
+            self.messagingController.updateMargins(with: self.articleMargins, leadImageHeight: self.leadImageHeightConstraint.constant)
+        }
+        
+        if #available(iOS 13.0, *) {
+            if (articleAsLivingDocController.shouldAttemptToShowArticleAsLivingDoc) {
+                messagingController.customUpdateMargins(with: articleMargins, leadImageHeight: self.leadImageHeightConstraint.constant)
+            } else {
+                defaultUpdateBlock()
+            }
+        } else {
+            defaultUpdateBlock()
+        }
+        
         updateLeadImageMargins()
     }
 
@@ -293,8 +318,17 @@ class ArticleViewController: ViewController, HintPresenting {
         setupToolbar() // setup toolbar needs to be after super.viewDidLoad because the superview owns the toolbar
         apply(theme: theme)
         setupForStateRestorationIfNecessary()
-        surveyTimerController.timerFireBlock = { [weak self] result in
-            self?.showSurveyAnnouncementPanel(surveyAnnouncementResult: result)
+        surveyTimerController?.timerFireBlock = { [weak self] in
+            guard let self = self,
+                  let result = self.surveyAnnouncementResult else {
+                return
+            }
+            
+            if #available(iOS 13.0, *) {
+                self.showSurveyAnnouncementPanel(surveyAnnouncementResult: result, linkState: self.articleAsLivingDocController.surveyLinkState)
+            } else {
+                self.showSurveyAnnouncementPanel(surveyAnnouncementResult: result, linkState: .notInExperiment)
+            }
         }
         if #available(iOS 14.0, *) {
             self.navigationItem.backButtonTitle = articleURL.wmf_title
@@ -308,7 +342,7 @@ class ArticleViewController: ViewController, HintPresenting {
         toolbarController.update()
         loadIfNecessary()
         startSignificantlyViewedTimer()
-        surveyTimerController.viewWillAppear(withState: state)
+        surveyTimerController?.viewWillAppear(withState: state)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -339,7 +373,7 @@ class ArticleViewController: ViewController, HintPresenting {
         cancelWIconPopoverDisplay()
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
-        surveyTimerController.viewWillDisappear(withState: state)
+        surveyTimerController?.viewWillDisappear(withState: state)
     }
     
     // MARK: Article load
@@ -365,7 +399,7 @@ class ArticleViewController: ViewController, HintPresenting {
     /// Waits for the article and article summary to finish loading (or re-loading) and performs post load actions
     private func setupArticleLoadWaitGroup() {
         assert(Thread.isMainThread)
-        
+
         guard articleLoadWaitGroup == nil else {
             return
         }
@@ -373,10 +407,19 @@ class ArticleViewController: ViewController, HintPresenting {
         articleLoadWaitGroup = DispatchGroup()
         articleLoadWaitGroup?.enter() // will leave on setup complete
         articleLoadWaitGroup?.notify(queue: DispatchQueue.main) { [weak self] in
-            self?.setupFooter()
-            self?.shareIfNecessary()
-            self?.restoreScrollStateIfNecessary()
-            self?.articleLoadWaitGroup = nil
+            
+            guard let self = self else {
+                return
+            }
+            
+            if #available(iOS 13.0, *) {
+                self.articleAsLivingDocController.articleContentFinishedLoading()
+            }
+            
+            self.setupFooter()
+            self.shareIfNecessary()
+            self.restoreScrollStateIfNecessary()
+            self.articleLoadWaitGroup = nil
         }
     }
     
@@ -414,6 +457,10 @@ class ArticleViewController: ViewController, HintPresenting {
             showGenericError()
             state = .error
             return
+        }
+
+        if #available(iOS 13.0, *) {
+            articleAsLivingDocController.articleContentWillBeginLoading(traitCollection: traitCollection, theme: theme)
         }
 
         webView.load(request)
@@ -673,6 +720,11 @@ class ArticleViewController: ViewController, HintPresenting {
     }
 
     internal func performWebViewRefresh(_ revisionID: UInt64? = nil) {
+
+        if #available(iOS 13.0, *) {
+            articleAsLivingDocController.articleDidTriggerPullToRefresh()
+        }
+
         #if WMF_LOCAL_PAGE_CONTENT_SERVICE // on local PCS builds, reload everything including JS and CSS
             webView.reloadFromOrigin()
         #else // on release builds, just reload the page with a different cache policy
@@ -705,7 +757,11 @@ class ArticleViewController: ViewController, HintPresenting {
         guard let anchor = resolvedURL.fragment?.removingPercentEncoding else {
             return
         }
-        scroll(to: anchor, animated: true)
+        
+        if #available(iOS 13.0, *) {
+            articleAsLivingDocController.handleArticleAsLivingDocLinkForAnchor(anchor, articleURL: articleURL)
+        }
+
     }
     
     // MARK: Table of contents
@@ -837,12 +893,12 @@ private extension ArticleViewController {
     @objc func applicationWillResignActive(_ notification: Notification) {
         saveArticleScrollPosition()
         stopSignificantlyViewedTimer()
-        surveyTimerController.willResignActive(withState: state)
+        surveyTimerController?.willResignActive(withState: state)
     }
     
     @objc func applicationDidBecomeActive(_ notification: Notification) {
         startSignificantlyViewedTimer()
-        surveyTimerController.didBecomeActive(withState: state)
+        surveyTimerController?.didBecomeActive(withState: state)
     }
     
     func setupSearchButton() {
@@ -895,6 +951,11 @@ private extension ArticleViewController {
         imageTopConstraint.priority = UILayoutPriority(rawValue: 999)
         let imageBottomConstraint = leadImageContainerView.bottomAnchor.constraint(equalTo: leadImageView.bottomAnchor, constant: leadImageBorderHeight)
         NSLayoutConstraint.activate([topConstraint, leadingConstraint, trailingConstraint, leadImageHeightConstraint, imageTopConstraint, imageBottomConstraint, leadImageLeadingMarginConstraint, leadImageTrailingMarginConstraint])
+        
+        if #available(iOS 13.0, *) {
+            articleAsLivingDocController.setupLeadImageView()
+        }
+
     }
     
     func setupPageContentServiceJavaScriptInterface(with completion: @escaping () -> Void) {
@@ -920,6 +981,11 @@ private extension ArticleViewController {
     
     func setupPageContentServiceJavaScriptInterface(with userGroups: [String]) {
         let areTablesInitiallyExpanded = UserDefaults.standard.wmf_isAutomaticTableOpeningEnabled
+
+        if #available(iOS 13.0, *) {
+            messagingController.shouldAttemptToShowArticleAsLivingDoc = articleAsLivingDocController.shouldAttemptToShowArticleAsLivingDoc
+        }
+
         messagingController.setup(with: webView, language: articleLanguage, theme: theme, layoutMargins: articleMargins, leadImageHeight: leadImageHeight, areTablesInitiallyExpanded: areTablesInitiallyExpanded, userGroups: userGroups)
     }
     
@@ -1086,4 +1152,84 @@ extension ViewController  { // Putting extension on ViewController rather than A
             return viewForCalculation.readableContentGuide.layoutFrame.minX
         }
     }
+}
+
+//MARK: Article As Living Doc Protocols
+
+@available(iOS 13.0, *)
+extension ArticleViewController: ArticleAsLivingDocViewControllerDelegate {
+    func livingDocViewWillPush() {
+        surveyTimerController?.livingDocViewWillPush(withState: state)
+    }
+    
+    func livingDocViewWillAppear() {
+        surveyTimerController?.livingDocViewWillAppear(withState: state)
+    }
+    
+    var articleAsLivingDocViewModel: ArticleAsLivingDocViewModel? {
+        return articleAsLivingDocController.articleAsLivingDocViewModel
+    }
+    
+    func fetchNextPage(nextRvStartId: UInt, theme: Theme) {
+        articleAsLivingDocController.fetchNextPage(nextRvStartId: nextRvStartId, traitCollection: traitCollection, theme: theme)
+    }
+
+    var isFetchingAdditionalPages: Bool {
+        return articleAsLivingDocController.isFetchingAdditionalPages
+    }
+}
+
+extension ArticleViewController: ArticleAsLivingDocControllerDelegate {
+    var abTestsController: ABTestsController {
+        return dataStore.abTestsController
+    }
+    
+    var isInValidSurveyCampaignAndArticleList: Bool {
+        surveyAnnouncementResult != nil
+    }
+    
+    func extendTimerForPresentingModal() {
+        surveyTimerController?.extendTimer()
+    }
+}
+
+extension ArticleViewController: ArticleSurveyTimerControllerDelegate {
+    var displayDelay: TimeInterval? {
+        surveyAnnouncementResult?.displayDelay
+    }
+    
+    var shouldAttemptToShowArticleAsLivingDoc: Bool {
+        if #available(iOS 13.0, *) {
+            return articleAsLivingDocController.shouldAttemptToShowArticleAsLivingDoc
+        } else {
+            return false
+        }
+    }
+    
+    var userHasSeenSurveyPrompt: Bool {
+        
+        guard let identifier = surveyAnnouncementResult?.campaignIdentifier else {
+            return false
+        }
+        
+        return SurveyAnnouncementsController.shared.userHasSeenSurveyPrompt(forCampaignIdentifier: identifier)
+    }
+    
+    var shouldShowArticleAsLivingDoc: Bool {
+        if #available(iOS 13.0, *) {
+            return articleAsLivingDocController.shouldShowArticleAsLivingDoc
+        } else {
+            return false
+        }
+    }
+    
+    var livingDocSurveyLinkState: ArticleAsLivingDocSurveyLinkState {
+        if #available(iOS 13.0, *) {
+            return articleAsLivingDocController.surveyLinkState
+        } else {
+            return .notInExperiment
+        }
+    }
+    
+    
 }

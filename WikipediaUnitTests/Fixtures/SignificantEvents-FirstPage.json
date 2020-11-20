@@ -1,0 +1,181 @@
+{
+    "nextRvStartId": 973922738,
+    "sha": "5ecb5d13f31361ffd24427a143ec9d32cc83edb0fd99b3af85c98b6b3462a088",
+    "timeline": [{
+        "revid": 975463557,
+        "parentid": 975254565,
+        "timestamp": "2020-08-28T17:22:52Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 975254565,
+        "parentid": 975241291,
+        "timestamp": "2020-08-27T16:45:43Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 975241291,
+        "parentid": 975240668,
+        "timestamp": "2020-08-27T15:15:41Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 975240668,
+        "parentid": 975161579,
+        "timestamp": "2020-08-27T15:11:26Z",
+        "outputType": "large-change",
+        "user": "Mason.Jones",
+        "userid": 246091,
+        "significantChanges": [{
+            "outputType": "added-text",
+            "snippet": "...<span class='highlight-start'> The term</span> \"America\" was seldom used <span class='highlight-start'>in the United States</span> before the 1890s<span class='highlight-start'>.</span> <span class='highlight-start'>It</span> does not appear in patriotic songs <span class='highlight-start'>composed</span> <span class='highlight-start'>during</span> <span class='highlight-start'>the eighteenth and nineteenth centuries</span>, including <span class='highlight-start'>\"</span><a href=\"./The_Star_Spangled_Banner\" title=\"The Star Spangled Banner\" class=\"mw-redirect\">The Star Spangled Banner</a>,<span class='highlight-start'>\"</span> <span class='highlight-start'>\"</span><a href=\"./My_Country_Tis_of_Thee\" title=\"My Country Tis of Thee\" class=\"mw-redirect\">My Country Tis of Thee</a>,<span class='highlight-start'>\"</span> and the <span class='highlight-start'>\"</span><a href=\"./Battle_Hymn_of_the_Republic\" title=\"Battle Hymn of the Republic\">Battle Hymn of the Republic<span class='highlight-start'></a>.\"</span> <span class='highlight-start'>although</span> <span class='highlight-start'>it</span> <span class='highlight-start'>is</span> <span class='highlight-start'>common</span> <span class='highlight-start'>in 20th-century songs</span> like <span class='highlight-start'>\"</span><a href=\"./God_Bless_America\" title=\"God Bless America\">God Bless America<span class='highlight-start'></a>\"</span>...",
+            "snippetType": 3,
+            "characterCount": 133,
+            "sections": ["== Etymology =="]
+        }, {
+            "outputType": "deleted-text",
+            "characterCount": 53,
+            "sections": ["== Etymology =="]
+        }],
+        "userGroups": ["extendedconfirmed", "*", "user", "autoconfirmed"],
+        "userEditCount": 2733
+    }, {
+        "revid": 975161579,
+        "parentid": 975109951,
+        "timestamp": "2020-08-27T02:27:42Z",
+        "outputType": "large-change",
+        "user": "Beland",
+        "userid": 57939,
+        "significantChanges": [{
+            "outputType": "added-text",
+            "snippet": "...<span class='highlight-start'> \"America\" was seldom used domestically before the 1890s, and does not appear in patriotic songs from this period, including <a href=\"./The_Star_Spangled_Banner\" title=\"The Star Spangled Banner\" class=\"mw-redirect\">The Star Spangled Banner</a>, <a href=\"./My_Country_Tis_of_Thee\" title=\"My Country Tis of Thee\" class=\"mw-redirect\">My Country Tis of Thee</a>, and the <a href=\"./Battle_Hymn_of_the_Republic\" title=\"Battle Hymn of the Republic\">Battle Hymn of the Republic</a>, in contrast to later works like <a href=\"./God_Bless_America\" title=\"God Bless America\">God Bless America</a>.<sup class=\"mw-ref\" id=\"cite_ref-1\"><a href=\"./United_States#cite_note-1\" style=\"counter-reset: mw-Ref 1;\">[1]</a></sup></span>...",
+            "snippetType": 3,
+            "characterCount": 431,
+            "sections": ["== Etymology =="]
+        }],
+        "userGroups": ["sysop", "*", "user", "autoconfirmed"],
+        "userEditCount": 97421
+    }, {
+        "revid": 975109951,
+        "parentid": 975109442,
+        "timestamp": "2020-08-26T19:49:48Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 975109442,
+        "parentid": 975107672,
+        "timestamp": "2020-08-26T19:47:16Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 975107672,
+        "parentid": 974757284,
+        "timestamp": "2020-08-26T19:37:58Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 974757284,
+        "parentid": 974751956,
+        "timestamp": "2020-08-24T20:53:20Z",
+        "outputType": "large-change",
+        "user": "Freshacconci",
+        "userid": 1843750,
+        "significantChanges": [{
+            "outputType": "added-text",
+            "snippet": "...<span class='highlight-start'>Slavery</span>...",
+            "snippetType": 3,
+            "characterCount": 7,
+            "sections": ["Intro"]
+        }, {
+            "outputType": "deleted-text",
+            "characterCount": 154,
+            "sections": ["Intro"]
+        }],
+        "userGroups": ["extendedconfirmed", "reviewer", "rollbacker", "*", "user", "autoconfirmed"],
+        "userEditCount": 46548
+    }, {
+        "revid": 974751956,
+        "parentid": 974687598,
+        "timestamp": "2020-08-24T20:14:59Z",
+        "outputType": "large-change",
+        "user": "Lovelystatue901",
+        "userid": 3691009,
+        "significantChanges": [{
+            "outputType": "added-text",
+            "snippet": "...<span class='highlight-start'>Chattel slavery</span></a> was<span class='highlight-start'> initially legal in the original 13 colonies, then later only</span> legal in the <a href=\"./Slave_states_and_free_states\" title=\"Slave states and free states\">southern United States</a> until the second half of the 19th century, when the <a href=\"./American_Civil_War\" title=\"American Civil War\">American Civil War</a> led to <a href=\"./Thirteenth_Amendment_to_the_United_States_Constitution\" title=\"Thirteenth Amendment to the United States Constitution\">its abolition<span class='highlight-start'></a> (with <a href=\"./Incarceration_in_the_United_States\" title=\"Incarceration in the United States\">the exception for incarceration</a>)</span>...",
+            "snippetType": 3,
+            "characterCount": 154,
+            "sections": ["Intro"]
+        }, {
+            "outputType": "deleted-text",
+            "characterCount": 7,
+            "sections": ["Intro"]
+        }],
+        "userGroups": ["*", "user", "autoconfirmed"],
+        "userEditCount": 61
+    }, {
+        "revid": 974687598,
+        "parentid": 974419099,
+        "timestamp": "2020-08-24T12:18:20Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 974419099,
+        "parentid": 974086316,
+        "timestamp": "2020-08-22T22:44:46Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 974086316,
+        "parentid": 974079460,
+        "timestamp": "2020-08-21T01:12:04Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 974079460,
+        "parentid": 974052624,
+        "timestamp": "2020-08-21T00:07:35Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 974052624,
+        "parentid": 974051684,
+        "timestamp": "2020-08-20T20:30:31Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 974051684,
+        "parentid": 974045914,
+        "timestamp": "2020-08-20T20:24:11Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 974045914,
+        "parentid": 973949664,
+        "timestamp": "2020-08-20T19:41:13Z",
+        "outputType": "large-change",
+        "user": "Roastedturkey",
+        "userid": 36264365,
+        "significantChanges": [{
+            "outputType": "added-text",
+            "snippet": "<span class='highlight-start'>In contrast to most other western nations, the</span>...",
+            "snippetType": 3,
+            "characterCount": 46,
+            "sections": ["=== Parties and elections ==="]
+        }, {
+            "outputType": "deleted-text",
+            "characterCount": 55,
+            "sections": ["=== Parties and elections ==="]
+        }],
+        "userGroups": ["extendedconfirmed", "*", "user", "autoconfirmed"],
+        "userEditCount": 1129
+    }, {
+        "revid": 973949664,
+        "parentid": 973948985,
+        "timestamp": "2020-08-20T05:58:09Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 973948985,
+        "parentid": 973931265,
+        "timestamp": "2020-08-20T05:52:43Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 973931265,
+        "parentid": 973931264,
+        "timestamp": "2020-08-20T02:51:13Z",
+        "outputType": "small-change"
+    }],
+    "summary": {
+        "earliestTimestamp": "2020-08-13T20:44:28Z",
+        "numChanges": 80,
+        "numUsers": 44
+    }
+}

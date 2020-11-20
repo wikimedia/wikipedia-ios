@@ -1,3 +1,5 @@
+import CocoaLumberjackSwift
+
 class RemoteNotificationsAPIController: Fetcher {
     // MARK: NotificationsAPI constants
 

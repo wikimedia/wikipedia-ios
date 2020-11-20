@@ -1,0 +1,151 @@
+{
+    "nextRvStartId": 972790429,
+    "sha": null,
+    "timeline": [{
+        "revid": 973922738,
+        "parentid": 973922647,
+        "timestamp": "2020-08-20T01:32:43Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 973922647,
+        "parentid": 973747230,
+        "timestamp": "2020-08-20T01:31:36Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 973747230,
+        "parentid": 973744764,
+        "timestamp": "2020-08-19T00:42:51Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 973744764,
+        "parentid": 973720964,
+        "timestamp": "2020-08-19T00:19:48Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 973720964,
+        "parentid": 973596973,
+        "timestamp": "2020-08-18T21:07:11Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 973596973,
+        "parentid": 973553021,
+        "timestamp": "2020-08-18T03:42:50Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 973553021,
+        "parentid": 973552941,
+        "timestamp": "2020-08-17T21:27:24Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 973552941,
+        "parentid": 973552834,
+        "timestamp": "2020-08-17T21:26:37Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 973552834,
+        "parentid": 973552716,
+        "timestamp": "2020-08-17T21:25:47Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 973552716,
+        "parentid": 973550989,
+        "timestamp": "2020-08-17T21:24:55Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 973550989,
+        "parentid": 973409619,
+        "timestamp": "2020-08-17T21:10:06Z",
+        "outputType": "large-change",
+        "user": "Dhtwiki",
+        "userid": 9475572,
+        "significantChanges": [{
+            "outputType": "added-text",
+            "snippet": "...<span class='highlight-start'>used</span> them <span class='highlight-start'>on</span> <span class='highlight-start'>Japan</span> <span class='highlight-start'>in</span>...",
+            "snippetType": 3,
+            "characterCount": 47,
+            "sections": ["=== World War I, Great Depression, and World War II ==="]
+        }, {
+            "outputType": "deleted-text",
+            "characterCount": 559,
+            "sections": ["=== World War I, Great Depression, and World War II ==="]
+        }],
+        "userGroups": ["extendedconfirmed", "*", "user", "autoconfirmed"],
+        "userEditCount": 31815
+    }, {
+        "revid": 973409619,
+        "parentid": 973409110,
+        "timestamp": "2020-08-17T01:57:36Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 973409110,
+        "parentid": 973134678,
+        "timestamp": "2020-08-17T01:53:04Z",
+        "outputType": "large-change",
+        "user": "EpicRice",
+        "userid": 39847828,
+        "significantChanges": [{
+            "outputType": "added-text",
+            "snippet": "...<span class='highlight-start'> worked on a secret project, known as the <a href=\"./Manhattan_Project\" title=\"Manhattan Project\">Manhattan Project</a>. They</span> eventually developed the <a href=\"./Manhattan_Project\" title=\"Manhattan Project\">first nuclear weapons<span class='highlight-start'></a>,</span> and <span class='highlight-start'>tested</span> them <span class='highlight-start'>in</span> <span class='highlight-start'>the</span> <span class='highlight-start'>Jornada</span> <span class='highlight-start'>del Muerto desert about 35 miles (56 km) southeast</span> of <span class='highlight-start'><span class='highlight-start'>Socorro, New Mexico. <sup class=\"mw-ref\" id=\"cite_ref-4\"><a href=\"./United_States#cite_note-4\" style=\"counter-reset: mw-Ref 4;\">[4]</a></sup> The test was successful, which eventually led to</span> the<span class='highlight-start'> bombing of Japanese</span> cities<span class='highlight-start'> </span>...",
+            "snippetType": 3,
+            "characterCount": 496,
+            "sections": ["=== World War I, Great Depression, and World War II ==="]
+        }, {
+            "outputType": "deleted-text",
+            "characterCount": 47,
+            "sections": ["=== World War I, Great Depression, and World War II ==="]
+        }],
+        "userGroups": ["*", "user", "autoconfirmed"],
+        "userEditCount": 46
+    }, {
+        "revid": 973134678,
+        "parentid": 973103869,
+        "timestamp": "2020-08-15T15:34:58Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 973103828,
+        "parentid": 973103828,
+        "timestamp": "2020-08-15T11:03:32Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 973103828,
+        "parentid": 973092925,
+        "timestamp": "2020-08-15T11:03:13Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 973092925,
+        "parentid": 972997868,
+        "timestamp": "2020-08-15T09:23:08Z",
+        "outputType": "new-talk-page-topic",
+        "snippet": "I miss a category of (political) geographical areas composed of multiple topologically separate parts on the continuous land (others would be e.g. <a href=\"./Azerbaijan\" title=\"Azerbaijan\">Azerbaijan</a>, <a href=\"./Puducherry\" title=\"Puducherry\">Puducherry</a>), i.e. region that has exclaves, in principle. Could some geographer gnostic of the corresponding terminus technicus do that&nbsp;? —<a href=\"./User:Mykhal\" title=\"User:Mykhal\">Mykhal</a> (<a href=\"./User_talk:Mykhal\" title=\"User talk:Mykhal\">talk</a>) 09:23, 15 August 2020 (UTC)",
+        "user": "Mykhal",
+        "userid": 88116,
+        "section": "== Discontinuous region category ==",
+        "userGroups": ["extendedconfirmed", "*", "user", "autoconfirmed"],
+        "userEditCount": 3690
+    }, {
+        "revid": 972997868,
+        "parentid": 972863880,
+        "timestamp": "2020-08-14T21:27:23Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 972863880,
+        "parentid": 972816238,
+        "timestamp": "2020-08-14T05:19:17Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 972816238,
+        "parentid": 972790992,
+        "timestamp": "2020-08-13T23:07:43Z",
+        "outputType": "small-change"
+    }, {
+        "revid": 972790992,
+        "parentid": 972790991,
+        "timestamp": "2020-08-13T20:44:28Z",
+        "outputType": "small-change"
+    }],
+    "summary": {
+        "earliestTimestamp": "2020-08-13T20:44:28Z",
+        "numChanges": 82,
+        "numUsers": 45
+    }
+}

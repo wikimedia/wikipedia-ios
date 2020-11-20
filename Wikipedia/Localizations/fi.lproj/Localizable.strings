@@ -4,6 +4,7 @@
 // Author: 4shadoww
 // Author: Alluk.
 // Author: Antsa
+// Author: Areee
 // Author: ElmA
 // Author: Jack Phoenix
 // Author: Laurianttila
@@ -21,6 +22,13 @@
 // Author: Surjection
 // Author: Valtlait
 
+"aaald-new-book-reference-title" = "Kirja";
+"aaald-new-discussion" = "Uusi keskustelu";
+"aaald-new-news-reference-title" = "Uutiset";
+"aaald-new-talk-topic-description-format" = "$1 tästä artikkelista";
+"aaald-new-website-reference-archive-url-text" = "Archive.org URL-osoite";
+"aaald-new-website-reference-title" = "Verkkosivu";
+"aaald-view-full-history-button" = "Näytä koko artikkelihistoria";
 "about-content-license" = "Sisältölisenssi";
 "about-content-license-details" = "Ellei toisin mainita, sisältö on saatavilla $1 -lisenssillä.";
 "about-content-license-details-share-alike-license" = "Creative Commons Nimeä-JaaSamoin -lisenssi";
@@ -482,7 +490,6 @@
 "on-this-day-detail-header-date-range" = "$1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historiallinen tapahtuma|$1 historiallista tapahtumaa}}";
 "on-this-day-footer" = "Lisää tänä päivänä tapahtuneita historiallisia tapahtumia";
-"on-this-day-footer-with-event-count" = "$1 lisää historiallista tapahtumaa tänä päivänä";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 kieliversion $2 Wikipediassa";
 "on-this-day-title" = "Tänä päivänä";
 "original-tab-button-popover-description" = "Napauta 'W' -kuvaketta palataksesi välilehdelle josta aloitit";
@@ -749,6 +756,7 @@
 "talk-page-link-user-action-sheet-title" = "Käyttäjäsivut";
 "talk-page-new-banner-subtitle" = "Olemme kaikki tavallisia ihmisiä";
 "talk-page-new-banner-title" = "Olethan ystävällinen!";
+"talk-page-new-body-textfield-accessibility-label" = "Keskustelurunko";
 "talk-page-new-reply-body-accessibility-label" = "Kirjoita vastaus";
 "talk-page-new-reply-body-placeholder-text" = "Kirjoita vastaus";
 "talk-page-new-reply-success-text" = "Vastauksesi julkaistiin onnistuneesti";

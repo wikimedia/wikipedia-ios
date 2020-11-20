@@ -13,21 +13,43 @@ public final class SurveyAnnouncementsController: NSObject {
     private var announcementsByHost: [AnnouncementsHost: [WMFAnnouncement]] = [:]
     
     public struct SurveyAnnouncementResult {
+
         public let campaignIdentifier: String
         public let announcement: WMFAnnouncement
-        public let actionURL: URL
+        public let actionURLString: String
         public let displayDelay: TimeInterval
     }
     
-    @objc public func setAnnouncements(_ announcements: [WMFAnnouncement], forSiteURL siteURL: URL) {
+    public private(set) var failureDeterminingABTestBucket = false
+    
+    @objc public func setAnnouncements(_ announcements: [WMFAnnouncement], forSiteURL siteURL: URL, dataStore: MWKDataStore) {
         
         guard let components = URLComponents(url: siteURL, resolvingAgainstBaseURL: false),
             let host = components.host else {
                 return
         }
         
+        let surveyAnnouncements = announcements.filter { $0.announcementType == .survey }
+        
         queue.sync {
-            announcementsByHost[host] = announcements.filter { $0.announcementType == .survey }
+            announcementsByHost[host] = surveyAnnouncements
+        }
+        
+        //assign and persist ab test bucket &  percentage
+        //this works for now since we only have one experiment for this release but will likely need to change as we expand
+        if let articleAsLivingDocAnnouncement = surveyAnnouncements.first(where: { $0.identifier == "IOSSURVEY20IOSV4EN" }),
+           let percentage = articleAsLivingDocAnnouncement.percentReceivingExperiment {
+            
+            do {
+                if dataStore.abTestsController.percentageForExperiment(.articleAsLivingDoc) == nil {
+                    try dataStore.abTestsController.setPercentage(percentage, forExperiment: .articleAsLivingDoc)
+                }
+                
+                try dataStore.abTestsController.determineBucketForExperiment(.articleAsLivingDoc, withPercentage: percentage)
+                failureDeterminingABTestBucket = false
+            } catch {
+                failureDeterminingABTestBucket = true
+            }
         }
     }
     
@@ -46,8 +68,12 @@ public final class SurveyAnnouncementsController: NSObject {
     }
     
     //Use for determining whether to show user a survey prompt or not.
-    //Considers domain, campaign start/end dates, article title in campaign, and whether survey has already been acted upon or not.
-    public func activeSurveyAnnouncementResultForTitle(_ articleTitle: String, siteURL: URL) -> SurveyAnnouncementResult? {
+    //Considers domain, campaign start/end dates, and whether articleURL is within allowlist of article titles in campaign
+    public func activeSurveyAnnouncementResultForArticleURL(_ articleURL: URL) -> SurveyAnnouncementResult? {
+        
+        guard let articleTitle = articleURL.wmf_title?.denormalizedPageTitle, let siteURL = articleURL.wmf_site else {
+            return nil
+        }
 
         guard let announcements = getAnnouncementsForSiteURL(siteURL) else {
             return nil
@@ -64,27 +90,28 @@ public final class SurveyAnnouncementsController: NSObject {
                 let host = components.host,
                 let identifier = announcement.identifier,
                 let normalizedArticleTitle = articleTitle.normalizedPageTitle,
-                let googleFormattedArticleTitle = normalizedArticleTitle.googleFormPercentEncodedPageTitle else {
+                let actionURLString = announcement.actionURLString else {
                     continue
             }
-            
-            guard let actionURL = announcement.actionURLReplacingPlaceholder("{{articleTitle}}", withValue: googleFormattedArticleTitle) else {
-                continue
-            }
-                
+    
             let now = Date()
             
-            //do not show if user has already seen and answered for this campaign, even if the value is an NSNumber set to false, any answer is an indication that it shouldn't be shown
-            guard UserDefaults.standard.object(forKey: identifier) == nil else {
-                continue
-            }
-            
             if now > startTime && now < endTime && host == domain, articleTitles.contains(normalizedArticleTitle) {
-                return SurveyAnnouncementResult(campaignIdentifier: identifier, announcement: announcement, actionURL: actionURL, displayDelay: displayDelay.doubleValue)
+                return SurveyAnnouncementResult(campaignIdentifier: identifier, announcement: announcement, actionURLString: actionURLString, displayDelay: displayDelay.doubleValue)
             }
         }
         
         return nil
+    }
+    
+    public func userHasSeenSurveyPrompt(forCampaignIdentifier identifier: String) -> Bool {
+        // Note any value indicates survey was seen.
+        // true = they tapped through to the Google survey, false = they dismissed the survey prompt.
+        guard UserDefaults.standard.object(forKey: identifier) == nil else {
+            return true
+        }
+        
+        return false
     }
     
     public func markSurveyAnnouncementAnswer(_ answer: Bool, campaignIdentifier: String) {

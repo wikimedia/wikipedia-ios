@@ -17,6 +17,14 @@ static const NSInteger WMFCurrentLibraryVersion = 11;
 
 NSString *const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
 
+NSString *const WMFCoreDataSynchronizerInfoFileName = @"Wikipedia.info";
+
+NSString *const WMFMainContextCrossProcessNotificiationChannelNameKey = @"CrossProcessNotificiationChannelName";
+NSString *const WMFMainContextCrossProcessNotificationChannelNamePrefix = @"org.wikimedia.wikipedia.cd-cpn-";
+
+NSString *const WMFCacheContextCrossProcessNotificiationChannelNameKey = @"CacheContextCrossProcessNotificiationChannelName";
+NSString *const WMFCacheContextCrossProcessNotificiationChannelNamePrefix = @"org.wikimedia.wikipedia.cache-cd-cpn-";
+
 NSString *MWKCreateImageURLWithPath(NSString *path) {
     return [MWKDataStoreValidImageSitePrefix stringByAppendingString:path];
 }
@@ -55,6 +63,8 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 @property (nonatomic, strong) NSURL *containerURL;
 
 @property (readwrite, nonatomic) RemoteConfigOption remoteConfigsThatFailedUpdate;
+
+@property (readwrite, strong, nonatomic) WMFABTestsController *abTestsController;
 
 @end
 
@@ -113,34 +123,53 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     return self;
 }
 
+- (void)teardown:(nullable dispatch_block_t)completion {
+    [self stopCoreDataSynchronizers];
+    [self.session teardown];
+    if (self.cacheController) {
+        [self.cacheController teardown:^{
+            if (completion) {
+                completion();
+            }
+        }];
+    } else if (completion) {
+        completion();
+    }
+}
+
+/// Generates a globally unique cross process notification channel name with the given prefix
+- (NSString *)uniqueCrossProcessNotificationChannelNameWithPrefix:(NSString *)prefix {
+    NSUUID *uuid = [NSUUID new];
+    NSString *uuidString = uuid.UUIDString;
+    return [NSString stringWithFormat:@"%@%@", prefix, uuidString].lowercaseString;
+}
+
 - (void)setupCoreDataSynchronizersWithContainerURL:(NSURL *)containerURL {
-    NSURL *infoDictionaryURL = [containerURL URLByAppendingPathComponent:@"Wikipedia.info" isDirectory:NO];
+    NSURL *infoDictionaryURL = [containerURL URLByAppendingPathComponent:WMFCoreDataSynchronizerInfoFileName isDirectory:NO];
     NSError *unarchiveError = nil;
-    NSDictionary *infoDictionary = [self unarchivedDictionaryFromFileURL:infoDictionaryURL error:&unarchiveError];
+    NSMutableDictionary *infoDictionary = [[self unarchivedDictionaryFromFileURL:infoDictionaryURL error:&unarchiveError] mutableCopy] ?: [NSMutableDictionary new];
     if (unarchiveError) {
         DDLogError(@"Error unarchiving shared info dictionary: %@", unarchiveError);
     }
-    
+
     BOOL needsWrite = false;
-    
+
     // The main cross process notification channel is for the main core data stack (articles, feed, library values, etc)
-    NSString *key = @"CrossProcessNotificiationChannelName";
+    NSString *key = WMFMainContextCrossProcessNotificiationChannelNameKey;
     if (!infoDictionary[key]) {
-        NSString *channelName = [NSString stringWithFormat:@"org.wikimedia.wikipedia.cd-cpn-%@", [NSUUID new].UUIDString].lowercaseString;
-        infoDictionary = @{key: channelName};
+        infoDictionary[key] = [self uniqueCrossProcessNotificationChannelNameWithPrefix:WMFMainContextCrossProcessNotificationChannelNamePrefix];
         needsWrite = YES;
     }
     self.librarySynchronizer = [[WMFCrossProcessCoreDataSynchronizer alloc] initWithIdentifier:infoDictionary[key] storageDirectory:containerURL];
-    
+
     // The cache context cross process notification channel is for the cache's core data stack (cached images, offline article content)
-    key = @"CacheContextCrossProcessNotificiationChannelName";
+    key = WMFCacheContextCrossProcessNotificiationChannelNameKey;
     if (!infoDictionary[key]) {
-        NSString *channelName = [NSString stringWithFormat:@"org.wikimedia.wikipedia.cache-cd-cpn-%@", [NSUUID new].UUIDString].lowercaseString;
-        infoDictionary = @{key: channelName};
+        infoDictionary[key] = [self uniqueCrossProcessNotificationChannelNameWithPrefix:WMFCacheContextCrossProcessNotificiationChannelNamePrefix];
         needsWrite = YES;
     }
     self.cacheSynchronizer = [[WMFCrossProcessCoreDataSynchronizer alloc] initWithIdentifier:infoDictionary[key] storageDirectory:containerURL];
-    
+
     if (needsWrite) {
         NSError *archiveError = nil;
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:infoDictionary requiringSecureCoding:false error:&archiveError];
@@ -950,6 +979,12 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 
 - (void)deauthenticate {
     [self.authenticationManager logoutInitiatedBy:LogoutInitiatorServer completion:^{}];
+}
+
+#pragma mark - ABTestsManaging
+
+- (void)setupAbTestsControllerWithPersistenceService: (id<ABTestsPersisting>)persistenceService {
+    self.abTestsController = [[WMFABTestsController alloc] initWithPersistanceService:persistenceService];
 }
 
 @end

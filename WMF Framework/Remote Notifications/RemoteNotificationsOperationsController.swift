@@ -1,3 +1,5 @@
+import CocoaLumberjackSwift
+
 class RemoteNotificationsOperationsController: NSObject {
     private let apiController: RemoteNotificationsAPIController
     private let modelController: RemoteNotificationsModelController?
