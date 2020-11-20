@@ -15,7 +15,7 @@ class WMFWelcomeIntroductionViewController: ThemeableViewController {
         super.viewDidLoad()
         view.backgroundColor = .clear
         
-        descriptionLabel.text = WMFLocalizedString("welcome-intro-free-encyclopedia-description", value:"Wikipedia is written collaboratively by volunteers and consists of more than 40 million articles in nearly 300 languages.", comment:"Description for introductory welcome screen")
+        descriptionLabel.text = WMFLocalizedString("welcome-intro-free-encyclopedia-description", value:"Wikipedia is written collaboratively by volunteers and consists of more than 40 million articles in over 300 languages.", comment:"Description for introductory welcome screen")
 
         learnMoreButton.setTitle(WMFLocalizedString("welcome-intro-free-encyclopedia-more", value:"Learn more about Wikipedia", comment:"Text for link for learning more about Wikipedia on introductory welcome screen"), for: .normal)
         
