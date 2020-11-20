@@ -44,7 +44,6 @@
 "aaald-new-website-reference-title" = "אתר אינטרנט";
 "aaald-one-section-description" = "בפרק $1";
 "aaald-revision-userInfo" = "עריכה מאת $1 ($2 עריכות)";
-"aaald-revision-userInfo-anonymous" = "עריכה מאת $1";
 "aaald-single-reference-added-description" = "נוסף מקור";
 "aaald-two-sections-description" = "בפרקים $1 ו$2";
 "aaald-vandalism-revert-description" = "חשש להשחתה הוחזר למוטב";
@@ -555,7 +554,6 @@
 "on-this-day-detail-header-date-range" = "מ־$1 עד $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|אירוע היסטורי|$1 אירועים היסטוריים}}";
 "on-this-day-footer" = "עוד אירועים היסטוריים ביום הזה";
-"on-this-day-footer-with-event-count" = "$1 אירועים היסטוריים נוספים ביום הזה";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 מתוך ויקיפדיה ב$2";
 "on-this-day-title" = "ביום הזה";
 "original-tab-button-popover-description" = "ניתן ללחוץ על 'W' כדי לחזור ללשונית שהתחלת ממנה";

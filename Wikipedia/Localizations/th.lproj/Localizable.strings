@@ -472,7 +472,6 @@
 "on-this-day-detail-header-date-range" = "ตั้งแต่ $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|เหตุการณ์ย้อนหลัง $1 เหตุการณ์}}";
 "on-this-day-footer" = "เหตุการณ์เพิ่มเติมในอดีตประจำวันนี้";
-"on-this-day-footer-with-event-count" = "เหตุการณ์เพิ่มเติม $1 เรื่องในอดีตประจำวันนี้";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 จากวิกิพีเดียภาษา$2";
 "on-this-day-title" = "วันนี้ในอดีต";
 "original-tab-button-popover-description" = "แตะบน 'W' เพื่อกลับไปยังแท็บที่คุณเปิดก่อนหน้านี้";

@@ -435,7 +435,6 @@
 "on-this-day-detail-header-date-range" = "from $1–$2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historisk hendelse|$1 historiske hendelser}}";
 "on-this-day-footer" = "Flere historiske hendelser på denne dagen";
-"on-this-day-footer-with-event-count" = "$1 Flere historiske hendelser på denne dag";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 fra Wikipedia på $2";
 "on-this-day-title" = "På denne dag";
 "original-tab-button-popover-description" = "Trykk på «W» for å gå tilbake til fanen du startet fra";

@@ -535,7 +535,6 @@
 "on-this-day-detail-header-date-range" = "من $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 حدث تاريخي|$1 أحداث تاريخية}}";
 "on-this-day-footer" = "المزيد من الأحداث التاريخية في هذا اليوم";
-"on-this-day-footer-with-event-count" = "$1 أكثر من الأحداث التاريخية في هذا اليوم";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 من ويكيبيديا $2";
 "on-this-day-title" = "في هذا اليوم";
 "original-tab-button-popover-description" = "انقر على \"ص\" للعودة إلى علامة التبويب التي بدأت منها";

@@ -46,13 +46,6 @@
     return _actionURL;
 }
 
-- (nullable NSURL *)actionURLReplacingPlaceholder:(nonnull NSString *)placeholder withValue: (nonnull NSString *)value {
-    
-    NSString *urlString = [self.actionURLString stringByReplacingOccurrencesOfString:placeholder withString:value];
-    
-    return [NSURL URLWithString:urlString];
-}
-
 + (NSValueTransformer *)imageURLJSONTransformer {
     return [MTLValueTransformer
             transformerUsingForwardBlock:^NSURL *(NSDictionary *value,

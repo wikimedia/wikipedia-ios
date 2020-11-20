@@ -571,7 +571,7 @@ public extension ArticleAsLivingDocViewModel {
             
             public enum ButtonsToDisplay {
                 case thankAndViewChanges(userId: UInt, revisionId: UInt)
-                case viewDiscussion(sectionName: String)
+                case viewDiscussion(sectionName: String?)
             }
             
             public let typedEvent: SignificantEvents.TypedEvent
@@ -599,7 +599,13 @@ public extension ArticleAsLivingDocViewModel {
                 case .newTalkPageTopic(let newTalkPageTopic):
                     self.userId = newTalkPageTopic.userId
                     userGroups = newTalkPageTopic.userGroups
-                    self.buttonsToDisplay = .viewDiscussion(sectionName: newTalkPageTopic.section)
+                    
+                    if let talkPageSection = newTalkPageTopic.section {
+                        self.buttonsToDisplay = .viewDiscussion(sectionName: Self.sectionTitleWithWikitextStripped(originalTitle: talkPageSection))
+                    } else {
+                        self.buttonsToDisplay = .viewDiscussion(sectionName: nil)
+                    }
+                    
                 case .large(let largeChange):
                     self.userId = largeChange.userId
                     userGroups = largeChange.userGroups
@@ -637,7 +643,6 @@ public extension ArticleAsLivingDocViewModel {
                     revId = 0
                     parentId = 0
                 }
-                
             }
             
             public static func == (lhs: ArticleAsLivingDocViewModel.Event.Large, rhs: ArticleAsLivingDocViewModel.Event.Large) -> Bool {
@@ -905,15 +910,23 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         }
         
         //strip == signs from all section titles
-        let finalSet = set.map { (section) -> String in
-            if let match = section.range(of: "(?<==)[^=]+", options: .regularExpression) {
-                return String(section[match])
-            }
-            
-            return section
-        }
+        let finalSet = set.map { Self.sectionTitleWithWikitextStripped(originalTitle: $0) }
         
         return Set(finalSet)
+    }
+    
+    //remove one or more equal signs and zero or more spaces on either side of the title text
+    private static func sectionTitleWithWikitextStripped(originalTitle: String) -> String {
+        var loopTitle = originalTitle
+        
+        let regex = "^=+\\s*|\\s*=+$"
+        var maybeMatch = loopTitle.range(of: regex, options: .regularExpression)
+        while let match = maybeMatch {
+            loopTitle.removeSubrange(match)
+            maybeMatch = loopTitle.range(of: regex, options: .regularExpression)
+        }
+
+        return loopTitle
     }
     
     private func localizedStringFromSections(sections: [String]) -> String? {
@@ -1534,6 +1547,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         if let urlString = urlString, let url = URL(string: urlString), let externalLinkIcon = UIImage(named: "mini-external") {
             if #available(iOSApplicationExtension 13.0, *) {
                 mutableAttributedString = NSMutableAttributedString(string: text.trimmingCharacters(in: .whitespaces), attributes: textAttributes)
+                mutableAttributedString.append(NSAttributedString(string: " "))
                 let externalLinkString = NSAttributedString(attachment: NSTextAttachment(image: externalLinkIcon))
                 mutableAttributedString.append(externalLinkString)
                 mutableAttributedString.append(NSAttributedString(string: " "))
@@ -1607,6 +1621,8 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     static var botIconName: String {
         return "article-as-living-doc-svg-bot"
     }
+
+    static var anonymousIconName: String = "article-as-living-doc-svg-anon"
     
     private func userInfoHtmlSnippet() -> String? {
         guard let userNameAndEditCount = self.userNameAndEditCount() else {
@@ -1646,8 +1662,8 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                 }
             }
         } else {
-            let anonymousUserInfo = String.localizedStringWithFormat(CommonStrings.revisionUserInfoAnonymous, userName)
-            return anonymousUserInfo
+            return "<img src='\(Self.anonymousIconName)' style='margin: 0em .2em .35em .1em; width: 1em' />\(CommonStrings.revisionUserInfoAnonymous)"
+
         }
         
         return nil
@@ -1668,12 +1684,19 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         
         guard let editCount = maybeEditCount,
                userType != .anonymous else {
-            let anonymousUserInfo = String.localizedStringWithFormat(CommonStrings.revisionUserInfoAnonymous, userName)
+            let anonymousUserInfo = CommonStrings.revisionUserInfoAnonymous
             
             let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
             let attributes = [NSAttributedString.Key.font: font,
                               NSAttributedString.Key.foregroundColor: theme.colors.secondaryText]
-            let attributedString = NSAttributedString(string: anonymousUserInfo, attributes: attributes)
+            let mutableAttributedString = NSMutableAttributedString(string: anonymousUserInfo, attributes: attributes)
+            addIcon(to: mutableAttributedString, at: 0, for: userType)
+            // Need this next line to appropriately color the icon
+            mutableAttributedString.addAttributes(attributes, range: NSRange(location: 0, length: 2))
+            guard let attributedString = mutableAttributedString.copy() as? NSAttributedString else {
+                return nil
+            }
+
             self.userInfo = attributedString
             return attributedString
         }
@@ -1698,21 +1721,25 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         let mutableAttributedString = NSMutableAttributedString(string: userInfo, attributes: attributes)
         mutableAttributedString.addAttribute(NSAttributedString.Key.link, value: userNameURL as NSURL, range: rangeOfUserName)
         mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: theme.colors.link, range: rangeOfUserName)
-        
-        if userType == .bot {
-            let imageAttachment = NSTextAttachment()
-            imageAttachment.image = UIImage(named: Self.botIconName)
-            let imageString = NSAttributedString(attachment: imageAttachment)
-            mutableAttributedString.insert(imageString, at: rangeOfUserName.location)
-            mutableAttributedString.insert(NSAttributedString(string: " "), at: rangeOfUserName.location + imageString.length)
-        }
-        
+
+        addIcon(to: mutableAttributedString, at: rangeOfUserName.location, for: userType)
+
         guard let attributedString = mutableAttributedString.copy() as? NSAttributedString else {
             return nil
         }
         
         self.userInfo = attributedString
         return attributedString
+    }
+
+    func addIcon(to mutableAttributedString: NSMutableAttributedString, at location: Int, for userType: UserType) {
+        if userType == .bot || userType == .anonymous {
+            let imageAttachment = NSTextAttachment()
+            imageAttachment.image = UIImage(named: (userType == .bot ? Self.botIconName : Self.anonymousIconName))
+            let imageString = NSAttributedString(attachment: imageAttachment)
+            mutableAttributedString.insert(imageString, at: location)
+            mutableAttributedString.insert(NSAttributedString(string: " "), at: location + imageString.length)
+        }
     }
     
 }

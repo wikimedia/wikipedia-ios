@@ -58,8 +58,8 @@
 "aaald-new-website-reference-title" = "Site";
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 referências adicionadas|$1 referência adicionada|$1 referências adicionadas}}";
 "aaald-one-section-description" = "na seção $1";
+"aaald-revision-by-anonymous" = "Editar por usuário anônimo";
 "aaald-revision-userInfo" = "Editar por $1 ($2 edições)";
-"aaald-revision-userInfo-anonymous" = "Editado por $1";
 "aaald-single-reference-added-description" = "Referência adicionada";
 "aaald-small-change-description" = "{{PLURAL:$1|0=Nenhuma edição menor realizada|$1 edição menor realizada|$1 edições menores realizadas}}";
 "aaald-summary-title" = "{{PLURAL:$1|0=0 mudanças|$1 mudança|$1 mudanças}} por {{PLURAL:$2|0=0 editores|$2 editor|$2 editores}} em {{PLURAL:$3|0=0 dias|$3 dia|$3 dias}}";
@@ -572,7 +572,7 @@
 "on-this-day-detail-header-date-range" = "de $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 evento histórico|$1 eventos históricos}}";
 "on-this-day-footer" = "Mais eventos históricos neste dia";
-"on-this-day-footer-with-event-count" = "$1 mais eventos históricos neste dia";
+"on-this-day-footer-showing-event-count" = "{{PLURAL:$1|Mais $1 evento histórico|Mais $1 eventos históricos}} nesse dia";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 a partir de $2 Wikipedia";
 "on-this-day-title" = "Neste dia";
 "original-tab-button-popover-description" = "Toque no 'W' para voltar a a guia onde começou";

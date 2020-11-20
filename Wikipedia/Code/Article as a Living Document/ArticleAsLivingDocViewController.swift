@@ -10,13 +10,14 @@ protocol ArticleAsLivingDocViewControllerDelegate: class {
     func fetchNextPage(nextRvStartId: UInt, theme: Theme)
     func showEditHistory()
     func handleLink(with href: String)
-    func showTalkPage()
+    func livingDocViewWillAppear()
+    func livingDocViewWillPush()
 }
 
 protocol ArticleDetailsShowing: class {
     func goToHistory()
     func goToDiff(revisionId: UInt, parentId: UInt, diffType: DiffContainerViewModel.DiffType)
-    func showTalkPage()
+    func showTalkPageWithSectionName(_ sectionName: String?)
     func thankButtonTapped(for revisionID: Int, isUserAnonymous: Bool, livingDocLoggingValues: ArticleAsLivingDocLoggingValues)
 }
 
@@ -79,6 +80,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
         }
         super.viewWillAppear(animated)
 
+        delegate?.livingDocViewWillAppear()
     }
 
     private func createDataSource() -> UICollectionViewDiffableDataSource<ArticleAsLivingDocViewModel.SectionHeader, ArticleAsLivingDocViewModel.TypedEvent> {
@@ -439,11 +441,19 @@ extension ArticleAsLivingDocViewController: ArticleAsLivingDocHorizontallyScroll
 
 @available(iOS 13.0, *)
 extension ArticleAsLivingDocViewController: ArticleDetailsShowing {
-    func showTalkPage() {
-        guard let talkPageURL = delegate?.articleURL.articleTalkPage else {
+    func showTalkPageWithSectionName(_ sectionName: String?) {
+        
+        var maybeTalkPageURL = delegate?.articleURL.articleTalkPage
+        if let convertedSectionName = sectionName?.asTalkPageFragment,
+           let talkPageURL = maybeTalkPageURL {
+            maybeTalkPageURL = URL(string: talkPageURL.absoluteString + "#" + convertedSectionName)
+        }
+        
+        guard let talkPageURL = maybeTalkPageURL else {
             showGenericError()
             return
         }
+
         navigate(to: talkPageURL)
     }
     
@@ -456,6 +466,7 @@ extension ArticleAsLivingDocViewController: ArticleDetailsShowing {
         
         let diffContainerVC = DiffContainerViewController(siteURL: siteURL, theme: theme, fromRevisionID: Int(parentId), toRevisionID: Int(revisionId), type: diffType, articleTitle: title, needsSetNavDelegate: true)
 
+        delegate?.livingDocViewWillPush()
         push(diffContainerVC)
     }
 
@@ -467,6 +478,8 @@ extension ArticleAsLivingDocViewController: ArticleDetailsShowing {
         
         let historyVC = PageHistoryViewController(pageTitle: title, pageURL: articleURL)
         historyVC.apply(theme: theme)
+        
+        delegate?.livingDocViewWillPush()
         push(historyVC)
     }
 

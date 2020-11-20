@@ -13,11 +13,11 @@ Don't merge yet. Needs more discussion with product & design or is blocked by so
 #### Changes welcome
 Just make the suggested change rather than adding a code review comment.
 #### Update branch before merging
-Pull request contains changes from another pull request. Updating from develop after the dependent PR is merged will clean up the diff.
+Pull request contains changes from another pull request. Updating from main after the dependent PR is merged will clean up the diff.
 #### Question/Design Question
 Pull request has a question that needs answering.
 #### Low impact
 The code change in the pull request doesn't affect more than a few files or is just a refactor.
 
 ## Merging pull requests
-Generally, pull requests require code review approval from at least two other developers before merging. If a pull request is labeled as Low Impact, it can be merged after a review from one other developer. After the pull request is merged, delete the branch, unless it's the TWN branch. **Never delete the twn branch** as it's [required by translatewiki to import translations](localization.md).
+Pull requests require code review approval from one other developer before merging. After the pull request is merged, delete the branch, unless it's the TWN branch. **Never delete the twn branch** as it's [required by translatewiki to import translations](localization.md).

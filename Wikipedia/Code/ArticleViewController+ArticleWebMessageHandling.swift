@@ -55,7 +55,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
         state = .loaded
         showWIconPopoverIfNecessary()
         refreshControl.endRefreshing()
-        surveyTimerController.articleContentDidLoad()
+        surveyTimerController?.articleContentDidLoad()
         initialSetupCompletion?()
         initialSetupCompletion = nil
     }
@@ -107,6 +107,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
     }
     
     func handleAaaLDInsertOnScreenEvent() {
+        surveyTimerController?.userDidScrollPastLivingDocArticleContentInsert(withState: state)
         ArticleAsLivingDocFunnel.shared.logArticleContentInsertShown()
     }
 }

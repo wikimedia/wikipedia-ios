@@ -60,7 +60,6 @@
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=۰ ارجاع|$1 ارجاع|$1 ارجاع}} افزوده شد";
 "aaald-one-section-description" = "در بخش $1";
 "aaald-revision-userInfo" = "ویرایش توسط $1 ($2 ویرایش)";
-"aaald-revision-userInfo-anonymous" = "ویرایش شده توسط $1";
 "aaald-single-reference-added-description" = "ارجاع افزوده شد";
 "aaald-small-change-description" = "{{PLURAL:$1|0=خیچ تغییر جزئی اعمال نشد|$1 تغییر جزئی اعمال شد|$1 تغییر جزئی اعمال شد}}";
 "aaald-summary-title" = "{{PLURAL:$1|0=۰ تغییر|$1 تغییر|$1 تغییر}} توسط {{PLURAL:$2|0=۰ ویرایشگر|$2 ویرایشگر|$2 ویرایشگر}} در {{PLURAL:$3|0=۰ روز|$3 روز|$3 روز}}";
@@ -554,7 +553,6 @@
 "on-this-day-detail-header-date-range" = "از $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 رویداد تاریخی|$1 رویداد تاریخی}}";
 "on-this-day-footer" = "وقایع تاریخی بیشتر برای این روز";
-"on-this-day-footer-with-event-count" = "$1 وقایع تاریخی بیشتر برای این روز";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 از $2 ویکی‌پدیا";
 "on-this-day-title" = "در این روز";
 "page-history-anonymous-edits" = "ویرایش‌های ناشناس";

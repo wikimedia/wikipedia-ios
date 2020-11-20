@@ -303,7 +303,6 @@
 "on-this-day-detail-header-date-range" = "από $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 ιστορικό γεγονός|$1 ιστορικά γεγονότα}}";
 "on-this-day-footer" = "Περισσότερα ιστορικά γεγονότα αυτής της μέρας";
-"on-this-day-footer-with-event-count" = "$1 Περισσότερα ιστορικά γεγονότα αυτή την ημέρα";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 από $2 Βικιπαίδεια";
 "on-this-day-title" = "Αυτήν την μέρα";
 "page-protected-autoconfirmed" = "Αυτή η σελίδα είναι ημιπροστατευμένη";

@@ -51,7 +51,6 @@
 "aaald-new-website-reference-archive-url-text" = "Archive.org の URL";
 "aaald-new-website-reference-title" = "ウェブサイト";
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|$1つの参考文献}}を追加しました";
-"aaald-revision-userInfo-anonymous" = "$1 による編集";
 "aaald-single-reference-added-description" = "参考文献を追加しました";
 "aaald-view-full-history-button" = "すべての記事履歴を表示";
 "about-content-license" = "コンテンツのライセンス";
@@ -554,7 +553,6 @@
 "on-this-day-detail-header-date-range" = "$1 - $2から";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1件の歴史上の出来事|$1件の歴史上の出来事}}";
 "on-this-day-footer" = "この日の多くの歴史的出来事";
-"on-this-day-footer-with-event-count" = "この日に起きた歴史上の出来事をさらに $1 記事";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2版ウィキペディアより$1の記事";
 "on-this-day-title" = "今日は何の日";
 "original-tab-button-popover-description" = "最初のタブに戻るにはWをタップ";

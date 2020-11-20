@@ -325,6 +325,22 @@
 			<string>%1$d 個歷史事件</string>
 		</dict>
 	</dict>
+	<key>on-this-day-footer-showing-event-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>更多 %#@v1@ 個在今天的歷史事件</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d</string>
+			<key>other</key>
+			<string>%1$d</string>
+		</dict>
+	</dict>
 	<key>page-history-revision-size-diff-addition</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

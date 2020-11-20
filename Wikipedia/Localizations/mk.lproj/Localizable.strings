@@ -34,8 +34,8 @@
 "aaald-new-website-reference-title" = "Мреж. место";
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=Додадени 0 наводи|Додаден $1 навод|Додадени $1 наводи}}";
 "aaald-one-section-description" = "во поднасловот $1";
+"aaald-revision-by-anonymous" = "Уредување на анонимен корисник";
 "aaald-revision-userInfo" = "Уредување на $1 ($2 уредувања)";
-"aaald-revision-userInfo-anonymous" = "Уредување на $1";
 "aaald-single-reference-added-description" = "Додаден навод";
 "aaald-small-change-description" = "{{PLURAL:$1|0=Нема ситни промени|Направена $1 ситна промена|Направени $1 ситни промени}}";
 "aaald-summary-title" = "{{PLURAL:$1|0=0 промени|$1 промена|$1 промени}} од {{PLURAL:$2|0=0 уредници|$2 уредник|$2 уредници}} за {{PLURAL:$3|0=0 дена|$3 ден|$3 дена}}";
@@ -548,7 +548,7 @@
 "on-this-day-detail-header-date-range" = "од $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 историски настан|$1 историски настани}}";
 "on-this-day-footer" = "Повеќе историски настани на денешен ден";
-"on-this-day-footer-with-event-count" = "Уште $1 историски настани на денешен ден";
+"on-this-day-footer-showing-event-count" = "{{PLURAL:$1|Уште $1 историски настан|Уште $1 историски настани}} на денешен ден";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 од Википедија на $2";
 "on-this-day-title" = "На денешен ден";
 "original-tab-button-popover-description" = "Допрете на „W“ за да се вратите на почетното јазиче";

@@ -24,8 +24,8 @@
 "aaald-new-website-reference-title" = "Website";
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 references|$1 reference|$1 references}} added";
 "aaald-one-section-description" = "in the $1 section";
+"aaald-revision-by-anonymous" = "Edit by anonymous user";
 "aaald-revision-userInfo" = "Edit by $1 ($2 edits)";
-"aaald-revision-userInfo-anonymous" = "Edit by $1";
 "aaald-single-reference-added-description" = "Reference added";
 "aaald-small-change-description" = "{{PLURAL:$1|0=No small changes made|$1 small change made|$1 small changes made}}";
 "aaald-summary-title" = "{{PLURAL:$1|0=0 changes|$1 change|$1 changes}} by {{PLURAL:$2|0=0 editors|$2 editor|$2 editors}} in {{PLURAL:$3|0=0 days|$3 day|$3 days}}";
