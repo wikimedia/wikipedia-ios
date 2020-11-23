@@ -343,6 +343,7 @@
 "welcome-explore-continue-button" = "Bdu";
 "welcome-explore-new-ways-title" = "Tarrayin-nniden n usnirem";
 "welcome-explore-tell-me-more-done-button" = "Awi-t";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "Wikipedia uran-tt iwiziwen s uɛiwen , llant deg-s ugar n 40 n imeyaln n imagraden s 300 n tutlayin gar-asent taqbaylit.";
 "welcome-intro-free-encyclopedia-more" = "Issin ugar ɣef Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "Ɣef Wikipedia";
@@ -351,6 +352,7 @@
 "welcome-languages-add-button" = "Rnu tutlayt-nniḍen";
 "welcome-languages-add-or-edit-button" = "Rnu neɣ ẓreg tutlayin tebɣiḍ";
 "welcome-languages-description" = "Nufa-d tutlayin-agi deg ibenk-ik:";
+// Fuzzy
 "welcome-languages-search-title" = "Nadi di 300 n tutlayin";
 "welcome-notifications-tell-me-more-creation" = "Ilɣa ttwarnan sakin ttwaznen ar yibenk-ik s usnas, mačči s iqeddacen-nneɣ (neɣ wiyaḍ).";
 "welcome-notifications-tell-me-more-storage" = "Ismenyifen n ilɣa ttwaskelsen ɣef yibenk, ur yebnin ara ɣef telɣut neɣ armud udmawan.";

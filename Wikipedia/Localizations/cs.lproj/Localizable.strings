@@ -523,6 +523,7 @@
 "main-menu-title" = "Více";
 "main-menu-zero-faq" = "FAQ Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Zrušit";
+// Fuzzy
 "more-languages-tooltip-description" = "Vyhledávejte a čtěte Wikipedii ve více než 300 jazycích";
 "more-languages-tooltip-title" = "Přidat jazyky";
 "move-articles-to-reading-list" = "Přidat {{PLURAL:$1|$1 článek|$1 články|$1 článků}} do seznamu k přečtení";
@@ -858,6 +859,7 @@
 "welcome-explore-continue-button" = "Začít";
 "welcome-explore-new-ways-title" = "Nové možnosti pro objevování";
 "welcome-explore-tell-me-more-done-button" = "Mám to";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "Wikipedie je tvořena spoluprací více než 80 milionů dobrovolných přispěvatelů a skládá se z více než 50 milionů článků ve více než 300 jazycích.";
 "welcome-intro-free-encyclopedia-more" = "Další informace o Wikipedii";
 "welcome-intro-free-encyclopedia-more-about" = "O Wikipedii";
@@ -866,6 +868,7 @@
 "welcome-languages-add-button" = "Přidat další jazyk";
 "welcome-languages-add-or-edit-button" = "Přidat nebo upravit preferované jazyky";
 "welcome-languages-description" = "Na vašem zařízení jsme našli následující jazyky:";
+// Fuzzy
 "welcome-languages-search-title" = "Vyhledávejte a čtěte ve více než 300 jazycích";
 "welcome-notifications-tell-me-more-creation" = "Upozornění jsou vytvářeny a doručovány aplikací ve vašem zařízení, nikoliv od našich serverů nebo od serverů třetích stran.";
 "welcome-notifications-tell-me-more-storage" = "Předvolby upozornění jsou uloženy v zařízení a nejsou založeny na osobních informacích nebo aktivitách.";

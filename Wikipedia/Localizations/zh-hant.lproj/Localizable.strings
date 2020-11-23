@@ -547,6 +547,7 @@
 "main-menu-title" = "更多";
 "main-menu-zero-faq" = "維基百科零計劃常見問題";
 "menu-cancel-accessibility-label" = "取消";
+// Fuzzy
 "more-languages-tooltip-description" = "在近 300 種語言的維基百科裡搜尋";
 "more-languages-tooltip-title" = "新增語言";
 "move-articles-to-reading-list" = "移動 {{PLURAL:$1|$1 個條目|$1 個條目}}至閱讀清單";
@@ -883,6 +884,7 @@
 "welcome-explore-continue-button" = "入門";
 "welcome-explore-new-ways-title" = "探索的新方式";
 "welcome-explore-tell-me-more-done-button" = "了解";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "維基百科是由各志願者們協作編寫，並包含將近 300 種語言的 4000 萬個條目。";
 "welcome-intro-free-encyclopedia-more" = "了解更多關於維基百科";
 "welcome-intro-free-encyclopedia-more-about" = "關於維基百科";
@@ -891,6 +893,7 @@
 "welcome-languages-add-button" = "新增另一個語言";
 "welcome-languages-add-or-edit-button" = "新增或編輯首選語言";
 "welcome-languages-description" = "我們在您的裝置上找到以下語言：";
+// Fuzzy
 "welcome-languages-search-title" = "在近 300 種語言裡搜尋";
 "welcome-notifications-tell-me-more-creation" = "通知是由此應用程式在您裝置上建立及發送，而非由我們或（其它第三方）的服務所為。";
 "welcome-notifications-tell-me-more-storage" = "通知的偏好設定是儲存在裝置上，而不是基於個人資訊或活動。";

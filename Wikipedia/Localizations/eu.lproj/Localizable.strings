@@ -293,6 +293,7 @@
 "main-menu-title" = "Gehiago";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "menu-cancel-accessibility-label" = "Utzi";
+// Fuzzy
 "more-languages-tooltip-description" = "Bilatu Wikipedia ia 300 hizkuntzatan";
 "more-languages-tooltip-title" = "Hizkuntzak gehitu";
 "move-articles-to-reading-list" = "Mugitu {{PLURAL:$1|artikulu $1|$1 artikulu}} irakurketa zerrendara";
@@ -542,6 +543,7 @@
 "welcome-explore-continue-button" = "Hasi";
 "welcome-explore-new-ways-title" = "Exploratzeko era berriak";
 "welcome-explore-tell-me-more-done-button" = "Ulertuta";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "Wikipedia boluntarioek idatzi dute elkarlanean, eta 40 milioi artikulu baino gehiago biltzen dira ia 300 hizkuntzatan.";
 "welcome-intro-free-encyclopedia-more" = "Wikipediari buruzko gehiago ikasi";
 "welcome-intro-free-encyclopedia-more-about" = "Wikipediari buruz";
@@ -550,6 +552,7 @@
 "welcome-languages-add-button" = "Gehitu beste hizkuntza bat";
 "welcome-languages-add-or-edit-button" = "Gehitu edo aldatu hizkuntza hobetsia";
 "welcome-languages-description" = "Hurrengo hizkuntzak aurkitu ditugu zure gailuan:";
+// Fuzzy
 "welcome-languages-search-title" = "Bilatu ia 300 hizkuntzatan";
 "welcome-notifications-tell-me-more-creation" = "Jakinarazpenak zure gailuan sortu eta bidali dira aplikazioak, ez gure zerbitzarietan (edo beste hirugarren batean).";
 "welcome-notifications-tell-me-more-storage" = "Jakinarazpen lehentesiak gailuan biltzen dira, eta ez dira oinarritzen informazio edo jarduera pertsonalean.";

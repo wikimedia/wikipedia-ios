@@ -50,6 +50,7 @@
 "aaald-new-website-reference-title" = "Webbplats";
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 referens|$1 referens|$1 referenser}} lades till";
 "aaald-one-section-description" = "i avsnittet $1";
+"aaald-revision-by-anonymous" = "Redigering av anonym användare";
 "aaald-revision-userInfo" = "Redigering av $1 ($2 redigeringar)";
 "aaald-single-reference-added-description" = "Referens lades till";
 "aaald-small-change-description" = "{{PLURAL:$1|0=Inga mindre ändringar gjordes|$1 mindre ändring gjordes|$1 mindre ändringar gjordes}}";
@@ -543,6 +544,7 @@
 "main-menu-title" = "Mer";
 "main-menu-zero-faq" = "Vanliga frågor om Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Avbryt";
+// Fuzzy
 "more-languages-tooltip-description" = "Sök på Wikipedia på nästan 300 språk";
 "more-languages-tooltip-title" = "Lägg till språk";
 "move-articles-to-reading-list" = "Flytta {{PLURAL:$1|$1 artikel|$1 artiklar}} till läslista";
@@ -563,6 +565,7 @@
 "on-this-day-detail-header-date-range" = "från $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historisk händelse|$1 historiska händelser}}";
 "on-this-day-footer" = "Fler historiska händelser på denna dag";
+"on-this-day-footer-showing-event-count" = "{{PLURAL:$1|$1 till historisk händelse|$1 fler historiska händelser}} på denna dag";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 från Wikipedia på $2";
 "on-this-day-title" = "På denna dag";
 "original-tab-button-popover-description" = "Tryck på \"W\" för att återvända till fliken du började ifrån";
@@ -878,6 +881,7 @@
 "welcome-explore-continue-button" = "Kom igång";
 "welcome-explore-new-ways-title" = "Nya sätt att utforska";
 "welcome-explore-tell-me-more-done-button" = "Jag förstår";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "Wikipedia är ett samarbete som skrivs av frivilliga och består av fler än 40 miljoner artiklar på nästan 300 språk.";
 "welcome-intro-free-encyclopedia-more" = "Läs mer om Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "Om Wikipedia";
@@ -886,6 +890,7 @@
 "welcome-languages-add-button" = "Lägg till ett annat språk";
 "welcome-languages-add-or-edit-button" = "Lägg till eller redigera föredragna språk";
 "welcome-languages-description" = "Vi har hittat följande språk på din enhet:";
+// Fuzzy
 "welcome-languages-search-title" = "Sök på nästan 300 språk";
 "welcome-notifications-tell-me-more-creation" = "Notiser skapas och levereras på din enhet genom appen, inte från vår (eller tredje partens) servrar.";
 "welcome-notifications-tell-me-more-storage" = "Notisinställningarna lagras på enheten och bygger inte på personliga uppgifter eller aktiviteter.";

@@ -388,6 +388,7 @@
 "main-menu-title" = "Lagi";
 "main-menu-zero-faq" = "Soalan Lazim Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Batal";
+// Fuzzy
 "more-languages-tooltip-description" = "Cari Wikipedia dalam hampir 300 bahasa";
 "more-languages-tooltip-title" = "Tambahkan bahasa";
 "move-articles-to-reading-list" = "Pindahkan {{PLURAL:$1|$1 rencana|$1 rencana}} ke daftar bacaan";
@@ -646,6 +647,7 @@
 "welcome-explore-continue-button" = "Memulakan";
 "welcome-explore-new-ways-title" = "Cara-cara baru untuk meneroka";
 "welcome-explore-tell-me-more-done-button" = "Faham";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "Wikipedia ditulis secara sukarela oleh sukarelawan dan terdiri daripada lebih 40 juta rencana dalam hampir 300 bahasa.";
 "welcome-intro-free-encyclopedia-more" = "Ketahui lebih lanjut mengenai Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "Mengenai Wikipedia";
@@ -654,6 +656,7 @@
 "welcome-languages-add-button" = "Tambahkan bahasa lain";
 "welcome-languages-add-or-edit-button" = "Tambah atau sunting bahasa pilihan";
 "welcome-languages-description" = "Kami telah menemui bahasa berikut pada peranti anda:";
+// Fuzzy
 "welcome-languages-search-title" = "Cari dalam hampir 300 bahasa";
 "welcome-notifications-tell-me-more-creation" = "Pemberitahuan dicipta dan dihantar pada peranti anda dengan aplikasi, bukan dari pelayan kami (atau pihak ketiga).";
 "welcome-notifications-tell-me-more-storage" = "Pilihan pemberitahuan disimpan pada peranti dan tidak berdasarkan kepada maklumat peribadi atau aktiviti.";

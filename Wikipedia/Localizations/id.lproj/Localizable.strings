@@ -10,6 +10,7 @@
 // Author: Bramadiarya
 // Author: C5st4wr6ch
 // Author: Cleinman
+// Author: Daud I.F. Argana
 // Author: Fate Kage
 // Author: Gombang
 // Author: Hanif Al Husaini
@@ -34,6 +35,7 @@
 "aaald-article-insert-last-updated" = "Terakhir diperbarui";
 "aaald-article-insert-new-changes" = "Perubahan terbaru";
 "aaald-article-insert-read-more" = "Baca lebih banyak pembaruan";
+"aaald-characters-text-description" = "{{PLURAL:$1|0=0 karakter|$1 karakter|$1 karakter}}";
 "aaald-deleted-text-description-2" = "$1 dihapus";
 "aaald-error-subitle" = "Muat ulang untuk mencoba lagi";
 "aaald-error-title" = "Tidak dapat memuat riwayat artikel";
@@ -53,6 +55,7 @@
 "aaald-new-website-reference-title" = "Situs web";
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 referensi|$1 referensi|$1 referensi}} ditambahkan";
 "aaald-one-section-description" = "di dalam bagian $1";
+"aaald-revision-by-anonymous" = "Suntingan oleh pengguna anonim";
 "aaald-revision-userInfo" = "Penyuntingan oleh $1 ($2 penyuntingan)";
 "aaald-single-reference-added-description" = "Referensi telah ditambahkan";
 "aaald-small-change-description" = "{{PLURAL:$1|0=Tidak ada penyuntingan kecil dibuat|$1 penyuntingan kecil dibuat|$1 penyuntingan kecil dibuat}}";
@@ -546,6 +549,7 @@
 "main-menu-title" = "Lainnya";
 "main-menu-zero-faq" = "Tanya jawab Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Batal";
+// Fuzzy
 "more-languages-tooltip-description" = "Cari Wikipedia dalam hampir 300 bahasa";
 "more-languages-tooltip-title" = "Tambah bahasa";
 "move-articles-to-reading-list" = "Pindahkan {{PLURAL:$1|$1 artikel|$1 artikel}} ke daftar bacaan";
@@ -566,6 +570,7 @@
 "on-this-day-detail-header-date-range" = "dari $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 peristiwa bersejarah|$1 peristiwa bersejarah}}";
 "on-this-day-footer" = "Peristiwa bersejarah lainnya pada hari ini";
+"on-this-day-footer-showing-event-count" = "$1 kejadian historis lainnya pada hari ini";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 dari Wikipedia $2";
 "on-this-day-title" = "Pada hari ini";
 "original-tab-button-popover-description" = "Ketuk 'W' untuk kembali ke tab yang Anda mulai dari";
@@ -700,7 +705,6 @@
 "reading-lists-default-list-title" = "Tersimpan";
 "reading-lists-delete-reading-list-alert-message" = "Tindakan ini tidak bisa dibatalkan. Setiap artikel yang disimpan hanya ke {{PLURAL:$1|daftar ini|daftar ini}} akan disimpan.";
 "reading-lists-delete-reading-list-alert-title" = "Hapus {{PLURAL:$1|daftar|daftar}}?";
-// Fuzzy
 "reading-lists-large-sync-completed" = "$1 artikel dan $2 daftar bacaan disinkronkan dari akun Anda";
 "reading-lists-list-not-synced-limit-exceeded" = "Daftar tidak disinkronkan, batas terlampaui";
 "reading-lists-sort-saved-articles" = "Urutkan artikel tersimpan";
@@ -720,6 +724,7 @@
 "relative-date-hours-abbreviated" = "$1j";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Baru-baru ini|$1 jam yang lalu|$1 jam yang lalu}}";
 "relative-date-hours-ago-abbreviated" = "$1j yang lalu";
+"relative-date-minutes-abbreviated" = "$1m";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Baru saja|$1 menit yang lalu|$1 menit yang lalu}}";
 "relative-date-minutes-ago-abbreviated" = "$1m yang lalu";
 "relative-date-months-ago" = "{{PLURAL:$1|0=Bulan ini|1=Bulan lalu|$1 bulan lalu}}";
@@ -727,8 +732,11 @@
 "relative-date-seconds-ago-abbreviated" = "$1d yang lalu";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Tahun ini|1=Tahun lalu|$1 tahun yang lalu}}";
 "replace-button-accessibility" = "Lakukan $1.";
+"replace-clear-button-accessibility" = "Hapus penggantian";
 "replace-infolabel-method-replace" = "Ganti";
 "replace-infolabel-method-replace-all" = "Ganti semua";
+"replace-method-button-accessibility" = "Ganti metode. Atur menjadi $1. Pilih untuk mengubah.";
+"replace-replace-all-results-count" = "$1 butir diganti";
 "replace-textfield-accessibility" = "Ganti";
 "replace-textfield-placeholder" = "Ganti dengan...";
 "request-feedback-on-error" = "Aplikasi ini mengalami masalah yang menyebabkan pengembang kami ingin tahu lebih lanjut. Silakan ketuk di sini untuk mengirimkan kami surel dengan rincian kesalahan.";
@@ -833,6 +841,7 @@
 "talk-page-link-user-action-sheet-title" = "Halaman pengguna";
 "talk-page-new-banner-subtitle" = "Ingat, kita semua adalah manusia di sini";
 "talk-page-new-banner-title" = "Mohon untuk berbaik hati";
+"talk-page-new-body-textfield-accessibility-label" = "Tubuh Diskusi";
 "talk-page-new-reply-body-accessibility-label" = "Susun tanggapan";
 "talk-page-new-reply-body-placeholder-text" = "Susun tanggapan";
 "talk-page-new-reply-success-text" = "Balasan anda telah diterbitkan";
@@ -873,6 +882,7 @@
 "welcome-explore-continue-button" = "Memulai";
 "welcome-explore-new-ways-title" = "Cara baru untuk menjelajah";
 "welcome-explore-tell-me-more-done-button" = "Mengerti";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "Wikipedia ditulis secara kolaboratif oleh sukarelawan dan terdiri dari lebih dari 40 juta artikel dalam hampir 300 bahasa.";
 "welcome-intro-free-encyclopedia-more" = "Pelajari lebih lanjut tentang Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "Tentang Wikipedia";
@@ -881,6 +891,7 @@
 "welcome-languages-add-button" = "Tambahkan bahasa lainnya";
 "welcome-languages-add-or-edit-button" = "Tambahkan atau sunting bahasa pilihan";
 "welcome-languages-description" = "Kami telah menemukan bahasa berikut di perangkat Anda:";
+// Fuzzy
 "welcome-languages-search-title" = "Cari dalam hampir 300 bahasa";
 "welcome-notifications-tell-me-more-creation" = "Pemberitahuan dibuat dan disampaikan pada perangkat Anda dengan aplikasi, bukan dari peladen kami (atau pihak ketiga).";
 "welcome-notifications-tell-me-more-storage" = "Preferensi pemberitahuan disimpan di perangkat dan tidak berdasarkan informasi pribadi atau aktivitas.";

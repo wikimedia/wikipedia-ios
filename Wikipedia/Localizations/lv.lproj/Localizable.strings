@@ -145,6 +145,7 @@
 "main-menu-title" = "Vairāk";
 "main-menu-zero-faq" = "Vikipēdija Zero BUJ";
 "menu-cancel-accessibility-label" = "Atcelt";
+// Fuzzy
 "more-languages-tooltip-description" = "Meklē Vikipēdijā gandrīz 300 valodās";
 "more-languages-tooltip-title" = "Pievienot valodas";
 "navbar-title-mode-edit-wikitext-preview" = "Priekšskatījums";

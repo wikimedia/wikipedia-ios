@@ -533,6 +533,7 @@
 "main-menu-title" = "بیشتر";
 "main-menu-zero-faq" = "پرسش‌های رایج ویکی‌پدیا صفر";
 "menu-cancel-accessibility-label" = "لغو";
+// Fuzzy
 "more-languages-tooltip-description" = "جستجو در ویکیپدیا به نزدیک ۳۰۰ زبان";
 "more-languages-tooltip-title" = "افزودن زبان";
 "move-articles-to-reading-list" = "افزودن {{PLURAL:$1|$1 article|$1 articles}}  به فهرست خواندن";
@@ -850,6 +851,7 @@
 "welcome-explore-continue-button" = "شروع شد";
 "welcome-explore-new-ways-title" = "روش جدید برای کاوش";
 "welcome-explore-tell-me-more-done-button" = "گرفتم";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "ویکی‌پدیا توسط کاربران داوطلب با بیش از ۴۰ میلیون مقاله در حدود ۳۰۰ زبان نوشته‌شده‌است.";
 "welcome-intro-free-encyclopedia-more" = "اطلاعات بیشتر در مورد ویکی‌پدیا";
 "welcome-intro-free-encyclopedia-more-about" = "دربارهٔ ویکی‌پدیا";
@@ -858,6 +860,7 @@
 "welcome-languages-add-button" = "افزدون زبان دیگر";
 "welcome-languages-add-or-edit-button" = "افزودن یا ویرایش زبان مورد علاقه";
 "welcome-languages-description" = "این زبان‌ها را روی دستگاه شما یافتیم:";
+// Fuzzy
 "welcome-languages-search-title" = "جستجو در حدود ۳۰۰ زبان";
 "welcome-notifications-tell-me-more-creation" = "آگاه‌سازی‌ها به کمک اپلیکیشن موجود روی دستگاه شما تولید می‌شود و از طریق سرور یا سرویس شخص ثالث تولید نمی‌شوند.";
 "welcome-notifications-tell-me-more-storage" = "ترجیحات آگاه‌سازی برپایهٔ دستگاه است و بر پایهٔ اطلاعات شخصی یا فعالیت شما نیست.";

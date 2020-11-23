@@ -262,6 +262,7 @@
 "main-menu-title" = "زیاتر";
 "main-menu-zero-faq" = "پرسیارە دووپاتکراوەکانی ویکیپیدیا سفر";
 "menu-cancel-accessibility-label" = "ھەڵوەشاندنەوە";
+// Fuzzy
 "more-languages-tooltip-description" = "بە نزیکەی ٣٠٠ زمان بگەڕێ لە ویکیپیدیادا";
 "more-languages-tooltip-title" = "زمان زیاد بکە";
 "navbar-title-mode-edit-wikitext-preview" = "پێشبینین";
@@ -405,6 +406,7 @@
 "welcome-explore-continue-button" = "دەست پێ بکە";
 "welcome-explore-new-ways-title" = "ڕێگەی نوێ بۆ گەڕان";
 "welcome-explore-tell-me-more-done-button" = "تێگەیشتم";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "ویکیپیدیا لە لایەن خۆبەخشان دەنووسرێتەوە و ھەنووکە زیاتر لە ٤٠ ملیۆن وتار بە نزیکەی ٣٠٠ زمانی جیاواز ھەن.";
 "welcome-intro-free-encyclopedia-more" = "زیاتر فێرببە دەربارەی ویکیپیدیا";
 "welcome-intro-free-encyclopedia-more-about" = "لەبارەی ویکیپیدیاوە";
@@ -413,6 +415,7 @@
 "welcome-languages-add-button" = "زیادکردنی زمانێکی تر";
 "welcome-languages-add-or-edit-button" = "زیادکردن یان دەستکاریکردنی زمانەکان";
 "welcome-languages-description" = "ئەم زمانانەمان لەسەر ئامێرەکەت دۆزییەوە:";
+// Fuzzy
 "welcome-languages-search-title" = "بە نزیکەی ٣٠٠ زمان بگەڕێ!";
 "welcome-notifications-tell-me-more-creation" = "ھۆشدارەکان لەناو خودی ئاپەکەوە دروست دەکرێن و بۆت دەنێردرێن، نەوەک لە لایەنێکی سێیەمەوە.";
 "welcome-notifications-tell-me-more-storage" = "ھۆشدارەکان لەسەر دیڤایسەکە پاشەکەوت دەکرێن و لەسەر زانیاری و چالاکی تایبەتی بنیات نانرێن.";

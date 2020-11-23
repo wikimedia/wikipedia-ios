@@ -19,6 +19,7 @@
 // Author: Purodha
 // Author: Ubahnverleih
 
+"aaald-view-full-history-button" = "Vollständige Versionsgeschichte anzeigen";
 "about-content-license" = "Inhaltslizenz";
 "about-content-license-details" = "Sofern nicht anders angegeben, ist der Inhalt verfügbar unter einer $1.";
 "about-content-license-details-share-alike-license" = "Creative-Commons-Lizenz „Namensnennung – Weitergabe unter gleichen Bedingungen“";
@@ -114,6 +115,7 @@
 "article-about-title" = "Über diesen Artikel";
 "article-delete" = "Löschen";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|Artikel}} gelöscht";
+"article-fetcher-error-updated-content-timeout" = "Die App war nicht in der Lage, die aktualisierten Inhalte rechtzeitig abzurufen. Bitte aktualisiere diese Seite später, um deine Änderungen zu sehen.";
 "article-languages-filter-placeholder" = "Sprache finden";
 "article-languages-label" = "Sprache auswählen";
 "article-languages-others" = "Andere Sprachen";
@@ -185,6 +187,7 @@
 "diff-multi-line-format" = "Zeilen $1 bis $2";
 "diff-paragraph-moved" = "Abschnitt verschoben";
 "diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1 Zeile|$1 Zeilen}}";
+"diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 Abschnitt|$1 Abschnitte}}";
 "diff-revision-error-title" = "Die Version konnten nicht geladen werden.";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 Bearbeitung|$1 Bearbeitungen}}";
 "diff-single-header-editor-title" = "Autoreninformationen";
@@ -193,6 +196,7 @@
 "diff-single-header-summary-heading" = "Bearbeitungszusammenfassung";
 "diff-single-intro-title" = "Einleitung";
 "diff-single-line-format" = "Zeile $1";
+"diff-thanks-anonymous-no-thanks" = "Anonymen Benutzern kann nicht gedankt werden";
 "diff-thanks-login-subtitle" = "'Danken' sind eine einfache Möglichkeit, die Arbeit eines Editors bei Wikipedia zu würdigen. Du must eingeloggt sein, um 'Danken' zu senden.";
 "diff-thanks-login-title" = "Anmelden, um 'Danken' zu senden";
 "diff-thanks-send-button-title" = "Für diese Bearbeitung danken";
@@ -485,6 +489,7 @@
 "main-menu-title" = "Weitere";
 "main-menu-zero-faq" = "FAQ zu Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Abbrechen";
+// Fuzzy
 "more-languages-tooltip-description" = "Wikipedia in fast 300 Sprachen durchsuchen";
 "more-languages-tooltip-title" = "Sprachen hinzufügen";
 "move-articles-to-reading-list" = "{{PLURAL:$1|Einen|$1}} Artikel in eine Leseliste verschieben";
@@ -795,6 +800,7 @@
 "welcome-explore-continue-button" = "Anfangen";
 "welcome-explore-new-ways-title" = "Neue Wege zum Entdecken";
 "welcome-explore-tell-me-more-done-button" = "Verstanden";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "Wikipedia wurde kollaborativ von Freiwilligen verfasst und besteht aus mehr als 40 Millionen Artikeln in fast 300 Sprachen.";
 "welcome-intro-free-encyclopedia-more" = "Mehr über Wikipedia erfahren";
 "welcome-intro-free-encyclopedia-more-about" = "Über Wikipedia";
@@ -803,6 +809,7 @@
 "welcome-languages-add-button" = "Eine weitere Sprache hinzufügen";
 "welcome-languages-add-or-edit-button" = "Bevorzugte Sprachen hinzufügen oder bearbeiten";
 "welcome-languages-description" = "Wir haben die folgenden Sprachen auf deinem Gerät gefunden:";
+// Fuzzy
 "welcome-languages-search-title" = "Suche in fast 300 Sprachen";
 "welcome-notifications-tell-me-more-creation" = "Benachrichtigungen werden auf deinem Gerät von der App erstellt und zur Verfügung gestellt und nicht von unseren oder Drittparteiservern.";
 "welcome-notifications-tell-me-more-storage" = "Benachrichtigungseinstellungen werden auf dem Gerät gespeichert und basieren nicht auf persönliche Informationen oder Aktivitäten.";

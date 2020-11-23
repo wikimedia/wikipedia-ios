@@ -44,6 +44,7 @@
 "aaald-new-talk-topic-description-format" = "이 문서의 $1";
 "aaald-new-website-reference-archive-url-text" = "Archive.org URL";
 "aaald-new-website-reference-title" = "웹사이트";
+"aaald-revision-by-anonymous" = "익명 사용자의 편집";
 "aaald-revision-userInfo" = "편집자: $1 (편집 $2개)";
 "aaald-single-reference-added-description" = "각주 추가됨";
 "aaald-view-full-history-button" = "모든 문서 역사 보기";
@@ -533,6 +534,7 @@
 "main-menu-title" = "더 보기";
 "main-menu-zero-faq" = "위키백과 제로 FAQ";
 "menu-cancel-accessibility-label" = "취소";
+// Fuzzy
 "more-languages-tooltip-description" = "약 300개의 언어에서 위키백과 검색";
 "more-languages-tooltip-title" = "언어 추가";
 "move-articles-to-reading-list" = "{{PLURAL:$1|문서 $1개}}를 읽기 목록으로 이동";
@@ -865,6 +867,7 @@
 "welcome-explore-continue-button" = "시작하기";
 "welcome-explore-new-ways-title" = "탐구를 위한 새로운 방법";
 "welcome-explore-tell-me-more-done-button" = "알겠습니다";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "위키백과는 자발적인 기여자들의 협업을 통해 작성되며 약 300개의 언어의 40,000,000개 이상의 문서로 이루어져 있습니다.";
 "welcome-intro-free-encyclopedia-more" = "위키백과에 대해 더 알아보기";
 "welcome-intro-free-encyclopedia-more-about" = "위키백과 정보";
@@ -873,6 +876,7 @@
 "welcome-languages-add-button" = "다른 언어 추가";
 "welcome-languages-add-or-edit-button" = "선호 언어 추가 또는 편집";
 "welcome-languages-description" = "장치에서 다음의 언어를 발견했습니다:";
+// Fuzzy
 "welcome-languages-search-title" = "약 300개의 언어에서 검색";
 "welcome-notifications-tell-me-more-creation" = "알림은 저희의 (타사) 서버가 아닌, 앱을 통해 장치에서 생성, 전달됩니다.";
 "welcome-notifications-tell-me-more-storage" = "알림 환경 설정은 장치에 저장되며 개인정보나 활동에 기반을 두지 않습니다.";
