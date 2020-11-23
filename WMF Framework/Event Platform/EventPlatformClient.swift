@@ -10,7 +10,7 @@
  *     stream intake service.
  *
  * LICENSE NOTICE
- *     Copyright 2019 Wikimedia Foundation
+ *     Copyright 2020 Wikimedia Foundation
  *
  *     Redistribution and use in source and binary forms, with or without
  *     modification, are permitted provided that the following conditions are
@@ -53,7 +53,7 @@ import CocoaLumberjackSwift
  *   originally submitted
  */
 @objc (WMFEventPlatformClient)
-public class EventPlatformClient: NSObject {
+public class EventPlatformClient: NSObject, SamplingControllerDelegate {
     // MARK: - Properties
 
     @objc(sharedInstance) public static let shared: EventPlatformClient = {
@@ -64,6 +64,8 @@ public class EventPlatformClient: NSObject {
     /// Session for requesting data
     let session = MWKDataStore.shared().session
     
+    let samplingController: SamplingController
+
     /**
      * Streams are the event stream identifiers that can be utilized with the EventPlatformClientLibrary. They should
      *  correspond to the `$id` of a schema in
@@ -128,7 +130,7 @@ public class EventPlatformClient: NSObject {
     /**
      * An individual stream's configuration.
      */
-    private struct StreamConfiguration: Codable {
+    struct StreamConfiguration: Codable {
         let sampling: Sampling?
         struct Sampling: Codable {
             let rate: Double?
@@ -166,7 +168,7 @@ public class EventPlatformClient: NSObject {
      * The identifier is a string of 20 zero-padded hexadecimal digits
      * representing a uniformly random 80-bit integer.
      */
-    private var sessionID: String {
+    internal var sessionID: String {
         get {
             queue.sync {
                 guard let sID = _sessionID else {
@@ -218,7 +220,11 @@ public class EventPlatformClient: NSObject {
     // MARK: - Methods
 
     public override init() {
+        self.samplingController = SamplingController()
+        
         super.init()
+
+        self.samplingController.delegate = self
 
         self.fetchStreamConfiguration(retries: 10, retryDelay: 30)
     }
@@ -283,7 +289,7 @@ public class EventPlatformClient: NSObject {
         queue.async {
             self._sessionID = nil
         }
-        removeAllSamplingCache()
+        samplingController.removeAllSamplingCache()
     }
 
     /**
@@ -370,7 +376,10 @@ public class EventPlatformClient: NSObject {
             // is still being set (asynchronously), they will just go back to
             // input buffer.
             while let event = inputBufferPopFirst() {
-                guard inSample(stream: event.stream) else {
+                guard let config = streamConfigurations?[event.stream] else {
+                    continue
+                }
+                guard samplingController.inSample(stream: event.stream, config: config) else {
                     continue
                 }
                 appendPostToOutputBuffer(event)
@@ -414,95 +423,6 @@ public class EventPlatformClient: NSObject {
         group.notify(queue: queue) {
             completion?()
         }
-    }
-
-    /**
-     * Yields a deterministic (not stochastic) determination of whether the
-     * provided `id` is in-sample or out-of-sample according to the `acceptance`
-     * rate
-     * - Parameter id: identifier to use for determining sampling
-     * - Parameter acceptance: the desired proportion of many `token`-s being
-     *   accepted
-     *
-     * The algorithm works in a "widen the net on frozen fish" fashion -- tokens
-     * continue evaluating to true as the acceptance rate increases. For example,
-     * a device determined to be in-sample for a stream "A" having rate 0.1 will
-     * be determined to be in-sample for a stream "B" having rate 0.2, and its
-     * events will show up in tables "A" and "B".
-     */
-    private func determine(_ id: String, _ acceptance: Double) -> Bool {
-        guard let token = UInt32(id.prefix(8), radix: 16) else {
-            return false
-        }
-        return (Double(token) / Double(UInt32.max)) < acceptance
-    }
-
-    /**
-     * Compute a boolean function on a random identifier
-     * - Parameter stream: name of the stream
-     * - Returns: `true` if in sample or `false` otherwise
-     *
-     * The determinations are lazy and cached, so each stream's in-sample vs
-     * out-of-sample determination is computed only once, the first time an event
-     * is logged to that stream.
-     *
-     * Refer to sampling settings section in
-     * [mw:Wikimedia Product/Analytics Infrastructure/Stream configuration](https://www.mediawiki.org/wiki/Wikimedia_Product/Analytics_Infrastructure/Stream_configuration)
-     * for more information.
-     */
-    private func inSample(stream: Stream) -> Bool {
-
-        guard let configs = streamConfigurations else {
-            DDLogDebug("EPC: Invalid state, must have streamConfigurations to check for inSample")
-            return false
-        }
-
-        if let cachedValue = getSamplingForStream(stream) {
-            return cachedValue
-        }
-
-        guard let config = configs[stream] else {
-            let error = """
-            EPC: Invalid state, stream '\(stream)' must be present in streamConfigurations to check for inSample
-            but found only: \(configs.keys.map(\.rawValue).joined(separator: ", "))
-            """
-            DDLogError(error)
-            return false
-        }
-
-        guard let rate = config.sampling?.rate else {
-            /*
-             * If stream is present in streamConfigurations but doesn't have
-             * sampling settings, it is always in-sample.
-             */
-            cacheSamplingForStream(stream, inSample: true)
-            return true
-        }
-
-        /*
-         * All platforms use session ID as the default identifier for determining
-         * in- vs out-of-sample of events sent to streams. On the web, streams can
-         * be set to use pageview token instead. On the apps, streams can be set
-         * to use device token instead.
-         */
-        let sessionIdentifierType = "session"
-        let deviceIdentifierType = "device"
-        let identifierType = config.sampling?.identifier ?? sessionIdentifierType
-
-        guard identifierType == sessionIdentifierType || identifierType == deviceIdentifierType else {
-            DDLogDebug("EPC: Logged to stream which is not configured for sampling based on session or device identifier")
-            cacheSamplingForStream(stream, inSample: false)
-            return false
-        }
-
-        guard let identifier = identifierType == sessionIdentifierType ? sessionID : UserDefaults.standard.wmf_appInstallId else {
-            DDLogError("EPC: Missing token for determining in- vs out-of-sample. Fallbacking to not in sample.")
-            cacheSamplingForStream(stream, inSample: false)
-            return false
-        }
-        let result = determine(identifier, rate)
-        cacheSamplingForStream(stream, inSample: result)
-        return result
     }
     
     /// EventBody is used to encod event data into the POST body of a request to the Modern Event Platform
@@ -674,12 +594,11 @@ public class EventPlatformClient: NSObject {
                 return
             }
             
-            guard streamConfigs.keys.contains(stream) else {
+            guard let config = streamConfigs[stream] else {
                 DDLogDebug("EPC: Event submitted to '\(stream)' but only the following streams are configured: \(streamConfigs.keys.map(\.rawValue).joined(separator: ", "))")
                 return
             }
-            
-            guard inSample(stream: stream) else {
+            guard samplingController.inSample(stream: stream, config: config) else {
                 return
             }
             appendPostToOutputBuffer(request)
@@ -733,39 +652,6 @@ private extension EventPlatformClient {
                 return nil
             }
             return self.inputBuffer.remove(at: 0)
-        }
-    }
-
-    /**
-     * Thread-safe asynchronous caching of a stream's in-vs-out-of-sample
-     * determination
-     * - Parameter stream: name of stream to cache determination for
-     * - Parameter inSample: whether the stream was determined to be in-sample
-     *   this session
-     */
-    func cacheSamplingForStream(_ stream: Stream, inSample: Bool) {
-        queue.async {
-            self.samplingCache[stream] = inSample
-        }
-    }
-
-    /**
-     * Thread-safe synchronous retrieval of a stream's cached in-vs-out-of-sample determination
-     * - Parameter stream: name of stream to retrieve determination for from the cache
-     * - Returns: `true` if stream was determined to be in-sample this session, `false` otherwise
-     */
-    func getSamplingForStream(_ stream: Stream) -> Bool? {
-        queue.sync {
-            return self.samplingCache[stream]
-        }
-    }
-
-    /**
-     * Thread-safe asynchronous clearance of cached stream in-vs-out-of-sample determinations
-     */
-    func removeAllSamplingCache() {
-        queue.async {
-            self.samplingCache.removeAll()
         }
     }
 
