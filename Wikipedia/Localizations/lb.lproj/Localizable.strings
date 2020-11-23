@@ -309,6 +309,7 @@
 "main-menu-title" = "Méi";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "menu-cancel-accessibility-label" = "Ofbriechen";
+// Fuzzy
 "more-languages-tooltip-description" = "Op Wikipedia a bal 300 Sprooche sichen";
 "more-languages-tooltip-title" = "Sproochen derbäisetzen";
 "navbar-title-mode-edit-wikitext-preview" = "Kucken ouni ofzespäicheren";
@@ -537,6 +538,7 @@
 "welcome-languages-add-button" = "Eng aner Sprooch derbäisetzen";
 "welcome-languages-add-or-edit-button" = "Lieblingssproochen derbäisetzen oder änneren";
 "welcome-languages-description" = "Op Ärem Apparat hu mir dës Sprooche fonnt:";
+// Fuzzy
 "welcome-languages-search-title" = "A bal 300 Sprooche sichen";
 "welcome-notifications-tell-me-more-creation" = "Notifikatioune ginn duerch d'App op Ärem Apparat ugeluecht an ausgeliwwert, net vun eise Serveren (oder enger drëtter Säit).";
 "welcome-notifications-tell-me-more-storage" = "D'Astellunge fir d'Notifikatioune sinn um Apparat gespäichert a baséieren net op perséinlechen Informatiounen oder der Aktivitéit.";

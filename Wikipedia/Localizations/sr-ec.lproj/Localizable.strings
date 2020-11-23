@@ -481,6 +481,7 @@
 "main-menu-title" = "Више";
 "main-menu-zero-faq" = "Честа питања о Википедији нула";
 "menu-cancel-accessibility-label" = "Откажи";
+// Fuzzy
 "more-languages-tooltip-description" = "Претражујте Википедију на готово 300 језика";
 "more-languages-tooltip-title" = "Додај језике";
 "move-articles-to-reading-list" = "Премести {{PLURAL:$1|$1 чланак|$1 чланка|$1 чланака}} на листу за читање";
@@ -806,6 +807,7 @@
 "welcome-explore-continue-button" = "Почни";
 "welcome-explore-new-ways-title" = "Нови начини за истраживање";
 "welcome-explore-tell-me-more-done-button" = "Разумем";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "Википедију заједничким снагама пишу добровољци и садржи преко 40 милиона чланака на готово 300 језика.";
 "welcome-intro-free-encyclopedia-more" = "Сазнајте више о Википедији";
 "welcome-intro-free-encyclopedia-more-about" = "О Википедији";
@@ -814,6 +816,7 @@
 "welcome-languages-add-button" = "Додај други језик";
 "welcome-languages-add-or-edit-button" = "Додај или уреди жељене језике";
 "welcome-languages-description" = "Пронашли смо следеће језике на вашем уређају:";
+// Fuzzy
 "welcome-languages-search-title" = "Претражујте на готово 300 језика";
 "welcome-notifications-tell-me-more-creation" = "Апликација прави и доставља обавештења на ваш уређај, а не наши сервери (или трећих страна).";
 "welcome-notifications-tell-me-more-storage" = "Подешавања обавештења се смештају на уређају и нису заснована на личним информацијама или активности.";

@@ -533,6 +533,7 @@
 "main-menu-title" = "その他";
 "main-menu-zero-faq" = "ウィキペディアゼロについてのFAQ";
 "menu-cancel-accessibility-label" = "キャンセル";
+// Fuzzy
 "more-languages-tooltip-description" = "約300言語でウィキペディアを検索";
 "more-languages-tooltip-title" = "言語を追加";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1記事|$1記事}}をあとで読むリストに移動";
@@ -866,6 +867,7 @@
 "welcome-explore-continue-button" = "次へ";
 "welcome-explore-new-ways-title" = "新ツールで探検しよう";
 "welcome-explore-tell-me-more-done-button" = "わかりました";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "ウィキペディアは、ボランティアの方々により執筆され、およそ300の言語で4,000万以上の記事から成ります。";
 "welcome-intro-free-encyclopedia-more" = "ウィキペディアについての詳細";
 "welcome-intro-free-encyclopedia-more-about" = "ウィキペディアについて";
@@ -874,6 +876,7 @@
 "welcome-languages-add-button" = "言語を追加";
 "welcome-languages-add-or-edit-button" = "優先言語の追加または編集";
 "welcome-languages-description" = "お使いの端末で次の言語が見つかりました:";
+// Fuzzy
 "welcome-languages-search-title" = "約300言語で検索";
 "welcome-notifications-tell-me-more-creation" = "通知はアプリケーションによってデバイス上で作成され、配信されるもので、当財団（または第三者）のサーバーから届くものではありません。";
 "welcome-notifications-tell-me-more-storage" = "通知設定はデバイスに保存されます。個人情報や活動に基づくものではありません。";

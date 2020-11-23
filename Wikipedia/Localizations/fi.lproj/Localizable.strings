@@ -470,6 +470,7 @@
 "main-menu-title" = "Lisää";
 "main-menu-zero-faq" = "Usein kysyttyjä kysymyksiä Wikipedia Zerosta";
 "menu-cancel-accessibility-label" = "Peru";
+// Fuzzy
 "more-languages-tooltip-description" = "Etsi Wikipediasta lähes 300 kielellä";
 "more-languages-tooltip-title" = "Lisää kieliä";
 "move-articles-to-reading-list" = "Siirrä {{PLURAL:$1|$1 artikkeli|$1 artikkelia}} lukulistaan";
@@ -797,6 +798,7 @@
 "welcome-explore-continue-button" = "Aloitetaan";
 "welcome-explore-new-ways-title" = "Uusia tapoja tutkia";
 "welcome-explore-tell-me-more-done-button" = "Selvä";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "Wikipedia on kirjoitettu yhteistyössä vapaaehtoisten kanssa ja se koostuu yli 40 miljoonasta artikkelista lähes 300 kielellä.";
 "welcome-intro-free-encyclopedia-more" = "Lue lisää Wikipediasta";
 "welcome-intro-free-encyclopedia-more-about" = "Tietoja Wikipediasta";
@@ -805,6 +807,7 @@
 "welcome-languages-add-button" = "Lisää uusi kieli";
 "welcome-languages-add-or-edit-button" = "Lisää tai muokkaa ensisijaisia kieliä";
 "welcome-languages-description" = "Olemme löytäneet seuraavat kielet laitteestasi:";
+// Fuzzy
 "welcome-languages-search-title" = "Hae miltei 300 kielellä";
 "welcome-notifications-tell-me-more-creation" = "Ilmoitukset luodaan ja lähetetään laitteesta, eikä Wikimedian tai muun osapuolen palvelimelta.";
 "welcome-notifications-tell-me-more-storage" = "Ilmoitusasetukset tallennetaan laitteeseen, eivätkä ne pohjaudu henkilökohtaisiin tietoihin tai toimintaan.";

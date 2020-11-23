@@ -364,6 +364,7 @@
 "main-menu-title" = "ပို၍";
 "main-menu-zero-faq" = "ဝီကီပီးဒီးယားသုည FAQ";
 "menu-cancel-accessibility-label" = "မလုပ်တော့ပါ";
+// Fuzzy
 "more-languages-tooltip-description" = "ဝီကီပီးဒီးယားကို ဘာသာစကားပေါင်း ၃၀၀ နီးပါးခန့်တွင် ရှာဖွေရန်";
 "more-languages-tooltip-title" = "ဘာသာစကားများ ထည့်သွင်းရန်";
 "move-articles-to-reading-list" = "စာဖတ်စာရင်းသို့ ဆောင်းပါးပေါင်း {{PLURAL:$1|$1 ခု|$1 ခု}} ရွေ့ရန်";
@@ -603,6 +604,7 @@
 "welcome-explore-continue-button" = "စတင်ပါ";
 "welcome-explore-new-ways-title" = "စူးစမ်းရန် နည်းလမ်းသစ်များ";
 "welcome-explore-tell-me-more-done-button" = "ရပြီဟေ့";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "ဝီကီပီးဒီးယားကို စေတနာ့ဝန်ထမ်းများက ပူးပေါင်းရေးသားထားပြီး အနီးအနားရှိ ဘာသာစကားပေါင်း ၃၀၀ နီးပါးခန့်တွင် ဆောင်းပါးပေါင်း ၄၀ မီလီယံကျော် တည်ရှိပါသည်။";
 "welcome-intro-free-encyclopedia-more" = "ဝီကီပီးဒီးယားအကြောင်း ပိုမိုလေ့လာရန်";
 "welcome-intro-free-encyclopedia-more-about" = "ဝီကီပီးဒီးယားအကြောင်း";
@@ -611,6 +613,7 @@
 "welcome-languages-add-button" = "အခြား ဘာသာစကား ထပ်ပေါင်းထည့်ရန်";
 "welcome-languages-add-or-edit-button" = "ပိုမိုနှစ်သက်သော ဘာသာစကားများကို ထည့်ပေါင်း (သို့) ပြင်ဆင်ရန်";
 "welcome-languages-description" = "သင်၏စက်ပစ္စည်းပေါ်တွင် အောက်ပါဘာသာစကားများကို တွေ့ရှိပါသည်။";
+// Fuzzy
 "welcome-languages-search-title" = "ဘာသာစကားပေါင်း ၃၀၀ နီးပါးခန့်တွင် ရှာဖွေရန်";
 "welcome-notifications-tell-me-more-title" = "အသိပေးချက်များအကြောင်း ပို၍";
 "welcome-send-data-helps-title" = "ဆော့ဝဲလ် ပိုမိုကောင်းမွန်အောင် ကူညီမည်";

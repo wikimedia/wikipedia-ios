@@ -234,6 +234,7 @@
 "main-menu-title" = "अधिक";
 "main-menu-zero-faq" = "विकिपीडिया ज़ीरो FAQ";
 "menu-cancel-accessibility-label" = "रद्द करें";
+// Fuzzy
 "more-languages-tooltip-description" = "विजीपीडिया को लगभग 300 भाषाओं में खोजें";
 "more-languages-tooltip-title" = "भाषाएँ जोड़ें";
 "navbar-title-mode-edit-wikitext-preview" = "पूर्वावलोकन";
@@ -392,6 +393,7 @@
 "welcome-explore-continue-button" = "शुरू करें";
 "welcome-explore-new-ways-title" = "खोजने के नए तरीके";
 "welcome-explore-tell-me-more-done-button" = "समझ में आया";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "विकिपीडिया को स्वयंसेवकों द्वारा आपसी सहयोग से लिखा जाता है और इसमें लगभग 300 भाषाओं के 40 मिलियन से अधिक लेख मौजूद हैं।";
 "welcome-intro-free-encyclopedia-more" = "विकिपीडिया के बारे में अधिक जानें";
 "welcome-intro-free-encyclopedia-more-about" = "विकिपीडिया के बारे में";
@@ -400,6 +402,7 @@
 "welcome-languages-add-button" = "दूसरी भाषा जोड़ें";
 "welcome-languages-add-or-edit-button" = "पसंदीदा भाषाओं को जोड़ें या संपादित करें";
 "welcome-languages-description" = "हमें आपकी डिवाइस पर निम्न भाषाएँ मिली हैं:";
+// Fuzzy
 "welcome-languages-search-title" = "लगभग 300 भाषाओं में खोजें";
 "welcome-notifications-tell-me-more-creation" = "आप की डिवाइस पर नोटिफिकेशन एप द्वारा बनाये और भेजे जाते हैं, न कि हमारे (या थर्ड पार्टी) सर्वर्स द्वारा।";
 "welcome-notifications-tell-me-more-storage" = "नोटिफिकेशन वरीयताएं डिवाइस पर स्टोर की जातीं हैं और ये व्यक्तिगत जानकारी या क्रियाकलाप पर आधारित नहीं हैं।";

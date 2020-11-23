@@ -556,6 +556,7 @@
 "main-menu-title" = "Daha fazla";
 "main-menu-zero-faq" = "Wikipedia Zero SSS";
 "menu-cancel-accessibility-label" = "İptal";
+// Fuzzy
 "more-languages-tooltip-description" = "Yaklaşık 300 dilde ara";
 "more-languages-tooltip-title" = "Dil ekle";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1 maddeyi|$1 maddeyi}} okuma listesine taşıyın";
@@ -892,6 +893,7 @@
 "welcome-explore-continue-button" = "Kullanmaya başla";
 "welcome-explore-new-ways-title" = "Keşfetmek için yeni yollar";
 "welcome-explore-tell-me-more-done-button" = "Anladım";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "Vikipedi gönüllüler tarafından ortaklaşa yazılmakta ve yaklaşık 300 dilde, 40 milyondan fazla madde barındırmaktadır.";
 "welcome-intro-free-encyclopedia-more" = "Vikipedi hakkında daha fazla şey öğren";
 "welcome-intro-free-encyclopedia-more-about" = "Vikipedi hakkında";
@@ -900,6 +902,7 @@
 "welcome-languages-add-button" = "Başka bir dil ekle";
 "welcome-languages-add-or-edit-button" = "Dil tercihi ekle veya düzenle";
 "welcome-languages-description" = "Cihazınızda şu dilleri bulduk:";
+// Fuzzy
 "welcome-languages-search-title" = "Yaklaşık 300 dilde ara";
 "welcome-notifications-tell-me-more-creation" = "Bildirimler, bizim (veya üçüncü tarafların) sunucuları(mız) eliyle değil, sizin cihazınız üzerindeki uygulama tarafından oluşturulur ve ulaştırılır.";
 "welcome-notifications-tell-me-more-storage" = "Bildirim tercihleri cihazda saklanır ve kişisel bilgi veya faaliyete dayalı değildir.";

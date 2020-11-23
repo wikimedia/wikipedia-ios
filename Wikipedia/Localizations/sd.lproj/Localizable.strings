@@ -455,6 +455,7 @@
 "main-menu-title" = "وڌيڪ";
 "main-menu-zero-faq" = "وڪيپيڊيا زيرو FAQ";
 "menu-cancel-accessibility-label" = "رد";
+// Fuzzy
 "more-languages-tooltip-description" = "وڪيپيڊيا کي لڳ ڀڳ 300 ٻولين ۾ ڳوليو";
 "more-languages-tooltip-title" = "ٻوليون وجھو";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1 مضمون|$1 مضمونَ}} پڙھڻ جي فھرست ڏانھن چوريو";
@@ -732,6 +733,7 @@
 "welcome-explore-continue-button" = "شروع ڪريو";
 "welcome-explore-new-ways-title" = "کوجنا ڪرڻ جا نوان گس";
 "welcome-explore-tell-me-more-done-button" = "سمجھي ويا";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "وڪيپيڊيا رضاڪارن پاران گڏجي لکيل آھي ۽ ان ۾ تقريبن 300 ٻولين ۾ 40 ملين مضمون آھن.";
 "welcome-intro-free-encyclopedia-more" = "وڪيپيڊيا بابت وڌيڪ ڄاڻو";
 "welcome-intro-free-encyclopedia-more-about" = "وڪيپيڊيا بابت";
@@ -740,6 +742,7 @@
 "welcome-languages-add-button" = "ٻي ٻولي وجھو";
 "welcome-languages-add-or-edit-button" = "ترجيحي ٻوليون وجھو يا سنواريو";
 "welcome-languages-description" = "اسان توھان جي اوزار تي ھي ٻوليو لڌيون آھن:";
+// Fuzzy
 "welcome-languages-search-title" = "لڳ ڀڳ 300 ٻولين ۾ ڳوليو";
 "welcome-notifications-tell-me-more-creation" = "اطلاع اسان (يا ٽين ڌر) جي سرورن پاران نہ پر ايپ پاران توھان جي ڊوائيس تي سرجيا ۽ فراھم ڪيا ويا آھن.";
 "welcome-notifications-tell-me-more-storage" = "اطلاعن جو ترجيحون توھان جي ڊوائيس تي سانڍيل آھن ۽ اھي ذاتي معلومات يا سرگرمي تي ٻڌل نہ آھن.";

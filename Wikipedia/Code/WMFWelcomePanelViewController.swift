@@ -72,7 +72,7 @@ class WMFWelcomePanelViewController: ThemeableViewController {
         case .exploration:
             titleLabel.text = WMFLocalizedString("welcome-explore-new-ways-title", value:"New ways to explore", comment:"Title for welcome screens including explanation of new notification features")
         case .languages:
-            titleLabel.text = WMFLocalizedString("welcome-languages-search-title", value:"Search in nearly 300 languages", comment:"Title for welcome screen describing Wikipedia languages")
+            titleLabel.text = WMFLocalizedString("welcome-languages-search-title", value:"Search in over 300 languages", comment:"Title for welcome screen describing Wikipedia languages")
         case .analytics:
             titleLabel.text = WMFLocalizedString("welcome-send-data-helps-title", value:"Help make the app better", comment:"Title for welcome screen allowing user to opt in to send usage reports")
         }

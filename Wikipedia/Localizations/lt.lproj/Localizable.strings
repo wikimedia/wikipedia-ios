@@ -241,6 +241,7 @@
 "welcome-languages-add-button" = "Pridėti kitą kalbą";
 "welcome-languages-add-or-edit-button" = "Pridėti ar pakeisti norimą kalbą";
 "welcome-languages-description" = "Radome šias kalbas jūsų prietaise:";
+// Fuzzy
 "welcome-languages-search-title" = "Ieškokite daugiau nei 300 kalbų";
 "welcome-notifications-tell-me-more-creation" = "Pranešimus sukuria ir pristato programėlė jūsų įrenginyje, o ne mūsų (ar trečiųjų šalių) serveriai.";
 "welcome-notifications-tell-me-more-storage" = "Pranešimų nustatymai laikomi įrenginyje ir nėra paremti asmenine informacija ar veikla.";

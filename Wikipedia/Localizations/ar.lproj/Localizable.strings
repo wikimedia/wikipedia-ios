@@ -515,6 +515,7 @@
 "main-menu-title" = "المزيد";
 "main-menu-zero-faq" = "الأسئلة المتكررة عن ويكيبيديا زيرو";
 "menu-cancel-accessibility-label" = "ألغ";
+// Fuzzy
 "more-languages-tooltip-description" = "ابحث في ويكيبيديا بما يقرب من 300 لغة";
 "more-languages-tooltip-title" = "أضف لغات";
 "move-articles-to-reading-list" = "نقل {{PLURAL:$1|$1 مقالة|$1 مقالات}} إلى قائمة القراءة";
@@ -848,6 +849,7 @@
 "welcome-explore-continue-button" = "فلنبدأ";
 "welcome-explore-new-ways-title" = "طرق جديدة للاستكشاف";
 "welcome-explore-tell-me-more-done-button" = "فهمت";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "ويكيبيديا مكتوبة بشكل تعاوني من قبل متطوعين وتتكون من أكثر من 40 مليون مقالة بما يقارب 300 لغة.";
 "welcome-intro-free-encyclopedia-more" = "معرفة المزيد عن ويكيبيديا";
 "welcome-intro-free-encyclopedia-more-about" = "عن ويكيبيديا";
@@ -856,6 +858,7 @@
 "welcome-languages-add-button" = "إضافة لغة آخرى";
 "welcome-languages-add-or-edit-button" = "إضافة أو تحرير اللغات المفضلة";
 "welcome-languages-description" = "لقد وجدنا اللغات التالية على جهازك:";
+// Fuzzy
 "welcome-languages-search-title" = "ابحث فيما يقارب 300 لغة";
 "welcome-notifications-tell-me-more-creation" = "يتم إنشاء الإشعارات وتسليمها على جهازك من خلال التطبيق، وليس من خوادمنا (أو جهات خارجية).";
 "welcome-notifications-tell-me-more-storage" = "يتم تخزين تفضيلات الإشعارات على الجهاز ولا تعتمد على المعلومات أو النشاط الشخصي.";

@@ -21,8 +21,7 @@
 // Author: שמזן
 
 "aaald-article-description-updated-description" = "תיאור כותרת הערך עודכן";
-// Fuzzy
-"aaald-article-insert-header" = "אירועים משמעותיים";
+"aaald-article-insert-header" = "עדכונים משמעותיים";
 "aaald-article-insert-last-updated" = "עדכון אחרון";
 "aaald-article-insert-new-changes" = "שינויים חדשים";
 "aaald-article-insert-read-more" = "לקרוא עדכונים נוספים";
@@ -43,6 +42,7 @@
 "aaald-new-website-reference-archive-url-text" = "כתובת אצל Archive.org";
 "aaald-new-website-reference-title" = "אתר אינטרנט";
 "aaald-one-section-description" = "בפרק $1";
+"aaald-revision-by-anonymous" = "עריכה של משתמש אלמוני";
 "aaald-revision-userInfo" = "עריכה מאת $1 ($2 עריכות)";
 "aaald-single-reference-added-description" = "נוסף מקור";
 "aaald-two-sections-description" = "בפרקים $1 ו$2";
@@ -534,6 +534,7 @@
 "main-menu-title" = "עוד";
 "main-menu-zero-faq" = "שו\"ת ויקיפדיה אפס";
 "menu-cancel-accessibility-label" = "ביטול";
+// Fuzzy
 "more-languages-tooltip-description" = "חיפוש בוויקיפדיה בכמעט 300 שפות";
 "more-languages-tooltip-title" = "הוספת שפות";
 "move-articles-to-reading-list" = "העברת {{PLURAL:$1|דף אחד|$1 דפים}} לרשימת הקריאה";
@@ -869,6 +870,7 @@
 "welcome-explore-continue-button" = "להתחיל";
 "welcome-explore-new-ways-title" = "דרכים חדשות לחקור";
 "welcome-explore-tell-me-more-done-button" = "הבנתי";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "ויקיפדיה נכתבת באופן משותף על־ידי מתנדבים ומכילה יותר מ־40 מיליון ערכים בכמעט 300 שפות.";
 "welcome-intro-free-encyclopedia-more" = "מידע נוסף על ויקיפדיה";
 "welcome-intro-free-encyclopedia-more-about" = "אודות ויקיפדיה";
@@ -877,6 +879,7 @@
 "welcome-languages-add-button" = "הוספת שפה אחרת";
 "welcome-languages-add-or-edit-button" = "הוספה או שינוי של שפות מועדפות";
 "welcome-languages-description" = "מצאנו את השפות הבאות במכשיר שלך:";
+// Fuzzy
 "welcome-languages-search-title" = "חיפוש בכמעט 300 שפות";
 "welcome-notifications-tell-me-more-creation" = "העדכונים מיוצרים ונמסרים במכשיר שלך על־ידי היישום ולא מִשרתים שלנו (או של צד שלישי).";
 "welcome-notifications-tell-me-more-storage" = "העדפות העדכונים מאוחסנות במכשיר ולא מבוססות על מידע אישי או פעילות אישית.";

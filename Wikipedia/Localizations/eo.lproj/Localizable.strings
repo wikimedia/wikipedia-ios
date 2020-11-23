@@ -455,6 +455,7 @@
 "main-menu-title" = "Pli";
 "main-menu-zero-faq" = "Oftaj demandoj pri Vikipedio Zero";
 "menu-cancel-accessibility-label" = "Nuligi";
+// Fuzzy
 "more-languages-tooltip-description" = "Serĉi tra Vikipedio en preskaŭ 300 lingvoj";
 "more-languages-tooltip-title" = "Aldoni lingvojn";
 "move-articles-to-reading-list" = "Movi {{PLURAL:$1|$1 artikolon|$1 artikolojn}} al legolisto";
@@ -758,6 +759,7 @@
 "welcome-explore-continue-button" = "Komenci";
 "welcome-explore-new-ways-title" = "Novaj manieroj por esplori";
 "welcome-explore-tell-me-more-done-button" = "Komprenite";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "Vikipedio estas kunlabore verkita de volontuloj kaj konsistas de pli ol 40 milionoj da artikoloj en preskaŭ 300 lingvoj.";
 "welcome-intro-free-encyclopedia-more" = "Ekscii pli pri Vikipedio";
 "welcome-intro-free-encyclopedia-more-about" = "Pri Vikipedio";
@@ -766,6 +768,7 @@
 "welcome-languages-add-button" = "Aldoni alian lingvon";
 "welcome-languages-add-or-edit-button" = "Aldoni aŭ redakti preferatajn lingvojn";
 "welcome-languages-description" = "Ni trovis la sekvajn lingvojn sur via aparato:";
+// Fuzzy
 "welcome-languages-search-title" = "Serĉi en preskaŭ 300 lingvoj";
 "welcome-notifications-tell-me-more-creation" = "Sciigoj estas kreitaj kaj liveritaj sur via aparato per la aplikaĵo, ne de nia servilo (aŭ de servilo de ekstera provizanto).";
 "welcome-notifications-tell-me-more-storage" = "Sciigaj preferoj estas konservitaj sur aparatoj kaj ne estas bazitaj sur personaj informoj aŭ persona agado.";

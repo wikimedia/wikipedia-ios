@@ -21,6 +21,7 @@
 "aaald-new-discussion" = "Ny diskussion";
 "aaald-new-news-reference-title" = "Nyheder";
 "aaald-new-website-reference-title" = "Webside";
+"aaald-revision-by-anonymous" = "Redigering af anonym bruger";
 "aaald-revision-userInfo" = "Redigering af $1 ($2 redigeringer)";
 "aaald-view-full-history-button" = "Vis den fulde historik for siden";
 "about-content-license" = "Indholdslicens";
@@ -350,6 +351,7 @@
 "main-menu-title" = "Mere";
 "main-menu-zero-faq" = "Ofte stillede spørgsmål om Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Afbryd";
+// Fuzzy
 "more-languages-tooltip-description" = "Søg på næsten 300 sprog";
 "more-languages-tooltip-title" = "Tilføj sprog";
 "navbar-title-mode-edit-wikitext-preview" = "Forhåndsvisning";
@@ -605,6 +607,7 @@
 "welcome-explore-continue-button" = "Kom i gang";
 "welcome-explore-new-ways-title" = "Nye måder at udforske på";
 "welcome-explore-tell-me-more-done-button" = "Forstået";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "Wikipedia er et samarbejde blandt frivillige og består af mere end 40 millioner artikler i næsten 300 sprog.";
 "welcome-intro-free-encyclopedia-more" = "Lær mere om Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "Om Wikipedia";
@@ -613,6 +616,7 @@
 "welcome-languages-add-button" = "Tilføj et andet sprog";
 "welcome-languages-add-or-edit-button" = "Tilføj eller rediger foretrukne sprog";
 "welcome-languages-description" = "Vi har fundet de følgende sprog på din enhed:";
+// Fuzzy
 "welcome-languages-search-title" = "Søg på næsten 300 sprog";
 "welcome-notifications-tell-me-more-creation" = "Notifikationer skabes og leveres på din enhed af appen, ikke fra vores (eller tredjeparters) servere.";
 "welcome-notifications-tell-me-more-storage" = "Indstillinger for notifikationer gemmes på enheden og er ikke baseret på personlige informationer eller aktivitet.";
