@@ -335,6 +335,22 @@
 			<string>%1$d історичних подій</string>
 		</dict>
 	</dict>
+	<key>on-this-day-footer-showing-event-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ цього дня</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Ще %1$d історична подія</string>
+			<key>other</key>
+			<string>Ще %1$d історичних подій</string>
+		</dict>
+	</dict>
 	<key>page-history-revision-size-diff-addition</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
