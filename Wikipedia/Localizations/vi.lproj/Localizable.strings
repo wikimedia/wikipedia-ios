@@ -308,6 +308,7 @@
 "main-menu-title" = "Khác";
 "main-menu-zero-faq" = "Câu thường hỏi về Wikipedia Miễn phí";
 "menu-cancel-accessibility-label" = "Hủy bỏ";
+// Fuzzy
 "more-languages-tooltip-description" = "Tìm kiếm Wikipedia trong gần 300 ngôn ngữ";
 "more-languages-tooltip-title" = "Thêm ngôn ngữ";
 "move-articles-to-reading-list" = "Di chuyển {{PLURAL:$1|$1 bài viết|$1 bài viết}} vào danh sách đọc";
@@ -558,6 +559,7 @@
 "welcome-explore-continue-button" = "Bắt đầu";
 "welcome-explore-new-ways-title" = "Phương cách thám hiểm mới";
 "welcome-explore-tell-me-more-done-button" = "Được rồi";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "Nhờ những người tình nguyện cộng tác biên tập, Wikipedia có hơn 40 triệu bài trong gần 300 ngôn ngữ.";
 "welcome-intro-free-encyclopedia-more" = "Tìm hiểu thêm về Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "Giới thiệu về Wikipedia";
@@ -566,6 +568,7 @@
 "welcome-languages-add-button" = "Thêm một ngôn ngữ nữa";
 "welcome-languages-add-or-edit-button" = "Thêm và sửa các ngôn ngữ ưa thích";
 "welcome-languages-description" = "Đã tìm thấy các ngôn ngữ sau trên thiết bị của bạn:";
+// Fuzzy
 "welcome-languages-search-title" = "Tìm trong gần 300 ngôn ngữ";
 "welcome-notifications-tell-me-more-creation" = "Các thông báo được ứng dụng này tạo và gửi trên thiết bị của bạn, chứ không phải được máy chủ nào gửi.";
 "welcome-notifications-tell-me-more-storage" = "Tùy chọn thông báo được lưu vào thiết bị và không tùy theo thông tin cá nhân hoặc hoạt động của bạn.";

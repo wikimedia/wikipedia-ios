@@ -452,6 +452,7 @@
 "main-menu-title" = "เพิ่มเติม";
 "main-menu-zero-faq" = "คำถามที่พบบ่อยเกี่ยวกับ Wikipedia Zero";
 "menu-cancel-accessibility-label" = "ยกเลิก";
+// Fuzzy
 "more-languages-tooltip-description" = "ค้นหาวิกิพีเดียในกว่า 300 ภาษา";
 "more-languages-tooltip-title" = "เพิ่มภาษา";
 "move-articles-to-reading-list" = "ย้าย {{PLURAL:$1|$1 บทความ}}ลงในรายการอ่าน";
@@ -677,6 +678,7 @@
 "welcome-explore-continue-button" = "เริ่มต้นใช้งาน";
 "welcome-explore-new-ways-title" = "วีธีใหม่ในการสำรวจ";
 "welcome-explore-tell-me-more-done-button" = "เข้าใจแล้ว";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "วิกิพีเดียนั้นร่วมกันเขียนขึ้นโดยอาสาสมัครและมีบทความมากกว่า 40 ล้านบทความในกว่า 300 ภาษา";
 "welcome-intro-free-encyclopedia-more" = "เรียนรู้เพิ่มเติมเกี่ยวกับวิกิพีเดีย";
 "welcome-intro-free-encyclopedia-more-about" = "เกี่ยวกับวิกิพีเดีย";
@@ -685,6 +687,7 @@
 "welcome-languages-add-button" = "เพิ่มภาษาอื่น";
 "welcome-languages-add-or-edit-button" = "เพิ่มหรือแก้ไขภาษาตามที่ต้องการ";
 "welcome-languages-description" = "เราได้พบภาษาดังต่อไปนี้บนอุปกรณ์ของคุณ:";
+// Fuzzy
 "welcome-languages-search-title" = "ค้นหาในกว่า 300 ภาษา";
 "welcome-notifications-tell-me-more-creation" = "การแจ้งเตือนถูกสร้างขึ้นและถูกส่งมายังอุปกรณ์ของคุณโดยแอป ไม่ใช่จากเซิร์ฟเวอร์ของเรา (หรือเซิร์ฟเวอร์บุคคลที่สาม)";
 "welcome-notifications-tell-me-more-storage" = "การตั้งค่าการแจ้งเตือนจะถูกเก็บบนอุปกรณ์และไม่ขึันอยู่กับข้อมูลหรือกิจกรรมส่วนบุคคล";

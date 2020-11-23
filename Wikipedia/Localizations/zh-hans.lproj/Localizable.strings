@@ -530,6 +530,7 @@
 "main-menu-title" = "更多";
 "main-menu-zero-faq" = "维基百科零常见问题";
 "menu-cancel-accessibility-label" = "取消";
+// Fuzzy
 "more-languages-tooltip-description" = "在近300种语言中搜索维基百科";
 "more-languages-tooltip-title" = "添加语言";
 "move-articles-to-reading-list" = "移动{{PLURAL:$1|$1个条目}}至阅读列表";
@@ -863,6 +864,7 @@
 "welcome-explore-continue-button" = "入门";
 "welcome-explore-new-ways-title" = "探索的新方式";
 "welcome-explore-tell-me-more-done-button" = "明白了";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "维基百科由志愿者合作撰写，并由将近300种语言的4000万个条目构成。";
 "welcome-intro-free-encyclopedia-more" = "了解更多关于维基百科";
 "welcome-intro-free-encyclopedia-more-about" = "关于维基百科";
@@ -871,6 +873,7 @@
 "welcome-languages-add-button" = "添加另一个语言";
 "welcome-languages-add-or-edit-button" = "添加或编辑推荐语言";
 "welcome-languages-description" = "我们在您的设备上找到以下语言：";
+// Fuzzy
 "welcome-languages-search-title" = "在近300种语言中搜索";
 "welcome-notifications-tell-me-more-creation" = "通知是由应用（而不是从我们或第三方服务器）创建，并递送到您的设备上的。";
 "welcome-notifications-tell-me-more-storage" = "通知参数设置存储在设备上，且不基于个人信息或活动。";

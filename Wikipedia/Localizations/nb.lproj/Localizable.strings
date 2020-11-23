@@ -415,6 +415,7 @@
 "main-menu-title" = "Mer";
 "main-menu-zero-faq" = "Wikipedia Zero-FAQ";
 "menu-cancel-accessibility-label" = "Avbryt";
+// Fuzzy
 "more-languages-tooltip-description" = "Søk i Wikipedia på nesten 300 språk";
 "more-languages-tooltip-title" = "Legg til språk";
 "move-articles-to-reading-list" = "Flytt {{PLURAL:$1|$1 artikkel|$1 artikler}} til leselisten";
@@ -686,6 +687,7 @@
 "welcome-explore-continue-button" = "Kom igang";
 "welcome-explore-new-ways-title" = "Nye måter å utforske på";
 "welcome-explore-tell-me-more-done-button" = "Skjønner";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "Wikipedia er samskrevet av frivillige og består av mer enn 40 millioner artikler på nær 300 språk.";
 "welcome-intro-free-encyclopedia-more" = "Lær mer om Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "Om Wikipedia";
@@ -694,6 +696,7 @@
 "welcome-languages-add-button" = "Legg til et annet språk";
 "welcome-languages-add-or-edit-button" = "Legg til eller rediger foretrukne språk";
 "welcome-languages-description" = "Språk funnet på enheten din:";
+// Fuzzy
 "welcome-languages-search-title" = "Søk på nesten 300 språk";
 "welcome-notifications-tell-me-more-creation" = "Varslinger lages på enheten din av appen, de leveres ikke fra våre (eller tredjeparters) servere.";
 "welcome-notifications-tell-me-more-storage" = "Innstillinger for notifikasjoner lagres på enheten og er ikke basert på personlige informasjoner eller aktivitet.";

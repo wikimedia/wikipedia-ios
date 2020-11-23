@@ -40,6 +40,7 @@
 // Author: Pacha Tchernof
 // Author: Ping08
 // Author: Redredsonia
+// Author: Rubin16
 // Author: Saimongoltinio
 // Author: Stjn
 // Author: Valencia212
@@ -68,6 +69,7 @@
 "aaald-new-website-reference-title" = "Веб-сайт";
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 примечаний|$1 примечание|$1 примечаний}} добавлено";
 "aaald-one-section-description" = "в разделе $1";
+"aaald-revision-by-anonymous" = "Правка анонимного пользователя";
 "aaald-revision-userInfo" = "Отредактировано $1 ($2 правок)";
 "aaald-single-reference-added-description" = "Примечание добавлено";
 "aaald-small-change-description" = "{{PLURAL:$1|0=Не сделано малых изменений|Сделано $1 малое изменение|Сделано $1 малых изменений}}";
@@ -533,6 +535,7 @@
 "main-menu-title" = "Ещё";
 "main-menu-zero-faq" = "ЧаВо по Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Отмена";
+// Fuzzy
 "more-languages-tooltip-description" = "Искать в Википедии почти на 300 языках";
 "more-languages-tooltip-title" = "Добавить языки";
 "move-articles-to-reading-list" = "Перенести {{PLURAL:$1|$1 статью|$1 статьи|$1 статей}} в список для чтения";
@@ -860,6 +863,7 @@
 "welcome-explore-continue-button" = "Начать";
 "welcome-explore-new-ways-title" = "Новые способы изучения";
 "welcome-explore-tell-me-more-done-button" = "Понятно";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "Википедия написана общими усилиями добровольцев и состоит из более чем 40 миллионов статей на почти 300 языках.";
 "welcome-intro-free-encyclopedia-more" = "Узнать подробнее о Википедии";
 "welcome-intro-free-encyclopedia-more-about" = "О Википедии";
@@ -868,6 +872,7 @@
 "welcome-languages-add-button" = "Добавить ещё один язык";
 "welcome-languages-add-or-edit-button" = "Добавить или изменить предпочтительные языки";
 "welcome-languages-description" = "Мы нашли следующие языки на вашем устройстве:";
+// Fuzzy
 "welcome-languages-search-title" = "Искать на почти 300 языках";
 "welcome-notifications-tell-me-more-creation" = "Уведомления создаются и доставляются на ваше устройство приложение, А не с наших серверов (или третья сторона).";
 "welcome-notifications-tell-me-more-storage" = "Уведомления хранятся на устройстве и не основанные на личной информации или деятельности.";

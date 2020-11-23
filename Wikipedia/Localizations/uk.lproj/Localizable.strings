@@ -46,6 +46,7 @@
 "aaald-new-website-reference-title" = "Вебсайт";
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 приміток|$1 примітка|$1 примітки|$1 приміток}} додано";
 "aaald-one-section-description" = "у розділі $1";
+"aaald-revision-by-anonymous" = "Редагування аноніма";
 "aaald-revision-userInfo" = "Відредаговано $1 ($2 змін)";
 "aaald-single-reference-added-description" = "Примітку додано";
 "aaald-small-change-description" = "{{PLURAL:$1|0=Не виконано жодних малих редагувань|Виконано $1 мале редагування|Виконано $1 малі редагування|Виконано $1 малих редагувань}}";
@@ -539,6 +540,7 @@
 "main-menu-title" = "Ще";
 "main-menu-zero-faq" = "ЧАП по Вікіпедія Zero";
 "menu-cancel-accessibility-label" = "Скасувати";
+// Fuzzy
 "more-languages-tooltip-description" = "Шукати у Вікіпедії майже 300 мовами";
 "more-languages-tooltip-title" = "Додати мови";
 "move-articles-to-reading-list" = "Перенести {{PLURAL:$1|$1 статтю|$1 статті|$1 статей}} до читального списку";
@@ -559,6 +561,7 @@
 "on-this-day-detail-header-date-range" = "з $1 по $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 історична подія|$1 історичні події|$1 історичних подій}}";
 "on-this-day-footer" = "Більше історичних подій цього дня";
+"on-this-day-footer-showing-event-count" = "{{PLURAL:$1|Ще $1 історична подія|Ще $1 історичні події|Ще $1 історичних подій}} цього дня";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 у Вікіпедії мовою «$2»";
 "on-this-day-title" = "Цього дня";
 "original-tab-button-popover-description" = "Натисніть «W», аби повернутися до вкладинки, з якої ви почали";
@@ -874,6 +877,7 @@
 "welcome-explore-continue-button" = "Розпочати";
 "welcome-explore-new-ways-title" = "Пізнаємо по-новому";
 "welcome-explore-tell-me-more-done-button" = "Зрозуміло";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "Вікіпедія написана спільними зусиллями добровольців і складається з понад 40 мільйонів статей майже на 300 мовах";
 "welcome-intro-free-encyclopedia-more" = "Дізнайтеся більше про Вікіпедію";
 "welcome-intro-free-encyclopedia-more-about" = "Про Вікіпедію";
@@ -882,6 +886,7 @@
 "welcome-languages-add-button" = "Додати ще одну мову";
 "welcome-languages-add-or-edit-button" = "Додати чи змінити усталені мови";
 "welcome-languages-description" = "Ми знайшли такі мови на вашому приладі:";
+// Fuzzy
 "welcome-languages-search-title" = "Шукати майже на 300 мовах";
 "welcome-notifications-tell-me-more-creation" = "Сповіщення створюються і доставляються до вашого пристрою через відповідний додаток, а не через наші (чи сторонні) сервери.";
 "welcome-notifications-tell-me-more-storage" = "Налаштування сповіщень зберігаються на пристрої і не базуються на конфіденційній інформації чи діяльності.";

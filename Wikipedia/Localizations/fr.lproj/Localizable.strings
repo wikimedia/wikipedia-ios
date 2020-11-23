@@ -550,6 +550,7 @@
 "main-menu-title" = "Plus";
 "main-menu-zero-faq" = "FAQ de Wikipédia Zéro";
 "menu-cancel-accessibility-label" = "Annuler";
+// Fuzzy
 "more-languages-tooltip-description" = "Rechercher sur Wikipédia dans près de 300 langues";
 "more-languages-tooltip-title" = "Ajouter des langues";
 "move-articles-to-reading-list" = "Placer $1 article{{PLURAL:$1||s}} dans la liste de lecture";
@@ -886,6 +887,7 @@
 "welcome-explore-continue-button" = "Démarrer";
 "welcome-explore-new-ways-title" = "Nouvelles voies à explorer";
 "welcome-explore-tell-me-more-done-button" = "J’ai compris";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "Wikipédia est écrit de façon collaborative par des bénévoles et consiste en plus de 40 millions d’articles dans près de 300 langues.";
 "welcome-intro-free-encyclopedia-more" = "En apprendre plus concernant Wikipédia";
 "welcome-intro-free-encyclopedia-more-about" = "À propos de Wikipédia";
@@ -894,6 +896,7 @@
 "welcome-languages-add-button" = "Ajouter une autre langue";
 "welcome-languages-add-or-edit-button" = "Ajouter ou modifier les langues préférées";
 "welcome-languages-description" = "Nous avons trouvé les langues suivantes sur votre appareil :";
+// Fuzzy
 "welcome-languages-search-title" = "Rechercher en près de 300 langues";
 "welcome-notifications-tell-me-more-creation" = "Les notifications sont créées et envoyées sur votre appareil par l’application, pas par nos serveurs (ou ceux de tierces parties).";
 "welcome-notifications-tell-me-more-storage" = "Les préférences de notification sont stockées sur l’appareil et ne sont pas basés sur des informations ou l’activité personnelle.";

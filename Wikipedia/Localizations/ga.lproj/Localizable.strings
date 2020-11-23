@@ -282,6 +282,7 @@
 "main-menu-title" = "Tuilleadh";
 "main-menu-zero-faq" = "CCanna Vicipéid a Náid";
 "menu-cancel-accessibility-label" = "Cealaigh";
+// Fuzzy
 "more-languages-tooltip-description" = "Cuardaigh Vicipéid i mbeagnach 300 teanga";
 "more-languages-tooltip-title" = "Cuir teangacha leis";
 "navbar-title-mode-edit-wikitext-preview" = "Réamhamharc";
@@ -460,6 +461,7 @@
 "welcome-explore-continue-button" = "Tosaigh";
 "welcome-explore-new-ways-title" = "Modhanna nua le taiscéaladh";
 "welcome-explore-tell-me-more-done-button" = "Tuigim";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "Comhfhiontar idir scríbhneoirí dheonacha atá i Vicipéid, atá níos mó ná 40 milliún alt i níos mó ná 300 teanga inti.";
 "welcome-intro-free-encyclopedia-more" = "Foghlaim tuilleadh maidir le Vicipéid";
 "welcome-intro-free-encyclopedia-more-about" = "Maidir le Vicipéid";
@@ -467,6 +469,7 @@
 "welcome-intro-free-encyclopedia-title" = "An chiclipéid shaor";
 "welcome-languages-add-button" = "Cuir teanga eile leis";
 "welcome-languages-description" = "D'aimsíomar na teangacha seo a leanas ar do ghléas:";
+// Fuzzy
 "welcome-languages-search-title" = "Cuardaigh i mbeagnach 300 teanga";
 "welcome-notifications-tell-me-more-creation" = "Ní chruthaítear agus ní sholáthraítear fógraí ónár gcuid freastálaithe (nó ó thríú páirtí), ach ón aip féin ar do ghléas.";
 "welcome-notifications-tell-me-more-storage" = "Stóráltar sainroghanna fógraí ar an ngléas agus ní bhunaítear ar sonraí pearsanta nó ar gníomhaíocht iad.";

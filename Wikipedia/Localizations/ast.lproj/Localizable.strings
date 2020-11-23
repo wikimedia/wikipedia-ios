@@ -345,6 +345,7 @@
 "main-menu-title" = "Más";
 "main-menu-zero-faq" = "EMF de Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Encaboxar";
+// Fuzzy
 "more-languages-tooltip-description" = "Buscar nes casi 300 llingües de Wikipedia";
 "more-languages-tooltip-title" = "Amestar llingües";
 "move-articles-to-reading-list" = "Treslladar {{PLURAL:$1|$1 artículu|$1 artículos}} a la llista de llectura";
@@ -587,6 +588,7 @@
 "welcome-explore-continue-button" = "Primeros pasos";
 "welcome-explore-new-ways-title" = "Nueves formes d'esplorar";
 "welcome-explore-tell-me-more-done-button" = "Entendílo";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "Wikipedia ta escrita n'andecha por voluntarios, y contien más de 40 millones d'artículos en casi 300 llingües.";
 "welcome-intro-free-encyclopedia-more" = "Saber más sobre Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "Tocante a Wikipedia";
@@ -595,6 +597,7 @@
 "welcome-languages-add-button" = "Amestar otra llingua";
 "welcome-languages-add-or-edit-button" = "Amestar o editar llingües preferíes";
 "welcome-languages-description" = "Alcontramos les llingües siguientes nel to preséu:";
+// Fuzzy
 "welcome-languages-search-title" = "Guetar en casi 300 llingües";
 "welcome-notifications-tell-me-more-creation" = "Los avisos creense y entréguense nel preséu pola app, non polos nuesos sirvidores (nin de terceros).";
 "welcome-notifications-tell-me-more-storage" = "Les preferencies d'avisos guárdense nel preséu y nun se basen n'información o actividá personal.";

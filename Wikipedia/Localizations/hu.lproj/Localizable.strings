@@ -418,6 +418,7 @@
 "main-menu-title" = "Több";
 "main-menu-zero-faq" = "Wikipédia Zéró GYIK";
 "menu-cancel-accessibility-label" = "Mégse";
+// Fuzzy
 "more-languages-tooltip-description" = "Keress a Wikipédián közel 300 nyelven";
 "more-languages-tooltip-title" = "Nyelvek hozzáadása";
 "move-articles-to-reading-list" = "{{PLURAL:$1|egy szócikk|$1 szócikk}} hozzáadása az olvasólistához";
@@ -655,6 +656,7 @@
 "welcome-languages-add-button" = "Másik nyelv hozzáadása";
 "welcome-languages-add-or-edit-button" = "Előnyben részesített nyelvek hozzáadása vagy szerkesztése";
 "welcome-languages-description" = "A következő nyelveket találtuk a készülékeden:";
+// Fuzzy
 "welcome-languages-search-title" = "Keresés majdnem 300 nyelven";
 "welcome-notifications-tell-me-more-creation" = "Az értesítéseket az alkalmazás készíti és továbbítja a készülékedre, nem a mi (vagy harmadik felek) szerverei.";
 "welcome-notifications-tell-me-more-storage" = "Az értesítések beállításai az eszközön tárolódnak és nem használnak személyes információkat vagy tevékenységadatokat.";

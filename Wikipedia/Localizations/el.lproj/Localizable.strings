@@ -286,6 +286,7 @@
 "main-menu-title" = "Περισσότερα";
 "main-menu-zero-faq" = "Συχνές ερωτήσεις για το Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Άκυρο";
+// Fuzzy
 "more-languages-tooltip-description" = "Αναζητήστε την Wikipedia σε σχεδόν 300 γλώσσες";
 "more-languages-tooltip-title" = "Προσθέστε γλώσσες";
 "move-articles-to-reading-list" = "Μετακίνηση {{PLURAL:$1|$1 λήμμα|$1 λημμάτων}} στη λίστα ανάγνωσης";
@@ -462,6 +463,7 @@
 "welcome-explore-continue-button" = "Ξεκινήστε";
 "welcome-explore-new-ways-title" = "Νέοι τρόποι να εξερευνήσετε";
 "welcome-explore-tell-me-more-done-button" = "Κατάλαβα";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "Η Βικιπαίδεια γράφεται συνεργατικά από εθελοντές και αποτελείται από περισσότερα από 40 εκατομμύρια λήμματα σε σχεδόν 300 γλώσσες.";
 "welcome-intro-free-encyclopedia-more" = "Μάθετε περισσότερα σχετικά με τη Βικιπαίδεια";
 "welcome-intro-free-encyclopedia-more-about" = "Σχετικά με τη Βικιπαίδεια";
@@ -470,6 +472,7 @@
 "welcome-languages-add-button" = "Πρόσθεση άλλης γλώσσας";
 "welcome-languages-add-or-edit-button" = "Πρόσθεση ή επεξεργασία των προτιμώμενων γλωσσών";
 "welcome-languages-description" = "Έχουμε βρει τις ακόλουθες γλώσσες στην συσκευή σας:";
+// Fuzzy
 "welcome-languages-search-title" = "Αναζητήστε σε σχεδόν 300 γλώσσες";
 "welcome-notifications-tell-me-more-title" = "Περισσότερα σχετικά με τις ειδοποιήσεις";
 "welcome-send-data-helps-title" = "Βοηθήστε την εφαρμογή να γίνει καλύτερη";

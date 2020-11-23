@@ -466,6 +466,7 @@
 "main-menu-title" = "Máis";
 "main-menu-zero-faq" = "Preguntas frecuentes sobre a Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Cancelar";
+// Fuzzy
 "more-languages-tooltip-description" = "Procurar en Wikipedia en case 300 linguas";
 "more-languages-tooltip-title" = "Engadir linguas";
 "move-articles-to-reading-list" = "Trasladar {{PLURAL:$1|$1 artigo|$1 artigos}} á lista de lectura";
@@ -778,6 +779,7 @@
 "welcome-explore-continue-button" = "Comezar";
 "welcome-explore-new-ways-title" = "Novas formas de explorar";
 "welcome-explore-tell-me-more-done-button" = "Entendido";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "Wikipedia está escrita de forma colaborativa por voluntarios e consta de máis de 40 millóns de artigos en preto de 300 linguas.";
 "welcome-intro-free-encyclopedia-more" = "Saber máis sobre Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "Sobre Wikipedia";
@@ -786,6 +788,7 @@
 "welcome-languages-add-button" = "Engadir outra lingua";
 "welcome-languages-add-or-edit-button" = "Engadir ou modificar as linguas preferidas";
 "welcome-languages-description" = "Atopamos as seguintes linguaxes no seu dispositivoː";
+// Fuzzy
 "welcome-languages-search-title" = "Procurar en preto de 300 linguas";
 "welcome-notifications-tell-me-more-creation" = "As notificacións son creadas e enviadas ó seu dispositivo pola aplicación, non polos nosos servidores (nin de terceiros).";
 "welcome-notifications-tell-me-more-storage" = "As preferencias das notificacións gárdanse no dispositivo e non están baseadas na información ou actividade persoal.";
