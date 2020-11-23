@@ -171,6 +171,7 @@
 "main-menu-title" = "Meer";
 "main-menu-zero-faq" = "Gewilde vrae oor Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Kanselleer";
+// Fuzzy
 "more-languages-tooltip-description" = "Deursoek Wikipedia in bykans 300 tale";
 "more-languages-tooltip-title" = "Voeg tale by";
 "navbar-title-mode-edit-wikitext-preview" = "Voorskou";
@@ -261,6 +262,7 @@
 "welcome-languages-add-button" = "Voeg ’n ander taal toe";
 "welcome-languages-add-or-edit-button" = "Voeg voorkeurtale by of redigeer hulle";
 "welcome-languages-description" = "Ons het die volgende tale op die toestel gekry:";
+// Fuzzy
 "welcome-languages-search-title" = "Deursoek Wikipedia in bykans 300 tale";
 "wikitext-downloading" = "Laai inhoud...";
 "wikitext-preview-changes" = "Verkry voorskou van u wysigings...";

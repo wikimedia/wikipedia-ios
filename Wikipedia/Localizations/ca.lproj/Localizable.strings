@@ -46,6 +46,7 @@
 "aaald-new-website-reference-title" = "Lloc web";
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 referències|$1 referència|$1 referències}} afegides";
 "aaald-one-section-description" = "a la secció $1";
+"aaald-revision-by-anonymous" = "Edició per usuari anònim";
 "aaald-revision-userInfo" = "Modificat per $1 ($2 modificacions)";
 "aaald-single-reference-added-description" = "Referència afegida";
 "aaald-small-change-description" = "{{PLURAL:$1|0=No s'ha fet cap canvi menor|S'ha fet $1 canvi menor|S'han fet $1 canvis menors}}";
@@ -539,6 +540,7 @@
 "main-menu-title" = "Més";
 "main-menu-zero-faq" = "Preguntes més freqüents sobre Viquipèdia Zero";
 "menu-cancel-accessibility-label" = "Cancel·la";
+// Fuzzy
 "more-languages-tooltip-description" = "Cerca a la Viquipèdia en vora 300 llengües";
 "more-languages-tooltip-title" = "Afegeix llengües";
 "move-articles-to-reading-list" = "Mou {{PLURAL:$1|$1 article|$1 articles}} a la llista de lectura";
@@ -559,6 +561,7 @@
 "on-this-day-detail-header-date-range" = "de $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 esdeveniment històric|$1 esdeveniments històrics}}";
 "on-this-day-footer" = "Més esdeveniments històrics d'aquest dia";
+"on-this-day-footer-showing-event-count" = "{{PLURAL:$1|$1 més esdeveniment històric|$1 més esdeveniments històrics}} en aquest dia";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 de la Viquipèdia en $2";
 "on-this-day-title" = "Tal dia com avui";
 "original-tab-button-popover-description" = "Feu un toc a la 'W' per tornar a la pestanya d'on heu començat";
@@ -874,6 +877,7 @@
 "welcome-explore-continue-button" = "Primers passos";
 "welcome-explore-new-ways-title" = "Noves formes d'explorar";
 "welcome-explore-tell-me-more-done-button" = "Ho he entès";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "La Viquipèdia és escrita col·laborativament per voluntaris i conté més de 40 milions d'articles en gairebé 300 llengües.";
 "welcome-intro-free-encyclopedia-more" = "Més informació de la Viquipèdia";
 "welcome-intro-free-encyclopedia-more-about" = "Quant a la Viquipèdia";
@@ -882,6 +886,7 @@
 "welcome-languages-add-button" = "Afegeix una altra llengua";
 "welcome-languages-add-or-edit-button" = "Afegeix o modifica les llengües preferides";
 "welcome-languages-description" = "Hem trobat les llengües següents en el vostre dispositiu:";
+// Fuzzy
 "welcome-languages-search-title" = "Cerca en vora 300 llengües";
 "welcome-notifications-tell-me-more-creation" = "Les notificacions es creen i es lliure en el vostre dispositiu per la mateixa aplicació, i no pas pels nostres servidors (o de tercers).";
 "welcome-notifications-tell-me-more-storage" = "Les preferències de notificació s'emmagatzemen al dispositiu i no es basen en informació personal o activitat.";

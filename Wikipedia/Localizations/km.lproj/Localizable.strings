@@ -223,6 +223,7 @@
 "main-menu-title" = "បន្ថែមទៀត";
 "main-menu-zero-faq" = "សំនួរញឹកញាប់សម្រាប់វិគីភីឌាសូន្យ";
 "menu-cancel-accessibility-label" = "បោះបង់";
+// Fuzzy
 "more-languages-tooltip-description" = "ស្វែងរកក្នុងវិគីភីឌាជាភាសាជាង៣០០ភាសា";
 "more-languages-tooltip-title" = "បន្ថែមភាសា";
 "navbar-title-mode-edit-wikitext-preview" = "មើលជាមុន";
@@ -357,6 +358,7 @@
 "welcome-explore-continue-button" = "ចាប់ផ្ដើមប្រើ";
 "welcome-explore-new-ways-title" = "វិធីរុករកថ្មីៗ";
 "welcome-explore-tell-me-more-done-button" = "យល់ហើយ";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "វិគីភីឌាត្រូវបានសរសេរឡើងដោយមានការសហការគ្នាពីអ្នកស្ម័គ្រចិត្តជាច្រើននាក់ និងមានអត្ថបទជាង៤០លាន សរសេរជាភាសាជាង៣០០ភាសា។";
 "welcome-intro-free-encyclopedia-more" = "ស្វែងយល់បន្ថែមពីវិគីភីឌា";
 "welcome-intro-free-encyclopedia-more-about" = "អំពីវិគីភីឌា";
@@ -365,6 +367,7 @@
 "welcome-languages-add-button" = "បន្ថែមភាសាមួយទៀត";
 "welcome-languages-add-or-edit-button" = "បន្ថែមឬកែប្រែភាសាចូលចិត្ត";
 "welcome-languages-description" = "រកឃើញភាសាខាងក្រោមនេះនៅលើឧបករណ៍របស់អ្នក៖";
+// Fuzzy
 "welcome-languages-search-title" = "ស្វែងរកជាភាសាជាង៣០០ភាសា";
 "welcome-notifications-tell-me-more-creation" = "សារជូនដំណឹងត្រូវបានបង្កើតនិងផ្ញើជូនដោយកម្មវិធីលើឧបករណ៍របស់អ្នក មិនមែនពីម៉ាស៊ីនបម្រើការរបស់យើងឬរបស់អ្នកទីបីឡើយ។";
 "welcome-notifications-tell-me-more-storage" = "ចំណង់ចំណូលចិត្តសម្រាប់សារជូនដំណឹងត្រូវបានរក្សាទុកនៅលើឧបករណ៍ និងមិនមែនអាស្រ័យលើព័ត៌មានឬសកម្មភាពផ្ទាល់ខ្លួនទេ។";

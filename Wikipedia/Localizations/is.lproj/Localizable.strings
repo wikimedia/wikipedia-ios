@@ -489,6 +489,7 @@
 "main-menu-title" = "Fleira";
 "main-menu-zero-faq" = "Algengar spurningar um Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Hætta við";
+// Fuzzy
 "more-languages-tooltip-description" = "Leita í Wikipedia á nærri 300 tungumálum";
 "more-languages-tooltip-title" = "Bæta við tungumálum";
 "move-articles-to-reading-list" = "Færa {{PLURAL:$1|$1 grein|$1 greinar}} á leslista";
@@ -819,6 +820,7 @@
 "welcome-explore-continue-button" = "Komast í gang";
 "welcome-explore-new-ways-title" = "Nýjar leiðir til að kanna heiminn";
 "welcome-explore-tell-me-more-done-button" = "Náði því";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "Wikipedia er skrifuð í sameiningu af sjálfboðaliðum og samanstendur af meira en 40 milljón greinum á nærri 300 tungumálum.";
 "welcome-intro-free-encyclopedia-more" = "Læra meira um Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "Um Wikipedia";
@@ -827,6 +829,7 @@
 "welcome-languages-add-button" = "Bæta við öðru tungumáli";
 "welcome-languages-add-or-edit-button" = "Breyta eða bæta við kjörtungumálum";
 "welcome-languages-description" = "Við fundum eftirtalin tungumál á tækinu þínu:";
+// Fuzzy
 "welcome-languages-search-title" = "Leita á nærri 300 tungumálum";
 "welcome-notifications-tell-me-more-creation" = "Tilkynningar eru útbúnar og afgreiddar á tækinu af forritinu sjálfu, en ekki vefþjónum okkar eða annarra aðila.";
 "welcome-notifications-tell-me-more-storage" = "Kjörstillingar kerfistilkynninga eru geymdar á tækinu og eru ekki byggðar á persónuupplýsingum eða persónugreinanlegri virkni.";

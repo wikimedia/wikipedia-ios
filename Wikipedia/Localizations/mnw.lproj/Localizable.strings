@@ -487,6 +487,7 @@
 "main-menu-title" = "ဂၠိုင်ဂၠိုင်";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "menu-cancel-accessibility-label" = "တးပဲါ";
+// Fuzzy
 "more-languages-tooltip-description" = "ဂၠာဲ ပ္ဍဲ ဝဳကဳပဳဒဳယာ နကဵုအရေဝ်ဘာသာ ဗဒဲါ ၃၀၀";
 "more-languages-tooltip-title" = "စုတ် အရေဝ်ဘာသာဂမၠိုင်";
 "move-articles-to-reading-list" = "စုတ် {{PLURAL:$1|$1 article|$1 articles}} ပ္ဍဲ စရင် လိက်ဗွဟ်";
@@ -818,6 +819,7 @@
 "welcome-explore-continue-button" = "စဂွံရ၊၊";
 "welcome-explore-new-ways-title" = "ဂၠာဲ နကဵု နဲကဲတၟိ";
 "welcome-explore-tell-me-more-done-button" = "ကလိဂွံ";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "ဝဳကဳပဳဒဳယာ ဂှ် နကဵုမပံင်တောဲ ကုညးတၠစေတနာတအ်တုဲ ချူဂွံလဝ် လိက်ပရေင် ဂၠိုင်နူ ၄၀ မဳလဳယာန် နကဵုအရေဝ်ဘာသာ ၃၀၀ ပြင်င်၊၊";
 "welcome-intro-free-encyclopedia-more" = "ဆက်လ္ၚတ် ပရူ ဝဳကဳပဳဒဳယာ";
 "welcome-intro-free-encyclopedia-more-about" = "ပရူ ဝဳကဳပဳဒဳယာ";
@@ -826,6 +828,7 @@
 "welcome-languages-add-button" = "စုတ် နကဵု အရေဝ်ဘာသာတၞဟ်";
 "welcome-languages-add-or-edit-button" = "စုတ် ဟွံသေင်မ္ဂး ပလေဝ် အရေဝ်ဘာသာ မဒးဂၞပ်ဂမၠိုင်";
 "welcome-languages-description" = "ပ္ဍဲ device မၞးဂှ် ပိုယ်ဂွံဆဵုကေတ် အရေဝ်ဘာသာ အတိုင် ဗွဲသၟဝ်ဝွံရ";
+// Fuzzy
 "welcome-languages-search-title" = "ဂၠာဲ နကဵုအရေဝ်ဘာသာ ဗဒဲါ ၃၀၀";
 "welcome-notifications-tell-me-more-creation" = "တင်စၟတ်သမ္တီဂှ် ခၞံကၠောန်တုဲ ပအပ်စုတ်လဝ် ပ္ဍဲ device မၞး နကဵု app ရ၊ နူကဵု servers ပိုယ် ဟွံသေင်ရ၊၊";
 "welcome-notifications-tell-me-more-storage" = "တင်စၟတ်သမ္တီဂှ် ဂိုင်ဒိပ်လဝ် ပ္ဍဲ device တုဲ ဟွံဒုင်သဇိုင် ကုတင်ဂၞင်ပရူပရာ ပူဂိုလ်ရ၊၊";

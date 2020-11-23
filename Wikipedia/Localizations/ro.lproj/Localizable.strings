@@ -493,6 +493,7 @@
 "main-menu-title" = "Mai mult";
 "main-menu-zero-faq" = "Într. frecv. Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Revocare";
+// Fuzzy
 "more-languages-tooltip-description" = "Căutați Wikipedia în aproape 300 de limbi";
 "more-languages-tooltip-title" = "Adaugă limbi";
 "move-articles-to-reading-list" = "Mută {{PLURAL:$1|$1 articol|$1 articole}} la lista de citit";
@@ -824,6 +825,7 @@
 "welcome-explore-continue-button" = "Să începem";
 "welcome-explore-new-ways-title" = "Noi modalități de explorare";
 "welcome-explore-tell-me-more-done-button" = "Am înțeles";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "Wikipedia este scrisă în colaborare de voluntari și constă din peste 40 de milioane de articole în aproape 300 de limbi.";
 "welcome-intro-free-encyclopedia-more" = "Aflați mai multe despre Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "Despre Wikipedia";
@@ -832,6 +834,7 @@
 "welcome-languages-add-button" = "Adaugă încă o limbă";
 "welcome-languages-add-or-edit-button" = "Adăugați sau editați limbile preferate";
 "welcome-languages-description" = "Am găsit următoarele limbi pe dispozitiv:";
+// Fuzzy
 "welcome-languages-search-title" = "Căutați în aproape 300 de limbi";
 "welcome-notifications-tell-me-more-creation" = "Notificările sunt create și livrate pe dispozitivul dvs. de către aplicație, nu de pe serverele noastre (sau de la terți).";
 "welcome-notifications-tell-me-more-storage" = "Preferințele de notificare sunt stocate pe dispozitiv și nu se bazează pe informații sau activități personale.";

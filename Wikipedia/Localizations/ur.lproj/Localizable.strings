@@ -269,6 +269,7 @@
 "main-menu-title" = "مزید";
 "main-menu-zero-faq" = "ویکیپیڈیا زیرو عمومی سوالات";
 "menu-cancel-accessibility-label" = "منسوخ";
+// Fuzzy
 "more-languages-tooltip-description" = "ویکیپیڈیا کو تقریباً 300 زبانوں میں تلاش کریں۔";
 "more-languages-tooltip-title" = "لسانیات کا اضافہ کریں";
 "move-articles-to-reading-list" = "مطالعہ کی فہرست میں {{PLURAL:$1|$1 مضمون|$1 مضامین}} کو منتقل کریں";
@@ -375,6 +376,7 @@
 "welcome-intro-free-encyclopedia-more-about" = "ویکیپیڈیا کا تعارف";
 "welcome-intro-free-encyclopedia-title" = "آزاد دائرۃ المعارف";
 "welcome-languages-add-button" = "دوسری زبان شامل کریں";
+// Fuzzy
 "welcome-languages-search-title" = "تقریباً 300 زبانوں میں تلاش کریں";
 "welcome-notifications-tell-me-more-title" = "اطلاع ناموں کے متعلق مزید معلومات";
 "welcome-send-data-helps-title" = "اطلاقیہ کو مزید بہتر بنانے میں مدد کریں";

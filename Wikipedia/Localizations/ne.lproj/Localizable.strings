@@ -258,6 +258,7 @@
 "main-menu-title" = "थप";
 "main-menu-zero-faq" = "विकिपिडिया शून्य प्रायः सोधिने प्रश्नहरू";
 "menu-cancel-accessibility-label" = "रद्द गर्नुहोस्";
+// Fuzzy
 "more-languages-tooltip-description" = "विकिपिडिया करिब ३०० भाषाहरूमा खोज्नुहोस्।";
 "more-languages-tooltip-title" = "भाषाहरू थप्नुहोस्";
 "navbar-title-mode-edit-wikitext-preview" = "पूर्वावलोकन";

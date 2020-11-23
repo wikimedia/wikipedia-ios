@@ -497,6 +497,7 @@
 "main-menu-title" = "Viac";
 "main-menu-zero-faq" = "Wikipédia Zero FAQ";
 "menu-cancel-accessibility-label" = "Zrušiť";
+// Fuzzy
 "more-languages-tooltip-description" = "Vyhľadávajte vo viac ako 300 jazykoch";
 "more-languages-tooltip-title" = "Pridať jazyky";
 "move-articles-to-reading-list" = "Pridať {{PLURAL:$1|$1 článok|$1 články|$1 článkov}} do zoznamu na prečítanie";
@@ -828,6 +829,7 @@
 "welcome-explore-continue-button" = "Začíname";
 "welcome-explore-new-ways-title" = "Nové možnosti pre objavovanie";
 "welcome-explore-tell-me-more-done-button" = "Rozumiem";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "Wikipédiu píšu dobrovoľníci a skladá sa z viac než 40 miliónov článkov v takmer 300 jazykoch.";
 "welcome-intro-free-encyclopedia-more" = "Ďalšie informácie o Wikipédii";
 "welcome-intro-free-encyclopedia-more-about" = "O Wikipédii";
@@ -836,6 +838,7 @@
 "welcome-languages-add-button" = "Pridať ďalší jazyk";
 "welcome-languages-add-or-edit-button" = "Pridať alebo upraviť preferované jazyky";
 "welcome-languages-description" = "Na vašom zariadení sme našli tieto jazyky:";
+// Fuzzy
 "welcome-languages-search-title" = "Vyhľadávajte vo viac ako 300 jazykoch";
 "welcome-notifications-tell-me-more-creation" = "Upozornenia sú vytvárané a doručované na vaše zariadenie aplikáciou, nie našimi servermi (alebo servermi tretích strán).";
 "welcome-notifications-tell-me-more-storage" = "Nastavenia upozornení sú uložené na vašom zariadení a nie sú založené na osobných údajoch alebo aktivite.";
