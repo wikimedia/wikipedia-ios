@@ -191,27 +191,9 @@ public class EPC: NSObject {
     private let legacyEventLoggingService: EventLoggingService
 
     /**
-     * Store events until the library is finished initializing
-     *
-     * The EPC library makes an HTTP request to a remote stream configuration
-     * service for information about how to evaluate incoming event data. Until
-     * this initialization is complete, we store any incoming events in this
-     * buffer.
-     *
-     * Only modify (append events to, remove events from) *synchronously* via
-     * `queue.sync`
-     */
-    private var inputBuffer: [EventRequest] = []
-
-    /**
-     * Maximum number of events allowed in the input buffer
-     */
-    private let inbutBufferLimit = 128
-
-    /**
      * Holds events that have been scheduled for POSTing
      */
-    private var outputBuffer: [EventRequest] = []
+    private var buffer: [EventRequest] = []
 
     /**
      * Cache of "in sample" / "out of sample" determination for each stream
@@ -410,17 +392,6 @@ public class EPC: NSObject {
                 }
                 result?[stream] = kv.value
             })
-
-            // Process event buffer after making stream configs available
-            // NOTE: If any event is re-submitted while streamConfigurations
-            // is still being set (asynchronously), they will just go back to
-            // input buffer.
-            while let event = inputBufferPopFirst() {
-                guard inSample(stream: event.stream) else {
-                    continue
-                }
-                appendPostToOutputBuffer(event)
-            }
         } catch let error {
             DDLogError("EPC: Problem processing JSON payload from response: \(error)")
         }
@@ -433,7 +404,7 @@ public class EPC: NSObject {
     private func postAllScheduled(_ completion: (() -> Void)? = nil) {
         DDLogDebug("EPC: Posting all scheduled requests")
         let group = DispatchGroup()
-        while let item = outputBufferPopFirst() {
+        while let item = bufferPopFirst() {
             group.enter()
             httpPost(url: item.url, body: item.data) { result in
                 switch result {
@@ -447,7 +418,7 @@ public class EPC: NSObject {
                         }
                         let nextRequest = EventRequest(url: item.url, data: item.data, stream: item.stream, attempt: item.attempt + 1)
                         /// Retry on networking library failure
-                        self.appendPostToOutputBuffer(nextRequest)
+                        self.appendPostToBuffer(nextRequest)
                     default:
                         /// Give up on events rejected by the server
                         assert(false, "The analytics service failed to process an event. A response code of 400 could indicate that the event didn't conform to provided schema. Check the error for more information.: \(error)")
@@ -698,24 +669,22 @@ public class EPC: NSObject {
         do {
             let encoder = JSONEncoder()
             encoder.dateEncodingStrategy = .iso8601
-            
+
             #if DEBUG
             encoder.outputFormatting = .prettyPrinted
             #endif
-            
+
             let jsonData = try encoder.encode(eventPayload)
-            
+
             #if DEBUG
             let jsonString = String(data: jsonData, encoding: .utf8)!
             DDLogDebug("EPC: Scheduling event to be sent to \(streamIntakeServiceURI) with POST body:\n\(jsonString)")
             #endif
-            
-            let request = EventRequest(url: streamIntakeServiceURI, data: jsonData, stream: stream)
+
             guard let streamConfigs = streamConfigurations else {
-                appendEventToInputBuffer(request)
                 return
             }
-            
+
             guard streamConfigs.keys.contains(stream) else {
                 DDLogDebug("EPC: Event submitted to '\(stream)' but only the following streams are configured: \(streamConfigs.keys.map(\.rawValue).joined(separator: ", "))")
                 return
@@ -724,7 +693,9 @@ public class EPC: NSObject {
             guard inSample(stream: stream) else {
                 return
             }
-            appendPostToOutputBuffer(request)
+
+            let request = EventRequest(url: streamIntakeServiceURI, data: jsonData, stream: stream)
+            appendPostToBuffer(request)
         } catch let error {
             DDLogError("EPC: \(error.localizedDescription)")
         }
@@ -734,49 +705,6 @@ public class EPC: NSObject {
 //MARK: Thread-safe accessors for collection properties
 
 private extension EPC {
-
-    /**
-     * Thread-safe synchronous retrieval of buffered events
-     */
-    func getInputBuffer() -> [EventRequest] {
-        queue.sync {
-            return self.inputBuffer
-        }
-    }
-
-    /**
-     * Thread-safe synchronous buffering of an event
-     * - Parameter event: event to be buffered
-     */
-    func appendEventToInputBuffer(_ event: EventRequest) {
-        queue.sync {
-            /*
-             * Check if input buffer has reached maximum allowed size. Practically
-             * speaking, there should not have been over a hundred events
-             * generated when the user first launches the app and before the
-             * stream configuration has been downloaded and becomes available. In
-             * such a case we're just going to start clearing out the oldest
-             * events to make room for new ones.
-             */
-            if self.inputBuffer.count == self.inbutBufferLimit {
-                _ = self.inputBuffer.remove(at: 0)
-            }
-            self.inputBuffer.append(event)
-        }
-    }
-
-    /**
-     * Thread-safe synchronous removal of first buffered event
-     * - Returns: a previously buffered event
-     */
-    func inputBufferPopFirst() -> EventRequest? {
-        queue.sync {
-            if self.inputBuffer.isEmpty {
-                return nil
-            }
-            return self.inputBuffer.remove(at: 0)
-        }
-    }
 
     /**
      * Thread-safe asynchronous caching of a stream's in-vs-out-of-sample
@@ -815,9 +743,9 @@ private extension EPC {
      * Thread-safe asynchronous buffering of an event scheduled for POSTing
      * - Parameter post: an EventRequest
      */
-    func appendPostToOutputBuffer(_ post: EventRequest) {
+    func appendPostToBuffer(_ event: EventRequest) {
         queue.async {
-            self.outputBuffer.append(post)
+            self.buffer.append(event)
         }
     }
     
@@ -825,12 +753,12 @@ private extension EPC {
      * Thread-safe synchronous removal of first scheduled event
      * - Returns: a previously scheduled event
      */
-    func outputBufferPopFirst() -> EventRequest? {
+    func bufferPopFirst() -> EventRequest? {
         queue.sync {
-            if self.outputBuffer.isEmpty {
+            if self.buffer.isEmpty {
                 return nil
             }
-            return self.outputBuffer.remove(at: 0)
+            return self.buffer.remove(at: 0)
         }
     }
 }
@@ -892,6 +820,10 @@ private extension EPC {
 
 extension EPC: PeriodicWorker {
     public func doPeriodicWork(_ completion: @escaping () -> Void) {
+        if streamConfigurations == nil {
+            DDLogWarn("Event stream configurations not yet loaded; skipping event submission.")
+            return
+        }
         self.postAllScheduled(completion)
     }
 }
