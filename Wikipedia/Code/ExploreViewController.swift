@@ -438,6 +438,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        var titleAreaTapped = false;
         if let cell = collectionView.cellForItem(at: indexPath) as? ExploreCardCollectionViewCell {
             detailTransitionSourceRect = view.convert(cell.frame, from: collectionView)
             if
@@ -449,14 +450,18 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             } else {
                 imageScaleTransitionView = nil
             }
+            titleAreaTapped = cell.titleAreaTapped
         }
         guard let group = group(at: indexPath) else {
             return
         }
 
         presentedContentGroupKey = group.key
+        
+        // When a random article title is tapped, show the previewed article, not another random article
+        let useRandomArticlePreviewItem = titleAreaTapped && group.moreType == .pageWithRandomButton
 
-        if let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme) {
+        if !useRandomArticlePreviewItem, let vc = group.detailViewControllerWithDataStore(dataStore, theme: theme) {
             push(vc, context: FeedFunnelContext(group), index: indexPath.item, animated: true)
             return
         }
