@@ -219,7 +219,7 @@
 "diff-compare-title" = "Порівняння версій";
 "diff-context-lines-collapsed-button-title" = "Показати";
 "diff-context-lines-expanded-button-title" = "Приховати";
-"diff-multi-line-format" = "Рядки $1 - $2";
+"diff-multi-line-format" = "Рядки $1—$2";
 "diff-paragraph-moved" = "Параграф переміщено";
 "diff-paragraph-moved-direction-down" = "нижче";
 "diff-paragraph-moved-direction-up" = "вище";
@@ -244,7 +244,7 @@
 "diff-thanks-sent-already" = "Ви вже подякували за це редагування";
 "diff-thanks-sent-cannot-unsend" = "Подяка не може бути відкликана";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 рядок не змінився|$1 рядки не змінилися|$1 рядків не змінилось}}";
-"dim-images" = "Заглушити яскравість зображень";
+"dim-images" = "Затемнити зображення";
 "edit-bold-accessibility-label" = "Додати напівжирну гарнітуру";
 "edit-bold-remove-accessibility-label" = "Прибрати напівжирну гарнітуру";
 "edit-clear-formatting-accessibility-label" = "Очистити форматування";
@@ -496,7 +496,7 @@
 "insert-media-image-preview-more-information-action-title" = "Додаткова інформація";
 "insert-media-image-preview-select-image-action-title" = "Вибрати зображення";
 "insert-media-image-size-setting-custom" = "Налаштовуваний";
-"insert-media-image-size-setting-default" = "Усталений";
+"insert-media-image-size-setting-default" = "Типовий";
 "insert-media-image-size-settings-px-unit-name" = "пкс";
 "insert-media-image-size-settings-title" = "Розмір зображення";
 "insert-media-image-type-setting-basic" = "Базовий";
@@ -540,7 +540,6 @@
 "main-menu-title" = "Ще";
 "main-menu-zero-faq" = "ЧАП по Вікіпедія Zero";
 "menu-cancel-accessibility-label" = "Скасувати";
-// Fuzzy
 "more-languages-tooltip-description" = "Шукати у Вікіпедії майже 300 мовами";
 "more-languages-tooltip-title" = "Додати мови";
 "move-articles-to-reading-list" = "Перенести {{PLURAL:$1|$1 статтю|$1 статті|$1 статей}} до читального списку";
@@ -854,8 +853,8 @@
 "talk-pages-reply-button-title" = "Відповісти в цьому обговоренні";
 "theme-black-display-name" = "Чорна";
 "theme-dark-display-name" = "Темна";
-"theme-default-display-name" = "Усталена";
-"theme-default-explanation" = "Підлаштовано під вигляд системи";
+"theme-default-display-name" = "Типова";
+"theme-default-explanation" = "Підлаштована під вигляд системи";
 "theme-light-display-name" = "Світла";
 "theme-sepia-display-name" = "Сепія";
 "top-read-header-generic" = "Вікіпедія";
@@ -877,8 +876,7 @@
 "welcome-explore-continue-button" = "Розпочати";
 "welcome-explore-new-ways-title" = "Пізнаємо по-новому";
 "welcome-explore-tell-me-more-done-button" = "Зрозуміло";
-// Fuzzy
-"welcome-intro-free-encyclopedia-description" = "Вікіпедія написана спільними зусиллями добровольців і складається з понад 40 мільйонів статей майже на 300 мовах";
+"welcome-intro-free-encyclopedia-description" = "Вікіпедія написана спільними зусиллями волонтерів і складається з понад 40 мільйонів статей майже 300 мовами";
 "welcome-intro-free-encyclopedia-more" = "Дізнайтеся більше про Вікіпедію";
 "welcome-intro-free-encyclopedia-more-about" = "Про Вікіпедію";
 "welcome-intro-free-encyclopedia-more-description" = "Вікіпедія — це глобальний проєкт зі створення безкоштовних енциклопедій на всіх мовах світу. Майже будь-хто, маючи доступ до Інтернету, може вільно брати в ньому участь, додаючи нейтральну, підкріплену джерелами інформацію.";
@@ -886,8 +884,7 @@
 "welcome-languages-add-button" = "Додати ще одну мову";
 "welcome-languages-add-or-edit-button" = "Додати чи змінити усталені мови";
 "welcome-languages-description" = "Ми знайшли такі мови на вашому приладі:";
-// Fuzzy
-"welcome-languages-search-title" = "Шукати майже на 300 мовах";
+"welcome-languages-search-title" = "Шукати майже 300 мовами";
 "welcome-notifications-tell-me-more-creation" = "Сповіщення створюються і доставляються до вашого пристрою через відповідний додаток, а не через наші (чи сторонні) сервери.";
 "welcome-notifications-tell-me-more-storage" = "Налаштування сповіщень зберігаються на пристрої і не базуються на конфіденційній інформації чи діяльності.";
 "welcome-notifications-tell-me-more-title" = "Більше про сповіщення";

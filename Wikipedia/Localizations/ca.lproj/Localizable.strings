@@ -12,6 +12,7 @@
 // Author: Lluis tgn
 // Author: Maceleiro
 // Author: Macofe
+// Author: Mguix
 // Author: Nemo bis
 // Author: Rbndev
 // Author: SMP
@@ -540,8 +541,7 @@
 "main-menu-title" = "Més";
 "main-menu-zero-faq" = "Preguntes més freqüents sobre Viquipèdia Zero";
 "menu-cancel-accessibility-label" = "Cancel·la";
-// Fuzzy
-"more-languages-tooltip-description" = "Cerca a la Viquipèdia en vora 300 llengües";
+"more-languages-tooltip-description" = "Cerca a la Viquipèdia en més de 300 llengües";
 "more-languages-tooltip-title" = "Afegeix llengües";
 "move-articles-to-reading-list" = "Mou {{PLURAL:$1|$1 article|$1 articles}} a la llista de lectura";
 "navbar-title-mode-edit-wikitext-preview" = "Previsualitza";
@@ -877,8 +877,7 @@
 "welcome-explore-continue-button" = "Primers passos";
 "welcome-explore-new-ways-title" = "Noves formes d'explorar";
 "welcome-explore-tell-me-more-done-button" = "Ho he entès";
-// Fuzzy
-"welcome-intro-free-encyclopedia-description" = "La Viquipèdia és escrita col·laborativament per voluntaris i conté més de 40 milions d'articles en gairebé 300 llengües.";
+"welcome-intro-free-encyclopedia-description" = "La Viquipèdia és escrita col·laborativament per voluntaris i conté més de 40 milions d'articles en més de 300 llengües.";
 "welcome-intro-free-encyclopedia-more" = "Més informació de la Viquipèdia";
 "welcome-intro-free-encyclopedia-more-about" = "Quant a la Viquipèdia";
 "welcome-intro-free-encyclopedia-more-description" = "La Viquipèdia és un projecte global per construir enciclopèdies lliures en totes les llengües del món. Virtualment qualsevol amb accés a Internet és lliure de participar-hi tot contribuint-hi informació neutral i que es pugui citar.";
@@ -886,8 +885,7 @@
 "welcome-languages-add-button" = "Afegeix una altra llengua";
 "welcome-languages-add-or-edit-button" = "Afegeix o modifica les llengües preferides";
 "welcome-languages-description" = "Hem trobat les llengües següents en el vostre dispositiu:";
-// Fuzzy
-"welcome-languages-search-title" = "Cerca en vora 300 llengües";
+"welcome-languages-search-title" = "Cerca en més de 300 llengües";
 "welcome-notifications-tell-me-more-creation" = "Les notificacions es creen i es lliure en el vostre dispositiu per la mateixa aplicació, i no pas pels nostres servidors (o de tercers).";
 "welcome-notifications-tell-me-more-storage" = "Les preferències de notificació s'emmagatzemen al dispositiu i no es basen en informació personal o activitat.";
 "welcome-notifications-tell-me-more-title" = "Quant a les notificacions";
