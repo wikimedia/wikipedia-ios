@@ -22,6 +22,11 @@
 // Author: Surjection
 // Author: Valtlait
 
+"aaald-added-text-description-2" = "$1 lisätty";
+"aaald-article-insert-last-updated" = "Viimeksi päivitetty";
+"aaald-article-insert-new-changes" = "Uudet muutokset";
+"aaald-deleted-text-description-2" = "$1 poistettu";
+"aaald-error-subitle" = "Päivitä yrittääksesi uudelleen";
 "aaald-new-book-reference-title" = "Kirja";
 "aaald-new-discussion" = "Uusi keskustelu";
 "aaald-new-news-reference-title" = "Uutiset";
@@ -150,6 +155,7 @@
 "compass-direction" = "klo $1";
 "continue-reading-empty-description" = "Tutki Wikipediaa löytääksesi lisää luettavia artikkeleja";
 "continue-reading-empty-title" = "Ei äskettäin luettuja artikkeleja";
+"data-migration-status" = "Päivitetäään...";
 "description-add-title" = "Lisää kuvaus";
 "description-edit-for-article" = "Otsikon kuvaus artikkelille $1";
 "description-edit-learn-more" = "Lisätietoja";
@@ -798,8 +804,7 @@
 "welcome-explore-continue-button" = "Aloitetaan";
 "welcome-explore-new-ways-title" = "Uusia tapoja tutkia";
 "welcome-explore-tell-me-more-done-button" = "Selvä";
-// Fuzzy
-"welcome-intro-free-encyclopedia-description" = "Wikipedia on kirjoitettu yhteistyössä vapaaehtoisten kanssa ja se koostuu yli 40 miljoonasta artikkelista lähes 300 kielellä.";
+"welcome-intro-free-encyclopedia-description" = "Wikipedia on kirjoitettu yhteistyössä vapaaehtoisten kanssa ja se koostuu yli 40 miljoonasta artikkelista yli 300 kielellä.";
 "welcome-intro-free-encyclopedia-more" = "Lue lisää Wikipediasta";
 "welcome-intro-free-encyclopedia-more-about" = "Tietoja Wikipediasta";
 "welcome-intro-free-encyclopedia-more-description" = "Wikipedia on maailmanlaajuinen projekti luoda vapaa tietosanakirja kaikilla maailman kielillä. \nKäytännössä kuka tahansa, jolla on Internet-yhteys, voi vapaasti osallistua myötävaikuttamalla neutraaleihin, siteerattuihin tietoihin.";
@@ -807,8 +812,7 @@
 "welcome-languages-add-button" = "Lisää uusi kieli";
 "welcome-languages-add-or-edit-button" = "Lisää tai muokkaa ensisijaisia kieliä";
 "welcome-languages-description" = "Olemme löytäneet seuraavat kielet laitteestasi:";
-// Fuzzy
-"welcome-languages-search-title" = "Hae miltei 300 kielellä";
+"welcome-languages-search-title" = "Hae yli 300 kielellä";
 "welcome-notifications-tell-me-more-creation" = "Ilmoitukset luodaan ja lähetetään laitteesta, eikä Wikimedian tai muun osapuolen palvelimelta.";
 "welcome-notifications-tell-me-more-storage" = "Ilmoitusasetukset tallennetaan laitteeseen, eivätkä ne pohjaudu henkilökohtaisiin tietoihin tai toimintaan.";
 "welcome-notifications-tell-me-more-title" = "Lisätietoja ilmoituksista";
