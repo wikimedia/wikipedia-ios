@@ -552,8 +552,7 @@
 "main-menu-title" = "Mais";
 "main-menu-zero-faq" = "Perguntas frequentes sobre a Wikipédia Zero";
 "menu-cancel-accessibility-label" = "Cancelar";
-// Fuzzy
-"more-languages-tooltip-description" = "Pesquise na Wikipedia em quase 300 idiomas";
+"more-languages-tooltip-description" = "Pesquise na Wikipédia em mais de 300 idiomas";
 "more-languages-tooltip-title" = "Adicionar idiomas";
 "move-articles-to-reading-list" = "Mover $1 {{PLURAL:$1|artigo|artigos}} para a lista de leitura";
 "navbar-title-mode-edit-wikitext-preview" = "Pré-visualizar";
@@ -889,8 +888,7 @@
 "welcome-explore-continue-button" = "Começar";
 "welcome-explore-new-ways-title" = "Novas formas de explorar";
 "welcome-explore-tell-me-more-done-button" = "Entendi";
-// Fuzzy
-"welcome-intro-free-encyclopedia-description" = "A Wikipedia é escrita de forma colaborativa por voluntários e consiste em mais de 40 milhões de artigos em quase 300 idiomas.";
+"welcome-intro-free-encyclopedia-description" = "A Wikipédia é escrita em colaboração por voluntários e consiste em mais de 40 milhões de artigos em mais de 300 idiomas.";
 "welcome-intro-free-encyclopedia-more" = "Saiba mais sobre a Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "Sobre Wikipedia";
 "welcome-intro-free-encyclopedia-more-description" = "A Wikipedia é um projeto global para construir enciclopédias gratuitas em todos as idiomas do mundo. Praticamente qualquer pessoa com acesso à Internet é livre para participar, contribuindo com informações neutras e citadas.";
@@ -898,8 +896,7 @@
 "welcome-languages-add-button" = "Adicionar outro idioma";
 "welcome-languages-add-or-edit-button" = "Adicionar ou editar idiomas preferidos";
 "welcome-languages-description" = "Encontrámos os seguintes idiomas no seu dispositivo:";
-// Fuzzy
-"welcome-languages-search-title" = "Procure em quase 300 idiomas";
+"welcome-languages-search-title" = "Pesquise em mais de 300 idiomas";
 "welcome-notifications-tell-me-more-creation" = "As notificações são criadas e enviadas para o dispositivo através da aplicação, não a partir dos nossos (ou de terceiros) servidores.";
 "welcome-notifications-tell-me-more-storage" = "As preferências de notificação são armazenadas no dispositivo, e não baseadas em informações pessoais ou atividade.";
 "welcome-notifications-tell-me-more-title" = "Mais sobre notificações";
