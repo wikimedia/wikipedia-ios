@@ -544,8 +544,7 @@
 "main-menu-title" = "Mer";
 "main-menu-zero-faq" = "Vanliga frågor om Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Avbryt";
-// Fuzzy
-"more-languages-tooltip-description" = "Sök på Wikipedia på nästan 300 språk";
+"more-languages-tooltip-description" = "Sök på Wikipedia på över 300 språk";
 "more-languages-tooltip-title" = "Lägg till språk";
 "move-articles-to-reading-list" = "Flytta {{PLURAL:$1|$1 artikel|$1 artiklar}} till läslista";
 "navbar-title-mode-edit-wikitext-preview" = "Förhandsgranska";
@@ -881,8 +880,7 @@
 "welcome-explore-continue-button" = "Kom igång";
 "welcome-explore-new-ways-title" = "Nya sätt att utforska";
 "welcome-explore-tell-me-more-done-button" = "Jag förstår";
-// Fuzzy
-"welcome-intro-free-encyclopedia-description" = "Wikipedia är ett samarbete som skrivs av frivilliga och består av fler än 40 miljoner artiklar på nästan 300 språk.";
+"welcome-intro-free-encyclopedia-description" = "Wikipedia är ett samarbete som skrivs av frivilliga och består av fler än 40 miljoner artiklar på över 300 språk.";
 "welcome-intro-free-encyclopedia-more" = "Läs mer om Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "Om Wikipedia";
 "welcome-intro-free-encyclopedia-more-description" = "Wikipedia är ett globalt projekt för att bygga fria uppslagsverk på alla världens språk. I princip alla med Internetåtkomst kan bidra med neutral källbelagd information.";
@@ -890,8 +888,7 @@
 "welcome-languages-add-button" = "Lägg till ett annat språk";
 "welcome-languages-add-or-edit-button" = "Lägg till eller redigera föredragna språk";
 "welcome-languages-description" = "Vi har hittat följande språk på din enhet:";
-// Fuzzy
-"welcome-languages-search-title" = "Sök på nästan 300 språk";
+"welcome-languages-search-title" = "Sök på över 300 språk";
 "welcome-notifications-tell-me-more-creation" = "Notiser skapas och levereras på din enhet genom appen, inte från vår (eller tredje partens) servrar.";
 "welcome-notifications-tell-me-more-storage" = "Notisinställningarna lagras på enheten och bygger inte på personliga uppgifter eller aktiviteter.";
 "welcome-notifications-tell-me-more-title" = "Mer om notiser";

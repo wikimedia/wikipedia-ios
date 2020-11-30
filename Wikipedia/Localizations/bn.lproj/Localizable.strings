@@ -234,8 +234,7 @@
 "main-menu-title" = "আরও";
 "main-menu-zero-faq" = "উইকিপিডিয়া জিরো প্রাজিপ্র";
 "menu-cancel-accessibility-label" = "বাতিল";
-// Fuzzy
-"more-languages-tooltip-description" = "প্রায় ৩০০টি ভাষায় উইকিপিডিয়া অন্বেষণ করুন";
+"more-languages-tooltip-description" = "৩০০টি অধিক ভাষায় উইকিপিডিয়া অন্বেষণ করুন";
 "more-languages-tooltip-title" = "ভাষা যোগ করুন";
 "navbar-title-mode-edit-wikitext-preview" = "প্রাকদর্শন";
 "nearby-distance-label-feet" = "$1 ফুট";
@@ -367,8 +366,7 @@
 "welcome-intro-free-encyclopedia-more-about" = "উইকিপিডিয়া সম্পর্কে";
 "welcome-intro-free-encyclopedia-title" = "একটি মুক্ত বিশ্বকোষ";
 "welcome-languages-add-button" = "আরেকটি ভাষা যোগ করুন";
-// Fuzzy
-"welcome-languages-search-title" = "প্রায় ৩০০টি ভাষায় অন্বেষণ করুন";
+"welcome-languages-search-title" = "৩০০টি অধিক ভাষায় অন্বেষণ করুন";
 "welcome-notifications-tell-me-more-title" = "বিজ্ঞপ্তি সম্পর্কে আরো";
 "welcome-volunteer-send-usage-reports" = "ব্যবহারের রিপোর্ট পাঠান";
 "wikitext-downloading" = "বিষয়বস্তু লোড হচ্ছে...";

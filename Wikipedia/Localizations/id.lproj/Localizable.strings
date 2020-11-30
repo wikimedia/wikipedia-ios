@@ -549,8 +549,7 @@
 "main-menu-title" = "Lainnya";
 "main-menu-zero-faq" = "Tanya jawab Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Batal";
-// Fuzzy
-"more-languages-tooltip-description" = "Cari Wikipedia dalam hampir 300 bahasa";
+"more-languages-tooltip-description" = "Cari Wikipedia dalam lebih dari 300 bahasa";
 "more-languages-tooltip-title" = "Tambah bahasa";
 "move-articles-to-reading-list" = "Pindahkan {{PLURAL:$1|$1 artikel|$1 artikel}} ke daftar bacaan";
 "navbar-title-mode-edit-wikitext-preview" = "Pratayang";
@@ -732,6 +731,8 @@
 "relative-date-seconds-ago-abbreviated" = "$1d yang lalu";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Tahun ini|1=Tahun lalu|$1 tahun yang lalu}}";
 "replace-button-accessibility" = "Lakukan $1.";
+"replace-buttons-replace-accessibility" = "Ganti satu saja";
+"replace-buttons-replace-all-accessibility" = "Ganti semuanya";
 "replace-clear-button-accessibility" = "Hapus penggantian";
 "replace-infolabel-method-replace" = "Ganti";
 "replace-infolabel-method-replace-all" = "Ganti semua";
@@ -882,8 +883,7 @@
 "welcome-explore-continue-button" = "Memulai";
 "welcome-explore-new-ways-title" = "Cara baru untuk menjelajah";
 "welcome-explore-tell-me-more-done-button" = "Mengerti";
-// Fuzzy
-"welcome-intro-free-encyclopedia-description" = "Wikipedia ditulis secara kolaboratif oleh sukarelawan dan terdiri dari lebih dari 40 juta artikel dalam hampir 300 bahasa.";
+"welcome-intro-free-encyclopedia-description" = "Wikipedia ditulis secara kolaboratif oleh sukarelawan dan terdiri dari lebih dari 40 juta artikel dalam lebih dari 300 bahasa.";
 "welcome-intro-free-encyclopedia-more" = "Pelajari lebih lanjut tentang Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "Tentang Wikipedia";
 "welcome-intro-free-encyclopedia-more-description" = "Wikipedia adalah proyek global untuk membangun ensiklopedia bebas dalam semua bahasa di dunia. Hampir semua orang dengan akses internet bebas berpartisipasi dengan memberikan kontribusi informasi yang netral dan dikutip.";
@@ -891,8 +891,7 @@
 "welcome-languages-add-button" = "Tambahkan bahasa lainnya";
 "welcome-languages-add-or-edit-button" = "Tambahkan atau sunting bahasa pilihan";
 "welcome-languages-description" = "Kami telah menemukan bahasa berikut di perangkat Anda:";
-// Fuzzy
-"welcome-languages-search-title" = "Cari dalam hampir 300 bahasa";
+"welcome-languages-search-title" = "Cari dalam lebih dari 300 bahasa";
 "welcome-notifications-tell-me-more-creation" = "Pemberitahuan dibuat dan disampaikan pada perangkat Anda dengan aplikasi, bukan dari peladen kami (atau pihak ketiga).";
 "welcome-notifications-tell-me-more-storage" = "Preferensi pemberitahuan disimpan di perangkat dan tidak berdasarkan informasi pribadi atau aktivitas.";
 "welcome-notifications-tell-me-more-title" = "Lebih lanjut tentang pemberitahuan";
