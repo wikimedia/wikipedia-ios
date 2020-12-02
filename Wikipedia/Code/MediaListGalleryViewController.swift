@@ -4,7 +4,7 @@ class MediaListGalleryViewController: WMFImageGalleryViewController {
     let articleURL: URL
     required init(articleURL: URL, mediaList: MediaList, dataStore: MWKDataStore, initialItem: MediaListItem?, theme: Theme, overlayViewTopBarHidden: Bool = false) {
         self.articleURL = articleURL
-		let photos = mediaList.items.filter { $0.showInGallery }.compactMap { MediaListItemNYTPhotoWrapper($0) }
+        let photos = mediaList.items.filter { $0.showInGallery }.compactMap { MediaListItemNYTPhotoWrapper($0) }
         let initialPhoto: WMFPhoto?
         if let initialItem = initialItem {
             initialPhoto = photos.first { $0.mediaListItem.title == initialItem.title }
