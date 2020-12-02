@@ -43,7 +43,7 @@ We use Xcode's default 4 space indentation and our `.clang-format` file with the
 Covered in the [process document](docs/process.md).
 
 ### Testing
-The **Wikipedia** scheme is configured to execute the project's iOS unit tests, which can be run using the `Cmd+U` hotkey or the **Product->Test** menu bar action. Screenshot tests will fail unless you are running on one of the configurations defined by `configurations_to_test_on_pull` in `fastlane/Fastfile`.
+The **Wikipedia** scheme is configured to execute the project's iOS unit tests, which can be run using the `Cmd+U` hotkey or the **Product->Test** menu bar action. Screenshot tests will fail unless you are running on one of the configurations defined by `configurations_to_test_on_pull` in `fastlane/Fastfile`. In order for the tests to pass, the test device's language and region must be set to `en-US` in Settings > General > Language & Region. There is a [ticket filed](https://phabricator.wikimedia.org/T259859) to update the tests to pass regardless of region and language.
 
 ### Targets
 #### Wikipedia
