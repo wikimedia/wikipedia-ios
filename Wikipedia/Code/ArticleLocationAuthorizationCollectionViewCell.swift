@@ -58,4 +58,8 @@ class ArticleLocationAuthorizationCollectionViewCell: ArticleLocationExploreColl
     @objc public func authorizeButtonPressed(_ sender: Any?) {
         authorizationDelegate?.articleLocationAuthorizationCollectionViewCellDidTapAuthorize(self)
     }
+    
+    override var isSwipeEnabled: Bool {
+        return false
+    }
 }
