@@ -284,10 +284,7 @@ class SectionEditorViewController: ViewController {
         }
         setWikitextToWebView(wikitext) { [weak self] (error) in
             if let error = error {
-                //assertionFailure(error.localizedDescription)
-                print("😔\(error)")
-                print("😔\(error.localizedDescription)")
-                print("😔\((error as? NSError)?.userInfo)")
+                assertionFailure(error.localizedDescription)
             } else {
                 DispatchQueue.main.async {
                     self?.didSetWikitextToWebView = true
