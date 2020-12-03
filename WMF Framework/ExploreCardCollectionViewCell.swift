@@ -5,13 +5,20 @@ public protocol CardContent {
     func contentHeight(forWidth: CGFloat) -> CGFloat
 }
 
-fileprivate protocol CardBackgroundViewDelegate: AnyObject {
+// Allows the card background view to communicate with the cell to detect taps in the title area
+// A Random article card navigates to different destinations depending on whether the area
+// above or below the card content is tapped.
+fileprivate protocol CardBackgroundViewDelegate: UIView {
+    func titleAreaYThreshold(for cardBackgroundView: CardBackgroundView) -> CGFloat // Return value in the coordinate system of the card background view
     var titleAreaTapped: Bool { get set }
 }
 private class CardBackgroundView: UIView {
     fileprivate weak var delegate: CardBackgroundViewDelegate?
     override public func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        delegate?.titleAreaTapped = point.y < 0
+        if let delegate = delegate {
+            let yThreshold = delegate.titleAreaYThreshold(for: self)
+            delegate.titleAreaTapped = point.y < yThreshold
+        }
         return super.hitTest(point, with: event)
     }
 }
@@ -94,6 +101,14 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, CardBackgroundVi
             view.layer.cornerRadius = cardCornerRadius
             contentView.addSubview(view)
         }
+    }
+    
+    fileprivate func titleAreaYThreshold(for cardBackgroundView: CardBackgroundView) -> CGFloat {
+        // The title area is defined to include card background from its top down to the bottom of the card content
+        // This registers taps on the side margins of the card content as in the title area
+        let yThreshold = cardContent?.view?.frame.maxY ?? 0.0
+        let convertedPoint = convert(CGPoint(x: 0.0, y: yThreshold), to: cardBackgroundView)
+        return convertedPoint.y
     }
 
     private var undoTitle: String? {
