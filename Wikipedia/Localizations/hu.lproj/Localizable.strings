@@ -15,12 +15,13 @@
 // Author: Tacsipacsi
 // Author: Urbalazs
 
+"aaald-added-text-description-2" = "$1 hozzáadva";
 "aaald-article-description-updated-description" = "Cikk címleírás frissítve";
-// Fuzzy
-"aaald-article-insert-header" = "Kiemelt események";
+"aaald-article-insert-header" = "Fontos frissítések";
 "aaald-article-insert-last-updated" = "Utoljára frissítve";
 "aaald-article-insert-new-changes" = "Új változtatások";
 "aaald-article-insert-read-more" = "További frissítések elolvasása";
+"aaald-deleted-text-description-2" = "$1 törölve";
 "aaald-error-subitle" = "Frissítsd és próbáld újra";
 "aaald-multiple-changes-description" = "Több változtatás is történt";
 "aaald-multiple-references-added-description" = "Referenciák hozzáadva";
@@ -133,6 +134,7 @@
 "article-languages-label" = "Nyelvválasztás";
 "article-languages-others" = "Más nyelvek";
 "article-languages-yours" = "A te nyelveid";
+"article-read-more-title" = "Olvass tovább";
 "article-save-error-not-enough-space" = "Nincs elég hely az eszközön a szócikk mentéséhez";
 "article-share" = "Megosztás";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Olvasási témák vezérlése";
@@ -186,7 +188,9 @@
 "description-welcome-descriptions-title" = "Címleírások";
 "description-welcome-promise-title" = "Mielőtt nekifognék, megígérem, hogy nem élek vissza ezzel a funkcióval";
 "description-welcome-start-editing-button" = "Szerkesztés elkezdése";
+"diff-context-lines-collapsed-button-title" = "Mutat";
 "diff-context-lines-expanded-button-title" = "Elrejtés";
+"diff-multi-line-format" = "$1 - $2 sor";
 "diff-paragraph-moved-direction-down" = "le";
 "diff-paragraph-moved-direction-up" = "föl";
 "diff-paragraph-moved-distance-line" = "{{PLURAL:$1|Egy sor|$1 sor}}";
@@ -272,6 +276,7 @@
 "explore-feed-preferences-featured-article-description" = "A Wikipédia napi kiemelt cikke";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Ki";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Mindegyiken";
+"explore-feed-preferences-feed-cards-hidden-title" = "Minden $1 kártya elrejtve";
 "explore-feed-preferences-global-cards-description" = "Nem nyelv-specifikus kártyák";
 "explore-feed-preferences-global-cards-subtitle" = "Nem nyelv-specifikus";
 "explore-feed-preferences-global-cards-title" = "Globális kártyák";
@@ -418,7 +423,6 @@
 "main-menu-title" = "Több";
 "main-menu-zero-faq" = "Wikipédia Zéró GYIK";
 "menu-cancel-accessibility-label" = "Mégse";
-// Fuzzy
 "more-languages-tooltip-description" = "Keress a Wikipédián közel 300 nyelven";
 "more-languages-tooltip-title" = "Nyelvek hozzáadása";
 "move-articles-to-reading-list" = "{{PLURAL:$1|egy szócikk|$1 szócikk}} hozzáadása az olvasólistához";
@@ -459,6 +463,7 @@
 "page-protected-can-not-edit-title" = "Ez a lap védett";
 "page-protected-other" = "Ez a lap az alábbi szinten védett: $1";
 "page-protected-sysop" = "Ez a lap teljesen védett.";
+"page-similar-titles" = "Hasonló oldalak";
 "pictured" = "képpel";
 "places-accessibility-clear-saved-searches" = "Mentett keresések törlése";
 "places-accessibility-group" = "$1 szócikk";
@@ -624,6 +629,8 @@
 "talk-page-error-unable-to-post-reply" = "Nincs internetkapcsolat, nem sikerült elküldeni a választ.";
 "talk-page-link-user-action-sheet-app" = "Felhasználói lap megtekintése az alkalmazásban";
 "talk-page-link-user-action-sheet-safari" = "Felhasználói lap megtekintése Safarival";
+"talk-page-new-subject-placeholder-text" = "Tárgy";
+"talk-page-new-subject-textfield-accessibility-label" = "Tárgy";
 "talk-page-new-topic-title" = "Új téma";
 "talk-page-reply-title" = "Válasz";
 "talk-page-title-article-talk" = "szócikk-vitalap";
@@ -656,7 +663,6 @@
 "welcome-languages-add-button" = "Másik nyelv hozzáadása";
 "welcome-languages-add-or-edit-button" = "Előnyben részesített nyelvek hozzáadása vagy szerkesztése";
 "welcome-languages-description" = "A következő nyelveket találtuk a készülékeden:";
-// Fuzzy
 "welcome-languages-search-title" = "Keresés majdnem 300 nyelven";
 "welcome-notifications-tell-me-more-creation" = "Az értesítéseket az alkalmazás készíti és továbbítja a készülékedre, nem a mi (vagy harmadik felek) szerverei.";
 "welcome-notifications-tell-me-more-storage" = "Az értesítések beállításai az eszközön tárolódnak és nem használnak személyes információkat vagy tevékenységadatokat.";

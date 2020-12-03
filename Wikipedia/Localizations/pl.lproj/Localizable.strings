@@ -520,8 +520,7 @@
 "main-menu-title" = "Więcej";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "menu-cancel-accessibility-label" = "Anuluj";
-// Fuzzy
-"more-languages-tooltip-description" = "Szukaj w Wikipedii w prawie 300 językach";
+"more-languages-tooltip-description" = "Szukaj na Wikipedii w ponad 300 językach";
 "more-languages-tooltip-title" = "Dodaj języki";
 "move-articles-to-reading-list" = "Przenieś {{PLURAL:$1|$1 artykuł|$1 artykuły}} do listy do przeczytania";
 "navbar-title-mode-edit-wikitext-preview" = "Podgląd";
@@ -804,8 +803,7 @@
 "welcome-languages-add-button" = "Dodaj kolejny język";
 "welcome-languages-add-or-edit-button" = "Dodaj lub edytuj preferowane języki";
 "welcome-languages-description" = "Na Twoim urządzeniu znaleźliśmy następujące języki:";
-// Fuzzy
-"welcome-languages-search-title" = "Wyszukuj w prawie 300 językach";
+"welcome-languages-search-title" = "Wyszukuj w ponad 300 językach";
 "welcome-notifications-tell-me-more-creation" = "Powiadomienia są tworzone i dostarczane na Twoje urządzenie przez aplikację, a nie z naszych serwerów (lub stron trzecich).";
 "welcome-notifications-tell-me-more-storage" = "Preferencje powiadomień są przechowywane na urządzeniu i nie są oparte na danych osobowych ani działaniach.";
 "welcome-notifications-tell-me-more-title" = "Więcej o powiadomieniach";

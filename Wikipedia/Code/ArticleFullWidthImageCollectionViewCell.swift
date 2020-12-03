@@ -89,6 +89,10 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
         }
     }
     
+    open override var isSwipeEnabled: Bool {
+        return isSaveButtonHidden
+    }
+    
     open override func updateAccessibilityElements() {
         super.updateAccessibilityElements()
         if !isSaveButtonHidden {

@@ -15,4 +15,5 @@ import UIKit
     var backgroundView: UIView? { get }
     func layoutIfNeeded() // call to layout views after setting swipe translation
     var bounds: CGRect { get }
+    var isSwipeEnabled: Bool { get }
 }
