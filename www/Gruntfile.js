@@ -1,6 +1,5 @@
 module.exports = function (grunt) {
 
-  grunt.loadNpmTasks( 'grunt-browserify' )
   grunt.loadNpmTasks( 'gruntify-eslint' )
   grunt.loadNpmTasks( 'grunt-contrib-copy' )
   grunt.loadNpmTasks( 'grunt-contrib-less' )
@@ -68,7 +67,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', [
     'eslint',
-    'browserify',
     'less',
     'copy'
   ])

@@ -346,11 +346,11 @@ const useFocusStyleForHighlightedSearchTermWithId = id => {
 
 //set window.wmf for calls outside the web view
 
-window.wmf.elementLocation.getFirstOnScreenSection = getFirstOnScreenSection;
-window.wmf.elementLocation.getElementRect = getElementRect;
-window.wmf.utilities.accessibilityCursorToFragment = accessibilityCursorToFragment;
-window.wmf.findInPage.removeSearchTermHighlights = removeSearchTermHighlights;
-window.wmf.findInPage.useFocusStyleForHighlightedSearchTermWithId = useFocusStyleForHighlightedSearchTermWithId;
-window.wmf.findInPage.findAndHighlightAllMatchesForSearchTerm = findAndHighlightAllMatchesForSearchTerm;
-window.wmf.findInPage.removeSearchTermHighlights = removeSearchTermHighlights;
-window.wmf.editTextSelection.getSelectedTextEditInfo = getSelectedTextEditInfo;
+window.wmf.elementLocation.getFirstOnScreenSection = getFirstOnScreenSection
+window.wmf.elementLocation.getElementRect = getElementRect
+window.wmf.utilities.accessibilityCursorToFragment = accessibilityCursorToFragment
+window.wmf.findInPage.removeSearchTermHighlights = removeSearchTermHighlights
+window.wmf.findInPage.useFocusStyleForHighlightedSearchTermWithId = useFocusStyleForHighlightedSearchTermWithId
+window.wmf.findInPage.findAndHighlightAllMatchesForSearchTerm = findAndHighlightAllMatchesForSearchTerm
+window.wmf.findInPage.removeSearchTermHighlights = removeSearchTermHighlights
+window.wmf.editTextSelection.getSelectedTextEditInfo = getSelectedTextEditInfo
