@@ -103,7 +103,8 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     public func configureSwipeableCell(_ cell: UICollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
         guard
             !layoutOnly,
-            let cell = cell as? SwipeableCell else {
+            let cell = cell as? SwipeableCell,
+            cell.isSwipeEnabled else {
             return
         }
         cell.actions = availableActions(at: indexPath)
@@ -211,7 +212,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
 
         activeIndexPath = indexPath
         
-        guard let cell = activeCell, !cell.actions.isEmpty else {
+        guard let cell = activeCell, !cell.actions.isEmpty && cell.isSwipeEnabled else {
             activeIndexPath = nil
             return shouldBegin
         }
@@ -261,7 +262,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
     }
     
     @objc func handlePanGesture(_ sender: UIPanGestureRecognizer) {
-        guard let indexPath = activeIndexPath, let cell = activeCell else {
+        guard let indexPath = activeIndexPath, let cell = activeCell, cell.isSwipeEnabled else {
             return
         }
         cell.actionsView.delegate = self

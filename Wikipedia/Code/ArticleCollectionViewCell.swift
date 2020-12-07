@@ -319,6 +319,10 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         }
     }
     
+    open var isSwipeEnabled: Bool {
+        return true
+    }
+    
     private var isBatchEditingPaneOpen: Bool {
         return batchEditingTranslation > 0
     }
