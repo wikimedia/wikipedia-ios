@@ -13,6 +13,7 @@
 // Author: Patsagorn Y.
 // Author: Pon44695
 
+"aaald-new-website-reference-title" = "เว็บไซต์";
 "aaald-revision-by-anonymous" = "การแก้ไขโดยผู้ใช้นิรนาม";
 "about-content-license" = "สัญญาอนุญาตเนื้อหา";
 "about-content-license-details" = "นอกเหนือจากที่ระบุไว้ เนื้อหาทั้งหมดใช้ได้ภายใต้ $1";
@@ -168,11 +169,13 @@
 "description-welcome-start-editing-button" = "เริ่มแก้ไข";
 "diff-compare-header-from-info-heading" = "จาก:";
 "diff-compare-header-to-info-heading" = "ถึง:";
+"diff-compare-title" = "เปรียบเทียบรุ่นแก้ไข";
 "diff-context-lines-collapsed-button-title" = "แสดง";
 "diff-context-lines-expanded-button-title" = "ซ่อน";
 "diff-paragraph-moved" = "ย้ายย่อหน้า";
 "diff-paragraph-moved-direction-down" = "ลง";
 "diff-paragraph-moved-direction-up" = "ขึ้น";
+"diff-revision-error-title" = "ไม่สามารถดึงข้อมูลรุ่น";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|การแก้ไข $1 ครั้ง|การแก้ไข $1 ครั้ง}}";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|เพิ่ม $1 ไบต์แล้ว}}";
 "diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|เอา $1 ไบต์ออกแล้ว}}";
