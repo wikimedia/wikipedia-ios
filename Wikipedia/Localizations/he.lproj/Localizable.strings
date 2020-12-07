@@ -25,6 +25,7 @@
 "aaald-article-insert-last-updated" = "עדכון אחרון";
 "aaald-article-insert-new-changes" = "שינויים חדשים";
 "aaald-article-insert-read-more" = "לקרוא עדכונים נוספים";
+"aaald-characters-text-description" = "{{PLURAL:$1|0=characters|character|characters}}";
 "aaald-error-subitle" = "נא לרענן כדי לנסות שוב";
 "aaald-error-title" = "לא ניתן לטעון היסטוריית ערך להצגה פנימית";
 "aaald-many-sections-description" = "ב־$1 פרקים";
