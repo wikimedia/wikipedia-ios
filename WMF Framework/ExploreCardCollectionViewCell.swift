@@ -5,12 +5,30 @@ public protocol CardContent {
     func contentHeight(forWidth: CGFloat) -> CGFloat
 }
 
+// Allows the card background view to communicate with the cell to detect taps in the title area
+// A Random article card navigates to different destinations depending on whether the area
+// above or below the card content is tapped.
+fileprivate protocol CardBackgroundViewDelegate: UIView {
+    func titleAreaYThreshold(for cardBackgroundView: CardBackgroundView) -> CGFloat // Return value in the coordinate system of the card background view
+    var titleAreaTapped: Bool { get set }
+}
+private class CardBackgroundView: UIView {
+    fileprivate weak var delegate: CardBackgroundViewDelegate?
+    override public func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        if let delegate = delegate {
+            let yThreshold = delegate.titleAreaYThreshold(for: self)
+            delegate.titleAreaTapped = point.y < yThreshold
+        }
+        return super.hitTest(point, with: event)
+    }
+}
+
 public protocol ExploreCardCollectionViewCellDelegate: class {
     func exploreCardCollectionViewCellWantsCustomization(_ cell: ExploreCardCollectionViewCell)
     func exploreCardCollectionViewCellWantsToUndoCustomization(_ cell: ExploreCardCollectionViewCell)
 }
     
-public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
+public class ExploreCardCollectionViewCell: CollectionViewCell, CardBackgroundViewDelegate, Themeable {
     private let titleLabel = UILabel()
     private let subtitleLabel = UILabel()
     public let customizationButton = UIButton()
@@ -18,10 +36,11 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
     private let undoLabel = UILabel()
     private let footerButton = AlignedImageButton()
     public weak var delegate: ExploreCardCollectionViewCellDelegate?
-    private let cardBackgroundView = UIView()
+    private let cardBackgroundView = CardBackgroundView()
     private let cardCornerRadius = Theme.exploreCardCornerRadius
     private let cardShadowRadius = CGFloat(10)
     private let cardShadowOffset =  CGSize(width: 0, height: 2)
+    public var titleAreaTapped: Bool = false
 
     static let overflowImage = UIImage(named: "overflow")
     
@@ -44,6 +63,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
         cardBackgroundView.layer.shadowOpacity = cardShadowOpacity
         cardBackgroundView.layer.masksToBounds = false
         cardBackgroundView.isOpaque = true
+        cardBackgroundView.delegate = self
         contentView.addSubview(cardBackgroundView)
         contentView.addSubview(customizationButton)
         footerButton.imageIsRightAligned = true
@@ -81,6 +101,14 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
             view.layer.cornerRadius = cardCornerRadius
             contentView.addSubview(view)
         }
+    }
+    
+    fileprivate func titleAreaYThreshold(for cardBackgroundView: CardBackgroundView) -> CGFloat {
+        // The title area is defined to include card background from its top down to the bottom of the card content
+        // This registers taps on the side margins of the card content as in the title area
+        let yThreshold = cardContent?.view?.frame.maxY ?? 0.0
+        let convertedPoint = convert(CGPoint(x: 0.0, y: yThreshold), to: cardBackgroundView)
+        return convertedPoint.y
     }
 
     private var undoTitle: String? {
@@ -234,6 +262,8 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, Themeable {
             let undoButtonMaxSize = CGSize(width: undoButtonMaxWidth, height: UIView.noIntrinsicMetric)
             let undoButtonFrame = undoButton.wmf_preferredFrame(at: CGPoint(x: undoButtonX, y: labelOrigin.y), maximumSize: undoButtonMaxSize, minimumSize: undoButtonMinSize, horizontalAlignment: buttonHorizontalAlignment, apply: apply)
             let undoHeight = max(undoLabelFrameHeight, undoButtonFrame.height)
+            
+            // If cardBackgroundView metrics change double check the hitTest() override in CardBackgroundView
             let cardBackgroundViewHeight = undoHeight + undoOffset.vertical * 2
             let cardBackgroundViewFrame = CGRect(x: layoutMargins.left, y: layoutMargins.top, width: widthMinusMargins, height: cardBackgroundViewHeight)
             if apply {
