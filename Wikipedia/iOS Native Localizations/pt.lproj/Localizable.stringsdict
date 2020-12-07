@@ -2,6 +2,24 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>aaald-characters-text-description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>carácter</string>
+			<key>other</key>
+			<string>carateres</string>
+			<key>zero</key>
+			<string>carateres</string>
+		</dict>
+	</dict>
 	<key>aaald-numerical-multiple-references-added-description</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -320,7 +338,7 @@
 	<key>on-this-day-footer-showing-event-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ nesse dia</string>
+		<string>Mais %#@v1@ neste dia</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -328,9 +346,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Mais %1$d evento histórico</string>
+			<string>%1$d acontecimento histórico</string>
 			<key>other</key>
-			<string>Mais %1$d eventos históricos</string>
+			<string>%1$d acontecimentos históricos</string>
 		</dict>
 	</dict>
 	<key>page-history-revision-size-diff-addition</key>
