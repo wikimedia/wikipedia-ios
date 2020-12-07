@@ -528,8 +528,7 @@
 "main-menu-title" = "Повеќе";
 "main-menu-zero-faq" = "ЧПП за Википедија Нулта";
 "menu-cancel-accessibility-label" = "Откажи";
-// Fuzzy
-"more-languages-tooltip-description" = "Пребарајте ја Википедија на речиси 300 јазици";
+"more-languages-tooltip-description" = "Пребарајте ја Википедија на преку 300 јазици";
 "more-languages-tooltip-title" = "Додај јазици";
 "move-articles-to-reading-list" = "Преместување на {{PLURAL:$1|$1 статија|$1 статии}} во список за читање";
 "navbar-title-mode-edit-wikitext-preview" = "Преглед";
@@ -865,8 +864,7 @@
 "welcome-explore-continue-button" = "Започни";
 "welcome-explore-new-ways-title" = "Нови начини да се истражува";
 "welcome-explore-tell-me-more-done-button" = "Јасно";
-// Fuzzy
-"welcome-intro-free-encyclopedia-description" = "Википедија ја пишуваат доброволци и содржи преку 40 милиони статии на речиси 300 јазици.";
+"welcome-intro-free-encyclopedia-description" = "Википедија ја пишуваат доброволци и содржи преку 40 милиони статии на преку 300 јазици.";
 "welcome-intro-free-encyclopedia-more" = "Дознајте повеќе за Википедија";
 "welcome-intro-free-encyclopedia-more-about" = "За Википедија";
 "welcome-intro-free-encyclopedia-more-description" = "Википедија е целосветски проект слободни енциклопедии на сите јазици на светот. Секој може да учествува со свои придонеси, под услов да се неутрални и со наведени извори.";
@@ -874,8 +872,7 @@
 "welcome-languages-add-button" = "Додај друг јазик";
 "welcome-languages-add-or-edit-button" = "Додај или измени претпочитани јазици";
 "welcome-languages-description" = "Ги пронајдов следниве јазици на вашиот уред:";
-// Fuzzy
-"welcome-languages-search-title" = "Пребарајте на речиси 300 јазици";
+"welcome-languages-search-title" = "Пребарајте на преку 300 јазици";
 "welcome-notifications-tell-me-more-creation" = "Известувањата се создаваат и доставуваат на вашиот уред од прилогот, а не од наши опслужувачи или од трети лица.";
 "welcome-notifications-tell-me-more-storage" = "Поставките за известувања се складираат на уредот, и не се водат според вашите лични податоци или активности.";
 "welcome-notifications-tell-me-more-title" = "Повеќе за известувањата";

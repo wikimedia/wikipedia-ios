@@ -25,6 +25,7 @@
 "aaald-article-insert-last-updated" = "עדכון אחרון";
 "aaald-article-insert-new-changes" = "שינויים חדשים";
 "aaald-article-insert-read-more" = "לקרוא עדכונים נוספים";
+"aaald-characters-text-description" = "{{PLURAL:$1|0=characters|character|characters}}";
 "aaald-error-subitle" = "נא לרענן כדי לנסות שוב";
 "aaald-error-title" = "לא ניתן לטעון היסטוריית ערך להצגה פנימית";
 "aaald-many-sections-description" = "ב־$1 פרקים";
@@ -534,8 +535,7 @@
 "main-menu-title" = "עוד";
 "main-menu-zero-faq" = "שו\"ת ויקיפדיה אפס";
 "menu-cancel-accessibility-label" = "ביטול";
-// Fuzzy
-"more-languages-tooltip-description" = "חיפוש בוויקיפדיה בכמעט 300 שפות";
+"more-languages-tooltip-description" = "חיפוש בוויקיפדיה בלמעלה מ־300 שפות";
 "more-languages-tooltip-title" = "הוספת שפות";
 "move-articles-to-reading-list" = "העברת {{PLURAL:$1|דף אחד|$1 דפים}} לרשימת הקריאה";
 "navbar-title-mode-edit-wikitext-preview" = "תצוגה מקדימה";
@@ -870,8 +870,7 @@
 "welcome-explore-continue-button" = "להתחיל";
 "welcome-explore-new-ways-title" = "דרכים חדשות לחקור";
 "welcome-explore-tell-me-more-done-button" = "הבנתי";
-// Fuzzy
-"welcome-intro-free-encyclopedia-description" = "ויקיפדיה נכתבת באופן משותף על־ידי מתנדבים ומכילה יותר מ־40 מיליון ערכים בכמעט 300 שפות.";
+"welcome-intro-free-encyclopedia-description" = "ויקיפדיה נכתבת באופן משותף על־ידי מתנדבים ומכילה יותר מ־40 מיליון ערכים בלמעלה מ־300 שפות.";
 "welcome-intro-free-encyclopedia-more" = "מידע נוסף על ויקיפדיה";
 "welcome-intro-free-encyclopedia-more-about" = "אודות ויקיפדיה";
 "welcome-intro-free-encyclopedia-more-description" = "ויקיפדיה היא מיזם עולמי לבניית אנציקלופדיה חופשית בכל השפות של העולם. כל מי שיש לו גישה לאינטרנט חופשי להשתתף על־ידי תרומה של מידע ניטרלי ומבוסס.";
@@ -879,8 +878,7 @@
 "welcome-languages-add-button" = "הוספת שפה אחרת";
 "welcome-languages-add-or-edit-button" = "הוספה או שינוי של שפות מועדפות";
 "welcome-languages-description" = "מצאנו את השפות הבאות במכשיר שלך:";
-// Fuzzy
-"welcome-languages-search-title" = "חיפוש בכמעט 300 שפות";
+"welcome-languages-search-title" = "חיפוש בלמעלה מ־300 שפות";
 "welcome-notifications-tell-me-more-creation" = "העדכונים מיוצרים ונמסרים במכשיר שלך על־ידי היישום ולא מִשרתים שלנו (או של צד שלישי).";
 "welcome-notifications-tell-me-more-storage" = "העדפות העדכונים מאוחסנות במכשיר ולא מבוססות על מידע אישי או פעילות אישית.";
 "welcome-notifications-tell-me-more-title" = "מידע נוסף על עדכונים";

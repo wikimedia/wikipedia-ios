@@ -4,6 +4,7 @@
 // Author: Diniscoelho
 // Author: Felipe L. Ewald
 // Author: Fúlvio
+// Author: Giro720
 // Author: Hamilton Abreu
 // Author: Imperadeiro98
 // Author: Jkb8
@@ -18,12 +19,14 @@
 // Author: Vitorvicentevalente
 // Author: Webysther
 
+"aaald-added-text-description-2" = "$1 adicionado(s)";
 "aaald-article-description-updated-description" = "Título de descrição do artigo atualizado";
-// Fuzzy
-"aaald-article-insert-header" = "Acontecimentos importantes";
+"aaald-article-insert-header" = "Atualizações significativas";
 "aaald-article-insert-last-updated" = "Última atualização";
 "aaald-article-insert-new-changes" = "Mudanças recentes";
 "aaald-article-insert-read-more" = "Ler mais atualizações";
+"aaald-characters-text-description" = "{{PLURAL:$1|0=carateres|carácter|carateres}}";
+"aaald-deleted-text-description-2" = "$1 eliminado(s)";
 "aaald-error-subitle" = "Atualizar para tentar novamente";
 "aaald-error-title" = "Não é possível carregar o histórico do artigo";
 "aaald-many-sections-description" = "em $1 secções";
@@ -42,6 +45,7 @@
 "aaald-new-website-reference-title" = "Site";
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=Nenhuma referência adicionada|$1 referência adicionada|$1 referências adicionadas}}";
 "aaald-one-section-description" = "na secção $1";
+"aaald-revision-by-anonymous" = "Edição de utilizador anónimo";
 "aaald-revision-userInfo" = "Editado por $1 ($2 edições)";
 "aaald-single-reference-added-description" = "Referência adicionada";
 "aaald-small-change-description" = "{{PLURAL:$1|0=Nenhuma edição menor realizada|$1 edição menor realizada|$1 edições menores realizadas}}";
@@ -535,8 +539,7 @@
 "main-menu-title" = "Mais";
 "main-menu-zero-faq" = "Perguntas frequentes sobre a Wikipédia Zero";
 "menu-cancel-accessibility-label" = "Cancelar";
-// Fuzzy
-"more-languages-tooltip-description" = "Pesquise a Wikipédia em quase 300 línguas";
+"more-languages-tooltip-description" = "Pesquise a Wikipédia em mais de 300 línguas";
 "more-languages-tooltip-title" = "Adicionar línguas";
 "move-articles-to-reading-list" = "Mover $1 {{PLURAL:$1|artigo|artigos}} para a lista de leitura";
 "navbar-title-mode-edit-wikitext-preview" = "Antevisão";
@@ -556,6 +559,7 @@
 "on-this-day-detail-header-date-range" = "de $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 acontecimento histórico|$1 acontecimentos históricos}}";
 "on-this-day-footer" = "Mais acontecimentos históricos neste dia";
+"on-this-day-footer-showing-event-count" = "Mais {{PLURAL:$1|$1 acontecimento histórico|$1 acontecimentos históricos}} neste dia";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 da Wikipédia em $2";
 "on-this-day-title" = "Neste dia";
 "original-tab-button-popover-description" = "Toque no 'W' para regressar ao separador de onde começou";
@@ -871,8 +875,7 @@
 "welcome-explore-continue-button" = "Começar";
 "welcome-explore-new-ways-title" = "Novas formas de explorar";
 "welcome-explore-tell-me-more-done-button" = "Entendi";
-// Fuzzy
-"welcome-intro-free-encyclopedia-description" = "A Wikipédia é escrita de forma colaborativa por voluntários e contém mais de 40 milhões de artigos em quase 300 línguas.";
+"welcome-intro-free-encyclopedia-description" = "A Wikipédia é escrita de forma colaborativa por voluntários e contém mais de 40 milhões de artigos em mais de 300 línguas.";
 "welcome-intro-free-encyclopedia-more" = "Saiba mais sobre a Wikipédia";
 "welcome-intro-free-encyclopedia-more-about" = "Sobre a Wikipédia";
 "welcome-intro-free-encyclopedia-more-description" = "A Wikipédia é um projeto global para criar enciclopédias gratuitas em todas as línguas do mundo. Praticamente qualquer pessoa com acesso à Internet pode participar, fornecendo informação apresentada de um ponto de vista neutro e apoiada em referências.";
@@ -880,8 +883,7 @@
 "welcome-languages-add-button" = "Adicionar outra língua";
 "welcome-languages-add-or-edit-button" = "Adicionar ou editar as línguas preferidas";
 "welcome-languages-description" = "Encontrámos as seguintes línguas no seu dispositivo:";
-// Fuzzy
-"welcome-languages-search-title" = "Pesquise em quase 300 línguas";
+"welcome-languages-search-title" = "Pesquise em mais de 300 línguas";
 "welcome-notifications-tell-me-more-creation" = "As notificações são criadas e enviadas para o dispositivo pela aplicação, e não a partir dos nossos servidores (nem dos servidores de terceiros).";
 "welcome-notifications-tell-me-more-storage" = "As preferências de notificação são armazenadas no dispositivo e não são baseadas em informações nem atividades privadas.";
 "welcome-notifications-tell-me-more-title" = "Mais sobre notificações";

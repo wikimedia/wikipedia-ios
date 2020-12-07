@@ -5,6 +5,7 @@
 // Author: Astroemi
 // Author: Canaan9801
 // Author: Carlosmg.dg
+// Author: DannyS712
 // Author: David.novella
 // Author: Dgstranz
 // Author: Dschultz
@@ -529,8 +530,7 @@
 "main-menu-title" = "Más";
 "main-menu-zero-faq" = "Preguntas frecuentes de Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Cancelar";
-// Fuzzy
-"more-languages-tooltip-description" = "Buscar en las casi 300 lenguas de Wikipedia";
+"more-languages-tooltip-description" = "Buscar en más de 300 lenguas de Wikipedia";
 "more-languages-tooltip-title" = "Añadir idiomas";
 "move-articles-to-reading-list" = "Trasladar {{PLURAL:$1|$1 artículo|$1 artículos}} a la lista de lectura";
 "navbar-title-mode-edit-wikitext-preview" = "Previsualización";
@@ -861,8 +861,7 @@
 "welcome-explore-continue-button" = "Empezar";
 "welcome-explore-new-ways-title" = "Nuevas formas de explorar";
 "welcome-explore-tell-me-more-done-button" = "Entendido";
-// Fuzzy
-"welcome-intro-free-encyclopedia-description" = "Un colectivo de voluntarios escribe Wikipedia, la cual consiste de más de 40 millones de artículos en casi 300 lenguas.";
+"welcome-intro-free-encyclopedia-description" = "Un colectivo de voluntarios escribe Wikipedia, la cual consiste de más de 40 millones de artículos en más de 300 lenguas.";
 "welcome-intro-free-encyclopedia-more" = "Más información sobre Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "Acerca de Wikipedia";
 "welcome-intro-free-encyclopedia-more-description" = "Wikipedia es un proyecto mundial para crear enciclopedias libres en todas las lenguas del planeta. Virtualmente cualquier persona que cuente con acceso a Internet está invitada a aportarnos información neutral y respaldada con referencias.";
@@ -870,8 +869,7 @@
 "welcome-languages-add-button" = "Añadir otro idioma";
 "welcome-languages-add-or-edit-button" = "Añadir o editar idiomas preferidos";
 "welcome-languages-description" = "Encontramos estos idiomas en el dispositivo:";
-// Fuzzy
-"welcome-languages-search-title" = "Busca en cerca de 300 lenguas";
+"welcome-languages-search-title" = "Busca en más de 300 lenguas";
 "welcome-notifications-tell-me-more-creation" = "Las notificaciones las crea y entrega la aplicación en el dispositivo, no desde nuestros servidores (ni desde terceros).";
 "welcome-notifications-tell-me-more-storage" = "Las preferencias de notificación se almacenan en el dispositivo y no se basan en información o actividad personal.";
 "welcome-notifications-tell-me-more-title" = "Más acerca de las notificaciones";
