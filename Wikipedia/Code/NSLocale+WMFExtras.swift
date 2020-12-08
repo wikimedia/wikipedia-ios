@@ -107,16 +107,11 @@ extension NSLocale {
     }
     
     @objc public static func wmf_isCurrentLocaleEnglish() -> Bool {
-        guard let langCode = (NSLocale.current as NSLocale).object(forKey: NSLocale.Key.languageCode) as? String else {
+        guard let langCode = NSLocale.current.languageCode else {
             return false
         }
         return (langCode == "en" || langCode.hasPrefix("en-")) ? true : false;
     }
-
-    @objc public func wmf_localizedLanguageNameForCode(_ code: String) -> String? {
-        return (self as NSLocale).displayName(forKey: NSLocale.Key.languageCode, value: code)
-    }
-
     
     @objc public static func wmf_uniqueLanguageCodesForLanguages(_ languages: [String]) -> [String] {
         return Locale.uniqueWikipediaLanguages(with: languages)
