@@ -102,13 +102,14 @@ open class WMFAlertManager: NSObject, RMessageProtocol, MFMailComposeViewControl
     }
 
     @objc func showAlert(_ dismissPreviousAlerts:Bool, alertBlock: @escaping ()->()){
-        
-        if dismissPreviousAlerts {
-            dismissAllAlerts {
+        DispatchQueue.main.async {
+            if dismissPreviousAlerts {
+                self.dismissAllAlerts {
+                    alertBlock()
+                }
+            } else {
                 alertBlock()
             }
-        } else {
-            alertBlock()
         }
     }
     

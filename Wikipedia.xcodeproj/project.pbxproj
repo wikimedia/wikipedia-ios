@@ -3534,7 +3534,7 @@
 		7A07A46720AA3F5100F7B2BB /* WMFContentGroup+EventLogging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFContentGroup+EventLogging.swift"; sourceTree = "<group>"; };
 		7A07A46D20AA482C00F7B2BB /* SessionsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsFunnel.swift; sourceTree = "<group>"; };
 		7A0CD23F21DFA34000066F68 /* TextFormattingToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormattingToolbarView.swift; sourceTree = "<group>"; };
-		7A0DE4FE20CEEC760032AB57 /* ExploreFeedSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreFeedSettingsViewController.swift; sourceTree = "<group>"; };
+		7A0DE4FE20CEEC760032AB57 /* ExploreFeedSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreFeedSettingsViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		7A0F2588217221D10028871B /* RepeatingTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingTimer.swift; sourceTree = "<group>"; };
 		7A0FF2CB230343BA00E755D4 /* PageHistoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageHistoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		7A13A8982028BB3600F28254 /* ReadingListsAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsAlertController.swift; sourceTree = "<group>"; };
