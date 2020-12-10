@@ -13,6 +13,7 @@
 // Author: Patsagorn Y.
 // Author: Pon44695
 
+"aaald-new-discussion" = "การอภิปรายใหม่";
 "aaald-new-website-reference-title" = "เว็บไซต์";
 "aaald-revision-by-anonymous" = "การแก้ไขโดยผู้ใช้นิรนาม";
 "about-content-license" = "สัญญาอนุญาตเนื้อหา";
@@ -182,6 +183,7 @@
 "diff-single-header-summary-heading" = "ความย่อการแก้ไข";
 "diff-single-intro-title" = "บทนำ";
 "diff-single-line-format" = "บรรทัดที่ $1";
+"diff-thanks-sent" = "ส่งคำขอบคุณไปยัง $1 แล้ว";
 "dim-images" = "ลดแสงรูปภาพ";
 "edit-bold-accessibility-label" = "เพิ่มการจัดรูปแบบตัวเส้นหนา";
 "edit-bold-remove-accessibility-label" = "ลบการจัดรูปแบบตัวเส้นหนา";
@@ -194,6 +196,8 @@
 "edit-direction-up-accessibility-label" = "ย้ายเคอร์เซอร์ไปด้านบน";
 "edit-increase-indent-depth-accessibility-label" = "เพิ่มความลึกการเยื้อง";
 "edit-indent-accessibility-label" = "เยื้องบรรทัดปัจจุบัน";
+"edit-italic-accessibility-label" = "เพิ่มการจัดรูปแบบตัวเอียง";
+"edit-italic-remove-accessibility-label" = "ลบการจัดรูปแบบตัวเอียง";
 "edit-link-accessibility-label" = "เพิ่มไวยากรณ์ลิงก์";
 "edit-link-display-text-title" = "ข้อความที่แสดงผล";
 "edit-link-link-target-title" = "เป้าหมายลิงก์";
@@ -235,6 +239,7 @@
 "edit-watch-this-page-text" = "เฝ้าดูหน้านี้";
 "editing-welcome-be-bold-title" = "เสียงของคุณสำคัญ";
 "editing-welcome-citations-title" = "อ้างอิงแหล่งข้อมูลที่น่าเชื่อถือ";
+"empty-diff-compare-title" = "ไม่มีความแตกต่างระหว่างรุ่น";
 "empty-insert-media-title" = "เลือกไฟล์จากวิกิมีเดียคอมมอนส์";
 "empty-no-article-message" = "ขออภัย ไม่สามารถโหลดบทความนี้ได้";
 "empty-no-feed-action-message" = "คุณยังสามารถอ่านหน้าที่บันทึกไว้ได้";
@@ -580,7 +585,12 @@
 "reference-title" = "แหล่งอ้างอิง $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=วันนี้|1=เมื่อวาน|$1 วันที่ผ่านมา}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=เมื่อสักครู่|$1 ชั่วโมงที่ผ่านมา|$1 ชั่วโมงที่ผ่านมา}}";
+"relative-date-hours-ago-abbreviated" = "$1 ชั่วโมงที่แล้ว";
+"relative-date-minutes-abbreviated" = "$1 นาที";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=เมื่อสักครู่|$1 นาทีที่ผ่านมา|$1 นาทีที่ผ่านมา}}";
+"relative-date-minutes-ago-abbreviated" = "$1 นาทีที่แล้ว";
+"relative-date-seconds-abbreviated" = "$1 วินาที";
+"relative-date-seconds-ago-abbreviated" = "$1 วินาทีที่แล้ว";
 "relative-date-years-ago" = "{{PLURAL:$1|0=ปีนี้|1=ปีที่ผ่านมา|$1 ปีที่ผ่านมา}}";
 "replace-button-accessibility" = "ดำเนินการ$1";
 "replace-buttons-replace-accessibility" = "แทนที่อินสแตนซ์เดียว";
@@ -668,6 +678,8 @@
 "talk-page-new-topic-body-placeholder-text" = "เขียนการอภิปรายใหม่";
 "talk-page-new-topic-title" = "การอภิปรายใหม่";
 "talk-page-reply-title" = "ตอบกลับ";
+"talk-page-topic-title" = "การอภิปราย";
+"talk-pages-reply-button-title" = "ตอบกลับการอภิปรายนี้";
 "theme-black-display-name" = "ดำ";
 "theme-dark-display-name" = "มืด";
 "theme-default-display-name" = "ค่าปริยาย";
