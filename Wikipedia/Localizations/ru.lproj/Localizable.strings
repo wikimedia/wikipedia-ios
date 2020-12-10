@@ -52,6 +52,7 @@
 // Author: Александр Сигачёв
 // Author: Марио
 
+"aaald-article-insert-new-changes" = "Новые изменения";
 "aaald-error-subitle" = "Обновите, чтобы попробовать еще раз";
 "aaald-many-sections-description" = "в $1 разделах";
 "aaald-multiple-changes-description" = "Сделано несколько изменений";
@@ -198,6 +199,7 @@
 "compass-direction" = "на $1 часов";
 "continue-reading-empty-description" = "Исследуйте Википедию, чтобы найти больше статей для чтения";
 "continue-reading-empty-title" = "Нет недавно прочитанных статей";
+"data-migration-status" = "Обновление…";
 "description-add-title" = "Добавить описание";
 "description-edit-for-article" = "Краткое описание «$1»";
 "description-edit-learn-more" = "Подробнее";
