@@ -220,8 +220,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return searchContainerView
     }()
 
-	@available(iOS 14.0, *)
-	lazy var scribbleIgnoringDelegate = ScribbleIgnoringInteractionDelegate()
+    @available(iOS 14.0, *)
+    lazy var scribbleIgnoringDelegate = ScribbleIgnoringInteractionDelegate()
 
     lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
