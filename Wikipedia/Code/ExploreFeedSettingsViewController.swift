@@ -133,11 +133,9 @@ private class FeedCard: ExploreFeedSettingsItem {
             return WMFLocalizedString("explore-feed-preferences-global-cards-subtitle", value: "Not language specific", comment: "Subtitle describing non-language specific feed cards")
         } else {
             let languageCodes = contentGroupKind.languageCodes
-            let existingLanguageCodes = subtitle?.lowercased().components(separatedBy: ", ")
-            guard existingLanguageCodes?.sorted() != languageCodes.sorted() else {
-                return subtitle ?? languageCodes.joined(separator: ", ").uppercased()
-            }
-            return languageCodes.joined(separator: ", ").uppercased()
+            let preferredLanguages = MWKDataStore.shared().languageLinkController.preferredLanguages.map { $0.languageCode }
+            let filteredLanguages = preferredLanguages.filter { languageCodes.contains($0) }
+            return filteredLanguages.joined(separator: ", ").uppercased()
         }
     }
 

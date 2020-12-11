@@ -453,8 +453,8 @@
 "find-infolabel-number-matches" = "$1 / $2";
 "find-next-button-accessibility" = "Hasil pencarian selanjutnya";
 "find-previous-button-accessibility" = "Hasil pencarian sebelumnya";
-"find-replace-header" = "Temukan dan ganti";
-"find-replace-header-close-accessibility" = "Tutup temukan dan ganti";
+"find-replace-header" = "Cari dan ganti";
+"find-replace-header-close-accessibility" = "Tutup cari dan ganti";
 "find-textfield-accessibility" = "Cari";
 "forgot-password-button-title" = "Atur ulang";
 "forgot-password-email-sent" = "Sebuah surel dengan instruksi penyetelan ulang kata sandi telah dikirim";

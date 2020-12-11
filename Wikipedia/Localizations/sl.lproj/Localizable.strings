@@ -1,5 +1,6 @@
 // Messages for Slovenian (slovenščina)
 // Exported from translatewiki.net
+// Author: Eleassar
 // Author: HairyFotr
 // Author: P̲̳l̳eo
 
@@ -11,7 +12,7 @@
 "about-repositories" = "Repozitoriji";
 "about-repositories-app-source-license" = "Izvorna koda je na voljo pod $1.";
 "about-repositories-app-source-license-mit" = "MIT licenca";
-"about-send-feedback" = "Sporoči svoje mnenje";
+"about-send-feedback" = "Sporočite svoje mnenje";
 "about-testers" = "Testerji";
 "about-testers-details" = "QA preizkušen s strani $1";
 "about-title" = "O projektu";

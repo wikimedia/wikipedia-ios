@@ -22,7 +22,7 @@ import CocoaLumberjackSwift
             if !wikipedia.languageCode.contains("-") {
                 // iOS will return less descriptive name for compound codes - ie "Chinese" for zh-yue which
                 // should be "Cantonese". It looks like iOS ignores anything after the "-".
-                if let iOSLocalizedName = (Locale.current as NSLocale).wmf_localizedLanguageNameForCode(wikipedia.languageCode) {
+                if let iOSLocalizedName = Locale.current.localizedString(forLanguageCode: wikipedia.languageCode) {
                     localizedName = iOSLocalizedName
                 }
             }
