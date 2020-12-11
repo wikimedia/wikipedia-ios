@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: 01miki10
 // Author: 4shadoww
+// Author: AinScept
 // Author: Alluk.
 // Author: Antsa
 // Author: Areee
@@ -25,6 +26,7 @@
 "aaald-added-text-description-2" = "$1 lisätty";
 "aaald-article-insert-last-updated" = "Viimeksi päivitetty";
 "aaald-article-insert-new-changes" = "Uudet muutokset";
+"aaald-article-insert-read-more" = "Lue lisää päivityksiä";
 "aaald-deleted-text-description-2" = "$1 poistettu";
 "aaald-error-subitle" = "Päivitä yrittääksesi uudelleen";
 "aaald-new-book-reference-title" = "Kirja";

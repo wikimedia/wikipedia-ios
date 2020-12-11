@@ -71,7 +71,7 @@
 "about-libraries" = "Bibliothèques utilisées";
 "about-libraries-complete-list" = "Liste complète";
 "about-libraries-license" = "Licence";
-"about-libraries-licenses-title" = "Nous aimons les logiciels au code source ouvert $1";
+"about-libraries-licenses-title" = "Nous aimons les logiciels à code source ouvert $1";
 "about-places-maps-license" = "Licence des cartes de Lieux";
 "about-places-maps-license-details" = "Lieux utilise les cartes fournies par Apple Maps. $1.";
 "about-places-maps-license-details-link-text" = "Voyez ici les détails de la licence";

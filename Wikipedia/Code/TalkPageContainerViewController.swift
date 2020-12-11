@@ -472,7 +472,7 @@ private extension TalkPageContainerViewController {
     func stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString(string: String, fallbackGenericString: String) -> String {
         
         if let code = siteURL.wmf_language,
-            let language = (Locale.current as NSLocale).wmf_localizedLanguageNameForCode(code) {
+            let language = Locale.current.localizedString(forLanguageCode: code) {
             return NSString.localizedStringWithFormat(string as NSString, language) as String
         } else {
             return fallbackGenericString
