@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString:(NSString *)string fallingBackOnGenericString:(NSString *)genericString {
     // fall back to language code if it can't be localized
-    NSString *language = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:self.siteURL.wmf_language];
+    NSString *language = [[NSLocale currentLocale] localizedStringForLanguageCode:self.siteURL.wmf_language];
 
     NSString *result = nil;
 
@@ -89,7 +89,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindNews:
             return [self stringWithLocalizedCurrentSiteLanguageReplacingPlaceholderInString:WMFLocalizedStringWithDefaultValue(@"in-the-news-sub-title-from-language-wikipedia", nil, nil, @"From %1$@ Wikipedia", @"Subtext beneath the 'In the news' header when describing which specific Wikipedia. %1$@ will be replaced with the language - for example, 'From English Wikipedia'") fallingBackOnGenericString:WMFLocalizedStringWithDefaultValue(@"in-the-news-sub-title-from-wikipedia", nil, nil, @"From Wikipedia", @"Subtext beneath the 'In the news' header when the specific language wikipedia is unknown.")];
         case WMFContentGroupKindOnThisDay: {
-            NSString *language = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:self.siteURL.wmf_language];
+            NSString *language = [[NSLocale currentLocale] localizedStringForLanguageCode:self.siteURL.wmf_language];
             if (language) {
                 return
                     [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"on-this-day-sub-title-for-date-from-language-wikipedia", nil, nil, @"%1$@ from %2$@ Wikipedia", @"Subtext beneath the 'On this day' header when describing the date and which specific Wikipedia. %1$@ will be substituted with the date. %2$@ will be replaced with the language - for example, 'June 8th from English Wikipedia'"), [[NSDateFormatter wmf_utcMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.midnightUTCDate], language];
