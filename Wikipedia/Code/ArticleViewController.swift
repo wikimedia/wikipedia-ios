@@ -529,7 +529,7 @@ class ArticleViewController: ViewController, HintPresenting {
         /// Scroll to percentage Y offset
         case scrollToPercentage(_ percentageOffsetY: CGFloat)
         /// Scroll to anchor, an id of an element on the page
-        case scrollToAnchor(_ anchor: String, attempt: Int = 1, maxAttempts: Int = 5)
+        case scrollToAnchor(_ anchor: String, attempt: Int = 1, maxAttempts: Int = 5, completion: (() -> Void)? = nil)
     }
     
     private var scrollRestorationState: ScrollRestorationState = .none
@@ -543,6 +543,7 @@ class ArticleViewController: ViewController, HintPresenting {
             scrollRestorationState = .none
             self.scroll(to: CGPoint(x: 0, y: offset), animated: animated) { [weak self] (success) in
                 guard !success, attempt < maxAttempts else {
+                    completion?()
                     return
                 }
                 completion?()
@@ -551,13 +552,15 @@ class ArticleViewController: ViewController, HintPresenting {
         case .scrollToPercentage(let verticalOffsetPercentage):
             scrollRestorationState = .none
             webView.scrollView.verticalOffsetPercentage = verticalOffsetPercentage
-        case .scrollToAnchor(let anchor, let attempt, let maxAttempts):
+        case .scrollToAnchor(let anchor, let attempt, let maxAttempts, let completion):
             scrollRestorationState = .none
             self.scroll(to: anchor, animated: true) { [weak self] (success) in
                 guard !success, attempt < maxAttempts else {
+                    completion?()
                     return
                 }
-                self?.scrollRestorationState = .scrollToAnchor(anchor, attempt: attempt + 1, maxAttempts: maxAttempts)
+                completion?()
+                self?.scrollRestorationState = .scrollToAnchor(anchor, attempt: attempt + 1, maxAttempts: maxAttempts, completion: completion)
             }
         }
     }
@@ -609,7 +612,11 @@ class ArticleViewController: ViewController, HintPresenting {
                 self?.setWebViewHidden(false, animated: true)
             })
         } else if let fragment = article.viewedFragment {
-            scrollRestorationState = .scrollToAnchor(fragment)
+            scrollRestorationState = .scrollToAnchor(fragment, completion: { [weak self] in
+                self?.setWebViewHidden(false, animated: true)
+            })
+        } else {
+            setWebViewHidden(false, animated: true)
         }
     }
     
