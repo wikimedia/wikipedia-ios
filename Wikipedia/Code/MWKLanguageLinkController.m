@@ -49,12 +49,6 @@ static id _sharedInstance;
     }];
 }
 
-- (nullable MWKLanguageLink *)languageForLanguageCode:(NSString *)languageCode {
-    return [self.allLanguages wmf_match:^BOOL(MWKLanguageLink *obj) {
-        return [obj.languageCode isEqualToString:languageCode];
-    }];
-}
-
 - (nullable MWKLanguageLink *)appLanguage {
     return [self.preferredLanguages firstObject];
 }
@@ -187,14 +181,6 @@ static id _sharedInstance;
     }];
     [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
     [[NSNotificationCenter defaultCenter] postNotificationName:WMFPreferredLanguagesDidChangeNotification object:self];
-}
-
-- (BOOL)languageIsOSLanguage:(MWKLanguageLink *)language {
-    NSArray *languageCodes = [self readOSPreferredLanguageCodes];
-    return [languageCodes wmf_match:^BOOL(NSString *obj) {
-               BOOL answer = [obj isEqualToString:language.languageCode];
-               return answer;
-           }] != nil;
 }
 
 - (void)getPreferredLanguageCodes:(void (^)(NSArray<NSString *> *))completion {
