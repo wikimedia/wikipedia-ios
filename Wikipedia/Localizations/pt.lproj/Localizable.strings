@@ -19,11 +19,14 @@
 // Author: Vitorvicentevalente
 // Author: Webysther
 
+"aaald-added-text-description-2" = "$1 adicionado(s)";
 "aaald-article-description-updated-description" = "Título de descrição do artigo atualizado";
-"aaald-article-insert-header" = "Actualizações significativas";
+"aaald-article-insert-header" = "Atualizações significativas";
 "aaald-article-insert-last-updated" = "Última atualização";
 "aaald-article-insert-new-changes" = "Mudanças recentes";
 "aaald-article-insert-read-more" = "Ler mais atualizações";
+"aaald-characters-text-description" = "{{PLURAL:$1|0=carateres|carácter|carateres}}";
+"aaald-deleted-text-description-2" = "$1 eliminado(s)";
 "aaald-error-subitle" = "Atualizar para tentar novamente";
 "aaald-error-title" = "Não é possível carregar o histórico do artigo";
 "aaald-many-sections-description" = "em $1 secções";
@@ -42,6 +45,7 @@
 "aaald-new-website-reference-title" = "Site";
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=Nenhuma referência adicionada|$1 referência adicionada|$1 referências adicionadas}}";
 "aaald-one-section-description" = "na secção $1";
+"aaald-revision-by-anonymous" = "Edição de utilizador anónimo";
 "aaald-revision-userInfo" = "Editado por $1 ($2 edições)";
 "aaald-single-reference-added-description" = "Referência adicionada";
 "aaald-small-change-description" = "{{PLURAL:$1|0=Nenhuma edição menor realizada|$1 edição menor realizada|$1 edições menores realizadas}}";
@@ -555,7 +559,7 @@
 "on-this-day-detail-header-date-range" = "de $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 acontecimento histórico|$1 acontecimentos históricos}}";
 "on-this-day-footer" = "Mais acontecimentos históricos neste dia";
-"on-this-day-footer-showing-event-count" = "{{PLURAL:$1|Mais $1 evento histórico|Mais $1 eventos históricos}} nesse dia";
+"on-this-day-footer-showing-event-count" = "Mais {{PLURAL:$1|$1 acontecimento histórico|$1 acontecimentos históricos}} neste dia";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 da Wikipédia em $2";
 "on-this-day-title" = "Neste dia";
 "original-tab-button-popover-description" = "Toque no 'W' para regressar ao separador de onde começou";
