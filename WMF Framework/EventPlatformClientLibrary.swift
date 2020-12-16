@@ -47,7 +47,7 @@ import CocoaLumberjackSwift
  *
  * iOS schemas will always include the following fields which are managed by EPC
  * and which will be assigned automatically by the library:
- * - `client_dt`: client-side timestamp of when event was originally submitted
+ * - `dt`: client-side timestamp of when event was originally submitted
  * - `app_install_id`: app install ID as in legacy EventLoggingService
  * - `app_session_id`: the ID of the session at the time of the event when it was
  *   originally submitted
@@ -88,7 +88,7 @@ public class EPC: NSObject {
      * analytics-related schemas are collected.
      */
     public enum Schema: String, Codable {
-        case editHistoryCompareV1 = "/analytics/mobile_apps/ios_edit_history_compare/1.0.0"
+        case editHistoryCompare = "/analytics/mobile_apps/ios_edit_history_compare/2.0.0"
     }
 
     /**
@@ -573,13 +573,13 @@ public class EPC: NSObject {
          */
         let appSessionID: String
         /**
-         * The top-level field `client_dt` is for recording the time the event
+         * The top-level field `dt` is for recording the time the event
          * was generated. EventGate sets `meta.dt` during ingestion, so for
          * analytics events that field is used as "timestamp of reception" and
          * is used for partitioning the events in the database. See Phab:T240460
          * for more information.
          */
-        let clientDT: Date
+        let dt: Date
         
         /**
          * Event represents the client-provided event data.
@@ -594,7 +594,7 @@ public class EPC: NSObject {
             case meta
             case appInstallID = "app_install_id"
             case appSessionID = "app_session_id"
-            case clientDT = "client_dt"
+            case dt = "dt"
             case event
         }
         
@@ -604,7 +604,7 @@ public class EPC: NSObject {
                 try container.encode(meta, forKey: .meta)
                 try container.encode(appInstallID, forKey: .appInstallID)
                 try container.encode(appSessionID, forKey: .appSessionID)
-                try container.encode(clientDT, forKey: .clientDT)
+                try container.encode(dt, forKey: .dt)
                 try container.encode(E.schema, forKey: .schema)
                 try event.encode(to: encoder)
             } catch let error {
@@ -694,7 +694,7 @@ public class EPC: NSObject {
         }
         let meta = EventBody<E>.Meta(stream: stream, id: UUID(), domain: domain)
 
-        let eventPayload = EventBody(meta: meta, appInstallID: appInstallID, appSessionID: sessionID, clientDT: date, event: event)
+        let eventPayload = EventBody(meta: meta, appInstallID: appInstallID, appSessionID: sessionID, dt: date, event: event)
         do {
             let encoder = JSONEncoder()
             encoder.dateEncodingStrategy = .iso8601

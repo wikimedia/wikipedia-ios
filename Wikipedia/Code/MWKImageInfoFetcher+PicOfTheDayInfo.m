@@ -61,7 +61,11 @@ static MWKImageInfoResolve addPictureOfTheDayToDescriptionForDate(NSDate *date) 
                           metadataLanguage:metadataLanguage
                                    failure:failure
                                    success:^(id _Nonnull object) {
-                                       success(addPictureOfTheDayToDescriptionForDate(date)(selectFirstImageInfo(date)(object)));
+                                       if ([selectFirstImageInfo(date)(object) isKindOfClass:[NSError class]]) {
+                                           failure(selectFirstImageInfo(date)(object));
+                                       } else {
+                                           success(addPictureOfTheDayToDescriptionForDate(date)(selectFirstImageInfo(date)(object)));
+                                       }
                                    }];
 }
 
