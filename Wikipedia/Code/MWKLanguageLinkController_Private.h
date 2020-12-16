@@ -28,6 +28,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)resetPreferredLanguages;
 
+/**
+ *  Uniquely adds a new preferred language. The new language will be the first preferred language.
+ *
+ *  @param language the language to add
+ */
+- (void)addPreferredLanguage:(MWKLanguageLink *)language;
+
 @end
 
 NS_ASSUME_NONNULL_END

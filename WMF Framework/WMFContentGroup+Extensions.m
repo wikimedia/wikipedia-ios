@@ -7,7 +7,6 @@
 #import <WMF/NSDateFormatter+WMFExtensions.h>
 #import <WMF/WMFLogging.h>
 #import <WMF/NSCharacterSet+WMFLinkParsing.h>
-#import <WMF/MWKLanguageLinkController.h>
 #import <WMF/MWLanguageInfo.h>
 
 @implementation WMFContentGroup (Extensions)

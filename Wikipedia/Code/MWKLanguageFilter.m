@@ -1,5 +1,4 @@
 #import <WMF/MWKLanguageFilter.h>
-#import <WMF/MWKLanguageLinkController.h>
 #import <WMF/MWKLanguageLink.h>
 #import <WMF/NSString+WMFExtras.h>
 #import <WMF/WMF-Swift.h>
