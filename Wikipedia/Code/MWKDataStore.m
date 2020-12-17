@@ -13,7 +13,7 @@ NSString *const WMFFeedImportContextDidSave = @"WMFFeedImportContextDidSave";
 NSString *const WMFViewContextDidSave = @"WMFViewContextDidSave";
 
 NSString *const WMFLibraryVersionKey = @"WMFLibraryVersion";
-static const NSInteger WMFCurrentLibraryVersion = 11;
+static const NSInteger WMFCurrentLibraryVersion = 12;
 
 NSString *const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
 
@@ -439,6 +439,15 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
         }
     }
     
+    if (currentLibraryVersion < 12) {
+        [[WMFEventLoggingService sharedInstance] migrateShareUsageAndInstallIDToUserDefaults];
+        [moc wmf_setValue:@(12) forKey:WMFLibraryVersionKey];
+        if ([moc hasChanges] && ![moc save:&migrationError]) {
+            DDLogError(@"Error saving during migration: %@", migrationError);
+            return;
+        }
+    }
+
     // IMPORTANT: When adding a new library version and migration, update WMFCurrentLibraryVersion to the latest version number
 }
 
