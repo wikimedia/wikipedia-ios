@@ -537,8 +537,7 @@
 "main-menu-title" = "Ещё";
 "main-menu-zero-faq" = "ЧаВо по Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Отмена";
-// Fuzzy
-"more-languages-tooltip-description" = "Искать в Википедии почти на 300 языках";
+"more-languages-tooltip-description" = "Искать в Википедии на более чем 300 языках";
 "more-languages-tooltip-title" = "Добавить языки";
 "move-articles-to-reading-list" = "Перенести {{PLURAL:$1|$1 статью|$1 статьи|$1 статей}} в список для чтения";
 "navbar-title-mode-edit-wikitext-preview" = "Предпросмотр";
@@ -874,8 +873,7 @@
 "welcome-languages-add-button" = "Добавить ещё один язык";
 "welcome-languages-add-or-edit-button" = "Добавить или изменить предпочтительные языки";
 "welcome-languages-description" = "Мы нашли следующие языки на вашем устройстве:";
-// Fuzzy
-"welcome-languages-search-title" = "Искать на почти 300 языках";
+"welcome-languages-search-title" = "Искать на более чем 300 языках";
 "welcome-notifications-tell-me-more-creation" = "Уведомления создаются и доставляются на ваше устройство приложение, А не с наших серверов (или третья сторона).";
 "welcome-notifications-tell-me-more-storage" = "Уведомления хранятся на устройстве и не основанные на личной информации или деятельности.";
 "welcome-notifications-tell-me-more-title" = "Подробнее об уведомлениях";
