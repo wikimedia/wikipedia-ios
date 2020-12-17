@@ -14,7 +14,7 @@ final class EditHistoryCompareFunnel: EventLoggingFunnel, EventLoggingStandardEv
     
     
     private struct Event: EventInterface {
-        static let schema: EventPlatformClient.Schema = .editHistoryCompareV1
+        static let schema: EventPlatformClient.Schema = .editHistoryCompare
         let action: Action
         let primary_language: String
         let is_anon: Bool
