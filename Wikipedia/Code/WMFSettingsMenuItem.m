@@ -1,6 +1,5 @@
 #import "WMFSettingsMenuItem.h"
 #import "Wikipedia-Swift.h"
-#import <WMF/MWKLanguageLinkController.h>
 
 @interface WMFSettingsMenuItem ()
 

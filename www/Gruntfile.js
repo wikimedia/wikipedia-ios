@@ -1,35 +1,12 @@
 module.exports = function (grunt) {
 
-  grunt.loadNpmTasks( 'grunt-browserify' )
   grunt.loadNpmTasks( 'gruntify-eslint' )
   grunt.loadNpmTasks( 'grunt-contrib-copy' )
   grunt.loadNpmTasks( 'grunt-contrib-less' )
 
-  var allJSFilesInJSFolder = 'js/**/*.js'
   var distFolder = '../wikipedia/assets/'
 
   grunt.initConfig( {
-
-    browserify: {
-      codeMirror: {
-        src: ['codemirror/**/codemirror-range-*.js'],
-        dest: '../wikipedia/assets/codemirror/codemirror-range-determination-bundle.js'
-      },
-      distMain: {
-        src: [
-          'index-main.js',
-          allJSFilesInJSFolder,
-          '!preview-main.js'
-        ],
-        dest: `${distFolder}index.js`
-      },
-      distAbout: {
-        src: [
-          'about-main.js'
-        ],
-        dest: `${distFolder}about.js`
-      }
-    },
 
     less: {
       all: {
@@ -49,8 +26,7 @@ module.exports = function (grunt) {
 
     eslint: {
       src: [
-        '*.js',
-        allJSFilesInJSFolder
+        '*.js'
       ],
       options: {
         fix: true
@@ -66,7 +42,9 @@ module.exports = function (grunt) {
               '*.css',
               'ios.json',
               '*.png',
-              '*.pdf'
+              '*.pdf',
+              'about.js',
+              'index.js'
             ],
             dest: distFolder
           },
@@ -79,7 +57,7 @@ module.exports = function (grunt) {
           {
             expand: true,
             cwd: 'codemirror/',
-            src: ['**', '!**/codemirror-range-*.js'],
+            src: ['**'],
             dest: `${distFolder}codemirror/`
           }
         ]
@@ -89,7 +67,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', [
     'eslint',
-    'browserify',
     'less',
     'copy'
   ])

@@ -47,22 +47,17 @@ import CocoaLumberjackSwift
  *
  * iOS schemas will always include the following fields which are managed by EPC
  * and which will be assigned automatically by the library:
- * - `client_dt`: client-side timestamp of when event was originally submitted
+ * - `dt`: client-side timestamp of when event was originally submitted
  * - `app_install_id`: app install ID as in legacy EventLoggingService
  * - `app_session_id`: the ID of the session at the time of the event when it was
  *   originally submitted
  */
 @objc (WMFEventPlatformClient)
-public class EPC: NSObject {    
+public class EventPlatformClient: NSObject {
     // MARK: - Properties
 
-    @objc(sharedInstance) public static let shared: EPC? = {
-        guard let legacyEventLoggingService = EventLoggingService.shared else {
-            DDLogError("EPCStorageManager: Unable to get pull legacy EventLoggingService instance for instantiating EPCStorageManager")
-            return nil
-        }
-
-        return EPC(legacyEventLoggingService: legacyEventLoggingService)
+    @objc(sharedInstance) public static let shared: EventPlatformClient = {
+        return EventPlatformClient()
     }()
     
     // SINGLETONTODO
@@ -88,7 +83,7 @@ public class EPC: NSObject {
      * analytics-related schemas are collected.
      */
     public enum Schema: String, Codable {
-        case editHistoryCompareV1 = "/analytics/mobile_apps/ios_edit_history_compare/1.0.0"
+        case editHistoryCompare = "/analytics/mobile_apps/ios_edit_history_compare/2.0.0"
     }
 
     /**
@@ -110,7 +105,8 @@ public class EPC: NSObject {
      * **eventgate-analytics-external**.  This service uses the stream
      * configurations from Meta wiki as its source of truth.
      */
-    private let streamIntakeServiceURI: URL
+    private static let eventIntakeURI = URL(string: "https://intake-analytics.wikimedia.org/v1/events")!
+
     /**
      * MediaWiki API endpoint which returns stream configurations as JSON
      *
@@ -127,7 +123,7 @@ public class EPC: NSObject {
      * be "eventgate-analytics-external" (to filter out irrelevant streams from
      * the returned list of stream configurations).
      */
-    private let streamConfigServiceURI: URL
+    private static let streamConfigsURI = URL(string: "https://meta.wikimedia.org/w/api.php?action=streamconfigs&format=json&constraints=destination_event_service=eventgate-analytics-external")!
 
     /**
      * An individual stream's configuration.
@@ -156,7 +152,7 @@ public class EPC: NSObject {
         }
     }
     private var _streamConfigurations: [Stream: StreamConfiguration]? = nil
-    
+
     /**
      * Updated when app enters background, used for determining if the session has
      * expired.
@@ -184,11 +180,6 @@ public class EPC: NSObject {
         }
     }
     private var _sessionID: String?
-
-    /**
-     * For retrieving app install ID and "share usage data" preference
-     */
-    private let legacyEventLoggingService: EventLoggingService
 
     /**
      * Store events until the library is finished initializing
@@ -224,46 +215,9 @@ public class EPC: NSObject {
      */
     private var samplingCache: [Stream: Bool] = [:]
 
-    /**
-     * Install ID, used for streams configured with
-     * `sampling.identifier: "device"` and assigning to `app_install_id` field
-     * in event data
-     */
-    private var installID: String? {
-        return legacyEventLoggingService.appInstallID
-    }
-
-    /**
-     * Whether user has opted in to sharing usage data with us
-     */
-    private var sharingUsageData: Bool {
-        return legacyEventLoggingService.isEnabled
-    }
-
     // MARK: - Methods
 
-    private init?(legacyEventLoggingService: EventLoggingService) {
-        self.legacyEventLoggingService = legacyEventLoggingService
-
-        /* The streams that will be retrieved from the API will be the ones that
-         * specify "eventgate-analytics-external" for destination_event_service
-         * in the config. This serves two purposes: (1) lightens the payload, as
-         * the full stream config includes irrelevant streams (e.g. MediaWiki
-         * events and client-side error logging), and (2) we ensure that only
-         * streams with that destination are logged to, since
-         * eventgate-analytics-external is set up as a public endpoint at
-         * intake-analytics.wikimedia.org, where both EventLogging and this
-         * library send analytics events to.
-         */
-        guard let streamIntakeServiceURI = URL(string: "https://intake-analytics.wikimedia.org/v1/events"),
-            let streamConfigServiceURI = URL(string: "https://meta.wikimedia.org/w/api.php?action=streamconfigs&format=json&constraints=destination_event_service=eventgate-analytics-external") else {
-                DDLogError("EPC: Unable to instantiate URIs for stream intake and stream config services")
-                return nil
-        }
-
-        self.streamIntakeServiceURI = streamIntakeServiceURI
-        self.streamConfigServiceURI = streamConfigServiceURI
-        
+    public override init() {
         super.init()
 
         self.fetchStreamConfiguration(retries: 10, retryDelay: 30)
@@ -353,9 +307,9 @@ public class EPC: NSObject {
      *     every failed attempt
      */
     private func fetchStreamConfiguration(retries: Int, retryDelay: TimeInterval) {
-        self.httpGet(url: self.streamConfigServiceURI, completion: { (data, response, error) in
+        self.httpGet(url: EventPlatformClient.streamConfigsURI, completion: { (data, response, error) in
             guard let httpResponse = response as? HTTPURLResponse, let data = data, httpResponse.statusCode == 200 else {
-                DDLogWarn("EPC: Server did not respond adequately, will try \(self.streamConfigServiceURI.absoluteString) again")
+                DDLogWarn("EPC: Server did not respond adequately, will try \(EventPlatformClient.streamConfigsURI.absoluteString) again")
 
                 if retries > 0 {
                     dispatchOnMainQueueAfterDelayInSeconds(retryDelay) {
@@ -536,12 +490,12 @@ public class EPC: NSObject {
         let identifierType = config.sampling?.identifier ?? sessionIdentifierType
 
         guard identifierType == sessionIdentifierType || identifierType == deviceIdentifierType else {
-            DDLogDebug("EPC: Logged to stream which is not configured for sampling based on \(sessionIdentifierType) or \(deviceIdentifierType) identifier")
+            DDLogDebug("EPC: Logged to stream which is not configured for sampling based on session or device identifier")
             cacheSamplingForStream(stream, inSample: false)
             return false
         }
 
-        guard let identifier = identifierType == sessionIdentifierType ? sessionID : self.installID else {
+        guard let identifier = identifierType == sessionIdentifierType ? sessionID : UserDefaults.standard.wmf_appInstallId else {
             DDLogError("EPC: Missing token for determining in- vs out-of-sample. Fallbacking to not in sample.")
             cacheSamplingForStream(stream, inSample: false)
             return false
@@ -573,13 +527,13 @@ public class EPC: NSObject {
          */
         let appSessionID: String
         /**
-         * The top-level field `client_dt` is for recording the time the event
+         * The top-level field `dt` is for recording the time the event
          * was generated. EventGate sets `meta.dt` during ingestion, so for
          * analytics events that field is used as "timestamp of reception" and
          * is used for partitioning the events in the database. See Phab:T240460
          * for more information.
          */
-        let clientDT: Date
+        let dt: Date
         
         /**
          * Event represents the client-provided event data.
@@ -594,7 +548,7 @@ public class EPC: NSObject {
             case meta
             case appInstallID = "app_install_id"
             case appSessionID = "app_session_id"
-            case clientDT = "client_dt"
+            case dt = "dt"
             case event
         }
         
@@ -604,7 +558,7 @@ public class EPC: NSObject {
                 try container.encode(meta, forKey: .meta)
                 try container.encode(appInstallID, forKey: .appInstallID)
                 try container.encode(appSessionID, forKey: .appSessionID)
-                try container.encode(clientDT, forKey: .clientDT)
+                try container.encode(dt, forKey: .dt)
                 try container.encode(E.schema, forKey: .schema)
                 try event.encode(to: encoder)
             } catch let error {
@@ -684,17 +638,21 @@ public class EPC: NSObject {
     }
 
     /// Private, synchronous version of `submit`.
-    private func _submit<E: EventInterface>(stream: Stream, event: E, date: Date, domain: String? = nil){
-        guard sharingUsageData else {
+    private func _submit<E: EventInterface>(stream: Stream, event: E, date: Date, domain: String? = nil) {
+        let userDefaults = UserDefaults.standard
+
+        if !userDefaults.wmf_sendUsageReports {
             return
         }
-        guard let appInstallID = installID else {
-            DDLogDebug("EPC: Could not retrieve app install ID")
+
+        guard let appInstallID = userDefaults.wmf_appInstallId else {
+            DDLogWarn("App install ID unset; this shouldn't happen")
             return
         }
+
         let meta = EventBody<E>.Meta(stream: stream, id: UUID(), domain: domain)
 
-        let eventPayload = EventBody(meta: meta, appInstallID: appInstallID, appSessionID: sessionID, clientDT: date, event: event)
+        let eventPayload = EventBody(meta: meta, appInstallID: appInstallID, appSessionID: sessionID, dt: date, event: event)
         do {
             let encoder = JSONEncoder()
             encoder.dateEncodingStrategy = .iso8601
@@ -707,10 +665,10 @@ public class EPC: NSObject {
             
             #if DEBUG
             let jsonString = String(data: jsonData, encoding: .utf8)!
-            DDLogDebug("EPC: Scheduling event to be sent to \(streamIntakeServiceURI) with POST body:\n\(jsonString)")
+            DDLogDebug("EPC: Scheduling event to be sent to \(EventPlatformClient.eventIntakeURI) with POST body:\n\(jsonString)")
             #endif
             
-            let request = EventRequest(url: streamIntakeServiceURI, data: jsonData, stream: stream)
+            let request = EventRequest(url: EventPlatformClient.eventIntakeURI, data: jsonData, stream: stream)
             guard let streamConfigs = streamConfigurations else {
                 appendEventToInputBuffer(request)
                 return
@@ -733,7 +691,7 @@ public class EPC: NSObject {
 
 //MARK: Thread-safe accessors for collection properties
 
-private extension EPC {
+private extension EventPlatformClient {
 
     /**
      * Thread-safe synchronous retrieval of buffered events
@@ -837,7 +795,7 @@ private extension EPC {
 
 //MARK: NetworkIntegration
 
-private extension EPC {
+private extension EventPlatformClient {
     /// PostEventError describes the possible failure cases when POSTing an event
     enum PostEventError: Error {
         case networkingLibraryError(_ error: Error)
@@ -874,6 +832,7 @@ private extension EPC {
         })
         task?.resume()
     }
+
     /**
      * HTTP GET
      * - Parameter url: Where to GET data from
@@ -890,7 +849,7 @@ private extension EPC {
 
 //MARK: PeriodicWorker
 
-extension EPC: PeriodicWorker {
+extension EventPlatformClient: PeriodicWorker {
     public func doPeriodicWork(_ completion: @escaping () -> Void) {
         self.postAllScheduled(completion)
     }
@@ -898,7 +857,7 @@ extension EPC: PeriodicWorker {
 
 //MARK: BackgroundFetcher
 
-extension EPC: BackgroundFetcher {
+extension EventPlatformClient: BackgroundFetcher {
     public func performBackgroundFetch(_ completion: @escaping (UIBackgroundFetchResult) -> Void) {
         doPeriodicWork {
             completion(.noData)
@@ -917,5 +876,5 @@ public protocol EventInterface: Codable {
      * Defines which schema this event conforms to.
      * Check the documentation for `EPC.Schema` for more information.
      */
-    static var schema: EPC.Schema { get }
+    static var schema: EventPlatformClient.Schema { get }
 }

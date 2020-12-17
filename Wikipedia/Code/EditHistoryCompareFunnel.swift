@@ -14,7 +14,7 @@ final class EditHistoryCompareFunnel: EventLoggingFunnel, EventLoggingStandardEv
     
     
     private struct Event: EventInterface {
-        static let schema: EPC.Schema = .editHistoryCompareV1
+        static let schema: EventPlatformClient.Schema = .editHistoryCompare
         let action: Action
         let primary_language: String
         let is_anon: Bool
@@ -37,7 +37,7 @@ final class EditHistoryCompareFunnel: EventLoggingFunnel, EventLoggingStandardEv
 
     private func newLog(action: Action, domain: String?) {
         let event = Event(action: action, primary_language: primaryLanguage(), is_anon: isAnon.boolValue)
-        EPC.shared?.submit(stream: .editHistoryCompare, event: event, domain: domain)
+        EventPlatformClient.shared.submit(stream: .editHistoryCompare, event: event, domain: domain)
     }
     
     public func logShowHistory(articleURL: URL) {

@@ -69,7 +69,7 @@ EventLoggingLabel const EventLoggingLabelPictureOfTheDay = @"picture_of_the_day"
 
 - (void)log:(NSDictionary *)eventData wiki:(NSString *)wiki {
     WMFEventLoggingService *service = [WMFEventLoggingService sharedInstance];
-    if (service.isEnabled) {
+    if (NSUserDefaults.standardUserDefaults.wmf_sendUsageReports) {
         BOOL chosen = NO;
         if (self.rate == 1) {
             chosen = YES;
@@ -102,7 +102,7 @@ EventLoggingLabel const EventLoggingLabelPictureOfTheDay = @"picture_of_the_day"
 }
 
 - (NSString *)appInstallID {
-    return [[WMFEventLoggingService sharedInstance] appInstallID];
+    return NSUserDefaults.standardUserDefaults.wmf_appInstallId;
 }
 
 - (NSString *)sessionID {
