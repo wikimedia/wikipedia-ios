@@ -238,7 +238,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             searchBar.searchTextField.addInteraction(scribbleIgnoringInteraction)
         }
 
-		return searchBar
+        return searchBar
     }()
     
     @objc func ensureWikipediaSearchIsShowing() {
