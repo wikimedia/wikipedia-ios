@@ -206,17 +206,6 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
      */
     private var outputBuffer: [EventRequest] = []
 
-    /**
-     * Cache of "in sample" / "out of sample" determination for each stream
-     *
-     * The process of determining only has to happen the first time an event is
-     * logged to a stream for which stream configuration is available. All other
-     * times `in_sample` simply returns the cached determination.
-     *
-     * Only cache determinations asynchronously via `queue.async`
-     */
-    private var samplingCache: [Stream: Bool] = [:]
-
     // MARK: - Methods
 
     public override init() {
