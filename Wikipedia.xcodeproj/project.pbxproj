@@ -13,6 +13,10 @@
 		00021DEA24D48EFE00476F97 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00021DE924D48EFE00476F97 /* Assets.xcassets */; };
 		00021DEE24D48EFE00476F97 /* WidgetsExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 00021DE124D48EFD00476F97 /* WidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		00021E0424D4A42A00476F97 /* PictureOfTheDayWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00021E0324D4A42A00476F97 /* PictureOfTheDayWidget.swift */; };
+		0022DD2925829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0022DD2825829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift */; };
+		0022DD2A25829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0022DD2825829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift */; };
+		0022DD2B25829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0022DD2825829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift */; };
+		0022DD2C25829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0022DD2825829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift */; };
 		002AB870250BEFBE00ADAC87 /* PictureOfTheDayWidget+LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002AB86F250BEFBE00ADAC87 /* PictureOfTheDayWidget+LocalizedStrings.swift */; };
 		0033D79924F818EC00CAB5B3 /* TopReadWidget+LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0033D79724F818EB00CAB5B3 /* TopReadWidget+LocalizedStrings.swift */; };
 		0033D79A24F818EC00CAB5B3 /* TopReadWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0033D79824F818EC00CAB5B3 /* TopReadWidget.swift */; };
@@ -3287,6 +3291,7 @@
 		00021DE924D48EFE00476F97 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		00021DEB24D48EFE00476F97 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00021E0324D4A42A00476F97 /* PictureOfTheDayWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureOfTheDayWidget.swift; sourceTree = "<group>"; usesTabs = 0; };
+		0022DD2825829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScribbleIgnoringInteractionDelegate.swift; sourceTree = "<group>"; usesTabs = 0; };
 		002AB86F250BEFBE00ADAC87 /* PictureOfTheDayWidget+LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PictureOfTheDayWidget+LocalizedStrings.swift"; sourceTree = "<group>"; };
 		0033D79724F818EB00CAB5B3 /* TopReadWidget+LocalizedStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TopReadWidget+LocalizedStrings.swift"; sourceTree = "<group>"; };
 		0033D79824F818EC00CAB5B3 /* TopReadWidget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopReadWidget.swift; sourceTree = "<group>"; usesTabs = 0; };
@@ -3822,7 +3827,7 @@
 		83E880E723EB19270087223F /* MediaList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaList.swift; sourceTree = "<group>"; };
 		83E9A2111F56FE5E006EB091 /* FakeProgressController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeProgressController.swift; sourceTree = "<group>"; };
 		83E9C45A2419193C006BDBC2 /* WikipediaSiteInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WikipediaSiteInfo.swift; path = "WMF Framework/WikipediaSiteInfo.swift"; sourceTree = SOURCE_ROOT; };
-		83EE476920D019A100A21F34 /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
+		83EE476920D019A100A21F34 /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		83EE476F20D01A9A00A21F34 /* ExploreCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCardCollectionViewCell.swift; sourceTree = "<group>"; };
 		83F1095623D07E3B003F3E9E /* APIURLComponentsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIURLComponentsBuilder.swift; sourceTree = "<group>"; };
 		83F1095E23D09F80003F3E9E /* ArticleViewController+WIconPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+WIconPopover.swift"; sourceTree = "<group>"; };
@@ -7193,6 +7198,7 @@
 				7AB6F0FE22AEF4DF00F552B4 /* UIActivity.ActivityType+CustomTypes.swift */,
 				83DB0A5D23EEDE4400DA5F58 /* LegacyArticle.swift */,
 				83DB0A5623EEDE2100DA5F58 /* MobileviewToMobileHTMLConverter.swift */,
+				0022DD2825829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift */,
 				B087F8D023E3AE3B00ACA012 /* MWKDataStore+LegacyMobileview.swift */,
 			);
 			name = Utilities;
@@ -10247,6 +10253,7 @@
 				D8B1668C1FD97FE000097D8B /* WMFViewController.m in Sources */,
 				D82E95851F16502E007BD960 /* WMFLanguagesViewController.m in Sources */,
 				677129A024FFF43000E89CA5 /* ArticleAsLivingDocHorizontallyScrollingCell.swift in Sources */,
+				0022DD2925829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift in Sources */,
 				7A82898C21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift in Sources */,
 				B0E806951C0CEA7B0065EBC0 /* AboutViewController.m in Sources */,
 				B0E804D61C0CE0B40065EBC0 /* NSObject+WMFExtras.m in Sources */,
@@ -11064,6 +11071,7 @@
 				D8B1668F1FD97FE000097D8B /* WMFViewController.m in Sources */,
 				D82E95881F16502E007BD960 /* WMFLanguagesViewController.m in Sources */,
 				67E0690E22399D2E008550AC /* ReadingThemesControlsProtocols.swift in Sources */,
+				0022DD2C25829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift in Sources */,
 				7A82898F21B34B86005D7EC1 /* TextFormattingCustomViewTableViewCell.swift in Sources */,
 				D8A42AE11E815A9C00D8E281 /* NSObject+WMFExtras.m in Sources */,
 				D8A42AE31E815A9C00D8E281 /* WMFArticleLanguagesSectionFooter.m in Sources */,
@@ -11767,6 +11775,7 @@
 				D8CE26031E698E2400DAE2E0 /* WMFLegacyReference.swift in Sources */,
 				7A13A89A2028BB3600F28254 /* ReadingListsAlertController.swift in Sources */,
 				FF59DF4F2555E0CB0048E66C /* InternalLinkPreviewing.swift in Sources */,
+				0022DD2B25829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift in Sources */,
 				D8CE26041E698E2400DAE2E0 /* WMFWelcomePageViewController.swift in Sources */,
 				67059DB62260D619009811AA /* SchemeHandler.swift in Sources */,
 				D8CE26051E698E2400DAE2E0 /* MKCoordinateRegion+Dimensions.swift in Sources */,
@@ -12240,6 +12249,7 @@
 				D8EC3F021E9BDA35006712EB /* WMFLegacyReference.swift in Sources */,
 				7A13A89B2028BB3600F28254 /* ReadingListsAlertController.swift in Sources */,
 				FF59DF4E2555E0CB0048E66C /* InternalLinkPreviewing.swift in Sources */,
+				0022DD2A25829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift in Sources */,
 				D8EC3F031E9BDA35006712EB /* WMFWelcomePageViewController.swift in Sources */,
 				67059DB72260D61A009811AA /* SchemeHandler.swift in Sources */,
 				834CC34D21075B7600F62818 /* UITabBar+Theme.swift in Sources */,
