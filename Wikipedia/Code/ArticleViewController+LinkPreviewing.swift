@@ -93,7 +93,6 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
     func webView(_ webView: WKWebView, contextMenuForElement elementInfo: WKContextMenuElementInfo, willCommitWithAnimator animator: UIContextMenuInteractionCommitAnimating) {
         guard
             elementInfo.linkURL != nil,
-            animator.preferredCommitStyle != .dismiss,
             let vc = animator.previewViewController
             else {
                 return
