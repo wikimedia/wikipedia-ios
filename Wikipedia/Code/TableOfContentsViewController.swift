@@ -169,7 +169,8 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
         guard !(tableView.indexPathsForVisibleRows?.contains(indexPath) ?? true) else {
             return
         }
-        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        let shouldAnimate = (displayMode == .inline)
+        tableView.scrollToRow(at: indexPath, at: .top, animated: shouldAnimate)
     }
 
     // MARK: - Selection
