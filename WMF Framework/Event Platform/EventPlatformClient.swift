@@ -63,8 +63,25 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
     // SINGLETONTODO
     /// Session for requesting data
     let session = MWKDataStore.shared().session
-    
+
     let samplingController: SamplingController
+    let storageManager: StorageManager?
+
+    /**
+     * Store events until the library is finished initializing
+     *
+     * The EPC library makes an HTTP request to a remote stream configuration service for information
+     * about how to evaluate incoming event data. Until this initialization is complete, we store any incoming
+     * events in this buffer.
+     *
+     * Only modify (append events to, remove events from) asynchronously via `queue.async`
+     */
+    private var inputBuffer: [(Data, Stream)] = []
+
+    /**
+     * Maximum number of events allowed in the input buffer
+     */
+    private let inbutBufferLimit = 128
 
     /**
      * Streams are the event stream identifiers that can be utilized with the EventPlatformClientLibrary. They should
@@ -183,37 +200,21 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
     }
     private var _sessionID: String?
 
-    /**
-     * Store events until the library is finished initializing
-     *
-     * The EPC library makes an HTTP request to a remote stream configuration
-     * service for information about how to evaluate incoming event data. Until
-     * this initialization is complete, we store any incoming events in this
-     * buffer.
-     *
-     * Only modify (append events to, remove events from) *synchronously* via
-     * `queue.sync`
-     */
-    private var inputBuffer: [EventRequest] = []
-
-    /**
-     * Maximum number of events allowed in the input buffer
-     */
-    private let inbutBufferLimit = 128
-
-    /**
-     * Holds events that have been scheduled for POSTing
-     */
-    private var outputBuffer: [EventRequest] = []
 
     // MARK: - Methods
 
     public override init() {
+        self.storageManager = StorageManager.shared
         self.samplingController = SamplingController()
         
         super.init()
 
         self.samplingController.delegate = self
+
+        guard self.storageManager != nil else {
+            DDLogError("EPC: Error initializing the storage manager. Event intake and submission will be disabled.")
+            return
+        }
 
         self.fetchStreamConfiguration(retries: 10, retryDelay: 30)
     }
@@ -345,6 +346,10 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
             DDLogDebug("EPC: Downloaded stream configs (raw): \(raw)")
         }
         #endif
+        guard let storageManager = self.storageManager else {
+            DDLogError("Storage manager not initialized; this shouldn't happen!")
+            return
+        }
         struct StreamConfigurationsJSON: Codable {
             let streams: [String: StreamConfiguration]
         }
@@ -364,14 +369,14 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
             // NOTE: If any event is re-submitted while streamConfigurations
             // is still being set (asynchronously), they will just go back to
             // input buffer.
-            while let event = inputBufferPopFirst() {
-                guard let config = streamConfigurations?[event.stream] else {
+            while let (data, stream) = inputBufferPopFirst() {
+                guard let config = streamConfigurations?[stream] else {
                     continue
                 }
-                guard samplingController.inSample(stream: event.stream, config: config) else {
+                guard samplingController.inSample(stream: stream, config: config) else {
                     continue
                 }
-                appendPostToOutputBuffer(event)
+                storageManager.push(data: data, stream: stream)
             }
         } catch let error {
             DDLogError("EPC: Problem processing JSON payload from response: \(error)")
@@ -383,26 +388,53 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
      * fire-and-forget fashion
      */
     private func postAllScheduled(_ completion: (() -> Void)? = nil) {
-        DDLogDebug("EPC: Posting all scheduled requests")
+        guard let storageManager = self.storageManager, let streamConfigs = self.streamConfigurations else {
+            completion?()
+            return
+        }
+
+        DDLogDebug("EPC: Processing all scheduled requests")
+        let events = storageManager.popAll()
+        if events.count == 0 {
+            DDLogDebug("EPC: Nothing to send.")
+            completion?()
+            return
+        }
+
         let group = DispatchGroup()
-        while let item = outputBufferPopFirst() {
+        for event in events {
             group.enter()
-            httpPost(url: item.url, body: item.data) { result in
+
+            guard let streamConfig = streamConfigs[event.stream] else {
+                /// Stream is not configured.
+                DDLogWarn("EPC: Event submitted for stream '\(event.stream.rawValue)' but only the following streams are configured: \(streamConfigs.keys.map(\.rawValue).joined(separator: ", "))")
+                storageManager.markPurgeable(event: event)
+                group.leave()
+                continue
+            }
+
+            guard samplingController.inSample(stream: event.stream, config: streamConfig) else {
+                /// Stream is out of sample. Mark as failed so it will be dropped from storage on the next cleanup.
+                DDLogDebug("EPC: Stream '\(event.stream.rawValue)' is not in sample")
+                storageManager.markPurgeable(event: event)
+                group.leave()
+                continue
+            }
+
+            httpPost(url: EventPlatformClient.eventIntakeURI, body: event.data) { result in
                 switch result {
                 case .success:
+                    storageManager.markPurgeable(event: event)
                     break
                 case .failure(let error):
                     switch error {
                     case .networkingLibraryError:
-                        guard item.attempt < 10 else {
-                            break
-                        }
-                        let nextRequest = EventRequest(url: item.url, data: item.data, stream: item.stream, attempt: item.attempt + 1)
-                        /// Retry on networking library failure
-                        self.appendPostToOutputBuffer(nextRequest)
+                        /// Leave unmarked to retry on networking library failure
+                        break
                     default:
                         /// Give up on events rejected by the server
-                        assert(false, "The analytics service failed to process an event. A response code of 400 could indicate that the event didn't conform to provided schema. Check the error for more information.: \(error)")
+                        DDLogError("EPC: The analytics service failed to process an event. A response code of 400 could indicate that the event didn't conform to provided schema. Check the error for more information.: \(error)")
+                        storageManager.markPurgeable(event: event)
                         break
                     }
                 }
@@ -414,12 +446,14 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
         }
     }
     
-    /// EventBody is used to encod event data into the POST body of a request to the Modern Event Platform
+    /// EventBody is used to encode event data into the POST body of a request to the Modern Event Platform
     struct EventBody<E>: Encodable where E: EventInterface {
         /// EventGate needs to know which version of the schema to validate against
-        let meta: Meta
+        var meta: Meta
+
         struct Meta: Codable {
             let stream: Stream
+
             /**
              * meta.id is *optional* and should only be done in case the client is
              * known to send duplicates of events, otherwise we don't need to
@@ -428,13 +462,16 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
             let id: UUID
             let domain: String?
         }
+
         let appInstallID: String
+
         /**
          * Generated events have the session ID attached to them before stream
          * config is available (in case they're generated offline) and before
          * they're cc'd to any other streams (once config is available).
          */
         let appSessionID: String
+
         /**
          * The top-level field `dt` is for recording the time the event
          * was generated. EventGate sets `meta.dt` during ingestion, so for
@@ -451,13 +488,13 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
          * the values from `event` will be used.
          */
         let event: E
-        
+
         enum CodingKeys: String, CodingKey {
             case schema = "$schema"
             case meta
             case appInstallID = "app_install_id"
             case appSessionID = "app_session_id"
-            case dt = "dt"
+            case dt
             case event
         }
         
@@ -475,15 +512,7 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
             }
         }
     }
-    
-    /// EventRequest stores the necessary information for persisting Event requests
-    struct EventRequest: Codable {
-        let url: URL
-        let data: Data
-        let stream: Stream
-        var attempt: Int = 1
-    }
-    
+
     /**
      * Submit an event according to the given stream's configuration.
      * - Parameters:
@@ -504,9 +533,9 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
      * }
      *
      * let sourceInfo = TestEvent.SourceInfo(file: "Features/Feed/ExploreViewController.swift", method: "refreshControlActivated")
-     * let event = TestEvent(test_string: "Explore Feeed refreshed", test_map: sourceInfo)
+     * let event = TestEvent(test_string: "Explore Feed refreshed", test_map: sourceInfo)
      *
-     * EPC.shared?.submit(
+     * EventPlatformClient.shared?.submit(
      *   stream: .test, // Defined in `EPC.Stream`
      *   event: event
      * )
@@ -548,6 +577,10 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
 
     /// Private, synchronous version of `submit`.
     private func _submit<E: EventInterface>(stream: Stream, event: E, date: Date, domain: String? = nil) {
+        guard let storageManager = self.storageManager else {
+            return
+        }
+
         let userDefaults = UserDefaults.standard
 
         if !userDefaults.wmf_sendUsageReports {
@@ -555,7 +588,7 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
         }
 
         guard let appInstallID = userDefaults.wmf_appInstallId else {
-            DDLogWarn("App install ID unset; this shouldn't happen")
+            DDLogWarn("EPC: App install ID is unset. This shouldn't happen.")
             return
         }
 
@@ -570,19 +603,18 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
             encoder.outputFormatting = .prettyPrinted
             #endif
             
-            let jsonData = try encoder.encode(eventPayload)
+            let data = try encoder.encode(eventPayload)
             
             #if DEBUG
-            let jsonString = String(data: jsonData, encoding: .utf8)!
+            let jsonString = String(data: data, encoding: .utf8)!
             DDLogDebug("EPC: Scheduling event to be sent to \(EventPlatformClient.eventIntakeURI) with POST body:\n\(jsonString)")
             #endif
             
-            let request = EventRequest(url: EventPlatformClient.eventIntakeURI, data: jsonData, stream: stream)
             guard let streamConfigs = streamConfigurations else {
-                appendEventToInputBuffer(request)
+                appendEventToInputBuffer(data: data, stream: stream)
                 return
             }
-            
+
             guard let config = streamConfigs[stream] else {
                 DDLogDebug("EPC: Event submitted to '\(stream)' but only the following streams are configured: \(streamConfigs.keys.map(\.rawValue).joined(separator: ", "))")
                 return
@@ -590,21 +622,21 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
             guard samplingController.inSample(stream: stream, config: config) else {
                 return
             }
-            appendPostToOutputBuffer(request)
+            storageManager.push(data: data, stream: stream)
         } catch let error {
             DDLogError("EPC: \(error.localizedDescription)")
         }
+
     }
 }
 
 //MARK: Thread-safe accessors for collection properties
-
 private extension EventPlatformClient {
 
     /**
      * Thread-safe synchronous retrieval of buffered events
      */
-    func getInputBuffer() -> [EventRequest] {
+    func getInputBuffer() -> [(Data, Stream)] {
         queue.sync {
             return self.inputBuffer
         }
@@ -614,7 +646,7 @@ private extension EventPlatformClient {
      * Thread-safe synchronous buffering of an event
      * - Parameter event: event to be buffered
      */
-    func appendEventToInputBuffer(_ event: EventRequest) {
+    func appendEventToInputBuffer(data: Data, stream: Stream) {
         queue.sync {
             /*
              * Check if input buffer has reached maximum allowed size. Practically
@@ -627,43 +659,21 @@ private extension EventPlatformClient {
             if self.inputBuffer.count == self.inbutBufferLimit {
                 _ = self.inputBuffer.remove(at: 0)
             }
-            self.inputBuffer.append(event)
+            self.inputBuffer.append((data, stream))
         }
     }
+
 
     /**
      * Thread-safe synchronous removal of first buffered event
      * - Returns: a previously buffered event
      */
-    func inputBufferPopFirst() -> EventRequest? {
+    func inputBufferPopFirst() -> (Data, Stream)? {
         queue.sync {
             if self.inputBuffer.isEmpty {
                 return nil
             }
             return self.inputBuffer.remove(at: 0)
-        }
-    }
-
-    /**
-     * Thread-safe asynchronous buffering of an event scheduled for POSTing
-     * - Parameter post: an EventRequest
-     */
-    func appendPostToOutputBuffer(_ post: EventRequest) {
-        queue.async {
-            self.outputBuffer.append(post)
-        }
-    }
-    
-    /**
-     * Thread-safe synchronous removal of first scheduled event
-     * - Returns: a previously scheduled event
-     */
-    func outputBufferPopFirst() -> EventRequest? {
-        queue.sync {
-            if self.outputBuffer.isEmpty {
-                return nil
-            }
-            return self.outputBuffer.remove(at: 0)
         }
     }
 }
@@ -680,11 +690,11 @@ private extension EventPlatformClient {
     
     /**
      * HTTP POST
-     * - Parameter url: Where to POST data (`body`) to
      * - Parameter body: Body of the POST request
+     * - Parameter completion: callback invoked upon receiving the server response
      */
     private func httpPost(url: URL, body: Data? = nil, completion: @escaping ((Result<Void, PostEventError>) -> Void)) {
-        DDLogDebug("EPC: Attempting to POST data to \(url.absoluteString)")
+        DDLogDebug("EPC: Attempting to POST events")
         let request = session.request(with: url, method: .post, bodyData: body, bodyEncoding: .json)
         let task = session.dataTask(with: request, completionHandler: { (_, response, error) in
             let fail: (PostEventError) ->  Void = { error in
@@ -726,7 +736,12 @@ private extension EventPlatformClient {
 
 extension EventPlatformClient: PeriodicWorker {
     public func doPeriodicWork(_ completion: @escaping () -> Void) {
-        self.postAllScheduled(completion)
+        guard let storageManager = self.storageManager else {
+            return
+        }
+        storageManager.pruneStaleEvents(completion: {
+            self.postAllScheduled(completion)
+        })
     }
 }
 
