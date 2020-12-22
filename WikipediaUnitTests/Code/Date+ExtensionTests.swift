@@ -29,4 +29,16 @@ class Date_ExtensionTests: XCTestCase {
         XCTAssert(!currentDate.isBefore(currentDate))
     }
 
+    func testPicturePageTitle() throws {
+        let currentDate = Date()
+        guard let dateString = DateFormatter.wmf_englishHyphenatedYearMonthDay()?.string(from: currentDate) else {
+            XCTFail("date string couldn't be produced")
+            return
+        }
+
+        let properTitle = "Template:Potd/\(dateString)"
+
+        XCTAssertEqual(properTitle, NSDate().wmf_picOfTheDayPageTitle())
+    }
+
 }
