@@ -32,21 +32,33 @@
 // Author: 밥풀떼기
 // Author: 아라
 
+"aaald-added-text-description-2" = "$1 추가됨";
+"aaald-article-description-updated-description" = "글의 제목 설명이 업데이트됨";
 "aaald-article-insert-header" = "중요 업데이트";
 "aaald-article-insert-last-updated" = "최근 업데이트";
 "aaald-article-insert-new-changes" = "새 변경사항";
 "aaald-article-insert-read-more" = "더 많은 업데이트 읽기";
 "aaald-characters-text-description" = "{{PLURAL:$1|0=자|자|자}}";
+"aaald-deleted-text-description-2" = "$1 삭제됨";
 "aaald-error-subitle" = "다시 시도하려면 새로 고침을 하십시오";
+"aaald-error-title" = "줄 내 문서 역사를 불러올 수 없습니다";
+"aaald-many-sections-description" = "$1개 문단에서";
+"aaald-multiple-changes-description" = "변경사항이 여러 개 있음";
+"aaald-multiple-references-added-description" = "각주가 여러 개 추가됨";
 "aaald-new-book-reference-title" = "책";
 "aaald-new-discussion" = "새 토론";
 "aaald-new-journal-reference-title" = "저널";
+"aaald-new-news-reference-title" = "뉴스";
 "aaald-new-talk-topic-description-format" = "이 문서의 $1";
 "aaald-new-website-reference-archive-url-text" = "Archive.org URL";
 "aaald-new-website-reference-title" = "웹사이트";
+"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0개 각주|$1개 각주|$1개 각주}} 추가됨";
+"aaald-one-section-description" = "$1 문단에서";
 "aaald-revision-by-anonymous" = "익명 사용자의 편집";
 "aaald-revision-userInfo" = "편집자: $1 (편집 $2개)";
 "aaald-single-reference-added-description" = "각주 추가됨";
+"aaald-two-sections-description" = "$1 및 $2 문단에서";
+"aaald-vandalism-revert-description" = "문서 훼손으로 의심되는 판이 되돌려짐";
 "aaald-view-full-history-button" = "모든 문서 역사 보기";
 "about-content-license" = "콘텐츠 라이선스";
 "about-content-license-details" = "특별한 언급이 없는 경우, 콘텐츠는 $1 하에 이용이 가능합니다.";
