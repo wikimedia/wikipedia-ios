@@ -1,7 +1,4 @@
-#import <WMF/WMFContentGroup+Extensions.h>
 @import Foundation;
-
-@class WMFLanguageLinkNamespace;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,20 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// User-readable name for @c languageCode in the language specified by @c languageCode.
 @property (readonly, copy, nonatomic, nonnull) NSString *name;
 
-
-/**
- Flag indicating whether there are any visible customizable feed content sources in this language.
- Returns YES if there is at least one content source in this language visible in the feed.
- Returns NO if there are no content sources in this language visible in the feed.
- */
-@property (readonly) BOOL isInFeed;
-
-/**
- Flag indicating whether the content group of given kind is visible in the feed in this language.
- Returns YES if the content group of given kind is visible in the feed in this language.
- Returns NO if the content group of given kind is not visible in the feed in this language.
- */
-- (BOOL)isInFeedForContentGroupKind:(WMFContentGroupKind)contentGroupKind;
 
 - (instancetype)initWithLanguageCode:(nonnull NSString * )languageCode
                        pageTitleText:(nonnull NSString *)pageTitleText
