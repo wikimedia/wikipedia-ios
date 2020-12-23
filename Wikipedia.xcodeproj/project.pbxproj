@@ -9763,6 +9763,9 @@
 				"$(SRCROOT)/Carthage/Build/iOS/NYTPhotoViewer.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Mantle.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/FLAnimatedImage.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/PINRemoteImage.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/PINOperation.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/PINCache.framework",
 			);
 			name = "Embed Frameworks from Carthage";
 			outputPaths = (

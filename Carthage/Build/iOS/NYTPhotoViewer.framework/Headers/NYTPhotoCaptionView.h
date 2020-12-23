@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  A view used to display the caption for a photo.
+ *
+ *  This is used by default when no custom caption view is provided.
  */
 @interface NYTPhotoCaptionView : UIView <NYTPhotoCaptionViewLayoutWidthHinting>
 

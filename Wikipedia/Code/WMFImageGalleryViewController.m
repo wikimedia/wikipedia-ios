@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol WMFExposedDataSource <NYTPhotosViewControllerDataSource>
+@protocol WMFExposedDataSource <NYTPhotoViewerDataSource>
 
 /**
  *  Exposing a private property of the data source
@@ -43,6 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) WMFTheme *theme;
 
+@property (nonatomic, strong, nonnull) NYTPhotoViewerArrayDataSource *nytDataSource;
+
 @end
 
 @interface WMFBasePhoto : NSObject
@@ -53,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable, nonatomic, strong) NSData *imageData;
 
-//used for metadaata
+//used for metadata
 @property (nonatomic, strong, nullable) MWKImageInfo *imageInfo;
 
 @end
@@ -101,7 +103,9 @@ NS_ASSUME_NONNULL_BEGIN
 @dynamic dataSource;
 
 - (instancetype)initWithPhotos:(nullable NSArray<id<NYTPhoto>> *)photos initialPhoto:(nullable id<NYTPhoto>)initialPhoto delegate:(nullable id<NYTPhotosViewControllerDelegate>)delegate theme:(WMFTheme *)theme overlayViewTopBarHidden:(BOOL)overlayViewTopBarHidden {
-    self = [super initWithPhotos:photos initialPhoto:initialPhoto delegate:self];
+
+    self.nytDataSource =  [[NYTPhotoViewerArrayDataSource alloc] initWithPhotos:photos];
+    self = [super initWithDataSource:self.nytDataSource initialPhoto:initialPhoto delegate:self];
     if (self) {
         /**
          *  We are performing the following asserts to ensure that the
@@ -127,9 +131,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (hidden) {
         self.overlayView.rightBarButtonItem = nil;
         self.overlayView.leftBarButtonItem = nil;
-        self.overlayView.topCoverBackgroundColor = [UIColor clearColor];
     } else {
-        self.overlayView.topCoverBackgroundColor = [UIColor blackColor];
         self.overlayView.navigationBar.backgroundColor = [UIColor clearColor];
 
         UIBarButtonItem *share = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"share"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapShareButton)];
@@ -243,7 +245,7 @@ NS_ASSUME_NONNULL_BEGIN
     return 2.0;
 }
 
-- (NSString *_Nullable)photosViewController:(NYTPhotosViewController *)photosViewController titleForPhoto:(id<NYTPhoto>)photo atIndex:(NSUInteger)photoIndex totalPhotoCount:(NSUInteger)totalPhotoCount {
+- (NSString *_Nullable)photosViewController:(NYTPhotosViewController *)photosViewController titleForPhoto:(id<NYTPhoto>)photo atIndex:(NSInteger)photoIndex totalPhotoCount:(NSNumber *_Nullable)totalPhotoCount {
     return @"";
 }
 
@@ -303,7 +305,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateImageForPhotoAfterUserInteractionIsFinished:(id<NYTPhoto> _Nullable)photo {
     //Exclude UITrackingRunLoopMode so the update doesn't happen while the user is pinching or scrolling
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self performSelector:@selector(updateImageForPhoto:) withObject:photo afterDelay:0 inModes:@[NSDefaultRunLoopMode]];
+        [self performSelector:@selector(updatePhoto:) withObject:photo afterDelay:0 inModes:@[NSDefaultRunLoopMode]];
     });
 }
 

@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  The model for photos displayed in an `NYTPhotosViewController`.
+ *
+ *  Your models (or boxes, if working with Swift value types) should override `isEqual:` to provide a concept of identity for the PhotoViewer to work with. 
  */
 @protocol NYTPhoto <NSObject>
 
@@ -39,9 +41,11 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  A placeholder image for display while the image is loading.
  *
- *  This property is used if and only if `-imageData` returns `nil`.
+ *  This property is used if and only if `-imageData` and `-image` return `nil`.
  */
 @property (nonatomic, readonly, nullable) UIImage *placeholderImage;
+
+#pragma mark Caption
 
 /**
  *  An attributed string for display as the title of the caption.

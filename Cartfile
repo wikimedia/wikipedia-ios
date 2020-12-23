@@ -1,5 +1,6 @@
 github "Mantle/Mantle" ~> 2.0.0
-github "wikimedia/NYTPhotoViewer" "wmf"
+github "wikimedia/NYTPhotoViewer" "update_from_upstream"
+#github "nytimes/NYTPhotoViewer"
 github "wikimedia/Tweaks" "master"
 
 github "luisobo/Nocilla"

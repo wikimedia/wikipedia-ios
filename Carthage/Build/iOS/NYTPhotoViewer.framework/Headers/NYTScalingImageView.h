@@ -9,7 +9,7 @@
 @import UIKit;
 
 #ifdef ANIMATED_GIF_SUPPORT
-@class FLAnimatedImageView;
+@class PINAnimatedImageView;
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  The image view used internally as the contents of the scroll view.
  */
 #ifdef ANIMATED_GIF_SUPPORT
-@property (nonatomic, readonly) FLAnimatedImageView *imageView;
+@property (nonatomic, readonly) PINAnimatedImageView *imageView;
 #else
 @property (nonatomic, readonly) UIImageView *imageView;
 #endif

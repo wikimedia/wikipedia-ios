@@ -55,13 +55,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, nullable) UIView *captionView;
 
-
 /**
- *  Backrgound color for the views that extend from the top of the screen to the top of the navigation bar
- *  and from the bottom of the screen to the bottom of the caption view
+ *  Whether the `captionView` should respect the safe area or not
  */
-@property (nonatomic, nullable) UIColor *topCoverBackgroundColor;
-@property (nonatomic, nullable) UIColor *bottomCoverBackgroundColor;
+@property (nonatomic) BOOL captionViewRespectsSafeArea;
 
 @end
 
