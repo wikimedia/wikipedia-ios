@@ -201,7 +201,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindMainPage:
             break;
         case WMFContentGroupKindRelatedPages:
-            return YES
+            return YES;
         case WMFContentGroupKindLocation:
             break;
         case WMFContentGroupKindLocationPlaceholder:
