@@ -42,7 +42,7 @@ class EditLinkViewController: ViewController {
 
     init?(link: Link, siteURL: URL?, dataStore: MWKDataStore) {
         guard
-            let siteURL = siteURL ?? MWKDataStore.shared().languageLinkController.appLanguage?.siteURL() ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale(),
+            let siteURL = siteURL ?? MWKDataStore.shared().primarySiteURL ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale(),
             let articleURL = link.articleURL(for: siteURL)
         else {
             return nil

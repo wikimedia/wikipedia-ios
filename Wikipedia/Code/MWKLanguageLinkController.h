@@ -2,7 +2,6 @@
 #import <WMF/WMFPreferredLanguageCodesProviding.h>
 @class NSManagedObjectContext;
 @class MWKLanguageLink;
-@class MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 

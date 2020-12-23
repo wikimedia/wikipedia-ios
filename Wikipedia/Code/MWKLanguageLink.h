@@ -35,10 +35,10 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 
 /// @return A url with the default Wikipedia domain and the receiver's @c languageCode.
-- (NSURL *)siteURL;
+@property (readonly, copy, nonatomic, nonnull) NSURL *siteURL;
 
 /// @return A url whose domain & path are derived from the receiver's @c languageCode and @c pageTitleText.
-- (NSURL *)articleURL;
+@property (readonly, copy, nonatomic, nonnull) NSURL *articleURL;
 
 @end
 

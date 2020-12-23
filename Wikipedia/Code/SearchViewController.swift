@@ -103,7 +103,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
 
     var siteURL: URL? {
         get {
-            return _siteURL ?? searchLanguageBarViewController?.currentlySelectedSearchLanguage?.siteURL() ?? MWKDataStore.shared().languageLinkController.appLanguage?.siteURL() ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
+            return _siteURL ?? searchLanguageBarViewController?.currentlySelectedSearchLanguage?.siteURL ?? MWKDataStore.shared().primarySiteURL ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
         }
         set {
             _siteURL = newValue

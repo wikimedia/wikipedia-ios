@@ -111,7 +111,7 @@ class ExploreFeedSettingsLanguage: ExploreFeedSettingsItem {
         title = languageLink.localizedName
         subtitle = languageLink.languageCode.uppercased()
         self.controlTag = controlTag
-        siteURL = languageLink.siteURL()
+        siteURL = languageLink.siteURL
         updateIsOn(for: displayType)
     }
 
@@ -334,7 +334,7 @@ fileprivate extension MWKLanguageLink {
      Returns false if there are no content sources in this language visible in the feed.
      */
     var isInFeed: Bool {
-        feedContentController.anyContentGroupsVisibleInTheFeed(forSiteURL: siteURL())
+        feedContentController.anyContentGroupsVisibleInTheFeed(forSiteURL: siteURL)
     }
     
     /**

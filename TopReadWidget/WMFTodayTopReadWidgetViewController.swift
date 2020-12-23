@@ -159,7 +159,7 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
         }
         
         var language: String? = nil
-        let siteURL = dataStore.languageLinkController.appLanguage?.siteURL()
+        let siteURL = dataStore.primarySiteURL
         if let languageCode = siteURL?.wmf_language {
             language = Locale.current.localizedString(forLanguageCode: languageCode)
         }
