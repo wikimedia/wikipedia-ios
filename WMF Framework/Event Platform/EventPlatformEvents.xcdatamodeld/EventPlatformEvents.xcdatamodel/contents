@@ -5,7 +5,6 @@
         <attribute name="purgeable" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="recorded" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="stream" attributeType="String"/>
-	<attribute name="userAgent" optional="YES" attributeType="String"/>
         <fetchIndex name="byRecordedIndex">
             <fetchIndexElement property="recorded" type="Binary" order="ascending"/>
         </fetchIndex>

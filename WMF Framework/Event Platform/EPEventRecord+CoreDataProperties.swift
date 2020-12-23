@@ -11,6 +11,5 @@ extension EPEventRecord {
     @NSManaged public var stream: String
     @NSManaged public var recorded: Date?
     @NSManaged public var purgeable: Bool
-    @NSManaged public var userAgent: String?
 
 }

@@ -61,7 +61,6 @@ public class StorageManager: NSObject {
                 record.data = data
                 record.stream = stream.rawValue
                 record.recorded = now
-		record.userAgent = WikipediaAppUtils.versionedUserAgent()
 
                 DDLogDebug("EPC StorageManager: \(record.objectID) recorded!")
 
