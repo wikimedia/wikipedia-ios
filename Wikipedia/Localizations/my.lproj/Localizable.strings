@@ -9,6 +9,16 @@
 // Author: Ninjastrikers
 // Author: Teitei
 
+"aaald-article-insert-last-updated" = "နောက်ဆုံး မွမ်းမံခဲ့သည်";
+"aaald-article-insert-new-changes" = "ပြောင်းလဲမှု အသစ်များ";
+"aaald-article-insert-read-more" = "ပိုမိုသောမွမ်းမံမှုများ ဖတ်ရန်";
+"aaald-new-journal-reference-title" = "ဂျာနယ်";
+"aaald-new-news-reference-title" = "သတင်းများ";
+"aaald-new-website-reference-title" = "ဝဘ်ဆိုဒ်";
+"aaald-revision-by-anonymous" = "အမည်မသိအသုံးပြုသူမှ တည်းဖြတ်မှု";
+"aaald-revision-userInfo" = "$1 မှ တည်းဖြတ်မှု ($2 တည်းဖြတ်မှုများ)";
+"aaald-single-reference-added-description" = "ကိုးကားချက် ပေါင်းထည့်ခဲ့သည်";
+"aaald-view-full-history-button" = "ဆောင်းပါးရာဇဝင် အပြည့်အစုံကြည့်ရန်";
 "about-content-license" = "အကြောင်းအရာလိုင်စင်";
 "about-content-license-details" = "အခြား ဖော်ပြချက်မရှိပါက၊ အကြောင်းအရာသည် $1 ဖြင့် ရရှိနိုင်သည်။";
 "about-content-license-details-share-alike-license" = "Creative Commons Attribution-ShareAlike License";
@@ -74,6 +84,7 @@
 "action-share" = "မျှဝေ";
 "action-share-accessibility" = "မျှဝေ";
 "action-sort" = "စီစဉ်ရန်";
+"action-thank-user-accessibility" = "အသုံးပြုသူအား ကျေးဇူးတင်";
 "action-undo" = "နောက်ပြန် ပြန်ပြင်ရန်";
 "action-unsave" = "မသိမ်းရသေးပါ";
 "action-unsaved-accessibility-notification" = "ဆောင်းပါး မသိမ်းရသေးပါ";
@@ -115,6 +126,7 @@
 "compass-direction" = "$1 နာရီတွင်";
 "continue-reading-empty-description" = "ဆောင်းပါးများပိုမိုဖတ်ရှုရန် ဝီကီပီးဒီးယားကို စူးစမ်းပါ";
 "continue-reading-empty-title" = "လတ်တလော ဖတ်ရှုစာမျက်နှာများ မရှိပါ";
+"data-migration-status" = "မွမ်းမံနေသည်...";
 "description-add-title" = "ဖော်ပြချက်ထည့်သွင်းပါ";
 "description-edit-for-article" = "$1အတွက် ခေါင်းစဉ်ဖော်ပြချက်";
 "description-edit-learn-more" = "ထပ်မံ လေ့လာရန်";
@@ -394,6 +406,7 @@
 "page-history-revision-minor-edit-accessibility-label" = "အရေးမကြီးသည့် တည်းဖြတ်မှု";
 "page-history-stats-text" = "$2 ကတည်းက {{PLURAL:$1|$1 တည်းဖြတ်မှု|$1 တည်းဖြတ်မှုများ}}";
 "page-history-user-edits" = "အသုံးပြုသူ တည်းဖြတ်မှု";
+"page-location" = "မြေပုံပေါ်တွင် ကြည့်ရန်";
 "page-protected-autoconfirmed" = "ဤစာမျက်နှာအား တစ်စိတ်တစ်ပိုင်း ကာကွယ်ထားသည်။";
 "page-protected-can-not-edit" = "ဤစာမျက်နှာကို တည်းဖြတ်ခွင့်မရှိပါ";
 "page-protected-can-not-edit-title" = "ဤစာမျက်နှာအား ကာကွယ်ထားသည်";
@@ -488,8 +501,11 @@
 "reference-title" = "ရည်ညွှန်း $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=ယနေ့|1=မနေ့က|$1 ရက်အကြာက}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=မကြာသေးခင်|$1 နာရီအကြာက|$1 နာရီအကြာက}}";
+"relative-date-hours-ago-abbreviated" = "$1နာရီ အကြာက";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=ယခုလေးတင်|$1 မိနစ်အကြာက|$1 မိနစ်အကြာက}}";
+"relative-date-minutes-ago-abbreviated" = "$1မိနစ် အကြာက";
 "relative-date-months-ago" = "{{PLURAL:$1|0=ဤလ|1=ယခင်လ|$1 လအကြာက}}";
+"relative-date-seconds-ago-abbreviated" = "$1စက္ကန့် အကြာက";
 "relative-date-years-ago" = "{{PLURAL:$1|0=ဒီနှစ်|1=ယခင်နှစ်|$1 နှစ်အကြာက}}";
 "replace-button-accessibility" = "$ ဆောင်ရွက်ပါ";
 "replace-buttons-replace-accessibility" = "တစ်ခါတည်းချက်ချင်း အစားထိုးပါ";
@@ -599,6 +615,7 @@
 "two-factor-login-title" = "သင်၏အကောင့်သို့ ဝင်ရန်";
 "two-factor-login-with-regular-code" = "အတည်ပြုကုဒ်အား အသုံးချပါ";
 "unable-to-load-talk-page-title" = "ဆွေးနွေးချက်စာမျက်နှာကို ဝန်မဆွဲတင်နိုင်ပါ";
+"unknown-generic-text" = "အမည်မသိ";
 "welcome-exploration-explore-feed-description" = "ကျွန်ုပ်တို့၏အသိုင်းအဝိုင်းမှ အကြံပြု‌ထောက်ခံထားသော ဖတ်ရှုရန်နေ့စဉ်ဆောင်းပါးများ";
 "welcome-exploration-on-this-day-title" = "ယနေ့";
 "welcome-explore-continue-button" = "စတင်ပါ";
