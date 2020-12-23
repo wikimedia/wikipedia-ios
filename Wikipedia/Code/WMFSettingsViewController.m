@@ -9,10 +9,6 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFDailyStatsLoggingFunnel.h"
 
-#if WMF_TWEAKS_ENABLED
-@import Tweaks;
-#endif
-
 #pragma mark - Static URLs
 
 static const NSString *kvo_WMFSettingsViewController_authManager_loggedInUsername = nil;
@@ -24,11 +20,7 @@ static NSString *const WMFSettingsURLTerms = @"https://foundation.m.wikimedia.or
 static NSString *const WMFSettingsURLRate = @"itms-apps://itunes.apple.com/app/id324715238";
 static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=<app-version>&uselang=<langcode>";
 
-#if WMF_TWEAKS_ENABLED
-@interface WMFSettingsViewController () <UITableViewDelegate, UITableViewDataSource, WMFPreferredLanguagesViewControllerDelegate, WMFAccountViewControllerDelegate, FBTweakViewControllerDelegate>
-#else
 @interface WMFSettingsViewController () <UITableViewDelegate, UITableViewDataSource, WMFPreferredLanguagesViewControllerDelegate, WMFAccountViewControllerDelegate>
-#endif
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 
@@ -260,27 +252,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         case WMFSettingsMenuItemType_ClearCache:
             [self showClearCacheActionSheet];
             break;
-        case WMFSettingsMenuItemType_DevSettings: {
-#if WMF_TWEAKS_ENABLED
-            FBTweakViewController *tweaksVC = [[FBTweakViewController alloc] initWithStore:[FBTweakStore sharedInstance]];
-            tweaksVC.tweaksDelegate = self;
-            [self presentViewController:tweaksVC animated:YES completion:nil];
-#endif
-        }
         default:
             break;
     }
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
-
-#if WMF_TWEAKS_ENABLED
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(nullable UIEvent *)event {
-    if (motion == UIEventSubtypeMotionShake) {
-        DebugReadingListsViewController *vc = [[DebugReadingListsViewController alloc] initWithNibName:@"DebugReadingListsViewController" bundle:nil];
-        [self presentViewControllerWrappedInNavigationController:vc];
-    }
-}
-#endif
 
 #pragma mark - Dynamic URLs
 
@@ -421,13 +397,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #endif
 }
 
-#if WMF_TWEAKS_ENABLED
-- (void)tweakViewControllerPressedDone:(FBTweakViewController *)tweakViewController {
-    [[NSNotificationCenter defaultCenter] postNotificationName:FBTweakShakeViewControllerDidDismissNotification object:tweakViewController];
-    [tweakViewController dismissViewControllerAnimated:YES completion:nil];
-}
-#endif
-
 #pragma mark - Cell reloading
 
 - (nullable NSIndexPath *)indexPathForVisibleCellOfType:(WMFSettingsMenuItemType)type {
@@ -464,11 +433,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self.sections addObject:[self section_2]];
     [self.sections addObject:[self section_3]];
     [self.sections addObject:[self section_4]];
-    WMFSettingsTableViewSection *section5 = [self section_5];
-    if (section5) {
-        [self.sections addObject:section5];
-    }
-
     [self.tableView reloadData];
 }
 
@@ -522,19 +486,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
                                                                                   headerTitle:nil
                                                                                    footerText:nil];
     return section;
-}
-
-- (nullable WMFSettingsTableViewSection *)section_5 {
-#if WMF_TWEAKS_ENABLED
-    WMFSettingsTableViewSection *section = [[WMFSettingsTableViewSection alloc] initWithItems:@[
-        [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_DevSettings]
-    ]
-                                                                                  headerTitle:WMFLocalizedStringWithDefaultValue(@"main-menu-heading-debug", nil, nil, @"Debug", @"Header text for the debug section of the menu. The debug menu is conditionally shown if in Xcode debug mode. {{Identical|Debug}}")
-                                                                                   footerText:nil];
-    return section;
-#else
-    return nil;
-#endif
 }
 
 #pragma mark - Scroll view

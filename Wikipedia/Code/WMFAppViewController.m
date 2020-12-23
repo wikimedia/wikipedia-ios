@@ -5,10 +5,6 @@
 
 #define DEBUG_THEMES 1
 
-#if WMF_TWEAKS_ENABLED
-#import <Tweaks/FBTweakInline.h>
-#endif
-
 // Views
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
@@ -387,11 +383,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         [UserHistoryFunnel.shared logSnapshot];
     }
 
-#if WMF_TWEAKS_ENABLED
-    if (FBTweakValue(@"Notifications", @"In the news", @"Send on app open", NO)) {
-        [self.dataStore.feedContentController debugSendRandomInTheNewsNotification];
-    }
-#endif
 }
 
 - (void)appWillResignActiveWithNotification:(NSNotification *)note {
@@ -411,11 +402,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     }
     [self startHousekeepingBackgroundTask];
     dispatch_async(dispatch_get_main_queue(), ^{
-#if WMF_TWEAKS_ENABLED
-        if (FBTweakValue(@"Notifications", @"In the news", @"Send on app exit", NO)) {
-            [self.dataStore.feedContentController debugSendRandomInTheNewsNotification];
-        }
-#endif
         [self pauseApp];
     });
 }
@@ -956,20 +942,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                                                     }];
                                          }];
 #endif
-#if WMF_TWEAKS_ENABLED
-    if (FBTweakValue(@"Alerts", @"General", @"Show error on launch", NO)) {
-        [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{NSLocalizedDescriptionKey: @"There was an error"}] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-    }
-    if (FBTweakValue(@"Alerts", @"General", @"Show warning on launch", NO)) {
-        [[WMFAlertManager sharedInstance] showWarningAlert:@"You have been warned" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-    }
-    if (FBTweakValue(@"Alerts", @"General", @"Show success on launch", NO)) {
-        [[WMFAlertManager sharedInstance] showSuccessAlert:@"You are successful" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-    }
-    if (FBTweakValue(@"Alerts", @"General", @"Show message on launch", NO)) {
-        [[WMFAlertManager sharedInstance] showAlert:@"You have been notified" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-    }
-#endif
 }
 
 - (NSTimeInterval)timeBeforeRefreshingExploreFeed {
@@ -1449,12 +1421,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (BOOL)shouldShowOnboarding {
-#if WMF_TWEAKS_ENABLED
-    if (FBTweakValue(@"Welcome", @"General", @"Show on launch (requires force quit)", NO) || [[NSProcessInfo processInfo] environment][@"WMFShowWelcomeView"].boolValue) {
-        return YES;
-    }
-#endif
-
     NSNumber *didShow = [[NSUserDefaults standardUserDefaults] objectForKey:WMFDidShowOnboarding];
     return !didShow.boolValue;
 }
@@ -2110,33 +2076,5 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                                }];
     });
 }
-
-#pragma mark - Perma Random Mode
-
-#if WMF_TWEAKS_ENABLED
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-    if ([super respondsToSelector:@selector(motionEnded:withEvent:)]) {
-        [super motionEnded:motion withEvent:event];
-    }
-    if (event.subtype != UIEventSubtypeMotionShake) {
-        return;
-    }
-    UINavigationController *navController = self.navigationController;
-    if ([navController.visibleViewController isKindOfClass:[WMFRandomArticleViewController class]] || [navController.visibleViewController isKindOfClass:[WMFFirstRandomViewController class]]) {
-        [UIApplication sharedApplication].idleTimerDisabled = NO;
-        return;
-    }
-
-    [self setSelectedIndex:WMFAppTabTypeMain];
-    UINavigationController *exploreNavController = self.navigationController;
-
-    [self dismissPresentedViewControllers];
-
-    WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore theme:self.theme];
-    vc.permaRandomMode = NO;
-    [UIApplication sharedApplication].idleTimerDisabled = YES;
-    [exploreNavController pushViewController:vc animated:YES];
-}
-#endif
 
 @end

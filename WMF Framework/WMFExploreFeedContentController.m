@@ -729,32 +729,6 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     [self updateFeedSourcesUserInitiated:NO completion:NULL];
 }
 
-#if WMF_TWEAKS_ENABLED
-- (void)debugSendRandomInTheNewsNotification {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-
-        [self.dataStore.notificationsController requestAuthenticationIfNecessaryWithCompletionHandler:^(BOOL granted, NSError *_Nullable error) {
-            if (!granted) {
-                return;
-            }
-            dispatch_async(dispatch_get_main_queue(), ^{
-                WMFContentGroup *newsContentGroup = [self.dataStore.viewContext newestGroupOfKind:WMFContentGroupKindNews];
-                if (newsContentGroup) {
-                    NSArray<WMFFeedNewsStory *> *stories = (NSArray<WMFFeedNewsStory *> *)newsContentGroup.fullContent.object;
-                    if (stories.count > 0) {
-                        NSInteger randomIndex = (NSInteger)arc4random_uniform((uint32_t)stories.count);
-                        WMFFeedNewsStory *randomStory = stories[randomIndex];
-                        WMFFeedArticlePreview *feedPreview = randomStory.featuredArticlePreview ?: randomStory.articlePreviews[0];
-                        WMFArticle *preview = [self.dataStore fetchArticleWithURL:feedPreview.articleURL];
-                        [[self feedContentSource] scheduleNotificationForNewsStory:randomStory articlePreview:preview inManagedObjectContext:self.dataStore.viewContext force:YES];
-                    }
-                }
-            });
-        }];
-    });
-}
-#endif
-
 #if DEBUG
 #pragma mark - Debug
 

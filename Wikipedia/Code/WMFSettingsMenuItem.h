@@ -27,7 +27,6 @@ typedef NS_ENUM(NSUInteger, WMFSettingsMenuItemType) {
     WMFSettingsMenuItemType_SendFeedback,
     WMFSettingsMenuItemType_About,
     WMFSettingsMenuItemType_ClearCache,
-    WMFSettingsMenuItemType_DevSettings,
     WMFSettingsMenuItemType_Appearance
 };
 

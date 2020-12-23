@@ -1,6 +1,5 @@
 github "Mantle/Mantle" ~> 2.0.0
 github "wikimedia/NYTPhotoViewer" "wmf"
-github "wikimedia/Tweaks" "master"
 
 github "luisobo/Nocilla"
 

@@ -201,7 +201,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindMainPage:
             break;
         case WMFContentGroupKindRelatedPages:
-            return YES /*FBTweakValue(@"Explore", @"General", @"Put 'Because You Read' in Wider Column", YES)*/;
+            return YES
         case WMFContentGroupKindLocation:
             break;
         case WMFContentGroupKindLocationPlaceholder:

@@ -106,9 +106,6 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 
 - (void)dismissCollapsedContentGroups;
 
-#if WMF_TWEAKS_ENABLED
-- (void)debugSendRandomInTheNewsNotification;
-#endif
 #if DEBUG
 - (void)debugChaos;
 #endif
