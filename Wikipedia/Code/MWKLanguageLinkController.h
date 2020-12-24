@@ -9,6 +9,16 @@ extern NSString *const WMFPreferredLanguagesDidChangeNotification;
 
 extern NSString *const WMFAppLanguageDidChangeNotification;
 
+// User info keys for WMFPreferredLanguagesDidChangeNotification
+extern NSString *const WMFPreferredLanguagesLastChangedLanguageKey; // An MWKLanguageLink instance
+extern NSString *const WMFPreferredLanguagesChangeTypeKey;          // An NSNumber containing a WMFPreferredLanguagesChangeType value
+
+typedef NS_ENUM(NSInteger, WMFPreferredLanguagesChangeType) {
+    WMFPreferredLanguagesChangeTypeAdd = 1,
+    WMFPreferredLanguagesChangeTypeRemove,
+    WMFPreferredLanguagesChangeTypeReorder
+};
+
 @interface MWKLanguageLinkController : NSObject <MWKLanguageFilterDataSource, WMFPreferredLanguageCodesProviding>
 
 /// Initializes `MWKLanguageLinkController` with the `NSManagedObjectContext` used for storage
@@ -35,16 +45,6 @@ extern NSString *const WMFAppLanguageDidChangeNotification;
  * Returns the user's preferred site URLs.
  */
 @property (readonly, copy, nonatomic) NSArray<NSURL *> *preferredSiteURLs;
-
-/**
- * Returns the most recently modifed (appended, removed or reordered) preferred language.
- */
-@property (nonatomic) MWKLanguageLink *mostRecentlyModifiedPreferredLanguage;
-
-/**
- * Returns the user's previous preferred languages.
- */
-@property (nonatomic) NSArray<MWKLanguageLink *> *previousPreferredLanguages;
 
 /**
  * All the languages in the receiver minus @c preferredLanguages.

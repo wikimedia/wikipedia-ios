@@ -8,6 +8,9 @@ NSString *const WMFPreferredLanguagesDidChangeNotification = @"WMFPreferredLangu
 
 NSString *const WMFAppLanguageDidChangeNotification = @"WMFAppLanguageDidChangeNotification";
 
+NSString *const WMFPreferredLanguagesChangeTypeKey = @"WMFPreferredLanguagesChangeTypeKey";
+NSString *const WMFPreferredLanguagesLastChangedLanguageKey = @"WMFPreferredLanguagesLastChangedLanguageKey";
+
 static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesKey";
 
 @interface MWKLanguageLinkController ()
@@ -74,22 +77,12 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
 
 #pragma mark - Preferred Language Management
 
-// Used for testing only.
-- (void)addPreferredLanguage:(MWKLanguageLink *)language {
-    NSParameterAssert(language);
-    NSMutableArray<NSString *> *langCodes = [[self readPreferredLanguageCodes] mutableCopy];
-    [langCodes removeObject:language.languageCode];
-    [langCodes insertObject:language.languageCode atIndex:0];
-    [self savePreferredLanguageCodes:langCodes];
-}
-
 - (void)appendPreferredLanguage:(MWKLanguageLink *)language {
     NSParameterAssert(language);
     NSMutableArray<NSString *> *langCodes = [[self readPreferredLanguageCodes] mutableCopy];
     [langCodes removeObject:language.languageCode];
     [langCodes addObject:language.languageCode];
-    self.mostRecentlyModifiedPreferredLanguage = language;
-    [self savePreferredLanguageCodes:langCodes];
+    [self savePreferredLanguageCodes:langCodes changeType:WMFPreferredLanguagesChangeTypeAdd changedLanguage:language];
 }
 
 - (void)reorderPreferredLanguage:(MWKLanguageLink *)language toIndex:(NSInteger)newIndex {
@@ -105,15 +98,13 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
     }
     [langCodes removeObject:language.languageCode];
     [langCodes insertObject:language.languageCode atIndex:(NSUInteger)newIndex];
-    self.mostRecentlyModifiedPreferredLanguage = language;
-    [self savePreferredLanguageCodes:langCodes];
+    [self savePreferredLanguageCodes:langCodes changeType:WMFPreferredLanguagesChangeTypeReorder changedLanguage:language];
 }
 
 - (void)removePreferredLanguage:(MWKLanguageLink *)language {
     NSMutableArray<NSString *> *langCodes = [[self readPreferredLanguageCodes] mutableCopy];
     [langCodes removeObject:language.languageCode];
-    self.mostRecentlyModifiedPreferredLanguage = language;
-    [self savePreferredLanguageCodes:langCodes];
+    [self savePreferredLanguageCodes:langCodes changeType:WMFPreferredLanguagesChangeTypeRemove changedLanguage:language];
 }
 
 #pragma mark - Reading/Saving Preferred Language Codes
@@ -144,8 +135,7 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
     }];
 }
 
-- (void)savePreferredLanguageCodes:(NSArray<NSString *> *)languageCodes {
-    self.previousPreferredLanguages = self.preferredLanguages;
+- (void)savePreferredLanguageCodes:(NSArray<NSString *> *)languageCodes changeType:(WMFPreferredLanguagesChangeType)changeType changedLanguage:(MWKLanguageLink *)changedLanguage {
     NSString *previousAppLanguageCode = self.appLanguage.languageCode;
     [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
     [self.moc performBlockAndWait:^{
@@ -156,7 +146,8 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
         }
     }];
     [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
-    [[NSNotificationCenter defaultCenter] postNotificationName:WMFPreferredLanguagesDidChangeNotification object:self];
+    NSDictionary *userInfo = @{ WMFPreferredLanguagesChangeTypeKey : @(changeType), WMFPreferredLanguagesLastChangedLanguageKey : changedLanguage };
+    [[NSNotificationCenter defaultCenter] postNotificationName:WMFPreferredLanguagesDidChangeNotification object:self userInfo:userInfo];
     if (self.appLanguage.languageCode && ![self.appLanguage.languageCode isEqualToString:previousAppLanguageCode]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:WMFAppLanguageDidChangeNotification object:self];
     }
