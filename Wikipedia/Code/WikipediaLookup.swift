@@ -26,7 +26,7 @@ import CocoaLumberjackSwift
                     localizedName = iOSLocalizedName
                 }
             }
-            return MWKLanguageLink(languageCode: wikipedia.languageCode, pageTitleText: "", name: wikipedia.languageName, localizedName: localizedName)
+            return MWKLanguageLink(languageCode: wikipedia.languageCode, pageTitleText: "", name: wikipedia.languageName, localizedName: localizedName, languageVariantCode: nil)
         }
     }()
 }
