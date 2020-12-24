@@ -383,9 +383,9 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
      * fire-and-forget fashion
      */
     private func postAllScheduled(_ completion: (() -> Void)? = nil) {
-        DDLogDebug("EPC: Posting all scheduled requests")
         let group = DispatchGroup()
         while let item = outputBufferPopFirst() {
+            DDLogDebug("EPC: Posting all scheduled requests")
             group.enter()
             httpPost(url: item.url, body: item.data) { result in
                 switch result {
