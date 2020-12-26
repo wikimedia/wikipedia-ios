@@ -1,5 +1,4 @@
 #import "WikiTextSectionUploader.h"
-#import "NSObject+WMFExtras.h"
 @import WMF;
 
 @implementation WikiTextSectionUploader
@@ -110,7 +109,7 @@
             //NSLog(@"JSON: %@", responseObject);
 
             // Fake out an error if non-dictionary response received.
-            if (![responseObject isDict]) {
+            if (![responseObject isKindOfClass:[NSDictionary class]]) {
                 responseObject = @{ @"error": @{@"info": @"WikiText upload data not found."} };
             }
 
