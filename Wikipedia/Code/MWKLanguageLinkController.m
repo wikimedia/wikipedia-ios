@@ -85,7 +85,7 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
     NSArray *preferredLanguageCodes = [self readPreferredLanguageCodes];
     return [preferredLanguageCodes wmf_mapAndRejectNil:^id(NSString *langString) {
         return [self.allLanguages wmf_match:^BOOL(MWKLanguageLink *langLink) {
-            return [langLink.languageCode isEqualToString:langString];
+            return [langLink.contentLanguageCode isEqualToString:langString];
         }];
     }];
 }
@@ -107,8 +107,8 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
 - (void)appendPreferredLanguage:(MWKLanguageLink *)language {
     NSParameterAssert(language);
     NSMutableArray<NSString *> *langCodes = [[self readPreferredLanguageCodes] mutableCopy];
-    [langCodes removeObject:language.languageCode];
-    [langCodes addObject:language.languageCode];
+    [langCodes removeObject:language.contentLanguageCode];
+    [langCodes addObject:language.contentLanguageCode];
     [self savePreferredLanguageCodes:langCodes changeType:WMFPreferredLanguagesChangeTypeAdd changedLanguage:language];
 }
 
@@ -118,19 +118,19 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
     if (newIndex >= (NSInteger)[langCodes count]) {
         return;
     }
-    NSInteger oldIndex = (NSInteger)[langCodes indexOfObject:language.languageCode];
+    NSInteger oldIndex = (NSInteger)[langCodes indexOfObject:language.contentLanguageCode];
     NSAssert(oldIndex != NSNotFound, @"Language is not a preferred language");
     if (oldIndex == NSNotFound) {
         return;
     }
-    [langCodes removeObject:language.languageCode];
-    [langCodes insertObject:language.languageCode atIndex:(NSUInteger)newIndex];
+    [langCodes removeObject:language.contentLanguageCode];
+    [langCodes insertObject:language.contentLanguageCode atIndex:(NSUInteger)newIndex];
     [self savePreferredLanguageCodes:langCodes changeType:WMFPreferredLanguagesChangeTypeReorder changedLanguage:language];
 }
 
 - (void)removePreferredLanguage:(MWKLanguageLink *)language {
     NSMutableArray<NSString *> *langCodes = [[self readPreferredLanguageCodes] mutableCopy];
-    [langCodes removeObject:language.languageCode];
+    [langCodes removeObject:language.contentLanguageCode];
     [self savePreferredLanguageCodes:langCodes changeType:WMFPreferredLanguagesChangeTypeRemove changedLanguage:language];
 }
 
@@ -163,7 +163,7 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
 }
 
 - (void)savePreferredLanguageCodes:(NSArray<NSString *> *)languageCodes changeType:(WMFPreferredLanguagesChangeType)changeType changedLanguage:(MWKLanguageLink *)changedLanguage {
-    NSString *previousAppLanguageCode = self.appLanguage.languageCode;
+    NSString *previousAppContentLanguageCode = self.appLanguage.contentLanguageCode;
     [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
     [self.moc performBlockAndWait:^{
         [self.moc wmf_setValue:languageCodes forKey:WMFPreviousLanguagesKey];
@@ -175,7 +175,7 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
     [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
     NSDictionary *userInfo = @{ WMFPreferredLanguagesChangeTypeKey : @(changeType), WMFPreferredLanguagesLastChangedLanguageKey : changedLanguage };
     [[NSNotificationCenter defaultCenter] postNotificationName:WMFPreferredLanguagesDidChangeNotification object:self userInfo:userInfo];
-    if (self.appLanguage.languageCode && ![self.appLanguage.languageCode isEqualToString:previousAppLanguageCode]) {
+    if (self.appLanguage.contentLanguageCode && ![self.appLanguage.contentLanguageCode isEqualToString:previousAppContentLanguageCode]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:WMFAppLanguageDidChangeNotification object:self];
     }
 }
