@@ -165,15 +165,8 @@ class SavedViewController: ViewController {
     // MARK: - View lifecycle
     
     override func viewDidLoad() {
-        navigationBar.addExtendedNavigationBarView(searchView)
-        navigationBar.addUnderNavigationBarView(underBarView)
-        navigationBar.displayType = .largeTitle
-        navigationBar.isBarHidingEnabled = false
-        navigationBar.isUnderBarViewHidingEnabled = false
-        navigationBar.isExtendedViewHidingEnabled = true
-        navigationBar.isShadowHidingEnabled = false
-        navigationBar.isShadowBelowUnderBarView = true
-        
+        setupNavigationBar()
+
         wmf_add(childController:savedProgressViewController, andConstrainToEdgesOfContainerView: progressContainerView)
 
         if activeEditableCollection == nil {
@@ -217,6 +210,17 @@ class SavedViewController: ViewController {
 
         /// Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
         parent?.navigationItem.backButtonTitle = title
+    }
+    
+    private func setupNavigationBar() {
+        navigationBar.addExtendedNavigationBarView(searchView)
+        navigationBar.addUnderNavigationBarView(underBarView)
+        navigationBar.displayType = .largeTitle
+        navigationBar.isBarHidingEnabled = false
+        navigationBar.isUnderBarViewHidingEnabled = false
+        navigationBar.isExtendedViewHidingEnabled = true
+        navigationBar.isShadowHidingEnabled = false
+        navigationBar.isShadowBelowUnderBarView = true
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
