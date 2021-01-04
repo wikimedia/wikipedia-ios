@@ -55,7 +55,7 @@ open class WMFWelcomeAnimationBackgroundView: WMFWelcomeAnimationView {
          // print unit coords for easy re-positioning
          let point = gestureRecognizer.location(in: self)
          let unitDestination = CGPoint(x: (point.x - (bounds.size.width * 0.5)) / bounds.size.width, y: (point.y - (bounds.size.height * 0.5)) / bounds.size.height)
-         print("unitDestination \(unitDestination)")
+         DDLogDebug("unitDestination \(unitDestination)")
      
          // preview the item at the tap location
          let imageViewAndModel = imageViewsAndModels![0] // <-- Adjust to pick which image is being tweaked.
@@ -69,7 +69,7 @@ open class WMFWelcomeAnimationBackgroundView: WMFWelcomeAnimationView {
              return
          }
          let imageUnitSize = CGSize(width: image.size.width / bounds.size.width, height: image.size.height / bounds.size.width) // "bounds.size.width" for both cases is deliberate here
-         print("unitSize \(imageUnitSize)")
+         DDLogDebug("unitSize \(imageUnitSize)")
      }
     */
     override open func beginAnimations() {
