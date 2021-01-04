@@ -17,7 +17,7 @@
         @try {
             return [[MWKRecentSearchEntry alloc] initWithDict:obj];
         } @catch (NSException *e) {
-            NSLog(@"Encountered exception while reading entry %@: %@", e, obj);
+            DDLogError(@"Encountered exception while reading entry %@: %@", e, obj);
             return nil;
         }
     }];
