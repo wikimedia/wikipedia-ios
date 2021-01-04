@@ -91,7 +91,7 @@ class ViewControllerRouter: NSObject {
             return presentOrPush(talkPageVC, with: completion)
         case .onThisDay(let indexOfSelectedEvent):
             let dataStore = appViewController.dataStore
-            guard let contentGroup = dataStore.viewContext.newestVisibleGroup(of: .onThisDay, forSiteURL: dataStore.languageLinkController.appLanguage?.siteURL()), let onThisDayVC = contentGroup.detailViewControllerWithDataStore(dataStore, theme: theme) as? OnThisDayViewController else {
+            guard let contentGroup = dataStore.viewContext.newestVisibleGroup(of: .onThisDay, forSiteURL: dataStore.primarySiteURL), let onThisDayVC = contentGroup.detailViewControllerWithDataStore(dataStore, theme: theme) as? OnThisDayViewController else {
                 completion()
                 return false
             }

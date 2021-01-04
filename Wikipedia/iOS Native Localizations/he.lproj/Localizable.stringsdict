@@ -20,6 +20,86 @@
 			<string>characters</string>
 		</dict>
 	</dict>
+	<key>aaald-numerical-multiple-references-added-description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>מקור אחד נוסף</string>
+			<key>other</key>
+			<string>%1$d מקורות נוספו</string>
+			<key>zero</key>
+			<string>לא נוספו מקורות</string>
+		</dict>
+	</dict>
+	<key>aaald-small-change-description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>בוצע שינוי קטן</string>
+			<key>other</key>
+			<string>בוצעו %1$d שינויים קטנים</string>
+			<key>zero</key>
+			<string>לא בוצעו שינויים קטנים</string>
+		</dict>
+	</dict>
+	<key>aaald-summary-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ מאת %#@v2@ תוך %#@v3@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>שינוי אחד</string>
+			<key>other</key>
+			<string>%1$d שינויים</string>
+			<key>zero</key>
+			<string>0 שינויים</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>עורך או עורכת</string>
+			<key>other</key>
+			<string>%2$d עורכים</string>
+			<key>zero</key>
+			<string>0 עורכים</string>
+		</dict>
+		<key>v3</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>יום</string>
+			<key>other</key>
+			<string>%3$d ימים</string>
+			<key>zero</key>
+			<string>0 ימים</string>
+		</dict>
+	</dict>
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -253,6 +333,22 @@
 			<string>אירוע היסטורי</string>
 			<key>other</key>
 			<string>%1$d אירועים היסטוריים</string>
+		</dict>
+	</dict>
+	<key>on-this-day-footer-showing-event-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ ביום הזה</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>אירוע היסטורי נוסף</string>
+			<key>other</key>
+			<string>%1$d אירועים היסטוריים נוספים</string>
 		</dict>
 	</dict>
 	<key>page-history-revision-size-diff-addition</key>

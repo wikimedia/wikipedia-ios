@@ -20,12 +20,14 @@
 // Author: נדב ס
 // Author: שמזן
 
+"aaald-added-text-description-2" = "$1 נוספו";
 "aaald-article-description-updated-description" = "תיאור כותרת הערך עודכן";
 "aaald-article-insert-header" = "עדכונים משמעותיים";
 "aaald-article-insert-last-updated" = "עדכון אחרון";
 "aaald-article-insert-new-changes" = "שינויים חדשים";
 "aaald-article-insert-read-more" = "לקרוא עדכונים נוספים";
 "aaald-characters-text-description" = "{{PLURAL:$1|0=characters|character|characters}}";
+"aaald-deleted-text-description-2" = "$1 נמחקו";
 "aaald-error-subitle" = "נא לרענן כדי לנסות שוב";
 "aaald-error-title" = "לא ניתן לטעון היסטוריית ערך להצגה פנימית";
 "aaald-many-sections-description" = "ב־$1 פרקים";
@@ -42,10 +44,13 @@
 "aaald-new-website-reference-archive-date-text" = "מהמקור ב־$1";
 "aaald-new-website-reference-archive-url-text" = "כתובת אצל Archive.org";
 "aaald-new-website-reference-title" = "אתר אינטרנט";
+"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=לא נוספו מקורות|מקור אחד נוסף|$1 מקורות נוספו}}";
 "aaald-one-section-description" = "בפרק $1";
 "aaald-revision-by-anonymous" = "עריכה של משתמש אלמוני";
 "aaald-revision-userInfo" = "עריכה מאת $1 ($2 עריכות)";
 "aaald-single-reference-added-description" = "נוסף מקור";
+"aaald-small-change-description" = "{{PLURAL:$1|0=לא בוצעו שינויים קטנים|בוצע שינוי קטן|בוצעו $1 שינויים קטנים}}";
+"aaald-summary-title" = "{{PLURAL:$1|0=0 שינויים|שינוי אחד|$1 שינויים}} מאת {{PLURAL:$2|0=0 עורכים|עורך או עורכת|$2 עורכים}} תוך {{PLURAL:$3|0=0 ימים|1=יום|2=יומיים|$3 ימים}}";
 "aaald-two-sections-description" = "בפרקים $1 ו$2";
 "aaald-vandalism-revert-description" = "חשש להשחתה הוחזר למוטב";
 "aaald-view-full-history-button" = "הצגת ההיסטוריה המלאה של הערך";
@@ -555,6 +560,7 @@
 "on-this-day-detail-header-date-range" = "מ־$1 עד $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|אירוע היסטורי|$1 אירועים היסטוריים}}";
 "on-this-day-footer" = "עוד אירועים היסטוריים ביום הזה";
+"on-this-day-footer-showing-event-count" = "{{PLURAL:$1|אירוע היסטורי נוסף|$1 אירועים היסטוריים נוספים}} ביום הזה";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 מתוך ויקיפדיה ב$2";
 "on-this-day-title" = "ביום הזה";
 "original-tab-button-popover-description" = "ניתן ללחוץ על 'W' כדי לחזור ללשונית שהתחלת ממנה";

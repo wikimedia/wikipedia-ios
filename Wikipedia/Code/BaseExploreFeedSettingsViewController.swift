@@ -111,7 +111,7 @@ class ExploreFeedSettingsLanguage: ExploreFeedSettingsItem {
         title = languageLink.localizedName
         subtitle = languageLink.languageCode.uppercased()
         self.controlTag = controlTag
-        siteURL = languageLink.siteURL()
+        siteURL = languageLink.siteURL
         updateIsOn(for: displayType)
     }
 
@@ -318,5 +318,31 @@ extension BaseExploreFeedSettingsViewController {
 extension BaseExploreFeedSettingsViewController: WMFSettingsTableViewCellDelegate {
     open func settingsTableViewCell(_ settingsTableViewCell: WMFSettingsTableViewCell!, didToggleDisclosureSwitch sender: UISwitch!) {
         assertionFailure("Subclassers should override")
+    }
+}
+
+// MARK: - MWKLanguageLink Convenience Methods
+
+fileprivate extension MWKLanguageLink {
+    private var feedContentController: WMFExploreFeedContentController {
+        MWKDataStore.shared().feedContentController
+    }
+    
+    /**
+     Flag indicating whether there are any visible customizable feed content sources in this language.
+     Returns true if there is at least one content source in this language visible in the feed.
+     Returns false if there are no content sources in this language visible in the feed.
+     */
+    var isInFeed: Bool {
+        feedContentController.anyContentGroupsVisibleInTheFeed(forSiteURL: siteURL)
+    }
+    
+    /**
+     Flag indicating whether the content group of given kind is visible in the feed in this language.
+     Returns YES if the content group of given kind is visible in the feed in this language.
+     Returns NO if the content group of given kind is not visible in the feed in this language.
+     */
+    func isInFeed(for contentGroupKind: WMFContentGroupKind) -> Bool {
+        feedContentController.languageCodes(for: contentGroupKind).contains(languageCode)
     }
 }
