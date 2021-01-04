@@ -9,11 +9,21 @@
 // Author: Ninjastrikers
 // Author: Teitei
 
+"aaald-added-text-description-2" = "$1 ပေါင်းထည့်ခဲ့သည်";
+"aaald-article-description-updated-description" = "ဆောင်းပါးခေါင်းစဉ်ဖော်ပြချက် မွမ်းမံခဲ့သည်";
+"aaald-article-insert-header" = "သိသာသော မွမ်းမံမှုများ";
 "aaald-article-insert-last-updated" = "နောက်ဆုံး မွမ်းမံခဲ့သည်";
 "aaald-article-insert-new-changes" = "ပြောင်းလဲမှု အသစ်များ";
 "aaald-article-insert-read-more" = "ပိုမိုသောမွမ်းမံမှုများ ဖတ်ရန်";
+"aaald-deleted-text-description-2" = "$1 ဖျက်ခဲ့သည်";
+"aaald-multiple-changes-description" = "အပြောင်းအလဲများစွာ ပြုလုပ်ခဲ့သည်";
+"aaald-multiple-references-added-description" = "အကိုးအကားများစွာ ပေါင်းထည့်ခဲ့သည်";
+"aaald-new-book-reference-title" = "စာအုပ်";
+"aaald-new-discussion" = "ဆွေးနွေးချက် အသစ်";
+"aaald-new-journal-reference-database" = "$1 မှတဆင့်";
 "aaald-new-journal-reference-title" = "ဂျာနယ်";
 "aaald-new-news-reference-title" = "သတင်းများ";
+"aaald-new-talk-topic-description-format" = "ဤဆောင်းပါးအကြောင်း $1";
 "aaald-new-website-reference-title" = "ဝဘ်ဆိုဒ်";
 "aaald-revision-by-anonymous" = "အမည်မသိအသုံးပြုသူမှ တည်းဖြတ်မှု";
 "aaald-revision-userInfo" = "$1 မှ တည်းဖြတ်မှု ($2 တည်းဖြတ်မှုများ)";
@@ -32,6 +42,7 @@
 "about-places-maps-license-details-link-text" = "လိုင်စင်အသေးစိတ်အတွက် ဤနေရာတွင်ကြည့်ပါ";
 "about-product-of" = "သင်ကဲ့သို့သော စေတနာ့ဝန်ထမ်းများ၏ အကူအညီဖြင့် $1 မှပြုလုပ်ထားသည်";
 "about-repositories-app-source-license" = "ရင်းမြစ်ကုဒ်ကို $1 အောက်တွင် ရရှိနိုင်ပါသည်။";
+"about-repositories-app-source-license-mit" = "MIT လိုင်စင်";
 "about-send-feedback" = "app အကြံပြုချက် ပို့ရန်";
 "about-testers" = "စမ်းသပ်သူများ";
 "about-title" = "အကြောင်း";
@@ -164,6 +175,8 @@
 "diff-compare-header-to-info-heading" = "သို့ -";
 "diff-context-lines-collapsed-button-title" = "ပြသရန်";
 "diff-context-lines-expanded-button-title" = "ဝှက်ရန်";
+"diff-paragraph-moved-direction-down" = "အောက်";
+"diff-paragraph-moved-direction-up" = "အပေါ်";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 တည်းဖြတ်မှု|$1 တည်းဖြတ်မှုများ}}";
 "diff-single-header-editor-title" = "တည်းဖြတ်သူ အချက်အလက်";
 "diff-single-header-summary-heading" = "အကျဉ်းချုပ်ကို တည်းဖြတ်ရန်";
@@ -232,8 +245,7 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "အကုန်ဖွင့်ရန်";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "ဖွင့်";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "ဖွင့် $1";
-// Fuzzy
-"explore-feed-preferences-feed-cards-hidden-title" = "%@ကဒ်အားလုံး ဝှက်ပြီး";
+"explore-feed-preferences-feed-cards-hidden-title" = "$1 ကဒ်အားလုံး ဝှက်ပြီး";
 "explore-feed-preferences-global-cards-subtitle" = "ဘာသာစကား မသတ်မှတ်ထားပါ";
 "explore-feed-preferences-global-cards-title" = "ကလိုဘယ် ကဒ်များ";
 "explore-feed-preferences-hide-card-action-title" = "ဤကဒ်ကို ဝှက်";
@@ -346,6 +358,7 @@
 "insert-media-image-preview-select-image-action-title" = "ရုပ်ပုံ ရွေးချယ်ရန်";
 "insert-media-image-size-setting-custom" = "စိတ်ကြိုက်";
 "insert-media-image-size-setting-default" = "နဂိုအတိုင်း";
+"insert-media-image-size-settings-title" = "ရုပ်ပုံ အရွယ်အစား";
 "insert-media-image-type-setting-thumbnail" = "နမူနာပုံငယ်";
 "insert-media-image-type-settings-title" = "ပုံအမျိုးအစား";
 "insert-media-media-settings-title" = "မီဒီယာ အပြင်အဆင်များ";
@@ -376,8 +389,7 @@
 "main-menu-title" = "ပို၍";
 "main-menu-zero-faq" = "ဝီကီပီးဒီးယားသုည FAQ";
 "menu-cancel-accessibility-label" = "မလုပ်တော့ပါ";
-// Fuzzy
-"more-languages-tooltip-description" = "ဝီကီပီးဒီးယားကို ဘာသာစကားပေါင်း ၃၀၀ နီးပါးခန့်တွင် ရှာဖွေရန်";
+"more-languages-tooltip-description" = "ဝီကီပီးဒီးယားကို ဘာသာစကားပေါင်း ၃၀၀ ကျော်ခန့်တွင် ရှာဖွေရန်";
 "more-languages-tooltip-title" = "ဘာသာစကားများ ထည့်သွင်းရန်";
 "move-articles-to-reading-list" = "စာဖတ်စာရင်းသို့ ဆောင်းပါးပေါင်း {{PLURAL:$1|$1 ခု|$1 ခု}} ရွေ့ရန်";
 "navbar-title-mode-edit-wikitext-preview" = "နမူနာ";
@@ -406,6 +418,7 @@
 "page-history-revision-minor-edit-accessibility-label" = "အရေးမကြီးသည့် တည်းဖြတ်မှု";
 "page-history-stats-text" = "$2 ကတည်းက {{PLURAL:$1|$1 တည်းဖြတ်မှု|$1 တည်းဖြတ်မှုများ}}";
 "page-history-user-edits" = "အသုံးပြုသူ တည်းဖြတ်မှု";
+"page-issues" = "စာမျက်နှာ ကိစ္စရပ်များ";
 "page-location" = "မြေပုံပေါ်တွင် ကြည့်ရန်";
 "page-protected-autoconfirmed" = "ဤစာမျက်နှာအား တစ်စိတ်တစ်ပိုင်း ကာကွယ်ထားသည်။";
 "page-protected-can-not-edit" = "ဤစာမျက်နှာကို တည်းဖြတ်ခွင့်မရှိပါ";

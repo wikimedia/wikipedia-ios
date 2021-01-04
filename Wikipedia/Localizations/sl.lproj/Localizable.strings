@@ -67,7 +67,7 @@
 "appearance-settings-expand-tables" = "Razširite tabele";
 "article-delete" = "Izbriši";
 "article-languages-filter-placeholder" = "Najdi jezik";
-"article-languages-label" = "Izberi jezik";
+"article-languages-label" = "Izberite jezik";
 "article-languages-others" = "Drugi jeziki";
 "article-languages-yours" = "Vaši jeziki";
 "article-share" = "Deli";
@@ -181,7 +181,7 @@
 "insert-media-image-position-setting-none" = "Brez";
 "insert-media-image-position-setting-right" = "Desno";
 "insert-media-image-preview-more-information-action-title" = "Več informacij";
-"insert-media-image-preview-select-image-action-title" = "Izberi sliko";
+"insert-media-image-preview-select-image-action-title" = "Izberite sliko";
 "insert-media-image-size-setting-custom" = "Po meri";
 "insert-media-image-size-setting-default" = "Privzeto";
 "insert-media-image-size-settings-px-unit-name" = " točk";
