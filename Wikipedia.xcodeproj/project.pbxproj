@@ -4846,7 +4846,10 @@
 		D8FFF6942031CB4000A028E0 /* tcy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = tcy; path = tcy.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		FF2090EE2500247100849774 /* ThreeLineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeLineHeaderView.swift; sourceTree = "<group>"; };
 		FF2B210F254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorCollectionViewFooter.swift; sourceTree = "<group>"; };
+		FF338A0A258D572900292602 /* nqo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nqo; path = nqo.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FF338A0B258D572900292602 /* nqo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = nqo; path = nqo.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		FF59DF4C2555E0CB0048E66C /* InternalLinkPreviewing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalLinkPreviewing.swift; sourceTree = "<group>"; };
+		FF6A77E8258D68E7006FA238 /* nqo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nqo; path = nqo.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FF921856252E8F4F00C39A8F /* ThanksGiving.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThanksGiving.swift; sourceTree = "<group>"; };
 		FF9416D724E203030070FEE7 /* OnThisDayWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnThisDayWidget.swift; sourceTree = "<group>"; usesTabs = 0; };
 		FF9416DD24E2098C0070FEE7 /* OnThisDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnThisDayView.swift; sourceTree = "<group>"; };
@@ -9133,6 +9136,7 @@
 				ga,
 				sl,
 				hr,
+				nqo,
 			);
 			mainGroup = D499142C181D51DE00E6073C;
 			packageReferences = (
@@ -12513,6 +12517,7 @@
 				D801C9211EB8E131001FA294 /* yi */,
 				D801C9231EB8E131001FA294 /* zh-hans */,
 				D801C9251EB8E131001FA294 /* zh-hant */,
+				FF6A77E8258D68E7006FA238 /* nqo */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -12614,6 +12619,7 @@
 				8361AEC621949665006B00B0 /* ga */,
 				83CF71432326D47E009DEC00 /* sl */,
 				834C269B24042DBF00245BE7 /* hr */,
+				FF338A0A258D572900292602 /* nqo */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -12723,6 +12729,7 @@
 				8361AEC721949670006B00B0 /* ga */,
 				83CF71442326D48A009DEC00 /* sl */,
 				834C269C24042DCF00245BE7 /* hr */,
+				FF338A0B258D572900292602 /* nqo */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";

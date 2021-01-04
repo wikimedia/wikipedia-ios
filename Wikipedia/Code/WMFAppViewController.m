@@ -264,7 +264,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 }
 
 - (NSURL *)siteURL {
-    return [[self.dataStore.languageLinkController appLanguage] siteURL];
+    return self.dataStore.primarySiteURL;
 }
 
 #pragma mark - Setup

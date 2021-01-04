@@ -604,13 +604,17 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     [self clearMemoryCache];
 }
 
-#pragma - Accessors
+#pragma mark - Accessors
 
 - (MWKRecentSearchList *)recentSearchList {
     if (!_recentSearchList) {
         _recentSearchList = [[MWKRecentSearchList alloc] initWithDataStore:self];
     }
     return _recentSearchList;
+}
+
+- (nullable NSURL*)primarySiteURL {
+    return self.languageLinkController.appLanguage.siteURL;
 }
 
 #pragma mark - History and Saved Page List
@@ -968,7 +972,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 #pragma mark - WMFAuthenticationManagerDelegate
 
 - (nullable NSURL*)loginSiteURL {
-    return self.languageLinkController.appLanguage.siteURL;
+    return self.primarySiteURL;
 }
 
 - (void)authenticationManagerDidLogin {
