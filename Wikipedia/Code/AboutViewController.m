@@ -270,7 +270,7 @@ static NSString *const kWMFContributorsKey = @"contributors";
     return NO;
 }
 
-#pragma mark - UIWebViewDelegate
+#pragma mark - WKWebViewDelegate
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     WKNavigationType navigationType = navigationAction.navigationType;
