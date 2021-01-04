@@ -131,7 +131,7 @@ class TalkPageController {
             return
         }
         
-        let wrappedBody = "<p>\n\n" + body + "\(signatureIfAutoSignEnabled)</p>"
+        let wrappedBody = "\n\n" + body + "\(signatureIfAutoSignEnabled)"
         fetcher.addTopic(to: title, siteURL: siteURL, subject: subject, body: wrappedBody) { (result) in
             switch result {
             case .success(let result):
@@ -169,7 +169,7 @@ class TalkPageController {
             return
         }
 
-        let wrappedBody = "<p>\n\n" + body + "\(signatureIfAutoSignEnabled)</p>"
+        let wrappedBody = "\n\n" + body + "\(signatureIfAutoSignEnabled)"
         let talkPageTopicID = topic.objectID
         guard let talkPageObjectID = topic.talkPage?.objectID else {
             completion(.failure(TalkPageError.topicMissingTalkPageRelationship))
