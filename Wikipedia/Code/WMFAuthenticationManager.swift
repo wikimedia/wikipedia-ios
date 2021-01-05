@@ -123,13 +123,13 @@ import CocoaLumberjackSwift
         self.loginWithSavedCredentials(reattemptOn401Response: reattemptOn401Response) { (loginResult) in
             switch loginResult {
             case .success(let result):
-                DDLogDebug("\n\nSuccessfully logged in with saved credentials for user \(result.username).\n\n")
+                DDLogDebug("Successfully logged in with saved credentials for user \(result.username).")
                 self.session.cloneCentralAuthCookies()
             case .alreadyLoggedIn(let result):
-                DDLogDebug("\n\nUser \(result.name) is already logged in.\n\n")
+                DDLogDebug("User \(result.name) is already logged in.")
                 self.session.cloneCentralAuthCookies()
             case .failure(let error):
-                DDLogDebug("\n\nloginWithSavedCredentials failed with error \(error).\n\n")
+                DDLogDebug("loginWithSavedCredentials failed with error \(error).")
             }
             DispatchQueue.main.async {
                 completion(loginResult)

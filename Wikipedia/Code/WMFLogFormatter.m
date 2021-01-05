@@ -15,19 +15,19 @@ static NSString *cachedApplicationName;
     NSString *level = @"";
     switch (logMessage->_flag) {
         case DDLogFlagVerbose:
-            level = @"V";
+            level = @"🗣️ VERBOSE";
             break;
         case DDLogFlagDebug:
-            level = @"D";
+            level = @"🐛 DEBUG";
             break;
         case DDLogFlagInfo:
-            level = @"I";
+            level = @"ℹ️ INFO";
             break;
         case DDLogFlagWarning:
-            level = @"W";
+            level = @"⚠️ WARN";
             break;
         case DDLogFlagError:
-            level = @"E";
+            level = @"🚨 ERROR";
             break;
         default:
             break;
