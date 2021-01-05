@@ -4,11 +4,13 @@
 
 @class MWKDataStore;
 
-extern NSString *_Nonnull const WMFExploreFeedPreferencesGlobalCardsKey;
-extern NSString *_Nonnull const WMFExploreFeedContentControllerBusyStateDidChange;
-extern NSString *_Nonnull const WMFExploreFeedPreferencesDidChangeNotification;
-extern NSString *_Nonnull const WMFExploreFeedPreferencesDidSaveNotification;
-extern NSString *_Nonnull const WMFNewExploreFeedPreferencesWereRejectedNotification;
+NS_ASSUME_NONNULL_BEGIN
+
+extern NSString *const WMFExploreFeedPreferencesGlobalCardsKey;
+extern NSString *const WMFExploreFeedContentControllerBusyStateDidChange;
+extern NSString *const WMFExploreFeedPreferencesDidChangeNotification;
+extern NSString *const WMFExploreFeedPreferencesDidSaveNotification;
+extern NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification;
 
 extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 
@@ -29,7 +31,7 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 
 - (void)performDeduplicatedFetch:(nullable dispatch_block_t)completion;
 
-- (void)updateContentSource:(nonnull Class)class force:(BOOL)force completion:(nullable dispatch_block_t)completion;
+- (void)updateContentSource:(Class)class force:(BOOL)force completion:(nullable dispatch_block_t)completion;
 
 // Preferences
 
@@ -40,7 +42,7 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
  @param isOn A flag that indicates whether all customizable content groups should be visible or hidden for a given siteURL in the feed.
  @param updateFeed A flag that indicates whether feed should be updated after Explore feed preferences are updated.
  */
--(void)toggleContentForSiteURL:(nonnull NSURL *)siteURL isOn:(BOOL)isOn waitForCallbackFromCoordinator:(BOOL)waitForCallbackFromCoordinator updateFeed:(BOOL)updateFeed;
+-(void)toggleContentForSiteURL:(NSURL *)siteURL isOn:(BOOL)isOn waitForCallbackFromCoordinator:(BOOL)waitForCallbackFromCoordinator updateFeed:(BOOL)updateFeed;
 
 /**
  Toggles a content group of given kind on or off for all preferred languages.
@@ -59,7 +61,7 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
  @param isOn A flag indicating whether the group should be visible in the feed or not.
  @param siteURL A Wikipedia site url for which a content group of given kind will be visible or hidden in the feed.
  */
-- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn forSiteURL:(nonnull NSURL *)siteURL updateFeed:(BOOL)updateFeed;
+- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn forSiteURL:(NSURL *)siteURL updateFeed:(BOOL)updateFeed;
 
 - (void)toggleAllContentGroupKinds:(BOOL)on updateFeed:(BOOL)updateFeed;
 
@@ -82,17 +84,17 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 /**
  Returns a flag indicating whether there are any customizable content groups visible in the feed for a given siteURL.
  */
-- (BOOL)anyContentGroupsVisibleInTheFeedForSiteURL:(nonnull NSURL *)siteURL;
+- (BOOL)anyContentGroupsVisibleInTheFeedForSiteURL:(NSURL *)siteURL;
 
 /**
  Returns a set of integers that represent customizable content group kinds.
  */
-+ (nonnull NSSet<NSNumber *> *)customizableContentGroupKindNumbers;
++ (NSSet<NSNumber *> *)customizableContentGroupKindNumbers;
 
 /**
  Returns a set of integers that represent non-language specific content group kinds.
  */
-+ (nonnull NSSet<NSNumber *> *)globalContentGroupKindNumbers;
++ (NSSet<NSNumber *> *)globalContentGroupKindNumbers;
 
 /**
  Indicates whether non-language specific group kinds are visible in the feed.
@@ -101,7 +103,7 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 
 - (BOOL)isGlobalContentGroupKindInFeed:(WMFContentGroupKind)contentGroupKind;
 
-- (void)saveNewExploreFeedPreferences:(nonnull NSDictionary *)newExploreFeedPreferences apply:(BOOL)apply updateFeed:(BOOL)updateFeed;
+- (void)saveNewExploreFeedPreferences:(NSDictionary *)newExploreFeedPreferences apply:(BOOL)apply updateFeed:(BOOL)updateFeed;
 - (void)rejectNewExploreFeedPreferences;
 
 - (void)dismissCollapsedContentGroups;
@@ -114,3 +116,5 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 #endif
 
 @end
+
+NS_ASSUME_NONNULL_END
