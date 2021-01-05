@@ -6,12 +6,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  * Reads previously selected languages from storage.
- * @return The preferred languages, or an empty array of none were previously added to the preferred list.
+ * @return The preferred languages, or an empty array if none were previously added to the preferred list.
  */
-- (NSArray<NSString *> *)readPreferredLanguageCodesWithoutOSPreferredLanguages;
+- (NSArray<NSString *> *)readSavedPreferredLanguageCodes;
 
 /**
- * The same as above, but adds OS preferred languages if they are not in the array
+ * The same as above, but adds OS preferred languages if the saved array is empty
  * @return The preferred languages.
  */
 - (NSArray<NSString *> *)readPreferredLanguageCodes;

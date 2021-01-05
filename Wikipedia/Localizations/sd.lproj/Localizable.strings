@@ -7,6 +7,35 @@
 // Author: Nemo bis
 // Author: Tweety
 
+"aaald-added-text-description-2" = "$1 شامل ڪيل";
+"aaald-article-description-updated-description" = "مضمون جي عنوان جي تشريح جي تجديد ٿي وئي";
+"aaald-article-insert-header" = "وڏيون تجديدون";
+"aaald-article-insert-last-updated" = "آخري ڀيرو تجديد ٿي";
+"aaald-article-insert-new-changes" = "نيون تبديليون";
+"aaald-article-insert-read-more" = "وڌيڪ تجديدون پڙھو";
+"aaald-characters-text-description" = "{{PLURAL:$1|0=حرفَ|حرف|حرفَ}}";
+"aaald-deleted-text-description-2" = "$1 ڊاٿا ويا";
+"aaald-error-subitle" = "ٻيھر ڪوشش ڪرڻ لاءِ تازو ڪريو";
+"aaald-many-sections-description" = "$1 حصن ۾";
+"aaald-multiple-changes-description" = "ڪيتريون ئي تبديليون ڪيون ويون";
+"aaald-multiple-references-added-description" = "ڪيترائي حوالا وڌا ويا";
+"aaald-new-book-reference-title" = "ڪتاب";
+"aaald-new-discussion" = "نئون حصو";
+"aaald-new-journal-reference-database" = "$1 ذريعي";
+"aaald-new-journal-reference-title" = "جرنل";
+"aaald-new-journal-reference-volume" = "جلد $1:";
+"aaald-new-news-reference-title" = "خبرون";
+"aaald-new-talk-topic-description-format" = "ھن مضمون بابت $1";
+"aaald-new-website-reference-title" = "ويب سائيٽ";
+"aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 حوالا|$1 حوالو|$1 حوالا}} وڌا/وڌو ويا/ويو";
+"aaald-one-section-description" = "$1 حصي ۾";
+"aaald-revision-by-anonymous" = "غمنام واپرائيندڙ پاران سنوار";
+"aaald-revision-userInfo" = "$1 پاران سنوار ($2 سنوارون)";
+"aaald-single-reference-added-description" = "حوالو وڌو ويو";
+"aaald-small-change-description" = "{{PLURAL:$1|0=ڪي بہ ننڍيون تبديليون نہ ڪيون ويون|$1 ننڍي تبديلي ڪئي وئي|$1 ننڍيون تبديليون ڪيون ويون}}";
+"aaald-summary-title" = "{{PLURAL:$3|0=0 ڏينھن|$3 ڏينھن|$3 ڏينھن}} ۾ {{PLURAL:$2|0=0 سنواريندڙن|$2 سنواريندڙ|$2 سنواريندڙن}} پاران {{PLURAL:$1|0=0 تبديليون|$1 تبديلي|$1 تبديليون}}";
+"aaald-two-sections-description" = "$1 ۽ $2 حصن ۾";
+"aaald-view-full-history-button" = "مضمون جي مڪمل سوانح ڏسو";
 "about-content-license" = "مواد جو اجازتنامو";
 "about-content-license-details" = "مواد $1 ھيٺ موجود آھي، نہ تہ ٻي صورت ۾ واضع ڪيل آھي.";
 "about-content-license-details-share-alike-license" = "ڪريئيٽو ڪامنز انتساب-ھڪجھڙي-ونڊ اجازتنامو";
@@ -71,6 +100,7 @@
 "action-remove" = "هٽايو";
 "action-replace" = "مٽايو";
 "action-replace-all" = "سڀ مٽايو";
+"action-retry" = "ٻيھر ڪوشش ڪريو";
 "action-save" = "سانڍيو";
 "action-saved" = "سانڍيل";
 "action-saved-accessibility" = "سانڍيل. اڻسانڍڻ لاءِ سرگرم ڪريو.";
@@ -98,12 +128,15 @@
 "appearance-settings-set-automatic-table-opening" = "جدول جون ترتيبون";
 "appearance-settings-text-sizing-example-text" = "اکرن جي ماپ بدلائڻ لاءِ ترڪائيندڙ کي ڇڪيو. پنھنجي سرشتي جي متن کي ڪتب آڻيندي ايپ جي ٻين متن ايراضين کي بدلايو.";
 "appearance-settings-theme-options" = "نظارن جا چارا";
+"article-about-title" = "ھن مضمون بابت";
 "article-delete" = "ڊاھيو";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|مضمون|مضمونَ}} ڊھيل";
 "article-languages-filter-placeholder" = "ٻولي لھو";
 "article-languages-label" = "ٻولي چونڊيو";
 "article-languages-others" = "ٻيون ٻوليون";
 "article-languages-yours" = "توھان جون ٻوليون";
+"article-read-more-title" = "وڌيڪ پڙھو";
+"article-reference-view-title" = "حوالو $1";
 "article-save-error-not-enough-space" = "توھان کي پنھنجي آلي تي ايتري جڳھ ناھي جو ھي مضمون سانڍي سگھجي";
 "article-share" = "ونڊيو";
 "article-toolbar-reading-themes-controls-toolbar-item" = "پڙھڻ جي نظارن جا ضابطا";
@@ -125,6 +158,7 @@
 "compass-direction" = " $1 بجي";
 "continue-reading-empty-description" = "وڪيپيڊيا کي وڌيڪ مضمون پڙھڻ لاءِ کوجيو";
 "continue-reading-empty-title" = "ڪي بہ تازو پڙھيل مضمون ناھن";
+"data-migration-status" = "تجديد ڪندي...";
 "description-add-title" = "تشريح وجھو";
 "description-edit-for-article" = "$1 لاءِ عنوان جي تشريح";
 "description-edit-learn-more" = "وڌيڪ سکو";
@@ -397,8 +431,7 @@
 "in-the-news-currently-trending" = "ھاڻوڪا رجحان";
 "in-the-news-notification-read-now-action-title" = "ھاڻي پڙھو";
 "in-the-news-notification-save-for-later-action-title" = "بعد لاءِ سانڍيو";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "ونڊيو...";
+"in-the-news-notification-share-action-title" = "ونڊيو…";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 وڪيپيڊيا مان";
 "in-the-news-sub-title-from-wikipedia" = "وڪيپيڊيا تان";
 "in-the-news-title" = "خبرن ۾";
@@ -455,8 +488,7 @@
 "main-menu-title" = "وڌيڪ";
 "main-menu-zero-faq" = "وڪيپيڊيا زيرو FAQ";
 "menu-cancel-accessibility-label" = "رد";
-// Fuzzy
-"more-languages-tooltip-description" = "وڪيپيڊيا کي لڳ ڀڳ 300 ٻولين ۾ ڳوليو";
+"more-languages-tooltip-description" = "وڪيپيڊيا کي 300 کان مٿي ٻولين ۾ ڳوليو";
 "more-languages-tooltip-title" = "ٻوليون وجھو";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1 مضمون|$1 مضمونَ}} پڙھڻ جي فھرست ڏانھن چوريو";
 "navbar-title-mode-edit-wikitext-preview" = "پيش-نگاھ";
@@ -495,11 +527,14 @@
 "page-history-revisions-comparison-warning" = "صرف ٻہ ورجاءَ چونڊي سگھجن ٿا";
 "page-history-stats-text" = "$2 کان {{PLURAL:$1|$1 سنوار|$1 سنوارون}}";
 "page-history-user-edits" = "واپرائيندڙ سنوارون";
+"page-issues" = "صفحي جا مسئلا";
+"page-location" = "نقشي تي ڏسو";
 "page-protected-autoconfirmed" = "هيءُ صفحو نيم تحفظيل آهي.";
 "page-protected-can-not-edit" = "توهان کي هيءُ صفحو سنوارڻ جا حق حاصل نہ آهن";
 "page-protected-can-not-edit-title" = "هيءُ صفحو تحفظيل آهي";
 "page-protected-other" = "هيءُ صفحو هيٺين سطحن تائين تحفظيل آهي: $1";
 "page-protected-sysop" = "هيءُ صفحو پوريءَ ريت تحفظيل آهي.";
+"page-similar-titles" = "ملندڙ صفحا";
 "panel-compare-revisions-title" = "ورجاءَ ڀيٽيندي";
 "pictured" = "تصوير لڳل";
 "places-accessibility-clear-saved-searches" = "سانڍيل ڳولائون ختم ڪريو";
@@ -678,6 +713,8 @@
 "table-of-contents-close-accessibility-hint" = "بند ڪريو";
 "table-of-contents-close-accessibility-label" = "عنوانن جي فھرست بند ڪريو";
 "table-of-contents-heading" = "فھرست";
+"table-of-contents-hide-button-label" = "عنوانن جي فھرست لڪايو";
+"table-of-contents-subheading-label" = "ذيلي-سرخي $1";
 "talk-page-add-discussion-accessibility-label" = "تبصرو وجھو";
 "talk-page-discussion-accessibility-hint" = "تبصرو ڏور کولڻ لاءِ ٻٽو ڇھو";
 "talk-page-discussion-read-accessibility-label" = "پڙھو";
@@ -733,8 +770,7 @@
 "welcome-explore-continue-button" = "شروع ڪريو";
 "welcome-explore-new-ways-title" = "کوجنا ڪرڻ جا نوان گس";
 "welcome-explore-tell-me-more-done-button" = "سمجھي ويا";
-// Fuzzy
-"welcome-intro-free-encyclopedia-description" = "وڪيپيڊيا رضاڪارن پاران گڏجي لکيل آھي ۽ ان ۾ تقريبن 300 ٻولين ۾ 40 ملين مضمون آھن.";
+"welcome-intro-free-encyclopedia-description" = "وڪيپيڊيا رضاڪارن پاران گڏجي لکيل آھي ۽ ان ۾ 300 کان مٿي ٻولين ۾ 40 ملين مضمون آھن.";
 "welcome-intro-free-encyclopedia-more" = "وڪيپيڊيا بابت وڌيڪ ڄاڻو";
 "welcome-intro-free-encyclopedia-more-about" = "وڪيپيڊيا بابت";
 "welcome-intro-free-encyclopedia-more-description" = "دنيا جي سڀني ٻولين ۾ آزاد ڄاڻ-چيڪلو ٺاھڻ لاءِ وڪيپيڊيا ھڪ عالمي رٿا آھي. اڻڌري، باحوالا معلومات جي ڀاڱيداري ڪري عملً ڪوبہ انٽرنيٽ رسائي سان شامل ٿيڻ لاءِ آزاد آھي.";
@@ -742,8 +778,7 @@
 "welcome-languages-add-button" = "ٻي ٻولي وجھو";
 "welcome-languages-add-or-edit-button" = "ترجيحي ٻوليون وجھو يا سنواريو";
 "welcome-languages-description" = "اسان توھان جي اوزار تي ھي ٻوليو لڌيون آھن:";
-// Fuzzy
-"welcome-languages-search-title" = "لڳ ڀڳ 300 ٻولين ۾ ڳوليو";
+"welcome-languages-search-title" = "300 کان مٿي ٻولين ۾ ڳوليو";
 "welcome-notifications-tell-me-more-creation" = "اطلاع اسان (يا ٽين ڌر) جي سرورن پاران نہ پر ايپ پاران توھان جي ڊوائيس تي سرجيا ۽ فراھم ڪيا ويا آھن.";
 "welcome-notifications-tell-me-more-storage" = "اطلاعن جو ترجيحون توھان جي ڊوائيس تي سانڍيل آھن ۽ اھي ذاتي معلومات يا سرگرمي تي ٻڌل نہ آھن.";
 "welcome-notifications-tell-me-more-title" = "اطلاعن بابت وڌيڪ";

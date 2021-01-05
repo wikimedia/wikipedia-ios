@@ -18,8 +18,6 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
 
 @implementation MWKLanguageLinkController
 
-static id _sharedInstance;
-
 - (instancetype)initWithManagedObjectContext:(NSManagedObjectContext *)moc {
     if (self = [super init]) {
         self.moc = moc;
@@ -121,7 +119,7 @@ static id _sharedInstance;
 #pragma mark - Reading/Saving Preferred Language Codes
 
 - (NSArray<NSString *>
-   *)readPreferredLanguageCodesWithoutOSPreferredLanguages {
+   *)readSavedPreferredLanguageCodes {
     __block NSArray<NSString *> *preferredLanguages = nil;
     [self.moc performBlockAndWait:^{
         preferredLanguages = [self.moc wmf_arrayValueForKey:WMFPreviousLanguagesKey] ?: @[];
@@ -129,20 +127,11 @@ static id _sharedInstance;
     return preferredLanguages;
 }
 
-- (NSArray<NSString *> *)readOSPreferredLanguageCodes {
-    NSArray<NSString *> *osLanguages = [[NSLocale preferredLanguages] wmf_mapAndRejectNil:^NSString *(NSString *languageCode) {
-        NSLocale *locale = [NSLocale localeWithLocaleIdentifier:languageCode];
-        // use language code when determining if a langauge is preferred (e.g. "en_US" is preferred if "en" was selected)
-        return [locale objectForKey:NSLocaleLanguageCode];
-    }];
-    return osLanguages;
-}
-
 - (NSArray<NSString *> *)readPreferredLanguageCodes {
-    NSMutableArray<NSString *> *preferredLanguages = [[self readPreferredLanguageCodesWithoutOSPreferredLanguages] mutableCopy];
-    NSArray<NSString *> *osLanguages = [self readOSPreferredLanguageCodes];
+    NSMutableArray<NSString *> *preferredLanguages = [[self readSavedPreferredLanguageCodes] mutableCopy];
 
     if (preferredLanguages.count == 0) {
+        NSArray<NSString *> *osLanguages = NSLocale.wmf_preferredLocaleLanguageCodes;
         [osLanguages enumerateObjectsWithOptions:0
                                       usingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
                                           if (![preferredLanguages containsObject:obj]) {

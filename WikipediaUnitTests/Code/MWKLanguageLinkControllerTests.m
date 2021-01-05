@@ -30,9 +30,9 @@
     [self.controller resetPreferredLanguages];
 }
 
-//- (void)testReadPreviouslySelectedLanguagesReturnsEmpty {
-//    assertThat([self.controller readPreferredLanguageCodesWithoutOSPreferredLanguages], hasCountOf(0));
-//}
+- (void)testReadPreviouslySelectedLanguagesReturnsEmpty {
+    XCTAssertEqual([[self.controller readSavedPreferredLanguageCodes] count], 0);
+}
 
 - (void)testDefaultsToDevicePreferredLanguages {
     /*
