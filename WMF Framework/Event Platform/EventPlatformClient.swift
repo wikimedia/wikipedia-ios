@@ -388,7 +388,7 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
      * fire-and-forget fashion
      */
     private func postAllScheduled(_ completion: (() -> Void)? = nil) {
-        guard let storageManager = self.storageManager, let streamConfigs = self.streamConfigurations else {
+        guard let storageManager = self.storageManager else {
             completion?()
             return
         }
@@ -404,23 +404,6 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
         let group = DispatchGroup()
         for event in events {
             group.enter()
-
-            guard let streamConfig = streamConfigs[event.stream] else {
-                /// Stream is not configured.
-                DDLogWarn("EPC: Event submitted for stream '\(event.stream.rawValue)' but only the following streams are configured: \(streamConfigs.keys.map(\.rawValue).joined(separator: ", "))")
-                storageManager.markPurgeable(event: event)
-                group.leave()
-                continue
-            }
-
-            guard samplingController.inSample(stream: event.stream, config: streamConfig) else {
-                /// Stream is out of sample. Mark as failed so it will be dropped from storage on the next cleanup.
-                DDLogDebug("EPC: Stream '\(event.stream.rawValue)' is not in sample")
-                storageManager.markPurgeable(event: event)
-                group.leave()
-                continue
-            }
-
             httpPost(url: EventPlatformClient.eventIntakeURI, body: event.data) { result in
                 switch result {
                 case .success:
@@ -614,12 +597,12 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
                 appendEventToInputBuffer(data: data, stream: stream)
                 return
             }
-
             guard let config = streamConfigs[stream] else {
                 DDLogDebug("EPC: Event submitted to '\(stream)' but only the following streams are configured: \(streamConfigs.keys.map(\.rawValue).joined(separator: ", "))")
                 return
             }
             guard samplingController.inSample(stream: stream, config: config) else {
+                DDLogDebug("EPC: Stream '\(stream.rawValue)' is not in sample")
                 return
             }
             storageManager.push(data: data, stream: stream)
