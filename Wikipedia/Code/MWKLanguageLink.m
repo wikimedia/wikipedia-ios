@@ -2,8 +2,6 @@
 #import <WMF/WMFComparison.h>
 #import <WMF/WMFHashing.h>
 #import <WMF/NSURL+WMFLinkParsing.h>
-#import <WMF/MWKDataStore.h>
-#import <WMF/WMFExploreFeedContentController.h>
 
 @interface MWKLanguageLink ()
 
@@ -11,16 +9,12 @@
 @property (readwrite, copy, nonatomic, nonnull) NSString *pageTitleText;
 @property (readwrite, copy, nonatomic, nonnull) NSString *localizedName;
 @property (readwrite, copy, nonatomic, nonnull) NSString *name;
-@property (readonly, copy, nonatomic) WMFExploreFeedContentController *feedContentController;
-@property (readwrite, copy, nonatomic, nullable) NSDictionary<NSString *, WMFLanguageLinkNamespace *> *namespaces;
 
 @end
 
 NS_ASSUME_NONNULL_BEGIN
 
 @implementation MWKLanguageLink
-
-WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink:)
 
 - (instancetype)initWithLanguageCode:(nonnull NSString *)languageCode
                        pageTitleText:(nonnull NSString *)pageTitleText
@@ -36,8 +30,10 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink:)
     return self;
 }
 
+WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink:)
+
 - (BOOL)isEqualToLanguageLink:(MWKLanguageLink *)rhs {
-    return WMF_RHS_PROP_EQUAL(languageCode, isEqualToString:) && WMF_RHS_PROP_EQUAL(pageTitleText, isEqualToString:) && WMF_RHS_PROP_EQUAL(name, isEqualToString:) && WMF_RHS_PROP_EQUAL(localizedName, isEqualToString:) && WMF_RHS_PROP_EQUAL(namespaces, isEqualToDictionary:);
+    return WMF_RHS_PROP_EQUAL(languageCode, isEqualToString:) && WMF_RHS_PROP_EQUAL(pageTitleText, isEqualToString:) && WMF_RHS_PROP_EQUAL(name, isEqualToString:) && WMF_RHS_PROP_EQUAL(localizedName, isEqualToString:);
 }
 
 - (NSComparisonResult)compare:(MWKLanguageLink *)other {
@@ -45,7 +41,7 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink:)
 }
 
 - (NSUInteger)hash {
-    return self.languageCode.hash ^ flipBitsWithAdditionalRotation(self.pageTitleText.hash, 1) ^ flipBitsWithAdditionalRotation(self.name.hash, 2) ^ flipBitsWithAdditionalRotation(self.localizedName.hash, 3) ^ flipBitsWithAdditionalRotation(self.namespaces.hash, 4);
+    return self.languageCode.hash ^ flipBitsWithAdditionalRotation(self.pageTitleText.hash, 1) ^ flipBitsWithAdditionalRotation(self.name.hash, 2) ^ flipBitsWithAdditionalRotation(self.localizedName.hash, 3);
 }
 
 - (NSString *)description {
@@ -55,9 +51,8 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink:)
                           "\tpageTitleText: %@, \n"
                           "\tname: %@, \n"
                           "\tlocalizedName: %@ \n"
-                          "\tnamespaces: %@ \n"
                           "}",
-                         [super description], self.languageCode, self.pageTitleText, self.name, self.localizedName, self.namespaces];
+            [super description], self.languageCode, self.pageTitleText, self.name, self.localizedName];
 }
 
 #pragma mark - Computed Properties
@@ -68,20 +63,6 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink:)
 
 - (NSURL *)articleURL {
     return [[self siteURL] wmf_URLWithTitle:self.pageTitleText];
-}
-
-#pragma Explore feed preferences
-
-- (WMFExploreFeedContentController *)feedContentController {
-    return MWKDataStore.shared.feedContentController;
-}
-
-- (BOOL)isInFeed {
-    return [self.feedContentController anyContentGroupsVisibleInTheFeedForSiteURL:self.siteURL];
-}
-
-- (BOOL)isInFeedForContentGroupKind:(WMFContentGroupKind)contentGroupKind {
-    return [[self.feedContentController languageCodesForContentGroupKind:contentGroupKind] containsObject:self.languageCode];
 }
 
 @end
