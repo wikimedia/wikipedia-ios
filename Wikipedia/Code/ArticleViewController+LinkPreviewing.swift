@@ -98,6 +98,8 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
                 return
         }
 
+        animator.preferredCommitStyle = .pop
+
         animator.addCompletion {
             self.commitPreview(of: vc)
         }
