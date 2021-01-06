@@ -116,7 +116,7 @@ final class OnThisDayData {
         let articleSnippet = WMFLocalizedString("widget-onthisday-placeholder-article-snippet", language: language?.languageCode, value: "Free online encyclopedia that anyone can edit", comment: "Placeholder text for On This Day widget: Article description for an article about Wikipedia")
 
         // It seems that projects whose article is not titled "Wikipedia" (Arabic, for instance) all redirect this URL appropriately.
-        let articleURL = URL(string: ((language?.siteURL().absoluteString ?? "https://en.wikipedia.org") + "/wiki/Wikipedia"))
+        let articleURL = URL(string: ((language?.siteURL.absoluteString ?? "https://en.wikipedia.org") + "/wiki/Wikipedia"))
 
         let entry: OnThisDayEntry = OnThisDayEntry(isRTLLanguage: isRTL,
                                           error: nil,

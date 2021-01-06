@@ -390,7 +390,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     
                     if !englishOnly {
                         if let randomLanguage = dataStore.languageLinkController.allLanguages.randomElement() {
-                            maybeSiteURL = randomLanguage.siteURL()
+                            maybeSiteURL = randomLanguage.siteURL
                         }
                     }
                     

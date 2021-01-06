@@ -489,8 +489,7 @@
 "main-menu-title" = "Meer";
 "main-menu-zero-faq" = "Veelgestelde vragen over Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Annuleren";
-// Fuzzy
-"more-languages-tooltip-description" = "Doorzoek Wikipedia in bijna 300 talen";
+"more-languages-tooltip-description" = "Doorzoek Wikipedia in meer dan 300 talen";
 "more-languages-tooltip-title" = "Talen toevoegen";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1 artikel|$1 artikelen}} naar de leeslijst verplaatsen";
 "navbar-title-mode-edit-wikitext-preview" = "Voorvertoning";
@@ -798,8 +797,7 @@
 "welcome-explore-continue-button" = "Aan de slag";
 "welcome-explore-new-ways-title" = "Nieuwe manieren om te ontdekken";
 "welcome-explore-tell-me-more-done-button" = "Begrepen";
-// Fuzzy
-"welcome-intro-free-encyclopedia-description" = "Wikipedia wordt gezamenlijk geschreven door vrijwilligers en bestaat uit meer dan 40 miljoen artikelen in bijna 300 talen.";
+"welcome-intro-free-encyclopedia-description" = "Wikipedia wordt gezamenlijk geschreven door vrijwilligers en bestaat uit meer dan 40 miljoen artikelen in meer dan 300 talen.";
 "welcome-intro-free-encyclopedia-more" = "Lees meer over Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "Over Wikipedia";
 "welcome-intro-free-encyclopedia-more-description" = "Wikipedia is een wereldwijd project om een vrije encyclopedie te bouwen in alle talen van de wereld. Virtueel kan iedereen met internettoegang vrijelijk deelnemen en bijdragen in neutrale informatie die van bron voorzien is.";
@@ -807,7 +805,6 @@
 "welcome-languages-add-button" = "Een andere taal toevoegen";
 "welcome-languages-add-or-edit-button" = "Voorkeurstalen toevoegen of bewerken";
 "welcome-languages-description" = "We hebben de volgende talen op uw apparaat gevonden:";
-// Fuzzy
 "welcome-languages-search-title" = "Zoek in bijna 300 talen";
 "welcome-notifications-tell-me-more-creation" = "Meldingen worden gemaakt en geleverd op uw apparaat door de app, niet door onze servers (of die van derden).";
 "welcome-notifications-tell-me-more-storage" = "Meldingsvoorkeuren zijn opgeslagen op het apparaat en niet gebaseerd op persoonlijke informatie of activiteit.";

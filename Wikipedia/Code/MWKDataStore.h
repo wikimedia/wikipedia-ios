@@ -89,6 +89,11 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 @property (nonatomic, strong, readonly) NSManagedObjectContext *viewContext;
 @property (nonatomic, strong, readonly) NSManagedObjectContext *feedImportContext;
 
+/**
+ * Returns the siteURL of the user's first preferred language.
+ */
+@property (readonly, copy, nonatomic, nullable) NSURL *primarySiteURL;
+
 #pragma mark - Caching
 
 @property (readonly, strong, nonatomic) MobileviewToMobileHTMLConverter *mobileviewConverter;

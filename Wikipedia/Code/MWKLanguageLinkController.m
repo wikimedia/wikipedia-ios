@@ -8,6 +8,9 @@ NSString *const WMFPreferredLanguagesDidChangeNotification = @"WMFPreferredLangu
 
 NSString *const WMFAppLanguageDidChangeNotification = @"WMFAppLanguageDidChangeNotification";
 
+NSString *const WMFPreferredLanguagesChangeTypeKey = @"WMFPreferredLanguagesChangeTypeKey";
+NSString *const WMFPreferredLanguagesLastChangedLanguageKey = @"WMFPreferredLanguagesLastChangedLanguageKey";
+
 static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesKey";
 
 @interface MWKLanguageLinkController ()
@@ -17,8 +20,6 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
 @end
 
 @implementation MWKLanguageLinkController
-
-static id _sharedInstance;
 
 - (instancetype)initWithManagedObjectContext:(NSManagedObjectContext *)moc {
     if (self = [super init]) {
@@ -76,22 +77,12 @@ static id _sharedInstance;
 
 #pragma mark - Preferred Language Management
 
-// Used for testing only.
-- (void)addPreferredLanguage:(MWKLanguageLink *)language {
-    NSParameterAssert(language);
-    NSMutableArray<NSString *> *langCodes = [[self readPreferredLanguageCodes] mutableCopy];
-    [langCodes removeObject:language.languageCode];
-    [langCodes insertObject:language.languageCode atIndex:0];
-    [self savePreferredLanguageCodes:langCodes];
-}
-
 - (void)appendPreferredLanguage:(MWKLanguageLink *)language {
     NSParameterAssert(language);
     NSMutableArray<NSString *> *langCodes = [[self readPreferredLanguageCodes] mutableCopy];
     [langCodes removeObject:language.languageCode];
     [langCodes addObject:language.languageCode];
-    self.mostRecentlyModifiedPreferredLanguage = language;
-    [self savePreferredLanguageCodes:langCodes];
+    [self savePreferredLanguageCodes:langCodes changeType:WMFPreferredLanguagesChangeTypeAdd changedLanguage:language];
 }
 
 - (void)reorderPreferredLanguage:(MWKLanguageLink *)language toIndex:(NSInteger)newIndex {
@@ -107,21 +98,19 @@ static id _sharedInstance;
     }
     [langCodes removeObject:language.languageCode];
     [langCodes insertObject:language.languageCode atIndex:(NSUInteger)newIndex];
-    self.mostRecentlyModifiedPreferredLanguage = language;
-    [self savePreferredLanguageCodes:langCodes];
+    [self savePreferredLanguageCodes:langCodes changeType:WMFPreferredLanguagesChangeTypeReorder changedLanguage:language];
 }
 
 - (void)removePreferredLanguage:(MWKLanguageLink *)language {
     NSMutableArray<NSString *> *langCodes = [[self readPreferredLanguageCodes] mutableCopy];
     [langCodes removeObject:language.languageCode];
-    self.mostRecentlyModifiedPreferredLanguage = language;
-    [self savePreferredLanguageCodes:langCodes];
+    [self savePreferredLanguageCodes:langCodes changeType:WMFPreferredLanguagesChangeTypeRemove changedLanguage:language];
 }
 
 #pragma mark - Reading/Saving Preferred Language Codes
 
 - (NSArray<NSString *>
-   *)readPreferredLanguageCodesWithoutOSPreferredLanguages {
+   *)readSavedPreferredLanguageCodes {
     __block NSArray<NSString *> *preferredLanguages = nil;
     [self.moc performBlockAndWait:^{
         preferredLanguages = [self.moc wmf_arrayValueForKey:WMFPreviousLanguagesKey] ?: @[];
@@ -129,20 +118,11 @@ static id _sharedInstance;
     return preferredLanguages;
 }
 
-- (NSArray<NSString *> *)readOSPreferredLanguageCodes {
-    NSArray<NSString *> *osLanguages = [[NSLocale preferredLanguages] wmf_mapAndRejectNil:^NSString *(NSString *languageCode) {
-        NSLocale *locale = [NSLocale localeWithLocaleIdentifier:languageCode];
-        // use language code when determining if a langauge is preferred (e.g. "en_US" is preferred if "en" was selected)
-        return [locale objectForKey:NSLocaleLanguageCode];
-    }];
-    return osLanguages;
-}
-
 - (NSArray<NSString *> *)readPreferredLanguageCodes {
-    NSMutableArray<NSString *> *preferredLanguages = [[self readPreferredLanguageCodesWithoutOSPreferredLanguages] mutableCopy];
-    NSArray<NSString *> *osLanguages = [self readOSPreferredLanguageCodes];
+    NSMutableArray<NSString *> *preferredLanguages = [[self readSavedPreferredLanguageCodes] mutableCopy];
 
     if (preferredLanguages.count == 0) {
+        NSArray<NSString *> *osLanguages = NSLocale.wmf_preferredLocaleLanguageCodes;
         [osLanguages enumerateObjectsWithOptions:0
                                       usingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
                                           if (![preferredLanguages containsObject:obj]) {
@@ -155,8 +135,7 @@ static id _sharedInstance;
     }];
 }
 
-- (void)savePreferredLanguageCodes:(NSArray<NSString *> *)languageCodes {
-    self.previousPreferredLanguages = self.preferredLanguages;
+- (void)savePreferredLanguageCodes:(NSArray<NSString *> *)languageCodes changeType:(WMFPreferredLanguagesChangeType)changeType changedLanguage:(MWKLanguageLink *)changedLanguage {
     NSString *previousAppLanguageCode = self.appLanguage.languageCode;
     [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
     [self.moc performBlockAndWait:^{
@@ -167,7 +146,8 @@ static id _sharedInstance;
         }
     }];
     [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
-    [[NSNotificationCenter defaultCenter] postNotificationName:WMFPreferredLanguagesDidChangeNotification object:self];
+    NSDictionary *userInfo = @{ WMFPreferredLanguagesChangeTypeKey : @(changeType), WMFPreferredLanguagesLastChangedLanguageKey : changedLanguage };
+    [[NSNotificationCenter defaultCenter] postNotificationName:WMFPreferredLanguagesDidChangeNotification object:self userInfo:userInfo];
     if (self.appLanguage.languageCode && ![self.appLanguage.languageCode isEqualToString:previousAppLanguageCode]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:WMFAppLanguageDidChangeNotification object:self];
     }
