@@ -48,7 +48,7 @@
     //             @"'test' shouldn't be a default member of preferred languages!");
 
     MWKLanguageLink *link = [[MWKLanguageLink alloc] initWithLanguageCode:@"test" pageTitleText:@"test" name:@"test" localizedName:@"test"];
-    [self.controller addPreferredLanguage:link];
+    [self.controller appendPreferredLanguage:link];
 
     XCTAssert([[self preferredLanguageCodes] containsObject:@"test"]);
     [self verifyAllLanguageArrayProperties];

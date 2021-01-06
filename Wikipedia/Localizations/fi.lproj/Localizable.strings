@@ -29,12 +29,15 @@
 "aaald-article-insert-read-more" = "Lue lisää päivityksiä";
 "aaald-deleted-text-description-2" = "$1 poistettu";
 "aaald-error-subitle" = "Päivitä yrittääksesi uudelleen";
+"aaald-many-sections-description" = "$1 osiossa";
 "aaald-new-book-reference-title" = "Kirja";
 "aaald-new-discussion" = "Uusi keskustelu";
 "aaald-new-news-reference-title" = "Uutiset";
 "aaald-new-talk-topic-description-format" = "$1 tästä artikkelista";
 "aaald-new-website-reference-archive-url-text" = "Archive.org URL-osoite";
 "aaald-new-website-reference-title" = "Verkkosivu";
+"aaald-one-section-description" = "$1 osiossa";
+"aaald-small-change-description" = "{{PLURAL:$1|0=Ei tehty pieniä muutoksia|$1 pieni muutos tehty|$1 pientä muutosta tehty}}";
 "aaald-view-full-history-button" = "Näytä koko artikkelihistoria";
 "about-content-license" = "Sisältölisenssi";
 "about-content-license-details" = "Ellei toisin mainita, sisältö on saatavilla $1 -lisenssillä.";
@@ -478,8 +481,7 @@
 "main-menu-title" = "Lisää";
 "main-menu-zero-faq" = "Usein kysyttyjä kysymyksiä Wikipedia Zerosta";
 "menu-cancel-accessibility-label" = "Peru";
-// Fuzzy
-"more-languages-tooltip-description" = "Etsi Wikipediasta lähes 300 kielellä";
+"more-languages-tooltip-description" = "Hae Wikipediasta yli 300 kielellä";
 "more-languages-tooltip-title" = "Lisää kieliä";
 "move-articles-to-reading-list" = "Siirrä {{PLURAL:$1|$1 artikkeli|$1 artikkelia}} lukulistaan";
 "navbar-title-mode-edit-wikitext-preview" = "Esikatselu";
@@ -644,6 +646,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "Syntaksin korostus";
 "reading-themes-controls-accessibility-text-size-slider" = "Tekstin koon liukusäädin";
 "reading-themes-controls-syntax-highlighting" = "Syntaksin korostus";
+"reference-section-button-accessibility-label" = "Hyppää lähdeosioon";
 "reference-title" = "Lähde $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Tänään|1=Eilen|$1 päivää sitten}}";
 "relative-date-hours-abbreviated" = "$1 t";
