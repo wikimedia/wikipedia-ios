@@ -30,14 +30,34 @@
 // Author: Zbyso23
 
 "aaald-added-text-description-2" = "přidáno $1";
+"aaald-article-description-updated-description" = "Popis článku byl aktualizován";
+"aaald-article-insert-header" = "Významné aktualizace";
+"aaald-article-insert-last-updated" = "Naposledy aktualizováno";
+"aaald-article-insert-new-changes" = "Nové změny";
+"aaald-article-insert-read-more" = "Zobrazit další aktualizace";
+"aaald-deleted-text-description-2" = "$1 smazáno";
+"aaald-error-subitle" = "Zkuste to znovu obnovením stránky";
+"aaald-error-title" = "Nelze načíst historii článku";
+"aaald-many-sections-description" = "v $1 sekcích";
 "aaald-multiple-changes-description" = "Provedeno více změn";
 "aaald-multiple-references-added-description" = "Přidáno více referencí";
 "aaald-new-book-reference-title" = "Kniha";
 "aaald-new-discussion" = "Nová diskuse";
+"aaald-new-journal-reference-database" = "přes $1";
+"aaald-new-journal-reference-title" = "Časopis";
+"aaald-new-journal-reference-volume" = "Svazek $1:";
+"aaald-new-news-reference-retrieved-date" = "Citováno $1";
 "aaald-new-news-reference-title" = "Novinky";
 "aaald-new-talk-topic-description-format" = "$1 o tomto článku";
+"aaald-new-website-reference-archive-date-text" = "z originálu na $1";
 "aaald-new-website-reference-archive-url-text" = "URL Archive.org";
 "aaald-new-website-reference-title" = "Webová stránka";
+"aaald-one-section-description" = "v sekci $1";
+"aaald-revision-by-anonymous" = "Editace neregistrovaného uživatele";
+"aaald-revision-userInfo" = "Editoval $1 ($2 editací)";
+"aaald-single-reference-added-description" = "Přidána reference";
+"aaald-two-sections-description" = "v sekcích $1 a $2";
+"aaald-vandalism-revert-description" = "Revertováno kvůli podezření na vandalismus";
 "aaald-view-full-history-button" = "Zobrazit celou historii článku";
 "about-content-license" = "Licence obsahu";
 "about-content-license-details" = "Pokud není uvedeno jinak, obsah je k dispozici pod $1.";
@@ -134,11 +154,12 @@
 "article-about-title" = "O tomto článku";
 "article-delete" = "Odstranit";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|Článek odstraněn|Články odstraněny}}";
+"article-fetcher-error-updated-content-timeout" = "Aplikace nebyla schopna načíst aktualizovaný obsah včas. Obnovte prosím tuto stránku později, aby se změny projevily.";
 "article-languages-filter-placeholder" = "Najít jazyk";
 "article-languages-label" = "Vybrat jazyk";
 "article-languages-others" = "Jiné jazyky";
 "article-languages-yours" = "Vaše jazyky";
-"article-read-more-title" = "Číst dál";
+"article-read-more-title" = "Pokračovat ve čtení…";
 "article-reference-view-title" = "Reference $1";
 "article-save-error-not-enough-space" = "Nemáte dostatek místa pro uložení tohoto článku";
 "article-share" = "Sdílet";
@@ -161,6 +182,7 @@
 "compass-direction" = "na $1. hodině";
 "continue-reading-empty-description" = "Procházet další články na Wikipedii";
 "continue-reading-empty-title" = "Žádné nedávno přečtené články";
+"data-migration-status" = "Aktualizace…";
 "description-add-title" = "Přidat popis";
 "description-edit-for-article" = "Popis článku pro článek $1";
 "description-edit-learn-more" = "Více informací";
