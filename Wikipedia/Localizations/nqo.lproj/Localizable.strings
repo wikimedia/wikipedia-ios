@@ -10,7 +10,7 @@
 "aaald-article-insert-last-updated" = "ߟߏ߲ߘߐߦߊߟߌ ߞߐ߯ߟߕߊ";
 "aaald-article-insert-new-changes" = "ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ ߞߎߘߊ ߟߎ߬";
 "aaald-article-insert-read-more" = "ߟߏ߲ߘߐߦߊߣߍ߲߫ ߜߘߍ߫ ߟߎ߫ ߘߐߞߊ߬ߙߊ߲߬";
-"aaald-characters-text-description" = "{{PLURAL:|ߛߓߍߘߋ߲߫=߀$1 ߟߎ߬|ߛߓߍߘߋ߲|ߛߓߍߘߋ߲ ߠߎ߬}}";
+"aaald-characters-text-description" = "{{PLURAL:$1|ߛߓߍߘߋ߲߫ ߟߎ߬|ߛߓߍߘߋ߲|ߛߓߍߘߋ߲ ߠߎ߬}}";
 "aaald-deleted-text-description-2" = "$1 ߓߘߊ߫ ߖߏ߬ߛߌ߬";
 "aaald-error-subitle" = "ߊ߬ ߟߊߛߎߡߦߊ߫ ߞߵߊ߬ ߡߊߝߍߣߍ߲߫ ߕߎ߲߯ߣߌ߲߫";
 "aaald-many-sections-description" = "ߕߍߕߍ߮ $1 ߘߐ߫";
