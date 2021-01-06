@@ -16,10 +16,14 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 
 @interface WMFExploreFeedContentController : NSObject
 
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore;
+- (instancetype)init NS_UNAVAILABLE;
+
 @property (nonatomic, getter=isBusy) BOOL busy;
-@property (nonatomic, weak, nullable) MWKDataStore *dataStore;
-@property (nonatomic, copy, nullable) NSArray<NSURL *> *siteURLs;
 @property (nonatomic, readonly) NSInteger countOfVisibleContentGroupKinds;
+
+/// Stops all content sources, recreates them from current preferred languages, and starts them
+- (void)updateContentSources;
 
 - (void)startContentSources;
 - (void)stopContentSources;
