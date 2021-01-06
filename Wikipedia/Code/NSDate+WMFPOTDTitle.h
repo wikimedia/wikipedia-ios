@@ -9,10 +9,7 @@ extern NSString *const WMFPOTDTitlePrefix;
 /**
  *  Retrieve the URL path of the commons POTD for the date represented by the receiver.
  *
- *  @note Internally, this fetches the "en" localization of this page, as that's most likely to be available, and
- *        the template doesn't automatically fallback if the chosen language isn't available.
- *
- *  @return A string in the format "/YYYY-MM-DD_(en)"
+ *  @return A string in the format "Template:Potd/YYYY-MM-DD"
  */
 - (NSString *)wmf_picOfTheDayPageTitle;
 
