@@ -113,8 +113,7 @@ class AccountViewController: SubSettingsViewController {
             showLogoutAlert()
         case .talkPage:
             if let username = dataStore.authenticationManager.loggedInUsername,
-               let language = dataStore.languageLinkController.appLanguage {
-                let siteURL = language.siteURL()
+               let siteURL = dataStore.primarySiteURL {
                 let title = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: username, siteURL: siteURL)
                 
                 let loadingFlowController = TalkPageContainerViewController.talkPageContainer(title: title, siteURL: siteURL,  type: .user, dataStore: dataStore, theme: theme)
