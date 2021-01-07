@@ -33,6 +33,8 @@
 // Author: Wikibelgiaan
 // Author: Xbaked potatox
 
+"aaald-article-insert-new-changes" = "Nieuwe wijzigingen";
+"aaald-characters-text-description" = "{{PLURAL:$1|0=tekens|teken|tekens}}";
 "aaald-new-book-reference-title" = "Boek";
 "aaald-new-discussion" = "Nieuw overleg";
 "aaald-new-news-reference-title" = "Nieuws";
