@@ -112,6 +112,7 @@
 		41FCAA3721C844CB001D8411 /* ReadingListEntryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */; };
 		41FCAA3821C844CB001D8411 /* ReadingListEntryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */; };
 		41FCAA3921C844CB001D8411 /* ReadingListEntryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */; };
+		533AB8AE259792A9003A43D9 /* wikipedia-language-variants.json in Resources */ = {isa = PBXBuildFile; fileRef = 533AB8AD259792A9003A43D9 /* wikipedia-language-variants.json */; };
 		670063AF22540AC500E4CE3B /* SectionEditorFindAndReplaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670063AE22540AC500E4CE3B /* SectionEditorFindAndReplaceTests.swift */; };
 		67059DB52260D034009811AA /* SchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67059DB42260D034009811AA /* SchemeHandler.swift */; };
 		67059DB62260D619009811AA /* SchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67059DB42260D034009811AA /* SchemeHandler.swift */; };
@@ -3382,6 +3383,7 @@
 		19A172FA6AE61E76FCEF4259 /* NSUserActivity+WMFExtensionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserActivity+WMFExtensionsTest.m"; sourceTree = "<group>"; };
 		41CCB67321CC1F9700206B47 /* SavedArticlesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesCollectionViewController.swift; sourceTree = "<group>"; };
 		41FCAA3521C844CB001D8411 /* ReadingListEntryCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListEntryCollectionViewController.swift; sourceTree = "<group>"; };
+		533AB8AD259792A9003A43D9 /* wikipedia-language-variants.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "wikipedia-language-variants.json"; sourceTree = "<group>"; };
 		670063AE22540AC500E4CE3B /* SectionEditorFindAndReplaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditorFindAndReplaceTests.swift; sourceTree = "<group>"; };
 		67059DB42260D034009811AA /* SchemeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemeHandler.swift; sourceTree = "<group>"; };
 		6706A21622925FD2004774E2 /* InfoBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoBannerView.swift; sourceTree = "<group>"; };
@@ -6572,6 +6574,7 @@
 				83ACAAA124E6E38A003B3035 /* Wikipedia.swift */,
 				83ACAAAA24E6E745003B3035 /* WikipediaLookup.swift */,
 				83ACAAA324E6E42A003B3035 /* wikipedia-languages.json */,
+				533AB8AD259792A9003A43D9 /* wikipedia-language-variants.json */,
 			);
 			name = Wikipedia;
 			sourceTree = "<group>";
@@ -9710,6 +9713,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				533AB8AE259792A9003A43D9 /* wikipedia-language-variants.json in Resources */,
 				D8FA19161E1BE069009675C3 /* WMFArticlePreviewViewController.xib in Resources */,
 				D801C9301EB8E131001FA294 /* Localizable.strings in Resources */,
 				D801C9351EB8E131001FA294 /* Localizable.stringsdict in Resources */,
