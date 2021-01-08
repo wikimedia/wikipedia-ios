@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "3D33D3C3-279E-4F80-9691-ED11FEB7DFB9",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Wikipedia.xcodeproj",
+        "identifier" : "67D977B225A92230005AF4D8",
+        "name" : "WikipediaScreenshots"
+      }
+    }
+  ],
+  "version" : 1
+}

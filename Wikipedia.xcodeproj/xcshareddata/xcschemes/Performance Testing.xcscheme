@@ -65,6 +65,16 @@
                </Test>
             </SelectedTests>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "67D977B225A92230005AF4D8"
+               BuildableName = "WikipediaScreenshots.xctest"
+               BlueprintName = "WikipediaScreenshots"
+               ReferencedContainer = "container:Wikipedia.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
