@@ -50,6 +50,11 @@ extension URL {
         return (self as NSURL).wmf_language
     }
     
+    public var wmf_languageVariantCode: String? {
+        get { (self as NSURL).wmf_languageVariantCode }
+        set { (self as NSURL).wmf_languageVariantCode = newValue }
+    }
+    
     public var wmf_title: String? {
         return (self as NSURL).wmf_title
     }
