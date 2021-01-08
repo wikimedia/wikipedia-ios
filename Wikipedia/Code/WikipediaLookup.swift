@@ -39,7 +39,7 @@ import CocoaLumberjackSwift
         }
         do {
             let data = try Data(contentsOf: languagesFileURL)
-            let entries =  try JSONDecoder().decode([String : [WikipediaLanguageVariant]].self, from: data)
+            let entries = try JSONDecoder().decode([String : [WikipediaLanguageVariant]].self, from: data)
             return entries.mapValues { wikipediaLanguageVariants -> [MWKLanguageLink] in
                 wikipediaLanguageVariants.map { wikipediaLanguageVariant in
                     // All language variant codes have compound codes. iOS returns a less descriptive localized name
