@@ -170,4 +170,12 @@ class URLParsingAndRoutingTests: XCTestCase {
         let url = URL(string: "https://de.wikipedia.org/wiki/Grinnell_College")!
         XCTAssertEqual(url.resolvingRelativeWikiHref("//commons.wikimedia.org/wiki/Category:COVID-19_pandemic_in_Baden-Württemberg?uselang=de")?.absoluteString, "https://commons.wikimedia.org/wiki/Category:COVID-19_pandemic_in_Baden-W%C3%BCrttemberg?uselang=de")
     }
+    
+    func testLanguageVariantCodeProperty() {
+        var url = URL(string: "https://zh.wikipedia.org")!
+        XCTAssertNil(url.wmf_languageVariantCode)
+        let languageVariantCode = "zh-hant"
+        url.wmf_languageVariantCode = languageVariantCode
+        XCTAssertEqual(url.wmf_languageVariantCode, languageVariantCode)
+    }
 }
