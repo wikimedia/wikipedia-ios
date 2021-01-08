@@ -3401,6 +3401,7 @@
 		672428962362113400490629 /* DiffFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffFetcher.swift; sourceTree = "<group>"; };
 		67282FBC24855B7B00B73E20 /* ArticleContextMenuPresenting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleContextMenuPresenting.swift; sourceTree = "<group>"; };
 		672B127722A450F000CC85A5 /* TalkPageHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkPageHeaderView.xib; sourceTree = "<group>"; };
+		672C1B7625A9001400966028 /* Wikipedia.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Wikipedia.xctestplan; sourceTree = "<group>"; };
 		672C35EA22D8E7C9007B8D46 /* EmptyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyViewController.swift; sourceTree = "<group>"; };
 		672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconBarButtonItem.swift; sourceTree = "<group>"; };
 		6734114F22700A95005B31DA /* TalkPageControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageControllerTests.swift; sourceTree = "<group>"; };
@@ -7371,6 +7372,7 @@
 		BC8309941A7BF935003FC5C7 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				672C1B7625A9001400966028 /* Wikipedia.xctestplan */,
 				BC7C3A381C0FF9620057F023 /* Code */,
 				BCA15AE11C0DFD1600D0A3EA /* Supporting Files */,
 			);

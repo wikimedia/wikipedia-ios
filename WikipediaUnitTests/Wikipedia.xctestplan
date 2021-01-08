@@ -1,0 +1,61 @@
+{
+  "configurations" : [
+    {
+      "id" : "B921BB44-D308-403F-837C-729C6F557096",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "environmentVariableEntries" : [
+      {
+        "key" : "WMF_FIXTURE_DIRECTORY",
+        "value" : "$(SOURCE_ROOT)\/WikipediaUnitTests\/Fixtures"
+      },
+      {
+        "key" : "FB_REFERENCE_IMAGE_DIR",
+        "value" : "$(SOURCE_ROOT)\/WikipediaUnitTests\/ReferenceImages"
+      },
+      {
+        "enabled" : false,
+        "key" : "IMAGE_DIFF_DIR",
+        "value" : "$(SOURCE_ROOT)\/WikipediaUnitTests\/FailureDiffs"
+      },
+      {
+        "enabled" : false,
+        "key" : "DYLD_PRINT_STATISTICS",
+        "value" : "1"
+      }
+    ],
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Wikipedia.xcodeproj",
+      "identifier" : "D4991434181D51DE00E6073C",
+      "name" : "Wikipedia"
+    }
+  },
+  "testTargets" : [
+    {
+      "skippedTests" : [
+        "ArticleCacheReadingManualTests",
+        "ArticleManualPerformanceTests",
+        "ArticleViewControllerTests",
+        "LegacyCoreDataMigratorTests",
+        "MWKHistoryListPerformanceTests\/testReadPerformance",
+        "NSArray_PredicateTests\/testPerformance",
+        "NSString_FormattedAttributedStringTests\/testPerformanceExample",
+        "ReadingListManualPerformanceTests",
+        "TalkPageManualPerformanceTests",
+        "WMFSearchFetcherTests"
+      ],
+      "target" : {
+        "containerPath" : "container:Wikipedia.xcodeproj",
+        "identifier" : "BC4273511A7C736800068882",
+        "name" : "WikipediaUnitTests"
+      }
+    }
+  ],
+  "version" : 1
+}
