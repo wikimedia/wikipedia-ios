@@ -27,8 +27,9 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 
 @property (nonatomic, strong) NSArray<id<WMFContentSource>> *contentSources;
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
+@property (nonatomic, weak) MWKDataStore *dataStore;
 @property (nonatomic, strong) NSDictionary *exploreFeedPreferences;
-@property (nonatomic, copy, readonly) NSSet<NSURL *> *preferredSiteURLs;
+@property (nonatomic, copy, readonly) NSArray<NSURL *> *preferredSiteURLs;
 @property (nonatomic, strong) ExploreFeedPreferencesUpdateCoordinator *exploreFeedPreferencesUpdateCoordinator;
 @property (nonatomic, nullable) NSNumber *cachedCountOfVisibleContentGroupKinds;
 @property (nonatomic, strong) NSDictionary<NSString *, NSNumber *> *sortOrderBySiteURLDatabaseKey;
@@ -39,11 +40,12 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 
 @synthesize exploreFeedPreferences = _exploreFeedPreferences;
 
-- (instancetype)init {
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
     self = [super init];
     if (self) {
         self.operationQueue = [[NSOperationQueue alloc] init];
         self.operationQueue.maxConcurrentOperationCount = 1;
+        self.dataStore = dataStore;
     }
     return self;
 }
@@ -88,6 +90,10 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     _exploreFeedPreferences = exploreFeedPreferences;
 }
 
+- (NSArray<NSURL *> *)preferredSiteURLs {
+    return [self.dataStore.languageLinkController.preferredSiteURLs copy];
+}
+
 #pragma mark - Content Sources
 
 - (WMFFeedContentSource *)feedContentSource {
@@ -115,16 +121,17 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 
 - (NSArray<id<WMFContentSource>> *)contentSources {
     NSParameterAssert(self.dataStore);
-    NSParameterAssert(self.siteURLs);
     WMFSession *session = self.dataStore.session;
     WMFConfiguration *configuration = self.dataStore.configuration;
     NSParameterAssert(session);
     NSParameterAssert(configuration);
     if (!_contentSources) {
-        NSMutableArray *mutableContentSources = [NSMutableArray arrayWithCapacity:2 + self.siteURLs.count * 7];
+        NSArray<NSURL *>*siteURLs = self.preferredSiteURLs;
+        NSParameterAssert(siteURLs);
+        NSMutableArray *mutableContentSources = [NSMutableArray arrayWithCapacity:2 + siteURLs.count * 7];
         [mutableContentSources addObject:[[WMFRelatedPagesContentSource alloc] init]];
         [mutableContentSources addObject:[[WMFContinueReadingContentSource alloc] initWithUserDataStore:self.dataStore]];
-        for (NSURL *siteURL in self.siteURLs) {
+        for (NSURL *siteURL in siteURLs) {
             WMFFeedContentSource *feedContentSource = [[WMFFeedContentSource alloc] initWithSiteURL:siteURL
                                                                                       userDataStore:self.dataStore];
             feedContentSource.notificationSchedulingEnabled = YES;
@@ -139,7 +146,26 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     return _contentSources;
 }
 
-#pragma mark - Start / Stop
+#pragma mark - Update / Start / Stop
+
+- (void)updateContentSources {
+    NSArray<NSURL *> *siteURLs = self.preferredSiteURLs;
+    NSMutableDictionary<NSString *, NSNumber *> *updatedSortOrder = [NSMutableDictionary dictionaryWithCapacity:siteURLs.count];
+    NSInteger i = 0;
+    for (NSURL *siteURL in siteURLs) {
+        updatedSortOrder[siteURL.wmf_databaseKey] = @(i);
+        i++;
+    }
+    self.sortOrderBySiteURLDatabaseKey = updatedSortOrder;
+    
+    if ([_contentSources count] == 0) {
+        return;
+    }
+    [self stopContentSources];
+    self.contentSources = nil;
+    [self startContentSources];
+    [self updateFeedSourcesUserInitiated:NO completion:NULL];
+}
 
 - (void)startContentSources {
     [self.contentSources enumerateObjectsUsingBlock:^(id<WMFContentSource> _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
@@ -418,10 +444,6 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     return false;
 }
 
-- (NSSet <NSURL *> *)preferredSiteURLs {
-    return [NSSet setWithArray:self.dataStore.languageLinkController.preferredSiteURLs];
-}
-
 - (NSDictionary *)exploreFeedPreferencesInManagedObjectContext:(NSManagedObjectContext *)moc {
     WMFKeyValue *keyValue = [moc wmf_keyValueForKey:WMFExploreFeedPreferencesKey];
     NSDictionary *exploreFeedPreferences = (NSDictionary *)keyValue.value;
@@ -461,7 +483,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 }
 
 - (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind isOn:(BOOL)isOn forSiteURL:(NSURL *)siteURL updateFeed:(BOOL)updateFeed {
-    [self toggleContentGroupOfKind:contentGroupKind forSiteURLs:[NSSet setWithObject:siteURL] isOn:isOn waitForCallbackFromCoordinator:YES apply:YES updateFeed:updateFeed];
+    [self toggleContentGroupOfKind:contentGroupKind forSiteURLs:[NSArray arrayWithObject:siteURL] isOn:isOn waitForCallbackFromCoordinator:YES apply:YES updateFeed:updateFeed];
 }
 
 - (void)toggleAllContentGroupKinds:(BOOL)on updateFeed:(BOOL)updateFeed {
@@ -495,7 +517,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     } willTurnOnContentGroupOrLanguage:isOn waitForCallbackFromCoordinator:YES apply:YES updateFeed:updateFeed];
 }
 
-- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind forSiteURLs:(NSSet<NSURL *> *)siteURLs isOn:(BOOL)isOn waitForCallbackFromCoordinator:(BOOL)waitForCallbackFromCoordinator apply:(BOOL)apply updateFeed:(BOOL)updateFeed {
+- (void)toggleContentGroupOfKind:(WMFContentGroupKind)contentGroupKind forSiteURLs:(NSArray<NSURL *> *)siteURLs isOn:(BOOL)isOn waitForCallbackFromCoordinator:(BOOL)waitForCallbackFromCoordinator apply:(BOOL)apply updateFeed:(BOOL)updateFeed {
     [self updateExploreFeedPreferences:^NSDictionary *(NSDictionary *oldPreferences) {
         NSMutableDictionary *newPreferences = [oldPreferences mutableCopy];
         if ([self isGlobal:contentGroupKind]) {
@@ -705,28 +727,6 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     if (moc.hasChanges && ![moc save:&error]) {
         DDLogError(@"Error saving WMFExploreFeedContentController managedObjectContext");
     }
-}
-
-#pragma mark - SiteURL
-
-- (void)setSiteURLs:(NSURL *)siteURLs {
-    _siteURLs = [siteURLs copy];
-    
-    NSMutableDictionary<NSString *, NSNumber *> *updatedSortOrder = [NSMutableDictionary dictionaryWithCapacity:_siteURLs.count];
-    NSInteger i = 0;
-    for (NSURL *siteURL in _siteURLs) {
-        updatedSortOrder[siteURL.wmf_databaseKey] = @(i);
-        i++;
-    }
-    self.sortOrderBySiteURLDatabaseKey = updatedSortOrder;
-    
-    if ([_contentSources count] == 0) {
-        return;
-    }
-    [self stopContentSources];
-    self.contentSources = nil;
-    [self startContentSources];
-    [self updateFeedSourcesUserInitiated:NO completion:NULL];
 }
 
 #if WMF_TWEAKS_ENABLED

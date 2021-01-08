@@ -422,7 +422,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 - (void)preferredLanguagesDidChange:(NSNotification *)note {
     [self updateExploreFeedPreferencesIfNecessaryForChange:note];
-    self.dataStore.feedContentController.siteURLs = [self.dataStore.languageLinkController preferredSiteURLs];
+    [self.dataStore.feedContentController updateContentSources];
 }
 
 /**
