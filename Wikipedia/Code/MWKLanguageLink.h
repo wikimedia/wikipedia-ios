@@ -16,11 +16,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// User-readable name for @c languageCode in the language specified by @c languageCode.
 @property (readonly, copy, nonatomic, nonnull) NSString *name;
 
+/// If representing a language variant, the language variant code. Otherwise nil.
+@property (readonly, copy, nonatomic, nullable) NSString *languageVariantCode;
 
-- (instancetype)initWithLanguageCode:(nonnull NSString * )languageCode
+- (instancetype)initWithLanguageCode:(nonnull NSString *)languageCode
                        pageTitleText:(nonnull NSString *)pageTitleText
                                 name:(nonnull NSString *)name
-                       localizedName:(nonnull NSString *)localizedName NS_DESIGNATED_INITIALIZER;
+                       localizedName:(nonnull NSString *)localizedName
+                 languageVariantCode:(nullable NSString *)languageVariantCode NS_DESIGNATED_INITIALIZER;
 
 ///
 /// @name Comparison
@@ -28,16 +31,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)isEqualToLanguageLink:(MWKLanguageLink *)rhs;
 
+/// Comparison is based on @c contentLanguageCode
 - (NSComparisonResult)compare:(MWKLanguageLink *)other;
 
 ///
 /// @name Computed Properties
 ///
 
-/// @return A url with the default Wikipedia domain and the receiver's @c languageCode.
+/// Returns @c languageVariantCode if non-nil and non-empty string, @c lanagugeCode otherwise
+@property (readonly, copy, nonatomic, nonnull) NSString *contentLanguageCode;
+
+/// A url with the default Wikipedia domain and the receiver's @c languageCode.
 @property (readonly, copy, nonatomic, nonnull) NSURL *siteURL;
 
-/// @return A url whose domain & path are derived from the receiver's @c languageCode and @c pageTitleText.
+/// A url whose domain & path are derived from the receiver's @c languageCode and @c pageTitleText.
 @property (readonly, copy, nonatomic, nonnull) NSURL *articleURL;
 
 @end

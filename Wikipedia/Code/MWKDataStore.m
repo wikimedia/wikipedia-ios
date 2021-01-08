@@ -110,9 +110,8 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
         [self startSynchronizingLibraryContexts];
         [self setupHistoryAndSavedPageLists];
         self.languageLinkController = [[MWKLanguageLinkController alloc] initWithManagedObjectContext:self.viewContext];
-        self.feedContentController = [[WMFExploreFeedContentController alloc] init];
-        self.feedContentController.dataStore = self;
-        self.feedContentController.siteURLs = self.languageLinkController.preferredSiteURLs;
+        self.feedContentController = [[WMFExploreFeedContentController alloc] initWithDataStore:self];
+        [self.feedContentController updateContentSources];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningWithNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
         self.wikidataDescriptionEditingController = [[WikidataDescriptionEditingController alloc] initWithSession:session configuration:configuration];
         self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWithSession:session configuration:configuration preferredLanguageCodesProvider:self.languageLinkController];

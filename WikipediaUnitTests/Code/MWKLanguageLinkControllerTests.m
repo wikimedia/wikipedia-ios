@@ -47,15 +47,15 @@
     //    NSAssert(![[self preferredLanguageCodes] containsObject:@"test"],
     //             @"'test' shouldn't be a default member of preferred languages!");
 
-    MWKLanguageLink *link = [[MWKLanguageLink alloc] initWithLanguageCode:@"test" pageTitleText:@"test" name:@"test" localizedName:@"test"];
-    [self.controller addPreferredLanguage:link];
+    MWKLanguageLink *link = [[MWKLanguageLink alloc] initWithLanguageCode:@"test" pageTitleText:@"test" name:@"test" localizedName:@"test" languageVariantCode:@"test"];
+    [self.controller appendPreferredLanguage:link];
 
     XCTAssert([[self preferredLanguageCodes] containsObject:@"test"]);
     [self verifyAllLanguageArrayProperties];
 }
 
 - (void)testUniqueAppendToPreferredLanguages {
-    MWKLanguageLink *link = [[MWKLanguageLink alloc] initWithLanguageCode:@"test" pageTitleText:@"test" name:@"test" localizedName:@"test"];
+    MWKLanguageLink *link = [[MWKLanguageLink alloc] initWithLanguageCode:@"test" pageTitleText:@"test" name:@"test" localizedName:@"test" languageVariantCode:@"test"];
     [self.controller appendPreferredLanguage:link];
     NSArray *firstAppend = [self.controller.preferredLanguages copy];
 
@@ -87,6 +87,23 @@
 - (void)testEmptyAfterFiltering {
     self.filter.languageFilter = @"$";
     XCTAssert(self.filter.filteredLanguages.count == 0);
+}
+
+- (void)testContentLanguageCodeProperty {
+    NSString *languageCode = @"zh";
+    NSString *languageVariantCode = @"zh-hans";
+    
+    // If languageVariantCode is non-nil and non-empty string, contentLanguageCode returns languageVariantCode
+    MWKLanguageLink *link = [[MWKLanguageLink alloc] initWithLanguageCode:languageCode pageTitleText:@"test" name:@"test" localizedName:@"test" languageVariantCode:languageVariantCode];
+    XCTAssertEqualObjects(link.contentLanguageCode, languageVariantCode);
+    
+    // If languageVariantCode is nil, contentLanguageCode returns languageCode
+    link = [[MWKLanguageLink alloc] initWithLanguageCode:languageCode pageTitleText:@"test" name:@"test" localizedName:@"test" languageVariantCode:nil];
+    XCTAssertEqualObjects(link.contentLanguageCode, languageCode);
+    
+    // If languageVariantCode is an empty string, contentLanguageCode returns languageCode
+    link = [[MWKLanguageLink alloc] initWithLanguageCode:languageCode pageTitleText:@"test" name:@"test" localizedName:@"test" languageVariantCode:@""];
+    XCTAssertEqualObjects(link.contentLanguageCode, languageCode);
 }
 
 #pragma mark - Utils

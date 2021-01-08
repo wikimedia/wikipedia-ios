@@ -1,0 +1,66 @@
+{
+  "zh": [
+    {
+      "languageVariantCode": "zh-hans",
+      "languageName": "简体",
+      "localName": "Chinese, Simplified",
+      "languageCode": "zh"
+    },
+    {
+      "languageVariantCode": "zh-hant",
+      "languageName": "繁體",
+      "localName": "Chinese, Traditional",
+      "languageCode": "zh"
+    },
+    {
+      "languageVariantCode": "zh-cn",
+      "languageName": "大陆简体",
+      "localName": "Mainland Simplified",
+      "languageCode": "zh"
+    },
+    {
+      "languageVariantCode": "zh-hk",
+      "languageName": "香港繁體",
+      "localName": "Hong Kong Traditional",
+      "languageCode": "zh"
+    },
+    {
+      "languageVariantCode": "zh-mo",
+      "languageName": "澳門繁體",
+      "localName": "Macau Traditional",
+      "languageCode": "zh"
+    },
+    {
+      "languageVariantCode": "zh-my",
+      "languageName": "大马简体",
+      "localName": "Malaysia Simplified",
+      "languageCode": "zh"
+    },
+    {
+      "languageVariantCode": "zh-sg",
+      "languageName": "新加坡简体",
+      "localName": "Singapore Simplified",
+      "languageCode": "zh"
+    },
+    {
+      "languageVariantCode": "zh-tw",
+      "languageName": "臺灣正體",
+      "localName": "Taiwanese Traditional",
+      "languageCode": "zh"
+    }
+  ],
+  "sr": [
+    {
+      "languageVariantCode": "sr-ec",
+      "languageName": "Србија",
+      "localName": "Serbian, Cyrilic",
+      "languageCode": "sr"
+    },
+    {
+      "languageVariantCode": "sr-el",
+      "languageName": "Srbija",
+      "localName": "Serbian, Latin",
+      "languageCode": "sr"
+    }
+  ]
+}
