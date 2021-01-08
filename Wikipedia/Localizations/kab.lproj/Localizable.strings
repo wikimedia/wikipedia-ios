@@ -1,10 +1,18 @@
 // Messages for Kabyle (Taqbaylit)
 // Exported from translatewiki.net
 // Author: Belkacem77
+// Author: Bilalbill
 // Author: Macofe
 // Author: Mhenni
 // Author: SlimaneAmiri
 
+"aaald-article-insert-last-updated" = "Asetrer aneggar";
+"aaald-article-insert-new-changes" = "Isniflen imaynuten";
+"aaald-article-insert-read-more" = "Ɣer ugar n isetraren";
+"aaald-new-book-reference-title" = "Adlis";
+"aaald-new-journal-reference-title" = "Aɣmis";
+"aaald-new-news-reference-title" = "Isallen";
+"aaald-new-talk-topic-description-format" = "$1 ɣef umagrad-a";
 "about-content-license" = "Turagt n ugbur";
 "about-content-license-details" = "Arama yettwammel kan akken-nniḍen, agbur yella daw n $1.";
 "about-content-license-details-share-alike-license" = "Turagt Creative Commons Attribution-ShareAlike";
@@ -51,9 +59,19 @@
 "account-creation-passwords-mismatched" = "Urtan n wawal uffir ur mṣadan ara.";
 "account-creation-saving" = "Asekles...";
 "account-creation-title" = "Rnu amiḍan";
+"action-add-to" = "Rnu ɣer...";
+"action-add-to-reading-list" = "Rnu ɣer wumuɣ yettwaɣran";
+"action-add-to-reading-list-short" = "Rnu ɣer wumuɣ";
+"action-cancel" = "Kkes";
 // Fuzzy
 "action-find-in-page" = "Af-d deg usebter";
+"action-language-accessibility" = "Snifel tutlayt";
+"action-move-to" = "Smimmeḍ ɣer...";
+"action-move-to-reading-list" = "Smimmeḍ ɣer wumuɣ yettwaɣran";
+"action-next-revision-accessibility" = "Aceggeṛ i d-itteddun";
+"action-previous-revision-accessibility" = "Aceggeṛ yezrin";
 "action-read" = "Ɣeṛ";
+"action-redo" = "Ales";
 "action-save" = "Sekles";
 "action-saved" = "Yettwasekles";
 "action-saved-accessibility" = "Yettwasekles. Rmed akken ad tekkseḍ asekles.";

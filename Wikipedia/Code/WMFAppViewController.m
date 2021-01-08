@@ -421,27 +421,27 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 }
 
 - (void)preferredLanguagesDidChange:(NSNotification *)note {
-    [self updateExploreFeedPreferencesIfNecessary];
+    [self updateExploreFeedPreferencesIfNecessaryForChange:note];
     self.dataStore.feedContentController.siteURLs = [self.dataStore.languageLinkController preferredSiteURLs];
 }
 
 /**
  Updates explore feed preferences if new preferred language was appeneded or removed.
  */
-- (void)updateExploreFeedPreferencesIfNecessary {
-    MWKLanguageLinkController *languageLinkController = self.dataStore.languageLinkController;
-    NSArray<MWKLanguageLink *> *preferredLanguages = languageLinkController.preferredLanguages;
-    NSArray<MWKLanguageLink *> *previousPreferredLanguages = languageLinkController.previousPreferredLanguages;
-    if (preferredLanguages.count == previousPreferredLanguages.count) { // reordered
-        return;
-    }
-    MWKLanguageLink *mostRecentlyModifiedPreferredLanguage = languageLinkController.mostRecentlyModifiedPreferredLanguage;
-    NSURL *siteURL = mostRecentlyModifiedPreferredLanguage.siteURL;
-    BOOL appendedNewPreferredLanguage = [preferredLanguages containsObject:mostRecentlyModifiedPreferredLanguage];
+- (void)updateExploreFeedPreferencesIfNecessaryForChange:(NSNotification *)note {
     if (self.isPresentingOnboarding) {
         return;
     }
-    [self.dataStore.feedContentController toggleContentForSiteURL:siteURL isOn:appendedNewPreferredLanguage waitForCallbackFromCoordinator:NO updateFeed:NO];
+    
+    NSNumber *changeTypeValue = (NSNumber *)[note userInfo][WMFPreferredLanguagesChangeTypeKey];
+    WMFPreferredLanguagesChangeType changeType = (WMFPreferredLanguagesChangeType)changeTypeValue.integerValue;
+    if (!changeType || (changeType == WMFPreferredLanguagesChangeTypeReorder)) {
+        return;
+    }
+    
+    MWKLanguageLink *changedLanguage = (MWKLanguageLink *)[note userInfo][WMFPreferredLanguagesLastChangedLanguageKey];
+    BOOL appendedNewPreferredLanguage = (changeType == WMFPreferredLanguagesChangeTypeAdd);
+    [self.dataStore.feedContentController toggleContentForSiteURL:changedLanguage.siteURL isOn:appendedNewPreferredLanguage waitForCallbackFromCoordinator:NO updateFeed:NO];
 }
 
 - (void)readingListsWereSplitNotification:(NSNotification *)note {

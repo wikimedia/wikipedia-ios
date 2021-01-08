@@ -2,6 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>aaald-characters-text-description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>ߛߓߍߘߋ߲߫ ߟߎ߬</string>
+			<key>other</key>
+			<string>ߛߓߍߘߋ߲ ߠߎ߬</string>
+		</dict>
+	</dict>
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -32,6 +48,38 @@
 			<string>ߞߎߡߘߊ %1$d</string>
 			<key>other</key>
 			<string>ߞߎߡߘߊ %1$d ߟߎ߬</string>
+		</dict>
+	</dict>
+	<key>diff-single-header-editor-number-edits-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ %1$d</string>
+			<key>other</key>
+			<string>ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ %1$dߠߎ߬</string>
+		</dict>
+	</dict>
+	<key>diff-unedited-lines-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>ߛߌ߬ߕߊ߬ߙߌ߬ ߡߊߦߟߍ߬ߡߊ߲߬ߓߊߟߌ %1$d</string>
+			<key>other</key>
+			<string>ߛߌ߬ߕߊ߬ߙߌ߬ ߡߊߦߟߍ߬ߡߊ߲߬ߓߊߟߌ %1$d ߟߎ߫</string>
 		</dict>
 	</dict>
 	<key>move-articles-to-reading-list</key>
