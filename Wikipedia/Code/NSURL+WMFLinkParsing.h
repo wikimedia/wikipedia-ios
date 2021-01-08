@@ -204,6 +204,14 @@ extern NSString *const WMFEditPencil;
  */
 @property (nonatomic, readonly) BOOL wmf_isNonStandardURL;
 
+#pragma mark - Associated Objects
+
+/**
+ *  Settable property for language variant code, defaults to nil
+ *  Returns language variant code if present or nil if no code set
+ */
+@property (nonatomic, copy, nullable)NSString *wmf_languageVariantCode;
+
 @end
 
 NS_ASSUME_NONNULL_END

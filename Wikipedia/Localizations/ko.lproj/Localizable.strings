@@ -47,7 +47,9 @@
 "aaald-multiple-references-added-description" = "각주가 여러 개 추가됨";
 "aaald-new-book-reference-title" = "책";
 "aaald-new-discussion" = "새 토론";
+"aaald-new-journal-reference-database" = "$1을(를) 통해";
 "aaald-new-journal-reference-title" = "저널";
+"aaald-new-news-reference-retrieved-date" = "$1에 검색함";
 "aaald-new-news-reference-title" = "뉴스";
 "aaald-new-talk-topic-description-format" = "이 문서의 $1";
 "aaald-new-website-reference-archive-url-text" = "Archive.org URL";
@@ -824,6 +826,7 @@
 "table-of-contents-close-accessibility-label" = "목차를 닫기";
 "table-of-contents-heading" = "목차";
 "table-of-contents-hide-button-label" = "목차 숨기기";
+"table-of-contents-subheading-label" = "$1단계 하위 문단";
 "talk-page-add-discussion-accessibility-label" = "토론 추가";
 "talk-page-discussion-accessibility-hint" = "토론 스레드를 열려면 두 번 탭하십시오";
 "talk-page-discussion-read-accessibility-label" = "읽음";
