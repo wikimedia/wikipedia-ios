@@ -33,22 +33,12 @@ static NSString *cachedApplicationName;
             break;
     }
 
-#if DEBUG
-    // We already get date stamp in console, as it's printing via NSLog - BUT AFTER WE REMOVE IT, ADD IT BACK IN!
-    return  [NSString stringWithFormat:@"[%@]: %@ (From: %@#L%lu)",
+    return  [NSString stringWithFormat:@"[%@] %@: %@ (From: %@#L%lu)",
                                       level,
+                                      [self stringFromDate:logMessage->_timestamp],
                                       logMessage -> _message,
                                       logMessage -> _fileName,
                                       (unsigned long)logMessage -> _line];
-#else
-    // Improve this to somewhat match above, after we finalize a good format - but add the datestamp back in
-    return [NSString stringWithFormat:@"%@ %@#L%lu %@: %@",
-                                      [self stringFromDate:logMessage->_timestamp],
-                                      logMessage -> _function,
-                                      (unsigned long)logMessage -> _line,
-                                      level,
-                                      logMessage -> _message];
-#endif
 }
 
 @end
