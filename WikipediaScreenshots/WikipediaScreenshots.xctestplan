@@ -2,9 +2,18 @@
   "configurations" : [
     {
       "id" : "3D33D3C3-279E-4F80-9691-ED11FEB7DFB9",
-      "name" : "Configuration 1",
+      "name" : "US English",
       "options" : {
-
+        "language" : "en",
+        "region" : "US"
+      }
+    },
+    {
+      "id" : "D0937DCE-2779-44B8-8403-C248BFEA2B29",
+      "name" : "German",
+      "options" : {
+        "language" : "de",
+        "region" : "DE"
       }
     }
   ],

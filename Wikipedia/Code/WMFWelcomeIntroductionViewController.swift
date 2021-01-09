@@ -8,8 +8,16 @@ class WMFWelcomeIntroductionViewController: ThemeableViewController {
         learnMoreButton.setTitleColor(theme.colors.link, for: .normal)
     }
 
-    @IBOutlet private var descriptionLabel:UILabel!
-    @IBOutlet private var learnMoreButton:UIButton!
+    @IBOutlet private var descriptionLabel:UILabel! {
+        didSet {
+            descriptionLabel.accessibilityIdentifier = AccessilibilityIdentifiers.onboardingIntroDescriptionText.rawValue
+        }
+    }
+    @IBOutlet private var learnMoreButton:UIButton! {
+        didSet {
+            learnMoreButton.accessibilityIdentifier = AccessilibilityIdentifiers.onboardingIntroLearnMoreButton.rawValue
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
