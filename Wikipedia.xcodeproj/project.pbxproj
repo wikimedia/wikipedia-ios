@@ -158,6 +158,7 @@
 		672428982362113900490629 /* DiffFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672428962362113400490629 /* DiffFetcher.swift */; };
 		672428992362113900490629 /* DiffFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672428962362113400490629 /* DiffFetcher.swift */; };
 		6724289A2362113A00490629 /* DiffFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672428962362113400490629 /* DiffFetcher.swift */; };
+		672562ED25ACAA5E001A37CA /* AccessilibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EEF5E925A9261A0094A4F6 /* AccessilibilityIdentifiers.swift */; };
 		67282FBD24855B7B00B73E20 /* ArticleContextMenuPresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67282FBC24855B7B00B73E20 /* ArticleContextMenuPresenting.swift */; };
 		67282FBE24855B7B00B73E20 /* ArticleContextMenuPresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67282FBC24855B7B00B73E20 /* ArticleContextMenuPresenting.swift */; };
 		67282FBF24855B7B00B73E20 /* ArticleContextMenuPresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67282FBC24855B7B00B73E20 /* ArticleContextMenuPresenting.swift */; };
@@ -520,7 +521,6 @@
 		67EEF5EB25A9261A0094A4F6 /* AccessilibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EEF5E925A9261A0094A4F6 /* AccessilibilityIdentifiers.swift */; };
 		67EEF5EC25A9261A0094A4F6 /* AccessilibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EEF5E925A9261A0094A4F6 /* AccessilibilityIdentifiers.swift */; };
 		67EEF5ED25A9261A0094A4F6 /* AccessilibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EEF5E925A9261A0094A4F6 /* AccessilibilityIdentifiers.swift */; };
-		67EEF61825A928390094A4F6 /* AccessilibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EEF5E925A9261A0094A4F6 /* AccessilibilityIdentifiers.swift */; };
 		67F1375E23C986CD00512B61 /* CacheTaskTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F1375D23C986CD00512B61 /* CacheTaskTracking.swift */; };
 		67F73E6D2267B79E0079DEEF /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F73E6C2267B79E0079DEEF /* AccountViewController.swift */; };
 		67F73E712267B8020079DEEF /* TalkPageTopicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F73E702267B8020079DEEF /* TalkPageTopicListViewController.swift */; };
@@ -9922,7 +9922,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				67EEF61825A928390094A4F6 /* AccessilibilityIdentifiers.swift in Sources */,
+				672562ED25ACAA5E001A37CA /* AccessilibilityIdentifiers.swift in Sources */,
 				67D977B625A92230005AF4D8 /* WikipediaScreenshots.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -25,7 +25,11 @@ class WMFWelcomeLanguageTableViewController: ThemeableViewController, WMFPreferr
     
     @IBOutlet private var languageTableView:WMFWelcomeLanguageIntrinsicTableView!
     @IBOutlet private var moreLanguagesButton:UIButton!
-    @IBOutlet private var languagesDescriptionLabel:UILabel!
+    @IBOutlet private var languagesDescriptionLabel:UILabel! {
+        didSet {
+            languagesDescriptionLabel.accessibilityIdentifier = AccessibilityIdentifiers.onboardingLanguageDescriptionLabel.rawValue
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -2,7 +2,11 @@
 class WMFWelcomeExplorationViewController: ThemeableViewController {
 
     @IBOutlet private var exploreTitleLabel:UILabel!
-    @IBOutlet private var exploreDescriptionLabel:UILabel!
+    @IBOutlet private var exploreDescriptionLabel:UILabel! {
+        didSet {
+            exploreDescriptionLabel.accessibilityIdentifier = AccessibilityIdentifiers.onboardingExploreDescriptionLabel.rawValue
+        }
+    }
 
     @IBOutlet private var placesTitleLabel:UILabel!
     @IBOutlet private var placesDescriptionLabel:UILabel!

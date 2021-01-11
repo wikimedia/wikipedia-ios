@@ -10,14 +10,10 @@ class WMFWelcomeIntroductionViewController: ThemeableViewController {
 
     @IBOutlet private var descriptionLabel:UILabel! {
         didSet {
-            descriptionLabel.accessibilityIdentifier = AccessilibilityIdentifiers.onboardingIntroDescriptionText.rawValue
+            descriptionLabel.accessibilityIdentifier = AccessibilityIdentifiers.onboardingIntroDescriptionLabel.rawValue
         }
     }
-    @IBOutlet private var learnMoreButton:UIButton! {
-        didSet {
-            learnMoreButton.accessibilityIdentifier = AccessilibilityIdentifiers.onboardingIntroLearnMoreButton.rawValue
-        }
-    }
+    @IBOutlet private var learnMoreButton:UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()

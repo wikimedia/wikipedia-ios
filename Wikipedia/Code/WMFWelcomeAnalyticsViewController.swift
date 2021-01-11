@@ -14,7 +14,11 @@ class WMFWelcomeAnalyticsViewController: ThemeableViewController {
     @IBOutlet private var toggleSubtitleLabel:UILabel!
     @IBOutlet private var toggle:UISwitch!
 
-    @IBOutlet private var descriptionLabel:UILabel!
+    @IBOutlet private var descriptionLabel:UILabel! {
+        didSet {
+            descriptionLabel.accessibilityIdentifier = AccessibilityIdentifiers.onboardingAnalyticsDescriptionLabel.rawValue
+        }
+    }
     @IBOutlet private var learnMoreButton:UIButton!
 
     override func viewDidLoad() {

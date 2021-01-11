@@ -1,8 +1,10 @@
 
 import Foundation
 
-enum AccessilibilityIdentifiers: String {
+enum AccessibilityIdentifiers: String {
     // onboarding
-    case onboardingIntroDescriptionText
-    case onboardingIntroLearnMoreButton
+    case onboardingIntroDescriptionLabel
+    case onboardingExploreDescriptionLabel
+    case onboardingLanguageDescriptionLabel
+    case onboardingAnalyticsDescriptionLabel
 }
