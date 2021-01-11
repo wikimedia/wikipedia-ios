@@ -809,6 +809,7 @@
 "table-of-contents-close-accessibility-label" = "Закрыть содержание";
 "table-of-contents-heading" = "Содержание";
 "table-of-contents-hide-button-label" = "Скрывает содержание";
+"table-of-contents-subheading-label" = "Подзаголовок $1";
 "talk-page-add-discussion-accessibility-label" = "Добавить обсуждение";
 "talk-page-discussion-accessibility-hint" = "Нажмите дважды, чтобы открыть ветку обсуждения";
 "talk-page-discussion-read-accessibility-label" = "Прочитано";
