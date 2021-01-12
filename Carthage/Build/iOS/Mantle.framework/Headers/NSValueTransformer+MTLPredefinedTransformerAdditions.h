@@ -8,11 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#if __has_include(<Mantle/MTLTransformerErrorHandling.h>)
-#import <Mantle/MTLTransformerErrorHandling.h>
-#else
 #import "MTLTransformerErrorHandling.h"
-#endif
 
 /// The name for a value transformer that converts strings into URLs and back.
 extern NSString * const MTLURLValueTransformerName;

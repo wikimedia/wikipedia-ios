@@ -20,6 +20,24 @@
 			<string>자</string>
 		</dict>
 	</dict>
+	<key>aaald-numerical-multiple-references-added-description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ 추가됨</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d개 각주</string>
+			<key>other</key>
+			<string>%1$d개 각주</string>
+			<key>zero</key>
+			<string>0개 각주</string>
+		</dict>
+	</dict>
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
