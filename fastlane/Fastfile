@@ -197,6 +197,11 @@ platform :ios do
     sh "git push origin --tags"
   end
 
+  desc "Collect screenshots"
+  lane :screenshots do |options|
+  	sh "bash ../scripts/collect-screenshots.sh"
+  end
+
   desc "Build the app for distibution"
   lane :build do |options|
     project_dir = ".."
