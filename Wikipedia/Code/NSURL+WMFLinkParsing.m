@@ -2,6 +2,7 @@
 #import <WMF/NSURLComponents+WMFLinkParsing.h>
 #import <WMF/NSURL+WMFExtras.h>
 #import <WMF/WMF-Swift.h>
+#import <objc/runtime.h>
 
 NSString *const WMFMediaWikiDomain = @"mediawiki.org";
 NSString *const WMFAPIPath = @"/w/api.php";
@@ -268,6 +269,14 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
     return self.wmf_language == nil;
 }
 
+static id wmf_languageVariantAssociatedObjectKey;
+- (nullable NSString *)wmf_languageVariantCode {
+    return (NSString *)[objc_getAssociatedObject(self, &wmf_languageVariantAssociatedObjectKey) copy];
+}
 
+// Odd naming is to match automatic Obj-C property naming conventions
+- (void) setWmf_languageVariantCode:(nullable NSString *)code {
+    objc_setAssociatedObject(self, &wmf_languageVariantAssociatedObjectKey, code, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
 
 @end

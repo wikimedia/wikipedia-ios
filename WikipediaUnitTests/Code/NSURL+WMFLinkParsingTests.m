@@ -67,4 +67,12 @@
     XCTAssertTrue([talkPageDatabaseKey isEqualToString:urlString]);
 }
 
+- (void)testLanguageVariantCodeProperty {
+    NSURL *url = [[NSURL alloc] initWithString: @"https://zh.wikipedia.org"];
+    XCTAssertNil(url.wmf_languageVariantCode);
+    NSString *languageVariantCode = @"zh-hant";
+    url.wmf_languageVariantCode = languageVariantCode;
+    XCTAssertEqualObjects(url.wmf_languageVariantCode, languageVariantCode);
+}
+
 @end
