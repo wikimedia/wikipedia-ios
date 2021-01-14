@@ -5,6 +5,15 @@ static NSString *cachedApplicationName;
 
 @implementation WMFLogFormatter
 
+// NOTE: The libraries print a lot of junk to the logs. Filter on `(From:` to only see log lines added by the Wikipedia app.
+
+#if DEBUG
+// To print timestamps in logs in a non-release build, change following line to `YES`.
+BOOL const shouldShowDateInLog = NO;
+#else
+BOOL const shouldShowDateInLog = YES;
+#endif
+
 + (void)initialize {
     if (self == [WMFLogFormatter class]) {
         cachedApplicationName = [[NSBundle mainBundle] wmf_bundleName];
@@ -18,13 +27,13 @@ static NSString *cachedApplicationName;
             level = @"🗣️ VERBOSE";
             break;
         case DDLogFlagDebug:
-            level = @"🐛 DEBUG";
+            level = @"🪲 DEBUG";
             break;
         case DDLogFlagInfo:
-            level = @"ℹ️ INFO";
+            level = @"ℹ️  INFO";
             break;
         case DDLogFlagWarning:
-            level = @"⚠️ WARN";
+            level = @"⚠️  WARN";
             break;
         case DDLogFlagError:
             level = @"🚨 ERROR";
@@ -33,12 +42,20 @@ static NSString *cachedApplicationName;
             break;
     }
 
-    return  [NSString stringWithFormat:@"[%@] %@: %@ (From: %@#L%lu)",
-                                      level,
-                                      [self stringFromDate:logMessage->_timestamp],
-                                      logMessage -> _message,
-                                      logMessage -> _fileName,
-                                      (unsigned long)logMessage -> _line];
+    if (shouldShowDateInLog) {
+        return [NSString stringWithFormat:@"[%@] %@: %@ (From: %@#L%lu)",
+                                          level,
+                                          [self stringFromDate:logMessage->_timestamp],
+                                          logMessage -> _message,
+                                          logMessage -> _fileName,
+                                          (unsigned long)logMessage -> _line];
+    } else {
+        return [NSString stringWithFormat:@"%@: %@ (From: %@#L%lu)",
+                                          level,
+                                          logMessage->_message,
+                                          logMessage->_fileName,
+                                          (unsigned long)logMessage->_line];
+    }
 }
 
 @end
