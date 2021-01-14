@@ -227,19 +227,25 @@
 }
 
 - (nullable NSURL *)articleURL {
-    return [NSURL URLWithString:self.articleURLString];
+    NSURL *articleURL = [NSURL URLWithString:self.articleURLString];
+    articleURL.wmf_languageVariantCode = self.variant;
+    return articleURL;
 }
 
 - (void)setArticleURL:(nullable NSURL *)articleURL {
     self.articleURLString = articleURL.absoluteString;
+    self.variant = articleURL.wmf_languageVariantCode;
 }
 
 - (nullable NSURL *)siteURL {
-    return [NSURL URLWithString:self.siteURLString];
+    NSURL *siteURL = [NSURL URLWithString:self.siteURLString];
+    siteURL.wmf_languageVariantCode = self.variant;
+    return siteURL;
 }
 
 - (void)setSiteURL:(nullable NSURL *)siteURL {
     self.siteURLString = siteURL.wmf_databaseKey;
+    self.variant = siteURL.wmf_languageVariantCode;
 }
 
 - (void)setFullContentObject:(NSObject<NSCoding> *)fullContentObject {

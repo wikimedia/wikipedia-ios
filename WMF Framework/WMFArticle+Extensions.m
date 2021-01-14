@@ -12,7 +12,9 @@
     if (!key) {
         return nil;
     }
-    return [NSURL URLWithString:key];
+    NSURL *value = [NSURL URLWithString:key];
+    value.wmf_languageVariantCode = self.variant;
+    return value;
 }
 
 #pragma clang diagnostic push
