@@ -178,4 +178,23 @@ class URLParsingAndRoutingTests: XCTestCase {
         url.wmf_languageVariantCode = languageVariantCode
         XCTAssertEqual(url.wmf_languageVariantCode, languageVariantCode)
     }
+    
+    func testContentLanguageCodeProperty() {
+        let languageCode = "zh"
+        let languageVariantCode = "zh-hans"
+        var url = URL(string: "https://\(languageCode).wikipedia.org")!
+
+        // If languageVariantCode is non-nil and non-empty string, wmf_contentLanguageCode returns languageVariantCode
+        url.wmf_languageVariantCode = languageVariantCode
+        XCTAssertEqual(url.wmf_contentLanguageCode, languageVariantCode)
+        
+        // If languageVariantCode is nil, contentLanguageCode returns languageCode
+        url.wmf_languageVariantCode = nil
+        XCTAssertEqual(url.wmf_contentLanguageCode, languageCode)
+        
+        // If languageVariantCode is an empty string, contentLanguageCode returns languageCode
+        url.wmf_languageVariantCode = ""
+        XCTAssertEqual(url.wmf_contentLanguageCode, languageCode)
+    }
+
 }

@@ -279,4 +279,13 @@ static id wmf_languageVariantAssociatedObjectKey;
     objc_setAssociatedObject(self, &wmf_languageVariantAssociatedObjectKey, code, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
+- (NSString *)wmf_contentLanguageCode {
+    NSString *languageVariantCode = self.wmf_languageVariantCode;
+    if (!languageVariantCode || [languageVariantCode isEqualToString:@""]) {
+        return self.wmf_language;
+    } else {
+        return languageVariantCode;
+    }
+}
+
 @end
