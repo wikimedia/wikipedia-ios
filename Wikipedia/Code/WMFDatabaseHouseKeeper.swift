@@ -8,8 +8,29 @@ import Foundation
         let urls = try deleteStaleUnreferencedArticles(moc, navigationStateController: navigationStateController)
 
         try deleteStaleTalkPages(moc)
+        try deleteStaleAnnouncements(moc)
 
         return urls
+    }
+    
+    private func deleteStaleAnnouncements(_ moc: NSManagedObjectContext) throws {
+        let predicate = NSPredicate(format: "isVisible == NO")
+        guard let hiddenAnnouncementContentGroups = moc.orderedGroups(of: .announcement, with: predicate) else {
+            return
+        }
+        let currentDate = Date()
+        for announcementGroup in hiddenAnnouncementContentGroups {
+            guard let announcement = announcementGroup.contentPreview as? WMFAnnouncement,
+                  let endDate = announcement.endTime,
+                  currentDate > endDate else {
+                continue
+            }
+            moc.delete(announcementGroup)
+        }
+        
+        if (moc.hasChanges) {
+            try moc.save()
+        }
     }
 
     /**
