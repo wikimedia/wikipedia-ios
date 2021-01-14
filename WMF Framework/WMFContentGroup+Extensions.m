@@ -731,9 +731,24 @@
     return [contentGroups firstObject];
 }
 
+- (nullable NSArray<WMFContentGroup *> *)orderedGroupsOfKind:(WMFContentGroupKind)kind withPredicate:(nonnull NSPredicate *)predicate {
+    NSPredicate *basePredicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@", @(kind)];
+    NSCompoundPredicate *compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[basePredicate, predicate]];
+    NSArray<NSSortDescriptor *> *sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"midnightUTCDate" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"dailySortPriority" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]];
+    return [self groupsWithPredicate:compoundPredicate sortDescriptors:sortDescriptors];
+}
+
 - (nullable NSArray<WMFContentGroup *> *)groupsOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@", @(kind), date.wmf_midnightUTCDateFromLocalDate];
+    return [self groupsWithPredicate:predicate sortDescriptors:nil];
+}
+
+- (nullable NSArray<WMFContentGroup *> *)groupsWithPredicate: (nonnull NSPredicate *)predicate sortDescriptors: (nullable  NSArray<NSSortDescriptor *> *)sortDescriptors {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@", @(kind), date.wmf_midnightUTCDateFromLocalDate];
+    fetchRequest.predicate = predicate;
+    if (sortDescriptors) {
+        fetchRequest.sortDescriptors = sortDescriptors;
+    }
     NSError *fetchError = nil;
     NSArray *contentGroups = [self executeFetchRequest:fetchRequest error:&fetchError];
     if (fetchError) {

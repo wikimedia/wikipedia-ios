@@ -546,6 +546,7 @@ public class Session: NSObject {
         var getRequest = request(with: url, method: .get)
         if ignoreCache {
             getRequest.cachePolicy = .reloadIgnoringLocalCacheData
+            getRequest.prefersPersistentCacheOverError = false
         }
         let task = jsonDictionaryTask(with: getRequest, completionHandler: completionHandler)
         task.resume()
