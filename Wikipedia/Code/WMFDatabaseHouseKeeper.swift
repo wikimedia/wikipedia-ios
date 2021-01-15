@@ -14,11 +14,11 @@ import Foundation
     }
     
     private func deleteStaleAnnouncements(_ moc: NSManagedObjectContext) throws {
-        guard let hiddenAnnouncementContentGroups = moc.orderedGroups(of: .announcement, with: nil) else {
+        guard let announcementContentGroups = moc.orderedGroups(of: .announcement, with: nil) else {
             return
         }
         let currentDate = Date()
-        for announcementGroup in hiddenAnnouncementContentGroups {
+        for announcementGroup in announcementContentGroups {
             guard let announcement = announcementGroup.contentPreview as? WMFAnnouncement,
                   let endDate = announcement.endTime,
                   currentDate > endDate else {

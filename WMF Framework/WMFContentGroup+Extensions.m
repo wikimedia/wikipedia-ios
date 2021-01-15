@@ -733,7 +733,7 @@
 
 - (nullable NSArray<WMFContentGroup *> *)orderedGroupsOfKind:(WMFContentGroupKind)kind withPredicate:(nullable NSPredicate *)predicate {
     NSPredicate *basePredicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@", @(kind)];
-    NSPredicate *finalPredicate= basePredicate;
+    NSPredicate *finalPredicate = basePredicate;
     if (predicate) {
         NSCompoundPredicate *compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[basePredicate, predicate]];
         finalPredicate = compoundPredicate;
