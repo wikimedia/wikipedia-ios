@@ -9,20 +9,19 @@ extension ArticleViewController {
         }
         let predicate = NSPredicate(format: "placement == 'article' && isVisible == YES")
         let contentGroups = dataStore.viewContext.orderedGroups(of: .announcement, with: predicate)
+        let currentDate = Date()
         
         //get the first content group with a valid date
         let contentGroup = contentGroups?.first(where: { (group) -> Bool in
-            let currentDate = Date()
             guard group.contentType == .announcement,
                   let announcement = group.contentPreview as? WMFAnnouncement,
                   let startDate = announcement.startTime,
-                  let endDate = announcement.endTime,
-                  (startDate...endDate).contains(currentDate)
+                  let endDate = announcement.endTime
                   else {
                 return false
             }
             
-            return true
+            return (startDate...endDate).contains(currentDate)
         })
         
         guard
