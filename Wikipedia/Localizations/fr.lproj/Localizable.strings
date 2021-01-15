@@ -249,7 +249,7 @@
 "diff-thanks-login-title" = "Se connecter pour dire « Merci »";
 "diff-thanks-send-button-title" = "Envoyer un « Merci »";
 "diff-thanks-send-subtitle" = "Dire « Merci » est un moyen facile de montrer l’appréciation du travail d’un éditeur sur Wikipédia. Les remerciements ne peuvent pas être annulés et sont publiquement visibles.";
-"diff-thanks-send-title" = "Envoyer publiquement un « Merci »";
+"diff-thanks-send-title" = "Envoyer publiquement un remerciement";
 "diff-thanks-sent" = "Votre « Merci » a été envoyé à $1";
 "diff-thanks-sent-already" = "Vous avez déjà envoyé un « Merci » pour cette modification";
 "diff-thanks-sent-cannot-unsend" = "Les remerciements ne peuvent pas être retirés";
