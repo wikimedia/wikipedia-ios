@@ -731,11 +731,16 @@
     return [contentGroups firstObject];
 }
 
-- (nullable NSArray<WMFContentGroup *> *)orderedGroupsOfKind:(WMFContentGroupKind)kind withPredicate:(nonnull NSPredicate *)predicate {
+- (nullable NSArray<WMFContentGroup *> *)orderedGroupsOfKind:(WMFContentGroupKind)kind withPredicate:(nullable NSPredicate *)predicate {
     NSPredicate *basePredicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@", @(kind)];
-    NSCompoundPredicate *compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[basePredicate, predicate]];
+    NSPredicate *finalPredicate= basePredicate;
+    if (predicate) {
+        NSCompoundPredicate *compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[basePredicate, predicate]];
+        finalPredicate = compoundPredicate;
+    }
+    
     NSArray<NSSortDescriptor *> *sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"midnightUTCDate" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"dailySortPriority" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]];
-    return [self groupsWithPredicate:compoundPredicate sortDescriptors:sortDescriptors];
+    return [self groupsWithPredicate:finalPredicate sortDescriptors:sortDescriptors];
 }
 
 - (nullable NSArray<WMFContentGroup *> *)groupsOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date {

@@ -14,8 +14,7 @@ import Foundation
     }
     
     private func deleteStaleAnnouncements(_ moc: NSManagedObjectContext) throws {
-        let predicate = NSPredicate(format: "isVisible == NO")
-        guard let hiddenAnnouncementContentGroups = moc.orderedGroups(of: .announcement, with: predicate) else {
+        guard let hiddenAnnouncementContentGroups = moc.orderedGroups(of: .announcement, with: nil) else {
             return
         }
         let currentDate = Date()
