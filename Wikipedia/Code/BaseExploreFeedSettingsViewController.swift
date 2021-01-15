@@ -109,7 +109,7 @@ class ExploreFeedSettingsLanguage: ExploreFeedSettingsItem {
     init(_ languageLink: MWKLanguageLink, controlTag: Int, displayType: ExploreFeedSettingsDisplayType) {
         self.languageLink = languageLink
         title = languageLink.localizedName
-        subtitle = languageLink.languageCode.uppercased()
+        subtitle = languageLink.contentLanguageCode.uppercased()
         self.controlTag = controlTag
         siteURL = languageLink.siteURL
         updateIsOn(for: displayType)
@@ -343,6 +343,6 @@ fileprivate extension MWKLanguageLink {
      Returns NO if the content group of given kind is not visible in the feed in this language.
      */
     func isInFeed(for contentGroupKind: WMFContentGroupKind) -> Bool {
-        feedContentController.languageCodes(for: contentGroupKind).contains(languageCode)
+        feedContentController.contentLanguageCodes(for: contentGroupKind).contains(contentLanguageCode)
     }
 }

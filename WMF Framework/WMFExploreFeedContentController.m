@@ -32,7 +32,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 @property (nonatomic, copy, readonly) NSArray<NSURL *> *preferredSiteURLs;
 @property (nonatomic, strong) ExploreFeedPreferencesUpdateCoordinator *exploreFeedPreferencesUpdateCoordinator;
 @property (nonatomic, nullable) NSNumber *cachedCountOfVisibleContentGroupKinds;
-@property (nonatomic, strong) NSDictionary<NSString *, NSNumber *> *sortOrderBySiteURLDatabaseKey;
+@property (nonatomic, strong) NSDictionary<NSString *, NSNumber *> *sortOrderByContentLanguageCode;
 
 @end
 
@@ -153,10 +153,10 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     NSMutableDictionary<NSString *, NSNumber *> *updatedSortOrder = [NSMutableDictionary dictionaryWithCapacity:siteURLs.count];
     NSInteger i = 0;
     for (NSURL *siteURL in siteURLs) {
-        updatedSortOrder[siteURL.wmf_databaseKey] = @(i);
+        updatedSortOrder[siteURL.wmf_contentLanguageCode] = @(i);
         i++;
     }
-    self.sortOrderBySiteURLDatabaseKey = updatedSortOrder;
+    self.sortOrderByContentLanguageCode = updatedSortOrder;
     
     if ([_contentSources count] == 0) {
         return;
@@ -388,17 +388,17 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 }
 
 - (BOOL)anyContentGroupsVisibleInTheFeedForSiteURL:(NSURL *)siteURL {
-    return [self.exploreFeedPreferences objectForKey:siteURL.wmf_databaseKey] != nil;
+    return [self.exploreFeedPreferences objectForKey:siteURL.wmf_contentLanguageCode] != nil;
 }
 
-- (NSArray<NSString *> *)languageCodesForContentGroupKind:(WMFContentGroupKind)contentGroupKind {
-    NSMutableArray *languageCodes = [NSMutableArray new];
+- (NSArray<NSString *> *)contentLanguageCodesForContentGroupKind:(WMFContentGroupKind)contentGroupKind {
+    NSMutableArray *contentLanguageCodes = [NSMutableArray new];
     [self.exploreFeedPreferences enumerateKeysAndObjectsUsingBlock:^(NSString *key, id _Nonnull value, BOOL * _Nonnull stop) {
         if (![value isKindOfClass:[NSDictionary class]] && [value containsObject:@(contentGroupKind)]) {
-            [languageCodes addObject:[[NSURL URLWithString:key] wmf_language]];
+            [contentLanguageCodes addObject:key];
         }
     }];
-    return languageCodes;
+    return contentLanguageCodes;
 }
 
 + (NSSet<NSNumber *> *)customizableContentGroupKindNumbers {
@@ -448,7 +448,11 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     WMFKeyValue *keyValue = [moc wmf_keyValueForKey:WMFExploreFeedPreferencesKey];
     NSDictionary *exploreFeedPreferences = (NSDictionary *)keyValue.value;
     if (exploreFeedPreferences && [exploreFeedPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey]) {
-        return exploreFeedPreferences;
+        if ([self exploreFeedPreferencesNeedMigration:exploreFeedPreferences]) {
+            return [self migrateExploreFeedPreferences:exploreFeedPreferences inManagedObjectContext:moc];
+        } else {
+            return exploreFeedPreferences;
+        }
     }
     [moc wmf_setValue:[self defaultExploreFeedPreferences] forKey:WMFExploreFeedPreferencesKey];
     [self save:moc];
@@ -460,7 +464,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 - (NSDictionary *)defaultExploreFeedPreferences {
     NSMutableDictionary *defaultExploreFeedPreferences = [NSMutableDictionary dictionaryWithCapacity:self.preferredSiteURLs.count + 1];
     for (NSURL *siteURL in self.preferredSiteURLs) {
-        [defaultExploreFeedPreferences setObject:[WMFExploreFeedContentController customizableContentGroupKindNumbers] forKey:siteURL.wmf_databaseKey];
+        [defaultExploreFeedPreferences setObject:[WMFExploreFeedContentController customizableContentGroupKindNumbers] forKey:siteURL.wmf_contentLanguageCode];
     }
     [defaultExploreFeedPreferences setObject:[self defaultGlobalCardsPreferences] forKey:WMFExploreFeedPreferencesGlobalCardsKey];
     return defaultExploreFeedPreferences;
@@ -504,7 +508,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 
 -(void)toggleContentForSiteURL:(NSURL *)siteURL isOn:(BOOL)isOn waitForCallbackFromCoordinator:(BOOL)waitForCallbackFromCoordinator updateFeed:(BOOL)updateFeed {
     [self updateExploreFeedPreferences:^NSDictionary *(NSDictionary *oldPreferences) {
-        NSString *key = siteURL.wmf_databaseKey;
+        NSString *key = siteURL.wmf_contentLanguageCode;
         NSMutableDictionary *newPreferences = [oldPreferences mutableCopy];
         if (isOn) {
             [newPreferences setObject:[WMFExploreFeedContentController customizableContentGroupKindNumbers] forKey:key];
@@ -527,7 +531,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
             [newPreferences setObject:newGlobalCardPreferences forKey:WMFExploreFeedPreferencesGlobalCardsKey];
         } else {
             for (NSURL *siteURL in siteURLs) {
-                NSString *key = siteURL.wmf_databaseKey;
+                NSString *key = siteURL.wmf_contentLanguageCode;
                 NSSet *oldVisibleContentGroupKindNumbers = [newPreferences objectForKey:key];
                 NSMutableSet *newVisibleContentGroupKindNumbers;
 
@@ -686,26 +690,26 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 }
 
 - (void)applyExploreFeedPreferencesToObjects:(id<NSFastEnumeration>)objects inManagedObjectContext:(NSManagedObjectContext *)moc {
+    NSDictionary *exploreFeedPreferences = [self exploreFeedPreferencesInManagedObjectContext:moc];
     for (NSManagedObject *object in objects) {
         if (![object isKindOfClass:[WMFContentGroup class]]) {
             continue;
         }
 
         WMFContentGroup *contentGroup = (WMFContentGroup *)object;
-        [contentGroup updateDailySortPriorityWithSiteURLSortOrder:self.sortOrderBySiteURLDatabaseKey];
+        [contentGroup updateDailySortPriorityWithSortOrderByContentLanguageCode:self.sortOrderByContentLanguageCode];
 
         // Skip collapsed cards, let them be visible
         if (contentGroup.undoType != WMFContentGroupUndoTypeNone) {
             continue;
         }
         BOOL isVisible;
-        NSDictionary *exploreFeedPreferences = [self exploreFeedPreferencesInManagedObjectContext:moc];
         if ([self isGlobal:contentGroup.contentGroupKind]) {
             NSDictionary *globalCardPreferences = [exploreFeedPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey];
             BOOL isGlobalCardVisible = [[globalCardPreferences objectForKey:@(contentGroup.contentGroupKind)] boolValue];
             isVisible = isGlobalCardVisible && !contentGroup.wasDismissed;
         } else {
-            NSSet<NSNumber *> *visibleContentGroupKinds = [exploreFeedPreferences objectForKey:contentGroup.siteURL.wmf_databaseKey];
+            NSSet<NSNumber *> *visibleContentGroupKinds = [exploreFeedPreferences objectForKey:contentGroup.siteURL.wmf_contentLanguageCode];
             NSNumber *contentGroupNumber = @(contentGroup.contentGroupKindInteger);
             if (![[WMFExploreFeedContentController customizableContentGroupKindNumbers] containsObject:contentGroupNumber]) {
                 continue;
@@ -728,6 +732,64 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
         DDLogError(@"Error saving WMFExploreFeedContentController managedObjectContext");
     }
 }
+
+#pragma mark - Language Variant Migration
+/* NOTE: The methods in this section are currently called from -exploreFeedPreferencesInManagedObjectContext:.
+ * This is a way to bootstrap migration to the new method of storing these settings until the full one-time
+ * language variant migration process is in place.
+ */
+ static BOOL preferencesNeedMigration;
+- (BOOL)exploreFeedPreferencesNeedMigration:(NSDictionary *)preferences {
+    // Check once to avoid rechecking repeatedly
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        preferencesNeedMigration = NO;
+        for (NSString *key in preferences.allKeys) {
+            if ([key isEqualToString:WMFExploreFeedPreferencesGlobalCardsKey]) {
+                continue;
+            } else if ([key hasPrefix:@"http"]) {
+                preferencesNeedMigration = YES;
+                break;
+            } else {
+                break;
+            }
+        }
+    });
+    return preferencesNeedMigration;
+}
+
+// Move from siteURL-based to contentLanguageCode-based keys to support language variants
+- (NSDictionary *)migrateExploreFeedPreferences:(NSDictionary *)originalPreferences inManagedObjectContext:(NSManagedObjectContext *)moc {
+    NSArray *preferedSiteURLs = self.preferredSiteURLs;
+    NSMutableDictionary *migratedPreferences = [[NSMutableDictionary alloc] init];
+    for (NSString *key in originalPreferences.allKeys) {
+        // Just pass the global key along as-is
+        if ([key isEqualToString:WMFExploreFeedPreferencesGlobalCardsKey]) {
+            [migratedPreferences setValue:[originalPreferences valueForKey:key] forKey:key];
+        }
+        else {
+            NSInteger foundIndex = [preferedSiteURLs indexOfObjectPassingTest:^BOOL(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                BOOL isMatch = [[(NSURL *)obj wmf_databaseKey] isEqualToString:key];
+                *stop = isMatch;
+                return isMatch;
+            }];
+            if (foundIndex != NSNotFound) {
+                NSURL *foundURL = [preferedSiteURLs objectAtIndex:foundIndex];
+                NSString *newKey = foundURL.wmf_contentLanguageCode;
+                [migratedPreferences setValue:[originalPreferences valueForKey:key] forKey:newKey];
+            }
+        }
+    }
+    [moc wmf_setValue:migratedPreferences forKey:WMFExploreFeedPreferencesKey];
+    [self save:moc];
+    NSDictionary *preferences = (NSDictionary *)[moc wmf_keyValueForKey:WMFExploreFeedPreferencesKey].value;
+    assert(preferences);
+    preferencesNeedMigration = NO;
+    return preferences;
+}
+
+
+#pragma mark - Debug
 
 #if WMF_TWEAKS_ENABLED
 - (void)debugSendRandomInTheNewsNotification {
@@ -756,7 +818,6 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 #endif
 
 #if DEBUG
-#pragma mark - Debug
 
 - (void)debugChaos {
     BOOL needsTeardown = arc4random_uniform(2) > 0;
