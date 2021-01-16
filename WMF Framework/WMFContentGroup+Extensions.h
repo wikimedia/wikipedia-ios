@@ -126,6 +126,8 @@ typedef NS_ENUM(int16_t, WMFContentGroupUndoType) {
 
 - (nullable NSArray<WMFContentGroup *> *)groupsOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date;
 
+- (nullable NSArray<WMFContentGroup *> *)orderedGroupsOfKind:(WMFContentGroupKind)kind withPredicate:(nullable NSPredicate *)predicate;
+
 - (nullable WMFContentGroup *)locationContentGroupWithSiteURL:(nullable NSURL *)siteURL withinMeters:(CLLocationDistance)meters ofLocation:(CLLocation *)location;
 
 @end
