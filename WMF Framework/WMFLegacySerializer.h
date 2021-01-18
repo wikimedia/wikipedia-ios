@@ -5,13 +5,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFLegacySerializer : NSObject
 
 // Serializes {-object-}s at "key.path" in the form {"key": {"path": [{-object-}, {-object-}]}}
-+ (nullable NSArray *)modelsOfClass:(Class)modelClass fromArrayForKeyPath:(NSString *)keyPath inJSONDictionary:(nullable NSDictionary *)JSONDictionary error:(NSError **)error;
-
-// Serializes {-object-}s at "key.path" in the form {"key": {"path": {"a": {-object-}, "b": {-object-}}}}
-+ (nullable NSArray *)modelsOfClass:(Class)modelClass fromAllValuesOfDictionaryForKeyPath:(NSString *)keyPath inJSONDictionary:(nullable NSDictionary *)JSONDictionary error:(NSError **)error;
-
-// Filters the untyped array to only include NSDictionary objects before serializing into modelClass
-+ (nullable NSArray *)modelsOfClass:(Class)modelClass fromUntypedArray:(NSArray *)untypedArray error:(NSError **)error;
+// The languageVariantCode is propogated to the URL properties of the graph of deserialized model objects
++ (nullable NSArray *)modelsOfClass:(Class)modelClass fromArrayForKeyPath:(NSString *)keyPath inJSONDictionary:(nullable NSDictionary *)JSONDictionary languageVariantCode:(nullable NSString *)languageVariantCode error:(NSError **)error;
 
 @end
 
