@@ -177,6 +177,16 @@ class URLParsingAndRoutingTests: XCTestCase {
         let languageVariantCode = "zh-hant"
         url.wmf_languageVariantCode = languageVariantCode
         XCTAssertEqual(url.wmf_languageVariantCode, languageVariantCode)
+
+        // Assignment of value type URL preserves the language variant code associated object
+        // Both are backed by the same copy-on-write NSURL instance
+        let url2 = url
+        XCTAssertEqual(url2.wmf_languageVariantCode, languageVariantCode)
+
+        // Creating new URL instances based on the original DOES NOT automatically
+        // propagate the language variant code associated object
+        let url3 = url.appendingPathComponent("test")
+        XCTAssertNotEqual(url3.wmf_languageVariantCode, languageVariantCode)
     }
     
     func testContentLanguageCodeProperty() {
