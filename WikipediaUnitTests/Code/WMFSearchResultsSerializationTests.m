@@ -1,6 +1,7 @@
 #import <XCTest/XCTest.h>
 #import "MWKSearchResult.h"
 #import "WMFSearchResults.h"
+#import "WMFMTLModel.h"
 
 @interface WMFSearchResultsSerializationTests : XCTestCase
 
@@ -12,7 +13,7 @@
     id noResultJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"NoSearchResultsWithSuggestion"];
     NSDictionary *query = noResultJSON[@"query"];
     NSError *mantleError = nil;
-    WMFSearchResults *searchResults = [MTLJSONAdapter modelOfClass:[WMFSearchResults class] fromJSONDictionary:query error:&mantleError];
+    WMFSearchResults *searchResults = [MTLJSONAdapter modelOfClass:[WMFSearchResults class] fromJSONDictionary:query languageVariantCode: nil error:&mantleError];
     XCTAssertNil(mantleError);
     XCTAssertEqual(searchResults.results.count, 0);
     XCTAssertEqual(searchResults.redirectMappings.count, 0);
@@ -26,7 +27,7 @@
     NSArray<NSDictionary *> *resultJSONObjects = [resultJSON[@"pages"] allValues];
 
     NSError *mantleError = nil;
-    WMFSearchResults *searchResults = [MTLJSONAdapter modelOfClass:[WMFSearchResults class] fromJSONDictionary:resultJSON error:&mantleError];
+    WMFSearchResults *searchResults = [MTLJSONAdapter modelOfClass:[WMFSearchResults class] fromJSONDictionary:resultJSON languageVariantCode: nil error:&mantleError];
     XCTAssertNil(mantleError);
     XCTAssertEqual(searchResults.results.count, resultJSONObjects.count);
 
