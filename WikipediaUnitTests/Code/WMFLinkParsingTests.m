@@ -180,4 +180,24 @@
     XCTAssertEqualObjects(components.wmf_componentsByRemovingInternalQueryParameters.URL.absoluteString, @"https://en.wikipedia.org/wiki/ISO_8601?wprov=stii1");
 }
 
+- (void)testContentLanguageCodeProperty {
+    NSString *languageCode = @"zh";
+    NSString *languageVariantCode = @"zh-hans";
+    
+    // If languageVariantCode is non-nil and non-empty string, wmf_contentLanguageCode returns languageVariantCode
+    NSURL *url = [NSURL wmf_URLWithDefaultSiteAndlanguage:languageCode];
+    url.wmf_languageVariantCode = languageVariantCode;
+    XCTAssertEqualObjects(url.wmf_contentLanguageCode, languageVariantCode);
+    
+    // If languageVariantCode is nil, contentLanguageCode returns languageCode
+    url = [NSURL wmf_URLWithDefaultSiteAndlanguage:languageCode];
+    XCTAssertEqualObjects(url.wmf_contentLanguageCode, languageCode);
+    
+    // If languageVariantCode is an empty string, contentLanguageCode returns languageCode
+    url = [NSURL wmf_URLWithDefaultSiteAndlanguage:languageCode];
+    url.wmf_languageVariantCode = @"";
+    XCTAssertEqualObjects(url.wmf_contentLanguageCode, languageCode);
+}
+
+
 @end

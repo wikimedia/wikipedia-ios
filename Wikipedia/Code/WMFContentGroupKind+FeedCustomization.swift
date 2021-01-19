@@ -1,7 +1,7 @@
 extension WMFContentGroupKind {
     var isInFeed: Bool {
         guard isGlobal else {
-            return !feedContentController.languageCodes(for: self).isEmpty
+            return !feedContentController.contentLanguageCodes(for: self).isEmpty
         }
         return feedContentController.isGlobalContentGroupKind(inFeed: self)
     }
@@ -14,8 +14,8 @@ extension WMFContentGroupKind {
         return WMFExploreFeedContentController.globalContentGroupKindNumbers().contains(NSNumber(value: rawValue))
     }
 
-    var languageCodes: Array<String> {
-        return feedContentController.languageCodes(for: self)
+    var contentLanguageCodes: Array<String> {
+        return feedContentController.contentLanguageCodes(for: self)
     }
 
     private var feedContentController: WMFExploreFeedContentController {
