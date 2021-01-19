@@ -27,4 +27,7 @@ static NSString *const WMFArticleRevisionErrorDomain = @"WMFArticleRevisionError
              WMFArticleRevisionKey(sizeInBytes): @"size"};
 }
 
+// No languageVariantCodePropagationSubelementKeys
+// No languageVariantCodePropagationURLKeys
+
 @end

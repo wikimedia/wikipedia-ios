@@ -79,4 +79,11 @@
     }];
 }
 
+// No languageVariantCodePropagationSubelementKeys
+
++ (NSArray<NSString *> *)languageVariantCodePropagationURLKeys {
+    return @[@"imageURL",
+             @"actionURL"];
+}
+
 @end

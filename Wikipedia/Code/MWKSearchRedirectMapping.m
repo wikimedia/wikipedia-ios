@@ -26,6 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
     };
 }
 
+// No languageVariantCodePropagationSubelementKeys
+// No languageVariantCodePropagationURLKeys
+
 @end
 
 NS_ASSUME_NONNULL_END
