@@ -3,11 +3,11 @@
 #import "WMFSearchResults.h"
 #import "WMFMTLModel.h"
 
-@interface WMFSearchResultsSerializationTests : XCTestCase
+@interface WMFMTLModelSerializationTests : XCTestCase
 
 @end
 
-@implementation WMFSearchResultsSerializationTests
+@implementation WMFMTLModelSerializationTests
 
 - (void)testResultsAndRedirectsAreNonnullForZeroResultResponse {
     id noResultJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"NoSearchResultsWithSuggestion"];
