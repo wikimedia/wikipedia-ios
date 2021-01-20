@@ -508,8 +508,6 @@
 "main-menu-account-logout-are-you-sure" = "Header asking if user is sure they wish to log out.";
 "main-menu-account-logout-cancel" = "Button text for hiding the log out menu. {{Identical|Cancel}}";
 "main-menu-account-title-logged-in" = "Header text used when account is logged in. $1 will be replaced with current username.";
-"main-menu-debug-tweaks" = "Title for button that shows debugging settings options.";
-"main-menu-heading-debug" = "Header text for the debug section of the menu. The debug menu is conditionally shown if in Xcode debug mode. {{Identical|Debug}}";
 "main-menu-heading-legal" = "Header text for the legal section of the menu. Consider using something informal, but feel free to use a more literal translation of \"Legal info\" if it seems more appropriate.";
 "main-menu-nearby" = "Button for showing nearby articles. {{Identical|Nearby}}";
 "main-menu-privacy-policy" = "Button text for showing privacy policy {{Identical|Privacy policy}}";

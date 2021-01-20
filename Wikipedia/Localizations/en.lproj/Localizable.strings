@@ -508,8 +508,6 @@
 "main-menu-account-logout-are-you-sure" = "Are you sure you want to log out?";
 "main-menu-account-logout-cancel" = "Cancel";
 "main-menu-account-title-logged-in" = "Logged in as $1";
-"main-menu-debug-tweaks" = "Developer settings";
-"main-menu-heading-debug" = "Debug";
 "main-menu-heading-legal" = "Privacy and Terms";
 "main-menu-nearby" = "Nearby";
 "main-menu-privacy-policy" = "Privacy policy";
