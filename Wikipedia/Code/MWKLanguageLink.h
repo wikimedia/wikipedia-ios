@@ -41,10 +41,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// Returns @c languageVariantCode if non-nil and non-empty string, @c lanagugeCode otherwise
 @property (readonly, copy, nonatomic, nonnull) NSString *contentLanguageCode;
 
-/// A url with the default Wikipedia domain and the receiver's @c languageCode.
+/// A url with the default Wikipedia domain and the receiver's @c languageCode. The receiver's @c languageVariantCode is set as the URL's wmf_languageVariantCode.
 @property (readonly, copy, nonatomic, nonnull) NSURL *siteURL;
 
-/// A url whose domain & path are derived from the receiver's @c languageCode and @c pageTitleText.
+/// A url whose domain & path are derived from the receiver's @c languageCode and @c pageTitleText.  The receiver's @c languageVariantCode is set as the URL's wmf_languageVariantCode.
 @property (readonly, copy, nonatomic, nonnull) NSURL *articleURL;
 
 @end

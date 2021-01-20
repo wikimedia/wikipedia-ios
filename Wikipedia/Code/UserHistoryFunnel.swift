@@ -135,8 +135,8 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
 
 private extension WMFContentGroupKind {
     var offLanguageCodes: Set<String> {
-        let preferredLangCodes = MWKDataStore.shared().languageLinkController.preferredLanguages.map{$0.languageCode}
-        return Set(preferredLangCodes).subtracting(languageCodes)
+        let preferredContentLangCodes = MWKDataStore.shared().languageLinkController.preferredLanguages.map{$0.contentLanguageCode}
+        return Set(preferredContentLangCodes).subtracting(contentLanguageCodes)
     }
     
     // codes define by: https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSUserHistory
@@ -168,8 +168,8 @@ private extension WMFContentGroupKind {
     // "on" / "off" define by: https://meta.wikimedia.org/wiki/Schema:MobileWikiAppiOSUserHistory
     var userHistorySchemaLanguageInfo: [String: [String]] {
         var info = [String: [String]]()
-        if !languageCodes.isEmpty {
-            info["on"] = Array(languageCodes)
+        if !contentLanguageCodes.isEmpty {
+            info["on"] = Array(contentLanguageCodes)
         }
         if !offLanguageCodes.isEmpty {
             info["off"] = Array(offLanguageCodes)
