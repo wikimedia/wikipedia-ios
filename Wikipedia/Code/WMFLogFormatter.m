@@ -27,7 +27,7 @@ BOOL const shouldShowDateInLog = YES;
             level = @"🗣️ VERBOSE";
             break;
         case DDLogFlagDebug:
-            level = @"🪲 DEBUG";
+            level = @"💬 DEBUG";
             break;
         case DDLogFlagInfo:
             level = @"ℹ️  INFO";
@@ -43,14 +43,14 @@ BOOL const shouldShowDateInLog = YES;
     }
 
     if (shouldShowDateInLog) {
-        return [NSString stringWithFormat:@"[%@] %@: %@ (From: %@#L%lu)",
+        return [NSString stringWithFormat:@"[%@] %@: %@ [%@#L%lu]",
                                           level,
                                           [self stringFromDate:logMessage->_timestamp],
                                           logMessage -> _message,
                                           logMessage -> _fileName,
                                           (unsigned long)logMessage -> _line];
     } else {
-        return [NSString stringWithFormat:@"%@: %@ (From: %@#L%lu)",
+        return [NSString stringWithFormat:@"%@: %@ [%@#L%lu]",
                                           level,
                                           logMessage->_message,
                                           logMessage->_fileName,
