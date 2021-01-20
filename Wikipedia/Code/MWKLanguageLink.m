@@ -66,11 +66,15 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink:)
 }
 
 - (NSURL *)siteURL {
-    return [NSURL wmf_URLWithDefaultSiteAndlanguage:self.languageCode];
+    NSURL *siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:self.languageCode];
+    siteURL.wmf_languageVariantCode = self.languageVariantCode;
+    return siteURL;
 }
 
 - (NSURL *)articleURL {
-    return [[self siteURL] wmf_URLWithTitle:self.pageTitleText];
+    NSURL *articleURL = [[self siteURL] wmf_URLWithTitle:self.pageTitleText];
+    articleURL.wmf_languageVariantCode = self.languageVariantCode;
+    return articleURL;
 }
 
 @end

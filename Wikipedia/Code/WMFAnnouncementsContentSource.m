@@ -84,9 +84,6 @@
                                                     group.placement = obj.placement;
                                                 }];
             [group updateVisibilityForUserIsLoggedIn:isLoggedIn];
-            if (group.isVisible && [group.placement isEqualToString:@"article"]) {
-                NSUserDefaults.standardUserDefaults.shouldCheckForArticleAnnouncements = YES;
-            }
         }];
 
         [[WMFSurveyAnnouncementsController shared] setAnnouncements:announcements forSiteURL:self.siteURL dataStore:self.userDataStore];

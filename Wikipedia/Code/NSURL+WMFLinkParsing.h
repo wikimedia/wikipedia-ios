@@ -182,6 +182,11 @@ extern NSString *const WMFEditPencil;
 
 @property (nonatomic, copy, readonly, nullable) NSString *wmf_databaseKey; // string suitable for using as a unique key for any wiki page
 
+/**
+ *  Returns @c wmf_languageVariantCode if non-nil and non-empty string, @c wmf_language otherwise
+ */
+@property (nonatomic, copy, readonly, nullable) NSString *wmf_contentLanguageCode;
+
 #pragma mark - Introspection
 
 /**
