@@ -97,12 +97,12 @@ private class FeedCard: ExploreFeedSettingsItem {
     private func multipleLanguagesDisclosureText(for contentGroupKind: WMFContentGroupKind) -> String {
         guard contentGroupKind.isGlobal else {
             let preferredLanguages = MWKDataStore.shared().languageLinkController.preferredLanguages
-            let languageCodes = contentGroupKind.languageCodes
-            switch languageCodes.count {
+            let contentLanguageCodes = contentGroupKind.contentLanguageCodes
+            switch contentLanguageCodes.count {
             case preferredLanguages.count:
                 return CommonStrings.onAllTitle
             case 1...:
-                return CommonStrings.onTitle(languageCodes.count)
+                return CommonStrings.onTitle(contentLanguageCodes.count)
             default:
                 return CommonStrings.offTitle
             }
@@ -132,9 +132,9 @@ private class FeedCard: ExploreFeedSettingsItem {
         if contentGroupKind.isGlobal {
             return WMFLocalizedString("explore-feed-preferences-global-cards-subtitle", value: "Not language specific", comment: "Subtitle describing non-language specific feed cards")
         } else {
-            let languageCodes = contentGroupKind.languageCodes
-            let preferredLanguages = MWKDataStore.shared().languageLinkController.preferredLanguages.map { $0.languageCode }
-            let filteredLanguages = preferredLanguages.filter { languageCodes.contains($0) }
+            let contentLanguageCodes = contentGroupKind.contentLanguageCodes
+            let preferredContentLanguageCodes = MWKDataStore.shared().languageLinkController.preferredLanguages.map { $0.contentLanguageCode }
+            let filteredLanguages = preferredContentLanguageCodes.filter { contentLanguageCodes.contains($0) }
             return filteredLanguages.joined(separator: ", ").uppercased()
         }
     }

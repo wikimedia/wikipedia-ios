@@ -106,6 +106,22 @@
     XCTAssertEqualObjects(link.contentLanguageCode, languageCode);
 }
 
+- (void)testLanguageVariantCodeURLPropagation {
+    NSString *languageCode = @"sr";
+    NSString *languageVariantCode = @"sr-el";
+    
+    // The languageVariantCode property should propagate to the siteURL.
+    MWKLanguageLink *link = [[MWKLanguageLink alloc] initWithLanguageCode:languageCode pageTitleText:@"test" name:@"test" localizedName:@"test" languageVariantCode:languageVariantCode];
+    NSURL *siteURL = link.siteURL;
+    XCTAssertEqualObjects(siteURL.wmf_languageVariantCode, languageVariantCode);
+    
+    // The languageVariantCode property should propagate to the articleURL.
+    link = [[MWKLanguageLink alloc] initWithLanguageCode:languageCode pageTitleText:@"PageTitle" name:@"test" localizedName:@"test" languageVariantCode:languageVariantCode];
+    NSURL *articleURL = link.articleURL;
+    XCTAssertEqualObjects(articleURL.wmf_languageVariantCode, languageVariantCode);
+}
+
+
 #pragma mark - Utils
 
 - (void)verifyAllLanguageArrayProperties {

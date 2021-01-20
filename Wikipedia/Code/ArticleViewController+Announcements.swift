@@ -4,22 +4,34 @@ import CocoaLumberjackSwift
 extension ArticleViewController {
     
     func showAnnouncementIfNeeded() {
-        guard UserDefaults.standard.shouldCheckForArticleAnnouncements,
-              ((isInValidSurveyCampaignAndArticleList && userHasSeenSurveyPrompt) || !isInValidSurveyCampaignAndArticleList) else {
+        guard ((isInValidSurveyCampaignAndArticleList && userHasSeenSurveyPrompt) || !isInValidSurveyCampaignAndArticleList) else {
             return
         }
-        let predicate = NSPredicate(format: "placement == 'article'")
-        let contentGroup = dataStore.viewContext.newestVisibleGroup(of: .announcement, with: predicate)
+        let predicate = NSPredicate(format: "placement == 'article' && isVisible == YES")
+        let contentGroups = dataStore.viewContext.orderedGroups(of: .announcement, with: predicate)
+        let currentDate = Date()
+        
+        //get the first content group with a valid date
+        let contentGroup = contentGroups?.first(where: { (group) -> Bool in
+            guard group.contentType == .announcement,
+                  let announcement = group.contentPreview as? WMFAnnouncement,
+                  let startDate = announcement.startTime,
+                  let endDate = announcement.endTime
+                  else {
+                return false
+            }
+            
+            return (startDate...endDate).contains(currentDate)
+        })
+        
         guard
             let contentGroupURL = contentGroup?.url,
             let announcement = contentGroup?.contentPreview as? WMFAnnouncement,
             let actionURL = announcement.actionURL
         else {
-            UserDefaults.standard.shouldCheckForArticleAnnouncements = false
             return
         }
         let dismiss = {
-            UserDefaults.standard.shouldCheckForArticleAnnouncements = false
             // re-fetch since time has elapsed
             let contentGroup = self.dataStore.viewContext.contentGroup(for: contentGroupURL)
             contentGroup?.markDismissed()

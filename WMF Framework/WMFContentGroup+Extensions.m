@@ -130,17 +130,17 @@
 
 
 
-- (void)updateDailySortPriorityWithSiteURLSortOrder:(nullable NSDictionary<NSString *, NSNumber *> *)siteURLSortOrderLookup {
+- (void)updateDailySortPriorityWithSortOrderByContentLanguageCode:(nullable NSDictionary<NSString *, NSNumber *> *)sortOrderByContentLanguageCode {
     
-    NSNumber *siteURLSortOrderNumber = nil;
-    NSString *siteURLDatabaseKey = self.siteURL.wmf_databaseKey;
+    NSNumber *contentLanguageSortOrderNumber = nil;
+    NSString *contentLanguageCode = self.siteURL.wmf_contentLanguageCode;
     
-    if (siteURLDatabaseKey) {
-        siteURLSortOrderNumber = siteURLSortOrderLookup[siteURLDatabaseKey];
+    if (contentLanguageCode) {
+        contentLanguageSortOrderNumber = sortOrderByContentLanguageCode[contentLanguageCode];
     }
     
     NSInteger maxSortOrderByKind = 14;
-    int32_t siteURLSortOrder = (int32_t)(maxSortOrderByKind * [siteURLSortOrderNumber integerValue]);
+    int32_t contentLanguageSortOrder = (int32_t)(maxSortOrderByKind * [contentLanguageSortOrderNumber integerValue]);
     int32_t updatedDailySortPriority = 0;
     
     switch (self.contentGroupKind) {
@@ -156,40 +156,40 @@
             updatedDailySortPriority = 1;
             break;
         case WMFContentGroupKindReadingList:
-            updatedDailySortPriority = siteURLSortOrder + 2;
+            updatedDailySortPriority = contentLanguageSortOrder + 2;
             break;
         case WMFContentGroupKindTheme:
-            updatedDailySortPriority = siteURLSortOrder + 3;
+            updatedDailySortPriority = contentLanguageSortOrder + 3;
             break;
         case WMFContentGroupKindFeaturedArticle:
-            updatedDailySortPriority = siteURLSortOrder + 4;
+            updatedDailySortPriority = contentLanguageSortOrder + 4;
             break;
         case WMFContentGroupKindTopRead:
-            updatedDailySortPriority = siteURLSortOrder + 5;
+            updatedDailySortPriority = contentLanguageSortOrder + 5;
             break;
         case WMFContentGroupKindNews:
-            updatedDailySortPriority = siteURLSortOrder + 6;
+            updatedDailySortPriority = contentLanguageSortOrder + 6;
             break;
         case WMFContentGroupKindNotification:
-            updatedDailySortPriority = siteURLSortOrder + 7;
+            updatedDailySortPriority = contentLanguageSortOrder + 7;
             break;
         case WMFContentGroupKindPictureOfTheDay:
             updatedDailySortPriority = 8;
             break;
         case WMFContentGroupKindOnThisDay:
-            updatedDailySortPriority = siteURLSortOrder + 9;
+            updatedDailySortPriority = contentLanguageSortOrder + 9;
             break;
         case WMFContentGroupKindLocationPlaceholder:
-            updatedDailySortPriority = siteURLSortOrder + 10;
+            updatedDailySortPriority = contentLanguageSortOrder + 10;
             break;
         case WMFContentGroupKindLocation:
-            updatedDailySortPriority = siteURLSortOrder + 11;
+            updatedDailySortPriority = contentLanguageSortOrder + 11;
             break;
         case WMFContentGroupKindRandom:
-            updatedDailySortPriority = siteURLSortOrder + 12;
+            updatedDailySortPriority = contentLanguageSortOrder + 12;
             break;
         case WMFContentGroupKindMainPage:
-            updatedDailySortPriority = siteURLSortOrder + 13;
+            updatedDailySortPriority = contentLanguageSortOrder + 13;
             break;
         default:
             break;
@@ -227,19 +227,25 @@
 }
 
 - (nullable NSURL *)articleURL {
-    return [NSURL URLWithString:self.articleURLString];
+    NSURL *articleURL = [NSURL URLWithString:self.articleURLString];
+    articleURL.wmf_languageVariantCode = self.variant;
+    return articleURL;
 }
 
 - (void)setArticleURL:(nullable NSURL *)articleURL {
     self.articleURLString = articleURL.absoluteString;
+    self.variant = articleURL.wmf_languageVariantCode;
 }
 
 - (nullable NSURL *)siteURL {
-    return [NSURL URLWithString:self.siteURLString];
+    NSURL *siteURL = [NSURL URLWithString:self.siteURLString];
+    siteURL.wmf_languageVariantCode = self.variant;
+    return siteURL;
 }
 
 - (void)setSiteURL:(nullable NSURL *)siteURL {
     self.siteURLString = siteURL.wmf_databaseKey;
+    self.variant = siteURL.wmf_languageVariantCode;
 }
 
 - (void)setFullContentObject:(NSObject<NSCoding> *)fullContentObject {
@@ -730,9 +736,29 @@
     return [contentGroups firstObject];
 }
 
+- (nullable NSArray<WMFContentGroup *> *)orderedGroupsOfKind:(WMFContentGroupKind)kind withPredicate:(nullable NSPredicate *)predicate {
+    NSPredicate *basePredicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@", @(kind)];
+    NSPredicate *finalPredicate = basePredicate;
+    if (predicate) {
+        NSCompoundPredicate *compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[basePredicate, predicate]];
+        finalPredicate = compoundPredicate;
+    }
+    
+    NSArray<NSSortDescriptor *> *sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"midnightUTCDate" ascending:NO], [NSSortDescriptor sortDescriptorWithKey:@"dailySortPriority" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]];
+    return [self groupsWithPredicate:finalPredicate sortDescriptors:sortDescriptors];
+}
+
 - (nullable NSArray<WMFContentGroup *> *)groupsOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@", @(kind), date.wmf_midnightUTCDateFromLocalDate];
+    return [self groupsWithPredicate:predicate sortDescriptors:nil];
+}
+
+- (nullable NSArray<WMFContentGroup *> *)groupsWithPredicate: (nonnull NSPredicate *)predicate sortDescriptors: (nullable  NSArray<NSSortDescriptor *> *)sortDescriptors {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@", @(kind), date.wmf_midnightUTCDateFromLocalDate];
+    fetchRequest.predicate = predicate;
+    if (sortDescriptors) {
+        fetchRequest.sortDescriptors = sortDescriptors;
+    }
     NSError *fetchError = nil;
     NSArray *contentGroups = [self executeFetchRequest:fetchRequest error:&fetchError];
     if (fetchError) {
