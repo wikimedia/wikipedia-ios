@@ -99,7 +99,7 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
                              }
 
                              NSError *mantleError = nil;
-                             WMFFeedDayResponse *responseObject = [MTLJSONAdapter modelOfClass:[WMFFeedDayResponse class] fromJSONDictionary:jsonDictionary error:&mantleError];
+        WMFFeedDayResponse *responseObject = [MTLJSONAdapter modelOfClass:[WMFFeedDayResponse class] fromJSONDictionary:jsonDictionary languageVariantCode: siteURL.wmf_languageVariantCode error:&mantleError];
                              if (mantleError) {
                                  DDLogError(@"Error parsing feed day response: %@", mantleError);
                                  failure(mantleError);

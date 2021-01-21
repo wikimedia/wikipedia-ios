@@ -5,7 +5,7 @@
 
 @implementation WMFLegacySerializer
 
-+ (nullable NSArray *)modelsOfClass:(Class)modelClass fromArrayForKeyPath:(NSString *)keyPath inJSONDictionary:(nullable NSDictionary *)JSONDictionary error:(NSError **)error {
++ (nullable NSArray *)modelsOfClass:(Class)modelClass fromArrayForKeyPath:(NSString *)keyPath inJSONDictionary:(nullable NSDictionary *)JSONDictionary languageVariantCode:(nullable NSString *)languageVariantCode error:(NSError **)error {
     NSArray *maybeJSONDictionaries = [JSONDictionary valueForKeyPath:keyPath];
 
     if (![maybeJSONDictionaries isKindOfClass:[NSArray class]]) {
@@ -15,28 +15,16 @@
         return nil;
     }
     
-    return [self modelsOfClass:modelClass fromUntypedArray:maybeJSONDictionaries error:error];
+    return [self modelsOfClass:modelClass fromUntypedArray:maybeJSONDictionaries languageVariantCode: languageVariantCode error:error];
 }
 
-+ (nullable NSArray *)modelsOfClass:(Class)modelClass fromAllValuesOfDictionaryForKeyPath:(NSString *)keyPath inJSONDictionary:(nullable NSDictionary *)JSONDictionary error:(NSError **)error {
-    NSDictionary *maybeJSONDictionaries = [JSONDictionary valueForKeyPath:keyPath];
-    
-    if (![maybeJSONDictionaries isKindOfClass:[NSDictionary class]]) {
-        if (error) {
-            *error = [WMFFetcher unexpectedResponseError];
-        }
-        return nil;
-    }
-    
-    return [self modelsOfClass:modelClass fromUntypedArray:[maybeJSONDictionaries allValues] error:error];
-}
-
-+ (nullable NSArray *)modelsOfClass:(Class)modelClass fromUntypedArray:(NSArray *)untypedArray error:(NSError **)error {
+// Filters the untyped array to only include NSDictionary objects before serializing into modelClass
++ (nullable NSArray *)modelsOfClass:(Class)modelClass fromUntypedArray:(NSArray *)untypedArray languageVariantCode:(nullable NSString *)languageVariantCode error:(NSError **)error {
     NSArray *JSONDictionaries = [untypedArray wmf_select:^BOOL(id _Nonnull maybeJSONDictionary) {
         return [maybeJSONDictionary isKindOfClass:[NSDictionary class]];
     }];
     
-    return [MTLJSONAdapter modelsOfClass:modelClass fromJSONArray:JSONDictionaries error:error];
+    return [MTLJSONAdapter modelsOfClass:modelClass fromJSONArray:JSONDictionaries languageVariantCode: languageVariantCode error:error];
 }
 
 @end

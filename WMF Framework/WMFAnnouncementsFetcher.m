@@ -30,7 +30,7 @@
         }
         
         NSError *serializerError = nil;
-        NSArray *announcements = [WMFLegacySerializer modelsOfClass:[WMFAnnouncement class] fromArrayForKeyPath:@"announce" inJSONDictionary:result error:&serializerError];
+        NSArray *announcements = [WMFLegacySerializer modelsOfClass:[WMFAnnouncement class] fromArrayForKeyPath:@"announce" inJSONDictionary:result languageVariantCode:url.wmf_languageVariantCode error:&serializerError];
         if (serializerError) {
             failure(serializerError);
             return;
