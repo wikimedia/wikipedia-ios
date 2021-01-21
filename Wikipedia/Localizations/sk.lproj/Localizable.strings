@@ -487,8 +487,6 @@
 "main-menu-account-logout-are-you-sure" = "Ste si istý, že sa chcete odhlásiť?";
 "main-menu-account-logout-cancel" = "Zrušiť";
 "main-menu-account-title-logged-in" = "Prihlásený ako $1";
-"main-menu-debug-tweaks" = "Nastavenia pre vývojárov";
-"main-menu-heading-debug" = "Ladiť";
 "main-menu-heading-legal" = "Ochrana osobných údajov a podmienky používania";
 "main-menu-nearby" = "V okolí";
 "main-menu-privacy-policy" = "Ochrana osobných údajov";

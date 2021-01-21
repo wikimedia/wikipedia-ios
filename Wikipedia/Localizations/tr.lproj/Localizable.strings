@@ -546,8 +546,6 @@
 "main-menu-account-logout-are-you-sure" = "Oturumu kapatmak istediğinizden emin misiniz?";
 "main-menu-account-logout-cancel" = "İptal";
 "main-menu-account-title-logged-in" = "$1 olarak oturum açıldı";
-"main-menu-debug-tweaks" = "Geliştirici ayarları";
-"main-menu-heading-debug" = "Ayıkla";
 "main-menu-heading-legal" = "Gizlilik ve Şartlar";
 "main-menu-nearby" = "Yakınımdakiler";
 "main-menu-privacy-policy" = "Gizlilik politikası";

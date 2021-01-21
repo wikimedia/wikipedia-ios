@@ -479,8 +479,6 @@
 "main-menu-account-logout-are-you-sure" = "Ertu viss að þú viljir skrá þig út?";
 "main-menu-account-logout-cancel" = "Hætta við";
 "main-menu-account-title-logged-in" = "Innskráð(ur) sem: $1";
-"main-menu-debug-tweaks" = "Stillingar fyrir forritara";
-"main-menu-heading-debug" = "Aflúsa";
 "main-menu-heading-legal" = "Gagnaleynd og skilmálar";
 "main-menu-nearby" = "Í nágrenni";
 "main-menu-privacy-policy" = "Persónuvernd";

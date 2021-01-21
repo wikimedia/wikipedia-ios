@@ -534,8 +534,6 @@
 "main-menu-account-logout-are-you-sure" = "Är du säker på att du vill logga ut?";
 "main-menu-account-logout-cancel" = "Avbryt";
 "main-menu-account-title-logged-in" = "Inloggad som $1";
-"main-menu-debug-tweaks" = "Utvecklarinställningar";
-"main-menu-heading-debug" = "Felsökning";
 "main-menu-heading-legal" = "Integritet och villkor";
 "main-menu-nearby" = "I närheten";
 "main-menu-privacy-policy" = "Integritetspolicy";

@@ -341,8 +341,6 @@
 "main-menu-account-logout-are-you-sure" = "Er du sikker på at du ønsker at logge ud?";
 "main-menu-account-logout-cancel" = "Annuller";
 "main-menu-account-title-logged-in" = "Logget på som: $1";
-"main-menu-debug-tweaks" = "Indstillinger for udvikler";
-"main-menu-heading-debug" = "Fejlsøgning";
 "main-menu-heading-legal" = "Privatliv og vilkår";
 "main-menu-nearby" = "I nærheden";
 "main-menu-privacy-policy" = "Behandling af personlige oplysninger";
