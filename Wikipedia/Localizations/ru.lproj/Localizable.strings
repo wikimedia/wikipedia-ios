@@ -528,8 +528,6 @@
 "main-menu-account-logout-are-you-sure" = "Вы уверены, что хотите выйти?";
 "main-menu-account-logout-cancel" = "Отмена";
 "main-menu-account-title-logged-in" = "Вход выполнен как $1";
-"main-menu-debug-tweaks" = "Настройки для разработчиков";
-"main-menu-heading-debug" = "Отладка";
 "main-menu-heading-legal" = "Конфиденциальность и условия";
 "main-menu-nearby" = "Поблизости";
 "main-menu-privacy-policy" = "Политика конфиденциальности";

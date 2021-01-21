@@ -518,8 +518,6 @@
 "main-menu-account-logout-are-you-sure" = "Сигурно сакате да се одјавите?";
 "main-menu-account-logout-cancel" = "Откажи";
 "main-menu-account-title-logged-in" = "Најавени сте како $1";
-"main-menu-debug-tweaks" = "Поставки за програмери";
-"main-menu-heading-debug" = "Исправки";
 "main-menu-heading-legal" = "Лични податоци и услови";
 "main-menu-nearby" = "Во близина";
 "main-menu-privacy-policy" = "Заштита на личните податоци";

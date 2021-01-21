@@ -523,8 +523,6 @@
 "main-menu-account-logout-are-you-sure" = "本当にログアウトしますか?";
 "main-menu-account-logout-cancel" = "キャンセル";
 "main-menu-account-title-logged-in" = "$1 としてログインしています。";
-"main-menu-debug-tweaks" = "開発者向けの設定";
-"main-menu-heading-debug" = "デバッグ";
 "main-menu-heading-legal" = "プライバシーと利用規約";
 "main-menu-nearby" = "付近";
 "main-menu-privacy-policy" = "プライバシー・ポリシー";

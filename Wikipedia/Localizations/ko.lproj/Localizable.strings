@@ -542,8 +542,6 @@
 "main-menu-account-logout-are-you-sure" = "로그아웃하시겠습니까?";
 "main-menu-account-logout-cancel" = "취소";
 "main-menu-account-title-logged-in" = "$1님으로 로그인됨";
-"main-menu-debug-tweaks" = "개발자용 설정";
-"main-menu-heading-debug" = "디버그";
 "main-menu-heading-legal" = "개인정보 및 약관";
 "main-menu-nearby" = "근처";
 "main-menu-privacy-policy" = "개인정보보호정책";
