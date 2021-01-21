@@ -35,6 +35,15 @@ NS_ASSUME_NONNULL_BEGIN
     return @"WMFFeedDayResponseMaxAge";
 }
 
++ (NSArray<NSString *> *)languageVariantCodePropagationSubelementKeys {
+    return @[@"featuredArticle",
+             @"topRead",
+             @"pictureOfTheDay",
+             @"newsStories"];
+}
+
+// No languageVariantCodePropagationURLKeys
+
 @end
 
 NS_ASSUME_NONNULL_END

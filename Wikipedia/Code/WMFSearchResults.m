@@ -156,6 +156,14 @@ NS_ASSUME_NONNULL_BEGIN
     [_mutableResults replaceObjectsAtIndexes:indexes withObjects:entrieArray];
 }
 
+#pragma mark - Propagate Language Variant Code
+
++ (NSArray<NSString *> *)languageVariantCodePropagationSubelementKeys {
+    return @[@"results", @"redirectMappings"];
+}
+
+// No languageVariantCodePropagationURLKeys
+
 @end
 
 NS_ASSUME_NONNULL_END

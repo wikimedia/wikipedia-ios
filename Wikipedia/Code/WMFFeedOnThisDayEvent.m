@@ -81,6 +81,12 @@ NS_ASSUME_NONNULL_BEGIN
     return score;
 }
 
++ (NSArray<NSString *> *)languageVariantCodePropagationSubelementKeys {
+    return @[@"articlePreviews"];
+}
+
+// No languageVariantCodePropagationURLKeys. The siteURL property is a derived value.
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -253,4 +253,12 @@
     return _displayTitleHTML && ![_displayTitleHTML isEqualToString:@""] ? _displayTitleHTML : _displayTitle;
 }
 
+#pragma mark - Propagate Language Variant Code
+
+// No languageVariantCodePropagationSubelementKeys
+
++ (NSArray<NSString *> *)languageVariantCodePropagationURLKeys {
+    return @[@"thumbnailURL"];
+}
+
 @end

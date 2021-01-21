@@ -157,6 +157,13 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
+// No languageVariantCodePropagationSubelementKeys
+
++ (NSArray<NSString *> *)languageVariantCodePropagationURLKeys {
+    return @[@"thumbnailURL",
+             @"articleURL"];
+}
+
 @end
 
 @implementation WMFFeedTopReadArticlePreview

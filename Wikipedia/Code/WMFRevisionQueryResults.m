@@ -46,4 +46,7 @@ static NSString *const WMFRevisionQueryResultsErrorDomain = @"WMFRevisionQueryRe
              WMF_SAFE_KEYPATH([WMFRevisionQueryResults new], revisions): @"revisions"};
 }
 
+// No languageVariantCodePropagationSubelementKeys
+// No languageVariantCodePropagationURLKeys
+
 @end
