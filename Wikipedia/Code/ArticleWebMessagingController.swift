@@ -18,6 +18,7 @@ class ArticleWebMessagingController: NSObject {
     var contentController: WKUserContentController?
     var shouldAttemptToShowArticleAsLivingDoc = false
     
+    
     func setup(with webView: WKWebView, language: String, theme: Theme, layoutMargins: UIEdgeInsets, leadImageHeight: CGFloat = 0, areTablesInitiallyExpanded: Bool = false, textSizeAdjustment: Int? = nil, userGroups: [String] = []) {
         let margins = getPageContentServiceMargins(from: layoutMargins)
         let textSizeAdjustment =  textSizeAdjustment ?? UserDefaults.standard.wmf_articleFontSizeMultiplier() as? Int ?? 100
