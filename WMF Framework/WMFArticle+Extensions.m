@@ -120,6 +120,8 @@
 
 @end
 
+#pragma mark - NSManagedObjectContext Extensions
+
 @implementation NSManagedObjectContext (WMFArticle)
 
 - (nullable WMFArticle *)fetchArticleWithURL:(nullable NSURL *)articleURL {
@@ -227,6 +229,38 @@
         preview.imageHeight = feedPreview.imageHeight;
     }
     return preview;
+}
+
+@end
+
+#pragma mark - WMFArticleTemporaryCacheKey
+
+@interface WMFArticleTemporaryCacheKey ()
+@property (nonatomic, copy) NSString *databaseKey;
+@property (nonatomic, copy) NSString *variant;
+@end
+
+@implementation WMFArticleTemporaryCacheKey: NSObject
+-(instancetype) initWithDatabaseKey:(NSString *)databaseKey variant:(nullable NSString *)variant {
+    if (self = [super init]) {
+        self.databaseKey = databaseKey;
+        self.variant = variant;
+    }
+    return self;
+}
+
+WMF_SYNTHESIZE_IS_EQUAL(WMFArticleTemporaryCacheKey, isEqualToArticleTemporaryCacheKey:)
+
+- (BOOL)isEqualToArticleTemporaryCacheKey:(WMFArticleTemporaryCacheKey *)rhs {
+    return WMF_RHS_PROP_EQUAL(databaseKey, isEqualToString:) && WMF_RHS_PROP_EQUAL(variant, isEqualToString:);
+}
+
+- (NSUInteger)hash {
+    return self.databaseKey.hash ^ flipBitsWithAdditionalRotation(self.variant.hash, 1); // When variant is nil, the XOR flips the bits
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat: @"%@ databaseKey: %@, variant: %@", [super description], self.databaseKey, self.variant];
 }
 
 @end
