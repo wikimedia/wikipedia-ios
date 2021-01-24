@@ -653,9 +653,11 @@
     if (!key) {
         return nil;
     }
+    
+    NSString *variant = URL.wmf_languageVariantCode;
 
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"key == %@ && variant == %@", key, variant];
     fetchRequest.fetchLimit = 1;
     NSError *fetchError = nil;
     NSArray *contentGroups = [self executeFetchRequest:fetchRequest error:&fetchError];
@@ -702,7 +704,7 @@
     if (!siteURL) {
         return [self newestGroupOfKind:kind requireIsVisible:YES];
     }
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"siteURLString == %@", siteURL.wmf_databaseKey];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"siteURLString == %@ && variant = %@", siteURL.wmf_databaseKey, siteURL.wmf_languageVariantCode];
     return [self newestVisibleGroupOfKind:kind withPredicate:predicate];
 }
 
@@ -722,7 +724,7 @@
     if (!siteURL) {
         return [self newestGroupOfKind:kind requireIsVisible:NO];
     }    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"siteURLString == %@", siteURL.wmf_databaseKey];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"siteURLString == %@ && variant = %@", siteURL.wmf_databaseKey, siteURL.wmf_languageVariantCode];
     return [self newestGroupOfKind:kind withPredicate:predicate requireIsVisible:NO];
 }
 
@@ -739,9 +741,9 @@
     return [contentGroups firstObject];
 }
 
-- (nullable WMFContentGroup *)groupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date siteURL:(NSURL *)url {
+- (nullable WMFContentGroup *)groupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date siteURL:(NSURL *)siteURL {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@ && siteURLString == %@", @(kind), date.wmf_midnightUTCDateFromLocalDate, url.wmf_databaseKey];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@ && siteURLString == %@ && variant == %@", @(kind), date.wmf_midnightUTCDateFromLocalDate, siteURL.wmf_databaseKey, siteURL.wmf_languageVariantCode];
     fetchRequest.fetchLimit = 1;
     NSError *fetchError = nil;
     NSArray *contentGroups = [self executeFetchRequest:fetchRequest error:&fetchError];
@@ -858,6 +860,7 @@
 - (nullable WMFContentGroup *)locationContentGroupWithSiteURL:(nullable NSURL *)siteURL withinMeters:(CLLocationDistance)meters ofLocation:(CLLocation *)location {
     __block WMFContentGroup *locationContentGroup = nil;
     NSString *siteURLString = siteURL.wmf_databaseKey;
+    NSString *siteURLVariantCode = siteURL.wmf_languageVariantCode;
     [self enumerateContentGroupsOfKind:WMFContentGroupKindLocation
                              withBlock:^(WMFContentGroup *_Nonnull group, BOOL *_Nonnull stop) {
                                  CLLocation *groupLocation = group.location;
@@ -866,6 +869,10 @@
                                  }
                                  NSString *groupSiteURLString = group.siteURL.wmf_databaseKey;
                                  if (siteURLString && groupSiteURLString && ![siteURLString isEqualToString:groupSiteURLString]) {
+                                     return;
+                                 }
+                                 NSString *groupVariantCode = group.variant;
+                                 if (siteURLVariantCode && groupVariantCode && ![siteURLVariantCode isEqualToString:groupVariantCode]) {
                                      return;
                                  }
                                  CLLocationDistance distance = [groupLocation distanceFromLocation:location];
