@@ -3,6 +3,7 @@
 #import "WMFAnnouncement.h"
 @import UIKit;
 #import <WMF/NSURL+WMFLinkParsing.h>
+#import <WMF/NSURLComponents+WMFLinkParsing.h>
 #import <WMF/NSCalendar+WMFCommonCalendars.h>
 #import <WMF/NSDateFormatter+WMFExtensions.h>
 #import <WMF/WMFLogging.h>
@@ -44,10 +45,10 @@
             URL = [WMFContentGroup relatedPagesContentGroupURLForArticleURL:self.articleURL];
             break;
         case WMFContentGroupKindLocation:
-            URL = [WMFContentGroup locationContentGroupURLForLocation:self.location];
+            URL = [WMFContentGroup locationContentGroupURLForLocation:self.location languageVariantCode:self.siteURL.wmf_languageVariantCode];
             break;
         case WMFContentGroupKindLocationPlaceholder:
-            URL = [WMFContentGroup locationPlaceholderContentGroupURL];
+            URL = [WMFContentGroup locationPlaceholderContentGroupURLWithLanguageVariantCode:self.siteURL.wmf_languageVariantCode];
             break;
         case WMFContentGroupKindPictureOfTheDay:
             URL = [WMFContentGroup pictureOfTheDayContentGroupURLForSiteURL:self.siteURL midnightUTCDate:self.midnightUTCDate];
@@ -68,13 +69,13 @@
             URL = [WMFContentGroup onThisDayContentGroupURLForSiteURL:self.siteURL midnightUTCDate:self.midnightUTCDate];
             break;
         case WMFContentGroupKindNotification:
-            URL = [WMFContentGroup notificationContentGroupURL];
+            URL = [WMFContentGroup notificationContentGroupURLWithLanguageVariantCode:self.siteURL.wmf_languageVariantCode];
             break;
         case WMFContentGroupKindTheme:
-            URL = [WMFContentGroup themeContentGroupURL];
+            URL = [WMFContentGroup themeContentGroupURLWithLanguageVariantCode:self.siteURL.wmf_languageVariantCode];
             break;
         case WMFContentGroupKindReadingList:
-            URL = [WMFContentGroup readingListContentGroupURL];
+            URL = [WMFContentGroup readingListContentGroupURLWithLanguageVariantCode:self.siteURL.wmf_languageVariantCode];
             break;
         case WMFContentGroupKindAnnouncement:
             URL = [WMFContentGroup announcementURLForSiteURL:self.siteURL identifier:[(WMFAnnouncement *)self.contentPreview identifier]];
@@ -363,6 +364,7 @@
     NSURL *theURL = [[self baseURL] URLByAppendingPathComponent:@"main-page"];
     theURL = [theURL URLByAppendingPathComponent:domain];
     theURL = [theURL URLByAppendingPathComponent:language];
+    theURL.wmf_languageVariantCode = URL.wmf_languageVariantCode;
     return theURL;
 }
 
@@ -381,7 +383,7 @@
     NSString *encodedTitle = [title stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet wmf_encodeURIComponentAllowedCharacterSet]];
     NSString *path = [NSString pathWithComponents:@[@"/continue-reading", domain, language, encodedTitle]];
     components.percentEncodedPath = path;
-    return components.URL;
+    return [components wmf_URLWithLanguageVariantCode:url.wmf_languageVariantCode];
 }
 
 + (nullable NSURL *)relatedPagesContentGroupURLForArticleURL:(NSURL *)url {
@@ -399,7 +401,7 @@
     NSString *encodedTitle = [title stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet wmf_encodeURIComponentAllowedCharacterSet]];
     NSString *path = [NSString pathWithComponents:@[@"/related-pages", domain, language, encodedTitle]];
     components.percentEncodedPath = path;
-    return components.URL;
+    return [components wmf_URLWithLanguageVariantCode:url.wmf_languageVariantCode];
 }
 
 + (nullable NSURL *)articleURLForRelatedPagesContentGroupURL:(nullable NSURL *)url {
@@ -414,17 +416,21 @@
     NSString *domain = pathComponents[2];
     NSString *language = pathComponents[3];
     NSString *title = [pathComponents[4] stringByRemovingPercentEncoding];
-    return [NSURL wmf_URLWithDomain:domain language:language title:title fragment:nil];
+    NSURL *theURL = [NSURL wmf_URLWithDomain:domain language:language title:title fragment:nil];
+    theURL.wmf_languageVariantCode = url.wmf_languageVariantCode;
+    return theURL;
 }
 
-+ (nullable NSURL *)locationContentGroupURLForLocation:(CLLocation *)location {
++ (nullable NSURL *)locationContentGroupURLForLocation:(CLLocation *)location languageVariantCode:(NSString *)languageVariantCode {
     NSURL *url = [[self baseURL] URLByAppendingPathComponent:@"nearby"];
     url = [url URLByAppendingPathComponent:[NSString stringWithFormat:@"%.6f/%.6f", location.coordinate.latitude, location.coordinate.longitude]];
+    url.wmf_languageVariantCode = languageVariantCode;
     return url;
 }
 
-+ (nullable NSURL *)locationPlaceholderContentGroupURL {
++ (nullable NSURL *)locationPlaceholderContentGroupURLWithLanguageVariantCode:(NSString *)languageVariantCode {
     NSURL *url = [[self baseURL] URLByAppendingPathComponent:@"nearby-placeholder"];
+    url.wmf_languageVariantCode = languageVariantCode;
     return url;
 }
 
@@ -440,12 +446,14 @@
     NSURL *urlKey = [[self baseURL] URLByAppendingPathComponent:groupKindString];
     urlKey = [urlKey URLByAppendingPathComponent:domain];
     urlKey = [urlKey URLByAppendingPathComponent:language];
+    urlKey.wmf_languageVariantCode = siteURL.wmf_languageVariantCode;
     return urlKey;
 }
 
 + (nullable NSURL *)contentGroupURLForSiteURL:(NSURL *)siteURL midnightUTCDate:(NSDate *)midnightUTCDate groupKindString:(NSString *)groupKindString {
     NSURL *urlKey = [self contentGroupURLForSiteURL:siteURL groupKindString:groupKindString];
     urlKey = [urlKey URLByAppendingPathComponent:[[NSDateFormatter wmf_englishUTCSlashDelimitedYearMonthDayFormatter] stringFromDate:midnightUTCDate]];
+    urlKey.wmf_languageVariantCode = siteURL.wmf_languageVariantCode;
     return urlKey;
 }
 
@@ -473,20 +481,28 @@
     return [self contentGroupURLForSiteURL:url midnightUTCDate:midnightUTCDate groupKindString:@"on-this-day"];
 }
 
-+ (nullable NSURL *)notificationContentGroupURL {
-    return [[self baseURL] URLByAppendingPathComponent:@"notification"];
++ (nullable NSURL *)notificationContentGroupURLWithLanguageVariantCode:(NSString *)languageVariantCode {
+    NSURL *URL = [[self baseURL] URLByAppendingPathComponent:@"notification"];
+    URL.wmf_languageVariantCode = languageVariantCode;
+    return URL;
 }
 
-+ (nullable NSURL *)themeContentGroupURL {
-    return [[self baseURL] URLByAppendingPathComponent:@"theme"];
++ (nullable NSURL *)themeContentGroupURLWithLanguageVariantCode:(NSString *)languageVariantCode {
+    NSURL *URL = [[self baseURL] URLByAppendingPathComponent:@"theme"];
+    URL.wmf_languageVariantCode = languageVariantCode;
+    return URL;
 }
 
-+ (nullable NSURL *)readingListContentGroupURL {
-    return [[self baseURL] URLByAppendingPathComponent:@"reading-list"];
++ (nullable NSURL *)readingListContentGroupURLWithLanguageVariantCode:(NSString *)languageVariantCode {
+    NSURL *URL = [[self baseURL] URLByAppendingPathComponent:@"reading-list"];
+    URL.wmf_languageVariantCode = languageVariantCode;
+    return URL;
 }
 
 + (nullable NSURL *)announcementURLForSiteURL:(NSURL *)siteURL identifier:(NSString *)identifier {
-    return [[self contentGroupURLForSiteURL:siteURL groupKindString:@"announcement"] URLByAppendingPathComponent:identifier];
+    NSURL *URL = [[self contentGroupURLForSiteURL:siteURL groupKindString:@"announcement"] URLByAppendingPathComponent:identifier];
+    URL.wmf_languageVariantCode = siteURL.wmf_languageVariantCode;
+    return URL;
 }
 
 - (BOOL)isForLocalDate:(NSDate *)date {
