@@ -79,4 +79,9 @@ extension URLComponents {
         #endif
         percentEncodedPath = fullComponents.joined(separator: "/") // NSString.path(with: components) removes the trailing slash that the reading list API needs
     }
+    
+    public func wmf_URLWithLanguageVariantCode(_ code: String?) -> URL? {
+        return (self as NSURLComponents).wmf_URL(withLanguageVariantCode: code)
+    }
+
 }
