@@ -197,7 +197,7 @@ private extension TalkPageFetcher {
         
         assert(urlTitle.contains(":"), "Title must already be prefixed with namespace.")
         
-        guard let host = siteURL.host,
+        guard siteURL.host != nil,
             let percentEncodedUrlTitle = urlTitle.percentEncodedPageTitleForPathComponents else {
             return nil
         }
@@ -207,7 +207,7 @@ private extension TalkPageFetcher {
             pathComponents.append(String(revisionID))
         }
         
-        guard let taskURL = configuration.pageContentServiceAPIURLComponentsForHost(host, appending: pathComponents).url else {
+        guard let taskURL = configuration.pageContentServiceAPIURLForURL(siteURL, appending: pathComponents) else {
             return nil
         }
         

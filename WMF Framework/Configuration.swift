@@ -174,10 +174,11 @@ public class Configuration: NSObject {
     
     /// The Page Content Service includes mobile-html and the associated endpoints. It can be run locally with this repository: https://gerrit.wikimedia.org/r/admin/projects/mediawiki/services/mobileapps
     /// On production, it is run through RESTBase at  https://en.wikipedia.org/api/rest_v1/ (works for all language wikis)
-    @objc(pageContentServiceAPIURLComponentsForHost:appendingPathComponents:)
-    public func pageContentServiceAPIURLComponentsForHost(_ host: String? = nil, appending pathComponents: [String] = [""]) -> URLComponents {
-        let builder = pageContentServiceAPIURLComponentsBuilderForHost(host)
-        return builder.components(byAppending: pathComponents)
+    @objc(pageContentServiceAPIURLForURL:appendingPathComponents:)
+    public func pageContentServiceAPIURLForURL(_ url: URL? = nil, appending pathComponents: [String] = [""]) -> URL? {
+        let builder = pageContentServiceAPIURLComponentsBuilderForHost(url?.host)
+        let components = builder.components(byAppending: pathComponents)
+        return components.wmf_URLWithLanguageVariantCode(url?.wmf_languageVariantCode)
     }
     
     /// Returns the default request headers for Page Content Service API requests
