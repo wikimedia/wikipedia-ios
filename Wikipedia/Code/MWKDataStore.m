@@ -953,36 +953,6 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     return [self fetchOrCreateArticleWithURL:URL inManagedObjectContext:self.viewContext];
 }
 
-- (void)setIsExcludedFromFeed:(BOOL)isExcludedFromFeed withArticleURL:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc {
-    NSParameterAssert(articleURL);
-    if ([articleURL wmf_isNonStandardURL]) {
-        return;
-    }
-    if ([articleURL.wmf_title length] == 0) {
-        return;
-    }
-
-    WMFArticle *article = [self fetchOrCreateArticleWithURL:articleURL inManagedObjectContext:moc];
-    article.isExcludedFromFeed = isExcludedFromFeed;
-    [self save:nil];
-}
-
-- (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc {
-    WMFArticle *article = [self fetchArticleWithURL:articleURL inManagedObjectContext:moc];
-    if (!article) {
-        return NO;
-    }
-    return article.isExcludedFromFeed;
-}
-
-- (void)setIsExcludedFromFeed:(BOOL)isExcludedFromFeed withArticleURL:(NSURL *)articleURL {
-    [self setIsExcludedFromFeed:isExcludedFromFeed withArticleURL:articleURL inManagedObjectContext:self.viewContext];
-}
-
-- (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL {
-    return [self isArticleWithURLExcludedFromFeed:articleURL inManagedObjectContext:self.viewContext];
-}
-
 #pragma mark - WMFAuthenticationManagerDelegate
 
 - (nullable NSURL*)loginSiteURL {

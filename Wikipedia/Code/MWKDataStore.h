@@ -118,12 +118,6 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 
 - (nullable WMFArticle *)fetchArticleWithWikidataID:(NSString *)wikidataID; //uses the view context
 
-- (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc;
-- (void)setIsExcludedFromFeed:(BOOL)isExcludedFromFeed withArticleURL:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc;
-
-- (void)setIsExcludedFromFeed:(BOOL)isExcludedFromFeed withArticleURL:(NSURL *)articleURL;
-- (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL;
-
 - (BOOL)save:(NSError **)error;
 
 - (void)clearMemoryCache;
