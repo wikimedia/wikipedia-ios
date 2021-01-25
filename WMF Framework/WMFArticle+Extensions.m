@@ -125,26 +125,30 @@
 @implementation NSManagedObjectContext (WMFArticle)
 
 - (nullable WMFArticle *)fetchArticleWithURL:(nullable NSURL *)articleURL {
-    return [self fetchArticleWithKey:[articleURL wmf_databaseKey]];
+    return [self fetchArticleWithKey:articleURL.wmf_databaseKey variant:articleURL.wmf_languageVariantCode];
 }
 
 - (nullable NSArray<WMFArticle *> *)fetchArticlesWithKey:(nullable NSString *)key error:(NSError **)error {
+    return [self fetchArticlesWithKey:key variant:nil error:error];
+}
+
+- (nullable NSArray<WMFArticle *> *)fetchArticlesWithKey:(nullable NSString *)key variant:(nullable NSString *)variant error:(NSError **)error {
     if (!key) {
         return @[];
     }
     NSFetchRequest *request = [WMFArticle fetchRequest];
-    request.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
+    request.predicate = [NSPredicate predicateWithFormat:@"key == %@ && variant == %@", key, variant];
     return [self executeFetchRequest:request error:nil];
 }
 
-- (nullable WMFArticle *)fetchArticleWithKey:(nullable NSString *)key {
+- (nullable WMFArticle *)fetchArticleWithKey:(nullable NSString *)key variant:(nullable NSString *)variant {
     if (!key) {
         return nil;
     }
     WMFArticle *article = nil;
     NSFetchRequest *request = [WMFArticle fetchRequest];
     request.fetchLimit = 1;
-    request.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
+    request.predicate = [NSPredicate predicateWithFormat:@"key == %@ && variant == %@", key, variant];
     article = [[self executeFetchRequest:request error:nil] firstObject];
     return article;
 }
@@ -162,24 +166,29 @@
 }
 
 - (nullable WMFArticle *)createArticleWithKey:(nullable NSString *)key {
+    return [self createArticleWithKey:key variant:nil];
+}
+
+- (nullable WMFArticle *)createArticleWithKey:(nullable NSString *)key variant:(nullable NSString *)variant {
     WMFArticle *article = [[WMFArticle alloc] initWithContext:self];
     article.key = key;
+    article.variant = variant;
     return article;
 }
 
-- (nullable WMFArticle *)fetchOrCreateArticleWithKey:(nullable NSString *)key {
+- (nullable WMFArticle *)fetchOrCreateArticleWithKey:(nullable NSString *)key variant:(nullable NSString *)variant {
     if (!key) {
         return nil;
     }
-    WMFArticle *article = [self fetchArticleWithKey:key];
+    WMFArticle *article = [self fetchArticleWithKey:key variant:variant];
     if (!article) {
-        article = [self createArticleWithKey:key];
+        article = [self createArticleWithKey:key variant:variant];
     }
     return article;
 }
 
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL {
-    return [self fetchOrCreateArticleWithKey:[articleURL wmf_databaseKey]];
+    return [self fetchOrCreateArticleWithKey:articleURL.wmf_databaseKey variant:articleURL.wmf_languageVariantCode];
 }
 
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL updatedWithSearchResult:(nullable MWKSearchResult *)searchResult {

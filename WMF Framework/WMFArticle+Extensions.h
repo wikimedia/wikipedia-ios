@@ -63,13 +63,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable WMFArticle *)fetchArticleWithURL:(nullable NSURL *)articleURL;
 
-- (nullable WMFArticle *)fetchArticleWithKey:(nullable NSString *)key;
+- (nullable WMFArticle *)fetchArticleWithKey:(nullable NSString *)key variant:(nullable NSString *)variant;
 
-- (nullable NSArray<WMFArticle *> *)fetchArticlesWithKey:(nullable NSString *)key error:(NSError **)error;
+- (nullable NSArray<WMFArticle *> *)fetchArticlesWithKey:(nullable NSString *)key variant:(nullable NSString *)variant error:(NSError **)error;
+- (nullable NSArray<WMFArticle *> *)fetchArticlesWithKey:(nullable NSString *)key error:(NSError **)error; // Temporary shim for ArticleSummary that is not yet variant-aware
 
-- (nullable WMFArticle *)createArticleWithKey:(nullable NSString *)key;
+- (nullable WMFArticle *)createArticleWithKey:(nullable NSString *)key variant:(nullable NSString *)variant;
+- (nullable WMFArticle *)createArticleWithKey:(nullable NSString *)key; // Temporary shim for ArticleSummary that is not yet variant-aware
 
-- (nullable WMFArticle *)fetchOrCreateArticleWithKey:(nullable NSString *)key;
+- (nullable WMFArticle *)fetchOrCreateArticleWithKey:(nullable NSString *)key variant:(nullable NSString *)variant;
 
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL;
 
