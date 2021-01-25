@@ -248,6 +248,7 @@
 "reading-themes-controls-accessibility-light-theme-button" = "Svetleča tema";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepija tema";
 "reference-title" = "Sklic $1";
+"talk-page-reply-title" = "Odgovor";
 "theme-default-display-name" = "Privzeto";
 "top-read-header-generic" = "Wikipedija";
 "top-read-header-with-language" = "$1 vikipedija";
