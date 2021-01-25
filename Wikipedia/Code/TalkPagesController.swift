@@ -210,8 +210,9 @@ private extension TalkPageController {
     
     func fetchLatestRevisionID(endingWithRevision revisionID: Int?, urlTitle: String, completion: @escaping (Result<Int, Error>) -> Void) {
         
-        guard let host = siteURL.host,
-            let revisionURL = Configuration.current.mediaWikiAPIURLForHost(host, with: nil).url?.wmf_URL(withTitle: urlTitle) else {
+        guard siteURL.host != nil,
+            let mediaWikiURL = Configuration.current.mediaWikiAPIURLForURL(siteURL, with: nil),
+            let revisionURL = mediaWikiURL.wmf_URL(withTitle: urlTitle) else {
             completion(.failure(TalkPageError.revisionUrlCreationFailure))
             return
         }

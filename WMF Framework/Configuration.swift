@@ -213,13 +213,13 @@ public class Configuration: NSObject {
         return components.wmf_URLWithLanguageVariantCode(url?.wmf_languageVariantCode)
     }
     
-    public func mediaWikiAPIURForHost(_ host: String? = nil, appending pathComponents: [String] = [""]) -> URLComponents {
-        let builder = mediaWikiAPIURLComponentsBuilderForHost(host)
-        return builder.components(byAppending: pathComponents)
+    @objc(mediaWikiAPIURLForURL:withQueryParameters:)
+    public func mediaWikiAPIURLForURL(_ url: URL?, with queryParameters: [String: Any]? = nil) -> URL? {
+        let components = mediaWikiAPIURLForHost(url?.host, with: queryParameters)
+        return components.wmf_URLWithLanguageVariantCode(url?.wmf_languageVariantCode)
     }
     
-    @objc(mediaWikiAPIURLComponentsForHost:withQueryParameters:)
-    public func mediaWikiAPIURLForHost(_ host: String? = nil, with queryParameters: [String: Any]? = nil) -> URLComponents {
+    private func mediaWikiAPIURLForHost(_ host: String? = nil, with queryParameters: [String: Any]? = nil) -> URLComponents {
         let builder = mediaWikiAPIURLComponentsBuilderForHost(host)
         guard let queryParameters = queryParameters else {
             return builder.components()
