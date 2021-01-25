@@ -206,10 +206,11 @@ public class Configuration: NSObject {
     
     /// Wikifeeds includes feed content and announcements. It can be run locally with this repository: https://gerrit.wikimedia.org/r/admin/projects/mediawiki/services/wikifeeds
     /// On production, it is run through RESTBase at  https://en.wikipedia.org/api/rest_v1/ (works for all language wikis)
-    @objc(wikiFeedsAPIURLComponentsForHost:appendingPathComponents:)
-    public func wikiFeedsAPIURLComponentsForHost(_ host: String? = nil, appending pathComponents: [String] = [""]) -> URLComponents {
-        let builder = wikiFeedsAPIURLComponentsBuilderForHost(host)
-        return builder.components(byAppending: pathComponents)
+    @objc(wikiFeedsAPIURLForURL:appendingPathComponents:)
+    public func wikiFeedsAPIURLForURL(_ url: URL?, appending pathComponents: [String] = [""]) -> URL? {
+        let builder = wikiFeedsAPIURLComponentsBuilderForHost(url?.host)
+        let components = builder.components(byAppending: pathComponents)
+        return components.wmf_URLWithLanguageVariantCode(url?.wmf_languageVariantCode)
     }
     
     public func mediaWikiAPIURForHost(_ host: String? = nil, appending pathComponents: [String] = [""]) -> URLComponents {

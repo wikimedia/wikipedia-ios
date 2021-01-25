@@ -29,8 +29,7 @@
     NSString *monthString = [NSString stringWithFormat:@"%lu", (unsigned long)month];
     NSString *dayString = [NSString stringWithFormat:@"%lu", (unsigned long)day];
     NSArray<NSString *> *path = @[@"feed", @"onthisday", @"events", monthString, dayString];
-    NSURLComponents *components = [self.configuration wikiFeedsAPIURLComponentsForHost:siteURL.host appendingPathComponents:path];
-    NSURL *url = components.URL;
+    NSURL *url = [self.configuration wikiFeedsAPIURLForURL:siteURL appendingPathComponents:path];
     [self.session getJSONDictionaryFromURL:url ignoreCache:YES completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             failure(error);
