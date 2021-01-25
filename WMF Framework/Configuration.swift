@@ -227,9 +227,10 @@ public class Configuration: NSObject {
         return builder.components(queryParameters: queryParameters)
     }
 
-    public func mediaWikiRestAPIURLForHost(_ host: String? = nil, appending pathComponents: [String] = [""], queryParameters: [String: Any]? = nil) -> URLComponents {
-        let builder = mediaWikiRestAPIURLComponentsBuilderForHost(host)
-        return builder.components(byAppending: pathComponents, queryParameters: queryParameters)
+    public func mediaWikiRestAPIURLForURL(_ url: URL? = nil, appending pathComponents: [String] = [""], queryParameters: [String: Any]? = nil) -> URL? {
+        let builder = mediaWikiRestAPIURLComponentsBuilderForHost(url?.host)
+        let components = builder.components(byAppending: pathComponents, queryParameters: queryParameters)
+        return components.wmf_URLWithLanguageVariantCode(url?.wmf_languageVariantCode)
     }
     
     public func articleURLForHost(_ host: String, appending pathComponents: [String]) -> URLComponents {
