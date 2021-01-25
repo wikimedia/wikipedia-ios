@@ -17,10 +17,15 @@
     if (!key) {
         return nil;
     }
-    return [NSURL URLWithString:key];
+    NSURL *URL = [NSURL URLWithString:key];
+    URL.wmf_languageVariantCode = self.variant;
+    return URL;
 }
 
 - (void)setURL:(NSURL *)URL {
+    // See comment for -createGroupForURL:ofKind:forDate:withSiteURL:associatedContent: for details about this assertion
+    // Assert that URL is nil OR (both variant values are nil OR are equal)
+    NSAssert(!URL || ((URL.wmf_languageVariantCode == nil && self.variant == nil) || [URL.wmf_languageVariantCode isEqualToString:self.variant]), @"Incoming URL value should have same language variant as WMFContentGroup instance");
     self.key = URL.absoluteString.precomposedStringWithCanonicalMapping;
 }
 
@@ -234,8 +239,10 @@
 }
 
 - (void)setArticleURL:(nullable NSURL *)articleURL {
+    // See comment for -createGroupForURL:ofKind:forDate:withSiteURL:associatedContent: for details about this assertion
+    // Assert that articleURL is nil OR (both variant values are nil OR are equal)
+    NSAssert(!articleURL || ((articleURL.wmf_languageVariantCode == nil && self.variant == nil) || [articleURL.wmf_languageVariantCode isEqualToString:self.variant]), @"Incoming articleURL value should have same language variant as WMFContentGroup instance");
     self.articleURLString = articleURL.absoluteString;
-    self.variant = articleURL.wmf_languageVariantCode;
 }
 
 - (nullable NSURL *)siteURL {
@@ -245,8 +252,10 @@
 }
 
 - (void)setSiteURL:(nullable NSURL *)siteURL {
+    // See comment for -createGroupForURL:ofKind:forDate:withSiteURL:associatedContent: for details about this assertion
+    // Assert that siteURL is nil OR (both variant values are nil OR are equal)
+    NSAssert(!siteURL || ((siteURL.wmf_languageVariantCode == nil && self.variant == nil) || [siteURL.wmf_languageVariantCode isEqualToString:self.variant]), @"Incoming siteURL value should have same language variant as WMFContentGroup instance");
     self.siteURLString = siteURL.wmf_databaseKey;
-    self.variant = siteURL.wmf_languageVariantCode;
 }
 
 - (void)setFullContentObject:(NSObject<NSCoding> *)fullContentObject {
@@ -786,11 +795,17 @@
     return contentGroups;
 }
 
+/* There is an important dependency between the langauge variant property and the computed properties siteURL, articleURL, and URL. Each returned URL uses the value of the siteURLString, articleURLString, or key properties, respectively. Each also sets the value of the variant property as the wmf_languageVariantCode of the created URL. The langauge variant should remain consistent for the lifetime of a WMFContentGroup object. When created, the variant comes from either the passed-in URL if present, or the siteURL. Note that this property is set *before* the siteURL and URL properties in this method.
+ 
+    The setter methods for siteURL, articleURL, and URL assert that the variant on those incoming URLs equals the variant property of the group. This should always be true. The assertions ensure that these assumptions are true in all uses and that future changes do not unexpectedly violate that assumption.
+ */
 - (nullable WMFContentGroup *)createGroupForURL:(nullable NSURL *)URL ofKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable id<NSCoding>)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock {
     WMFContentGroup *group = [NSEntityDescription insertNewObjectForEntityForName:@"WMFContentGroup" inManagedObjectContext:self];
     group.date = date;
     group.midnightUTCDate = date.wmf_midnightUTCDateFromLocalDate;
     group.contentGroupKind = kind;
+    // Important to set variant before siteURL or URL properties. See comment above for details.
+    group.variant = URL ? URL.wmf_languageVariantCode : (siteURL ? siteURL.wmf_languageVariantCode : nil);
     group.siteURL = siteURL;
     group.fullContentObject = associatedContent;
     [group updateContentPreviewWithContent:associatedContent];
