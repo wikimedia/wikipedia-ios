@@ -49,7 +49,7 @@
 "aaald-new-discussion" = "새 토론";
 "aaald-new-journal-reference-database" = "$1을(를) 통해";
 "aaald-new-journal-reference-title" = "저널";
-"aaald-new-journal-reference-volume" = "일련번호 $1:";
+"aaald-new-journal-reference-volume" = "$1권:";
 "aaald-new-news-reference-retrieved-date" = "$1에 검색함";
 "aaald-new-news-reference-title" = "뉴스";
 "aaald-new-talk-topic-description-format" = "이 문서의 $1";
