@@ -222,8 +222,7 @@ private extension TalkPageFetcher {
             return nil
         }
         
-        let components = configuration.articleURLForHost(host, appending: [urlTitle])
-        return components.url
+        return configuration.articleURLForHost(host, languageVariantCode: siteURL.wmf_languageVariantCode, appending: [urlTitle])
     }
     
 }

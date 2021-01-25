@@ -233,9 +233,10 @@ public class Configuration: NSObject {
         return components.wmf_URLWithLanguageVariantCode(url?.wmf_languageVariantCode)
     }
     
-    public func articleURLForHost(_ host: String, appending pathComponents: [String]) -> URLComponents {
+    public func articleURLForHost(_ host: String, languageVariantCode: String?, appending pathComponents: [String]) -> URL? {
         let builder = articleURLComponentsBuilder(for: host)
-        return builder.components(byAppending: pathComponents)
+        let components = builder.components(byAppending: pathComponents)
+        return components.wmf_URLWithLanguageVariantCode(languageVariantCode)
     }
     
     public func mediaWikiAPIURLForWikiLanguage(_ wikiLanguage: String? = nil, with queryParameters: [String: Any]?) -> URLComponents {
