@@ -162,7 +162,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         guard
             let articleTitle = articleURL.wmf_title,
             let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
-            let url = configuration.pageContentServiceAPIURLComponentsForHost(articleURL.host, appending: ["transform", "wikitext", "to", "mobile-html", percentEncodedTitle]).url
+            let url = configuration.pageContentServiceAPIURLForURL(articleURL, appending: ["transform", "wikitext", "to", "mobile-html", percentEncodedTitle])
         else {
             throw RequestError.invalidParameters
         }
@@ -181,11 +181,11 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         
         #if WMF_LOCAL_PAGE_CONTENT_SERVICE || WMF_APPS_LABS_PAGE_CONTENT_SERVICE
         // As of April 2020, the /transform/wikitext/to/html/{article} endpoint is only available on production, not local or staging PCS.
-        guard let url = Configuration.production.pageContentServiceAPIURLComponentsForHost(articleURL.host, appending: ["transform", "wikitext", "to", "html", percentEncodedTitle]).url else {
+        guard let url = Configuration.production.pageContentServiceAPIURLForURL(articleURL, appending: ["transform", "wikitext", "to", "html", percentEncodedTitle]) else {
             throw RequestError.invalidParameters
         }
         #else
-        guard let url = configuration.pageContentServiceAPIURLComponentsForHost(articleURL.host, appending: ["transform", "wikitext", "to", "html", percentEncodedTitle]).url else {
+        guard let url = configuration.pageContentServiceAPIURLForURL(articleURL, appending: ["transform", "wikitext", "to", "html", percentEncodedTitle]) else {
             throw RequestError.invalidParameters
         }
         #endif
@@ -199,7 +199,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         guard
             let articleTitle = articleURL.wmf_title,
             let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
-            let url = configuration.pageContentServiceAPIURLComponentsForHost(articleURL.host, appending: ["transform", "html", "to", "mobile-html", percentEncodedTitle]).url
+            let url = configuration.pageContentServiceAPIURLForURL(articleURL, appending: ["transform", "html", "to", "mobile-html", percentEncodedTitle])
         else {
             throw RequestError.invalidParameters
         }
@@ -247,7 +247,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             pathComponents.append("\(revisionID)")
         }
         
-        guard let mobileHTMLURL = configuration.pageContentServiceAPIURLComponentsForHost(articleURL.host, appending: pathComponents).url else {
+        guard let mobileHTMLURL = configuration.pageContentServiceAPIURLForURL(articleURL, appending: pathComponents) else {
             throw RequestError.invalidParameters
         }
         
@@ -258,7 +258,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         guard
             let articleTitle = articleURL.wmf_title,
             let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
-            let url = configuration.pageContentServiceAPIURLComponentsForHost(articleURL.host, appending: ["page", "media-list", percentEncodedTitle]).url
+            let url = configuration.pageContentServiceAPIURLForURL(articleURL, appending: ["page", "media-list", percentEncodedTitle])
         else {
             throw RequestError.invalidParameters
         }
@@ -281,7 +281,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         guard
             let articleTitle = articleURL.wmf_title,
             let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
-            let url = configuration.pageContentServiceAPIURLComponentsForHost(articleURL.host, appending: ["page", "mobile-html-offline-resources", percentEncodedTitle]).url
+            let url = configuration.pageContentServiceAPIURLForURL(articleURL, appending: ["page", "mobile-html-offline-resources", percentEncodedTitle])
         else {
             throw RequestError.invalidParameters
         }
@@ -443,7 +443,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         guard
             let articleTitle = articleURL.wmf_title,
             let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,
-            let url = configuration.pageContentServiceAPIURLComponentsForHost(articleURL.host, appending: ["page", "summary", percentEncodedTitle]).url
+            let url = configuration.pageContentServiceAPIURLForURL(articleURL, appending: ["page", "summary", percentEncodedTitle])
         else {
             throw RequestError.invalidParameters
         }

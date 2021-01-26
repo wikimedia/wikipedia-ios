@@ -89,9 +89,9 @@ open class Fetcher: NSObject {
     
     @objc(performMediaWikiAPIPOSTForURL:withBodyParameters:cancellationKey:reattemptLoginOn401Response:completionHandler:)
     @discardableResult public func performMediaWikiAPIPOST(for URL: URL?, with bodyParameters: [String: String]?, cancellationKey: CancellationKey? = nil, reattemptLoginOn401Response: Bool = true, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
-        let components = configuration.mediaWikiAPIURLForHost(URL?.host, with: nil)
+        let url = configuration.mediaWikiAPIURLForURL(URL, with: nil)
         let key = cancellationKey ?? UUID().uuidString
-        let task = session.postFormEncodedBodyParametersToURL(to: components.url, bodyParameters: bodyParameters, reattemptLoginOn401Response:reattemptLoginOn401Response) { (result, response, error) in
+        let task = session.postFormEncodedBodyParametersToURL(to: url, bodyParameters: bodyParameters, reattemptLoginOn401Response:reattemptLoginOn401Response) { (result, response, error) in
             completionHandler(result, response, error)
             self.untrack(taskFor: key)
         }
@@ -101,9 +101,9 @@ open class Fetcher: NSObject {
 
     @objc(performMediaWikiAPIGETForURL:withQueryParameters:cancellationKey:completionHandler:)
     @discardableResult public func performMediaWikiAPIGET(for URL: URL?, with queryParameters: [String: Any]?, cancellationKey: CancellationKey?, completionHandler: @escaping ([String: Any]?, HTTPURLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
-        let components = configuration.mediaWikiAPIURLForHost(URL?.host, with: queryParameters)
+        let url = configuration.mediaWikiAPIURLForURL(URL, with: queryParameters)
         let key = cancellationKey ?? UUID().uuidString
-        let task = session.getJSONDictionary(from: components.url) { (result, response, error) in
+        let task = session.getJSONDictionary(from: url) { (result, response, error) in
             let returnError = error ?? RequestError.from(result?["error"] as? [String : Any])
             completionHandler(result, response, returnError)
             self.untrack(taskFor: key)
@@ -126,9 +126,9 @@ open class Fetcher: NSObject {
     }
     
     @discardableResult public func performDecodableMediaWikiAPIGET<T: Decodable>(for URL: URL?, with queryParameters: [String: Any]?, cancellationKey: CancellationKey? = nil, completionHandler: @escaping (Result<T, Error>) -> Swift.Void) -> CancellationKey? {
-        let components = configuration.mediaWikiAPIURLForHost(URL?.host, with: queryParameters)
+        let url = configuration.mediaWikiAPIURLForURL(URL, with: queryParameters)
         let key = cancellationKey ?? UUID().uuidString
-        let task = session.jsonDecodableTask(with: components.url) { (result: T?, response: URLResponse?, error: Error?) in
+        let task = session.jsonDecodableTask(with: url) { (result: T?, response: URLResponse?, error: Error?) in
             guard let result = result else {
                 let error = error ?? RequestError.unexpectedResponse
                 completionHandler(.failure(error))

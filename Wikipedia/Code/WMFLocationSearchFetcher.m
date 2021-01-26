@@ -38,7 +38,7 @@ NSString *const WMFLocationSearchErrorDomain = @"org.wikimedia.location.search";
 
     NSDictionary *params = [self params:region searchTerm:searchTerm resultLimit:resultLimit sortStyle:sortStyle];
 
-    NSURL *url = [[self.configuration mediaWikiAPIURLComponentsForHost:siteURL.host withQueryParameters:params] URL];
+    NSURL *url = [self.configuration mediaWikiAPIURLForURL:siteURL withQueryParameters:params];
 
     assert(url);
 

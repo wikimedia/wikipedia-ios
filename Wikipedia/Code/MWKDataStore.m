@@ -805,9 +805,10 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     WMFTaskGroup *taskGroup = [[WMFTaskGroup alloc] init];
 
     // Site info
-    NSURLComponents *components = [self.configuration mediaWikiAPIURLComponentsForHost:@"meta.wikimedia.org" withQueryParameters:WikipediaSiteInfo.defaultRequestParameters];
+    NSURL *siteURL = [NSURL URLWithString:@"//meta.wikimedia.org"]; // Only the host of the URL is needed
+    NSURL *URL = [self.configuration mediaWikiAPIURLForURL:siteURL withQueryParameters:WikipediaSiteInfo.defaultRequestParameters];
     [taskGroup enter];
-    [self.session getJSONDictionaryFromURL:components.URL
+    [self.session getJSONDictionaryFromURL:URL
                                       ignoreCache:YES
                                 completionHandler:^(NSDictionary<NSString *, id> *_Nullable siteInfo, NSURLResponse *_Nullable response, NSError *_Nullable error) {
                                     dispatch_async(dispatch_get_main_queue(), ^{

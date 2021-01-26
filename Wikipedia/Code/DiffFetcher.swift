@@ -95,7 +95,7 @@ class DiffFetcher: Fetcher {
     
     private func compareURL(fromRevisionId: Int, toRevisionId: Int, siteURL: URL) -> URL? {
         
-        guard let host = siteURL.host else {
+        guard siteURL.host != nil else {
             return nil
         }
 
@@ -103,8 +103,7 @@ class DiffFetcher: Fetcher {
         pathComponents.append("\(fromRevisionId)")
         pathComponents.append("compare")
         pathComponents.append("\(toRevisionId)")
-        let components = configuration.mediaWikiRestAPIURLForHost(host, appending: pathComponents)
-        return components.url
+        return configuration.mediaWikiRestAPIURLForURL(siteURL, appending: pathComponents)
     }
     
     enum FetchRevisionModelRequest {

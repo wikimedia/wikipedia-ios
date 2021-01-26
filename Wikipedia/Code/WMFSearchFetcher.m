@@ -142,7 +142,8 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
         appendToPreviousResults:(nullable WMFSearchResults *)results
                         failure:(WMFErrorHandler)failure
                         success:(WMFSearchResultsHandler)success {
-    NSURL *url = [self.configuration mediaWikiAPIURLComponentsForHost:@"commons.wikimedia.org" withQueryParameters:nil].URL;
+    NSURL *siteURL = [NSURL URLWithString:@"//commons.wikimedia.org"]; // Only the host of the URL is needed
+    NSURL *url = [self.configuration mediaWikiAPIURLForURL:siteURL withQueryParameters:nil];
     if (!url) {
         failure(WMFFetcher.invalidParametersError);
         return;

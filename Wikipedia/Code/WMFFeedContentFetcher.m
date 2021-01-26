@@ -54,7 +54,7 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
     } else {
         path = @[@"feed", @"featured"];
     }
-    return [[configuration wikiFeedsAPIURLComponentsForHost:siteURL.host appendingPathComponents:path] URL];
+    return [configuration wikiFeedsAPIURLForURL:siteURL appendingPathComponents:path];
 }
 
 + (NSRegularExpression *)cacheControlRegex {

@@ -171,10 +171,8 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
     
     NSDictionary *params = [self queryParametersForTitles:imageTitles fromSiteURL:siteURL thumbnailWidth:[NSNumber numberWithInteger:[[UIScreen mainScreen] wmf_articleImageWidthForScale]] extmetadataKeys:[MWKImageInfoFetcher galleryExtMetadataKeys] metadataLanguage:siteURL.wmf_language useGenerator:NO];
     
-    NSURLComponents *components = [[NSURLComponents alloc] initWithURL:siteURL resolvingAgainstBaseURL:NO];
-    
-    if (components.host) {
-        return [self.configuration mediaWikiAPIURLComponentsForHost:components.host withQueryParameters:params].URL;
+    if (siteURL.host) {
+        return [self.configuration mediaWikiAPIURLForURL:siteURL withQueryParameters:params];
     }
     
     return nil;
@@ -232,8 +230,8 @@ metadataLanguage:(nullable NSString *)metadataLanguage
 
     NSDictionary *params = [self queryParametersForTitles:titles fromSiteURL:siteURL thumbnailWidth:thumbnailWidth extmetadataKeys:extMetadataKeys metadataLanguage:metadataLanguage useGenerator:useGenerator];
     
-    NSURL *url = [self.fetcher.configuration mediaWikiAPIURLComponentsForHost:siteURL.host withQueryParameters:params].URL;
-    
+    NSURL *url = [self.fetcher.configuration mediaWikiAPIURLForURL:siteURL withQueryParameters:params];
+
     NSURLRequest *urlRequest = [self urlRequestForFromURL:url];
     
     return (id<MWKImageInfoRequest>)[self performMediaWikiAPIGETForURLRequest:urlRequest completionHandler:^(NSDictionary<NSString *, id> *_Nullable result, NSHTTPURLResponse *_Nullable response, NSError *_Nullable error) {
