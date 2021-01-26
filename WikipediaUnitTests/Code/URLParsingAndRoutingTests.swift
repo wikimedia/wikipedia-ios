@@ -206,5 +206,16 @@ class URLParsingAndRoutingTests: XCTestCase {
         url.wmf_languageVariantCode = ""
         XCTAssertEqual(url.wmf_contentLanguageCode, languageCode)
     }
+    
+    func testLanguageVariantCodePropertyFromURLComponents() {
+        let components = URLComponents(string: "https://sr.wikipedia.org")
+        let languageVariantCode = "sr-ec"
+        XCTAssertNotNil(components)
+        if let components = components {
+            let url = components.wmf_URLWithLanguageVariantCode(languageVariantCode)
+            XCTAssertNotNil(url)
+            XCTAssertEqual(url?.wmf_languageVariantCode, languageVariantCode)
+        }
+    }
 
 }

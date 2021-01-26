@@ -530,8 +530,6 @@
 "main-menu-account-logout-are-you-sure" = "Ви справді хочете вийти?";
 "main-menu-account-logout-cancel" = "Скасувати";
 "main-menu-account-title-logged-in" = "Увійшов в систему як $1";
-"main-menu-debug-tweaks" = "Налаштування для розробників";
-"main-menu-heading-debug" = "Налагодження";
 "main-menu-heading-legal" = "Приватність та умови";
 "main-menu-nearby" = "Неподалік";
 "main-menu-privacy-policy" = "Політика конфіденційності";

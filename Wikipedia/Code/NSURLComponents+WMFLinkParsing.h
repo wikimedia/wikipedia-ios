@@ -110,6 +110,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSURLComponents *)wmf_componentsByRemovingQueryItemsNamed:(NSSet<NSString *> *)queryItemNames;
 - (nullable NSString *)wmf_valueForQueryItemNamed:(NSString *)queryItemName;
 
+/// Create an NSURL from the receiver's components and associates the provided @c languageVariantCode
+- (nullable NSURL *)wmf_URLWithLanguageVariantCode:(nullable NSString *)code;
+
 @end
 
 NS_ASSUME_NONNULL_END

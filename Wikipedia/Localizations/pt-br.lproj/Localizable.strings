@@ -542,8 +542,6 @@
 "main-menu-account-logout-are-you-sure" = "Você tem certeza que quer sair?";
 "main-menu-account-logout-cancel" = "Cancelar";
 "main-menu-account-title-logged-in" = "Entrado como $1";
-"main-menu-debug-tweaks" = "Configurações de desenvolvedor";
-"main-menu-heading-debug" = "Depurar";
 "main-menu-heading-legal" = "Privacidade e Termos";
 "main-menu-nearby" = "Proximo";
 "main-menu-privacy-policy" = "Politica de privacidade";

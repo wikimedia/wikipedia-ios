@@ -1519,7 +1519,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             let isbnPrefix = "ISBN: "
             let mutableAttributedString = NSMutableAttributedString(string: "\(isbnPrefix + isbn)", attributes: attributes)
             let isbnTitle = "Special:BookSources"
-            let isbnURL = Configuration.current.articleURLForHost(Configuration.Domain.englishWikipedia, appending: [isbnTitle, isbn]).url
+            let isbnURL = Configuration.current.articleURLForHost(Configuration.Domain.englishWikipedia, languageVariantCode: nil, appending: [isbnTitle, isbn])
             let range = NSRange(location: 0, length: isbnPrefix.count + isbn.count)
             if let isbnURL = isbnURL {
                 mutableAttributedString.addAttributes([NSAttributedString.Key.link : isbnURL,
@@ -1712,7 +1712,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         let rangeValid = rangeOfUserName.location != NSNotFound && rangeOfUserName.location + rangeOfUserName.length <= userInfo.count
         
         guard let title = "User:\(userName)".percentEncodedPageTitleForPathComponents,
-              let userNameURL = Configuration.current.articleURLForHost(Configuration.Domain.englishWikipedia, appending: [title]).url,
+              let userNameURL = Configuration.current.articleURLForHost(Configuration.Domain.englishWikipedia, languageVariantCode: nil, appending: [title]),
               rangeValid else {
             let attributedString = NSAttributedString(string: userInfo, attributes: attributes)
             self.userInfo = attributedString

@@ -405,8 +405,6 @@
 "main-menu-account-logout-are-you-sure" = "Er du sikker på at du vil logge ut?";
 "main-menu-account-logout-cancel" = "Avbryt";
 "main-menu-account-title-logged-in" = "Innlogget som $1";
-"main-menu-debug-tweaks" = "Utviklers innstillinger";
-"main-menu-heading-debug" = "Feilsøking";
 "main-menu-heading-legal" = "Personvern og vilkår";
 "main-menu-nearby" = "I nærheten";
 "main-menu-privacy-policy" = "Personvernpolitikk";

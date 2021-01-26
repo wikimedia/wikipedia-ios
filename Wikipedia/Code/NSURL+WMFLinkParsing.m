@@ -93,7 +93,7 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
 - (NSURL *)wmf_URLWithTitle:(NSString *)title {
     NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     components.wmf_title = title;
-    return components.URL;
+    return [components wmf_URLWithLanguageVariantCode:self.wmf_languageVariantCode];
 }
 
 - (NSURL *)wmf_URLWithTitle:(NSString *)title fragment:(nullable NSString *)fragment query:(nullable NSString *)query {
@@ -101,13 +101,13 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
     components.wmf_title = title;
     components.wmf_fragment = fragment;
     components.percentEncodedQuery = query;
-    return components.URL;
+    return [components wmf_URLWithLanguageVariantCode:self.wmf_languageVariantCode];
 }
 
 - (NSURL *)wmf_URLWithFragment:(nullable NSString *)fragment {
     NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     components.wmf_fragment = fragment;
-    return components.URL;
+    return [components wmf_URLWithLanguageVariantCode:self.wmf_languageVariantCode];
 }
 
 - (NSURL *)wmf_URLWithPath:(NSString *)path isMobile:(BOOL)isMobile {
@@ -116,14 +116,14 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
     if (isMobile != self.wmf_isMobile) {
         components.host = [NSURLComponents wmf_hostWithDomain:self.wmf_domain language:self.wmf_language isMobile:isMobile];
     }
-    return components.URL;
+    return [components wmf_URLWithLanguageVariantCode:self.wmf_languageVariantCode];
 }
 
 - (NSURL *)wmf_siteURL {
     NSURLComponents *components = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
     components.path = nil;
     components.fragment = nil;
-    return [components URL];
+    return [components wmf_URLWithLanguageVariantCode:self.wmf_languageVariantCode];
 }
 
 - (NSURL *)wmf_APIURL:(BOOL)isMobile {
@@ -234,7 +234,7 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
     components.host = [NSURLComponents wmf_hostWithDomain:self.wmf_domain language:self.wmf_language isMobile:NO];
     components.path = [components.path stringByRemovingPercentEncoding] ?: components.path;
     components.scheme = @"https";
-    return components.URL;
+    return [components wmf_URLWithLanguageVariantCode:self.wmf_languageVariantCode];
 }
 
 - (NSURL *)wmf_databaseURL {
@@ -244,7 +244,7 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
     components.fragment = nil;
     components.query = nil;
     components.scheme = @"https";
-    return components.URL;
+    return [components wmf_URLWithLanguageVariantCode:self.wmf_languageVariantCode];
 }
 
 - (NSString *)wmf_databaseKey {

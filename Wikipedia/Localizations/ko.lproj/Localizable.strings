@@ -49,7 +49,7 @@
 "aaald-new-discussion" = "새 토론";
 "aaald-new-journal-reference-database" = "$1을(를) 통해";
 "aaald-new-journal-reference-title" = "저널";
-"aaald-new-journal-reference-volume" = "일련번호 $1:";
+"aaald-new-journal-reference-volume" = "$1권:";
 "aaald-new-news-reference-retrieved-date" = "$1에 검색함";
 "aaald-new-news-reference-title" = "뉴스";
 "aaald-new-talk-topic-description-format" = "이 문서의 $1";
@@ -542,8 +542,6 @@
 "main-menu-account-logout-are-you-sure" = "로그아웃하시겠습니까?";
 "main-menu-account-logout-cancel" = "취소";
 "main-menu-account-title-logged-in" = "$1님으로 로그인됨";
-"main-menu-debug-tweaks" = "개발자용 설정";
-"main-menu-heading-debug" = "디버그";
 "main-menu-heading-legal" = "개인정보 및 약관";
 "main-menu-nearby" = "근처";
 "main-menu-privacy-policy" = "개인정보보호정책";

@@ -523,8 +523,6 @@
 "main-menu-account-logout-are-you-sure" = "Haluatko varmasti kirjautua ulos?";
 "main-menu-account-logout-cancel" = "Peruuta";
 "main-menu-account-title-logged-in" = "Olet kirjautunut käyttäjänä $1";
-"main-menu-debug-tweaks" = "Kehittäjien asetukset";
-"main-menu-heading-debug" = "Vianetsintä";
 "main-menu-heading-legal" = "Tietosuoja ja Ehdot";
 "main-menu-nearby" = "Lähistöllä";
 "main-menu-privacy-policy" = "Tietosuojakäytäntö";

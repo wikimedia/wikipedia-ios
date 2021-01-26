@@ -520,8 +520,6 @@
 "main-menu-account-logout-are-you-sure" = "¿Confirmas que quieres salir de la sesión?";
 "main-menu-account-logout-cancel" = "Cancelar";
 "main-menu-account-title-logged-in" = "Sesión iniciada como $1";
-"main-menu-debug-tweaks" = "Configuración del desarrollador";
-"main-menu-heading-debug" = "Depurar";
 "main-menu-heading-legal" = "Privacidad y términos";
 "main-menu-nearby" = "Cercanos";
 "main-menu-privacy-policy" = "Normativa de privacidad";

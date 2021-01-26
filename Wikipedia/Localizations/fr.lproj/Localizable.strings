@@ -540,8 +540,6 @@
 "main-menu-account-logout-are-you-sure" = "Êtes-vous sûr{{GENDER:||e}} de vouloir vous déconnecter ?";
 "main-menu-account-logout-cancel" = "Annuler";
 "main-menu-account-title-logged-in" = "Connecté{{GENDER:||e}} en tant que $1";
-"main-menu-debug-tweaks" = "Paramètres développeur";
-"main-menu-heading-debug" = "Débogage";
 "main-menu-heading-legal" = "Confidentialité et conditions";
 "main-menu-nearby" = "À proximité";
 "main-menu-privacy-policy" = "Politique de confidentialité";

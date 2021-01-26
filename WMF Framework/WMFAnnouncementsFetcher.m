@@ -14,9 +14,9 @@
     }
     
 #if WMF_LOCAL_ANNOUNCEMENTS
-    NSURL *url = [[WMFConfiguration.localWikiFeeds wikiFeedsAPIURLComponentsForHost:siteURL.host appendingPathComponents:@[@"feed", @"announcements"]] URL];
+    NSURL *url = [WMFConfiguration.localWikiFeeds wikiFeedsAPIURLForURL:siteURL appendingPathComponents:@[@"feed", @"announcements"]];
 #else
-    NSURL *url = [[self.configuration wikiFeedsAPIURLComponentsForHost:siteURL.host appendingPathComponents:@[@"feed", @"announcements"]] URL];
+    NSURL *url = [self.configuration wikiFeedsAPIURLForURL:siteURL appendingPathComponents:@[@"feed", @"announcements"]];
 #endif
     [self.session getJSONDictionaryFromURL:url ignoreCache:YES completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
@@ -30,7 +30,7 @@
         }
         
         NSError *serializerError = nil;
-        NSArray *announcements = [WMFLegacySerializer modelsOfClass:[WMFAnnouncement class] fromArrayForKeyPath:@"announce" inJSONDictionary:result error:&serializerError];
+        NSArray *announcements = [WMFLegacySerializer modelsOfClass:[WMFAnnouncement class] fromArrayForKeyPath:@"announce" inJSONDictionary:result languageVariantCode:url.wmf_languageVariantCode error:&serializerError];
         if (serializerError) {
             failure(serializerError);
             return;

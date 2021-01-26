@@ -126,7 +126,8 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
     }
 
     private func editCountsURL(for editCountType: EditCountType, pageTitle: String, pageURL: URL, from fromRevisionID: Int? = nil , to toRevisionID: Int? = nil) -> URL? {
-        guard let project = pageURL.wmf_site?.host,
+        guard let project = pageURL.wmf_site,
+              project.host != nil,
         let title = pageTitle.percentEncodedPageTitleForPathComponents else {
             return nil
         }
@@ -141,8 +142,7 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
         } else {
             queryParameters = nil
         }
-        let components = configuration.mediaWikiRestAPIURLForHost(project, appending: pathComponents, queryParameters: queryParameters)
-        return components.url
+        return configuration.mediaWikiRestAPIURLForURL(project, appending: pathComponents, queryParameters: queryParameters)
     }
 
     private struct EditCount: Decodable {

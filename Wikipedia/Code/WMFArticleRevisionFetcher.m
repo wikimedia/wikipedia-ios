@@ -39,7 +39,7 @@
             return;
         }
         NSError *mantleError = nil;
-        NSArray *results = [WMFLegacySerializer modelsOfClass:[WMFRevisionQueryResults class] fromArrayForKeyPath:@"query.pages"  inJSONDictionary:result error:&mantleError];
+        NSArray *results = [WMFLegacySerializer modelsOfClass:[WMFRevisionQueryResults class] fromArrayForKeyPath:@"query.pages" inJSONDictionary:result languageVariantCode: articleURL.wmf_languageVariantCode error:&mantleError];
         if (mantleError) {
             failure(mantleError);
             return;
