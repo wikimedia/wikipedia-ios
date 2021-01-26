@@ -900,3 +900,49 @@
 }
 
 @end
+
+#pragma mark - Language Variant Propagation
+
+/* Since a serialized NSURL has no notion of a language variant, when the contentPreview property of a WMFContentGroup instance or the object property of a WMFContent instance is deserialized, the variant of the content group needs to be propagated to URL values in the deserialized object graph.
+ 
+    By doing this in -awakeFromFetch, the propagation does not happen until the values for the instance is faulted in. It also ensures that propagation happens once per fetch. Note that values set when an object is initilized or a property is set are expected to already have the language variant correctly set on itself or subelements.
+ 
+    The serialized objects are expected to be of type NSURL, WMFMTLModel subclasses, or collections of those types.
+ */
+
+@implementation WMFContentGroup (LanguageVariantPropagation)
+
+- (void)awakeFromFetch {
+    [super awakeFromFetch];
+    [WMFContentGroup propagateLanguageVariant: self.variant toPropertyValue: (NSObject<NSCoding> *)self.contentPreview];
+}
+
++ (void)propagateLanguageVariant:(nullable NSString *)variant toPropertyValue:(NSObject<NSCoding> *)inObject {
+    if ([inObject isKindOfClass:[NSArray class]] ||  [inObject isKindOfClass:[NSSet class]]) {
+        id<NSFastEnumeration>collection = (id<NSFastEnumeration>)inObject;
+        for (id element in collection) {
+            [self propagateVariant:variant ToElement:element];
+        }
+    }
+    else {
+        [self propagateVariant:variant ToElement:inObject];
+    }
+}
+
++ (void)propagateVariant:(nullable NSString *)variant ToElement:(id)element {
+    if ([element respondsToSelector:@selector(propagateLanguageVariantCode:)]) {
+        [element propagateLanguageVariantCode:variant];
+    } else if ([element isKindOfClass:[NSURL class]]) {
+        ((NSURL *)element).wmf_languageVariantCode = variant;
+    }
+}
+
+@end
+
+@implementation WMFContent (LanguageVariantPropagation)
+- (void)awakeFromFetch {
+    [super awakeFromFetch];
+    [WMFContentGroup propagateLanguageVariant: self.contentGroup.variant toPropertyValue: (NSObject<NSCoding> *)self.object];
+}
+@end
+
