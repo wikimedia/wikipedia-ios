@@ -326,3 +326,15 @@ public class CommonStrings: NSObject {
     public static let articleAsLivingDocErrorSubtitle = WMFLocalizedString("aaald-error-subitle", value: "Refresh to try again", comment: "Subtitle of error banner that appears at the bottom of an article when significant events fail to load.")
 }
 
+// Chinese variant strings
+public extension CommonStrings {
+
+	static let chineseVariantsAlertTitle = WMFLocalizedString("chinese-variants-alert-title", value: "Updates to Chinese variant support", comment: "Title of alert used to inform users about Chinese variant support.")
+
+	static let chineseVariantsAlertBody = WMFLocalizedString("chinese-variants-alert-body", value: "The Wikipedia app now supports the following Chinese variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\n简体 Chinese, Simplified (zh-hans)\n繁體 Chinese, Traditional (zh-hant)\n大陆简体 Mainland Simplified (zh-cn)\n香港繁體 Hong Kong Traditional (zh-hk)\n澳門繁體 Macau Traditional (zh-mo)\n大马简体 Malaysia Simplified (zh-my)\n新加坡简体 Singapore Simplified (zh-sg)\n臺灣正體 Taiwanese Traditional (zh-tw)", comment: "Body text of alert used to inform users about Chinese variant support. Please do not translate the newlines (\n) or Chinese characters (简体, 繁體, etc.).")
+
+	static let chineseVariantsAlertPreferencesButton = WMFLocalizedString("chinese-variants-alert-preferences-button", value: "Review your preferences", comment: "Action button on alert used to inform users about Chinese variant support.")
+
+	static let chineseVariantsAlertDismissButton = WMFLocalizedString("chinese-variants-alert-dismiss-button", value: "No thanks", comment: "Dismiss button on alert used to inform users about Chinese variant support.")
+
+}
