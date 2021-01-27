@@ -308,7 +308,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         if let scheme = scheme {
             var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
             urlComponents?.scheme = scheme
-            url = urlComponents?.url ?? url
+            url = urlComponents?.wmf_URLWithLanguageVariantCode(url.wmf_languageVariantCode) ?? url
         }
         let acceptUTF8HTML = [ArticleFetcher.acceptHeaderKey: ArticleFetcher.acceptHTMLValue]
         if var urlRequest = urlRequest(from: url, cachePolicy: cachePolicy, headers: acceptUTF8HTML) {
