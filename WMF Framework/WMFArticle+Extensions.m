@@ -120,29 +120,35 @@
 
 @end
 
+#pragma mark - NSManagedObjectContext Extensions
+
 @implementation NSManagedObjectContext (WMFArticle)
 
 - (nullable WMFArticle *)fetchArticleWithURL:(nullable NSURL *)articleURL {
-    return [self fetchArticleWithKey:[articleURL wmf_databaseKey]];
+    return [self fetchArticleWithKey:articleURL.wmf_databaseKey variant:articleURL.wmf_languageVariantCode];
 }
 
 - (nullable NSArray<WMFArticle *> *)fetchArticlesWithKey:(nullable NSString *)key error:(NSError **)error {
+    return [self fetchArticlesWithKey:key variant:nil error:error];
+}
+
+- (nullable NSArray<WMFArticle *> *)fetchArticlesWithKey:(nullable NSString *)key variant:(nullable NSString *)variant error:(NSError **)error {
     if (!key) {
         return @[];
     }
     NSFetchRequest *request = [WMFArticle fetchRequest];
-    request.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
+    request.predicate = [NSPredicate predicateWithFormat:@"key == %@ && variant == %@", key, variant];
     return [self executeFetchRequest:request error:nil];
 }
 
-- (nullable WMFArticle *)fetchArticleWithKey:(nullable NSString *)key {
+- (nullable WMFArticle *)fetchArticleWithKey:(nullable NSString *)key variant:(nullable NSString *)variant {
     if (!key) {
         return nil;
     }
     WMFArticle *article = nil;
     NSFetchRequest *request = [WMFArticle fetchRequest];
     request.fetchLimit = 1;
-    request.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
+    request.predicate = [NSPredicate predicateWithFormat:@"key == %@ && variant == %@", key, variant];
     article = [[self executeFetchRequest:request error:nil] firstObject];
     return article;
 }
@@ -160,24 +166,29 @@
 }
 
 - (nullable WMFArticle *)createArticleWithKey:(nullable NSString *)key {
+    return [self createArticleWithKey:key variant:nil];
+}
+
+- (nullable WMFArticle *)createArticleWithKey:(nullable NSString *)key variant:(nullable NSString *)variant {
     WMFArticle *article = [[WMFArticle alloc] initWithContext:self];
     article.key = key;
+    article.variant = variant;
     return article;
 }
 
-- (nullable WMFArticle *)fetchOrCreateArticleWithKey:(nullable NSString *)key {
+- (nullable WMFArticle *)fetchOrCreateArticleWithKey:(nullable NSString *)key variant:(nullable NSString *)variant {
     if (!key) {
         return nil;
     }
-    WMFArticle *article = [self fetchArticleWithKey:key];
+    WMFArticle *article = [self fetchArticleWithKey:key variant:variant];
     if (!article) {
-        article = [self createArticleWithKey:key];
+        article = [self createArticleWithKey:key variant:variant];
     }
     return article;
 }
 
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL {
-    return [self fetchOrCreateArticleWithKey:[articleURL wmf_databaseKey]];
+    return [self fetchOrCreateArticleWithKey:articleURL.wmf_databaseKey variant:articleURL.wmf_languageVariantCode];
 }
 
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL updatedWithSearchResult:(nullable MWKSearchResult *)searchResult {
@@ -227,6 +238,38 @@
         preview.imageHeight = feedPreview.imageHeight;
     }
     return preview;
+}
+
+@end
+
+#pragma mark - WMFArticleTemporaryCacheKey
+
+@interface WMFArticleTemporaryCacheKey ()
+@property (nonatomic, copy) NSString *databaseKey;
+@property (nonatomic, copy) NSString *variant;
+@end
+
+@implementation WMFArticleTemporaryCacheKey: NSObject
+-(instancetype) initWithDatabaseKey:(NSString *)databaseKey variant:(nullable NSString *)variant {
+    if (self = [super init]) {
+        self.databaseKey = databaseKey;
+        self.variant = variant;
+    }
+    return self;
+}
+
+WMF_SYNTHESIZE_IS_EQUAL(WMFArticleTemporaryCacheKey, isEqualToArticleTemporaryCacheKey:)
+
+- (BOOL)isEqualToArticleTemporaryCacheKey:(WMFArticleTemporaryCacheKey *)rhs {
+    return WMF_RHS_PROP_EQUAL(databaseKey, isEqualToString:) && WMF_RHS_PROP_EQUAL(variant, isEqualToString:);
+}
+
+- (NSUInteger)hash {
+    return self.databaseKey.hash ^ flipBitsWithAdditionalRotation(self.variant.hash, 1); // When variant is nil, the XOR flips the bits
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat: @"%@ databaseKey: %@, variant: %@", [super description], self.databaseKey, self.variant];
 }
 
 @end

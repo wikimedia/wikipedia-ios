@@ -341,7 +341,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
 - (void)addNewsNotificationGroupForNewsGroup:(WMFContentGroup *)newsGroup inManagedObjectContext:(NSManagedObjectContext *)moc {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     if (newsGroup && newsGroup.isVisible && ![userDefaults wmf_inTheNewsNotificationsEnabled] && ![userDefaults wmf_didShowNewsNotificationCardInFeed]) {
-        NSURL *URL = [WMFContentGroup notificationContentGroupURL];
+        NSURL *URL = [WMFContentGroup notificationContentGroupURLWithLanguageVariantCode:self.siteURL.wmf_languageVariantCode];
         [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindNotification forDate:newsGroup.date withSiteURL:self.siteURL associatedContent:nil customizationBlock:NULL];
         [userDefaults wmf_setDidShowNewsNotificationCardInFeed:YES];
     }
