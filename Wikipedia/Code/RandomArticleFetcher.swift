@@ -13,10 +13,13 @@ public final class RandomArticleFetcher: Fetcher {
                 completion(error, nil, nil)
                 return
             }
-            guard let articleURL = summary?.articleURL else {
+            guard var articleURL = summary?.articleURL else {
                 completion(Fetcher.unexpectedResponseError, nil, nil)
                 return
             }
+            // Temporary shim until ArticleSummary propagates language variants.
+            // Ensures Random cards display content when variants are turned on.
+            articleURL.wmf_languageVariantCode = siteURL.wmf_languageVariantCode
             completion(nil, articleURL, summary)
         }
     }

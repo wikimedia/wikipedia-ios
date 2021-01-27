@@ -46,11 +46,11 @@
 }
 
 - (nullable WMFArticle *)entryForURL:(NSURL *)url {
-    NSString *key = [url wmf_databaseKey];
+    NSString *key = url.wmf_databaseKey;
     if (!key) {
         return nil;
     }
-    WMFArticle *article = [self.dataStore fetchArticleWithKey:key];
+    WMFArticle *article = [self.dataStore fetchArticleWithKey:key variant:url.wmf_languageVariantCode];
     if (article.savedDate) {
         return article;
     } else {

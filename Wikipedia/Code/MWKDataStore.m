@@ -775,7 +775,9 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
         if (!key) {
             continue;
         }
-        [self.articleCache setObject:article forKey:key];
+        NSString *variant = article.variant;
+        WMFArticleTemporaryCacheKey *cacheKey = [[WMFArticleTemporaryCacheKey alloc] initWithDatabaseKey:key variant:variant];
+        [self.articleCache setObject:article forKey:cacheKey];
     }
 }
 
@@ -885,20 +887,26 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 }
 
 - (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
-    return [self fetchArticleWithKey:[URL wmf_databaseKey] inManagedObjectContext:moc];
+    return [self fetchArticleWithKey:URL.wmf_databaseKey variant:URL.wmf_languageVariantCode inManagedObjectContext:moc];
 }
 
 - (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
+    return [self fetchArticleWithKey:key variant:nil inManagedObjectContext:moc];
+}
+
+- (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key variant:(nullable NSString *)variant inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
     WMFArticle *article = nil;
     if (moc == _viewContext) { // use ivar to avoid main thread check
-        article = [self.articleCache objectForKey:key];
+        WMFArticleTemporaryCacheKey *cacheKey = [[WMFArticleTemporaryCacheKey alloc] initWithDatabaseKey:key variant:variant];
+        article = [self.articleCache objectForKey:cacheKey];
         if (article) {
             return article;
         }
     }
-    article = [moc fetchArticleWithKey:key];
+    article = [moc fetchArticleWithKey:key variant:variant];
     if (article && moc == _viewContext) { // use ivar to avoid main thread check
-        [self.articleCache setObject:article forKey:key];
+        WMFArticleTemporaryCacheKey *cacheKey = [[WMFArticleTemporaryCacheKey alloc] initWithDatabaseKey:key variant:variant];
+        [self.articleCache setObject:article forKey:cacheKey];
     }
     return article;
 }
@@ -910,63 +918,39 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL inManagedObjectContext:(NSManagedObjectContext *)moc {
     NSString *language = URL.wmf_language;
     NSString *title = URL.wmf_title;
-    NSString *key = [URL wmf_databaseKey];
+    NSString *key = URL.wmf_databaseKey;
     if (!language || !title || !key) {
         return nil;
     }
-    WMFArticle *article = [self fetchArticleWithKey:key inManagedObjectContext:moc];
+    NSString *variant = URL.wmf_languageVariantCode;
+    WMFArticle *article = [self fetchArticleWithKey:key variant: variant inManagedObjectContext:moc];
     if (!article) {
-        article = [moc createArticleWithKey:key];
+        article = [moc createArticleWithKey:key variant:variant];
         article.displayTitleHTML = article.displayTitle;
         if (moc == self.viewContext) {
-            [self.articleCache setObject:article forKey:key];
+            WMFArticleTemporaryCacheKey *cacheKey = [[WMFArticleTemporaryCacheKey alloc] initWithDatabaseKey:key variant:variant];
+            [self.articleCache setObject:article forKey:cacheKey];
         }
     }
     return article;
 }
 
 - (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL {
-    return [self fetchArticleWithKey:[URL wmf_databaseKey]];
+    return [self fetchArticleWithKey:URL.wmf_databaseKey variant:URL.wmf_languageVariantCode];
 }
 
 - (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key {
+    return [self fetchArticleWithKey:key variant:nil];
+}
+
+- (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key variant:(nullable NSString *)variant {
     WMFAssertMainThread(@"Article fetch must be performed on the main thread.");
-    return [self fetchArticleWithKey:key inManagedObjectContext:self.viewContext];
+    return [self fetchArticleWithKey:key variant:variant inManagedObjectContext:self.viewContext];
 }
 
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL {
     WMFAssertMainThread(@"Article fetch must be performed on the main thread.");
     return [self fetchOrCreateArticleWithURL:URL inManagedObjectContext:self.viewContext];
-}
-
-- (void)setIsExcludedFromFeed:(BOOL)isExcludedFromFeed withArticleURL:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc {
-    NSParameterAssert(articleURL);
-    if ([articleURL wmf_isNonStandardURL]) {
-        return;
-    }
-    if ([articleURL.wmf_title length] == 0) {
-        return;
-    }
-
-    WMFArticle *article = [self fetchOrCreateArticleWithURL:articleURL inManagedObjectContext:moc];
-    article.isExcludedFromFeed = isExcludedFromFeed;
-    [self save:nil];
-}
-
-- (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc {
-    WMFArticle *article = [self fetchArticleWithURL:articleURL inManagedObjectContext:moc];
-    if (!article) {
-        return NO;
-    }
-    return article.isExcludedFromFeed;
-}
-
-- (void)setIsExcludedFromFeed:(BOOL)isExcludedFromFeed withArticleURL:(NSURL *)articleURL {
-    [self setIsExcludedFromFeed:isExcludedFromFeed withArticleURL:articleURL inManagedObjectContext:self.viewContext];
-}
-
-- (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL {
-    return [self isArticleWithURLExcludedFromFeed:articleURL inManagedObjectContext:self.viewContext];
 }
 
 #pragma mark - WMFAuthenticationManagerDelegate

@@ -3,6 +3,7 @@
 #import "WMFAnnouncement.h"
 @import UIKit;
 #import <WMF/NSURL+WMFLinkParsing.h>
+#import <WMF/NSURLComponents+WMFLinkParsing.h>
 #import <WMF/NSCalendar+WMFCommonCalendars.h>
 #import <WMF/NSDateFormatter+WMFExtensions.h>
 #import <WMF/WMFLogging.h>
@@ -16,10 +17,15 @@
     if (!key) {
         return nil;
     }
-    return [NSURL URLWithString:key];
+    NSURL *URL = [NSURL URLWithString:key];
+    URL.wmf_languageVariantCode = self.variant;
+    return URL;
 }
 
 - (void)setURL:(NSURL *)URL {
+    // See comment for -createGroupForURL:ofKind:forDate:withSiteURL:associatedContent: for details about this assertion
+    // Assert that URL is nil OR (both variant values are nil OR are equal)
+    NSAssert(!URL || ((URL.wmf_languageVariantCode == nil && self.variant == nil) || [URL.wmf_languageVariantCode isEqualToString:self.variant]), @"Incoming URL value should have same language variant as WMFContentGroup instance");
     self.key = URL.absoluteString.precomposedStringWithCanonicalMapping;
 }
 
@@ -44,10 +50,10 @@
             URL = [WMFContentGroup relatedPagesContentGroupURLForArticleURL:self.articleURL];
             break;
         case WMFContentGroupKindLocation:
-            URL = [WMFContentGroup locationContentGroupURLForLocation:self.location];
+            URL = [WMFContentGroup locationContentGroupURLForLocation:self.location languageVariantCode:self.siteURL.wmf_languageVariantCode];
             break;
         case WMFContentGroupKindLocationPlaceholder:
-            URL = [WMFContentGroup locationPlaceholderContentGroupURL];
+            URL = [WMFContentGroup locationPlaceholderContentGroupURLWithLanguageVariantCode:self.siteURL.wmf_languageVariantCode];
             break;
         case WMFContentGroupKindPictureOfTheDay:
             URL = [WMFContentGroup pictureOfTheDayContentGroupURLForSiteURL:self.siteURL midnightUTCDate:self.midnightUTCDate];
@@ -68,13 +74,13 @@
             URL = [WMFContentGroup onThisDayContentGroupURLForSiteURL:self.siteURL midnightUTCDate:self.midnightUTCDate];
             break;
         case WMFContentGroupKindNotification:
-            URL = [WMFContentGroup notificationContentGroupURL];
+            URL = [WMFContentGroup notificationContentGroupURLWithLanguageVariantCode:self.siteURL.wmf_languageVariantCode];
             break;
         case WMFContentGroupKindTheme:
-            URL = [WMFContentGroup themeContentGroupURL];
+            URL = [WMFContentGroup themeContentGroupURLWithLanguageVariantCode:self.siteURL.wmf_languageVariantCode];
             break;
         case WMFContentGroupKindReadingList:
-            URL = [WMFContentGroup readingListContentGroupURL];
+            URL = [WMFContentGroup readingListContentGroupURLWithLanguageVariantCode:self.siteURL.wmf_languageVariantCode];
             break;
         case WMFContentGroupKindAnnouncement:
             URL = [WMFContentGroup announcementURLForSiteURL:self.siteURL identifier:[(WMFAnnouncement *)self.contentPreview identifier]];
@@ -233,8 +239,10 @@
 }
 
 - (void)setArticleURL:(nullable NSURL *)articleURL {
+    // See comment for -createGroupForURL:ofKind:forDate:withSiteURL:associatedContent: for details about this assertion
+    // Assert that articleURL is nil OR (both variant values are nil OR are equal)
+    NSAssert(!articleURL || ((articleURL.wmf_languageVariantCode == nil && self.variant == nil) || [articleURL.wmf_languageVariantCode isEqualToString:self.variant]), @"Incoming articleURL value should have same language variant as WMFContentGroup instance");
     self.articleURLString = articleURL.absoluteString;
-    self.variant = articleURL.wmf_languageVariantCode;
 }
 
 - (nullable NSURL *)siteURL {
@@ -244,8 +252,10 @@
 }
 
 - (void)setSiteURL:(nullable NSURL *)siteURL {
+    // See comment for -createGroupForURL:ofKind:forDate:withSiteURL:associatedContent: for details about this assertion
+    // Assert that siteURL is nil OR (both variant values are nil OR are equal)
+    NSAssert(!siteURL || ((siteURL.wmf_languageVariantCode == nil && self.variant == nil) || [siteURL.wmf_languageVariantCode isEqualToString:self.variant]), @"Incoming siteURL value should have same language variant as WMFContentGroup instance");
     self.siteURLString = siteURL.wmf_databaseKey;
-    self.variant = siteURL.wmf_languageVariantCode;
 }
 
 - (void)setFullContentObject:(NSObject<NSCoding> *)fullContentObject {
@@ -363,6 +373,7 @@
     NSURL *theURL = [[self baseURL] URLByAppendingPathComponent:@"main-page"];
     theURL = [theURL URLByAppendingPathComponent:domain];
     theURL = [theURL URLByAppendingPathComponent:language];
+    theURL.wmf_languageVariantCode = URL.wmf_languageVariantCode;
     return theURL;
 }
 
@@ -381,7 +392,7 @@
     NSString *encodedTitle = [title stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet wmf_encodeURIComponentAllowedCharacterSet]];
     NSString *path = [NSString pathWithComponents:@[@"/continue-reading", domain, language, encodedTitle]];
     components.percentEncodedPath = path;
-    return components.URL;
+    return [components wmf_URLWithLanguageVariantCode:url.wmf_languageVariantCode];
 }
 
 + (nullable NSURL *)relatedPagesContentGroupURLForArticleURL:(NSURL *)url {
@@ -399,7 +410,7 @@
     NSString *encodedTitle = [title stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet wmf_encodeURIComponentAllowedCharacterSet]];
     NSString *path = [NSString pathWithComponents:@[@"/related-pages", domain, language, encodedTitle]];
     components.percentEncodedPath = path;
-    return components.URL;
+    return [components wmf_URLWithLanguageVariantCode:url.wmf_languageVariantCode];
 }
 
 + (nullable NSURL *)articleURLForRelatedPagesContentGroupURL:(nullable NSURL *)url {
@@ -414,17 +425,21 @@
     NSString *domain = pathComponents[2];
     NSString *language = pathComponents[3];
     NSString *title = [pathComponents[4] stringByRemovingPercentEncoding];
-    return [NSURL wmf_URLWithDomain:domain language:language title:title fragment:nil];
+    NSURL *theURL = [NSURL wmf_URLWithDomain:domain language:language title:title fragment:nil];
+    theURL.wmf_languageVariantCode = url.wmf_languageVariantCode;
+    return theURL;
 }
 
-+ (nullable NSURL *)locationContentGroupURLForLocation:(CLLocation *)location {
++ (nullable NSURL *)locationContentGroupURLForLocation:(CLLocation *)location languageVariantCode:(NSString *)languageVariantCode {
     NSURL *url = [[self baseURL] URLByAppendingPathComponent:@"nearby"];
     url = [url URLByAppendingPathComponent:[NSString stringWithFormat:@"%.6f/%.6f", location.coordinate.latitude, location.coordinate.longitude]];
+    url.wmf_languageVariantCode = languageVariantCode;
     return url;
 }
 
-+ (nullable NSURL *)locationPlaceholderContentGroupURL {
++ (nullable NSURL *)locationPlaceholderContentGroupURLWithLanguageVariantCode:(NSString *)languageVariantCode {
     NSURL *url = [[self baseURL] URLByAppendingPathComponent:@"nearby-placeholder"];
+    url.wmf_languageVariantCode = languageVariantCode;
     return url;
 }
 
@@ -440,12 +455,14 @@
     NSURL *urlKey = [[self baseURL] URLByAppendingPathComponent:groupKindString];
     urlKey = [urlKey URLByAppendingPathComponent:domain];
     urlKey = [urlKey URLByAppendingPathComponent:language];
+    urlKey.wmf_languageVariantCode = siteURL.wmf_languageVariantCode;
     return urlKey;
 }
 
 + (nullable NSURL *)contentGroupURLForSiteURL:(NSURL *)siteURL midnightUTCDate:(NSDate *)midnightUTCDate groupKindString:(NSString *)groupKindString {
     NSURL *urlKey = [self contentGroupURLForSiteURL:siteURL groupKindString:groupKindString];
     urlKey = [urlKey URLByAppendingPathComponent:[[NSDateFormatter wmf_englishUTCSlashDelimitedYearMonthDayFormatter] stringFromDate:midnightUTCDate]];
+    urlKey.wmf_languageVariantCode = siteURL.wmf_languageVariantCode;
     return urlKey;
 }
 
@@ -473,20 +490,28 @@
     return [self contentGroupURLForSiteURL:url midnightUTCDate:midnightUTCDate groupKindString:@"on-this-day"];
 }
 
-+ (nullable NSURL *)notificationContentGroupURL {
-    return [[self baseURL] URLByAppendingPathComponent:@"notification"];
++ (nullable NSURL *)notificationContentGroupURLWithLanguageVariantCode:(NSString *)languageVariantCode {
+    NSURL *URL = [[self baseURL] URLByAppendingPathComponent:@"notification"];
+    URL.wmf_languageVariantCode = languageVariantCode;
+    return URL;
 }
 
-+ (nullable NSURL *)themeContentGroupURL {
-    return [[self baseURL] URLByAppendingPathComponent:@"theme"];
++ (nullable NSURL *)themeContentGroupURLWithLanguageVariantCode:(NSString *)languageVariantCode {
+    NSURL *URL = [[self baseURL] URLByAppendingPathComponent:@"theme"];
+    URL.wmf_languageVariantCode = languageVariantCode;
+    return URL;
 }
 
-+ (nullable NSURL *)readingListContentGroupURL {
-    return [[self baseURL] URLByAppendingPathComponent:@"reading-list"];
++ (nullable NSURL *)readingListContentGroupURLWithLanguageVariantCode:(NSString *)languageVariantCode {
+    NSURL *URL = [[self baseURL] URLByAppendingPathComponent:@"reading-list"];
+    URL.wmf_languageVariantCode = languageVariantCode;
+    return URL;
 }
 
 + (nullable NSURL *)announcementURLForSiteURL:(NSURL *)siteURL identifier:(NSString *)identifier {
-    return [[self contentGroupURLForSiteURL:siteURL groupKindString:@"announcement"] URLByAppendingPathComponent:identifier];
+    NSURL *URL = [[self contentGroupURLForSiteURL:siteURL groupKindString:@"announcement"] URLByAppendingPathComponent:identifier];
+    URL.wmf_languageVariantCode = siteURL.wmf_languageVariantCode;
+    return URL;
 }
 
 - (BOOL)isForLocalDate:(NSDate *)date {
@@ -637,9 +662,11 @@
     if (!key) {
         return nil;
     }
+    
+    NSString *variant = URL.wmf_languageVariantCode;
 
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"key == %@ && variant == %@", key, variant];
     fetchRequest.fetchLimit = 1;
     NSError *fetchError = nil;
     NSArray *contentGroups = [self executeFetchRequest:fetchRequest error:&fetchError];
@@ -686,7 +713,7 @@
     if (!siteURL) {
         return [self newestGroupOfKind:kind requireIsVisible:YES];
     }
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"siteURLString == %@", siteURL.wmf_databaseKey];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"siteURLString == %@ && variant = %@", siteURL.wmf_databaseKey, siteURL.wmf_languageVariantCode];
     return [self newestVisibleGroupOfKind:kind withPredicate:predicate];
 }
 
@@ -706,7 +733,7 @@
     if (!siteURL) {
         return [self newestGroupOfKind:kind requireIsVisible:NO];
     }    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"siteURLString == %@", siteURL.wmf_databaseKey];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"siteURLString == %@ && variant = %@", siteURL.wmf_databaseKey, siteURL.wmf_languageVariantCode];
     return [self newestGroupOfKind:kind withPredicate:predicate requireIsVisible:NO];
 }
 
@@ -723,9 +750,9 @@
     return [contentGroups firstObject];
 }
 
-- (nullable WMFContentGroup *)groupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date siteURL:(NSURL *)url {
+- (nullable WMFContentGroup *)groupOfKind:(WMFContentGroupKind)kind forDate:(NSDate *)date siteURL:(NSURL *)siteURL {
     NSFetchRequest *fetchRequest = [WMFContentGroup fetchRequest];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@ && siteURLString == %@", @(kind), date.wmf_midnightUTCDateFromLocalDate, url.wmf_databaseKey];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"contentGroupKindInteger == %@ && midnightUTCDate == %@ && siteURLString == %@ && variant == %@", @(kind), date.wmf_midnightUTCDateFromLocalDate, siteURL.wmf_databaseKey, siteURL.wmf_languageVariantCode];
     fetchRequest.fetchLimit = 1;
     NSError *fetchError = nil;
     NSArray *contentGroups = [self executeFetchRequest:fetchRequest error:&fetchError];
@@ -768,11 +795,17 @@
     return contentGroups;
 }
 
+/* There is an important dependency between the langauge variant property and the computed properties siteURL, articleURL, and URL. Each returned URL uses the value of the siteURLString, articleURLString, or key properties, respectively. Each also sets the value of the variant property as the wmf_languageVariantCode of the created URL. The langauge variant should remain consistent for the lifetime of a WMFContentGroup object. When created, the variant comes from either the passed-in URL if present, or the siteURL. Note that this property is set *before* the siteURL and URL properties in this method.
+ 
+    The setter methods for siteURL, articleURL, and URL assert that the variant on those incoming URLs equals the variant property of the group. This should always be true. The assertions ensure that these assumptions are true in all uses and that future changes do not unexpectedly violate that assumption.
+ */
 - (nullable WMFContentGroup *)createGroupForURL:(nullable NSURL *)URL ofKind:(WMFContentGroupKind)kind forDate:(NSDate *)date withSiteURL:(nullable NSURL *)siteURL associatedContent:(nullable id<NSCoding>)associatedContent customizationBlock:(nullable void (^)(WMFContentGroup *group))customizationBlock {
     WMFContentGroup *group = [NSEntityDescription insertNewObjectForEntityForName:@"WMFContentGroup" inManagedObjectContext:self];
     group.date = date;
     group.midnightUTCDate = date.wmf_midnightUTCDateFromLocalDate;
     group.contentGroupKind = kind;
+    // Important to set variant before siteURL or URL properties. See comment above for details.
+    group.variant = URL ? URL.wmf_languageVariantCode : (siteURL ? siteURL.wmf_languageVariantCode : nil);
     group.siteURL = siteURL;
     group.fullContentObject = associatedContent;
     [group updateContentPreviewWithContent:associatedContent];
@@ -842,6 +875,7 @@
 - (nullable WMFContentGroup *)locationContentGroupWithSiteURL:(nullable NSURL *)siteURL withinMeters:(CLLocationDistance)meters ofLocation:(CLLocation *)location {
     __block WMFContentGroup *locationContentGroup = nil;
     NSString *siteURLString = siteURL.wmf_databaseKey;
+    NSString *siteURLVariantCode = siteURL.wmf_languageVariantCode;
     [self enumerateContentGroupsOfKind:WMFContentGroupKindLocation
                              withBlock:^(WMFContentGroup *_Nonnull group, BOOL *_Nonnull stop) {
                                  CLLocation *groupLocation = group.location;
@@ -850,6 +884,10 @@
                                  }
                                  NSString *groupSiteURLString = group.siteURL.wmf_databaseKey;
                                  if (siteURLString && groupSiteURLString && ![siteURLString isEqualToString:groupSiteURLString]) {
+                                     return;
+                                 }
+                                 NSString *groupVariantCode = group.variant;
+                                 if (siteURLVariantCode && groupVariantCode && ![siteURLVariantCode isEqualToString:groupVariantCode]) {
                                      return;
                                  }
                                  CLLocationDistance distance = [groupLocation distanceFromLocation:location];
@@ -862,3 +900,49 @@
 }
 
 @end
+
+#pragma mark - Language Variant Propagation
+
+/* Since a serialized NSURL has no notion of a language variant, when the contentPreview property of a WMFContentGroup instance or the object property of a WMFContent instance is deserialized, the variant of the content group needs to be propagated to URL values in the deserialized object graph.
+ 
+    By doing this in -awakeFromFetch, the propagation does not happen until the values for the instance is faulted in. It also ensures that propagation happens once per fetch. Note that values set when an object is initilized or a property is set are expected to already have the language variant correctly set on itself or subelements.
+ 
+    The serialized objects are expected to be of type NSURL, WMFMTLModel subclasses, or collections of those types.
+ */
+
+@implementation WMFContentGroup (LanguageVariantPropagation)
+
+- (void)awakeFromFetch {
+    [super awakeFromFetch];
+    [WMFContentGroup propagateLanguageVariant: self.variant toPropertyValue: (NSObject<NSCoding> *)self.contentPreview];
+}
+
++ (void)propagateLanguageVariant:(nullable NSString *)variant toPropertyValue:(NSObject<NSCoding> *)inObject {
+    if ([inObject isKindOfClass:[NSArray class]] ||  [inObject isKindOfClass:[NSSet class]]) {
+        id<NSFastEnumeration>collection = (id<NSFastEnumeration>)inObject;
+        for (id element in collection) {
+            [self propagateVariant:variant ToElement:element];
+        }
+    }
+    else {
+        [self propagateVariant:variant ToElement:inObject];
+    }
+}
+
++ (void)propagateVariant:(nullable NSString *)variant ToElement:(id)element {
+    if ([element respondsToSelector:@selector(propagateLanguageVariantCode:)]) {
+        [element propagateLanguageVariantCode:variant];
+    } else if ([element isKindOfClass:[NSURL class]]) {
+        ((NSURL *)element).wmf_languageVariantCode = variant;
+    }
+}
+
+@end
+
+@implementation WMFContent (LanguageVariantPropagation)
+- (void)awakeFromFetch {
+    [super awakeFromFetch];
+    [WMFContentGroup propagateLanguageVariant: self.contentGroup.variant toPropertyValue: (NSObject<NSCoding> *)self.object];
+}
+@end
+
