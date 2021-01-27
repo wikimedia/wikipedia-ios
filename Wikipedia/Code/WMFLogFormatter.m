@@ -5,18 +5,25 @@ static NSString *cachedApplicationName;
 
 @implementation WMFLogFormatter
 
-// NOTE: The libraries print a lot of junk to the logs. Filter on `(From:` to only see log lines added by the Wikipedia app.
+// NOTE: The libraries print a lot of junk to the logs. Filter on `#L` to only see log lines added by the Wikipedia app.
 
 #if DEBUG
 // To print timestamps in logs in a non-release build, change following line to `YES`.
-BOOL const shouldShowDateInLog = NO;
+BOOL const shouldShowFullDateInLog = NO;
 #else
-BOOL const shouldShowDateInLog = YES;
+BOOL const shouldShowFullDateInLog = YES;
 #endif
+
+NSDateFormatter *_dateFormatter;
 
 + (void)initialize {
     if (self == [WMFLogFormatter class]) {
         cachedApplicationName = [[NSBundle mainBundle] wmf_bundleName];
+
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        [_dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+        [_dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
+        [_dateFormatter setCalendar:[[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian]];
     }
 }
 
@@ -24,38 +31,36 @@ BOOL const shouldShowDateInLog = YES;
     NSString *level = @"";
     switch (logMessage->_flag) {
         case DDLogFlagVerbose:
-            level = @"🗣️ VERBOSE";
+            level = @"🗣️";
             break;
         case DDLogFlagDebug:
-            level = @"💬 DEBUG";
+            level = @"💬";
             break;
         case DDLogFlagInfo:
-            level = @"ℹ️  INFO";
+            level = @"ℹ️";
             break;
         case DDLogFlagWarning:
-            level = @"⚠️  WARN";
+            level = @"⚠️";
             break;
         case DDLogFlagError:
-            level = @"🚨 ERROR";
+            level = @"🚨";
             break;
         default:
             break;
     }
 
-    if (shouldShowDateInLog) {
-        return [NSString stringWithFormat:@"[%@] %@: %@ [%@#L%lu]",
-                                          level,
-                                          [self stringFromDate:logMessage->_timestamp],
-                                          logMessage -> _message,
-                                          logMessage -> _fileName,
-                                          (unsigned long)logMessage -> _line];
+    NSString *date = @"";
+    if (shouldShowFullDateInLog) {
+        date = [self stringFromDate:logMessage->_timestamp];
     } else {
-        return [NSString stringWithFormat:@"%@: %@ [%@#L%lu]",
-                                          level,
-                                          logMessage->_message,
-                                          logMessage->_fileName,
-                                          (unsigned long)logMessage->_line];
+        date = [_dateFormatter stringFromDate:logMessage->_timestamp];
     }
+    return [NSString stringWithFormat:@"%@ %@: %@ [%@#L%lu]",
+                                      level,
+                                      date,
+                                      logMessage -> _message,
+                                      logMessage -> _fileName,
+                                      (unsigned long)logMessage -> _line];
 }
 
 @end
