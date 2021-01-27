@@ -182,17 +182,17 @@ public class Configuration: NSObject {
     }
     
     /// Returns the default request headers for Page Content Service API requests
-    public func pageContentServiceHeaders(for wikipediaLanguage: String? = nil) -> [String: String] {
-        guard let apiLanguage = wikipediaLanguage else {
-            return [:]
-        }
+    public func pageContentServiceHeaders(for url: URL) -> [String: String] {
         // If the language supports variants, only send a single code with variant for that language.
         // This is a workaround for an issue with server-side Accept-Language header handling and
         // can be removed when https://phabricator.wikimedia.org/T256491 is fixed.
-        guard let preferredLanguage = Locale.preferredWikipediaLanguageVariant(wmf_language: apiLanguage) else {
+        // NOTE: In general it does not seem that most sites process multi-language Accept-Language headers.
+        // For variants, sending a single Accept-Language header is sufficient and seems the least error-prone.
+        if let languageVariantCode = url.wmf_languageVariantCode {
+            return ["Accept-Language": languageVariantCode]
+        } else {
             return [:]
         }
-        return ["Accept-Language": preferredLanguage]
     }
     
     

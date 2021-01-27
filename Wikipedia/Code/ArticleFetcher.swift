@@ -152,7 +152,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
     }
     
     private func previewHeaders(with articleURL: URL, mobileHTMLOutput: MobileHTMLType) -> [String: String] {
-        var headers = configuration.pageContentServiceHeaders(for: articleURL.wmf_language)
+        var headers = configuration.pageContentServiceHeaders(for: articleURL)
         headers[ArticleFetcher.mobileHTMLOutputHeaderKey] = mobileHTMLOutput.rawValue
         headers[ArticleFetcher.acceptHeaderKey] = ArticleFetcher.acceptHTMLValue
         return headers
@@ -270,7 +270,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         
         let url = try mediaListURL(articleURL: articleURL)
         
-        if let urlRequest = urlRequest(from: url, language: articleURL.wmf_language, cachePolicy: cachePolicy) {
+        if let urlRequest = urlRequest(from: url, cachePolicy: cachePolicy) {
             return urlRequest
         } else {
             throw ArticleFetcherError.unableToGenerateURLRequest
@@ -286,15 +286,15 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             throw RequestError.invalidParameters
         }
         
-        if let urlRequest = urlRequest(from: url, language: articleURL.wmf_language, cachePolicy: cachePolicy) {
+        if let urlRequest = urlRequest(from: url, cachePolicy: cachePolicy) {
             return urlRequest
         } else {
             throw ArticleFetcherError.unableToGenerateURLRequest
         }
     }
     
-    public func urlRequest(from url: URL, language: String?, cachePolicy: WMFCachePolicy? = nil, headers: [String: String] = [:]) -> URLRequest? {
-        var requestHeaders = configuration.pageContentServiceHeaders(for: language)
+    public func urlRequest(from url: URL, cachePolicy: WMFCachePolicy? = nil, headers: [String: String] = [:]) -> URLRequest? {
+        var requestHeaders = configuration.pageContentServiceHeaders(for: url)
         requestHeaders.merge(headers)  { (_, updated) in updated }
         let request = urlRequestFromPersistence(with: url, persistType: .article, cachePolicy: cachePolicy, headers: requestHeaders)
 
@@ -311,7 +311,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             url = urlComponents?.url ?? url
         }
         let acceptUTF8HTML = [ArticleFetcher.acceptHeaderKey: ArticleFetcher.acceptHTMLValue]
-        if var urlRequest = urlRequest(from: url, language: articleURL.wmf_language, cachePolicy: cachePolicy, headers: acceptUTF8HTML) {
+        if var urlRequest = urlRequest(from: url, cachePolicy: cachePolicy, headers: acceptUTF8HTML) {
             if revisionID != nil {
                 // Enables the caching system to update the revisionless url cache when this call goes through
                 urlRequest.customCacheUpdatingURL = try mobileHTMLURL(articleURL: articleURL)
@@ -454,7 +454,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
     private func summaryRequest(articleURL: URL, cachePolicy: WMFCachePolicy? = nil) throws -> URLRequest {
         let url = try summaryURL(articleURL: articleURL)
         
-        if let urlRequest = urlRequest(from: url, language: articleURL.wmf_language, cachePolicy: cachePolicy) {
+        if let urlRequest = urlRequest(from: url, cachePolicy: cachePolicy) {
             return urlRequest
         } else {
             throw ArticleFetcherError.unableToGenerateURLRequest

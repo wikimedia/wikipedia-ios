@@ -51,7 +51,7 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
             
             switch result {
             case .success(let urls):
-                let language = url.wmf_language
+                let languageVariantCode = url.wmf_languageVariantCode
                 var mustHaveURLRequests: [URLRequest] = []
                 
                 let mobileHTMLRequest: URLRequest
@@ -68,10 +68,13 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
                 mustHaveURLRequests.append(mobileHTMLMediaListRequest)
                 
                 //append mobile-html-offline-resource URLRequests
-                for url in urls.offlineResourcesURLs {
+                for var url in urls.offlineResourcesURLs {
                     // We're OK with any Content-Type here because we don't use them directly, they're the related files that mobile-html might request
                     let acceptAnyContentType = ["Accept": "*/*"]
-                    guard let urlRequest = self.articleFetcher.urlRequest(from: url, language: language, headers: acceptAnyContentType) else {
+                    
+                    // Temporary shim until ArticleCache is completely variant-aware
+                    url.wmf_languageVariantCode = languageVariantCode
+                    guard let urlRequest = self.articleFetcher.urlRequest(from: url, headers: acceptAnyContentType) else {
                         continue
                     }
                     
@@ -200,10 +203,17 @@ extension ArticleCacheDBWriter {
                 completion(.failure(ArticleCacheDBWriterError.unableToDetermineDatabaseKey))
                 return
             }
-            let language = desktopArticleURL.wmf_language
-            let baseCSSRequest = self.articleFetcher.urlRequest(from: offlineResources.baseCSS, language: language)
-            let pcsCSSRequest = self.articleFetcher.urlRequest(from: offlineResources.pcsCSS, language: language)
-            let pcsJSRequest = self.articleFetcher.urlRequest(from: offlineResources.pcsJS, language: language)
+            var baseCSSURL = offlineResources.baseCSS
+            baseCSSURL.wmf_languageVariantCode = desktopArticleURL.wmf_languageVariantCode
+            let baseCSSRequest = self.articleFetcher.urlRequest(from: baseCSSURL)
+            
+            var pcsCSSURL = offlineResources.pcsCSS
+            pcsCSSURL.wmf_languageVariantCode = desktopArticleURL.wmf_languageVariantCode
+            let pcsCSSRequest = self.articleFetcher.urlRequest(from: pcsCSSURL)
+            
+            var pcsJSURL = offlineResources.pcsJS
+            pcsJSURL.wmf_languageVariantCode = desktopArticleURL.wmf_languageVariantCode
+            let pcsJSRequest = self.articleFetcher.urlRequest(from: pcsJSURL)
             
             let bundledURLRequests = [baseCSSRequest, pcsCSSRequest, pcsJSRequest].compactMap { $0 }
             
