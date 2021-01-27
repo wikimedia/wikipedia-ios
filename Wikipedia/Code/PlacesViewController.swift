@@ -44,7 +44,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     fileprivate var searchSuggestionController: PlaceSearchSuggestionController!
 
     fileprivate var siteURL: URL {
-        return MWKDataStore.shared().languageLinkController.appLanguage?.siteURL() ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()!
+        return MWKDataStore.shared().primarySiteURL ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()!
     }
     
     fileprivate var currentGroupingPrecision: QuadKeyPrecision = 1

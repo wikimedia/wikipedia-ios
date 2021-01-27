@@ -10,7 +10,7 @@
 "about-libraries-complete-list" = "Popoln seznam";
 "about-libraries-license" = "Licenca";
 "about-repositories" = "Repozitoriji";
-"about-repositories-app-source-license" = "Izvorna koda je na voljo pod $1.";
+"about-repositories-app-source-license" = "Izvorna koda je na voljo pod licenco $1.";
 "about-repositories-app-source-license-mit" = "MIT licenca";
 "about-send-feedback" = "Sporočite svoje mnenje";
 "about-testers" = "Testerji";
@@ -34,7 +34,7 @@
 "account-creation-title" = "Ustvarite račun";
 "account-group-title" = "Vaš račun";
 "account-talk-page-title" = "Vaša stran za pogovor";
-"account-talk-preferences-auto-sign-discussions" = "Razprave s samodejnim podpisom";
+"account-talk-preferences-auto-sign-discussions" = "Pogovori s samodejnim podpisom";
 "account-talk-preferences-title" = "Nastavitve strani za pogovor";
 "action-add-to" = "Dodaj k...";
 "action-add-to-reading-list" = "Dodaj na bralni seznam";
@@ -67,7 +67,7 @@
 "appearance-settings-expand-tables" = "Razširite tabele";
 "article-delete" = "Izbriši";
 "article-languages-filter-placeholder" = "Najdi jezik";
-"article-languages-label" = "Izberi jezik";
+"article-languages-label" = "Izberite jezik";
 "article-languages-others" = "Drugi jeziki";
 "article-languages-yours" = "Vaši jeziki";
 "article-share" = "Deli";
@@ -143,7 +143,7 @@
 "field-alert-token-invalid" = "Neveljavna koda";
 "field-email-placeholder" = "primer@primer.org";
 "field-email-title" = "E-pošta";
-"field-email-title-optional" = "E-pošta (neobvezno)";
+"field-email-title-optional" = "E-pošta (izbirno)";
 "field-new-password-confirm-title" = "Potrditev gesla";
 "field-new-password-placeholder" = "vnesite novo geslo";
 "field-new-password-title" = "Novo geslo";
@@ -181,7 +181,7 @@
 "insert-media-image-position-setting-none" = "Brez";
 "insert-media-image-position-setting-right" = "Desno";
 "insert-media-image-preview-more-information-action-title" = "Več informacij";
-"insert-media-image-preview-select-image-action-title" = "Izberi sliko";
+"insert-media-image-preview-select-image-action-title" = "Izberite sliko";
 "insert-media-image-size-setting-custom" = "Po meri";
 "insert-media-image-size-setting-default" = "Privzeto";
 "insert-media-image-size-settings-px-unit-name" = " točk";
@@ -202,8 +202,8 @@
 "main-menu-account-logout" = "Odjava";
 "main-menu-account-logout-cancel" = "Prekliči";
 "main-menu-account-title-logged-in" = "Prijavljeni ste kot $1";
-"main-menu-nearby" = "Blizu";
-"main-menu-privacy-policy" = "Politika zasebnosti";
+"main-menu-nearby" = "Bližnje";
+"main-menu-privacy-policy" = "Pravilnik o zasebnosti";
 "main-menu-terms-of-use" = "Pogoji uporabe";
 "main-menu-title" = "Več";
 "main-menu-zero-faq" = "Pogosta vprašanja o Wikipedija Zero";
@@ -231,7 +231,7 @@
 "places-search-recently-searched-header" = "Nedavno iskano";
 "places-search-saved-articles" = "Vsi shranjeni članki";
 "places-search-suggested-searches-header" = "Predlagana iskanja";
-"places-search-top-articles-that-match-scope" = "Blizu";
+"places-search-top-articles-that-match-scope" = "Bližnje";
 "places-search-your-current-location" = "Vaša trenutna lokacija";
 "places-title" = "Kraji";
 "reading-list-add-saved-title" = "Najdeni shranjeni članki";
@@ -248,4 +248,8 @@
 "reading-themes-controls-accessibility-light-theme-button" = "Svetleča tema";
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepija tema";
 "reference-title" = "Sklic $1";
+"talk-page-reply-title" = "Odgovor";
 "theme-default-display-name" = "Privzeto";
+"top-read-header-generic" = "Wikipedija";
+"top-read-header-with-language" = "$1 vikipedija";
+"wikitext-upload-save-terms-name" = "Pogoji uporabe";

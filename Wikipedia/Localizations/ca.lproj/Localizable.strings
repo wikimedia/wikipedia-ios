@@ -531,8 +531,6 @@
 "main-menu-account-logout-are-you-sure" = "Esteu segur que voleu finalitzar la sessió?";
 "main-menu-account-logout-cancel" = "Cancel·la";
 "main-menu-account-title-logged-in" = "Sessió iniciada com a $1";
-"main-menu-debug-tweaks" = "Paràmetres de desenvolupament";
-"main-menu-heading-debug" = "Depuració";
 "main-menu-heading-legal" = "Privadesa i condicions";
 "main-menu-nearby" = "A prop";
 "main-menu-privacy-policy" = "Política de privadesa";

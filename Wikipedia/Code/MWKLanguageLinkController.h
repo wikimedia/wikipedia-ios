@@ -2,13 +2,22 @@
 #import <WMF/WMFPreferredLanguageCodesProviding.h>
 @class NSManagedObjectContext;
 @class MWKLanguageLink;
-@class MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
 extern NSString *const WMFPreferredLanguagesDidChangeNotification;
 
 extern NSString *const WMFAppLanguageDidChangeNotification;
+
+// User info keys for WMFPreferredLanguagesDidChangeNotification
+extern NSString *const WMFPreferredLanguagesLastChangedLanguageKey; // An MWKLanguageLink instance
+extern NSString *const WMFPreferredLanguagesChangeTypeKey;          // An NSNumber containing a WMFPreferredLanguagesChangeType value
+
+typedef NS_ENUM(NSInteger, WMFPreferredLanguagesChangeType) {
+    WMFPreferredLanguagesChangeTypeAdd = 1,
+    WMFPreferredLanguagesChangeTypeRemove,
+    WMFPreferredLanguagesChangeTypeReorder
+};
 
 @interface MWKLanguageLinkController : NSObject <MWKLanguageFilterDataSource, WMFPreferredLanguageCodesProviding>
 
@@ -38,26 +47,9 @@ extern NSString *const WMFAppLanguageDidChangeNotification;
 @property (readonly, copy, nonatomic) NSArray<NSURL *> *preferredSiteURLs;
 
 /**
- * Returns the most recently modifed (appended, removed or reordered) preferred language.
- */
-@property (nonatomic) MWKLanguageLink *mostRecentlyModifiedPreferredLanguage;
-
-/**
- * Returns the user's previous preferred languages.
- */
-@property (nonatomic) NSArray<MWKLanguageLink *> *previousPreferredLanguages;
-
-/**
  * All the languages in the receiver minus @c preferredLanguages.
  */
 @property (readonly, copy, nonatomic) NSArray<MWKLanguageLink *> *otherLanguages;
-
-/**
- *  Uniquely adds a new preferred language. The new language will be the first preferred language.
- *
- *  @param language the language to add
- */
-- (void)addPreferredLanguage:(MWKLanguageLink *)language;
 
 /**
  *  Uniquely appends a new preferred language. The new language will be the last preferred language.
@@ -81,11 +73,7 @@ extern NSString *const WMFAppLanguageDidChangeNotification;
  */
 - (void)removePreferredLanguage:(MWKLanguageLink *)language;
 
-- (BOOL)languageIsOSLanguage:(MWKLanguageLink *)language;
-
 - (nullable MWKLanguageLink *)languageForSiteURL:(NSURL *)siteURL;
-
-- (nullable MWKLanguageLink *)languageForLanguageCode:(NSString *)languageCode;
 
 + (void)migratePreferredLanguagesToManagedObjectContext:(NSManagedObjectContext *)moc;
 

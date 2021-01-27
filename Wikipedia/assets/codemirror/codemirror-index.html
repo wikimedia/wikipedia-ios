@@ -355,9 +355,9 @@
       if (shouldDisableClearFormattingButton(doc)) {
         buttonsToDisable.push(buttonPayload('clearFormatting'))
       }
-      const selectionRange = RangeHelper.getItemRangeFromSelection(editor)
-      const allMarkupItems = RangeHelper.markupItemsForItemRangeLines(editor, selectionRange)
-      const markupItems = RangeHelper.getMarkupItemsIntersectingSelection(editor, allMarkupItems, selectionRange)
+      const selectionRange = getItemRangeFromSelection(editor)
+      const allMarkupItems = markupItemsForItemRangeLines(editor, selectionRange)
+      const markupItems = getMarkupItemsIntersectingSelection(editor, allMarkupItems, selectionRange)
       if (markupItems.length !== 0) {
         buttonsToDisable.push(buttonPayload('media'))
       }
@@ -370,7 +370,7 @@
     }
 
     const shouldDisableClearFormattingButton = (doc) => {
-      return !RangeHelper.rangeClearFormatting.canClearFormatting(editor)
+      return !canClearFormatting(editor)
     }
 
     const sendNativeMessages = (doc) => {
@@ -796,7 +796,7 @@
 
     const getLink = (markupItems, keepInStateStore = true) => {
       const selection = editor.getSelection()
-      const buttonNames = RangeHelper.rangeUtilities.getButtonNamesFromMarkupItems(markupItems)
+      const buttonNames = getButtonNamesFromMarkupItems(markupItems)
       let link
       if (selection.length === 0) {
         if (buttonNames.includes("link")) {
@@ -1263,7 +1263,7 @@
           editor.execCommand('replaceSingleWithoutDialogs')
       },
       clearFormatting: () => {
-        RangeHelper.rangeClearFormatting.clearFormatting(editor)
+        clearFormatting(editor)
       },
       replaceSelection: (text) => {
         editor.replaceSelection(text)

@@ -89,6 +89,11 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 @property (nonatomic, strong, readonly) NSManagedObjectContext *viewContext;
 @property (nonatomic, strong, readonly) NSManagedObjectContext *feedImportContext;
 
+/**
+ * Returns the siteURL of the user's first preferred language.
+ */
+@property (readonly, copy, nonatomic, nullable) NSURL *primarySiteURL;
+
 #pragma mark - Caching
 
 @property (readonly, strong, nonatomic) MobileviewToMobileHTMLConverter *mobileviewConverter;
@@ -102,20 +107,16 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 - (void)prefetchArticles; // fill the article cache to speed up initial feed load
 
 - (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL inManagedObjectContext:(NSManagedObjectContext *)moc;
-- (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key inManagedObjectContext:(NSManagedObjectContext *)moc;
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL inManagedObjectContext:(NSManagedObjectContext *)moc;
+- (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key variant:(nullable NSString *)variant inManagedObjectContext:(NSManagedObjectContext *)moc;
+- (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key inManagedObjectContext:(NSManagedObjectContext *)moc; // Temporary shim for areas like reading lists that are not yet variant-aware
 
 - (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL;         //uses the view context
-- (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key;      //uses the view context
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL; //uses the view context
+- (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key variant:(nullable NSString *)variant; //uses the view context
+- (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key; // Temporary shim for areas like reading lists that are not yet variant-aware
 
 - (nullable WMFArticle *)fetchArticleWithWikidataID:(NSString *)wikidataID; //uses the view context
-
-- (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc;
-- (void)setIsExcludedFromFeed:(BOOL)isExcludedFromFeed withArticleURL:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc;
-
-- (void)setIsExcludedFromFeed:(BOOL)isExcludedFromFeed withArticleURL:(NSURL *)articleURL;
-- (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL;
 
 - (BOOL)save:(NSError **)error;
 

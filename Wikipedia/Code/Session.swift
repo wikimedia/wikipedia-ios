@@ -74,7 +74,16 @@ public class Session: NSObject {
         }
     }
     
-    public var xWMFUUID: String? = nil // event logging uuid, set if enabled, nil if disabled
+    // event logging uuid, set if enabled, nil if disabled
+    private var xWMFUUID: String? {
+        get {
+            let userDefaults = UserDefaults.standard
+            if userDefaults.wmf_sendUsageReports {
+                return userDefaults.wmf_appInstallId
+            }
+            return nil
+        }
+    }
     
     private static let defaultCookieStorage: HTTPCookieStorage = {
         let storage = HTTPCookieStorage.shared
@@ -546,6 +555,7 @@ public class Session: NSObject {
         var getRequest = request(with: url, method: .get)
         if ignoreCache {
             getRequest.cachePolicy = .reloadIgnoringLocalCacheData
+            getRequest.prefersPersistentCacheOverError = false
         }
         let task = jsonDictionaryTask(with: getRequest, completionHandler: completionHandler)
         task.resume()

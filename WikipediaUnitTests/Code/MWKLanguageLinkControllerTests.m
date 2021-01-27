@@ -30,9 +30,9 @@
     [self.controller resetPreferredLanguages];
 }
 
-//- (void)testReadPreviouslySelectedLanguagesReturnsEmpty {
-//    assertThat([self.controller readPreferredLanguageCodesWithoutOSPreferredLanguages], hasCountOf(0));
-//}
+- (void)testReadPreviouslySelectedLanguagesReturnsEmpty {
+    XCTAssertEqual([[self.controller readSavedPreferredLanguageCodes] count], 0);
+}
 
 - (void)testDefaultsToDevicePreferredLanguages {
     /*
@@ -47,15 +47,15 @@
     //    NSAssert(![[self preferredLanguageCodes] containsObject:@"test"],
     //             @"'test' shouldn't be a default member of preferred languages!");
 
-    MWKLanguageLink *link = [[MWKLanguageLink alloc] initWithLanguageCode:@"test" pageTitleText:@"test" name:@"test" localizedName:@"test"];
-    [self.controller addPreferredLanguage:link];
+    MWKLanguageLink *link = [[MWKLanguageLink alloc] initWithLanguageCode:@"test" pageTitleText:@"test" name:@"test" localizedName:@"test" languageVariantCode:@"test"];
+    [self.controller appendPreferredLanguage:link];
 
     XCTAssert([[self preferredLanguageCodes] containsObject:@"test"]);
     [self verifyAllLanguageArrayProperties];
 }
 
 - (void)testUniqueAppendToPreferredLanguages {
-    MWKLanguageLink *link = [[MWKLanguageLink alloc] initWithLanguageCode:@"test" pageTitleText:@"test" name:@"test" localizedName:@"test"];
+    MWKLanguageLink *link = [[MWKLanguageLink alloc] initWithLanguageCode:@"test" pageTitleText:@"test" name:@"test" localizedName:@"test" languageVariantCode:@"test"];
     [self.controller appendPreferredLanguage:link];
     NSArray *firstAppend = [self.controller.preferredLanguages copy];
 
@@ -88,6 +88,39 @@
     self.filter.languageFilter = @"$";
     XCTAssert(self.filter.filteredLanguages.count == 0);
 }
+
+- (void)testContentLanguageCodeProperty {
+    NSString *languageCode = @"zh";
+    NSString *languageVariantCode = @"zh-hans";
+    
+    // If languageVariantCode is non-nil and non-empty string, contentLanguageCode returns languageVariantCode
+    MWKLanguageLink *link = [[MWKLanguageLink alloc] initWithLanguageCode:languageCode pageTitleText:@"test" name:@"test" localizedName:@"test" languageVariantCode:languageVariantCode];
+    XCTAssertEqualObjects(link.contentLanguageCode, languageVariantCode);
+    
+    // If languageVariantCode is nil, contentLanguageCode returns languageCode
+    link = [[MWKLanguageLink alloc] initWithLanguageCode:languageCode pageTitleText:@"test" name:@"test" localizedName:@"test" languageVariantCode:nil];
+    XCTAssertEqualObjects(link.contentLanguageCode, languageCode);
+    
+    // If languageVariantCode is an empty string, contentLanguageCode returns languageCode
+    link = [[MWKLanguageLink alloc] initWithLanguageCode:languageCode pageTitleText:@"test" name:@"test" localizedName:@"test" languageVariantCode:@""];
+    XCTAssertEqualObjects(link.contentLanguageCode, languageCode);
+}
+
+- (void)testLanguageVariantCodeURLPropagation {
+    NSString *languageCode = @"sr";
+    NSString *languageVariantCode = @"sr-el";
+    
+    // The languageVariantCode property should propagate to the siteURL.
+    MWKLanguageLink *link = [[MWKLanguageLink alloc] initWithLanguageCode:languageCode pageTitleText:@"test" name:@"test" localizedName:@"test" languageVariantCode:languageVariantCode];
+    NSURL *siteURL = link.siteURL;
+    XCTAssertEqualObjects(siteURL.wmf_languageVariantCode, languageVariantCode);
+    
+    // The languageVariantCode property should propagate to the articleURL.
+    link = [[MWKLanguageLink alloc] initWithLanguageCode:languageCode pageTitleText:@"PageTitle" name:@"test" localizedName:@"test" languageVariantCode:languageVariantCode];
+    NSURL *articleURL = link.articleURL;
+    XCTAssertEqualObjects(articleURL.wmf_languageVariantCode, languageVariantCode);
+}
+
 
 #pragma mark - Utils
 

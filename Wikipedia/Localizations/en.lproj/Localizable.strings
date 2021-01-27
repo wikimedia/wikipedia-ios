@@ -150,6 +150,10 @@
 "button-skip" = "Skip";
 "cancel" = "Cancel";
 "cc-zero" = "Creative Commons CC0";
+"chinese-variants-alert-body" = "The Wikipedia app now supports the following Chinese variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\n简体 Chinese, Simplified (zh-hans)\n繁體 Chinese, Traditional (zh-hant)\n大陆简体 Mainland Simplified (zh-cn)\n香港繁體 Hong Kong Traditional (zh-hk)\n澳門繁體 Macau Traditional (zh-mo)\n大马简体 Malaysia Simplified (zh-my)\n新加坡简体 Singapore Simplified (zh-sg)\n臺灣正體 Taiwanese Traditional (zh-tw)";
+"chinese-variants-alert-dismiss-button" = "No thanks";
+"chinese-variants-alert-preferences-button" = "Review your preferences";
+"chinese-variants-alert-title" = "Updates to Chinese variant support";
 "clear-title-accessibility-label" = "Clear";
 "close-button-accessibility-label" = "Close";
 "compass-direction" = "at $1 o'clock";
@@ -508,8 +512,6 @@
 "main-menu-account-logout-are-you-sure" = "Are you sure you want to log out?";
 "main-menu-account-logout-cancel" = "Cancel";
 "main-menu-account-title-logged-in" = "Logged in as $1";
-"main-menu-debug-tweaks" = "Developer settings";
-"main-menu-heading-debug" = "Debug";
 "main-menu-heading-legal" = "Privacy and Terms";
 "main-menu-nearby" = "Nearby";
 "main-menu-privacy-policy" = "Privacy policy";

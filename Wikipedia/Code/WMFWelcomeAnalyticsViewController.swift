@@ -48,11 +48,7 @@ class WMFWelcomeAnalyticsViewController: ThemeableViewController {
     }
     
     @IBAction func toggleAnalytics(withSender sender: UISwitch){
-        if(sender.isOn){
-            EventLoggingService.shared?.isEnabled = true
-        }else{
-            EventLoggingService.shared?.isEnabled = false
-        }
+        UserDefaults.standard.wmf_sendUsageReports = sender.isOn
         updateToggleLabelTitleForUsageReportsIsOn(sender.isOn)
     }
     

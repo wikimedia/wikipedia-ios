@@ -142,4 +142,9 @@ extension NSLocale {
     @objc public static let wmf_preferredLanguageCodes: [String] =
         Locale.uniqueWikipediaLanguages(with: preferredLanguages)
     
+    @objc public static var wmf_preferredLocaleLanguageCodes: [String] {
+        // use language code when determining if a langauge is preferred (e.g. "en_US" is preferred if "en" was selected)
+        preferredLanguages.compactMap { NSLocale(localeIdentifier: $0).languageCode }
+    }
+    
 }

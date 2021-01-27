@@ -26,6 +26,7 @@
 @dynamic signedQuadKey;
 @dynamic snippet;
 @dynamic thumbnailURLString;
+@dynamic variant;
 @dynamic viewedDate;
 @dynamic viewedDateWithoutTime;
 @dynamic viewedFragment;

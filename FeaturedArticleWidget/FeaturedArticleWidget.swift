@@ -87,7 +87,7 @@ class FeaturedArticleWidget: ExtensionViewController, NCWidgetProviding {
     func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
         WidgetController.shared.startWidgetUpdateTask(completionHandler) { (dataStore, completion) in
             let moc = dataStore.viewContext
-            let siteURL = dataStore.languageLinkController.appLanguage?.siteURL()
+            let siteURL = dataStore.primarySiteURL
             moc.perform {
                 guard let featuredContentGroup = moc.newestGroup(of: .featuredArticle, forSiteURL: siteURL),
                     let articleURL = featuredContentGroup.contentPreview as? URL else {

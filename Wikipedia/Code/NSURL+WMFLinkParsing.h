@@ -182,6 +182,11 @@ extern NSString *const WMFEditPencil;
 
 @property (nonatomic, copy, readonly, nullable) NSString *wmf_databaseKey; // string suitable for using as a unique key for any wiki page
 
+/**
+ *  Returns @c wmf_languageVariantCode if non-nil and non-empty string, @c wmf_language otherwise
+ */
+@property (nonatomic, copy, readonly, nullable) NSString *wmf_contentLanguageCode;
+
 #pragma mark - Introspection
 
 /**
@@ -203,6 +208,14 @@ extern NSString *const WMFEditPencil;
  *  Return YES if the URL does not have a language subdomain
  */
 @property (nonatomic, readonly) BOOL wmf_isNonStandardURL;
+
+#pragma mark - Associated Objects
+
+/**
+ *  Settable property for language variant code, defaults to nil
+ *  Returns language variant code if present or nil if no code set
+ */
+@property (nonatomic, copy, nullable)NSString *wmf_languageVariantCode;
 
 @end
 

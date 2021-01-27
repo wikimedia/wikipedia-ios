@@ -1,5 +1,6 @@
 #import <XCTest/XCTest.h>
 #import <WMF/NSURL+WMFLinkParsing.h>
+#import <WMF/NSURLComponents+WMFLinkParsing.h>
 
 @interface NSURL_WMFLinkParsingTests : XCTestCase
 
@@ -65,6 +66,23 @@
     NSURL *url = [[NSURL alloc] initWithString:urlString];
     NSString *talkPageDatabaseKey = [url wmf_databaseKey];
     XCTAssertTrue([talkPageDatabaseKey isEqualToString:urlString]);
+}
+
+- (void)testLanguageVariantCodeProperty {
+    NSURL *url = [[NSURL alloc] initWithString: @"https://zh.wikipedia.org"];
+    XCTAssertNil(url.wmf_languageVariantCode);
+    NSString *languageVariantCode = @"zh-hant";
+    url.wmf_languageVariantCode = languageVariantCode;
+    XCTAssertEqualObjects(url.wmf_languageVariantCode, languageVariantCode);
+}
+
+- (void)testLanguageVariantCodePropertyFromURLComponents {
+    NSURLComponents *components = [NSURLComponents componentsWithString:@"https://sr.wikipedia.org"];
+    NSString *languageVariantCode = @"sr-ec";
+    XCTAssertNotNil(components);
+    NSURL *url = [components wmf_URLWithLanguageVariantCode:languageVariantCode];
+    XCTAssertNotNil(url);
+    XCTAssertEqualObjects(url.wmf_languageVariantCode, languageVariantCode);
 }
 
 @end

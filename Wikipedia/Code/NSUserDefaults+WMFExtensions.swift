@@ -27,6 +27,8 @@ let WMFDidShowTitleDescriptionEditingIntro = "WMFDidShowTitleDescriptionEditingI
 let WMFDidShowFirstEditPublishedPanelKey = "WMFDidShowFirstEditPublishedPanelKey"
 let WMFIsSyntaxHighlightingEnabled = "WMFIsSyntaxHighlightingEnabled"
 let WMFSearchLanguageKey = "WMFSearchLanguageKey"
+let WMFAppInstallId = "WMFAppInstallId"
+let WMFSendUsageReports = "WMFSendUsageReports"
 
 @objc public enum WMFAppDefaultTabType: Int {
     case explore
@@ -40,7 +42,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         static let didShowDescriptionPublishedPanel = "WMFDidShowDescriptionPublishedPanel"
         static let didShowEditingOnboarding = "WMFDidShowEditingOnboarding"
         static let autoSignTalkPageDiscussions = "WMFAutoSignTalkPageDiscussions"
-        static let shouldCheckForArticleAnnouncements = "WMFShouldCheckForArticleAnnouncements"
     }
 
     @objc func wmf_dateForKey(_ key: String) -> Date? {
@@ -77,6 +78,29 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }
     }
     
+    @objc var wmf_appInstallId: String? {
+        get {
+            var appInstallId = string(forKey: WMFAppInstallId)
+            if appInstallId == nil {
+                appInstallId = UUID().uuidString
+                set(appInstallId, forKey: WMFAppInstallId)
+            }
+            return appInstallId
+        }
+        set {
+            set(newValue, forKey: WMFAppInstallId)
+        }
+    }
+
+    @objc var wmf_sendUsageReports: Bool {
+        get {
+            return bool(forKey: WMFSendUsageReports)
+        }
+        set {
+            set(newValue, forKey: WMFSendUsageReports)
+        }
+    }
+
     @objc func wmf_setFeedRefreshDate(_ date: Date) {
         self.set(date, forKey: WMFFeedRefreshDateKey)
     }
@@ -448,15 +472,6 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }
         set {
             set(newValue, forKey: UserDefaults.Key.autoSignTalkPageDiscussions)
-        }
-    }
-
-    @objc var shouldCheckForArticleAnnouncements: Bool {
-        get {
-            return bool(forKey: UserDefaults.Key.shouldCheckForArticleAnnouncements)
-        }
-        set {
-            set(newValue, forKey: UserDefaults.Key.shouldCheckForArticleAnnouncements)
         }
     }
 #if UI_TEST

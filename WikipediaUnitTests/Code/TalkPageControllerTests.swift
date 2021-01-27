@@ -56,7 +56,7 @@ fileprivate class MockArticleRevisionFetcher: WMFArticleRevisionFetcher {
     
     override func fetchLatestRevisions(forArticleURL articleURL: URL!, resultLimit numberOfResults: UInt, startingWithRevision startRevisionId: NSNumber, endingWithRevision endRevisionId: NSNumber, failure: WMFErrorHandler!, success: WMFSuccessIdHandler!) -> URLSessionTask? {
         do {
-            let revisionQueryResults = try WMFLegacySerializer.models(of: WMFRevisionQueryResults.self, fromArrayForKeyPath: "query.pages", inJSONDictionary: resultsDictionary)
+            let revisionQueryResults = try WMFLegacySerializer.models(of: WMFRevisionQueryResults.self, fromArrayForKeyPath: "query.pages", inJSONDictionary: resultsDictionary, languageVariantCode: articleURL.wmf_languageVariantCode)
             success(revisionQueryResults)
             return nil
         } catch {

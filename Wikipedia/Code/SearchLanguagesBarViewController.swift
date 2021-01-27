@@ -47,7 +47,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
             }
         }
         set {
-            UserDefaults.standard.wmf_setCurrentSearchLanguageDomain(newValue?.siteURL())
+            UserDefaults.standard.wmf_setCurrentSearchLanguageDomain(newValue?.siteURL)
             delegate?.searchLanguagesBarViewController(self, didChangeCurrentlySelectedSearchLanguage: newValue!)
             updateLanguageBarLanguageButtons()
         }

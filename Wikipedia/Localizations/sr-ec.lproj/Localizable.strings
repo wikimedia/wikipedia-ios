@@ -471,8 +471,6 @@
 "main-menu-account-logout-are-you-sure" = "Желите ли заиста да се одјавите?";
 "main-menu-account-logout-cancel" = "Откажи";
 "main-menu-account-title-logged-in" = "Пријављени сте као $1";
-"main-menu-debug-tweaks" = "Подешавања за програмера";
-"main-menu-heading-debug" = "Исправке";
 "main-menu-heading-legal" = "Приватност и услови";
 "main-menu-nearby" = "У близини";
 "main-menu-privacy-policy" = "Политика приватности";

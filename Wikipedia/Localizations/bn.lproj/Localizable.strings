@@ -224,8 +224,6 @@
 "main-menu-account-logout-are-you-sure" = "আপনি কি নিশ্চিত যে আপনি প্রস্থান করতে চান?";
 "main-menu-account-logout-cancel" = "বাতিল";
 "main-menu-account-title-logged-in" = "$1 হিসাবে প্রবেশ";
-"main-menu-debug-tweaks" = "বিকাশকারীর সেটিংস";
-"main-menu-heading-debug" = "ডিবাগ";
 "main-menu-heading-legal" = "আইনী তথ্য";
 "main-menu-nearby" = "কাছাকাছি";
 "main-menu-privacy-policy" = "গোপনীয়তার নীতি";

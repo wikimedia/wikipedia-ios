@@ -546,8 +546,6 @@
 "main-menu-account-logout-are-you-sure" = "Oturumu kapatmak istediğinizden emin misiniz?";
 "main-menu-account-logout-cancel" = "İptal";
 "main-menu-account-title-logged-in" = "$1 olarak oturum açıldı";
-"main-menu-debug-tweaks" = "Geliştirici ayarları";
-"main-menu-heading-debug" = "Ayıkla";
 "main-menu-heading-legal" = "Gizlilik ve Şartlar";
 "main-menu-nearby" = "Yakınımdakiler";
 "main-menu-privacy-policy" = "Gizlilik politikası";
@@ -671,7 +669,7 @@
 "reading-list-keep-title" = "Kaydedilen maddeleri cihazda saklasın mı?";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "Maddeleri sırala";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "5000 adet sıralanmamış madde sınırı var. Sıralanmamış maddelerin senkronizasyonuna devam etmek için lütfen mevcut maddelerinizi listelere ayırın.";
-"reading-list-limit-hit-for-unsorted-articles-title" = "Sıralanmamış maddeler için limit sayısı";
+"reading-list-limit-hit-for-unsorted-articles-title" = "Sıralanmamış maddeler için sınır sayısı";
 "reading-list-list-limit-exceeded-message" = "Bu okuma listesi ve bu listeye kaydedilen maddeler senkronize edilmeyecektir, lütfen bu listenin senkronizasyonunu devam ettirmek için listelerinizi şu sayıya düşürün: $1";
 "reading-list-list-limit-exceeded-title" = "Hesap başına {{PLURAL:$1|$1 okuma listesi|$1 okuma listesi}} sınırını aştınız.";
 "reading-list-list-limit-reached" = "Hesap başına $1 okuma listesi sınırına ulaştınız";
@@ -704,7 +702,7 @@
 "reading-lists-article-queued-to-be-downloaded" = "Madde indirilmek için sıraya alındı";
 "reading-lists-article-save-to-disk-failed" = "Cihaz limiti aşıldı, madde senkronize edilemedi";
 "reading-lists-article-save-to-disk-recovery-suggestion" = "Cihazınızda biraz yer açın ve tekrar deneyin";
-"reading-lists-articles-not-synced-limit-exceeded" = "Bazı maddeler senkronize edilmedi, limit aşıldı";
+"reading-lists-articles-not-synced-limit-exceeded" = "Bazı maddeler senkronize edilmedi, sınır aşıldı";
 "reading-lists-conflicting-reading-list-name-updated" = "'$1' adlı listeniz '$2' olarak değiştirildi";
 "reading-lists-count" = "{{PLURAL:$1|$1 okuma listesi|$1 okuma listesi}}";
 "reading-lists-default-list-description" = "Kaydedilen maddeleriniz için varsayılan liste";
@@ -712,7 +710,7 @@
 "reading-lists-delete-reading-list-alert-message" = "Bu eylem geri alınamaz. {{PLURAL:$1|bu listeye|bu listelere}} kaydedilen maddeler kaydedilmez.";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|Listeyi|Listeleri}} silinsin mi?";
 "reading-lists-large-sync-completed" = "$1 madde ve $2 okuma listesi hesabınızdan senkronize edildi";
-"reading-lists-list-not-synced-limit-exceeded" = "Liste senkronize edilmedi, limit aşıldı";
+"reading-lists-list-not-synced-limit-exceeded" = "Liste senkronize edilmedi, sınır aşıldı";
 "reading-lists-sort-saved-articles" = "Kayıtlı maddeleri sırala";
 "reading-lists-split-notification" = "Okuma listesi başına $1 madde sınırı vardır. Bu sınırı aşan mevcut listeler birden fazla listeye ayrılmıştır.";
 "reading-lists-sync-error-no-internet-connection" = "İnternet bağlantısı mevcut olduğunda senkronizasyon devam edecek";
@@ -752,7 +750,7 @@
 "reverted-edit-notification-body" = "$1 maddesinde yaptığınız düzenleme $2 tarafından geri alındı.";
 "reverted-edit-notification-read-more-action-title" = "Devamını oku";
 "reverted-edit-possible-reasons" = "- Katkınız kurallarımızdan birini ihlal etti. $1 \n\n - Katkınız bir deneme ya da vandalizme benziyor";
-"reverted-edit-possible-reasons-subtitle" = "Elinizden geleni yaptığınızı biliyoruz ama inceleyenlerden biri, bir sıkıntı gördü.\n\n\nDeğişikliğiniz geri alınmasının muhtemel sebepleri şunlar olabilir:";
+"reverted-edit-possible-reasons-subtitle" = "Elinizden gelenin en iyisini yaptığınızı biliyoruz, ancak inceleyicilerden birinin endişesi vardı.\n\n\nDüzenlemenizin geri alınmasının olası nedenleri şunlardır:";
 "reverted-edit-thanks-for-editing-title" = "Vikipedi'yi düzenlediğiniz için teşekkürler!";
 "reverted-edit-title" = "Geri alınan düzenleme";
 "reverted-edit-view-guidelines-text" = "Kılavuzu görüntüle";
@@ -839,9 +837,9 @@
 "talk-page-add-discussion-accessibility-label" = "Tartışma ekle";
 "talk-page-discussion-accessibility-hint" = "Tartışma başlığını açmak için iki kez hafifçe vurun";
 "talk-page-discussion-read-accessibility-label" = "Oku";
-"talk-page-discussion-read-ipa-accessibility-attribute" = "rɛd";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "oˈku";
 "talk-page-discussion-unread-accessibility-label" = "Okunmamış";
-"talk-page-discussion-unread-ipa-accessibility-attribute" = "ʌnˈrɛd";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "okuˈma";
 "talk-page-error-unable-to-post-reply" = "İnternet bağlantısı yok. Cevap gönderilemiyor.";
 "talk-page-error-unable-to-post-topic" = "İnternet bağlantısı yok. Tartışma gönderilemiyor.";
 "talk-page-info-active-conversations" = "$1 Vikipedi'de aktif sohbetler";

@@ -467,7 +467,10 @@ NS_ASSUME_NONNULL_BEGIN
     [self.infoFetcher fetchPicOfTheDayGalleryInfoForDate:date
         metadataLanguage:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]
         failure:^(NSError *_Nonnull error) {
-            //show error
+            UIViewController *vcToPresentError = [self presentingViewController];
+            [self dismissViewControllerAnimated:true completion:^{
+                [vcToPresentError wmf_showAlertWithError:error];
+            }];
         }
         success:^(id _Nonnull info) {
             @strongify(self);

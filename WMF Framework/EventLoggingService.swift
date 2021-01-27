@@ -112,11 +112,6 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         self.managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         self.managedObjectContext.persistentStoreCoordinator = psc
         super.init()
-        if self.isEnabled {
-            self.session.xWMFUUID = appInstallID
-        } else {
-            self.session.xWMFUUID = nil
-        }
     }
 
     
@@ -124,6 +119,18 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     public func reset() {
         self.resetSession()
         self.resetInstall()
+    }
+
+    @objc
+    func migrateShareUsageAndInstallIDToUserDefaults() {
+        let enabledNumber = libraryValue(for: Key.isEnabled) as? NSNumber
+        if enabledNumber != nil {
+            UserDefaults.standard.wmf_sendUsageReports = enabledNumber!.boolValue
+        } else {
+            UserDefaults.standard.wmf_sendUsageReports = false
+        }
+
+        UserDefaults.standard.wmf_appInstallId = libraryValue(for: Key.appInstallID) as? String
     }
 
     @objc
@@ -396,35 +403,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     
     @objc public var isEnabled: Bool {
         get {
-            var isEnabled = false
-            if let enabledNumber = libraryValue(for: Key.isEnabled) as? NSNumber {
-                isEnabled = enabledNumber.boolValue
-            } else {
-                setLibraryValue(NSNumber(booleanLiteral: false), for: Key.isEnabled) // set false so that it's cached and doesn't keep fetching
-            }
-            return isEnabled
-        }
-        set {
-            setLibraryValue(NSNumber(booleanLiteral: newValue), for: Key.isEnabled)
-            if newValue {
-                session.xWMFUUID = appInstallID
-            } else {
-                session.xWMFUUID = nil
-            }
-        }
-    }
-    
-    @objc public var appInstallID: String? {
-        get {
-            var installID = libraryValue(for: Key.appInstallID) as? String
-            if installID == nil || installID == "" {
-                installID = UUID().uuidString
-                setLibraryValue(installID as NSString?, for: Key.appInstallID)
-            }
-            return installID
-        }
-        set {
-            setLibraryValue(newValue as NSString?, for: Key.appInstallID)
+            return UserDefaults.standard.wmf_sendUsageReports
         }
     }
     
@@ -494,7 +473,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     }
     
     private func resetInstall() {
-        appInstallID = nil
+        UserDefaults.standard.wmf_appInstallId = nil
         lastLoggedSnapshot = nil
         loggedDaysInstalled = nil
         appInstallDate = nil

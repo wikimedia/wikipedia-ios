@@ -131,7 +131,7 @@ class TalkPageController {
             return
         }
         
-        let wrappedBody = "<p>\n\n" + body + "\(signatureIfAutoSignEnabled)</p>"
+        let wrappedBody = "\n\n" + body + "\(signatureIfAutoSignEnabled)"
         fetcher.addTopic(to: title, siteURL: siteURL, subject: subject, body: wrappedBody) { (result) in
             switch result {
             case .success(let result):
@@ -169,7 +169,7 @@ class TalkPageController {
             return
         }
 
-        let wrappedBody = "<p>\n\n" + body + "\(signatureIfAutoSignEnabled)</p>"
+        let wrappedBody = "\n\n" + body + "\(signatureIfAutoSignEnabled)"
         let talkPageTopicID = topic.objectID
         guard let talkPageObjectID = topic.talkPage?.objectID else {
             completion(.failure(TalkPageError.topicMissingTalkPageRelationship))
@@ -210,8 +210,9 @@ private extension TalkPageController {
     
     func fetchLatestRevisionID(endingWithRevision revisionID: Int?, urlTitle: String, completion: @escaping (Result<Int, Error>) -> Void) {
         
-        guard let host = siteURL.host,
-            let revisionURL = Configuration.current.mediaWikiAPIURLForHost(host, with: nil).url?.wmf_URL(withTitle: urlTitle) else {
+        guard siteURL.host != nil,
+            let mediaWikiURL = Configuration.current.mediaWikiAPIURLForURL(siteURL, with: nil),
+            let revisionURL = mediaWikiURL.wmf_URL(withTitle: urlTitle) else {
             completion(.failure(TalkPageError.revisionUrlCreationFailure))
             return
         }

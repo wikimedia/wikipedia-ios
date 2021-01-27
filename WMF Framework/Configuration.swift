@@ -174,10 +174,11 @@ public class Configuration: NSObject {
     
     /// The Page Content Service includes mobile-html and the associated endpoints. It can be run locally with this repository: https://gerrit.wikimedia.org/r/admin/projects/mediawiki/services/mobileapps
     /// On production, it is run through RESTBase at  https://en.wikipedia.org/api/rest_v1/ (works for all language wikis)
-    @objc(pageContentServiceAPIURLComponentsForHost:appendingPathComponents:)
-    public func pageContentServiceAPIURLComponentsForHost(_ host: String? = nil, appending pathComponents: [String] = [""]) -> URLComponents {
-        let builder = pageContentServiceAPIURLComponentsBuilderForHost(host)
-        return builder.components(byAppending: pathComponents)
+    @objc(pageContentServiceAPIURLForURL:appendingPathComponents:)
+    public func pageContentServiceAPIURLForURL(_ url: URL? = nil, appending pathComponents: [String] = [""]) -> URL? {
+        let builder = pageContentServiceAPIURLComponentsBuilderForHost(url?.host)
+        let components = builder.components(byAppending: pathComponents)
+        return components.wmf_URLWithLanguageVariantCode(url?.wmf_languageVariantCode)
     }
     
     /// Returns the default request headers for Page Content Service API requests
@@ -205,19 +206,20 @@ public class Configuration: NSObject {
     
     /// Wikifeeds includes feed content and announcements. It can be run locally with this repository: https://gerrit.wikimedia.org/r/admin/projects/mediawiki/services/wikifeeds
     /// On production, it is run through RESTBase at  https://en.wikipedia.org/api/rest_v1/ (works for all language wikis)
-    @objc(wikiFeedsAPIURLComponentsForHost:appendingPathComponents:)
-    public func wikiFeedsAPIURLComponentsForHost(_ host: String? = nil, appending pathComponents: [String] = [""]) -> URLComponents {
-        let builder = wikiFeedsAPIURLComponentsBuilderForHost(host)
-        return builder.components(byAppending: pathComponents)
+    @objc(wikiFeedsAPIURLForURL:appendingPathComponents:)
+    public func wikiFeedsAPIURLForURL(_ url: URL?, appending pathComponents: [String] = [""]) -> URL? {
+        let builder = wikiFeedsAPIURLComponentsBuilderForHost(url?.host)
+        let components = builder.components(byAppending: pathComponents)
+        return components.wmf_URLWithLanguageVariantCode(url?.wmf_languageVariantCode)
     }
     
-    public func mediaWikiAPIURForHost(_ host: String? = nil, appending pathComponents: [String] = [""]) -> URLComponents {
-        let builder = mediaWikiAPIURLComponentsBuilderForHost(host)
-        return builder.components(byAppending: pathComponents)
+    @objc(mediaWikiAPIURLForURL:withQueryParameters:)
+    public func mediaWikiAPIURLForURL(_ url: URL?, with queryParameters: [String: Any]? = nil) -> URL? {
+        let components = mediaWikiAPIURLForHost(url?.host, with: queryParameters)
+        return components.wmf_URLWithLanguageVariantCode(url?.wmf_languageVariantCode)
     }
     
-    @objc(mediaWikiAPIURLComponentsForHost:withQueryParameters:)
-    public func mediaWikiAPIURLForHost(_ host: String? = nil, with queryParameters: [String: Any]? = nil) -> URLComponents {
+    private func mediaWikiAPIURLForHost(_ host: String? = nil, with queryParameters: [String: Any]? = nil) -> URLComponents {
         let builder = mediaWikiAPIURLComponentsBuilderForHost(host)
         guard let queryParameters = queryParameters else {
             return builder.components()
@@ -225,14 +227,16 @@ public class Configuration: NSObject {
         return builder.components(queryParameters: queryParameters)
     }
 
-    public func mediaWikiRestAPIURLForHost(_ host: String? = nil, appending pathComponents: [String] = [""], queryParameters: [String: Any]? = nil) -> URLComponents {
-        let builder = mediaWikiRestAPIURLComponentsBuilderForHost(host)
-        return builder.components(byAppending: pathComponents, queryParameters: queryParameters)
+    public func mediaWikiRestAPIURLForURL(_ url: URL? = nil, appending pathComponents: [String] = [""], queryParameters: [String: Any]? = nil) -> URL? {
+        let builder = mediaWikiRestAPIURLComponentsBuilderForHost(url?.host)
+        let components = builder.components(byAppending: pathComponents, queryParameters: queryParameters)
+        return components.wmf_URLWithLanguageVariantCode(url?.wmf_languageVariantCode)
     }
     
-    public func articleURLForHost(_ host: String, appending pathComponents: [String]) -> URLComponents {
+    public func articleURLForHost(_ host: String, languageVariantCode: String?, appending pathComponents: [String]) -> URL? {
         let builder = articleURLComponentsBuilder(for: host)
-        return builder.components(byAppending: pathComponents)
+        let components = builder.components(byAppending: pathComponents)
+        return components.wmf_URLWithLanguageVariantCode(languageVariantCode)
     }
     
     public func mediaWikiAPIURLForWikiLanguage(_ wikiLanguage: String? = nil, with queryParameters: [String: Any]?) -> URLComponents {

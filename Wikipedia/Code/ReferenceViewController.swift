@@ -25,6 +25,7 @@ class ReferenceViewController: ViewController {
     }
     
     func setupNavbar() {
+        navigationBar.displayType = .modal
         updateTitle()
         navigationItem.rightBarButtonItem = closeButton
         navigationItem.leftBarButtonItem = backToReferenceButton

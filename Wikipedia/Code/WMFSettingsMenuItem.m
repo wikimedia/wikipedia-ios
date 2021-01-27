@@ -1,6 +1,5 @@
 #import "WMFSettingsMenuItem.h"
 #import "Wikipedia-Swift.h"
-#import <WMF/MWKLanguageLinkController.h>
 
 @interface WMFSettingsMenuItem ()
 
@@ -195,16 +194,6 @@
                                                  iconName:@"settings-clear-cache"
                                                 iconColor:[UIColor wmf_colorWithHex:0xFFBF02]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_None
-                                           disclosureText:nil
-                                               isSwitchOn:NO];
-        }
-        case WMFSettingsMenuItemType_DevSettings: {
-            return
-                [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:WMFLocalizedStringWithDefaultValue(@"main-menu-debug-tweaks", nil, nil, @"Developer settings", @"Title for button that shows debugging settings options.")
-                                                 iconName:@"settings-dev"
-                                                iconColor:[UIColor wmf_colorWithHex:0x1F95DE]
-                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
                                            disclosureText:nil
                                                isSwitchOn:NO];
         }

@@ -84,9 +84,6 @@
                                                     group.placement = obj.placement;
                                                 }];
             [group updateVisibilityForUserIsLoggedIn:isLoggedIn];
-            if (group.isVisible && [group.placement isEqualToString:@"article"]) {
-                NSUserDefaults.standardUserDefaults.shouldCheckForArticleAnnouncements = YES;
-            }
         }];
 
         [[WMFSurveyAnnouncementsController shared] setAnnouncements:announcements forSiteURL:self.siteURL dataStore:self.userDataStore];
@@ -107,7 +104,7 @@
     [moc removeAllContentGroupsOfKind:WMFContentGroupKindTheme];
 
     if (moc.wmf_isSyncRemotelyEnabled && !NSUserDefaults.standardUserDefaults.wmf_didShowReadingListCardInFeed && !self.fetcher.session.isAuthenticated) {
-        NSURL *readingListContentGroupURL = [WMFContentGroup readingListContentGroupURL];
+        NSURL *readingListContentGroupURL = [WMFContentGroup readingListContentGroupURLWithLanguageVariantCode:self.siteURL.wmf_languageVariantCode];
         [moc fetchOrCreateGroupForURL:readingListContentGroupURL ofKind:WMFContentGroupKindReadingList forDate:[NSDate date] withSiteURL:self.siteURL associatedContent:nil customizationBlock:NULL];
         NSUserDefaults.standardUserDefaults.wmf_didShowReadingListCardInFeed = YES;
     } else {

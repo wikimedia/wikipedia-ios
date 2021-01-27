@@ -5,10 +5,6 @@
 
 #define DEBUG_THEMES 1
 
-#if WMF_TWEAKS_ENABLED
-#import <Tweaks/FBTweakInline.h>
-#endif
-
 // Views
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
@@ -264,7 +260,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 }
 
 - (NSURL *)siteURL {
-    return [[self.dataStore.languageLinkController appLanguage] siteURL];
+    return self.dataStore.primarySiteURL;
 }
 
 #pragma mark - Setup
@@ -305,7 +301,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     UITabBarItem *savedTabBarItem = [self.savedViewController tabBarItem];
     self.savedTabBarItemProgressBadgeManager = [[SavedTabBarItemProgressBadgeManager alloc] initWithTabBarItem:savedTabBarItem];
-    
+
     [self.dataStore.notificationsController updateCategories];
 }
 
@@ -368,7 +364,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     self.notificationsController.applicationActive = YES;
 }
 
--(void)performTasksThatShouldOccurAfterAnnouncementsUpdated {
+- (void)performTasksThatShouldOccurAfterAnnouncementsUpdated {
     if (self.isResumeComplete) {
         [UserHistoryFunnel.shared logSnapshot];
     }
@@ -386,12 +382,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         [self performTasksThatShouldOccurAfterBecomeActiveAndResume];
         [UserHistoryFunnel.shared logSnapshot];
     }
-
-#if WMF_TWEAKS_ENABLED
-    if (FBTweakValue(@"Notifications", @"In the news", @"Send on app open", NO)) {
-        [self.dataStore.feedContentController debugSendRandomInTheNewsNotification];
-    }
-#endif
 }
 
 - (void)appWillResignActiveWithNotification:(NSNotification *)note {
@@ -411,37 +401,32 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     }
     [self startHousekeepingBackgroundTask];
     dispatch_async(dispatch_get_main_queue(), ^{
-#if WMF_TWEAKS_ENABLED
-        if (FBTweakValue(@"Notifications", @"In the news", @"Send on app exit", NO)) {
-            [self.dataStore.feedContentController debugSendRandomInTheNewsNotification];
-        }
-#endif
         [self pauseApp];
     });
 }
 
 - (void)preferredLanguagesDidChange:(NSNotification *)note {
-    [self updateExploreFeedPreferencesIfNecessary];
-    self.dataStore.feedContentController.siteURLs = [self.dataStore.languageLinkController preferredSiteURLs];
+    [self updateExploreFeedPreferencesIfNecessaryForChange:note];
+    [self.dataStore.feedContentController updateContentSources];
 }
 
 /**
  Updates explore feed preferences if new preferred language was appeneded or removed.
  */
-- (void)updateExploreFeedPreferencesIfNecessary {
-    MWKLanguageLinkController *languageLinkController = self.dataStore.languageLinkController;
-    NSArray<MWKLanguageLink *> *preferredLanguages = languageLinkController.preferredLanguages;
-    NSArray<MWKLanguageLink *> *previousPreferredLanguages = languageLinkController.previousPreferredLanguages;
-    if (preferredLanguages.count == previousPreferredLanguages.count) { // reordered
-        return;
-    }
-    MWKLanguageLink *mostRecentlyModifiedPreferredLanguage = languageLinkController.mostRecentlyModifiedPreferredLanguage;
-    NSURL *siteURL = mostRecentlyModifiedPreferredLanguage.siteURL;
-    BOOL appendedNewPreferredLanguage = [preferredLanguages containsObject:mostRecentlyModifiedPreferredLanguage];
+- (void)updateExploreFeedPreferencesIfNecessaryForChange:(NSNotification *)note {
     if (self.isPresentingOnboarding) {
         return;
     }
-    [self.dataStore.feedContentController toggleContentForSiteURL:siteURL isOn:appendedNewPreferredLanguage waitForCallbackFromCoordinator:NO updateFeed:NO];
+
+    NSNumber *changeTypeValue = (NSNumber *)[note userInfo][WMFPreferredLanguagesChangeTypeKey];
+    WMFPreferredLanguagesChangeType changeType = (WMFPreferredLanguagesChangeType)changeTypeValue.integerValue;
+    if (!changeType || (changeType == WMFPreferredLanguagesChangeTypeReorder)) {
+        return;
+    }
+
+    MWKLanguageLink *changedLanguage = (MWKLanguageLink *)[note userInfo][WMFPreferredLanguagesLastChangedLanguageKey];
+    BOOL appendedNewPreferredLanguage = (changeType == WMFPreferredLanguagesChangeTypeAdd);
+    [self.dataStore.feedContentController toggleContentForSiteURL:changedLanguage.siteURL isOn:appendedNewPreferredLanguage waitForCallbackFromCoordinator:NO updateFeed:NO];
 }
 
 - (void)readingListsWereSplitNotification:(NSNotification *)note {
@@ -913,7 +898,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         [self.exploreViewController updateFeedSourcesWithDate:nil
                                                 userInitiated:NO
                                                    completion:^{
-                                                        [resumeAndAnnouncementsCompleteGroup leave];
+                                                       [resumeAndAnnouncementsCompleteGroup leave];
                                                    }];
     } else {
         if (locationAuthorized != [defaults wmf_locationAuthorized]) {
@@ -925,11 +910,13 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         }
 
         [resumeAndAnnouncementsCompleteGroup enter];
-        [self.dataStore.feedContentController updateContentSource:[WMFAnnouncementsContentSource class] force:YES completion:^{
-                    [resumeAndAnnouncementsCompleteGroup leave];
-        }];
+        [self.dataStore.feedContentController updateContentSource:[WMFAnnouncementsContentSource class]
+                                                            force:YES
+                                                       completion:^{
+                                                           [resumeAndAnnouncementsCompleteGroup leave];
+                                                       }];
     }
-    
+
     [resumeAndAnnouncementsCompleteGroup waitInBackgroundWithCompletion:^{
         [self performTasksThatShouldOccurAfterAnnouncementsUpdated];
     }];
@@ -955,20 +942,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                                                                                                                }];
                                                                                     }];
                                          }];
-#endif
-#if WMF_TWEAKS_ENABLED
-    if (FBTweakValue(@"Alerts", @"General", @"Show error on launch", NO)) {
-        [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{NSLocalizedDescriptionKey: @"There was an error"}] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-    }
-    if (FBTweakValue(@"Alerts", @"General", @"Show warning on launch", NO)) {
-        [[WMFAlertManager sharedInstance] showWarningAlert:@"You have been warned" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-    }
-    if (FBTweakValue(@"Alerts", @"General", @"Show success on launch", NO)) {
-        [[WMFAlertManager sharedInstance] showSuccessAlert:@"You are successful" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-    }
-    if (FBTweakValue(@"Alerts", @"General", @"Show message on launch", NO)) {
-        [[WMFAlertManager sharedInstance] showAlert:@"You have been notified" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-    }
 #endif
 }
 
@@ -1284,8 +1257,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     WMFArticleViewController *articleVC = [[WMFArticleViewController alloc] initWithArticleURL:articleURL dataStore:self.dataStore theme:self.theme schemeHandler:nil];
     articleVC.loadCompletion = completion;
-    
-    #if DEBUG
+
+#if DEBUG
     if ([[[NSProcessInfo processInfo] environment] objectForKey:@"DYLD_PRINT_STATISTICS"]) {
         os_log_t customLog = os_log_create("org.wikimedia.ios", "articleLoadTime");
         NSDate *start = [NSDate date];
@@ -1296,9 +1269,10 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
             os_log_with_type(customLog, OS_LOG_TYPE_INFO, "article load time = %f", articleLoadTime);
         };
     }
-    #endif
+#endif
 
-    [nc pushViewController:articleVC animated:YES];
+    [nc pushViewController:articleVC
+                  animated:YES];
     return articleVC;
 }
 
@@ -1449,12 +1423,6 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (BOOL)shouldShowOnboarding {
-#if WMF_TWEAKS_ENABLED
-    if (FBTweakValue(@"Welcome", @"General", @"Show on launch (requires force quit)", NO) || [[NSProcessInfo processInfo] environment][@"WMFShowWelcomeView"].boolValue) {
-        return YES;
-    }
-#endif
-
     NSNumber *didShow = [[NSUserDefaults standardUserDefaults] objectForKey:WMFDidShowOnboarding];
     return !didShow.boolValue;
 }
@@ -1696,7 +1664,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     NSURL *articleURL = [NSURL URLWithString:articleURLString];
     NSDictionary *JSONDictionary = info[WMFNotificationInfoFeedNewsStoryKey];
     NSError *JSONError = nil;
-    WMFFeedNewsStory *feedNewsStory = [MTLJSONAdapter modelOfClass:[WMFFeedNewsStory class] fromJSONDictionary:JSONDictionary error:&JSONError];
+    WMFFeedNewsStory *feedNewsStory = [MTLJSONAdapter modelOfClass:[WMFFeedNewsStory class] fromJSONDictionary:JSONDictionary languageVariantCode:nil error:&JSONError];
     if (!feedNewsStory || JSONError) {
         DDLogError(@"Error parsing feed news story: %@", JSONError);
         [self showArticleWithURL:articleURL animated:NO];
@@ -2110,33 +2078,5 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                                }];
     });
 }
-
-#pragma mark - Perma Random Mode
-
-#if WMF_TWEAKS_ENABLED
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-    if ([super respondsToSelector:@selector(motionEnded:withEvent:)]) {
-        [super motionEnded:motion withEvent:event];
-    }
-    if (event.subtype != UIEventSubtypeMotionShake) {
-        return;
-    }
-    UINavigationController *navController = self.navigationController;
-    if ([navController.visibleViewController isKindOfClass:[WMFRandomArticleViewController class]] || [navController.visibleViewController isKindOfClass:[WMFFirstRandomViewController class]]) {
-        [UIApplication sharedApplication].idleTimerDisabled = NO;
-        return;
-    }
-
-    [self setSelectedIndex:WMFAppTabTypeMain];
-    UINavigationController *exploreNavController = self.navigationController;
-
-    [self dismissPresentedViewControllers];
-
-    WMFFirstRandomViewController *vc = [[WMFFirstRandomViewController alloc] initWithSiteURL:[self siteURL] dataStore:self.dataStore theme:self.theme];
-    vc.permaRandomMode = NO;
-    [UIApplication sharedApplication].idleTimerDisabled = YES;
-    [exploreNavController pushViewController:vc animated:YES];
-}
-#endif
 
 @end

@@ -520,8 +520,6 @@
 "main-menu-account-logout-are-you-sure" = "您确定要退出么？";
 "main-menu-account-logout-cancel" = "取消";
 "main-menu-account-title-logged-in" = "以$1登录";
-"main-menu-debug-tweaks" = "开发人员设置";
-"main-menu-heading-debug" = "调试";
 "main-menu-heading-legal" = "隐私和条款";
 "main-menu-nearby" = "附近";
 "main-menu-privacy-policy" = "隐私政策";
