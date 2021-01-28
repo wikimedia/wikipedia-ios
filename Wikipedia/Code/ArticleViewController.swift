@@ -600,8 +600,8 @@ class ArticleViewController: ViewController, HintPresenting {
         setWebViewHidden(true, animated: false)
     }
     
-    /// If state needs to be restored, listen for content size changes and restore the scroll position when those changes stop occurring
-    func restoreStateIfNecessary() {
+    /// Translates an article's viewedScrollPosition or viewedFragment values to a scrollRestorationState. These values are saved to the article object when the ArticleVC disappears,the app is backgrounded, or an edit is made and the article is reloaded.
+    func assignScrollStateFromArticleFlagsIfNecessary() {
         guard isRestoringState else {
             return
         }

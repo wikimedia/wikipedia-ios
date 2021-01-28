@@ -62,8 +62,8 @@ extension ArticleViewController: ArticleWebMessageHandling {
     }
     
     @objc func handlePCSDidFinishFinalSetup() {
+        assignScrollStateFromArticleFlagsIfNecessary()
         articleLoadWaitGroup?.leave()
-        restoreStateIfNecessary()
         addToHistory()
         syncCachedResourcesIfNeeded()
     }
