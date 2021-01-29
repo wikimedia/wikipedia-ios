@@ -253,4 +253,13 @@
     return preview;
 }
 
+- (NSPredicate *)articlePredicateForInMemoryURLKeys:(NSArray<WMFInMemoryURLKey *> *)urlKeys {
+    NSMutableArray<NSPredicate *> *subpredicates = [[NSMutableArray alloc] init];
+    for (WMFInMemoryURLKey *urlKey in urlKeys) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"key == %@ && variant == %@", urlKey.databaseKey, urlKey.languageVariantCode];
+        [subpredicates addObject:predicate];
+    }
+    return [NSCompoundPredicate orPredicateWithSubpredicates:subpredicates];
+}
+
 @end

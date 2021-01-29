@@ -86,6 +86,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable WMFArticle *)fetchArticleWithWikidataID:(nullable NSString *)wikidataID;
 
+- (NSPredicate *)articlePredicateForInMemoryURLKeys:(NSArray<WMFInMemoryURLKey *> *)urlKeys NS_SWIFT_NAME(articlePredicateForInMemoryURLKeys(_:));
+
 @end
 
 NS_ASSUME_NONNULL_END
