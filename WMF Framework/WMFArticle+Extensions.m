@@ -1,4 +1,5 @@
 #import <WMF/WMFArticle+Extensions.h>
+#import <WMF/NSURL+WMFLinkParsing.h>
 #import <WMF/WMF-Swift.h>
 
 @implementation WMFArticle (Extensions)
@@ -15,6 +16,10 @@
     NSURL *value = [NSURL URLWithString:key];
     value.wmf_languageVariantCode = self.variant;
     return value;
+}
+
+- (nullable WMFInMemoryURLKey *)inMemoryKey {
+    return self.URL.wmf_inMemoryKey;
 }
 
 #pragma clang diagnostic push
@@ -128,6 +133,10 @@
     return [self fetchArticleWithKey:articleURL.wmf_databaseKey variant:articleURL.wmf_languageVariantCode];
 }
 
+- (nullable NSArray<WMFArticle *> *)fetchArticlesWithURL:(nullable NSURL *)url error:(NSError **)error {
+    return [self fetchArticlesWithKey:url.wmf_databaseKey variant:url.wmf_languageVariantCode error:error];
+}
+
 - (nullable NSArray<WMFArticle *> *)fetchArticlesWithKey:(nullable NSString *)key error:(NSError **)error {
     return [self fetchArticlesWithKey:key variant:nil error:error];
 }
@@ -163,6 +172,10 @@
     request.predicate = [NSPredicate predicateWithFormat:@"wikidataID == %@", wikidataID];
     article = [[self executeFetchRequest:request error:nil] firstObject];
     return article;
+}
+
+- (nullable WMFArticle *)createArticleWithURL:(nullable NSURL *)url {
+    return [self createArticleWithKey:url.wmf_databaseKey variant:url.wmf_languageVariantCode];
 }
 
 - (nullable WMFArticle *)createArticleWithKey:(nullable NSString *)key {

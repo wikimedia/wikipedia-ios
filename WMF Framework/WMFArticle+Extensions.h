@@ -2,6 +2,7 @@
 
 @class MWKSearchResult;
 @class WMFFeedArticlePreview;
+@class WMFInMemoryURLKey;
 
 typedef NS_ENUM(NSUInteger, WMFGeoType) {
     WMFGeoTypeUnknown = 0,
@@ -38,6 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly, nullable) NSURL *URL;
 
+@property (nonatomic, readonly, nullable) WMFInMemoryURLKey *inMemoryKey;
+
 @property (nonatomic, copy, nonnull) NSString *displayTitleHTML;
 
 @property (nonatomic, readonly, nullable) NSString *capitalizedWikidataDescription;
@@ -65,9 +68,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable WMFArticle *)fetchArticleWithKey:(nullable NSString *)key variant:(nullable NSString *)variant;
 
+- (nullable NSArray<WMFArticle *> *)fetchArticlesWithURL:(nullable NSURL *)url error:(NSError **)error;
 - (nullable NSArray<WMFArticle *> *)fetchArticlesWithKey:(nullable NSString *)key variant:(nullable NSString *)variant error:(NSError **)error;
 - (nullable NSArray<WMFArticle *> *)fetchArticlesWithKey:(nullable NSString *)key error:(NSError **)error; // Temporary shim for ArticleSummary that is not yet variant-aware
 
+- (nullable WMFArticle *)createArticleWithURL:(nullable NSURL *)url;
 - (nullable WMFArticle *)createArticleWithKey:(nullable NSString *)key variant:(nullable NSString *)variant;
 - (nullable WMFArticle *)createArticleWithKey:(nullable NSString *)key; // Temporary shim for ArticleSummary that is not yet variant-aware
 
