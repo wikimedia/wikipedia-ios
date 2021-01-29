@@ -233,10 +233,15 @@ extern NSString *const WMFEditPencil;
  * The key value in database entities is the value of wmf_databaseKey.
 */
 @interface WMFInMemoryURLKey: NSObject
--(instancetype) initWithDatabaseKey:(NSString *)databaseKey variant:(nullable NSString *)variant;
+-(instancetype) initWithDatabaseKey:(NSString *)databaseKey languageVariantCode:(nullable NSString *)languageVariantCode;
 -(instancetype) init NS_UNAVAILABLE;
 @property (readonly, nonatomic, copy) NSString *databaseKey;
-@property (readonly, nonatomic, copy) NSString *variant;
+@property (readonly, nonatomic, copy, nullable) NSString *languageVariantCode;
+@property (readonly, nonatomic, copy, nullable) NSURL *URL;
+@end
+
+@interface NSURL (WMFInMemoryURLKeyExtensions)
+@property (readonly, nonatomic, copy, nullable) WMFInMemoryURLKey *wmf_inMemoryKey;
 @end
 
 NS_ASSUME_NONNULL_END
