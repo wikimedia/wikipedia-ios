@@ -306,6 +306,18 @@ static id wmf_languageVariantAssociatedObjectKey;
     return self;
 }
 
+-(nullable instancetype) initWithURL:(NSURL *)URL {
+    NSString *databaseKey = URL.wmf_databaseKey;
+    if (!databaseKey) { return nil; }
+    else { return [self initWithDatabaseKey:databaseKey languageVariantCode:URL.wmf_languageVariantCode]; }
+}
+
+- (nullable NSURL *)URL {
+    NSURL *URL = [NSURL URLWithString:self.databaseKey];
+    URL.wmf_languageVariantCode = self.languageVariantCode;
+    return URL;
+}
+
 WMF_SYNTHESIZE_IS_EQUAL(WMFInMemoryURLKey, isEqualToArticleTemporaryCacheKey:)
 
 - (BOOL)isEqualToArticleTemporaryCacheKey:(WMFInMemoryURLKey *)rhs {
@@ -320,5 +332,11 @@ WMF_SYNTHESIZE_IS_EQUAL(WMFInMemoryURLKey, isEqualToArticleTemporaryCacheKey:)
     return [NSString stringWithFormat: @"%@ databaseKey: %@, languageVariantCode: %@", [super description], self.databaseKey, self.languageVariantCode];
 }
 
+@end
+
+@implementation NSURL (WMFInMemoryURLKeyExtensions)
+- (nullable WMFInMemoryURLKey *)wmf_inMemoryKey {
+    return [[WMFInMemoryURLKey alloc] initWithURL:self];
+}
 @end
 
