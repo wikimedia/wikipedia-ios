@@ -28,6 +28,7 @@ public class ArticleSummary: NSObject, Codable {
     let thumbnail: ArticleSummaryImage?
     let original: ArticleSummaryImage?
     @objc let coordinates: ArticleSummaryCoordinates?
+    var languageVariantCode: String?
     
     enum CodingKeys: String, CodingKey {
         case id = "pageid"
@@ -53,7 +54,9 @@ public class ArticleSummary: NSObject, Codable {
         guard let urlString = contentURLs.desktop?.page else {
             return nil
         }
-        return URL(string: urlString)
+        var articleURL = URL(string: urlString)
+        articleURL?.wmf_languageVariantCode = languageVariantCode
+        return articleURL
     }
     
     var key: WMFInMemoryURLKey? {

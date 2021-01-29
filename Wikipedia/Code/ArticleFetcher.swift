@@ -487,6 +487,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             return trackedJSONDecodableTask(with: request) { (result: Result<ArticleSummary, Error>, response) in
                 switch result {
                 case .success(let summary):
+                    summary.languageVariantCode = articleKey.languageVariantCode
                     completion(summary, response, nil)
                 case .failure(let error):
                     completion(nil, response, error)
