@@ -31,6 +31,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
             showTitleDescriptionEditor(with: .none, funnelSource: .titleDescription)
         case .scrollToAnchor(let anchor, let rect):
             scrollToAnchorCompletions.popLast()?(anchor, rect)
+            scrollToAnchorCompletions.removeAll()
         case .viewInBrowser:
             navigate(to: self.articleURL, useSafari: true)
         case .aaaldInsertOnScreen:
