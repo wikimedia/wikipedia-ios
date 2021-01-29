@@ -83,14 +83,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-// WMFDataSource maintains a temporary local NSCache of WMFArticle instances.
-// The database key is derived from the article URL which does not take language variants into account.
-// Instances of this class are used as the key in that cache
-@interface WMFArticleTemporaryCacheKey: NSObject
--(instancetype) initWithDatabaseKey:(NSString *)databaseKey variant:(nullable NSString *)variant;
--(instancetype) init NS_UNAVAILABLE;
-@property (readonly, nonatomic, copy) NSString *databaseKey;
-@property (readonly, nonatomic, copy) NSString *variant;
-@end
-
 NS_ASSUME_NONNULL_END

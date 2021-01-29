@@ -109,29 +109,29 @@ class WMFArticleTests: XCTestCase {
     
     func testArticleTemporaryCacheKey() {
         // Ensure WMFArticleTemporaryCacheKey works as expected as a key into the WMFArticle temporary cache
-        let articleCache = NSCache<WMFArticleTemporaryCacheKey, NSString>()
+        let articleCache = NSCache<WMFInMemoryURLKey, NSString>()
         
         let hantString: NSString = "ZH article with hant variant"
-        let hantKey = WMFArticleTemporaryCacheKey(databaseKey:"ZH article", variant:"hant")
+        let hantKey = WMFInMemoryURLKey(databaseKey:"ZH article", variant:"hant")
         articleCache.setObject(hantString, forKey:hantKey)
         
         let hansString: NSString = "ZH article with hans variant"
-        let hansKey = WMFArticleTemporaryCacheKey(databaseKey:"ZH article", variant:"hans")
+        let hansKey = WMFInMemoryURLKey(databaseKey:"ZH article", variant:"hans")
         articleCache.setObject(hansString, forKey:hansKey)
         
         let noVariantString: NSString = "ZH article with no variant"
-        let noVariantKey = WMFArticleTemporaryCacheKey(databaseKey:"ZH article", variant:nil)
+        let noVariantKey = WMFInMemoryURLKey(databaseKey:"ZH article", variant:nil)
         articleCache.setObject(noVariantString, forKey:noVariantKey)
         
-        let newHantKey = WMFArticleTemporaryCacheKey(databaseKey:"ZH article", variant:"hant")
+        let newHantKey = WMFInMemoryURLKey(databaseKey:"ZH article", variant:"hant")
         var hantValue = articleCache.object(forKey:newHantKey)
         XCTAssertEqual(hantValue, hantString)
         
-        let newHansKey = WMFArticleTemporaryCacheKey(databaseKey:"ZH article", variant:"hans")
+        let newHansKey = WMFInMemoryURLKey(databaseKey:"ZH article", variant:"hans")
         var hansValue = articleCache.object(forKey:newHansKey)
         XCTAssertEqual(hansValue, hansString)
         
-        let newNoVariantKey = WMFArticleTemporaryCacheKey(databaseKey:"ZH article", variant:nil)
+        let newNoVariantKey = WMFInMemoryURLKey(databaseKey:"ZH article", variant:nil)
         var noVariantValue = articleCache.object(forKey:newNoVariantKey)
         XCTAssertEqual(noVariantValue, noVariantString)
         

@@ -219,4 +219,24 @@ extern NSString *const WMFEditPencil;
 
 @end
 
+
+/**
+ * A number of places in the app need a unique in-memory key for a URL, typically an article URL:
+ * - WMFDataSource maintains a temporary local NSCache of WMFArticle instances.
+ * - ArticleSummary and reading list processing use a unique key for calcualting differences
+ *
+ * The value of wmf_databaseKey derived a URL does not take language variants into account.
+ * This key combines the value of wmf_databaseKey and wmf_languageVariantCode to form a unique key.
+ * This key should be used in instance of NSCache, as keys to dictionaries or other in-memory uses.
+ *
+ * For Core Data entities, the key and variant are maintained as separate properties.
+ * The key value in database entities is the value of wmf_databaseKey.
+*/
+@interface WMFInMemoryURLKey: NSObject
+-(instancetype) initWithDatabaseKey:(NSString *)databaseKey variant:(nullable NSString *)variant;
+-(instancetype) init NS_UNAVAILABLE;
+@property (readonly, nonatomic, copy) NSString *databaseKey;
+@property (readonly, nonatomic, copy) NSString *variant;
+@end
+
 NS_ASSUME_NONNULL_END

@@ -289,3 +289,36 @@ static id wmf_languageVariantAssociatedObjectKey;
 }
 
 @end
+
+#pragma mark - WMFInMemoryURLKey
+
+@interface WMFInMemoryURLKey ()
+@property (nonatomic, copy) NSString *databaseKey;
+@property (nonatomic, copy) NSString *variant;
+@end
+
+@implementation WMFInMemoryURLKey: NSObject
+-(instancetype) initWithDatabaseKey:(NSString *)databaseKey variant:(nullable NSString *)variant {
+    if (self = [super init]) {
+        self.databaseKey = databaseKey;
+        self.variant = variant;
+    }
+    return self;
+}
+
+WMF_SYNTHESIZE_IS_EQUAL(WMFInMemoryURLKey, isEqualToArticleTemporaryCacheKey:)
+
+- (BOOL)isEqualToArticleTemporaryCacheKey:(WMFInMemoryURLKey *)rhs {
+    return WMF_RHS_PROP_EQUAL(databaseKey, isEqualToString:) && WMF_RHS_PROP_EQUAL(variant, isEqualToString:);
+}
+
+- (NSUInteger)hash {
+    return self.databaseKey.hash ^ flipBitsWithAdditionalRotation(self.variant.hash, 1); // When variant is nil, the XOR flips the bits
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat: @"%@ databaseKey: %@, variant: %@", [super description], self.databaseKey, self.variant];
+}
+
+@end
+
