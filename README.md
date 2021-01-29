@@ -47,7 +47,7 @@ When reading logs, note that the log levels are shortened to emoji.
 - 🗣️ Verbose
 - 💬 Debug
 - ℹ️ Info
-- ⚠️ Warn
+- ⚠️ Warning
 - 🚨 Error 
 
 ### Testing
