@@ -463,7 +463,7 @@ extension PermanentlyPersistableURLCache {
         do {
             try FileManager.default.removeItem(at: fileURL)
         } catch let error as NSError {
-            DDLogDebug("Error removing file: \(error)")
+            DDLogError("Error removing file: \(error)")
         }
         
         completion()
@@ -547,9 +547,9 @@ extension PermanentlyPersistableURLCache {
             CacheFileWriterHelper.replaceResponseHeaderWithURLResponse(httpResponse, atFileName: headerFileName) { (result) in
                 switch result {
                 case .success:
-                    DDLogDebug("Successfully updated cached header file.")
+                    break
                 case .failure(let error):
-                    DDLogDebug("Failed updating cached header file: \(error)")
+                    DDLogError("Failed updating cached header file: \(error)")
                 case .exists:
                     assertionFailure("This shouldn't happen.")
                     break
@@ -559,9 +559,9 @@ extension PermanentlyPersistableURLCache {
             CacheFileWriterHelper.replaceFileWithData(cachedResponse.data, fileName: contentFileName) { (result) in
                 switch result {
                 case .success:
-                    DDLogDebug("Successfully updated cached content file.")
+                    break
                 case .failure(let error):
-                    DDLogDebug("Failed updating cached content file: \(error)")
+                    DDLogError("Failed updating cached content file: \(error)")
                 case .exists:
                     assertionFailure("This shouldn't happen.")
                     break

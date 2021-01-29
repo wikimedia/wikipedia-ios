@@ -171,7 +171,9 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                         DDLogError("EventLoggingService: Could not read NSBatchDeleteResult count")
                         return
                     }
-                    DDLogInfo("EventLoggingService: Pruned \(count) events")
+                    if count > 0 {
+                        DDLogInfo("EventLoggingService: Pruned \(count) events")
+                    }
                     
                 } catch let error {
                     DDLogError("EventLoggingService: Error pruning events: \(error.localizedDescription)")
