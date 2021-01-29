@@ -130,7 +130,9 @@ class ArticleViewController: ViewController, HintPresenting {
     }()
     
     lazy var webView: WKWebView = {
-        return WMFWebView(frame: view.bounds, configuration: webViewConfiguration)
+        let webView = WMFWebView(frame: view.bounds, configuration: webViewConfiguration)
+        view.addSubview(webView)
+        return webView
     }()
 
     private var verticalOffsetPercentageToRestore: CGFloat?

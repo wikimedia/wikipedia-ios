@@ -86,7 +86,9 @@ public class StorageManager: NSObject {
                     events.append(PersistedEvent(data: record.data, stream: stream, managedObjectURI: record.objectID.uriRepresentation()))
                     count += 1
                 }
-                DDLogDebug("EPC: Found \(count) events awaiting submission")
+                if count > 0 {
+                    DDLogDebug("EPC: Found \(count) events awaiting submission")
+                }
             } catch let error {
                 DDLogError(error.localizedDescription)
             }
@@ -144,7 +146,10 @@ public class StorageManager: NSObject {
                     DDLogError("EPC StorageManager: Could not read NSBatchDeleteResult count")
                     return
                 }
-                DDLogInfo("EPC StorageManager: Pruned \(count) events")
+
+                if count > 0 {
+                    DDLogInfo("EPC StorageManager: Pruned \(count) events")
+                }
 
             } catch let error {
                 DDLogError("EPC StorageManager: Error pruning events: \(error.localizedDescription)")
