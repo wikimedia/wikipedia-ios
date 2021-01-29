@@ -890,10 +890,6 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     return [self fetchArticleWithKey:URL.wmf_databaseKey variant:URL.wmf_languageVariantCode inManagedObjectContext:moc];
 }
 
-- (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
-    return [self fetchArticleWithKey:key variant:nil inManagedObjectContext:moc];
-}
-
 - (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key variant:(nullable NSString *)variant inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
     WMFArticle *article = nil;
     if (moc == _viewContext) { // use ivar to avoid main thread check

@@ -137,10 +137,6 @@
     return [self fetchArticlesWithKey:url.wmf_databaseKey variant:url.wmf_languageVariantCode error:error];
 }
 
-- (nullable NSArray<WMFArticle *> *)fetchArticlesWithKey:(nullable NSString *)key error:(NSError **)error {
-    return [self fetchArticlesWithKey:key variant:nil error:error];
-}
-
 - (nullable NSArray<WMFArticle *> *)fetchArticlesWithKey:(nullable NSString *)key variant:(nullable NSString *)variant error:(NSError **)error {
     if (!key) {
         return @[];
@@ -176,10 +172,6 @@
 
 - (nullable WMFArticle *)createArticleWithURL:(nullable NSURL *)url {
     return [self createArticleWithKey:url.wmf_databaseKey variant:url.wmf_languageVariantCode];
-}
-
-- (nullable WMFArticle *)createArticleWithKey:(nullable NSString *)key {
-    return [self createArticleWithKey:key variant:nil];
 }
 
 - (nullable WMFArticle *)createArticleWithKey:(nullable NSString *)key variant:(nullable NSString *)variant {
