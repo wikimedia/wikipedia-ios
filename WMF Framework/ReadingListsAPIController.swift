@@ -112,8 +112,8 @@ extension APIReadingListEntry {
         return site.wmf_URL(withTitle: title)
     }
     
-    var articleKey: String? {
-        return articleURL?.wmf_databaseKey
+    var articleKey: WMFInMemoryURLKey? {
+        return articleURL?.wmf_inMemoryKey
     }
 }
 

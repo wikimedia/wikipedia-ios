@@ -56,8 +56,8 @@ public class ArticleSummary: NSObject, Codable {
         return URL(string: urlString)
     }
     
-    var key: String? {
-        return articleURL?.wmf_databaseKey // don't use contentURLs.desktop?.page directly as it needs to be standardized
+    var key: WMFInMemoryURLKey? {
+        return articleURL?.wmf_inMemoryKey // don't use contentURLs.desktop?.page directly as it needs to be standardized
     }
 }
 

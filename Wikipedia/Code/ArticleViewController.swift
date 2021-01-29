@@ -441,7 +441,7 @@ class ArticleViewController: ViewController, HintPresenting {
             self.articleLoadWaitGroup = nil
         }
         
-        guard let key = article.key else {
+        guard let key = article.inMemoryKey else {
             return
         }
         
@@ -459,7 +459,7 @@ class ArticleViewController: ViewController, HintPresenting {
                 }
                 self.article = article
                 // Handle redirects
-                guard let newKey = article.key, newKey != key, let newURL = article.url else {
+                guard let newKey = article.inMemoryKey, newKey != key, let newURL = article.url else {
                     return
                 }
                 self.articleURL = newURL

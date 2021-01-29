@@ -11,7 +11,7 @@ public class ArticleSummaryController: NSObject {
         self.fetcher = ArticleFetcher(session: session, configuration: configuration)
     }
     
-    @discardableResult public func updateOrCreateArticleSummaryForArticle(withKey articleKey: String, cachePolicy: URLRequest.CachePolicy? = nil, completion: ((WMFArticle?, Error?) -> Void)? = nil) -> URLSessionTask? {
+    @discardableResult public func updateOrCreateArticleSummaryForArticle(withKey articleKey: WMFInMemoryURLKey, cachePolicy: URLRequest.CachePolicy? = nil, completion: ((WMFArticle?, Error?) -> Void)? = nil) -> URLSessionTask? {
         return fetcher.fetchSummaryForArticle(with: articleKey, cachePolicy: cachePolicy) { [weak self] (articleSummary, urlResponse, error) in
             DispatchQueue.main.async {
                 guard let articleSummary = articleSummary,
@@ -26,7 +26,7 @@ public class ArticleSummaryController: NSObject {
         }
     }
     
-    @discardableResult public func updateOrCreateArticleSummariesForArticles(withKeys articleKeys: [String], cachePolicy: URLRequest.CachePolicy? = nil, completion: (([String: WMFArticle], Error?) -> Void)? = nil) -> [URLSessionTask] {
+    @discardableResult public func updateOrCreateArticleSummariesForArticles(withKeys articleKeys: [WMFInMemoryURLKey], cachePolicy: URLRequest.CachePolicy? = nil, completion: (([WMFInMemoryURLKey: WMFArticle], Error?) -> Void)? = nil) -> [URLSessionTask] {
 
         return fetcher.fetchArticleSummaryResponsesForArticles(withKeys: articleKeys, cachePolicy: cachePolicy) { [weak self] (summaryResponses) in
             DispatchQueue.main.async {
@@ -35,7 +35,7 @@ public class ArticleSummaryController: NSObject {
         }
     }
     
-    private func processSummaryResponses(with summaryResponses: [String: ArticleSummary], completion: (([String: WMFArticle], Error?) -> Void)? = nil) {
+    private func processSummaryResponses(with summaryResponses: [WMFInMemoryURLKey: ArticleSummary], completion: (([WMFInMemoryURLKey: WMFArticle], Error?) -> Void)? = nil) {
         guard let moc = dataStore?.viewContext else {
             completion?([:], RequestError.invalidParameters)
             return

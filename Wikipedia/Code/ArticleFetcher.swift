@@ -462,7 +462,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
     }
     
     /// Fetches ArticleSummaries from the Page Content Service for the given articleKeys
-    @discardableResult public func fetchArticleSummaryResponsesForArticles(withKeys articleKeys: [String], cachePolicy: URLRequest.CachePolicy? = nil, completion: @escaping ([String: ArticleSummary]) -> Void) -> [URLSessionTask] {
+    @discardableResult public func fetchArticleSummaryResponsesForArticles(withKeys articleKeys: [WMFInMemoryURLKey], cachePolicy: URLRequest.CachePolicy? = nil, completion: @escaping ([WMFInMemoryURLKey: ArticleSummary]) -> Void) -> [URLSessionTask] {
         
         var tasks: [URLSessionTask] = []
         articleKeys.asyncMapToDictionary(block: { (articleKey, asyncMapCompletion) in
@@ -478,9 +478,9 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
     }
     
     /// Fetches a single ArticleSummary or the given articleKey from the Page Content Service
-    @discardableResult public func fetchSummaryForArticle(with articleKey: String, cachePolicy: URLRequest.CachePolicy? = nil, completion: @escaping (ArticleSummary?, URLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
+    @discardableResult public func fetchSummaryForArticle(with articleKey: WMFInMemoryURLKey, cachePolicy: URLRequest.CachePolicy? = nil, completion: @escaping (ArticleSummary?, URLResponse?, Error?) -> Swift.Void) -> URLSessionTask? {
         do {
-            guard let articleURL = URL(string: articleKey) else {
+            guard let articleURL = articleKey.url else {
                 throw Fetcher.invalidParametersError
             }
             let request = try summaryRequest(articleURL: articleURL)
