@@ -525,11 +525,11 @@ class ArticleViewController: ViewController, HintPresenting {
     private enum ScrollRestorationState {
         case none
         /// Scroll to absolute Y offset
-        case scrollToOffset(_ offsetY: CGFloat, animated: Bool, attempt: Int = 1, maxAttempts: Int = 5, completion: (() -> Void)? = nil)
+        case scrollToOffset(_ offsetY: CGFloat, animated: Bool, attempt: Int = 1, maxAttempts: Int = 5, completion: ((Bool, Bool) -> Void)? = nil)
         /// Scroll to percentage Y offset
         case scrollToPercentage(_ percentageOffsetY: CGFloat)
         /// Scroll to anchor, an id of an element on the page
-        case scrollToAnchor(_ anchor: String, attempt: Int = 1, maxAttempts: Int = 5, completion: (() -> Void)? = nil)
+        case scrollToAnchor(_ anchor: String, attempt: Int = 1, maxAttempts: Int = 5, completion: ((Bool, Bool) -> Void)? = nil)
     }
     
     private var scrollRestorationState: ScrollRestorationState = .none
@@ -543,10 +543,9 @@ class ArticleViewController: ViewController, HintPresenting {
             scrollRestorationState = .none
             self.scroll(to: CGPoint(x: 0, y: offset), animated: animated) { [weak self] (success) in
                 guard !success, attempt < maxAttempts else {
-                    completion?()
+                    completion?(success, attempt >= maxAttempts)
                     return
                 }
-                completion?()
                 self?.scrollRestorationState = .scrollToOffset(offset, animated: animated, attempt: attempt + 1, maxAttempts: maxAttempts, completion: completion)
             }
         case .scrollToPercentage(let verticalOffsetPercentage):
@@ -556,10 +555,9 @@ class ArticleViewController: ViewController, HintPresenting {
             scrollRestorationState = .none
             self.scroll(to: anchor, animated: true) { [weak self] (success) in
                 guard !success, attempt < maxAttempts else {
-                    completion?()
+                    completion?(success, attempt >= maxAttempts)
                     return
                 }
-                completion?()
                 self?.scrollRestorationState = .scrollToAnchor(anchor, attempt: attempt + 1, maxAttempts: maxAttempts, completion: completion)
             }
             
@@ -621,12 +619,16 @@ class ArticleViewController: ViewController, HintPresenting {
         isRestoringState = false
         let scrollPosition = CGFloat(article.viewedScrollPosition)
         if scrollPosition > 0 {
-            scrollRestorationState = .scrollToOffset(scrollPosition, animated: false, completion: { [weak self] in
-                self?.setWebViewHidden(false, animated: true)
+            scrollRestorationState = .scrollToOffset(scrollPosition, animated: false, completion: { [weak self] success, maxedAttempts in
+                if (success || maxedAttempts) {
+                    self?.setWebViewHidden(false, animated: true)
+                }
             })
         } else if let fragment = article.viewedFragment {
-            scrollRestorationState = .scrollToAnchor(fragment, completion: { [weak self] in
-                self?.setWebViewHidden(false, animated: true)
+            scrollRestorationState = .scrollToAnchor(fragment, completion: { [weak self] success, maxedAttempts in
+                if (success || maxedAttempts) {
+                    self?.setWebViewHidden(false, animated: true)
+                }
             })
         } else {
             setWebViewHidden(false, animated: true)
