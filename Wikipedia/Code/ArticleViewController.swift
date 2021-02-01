@@ -28,8 +28,6 @@ class ArticleViewController: ViewController, HintPresenting {
     /// Scroll to the last viewed scroll position in this case
     /// Also prioritize pulling data from cache (without revision/etag validation) so the user sees the article as quickly as possible
     var isRestoringState: Bool = false
-    /// Set internally to wait for content size changes to chill before restoring the scroll offset
-    var isRestoringStateOnNextContentSizeChange: Bool = false
     
     /// Called when initial load starts
     @objc public var loadCompletion: (() -> Void)?
@@ -130,10 +128,10 @@ class ArticleViewController: ViewController, HintPresenting {
     }()
     
     lazy var webView: WKWebView = {
-        return WMFWebView(frame: view.bounds, configuration: webViewConfiguration)
+        let webView = WMFWebView(frame: view.bounds, configuration: webViewConfiguration)
+        view.addSubview(webView)
+        return webView
     }()
-
-    private var verticalOffsetPercentageToRestore: CGFloat?
     
     // MARK: HintPresenting
     
@@ -280,22 +278,6 @@ class ArticleViewController: ViewController, HintPresenting {
         updateLeadImageMargins()
     }
 
-    internal func stashOffsetPercentage() {
-        let offset = webView.scrollView.verticalOffsetPercentage
-        // negative and 0 offsets make small errors in scrolling, allow it to automatically handle those cases
-        if offset > 0 {
-            verticalOffsetPercentageToRestore = offset
-        }
-    }
-
-    private func restoreOffsetPercentageIfNecessary() {
-        guard let verticalOffsetPercentage = verticalOffsetPercentageToRestore else {
-            return
-        }
-        verticalOffsetPercentageToRestore = nil
-        webView.scrollView.verticalOffsetPercentage = verticalOffsetPercentage
-    }
-
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         stashOffsetPercentage()
         super.viewWillTransition(to: size, with: coordinator)
@@ -417,7 +399,7 @@ class ArticleViewController: ViewController, HintPresenting {
     }
     
     /// Waits for the article and article summary to finish loading (or re-loading) and performs post load actions
-    func setupArticleLoadWaitGroup() {
+    private func setupArticleLoadWaitGroup() {
         assert(Thread.isMainThread)
 
         guard articleLoadWaitGroup == nil else {
@@ -438,33 +420,33 @@ class ArticleViewController: ViewController, HintPresenting {
             
             self.setupFooter()
             self.shareIfNecessary()
+            self.restoreScrollStateIfNecessary()
             self.articleLoadWaitGroup = nil
         }
-        
-        guard let key = article.key else {
+    }
+    
+    internal func loadSummary() {
+        guard let key = article.inMemoryKey else {
             return
         }
         
         articleLoadWaitGroup?.enter()
-        // async to allow the page network requests some time to go through
-        DispatchQueue.main.async {
-            let cachePolicy: URLRequest.CachePolicy? = self.state == .reloading ? .reloadRevalidatingCacheData : nil
-            self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key, cachePolicy: cachePolicy) { (article, error) in
-                defer {
-                    self.articleLoadWaitGroup?.leave()
-                    self.updateMenuItems()
-                }
-                guard let article = article else {
-                    return
-                }
-                self.article = article
-                // Handle redirects
-                guard let newKey = article.key, newKey != key, let newURL = article.url else {
-                    return
-                }
-                self.articleURL = newURL
-                self.addToHistory()
+        let cachePolicy: URLRequest.CachePolicy? = self.state == .reloading ? .reloadRevalidatingCacheData : nil
+        self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key, cachePolicy: cachePolicy) { (article, error) in
+            defer {
+                self.articleLoadWaitGroup?.leave()
+                self.updateMenuItems()
             }
+            guard let article = article else {
+                return
+            }
+            self.article = article
+            // Handle redirects
+            guard let newKey = article.inMemoryKey, newKey != key, let newURL = article.url else {
+                return
+            }
+            self.articleURL = newURL
+            self.addToHistory()
         }
     }
     
@@ -536,7 +518,82 @@ class ArticleViewController: ViewController, HintPresenting {
         significantlyViewedTimer = nil
     }
     
-    // MARK: State Restoration
+    // MARK: Scroll State Restoration
+    
+    /// Tracks desired scroll restoration.
+    /// This occurs when a user is re-opening the app and expects the article to be scrolled to the last position they were reading at or when a user taps on a link that goes to a particular section in another article.
+    /// The state needs to be preserved because the given offset or anchor will not be availble until after the page fully loads.
+    /// `scrollToOffset` and `scrollToAnchor` will track attempts made after each `webView.contentSize` change, hoping the requested offset or anchor is available. After a certain number of attempts, it's assumed that the value is invalid and the restoration logic gives up.
+    private enum ScrollRestorationState {
+        case none
+        /// Scroll to absolute Y offset
+        case scrollToOffset(_ offsetY: CGFloat, animated: Bool, attempt: Int = 1, maxAttempts: Int = 5, completion: ((Bool, Bool) -> Void)? = nil)
+        /// Scroll to percentage Y offset
+        case scrollToPercentage(_ percentageOffsetY: CGFloat)
+        /// Scroll to anchor, an id of an element on the page
+        case scrollToAnchor(_ anchor: String, attempt: Int = 1, maxAttempts: Int = 5, completion: ((Bool, Bool) -> Void)? = nil)
+    }
+    
+    private var scrollRestorationState: ScrollRestorationState = .none
+    
+    /// Checks scrollRestorationState and performs the necessary scroll restoration
+    private func restoreScrollStateIfNecessary() {
+        switch scrollRestorationState {
+        case .none:
+            break
+        case .scrollToOffset(let offset, let animated, let attempt, let maxAttempts, let completion):
+            scrollRestorationState = .none
+            self.scroll(to: CGPoint(x: 0, y: offset), animated: animated) { [weak self] (success) in
+                guard !success, attempt < maxAttempts else {
+                    completion?(success, attempt >= maxAttempts)
+                    return
+                }
+                self?.scrollRestorationState = .scrollToOffset(offset, animated: animated, attempt: attempt + 1, maxAttempts: maxAttempts, completion: completion)
+            }
+        case .scrollToPercentage(let verticalOffsetPercentage):
+            scrollRestorationState = .none
+            webView.scrollView.verticalOffsetPercentage = verticalOffsetPercentage
+        case .scrollToAnchor(let anchor, let attempt, let maxAttempts, let completion):
+            scrollRestorationState = .none
+            self.scroll(to: anchor, animated: true) { [weak self] (success) in
+                guard !success, attempt < maxAttempts else {
+                    completion?(success, attempt >= maxAttempts)
+                    return
+                }
+                self?.scrollRestorationState = .scrollToAnchor(anchor, attempt: attempt + 1, maxAttempts: maxAttempts, completion: completion)
+            }
+            
+            //HACK: Sometimes the `scroll_to_anchor` message is not triggered from the web view over the JS bridge, even after prepareForScrollToAnchor successfully goes through. This means the completion block above is queued to scrollToAnchorCompletions but never run. We are trying to scroll again here once more after a slight delay in hopes of triggering `scroll_to_anchor` again.
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) { [weak self] in
+                
+                guard let self = self else {
+                    return
+                }
+                
+                //This conditional check should target the bug a little closer, since scrollToAnchorCompletions are cleaned out after the last `scroll_to_anchor` message is received. Remaining scrollToAnchorCompletions at this point indicates that likely we're hitting the missing `scroll_to_anchor` message bug.
+                if (self.scrollToAnchorCompletions.count > 0) {
+                    self.scroll(to: anchor, animated: false)
+                }
+            }
+        }
+    }
+    
+    internal func stashOffsetPercentage() {
+        let offset = webView.scrollView.verticalOffsetPercentage
+        // negative and 0 offsets make small errors in scrolling, allow it to automatically handle those cases
+        if offset > 0 {
+            scrollRestorationState = .scrollToPercentage(offset)
+        }
+    }
+    
+    private func checkForScrollToAnchor(in response: HTTPURLResponse) {
+        guard let fragment = response.url?.fragment else {
+            return
+        }
+        scrollRestorationState = .scrollToAnchor(fragment, attempt: 1)
+    }
+    
+    // MARK: Article State Restoration
     
     /// Save article scroll position for restoration later
     func saveArticleScrollPosition() {
@@ -556,42 +613,30 @@ class ArticleViewController: ViewController, HintPresenting {
         setWebViewHidden(true, animated: false)
     }
     
-    /// If state needs to be restored, listen for content size changes and restore the scroll position when those changes stop occurring
-    func restoreStateIfNecessary() {
+    /// Translates an article's viewedScrollPosition or viewedFragment values to a scrollRestorationState. These values are saved to the article object when the ArticleVC disappears,the app is backgrounded, or an edit is made and the article is reloaded.
+    func assignScrollStateFromArticleFlagsIfNecessary() {
         guard isRestoringState else {
             return
         }
         isRestoringState = false
-        isRestoringStateOnNextContentSizeChange = true
-        perform(#selector(restoreState), with: nil, afterDelay: 0.5) // failsafe, attempt to restore state after half a second regardless
+        let scrollPosition = CGFloat(article.viewedScrollPosition)
+        if scrollPosition > 0 {
+            scrollRestorationState = .scrollToOffset(scrollPosition, animated: false, completion: { [weak self] success, maxedAttempts in
+                if (success || maxedAttempts) {
+                    self?.setWebViewHidden(false, animated: true)
+                }
+            })
+        } else if let fragment = article.viewedFragment {
+            scrollRestorationState = .scrollToAnchor(fragment, completion: { [weak self] success, maxedAttempts in
+                if (success || maxedAttempts) {
+                    self?.setWebViewHidden(false, animated: true)
+                }
+            })
+        } else {
+            setWebViewHidden(false, animated: true)
+        }
     }
     
-    /// If state is supposed to be restored after the next content size change, restore that state
-    /// This should be called in a debounced manner when article content size changes
-    func restoreStateIfNecessaryOnContentSizeChange() {
-        guard isRestoringStateOnNextContentSizeChange else {
-            return
-        }
-        isRestoringStateOnNextContentSizeChange = false
-        let scrollPosition = CGFloat(article.viewedScrollPosition)
-        guard scrollPosition < webView.scrollView.bottomOffsetY else {
-            return
-        }
-        restoreState()
-    }
-    
-    /// Scroll to the state restoration scroll position now, canceling any previous attempts
-    @objc func restoreState() {
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(restoreState), object: nil)
-        let scrollPosition = CGFloat(article.viewedScrollPosition)
-        if scrollPosition > 0 && scrollPosition < webView.scrollView.bottomOffsetY {
-            scroll(to: CGPoint(x: 0, y: scrollPosition), animated: false)
-        } else if let anchor = article.viewedFragment {
-            scroll(to: anchor, animated: false)
-        }
-        setWebViewHidden(false, animated: true)
-    }
-
     func setWebViewHidden(_ hidden: Bool, animated: Bool, completion: ((Bool) -> Void)? = nil) {
         let block = {
             self.webView.alpha = hidden ? 0 : 1
@@ -854,6 +899,7 @@ private extension ArticleViewController {
         }
     }
     
+    /// Track and debounce `contentSize` changes to wait for a desired scroll position to become available. See `ScrollRestorationState` for more information.
     func contentSizeDidChange() {
         // debounce
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(debouncedContentSizeDidChange), object: nil)
@@ -861,8 +907,7 @@ private extension ArticleViewController {
     }
     
     @objc func debouncedContentSizeDidChange() {
-        restoreOffsetPercentageIfNecessary()
-        restoreStateIfNecessaryOnContentSizeChange()
+        restoreScrollStateIfNecessary()
     }
     
     @objc func didReceiveArticleUpdatedNotification(_ notification: Notification) {
@@ -1087,6 +1132,7 @@ extension ArticleViewController: WKNavigationDelegate {
             return
         }
         currentETag = response.allHeaderFields[HTTPURLResponse.etagHeaderKey] as? String
+        checkForScrollToAnchor(in: response)
     }
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
@@ -1110,7 +1156,6 @@ extension ArticleViewController: WKNavigationDelegate {
             shouldPerformWebRefreshAfterScrollViewDeceleration = false
         }
     }
-
 }
 
 extension ViewController  { // Putting extension on ViewController rather than ArticleVC allows for re-use by EditPreviewVC

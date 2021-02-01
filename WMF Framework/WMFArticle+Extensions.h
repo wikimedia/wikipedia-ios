@@ -2,6 +2,7 @@
 
 @class MWKSearchResult;
 @class WMFFeedArticlePreview;
+@class WMFInMemoryURLKey;
 
 typedef NS_ENUM(NSUInteger, WMFGeoType) {
     WMFGeoTypeUnknown = 0,
@@ -38,6 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly, nullable) NSURL *URL;
 
+@property (nonatomic, readonly, nullable) WMFInMemoryURLKey *inMemoryKey;
+
 @property (nonatomic, copy, nonnull) NSString *displayTitleHTML;
 
 @property (nonatomic, readonly, nullable) NSString *capitalizedWikidataDescription;
@@ -65,11 +68,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable WMFArticle *)fetchArticleWithKey:(nullable NSString *)key variant:(nullable NSString *)variant;
 
+- (nullable NSArray<WMFArticle *> *)fetchArticlesWithURL:(nullable NSURL *)url error:(NSError **)error;
 - (nullable NSArray<WMFArticle *> *)fetchArticlesWithKey:(nullable NSString *)key variant:(nullable NSString *)variant error:(NSError **)error;
-- (nullable NSArray<WMFArticle *> *)fetchArticlesWithKey:(nullable NSString *)key error:(NSError **)error; // Temporary shim for ArticleSummary that is not yet variant-aware
 
+- (nullable WMFArticle *)createArticleWithURL:(nullable NSURL *)url;
 - (nullable WMFArticle *)createArticleWithKey:(nullable NSString *)key variant:(nullable NSString *)variant;
-- (nullable WMFArticle *)createArticleWithKey:(nullable NSString *)key; // Temporary shim for ArticleSummary that is not yet variant-aware
 
 - (nullable WMFArticle *)fetchOrCreateArticleWithKey:(nullable NSString *)key variant:(nullable NSString *)variant;
 
@@ -81,16 +84,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable WMFArticle *)fetchArticleWithWikidataID:(nullable NSString *)wikidataID;
 
-@end
+- (NSPredicate *)articlePredicateForInMemoryURLKeys:(NSArray<WMFInMemoryURLKey *> *)urlKeys NS_SWIFT_NAME(articlePredicateForInMemoryURLKeys(_:));
 
-// WMFDataSource maintains a temporary local NSCache of WMFArticle instances.
-// The database key is derived from the article URL which does not take language variants into account.
-// Instances of this class are used as the key in that cache
-@interface WMFArticleTemporaryCacheKey: NSObject
--(instancetype) initWithDatabaseKey:(NSString *)databaseKey variant:(nullable NSString *)variant;
--(instancetype) init NS_UNAVAILABLE;
-@property (readonly, nonatomic, copy) NSString *databaseKey;
-@property (readonly, nonatomic, copy) NSString *variant;
 @end
 
 NS_ASSUME_NONNULL_END

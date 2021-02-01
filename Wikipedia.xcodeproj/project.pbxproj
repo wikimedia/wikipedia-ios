@@ -2970,6 +2970,10 @@
 		FF921888252F7EA500C39A8F /* ThanksGiving.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF921856252E8F4F00C39A8F /* ThanksGiving.swift */; };
 		FF9416D824E203030070FEE7 /* OnThisDayWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9416D724E203030070FEE7 /* OnThisDayWidget.swift */; };
 		FF9416DE24E2098C0070FEE7 /* OnThisDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9416DD24E2098C0070FEE7 /* OnThisDayView.swift */; };
+		FFA0641925A943EB00B9460B /* BasicLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA0641825A943EB00B9460B /* BasicLogger.swift */; };
+		FFA0641A25A943EB00B9460B /* BasicLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA0641825A943EB00B9460B /* BasicLogger.swift */; };
+		FFA0641B25A943EB00B9460B /* BasicLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA0641825A943EB00B9460B /* BasicLogger.swift */; };
+		FFA0641C25A943EB00B9460B /* BasicLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA0641825A943EB00B9460B /* BasicLogger.swift */; };
 		FFD7B84624AEAB3F005C2471 /* ArticleScrolling.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD7B84524AEAB3F005C2471 /* ArticleScrolling.swift */; };
 		FFD7B84724AEB049005C2471 /* ArticleScrolling.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD7B84524AEAB3F005C2471 /* ArticleScrolling.swift */; };
 		FFD7B84824AEB04A005C2471 /* ArticleScrolling.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD7B84524AEAB3F005C2471 /* ArticleScrolling.swift */; };
@@ -4849,6 +4853,7 @@
 		FF921856252E8F4F00C39A8F /* ThanksGiving.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThanksGiving.swift; sourceTree = "<group>"; };
 		FF9416D724E203030070FEE7 /* OnThisDayWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnThisDayWidget.swift; sourceTree = "<group>"; usesTabs = 0; };
 		FF9416DD24E2098C0070FEE7 /* OnThisDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnThisDayView.swift; sourceTree = "<group>"; };
+		FFA0641825A943EB00B9460B /* BasicLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicLogger.swift; sourceTree = "<group>"; };
 		FFD7B84524AEAB3F005C2471 /* ArticleScrolling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleScrolling.swift; sourceTree = "<group>"; };
 		FFD7B85524B3B384005C2471 /* ReferenceBackLinksViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceBackLinksViewControllerDelegate.swift; sourceTree = "<group>"; };
 		FFD7B85824B3CA7A005C2471 /* ReferenceShowing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceShowing.swift; sourceTree = "<group>"; };
@@ -7065,6 +7070,7 @@
 				BCA15AE41C0E213300D0A3EA /* LoggingDefaults.swift */,
 				B0E807341C0CED810065EBC0 /* WMFLogFormatter.h */,
 				B0E807351C0CED810065EBC0 /* WMFLogFormatter.m */,
+				FFA0641825A943EB00B9460B /* BasicLogger.swift */,
 			);
 			name = Logging;
 			sourceTree = "<group>";
@@ -10294,6 +10300,7 @@
 				B0E803761C0CD9C10065EBC0 /* TableOfContentsCell.swift in Sources */,
 				B0B0EC221C6999A9006F0D9C /* WMFSettingsMenuItem.m in Sources */,
 				7ADF498721B45E42009EA338 /* TextFormattingGroupedToolbarView.swift in Sources */,
+				FFA0641925A943EB00B9460B /* BasicLogger.swift in Sources */,
 				678D79F6235E599B006161FF /* DiffListContextViewModel.swift in Sources */,
 				BA7683C21F30C56300A487AA /* ImageDimmingExampleViewController.swift in Sources */,
 				674E8AB92382DEFF0053D206 /* DiffTransformer.swift in Sources */,
@@ -11114,6 +11121,7 @@
 				D8A42B0D1E815A9C00D8E281 /* WMFSettingsMenuItem.m in Sources */,
 				B0CD9DEE1F70997500051843 /* WMFWelcomeIntroductionAnimationView.swift in Sources */,
 				D8A42B0F1E815A9C00D8E281 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
+				FFA0641C25A943EB00B9460B /* BasicLogger.swift in Sources */,
 				678D79F9235E599B006161FF /* DiffListContextViewModel.swift in Sources */,
 				674E8ABC2382DF030053D206 /* DiffTransformer.swift in Sources */,
 				D8A42B101E815A9C00D8E281 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
@@ -11523,6 +11531,7 @@
 				83023C1220E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */,
 				6782DBAA2343B7FC003FA21B /* DiffHeaderEditorView.swift in Sources */,
 				7A6ED51D20ADBF950001849F /* SettingsFunnel.swift in Sources */,
+				FFA0641B25A943EB00B9460B /* BasicLogger.swift in Sources */,
 				67282FBF24855B7B00B73E20 /* ArticleContextMenuPresenting.swift in Sources */,
 				D8CE256F1E698E2400DAE2E0 /* WeakScriptMessageDelegate.swift in Sources */,
 				6782DBF9234537D0003FA21B /* DiffHeaderExtendedView.swift in Sources */,
@@ -11995,6 +12004,7 @@
 				7A2FE55E20517BAE00F92F8F /* EraseSavedArticlesView.swift in Sources */,
 				6782DBAB2343B7FC003FA21B /* DiffHeaderEditorView.swift in Sources */,
 				67282FBE24855B7B00B73E20 /* ArticleContextMenuPresenting.swift in Sources */,
+				FFA0641A25A943EB00B9460B /* BasicLogger.swift in Sources */,
 				D8EC3E611E9BDA35006712EB /* WMFArticleLanguagesSectionFooter.m in Sources */,
 				7A6ED51920ADBF950001849F /* SettingsFunnel.swift in Sources */,
 				6782DBFC234537D0003FA21B /* DiffHeaderExtendedView.swift in Sources */,

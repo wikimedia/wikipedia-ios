@@ -776,7 +776,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
             continue;
         }
         NSString *variant = article.variant;
-        WMFArticleTemporaryCacheKey *cacheKey = [[WMFArticleTemporaryCacheKey alloc] initWithDatabaseKey:key variant:variant];
+        WMFInMemoryURLKey *cacheKey = [[WMFInMemoryURLKey alloc] initWithDatabaseKey:key languageVariantCode:variant];
         [self.articleCache setObject:article forKey:cacheKey];
     }
 }
@@ -890,14 +890,10 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     return [self fetchArticleWithKey:URL.wmf_databaseKey variant:URL.wmf_languageVariantCode inManagedObjectContext:moc];
 }
 
-- (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
-    return [self fetchArticleWithKey:key variant:nil inManagedObjectContext:moc];
-}
-
 - (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key variant:(nullable NSString *)variant inManagedObjectContext:(nonnull NSManagedObjectContext *)moc {
     WMFArticle *article = nil;
     if (moc == _viewContext) { // use ivar to avoid main thread check
-        WMFArticleTemporaryCacheKey *cacheKey = [[WMFArticleTemporaryCacheKey alloc] initWithDatabaseKey:key variant:variant];
+        WMFInMemoryURLKey *cacheKey = [[WMFInMemoryURLKey alloc] initWithDatabaseKey:key languageVariantCode:variant];
         article = [self.articleCache objectForKey:cacheKey];
         if (article) {
             return article;
@@ -905,7 +901,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     }
     article = [moc fetchArticleWithKey:key variant:variant];
     if (article && moc == _viewContext) { // use ivar to avoid main thread check
-        WMFArticleTemporaryCacheKey *cacheKey = [[WMFArticleTemporaryCacheKey alloc] initWithDatabaseKey:key variant:variant];
+        WMFInMemoryURLKey *cacheKey = [[WMFInMemoryURLKey alloc] initWithDatabaseKey:key languageVariantCode:variant];
         [self.articleCache setObject:article forKey:cacheKey];
     }
     return article;
@@ -928,7 +924,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
         article = [moc createArticleWithKey:key variant:variant];
         article.displayTitleHTML = article.displayTitle;
         if (moc == self.viewContext) {
-            WMFArticleTemporaryCacheKey *cacheKey = [[WMFArticleTemporaryCacheKey alloc] initWithDatabaseKey:key variant:variant];
+            WMFInMemoryURLKey *cacheKey = [[WMFInMemoryURLKey alloc] initWithDatabaseKey:key languageVariantCode:variant];
             [self.articleCache setObject:article forKey:cacheKey];
         }
     }

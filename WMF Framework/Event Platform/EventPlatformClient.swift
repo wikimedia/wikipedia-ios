@@ -393,14 +393,14 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
             return
         }
 
-        DDLogDebug("EPC: Processing all scheduled requests")
         let events = storageManager.popAll()
         if events.count == 0 {
-            DDLogDebug("EPC: Nothing to send.")
+//            DDLogDebug("EPC: Nothing to send.")
             completion?()
             return
         }
 
+        DDLogDebug("EPC: Processing all scheduled requests")
         let group = DispatchGroup()
         for event in events {
             group.enter()
