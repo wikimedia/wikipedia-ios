@@ -385,7 +385,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 return
             }
             do {
-                var summaryResponses: [String: ArticleSummary] = [:]
+                var summaryResponses: [WMFInMemoryURLKey: ArticleSummary] = [:]
                 for i in 1...countOfEntriesToCreate {
                     
                     if !englishOnly {
@@ -400,7 +400,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     
                     taskGroup.enter()
                     randomArticleFetcher.fetchRandomArticle(withSiteURL: siteURL, completion: { (error, result, summary) in
-                        if let key = result?.wmf_databaseKey, let summary = summary {
+                        if let key = result?.wmf_inMemoryKey, let summary = summary {
                            summaryResponses[key] = summary
                         }
                         taskGroup.leave()
@@ -741,18 +741,18 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         let summaryFetcher = ArticleFetcher(session: apiController.session, configuration: Configuration.current)
         let group = WMFTaskGroup()
         let semaphore = DispatchSemaphore(value: 1)
-        var remoteEntriesToCreateLocallyByArticleKey: [String: APIReadingListEntry] = [:]
-        var requestedArticleKeys: Set<String> = []
-        var articleSummariesByArticleKey: [String: ArticleSummary] = [:]
+        var remoteEntriesToCreateLocallyByArticleKey: [WMFInMemoryURLKey: APIReadingListEntry] = [:]
+        var requestedArticleKeys: Set<WMFInMemoryURLKey> = []
+        var articleSummariesByArticleKey: [WMFInMemoryURLKey: ArticleSummary] = [:]
         var entryCount = 0
-        var articlesByKey: [String: WMFArticle] = [:]
+        var articlesByKey: [WMFInMemoryURLKey: WMFArticle] = [:]
         for remoteEntry in readingListEntries {
             autoreleasepool {
                 let isDeleted = remoteEntry.deleted ?? false
                 guard !isDeleted else {
                     return
                 }
-                guard let articleURL = remoteEntry.articleURL, let articleKey = articleURL.wmf_databaseKey else {
+                guard let articleURL = remoteEntry.articleURL, let articleKey = articleURL.wmf_inMemoryKey else {
                     return
                 }
                 remoteEntriesToCreateLocallyByArticleKey[articleKey] = remoteEntry
@@ -760,7 +760,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     return
                 }
                 requestedArticleKeys.insert(articleKey)
-                if let article = dataStore.fetchArticle(withKey: articleKey, in: moc) {
+                if let article = dataStore.fetchArticle(with: articleURL, in: moc) {
                     articlesByKey[articleKey] = article
                 } else {
                     group.enter()
@@ -835,9 +835,9 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 entry.update(with: remoteEntry)
     
                 // if there's a key mismatch, locally delete the bad entry and create a new one with the correct key
-                if remoteEntry.articleKey != article.key {
+                if remoteEntry.articleKey != article.inMemoryKey {
                     entry.list = readingList
-                    entry.articleKey = remoteEntry.articleKey
+                    entry.articleKey = remoteEntry.articleKey?.databaseKey
                     try? readingListsController.markLocalDeletion(for: [entry])
                     entry = ReadingListEntry(context: moc)
                     entry.update(with: remoteEntry)
@@ -966,7 +966,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         }
         var createdOrUpdatedReadingListEntriesCount = 0
         // Arrange remote list entries by ID and key for merging with local lists
-        var remoteReadingListEntriesByReadingListID: [Int64: [String: APIReadingListEntry]] = [:]
+        var remoteReadingListEntriesByReadingListID: [Int64: [WMFInMemoryURLKey: APIReadingListEntry]] = [:]
         
         if let readingListID = readingListID {
             remoteReadingListEntriesByReadingListID[readingListID] = [:]
@@ -992,9 +992,9 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 let localReadingListEntries = localReadingLists.first?.entries?.filter { !$0.isDeletedLocally } ?? []
                 
                 var localEntriesMissingRemotely: [ReadingListEntry] = []
-                var remoteEntriesMissingLocally: [String: APIReadingListEntry] = readingListEntriesByKey
+                var remoteEntriesMissingLocally: [WMFInMemoryURLKey: APIReadingListEntry] = readingListEntriesByKey
                 for localReadingListEntry in localReadingListEntries {
-                    guard let articleKey = localReadingListEntry.articleKey else {
+                    guard let articleKey = localReadingListEntry.articleURL?.wmf_inMemoryKey else {
                         moc.delete(localReadingListEntry)
                         createdOrUpdatedReadingListEntriesCount += 1
                         continue
