@@ -17,7 +17,7 @@ extension ArticleViewController: ReferenceBackLinksViewControllerDelegate, WMFRe
     }
 
     func referenceBackLinksViewControllerUserDidNavigateTo(referenceBackLink: ReferenceBackLink, referenceBackLinksViewController: ReferenceBackLinksViewController) {
-        scroll(to: referenceBackLink.id, centered: true, highlighted: true, animated: true) { [weak self] in
+        scroll(to: referenceBackLink.id, centered: true, highlighted: true, animated: true) { [weak self] (_) in
             self?.webView.wmf_accessibilityCursor(toFragment: referenceBackLink.id)
             self?.updateTableOfContentsHighlight()
         }
@@ -30,7 +30,7 @@ extension ArticleViewController: ReferenceBackLinksViewControllerDelegate, WMFRe
             return
         }
         let backLink = "back_link_\(referenceId)"
-        scroll(to: backLink, highlighted: true, animated: true) { [weak self] in
+        scroll(to: backLink, highlighted: true, animated: true) { [weak self] (_) in
             self?.webView.wmf_accessibilityCursor(toFragment: backLink)
             self?.updateTableOfContentsHighlight()
             dispatchOnMainQueueAfterDelayInSeconds(1.0) { [weak self] in
