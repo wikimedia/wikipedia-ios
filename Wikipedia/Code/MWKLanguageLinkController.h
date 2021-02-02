@@ -73,7 +73,7 @@ typedef NS_ENUM(NSInteger, WMFPreferredLanguagesChangeType) {
  */
 - (void)removePreferredLanguage:(MWKLanguageLink *)language;
 
-- (nullable MWKLanguageLink *)languageForSiteURL:(NSURL *)siteURL;
+- (nullable MWKLanguageLink *)languageForContentLanguageCode:(NSString *)contentLanguageCode;
 
 + (void)migratePreferredLanguagesToManagedObjectContext:(NSManagedObjectContext *)moc;
 

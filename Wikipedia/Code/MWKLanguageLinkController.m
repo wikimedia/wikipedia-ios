@@ -71,9 +71,9 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
     return [MWKLanguageLinkController allLanguages];
 }
 
-- (nullable MWKLanguageLink *)languageForSiteURL:(NSURL *)siteURL {
+- (nullable MWKLanguageLink *)languageForContentLanguageCode:(NSString *)contentLanguageCode {
     return [self.allLanguages wmf_match:^BOOL(MWKLanguageLink *obj) {
-        return [obj.siteURL isEqual:siteURL];
+        return [obj.contentLanguageCode isEqual:contentLanguageCode];
     }];
 }
 
