@@ -772,8 +772,8 @@ class ArticleViewController: ViewController, HintPresenting {
             showGenericError()
             return
         }
-        // Check if this is the same article by comparing database keys
-        guard resolvedURL.wmf_databaseKey == articleURL.wmf_databaseKey else {
+        // Check if this is the same article by comparing in-memory keys
+        guard resolvedURL.wmf_inMemoryKey == articleURL.wmf_inMemoryKey else {
             navigate(to: resolvedURL)
             return
         }
