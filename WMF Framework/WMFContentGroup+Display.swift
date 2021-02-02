@@ -10,14 +10,27 @@ extension WMFFeedDisplayType {
 }
 
 extension WMFContentGroup {
-    public func imageURLsCompatibleWithTraitCollection(_ traitCollection: UITraitCollection, dataStore: MWKDataStore) -> Set<URL>? {
+    public func imageURLsCompatibleWithTraitCollection(_ traitCollection: UITraitCollection, dataStore: MWKDataStore, viewSize: CGSize? = nil) -> Set<URL>? {
         switch contentGroupKind {
         case .pictureOfTheDay:
             guard let imageInfo = contentPreview as? WMFFeedImage else {
                 return nil
             }
-            let imageURL = URL(string: WMFChangeImageSourceURLSizePrefix(imageInfo.imageThumbURL.absoluteString, traitCollection.wmf_leadImageWidth)) ?? imageInfo.imageThumbURL
+            
+            let fallback: (WMFFeedImage, UITraitCollection) -> URL = { imageInfo, traitCollection in
+                let imageURL = URL(string: WMFChangeImageSourceURLSizePrefix(imageInfo.imageThumbURL.absoluteString, traitCollection.wmf_leadImageWidth)) ?? imageInfo.imageThumbURL
+                return imageURL
+            }
+            
+            guard let viewSize = viewSize else {
+                return [fallback(imageInfo, traitCollection)]
+            }
+            
+            let scaledViewSize = CGSize(width: UIScreen.main.scale * viewSize.width, height: UIScreen.main.scale * viewSize.height)
+            let imageURL = imageInfo.getImageURL(forWidth: Double(scaledViewSize.width), height: Double(scaledViewSize.height)) ??
+                fallback(imageInfo, traitCollection)
             return [imageURL]
+
         case .announcement:
             guard let announcement = contentPreview as? WMFAnnouncement else {
                 return nil

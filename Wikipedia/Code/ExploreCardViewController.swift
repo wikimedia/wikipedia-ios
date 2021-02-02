@@ -290,7 +290,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         guard let cell = cell as? ImageCollectionViewCell, let imageInfo = contentGroup?.contentPreview as? WMFFeedImage else {
             return
         }
-        if !layoutOnly, let imageURL = contentGroup?.imageURLsCompatibleWithTraitCollection(traitCollection, dataStore: dataStore)?.first {
+        if !layoutOnly, let imageURL = contentGroup?.imageURLsCompatibleWithTraitCollection(traitCollection, dataStore: dataStore, viewSize: view.bounds.size)?.first {
             cell.imageView.wmf_setImage(with: imageURL, detectFaces: true, onGPU: true, failure: WMFIgnoreErrorHandler, success: WMFIgnoreSuccessHandler)
         }
         if !imageInfo.imageDescription.isEmpty {
