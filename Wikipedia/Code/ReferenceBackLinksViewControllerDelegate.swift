@@ -48,7 +48,7 @@ extension ReferenceBackLinksViewControllerDelegate where Self: ViewController {
             showGenericError()
             return
         }
-        scroll(to: "back_link_\(referenceId)", highlighted: true, animated: true) { [weak self] in
+        scroll(to: "back_link_\(referenceId)", highlighted: true, animated: true) { [weak self] (_) in
             dispatchOnMainQueueAfterDelayInSeconds(1.0) { [weak self] in
                 self?.messagingController.removeElementHighlights()
             }

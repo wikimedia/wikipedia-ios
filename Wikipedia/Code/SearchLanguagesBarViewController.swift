@@ -33,7 +33,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
     
     @objc fileprivate(set) var currentlySelectedSearchLanguage: MWKLanguageLink? {
         get {
-            if let siteURL = UserDefaults.standard.wmf_currentSearchLanguageDomain(), let selectedLanguage = MWKDataStore.shared().languageLinkController.language(forSiteURL: siteURL) {
+            if let contentLanguageCode = UserDefaults.standard.wmf_currentSearchContentLanguageCode(), let selectedLanguage = MWKDataStore.shared().languageLinkController.language(forContentLanguageCode: contentLanguageCode) {
                 return selectedLanguage
             } else {
                 
@@ -47,7 +47,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
             }
         }
         set {
-            UserDefaults.standard.wmf_setCurrentSearchLanguageDomain(newValue?.siteURL)
+            UserDefaults.standard.wmf_setCurrentSearchContentLanguageCode(newValue?.contentLanguageCode)
             delegate?.searchLanguagesBarViewController(self, didChangeCurrentlySelectedSearchLanguage: newValue!)
             updateLanguageBarLanguageButtons()
         }
@@ -117,7 +117,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
             let button = languageButtons[index]
             button.setTitle(language.localizedName, for: .normal)
             if let selectedLanguage = currentlySelectedSearchLanguage {
-                button.isSelected = language.languageCode == selectedLanguage.languageCode
+                button.isSelected = language.contentLanguageCode == selectedLanguage.contentLanguageCode
             }else{
                 assertionFailure("selectedLanguage should have been set at this point")
                 button.isSelected = false
