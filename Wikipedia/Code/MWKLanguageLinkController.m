@@ -203,4 +203,63 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
 
 @end
 
+#pragma mark -
+
+@implementation MWKLanguageLinkController (ArticleLanguageLinkVariants)
+
+/// Given an article URL, if the URL has a language variant, an array of MWKLanguageLink instances of the remaining variants for that language is returned.
+/// This allows a user viewing an article in one language variant to choose to view the article using another variant.
+/// If the provided URL does not have a language variant, returns an empty array.
+- (NSArray<MWKLanguageLink *> *)remainingLanguageLinkVariantsForArticleURL:(NSURL *)articleURL {
+    // If the original URL is a variant, include the other variants as choices
+    NSString *originalURLLanguageVariantCode = articleURL.wmf_languageVariantCode;
+    NSString *originalURLLanguageCode = articleURL.wmf_language;
+    NSMutableArray *remainingLanguageVariantLinks = [[NSMutableArray alloc] init];
+    if (originalURLLanguageVariantCode && originalURLLanguageCode) {
+        NSArray<MWKLanguageLink *> *variants = [MWKLanguageLinkController allLanguageVariantsBySiteLanguageCode][originalURLLanguageCode];
+        if (variants) {
+            for (MWKLanguageLink *variant in variants) {
+                if (![variant.languageVariantCode isEqualToString:originalURLLanguageVariantCode]) {
+                    MWKLanguageLink *articleVariant = [variant languageLinkWithPageTitleText:articleURL.wmf_titleWithUnderscores];
+                    [remainingLanguageVariantLinks addObject:articleVariant];
+                }
+            }
+        }
+    }
+    return remainingLanguageVariantLinks;
+}
+
+/// Given an array of article language links, returns an array where any language with variants is replaced with one article language link per variant
+- (NSArray<MWKLanguageLink *> *)languageLinksReplacingArticleLanguageLinksWithVariants:(NSArray<MWKLanguageLink *> *)articleLanguageLinks {
+    NSMutableArray *processedLanguageLinks = [[NSMutableArray alloc] init];
+    for (MWKLanguageLink *language in articleLanguageLinks) {
+        NSAssert((language.languageVariantCode == nil && ![language.languageVariantCode isEqualToString:@""]), @"The method %s should only be called with MWKLanguageLink objects with a nil or empty-string languageVariantCode", __PRETTY_FUNCTION__);
+        NSArray<MWKLanguageLink *> *variants = [MWKLanguageLinkController allLanguageVariantsBySiteLanguageCode][language.languageCode];
+        if (variants) {
+            for (MWKLanguageLink *variant in variants) {
+                MWKLanguageLink *articleVariant = [variant languageLinkWithPageTitleText:language.pageTitleText];
+                [processedLanguageLinks addObject:articleVariant];
+            }
+            [processedLanguageLinks addObjectsFromArray:variants];
+        } else {
+            [processedLanguageLinks addObject:language];
+        }
+    }
+    return processedLanguageLinks;
+}
+
+- (NSArray<MWKLanguageLink *> *)articleLanguageLinksWithVariantsFromArticleURL:(NSURL *)articleURL articleLanguageLinks:(NSArray<MWKLanguageLink *> *)articleLanguageLinks {
+    
+    // If the original URL is a variant, include the other variants as choices
+    NSArray *remainingLanguageLinkVariants = [self remainingLanguageLinkVariantsForArticleURL:articleURL];
+    
+    // If any of the available languages has variants, substitute in the variants.
+    NSArray *articleLanguageLinksWithVariants = [self languageLinksReplacingArticleLanguageLinksWithVariants: articleLanguageLinks];
+
+    return [articleLanguageLinksWithVariants arrayByAddingObjectsFromArray:remainingLanguageLinkVariants];
+}
+
+@end
+
+
 NS_ASSUME_NONNULL_END
