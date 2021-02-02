@@ -39,7 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
     [self.fetcher fetchLanguageLinksForArticleURL:self.articleURL
         success:^(NSArray *languageLinks) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.availableLanguages = languageLinks;
+                NSArray *adjustedLinks = [self.languageController articleLanguageLinksWithVariantsFromArticleURL:self.articleURL articleLanguageLinks:languageLinks];
+                self.availableLanguages = adjustedLinks;
                 if (success) {
                     success();
                 }
@@ -79,7 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable MWKLanguageLink *)titleLanguageForLanguage:(MWKLanguageLink *)language {
     return [self.availableLanguages wmf_match:^BOOL(MWKLanguageLink *availableLanguage) {
-        return [language.languageCode isEqualToString:availableLanguage.languageCode];
+        return [language.contentLanguageCode isEqualToString:availableLanguage.contentLanguageCode];
     }];
 }
 
