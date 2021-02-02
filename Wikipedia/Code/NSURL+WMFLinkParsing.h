@@ -235,6 +235,7 @@ extern NSString *const WMFEditPencil;
 - (instancetype)initWithDatabaseKey:(NSString *)databaseKey languageVariantCode:(nullable NSString *)languageVariantCode NS_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithURL:(NSURL *)url;
 - (instancetype)init NS_UNAVAILABLE;
+- (BOOL)isEqualToInMemoryURLKey:(WMFInMemoryURLKey *)rhs;
 @property (readonly, nonatomic, copy) NSString *databaseKey;
 @property (readonly, nonatomic, copy, nullable) NSString *languageVariantCode;
 @property (readonly, nonatomic, copy, nullable) NSURL *URL;
