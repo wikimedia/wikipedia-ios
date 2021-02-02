@@ -40,7 +40,7 @@ class DisambiguationPagesViewController: ArticleFetchedResultsViewController {
     
     func fetch() {
         fakeProgressController.start()
-        let articleKeys = articleURLs.compactMap { $0.wmf_databaseKey }
+        let articleKeys = articleURLs.compactMap { $0.wmf_inMemoryKey }
         self.dataStore.articleSummaryController.updateOrCreateArticleSummariesForArticles(withKeys: articleKeys) { (_, error) in
             self.fakeProgressController.finish()
             if let error = error {

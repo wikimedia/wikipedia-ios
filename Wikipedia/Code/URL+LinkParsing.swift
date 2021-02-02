@@ -71,6 +71,10 @@ extension URL {
         return (self as NSURL).wmf_databaseKey
     }
     
+    public var wmf_inMemoryKey: WMFInMemoryURLKey? {
+        return (self as NSURL).wmf_inMemoryKey
+    }
+    
     public var wmf_site: URL? {
         return (self as NSURL).wmf_site
     }

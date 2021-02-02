@@ -1,4 +1,5 @@
 #import <WMF/WMFArticle+Extensions.h>
+#import <WMF/NSURL+WMFLinkParsing.h>
 #import <WMF/WMF-Swift.h>
 
 @implementation WMFArticle (Extensions)
@@ -15,6 +16,10 @@
     NSURL *value = [NSURL URLWithString:key];
     value.wmf_languageVariantCode = self.variant;
     return value;
+}
+
+- (nullable WMFInMemoryURLKey *)inMemoryKey {
+    return self.URL.wmf_inMemoryKey;
 }
 
 #pragma clang diagnostic push
@@ -128,8 +133,8 @@
     return [self fetchArticleWithKey:articleURL.wmf_databaseKey variant:articleURL.wmf_languageVariantCode];
 }
 
-- (nullable NSArray<WMFArticle *> *)fetchArticlesWithKey:(nullable NSString *)key error:(NSError **)error {
-    return [self fetchArticlesWithKey:key variant:nil error:error];
+- (nullable NSArray<WMFArticle *> *)fetchArticlesWithURL:(nullable NSURL *)url error:(NSError **)error {
+    return [self fetchArticlesWithKey:url.wmf_databaseKey variant:url.wmf_languageVariantCode error:error];
 }
 
 - (nullable NSArray<WMFArticle *> *)fetchArticlesWithKey:(nullable NSString *)key variant:(nullable NSString *)variant error:(NSError **)error {
@@ -165,8 +170,8 @@
     return article;
 }
 
-- (nullable WMFArticle *)createArticleWithKey:(nullable NSString *)key {
-    return [self createArticleWithKey:key variant:nil];
+- (nullable WMFArticle *)createArticleWithURL:(nullable NSURL *)url {
+    return [self createArticleWithKey:url.wmf_databaseKey variant:url.wmf_languageVariantCode];
 }
 
 - (nullable WMFArticle *)createArticleWithKey:(nullable NSString *)key variant:(nullable NSString *)variant {
@@ -240,36 +245,13 @@
     return preview;
 }
 
-@end
-
-#pragma mark - WMFArticleTemporaryCacheKey
-
-@interface WMFArticleTemporaryCacheKey ()
-@property (nonatomic, copy) NSString *databaseKey;
-@property (nonatomic, copy) NSString *variant;
-@end
-
-@implementation WMFArticleTemporaryCacheKey: NSObject
--(instancetype) initWithDatabaseKey:(NSString *)databaseKey variant:(nullable NSString *)variant {
-    if (self = [super init]) {
-        self.databaseKey = databaseKey;
-        self.variant = variant;
+- (NSPredicate *)articlePredicateForInMemoryURLKeys:(NSArray<WMFInMemoryURLKey *> *)urlKeys {
+    NSMutableArray<NSPredicate *> *subpredicates = [[NSMutableArray alloc] init];
+    for (WMFInMemoryURLKey *urlKey in urlKeys) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"key == %@ && variant == %@", urlKey.databaseKey, urlKey.languageVariantCode];
+        [subpredicates addObject:predicate];
     }
-    return self;
-}
-
-WMF_SYNTHESIZE_IS_EQUAL(WMFArticleTemporaryCacheKey, isEqualToArticleTemporaryCacheKey:)
-
-- (BOOL)isEqualToArticleTemporaryCacheKey:(WMFArticleTemporaryCacheKey *)rhs {
-    return WMF_RHS_PROP_EQUAL(databaseKey, isEqualToString:) && WMF_RHS_PROP_EQUAL(variant, isEqualToString:);
-}
-
-- (NSUInteger)hash {
-    return self.databaseKey.hash ^ flipBitsWithAdditionalRotation(self.variant.hash, 1); // When variant is nil, the XOR flips the bits
-}
-
-- (NSString *)description {
-    return [NSString stringWithFormat: @"%@ databaseKey: %@, variant: %@", [super description], self.databaseKey, self.variant];
+    return [NSCompoundPredicate orPredicateWithSubpredicates:subpredicates];
 }
 
 @end
