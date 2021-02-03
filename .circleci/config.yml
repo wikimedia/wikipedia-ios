@@ -65,5 +65,12 @@ workflows:
     jobs:
       - test_pr
   screenshots:
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
+                - ui-test-screenshots
     jobs:
       - screenshots
