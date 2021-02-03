@@ -2,8 +2,8 @@
 
 PRODUCT_DIR=".."
 PROJECT_NAME="Wikipedia"
-DERIVED_DATA_PATH="${HOME}/Desktop/DerivedDataCLI"
-SCREENSHOTS_PATH="${HOME}/Desktop/screenshots"
+DERIVED_DATA_PATH="/tmp/DerivedDataCLI"
+SCREENSHOTS_PATH="/tmp/screenshots"
 
 rm -rf $DERIVED_DATA_PATH
 rm -rf $SCREENSHOTS_PATH

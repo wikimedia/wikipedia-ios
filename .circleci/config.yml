@@ -39,7 +39,28 @@ jobs:
           command: bundle exec fastlane verify_pull_request
       - store_test_results:
           path: fastlane/test_output/
+  screenshots:
+    executor: xcode
+      - checkout
+      - run:
+          name: Install xcparse
+          command: brew install chargepoint/xcparse/xcparse
+      - run:
+          name: Run screenshots script
+          command: bundle exec fastlane fastlane ios screenshots
+      - run:
+          name: Compress Artifacts
+          command: cd /tmp ; tar -cvzf screenshots.tar screenshots
+      - store_test_results:
+          path: fastlane/test_output/
+      - store_artifacts:
+          path: /tmp/screenshots.tar
+          destination: screenshots
+
 workflows:
   test_pr:
     jobs:
       - test_pr
+  screenshots:
+    jobs:
+      - screenshots
