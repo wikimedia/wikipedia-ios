@@ -41,6 +41,7 @@ jobs:
           path: fastlane/test_output/
   screenshots:
     executor: xcode
+    steps:
       - checkout
       - run:
           name: Install xcparse
