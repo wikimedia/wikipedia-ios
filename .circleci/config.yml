@@ -28,17 +28,17 @@ commands:
       - run: for ip in $(dig @8.8.8.8 github.com +short); do ssh-keyscan github.com,$ip; ssh-keyscan $ip; done 2>/dev/null >> ~/.ssh/known_hosts || true
 
 jobs:
-  test_pr:
-    executor: xcode
-    steps:
-      - checkout
-      - install_dependencies
-      - work_around_swift_package_manager_bug
-      - run:
-          name: Fastlane
-          command: bundle exec fastlane verify_pull_request
-      - store_test_results:
-          path: fastlane/test_output/
+#  test_pr:
+#    executor: xcode
+#    steps:
+#      - checkout
+#      - install_dependencies
+#      - work_around_swift_package_manager_bug
+#      - run:
+#          name: Fastlane
+#          command: bundle exec fastlane verify_pull_request
+#      - store_test_results:
+#          path: fastlane/test_output/
   screenshots:
     executor: xcode
     steps:
@@ -46,6 +46,8 @@ jobs:
       - run:
           name: Install xcparse
           command: brew install chargepoint/xcparse/xcparse
+      - install_dependencies
+      - work_around_swift_package_manager_bug
       - run:
           name: Run screenshots script
           command: bundle exec fastlane fastlane ios screenshots
@@ -59,9 +61,9 @@ jobs:
           destination: screenshots
 
 workflows:
-  test_pr:
-    jobs:
-      - test_pr
+#  test_pr:
+#    jobs:
+#      - test_pr
   screenshots:
     jobs:
       - screenshots
