@@ -37,19 +37,20 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fetchLanguagesWithSuccess:(dispatch_block_t)success
                           failure:(void (^__nullable)(NSError *__nonnull))failure {
     [self.fetcher fetchLanguageLinksForArticleURL:self.articleURL
-                                          success:^(NSArray *languageLinks) {
-                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                  self.availableLanguages = languageLinks;
-                                                  if (success) {
-                                                      success();
-                                                  }
-                                              });
-                                          }
-                                          failure:^(NSError * _Nonnull error) {
-                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                  failure(error);
-                                              });
-                                          }];
+        success:^(NSArray *languageLinks) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSArray *adjustedLinks = [self.languageController articleLanguageLinksWithVariantsFromArticleURL:self.articleURL articleLanguageLinks:languageLinks];
+                self.availableLanguages = adjustedLinks;
+                if (success) {
+                    success();
+                }
+            });
+        }
+        failure:^(NSError *_Nonnull error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                failure(error);
+            });
+        }];
 }
 
 - (void)setAvailableLanguages:(NSArray *)availableLanguages {
@@ -79,7 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable MWKLanguageLink *)titleLanguageForLanguage:(MWKLanguageLink *)language {
     return [self.availableLanguages wmf_match:^BOOL(MWKLanguageLink *availableLanguage) {
-        return [language.languageCode isEqualToString:availableLanguage.languageCode];
+        return [language.contentLanguageCode isEqualToString:availableLanguage.contentLanguageCode];
     }];
 }
 

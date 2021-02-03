@@ -1234,9 +1234,9 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         return nil;
     }
     WMFArticleViewController *visibleArticleViewController = self.visibleArticleViewController;
-    NSString *visibleKey = visibleArticleViewController.articleURL.wmf_databaseKey;
-    NSString *articleKey = articleURL.wmf_databaseKey;
-    if (visibleKey && articleKey && [visibleKey isEqualToString:articleKey]) {
+    WMFInMemoryURLKey *visibleKey = visibleArticleViewController.articleURL.wmf_inMemoryKey;
+    WMFInMemoryURLKey *articleKey = articleURL.wmf_inMemoryKey;
+    if (visibleKey && articleKey && [visibleKey isEqualToInMemoryURLKey:articleKey]) {
         if (articleURL.fragment) {
             [visibleArticleViewController showAnchor:articleURL.fragment];
         }

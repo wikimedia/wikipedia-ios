@@ -318,9 +318,9 @@ static id wmf_languageVariantAssociatedObjectKey;
     return URL;
 }
 
-WMF_SYNTHESIZE_IS_EQUAL(WMFInMemoryURLKey, isEqualToArticleTemporaryCacheKey:)
+WMF_SYNTHESIZE_IS_EQUAL(WMFInMemoryURLKey, isEqualToInMemoryURLKey:)
 
-- (BOOL)isEqualToArticleTemporaryCacheKey:(WMFInMemoryURLKey *)rhs {
+- (BOOL)isEqualToInMemoryURLKey:(WMFInMemoryURLKey *)rhs {
     return WMF_RHS_PROP_EQUAL(databaseKey, isEqualToString:) && WMF_RHS_PROP_EQUAL(languageVariantCode, isEqualToString:);
 }
 

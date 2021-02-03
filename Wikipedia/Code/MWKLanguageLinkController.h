@@ -79,4 +79,20 @@ typedef NS_ENUM(NSInteger, WMFPreferredLanguagesChangeType) {
 
 @end
 
+/// This category is specific to processing MWKLanguageLink instances that represent articles
+@interface MWKLanguageLinkController (ArticleLanguageLinkVariants)
+
+/// Given an article URL and an array of language links for that article in different languages, this method does the following:
+///
+/// - If any of the provided article language links is of a language that supports variants, the single language element is replaced by an article language link for each language variant
+///   e.g. If Chinese 'zh' is in the array, it will be replaced by article language links for Chinese, Simplified; Chinese, Traditional; Malaysian Simplified; etc.
+///   This allows users to view the corresponding article in a particular variant.
+///
+/// - If the provided articleURL has a language variant, an article language link for the remaining language variants is appended to the returned array
+///   e.g. If the displayed article is shown in Serbian, Cyrillic an article language link for the remaining variant for that language; Serbian, Latin; will be added to the array.
+///   This allows users to choose to view the currently displayed article in a different variant of the same language.
+- (NSArray<MWKLanguageLink *> *)articleLanguageLinksWithVariantsFromArticleURL:(NSURL *)articleURL articleLanguageLinks:(NSArray<MWKLanguageLink *> *)articleLanguageLinks;
+
+@end
+
 NS_ASSUME_NONNULL_END
