@@ -150,6 +150,10 @@
 "button-skip" = "Button text for skip button used in various places.";
 "cancel" = "Cancel";
 "cc-zero" = "Name of the CC Zero license - https://creativecommons.org/publicdomain/zero/1.0";
+"chinese-variants-alert-body" = "Body text of alert used to inform users about Chinese variant support. Please do not translate the newlines (\n) or Chinese characters (简体, 繁體, etc.).";
+"chinese-variants-alert-dismiss-button" = "Dismiss button on alert used to inform users about Chinese variant support.";
+"chinese-variants-alert-preferences-button" = "Action button on alert used to inform users about Chinese variant support.";
+"chinese-variants-alert-title" = "Title of alert used to inform users about Chinese variant support.";
 "clear-title-accessibility-label" = "Accessibility label title for action that clears text";
 "close-button-accessibility-label" = "Accessibility label for a button that closes a dialog. {{Identical|Close}}";
 "compass-direction" = "Spoken description of compass direction, e.g. \"at 3 o'clock\" means \"to the right\", \"at 11 o'clock\" means \"slightly to the left\", etc. $1 is the hour.";
@@ -508,8 +512,6 @@
 "main-menu-account-logout-are-you-sure" = "Header asking if user is sure they wish to log out.";
 "main-menu-account-logout-cancel" = "Button text for hiding the log out menu. {{Identical|Cancel}}";
 "main-menu-account-title-logged-in" = "Header text used when account is logged in. $1 will be replaced with current username.";
-"main-menu-debug-tweaks" = "Title for button that shows debugging settings options.";
-"main-menu-heading-debug" = "Header text for the debug section of the menu. The debug menu is conditionally shown if in Xcode debug mode. {{Identical|Debug}}";
 "main-menu-heading-legal" = "Header text for the legal section of the menu. Consider using something informal, but feel free to use a more literal translation of \"Legal info\" if it seems more appropriate.";
 "main-menu-nearby" = "Button for showing nearby articles. {{Identical|Nearby}}";
 "main-menu-privacy-policy" = "Button text for showing privacy policy {{Identical|Privacy policy}}";

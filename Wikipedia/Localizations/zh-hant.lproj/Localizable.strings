@@ -537,8 +537,6 @@
 "main-menu-account-logout-are-you-sure" = "您確定要登出嗎？";
 "main-menu-account-logout-cancel" = "取消";
 "main-menu-account-title-logged-in" = "以 $1 的身分登入。";
-"main-menu-debug-tweaks" = "開發人員設定";
-"main-menu-heading-debug" = "除錯";
 "main-menu-heading-legal" = "隱私與條款";
 "main-menu-nearby" = "附近";
 "main-menu-privacy-policy" = "隱私政策";

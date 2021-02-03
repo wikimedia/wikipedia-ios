@@ -4,7 +4,7 @@ import Foundation
 public final class RandomArticleFetcher: Fetcher {
     @objc public func fetchRandomArticle(withSiteURL siteURL: URL, completion: @escaping (Error?, URL?, ArticleSummary?) -> Void) {
         let pathComponents = ["page", "random", "summary"]
-        guard let taskURL = configuration.pageContentServiceAPIURLComponentsForHost(siteURL.host, appending: pathComponents).url else {
+        guard let taskURL = configuration.pageContentServiceAPIURLForURL(siteURL, appending: pathComponents) else {
             completion(Fetcher.invalidParametersError, nil, nil)
             return
         }
@@ -13,10 +13,13 @@ public final class RandomArticleFetcher: Fetcher {
                 completion(error, nil, nil)
                 return
             }
-            guard let articleURL = summary?.articleURL else {
+            guard var articleURL = summary?.articleURL else {
                 completion(Fetcher.unexpectedResponseError, nil, nil)
                 return
             }
+            // Temporary shim until ArticleSummary propagates language variants.
+            // Ensures Random cards display content when variants are turned on.
+            articleURL.wmf_languageVariantCode = siteURL.wmf_languageVariantCode
             completion(nil, articleURL, summary)
         }
     }

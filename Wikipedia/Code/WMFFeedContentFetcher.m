@@ -54,7 +54,7 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
     } else {
         path = @[@"feed", @"featured"];
     }
-    return [[configuration wikiFeedsAPIURLComponentsForHost:siteURL.host appendingPathComponents:path] URL];
+    return [configuration wikiFeedsAPIURLForURL:siteURL appendingPathComponents:path];
 }
 
 + (NSRegularExpression *)cacheControlRegex {
@@ -99,7 +99,7 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
                              }
 
                              NSError *mantleError = nil;
-                             WMFFeedDayResponse *responseObject = [MTLJSONAdapter modelOfClass:[WMFFeedDayResponse class] fromJSONDictionary:jsonDictionary error:&mantleError];
+        WMFFeedDayResponse *responseObject = [MTLJSONAdapter modelOfClass:[WMFFeedDayResponse class] fromJSONDictionary:jsonDictionary languageVariantCode: siteURL.wmf_languageVariantCode error:&mantleError];
                              if (mantleError) {
                                  DDLogError(@"Error parsing feed day response: %@", mantleError);
                                  failure(mantleError);

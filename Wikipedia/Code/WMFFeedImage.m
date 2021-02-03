@@ -96,6 +96,12 @@ NS_ASSUME_NONNULL_BEGIN
     return adjustedURL ?: self.imageThumbURL ?: self.imageURL;
 }
 
+// No languageVariantCodePropagationSubelementKeys
+
++ (NSArray<NSString *> *)languageVariantCodePropagationURLKeys {
+    return @[@"imageThumbURL", @"imageURL"];
+}
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -1,4 +1,5 @@
 #import <WMF/WMFArticle+Extensions.h>
+#import <WMF/NSURL+WMFLinkParsing.h>
 #import <WMF/WMF-Swift.h>
 
 @implementation WMFArticle (Extensions)
@@ -12,7 +13,13 @@
     if (!key) {
         return nil;
     }
-    return [NSURL URLWithString:key];
+    NSURL *value = [NSURL URLWithString:key];
+    value.wmf_languageVariantCode = self.variant;
+    return value;
+}
+
+- (nullable WMFInMemoryURLKey *)inMemoryKey {
+    return self.URL.wmf_inMemoryKey;
 }
 
 #pragma clang diagnostic push
@@ -118,29 +125,35 @@
 
 @end
 
+#pragma mark - NSManagedObjectContext Extensions
+
 @implementation NSManagedObjectContext (WMFArticle)
 
 - (nullable WMFArticle *)fetchArticleWithURL:(nullable NSURL *)articleURL {
-    return [self fetchArticleWithKey:[articleURL wmf_databaseKey]];
+    return [self fetchArticleWithKey:articleURL.wmf_databaseKey variant:articleURL.wmf_languageVariantCode];
 }
 
-- (nullable NSArray<WMFArticle *> *)fetchArticlesWithKey:(nullable NSString *)key error:(NSError **)error {
+- (nullable NSArray<WMFArticle *> *)fetchArticlesWithURL:(nullable NSURL *)url error:(NSError **)error {
+    return [self fetchArticlesWithKey:url.wmf_databaseKey variant:url.wmf_languageVariantCode error:error];
+}
+
+- (nullable NSArray<WMFArticle *> *)fetchArticlesWithKey:(nullable NSString *)key variant:(nullable NSString *)variant error:(NSError **)error {
     if (!key) {
         return @[];
     }
     NSFetchRequest *request = [WMFArticle fetchRequest];
-    request.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
+    request.predicate = [NSPredicate predicateWithFormat:@"key == %@ && variant == %@", key, variant];
     return [self executeFetchRequest:request error:nil];
 }
 
-- (nullable WMFArticle *)fetchArticleWithKey:(nullable NSString *)key {
+- (nullable WMFArticle *)fetchArticleWithKey:(nullable NSString *)key variant:(nullable NSString *)variant {
     if (!key) {
         return nil;
     }
     WMFArticle *article = nil;
     NSFetchRequest *request = [WMFArticle fetchRequest];
     request.fetchLimit = 1;
-    request.predicate = [NSPredicate predicateWithFormat:@"key == %@", key];
+    request.predicate = [NSPredicate predicateWithFormat:@"key == %@ && variant == %@", key, variant];
     article = [[self executeFetchRequest:request error:nil] firstObject];
     return article;
 }
@@ -157,25 +170,30 @@
     return article;
 }
 
-- (nullable WMFArticle *)createArticleWithKey:(nullable NSString *)key {
+- (nullable WMFArticle *)createArticleWithURL:(nullable NSURL *)url {
+    return [self createArticleWithKey:url.wmf_databaseKey variant:url.wmf_languageVariantCode];
+}
+
+- (nullable WMFArticle *)createArticleWithKey:(nullable NSString *)key variant:(nullable NSString *)variant {
     WMFArticle *article = [[WMFArticle alloc] initWithContext:self];
     article.key = key;
+    article.variant = variant;
     return article;
 }
 
-- (nullable WMFArticle *)fetchOrCreateArticleWithKey:(nullable NSString *)key {
+- (nullable WMFArticle *)fetchOrCreateArticleWithKey:(nullable NSString *)key variant:(nullable NSString *)variant {
     if (!key) {
         return nil;
     }
-    WMFArticle *article = [self fetchArticleWithKey:key];
+    WMFArticle *article = [self fetchArticleWithKey:key variant:variant];
     if (!article) {
-        article = [self createArticleWithKey:key];
+        article = [self createArticleWithKey:key variant:variant];
     }
     return article;
 }
 
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL {
-    return [self fetchOrCreateArticleWithKey:[articleURL wmf_databaseKey]];
+    return [self fetchOrCreateArticleWithKey:articleURL.wmf_databaseKey variant:articleURL.wmf_languageVariantCode];
 }
 
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL updatedWithSearchResult:(nullable MWKSearchResult *)searchResult {
@@ -225,6 +243,15 @@
         preview.imageHeight = feedPreview.imageHeight;
     }
     return preview;
+}
+
+- (NSPredicate *)articlePredicateForInMemoryURLKeys:(NSArray<WMFInMemoryURLKey *> *)urlKeys {
+    NSMutableArray<NSPredicate *> *subpredicates = [[NSMutableArray alloc] init];
+    for (WMFInMemoryURLKey *urlKey in urlKeys) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"key == %@ && variant == %@", urlKey.databaseKey, urlKey.languageVariantCode];
+        [subpredicates addObject:predicate];
+    }
+    return [NSCompoundPredicate orPredicateWithSubpredicates:subpredicates];
 }
 
 @end

@@ -528,8 +528,6 @@
 "main-menu-account-logout-are-you-sure" = "Вы уверены, что хотите выйти?";
 "main-menu-account-logout-cancel" = "Отмена";
 "main-menu-account-title-logged-in" = "Вход выполнен как $1";
-"main-menu-debug-tweaks" = "Настройки для разработчиков";
-"main-menu-heading-debug" = "Отладка";
 "main-menu-heading-legal" = "Конфиденциальность и условия";
 "main-menu-nearby" = "Поблизости";
 "main-menu-privacy-policy" = "Политика конфиденциальности";
@@ -809,6 +807,7 @@
 "table-of-contents-close-accessibility-label" = "Закрыть содержание";
 "table-of-contents-heading" = "Содержание";
 "table-of-contents-hide-button-label" = "Скрывает содержание";
+"table-of-contents-subheading-label" = "Подзаголовок $1";
 "talk-page-add-discussion-accessibility-label" = "Добавить обсуждение";
 "talk-page-discussion-accessibility-hint" = "Нажмите дважды, чтобы открыть ветку обсуждения";
 "talk-page-discussion-read-accessibility-label" = "Прочитано";

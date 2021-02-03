@@ -1,1 +1,1 @@
-Lataa Wikipedia-sovellus tutkiaksesi ympärilläsi olevia paikkoja, synkronoidaksesi artikkeleita lukeaksesi niitä offline-tilassa ja mukauttaaksesi lukukokemustasi.
+Wikipedia-sovelluksella voit tutkia lähistöllä olevia paikkoja, ladata artikkeleita luettavaksi ilman verkkoyhteyttä ja mukauttaa lukukokemusta mieleiseksesi.

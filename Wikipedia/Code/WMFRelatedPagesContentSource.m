@@ -196,7 +196,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Fetch
 
 - (void)extracted:(WMFArticle * _Nonnull)article completion:(dispatch_block_t _Nullable)completion date:(NSDate * _Nonnull)date groupURL:(NSURL *)groupURL moc:(NSManagedObjectContext * _Nonnull)moc {
-    [self.relatedSearchFetcher fetchRelatedArticlesForArticleWithURL:article.URL completion:^(NSError * _Nullable error, NSDictionary<NSString *, WMFArticleSummary *> * _Nullable summariesByKey) {
+    [self.relatedSearchFetcher fetchRelatedArticlesForArticleWithURL:article.URL completion:^(NSError * _Nullable error, NSDictionary<WMFInMemoryURLKey *, WMFArticleSummary *> * _Nullable summariesByKey) {
         if (error) {
             DDLogError(@"Failed to fetch related articles for %@: %@.",
                        article.URL, error.localizedDescription);
@@ -219,7 +219,7 @@ NS_ASSUME_NONNULL_BEGIN
             }
             [moc performBlock:^{
                 NSError *summaryError = nil;
-                NSDictionary<NSString *, WMFArticle *> *articles = [moc wmf_createOrUpdateArticleSummmariesWithSummaryResponses:summariesByKey error:&summaryError];
+                NSDictionary<WMFInMemoryURLKey *, WMFArticle *> *articles = [moc wmf_createOrUpdateArticleSummmariesWithSummaryResponses:summariesByKey error:&summaryError];
                 if (summaryError) {
                     DDLogError(@"Error creating or updating summaries: %@", summaryError);
                     completion();

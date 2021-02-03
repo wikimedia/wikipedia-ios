@@ -13,6 +13,7 @@
 // Author: Iwai.masaharu
 // Author: Kanon und wikipedia
 // Author: Kkairri
+// Author: LaMagiaaa
 // Author: Los688
 // Author: Macofe
 // Author: Nemo bis
@@ -41,6 +42,8 @@
 "aaald-article-description-updated-description" = "記事タイトルの説明が更新されました";
 "aaald-article-insert-last-updated" = "最終更新";
 "aaald-article-insert-new-changes" = "新しい変更";
+"aaald-characters-text-description" = "{{PLURAL:$1|文字}}";
+"aaald-deleted-text-description-2" = "$1 は削除されました";
 "aaald-new-book-reference-title" = "本";
 "aaald-new-discussion" = "新規議論";
 "aaald-new-journal-reference-database" = "$1経由";
@@ -51,6 +54,8 @@
 "aaald-new-website-reference-archive-url-text" = "Archive.org の URL";
 "aaald-new-website-reference-title" = "ウェブサイト";
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|$1つの参考文献}}を追加しました";
+"aaald-revision-by-anonymous" = "匿名利用者による編集";
+"aaald-revision-userInfo" = "$1（$2 編集数）による編集";
 "aaald-single-reference-added-description" = "参考文献を追加しました";
 "aaald-view-full-history-button" = "すべての記事履歴を表示";
 "about-content-license" = "コンテンツのライセンス";
@@ -523,8 +528,6 @@
 "main-menu-account-logout-are-you-sure" = "本当にログアウトしますか?";
 "main-menu-account-logout-cancel" = "キャンセル";
 "main-menu-account-title-logged-in" = "$1 としてログインしています。";
-"main-menu-debug-tweaks" = "開発者向けの設定";
-"main-menu-heading-debug" = "デバッグ";
 "main-menu-heading-legal" = "プライバシーと利用規約";
 "main-menu-nearby" = "付近";
 "main-menu-privacy-policy" = "プライバシー・ポリシー";
@@ -533,8 +536,7 @@
 "main-menu-title" = "その他";
 "main-menu-zero-faq" = "ウィキペディアゼロについてのFAQ";
 "menu-cancel-accessibility-label" = "キャンセル";
-// Fuzzy
-"more-languages-tooltip-description" = "約300言語でウィキペディアを検索";
+"more-languages-tooltip-description" = "300言語超えのウィキペディアを検索";
 "more-languages-tooltip-title" = "言語を追加";
 "move-articles-to-reading-list" = "{{PLURAL:$1|$1記事|$1記事}}をあとで読むリストに移動";
 "navbar-title-mode-edit-wikitext-preview" = "プレビュー";
@@ -867,8 +869,7 @@
 "welcome-explore-continue-button" = "次へ";
 "welcome-explore-new-ways-title" = "新ツールで探検しよう";
 "welcome-explore-tell-me-more-done-button" = "わかりました";
-// Fuzzy
-"welcome-intro-free-encyclopedia-description" = "ウィキペディアは、ボランティアの方々により執筆され、およそ300の言語で4,000万以上の記事から成ります。";
+"welcome-intro-free-encyclopedia-description" = "ウィキペディアは、ボランティアの方々により執筆され、300言語を超えて4,000万以上の記事から成ります。";
 "welcome-intro-free-encyclopedia-more" = "ウィキペディアについての詳細";
 "welcome-intro-free-encyclopedia-more-about" = "ウィキペディアについて";
 "welcome-intro-free-encyclopedia-more-description" = "ウィキペディアは世界中のすべての言語でフリー百科事典を構築する世界的なプロジェクトです。インターネットにアクセスできる方ならほとんど誰でも、中立で、出典付きの情報を自由に寄稿して参加することができます。";
@@ -876,8 +877,7 @@
 "welcome-languages-add-button" = "言語を追加";
 "welcome-languages-add-or-edit-button" = "優先言語の追加または編集";
 "welcome-languages-description" = "お使いの端末で次の言語が見つかりました:";
-// Fuzzy
-"welcome-languages-search-title" = "約300言語で検索";
+"welcome-languages-search-title" = "300言語超えの中を検索";
 "welcome-notifications-tell-me-more-creation" = "通知はアプリケーションによってデバイス上で作成され、配信されるもので、当財団（または第三者）のサーバーから届くものではありません。";
 "welcome-notifications-tell-me-more-storage" = "通知設定はデバイスに保存されます。個人情報や活動に基づくものではありません。";
 "welcome-notifications-tell-me-more-title" = "通知についての詳細";

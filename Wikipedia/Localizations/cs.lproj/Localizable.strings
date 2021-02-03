@@ -35,6 +35,7 @@
 "aaald-article-insert-last-updated" = "Naposledy aktualizováno";
 "aaald-article-insert-new-changes" = "Nové změny";
 "aaald-article-insert-read-more" = "Zobrazit další aktualizace";
+"aaald-characters-text-description" = "{{PLURAL:$1|znak|znaky|znaků}}";
 "aaald-deleted-text-description-2" = "$1 smazáno";
 "aaald-error-subitle" = "Zkuste to znovu obnovením stránky";
 "aaald-error-title" = "Nelze načíst historii článku";
@@ -245,7 +246,7 @@
 "diff-thanks-send-button-title" = "Poslat poděkování";
 "diff-thanks-send-subtitle" = "Poděkování jsou jednoduchým způsobem, jak wikipedistovi můžete poděkovat za práci na Wikipedii. Nelze je vzít zpět a jsou veřejná.";
 "diff-thanks-send-title" = "Veřejně poslat poděkování";
-"diff-thanks-sent" = "Poděkování bylo odesláno uživateli/ce $1";
+"diff-thanks-sent" = "Poděkování bylo odesláno uživateli/uživatelce $1";
 "diff-thanks-sent-already" = "Za tuto editaci jste již poděkování poslali";
 "diff-thanks-sent-cannot-unsend" = "Poděkování nelze vrátit";
 "diff-unedited-lines-format" = "{{PLURAL:$1|Neupraven $1 řádek|Neupraveny $1 řádky|Neupraveno $1 řádků}}";
@@ -535,8 +536,6 @@
 "main-menu-account-logout-are-you-sure" = "Opravdu se chcete odhlásít?";
 "main-menu-account-logout-cancel" = "Storno";
 "main-menu-account-title-logged-in" = "{{GENDER:$1|Jste přihlášen|Jste přihlášena}} účtem $1";
-"main-menu-debug-tweaks" = "Nastavení pro vývojáře";
-"main-menu-heading-debug" = "Debugovat";
 "main-menu-heading-legal" = "Ochrana soukromí a podmínky užívání";
 "main-menu-nearby" = "Poblíž";
 "main-menu-privacy-policy" = "Ochrana osobních údajů";

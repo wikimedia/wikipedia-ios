@@ -479,8 +479,6 @@
 "main-menu-account-logout-are-you-sure" = "Bist du sicher, dass du dich abmelden möchtest?";
 "main-menu-account-logout-cancel" = "Abbrechen";
 "main-menu-account-title-logged-in" = "Angemeldet als $1";
-"main-menu-debug-tweaks" = "Entwicklereinstellungen";
-"main-menu-heading-debug" = "Fehlerbehebung";
 "main-menu-heading-legal" = "Datenschutz und Bedingungen";
 "main-menu-nearby" = "In der Nähe";
 "main-menu-privacy-policy" = "Datenschutzrichtlinie";

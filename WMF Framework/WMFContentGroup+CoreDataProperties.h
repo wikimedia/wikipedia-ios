@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSDate *contentDate;
 
 @property (nullable, nonatomic, copy) NSString *siteURLString;
+@property (nullable, nonatomic, copy) NSString *variant;
 
 @property (nonatomic) int32_t contentGroupKindInteger;
 @property (nonatomic) int16_t contentTypeInteger;

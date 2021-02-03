@@ -211,7 +211,7 @@ extension EditPreviewViewController: ArticleWebMessageHandling {
                 guard
                     let host = articleURL.host,
                     let encodedTitle = title.percentEncodedPageTitleForPathComponents,
-                    let newArticleURL = Configuration.current.articleURLForHost(host, appending: [encodedTitle]).url else {
+                    let newArticleURL = Configuration.current.articleURLForHost(host, languageVariantCode: articleURL.wmf_languageVariantCode, appending: [encodedTitle]) else {
                     showInternalLinkInAlert(link: href)
                     break
                 }

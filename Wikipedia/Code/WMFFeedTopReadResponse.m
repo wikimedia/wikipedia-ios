@@ -23,6 +23,12 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
++ (NSArray<NSString *> *)languageVariantCodePropagationSubelementKeys {
+    return @[@"articlePreviews"];
+}
+
+// No languageVariantCodePropagationURLKeys
+
 @end
 
 NS_ASSUME_NONNULL_END

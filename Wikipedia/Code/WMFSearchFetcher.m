@@ -112,13 +112,13 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
 
                          NSDictionary *query = [result objectForKey:@"query"];
                          if (!query) {
-                             WMFSearchResults *returnResults = previousResults == nil ? [[WMFSearchResults alloc] init] : previousResults;
+                             WMFSearchResults *returnResults = previousResults == nil ? [[WMFSearchResults alloc] initWithLanguageVariantCode:url.wmf_languageVariantCode] : previousResults;
                              success(returnResults);
                              return;
                          }
 
                          NSError *mantleError = nil;
-                         WMFSearchResults *searchResults = [MTLJSONAdapter modelOfClass:[WMFSearchResults class] fromJSONDictionary:query error:&mantleError];
+                         WMFSearchResults *searchResults = [MTLJSONAdapter modelOfClass:[WMFSearchResults class] fromJSONDictionary:query languageVariantCode:url.wmf_languageVariantCode error:&mantleError];
                          if (mantleError) {
                              failure(mantleError);
                              return;
@@ -142,7 +142,8 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
         appendToPreviousResults:(nullable WMFSearchResults *)results
                         failure:(WMFErrorHandler)failure
                         success:(WMFSearchResultsHandler)success {
-    NSURL *url = [self.configuration mediaWikiAPIURLComponentsForHost:@"commons.wikimedia.org" withQueryParameters:nil].URL;
+    NSURL *siteURL = [NSURL URLWithString:@"//commons.wikimedia.org"]; // Only the host of the URL is needed
+    NSURL *url = [self.configuration mediaWikiAPIURLForURL:siteURL withQueryParameters:nil];
     if (!url) {
         failure(WMFFetcher.invalidParametersError);
         return;

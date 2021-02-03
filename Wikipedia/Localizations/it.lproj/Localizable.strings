@@ -9,6 +9,7 @@
 // Author: Chris96
 // Author: Dansita
 // Author: Devid Farinelli
+// Author: EditGio
 // Author: Eduardo Addad de Oliveira
 // Author: F. Cosoleto
 // Author: Giacomo Checchin
@@ -37,14 +38,19 @@
 // Author: Superpes15
 // Author: Yacine Boussoufa
 
+"aaald-added-text-description-2" = "$1 aggiunto";
 "aaald-article-insert-last-updated" = "Ultimo aggiornamento";
-"aaald-many-sections-description" = "nella sezione $1";
+"aaald-article-insert-new-changes" = "Nuove modifiche";
+"aaald-many-sections-description" = "nelle sezioni $1";
 "aaald-new-book-reference-title" = "Libro";
 "aaald-new-discussion" = "Nuova discussione";
 "aaald-new-journal-reference-database" = "tramite $1";
+"aaald-new-news-reference-title" = "Notizie";
 "aaald-new-talk-topic-description-format" = "$1 su questa voce";
 "aaald-new-website-reference-title" = "Sito web";
 "aaald-one-section-description" = "nella sezione  $1";
+"aaald-revision-by-anonymous" = "Modificato da un utente anonimo";
+"aaald-revision-userInfo" = "Modificato da $1 ($2 modifiche)";
 "aaald-single-reference-added-description" = "Riferimenti aggiunti";
 "about-content-license" = "Licenza contenuto";
 "about-content-license-details" = "Se non diversamente specificato, il contenuto è disponibile il base alla $1.";
@@ -382,8 +388,6 @@
 "main-menu-account-logout-are-you-sure" = "Sei sicuro di voler uscire?";
 "main-menu-account-logout-cancel" = "Annulla";
 "main-menu-account-title-logged-in" = "Accesso effettuato come $1";
-"main-menu-debug-tweaks" = "Impostazioni sviluppatore";
-"main-menu-heading-debug" = "Debug";
 "main-menu-heading-legal" = "Privacy e condizioni";
 "main-menu-nearby" = "Nelle vicinanze";
 "main-menu-privacy-policy" = "Informativa sulla privacy";

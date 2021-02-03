@@ -505,8 +505,6 @@
 "main-menu-account-logout-are-you-sure" = "هل تريد بالتاكيد تسجيل الخروج؟";
 "main-menu-account-logout-cancel" = "ألغ";
 "main-menu-account-title-logged-in" = "مسجل الدخول بصفتك $1";
-"main-menu-debug-tweaks" = "إعدادات المطور";
-"main-menu-heading-debug" = "تصحيح";
 "main-menu-heading-legal" = "الشروط والخصوصية";
 "main-menu-nearby" = "بالقرب من هنا";
 "main-menu-privacy-policy" = "سياسة الخصوصية";

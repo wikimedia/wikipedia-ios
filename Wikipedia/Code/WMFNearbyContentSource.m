@@ -142,7 +142,7 @@ static const CLLocationDistance WMFNearbyUpdateDistanceThresholdInMeters = 25000
         return;
     }
     [moc removeAllContentGroupsOfKind:WMFContentGroupKindLocation];
-    NSURL *placeholderURL = [WMFContentGroup locationPlaceholderContentGroupURL];
+    NSURL *placeholderURL = [WMFContentGroup locationPlaceholderContentGroupURLWithLanguageVariantCode:self.siteURL.wmf_languageVariantCode];
     NSDate *date = [NSDate date];
     // Check for group for date to re-use the same group if it was updated today
     WMFContentGroup *group = [moc newestGroupOfKind:WMFContentGroupKindLocationPlaceholder];

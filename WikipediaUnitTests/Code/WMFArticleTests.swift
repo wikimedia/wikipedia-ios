@@ -106,4 +106,42 @@ class WMFArticleTests: XCTestCase {
         a.merge(b)
         XCTAssert(a.viewedDate != nil, "Viewed date should be set")
     }
+    
+    func testArticleTemporaryCacheKey() {
+        // Ensure WMFArticleTemporaryCacheKey works as expected as a key into the WMFArticle temporary cache
+        let articleCache = NSCache<WMFInMemoryURLKey, NSString>()
+        
+        let hantString: NSString = "ZH article with hant variant"
+        let hantKey = WMFInMemoryURLKey(databaseKey:"ZH article", languageVariantCode:"hant")
+        articleCache.setObject(hantString, forKey:hantKey)
+        
+        let hansString: NSString = "ZH article with hans variant"
+        let hansKey = WMFInMemoryURLKey(databaseKey:"ZH article", languageVariantCode:"hans")
+        articleCache.setObject(hansString, forKey:hansKey)
+        
+        let noVariantString: NSString = "ZH article with no variant"
+        let noVariantKey = WMFInMemoryURLKey(databaseKey:"ZH article", languageVariantCode:nil)
+        articleCache.setObject(noVariantString, forKey:noVariantKey)
+        
+        let newHantKey = WMFInMemoryURLKey(databaseKey:"ZH article", languageVariantCode:"hant")
+        var hantValue = articleCache.object(forKey:newHantKey)
+        XCTAssertEqual(hantValue, hantString)
+        
+        let newHansKey = WMFInMemoryURLKey(databaseKey:"ZH article", languageVariantCode:"hans")
+        var hansValue = articleCache.object(forKey:newHansKey)
+        XCTAssertEqual(hansValue, hansString)
+        
+        let newNoVariantKey = WMFInMemoryURLKey(databaseKey:"ZH article", languageVariantCode:nil)
+        var noVariantValue = articleCache.object(forKey:newNoVariantKey)
+        XCTAssertEqual(noVariantValue, noVariantString)
+        
+        hansValue = articleCache.object(forKey:hansKey)
+        XCTAssertEqual(hansValue, hansString)
+        
+        hantValue = articleCache.object(forKey:hantKey)
+        XCTAssertEqual(hantValue, hantString)
+        
+        noVariantValue = articleCache.object(forKey:noVariantKey)
+        XCTAssertEqual(noVariantValue, noVariantString)
+    }
 }

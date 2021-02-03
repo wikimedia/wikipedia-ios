@@ -2,6 +2,7 @@
 
 @class MWKSearchResult;
 @class WMFFeedArticlePreview;
+@class WMFInMemoryURLKey;
 
 typedef NS_ENUM(NSUInteger, WMFGeoType) {
     WMFGeoTypeUnknown = 0,
@@ -38,6 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly, nullable) NSURL *URL;
 
+@property (nonatomic, readonly, nullable) WMFInMemoryURLKey *inMemoryKey;
+
 @property (nonatomic, copy, nonnull) NSString *displayTitleHTML;
 
 @property (nonatomic, readonly, nullable) NSString *capitalizedWikidataDescription;
@@ -63,13 +66,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable WMFArticle *)fetchArticleWithURL:(nullable NSURL *)articleURL;
 
-- (nullable WMFArticle *)fetchArticleWithKey:(nullable NSString *)key;
+- (nullable WMFArticle *)fetchArticleWithKey:(nullable NSString *)key variant:(nullable NSString *)variant;
 
-- (nullable NSArray<WMFArticle *> *)fetchArticlesWithKey:(nullable NSString *)key error:(NSError **)error;
+- (nullable NSArray<WMFArticle *> *)fetchArticlesWithURL:(nullable NSURL *)url error:(NSError **)error;
+- (nullable NSArray<WMFArticle *> *)fetchArticlesWithKey:(nullable NSString *)key variant:(nullable NSString *)variant error:(NSError **)error;
 
-- (nullable WMFArticle *)createArticleWithKey:(nullable NSString *)key;
+- (nullable WMFArticle *)createArticleWithURL:(nullable NSURL *)url;
+- (nullable WMFArticle *)createArticleWithKey:(nullable NSString *)key variant:(nullable NSString *)variant;
 
-- (nullable WMFArticle *)fetchOrCreateArticleWithKey:(nullable NSString *)key;
+- (nullable WMFArticle *)fetchOrCreateArticleWithKey:(nullable NSString *)key variant:(nullable NSString *)variant;
 
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL;
 
@@ -78,6 +83,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL updatedWithFeedPreview:(nullable WMFFeedArticlePreview *)feedPreview pageViews:(nullable NSDictionary<NSDate *, NSNumber *> *)pageViews;
 
 - (nullable WMFArticle *)fetchArticleWithWikidataID:(nullable NSString *)wikidataID;
+
+- (NSPredicate *)articlePredicateForInMemoryURLKeys:(NSArray<WMFInMemoryURLKey *> *)urlKeys NS_SWIFT_NAME(articlePredicateForInMemoryURLKeys(_:));
 
 @end
 

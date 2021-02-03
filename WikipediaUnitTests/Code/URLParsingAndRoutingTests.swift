@@ -177,5 +177,45 @@ class URLParsingAndRoutingTests: XCTestCase {
         let languageVariantCode = "zh-hant"
         url.wmf_languageVariantCode = languageVariantCode
         XCTAssertEqual(url.wmf_languageVariantCode, languageVariantCode)
+
+        // Assignment of value type URL preserves the language variant code associated object
+        // Both are backed by the same copy-on-write NSURL instance
+        let url2 = url
+        XCTAssertEqual(url2.wmf_languageVariantCode, languageVariantCode)
+
+        // Creating new URL instances based on the original DOES NOT automatically
+        // propagate the language variant code associated object
+        let url3 = url.appendingPathComponent("test")
+        XCTAssertNotEqual(url3.wmf_languageVariantCode, languageVariantCode)
     }
+    
+    func testContentLanguageCodeProperty() {
+        let languageCode = "zh"
+        let languageVariantCode = "zh-hans"
+        var url = URL(string: "https://\(languageCode).wikipedia.org")!
+
+        // If languageVariantCode is non-nil and non-empty string, wmf_contentLanguageCode returns languageVariantCode
+        url.wmf_languageVariantCode = languageVariantCode
+        XCTAssertEqual(url.wmf_contentLanguageCode, languageVariantCode)
+        
+        // If languageVariantCode is nil, contentLanguageCode returns languageCode
+        url.wmf_languageVariantCode = nil
+        XCTAssertEqual(url.wmf_contentLanguageCode, languageCode)
+        
+        // If languageVariantCode is an empty string, contentLanguageCode returns languageCode
+        url.wmf_languageVariantCode = ""
+        XCTAssertEqual(url.wmf_contentLanguageCode, languageCode)
+    }
+    
+    func testLanguageVariantCodePropertyFromURLComponents() {
+        let components = URLComponents(string: "https://sr.wikipedia.org")
+        let languageVariantCode = "sr-ec"
+        XCTAssertNotNil(components)
+        if let components = components {
+            let url = components.wmf_URLWithLanguageVariantCode(languageVariantCode)
+            XCTAssertNotNil(url)
+            XCTAssertEqual(url?.wmf_languageVariantCode, languageVariantCode)
+        }
+    }
+
 }

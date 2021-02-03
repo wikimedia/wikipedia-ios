@@ -31,6 +31,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
             showTitleDescriptionEditor(with: .none, funnelSource: .titleDescription)
         case .scrollToAnchor(let anchor, let rect):
             scrollToAnchorCompletions.popLast()?(anchor, rect)
+            scrollToAnchorCompletions.removeAll()
         case .viewInBrowser:
             navigate(to: self.articleURL, useSafari: true)
         case .aaaldInsertOnScreen:
@@ -56,13 +57,14 @@ extension ArticleViewController: ArticleWebMessageHandling {
         showWIconPopoverIfNecessary()
         refreshControl.endRefreshing()
         surveyTimerController?.articleContentDidLoad()
+        loadSummary()
         initialSetupCompletion?()
         initialSetupCompletion = nil
     }
     
     @objc func handlePCSDidFinishFinalSetup() {
+        assignScrollStateFromArticleFlagsIfNecessary()
         articleLoadWaitGroup?.leave()
-        restoreStateIfNecessary()
         addToHistory()
         syncCachedResourcesIfNeeded()
     }
@@ -96,7 +98,7 @@ extension ArticleViewController: ArticleWebMessageHandling {
     
     func setupFooter() {
         // Always use Configuration.production for related articles
-        guard let baseURL = Configuration.production.pageContentServiceAPIURLComponentsForHost(articleURL.host, appending: []).url else {
+        guard let baseURL = Configuration.production.pageContentServiceAPIURLForURL(articleURL, appending: []) else {
             return
         }
         var menuItems: [PageContentService.Footer.Menu.Item] = [.talkPage, .lastEdited, .pageIssues, .disambiguation]

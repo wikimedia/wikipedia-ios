@@ -141,4 +141,10 @@
     return [self wmf_componentsByRemovingQueryItemsNamed:[NSSet setWithObject:@"event_logging_label"]];
 }
 
+- (nullable NSURL *)wmf_URLWithLanguageVariantCode:(nullable NSString *)code {
+    NSURL *url = self.URL;
+    url.wmf_languageVariantCode = code;
+    return url;
+}
+
 @end

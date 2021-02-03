@@ -42,7 +42,6 @@ let WMFSendUsageReports = "WMFSendUsageReports"
         static let didShowDescriptionPublishedPanel = "WMFDidShowDescriptionPublishedPanel"
         static let didShowEditingOnboarding = "WMFDidShowEditingOnboarding"
         static let autoSignTalkPageDiscussions = "WMFAutoSignTalkPageDiscussions"
-        static let shouldCheckForArticleAnnouncements = "WMFShouldCheckForArticleAnnouncements"
     }
 
     @objc func wmf_dateForKey(_ key: String) -> Date? {
@@ -253,28 +252,24 @@ let WMFSendUsageReports = "WMFSendUsageReports"
         }
     }
     
-    @objc func wmf_currentSearchLanguageDomain() -> URL? {
-        if let url = self.url(forKey: WMFSearchURLKey) {
-            return url
-        }else if let language = self.object(forKey: WMFSearchLanguageKey) as? String {
-            let url = NSURL.wmf_URL(withDefaultSiteAndlanguage: language)
-            self.wmf_setCurrentSearchLanguageDomain(url)
-            return url
-        }else{
+    @objc func wmf_currentSearchContentLanguageCode() -> String? {
+        // This is a temporary migration until the full language variant migration is in place.
+        // At that point, it should no longer be necessary to check WMFSearchURLKey
+        if let url = url(forKey: WMFSearchURLKey) {
+            let code = url.wmf_contentLanguageCode
+            wmf_setCurrentSearchContentLanguageCode(code)
+            removeObject(forKey: WMFSearchURLKey)
+            return code
+        } else if let contentLanguageCode = self.string(forKey: WMFSearchLanguageKey) {
+            return contentLanguageCode
+        } else{
             return nil
         }
     }
     
-    @objc func wmf_setCurrentSearchLanguageDomain(_ url: URL?) {
-        guard let url = url else{
-            self.removeObject(forKey: WMFSearchURLKey)
-            return
-        }
-        guard !url.wmf_isNonStandardURL else{
-            return;
-        }
-        
-        self.set(url, forKey: WMFSearchURLKey)
+    @objc func wmf_setCurrentSearchContentLanguageCode(_ code: String?) {
+        if let code = code { set(code, forKey: WMFSearchLanguageKey) }
+        else { removeObject(forKey: WMFSearchLanguageKey) }
     }
     
     @objc func wmf_setDidShowWIconPopover(_ shown: Bool) {
@@ -473,15 +468,6 @@ let WMFSendUsageReports = "WMFSendUsageReports"
         }
         set {
             set(newValue, forKey: UserDefaults.Key.autoSignTalkPageDiscussions)
-        }
-    }
-
-    @objc var shouldCheckForArticleAnnouncements: Bool {
-        get {
-            return bool(forKey: UserDefaults.Key.shouldCheckForArticleAnnouncements)
-        }
-        set {
-            set(newValue, forKey: UserDefaults.Key.shouldCheckForArticleAnnouncements)
         }
     }
 #if UI_TEST

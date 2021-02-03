@@ -413,8 +413,6 @@
 "main-menu-account-logout-are-you-sure" = "Biztosan ki akarsz lépni?";
 "main-menu-account-logout-cancel" = "Mégse";
 "main-menu-account-title-logged-in" = "Bejelentkezve $1 néven";
-"main-menu-debug-tweaks" = "Fejlesztői beállítások";
-"main-menu-heading-debug" = "Hibakeresés";
 "main-menu-heading-legal" = "Jogi információk";
 "main-menu-nearby" = "Közelben";
 "main-menu-privacy-policy" = "Adatvédelmi irányelvek";

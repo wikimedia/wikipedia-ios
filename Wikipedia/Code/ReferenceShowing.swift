@@ -24,8 +24,8 @@ extension ReferenceShowing where Self: ViewController & WMFReferencePageViewAppe
         } else {
             if !isBoundingClientRectVisible(referencesBoundingClientRect) {
                 let center = referenceRectInScrollCoordinates.center
-                scroll(to: center, centered: true, animated: true) {
-                    self.showReferencesPopover(with: scriptMessageReferences[selectedIndex], referenceRectInScrollCoordinates: referenceRectInScrollCoordinates, animated: animated)
+                scroll(to: center, centered: true, animated: true) { [weak self] (_) in
+                    self?.showReferencesPopover(with: scriptMessageReferences[selectedIndex], referenceRectInScrollCoordinates: referenceRectInScrollCoordinates, animated: animated)
                 }
             } else {
                 showReferencesPopover(with: scriptMessageReferences[selectedIndex], referenceRectInScrollCoordinates: referenceRectInScrollCoordinates, animated: animated)
@@ -112,8 +112,10 @@ private extension ReferenceShowing where Self: ViewController  {
 
         let oldY = webView.scrollView.contentOffset.y
         let scrollPoint = referenceRectInScrollCoordinates.offsetBy(dx: 0, dy: 0.5 * panelRectInWindowCoordinates.height).center
-        scroll(to: scrollPoint, centered: true, animated: animated) {
-            let newY = self.webView.scrollView.contentOffset.y
+        scroll(to: scrollPoint, centered: true, animated: animated) { [weak self] (_) in
+            guard let newY = self?.webView.scrollView.contentOffset.y else {
+                return
+            }
             let delta = newY - oldY
             viewController.backgroundView.clearRect = referenceRectInWindowCoordinates.offsetBy(dx: 0, dy: 0 - delta)
         }

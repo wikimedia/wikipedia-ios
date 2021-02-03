@@ -182,6 +182,11 @@ extern NSString *const WMFEditPencil;
 
 @property (nonatomic, copy, readonly, nullable) NSString *wmf_databaseKey; // string suitable for using as a unique key for any wiki page
 
+/**
+ *  Returns @c wmf_languageVariantCode if non-nil and non-empty string, @c wmf_language otherwise
+ */
+@property (nonatomic, copy, readonly, nullable) NSString *wmf_contentLanguageCode;
+
 #pragma mark - Introspection
 
 /**
@@ -210,8 +215,34 @@ extern NSString *const WMFEditPencil;
  *  Settable property for language variant code, defaults to nil
  *  Returns language variant code if present or nil if no code set
  */
-@property (nonatomic, copy, nullable)NSString *wmf_languageVariantCode;
+@property (nonatomic, copy, nullable) NSString *wmf_languageVariantCode;
 
+@end
+
+/**
+ * A number of places in the app need a unique in-memory key for a URL, typically an article URL:
+ * - WMFDataStore maintains a temporary local NSCache of WMFArticle instances.
+ * - ArticleSummary and reading list processing use a unique key for calcualting differences
+ *
+ * The value of wmf_databaseKey derived a URL does not take language variants into account.
+ * This key combines the value of wmf_databaseKey and wmf_languageVariantCode to form a unique key.
+ * This key should be used in instance of NSCache, as keys to dictionaries or other in-memory uses.
+ *
+ * For Core Data entities, the key and variant are maintained as separate properties.
+ * The key value in database entities is the value of wmf_databaseKey.
+*/
+@interface WMFInMemoryURLKey : NSObject
+- (instancetype)initWithDatabaseKey:(NSString *)databaseKey languageVariantCode:(nullable NSString *)languageVariantCode NS_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithURL:(NSURL *)url;
+- (instancetype)init NS_UNAVAILABLE;
+- (BOOL)isEqualToInMemoryURLKey:(WMFInMemoryURLKey *)rhs;
+@property (readonly, nonatomic, copy) NSString *databaseKey;
+@property (readonly, nonatomic, copy, nullable) NSString *languageVariantCode;
+@property (readonly, nonatomic, copy, nullable) NSURL *URL;
+@end
+
+@interface NSURL (WMFInMemoryURLKeyExtensions)
+@property (readonly, nonatomic, copy, nullable) WMFInMemoryURLKey *wmf_inMemoryKey;
 @end
 
 NS_ASSUME_NONNULL_END
