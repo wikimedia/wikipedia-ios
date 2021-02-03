@@ -240,7 +240,6 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
                 MWKLanguageLink *articleVariant = [variant languageLinkWithPageTitleText:language.pageTitleText];
                 [processedLanguageLinks addObject:articleVariant];
             }
-            [processedLanguageLinks addObjectsFromArray:variants];
         } else {
             [processedLanguageLinks addObject:language];
         }
@@ -249,17 +248,16 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
 }
 
 - (NSArray<MWKLanguageLink *> *)articleLanguageLinksWithVariantsFromArticleURL:(NSURL *)articleURL articleLanguageLinks:(NSArray<MWKLanguageLink *> *)articleLanguageLinks {
-    
+
     // If the original URL is a variant, include the other variants as choices
     NSArray *remainingLanguageLinkVariants = [self remainingLanguageLinkVariantsForArticleURL:articleURL];
-    
+
     // If any of the available languages has variants, substitute in the variants.
-    NSArray *articleLanguageLinksWithVariants = [self languageLinksReplacingArticleLanguageLinksWithVariants: articleLanguageLinks];
+    NSArray *articleLanguageLinksWithVariants = [self languageLinksReplacingArticleLanguageLinksWithVariants:articleLanguageLinks];
 
     return [articleLanguageLinksWithVariants arrayByAddingObjectsFromArray:remainingLanguageLinkVariants];
 }
 
 @end
-
 
 NS_ASSUME_NONNULL_END
