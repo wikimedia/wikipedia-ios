@@ -7,8 +7,8 @@ SCREENSHOTS_PATH="/tmp/screenshots"
 
 rm -rf $DERIVED_DATA_PATH
 rm -rf $SCREENSHOTS_PATH
-xcodebuild -scheme WikipediaScreenshots -project "${PRODUCT_DIR}/${PROJECT_NAME}.xcodeproj" -derivedDataPath "${DERIVED_DATA_PATH}" -destination 'platform=iOS Simulator,name=iPhone X,OS=13.5' build test
-xcodebuild -scheme WikipediaScreenshots -project "${PRODUCT_DIR}/${PROJECT_NAME}.xcodeproj" -derivedDataPath "${DERIVED_DATA_PATH}" -destination 'platform=iOS Simulator,name=iPad Pro (9.7-inch),OS=14.3' build test
+xcodebuild -scheme WikipediaScreenshots -project "${PRODUCT_DIR}/${PROJECT_NAME}.xcodeproj" -derivedDataPath "${DERIVED_DATA_PATH}" -destination 'platform=iOS Simulator,name=iPhone 12,OS=14.4' build test
+xcodebuild -scheme WikipediaScreenshots -project "${PRODUCT_DIR}/${PROJECT_NAME}.xcodeproj" -derivedDataPath "${DERIVED_DATA_PATH}" -destination 'platform=iOS Simulator,name=iPad Pro (9.7-inch),OS=13.7' build test
 
 cd ${DERIVED_DATA_PATH}/Logs/Test/
 for i in *.xcresult; do
