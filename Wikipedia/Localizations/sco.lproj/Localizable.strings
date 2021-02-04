@@ -24,14 +24,19 @@
 "about-translators-details" = "Translatit bi volunteers at $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "about-wikipedia" = "Wikipaedia";
+// Fuzzy
 "abuse-filter-disallow-heading" = "Ye canna publish this eedit. Please gae back an cheenge it.";
-"abuse-filter-disallow-notable" = "Wikipaedia is an encyclopaedia an anly neutral, notable content belangs here.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "An automatit filter haes identifee'd this eedit as potentially unconstructive or a vandalism attempt.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Blankin airticles or spammin";
+// Fuzzy
 "abuse-filter-warning-caps" = "Teepin in AW CAPS";
 "abuse-filter-warning-heading" = "This leuks lik an unconstructive eedit, are ye shuir ye want tae publish it?";
 "abuse-filter-warning-irrelevant" = "Irrelevant freemit airtins or eemages";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Repeeeeatin chairacters";
+// Fuzzy
 "abuse-filter-warning-subheading" = "Yer eedit mey conteen ane or mair o the follaein:";
 "account-creation-captcha-cannot-see-image" = "Canna see the eemage? $1";
 "account-creation-captcha-obtaining" = "Obteenin a new CAPTCHA...";
@@ -45,6 +50,8 @@
 "account-creation-passwords-mismatched" = "Passwaird fields dinna match.";
 "account-creation-saving" = "Hainin...";
 "account-creation-title" = "Creaut a new accoont";
+// Fuzzy
+"action-find-in-page" = "Find in page";
 "action-read" = "Read";
 "action-save" = "Sauf";
 "action-saved" = "Sauft";
@@ -53,14 +60,14 @@
 "action-share" = "Share";
 "action-unsave" = "Unsauf";
 "action-unsaved-accessibility-notification" = "Airticle unsauft";
-"alert-no-internet" = "Thare's na internet connection";
 "announcements-dismiss" = "Dismiss";
 "appearance-settings-adjust-text-sizing" = "Adjuist airticle text sizin";
+// Fuzzy
 "appearance-settings-image-dimming-footer" = "Decrease the opacity o eemages on daurk theme";
 "appearance-settings-reading-themes" = "Readin themes";
+// Fuzzy
 "appearance-settings-text-sizing-example-text" = "Drag the slider abuin tae cheenge the airticle text sizin. Utilize yer seestem text size tae resize ither text auries in the app.";
 "appearance-settings-theme-options" = "Theme options";
-"article-about-title" = "Aboot this airticle";
 "article-delete" = "Delete";
 // Fuzzy
 "article-deleted-accessibility-notification" = "Airticle deletit";
@@ -68,14 +75,9 @@
 "article-languages-label" = "Pick yer leid";
 "article-languages-others" = "Ither leids";
 "article-languages-yours" = "Yer leids";
-"article-read-more-title" = "Read mair";
 "article-share" = "Share";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Readin Themes Controls";
-"article-unable-to-load-article" = "No able tae laid airticle.";
-"article-unable-to-load-section" = "No able tae laid this section. Try refreshin the airticle tae see if it fixes the problem.";
-"back" = "Back";
 "back-button-accessibility-label" = "Back";
-"button-done" = "Duin";
 "button-next" = "Nex";
 "button-ok" = "OK";
 "button-publish" = "Publish";
@@ -86,7 +88,6 @@
 "button-saved-remove" = "Remuive frae sauft";
 "button-skip" = "Skip";
 "cancel" = "Cancel";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Close";
 "compass-direction" = "at $1 o'clock";
 "continue-reading-empty-description" = "Explore Wikipaedia for mair airticles tae read";
@@ -95,13 +96,9 @@
 "edit-summary-choice-fixed-grammar" = "Fixi graimmer";
 "edit-summary-choice-fixed-typos" = "Fixt typo";
 "edit-summary-choice-linked-words" = "Addit airtins";
-"edit-summary-choice-other" = "Ither";
-"edit-summary-field-placeholder-text" = "Ither weys ye impruived the airticle";
-"edit-summary-title" = "Hou'd ye impruiv the airticle?";
 "empty-no-article-message" = "Sairy, coud nae laid the airticle";
 "empty-no-feed-action-message" = "Ye can still read sauft pages";
 "empty-no-feed-message" = "Ye can see yer recommendit airticles whan ye have internet";
-"empty-no-feed-title" = "Na Internet Connection";
 "empty-no-history-message" = "Keep track o whit ye'v been readin here";
 "empty-no-history-title" = "Na history tae shaw";
 "empty-no-saved-pages-message" = "Sauf pages tae view them later, even offline";
@@ -115,29 +112,21 @@
 "explore-featured-article-heading" = "Featurt airticle";
 "explore-main-page-description" = "Main page o Wikimedia projects";
 "explore-main-page-heading" = "The day on Wikipaedia";
-"explore-most-read-footer-for-date" = "Aw tap read airticles on $1";
 "explore-most-read-generic-heading" = "Tap read";
-"explore-most-read-heading" = "Tap read on $1 Wikipaedia";
 "explore-most-read-more-list-title-for-date" = "Tap on $1";
 "explore-potd-heading" = "Pictur o the day";
 "explore-random-article-heading" = "Allevolie airticle";
-"action-find-in-page" = "Find in page";
 "history-clear-confirmation-heading" = "Are ye shuir ye want tae delete aw yer recent eetems?";
 "history-clear-delete-all" = "Aye, delete aw";
-"hockeyapp-alert-send-report" = "Send report";
 // Fuzzy
 "main-menu-account-login" = "Log in";
 "main-menu-account-logout" = "Log oot";
 // Fuzzy
 "main-menu-account-title-logged-in" = "Loggit in aes: $1";
 "navbar-title-mode-edit-wikitext-preview" = "Luikower";
-"onboarding-wikipedia" = "Wikipædia";
 "places-accessibility-show-more" = "Shaw mair airticles";
 "saved-pages-image-download-error" = "Failt tae dounlaid eemages for this sauft page.";
 "search-field-placeholder-text" = "Rake Wikipædia";
-"wikitext-download-failed" = "Onable tae obtain latest reveesion.";
-// Fuzzy
-"wikitext-download-success" = "Wiki tex laided.";
 // Fuzzy
 "wikitext-downloading" = "Laidin wiki tex...";
 "wikitext-preview-changes" = "Retreevin luikower o yer chynges...";
@@ -151,21 +140,3 @@
 "wikitext-upload-save-anonymously-warning" = "This haes less preevacie. Yer IP address is veesible wi eedits.";
 // Fuzzy
 "wikitext-upload-save-sign-in" = "Sign in n hain";
-// Fuzzy
-"zero-charged-verbiage" = "Wikipædia Zero AFF (STAUNDART DATA CHAIRGES MICHT APPLIE)";
-"zero-free-verbiage" = "Free Wikipædia access fae yer mobile operater (data chairges drap't)";
-// Fuzzy
-"zero-interstitial-cancel" = "Cancel";
-// Fuzzy
-"zero-interstitial-continue" = "Continue";
-// Fuzzy
-"zero-interstitial-leave-app" = "Continue tae ootby steid? Staundart data chairges micht applie.";
-"zero-interstitial-title" = "Leain Wikipædia Zero";
-// Fuzzy
-"zero-learn-more" = "Want tae learn aneat Wikipædia Zero?";
-// Fuzzy
-"zero-learn-more-learn-more" = "Learn mair";
-// Fuzzy
-"zero-learn-more-no-thanks" = "Naw thanks";
-// Fuzzy
-"zero-warn-when-leaving" = "Warnish gif leain Wikipædia Zero";
