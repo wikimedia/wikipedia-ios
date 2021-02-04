@@ -8,7 +8,7 @@
 #import <WMF/NSDateFormatter+WMFExtensions.h>
 #import <WMF/WMFLogging.h>
 #import <WMF/NSCharacterSet+WMFLinkParsing.h>
-#import <WMF/MWLanguageInfo.h>
+#import <WMF/MWKLanguageLinkController.h>
 
 @implementation WMFContentGroup (Extensions)
 
@@ -527,7 +527,7 @@
     if (!language) {
         return NO;
     }
-    return [MWLanguageInfo semanticContentAttributeForWMFLanguage:language] == UISemanticContentAttributeForceRightToLeft;
+    return [MWKLanguageLinkController semanticContentAttributeForWMFLanguage:language] == UISemanticContentAttributeForceRightToLeft;
 }
 
 - (void)markDismissed {

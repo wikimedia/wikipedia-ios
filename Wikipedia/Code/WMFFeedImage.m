@@ -2,7 +2,7 @@
 #import <WMF/WMFComparison.h>
 #import <WMF/WMFImageURLParsing.h>
 #import <WMF/NSURL+WMFExtras.h>
-#import <WMF/MWLanguageInfo.h>
+#import <WMF/MWKLanguageLinkController.h>
 #import <WMF/UIScreen+WMFImageWidth.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -57,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSValueTransformer *)imageDescriptionIsRTLJSONTransformer {
     return [MTLValueTransformer transformerUsingForwardBlock:^(NSString *lang, BOOL *success, NSError *__autoreleasing *error) {
-        return @(lang && [[MWLanguageInfo rtlLanguages] containsObject:lang]);
+        return @(lang && [[MWKLanguageLinkController rtlLanguages] containsObject:lang]);
     }];
 }
 

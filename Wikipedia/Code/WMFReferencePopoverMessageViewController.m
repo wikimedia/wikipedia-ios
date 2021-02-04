@@ -59,7 +59,7 @@ NSString *const WMFReferenceLinkTappedNotification = @"WMFReferenceLinkTappedNot
     NSNumber *fontSize = [[NSUserDefaults standardUserDefaults] wmf_articleFontSizeMultiplier];
 
     NSString *baseUrl = [self.articleURL absoluteString];
-    MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:self.articleURL.wmf_language];
+    MWLanguageInfo *languageInfo = [MWKLanguageLinkController languageInfoForCode:self.articleURL.wmf_language];
 
     return
         [NSString stringWithFormat:@""

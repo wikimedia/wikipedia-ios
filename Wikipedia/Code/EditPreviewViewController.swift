@@ -125,7 +125,7 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
         guard let lang = language else {
             return nil
         }
-        return MWLanguageInfo(forCode: lang)
+        return MWKLanguageLinkController.languageInfo(forCode: lang)
     }
     
     private var hasPreviewed = false

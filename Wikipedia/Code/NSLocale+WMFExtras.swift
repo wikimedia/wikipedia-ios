@@ -120,7 +120,7 @@ extension NSLocale {
             return Locale.autoupdatingCurrent
         }
         
-        let languageInfo = MWLanguageInfo(forCode: language)
+        let languageInfo = MWKLanguageLinkController.languageInfo(forCode: language)
         let code = languageInfo.code
         
         var locale = localeCache[code]

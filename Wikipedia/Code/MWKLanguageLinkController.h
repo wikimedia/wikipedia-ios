@@ -1,7 +1,9 @@
 #import <WMF/MWKLanguageFilter.h>
 #import <WMF/WMFPreferredLanguageCodesProviding.h>
+@import UIKit.UIView;
 @class NSManagedObjectContext;
 @class MWKLanguageLink;
+@class MWLanguageInfo;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -93,6 +95,13 @@ typedef NS_ENUM(NSInteger, WMFPreferredLanguagesChangeType) {
 ///   This allows users to choose to view the currently displayed article in a different variant of the same language.
 - (NSArray<MWKLanguageLink *> *)articleLanguageLinksWithVariantsFromArticleURL:(NSURL *)articleURL articleLanguageLinks:(NSArray<MWKLanguageLink *> *)articleLanguageLinks;
 
+@end
+
+/// Methods moved from the deprecated MWKLanguageInfo class. Potential for additional refactoring.
+@interface MWKLanguageLinkController (MWLanguageInfoAdditions)
++ (MWLanguageInfo *)languageInfoForCode:(NSString *)code;
++ (UISemanticContentAttribute)semanticContentAttributeForWMFLanguage:(nullable NSString *)language;
++ (NSSet *)rtlLanguages;
 @end
 
 NS_ASSUME_NONNULL_END
