@@ -2,17 +2,12 @@ import Foundation
 import WebKit
 import WMF
 
-@objc protocol WMFPreviewSectionLanguageInfoDelegate: class {
-    func wmf_editedSectionLanguageInfo() -> MWLanguageInfo?
-}
-
 @objc protocol WMFPreviewAnchorTapAlertDelegate: class {
     func previewWebViewContainer(_ previewWebViewContainer: PreviewWebViewContainer, didTapLink url: URL)
 }
 
 class PreviewWebViewContainer: UIView, WKNavigationDelegate, Themeable {
     var theme: Theme = .standard
-    @IBOutlet weak var previewSectionLanguageInfoDelegate: WMFPreviewSectionLanguageInfoDelegate!
     @IBOutlet weak var previewAnchorTapAlertDelegate: WMFPreviewAnchorTapAlertDelegate!
 
     lazy var webView: WKWebView = {
