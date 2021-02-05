@@ -120,21 +120,25 @@ extension NSLocale {
             return Locale.autoupdatingCurrent
         }
         
-        let languageInfo = MWKLanguageLinkController.languageInfo(forCode: language)
-        let code = languageInfo.code
+        // Previous code took the wikipediaLanguage value and called a method
+        // that would return the same language code that was passed in
+        // unless 'simple' or 'test' was passed in instead of a language code
+        // in which case "en" would be returned. This asserion double checks that
+        // that old substituion is no longer being relied upon.
+        assert(language != "simple" && language != "test")
         
-        var locale = localeCache[code]
+        var locale = localeCache[language]
         if let locale = locale {
             return locale
         }
         
-        if Locale.availableIdentifiers.contains(code) {
-            locale = Locale(identifier: code)
+        if Locale.availableIdentifiers.contains(language) {
+            locale = Locale(identifier: language)
         } else {
             locale = Locale.autoupdatingCurrent
         }
         
-        localeCache[code] = locale
+        localeCache[language] = locale
         
         return locale ?? Locale.autoupdatingCurrent
     }

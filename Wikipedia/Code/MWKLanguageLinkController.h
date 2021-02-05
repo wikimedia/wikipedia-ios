@@ -3,7 +3,6 @@
 @import UIKit.UIView;
 @class NSManagedObjectContext;
 @class MWKLanguageLink;
-@class MWLanguageInfo;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -99,7 +98,6 @@ typedef NS_ENUM(NSInteger, WMFPreferredLanguagesChangeType) {
 
 /// Methods moved from the deprecated MWKLanguageInfo class. Potential for additional refactoring.
 @interface MWKLanguageLinkController (MWLanguageInfoAdditions)
-+ (MWLanguageInfo *)languageInfoForCode:(NSString *)code;
 
 /// Returns whether the language represented by the @c contentLanguageCode displays right-to-left.
 /// Returns NO if @c contentLangaugeCode is nil.

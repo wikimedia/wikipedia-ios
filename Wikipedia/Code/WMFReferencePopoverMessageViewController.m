@@ -59,7 +59,7 @@ NSString *const WMFReferenceLinkTappedNotification = @"WMFReferenceLinkTappedNot
     NSNumber *fontSize = [[NSUserDefaults standardUserDefaults] wmf_articleFontSizeMultiplier];
 
     NSString *baseUrl = [self.articleURL absoluteString];
-    MWLanguageInfo *languageInfo = [MWKLanguageLinkController languageInfoForCode:self.articleURL.wmf_language];
+    NSString *layoutDirection = [MWKLanguageLinkController layoutDirectionForContentLanguageCode:self.articleURL.wmf_language];
 
     return
         [NSString stringWithFormat:@""
@@ -90,7 +90,7 @@ NSString *const WMFReferenceLinkTappedNotification = @"WMFReferenceLinkTappedNot
                                     "%@"
                                     "</body>"
                                     "</html>",
-                                   baseUrl, (long)fontSize.integerValue, [self.theme.colors.primaryText wmf_hexStringIncludingAlpha:NO], languageInfo.dir, self.reference.html];
+                                   baseUrl, (long)fontSize.integerValue, [self.theme.colors.primaryText wmf_hexStringIncludingAlpha:NO], layoutDirection, self.reference.html];
 }
 
 - (NSAttributedString *)attributedStringForHTML:(NSString *)html {
