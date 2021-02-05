@@ -108,7 +108,6 @@ typedef NS_ENUM(NSInteger, WMFPreferredLanguagesChangeType) {
 + (NSString *)layoutDirectionForContentLanguageCode:(nullable NSString *)contentLanguageCode;
 
 + (UISemanticContentAttribute)semanticContentAttributeForWMFLanguage:(nullable NSString *)language;
-+ (NSSet *)rtlLanguages;
 @end
 
 NS_ASSUME_NONNULL_END

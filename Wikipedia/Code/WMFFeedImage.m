@@ -57,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSValueTransformer *)imageDescriptionIsRTLJSONTransformer {
     return [MTLValueTransformer transformerUsingForwardBlock:^(NSString *lang, BOOL *success, NSError *__autoreleasing *error) {
-        return @(lang && [[MWKLanguageLinkController rtlLanguages] containsObject:lang]);
+        return @([MWKLanguageLinkController isLanguageRTLForContentLanguageCode:lang]);
     }];
 }
 
