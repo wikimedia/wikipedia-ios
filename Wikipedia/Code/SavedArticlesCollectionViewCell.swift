@@ -285,7 +285,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         titleLabel.accessibilityLanguage = articleLanguage
         descriptionLabel.accessibilityLanguage = articleLanguage
         extractLabel?.accessibilityLanguage = articleLanguage
-        articleSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forWMFLanguage: articleLanguage)
+        articleSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: articleLanguage)
         
         isStatusViewHidden = article.isDownloaded
         

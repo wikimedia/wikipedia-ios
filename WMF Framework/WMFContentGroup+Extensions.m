@@ -523,11 +523,7 @@
 }
 
 - (BOOL)isRTL {
-    NSString *language = self.siteURL.wmf_language;
-    if (!language) {
-        return NO;
-    }
-    return [MWKLanguageLinkController semanticContentAttributeForWMFLanguage:language] == UISemanticContentAttributeForceRightToLeft;
+    return [MWKLanguageLinkController isLanguageRTLForContentLanguageCode:self.siteURL.wmf_language];
 }
 
 - (void)markDismissed {

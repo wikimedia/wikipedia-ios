@@ -273,6 +273,13 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
     return [MWKLanguageLinkController isLanguageRTLForContentLanguageCode:contentLanguageCode] ? @"rtl" : @"ltr";
 }
 
++ (UISemanticContentAttribute)semanticContentAttributeForContentLanguageCode:(nullable NSString *)contentLanguageCode {
+    if (!contentLanguageCode) {
+        return UISemanticContentAttributeUnspecified;
+    }
+    return [MWKLanguageLinkController isLanguageRTLForContentLanguageCode:contentLanguageCode] ? UISemanticContentAttributeForceRightToLeft : UISemanticContentAttributeForceLeftToRight;
+}
+
 + (NSSet *)rtlLanguages {
     static dispatch_once_t onceToken;
     static NSSet *rtlLanguages;
@@ -280,13 +287,6 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
         rtlLanguages = [NSSet setWithObjects:@"arc", @"arz", @"ar", @"azb", @"bcc", @"bqi", @"ckb", @"dv", @"fa", @"glk", @"lrc", @"he", @"khw", @"ks", @"mzn", @"nqo", @"pnb", @"ps", @"sd", @"ug", @"ur", @"yi", nil];
     });
     return rtlLanguages;
-}
-
-+ (UISemanticContentAttribute)semanticContentAttributeForWMFLanguage:(nullable NSString *)language {
-    if (!language) {
-        return UISemanticContentAttributeUnspecified;
-    }
-    return [[MWKLanguageLinkController rtlLanguages] containsObject:language] ? UISemanticContentAttributeForceRightToLeft : UISemanticContentAttributeForceLeftToRight;
 }
 
 @end

@@ -107,7 +107,10 @@ typedef NS_ENUM(NSInteger, WMFPreferredLanguagesChangeType) {
 /// Returns "ltr" if @c contentLangaugeCode is nil.
 + (NSString *)layoutDirectionForContentLanguageCode:(nullable NSString *)contentLanguageCode;
 
-+ (UISemanticContentAttribute)semanticContentAttributeForWMFLanguage:(nullable NSString *)language;
+/// Returns the semantic content attribute to force appropriate text direction for the language represented by @c contentLanguageCode.
+/// Returns UISemanticContentAttributeUnspecified if @c contentLangaugeCode is nil.
++ (UISemanticContentAttribute)semanticContentAttributeForContentLanguageCode:(nullable NSString *)contentLanguageCode;
+
 @end
 
 NS_ASSUME_NONNULL_END

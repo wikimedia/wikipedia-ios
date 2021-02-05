@@ -125,7 +125,7 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
 
         let language = events.first?.language
         let locale = NSLocale.wmf_locale(for: language)
-        let semanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forWMFLanguage: language)
+        let semanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: language)
 
         headerView.topSmallLine.semanticContentAttribute = semanticContentAttribute
         headerView.middleLargeLine.semanticContentAttribute = semanticContentAttribute
