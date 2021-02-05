@@ -96,8 +96,8 @@ typedef NS_ENUM(NSInteger, WMFPreferredLanguagesChangeType) {
 
 @end
 
-/// Methods moved from the deprecated MWKLanguageInfo class. Potential for additional refactoring.
-@interface MWKLanguageLinkController (MWLanguageInfoAdditions)
+/// Methods to provide layout direction information for language codes.
+@interface MWKLanguageLinkController (LayoutDirectionAdditions)
 
 /// Returns whether the language represented by the @c contentLanguageCode displays right-to-left.
 /// Returns NO if @c contentLangaugeCode is nil.

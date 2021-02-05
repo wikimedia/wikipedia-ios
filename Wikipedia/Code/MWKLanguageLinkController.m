@@ -262,8 +262,7 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
 
 #pragma mark -
 
-/// Methods moved from the deprecated MWLanguageInfo class. Potential for additional refactoring.
-@implementation MWKLanguageLinkController (MWLanguageInfoAdditions)
+@implementation MWKLanguageLinkController (LayoutDirectionAdditions)
 
 + (BOOL)isLanguageRTLForContentLanguageCode:(nullable NSString *)contentLanguageCode {
     return contentLanguageCode && [[MWKLanguageLinkController rtlLanguages] containsObject:contentLanguageCode];

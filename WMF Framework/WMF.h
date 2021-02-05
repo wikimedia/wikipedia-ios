@@ -54,8 +54,6 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 #import <WMF/MWKRecentSearchEntry.h>
 #import <WMF/MWKRecentSearchList.h>
 
-#import <WMF/MWLanguageInfo.h>
-
 #import <WMF/MWKImageInfo.h>
 #import <WMF/NSString+WMFExtras.h>
 #import <WMF/NSCharacterSet+WMFExtras.h>
