@@ -286,6 +286,14 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
     }
 }
 
++ (BOOL)isLanguageRTLForContentLanguageCode:(nullable NSString *)contentLanguageCode {
+    return contentLanguageCode && [[MWKLanguageLinkController rtlLanguages] containsObject:contentLanguageCode];
+}
+
++ (NSString *)layoutDirectionForContentLanguageCode:(nullable NSString *)contentLanguageCode {
+    return [MWKLanguageLinkController isLanguageRTLForContentLanguageCode:contentLanguageCode] ? @"rtl" : @"ltr";
+}
+
 + (NSSet *)rtlLanguages {
     static dispatch_once_t onceToken;
     static NSSet *rtlLanguages;

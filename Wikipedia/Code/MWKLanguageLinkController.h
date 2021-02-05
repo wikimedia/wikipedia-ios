@@ -100,6 +100,15 @@ typedef NS_ENUM(NSInteger, WMFPreferredLanguagesChangeType) {
 /// Methods moved from the deprecated MWKLanguageInfo class. Potential for additional refactoring.
 @interface MWKLanguageLinkController (MWLanguageInfoAdditions)
 + (MWLanguageInfo *)languageInfoForCode:(NSString *)code;
+
+/// Returns whether the language represented by the @c contentLanguageCode displays right-to-left.
+/// Returns NO if @c contentLangaugeCode is nil.
++ (BOOL)isLanguageRTLForContentLanguageCode:(nullable NSString *)contentLanguageCode;
+
+/// Returns either "rtl" or "ltr" depending whether the language represented by the @c contentLanguageCode displays right-to-left.
+/// Returns "ltr" if @c contentLangaugeCode is nil.
++ (NSString *)layoutDirectionForContentLanguageCode:(nullable NSString *)contentLanguageCode;
+
 + (UISemanticContentAttribute)semanticContentAttributeForWMFLanguage:(nullable NSString *)language;
 + (NSSet *)rtlLanguages;
 @end
