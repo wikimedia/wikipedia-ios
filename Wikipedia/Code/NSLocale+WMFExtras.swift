@@ -120,13 +120,6 @@ extension NSLocale {
             return Locale.autoupdatingCurrent
         }
         
-        // Previous code took the wikipediaLanguage value and called a method
-        // that would return the same language code that was passed in
-        // unless 'simple' or 'test' was passed in instead of a language code
-        // in which case "en" would be returned. This asserion double checks that
-        // that old substituion is no longer being relied upon.
-        assert(language != "simple" && language != "test")
-        
         var locale = localeCache[language]
         if let locale = locale {
             return locale
@@ -134,6 +127,11 @@ extension NSLocale {
         
         if Locale.availableIdentifiers.contains(language) {
             locale = Locale(identifier: language)
+        } else if language == "simple" || language == "test" {
+            // This handles two special subdomains/language codes.
+            // The Simple English wiki uses 'simple'. The development test wiki uses 'test'.
+            // Both return the English locale. Test could potentially use Locale.autoupdatingCurrent instead.
+            locale = Locale(identifier: "en")
         } else {
             locale = Locale.autoupdatingCurrent
         }
