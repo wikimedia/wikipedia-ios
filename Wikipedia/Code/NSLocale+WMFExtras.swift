@@ -120,21 +120,23 @@ extension NSLocale {
             return Locale.autoupdatingCurrent
         }
         
-        let languageInfo = MWLanguageInfo(forCode: language)
-        let code = languageInfo.code
-        
-        var locale = localeCache[code]
+        var locale = localeCache[language]
         if let locale = locale {
             return locale
         }
         
-        if Locale.availableIdentifiers.contains(code) {
-            locale = Locale(identifier: code)
+        if Locale.availableIdentifiers.contains(language) {
+            locale = Locale(identifier: language)
+        } else if language == "simple" || language == "test" {
+            // This handles two special subdomains/language codes.
+            // The Simple English wiki uses 'simple'. The development test wiki uses 'test'.
+            // Both return the English locale. Test could potentially use Locale.autoupdatingCurrent instead.
+            locale = Locale(identifier: "en")
         } else {
             locale = Locale.autoupdatingCurrent
         }
         
-        localeCache[code] = locale
+        localeCache[language] = locale
         
         return locale ?? Locale.autoupdatingCurrent
     }

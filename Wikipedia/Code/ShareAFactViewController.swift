@@ -47,7 +47,7 @@ class ShareAFactViewController: UIViewController {
     }
     
     public func update(with articleURL: URL, articleTitle: String?, text: String?, image: UIImage?, imageLicense: MWKLicense?) {
-        view.semanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleURL.wmf_language)
+        view.semanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: articleURL.wmf_language)
         textLabel.semanticContentAttribute = view.semanticContentAttribute
         articleTitleLabel.semanticContentAttribute = view.semanticContentAttribute
         imageContainerView.semanticContentAttribute = view.semanticContentAttribute

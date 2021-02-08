@@ -260,4 +260,43 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
 
 @end
 
+#pragma mark -
+
+@implementation MWKLanguageLinkController (LayoutDirectionAdditions)
+
++ (BOOL)isLanguageRTLForContentLanguageCode:(nullable NSString *)contentLanguageCode {
+    return contentLanguageCode && [[MWKLanguageLinkController rtlLanguages] containsObject:contentLanguageCode];
+}
+
++ (NSString *)layoutDirectionForContentLanguageCode:(nullable NSString *)contentLanguageCode {
+    return [MWKLanguageLinkController isLanguageRTLForContentLanguageCode:contentLanguageCode] ? @"rtl" : @"ltr";
+}
+
++ (UISemanticContentAttribute)semanticContentAttributeForContentLanguageCode:(nullable NSString *)contentLanguageCode {
+    if (!contentLanguageCode) {
+        return UISemanticContentAttributeUnspecified;
+    }
+    return [MWKLanguageLinkController isLanguageRTLForContentLanguageCode:contentLanguageCode] ? UISemanticContentAttributeForceRightToLeft : UISemanticContentAttributeForceLeftToRight;
+}
+
+/*
+ * IMPORTANT: At present no RTL languages have language variants.
+ * The public methods in this category accept a contentLanguageCode, but in current usage always accept a language code
+ * which does not take language variants into account. If a language variant is added to the set returned by this method, the call sites
+ * of the public methods in this category need to be updated to ensure that the content language code is passed in.
+ *
+ * Note also that if a language with variants is RTL, each RTL variant must be added to the set.
+ */
++ (NSSet *)rtlLanguages {
+    static dispatch_once_t onceToken;
+    static NSSet *rtlLanguages;
+    dispatch_once(&onceToken, ^{
+        rtlLanguages = [NSSet setWithObjects:@"arc", @"arz", @"ar", @"azb", @"bcc", @"bqi", @"ckb", @"dv", @"fa", @"glk", @"lrc", @"he", @"khw", @"ks", @"mzn", @"nqo", @"pnb", @"ps", @"sd", @"ug", @"ur", @"yi", nil];
+    });
+    return rtlLanguages;
+}
+
+@end
+
+
 NS_ASSUME_NONNULL_END
