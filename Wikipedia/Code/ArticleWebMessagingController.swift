@@ -509,6 +509,12 @@ extension ArticleWebMessagingController {
         }
     }
     
+    func pullCompleteHTMLResponse(completion: @escaping ((String?) -> Void)) {
+        webView?.evaluateJavaScript("document.documentElement.outerHTML.toString()") { (result, error) in
+            completion(result as? String)
+        }
+    }
+    
     func injectSkeletonArticleAsLivingDocContent(completion: ((Bool) -> Void)? = nil) {
         
         let innerBoxHTML = "<div id='\(articleAsLivingDocBoxSkeletonContainerID)'></div>"

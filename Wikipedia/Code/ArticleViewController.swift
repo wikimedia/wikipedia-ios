@@ -418,6 +418,27 @@ class ArticleViewController: ViewController, HintPresenting {
                 self.articleAsLivingDocController.articleContentFinishedLoading()
             }
             
+            self.messagingController.pullCompleteHTMLResponse { [weak self] (response) in
+                
+                DispatchQueue.main.async {
+                    
+                    guard let self = self else {
+                        return
+                    }
+                    
+                    if let response = response,
+                       let navVC = UIStoryboard(name: "ArticleInspectorPrototype", bundle: nil).instantiateInitialViewController() as? UINavigationController,
+                            let prototypeVC = navVC.viewControllers.first as? ArticleInspectorPrototypeViewController {
+                        prototypeVC.webViewHTML = response
+                        prototypeVC.articleTitle = self.articleURL.wmf_title
+                        self.present(navVC, animated: true)
+                    }
+                    
+                }
+                
+                
+            }
+            
             self.setupFooter()
             self.shareIfNecessary()
             self.restoreScrollStateIfNecessary()

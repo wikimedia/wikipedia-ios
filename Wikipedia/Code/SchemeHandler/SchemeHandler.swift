@@ -171,7 +171,7 @@ private extension SchemeHandler {
                 }
             }
         }, data: { [weak urlSchemeTask] data in
-            
+
             DispatchQueue.main.async {
                 guard let urlSchemeTask = urlSchemeTask else {
                     return

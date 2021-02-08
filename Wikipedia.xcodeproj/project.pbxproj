@@ -373,6 +373,15 @@
 		678D79FD235E59B2006161FF /* DiffListUneditedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79FB235E59B2006161FF /* DiffListUneditedViewModel.swift */; };
 		678D79FE235E59B2006161FF /* DiffListUneditedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79FB235E59B2006161FF /* DiffListUneditedViewModel.swift */; };
 		678D79FF235E59B2006161FF /* DiffListUneditedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79FB235E59B2006161FF /* DiffListUneditedViewModel.swift */; };
+		678EBB7D25CDFA7C00A83AEC /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 678EBB7C25CDFA7C00A83AEC /* SwiftSoup */; };
+		678EBB8925CE010100A83AEC /* ArticleInspectorPrototypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678EBB8825CE010100A83AEC /* ArticleInspectorPrototypeViewController.swift */; };
+		678EBB8A25CE010100A83AEC /* ArticleInspectorPrototypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678EBB8825CE010100A83AEC /* ArticleInspectorPrototypeViewController.swift */; };
+		678EBB8B25CE010100A83AEC /* ArticleInspectorPrototypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678EBB8825CE010100A83AEC /* ArticleInspectorPrototypeViewController.swift */; };
+		678EBB8C25CE010100A83AEC /* ArticleInspectorPrototypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678EBB8825CE010100A83AEC /* ArticleInspectorPrototypeViewController.swift */; };
+		678EBB9725CE05A600A83AEC /* ArticleInspectorPrototype.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 678EBB9625CE05A600A83AEC /* ArticleInspectorPrototype.storyboard */; };
+		678EBB9825CE05A600A83AEC /* ArticleInspectorPrototype.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 678EBB9625CE05A600A83AEC /* ArticleInspectorPrototype.storyboard */; };
+		678EBB9925CE05A600A83AEC /* ArticleInspectorPrototype.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 678EBB9625CE05A600A83AEC /* ArticleInspectorPrototype.storyboard */; };
+		678EBB9A25CE05A600A83AEC /* ArticleInspectorPrototype.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 678EBB9625CE05A600A83AEC /* ArticleInspectorPrototype.storyboard */; };
 		678F512A23A7EE5100CE5357 /* ArticleCacheDBWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678F511823A4B92000CE5357 /* ArticleCacheDBWriter.swift */; };
 		678F512B23A7EE6600CE5357 /* ArticleFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676A8A8223A4013D0084B967 /* ArticleFetcher.swift */; };
 		67901E232550E45D0018B218 /* ArticleAsLivingDocFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FF8E2C2550BB6F0048E741 /* ArticleAsLivingDocFunnel.swift */; };
@@ -3465,6 +3474,8 @@
 		678D79EF235E5979006161FF /* DiffListChangeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListChangeViewModel.swift; sourceTree = "<group>"; };
 		678D79F5235E599B006161FF /* DiffListContextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListContextViewModel.swift; sourceTree = "<group>"; };
 		678D79FB235E59B2006161FF /* DiffListUneditedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListUneditedViewModel.swift; sourceTree = "<group>"; };
+		678EBB8825CE010100A83AEC /* ArticleInspectorPrototypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleInspectorPrototypeViewController.swift; sourceTree = "<group>"; };
+		678EBB9625CE05A600A83AEC /* ArticleInspectorPrototype.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ArticleInspectorPrototype.storyboard; sourceTree = "<group>"; };
 		678F511823A4B92000CE5357 /* ArticleCacheDBWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArticleCacheDBWriter.swift; path = ../Wikipedia/Code/ArticleCacheDBWriter.swift; sourceTree = "<group>"; };
 		6798035B24F94CE300D765AA /* SignificantEventsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignificantEventsFetcher.swift; sourceTree = "<group>"; };
 		6798036024F94CEE00D765AA /* ArticleAsLivingDocController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocController.swift; sourceTree = "<group>"; };
@@ -4909,6 +4920,7 @@
 				D82FDB3C1DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */,
 				D82FDB2E1DF0ABBF00DDF311 /* NYTPhotoViewer.framework in Frameworks */,
 				D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */,
+				678EBB7D25CDFA7C00A83AEC /* SwiftSoup in Frameworks */,
 				D844D9731D6CB2600042D692 /* WMF.framework in Frameworks */,
 				D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */,
 				D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */,
@@ -6042,6 +6054,15 @@
 				678D79FB235E59B2006161FF /* DiffListUneditedViewModel.swift */,
 			);
 			name = DiffListViewModels;
+			sourceTree = "<group>";
+		};
+		678EBB8725CE00DF00A83AEC /* Article Inspector */ = {
+			isa = PBXGroup;
+			children = (
+				678EBB8825CE010100A83AEC /* ArticleInspectorPrototypeViewController.swift */,
+				678EBB9625CE05A600A83AEC /* ArticleInspectorPrototype.storyboard */,
+			);
+			path = "Article Inspector";
 			sourceTree = "<group>";
 		};
 		6798035A24F94CAE00D765AA /* Article as a Living Document */ = {
@@ -7196,6 +7217,7 @@
 		BC45D58D1C32FD58007C72F3 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				678EBB8725CE00DF00A83AEC /* Article Inspector */,
 				6798035A24F94CAE00D765AA /* Article as a Living Document */,
 				67DC5BDB23A00DF500B03A84 /* Article */,
 				6782DB8F2343B691003FA21B /* Diff */,
@@ -8641,6 +8663,9 @@
 				00021DED24D48EFE00476F97 /* PBXTargetDependency */,
 			);
 			name = Wikipedia;
+			packageProductDependencies = (
+				678EBB7C25CDFA7C00A83AEC /* SwiftSoup */,
+			);
 			productName = "Wikipedia-iOS";
 			productReference = D4991435181D51DE00E6073C /* Wikipedia.app */;
 			productType = "com.apple.product-type.application";
@@ -9125,6 +9150,7 @@
 			mainGroup = D499142C181D51DE00E6073C;
 			packageReferences = (
 				67A770C6251BFE0400F94EF9 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
+				678EBB7B25CDFA7C00A83AEC /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 			);
 			productRefGroup = D4991436181D51DE00E6073C /* Products */;
 			projectDirPath = "";
@@ -9285,6 +9311,7 @@
 				D8E27BAD1F82B54D00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				B01EA07E2022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
 				D84F2BFB1D2FEE6300963D42 /* WMFRandomDiceButton.html in Resources */,
+				678EBB9725CE05A600A83AEC /* ArticleInspectorPrototype.storyboard in Resources */,
 				7A9524D022665E6400C55CDC /* InsertMediaSettingsImageView.xib in Resources */,
 				7ABE171D2239B8EE006BA309 /* WelcomeContainerViewController.xib in Resources */,
 				B0267CE91E316A79006B6D8D /* WMFForgotPasswordViewController.storyboard in Resources */,
@@ -9394,6 +9421,7 @@
 				7ABE172C2239BB54006BA309 /* WelcomePanelViewController.xib in Resources */,
 				83B01F8E23DB399E001185F4 /* DescriptionEditViewController.storyboard in Resources */,
 				6771C9572509FE6B00A7254B /* ArticleAsLivingDocHeaderView.xib in Resources */,
+				678EBB9A25CE05A600A83AEC /* ArticleInspectorPrototype.storyboard in Resources */,
 				83E3E72D2440F24300AA2E9A /* LoadingAnimationViewController.xib in Resources */,
 				7ADF498F21B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */,
 				7A25367F21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib in Resources */,
@@ -9517,6 +9545,7 @@
 				7ABE172A2239BB54006BA309 /* WelcomePanelViewController.xib in Resources */,
 				83B01F8C23DB399E001185F4 /* DescriptionEditViewController.storyboard in Resources */,
 				6771C9562509FE6B00A7254B /* ArticleAsLivingDocHeaderView.xib in Resources */,
+				678EBB9925CE05A600A83AEC /* ArticleInspectorPrototype.storyboard in Resources */,
 				83E3E72B2440F24300AA2E9A /* LoadingAnimationViewController.xib in Resources */,
 				7ADF498D21B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */,
 				7A25367D21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib in Resources */,
@@ -9640,6 +9669,7 @@
 				7ABE172B2239BB54006BA309 /* WelcomePanelViewController.xib in Resources */,
 				83B01F8D23DB399E001185F4 /* DescriptionEditViewController.storyboard in Resources */,
 				6771C9552509FE6B00A7254B /* ArticleAsLivingDocHeaderView.xib in Resources */,
+				678EBB9825CE05A600A83AEC /* ArticleInspectorPrototype.storyboard in Resources */,
 				83E3E72C2440F24300AA2E9A /* LoadingAnimationViewController.xib in Resources */,
 				7ADF498E21B45E42009EA338 /* TextFormattingGroupedToolbarView.xib in Resources */,
 				7A25367E21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib in Resources */,
@@ -10470,6 +10500,7 @@
 				7A25367721B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.swift in Sources */,
 				D8E6FF6C24056AC300686272 /* ArticleViewController+ContextMenu.swift in Sources */,
 				6734117022773122005B31DA /* TalkPageReplyCell.swift in Sources */,
+				678EBB8925CE010100A83AEC /* ArticleInspectorPrototypeViewController.swift in Sources */,
 				7A2432BE1FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
 				7A0DE50020CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */,
 				B0E805611C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m in Sources */,
@@ -11291,6 +11322,7 @@
 				B068EDE3206B183500C827D1 /* Progress+ProgressUI.swift in Sources */,
 				83F1096223D09F80003F3E9E /* ArticleViewController+WIconPopover.swift in Sources */,
 				7A25367A21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.swift in Sources */,
+				678EBB8C25CE010100A83AEC /* ArticleInspectorPrototypeViewController.swift in Sources */,
 				6754E44B22773588005EEAD1 /* TalkPageReplyCell.swift in Sources */,
 				7A0DE50320CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */,
 				7A2432C11FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
@@ -11625,6 +11657,7 @@
 				83927D7C1F70570400051890 /* DisambiguationPagesViewController.swift in Sources */,
 				D8CE25AB1E698E2400DAE2E0 /* AppDelegate.m in Sources */,
 				83E776A420FFA4D700E26A47 /* DetailTransition.swift in Sources */,
+				678EBB8B25CE010100A83AEC /* ArticleInspectorPrototypeViewController.swift in Sources */,
 				D8CE25AD1E698E2400DAE2E0 /* ArticlePlace.swift in Sources */,
 				D8CE25AF1E698E2400DAE2E0 /* WMFSearchResults.m in Sources */,
 				83DE45BA2449C09B00671878 /* SplashScreenViewController.swift in Sources */,
@@ -12098,6 +12131,7 @@
 				BAC6EEC91F1E519B00228AD0 /* AppearanceSettingsViewController.swift in Sources */,
 				D82E95871F16502E007BD960 /* WMFLanguagesViewController.m in Sources */,
 				D8EC3EA81E9BDA35006712EB /* AppDelegate.m in Sources */,
+				678EBB8A25CE010100A83AEC /* ArticleInspectorPrototypeViewController.swift in Sources */,
 				D8EC3EAA1E9BDA35006712EB /* ArticlePlace.swift in Sources */,
 				D8EC3EAC1E9BDA35006712EB /* WMFSearchResults.m in Sources */,
 				83DE45BB2449C09B00671878 /* SplashScreenViewController.swift in Sources */,
@@ -20943,6 +20977,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		678EBB7B25CDFA7C00A83AEC /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.2;
+			};
+		};
 		67A770C6251BFE0400F94EF9 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CocoaLumberjack/CocoaLumberjack.git";
@@ -20954,6 +20996,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		678EBB7C25CDFA7C00A83AEC /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 678EBB7B25CDFA7C00A83AEC /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
 		67A770C7251BFE0400F94EF9 /* CocoaLumberjackSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 67A770C6251BFE0400F94EF9 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
