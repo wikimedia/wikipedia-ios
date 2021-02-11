@@ -34,6 +34,7 @@
 // Author: Mynor Archila
 // Author: Nemo bis
 // Author: Nick
+// Author: Papouten
 // Author: Pginer
 // Author: RicardoSGZ
 // Author: Rodm23
@@ -387,7 +388,7 @@
 "explore-hide-card-prompt" = "Ocultar esta tarjeta";
 "explore-main-page-description" = "Página principal de los proyectos Wikimedia";
 "explore-main-page-heading" = "Hoy en Wikipedia";
-"explore-most-read-footer" = "Todos los artículos más leídos";
+"explore-most-read-footer" = "Artículos más leídos";
 "explore-most-read-generic-heading" = "Más leídos";
 "explore-most-read-more-list-title-for-date" = "Los más leídos el $1";
 "explore-most-read-sub-heading-on-language-wikipedia" = "En Wikipedia en $1";

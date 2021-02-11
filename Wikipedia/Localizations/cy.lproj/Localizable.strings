@@ -1,8 +1,30 @@
 // Messages for Welsh (Cymraeg)
 // Exported from translatewiki.net
+// Author: Cymrodor
 // Author: Nemo bis
 // Author: Robin Owain
 
+"aaald-article-description-updated-description" = "Diweddarwyd disgrifiad o deitl yr erthygl";
+"aaald-error-subitle" = "Adfywio i geisio eto";
+"aaald-error-title" = "Methwyd a llwytho hanes yr erthygl";
+"aaald-multiple-references-added-description" = "Ychwanegwyd sawl cyfeiriad";
+"aaald-new-book-reference-title" = "Llyfr";
+"aaald-new-discussion" = "Sgwrs newydd";
+"aaald-new-journal-reference-database" = "via $1";
+"aaald-new-journal-reference-title" = "Dyddlyfr";
+"aaald-new-journal-reference-volume" = "Cyfrol $1:";
+"aaald-new-news-reference-retrieved-date" = "Adalwyd $1";
+"aaald-new-news-reference-title" = "Newyddion";
+"aaald-new-talk-topic-description-format" = "$1 am yr erthygl";
+"aaald-new-website-reference-archive-date-text" = "o'r $1 gwreiddiol";
+"aaald-new-website-reference-archive-url-text" = "Archive.org URL";
+"aaald-new-website-reference-title" = "Gwefan";
+"aaald-numerical-multiple-references-added-description" = "ychwanegwyd {{PLURAL:$1|0=0 references|$1 reference|$1 cyfeiriad}}";
+"aaald-revision-userInfo" = "Golygiad gan $1 ($2 edits)";
+"aaald-single-reference-added-description" = "Ychwanegwyd y cyfeiriad";
+"aaald-small-change-description" = "{{PLURAL:$1|0=Dim newidiadau bychan|$1 newid bychan|$1 newid bychan}}";
+"aaald-two-sections-description" = "o fewn adran $1 a $2";
+"aaald-view-full-history-button" = "Edrych ar hanes lawn yr erthygl";
 "about-content-license" = "Trwydded y cynnwys";
 "about-content-license-details" = "Oni nodir yn wahanol, mae'r cynnwys o dan drwydded $1.";
 "about-content-license-details-share-alike-license" = "Creative Commons Attribution-ShareAlike License";
@@ -16,42 +38,35 @@
 "action-read" = "Darllen";
 "action-save" = "Cadw";
 "action-saved" = "Arbedwyd";
-"article-about-title" = "Ynglŷn â'r erthygl hon";
 "article-languages-filter-placeholder" = "Canfod iaith";
 "article-languages-label" = "Dewisiwch iaith";
 "article-languages-others" = "Ieithoedd eraill";
 "article-languages-yours" = "Eich ieithoedd";
-"article-read-more-title" = "Darllen rhagor";
-"article-unable-to-load-article" = "Methwyd â llwytho'r erthygl.";
 "back-button-accessibility-label" = "Yn ôl";
-"button-done" = "Cwbwlhawyd";
 "button-next" = "Nesa";
 "button-ok" = "Iawn";
 "button-publish" = "Cyhoeddi";
 "button-read-now" = "Darllen nawr";
-"button-save-for-later" = "Arbed ar gyfer eto";
+"button-save-for-later" = "Cadw ar gyfer eto";
 "button-saved-for-later" = "Arbedwyd";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Cau";
 "edit-summary-choice-fixed-grammar" = "Trwsiwyd y ramadeg";
 "edit-summary-choice-fixed-typos" = "Trwsiwyd rhai gwallau teipio";
 "edit-summary-choice-linked-words" = "Ychwanegwyd dolenni";
-"edit-summary-choice-other" = "Arall";
 "explore-continue-reading-heading" = "Parhau i ddarllen";
 "explore-featured-article-heading" = "Erthyglau dethol";
 "explore-main-page-heading" = "Heddiw ar Wicipedia";
 "explore-nearby-heading" = "Llefydd gerllaw";
-"explore-nearby-placeholder-cancel" = "Canslo";
-"explore-nearby-placeholder-dismiss" = "Gadael";
 "explore-nearby-placeholder-heading" = "Lleoedd";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "Ar $1  Wicipedia";
+// Fuzzy
 "explore-nearby-placeholder-sub-heading-on-wikipedia" = "Ar Wicipedia";
 "explore-nearby-sub-heading-your-location" = "Eich lleoliad";
 "explore-potd-heading" = "Delwedd y dydd";
 "explore-random-article-heading" = "Erthygl ar hap";
 "field-alert-captcha-invalid" = "Mae'r CAPTCHA yn anghywir";
 "field-alert-password-confirm-mismatch" = "Mae'r cyfrineiriau'n wahanol";
-"field-alert-password-invalid" = "Mae eich cyfrinair yn anghywir";
 "field-alert-username-unavailable" = "Nid yw'r  enw-defnyddiwr yma ar gael";
 "field-captcha-placeholder" = "Testun CAPTCHA";
 "field-captcha-title" = "Teipiwch y testun a welwch uchod";
@@ -79,12 +94,8 @@
 "history-clear-confirmation-heading" = "Hollol sicr eich bod am ddileu'r cyfan?";
 "history-clear-delete-all" = "Ie! Dileu'r cyfan!";
 "history-title" = "Hanes";
-"icon-shortcut-continue-reading-title" = "Parhau i ddarllen";
 "icon-shortcut-random-title" = "Erthygl ar hap";
 "icon-shortcut-search-title" = "Chwilio Wicipedia";
-"info-box-close-text" = "Cau";
-// Fuzzy
-"info-box-title" = "Ffeithiau sydyn";
 "languages-title" = "Newid iaith";
 "login-forgot-password" = "Ydych chi wedi anghofio eich cyfrinair?";
 "login-no-account" = "Dim cyfrif gennych? $1.";
@@ -95,23 +106,17 @@
 "main-menu-account-logout-are-you-sure" = "Ydych chi'n sicr eich bod am allgofnodi?";
 "main-menu-account-logout-cancel" = "Canslo";
 "main-menu-account-title-logged-in" = "Mewngofnodwyd fel $1";
-"main-menu-heading-debug" = "Dadfygio";
 "main-menu-heading-legal" = "Telerau a phreifatrwydd";
-"main-menu-heading-zero" = "Wicipedia Sero";
 "main-menu-nearby" = "Gerllaw";
 "main-menu-privacy-policy" = "Polisi preifatrwydd";
 "main-menu-terms-of-use" = "Telerau Defnyddio";
 "menu-cancel-accessibility-label" = "Canslo";
-"menu-trash-accessibility-label" = "Dileu";
 "navbar-title-mode-edit-wikitext-preview" = "Rhagolwg";
 "nearby-distance-label-feet" = "$1 troedfedd";
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milltir";
 "new-password-title" = "Gosodwch eich cyfrinair";
-"onboarding-wikipedia" = "Wicipedia";
-"open-link-cancel" = "Canslo";
-"page-history-title" = "Hanes erthyglau";
 "saved-title" = "Arbedwyd";
 "search-did-you-mean" = "Oeddech chi'n golygu $1?";
 "search-field-placeholder-text" = "Chwilio ar Wicipedia";
@@ -136,11 +141,8 @@
 "table-of-contents-close-accessibility-hint" = "Cau";
 "table-of-contents-close-accessibility-label" = "Cau'r Tabl cynnwys";
 "table-of-contents-heading" = "Cynnwys";
-"table-title-other" = "Rhagor o wybodaeth";
 "two-factor-login-title" = "Mewngofnodwch i'ch cyfri";
 "welcome-languages-add-button" = "Ychwanegu iaith arall";
-"wikitext-download-failed" = "Methwyd a chael y diweddaraf!";
-"wikitext-download-success" = "Llwythwyd y cynnwys.";
 "wikitext-downloading" = "Wrthi'n llwytho...";
 "wikitext-upload-captcha-error" = "Cafwyd nam wrth wiro'r CAPTCHA.";
 "wikitext-upload-captcha-needed" = "Mae angen gwiro'r CAPTCHA.";

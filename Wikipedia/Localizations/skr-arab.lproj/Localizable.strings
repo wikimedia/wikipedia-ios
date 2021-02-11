@@ -2,13 +2,14 @@
 // Exported from translatewiki.net
 // Author: Saraiki
 
+"aaald-article-insert-new-changes" = "نویاں تبدیلیاں";
 "about-content-license" = "مواد دا لائسینس";
-"about-contributors" = "شراکتاں";
+"about-contributors" = "ونڳاراں";
 "about-libraries-complete-list" = "مکمل فہرست";
 "about-libraries-license" = "لائیسنس";
 "about-title" = "تعارف";
 "about-translators" = "مترجمین";
-"about-wikipedia" = "ویکیپیڈیا";
+"about-wikipedia" = "وکیپیڈیا";
 "account-creation-create-account" = "اپݨاں کھاتا کھولو";
 "account-creation-have-account" = "پہلے کھاتہ ہے پیا؟$1";
 "account-creation-log-in" = "لاگ ان تھیوو";
@@ -19,18 +20,19 @@
 "account-group-title" = "تہاݙا کھاتہ";
 "action-add-to" = "شامل کرو۔۔۔";
 "action-cancel" = "منسوخ";
-// Fuzzy
-"action-find-in-page" = "ورقے وچ ڳولو";
+"action-find-in-page" = "ورقے وچ لبھو";
 "action-language-accessibility" = "زبان وٹاؤ";
 "action-move-to" = "تے ون٘ڄو...";
 "action-read" = "پڑھو";
 "action-redo" = "ولدا کرو";
 "action-remove" = "ہٹاؤ";
+"action-replace" = "بدل گھنو";
+"action-replace-all" = "سارے بدل گھنو";
+"action-retry" = "ولدا کوشش کرو";
 "action-save" = "بچاؤ";
 "action-saved" = "محفوظ";
 "action-share" = "شیئر";
 "action-sort" = "چھانٹ";
-// Fuzzy
 "action-undo" = "واپس";
 "action-unsave" = "غیر محفوظ";
 "action-update" = "اپ ݙیٹ";
@@ -44,7 +46,7 @@
 "article-languages-label" = "زبان چݨو";
 "article-languages-others" = "ٻیاں زباناں";
 "article-languages-yours" = "تہاݙیاں زباناں";
-"article-read-more-title" = "ٻیا پڑھو";
+"article-reference-view-title" = "حوالہ$1";
 "article-share" = "شیئر";
 "back-button-accessibility-label" = "پچھوں";
 "button-next" = "اڳوں تے ونڄو";
@@ -55,7 +57,6 @@
 "cancel" = "منسوخ";
 "close-button-accessibility-label" = "بند کرو";
 "compass-direction" = "$1 وڄے تے";
-"description-add-link-title" = "عنوان دی تفصیل لکھو";
 "description-add-title" = "وضاحت شامل کرو";
 "description-edit-learn-more" = "ٻیا سِکھو";
 "description-edit-length-warning" = "\n$1 / $2";
@@ -119,9 +120,9 @@
 "icon-shortcut-search-title" = "وکیپیڈیا وچ ڳولو";
 "image-gallery-unknown-owner" = "نامعلوم مصنف";
 "in-the-news-notification-read-now-action-title" = "ہُݨ پڑھو";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "شیئر";
 "in-the-news-title" = "خبراں وچ";
-"info-box-close-text" = "بند کرو";
 "insert-action-title" = "درج کرو";
 "insert-media-caption-title" = "عنوان";
 "insert-media-image-position-setting-left" = "کھٻے";
@@ -132,16 +133,15 @@
 "insert-media-image-type-setting-frame" = "فریم";
 "languages-settings-title" = "زباناں";
 "languages-title" = "زبان وٹاؤ";
-"license-footer-name" = " کریئیٹیو کامنز انتساب / یکساں-شراکت اجازت نامہ 3.0";
 "login-join-wikipedia" = "وکی پیڈیا جائن کرو۔";
 "login-no-account" = "تہاݙا کھاتہ کائنی؟$1";
 "main-menu-account-login" = "لاگ ان تھیوو";
 "main-menu-account-logout" = "لاگ آؤٹ";
 "main-menu-account-logout-cancel" = "منسوخ";
-"main-menu-heading-debug" = "ڈی بگ";
 "main-menu-heading-legal" = "رازداری تے شرائط";
 "main-menu-nearby" = "نیڑے";
 "main-menu-privacy-policy" = "رازداری پالیسی";
+"main-menu-terms-of-use" = "ورتݨ شرطاں";
 "main-menu-title" = "ٻئے";
 "menu-cancel-accessibility-label" = "منسوخ";
 "more-languages-tooltip-title" = "زباناں شامل کرو";
@@ -191,7 +191,6 @@
 "settings-primary-language" = "ابتدائی";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "مٹاؤ";
 "settings-title" = "ترتیباں";
-"share-custom-menu-item" = "شیئر";
 "share-menu-item" = "شیئر۔۔۔";
 "share-message-format" = "“$1” $2";
 "share-open-in-maps" = "نقشیاں وچ کھولو";
@@ -199,7 +198,6 @@
 "sort-by-title-action" = "عنوان";
 "table-of-contents-close-accessibility-hint" = "بند کرو";
 "table-of-contents-heading" = "شامل حصے";
-"table-title-other" = "ٻیاں معلومات";
 "talk-page-add-discussion-accessibility-label" = "بحث شامل کرو";
 "talk-page-new-subject-placeholder-text" = "موضوع";
 "talk-page-new-subject-textfield-accessibility-label" = "موضوع";
@@ -207,12 +205,12 @@
 "theme-black-display-name" = "کالا";
 "theme-dark-display-name" = "گہرا";
 "theme-default-display-name" = "پہلے کنوں طے تھیا ہویا";
-"theme-light-display-name" = "ہلکا";
+"theme-light-display-name" = "پھکّا";
 "top-read-header-generic" = "وکیپیڈیا";
 "top-read-header-with-language" = "وکیپیڈیا$1";
 "welcome-exploration-on-this-day-title" = "ایں ݙینہ کوں";
 "welcome-explore-tell-me-more-done-button" = "گھن گھندا";
-"welcome-intro-free-encyclopedia-more-about" = "ویکیپیڈیا دا تعارف";
+"welcome-intro-free-encyclopedia-more-about" = "وکیپیڈیا دا تعارف";
 "welcome-languages-add-button" = "ٻئی زبان رلاؤ";
 "wikitext-upload-save" = "شائع تھیندا پئے۔۔۔";
 "wikitext-upload-save-sign-in" = "لاگ ان تھیوو";

@@ -181,6 +181,8 @@
 "button-skip" = "Lewati";
 "cancel" = "Batal";
 "cc-zero" = "Creative Commons CC0";
+"chinese-variants-alert-dismiss-button" = "Tidak, terima kasih";
+"chinese-variants-alert-preferences-button" = "Tinjau preferensi Anda";
 "clear-title-accessibility-label" = "Hapus";
 "close-button-accessibility-label" = "Tutup";
 "compass-direction" = "pada pukul $1 tepat";

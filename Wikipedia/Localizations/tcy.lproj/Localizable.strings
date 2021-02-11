@@ -33,13 +33,11 @@
 "action-share" = "ಪಟ್ಟ್‍ಲೆ";
 "action-unsave" = "ಒರಿಪಾತುಜ್ಜಿ";
 "announcements-dismiss" = "ದೆತ್ತ್ ಪಾಡ್ಲೆ";
-"article-about-title" = "ಈ ಲೇಕನೋತ ಬಗ್ಗೆ";
 "article-delete" = "ಮಾಜಾಲೆ";
 "article-languages-filter-placeholder" = "ಬಾಸೆನ್ ನಡ್ಲೇ";
 "article-languages-label" = "ಬಾಸೆನ್ ಆಯ್ಕೆ ಮಲ್ತೊನ್ಲೆ";
 "article-languages-others" = "ಬೇತೆ ಬಾಸೆಲೆಡ್";
 "article-languages-yours" = "ಇರೆನಾ ಬಾಸೆ";
-"article-read-more-title" = "ನನಲಾ ಓದುಲೇ";
 "article-share" = "ಪಟ್ಟ್‍ಲೆ";
 "back-button-accessibility-label" = "ಪಿರ";
 "button-next" = "ನನತಾ";
@@ -108,18 +106,14 @@
 "history-clear-delete-all" = "ಅಂದ್, ಮಾನ್ತೆನ್ಲ ವಜಾ ಮಾನ್ಪಿ";
 "history-title" = "ಇತಿಹಾಸೊ";
 "home-more-like-footer" = "$1 ನೆನ್ನ ಲೆಕೋ";
-"icon-shortcut-continue-reading-title" = "ಓದುನೆನ್ ಮುಂದುವರಿಸಲೇ";
 "icon-shortcut-random-title" = "ಒಟ್ಟಾರೆ ಲೇಖನೊಲು";
 "icon-shortcut-search-title" = "ವಿಕಿಪೀಡಿಯಟ್ ನಾಡ್ಲೇ";
 "in-the-news-notification-save-for-later-action-title" = "ಬುಕ್ಕ ಒರಿಪಾಪುಂಡು";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "ಪಟ್ಟುಲೇ...";
-"info-box-close-text" = "ಮುಚ್ಚಿಲೆ";
-"info-box-title" = "ಇತ್ತೆತ ವಿಸಯೊ.";
 "languages-settings-title" = "ಭಾಸೆಲು";
 "languages-title" = "ಬಾಸೆ ಬದಲ್ ಮಾನ್ಪಿ";
 "languages-wikipedia" = "ವಿಕಿಪೀಡಿಯ ಬಾಸೆ";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "ಪ್ರತ್ಯೇಕವಾದ್ ಉಲ್ಲೇಕ ಮಲ್ಪಂದೆ ಇತ್ತ್ಂಡ, ವಿಸಯ \"$1\" ದಡಿಟ್ ಲಭ್ಯ ಉಂಡು.";
 "logged-out-continue-without-logging-in-button-title" = "ಪ್ರವೇಶ ಮಲ್ಪಂದೆ ದುಂಬರಿಲೆ.";
 "logged-out-log-back-in-button-title" = "ಇರೆನ ಖಾತೆಗ್ ಕುಡಾ ಪ್ರವೇಶ ಮಲ್ಪುಲೆ";
 "logged-out-subtitle" = "ಇರೆನ ಖಾತೆನ್ ಸತ್ಯಾಪನೆ ಮಲ್ಪುನಗ ಒಂಜಿ ಸಮಸ್ಯೆ ಎದುರಾಂಡ್.ಇರೆನ ಓದುಲೆನ ಪಟ್ಟಿ ಬೊಕ ಸಂಪಾದಕ ಕಾರ್ಯೊಲೆನ್ ಇರೆನ ಬಳಕೆದಾರ ಪುದರುದ ಅಡಿಟ್ ಸರಿ ಗೋಡಿಯಾವರೆಗಾದ್ ದಯಮಲ್ತ್'ದ್ ಈರ್ ಕುಡಾ ಪ್ರವೇಶ ಮಲ್ಪುಲೆ.";
@@ -139,6 +133,7 @@
 "main-menu-title" = "ನನಾತ್";
 "main-menu-zero-faq" = "ವಿಕಿಪೀಡಿಯ ಜಿರೋತಾ FAQ";
 "menu-cancel-accessibility-label" = "ವಜಾ ಮಲ್ಪುಲೆ";
+// Fuzzy
 "more-languages-tooltip-description" = "ಬೇತೆ ಬಾಸೆತ ೩೦೦ ವಿಕಿಪೀಡಿಯೊನ್ ನಾಡುಲೆ.";
 "more-languages-tooltip-title" = "ಬಾಸೆನ್ ಸೇರ್ಪಾಲೆ.";
 "navbar-title-mode-edit-wikitext-preview" = "ಮುನ್ನೋಟೊ";
@@ -152,15 +147,7 @@
 "number-thousands" = "$1K";
 "on-this-day-detail-header-date-range" = "ನೆತ್ತ್ $1 - $2";
 "on-this-day-title" = "ಇ ದಿನೋ";
-"page-history-title" = "ಲೇಕನೋತಾ ಇತಿಹಾಸೊ";
-"page-issues" = "ಪುಟೊತ್ತಾ ಸಮಸ್ಯೆ";
-// Fuzzy
-"page-last-edited" = "$1 ದಿನ ದುಂದು ಸೇರ್ಸಾಯಿನಾ";
 "page-protected-can-not-edit-title" = "ಈ ಪುಟನ್ ಜಾಗ್ರತೆಡ್ ಡಿತುಂಡು";
-// Fuzzy
-"page-read-in-other-languages" = "$1 ಬಾಸೆಲೆಡ್ ಉಂಡು";
-"page-similar-titles" = "ಇಂಚಿನವೇ ಪುಟಕುಲು";
-"page-talk-page" = "ಚರ್ಚೆ ಪುಟೊನು ತೂಲೆ";
 "places-accessibility-group" = "$1 ಲೆಕನೋಲು";
 "places-accessibility-show-more" = "ನನತ್ ಲೇಕನೋಲೆನ್ ತೊಜಾಲೆ";
 "preference-title-eventlogging-opt-in" = "ಬೊಡಪಿ ವರದಿನ್ ಕಡಪುಡ್ಲೆ";
@@ -179,7 +166,6 @@
 "settings-support" = "ವಿಕಿಪೀಡಿಯತಾ ಬೆಂಬಲಾ";
 "settings-title" = "ಸಂಯೋಜನೆಲು";
 "share-article-name-on-wikipedia" = "\"$1\" on @ವಿಕಿಪೀಡಿಯಾ:";
-"share-custom-menu-item" = "ಪಟ್ಟುಕಾ...";
 "share-on-twitter-sign-off" = "ವಿಕಿಪೀಡಿಯ ಒಟ್ಟುಗೂ @";
 "share-open-in-maps" = "ನಕಾಶೆಡ್ ತೊಜಾಲೆ";
 "status-saved-for-later" = "ಬುಕ್ಕ ಒರಿಪಾಪುಂಡು";
@@ -187,7 +173,6 @@
 "table-of-contents-button-label" = "ಪರಿವಿಡಿ";
 "table-of-contents-close-accessibility-hint" = "ಮುಚ್ಚಿಲೆ";
 "table-of-contents-heading" = "ವಿಸಯೊಳು";
-"table-title-other" = "ಜಾಸ್ತಿ ಮಾಹಿತಿ";
 "top-read-header-generic" = "ವಿಕಿಪೀಡಿಯ";
 "top-read-header-with-language" = "$1 ವಿಕಿಪೀಡಿಯ";
 "top-read-see-more" = "ಮಸ್ತು ಓದುನೆನ್ ತೂಲೆ";
