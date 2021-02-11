@@ -221,27 +221,35 @@ private extension PermanentlyPersistableURLCache {
     }
     
     func articleVariantForURL(_ url: URL) -> String? {
-        #if WMF_APPS_LABS_PAGE_CONTENT_SERVICE || WMF_LOCAL_PAGE_CONTENT_SERVICE
-            if let pathComponents = (url as NSURL).pathComponents,
-            pathComponents.count >= 2 {
-                let newHost = pathComponents[1]
-                let hostComponents = newHost.components(separatedBy: ".")
-                if hostComponents.count < 3 {
-                    return Locale.preferredWikipediaLanguageVariant(for: url)
-                } else {
-                    let potentialLanguage = hostComponents[0]
-                    if potentialLanguage == "m" {
+        
+        // If the language variants feature is not turned on, use the old behavior.
+        // This ensures the existing language variant behavior continues working.
+        // This guard statment can be removed when languageVariantsEnabled is removed.
+        guard WikipediaLookup.languageVariantsEnabled else {
+            #if WMF_APPS_LABS_PAGE_CONTENT_SERVICE || WMF_LOCAL_PAGE_CONTENT_SERVICE
+                if let pathComponents = (url as NSURL).pathComponents,
+                pathComponents.count >= 2 {
+                    let newHost = pathComponents[1]
+                    let hostComponents = newHost.components(separatedBy: ".")
+                    if hostComponents.count < 3 {
                         return Locale.preferredWikipediaLanguageVariant(for: url)
                     } else {
-                        return Locale.preferredWikipediaLanguageVariant(for: url, urlLanguage: potentialLanguage)
+                        let potentialLanguage = hostComponents[0]
+                        if potentialLanguage == "m" {
+                            return Locale.preferredWikipediaLanguageVariant(for: url)
+                        } else {
+                            return Locale.preferredWikipediaLanguageVariant(for: url, urlLanguage: potentialLanguage)
+                        }
                     }
                 }
-            }
+            
+                return Locale.preferredWikipediaLanguageVariant(for: url)
+            #else
+                return Locale.preferredWikipediaLanguageVariant(for: url)
+            #endif
+        }
         
-            return Locale.preferredWikipediaLanguageVariant(for: url)
-        #else
-            return Locale.preferredWikipediaLanguageVariant(for: url)
-        #endif
+        return url.wmf_languageVariantCode
     }
     
     func imageInfoVariantForURL(_ url: URL) -> String? {
