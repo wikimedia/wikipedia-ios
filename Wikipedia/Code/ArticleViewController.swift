@@ -83,6 +83,8 @@ class ArticleViewController: ViewController, HintPresenting {
     
     @available(iOS 13.0, *)
     lazy var articleAsLivingDocController = ArticleAsLivingDocController(delegate: self)
+    @available(iOS 13.0, *)
+    lazy var articleInspector = ArticleInspectorController(articleURL: articleURL)
     
     var surveyAnnouncementResult: SurveyAnnouncementsController.SurveyAnnouncementResult? {
         SurveyAnnouncementsController.shared.activeSurveyAnnouncementResultForArticleURL(articleURL)
@@ -416,6 +418,7 @@ class ArticleViewController: ViewController, HintPresenting {
             
             if #available(iOS 13.0, *) {
                 self.articleAsLivingDocController.articleContentFinishedLoading()
+                self.articleInspector.articleContentFinishedLoading(messagingController: self.messagingController)
             }
             
             self.setupFooter()

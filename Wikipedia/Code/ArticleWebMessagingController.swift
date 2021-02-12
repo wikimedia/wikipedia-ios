@@ -378,7 +378,17 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
     }
 }
 
-//Article as a Living Document Scripts
+//MARK: Article Inspector Scripts
+
+extension ArticleWebMessagingController {
+    func htmlContent(completion: @escaping ((String?) -> Void)) {
+        webView?.evaluateJavaScript("document.documentElement.outerHTML.toString()") { (result, error) in
+            completion(result as? String)
+        }
+    }
+}
+
+//MARK: Article as a Living Document Scripts
 
 extension ArticleWebMessagingController {
     

@@ -41,11 +41,13 @@ public extension String {
     var percentEncodedPageTitleForPathComponents: String? {
         return denormalizedPageTitle?.addingPercentEncoding(withAllowedCharacters: .encodeURIComponentAllowed)
     }
-
+    
+    /// Replaces _ with spaces
      var normalizedPageTitle: String? {
         return replacingOccurrences(of: "_", with: " ").precomposedStringWithCanonicalMapping
      }
     
+    /// Replaces spaces with _
      var denormalizedPageTitle: String? {
         return replacingOccurrences(of: " ", with: "_").precomposedStringWithCanonicalMapping
      }
