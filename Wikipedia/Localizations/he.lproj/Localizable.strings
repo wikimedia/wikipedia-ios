@@ -31,8 +31,8 @@
 "aaald-error-subitle" = "נא לרענן כדי לנסות שוב";
 "aaald-error-title" = "לא ניתן לטעון היסטוריית ערך להצגה פנימית";
 "aaald-many-sections-description" = "ב־$1 פרקים";
-"aaald-multiple-changes-description" = "בוצעו מספר שינויים";
-"aaald-multiple-references-added-description" = "נוספו מספר הפניות";
+"aaald-multiple-changes-description" = "בוצעו כמה שינויים";
+"aaald-multiple-references-added-description" = "נוספו כמה הערות שוליים";
 "aaald-new-book-reference-title" = "ספר";
 "aaald-new-discussion" = "דיון חדש";
 "aaald-new-journal-reference-database" = "דרך $1";
@@ -172,6 +172,10 @@
 "button-skip" = "לדלג";
 "cancel" = "ביטול";
 "cc-zero" = "קריאייטיב קומונז אפס";
+"chinese-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בהגוונים הבאים של סינית בתור השפה הראשית או המשנית ביישום, כדי שיהיה קל יותר לקרוא, לחפש, ולערוך בהגוונים המועדפים עליך:\n\n简体 סינית, מפושטת (zh-hans)\n繁體 סינית, מסורתית (zh-hant)\n大陆简体 יבשתית מפושטת (zh-cn)\n香港繁體 הונג קונג מסורתית (zh-hk)\n澳門繁體 מקאו מסורתית (zh-mo)\n大马简体 מלזיה מפושטת (zh-my)\n新加坡简体 סינגפור מפושטת (zh-sg)\n臺灣正體 טאיוואן מסורתית (zh-tw)";
+"chinese-variants-alert-dismiss-button" = "לא, תודה";
+"chinese-variants-alert-preferences-button" = "סקירת ההעדפות שלך";
+"chinese-variants-alert-title" = "עדכונים לתמיכה בהגוונים של סינית";
 "clear-title-accessibility-label" = "ניקוי";
 "close-button-accessibility-label" = "סגירה";
 "compass-direction" = "בשעה $1";
@@ -686,7 +690,7 @@
 "reading-lists-article-queued-to-be-downloaded" = "הערך ממתין להורדה";
 "reading-lists-article-save-to-disk-failed" = "הגעת למגבלה של המכשיר, לא ניתן לסנכרן את הערך";
 "reading-lists-article-save-to-disk-recovery-suggestion" = "באפשרותך לנקות שטח אחסון מהמכשיר שלך ולאחר מכן לנסות שוב";
-"reading-lists-articles-not-synced-limit-exceeded" = "מספר ערכים לא סונכרנו משום שעברת את המגבלה";
+"reading-lists-articles-not-synced-limit-exceeded" = "כמה ערכים לא סונכרנו משום שעברת את המגבלה";
 "reading-lists-conflicting-reading-list-name-updated" = "שם הרשימה '$1' שוּנה לשם '$2'";
 "reading-lists-count" = "{{PLURAL:$1|רשימת קריאה אחת|$1 רשימות קריאה}}";
 "reading-lists-default-list-description" = "רשימת ברירת מחדל לערכים השמורים שלך";
@@ -696,7 +700,7 @@
 "reading-lists-large-sync-completed" = "{{PLURAL:$1|ערך אחד|$1 ערכים}} {{PLURAL:$2|ורשימת קריאה אחת|ו־$2 רשימות קריאה}} סונכרנו מהחשבון שלך";
 "reading-lists-list-not-synced-limit-exceeded" = "הרשימה לא סונכרנה משום שעברת את המגבלה";
 "reading-lists-sort-saved-articles" = "מיון ערכים שמורים";
-"reading-lists-split-notification" = "ישנה מגבלה של $1 ערכים ברשימת קריאה אחת. רשימות קיימות עם מספר ערכים גבוה מהמגבלה הזאת פוצלו למספר רשימות.";
+"reading-lists-split-notification" = "ישנה מגבלה של $1 ערכים ברשימת קריאה אחת. רשימות קיימות עם מספר ערכים גבוה מהמגבלה הזאת פוצלו לכמה רשימות.";
 "reading-lists-sync-error-no-internet-connection" = "הסנכרון ימשיך כשניתן יהיה להתחבר לאינטרנט";
 "reading-themes-controls-accessibility-black-theme-button" = "ערכת נושא שחורה";
 "reading-themes-controls-accessibility-brightness-slider" = "מחלק בהירות";

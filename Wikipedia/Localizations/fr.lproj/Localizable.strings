@@ -164,7 +164,7 @@
 "article-languages-label" = "Choisir la langue";
 "article-languages-others" = "Autres langues";
 "article-languages-yours" = "Vos langues";
-"article-read-more-title" = "Lire la suite";
+"article-read-more-title" = "En lire plus";
 "article-reference-view-title" = "Référence $1";
 "article-save-error-not-enough-space" = "Vous n’avez pas assez d’espace disponible sur votre appareil pour enregistrer cet article";
 "article-share" = "Partager";
@@ -249,11 +249,11 @@
 "diff-single-intro-title" = "Introduction";
 "diff-single-line-format" = "Ligne $1";
 "diff-thanks-anonymous-no-thanks" = "Les utilisateurs anonymes ne peuvent pas être remerciés";
-"diff-thanks-login-subtitle" = "Dire « Merci » est un moyen facile de montrer l’appréciation du travail d’un éditeur sur Wikipédia. Vous devez être connecté pour remercier quelqu’un.";
+"diff-thanks-login-subtitle" = "Dire « Merci » est un moyen facile de montrer l’appréciation du travail d’un contributeur sur Wikipédia. Vous devez être connecté pour remercier quelqu’un.";
 "diff-thanks-login-title" = "Se connecter pour dire « Merci »";
 "diff-thanks-send-button-title" = "Envoyer un « Merci »";
-"diff-thanks-send-subtitle" = "Dire « Merci » est un moyen facile de montrer l’appréciation du travail d’un éditeur sur Wikipédia. Les remerciements ne peuvent pas être annulés et sont publiquement visibles.";
-"diff-thanks-send-title" = "Envoyer publiquement un remerciement";
+"diff-thanks-send-subtitle" = "Dire « Merci » est un moyen facile de montrer l’appréciation du travail d’un contributeur sur Wikipédia. Les remerciements ne peuvent pas être annulés et sont publiquement visibles.";
+"diff-thanks-send-title" = "Envoyer publiquement un « Merci »";
 "diff-thanks-sent" = "Votre « Merci » a été envoyé à $1";
 "diff-thanks-sent-already" = "Vous avez déjà envoyé un « Merci » pour cette modification";
 "diff-thanks-sent-cannot-unsend" = "Les remerciements ne peuvent pas être retirés";
@@ -320,7 +320,7 @@
 "edit-watch-this-page-text" = "Suivre cette page";
 "editing-welcome-be-bold-subtitle" = "Soyez courageux mais non téméraire dans la mise à jour des articles. Ne vous inquiétez pas de faire des fautes : chaque version passée d’une page est enregistrée, donc les erreurs peuvent facilement être corrigées par notre communauté.";
 "editing-welcome-be-bold-title" = "Votre voix est importante";
-"editing-welcome-citations-subtitle" = "Tout contenu doit être vérifiable. En ajoutant une nouvelle information à un article, les éditeurs doivent fournir une citation incluse vers une source fiable qui soutient directement la contribution.";
+"editing-welcome-citations-subtitle" = "Tout contenu doit être vérifiable. En ajoutant une nouvelle information à un article, les contributeurs doivent fournir une référence vers une source fiable qui soutient directement la contribution.";
 "editing-welcome-citations-title" = "Citer des sources fiables";
 "editing-welcome-impartial-tone-subtitle" = "Nous faisons tous nos efforts pour que les articles soient écrits sur un ton impartial. Lors de la modification, visez à donner une représentation juste du monde comme le décrivent les sources fiables.";
 "editing-welcome-impartial-tone-title" = "Écrire sur un ton impartial";
@@ -577,7 +577,7 @@
 "on-this-day-title" = "Ce jour-là";
 "original-tab-button-popover-description" = "Tapez sur l’icône « W » pour revenir à l’onglet avec lequel vous avez commencé";
 "page-history-anonymous-edits" = "modifications anonymes";
-"page-history-bot-edits" = "modifications par robot";
+"page-history-bot-edits" = "modifications par un robot";
 "page-history-compare-accessibility-hint" = "Tapper pour sélectionner deux versions à comparer";
 "page-history-compare-title" = "Comparer";
 "page-history-graph-accessibility-label" = "Graphique des modifications au cours du temps";
@@ -590,7 +590,7 @@
 "page-history-revision-size-diff-subtraction" = "$1 octet{{PLURAL:$1||s}} enlevé{{PLURAL:$1||s}}";
 "page-history-revision-time-accessibility-label" = "Modification du $1";
 "page-history-revisions-comparison-warning" = "Seulement deux versions doivent être sélectionnées";
-"page-history-stats-text" = "$1 modifications{{PLURAL:$1||s}} depuis $2";
+"page-history-stats-text" = "$1 modification{{PLURAL:$1||s}} depuis $2";
 "page-history-user-edits" = "modifications par un utilisateur";
 "page-issues" = "Problèmes de la page";
 "page-location" = "Afficher sur une carte";

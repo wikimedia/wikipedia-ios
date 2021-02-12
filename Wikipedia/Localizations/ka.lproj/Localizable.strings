@@ -47,13 +47,10 @@
 "action-save" = "შენახვა";
 "action-saved" = "შენახულია";
 "announcements-dismiss" = "უარყოფა";
-"article-about-title" = "ამ სტატიის შესახებ";
 "article-languages-filter-placeholder" = "მოძებნე ენა";
 "article-languages-label" = "აირჩიეთ ენა";
 "article-languages-others" = "სხვა ენები";
 "article-languages-yours" = "შენი ენები";
-"article-read-more-title" = "წაიკითხეთ მეტი";
-"article-unable-to-load-section" = "სექციის ჩატვირთვა შეუძლებელია. სცადეთ გვერდის გადატვირთვა და ნახეთ გასწორდება თუ არა პრობლემა.";
 "back-button-accessibility-label" = "უკან";
 "button-next" = "შემდეგი";
 "button-ok" = "კარგი";
@@ -115,21 +112,16 @@
 // Fuzzy
 "home-nearby-footer" = "თქვენი მდებარეობის გადატანა";
 "home-title" = "გამოიკვლიე";
-"icon-shortcut-continue-reading-title" = "განაგრძეთ კითხვა";
 "icon-shortcut-nearby-title" = "ახლომახლო სტატიები";
 "icon-shortcut-random-title" = "შემთხვევითი სტატია";
 "icon-shortcut-search-title" = "ძიება ვიკიპედიაში";
 "image-gallery-unknown-owner" = "ავტორი უცნობია.";
 "in-the-news-notification-read-now-action-title" = "წაიკითხეთ";
 "in-the-news-notification-save-for-later-action-title" = "შემდგომისთვის შენახვა";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "გაზიარება...";
 "in-the-news-title" = "სიახლეებში";
-"info-box-close-text" = "დახურვა";
-// Fuzzy
-"info-box-title" = "სწრაფი ფაქტები";
 "languages-title" = "ენის შეცვლა";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "შიგთავსი ხელმისაწვდომია $1 ლიცენზიით.";
 "login-join-wikipedia" = "შემოუერთდით ვიკიპედიას.";
 "main-menu-about" = "აპლიკაციის შესახებ";
 "main-menu-account-login" = "შესვლა";
@@ -137,8 +129,6 @@
 "main-menu-account-logout-are-you-sure" = "დარწმუნებული ხართ, რომ გსურთ გასვლა?";
 "main-menu-account-logout-cancel" = "გაუქმება";
 "main-menu-account-title-logged-in" = "შესული ხართ როგორც $1.";
-"main-menu-debug-tweaks" = "დეველოპერის პარამეტრები";
-"main-menu-heading-debug" = "დიბაგი";
 "main-menu-heading-legal" = "კონფიდენციალურობა და პირობები";
 "main-menu-nearby" = "სიახლოვეს";
 "main-menu-privacy-policy" = "კონფიდენციალურობის პოლიტიკა";
@@ -156,19 +146,11 @@
 "number-billions" = "$1 მლრდ.";
 "number-millions" = "$1 მლნ.";
 "number-thousands" = "$1 ათ.";
-"page-edit-history" = "მთლიანი რედაქტირების ისტორია";
-"page-history-title" = "სტატიის ისტორია";
-"page-issues" = "გვერდის საკითხები";
-// Fuzzy
-"page-last-edited" = "რედაქტირებულია $1 დღის წინ";
 "page-protected-autoconfirmed" = "ეს გვერდი ნახევრად დაცულია.";
 "page-protected-can-not-edit" = "თქვენ არ გაქვთ ამ გვერდის რედაქტირების უფლება";
 "page-protected-can-not-edit-title" = "ეს გვერდი დაცულია";
 "page-protected-other" = "ეს გვერდი დაცულია შემდეგ დონეებზე: $1";
 "page-protected-sysop" = "ეს გვერდი სრულად დაცულია.";
-// Fuzzy
-"page-read-in-other-languages" = "ხელმისაწვდომია $1-სა და სხვა ენებზე";
-"page-similar-titles" = "მსგავსი გვერდები";
 "places-accessibility-group" = "$1 სტატიები";
 "places-accessibility-show-as-list" = "სიის სახით ჩვენება";
 "places-accessibility-show-as-map" = "რუკის სახით ჩვენება";
@@ -201,13 +183,11 @@
 "settings-support" = "მხარი დაუჭირე ვიკიპედიას";
 "settings-title" = "კონფიგურაცია";
 "share-article-name-on-wikipedia" = "„$1“ @ვიკიპედიაზე";
-"share-custom-menu-item" = "გაზიარება...";
 "status-saved-for-later" = "შემდგომისთვის შენახვა";
 "table-of-contents-button-label" = "სარჩევი";
 "table-of-contents-close-accessibility-hint" = "დახურვა";
 "table-of-contents-close-accessibility-label" = "სარჩევის დახურვა";
 "table-of-contents-heading" = "შინაარსი";
-"table-title-other" = "მეტი ინფორმაცია";
 "top-read-header-generic" = "ვიკიპედია";
 "top-read-header-with-language" = "$1 ვიკიპედია";
 "two-factor-login-continue" = "შესვლის გაგრძელება";
@@ -216,7 +196,6 @@
 "two-factor-login-with-regular-code" = "გამოიყენეთ დადასტურების კოდი";
 "welcome-explore-continue-button" = "დაწყება";
 "welcome-explore-tell-me-more-done-button" = "მიღება";
-"wikitext-download-failed" = "უახლესი ვერსიის ხილვა შეუძლებელია.";
 "wikitext-downloading" = "შიგთავსი იტვირთება…";
 "wikitext-preview-changes" = "თქვენი ცვლილებების წინასწარი გადახედვის ჩვენება...";
 "wikitext-preview-changes-none" = "წინასწარ გადახედვისათვის არანაირი ცვლილება არ განხორციელებულა.";

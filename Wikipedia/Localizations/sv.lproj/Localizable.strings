@@ -176,6 +176,10 @@
 "button-skip" = "Hoppa över";
 "cancel" = "Avbryt";
 "cc-zero" = "Creative Commons CC0";
+"chinese-variants-alert-body" = "Wikipedia-appen stöder nu följande kinesiska varianter som huvudsakliga eller sekundära språk inom appen, som underlättar att läsa, söka och redigera i appen på dina önskade varianter:\n\n简体 kinesiska, förenklad (zh-hans)\n繁體 kinesiska, traditionell (zh-hant)\n大陆简体 fastlandet, förenklad (zh-cn)\n香港繁體 Hong Kong, traditionell (zh-hk)\n澳門繁體 Macau, traditionell (zh-mo)\n大马简体 Malaysia, förenklad (zh-my)\n新加坡简体 Singapore, förenklad (zh-sg)\n臺灣正體 Taiwan, traditionell (zh-tw)";
+"chinese-variants-alert-dismiss-button" = "Nej tack";
+"chinese-variants-alert-preferences-button" = "Granska dina inställningar";
+"chinese-variants-alert-title" = "Uppdaterades till stöd för kinesiska varianter";
 "clear-title-accessibility-label" = "Rensa";
 "close-button-accessibility-label" = "Stäng";
 "compass-direction" = "mot klockan $1";

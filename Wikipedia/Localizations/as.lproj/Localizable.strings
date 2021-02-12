@@ -3,7 +3,10 @@
 // Author: Bishnu Saikia
 // Author: Gitartha.bordoloi
 // Author: Mhurd
+// Author: Mohsin Ali
 // Author: Nemo bis
+// Author: Paradox
+// Author: Simbu123
 
 "about-content-license" = "সমল অনুজ্ঞাপত্ৰ";
 "about-content-license-details" = "একো নিৰ্দিষ্ট কৰা নাথাকিলে সমলসমূহ $1ৰ অধীনত উপলব্ধ।";
@@ -25,13 +28,14 @@
 "about-translators-details" = "$1ত স্বেচ্ছাসেৱকৰ দ্বাৰা অনূদিত";
 "about-wikimedia-foundation" = "ৱিকিমিডিয়া ফাউণ্ডেশ্যন";
 "about-wikipedia" = "ৱিকিপিডিয়া";
-"abuse-filter-disallow-heading" = "আপুনি এই সম্পাদনা প্ৰকাশ কৰিব নোৱাৰে। অনুগ্ৰহ কৰি ঘূৰি গৈ এইটো সলাওক।";
-"abuse-filter-disallow-notable" = "ৱিকিপিডিয়া এখন বিশ্বকোষ আৰু কেৱল নিৰপেক্ষ, উল্লেখযোগ্য সমলহে ইয়াত অন্তৰ্ভুক্ত হয়।";
+"abuse-filter-disallow-heading" = "আপুনি এই সম্পাদনা প্ৰকাশ কৰিব নোৱাৰে।";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "এটা স্বয়ংক্ৰিয় পৰিশোধকে এই সম্পাদনাটো সম্ভাব্য অগঠনমূলক বা ধ্বংসপ্ৰৱণতাৰ চেষ্টা হিচাপে চিহ্নিত কৰিছে।";
+// Fuzzy
 "abuse-filter-warning-blanking" = "প্ৰবন্ধ খালি কৰা বা স্পামিং কৰা";
 "abuse-filter-warning-heading" = "এইটো সম্ভৱ এটা অগঠনমূলক সম্পাদনা। আপুনি এইটো প্ৰকাশ কৰিব বুলি নিশ্চিতনে?";
 "abuse-filter-warning-irrelevant" = "অপ্ৰাসংগিক বাহ্যিক সংযোগ বা ছবি";
-"abuse-filter-warning-subheading" = "আপোনাৰ সম্পাদনাত তলৰ এটা বা একাধিক থাকিব পাৰে:";
+"abuse-filter-warning-subheading" = "আপোনাৰ সম্পাদনাত থাকিব পাৰে:";
 "account-creation-captcha-cannot-see-image" = "ছবিখন দেখা পোৱা নাই? $1";
 "account-creation-captcha-obtaining" = "এটা নতুন কেপ্‌চা লোৱা হৈছে...";
 "account-creation-captcha-request-account" = "একাউণ্টৰ বাবে অনুৰোধ কৰক";
@@ -44,14 +48,19 @@
 "account-creation-passwords-mismatched" = "গুপ্তশব্দ মিলা নাই।";
 "account-creation-saving" = "সাঁচি থোৱা হৈছে...";
 "account-creation-title" = "এটা নতুন একাউণ্ট সৃষ্টি কৰক";
+"account-group-title" = "আপোনাৰ একাউণ্ট";
+"account-talk-page-title" = "আপোনাৰ আলোচনা পৃষ্ঠা";
+"action-cancel" = "বাতিল কৰক";
+"action-find-in-page" = "এই পৃষ্ঠাত বিচাৰক";
+"action-language-accessibility" = "ভাষা সলনি কৰক";
+"action-move-to" = "স্থানান্তৰ কৰক…";
+"action-move-to-reading-list" = "পঢ়া সূচীলৈ স্থানান্তৰ কৰক";
 "action-read" = "পঢ়ক";
 "action-save" = "সাঁচি থওক";
 "action-saved" = "সাঁচি থোৱা হ’ল";
 "action-share" = "শ্বেয়াৰ কৰক";
-"alert-no-internet" = "ইণ্টাৰনেট সংযোগ নাই";
 "announcements-dismiss" = "বাতিল কৰক";
 "appearance-settings-theme-options" = "থীম বিকল্পসমূহ";
-"article-about-title" = "এই প্ৰবন্ধ সম্পৰ্কে";
 "article-delete" = "বিলোপ কৰক";
 "article-languages-filter-placeholder" = "ভাষা সন্ধান কৰক";
 "article-languages-label" = "ভাষা নির্বাচন কৰক";
@@ -59,120 +68,124 @@
 "article-languages-yours" = "আপোনাৰ ভাষাসমূহ";
 "article-read-more-title" = "আৰু পঢ়ক";
 "article-share" = "শ্বেয়াৰ কৰক";
-"article-unable-to-load-article" = "প্ৰবন্ধ ল'ড কৰিবলৈ অসমৰ্থ।";
-"article-unable-to-load-section" = "এই অনুচ্ছেদটো ল'ড কৰাত অসমৰ্থ। সমস্যা সমাধানৰ বাবে প্ৰবন্ধটো সতেজ কৰি চাব পাৰে।";
-"back" = "ঘূৰি যাওক";
 "back-button-accessibility-label" = "ঘূৰি যাওক";
-"button-done" = "কৰা হ’ল";
 "button-next" = "পৰৱৰ্তী";
 "button-ok" = "শুদ্ধ";
 "button-publish" = "প্ৰকাশ কৰক";
 "button-read-now" = "এতিয়া পঢ়ক";
 "button-save-for-later" = "পাছত পঢ়াৰ বাবে সাঁচি থওক";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "বন্ধ কৰক";
+"description-help-about-wikidata" = "ৱিকিডে'টাৰ বিষয়ে";
+"description-help-tips-for-example" = "উদাহৰণস্বৰূপে:";
+"description-published-button-title" = "কৰা হ'ল";
+"description-published-subtitle" = "আপুনি সকলোৰে বাবে ৱিকিপিডিয়া উন্নত কৰি তুলিছে";
 "edit-summary-choice-fixed-grammar" = "ব্যাকৰণ শুধৰণি";
 "edit-summary-choice-fixed-typos" = "বানান শুধৰণি";
 "edit-summary-choice-linked-words" = "লিংক যোগ";
-"edit-summary-choice-other" = "অনান্য";
-"edit-summary-field-placeholder-text" = "পৃষ্ঠাটো উন্নত কৰাত আপোনাৰ অন্য অৱদান";
-"edit-summary-title" = "আপুনি পৃষ্ঠাটো কেনেকৈ উন্নত কৰিলে?";
-"explore-nearby-placeholder-cancel" = "বাতিল কৰক";
-"explore-nearby-placeholder-dismiss" = "বাতিল কৰক";
+"empty-no-history-title" = "দেখুৱাবলৈ কোনো ইতিহাস নাই";
+"explore-featured-article-sub-heading-from-language-wikipedia" = "$1 ৱিকিপিডিয়াৰ পৰা";
+"explore-feed-preferences-featured-article-description" = "ৱিকিপিডিয়াৰ দৈনিক নিৰ্বাচিত প্ৰবন্ধ";
+"explore-feed-preferences-on-this-day-description" = "ইতিহাসত আজিৰ দিনটোত";
+"explore-feed-preferences-places-description" = "আপোনাৰ অঞ্চলৰ কাষৰ ৱিকিপিডিয়া প্ৰবন্ধ";
+"explore-main-page-heading" = "ৱিকিপিডিয়াত আজি";
+"explore-most-read-sub-heading-on-language-wikipedia" = "$1 ৱিকিপিডিয়াত";
 "explore-nearby-placeholder-heading" = "স্থান";
-"explore-nearby-placeholder-sub-heading-on-wikipedia" = "ৱিকিপিডিয়াত";
+"explore-nearby-placeholder-sub-heading-on-language-wikipedia" = "$1 ৱিকিপিডিয়াৰ পৰা";
+"explore-nearby-placeholder-sub-heading-on-wikipedia" = "ৱিকিপিডিয়াৰ ফালৰ পৰা";
 "explore-nearby-sub-heading-your-location" = "আপোনাৰ অৱস্থান";
+"explore-nearby-sub-heading-your-location-from-language-wikipedia" = "$1 ৱিকিপিডিয়াৰ পৰা আপোনাৰ অৱস্থান";
 "explore-potd-heading" = "আজিৰ নিৰ্বাচিত ছবি";
 "explore-random-article-heading" = "যাদৃচ্ছিক প্ৰবন্ধ";
+"explore-random-article-sub-heading-from-language-wikipedia" = "$1 ৱিকিপিডিয়াৰ পৰা";
 "explore-randomizer" = "যাদৃচ্ছিক";
+"field-email-placeholder" = "example@example.org";
+"field-email-title" = "ইমেইল";
+"field-email-title-optional" = "ইমেইল (বৈকল্পিক)";
+"field-password-title" = "পাছৱৰ্ড";
+"find-textfield-accessibility" = "বিচাৰক";
 "history-clear-cancel" = "বাতিল কৰক";
-// Fuzzy
-"history-clear-confirmation-heading" = "সকলো শেহতীয়া আইটেম বিলোপ কৰিব?";
-// Fuzzy
-"history-clear-delete-all" = "সকলো বিলোপ কৰক";
-"hockeyapp-alert-always-send" = "সদায় পঠিয়াওক";
-"hockeyapp-alert-do-not-send" = "নপঠিয়াব";
-"hockeyapp-alert-privacy" = "$1 গোপনীয়তা";
-"hockeyapp-alert-send-report" = "প্ৰতিবেদন পঠিয়াওক";
-// Fuzzy
-"image-gallery-unknown-owner" = "আপল'ডাৰ অজ্ঞাত";
-"info-box-close-text" = "বন্ধ কৰক";
-// Fuzzy
-"info-box-title" = "ক্ষিপ্ৰ তথ্য";
-// Fuzzy
-"languages-title" = "ভাষাসমূহ";
-"license-footer-name" = "CC BY-SA 3.0";
-// Fuzzy
-"license-footer-text" = "সমল $1ৰ আওতাত উপলব্ধ";
-// Fuzzy
-"main-menu-about" = "ৱিকিপিডিয়া এপ্‌টোৰ বিষয়ে";
-// Fuzzy
-"main-menu-account-login" = "প্ৰৱেশ";
+"history-clear-confirmation-heading" = "আপুনি আপোনাৰ সকলো শেহতীয়া বস্তু মচিবলৈ বিচৰাটো নিশ্চিতনে?";
+"history-clear-delete-all" = "হয়, সকলো মচক";
+"history-title" = "ইতিহাস";
+"home-button-explore-accessibility-label" = "ৱিকিপিডিয়া, অন্বেষণলৈ উভতি যাওক";
+"home-button-history-accessibility-label" = "ৱিকিপিডিয়া, ইতিহাসলৈ উভতি যাওক";
+"home-button-saved-accessibility-label" = "ৱিকিপিডিয়া, সংৰক্ষণলৈ উভতি যাওক";
+"home-title-accessibility-label" = "ৱিকিপিডিয়া, অন্বেষণৰ আৰম্ভণিলৈ যাওক";
+"icon-shortcut-search-title" = "ৱিকিপিডিয়াত সন্ধান কৰক";
+"image-gallery-unknown-owner" = "লেখক অজ্ঞাত।";
+"in-the-news-sub-title-from-language-wikipedia" = "$1 ৱিকিপিডিয়াৰ পৰা";
+"insert-media-image-preview-more-information-action-title" = "অধিক তথ্য";
+"languages-title" = "ভাষা সলনি কৰক";
+"languages-wikipedia" = "ৱিকিপিডিয়াৰ ভাষাসমূহ";
+"login-join-wikipedia" = "ৱিকিপিডিয়াত যোগদান কৰক।";
+"main-menu-about" = "এপটোৰ বিষয়ে";
+"main-menu-account-login" = "লগইন কৰক";
 "main-menu-account-logout" = "প্ৰস্থান";
-// Fuzzy
-"main-menu-account-title-logged-in" = "$1 নামেৰে প্ৰৱেশ কৰিলে";
-"main-menu-debug-crash" = "ক্ৰেশ্ব";
-"main-menu-heading-debug" = "ডিবাগ্‌";
+"main-menu-account-title-logged-in" = "$1 নামেৰে লগইন কৰিছে";
 "main-menu-heading-legal" = "গোপনীয়তা আৰু চৰ্তাৱলী";
-"main-menu-heading-zero" = "ৱিকিপিডিয়া জিৰ'";
 "main-menu-nearby" = "কাষৰীয়া";
 "main-menu-privacy-policy" = "গোপনীয়তা নীতি";
-// Fuzzy
 "main-menu-rate-app" = "এপ্‌টো মূল্যায়ন কৰক";
-// Fuzzy
 "main-menu-terms-of-use" = "ব্যৱহাৰৰ চৰ্তাৱলী";
 "main-menu-title" = "অধিক";
 "main-menu-zero-faq" = "ৱিকিপিডিয়া জিৰ' FAQ";
 "menu-cancel-accessibility-label" = "বাতিল";
-"menu-trash-accessibility-label" = "বিলোপ কৰক";
+"more-languages-tooltip-description" = "৩০০ৰো অধিক ভাষাৰ ৱিকিপিডিয়াত সন্ধান কৰক";
 "navbar-title-mode-edit-wikitext-preview" = "প্ৰাকদৰ্শন";
 "nearby-distance-label-feet" = "$1 ফুট";
 "nearby-distance-label-km" = "$1 কি:মি:";
 "nearby-distance-label-meters" = "$1 মিটাৰ";
 "nearby-distance-label-miles" = "$1 মাইল";
-"onboarding-wikipedia" = "ৱিকিপিডিয়া";
-"open-link-cancel" = "বাতিল";
-"page-history-title" = "প্ৰবন্ধ ইতিহাস";
-"page-issues" = "পৃষ্ঠা সমস্যা";
+"on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 ৱিকিপিডিয়াৰ পৰা $1";
+"page-history-revision-history-title" = "সংশোধনৰ ইতিহাস";
 "page-protected-autoconfirmed" = "এই পৃষ্ঠাটো অৰ্ধ-সুৰক্ষিত কৰা হৈছে।";
 "page-protected-can-not-edit" = "আপোনাৰ এই পৃষ্ঠা সম্পাদনা কৰাৰ অধিকাৰ নাই";
 "page-protected-can-not-edit-title" = "এই পৃষ্ঠাটো সুৰক্ষিত";
 "page-protected-other" = "এই পৃষ্ঠাটো তলৰ স্তৰলৈ সুৰক্ষিত কৰা হৈছে: $1";
 "page-protected-sysop" = "এই পৃষ্ঠাটো সম্পূৰ্ণ সুৰক্ষিত কৰা হৈছে।";
-"page-similar-titles" = "একে ধৰণৰ পৃষ্ঠা";
+"places-empty-search-title" = "ৱিকিপিডিয়াৰ ভৌগোলিক অৱস্থানযুক্ত প্ৰবন্ধসমূহ অনুসন্ধান কৰক";
 // Fuzzy
 "preference-summary-eventlogging-opt-in" = "এপ্‌টো উন্নত কৰিবৰ বাবে আপুনি এই এপ্‌ কেনেকৈ ব্যৱহাৰ কৰে জানিবলৈ ৱিকিমিডিয়াক তথ্য সংগ্ৰহৰ অনুমতি দিয়ক";
 "preference-title-eventlogging-opt-in" = "ব্যৱহাৰৰ প্ৰতিবেদন পঠিয়াওক";
+"replace-infolabel-method-replace-all" = "সকলো বদলি কৰক";
+"replace-textfield-accessibility" = "বদলি কৰক";
+"replace-textfield-placeholder" = "…ৰে বদলি কৰক";
+"reverted-edit-back-to-article-button-title" = "প্ৰবন্ধলৈ ঘূৰি যাওক";
+"reverted-edit-notification-read-more-action-title" = "আৰু পঢ়ক";
+"reverted-edit-thanks-for-editing-title" = "ৱিকিপিডিয়া সম্পাদনা কৰাৰ বাবে ধন্যবাদ!";
+"saved-all-articles-title" = "সকলো প্ৰবন্ধ";
+"saved-default-reading-list-tag" = "এই প্ৰবন্ধ মচিব নোৱাৰি";
+"search-button-accessibility-label" = "ৱিকিপিডিয়াত সন্ধান কৰক";
+"search-clear-title" = "পৰিষ্কাৰ";
 "search-did-you-mean" = "আপুনি $1 বুজাব খুজিছে নেকি?";
 "search-field-placeholder-text" = "ৱিকিপিডিয়াত সন্ধান কৰক";
 "search-recent-clear-cancel" = "বাতিল";
 "search-recent-clear-confirmation-heading" = "শেহতীয়া সকলো সন্ধান বিলোপ কৰিব?";
 "search-recent-clear-confirmation-sub-heading" = "এই কাৰ্য্য নোহোৱা কৰিব নোৱাৰি!";
 "search-recent-clear-delete-all" = "সকলো বিলোপ কৰক";
-// Fuzzy
-"search-recent-title" = "শেহতীয়া সন্ধানসমূহ";
+"search-recent-title" = "শেহতীয়াকৈ সন্ধান কৰিছে";
+"settings-account" = "একাউণ্ট";
+"settings-clear-cache-ok" = "কেশ্ব পৰিষ্কাৰ কৰক";
+"settings-my-languages" = "সকলো ভাষা";
+"settings-storage-and-syncing-erase-saved-articles-button-title" = "মচি পেলাওক";
+"settings-storage-and-syncing-erase-saved-articles-title" = "সাঁচি থোৱা প্ৰবন্ধসমূহ মচি পেলাওক";
+"settings-support" = "ৱিকিপিডিয়াক সমৰ্থন কৰক";
 "settings-title" = "ছেটিংছ";
+"share-article-name-on-wikipedia" = "@Wikipedia -ত \"$1\":";
+"share-message-format" = "“$1” $2";
+"share-on-twitter-sign-off" = "@Wikipedia ৰ মাধ্যমেৰে";
+"share-social-format" = "ৱিকিপিডিয়াৰ মাধ্যমেৰে “$1”: $2";
 "table-of-contents-heading" = "সমল";
-"table-title-other" = "অধিক তথ্য";
-"wikitext-download-failed" = "সৰ্বশেষ সংস্কৰণ পোৱা সম্ভৱ নহয়।";
-"wikitext-download-success" = "সমল ল'ড হৈছে।";
+"talk-page-info-active-conversations" = "$1 ৱিকিপিডিয়াৰ সক্ৰিয় আলোচনাসমূহ";
+"top-read-header-generic" = "ৱিকিপিডিয়া";
+"welcome-intro-free-encyclopedia-description" = "স্বেচ্ছাসেৱকসকলৰ দ্বাৰা সহযোগিতামূলক ভাবে ৱিকিপিডিয়াক লিখা হৈছে আৰু ইয়াত ৩০০টাৰো অধিক ভাষাত ৪ কোটিৰো অধিক প্ৰবন্ধ আছে।";
+"welcome-intro-free-encyclopedia-more" = "ৱিকিপিডয়াৰ বিষয়ে অধিক জানক";
+"welcome-intro-free-encyclopedia-more-description" = "ৱিকিপিডিয়া হৈছে বিশ্বৰ সকলো ভাষাতে মুক্ত বিশ্বকোষ নিৰ্মাণ কৰাৰ এক গোলকীয় প্ৰকল্প। ইণ্টাৰনেটৰ সংযোগ থকা যিকোনো লোকেই নিৰপেক্ষ তথা উদ্ধৃতিযুক্ত তথ্যৰ বৰঙণি আগবঢ়াই ইয়াত অংশগ্ৰহণ কৰিব পাৰে।";
 "wikitext-downloading" = "সমল ল’ড হৈ আছে...";
 "wikitext-preview-changes" = "আপোনাৰ সালসলনিৰ প্ৰাক্‌দৰ্শন উদ্ধাৰ কৰা হৈছে...";
 "wikitext-preview-changes-none" = "প্ৰাক্‌দৰ্শনৰ বাবে কোনো সালসলনি কৰা নাই।";
-// Fuzzy
-"wikitext-upload-save" = "সাঁচি থোৱা হৈছে...";
+"wikitext-preview-link-not-found-preview-description" = "এই নামৰ সৈতে হুবহু মিলা কোনো প্ৰবন্ধ ৱিকিপিডিয়াত নাই";
+"wikitext-upload-save" = "প্ৰকাশ কৰি থকা হৈছে...";
 "wikitext-upload-save-anonymously-warning" = "সম্পাদনাসমূহ আপোনাৰ আই পি ঠিকনাত আৰোপ কৰা হ'ব। যদি আপুনি $1 কৰে তেন্তে আপুনি অধিক গোপনীয়তা লাভ কৰিব।";
 "wikitext-upload-save-sign-in" = "প্ৰৱেশ";
 "wikitext-upload-save-terms-name" = "ব্যৱহাৰৰ চৰ্তাৱলী";
-"zero-charged-verbiage" = "ৱিকিপিডিয়া জিৰ' বন্ধ হৈ আছে";
-"zero-charged-verbiage-extended" = "অন্য প্ৰবন্ধ ল'ড কৰিলে ডে'টা মূল্য বহন কৰিব লাগিব। সাঁচি থোৱা অফলাইন প্ৰবন্ধই ডে'টা ব্যৱহাৰ নকৰে আৰু সেইবোৰ বিনামূলীয়া।";
-"zero-free-verbiage" = "ম'বাইল অপাৰেটৰ সৌজন্যত বিনামূলীয়াকৈ ৱিকিপিডিয়া (ডে'টা মূল্য ৰেহাই দিয়া হৈছে)";
-"zero-interstitial-cancel" = "ইয়াতে থাকক";
-"zero-interstitial-continue" = "প্ৰস্থান";
-"zero-interstitial-leave-app" = "ডে'টা মূল্য প্ৰয়োগ হ'ব পাৰে। বাহ্যিক ছাইটলৈ যাবনে?";
-"zero-interstitial-title" = "ৱিকিপিডিয়া জিৰ'ৰ পৰা আঁতৰিছে";
-"zero-learn-more" = "এই ৱিকিপিডিয়া এপৰ বাবে ডে'টা মূল্য ৰেহাই দিয়া হৈছে।";
-"zero-learn-more-learn-more" = "আৰু পঢ়ক";
-"zero-learn-more-no-thanks" = "বাতিল";
-// Fuzzy
-"zero-warn-when-leaving" = "ৱিকিপিডিয়া জিৰ' এৰিলে সতৰ্ক কৰিব";
