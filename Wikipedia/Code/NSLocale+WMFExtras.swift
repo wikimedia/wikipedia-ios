@@ -49,7 +49,7 @@ extension Locale {
     /// - Parameter includingLanguagesWithoutVariants: Pass true to include Wikipedias without variants, passing false will only return languages with variants (currently only supporting zh and sr)
     /// - Returns: An array of preferred Wikipedia languages based on the provided array of language identifiers
     /// - Note: Access level is internal for testing
-    static func uniqueWikipediaLanguages(with languageIdentifiers: [String], includingLanguagesWithoutVariants: Bool = true) -> [String] {
+    static func uniqueWikipediaLanguages(with languageIdentifiers: [String], includingLanguagesWithoutVariants: Bool = true, useLocaleIdentifiers: Bool = true) -> [String] {
         var uniqueLanguageCodes = [String]()
         for languageIdentifier in languageIdentifiers {
             let locale = Locale(identifier: languageIdentifier)
@@ -64,10 +64,12 @@ extension Locale {
                 continue
             }
 
-            // Otherwise, add the language code of the locale. This is the Wikipedia language code.
+            // Otherwise, add the language code of the locale.
+            // This could either be the full locale identifier string from the OS, or the Wikipedia language code.
             if includingLanguagesWithoutVariants {
-                if !uniqueLanguageCodes.contains(languageCode) {
-                    uniqueLanguageCodes.append(languageCode)
+                let code = useLocaleIdentifiers ? languageIdentifier.lowercased() : languageCode
+                if !uniqueLanguageCodes.contains(code) {
+                    uniqueLanguageCodes.append(code)
                 }
             }
         }
@@ -157,9 +159,22 @@ extension NSLocale {
         return locale ?? Locale.autoupdatingCurrent
     }
     
+    // This property contains the suggested languages based on the user's OS settings.
+    // It can contain both language variant codes for languages that support variants and locale identifiers.
+    // Languages without variants are represented by the full locale identifier, which differentiate by region as well as language, such as en-US and en-GB.
     @objc public static let wmf_preferredLanguageCodes: [String] =
         Locale.uniqueWikipediaLanguages(with: preferredLanguages)
     
+    
+    // This property contains the suggested languages based on the user's OS settings during onboarding.
+    // It can contain both language variant codes for languages that support variants and language codes.
+    // Note it the returned array does not contain locale identifiers, which differentiate by region as well as language, such as en-US and en-GB.
+    @objc public static let wmf_preferredWikipediaLanguageCodes: [String] =
+        Locale.uniqueWikipediaLanguages(with: preferredLanguages, useLocaleIdentifiers: false)
+    
+    
+    // This is the old method to get the suggested languages from the user's OS settings during onboarding.
+    // It can be removed once its one client in MWKLanguageLinkController is removed when language variants are turned on.
     @objc public static var wmf_preferredLocaleLanguageCodes: [String] {
         // use language code when determining if a langauge is preferred (e.g. "en_US" is preferred if "en" was selected)
         preferredLanguages.compactMap { NSLocale(localeIdentifier: $0).languageCode }
