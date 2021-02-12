@@ -53,28 +53,44 @@ extension Locale {
         var uniqueLanguageCodes = [String]()
         for languageIdentifier in languageIdentifiers {
             let locale = Locale(identifier: languageIdentifier)
-            if let languageCode = locale.languageCode?.lowercased() {
-                if let scriptLookup = mediaWikiCodeLookupGlobal[languageCode] {
-                    let scriptCode = locale.scriptCode?.lowercased() ?? mediaWikiCodeLookupDefaultKeyGlobal
-                    if let regionLookup = scriptLookup[scriptCode] ?? scriptLookup[mediaWikiCodeLookupDefaultKeyGlobal] {
-                        let regionCode = locale.regionCode?.lowercased() ?? mediaWikiCodeLookupDefaultKeyGlobal
-                        if let mediaWikiCode = regionLookup[regionCode] ?? regionLookup[mediaWikiCodeLookupDefaultKeyGlobal] {
-                            if !uniqueLanguageCodes.contains(mediaWikiCode) {
-                                uniqueLanguageCodes.append(mediaWikiCode)
-                            }
-                            continue
-                        }
-                    }
+            
+            guard let languageCode = locale.languageCode?.lowercased() else { continue }
+            
+            // If the app supports a language variant for the locale, return the best guess of the correct Wikipedia language variant code
+            if let mediaWikiCode = Locale.mediaWikiCodeForLocale(locale) {
+                if !uniqueLanguageCodes.contains(mediaWikiCode) {
+                    uniqueLanguageCodes.append(mediaWikiCode)
                 }
-                if includingLanguagesWithoutVariants {
-                    let lowercased = languageIdentifier.lowercased()
-                    if !uniqueLanguageCodes.contains(lowercased) {
-                        uniqueLanguageCodes.append(lowercased)
-                    }
+                continue
+            }
+
+            // Otherwise, add the language code of the locale. This is the Wikipedia language code.
+            if includingLanguagesWithoutVariants {
+                if !uniqueLanguageCodes.contains(languageCode) {
+                    uniqueLanguageCodes.append(languageCode)
                 }
             }
         }
         return uniqueLanguageCodes
+    }
+    
+    /// There are times, like in onboarding, where we need to guess a user's preferred language variant from the user's language settings in the operating system.
+    /// There is often not a direct mapping. This method looks up the best match for languages with variants
+    /// - Parameter locale: A locale instance
+    /// - Returns: The Wikipedia language variant code that most closely matches the provided locale
+    private static func mediaWikiCodeForLocale(_ locale: Locale) -> String? {
+        if let languageCode = locale.languageCode?.lowercased() {
+            if let scriptLookup = mediaWikiCodeLookupGlobal[languageCode] {
+                let scriptCode = locale.scriptCode?.lowercased() ?? mediaWikiCodeLookupDefaultKeyGlobal
+                if let regionLookup = scriptLookup[scriptCode] ?? scriptLookup[mediaWikiCodeLookupDefaultKeyGlobal] {
+                    let regionCode = locale.regionCode?.lowercased() ?? mediaWikiCodeLookupDefaultKeyGlobal
+                    if let mediaWikiCode = regionLookup[regionCode] ?? regionLookup[mediaWikiCodeLookupDefaultKeyGlobal] {
+                        return mediaWikiCode
+                    }
+                }
+            }
+        }
+        return nil
     }
     
     /// - Parameter languageCodes: List of Wikipedia language codes
