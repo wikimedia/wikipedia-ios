@@ -80,8 +80,11 @@ class ArticleInspectorController {
         
     }
     
-    // Transforms article html, annotated WikiWho html and associated editor and revision information into
-    // combined structs for easier article content sentence highlighting and Article Inspector modal display.
+    
+    /// // Transforms article html, annotated WikiWho html and associated editor and revision information into combined structs for easier article content sentence highlighting and Article Inspector modal display.
+    /// - Parameters:
+    ///   - articleHtml: Article content html
+    ///   - wikiWhoResponse: Decoded WikiWho data from labs WikiWho endpoint
     func processContent(articleHtml: String, wikiWhoResponse: WikiWhoResponse) throws {
         
         //TODO: Implementation

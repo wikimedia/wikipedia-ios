@@ -47,9 +47,6 @@ class ArticleInspectorFetcherTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         
         let fetchExpectation = expectation(description: "Waiting for fetch callback")
-        
-        let siteURL = URL(string: "https://en.wikipedia.org")!
-        let title = "United_States"
 
         let fetcher = ArticleInspectorFetcher(session: session, configuration: Configuration.current)
         fetcher.fetchWikiWho(articleTitle: "Apollo_14") { (result) in
@@ -60,11 +57,40 @@ class ArticleInspectorFetcherTests: XCTestCase {
             
             switch result {
             case .success(let response):
-                print("worked")
+                XCTAssertNotNil(response.extendedHtml)
+                guard let firstRevision = response.revisions["588428499"] else {
+                    XCTFail("Unable to pull first revision")
+                    return
+                }
+                
+                XCTAssertEqual(firstRevision.revisionID, "588298752")
+                XCTAssertEqual(firstRevision.revisionDateString, "2013-12-30T21:47:37Z")
+                XCTAssertEqual(firstRevision.editorID, "fc53413bd6044d4e8097b7c420d01ae7")
+                XCTAssertEqual(firstRevision.editorName, "0|82.139.164.84")
+                
+                guard let firstEditor = response.editors.first else {
+                    XCTFail("Unable to pull first editor")
+                    return
+                }
+                
+                XCTAssertEqual(firstEditor.editorID, "458237")
+                XCTAssertEqual(firstEditor.editorName, "Wehwalt")
+                XCTAssertEqual(firstEditor.editorPercentage, 58.3406105)
+                
+                guard let firstToken = response.tokens.first else {
+                    XCTFail("Unable to pull first token")
+                    return
+                }
+                
+                XCTAssertEqual(firstToken.text, "{{")
+                XCTAssertEqual(firstToken.revisionID, "1003198272")
+                XCTAssertEqual(firstToken.editorID, "10808929")
             case .failure(let error):
                 XCTFail("Error fetching : \(error)")
             }
         }
+        
+        wait(for: [fetchExpectation], timeout: 10)
     }
 
 }

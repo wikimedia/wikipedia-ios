@@ -50,7 +50,7 @@ private extension ArticleInspectorFetcher {
         
         var components = URLComponents()
         components.scheme = "https"
-        components.host = "https://wikiwho-ios-experiments.wmflabs.org/"
+        components.host = "wikiwho-ios-experiments.wmflabs.org"
         components.path = "/whocolor/\(articleTitle)/"
         
         guard let url = components.url else {
