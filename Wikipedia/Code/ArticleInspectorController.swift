@@ -14,10 +14,14 @@ class ArticleInspectorController {
     var isEnabled: Bool {
         
         //TODO: replace with experiment checking, site=en & !rtl logic
-        return true
+        return false
     }
     
     func articleContentFinishedLoading(messagingController: ArticleWebMessagingController) {
+        
+        guard isEnabled else {
+            return
+        }
         
         guard let title = articleURL.wmf_title?.denormalizedPageTitle else {
             DDLogError("Failure constructing article title.")
