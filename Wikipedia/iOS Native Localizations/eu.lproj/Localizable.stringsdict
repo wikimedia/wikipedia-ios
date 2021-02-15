@@ -82,6 +82,22 @@
 			<string>%1$d artikulu</string>
 		</dict>
 	</dict>
+	<key>reading-list-entry-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Kontu bakoitzeko %#@v1@ muga gainditu duzu.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>artikulu %1$den</string>
+			<key>other</key>
+			<string>%1$d artikuluen</string>
+		</dict>
+	</dict>
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -96,6 +112,22 @@
 			<string>artikulu %1$d</string>
 			<key>other</key>
 			<string>%1$d artikulu</string>
+		</dict>
+	</dict>
+	<key>reading-list-list-limit-exceeded-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Kontu bakoitzeko %#@v1@ muga gainditu duzu.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>irakurketa zerrenda %1$den</string>
+			<key>other</key>
+			<string>%1$d irakurketa zerrenden</string>
 		</dict>
 	</dict>
 	<key>reading-lists-count</key>
@@ -144,6 +176,33 @@
 			<string>zerrenda %1$d</string>
 			<key>other</key>
 			<string>%1$d zerrendak</string>
+		</dict>
+	</dict>
+	<key>reading-lists-large-sync-completed</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ eta %#@v2@ sinkronizatu dira zure kontutik</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Artikulu %1$d</string>
+			<key>other</key>
+			<string>%1$d artikulu</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>irakurketa zerrenda %2$d</string>
+			<key>other</key>
+			<string>%2$d irakurketa zerrenda</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
