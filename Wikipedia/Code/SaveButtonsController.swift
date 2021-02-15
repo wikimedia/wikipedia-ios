@@ -37,7 +37,7 @@ class SaveButtonsController: NSObject, SaveButtonDelegate {
             return
         }
         let tag = key.hash
-        saveButton.saveButtonState = article.savedDate == nil ? .longSave : .longSaved
+        saveButton.saveButtonState = article.isAnyVariantSaved ? .longSaved : .longSave
         saveButton.tag = tag
         saveButton.addTarget(self, action: #selector(saveButtonPressed(sender:)), for: .touchUpInside)
         saveButton.saveButtonDelegate = self
@@ -106,7 +106,7 @@ class SaveButtonsController: NSObject, SaveButtonDelegate {
                 return
             }
             for saveButton in saveButtons {
-                saveButton.saveButtonState = article.savedDate == nil ? .longSave : .longSaved
+                saveButton.saveButtonState = article.isAnyVariantSaved ? .longSaved : .longSave
             }
         }
         updatedArticle = article

@@ -36,7 +36,7 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
             }
             vc.articlePreviewingDelegate?.readMoreArticlePreviewActionSelected(with: vc)
         })
-        let saveActionTitle = article.isSaved ? WMFLocalizedString("button-saved-remove", value: "Remove from saved", comment: "Remove from saved button text used in various places.") : CommonStrings.saveTitle
+        let saveActionTitle = article.isAnyVariantSaved ? WMFLocalizedString("button-saved-remove", value: "Remove from saved", comment: "Remove from saved button text used in various places.") : CommonStrings.saveTitle
         let saveAction = UIPreviewAction(title: saveActionTitle, style: .default) { (action, vc) in
             guard let vc = vc as? ArticleViewController else {
                 return

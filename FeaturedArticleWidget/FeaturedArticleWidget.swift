@@ -135,7 +135,7 @@ class FeaturedArticleWidget: ExtensionViewController, NCWidgetProviding {
             group.leave()
         }
         expandedArticleView.tintColor = theme.colors.link
-        expandedArticleView.saveButton.saveButtonState = article.savedDate == nil ? .longSave : .longSaved
+        expandedArticleView.saveButton.saveButtonState = article.isAnyVariantSaved ? .longSaved : .longSave
         updateView()
         
         group.notify(queue: .main) {
