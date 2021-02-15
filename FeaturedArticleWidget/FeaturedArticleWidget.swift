@@ -191,7 +191,7 @@ class FeaturedArticleWidget: ExtensionViewController, NCWidgetProviding {
             DDLogDebug("Widget did finish: \(done)")
         } _: { (dataStore, completion) in
             dataStore.viewContext.perform {
-                let isSaved = dataStore.savedPageList.toggleSavedPage(forKey: articleKey)
+                let isSaved = dataStore.savedPageList.toggleSavedPage(forKey: articleKey, variant: self.articleURL?.wmf_languageVariantCode)
                 self.expandedArticleView.saveButton.saveButtonState = isSaved ? .longSaved : .longSave
                 completion(isSaved)
             }

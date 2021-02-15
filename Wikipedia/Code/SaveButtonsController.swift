@@ -126,7 +126,7 @@ class SaveButtonsController: NSObject, SaveButtonDelegate {
         activeKey = key
         activeSender = sender
         
-        if let articleToUnsave = dataStore.savedPageList.entry(forKey: key.databaseKey) {
+        if let articleToUnsave = dataStore.savedPageList.articleToUnsave(forKey: key.databaseKey) {
             delegate?.willUnsaveArticle(articleToUnsave, userInfo: visibleUserInfo[sender.tag])
             return // don't unsave immediately, wait for a callback from WMFReadingListActionSheetControllerDelegate
         }
@@ -139,7 +139,7 @@ class SaveButtonsController: NSObject, SaveButtonDelegate {
             return
         }
 
-        let isSaved = dataStore.savedPageList.toggleSavedPage(forKey: key.databaseKey)
+        let isSaved = dataStore.savedPageList.toggleSavedPage(forKey: key.databaseKey, variant: key.languageVariantCode)
         
         if isSaved {
             savedPagesFunnel.logSaveNew(withArticleURL: updatedArticle?.url)
