@@ -559,7 +559,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: 0)
         }
         let identifier = ExploreCardCollectionViewCell.identifier
-        let userInfo = "evc-cell-\(group.key ?? "")"
+        let userInfo = "evc-cell-\(group.inMemoryKey?.userInfoString ?? "")"
         if let cachedHeight = layoutCache.cachedHeightForCellWithIdentifier(identifier, columnWidth: columnWidth, userInfo: userInfo) {
             return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: cachedHeight)
         }

@@ -436,10 +436,10 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         let key: String?
         let articleKey: WMFInMemoryURLKey? = self.article(at: indexPath)?.inMemoryKey
         let groupKey: WMFInMemoryURLKey? = contentGroup?.inMemoryKey
-        if displayType == .story || displayType == .event, let contentGroupKey = contentGroup?.key {
-            key = "\(contentGroupKey)-\(indexPath.row)"
+        if displayType == .story || displayType == .event, let contentGroupKey = contentGroup?.inMemoryKey {
+            key = "\(contentGroupKey.userInfoString)-\(indexPath.row)"
         } else {
-            key = articleKey?.databaseKey ?? groupKey?.databaseKey
+            key = articleKey?.userInfoString ?? groupKey?.userInfoString
         }
         let userInfo = "\(key ?? "")-\(displayType.rawValue)"
         if let height = delegate?.layoutCache.cachedHeightForCellWithIdentifier(reuseIdentifier, columnWidth: columnWidth, userInfo: userInfo) {
