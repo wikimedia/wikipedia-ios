@@ -37,7 +37,7 @@ extension ArticleViewController : ArticleTableOfContentsDisplayControllerDelegat
     }
     
     var tableOfContentsSemanticContentAttribute: UISemanticContentAttribute {
-        return MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleURL.wmf_language)
+        return MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: articleURL.wmf_language)
     }
     
     func tableOfContentsDisplayControllerDidRecreateTableOfContentsViewController() {

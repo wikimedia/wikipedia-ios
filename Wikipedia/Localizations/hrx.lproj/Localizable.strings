@@ -1,117 +1,36 @@
 // Messages for Hunsrik (Hunsrik)
 // Exported from translatewiki.net
+// Author: Envlh
 // Author: Paul Beppler
 
-"article-languages-label" = "Sproch auswähle";
-"article-languages-cancel" = "Abbreche";
-"article-languages-downloading" = "Artikelsproche am loode …";
 // Fuzzy
-"article-languages-filter-placeholder" = "Filter";
-// Fuzzy
-"history-label" = "Verloof";
-"history-section-today" = "Heit";
-"history-section-yesterday" = "Gester";
-"history-section-lastweek" = "Letzte Woch";
-"history-section-lastmonth" = "Letzter Monat";
-"zero-free-verbiage" = "Kostenloser Wikipedia-Zugriff von deinem Mobilfunknetzbetreiber (uff Gebühre weard verzichtet)";
-// Fuzzy
-"zero-charged-verbiage" = "Wikipedia Zero AUS (STANDARDDATEÜWERTROOHUNGSGEBÜHRE KÖNNE OONFALLE)";
-"zero-webpage-url" = "https://foundation.wikimedia.org/wiki/Wikipedia_Zero_App_FAQ";
-"zero-interstitial-title" = "Wikipedia Zero verlosse";
-// Fuzzy
-"zero-interstitial-leave-app" = "Mit der externe Website weiter fortfoohre? Standarddateüwertroohungsgebühre könne oonfalle.";
-// Fuzzy
-"zero-interstitial-continue" = "Fortfoohre (weiter mache)";
-// Fuzzy
-"zero-interstitial-cancel" = "Abbreche";
-// Fuzzy
-"zero-learn-more" = "Etwas üwer Wikipedia Zero erfoohre?";
-// Fuzzy
-"zero-learn-more-learn-more" = "Meahr erfoohre";
-// Fuzzy
-"zero-learn-more-no-thanks" = "Nein danke";
-"zero-wikipedia-zero-heading" = "Wikipedia Zero";
-"zero-warn-when-leaving" = "Tue warne, wies du Wikipedia Zero verlosse tust";
-"zero-settings-devmode" = "Zero-Entwicklermodus";
-"account-creation-captcha-required" = "CAPTCHA-Üwerprüfung erforderlich.";
 "account-creation-captcha-obtaining" = "En neies CAPTCHA abrufe.";
 "account-creation-logging-in" = "Oonmelde …";
 "account-creation-passwords-mismatched" = "Die Passwortfelder stimme net üwer enanner.";
 "account-creation-saving" = "Am speichre …";
-"login-name-not-found" = "Der Benutzernoome ist zur Oonmeldung nötich.";
-"login-name-illegal" = "Du host ein ungültiche Benutzernoome oongeb.";
-"login-name-does-not-exist" = "Der oongebne Benutzernoome ist net voarhand (der Benutzer Noome existiert net).";
-"login-password-empty" = "Das Passwort ist zur Anmeldung erforderlich.";
-"login-password-wrong" = "Das oongebne Passwort ist falsch.";
-"login-throttled" = "Du host zu oft in koorzer Zeit vergeblich versucht, dich oonzumelde.";
-"login-user-blocked" = "Benutzer ist gesperrt.";
 // Fuzzy
-"wikitext-downloading" = "Wikitext am loode …";
-"wikitext-download-failed" = "Die aktuellste Version konnt net abgeruf sin.";
+"article-languages-filter-placeholder" = "Filter";
+"article-languages-label" = "Sproch auswähle";
+"edit-summary-choice-fixed-grammar" = "Grammatik korrigiert";
+"edit-summary-choice-fixed-typos" = "Tippfehler korrigiert (digitalisierung)";
 // Fuzzy
-"wikitext-download-success" = "Wikitext gelood.";
-"wikitext-preview-changes" = "Ruf den Voarschau von deiner Ännrungen ab …";
-"wikitext-preview-changes-none" = "Do worre ken Ännrunge doorrichgeführt für en Voarschau oonzeiche.";
-"wikitext-upload-result-unknown" = "Das Ergebnis von deine Wikitext-Upload (Uffloodung) konnt net ermittelt sin.";
-"wikitext-upload-captcha-error" = "Captcha-Üwerprüfungsfehler.";
-"wikitext-upload-captcha-needed" = "Captcha-Üwerprüfung nötich.";
-"wikitext-upload-save" = "Speichere …";
+"edit-summary-choice-linked-words" = "Verlinkte Wörter";
 // Fuzzy
-"wikitext-upload-save-sign-in" = "Oonmelde und speichre";
-// Fuzzy
-"wikitext-upload-save-sign-in-benefits" = "Annre Autore / Autorinne könne dich kontaktiere und du kannst siehn, was für Artikel du beoorbeitet host.";
-"wikitext-upload-save-anonymously" = "Anonym speichre";
-// Fuzzy
-"wikitext-upload-save-anonymously-warning" = "Das bedeitet wenicher Dateschutz. Dein IP-Adress ist mit den Beoorbeitunge einsiehbar. Mit dem Speichre stimmst du der dauerhafte Veröffentlichung von deiner Beoorbeitunge unner der CC-BY-SA-3.0-Lizenz zu.";
-"search-searching" = "Such …";
-"search-no-matches" = "Ken Treffer für den Suchbegriff gefund.";
-"search-field-placeholder-text" = "Wikipedia doorrichsuche";
-"search-field-placeholder-text-zero" = "Wikipedia Zero doorrichsuche";
-"search-loading-section-zero" = "Der erste Abschnitt von dem Artikel am loode …";
-"search-loading-section-remaining" = "Der Rest von der Artikel am loode …";
-"search-loading-article-loaded" = "Artikel gelood.";
-"main-menu-language-title" = "Sprochwiki $1 doorrichsuche";
-"main-menu-language-toggle-show" = "Sproche oonzeige";
-"main-menu-language-toggle-hide" = "Sproche ausblenne";
-"main-menu-language-selection-saved" = "Sprochauswahl gespeichert";
-"main-menu-account-title-logged-out" = "Benutzerkonto";
-"main-menu-account-title-logged-in" = "Oongemeldet wie: $1";
 "main-menu-account-login" = "Oonmelde";
 "main-menu-account-logout" = "Abmelde";
-"main-menu-show-title" = "Zeich mir …";
 // Fuzzy
-"main-menu-show-history" = "Verloof";
-"main-menu-show-saved" = "Gespeicherte Seite";
-"main-menu-current-article-save" = "$1 zum Offline-Lese speichre";
-// Fuzzy
-"main-menu-random" = "Zufällicher Artikel";
-"main-menu-feedback-heading" = "Rückmeldung (retuarmeldung)";
-// Fuzzy
-"main-menu-send-feedback" = "Rückmeldung sende (retuarmeldung schicke)";
-"saved-pages-title" = "Gespeicherte Seite";
-"navbar-title-mode-edit-wikitext" = "Beoorbeite";
-// Fuzzy
-"navbar-title-mode-login" = "Oonmelde";
-// Fuzzy
-"navbar-title-mode-login-and-save" = "Oonmelde und speichre";
-"navbar-title-mode-create-account" = "Benutzerkonto erstelle";
-"navbar-title-mode-create-account-and-save" = "Benutzerkonto erstelle und speichre";
-"navbar-title-mode-edit-wikitext-warning" = "Beoorbeitungsprobleme";
-"navbar-title-mode-edit-wikitext-disallow" = "Beoorbeitungsprobleme";
+"main-menu-account-title-logged-in" = "Oongemeldet wie: $1";
 "navbar-title-mode-edit-wikitext-preview" = "Voarschau";
-"navbar-title-mode-edit-wikitext-captcha" = "Schnellprüfung ist nötich";
-"navbar-title-mode-edit-wikitext-summary" = "Beschreib dein Beoorbeitung";
-"edit-summary-choice-linked-words" = "Verlinkte Wörter";
-"edit-summary-choice-fixed-grammar" = "Grammatik korrigiert";
-"edit-summary-choice-fixed-inaccuracy" = "Ungenauigkeite korrigiert";
-"edit-summary-choice-fixed-styling" = "Gestaltung verbessert";
-"edit-summary-choice-fixed-typos" = "Tippfehler korrigiert (digitalisierung)";
-"edit-summary-choice-added-category" = "Kategorie hinzugefücht";
-"edit-summary-choice-added-missing-info" = "Fehlende Informatione hinzugefücht";
-"edit-summary-choice-added-clarification" = "Erklärung hinzugefücht";
-"edit-summary-choice-other" = "Annre";
-"edit-summary-description" = "En bestimmte Zusammerfassung helleft annre Autore und Autorinen, deine Beoorbeitunge schnell se üwerprüfe. Du kannst ooch zwischich den unne stehnde Markierunge wähle.";
-"edit-summary-field-placeholder-text" = "Wie hast du die Seite verbessert?";
-"fetching-random-article" = "Zufälliche Artikel uffrufe";
-"article-pull-to-refresh-prompt" = "Zieh um der Artikel se aktualisiere";
-"article-pull-to-refresh-is-refreshing" = "Artikel aktualisiere";
+"search-field-placeholder-text" = "Wikipedia doorrichsuche";
+// Fuzzy
+"wikitext-downloading" = "Wikitext am loode …";
+"wikitext-preview-changes" = "Ruf den Voarschau von deiner Ännrungen ab …";
+"wikitext-preview-changes-none" = "Do worre ken Ännrunge doorrichgeführt für en Voarschau oonzeiche.";
+"wikitext-upload-captcha-error" = "Captcha-Üwerprüfungsfehler.";
+"wikitext-upload-captcha-needed" = "Captcha-Üwerprüfung nötich.";
+"wikitext-upload-result-unknown" = "Das Ergebnis von deine Wikitext-Upload (Uffloodung) konnt net ermittelt sin.";
+// Fuzzy
+"wikitext-upload-save" = "Speichere …";
+"wikitext-upload-save-anonymously-warning" = "Das bedeitet wenicher Dateschutz. Dein IP-Adress ist mit den Beoorbeitunge einsiehbar. Mit dem Speichre stimmst du der dauerhafte Veröffentlichung von deiner Beoorbeitunge unner der CC BY-SA 3.0 Lizenz zu.";
+// Fuzzy
+"wikitext-upload-save-sign-in" = "Oonmelde und speichre";

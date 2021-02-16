@@ -77,6 +77,14 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink:)
     return articleURL;
 }
 
+- (MWKLanguageLink *)languageLinkWithPageTitleText:(NSString *)pageTitleText {
+    return [[MWKLanguageLink alloc] initWithLanguageCode:self.languageCode
+                                           pageTitleText:pageTitleText
+                                                    name:self.name
+                                           localizedName:self.localizedName
+                                     languageVariantCode:self.languageVariantCode];
+}
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -1,6 +1,5 @@
 #import <WMF/NSString+WMFExtras.h>
 #import <CommonCrypto/CommonDigest.h>
-#import <WMF/MWLanguageInfo.h>
 @import MobileCoreServices;
 #import <WMF/NSDateFormatter+WMFExtensions.h>
 #import <WMF/WMF-Swift.h>

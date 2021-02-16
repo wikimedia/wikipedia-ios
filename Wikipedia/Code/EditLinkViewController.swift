@@ -97,7 +97,7 @@ class EditLinkViewController: ViewController {
 
     private func fetchArticle() {
         guard let article = dataStore.fetchArticle(with: articleURL) else {
-            guard let key = articleURL.wmf_databaseKey else {
+            guard let key = articleURL.wmf_inMemoryKey else {
                 return
             }
             dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key) { (article, _) in

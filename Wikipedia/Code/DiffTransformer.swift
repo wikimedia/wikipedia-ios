@@ -49,7 +49,7 @@ class DiffTransformer {
     let siteURL: URL
     lazy var semanticContentAttribute: UISemanticContentAttribute = {
         let language = siteURL.wmf_language
-        return MWLanguageInfo.semanticContentAttribute(forWMFLanguage: language)
+        return MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: language)
     }()
     
     init(type: DiffContainerViewModel.DiffType, siteURL: URL) {

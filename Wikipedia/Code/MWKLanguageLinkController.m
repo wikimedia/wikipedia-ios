@@ -71,9 +71,9 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
     return [MWKLanguageLinkController allLanguages];
 }
 
-- (nullable MWKLanguageLink *)languageForSiteURL:(NSURL *)siteURL {
+- (nullable MWKLanguageLink *)languageForContentLanguageCode:(NSString *)contentLanguageCode {
     return [self.allLanguages wmf_match:^BOOL(MWKLanguageLink *obj) {
-        return [obj.siteURL isEqual:siteURL];
+        return [obj.contentLanguageCode isEqual:contentLanguageCode];
     }];
 }
 
@@ -202,5 +202,101 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
 }
 
 @end
+
+#pragma mark -
+
+@implementation MWKLanguageLinkController (ArticleLanguageLinkVariants)
+
+/// Given an article URL, if the URL has a language variant, an array of MWKLanguageLink instances of the remaining variants for that language is returned.
+/// This allows a user viewing an article in one language variant to choose to view the article using another variant.
+/// If the provided URL does not have a language variant, returns an empty array.
+- (NSArray<MWKLanguageLink *> *)remainingLanguageLinkVariantsForArticleURL:(NSURL *)articleURL {
+    // If the original URL is a variant, include the other variants as choices
+    NSString *originalURLLanguageVariantCode = articleURL.wmf_languageVariantCode;
+    NSString *originalURLLanguageCode = articleURL.wmf_language;
+    NSMutableArray *remainingLanguageVariantLinks = [[NSMutableArray alloc] init];
+    if (originalURLLanguageVariantCode && originalURLLanguageCode) {
+        NSArray<MWKLanguageLink *> *variants = [MWKLanguageLinkController allLanguageVariantsBySiteLanguageCode][originalURLLanguageCode];
+        if (variants) {
+            for (MWKLanguageLink *variant in variants) {
+                if (![variant.languageVariantCode isEqualToString:originalURLLanguageVariantCode]) {
+                    MWKLanguageLink *articleVariant = [variant languageLinkWithPageTitleText:articleURL.wmf_titleWithUnderscores];
+                    [remainingLanguageVariantLinks addObject:articleVariant];
+                }
+            }
+        }
+    }
+    return remainingLanguageVariantLinks;
+}
+
+/// Given an array of article language links, returns an array where any language with variants is replaced with one article language link per variant
+- (NSArray<MWKLanguageLink *> *)languageLinksReplacingArticleLanguageLinksWithVariants:(NSArray<MWKLanguageLink *> *)articleLanguageLinks {
+    NSMutableArray *processedLanguageLinks = [[NSMutableArray alloc] init];
+    for (MWKLanguageLink *language in articleLanguageLinks) {
+        NSAssert((language.languageVariantCode == nil && ![language.languageVariantCode isEqualToString:@""]), @"The method %s should only be called with MWKLanguageLink objects with a nil or empty-string languageVariantCode", __PRETTY_FUNCTION__);
+        NSArray<MWKLanguageLink *> *variants = [MWKLanguageLinkController allLanguageVariantsBySiteLanguageCode][language.languageCode];
+        if (variants) {
+            for (MWKLanguageLink *variant in variants) {
+                MWKLanguageLink *articleVariant = [variant languageLinkWithPageTitleText:language.pageTitleText];
+                [processedLanguageLinks addObject:articleVariant];
+            }
+        } else {
+            [processedLanguageLinks addObject:language];
+        }
+    }
+    return processedLanguageLinks;
+}
+
+- (NSArray<MWKLanguageLink *> *)articleLanguageLinksWithVariantsFromArticleURL:(NSURL *)articleURL articleLanguageLinks:(NSArray<MWKLanguageLink *> *)articleLanguageLinks {
+
+    // If the original URL is a variant, include the other variants as choices
+    NSArray *remainingLanguageLinkVariants = [self remainingLanguageLinkVariantsForArticleURL:articleURL];
+
+    // If any of the available languages has variants, substitute in the variants.
+    NSArray *articleLanguageLinksWithVariants = [self languageLinksReplacingArticleLanguageLinksWithVariants:articleLanguageLinks];
+
+    return [articleLanguageLinksWithVariants arrayByAddingObjectsFromArray:remainingLanguageLinkVariants];
+}
+
+@end
+
+#pragma mark -
+
+@implementation MWKLanguageLinkController (LayoutDirectionAdditions)
+
++ (BOOL)isLanguageRTLForContentLanguageCode:(nullable NSString *)contentLanguageCode {
+    return contentLanguageCode && [[MWKLanguageLinkController rtlLanguages] containsObject:contentLanguageCode];
+}
+
++ (NSString *)layoutDirectionForContentLanguageCode:(nullable NSString *)contentLanguageCode {
+    return [MWKLanguageLinkController isLanguageRTLForContentLanguageCode:contentLanguageCode] ? @"rtl" : @"ltr";
+}
+
++ (UISemanticContentAttribute)semanticContentAttributeForContentLanguageCode:(nullable NSString *)contentLanguageCode {
+    if (!contentLanguageCode) {
+        return UISemanticContentAttributeUnspecified;
+    }
+    return [MWKLanguageLinkController isLanguageRTLForContentLanguageCode:contentLanguageCode] ? UISemanticContentAttributeForceRightToLeft : UISemanticContentAttributeForceLeftToRight;
+}
+
+/*
+ * IMPORTANT: At present no RTL languages have language variants.
+ * The public methods in this category accept a contentLanguageCode, but in current usage always accept a language code
+ * which does not take language variants into account. If a language variant is added to the set returned by this method, the call sites
+ * of the public methods in this category need to be updated to ensure that the content language code is passed in.
+ *
+ * Note also that if a language with variants is RTL, each RTL variant must be added to the set.
+ */
++ (NSSet *)rtlLanguages {
+    static dispatch_once_t onceToken;
+    static NSSet *rtlLanguages;
+    dispatch_once(&onceToken, ^{
+        rtlLanguages = [NSSet setWithObjects:@"arc", @"arz", @"ar", @"azb", @"bcc", @"bqi", @"ckb", @"dv", @"fa", @"glk", @"lrc", @"he", @"khw", @"ks", @"mzn", @"nqo", @"pnb", @"ps", @"sd", @"ug", @"ur", @"yi", nil];
+    });
+    return rtlLanguages;
+}
+
+@end
+
 
 NS_ASSUME_NONNULL_END

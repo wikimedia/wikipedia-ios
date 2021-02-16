@@ -1,6 +1,5 @@
 // Messages for Luxembourgish (Lëtzebuergesch)
 // Exported from translatewiki.net
-// Author: Abijeet Patro
 // Author: JoeWalshWMF
 // Author: Les Meloures
 // Author: Macofe
@@ -104,6 +103,8 @@
 "button-saved-remove" = "Vu gespäichert ewechhuelen";
 "button-skip" = "Iwwersprangen";
 "cancel" = "Ofbriechen";
+"chinese-variants-alert-dismiss-button" = "Nee, merci";
+"chinese-variants-alert-preferences-button" = "Kuckt Är Astellungen no";
 "clear-title-accessibility-label" = "Eidel maachen";
 "close-button-accessibility-label" = "Zoumaachen";
 "compass-direction" = "um $1 Auer";

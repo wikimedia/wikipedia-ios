@@ -151,6 +151,8 @@
 "button-skip" = "Kihagyás";
 "cancel" = "Mégse";
 "cc-zero" = "Creative Commons CC0";
+"chinese-variants-alert-dismiss-button" = "Nem, köszönöm";
+"chinese-variants-alert-preferences-button" = "Beállításaid áttekintése";
 "clear-title-accessibility-label" = "Törlés";
 "close-button-accessibility-label" = "Bezárás";
 "compass-direction" = "$1 óra irányban";

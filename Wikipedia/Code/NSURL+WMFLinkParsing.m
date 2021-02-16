@@ -289,3 +289,54 @@ static id wmf_languageVariantAssociatedObjectKey;
 }
 
 @end
+
+#pragma mark - WMFInMemoryURLKey
+
+@interface WMFInMemoryURLKey ()
+@property (nonatomic, copy) NSString *databaseKey;
+@property (nonatomic, copy, nullable) NSString *languageVariantCode;
+@end
+
+@implementation WMFInMemoryURLKey: NSObject
+-(instancetype) initWithDatabaseKey:(NSString *)databaseKey languageVariantCode:(nullable NSString *)languageVariantCode {
+    if (self = [super init]) {
+        self.databaseKey = databaseKey;
+        self.languageVariantCode = languageVariantCode;
+    }
+    return self;
+}
+
+-(nullable instancetype) initWithURL:(NSURL *)URL {
+    NSString *databaseKey = URL.wmf_databaseKey;
+    if (!databaseKey) { return nil; }
+    else { return [self initWithDatabaseKey:databaseKey languageVariantCode:URL.wmf_languageVariantCode]; }
+}
+
+- (nullable NSURL *)URL {
+    NSURL *URL = [NSURL URLWithString:self.databaseKey];
+    URL.wmf_languageVariantCode = self.languageVariantCode;
+    return URL;
+}
+
+WMF_SYNTHESIZE_IS_EQUAL(WMFInMemoryURLKey, isEqualToInMemoryURLKey:)
+
+- (BOOL)isEqualToInMemoryURLKey:(WMFInMemoryURLKey *)rhs {
+    return WMF_RHS_PROP_EQUAL(databaseKey, isEqualToString:) && WMF_RHS_PROP_EQUAL(languageVariantCode, isEqualToString:);
+}
+
+- (NSUInteger)hash {
+    return self.databaseKey.hash ^ flipBitsWithAdditionalRotation(self.languageVariantCode.hash, 1); // When languageVariantCode is nil, the XOR flips the bits
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat: @"%@ databaseKey: %@, languageVariantCode: %@", [super description], self.databaseKey, self.languageVariantCode];
+}
+
+@end
+
+@implementation NSURL (WMFInMemoryURLKeyExtensions)
+- (nullable WMFInMemoryURLKey *)wmf_inMemoryKey {
+    return [[WMFInMemoryURLKey alloc] initWithURL:self];
+}
+@end
+

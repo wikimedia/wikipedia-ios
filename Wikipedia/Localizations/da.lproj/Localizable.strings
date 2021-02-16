@@ -130,6 +130,7 @@
 "button-skip" = "Spring over";
 "cancel" = "Afbryd";
 "cc-zero" = "Creative Commons CC0";
+"chinese-variants-alert-dismiss-button" = "Nej tak";
 "clear-title-accessibility-label" = "Ryd";
 "close-button-accessibility-label" = "Luk";
 "compass-direction" = "mod klokken $1";

@@ -47,6 +47,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// A url whose domain & path are derived from the receiver's @c languageCode and @c pageTitleText.  The receiver's @c languageVariantCode is set as the URL's wmf_languageVariantCode.
 @property (readonly, copy, nonatomic, nonnull) NSURL *articleURL;
 
+/// Returns a MWKLanguageLink with the provided pageTitleText, with all other properties the same as the receiver.
+- (MWKLanguageLink *)languageLinkWithPageTitleText:(NSString *)pageTitleText;
+
 @end
 
 NS_ASSUME_NONNULL_END

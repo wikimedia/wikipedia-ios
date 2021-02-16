@@ -1,7 +1,5 @@
 @import WebKit;
 
-@class MWLanguageInfo;
-
 @interface WKWebView (WMFWebViewControllerJavascript)
 
 - (void)wmf_setTextSize:(NSInteger)textSize;

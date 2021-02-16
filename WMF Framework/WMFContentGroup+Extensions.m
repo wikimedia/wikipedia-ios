@@ -8,7 +8,7 @@
 #import <WMF/NSDateFormatter+WMFExtensions.h>
 #import <WMF/WMFLogging.h>
 #import <WMF/NSCharacterSet+WMFLinkParsing.h>
-#import <WMF/MWLanguageInfo.h>
+#import <WMF/MWKLanguageLinkController.h>
 
 @implementation WMFContentGroup (Extensions)
 
@@ -523,11 +523,7 @@
 }
 
 - (BOOL)isRTL {
-    NSString *language = self.siteURL.wmf_language;
-    if (!language) {
-        return NO;
-    }
-    return [MWLanguageInfo semanticContentAttributeForWMFLanguage:language] == UISemanticContentAttributeForceRightToLeft;
+    return [MWKLanguageLinkController isLanguageRTLForContentLanguageCode:self.siteURL.wmf_language];
 }
 
 - (void)markDismissed {

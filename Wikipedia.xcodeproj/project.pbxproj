@@ -2124,8 +2124,6 @@
 		D850A53B1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D850A5391F8686DE006FD295 /* WMFThemeableNavigationController.m */; };
 		D850A53C1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D850A5391F8686DE006FD295 /* WMFThemeableNavigationController.m */; };
 		D850A53D1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D850A5391F8686DE006FD295 /* WMFThemeableNavigationController.m */; };
-		D85108AA1D6CC75D009C73C4 /* MWLanguageInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E807271C0CED530065EBC0 /* MWLanguageInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D85108AB1D6CC761009C73C4 /* MWLanguageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807281C0CED530065EBC0 /* MWLanguageInfo.m */; };
 		D8533ED51ECF581600E44F86 /* NewsCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8533ED31ECF581600E44F86 /* NewsCollectionViewHeader.swift */; };
 		D8533ED61ECF581600E44F86 /* NewsCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8533ED31ECF581600E44F86 /* NewsCollectionViewHeader.swift */; };
 		D8533ED71ECF581600E44F86 /* NewsCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8533ED31ECF581600E44F86 /* NewsCollectionViewHeader.swift */; };
@@ -2970,6 +2968,10 @@
 		FF921888252F7EA500C39A8F /* ThanksGiving.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF921856252E8F4F00C39A8F /* ThanksGiving.swift */; };
 		FF9416D824E203030070FEE7 /* OnThisDayWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9416D724E203030070FEE7 /* OnThisDayWidget.swift */; };
 		FF9416DE24E2098C0070FEE7 /* OnThisDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9416DD24E2098C0070FEE7 /* OnThisDayView.swift */; };
+		FFA0641925A943EB00B9460B /* BasicLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA0641825A943EB00B9460B /* BasicLogger.swift */; };
+		FFA0641A25A943EB00B9460B /* BasicLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA0641825A943EB00B9460B /* BasicLogger.swift */; };
+		FFA0641B25A943EB00B9460B /* BasicLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA0641825A943EB00B9460B /* BasicLogger.swift */; };
+		FFA0641C25A943EB00B9460B /* BasicLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA0641825A943EB00B9460B /* BasicLogger.swift */; };
 		FFD7B84624AEAB3F005C2471 /* ArticleScrolling.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD7B84524AEAB3F005C2471 /* ArticleScrolling.swift */; };
 		FFD7B84724AEB049005C2471 /* ArticleScrolling.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD7B84524AEAB3F005C2471 /* ArticleScrolling.swift */; };
 		FFD7B84824AEB04A005C2471 /* ArticleScrolling.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD7B84524AEAB3F005C2471 /* ArticleScrolling.swift */; };
@@ -4122,8 +4124,6 @@
 		B0E806C01C0CEB380065EBC0 /* WMFSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFSettingsViewController.h; path = Wikipedia/Code/WMFSettingsViewController.h; sourceTree = SOURCE_ROOT; };
 		B0E806C11C0CEB380065EBC0 /* WMFSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSettingsViewController.m; path = Wikipedia/Code/WMFSettingsViewController.m; sourceTree = SOURCE_ROOT; };
 		B0E8071E1C0CEC8A0065EBC0 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		B0E807271C0CED530065EBC0 /* MWLanguageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWLanguageInfo.h; path = Wikipedia/Code/MWLanguageInfo.h; sourceTree = SOURCE_ROOT; };
-		B0E807281C0CED530065EBC0 /* MWLanguageInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWLanguageInfo.m; path = Wikipedia/Code/MWLanguageInfo.m; sourceTree = SOURCE_ROOT; };
 		B0E8072D1C0CED810065EBC0 /* WikipediaAppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WikipediaAppUtils.h; path = Wikipedia/Code/WikipediaAppUtils.h; sourceTree = SOURCE_ROOT; };
 		B0E8072E1C0CED810065EBC0 /* WikipediaAppUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = WikipediaAppUtils.m; path = Wikipedia/Code/WikipediaAppUtils.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		B0E8072F1C0CED810065EBC0 /* WMFComparison.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFComparison.h; path = Wikipedia/Code/WMFComparison.h; sourceTree = SOURCE_ROOT; };
@@ -4849,6 +4849,7 @@
 		FF921856252E8F4F00C39A8F /* ThanksGiving.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThanksGiving.swift; sourceTree = "<group>"; };
 		FF9416D724E203030070FEE7 /* OnThisDayWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnThisDayWidget.swift; sourceTree = "<group>"; usesTabs = 0; };
 		FF9416DD24E2098C0070FEE7 /* OnThisDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnThisDayView.swift; sourceTree = "<group>"; };
+		FFA0641825A943EB00B9460B /* BasicLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicLogger.swift; sourceTree = "<group>"; };
 		FFD7B84524AEAB3F005C2471 /* ArticleScrolling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleScrolling.swift; sourceTree = "<group>"; };
 		FFD7B85524B3B384005C2471 /* ReferenceBackLinksViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceBackLinksViewControllerDelegate.swift; sourceTree = "<group>"; };
 		FFD7B85824B3CA7A005C2471 /* ReferenceShowing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceShowing.swift; sourceTree = "<group>"; };
@@ -5443,8 +5444,6 @@
 				0EBCA7451C162EE9004F1FD9 /* MWKLanguageFilter.m */,
 				B0E807991C0CEFBD0065EBC0 /* MWKLanguageLink.h */,
 				B0E8079A1C0CEFBD0065EBC0 /* MWKLanguageLink.m */,
-				B0E807271C0CED530065EBC0 /* MWLanguageInfo.h */,
-				B0E807281C0CED530065EBC0 /* MWLanguageInfo.m */,
 			);
 			name = Language;
 			sourceTree = "<group>";
@@ -7065,6 +7064,7 @@
 				BCA15AE41C0E213300D0A3EA /* LoggingDefaults.swift */,
 				B0E807341C0CED810065EBC0 /* WMFLogFormatter.h */,
 				B0E807351C0CED810065EBC0 /* WMFLogFormatter.m */,
+				FFA0641825A943EB00B9460B /* BasicLogger.swift */,
 			);
 			name = Logging;
 			sourceTree = "<group>";
@@ -8451,7 +8451,6 @@
 				0E728D3C1DAEEADB0074EB4B /* WMFLocationSearchFetcher.h in Headers */,
 				0E728D1C1DAEE2B50074EB4B /* WMFFeedTopReadResponse.h in Headers */,
 				D8FA18D81E1BD899009675C3 /* NSURL+WMFLinkParsing.h in Headers */,
-				D85108AA1D6CC75D009C73C4 /* MWLanguageInfo.h in Headers */,
 				B0B423501EF32D2700D3DC4C /* WMFOnThisDayContentSource.h in Headers */,
 				D84448581DDCE49D00425630 /* WMFContentGroup+CoreDataClass.h in Headers */,
 				D8FA18BB1E1BD891009675C3 /* NSFileManager+WMFGroup.h in Headers */,
@@ -10294,6 +10293,7 @@
 				B0E803761C0CD9C10065EBC0 /* TableOfContentsCell.swift in Sources */,
 				B0B0EC221C6999A9006F0D9C /* WMFSettingsMenuItem.m in Sources */,
 				7ADF498721B45E42009EA338 /* TextFormattingGroupedToolbarView.swift in Sources */,
+				FFA0641925A943EB00B9460B /* BasicLogger.swift in Sources */,
 				678D79F6235E599B006161FF /* DiffListContextViewModel.swift in Sources */,
 				BA7683C21F30C56300A487AA /* ImageDimmingExampleViewController.swift in Sources */,
 				674E8AB92382DEFF0053D206 /* DiffTransformer.swift in Sources */,
@@ -10650,7 +10650,6 @@
 				0E728D2C1DAEE8FF0074EB4B /* WMFRelatedPagesContentSource.m in Sources */,
 				D8619BA41FBB10240045C8BC /* ReadingList+CoreDataClass.swift in Sources */,
 				D8E892252176124F00587F61 /* PeriodicWorker.swift in Sources */,
-				D85108AB1D6CC761009C73C4 /* MWLanguageInfo.m in Sources */,
 				0E8768371DDE002C00B8CACD /* WMFAnnouncementsContentSource.m in Sources */,
 				83A6D44325100BEE00F9F909 /* Bundle+IsAppExtension.swift in Sources */,
 				7AE5248D21383D9C00CDC817 /* WikidataDescriptionEditingController.swift in Sources */,
@@ -11114,6 +11113,7 @@
 				D8A42B0D1E815A9C00D8E281 /* WMFSettingsMenuItem.m in Sources */,
 				B0CD9DEE1F70997500051843 /* WMFWelcomeIntroductionAnimationView.swift in Sources */,
 				D8A42B0F1E815A9C00D8E281 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
+				FFA0641C25A943EB00B9460B /* BasicLogger.swift in Sources */,
 				678D79F9235E599B006161FF /* DiffListContextViewModel.swift in Sources */,
 				674E8ABC2382DF030053D206 /* DiffTransformer.swift in Sources */,
 				D8A42B101E815A9C00D8E281 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
@@ -11523,6 +11523,7 @@
 				83023C1220E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */,
 				6782DBAA2343B7FC003FA21B /* DiffHeaderEditorView.swift in Sources */,
 				7A6ED51D20ADBF950001849F /* SettingsFunnel.swift in Sources */,
+				FFA0641B25A943EB00B9460B /* BasicLogger.swift in Sources */,
 				67282FBF24855B7B00B73E20 /* ArticleContextMenuPresenting.swift in Sources */,
 				D8CE256F1E698E2400DAE2E0 /* WeakScriptMessageDelegate.swift in Sources */,
 				6782DBF9234537D0003FA21B /* DiffHeaderExtendedView.swift in Sources */,
@@ -11995,6 +11996,7 @@
 				7A2FE55E20517BAE00F92F8F /* EraseSavedArticlesView.swift in Sources */,
 				6782DBAB2343B7FC003FA21B /* DiffHeaderEditorView.swift in Sources */,
 				67282FBE24855B7B00B73E20 /* ArticleContextMenuPresenting.swift in Sources */,
+				FFA0641A25A943EB00B9460B /* BasicLogger.swift in Sources */,
 				D8EC3E611E9BDA35006712EB /* WMFArticleLanguagesSectionFooter.m in Sources */,
 				7A6ED51920ADBF950001849F /* SettingsFunnel.swift in Sources */,
 				6782DBFC234537D0003FA21B /* DiffHeaderExtendedView.swift in Sources */,

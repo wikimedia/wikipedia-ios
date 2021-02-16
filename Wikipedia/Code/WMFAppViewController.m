@@ -19,7 +19,6 @@
 
 #import "Wikipedia-Swift.h"
 #import "EXTScope.h"
-#import <os/log.h>
 
 /**
  *  Enums for each tab in the main tab bar.
@@ -1235,9 +1234,9 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         return nil;
     }
     WMFArticleViewController *visibleArticleViewController = self.visibleArticleViewController;
-    NSString *visibleKey = visibleArticleViewController.articleURL.wmf_databaseKey;
-    NSString *articleKey = articleURL.wmf_databaseKey;
-    if (visibleKey && articleKey && [visibleKey isEqualToString:articleKey]) {
+    WMFInMemoryURLKey *visibleKey = visibleArticleViewController.articleURL.wmf_inMemoryKey;
+    WMFInMemoryURLKey *articleKey = articleURL.wmf_inMemoryKey;
+    if (visibleKey && articleKey && [visibleKey isEqualToInMemoryURLKey:articleKey]) {
         if (articleURL.fragment) {
             [visibleArticleViewController showAnchor:articleURL.fragment];
         }
@@ -1260,13 +1259,12 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 #if DEBUG
     if ([[[NSProcessInfo processInfo] environment] objectForKey:@"DYLD_PRINT_STATISTICS"]) {
-        os_log_t customLog = os_log_create("org.wikimedia.ios", "articleLoadTime");
         NSDate *start = [NSDate date];
 
         articleVC.initialSetupCompletion = ^{
             NSDate *end = [NSDate date];
             NSTimeInterval articleLoadTime = [end timeIntervalSinceDate:start];
-            os_log_with_type(customLog, OS_LOG_TYPE_INFO, "article load time = %f", articleLoadTime);
+            DDLogInfo(@"article load time = %f", articleLoadTime);
         };
     }
 #endif

@@ -114,7 +114,7 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
             descriptionLangCode = [self descriptionLangCodeToUseFromAvailableDescriptionsByLangCode:availableDescriptionsByLangCode forPreferredLangCodes:preferredLanguageCodes];
             if (descriptionLangCode) {
                 description = availableDescriptionsByLangCode[descriptionLangCode];
-                descriptionIsRTL = [[MWLanguageInfo rtlLanguages] containsObject:descriptionLangCode];
+                descriptionIsRTL = [MWKLanguageLinkController isLanguageRTLForContentLanguageCode:descriptionLangCode];
             }
         } else if ([imageDescriptionValue isKindOfClass:[NSString class]]) {
             description = imageDescriptionValue;

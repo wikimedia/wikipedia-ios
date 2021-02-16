@@ -10,8 +10,7 @@
 }
 
 + (void)wmf_addLoggersForCurrentConfiguration {
-    [self wmf_addWMFFormattedLogger:[DDOSLogger sharedInstance]];
-
+    [self wmf_addWMFFormattedLogger:[BasicLogger new]];
     DDFileLogger *fileLogger = [[DDFileLogger alloc] init];
     fileLogger.logFileManager.maximumNumberOfLogFiles = 7;
     [self wmf_addWMFFormattedLogger:fileLogger];

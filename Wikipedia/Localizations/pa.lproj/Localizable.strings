@@ -59,14 +59,11 @@
 "action-share" = "ਸਾਂਝਾ ਕਰੋ";
 // Fuzzy
 "announcements-dismiss" = "ਨਹੀਂ, ਸ਼ੁਕਰੀਆ";
-"article-about-title" = "ਇਸ ਲੇਖ ਬਾਰੇ";
 "article-delete" = "ਮਿਟਾਉ";
 "article-languages-filter-placeholder" = "ਭਾਸ਼ਾ ਲੱਭੋ";
 "article-languages-label" = "ਬੋਲੀ ਚੁਣੋ";
 "article-languages-others" = "ਹੋਰ ਭਾਸ਼ਾਵਾਂ";
 "article-languages-yours" = "ਤੁਹਾਡੀਆੰ ਭਾਸ਼ਾਵਾੰ:";
-"article-read-more-title" = "ਹੋਰ ਪੜ੍ਹੋ";
-"article-unable-to-load-section" = "ੲਿਹ ਭਾਗ ਨਹੀਂ ਆ ਰਿਹਾ। ਸਮੱਸਿਅਾ ਦੇ ਹੱਲ ਲੲੀ ਲੇਖ ਨੂੰ ਮੁੜ-ਤਾਜ਼ਾ ਕਰੋ।";
 "back-button-accessibility-label" = "ਪਿੱਛੇ";
 "button-next" = "ਅੱਗੇ";
 "button-ok" = "ਠੀਕ";
@@ -92,6 +89,7 @@
 "explore-another-random" = "ਇੱਕ ਹੋਰ ਰਲ਼ਵਾਂ ਲੇਖ";
 "explore-continue-reading-heading" = "ਰੀਡਿੰਗ ਜਾਰੀ ਰੱਖੋ";
 "explore-featured-article-heading" = "ਫੀਚਰ ਲੇਖ";
+// Fuzzy
 "explore-feed-preferences-hide-feed-cards-action-title" = "ਸਾਰੇ ਪੱਤੇ \"%@\" ਓਹਲੇ ਕਰੋ";
 "explore-main-page-heading" = "ਵਿਕੀਪੀਡੀਆ 'ਤੇ ਅੱਜ";
 // Fuzzy
@@ -132,14 +130,10 @@
 "image-gallery-unknown-owner" = "ਚੜ੍ਹਾੳੁਣ ਵਾਲਾ ਅਣ-ਪਛਾਤਾ ਹੈ";
 "in-the-news-notification-read-now-action-title" = "ਹੁਣ ਪਡ਼੍ਹੋ";
 "in-the-news-notification-save-for-later-action-title" = "ਬਾਅਦ ਲਈ ਸੰਭਾਲੋ";
+// Fuzzy
 "in-the-news-notification-share-action-title" = "ਸਾਂਝਾ ਕਰੋ...";
 "in-the-news-title" = "ਖ਼ਬਰਾਂ 'ਚ";
-"info-box-close-text" = "ਬੰਦ ਕਰੋ";
-// Fuzzy
-"info-box-title" = "ਵਿਸ਼ੇਸ਼ ਤੱਥ";
 "languages-title" = "ਭਾਸ਼ਾ ਬਦਲੋ";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "ਇਹ ਸਮੱਗਰੀ $1 ਹੇਠ ਮੌਜੂਦ ਹੈ। ਅਜਿਹਾ ਨਾ ਹੋਣ ਉੱਤੇ ਵਿਸ਼ੇਸ਼ ਤੌਰ ਉੱਤੇ ਦੱਸਿਆ ਜਾਵੇਗਾ।";
 "login-join-wikipedia" = "ਵਿਕੀਪੀਡੀਆ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ";
 "login-no-account" = "ਖਾਤਾ ਨਹੀਂ ਹੈ? $1";
 "main-menu-about" = "ਐਪ ਬਾਰੇ";
@@ -148,8 +142,6 @@
 "main-menu-account-logout-are-you-sure" = "ਕੀ ਤੁਸੀੰ ਯਕੀਨੀ ਵਿਦਾਅ ਹੋਣਾ ਚਾਹੁੰਦੇ ਹੋ?";
 "main-menu-account-logout-cancel" = "ਰੱਦ ਕਰੋ";
 "main-menu-account-title-logged-in" = "$1 ਵਜੋਂ ਦਾਖ਼ਲ";
-"main-menu-debug-tweaks" = "ਡਿਵੈਲਪਰ ਸੈਟਿੰਗ";
-"main-menu-heading-debug" = "ਡੀਬੱਗ";
 "main-menu-heading-legal" = "ਪਰਦੇਦਾਰੀ ਅਤੇ ਸ਼ਰਤਾਂ";
 "main-menu-nearby" = "ਨੇੜੇ-ਤੇੜੇ";
 "main-menu-privacy-policy" = "ਪਰਦਾ ਨੀਤੀ";
@@ -167,19 +159,11 @@
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
-"page-edit-history" = "ਪੂਰਾ ਸੋਧ ਇਤੇਹਾਸ";
-"page-history-title" = "ਲੇਖ ਦਾ ਅਤੀਤ";
-"page-issues" = "ਸਫ਼ੇ ਸੰਬੰਧੀ ਮੁੱਦੇ";
-// Fuzzy
-"page-last-edited" = "$1 ਪਹਿਲਾੰ ਸੋਧਿਆ ਗਿਆ";
 "page-protected-autoconfirmed" = "ਇਹ ਸਫ਼ਾ ਨੀਮ-ਸੁਰੱਖਿਅਤ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ।";
 "page-protected-can-not-edit" = "ਤੁਹਾਡੇ ਕੋਲ਼ ਇਸ ਸਫ਼ੇ ਦੀ ਸੁਧਾਈ ਕਰਨ ਦੇ ਹੱਕ ਨਹੀਂ ਹਨ";
 "page-protected-can-not-edit-title" = "ਇਹ ਸਫ਼ਾ ਸੁਰੱਖਿਅਤ ਹੈ";
 "page-protected-other" = "ਇਸ ਸਫ਼ੇ ਨੂੰ ਇਹਨਾਂ ਤਹਿਆਂ ਤੱਕ ਸੁਰੱਖਿਅਤ ਕੀਤਾ ਗਿਆ ਹੈ: $1";
 "page-protected-sysop" = "ਇਹ ਸਫ਼ਾ ਪੂਰਾ ਸੁਰੱਖਿਅਤ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ।";
-// Fuzzy
-"page-read-in-other-languages" = "$1 ਹੋਰ ਭਾਸ਼ਾਵਾੰ ਵਿੱਚ ਉਪਲਬਧ";
-"page-similar-titles" = "ੲਿੱਕੋ ਜਿਹੇ ਪੰਨੇ";
 "places-title" = "ਥਾਂਵਾਂ";
 "potd-description-prefix" = "$1 ਲਈ ਦਿਨ ਦੀ ਤਸਵੀਰ";
 "potd-empty-error-description" = "$1 ਲਈ ਦਿਨ ਦੀ ਤਸਵੀਰ ਪ੍ਰਾਪਤ ਕਰਨ ਵਿੱਚ ਅਸਫਲ";
@@ -217,7 +201,6 @@
 "settings-support" = "ਵਿਕੀਪੀਡੀਆ ਨੂੰ ਸਹਿਯੋਗ ਦੇਵੋ";
 "settings-title" = "ਮੁਰੰਮਤਾਂ";
 "share-article-name-on-wikipedia" = "@ਵਿਕੀਪੀਡੀਆ ੳੁੱਤੋੇ '\"$1\":";
-"share-custom-menu-item" = "ਸਾਂਝਾ ਕਰੋ...";
 "share-get-directions-in-maps" = "ਦਿਸ਼ਾਵਾਂ ਪ੍ਰਾਪਤ ਕਰੋ";
 "share-menu-item" = "ਸਾਂਝਾ ਕਰੋ";
 "share-on-twitter-sign-off" = "@Wikipedia ਦੁਆਰਾ";
@@ -228,14 +211,12 @@
 "table-of-contents-close-accessibility-hint" = "ਬੰਦ";
 "table-of-contents-close-accessibility-label" = "ਸਮੱਗਰੀ ਸਾਰਣੀ ਬੰਦ ਕਰੋ";
 "table-of-contents-heading" = "ਸਮੱਗਰੀ";
-"table-title-other" = "ਹੋਰ ਜਾਣਕਾਰੀ";
 "top-read-header-generic" = "ਵਿਕੀਪੀਡੀਆ";
 "top-read-header-with-language" = "$1 ਵਿਕੀਪੀਡੀਆ";
 "welcome-explore-continue-button" = "ਸ਼ੁਰੂ ਕਰੋ";
 "welcome-explore-tell-me-more-done-button" = "ਸਮਝ ਗਿਆ";
 "welcome-languages-add-button" = "ਕੋਈ ਹੋਰ ਭਾਸ਼ਾ ਪਾਓ";
 "welcome-volunteer-send-usage-reports" = "ਵਰਤੋਂ ਦੀਆਂ ਇਤਲਾਹਾਂ ਘੱਲੋ";
-"wikitext-download-failed" = "ਅਖ਼ੀਰਲੀ ਸੁਧਾਈ ਲਿਆਂਦੀ ਨਹੀਂ ਜਾ ਰਹੀ।";
 "wikitext-downloading" = "ਸਮੱਗਰੀ ਲੱਦ ਰਿਹਾ ਹੈ...";
 "wikitext-preview-changes" = "ਤੁਹਾਡੀਆਂ ਤਬਦੀਲੀਆਂ ਦੀ ਝਾਤ ਲਿਆਂਦੀ ਜਾ ਰਹੀ ਹੈ...";
 "wikitext-preview-changes-none" = "ਝਾਤ ਮਾਰਨ ਵਾਸਤੇ ਕੋਈ ਵੀ ਤਬਦੀਲੀਆਂ ਨਹੀਂ ਕੀਤੀਆਂ ਗਈਆਂ।";
