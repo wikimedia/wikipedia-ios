@@ -258,6 +258,10 @@
     self.siteURLString = siteURL.wmf_databaseKey;
 }
 
+- (nullable WMFInMemoryURLKey *)inMemoryKey {
+    return self.URL.wmf_inMemoryKey;
+}
+
 - (void)setFullContentObject:(NSObject<NSCoding> *)fullContentObject {
     NSManagedObjectContext *moc = self.managedObjectContext;
     NSAssert(moc != nil, @"nil moc");
