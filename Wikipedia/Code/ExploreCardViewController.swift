@@ -435,11 +435,11 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         let reuseIdentifier = resuseIdentifierFor(displayType)
         let key: String?
         let articleKey: String? = self.article(at: indexPath)?.key
-        let groupKey: String? = contentGroup?.key
+        let groupKey: WMFInMemoryURLKey? = contentGroup?.inMemoryKey
         if displayType == .story || displayType == .event, let contentGroupKey = contentGroup?.key {
             key = "\(contentGroupKey)-\(indexPath.row)"
         } else {
-            key = articleKey ?? groupKey
+            key = articleKey ?? groupKey?.databaseKey
         }
         let userInfo = "\(key ?? "")-\(displayType.rawValue)"
         if let height = delegate?.layoutCache.cachedHeightForCellWithIdentifier(reuseIdentifier, columnWidth: columnWidth, userInfo: userInfo) {

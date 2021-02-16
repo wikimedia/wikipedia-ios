@@ -283,8 +283,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return frc.object(at: indexPath)
     }
     
-    private func groupKey(at indexPath: IndexPath) -> String? {
-        return group(at: indexPath)?.key
+    private func groupKey(at indexPath: IndexPath) -> WMFInMemoryURLKey? {
+        return group(at: indexPath)?.inMemoryKey
     }
     
     lazy var saveButtonsController: SaveButtonsController = {
@@ -570,7 +570,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
         estimate.precalculated = true
-        layoutCache.setHeight(estimate.height, forCellWithIdentifier: identifier, columnWidth: columnWidth, groupKey: group.key, userInfo: userInfo)
+        layoutCache.setHeight(estimate.height, forCellWithIdentifier: identifier, columnWidth: columnWidth, groupKey: group.inMemoryKey, userInfo: userInfo)
         return estimate
     }
     
