@@ -140,14 +140,14 @@ extension WMFContentGroup {
         }
     }
     
-    public var previewArticleKeys: Set<String> {
+    public var previewArticleKeys: Set<WMFInMemoryURLKey> {
         guard countOfPreviewItems > 0 else {
             return []
         }
-        var articleKeys: Set<String> = []
+        var articleKeys: Set<WMFInMemoryURLKey> = []
         articleKeys.reserveCapacity(countOfPreviewItems)
         for i in 0...countOfPreviewItems {
-            guard let key = previewArticleURLForItemAtIndex(i)?.wmf_databaseKey else {
+            guard let key = previewArticleURLForItemAtIndex(i)?.wmf_inMemoryKey else {
                 continue
             }
             articleKeys.insert(key)

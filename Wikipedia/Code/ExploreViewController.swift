@@ -886,7 +886,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
     @objc func articleDidChange(_ note: Notification) {
         guard
             let article = note.object as? WMFArticle,
-            let articleKey = article.key
+            let articleKey = article.inMemoryKey
         else {
             return
         }
@@ -923,7 +923,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
     }
     
     @objc func articleDeleted(_ note: Notification) {
-        guard let articleKey = note.userInfo?[WMFArticleDeletedNotificationUserInfoArticleKeyKey] as? String else {
+        guard let articleKey = note.userInfo?[WMFArticleDeletedNotificationUserInfoArticleKeyKey] as? WMFInMemoryURLKey else {
             return
         }
         layoutCache.invalidateArticleKey(articleKey)

@@ -60,12 +60,12 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         self.collectionView.dataSource = self
     }
     
-    public func savedStateDidChangeForArticleWithKey(_ changedArticleKey: String) {
+    public func savedStateDidChangeForArticleWithKey(_ changedArticleKey: WMFInMemoryURLKey) {
         for i in 0..<numberOfItems {
             let indexPath = IndexPath(item: i, section: 0)
             guard
                 let articleURL = articleURL(at: indexPath),
-                let articleKey = articleURL.wmf_databaseKey,
+                let articleKey = articleURL.wmf_inMemoryKey,
                 changedArticleKey == articleKey,
                 let cell = collectionView.cellForItem(at: indexPath)
             else {
@@ -434,12 +434,12 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         let displayType = displayTypeAt(indexPath)
         let reuseIdentifier = resuseIdentifierFor(displayType)
         let key: String?
-        let articleKey: String? = self.article(at: indexPath)?.key
+        let articleKey: WMFInMemoryURLKey? = self.article(at: indexPath)?.inMemoryKey
         let groupKey: WMFInMemoryURLKey? = contentGroup?.inMemoryKey
         if displayType == .story || displayType == .event, let contentGroupKey = contentGroup?.key {
             key = "\(contentGroupKey)-\(indexPath.row)"
         } else {
-            key = articleKey ?? groupKey?.databaseKey
+            key = articleKey?.databaseKey ?? groupKey?.databaseKey
         }
         let userInfo = "\(key ?? "")-\(displayType.rawValue)"
         if let height = delegate?.layoutCache.cachedHeightForCellWithIdentifier(reuseIdentifier, columnWidth: columnWidth, userInfo: userInfo) {

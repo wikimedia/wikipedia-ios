@@ -7,14 +7,14 @@ private extension CGFloat {
 class ColumnarCollectionViewControllerLayoutCache {
     private var cachedHeights: [String: [Int: CGFloat]] = [:]
     private var cacheKeysByGroupKey: [WMFInMemoryURLKey: Set<String>] = [:]
-    private var cacheKeysByArticleKey: [String: Set<String>] = [:]
-    private var groupKeysByArticleKey: [String: Set<WMFInMemoryURLKey>] = [:]
+    private var cacheKeysByArticleKey: [WMFInMemoryURLKey: Set<String>] = [:]
+    private var groupKeysByArticleKey: [WMFInMemoryURLKey: Set<WMFInMemoryURLKey>] = [:]
     
     private func cacheKeyForCellWithIdentifier(_ identifier: String, userInfo: String) -> String {
         return "\(identifier)-\(userInfo)"
     }
     
-    public func setHeight(_ height: CGFloat, forCellWithIdentifier identifier: String, columnWidth: CGFloat, groupKey: WMFInMemoryURLKey? = nil, articleKey: String? = nil, userInfo: String) {
+    public func setHeight(_ height: CGFloat, forCellWithIdentifier identifier: String, columnWidth: CGFloat, groupKey: WMFInMemoryURLKey? = nil, articleKey: WMFInMemoryURLKey? = nil, userInfo: String) {
         let cacheKey = cacheKeyForCellWithIdentifier(identifier, userInfo: userInfo)
         if let groupKey = groupKey {
             cacheKeysByGroupKey[groupKey, default: []].insert(cacheKey)
@@ -44,7 +44,7 @@ class ColumnarCollectionViewControllerLayoutCache {
         cacheKeysByGroupKey.removeAll(keepingCapacity: true)
     }
     
-    @discardableResult public func invalidateArticleKey(_ articleKey: String?) -> Bool {
+    @discardableResult public func invalidateArticleKey(_ articleKey: WMFInMemoryURLKey?) -> Bool {
         guard let articleKey = articleKey else {
             return false
         }
