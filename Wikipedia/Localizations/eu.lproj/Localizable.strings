@@ -90,12 +90,10 @@
 "appearance-settings-adjust-text-sizing" = "Artikuluaren testuaren tamaina egokitu";
 "appearance-settings-expand-tables" = "Taulak zabaldu";
 "appearance-settings-expand-tables-footer" = "Ezarri artikulu guztietako taula guztiak lehenespenez irekitzeko, Quick facts, References, Notes eta Kanpoko estekak barne.";
-// Fuzzy
-"appearance-settings-image-dimming-footer" = "Gai ilunetako argazkien opakotasuna gutxiagotu";
+"appearance-settings-image-dimming-footer" = "Gai ilun eta beltzetako argazkien opakotasuna gutxiagotu";
 "appearance-settings-reading-themes" = "Irakurketa gaiak";
 "appearance-settings-set-automatic-table-opening" = "Taula Ezarpenak";
-// Fuzzy
-"appearance-settings-text-sizing-example-text" = "Arrastatu goiko kontrolatzailea testuaren tamaina aldatzeko. Erabili zure sistemaren testuaren tamaina aplikazioaren beste testu-eremu batzuk aldatzeko.";
+"appearance-settings-text-sizing-example-text" = "Arrastatu kontrolatzailea testuaren tamaina aldatzeko. Erabili zure sistemaren testuaren tamaina aplikazioaren beste testu-eremu batzuk aldatzeko.";
 "appearance-settings-theme-options" = "Gaien aukerak";
 "article-delete" = "Ezabatu";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|artikulu $1|$1 artikulu}} ezabatuta";
@@ -137,8 +135,7 @@
 "empty-no-feed-message" = "Interneta duzunean ikusi ahal izango dituzu iradokitutako artikuluak";
 "empty-no-history-message" = "Egin hemen irakurri duzunaren jarraipena";
 "empty-no-history-title" = "Erakusteko historiarik ez";
-// Fuzzy
-"empty-no-reading-lists-message" = "Sakatu '+' urdina bidaiatzeko lekuetarako irakurketa zerrendak sortzeko, gai gogokoenak eta askoz gehiago";
+"empty-no-reading-lists-message" = "Sortu irakurketa zerrendak bidaiatzeko lekuetarako, gai gogokoenetarako eta askoz gehiago";
 "empty-no-reading-lists-title" = "Gordetako artikuluak eta irakurketa zerrendak antolatu";
 "empty-no-saved-pages-in-reading-list-message" = "Gorde orrialdeak zerrenda honetan hemen agertarazteko";
 "empty-no-saved-pages-in-reading-list-title" = "Ez da orririk gorde zerrenda honetan";
@@ -167,15 +164,13 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Denak piztuta";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Piztuta";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "$1(e)an";
-// Fuzzy
-"explore-feed-preferences-feed-cards-hidden-title" = "%@ txartel guztiak ezkutatuta";
+"explore-feed-preferences-feed-cards-hidden-title" = "$1 txartel guztiak ezkutatuta";
 "explore-feed-preferences-global-card-footer-text" = "Txartela hau ez dago hizkuntza batean zehaztuta, txarlela amatatzeak Arakatze jariotik ezabatzea eragingo du.";
 "explore-feed-preferences-global-cards-description" = "Hizkuntza zehaztasun gabeko txartelak";
 "explore-feed-preferences-global-cards-subtitle" = "Hizkuntza zehaztasun gabea";
 "explore-feed-preferences-global-cards-title" = "Txartel globalak";
 "explore-feed-preferences-hide-card-action-title" = "Txartel hau ezkutatu";
-// Fuzzy
-"explore-feed-preferences-hide-feed-cards-action-title" = "“%@” txartel guztiak ezkutatu";
+"explore-feed-preferences-hide-feed-cards-action-title" = "“$1” txartel guztiak ezkutatu";
 "explore-feed-preferences-in-the-news-description" = "Eguneko ekitaldiei buruzko artikuluak";
 "explore-feed-preferences-on-this-day-description" = "Gaurko eguneko historian zehar gertaturiko ekitaldiak";
 "explore-feed-preferences-places-description" = "Wikipedia artikuluak zure kokapenetik hurbil";
@@ -265,8 +260,7 @@
 "in-the-news-currently-trending" = "Modan dagoena";
 "in-the-news-notification-read-now-action-title" = "Irakurri orain";
 "in-the-news-notification-save-for-later-action-title" = "Gorde gerorako";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Partekatu...";
+"in-the-news-notification-share-action-title" = "Partekatu…";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 Wikipediatik";
 "in-the-news-sub-title-from-wikipedia" = "Wikipediatik";
 "in-the-news-title" = "Albisteak";
@@ -282,7 +276,7 @@
 "main-menu-account-logout" = "Saioa itxi";
 "main-menu-account-logout-are-you-sure" = "Atera nahi duzula ziur al zaude?";
 "main-menu-account-logout-cancel" = "Utzi";
-"main-menu-account-title-logged-in" = "Saioa $1 bezala hasia";
+"main-menu-account-title-logged-in" = "Saioa hasita, $1 erabiltzaile izenarekin";
 "main-menu-heading-legal" = "Terminoak eta Pribautasuna";
 "main-menu-nearby" = "Gertukoak";
 "main-menu-privacy-policy" = "Pribatutasun politika";
@@ -291,8 +285,7 @@
 "main-menu-title" = "Gehiago";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "menu-cancel-accessibility-label" = "Utzi";
-// Fuzzy
-"more-languages-tooltip-description" = "Bilatu Wikipedia ia 300 hizkuntzatan";
+"more-languages-tooltip-description" = "Bilatu Wikipedia 300 hizkuntza baino gehiagotan";
 "more-languages-tooltip-title" = "Hizkuntzak gehitu";
 "move-articles-to-reading-list" = "Mugitu {{PLURAL:$1|artikulu $1|$1 artikulu}} irakurketa zerrendara";
 "navbar-title-mode-edit-wikitext-preview" = "Aurrebista";
@@ -335,7 +328,7 @@
 "places-filter-saved-articles" = "Gordetako artikuluak";
 "places-filter-top-articles" = "Irakurrienak";
 "places-filter-top-articles-count" = "{{PLURAL:$1|artikulu $1|$1 artikulu}}";
-"places-filter-top-read-articles" = "Irakurritako artikulu gorenak";
+"places-filter-top-read-articles" = "Artikulu irakurrienak";
 "places-location-enabled" = "Kokapena gaitua";
 "places-no-saved-articles-have-location" = "Zure gordetako artikuluetatik batek ere ez du kokapenari buruzko informazioa";
 "places-search-articles-that-match" = "$1 “$2”(r)ekin dator bat";
@@ -371,8 +364,7 @@
 "reading-list-deleted-accessibility-notification" = "Irakurketa zerreda ezabatu da";
 "reading-list-do-not-keep-button-title" = "Ez, ezaba itzazu artikuluak gailutik";
 "reading-list-entry-limit-exceeded-message" = "Mesedez, gutxitu zerrenda honetako artikulu kopurua $ 1-ra zerrendako artikulu guztien sinkronizazioa berreskuratzeko.";
-// Fuzzy
-"reading-list-entry-limit-exceeded-title" = "Kontu bakoitzeko $1 artikuluen muga gainditu duzu.";
+"reading-list-entry-limit-exceeded-title" = "Kontu bakoitzeko {{PLURAL:$1|artikulu $1en|$1 artikuluen}} muga gainditu duzu.";
 "reading-list-entry-limit-reached" = "{{PLURAL:$1|artikulu $1|$1 artikulu}} ezin izan d(ir)a zerrendara gehitu. Irakurketa-zerrenda bakoitzeko $2 artikulutako muga gainditu duzu $3-engatik";
 "reading-list-exists-with-same-name" = "Irakurketa zerrendari jarritako izena erabilpean dago";
 "reading-list-generic-error" = "Espero gabeko errorea gertatu da zure irakurketa zerrendak eguneratzen ari ziren bitartean.";
@@ -385,8 +377,7 @@
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "Sailkatu gabeko 5000 artikuluren muga dago. Mesedez, antola itzazu jadanik existitzen diren artikuluak zerrendatan sailkatu gabeko artikuluak sinkronizatu ahal izateko.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "Sailkatu gabeko artikuluen muga jo duzu";
 "reading-list-list-limit-exceeded-message" = "Irakurketa zerrenda eta horretan gordetako artikuluak ez dira sinkronizatuk, mesedez jaitsi zure zerrenden zenbakia $1-(e)ra zerrenda honen sinkronizatzea amaitu ahal izateko.";
-// Fuzzy
-"reading-list-list-limit-exceeded-title" = "Kontu bakoitzeko $1 artikuluen muga gainditu duzu.";
+"reading-list-list-limit-exceeded-title" = "Kontu bakoitzeko {{PLURAL:$1|irakurketa zerrenda $1en|$1 irakurketa zerrenden}} muga gainditu duzu.";
 "reading-list-list-limit-reached" = "Kontu bakoitzeko $1 irakurketa-zerrenden muga gainditu duzu.";
 "reading-list-login-button-title" = "Hasi saioa gordetako arikuluak sinkronizatzeko";
 "reading-list-login-or-create-account-button-title" = "Hasi saioa edo sortu kontua";
@@ -424,8 +415,7 @@
 "reading-lists-default-list-title" = "Gordeta";
 "reading-lists-delete-reading-list-alert-message" = "Ekintza hau ezin da desegin. Bakarrik {{PLURAL:$1|zerrenda honetan|zerrenda hauetan}} gordetako artikuluak desagertuko dira.";
 "reading-lists-delete-reading-list-alert-title" = "Ezabatu {{PLURAL:$1|zerrenda $1|$1 zerrendak}}?";
-// Fuzzy
-"reading-lists-large-sync-completed" = "$1 artikulu eta $2 irakurketa zerrenda sinkronizatu dira zure kontutik";
+"reading-lists-large-sync-completed" = "{{PLURAL:$1|Artikulu $1|$1 artikulu}} eta {{PLURAL:$2|irakurketa zerrenda $2|$2 irakurketa zerrenda}} sinkronizatu dira zure kontutik";
 "reading-lists-list-not-synced-limit-exceeded" = "Zerrenda ez da sinkronikaztu, muga gainditu da";
 "reading-lists-sort-saved-articles" = "Sailkatu gordetako artikuluak";
 "reading-lists-split-notification" = "Irakurketa zerrenda bakoitzeko $1 artikuluko muga dago. Muga gainditu dituzten jada existitzen diren zerrendak beste zerrendatan banatu dira.";
@@ -437,8 +427,7 @@
 "reading-themes-controls-accessibility-sepia-theme-button" = "Sepia gaia";
 "reading-themes-controls-accessibility-text-size-slider" = "Testuaren tamaina irristagarria";
 "reference-title" = "$1 erreferentzia";
-// Fuzzy
-"relative-date-days-ago" = "{{PLURAL:$1|0=Gaur|Atzo|Orain dela $1 egun}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Gaur|1=Atzo|Orain dela $1 egun}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Aurreko batean|Orain dela ordu $1|Orain dela $1 ordu}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Oraintxe|Orain dela minutu $1|Orain dela $1 minutu}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Aurten|Aurreko urtea|$1 duela urteak}}";
@@ -541,8 +530,7 @@
 "welcome-explore-continue-button" = "Hasi";
 "welcome-explore-new-ways-title" = "Exploratzeko era berriak";
 "welcome-explore-tell-me-more-done-button" = "Ulertuta";
-// Fuzzy
-"welcome-intro-free-encyclopedia-description" = "Wikipedia boluntarioek idatzi dute elkarlanean, eta 40 milioi artikulu baino gehiago biltzen dira ia 300 hizkuntzatan.";
+"welcome-intro-free-encyclopedia-description" = "Wikipedia boluntarioek idatzi dute elkarlanean, eta 40 milioi artikulu baino gehiago biltzen dira 300 hizkuntza baino gehiagotan.";
 "welcome-intro-free-encyclopedia-more" = "Wikipediari buruzko gehiago ikasi";
 "welcome-intro-free-encyclopedia-more-about" = "Wikipediari buruz";
 "welcome-intro-free-encyclopedia-more-description" = "Wikipedia mundu osoko hizkuntzetan eraikitako doako entziklopedia da, proiektu globala. Interneteko sarbidea duen ia edonork dohainik parte hartzeko aukera dauka, informazio neutrala eta aipatuen ekarpenen bidez.";
@@ -550,8 +538,7 @@
 "welcome-languages-add-button" = "Gehitu beste hizkuntza bat";
 "welcome-languages-add-or-edit-button" = "Gehitu edo aldatu hizkuntza hobetsia";
 "welcome-languages-description" = "Hurrengo hizkuntzak aurkitu ditugu zure gailuan:";
-// Fuzzy
-"welcome-languages-search-title" = "Bilatu ia 300 hizkuntzatan";
+"welcome-languages-search-title" = "Bilatu 300 hizkuntza baino gehiagotan";
 "welcome-notifications-tell-me-more-creation" = "Jakinarazpenak zure gailuan sortu eta bidali dira aplikazioak, ez gure zerbitzarietan (edo beste hirugarren batean).";
 "welcome-notifications-tell-me-more-storage" = "Jakinarazpen lehentesiak gailuan biltzen dira, eta ez dira oinarritzen informazio edo jarduera pertsonalean.";
 "welcome-notifications-tell-me-more-title" = "Jakinarazpenei buruzko informazio gehiago";

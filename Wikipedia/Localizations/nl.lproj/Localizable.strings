@@ -33,6 +33,8 @@
 // Author: Wikibelgiaan
 // Author: Xbaked potatox
 
+"aaald-added-text-description-2" = "$1 toegevoegd";
+"aaald-article-insert-last-updated" = "Laatst bijgewerkt";
 "aaald-article-insert-new-changes" = "Nieuwe wijzigingen";
 "aaald-characters-text-description" = "{{PLURAL:$1|0=tekens|teken|tekens}}";
 "aaald-new-book-reference-title" = "Boek";
@@ -40,9 +42,9 @@
 "aaald-new-news-reference-title" = "Nieuws";
 "aaald-new-talk-topic-description-format" = "$1 over dit artikel";
 "aaald-new-website-reference-title" = "Website";
+"aaald-revision-by-anonymous" = "Bewerking door anonieme gebruiker";
 "aaald-revision-userInfo" = "Bewerking door $1 ($2 bewerkingen)";
-// Fuzzy
-"aaald-small-change-description" = "{{PLURAL:$1|0=Geen kleine aanpassingen|$1 kleine aanpassing|$1 kleine aanpassingen}} uitgevoerd";
+"aaald-small-change-description" = "{{PLURAL:$1|0=Geen kleine aanpassingen gemaakt|$1 kleine aanpassing gemaakt|$1 kleine aanpassingen gemaakt}}";
 "about-content-license" = "Inhoudslicentie";
 "about-content-license-details" = "Tenzij anders vermeld, is de inhoud beschikbaar onder een $1.";
 "about-content-license-details-share-alike-license" = "Creative Commons Naamsvermelding-Gelijk delen-licentie";
@@ -158,6 +160,7 @@
 "button-skip" = "Overslaan";
 "cancel" = "Annuleren";
 "cc-zero" = "Creative Commons CC0";
+"chinese-variants-alert-dismiss-button" = "Nee, bedankt";
 "clear-title-accessibility-label" = "Wissen";
 "close-button-accessibility-label" = "Sluiten";
 "compass-direction" = "op $1 uur";

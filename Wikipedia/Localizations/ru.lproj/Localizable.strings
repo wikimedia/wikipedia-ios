@@ -53,6 +53,8 @@
 // Author: Александр Сигачёв
 // Author: Марио
 
+"aaald-article-insert-header" = "Значительные обновления";
+"aaald-article-insert-last-updated" = "Последнее обновление";
 "aaald-article-insert-new-changes" = "Новые изменения";
 "aaald-error-subitle" = "Обновите, чтобы попробовать еще раз";
 "aaald-many-sections-description" = "в $1 разделах";
@@ -247,6 +249,8 @@
 "diff-single-line-format" = "Строка $1";
 "diff-thanks-anonymous-no-thanks" = "Анонимным участникам нельзя отправлять благодарности";
 "diff-thanks-send-button-title" = "Отправить благодарность";
+"diff-thanks-send-title" = "Публично отправить 'Спасибо'";
+"diff-thanks-sent-cannot-unsend" = "Отправка благодарности не может быть отменена";
 "dim-images" = "Делать изображения менее яркими";
 "edit-bold-accessibility-label" = "Добавить полужирное начертание";
 "edit-bold-remove-accessibility-label" = "Убрать полужирное начертание";
@@ -571,6 +575,7 @@
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|Удалён $1 байт|Удалено $1 байта|Удалено $1 байтов}}";
 "page-history-revisions-comparison-warning" = "Можно выбрать только две версии";
 "page-history-stats-text" = "{{PLURAL:$1|$1 правка|$1 правки|$1 правок}} с $2";
+"page-history-user-edits" = "правки участников";
 "page-issues" = "Проблемы страницы";
 "page-location" = "Посмотреть на карте";
 "page-protected-autoconfirmed" = "Эта страница была частично защищена.";
@@ -698,6 +703,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "Подсветка синтаксиса";
 "reading-themes-controls-accessibility-text-size-slider" = "Ползунок размера текста";
 "reading-themes-controls-syntax-highlighting" = "Подсветка синтаксиса";
+"reference-section-button-accessibility-label" = "Перейти к разделу примечаний";
 "reference-title" = "Примечание $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Сегодня|1=Вчера|$1 дней назад|$1 дня назад}}";
 "relative-date-hours-abbreviated" = "$1 ч.";

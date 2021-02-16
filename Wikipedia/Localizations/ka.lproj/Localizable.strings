@@ -5,6 +5,7 @@
 // Author: MIKHEIL
 // Author: Nemo bis
 // Author: Otogi
+// Author: Გიო ოქრო
 
 "about-content-license" = "კონტენტის ლიცენზია";
 "about-contributors" = "ავტორები";
@@ -46,6 +47,7 @@
 "action-read" = "კითხვა";
 "action-save" = "შენახვა";
 "action-saved" = "შენახულია";
+"add-citation-title" = "ციტირების ჩასმა";
 "announcements-dismiss" = "უარყოფა";
 "article-languages-filter-placeholder" = "მოძებნე ენა";
 "article-languages-label" = "აირჩიეთ ენა";
