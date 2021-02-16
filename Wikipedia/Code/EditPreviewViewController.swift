@@ -5,7 +5,7 @@ protocol EditPreviewViewControllerDelegate: NSObjectProtocol {
     func editPreviewViewControllerDidTapNext(_ editPreviewViewController: EditPreviewViewController)
 }
 
-class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDelegate, WMFPreviewAnchorTapAlertDelegate, InternalLinkPreviewing {
+class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegate, InternalLinkPreviewing {
     var sectionID: Int?
     var articleURL: URL
     var language: String?
@@ -89,7 +89,6 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
         view.addSubview(previewWebViewContainer)
         view.wmf_addConstraintsToEdgesOfView(previewWebViewContainer)
         previewWebViewContainer.previewAnchorTapAlertDelegate = self
-        previewWebViewContainer.previewSectionLanguageInfoDelegate = self
         
         navigationItem.title = WMFLocalizedString("navbar-title-mode-edit-wikitext-preview", value: "Preview", comment: "Header text shown when wikitext changes are being previewed. {{Identical|Preview}}")
                 
@@ -119,13 +118,6 @@ class EditPreviewViewController: ViewController, WMFPreviewSectionLanguageInfoDe
     
     deinit {
         messagingController.removeScriptMessageHandler()
-    }
-    
-    func wmf_editedSectionLanguageInfo() -> MWLanguageInfo? {
-        guard let lang = language else {
-            return nil
-        }
-        return MWLanguageInfo(forCode: lang)
     }
     
     private var hasPreviewed = false

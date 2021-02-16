@@ -34,7 +34,6 @@
 "about-wikipedia" = "Википедия";
 // Fuzzy
 "abuse-filter-disallow-heading" = "Һеҙ был битте һаҡлай алмайһығыҙ, кире артҡа ҡайтып уны үҙгәртегеҙ";
-"abuse-filter-disallow-notable" = "Википедия - ул энциклопедия, бында тик нейтраль һәм әһәмиәтле нәмәләр";
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "Автоматлаштырылған фильтр был төҙәтеүҙе хаталы йәки емерергә маташыу тип билдәләй";
 // Fuzzy
@@ -54,21 +53,16 @@
 "account-creation-missing-fields" = "Иҫәп яҙмаһы булдырыу өсөн һеҙ ҡатнашыусының исемен, серһүҙҙе индеререргә һәм серһүҙҙе  раҫларға тейешһегеҙ";
 "account-creation-passwords-mismatched" = "Серһүҙҙәр тура килмәй";
 "account-creation-saving" = "Яҙҙырыла";
-"alert-no-internet" = "Интернет менән тоташыу юҡ";
-"article-about-title" = "Был мәҡәлә тураһында";
 // Fuzzy
 "article-languages-filter-placeholder" = "Тел фильтры";
 "article-languages-label" = "Телде һайларға";
 "article-languages-others" = "Башҡа телдәр";
 "article-languages-yours" = "Һеҙҙең телдәр";
-"article-read-more-title" = "Тулыраҡ уҡырға";
-"article-unable-to-load-section" = "Был бүлекте күсереп булмай. Мәҡәләне яңыртып ҡарағыҙ, бәлки проблеманы хәл итер.";
 "back-button-accessibility-label" = "Артҡа";
 "button-next" = "Артабан";
 "button-save-for-later" = "Аҙаҡҡыға һаҡларға";
 "button-saved-for-later" = "Киләсәккә һаҡланды";
 "button-skip" = "Үткәреп ебәрергә";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Ябырға";
 "compass-direction" = "$1 сәғәткә";
 "edit-summary-choice-fixed-grammar" = "Дөрөҫ яҙыу төҙәтелгән";
@@ -77,7 +71,6 @@
 "empty-no-article-message" = "Үкенескә ҡаршы, мәҡәләне күсереп булманы";
 "empty-no-feed-action-message" = "Әлегә һеҙ элек һаҡланған мәҡәләләрҙе уҡый алаһығыҙ";
 "empty-no-feed-message" = "Интернет булғанда, тәҡдим ителгән мәҡәләләрҙе күрә алаһығыҙ";
-"empty-no-feed-title" = "Интернетҡа инеп булмай";
 "empty-no-history-message" = "Бында уҡығанығыҙҙы күҙәтеп барығыҙ";
 "empty-no-history-title" = "Күрһәтеү өсөн тарих юҡ";
 "empty-no-saved-pages-message" = " Биттәрҙе һуңғараҡ ҡарау өсөн, хатта автоном режимда, уларҙы һаҡлағыҙ";
@@ -102,27 +95,19 @@
 "home-nearby-footer" = "Һеҙгә яҡын булған нәмәләр тураһында тағы бер тапҡыр";
 "home-nearby-location-footer" = "Тағы $1 - ҙән яҡыныраҡ";
 "home-title" = "Тикшерегеҙ";
-"icon-shortcut-continue-reading-title" = "Уҡыуҙы дауам итергә";
 "icon-shortcut-nearby-title" = "Яҡында булған нәмәләр тураһында мәҡәлә";
 "icon-shortcut-random-title" = "Осраҡлы мәҡәлә";
 "icon-shortcut-search-title" = "Википедияла эҙләү";
 // Fuzzy
 "image-gallery-unknown-owner" = "Күсерелгән файл билдәһеҙ";
-"info-box-close-text" = "Ябырға";
-// Fuzzy
-"info-box-title" = "Ҡыҫҡа факттар";
 "languages-title" = "Телде үҙгәртергә";
 "languages-wikipedia" = "Википедия телдәре";
-"license-footer-name" = "CC-BY-SA 3.0";
-"license-footer-text" = "$1 лицензияһына ярашлы, эстәлеге менән һәр кем файҙалана ала (башҡаһы күрһәтелмәһә)";
 "main-menu-about" = "Ҡушымта тураһында";
 "main-menu-account-login" = "Инеү";
 "main-menu-account-logout" = "Сығырға";
 "main-menu-account-logout-are-you-sure" = "Һеҙ ысынлап та сығырға уйлайһығыҙмы?";
 "main-menu-account-logout-cancel" = "Кире алырға";
 "main-menu-account-title-logged-in" = "$1 булып танылған";
-"main-menu-debug-tweaks" = "Әҙерләүселәр өсөн көйләүҙәр";
-"main-menu-heading-debug" = "Көйләү";
 "main-menu-heading-legal" = "Конфиденциаллек һәм шарттар";
 "main-menu-nearby" = "Эргәлә";
 "main-menu-privacy-policy" = "Сер һаҡлау сәйәсәте";
@@ -137,18 +122,11 @@
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 мил.";
 "no-email-account-alert" = "Үҙегеҙҙең ҡоролмала электрон почтаның иҫәп яҙмаһын көйләгеҙ һәм тағы бер тапҡыр эшләп ҡарағыҙ.";
-"open-link-cancel" = "Кире алырға";
-"page-edit-history" = "Мөхәррирләүҙең тулы тарихы";
-"page-history-title" = "Бит тарихы";
-"page-issues" = "Бит буйынса һорауҙар";
-"page-last-edited" = "$1 көн элек мөхәррирләнгән";
 "page-protected-autoconfirmed" = "Был бит өлөшләтә һаҡланған ине.";
 "page-protected-can-not-edit" = "Һеҙҙең был битте мөхәррирләргә оҡуғыҙ юҡ";
 "page-protected-can-not-edit-title" = "Был бит һаҡланған";
 "page-protected-other" = "Был бит тулыһынса һаҡланған ине: $1";
 "page-protected-sysop" = "Был бит тулыһынса һаҡланған ине.";
-"page-read-in-other-languages" = "$1 телдәргә аңлайышлы";
-"page-similar-titles" = "Оҡшаш биттәр";
 "potd-description-prefix" = " $1 - гә көн һүрәте";
 "potd-empty-error-description" = "$1-гә көн һүрәтен алып булманы";
 // Fuzzy
@@ -171,7 +149,6 @@
 "settings-support" = "Википедияға ярҙам";
 "settings-title" = "Көйләүҙәр";
 "share-article-name-on-wikipedia" = " @Wikipedia-ла «$1»";
-"share-custom-menu-item" = "Уртаҡлашырға...";
 "share-on-twitter-sign-off" = "@Wikipedia аша";
 // Fuzzy
 "table-of-contents-button-label" = "Йөкмәткеһе";
@@ -179,11 +156,11 @@
 // Fuzzy
 "table-of-contents-close-accessibility-label" = "Йөкмәткене ябырға";
 "table-of-contents-heading" = "Йөкмәткеһе";
-"table-title-other" = "Тулыраҡ";
 "welcome-exploration-on-this-day-description" = "Тарихта бөгөнгө көндә нимә булғанын белеү өсөн ваҡыт буйынса сәйәхәт итегеҙ";
 "welcome-exploration-on-this-day-title" = "Был көндә";
 "welcome-explore-continue-button" = "Башларға";
 "welcome-explore-tell-me-more-done-button" = "Аңлашыла";
+// Fuzzy
 "welcome-intro-free-encyclopedia-description" = "Википедия ирекмәндәр тарафынан берлектә яҙыла, һәм унда 300-гә яҡын телдә 40 миллиондан күберәк мәҡәлә бар.";
 "welcome-intro-free-encyclopedia-more" = "Википедия тураһында күберәк белегеҙ";
 "welcome-intro-free-encyclopedia-more-about" = "Википедия тураһында";
@@ -191,12 +168,11 @@
 // Fuzzy
 "welcome-languages-add-button" = "Тағы өҫтәргә";
 "welcome-languages-add-or-edit-button" = "Ҡулайлы телдәрҙе өҫтәү йәки үҙгәртеү";
+// Fuzzy
 "welcome-languages-search-title" = "300-гә яҡын телдән эҙләү";
 "welcome-send-data-helps-title" = "Ҡушымтаны яҡшыртырға ярҙам итегеҙ";
 "welcome-send-data-learn-more" = "Йыйылған мәғлүмәттәр хаҡында тулыраҡ...";
 "welcome-volunteer-send-usage-reports" = "Файҙаланыу тураһында отчет ебәрергә";
-"wikitext-download-failed" = "Һуңғы версияны алып булмай";
-"wikitext-download-success" = "Булған нәмә күсерелгән";
 "wikitext-downloading" = "Булғанды күсереү";
 "wikitext-preview-changes" = "Индерелгән үҙгәртеүҙәрҙе алдан ҡарауҙы алыу";
 "wikitext-preview-changes-none" = "Ҡарай алырлыҡ бер ниндәй ҙә үҙгәртеүҙәр индерелмәгән";

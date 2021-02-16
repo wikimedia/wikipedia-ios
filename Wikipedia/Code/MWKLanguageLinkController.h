@@ -1,5 +1,6 @@
 #import <WMF/MWKLanguageFilter.h>
 #import <WMF/WMFPreferredLanguageCodesProviding.h>
+@import UIKit.UIView;
 @class NSManagedObjectContext;
 @class MWKLanguageLink;
 
@@ -92,6 +93,23 @@ typedef NS_ENUM(NSInteger, WMFPreferredLanguagesChangeType) {
 ///   e.g. If the displayed article is shown in Serbian, Cyrillic an article language link for the remaining variant for that language; Serbian, Latin; will be added to the array.
 ///   This allows users to choose to view the currently displayed article in a different variant of the same language.
 - (NSArray<MWKLanguageLink *> *)articleLanguageLinksWithVariantsFromArticleURL:(NSURL *)articleURL articleLanguageLinks:(NSArray<MWKLanguageLink *> *)articleLanguageLinks;
+
+@end
+
+/// Methods to provide layout direction information for language codes.
+@interface MWKLanguageLinkController (LayoutDirectionAdditions)
+
+/// Returns whether the language represented by the @c contentLanguageCode displays right-to-left.
+/// Returns NO if @c contentLangaugeCode is nil.
++ (BOOL)isLanguageRTLForContentLanguageCode:(nullable NSString *)contentLanguageCode;
+
+/// Returns either "rtl" or "ltr" depending whether the language represented by the @c contentLanguageCode displays right-to-left.
+/// Returns "ltr" if @c contentLangaugeCode is nil.
++ (NSString *)layoutDirectionForContentLanguageCode:(nullable NSString *)contentLanguageCode;
+
+/// Returns the semantic content attribute to force appropriate text direction for the language represented by @c contentLanguageCode.
+/// Returns UISemanticContentAttributeUnspecified if @c contentLangaugeCode is nil.
++ (UISemanticContentAttribute)semanticContentAttributeForContentLanguageCode:(nullable NSString *)contentLanguageCode;
 
 @end
 

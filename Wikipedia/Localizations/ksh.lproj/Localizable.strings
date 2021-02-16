@@ -26,48 +26,42 @@
 "about-wikipedia" = "Wikkipehdija";
 // Fuzzy
 "abuse-filter-disallow-heading" = "Do kanns heh di Änderong nit faßhallde lohße. Jangk retuhr un änder se.";
-"abuse-filter-disallow-notable" = "De Wikkipehdija es e Nohkixel, woh blohß neutrahle un ähnzhaffte Beijdrähsch eren jehühre.";
+// Fuzzy
 "abuse-filter-disallow-unconstructive" = "Enne Automaht hät di Änderonge als Schtuß udder velleisch esujaa Kapottmaacherei ennjeschtohf.";
+// Fuzzy
 "abuse-filter-warning-blanking" = "Atikelle läddesch maache, udder SPAM verbreijde.";
+// Fuzzy
 "abuse-filter-warning-caps" = "En GRUHẞSCHREFF jeschrevve";
 // Fuzzy
 "abuse-filter-warning-heading" = "Dat süht nit wi en johde Ännderong us. Wells De dat verhaftesch esu faßjehallde han?";
 "abuse-filter-warning-irrelevant" = "Bellder üdder Lengks noh ußerhallf ohne ene Wäät";
+// Fuzzy
 "abuse-filter-warning-repeat" = "Zeische wohte reppeteeeeeeeeeehrt.";
+// Fuzzy
 "abuse-filter-warning-subheading" = "En Dinger Änderong kann et ein udder andere derbeij sin vun:";
 "account-creation-captcha-obtaining" = "Ben e neu Kaptscha aam holle ...";
 "account-creation-logging-in" = "Aam Enlogge …";
 "account-creation-missing-fields" = "Do moss ene Metmaacher_Nahme, e Paßwoot un en Beschtähtejong för et Paßwoot enjävve, öm ene Zohjang aanzelähje.";
 "account-creation-passwords-mismatched" = "De Paßwööter paße nit zersamme.";
 "account-creation-saving" = "Ben aam Afseschere …";
-"alert-no-internet" = "Mer han kein Verbendong noh_m Internet";
-"article-about-title" = "Övver heh dä Atikkel";
 "article-languages-filter-placeholder" = "De Schprohch fenge";
 "article-languages-label" = "Söhg en Schprohch uß";
 "article-languages-others" = "Ander Schprohche";
 "article-languages-yours" = "Ding Schprohche";
-"article-read-more-title" = "Mih lässe";
-"article-unable-to-load-section" = "Mer kunnte dä Affschnett nit lahde. Versöhg ens, dä jannze Atikel neu ze lahde, öm ze sinn, of dat hellef.";
 "back-button-accessibility-label" = "Retuhr";
-"button-done" = "Jedonn";
 "button-next" = "Näx";
 "button-ok" = "Lohß Jonn!";
 "button-report-a-bug" = "Ene Fähler mälde";
 "button-save-for-later" = "För schpääder faßjehallde";
 "button-saved-for-later" = "För schpääder faßjehallde";
-"cc-by-sa-3.0" = "CC BY-SA 3.0";
 "close-button-accessibility-label" = "Zohmaache";
 "compass-direction" = "öm $1 Uhr";
 "edit-summary-choice-fixed-grammar" = "Jrammatek reparrehrt";
 "edit-summary-choice-fixed-typos" = "Tipfähler fott jemaat";
 "edit-summary-choice-linked-words" = "Lengks derbei jedonn";
-"edit-summary-choice-other" = "Annder";
-"edit-summary-field-placeholder-text" = "Wat De veräßert häs";
-"edit-summary-title" = "Wi häs De di Sigg bäßer jemaat?";
 "empty-no-article-message" = "Schahd, mer kunnte dä Atikkel nit lahde";
 "empty-no-feed-action-message" = "Do kanns emmer noch de op Dingem Jeräht faßjehallde Sigge lässe.";
 "empty-no-feed-message" = "Do kanns Ding ämfohle Atikelle sinn, wann De en Verbendong mem Internet häs";
-"empty-no-feed-title" = "Kein Verbendong mem Internet";
 "empty-no-history-message" = "Donn faßhallde, wat De heh jelässe häs";
 "empty-no-history-title" = "Mer han kein Verjangeheit zom Aanzeije";
 "empty-no-saved-pages-message" = "Donn Sigge märrke, öm se spääder ze lässe, esujaa der ohne en Verbendong mem Internet";
@@ -92,28 +86,19 @@
 "home-nearby-footer" = "Mih uß Dinger Nöhde";
 "home-nearby-location-footer" = "Mih en de Nöhde vun $1";
 "home-title" = "Ußfochsche";
-"icon-shortcut-continue-reading-title" = "Wigger lässe";
 "icon-shortcut-nearby-title" = "Nearby articles";
 "icon-shortcut-random-title" = "Ene zohfälleje Atikel";
 "icon-shortcut-search-title" = "En de Wikkipehdija söhke";
 // Fuzzy
 "image-gallery-unknown-owner" = "Onbikannt, wä dat huhjelahde hät";
-"info-box-close-text" = "Zohmaache";
-// Fuzzy
-"info-box-title" = "Koot jesaat";
 "languages-title" = "De Schprohch wääßele";
-"license-footer-name" = "CC BY-SA 3.0";
-"license-footer-text" = "Wann nit angersch aanjejovve es dä Ennhalld ze hann onger $1";
 "main-menu-about" = "Övver di Äpp";
 "main-menu-account-login" = "Enlogge";
 "main-menu-account-logout" = "Ußlogge";
 "main-menu-account-logout-are-you-sure" = "Wells De verhaftesch ußlogge?";
 "main-menu-account-logout-cancel" = "Ophüre";
 "main-menu-account-title-logged-in" = "Ennjelogg als $1";
-"main-menu-debug-tweaks" = "Enschtällonge för Äntwekler";
-"main-menu-heading-debug" = "Noh Fähler Söhke";
 "main-menu-heading-legal" = "Rääschlesche Krohm";
-"main-menu-heading-zero" = "De Wikkiphedija Zero";
 "main-menu-nearby" = "En de Nöhde";
 "main-menu-privacy-policy" = "Rääjelle för der Daateschotz un de Jeheimhaldung";
 "main-menu-rate-app" = "Donn di Äpp beoordeijle";
@@ -127,18 +112,11 @@
 "nearby-distance-label-meters" = "$1 Mehter";
 "nearby-distance-label-miles" = "$1 Meile";
 "no-email-account-alert" = "Bes esu johd un donn op Dingem Apparahd en Adräß för de e-mail ennreeschte.";
-"open-link-cancel" = "Ophühre";
-"page-edit-history" = "De kumplätte Verjangeheijt";
-"page-history-title" = "Väsjohne vun dä Sigg";
-"page-issues" = "Problehme met heh dä Sigg";
-"page-last-edited" = "Vör $1 Dähsch verändert";
 "page-protected-autoconfirmed" = "Heh di Sigg es hallef jeschöz.";
 "page-protected-can-not-edit" = "Do häs nit dat Rääsch, heh di Sigg ze ändere";
 "page-protected-can-not-edit-title" = "Heh di Sigg es jeschöz.";
 "page-protected-other" = "Heh di Sigg es jeschöß woode op Nivvoh: $1";
 "page-protected-sysop" = "Heh di Sigg es jeschöz.";
-"page-read-in-other-languages" = "En $1 annder Schprohche ze han";
-"page-similar-titles" = "Ähnlejje Sigge";
 "potd-description-prefix" = "Et Beld vum Daach för $1";
 "potd-empty-error-description" = "Kunnd et Beld vum Daach nit lahde för $1";
 // Fuzzy
@@ -165,8 +143,6 @@
 "settings-support" = "Ongerschtöz de Wikkipehdija!";
 "settings-title" = "Enschtällonge";
 "share-article-name-on-wikipedia" = "„$1“ op @Wikipedia:";
-// Fuzzy
-"share-custom-menu-item" = "Wigger jävve";
 "share-on-twitter-sign-off" = "vun de @Wikipedia";
 // Fuzzy
 "table-of-contents-button-label" = "Enhalldsverzeijschneß";
@@ -174,13 +150,10 @@
 // Fuzzy
 "table-of-contents-close-accessibility-label" = "Ed Enhalldsverzeijschneß zohmaache";
 "table-of-contents-heading" = "Enhalld";
-"table-title-other" = "Mih Aanjahbe";
 "welcome-explore-continue-button" = "Wigger";
 "welcome-explore-tell-me-more-done-button" = "Wiggermaache";
 "welcome-languages-add-button" = "Donn nor_ren Schprohch dobei";
 "welcome-volunteer-send-usage-reports" = "Bereeschte met Dahte övver der Jebruch afflivvere";
-"wikitext-download-failed" = "Kann de neuste Väsjohn nit lahde.";
-"wikitext-download-success" = "Ennhalld jelahde.";
 "wikitext-downloading" = "Aam Lahde ...";
 "wikitext-preview-changes" = "Ben en Vör_Aanseesch vun dä Änderonge aam holle.";
 "wikitext-preview-changes-none" = "Et wohd nix verändert.";
@@ -192,14 +165,3 @@
 "wikitext-upload-save-anonymously-warning" = "Ding Änderonge wähde dä IP-Adräß vun Dingem Apparaht zohjeschrevve. Wann De $1, beß De jät prevahter.";
 "wikitext-upload-save-sign-in" = "Enlogge";
 "wikitext-upload-save-terms-name" = "Bedengonge för der Jebruch";
-"zero-charged-verbiage" = "De Wikkiphedija Zero es ußjeschalldt";
-"zero-charged-verbiage-extended" = "Annder Sigge lahde kann Jäld koste för de övverdrahre Dahte. Offlain faßjehalldde Siggebruche kein Dahte mih un sin ömmesöns.";
-"zero-free-verbiage" = "Der Zohjang op de Wikkipehdija es ömesöns, Dinge Mobihlfunk-Ferrma nimmp nix för di övverdrahre Dahte.";
-"zero-interstitial-cancel" = "Bliehv heh";
-"zero-interstitial-continue" = "Jangk fott";
-"zero-interstitial-leave-app" = "Dat künnt Jäld koste för de Dahte ze övverdrahre. Wells De trozdämm op di Sigg ußerhallef jonn?";
-"zero-interstitial-title" = "De Wikkiphedija Zero hührd jäz op";
-"zero-learn-more" = "Koßte för der Dahteverkehr för heh di Wikkipehdija Äpp falle kein aan.";
-"zero-learn-more-learn-more" = "Mih lässe";
-"zero-learn-more-no-thanks" = "Nää, well esch nit lässe.";
-"zero-warn-when-leaving" = "Donn warne, wann de Wikkipehdija Zero ophührt.";

@@ -148,6 +148,7 @@
 "button-skip" = "تخطٍ";
 "cancel" = "ألغ";
 "cc-zero" = "المشاع الإبداعي CC0";
+"chinese-variants-alert-dismiss-button" = "لا شكرًا";
 "clear-title-accessibility-label" = "امسح";
 "close-button-accessibility-label" = "أغلق";
 "compass-direction" = "عند الساعة $1";

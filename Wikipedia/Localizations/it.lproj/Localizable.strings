@@ -11,6 +11,7 @@
 // Author: Devid Farinelli
 // Author: EditGio
 // Author: Eduardo Addad de Oliveira
+// Author: Eduardoaddad
 // Author: F. Cosoleto
 // Author: Giacomo Checchin
 // Author: Gianfranco
@@ -155,6 +156,7 @@
 "button-skip" = "Salta";
 "cancel" = "Annulla";
 "cc-zero" = "Creative Commons CC0";
+"chinese-variants-alert-dismiss-button" = "No, grazie";
 "clear-title-accessibility-label" = "Pulisci";
 "close-button-accessibility-label" = "Chiudi";
 "compass-direction" = "alle ore $1";

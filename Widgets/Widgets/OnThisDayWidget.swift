@@ -92,7 +92,7 @@ final class OnThisDayData {
     // From https://en.wikipedia.org/api/rest_v1/feed/onthisday/events/01/15, taken on 03 Sept 2020.
     func placeholderEntryFromLanguage(_ language: MWKLanguageLink?) -> OnThisDayEntry {
         let locale = NSLocale.wmf_locale(for: language?.languageCode)
-        let isRTL = (MWLanguageInfo.semanticContentAttribute(forWMFLanguage: language?.languageCode) == UISemanticContentAttribute.forceRightToLeft)
+        let isRTL = MWKLanguageLinkController.isLanguageRTL(forContentLanguageCode: language?.languageCode)
 
         let fullDate: String
         let eventYear: String
