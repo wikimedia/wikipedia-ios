@@ -245,7 +245,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
         for (NSManagedObject *object in changedObjects) {
             if ([object isKindOfClass:[WMFArticle class]]) {
                 WMFArticle *article = (WMFArticle *)object;
-                NSString *articleKey = article.key;
+                WMFInMemoryURLKey *articleKey = article.inMemoryKey;
                 NSURL *articleURL = article.URL;
                 if (!articleKey || !articleURL) {
                     continue;

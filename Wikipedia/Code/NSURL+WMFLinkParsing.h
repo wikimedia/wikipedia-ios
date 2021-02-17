@@ -239,6 +239,7 @@ extern NSString *const WMFEditPencil;
 @property (readonly, nonatomic, copy) NSString *databaseKey;
 @property (readonly, nonatomic, copy, nullable) NSString *languageVariantCode;
 @property (readonly, nonatomic, copy, nullable) NSURL *URL;
+@property (readonly, nonatomic, copy) NSString *userInfoString; // A unique string for this database key + variant code pair suitable for incorporation in key strings.
 @end
 
 @interface NSURL (WMFInMemoryURLKeyExtensions)
