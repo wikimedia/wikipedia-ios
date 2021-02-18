@@ -2,6 +2,10 @@
 #import <WMF/NSURL+WMFLinkParsing.h>
 #import <WMF/WMF-Swift.h>
 
+@interface NSManagedObjectContext (WMFArticle_Private)
+- (NSUInteger)countOfSavedArticleVariantsWithKey:(nullable NSString *)key error:(NSError **)error;
+@end
+
 @implementation WMFArticle (Extensions)
 
 - (NSString *)capitalizedWikidataDescription {
@@ -20,6 +24,10 @@
 
 - (nullable WMFInMemoryURLKey *)inMemoryKey {
     return self.URL.wmf_inMemoryKey;
+}
+
+- (BOOL)isAnyVariantSaved {
+    return [self.managedObjectContext countOfSavedArticleVariantsWithKey:self.key error:nil] > 0;
 }
 
 #pragma clang diagnostic push
@@ -252,6 +260,21 @@
         [subpredicates addObject:predicate];
     }
     return [NSCompoundPredicate orPredicateWithSubpredicates:subpredicates];
+}
+
+@end
+
+
+@implementation NSManagedObjectContext (WMFArticle_Private)
+
+- (NSUInteger)countOfSavedArticleVariantsWithKey:(nullable NSString *)key error:(NSError **)error {
+    if (!key) {
+        return 0;
+    }
+    NSFetchRequest *request = [WMFArticle fetchRequest];
+    request.predicate = [NSPredicate predicateWithFormat:@"key == %@ && savedDate != NULL", key];
+    NSUInteger count =  [self countForFetchRequest:request error:nil];
+    return count == NSNotFound ? 0 : count;
 }
 
 @end

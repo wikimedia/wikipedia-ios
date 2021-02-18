@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D74" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ReadingList" representedClassName="WMF.ReadingList" syncable="YES">
+        <attribute name="canonicalName" optional="YES" attributeType="String"/>
+        <attribute name="color" optional="YES" attributeType="String"/>
+        <attribute name="countOfEntries" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="errorCode" optional="YES" attributeType="String"/>
+        <attribute name="iconName" optional="YES" attributeType="String"/>
+        <attribute name="imageName" optional="YES" attributeType="String"/>
+        <attribute name="isDefault" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="isDeletedLocally" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="isUpdatedLocally" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="readingListDescription" optional="YES" attributeType="String"/>
+        <attribute name="readingListID" optional="YES" attributeType="Integer 64" usesScalarValueType="NO"/>
+        <attribute name="sortOrder" optional="YES" attributeType="Integer 64" usesScalarValueType="NO"/>
+        <attribute name="updatedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="articles" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WMFArticle" inverseName="readingLists" inverseEntity="WMFArticle"/>
+        <relationship name="entries" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ReadingListEntry" inverseName="list" inverseEntity="ReadingListEntry"/>
+        <relationship name="previewArticles" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="WMFArticle" inverseName="previewReadingLists" inverseEntity="WMFArticle"/>
+        <fetchIndex name="byNameIndex">
+            <fetchIndexElement property="canonicalName" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byCreatedDateIndex">
+            <fetchIndexElement property="createdDate" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byUpdatedLocallyIndex">
+            <fetchIndexElement property="isUpdatedLocally" type="Binary" order="ascending"/>
+            <fetchIndexElement property="createdDate" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byDeletedLocallyIndex">
+            <fetchIndexElement property="isDeletedLocally" type="Binary" order="ascending"/>
+            <fetchIndexElement property="isDefault" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byReadingListID">
+            <fetchIndexElement property="readingListID" type="Binary" order="ascending"/>
+        </fetchIndex>
+    </entity>
+    <entity name="ReadingListEntry" representedClassName="WMF.ReadingListEntry" syncable="YES">
+        <attribute name="articleKey" optional="YES" attributeType="String"/>
+        <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="displayTitle" optional="YES" attributeType="String"/>
+        <attribute name="errorCode" optional="YES" attributeType="String"/>
+        <attribute name="isDeletedLocally" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="isUpdatedLocally" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="readingListEntryID" optional="YES" attributeType="Integer 64" usesScalarValueType="NO"/>
+        <attribute name="updatedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="variant" optional="YES" attributeType="String"/>
+        <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ReadingList" inverseName="entries" inverseEntity="ReadingList"/>
+        <fetchIndex name="byErrorCodeAndCreatedDateIndex">
+            <fetchIndexElement property="errorCode" type="Binary" order="ascending"/>
+            <fetchIndexElement property="createdDate" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byErrorCodeAndDisplayTitleIndex">
+            <fetchIndexElement property="errorCode" type="Binary" order="ascending"/>
+            <fetchIndexElement property="displayTitle" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byUpdatedLocallyIndex">
+            <fetchIndexElement property="isUpdatedLocally" type="Binary" order="ascending"/>
+            <fetchIndexElement property="createdDate" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byListAndDeletedLocallyIndex">
+            <fetchIndexElement property="list" type="Binary" order="ascending"/>
+            <fetchIndexElement property="isDeletedLocally" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byReadingListEntryID">
+            <fetchIndexElement property="readingListEntryID" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byArticleKeyIndex">
+            <fetchIndexElement property="articleKey" type="Binary" order="ascending"/>
+        </fetchIndex>
+    </entity>
+    <entity name="TalkPage" representedClassName="TalkPage" syncable="YES" codeGenerationType="class">
+        <attribute name="dateAccessed" attributeType="Date" defaultDateTimeInterval="582233760" usesScalarValueType="NO"/>
+        <attribute name="displayTitle" attributeType="String"/>
+        <attribute name="key" attributeType="String"/>
+        <attribute name="revisionId" optional="YES" attributeType="Integer 64" minValueString="0" usesScalarValueType="NO"/>
+        <relationship name="topics" toMany="YES" deletionRule="Cascade" destinationEntity="TalkPageTopic" inverseName="talkPage" inverseEntity="TalkPageTopic"/>
+    </entity>
+    <entity name="TalkPageReply" representedClassName="TalkPageReply" syncable="YES" codeGenerationType="class">
+        <attribute name="depth" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="sha" attributeType="String"/>
+        <attribute name="sort" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="text" attributeType="String"/>
+        <relationship name="topic" maxCount="1" deletionRule="Nullify" destinationEntity="TalkPageTopic" inverseName="replies" inverseEntity="TalkPageTopic"/>
+    </entity>
+    <entity name="TalkPageTopic" representedClassName="TalkPageTopic" syncable="YES" codeGenerationType="class">
+        <attribute name="isIntro" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="relatedObjectsVersion" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="sectionID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="sort" attributeType="Integer 64" minValueString="0" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="textSha" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
+        <relationship name="content" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TalkPageTopicContent" inverseName="topics" inverseEntity="TalkPageTopicContent"/>
+        <relationship name="replies" toMany="YES" deletionRule="Cascade" destinationEntity="TalkPageReply" inverseName="topic" inverseEntity="TalkPageReply"/>
+        <relationship name="talkPage" maxCount="1" deletionRule="Nullify" destinationEntity="TalkPage" inverseName="topics" inverseEntity="TalkPage"/>
+    </entity>
+    <entity name="TalkPageTopicContent" representedClassName="TalkPageTopicContent" syncable="YES" codeGenerationType="class">
+        <attribute name="isRead" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="sha" attributeType="String"/>
+        <relationship name="topics" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TalkPageTopic" inverseName="content" inverseEntity="TalkPageTopic"/>
+        <fetchIndex name="bySHAIndex">
+            <fetchIndexElement property="sha" type="Binary" order="ascending"/>
+        </fetchIndex>
+    </entity>
+    <entity name="WMFArticle" representedClassName="WMFArticle" syncable="YES">
+        <attribute name="displayTitle" optional="YES" attributeType="String"/>
+        <attribute name="displayTitleHTMLString" optional="YES" attributeType="String"/>
+        <attribute name="downloadAttemptCount" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="downloadRetryDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="errorCodeNumber" optional="YES" attributeType="Integer 32" usesScalarValueType="NO"/>
+        <attribute name="geoDimensionNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="geoTypeNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="imageHeight" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO"/>
+        <attribute name="imageURLString" optional="YES" attributeType="String"/>
+        <attribute name="imageWidth" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO"/>
+        <attribute name="isConversionFromMobileViewNeeded" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="isDownloaded" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="isExcludedFromFeed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="key" attributeType="String"/>
+        <attribute name="lastModifiedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="newsNotificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="ns" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="pageID" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="pageViews" optional="YES" attributeType="Transformable" valueTransformerName="WMFSecureUnarchiveFromDataTransformer" customClassName="NSDictionary"/>
+        <attribute name="placesSortOrder" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO"/>
+        <attribute name="savedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="signedQuadKey" optional="YES" attributeType="Integer 64" usesScalarValueType="NO"/>
+        <attribute name="snippet" optional="YES" attributeType="String"/>
+        <attribute name="thumbnailURLString" optional="YES" attributeType="String"/>
+        <attribute name="variant" optional="YES" attributeType="String"/>
+        <attribute name="viewedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="viewedDateWithoutTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="viewedFragment" optional="YES" attributeType="String"/>
+        <attribute name="viewedScrollPosition" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="wasSignificantlyViewed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="wikidataDescription" optional="YES" attributeType="String"/>
+        <attribute name="wikidataID" optional="YES" attributeType="String"/>
+        <relationship name="previewReadingLists" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ReadingList" inverseName="previewArticles" inverseEntity="ReadingList"/>
+        <relationship name="readingLists" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ReadingList" inverseName="articles" inverseEntity="ReadingList"/>
+        <fetchIndex name="byKeyIndex">
+            <fetchIndexElement property="key" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="bySignedQuadKeyIndex">
+            <fetchIndexElement property="signedQuadKey" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="housekeeperIndex">
+            <fetchIndexElement property="viewedDate" type="Binary" order="ascending"/>
+            <fetchIndexElement property="savedDate" type="Binary" order="ascending"/>
+            <fetchIndexElement property="isDownloaded" type="Binary" order="ascending"/>
+            <fetchIndexElement property="placesSortOrder" type="Binary" order="ascending"/>
+            <fetchIndexElement property="isExcludedFromFeed" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="compoundIndex1">
+            <fetchIndexElement property="viewedDateWithoutTime" type="Binary" order="ascending"/>
+            <fetchIndexElement property="viewedDate" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="compoundIndex2">
+            <fetchIndexElement property="savedDate" type="Binary" order="ascending"/>
+            <fetchIndexElement property="isDownloaded" type="Binary" order="ascending"/>
+            <fetchIndexElement property="downloadRetryDate" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="compoundIndex3">
+            <fetchIndexElement property="readingLists" type="Binary" order="ascending"/>
+            <fetchIndexElement property="imageURLString" type="Binary" order="ascending"/>
+            <fetchIndexElement property="savedDate" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byDisplayTitleIndex">
+            <fetchIndexElement property="displayTitle" type="Binary" order="ascending"/>
+        </fetchIndex>
+    </entity>
+    <entity name="WMFContent" representedClassName="WMFContent" syncable="YES">
+        <attribute name="object" optional="YES" attributeType="Transformable" valueTransformerName="WMFSecureUnarchiveFromDataTransformer"/>
+        <relationship name="contentGroup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WMFContentGroup" inverseName="fullContent" inverseEntity="WMFContentGroup"/>
+    </entity>
+    <entity name="WMFContentGroup" representedClassName="WMFContentGroup" syncable="YES">
+        <attribute name="articleURLString" optional="YES" attributeType="String"/>
+        <attribute name="contentDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="contentGroupKindInteger" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="contentMidnightUTCDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="contentPreview" optional="YES" attributeType="Transformable" valueTransformerName="WMFSecureUnarchiveFromDataTransformer"/>
+        <attribute name="contentTypeInteger" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES"/>
+        <attribute name="countOfFullContent" optional="YES" attributeType="Integer 64" usesScalarValueType="NO"/>
+        <attribute name="dailySortPriority" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="featuredContentIdentifier" optional="YES" attributeType="String"/>
+        <attribute name="isVisible" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="key" attributeType="String"/>
+        <attribute name="location" optional="YES" attributeType="Transformable" valueTransformerName="WMFSecureUnarchiveFromDataTransformer" customClassName="CLLocation"/>
+        <attribute name="midnightUTCDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="placemark" optional="YES" attributeType="Transformable" valueTransformerName="WMFSecureUnarchiveFromDataTransformer" customClassName="CLPlacemark"/>
+        <attribute name="placement" optional="YES" attributeType="String"/>
+        <attribute name="siteURLString" optional="YES" attributeType="String"/>
+        <attribute name="undoTypeInteger" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="variant" optional="YES" attributeType="String"/>
+        <attribute name="wasDismissed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <relationship name="fullContent" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="WMFContent" inverseName="contentGroup" inverseEntity="WMFContent"/>
+        <fetchIndex name="byKeyIndex">
+            <fetchIndexElement property="key" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="compoundIndex">
+            <fetchIndexElement property="isVisible" type="Binary" order="ascending"/>
+            <fetchIndexElement property="placement" type="Binary" order="ascending"/>
+            <fetchIndexElement property="midnightUTCDate" type="Binary" order="ascending"/>
+            <fetchIndexElement property="dailySortPriority" type="Binary" order="ascending"/>
+            <fetchIndexElement property="date" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="compoundIndex1">
+            <fetchIndexElement property="contentGroupKindInteger" type="Binary" order="ascending"/>
+            <fetchIndexElement property="midnightUTCDate" type="Binary" order="ascending"/>
+            <fetchIndexElement property="siteURLString" type="Binary" order="ascending"/>
+        </fetchIndex>
+    </entity>
+    <entity name="WMFKeyValue" representedClassName="WMFKeyValue" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="group" optional="YES" attributeType="String"/>
+        <attribute name="key" attributeType="String"/>
+        <attribute name="value" optional="YES" attributeType="Transformable" valueTransformerName="WMFSecureUnarchiveFromDataTransformer"/>
+        <fetchIndex name="compoundIndex">
+            <fetchIndexElement property="key" type="Binary" order="ascending"/>
+            <fetchIndexElement property="group" type="Binary" order="ascending"/>
+            <fetchIndexElement property="date" type="Binary" order="ascending"/>
+        </fetchIndex>
+    </entity>
+    <elements>
+        <element name="ReadingList" positionX="-54" positionY="135" width="128" height="284"/>
+        <element name="ReadingListEntry" positionX="-27" positionY="153" width="128" height="179"/>
+        <element name="TalkPage" positionX="-45" positionY="135" width="128" height="120"/>
+        <element name="TalkPageReply" positionX="-27" positionY="153" width="128" height="120"/>
+        <element name="TalkPageTopic" positionX="-36" positionY="144" width="128" height="180"/>
+        <element name="TalkPageTopicContent" positionX="-36" positionY="135" width="128" height="90"/>
+        <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="569"/>
+        <element name="WMFContent" positionX="-63" positionY="135" width="128" height="73"/>
+        <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="344"/>
+        <element name="WMFKeyValue" positionX="-63" positionY="135" width="128" height="103"/>
+    </elements>
+</model>
