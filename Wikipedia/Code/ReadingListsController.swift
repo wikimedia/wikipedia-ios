@@ -655,48 +655,10 @@ public typealias ReadingListsController = WMFReadingListsController
             DDLogError("Error removing article from default list: \(error)")
         }
     }
-    
-    
-    @objc public func removeArticlesWithURLsFromDefaultReadingList(_ articleURLs: [URL]) {
-        assert(Thread.isMainThread)
-        do {
-            let moc = dataStore.viewContext
-            for url in articleURLs {
-                guard let article = dataStore.fetchArticle(with: url) else {
-                    continue
-                }
-                unsave([article], in: moc)
-            }
-            if moc.hasChanges {
-                try moc.save()
-            }
-            sync()
-        } catch let error {
-            DDLogError("Error removing all articles from default list: \(error)")
-        }
-    }
-}
-
-public extension WMFArticle {
-    func fetchReadingListEntries() throws -> [ReadingListEntry] {
-        guard let moc = managedObjectContext, let key = key else {
-            return []
-        }
-        let entryFetchRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-        entryFetchRequest.predicate = NSPredicate(format: "articleKey == %@", key)
-        return try moc.fetch(entryFetchRequest)
-    }
-    
-    func fetchDefaultListEntry() throws -> ReadingListEntry? {
-        let readingListEntries = try fetchReadingListEntries()
-        return readingListEntries.first(where: { (entry) -> Bool in
-            return (entry.list?.isDefault ?? false) && !entry.isDeletedLocally
-        })
-    }
 }
 
 extension WMFArticle {
-    func addToDefaultReadingList() throws {
+    fileprivate func addToDefaultReadingList() throws {
         guard let moc = self.managedObjectContext else {
             return
         }
@@ -722,6 +684,22 @@ extension WMFArticle {
         try defaultReadingList.updateArticlesAndEntries()
     }
     
+    private func fetchReadingListEntries() throws -> [ReadingListEntry] {
+        guard let moc = managedObjectContext, let key = key else {
+            return []
+        }
+        let entryFetchRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
+        entryFetchRequest.predicate = NSPredicate(format: "articleKey == %@", key)
+        return try moc.fetch(entryFetchRequest)
+    }
+    
+    private func fetchDefaultListEntry() throws -> ReadingListEntry? {
+        let readingListEntries = try fetchReadingListEntries()
+        return readingListEntries.first(where: { (entry) -> Bool in
+            return (entry.list?.isDefault ?? false) && !entry.isDeletedLocally
+        })
+    }
+    
     func readingListsDidChange() {
         let readingLists = self.readingLists ?? []
         if readingLists.isEmpty && savedDate != nil {
@@ -731,7 +709,7 @@ extension WMFArticle {
         }
     }
 
-    @objc public var isInDefaultList: Bool {
+    private var isInDefaultList: Bool {
         guard let readingLists = self.readingLists else {
             return false
         }
@@ -742,11 +720,7 @@ extension WMFArticle {
         return (readingLists ?? []).count == 1 && isInDefaultList
     }
     
-    @objc public var readingListsCount: Int {
-        return (readingLists ?? []).count
-    }
-    
-    @objc public var userCreatedReadingLists: [ReadingList] {
+    private var userCreatedReadingLists: [ReadingList] {
         return (readingLists ?? []).filter { !$0.isDefault }
     }
     
