@@ -8,7 +8,12 @@ public protocol SaveButtonsControllerDelegate: class {
 
 class SaveButtonsController: NSObject, SaveButtonDelegate {
     
+    // The tag refers to a specific article button, which takes the article database key and language variant into account
+    // But we need to keep all save buttons for an article, across all variants, updated with the same value
+    // visibleSaveButtonTagsByDatabaseKey maps from the database key - equal for all variants to a set of tags of all the buttons for that article
+    // visibleSaveButtons maps the tag to the save button.
     var visibleSaveButtons = [Int: Set<SaveButton>]()
+    var visibleSaveButtonTagsByDatabaseKey = [String: Set<Int>]()
     var visibleArticleKeys = [Int: WMFInMemoryURLKey]()
     var visibleUserInfo = [Int: Any]()
     
@@ -28,7 +33,7 @@ class SaveButtonsController: NSObject, SaveButtonDelegate {
     }
     
     public func willDisplay(saveButton: SaveButton, for article: WMFArticle, with userInfo: Any? = nil) {
-        guard let key = article.inMemoryKey else {
+        guard let key = article.inMemoryKey, let databaseKey = article.key else {
             return
         }
         let tag = key.hash
@@ -36,15 +41,21 @@ class SaveButtonsController: NSObject, SaveButtonDelegate {
         saveButton.tag = tag
         saveButton.addTarget(self, action: #selector(saveButtonPressed(sender:)), for: .touchUpInside)
         saveButton.saveButtonDelegate = self
+        
         var saveButtons = visibleSaveButtons[tag] ?? []
         saveButtons.insert(saveButton)
         visibleSaveButtons[tag] = saveButtons
+        
+        var saveButtonTags = visibleSaveButtonTagsByDatabaseKey[databaseKey] ?? []
+        saveButtonTags.insert(tag)
+        visibleSaveButtonTagsByDatabaseKey[databaseKey] = saveButtonTags
+        
         visibleArticleKeys[tag] = key
         visibleUserInfo[tag] = userInfo
     }
     
     public func didEndDisplaying(saveButton: SaveButton, for article: WMFArticle) {
-        guard let key = article.inMemoryKey else {
+        guard let key = article.inMemoryKey, let databaseKey = article.key else {
             return
         }
         let tag = key.hash
@@ -57,6 +68,14 @@ class SaveButtonsController: NSObject, SaveButtonDelegate {
             visibleUserInfo.removeValue(forKey: tag)
         } else {
             visibleSaveButtons[tag] = saveButtons
+        }
+        
+        var saveButtonTags = visibleSaveButtonTagsByDatabaseKey[databaseKey] ?? []
+        saveButtonTags.remove(tag)
+        if saveButtonTags.isEmpty {
+            visibleSaveButtonTagsByDatabaseKey.removeValue(forKey: databaseKey)
+        } else {
+            visibleSaveButtonTagsByDatabaseKey[databaseKey] = saveButtonTags
         }
     }
     
@@ -79,11 +98,16 @@ class SaveButtonsController: NSObject, SaveButtonDelegate {
     fileprivate var updatedArticle: WMFArticle?
     
     @objc func articleUpdated(notification: Notification) {
-        guard let article = notification.object as? WMFArticle, let key = article.inMemoryKey, let saveButtons = visibleSaveButtons[key.hash] else {
+        guard let article = notification.object as? WMFArticle, let databaseKey = article.key, let saveButtonTags = visibleSaveButtonTagsByDatabaseKey[databaseKey] else {
             return
         }
-        for saveButton in saveButtons {
-            saveButton.saveButtonState = article.savedDate == nil ? .longSave : .longSaved
+        for saveButtonTag in saveButtonTags {
+            guard let saveButtons = visibleSaveButtons[saveButtonTag] else {
+                return
+            }
+            for saveButton in saveButtons {
+                saveButton.saveButtonState = article.savedDate == nil ? .longSave : .longSaved
+            }
         }
         updatedArticle = article
         notifyDelegateArticleSavedStateChanged()
