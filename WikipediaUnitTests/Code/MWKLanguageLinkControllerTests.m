@@ -121,6 +121,32 @@
     XCTAssertEqualObjects(articleURL.wmf_languageVariantCode, languageVariantCode);
 }
 
+- (void)testPreferredLanguageVariantForLanguageCode {
+    // Only run test if language variants are enabled
+    if (!WikipediaLookup.languageVariantsEnabled) {
+        return;
+    }
+    NSString *chineseLanguageVariantCode = @"zh-my";
+    NSString *serbianLanguageVariantCode = @"sr-ec";
+    MWKLanguageLink *link = [[MWKLanguageLink alloc] initWithLanguageCode:@"zh" pageTitleText:@"" name:@"Malaysia Simplified" localizedName:@"大马简体" languageVariantCode:chineseLanguageVariantCode];
+    [self.controller appendPreferredLanguage:link];
+    
+    // Test finding in app preferences
+    NSString *chineseResult = [self.controller preferredLanguageVariantCodeForLanguageCode:@"zh"];
+    XCTAssertEqualObjects(chineseResult, chineseLanguageVariantCode);
+    
+    // Test fallback not in app preferences or OS preferences
+    NSString *serbianResult = [self.controller preferredLanguageVariantCodeForLanguageCode:@"sr"];
+    XCTAssertEqualObjects(serbianResult, serbianLanguageVariantCode);
+    
+    // Test non-variant languages not found in app or OS preferences
+    NSString *englishResult = [self.controller preferredLanguageVariantCodeForLanguageCode:@"en"];
+    XCTAssertNil(englishResult);
+    
+    NSString *frenchResult = [self.controller preferredLanguageVariantCodeForLanguageCode:@"fr"];
+    XCTAssertNil(frenchResult);
+}
+
 
 #pragma mark - Utils
 
