@@ -27,7 +27,9 @@
 }
 
 - (BOOL)isAnyVariantSaved {
-    return [self.managedObjectContext countOfSavedArticleVariantsWithKey:self.key error:nil] > 0;
+    NSUInteger savedCount = [self.managedObjectContext countOfSavedArticleVariantsWithKey:self.key error:nil];
+    NSAssert(savedCount < 2, @"More than one article variant marked as saved for key '%@'", self.key);
+    return savedCount > 0;
 }
 
 #pragma clang diagnostic push
@@ -151,7 +153,25 @@
     }
     NSFetchRequest *request = [WMFArticle fetchRequest];
     request.predicate = [NSPredicate predicateWithFormat:@"key == %@ && variant == %@", key, variant];
-    return [self executeFetchRequest:request error:nil];
+    return [self executeFetchRequest:request error:error];
+}
+
+- (nullable NSArray<WMFArticle *> *)fetchArticlesWithInMemoryURLKeys:(NSArray<WMFInMemoryURLKey *> *)urlKeys error:(NSError **)error {
+    if (urlKeys.count == 0) {
+        return @[];
+    }
+    NSFetchRequest *request = [WMFArticle fetchRequest];
+    request.predicate = [self articlePredicateForInMemoryURLKeys:urlKeys];
+    return [self executeFetchRequest:request error:error];
+}
+
+- (NSPredicate *)articlePredicateForInMemoryURLKeys:(NSArray<WMFInMemoryURLKey *> *)urlKeys {
+    NSMutableArray<NSPredicate *> *subpredicates = [[NSMutableArray alloc] init];
+    for (WMFInMemoryURLKey *urlKey in urlKeys) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"key == %@ && variant == %@", urlKey.databaseKey, urlKey.languageVariantCode];
+        [subpredicates addObject:predicate];
+    }
+    return [NSCompoundPredicate orPredicateWithSubpredicates:subpredicates];
 }
 
 - (nullable WMFArticle *)fetchArticleWithKey:(nullable NSString *)key variant:(nullable NSString *)variant {
@@ -251,15 +271,6 @@
         preview.imageHeight = feedPreview.imageHeight;
     }
     return preview;
-}
-
-- (NSPredicate *)articlePredicateForInMemoryURLKeys:(NSArray<WMFInMemoryURLKey *> *)urlKeys {
-    NSMutableArray<NSPredicate *> *subpredicates = [[NSMutableArray alloc] init];
-    for (WMFInMemoryURLKey *urlKey in urlKeys) {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"key == %@ && variant == %@", urlKey.databaseKey, urlKey.languageVariantCode];
-        [subpredicates addObject:predicate];
-    }
-    return [NSCompoundPredicate orPredicateWithSubpredicates:subpredicates];
 }
 
 @end

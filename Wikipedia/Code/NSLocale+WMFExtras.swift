@@ -80,7 +80,7 @@ extension Locale {
     /// There is often not a direct mapping. This method looks up the best match for languages with variants
     /// - Parameter locale: A locale instance
     /// - Returns: The Wikipedia language variant code that most closely matches the provided locale
-    private static func mediaWikiCodeForLocale(_ locale: Locale) -> String? {
+    fileprivate static func mediaWikiCodeForLocale(_ locale: Locale) -> String? {
         if let languageCode = locale.languageCode?.lowercased() {
             if let scriptLookup = mediaWikiCodeLookupGlobal[languageCode] {
                 let scriptCode = locale.scriptCode?.lowercased() ?? mediaWikiCodeLookupDefaultKeyGlobal
@@ -178,6 +178,22 @@ extension NSLocale {
     @objc public static var wmf_preferredLocaleLanguageCodes: [String] {
         // use language code when determining if a langauge is preferred (e.g. "en_US" is preferred if "en" was selected)
         preferredLanguages.compactMap { NSLocale(localeIdentifier: $0).languageCode }
+    }
+    
+    // This method is used when an incoming article has no language variant information. For instance, when syncing reading lists.
+    // Given a language code returns the best guess of a language variant for languages that support variants.
+    // First it checks for a preferred variant from the user's OS language settings.
+    // If none is found, it returns the default language variant as specified in the "MediaWikiAcceptLanguageMapping.json" file.
+    // Returns nil for languages that do not support language variants or if no default variant is found for a variant-supporting language.
+    @objc public static func wmf_bestLanguageVariantCodeForLanguageCode(_ languageCode: String) -> String? {
+        // If the prefix matches, it is the same languages. If it is not the same string, it is a variant.
+        if let languageVariantCode = wmf_preferredWikipediaLanguageCodes.first(where: { $0.hasPrefix(languageCode) && $0 != languageCode }) {
+            return languageVariantCode
+        } else if let fallbackLanguageVariant = Locale.mediaWikiCodeForLocale(Locale(identifier: languageCode)) {
+            return fallbackLanguageVariant
+        } else {
+            return nil
+        }
     }
     
 }
