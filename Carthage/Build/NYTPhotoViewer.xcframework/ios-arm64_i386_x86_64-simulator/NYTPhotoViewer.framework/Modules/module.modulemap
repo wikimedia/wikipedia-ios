@@ -1,0 +1,6 @@
+framework module NYTPhotoViewer {
+  umbrella header "NYTPhotoViewer.h"
+
+  export *
+  module * { export * }
+}
