@@ -188,7 +188,7 @@ private extension ArticleInspectorController {
     }
     
     
-    /// Method that converts a paragraph of sentences into an ArticleInspector Paragraph element, containing IndividualSentence sentences.
+    /// Converts a paragraph of sentences into an ArticleInspector Paragraph element, containing IndividualSentence sentences.
     /// - Parameter html: String of paragraph html content, without <p> tags. Can contain html tags within, but not necessary.
     /// - Throws: If there are no sentences extracted, indicating a processing error
     /// - Returns: ArticleInspector Paragraph element
@@ -206,7 +206,7 @@ private extension ArticleInspectorController {
         return ArticleInspector.Paragraph(sentences: individualSentences)
     }
     
-    /// Method that converts an array un-tagged sentences into ArticleInspector.IndividualSentence elements, which contain untagged sentence and tagged sentence.
+    /// Converts an array un-tagged sentences into ArticleInspector.IndividualSentence elements, which contain untagged sentence and tagged sentence.
     /// - Parameters:
     ///   - rawSentences: Array of sentence strings, without html tags
     ///   - htmlTags: Array of html tag elements to be interspersed throughout the raw sentences
