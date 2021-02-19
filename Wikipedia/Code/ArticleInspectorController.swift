@@ -5,8 +5,12 @@ import NaturalLanguage
 
 enum ArticleInspectorError: Error {
     case missingPCSElement
-    case missingSections
-    case missingSentencesForParagraph
+    case missingIndividualSections
+    case missingCombinedSections
+    case missingIndividualSentencesForParagraph
+    case missingCombinedSentencesForParagraph
+    case nonMatchingArticleAndWikiWhoSections
+    case nonMatchingArticleAndWikiWhoSentences
 }
 
 @available(iOS 13.0, *)
@@ -101,10 +105,14 @@ class ArticleInspectorController {
         let articleHtmlSections = try individualSectionsFromHtml(articleHtml)
         let wikiWhoSections = try individualSectionsFromHtml(wikiWhoResponse.extendedHtml)
         
+        let combinedSections = try self.combinedSections(articleSections: articleHtmlSections, wikiWhoSections: wikiWhoSections)
+        
         //TODO: loop through separated models and return combined models
         return []
     }
 }
+
+//MARK: Individual processing
 
 @available(iOS 13.0, *)
 private extension ArticleInspectorController {
@@ -126,7 +134,7 @@ private extension ArticleInspectorController {
         return sections
     }
     
-    /// Takes soup element object and extracts any sections, paragraphs, and sentences. Each sentence structure will contain both the raw sentence (without html tags) and the html sentence (with html tags). Sections can also contain sections, so this method is recusive.
+    /// Takes soup element object and extracts any sections, paragraphs, and sentences. Each sentence structure will contain both the raw sentence (without html tags) and the html sentence (with html tags). Sections can also contain sections, so this method is recursive.
     /// - Parameter element: SwiftSoup element object
     /// - Throws: If there are no sections returned
     /// - Returns: Array of ArticleInspector section objects
@@ -138,8 +146,8 @@ private extension ArticleInspectorController {
             let childSections: [ArticleInspector.Section<ArticleInspector.IndividualSentence>]
             do {
                 childSections = try sectionsFromSoupElement(soupSection)
-            } catch (let error) {
-                DDLogDebug(error)
+            } catch {
+                //Not unusual for a section to not have child sections
                 childSections = []
             }
             
@@ -181,7 +189,7 @@ private extension ArticleInspectorController {
         }
         
         guard sections.count > 0 else {
-            throw ArticleInspectorError.missingSections
+            throw ArticleInspectorError.missingIndividualSections
         }
         
         return sections
@@ -199,8 +207,8 @@ private extension ArticleInspectorController {
         let rawSentences = rawText.splittingIntoSentences()
         let individualSentences = individualSentencesFromRawSentences(rawSentences, htmlTags: tags)
         
-        guard !individualSentences.isEmpty else {
-            throw ArticleInspectorError.missingSentencesForParagraph
+        guard !individualSentences.isEmpty && !html.isEmpty else {
+            throw ArticleInspectorError.missingIndividualSentencesForParagraph
         }
         
         return ArticleInspector.Paragraph(sentences: individualSentences)
@@ -231,8 +239,129 @@ private extension ArticleInspectorController {
     }
 }
 
-fileprivate extension String {
+//MARK: Combined Processing
+
+@available(iOS 13.0, *)
+private extension ArticleInspectorController {
     
+    /// Correlates sections (with individual sentences) processed from article content and wikiwho html via their matching rawText sentences. Puts associated information together into sections of combined sentences. Sections can also contain sections, so this method is recursive.
+    /// - Parameters:
+    ///   - articleSections: Sections of individual sentences parsed from the article content html
+    ///   - wikiWhoSections: Sections of individual sentences parsed from the WikiWho content html
+    /// - Throws: Error if parameters are empty or resulting combined sections are empty
+    /// - Returns: Array of sections with combined sentences
+    private func combinedSections(articleSections: [ArticleInspector.Section<ArticleInspector.IndividualSentence>], wikiWhoSections: [ArticleInspector.Section<ArticleInspector.IndividualSentence>]) throws -> [ArticleInspector.Section<ArticleInspector.CombinedSentence>] {
+        guard !articleSections.isEmpty,
+              !wikiWhoSections.isEmpty else {
+            throw ArticleInspectorError.missingIndividualSections
+        }
+        
+        let zippedSections = zip(wikiWhoSections, articleSections)
+        let finalSections = zippedSections.compactMap { (zippedSection) -> ArticleInspector.Section<ArticleInspector.CombinedSentence>? in
+            let wikiWhoSection = zippedSection.0
+            let articleSection = zippedSection.1
+            
+            do {
+                return try combinedSection(wikiWhoSection: wikiWhoSection, articleSection: articleSection)
+            } catch {
+                DDLogDebug(error)
+                return nil
+            }
+            
+        }
+        
+        guard finalSections.count > 0 else {
+            throw ArticleInspectorError.missingCombinedSections
+        }
+        
+        return finalSections
+    }
+    
+    
+    /// Correlates section (with individual sentences) processed from article content and wikiwho html via their matching rawText sentences. Puts associated information together into section of combined sentences.
+    /// - Parameters:
+    ///   - wikiWhoSection: Single section of individual sentences parsed from the WikiWho html
+    ///   - articleSection: Single section of individual sentences parsed from the article content html
+    /// - Throws: Throws if WikiWho section and article section do not have matching titles or identifiers
+    /// - Returns: Section with combined sentences
+    private func combinedSection(wikiWhoSection: ArticleInspector.Section<ArticleInspector.IndividualSentence>, articleSection: ArticleInspector.Section<ArticleInspector.IndividualSentence>) throws -> ArticleInspector.Section<ArticleInspector.CombinedSentence> {
+        
+        guard wikiWhoSection.title == articleSection.title,
+              wikiWhoSection.identifier == articleSection.identifier else {
+            throw ArticleInspectorError.nonMatchingArticleAndWikiWhoSections
+        }
+        
+        let childSections: [ArticleInspector.Section<ArticleInspector.CombinedSentence>]
+        do {
+            childSections = try combinedSections(articleSections: articleSection.sections, wikiWhoSections: wikiWhoSection.sections)
+        } catch {
+            //Not unusual for a section to not have child sections
+            childSections = []
+        }
+        
+        let zippedParagraphs = zip(wikiWhoSection.paragraphs, articleSection.paragraphs)
+        let combinedParagraphs = zippedParagraphs.compactMap { (zippedParagraph) -> ArticleInspector.Paragraph<ArticleInspector.CombinedSentence>? in
+            let wikiWhoParagraph = zippedParagraph.0
+            let articleParagraph = zippedParagraph.1
+            
+            do {
+                return try combinedParagraph(wikiWhoParagraph: wikiWhoParagraph, articleParagraph: articleParagraph)
+            } catch {
+                DDLogDebug(error)
+                return nil
+            }
+        }
+        
+        let finalSection = ArticleInspector.Section<ArticleInspector.CombinedSentence>(title: wikiWhoSection.title, identifier: wikiWhoSection.identifier, sections: childSections, paragraphs: combinedParagraphs)
+        return finalSection
+    }
+    
+    
+    /// Correlates paragraph (with individual sentences) processed from article content and wikiwho html via their matching rawText sentences. Puts associated information together into paragraph of combined sentences.
+    /// - Parameters:
+    ///   - wikiWhoParagraph: Single paragraph of individual sentences parsed from the WikiWho html
+    ///   - articleParagraph: Single paragraph of individual sentences parsed from the article content html
+    /// - Throws: If there are no resulting combined sentences in paragraph
+    /// - Returns: Paragraph with combined sentences
+    private func combinedParagraph(wikiWhoParagraph: ArticleInspector.Paragraph<ArticleInspector.IndividualSentence>, articleParagraph: ArticleInspector.Paragraph<ArticleInspector.IndividualSentence>) throws -> ArticleInspector.Paragraph<ArticleInspector.CombinedSentence> {
+        
+        let zippedSentences = zip(wikiWhoParagraph.sentences, articleParagraph.sentences)
+        let combinedSentences = zippedSentences.compactMap { (zippedSentence) -> ArticleInspector.CombinedSentence? in
+            let wikiWhoSentence = zippedSentence.0
+            let articleSentence = zippedSentence.1
+            
+            do {
+                return try combinedSentence(wikiWhoSentence: wikiWhoSentence, articleSentence: articleSentence)
+            } catch {
+                DDLogDebug(error)
+                return nil
+            }
+            
+        }
+        
+        guard combinedSentences.count > 0 else {
+            throw ArticleInspectorError.missingCombinedSentencesForParagraph
+        }
+        
+        return ArticleInspector.Paragraph<ArticleInspector.CombinedSentence>(sentences: combinedSentences)
+    }
+    
+    /// Combines single sentence from a WikiWho html response with a single sentence from article html. Expects the rawText of each to match.
+    /// - Parameters:
+    ///   - wikiWhoSentence: Single sentence from a WikiWho html response
+    ///   - articleSentence: Single sentence from article html
+    /// - Throws: If sentence rawTexts do not match
+    /// - Returns: Combined sentence
+    private func combinedSentence(wikiWhoSentence: ArticleInspector.IndividualSentence, articleSentence: ArticleInspector.IndividualSentence) throws -> ArticleInspector.CombinedSentence {
+        guard wikiWhoSentence.rawText == articleSentence.rawText else {
+            throw ArticleInspectorError.nonMatchingArticleAndWikiWhoSentences
+        }
+        
+        return ArticleInspector.CombinedSentence(articleText: articleSentence.htmlText, nativeText: wikiWhoSentence.htmlText, rawText: wikiWhoSentence.rawText)
+    }
+}
+
+fileprivate extension String {
     
     /// Extracts html tags from any given string
     /// - Returns: Array of HtmlTag elements. An opening tag and a closing tag are considered separate elements.
@@ -311,6 +440,10 @@ fileprivate extension String {
 extension ArticleInspectorController {
     func testIndividualSectionsFromHtml(_ html: String) throws -> [ArticleInspector.Section<ArticleInspector.IndividualSentence>] {
         return try individualSectionsFromHtml(html)
+    }
+    
+    func testCombinedSections(articleSections: [ArticleInspector.Section<ArticleInspector.IndividualSentence>], wikiWhoSections: [ArticleInspector.Section<ArticleInspector.IndividualSentence>]) throws -> [ArticleInspector.Section<ArticleInspector.CombinedSentence>] {
+        return try combinedSections(articleSections: articleSections, wikiWhoSections: wikiWhoSections)
     }
 }
 #endif
