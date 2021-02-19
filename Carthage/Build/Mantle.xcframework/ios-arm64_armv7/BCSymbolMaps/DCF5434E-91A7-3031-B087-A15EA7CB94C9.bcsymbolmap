@@ -1,0 +1,842 @@
+BCSymbolMap Version: 2.0
+Apple clang version 12.0.0 (clang-1200.0.32.29)
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.4.sdk
+iPhoneOS14.4.sdk
+/Users/deepak/Library/Caches/org.carthage.CarthageKit/DerivedData/12.4_12D4e/Mantle/2.1.6/Build/Intermediates.noindex/ArchiveIntermediates/Mantle iOS/IntermediateBuildFilesPath/Mantle.build/Release-iphoneos/Mantle-iOS.build/DerivedSources/Mantle_vers.c
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Mantle
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Mantle/Mantle/extobjc/MTLEXTScope.m
+mtl_executeCleanupBlock
+Mantle/extobjc/MTLEXTScope.m
++[NSError(MTLModelException) mtl_modelErrorWithException:]
+_OBJC_CLASSLIST_REFERENCES_$_
+_OBJC_SELECTOR_REFERENCES_
+_OBJC_SELECTOR_REFERENCES_.10
+_OBJC_SELECTOR_REFERENCES_.12
+_OBJC_SELECTOR_REFERENCES_.14
+_OBJC_CLASSLIST_REFERENCES_$_.15
+_OBJC_SELECTOR_REFERENCES_.17
+_OBJC_CLASSLIST_REFERENCES_$_.18
+_OBJC_SELECTOR_REFERENCES_.20
+__OBJC_$_CATEGORY_CLASS_METHODS_NSError_$_MTLModelException
+__OBJC_$_CATEGORY_NSError_$_MTLModelException
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Mantle/Mantle/NSError+MTLModelException.m
+Mantle/NSError+MTLModelException.m
++[NSValueTransformer(MTLPredefinedTransformerAdditions) load]
+___61+[NSValueTransformer(MTLPredefinedTransformerAdditions) load]_block_invoke
+___61+[NSValueTransformer(MTLPredefinedTransformerAdditions) load]_block_invoke_2
+___61+[NSValueTransformer(MTLPredefinedTransformerAdditions) load]_block_invoke_3
+___61+[NSValueTransformer(MTLPredefinedTransformerAdditions) load]_block_invoke_4
+___61+[NSValueTransformer(MTLPredefinedTransformerAdditions) load]_block_invoke_5
++[NSValueTransformer(MTLPredefinedTransformerAdditions) mtl_arrayMappingTransformerWithTransformer:]
+___100+[NSValueTransformer(MTLPredefinedTransformerAdditions) mtl_arrayMappingTransformerWithTransformer:]_block_invoke
+___copy_helper_block_e4_20s
+___destroy_helper_block_e4_20s
+___100+[NSValueTransformer(MTLPredefinedTransformerAdditions) mtl_arrayMappingTransformerWithTransformer:]_block_invoke.153
++[NSValueTransformer(MTLPredefinedTransformerAdditions) mtl_validatingTransformerForClass:]
+___91+[NSValueTransformer(MTLPredefinedTransformerAdditions) mtl_validatingTransformerForClass:]_block_invoke
++[NSValueTransformer(MTLPredefinedTransformerAdditions) mtl_valueMappingTransformerWithDictionary:defaultValue:reverseDefaultValue:]
+___132+[NSValueTransformer(MTLPredefinedTransformerAdditions) mtl_valueMappingTransformerWithDictionary:defaultValue:reverseDefaultValue:]_block_invoke
+___copy_helper_block_e4_20s24s
+___destroy_helper_block_e4_20s24s
+___132+[NSValueTransformer(MTLPredefinedTransformerAdditions) mtl_valueMappingTransformerWithDictionary:defaultValue:reverseDefaultValue:]_block_invoke.180
+___Block_byref_object_copy_
+___Block_byref_object_dispose_
+___132+[NSValueTransformer(MTLPredefinedTransformerAdditions) mtl_valueMappingTransformerWithDictionary:defaultValue:reverseDefaultValue:]_block_invoke.181
+___copy_helper_block_e4_20s24r
+___destroy_helper_block_e4_20s24r
++[NSValueTransformer(MTLPredefinedTransformerAdditions) mtl_valueMappingTransformerWithDictionary:]
++[NSValueTransformer(MTLPredefinedTransformerAdditions) mtl_dateTransformerWithDateFormat:calendar:locale:timeZone:defaultDate:]
++[NSValueTransformer(MTLPredefinedTransformerAdditions) mtl_dateTransformerWithDateFormat:locale:]
++[NSValueTransformer(MTLPredefinedTransformerAdditions) mtl_numberTransformerWithNumberStyle:locale:]
++[NSValueTransformer(MTLPredefinedTransformerAdditions) mtl_transformerWithFormatter:forObjectClass:]
+___101+[NSValueTransformer(MTLPredefinedTransformerAdditions) mtl_transformerWithFormatter:forObjectClass:]_block_invoke
+___101+[NSValueTransformer(MTLPredefinedTransformerAdditions) mtl_transformerWithFormatter:forObjectClass:]_block_invoke.226
++[NSValueTransformer(MTLPredefinedTransformerAdditions) mtl_JSONDictionaryTransformerWithModelClass:]
++[NSValueTransformer(MTLPredefinedTransformerAdditions) mtl_JSONArrayTransformerWithModelClass:]
+___block_descriptor_20_e25_16?0"NSString"4^c8^12l
+___block_literal_global
+_OBJC_CLASSLIST_REFERENCES_$_.6
+_OBJC_SELECTOR_REFERENCES_.8
+_OBJC_CLASSLIST_REFERENCES_$_.9
+_OBJC_SELECTOR_REFERENCES_.11
+_OBJC_SELECTOR_REFERENCES_.21
+_OBJC_CLASSLIST_REFERENCES_$_.22
+_OBJC_SELECTOR_REFERENCES_.24
+_OBJC_CLASSLIST_REFERENCES_$_.25
+_OBJC_SELECTOR_REFERENCES_.27
+_OBJC_CLASSLIST_REFERENCES_$_.28
+_OBJC_SELECTOR_REFERENCES_.30
+___block_descriptor_20_e22_16?0"NSURL"4^c8^12l
+___block_literal_global.34
+_OBJC_SELECTOR_REFERENCES_.40
+_OBJC_SELECTOR_REFERENCES_.42
+_OBJC_CLASSLIST_REFERENCES_$_.43
+_OBJC_SELECTOR_REFERENCES_.45
+___block_literal_global.46
+_OBJC_CLASSLIST_REFERENCES_$_.49
+_OBJC_SELECTOR_REFERENCES_.51
+___block_descriptor_20_e23_16?0"NSUUID"4^c8^12l
+___block_literal_global.55
+_OBJC_SELECTOR_REFERENCES_.61
+___block_descriptor_20_e25_16?0"NSNumber"4^c8^12l
+___block_literal_global.63
+_OBJC_CLASSLIST_REFERENCES_$_.64
+_OBJC_SELECTOR_REFERENCES_.70
+_OBJC_SELECTOR_REFERENCES_.72
+_OBJC_CLASSLIST_REFERENCES_$_.73
+_OBJC_SELECTOR_REFERENCES_.75
+_OBJC_SELECTOR_REFERENCES_.83
+_OBJC_CLASSLIST_REFERENCES_$_.84
+_OBJC_CLASSLIST_REFERENCES_$_.89
+_OBJC_SELECTOR_REFERENCES_.91
+_OBJC_SELECTOR_REFERENCES_.93
+_OBJC_SELECTOR_REFERENCES_.95
+_OBJC_CLASSLIST_REFERENCES_$_.96
+_OBJC_SELECTOR_REFERENCES_.98
+_OBJC_SELECTOR_REFERENCES_.100
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_NSObject
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_OPT_NSObject
+__OBJC_$_PROP_LIST_NSObject
+__OBJC_$_PROTOCOL_METHOD_TYPES_NSObject
+__OBJC_PROTOCOL_$_NSObject
+__OBJC_LABEL_PROTOCOL_$_NSObject
+__OBJC_$_PROTOCOL_REFS_MTLTransformerErrorHandling
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_MTLTransformerErrorHandling
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_OPT_MTLTransformerErrorHandling
+__OBJC_$_PROTOCOL_METHOD_TYPES_MTLTransformerErrorHandling
+__OBJC_PROTOCOL_$_MTLTransformerErrorHandling
+__OBJC_LABEL_PROTOCOL_$_MTLTransformerErrorHandling
+__OBJC_PROTOCOL_REFERENCE_$_MTLTransformerErrorHandling
+_OBJC_SELECTOR_REFERENCES_.142
+_OBJC_SELECTOR_REFERENCES_.143
+_OBJC_SELECTOR_REFERENCES_.149
+___block_descriptor_24_e4_20s_e24_16?0"NSArray"4^c8^12l
+_OBJC_SELECTOR_REFERENCES_.152
+_OBJC_SELECTOR_REFERENCES_.154
+_OBJC_SELECTOR_REFERENCES_.155
+_OBJC_SELECTOR_REFERENCES_.157
+_OBJC_SELECTOR_REFERENCES_.159
+___block_descriptor_24_e15_16?04^c8^12lu20l4
+_OBJC_CLASSLIST_REFERENCES_$_.170
+_OBJC_SELECTOR_REFERENCES_.172
+_OBJC_SELECTOR_REFERENCES_.174
+_OBJC_SELECTOR_REFERENCES_.178
+___block_descriptor_28_e4_20s24s_e28_16?0"<NSCopying>"4^c8^12l
+_OBJC_SELECTOR_REFERENCES_.182
+___block_descriptor_28_e4_20s24r_e14_v16?048^c12l
+_OBJC_SELECTOR_REFERENCES_.185
+___block_descriptor_28_e4_20s24s_e15_16?04^c8^12l
+_OBJC_SELECTOR_REFERENCES_.187
+_OBJC_SELECTOR_REFERENCES_.189
+_OBJC_CLASSLIST_REFERENCES_$_.192
+_OBJC_SELECTOR_REFERENCES_.194
+_OBJC_SELECTOR_REFERENCES_.196
+_OBJC_SELECTOR_REFERENCES_.198
+_OBJC_SELECTOR_REFERENCES_.200
+_OBJC_SELECTOR_REFERENCES_.202
+_OBJC_SELECTOR_REFERENCES_.204
+_OBJC_CLASSLIST_REFERENCES_$_.205
+_OBJC_SELECTOR_REFERENCES_.207
+_OBJC_SELECTOR_REFERENCES_.209
+_OBJC_CLASSLIST_REFERENCES_$_.210
+_OBJC_SELECTOR_REFERENCES_.212
+_OBJC_SELECTOR_REFERENCES_.222
+___block_descriptor_28_e4_20s_e25_16?0"NSString"4^c8^12lu24l4
+_OBJC_SELECTOR_REFERENCES_.232
+___block_descriptor_28_e4_20s_e15_16?04^c8^12lu24l4
+_OBJC_CLASSLIST_REFERENCES_$_.234
+_OBJC_SELECTOR_REFERENCES_.236
+_OBJC_SELECTOR_REFERENCES_.238
+__OBJC_$_CATEGORY_CLASS_METHODS_NSValueTransformer_$_MTLPredefinedTransformerAdditions
+__OBJC_$_CATEGORY_NSValueTransformer_$_MTLPredefinedTransformerAdditions
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Mantle/Mantle/NSValueTransformer+MTLPredefinedTransformerAdditions.m
+Mantle/NSValueTransformer+MTLPredefinedTransformerAdditions.m
+__101+[NSValueTransformer(MTLPredefinedTransformerAdditions) mtl_transformerWithFormatter:forObjectClass:]_block_invoke.226
+__101+[NSValueTransformer(MTLPredefinedTransformerAdditions) mtl_transformerWithFormatter:forObjectClass:]_block_invoke
+__destroy_helper_block_e4_20s24r
+__copy_helper_block_e4_20s24r
+__132+[NSValueTransformer(MTLPredefinedTransformerAdditions) mtl_valueMappingTransformerWithDictionary:defaultValue:reverseDefaultValue:]_block_invoke.181
+__Block_byref_object_dispose_
+__Block_byref_object_copy_
+__132+[NSValueTransformer(MTLPredefinedTransformerAdditions) mtl_valueMappingTransformerWithDictionary:defaultValue:reverseDefaultValue:]_block_invoke.180
+__destroy_helper_block_e4_20s24s
+__copy_helper_block_e4_20s24s
+__132+[NSValueTransformer(MTLPredefinedTransformerAdditions) mtl_valueMappingTransformerWithDictionary:defaultValue:reverseDefaultValue:]_block_invoke
+__91+[NSValueTransformer(MTLPredefinedTransformerAdditions) mtl_validatingTransformerForClass:]_block_invoke
+__100+[NSValueTransformer(MTLPredefinedTransformerAdditions) mtl_arrayMappingTransformerWithTransformer:]_block_invoke.153
+__destroy_helper_block_e4_20s
+__copy_helper_block_e4_20s
+__100+[NSValueTransformer(MTLPredefinedTransformerAdditions) mtl_arrayMappingTransformerWithTransformer:]_block_invoke
+__61+[NSValueTransformer(MTLPredefinedTransformerAdditions) load]_block_invoke_5
+__61+[NSValueTransformer(MTLPredefinedTransformerAdditions) load]_block_invoke_4
+__61+[NSValueTransformer(MTLPredefinedTransformerAdditions) load]_block_invoke_3
+__61+[NSValueTransformer(MTLPredefinedTransformerAdditions) load]_block_invoke_2
+__61+[NSValueTransformer(MTLPredefinedTransformerAdditions) load]_block_invoke
++[NSDictionary(MTLMappingAdditions) mtl_identityPropertyMapWithModel:]
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_NSCopying
+__OBJC_$_PROTOCOL_METHOD_TYPES_NSCopying
+__OBJC_PROTOCOL_$_NSCopying
+__OBJC_LABEL_PROTOCOL_$_NSCopying
+__OBJC_$_PROTOCOL_REFS_MTLModel
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_MTLModel
+__OBJC_$_PROTOCOL_CLASS_METHODS_MTLModel
+__OBJC_$_PROP_LIST_MTLModel
+__OBJC_$_PROTOCOL_METHOD_TYPES_MTLModel
+__OBJC_PROTOCOL_$_MTLModel
+__OBJC_LABEL_PROTOCOL_$_MTLModel
+__OBJC_PROTOCOL_REFERENCE_$_MTLModel
+_OBJC_SELECTOR_REFERENCES_.59
+_OBJC_CLASSLIST_REFERENCES_$_.60
+_OBJC_SELECTOR_REFERENCES_.62
+_OBJC_SELECTOR_REFERENCES_.68
+_OBJC_SELECTOR_REFERENCES_.69
+_OBJC_SELECTOR_REFERENCES_.71
+_OBJC_CLASSLIST_REFERENCES_$_.72
+_OBJC_SELECTOR_REFERENCES_.74
+__OBJC_$_CATEGORY_CLASS_METHODS_NSDictionary_$_MTLMappingAdditions
+__OBJC_$_CATEGORY_NSDictionary_$_MTLMappingAdditions
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Mantle/Mantle/NSDictionary+MTLMappingAdditions.m
+Mantle/NSDictionary+MTLMappingAdditions.m
+_OBJC_SELECTOR_REFERENCES_.2
+_OBJC_SELECTOR_REFERENCES_.4
+_OBJC_SELECTOR_REFERENCES_.6
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Mantle/Mantle/MTLReflection.m
+MTLSelectorWithCapitalizedKeyPattern
+Mantle/MTLReflection.m
+MTLSelectorWithKeyPattern
+-[NSDictionary(MTLJSONKeyPath) mtl_valueForJSONKeyPath:success:error:]
+_OBJC_CLASSLIST_REFERENCES_$_.5
+_OBJC_SELECTOR_REFERENCES_.7
+_OBJC_SELECTOR_REFERENCES_.9
+_OBJC_CLASSLIST_REFERENCES_$_.10
+_OBJC_SELECTOR_REFERENCES_.18
+_OBJC_CLASSLIST_REFERENCES_$_.19
+_OBJC_SELECTOR_REFERENCES_.23
+_OBJC_SELECTOR_REFERENCES_.25
+_OBJC_CLASSLIST_REFERENCES_$_.26
+_OBJC_SELECTOR_REFERENCES_.28
+__OBJC_$_CATEGORY_INSTANCE_METHODS_NSDictionary_$_MTLJSONKeyPath
+__OBJC_$_CATEGORY_NSDictionary_$_MTLJSONKeyPath
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Mantle/Mantle/NSDictionary+MTLJSONKeyPath.m
+Mantle/NSDictionary+MTLJSONKeyPath.m
+___mtl_injectSpecialProtocols_block_invoke
+___mtl_injectSpecialProtocols_block_invoke_2
+_OBJC_SELECTOR_REFERENCES_.35
+_specialProtocolsLock
+_specialProtocolCount
+_specialProtocolCapacity
+_specialProtocols
+_specialProtocolsReady
+_OBJC_CLASSLIST_REFERENCES_$_.41
+_OBJC_SELECTOR_REFERENCES_.43
+_OBJC_SELECTOR_REFERENCES_.47
+_OBJC_SELECTOR_REFERENCES_.49
+_OBJC_SELECTOR_REFERENCES_.53
+_OBJC_SELECTOR_REFERENCES_.55
+_OBJC_SELECTOR_REFERENCES_.57
+_OBJC_SELECTOR_REFERENCES_.63
+_OBJC_SELECTOR_REFERENCES_.65
+_OBJC_SELECTOR_REFERENCES_.67
+_OBJC_CLASSLIST_REFERENCES_$_.82
+_OBJC_SELECTOR_REFERENCES_.84
+___block_descriptor_20_e14_i12?0r^v4r^v8l
+___block_descriptor_20_e16_i8?0r^{?=^vc}4l
+___block_literal_global.87
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Mantle/Mantle/extobjc/MTLEXTRuntimeExtensions.m
+__mtl_injectSpecialProtocols_block_invoke_2
+Mantle/extobjc/MTLEXTRuntimeExtensions.m
+__mtl_injectSpecialProtocols_block_invoke
+mtl_stringFromTypedBytes
+mtl_replaceMethodsFromClass
+mtl_replaceMethods
+mtl_removeMethod
+mtl_specialProtocolReadyForInjection
+mtl_injectSpecialProtocols
+mtl_loadSpecialProtocol
+mtl_getPropertyAccessorsForClass
+mtl_getImmediateInstanceMethod
+mtl_copySubclassList
+mtl_copyPropertyAttributes
+toupper
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.4.sdk/usr/include/_ctype.h
+mtl_copyClassListConformingToProtocol
+mtl_classIsKindOfClass
+mtl_addMethodsFromClass
+mtl_addMethods
+mtl_copyClassList
+mtl_classBeforeSuperclass
+mtl_injectMethodsFromClass
+mtl_injectMethods
++[MTLModel(NSCoding) modelVersion]
++[MTLModel(NSCoding) encodingBehaviorsByPropertyKey]
+___52+[MTLModel(NSCoding) encodingBehaviorsByPropertyKey]_block_invoke
++[MTLModel(NSCoding) allowedSecureCodingClassesByPropertyKey]
+___61+[MTLModel(NSCoding) allowedSecureCodingClassesByPropertyKey]_block_invoke
+___61+[MTLModel(NSCoding) allowedSecureCodingClassesByPropertyKey]_block_invoke_2
+-[MTLModel(NSCoding) decodeValueForKey:withCoder:modelVersion:]
+_coderRequiresSecureCoding
+-[MTLModel(NSCoding) initWithCoder:]
+_verifyAllowedClassesByPropertyKey
+-[MTLModel(NSCoding) encodeWithCoder:]
+___38-[MTLModel(NSCoding) encodeWithCoder:]_block_invoke
+___copy_helper_block_e4_20s24s28s
+___destroy_helper_block_e4_20s24s28s
++[MTLModel(NSCoding) supportsSecureCoding]
++[MTLModel(OldArchiveSupport) dictionaryValueFromArchivedExternalRepresentation:version:]
+___encodablePropertyKeysForClass_block_invoke
+___block_descriptor_24_e5_v4?0l
+_MTLModelCachedAllowedClassesKey
+___block_descriptor_20_e34_c16?0"NSString"4"NSNumber"8^c12l
+_OBJC_CLASSLIST_REFERENCES_$_.31
+_OBJC_SELECTOR_REFERENCES_.33
+_OBJC_CLASSLIST_REFERENCES_$_.34
+_OBJC_SELECTOR_REFERENCES_.36
+_OBJC_SELECTOR_REFERENCES_.46
+_OBJC_SELECTOR_REFERENCES_.48
+_OBJC_SELECTOR_REFERENCES_.50
+_OBJC_SELECTOR_REFERENCES_.52
+_OBJC_CLASSLIST_REFERENCES_$_.55
+_OBJC_SELECTOR_REFERENCES_.73
+_OBJC_CLASSLIST_REFERENCES_$_.74
+_OBJC_SELECTOR_REFERENCES_.78
+_OBJC_SELECTOR_REFERENCES_.82
+_OBJC_SELECTOR_REFERENCES_.86
+_OBJC_SELECTOR_REFERENCES_.88
+___block_descriptor_36_e4_20s24s28s_e24_v16?0"NSString"48^c12l
+_OBJC_SELECTOR_REFERENCES_.102
+__OBJC_$_CATEGORY_INSTANCE_METHODS_MTLModel_$_NSCoding
+__OBJC_$_CATEGORY_CLASS_METHODS_MTLModel_$_NSCoding
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_NSCoding
+__OBJC_$_PROTOCOL_METHOD_TYPES_NSCoding
+__OBJC_PROTOCOL_$_NSCoding
+__OBJC_LABEL_PROTOCOL_$_NSCoding
+__OBJC_CATEGORY_PROTOCOLS_$_MTLModel_$_NSCoding
+__OBJC_$_CATEGORY_MTLModel_$_NSCoding
+__OBJC_$_CATEGORY_CLASS_METHODS_MTLModel_$_OldArchiveSupport
+__OBJC_$_CATEGORY_MTLModel_$_OldArchiveSupport
+_OBJC_SELECTOR_REFERENCES_.117
+_OBJC_CLASSLIST_REFERENCES_$_.118
+_OBJC_SELECTOR_REFERENCES_.120
+_OBJC_SELECTOR_REFERENCES_.122
+_OBJC_SELECTOR_REFERENCES_.124
+_OBJC_CLASSLIST_REFERENCES_$_.125
+_OBJC_SELECTOR_REFERENCES_.129
+___block_literal_global.130
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Mantle/Mantle/MTLModel+NSCoding.m
+__encodablePropertyKeysForClass_block_invoke
+Mantle/MTLModel+NSCoding.m
+__destroy_helper_block_e4_20s24s28s
+__copy_helper_block_e4_20s24s28s
+__38-[MTLModel(NSCoding) encodeWithCoder:]_block_invoke
+verifyAllowedClassesByPropertyKey
+encodablePropertyKeysForClass
+coderRequiresSecureCoding
+__61+[MTLModel(NSCoding) allowedSecureCodingClassesByPropertyKey]_block_invoke_2
+__61+[MTLModel(NSCoding) allowedSecureCodingClassesByPropertyKey]_block_invoke
+__52+[MTLModel(NSCoding) encodingBehaviorsByPropertyKey]_block_invoke
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Mantle/Mantle/NSObject+MTLComparisonAdditions.m
+MTLEqualObjects
+Mantle/NSObject+MTLComparisonAdditions.m
++[MTLModel generateAndCacheStorageBehaviors]
++[MTLModel modelWithDictionary:error:]
+-[MTLModel init]
+-[MTLModel initWithDictionary:error:]
+_MTLValidateAndSetValue
++[MTLModel enumeratePropertiesUsingBlock:]
+___42+[MTLModel enumeratePropertiesUsingBlock:]_block_invoke
++[MTLModel propertyKeys]
+___24+[MTLModel propertyKeys]_block_invoke
+___copy_helper_block_e4_24s
+___destroy_helper_block_e4_24s
++[MTLModel transitoryPropertyKeys]
++[MTLModel permanentPropertyKeys]
+-[MTLModel dictionaryValue]
++[MTLModel storageBehaviorForPropertyWithKey:]
+___46+[MTLModel storageBehaviorForPropertyWithKey:]_block_invoke
+-[MTLModel mergeValueForKey:fromModel:]
+-[MTLModel mergeValuesForKeysFromModel:]
+-[MTLModel validate:]
+-[MTLModel copyWithZone:]
+-[MTLModel description]
+-[MTLModel hash]
+-[MTLModel isEqual:]
+_MTLModelCachedTransitoryPropertyKeysKey
+_MTLModelCachedPermanentPropertyKeysKey
+_OBJC_SELECTOR_REFERENCES_.19
+_OBJC_CLASSLIST_REFERENCES_$_.20
+_OBJC_SELECTOR_REFERENCES_.22
+_MTLModelCachedPropertyKeysKey
+___block_descriptor_28_e4_24s_e27_v12?0^{objc_property=}4^c8l
+_OBJC_SELECTOR_REFERENCES_.31
+_OBJC_SELECTOR_REFERENCES_.37
+_OBJC_SELECTOR_REFERENCES_.39
+_OBJC_SELECTOR_REFERENCES_.41
+_OBJC_CLASSLIST_REFERENCES_$_.48
+_OBJC_SELECTOR_REFERENCES_.77
+_OBJC_SELECTOR_REFERENCES_.81
+_OBJC_SELECTOR_REFERENCES_.85
+__OBJC_$_CLASS_METHODS_MTLModel
+__OBJC_CLASS_PROTOCOLS_$_MTLModel
+__OBJC_METACLASS_RO_$_MTLModel
+__OBJC_$_INSTANCE_METHODS_MTLModel
+__OBJC_$_PROP_LIST_MTLModel.140
+__OBJC_CLASS_RO_$_MTLModel
+_OBJC_CLASSLIST_REFERENCES_$_.145
+_OBJC_SELECTOR_REFERENCES_.147
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Mantle/Mantle/MTLModel.m
+Mantle/MTLModel.m
+__46+[MTLModel storageBehaviorForPropertyWithKey:]_block_invoke
+__destroy_helper_block_e4_24s
+__copy_helper_block_e4_24s
+__24+[MTLModel propertyKeys]_block_invoke
+__42+[MTLModel enumeratePropertiesUsingBlock:]_block_invoke
+MTLValidateAndSetValue
++[MTLJSONAdapter modelOfClass:fromJSONDictionary:error:]
++[MTLJSONAdapter modelsOfClass:fromJSONArray:error:]
++[MTLJSONAdapter JSONDictionaryFromModel:error:]
++[MTLJSONAdapter JSONArrayFromModels:error:]
+-[MTLJSONAdapter init]
+-[MTLJSONAdapter initWithModelClass:]
+-[MTLJSONAdapter JSONDictionaryFromModel:error:]
+___48-[MTLJSONAdapter JSONDictionaryFromModel:error:]_block_invoke
+___48-[MTLJSONAdapter JSONDictionaryFromModel:error:]_block_invoke_2
+___copy_helper_block_e4_20s24s28r32r
+___destroy_helper_block_e4_20s24s28r32r
+-[MTLJSONAdapter modelFromJSONDictionary:error:]
++[MTLJSONAdapter valueTransformersForModelClass:]
+___49+[MTLJSONAdapter valueTransformersForModelClass:]_block_invoke
+-[MTLJSONAdapter JSONAdapterForModelClass:error:]
+-[MTLJSONAdapter serializablePropertyKeys:forModel:]
++[MTLJSONAdapter transformerForModelPropertiesOfClass:]
++[MTLJSONAdapter transformerForModelPropertiesOfObjCType:]
+-[MTLJSONAdapter modelClass]
+-[MTLJSONAdapter JSONKeyPathsByPropertyKey]
+-[MTLJSONAdapter valueTransformersByPropertyKey]
+-[MTLJSONAdapter JSONAdaptersByModelClass]
+-[MTLJSONAdapter .cxx_destruct]
++[MTLJSONAdapter(ValueTransformers) dictionaryTransformerWithModelClass:]
+___73+[MTLJSONAdapter(ValueTransformers) dictionaryTransformerWithModelClass:]_block_invoke
+___copy_helper_block_e4_24r
+___destroy_helper_block_e4_24r
+___73+[MTLJSONAdapter(ValueTransformers) dictionaryTransformerWithModelClass:]_block_invoke.289
++[MTLJSONAdapter(ValueTransformers) arrayTransformerWithModelClass:]
+___68+[MTLJSONAdapter(ValueTransformers) arrayTransformerWithModelClass:]_block_invoke
+___68+[MTLJSONAdapter(ValueTransformers) arrayTransformerWithModelClass:]_block_invoke.305
++[MTLJSONAdapter(ValueTransformers) NSURLJSONTransformer]
++[MTLJSONAdapter(ValueTransformers) NSUUIDJSONTransformer]
++[MTLJSONAdapter(Deprecated) JSONArrayFromModels:]
++[MTLJSONAdapter(Deprecated) JSONDictionaryFromModel:]
+_OBJC_CLASSLIST_REFERENCES_$_.23
+_OBJC_CLASSLIST_REFERENCES_$_.29
+_OBJC_CLASSLIST_REFERENCES_$_.42
+_OBJC_SELECTOR_REFERENCES_.44
+__OBJC_$_PROTOCOL_REFS_MTLJSONSerializing
+__OBJC_$_PROTOCOL_CLASS_METHODS_MTLJSONSerializing
+__OBJC_$_PROTOCOL_CLASS_METHODS_OPT_MTLJSONSerializing
+__OBJC_$_PROTOCOL_METHOD_TYPES_MTLJSONSerializing
+__OBJC_PROTOCOL_$_MTLJSONSerializing
+__OBJC_LABEL_PROTOCOL_$_MTLJSONSerializing
+__OBJC_PROTOCOL_REFERENCE_$_MTLJSONSerializing
+_OBJC_SELECTOR_REFERENCES_.123
+_OBJC_SELECTOR_REFERENCES_.127
+_OBJC_SELECTOR_REFERENCES_.128
+_OBJC_SELECTOR_REFERENCES_.130
+_OBJC_SELECTOR_REFERENCES_.131
+_OBJC_SELECTOR_REFERENCES_.133
+_OBJC_SELECTOR_REFERENCES_.137
+_OBJC_SELECTOR_REFERENCES_.141
+_OBJC_CLASSLIST_REFERENCES_$_.142
+_OBJC_SELECTOR_REFERENCES_.144
+_OBJC_SELECTOR_REFERENCES_.150
+_OBJC_CLASSLIST_REFERENCES_$_.151
+_OBJC_SELECTOR_REFERENCES_.153
+_OBJC_SELECTOR_REFERENCES_.158
+_OBJC_SELECTOR_REFERENCES_.160
+_OBJC_SELECTOR_REFERENCES_.162
+_OBJC_CLASSLIST_REFERENCES_$_.163
+_OBJC_SELECTOR_REFERENCES_.165
+_OBJC_SELECTOR_REFERENCES_.167
+_OBJC_SELECTOR_REFERENCES_.169
+_OBJC_SELECTOR_REFERENCES_.173
+_OBJC_SELECTOR_REFERENCES_.175
+_OBJC_SELECTOR_REFERENCES_.176
+___block_descriptor_20_e20_v12?04"NSString"8l
+_OBJC_SELECTOR_REFERENCES_.183
+_OBJC_SELECTOR_REFERENCES_.191
+___block_descriptor_36_e4_20s24s28r32r_e24_v16?0"NSString"48^c12l
+_OBJC_SELECTOR_REFERENCES_.195
+_OBJC_SELECTOR_REFERENCES_.211
+_OBJC_SELECTOR_REFERENCES_.213
+_OBJC_SELECTOR_REFERENCES_.218
+_OBJC_SELECTOR_REFERENCES_.220
+_OBJC_SELECTOR_REFERENCES_.221
+_OBJC_SELECTOR_REFERENCES_.225
+_OBJC_SELECTOR_REFERENCES_.226
+_OBJC_SELECTOR_REFERENCES_.228
+_OBJC_SELECTOR_REFERENCES_.233
+_OBJC_SELECTOR_REFERENCES_.235
+_OBJC_CLASSLIST_REFERENCES_$_.236
+_OBJC_CLASSLIST_REFERENCES_$_.237
+_OBJC_SELECTOR_REFERENCES_.239
+_OBJC_SELECTOR_REFERENCES_.241
+_OBJC_CLASSLIST_REFERENCES_$_.242
+_OBJC_SELECTOR_REFERENCES_.244
+_OBJC_SELECTOR_REFERENCES_.246
+_OBJC_SELECTOR_REFERENCES_.248
+_OBJC_SELECTOR_REFERENCES_.253
+__OBJC_$_CLASS_METHODS_MTLJSONAdapter
+__OBJC_METACLASS_RO_$_MTLJSONAdapter
+__OBJC_$_INSTANCE_METHODS_MTLJSONAdapter
+_OBJC_IVAR_$_MTLJSONAdapter._modelClass
+_OBJC_IVAR_$_MTLJSONAdapter._JSONKeyPathsByPropertyKey
+_OBJC_IVAR_$_MTLJSONAdapter._valueTransformersByPropertyKey
+_OBJC_IVAR_$_MTLJSONAdapter._JSONAdaptersByModelClass
+__OBJC_$_INSTANCE_VARIABLES_MTLJSONAdapter
+__OBJC_$_PROP_LIST_MTLJSONAdapter
+__OBJC_CLASS_RO_$_MTLJSONAdapter
+_OBJC_CLASSLIST_REFERENCES_$_.282
+___block_descriptor_32_e4_24r_e15_16?04^c8^12lu28l4
+___block_descriptor_32_e4_24r_e29_"NSDictionary"16?04^c8^12lu28l4
+_OBJC_SELECTOR_REFERENCES_.297
+_OBJC_CLASSLIST_REFERENCES_$_.308
+__OBJC_$_CATEGORY_CLASS_METHODS_MTLJSONAdapter_$_ValueTransformers
+__OBJC_$_CATEGORY_MTLJSONAdapter_$_ValueTransformers
+_OBJC_SELECTOR_REFERENCES_.315
+__OBJC_$_CATEGORY_CLASS_METHODS_MTLJSONAdapter_$_Deprecated
+__OBJC_$_PROP_LIST_MTLJSONAdapter_$_Deprecated
+__OBJC_$_CATEGORY_MTLJSONAdapter_$_Deprecated
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Mantle/Mantle/MTLJSONAdapter.m
+Mantle/MTLJSONAdapter.m
+__68+[MTLJSONAdapter(ValueTransformers) arrayTransformerWithModelClass:]_block_invoke.305
+__68+[MTLJSONAdapter(ValueTransformers) arrayTransformerWithModelClass:]_block_invoke
+__73+[MTLJSONAdapter(ValueTransformers) dictionaryTransformerWithModelClass:]_block_invoke.289
+__destroy_helper_block_e4_24r
+__copy_helper_block_e4_24r
+__73+[MTLJSONAdapter(ValueTransformers) dictionaryTransformerWithModelClass:]_block_invoke
+__49+[MTLJSONAdapter valueTransformersForModelClass:]_block_invoke
+__destroy_helper_block_e4_20s24s28r32r
+__copy_helper_block_e4_20s24s28r32r
+__48-[MTLJSONAdapter JSONDictionaryFromModel:error:]_block_invoke_2
+__48-[MTLJSONAdapter JSONDictionaryFromModel:error:]_block_invoke
+-[NSArray(MTLManipulationAdditions) mtl_firstObject]
+-[NSArray(MTLManipulationAdditions) mtl_arrayByRemovingObject:]
+-[NSArray(MTLManipulationAdditions) mtl_arrayByRemovingFirstObject]
+-[NSArray(MTLManipulationAdditions) mtl_arrayByRemovingLastObject]
+__OBJC_$_CATEGORY_INSTANCE_METHODS_NSArray_$_MTLManipulationAdditions
+__OBJC_$_PROP_LIST_NSArray_$_MTLManipulationAdditions
+__OBJC_$_CATEGORY_NSArray_$_MTLManipulationAdditions
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Mantle/Mantle/NSArray+MTLManipulationAdditions.m
+Mantle/NSArray+MTLManipulationAdditions.m
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Mantle/Mantle/MTLTransformerErrorHandling.m
+-[NSDictionary(MTLManipulationAdditions) mtl_dictionaryByAddingEntriesFromDictionary:]
+-[NSDictionary(MTLManipulationAdditions) mtl_dictionaryByRemovingValuesForKeys:]
+-[NSDictionary(MTLManipulationAdditions_Deprecated) mtl_dictionaryByRemovingEntriesWithKeys:]
+__OBJC_$_CATEGORY_INSTANCE_METHODS_NSDictionary_$_MTLManipulationAdditions
+__OBJC_$_CATEGORY_NSDictionary_$_MTLManipulationAdditions
+__OBJC_$_CATEGORY_INSTANCE_METHODS_NSDictionary_$_MTLManipulationAdditions_Deprecated
+__OBJC_$_CATEGORY_NSDictionary_$_MTLManipulationAdditions_Deprecated
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Mantle/Mantle/NSDictionary+MTLManipulationAdditions.m
+Mantle/NSDictionary+MTLManipulationAdditions.m
++[MTLValueTransformer transformerUsingForwardBlock:]
++[MTLValueTransformer transformerUsingReversibleBlock:]
++[MTLValueTransformer transformerUsingForwardBlock:reverseBlock:]
+-[MTLValueTransformer initWithForwardBlock:reverseBlock:]
++[MTLValueTransformer allowsReverseTransformation]
++[MTLValueTransformer transformedValueClass]
+-[MTLValueTransformer transformedValue:]
+-[MTLValueTransformer transformedValue:success:error:]
+-[MTLValueTransformer forwardBlock]
+-[MTLValueTransformer reverseBlock]
+-[MTLValueTransformer .cxx_destruct]
+-[MTLReversibleValueTransformer initWithForwardBlock:reverseBlock:]
++[MTLReversibleValueTransformer allowsReverseTransformation]
+-[MTLReversibleValueTransformer reverseTransformedValue:]
+-[MTLReversibleValueTransformer reverseTransformedValue:success:error:]
++[MTLValueTransformer(Deprecated) transformerWithBlock:]
+___56+[MTLValueTransformer(Deprecated) transformerWithBlock:]_block_invoke
+___copy_helper_block_e4_20b
++[MTLValueTransformer(Deprecated) reversibleTransformerWithBlock:]
+___66+[MTLValueTransformer(Deprecated) reversibleTransformerWithBlock:]_block_invoke
++[MTLValueTransformer(Deprecated) reversibleTransformerWithForwardBlock:reverseBlock:]
+___86+[MTLValueTransformer(Deprecated) reversibleTransformerWithForwardBlock:reverseBlock:]_block_invoke
+___86+[MTLValueTransformer(Deprecated) reversibleTransformerWithForwardBlock:reverseBlock:]_block_invoke_2
+_OBJC_CLASSLIST_REFERENCES_$_.3
+_OBJC_SELECTOR_REFERENCES_.5
+_OBJC_SELECTOR_REFERENCES_.13
+_OBJC_SELECTOR_REFERENCES_.15
+_OBJC_IVAR_$_MTLValueTransformer._forwardBlock
+_OBJC_IVAR_$_MTLValueTransformer._reverseBlock
+_OBJC_CLASSLIST_REFERENCES_$_.16
+__OBJC_$_CLASS_METHODS_MTLValueTransformer
+__OBJC_CLASS_PROTOCOLS_$_MTLValueTransformer
+__OBJC_METACLASS_RO_$_MTLValueTransformer
+__OBJC_$_INSTANCE_METHODS_MTLValueTransformer
+__OBJC_$_INSTANCE_VARIABLES_MTLValueTransformer
+__OBJC_$_PROP_LIST_MTLValueTransformer
+__OBJC_CLASS_RO_$_MTLValueTransformer
+_OBJC_SELECTOR_REFERENCES_.87
+__OBJC_$_CLASS_METHODS_MTLReversibleValueTransformer
+__OBJC_METACLASS_RO_$_MTLReversibleValueTransformer
+__OBJC_$_INSTANCE_METHODS_MTLReversibleValueTransformer
+__OBJC_CLASS_RO_$_MTLReversibleValueTransformer
+___block_descriptor_24_e4_20bs_e15_16?04^c8^12l
+_OBJC_SELECTOR_REFERENCES_.92
+__OBJC_$_CATEGORY_CLASS_METHODS_MTLValueTransformer_$_Deprecated
+__OBJC_$_CATEGORY_MTLValueTransformer_$_Deprecated
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Mantle/Mantle/MTLValueTransformer.m
+__86+[MTLValueTransformer(Deprecated) reversibleTransformerWithForwardBlock:reverseBlock:]_block_invoke_2
+Mantle/MTLValueTransformer.m
+__86+[MTLValueTransformer(Deprecated) reversibleTransformerWithForwardBlock:reverseBlock:]_block_invoke
+__66+[MTLValueTransformer(Deprecated) reversibleTransformerWithBlock:]_block_invoke
+__copy_helper_block_e4_20b
+__56+[MTLValueTransformer(Deprecated) transformerWithBlock:]_block_invoke
+-[NSValueTransformer(MTLInversionAdditions) mtl_invertedTransformer]
+___68-[NSValueTransformer(MTLInversionAdditions) mtl_invertedTransformer]_block_invoke
+___68-[NSValueTransformer(MTLInversionAdditions) mtl_invertedTransformer]_block_invoke.60
+___68-[NSValueTransformer(MTLInversionAdditions) mtl_invertedTransformer]_block_invoke_2
+___68-[NSValueTransformer(MTLInversionAdditions) mtl_invertedTransformer]_block_invoke_3
+_OBJC_SELECTOR_REFERENCES_.54
+_OBJC_CLASSLIST_REFERENCES_$_.58
+___block_descriptor_24_e4_20s_e15_16?04^c8^12l
+__OBJC_$_CATEGORY_INSTANCE_METHODS_NSValueTransformer_$_MTLInversionAdditions
+__OBJC_$_CATEGORY_NSValueTransformer_$_MTLInversionAdditions
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Mantle/Mantle/NSValueTransformer+MTLInversionAdditions.m
+__68-[NSValueTransformer(MTLInversionAdditions) mtl_invertedTransformer]_block_invoke_3
+Mantle/NSValueTransformer+MTLInversionAdditions.m
+__68-[NSValueTransformer(MTLInversionAdditions) mtl_invertedTransformer]_block_invoke_2
+__68-[NSValueTransformer(MTLInversionAdditions) mtl_invertedTransformer]_block_invoke.60
+__68-[NSValueTransformer(MTLInversionAdditions) mtl_invertedTransformer]_block_invoke
+__ZL15__ARCLite__loadv
+__ZL30add_image_hook_autoreleasepoolPK11mach_headerl
+__ZL34__arclite_objc_autoreleasePoolPushv
+__ZL33__arclite_objc_autoreleasePoolPopPv
+__ZL19patch_lazy_pointersPK11mach_headerP7patch_tm
+__ZL42__arclite_NSArray_objectAtIndexedSubscriptP7NSArrayP13objc_selectorj
+__ZL53__arclite_NSMutableArray_setObject_atIndexedSubscriptP14NSMutableArrayP13objc_selectorP11objc_objectj
+__ZL46__arclite_NSDictionary_objectForKeyedSubscriptP12NSDictionaryP13objc_selectorP11objc_object
+__ZL47__arclite_NSOrderedSet_objectAtIndexedSubscriptP12NSOrderedSetP13objc_selectorj
+__ZL58__arclite_NSMutableOrderedSet_setObject_atIndexedSubscriptP19NSMutableOrderedSetP13objc_selectorP11objc_objectj
+__ZL58__arclite_NSMutableDictionary__setObject_forKeyedSubscriptP19NSMutableDictionaryP13objc_selectorP11objc_objectS4_
+__ZL18add_image_hook_ARCPK11mach_headerl
+__ZL27__arclite_objc_loadClassrefPP10objc_class
+__ZL36__arclite_object_setInstanceVariableP11objc_objectPKcPv
+__ZL24__arclite_object_setIvarP11objc_objectP9objc_ivarS0_
+__ZL21__arclite_object_copyP11objc_objectm
+__ZL21__arclite_objc_retainP11objc_object
+__ZL26__arclite_objc_retainBlockP11objc_object
+__ZL22__arclite_objc_releaseP11objc_object
+__ZL26__arclite_objc_autoreleaseP11objc_object
+__ZL32__arclite_objc_retainAutoreleaseP11objc_object
+__ZL37__arclite_objc_autoreleaseReturnValueP11objc_object
+__ZL43__arclite_objc_retainAutoreleaseReturnValueP11objc_object
+__ZL44__arclite_objc_retainAutoreleasedReturnValueP11objc_object
+__ZL26__arclite_objc_storeStrongPP11objc_objectS0_
+__ZL22add_image_hook_swiftV1PK11mach_headerl
+__ZL42__arclite_NSUndoManagerProxy_isKindOfClassP11objc_objectP13objc_selectorP10objc_class
+__ZL30__arclite_NSManagedObject_initP11objc_objectP13objc_selector
+__ZL41__arclite_NSManagedObject_allocWithEntityP11objc_objectP13objc_selectorS0_
+__ZL36__arclite_NSManagedObject_allocBatchP11objc_objectP13objc_selectorPS0_S0_j
+__ZL37__arclite_NSKKMS_fastIndexForKnownKeyP11objc_objectP13objc_selectorS0_
+__ZL28__arclite_NSKKMS_indexForKeyP11objc_objectP13objc_selectorS0_
+__ZL29__arclite_NSKKsD_objectForKeyP11objc_objectP13objc_selectorS0_
+__ZL35__arclite_NSKKsD_removeObjectForKeyP11objc_objectP13objc_selectorS0_
+__ZL33__arclite_NSKKsD_setObject_forKeyP11objc_objectP13objc_selectorS0_S0_
+__ZL41__arclite_NSKKsD_addEntriesFromDictionaryP11objc_objectP13objc_selectorP12NSDictionary
+__ZL28__arclite_objc_readClassPairP10objc_classPK15objc_image_info
+__ZL32__arclite_objc_allocateClassPairP10objc_classPKcm
+__ZL32__arclite_object_getIndexedIvarsP11objc_object
+__ZL23__arclite_objc_getClassPKc
+__ZL27__arclite_objc_getMetaClassPKc
+__ZL31__arclite_objc_getRequiredClassPKc
+__ZL26__arclite_objc_lookUpClassPKc
+__ZL26__arclite_objc_getProtocolPKc
+__ZL23__arclite_class_getNameP10objc_class
+__ZL26__arclite_protocol_getNameP8Protocol
+__ZL37__arclite_objc_copyClassNamesForImagePKcPj
+__ZL17transcribeMethodsP10objc_classP15glue_class_ro_t
+__ZL19transcribeProtocolsP10objc_classP15glue_class_ro_t
+__ZL20transcribePropertiesP10objc_classP15glue_class_ro_t
+__ZL14initialize_impP11objc_objectP13objc_selector
+__ZL18allocateMaybeSwiftP18glue_swift_class_tm
+__ZL22copySwiftV1MangledNamePKcb
+__ZL13demangledNamePKcb
+__ZL16scanMangledFieldRPKcS0_S1_Ri
+__ZL30arclite_uninitialized_functionv
+__ZL12cxxConstructP11objc_object
+__ZL20fixStringForCoreDataP11objc_object
+_OBJC_METACLASS_$___ARCLite__
+__ZL24OBJC_CLASS_$___ARCLite__
+__ZL31OBJC_METACLASS_RO_$___ARCLite__
+__non_lazy_classes
+__ZL27OBJC_CLASS_RO_$___ARCLite__
+__ZL11_class_name
+__ZL32OBJC_$_CLASS_METHODS___ARCLite__
+__ZL17_load_method_name
+__ZL17_load_method_type
+__ZL23NSAutoreleasePool_class
+__ZZL30add_image_hook_autoreleasepoolPK11mach_headerlE7patches
+__ZGVZL30add_image_hook_autoreleasepoolPK11mach_headerlE7patches
+__OBJC_$_PROTOCOL_INSTANCE_METHODS___ARCLiteIndexedSubscripting__
+__OBJC_$_PROTOCOL_METHOD_TYPES___ARCLiteIndexedSubscripting__
+__OBJC_PROTOCOL_$___ARCLiteIndexedSubscripting__
+__OBJC_LABEL_PROTOCOL_$___ARCLiteIndexedSubscripting__
+__OBJC_PROTOCOL_REFERENCE_$___ARCLiteIndexedSubscripting__
+_OBJC_SELECTOR_REFERENCES_.26
+__OBJC_$_PROTOCOL_INSTANCE_METHODS___ARCLiteKeyedSubscripting__
+__OBJC_$_PROTOCOL_METHOD_TYPES___ARCLiteKeyedSubscripting__
+__OBJC_PROTOCOL_$___ARCLiteKeyedSubscripting__
+__OBJC_LABEL_PROTOCOL_$___ARCLiteKeyedSubscripting__
+__OBJC_PROTOCOL_REFERENCE_$___ARCLiteKeyedSubscripting__
+_OBJC_SELECTOR_REFERENCES_.34
+_OBJC_SELECTOR_REFERENCES_.38
+__ZZL18add_image_hook_ARCPK11mach_headerlE7patches
+__ZGVZL18add_image_hook_ARCPK11mach_headerlE7patches
+__ZL30NSUndoManagerProxy_targetClass
+__ZL29original_NSManagedObject_init
+__ZL40original_NSManagedObject_allocWithEntity
+__ZL35original_NSManagedObject_allocBatch
+__ZL25NSMutableDictionary_class
+__ZL22NSConstantString_class
+__ZL14NSString_class
+_OBJC_SELECTOR_REFERENCES_.76
+__ZL36original_NSKKMS_fastIndexForKnownKey
+__ZL27original_NSKKMS_indexForKey
+__ZL28original_NSKKsD_objectForKey
+__ZL34original_NSKKsD_removeObjectForKey
+__ZL32original_NSKKsD_setObject_forKey
+__ZL40original_NSKKsD_addEntriesFromDictionary
+__ZZL22add_image_hook_swiftV1PK11mach_headerlE7patches
+__ZGVZL22add_image_hook_swiftV1PK11mach_headerlE7patches
+__ZL31original_objc_allocateClassPair
+__ZL31original_object_getIndexedIvars
+__ZL22original_objc_getClass
+__ZL26original_objc_getMetaClass
+__ZL30original_objc_getRequiredClass
+__ZL25original_objc_lookUpClass
+__ZL25original_objc_getProtocol
+__ZL22original_class_getName
+__ZL25original_protocol_getName
+__ZL36original_objc_copyClassNamesForImage
+_OBJC_SELECTOR_REFERENCES_.94
+_OBJC_SELECTOR_REFERENCES_.96
+__ZL12demangleLock
+__ZL9Demangled
+_OBJC_SELECTOR_REFERENCES_.107
+_OBJC_SELECTOR_REFERENCES_.109
+_OBJC_SELECTOR_REFERENCES_.111
+_OBJC_SELECTOR_REFERENCES_.113
+_OBJC_SELECTOR_REFERENCES_.115
+Apple clang version 12.0.0 (clang-1200.0.32.28)
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c++ --target=armv7-apple-ios4.3 -fmessage-length=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -std=c++11 -Wno-trigraphs -fno-exceptions -fno-rtti -fno-sanitize=vptr -mpascal-strings -Os -Wno-missing-field-initializers -Wmissing-prototypes -Wno-implicit-atomic-properties -Wno-objc-interface-ivars -Wno-arc-repeated-use-of-weak -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-float-conversion -Wno-non-literal-null-conversion -Wno-objc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -Wno-c++11-extensions -D NDEBUG=1 -D OBJC_OLD_DISPATCH_PROTOTYPES=0 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.2.Internal.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -Winvalid-offsetof -g -fno-threadsafe-statics -Wno-sign-conversion -Wno-infinite-recursion -Wno-move -Wno-comma -Wno-block-capture-autoreleasing -Wno-strict-prototypes -Wno-range-loop-analysis -Wno-semicolon-before-method-body -fembed-bitcode=all -iquote /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/install/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-generated-files.hmap -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/install/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-own-target-headers.hmap -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/install/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-all-target-headers.hmap -iquote /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/install/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-project-headers.hmap -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/install/Symbols/BuiltProducts/include -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/install/TempContent/Objects/arclite.build/arclite_iOS.build/DerivedSources-normal/armv7 -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/install/TempContent/Objects/arclite.build/arclite_iOS.build/DerivedSources/armv7 -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/install/TempContent/Objects/arclite.build/arclite_iOS.build/DerivedSources -F/Library/Caches/com.apple.xbs/Binaries/arclite_iOS/install/Symbols/BuiltProducts -iframework /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.2.Internal.sdk/System/Library/PrivateFrameworks -Wall -Wextra -Wno-gcc-compat -Wno-error=incomplete-umbrella -Wno-error=invalid-ios-deployment-target -Wno-error=deprecated-declarations -Wno-error=documentation -Wno-error=incomplete-umbrella -Wno-error=invalid-ios-deployment-target -Wno-error=deprecated-declarations -Wno-error=documentation -MMD -MT dependencies -MF /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/install/TempContent/Objects/arclite.build/arclite_iOS.build/Objects-normal/armv7/arclite.d --serialize-diagnostics /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/install/TempContent/Objects/arclite.build/arclite_iOS.build/Objects-normal/armv7/arclite.dia -c /Library/Caches/com.apple.xbs/Sources/arclite_iOS/arclite-76/source/arclite.mm -o /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/install/TempContent/Objects/arclite.build/arclite_iOS.build/Objects-normal/armv7/arclite.o -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -mlinker-version=609.8 -march=armv7a
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.2.Internal.sdk
+iPhoneOS14.2.Internal.sdk
+/Library/Caches/com.apple.xbs/Sources/arclite_iOS/arclite-76/source/arclite.mm
+/Library/Caches/com.apple.xbs/Sources/arclite_iOS/arclite-76
+fixStringForCoreData
+source/arclite.mm
+cxxConstruct
+arclite_uninitialized_function
+scanMangledField
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.2.Internal.sdk/usr/include/_ctype.h
+__isctype
+demangledName
+copySwiftV1DemangledName
+copySwiftV1MangledName
+allocateMaybeSwift
+word_align
+isSwift
+initialize_imp
+transcribeProperties
+property_list_nth
+transcribeProtocols
+transcribeMethods
+data
+method_list_nth
+__arclite_objc_copyClassNamesForImage
+__arclite_protocol_getName
+__arclite_class_getName
+__arclite_objc_getProtocol
+__arclite_objc_lookUpClass
+__arclite_objc_getRequiredClass
+__arclite_objc_getMetaClass
+__arclite_objc_getClass
+__arclite_object_getIndexedIvars
+__arclite_objc_allocateClassPair
+metaclass
+__arclite_objc_readClassPair
+transcribeIvars
+ivar_list_nth
+max
+alignment
+ro
+fastFlags
+__arclite_NSKKsD_addEntriesFromDictionary
+__arclite_NSKKsD_setObject_forKey
+__arclite_NSKKsD_removeObjectForKey
+__arclite_NSKKsD_objectForKey
+__arclite_NSKKMS_indexForKey
+__arclite_NSKKMS_fastIndexForKnownKey
+__arclite_NSManagedObject_allocBatch
+__arclite_NSManagedObject_allocWithEntity
+__arclite_NSManagedObject_init
+__arclite_NSUndoManagerProxy_isKindOfClass
+add_image_hook_swiftV1
+patch_t<const char **(const char *, unsigned int *)>
+patch_t<const char *(Protocol *)>
+patch_t<const char *(Class)>
+patch_t<Protocol *(const char *)>
+patch_t<Class (const char *)>
+patch_t<void *(id)>
+patch_t<Class (Class, const char *, unsigned long)>
+patch_t<Class (Class, const objc_image_info *)>
+__arclite_objc_storeStrong
+__arclite_objc_release
+__arclite_objc_retain
+__arclite_objc_retainAutoreleasedReturnValue
+__arclite_objc_retainAutoreleaseReturnValue
+__arclite_objc_autoreleaseReturnValue
+__arclite_objc_retainAutorelease
+__arclite_objc_autorelease
+__arclite_objc_retainBlock
+__arclite_object_copy
+fixupCopiedReferences
+_class_getInstanceStart
+alignedInstanceStart
+__arclite_class_usesAutomaticRetainRelease
+classOrSuperClassesUseARR
+__arclite_object_setIvar
+isScannedOffset
+_ivar_getClass
+__arclite_object_setInstanceVariable
+__arclite_objc_loadClassref
+add_image_hook_ARC
+patch_t<void (id *, id)>
+patch_t<id (id)>
+patch_t<void (id)>
+patch_t<id (id, unsigned long)>
+patch_t<void (id, objc_ivar *, id)>
+patch_t<objc_ivar *(id, const char *, void *)>
+patch_t<Class (Class *)>
+__arclite_NSMutableDictionary__setObject_forKeyedSubscript
+__arclite_NSMutableOrderedSet_setObject_atIndexedSubscript
+__arclite_NSOrderedSet_objectAtIndexedSubscript
+__arclite_NSDictionary_objectForKeyedSubscript
+__arclite_NSMutableArray_setObject_atIndexedSubscript
+__arclite_NSArray_objectAtIndexedSubscript
+patch_lazy_pointers
+__arclite_objc_autoreleasePoolPop
+__arclite_objc_autoreleasePoolPush
+add_image_hook_autoreleasepool
+patch_t<void (void *)>
+patch_t<void *()>
+__ARCLite__load
+install_swiftV1
+replaceMethod
+install_ARC
+install_dict_nil_value
+addOrReplaceMethod
+keyedGetter
+install_subscripting
+addMethod
+indexedGetter
+install_autoreleasepool

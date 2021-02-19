@@ -1,0 +1,770 @@
+BCSymbolMap Version: 2.0
+Apple clang version 12.0.0 (clang-1200.0.32.29)
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.4.sdk
+iPhoneOS14.4.sdk
+/Users/deepak/Library/Caches/org.carthage.CarthageKit/DerivedData/12.4_12D4e/Nocilla/0.11.0/Build/Intermediates.noindex/ArchiveIntermediates/Nocilla/IntermediateBuildFilesPath/Nocilla.build/Release-iphoneos/Nocilla.build/DerivedSources/Nocilla_vers.c
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Nocilla
+-[LSStringMatcher initWithString:]
+-[LSStringMatcher matches:]
+-[LSStringMatcher isEqual:]
+-[LSStringMatcher hash]
+-[LSStringMatcher string]
+-[LSStringMatcher setString:]
+-[LSStringMatcher .cxx_destruct]
+_OBJC_SELECTOR_REFERENCES_
+_OBJC_IVAR_$_LSStringMatcher._string
+_OBJC_SELECTOR_REFERENCES_.2
+_OBJC_SELECTOR_REFERENCES_.4
+_OBJC_CLASSLIST_REFERENCES_$_
+_OBJC_SELECTOR_REFERENCES_.6
+_OBJC_SELECTOR_REFERENCES_.8
+_OBJC_SELECTOR_REFERENCES_.10
+__OBJC_METACLASS_RO_$_LSStringMatcher
+__OBJC_$_INSTANCE_METHODS_LSStringMatcher
+__OBJC_$_INSTANCE_VARIABLES_LSStringMatcher
+__OBJC_$_PROP_LIST_LSStringMatcher
+__OBJC_CLASS_RO_$_LSStringMatcher
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Nocilla/Nocilla/Matchers/LSStringMatcher.m
+Nocilla/Matchers/LSStringMatcher.m
++[LSNocilla sharedInstance]
+___27+[LSNocilla sharedInstance]_block_invoke
+___copy_helper_block_e4_
+___destroy_helper_block_e4_
+-[LSNocilla init]
+-[LSNocilla stubbedRequests]
+-[LSNocilla start]
+-[LSNocilla stop]
+-[LSNocilla addStubbedRequest:]
+-[LSNocilla clearStubs]
+-[LSNocilla responseForRequest:]
+-[LSNocilla registerHook:]
+-[LSNocilla hookWasRegistered:]
+-[LSNocilla loadHooks]
+-[LSNocilla unloadHooks]
+-[LSNocilla isStarted]
+-[LSNocilla setStarted:]
+-[LSNocilla mutableRequests]
+-[LSNocilla setMutableRequests:]
+-[LSNocilla hooks]
+-[LSNocilla setHooks:]
+-[LSNocilla .cxx_destruct]
+_sharedInstace
+_sharedInstance.onceToken
+___block_descriptor_24_e4__e5_v4?0l
+_OBJC_SELECTOR_REFERENCES_.3
+_OBJC_CLASSLIST_REFERENCES_$_.4
+_OBJC_CLASSLIST_REFERENCES_$_.9
+_OBJC_CLASSLIST_REFERENCES_$_.10
+_OBJC_CLASSLIST_REFERENCES_$_.11
+_OBJC_SELECTOR_REFERENCES_.13
+_OBJC_SELECTOR_REFERENCES_.15
+_OBJC_SELECTOR_REFERENCES_.17
+_OBJC_SELECTOR_REFERENCES_.19
+_OBJC_SELECTOR_REFERENCES_.21
+_OBJC_SELECTOR_REFERENCES_.23
+_OBJC_SELECTOR_REFERENCES_.25
+_OBJC_SELECTOR_REFERENCES_.27
+_OBJC_SELECTOR_REFERENCES_.29
+_OBJC_SELECTOR_REFERENCES_.31
+_OBJC_SELECTOR_REFERENCES_.33
+_OBJC_CLASSLIST_REFERENCES_$_.34
+_OBJC_SELECTOR_REFERENCES_.36
+_OBJC_SELECTOR_REFERENCES_.38
+_OBJC_SELECTOR_REFERENCES_.40
+_OBJC_SELECTOR_REFERENCES_.42
+_OBJC_SELECTOR_REFERENCES_.44
+_OBJC_CLASSLIST_REFERENCES_$_.45
+_OBJC_CLASSLIST_REFERENCES_$_.50
+_OBJC_SELECTOR_REFERENCES_.52
+_OBJC_SELECTOR_REFERENCES_.54
+_OBJC_SELECTOR_REFERENCES_.56
+_OBJC_SELECTOR_REFERENCES_.58
+_OBJC_SELECTOR_REFERENCES_.60
+_OBJC_SELECTOR_REFERENCES_.62
+_OBJC_SELECTOR_REFERENCES_.64
+_OBJC_SELECTOR_REFERENCES_.66
+_OBJC_SELECTOR_REFERENCES_.68
+__OBJC_$_CLASS_METHODS_LSNocilla
+__OBJC_METACLASS_RO_$_LSNocilla
+__OBJC_$_INSTANCE_METHODS_LSNocilla
+_OBJC_IVAR_$_LSNocilla._started
+_OBJC_IVAR_$_LSNocilla._mutableRequests
+_OBJC_IVAR_$_LSNocilla._hooks
+__OBJC_$_INSTANCE_VARIABLES_LSNocilla
+__OBJC_$_PROP_LIST_LSNocilla
+__OBJC_CLASS_RO_$_LSNocilla
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Nocilla/Nocilla/LSNocilla.m
+Nocilla/LSNocilla.m
+Nocilla/LSNocilla.h
+__destroy_helper_block_e4_
+__copy_helper_block_e4_
+__27+[LSNocilla sharedInstance]_block_invoke
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.4.sdk/usr/include/dispatch/once.h
++[LSHTTPStubURLProtocol canInitWithRequest:]
++[LSHTTPStubURLProtocol canonicalRequestForRequest:]
++[LSHTTPStubURLProtocol requestIsCacheEquivalent:toRequest:]
+-[LSHTTPStubURLProtocol startLoading]
+-[LSHTTPStubURLProtocol stopLoading]
+_OBJC_SELECTOR_REFERENCES_.12
+_OBJC_CLASSLIST_REFERENCES_$_.13
+_OBJC_CLASSLIST_REFERENCES_$_.18
+_OBJC_SELECTOR_REFERENCES_.20
+_OBJC_CLASSLIST_REFERENCES_$_.21
+_OBJC_SELECTOR_REFERENCES_.35
+_OBJC_CLASSLIST_REFERENCES_$_.36
+_OBJC_SELECTOR_REFERENCES_.46
+_OBJC_SELECTOR_REFERENCES_.48
+_OBJC_CLASSLIST_REFERENCES_$_.49
+_OBJC_SELECTOR_REFERENCES_.53
+_OBJC_SELECTOR_REFERENCES_.55
+_OBJC_CLASSLIST_REFERENCES_$_.56
+_OBJC_CLASSLIST_REFERENCES_$_.67
+_OBJC_SELECTOR_REFERENCES_.69
+__OBJC_$_CLASS_METHODS_LSHTTPStubURLProtocol
+__OBJC_METACLASS_RO_$_LSHTTPStubURLProtocol
+__OBJC_$_INSTANCE_METHODS_LSHTTPStubURLProtocol
+__OBJC_CLASS_RO_$_LSHTTPStubURLProtocol
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Nocilla/Nocilla/Hooks/NSURLRequest/LSHTTPStubURLProtocol.m
+Nocilla/Hooks/NSURLRequest/LSHTTPStubURLProtocol.m
+-[NSRegularExpression(Matcheable) matcher]
+__OBJC_$_CATEGORY_INSTANCE_METHODS_NSRegularExpression_$_Matcheable
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_NSObject
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_OPT_NSObject
+__OBJC_$_PROP_LIST_NSObject
+__OBJC_$_PROTOCOL_METHOD_TYPES_NSObject
+__OBJC_PROTOCOL_$_NSObject
+__OBJC_LABEL_PROTOCOL_$_NSObject
+__OBJC_$_PROTOCOL_REFS_LSMatcheable
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_LSMatcheable
+__OBJC_$_PROTOCOL_METHOD_TYPES_LSMatcheable
+__OBJC_PROTOCOL_$_LSMatcheable
+__OBJC_LABEL_PROTOCOL_$_LSMatcheable
+__OBJC_CATEGORY_PROTOCOLS_$_NSRegularExpression_$_Matcheable
+__OBJC_$_PROP_LIST_NSRegularExpression_$_Matcheable
+__OBJC_$_CATEGORY_NSRegularExpression_$_Matcheable
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Nocilla/Nocilla/Matchers/NSRegularExpression+Matcheable.m
+Nocilla/Matchers/NSRegularExpression+Matcheable.m
+-[LSStubRequestDSL initWithRequest:]
+-[LSStubRequestDSL withHeaders]
+___31-[LSStubRequestDSL withHeaders]_block_invoke
+___copy_helper_block_e4_20s
+___destroy_helper_block_e4_20s
+-[LSStubRequestDSL withHeader]
+___30-[LSStubRequestDSL withHeader]_block_invoke
+-[LSStubRequestDSL withBody]
+___28-[LSStubRequestDSL withBody]_block_invoke
+-[LSStubRequestDSL andReturn]
+___29-[LSStubRequestDSL andReturn]_block_invoke
+-[LSStubRequestDSL andReturnRawResponse]
+___40-[LSStubRequestDSL andReturnRawResponse]_block_invoke
+-[LSStubRequestDSL andFailWithError]
+___36-[LSStubRequestDSL andFailWithError]_block_invoke
+-[LSStubRequestDSL request]
+-[LSStubRequestDSL setRequest:]
+-[LSStubRequestDSL .cxx_destruct]
+___block_descriptor_24_e4_20s_e39_"LSStubRequestDSL"8?0"NSDictionary"4l
+___block_descriptor_24_e4_20s_e48_"LSStubRequestDSL"12?0"NSString"4"NSString"8l
+_OBJC_SELECTOR_REFERENCES_.11
+___block_descriptor_24_e4_20s_e41_"LSStubRequestDSL"8?0"<LSMatcheable>"4l
+_OBJC_SELECTOR_REFERENCES_.16
+_OBJC_SELECTOR_REFERENCES_.18
+_OBJC_CLASSLIST_REFERENCES_$_.19
+___block_descriptor_24_e4_20s_e26_"LSStubResponseDSL"8?0i4l
+_OBJC_SELECTOR_REFERENCES_.26
+___block_descriptor_24_e4_20s_e34_"LSStubResponseDSL"8?0"NSData"4l
+___block_descriptor_24_e4_20s_e16_v8?0"NSError"4l
+__OBJC_METACLASS_RO_$_LSStubRequestDSL
+__OBJC_$_INSTANCE_METHODS_LSStubRequestDSL
+_OBJC_IVAR_$_LSStubRequestDSL._request
+__OBJC_$_INSTANCE_VARIABLES_LSStubRequestDSL
+__OBJC_$_PROP_LIST_LSStubRequestDSL
+__OBJC_CLASS_RO_$_LSStubRequestDSL
+_OBJC_CLASSLIST_REFERENCES_$_.55
+_OBJC_SELECTOR_REFERENCES_.57
+_OBJC_CLASSLIST_REFERENCES_$_.58
+_OBJC_SELECTOR_REFERENCES_.59
+_OBJC_CLASSLIST_REFERENCES_$_.60
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Nocilla/Nocilla/DSL/LSStubRequestDSL.m
+stubRequest
+Nocilla/DSL/LSStubRequestDSL.m
+__36-[LSStubRequestDSL andFailWithError]_block_invoke
+__40-[LSStubRequestDSL andReturnRawResponse]_block_invoke
+__29-[LSStubRequestDSL andReturn]_block_invoke
+__28-[LSStubRequestDSL withBody]_block_invoke
+__30-[LSStubRequestDSL withHeader]_block_invoke
+__destroy_helper_block_e4_20s
+__copy_helper_block_e4_20s
+__31-[LSStubRequestDSL withHeaders]_block_invoke
+-[LSHTTPRequestDSLRepresentation initWithRequest:]
+-[LSHTTPRequestDSLRepresentation description]
+-[LSHTTPRequestDSLRepresentation request]
+-[LSHTTPRequestDSLRepresentation setRequest:]
+-[LSHTTPRequestDSLRepresentation .cxx_destruct]
+_OBJC_SELECTOR_REFERENCES_.14
+_OBJC_CLASSLIST_REFERENCES_$_.22
+_OBJC_CLASSLIST_REFERENCES_$_.27
+_OBJC_SELECTOR_REFERENCES_.37
+_OBJC_CLASSLIST_REFERENCES_$_.38
+_OBJC_SELECTOR_REFERENCES_.50
+__OBJC_METACLASS_RO_$_LSHTTPRequestDSLRepresentation
+__OBJC_$_INSTANCE_METHODS_LSHTTPRequestDSLRepresentation
+_OBJC_IVAR_$_LSHTTPRequestDSLRepresentation._request
+__OBJC_$_INSTANCE_VARIABLES_LSHTTPRequestDSLRepresentation
+__OBJC_$_PROP_LIST_LSHTTPRequestDSLRepresentation
+__OBJC_CLASS_RO_$_LSHTTPRequestDSLRepresentation
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Nocilla/Nocilla/DSL/LSHTTPRequestDSLRepresentation.m
+Nocilla/DSL/LSHTTPRequestDSLRepresentation.m
+-[LSStubResponse initDefaultResponse]
+-[LSStubResponse initWithError:]
+-[LSStubResponse initWithStatusCode:]
+-[LSStubResponse initWithRawResponse:]
+-[LSStubResponse setHeader:value:]
+-[LSStubResponse headers]
+-[LSStubResponse description]
+-[LSStubResponse statusCode]
+-[LSStubResponse setStatusCode:]
+-[LSStubResponse body]
+-[LSStubResponse setBody:]
+-[LSStubResponse shouldFail]
+-[LSStubResponse setShouldFail:]
+-[LSStubResponse error]
+-[LSStubResponse setError:]
+-[LSStubResponse mutableHeaders]
+-[LSStubResponse setMutableHeaders:]
+-[LSStubResponse offset]
+-[LSStubResponse setOffset:]
+-[LSStubResponse isDone]
+-[LSStubResponse setDone:]
+-[LSStubResponse .cxx_destruct]
+_OBJC_SELECTOR_REFERENCES_.22
+_OBJC_SELECTOR_REFERENCES_.24
+_OBJC_CLASSLIST_REFERENCES_$_.28
+_OBJC_SELECTOR_REFERENCES_.32
+_OBJC_SELECTOR_REFERENCES_.34
+__OBJC_$_PROTOCOL_REFS_LSHTTPResponse
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_LSHTTPResponse
+__OBJC_$_PROP_LIST_LSHTTPResponse
+__OBJC_$_PROTOCOL_METHOD_TYPES_LSHTTPResponse
+__OBJC_PROTOCOL_$_LSHTTPResponse
+__OBJC_LABEL_PROTOCOL_$_LSHTTPResponse
+__OBJC_CLASS_PROTOCOLS_$_LSStubResponse
+__OBJC_METACLASS_RO_$_LSStubResponse
+__OBJC_$_INSTANCE_METHODS_LSStubResponse
+_OBJC_IVAR_$_LSStubResponse._shouldFail
+_OBJC_IVAR_$_LSStubResponse._done
+_OBJC_IVAR_$_LSStubResponse._statusCode
+_OBJC_IVAR_$_LSStubResponse._body
+_OBJC_IVAR_$_LSStubResponse._error
+_OBJC_IVAR_$_LSStubResponse._mutableHeaders
+_OBJC_IVAR_$_LSStubResponse._offset
+__OBJC_$_INSTANCE_VARIABLES_LSStubResponse
+__OBJC_$_PROP_LIST_LSStubResponse
+__OBJC_CLASS_RO_$_LSStubResponse
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Nocilla/Nocilla/Stubs/LSStubResponse.m
+Nocilla/Stubs/LSStubResponse.m
+Nocilla/Stubs/LSStubResponse.h
+-[LSHTTPRequestDiff initWithRequest:andRequest:]
+-[LSHTTPRequestDiff isEmpty]
+-[LSHTTPRequestDiff description]
+-[LSHTTPRequestDiff isMethodDifferent]
+-[LSHTTPRequestDiff isUrlDifferent]
+-[LSHTTPRequestDiff areHeadersDifferent]
+-[LSHTTPRequestDiff isBodyDifferent]
+-[LSHTTPRequestDiff appendMethodDiff:]
+-[LSHTTPRequestDiff appendUrlDiff:]
+-[LSHTTPRequestDiff appendHeadersDiff:]
+___39-[LSHTTPRequestDiff appendHeadersDiff:]_block_invoke
+___39-[LSHTTPRequestDiff appendHeadersDiff:]_block_invoke.54
+-[LSHTTPRequestDiff appendBodyDiff:]
+-[LSHTTPRequestDiff oneRequest]
+-[LSHTTPRequestDiff setOneRequest:]
+-[LSHTTPRequestDiff anotherRequest]
+-[LSHTTPRequestDiff setAnotherRequest:]
+-[LSHTTPRequestDiff .cxx_destruct]
+_OBJC_SELECTOR_REFERENCES_.28
+_OBJC_SELECTOR_REFERENCES_.30
+___block_descriptor_24_e4_20s_e14_c16?048^c12l
+_OBJC_SELECTOR_REFERENCES_.70
+_OBJC_SELECTOR_REFERENCES_.72
+__OBJC_METACLASS_RO_$_LSHTTPRequestDiff
+__OBJC_$_INSTANCE_METHODS_LSHTTPRequestDiff
+_OBJC_IVAR_$_LSHTTPRequestDiff._oneRequest
+_OBJC_IVAR_$_LSHTTPRequestDiff._anotherRequest
+__OBJC_$_INSTANCE_VARIABLES_LSHTTPRequestDiff
+__OBJC_$_PROP_LIST_LSHTTPRequestDiff
+__OBJC_CLASS_RO_$_LSHTTPRequestDiff
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Nocilla/Nocilla/Diff/LSHTTPRequestDiff.m
+Nocilla/Diff/LSHTTPRequestDiff.m
+__39-[LSHTTPRequestDiff appendHeadersDiff:]_block_invoke.54
+__39-[LSHTTPRequestDiff appendHeadersDiff:]_block_invoke
+-[LSRegexMatcher initWithRegex:]
+-[LSRegexMatcher matches:]
+-[LSRegexMatcher isEqual:]
+-[LSRegexMatcher hash]
+-[LSRegexMatcher regex]
+-[LSRegexMatcher setRegex:]
+-[LSRegexMatcher .cxx_destruct]
+_OBJC_IVAR_$_LSRegexMatcher._regex
+__OBJC_METACLASS_RO_$_LSRegexMatcher
+__OBJC_$_INSTANCE_METHODS_LSRegexMatcher
+__OBJC_$_INSTANCE_VARIABLES_LSRegexMatcher
+__OBJC_$_PROP_LIST_LSRegexMatcher
+__OBJC_CLASS_RO_$_LSRegexMatcher
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Nocilla/Nocilla/Matchers/LSRegexMatcher.m
+Nocilla/Matchers/LSRegexMatcher.m
+-[LSNSURLSessionHook load]
+-[LSNSURLSessionHook unload]
+-[LSNSURLSessionHook swizzleSelector:fromClass:toClass:]
+-[LSNSURLSessionHook protocolClasses]
+_OBJC_CLASSLIST_REFERENCES_$_.12
+__OBJC_METACLASS_RO_$_LSNSURLSessionHook
+__OBJC_$_INSTANCE_METHODS_LSNSURLSessionHook
+__OBJC_CLASS_RO_$_LSNSURLSessionHook
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Nocilla/Nocilla/Hooks/NSURLSession/LSNSURLSessionHook.m
+Nocilla/Hooks/NSURLSession/LSNSURLSessionHook.m
+-[LSHTTPClientHook load]
+-[LSHTTPClientHook unload]
+__OBJC_METACLASS_RO_$_LSHTTPClientHook
+__OBJC_$_INSTANCE_METHODS_LSHTTPClientHook
+__OBJC_CLASS_RO_$_LSHTTPClientHook
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Nocilla/Nocilla/Hooks/LSHTTPClientHook.m
+Nocilla/Hooks/LSHTTPClientHook.m
+-[NSData(Matcheable) matcher]
+__OBJC_$_CATEGORY_INSTANCE_METHODS_NSData_$_Matcheable
+__OBJC_CATEGORY_PROTOCOLS_$_NSData_$_Matcheable
+__OBJC_$_PROP_LIST_NSData_$_Matcheable
+__OBJC_$_CATEGORY_NSData_$_Matcheable
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Nocilla/Nocilla/Matchers/NSData+Matcheable.m
+Nocilla/Matchers/NSData+Matcheable.m
+-[ASIHTTPRequestStub setStubResponse:]
+-[ASIHTTPRequestStub stubResponse]
+-[ASIHTTPRequestStub stub_responseStatusCode]
+-[ASIHTTPRequestStub stub_responseData]
+-[ASIHTTPRequestStub stub_responseHeaders]
+-[ASIHTTPRequestStub stub_startRequest]
+_ASIHTTPRequestStubResponseKey
+__OBJC_METACLASS_RO_$_ASIHTTPRequestStub
+__OBJC_$_INSTANCE_METHODS_ASIHTTPRequestStub
+__OBJC_$_PROP_LIST_ASIHTTPRequestStub
+__OBJC_CLASS_RO_$_ASIHTTPRequestStub
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Nocilla/Nocilla/Hooks/ASIHTTPRequest/ASIHTTPRequestStub.m
+Nocilla/Hooks/ASIHTTPRequest/ASIHTTPRequestStub.m
+-[LSMatcher matches:]
+-[LSMatcher matchesData:]
+-[LSMatcher isEqual:]
+-[LSMatcher hash]
+_OBJC_CLASSLIST_REFERENCES_$_.1
+_OBJC_SELECTOR_REFERENCES_.5
+__OBJC_METACLASS_RO_$_LSMatcher
+__OBJC_$_INSTANCE_METHODS_LSMatcher
+__OBJC_CLASS_RO_$_LSMatcher
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Nocilla/Nocilla/Matchers/LSMatcher.m
+Nocilla/Matchers/LSMatcher.m
+-[LSASIHTTPRequestAdapter initWithASIHTTPRequest:]
+-[LSASIHTTPRequestAdapter url]
+-[LSASIHTTPRequestAdapter method]
+-[LSASIHTTPRequestAdapter headers]
+-[LSASIHTTPRequestAdapter body]
+-[LSASIHTTPRequestAdapter request]
+-[LSASIHTTPRequestAdapter setRequest:]
+-[LSASIHTTPRequestAdapter .cxx_destruct]
+__OBJC_$_PROTOCOL_REFS_LSHTTPRequest
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_LSHTTPRequest
+__OBJC_$_PROP_LIST_LSHTTPRequest
+__OBJC_$_PROTOCOL_METHOD_TYPES_LSHTTPRequest
+__OBJC_PROTOCOL_$_LSHTTPRequest
+__OBJC_LABEL_PROTOCOL_$_LSHTTPRequest
+__OBJC_CLASS_PROTOCOLS_$_LSASIHTTPRequestAdapter
+__OBJC_METACLASS_RO_$_LSASIHTTPRequestAdapter
+__OBJC_$_INSTANCE_METHODS_LSASIHTTPRequestAdapter
+_OBJC_IVAR_$_LSASIHTTPRequestAdapter._request
+__OBJC_$_INSTANCE_VARIABLES_LSASIHTTPRequestAdapter
+__OBJC_$_PROP_LIST_LSASIHTTPRequestAdapter
+__OBJC_CLASS_RO_$_LSASIHTTPRequestAdapter
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Nocilla/Nocilla/Hooks/ASIHTTPRequest/LSASIHTTPRequestAdapter.m
+Nocilla/Hooks/ASIHTTPRequest/LSASIHTTPRequestAdapter.m
+-[NSString(Matcheable) matcher]
+__OBJC_$_CATEGORY_INSTANCE_METHODS_NSString_$_Matcheable
+__OBJC_CATEGORY_PROTOCOLS_$_NSString_$_Matcheable
+__OBJC_$_PROP_LIST_NSString_$_Matcheable
+__OBJC_$_CATEGORY_NSString_$_Matcheable
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Nocilla/Nocilla/Matchers/NSString+Matcheable.m
+Nocilla/Matchers/NSString+Matcheable.m
+-[NSString(Nocilla) regex]
+-[NSString(Nocilla) data]
+__OBJC_$_CATEGORY_INSTANCE_METHODS_NSString_$_Nocilla
+__OBJC_$_PROTOCOL_REFS_LSHTTPBody
+__OBJC_$_PROTOCOL_INSTANCE_METHODS_LSHTTPBody
+__OBJC_$_PROTOCOL_METHOD_TYPES_LSHTTPBody
+__OBJC_PROTOCOL_$_LSHTTPBody
+__OBJC_LABEL_PROTOCOL_$_LSHTTPBody
+__OBJC_CATEGORY_PROTOCOLS_$_NSString_$_Nocilla
+__OBJC_$_PROP_LIST_NSString_$_Nocilla
+__OBJC_$_CATEGORY_NSString_$_Nocilla
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Nocilla/Nocilla/Categories/NSString+Nocilla.m
+Nocilla/Categories/NSString+Nocilla.m
+-[NSURLRequest(DSL) toNocillaDSL]
+__OBJC_$_CATEGORY_INSTANCE_METHODS_NSURLRequest_$_DSL
+__OBJC_$_CATEGORY_NSURLRequest_$_DSL
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Nocilla/Nocilla/Hooks/NSURLRequest/NSURLRequest+DSL.m
+Nocilla/Hooks/NSURLRequest/NSURLRequest+DSL.m
+-[NSData(Nocilla) data]
+__OBJC_$_CATEGORY_INSTANCE_METHODS_NSData_$_Nocilla
+__OBJC_CATEGORY_PROTOCOLS_$_NSData_$_Nocilla
+__OBJC_$_PROP_LIST_NSData_$_Nocilla
+__OBJC_$_CATEGORY_NSData_$_Nocilla
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Nocilla/Nocilla/Categories/NSData+Nocilla.m
+Nocilla/Categories/NSData+Nocilla.m
+-[LSStubResponseDSL initWithResponse:]
+-[LSStubResponseDSL withHeader]
+___31-[LSStubResponseDSL withHeader]_block_invoke
+-[LSStubResponseDSL withHeaders]
+___32-[LSStubResponseDSL withHeaders]_block_invoke
+-[LSStubResponseDSL withBody]
+___29-[LSStubResponseDSL withBody]_block_invoke
+-[LSStubResponseDSL response]
+-[LSStubResponseDSL setResponse:]
+-[LSStubResponseDSL .cxx_destruct]
+___block_descriptor_24_e4_20s_e49_"LSStubResponseDSL"12?0"NSString"4"NSString"8l
+___block_descriptor_24_e4_20s_e40_"LSStubResponseDSL"8?0"NSDictionary"4l
+___block_descriptor_24_e4_20s_e40_"LSStubResponseDSL"8?0"<LSHTTPBody>"4l
+__OBJC_METACLASS_RO_$_LSStubResponseDSL
+__OBJC_$_INSTANCE_METHODS_LSStubResponseDSL
+_OBJC_IVAR_$_LSStubResponseDSL._response
+__OBJC_$_INSTANCE_VARIABLES_LSStubResponseDSL
+__OBJC_$_PROP_LIST_LSStubResponseDSL
+__OBJC_CLASS_RO_$_LSStubResponseDSL
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Nocilla/Nocilla/DSL/LSStubResponseDSL.m
+Nocilla/DSL/LSStubResponseDSL.m
+__29-[LSStubResponseDSL withBody]_block_invoke
+__32-[LSStubResponseDSL withHeaders]_block_invoke
+__31-[LSStubResponseDSL withHeader]_block_invoke
+-[NSURLRequest(LSHTTPRequest) url]
+-[NSURLRequest(LSHTTPRequest) method]
+-[NSURLRequest(LSHTTPRequest) headers]
+-[NSURLRequest(LSHTTPRequest) body]
+_OBJC_CLASSLIST_REFERENCES_$_.20
+__OBJC_$_CATEGORY_INSTANCE_METHODS_NSURLRequest_$_LSHTTPRequest
+__OBJC_CATEGORY_PROTOCOLS_$_NSURLRequest_$_LSHTTPRequest
+__OBJC_$_PROP_LIST_NSURLRequest_$_LSHTTPRequest
+__OBJC_$_CATEGORY_NSURLRequest_$_LSHTTPRequest
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Nocilla/Nocilla/Hooks/NSURLRequest/NSURLRequest+LSHTTPRequest.m
+Nocilla/Hooks/NSURLRequest/NSURLRequest+LSHTTPRequest.m
+-[LSStubRequest initWithMethod:url:]
+-[LSStubRequest initWithMethod:urlMatcher:]
+-[LSStubRequest setHeader:value:]
+-[LSStubRequest headers]
+-[LSStubRequest description]
+-[LSStubRequest response]
+-[LSStubRequest matchesRequest:]
+-[LSStubRequest matchesMethod:]
+-[LSStubRequest matchesURL:]
+-[LSStubRequest matchesHeaders:]
+-[LSStubRequest matchesBody:]
+-[LSStubRequest isEqual:]
+-[LSStubRequest isEqualToStubRequest:]
+-[LSStubRequest hash]
+-[LSStubRequest method]
+-[LSStubRequest setMethod:]
+-[LSStubRequest urlMatcher]
+-[LSStubRequest setUrlMatcher:]
+-[LSStubRequest body]
+-[LSStubRequest setBody:]
+-[LSStubRequest setResponse:]
+-[LSStubRequest mutableHeaders]
+-[LSStubRequest setMutableHeaders:]
+-[LSStubRequest .cxx_destruct]
+_OBJC_CLASSLIST_REFERENCES_$_.17
+_OBJC_CLASSLIST_REFERENCES_$_.33
+_OBJC_SELECTOR_REFERENCES_.39
+_OBJC_SELECTOR_REFERENCES_.41
+_OBJC_SELECTOR_REFERENCES_.43
+_OBJC_SELECTOR_REFERENCES_.45
+_OBJC_SELECTOR_REFERENCES_.47
+_OBJC_SELECTOR_REFERENCES_.49
+_OBJC_SELECTOR_REFERENCES_.51
+__OBJC_METACLASS_RO_$_LSStubRequest
+__OBJC_$_INSTANCE_METHODS_LSStubRequest
+_OBJC_IVAR_$_LSStubRequest._method
+_OBJC_IVAR_$_LSStubRequest._urlMatcher
+_OBJC_IVAR_$_LSStubRequest._body
+_OBJC_IVAR_$_LSStubRequest._response
+_OBJC_IVAR_$_LSStubRequest._mutableHeaders
+__OBJC_$_INSTANCE_VARIABLES_LSStubRequest
+__OBJC_$_PROP_LIST_LSStubRequest
+__OBJC_CLASS_RO_$_LSStubRequest
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Nocilla/Nocilla/Stubs/LSStubRequest.m
+Nocilla/Stubs/LSStubRequest.m
+Nocilla/Stubs/LSStubRequest.h
+-[LSDataMatcher initWithData:]
+-[LSDataMatcher matchesData:]
+-[LSDataMatcher isEqual:]
+-[LSDataMatcher hash]
+-[LSDataMatcher data]
+-[LSDataMatcher setData:]
+-[LSDataMatcher .cxx_destruct]
+_OBJC_IVAR_$_LSDataMatcher._data
+__OBJC_METACLASS_RO_$_LSDataMatcher
+__OBJC_$_INSTANCE_METHODS_LSDataMatcher
+__OBJC_$_INSTANCE_VARIABLES_LSDataMatcher
+__OBJC_$_PROP_LIST_LSDataMatcher
+__OBJC_CLASS_RO_$_LSDataMatcher
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Nocilla/Nocilla/Matchers/LSDataMatcher.m
+Nocilla/Matchers/LSDataMatcher.m
+-[LSNSURLHook load]
+-[LSNSURLHook unload]
+__OBJC_METACLASS_RO_$_LSNSURLHook
+__OBJC_$_INSTANCE_METHODS_LSNSURLHook
+__OBJC_CLASS_RO_$_LSNSURLHook
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Nocilla/Nocilla/Hooks/NSURLRequest/LSNSURLHook.m
+Nocilla/Hooks/NSURLRequest/LSNSURLHook.m
+-[LSASIHTTPRequestHook load]
+-[LSASIHTTPRequestHook unload]
+-[LSASIHTTPRequestHook swizzleASIHTTPRequest]
+-[LSASIHTTPRequestHook swizzleASIHTTPSelector:withSelector:]
+-[LSASIHTTPRequestHook addMethodToASIHTTPRequest:]
+-[LSASIHTTPRequestHook fail]
+_OBJC_CLASSLIST_REFERENCES_$_.29
+__OBJC_METACLASS_RO_$_LSASIHTTPRequestHook
+__OBJC_$_INSTANCE_METHODS_LSASIHTTPRequestHook
+__OBJC_CLASS_RO_$_LSASIHTTPRequestHook
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/Nocilla/Nocilla/Hooks/ASIHTTPRequest/LSASIHTTPRequestHook.m
+Nocilla/Hooks/ASIHTTPRequest/LSASIHTTPRequestHook.m
+__ZL15__ARCLite__loadv
+__ZL30add_image_hook_autoreleasepoolPK11mach_headerl
+__ZL34__arclite_objc_autoreleasePoolPushv
+__ZL33__arclite_objc_autoreleasePoolPopPv
+__ZL19patch_lazy_pointersPK11mach_headerP7patch_tm
+__ZL42__arclite_NSArray_objectAtIndexedSubscriptP7NSArrayP13objc_selectorj
+__ZL53__arclite_NSMutableArray_setObject_atIndexedSubscriptP14NSMutableArrayP13objc_selectorP11objc_objectj
+__ZL46__arclite_NSDictionary_objectForKeyedSubscriptP12NSDictionaryP13objc_selectorP11objc_object
+__ZL47__arclite_NSOrderedSet_objectAtIndexedSubscriptP12NSOrderedSetP13objc_selectorj
+__ZL58__arclite_NSMutableOrderedSet_setObject_atIndexedSubscriptP19NSMutableOrderedSetP13objc_selectorP11objc_objectj
+__ZL58__arclite_NSMutableDictionary__setObject_forKeyedSubscriptP19NSMutableDictionaryP13objc_selectorP11objc_objectS4_
+__ZL18add_image_hook_ARCPK11mach_headerl
+__ZL27__arclite_objc_loadClassrefPP10objc_class
+__ZL36__arclite_object_setInstanceVariableP11objc_objectPKcPv
+__ZL24__arclite_object_setIvarP11objc_objectP9objc_ivarS0_
+__ZL21__arclite_object_copyP11objc_objectm
+__ZL21__arclite_objc_retainP11objc_object
+__ZL26__arclite_objc_retainBlockP11objc_object
+__ZL22__arclite_objc_releaseP11objc_object
+__ZL26__arclite_objc_autoreleaseP11objc_object
+__ZL32__arclite_objc_retainAutoreleaseP11objc_object
+__ZL37__arclite_objc_autoreleaseReturnValueP11objc_object
+__ZL43__arclite_objc_retainAutoreleaseReturnValueP11objc_object
+__ZL44__arclite_objc_retainAutoreleasedReturnValueP11objc_object
+__ZL26__arclite_objc_storeStrongPP11objc_objectS0_
+__ZL22add_image_hook_swiftV1PK11mach_headerl
+__ZL42__arclite_NSUndoManagerProxy_isKindOfClassP11objc_objectP13objc_selectorP10objc_class
+__ZL30__arclite_NSManagedObject_initP11objc_objectP13objc_selector
+__ZL41__arclite_NSManagedObject_allocWithEntityP11objc_objectP13objc_selectorS0_
+__ZL36__arclite_NSManagedObject_allocBatchP11objc_objectP13objc_selectorPS0_S0_j
+__ZL37__arclite_NSKKMS_fastIndexForKnownKeyP11objc_objectP13objc_selectorS0_
+__ZL28__arclite_NSKKMS_indexForKeyP11objc_objectP13objc_selectorS0_
+__ZL29__arclite_NSKKsD_objectForKeyP11objc_objectP13objc_selectorS0_
+__ZL35__arclite_NSKKsD_removeObjectForKeyP11objc_objectP13objc_selectorS0_
+__ZL33__arclite_NSKKsD_setObject_forKeyP11objc_objectP13objc_selectorS0_S0_
+__ZL41__arclite_NSKKsD_addEntriesFromDictionaryP11objc_objectP13objc_selectorP12NSDictionary
+__ZL28__arclite_objc_readClassPairP10objc_classPK15objc_image_info
+__ZL32__arclite_objc_allocateClassPairP10objc_classPKcm
+__ZL32__arclite_object_getIndexedIvarsP11objc_object
+__ZL23__arclite_objc_getClassPKc
+__ZL27__arclite_objc_getMetaClassPKc
+__ZL31__arclite_objc_getRequiredClassPKc
+__ZL26__arclite_objc_lookUpClassPKc
+__ZL26__arclite_objc_getProtocolPKc
+__ZL23__arclite_class_getNameP10objc_class
+__ZL26__arclite_protocol_getNameP8Protocol
+__ZL37__arclite_objc_copyClassNamesForImagePKcPj
+__ZL17transcribeMethodsP10objc_classP15glue_class_ro_t
+__ZL19transcribeProtocolsP10objc_classP15glue_class_ro_t
+__ZL20transcribePropertiesP10objc_classP15glue_class_ro_t
+__ZL14initialize_impP11objc_objectP13objc_selector
+__ZL18allocateMaybeSwiftP18glue_swift_class_tm
+__ZL22copySwiftV1MangledNamePKcb
+__ZL13demangledNamePKcb
+__ZL16scanMangledFieldRPKcS0_S1_Ri
+__ZL30arclite_uninitialized_functionv
+__ZL12cxxConstructP11objc_object
+__ZL20fixStringForCoreDataP11objc_object
+_OBJC_METACLASS_$___ARCLite__
+__ZL24OBJC_CLASS_$___ARCLite__
+__ZL31OBJC_METACLASS_RO_$___ARCLite__
+__non_lazy_classes
+__ZL27OBJC_CLASS_RO_$___ARCLite__
+__ZL11_class_name
+__ZL32OBJC_$_CLASS_METHODS___ARCLite__
+__ZL17_load_method_name
+__ZL17_load_method_type
+__ZL23NSAutoreleasePool_class
+__ZZL30add_image_hook_autoreleasepoolPK11mach_headerlE7patches
+__ZGVZL30add_image_hook_autoreleasepoolPK11mach_headerlE7patches
+_OBJC_SELECTOR_REFERENCES_.9
+__OBJC_$_PROTOCOL_INSTANCE_METHODS___ARCLiteIndexedSubscripting__
+__OBJC_$_PROTOCOL_METHOD_TYPES___ARCLiteIndexedSubscripting__
+__OBJC_PROTOCOL_$___ARCLiteIndexedSubscripting__
+__OBJC_LABEL_PROTOCOL_$___ARCLiteIndexedSubscripting__
+__OBJC_PROTOCOL_REFERENCE_$___ARCLiteIndexedSubscripting__
+__OBJC_$_PROTOCOL_INSTANCE_METHODS___ARCLiteKeyedSubscripting__
+__OBJC_$_PROTOCOL_METHOD_TYPES___ARCLiteKeyedSubscripting__
+__OBJC_PROTOCOL_$___ARCLiteKeyedSubscripting__
+__OBJC_LABEL_PROTOCOL_$___ARCLiteKeyedSubscripting__
+__OBJC_PROTOCOL_REFERENCE_$___ARCLiteKeyedSubscripting__
+__ZZL18add_image_hook_ARCPK11mach_headerlE7patches
+__ZGVZL18add_image_hook_ARCPK11mach_headerlE7patches
+__ZL30NSUndoManagerProxy_targetClass
+_OBJC_SELECTOR_REFERENCES_.63
+_OBJC_SELECTOR_REFERENCES_.67
+__ZL29original_NSManagedObject_init
+__ZL40original_NSManagedObject_allocWithEntity
+_OBJC_SELECTOR_REFERENCES_.71
+__ZL35original_NSManagedObject_allocBatch
+__ZL25NSMutableDictionary_class
+__ZL22NSConstantString_class
+__ZL14NSString_class
+_OBJC_SELECTOR_REFERENCES_.76
+__ZL36original_NSKKMS_fastIndexForKnownKey
+_OBJC_SELECTOR_REFERENCES_.78
+__ZL27original_NSKKMS_indexForKey
+__ZL28original_NSKKsD_objectForKey
+__ZL34original_NSKKsD_removeObjectForKey
+__ZL32original_NSKKsD_setObject_forKey
+_OBJC_SELECTOR_REFERENCES_.81
+__ZL40original_NSKKsD_addEntriesFromDictionary
+__ZZL22add_image_hook_swiftV1PK11mach_headerlE7patches
+__ZGVZL22add_image_hook_swiftV1PK11mach_headerlE7patches
+__ZL31original_objc_allocateClassPair
+__ZL31original_object_getIndexedIvars
+__ZL22original_objc_getClass
+__ZL26original_objc_getMetaClass
+__ZL30original_objc_getRequiredClass
+__ZL25original_objc_lookUpClass
+__ZL25original_objc_getProtocol
+__ZL22original_class_getName
+__ZL25original_protocol_getName
+__ZL36original_objc_copyClassNamesForImage
+_OBJC_SELECTOR_REFERENCES_.94
+_OBJC_SELECTOR_REFERENCES_.96
+__ZL12demangleLock
+__ZL9Demangled
+_OBJC_SELECTOR_REFERENCES_.107
+_OBJC_SELECTOR_REFERENCES_.109
+_OBJC_SELECTOR_REFERENCES_.111
+_OBJC_SELECTOR_REFERENCES_.113
+_OBJC_SELECTOR_REFERENCES_.115
+_OBJC_SELECTOR_REFERENCES_.117
+Apple clang version 12.0.0 (clang-1200.0.32.28)
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c++ --target=armv7-apple-ios4.3 -fmessage-length=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -std=c++11 -Wno-trigraphs -fno-exceptions -fno-rtti -fno-sanitize=vptr -mpascal-strings -Os -Wno-missing-field-initializers -Wmissing-prototypes -Wno-implicit-atomic-properties -Wno-objc-interface-ivars -Wno-arc-repeated-use-of-weak -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-float-conversion -Wno-non-literal-null-conversion -Wno-objc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -Wno-c++11-extensions -D NDEBUG=1 -D OBJC_OLD_DISPATCH_PROTOTYPES=0 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.2.Internal.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -Winvalid-offsetof -g -fno-threadsafe-statics -Wno-sign-conversion -Wno-infinite-recursion -Wno-move -Wno-comma -Wno-block-capture-autoreleasing -Wno-strict-prototypes -Wno-range-loop-analysis -Wno-semicolon-before-method-body -fembed-bitcode=all -iquote /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/install/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-generated-files.hmap -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/install/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-own-target-headers.hmap -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/install/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-all-target-headers.hmap -iquote /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/install/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-project-headers.hmap -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/install/Symbols/BuiltProducts/include -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/install/TempContent/Objects/arclite.build/arclite_iOS.build/DerivedSources-normal/armv7 -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/install/TempContent/Objects/arclite.build/arclite_iOS.build/DerivedSources/armv7 -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/install/TempContent/Objects/arclite.build/arclite_iOS.build/DerivedSources -F/Library/Caches/com.apple.xbs/Binaries/arclite_iOS/install/Symbols/BuiltProducts -iframework /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.2.Internal.sdk/System/Library/PrivateFrameworks -Wall -Wextra -Wno-gcc-compat -Wno-error=incomplete-umbrella -Wno-error=invalid-ios-deployment-target -Wno-error=deprecated-declarations -Wno-error=documentation -Wno-error=incomplete-umbrella -Wno-error=invalid-ios-deployment-target -Wno-error=deprecated-declarations -Wno-error=documentation -MMD -MT dependencies -MF /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/install/TempContent/Objects/arclite.build/arclite_iOS.build/Objects-normal/armv7/arclite.d --serialize-diagnostics /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/install/TempContent/Objects/arclite.build/arclite_iOS.build/Objects-normal/armv7/arclite.dia -c /Library/Caches/com.apple.xbs/Sources/arclite_iOS/arclite-76/source/arclite.mm -o /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/install/TempContent/Objects/arclite.build/arclite_iOS.build/Objects-normal/armv7/arclite.o -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -mlinker-version=609.8 -march=armv7a
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.2.Internal.sdk
+iPhoneOS14.2.Internal.sdk
+/Library/Caches/com.apple.xbs/Sources/arclite_iOS/arclite-76/source/arclite.mm
+/Library/Caches/com.apple.xbs/Sources/arclite_iOS/arclite-76
+fixStringForCoreData
+source/arclite.mm
+cxxConstruct
+arclite_uninitialized_function
+scanMangledField
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.2.Internal.sdk/usr/include/_ctype.h
+__isctype
+demangledName
+copySwiftV1DemangledName
+copySwiftV1MangledName
+allocateMaybeSwift
+word_align
+isSwift
+initialize_imp
+transcribeProperties
+property_list_nth
+transcribeProtocols
+transcribeMethods
+data
+method_list_nth
+__arclite_objc_copyClassNamesForImage
+__arclite_protocol_getName
+__arclite_class_getName
+__arclite_objc_getProtocol
+__arclite_objc_lookUpClass
+__arclite_objc_getRequiredClass
+__arclite_objc_getMetaClass
+__arclite_objc_getClass
+__arclite_object_getIndexedIvars
+__arclite_objc_allocateClassPair
+metaclass
+__arclite_objc_readClassPair
+transcribeIvars
+ivar_list_nth
+max
+alignment
+ro
+fastFlags
+__arclite_NSKKsD_addEntriesFromDictionary
+__arclite_NSKKsD_setObject_forKey
+__arclite_NSKKsD_removeObjectForKey
+__arclite_NSKKsD_objectForKey
+__arclite_NSKKMS_indexForKey
+__arclite_NSKKMS_fastIndexForKnownKey
+__arclite_NSManagedObject_allocBatch
+__arclite_NSManagedObject_allocWithEntity
+__arclite_NSManagedObject_init
+__arclite_NSUndoManagerProxy_isKindOfClass
+add_image_hook_swiftV1
+patch_t<const char **(const char *, unsigned int *)>
+patch_t<const char *(Protocol *)>
+patch_t<const char *(Class)>
+patch_t<Protocol *(const char *)>
+patch_t<Class (const char *)>
+patch_t<void *(id)>
+patch_t<Class (Class, const char *, unsigned long)>
+patch_t<Class (Class, const objc_image_info *)>
+__arclite_objc_storeStrong
+__arclite_objc_release
+__arclite_objc_retain
+__arclite_objc_retainAutoreleasedReturnValue
+__arclite_objc_retainAutoreleaseReturnValue
+__arclite_objc_autoreleaseReturnValue
+__arclite_objc_retainAutorelease
+__arclite_objc_autorelease
+__arclite_objc_retainBlock
+__arclite_object_copy
+fixupCopiedReferences
+_class_getInstanceStart
+alignedInstanceStart
+__arclite_class_usesAutomaticRetainRelease
+classOrSuperClassesUseARR
+__arclite_object_setIvar
+isScannedOffset
+_ivar_getClass
+__arclite_object_setInstanceVariable
+__arclite_objc_loadClassref
+add_image_hook_ARC
+patch_t<void (id *, id)>
+patch_t<id (id)>
+patch_t<void (id)>
+patch_t<id (id, unsigned long)>
+patch_t<void (id, objc_ivar *, id)>
+patch_t<objc_ivar *(id, const char *, void *)>
+patch_t<Class (Class *)>
+__arclite_NSMutableDictionary__setObject_forKeyedSubscript
+__arclite_NSMutableOrderedSet_setObject_atIndexedSubscript
+__arclite_NSOrderedSet_objectAtIndexedSubscript
+__arclite_NSDictionary_objectForKeyedSubscript
+__arclite_NSMutableArray_setObject_atIndexedSubscript
+__arclite_NSArray_objectAtIndexedSubscript
+patch_lazy_pointers
+__arclite_objc_autoreleasePoolPop
+__arclite_objc_autoreleasePoolPush
+add_image_hook_autoreleasepool
+patch_t<void (void *)>
+patch_t<void *()>
+__ARCLite__load
+install_swiftV1
+replaceMethod
+install_ARC
+install_dict_nil_value
+addOrReplaceMethod
+keyedGetter
+install_subscripting
+addMethod
+indexedGetter
+install_autoreleasepool

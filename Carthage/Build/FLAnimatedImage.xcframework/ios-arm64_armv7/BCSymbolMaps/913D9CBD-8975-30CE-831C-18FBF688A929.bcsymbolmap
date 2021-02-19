@@ -1,0 +1,407 @@
+BCSymbolMap Version: 2.0
+Apple clang version 12.0.0 (clang-1200.0.32.29)
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.4.sdk
+iPhoneOS14.4.sdk
+/Users/deepak/Library/Caches/org.carthage.CarthageKit/DerivedData/12.4_12D4e/FLAnimatedImage/1.0.15/Build/Intermediates.noindex/ArchiveIntermediates/FLAnimatedImage/IntermediateBuildFilesPath/FLAnimatedImage.build/Release-iphoneos/FLAnimatedImage.build/DerivedSources/FLAnimatedImage_vers.c
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/FLAnimatedImage
+-[FLAnimatedImage frameCacheSizeCurrent]
+-[FLAnimatedImage setFrameCacheSizeMax:]
+-[FLAnimatedImage setFrameCacheSizeMaxInternal:]
++[FLAnimatedImage initialize]
+___29+[FLAnimatedImage initialize]_block_invoke
+-[FLAnimatedImage init]
+___23-[FLAnimatedImage init]_block_invoke
+-[FLAnimatedImage initWithAnimatedGIFData:]
+-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]
+___83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke
+___83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke_2
+___copy_helper_block_e8_32s
+___destroy_helper_block_e8_32s
+___83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke.56
+___83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke.84
+___copy_helper_block_e8_32s40s
+___destroy_helper_block_e8_32s40s
+___83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke.89
+___83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke.98
+___83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke_2.103
+___83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke_3
+___83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke_4
+___83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke_5
++[FLAnimatedImage animatedImageWithGIFData:]
+-[FLAnimatedImage dealloc]
+-[FLAnimatedImage imageLazilyCachedAtIndex:]
+___44-[FLAnimatedImage imageLazilyCachedAtIndex:]_block_invoke
+-[FLAnimatedImage addFrameIndexesToCache:]
+___42-[FLAnimatedImage addFrameIndexesToCache:]_block_invoke
+___42-[FLAnimatedImage addFrameIndexesToCache:]_block_invoke_2
+___42-[FLAnimatedImage addFrameIndexesToCache:]_block_invoke_3
+___42-[FLAnimatedImage addFrameIndexesToCache:]_block_invoke_4
+___copy_helper_block_e8_32s40w
+___destroy_helper_block_e8_32s40w
+___copy_helper_block_e8_32w
+___destroy_helper_block_e8_32w
++[FLAnimatedImage sizeForImage:]
+___32+[FLAnimatedImage sizeForImage:]_block_invoke
+-[FLAnimatedImage imageAtIndex:]
+-[FLAnimatedImage frameIndexesToCache]
+___38-[FLAnimatedImage frameIndexesToCache]_block_invoke
+-[FLAnimatedImage purgeFrameCacheIfNeeded]
+___42-[FLAnimatedImage purgeFrameCacheIfNeeded]_block_invoke
+-[FLAnimatedImage growFrameCacheSizeAfterMemoryWarning:]
+___56-[FLAnimatedImage growFrameCacheSizeAfterMemoryWarning:]_block_invoke
+-[FLAnimatedImage resetFrameCacheSizeMaxInternal]
+___49-[FLAnimatedImage resetFrameCacheSizeMaxInternal]_block_invoke
+-[FLAnimatedImage didReceiveMemoryWarning:]
+___43-[FLAnimatedImage didReceiveMemoryWarning:]_block_invoke
++[FLAnimatedImage predrawnImageFromImage:]
+___42+[FLAnimatedImage predrawnImageFromImage:]_block_invoke
+___42+[FLAnimatedImage predrawnImageFromImage:]_block_invoke_2
+___42+[FLAnimatedImage predrawnImageFromImage:]_block_invoke.214
+-[FLAnimatedImage description]
+-[FLAnimatedImage posterImage]
+-[FLAnimatedImage size]
+-[FLAnimatedImage loopCount]
+-[FLAnimatedImage delayTimesForIndexes]
+-[FLAnimatedImage frameCount]
+-[FLAnimatedImage frameCacheSizeMax]
+-[FLAnimatedImage data]
+-[FLAnimatedImage frameCacheSizeOptimal]
+-[FLAnimatedImage isPredrawingEnabled]
+-[FLAnimatedImage frameCacheSizeMaxInternal]
+-[FLAnimatedImage requestedFrameIndex]
+-[FLAnimatedImage setRequestedFrameIndex:]
+-[FLAnimatedImage posterImageFrameIndex]
+-[FLAnimatedImage cachedFramesForIndexes]
+-[FLAnimatedImage cachedFrameIndexes]
+-[FLAnimatedImage requestedFrameIndexes]
+-[FLAnimatedImage allFramesIndexSet]
+-[FLAnimatedImage memoryWarningCount]
+-[FLAnimatedImage setMemoryWarningCount:]
+-[FLAnimatedImage serialQueue]
+-[FLAnimatedImage imageSource]
+-[FLAnimatedImage weakProxy]
+-[FLAnimatedImage .cxx_destruct]
++[FLAnimatedImage(Logging) setLogBlock:logLevel:]
++[FLAnimatedImage(Logging) logStringFromBlock:withLevel:]
++[FLWeakProxy weakProxyForObject:]
+-[FLWeakProxy forwardingTargetForSelector:]
+-[FLWeakProxy forwardInvocation:]
+-[FLWeakProxy methodSignatureForSelector:]
+-[FLWeakProxy target]
+-[FLWeakProxy setTarget:]
+-[FLWeakProxy .cxx_destruct]
+_OBJC_SELECTOR_REFERENCES_
+_OBJC_SELECTOR_REFERENCES_.2
+_OBJC_SELECTOR_REFERENCES_.4
+_OBJC_SELECTOR_REFERENCES_.6
+_OBJC_SELECTOR_REFERENCES_.8
+_OBJC_CLASSLIST_REFERENCES_$_
+_OBJC_SELECTOR_REFERENCES_.10
+_OBJC_CLASSLIST_REFERENCES_$_.11
+_OBJC_SELECTOR_REFERENCES_.13
+_allAnimatedImagesWeak
+_OBJC_CLASSLIST_REFERENCES_$_.14
+_OBJC_SELECTOR_REFERENCES_.16
+___block_descriptor_32_e24_v16?0"NSNotification"8l
+___block_literal_global
+_OBJC_SELECTOR_REFERENCES_.18
+_OBJC_SELECTOR_REFERENCES_.20
+_OBJC_SELECTOR_REFERENCES_.22
+_OBJC_SELECTOR_REFERENCES_.24
+_OBJC_SELECTOR_REFERENCES_.26
+_OBJC_SELECTOR_REFERENCES_.28
+___block_descriptor_32_e15_"NSString"8?0l
+___block_literal_global.30
+_OBJC_CLASSLIST_REFERENCES_$_.31
+_OBJC_SELECTOR_REFERENCES_.34
+_OBJC_SELECTOR_REFERENCES_.36
+_OBJC_SELECTOR_REFERENCES_.38
+_OBJC_SELECTOR_REFERENCES_.40
+___block_literal_global.41
+_OBJC_SELECTOR_REFERENCES_.45
+_OBJC_CLASSLIST_REFERENCES_$_.46
+_OBJC_CLASSLIST_REFERENCES_$_.47
+_OBJC_CLASSLIST_REFERENCES_$_.48
+_OBJC_SELECTOR_REFERENCES_.50
+_OBJC_CLASSLIST_REFERENCES_$_.51
+_OBJC_SELECTOR_REFERENCES_.53
+___block_descriptor_40_e8_32s_e15_"NSString"8?0l
+___block_descriptor_48_e8_32s_e15_"NSString"8?0l
+_OBJC_SELECTOR_REFERENCES_.60
+_OBJC_SELECTOR_REFERENCES_.62
+_OBJC_SELECTOR_REFERENCES_.64
+_OBJC_CLASSLIST_REFERENCES_$_.65
+_OBJC_SELECTOR_REFERENCES_.67
+_OBJC_SELECTOR_REFERENCES_.69
+_OBJC_SELECTOR_REFERENCES_.71
+_OBJC_SELECTOR_REFERENCES_.73
+_OBJC_SELECTOR_REFERENCES_.75
+_OBJC_SELECTOR_REFERENCES_.77
+_OBJC_SELECTOR_REFERENCES_.79
+_OBJC_SELECTOR_REFERENCES_.81
+_OBJC_SELECTOR_REFERENCES_.83
+___block_descriptor_48_e8_32s40s_e15_"NSString"8?0l
+_OBJC_SELECTOR_REFERENCES_.88
+___block_descriptor_56_e8_32s40s_e15_"NSString"8?0l
+_OBJC_SELECTOR_REFERENCES_.93
+_OBJC_SELECTOR_REFERENCES_.95
+_OBJC_SELECTOR_REFERENCES_.97
+_OBJC_SELECTOR_REFERENCES_.102
+___block_descriptor_48_e15_"NSString"8?0l
+_OBJC_SELECTOR_REFERENCES_.109
+_OBJC_SELECTOR_REFERENCES_.115
+_OBJC_CLASSLIST_REFERENCES_$_.116
+_OBJC_SELECTOR_REFERENCES_.118
+_OBJC_CLASSLIST_REFERENCES_$_.119
+_OBJC_SELECTOR_REFERENCES_.121
+_OBJC_SELECTOR_REFERENCES_.123
+_OBJC_CLASSLIST_REFERENCES_$_.124
+_OBJC_SELECTOR_REFERENCES_.126
+_OBJC_SELECTOR_REFERENCES_.128
+_OBJC_SELECTOR_REFERENCES_.132
+_OBJC_SELECTOR_REFERENCES_.134
+_OBJC_SELECTOR_REFERENCES_.136
+_OBJC_SELECTOR_REFERENCES_.138
+_OBJC_SELECTOR_REFERENCES_.140
+_OBJC_SELECTOR_REFERENCES_.142
+_OBJC_SELECTOR_REFERENCES_.144
+_OBJC_SELECTOR_REFERENCES_.146
+___block_literal_global.147
+_OBJC_SELECTOR_REFERENCES_.151
+_OBJC_SELECTOR_REFERENCES_.153
+_OBJC_SELECTOR_REFERENCES_.156
+___block_descriptor_56_e8_32s40w_e5_v8?0l
+___block_descriptor_40_e8_32w_e24_v32?0{_NSRange=QQ}8^B24l
+_OBJC_SELECTOR_REFERENCES_.160
+___block_descriptor_80_e8_32s40w_e5_v8?0l
+_OBJC_SELECTOR_REFERENCES_.162
+_OBJC_SELECTOR_REFERENCES_.166
+_OBJC_SELECTOR_REFERENCES_.168
+_OBJC_SELECTOR_REFERENCES_.170
+_OBJC_SELECTOR_REFERENCES_.172
+_OBJC_SELECTOR_REFERENCES_.174
+___block_literal_global.175
+_OBJC_SELECTOR_REFERENCES_.179
+___block_descriptor_40_e8_32s_e24_v32?0{_NSRange=QQ}8^B24l
+_OBJC_SELECTOR_REFERENCES_.181
+_OBJC_SELECTOR_REFERENCES_.183
+_OBJC_SELECTOR_REFERENCES_.187
+_OBJC_SELECTOR_REFERENCES_.189
+_OBJC_SELECTOR_REFERENCES_.191
+_OBJC_SELECTOR_REFERENCES_.195
+_OBJC_SELECTOR_REFERENCES_.197
+_OBJC_SELECTOR_REFERENCES_.199
+_OBJC_SELECTOR_REFERENCES_.201
+___block_descriptor_80_e8_32s_e15_"NSString"8?0l
+_OBJC_SELECTOR_REFERENCES_.209
+_OBJC_SELECTOR_REFERENCES_.211
+_OBJC_SELECTOR_REFERENCES_.213
+___block_descriptor_64_e8_32s_e15_"NSString"8?0l
+_OBJC_SELECTOR_REFERENCES_.218
+_OBJC_SELECTOR_REFERENCES_.222
+__OBJC_$_CLASS_METHODS_FLAnimatedImage
+__OBJC_METACLASS_RO_$_FLAnimatedImage
+__OBJC_$_INSTANCE_METHODS_FLAnimatedImage
+_OBJC_IVAR_$_FLAnimatedImage._predrawingEnabled
+_OBJC_IVAR_$_FLAnimatedImage._posterImage
+_OBJC_IVAR_$_FLAnimatedImage._loopCount
+_OBJC_IVAR_$_FLAnimatedImage._delayTimesForIndexes
+_OBJC_IVAR_$_FLAnimatedImage._frameCount
+_OBJC_IVAR_$_FLAnimatedImage._frameCacheSizeMax
+_OBJC_IVAR_$_FLAnimatedImage._data
+_OBJC_IVAR_$_FLAnimatedImage._frameCacheSizeOptimal
+_OBJC_IVAR_$_FLAnimatedImage._frameCacheSizeMaxInternal
+_OBJC_IVAR_$_FLAnimatedImage._requestedFrameIndex
+_OBJC_IVAR_$_FLAnimatedImage._posterImageFrameIndex
+_OBJC_IVAR_$_FLAnimatedImage._cachedFramesForIndexes
+_OBJC_IVAR_$_FLAnimatedImage._cachedFrameIndexes
+_OBJC_IVAR_$_FLAnimatedImage._requestedFrameIndexes
+_OBJC_IVAR_$_FLAnimatedImage._allFramesIndexSet
+_OBJC_IVAR_$_FLAnimatedImage._memoryWarningCount
+_OBJC_IVAR_$_FLAnimatedImage._serialQueue
+_OBJC_IVAR_$_FLAnimatedImage._imageSource
+_OBJC_IVAR_$_FLAnimatedImage._weakProxy
+_OBJC_IVAR_$_FLAnimatedImage._size
+__OBJC_$_INSTANCE_VARIABLES_FLAnimatedImage
+__OBJC_$_PROP_LIST_FLAnimatedImage
+__OBJC_CLASS_RO_$_FLAnimatedImage
+__logBlock
+__logLevel
+__OBJC_$_CATEGORY_CLASS_METHODS_FLAnimatedImage_$_Logging
+__OBJC_$_CATEGORY_FLAnimatedImage_$_Logging
+_OBJC_SELECTOR_REFERENCES_.325
+_OBJC_IVAR_$_FLWeakProxy._target
+_OBJC_SELECTOR_REFERENCES_.327
+_OBJC_SELECTOR_REFERENCES_.329
+__OBJC_$_CLASS_METHODS_FLWeakProxy
+__OBJC_METACLASS_RO_$_FLWeakProxy
+__OBJC_$_INSTANCE_METHODS_FLWeakProxy
+__OBJC_$_INSTANCE_VARIABLES_FLWeakProxy
+__OBJC_$_PROP_LIST_FLWeakProxy
+__OBJC_CLASS_RO_$_FLWeakProxy
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/FLAnimatedImage/FLAnimatedImage/FLAnimatedImage.m
+FLAnimatedImage/FLAnimatedImage.m
+FLAnimatedImage/include/FLAnimatedImage.h
+__42+[FLAnimatedImage predrawnImageFromImage:]_block_invoke.214
+__42+[FLAnimatedImage predrawnImageFromImage:]_block_invoke_2
+__42+[FLAnimatedImage predrawnImageFromImage:]_block_invoke
+__43-[FLAnimatedImage didReceiveMemoryWarning:]_block_invoke
+__49-[FLAnimatedImage resetFrameCacheSizeMaxInternal]_block_invoke
+__56-[FLAnimatedImage growFrameCacheSizeAfterMemoryWarning:]_block_invoke
+__42-[FLAnimatedImage purgeFrameCacheIfNeeded]_block_invoke
+NSMaxRange
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSRange.h
+__38-[FLAnimatedImage frameIndexesToCache]_block_invoke
+NSMakeRange
+__32+[FLAnimatedImage sizeForImage:]_block_invoke
+__destroy_helper_block_e8_32w
+__copy_helper_block_e8_32w
+__destroy_helper_block_e8_32s40w
+__copy_helper_block_e8_32s40w
+__42-[FLAnimatedImage addFrameIndexesToCache:]_block_invoke_4
+__42-[FLAnimatedImage addFrameIndexesToCache:]_block_invoke_3
+__42-[FLAnimatedImage addFrameIndexesToCache:]_block_invoke_2
+__42-[FLAnimatedImage addFrameIndexesToCache:]_block_invoke
+__44-[FLAnimatedImage imageLazilyCachedAtIndex:]_block_invoke
+__83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke_5
+__83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke_4
+__83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke_3
+__83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke_2.103
+__83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke.98
+__83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke.89
+__destroy_helper_block_e8_32s40s
+__copy_helper_block_e8_32s40s
+__83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke.84
+__83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke.56
+__destroy_helper_block_e8_32s
+__copy_helper_block_e8_32s
+__83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke_2
+__83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke
+__23-[FLAnimatedImage init]_block_invoke
+__29+[FLAnimatedImage initialize]_block_invoke
+-[FLAnimatedImageView initWithImage:]
+-[FLAnimatedImageView initWithImage:highlightedImage:]
+-[FLAnimatedImageView initWithFrame:]
+-[FLAnimatedImageView initWithCoder:]
+-[FLAnimatedImageView commonInit]
+-[FLAnimatedImageView setAnimatedImage:]
+-[FLAnimatedImageView dealloc]
+-[FLAnimatedImageView didMoveToSuperview]
+-[FLAnimatedImageView didMoveToWindow]
+-[FLAnimatedImageView setAlpha:]
+-[FLAnimatedImageView setHidden:]
+-[FLAnimatedImageView intrinsicContentSize]
+-[FLAnimatedImageView image]
+-[FLAnimatedImageView setImage:]
+-[FLAnimatedImageView frameDelayGreatestCommonDivisor]
+-[FLAnimatedImageView startAnimating]
+-[FLAnimatedImageView setRunLoopMode:]
+-[FLAnimatedImageView stopAnimating]
+-[FLAnimatedImageView isAnimating]
+-[FLAnimatedImageView setHighlighted:]
+-[FLAnimatedImageView updateShouldAnimate]
+-[FLAnimatedImageView displayDidRefresh:]
+___41-[FLAnimatedImageView displayDidRefresh:]_block_invoke
+___41-[FLAnimatedImageView displayDidRefresh:]_block_invoke.142
+___41-[FLAnimatedImageView displayDidRefresh:]_block_invoke_2
++[FLAnimatedImageView defaultRunLoopMode]
+-[FLAnimatedImageView displayLayer:]
+-[FLAnimatedImageView runLoopMode]
+-[FLAnimatedImageView animatedImage]
+-[FLAnimatedImageView loopCompletionBlock]
+-[FLAnimatedImageView setLoopCompletionBlock:]
+-[FLAnimatedImageView currentFrame]
+-[FLAnimatedImageView setCurrentFrame:]
+-[FLAnimatedImageView currentFrameIndex]
+-[FLAnimatedImageView setCurrentFrameIndex:]
+-[FLAnimatedImageView loopCountdown]
+-[FLAnimatedImageView setLoopCountdown:]
+-[FLAnimatedImageView accumulator]
+-[FLAnimatedImageView setAccumulator:]
+-[FLAnimatedImageView displayLink]
+-[FLAnimatedImageView setDisplayLink:]
+-[FLAnimatedImageView shouldAnimate]
+-[FLAnimatedImageView setShouldAnimate:]
+-[FLAnimatedImageView needsDisplayWhenImageBecomesAvailable]
+-[FLAnimatedImageView setNeedsDisplayWhenImageBecomesAvailable:]
+-[FLAnimatedImageView .cxx_destruct]
+___clang_at_available_requires_core_foundation_framework
+_OBJC_SELECTOR_REFERENCES_.12
+_OBJC_SELECTOR_REFERENCES_.14
+_OBJC_IVAR_$_FLAnimatedImageView._animatedImage
+_OBJC_SELECTOR_REFERENCES_.30
+_OBJC_SELECTOR_REFERENCES_.32
+_OBJC_SELECTOR_REFERENCES_.42
+_OBJC_SELECTOR_REFERENCES_.44
+_OBJC_SELECTOR_REFERENCES_.46
+_OBJC_SELECTOR_REFERENCES_.48
+_OBJC_IVAR_$_FLAnimatedImageView._displayLink
+_OBJC_SELECTOR_REFERENCES_.52
+_OBJC_SELECTOR_REFERENCES_.54
+_OBJC_SELECTOR_REFERENCES_.56
+_OBJC_SELECTOR_REFERENCES_.58
+_OBJC_SELECTOR_REFERENCES_.66
+_OBJC_SELECTOR_REFERENCES_.68
+_OBJC_SELECTOR_REFERENCES_.70
+_OBJC_SELECTOR_REFERENCES_.72
+_OBJC_SELECTOR_REFERENCES_.74
+_OBJC_SELECTOR_REFERENCES_.76
+_OBJC_SELECTOR_REFERENCES_.78
+_OBJC_SELECTOR_REFERENCES_.80
+_OBJC_SELECTOR_REFERENCES_.82
+_OBJC_SELECTOR_REFERENCES_.84
+_OBJC_SELECTOR_REFERENCES_.86
+_OBJC_CLASSLIST_REFERENCES_$_.87
+_OBJC_SELECTOR_REFERENCES_.89
+_OBJC_SELECTOR_REFERENCES_.91
+_OBJC_CLASSLIST_REFERENCES_$_.94
+_OBJC_SELECTOR_REFERENCES_.96
+_OBJC_SELECTOR_REFERENCES_.98
+_OBJC_SELECTOR_REFERENCES_.100
+_OBJC_SELECTOR_REFERENCES_.104
+_OBJC_SELECTOR_REFERENCES_.106
+_OBJC_CLASSLIST_REFERENCES_$_.107
+_OBJC_SELECTOR_REFERENCES_.111
+_OBJC_IVAR_$_FLAnimatedImageView._runLoopMode
+_OBJC_SELECTOR_REFERENCES_.113
+_OBJC_SELECTOR_REFERENCES_.117
+_OBJC_SELECTOR_REFERENCES_.119
+_OBJC_SELECTOR_REFERENCES_.125
+_OBJC_CLASSLIST_REFERENCES_$_.126
+_OBJC_CLASSLIST_REFERENCES_$_.127
+_OBJC_SELECTOR_REFERENCES_.129
+_OBJC_CLASSLIST_REFERENCES_$_.133
+_OBJC_SELECTOR_REFERENCES_.135
+_OBJC_SELECTOR_REFERENCES_.137
+_OBJC_SELECTOR_REFERENCES_.139
+_OBJC_SELECTOR_REFERENCES_.141
+_OBJC_SELECTOR_REFERENCES_.148
+_OBJC_SELECTOR_REFERENCES_.150
+_OBJC_SELECTOR_REFERENCES_.152
+_OBJC_SELECTOR_REFERENCES_.154
+_OBJC_SELECTOR_REFERENCES_.158
+_OBJC_CLASSLIST_REFERENCES_$_.163
+_OBJC_SELECTOR_REFERENCES_.165
+_OBJC_SELECTOR_REFERENCES_.167
+_OBJC_SELECTOR_REFERENCES_.169
+_OBJC_SELECTOR_REFERENCES_.171
+_OBJC_IVAR_$_FLAnimatedImageView._loopCompletionBlock
+_OBJC_IVAR_$_FLAnimatedImageView._currentFrame
+_OBJC_IVAR_$_FLAnimatedImageView._currentFrameIndex
+_OBJC_IVAR_$_FLAnimatedImageView._loopCountdown
+_OBJC_IVAR_$_FLAnimatedImageView._accumulator
+_OBJC_IVAR_$_FLAnimatedImageView._shouldAnimate
+_OBJC_IVAR_$_FLAnimatedImageView._needsDisplayWhenImageBecomesAvailable
+__OBJC_$_CLASS_METHODS_FLAnimatedImageView
+__OBJC_METACLASS_RO_$_FLAnimatedImageView
+__OBJC_$_INSTANCE_METHODS_FLAnimatedImageView
+__OBJC_$_INSTANCE_VARIABLES_FLAnimatedImageView
+__OBJC_$_PROP_LIST_FLAnimatedImageView
+__OBJC_CLASS_RO_$_FLAnimatedImageView
+/Users/deepak/Dropbox/Wikimedia/Code/wikipedia-ios/Carthage/Checkouts/FLAnimatedImage/FLAnimatedImage/FLAnimatedImageView.m
+FLAnimatedImage/FLAnimatedImageView.m
+FLAnimatedImage/include/FLAnimatedImageView.h
+__41-[FLAnimatedImageView displayDidRefresh:]_block_invoke_2
+__41-[FLAnimatedImageView displayDidRefresh:]_block_invoke.142
+__41-[FLAnimatedImageView displayDidRefresh:]_block_invoke
+gcd
