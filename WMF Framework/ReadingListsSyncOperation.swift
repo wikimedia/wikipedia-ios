@@ -819,7 +819,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 
                 var fetchedArticle = articlesByKey[articleKey]
                 if fetchedArticle == nil {
-                    if let newArticle = moc.wmf_fetchOrCreate(objectForEntityName: "WMFArticle", withValue: articleKey, forKey: "key") as? WMFArticle {
+                    if let newArticle = dataStore.fetchArticle(withKey: articleKey.databaseKey, variant: articleKey.languageVariantCode, in: moc) {
                         if newArticle.displayTitleHTML == "" {
                             newArticle.displayTitleHTML = remoteEntry.title
                         }
