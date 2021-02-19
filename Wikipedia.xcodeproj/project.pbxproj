@@ -141,6 +141,12 @@
 		6714D6CB245A2B9700CE5A4A /* ArticleCacheReadingManualTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6714D6CA245A2B9700CE5A4A /* ArticleCacheReadingManualTests.swift */; };
 		6714D6CD245A2C1D00CE5A4A /* ArticleTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6714D6CC245A2C1D00CE5A4A /* ArticleTestHelpers.swift */; };
 		671AC2562226FB9B005B37F8 /* ReadingThemesControlsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 671AC2552226FB9B005B37F8 /* ReadingThemesControlsProtocols.swift */; };
+		671BC14325DEDC3D00F754E4 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 671BC14225DEDC3D00F754E4 /* SwiftSoup */; };
+		671BC14E25DEE5C500F754E4 /* ArticleInspectorModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 671BC14D25DEE5C500F754E4 /* ArticleInspectorModels.swift */; };
+		671BC14F25DEE5C500F754E4 /* ArticleInspectorModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 671BC14D25DEE5C500F754E4 /* ArticleInspectorModels.swift */; };
+		671BC15025DEE5C500F754E4 /* ArticleInspectorModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 671BC14D25DEE5C500F754E4 /* ArticleInspectorModels.swift */; };
+		671BC15125DEE5C500F754E4 /* ArticleInspectorModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 671BC14D25DEE5C500F754E4 /* ArticleInspectorModels.swift */; };
+		671BC18725DF885D00F754E4 /* ArticleInspectorControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 671BC18625DF885D00F754E4 /* ArticleInspectorControllerTests.swift */; };
 		671F5E002367EDC600111116 /* GlobalUserInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */; };
 		671F5E012367EDC600111116 /* GlobalUserInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */; };
 		671F5E022367EDC600111116 /* GlobalUserInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */; };
@@ -3412,6 +3418,8 @@
 		6714D6CA245A2B9700CE5A4A /* ArticleCacheReadingManualTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCacheReadingManualTests.swift; sourceTree = "<group>"; };
 		6714D6CC245A2C1D00CE5A4A /* ArticleTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleTestHelpers.swift; sourceTree = "<group>"; };
 		671AC2552226FB9B005B37F8 /* ReadingThemesControlsProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingThemesControlsProtocols.swift; sourceTree = "<group>"; };
+		671BC14D25DEE5C500F754E4 /* ArticleInspectorModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleInspectorModels.swift; sourceTree = "<group>"; };
+		671BC18625DF885D00F754E4 /* ArticleInspectorControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleInspectorControllerTests.swift; sourceTree = "<group>"; };
 		671F5E0A236B8CAF00111116 /* EmptyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyViewController.xib; sourceTree = "<group>"; };
 		672428962362113400490629 /* DiffFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffFetcher.swift; sourceTree = "<group>"; };
 		67282FBC24855B7B00B73E20 /* ArticleContextMenuPresenting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleContextMenuPresenting.swift; sourceTree = "<group>"; };
@@ -4952,6 +4960,7 @@
 				D82FDB421DF0B6EE00DDF311 /* FLAnimatedImage.framework in Frameworks */,
 				D82FDAE91DF0A9DC00DDF311 /* Mantle.framework in Frameworks */,
 				67A770C8251BFE0400F94EF9 /* CocoaLumberjackSwift in Frameworks */,
+				671BC14325DEDC3D00F754E4 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5959,6 +5968,7 @@
 				672918B625D6F886003F8152 /* ArticleInspectorController.swift */,
 				672918CE25D6FD41003F8152 /* ArticleInspectorFetcher.swift */,
 				672918DC25D7019F003F8152 /* WikiWhoResponse.swift */,
+				671BC14D25DEE5C500F754E4 /* ArticleInspectorModels.swift */,
 			);
 			name = "Article Inspector";
 			sourceTree = "<group>";
@@ -5967,6 +5977,7 @@
 			isa = PBXGroup;
 			children = (
 				672918EB25D70FCC003F8152 /* ArticleInspectorFetcherTests.swift */,
+				671BC18625DF885D00F754E4 /* ArticleInspectorControllerTests.swift */,
 			);
 			path = "Article Inspector Tests";
 			sourceTree = "<group>";
@@ -8672,6 +8683,8 @@
 				00021DED24D48EFE00476F97 /* PBXTargetDependency */,
 			);
 			name = Wikipedia;
+			packageProductDependencies = (
+			);
 			productName = "Wikipedia-iOS";
 			productReference = D4991435181D51DE00E6073C /* Wikipedia.app */;
 			productType = "com.apple.product-type.application";
@@ -8712,6 +8725,7 @@
 			name = WMF;
 			packageProductDependencies = (
 				67A770C7251BFE0400F94EF9 /* CocoaLumberjackSwift */,
+				671BC14225DEDC3D00F754E4 /* SwiftSoup */,
 			);
 			productName = WMF;
 			productReference = D844D96C1D6CB2600042D692 /* WMF.framework */;
@@ -9156,6 +9170,7 @@
 			mainGroup = D499142C181D51DE00E6073C;
 			packageReferences = (
 				67A770C6251BFE0400F94EF9 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
+				671BC14125DEDC3D00F754E4 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 			);
 			productRefGroup = D4991436181D51DE00E6073C /* Products */;
 			projectDirPath = "";
@@ -9994,6 +10009,7 @@
 				B0D530EB1CE151C10078BAED /* CodeFileLocationTests.m in Sources */,
 				6790AAF422D6861500D442D6 /* TalkPageFetcherTests.swift in Sources */,
 				679F0AAD24574AD400EF4A6A /* ArticleViewControllerTests.swift in Sources */,
+				671BC18725DF885D00F754E4 /* ArticleInspectorControllerTests.swift in Sources */,
 				67E3992A24786E2100441831 /* ReadingListManualPerformanceTests.swift in Sources */,
 				D864D68C1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift in Sources */,
 				670063AF22540AC500E4CE3B /* SectionEditorFindAndReplaceTests.swift in Sources */,
@@ -10126,6 +10142,7 @@
 				7A23CECF211A24FC00441A79 /* FeedFunnel.swift in Sources */,
 				7A60E9D6215D511500F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */,
 				7AC19E322301EF7D00E25B83 /* PageHistoryFilterCountsViewController.swift in Sources */,
+				671BC14E25DEE5C500F754E4 /* ArticleInspectorModels.swift in Sources */,
 				676070A2227CE60800A81F09 /* TalkPageReplyFooterView.swift in Sources */,
 				BCCB813E1C110702008BC602 /* NSDate+WMFPOTDTitle.m in Sources */,
 				67E8B0762268DE4B00537BC9 /* TalkPageContainerViewController.swift in Sources */,
@@ -10949,6 +10966,7 @@
 				D8A42A751E815A9C00D8E281 /* UIViewController+WMFAlerts.swift in Sources */,
 				7A60E9D9215D511700F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */,
 				7A49A20421231510005C574C /* CollectionViewFooter.swift in Sources */,
+				671BC15125DEE5C500F754E4 /* ArticleInspectorModels.swift in Sources */,
 				67CEF26C2351111D00D5CA6C /* DiffNetworkModels.swift in Sources */,
 				83B4CDC220E3DCD6007D5A6E /* SearchViewController.swift in Sources */,
 				67D3C456228CB54E001D5741 /* TalkPageReplyComposeView.swift in Sources */,
@@ -11418,6 +11436,7 @@
 				83E52BB51F681F940045E776 /* ShareAFactViewController.swift in Sources */,
 				D8CE24F81E698E2400DAE2E0 /* UIApplication+RTL.swift in Sources */,
 				B0524B48214854E900D8FD8D /* DescriptionWelcomePageViewController.swift in Sources */,
+				671BC15025DEE5C500F754E4 /* ArticleInspectorModels.swift in Sources */,
 				7A19C64920DD3440000EF7F7 /* BaseExploreFeedSettingsViewController.swift in Sources */,
 				FFD7B84824AEB04A005C2471 /* ArticleScrolling.swift in Sources */,
 				D8CE24FB1E698E2400DAE2E0 /* WMFWelcomePanelViewController.swift in Sources */,
@@ -11894,6 +11913,7 @@
 				D8EC3DED1E9BDA35006712EB /* WMFReferencePageBackgroundView.swift in Sources */,
 				83E52BB61F681F940045E776 /* ShareAFactViewController.swift in Sources */,
 				B0524B49214854E900D8FD8D /* DescriptionWelcomePageViewController.swift in Sources */,
+				671BC14F25DEE5C500F754E4 /* ArticleInspectorModels.swift in Sources */,
 				FFD7B84724AEB049005C2471 /* ArticleScrolling.swift in Sources */,
 				7A19C64A20DD3440000EF7F7 /* BaseExploreFeedSettingsViewController.swift in Sources */,
 				83F1096623D0D4F6003F3E9E /* ArticlePreviewingDelegate.swift in Sources */,
@@ -20986,6 +21006,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		671BC14125DEDC3D00F754E4 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.2;
+			};
+		};
 		67A770C6251BFE0400F94EF9 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CocoaLumberjack/CocoaLumberjack.git";
@@ -20997,6 +21025,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		671BC14225DEDC3D00F754E4 /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 671BC14125DEDC3D00F754E4 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
 		67A770C7251BFE0400F94EF9 /* CocoaLumberjackSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 67A770C6251BFE0400F94EF9 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;

@@ -43,6 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
                                                          tagMapping:(nullable NSDictionary<NSString *, NSString *> *)tagMapping
                                             additionalTagAttributes:(nullable NSDictionary<NSString *, NSDictionary<NSAttributedStringKey, id> *> *)additionalTagAttributes;
 
+- (void)wmf_enumerateHTMLTagsWithBlock:(void (^)(NSString *tagName, NSString *tagAttributes, NSRange range))block;
+
 @end
 
 NS_ASSUME_NONNULL_END
