@@ -287,12 +287,11 @@ fileprivate extension String {
         return text
     }
     
-    /// Splits any text into sentences using Apple's Natural Language framework. Assumes English text.
+    /// Splits any text into sentences using Apple's Natural Language framework
     /// - Returns: Array of Strings for each detected sentence.
     func splittingIntoSentences() -> [String] {
         let tokenizer = NLTokenizer(unit: .sentence)
         tokenizer.string = self
-        tokenizer.setLanguage(.english)
         
         var sentences: [String] = []
         tokenizer.enumerateTokens(in: self.startIndex..<self.endIndex) { (tokenRange, _) -> Bool in
