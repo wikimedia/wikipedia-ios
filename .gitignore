@@ -6,7 +6,6 @@
 
 # Xcode/ObjC ignores, copied from https://github.com/github/gitignore/blob/master/Objective-C.gitignore
 /build/
-*.bcsymbolmap
 *.version
 Carthage/Checkouts
 Carthage/Build/watchOS/
