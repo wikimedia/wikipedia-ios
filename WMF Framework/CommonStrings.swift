@@ -326,8 +326,10 @@ public class CommonStrings: NSObject {
     public static let articleAsLivingDocErrorSubtitle = WMFLocalizedString("aaald-error-subitle", value: "Refresh to try again", comment: "Subtitle of error banner that appears at the bottom of an article when significant events fail to load.")
 }
 
-// Chinese variant strings
+// Language variant strings
 public extension CommonStrings {
+
+	// Chinese
 
 	static let chineseVariantsAlertTitle = WMFLocalizedString("chinese-variants-alert-title", value: "Updates to Chinese variant support", comment: "Title of alert used to inform users about Chinese variant support.")
 
@@ -336,5 +338,95 @@ public extension CommonStrings {
 	static let chineseVariantsAlertPreferencesButton = WMFLocalizedString("chinese-variants-alert-preferences-button", value: "Review your preferences", comment: "Action button on alert used to inform users about Chinese variant support.")
 
 	static let chineseVariantsAlertDismissButton = WMFLocalizedString("chinese-variants-alert-dismiss-button", value: "No thanks", comment: "Dismiss button on alert used to inform users about Chinese variant support.")
+
+	// Crimean Tatar
+
+	static let crimeanTatarVariantsAlertTitle =  WMFLocalizedString("crimean-tatar-variants-alert-title", value: "Updates to Crimean Tatar variant support", comment: "Title of alert used to inform users about Crimean Tatar variant support.")
+
+	static let crimeanTatarVariantsAlertBody = WMFLocalizedString("crimean-tatar-variants-alert-body", value: "The Wikipedia app now supports the following Crimean Tatar variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nQırımtatarca, Latin Crimean Tatar Latin (chr-latn)\nкъырымтатарджа, Кирил Crimean Tatar Cyrillic (crh-cyrl)", comment: "Body text of alert used to inform users about Crimean Tatar variant support. Please do not translate the newlines (\n) or Crimean Tatar characters (къырымтатарджа, etc.).")
+
+	static let crimeanTatarVariantsAlertPreferencesButton = WMFLocalizedString("crimean-tatar-variants-alert-preferences-button", value: "Review your preferences", comment: "Action button on alert used to inform users about Crimean Tatar variant support.")
+
+	static let crimeanTatarVariantsAlertDismissButton = WMFLocalizedString("crimean-tatar-variants-alert-dismiss-button", value: "No thanks", comment: "Dismiss button on alert used to inform users about Crimean Tatar variant support.")
+
+	// Gan
+
+	static let ganVariantsAlertTitle =  WMFLocalizedString("gan-variants-alert-title", value: "Updates to Gan variant support", comment: "Title of alert used to inform users about Gan variant support.")
+
+	static let ganVariantsAlertBody = WMFLocalizedString("gan-variants-alert-body", value: "The Wikipedia app now supports the following Gan variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplified (gan-hans)\n贛語 繁體 Gan, Traditional (gan-hant)", comment: "Body text of alert used to inform users about Gan variant support. Please do not translate the newlines (\n) or Gan characters (贛語 原文, etc.).")
+
+	static let ganVariantsAlertPreferencesButton = WMFLocalizedString("gan-variants-alert-preferences-button", value: "Review your preferences", comment: "Action button on alert used to inform users about Gan variant support.")
+
+	static let ganVariantsAlertDismissButton = WMFLocalizedString("gan-variants-alert-dismiss-button", value: "No thanks", comment: "Dismiss button on alert used to inform users about Gan variant support.")
+
+	// Inuktitut
+
+	static let inuktitutVariantsAlertTitle =  WMFLocalizedString("inuktitut-variants-alert-title", value: "Updates to Inuktitut variant support", comment: "Title of alert used to inform users about Inuktitut variant support.")
+
+	static let inuktitutVariantsAlertBody = WMFLocalizedString("inuktitut-variants-alert-body", value: "The Wikipedia app now supports the following Inuktitut variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Syllabics (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)", comment: "Body text of alert used to inform users about Inuktitut variant support. Please do not translate the newlines (\n) or Inuktitut characters (ᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ, etc.).")
+
+	static let inuktitutVariantsAlertPreferencesButton = WMFLocalizedString("inuktitut-variants-alert-preferences-button", value: "Review your preferences", comment: "Action button on alert used to inform users about Inuktitut variant support.")
+
+	static let inuktitutVariantsAlertDismissButton = WMFLocalizedString("inuktitut-variants-alert-dismiss-button", value: "No thanks", comment: "Dismiss button on alert used to inform users about Inuktitut variant support.")
+
+	// Kazakh
+
+	static let kazakhVariantsAlertTitle =  WMFLocalizedString("kazakh-variants-alert-title", value: "Updates to Kazakh variant support", comment: "Title of alert used to inform users about Kazakh variant support.")
+
+	static let kazakhVariantsAlertBody = WMFLocalizedString("kazakh-variants-alert-body", value: "The Wikipedia app now supports the following Kazakh variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, Cyrillic (kk-cyrl)\nqazaqşa latin Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arabic (kk-arab)", comment: "Body text of alert used to inform users about Kazakh variant support. Please do not translate the newlines (\n) or Kazakh characters (Қазақша, etc.).")
+
+	static let kazakhVariantsAlertPreferencesButton = WMFLocalizedString("kazakh-variants-alert-preferences-button", value: "Review your preferences", comment: "Action button on alert used to inform users about Kazakh variant support.")
+
+	static let kazakhVariantsAlertDismissButton = WMFLocalizedString("kazakh-variants-alert-dismiss-button", value: "No thanks", comment: "Dismiss button on alert used to inform users about Kazakh variant support.")
+
+	// Kurdish
+
+	static let kurdishVariantsAlertTitle =  WMFLocalizedString("kurdish-variants-alert-title", value: "Updates to Kurdish variant support", comment: "Title of alert used to inform users about Kurdish variant support.")
+
+	static let kurdishVariantsAlertBody = WMFLocalizedString("kurdish-variants-alert-body", value: "The Wikipedia app now supports the following Kurdish variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nKurdî Latînî Kurdish, Latin (ku-latn)\nكوردی Kurdish, Arabic (kk-arab)", comment: "Body text of alert used to inform users about Kurdish variant support. Please do not translate the newlines (\n) or Kurdish characters (كوردی, etc.).")
+
+	static let kurdishVariantsAlertPreferencesButton = WMFLocalizedString("kurdish-variants-alert-preferences-button", value: "Review your preferences", comment: "Action button on alert used to inform users about Kurdish variant support.")
+
+	static let kurdishVariantsAlertDismissButton = WMFLocalizedString("kurdish-variants-alert-dismiss-button", value: "No thanks", comment: "Dismiss button on alert used to inform users about Kurdish variant support.")
+
+	// Serbian
+
+	static let serbianVariantsAlertTitle =  WMFLocalizedString("serbian-variants-alert-title", value: "Updates to Serbian variant support", comment: "Title of alert used to inform users about Serbian variant support.")
+
+	static let serbianVariantsAlertBody = WMFLocalizedString("serbian-variants-alert-body", value: "The Wikipedia app now supports the following Serbian variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)", comment: "Body text of alert used to inform users about Serbian variant support. Please do not translate the newlines (\n) or Serbian characters (nсрпски ћирилица, etc.).")
+
+	static let serbianVariantsAlertPreferencesButton = WMFLocalizedString("serbian-variants-alert-preferences-button", value: "Review your preferences", comment: "Action button on alert used to inform users about Serbian variant support.")
+
+	static let serbianVariantsAlertDismissButton = WMFLocalizedString("serbian-variants-alert-dismiss-button", value: "No thanks", comment: "Dismiss button on alert used to inform users about Serbian variant support.")
+
+	// Tajik
+
+	static let tajikVariantsAlertTitle =  WMFLocalizedString("tajik-variants-alert-title", value: "Updates to Tajik variant support", comment: "Title of alert used to inform users about Tajik variant support.")
+
+	static let tajikVariantsAlertBody = WMFLocalizedString("tajik-variants-alert-body", value: "The Wikipedia app now supports the following Tajik variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)", comment: "Body text of alert used to inform users about Tajik variant support. Please do not translate the newlines (\n) or Tajik characters (тоҷикӣ кирилликӣ, etc.).")
+
+	static let tajikVariantsAlertPreferencesButton = WMFLocalizedString("tajik-variants-alert-preferences-button", value: "Review your preferences", comment: "Action button on alert used to inform users about Tajik variant support.")
+
+	static let tajikVariantsAlertDismissButton = WMFLocalizedString("tajik-variants-alert-dismiss-button", value: "No thanks", comment: "Dismiss button on alert used to inform users about Tajik variant support.")
+
+	// Uzbek
+
+	static let uzbekVariantsAlertTitle =  WMFLocalizedString("uzbek-variants-alert-title", value: "Updates to Uzbek variant support", comment: "Title of alert used to inform users about Uzbek variant support.")
+
+	static let uzbekVariantsAlertBody = WMFLocalizedString("uzbek-variants-alert-body", value: "The Wikipedia app now supports the following Uzbek variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Cyrillic (uz-cyrl)", comment: "Body text of alert used to inform users about Uzbek variant support. Please do not translate the newlines (\n) or Uzbek characters (ўзбекча кирилл, etc.).")
+
+	static let uzbekVariantsAlertPreferencesButton = WMFLocalizedString("uzbek-variants-alert-preferences-button", value: "Review your preferences", comment: "Action button on alert used to inform users about Uzbek variant support.")
+
+	static let uzbekVariantsAlertDismissButton = WMFLocalizedString("uzbek-variants-alert-dismiss-button", value: "No thanks", comment: "Dismiss button on alert used to inform users about Uzbek variant support.")
+
+	// Tachelhit
+
+	static let tachelhitVariantsAlertTitle =  WMFLocalizedString("tachelhit-variants-alert-title", value: "Updates to Tachelhit variant support", comment: "Title of alert used to inform users about Tachelhit variant support.")
+
+	static let tachelhitVariantsAlertBody = WMFLocalizedString("tachelhit-variants-alert-body", value: "The Wikipedia app now supports the following Tachelhit variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)", comment: "Body text of alert used to inform users about Tachelhit variant support. Please do not translate the newlines (\n) or Tachelhit characters (ⵜⴰⵛⵍⵃⵉⵜ, etc.).")
+
+	static let tachelhitVariantsAlertPreferencesButton = WMFLocalizedString("tachelhit-variants-alert-preferences-button", value: "Review your preferences", comment: "Action button on alert used to inform users about Tachelhit variant support.")
+
+	static let tachelhitVariantsAlertDismissButton = WMFLocalizedString("tachelhit-variants-alert-dismiss-button", value: "No thanks", comment: "Dismiss button on alert used to inform users about Tachelhit variant support.")
 
 }
