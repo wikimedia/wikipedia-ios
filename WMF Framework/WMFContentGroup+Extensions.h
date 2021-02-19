@@ -2,6 +2,8 @@
 
 @import CoreLocation;
 
+@class WMFInMemoryURLKey;
+
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(int16_t, WMFContentType) {
@@ -55,6 +57,8 @@ typedef NS_ENUM(int16_t, WMFContentGroupUndoType) {
 @property (nonatomic, strong, nullable) NSURL *URL;
 @property (nonatomic, strong, nullable) NSURL *articleURL;
 @property (nonatomic, strong, nullable) NSURL *siteURL;
+
+@property (nonatomic, readonly, nullable) WMFInMemoryURLKey *inMemoryKey;
 
 - (void)updateKey; //Sets key property based on content group kind
 - (void)updateContentType;

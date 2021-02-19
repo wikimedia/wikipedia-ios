@@ -332,6 +332,10 @@ WMF_SYNTHESIZE_IS_EQUAL(WMFInMemoryURLKey, isEqualToInMemoryURLKey:)
     return [NSString stringWithFormat: @"%@ databaseKey: %@, languageVariantCode: %@", [super description], self.databaseKey, self.languageVariantCode];
 }
 
+- (NSString *)userInfoString {
+    return self.languageVariantCode ? [NSString stringWithFormat:@"%@__%@", self.databaseKey, self.languageVariantCode] : self.databaseKey;
+}
+
 @end
 
 @implementation NSURL (WMFInMemoryURLKeyExtensions)

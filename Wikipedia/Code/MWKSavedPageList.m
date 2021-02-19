@@ -135,8 +135,4 @@
     [self.dataStore.readingListsController userUnsave:article];
 }
 
-- (void)removeEntriesWithURLs:(NSArray<NSURL *> *)urls {
-    [self.dataStore.readingListsController removeArticlesWithURLsFromDefaultReadingList:urls];
-}
-
 @end
