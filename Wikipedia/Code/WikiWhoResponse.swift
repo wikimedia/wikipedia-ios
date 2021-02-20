@@ -23,7 +23,7 @@ struct WikiWhoResponse: Decodable {
         
         let wikiWhoData = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .wikiWhoData)
         let revisionsDict = try wikiWhoData.decode([String: [DataItem]].self, forKey: .revisions)
-        let editorsArray = try container.decode([[DataItem]].self, forKey: .editors)
+        let editorsArray = try container.decode([[EditorDataItem]].self, forKey: .editors)
         let tokensArray = try wikiWhoData.decode([[DataItem]].self, forKey: .tokens)
         self.revisions = revisionsDict.transformedForRevisions()
         self.editors = editorsArray.transformedForEditors()
@@ -49,7 +49,7 @@ struct WikiWhoResponse: Decodable {
         let editorID: String
     }
     
-    struct DataItem: Decodable {
+    struct EditorDataItem: Decodable {
         
         enum DataType {
             case string(String)
@@ -74,6 +74,32 @@ struct WikiWhoResponse: Decodable {
             }
         }
     }
+    
+    struct DataItem: Decodable {
+        
+        enum DataType {
+            case string(String)
+            case int(Int)
+            case unrecognized
+        }
+        
+        let type: DataType
+        
+        init(from decoder: Decoder) throws {
+            let container = try decoder.singleValueContainer()
+            
+            let intData = try? container.decode(Int.self)
+            let stringData = try? container.decode(String.self)
+            
+            if let intData = intData {
+                self.type = .int(intData)
+            } else if let stringData = stringData {
+                self.type = .string(stringData)
+            } else {
+                self.type = .unrecognized
+            }
+        }
+    }
 
 }
 
@@ -88,8 +114,8 @@ fileprivate extension Array where Element == [WikiWhoResponse.DataItem] {
             }
             
             switch (data[1].type, data[2].type, data[5].type) {
-            case (.string(let text), .float(let revisionID), .string(let editorID)):
-                let transformedToken = WikiWhoResponse.Token(text: text, revisionID: String(Int(revisionID)), editorID: editorID)
+            case (.string(let text), .int(let revisionID), .string(let editorID)):
+                let transformedToken = WikiWhoResponse.Token(text: text, revisionID: String(revisionID), editorID: editorID)
                 transformedArray.append(transformedToken)
             default:
                 DDLogDebug("Unexpected token types, skipping item.")
@@ -98,7 +124,9 @@ fileprivate extension Array where Element == [WikiWhoResponse.DataItem] {
         }
         return transformedArray
     }
-    
+}
+
+fileprivate extension Array where Element == [WikiWhoResponse.EditorDataItem] {
     func transformedForEditors() -> [WikiWhoResponse.Editor] {
         
         var transformedArray: [WikiWhoResponse.Editor] = []
@@ -132,9 +160,9 @@ fileprivate extension Dictionary where Key == String, Value == [WikiWhoResponse.
                 continue
             }
             
-            switch (data[0].type, data[1].type, data[2].type, data[3].type) {
-            case (.string(let datestamp), .float(let revisionID), .string(let editorID), .string(let editorName)):
-                let transformedRevision = WikiWhoResponse.Revision(revisionID: String(Int(revisionID)), revisionDateString: datestamp, editorID: editorID, editorName: editorName)
+            switch (data[0].type, data[2].type, data[3].type) {
+            case (.string(let datestamp), .string(let editorID), .string(let editorName)):
+                let transformedRevision = WikiWhoResponse.Revision(revisionID: key, revisionDateString: datestamp, editorID: editorID, editorName: editorName)
                 transformedDict[key] = transformedRevision
             default:
                 DDLogDebug("Unexpected revision types, skipping item.")

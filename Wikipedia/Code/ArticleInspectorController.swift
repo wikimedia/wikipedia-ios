@@ -11,6 +11,9 @@ enum ArticleInspectorError: Error {
     case missingCombinedSentencesForParagraph
     case nonMatchingArticleAndWikiWhoSections
     case nonMatchingArticleAndWikiWhoSentences
+    case missingWikiWhoRevisionForRevisionID
+    case missingWikiWhoEditorForEditorID
+    case creatingCombinedSentenceWithoutWikiWhoResponse
 }
 
 @available(iOS 13.0, *)
@@ -18,6 +21,7 @@ class ArticleInspectorController {
     
     private let articleURL: URL
     private let fetcher = ArticleInspectorFetcher()
+    private var wikiWhoResponse: WikiWhoResponse!
     
     init(articleURL: URL) {
         self.articleURL = articleURL
@@ -43,7 +47,6 @@ class ArticleInspectorController {
         let group = DispatchGroup()
         
         var articleHtml: String?
-        var wikiWhoResponse: WikiWhoResponse?
         
         group.enter()
         messagingController.htmlContent { (response) in
@@ -61,27 +64,22 @@ class ArticleInspectorController {
         
         group.enter()
         fetcher.fetchWikiWho(articleTitle: title) { (result) in
-            
+
             defer {
                 group.leave()
             }
             
             switch result {
             case .success(let response):
-                wikiWhoResponse = response
+                self.wikiWhoResponse = response
             case .failure(let error):
                 DDLogError(error)
             }
         }
         
-        group.notify(queue: DispatchQueue.global(qos: .default)) { [weak self] in
-            
-            guard let self = self else {
-                return
-            }
-            
+        group.notify(queue: DispatchQueue.global(qos: .default)) {
             if let articleHtml = articleHtml,
-                  let wikiWhoResponse = wikiWhoResponse {
+               let wikiWhoResponse = self.wikiWhoResponse {
                
                 do {
                     try self.processContent(articleHtml: articleHtml, wikiWhoResponse: wikiWhoResponse)
@@ -350,16 +348,115 @@ private extension ArticleInspectorController {
     /// - Parameters:
     ///   - wikiWhoSentence: Single sentence from a WikiWho html response
     ///   - articleSentence: Single sentence from article html
-    /// - Throws: If sentence rawTexts do not match
+    /// - Throws: If sentence rawTexts do not match, or failure to extract annotated data from WikiWhoResponse
     /// - Returns: Combined sentence
     private func combinedSentence(wikiWhoSentence: ArticleInspector.IndividualSentence, articleSentence: ArticleInspector.IndividualSentence) throws -> ArticleInspector.CombinedSentence {
         guard wikiWhoSentence.rawText == articleSentence.rawText else {
             throw ArticleInspectorError.nonMatchingArticleAndWikiWhoSentences
         }
         
-        return ArticleInspector.CombinedSentence(articleText: articleSentence.htmlText, nativeText: wikiWhoSentence.htmlText, rawText: wikiWhoSentence.rawText)
+        guard let wikiWhoResponse = self.wikiWhoResponse else {
+            throw ArticleInspectorError.creatingCombinedSentenceWithoutWikiWhoResponse
+        }
+        
+        let annotatedData = try self.annotatedData(wikiWhoResponse: wikiWhoResponse, wikiWhoSentence: wikiWhoSentence)
+        
+        return ArticleInspector.CombinedSentence(articleText: articleSentence.htmlText, nativeText: wikiWhoSentence.htmlText, rawText: wikiWhoSentence.rawText, annotatedData: annotatedData)
     }
 }
+
+//MARK: AnnotatedData Processing
+
+@available(iOS 13.0, *)
+private extension ArticleInspectorController {
+    
+    
+    /// Extracts annotated data (tokens, editors, revisions) for any WikiWho sentence.
+    /// - Parameters:
+    ///   - wikiWhoResponse: Decoded WikiWhoResponse object from WikiWho endpoint
+    ///   - wikiWhoSentence: Parsed individual WikiWho sentence
+    /// - Throws: If there's a failure to extract revision or editor data
+    /// - Returns: Array of annotated data for the WikiWho sentence, each token and it's associated editor and revision.
+    func annotatedData(wikiWhoResponse: WikiWhoResponse, wikiWhoSentence: ArticleInspector.IndividualSentence) throws -> [ArticleInspector.AnnotatedData] {
+        
+        let tokenIDs = wikiWhoSentence.htmlText.tokenIDs()
+        let tokensPerRevision = self.tokensPerRevision(wikiWhoResponse: wikiWhoResponse, tokenIDs: tokenIDs)
+        
+        var annotatedData: [ArticleInspector.AnnotatedData] = []
+        for (revisionID, tokens) in tokensPerRevision {
+            
+            let revisionTuple = try revisionInfo(wikiWhoResponse: wikiWhoResponse, revisionID: revisionID)
+            
+            let revisionInfo = revisionTuple.0
+            let editorID = revisionTuple.1
+            
+            let editorInfo = try self.editorInfo(wikiWhoResponse: wikiWhoResponse, editorID: editorID)
+            
+            annotatedData.append(ArticleInspector.AnnotatedData(revisionInfo: revisionInfo, editorInfo: editorInfo, tokens: tokens))
+        }
+        
+        return annotatedData.sorted(by: { $0.revisionInfo.identifier < $1.revisionInfo.identifier })
+    }
+    
+    /// Generates token data from WikiWho response, organized into dictionary keyed by revision ID
+    /// - Parameters:
+    ///   - wikiWhoResponse: Decoded WikiWho response from endpoint
+    ///   - tokenIDs: Set of token integers extracted from WikiWho response extended html
+    /// - Returns: Dictionary of tokens, keyed by revision ID
+    func tokensPerRevision(wikiWhoResponse: WikiWhoResponse, tokenIDs: Set<Int>) -> [String: [ArticleInspector.AnnotatedData.Token]] {
+        
+        var result: [String: [ArticleInspector.AnnotatedData.Token]] = [:]
+                
+        for tokenID in tokenIDs {
+            
+            //Token IDs extracted from WikiWhoResponse html maps to index of tokens array from WikiWhoResponse
+            
+            //Note: It seems WikiWho returns one less token than expected. Bailing early to avoid index out of range errors
+            if tokenID >= wikiWhoResponse.tokens.count {
+                continue
+            }
+            
+            let wikiWhoToken = wikiWhoResponse.tokens[tokenID]
+            
+            let revisionID = wikiWhoToken.revisionID
+            let token = ArticleInspector.AnnotatedData.Token(identifier: tokenID, text: wikiWhoToken.text)
+            var tokens = result[String(revisionID)] ?? []
+            tokens.append(token)
+            result[String(revisionID)] = tokens.sorted(by: { $0.identifier < $1.identifier })
+        }
+        
+        return result
+    }
+    
+    func revisionInfo(wikiWhoResponse: WikiWhoResponse, revisionID: String) throws -> (ArticleInspector.AnnotatedData.RevisionInfo, String) {
+        
+        guard let wikiWhoRevision = wikiWhoResponse.revisions[revisionID] else {
+            throw ArticleInspectorError.missingWikiWhoRevisionForRevisionID
+        }
+        
+        let editorID = wikiWhoRevision.editorID
+        let revisionInfo = ArticleInspector.AnnotatedData.RevisionInfo(identifier: wikiWhoRevision.revisionID, dateString: wikiWhoRevision.revisionDateString)
+        
+        return (revisionInfo, editorID)
+    }
+    
+    func editorInfo(wikiWhoResponse: WikiWhoResponse, editorID: String) throws -> ArticleInspector.AnnotatedData.EditorInfo {
+        
+        
+        let maybeWikiWhoEditor = wikiWhoResponse.editors.first(where: { (wikiWhoEditor) -> Bool in
+            wikiWhoEditor.editorID == editorID
+        })
+        
+        guard let wikiWhoEditor = maybeWikiWhoEditor else {
+            throw ArticleInspectorError.missingWikiWhoEditorForEditorID
+        }
+        
+        let editorInfo = ArticleInspector.AnnotatedData.EditorInfo(userID: wikiWhoEditor.editorID, username: wikiWhoEditor.editorName, percentage: Double(wikiWhoEditor.editorPercentage))
+        return editorInfo
+    }
+}
+
+//MARK: String helpers
 
 fileprivate extension String {
     
@@ -430,6 +527,39 @@ fileprivate extension String {
         
         return sentences
     }
+    
+    
+    /// Extracts token IDs from a string, assumed to contain html tags with attributes matching "id=token-nnnnn"
+    /// - Returns: Set of token identifiers (Ints)
+    func tokenIDs() -> Set<Int> {
+        
+        var result: Set<Int> = []
+        
+        let pattern = "id=\"token-(\\d+)\""
+        guard let regex = try? NSRegularExpression(pattern: pattern) else {
+            return []
+        }
+        
+        let matches = regex.matches(in: self, range:NSMakeRange(0, self.utf16.count))
+        for match in matches {
+            
+            guard match.numberOfRanges > 1 else {
+                continue
+            }
+        
+            let matchRange = match.range(at: 1)
+            let token = (self as NSString).substring(with: matchRange)
+
+            guard let intToken = Int(token) else {
+                DDLogDebug("Failure to cast token to Int")
+                continue
+            }
+            
+            result.insert(intToken)
+        }
+        
+        return result
+    }
 }
 
 //MARK: Internal hooks for Unit Tests
@@ -444,6 +574,10 @@ extension ArticleInspectorController {
     
     func testCombinedSections(articleSections: [ArticleInspector.Section<ArticleInspector.IndividualSentence>], wikiWhoSections: [ArticleInspector.Section<ArticleInspector.IndividualSentence>]) throws -> [ArticleInspector.Section<ArticleInspector.CombinedSentence>] {
         return try combinedSections(articleSections: articleSections, wikiWhoSections: wikiWhoSections)
+    }
+    
+    func testSetWikiWhoResponse(_ wikiWhoResponse: WikiWhoResponse) {
+        self.wikiWhoResponse = wikiWhoResponse
     }
 }
 #endif

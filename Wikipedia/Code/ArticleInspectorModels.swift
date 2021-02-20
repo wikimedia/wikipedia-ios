@@ -27,10 +27,34 @@ struct ArticleInspector {
         let articleText: String //sentence with article content html tags, for seeking out in article content html
         let nativeText: String //sentence with article content html tags and annotation tags, used for turning into NSAttributedStrings for native use
         let rawText: String //sentence with no html or annotation tags
+        let annotatedData: [AnnotatedData]
     }
     
     struct HtmlTag {
         let text: String //html tag text, e.g. '<b>'
         let range: NSRange
+    }
+    
+    struct AnnotatedData {
+        
+        struct Token {
+            let identifier: Int
+            let text: String
+        }
+        
+        struct RevisionInfo {
+            let identifier: String
+            let dateString: String
+        }
+        
+        struct EditorInfo {
+            let userID: String
+            let username: String
+            let percentage: Double
+        }
+        
+        let revisionInfo: RevisionInfo
+        let editorInfo: EditorInfo
+        let tokens: [Token]
     }
 }
