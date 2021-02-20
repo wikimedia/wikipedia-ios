@@ -207,7 +207,7 @@ private extension ArticleInspectorController {
         let rawSentences = rawText.splittingIntoSentences()
         let individualSentences = individualSentencesFromRawSentences(rawSentences, htmlTags: tags)
         
-        guard !individualSentences.isEmpty && !html.isEmpty else {
+        guard (!individualSentences.isEmpty || html.isEmpty) else {
             throw ArticleInspectorError.missingIndividualSentencesForParagraph
         }
         
