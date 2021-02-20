@@ -1,6 +1,7 @@
 @testable import Wikipedia
 @testable import WMF
 import XCTest
+import Nocilla
 
 class ArticleCacheReadingTests: XCTestCase {
     let timeout: TimeInterval = 10

@@ -1,5 +1,6 @@
 @testable import Wikipedia
 import XCTest
+import Nocilla
 
 private class MockSchemeHandler: SchemeHandler {
     

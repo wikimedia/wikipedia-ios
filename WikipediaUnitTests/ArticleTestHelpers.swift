@@ -2,6 +2,7 @@
 @testable import WMF
 import XCTest
 import Foundation
+import Nocilla
 
 class BasicCachingWebViewController: UIViewController, WKNavigationDelegate {
     static let webProcessPool = WKProcessPool()

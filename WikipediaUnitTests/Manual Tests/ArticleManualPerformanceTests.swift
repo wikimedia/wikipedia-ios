@@ -1,4 +1,5 @@
 import XCTest
+import Nocilla
 @testable import Wikipedia
 
 class MeasurableArticlePeekPreviewViewController: ArticlePeekPreviewViewController {

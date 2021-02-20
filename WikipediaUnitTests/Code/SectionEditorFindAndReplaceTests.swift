@@ -11,6 +11,7 @@
 // - Test replace all. Confirm alert displays and index / total is reset to 0 / 0
 
 import XCTest
+import Nocilla
 @testable import Wikipedia
 
 private struct Location {
