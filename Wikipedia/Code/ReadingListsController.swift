@@ -298,7 +298,9 @@ public typealias ReadingListsController = WMFReadingListsController
         guard !articles.isEmpty else {
             return
         }
-
+        
+        // We should not add the same article in multiple variants.
+        // Keying on articleKey instead of inMemoryKey matches any variant of an article
         var existingKeys = Set(readingList.articleKeys)
         
         for article in articles {
@@ -309,6 +311,7 @@ public typealias ReadingListsController = WMFReadingListsController
                 return
             }
             existingKeys.insert(key)
+            entry.variant = article.variant
             entry.createdDate = NSDate()
             entry.updatedDate = entry.createdDate
             entry.isUpdatedLocally = true
@@ -589,6 +592,10 @@ public typealias ReadingListsController = WMFReadingListsController
         #endif
     }
     
+    /// Note that the predicate does not take the article language variant into account. This is intentional.
+    /// Only one variant of an article can be added to a reading list. However *all* variants of the same article appear saved in the user interface.
+    /// The 'unsave' button can be tapped by the user on *any* variant of the article.
+    /// By only searching for article key, the saved article variant is removed regardless of which variant of the article was tapped.
     public func remove(articles: [WMFArticle], readingList: ReadingList) throws {
         assert(Thread.isMainThread)
         let moc = dataStore.viewContext
@@ -633,17 +640,27 @@ public typealias ReadingListsController = WMFReadingListsController
         assert(Thread.isMainThread)
         do {
             let moc = dataStore.viewContext
-            unsave([article], in: moc)
+            guard let savedArticleVariant = article.savedVariant else {
+                assertionFailure("An article without a saved variant should never be passed to \(#function).")
+                return
+            }
+            unsave([savedArticleVariant], in: moc)
             if moc.hasChanges {
                 try moc.save()
             }
-            NotificationCenter.default.post(name: WMFReadingListsController.userDidSaveOrUnsaveArticleNotification, object: article)
+            // The notification needs to include the exact article acted on.
+            // Getting the savedVariant ensures we pass the correct variant.
+            NotificationCenter.default.post(name: WMFReadingListsController.userDidSaveOrUnsaveArticleNotification, object: savedArticleVariant)
             sync()
         } catch let error {
             DDLogError("Error unsaving article: \(error)")
         }
     }
     
+    /// Note that the predicate does not take the article language variant into account. This is intentional.
+    /// Only one variant of an article can be saved. However *all* variants of the same article appear saved in the user interface.
+    /// The 'unsave' button can be tapped by the user on *any* variant of the article.
+    /// By only searching for article key, the saved article variant is removed regardless of which variant of the article was tapped.
     public func unsave(_ articles: [WMFArticle], in moc: NSManagedObjectContext) {
         do {
             let keys = articles.compactMap { $0.key }
@@ -678,12 +695,17 @@ extension WMFArticle {
         defaultListEntry.createdDate = NSDate()
         defaultListEntry.updatedDate = defaultListEntry.createdDate
         defaultListEntry.articleKey = self.key
+        defaultListEntry.variant = self.variant
         defaultListEntry.list = defaultReadingList
         defaultListEntry.displayTitle = displayTitle
         defaultListEntry.isUpdatedLocally = true
         try defaultReadingList.updateArticlesAndEntries()
     }
     
+    /// The purpose of these two methods is to answer the question 'is included in default reading list?'.
+    /// Since only one language variant per article can be included, searching for articleKey will
+    /// find any variant of the article that is on the default reading list.
+    /// This is the intended behavior.
     private func fetchReadingListEntries() throws -> [ReadingListEntry] {
         guard let moc = managedObjectContext, let key = key else {
             return []
