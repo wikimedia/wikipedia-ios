@@ -24,7 +24,7 @@ For a language that has not had language variants before, add a new top-level ke
 _Troubleshooting: Variants missing from this file will not appear in the user's choices of langugages._ 
 
 #### Language variant mapping file
-During onboarding, the app uses the user's OS langauge preferences to suggest the primary app language. If the language is one with variants, the variant specified by the user should be used.
+During onboarding, the app uses the user's OS langauge preferences to suggest the preferred languages for Wikipedia content. If the language is one with variants, the variant specified by the user should be used.
 
 However, the codes used by the OS to represent variants is different than the codes used by Wikipedia sites. The mapping from OS Locale for a given language to the Wikipedia language variant code is defined in the  `MediaWikiAcceptLanguageMapping.json` file.
 
@@ -35,6 +35,33 @@ When adding a new variant, the correct mapping from the OS language / Locale to 
 _Troubleshooting: Variants missing from this file cause onboarding to fail to identify a variant to suggest to the user ._ 
 
 Note: Historically this mapping file was used to determine the user's language variant preference in Chinese and Serbian based on the user's OS language settings. The new language variant feature allows the user to choose variants explicitly.
+
+#### Locale to language variant mapping details
+A locale identifier in the OS can include:
+
+- A language identifier on its own. For example: "zh" for _Chinese_.
+
+- Language and script identifiers. For example: "sr_Cyrl" for _Serbian, Cryillic_; "sr_Latn" for _Serbian, Latin_
+
+- Language, script, and region identifiers. For example: "zh_Hant_TW" for _Taiwanese, Traditional_; "zh_Hans_HK" for _Hong Kong, Simplified_
+
+In Chinese, the region affects the Wikipedia langauge variant. So, the mapping file specifies regions in the most deeply nested dictionary.
+
+In all other languages with variants so far, the script identifier is enough to identify the variant, and does not change regardless of region.
+For these languages, only the "default" key is present in the region dictionary.
+
+Also note that not all scripts/variants supported by a particular Wikipedia language are available identifiers in the OS.
+In these cases, finding the language in the user's OS preferences implies a particular language variant.
+
+Note that "gan" and "crh" are not available in the OS, although their scripts are. A default language variant value is provided in case a future OS includes these locale identifiers.
+
+Note that in Uzbek, the OS supports an Arabic variant of the language which is not present as a language variant for the Uzbek Wikipedia. In this case, the variant falls back to Latin, which is the most prevalent script in the untransformed articles on the Uzbek site.
+
+
+
+
+
+
 
 
 
