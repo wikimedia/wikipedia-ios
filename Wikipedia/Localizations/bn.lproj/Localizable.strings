@@ -9,6 +9,7 @@
 // Author: Macofe
 // Author: Mohammed Galib Hasan
 // Author: Nemo bis
+// Author: R4356th
 // Author: Rasal Lia
 // Author: Sayma Jahan
 // Author: Tahmid02016
@@ -100,6 +101,7 @@
 "button-skip" = "এড়ান";
 "cancel" = "বাতিল";
 "cc-zero" = "ক্রিয়েটিভ কমন্স সিসি জিরো";
+"chinese-variants-alert-dismiss-button" = "না, ধন্যবাদ";
 "close-button-accessibility-label" = "বন্ধ";
 "compass-direction" = "$1 টার সময়";
 "continue-reading-empty-description" = "আরও নিবন্ধ পাঠ করতে উইকিপিডিয়া অন্বেষণ করুন";
