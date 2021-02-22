@@ -53,14 +53,118 @@
         {
             "languageVariantCode": "sr-ec",
             "languageName": "Србија",
-            "localName": "Serbian, Cyrilic",
+            "localName": "Serbian (Cyrillic)",
             "languageCode": "sr"
         },
         {
             "languageVariantCode": "sr-el",
             "languageName": "Srbija",
-            "localName": "Serbian, Latin",
+            "localName": "Serbian (Latin)",
             "languageCode": "sr"
+        }
+    ],
+    "crh": [
+        {
+            "languageVariantCode": "crh-latn",
+            "languageName": "Qırımtatarca",
+            "localName": "Crimean Tatar (Latin)",
+            "languageCode": "crh"
+        },
+        {
+            "languageVariantCode": "crh-cyrl",
+            "languageName": "къырымтатарджа",
+            "localName": "Crimean Tatar (Cyrillic)",
+            "languageCode": "crh"
+        }
+    ],
+    "gan": [
+        {
+            "languageVariantCode": "gan-hans",
+            "languageName": "赣语",
+            "localName": "Gan (Simplified)",
+            "languageCode": "gan"
+        },
+        {
+            "languageVariantCode": "gan-hant",
+            "languageName": "贛語",
+            "localName": "Gan (Traditional)",
+            "languageCode": "gan"
+        }
+    ],
+    "iu": [
+        {
+            "languageVariantCode": "ike-latn",
+            "languageName": "Inuktitut",
+            "localName": "Inuktitut (Latin)",
+            "languageCode": "iu"
+        },
+        {
+            "languageVariantCode": "ike-cans",
+            "languageName": "ᐃᓄᒃᑎᑐᑦ",
+            "localName": "Inuktitut (Syllabics)",
+            "languageCode": "iu"
+        }
+    ],
+    "kk": [
+        {
+            "languageVariantCode": "kk-cyrl",
+            "languageName": "Қазақша",
+            "localName": "Kazakh (Cyrillic)",
+            "languageCode": "kk"
+        },
+        {
+            "languageVariantCode": "kk-latn",
+            "languageName": "qazaqşa",
+            "localName": "Kazakh (Latin)",
+            "languageCode": "kk"
+        },
+        {
+            "languageVariantCode": "kk-arab",
+            "languageName": "توتە",
+            "localName": "Kazakh (Arabic)",
+            "languageCode": "kk"
+        }
+    ],
+    "ku": [
+        {
+            "languageVariantCode": "ku-latn",
+            "languageName": "Kurdî",
+            "localName": "Kurdish (Latin)",
+            "languageCode": "ku"
+        },
+        {
+            "languageVariantCode": "ku-arab",
+            "languageName": "كوردی",
+            "localName": "Kurdish (Arabic)",
+            "languageCode": "ku"
+        }
+    ],
+    "tg": [
+        {
+            "languageVariantCode": "tg-cyrl",
+            "languageName": "тоҷикӣ",
+            "localName": "Tajik (Cyrillic)",
+            "languageCode": "tg"
+        },
+        {
+            "languageVariantCode": "tg-latn",
+            "languageName": "tojikī",
+            "localName": "Tajik (Latin)",
+            "languageCode": "tg"
+        }
+    ],
+    "uz": [
+        {
+            "languageVariantCode": "uz-cyrl",
+            "languageName": "ўзбекча",
+            "localName": "Uzbek (Cyrillic)",
+            "languageCode": "uz"
+        },
+        {
+            "languageVariantCode": "uz-latin",
+            "languageName": "oʻzbekcha",
+            "localName": "Uzbek (Latin)",
+            "languageCode": "uz"
         }
     ]
 }
