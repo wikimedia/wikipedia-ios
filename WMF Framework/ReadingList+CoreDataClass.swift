@@ -6,6 +6,9 @@ public class ReadingList: NSManagedObject {
     @objc public static let entriesLimitReachedNotification = NSNotification.Name(rawValue:"WMFEntriesLimitReachedNotification")
     @objc public static let entriesLimitReachedReadingListKey = "readingList"
     
+    // Note that this returns articleKey strings that do not take language variant into account.
+    // This allows clients to check if an article of any variant is an entry in the list.
+    // This is intentional.
     public var articleKeys: [String] {
         let entries = self.entries ?? []
         let existingKeys = entries.compactMap { (entry) -> String? in
@@ -32,11 +35,11 @@ public class ReadingList: NSManagedObject {
         previousCountOfEntries = countOfEntries
         
         let previousArticles = articles ?? []
-        let previousKeys = Set<String>(previousArticles.compactMap { $0.key })
+        let previousKeys = Set<WMFInMemoryURLKey>(previousArticles.compactMap { $0.inMemoryKey })
         let validEntries = (entries ?? []).filter { !$0.isDeletedLocally }
-        let validArticleKeys = Set<String>(validEntries.compactMap { $0.articleKey })
+        let validArticleKeys = Set<WMFInMemoryURLKey>(validEntries.compactMap { $0.inMemoryKey })
         for article in previousArticles {
-            guard let key = article.key, validArticleKeys.contains(key) else {
+            guard let key = article.inMemoryKey, validArticleKeys.contains(key) else {
                 removeFromArticles(article)
                 article.readingListsDidChange()
                 continue
@@ -44,7 +47,7 @@ public class ReadingList: NSManagedObject {
         }
         if !validArticleKeys.isEmpty {
             let articleKeysToAdd = validArticleKeys.subtracting(previousKeys)
-            let articlesToAdd = try managedObjectContext?.wmf_fetch(objectsForEntityName: "WMFArticle", withValues: Array(articleKeysToAdd), forKey: "key") as? [WMFArticle] ?? []
+            let articlesToAdd = try managedObjectContext?.fetchArticlesWithInMemoryURLKeys(Array(articleKeysToAdd)) ?? []
             countOfEntries = Int64(validEntries.count)
             for article in articlesToAdd {
                 addToArticles(article)
