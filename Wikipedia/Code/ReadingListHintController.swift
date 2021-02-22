@@ -18,8 +18,7 @@ class ReadingListHintController: HintController {
         guard let article = context?[ReadingListHintController.ContextArticleKey] as? WMFArticle else {
             return
         }
-        let didSave = article.savedDate != nil
-
+        let didSave = article.isSaved
         let didSaveOtherArticle = didSave && !isHintHidden && article != readingListHintViewController.article
         let didUnsaveOtherArticle = !didSave && !isHintHidden && article != readingListHintViewController.article
 
