@@ -911,7 +911,7 @@ private extension ArticleViewController {
     }
     
     @objc func didReceiveArticleUpdatedNotification(_ notification: Notification) {
-        toolbarController.setSavedState(isSaved: article.isSaved)
+        toolbarController.setSavedState(isSaved: article.isAnyVariantSaved)
     }
     
     @objc func applicationWillResignActive(_ notification: Notification) {
@@ -1016,7 +1016,7 @@ private extension ArticleViewController {
     func setupToolbar() {
         enableToolbar()
         toolbarController.apply(theme: theme)
-        toolbarController.setSavedState(isSaved: article.isSaved)
+        toolbarController.setSavedState(isSaved: article.isAnyVariantSaved)
         setToolbarHidden(false, animated: false)
     }
     

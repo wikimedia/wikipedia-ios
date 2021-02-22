@@ -104,6 +104,18 @@ enum APIReadingListRequestType: String {
     case setup, teardown
 }
 
+/* Note that because the reading list API does not support language variants,
+ * the articleURL will always have a nil language variant.
+ *
+ * The RemoteReadingListArticleKey type is a type alias for String.
+ * Since ReadingListsSyncOperation handles remote entries that don't have a variant,
+ * and local entries that do have a variant, this type makes it more clear when
+ * a non-variant aware key is being used.
+ *
+ * Also, if the remote API adds variant support, it should be straightforward to
+ * update the type alias from String to WMFInMemoryURLKey.
+*/
+typealias RemoteReadingListArticleKey = String
 extension APIReadingListEntry {
     var articleURL: URL? {
         guard let site = URL(string: project) else {
@@ -112,8 +124,8 @@ extension APIReadingListEntry {
         return site.wmf_URL(withTitle: title)
     }
     
-    var articleKey: WMFInMemoryURLKey? {
-        return articleURL?.wmf_inMemoryKey
+    var articleKey: RemoteReadingListArticleKey? {
+        return articleURL?.wmf_databaseKey
     }
 }
 

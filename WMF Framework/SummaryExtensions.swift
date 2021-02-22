@@ -126,11 +126,9 @@ extension NSManagedObjectContext {
             }
         }
         var keysToCreate = Set(keys)
-        let articlesToUpdateFetchRequest = WMFArticle.fetchRequest()
-        articlesToUpdateFetchRequest.predicate = articlePredicateForInMemoryURLKeys(keys)
         var articles: [WMFInMemoryURLKey: WMFArticle] = [:]
         articles.reserveCapacity(keys.count)
-        let fetchedArticles = try self.fetch(articlesToUpdateFetchRequest)
+        let fetchedArticles = try self.fetchArticlesWithInMemoryURLKeys(keys)
         for articleToUpdate in fetchedArticles {
             guard let articleKey = articleToUpdate.inMemoryKey else {
                     continue

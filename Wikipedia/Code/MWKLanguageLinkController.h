@@ -74,6 +74,18 @@ typedef NS_ENUM(NSInteger, WMFPreferredLanguagesChangeType) {
  */
 - (void)removePreferredLanguage:(MWKLanguageLink *)language;
 
+/**
+ *  Given a language code, return the preferred language variant code if the language supports variants.
+ *  Returns nil for languages without variants.
+ *  This first looks for the preferred variant in the receiver's preferredLanguages.
+ *  If none is found, for the preferred variant based on the OS language settings.
+ *  If none is found, uses a default language variant for that language.
+ *  Returns nil for a nil language code.
+ *  @param languageCode the language code to find the language variant code for
+ *  @return The preferred language variant code for if the language supports variants
+ */
+- (nullable NSString *)preferredLanguageVariantCodeForLanguageCode:(nullable NSString *)languageCode;
+
 - (nullable MWKLanguageLink *)languageForContentLanguageCode:(NSString *)contentLanguageCode;
 
 + (void)migratePreferredLanguagesToManagedObjectContext:(NSManagedObjectContext *)moc;
