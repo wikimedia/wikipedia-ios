@@ -2,11 +2,11 @@ import Foundation
 import CoreData
 
 public class ReadingListEntry: NSManagedObject {
-    var articleURL: URL? {
+    public var inMemoryKey: WMFInMemoryURLKey? {
         guard let key = articleKey else {
             return nil
         }
-        return URL(string: key)
+        return WMFInMemoryURLKey(databaseKey: key, languageVariantCode: variant)
     }
     
     public var APIError: APIReadingListError? {

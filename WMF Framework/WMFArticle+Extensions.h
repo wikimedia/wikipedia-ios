@@ -46,6 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, nullable) NSString *capitalizedWikidataDescription;
 
 @property (nonatomic, readonly) BOOL isAnyVariantSaved; // An article should appear as saved in the UI if any of its language variants are saved
+@property (nonatomic, copy, readonly, nullable) WMFArticle *savedVariant; // The article variant that is saved
 
 @property (nonatomic, nullable) NSURL *thumbnailURL; // Deprecated. Use imageURLForWidth:
 
