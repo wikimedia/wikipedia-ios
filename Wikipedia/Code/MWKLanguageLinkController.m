@@ -77,6 +77,26 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
     }];
 }
 
+- (nullable NSString *)preferredLanguageVariantCodeForLanguageCode:(nullable NSString *)languageCode {
+    if (!languageCode) {
+        return nil;
+    }
+
+    // Find first with matching language code in app preferred languages
+    MWKLanguageLink *matchingLanguageLink = [self.preferredLanguages wmf_match:^BOOL(MWKLanguageLink *obj) {
+        return [obj.languageCode isEqual:languageCode];
+    }];
+    
+    // If the matching link does not have a language variant code, the language does not have variants. Return nil.
+    if (matchingLanguageLink) {
+        return matchingLanguageLink.languageVariantCode ? : nil;
+    }
+    
+    // If not found in the app's preferred languages, get the best guess from the user's OS settings.
+    return [NSLocale wmf_bestLanguageVariantCodeForLanguageCode:languageCode];
+}
+
+
 - (nullable MWKLanguageLink *)appLanguage {
     return [self.preferredLanguages firstObject];
 }

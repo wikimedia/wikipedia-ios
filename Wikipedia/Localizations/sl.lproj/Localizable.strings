@@ -146,8 +146,8 @@
 "description-welcome-descriptions-title" = "Opisi naslovov";
 "description-welcome-promise-title" = "Ob začetku obljubljam, da te funkcije ne bom zlorabil/a";
 "description-welcome-start-editing-button" = "Začetek urejanja";
-"diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 bajt dodan|$1 bajta dodana|$1 bajti dodani|$1 bajtov dodanih}}";
-"diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 bajt odstranjen|$1 bajta odstranjena|$1 bajti odstranjeni|$bajtov odstranjenih}}";
+"diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 zlog dodan|$1 zloga dodana|$1 zlogi dodani|$1 zlogov dodanih}}";
+"diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 zlog odstranjen|$1 zloga odstranjena|$1 zlogi odstranjeni|$1 zlogov odstranjenih}}";
 "dim-images" = "Zatemnjene slike";
 "edit-bold-accessibility-label" = "Dodaj krepko oblikovanje";
 "edit-bold-remove-accessibility-label" = "Odstrani krepko oblikovanje";

@@ -525,10 +525,10 @@ extension ExploreCardViewController: ActionDelegate, ShareableArticlesProvider {
         
         var actions: [Action] = []
         
-        if article.savedDate == nil {
-            actions.append(ActionType.save.action(with: self, indexPath: indexPath))
-        } else {
+        if article.isAnyVariantSaved {
             actions.append(ActionType.unsave.action(with: self, indexPath: indexPath))
+        } else {
+            actions.append(ActionType.save.action(with: self, indexPath: indexPath))
         }
         
         actions.append(ActionType.share.action(with: self, indexPath: indexPath))

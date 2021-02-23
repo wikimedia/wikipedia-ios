@@ -75,14 +75,14 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
         else {
             return false
         }
-        return !dataStore.savedPageList.isSaved(articleURL)
+        return !dataStore.savedPageList.isAnyVariantSaved(articleURL)
     }
     
     open func canUnsave(at indexPath: IndexPath) -> Bool {
         guard let articleURL = articleURL(at: indexPath) else {
             return false
         }
-        return dataStore.savedPageList.isSaved(articleURL)
+        return dataStore.savedPageList.isAnyVariantSaved(articleURL)
     }
     
     open func canShare(at indexPath: IndexPath) -> Bool {
