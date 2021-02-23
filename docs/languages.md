@@ -50,10 +50,16 @@ In Chinese, the region affects the Wikipedia langauge variant. So, the mapping f
 In all other languages with variants so far, the script identifier is enough to identify the variant, and does not change regardless of region.
 For these languages, only the "default" key is present in the region dictionary.
 
-Also note that not all scripts/variants supported by a particular Wikipedia language are available identifiers in the OS.
+#### Other Locale to language variant mapping notes:
+
+These notes are valid as of iOS 14.4
+
+Not all scripts/variants supported by a particular Wikipedia language are available identifiers in the OS.
 In these cases, finding the language in the user's OS preferences implies a particular language variant.
 
-Note that "gan" and "crh" are not available in the OS, although their scripts are. A default language variant value is provided in case a future OS includes these locale identifiers.
+Gan "gan" and Crimean Tatar "crh" do not appear as available locale identifiers in the OS, although their scripts are. A default language variant value is provided in case a future OS includes these locale identifiers.
+
+The OS does include locale identifiers for Kurdish "ku", but it does not seem to be a choice for users in language settings. Language variants for these identifiers is specified in the mapping although it does not currently seem to be selectable by the user.
 
 Note that in Uzbek, the OS supports an Arabic variant of the language which is not present as a language variant for the Uzbek Wikipedia. In this case, the variant falls back to Latin, which is the most prevalent script in the untransformed articles on the Uzbek site.
 
