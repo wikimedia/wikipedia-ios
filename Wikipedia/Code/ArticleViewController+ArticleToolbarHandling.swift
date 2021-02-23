@@ -11,7 +11,7 @@ extension ArticleViewController: ArticleToolbarHandling {
         return tableOfContentsController.viewController.displayMode == .inline && tableOfContentsController.viewController.isVisible
     }
     
-    func toggleSave(from viewController: ArticleToolbarController) {
+    func toggleSave(from controller: ArticleToolbarController) {
         let isSaved = dataStore.savedPageList.toggleSavedPage(for: articleURL)
         if isSaved {
             savedPagesFunnel.logSaveNew(withArticleURL: articleURL)
