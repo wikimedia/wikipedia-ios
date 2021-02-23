@@ -314,7 +314,7 @@
     return [self wmf_stringByRemovingHTMLWithParsingBlock:NULL];
 }
 
-- (NSMutableAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(nullable UIFont *)boldFont italicFont:(nullable UIFont *)italicFont boldItalicFont:(nullable UIFont *)boldItalicFont color:(nullable UIColor *)color linkColor:(nullable UIColor *)linkColor handlingLinks:(BOOL)handlingLinks handlingLists:(BOOL)handlingLists handlingSuperSubscripts:(BOOL)handlingSuperSubscripts tagMapping:(nullable NSDictionary<NSString *, NSString *> *)tagMapping additionalTagAttributes:(nullable NSDictionary<NSString *, NSDictionary<NSAttributedStringKey, id> *> *)additionalTagAttributes {
+- (NSMutableAttributedString *)wmf_attributedStringFromHTMLWithFont:(UIFont *)font boldFont:(nullable UIFont *)boldFont italicFont:(nullable UIFont *)italicFont boldItalicFont:(nullable UIFont *)boldItalicFont color:(nullable UIColor *)color linkColor:(nullable UIColor *)linkColor handlingLinks:(BOOL)handlingLinks handlingLists:(BOOL)handlingLists handlingSuperSubscripts:(BOOL)handlingSuperSubscripts handlingAnnotationTags:(BOOL)handlingAnnotationTags annotationTokenIDs:(NSArray<NSString *> *)annotationTokenIDs annotationHighlightColor:(nullable UIColor *)annotationHighlightColor tagMapping:(nullable NSDictionary<NSString *, NSString *> *)tagMapping additionalTagAttributes:(nullable NSDictionary<NSString *, NSDictionary<NSAttributedStringKey, id> *> *)additionalTagAttributes {
     boldFont = boldFont ?: font;
     italicFont = italicFont ?: font;
     boldItalicFont = boldItalicFont ?: font;
@@ -327,8 +327,10 @@
 
     NSMutableSet<NSString *> *currentTags = [NSMutableSet setWithCapacity:2];
     NSMutableSet<NSURL *> *currentLinks = [NSMutableSet setWithCapacity:1];
+    NSMutableSet<NSString *> *currentAnnotationAttributes = [NSMutableSet setWithCapacity:1];
     NSMutableArray<NSSet<NSString *> *> *tags = [NSMutableArray arrayWithCapacity:1];
     NSMutableArray<NSSet<NSURL *> *> *links = [NSMutableArray arrayWithCapacity:1];
+    NSMutableArray<NSSet<NSString *> *> *annotationAttributes = [NSMutableArray arrayWithCapacity:1];
 
     NSMutableArray<WMFHTMLElement *> *lists = [NSMutableArray arrayWithCapacity:1];
     NSMutableArray<WMFHTMLElement *> *unclosedListElements = [NSMutableArray arrayWithCapacity:1];
@@ -344,9 +346,12 @@
             [ranges addObject:[NSValue valueWithRange:NSMakeRange(startLocation, currentLocation - startLocation)]];
             [tags addObject:[currentTags copy]];
             [links addObject:[currentLinks copy]];
+            [annotationAttributes addObject: [currentAnnotationAttributes copy]];
         }
         if (isEndTag) {
-            if ([HTMLTagName isEqualToString:@"a"]) {
+            if ([HTMLTagName isEqualToString:@"span"]) {
+                [currentAnnotationAttributes removeAllObjects];
+            } else if ([HTMLTagName isEqualToString:@"a"]) {
                 [currentLinks removeAllObjects];
             } else if (handlingLists && ([HTMLTagName isEqualToString:@"ul"] || [HTMLTagName isEqualToString:@"ol"] || [HTMLTagName isEqualToString:@"li"])) {
                 WMFHTMLElement *lastUnclosedListElement = nil;
@@ -374,7 +379,11 @@
         } else {
             startLocation = currentLocation;
             [currentTags addObject:HTMLTagName];
-            if (handlingLinks && [HTMLTagName isEqualToString:@"a"]) {
+            if (handlingAnnotationTags && [HTMLTagName isEqualToString:@"span"]) {
+                if ([HTMLTagAttributes containsString:@"token-editor"]) {
+                    [currentAnnotationAttributes addObject:HTMLTagAttributes];
+                }
+            } else if (handlingLinks && [HTMLTagName isEqualToString:@"a"]) {
                 [hrefRegex enumerateMatchesInString:HTMLTagAttributes
                                             options:0
                                               range:NSMakeRange(0, HTMLTagAttributes.length)
@@ -442,10 +451,20 @@
         NSRange range = [obj rangeValue];
         NSSet *tagsForRange = [tags objectAtIndex:idx];
         NSSet *linksForRange = [links objectAtIndex:idx];
+        NSSet *annotationsForRange = [annotationAttributes objectAtIndex:idx];
         BOOL isItalic = [tagsForRange containsObject:@"i"];
         BOOL isBold = [tagsForRange containsObject:@"b"];
         BOOL isSubscript = [tagsForRange containsObject:@"sub"];
         BOOL isSuperscript = [tagsForRange containsObject:@"sup"];
+        BOOL needsAnnotationHighlight = NO;
+        for (NSString *annotationAttributes in annotationsForRange) {
+            for (NSString *annotationTokenID in annotationTokenIDs) {
+                NSString *tokenIDAttribute = [NSString stringWithFormat: @"id=\"token-%@", annotationTokenID];
+                if ([annotationAttributes containsString:tokenIDAttribute]) {
+                    needsAnnotationHighlight = YES;
+                }
+            }
+        }
         if (isItalic && isBold) {
             [attributedString addAttribute:NSFontAttributeName value:boldItalicFont range:range];
         } else if (isItalic) {
@@ -458,6 +477,10 @@
             }
         } else if (isBold) {
             [attributedString addAttribute:NSFontAttributeName value:boldFont range:range];
+        }
+        
+        if (handlingAnnotationTags && needsAnnotationHighlight && annotationHighlightColor) {
+            [attributedString addAttribute:NSBackgroundColorAttributeName value:annotationHighlightColor range:range];
         }
 
         if (handlingSuperSubscripts) {

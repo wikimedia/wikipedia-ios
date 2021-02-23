@@ -40,6 +40,9 @@ NS_ASSUME_NONNULL_BEGIN
                                                       handlingLinks:(BOOL)handlingLinks
                                                       handlingLists:(BOOL)handlingLists
                                             handlingSuperSubscripts:(BOOL)handlingSuperSubscripts
+                                             handlingAnnotationTags:(BOOL)handlingAnnotationTags
+                                                 annotationTokenIDs:(NSArray<NSString *> *)annotationTokenIDs
+                                           annotationHighlightColor:(nullable UIColor *)color
                                                          tagMapping:(nullable NSDictionary<NSString *, NSString *> *)tagMapping
                                             additionalTagAttributes:(nullable NSDictionary<NSString *, NSDictionary<NSAttributedStringKey, id> *> *)additionalTagAttributes;
 

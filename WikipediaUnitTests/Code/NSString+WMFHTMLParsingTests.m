@@ -94,7 +94,7 @@
     
     UIFont *standard = [UIFont systemFontOfSize:12];
     UIFont *italic = [UIFont italicSystemFontOfSize:12];
-    NSMutableAttributedString *displayTitleAttributedString = [displayTitle wmf_attributedStringFromHTMLWithFont:standard boldFont:nil italicFont:italic boldItalicFont:nil color:nil linkColor:nil handlingLinks:NO handlingLists:NO handlingSuperSubscripts:NO tagMapping:nil additionalTagAttributes:nil];
+    NSMutableAttributedString *displayTitleAttributedString = [displayTitle wmf_attributedStringFromHTMLWithFont:standard boldFont:nil italicFont:italic boldItalicFont:nil color:nil linkColor:nil handlingLinks:NO handlingLists:NO handlingSuperSubscripts:NO handlingAnnotationTags:NO annotationTokenIDs:@[] annotationHighlightColor:nil tagMapping:nil additionalTagAttributes:nil];
     NSMutableAttributedString *attributedStringToCompare = [[NSMutableAttributedString alloc] initWithString:@"B − L"];
     [attributedStringToCompare addAttributes:@{NSFontAttributeName: italic} range:NSMakeRange(0, 1)];
     [attributedStringToCompare addAttributes:@{NSFontAttributeName: standard} range:NSMakeRange(1, 3)];

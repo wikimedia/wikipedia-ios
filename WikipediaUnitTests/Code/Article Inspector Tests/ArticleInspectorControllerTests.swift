@@ -124,4 +124,54 @@ class ArticleInspectorControllerTests: XCTestCase {
         XCTAssertEqual(thirdToken.identifier, 1420)
         XCTAssertEqual(thirdToken.text, "was")
     }
+    
+    func testAttributedString() throws {
+        guard let wikiWhoResponse = try wmf_bundle()?.objectFromContentsOfOFile(fileName: "ArticleInspector-WikiWho", fileType: "json", objectType: WikiWhoResponse.self) else {
+            XCTFail("Unable to create WikiWhoResponse.")
+            return
+        }
+        
+        let url = URL(string: "https://en.wikipedia.org")! //this value doesn't matter
+        let controller = ArticleInspectorController(articleURL: url)
+        controller.testSetWikiWhoResponse(wikiWhoResponse)
+        
+        let individualWikiWhoSections = try controller.testIndividualSectionsFromHtml(wikiWhoHtml)
+        let individualArticleSections = try controller.testIndividualSectionsFromHtml(articleHtml)
+        
+        let combinedSections = try controller.testCombinedSections(articleSections: individualArticleSections, wikiWhoSections: individualWikiWhoSections)
+        XCTAssert(combinedSections.count > 0, "Missing combined sections")
+        let firstSection = combinedSections[0]
+        XCTAssert(firstSection.paragraphs.count > 0, "Missing first section paragraphs")
+        let firstParagraph = firstSection.paragraphs[0]
+        XCTAssert(firstParagraph.sentences.count > 0, "Missing first paragraph sentences")
+        let firstSentence = firstParagraph.sentences[0]
+
+        let regularTraitCollection = UITraitCollection(preferredContentSizeCategory: UIContentSizeCategory.large)
+        let attributedStrings = try firstSentence.testAttributedStringsInAnnotatedDataForTheme(Theme.light, traitCollection: regularTraitCollection)
+        
+        XCTAssertEqual(attributedStrings.count, firstSentence.annotatedData.count)
+        let firstAttributedString = attributedStrings[0]
+        
+        //confirm the first few words "Apollo 14 was" are higlighted.
+        //https://en.wikipedia.org/w/index.php?title=Apollo_14&diff=prev&oldid=1487275
+        
+        let highlightedText1 = "Apollo 14"
+        let highlightedText2 = " was"
+        var range1 = NSRange()
+        var range2 = NSRange()
+        var range3 = NSRange()
+        
+        let highlightedAttributes1 = firstAttributedString.attributes(at: 0, effectiveRange: &range1)
+        let highlightedAttributes2 = firstAttributedString.attributes(at: highlightedText1.count, effectiveRange: &range2)
+        let nonHighlightedAttributes1 = firstAttributedString.attributes(at: highlightedText1.count + highlightedText2.count, effectiveRange: &range3)
+        
+        var highlightColor: UIColor? = highlightedAttributes1[NSAttributedString.Key.backgroundColor] as? UIColor
+        XCTAssertEqual(highlightColor, Theme.light.colors.diffHighlightAdd)
+        XCTAssertEqual(range1.length, highlightedText1.count)
+        highlightColor = highlightedAttributes2[NSAttributedString.Key.backgroundColor] as? UIColor
+        XCTAssertEqual(highlightColor, Theme.light.colors.diffHighlightAdd)
+        XCTAssertEqual(range2.length, highlightedText2.count)
+        highlightColor = nonHighlightedAttributes1[NSAttributedString.Key.backgroundColor] as? UIColor
+        XCTAssertNil(highlightColor)
+    }
 }

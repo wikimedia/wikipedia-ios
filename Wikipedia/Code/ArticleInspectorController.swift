@@ -14,6 +14,7 @@ enum ArticleInspectorError: Error {
     case missingWikiWhoRevisionForRevisionID
     case missingWikiWhoEditorForEditorID
     case creatingCombinedSentenceWithoutWikiWhoResponse
+    case missingTokenIDsForAttributedStrings
 }
 
 @available(iOS 13.0, *)
@@ -22,6 +23,7 @@ class ArticleInspectorController {
     private let articleURL: URL
     private let fetcher = ArticleInspectorFetcher()
     private var wikiWhoResponse: WikiWhoResponse!
+    private var combinedSections: [ArticleInspector.Section<ArticleInspector.CombinedSentence>] = []
     
     init(articleURL: URL) {
         self.articleURL = articleURL
@@ -82,7 +84,8 @@ class ArticleInspectorController {
                let wikiWhoResponse = self.wikiWhoResponse {
                
                 do {
-                    try self.processContent(articleHtml: articleHtml, wikiWhoResponse: wikiWhoResponse)
+                    self.combinedSections = try self.processContent(articleHtml: articleHtml, wikiWhoResponse: wikiWhoResponse)
+                    //TODO: choose a sentence (https://phabricator.wikimedia.org/T270448), send to ArticleViewController for marking over JS bridge.
                 } catch (let error) {
                     DDLogError(error)
                 }
@@ -103,10 +106,7 @@ class ArticleInspectorController {
         let articleHtmlSections = try individualSectionsFromHtml(articleHtml)
         let wikiWhoSections = try individualSectionsFromHtml(wikiWhoResponse.extendedHtml)
         
-        let combinedSections = try self.combinedSections(articleSections: articleHtmlSections, wikiWhoSections: wikiWhoSections)
-        
-        //TODO: loop through separated models and return combined models
-        return []
+        return try self.combinedSections(articleSections: articleHtmlSections, wikiWhoSections: wikiWhoSections)
     }
 }
 
@@ -456,6 +456,53 @@ private extension ArticleInspectorController {
     }
 }
 
+//MARK: NSAttributedString Helpers
+
+extension ArticleInspector.CombinedSentence {
+    
+    /// Creates attributed strings needed for displaying annotation for a sentence in a native view. One attributed string per revision for the sentence, with token added in each revision highlighted.
+    /// - Parameter theme: Theme to consider when setting the attributed string font and highlight colors
+    /// - Throws: If there was an error in generating any attributed strings
+    /// - Returns: Array of Attributed Strings
+    func attributedStringsInAnnotatedDataForTheme(_ theme: Theme, traitCollection: UITraitCollection) throws -> [NSAttributedString] {
+        
+        var attributedStrings: [NSAttributedString] = []
+        
+        for data in self.annotatedData {
+            
+            let attributedString = try data.attributedStringFromNativeText(self.nativeText, theme: theme, traitCollection: traitCollection)
+            attributedStrings.append(attributedString)
+            
+        }
+        
+        return attributedStrings
+    }
+}
+
+
+fileprivate extension ArticleInspector.AnnotatedData {
+
+    /// Creates attributed string needed for displaying annotation for a sentence in a native view.
+    /// - Parameters:
+    ///   - nativeText: Text with annotation tags to generate the attributed string against.
+    ///   - theme: Theme to consider when setting the attributed string font and highlight colors
+    ///   - traitCollection: Trait collection to style attributed string with. Will use the system's preferred UIContentSizeCategory to set the text size.
+    /// - Throws: If self has no tokenIDs to highlight text with.
+    /// - Returns: Attributed String from native text with tokens highlighted.
+    func attributedStringFromNativeText(_ nativeText: String, theme: Theme, traitCollection: UITraitCollection) throws -> NSAttributedString {
+        
+        let tokenIDs = tokens.map { String($0.identifier) }
+        
+        guard !tokenIDs.isEmpty else {
+            throw ArticleInspectorError.missingTokenIDsForAttributedStrings
+        }
+        
+        let attributedString = nativeText.byAttributingHTML(with: .title2, boldWeight: .semibold, matching: traitCollection, color: theme.colors.primaryText, handlingLinks: true, linkColor: theme.colors.link, handlingLists: false, handlingSuperSubscripts: true, handlingAnnotationTags: true, annotationTokenIDs: tokenIDs, annotationHighlight: theme.colors.diffHighlightAdd, tagMapping: nil, additionalTagAttributes: nil)
+        
+        return attributedString
+    }
+}
+
 //MARK: String helpers
 
 fileprivate extension String {
@@ -578,6 +625,12 @@ extension ArticleInspectorController {
     
     func testSetWikiWhoResponse(_ wikiWhoResponse: WikiWhoResponse) {
         self.wikiWhoResponse = wikiWhoResponse
+    }
+}
+
+extension ArticleInspector.CombinedSentence {
+    func testAttributedStringsInAnnotatedDataForTheme(_ theme: Theme, traitCollection: UITraitCollection) throws -> [NSAttributedString] {
+        return try attributedStringsInAnnotatedDataForTheme(theme, traitCollection: traitCollection)
     }
 }
 #endif
