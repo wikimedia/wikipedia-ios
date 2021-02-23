@@ -69,6 +69,13 @@ class ArticleInspectorControllerTests: XCTestCase {
         let individualWikiWhoSections = try controller.testIndividualSectionsFromHtml(wikiWhoHtml)
         let individualArticleSections = try controller.testIndividualSectionsFromHtml(articleHtml)
         
+        guard let wikiWhoResponse = try wmf_bundle()?.objectFromContentsOfOFile(fileName: "ArticleInspector-WikiWho", fileType: "json", objectType: WikiWhoResponse.self) else {
+            XCTFail("Unable to create WikiWhoResponse.")
+            return
+        }
+        
+        controller.testSetWikiWhoResponse(wikiWhoResponse)
+        
         let combinedSections = try controller.testCombinedSections(articleSections: individualArticleSections, wikiWhoSections: individualWikiWhoSections)
 
         XCTAssertEqual(combinedSections.count, 3)

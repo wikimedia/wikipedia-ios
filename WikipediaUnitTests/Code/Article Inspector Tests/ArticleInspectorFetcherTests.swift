@@ -18,7 +18,7 @@ fileprivate class MockSession: Session {
     
     override func jsonDecodableTask<T>(with urlRequest: URLRequest, completionHandler: @escaping (T?, URLResponse?, Error?) -> Void) -> URLSessionDataTask? where T : Decodable {
         do {
-            let result: SignificantEvents = try jsonDecodeData(data: data)
+            let result: WikiWhoResponse = try jsonDecodeData(data: data)
             completionHandler(result as? T, nil, nil)
         } catch (let error) {
             XCTFail("Significant Events json failed to decode \(error)")
@@ -63,7 +63,7 @@ class ArticleInspectorFetcherTests: XCTestCase {
                     return
                 }
                 
-                XCTAssertEqual(firstRevision.revisionID, "588298752")
+                XCTAssertEqual(firstRevision.revisionID, "588428499")
                 XCTAssertEqual(firstRevision.revisionDateString, "2013-12-30T21:47:37Z")
                 XCTAssertEqual(firstRevision.editorID, "fc53413bd6044d4e8097b7c420d01ae7")
                 XCTAssertEqual(firstRevision.editorName, "0|82.139.164.84")
@@ -83,7 +83,7 @@ class ArticleInspectorFetcherTests: XCTestCase {
                 }
                 
                 XCTAssertEqual(firstToken.text, "{{")
-                XCTAssertEqual(firstToken.revisionID, "1003198272")
+                XCTAssertEqual(firstToken.revisionID, "1003198287")
                 XCTAssertEqual(firstToken.editorID, "10808929")
             case .failure(let error):
                 XCTFail("Error fetching : \(error)")
