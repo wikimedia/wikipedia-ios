@@ -32,7 +32,7 @@ class ArticleInspectorControllerTests: XCTestCase {
         let individualSections = try controller.testIndividualSectionsFromHtml(articleHtml)
         XCTAssertEqual(individualSections.count, 12)
         let firstSection = individualSections.first!
-        XCTAssertEqual(firstSection.paragraphs.count, 4)
+        XCTAssertEqual(firstSection.paragraphs.count, 5)
         let firstParagraph = firstSection.paragraphs.first!
         XCTAssertEqual(firstParagraph.sentences.count, 2)
         let firstSentence = firstParagraph.sentences.first!
@@ -51,7 +51,7 @@ class ArticleInspectorControllerTests: XCTestCase {
         let individualSections = try controller.testIndividualSectionsFromHtml(wikiWhoHtml)
         XCTAssertEqual(individualSections.count, 3)
         let firstSection = individualSections.first!
-        XCTAssertEqual(firstSection.paragraphs.count, 4)
+        XCTAssertEqual(firstSection.paragraphs.count, 5)
         let firstParagraph = firstSection.paragraphs.first!
         XCTAssertEqual(firstParagraph.sentences.count, 2)
         let firstSentence = firstParagraph.sentences.first!
