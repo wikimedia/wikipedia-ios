@@ -272,6 +272,14 @@ platform :ios do
     ipa_path = "#{build_dir}/#{product_name}.ipa"
     build_number =  options[:build] || get_latest_build_number(prefix: "betas") + 1
     version = get_version_number_from_options(options)
+    apple_key = `cat ~/AuthKey.p8`
+    issuer_id = `cat ~/issuerID.txt`
+    key_id = `cat ~/keyID.txt`
+    api_key = app_store_connect_api_key(
+      key_id: key_id,
+      issuer_id: issuer_id,
+      key_content: apple_key
+    )
 
     increment_build_number(
       build_number: build_number
@@ -283,7 +291,7 @@ platform :ios do
     #   tag_match_pattern: "#{tag_prefix}/*", # Optional, lets you search for a tag name that matches a glob(7) pattern
     #   include_merges: false # Optional, lets you filter out merge commits
     # )
-
+    
     build(
       product_name: product_name,
       project: "Wikipedia",
@@ -292,6 +300,7 @@ platform :ios do
     )
 
     pilot(
+      api_key: api_key,
       ipa: ipa_path,
       skip_waiting_for_build_processing: true,
       skip_submission: true,
