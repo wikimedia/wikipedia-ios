@@ -70,3 +70,4 @@
 // Third Party
 #import "TUSafariActivity.h"
 #import "DDLog+WMFLogger.h"
+#import "NYTPhotoViewer.h"

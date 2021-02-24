@@ -63,6 +63,50 @@
 		0042809125E6E395004945B3 /* MTLTransformerErrorHandling.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042806925E6E395004945B3 /* MTLTransformerErrorHandling.m */; };
 		0042809225E6E395004945B3 /* MTLReflection.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042806A25E6E395004945B3 /* MTLReflection.m */; };
 		0042809325E6E395004945B3 /* NSDictionary+MTLManipulationAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042806B25E6E395004945B3 /* NSDictionary+MTLManipulationAdditions.m */; };
+		0042811525E6E841004945B3 /* NYTPhotoViewer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 004280F825E6E841004945B3 /* NYTPhotoViewer.bundle */; };
+		0042811625E6E841004945B3 /* NYTPhotoViewer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 004280F825E6E841004945B3 /* NYTPhotoViewer.bundle */; };
+		0042811725E6E841004945B3 /* NYTPhotoViewer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 004280F825E6E841004945B3 /* NYTPhotoViewer.bundle */; };
+		0042811825E6E841004945B3 /* NYTPhotoViewer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 004280F825E6E841004945B3 /* NYTPhotoViewer.bundle */; };
+		0042811925E6E841004945B3 /* NYTPhotosOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 004280FA25E6E841004945B3 /* NYTPhotosOverlayView.m */; };
+		0042811A25E6E841004945B3 /* NYTPhotosOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 004280FA25E6E841004945B3 /* NYTPhotosOverlayView.m */; };
+		0042811B25E6E841004945B3 /* NYTPhotosOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 004280FA25E6E841004945B3 /* NYTPhotosOverlayView.m */; };
+		0042811C25E6E841004945B3 /* NYTPhotosOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 004280FA25E6E841004945B3 /* NYTPhotosOverlayView.m */; };
+		0042811D25E6E841004945B3 /* NYTPhotoTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 004280FB25E6E841004945B3 /* NYTPhotoTransitionAnimator.m */; };
+		0042811E25E6E841004945B3 /* NYTPhotoTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 004280FB25E6E841004945B3 /* NYTPhotoTransitionAnimator.m */; };
+		0042811F25E6E841004945B3 /* NYTPhotoTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 004280FB25E6E841004945B3 /* NYTPhotoTransitionAnimator.m */; };
+		0042812025E6E841004945B3 /* NYTPhotoTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 004280FB25E6E841004945B3 /* NYTPhotoTransitionAnimator.m */; };
+		0042812125E6E841004945B3 /* NSBundle+NYTPhotoViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 004280FD25E6E841004945B3 /* NSBundle+NYTPhotoViewer.m */; };
+		0042812225E6E841004945B3 /* NSBundle+NYTPhotoViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 004280FD25E6E841004945B3 /* NSBundle+NYTPhotoViewer.m */; };
+		0042812325E6E841004945B3 /* NSBundle+NYTPhotoViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 004280FD25E6E841004945B3 /* NSBundle+NYTPhotoViewer.m */; };
+		0042812425E6E841004945B3 /* NSBundle+NYTPhotoViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 004280FD25E6E841004945B3 /* NSBundle+NYTPhotoViewer.m */; };
+		0042812525E6E841004945B3 /* NYTPhotoTransitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 004280FF25E6E841004945B3 /* NYTPhotoTransitionController.m */; };
+		0042812625E6E841004945B3 /* NYTPhotoTransitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 004280FF25E6E841004945B3 /* NYTPhotoTransitionController.m */; };
+		0042812725E6E841004945B3 /* NYTPhotoTransitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 004280FF25E6E841004945B3 /* NYTPhotoTransitionController.m */; };
+		0042812825E6E841004945B3 /* NYTPhotoTransitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 004280FF25E6E841004945B3 /* NYTPhotoTransitionController.m */; };
+		0042812925E6E841004945B3 /* NYTPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042810025E6E841004945B3 /* NYTPhotoViewController.m */; };
+		0042812A25E6E841004945B3 /* NYTPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042810025E6E841004945B3 /* NYTPhotoViewController.m */; };
+		0042812B25E6E841004945B3 /* NYTPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042810025E6E841004945B3 /* NYTPhotoViewController.m */; };
+		0042812C25E6E841004945B3 /* NYTPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042810025E6E841004945B3 /* NYTPhotoViewController.m */; };
+		0042812D25E6E841004945B3 /* NYTPhotoCaptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042810225E6E841004945B3 /* NYTPhotoCaptionView.m */; };
+		0042812E25E6E841004945B3 /* NYTPhotoCaptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042810225E6E841004945B3 /* NYTPhotoCaptionView.m */; };
+		0042812F25E6E841004945B3 /* NYTPhotoCaptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042810225E6E841004945B3 /* NYTPhotoCaptionView.m */; };
+		0042813025E6E841004945B3 /* NYTPhotoCaptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042810225E6E841004945B3 /* NYTPhotoCaptionView.m */; };
+		0042813125E6E841004945B3 /* NYTPhotosDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042810425E6E841004945B3 /* NYTPhotosDataSource.m */; };
+		0042813225E6E841004945B3 /* NYTPhotosDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042810425E6E841004945B3 /* NYTPhotosDataSource.m */; };
+		0042813325E6E841004945B3 /* NYTPhotosDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042810425E6E841004945B3 /* NYTPhotosDataSource.m */; };
+		0042813425E6E841004945B3 /* NYTPhotosDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042810425E6E841004945B3 /* NYTPhotosDataSource.m */; };
+		0042813525E6E841004945B3 /* NYTPhotoDismissalInteractionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042810725E6E841004945B3 /* NYTPhotoDismissalInteractionController.m */; };
+		0042813625E6E841004945B3 /* NYTPhotoDismissalInteractionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042810725E6E841004945B3 /* NYTPhotoDismissalInteractionController.m */; };
+		0042813725E6E841004945B3 /* NYTPhotoDismissalInteractionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042810725E6E841004945B3 /* NYTPhotoDismissalInteractionController.m */; };
+		0042813825E6E841004945B3 /* NYTPhotoDismissalInteractionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042810725E6E841004945B3 /* NYTPhotoDismissalInteractionController.m */; };
+		0042813925E6E841004945B3 /* NYTScalingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042810C25E6E841004945B3 /* NYTScalingImageView.m */; };
+		0042813A25E6E841004945B3 /* NYTScalingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042810C25E6E841004945B3 /* NYTScalingImageView.m */; };
+		0042813B25E6E841004945B3 /* NYTScalingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042810C25E6E841004945B3 /* NYTScalingImageView.m */; };
+		0042813C25E6E841004945B3 /* NYTScalingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042810C25E6E841004945B3 /* NYTScalingImageView.m */; };
+		0042813D25E6E841004945B3 /* NYTPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042811325E6E841004945B3 /* NYTPhotosViewController.m */; };
+		0042813E25E6E841004945B3 /* NYTPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042811325E6E841004945B3 /* NYTPhotosViewController.m */; };
+		0042813F25E6E841004945B3 /* NYTPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042811325E6E841004945B3 /* NYTPhotosViewController.m */; };
+		0042814025E6E841004945B3 /* NYTPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042811325E6E841004945B3 /* NYTPhotosViewController.m */; };
 		0062597324DE0A2500C95037 /* WidgetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0062597224DE0A2500C95037 /* WidgetController.swift */; };
 		006D273524D8BAFB00947551 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D273424D8BAFB00947551 /* View+Extensions.swift */; };
 		006D273724D8D8D100947551 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D273624D8D8D100947551 /* Date+Extensions.swift */; };
@@ -3348,6 +3392,33 @@
 		0042806925E6E395004945B3 /* MTLTransformerErrorHandling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTLTransformerErrorHandling.m; sourceTree = "<group>"; };
 		0042806A25E6E395004945B3 /* MTLReflection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTLReflection.m; sourceTree = "<group>"; };
 		0042806B25E6E395004945B3 /* NSDictionary+MTLManipulationAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+MTLManipulationAdditions.m"; sourceTree = "<group>"; };
+		004280F825E6E841004945B3 /* NYTPhotoViewer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = NYTPhotoViewer.bundle; sourceTree = "<group>"; };
+		004280F925E6E841004945B3 /* NYTPhotoDismissalInteractionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYTPhotoDismissalInteractionController.h; sourceTree = "<group>"; };
+		004280FA25E6E841004945B3 /* NYTPhotosOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYTPhotosOverlayView.m; sourceTree = "<group>"; };
+		004280FB25E6E841004945B3 /* NYTPhotoTransitionAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYTPhotoTransitionAnimator.m; sourceTree = "<group>"; };
+		004280FD25E6E841004945B3 /* NSBundle+NYTPhotoViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+NYTPhotoViewer.m"; sourceTree = "<group>"; };
+		004280FE25E6E841004945B3 /* NSBundle+NYTPhotoViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+NYTPhotoViewer.h"; sourceTree = "<group>"; };
+		004280FF25E6E841004945B3 /* NYTPhotoTransitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYTPhotoTransitionController.m; sourceTree = "<group>"; };
+		0042810025E6E841004945B3 /* NYTPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYTPhotoViewController.m; sourceTree = "<group>"; };
+		0042810125E6E841004945B3 /* NYTScalingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYTScalingImageView.h; sourceTree = "<group>"; };
+		0042810225E6E841004945B3 /* NYTPhotoCaptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYTPhotoCaptionView.m; sourceTree = "<group>"; };
+		0042810325E6E841004945B3 /* NYTPhotoViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYTPhotoViewer.h; sourceTree = "<group>"; };
+		0042810425E6E841004945B3 /* NYTPhotosDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYTPhotosDataSource.m; sourceTree = "<group>"; };
+		0042810525E6E841004945B3 /* NYTPhotosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYTPhotosViewController.h; sourceTree = "<group>"; };
+		0042810625E6E841004945B3 /* NYTPhotosOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYTPhotosOverlayView.h; sourceTree = "<group>"; };
+		0042810725E6E841004945B3 /* NYTPhotoDismissalInteractionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYTPhotoDismissalInteractionController.m; sourceTree = "<group>"; };
+		0042810825E6E841004945B3 /* NYTPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYTPhotoViewController.h; sourceTree = "<group>"; };
+		0042810925E6E841004945B3 /* NYTPhotoTransitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYTPhotoTransitionController.h; sourceTree = "<group>"; };
+		0042810A25E6E841004945B3 /* NYTPhotoTransitionAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYTPhotoTransitionAnimator.h; sourceTree = "<group>"; };
+		0042810B25E6E841004945B3 /* NYTPhotoCaptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYTPhotoCaptionView.h; sourceTree = "<group>"; };
+		0042810C25E6E841004945B3 /* NYTScalingImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYTScalingImageView.m; sourceTree = "<group>"; };
+		0042810D25E6E841004945B3 /* NYTPhotoViewerCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYTPhotoViewerCore.h; sourceTree = "<group>"; };
+		0042810F25E6E841004945B3 /* NYTPhotoCaptionViewLayoutWidthHinting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYTPhotoCaptionViewLayoutWidthHinting.h; sourceTree = "<group>"; };
+		0042811025E6E841004945B3 /* NYTPhotoContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYTPhotoContainer.h; sourceTree = "<group>"; };
+		0042811125E6E841004945B3 /* NYTPhotosViewControllerDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYTPhotosViewControllerDataSource.h; sourceTree = "<group>"; };
+		0042811225E6E841004945B3 /* NYTPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYTPhoto.h; sourceTree = "<group>"; };
+		0042811325E6E841004945B3 /* NYTPhotosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYTPhotosViewController.m; sourceTree = "<group>"; };
+		0042811425E6E841004945B3 /* NYTPhotosDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYTPhotosDataSource.h; sourceTree = "<group>"; };
 		0062597224DE0A2500C95037 /* WidgetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		006D273424D8BAFB00947551 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; usesTabs = 0; };
 		006D273624D8D8D100947551 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; usesTabs = 0; };
@@ -5184,6 +5255,57 @@
 				0042805F25E6E395004945B3 /* NSArray+MTLManipulationAdditions.h */,
 			);
 			path = include;
+			sourceTree = "<group>";
+		};
+		004280F725E6E841004945B3 /* NYTPhotoViewer */ = {
+			isa = PBXGroup;
+			children = (
+				004280F825E6E841004945B3 /* NYTPhotoViewer.bundle */,
+				004280F925E6E841004945B3 /* NYTPhotoDismissalInteractionController.h */,
+				004280FA25E6E841004945B3 /* NYTPhotosOverlayView.m */,
+				004280FB25E6E841004945B3 /* NYTPhotoTransitionAnimator.m */,
+				004280FC25E6E841004945B3 /* Resource Loading */,
+				004280FF25E6E841004945B3 /* NYTPhotoTransitionController.m */,
+				0042810025E6E841004945B3 /* NYTPhotoViewController.m */,
+				0042810125E6E841004945B3 /* NYTScalingImageView.h */,
+				0042810225E6E841004945B3 /* NYTPhotoCaptionView.m */,
+				0042810325E6E841004945B3 /* NYTPhotoViewer.h */,
+				0042810425E6E841004945B3 /* NYTPhotosDataSource.m */,
+				0042810525E6E841004945B3 /* NYTPhotosViewController.h */,
+				0042810625E6E841004945B3 /* NYTPhotosOverlayView.h */,
+				0042810725E6E841004945B3 /* NYTPhotoDismissalInteractionController.m */,
+				0042810825E6E841004945B3 /* NYTPhotoViewController.h */,
+				0042810925E6E841004945B3 /* NYTPhotoTransitionController.h */,
+				0042810A25E6E841004945B3 /* NYTPhotoTransitionAnimator.h */,
+				0042810B25E6E841004945B3 /* NYTPhotoCaptionView.h */,
+				0042810C25E6E841004945B3 /* NYTScalingImageView.m */,
+				0042810D25E6E841004945B3 /* NYTPhotoViewerCore.h */,
+				0042810E25E6E841004945B3 /* Protocols */,
+				0042811325E6E841004945B3 /* NYTPhotosViewController.m */,
+				0042811425E6E841004945B3 /* NYTPhotosDataSource.h */,
+			);
+			name = NYTPhotoViewer;
+			path = "Wikipedia/Third Party Code/NYTPhotoViewer";
+			sourceTree = SOURCE_ROOT;
+		};
+		004280FC25E6E841004945B3 /* Resource Loading */ = {
+			isa = PBXGroup;
+			children = (
+				004280FD25E6E841004945B3 /* NSBundle+NYTPhotoViewer.m */,
+				004280FE25E6E841004945B3 /* NSBundle+NYTPhotoViewer.h */,
+			);
+			path = "Resource Loading";
+			sourceTree = "<group>";
+		};
+		0042810E25E6E841004945B3 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				0042810F25E6E841004945B3 /* NYTPhotoCaptionViewLayoutWidthHinting.h */,
+				0042811025E6E841004945B3 /* NYTPhotoContainer.h */,
+				0042811125E6E841004945B3 /* NYTPhotosViewControllerDataSource.h */,
+				0042811225E6E841004945B3 /* NYTPhoto.h */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		006D273324D8BAE500947551 /* Utilities */ = {
@@ -7819,6 +7941,7 @@
 		D810C34C1DF1C36F003427DA /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				004280F725E6E841004945B3 /* NYTPhotoViewer */,
 				D84DAA081EEEF527008E4B18 /* SWStepSlider */,
 				D8E27B9C1F82AFE600F9D2B3 /* RMessage */,
 				D8C4D3CF1FD5D9250089CEC2 /* TUSafariActivity */,
@@ -9360,6 +9483,7 @@
 				B0C6BE531E4526810033BD6E /* WMFChangePasswordViewController.storyboard in Resources */,
 				D8D92B5A1DF22E1700B95311 /* NotificationBackgroundError.png in Resources */,
 				7ABAD6B920338CFB006A364C /* ReadingListDetailUnderBarViewController.xib in Resources */,
+				0042811525E6E841004945B3 /* NYTPhotoViewer.bundle in Resources */,
 				B01490A11DB96BD6007F5391 /* WMFReferencePanels.storyboard in Resources */,
 				D87234041E1FF18100751E83 /* Places.storyboard in Resources */,
 				676070A42280987C00A81F09 /* TalkPageTopicNewViewController.xib in Resources */,
@@ -9535,6 +9659,7 @@
 				D8A42BEE1E815A9C00D8E281 /* WMFSettingsTableViewCell.xib in Resources */,
 				D8A42BF11E815A9C00D8E281 /* NotificationBackgroundWarningIcon@2x.png in Resources */,
 				D8A42BF41E815A9C00D8E281 /* TableOfContentsHeader.xib in Resources */,
+				0042811825E6E841004945B3 /* NYTPhotoViewer.bundle in Resources */,
 				6780D5B7237A1F490087A5D1 /* DiffResponse.json in Resources */,
 				D8A42BF71E815A9C00D8E281 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */,
 				7A2432C61FCF401900FB4BA5 /* CreateReadingListViewController.xib in Resources */,
@@ -9658,6 +9783,7 @@
 				D8CE26751E698E2400DAE2E0 /* WMFSettingsTableViewCell.xib in Resources */,
 				D8CE26781E698E2400DAE2E0 /* NotificationBackgroundWarningIcon@2x.png in Resources */,
 				D8CE267B1E698E2400DAE2E0 /* TableOfContentsHeader.xib in Resources */,
+				0042811725E6E841004945B3 /* NYTPhotoViewer.bundle in Resources */,
 				6780D5B5237A1F490087A5D1 /* DiffResponse.json in Resources */,
 				D8CE267E1E698E2400DAE2E0 /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */,
 				7A2432C41FCF401900FB4BA5 /* CreateReadingListViewController.xib in Resources */,
@@ -9781,6 +9907,7 @@
 				D8EC3F751E9BDA35006712EB /* WMFSettingsTableViewCell.xib in Resources */,
 				D8EC3F781E9BDA35006712EB /* NotificationBackgroundWarningIcon@2x.png in Resources */,
 				D8EC3F7B1E9BDA35006712EB /* TableOfContentsHeader.xib in Resources */,
+				0042811625E6E841004945B3 /* NYTPhotoViewer.bundle in Resources */,
 				6780D5B6237A1F490087A5D1 /* DiffResponse.json in Resources */,
 				D8EC3F7E1E9BDA35006712EB /* WMFBarButtonItemPopoverMessageViewController.storyboard in Resources */,
 				7A2432C51FCF401900FB4BA5 /* CreateReadingListViewController.xib in Resources */,
@@ -10194,6 +10321,7 @@
 				B0E803711C0CD9A80065EBC0 /* TableOfContentsAnimator.swift in Sources */,
 				BA4524181F324C3100439C42 /* FontSizeSliderViewController.swift in Sources */,
 				B0338A841DBF0AF20012F588 /* WMFReferencePageBackgroundView.swift in Sources */,
+				0042811925E6E841004945B3 /* NYTPhotosOverlayView.m in Sources */,
 				67F73E792267B9510079DEEF /* TalkPageTopicNewViewController.swift in Sources */,
 				B00050141C52D73800515F70 /* UIApplication+RTL.swift in Sources */,
 				8321FCCC2387231E0079F3C7 /* ViewControllerRouter.swift in Sources */,
@@ -10278,6 +10406,7 @@
 				B0016CC321362DB300FA1096 /* SetupGradientView.swift in Sources */,
 				83DB4410244A57590046FABE /* RootNavigationController.swift in Sources */,
 				D818FEBB21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift in Sources */,
+				0042812925E6E841004945B3 /* NYTPhotoViewController.m in Sources */,
 				BC23E4DD1C223DCB00B5AFDE /* WMFArticleRevisionFetcher.m in Sources */,
 				B0B4CF0A1CC0500E0051DF7A /* WMFArticleLanguagesSectionHeader.m in Sources */,
 				7ABE17352239DCF6006BA309 /* WelcomeAnimationViewController.swift in Sources */,
@@ -10289,6 +10418,7 @@
 				7AF56C2F21DDEC1C00563A9C /* TextFormattingProviding.swift in Sources */,
 				B0ED17341E4912EB008B70AD /* WMFTwoFactorPasswordViewController.swift in Sources */,
 				B0B423611EF9D69C00D3DC4C /* OnThisDayViewController.swift in Sources */,
+				0042813125E6E841004945B3 /* NYTPhotosDataSource.m in Sources */,
 				B0CD9DDA1F70997300051843 /* WMFWelcomeExplorationAnimationView.swift in Sources */,
 				B0E805941C0CE2C60065EBC0 /* SavedPagesFunnel.m in Sources */,
 				83CA612A20D1675800EF0C4A /* ExploreCardViewController.swift in Sources */,
@@ -10384,6 +10514,7 @@
 				67059DB52260D034009811AA /* SchemeHandler.swift in Sources */,
 				FFE891462445150B0058B642 /* AppTabBarDelegate.swift in Sources */,
 				B069FA2E1CEACB8400083D59 /* WeakScriptMessageDelegate.swift in Sources */,
+				0042812D25E6E841004945B3 /* NYTPhotoCaptionView.m in Sources */,
 				67985A542523D80000EBF353 /* ArticleAsLivingDocController.swift in Sources */,
 				7A35CB871FD82B6300AAF3B7 /* ReadingListDetailViewController.swift in Sources */,
 				7A9A611E21124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */,
@@ -10424,12 +10555,14 @@
 				83B01F9023DB41BE001185F4 /* ArticleViewController+Sharing.swift in Sources */,
 				B0E8054D1C0CE0DC0065EBC0 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
 				B0E806331C0CE7680065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
+				0042812125E6E841004945B3 /* NSBundle+NYTPhotoViewer.m in Sources */,
 				6734116422739CA2005B31DA /* TalkPageLocalHandler.swift in Sources */,
 				D84692E01D5E1E3F000A7058 /* TableOfContentsHeader.swift in Sources */,
 				83F26B2A220B62EC002D87A4 /* SectionEditorButton.swift in Sources */,
 				0EE489031D4ADCA00088505C /* UIViewController+WMFScrollToTop.swift in Sources */,
 				7A9F060D2266425700856321 /* InsertMediaSettingsViewController.swift in Sources */,
 				7AA96D5C21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */,
+				0042811D25E6E841004945B3 /* NYTPhotoTransitionAnimator.m in Sources */,
 				B09CE59A222F623900067D2A /* WKWebView+EditSelectionJavascript.swift in Sources */,
 				B0EF42D01C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
 				B0F92C821E3FFEB900B72802 /* WMFAuthAccountCreationInfoFetcher.swift in Sources */,
@@ -10462,6 +10595,7 @@
 				B0D3E70C214AF776007578BA /* DescriptionEditViewController.swift in Sources */,
 				BC23E4E51C22429100B5AFDE /* WMFRevisionQueryResults.m in Sources */,
 				67ADEE9623A2CFFB0000CAF7 /* ArticleWebMessagingController.swift in Sources */,
+				0042813925E6E841004945B3 /* NYTScalingImageView.m in Sources */,
 				B0845E1120618DA400CDD98E /* SavedProgressViewController.swift in Sources */,
 				B0E802C11C0CD27F0065EBC0 /* WMFAppViewController.m in Sources */,
 				7AFEB3F51FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift in Sources */,
@@ -10477,10 +10611,12 @@
 				D8421B53203CC8420040F50B /* DebugReadingListsViewController.swift in Sources */,
 				7A71567922699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */,
 				7A48EA0E21B5C9B20083F3DC /* EditToolbarView.swift in Sources */,
+				0042812525E6E841004945B3 /* NYTPhotoTransitionController.m in Sources */,
 				0EF2249A1CC5536200FDF78E /* WMFLanguageCell.m in Sources */,
 				6771298F24FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift in Sources */,
 				7A1469BD220BBE44000A20F1 /* EditHintViewController.swift in Sources */,
 				83DB0A5923EEDE2D00DA5F58 /* MWKDataStore+LegacyMobileview.swift in Sources */,
+				0042813525E6E841004945B3 /* NYTPhotoDismissalInteractionController.m in Sources */,
 				6782DBA92343B7FC003FA21B /* DiffHeaderEditorView.swift in Sources */,
 				7A27E85221B19767001B2D21 /* TextStyleFormattingTableViewController.swift in Sources */,
 				7A6ED50D20ADBF950001849F /* SessionsFunnel.swift in Sources */,
@@ -10510,6 +10646,7 @@
 				8386BDF62386D735007EE89D /* ViewController+URLHandling.swift in Sources */,
 				8386BDFB2386D754007EE89D /* SinglePageWebViewController.swift in Sources */,
 				B0D4916F21F999A3002BBDD3 /* EditSaveViewController.swift in Sources */,
+				0042813D25E6E841004945B3 /* NYTPhotosViewController.m in Sources */,
 				D82972881E3A49980061550A /* ArticlePopoverViewController.swift in Sources */,
 				B0E8073E1C0CED810065EBC0 /* WMFLogFormatter.m in Sources */,
 				678D79E4235E592F006161FF /* DiffListChangeItemViewModel.swift in Sources */,
@@ -11032,6 +11169,7 @@
 				D8A42A6A1E815A9C00D8E281 /* TableOfContentsAnimator.swift in Sources */,
 				D8A42A6D1E815A9C00D8E281 /* WMFReferencePageBackgroundView.swift in Sources */,
 				7A13A89C2028BB3600F28254 /* ReadingListsAlertController.swift in Sources */,
+				0042811C25E6E841004945B3 /* NYTPhotosOverlayView.m in Sources */,
 				7A610CC0220A582A00C266AE /* HintController.swift in Sources */,
 				8321FCCF2387231E0079F3C7 /* ViewControllerRouter.swift in Sources */,
 				D850A53D1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,
@@ -11116,6 +11254,7 @@
 				83B01F7523DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift in Sources */,
 				D8A42AA11E815A9C00D8E281 /* WMFMapsActivity.swift in Sources */,
 				83DB4413244A57590046FABE /* RootNavigationController.swift in Sources */,
+				0042812C25E6E841004945B3 /* NYTPhotoViewController.m in Sources */,
 				67E0690A22399D1C008550AC /* ReadingThemesControlsViewController.swift in Sources */,
 				670F766222B0C49000D87545 /* FakeProgressLoading.swift in Sources */,
 				B0016CC621362DB300FA1096 /* SetupGradientView.swift in Sources */,
@@ -11127,6 +11266,7 @@
 				D837CC3A231FE9CC00BA6130 /* ThemeableViewController.swift in Sources */,
 				B0FFFB2D21C9BED1001E787E /* TextFormattingButton.swift in Sources */,
 				7AF6F76922395BEC00949393 /* EditingWelcomeViewController.swift in Sources */,
+				0042813425E6E841004945B3 /* NYTPhotosDataSource.m in Sources */,
 				672286282540DB330038E332 /* AppTabBarDelegate.swift in Sources */,
 				D8A42AA71E815A9C00D8E281 /* WMFArticleLanguagesSectionHeader.m in Sources */,
 				D818D3891ED750E40076110D /* ArticleCollectionViewController.swift in Sources */,
@@ -11222,6 +11362,7 @@
 				6782DBD62343FE03003FA21B /* DiffListGroupViewModel.swift in Sources */,
 				67059DB82260D61A009811AA /* SchemeHandler.swift in Sources */,
 				D8A42AEF1E815A9C00D8E281 /* UIView+Animations.swift in Sources */,
+				0042813025E6E841004945B3 /* NYTPhotoCaptionView.m in Sources */,
 				7A9A612121124D0F00403154 /* CreateNewReadingListButtonView.swift in Sources */,
 				7A35CB8A1FD82B6300AAF3B7 /* ReadingListDetailViewController.swift in Sources */,
 				D8A42AF11E815A9C00D8E281 /* MWKLanguageLinkFetcher.m in Sources */,
@@ -11262,12 +11403,14 @@
 				67985A572523D80100EBF353 /* ArticleAsLivingDocController.swift in Sources */,
 				83B01F9323DB41BE001185F4 /* ArticleViewController+Sharing.swift in Sources */,
 				7ADF498A21B45E42009EA338 /* TextFormattingGroupedToolbarView.swift in Sources */,
+				0042812425E6E841004945B3 /* NSBundle+NYTPhotoViewer.m in Sources */,
 				D8A42B161E815A9C00D8E281 /* TableOfContentsHeader.swift in Sources */,
 				D8A42B191E815A9C00D8E281 /* UIViewController+WMFScrollToTop.swift in Sources */,
 				6734116722739CCC005B31DA /* TalkPageLocalHandler.swift in Sources */,
 				D8703DC21EE84533001A4BAB /* PreviewingViewController.swift in Sources */,
 				7A9F06102266425700856321 /* InsertMediaSettingsViewController.swift in Sources */,
 				D8A42B1F1E815A9C00D8E281 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
+				0042812025E6E841004945B3 /* NYTPhotoTransitionAnimator.m in Sources */,
 				83F26B2D220B62EC002D87A4 /* SectionEditorButton.swift in Sources */,
 				7AA96D5F21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */,
 				D8A42B231E815A9C00D8E281 /* WMFAuthAccountCreationInfoFetcher.swift in Sources */,
@@ -11300,6 +11443,7 @@
 				D8A42B3A1E815A9C00D8E281 /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
 				7AF8CEF022653406000B7676 /* InsertMediaSelectedImageView.swift in Sources */,
 				D8A42B3B1E815A9C00D8E281 /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */,
+				0042813C25E6E841004945B3 /* NYTScalingImageView.m in Sources */,
 				6782DBB22343B812003FA21B /* DiffHeaderCompareView.swift in Sources */,
 				67ADEE9923A2CFFB0000CAF7 /* ArticleWebMessagingController.swift in Sources */,
 				67E8B094226A57EA00537BC9 /* TalkPageTopicNewViewController.swift in Sources */,
@@ -11315,10 +11459,12 @@
 				7AFEB3F81FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift in Sources */,
 				7A9524CE22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */,
 				8320331E22B90529004A9EDA /* NavigationStateController.swift in Sources */,
+				0042812825E6E841004945B3 /* NYTPhotoTransitionController.m in Sources */,
 				D8A42B471E815A9C00D8E281 /* UIView+IBExtras.swift in Sources */,
 				D8A42B491E815A9C00D8E281 /* WMFHamburgerMenuFunnel.m in Sources */,
 				7A71567C22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */,
 				D8A42B4A1E815A9C00D8E281 /* UIViewController+WMFWelcomeStoryboard.swift in Sources */,
+				0042813825E6E841004945B3 /* NYTPhotoDismissalInteractionController.m in Sources */,
 				83DB0A5C23EEDE2E00DA5F58 /* MWKDataStore+LegacyMobileview.swift in Sources */,
 				B08624331F72EA1A00B770FD /* WMFWelcomeAnimationBackgroundView.swift in Sources */,
 				67E466FD241BED810014149B /* EditHistoryCompareFunnel.swift in Sources */,
@@ -11348,6 +11494,7 @@
 				D8A42B5D1E815A9C00D8E281 /* ArticlePopoverViewController.swift in Sources */,
 				8386BDF82386D736007EE89D /* ViewController+URLHandling.swift in Sources */,
 				8386BDFE2386D754007EE89D /* SinglePageWebViewController.swift in Sources */,
+				0042814025E6E841004945B3 /* NYTPhotosViewController.m in Sources */,
 				D8E6FF7A24058AC600686272 /* WMFWebView.m in Sources */,
 				D858C7B9210B91CE0039E0C9 /* PassthroughView.swift in Sources */,
 				D8A42B5E1E815A9C00D8E281 /* WMFLogFormatter.m in Sources */,
@@ -11482,6 +11629,7 @@
 				B0D3E70D214AF776007578BA /* DescriptionEditViewController.swift in Sources */,
 				67D3C454228CB54E001D5741 /* TalkPageReplyComposeView.swift in Sources */,
 				B0F4761C21F921D300C4E254 /* EditSummaryViewController.swift in Sources */,
+				0042812F25E6E841004945B3 /* NYTPhotoCaptionView.m in Sources */,
 				7A48EA0F21B5C9B20083F3DC /* EditToolbarView.swift in Sources */,
 				7A82896921B3467D005D7EC1 /* TextFormattingDetailTableViewCell.swift in Sources */,
 				67471180250703BB00287951 /* ArticleAsLivingDocReferenceCollectionViewCell.swift in Sources */,
@@ -11582,6 +11730,7 @@
 				6782DB922343B6F9003FA21B /* DiffContainerViewController.swift in Sources */,
 				6780D5BB237AF8A10087A5D1 /* DiffToolbarView.swift in Sources */,
 				6782DC0C23453D7D003FA21B /* DiffHeaderCompareItemView.swift in Sources */,
+				0042811B25E6E841004945B3 /* NYTPhotosOverlayView.m in Sources */,
 				B0016CC421362DB300FA1096 /* SetupGradientView.swift in Sources */,
 				6707C039237F0A6E0017E7B6 /* UIFont+Extensions.swift in Sources */,
 				D8CE25261E698E2400DAE2E0 /* WMFTitleInsetRespectingButton.m in Sources */,
@@ -11662,6 +11811,7 @@
 				BA4524191F324C3100439C42 /* FontSizeSliderViewController.swift in Sources */,
 				FF921887252F7EA500C39A8F /* ThanksGiving.swift in Sources */,
 				83023C1220E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */,
+				0042813B25E6E841004945B3 /* NYTScalingImageView.m in Sources */,
 				6782DBAA2343B7FC003FA21B /* DiffHeaderEditorView.swift in Sources */,
 				7A6ED51D20ADBF950001849F /* SettingsFunnel.swift in Sources */,
 				FFA0641B25A943EB00B9460B /* BasicLogger.swift in Sources */,
@@ -11677,6 +11827,7 @@
 				8361474C24223689003E49D3 /* ArticleViewController+Announcements.swift in Sources */,
 				83023C2020E6584F00EC7592 /* SearchTransition.swift in Sources */,
 				677129A224FFF43000E89CA5 /* ArticleAsLivingDocHorizontallyScrollingCell.swift in Sources */,
+				0042813725E6E841004945B3 /* NYTPhotoDismissalInteractionController.m in Sources */,
 				6782DBC22343FDCA003FA21B /* DiffListChangeCell.swift in Sources */,
 				D8CE25751E698E2400DAE2E0 /* UIView+Animations.swift in Sources */,
 				67861A18223C13940044F69D /* FocusNavigationView.swift in Sources */,
@@ -11741,10 +11892,12 @@
 				D8CE259C1E698E2400DAE2E0 /* TableOfContentsHeader.swift in Sources */,
 				B0FFFB2B21C9BED1001E787E /* TextFormattingButton.swift in Sources */,
 				7A420DB522A029780005689B /* EditFunnel.swift in Sources */,
+				0042811F25E6E841004945B3 /* NYTPhotoTransitionAnimator.m in Sources */,
 				D8CE259F1E698E2400DAE2E0 /* UIViewController+WMFScrollToTop.swift in Sources */,
 				B0524B52214854E900D8FD8D /* DescriptionWelcomeContainerViewController.swift in Sources */,
 				D81446021E7094290078D71E /* WMFAuthButton.swift in Sources */,
 				B0C17B9A21FAB060009ED5C3 /* AbuseFilterAlertView.swift in Sources */,
+				0042813325E6E841004945B3 /* NYTPhotosDataSource.m in Sources */,
 				41CCB67521CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */,
 				8350FC4D20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */,
 				D8CE25A51E698E2400DAE2E0 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
@@ -11762,6 +11915,7 @@
 				D8CE25AF1E698E2400DAE2E0 /* WMFSearchResults.m in Sources */,
 				83DE45BA2449C09B00671878 /* SplashScreenViewController.swift in Sources */,
 				7A9F2777225E3462002119B3 /* InsertMediaSearchResultsCollectionViewController.swift in Sources */,
+				0042812B25E6E841004945B3 /* NYTPhotoViewController.m in Sources */,
 				BAC6EEC81F1E519A00228AD0 /* AppearanceSettingsViewController.swift in Sources */,
 				D8E6FF7D2405AAC400686272 /* ArticleViewController+Analytics.swift in Sources */,
 				D82E95861F16502E007BD960 /* WMFLanguagesViewController.m in Sources */,
@@ -11838,6 +11992,7 @@
 				D8CE25E21E698E2400DAE2E0 /* WMFLogFormatter.m in Sources */,
 				B031032E1F677BEC00E2FCF6 /* WMFWelcomeExplorationViewController.swift in Sources */,
 				7A2432BF1FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
+				0042812325E6E841004945B3 /* NSBundle+NYTPhotoViewer.m in Sources */,
 				D818FEBC21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift in Sources */,
 				D8CB32AE1E79D8A0008A0966 /* RoundedCornerView.swift in Sources */,
 				7AE1D33A1FCD10B900393471 /* SavedViewController.swift in Sources */,
@@ -11867,6 +12022,7 @@
 				D8A47C8623D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift in Sources */,
 				D8CE25F61E698E2400DAE2E0 /* UIScrollView+WMFContentOffsetUtils.m in Sources */,
 				83FBE9761F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */,
+				0042813F25E6E841004945B3 /* NYTPhotosViewController.m in Sources */,
 				7A8422482268BBE70074648E /* InsertMediaImageInfoView.swift in Sources */,
 				83836ECD1F615E5B007D1A05 /* ShareViewController.swift in Sources */,
 				D84DAA171EEEF527008E4B18 /* SWStepSlider.swift in Sources */,
@@ -11896,6 +12052,7 @@
 				FF59DF4F2555E0CB0048E66C /* InternalLinkPreviewing.swift in Sources */,
 				0022DD2B25829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift in Sources */,
 				D8CE26041E698E2400DAE2E0 /* WMFWelcomePageViewController.swift in Sources */,
+				0042812725E6E841004945B3 /* NYTPhotoTransitionController.m in Sources */,
 				67059DB62260D619009811AA /* SchemeHandler.swift in Sources */,
 				D8CE26051E698E2400DAE2E0 /* MKCoordinateRegion+Dimensions.swift in Sources */,
 				D8CE26071E698E2400DAE2E0 /* WMFAlertManager.swift in Sources */,
@@ -11955,6 +12112,7 @@
 				FFD7B85A24B3CA9F005C2471 /* ReferenceShowing.swift in Sources */,
 				B0524B77214856A400D8FD8D /* UIViewController+DescriptionWelcomeStoryboard.swift in Sources */,
 				67D3C455228CB54E001D5741 /* TalkPageReplyComposeView.swift in Sources */,
+				0042812E25E6E841004945B3 /* NYTPhotoCaptionView.m in Sources */,
 				B0D3E70E214AF776007578BA /* DescriptionEditViewController.swift in Sources */,
 				B0F4761D21F921D300C4E254 /* EditSummaryViewController.swift in Sources */,
 				7A48EA1021B5C9B20083F3DC /* EditToolbarView.swift in Sources */,
@@ -12055,6 +12213,7 @@
 				6780D5BC237AF8A10087A5D1 /* DiffToolbarView.swift in Sources */,
 				6782DC0D23453D7D003FA21B /* DiffHeaderCompareItemView.swift in Sources */,
 				D8EC3E181E9BDA35006712EB /* UIView+WMFSnapshotting.m in Sources */,
+				0042811A25E6E841004945B3 /* NYTPhotosOverlayView.m in Sources */,
 				6707C03A237F0A6E0017E7B6 /* UIFont+Extensions.swift in Sources */,
 				D8EC3E191E9BDA35006712EB /* UIViewController+WMFStoryboardUtilities.m in Sources */,
 				D84DAA181EEEF527008E4B18 /* SWStepSlider.swift in Sources */,
@@ -12135,6 +12294,7 @@
 				7A6F560721AF527A0076D184 /* TextFormattingInputViewController.swift in Sources */,
 				D818D38D1ED765470076110D /* ArticleLocationCollectionViewController.swift in Sources */,
 				7A2FE55E20517BAE00F92F8F /* EraseSavedArticlesView.swift in Sources */,
+				0042813A25E6E841004945B3 /* NYTScalingImageView.m in Sources */,
 				6782DBAB2343B7FC003FA21B /* DiffHeaderEditorView.swift in Sources */,
 				67282FBE24855B7B00B73E20 /* ArticleContextMenuPresenting.swift in Sources */,
 				FFA0641A25A943EB00B9460B /* BasicLogger.swift in Sources */,
@@ -12150,6 +12310,7 @@
 				7AFC79FA21B0367700BB0C50 /* TextFormattingTableViewController.swift in Sources */,
 				6782DBC32343FDCA003FA21B /* DiffListChangeCell.swift in Sources */,
 				D8EC3E631E9BDA35006712EB /* WMFWelcomeContainerViewController.swift in Sources */,
+				0042813625E6E841004945B3 /* NYTPhotoDismissalInteractionController.m in Sources */,
 				67861A19223C13940044F69D /* FocusNavigationView.swift in Sources */,
 				6734EE7422976AE300F00B05 /* InfoBannerView.swift in Sources */,
 				D8EC3E641E9BDA35006712EB /* WMFAccountCreator.swift in Sources */,
@@ -12214,10 +12375,12 @@
 				B0FFFB2C21C9BED1001E787E /* TextFormattingButton.swift in Sources */,
 				7A420DB622A029780005689B /* EditFunnel.swift in Sources */,
 				D8EC3E9C1E9BDA35006712EB /* WMFAuthButton.swift in Sources */,
+				0042811E25E6E841004945B3 /* NYTPhotoTransitionAnimator.m in Sources */,
 				B0524B53214854E900D8FD8D /* DescriptionWelcomeContainerViewController.swift in Sources */,
 				BA69725A1F2BA2D800E35F78 /* SettingsTableViewSection.swift in Sources */,
 				B0C17B9B21FAB060009ED5C3 /* AbuseFilterAlertView.swift in Sources */,
 				41CCB67621CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */,
+				0042813225E6E841004945B3 /* NYTPhotosDataSource.m in Sources */,
 				8350FC4E20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */,
 				D8EC3EA11E9BDA35006712EB /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
 				67ADEE9823A2CFFB0000CAF7 /* ArticleWebMessagingController.swift in Sources */,
@@ -12235,6 +12398,7 @@
 				D8EC3EAC1E9BDA35006712EB /* WMFSearchResults.m in Sources */,
 				83DE45BB2449C09B00671878 /* SplashScreenViewController.swift in Sources */,
 				7A9F2778225E3462002119B3 /* InsertMediaSearchResultsCollectionViewController.swift in Sources */,
+				0042812A25E6E841004945B3 /* NYTPhotoViewController.m in Sources */,
 				7A4FE5411FA00AF0009FA199 /* ArticlePeekPreviewViewController.swift in Sources */,
 				D8E6FF7E2405AAC400686272 /* ArticleViewController+Analytics.swift in Sources */,
 				D8EC3EAE1E9BDA35006712EB /* WMFBarButtonItemPopoverMessageViewController.m in Sources */,
@@ -12311,6 +12475,7 @@
 				7A2432C01FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
 				D8EC3EE01E9BDA35006712EB /* WMFLogFormatter.m in Sources */,
 				D818FEBD21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift in Sources */,
+				0042812225E6E841004945B3 /* NSBundle+NYTPhotoViewer.m in Sources */,
 				D8EC3EE11E9BDA35006712EB /* RoundedCornerView.swift in Sources */,
 				7AE1D33B1FCD10B900393471 /* SavedViewController.swift in Sources */,
 				830D71D11F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */,
@@ -12340,6 +12505,7 @@
 				D8A47C8723D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift in Sources */,
 				D8EC3EF21E9BDA35006712EB /* NSAttributedString+WMFModify.m in Sources */,
 				D8EC3EF31E9BDA35006712EB /* WMFSettingsViewController.m in Sources */,
+				0042813E25E6E841004945B3 /* NYTPhotosViewController.m in Sources */,
 				7A8422492268BBE70074648E /* InsertMediaImageInfoView.swift in Sources */,
 				D8EC3EF51E9BDA35006712EB /* UIScrollView+WMFContentOffsetUtils.m in Sources */,
 				D8EC3EF71E9BDA35006712EB /* WMFImageGalleryDetailOverlayView.m in Sources */,
@@ -12369,6 +12535,7 @@
 				FF59DF4E2555E0CB0048E66C /* InternalLinkPreviewing.swift in Sources */,
 				0022DD2A25829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift in Sources */,
 				D8EC3F031E9BDA35006712EB /* WMFWelcomePageViewController.swift in Sources */,
+				0042812625E6E841004945B3 /* NYTPhotoTransitionController.m in Sources */,
 				67059DB72260D61A009811AA /* SchemeHandler.swift in Sources */,
 				834CC34D21075B7600F62818 /* UITabBar+Theme.swift in Sources */,
 				D8EC3F041E9BDA35006712EB /* MKCoordinateRegion+Dimensions.swift in Sources */,
