@@ -1,6 +1,0 @@
-github "Mantle/Mantle" ~> 2.0.0
-github "wikimedia/NYTPhotoViewer" "wmf"
-
-github "luisobo/Nocilla"
-
-github "wikimedia/wikipedia-ios-codemirror" "master"
