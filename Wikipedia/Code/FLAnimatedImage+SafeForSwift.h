@@ -1,5 +1,5 @@
 @import Foundation;
-@import FLAnimatedImage;
+#import "FLAnimatedImage.h"
 
 @interface FLAnimatedImage (SafeForSwift)
 
