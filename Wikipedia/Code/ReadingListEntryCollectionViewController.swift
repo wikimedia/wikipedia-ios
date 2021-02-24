@@ -204,14 +204,14 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
         }
         let entry = fetchedResultsController.object(at: indexPath)
         
-        guard let article = entry.articleKey.flatMap(dataStore.fetchArticle(withKey:)) else {
-            return nil
-        }
-        return article
+        return article(for: entry)
     }
     
     func article(for entry: ReadingListEntry) -> WMFArticle? {
-        return entry.articleKey.flatMap(dataStore.fetchArticle(withKey: ))
+        guard let inMemoryKey = entry.inMemoryKey else {
+            return nil
+        }
+        return dataStore.fetchArticle(withKey: inMemoryKey.databaseKey, variant: inMemoryKey.languageVariantCode)
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -266,7 +266,7 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
         guard
             let article = note.object as? WMFArticle,
             article.hasChangedValuesForCurrentEventThatAffectSavedArticlePreviews,
-            let articleKey = article.key
+            let articleKey = article.inMemoryKey
             else {
                 return
         }
@@ -275,7 +275,7 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
             guard let entry = entry(at: indexPath) else {
                 return false
             }
-            return entry.articleKey == articleKey
+            return entry.inMemoryKey == articleKey
         }
 
         guard !visibleIndexPathsWithChanges.isEmpty else {

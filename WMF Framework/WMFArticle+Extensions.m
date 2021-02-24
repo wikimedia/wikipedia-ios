@@ -4,6 +4,7 @@
 
 @interface NSManagedObjectContext (WMFArticle_Private)
 - (NSUInteger)countOfSavedArticleVariantsWithKey:(nullable NSString *)key error:(NSError **)error;
+- (nullable WMFArticle *)savedArticleVariantWithKey:(nullable NSString *)key error:(NSError **)error;
 @end
 
 @implementation WMFArticle (Extensions)
@@ -30,6 +31,18 @@
     NSUInteger savedCount = [self.managedObjectContext countOfSavedArticleVariantsWithKey:self.key error:nil];
     NSAssert(savedCount < 2, @"More than one article variant marked as saved for key '%@'", self.key);
     return savedCount > 0;
+}
+
+- (nullable WMFArticle *)savedVariant {
+    // If the article has a savedDate, it is the saved variant
+    if (self.savedDate != nil) {
+        return self;
+    // If the article does not have a variant, no further checking is needed. Return nil.
+    } else if (!self.variant) {
+        return nil;
+    } else {
+        return [self.managedObjectContext savedArticleVariantWithKey:self.key error:nil];
+    }
 }
 
 #pragma clang diagnostic push
@@ -284,8 +297,17 @@
     }
     NSFetchRequest *request = [WMFArticle fetchRequest];
     request.predicate = [NSPredicate predicateWithFormat:@"key == %@ && savedDate != NULL", key];
-    NSUInteger count =  [self countForFetchRequest:request error:nil];
+    NSUInteger count =  [self countForFetchRequest:request error:error];
     return count == NSNotFound ? 0 : count;
+}
+
+- (nullable WMFArticle *)savedArticleVariantWithKey:(nullable NSString *)key error:(NSError **)error {
+    if (!key) {
+        return nil;
+    }
+    NSFetchRequest *request = [WMFArticle fetchRequest];
+    request.predicate = [NSPredicate predicateWithFormat:@"key == %@ && savedDate != NULL", key];
+    return (WMFArticle *)[[self executeFetchRequest:request error:error] firstObject];
 }
 
 @end

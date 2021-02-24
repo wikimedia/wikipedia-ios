@@ -79,9 +79,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d bajt dodan</string>
+			<string>%1$d zlog dodan</string>
 			<key>other</key>
-			<string>%1$d bajtov dodanih</string>
+			<string>%1$d zlogov dodanih</string>
 		</dict>
 	</dict>
 	<key>diff-single-header-subtitle-bytes-removed</key>
@@ -95,9 +95,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d bajt odstranjen</string>
+			<string>%1$d zlog odstranjen</string>
 			<key>other</key>
-			<string>$bajtov odstranjenih</string>
+			<string>%1$d zlogov odstranjenih</string>
 		</dict>
 	</dict>
 	<key>places-filter-top-articles-count</key>

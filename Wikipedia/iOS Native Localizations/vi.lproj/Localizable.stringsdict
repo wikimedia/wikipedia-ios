@@ -5,38 +5,7 @@
 	<key>aaald-characters-text-description</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>ký tự</string>
-			<key>other</key>
-			<string>ký tự</string>
-			<key>zero</key>
-			<string>ký tự</string>
-		</dict>
-	</dict>
-	<key>aaald-numerical-multiple-references-added-description</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ đã thêm</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d chú thích</string>
-			<key>other</key>
-			<string>%1$d chú thích</string>
-			<key>zero</key>
-			<string>0 chú thích</string>
-		</dict>
+		<string>ký tự</string>
 	</dict>
 	<key>aaald-small-change-description</key>
 	<dict>
@@ -48,56 +17,10 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%1$d thực hiện thay đổi nhỏ</string>
 			<key>other</key>
-			<string>%1$dthực hiện thay đổi nhỏ</string>
+			<string>Thực hiện %1$d thay đổi nhỏ</string>
 			<key>zero</key>
 			<string>Không thực hiện thay đổi nhỏ nào</string>
-		</dict>
-	</dict>
-	<key>aaald-summary-title</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ bởi %#@v2@ trong %#@v3@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d thay đổi</string>
-			<key>other</key>
-			<string>%1$d thay đổi</string>
-			<key>zero</key>
-			<string>0 thay đổi</string>
-		</dict>
-		<key>v2</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%2$d biên tập viên</string>
-			<key>other</key>
-			<string>%2$d biên tập viên</string>
-			<key>zero</key>
-			<string>0 biên tập viên</string>
-		</dict>
-		<key>v3</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%3$d ngày</string>
-			<key>other</key>
-			<string>%3$d ngày</string>
-			<key>zero</key>
-			<string>0 ngày</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -114,102 +37,6 @@
 			<string>bài</string>
 			<key>other</key>
 			<string>các bài</string>
-		</dict>
-	</dict>
-	<key>diff-paragraph-moved-distance-line</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d hàng</string>
-			<key>other</key>
-			<string>%1$d hàng</string>
-		</dict>
-	</dict>
-	<key>diff-paragraph-moved-distance-section</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d phần</string>
-			<key>other</key>
-			<string>%1$d phần</string>
-		</dict>
-	</dict>
-	<key>diff-single-header-editor-number-edits-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d sửa đổi</string>
-			<key>other</key>
-			<string>%1$d sửa đổi</string>
-		</dict>
-	</dict>
-	<key>diff-single-header-subtitle-bytes-added</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d ký tự đã thêm</string>
-			<key>other</key>
-			<string>%1$d ký tự đã thêm</string>
-		</dict>
-	</dict>
-	<key>diff-single-header-subtitle-bytes-removed</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d ký tự đã xóa</string>
-			<key>other</key>
-			<string>%1$d ký tự đã xóa</string>
-		</dict>
-	</dict>
-	<key>diff-unedited-lines-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d dòng chưa được chỉnh sửa</string>
-			<key>other</key>
-			<string>%1$d dòng chưa được chỉnh sửa</string>
 		</dict>
 	</dict>
 	<key>move-articles-to-reading-list</key>
@@ -308,6 +135,24 @@
 			<string>Cách đây %1$d phút</string>
 			<key>zero</key>
 			<string>Mới đây</string>
+		</dict>
+	</dict>
+	<key>relative-date-months-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Tháng trước</string>
+			<key>other</key>
+			<string>%1$d tháng trước</string>
+			<key>zero</key>
+			<string>Tháng này</string>
 		</dict>
 	</dict>
 	<key>relative-date-years-ago</key>
