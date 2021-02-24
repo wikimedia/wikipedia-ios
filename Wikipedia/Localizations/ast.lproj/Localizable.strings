@@ -5,6 +5,7 @@
 // Author: Macofe
 // Author: Mhurd
 // Author: Nemo bis
+// Author: Tokvo
 // Author: Xuacu
 
 "about-content-license" = "Llicencia del conteníu";
@@ -187,6 +188,8 @@
 "edit-summary-choice-fixed-grammar" = "Igua gramatical";
 "edit-summary-choice-fixed-typos" = "Igua ortográfica";
 "edit-summary-choice-linked-words" = "Enllaces amestaos";
+"edit-summary-placeholder-text" = "¿Cómo ameyorasti l'artículu?";
+"edit-text-size-table-view-title" = "Tamañu de testu";
 "empty-no-article-message" = "Nun pudo cargase l'artículu";
 "empty-no-feed-action-message" = "Inda puedes lleer páxines guardaes";
 "empty-no-feed-message" = "Puedes ver los artículos recomendaos cuando tengas internet";

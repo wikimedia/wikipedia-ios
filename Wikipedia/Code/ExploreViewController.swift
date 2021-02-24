@@ -283,8 +283,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return frc.object(at: indexPath)
     }
     
-    private func groupKey(at indexPath: IndexPath) -> String? {
-        return group(at: indexPath)?.key
+    private func groupKey(at indexPath: IndexPath) -> WMFInMemoryURLKey? {
+        return group(at: indexPath)?.inMemoryKey
     }
     
     lazy var saveButtonsController: SaveButtonsController = {
@@ -559,7 +559,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: 0)
         }
         let identifier = ExploreCardCollectionViewCell.identifier
-        let userInfo = "evc-cell-\(group.key ?? "")"
+        let userInfo = "evc-cell-\(group.inMemoryKey?.userInfoString ?? "")"
         if let cachedHeight = layoutCache.cachedHeightForCellWithIdentifier(identifier, columnWidth: columnWidth, userInfo: userInfo) {
             return ColumnarCollectionViewLayoutHeightEstimate(precalculated: true, height: cachedHeight)
         }
@@ -570,7 +570,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         configure(cell: placeholderCell, forItemAt: indexPath, layoutOnly: true)
         estimate.height = placeholderCell.sizeThatFits(CGSize(width: columnWidth, height: UIView.noIntrinsicMetric), apply: false).height
         estimate.precalculated = true
-        layoutCache.setHeight(estimate.height, forCellWithIdentifier: identifier, columnWidth: columnWidth, groupKey: group.key, userInfo: userInfo)
+        layoutCache.setHeight(estimate.height, forCellWithIdentifier: identifier, columnWidth: columnWidth, groupKey: group.inMemoryKey, userInfo: userInfo)
         return estimate
     }
     
@@ -886,7 +886,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
     @objc func articleDidChange(_ note: Notification) {
         guard
             let article = note.object as? WMFArticle,
-            let articleKey = article.key
+            let articleKey = article.inMemoryKey
         else {
             return
         }
@@ -923,7 +923,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
     }
     
     @objc func articleDeleted(_ note: Notification) {
-        guard let articleKey = note.userInfo?[WMFArticleDeletedNotificationUserInfoArticleKeyKey] as? String else {
+        guard let articleKey = note.userInfo?[WMFArticleDeletedNotificationUserInfoArticleKeyKey] as? WMFInMemoryURLKey else {
             return
         }
         layoutCache.invalidateArticleKey(articleKey)

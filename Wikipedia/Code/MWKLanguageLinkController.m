@@ -77,6 +77,26 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
     }];
 }
 
+- (nullable NSString *)preferredLanguageVariantCodeForLanguageCode:(nullable NSString *)languageCode {
+    if (!languageCode) {
+        return nil;
+    }
+
+    // Find first with matching language code in app preferred languages
+    MWKLanguageLink *matchingLanguageLink = [self.preferredLanguages wmf_match:^BOOL(MWKLanguageLink *obj) {
+        return [obj.languageCode isEqual:languageCode];
+    }];
+    
+    // If the matching link does not have a language variant code, the language does not have variants. Return nil.
+    if (matchingLanguageLink) {
+        return matchingLanguageLink.languageVariantCode ? : nil;
+    }
+    
+    // If not found in the app's preferred languages, get the best guess from the user's OS settings.
+    return [NSLocale wmf_bestLanguageVariantCodeForLanguageCode:languageCode];
+}
+
+
 - (nullable MWKLanguageLink *)appLanguage {
     return [self.preferredLanguages firstObject];
 }
@@ -148,7 +168,8 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
     NSMutableArray<NSString *> *preferredLanguages = [[self readSavedPreferredLanguageCodes] mutableCopy];
 
     if (preferredLanguages.count == 0) {
-        NSArray<NSString *> *osLanguages = NSLocale.wmf_preferredLocaleLanguageCodes;
+        // When language variant feature is turned on, the flag will be removed and use NSLocale.wmf_preferredWikipediaLanguageCodes
+        NSArray<NSString *> *osLanguages = WikipediaLookup.languageVariantsEnabled ? NSLocale.wmf_preferredWikipediaLanguageCodes : NSLocale.wmf_preferredLocaleLanguageCodes;
         [osLanguages enumerateObjectsWithOptions:0
                                       usingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
                                           if (![preferredLanguages containsObject:obj]) {
@@ -297,6 +318,5 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
 }
 
 @end
-
 
 NS_ASSUME_NONNULL_END

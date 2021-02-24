@@ -45,6 +45,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly, nullable) NSString *capitalizedWikidataDescription;
 
+@property (nonatomic, readonly) BOOL isAnyVariantSaved; // An article should appear as saved in the UI if any of its language variants are saved
+@property (nonatomic, copy, readonly, nullable) WMFArticle *savedVariant; // The article variant that is saved
+
 @property (nonatomic, nullable) NSURL *thumbnailURL; // Deprecated. Use imageURLForWidth:
 
 + (nullable NSURL *)imageURLForTargetImageWidth:(NSInteger)width fromImageSource:(NSString *)imageSource withOriginalWidth:(NSInteger)originalWidth;
@@ -70,6 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable NSArray<WMFArticle *> *)fetchArticlesWithURL:(nullable NSURL *)url error:(NSError **)error;
 - (nullable NSArray<WMFArticle *> *)fetchArticlesWithKey:(nullable NSString *)key variant:(nullable NSString *)variant error:(NSError **)error;
+- (nullable NSArray<WMFArticle *> *)fetchArticlesWithInMemoryURLKeys:(NSArray<WMFInMemoryURLKey *> *)urlKeys error:(NSError **)error NS_SWIFT_NAME(fetchArticlesWithInMemoryURLKeys(_:));
 
 - (nullable WMFArticle *)createArticleWithURL:(nullable NSURL *)url;
 - (nullable WMFArticle *)createArticleWithKey:(nullable NSString *)key variant:(nullable NSString *)variant;
@@ -83,8 +87,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(nullable NSURL *)articleURL updatedWithFeedPreview:(nullable WMFFeedArticlePreview *)feedPreview pageViews:(nullable NSDictionary<NSDate *, NSNumber *> *)pageViews;
 
 - (nullable WMFArticle *)fetchArticleWithWikidataID:(nullable NSString *)wikidataID;
-
-- (NSPredicate *)articlePredicateForInMemoryURLKeys:(NSArray<WMFInMemoryURLKey *> *)urlKeys NS_SWIFT_NAME(articlePredicateForInMemoryURLKeys(_:));
 
 @end
 

@@ -17,11 +17,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable WMFArticle *)mostRecentEntry;
 
 - (nullable WMFArticle *)entryForURL:(NSURL *)url;
-- (nullable WMFArticle *)entryForKey:(NSString *)key;
+
+// This method retrieves whichever variant of the article specified by the key is currently saved
+// Even if a different article variant is being shown to the user, it is the variant that is actually saved
+// that will be removed.
+- (nullable WMFArticle *)articleToUnsaveForKey:(NSString *)key;
 
 - (void)enumerateItemsWithBlock:(void (^)(WMFArticle *_Nonnull entry, BOOL *stop))block;
 
-- (BOOL)isSaved:(NSURL *)url;
+- (BOOL)isAnyVariantSaved:(NSURL *)url;
 
 #pragma mark - Update Methods
 
@@ -29,9 +33,10 @@ NS_ASSUME_NONNULL_BEGIN
  * Toggle the save state for the article with `key`.
  *
  * @param key to toggle state for, either saving or un-saving it. Key is a standardized version of the article URL obtained by the key property on WMFArticle or from a URL with wmf_databaseKey
+ * @param variant to toggle state for. Variant is a language variant code.
  * @return whether or not the key is now saved
  */
-- (BOOL)toggleSavedPageForKey:(NSString *)key;
+- (BOOL)toggleSavedPageForKey:(NSString *)key variant:(nullable NSString *)variant;
 
 /**
  * Toggle the save state for `url`.
@@ -54,11 +59,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param url The url of the page to remove
  */
 - (void)removeEntryWithURL:(NSURL *)url;
-
-/**
- *  Remove entries with given urls
- */
-- (void)removeEntriesWithURLs:(NSArray<NSURL *> *)urls;
 
 @end
 
