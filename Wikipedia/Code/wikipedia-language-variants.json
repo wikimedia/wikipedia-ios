@@ -1,66 +1,170 @@
 {
-  "zh": [
-    {
-      "languageVariantCode": "zh-hans",
-      "languageName": "简体",
-      "localName": "Chinese, Simplified",
-      "languageCode": "zh"
-    },
-    {
-      "languageVariantCode": "zh-hant",
-      "languageName": "繁體",
-      "localName": "Chinese, Traditional",
-      "languageCode": "zh"
-    },
-    {
-      "languageVariantCode": "zh-cn",
-      "languageName": "大陆简体",
-      "localName": "Mainland Simplified",
-      "languageCode": "zh"
-    },
-    {
-      "languageVariantCode": "zh-hk",
-      "languageName": "香港繁體",
-      "localName": "Hong Kong Traditional",
-      "languageCode": "zh"
-    },
-    {
-      "languageVariantCode": "zh-mo",
-      "languageName": "澳門繁體",
-      "localName": "Macau Traditional",
-      "languageCode": "zh"
-    },
-    {
-      "languageVariantCode": "zh-my",
-      "languageName": "大马简体",
-      "localName": "Malaysia Simplified",
-      "languageCode": "zh"
-    },
-    {
-      "languageVariantCode": "zh-sg",
-      "languageName": "新加坡简体",
-      "localName": "Singapore Simplified",
-      "languageCode": "zh"
-    },
-    {
-      "languageVariantCode": "zh-tw",
-      "languageName": "臺灣正體",
-      "localName": "Taiwanese Traditional",
-      "languageCode": "zh"
-    }
-  ],
-  "sr": [
-    {
-      "languageVariantCode": "sr-ec",
-      "languageName": "Србија",
-      "localName": "Serbian, Cyrilic",
-      "languageCode": "sr"
-    },
-    {
-      "languageVariantCode": "sr-el",
-      "languageName": "Srbija",
-      "localName": "Serbian, Latin",
-      "languageCode": "sr"
-    }
-  ]
+    "zh": [
+        {
+            "languageVariantCode": "zh-hans",
+            "languageName": "简体",
+            "localName": "Chinese, Simplified",
+            "languageCode": "zh"
+        },
+        {
+            "languageVariantCode": "zh-hant",
+            "languageName": "繁體",
+            "localName": "Chinese, Traditional",
+            "languageCode": "zh"
+        },
+        {
+            "languageVariantCode": "zh-cn",
+            "languageName": "大陆简体",
+            "localName": "Mainland Simplified",
+            "languageCode": "zh"
+        },
+        {
+            "languageVariantCode": "zh-hk",
+            "languageName": "香港繁體",
+            "localName": "Hong Kong Traditional",
+            "languageCode": "zh"
+        },
+        {
+            "languageVariantCode": "zh-mo",
+            "languageName": "澳門繁體",
+            "localName": "Macau Traditional",
+            "languageCode": "zh"
+        },
+        {
+            "languageVariantCode": "zh-my",
+            "languageName": "大马简体",
+            "localName": "Malaysia Simplified",
+            "languageCode": "zh"
+        },
+        {
+            "languageVariantCode": "zh-sg",
+            "languageName": "新加坡简体",
+            "localName": "Singapore Simplified",
+            "languageCode": "zh"
+        },
+        {
+            "languageVariantCode": "zh-tw",
+            "languageName": "臺灣正體",
+            "localName": "Taiwanese Traditional",
+            "languageCode": "zh"
+        }
+    ],
+    "sr": [
+        {
+            "languageVariantCode": "sr-ec",
+            "languageName": "српски",
+            "localName": "Serbian (Cyrillic)",
+            "languageCode": "sr"
+        },
+        {
+            "languageVariantCode": "sr-el",
+            "languageName": "srpski",
+            "localName": "Serbian (Latin)",
+            "languageCode": "sr"
+        }
+    ],
+    "crh": [
+        {
+            "languageVariantCode": "crh-latn",
+            "languageName": "Qırımtatarca",
+            "localName": "Crimean Tatar (Latin)",
+            "languageCode": "crh"
+        },
+        {
+            "languageVariantCode": "crh-cyrl",
+            "languageName": "къырымтатарджа",
+            "localName": "Crimean Tatar (Cyrillic)",
+            "languageCode": "crh"
+        }
+    ],
+    "gan": [
+        {
+            "languageVariantCode": "gan-hans",
+            "languageName": "赣语",
+            "localName": "Gan (Simplified)",
+            "languageCode": "gan"
+        },
+        {
+            "languageVariantCode": "gan-hant",
+            "languageName": "贛語",
+            "localName": "Gan (Traditional)",
+            "languageCode": "gan"
+        }
+    ],
+    "iu": [
+        {
+            "languageVariantCode": "ike-latn",
+            "languageName": "Inuktitut",
+            "localName": "Inuktitut (Latin)",
+            "languageCode": "iu"
+        },
+        {
+            "languageVariantCode": "ike-cans",
+            "languageName": "ᐃᓄᒃᑎᑐᑦ",
+            "localName": "Inuktitut (Syllabics)",
+            "languageCode": "iu"
+        }
+    ],
+    "kk": [
+        {
+            "languageVariantCode": "kk-cyrl",
+            "languageName": "Қазақша",
+            "localName": "Kazakh (Cyrillic)",
+            "languageCode": "kk"
+        },
+        {
+            "languageVariantCode": "kk-latn",
+            "languageName": "qazaqşa",
+            "localName": "Kazakh (Latin)",
+            "languageCode": "kk"
+        },
+        {
+            "languageVariantCode": "kk-arab",
+            "languageName": "توتە",
+            "localName": "Kazakh (Arabic)",
+            "languageCode": "kk"
+        }
+    ],
+    "ku": [
+        {
+            "languageVariantCode": "ku-latn",
+            "languageName": "Kurdî",
+            "localName": "Kurdish (Latin)",
+            "languageCode": "ku"
+        },
+        {
+            "languageVariantCode": "ku-arab",
+            "languageName": "كوردی",
+            "localName": "Kurdish (Arabic)",
+            "languageCode": "ku"
+        }
+    ],
+    "tg": [
+        {
+            "languageVariantCode": "tg-cyrl",
+            "languageName": "тоҷикӣ",
+            "localName": "Tajik (Cyrillic)",
+            "languageCode": "tg"
+        },
+        {
+            "languageVariantCode": "tg-latn",
+            "languageName": "tojikī",
+            "localName": "Tajik (Latin)",
+            "languageCode": "tg"
+        }
+    ],
+    "uz": [
+        {
+            "languageVariantCode": "uz-cyrl",
+            "languageName": "ўзбекча",
+            "localName": "Uzbek (Cyrillic)",
+            "languageCode": "uz"
+        },
+        {
+            "languageVariantCode": "uz-latin",
+            "languageName": "oʻzbekcha",
+            "localName": "Uzbek (Latin)",
+            "languageCode": "uz"
+        }
+    ]
 }

@@ -38,5 +38,49 @@
         "latn": {
             "default": "sr-el"
         }
+    },
+    "crh": {
+        "default": {
+            "default": "crh-latn"
+        }
+    },
+    "gan": {
+        "default": {
+            "default": "gan-hans"
+        }
+    },
+    "ku": {
+        "default": {
+            "default": "ku-latn",
+        }
+    },
+    "kk": {
+        "default": {
+            "default": "kk-cyrl"
+        }
+    },
+    "tg": {
+        "default": {
+            "default": "tg-cyrl",
+        }
+    },
+    "iu": {
+        "default": {
+            "default": "ike-cans",
+        }
+    },
+    "uz": {
+        "cyrl": {
+            "default": "uz-cyrl",
+        },
+        "default": {
+            "default": "uz-latin",
+        },
+        "arab": {
+            "default": "uz-latin",
+        },
+        "latn": {
+            "default": "uz-latin",
+        }
     }
 }
