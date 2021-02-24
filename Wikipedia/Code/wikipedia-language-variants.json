@@ -52,13 +52,13 @@
     "sr": [
         {
             "languageVariantCode": "sr-ec",
-            "languageName": "Србија",
+            "languageName": "српски",
             "localName": "Serbian (Cyrillic)",
             "languageCode": "sr"
         },
         {
             "languageVariantCode": "sr-el",
-            "languageName": "Srbija",
+            "languageName": "srpski",
             "localName": "Serbian (Latin)",
             "languageCode": "sr"
         }
