@@ -27,7 +27,6 @@
 		0042806D25E6E395004945B3 /* FLAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042804125E6E395004945B3 /* FLAnimatedImageView.m */; };
 		0042806E25E6E395004945B3 /* FLAnimatedImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 0042804225E6E395004945B3 /* FLAnimatedImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0042806F25E6E395004945B3 /* FLAnimatedImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 0042804325E6E395004945B3 /* FLAnimatedImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0042807025E6E395004945B3 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 0042804425E6E395004945B3 /* .gitignore */; };
 		0042807125E6E395004945B3 /* NSValueTransformer+MTLPredefinedTransformerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042804625E6E395004945B3 /* NSValueTransformer+MTLPredefinedTransformerAdditions.m */; };
 		0042807225E6E395004945B3 /* NSError+MTLModelException.m in Sources */ = {isa = PBXBuildFile; fileRef = 0042804725E6E395004945B3 /* NSError+MTLModelException.m */; };
 		0042807325E6E395004945B3 /* NSDictionary+MTLJSONKeyPath.h in Headers */ = {isa = PBXBuildFile; fileRef = 0042804825E6E395004945B3 /* NSDictionary+MTLJSONKeyPath.h */; };
@@ -10188,7 +10187,6 @@
 				D8FA19161E1BE069009675C3 /* WMFArticlePreviewViewController.xib in Resources */,
 				D801C9301EB8E131001FA294 /* Localizable.strings in Resources */,
 				D801C9351EB8E131001FA294 /* Localizable.stringsdict in Resources */,
-				0042807025E6E395004945B3 /* .gitignore in Resources */,
 				83ACAAA824E6E6C5003B3035 /* wikipedia-languages.json in Resources */,
 				7A00D177208FB72900A9C7BA /* BatchEditToolbarViewController.xib in Resources */,
 				D8E4CCAA1D931CE100EB6C61 /* assets in Resources */,
