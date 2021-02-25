@@ -130,7 +130,6 @@
 "button-skip" = "Spring over";
 "cancel" = "Afbryd";
 "cc-zero" = "Creative Commons CC0";
-"chinese-variants-alert-dismiss-button" = "Nej tak";
 "clear-title-accessibility-label" = "Ryd";
 "close-button-accessibility-label" = "Luk";
 "compass-direction" = "mod klokken $1";
@@ -597,6 +596,7 @@
 "two-factor-login-with-backup-code" = "Brug en af dine reservekoder";
 "two-factor-login-with-regular-code" = "Brug bekræftelseskode";
 "unknown-generic-text" = "Ukendt";
+"variants-alert-dismiss-button" = "Nej tak";
 "welcome-exploration-explore-feed-description" = "Anbefalet læsning og daglige artikler fra vores fællesskab";
 "welcome-exploration-explore-feed-title" = "Udforsk nyhedskilde";
 "welcome-exploration-on-this-day-description" = "Rejs tilbage i tid for at lære noget om hvad der skete i dag historisk";

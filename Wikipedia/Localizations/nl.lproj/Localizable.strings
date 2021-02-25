@@ -160,7 +160,6 @@
 "button-skip" = "Overslaan";
 "cancel" = "Annuleren";
 "cc-zero" = "Creative Commons CC0";
-"chinese-variants-alert-dismiss-button" = "Nee, bedankt";
 "clear-title-accessibility-label" = "Wissen";
 "close-button-accessibility-label" = "Sluiten";
 "compass-direction" = "op $1 uur";
@@ -791,6 +790,7 @@
 "two-factor-login-with-regular-code" = "Gebruik verificatiecode";
 "unable-to-load-talk-page-title" = "Overlegpagina laden niet mogelijk";
 "unknown-generic-text" = "Onbekend";
+"variants-alert-dismiss-button" = "Nee, bedankt";
 "welcome-exploration-explore-feed-description" = "Aanbevolen inhoud van onze gebruikersgemeenschap";
 "welcome-exploration-explore-feed-title" = "Verkennen";
 "welcome-exploration-on-this-day-description" = "Reis terug in de tijd om te leren wat er vandaag in de geschiedenis is gebeurd";

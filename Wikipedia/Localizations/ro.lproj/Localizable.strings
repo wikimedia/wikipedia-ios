@@ -149,8 +149,6 @@
 "button-skip" = "Sari";
 "cancel" = "Anulează";
 "cc-zero" = "Creative Commons CC0";
-"chinese-variants-alert-dismiss-button" = "Nu mulțumesc";
-"chinese-variants-alert-preferences-button" = "Examinați-vă preferințele";
 "clear-title-accessibility-label" = "Șterge";
 "close-button-accessibility-label" = "Închide";
 "compass-direction" = "la ora $1";
@@ -839,6 +837,8 @@
 "two-factor-login-with-regular-code" = "Utilizați codul de verificare";
 "unable-to-load-talk-page-title" = "Nu se poate încărca pagina de discuții";
 "unknown-generic-text" = "Necunoscut";
+"variants-alert-dismiss-button" = "Nu mulțumesc";
+"variants-alert-preferences-button" = "Examinați-vă preferințele";
 "welcome-exploration-explore-feed-description" = "Recomandări de citire și articole zilnice din comunitatea noastră";
 "welcome-exploration-explore-feed-title" = "Fluxul Explore";
 "welcome-exploration-on-this-day-description" = "Călătoriți înapoi în timp pentru a afla ce s-a întâmplat astăzi în istorie";
