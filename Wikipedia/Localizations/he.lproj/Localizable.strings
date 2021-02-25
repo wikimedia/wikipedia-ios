@@ -173,8 +173,6 @@
 "cancel" = "ביטול";
 "cc-zero" = "קריאייטיב קומונז אפס";
 "chinese-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בהגוונים הבאים של סינית בתור השפה הראשית או המשנית ביישום, כדי שיהיה קל יותר לקרוא, לחפש, ולערוך בהגוונים המועדפים עליך:\n\n简体 סינית, מפושטת (zh-hans)\n繁體 סינית, מסורתית (zh-hant)\n大陆简体 יבשתית מפושטת (zh-cn)\n香港繁體 הונג קונג מסורתית (zh-hk)\n澳門繁體 מקאו מסורתית (zh-mo)\n大马简体 מלזיה מפושטת (zh-my)\n新加坡简体 סינגפור מפושטת (zh-sg)\n臺灣正體 טאיוואן מסורתית (zh-tw)";
-"chinese-variants-alert-dismiss-button" = "לא, תודה";
-"chinese-variants-alert-preferences-button" = "סקירת ההעדפות שלך";
 "chinese-variants-alert-title" = "עדכונים לתמיכה בהגוונים של סינית";
 "clear-title-accessibility-label" = "ניקוי";
 "close-button-accessibility-label" = "סגירה";
@@ -869,6 +867,8 @@
 "two-factor-login-with-regular-code" = "להשתמש בקוד אימות";
 "unable-to-load-talk-page-title" = "לא ניתן לטעון את דף השיחה";
 "unknown-generic-text" = "לא ידוע";
+"variants-alert-dismiss-button" = "לא, תודה";
+"variants-alert-preferences-button" = "סקירת ההעדפות שלך";
 "welcome-exploration-explore-feed-description" = "קריאה מומלצת וערכים יומיים מהקהילה שלנו";
 "welcome-exploration-explore-feed-title" = "הזנת לחקור";
 "welcome-exploration-on-this-day-description" = "חזרו אחורה בזמן כדי ללמוד מה קרה היום בהיסטוריה";

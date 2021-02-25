@@ -186,8 +186,6 @@
 "cancel" = "Cancelar";
 "cc-zero" = "Creative Commons CC0";
 "chinese-variants-alert-body" = "O aplicativo da Wikipédia agora suporta as seguintes variantes chinesas como idiomas primários ou secundários dentro do aplicativo, tornando mais fácil ler, pesquisar e editar em suas variantes preferidas:\n\n简体 Chinês simplificado (zh-hans)\n繁體 Chinês tradicional (zh-hant)\n大陆简体 Continental simplificado (zh-cn)\n香港繁體 Hong Kong tradicional (zh-hk)\n澳門繁體 Macau tradicional (zh-mo)\n大马简体 Malaio simplificado (zh-my)\n新加坡简体 Singapore simplificado (zh-sg)\n臺灣正體 Taiwanês tradicional (zh-tw)";
-"chinese-variants-alert-dismiss-button" = "Não, obrigado";
-"chinese-variants-alert-preferences-button" = "Revise suas preferências";
 "chinese-variants-alert-title" = "Atualizações para suporte a variantes chinesas";
 "clear-title-accessibility-label" = "Limpar";
 "close-button-accessibility-label" = "Fechar";
@@ -882,6 +880,8 @@
 "two-factor-login-with-regular-code" = "Usar código de verificação";
 "unable-to-load-talk-page-title" = "Não foi possível carregar a página de discussão";
 "unknown-generic-text" = "Desconhecido";
+"variants-alert-dismiss-button" = "Não, obrigado";
+"variants-alert-preferences-button" = "Revise suas preferências";
 "welcome-exploration-explore-feed-description" = "Leitura recomendada e artigos diários da nossa comunidade";
 "welcome-exploration-explore-feed-title" = "Feed de explorar";
 "welcome-exploration-on-this-day-description" = "Volte no tempo para aprender o que aconteceu hoje na história";

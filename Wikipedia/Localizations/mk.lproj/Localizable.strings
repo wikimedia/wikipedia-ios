@@ -161,8 +161,6 @@
 "cancel" = "Откажи";
 "cc-zero" = "Криејтив комонс CC0";
 "chinese-variants-alert-body" = "Википедииниот прилог сега ги поддржува следниве кинески варијанти како главни и споредни јазици во него, олеснувајќи го читањето, пребарувањето и уредувањето на вашата претпочитана варијанта:\n\n简体 кинески, упростено (zh-hans)\n繁體 кинески, традиционално (zh-hant)\n大陆简体 континентално упростено (zh-cn)\n香港繁體 хонгконшки традиционално (zh-hk)\n澳門繁體 макајски традиционално (zh-mo)\n大马简体 малезиски упростено (zh-my)\n新加坡简体 сингапурски упростено (zh-sg)\n臺灣正體 тајвански традиционално (zh-tw)";
-"chinese-variants-alert-dismiss-button" = "Не, благодарам";
-"chinese-variants-alert-preferences-button" = "Прегледајте ги вашите поставки";
 "chinese-variants-alert-title" = "Новост за поддршка на кинески варијанти";
 "clear-title-accessibility-label" = "Исчисти";
 "close-button-accessibility-label" = "Затвори";
@@ -857,6 +855,8 @@
 "two-factor-login-with-regular-code" = "Користи потврден код";
 "unable-to-load-talk-page-title" = "Не можам да ја вчитам разговорната страница";
 "unknown-generic-text" = "Непознато";
+"variants-alert-dismiss-button" = "Не, благодарам";
+"variants-alert-preferences-button" = "Прегледајте ги вашите поставки";
 "welcome-exploration-explore-feed-description" = "Препорачано читање и дневни статии од нашата заедница";
 "welcome-exploration-explore-feed-title" = "Тековник „Истражи“";
 "welcome-exploration-on-this-day-description" = "Вратете се во времето за да дознаете што се случило на денешен ден во минатото";

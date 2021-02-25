@@ -174,7 +174,6 @@
 "button-skip" = "Ohita";
 "cancel" = "Peruuta";
 "cc-zero" = "Creative Commons CC0";
-"chinese-variants-alert-dismiss-button" = "Ei kiitos";
 "clear-title-accessibility-label" = "Kumita/putsaa/tyhjennä/puhdista";
 "close-button-accessibility-label" = "Sulje";
 "compass-direction" = "klo $1";
@@ -857,6 +856,7 @@
 "two-factor-login-with-regular-code" = "Käytä vahvistuskoodia";
 "unable-to-load-talk-page-title" = "Keskustelusivun lataaminen epäonnistui";
 "unknown-generic-text" = "Tuntematon";
+"variants-alert-dismiss-button" = "Ei kiitos";
 "welcome-exploration-explore-feed-description" = "Suositellut luettavat ja pävittäiset artikkelit yhteisöstämme";
 "welcome-exploration-explore-feed-title" = "Tutki syötettä";
 "welcome-exploration-on-this-day-description" = "Matkusta takaisin ajassa ja opi mitä tapahtui tänä päivänä historiassa";

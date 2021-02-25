@@ -169,8 +169,6 @@
 "cancel" = "Hủy bỏ";
 "cc-zero" = "Creative Commons CC0";
 "chinese-variants-alert-body" = "Ứng dụng Wikipedia hiện hỗ trợ các biến thể chữ Hán sau đây khi sử dụng tiếng Trung làm ngôn ngữ chính hoặc phụ trong ứng dụng, giúp bạn đọc, tìm kiếm, và chỉnh sửa dễ dàng hơn trong biến thể ưa thích của mình:\n\n简体 Trung giản thể (zh-hans)\n繁體 Trung phồn thể (zh-hant)\n大陆简体 Hoa Lục giản thể (zh-cn)\n香港繁體 Hồng Kông phồn thể (zh-hk)\n澳門繁體 Ma Cao phồn thể (zh-mo)\n大马简体 Mã Lai giản thể (zh-my)\n新加坡简体 Singapore giản thể (zh-sg)\n臺灣正體 Đài Loan phồn thể (zh-tw)";
-"chinese-variants-alert-dismiss-button" = "Thôi";
-"chinese-variants-alert-preferences-button" = "Xem tùy chọn cá nhân của bạn";
 "chinese-variants-alert-title" = "Cập nhật hỗ trợ biến thể chữ Hán";
 "clear-title-accessibility-label" = "Xóa sạch";
 "close-button-accessibility-label" = "Đóng";
@@ -855,6 +853,8 @@
 "two-factor-login-with-regular-code" = "Sử dụng mã xác nhận";
 "unable-to-load-talk-page-title" = "Đã xảy ra lỗi khi tải trang thảo luận";
 "unknown-generic-text" = "Không rõ";
+"variants-alert-dismiss-button" = "Thôi";
+"variants-alert-preferences-button" = "Xem tùy chọn cá nhân của bạn";
 "welcome-exploration-explore-feed-description" = "Các bài đọc được cộng đồng gợi ý hằng ngày";
 "welcome-exploration-explore-feed-title" = "Nguồn cấp Thám hiểm";
 "welcome-exploration-on-this-day-description" = "Quay về quá khứ để tìm hiểu về các sự kiện ngày nay năm xưa";

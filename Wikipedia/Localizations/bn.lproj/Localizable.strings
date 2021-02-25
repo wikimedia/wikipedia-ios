@@ -101,7 +101,6 @@
 "button-skip" = "এড়ান";
 "cancel" = "বাতিল";
 "cc-zero" = "ক্রিয়েটিভ কমন্স সিসি জিরো";
-"chinese-variants-alert-dismiss-button" = "না, ধন্যবাদ";
 "close-button-accessibility-label" = "বন্ধ";
 "compass-direction" = "$1 টার সময়";
 "continue-reading-empty-description" = "আরও নিবন্ধ পাঠ করতে উইকিপিডিয়া অন্বেষণ করুন";
@@ -357,6 +356,7 @@
 "two-factor-login-title" = "আপনার অ্যাকাউন্টে প্রবেশ করুন";
 "two-factor-login-with-backup-code" = "আপনার ব্যাকআপ কোডগুলির একটি ব্যবহার করুন";
 "two-factor-login-with-regular-code" = "যাচাইকরণ কোড ব্যবহার করুন";
+"variants-alert-dismiss-button" = "না, ধন্যবাদ";
 "welcome-exploration-explore-feed-description" = "আমাদের সম্প্রদায়ের প্রস্তাবিত পাঠ এবং দৈনিক নিবন্ধ";
 "welcome-exploration-explore-feed-title" = "ফিড অন্বেষণ করুন";
 "welcome-exploration-on-this-day-title" = "আজকের এই দিনে";

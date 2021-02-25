@@ -184,8 +184,6 @@
 "button-skip" = "건너뛰기";
 "cancel" = "취소";
 "cc-zero" = "크리에이티브 커먼즈 CC0";
-"chinese-variants-alert-dismiss-button" = "괜찮습니다";
-"chinese-variants-alert-preferences-button" = "내 환경 설정 검토하기";
 "clear-title-accessibility-label" = "지우기";
 "close-button-accessibility-label" = "닫기";
 "compass-direction" = "$1시에";
@@ -877,6 +875,8 @@
 "two-factor-login-with-regular-code" = "인증 코드 사용";
 "unable-to-load-talk-page-title" = "토론 문서를 불러올 수 없습니다";
 "unknown-generic-text" = "알 수 없음";
+"variants-alert-dismiss-button" = "괜찮습니다";
+"variants-alert-preferences-button" = "내 환경 설정 검토하기";
 "welcome-exploration-explore-feed-description" = "우리 공동체의 권장 읽기 및 일일 문서";
 "welcome-exploration-explore-feed-title" = "탐색 피드";
 "welcome-exploration-on-this-day-description" = "과거의 오늘에 무슨 일이 일어났는지 시간을 돌려 보세요";

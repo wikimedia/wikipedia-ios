@@ -148,7 +148,6 @@
 "button-skip" = "تخطٍ";
 "cancel" = "ألغ";
 "cc-zero" = "المشاع الإبداعي CC0";
-"chinese-variants-alert-dismiss-button" = "لا شكرًا";
 "clear-title-accessibility-label" = "امسح";
 "close-button-accessibility-label" = "أغلق";
 "compass-direction" = "عند الساعة $1";
@@ -839,6 +838,7 @@
 "two-factor-login-with-regular-code" = "استخدم رمز التحقق";
 "unable-to-load-talk-page-title" = "غير قادر على تحميل صفحة النقاش";
 "unknown-generic-text" = "غير معروف";
+"variants-alert-dismiss-button" = "لا شكرًا";
 "welcome-exploration-explore-feed-description" = "القراءة الموصى بها والمقالات اليومية من مجتمعنا";
 "welcome-exploration-explore-feed-title" = "خلاصة الاستكشاف";
 "welcome-exploration-on-this-day-description" = "سافر عائدا في الزمن لمعرفة ما حدث اليوم في التاريخ";

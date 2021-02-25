@@ -47,6 +47,7 @@
 "history-clear-cancel" = "Bekor qilish";
 "history-clear-confirmation-heading" = "Barcha soʻnggi elementlarni oʻchirib tashlaysizmi?";
 "history-clear-delete-all" = "Ha, barini";
+"logged-out-continue-without-logging-in-button-title" = "Kirmasdan turib davom ettirish";
 "main-menu-account-login" = "Kirmoq";
 "main-menu-account-logout" = "Chiqish";
 "main-menu-account-title-logged-in" = "$1 sifatida kirdingiz";
