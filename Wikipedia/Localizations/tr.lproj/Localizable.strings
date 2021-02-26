@@ -189,8 +189,6 @@
 "cancel" = "İptal";
 "cc-zero" = "Creative Commons CC0";
 "chinese-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Çince biçimlerini birincil veya ikincil olarak uygulama içinde, tercih ettiğiniz biçim ile okumayı, aramayı veya değişiklik yapmayı kolaylaştırmak için  destekliyor.\n\n简体 Çince, Basitleştirilmiş (zh-hans)\n繁體 Çince, Geleneksel (zh-hant)\n大陆简体 Basitleştirilmiş Anakara (zh-cn)\n香港繁體 Geleneksel Hong Kong (zh-hk)\n澳門繁體 Geleneksel Macau (zh-mo)\n大马简体 Basitleştirilmiş Malezya (zh-my)\n新加坡简体 Basitleştirilmiş Singapur (zh-sg)\n臺灣正體 Geleneksel Tayvanca (zh-tw)";
-"chinese-variants-alert-dismiss-button" = "Hayır teşekkürler";
-"chinese-variants-alert-preferences-button" = "Tercihlerinizi gözden geçirin";
 "chinese-variants-alert-title" = "Çince biçim desteği güncellemeleri";
 "clear-title-accessibility-label" = "Temizle";
 "close-button-accessibility-label" = "Kapat";
@@ -885,6 +883,8 @@
 "two-factor-login-with-regular-code" = "Doğrulama kodu kullanın";
 "unable-to-load-talk-page-title" = "Tartışma sayfası yüklenemiyor";
 "unknown-generic-text" = "Bilinmiyor";
+"variants-alert-dismiss-button" = "Hayır teşekkürler";
+"variants-alert-preferences-button" = "Tercihlerinizi gözden geçirin";
 "welcome-exploration-explore-feed-description" = "Önerilen okumalar ve topluluğumuzdan günlük maddeler";
 "welcome-exploration-explore-feed-title" = "Keşfet bölümü";
 "welcome-exploration-on-this-day-description" = "Tarihte bugün neler olduğunu öğrenmek için geçmişe yolculuk yap";

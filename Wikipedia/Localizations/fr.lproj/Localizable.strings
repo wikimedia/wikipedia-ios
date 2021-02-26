@@ -183,8 +183,6 @@
 "cancel" = "Annuler";
 "cc-zero" = "Creative Commons Zéro";
 "chinese-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes du chinois comme langues primaire ou secondaire dans l’application, facilitant la lecture, la recherche et la modification dans vos variantes préférées :\n\n简体 Chinois simplifié (zh-hans)\n繁體 Chinois traditionnel (zh-hant)\n大陆简体 Continental simplifié (zh-cn)\n香港繁體 Hong-Kong traditionnel (zh-hk)\n澳門繁體 Macao traditionnel (zh-mo)\n大马简体 Malaisien simplifié (zh-my)\n新加坡简体 Singapourien simplifié (zh-sg)\n臺灣正體 Taïwanais traditionnel (zh-tw)";
-"chinese-variants-alert-dismiss-button" = "Non merci";
-"chinese-variants-alert-preferences-button" = "Revoir vos préférences";
 "chinese-variants-alert-title" = "Mettre à jour la prise en charge des variantes du chinois";
 "clear-title-accessibility-label" = "Effacer";
 "close-button-accessibility-label" = "Fermer";
@@ -879,6 +877,8 @@
 "two-factor-login-with-regular-code" = "Utiliser un code de vérification";
 "unable-to-load-talk-page-title" = "Impossible de charger la page de discussion";
 "unknown-generic-text" = "Inconnu";
+"variants-alert-dismiss-button" = "Non merci";
+"variants-alert-preferences-button" = "Revoir vos préférences";
 "welcome-exploration-explore-feed-description" = "Lecture recommandée et articles du jour de notre communauté";
 "welcome-exploration-explore-feed-title" = "Explorer le fil";
 "welcome-exploration-on-this-day-description" = "Revenir dans le temps pour apprendre ce qui s’est passé aujourd’hui dans l’histoire";

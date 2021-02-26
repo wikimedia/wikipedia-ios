@@ -151,8 +151,6 @@
 "button-skip" = "Kihagyás";
 "cancel" = "Mégse";
 "cc-zero" = "Creative Commons CC0";
-"chinese-variants-alert-dismiss-button" = "Nem, köszönöm";
-"chinese-variants-alert-preferences-button" = "Beállításaid áttekintése";
 "clear-title-accessibility-label" = "Törlés";
 "close-button-accessibility-label" = "Bezárás";
 "compass-direction" = "$1 óra irányban";
@@ -649,6 +647,8 @@
 "two-factor-login-with-backup-code" = "Használd az egyik visszaállítási kódod";
 "two-factor-login-with-regular-code" = "Ellenőrző kód használata";
 "unable-to-load-talk-page-title" = "Nem sikerült betölteni a vitalapot";
+"variants-alert-dismiss-button" = "Nem, köszönöm";
+"variants-alert-preferences-button" = "Beállításaid áttekintése";
 "welcome-exploration-explore-feed-description" = "A közösség által napi olvasásra ajánlott szócikk";
 "welcome-exploration-explore-feed-title" = "Felfedezés csatorna";
 "welcome-exploration-on-this-day-description" = "Mi történt a mai napon a történelemben";

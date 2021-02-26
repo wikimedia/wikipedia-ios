@@ -181,8 +181,6 @@
 "button-skip" = "Lewati";
 "cancel" = "Batal";
 "cc-zero" = "Creative Commons CC0";
-"chinese-variants-alert-dismiss-button" = "Tidak, terima kasih";
-"chinese-variants-alert-preferences-button" = "Tinjau preferensi Anda";
 "clear-title-accessibility-label" = "Hapus";
 "close-button-accessibility-label" = "Tutup";
 "compass-direction" = "pada pukul $1 tepat";
@@ -874,6 +872,8 @@
 "two-factor-login-with-regular-code" = "Gunakan kode verifikasi";
 "unable-to-load-talk-page-title" = "Tidak bisa memuat halaman pembicaraan";
 "unknown-generic-text" = "Tidak diketahui";
+"variants-alert-dismiss-button" = "Tidak, terima kasih";
+"variants-alert-preferences-button" = "Tinjau preferensi Anda";
 "welcome-exploration-explore-feed-description" = "Bacaan yang disarankan dan artikel harian dari komunitas kami";
 "welcome-exploration-explore-feed-title" = "Umpan Jelajahi";
 "welcome-exploration-on-this-day-description" = "Berpergian kembali ke masa lalu untuk mempelajari apa yang terjadi hari ini dalam sejarah";

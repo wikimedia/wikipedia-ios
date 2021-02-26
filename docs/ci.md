@@ -64,7 +64,7 @@ Verify fastlane was installed by running `bundle exec fastlane lanes` and verify
 You can set the Xcode version used by fastlane by editing the `.xcversion` file in the root directory of the repo. This is helpful when a branch uses a new Xcode beta and you'd like to be able to utilize different Xcode versions for building each branch.
 
 ## Tests
-Tests are run on [Jenkins](https://jenkins.io) on the `appsci` server in response to pull requests. You can run the same tests that are run on a pr locally by running `bundle exec fastlane verify_pull_request`.
+Tests are run on [Circle CI](https://app.circleci.com/pipelines/github/wikimedia/wikipedia-ios) in response to pull requests. You can run the same tests that are run on a pr locally by running `bundle exec fastlane verify_pull_request`.
 
 ## Release builds
-Are also handled by the `appsci` server. There is a Jenkins job for release that runs `bundle exec fastlane deploy`. This builds the app for release to the app store and uploads it to TestFlight. It also builds and deploys the corresponding Staging release. From there it is immediately released to internal beta and can be released to public beta and the app store after testing.
+Are also handled by the `wmf2249` server. There is a Jenkins job for release that runs `bundle exec fastlane deploy`. This builds the app for release to the app store and uploads it to TestFlight. It also builds and deploys the corresponding Staging release. From there it is immediately released to internal beta and can be released to public beta and the app store after testing.

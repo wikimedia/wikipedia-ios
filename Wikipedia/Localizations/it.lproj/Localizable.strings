@@ -156,7 +156,6 @@
 "button-skip" = "Salta";
 "cancel" = "Annulla";
 "cc-zero" = "Creative Commons CC0";
-"chinese-variants-alert-dismiss-button" = "No, grazie";
 "clear-title-accessibility-label" = "Pulisci";
 "close-button-accessibility-label" = "Chiudi";
 "compass-direction" = "alle ore $1";
@@ -627,6 +626,7 @@
 "two-factor-login-with-regular-code" = "Usa codice di verifica";
 "unable-to-load-talk-page-title" = "Impossibile caricare la pagina di discussione";
 "unknown-generic-text" = "Sconosciuto";
+"variants-alert-dismiss-button" = "No, grazie";
 "welcome-exploration-explore-feed-description" = "Letture consigliate e voci quotidiane della nostra comunità";
 "welcome-exploration-explore-feed-title" = "Esplora feed";
 "welcome-exploration-on-this-day-description" = "Viaggia indietro nel tempo per sapere cosa è successo oggi nella storia";
