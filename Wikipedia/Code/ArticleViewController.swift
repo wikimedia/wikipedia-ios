@@ -297,7 +297,17 @@ class ArticleViewController: ViewController, HintPresenting {
             case .loading:
                 fakeProgressController.start()
             case .loaded:
+
                 fakeProgressController.stop()
+                
+                // Sometimes the web view theme and article theme is out if sync
+                // The last call to update the theme comes before the web view is fully loaded to accept a theme change
+                // In this case we are checking and triggering a web view theme change once more after the JS bridge indicates it's loaded
+                // https://phabricator.wikimedia.org/T275239
+                if let webViewTheme = messagingController.parameters?.theme,
+                   webViewTheme != self.theme.webName {
+                    messagingController.updateTheme(theme)
+                }
             case .error:
                 fakeProgressController.stop()
             }
@@ -318,7 +328,6 @@ class ArticleViewController: ViewController, HintPresenting {
         setup()
         super.viewDidLoad()
         setupToolbar() // setup toolbar needs to be after super.viewDidLoad because the superview owns the toolbar
-        apply(theme: theme)
         setupForStateRestorationIfNecessary()
         surveyTimerController?.timerFireBlock = { [weak self] in
             guard let self = self,
