@@ -1,7 +1,5 @@
 #import "WMFImageGalleryViewController.h"
 @import WMF;
-@import FLAnimatedImage;
-@import NYTPhotoViewer;
 #import "Wikipedia-Swift.h"
 #import "MWKImageInfoFetcher+PicOfTheDayInfo.h"
 #import "WMFImageGalleryDetailOverlayView.h"

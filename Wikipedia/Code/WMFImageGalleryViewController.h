@@ -1,4 +1,4 @@
-#import <NYTPhotoViewer/NYTPhotosViewController.h>
+#import "NYTPhotosViewController.h"
 @class MWKImageInfo;
 @import WMF.Swift;
 

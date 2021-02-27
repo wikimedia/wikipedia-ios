@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'Nocilla' target in the 'Nocilla' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif

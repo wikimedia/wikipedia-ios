@@ -1,5 +1,4 @@
 import Foundation
-import FLAnimatedImage
 
 public enum ImageOrigin: Int {
     case network = 0

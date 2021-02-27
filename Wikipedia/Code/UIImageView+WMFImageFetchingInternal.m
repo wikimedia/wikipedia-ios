@@ -1,4 +1,3 @@
-@import FLAnimatedImage;
 #import "UIImageView+WMFImageFetchingInternal.h"
 #import <WMF/UIImageView+WMFImageFetching.h>
 #import "UIImageView+WMFContentOffset.h"

@@ -1,4 +1,4 @@
-#import <Nocilla/Nocilla.h>
+#import "Nocilla.h"
 
 typedef LSStubResponseDSL * (^WithJSONMethod)(id json);
 
