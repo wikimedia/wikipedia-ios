@@ -1,6 +1,5 @@
 #import <WMF/WMFLegacySerializer.h>
 #import <WMF/NSError+WMFExtensions.h>
-#import <Mantle/MTLJSONAdapter.h>
 #import <WMF/WMF-Swift.h>
 
 @implementation WMFLegacySerializer

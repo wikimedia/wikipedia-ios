@@ -1,7 +1,7 @@
 #import <XCTest/XCTest.h>
 #import "MWKDataStore+TemporaryDataStore.h"
 #import <WMF/WMF.h>
-#import <Nocilla/LSNocilla.h>
+#import "LSNocilla.h"
 #import "MWKDataStore+TemporaryDataStore.h"
 #import "WMFRandomFileUtilities.h"
 #import "NSUserDefaults+WMFReset.h"

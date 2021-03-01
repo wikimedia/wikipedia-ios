@@ -1,0 +1,4 @@
+#!/bin/bash
+# Updates submodules
+
+git submodule update --init --recursive

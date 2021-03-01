@@ -3,7 +3,7 @@
 #import "MWKDataStore+TemporaryDataStore.h"
 #import "WMFRandomFileUtilities.h"
 #import "WMFHTTPHangingProtocol.h"
-#import <Nocilla/Nocilla.h>
+#import "Nocilla.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "XCTestCase+WMFBundleConvenience.h"
 #import "NSBundle+TestAssets.h"

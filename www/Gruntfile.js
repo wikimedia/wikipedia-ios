@@ -50,7 +50,7 @@ module.exports = function (grunt) {
           },
           {
             expand: true,
-            cwd: '../Carthage/Checkouts/wikipedia-ios-codemirror/resources/',
+            cwd: '../CodeMirror/wikipedia-ios-codemirror/resources/',
             src: ['**'],
             dest: `${distFolder}codemirror/resources/`
           },
