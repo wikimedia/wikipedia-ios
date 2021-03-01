@@ -195,6 +195,8 @@
 "compass-direction" = "saat $1 yönünde";
 "continue-reading-empty-description" = "Daha fazla madde okumak için Vikipedi'yi keşfedin";
 "continue-reading-empty-title" = "Son okunan madde yok";
+"crimean-tatar-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Kırım Tatarcası biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\nQırımtatarca, Latin Kırım Tatarcası Latin (chr-latn)\nкъырымтатарджа, Кирил Kırım Tatarcası Kiril (crh-cyrl)";
+"crimean-tatar-variants-alert-title" = "Kırım Tatarcası biçim desteği güncellemeleri";
 "data-migration-status" = "Güncelleniyor...";
 "description-add-title" = "Açıklama ekle";
 "description-edit-for-article" = "$1 için başlık açıklaması";
@@ -470,6 +472,8 @@
 "forgot-password-instructions" = "Parola sıfırlama talimatlarını e-posta yoluyla almak için aşağıdaki alanlardan birini doldurun";
 "forgot-password-title" = "Parolayı sıfırla";
 "forgot-password-username-or-email-title" = "Veya";
+"gan-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Gan biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Basitleştirilmiş (gan-hans)\n贛語 繁體 Gan, Geleneksel (gan-hant)";
+"gan-variants-alert-title" = "Ganca biçim desteği güncellemeleri";
 "history-clear-all" = "Temizle";
 "history-clear-cancel" = "İptal";
 "history-clear-confirmation-heading" = "Tüm geçmişinizi silmek istediğinizden emin misiniz?";
@@ -531,6 +535,12 @@
 "intermediate-edits-editors-count-limited" = "$2+ kullanıcı tarafından yapılan $1+ revizyonlar gösterilmiyor";
 "intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 orta revizyon|$1 orta revizyon}} tarafından $2+ kullanıcı gösterilmedi";
 "intermediate-edits-limited-editors-count" = "$1+ {{PLURAL:$2|$2 kullanıcı|$2 kullanıcı}} tarafından yapılan ara revizyonlar gösterilmez";
+"inuktitut-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Inuktitut biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Heceli (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
+"inuktitut-variants-alert-title" = "Inuktitut biçim desteği güncellemeleri";
+"kazakh-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Kazakça biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\nҚазақша Kazakça (kk)\nҚазақша Кирил Kazakça, Kiril (kk-cyrl)\nqazaqşa latin Kazakça, Latin (kk-latn)\nتوتە قازاقشا Kazakça, Arap (kk-arab)";
+"kazakh-variants-alert-title" = "Kazakça biçim desteği güncellemeleri";
+"kurdish-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Kürtçe biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\nKurdî Latînî Kürtçe, Latin (ku-latn)\nكوردی Kürtçe, Arap (kk-arab)";
+"kurdish-variants-alert-title" = "Kürtçe biçim desteği güncellemeleri";
 "languages-settings-title" = "Diller";
 "languages-title" = "Dili değiştir";
 "languages-wikipedia" = "Vikipedi dilleri";
@@ -778,6 +788,8 @@
 "search-recent-title" = "Son arananlar";
 "search-result-redirected-from" = "Şuradan yönlendirildi: $1";
 "search-title" = "Ara";
+"serbian-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Sırpça biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\nсрпски ћирилица Sırpça, Kiril (sr-ec)\nsrpski latinica Sırpça, Latin (sr-el)";
+"serbian-variants-alert-title" = "Sırpça biçim desteği güncellemeleri";
 "settings-account" = "Hesap";
 "settings-appearance" = "Okuma tercihleri";
 "settings-clear-cache" = "Önbellekteki verileri temizle";
@@ -836,6 +848,10 @@
 "table-of-contents-heading" = "Konu başlıkları";
 "table-of-contents-hide-button-label" = "İçindekiler tablosunu gizle";
 "table-of-contents-subheading-label" = "Alt başlık $1";
+"tachelhit-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Tachelhit biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
+"tachelhit-variants-alert-title" = "Tachelhit biçim desteği güncellemeleri";
+"tajik-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Tacikçe biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\nтоҷикӣ кирилликӣ Tacikçe, Kiril (tg-cyrl)\ntojikī lotinī Tacikçe, Latin (tg-latn)";
+"tajik-variants-alert-title" = "Tacikçe biçim desteği güncellemeleri";
 "talk-page-add-discussion-accessibility-label" = "Tartışma ekle";
 "talk-page-discussion-accessibility-hint" = "Tartışma başlığını açmak için iki kez hafifçe vurun";
 "talk-page-discussion-read-accessibility-label" = "Oku";
@@ -883,6 +899,8 @@
 "two-factor-login-with-regular-code" = "Doğrulama kodu kullanın";
 "unable-to-load-talk-page-title" = "Tartışma sayfası yüklenemiyor";
 "unknown-generic-text" = "Bilinmiyor";
+"uzbek-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Özbekçe biçimlerini birincil veya ikincil dil olarak uygulama içinde destekliyor, bu şekilde tercih ettiğiniz biçimle daha kolay okuyabilir, aratabilir ve değişiklik yapabilirsiniz:\n\noʻzbekcha lotin Özbekçe, Latin (uz-latin)\nўзбекча кирилл Özbekçe, Kiril (uz-cyrl)";
+"uzbek-variants-alert-title" = "Özbekçe biçim desteği güncellemeleri";
 "variants-alert-dismiss-button" = "Hayır teşekkürler";
 "variants-alert-preferences-button" = "Tercihlerinizi gözden geçirin";
 "welcome-exploration-explore-feed-description" = "Önerilen okumalar ve topluluğumuzdan günlük maddeler";
