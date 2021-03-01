@@ -155,7 +155,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
             }
         }
         
-        let sucess = { (results: WMFSearchResults, type: WMFSearchType) in
+        let success = { (results: WMFSearchResults, type: WMFSearchType) in
             DispatchQueue.main.async {
                 guard searchTerm == self.searchBar.text else {
                     return
@@ -178,14 +178,14 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: WMFMaxSearchResultLimit, failure: { (error) in
             failure(error, .prefix)
         }) { (results) in
-            sucess(results, .prefix)
+            success(results, .prefix)
             guard let resultsArray = results.results, resultsArray.count < 12 else {
                 return
             }
             self.fetcher.fetchArticles(forSearchTerm: searchTerm, siteURL: siteURL, resultLimit: WMFMaxSearchResultLimit, fullTextSearch: true, appendToPreviousResults: results, failure: { (error) in
                 failure(error, .full)
             }) { (results) in
-                sucess(results, .full)
+                success(results, .full)
             }
         }
     }
