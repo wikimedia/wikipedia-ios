@@ -20,9 +20,12 @@ import CocoaLumberjackSwift
         return allWikipedias.map { (wikipedia) -> MWKLanguageLink in
             var localizedName = wikipedia.localName
             if !wikipedia.languageCode.contains("-") {
-                // iOS will return less descriptive name for compound codes - ie "Chinese" for zh-yue which
-                // should be "Cantonese". It looks like iOS ignores anything after the "-".
+                
                 if let iOSLocalizedName = Locale.current.localizedString(forLanguageCode: wikipedia.languageCode) {
+                    localizedName = iOSLocalizedName
+                }
+            } else {
+                if let iOSLocalizedName = Locale.current.localizedString(forIdentifier: wikipedia.languageCode) {
                     localizedName = iOSLocalizedName
                 }
             }
@@ -42,9 +45,13 @@ import CocoaLumberjackSwift
             let entries = try JSONDecoder().decode([String : [WikipediaLanguageVariant]].self, from: data)
             return entries.mapValues { wikipediaLanguageVariants -> [MWKLanguageLink] in
                 wikipediaLanguageVariants.map { wikipediaLanguageVariant in
-                    // All language variant codes have compound codes. iOS returns a less descriptive localized name
-                    // for those, so not attempting to get localized name from iOS.
-                    MWKLanguageLink(languageCode: wikipediaLanguageVariant.languageCode, pageTitleText: "", name: wikipediaLanguageVariant.languageName, localizedName: wikipediaLanguageVariant.localName, languageVariantCode: wikipediaLanguageVariant.languageVariantCode)
+                    
+                    var localizedName = wikipediaLanguageVariant.localName
+                    if let iOSLocalizedName = Locale.current.localizedString(forIdentifier: wikipediaLanguageVariant.languageVariantCode) {
+                        localizedName = iOSLocalizedName
+                    }
+                    
+                    return MWKLanguageLink(languageCode: wikipediaLanguageVariant.languageCode, pageTitleText: "", name: wikipediaLanguageVariant.languageName, localizedName: localizedName, languageVariantCode: wikipediaLanguageVariant.languageVariantCode)
                 }
             }
         } catch let error {
