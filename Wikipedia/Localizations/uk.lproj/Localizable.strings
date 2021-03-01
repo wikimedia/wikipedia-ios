@@ -172,11 +172,14 @@
 "button-skip" = "Пропустити";
 "cancel" = "Скасувати";
 "cc-zero" = "Creative Commons CC0";
+"chinese-variants-alert-title" = "Оновлення щодо підтримки варіантів китайської";
 "clear-title-accessibility-label" = "Очистити";
 "close-button-accessibility-label" = "Закрити";
 "compass-direction" = "на $1 годину";
 "continue-reading-empty-description" = "Дослідіть Вікіпедію, аби знайти більше статей для читання";
 "continue-reading-empty-title" = "Немає нещодавно прочитаних статей";
+"crimean-tatar-variants-alert-body" = "програмка Вікіпедії тепер підтримує такі варіанти кримськотатарської як основний та другорядний, завдяки чому легше читати, шукати та редагувати варіантом, якому ви надаєте перевагу:\n\nQırımtatarca, Latin кримськотатарська латинка (chr-latn)\nкъырымтатарджа, Кирил кримськотатарська кирилиця (crh-cyrl)";
+"crimean-tatar-variants-alert-title" = "Оновлення щодо підтримки варіантів кримськотатарської";
 "data-migration-status" = "Оновлення…";
 "description-add-title" = "Додати опис";
 "description-edit-for-article" = "Короткий опис «$1»";
@@ -452,6 +455,7 @@
 "forgot-password-instructions" = "Заповніть одне з полів нижче, щоб отримати на скриньку електронної пошти інструкції щодо скидання пароля";
 "forgot-password-title" = "Скинути пароль";
 "forgot-password-username-or-email-title" = "Або";
+"gan-variants-alert-title" = "Оновлення щодо підтримки варіантів ґань";
 "history-clear-all" = "Очистити";
 "history-clear-cancel" = "Скасувати";
 "history-clear-confirmation-heading" = "Ви впевнені, що хочете вилучити всі недавні елементи?";
@@ -513,6 +517,9 @@
 "intermediate-edits-editors-count-limited" = "Не показано $1+ проміжних версій $2+ користувачів";
 "intermediate-edits-editors-limited-count" = "Не {{PLURAL:$1|показано $1 проміжну версію|показані $1 проміжні версії|показано $1 проміжних версій}} $2+ користувачів";
 "intermediate-edits-limited-editors-count" = "Не показано $1+ проміжних версій {{PLURAL:$2|$2 користувача|$2 користувачів}}";
+"inuktitut-variants-alert-title" = "Оновлення щодо підтримки варіантів інуктитуту";
+"kazakh-variants-alert-title" = "Оновлення щодо підтримки варіантів казахської";
+"kurdish-variants-alert-title" = "Оновлення щодо підтримки варіантів курдської";
 "languages-settings-title" = "Мови";
 "languages-title" = "Змінити мову";
 "languages-wikipedia" = "Мови Вікіпедії";
@@ -760,6 +767,7 @@
 "search-recent-title" = "Недавні пошуки";
 "search-result-redirected-from" = "Перенаправлено з: $1";
 "search-title" = "Пошук";
+"serbian-variants-alert-title" = "Оновлення щодо підтримки варіантів сербської";
 "settings-account" = "Обліковий запис";
 "settings-appearance" = "Зовнішній вигляд";
 "settings-clear-cache" = "Очистити кеш";
@@ -818,6 +826,8 @@
 "table-of-contents-heading" = "Вміст";
 "table-of-contents-hide-button-label" = "Приховати вміст";
 "table-of-contents-subheading-label" = "Підзаголовок $1";
+"tachelhit-variants-alert-title" = "Оновлення щодо підтримки варіантів ташельхіт";
+"tajik-variants-alert-title" = "Оновлення щодо підтримки варіантів таджицької";
 "talk-page-add-discussion-accessibility-label" = "Додати обговорення";
 "talk-page-discussion-accessibility-hint" = "Натисніть двічі, щоб відкрити гілку обговорення";
 "talk-page-discussion-read-accessibility-label" = "Прочитане";
@@ -865,6 +875,9 @@
 "two-factor-login-with-regular-code" = "Використати код верифікації";
 "unable-to-load-talk-page-title" = "Неможливо завантажити сторінку обговорення";
 "unknown-generic-text" = "Невідомо";
+"uzbek-variants-alert-title" = "Оновлення щодо підтримки варіантів узбецької";
+"variants-alert-dismiss-button" = "Ні, дякую";
+"variants-alert-preferences-button" = "Переглянути свої налаштування";
 "welcome-exploration-explore-feed-description" = "Рекомендовані записи та щоденні статті від нашої спільноти";
 "welcome-exploration-explore-feed-title" = "Стрічка";
 "welcome-exploration-on-this-day-description" = "Перенестися назад у часі, аби дізнатися, що сталося сьогодні в історії";

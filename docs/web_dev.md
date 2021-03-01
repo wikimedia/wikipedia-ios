@@ -7,6 +7,9 @@ Similar to the [project's Ruby setup for ci](ci.md), we recommend using a [node 
 
 These are the recommended steps for setting up your machine for web development:
 
+#### Update Submodules
+The web components are included in this repo as a Git submodule called `wikipedia-ios-codemirror`. To fully initialize the submodule, run the script located at `scripts/update_submodules`.
+
 #### Install [homebrew](https://brew.sh)
 [homebrew](https://brew.sh) should have been installed by `scripts/setup`, but if you didn't run that script or would like to manually install it:
 ```
@@ -68,4 +71,4 @@ grunt
 ```
 
 ## Process
-When making any changes to web dependencies, you should be working with the files in the `www` folder. Once you are done making changes, run `grunt` inside of that folder to compile your changes into the `Wikipedia/assets` folder. When committing these changes, there will be similar updates to files in both `www` and `Wikipedia/assets`
+When making any changes to web dependencies, you should be working with the files in the `www` folder. Once you are done making changes, run `grunt` inside of that folder to compile your changes into the `Wikipedia/assets` folder. When committing these changes, there will be similar updates to files in both `www` and `Wikipedia/assets`.

@@ -1,5 +1,5 @@
 @import Foundation;
-@import Mantle;
+#import "Mantle.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

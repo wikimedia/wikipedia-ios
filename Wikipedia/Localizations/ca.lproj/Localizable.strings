@@ -516,6 +516,7 @@
 "intermediate-edits-editors-count-limited" = "$1+ revisions intermèdies per $2+ usuaris no mostrats";
 "intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 revisió intermèdia|$1 revisions intermèdies}} per $2+ usuaris no mostrats";
 "intermediate-edits-limited-editors-count" = "$1+ revisions intermèdies per {{PLURAL:$2|$2 usuari|$2 usuaris}} no mostrades";
+"kurdish-variants-alert-title" = "Actualitzacions del suport a la variant kurda";
 "languages-settings-title" = "Llengües";
 "languages-title" = "Canvia la llengua";
 "languages-wikipedia" = "Llengües de la Viquipèdia";
@@ -763,6 +764,7 @@
 "search-recent-title" = "Cerques recents";
 "search-result-redirected-from" = "Redirigit de: $1";
 "search-title" = "Cerca";
+"serbian-variants-alert-title" = "Actualitzacions del suport a la variant sèrbia";
 "settings-account" = "Compte";
 "settings-appearance" = "Preferències de lectura";
 "settings-clear-cache" = "Neteja les dades en cau";

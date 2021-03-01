@@ -1,4 +1,4 @@
-#import <Mantle/MTLValueTransformer.h>
+@import WMF;
 
 /**
  *  Transformer which can handle both numbers or strings on input, and produces numbers on ouput.
