@@ -1,0 +1,3 @@
+[submodule "CodeMirror/wikipedia-ios-codemirror"]
+	path = CodeMirror/wikipedia-ios-codemirror
+	url = https://github.com/wikimedia/wikipedia-ios-codemirror.git

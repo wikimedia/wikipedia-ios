@@ -184,11 +184,15 @@
 "button-skip" = "건너뛰기";
 "cancel" = "취소";
 "cc-zero" = "크리에이티브 커먼즈 CC0";
+"chinese-variants-alert-body" = "이제 위키백과 앱에서 아래의 중국어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\n简体 중국어 간체 (zh-hans)\n繁體 중국어 번체 (zh-hant)\n大陆简体 본토 간체 (zh-cn)\n香港繁體 홍콩 (zh-hk)\n澳門繁體 마카오 번체 (zh-mo)\n大马简体 말레이시아 간체 (zh-my)\n新加坡简体 싱가포르 간체 (zh-sg)\n臺灣正體 대만 번체 (zh-tw)";
+"chinese-variants-alert-title" = "중국어 변이형 지원 업데이트";
 "clear-title-accessibility-label" = "지우기";
 "close-button-accessibility-label" = "닫기";
 "compass-direction" = "$1시에";
 "continue-reading-empty-description" = "더 많은 문서를 읽기 위해 위키백과 둘러보기";
 "continue-reading-empty-title" = "최근에 읽은 문서 없음";
+"crimean-tatar-variants-alert-body" = "이제 위키백과 앱에서 아래의 크림 타타르어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\nQırımtatarca, Latin 크림 타타르어 라틴 (chr-latn)\nкъырымтатарджа, Кирил 크림 타타르어 키릴 (crh-cyrl)";
+"crimean-tatar-variants-alert-title" = "크림 타타르어 변이형 지원 업데이트";
 "data-migration-status" = "업데이트 중...";
 "description-add-title" = "설명 추가";
 "description-edit-for-article" = "$1의 제목 설명";
@@ -464,6 +468,8 @@
 "forgot-password-instructions" = "이메일을 통해 암호 재설정 지시사항을 받으려면 아래의 필드 중 하나를 채우십시오";
 "forgot-password-title" = "비밀번호 재설정";
 "forgot-password-username-or-email-title" = "또는";
+"gan-variants-alert-body" = "이제 위키백과 앱에서 아래의 간어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\n贛語 原文 간어 (gan)\n赣语 简体 간어 간체 (gan-hans)\n贛語 繁體 간어 번체 (gan-hant)";
+"gan-variants-alert-title" = "간어 변이형 지원 업데이트";
 "history-clear-all" = "지우기";
 "history-clear-cancel" = "취소";
 "history-clear-confirmation-heading" = "최근의 모든 항목을 삭제하겠습니까?";
@@ -525,6 +531,12 @@
 "intermediate-edits-editors-count-limited" = "$2명 이상의 중간 판 $1개 이상은 보이지 않습니다";
 "intermediate-edits-editors-limited-count" = "$2명 이상의 {{PLURAL:$1|중간 판 $1개 이상}}은 보이지 않습니다";
 "intermediate-edits-limited-editors-count" = "{{PLURAL:$2|$2명}}의 중간 판 $1개는 보이지 않습니다";
+"inuktitut-variants-alert-body" = "이제 위키백과 앱에서 아래의 이누이트어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ 이누이트어 음절문자 (ike-cans)\nInuktitut ilisautik, 이누이트어 라틴 (ike-latn)";
+"inuktitut-variants-alert-title" = "이누이트어 변이형 지원 업데이트";
+"kazakh-variants-alert-body" = "이제 위키백과 앱에서 아래의 카자흐어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\nҚазақша 카자흐어 (kk)\nҚазақша Кирил 카자흐어 키릴 (kk-cyrl)\nqazaqşa latin 카자흐어 라틴 (kk-latn)\nتوتە قازاقشا 카자흐어 아랍 (kk-arab)";
+"kazakh-variants-alert-title" = "카자흐어 변이형 지원 업데이트";
+"kurdish-variants-alert-body" = "이제 위키백과 앱에서 아래의 쿠르드어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\nKurdî Latînî 쿠르드어 라틴 (ku-latn)\nكوردی 쿠르드어 아랍 (kk-arab)";
+"kurdish-variants-alert-title" = "쿠르드어 변이형 지원 업데이트";
 "languages-settings-title" = "언어";
 "languages-title" = "언어 변경";
 "languages-wikipedia" = "위키백과 언어";
@@ -772,6 +784,8 @@
 "search-recent-title" = "최근 검색한 항목";
 "search-result-redirected-from" = "($1에서 넘어옴)";
 "search-title" = "검색";
+"serbian-variants-alert-body" = "이제 위키백과 앱에서 아래의 세르비아어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\nсрпски ћирилица 세르비아어 키릴 (sr-ec)\nsrpski latinica 세르비아어 라틴 (sr-el)";
+"serbian-variants-alert-title" = "세르비아어 변이형 지원 업데이트";
 "settings-account" = "계정";
 "settings-appearance" = "읽기 환경 설정";
 "settings-clear-cache" = "캐시된 데이터 지우기";
@@ -830,6 +844,10 @@
 "table-of-contents-heading" = "목차";
 "table-of-contents-hide-button-label" = "목차 숨기기";
 "table-of-contents-subheading-label" = "$1단계 하위 문단";
+"tachelhit-variants-alert-body" = "이제 위키백과 앱에서 아래의 타셸히트어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\nⵜⴰⵛⵍⵃⵉⵜ 타셸히트어 티피나그 (shi-tfng)\nTaclḥit 타셸히트어 라틴 (shi-latn)";
+"tachelhit-variants-alert-title" = "타셸히트어 변이형 지원 업데이트";
+"tajik-variants-alert-body" = "이제 위키백과 앱에서 아래의 타지크어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\nтоҷикӣ кирилликӣ 타지크어 키릴 (tg-cyrl)\ntojikī lotinī 타지크어 라틴 (tg-latn)";
+"tajik-variants-alert-title" = "타지크어 변이형 지원 업데이트";
 "talk-page-add-discussion-accessibility-label" = "토론 추가";
 "talk-page-discussion-accessibility-hint" = "토론 스레드를 열려면 두 번 탭하십시오";
 "talk-page-discussion-read-accessibility-label" = "읽음";
@@ -875,6 +893,8 @@
 "two-factor-login-with-regular-code" = "인증 코드 사용";
 "unable-to-load-talk-page-title" = "토론 문서를 불러올 수 없습니다";
 "unknown-generic-text" = "알 수 없음";
+"uzbek-variants-alert-body" = "이제 위키백과 앱에서 아래의 우즈베크어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\noʻzbekcha lotin 우즈베크어 라틴 (uz-latin)\nўзбекча кирилл 우즈베크어 키릴 (uz-cyrl)";
+"uzbek-variants-alert-title" = "우즈베크어 변이형 지원 업데이트";
 "variants-alert-dismiss-button" = "괜찮습니다";
 "variants-alert-preferences-button" = "내 환경 설정 검토하기";
 "welcome-exploration-explore-feed-description" = "우리 공동체의 권장 읽기 및 일일 문서";
