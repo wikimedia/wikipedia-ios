@@ -37,6 +37,7 @@ import WMF
     var descriptionSource: ArticleDescriptionSource!
     var isAddingNewTitleDescription: Bool!
     var dataStore: MWKDataStore!
+    private var wikidataFetcher: WikidataFetcher!
     static func with(articleURL: URL, wikidataID: String, article: WMFArticle, descriptionSource: ArticleDescriptionSource, dataStore: MWKDataStore, theme: Theme) -> DescriptionEditViewController {
         let vc = wmf_initialViewControllerFromClassStoryboard()!
         vc.articleURL = articleURL
@@ -45,6 +46,7 @@ import WMF
         vc.descriptionSource = descriptionSource
         vc.isAddingNewTitleDescription = descriptionSource == .none
         vc.dataStore = dataStore
+        vc.wikidataFetcher = WikidataFetcher()
         return vc
     }
     
@@ -227,7 +229,7 @@ import WMF
                 return
         }
         
-        dataStore.wikidataDescriptionEditingController.publish(newWikidataDescription: descriptionToSave, from: descriptionSource, forWikidataID: wikidataID, language: language) { error in
+        wikidataFetcher.publish(newWikidataDescription: descriptionToSave, from: descriptionSource, forWikidataID: wikidataID, language: language) { error in
             DispatchQueue.main.async {
                 let presentingVC = self.presentingViewController
                 self.enableProgressiveButton(true)

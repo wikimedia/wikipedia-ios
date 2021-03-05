@@ -1130,7 +1130,7 @@
 		7AE1FE3721B4A9790068BE9F /* TextFormattingButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AE1FE3021B4A9790068BE9F /* TextFormattingButtonView.xib */; };
 		7AE1FE3821B4A9790068BE9F /* TextFormattingButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AE1FE3021B4A9790068BE9F /* TextFormattingButtonView.xib */; };
 		7AE1FE3921B4A9790068BE9F /* TextFormattingButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AE1FE3021B4A9790068BE9F /* TextFormattingButtonView.xib */; };
-		7AE5248D21383D9C00CDC817 /* WikidataDescriptionEditingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE5248C21383D9C00CDC817 /* WikidataDescriptionEditingController.swift */; };
+		7AE5248D21383D9C00CDC817 /* WikidataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE5248C21383D9C00CDC817 /* WikidataFetcher.swift */; };
 		7AE99B2821CC4F420092BE7F /* TextSizeFormattingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE99B2721CC4F420092BE7F /* TextSizeFormattingTableViewController.swift */; };
 		7AE99B2921CC4F420092BE7F /* TextSizeFormattingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE99B2721CC4F420092BE7F /* TextSizeFormattingTableViewController.swift */; };
 		7AE99B2A21CC4F420092BE7F /* TextSizeFormattingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE99B2721CC4F420092BE7F /* TextSizeFormattingTableViewController.swift */; };
@@ -2276,7 +2276,7 @@
 		D88C701A1EE595E90022A26A /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88C70171EE595E90022A26A /* MapView.swift */; };
 		D88C701B1EE595E90022A26A /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88C70171EE595E90022A26A /* MapView.swift */; };
 		D88E0E1D1EBB5A97005B8E9E /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88E0E1C1EBB5A97005B8E9E /* Bundle.swift */; };
-		D88FCADF1E4B74D300505A9F /* WikidataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88FCADE1E4B74D300505A9F /* WikidataFetcher.swift */; };
+		D88FCADF1E4B74D300505A9F /* WikidataFetcher+Places.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88FCADE1E4B74D300505A9F /* WikidataFetcher+Places.swift */; };
 		D88FCAE11E4B776600505A9F /* MapUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88FCAE01E4B776600505A9F /* MapUtilities.swift */; };
 		D890C84B1D772B02007132C9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D890C84D1D772B02007132C9 /* InfoPlist.strings */; };
 		D890C85D1D772ED3007132C9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D890C85B1D772ED3007132C9 /* InfoPlist.strings */; };
@@ -2299,7 +2299,7 @@
 		D8A42A621E815A9C00D8E281 /* PlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87233FF1E1FF0A500751E83 /* PlacesViewController.swift */; };
 		D8A42A641E815A9C00D8E281 /* WMFAuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027FD271E678F5C005644A9 /* WMFAuthButton.swift */; };
 		D8A42A651E815A9C00D8E281 /* WMFReferencePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01490A41DB96EA7007F5391 /* WMFReferencePanelViewController.swift */; };
-		D8A42A681E815A9C00D8E281 /* WikidataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88FCADE1E4B74D300505A9F /* WikidataFetcher.swift */; };
+		D8A42A681E815A9C00D8E281 /* WikidataFetcher+Places.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88FCADE1E4B74D300505A9F /* WikidataFetcher+Places.swift */; };
 		D8A42A691E815A9C00D8E281 /* UIButton+WMFButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802BD1C0CD2360065EBC0 /* UIButton+WMFButton.m */; };
 		D8A42A6A1E815A9C00D8E281 /* TableOfContentsAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E803701C0CD9A80065EBC0 /* TableOfContentsAnimator.swift */; };
 		D8A42A6D1E815A9C00D8E281 /* WMFReferencePageBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0338A831DBF0AF20012F588 /* WMFReferencePageBackgroundView.swift */; };
@@ -2530,7 +2530,7 @@
 		D8CE24E81E698E2400DAE2E0 /* WMFCaptchaResetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C6E1E3C580900B72802 /* WMFCaptchaResetter.swift */; };
 		D8CE24EC1E698E2400DAE2E0 /* PlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87233FF1E1FF0A500751E83 /* PlacesViewController.swift */; };
 		D8CE24EE1E698E2400DAE2E0 /* WMFReferencePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01490A41DB96EA7007F5391 /* WMFReferencePanelViewController.swift */; };
-		D8CE24F11E698E2400DAE2E0 /* WikidataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88FCADE1E4B74D300505A9F /* WikidataFetcher.swift */; };
+		D8CE24F11E698E2400DAE2E0 /* WikidataFetcher+Places.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88FCADE1E4B74D300505A9F /* WikidataFetcher+Places.swift */; };
 		D8CE24F21E698E2400DAE2E0 /* UIButton+WMFButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802BD1C0CD2360065EBC0 /* UIButton+WMFButton.m */; };
 		D8CE24F31E698E2400DAE2E0 /* TableOfContentsAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E803701C0CD9A80065EBC0 /* TableOfContentsAnimator.swift */; };
 		D8CE24F61E698E2400DAE2E0 /* WMFReferencePageBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0338A831DBF0AF20012F588 /* WMFReferencePageBackgroundView.swift */; };
@@ -2774,7 +2774,7 @@
 		D8EC3DDF1E9BDA35006712EB /* WMFCaptchaResetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F92C6E1E3C580900B72802 /* WMFCaptchaResetter.swift */; };
 		D8EC3DE31E9BDA35006712EB /* PlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87233FF1E1FF0A500751E83 /* PlacesViewController.swift */; };
 		D8EC3DE51E9BDA35006712EB /* WMFReferencePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01490A41DB96EA7007F5391 /* WMFReferencePanelViewController.swift */; };
-		D8EC3DE81E9BDA35006712EB /* WikidataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88FCADE1E4B74D300505A9F /* WikidataFetcher.swift */; };
+		D8EC3DE81E9BDA35006712EB /* WikidataFetcher+Places.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88FCADE1E4B74D300505A9F /* WikidataFetcher+Places.swift */; };
 		D8EC3DE91E9BDA35006712EB /* UIButton+WMFButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802BD1C0CD2360065EBC0 /* UIButton+WMFButton.m */; };
 		D8EC3DEA1E9BDA35006712EB /* TableOfContentsAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E803701C0CD9A80065EBC0 /* TableOfContentsAnimator.swift */; };
 		D8EC3DED1E9BDA35006712EB /* WMFReferencePageBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0338A831DBF0AF20012F588 /* WMFReferencePageBackgroundView.swift */; };
@@ -3878,7 +3878,7 @@
 		7AE1D3381FCD10B900393471 /* SavedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewController.swift; sourceTree = "<group>"; };
 		7AE1FE2F21B4A9790068BE9F /* TextFormattingButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormattingButtonView.swift; sourceTree = "<group>"; };
 		7AE1FE3021B4A9790068BE9F /* TextFormattingButtonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFormattingButtonView.xib; sourceTree = "<group>"; };
-		7AE5248C21383D9C00CDC817 /* WikidataDescriptionEditingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WikidataDescriptionEditingController.swift; path = Wikipedia/Code/WikidataDescriptionEditingController.swift; sourceTree = SOURCE_ROOT; };
+		7AE5248C21383D9C00CDC817 /* WikidataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WikidataFetcher.swift; path = Wikipedia/Code/WikidataFetcher.swift; sourceTree = SOURCE_ROOT; };
 		7AE99B2721CC4F420092BE7F /* TextSizeFormattingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSizeFormattingTableViewController.swift; sourceTree = "<group>"; };
 		7AE99B2D21CC53AB0092BE7F /* TextFontFormattingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFontFormattingTableViewController.swift; sourceTree = "<group>"; };
 		7AEBAD442102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFetchedResultsController+IndexPathValidation.swift"; sourceTree = "<group>"; };
@@ -4872,7 +4872,7 @@
 		D8831D381EC33F1D008CA89A /* ArticleFullWidthImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArticleFullWidthImageCollectionViewCell.swift; path = Wikipedia/Code/ArticleFullWidthImageCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		D88C70171EE595E90022A26A /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		D88E0E1C1EBB5A97005B8E9E /* Bundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
-		D88FCADE1E4B74D300505A9F /* WikidataFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WikidataFetcher.swift; sourceTree = "<group>"; };
+		D88FCADE1E4B74D300505A9F /* WikidataFetcher+Places.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WikidataFetcher+Places.swift"; sourceTree = "<group>"; };
 		D88FCAE01E4B776600505A9F /* MapUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapUtilities.swift; sourceTree = "<group>"; };
 		D890C8531D772B27007132C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D890C8541D772B4E007132C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -8572,7 +8572,7 @@
 				D88C70171EE595E90022A26A /* MapView.swift */,
 				D82117FB1EE58C080076C040 /* MapAnnotation.swift */,
 				D88FCAE01E4B776600505A9F /* MapUtilities.swift */,
-				D88FCADE1E4B74D300505A9F /* WikidataFetcher.swift */,
+				D88FCADE1E4B74D300505A9F /* WikidataFetcher+Places.swift */,
 				D808DCEC1E438C0C00A3E89C /* PlaceSearch.swift */,
 				D808DCEA1E438BE300A3E89C /* PlaceSearchSuggestionController.swift */,
 				D80ED25A1EE18D0900CE8C50 /* PlacesSearchSuggestionTableViewCell.swift */,
@@ -8626,7 +8626,7 @@
 				D8E78FA51FB4C8740094B968 /* Session.swift */,
 				D826C51A217741C50012F940 /* ReachabilityNotifier.swift */,
 				D8635AE7216E2BFC001A7C00 /* HTTPCookieStorage+Migration.swift */,
-				7AE5248C21383D9C00CDC817 /* WikidataDescriptionEditingController.swift */,
+				7AE5248C21383D9C00CDC817 /* WikidataFetcher.swift */,
 				83E9C45A2419193C006BDBC2 /* WikipediaSiteInfo.swift */,
 				D85F56A1219C45C900AF3E13 /* URLComponents+Extensions.swift */,
 				835A042C223AD63000D4D758 /* ArticleSummaryController.swift */,
@@ -10466,7 +10466,7 @@
 				B0ACB13321265B930078C136 /* WMFImageGalleryDescriptionTextView.swift in Sources */,
 				B0C7A0801F710E94008415E7 /* WMFWelcomeLanguagesAnimationBackgroundView.swift in Sources */,
 				8382F8D320D928BF00AE5250 /* ColumnarCollectionViewControllerLayoutCache.swift in Sources */,
-				D88FCADF1E4B74D300505A9F /* WikidataFetcher.swift in Sources */,
+				D88FCADF1E4B74D300505A9F /* WikidataFetcher+Places.swift in Sources */,
 				B0432344210680A900A9A6B6 /* WMFContentGroupKind+FeedCustomization.swift in Sources */,
 				FFD7B85924B3CA7A005C2471 /* ReferenceShowing.swift in Sources */,
 				83F1096E23D0E787003F3E9E /* RandomArticleViewController.swift in Sources */,
@@ -11077,7 +11077,7 @@
 				D8E892252176124F00587F61 /* PeriodicWorker.swift in Sources */,
 				0E8768371DDE002C00B8CACD /* WMFAnnouncementsContentSource.m in Sources */,
 				83A6D44325100BEE00F9F909 /* Bundle+IsAppExtension.swift in Sources */,
-				7AE5248D21383D9C00CDC817 /* WikidataDescriptionEditingController.swift in Sources */,
+				7AE5248D21383D9C00CDC817 /* WikidataFetcher.swift in Sources */,
 				A4C558BD2403D74100AFBFDC /* LocationManagerProtocol.swift in Sources */,
 				8383446C1F62EBD000BD5A37 /* UIView+Constraints.swift in Sources */,
 				83E880E823EB19270087223F /* MediaList.swift in Sources */,
@@ -11320,7 +11320,7 @@
 				83F1097123D0E787003F3E9E /* RandomArticleViewController.swift in Sources */,
 				7A715664226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */,
 				7A29A5D11F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
-				D8A42A681E815A9C00D8E281 /* WikidataFetcher.swift in Sources */,
+				D8A42A681E815A9C00D8E281 /* WikidataFetcher+Places.swift in Sources */,
 				D8A42A691E815A9C00D8E281 /* UIButton+WMFButton.m in Sources */,
 				D8A42A6A1E815A9C00D8E281 /* TableOfContentsAnimator.swift in Sources */,
 				D8A42A6D1E815A9C00D8E281 /* WMFReferencePageBackgroundView.swift in Sources */,
@@ -11806,7 +11806,7 @@
 				7A715662226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */,
 				D818D38C1ED765470076110D /* ArticleLocationCollectionViewController.swift in Sources */,
 				7A71567A22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */,
-				D8CE24F11E698E2400DAE2E0 /* WikidataFetcher.swift in Sources */,
+				D8CE24F11E698E2400DAE2E0 /* WikidataFetcher+Places.swift in Sources */,
 				D8CE24F21E698E2400DAE2E0 /* UIButton+WMFButton.m in Sources */,
 				D8CE24F31E698E2400DAE2E0 /* TableOfContentsAnimator.swift in Sources */,
 				7AEC985A219F529000BEF62B /* DefaultEditToolbarView.swift in Sources */,
@@ -12288,7 +12288,7 @@
 				7A715663226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */,
 				D8EC3DE51E9BDA35006712EB /* WMFReferencePanelViewController.swift in Sources */,
 				7A71567B22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */,
-				D8EC3DE81E9BDA35006712EB /* WikidataFetcher.swift in Sources */,
+				D8EC3DE81E9BDA35006712EB /* WikidataFetcher+Places.swift in Sources */,
 				D8EC3DE91E9BDA35006712EB /* UIButton+WMFButton.m in Sources */,
 				67B64D582507DE3E00FA27F3 /* ArticleAsLivingDocSectionHeaderView.swift in Sources */,
 				D82E956C1F156F77007BD960 /* UIView+SubviewEnumeration.swift in Sources */,
