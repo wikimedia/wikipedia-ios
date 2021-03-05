@@ -2,12 +2,8 @@ import CocoaLumberjackSwift
 
 extension ArticleViewController {
     func showEditorForSectionOrTitleDescription(with id: Int, descriptionSource: ArticleDescriptionSource?, selectedTextEditInfo: SelectedTextEditInfo? = nil, funnelSource: EditFunnelSource) {
-        // Only show the option sheet if the description is from Wikidata (descriptionSource == .central)
-        // Otherwise it needs to be changed in the section editor by editing the {{Short description}} template
-        if let descriptionSource = descriptionSource, descriptionSource == .central {
+        if let descriptionSource = descriptionSource {
             showEditSectionOrTitleDescriptionDialogForSection(with: id, descriptionSource: descriptionSource, selectedTextEditInfo: selectedTextEditInfo, funnelSource: funnelSource)
-        } else {
-            showEditorForSection(with: id, selectedTextEditInfo: selectedTextEditInfo, funnelSource: funnelSource)
         }
     }
     
@@ -44,12 +40,17 @@ extension ArticleViewController {
     }
     
     func showTitleDescriptionEditor(with descriptionSource: ArticleDescriptionSource, funnelSource: EditFunnelSource) {
-        guard let wikidataID = article.wikidataID else {
+
+        editFunnel.logTitleDescriptionEditingStart(from: funnelSource, language: articleLanguage)
+
+        let maybeDescriptionController: ArticleDescriptionControlling? = articleURL.wmf_isEnglishWikipedia ? ShortDescriptionController(article: article, articleLanguage: articleLanguage, articleURL: articleURL, descriptionSource: descriptionSource, delegate: self) : WikidataDescriptionController(article: article, articleLanguage: articleLanguage, descriptionSource: descriptionSource)
+
+        guard let descriptionController = maybeDescriptionController else {
             showGenericError()
             return
         }
-        editFunnel.logTitleDescriptionEditingStart(from: funnelSource, language: articleLanguage)
-        let editVC = DescriptionEditViewController.with(articleURL: articleURL, wikidataID: wikidataID, article: article, descriptionSource: descriptionSource, dataStore: dataStore, theme: theme)
+        
+        let editVC = DescriptionEditViewController.with(dataStore: dataStore, theme: theme, articleDescriptionController: descriptionController)
         editVC.delegate = self
         editVC.editFunnel = editFunnel
         editVC.editFunnelSource = funnelSource
@@ -104,7 +105,7 @@ extension ArticleViewController {
 
 }
 
-extension ArticleViewController {
+extension ArticleViewController: ShortDescriptionControllerDelegate {
 
     /// Pulls title description from article content.
     /// Looks for the innerText of the "pcs-edit-section-title-description" ID element
