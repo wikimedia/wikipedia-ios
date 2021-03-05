@@ -188,3 +188,17 @@ private extension String {
         return regex.stringByReplacingMatches(in: self, range: NSRange(self.startIndex..., in: self), withTemplate: "$1\(newShortDescription)$3")
     }
 }
+
+#if TEST
+
+extension String {
+    func testContainsShortDescription() throws -> Bool {
+        return try containsShortDescription()
+    }
+
+    func testReplacingShortDescription(with newShortDescription: String) throws -> String {
+        return try replacingShortDescription(with: newShortDescription)
+    }
+}
+
+#endif
