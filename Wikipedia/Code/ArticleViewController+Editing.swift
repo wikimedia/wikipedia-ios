@@ -1,3 +1,5 @@
+import CocoaLumberjackSwift
+
 extension ArticleViewController {
     func showEditorForSectionOrTitleDescription(with id: Int, descriptionSource: ArticleDescriptionSource?, selectedTextEditInfo: SelectedTextEditInfo? = nil, funnelSource: EditFunnelSource) {
         // Only show the option sheet if the description is from Wikidata (descriptionSource == .central)
@@ -100,6 +102,43 @@ extension ArticleViewController {
         present(sheet, animated: true)
     }
 
+}
+
+extension ArticleViewController {
+
+    /// Pulls title description from article content.
+    /// Looks for the innerText of the "pcs-edit-section-title-description" ID element
+    /// - Parameter completion: Completion when bridge call completes. Passes back title description or nil if pcs-edit-section-title-description could not be extracted.
+    func currentDescription(completion: @escaping (String?) -> Void) {
+
+        let javascript = """
+            function extractTitleDescription() {
+                var editTitleDescriptionElement = document.getElementById('pcs-edit-section-title-description');
+                if (editTitleDescriptionElement) {
+                    return editTitleDescriptionElement.innerText;
+                }
+                return null;
+            }
+            extractTitleDescription();
+        """
+
+        webView.evaluateJavaScript(javascript) { (result, error) in
+            DispatchQueue.main.async {
+                if let error = error {
+                    DDLogDebug("Failure in articleHtmlTitleDescription: \(error)")
+                    completion(nil)
+                    return
+                }
+
+                guard let stringResult = result as? String else {
+                    completion(nil)
+                    return
+                }
+
+                completion(stringResult)
+            }
+        }
+    }
 }
 
 extension ArticleViewController: SectionEditorViewControllerDelegate {

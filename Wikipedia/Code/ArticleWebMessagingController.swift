@@ -288,12 +288,9 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
             guard let sectionIDString = data?["sectionId"] as? String, let sectionID = Int(sectionIDString) else {
                 return nil
             }
-            let source: ArticleDescriptionSource?
-            if let sourceString = data?["descriptionSource"] as? String {
-                source = ArticleDescriptionSource.from(string: sourceString)
-            } else {
-                source = nil
-            }
+            
+            let sourceString = data?["descriptionSource"] as? String
+            let source = ArticleDescriptionSource.from(string: sourceString)
             return .edit(sectionID: sectionID, descriptionSource: source)
         }
         
