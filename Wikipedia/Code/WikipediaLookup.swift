@@ -24,7 +24,7 @@ import CocoaLumberjackSwift
                 if let iOSLocalizedName = Locale.current.localizedString(forLanguageCode: wikipedia.languageCode) {
                     localizedName = iOSLocalizedName
                 }
-            } else {
+            } else if !Locale.current.isEnglish {
                 if let iOSLocalizedName = Locale.current.localizedString(forIdentifier: wikipedia.languageCode) {
                     localizedName = iOSLocalizedName
                 }
@@ -47,7 +47,8 @@ import CocoaLumberjackSwift
                 wikipediaLanguageVariants.map { wikipediaLanguageVariant in
                     
                     var localizedName = wikipediaLanguageVariant.localName
-                    if let iOSLocalizedName = Locale.current.localizedString(forIdentifier: wikipediaLanguageVariant.languageVariantCode) {
+                    if !Locale.current.isEnglish,
+                        let iOSLocalizedName = Locale.current.localizedString(forIdentifier: wikipediaLanguageVariant.languageVariantCode) {
                         localizedName = iOSLocalizedName
                     }
                     
