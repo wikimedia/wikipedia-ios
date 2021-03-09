@@ -294,7 +294,6 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         _isSearchVisible = visible
         navigationBar.isAdjustingHidingFromContentInsetChangesEnabled  = false
         let completion = { (finished: Bool) in
-            self.resultsViewController.view.isHidden = !visible
             self.isAnimatingSearchBarState = false
             self.navigationBar.isTitleShrinkingEnabled = true
             self.navigationBar.isAdjustingHidingFromContentInsetChangesEnabled  = true
@@ -316,7 +315,6 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
             self.navigationBar.isBarHidingEnabled = false
             self.navigationBar.isTopSpacingHidingEnabled = !visible
             self.navigationBar.shadowAlpha = visible ? 1 : self.searchLanguageBarViewController != nil ? 0 : self.navigationBarShadowAlpha
-            self.resultsViewController.view.alpha = visible ? 1 : 0
             if self.shouldShowCancelButton {
                 self.searchBar.setShowsCancelButton(visible, animated: animated)
             }
@@ -328,8 +326,6 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
             return
         }
         isAnimatingSearchBarState = true
-        self.resultsViewController.view.alpha = visible ? 0 : 1
-        self.resultsViewController.view.isHidden = false
         self.view.layoutIfNeeded()
         UIView.animate(withDuration: 0.3, animations: animations, completion: completion)
     }
