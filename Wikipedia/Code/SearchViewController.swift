@@ -542,6 +542,8 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         guard let recentSearch = recentSearches?.entry(at: UInt(indexPath.item)) else {
             return
         }
+        updateRecentlySearchedVisibility(searchText: recentSearch.searchTerm)
+        collectionView.deselectItem(at: indexPath, animated: true)
         searchBar.text = recentSearch.searchTerm
         searchBar.becomeFirstResponder()
         search()
