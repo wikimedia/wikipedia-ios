@@ -6,9 +6,9 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBar.displayType = displayType
-        title = CommonStrings.searchTitle
         if !areRecentSearchesEnabled, shouldSetTitleViewWhenRecentSearchesAreDisabled {
             navigationItem.titleView = UIView()
+            title = CommonStrings.searchTitle
         }
         navigationBar.isTitleShrinkingEnabled = true
         navigationBar.isShadowHidingEnabled = false
