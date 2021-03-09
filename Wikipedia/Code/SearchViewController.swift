@@ -394,6 +394,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        updateRecentlySearchedVisibility(searchText: searchText)
         search(for: searchBar.text, suggested: false)
     }
 
@@ -438,6 +439,10 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     }
     
     // Recent
+
+    func updateRecentlySearchedVisibility(searchText: String) {
+        resultsViewController.view.isHidden = searchText.isEmpty
+    }
 
     var recentSearches: MWKRecentSearchList? {
         return self.dataStore.recentSearchList
