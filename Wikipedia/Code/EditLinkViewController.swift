@@ -171,7 +171,7 @@ class EditLinkViewController: ViewController {
         searchViewController.shouldSetSearchVisible = false
         searchViewController.shouldBecomeFirstResponder = true
         searchViewController.displayType = .backVisible
-        searchViewController.areRecentSearchesEnabled = false
+        searchViewController.areRecentSearchesEnabled = true
         searchViewController.dataStore = MWKDataStore.shared()
         searchViewController.shouldShowCancelButton = false
         searchViewController.delegate = self
