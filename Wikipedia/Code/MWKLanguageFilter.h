@@ -4,15 +4,20 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol MWKLanguageFilterDataSourceDelegate
+- (void)noteLanguagesDidChange;
+@end
+
 @protocol MWKLanguageFilterDataSource <NSObject>
 
+@property (nonatomic, weak, nullable) id <MWKLanguageFilterDataSourceDelegate> languageFilterDelegate;
 @property (readonly, copy, nonatomic) NSArray<MWKLanguageLink *> *allLanguages;
 @property (readonly, copy, nonatomic) NSArray<MWKLanguageLink *> *preferredLanguages;
 @property (readonly, copy, nonatomic) NSArray<MWKLanguageLink *> *otherLanguages;
 
 @end
 
-@interface MWKLanguageFilter : NSObject
+@interface MWKLanguageFilter : NSObject <MWKLanguageFilterDataSourceDelegate>
 
 - (instancetype)initWithLanguageDataSource:(id<MWKLanguageFilterDataSource>)dataSource;
 

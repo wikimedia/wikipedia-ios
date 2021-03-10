@@ -27,8 +27,6 @@ typedef NS_ENUM(NSInteger, WMFPreferredLanguagesChangeType) {
 
 /**
  * Returns all languages of the receiver, sorted by name, minus unsupported languages.
- *
- * Observe this property to be notifified of changes to the list of languages.
  */
 @property (readonly, copy, nonatomic) NSArray<MWKLanguageLink *> *allLanguages;
 
@@ -51,6 +49,11 @@ typedef NS_ENUM(NSInteger, WMFPreferredLanguagesChangeType) {
  * All the languages in the receiver minus @c preferredLanguages.
  */
 @property (readonly, copy, nonatomic) NSArray<MWKLanguageLink *> *otherLanguages;
+
+/**
+ * Language filter delegate to notify of changes
+ */
+@property (nonatomic, weak, nullable) id <MWKLanguageFilterDataSourceDelegate> languageFilterDelegate;
 
 /**
  *  Uniquely appends a new preferred language. The new language will be the last preferred language.

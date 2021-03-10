@@ -76,6 +76,10 @@ NS_ASSUME_NONNULL_BEGIN
     }] wmf_map:^id(MWKLanguageLink *language) {
         return [self titleLanguageForLanguage:language];
     }];
+    
+    if (self.languageFilterDelegate) {
+        [self.languageFilterDelegate noteLanguagesDidChange];
+    }
 }
 
 - (nullable MWKLanguageLink *)titleLanguageForLanguage:(MWKLanguageLink *)language {

@@ -184,7 +184,6 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
 
 - (void)savePreferredLanguageCodes:(NSArray<NSString *> *)languageCodes changeType:(WMFPreferredLanguagesChangeType)changeType changedLanguage:(MWKLanguageLink *)changedLanguage {
     NSString *previousAppContentLanguageCode = self.appLanguage.contentLanguageCode;
-    [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
     [self.moc performBlockAndWait:^{
         [self.moc wmf_setValue:languageCodes forKey:WMFPreviousLanguagesKey];
         NSError *preferredLanguageCodeSaveError = nil;
@@ -192,7 +191,7 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
             DDLogError(@"Error saving preferred languages: %@", preferredLanguageCodeSaveError);
         }
     }];
-    [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
+    if (self.languageFilterDelegate) { [self.languageFilterDelegate noteLanguagesDidChange]; }
     NSDictionary *userInfo = @{WMFPreferredLanguagesChangeTypeKey: @(changeType), WMFPreferredLanguagesLastChangedLanguageKey: changedLanguage};
     [[NSNotificationCenter defaultCenter] postNotificationName:WMFPreferredLanguagesDidChangeNotification object:self userInfo:userInfo];
     if (self.appLanguage.contentLanguageCode && ![self.appLanguage.contentLanguageCode isEqualToString:previousAppContentLanguageCode]) {
@@ -202,11 +201,10 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
 
 // Reminder: "resetPreferredLanguages" is for testing only!
 - (void)resetPreferredLanguages {
-    [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
     [self.moc performBlockAndWait:^{
         [self.moc wmf_setValue:nil forKey:WMFPreviousLanguagesKey];
     }];
-    [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
+    if (self.languageFilterDelegate) { [self.languageFilterDelegate noteLanguagesDidChange]; }
     [[NSNotificationCenter defaultCenter] postNotificationName:WMFPreferredLanguagesDidChangeNotification object:self];
 }
 
