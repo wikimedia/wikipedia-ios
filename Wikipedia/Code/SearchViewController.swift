@@ -418,6 +418,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
             didCancelSearch()
         }
         deselectAll(animated: true)
+		updateRecentlySearchedVisibility(searchText: searchBar.text)
     }
     
     @objc func makeSearchBarBecomeFirstResponder() {
@@ -441,7 +442,12 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     
     // Recent
 
-    func updateRecentlySearchedVisibility(searchText: String) {
+    func updateRecentlySearchedVisibility(searchText: String?) {
+		guard let searchText = searchText else {
+			resultsViewController.view.isHidden = true
+			return
+		}
+
         resultsViewController.view.isHidden = searchText.isEmpty
     }
 
