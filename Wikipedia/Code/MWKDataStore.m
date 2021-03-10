@@ -447,6 +447,15 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
         }
     }
 
+    if (currentLibraryVersion < 13) {
+        [self migrateToLanguageVariantsForLanguageCodes:@[@"crh", @"gan", @"iu", @"kk", @"ku", @"sr", @"tg", @"uz", @"zh"] inManagedObjectContext:(NSManagedObjectContext *)moc];
+        [moc wmf_setValue:@(13) forKey:WMFLibraryVersionKey];
+        if ([moc hasChanges] && ![moc save:&migrationError]) {
+            DDLogError(@"Error saving during migration: %@", migrationError);
+            return;
+        }
+    }
+
     // IMPORTANT: When adding a new library version and migration, update WMFCurrentLibraryVersion to the latest version number
 }
 
