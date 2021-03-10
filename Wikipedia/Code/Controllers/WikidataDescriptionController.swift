@@ -49,4 +49,23 @@ class WikidataDescriptionController: ArticleDescriptionControlling {
     func learnMoreViewControllerWithTheme(_ theme: Theme) -> UIViewController? {
         return DescriptionHelpViewController.init(theme: theme)
     }
+    
+    func warningTypesForDescription(_ description: String?) -> ArticleDescriptionWarningTypes {
+        
+        var warningTypes: ArticleDescriptionWarningTypes = []
+        
+        if descriptionIsTooLong(description) {
+            warningTypes.insert(.length)
+        }
+
+        guard let firstCharacter = description?.first,
+              firstCharacter.isLetter,
+              firstCharacter.isUppercase else {
+            return warningTypes
+        }
+        
+        warningTypes.insert(.casing)
+        
+        return warningTypes
+    }
 }

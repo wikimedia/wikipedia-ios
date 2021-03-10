@@ -17,11 +17,10 @@ import WMF
     @IBOutlet private var divider: UIView!
     @IBOutlet private var cc0ImageView: UIImageView!
     @IBOutlet private var publishDescriptionButton: WMFAuthButton!
-    @IBOutlet private var warningLabel: UILabel!
+    @IBOutlet private var lengthWarningLabel: UILabel!
+    @IBOutlet private weak var casingWarningLabel: UILabel!
     @IBOutlet private var warningCharacterCountLabel: UILabel!
     private var theme = Theme.standard
-
-    private let showWarningIfDescriptionLongerThanCount = 90
 
     @objc var delegate: DescriptionEditViewControllerDelegate? = nil
 
@@ -49,7 +48,9 @@ import WMF
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
         navigationItem.leftBarButtonItem?.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
 
-        warningLabel.text = WMFLocalizedString("description-edit-warning", value:"Try to keep descriptions short so users can understand the article's subject at a glance", comment:"Title text for label reminding users to keep descriptions concise")
+        lengthWarningLabel.text = WMFLocalizedString("description-edit-warning", value:"Try to keep descriptions short so users can understand the article's subject at a glance", comment:"Title text for label reminding users to keep descriptions concise")
+        casingWarningLabel.text = WMFLocalizedString("description-edit-warning-casing", value:"Only proper nouns should be capitalized, even at the start of the sentence.", comment:"Title text for label reminding users to begin article descriptions with a lowercase letter for non-EN wikis.")
+        
         publishDescriptionButton.setTitle(WMFLocalizedString("description-edit-publish", value:"Publish description", comment:"Title for publish description button"), for: .normal)
         
         learnMoreButton.setTitle(WMFLocalizedString("description-edit-learn-more", value:"Learn more", comment:"Title text for description editing learn more button"), for: .normal)
@@ -74,7 +75,7 @@ import WMF
             }
 
             self.isPlaceholderLabelHidden = self.shouldHidePlaceholder()
-            self.updateWarningLabelsForDescriptionCount()
+            self.updateWarningLabels()
 
         }
         
@@ -144,7 +145,7 @@ import WMF
     }
     
     private func characterCountWarningString(for descriptionCharacterCount: Int) -> String? {
-        return String.localizedStringWithFormat(WMFLocalizedString("description-edit-length-warning", value: "%1$@ / %2$@", comment: "Displayed to indicate how many description characters were entered. Separator can be customized depending on the language. %1$@ is replaced with the number of characters entered, %2$@ is replaced with the recommended maximum number of characters."), String(descriptionCharacterCount), String(showWarningIfDescriptionLongerThanCount))
+        return String.localizedStringWithFormat(WMFLocalizedString("description-edit-length-warning", value: "%1$@ / %2$@", comment: "Displayed to indicate how many description characters were entered. Separator can be customized depending on the language. %1$@ is replaced with the number of characters entered, %2$@ is replaced with the recommended maximum number of characters."), String(descriptionCharacterCount), String(articleDescriptionController.descriptionMaxLength))
     }
     
     private var licenseLabelAttributedString: NSAttributedString {
@@ -251,18 +252,21 @@ import WMF
         }
     }
     
-    private func updateWarningLabelsForDescriptionCount() {
+    private func updateWarningLabels() {
+
         warningCharacterCountLabel.text = characterCountWarningString(for: descriptionTextView.nilTextSafeCount())
+
+        let warningTypes = articleDescriptionController.warningTypesForDescription(descriptionTextView.text)
         
-        let isDescriptionLong = descriptionTextView.nilTextSafeCount() > showWarningIfDescriptionLongerThanCount
-        warningLabel.isHidden = !isDescriptionLong
-        warningCharacterCountLabel.textColor = isDescriptionLong ? theme.colors.descriptionWarning : theme.colors.secondaryText
+        warningCharacterCountLabel.textColor = warningTypes.contains(.length) ? theme.colors.descriptionWarning : theme.colors.secondaryText
+        lengthWarningLabel.isHidden = !warningTypes.contains(.length)
+        casingWarningLabel.isHidden = !warningTypes.contains(.casing)
     }
     
     public func textViewDidChange(_ textView: UITextView) {
         let hasText = !descriptionTextView.text.isEmpty
         enableProgressiveButton(hasText)
-        updateWarningLabelsForDescriptionCount()
+        updateWarningLabels()
         isPlaceholderLabelHidden = hasText
     }
     
@@ -278,7 +282,8 @@ import WMF
         descriptionTextView.textColor = theme.colors.primaryText
         divider.backgroundColor = theme.colors.border
         descriptionPlaceholderLabel.textColor = theme.colors.unselected
-        warningLabel.textColor = theme.colors.descriptionWarning
+        lengthWarningLabel.textColor = theme.colors.descriptionWarning
+        casingWarningLabel.textColor = theme.colors.error
         warningCharacterCountLabel.textColor = theme.colors.descriptionWarning
         publishDescriptionButton.apply(theme: theme)
         descriptionTextView.keyboardAppearance = theme.keyboardAppearance
