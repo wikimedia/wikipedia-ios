@@ -83,7 +83,7 @@ extension ArticleViewController {
     func showEditSectionOrTitleDescriptionDialogForSection(with id: Int, descriptionSource: ArticleDescriptionSource, selectedTextEditInfo: SelectedTextEditInfo? = nil, funnelSource: EditFunnelSource) {
         let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         
-        let editTitleDescriptionTitle = WMFLocalizedString("description-edit-pencil-title", value: "Edit title description", comment: "Title for button used to show title description editor")
+        let editTitleDescriptionTitle = WMFLocalizedString("description-edit-pencil-title", value: "Edit article description", comment: "Title for button used to show article description editor")
         let editTitleDescriptionAction = UIAlertAction(title: editTitleDescriptionTitle, style: .default) { (action) in
             self.showTitleDescriptionEditor(with: descriptionSource, funnelSource: funnelSource)
         }
