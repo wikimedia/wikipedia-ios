@@ -16,6 +16,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
         view.bringSubviewToFront(resultsViewController.view)
         resultsViewController.view.isHidden = true
+        useNavigationBarVisibleHeightForScrollViewInsets = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
