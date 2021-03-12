@@ -243,6 +243,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     
     @objc func clear() {
         didCancelSearch()
+        updateRecentlySearchedVisibility(searchText: searchBar.text)
     }
     
     lazy var searchBarContainerView: UIView = {
