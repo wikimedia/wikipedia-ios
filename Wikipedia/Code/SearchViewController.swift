@@ -290,6 +290,11 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     private var navigationBarTopSpacing: CGFloat = 0
 
     var searchLanguageBarViewController: SearchLanguagesBarViewController?
+    
+    override var shouldAnimateWhileUpdatingScrollViewInsets: Bool {
+        return isAnimatingSearchBarState
+    }
+    
     private var _isSearchVisible: Bool = false
     private func setSearchVisible(_ visible: Bool, animated: Bool) {
         _isSearchVisible = visible
