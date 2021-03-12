@@ -3,49 +3,49 @@
         {
             "languageVariantCode": "zh-hans",
             "languageName": "简体",
-            "localName": "Chinese, Simplified",
+            "localName": "Chinese (Simplified)",
             "languageCode": "zh"
         },
         {
             "languageVariantCode": "zh-hant",
             "languageName": "繁體",
-            "localName": "Chinese, Traditional",
+            "localName": "Chinese (Traditional)",
             "languageCode": "zh"
         },
         {
             "languageVariantCode": "zh-cn",
             "languageName": "大陆简体",
-            "localName": "Mainland Simplified",
+            "localName": "Chinese (Mainland Simplified)",
             "languageCode": "zh"
         },
         {
             "languageVariantCode": "zh-hk",
             "languageName": "香港繁體",
-            "localName": "Hong Kong Traditional",
+            "localName": "Chinese (Hong Kong Traditional)",
             "languageCode": "zh"
         },
         {
             "languageVariantCode": "zh-mo",
             "languageName": "澳門繁體",
-            "localName": "Macau Traditional",
+            "localName": "Chinese (Macau Traditional)",
             "languageCode": "zh"
         },
         {
             "languageVariantCode": "zh-my",
             "languageName": "大马简体",
-            "localName": "Malaysia Simplified",
+            "localName": "Chinese (Malaysia Simplified)",
             "languageCode": "zh"
         },
         {
             "languageVariantCode": "zh-sg",
             "languageName": "新加坡简体",
-            "localName": "Singapore Simplified",
+            "localName": "Chinese (Singapore Simplified)",
             "languageCode": "zh"
         },
         {
             "languageVariantCode": "zh-tw",
             "languageName": "臺灣正體",
-            "localName": "Taiwanese Traditional",
+            "localName": "Chinese (Taiwanese Traditional)",
             "languageCode": "zh"
         }
     ],
