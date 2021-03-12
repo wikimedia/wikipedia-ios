@@ -26,7 +26,7 @@ import CocoaLumberjackSwift
                     localizedName = iOSLocalizedName
                 }
             }
-            return MWKLanguageLink(languageCode: wikipedia.languageCode, pageTitleText: "", name: wikipedia.languageName, localizedName: localizedName, languageVariantCode: nil)
+            return MWKLanguageLink(languageCode: wikipedia.languageCode, pageTitleText: "", name: wikipedia.languageName, localizedName: localizedName, languageVariantCode: nil, altISOCode: wikipedia.altISOCode)
         }
     }()
 
@@ -44,7 +44,7 @@ import CocoaLumberjackSwift
                 wikipediaLanguageVariants.map { wikipediaLanguageVariant in
                     // All language variant codes have compound codes. iOS returns a less descriptive localized name
                     // for those, so not attempting to get localized name from iOS.
-                    MWKLanguageLink(languageCode: wikipediaLanguageVariant.languageCode, pageTitleText: "", name: wikipediaLanguageVariant.languageName, localizedName: wikipediaLanguageVariant.localName, languageVariantCode: wikipediaLanguageVariant.languageVariantCode)
+                    MWKLanguageLink(languageCode: wikipediaLanguageVariant.languageCode, pageTitleText: "", name: wikipediaLanguageVariant.languageName, localizedName: wikipediaLanguageVariant.localName, languageVariantCode: wikipediaLanguageVariant.languageVariantCode, altISOCode: nil)
                 }
             }
         } catch let error {

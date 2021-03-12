@@ -79,9 +79,24 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable MWKLanguageLink *)titleLanguageForLanguage:(MWKLanguageLink *)language {
-    return [self.availableLanguages wmf_match:^BOOL(MWKLanguageLink *availableLanguage) {
-        return [language.contentLanguageCode isEqualToString:availableLanguage.contentLanguageCode];
+    MWKLanguageLink *titleLanguage = [self.availableLanguages wmf_match:^BOOL(MWKLanguageLink *availableLanguage) {
+        
+        //Note: the langlinks endpoint returns "nb" for it's language code rather than "no", which messes up our matching with app language codes.
+        //So here we are checking the altISOCode of our stored languages against the lanklinks language code for a match.
+        //Currently "no.wikipedia.org" is the only MWKLanguageLink app language that has an altISOCode populated (see wikipedia-languages.json).
+        //Fixes https://phabricator.wikimedia.org/T272193
+        return [language.contentLanguageCode isEqualToString:availableLanguage.contentLanguageCode] ||
+                                    (language.altISOCode &&
+                                     [language.altISOCode isEqualToString:availableLanguage.contentLanguageCode]);
     }];
+
+    //If match was found via altISOCode, replace the title language with the expected languageCode.
+    //Without this, the title language VC will attempt to serve up a mobile-html page at https://nb.wikipedia.org/api/rest_v1/page/mobile-html/{title}, which fails as not found
+    if ([titleLanguage.contentLanguageCode isEqualToString:language.altISOCode]) {
+        return [[MWKLanguageLink alloc] initWithLanguageCode:language.languageCode pageTitleText:titleLanguage.pageTitleText name:titleLanguage.name localizedName:titleLanguage.localizedName languageVariantCode:titleLanguage.languageVariantCode altISOCode:language.altISOCode];
+    }
+
+    return titleLanguage;
 }
 
 - (BOOL)languageIsAvailable:(MWKLanguageLink *)language {
