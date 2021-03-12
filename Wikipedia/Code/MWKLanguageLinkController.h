@@ -27,8 +27,6 @@ typedef NS_ENUM(NSInteger, WMFPreferredLanguagesChangeType) {
 
 /**
  * Returns all languages of the receiver, sorted by name, minus unsupported languages.
- *
- * Observe this property to be notifified of changes to the list of languages.
  */
 @property (readonly, copy, nonatomic) NSArray<MWKLanguageLink *> *allLanguages;
 
