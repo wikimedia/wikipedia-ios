@@ -186,7 +186,7 @@ final class InsertMediaViewController: ViewController {
     var isAnimatingSearchBarState: Bool = false
     
     override var shouldAnimateWhileUpdatingScrollViewInsets: Bool {
-        return isAnimatingSearchBarState
+        return true
     }
 
     func focusSearch(_ focus: Bool, animated: Bool = true, additionalAnimations: (() -> Void)? = nil) {
