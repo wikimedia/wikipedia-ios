@@ -4,6 +4,8 @@
 #import <WMF/WMF-Swift.h>
 #import <WMF/WMFComparison.h>
 
+NSString *const MWKLanguageFilterDataSourceLanguagesDidChangeNotification = @"MWKLanguageFilterDataSourceLanguagesDidChangeNotification";
+
 @interface MWKLanguageFilter ()
 
 @property (nonatomic, strong, readwrite) id<MWKLanguageFilterDataSource> dataSource;
@@ -13,6 +15,12 @@
 
 @end
 
+/* Note that multiple MWKLanguageFilter instances can be active at the same time.
+ * For instance, when adding a language in settings, the WMFPreferredLanguagesViewController
+ * and the language-choosing WMFLanguagesViewController each have an instance of MWKLanguageFilter.
+ * Multiple active instances need to be notified of changes in the data source,
+ * so a notification is used instead of a delegate.
+*/
 @implementation MWKLanguageFilter
 
 - (instancetype)initWithLanguageDataSource:(id<MWKLanguageFilterDataSource>)dataSource {
@@ -32,9 +40,13 @@
     if (_dataSource == dataSource) {
         return;
     }
-    _dataSource.languageFilterDelegate = nil;
+    if (_dataSource) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:MWKLanguageFilterDataSourceLanguagesDidChangeNotification object:_dataSource];
+    }
     _dataSource = dataSource;
-    _dataSource.languageFilterDelegate = self;
+    if (_dataSource) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataSourceLanguagesDidChange:) name:MWKLanguageFilterDataSourceLanguagesDidChangeNotification object:_dataSource];
+    }
 }
 
 - (void)setLanguageFilter:(NSString *__nullable)filterString {
@@ -63,7 +75,7 @@
     }
 }
 
-- (void)noteLanguagesDidChange {
+- (void)dataSourceLanguagesDidChange:(NSNotification *)note {
     [self updateFilteredLanguages];
 }
 

@@ -4,20 +4,18 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol MWKLanguageFilterDataSourceDelegate
-- (void)noteLanguagesDidChange;
-@end
+// Notification sent by an MWKLanguageFilterDataSource when language array values change
+extern NSString *const MWKLanguageFilterDataSourceLanguagesDidChangeNotification;
 
 @protocol MWKLanguageFilterDataSource <NSObject>
 
-@property (nonatomic, weak, nullable) id <MWKLanguageFilterDataSourceDelegate> languageFilterDelegate;
 @property (readonly, copy, nonatomic) NSArray<MWKLanguageLink *> *allLanguages;
 @property (readonly, copy, nonatomic) NSArray<MWKLanguageLink *> *preferredLanguages;
 @property (readonly, copy, nonatomic) NSArray<MWKLanguageLink *> *otherLanguages;
 
 @end
 
-@interface MWKLanguageFilter : NSObject <MWKLanguageFilterDataSourceDelegate>
+@interface MWKLanguageFilter : NSObject
 
 - (instancetype)initWithLanguageDataSource:(id<MWKLanguageFilterDataSource>)dataSource;
 

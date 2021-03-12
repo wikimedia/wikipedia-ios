@@ -77,9 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
         return [self titleLanguageForLanguage:language];
     }];
     
-    if (self.languageFilterDelegate) {
-        [self.languageFilterDelegate noteLanguagesDidChange];
-    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:MWKLanguageFilterDataSourceLanguagesDidChangeNotification object: self];
 }
 
 - (nullable MWKLanguageLink *)titleLanguageForLanguage:(MWKLanguageLink *)language {

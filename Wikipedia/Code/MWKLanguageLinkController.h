@@ -51,11 +51,6 @@ typedef NS_ENUM(NSInteger, WMFPreferredLanguagesChangeType) {
 @property (readonly, copy, nonatomic) NSArray<MWKLanguageLink *> *otherLanguages;
 
 /**
- * Language filter delegate to notify of changes
- */
-@property (nonatomic, weak, nullable) id <MWKLanguageFilterDataSourceDelegate> languageFilterDelegate;
-
-/**
  *  Uniquely appends a new preferred language. The new language will be the last preferred language.
  *
  *  @param language the language to append

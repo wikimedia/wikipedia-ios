@@ -191,7 +191,7 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
             DDLogError(@"Error saving preferred languages: %@", preferredLanguageCodeSaveError);
         }
     }];
-    if (self.languageFilterDelegate) { [self.languageFilterDelegate noteLanguagesDidChange]; }
+    [[NSNotificationCenter defaultCenter] postNotificationName:MWKLanguageFilterDataSourceLanguagesDidChangeNotification object: self];
     NSDictionary *userInfo = @{WMFPreferredLanguagesChangeTypeKey: @(changeType), WMFPreferredLanguagesLastChangedLanguageKey: changedLanguage};
     [[NSNotificationCenter defaultCenter] postNotificationName:WMFPreferredLanguagesDidChangeNotification object:self userInfo:userInfo];
     if (self.appLanguage.contentLanguageCode && ![self.appLanguage.contentLanguageCode isEqualToString:previousAppContentLanguageCode]) {
@@ -204,7 +204,7 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
     [self.moc performBlockAndWait:^{
         [self.moc wmf_setValue:nil forKey:WMFPreviousLanguagesKey];
     }];
-    if (self.languageFilterDelegate) { [self.languageFilterDelegate noteLanguagesDidChange]; }
+    [[NSNotificationCenter defaultCenter] postNotificationName:MWKLanguageFilterDataSourceLanguagesDidChangeNotification object: self];
     [[NSNotificationCenter defaultCenter] postNotificationName:WMFPreferredLanguagesDidChangeNotification object:self];
 }
 

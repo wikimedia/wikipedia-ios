@@ -30,12 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
  * All the languages in the receiver minus @c preferredLanguages.
  */
 @property (readonly, copy, nonatomic) NSArray<MWKLanguageLink *> *otherLanguages;
-
-/**
- * Language filter delegate to notify of changes
- */
-@property (nonatomic, weak, nullable) id <MWKLanguageFilterDataSourceDelegate> languageFilterDelegate;
-
 @end
 
 NS_ASSUME_NONNULL_END
