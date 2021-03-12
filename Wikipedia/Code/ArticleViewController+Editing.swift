@@ -163,8 +163,8 @@ extension ArticleViewController: SectionEditorViewControllerDelegate {
 }
 
 extension ArticleViewController: DescriptionEditViewControllerDelegate {
-    func descriptionEditViewControllerEditSucceeded(_ descriptionEditViewController: DescriptionEditViewController) {
-        waitForNewContentAndRefresh()
+    func descriptionEditViewControllerEditSucceeded(_ descriptionEditViewController: DescriptionEditViewController, revisionID: UInt64?) {
+        waitForNewContentAndRefresh(revisionID)
     }
 }
 
