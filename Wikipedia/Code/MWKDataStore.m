@@ -13,7 +13,7 @@ NSString *const WMFFeedImportContextDidSave = @"WMFFeedImportContextDidSave";
 NSString *const WMFViewContextDidSave = @"WMFViewContextDidSave";
 
 NSString *const WMFLibraryVersionKey = @"WMFLibraryVersion";
-static const NSInteger WMFCurrentLibraryVersion = 12;
+static const NSInteger WMFCurrentLibraryVersion = 13;
 
 NSString *const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
 
