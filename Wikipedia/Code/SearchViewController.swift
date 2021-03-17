@@ -24,7 +24,9 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         super.viewWillAppear(animated)
         reloadRecentSearches()
         if animated && shouldBecomeFirstResponder {
-            navigationBar.isAdjustingHidingFromContentInsetChangesEnabled = false
+            if shouldAdjustNavigationBarInsetHidingOnAppearance {
+                navigationBar.isAdjustingHidingFromContentInsetChangesEnabled = false
+            }
             searchBar.becomeFirstResponder()
         }
 
@@ -73,6 +75,8 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     var displayType: NavigationBarDisplayType = .largeTitle
     var shouldSetSearchVisible: Bool = true
     var shouldSetTitleViewWhenRecentSearchesAreDisabled: Bool = true
+    var shouldScrollToTopOnVisibilityChange = true
+    var shouldAdjustNavigationBarInsetHidingOnAppearance = true
     var shouldDisplayIncomingTransitionOverlay: Bool = false {
         didSet {
             incomingTransitionOverlay.isHidden = !shouldDisplayIncomingTransitionOverlay
@@ -263,7 +267,6 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         searchBar.placeholder =  WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text")
         return searchBar
     }()
-    
 
     let incomingTransitionOverlay = UIView()
 
@@ -326,12 +329,18 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     override var shouldAnimateWhileUpdatingScrollViewInsets: Bool {
         return isAnimatingSearchBarState
     }
-    
+
     private var _isSearchVisible: Bool = false
     private func setSearchVisible(_ visible: Bool, animated: Bool) {
         _isSearchVisible = visible
         navigationBar.isAdjustingHidingFromContentInsetChangesEnabled  = false
         let completion = { (finished: Bool) in
+            if self.shouldScrollToTopOnVisibilityChange {
+                self.collectionView.setContentOffset(.init(x: 0, y: -self.navigationBar.visibleHeight), animated: false)
+                UIView.animate(withDuration: 0.1, animations: {
+                    self.collectionView.alpha = 1
+                })
+            }
             self.isAnimatingSearchBarState = false
             self.navigationBar.isTitleShrinkingEnabled = true
             self.navigationBar.isAdjustingHidingFromContentInsetChangesEnabled  = true
@@ -345,6 +354,9 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
             navigationBarTopSpacing = navigationBar.barTopSpacing
         }
         let animations = {
+            if self.shouldScrollToTopOnVisibilityChange {
+                self.collectionView.alpha = 0
+            }
             self.navigationBar.isBarHidingEnabled = true
             self.navigationBar.isTopSpacingHidingEnabled = true
             self.navigationBar.isTitleShrinkingEnabled = false
