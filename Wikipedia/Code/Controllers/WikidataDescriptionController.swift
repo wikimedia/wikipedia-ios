@@ -28,7 +28,7 @@ class WikidataDescriptionController: ArticleDescriptionControlling {
         completion(wikidataDescription)
     }
     
-    func publishDescription(_ description: String, completion: @escaping (Result<UInt64?, Error>) -> Void) {
+    func publishDescription(_ description: String, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
         
         fetcher.publish(newWikidataDescription: description, from: descriptionSource, forWikidataID: wikiDataID, language: articleLanguage) { (error) in
             if let error = error {
@@ -36,7 +36,7 @@ class WikidataDescriptionController: ArticleDescriptionControlling {
                 return
             }
             
-            completion(.success(nil))
+            completion(.success(ArticleDescriptionPublishResult(newRevisionID: nil, newDescription: description)))
         }
     }
     

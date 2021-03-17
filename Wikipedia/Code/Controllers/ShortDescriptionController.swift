@@ -51,7 +51,7 @@ class ShortDescriptionController: ArticleDescriptionControlling {
     /// - Parameters:
     ///   - description: The new description to insert into the wikitext
     ///   - completion: Completion called when updated section upload call is successful.
-    func publishDescription(_ description: String, completion: @escaping (Result<UInt64?, Error>) -> Void) {
+    func publishDescription(_ description: String, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
         
         sectionFetcher.fetchSection(with: sectionID, articleURL: articleURL) { [weak self] (result) in
             
@@ -95,7 +95,7 @@ class ShortDescriptionController: ArticleDescriptionControlling {
 
 private extension ShortDescriptionController {
     
-    func uploadNewDescriptionToWikitext(_ wikitext: String, baseRevisionID: Int, newDescription: String, completion: @escaping (Result<UInt64?, Error>) -> Void) {
+    func uploadNewDescriptionToWikitext(_ wikitext: String, baseRevisionID: Int, newDescription: String, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
         
         do {
             guard try wikitext.containsShortDescription() else {
@@ -111,7 +111,7 @@ private extension ShortDescriptionController {
         }
     }
     
-    func prependNewDescriptionToWikitextAndUpload(_ wikitext: String, baseRevisionID: Int, newDescription: String, completion: @escaping (Result<UInt64?, Error>) -> Void) {
+    func prependNewDescriptionToWikitextAndUpload(_ wikitext: String, baseRevisionID: Int, newDescription: String, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
         
         let newTemplateToPrepend = "{{Short description|\(newDescription)}}\n"
         
@@ -132,11 +132,11 @@ private extension ShortDescriptionController {
                 return
             }
             
-            completion(.success(revisionID))
+            completion(.success(ArticleDescriptionPublishResult(newRevisionID: revisionID, newDescription: newDescription)))
         })
     }
     
-    func replaceDescriptionInWikitextAndUpload(_ wikitext: String, newDescription: String, baseRevisionID: Int, completion: @escaping (Result<UInt64?, Error>) -> Void) {
+    func replaceDescriptionInWikitextAndUpload(_ wikitext: String, newDescription: String, baseRevisionID: Int, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
         
         do {
             
@@ -147,7 +147,7 @@ private extension ShortDescriptionController {
                 guard let self = self else {
                     return
                 }
-                
+   
                 if let error = error {
                     completion(.failure(error))
                     return
@@ -159,7 +159,7 @@ private extension ShortDescriptionController {
                     return
                 }
                 
-                completion(.success(revisionID))
+                completion(.success(ArticleDescriptionPublishResult(newRevisionID: revisionID, newDescription: newDescription)))
             })
             
         } catch (let error) {

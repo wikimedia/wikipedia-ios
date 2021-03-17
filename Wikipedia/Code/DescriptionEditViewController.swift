@@ -2,7 +2,7 @@ import UIKit
 import WMF
 
 protocol DescriptionEditViewControllerDelegate: class {
-    func descriptionEditViewControllerEditSucceeded(_ descriptionEditViewController: DescriptionEditViewController, revisionID: UInt64?)
+    func descriptionEditViewControllerEditSucceeded(_ descriptionEditViewController: DescriptionEditViewController, result: ArticleDescriptionPublishResult)
 }
 
 @objc class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextViewDelegate {
@@ -235,9 +235,9 @@ protocol DescriptionEditViewControllerDelegate: class {
                 let presentingVC = self.presentingViewController
                 self.enableProgressiveButton(true)
                 switch result {
-                case .success(let revisionID):
+                case .success(let result):
                     self.editFunnel?.logTitleDescriptionSaved(source: self.editFunnelSource, isAddingNewTitleDescription: self.isAddingNewTitleDescription, language: self.articleDescriptionController.articleLanguage)
-                    self.delegate?.descriptionEditViewControllerEditSucceeded(self, revisionID: revisionID)
+                    self.delegate?.descriptionEditViewControllerEditSucceeded(self, result: result)
                     self.dismiss(animated: true) {
                         presentingVC?.wmf_showDescriptionPublishedPanelViewController(theme: self.theme)
                         NotificationCenter.default.post(name: DescriptionEditViewController.didPublishNotification, object: nil)

@@ -140,6 +140,52 @@ extension ArticleViewController: ShortDescriptionControllerDelegate {
             }
         }
     }
+    
+    enum ArticleEditingDescriptionError: Error {
+        case failureInjectingNewDescription
+    }
+    
+    func injectNewDescriptionIntoArticleContent(_ newDescription: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        let javascript = """
+            function injectTitleDescription(description) {
+
+                //first attempt to swap out add description callout
+                var addTitleDescriptionElement = document.getElementById("pcs-edit-section-add-title-description");
+                if (addTitleDescriptionElement) {
+                    addTitleDescriptionElement.insertAdjacentHTML("beforebegin",`<p id='pcs-edit-section-title-description'>${description}</p>`);
+                    addTitleDescriptionElement.parentElement.removeChild(addTitleDescriptionElement);
+                    return true;
+                }
+                
+                //else replace existing description
+                var editTitleDescriptionElement = document.getElementById('pcs-edit-section-title-description');
+                if (editTitleDescriptionElement) {
+                    editTitleDescriptionElement.innerHTML = description;
+                    return true;
+                }
+                return false;
+            }
+           injectTitleDescription(`\(newDescription.sanitizedForJavaScriptTemplateLiterals)`);
+        """
+
+        webView.evaluateJavaScript(javascript) { (result, error) in
+            DispatchQueue.main.async {
+                if let error = error {
+                    DDLogDebug("Failure in injectNewDescriptionIntoArticleContent: \(error)")
+                    completion(.failure(error))
+                    return
+                }
+
+                guard let boolResult = result as? Bool,
+                      boolResult == true else {
+                    completion(.failure(ArticleEditingDescriptionError.failureInjectingNewDescription))
+                    return
+                }
+
+                completion(.success(()))
+            }
+        }
+    }
 }
 
 extension ArticleViewController: SectionEditorViewControllerDelegate {
@@ -163,8 +209,21 @@ extension ArticleViewController: SectionEditorViewControllerDelegate {
 }
 
 extension ArticleViewController: DescriptionEditViewControllerDelegate {
-    func descriptionEditViewControllerEditSucceeded(_ descriptionEditViewController: DescriptionEditViewController, revisionID: UInt64?) {
-        waitForNewContentAndRefresh(revisionID)
+    func descriptionEditViewControllerEditSucceeded(_ descriptionEditViewController: DescriptionEditViewController, result: ArticleDescriptionPublishResult) {
+        injectNewDescriptionIntoArticleContent(result.newDescription) { [weak self] injectResult in
+            
+            guard let self = self else  {
+                return
+            }
+            
+            switch injectResult {
+            case .failure(let error):
+                DDLogError("Failure injecting new description into article content, refreshing instead: \(error)")
+                self.waitForNewContentAndRefresh(result.newRevisionID)
+            case .success:
+                break
+            }
+        }
     }
 }
 
