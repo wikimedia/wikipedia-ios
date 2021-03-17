@@ -167,6 +167,7 @@ class EditLinkViewController: ViewController {
     @IBAction private func searchArticles(_ sender: UITapGestureRecognizer) {
         let searchViewController = SearchViewController()
         searchViewController.shouldSetTitleViewWhenRecentSearchesAreDisabled = false
+        searchViewController.shouldAdjustNavigationBarInsetHidingOnAppearance = false
         searchViewController.siteURL = siteURL
         searchViewController.shouldSetSearchVisible = false
         searchViewController.shouldBecomeFirstResponder = true
