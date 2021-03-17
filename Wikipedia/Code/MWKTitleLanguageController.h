@@ -17,8 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  * Returns all languages of the receiver, with preferred languages listed first.
- *
- * Observe this property to be notifified of changes to the list of languages.
  */
 @property (readonly, copy, nonatomic) NSArray<MWKLanguageLink *> *allLanguages;
 
