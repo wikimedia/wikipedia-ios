@@ -73,6 +73,11 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     var displayType: NavigationBarDisplayType = .largeTitle
     var shouldSetSearchVisible: Bool = true
     var shouldSetTitleViewWhenRecentSearchesAreDisabled: Bool = true
+    var shouldDisplayIncomingTransitionOverlay: Bool = false {
+        didSet {
+            incomingTransitionOverlay.isHidden = !shouldDisplayIncomingTransitionOverlay
+        }
+    }
 
     var shouldShowCancelButton: Bool = true
     var delegatesSelection: Bool = false {
@@ -83,14 +88,6 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
 
     var showLanguageBar: Bool?
 
-    var nonSearchAlpha: CGFloat = 1 {
-        didSet {
-            collectionView.alpha = nonSearchAlpha
-            resultsViewController.view.alpha = nonSearchAlpha
-            navigationBar.backgroundAlpha = nonSearchAlpha
-        }
-    }
-    
     var searchTerm: String? {
         set {
             searchBar.text = newValue
@@ -267,9 +264,25 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         return searchBar
     }()
     
+
+    let incomingTransitionOverlay = UIView()
+
+    var nonSearchAlpha: CGFloat = 1 {
+        didSet {
+            incomingTransitionOverlay.alpha = nonSearchAlpha
+            resultsViewController.view.alpha = nonSearchAlpha
+            navigationBar.backgroundAlpha = nonSearchAlpha
+        }
+    }
+
     // used to match the transition with explore
     
     func prepareForIncomingTransition(with incomingNavigationBar: NavigationBar) {
+        // Add overlay to hide jarring transition
+        view.insertSubview(incomingTransitionOverlay, aboveSubview: resultsViewController.view)
+        view.wmf_addConstraintsToEdgesOfView(incomingTransitionOverlay)
+        incomingTransitionOverlay.isHidden = true
+
         navigationBarTopSpacingPercentHidden = incomingNavigationBar.topSpacingPercentHidden
         navigationBarTopSpacing = incomingNavigationBar.barTopSpacing
         navigationBar.isTopSpacingHidingEnabled = true
@@ -278,12 +291,30 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         navigationBar.isTopSpacingHidingEnabled = !_isSearchVisible
         navigationBarShadowAlpha = incomingNavigationBar.shadowAlpha
         navigationBar.shadowAlpha = navigationBarShadowAlpha
+
+        shouldDisplayIncomingTransitionOverlay = true
+        collectionView.alpha = 0
     }
     
     func prepareForOutgoingTransition(with outgoingNavigationBar: NavigationBar) {
         navigationBarTopSpacingPercentHidden = outgoingNavigationBar.topSpacingPercentHidden
         navigationBarShadowAlpha = outgoingNavigationBar.shadowAlpha
         navigationBarTopSpacing = outgoingNavigationBar.barTopSpacing
+    }
+
+    func beginTransitionFromExploreFeed(enteringSearch: Bool) {
+        nonSearchAlpha = enteringSearch ? 1 : 0
+    }
+
+    func completeTransitionFromExploreFeed(enteringSearch: Bool) {
+        collectionView.alpha = 1
+        UIView.animate(withDuration: 0.1, animations: {
+            if enteringSearch {
+                self.incomingTransitionOverlay.alpha = 0
+            } else {
+                self.incomingTransitionOverlay.alpha = 1
+            }
+        })
     }
     
     private var navigationBarShadowAlpha: CGFloat = 0
@@ -444,6 +475,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         resultsViewController.apply(theme: theme)
         view.backgroundColor = .clear
         collectionView.backgroundColor = theme.colors.paperBackground
+        incomingTransitionOverlay.backgroundColor = theme.colors.paperBackground
     }
     
     // Recent
