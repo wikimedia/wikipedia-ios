@@ -253,18 +253,7 @@ let WMFSendUsageReports = "WMFSendUsageReports"
     }
     
     @objc func wmf_currentSearchContentLanguageCode() -> String? {
-        // This is a temporary migration until the full language variant migration is in place.
-        // At that point, it should no longer be necessary to check WMFSearchURLKey
-        if let url = url(forKey: WMFSearchURLKey) {
-            let code = url.wmf_contentLanguageCode
-            wmf_setCurrentSearchContentLanguageCode(code)
-            removeObject(forKey: WMFSearchURLKey)
-            return code
-        } else if let contentLanguageCode = self.string(forKey: WMFSearchLanguageKey) {
-            return contentLanguageCode
-        } else{
-            return nil
-        }
+        self.string(forKey: WMFSearchLanguageKey)
     }
     
     @objc func wmf_setCurrentSearchContentLanguageCode(_ code: String?) {
