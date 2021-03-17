@@ -88,6 +88,9 @@ typedef NS_ENUM(NSInteger, WMFPreferredLanguagesChangeType) {
 
 + (void)migratePreferredLanguagesToManagedObjectContext:(NSManagedObjectContext *)moc;
 
+/// The expected dictionary uses language codes as the key with the value being the desired language variant code for that language.
+- (void)migratePreferredLanguagesToLanguageVariants:(NSDictionary<NSString *, NSString *> *)languageMapping inManagedObjectContext:(NSManagedObjectContext *)moc;
+
 @end
 
 /// This category is specific to processing MWKLanguageLink instances that represent articles

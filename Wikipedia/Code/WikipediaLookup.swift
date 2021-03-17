@@ -34,7 +34,7 @@ import CocoaLumberjackSwift
     }()
 
     // Flag to be removed once language variants feature can be permanently turned on
-    @objc public static let languageVariantsEnabled = false
+    @objc public static let languageVariantsEnabled = true
     @objc static let allLanguageVariantsByWikipediaLanguageCode: [String:[MWKLanguageLink]] = {
         guard languageVariantsEnabled else { return [:] }
         guard let languagesFileURL = Bundle.wmf.url(forResource: "wikipedia-language-variants", withExtension: "json") else {
