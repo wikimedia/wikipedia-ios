@@ -10,6 +10,7 @@
 @property (readwrite, copy, nonatomic, nonnull) NSString *localizedName;
 @property (readwrite, copy, nonatomic, nonnull) NSString *name;
 @property (readwrite, copy, nonatomic, nullable) NSString *languageVariantCode;
+@property (readwrite, copy, nonatomic, nullable) NSString *altISOCode;
 
 @end
 
@@ -21,7 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
                        pageTitleText:(nonnull NSString *)pageTitleText
                                 name:(nonnull NSString *)name
                        localizedName:(nonnull NSString *)localizedName
-                 languageVariantCode:(nullable NSString *)languageVariantCode {
+                 languageVariantCode:(nullable NSString *)languageVariantCode
+                          altISOCode:(nullable NSString *)altISOCode {
     self = [super init];
     if (self) {
         self.languageCode = languageCode;
@@ -29,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
         self.name = name;
         self.localizedName = localizedName;
         self.languageVariantCode = languageVariantCode;
+        self.altISOCode = altISOCode;
     }
     return self;
 }
@@ -52,11 +55,12 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink:)
                          @"%@ { \n"
                           "\tlanguageCode: %@, \n"
                           "\tlanguageVariantCode: %@, \n"
+                          "\altISOCode: %@, \n"
                           "\tpageTitleText: %@, \n"
                           "\tname: %@, \n"
                           "\tlocalizedName: %@ \n"
                           "}",
-                         [super description], self.languageCode, self.languageVariantCode, self.pageTitleText, self.name, self.localizedName];
+                         [super description], self.languageCode, self.languageVariantCode, self.altISOCode, self.pageTitleText, self.name, self.localizedName];
 }
 
 #pragma mark - Computed Properties
@@ -82,7 +86,8 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink:)
                                            pageTitleText:pageTitleText
                                                     name:self.name
                                            localizedName:self.localizedName
-                                     languageVariantCode:self.languageVariantCode];
+                                     languageVariantCode:self.languageVariantCode
+                                              altISOCode:self.altISOCode];
 }
 
 @end

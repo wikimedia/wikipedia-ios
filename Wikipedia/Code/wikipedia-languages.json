@@ -1015,6 +1015,7 @@
     "localName" : "Norwegian Nynorsk"
   },
   {
+    "altISOCode" : "nb",
     "languageCode" : "no",
     "languageName" : "norsk",
     "localName" : "Norwegian"
