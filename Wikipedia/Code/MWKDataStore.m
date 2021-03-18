@@ -79,6 +79,10 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     return sharedInstance;
 }
 
++ (NSInteger)currentLibraryVersion {
+    return WMFCurrentLibraryVersion;
+}
+
 #pragma mark - NSObject
 
 - (void)dealloc {
@@ -440,7 +444,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     
     if (currentLibraryVersion < 12) {
         [[WMFEventLoggingService sharedInstance] migrateShareUsageAndInstallIDToUserDefaults];
-        [self migrateToLanguageVariantsForLanguageCodes:@[@"crh", @"gan", @"iu", @"kk", @"ku", @"sr", @"tg", @"uz", @"zh"] inManagedObjectContext:(NSManagedObjectContext *)moc];
+        [self migrateToLanguageVariantsForLibraryVersion:12 inManagedObjectContext:(NSManagedObjectContext *)moc];
         [moc wmf_setValue:@(12) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:&migrationError]) {
             DDLogError(@"Error saving during migration: %@", migrationError);
