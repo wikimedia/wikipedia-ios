@@ -299,7 +299,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     private var _isSearchVisible: Bool = false
     private func setSearchVisible(_ visible: Bool, animated: Bool) {
         _isSearchVisible = visible
-        navigationBar.isAdjustingHidingFromContentInsetChangesEnabled  = true
+        navigationBar.isAdjustingHidingFromContentInsetChangesEnabled = false
         let completion = { (finished: Bool) in
             self.isAnimatingSearchBarState = false
             self.navigationBar.isTitleShrinkingEnabled = true
@@ -318,7 +318,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
             self.navigationBar.isTopSpacingHidingEnabled = true
             self.navigationBar.isTitleShrinkingEnabled = false
             self.navigationBar.barTopSpacing = self.navigationBarTopSpacing
-            self.navigationBar.setNavigationBarPercentHidden(visible ? 1 : 0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: visible ? 1 : self.navigationBarTopSpacingPercentHidden, animated: false)
+            self.navigationBar.setNavigationBarPercentHidden(visible ? 1 : 0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: visible ? 1 : self.navigationBarTopSpacingPercentHidden, animated: animated)
             self.navigationBar.isBarHidingEnabled = false
             self.navigationBar.isTopSpacingHidingEnabled = !visible
             self.navigationBar.shadowAlpha = visible ? 1 : self.searchLanguageBarViewController != nil ? 0 : self.navigationBarShadowAlpha
