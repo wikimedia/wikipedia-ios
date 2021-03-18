@@ -45,15 +45,14 @@ class WikipediaLanguageCommandLineUtilityAPI {
                         return nil
                 }
                 
-                guard code == "no" else {
-                    return Wikipedia(languageCode: code, languageName: name, localName: localname, altISOCode: nil)
+                guard code != "no" else {
+                    //Norwegian (Bokmål) has a different ISO code than it's subdomain, which is useful to reference in some instances (prepopulating preferredLanguages from iOS device languages, and choosing the correct alternative article language from the langlinks endpoint).
+                    //https://phabricator.wikimedia.org/T276645
+                    //https://phabricator.wikimedia.org/T272193
+                    return Wikipedia(languageCode: code, languageName: name, localName: localname, altISOCode: "nb")
                 }
                 
-                //Norwegian (Bokmål) has a different ISO code than it's subdomain, which is useful to reference in some instances (prepopulating preferredLanguages from iOS device languages, and choosing the correct alternative article language from the langlinks endpoint).
-                //https://phabricator.wikimedia.org/T276645
-                //https://phabricator.wikimedia.org/T272193
-                return Wikipedia(languageCode: code, languageName: name, localName: localname, altISOCode: "nb")
-                
+                return Wikipedia(languageCode: code, languageName: name, localName: localname, altISOCode: nil)
             }
             // Add testwiki, it's not returned by the site matrix
             wikipedias.append(Wikipedia(languageCode: "test", languageName: "Test", localName: "Test", altISOCode: nil))
