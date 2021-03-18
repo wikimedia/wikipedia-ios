@@ -181,11 +181,15 @@
 "button-skip" = "Lewati";
 "cancel" = "Batal";
 "cc-zero" = "Creative Commons CC0";
+"chinese-variants-alert-body" = "Aplikasi Wikipedia sekarang mendukung varian bahasa Mandarin berikut sebagai bahasa utama atau sekunder di dalam aplikasi, membuatnya lebih mudah untuk membaca, mencari, dan menyunting dalam varian pilihan Anda: \n\n简体 Bahasa Mandarin sederhana (zh-hans)\n繁體 Bahasa Mandarin tradisional (zh-hant)\n大陆简体 Bahasa Mandarin daratan yang disederhanakan (zh-cn)\n香港繁體 Hong Kong Tradisional (zh-hk)\n澳門繁體 Macau Tradisional (zh-mo)\n大马简体 Malaysia Sederhana (zh-my)\n新加坡简体 Singapore Sederhana (zh-sg)\n臺灣正體 Taiwan Tradisional (zh-tw)";
+"chinese-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Tionghoa";
 "clear-title-accessibility-label" = "Hapus";
 "close-button-accessibility-label" = "Tutup";
 "compass-direction" = "pada pukul $1 tepat";
 "continue-reading-empty-description" = "Jelajahi Wikipedia untuk lebih banyak artikel yang ingin dibaca";
 "continue-reading-empty-title" = "Tidak ada artikel yang dibaca baru-baru ini";
+"crimean-tatar-variants-alert-body" = "Aplikasi Wikipedia kini mendukung varian bahasa Tatar Krimea berikut sebagai bahasa utama maupun bahasa kedua di dalam aplikasi, membuatnya lebih mudah untuk dibaca, cari dan sunting dalam varian pilihan Anda:\n\nQırımtatarca, Latin Tatar Krimea Latin (chr-latn)\nкъырымтатарджа, Кирил Tatar Krimea Sirilik (crh-cyrl)";
+"crimean-tatar-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Tatar Krimea";
 "data-migration-status" = "Memperbarui...";
 "description-add-title" = "Tambahkan deskripsi";
 "description-edit-for-article" = "Deskripsi judul untuk $1";
@@ -461,6 +465,8 @@
 "forgot-password-instructions" = "Isi salah satu bidang di bawah untuk menerima instruksi penyetelan ulang kata sandi melalui surel";
 "forgot-password-title" = "Setel ulang kata sandi";
 "forgot-password-username-or-email-title" = "Atau";
+"gan-variants-alert-body" = "Aplikasi Wikipedia sekarang mendukung varian bahasa Gan berikut sebagai bahasa utama atau sekunder dalam aplikasi, sehingga lebih mudah untuk membaca, mencari, dan mengedit dalam varian yang Anda sukai: \n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Sederhana (gan-hans)\n贛語 繁體 Gan, Tradisional (gan-hant)";
+"gan-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Gan";
 "history-clear-all" = "Kosongkan";
 "history-clear-cancel" = "Batalkan";
 "history-clear-confirmation-heading" = "Apakah Anda yakin ingin menghapus semua butir terkini Anda?";
@@ -522,6 +528,12 @@
 "intermediate-edits-editors-count-limited" = "$1+ revisi antara oleh $2+ pengguna tidak ditampilkan";
 "intermediate-edits-editors-limited-count" = "$1 revisi antara oleh $2+ pengguna tidak ditampilkan";
 "intermediate-edits-limited-editors-count" = "$1+ revisi antara oleh $2 pengguna tidak ditampilkan";
+"inuktitut-variants-alert-body" = "Aplikasi Wikipedia kini mendukung varian bahasa Inuktitut berikut sebagai bahasa utama maupun bahasa kedua di dalam aplikasi, membuatnya lebih mudah untuk dibaca, cari dan sunting dalam varian pilihan Anda:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Silabis (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
+"inuktitut-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Inuktitut";
+"kazakh-variants-alert-body" = "Aplikasi Wikipedia kini mendukung varian bahasa Kazakh berikut sebagai bahasa utama maupun bahasa kedua di dalam aplikasi, membuatnya lebih mudah untuk dibaca, cari dan sunting dalam varian pilihan Anda:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, Sirilik (kk-cyrl)\nqazaqşa latin Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arab (kk-arab)";
+"kazakh-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Kazakh";
+"kurdish-variants-alert-body" = "Aplikasi Wikipedia kini mendukung varian bahasa Kurdi berikut sebagai bahasa utama maupun bahasa kedua di dalam aplikasi, membuatnya lebih mudah untuk dibaca, cari dan sunting dalam varian pilihan Anda:\n\nKurdî Latînî Kurdi, Latin (ku-latn)\nكوردی Kurdi, Arab (kk-arab)";
+"kurdish-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Kurdi";
 "languages-settings-title" = "Bahasa";
 "languages-title" = "Ubah bahasa";
 "languages-wikipedia" = "Bahasa Wikipedia";
@@ -769,6 +781,8 @@
 "search-recent-title" = "Dicari baru-baru ini";
 "search-result-redirected-from" = "Dialihkan dari: $1";
 "search-title" = "Cari";
+"serbian-variants-alert-body" = "Aplikasi Wikipedia kini mendukung varian bahasa Serbia berikut sebagai bahasa utama maupun bahasa kedua di dalam aplikasi, membuatnya lebih mudah untuk dibaca, cari dan sunting dalam varian pilihan Anda:\n\nсрпски ћирилица Serbian, Sirilik (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
+"serbian-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Serbia";
 "settings-account" = "Akun";
 "settings-appearance" = "Preferensi pembacaan";
 "settings-clear-cache" = "Hapus data dalam cache";
@@ -827,6 +841,10 @@
 "table-of-contents-heading" = "Konten";
 "table-of-contents-hide-button-label" = "Sembunyikan daftar isi.";
 "table-of-contents-subheading-label" = "Judul tingkat $1";
+"tachelhit-variants-alert-body" = "Aplikasi Wikipedia kini mendukung varian bahasa Tachelhit berikut sebagai bahasa utama maupun bahasa kedua di dalam aplikasi, membuatnya lebih mudah untuk dibaca, cari dan sunting dalam varian pilihan Anda:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
+"tachelhit-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Tachelhit";
+"tajik-variants-alert-body" = "Aplikasi Wikipedia kini mendukung varian bahasa Tajik berikut sebagai bahasa utama maupun bahasa kedua di dalam aplikasi, membuatnya lebih mudah untuk dibaca, cari dan sunting dalam varian pilihan Anda:\n\nтоҷикӣ кирилликӣ Tajik, Sirilik (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";
+"tajik-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Tajik";
 "talk-page-add-discussion-accessibility-label" = "Tambahkan diskusi";
 "talk-page-discussion-accessibility-hint" = "Ketuk ganda untuk membuka utas diskusi";
 "talk-page-discussion-read-accessibility-label" = "Baca";
@@ -872,6 +890,8 @@
 "two-factor-login-with-regular-code" = "Gunakan kode verifikasi";
 "unable-to-load-talk-page-title" = "Tidak bisa memuat halaman pembicaraan";
 "unknown-generic-text" = "Tidak diketahui";
+"uzbek-variants-alert-body" = "Aplikasi Wikipedia kini mendukung varian bahasa Uzbek berikut sebagai bahasa utama maupun bahasa kedua di dalam aplikasi, membuatnya lebih mudah untuk dibaca, cari dan sunting dalam varian pilihan Anda:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Sirilik (uz-cyrl)";
+"uzbek-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Uzbek";
 "variants-alert-dismiss-button" = "Tidak, terima kasih";
 "variants-alert-preferences-button" = "Tinjau preferensi Anda";
 "welcome-exploration-explore-feed-description" = "Bacaan yang disarankan dan artikel harian dari komunitas kami";
