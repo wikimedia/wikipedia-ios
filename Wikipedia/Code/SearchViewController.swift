@@ -299,7 +299,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     private var _isSearchVisible: Bool = false
     private func setSearchVisible(_ visible: Bool, animated: Bool) {
         _isSearchVisible = visible
-        navigationBar.isAdjustingHidingFromContentInsetChangesEnabled  = false
+        navigationBar.isAdjustingHidingFromContentInsetChangesEnabled  = true
         let completion = { (finished: Bool) in
             self.isAnimatingSearchBarState = false
             self.navigationBar.isTitleShrinkingEnabled = true
