@@ -27,8 +27,6 @@ typedef NS_ENUM(NSInteger, WMFPreferredLanguagesChangeType) {
 
 /**
  * Returns all languages of the receiver, sorted by name, minus unsupported languages.
- *
- * Observe this property to be notifified of changes to the list of languages.
  */
 @property (readonly, copy, nonatomic) NSArray<MWKLanguageLink *> *allLanguages;
 
@@ -89,6 +87,9 @@ typedef NS_ENUM(NSInteger, WMFPreferredLanguagesChangeType) {
 - (nullable MWKLanguageLink *)languageForContentLanguageCode:(NSString *)contentLanguageCode;
 
 + (void)migratePreferredLanguagesToManagedObjectContext:(NSManagedObjectContext *)moc;
+
+/// The expected dictionary uses language codes as the key with the value being the desired language variant code for that language.
+- (void)migratePreferredLanguagesToLanguageVariants:(NSDictionary<NSString *, NSString *> *)languageMapping inManagedObjectContext:(NSManagedObjectContext *)moc;
 
 @end
 

@@ -4,7 +4,7 @@
 #import <WMF/WMF-Swift.h>
 #import <WMF/WMFComparison.h>
 
-static const NSString *kvo_MWKLanguageFilter_dataSource_allLanguages = nil;
+NSString *const MWKLanguageFilterDataSourceLanguagesDidChangeNotification = @"MWKLanguageFilterDataSourceLanguagesDidChangeNotification";
 
 @interface MWKLanguageFilter ()
 
@@ -15,6 +15,12 @@ static const NSString *kvo_MWKLanguageFilter_dataSource_allLanguages = nil;
 
 @end
 
+/* Note that multiple MWKLanguageFilter instances can be active at the same time.
+ * For instance, when adding a language in settings, the WMFPreferredLanguagesViewController
+ * and the language-choosing WMFLanguagesViewController each have an instance of MWKLanguageFilter.
+ * Multiple active instances need to be notified of changes in the data source,
+ * so a notification is used instead of a delegate.
+*/
 @implementation MWKLanguageFilter
 
 - (instancetype)initWithLanguageDataSource:(id<MWKLanguageFilterDataSource>)dataSource {
@@ -34,10 +40,13 @@ static const NSString *kvo_MWKLanguageFilter_dataSource_allLanguages = nil;
     if (_dataSource == dataSource) {
         return;
     }
-    NSString *keyPath = WMF_SAFE_KEYPATH(_dataSource, allLanguages);
-    [(id)_dataSource removeObserver:self forKeyPath:keyPath context:&kvo_MWKLanguageFilter_dataSource_allLanguages];
+    if (_dataSource) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:MWKLanguageFilterDataSourceLanguagesDidChangeNotification object:_dataSource];
+    }
     _dataSource = dataSource;
-    [(id)_dataSource addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew context:&kvo_MWKLanguageFilter_dataSource_allLanguages];
+    if (_dataSource) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataSourceLanguagesDidChange:) name:MWKLanguageFilterDataSourceLanguagesDidChangeNotification object:_dataSource];
+    }
 }
 
 - (void)setLanguageFilter:(NSString *__nullable)filterString {
@@ -66,12 +75,8 @@ static const NSString *kvo_MWKLanguageFilter_dataSource_allLanguages = nil;
     }
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey, id> *)change context:(void *)context {
-    if (context == &kvo_MWKLanguageFilter_dataSource_allLanguages) {
-        [self updateFilteredLanguages];
-    } else {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    }
+- (void)dataSourceLanguagesDidChange:(NSNotification *)note {
+    [self updateFilteredLanguages];
 }
 
 @end

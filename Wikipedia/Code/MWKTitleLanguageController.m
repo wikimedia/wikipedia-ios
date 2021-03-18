@@ -76,6 +76,8 @@ NS_ASSUME_NONNULL_BEGIN
     }] wmf_map:^id(MWKLanguageLink *language) {
         return [self titleLanguageForLanguage:language];
     }];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:MWKLanguageFilterDataSourceLanguagesDidChangeNotification object: self];
 }
 
 - (nullable MWKLanguageLink *)titleLanguageForLanguage:(MWKLanguageLink *)language {

@@ -118,4 +118,9 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 
 @end
 
+@interface WMFExploreFeedContentController (LanguageVariantMigration)
+/// The expected dictionary uses language codes as the key with the value being the desired language variant code for that language.
+- (void)migrateExploreFeedSettingsToLanguageVariants:(NSDictionary<NSString *, NSString *> *)languageMapping inManagedObjectContext:(NSManagedObjectContext *)moc;
+@end
+
 NS_ASSUME_NONNULL_END
