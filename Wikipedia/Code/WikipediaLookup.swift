@@ -29,7 +29,7 @@ import CocoaLumberjackSwift
                     localizedName = iOSLocalizedName
                 }
             }
-            return MWKLanguageLink(languageCode: wikipedia.languageCode, pageTitleText: "", name: wikipedia.languageName, localizedName: localizedName, languageVariantCode: nil)
+            return MWKLanguageLink(languageCode: wikipedia.languageCode, pageTitleText: "", name: wikipedia.languageName, localizedName: localizedName, languageVariantCode: nil, altISOCode: wikipedia.altISOCode)
         }
     }()
 
@@ -45,14 +45,14 @@ import CocoaLumberjackSwift
             let entries = try JSONDecoder().decode([String : [WikipediaLanguageVariant]].self, from: data)
             return entries.mapValues { wikipediaLanguageVariants -> [MWKLanguageLink] in
                 wikipediaLanguageVariants.map { wikipediaLanguageVariant in
-                    
+ 
                     var localizedName = wikipediaLanguageVariant.localName
                     if !Locale.current.isEnglish,
                         let iOSLocalizedName = Locale.current.localizedString(forIdentifier: wikipediaLanguageVariant.languageVariantCode) {
                         localizedName = iOSLocalizedName
                     }
                     
-                    return MWKLanguageLink(languageCode: wikipediaLanguageVariant.languageCode, pageTitleText: "", name: wikipediaLanguageVariant.languageName, localizedName: localizedName, languageVariantCode: wikipediaLanguageVariant.languageVariantCode)
+                    return MWKLanguageLink(languageCode: wikipediaLanguageVariant.languageCode, pageTitleText: "", name: wikipediaLanguageVariant.languageName, localizedName: localizedName, languageVariantCode: wikipediaLanguageVariant.languageVariantCode, altISOCode: wikipediaLanguageVariant.languageVariantCode)
                 }
             }
         } catch let error {
