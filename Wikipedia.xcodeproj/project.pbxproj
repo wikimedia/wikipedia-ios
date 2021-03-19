@@ -5042,6 +5042,8 @@
 		D8FFF6922031CB3D00A028E0 /* my */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = my; path = my.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		D8FFF6932031CB3E00A028E0 /* cy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = cy; path = cy.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		D8FFF6942031CB4000A028E0 /* tcy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = tcy; path = tcy.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		FF19C1AB260548FD000AC20B /* kcg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = kcg; path = kcg.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FF19C1AC26054909000AC20B /* kcg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = kcg; path = kcg.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		FF2090EE2500247100849774 /* ThreeLineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeLineHeaderView.swift; sourceTree = "<group>"; };
 		FF2B210F254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorCollectionViewFooter.swift; sourceTree = "<group>"; };
 		FF338A0A258D572900292602 /* nqo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nqo; path = nqo.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -9589,6 +9591,7 @@
 				sl,
 				hr,
 				nqo,
+				kcg,
 			);
 			mainGroup = D499142C181D51DE00E6073C;
 			packageReferences = (
@@ -13058,6 +13061,7 @@
 				83CF71432326D47E009DEC00 /* sl */,
 				834C269B24042DBF00245BE7 /* hr */,
 				FF338A0A258D572900292602 /* nqo */,
+				FF19C1AB260548FD000AC20B /* kcg */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -13168,6 +13172,7 @@
 				83CF71442326D48A009DEC00 /* sl */,
 				834C269C24042DCF00245BE7 /* hr */,
 				FF338A0B258D572900292602 /* nqo */,
+				FF19C1AC26054909000AC20B /* kcg */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";

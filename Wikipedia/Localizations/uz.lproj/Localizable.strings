@@ -43,6 +43,7 @@
 "article-languages-label" = "Tilni tanlang";
 "button-next" = "Keyingi";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 bayt qoʻshildi|$1 bayt qoʻshildi}}";
+"diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 bayt olib tashlandi}}";
 "edit-summary-choice-linked-words" = "Qoʻshilgan havolalar";
 "history-clear-cancel" = "Bekor qilish";
 "history-clear-confirmation-heading" = "Barcha soʻnggi elementlarni oʻchirib tashlaysizmi?";

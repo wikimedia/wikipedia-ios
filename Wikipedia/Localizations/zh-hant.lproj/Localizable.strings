@@ -179,13 +179,15 @@
 "button-skip" = "略過";
 "cancel" = "取消";
 "cc-zero" = "創用CC公眾領域貢獻宣告";
-"chinese-variants-alert-body" = "維基百科應用程式現在支援下列中文異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\n简体 Chinese, Simplified (zh-hans)\n繁體 Chinese, Traditional (zh-hant)\n大陆简体 Mainland Simplified (zh-cn)\n香港繁體 Hong Kong Traditional (zh-hk)\n澳門繁體 Macau Traditional (zh-mo)\n大马简体 Malaysia Simplified (zh-my)\n新加坡简体 Singapore Simplified (zh-sg)\n臺灣正體 Taiwanese Traditional (zh-tw)";
+"chinese-variants-alert-body" = "維基百科應用程式現在支援下列中文異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\n简体（zh-hans）\n繁體（zh-hant）\n大陆简体（zh-cn）\n香港繁體（zh-hk）\n澳門繁體（zh-mo）\n大马简体（zh-my）\n新加坡简体（zh-sg）\n臺灣正體（zh-tw）";
 "chinese-variants-alert-title" = "中文異體字支援更新";
 "clear-title-accessibility-label" = "清除";
 "close-button-accessibility-label" = "關閉";
 "compass-direction" = "在 $1 時";
 "continue-reading-empty-description" = "瀏覽維基百科以閱讀更多條目";
 "continue-reading-empty-title" = "沒有最近讀取的條目";
+"crimean-tatar-variants-alert-body" = "維基百科應用程式現在支援下列克里米亞韃靼語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\nQırımtatarca，拉丁字母克里米亞韃靼語（chr-latn）\nкъырымтатарджа，西里爾字母克里米亞韃靼語（crh-cyrl）";
+"crimean-tatar-variants-alert-title" = "克里米亞韃靼語異體字支援更新";
 "data-migration-status" = "更新中…";
 "description-add-title" = "添加描述";
 "description-edit-for-article" = "$1的標題描述";
@@ -461,6 +463,8 @@
 "forgot-password-instructions" = "在下方其一欄位填入來透過電子郵件接收密碼重新設定說明";
 "forgot-password-title" = "重設密碼";
 "forgot-password-username-or-email-title" = "或";
+"gan-variants-alert-body" = "維基百科應用程式現在支援下列贛語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\n贛語 原文（gan）\n赣语 简体（gan-hans）\n贛語 繁體（gan-hant）";
+"gan-variants-alert-title" = "贛語異體字支援更新";
 "history-clear-all" = "清除";
 "history-clear-cancel" = "取消";
 "history-clear-confirmation-heading" = "您確定要刪除您所有的近期項目嗎？";
@@ -522,6 +526,12 @@
 "intermediate-edits-editors-count-limited" = "由 $2 名以上使用者所做出 $1+ 個以上中間修訂未顯示出";
 "intermediate-edits-editors-limited-count" = "由 $2+ 名以上使用者所做出 {{PLURAL:$1|$1 個中間修訂}}未顯示出";
 "intermediate-edits-limited-editors-count" = "由 {{PLURAL:$2|$2 名使用者}}所做出 $1+ 個以上中間修訂未顯示出";
+"inuktitut-variants-alert-body" = "維基百科應用程式現在支援下列伊努克提圖特語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ，音節文字伊努克提圖特語（ike-cans）\nInuktitut ilisautik，拉丁字母伊努克提圖特語（ike-latn）";
+"inuktitut-variants-alert-title" = "伊努克提圖特語異體字支援更新";
+"kazakh-variants-alert-body" = "維基百科應用程式現在支援下列哈薩克語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\nҚазақша，哈薩克語（kk）\nҚазақша Кирил，西里爾字母哈薩克語（kk-cyrl）\nqazaqşa latin，拉丁字母哈薩克語（kk-latin）\nتوتە قازاقشا，阿拉伯字母哈薩克語（kk-arab）";
+"kazakh-variants-alert-title" = "哈薩克語異體字支援更新";
+"kurdish-variants-alert-body" = "維基百科應用程式現在支援下列庫德語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\nKurdî Latînî，拉丁字母庫德語（ku-latn）\nكوردی，阿拉伯字母庫德語（kk-arab）";
+"kurdish-variants-alert-title" = "庫德語異體字支援更新";
 "languages-settings-title" = "語言";
 "languages-title" = "變更語言";
 "languages-wikipedia" = "維基百科語言";
@@ -769,6 +779,8 @@
 "search-recent-title" = "近期搜尋";
 "search-result-redirected-from" = "重新導向自：$1";
 "search-title" = "搜尋";
+"serbian-variants-alert-body" = "維基百科應用程式現在支援下列塞爾維亞語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\nсрпски ћирилица，西里爾字母塞爾維亞語（sr-ec）\nsrpski latinica，拉丁字母塞爾維亞語（sr-el）";
+"serbian-variants-alert-title" = "塞爾維亞語異體字支援更新";
 "settings-account" = "帳號";
 "settings-appearance" = "閱讀偏好設定";
 "settings-clear-cache" = "清除快取資料";
@@ -827,6 +839,10 @@
 "table-of-contents-heading" = "內容";
 "table-of-contents-hide-button-label" = "隱藏目錄";
 "table-of-contents-subheading-label" = "副標題$1";
+"tachelhit-variants-alert-body" = "維基百科應用程式現在支援下列施盧赫語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\nⵜⴰⵛⵍⵃⵉⵜ，提非納字母施盧赫語（shi-tfng）\nTaclḥit，拉丁字母施盧赫語（shi-latn）";
+"tachelhit-variants-alert-title" = "施盧赫語異體字支援更新";
+"tajik-variants-alert-body" = "維基百科應用程式現在支援下列塔吉克語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\nтоҷикӣ кирилликӣ，西里爾字母塔吉克語（tg-cyrl）\ntojikī lotinī，拉丁字母塔吉克語（tg-latn）";
+"tajik-variants-alert-title" = "塔吉克語異體字支援更新";
 "talk-page-add-discussion-accessibility-label" = "新增討論";
 "talk-page-discussion-accessibility-hint" = "輕觸兩次來開啟討論串";
 "talk-page-discussion-read-accessibility-label" = "已讀";
@@ -874,6 +890,8 @@
 "two-factor-login-with-regular-code" = "使用驗證代碼";
 "unable-to-load-talk-page-title" = "無法載入對話頁";
 "unknown-generic-text" = "未知";
+"uzbek-variants-alert-body" = "維基百科應用程式現在支援下列烏茲別克語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\noʻzbekcha lotin，拉丁字母烏茲別克語（uz-latin）\nўзбекча кирилл，西里爾字母烏茲別克語（uz-cyrl）";
+"uzbek-variants-alert-title" = "烏茲別克語異體字支援更新";
 "variants-alert-dismiss-button" = "不用了，謝謝";
 "variants-alert-preferences-button" = "檢視您的偏好設定";
 "welcome-exploration-explore-feed-description" = "來自我們社群推薦的讀物及每日條目";
