@@ -50,6 +50,8 @@ static NSString *const WMFLastRemoteAppConfigCheckAbsoluteTimeKey = @"WMFLastRem
 static const NSString *kvo_NSUserDefaults_defaultTabType = @"kvo_NSUserDefaults_defaultTabType";
 static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFetcher_progress";
 
+NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAlertsLibraryVersion";
+
 @interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable, ReadMoreAboutRevertedEditViewControllerDelegate, WMFWorkerControllerDelegate, WMFThemeableNavigationControllerDelegate, WMFAppTabBarDelegate>
 
 @property (nonatomic, strong) WMFPeriodicWorkerController *periodicWorkerController;
@@ -783,7 +785,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                 [self checkRemoteAppConfigIfNecessary];
                 [self setupControllers];
                 if (!self.isWaitingToResumeApp) {
-                    [self resumeApp:NULL];
+                    [self resumeApp:[self presentLanguageVariantAlerts]];
                 }
             });
         }
@@ -1439,6 +1441,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)setDidShowOnboarding {
     [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:WMFDidShowOnboarding];
+    
+    // If the user is onboarding, variant info alerts do not need to be presented
+    // So, set the user default to the current library version
+    [[NSUserDefaults standardUserDefaults] setInteger:MWKDataStore.currentLibraryVersion forKey:WMFLanguageVariantAlertsLibraryVersion];
 }
 
 - (void)presentOnboardingIfNeededWithCompletion:(void (^)(BOOL didShowOnboarding))completion {
