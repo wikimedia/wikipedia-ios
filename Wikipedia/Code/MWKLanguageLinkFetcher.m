@@ -38,7 +38,8 @@
                                                                         pageTitleText:jsonLink[@"*"]
                                                                                  name:jsonLink[@"autonym"]
                                                                         localizedName:jsonLink[@"langname"]
-                                                                  languageVariantCode:nil];
+                                                                  languageVariantCode:nil
+                                                                           altISOCode:nil];
                              }];
                          }] wmf_reject:^BOOL(id key, id obj) {
                              return WMF_IS_EQUAL(obj, [NSNull null]);
