@@ -104,6 +104,11 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
     return activity;
 }
 
++ (instancetype)wmf_languageSettingsActivity {
+    NSUserActivity *activity = [self wmf_pageActivityWithName:@"LanguageSettings"];
+    return activity;
+}
+
 + (nullable instancetype)wmf_activityForWikipediaScheme:(NSURL *)url {
     if (![url.scheme isEqualToString:@"wikipedia"] && ![url.scheme isEqualToString:@"wikipedia-official"]) {
         return nil;
@@ -211,6 +216,8 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
             return WMFUserActivityTypeSearch;
         } else if ([page isEqualToString:@"AppearanceSettings"]) {
             return WMFUserActivityTypeAppearanceSettings;
+        } else if ([page isEqualToString:@"LanguageSettings"]) {
+            return WMFUserActivityTypeLanguageSettings;
         } else {
             return WMFUserActivityTypeSettings;
         }
@@ -274,6 +281,9 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
             break;
         case WMFUserActivityTypeAppearanceSettings:
             host = @"appearancesettings";
+            break;
+        case WMFUserActivityTypeLanguageSettings:
+            host = @"languagesettings";
             break;
         case WMFUserActivityTypeContent:
             host = @"content";
