@@ -39,11 +39,16 @@
 // Author: ネイ
 // Author: 아라
 
+"aaald-added-text-description-2" = "$1 追加";
 "aaald-article-description-updated-description" = "記事タイトルの説明が更新されました";
+"aaald-article-insert-header" = "重要な更新";
 "aaald-article-insert-last-updated" = "最終更新";
 "aaald-article-insert-new-changes" = "新しい変更";
+"aaald-article-insert-read-more" = "更新の詳細を読む";
 "aaald-characters-text-description" = "{{PLURAL:$1|文字}}";
 "aaald-deleted-text-description-2" = "$1 は削除されました";
+"aaald-multiple-changes-description" = "複数の変更をしました";
+"aaald-multiple-references-added-description" = "複数の注釈を追加しました";
 "aaald-new-book-reference-title" = "本";
 "aaald-new-discussion" = "新規議論";
 "aaald-new-journal-reference-database" = "$1経由";
@@ -57,6 +62,7 @@
 "aaald-revision-by-anonymous" = "匿名利用者による編集";
 "aaald-revision-userInfo" = "$1（$2 編集数）による編集";
 "aaald-single-reference-added-description" = "参考文献を追加しました";
+"aaald-small-change-description" = "{{PLURAL:$1|0=小さな変更をしていません|$1個の小さな変更をしました}}";
 "aaald-view-full-history-button" = "すべての記事履歴を表示";
 "about-content-license" = "コンテンツのライセンス";
 "about-content-license-details" = "特記なき場合、コンテンツは $1 で利用可能です";
@@ -181,6 +187,7 @@
 "compass-direction" = "$1時の位置";
 "continue-reading-empty-description" = "ウィキペディアでさらに多くの記事を読む";
 "continue-reading-empty-title" = "最近読んだ記事はありません";
+"crimean-tatar-variants-alert-title" = "クリミア・タタール語版をサポートする更新";
 "data-migration-status" = "更新中...";
 "description-add-title" = "説明を追加";
 "description-edit-for-article" = "$1の説明";
