@@ -36,7 +36,6 @@ class SearchTransition: NSObject, UIViewControllerAnimatedTransitioning {
             containerView.insertSubview(toViewController.view, belowSubview: fromViewController.view)
             exploreViewController.view.layoutIfNeeded()
             searchViewController.prepareForOutgoingTransition(with: exploreViewController.navigationBar)
-            searchViewController.nonSearchAlpha = 1
             exploreViewController.searchBar.alpha = 0
         }
 
@@ -46,14 +45,10 @@ class SearchTransition: NSObject, UIViewControllerAnimatedTransitioning {
             let relativeDuration: TimeInterval = 0.5
             let relativeStartTime: TimeInterval = self.isEnteringSearch ? 1 - relativeDuration : 0
             UIView.addKeyframe(withRelativeStartTime: relativeStartTime, relativeDuration: relativeDuration, animations: {
-                if self.isEnteringSearch {
-                    self.searchViewController.nonSearchAlpha = 1
-                } else {
-                    self.searchViewController.nonSearchAlpha = 0
-                }
+                self.searchViewController.beginTransitionFromExploreFeed(enteringSearch: self.isEnteringSearch)
             })
         }) { (finished) in
-            self.searchViewController.nonSearchAlpha = 1
+            self.searchViewController.completeTransitionFromExploreFeed(enteringSearch: self.isEnteringSearch)
             self.exploreViewController.searchBar.alpha = 1
             transitionContext.completeTransition(true)
         }

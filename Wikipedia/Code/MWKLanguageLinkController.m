@@ -86,16 +86,15 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
     MWKLanguageLink *matchingLanguageLink = [self.preferredLanguages wmf_match:^BOOL(MWKLanguageLink *obj) {
         return [obj.languageCode isEqual:languageCode];
     }];
-    
+
     // If the matching link does not have a language variant code, the language does not have variants. Return nil.
     if (matchingLanguageLink) {
-        return matchingLanguageLink.languageVariantCode ? : nil;
+        return matchingLanguageLink.languageVariantCode ?: nil;
     }
-    
+
     // If not found in the app's preferred languages, get the best guess from the user's OS settings.
     return [NSLocale wmf_bestLanguageVariantCodeForLanguageCode:languageCode];
 }
-
 
 - (nullable MWKLanguageLink *)appLanguage {
     return [self.preferredLanguages firstObject];
@@ -105,7 +104,13 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
     NSArray *preferredLanguageCodes = [self readPreferredLanguageCodes];
     return [preferredLanguageCodes wmf_mapAndRejectNil:^id(NSString *langString) {
         return [self.allLanguages wmf_match:^BOOL(MWKLanguageLink *langLink) {
-            return [langLink.contentLanguageCode isEqualToString:langString];
+
+            //Note, sometimes the device iOS language codes will return a code that doesn't line up with the Wikipedia language codes we have set,
+            //so we are also checking for a match against the altISOCode (currently only set for "no.wikipedia.org")
+            //Fixes https://phabricator.wikimedia.org/T276645
+            return [langLink.contentLanguageCode isEqualToString:langString] ||
+                                                (langLink.altISOCode &&
+                                                [langLink.altISOCode isEqualToString:langString]);
         }];
     }];
 }

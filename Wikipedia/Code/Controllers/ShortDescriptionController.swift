@@ -4,6 +4,7 @@ import WMF
 
 enum ShortDescriptionControllerError: Error {
     case failureConstructingRegexExpression
+    case missingSelf
 }
 
 protocol ShortDescriptionControllerDelegate: class {
@@ -51,11 +52,12 @@ class ShortDescriptionController: ArticleDescriptionControlling {
     /// - Parameters:
     ///   - description: The new description to insert into the wikitext
     ///   - completion: Completion called when updated section upload call is successful.
-    func publishDescription(_ description: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    func publishDescription(_ description: String, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
         
         sectionFetcher.fetchSection(with: sectionID, articleURL: articleURL) { [weak self] (result) in
             
             guard let self = self else {
+                completion(.failure(ShortDescriptionControllerError.missingSelf))
                 return
             }
             
@@ -99,7 +101,7 @@ class ShortDescriptionController: ArticleDescriptionControlling {
 
 private extension ShortDescriptionController {
     
-    func uploadNewDescriptionToWikitext(_ wikitext: String, baseRevisionID: Int, newDescription: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    func uploadNewDescriptionToWikitext(_ wikitext: String, baseRevisionID: Int, newDescription: String, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
         
         do {
             guard try wikitext.containsShortDescription() else {
@@ -115,50 +117,72 @@ private extension ShortDescriptionController {
         }
     }
     
-    func prependNewDescriptionToWikitextAndUpload(_ wikitext: String, baseRevisionID: Int, newDescription: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    func prependNewDescriptionToWikitextAndUpload(_ wikitext: String, baseRevisionID: Int, newDescription: String, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
         
         let newTemplateToPrepend = "{{Short description|\(newDescription)}}\n"
         
-        sectionUploader.prepend(toSectionID: "\(sectionID)", text: newTemplateToPrepend, forArticleURL: articleURL, isMinorEdit: true, baseRevID: baseRevisionID as NSNumber, completion: { (result, error) in
+        sectionUploader.prepend(toSectionID: "\(sectionID)", text: newTemplateToPrepend, forArticleURL: articleURL, isMinorEdit: true, baseRevID: baseRevisionID as NSNumber, completion: { [weak self] (result, error) in
+            
+            guard let self = self else {
+                completion(.failure(ShortDescriptionControllerError.missingSelf))
+                return
+            }
             
             if let error = error {
                 completion(.failure(error))
                 return
             }
             
-            guard result != nil else {
+            guard let result = result,
+                  let revisionID = self.revisionIDFromResult(result: result) else {
                 completion(.failure(RequestError.unexpectedResponse))
                 return
             }
             
-            completion(.success(()))
+            completion(.success(ArticleDescriptionPublishResult(newRevisionID: revisionID, newDescription: newDescription)))
         })
     }
     
-    func replaceDescriptionInWikitextAndUpload(_ wikitext: String, newDescription: String, baseRevisionID: Int, completion: @escaping (Result<Void, Error>) -> Void) {
+    func replaceDescriptionInWikitextAndUpload(_ wikitext: String, newDescription: String, baseRevisionID: Int, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
         
         do {
             
             let updatedWikitext = try wikitext.replacingShortDescription(with: newDescription)
             
-            sectionUploader.uploadWikiText(updatedWikitext, forArticleURL: articleURL, section: "\(sectionID)", summary: nil, isMinorEdit: true, addToWatchlist: false, baseRevID: baseRevisionID as NSNumber, captchaId: nil, captchaWord: nil, completion: { (result, error) in
+            sectionUploader.uploadWikiText(updatedWikitext, forArticleURL: articleURL, section: "\(sectionID)", summary: nil, isMinorEdit: true, addToWatchlist: false, baseRevID: baseRevisionID as NSNumber, captchaId: nil, captchaWord: nil, completion: { [weak self] (result, error) in
                 
+                guard let self = self else {
+                    completion(.failure(ShortDescriptionControllerError.missingSelf))
+                    return
+                }
+   
                 if let error = error {
                     completion(.failure(error))
                     return
                 }
                 
-                guard result != nil else {
+                guard let result = result,
+                      let revisionID = self.revisionIDFromResult(result: result) else {
                     completion(.failure(RequestError.unexpectedResponse))
                     return
                 }
                 
-                completion(.success(()))
+                completion(.success(ArticleDescriptionPublishResult(newRevisionID: revisionID, newDescription: newDescription)))
             })
             
         } catch (let error) {
             completion(.failure(error))
         }
+    }
+    
+    func revisionIDFromResult(result: [AnyHashable: Any]) -> UInt64? {
+        guard let fetchedData = result as? [String: Any],
+              let newRevID = fetchedData["newrevid"] as? UInt64 else {
+            assertionFailure("Could not extract revisionID as UInt64")
+            return nil
+        }
+        
+        return newRevID
     }
 }
 

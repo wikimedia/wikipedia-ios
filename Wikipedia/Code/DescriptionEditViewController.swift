@@ -1,8 +1,8 @@
 import UIKit
 import WMF
 
-@objc protocol DescriptionEditViewControllerDelegate: NSObjectProtocol {
-    func descriptionEditViewControllerEditSucceeded(_ descriptionEditViewController: DescriptionEditViewController)
+protocol DescriptionEditViewControllerDelegate: class {
+    func descriptionEditViewControllerEditSucceeded(_ descriptionEditViewController: DescriptionEditViewController, result: ArticleDescriptionPublishResult)
 }
 
 @objc class DescriptionEditViewController: WMFScrollViewController, Themeable, UITextViewDelegate {
@@ -22,7 +22,7 @@ import WMF
     @IBOutlet private var warningCharacterCountLabel: UILabel!
     private var theme = Theme.standard
 
-    @objc var delegate: DescriptionEditViewControllerDelegate? = nil
+    var delegate: DescriptionEditViewControllerDelegate? = nil
 
     // MARK: Event logging
     @objc var editFunnel: EditFunnel?
@@ -236,9 +236,9 @@ import WMF
                 let presentingVC = self.presentingViewController
                 self.enableProgressiveButton(true)
                 switch result {
-                case .success:
+                case .success(let result):
                     self.editFunnel?.logTitleDescriptionSaved(source: self.editFunnelSource, isAddingNewTitleDescription: self.isAddingNewTitleDescription, language: self.articleDescriptionController.articleLanguage)
-                    self.delegate?.descriptionEditViewControllerEditSucceeded(self)
+                    self.delegate?.descriptionEditViewControllerEditSucceeded(self, result: result)
                     self.dismiss(animated: true) {
                         presentingVC?.wmf_showDescriptionPublishedPanelViewController(theme: self.theme)
                         NotificationCenter.default.post(name: DescriptionEditViewController.didPublishNotification, object: nil)

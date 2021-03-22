@@ -1,6 +1,7 @@
 // Messages for Romanian (română)
 // Exported from translatewiki.net
 // Author: ANDROBETA
+// Author: Andreyyshore
 // Author: GabiBil
 // Author: Kyouko
 // Author: MSClaudiu
@@ -125,7 +126,7 @@
 "appearance-settings-text-sizing-example-text" = "Trageți glisorul pentru a modifica dimensiunea textului articolului. Utilizați dimensiunea textului sistemului pentru redimensionarea altor zone de text din aplicație.";
 "appearance-settings-theme-options" = "Opțiuni temă";
 "article-about-title" = "Despre acest articol";
-"article-delete" = "Şterge";
+"article-delete" = "Șterge";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|articol|articole}} șterse";
 "article-languages-filter-placeholder" = "Găsește limba";
 "article-languages-label" = "Alegere limbă";
