@@ -17,6 +17,7 @@ class SectionFetcher: Fetcher {
             let protection: [Protection]?
         }
         struct Revision: Codable  {
+            let revid: Int
             let slots: [String: Slot]?
         }
         struct Slot: Codable {
@@ -34,6 +35,7 @@ class SectionFetcher: Fetcher {
     
     struct Response {
         let wikitext: String
+        let revisionID: Int
         let protection: [Protection]
     }
     
@@ -45,7 +47,7 @@ class SectionFetcher: Fetcher {
         let parameters: [String: Any] = [
             "action": "query",
             "prop": "revisions|info",
-            "rvprop": "content",
+            "rvprop": "content|ids",
             "rvlimit": 1,
             "rvslots": "main",
             "rvsection": sectionID,
@@ -63,12 +65,13 @@ class SectionFetcher: Fetcher {
                 guard
                     let page = apiResponse.query?.pages?.first?.value,
                     let wikitext = page.revisions?.first?.slots?["main"]?.asterisk,
-                    let protection = page.protection
+                    let protection = page.protection,
+                    let revisionID = page.revisions?.first?.revid
                 else {
                     completion(.failure(RequestError.unexpectedResponse))
                     return
                 }
-                completion(.success(Response(wikitext: wikitext, protection: protection)))
+                completion(.success(Response(wikitext: wikitext, revisionID: revisionID, protection: protection)))
             }
         }
         
