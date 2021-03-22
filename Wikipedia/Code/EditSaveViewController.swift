@@ -251,7 +251,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
             return
         }
         
-        wikiTextSectionUploader.uploadWikiText(wikitext, forArticleURL: editURL, section: "\(sectionID)", summary: summaryText, isMinorEdit: minorEditToggle.isOn, addToWatchlist: addToWatchlistToggle.isOn, captchaId: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, completion: { (result, error) in
+        wikiTextSectionUploader.uploadWikiText(wikitext, forArticleURL: editURL, section: "\(sectionID)", summary: summaryText, isMinorEdit: minorEditToggle.isOn, addToWatchlist: addToWatchlistToggle.isOn, baseRevID: nil, captchaId: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution, completion: { (result, error) in
             DispatchQueue.main.async {
                 if let error = error {
                     self.handleEditFailure(with: error)
