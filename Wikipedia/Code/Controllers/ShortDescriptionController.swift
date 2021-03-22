@@ -4,6 +4,7 @@ import WMF
 
 enum ShortDescriptionControllerError: Error {
     case failureConstructingRegexExpression
+    case missingSelf
 }
 
 protocol ShortDescriptionControllerDelegate: class {
@@ -56,6 +57,7 @@ class ShortDescriptionController: ArticleDescriptionControlling {
         sectionFetcher.fetchSection(with: sectionID, articleURL: articleURL) { [weak self] (result) in
             
             guard let self = self else {
+                completion(.failure(ShortDescriptionControllerError.missingSelf))
                 return
             }
             
@@ -118,6 +120,7 @@ private extension ShortDescriptionController {
         sectionUploader.prepend(toSectionID: "\(sectionID)", text: newTemplateToPrepend, forArticleURL: articleURL, isMinorEdit: true, baseRevID: baseRevisionID as NSNumber, completion: { [weak self] (result, error) in
             
             guard let self = self else {
+                completion(.failure(ShortDescriptionControllerError.missingSelf))
                 return
             }
             
@@ -145,6 +148,7 @@ private extension ShortDescriptionController {
             sectionUploader.uploadWikiText(updatedWikitext, forArticleURL: articleURL, section: "\(sectionID)", summary: nil, isMinorEdit: true, addToWatchlist: false, baseRevID: baseRevisionID as NSNumber, captchaId: nil, captchaWord: nil, completion: { [weak self] (result, error) in
                 
                 guard let self = self else {
+                    completion(.failure(ShortDescriptionControllerError.missingSelf))
                     return
                 }
    
