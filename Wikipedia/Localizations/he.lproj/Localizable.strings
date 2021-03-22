@@ -179,6 +179,8 @@
 "compass-direction" = "בשעה $1";
 "continue-reading-empty-description" = "לגלות עוד ערכים לקרוא בוויקיפדיה";
 "continue-reading-empty-title" = "אין ערכים שנקראו לאחרונה";
+"crimean-tatar-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בסוגים הבאים של טטרית של קרים בתור שפה ראשית או משנית בתוך היישום, כדי שיהיה קל לקרוא, לחפש, ולערוך בצורות הכתב המועדפות עליך:\n\nQırımtatarca, טטרית של קרים באותיות לטיניות (crh-latn)\nкъырымтатарджа, טטרית של קרים באותיות קיריליות (crh-cyrl)";
+"crimean-tatar-variants-alert-title" = "עדכונים לתמיכה בטטרית של קרים";
 "data-migration-status" = "מתבצע עדכון…";
 "description-add-title" = "הוספת תיאור";
 "description-edit-for-article" = "תיאור כותרת עבור $1";
@@ -454,6 +456,8 @@
 "forgot-password-instructions" = "נא למלא אחד מהשדות להלן כדי לקבל את הוראות אתחול הסיסמה בדוא\"ל";
 "forgot-password-title" = "איפוס סיסמה";
 "forgot-password-username-or-email-title" = "או";
+"gan-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בסוגים הבאים של גאנית בתור שפה ראשית או משנית בתוך היישום, כדי שיהיה קל לקרוא, לחפש, ולערוך בצורות הכתב המועדפות עליך:\n\n贛語 原文 גאנית (gan)\n赣语 简体 גאנית, מפושטת (gan-hans)\n贛語 繁體 גאנית, מסורתית (gan-hant)";
+"gan-variants-alert-title" = "עדכונים לתמיכה בהגוונים של גאנית";
 "history-clear-all" = "ניקוי";
 "history-clear-cancel" = "ביטול";
 "history-clear-confirmation-heading" = "האם באמת למחוק את כל הפריטים האחרונים שלך?";
@@ -515,6 +519,12 @@
 "intermediate-edits-editors-count-limited" = "$1+ גרסאות־ביניים מאת $2+ משתמשים אינן מוצגות";
 "intermediate-edits-editors-limited-count" = "{{PLURAL:$1|גרסת־ביניים אחת|$1 גרסאות־ביניים}} מאת $2+ {{PLURAL:$1|אינה מוצגת|אינן מוצגות}}";
 "intermediate-edits-limited-editors-count" = "$1+ גרסאות־ביניים מאת {{PLURAL:$2|משתמש אחד|$2 משתמשים}} אינן מוצגות";
+"inuktitut-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בסוגים הבאים של טטרית של קרים בתור שפה ראשית או משניות בתוך היישום, כדי שיהיה קל לקרוא, לחפש, ולערוך בצורות הכתב המועדפות עליך:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ אינוקטיטוט, כתב הברתי (ike-cans)\nInuktitut ilisautik, אינוקטיטוט, לטינית (ike-latn)";
+"inuktitut-variants-alert-title" = "עדכונים לתמיכה בהגוונים של אינקטיטוט";
+"kazakh-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בסוגים הבאים של קזחית בתור שפה ראשית או משנית בתוך היישום, כדי שיהיה קל לקרוא, לחפש, ולערוך בצורות הכתב המועדפות עליך:\n\nҚазақша קזחית (kk)\nҚазақша Кирил קזחית, קירילית (kk-cyrl)\nqazaqşa latin קזחית, לטינית (kk-latn)\nتوتە قازاقشا קזחתית, ערבית (kk-arab)";
+"kazakh-variants-alert-title" = "עדכונים לתמיכה בהגוונים של קזחית";
+"kurdish-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בסוגים הבאים של כורדית בתור שפה ראשית או משנית בתוך היישום, כדי שיהיה קל לקרוא, לחפש, ולערוך בצורות הכתב המועדפות עליך:\n\nKurdî Latînî כורדית, לטינית (ku-latn)\nكوردی כורדית, ערבית (kk-arab)";
+"kurdish-variants-alert-title" = "עדכונים לתמיכה בהגוונים של כורדית";
 "languages-settings-title" = "שפות";
 "languages-title" = "שינוי שפה";
 "languages-wikipedia" = "שפות ויקיפדיה";
@@ -762,6 +772,8 @@
 "search-recent-title" = "חיפושים אחרונים";
 "search-result-redirected-from" = "הופנה מהדף: $1";
 "search-title" = "חיפוש";
+"serbian-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בסוגים הבאים של קזחית בתור שפה ראשית או משנית בתוך היישום, כדי שיהיה קל לקרוא, לחפש, ולערוך בצורות הכתב המועדפות עליך:\n\nсрпски ћирилица סרבית, קירילית (sr-ec)\nsrpski latinica סרבית, לטינית (sr-el)";
+"serbian-variants-alert-title" = "עדכונים לתמיכה בהגוונים של סרבית";
 "settings-account" = "חשבון";
 "settings-appearance" = "העדפות קריאה";
 "settings-clear-cache" = "ניקוי נתונים מוטמנים";
@@ -820,6 +832,10 @@
 "table-of-contents-heading" = "תוכן עניינים";
 "table-of-contents-hide-button-label" = "הסתרת תוכן העניינים";
 "table-of-contents-subheading-label" = "כותרת־משנה $1";
+"tachelhit-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בסוגים הבאים של קזחית בתור שפה ראשית או משנית בתוך היישום, כדי שיהיה קל לקרוא, לחפש, ולערוך בצורות הכתב המועדפות עליך:\n\nⵜⴰⵛⵍⵃⵉⵜ תשלחית, תיפינג (shi-tfng)\nTaclḥit תשלחית, לטינית (shi-latn)";
+"tachelhit-variants-alert-title" = "עדכונים לתמיכה בהגוונים של תשלחית";
+"tajik-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בסוגים הבאים של קזחית בתור שפה ראשית או משנית בתוך היישום, כדי שיהיה קל לקרוא, לחפש, ולערוך בצורות הכתב המועדפות עליך:\n\nтоҷикӣ кирилликӣ טג'יקית, קירילית (tg-cyrl)\ntojikī lotinī טג'יקית, לטינית (tg-latn)";
+"tajik-variants-alert-title" = "עדכונים לתמיכה בהגוונים של טג'יקית";
 "talk-page-add-discussion-accessibility-label" = "הוספת דיון";
 "talk-page-discussion-accessibility-hint" = "יש לגעת נגיעה כפולה כדי לפתוח שרשור דיון";
 "talk-page-discussion-read-accessibility-label" = "נקרא";
@@ -867,6 +883,8 @@
 "two-factor-login-with-regular-code" = "להשתמש בקוד אימות";
 "unable-to-load-talk-page-title" = "לא ניתן לטעון את דף השיחה";
 "unknown-generic-text" = "לא ידוע";
+"uzbek-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בסוגים הבאים של קזחית בתור שפה ראשית או משנית בתוך היישום, כדי שיהיה קל לקרוא, לחפש, ולערוך בצורות הכתב המועדפות עליך:\n\noʻzbekcha lotin אוזבקית, לטינית (uz-latin)\nўзбекча кирилл אוזבקית, קירילית (uz-cyrl)";
+"uzbek-variants-alert-title" = "עדכונים לתמיכה בהגוונים של אוזבקית";
 "variants-alert-dismiss-button" = "לא, תודה";
 "variants-alert-preferences-button" = "סקירת ההעדפות שלך";
 "welcome-exploration-explore-feed-description" = "קריאה מומלצת וערכים יומיים מהקהילה שלנו";

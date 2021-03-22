@@ -483,7 +483,14 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             guard let articleURL = articleKey.url else {
                 throw Fetcher.invalidParametersError
             }
-            let request = try summaryRequest(articleURL: articleURL)
+            
+            let request: URLRequest
+            if let cachePolicy = cachePolicy {
+                request = try summaryRequest(articleURL: articleURL, cachePolicy: .foundation(cachePolicy))
+            } else {
+                request = try summaryRequest(articleURL: articleURL)
+            }
+            
             return trackedJSONDecodableTask(with: request) { (result: Result<ArticleSummary, Error>, response) in
                 switch result {
                 case .success(let summary):

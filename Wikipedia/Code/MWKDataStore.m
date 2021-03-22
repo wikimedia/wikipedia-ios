@@ -40,7 +40,6 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 
 @property (nonatomic, strong) WMFReadingListsController *readingListsController;
 @property (nonatomic, strong) WMFExploreFeedContentController *feedContentController;
-@property (nonatomic, strong) WikidataDescriptionEditingController *wikidataDescriptionEditingController;
 @property (nonatomic, strong) RemoteNotificationsController *remoteNotificationsController;
 @property (nonatomic, strong) WMFArticleSummaryController *articleSummaryController;
 @property (nonatomic, strong) MWKLanguageLinkController *languageLinkController;
@@ -113,7 +112,6 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
         self.feedContentController = [[WMFExploreFeedContentController alloc] initWithDataStore:self];
         [self.feedContentController updateContentSources];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningWithNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
-        self.wikidataDescriptionEditingController = [[WikidataDescriptionEditingController alloc] initWithSession:session configuration:configuration];
         self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWithSession:session configuration:configuration preferredLanguageCodesProvider:self.languageLinkController];
         self.notificationsController = [[WMFNotificationsController alloc] initWithDataStore:self];
         self.articleSummaryController = [[WMFArticleSummaryController alloc] initWithSession:session configuration:configuration dataStore:self];
@@ -440,6 +438,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     
     if (currentLibraryVersion < 12) {
         [[WMFEventLoggingService sharedInstance] migrateShareUsageAndInstallIDToUserDefaults];
+        [self migrateToLanguageVariantsForLanguageCodes:@[@"crh", @"gan", @"iu", @"kk", @"ku", @"sr", @"tg", @"uz", @"zh"] inManagedObjectContext:(NSManagedObjectContext *)moc];
         [moc wmf_setValue:@(12) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:&migrationError]) {
             DDLogError(@"Error saving during migration: %@", migrationError);

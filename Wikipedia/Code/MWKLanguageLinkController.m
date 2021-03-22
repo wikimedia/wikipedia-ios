@@ -86,16 +86,15 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
     MWKLanguageLink *matchingLanguageLink = [self.preferredLanguages wmf_match:^BOOL(MWKLanguageLink *obj) {
         return [obj.languageCode isEqual:languageCode];
     }];
-    
+
     // If the matching link does not have a language variant code, the language does not have variants. Return nil.
     if (matchingLanguageLink) {
-        return matchingLanguageLink.languageVariantCode ? : nil;
+        return matchingLanguageLink.languageVariantCode ?: nil;
     }
-    
+
     // If not found in the app's preferred languages, get the best guess from the user's OS settings.
     return [NSLocale wmf_bestLanguageVariantCodeForLanguageCode:languageCode];
 }
-
 
 - (nullable MWKLanguageLink *)appLanguage {
     return [self.preferredLanguages firstObject];
@@ -105,7 +104,13 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
     NSArray *preferredLanguageCodes = [self readPreferredLanguageCodes];
     return [preferredLanguageCodes wmf_mapAndRejectNil:^id(NSString *langString) {
         return [self.allLanguages wmf_match:^BOOL(MWKLanguageLink *langLink) {
-            return [langLink.contentLanguageCode isEqualToString:langString];
+
+            //Note, sometimes the device iOS language codes will return a code that doesn't line up with the Wikipedia language codes we have set,
+            //so we are also checking for a match against the altISOCode (currently only set for "no.wikipedia.org")
+            //Fixes https://phabricator.wikimedia.org/T276645
+            return [langLink.contentLanguageCode isEqualToString:langString] ||
+                                                (langLink.altISOCode &&
+                                                [langLink.altISOCode isEqualToString:langString]);
         }];
     }];
 }
@@ -157,9 +162,13 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
 #pragma mark - Reading/Saving Preferred Language Codes
 
 - (NSArray<NSString *> *)readSavedPreferredLanguageCodes {
+    return [self readSavedPreferredLanguageCodesInManagedObjectContext:self.moc];
+}
+    
+- (NSArray<NSString *> *)readSavedPreferredLanguageCodesInManagedObjectContext:(NSManagedObjectContext *)moc {
     __block NSArray<NSString *> *preferredLanguages = nil;
-    [self.moc performBlockAndWait:^{
-        preferredLanguages = [self.moc wmf_arrayValueForKey:WMFPreviousLanguagesKey] ?: @[];
+    [moc performBlockAndWait:^{
+        preferredLanguages = [moc wmf_arrayValueForKey:WMFPreviousLanguagesKey] ?: @[];
     }];
     return preferredLanguages;
 }
@@ -183,30 +192,37 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
 }
 
 - (void)savePreferredLanguageCodes:(NSArray<NSString *> *)languageCodes changeType:(WMFPreferredLanguagesChangeType)changeType changedLanguage:(MWKLanguageLink *)changedLanguage {
+    [self savePreferredLanguageCodes:languageCodes changeType:changeType changedLanguage:changedLanguage inManagedObjectContext:self.moc];
+}
+
+- (void)savePreferredLanguageCodes:(NSArray<NSString *> *)languageCodes changeType:(WMFPreferredLanguagesChangeType)changeType changedLanguage:(nullable MWKLanguageLink *)changedLanguage inManagedObjectContext:(NSManagedObjectContext *)moc {
     NSString *previousAppContentLanguageCode = self.appLanguage.contentLanguageCode;
-    [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
-    [self.moc performBlockAndWait:^{
-        [self.moc wmf_setValue:languageCodes forKey:WMFPreviousLanguagesKey];
+    [moc performBlockAndWait:^{
+        [moc wmf_setValue:languageCodes forKey:WMFPreviousLanguagesKey];
         NSError *preferredLanguageCodeSaveError = nil;
-        if (![self.moc save:&preferredLanguageCodeSaveError]) {
+        if (![moc save:&preferredLanguageCodeSaveError]) {
             DDLogError(@"Error saving preferred languages: %@", preferredLanguageCodeSaveError);
         }
     }];
-    [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
-    NSDictionary *userInfo = @{WMFPreferredLanguagesChangeTypeKey: @(changeType), WMFPreferredLanguagesLastChangedLanguageKey: changedLanguage};
-    [[NSNotificationCenter defaultCenter] postNotificationName:WMFPreferredLanguagesDidChangeNotification object:self userInfo:userInfo];
-    if (self.appLanguage.contentLanguageCode && ![self.appLanguage.contentLanguageCode isEqualToString:previousAppContentLanguageCode]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:WMFAppLanguageDidChangeNotification object:self];
+    
+    // Send notifications only if there is a change type and changed language
+    // Used to avoid sending notifications during language variant migration
+    if (changeType && changedLanguage) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:MWKLanguageFilterDataSourceLanguagesDidChangeNotification object: self];
+        NSDictionary *userInfo = @{WMFPreferredLanguagesChangeTypeKey: @(changeType), WMFPreferredLanguagesLastChangedLanguageKey: changedLanguage};
+        [[NSNotificationCenter defaultCenter] postNotificationName:WMFPreferredLanguagesDidChangeNotification object:self userInfo:userInfo];
+        if (self.appLanguage.contentLanguageCode && ![self.appLanguage.contentLanguageCode isEqualToString:previousAppContentLanguageCode]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:WMFAppLanguageDidChangeNotification object:self];
+        }
     }
 }
 
 // Reminder: "resetPreferredLanguages" is for testing only!
 - (void)resetPreferredLanguages {
-    [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
     [self.moc performBlockAndWait:^{
         [self.moc wmf_setValue:nil forKey:WMFPreviousLanguagesKey];
     }];
-    [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MWKLanguageFilterDataSourceLanguagesDidChangeNotification object: self];
     [[NSNotificationCenter defaultCenter] postNotificationName:WMFPreferredLanguagesDidChangeNotification object:self];
 }
 
@@ -220,6 +236,26 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
 + (void)migratePreferredLanguagesToManagedObjectContext:(NSManagedObjectContext *)moc {
     NSArray *preferredLanguages = [[NSUserDefaults standardUserDefaults] arrayForKey:WMFPreviousLanguagesKey];
     [moc wmf_setValue:preferredLanguages forKey:WMFPreviousLanguagesKey];
+}
+
+- (void)migratePreferredLanguagesToLanguageVariants:(NSDictionary<NSString *, NSString *> *)languageMapping  inManagedObjectContext:(NSManagedObjectContext *)moc {
+    NSArray<NSString *> *preferredLanguageCodes = [[self readSavedPreferredLanguageCodesInManagedObjectContext:moc] copy];
+    NSMutableArray<NSString *> *updatedLanguageCodes = [preferredLanguageCodes mutableCopy];
+    BOOL languageCodesChanged = NO;
+    NSInteger currentIndex = 0;
+    for (NSString *languageCode in preferredLanguageCodes) {
+        NSString *migratedLanguageCode = languageMapping[languageCode];
+        if (migratedLanguageCode) {
+            [updatedLanguageCodes replaceObjectAtIndex:currentIndex withObject:languageMapping[languageCode]];
+            languageCodesChanged = YES;
+        }
+        currentIndex++;
+    }
+    
+    if (languageCodesChanged) {
+        // No changeType and nil changedLanguage will skip sending of notifications that preferred languages changed
+        [self savePreferredLanguageCodes:updatedLanguageCodes changeType:0 changedLanguage:nil inManagedObjectContext:moc];
+    }
 }
 
 @end
