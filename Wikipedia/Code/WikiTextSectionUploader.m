@@ -52,12 +52,47 @@
     [self updateWithArticleURL:articleURL parameters:params captchaWord:nil completion:completion];
 }
 
+- (void)prependToSectionID:(NSString *)sectionID
+                         text:(NSString *)text
+                forArticleURL:(NSURL *)articleURL
+             isMinorEdit:(BOOL)isMinorEdit
+               baseRevID:(nullable NSNumber *)baseRevID
+                   completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion {
+
+    NSString *title = articleURL.wmf_title;
+    if (!title) {
+        completion(nil, [WMFFetcher invalidParametersError]);
+        return;
+    }
+
+    NSMutableDictionary *params =
+    @{
+      @"action": @"edit",
+      @"prependtext": text,
+      @"section": sectionID,
+      @"title": articleURL.wmf_title,
+      @"format": @"json"
+      }
+    .mutableCopy;
+
+    if (isMinorEdit) {
+        params[@"minor"] = @"1";
+    }
+
+    if (baseRevID) {
+        params[@"baserevid"] = [NSString stringWithFormat:@"%@", baseRevID];
+    }
+
+    [self updateWithArticleURL:articleURL parameters:params captchaWord:nil completion:completion];
+}
+
 - (void)uploadWikiText:(nullable NSString *)wikiText
          forArticleURL:(NSURL *)articleURL
                section:(NSString *)section
                summary:(nullable NSString *)summary
            isMinorEdit:(BOOL)isMinorEdit
         addToWatchlist:(BOOL)addToWatchlist
+             baseRevID:(nullable NSNumber *)baseRevID
              captchaId:(nullable NSString *)captchaId
            captchaWord:(nullable NSString *)captchaWord
             completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion {
@@ -88,6 +123,10 @@
 
     if (addToWatchlist) {
         params[@"watchlist"] = @"watch";
+    }
+    
+    if (baseRevID) {
+        params[@"baserevid"] = [NSString stringWithFormat:@"%@", baseRevID];
     }
 
     if (captchaWord && captchaId) {

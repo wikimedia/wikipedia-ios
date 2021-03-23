@@ -96,6 +96,11 @@ extension URL {
     public var wmf_isNonStandardURL: Bool {
         return (self as NSURL).wmf_isNonStandardURL
     }
+    
+    /// returns true if host is en.wikipedia.org. Assumes desktop Wikipedia production format, i.e. that "en.wikipedia.org" is the host component and not in the path.
+    public var wmf_isEnglishWikipedia: Bool {
+        host == Configuration.Domain.englishWikipedia
+    }
 
     public var wmf_wiki: String? {
         return wmf_language?.replacingOccurrences(of: "-", with: "_").appending("wiki")

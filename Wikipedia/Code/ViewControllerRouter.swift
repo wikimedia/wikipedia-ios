@@ -33,6 +33,12 @@ class ViewControllerRouter: NSObject {
                 vc.navigationBar.isBarHidingEnabled = false
             }
         }
+        
+        //pass along doesUseSimpleNavigationBar SinglePageWebViewController settings to the next one if needed
+        if let lastWebVC = navigationController.children.last as? SinglePageWebViewController,
+           let nextWebVC = viewController as? SinglePageWebViewController {
+            nextWebVC.doesUseSimpleNavigationBar = lastWebVC.doesUseSimpleNavigationBar
+        }
 
         if let presentedVC = navigationController.presentedViewController {
             presentedVC.dismiss(animated: false, completion: showNewVC)

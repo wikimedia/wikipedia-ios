@@ -425,13 +425,13 @@ class ArticleViewController: ViewController, HintPresenting {
         }
     }
     
-    internal func loadSummary() {
+    internal func loadSummary(oldState: ViewState) {
         guard let key = article.inMemoryKey else {
             return
         }
         
         articleLoadWaitGroup?.enter()
-        let cachePolicy: URLRequest.CachePolicy? = self.state == .reloading ? .reloadRevalidatingCacheData : nil
+        let cachePolicy: URLRequest.CachePolicy? = oldState == .reloading ? .reloadRevalidatingCacheData : nil
         self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key, cachePolicy: cachePolicy) { (article, error) in
             defer {
                 self.articleLoadWaitGroup?.leave()
