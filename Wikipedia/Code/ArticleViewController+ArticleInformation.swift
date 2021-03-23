@@ -1,9 +1,6 @@
 extension ArticleViewController {
     func showLanguages() {
-        guard let languagesVC = WMFArticleLanguagesViewController(articleURL: articleURL) else {
-            showGenericError()
-            return
-        }
+        let languagesVC = WMFArticleLanguagesViewController(articleURL: articleURL)
         themesPresenter.dismissReadingThemesPopoverIfActive(from: self)
         languagesVC.delegate = self
         presentEmbedded(languagesVC, style: .sheet)
