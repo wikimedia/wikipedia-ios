@@ -139,7 +139,7 @@ protocol DescriptionEditViewControllerDelegate: class {
     }
 
     private var subTitleLabelAttributedString: NSAttributedString {
-        let formatString = WMFLocalizedString("description-edit-for-article", value: "Title description for %1$@", comment: "String describing which article title description is being edited. %1$@ is replaced with the article title")
+        let formatString = WMFLocalizedString("description-edit-for-article", value: "Article description for %1$@", comment: "String describing which article description is being edited. %1$@ is replaced with the article title")
         return String.localizedStringWithFormat(formatString, articleDescriptionController.articleDisplayTitle ?? "").byAttributingHTML(with: .semiboldSubheadline, matching: traitCollection)
     }
     
@@ -148,7 +148,7 @@ protocol DescriptionEditViewControllerDelegate: class {
     }
     
     private var licenseLabelAttributedString: NSAttributedString {
-        let formatString = WMFLocalizedString("description-edit-license", value: "By changing the title description, I agree to the %1$@ and to irrevocably release my contributions under the %2$@ license.", comment: "Button text for information about the Terms of Use and edit licenses. Parameters:\n* %1$@ - 'Terms of Use' link, %2$@ - license name link")
+        let formatString = WMFLocalizedString("description-edit-license", value: "By changing the article description, I agree to the %1$@ and to irrevocably release my contributions under the %2$@ license.", comment: "Button text for information about the Terms of Use and edit licenses. Parameters:\n* %1$@ - 'Terms of Use' link, %2$@ - license name link")
         
         let baseAttributes: [NSAttributedString.Key: Any] = [
             .foregroundColor : theme.colors.secondaryText,

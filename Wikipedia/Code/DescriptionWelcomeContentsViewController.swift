@@ -23,7 +23,7 @@ class DescriptionWelcomeContentsViewController: UIViewController, Themeable {
     private func updateUIStrings(){
         switch pageType {
         case .intro:
-            descriptionLabel?.text = WMFLocalizedString("description-welcome-descriptions-sub-title", value:"Summarizes an article to help readers understand the subject at a glance", comment:"Subtitle text explaining title descriptions")
+            descriptionLabel?.text = WMFLocalizedString("description-welcome-descriptions-sub-title", value:"Summarizes an article to help readers understand the subject at a glance", comment:"Subtitle text explaining article descriptions")
         case .exploration:
             descriptionLabel?.text = WMFLocalizedString("description-welcome-concise-sub-title", value:"Ideally one line, between two to twelve words", comment:"Subtitle text explaining descriptions should be concise")
         }
