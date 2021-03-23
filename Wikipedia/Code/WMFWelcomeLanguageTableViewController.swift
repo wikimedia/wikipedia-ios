@@ -61,12 +61,11 @@ class WMFWelcomeLanguageTableViewController: ThemeableViewController, WMFPreferr
     }
     
     @IBAction func addLanguages(withSender sender: AnyObject) {
-        if let langsVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController() {
-            langsVC.showExploreFeedCustomizationSettings = false
-            langsVC.delegate = self
-            let navC = WMFThemeableNavigationController(rootViewController: langsVC, theme: self.theme)
-            present(navC, animated: true, completion: nil)
-        }
+        let langsVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
+        langsVC.showExploreFeedCustomizationSettings = false
+        langsVC.delegate = self
+        let navC = WMFThemeableNavigationController(rootViewController: langsVC, theme: self.theme)
+        present(navC, animated: true, completion: nil)
     }
     
     func languagesController(_ controller: WMFPreferredLanguagesViewController, didUpdatePreferredLanguages languages:[MWKLanguageLink]){

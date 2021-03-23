@@ -281,11 +281,11 @@ private extension TalkPageContainerViewController {
     @objc func tappedLanguage(_ sender: UIButton) {
         
         let languagesVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
-        languagesVC?.delegate = self
+        languagesVC.delegate = self
         if let themeable = languagesVC as Themeable? {
             themeable.apply(theme: self.theme)
         }
-        present(WMFThemeableNavigationController(rootViewController: languagesVC!, theme: self.theme), animated: true, completion: nil)
+        present(WMFThemeableNavigationController(rootViewController: languagesVC, theme: self.theme), animated: true, completion: nil)
     }
     
     var talkPageURL: URL? {

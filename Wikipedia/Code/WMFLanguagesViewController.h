@@ -4,9 +4,11 @@
 @class WMFLanguagesViewController;
 @protocol WMFLanguagesViewControllerDelegate;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface WMFLanguagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, WMFThemeable>
 
-@property (nonatomic, weak) id<WMFLanguagesViewControllerDelegate> delegate;
+@property (nonatomic, weak, nullable) id<WMFLanguagesViewControllerDelegate> delegate;
 
 + (instancetype)languagesViewController;
 
@@ -39,6 +41,6 @@
 
 + (instancetype)articleLanguagesViewControllerWithArticleURL:(NSURL *)url;
 
-@property (nonatomic, strong, readonly) NSURL *articleURL;
-
 @end
+
+NS_ASSUME_NONNULL_END
