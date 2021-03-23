@@ -254,7 +254,7 @@ public class CommonStrings: NSObject {
     static let charactersTextDescription = WMFLocalizedString("aaald-characters-text-description", value:"{{PLURAL:%1$d|0=characters|character|characters}}",
                                                               comment:"Displayed in an article as a living document cell explaining that a revision has a certain number of characters added or deleted. %1$d is the number of characters added or deleted.")
     
-    static let articleDescriptionUpdatedDescription =  WMFLocalizedString("aaald-article-description-updated-description", value:"Article  description updated",
+    static let articleDescriptionUpdatedDescription =  WMFLocalizedString("aaald-article-description-updated-description", value:"Article description updated",
     comment:"Title displayed in an article as a living document cell explaining that an article's description was updated in a revision.")
     
     static let singleReferenceAddedDescription =  WMFLocalizedString("aaald-single-reference-added-description", value:"Reference added",
