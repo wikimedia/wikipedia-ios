@@ -272,6 +272,68 @@ class DiffEducationalPanelViewController: ScrollableEducationPanelViewController
     }
 }
 
+class LanguageVariantEducationalPanelViewController: ScrollableEducationPanelViewController {
+    
+    let languageCode: String
+    let isFinalAlert: Bool
+    
+    // This panel can be displayed once or numerous times in a row when a user updates to an app version that adds new variant support for languages
+    // When the secondaryButtonTapHandler is nil, a primary "Got it" button and no secondary button is diplayed.
+    // When the secondaryButtonTapHandler has a value, the primary button is "Review your preferences" with a secondary "No thanks" button.
+    init(primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?, dismissHandler: ScrollableEducationPanelDismissHandler?, discardDismissHandlerOnPrimaryButtonTap: Bool = false, theme: Theme, languageCode: String) {
+        self.languageCode = languageCode
+        self.isFinalAlert = secondaryButtonTapHandler != nil
+        super.init(showCloseButton: false, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: dismissHandler, discardDismissHandlerOnPrimaryButtonTap: discardDismissHandlerOnPrimaryButtonTap, theme: theme)
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        heading = alertTitleForLanguageCode(languageCode)
+        subheading = alertBodyForLanguageCode(languageCode) + "\n"
+        subheadingTextAlignment = .natural
+        primaryButtonTitle = isFinalAlert ? CommonStrings.variantsAlertPreferencesButton : CommonStrings.gotItButtonTitle
+        secondaryButtonTitle = isFinalAlert ? CommonStrings.variantsAlertDismissButton : nil
+    }
+    
+    func alertTitleForLanguageCode(_ languageCode: String) -> String {
+        switch languageCode {
+        case "crh": return CommonStrings.crimeanTatarVariantsAlertTitle
+        case "gan": return CommonStrings.ganVariantsAlertTitle
+        case "iu": return CommonStrings.inuktitutVariantsAlertTitle
+        case "kk": return CommonStrings.kazakhVariantsAlertTitle
+        case "ku": return CommonStrings.kurdishVariantsAlertTitle
+        case "sr": return CommonStrings.serbianVariantsAlertTitle
+        case "tg": return CommonStrings.tajikVariantsAlertTitle
+        case "uz": return CommonStrings.uzbekVariantsAlertTitle
+        case "zh": return CommonStrings.chineseVariantsAlertTitle
+        default:
+            assertionFailure("No language variant alert title for language code '\(languageCode)'")
+            return ""
+        }
+    }
+
+    func alertBodyForLanguageCode(_ languageCode: String) -> String {
+        switch languageCode {
+        case "crh": return CommonStrings.crimeanTatarVariantsAlertBody
+        case "gan": return CommonStrings.ganVariantsAlertBody
+        case "iu": return CommonStrings.inuktitutVariantsAlertBody
+        case "kk": return CommonStrings.kazakhVariantsAlertBody
+        case "ku": return CommonStrings.kurdishVariantsAlertBody
+        case "sr": return CommonStrings.serbianVariantsAlertBody
+        case "tg": return CommonStrings.tajikVariantsAlertBody
+        case "uz": return CommonStrings.uzbekVariantsAlertBody
+        case "zh": return CommonStrings.chineseVariantsAlertBody
+        default:
+            assertionFailure("No language variant alert body for language code '\(languageCode)'")
+            return ""
+        }
+    }
+}
+
 extension UIViewController {
     
     fileprivate func hasSavedArticles() -> Bool {
