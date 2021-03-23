@@ -3,8 +3,13 @@ import CocoaLumberjackSwift
 
 /* Whenever a language that previously did not have variants becomes a language with variants, a migration must happen.
  *
- * This process updates the various settings and user defaults that reference languages and ensure that the correct
- * language variant is set. So, a value such as "zh" for Chinese is replaced with a variant such as "zh-hans".
+ * There are two parts to the migration:
+ *      1. Updating persisted items like settings and Core Data records
+ *      2. Presenting alerts to the user to make them aware of the new variants
+ *
+ * 1. Migrating persistent items
+ * The first part of this process updates the various settings and user defaults that reference languages and ensure
+ * that the correct language variant is set. So, a value such as "zh" for Chinese is replaced with a variant such as "zh-hans".
  *
  * Note that once a language is converted, the 'plain' language code is a valid value meaning to use the 'mixed'
  * content for that site. This is the content as entered into that site without converting to any variant.
@@ -12,16 +17,22 @@ import CocoaLumberjackSwift
  * migration (the mixed or untransformed variant of the language), migration should only happen once for a given
  * language.
  *
- * If additional languages add variants in the future, a new library version should be used and only those languages should
- * be passed in to migrateToLanguageVariants(for:).
+ * If additional languages add variants in the future, a new library version should be used and a new entry mapping the
+ * library version to the newly variant-aware languages should be added to -newlyAddedVariantLanguageCodes(for:).
+ * The migration code itself should call migrateToLanguageVariants(for:in:) with the new library version.
  *
- * Similarly, when migrating to use language variants, if the user's preferred languages include languages which just
- * received variant support, an alert is presented to display that tell the user about variants. This should only be
- * displayed once for a given language.
  *
- * Rather than a boolean user default, the library version is stored in the alert default. If the app library version
- * is greater than the default's library version, the method newlyAddedVariantLanguageCodes(for:) returns the supported
+ * 2. Presenting informational alerts
+ * When migrating to use language variants, if the user's preferred languages include languages which have
+ * received variant support, an alert is presented to tell the user about variants. An alert is only presented for
+ * newly variant-aware languges that also are preferred languages of the user. Multiple alerts shown
+ * sequentially are possible, but expected to be rare.
  *
+ * The method languageCodesNeedingVariantAlerts(since:) returns all language codes requiring a variant alert since the
+ * provided library version. Note that while migrating data is done library version by library version, this API can handle
+ * multiple library version updates at once. Also note that the method only returns those language codes that are also
+ * in the user's list of preferred languages. So, it is expected that this method will return an empty array for a user
+ * with no variant-aware languages in their list of preferred languages.
  */
 
 extension MWKDataStore {
