@@ -88,7 +88,7 @@
 "about-wikimedia-foundation" = "ウィキメディア財団";
 "about-wikipedia" = "ウィキペディアについて";
 "abuse-filter-disallow-heading" = "この編集は公開できません";
-"abuse-filter-disallow-unconstructive" = "自動フィルターがこの編集を非建設的あるいは荒らし行為の可能性があると判断しました。戻って編集をやり直してください。";
+"abuse-filter-disallow-unconstructive" = "自動フィルターがこの編集を非建設的あるいは荒らし行為の可能性があると判断しました。戻って編集内容を修正してください。";
 "abuse-filter-warning-blanking" = "記事の節もしくは全文の削除";
 "abuse-filter-warning-caps" = "すべて大文字で表記";
 "abuse-filter-warning-heading" = "これは建設的な編集ではないようです。それでも公開しますか?";

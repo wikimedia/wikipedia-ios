@@ -48,6 +48,9 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 
 @interface MWKDataStore : NSObject
 
+/// The current library version as used in migrations
+@property (class, nonatomic, readonly) NSInteger currentLibraryVersion;
+
 /**
  *  Initialize with sharedInstance database and legacyDataBasePath
  *

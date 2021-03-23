@@ -345,6 +345,8 @@
 "main-menu-account-logout-are-you-sure" = "ߌ ߟߊߣߴߊ߬ ߟߊ߫ ߞߴߌ ߦߴߊ߬ ߝߍ߬ ߞߵߌ ߜߊ߲߬ߞߎ߲߬ߣߍ߲ ߓߐ߫؟";
 "main-menu-account-logout-cancel" = "ߊ߬ ߘߐߛߊ߬";
 "main-menu-account-title-logged-in" = "ߌ ߜߊ߲߬ߞߎ߲߫ $1 ߘߌ߫";
+"main-menu-nearby" = "ߛߌ߰ߢߐ߲߮";
+"main-menu-privacy-policy" = "ߘߎ߲߬ߘߎ߬ߡߊ߬ ߤߊߞߍ";
 "main-menu-rate-app" = "ߡߐ߬ߟߐ߲ ߘߌ߫ ߟߥߊ߬ߟߌ߬ߟߊ߲ ߡߊ߬";
 "main-menu-terms-of-use" = "ߟߊ߬ߓߊ߰ߙߊ߬ߟߌ ߛߙߊߕߌ";
 "main-menu-title" = "ߡߞߊ߬ߝߏ߬ ߜߘߍ߫ ߟߎ߫";
@@ -354,6 +356,12 @@
 "more-languages-tooltip-title" = "ߞߊ߲ ߘߏ߫ ߝߊ߬ߙߊ߫";
 "move-articles-to-reading-list" = "{{PLURAL:$1|ߞߎߡߘߊ $1|ߞߎߡߘߊ $1 ߟߎ߬}} ߛߋ߲߬ߓߐ߫ ߘߐ߬ߞߊ߬ߙߊ߲߬ߠߌ߲߬ ߛߙߍߘߍ ߘߐ߫";
 "navbar-title-mode-edit-wikitext-preview" = "ߟߊ߬ߕߎ߲߰ߠߊ";
+"nearby-distance-label-feet" = "ߛߋ߲߬ߝߘߍ߫ (ߝߌߕ) $1";
+"nearby-distance-label-km" = "ߞߎߘߍ߫ $1";
+"nearby-distance-label-meters" = "ߜߟ $1";
+"nearby-distance-label-miles" = "ߡߟߌ $1";
+"new-password-instructions" = "ߌ ߓߘߴߌ ߜߊ߲߬ߞߎ߲߬ ߥߊ߯ߕߌ߫ ߟߊߕߊߡߌ߲߫ ߕߊߡߌ߲ߞߊ߲ ߠߊ߫.ߖߐ߲߬ߛߊ߫ ߌ ߘߴߌ ߟߊ߫ ߜߊ߲߬ߞߎ߲߬ߠߌ߲ ߠߊߞߎߙߊ߲߫߸ ߌ ߟߊ߫ ߕߊ߬ߡߌ߲߬ߞߊ߲߬ ߞߎߘߊ ߟߊߘߏ߲߬ ߦߊ߲߬ ߖߊ߰ߣߌ߲߬.";
+"new-password-title" = "ߌ ߟߊ߫ ߕߊ߬ߡߌ߲߬ߞߊ߲ ߠߊߘߏ߲߬";
 "on-this-day-title" = "ߟߏ߲ ߣߌ߲߬ ߡߊ߬";
 "page-history-anonymous-edits" = "ߕߐ߯ߒߕߊ߲ ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲߬ ߣߐ";
 "page-history-bot-edits" = "ߡߐ߰ߡߐ߮ ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲߬ ߣߐ";
