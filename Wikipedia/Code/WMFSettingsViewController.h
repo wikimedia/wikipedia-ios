@@ -3,7 +3,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFSettingsViewController : WMFViewController
+@interface WMFSettingsViewController : WMFViewController <WMFPreferredLanguagesViewControllerDelegate>
 
 + (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store;
 

@@ -1,5 +1,5 @@
 "aaald-added-text-description-2" = "Title displayed in an article as a living document cell explaining that a revision has a certain number of characters added. $1 is replaced by a formatted string representing characters added.";
-"aaald-article-description-updated-description" = "Title displayed in an article as a living document cell explaining that an article's title description was updated in a revision.";
+"aaald-article-description-updated-description" = "Title displayed in an article as a living document cell explaining that an article's description was updated in a revision.";
 "aaald-article-insert-header" = "Header text in article content insert section that displays recent significant article updates.";
 "aaald-article-insert-last-updated" = "Badge text in article content showing when the article as last updated.";
 "aaald-article-insert-new-changes" = "Badge text in article content showing that there have been new significant updates to the article since the user last viewed it.";
@@ -161,12 +161,12 @@
 "crimean-tatar-variants-alert-title" = "Title of alert used to inform users about Crimean Tatar variant support.";
 "data-migration-status" = "Message displayed during a long running data migration.";
 "description-add-title" = "Title text for description addition screen";
-"description-edit-for-article" = "String describing which article title description is being edited. $1 is replaced with the article title";
+"description-edit-for-article" = "String describing which article description is being edited. $1 is replaced with the article title";
 "description-edit-learn-more" = "Title text for description editing learn more button";
 "description-edit-length-warning" = "Displayed to indicate how many description characters were entered. Separator can be customized depending on the language. $1 is replaced with the number of characters entered, $2 is replaced with the recommended maximum number of characters.";
 "description-edit-license" = "Button text for information about the Terms of Use and edit licenses. Parameters:\n* $1 - 'Terms of Use' link, $2 - license name link";
 "description-edit-pencil-introduction" = "Title for button used to show article lead section editor";
-"description-edit-pencil-title" = "Title for button used to show title description editor";
+"description-edit-pencil-title" = "Title for button used to show article description editor";
 "description-edit-placeholder-title" = "Placeholder text shown inside description field until user taps on it";
 "description-edit-publish" = "Title for publish description button";
 "description-edit-title" = "Title text for description editing screen";
@@ -175,8 +175,8 @@
 "description-help-about-description" = "Description editing details label text";
 "description-help-about-title" = "Description editing about label text";
 "description-help-about-wikidata" = "About Wikidata label text";
-"description-help-more-info-description" = "Title descriptions more info details text";
-"description-help-more-info-title" = "Title descriptions more info heading text";
+"description-help-more-info-description" = "Article descriptions more info details text";
+"description-help-more-info-title" = "Article descriptions more info heading text";
 "description-help-tips-description" = "Description editing tips details label text";
 "description-help-tips-example-description-one" = "First example description text";
 "description-help-tips-example-description-two" = "Second example description text";
@@ -192,8 +192,8 @@
 "description-published-title" = "Title for letting the user know their description change succeeded.";
 "description-welcome-concise-sub-title" = "Subtitle text explaining descriptions should be concise";
 "description-welcome-concise-title" = "Title text explaining descriptions should be concise";
-"description-welcome-descriptions-sub-title" = "Subtitle text explaining title descriptions";
-"description-welcome-descriptions-title" = "Title text explaining title descriptions";
+"description-welcome-descriptions-sub-title" = "Subtitle text explaining article descriptions";
+"description-welcome-descriptions-title" = "Title text explaining article descriptions";
 "description-welcome-promise-title" = "Title text asking user to edit descriptions responsibly";
 "description-welcome-start-editing-button" = "Text for button for dismissing description editing welcome screens";
 "diff-compare-header-from-info-heading" = "Heading label in from revision info box when comparing two revisions.";

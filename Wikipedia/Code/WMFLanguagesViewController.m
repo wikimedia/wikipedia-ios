@@ -559,6 +559,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 @interface WMFArticleLanguagesViewController ()
 
 @property (strong, nonatomic) MWKTitleLanguageController *titleLanguageController;
+@property (nonatomic, strong, readonly) NSURL *articleURL;
 
 @end
 
