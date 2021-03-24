@@ -89,6 +89,8 @@ class ArticleViewController: ViewController, HintPresenting {
     }
     //END: Article As Living Doc properties
     
+    var wikidataDescriptionController: WikidataDescriptionController?
+    
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil) {
         guard let article = dataStore.fetchOrCreateArticle(with: articleURL) else {
                 return nil

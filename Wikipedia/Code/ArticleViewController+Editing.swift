@@ -43,8 +43,17 @@ extension ArticleViewController {
 
         editFunnel.logTitleDescriptionEditingStart(from: funnelSource, language: articleLanguage)
 
-        let maybeDescriptionController: ArticleDescriptionControlling? = articleURL.wmf_isEnglishWikipedia ? ShortDescriptionController(article: article, articleLanguage: articleLanguage, articleURL: articleURL, descriptionSource: descriptionSource, delegate: self) : WikidataDescriptionController(article: article, articleLanguage: articleLanguage, descriptionSource: descriptionSource)
-
+        let maybeDescriptionController: ArticleDescriptionControlling?
+        
+        if articleURL.wmf_isEnglishWikipedia {
+            maybeDescriptionController = ShortDescriptionController(article: article, articleLanguage: articleLanguage, articleURL: articleURL, descriptionSource: descriptionSource, delegate: self)
+        } else {
+            if wikidataDescriptionController == nil {
+                wikidataDescriptionController = WikidataDescriptionController(article: article, articleLanguage: articleLanguage, descriptionSource: descriptionSource)
+            }
+            maybeDescriptionController = wikidataDescriptionController
+        }
+        
         guard let descriptionController = maybeDescriptionController else {
             showGenericError()
             return
@@ -210,6 +219,7 @@ extension ArticleViewController: SectionEditorViewControllerDelegate {
 
 extension ArticleViewController: DescriptionEditViewControllerDelegate {
     func descriptionEditViewControllerEditSucceeded(_ descriptionEditViewController: DescriptionEditViewController, result: ArticleDescriptionPublishResult) {
+        reloadArticleSummaryFromDescriptionEdit()
         injectNewDescriptionIntoArticleContent(result.newDescription) { [weak self] injectResult in
             
             guard let self = self else  {
@@ -223,6 +233,22 @@ extension ArticleViewController: DescriptionEditViewControllerDelegate {
             case .success:
                 break
             }
+        }
+    }
+    
+    func reloadArticleSummaryFromDescriptionEdit() {
+        guard let key = article.inMemoryKey else {
+            return
+        }
+        
+        let cachePolicy = URLRequest.CachePolicy.reloadIgnoringLocalAndRemoteCacheData
+        self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key, cachePolicy: cachePolicy) { [weak self] (article, error) in
+            guard let self = self,
+                  let article = article else {
+                return
+            }
+            self.article = article
+            self.wikidataDescriptionController?.article = article
         }
     }
 }

@@ -1,41 +1,54 @@
 
 import Foundation
 
+enum WikidataDescriptionControllerError: Error {
+    case missingSelf
+    case articleMissingWikidataID
+}
+
 class WikidataDescriptionController: ArticleDescriptionControlling {
 
     private let fetcher: WikidataFetcher
-    private let wikidataDescription: String?
-    private let wikiDataID: String
-    let article: WMFArticle
+    var article: WMFArticle
     let articleLanguage: String
     let descriptionSource: ArticleDescriptionSource
+    private var lastPublishedWikidataDescription: String?
     
     init?(article: WMFArticle, articleLanguage: String, descriptionSource: ArticleDescriptionSource, fetcher: WikidataFetcher = WikidataFetcher()) {
         self.fetcher = fetcher
-        self.wikidataDescription = article.wikidataDescription
         self.article = article
         self.articleLanguage = articleLanguage
         self.descriptionSource = descriptionSource
         
-        guard let wikiDataID = article.wikidataID else {
+        guard article.wikidataID != nil else {
             return nil
         }
-        
-        self.wikiDataID = wikiDataID
     }
     
     func currentDescription(completion: @escaping (String?) -> Void) {
-        completion(wikidataDescription)
+        completion(lastPublishedWikidataDescription ?? article.wikidataDescription)
     }
     
     func publishDescription(_ description: String, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
         
-        fetcher.publish(newWikidataDescription: description, from: descriptionSource, forWikidataID: wikiDataID, language: articleLanguage) { (error) in
+        guard let wikidataID = article.wikidataID else {
+            completion(.failure(WikidataDescriptionControllerError.articleMissingWikidataID))
+            return
+        }
+        
+        fetcher.publish(newWikidataDescription: description, from: descriptionSource, forWikidataID: wikidataID, language: articleLanguage) { [weak self] (error) in
+            
+            guard let self = self else {
+                completion(.failure(WikidataDescriptionControllerError.missingSelf))
+                return
+            }
+            
             if let error = error {
                 completion(.failure(error))
                 return
             }
             
+            self.lastPublishedWikidataDescription = description
             completion(.success(ArticleDescriptionPublishResult(newRevisionID: nil, newDescription: description)))
         }
     }
