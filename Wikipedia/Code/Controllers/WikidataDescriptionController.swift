@@ -57,14 +57,10 @@ class WikidataDescriptionController: ArticleDescriptionControlling {
         if descriptionIsTooLong(description) {
             warningTypes.insert(.length)
         }
-
-        guard let firstCharacter = description?.first,
-              firstCharacter.isLetter,
-              firstCharacter.isUppercase else {
-            return warningTypes
-        }
         
-        warningTypes.insert(.casing)
+        if descriptionIsUppercase(description) {
+            warningTypes.insert(.casing)
+        }
         
         return warningTypes
     }

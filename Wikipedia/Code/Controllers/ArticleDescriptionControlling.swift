@@ -21,7 +21,6 @@ protocol ArticleDescriptionControlling {
     func currentDescription(completion: @escaping (String?) -> Void)
     func errorTextFromError(_ error: Error) -> String
     func learnMoreViewControllerWithTheme(_ theme: Theme) -> UIViewController?
-    var descriptionMaxLength: Int { get }
     func warningTypesForDescription(_ description: String?) -> ArticleDescriptionWarningTypes
 }
 
@@ -32,5 +31,15 @@ extension ArticleDescriptionControlling {
     func descriptionIsTooLong(_ description: String?) -> Bool {
         let isDescriptionLong = (description?.count ?? 0) > descriptionMaxLength
         return isDescriptionLong
+    }
+    
+    func descriptionIsUppercase(_ description: String?) -> Bool {
+        if let firstCharacter = description?.first,
+              firstCharacter.isLetter,
+              firstCharacter.isUppercase {
+            return true
+        }
+        
+        return false
     }
 }
