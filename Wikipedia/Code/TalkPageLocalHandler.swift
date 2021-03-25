@@ -17,9 +17,16 @@ extension NSManagedObjectContext {
             throw TalkPageError.talkPageDatabaseKeyCreationFailure
         }
         
+        let predicate: NSPredicate
+        if let languageVariantCode = taskURL.wmf_languageVariantCode {
+            predicate = NSPredicate(format: "key == %@ && variant == %@", databaseKey, languageVariantCode)
+        } else {
+            predicate = NSPredicate(format: "key == %@", databaseKey)
+        }
+        
         let fetchRequest: NSFetchRequest<TalkPage> = TalkPage.fetchRequest()
         fetchRequest.fetchLimit = 1
-        fetchRequest.predicate = NSPredicate(format: "key == %@", databaseKey)
+        fetchRequest.predicate = predicate
         
         return try fetch(fetchRequest).first
     }
@@ -28,6 +35,7 @@ extension NSManagedObjectContext {
         
         let talkPage = TalkPage(context: self)
         talkPage.key = url.wmf_databaseKey
+        talkPage.variant = url.wmf_languageVariantCode
         talkPage.displayTitle = displayTitle
         
         do {
@@ -46,6 +54,7 @@ extension NSManagedObjectContext {
         
         let talkPage = TalkPage(context: self)
         talkPage.key = networkTalkPage.url.wmf_databaseKey
+        talkPage.variant = networkTalkPage.url.wmf_languageVariantCode
         talkPage.revisionId = NSNumber(value: revisionID)
         talkPage.displayTitle = networkTalkPage.displayTitle
         
