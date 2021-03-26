@@ -480,7 +480,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 - (void)languagesController:(WMFLanguagesViewController *)controller didSelectLanguage:(MWKLanguageLink *)language {
     [MWKDataStore.shared.languageLinkController appendPreferredLanguage:language];
     [self reloadDataSections];
-    [controller dismissViewControllerAnimated:YES completion:self.userDismissalCompletionBlock];
+    [controller dismissViewControllerAnimated:YES completion:NULL];
     [self notifyDelegateThatPreferredLanguagesDidUpdate];
 }
 
