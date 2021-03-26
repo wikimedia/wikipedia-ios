@@ -34,12 +34,10 @@ extension ArticleDescriptionControlling {
     }
     
     func descriptionIsUppercase(_ description: String?) -> Bool {
-        if let firstCharacter = description?.first,
-              firstCharacter.isLetter,
-              firstCharacter.isUppercase {
-            return true
+        guard let firstCharacter = description?.first else {
+          return false
         }
         
-        return false
+        return firstCharacter.isLetter && firstCharacter.isUppercase
     }
 }
