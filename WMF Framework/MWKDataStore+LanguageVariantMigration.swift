@@ -56,7 +56,6 @@ extension MWKDataStore {
         feedContentController.migrateExploreFeedSettings(toLanguageVariants: migrationMapping, in: moc)
         migrateSearchLanguageSetting(toLanguageVariants: migrationMapping)
         migrateWikipediaEntities(toLanguageVariants: migrationMapping, in: moc)
-        
     }
     
     private func migrateSearchLanguageSetting(toLanguageVariants languageMapping: [String:String]) {
@@ -84,6 +83,15 @@ extension MWKDataStore {
                 let groups = try moc.fetch(contentGroupFetchRequest)
                 for group in groups {
                     group.variant = languageVariantCode
+                }
+                
+                // Update Talk Pages
+                let talkPageFetchRequest: NSFetchRequest<TalkPage> = TalkPage.fetchRequest()
+                talkPageFetchRequest.predicate = NSPredicate(format: "key BEGINSWITH %@", siteURLString)
+                let talkPages = try moc.fetch(talkPageFetchRequest)
+                for talkPage in talkPages {
+                    talkPage.variant = languageVariantCode
+                    talkPage.forceRefresh = true
                 }
                 
                 // Update Articles and Gather Keys

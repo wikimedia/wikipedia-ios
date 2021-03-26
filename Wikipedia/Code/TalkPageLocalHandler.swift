@@ -122,6 +122,8 @@ extension NSManagedObjectContext {
             
             try? removeUnlinkedTalkPageTopicContent()
             
+            localTalkPage.forceRefresh = false
+            
             try save()
             
             return localTalkPage
