@@ -785,7 +785,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                 [self checkRemoteAppConfigIfNecessary];
                 [self setupControllers];
                 if (!self.isWaitingToResumeApp) {
-                    [self resumeApp:[self presentLanguageVariantAlerts]];
+                    [self resumeApp:NULL];
                 }
             });
         }
@@ -812,10 +812,15 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         [self loadMainUI];
         dispatch_block_t done = ^{
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self finishResumingApp];
-                if (completion) {
-                    completion();
-                }
+                [self presentLanguageVariantAlertsWithCompletion:^{
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self finishResumingApp];
+
+                        if (completion) {
+                            completion();
+                        }
+                    });
+                }];
             });
         };
 

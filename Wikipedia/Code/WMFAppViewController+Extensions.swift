@@ -4,21 +4,26 @@ extension WMFAppViewController {
 
     // MARK: - Language Variant Migration Alerts
     
-    @objc public var presentLanguageVariantAlerts: () -> Void {
-        {
-            let savedLibraryVersion = UserDefaults.standard.integer(forKey: WMFLanguageVariantAlertsLibraryVersion)
-            guard savedLibraryVersion < MWKDataStore.currentLibraryVersion else { return }
-            
-            let languageCodesNeedingAlerts = self.dataStore.languageCodesNeedingVariantAlerts(since: savedLibraryVersion)
-            
-            if let firstCode = languageCodesNeedingAlerts.first {
-                self.presentVariantAlert(for: firstCode, remainingCodes: Array(languageCodesNeedingAlerts.dropFirst()))
-            }
-            UserDefaults.standard.set(MWKDataStore.currentLibraryVersion, forKey: WMFLanguageVariantAlertsLibraryVersion)
+    @objc internal func presentLanguageVariantAlerts(completion: @escaping () -> Void) {
+        
+        let savedLibraryVersion = UserDefaults.standard.integer(forKey: WMFLanguageVariantAlertsLibraryVersion)
+        guard savedLibraryVersion < MWKDataStore.currentLibraryVersion else {
+            completion()
+            return
         }
+        
+        let languageCodesNeedingAlerts = self.dataStore.languageCodesNeedingVariantAlerts(since: savedLibraryVersion)
+        guard let firstCode = languageCodesNeedingAlerts.first else {
+            completion()
+            return
+        }
+        
+        self.presentVariantAlert(for: firstCode, remainingCodes: Array(languageCodesNeedingAlerts.dropFirst()), completion: completion)
+            
+        UserDefaults.standard.set(MWKDataStore.currentLibraryVersion, forKey: WMFLanguageVariantAlertsLibraryVersion)
     }
     
-    private func presentVariantAlert(for languageCode: String, remainingCodes: [String]) {
+    private func presentVariantAlert(for languageCode: String, remainingCodes: [String], completion: @escaping () -> Void) {
         
         let primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler
         let secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
@@ -29,7 +34,7 @@ extension WMFAppViewController {
             // If more to show, primary button shows next variant alert
             primaryButtonTapHandler = { _ in
                 self.dismiss(animated: true) {
-                    self.presentVariantAlert(for: nextCode, remainingCodes: Array(remainingCodes.dropFirst()))
+                    self.presentVariantAlert(for: nextCode, remainingCodes: Array(remainingCodes.dropFirst()), completion: completion)
                 }
             }
             // And no secondary button
@@ -38,12 +43,12 @@ extension WMFAppViewController {
         } else {
             // If no more to show, primary button navigates to languge settings
             primaryButtonTapHandler = { _ in
-                self.displayPreferredLanguageSettings()
+                self.displayPreferredLanguageSettings(completion: completion)
             }
 
             // And secondary button dismisses
             secondaryButtonTapHandler = { _ in
-                self.dismiss(animated: true, completion: nil)
+                self.dismiss(animated: true, completion: completion)
             }
         }
                 
@@ -51,10 +56,11 @@ extension WMFAppViewController {
         self.present(alert, animated: true, completion: nil)
     }
 
-    private func displayPreferredLanguageSettings() {
+    private func displayPreferredLanguageSettings(completion: @escaping () -> Void) {
         self.dismissPresentedViewControllers()
         let languagesVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
         languagesVC.showExploreFeedCustomizationSettings = true
+        languagesVC.userDismissalCompletionBlock = completion
         languagesVC.apply(self.theme)
         let navVC = WMFThemeableNavigationController(rootViewController: languagesVC, theme: theme)
         present(navVC, animated: true, completion: nil)
