@@ -1211,8 +1211,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self dismissPresentedViewControllers];
             [self setSelectedIndex:WMFAppTabTypeMain];
             [self.navigationController popToRootViewControllerAnimated:NO];
-            WMFPreferredLanguagesViewController *languagesVC = [WMFPreferredLanguagesViewController
-                    preferredLanguagesViewController];
+            WMFPreferredLanguagesViewController *languagesVC = [WMFPreferredLanguagesViewController preferredLanguagesViewController];
             languagesVC.showExploreFeedCustomizationSettings = YES;
             languagesVC.delegate = self.settingsViewController;
             [languagesVC applyTheme:self.theme];
@@ -1220,6 +1219,11 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         } break;
         default: {
             NSURL *linkURL = [activity wmf_linkURL];
+            MWKLanguageLink *preferredLanguage = self.dataStore.languageLinkController.appLanguage;
+            // Ensure incoming link is fetched in user's preferred variant if applicable
+            if ([linkURL.wmf_siteURL isEqual:preferredLanguage.siteURL]) {
+                linkURL.wmf_languageVariantCode = preferredLanguage.languageVariantCode;
+            }
             if (!linkURL) {
                 done();
                 return NO;
@@ -1441,7 +1445,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)setDidShowOnboarding {
     [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:WMFDidShowOnboarding];
-    
+
     // If the user is onboarding, variant info alerts do not need to be presented
     // So, set the user default to the current library version
     [[NSUserDefaults standardUserDefaults] setInteger:MWKDataStore.currentLibraryVersion forKey:WMFLanguageVariantAlertsLibraryVersion];
