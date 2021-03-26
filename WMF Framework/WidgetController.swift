@@ -45,7 +45,7 @@ public final class WidgetController: NSObject {
         }
     }
     
-    public func fetchNewestWidgetContentGroup(with kind: WMFContentGroupKind, in dataStore: MWKDataStore, isNetworkFetchAllowed: Bool, isAnyLanguageAllowed: Bool = false, completion:  @escaping (WMFContentGroup?) -> Void) {
+    public func fetchNewestWidgetContentGroup(with kind: WMFContentGroupKind, in dataStore: MWKDataStore, isNetworkFetchAllowed: Bool, isAnyLanguageAllowed: Bool = false, shouldApplyPreferredLanguageVariant: Bool = false, completion:  @escaping (WMFContentGroup?) -> Void) {
         fetchCachedWidgetContentGroup(with: kind, isAnyLanguageAllowed: isAnyLanguageAllowed, in: dataStore) { (contentGroup) in
             guard let todaysContentGroup = contentGroup, todaysContentGroup.isForToday else {
                 guard isNetworkFetchAllowed else {
@@ -54,7 +54,7 @@ public final class WidgetController: NSObject {
                 }
                 self.updateFeedContent(in: dataStore) {
                     // if there's no cached content group after update, return nil
-                    self.fetchCachedWidgetContentGroup(with: kind, isAnyLanguageAllowed: isAnyLanguageAllowed, in: dataStore, completion: completion)
+                    self.fetchCachedWidgetContentGroup(with: kind, isAnyLanguageAllowed: isAnyLanguageAllowed, shouldApplyPreferredLanguageVariant: shouldApplyPreferredLanguageVariant, in: dataStore, completion: completion)
                 }
                 return
             }
@@ -62,10 +62,13 @@ public final class WidgetController: NSObject {
         }
     }
     
-    private func fetchCachedWidgetContentGroup(with kind: WMFContentGroupKind, isAnyLanguageAllowed: Bool, in dataStore: MWKDataStore, completion:  @escaping (WMFContentGroup?) -> Void) {
+    private func fetchCachedWidgetContentGroup(with kind: WMFContentGroupKind, isAnyLanguageAllowed: Bool, shouldApplyPreferredLanguageVariant: Bool = false, in dataStore: MWKDataStore, completion:  @escaping (WMFContentGroup?) -> Void) {
         assert(Thread.isMainThread, "Cached widget content group must be fetched from the main queue")
         let moc = dataStore.viewContext
-        let siteURL = isAnyLanguageAllowed ? dataStore.primarySiteURL : nil
+        var siteURL = isAnyLanguageAllowed ? dataStore.primarySiteURL : nil
+        if shouldApplyPreferredLanguageVariant {
+            siteURL?.wmf_languageVariantCode = dataStore.languageLinkController.appLanguage?.languageVariantCode
+        }
         completion(moc.newestGroup(of: kind, forSiteURL: siteURL))
     }
     

@@ -34,7 +34,7 @@ final class TopReadData {
     func fetchLatestAvailableTopRead(usingCache: Bool = false, completion userCompletion: @escaping (TopReadEntry) -> Void) {
         let widgetController = WidgetController.shared
         widgetController.startWidgetUpdateTask(userCompletion) { (dataStore, widgetUpdateTaskCompletion) in
-            widgetController.fetchNewestWidgetContentGroup(with: .topRead, in: dataStore, isNetworkFetchAllowed: !usingCache) { (contentGroup) in
+            widgetController.fetchNewestWidgetContentGroup(with: .topRead, in: dataStore, isNetworkFetchAllowed: !usingCache, shouldApplyPreferredLanguageVariant: true) { (contentGroup) in
                 guard let contentGroup = contentGroup else {
                     widgetUpdateTaskCompletion(self.placeholder)
                     return
@@ -54,14 +54,19 @@ final class TopReadData {
 
         // The WMFContentGroup can only be accessed synchronously
         // re-accessing it from the main queue or another queue might lead to unexpected behavior
+        let languageVariant = topRead.variant
         let layoutDirection: LayoutDirection = topRead.isRTL ? .rightToLeft : .leftToRight
         let groupURL = topRead.url
         let isCurrent = topRead.isForToday // even though the top read data is from yesterday, the content group is for today
         var rankedElements: [TopReadEntry.RankedElement] = []
+
         for article in results {
+            article.articleURL.wmf_languageVariantCode = languageVariant
             if let articlePreview = dataStore.fetchArticle(with: article.articleURL) {
                 if let viewCounts = articlePreview.pageViewsSortedByDate {
-                    rankedElements.append(.init(title: article.displayTitle, description: article.wikidataDescription ?? article.snippet ?? "", articleURL: article.articleURL, thumbnailURL: article.thumbnailURL, viewCounts: viewCounts))
+                    let title = articlePreview.displayTitle ?? article.displayTitle
+                    let description = articlePreview.wikidataDescription ?? article.wikidataDescription ?? articlePreview.snippet ?? article.snippet ?? ""
+                    rankedElements.append(.init(title: title, description: description, articleURL: article.articleURL, thumbnailURL: article.thumbnailURL, viewCounts: viewCounts))
                 }
             }
         }
