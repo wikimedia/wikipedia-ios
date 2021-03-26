@@ -126,7 +126,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 }
 
 - (void)closeButtonPressed {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:self.userDismissalCompletionBlock];
 }
 
 - (void)setHideLanguageFilter:(BOOL)hideLanguageFilter {
@@ -387,7 +387,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 #pragma mark - UIAccessibilityAction
 
 - (BOOL)accessibilityPerformEscape {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:self.userDismissalCompletionBlock];
     return true;
 }
 
@@ -480,7 +480,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 - (void)languagesController:(WMFLanguagesViewController *)controller didSelectLanguage:(MWKLanguageLink *)language {
     [MWKDataStore.shared.languageLinkController appendPreferredLanguage:language];
     [self reloadDataSections];
-    [controller dismissViewControllerAnimated:YES completion:NULL];
+    [controller dismissViewControllerAnimated:YES completion:self.userDismissalCompletionBlock];
     [self notifyDelegateThatPreferredLanguagesDidUpdate];
 }
 

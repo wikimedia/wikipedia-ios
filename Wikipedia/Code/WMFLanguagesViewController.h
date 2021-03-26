@@ -16,6 +16,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) BOOL showExploreFeedCustomizationSettings;
 
+// Block called after dismissal by user, by tapping the close button,
+// by the accessibility escape gesture, or selecting a language in cases where selection
+// causes a dismisal.
+@property (nonatomic, copy, nullable) void (^userDismissalCompletionBlock)(void);
+
+// Declared so that the method is visible from Swift. Theoretically conforming to WMFThemeable should
+// already do that, but it's hard to argue with the compiler.
+- (void)applyTheme:(WMFTheme *)theme;
+
 @end
 
 @class WMFPreferredLanguagesViewController;
