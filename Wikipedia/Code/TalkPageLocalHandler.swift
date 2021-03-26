@@ -230,7 +230,7 @@ private extension NSManagedObjectContext {
 
             if let localRepliesToDelete = localRepliesToDelete {
                 for reply in localRepliesToDelete {
-                    guard let reply = reply as? TalkPageTopic else {
+                    guard let reply = reply as? TalkPageReply else {
                         continue
                     }
 
