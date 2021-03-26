@@ -38,8 +38,7 @@ extension WMFAppViewController {
         } else {
             // If no more to show, primary button navigates to languge settings
             primaryButtonTapHandler = { _ in
-                let userActivity = NSUserActivity.wmf_languageSettings()
-                self.processUserActivity(userActivity, animated: true, completion: {})
+                self.displayPreferredLanguageSettings()
             }
 
             // And secondary button dismisses
@@ -50,6 +49,15 @@ extension WMFAppViewController {
                 
         let alert = LanguageVariantEducationalPanelViewController(primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: nil, theme: self.theme, languageCode: languageCode)
         self.present(alert, animated: true, completion: nil)
+    }
+
+    private func displayPreferredLanguageSettings() {
+        self.dismissPresentedViewControllers()
+        let languagesVC = WMFPreferredLanguagesViewController.preferredLanguagesViewController()
+        languagesVC.showExploreFeedCustomizationSettings = true
+        languagesVC.apply(self.theme)
+        let navVC = WMFThemeableNavigationController(rootViewController: languagesVC, theme: theme)
+        present(navVC, animated: true, completion: nil)
     }
 
 }
