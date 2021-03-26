@@ -216,8 +216,6 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
             return WMFUserActivityTypeSearch;
         } else if ([page isEqualToString:@"AppearanceSettings"]) {
             return WMFUserActivityTypeAppearanceSettings;
-        } else if ([page isEqualToString:@"LanguageSettings"]) {
-            return WMFUserActivityTypeLanguageSettings;
         } else {
             return WMFUserActivityTypeSettings;
         }
@@ -281,9 +279,6 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
             break;
         case WMFUserActivityTypeAppearanceSettings:
             host = @"appearancesettings";
-            break;
-        case WMFUserActivityTypeLanguageSettings:
-            host = @"languagesettings";
             break;
         case WMFUserActivityTypeContent:
             host = @"content";

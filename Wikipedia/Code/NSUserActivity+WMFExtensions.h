@@ -10,7 +10,6 @@ typedef NS_ENUM(NSUInteger, WMFUserActivityType) {
     WMFUserActivityTypeSearchResults,
     WMFUserActivityTypeSettings,
     WMFUserActivityTypeAppearanceSettings,
-    WMFUserActivityTypeLanguageSettings,
     WMFUserActivityTypeContent,
     WMFUserActivityTypeLink
 };
