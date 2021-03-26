@@ -6,6 +6,11 @@ extension WMFAppViewController {
     
     @objc internal func presentLanguageVariantAlerts(completion: @escaping () -> Void) {
         
+        guard shouldPresentLanguageVariantAlerts else {
+            completion()
+            return
+        }
+        
         let savedLibraryVersion = UserDefaults.standard.integer(forKey: WMFLanguageVariantAlertsLibraryVersion)
         guard savedLibraryVersion < MWKDataStore.currentLibraryVersion else {
             completion()
@@ -54,6 +59,18 @@ extension WMFAppViewController {
                 
         let alert = LanguageVariantEducationalPanelViewController(primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: secondaryButtonTapHandler, dismissHandler: nil, theme: self.theme, languageCode: languageCode)
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    // Don't present over modals or navigation stacks
+    // The user is deep linking in these states and we don't want to interrupt them
+    private var shouldPresentLanguageVariantAlerts: Bool {
+        guard presentedViewController == nil,
+              let navigationController = navigationController,
+              navigationController.viewControllers.count == 1 &&
+                navigationController.viewControllers[0] is WMFAppViewController else {
+            return false
+        }
+        return true
     }
 
     private func displayPreferredLanguageSettings(completion: @escaping () -> Void) {
