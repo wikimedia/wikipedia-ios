@@ -171,6 +171,7 @@
 "description-edit-publish" = "Title for publish description button";
 "description-edit-title" = "Title text for description editing screen";
 "description-edit-warning" = "Title text for label reminding users to keep descriptions concise";
+"description-edit-warning-casing" = "Title text for label reminding users to begin article descriptions with a lowercase letter for non-EN wikis.";
 "description-help-about-description" = "Description editing details label text";
 "description-help-about-title" = "Description editing about label text";
 "description-help-about-wikidata" = "About Wikidata label text";

@@ -171,6 +171,7 @@
 "description-edit-publish" = "Publish description";
 "description-edit-title" = "Edit description";
 "description-edit-warning" = "Try to keep descriptions short so users can understand the article's subject at a glance";
+"description-edit-warning-casing" = "Only proper nouns should be capitalized, even at the start of the sentence.";
 "description-help-about-description" = "Article descriptions summarize an article to help readers understand the subject at a glance.";
 "description-help-about-title" = "About";
 "description-help-about-wikidata" = "About Wikidata";
