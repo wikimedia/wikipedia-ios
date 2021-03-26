@@ -42,23 +42,23 @@ class DescriptionHelpViewController: ViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"close"), style: .plain, target:self, action:#selector(closeButtonPushed(_:)))
         navigationItem.leftBarButtonItem?.accessibilityLabel = CommonStrings.closeButtonAccessibilityLabel
 
-        title = WMFLocalizedString("description-help-title", value:"Title description help", comment:"Title for description editing help page")
+        title = WMFLocalizedString("description-help-title", value:"Article description help", comment:"Title for description editing help page")
         
         aboutTitleLabel.text = WMFLocalizedString("description-help-about-title", value:"About", comment:"Description editing about label text")
-        aboutDescriptionLabel.text = WMFLocalizedString("description-help-about-description", value:"Title descriptions summarize an article to help readers understand the subject at a glance.", comment:"Description editing details label text")
+        aboutDescriptionLabel.text = WMFLocalizedString("description-help-about-description", value:"Article descriptions summarize an article to help readers understand the subject at a glance.", comment:"Description editing details label text")
         
         tipsTitleLabel.text = WMFLocalizedString("description-help-tips-title", value:"Tips for creating descriptions", comment:"Description editing tips label text")
         tipsDescriptionLabel.text = WMFLocalizedString("description-help-tips-description", value:"Descriptions should ideally fit on one line, and are between two to twelve words long. They are not capitalized unless the first word is a proper noun.", comment:"Description editing tips details label text")
         tipsForExampleLabel.text = WMFLocalizedString("description-help-tips-for-example", value:"For example:", comment:"Examples label text")
         
         exampleOneTitleLabel.text = WMFLocalizedString("description-help-tips-example-title-one", value:"painting by Leonardo Da Vinci", comment:"First example label text")
-        exampleOneDescriptionLabel.text = WMFLocalizedString("description-help-tips-example-description-one", value:"title description for an article about the Mona Lisa", comment:"First example description text")
+        exampleOneDescriptionLabel.text = WMFLocalizedString("description-help-tips-example-description-one", value:"article description for an article about the Mona Lisa", comment:"First example description text")
         
         exampleTwoTitleLabel.text = WMFLocalizedString("description-help-tips-example-title-two", value:"Earth’s highest mountain", comment:"Second example label text")
-        exampleTwoDescriptionLabel.text = WMFLocalizedString("description-help-tips-example-description-two", value:"title description for an article about Mount Everest", comment:"Second example description text")
+        exampleTwoDescriptionLabel.text = WMFLocalizedString("description-help-tips-example-description-two", value:"article description for an article about Mount Everest", comment:"Second example description text")
         
-        moreInfoTitleLabel.text = WMFLocalizedString("description-help-more-info-title", value:"More information", comment:"Title descriptions more info heading text")
-        moreInfoDescriptionLabel.text = WMFLocalizedString("description-help-more-info-description", value:"Descriptions are stored and maintained on Wikidata, a project of the Wikimedia Foundation which provides a free, collaborative, multilingual, secondary database supporting Wikipedia and other projects.", comment:"Title descriptions more info details text")
+        moreInfoTitleLabel.text = WMFLocalizedString("description-help-more-info-title", value:"More information", comment:"Article descriptions more info heading text")
+        moreInfoDescriptionLabel.text = WMFLocalizedString("description-help-more-info-description", value:"Descriptions are stored and maintained on Wikidata, a project of the Wikimedia Foundation which provides a free, collaborative, multilingual, secondary database supporting Wikipedia and other projects.", comment:"Article descriptions more info details text")
 
         aboutWikidataLabel.text = WMFLocalizedString("description-help-about-wikidata", value:"About Wikidata", comment:"About Wikidata label text")
         wikidataGuideLabel.text = WMFLocalizedString("description-help-wikidata-guide", value:"Wikidata guide for writing descriptions", comment:"Wikidata guide label text")
