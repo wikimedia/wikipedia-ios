@@ -7,6 +7,7 @@
 // Author: Youssoufkadialy
 
 "aaald-added-text-description-2" = "$1 ߓߘߊ߫ ߝߙߊ߬";
+// Fuzzy
 "aaald-article-description-updated-description" = "ߞߎߡߘߊ ߞߎ߲߬ߕߐ߮ ߞߊ߲߬ߛߓߍߟߌ ߓߘߊ߫ ߟߏ߲ߘߐߦߊ߫";
 "aaald-article-insert-last-updated" = "ߟߏ߲ߘߐߦߊߟߌ ߞߐ߯ߟߕߊ";
 "aaald-article-insert-new-changes" = "ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ ߞߎߘߊ ߟߎ߬";
@@ -138,9 +139,11 @@
 "continue-reading-empty-description" = "ߥߞߌߔߋߘߌߦߊ ߛߏ߲߯ߓߊ߫ ߞߊ߬ ߞߎߡߘߊ߫ ߛߌߦߊߡߊ߲߫ ߠߎ߫ ߘߐߞߊ߬ߙߊ߲߬";
 "continue-reading-empty-title" = "ߞߎߡߘߊ߫ ߘߐߞߊ߬ߙߊ߲߬ߣߍ߲߬ ߞߎߘߊ߫ ߕߍ߫";
 "description-add-title" = "ߞߊ߲߬ߛߓߍߟߌ ߟߊߘߏ߲߬";
+// Fuzzy
 "description-edit-for-article" = "$1 ߞߎ߲߬ߕߐ߮ ߞߊ߲߬ߛߓߍߟߌ";
 "description-edit-learn-more" = "ߘߏߜߘߍ߫ ߟߎ߫ ߘߐߞߊ߬ߙߊ߲߬";
 "description-edit-pencil-introduction" = "ߟߊߘߏ߲߬ߠߌ߲ ߡߊߦߟߍ߬ߡߊ߲߫";
+// Fuzzy
 "description-edit-pencil-title" = "ߞߎ߲߬ߕߐ߮ ߞߊ߲߬ߛߓߍߟߌ ߡߊߦߟߍ߬ߡߊ߲߫";
 "description-edit-placeholder-title" = "ߞߊ߲߬ߛߓߍ߬ߟߌ߬ ߛߎߘߎ߲ ߠߋ߬ ߦߋ߫ ߓߍ߬ߘߍ ߘߌ߫";
 "description-edit-publish" = "ߞߊ߲߬ߛߓߍߟߌ ߟߊߥߊ߲߬ߞߊ߫";
@@ -148,17 +151,21 @@
 "description-help-about-title" = "ߞߊ߬ ߓߍ߲߬";
 "description-help-about-wikidata" = "ߞߊ߬ ߓߍ߲߬ ߥߞߌߘߕߊ߫ ߡߊ߬";
 "description-help-more-info-title" = "ߞߌ߬ߓߊ߬ߙߏ߬ߦߊ߬ ߜߘߍ߫ ߟߎ߫";
+// Fuzzy
 "description-help-tips-example-description-one" = "ߞߎߡߘߊ ߞߎ߲߬ߕߐ߮ ߞߊ߲߬ߛߓߍߟߌ ߞߊ߬ ߓߍ߲߬ ߡߎߣߊ ߟߌߛߊ߫ ߡߊ߬";
+// Fuzzy
 "description-help-tips-example-description-two" = "ߞߎߡߘߊ ߞߎ߲߬ߕߐ߮ ߞߊ߲߬ߛߓߍߟߌ ߞߊ߬ ߓߍ߲߬ ߌߝ߭ߊߙߍߛߕ ߞߎ߬ߙߎ ߡߊ߬";
 "description-help-tips-example-title-two" = "ߘߎ߱ ߕߌ߲ߘߌ߫ ߖߊ߲ ߠߎ߬";
 "description-help-tips-for-example" = "ߟߊߒߡߊ߫ ߘߐ߫";
 "description-help-tips-title" = "ߊ߬ ߛߐ߲߬ߞߌ߲߫ ߞߊ߲߬ߛߓߍߟߌ ߛߌ߲ߘߌ߫ ߞߊ߲ߡߊ߬";
+// Fuzzy
 "description-help-title" = "ߞߎ߲߬ߕߐ߮ ߞߊ߲߬ߛߓߍߟߌ ߘߍ߬ߡߍ߲߬ߠߌ߲";
 "description-help-wikidata-guide" = "ߥߞߌߘߕߊ ߞߊ߲߬ߛߓߍ߬ߟߌ ߟߎ߬ ߛߓߍߟߌ ߟߊߛߌ߲ߟߊ߲";
 "description-published-button-title" = "ߊ߬ ߓߘߊ߫ ߞߍ߫";
 "description-published-subtitle" = "ߌ ߓߘߊ߫ ߥߞߌߔߋߘߌߦߊ߫ ߛߌ߲ߘߌ ߟߊߢߊ߬ ߡߐ߱ ߓߍ߯ ߢߍ߫.";
 "description-published-title" = "ߞߊ߲߬ߛߓߍߟߌ ߓߘߊ߫ ߟߊߥߊ߲߬ߞߊ߫߹";
 "description-welcome-concise-title" = "ߊ߬ ߕߏ߫ ߛߎ߬ߘߎ߲߬ߧߊ ߘߐ߫";
+// Fuzzy
 "description-welcome-descriptions-title" = "ߞߐߕߐ߮ ߞߊ߲߬ߛߓߍߟߌ";
 "description-welcome-start-editing-button" = "ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ ߘߊߡߌ߬ߣߊ߬";
 "diff-compare-header-from-info-heading" = "ߞߊ߬ ߝߘߊ߫:";

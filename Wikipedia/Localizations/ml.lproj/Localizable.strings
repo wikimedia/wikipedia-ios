@@ -88,10 +88,12 @@
 "compass-direction" = "$1 മണിക്ക്";
 "continue-reading-empty-title" = "അടുത്തിടെ വായിച്ച ലേഖനങ്ങൾ ഇല്ല";
 "description-add-title" = "വിവരണം ചേർക്കുക";
+// Fuzzy
 "description-edit-for-article" = "$1നുള്ള തലക്കെട്ട് വിവരണം";
 "description-edit-learn-more" = "കൂടുതൽ അറിയുക";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "ആമുഖം തിരുത്തുക";
+// Fuzzy
 "description-edit-pencil-title" = "തലക്കെട്ട് വിവരണം തിരുത്തുക";
 "description-edit-placeholder-title" = "ചെറു വിവരണളാണ് നല്ലത്";
 "description-edit-publish" = "വിവരണം പ്രസിദ്ധീകരിക്കുക";
@@ -101,10 +103,12 @@
 "description-help-more-info-title" = "കൂടുതൽ വിവരങ്ങൾ";
 "description-help-tips-example-title-two" = "ഭൂമിയിലെ ഏറ്റവും ഉയരം കൂടിയ മല";
 "description-help-tips-for-example" = "ഉദാഹരണത്തിന്";
+// Fuzzy
 "description-help-title" = "തലക്കെട്ട് വിവരണ സഹായി";
 "description-help-wikidata-guide" = "വിവരണങ്ങൾ എഴുതുവാൻ സഹായകമാവുന്ന വിക്കിഡാറ്റ ഗൈഡ്";
 "description-published-button-title" = "ചെയ്തു";
 "description-published-title" = "വിവരണം പ്രസിദ്ധീകരിച്ചു!";
+// Fuzzy
 "description-welcome-descriptions-title" = "തലക്കെട്ട് വിവരണങ്ങൾ";
 "description-welcome-start-editing-button" = "തിരുത്തൽ തുടങ്ങുക";
 "diff-context-lines-collapsed-button-title" = "പ്രദർശിപ്പിക്കുക";

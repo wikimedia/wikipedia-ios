@@ -116,6 +116,7 @@
 "continue-reading-empty-description" = "Бикипиэдьийэни чинчийэн өссө элбэх сэргиир ыстатыйаҕын бул";
 "continue-reading-empty-title" = "Соторутааҕыта ааҕыллыбыт суох";
 "description-add-title" = "Быһааран суруй";
+// Fuzzy
 "description-edit-for-article" = "Аатын быһаарыыта «$1»";
 "description-edit-learn-more" = "Бу туһунан сиһилии";
 "description-edit-length-warning" = "$1 / $2";
@@ -123,7 +124,9 @@
 "description-help-more-info-description" = "Ойуулааһыннар Биики Тиһик диэн сиргэ бааллар. Биики Тиһик (Wikidata) Бикимиэдьийэ Пуондатын бырайыага: аһаҕас, көҥүл туттуллар билии олоҕо, онно Бикипиэдьийэни, Биики Хааһаҕы, Бикимиэдьийэ атын да бырайыактарын уонна да атыттары өйүүргэ аналлаах билии сааһыланан түмүллэр.";
 "description-help-more-info-title" = "Сиһилии";
 "description-help-tips-description" = "Ойуулааһын - толору этии буолбатах, отой кылгас быһаарыы. Уһуна үксүгэр икки сүһүөхтэн уон икки сүһүөххэ диэри буолар, биир устуруокаҕа батара ордук. Таба суруйуу быраабылата атыны ирдээбэт түгэнигэр ойуулааһыны кыра буукубаттан саҕалыыр куолу. Туочука туруоруллубат.";
+// Fuzzy
 "description-help-tips-example-description-one" = "Мона Лиза туһунан ыстатыйа ис хоһооно";
+// Fuzzy
 "description-help-tips-example-description-two" = "Эверест чыпчаалын туһунан ыстатыйа ис хоһооно";
 "description-help-tips-example-title-one" = "Леонардо да Винчи хартыыната";
 "description-help-tips-example-title-two" = "Сир саамай үрдүк хайата";
@@ -134,6 +137,7 @@
 "description-welcome-concise-sub-title" = "Кыаллар буоллаҕына биир устуруоканан, икки тылтан сүүрбэ тылга диэри";
 "description-welcome-concise-title" = "Бука диэн, кылгастык";
 "description-welcome-descriptions-sub-title" = "Кылгас ойуулааһыны көрөн киһи ыстатыйа туох туһунан буоларын тута билэр";
+// Fuzzy
 "description-welcome-descriptions-title" = "Кылгас ойуулааһынар";
 "dim-images" = "Ойууну мынаарыт";
 "edit-summary-choice-fixed-grammar" = "Таба суруйуутун көннөрдүм";

@@ -8,6 +8,7 @@
 // Author: Tweety
 
 "aaald-added-text-description-2" = "$1 شامل ڪيل";
+// Fuzzy
 "aaald-article-description-updated-description" = "مضمون جي عنوان جي تشريح جي تجديد ٿي وئي";
 "aaald-article-insert-header" = "وڏيون تجديدون";
 "aaald-article-insert-last-updated" = "آخري ڀيرو تجديد ٿي";
@@ -160,28 +161,35 @@
 "continue-reading-empty-title" = "ڪي بہ تازو پڙھيل مضمون ناھن";
 "data-migration-status" = "تجديد ڪندي...";
 "description-add-title" = "تشريح وجھو";
+// Fuzzy
 "description-edit-for-article" = "$1 لاءِ عنوان جي تشريح";
 "description-edit-learn-more" = "وڌيڪ سکو";
 "description-edit-length-warning" = "$1 / $2";
+// Fuzzy
 "description-edit-license" = "عنوان جي تشريح بدلائيندي، آئون $1 سان ۽ پنھنجون ڀاڱيداريون بغير رد ڪئي $2 اجازتنامي ھيٺ جاري ڪرڻ لاءِ راضي آھيان.";
 "description-edit-pencil-introduction" = "تعارف سنواريو";
+// Fuzzy
 "description-edit-pencil-title" = "عنوان جي تشريح سنواريو";
 "description-edit-placeholder-title" = "مختصر تشريحون بھترين آھن";
 "description-edit-publish" = "تشريح ڇاپيو";
 "description-edit-title" = "تشريح سنواريو";
 "description-edit-warning" = "تشريح مختصر رکڻ جي ڪوشش ڪريو جيئن وپرائيندڙ ھڪ جھلڪ ۾ مضمون جو موضوع سمجھي وڃن";
+// Fuzzy
 "description-help-about-description" = "عنوان جون تشريحون ڪنھن بہ مضمون جو تت ڏين ٿيون جيئن پڙھندڙ موضوع کي ھڪ جھلڪ ۾ سمجھي وڃن.";
 "description-help-about-title" = "بابت";
 "description-help-about-wikidata" = "وڪيڊيٽا بابت";
 "description-help-more-info-description" = "تشريحن کي وڪيڊيٽا ۾ سنڀاليو ۽ سھيڙيو ويندو آھي، جيڪا پڻ وڪيميڊيا فائونڊيشن جي ھڪ رٿا آھي، اھا مفت، گڏيل، گھڻ-لساني، ثانوي ڊيٽابيس آھي، جيڪا وڪيپيڊيا ۽ ٻين رٿائن جي پٺڀرائي ڪري ٿي.";
 "description-help-more-info-title" = "وڌيڪ معلومات";
 "description-help-tips-description" = "تشريحون ھڪ سٽ تي پوريون ٿيڻ گھرجن، ۽ اھي ڊيگھ ۾ ٻن کان ٻارھن لفظن جي وچ ۾ ھجڻ گھرجن. انھن کي وڏن اکرن ۾ لکيو وڃي جيسيتائين پھريون لفظ ڪو خاص اسم ھجي.";
+// Fuzzy
 "description-help-tips-example-description-one" = "مونا ليزا بابت ھڪ مضمون جي عنوان جي تشريح";
+// Fuzzy
 "description-help-tips-example-description-two" = "مائونٽ ايوريسٽ بابت ھڪ مضمون جي عنوان جي تشريح";
 "description-help-tips-example-title-one" = "ليونارڊو ڊا ونسي پاران مصوري";
 "description-help-tips-example-title-two" = "ڌرتي جو سڀ کان اوچو جبل";
 "description-help-tips-for-example" = "مثال طور:";
 "description-help-tips-title" = "تشريح لکڻ لاءِ صلاحون";
+// Fuzzy
 "description-help-title" = "عنوان جي تشريح بابت مدد";
 "description-help-wikidata-guide" = "تشريحون لکڻ لاءِ وڪيڊيٽا رھنما";
 "description-published-button-title" = "ٿي ويو";
@@ -191,6 +199,7 @@
 "description-welcome-concise-sub-title" = "مثالي طور هڪ سٽ، 2 کان 12 لفظن ائين";
 "description-welcome-concise-title" = "ان کي مختصر رکو";
 "description-welcome-descriptions-sub-title" = "ڪنھن بہ مضمون جو تت ڏئي ٿي تہ جيئن پڙھندڙ موضوع کي ھڪ جھلڪ ۾ سمجھي وڃن";
+// Fuzzy
 "description-welcome-descriptions-title" = "عنوان جون تشريحون";
 "description-welcome-promise-title" = "شروع ڪرڻ سان، آئون واعدو ڪريان ٿو تہ هن خصوصيت جو غلط استعمال نہ ڪندس";
 "description-welcome-start-editing-button" = "سنوارڻ شروع ڪريو";

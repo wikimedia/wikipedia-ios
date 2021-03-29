@@ -10,6 +10,7 @@
 // Author: Teitei
 
 "aaald-added-text-description-2" = "$1 ပေါင်းထည့်ခဲ့သည်";
+// Fuzzy
 "aaald-article-description-updated-description" = "ဆောင်းပါးခေါင်းစဉ်ဖော်ပြချက် မွမ်းမံခဲ့သည်";
 "aaald-article-insert-header" = "သိသာသော မွမ်းမံမှုများ";
 "aaald-article-insert-last-updated" = "နောက်ဆုံး မွမ်းမံခဲ့သည်";
@@ -139,27 +140,33 @@
 "continue-reading-empty-title" = "လတ်တလော ဖတ်ရှုစာမျက်နှာများ မရှိပါ";
 "data-migration-status" = "မွမ်းမံနေသည်...";
 "description-add-title" = "ဖော်ပြချက်ထည့်သွင်းပါ";
+// Fuzzy
 "description-edit-for-article" = "$1အတွက် ခေါင်းစဉ်ဖော်ပြချက်";
 "description-edit-learn-more" = "ထပ်မံ လေ့လာရန်";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "မိတ်ဆက် တည်းဖြတ်ရန်";
+// Fuzzy
 "description-edit-pencil-title" = "ခေါင်းစဉ်ဖော်ပြချက် တည်းဖြတ်ရန်";
 "description-edit-placeholder-title" = "ဖော်ပြချက်တိုများသည် အကောင်းဆုံးဖြစ်သည်";
 "description-edit-publish" = "ဖော်ပြချက် လွှင့်တင်ရန်";
 "description-edit-title" = "ဖော်ပြချက် တည်းဖြတ်ရန်";
 "description-edit-warning" = "ဖော်ပြချက်ကို တိုတိုရေးပါ၊ သို့မှသာ အသုံးပြုသူများအနေဖြင့် ဆောင်းပါး၏ အကြောင်းအရာကို တချက်ကြည့်ရုံဖြင့် နားလည်နိုင်မည်ဖြစ်ပါသည်။";
+// Fuzzy
 "description-help-about-description" = "ခေါင်းစဉ်ဖော်ပြချက်များသည် ဆောင်းပါးတစ်ခုကို အကျဉ်းချုပ်ဖော်ပြပေးပြီး တချက်ကြည့်ရုံဖြင့် အကြောင်းအရာကို စာဖတ်သူများ နားလည်စေရန် ကူညီပေးသည်။";
 "description-help-about-title" = "အကြောင်း";
 "description-help-about-wikidata" = "ဝီကီဒေတာ အကြောင်း";
 "description-help-more-info-description" = "ဖော်ပြချက်များကို ဝီကီဒေတာတွင် သိမ်းဆည်းထိန်းသိမ်းထားသည်။ ယင်းသည် ဝီကီမီဒီယာ ဖောင်ဒေးရှင်း၏ ပရောဂျက်တစ်ခုဖြစ်ပြီး ဝီကီပီးဒီးယားနှင့် အခြားပရောဂျက်များကို ထောက်ပံ့ပေးသည့် လွတ်လပ်၊ ပူးပေါင်းပေးသော ဒေတာဘေ့စ်စနစ်တစ်ခုဖြစ်ပါသည်။";
 "description-help-more-info-title" = "သတင်းအချက်အလက်အသစ်များ";
 "description-help-tips-description" = "ဖော်ပြချက်သည် စံနှုန်းအရ တစ်ကြောင်းတည်းဖြင့် ပြီးမြောက်သင့်ပြီး စကားလုံး ၂ ခုမှ ၁၂ ခုကြား ရှည်လျားသင့်ပါသည်။";
+// Fuzzy
 "description-help-tips-example-description-one" = "မိုနာလီဆာ ဆောင်းပါးအကြောင်း ခေါင်းစဉ်ဖော်ပြချက်";
+// Fuzzy
 "description-help-tips-example-description-two" = "ဧဝရတ်တောင်ဆောင်းပါး ခေါင်းစဉ်ဖော်ပြချက်";
 "description-help-tips-example-title-one" = "လီယိုနာဒို ဗင်စီ၏ ပန်းချီလက်ရာ";
 "description-help-tips-example-title-two" = "ကမ္ဘာ့အမြင့်ဆုံးတောင်";
 "description-help-tips-for-example" = "နမူနာအားဖြင့်";
 "description-help-tips-title" = "ဖော်ပြချက်များ ဖန်တီးရန် နည်းလမ်းများ";
+// Fuzzy
 "description-help-title" = "ခေါင်းစဉ်ဖော်ပြချက် အကူအညီ";
 "description-help-wikidata-guide" = "ခေါင်းစဉ်ဖော်ပြချက်ရေးသားခြင်းအတွက် ဝီကီဒေတာအကူအညီ";
 "description-published-button-title" = "ပြီးပါပြီ";
@@ -168,6 +175,7 @@
 "description-welcome-concise-sub-title" = "စာလုံးရေ နှစ်လုံးမှတစ်ဆယ့်နှစ်လုံးကြား တစ်ကြောင်းတည်းရေးနိုင်လျှင် အကောင်းဆုံးဖြစ်သည်။";
 "description-welcome-concise-title" = "လိုရင်းတိုရှင်းဖော်ပြပါ";
 "description-welcome-descriptions-sub-title" = "ဆောင်းပါးတစ်ခုကို အကျဉ်းချုပ်ဖော်ပြပေခြင်းသည်း တချက်ကြည့်ရုံဖြင့် အကြောင်းအရာကို စာဖတ်သူများ နားလည်စေရန် ကူညီပေးသည်။";
+// Fuzzy
 "description-welcome-descriptions-title" = "ခေါင်းစဉ် ဖော်ပြချက်များ";
 "description-welcome-promise-title" = "စတင်ခြင်းဖြင့် ဤသွင်ပြင်လက္ခဏာကို အလွဲသုံးစားမလုပ်ပါကြောင်း ကတိပြုပါသည်";
 "description-welcome-start-editing-button" = "စတင် တည်းဖြတ်ခြင်း";
