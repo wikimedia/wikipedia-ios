@@ -164,3 +164,33 @@ extension MWKDataStore {
         }
     }
 }
+
+public extension TalkPage {
+    var forceRefresh: Bool {
+        get {
+            
+            guard let revisionID = self.revisionId?.intValue else {
+                return false
+            }
+            
+            return UserDefaults.standard.talkPageForceRefreshRevisionIDs?.contains(revisionID) ?? false
+        }
+        set {
+            
+            guard let revisionID = self.revisionId?.intValue else {
+                assertionFailure("Attempting to set forceRefresh on a talk page that has no revisionID.")
+                return
+            }
+            
+            var revisionIDs = UserDefaults.standard.talkPageForceRefreshRevisionIDs ?? Set<Int>()
+            
+            if (newValue == true) {
+                revisionIDs.insert(revisionID)
+            } else {
+                revisionIDs.remove(revisionID)
+            }
+            
+            UserDefaults.standard.talkPageForceRefreshRevisionIDs = revisionIDs
+        }
+    }
+}
