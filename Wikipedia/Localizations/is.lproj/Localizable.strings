@@ -128,28 +128,35 @@
 "continue-reading-empty-description" = "Kanna hvort Wikipedia sé með fleiri greinar til að lesa";
 "continue-reading-empty-title" = "Engar nýlega lesnar greinar";
 "description-add-title" = "Bæta við lýsingu";
+// Fuzzy
 "description-edit-for-article" = "Lýsing á titli fyrir $1";
 "description-edit-learn-more" = "Kanna nánar";
 "description-edit-length-warning" = "$1 / $2";
+// Fuzzy
 "description-edit-license" = "Með því að breyta lýsingu á þessum titli, samþykkir þú  $1 og að þú gefir óafturkræft út framlög þín með $2 notkunarleyfi.";
 "description-edit-pencil-introduction" = "Breyta inngangi";
+// Fuzzy
 "description-edit-pencil-title" = "Breyta titillýsingu";
 "description-edit-placeholder-title" = "Stuttar lýsingar eru bestar";
 "description-edit-publish" = "Birta lýsingu";
 "description-edit-title" = "Breyta lýsingu";
 "description-edit-warning" = "Reyndu að halda lýsingum stuttum til að hjálpa lesendum að skilja umfjöllunarefnið í fljótu bragði";
+// Fuzzy
 "description-help-about-description" = "Lýsingar á fyrirsögnum draga saman efni greinar í örfáum orðum til að hjálpa lesendum að skilja umfjöllunarefnið í fljótu bragði.";
 "description-help-about-title" = "Um hugbúnaðinn";
 "description-help-about-wikidata" = "Um Wikidata";
 "description-help-more-info-description" = "Lýsingar eru geymdar og þeim viðhaldið á Wikidata, verkefnis á vegum Wikimedia Foundation sjálfseignarstofnunarinnar sem sér um frjálsan, ókeypis, margtyngdann, hópunninn gagnagrunn til stuðnings Wikipedia og öðrum slíkum verkefnum.";
 "description-help-more-info-title" = "Nánari upplýsingar";
 "description-help-tips-description" = "Lýsingar ættu helst að komast fyrir á einni línu, og vera frá tveimur til tólf orða langar. Þær eru ekki með hástöfum nema að fyrsta orðið sé sérheiti.";
+// Fuzzy
 "description-help-tips-example-description-one" = "lýsing á titli fyrir grein um Mónu Lísu";
+// Fuzzy
 "description-help-tips-example-description-two" = "lýsing á titli fyrir grein um Everestfjall";
 "description-help-tips-example-title-one" = "málverk eftir Leonardo da Vinci";
 "description-help-tips-example-title-two" = "Hæsta fjall jarðar";
 "description-help-tips-for-example" = "Til dæmis:";
 "description-help-tips-title" = "Ábendingar við að gera lýsingar";
+// Fuzzy
 "description-help-title" = "Hjálp vaðandi lýsingu á titli";
 "description-help-wikidata-guide" = "Leiðarvísir Wikidata fyrir hvernig eigi að skrifa lýsingar";
 "description-published-button-title" = "Búið";
@@ -159,6 +166,7 @@
 "description-welcome-concise-sub-title" = "Helst ein lína, frá tveimur til tólf orða langt";
 "description-welcome-concise-title" = "Vertu stuttorð(ur)";
 "description-welcome-descriptions-sub-title" = "Tekur saman efni greinar í örfáum orðum til að hjálpa lesendum að skilja umfjöllunarefnið í fljótu bragði";
+// Fuzzy
 "description-welcome-descriptions-title" = "Lýsingar titla";
 "description-welcome-promise-title" = "Ef ég byrja, lofa ég að misnota ekki þennan eiginleika";
 "description-welcome-start-editing-button" = "Byrja að breyta";

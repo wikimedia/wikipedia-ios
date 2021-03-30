@@ -166,28 +166,35 @@
 "continue-reading-empty-description" = "Przeglądaj Wikipedię, aby przeczytać więcej artykułów";
 "continue-reading-empty-title" = "Brak ostatnio czytanych artykułów";
 "description-add-title" = "Dodaj opis";
+// Fuzzy
 "description-edit-for-article" = "Opis tytułu dla $1";
 "description-edit-learn-more" = "Dowiedz się więcej";
 "description-edit-length-warning" = "$1 / $2";
+// Fuzzy
 "description-edit-license" = "Zmieniając opis tytułu, wyrażam zgodę na $1 i nieodwołalnie wydam swoje wkłady na podstawie licencji $2.";
 "description-edit-pencil-introduction" = "Edytuj wprowadzenie";
+// Fuzzy
 "description-edit-pencil-title" = "Edytuj opis tytułu";
 "description-edit-placeholder-title" = "Najlepsze są krótkie opisy";
 "description-edit-publish" = "Opublikuj opis";
 "description-edit-title" = "Edytuj opis";
 "description-edit-warning" = "Staraj się, aby opisy były krótkie, aby użytkownicy mogli szybko zrozumieć temat artykułu";
+// Fuzzy
 "description-help-about-description" = "Opisy tytułów podsumowują artykuł, aby pomóc czytelnikom w zrozumieniu tematu na pierwszy rzut oka.";
 "description-help-about-title" = "O tytule";
 "description-help-about-wikidata" = "O Wikidanych";
 "description-help-more-info-description" = "Opisy są przechowywane i przechowywane w Wikidata, projekcie Fundacji Wikimedia, który zapewnia bezpłatną, współpracującą, wielojęzyczną, wtórną bazę danych wspierającą Wikipedię i inne projekty.";
 "description-help-more-info-title" = "Więcej informacji";
 "description-help-tips-description" = "Opisy powinny idealnie pasować do jednej linii i zawierać od dwóch do dwunastu słów. Nie są one pisane wielkimi literami, chyba że pierwsze słowo jest właściwym rzeczownikiem.";
+// Fuzzy
 "description-help-tips-example-description-one" = "opis tytułu dla artykułu o Mona Lisie";
+// Fuzzy
 "description-help-tips-example-description-two" = "opis tytułu dla artykułu o Mount Everest";
 "description-help-tips-example-title-one" = "obraz Leonarda da Vinci";
 "description-help-tips-example-title-two" = "najwyższy szczyt Ziemi";
 "description-help-tips-for-example" = "Na przykład:";
 "description-help-tips-title" = "Wskazówki dotyczące tworzenia opisów";
+// Fuzzy
 "description-help-title" = "Pomoc w opisie tytułu";
 "description-help-wikidata-guide" = "Przewodnik Wikidata do pisania opisów";
 "description-published-button-title" = "Gotowe";
@@ -197,6 +204,7 @@
 "description-welcome-concise-sub-title" = "Lepsza jedna linia, od dwóch do dwunastu słów";
 "description-welcome-concise-title" = "Pisz krótko";
 "description-welcome-descriptions-sub-title" = "Podsumowuje artykuł, aby pomóc czytelnikom w zrozumieniu tematu na pierwszy rzut oka";
+// Fuzzy
 "description-welcome-descriptions-title" = "Opisy tytułów";
 "description-welcome-promise-title" = "Na początek obiecuję, że nie będę niewłaściwie używać tej funkcji";
 "description-welcome-start-editing-button" = "Rozpocznij edycję";

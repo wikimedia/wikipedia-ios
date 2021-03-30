@@ -169,28 +169,35 @@
 "continue-reading-empty-description" = "浏览维基百科以阅读更多条目吧";
 "continue-reading-empty-title" = "没有最近阅读条目";
 "description-add-title" = "添加描述";
+// Fuzzy
 "description-edit-for-article" = "$1的标题描述";
 "description-edit-learn-more" = "了解更多";
 "description-edit-length-warning" = "$1 / $2";
+// Fuzzy
 "description-edit-license" = "通过更改标题描述，我同意$1，并在$2的许可下不可撤销地发布我的稿件。";
 "description-edit-pencil-introduction" = "编辑此介绍";
+// Fuzzy
 "description-edit-pencil-title" = "编辑标题描述";
 "description-edit-placeholder-title" = "最好使用简短的描述";
 "description-edit-publish" = "发布描述";
 "description-edit-title" = "编辑描述";
 "description-edit-warning" = "尽量保持描述简短，这样用户就可以一目了然地理解文章的主题";
+// Fuzzy
 "description-help-about-description" = "标题描述总结一篇文章，帮助读者一目了然地理解这个主题。";
 "description-help-about-title" = "关于";
 "description-help-about-wikidata" = "关于维基数据";
 "description-help-more-info-description" = "维基数据是维基媒体基金会的一个项目，它提供了一个免费的、协作性的、多语言的、支持维基百科和其他项目的辅助数据库。";
 "description-help-more-info-title" = "更多信息";
 "description-help-tips-description" = "描述应该理想地拟合在一行上，长度在两到十二个单词之间。除非第一个词是专有名词，否则它们不会大写。";
+// Fuzzy
 "description-help-tips-example-description-one" = "有关蒙娜丽莎条目的标题描述";
+// Fuzzy
 "description-help-tips-example-description-two" = "关于珠峰的文章标题描述";
 "description-help-tips-example-title-one" = "由列奥纳多·达·芬奇绘制";
 "description-help-tips-example-title-two" = "地球第一高峰";
 "description-help-tips-for-example" = "例如：";
 "description-help-tips-title" = "创建描述的技巧";
+// Fuzzy
 "description-help-title" = "标题描述帮助";
 "description-help-wikidata-guide" = "维基数据写作说明指南";
 "description-published-button-title" = "完成";
@@ -200,6 +207,7 @@
 "description-welcome-concise-sub-title" = "理想的一行，在两到十二个字之间";
 "description-welcome-concise-title" = "保持简短";
 "description-welcome-descriptions-sub-title" = "总结条目以帮助读者一眼了解主题";
+// Fuzzy
 "description-welcome-descriptions-title" = "标题描述";
 "description-welcome-promise-title" = "我保证在编辑时不滥用此功能";
 "description-welcome-start-editing-button" = "开始编辑";
