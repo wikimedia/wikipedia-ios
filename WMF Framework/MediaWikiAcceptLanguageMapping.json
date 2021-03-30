@@ -2,7 +2,6 @@
     "zh": {
         "default": {
             "default": "zh-hans",
-            "cn": "zh-cn",
             "hk": "zh-hk",
             "mo": "zh-mo",
             "my": "zh-my",
@@ -11,16 +10,6 @@
         },
         "hans": {
             "default": "zh-hans",
-            "cn": "zh-cn",
-            "hk": "zh-hk",
-            "mo": "zh-mo",
-            "my": "zh-my",
-            "sg": "zh-sg",
-            "tw": "zh-tw"
-        },
-        "hant": {
-            "default": "zh-hant",
-            "cn": "zh-cn",
             "hk": "zh-hk",
             "mo": "zh-mo",
             "my": "zh-my",
