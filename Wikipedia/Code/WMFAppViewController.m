@@ -1207,23 +1207,10 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [appearanceSettingsVC applyTheme:self.theme];
             [self showSettingsWithSubViewController:appearanceSettingsVC animated:animated];
         } break;
-        case WMFUserActivityTypeLanguageSettings: {
-            [self dismissPresentedViewControllers];
-            [self setSelectedIndex:WMFAppTabTypeMain];
-            [self.navigationController popToRootViewControllerAnimated:NO];
-            WMFPreferredLanguagesViewController *languagesVC = [WMFPreferredLanguagesViewController preferredLanguagesViewController];
-            languagesVC.showExploreFeedCustomizationSettings = YES;
-            languagesVC.delegate = self.settingsViewController;
-            [languagesVC applyTheme:self.theme];
-            [self showSettingsWithSubViewController:languagesVC animated:animated];
-        } break;
         default: {
             NSURL *linkURL = [activity wmf_linkURL];
-            MWKLanguageLink *preferredLanguage = self.dataStore.languageLinkController.appLanguage;
             // Ensure incoming link is fetched in user's preferred variant if applicable
-            if ([linkURL.wmf_siteURL isEqual:preferredLanguage.siteURL]) {
-                linkURL.wmf_languageVariantCode = preferredLanguage.languageVariantCode;
-            }
+            linkURL.wmf_languageVariantCode = [self.dataStore.languageLinkController preferredLanguageVariantCodeForLanguageCode:linkURL.wmf_language];
             if (!linkURL) {
                 done();
                 return NO;
