@@ -21,6 +21,7 @@
 // Author: Дар'я Козлова
 
 "aaald-added-text-description-2" = "$1 додано";
+// Fuzzy
 "aaald-article-description-updated-description" = "Опис заголовку статті оновлено";
 "aaald-article-insert-header" = "Важливі оновлення";
 "aaald-article-insert-last-updated" = "Останнє оновлення";
@@ -182,28 +183,35 @@
 "crimean-tatar-variants-alert-title" = "Оновлення щодо підтримки варіантів кримськотатарської";
 "data-migration-status" = "Оновлення…";
 "description-add-title" = "Додати опис";
+// Fuzzy
 "description-edit-for-article" = "Короткий опис «$1»";
 "description-edit-learn-more" = "Дізнатися більше";
 "description-edit-length-warning" = "$1 / $2";
+// Fuzzy
 "description-edit-license" = "Змінюючи опис назви, я погоджуюся на $1 та безвідклично публікую свій внесок за ліцензією $2.";
 "description-edit-pencil-introduction" = "Редагувати вступ";
+// Fuzzy
 "description-edit-pencil-title" = "Редагувати опис назви";
 "description-edit-placeholder-title" = "Найкращі — короткі описи";
 "description-edit-publish" = "Опублікувати опис";
 "description-edit-title" = "Редагувати опис";
 "description-edit-warning" = "Намагайтеся обмежувати обсяг описів, щоб користувачі могли зрозуміти предмет статті з одного погляду";
+// Fuzzy
 "description-help-about-description" = "Описи допомагають читачам зрозуміти предмет статті з першого погляду, підсумовуючи вміст статті";
 "description-help-about-title" = "Про";
 "description-help-about-wikidata" = "Про Вікідані";
 "description-help-more-info-description" = "Описи зберігаються та обслуговуються на Вікіданих — проекті Фонду Вікімедіа, який слугує вільною, спільною, багатомовною, допоміжною базою даних, яка підтримує Вікіпедію та інші проекти.";
 "description-help-more-info-title" = "Більше інформації";
 "description-help-tips-description" = "В ідеалі описи мають бути не більшими як один рядок, і мають містити від двох до дванадцяти слів. Велика літера на початку використовується лише в разі, якщо перше слово є власною назвою.";
+// Fuzzy
 "description-help-tips-example-description-one" = "опис статті про Мону Лізу";
+// Fuzzy
 "description-help-tips-example-description-two" = "опис статті про Еверест";
 "description-help-tips-example-title-one" = "картина Леонардо да Вінчі";
 "description-help-tips-example-title-two" = "найвища гора на Землі";
 "description-help-tips-for-example" = "Наприклад:";
 "description-help-tips-title" = "Поради зі створення описів";
+// Fuzzy
 "description-help-title" = "Допомога зі створення описів";
 "description-help-wikidata-guide" = "Довідка Вікіданих зі створення описів";
 "description-published-button-title" = "Готово";
@@ -213,6 +221,7 @@
 "description-welcome-concise-sub-title" = "В ідеалі один рядок від двох до дванадцяти слів";
 "description-welcome-concise-title" = "Будь ласка, коротше";
 "description-welcome-descriptions-sub-title" = "Підсумовує вміст статті, щоб допомогти читачам зрозуміти предмет статті з першого погляду";
+// Fuzzy
 "description-welcome-descriptions-title" = "Описи назв";
 "description-welcome-promise-title" = "Розпочинаючи використання, я обіцяю не зловживати цією можливістю";
 "description-welcome-start-editing-button" = "Почати редагування";

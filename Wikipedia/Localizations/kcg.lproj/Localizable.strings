@@ -3,6 +3,7 @@
 // Author: Kambai Akau
 
 "aaald-added-text-description-2" = "Á̱ mbeang $1";
+// Fuzzy
 "aaald-article-description-updated-description" = "Á̱ tyia̱ wa̱i a̱lyoot hu fai";
 "aaald-article-insert-header" = "A̱ca̱cet á̱fai nkhang";
 "aaald-article-insert-last-updated" = "Tyei fai a̱ngaan";
@@ -143,10 +144,12 @@
 "crimean-tatar-variants-alert-title" = "Á̱fai nkhang mi̱ li̱n a̱ma zwalyiat A̱lyem Tatar Krimya";
 "data-migration-status" = "Á̱ shyia̱ di̱ tyei fai...";
 "description-add-title" = "Mbeang wa̱i a̱lyiat";
+// Fuzzy
 "description-edit-for-article" = "Wa̱i a̱lyiat a̱lyoot mat $1";
 "description-edit-learn-more" = "Myiam nkyang njhyang";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "A̱son a̱lyiat jhyuk";
+// Fuzzy
 "description-edit-pencil-title" = "Wa̱i a̱lyiat a̱lyoot jhyuk";
 "description-edit-placeholder-title" = "A̱kukum wa̱i a̱lyiat nia lan";
 "description-edit-publish" = "Shei wa̱i a̱lyiat";
@@ -154,12 +157,15 @@
 "description-help-about-title" = "Tazwa";
 "description-help-about-wikidata" = "Tazwa Wikideita";
 "description-help-more-info-title" = "Nkhang njhyang";
+// Fuzzy
 "description-help-tips-example-description-one" = "wa̱i a̱lyiat a̱lyoot mat a̱ti̱kut tazwa Mona Lisa wu";
+// Fuzzy
 "description-help-tips-example-description-two" = "wa̱i a̱lyiat a̱lyoot mat a̱ti̱kut tazwa A̱fan Everest";
 "description-help-tips-example-title-one" = "ghwang mbwak Leonardo Da Vinci";
 "description-help-tips-example-title-two" = "Tsok shi a̱za lan Swanta";
 "description-help-tips-for-example" = "Kidee:";
 "description-help-tips-title" = "Beang wa̱i a̱lyiat a̱lyoot";
+// Fuzzy
 "description-help-title" = "Beang wa̱i a̱lyiat a̱lyoot";
 "description-help-wikidata-guide" = "A̱gwak-nvak Wikideita mat dyuut wa̱i a̱lyiat";
 "description-published-button-title" = "Mgba̱m";
@@ -168,6 +174,7 @@
 "description-published-title" = "Á̱ shei wa̱i!";
 "description-welcome-concise-sub-title" = "Si̱ hu ku lan a̱ni hwa yet lang nyiung, tsi̱tsak swáng a̱lyiat sweang ma̱ng swak ma̱ng sweang";
 "description-welcome-concise-title" = "Sak nhu a̱kum";
+// Fuzzy
 "description-welcome-descriptions-title" = "Wa̱i a̱lyiat a̱lyoot";
 "description-welcome-start-editing-button" = "Tsa jhyuk";
 "diff-compare-header-from-info-heading" = "Neet:";

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D74" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D91" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ReadingList" representedClassName="WMF.ReadingList" syncable="YES">
         <attribute name="canonicalName" optional="YES" attributeType="String"/>
         <attribute name="color" optional="YES" attributeType="String"/>
@@ -75,6 +75,7 @@
         <attribute name="displayTitle" attributeType="String"/>
         <attribute name="key" attributeType="String"/>
         <attribute name="revisionId" optional="YES" attributeType="Integer 64" minValueString="0" usesScalarValueType="NO"/>
+        <attribute name="variant" optional="YES" attributeType="String"/>
         <relationship name="topics" toMany="YES" deletionRule="Cascade" destinationEntity="TalkPageTopic" inverseName="talkPage" inverseEntity="TalkPageTopic"/>
     </entity>
     <entity name="TalkPageReply" representedClassName="TalkPageReply" syncable="YES" codeGenerationType="class">
@@ -227,7 +228,7 @@
     <elements>
         <element name="ReadingList" positionX="-54" positionY="135" width="128" height="284"/>
         <element name="ReadingListEntry" positionX="-27" positionY="153" width="128" height="179"/>
-        <element name="TalkPage" positionX="-45" positionY="135" width="128" height="120"/>
+        <element name="TalkPage" positionX="-45" positionY="135" width="128" height="119"/>
         <element name="TalkPageReply" positionX="-27" positionY="153" width="128" height="120"/>
         <element name="TalkPageTopic" positionX="-36" positionY="144" width="128" height="180"/>
         <element name="TalkPageTopicContent" positionX="-36" positionY="135" width="128" height="90"/>

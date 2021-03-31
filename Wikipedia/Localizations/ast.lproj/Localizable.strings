@@ -127,26 +127,32 @@
 "continue-reading-empty-description" = "Esplora Wikipedia p'atopar más artículos pa lleer";
 "continue-reading-empty-title" = "Nun hai artículos lleíos apocayá";
 "description-add-title" = "Amestar descripción";
+// Fuzzy
 "description-edit-for-article" = "Descripción de títulu pa $1";
 "description-edit-learn-more" = "Más información";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "Editar introducción";
+// Fuzzy
 "description-edit-pencil-title" = "Editar la descripción del títulu";
 "description-edit-placeholder-title" = "Les descripciones curties son meyores";
 "description-edit-publish" = "Publicar descripción";
 "description-edit-title" = "Editar la descripción";
 "description-edit-warning" = "Tenta caltener les descripciones curties pa que los usuarios puedan enterase de la tema del artículu d'una güeyada";
+// Fuzzy
 "description-help-about-description" = "Les descripciones de títulos resumen un artículu p'ayudar a que los llectores puedan enterase de la tema del artículu d'una güeyada.";
 "description-help-about-title" = "Tocante a";
 "description-help-about-wikidata" = "Tocante a Wikidata";
 "description-help-more-info-title" = "Más información";
 "description-help-tips-description" = "Idealmente, les descripciones tendríen de caber n'una llinia, y tener ente dos y dolce palabres. Nun tán en mayúscules, nun siendo que la primera palabra sía un nome propiu.";
+// Fuzzy
 "description-help-tips-example-description-one" = "descripción del títulu pa un artículu sobro la Mona Lisa";
+// Fuzzy
 "description-help-tips-example-description-two" = "descripción del títulu pa un artículu sobro'l Monte Everest";
 "description-help-tips-example-title-one" = "pintura de Leonardo da Vinci";
 "description-help-tips-example-title-two" = "El monte más altu de la tierra";
 "description-help-tips-for-example" = "Por casu:";
 "description-help-tips-title" = "Conseyos pa crear descripciones";
+// Fuzzy
 "description-help-title" = "Ayuda de descripción del títulu";
 "description-help-wikidata-guide" = "Guía de Wikidata pa escribir descripciones";
 "description-published-button-title" = "Fecho";
@@ -155,6 +161,7 @@
 "description-welcome-concise-sub-title" = "Idealmente una llinia, ente dos y dolce palabres";
 "description-welcome-concise-title" = "Faila curtia";
 "description-welcome-descriptions-sub-title" = "Resume un artículu p'ayudar a que los llectores entiendan la tema d'una güeyada.";
+// Fuzzy
 "description-welcome-descriptions-title" = "Descripciones del títulu";
 "description-welcome-promise-title" = "De mano, prometo nun abusar d'esta carauterística";
 "description-welcome-start-editing-button" = "Principiar a editar";

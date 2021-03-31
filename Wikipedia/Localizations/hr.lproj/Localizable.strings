@@ -112,6 +112,7 @@
 "description-help-about-wikidata" = "O Wikipodatcima";
 "description-help-more-info-title" = "Više informacija";
 "description-help-tips-description" = "Opisi bi, ako je to ikako moguće, trebali stati u jedan redak i sastojati se od dviju do dvanaest riječi. Ne počinju velikim slovom osim ako je prva riječ vlastita imenica.";
+// Fuzzy
 "description-help-tips-example-description-two" = "opis naslova za članak o Mount Everestu";
 "description-help-tips-example-title-one" = "djelo Leonarda Da Vincija";
 "description-help-tips-example-title-two" = "najviša planina na Zemlji";
@@ -122,6 +123,7 @@
 "description-published-subtitle" = "Upravo ste Wikipediju učinili boljom za sve";
 "description-published-title" = "Opis je objavljen!";
 "description-welcome-concise-title" = "Budite kratki";
+// Fuzzy
 "description-welcome-descriptions-title" = "Opisi naslova";
 "description-welcome-promise-title" = "Započinjanjem radnje izvršenja obećavam da neću zloupotrijebiti ovu mogućnost.";
 "description-welcome-start-editing-button" = "Počnite uređivati";

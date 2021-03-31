@@ -110,10 +110,12 @@
 "continue-reading-empty-description" = "Dlajahi Wikipédia supaya bisa maca werna-werna artikelé";
 "continue-reading-empty-title" = "Ora ana artikel kang mentas kawaca";
 "description-add-title" = "Wuwuh wedharan";
+// Fuzzy
 "description-edit-for-article" = "Wedharaning sesirah tumrap $1";
 "description-edit-learn-more" = "Sinaoni candhaké";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "Besut purwaka";
+// Fuzzy
 "description-edit-pencil-title" = "Besut wedharaning sesirah";
 "description-edit-publish" = "Babar wedharan";
 "description-edit-title" = "Besut wedharan";

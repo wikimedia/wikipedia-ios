@@ -13,7 +13,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>artikulu %1$d</string>
+			<string>artikulu bat</string>
 			<key>other</key>
 			<string>%1$d artikulu</string>
 		</dict>
@@ -45,7 +45,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>artikulu %1$d</string>
+			<string>artikulu bat</string>
 			<key>other</key>
 			<string>%1$d artikulu</string>
 		</dict>

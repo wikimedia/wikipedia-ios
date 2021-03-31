@@ -106,6 +106,7 @@
 "continue-reading-empty-description" = "Explorer Wikipedia evit kaout muioc'h a bennadoù da lenn";
 "continue-reading-empty-title" = "Pennad ebet lennet nevez zo";
 "description-add-title" = "Ouzhpennañ un deskrivadur";
+// Fuzzy
 "description-edit-for-article" = "Deskrivadur an titl evit $1";
 "description-edit-learn-more" = "Gouzout hiroc'h";
 "description-edit-length-warning" = "$1 / $2";
@@ -116,6 +117,7 @@
 "description-help-more-info-title" = "Muioc'h a ditouroù";
 "description-help-tips-for-example" = "Da skouer :";
 "description-help-tips-title" = "Kuzulioù evit krouiñ deskrivadurioù";
+// Fuzzy
 "description-help-title" = "Sikour da zeskrivañ an titl";
 "description-published-button-title" = "Graet";
 "edit-style-table-view-title" = "Stil";

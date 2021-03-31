@@ -177,28 +177,34 @@
 "continue-reading-empty-description" = "Explorar más artículos para leer en Wikipedia";
 "continue-reading-empty-title" = "No hay artículos leídos recientemente";
 "description-add-title" = "Añadir descripción";
+// Fuzzy
 "description-edit-for-article" = "Descripción de título para $1";
 "description-edit-learn-more" = "Más información";
 "description-edit-length-warning" = "$1 / $2";
-"description-edit-license" = "Al cambiar la descripción del título, acepto los $1 y la publicación irrevocable de mis contribuciones bajo la licencia $2.";
+"description-edit-license" = "Al cambiar la descripción del artículo, acepto los $1 y la publicación irrevocable de mis contribuciones bajo la licencia $2.";
 "description-edit-pencil-introduction" = "Editar introducción";
+// Fuzzy
 "description-edit-pencil-title" = "Editar descripción de título";
 "description-edit-placeholder-title" = "Las descripciones cortas son mejor";
 "description-edit-publish" = "Publicar descripción";
 "description-edit-title" = "Editar descripción";
 "description-edit-warning" = "Prueba mantener las descripciones cortas, así los usuarios pueden entender el tema del artículo en una mirada";
+// Fuzzy
 "description-help-about-description" = "Las descripciones de título resumen un artículo para ayudar a que los lectores entiendan el tema rápidamente.";
 "description-help-about-title" = "Acerca de";
 "description-help-about-wikidata" = "Sobre Wikidata";
 "description-help-more-info-description" = "Las descripciones se almacenan y mantienen en Wikidata, un proyecto de la Fundación Wikimedia que proporciona una base de datos secundaria, libre, colaborativa y multilingüe, que apoya a Wikipedia y a otros proyectos.";
 "description-help-more-info-title" = "Más información";
 "description-help-tips-description" = "Idealmente, las descripciones deberían caber en una línea, y tener entre dos y doce palabras. No están en mayúsculas, a menos que la primera palabra sea un sustantivo propio.";
+// Fuzzy
 "description-help-tips-example-description-one" = "descripción de título para un artículo sobre la Mona Lisa";
+// Fuzzy
 "description-help-tips-example-description-two" = "descripción de título para un artículo sobre el Monte Everest";
 "description-help-tips-example-title-one" = "pintura de Leonardo da Vinci";
 "description-help-tips-example-title-two" = "la montaña más alta de la Tierra";
 "description-help-tips-for-example" = "Por ejemplo:";
 "description-help-tips-title" = "Consejos para crear descripciones";
+// Fuzzy
 "description-help-title" = "Ayuda de descripción del título";
 "description-help-wikidata-guide" = "Guía de Wikidata para escribir descripciones";
 "description-published-button-title" = "Hecho";
@@ -208,6 +214,7 @@
 "description-welcome-concise-sub-title" = "Idealmente una línea, entre dos a doce palabras";
 "description-welcome-concise-title" = "\nSé breve";
 "description-welcome-descriptions-sub-title" = "\nResume un artículo para ayudar a los lectores a entender el tema de un vistazo";
+// Fuzzy
 "description-welcome-descriptions-title" = "Descripciones de títulos";
 "description-welcome-promise-title" = "Para empezar, prometo no abusar de esta característica";
 "description-welcome-start-editing-button" = "Empezar a editar";

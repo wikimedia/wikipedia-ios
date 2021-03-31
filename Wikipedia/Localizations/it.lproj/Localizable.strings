@@ -40,6 +40,7 @@
 // Author: Yacine Boussoufa
 
 "aaald-added-text-description-2" = "$1 aggiunto";
+"aaald-article-description-updated-description" = "Descrizione della voce aggiornata";
 "aaald-article-insert-last-updated" = "Ultimo aggiornamento";
 "aaald-article-insert-new-changes" = "Nuove modifiche";
 "aaald-many-sections-description" = "nelle sezioni $1";
@@ -163,20 +164,22 @@
 "continue-reading-empty-title" = "Nessuna voce letta recentemente";
 "data-migration-status" = "Aggiornamento...";
 "description-add-title" = "Aggiungi descrizione";
-"description-edit-for-article" = "Descrizione del titolo per $1";
+"description-edit-for-article" = "Descrizione della voce per $1";
 "description-edit-learn-more" = "Ulteriori informazioni";
 "description-edit-length-warning" = "$1 / $2";
-"description-edit-license" = "Modificando la descrizione del titolo, accetto le $1 e di rilasciare irrevocabilmente i miei contributi in base alla licenza $2.";
+"description-edit-license" = "Modificando la descrizione della voce, accetto le $1 e di rilasciare irrevocabilmente i miei contributi in base alla licenza $2.";
 "description-edit-pencil-introduction" = "Modifica introduzione";
-"description-edit-pencil-title" = "Modifica descrizione del titolo";
+"description-edit-pencil-title" = "Modifica la descrizione della voce";
 "description-edit-placeholder-title" = "Descrizioni brevi sono le migliori";
 "description-edit-publish" = "Pubblica descrizione";
 "description-edit-title" = "Modifica descrizione";
+"description-help-about-description" = "Le descrizioni delle voci riassumono una voce per aiutare i lettori a comprenderne l'argomento a colpo d'occhio.";
 "description-help-about-title" = "A proposito di";
 "description-help-about-wikidata" = "A proposito di Wikidata";
 "description-help-more-info-description" = "Le descrizioni sono archiviate e mantenute su Wikidata, un progetto della Fondazione Wikimedia che fornisce un database secondario, libero, collaborativo e multilingue per il supporto di Wikipedia e altri progetti.";
 "description-help-more-info-title" = "Ulteriori informazioni";
-"description-help-tips-example-description-two" = "descrizione del titolo per un articolo sul Monte Everest";
+"description-help-tips-example-description-one" = "descrizione della voce per una voce su Monna Lisa";
+"description-help-tips-example-description-two" = "descrizione della voce per una voce sul Monte Everest";
 "description-help-tips-example-title-one" = "dipinto da Leonardo da Vinci";
 "description-help-tips-example-title-two" = "La montagna più alta della Terra";
 "description-help-tips-for-example" = "Per esempio:";
@@ -184,7 +187,7 @@
 "description-published-subtitle" = "Hai appena reso Wikipedia migliore per tutti";
 "description-published-title" = "Descrizione pubblicata!";
 "description-welcome-concise-sub-title" = "Idealmente una riga, da due a dodici parole";
-"description-welcome-descriptions-title" = "Descrizioni del titolo";
+"description-welcome-descriptions-title" = "Descrizioni delle voci";
 "description-welcome-start-editing-button" = "Inizia a modificare";
 "diff-compare-header-from-info-heading" = "Da:";
 "diff-compare-header-to-info-heading" = "A:";

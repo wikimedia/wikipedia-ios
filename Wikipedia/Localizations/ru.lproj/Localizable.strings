@@ -204,16 +204,19 @@
 "continue-reading-empty-title" = "Нет недавно прочитанных статей";
 "data-migration-status" = "Обновление…";
 "description-add-title" = "Добавить описание";
+// Fuzzy
 "description-edit-for-article" = "Краткое описание «$1»";
 "description-edit-learn-more" = "Подробнее";
 "description-edit-length-warning" = "$1 / $2";
-"description-edit-license" = "Изменяя описание названия, я соглашаюсь на $1 и безотзывно опубликовать свой вклад под лицензией $2";
+"description-edit-license" = "Изменяя описание статьи, я соглашаюсь на $1 и безотзывно опубликовать свой вклад под лицензией $2";
 "description-edit-pencil-introduction" = "Редактировать введение";
+// Fuzzy
 "description-edit-pencil-title" = "Редактировать краткое описание";
 "description-edit-placeholder-title" = "Краткие описания лучше всего";
 "description-edit-publish" = "Записать описание";
 "description-edit-title" = "Править описание";
 "description-edit-warning" = "Старайтесь ограничивать размер описаний, чтобы участники могли понимать предмет статьи с одного взгляда";
+// Fuzzy
 "description-help-about-description" = "Краткие описания помогают читателям понять тему статьи с первого взгляда.";
 "description-help-about-title" = "О приложении";
 "description-help-about-wikidata" = "О Викиданных";
@@ -226,7 +229,7 @@
 "description-help-tips-example-title-two" = "Самая высокая гора Земли";
 "description-help-tips-for-example" = "Например:";
 "description-help-tips-title" = "Советы по созданию описаний";
-"description-help-title" = "Помощь по кратким описаниям";
+"description-help-title" = "Помощь по описаниям статей";
 "description-help-wikidata-guide" = "Руководство Викиданных по созданию описаний.";
 "description-published-button-title" = "Готово";
 "description-published-footer" = "С этим приложением вы также можете редактировать статьи. Нажмите на иконку с изображением ручки, чтобы исправить опечатки и небольшие предложения";
@@ -235,6 +238,7 @@
 "description-welcome-concise-sub-title" = "По возможности одна строка, от двух до двадцати слов";
 "description-welcome-concise-title" = "Пожалуйста, кратко";
 "description-welcome-descriptions-sub-title" = "Краткие описания помогают читателям понять тему статьи с первого взгляда";
+// Fuzzy
 "description-welcome-descriptions-title" = "Краткие описания";
 "description-welcome-promise-title" = "Начиная использование, я обещаю не злоупотреблять этой возможностью";
 "description-welcome-start-editing-button" = "Начать редактирование";

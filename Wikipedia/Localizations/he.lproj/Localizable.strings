@@ -21,7 +21,7 @@
 // Author: שמזן
 
 "aaald-added-text-description-2" = "$1 נוספו";
-"aaald-article-description-updated-description" = "תיאור כותרת הערך עודכן";
+"aaald-article-description-updated-description" = "תיאור הערך עודכן";
 "aaald-article-insert-header" = "עדכונים משמעותיים";
 "aaald-article-insert-last-updated" = "עדכון אחרון";
 "aaald-article-insert-new-changes" = "שינויים חדשים";
@@ -183,29 +183,30 @@
 "crimean-tatar-variants-alert-title" = "עדכונים לתמיכה בטטרית של קרים";
 "data-migration-status" = "מתבצע עדכון…";
 "description-add-title" = "הוספת תיאור";
-"description-edit-for-article" = "תיאור כותרת עבור $1";
+"description-edit-for-article" = "תיאור הערך עבור $1";
 "description-edit-learn-more" = "מידע נוסף";
 "description-edit-length-warning" = "$1 מתוך $2";
-"description-edit-license" = "שינוי תיאור הכותרת מהווה את הסכמתי ל$1 ולשחרור בלתי־חוזר של התרומות שלי לפי תנאי רישיון $2.";
+"description-edit-license" = "שינוי תיאור הערך מהווה את הסכמתי ל$1 ולשחרור בלתי־חוזר של התרומות שלי לפי תנאי רישיון $2.";
 "description-edit-pencil-introduction" = "עריכת הפתיחה";
-"description-edit-pencil-title" = "הוספת תיאור כותרת";
+"description-edit-pencil-title" = "הוספת תיאור ערך";
 "description-edit-placeholder-title" = "תיאורים קצרים הם הטובים ביותר";
 "description-edit-publish" = "פרסום התיאור";
 "description-edit-title" = "עריכת תיאור";
 "description-edit-warning" = "השתדלו להקפיד שהתיאורים יהיו קצרים כדי שמשתמשים יוכלו להבין מה נושא הערך במבט אחד";
-"description-help-about-description" = "תיאורי הכותרת מסכמים ערך כדי לעזור לקוראים להבין את הנושא במבט מהיר.";
+"description-edit-warning-casing" = "צריך לכתוב באות גדולה רק שמות פרטיים, גם התחילת משפט";
+"description-help-about-description" = "תיאורי הערכים מסכמים ערך כדי לעזור לקוראים להבין את הנושא במבט מהיר.";
 "description-help-about-title" = "אודות";
 "description-help-about-wikidata" = "אודות ויקינתונים";
 "description-help-more-info-description" = "התיאורים נשמרים ומתוחזקים בוויקינתונים (Wikidata), מיזם של קרן ויקימדיה שמספק מסד נתונים משני חופשי, שיתופי ורב־לשוני שתומך בוויקיפדיה ובמיזמים אחרים.";
 "description-help-more-info-title" = "מידע נוסף";
 "description-help-tips-description" = "תיאורים אמורים להיכנס לשורה אחת, ולכלול בין שתיים לשתים־עשרה מילים. אין להשתמש באותיות גדולות בלועזית אלא אם מדובר בשם עצם פרטי (שם של אדם, מקום, ישות או ארגון).";
-"description-help-tips-example-description-one" = "תיאור כותרת של ערך על המונה ליזה";
-"description-help-tips-example-description-two" = "תיאור הכותרת של ערך על הר אוורסט";
+"description-help-tips-example-description-one" = "תיאור ערך של ערך על המונה ליזה";
+"description-help-tips-example-description-two" = "תיאור ערך של ערך על הר אוורסט";
 "description-help-tips-example-title-one" = "ציור של לאונרדו דה וינצ'י";
 "description-help-tips-example-title-two" = "ההר הגבוה בכדור הארץ";
 "description-help-tips-for-example" = "למשל:";
 "description-help-tips-title" = "עצות ליצירת תיאורים";
-"description-help-title" = "עזרה עם תיאור כותרת";
+"description-help-title" = "עזרה עם תיאור ערך";
 "description-help-wikidata-guide" = "מדריך ויקינתונים לכתיבת תיאורים";
 "description-published-button-title" = "בוצע";
 "description-published-footer" = "אפשר גם לערוך ערכים בתוך ביישום הזה. נסו לתקן שגיאות כתיב ומשפטים קצרים באמצעות לחיצה על סמל העיפרון בפעם הבאה";
@@ -214,7 +215,7 @@
 "description-welcome-concise-sub-title" = "הכי טוב שורה אחת, בין שתיים לשתים־עשרה מילים";
 "description-welcome-concise-title" = "זה אמור להיות קצר";
 "description-welcome-descriptions-sub-title" = "מסכם את הערך כדי לעזור לקוראים להבין את הנושא במבט מהיר";
-"description-welcome-descriptions-title" = "תיאורי כותרת";
+"description-welcome-descriptions-title" = "תיאורי ערך";
 "description-welcome-promise-title" = "תחילת העבודה היא ההבטחה שלי לא להשתמש באפשרות הזאת לרעה";
 "description-welcome-start-editing-button" = "להתחיל לערוך";
 "diff-compare-header-from-info-heading" = "מ־:";

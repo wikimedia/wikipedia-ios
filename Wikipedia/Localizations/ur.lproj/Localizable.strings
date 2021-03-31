@@ -114,16 +114,20 @@
 "continue-reading-empty-description" = "مطالعہ کے لیے مزید مضامین تلاش کریں";
 "continue-reading-empty-title" = "کوئی حالیہ پڑھا گیا مضمون نہیں";
 "description-add-title" = "وضاحت شامل کریں";
+// Fuzzy
 "description-edit-for-article" = "$1 کے لیے عنوان وضاحت";
 "description-edit-learn-more" = "مزید پڑھیے";
 "description-edit-length-warning" = "$1 / $2";
+// Fuzzy
 "description-edit-license" = "دیباچے میں ترمیم  کے ساتھ ہی  مجھے اپنی ترامیم کے ضمن میں $1 اور $2 کے تحت  ناقابل تنسیخ واگزاشت لائسنس کی شرائط سے مکمل اتفاق ہے۔";
 "description-edit-pencil-introduction" = "تعاوف میں ترمیم کریں";
+// Fuzzy
 "description-edit-pencil-title" = "لیبل میں ترمیم کریں";
 "description-edit-placeholder-title" = "انتہائی مختصر وضاحت ہی بہتر ہے";
 "description-edit-publish" = "وضاحت شائع کریں";
 "description-edit-title" = "وضاحت میں ترمیم کریں";
 "description-edit-warning" = "دیباچہ جامع اور مختصر رکھیں تاکہ پڑھنے والے پہلی نظر میں ہی عنوان اور نفس مضمون سے آگاہ ہو جائیں۔";
+// Fuzzy
 "description-help-about-description" = "عنوانات (مضامین) کی مختصر ترین وضاحتیں، قارئین کو مضمون کے موضوع کو ایک ہی نظر میں، سمجھنے میں معاون ہوتی ہیں۔";
 "description-help-about-title" = "ہمارے بارے میں";
 "description-help-about-wikidata" = "ویکی ڈیٹا سے متعلق";
@@ -133,6 +137,7 @@
 "description-published-button-title" = "تکمیل";
 "description-welcome-concise-title" = "اس کو مختصر رکھیں";
 "description-welcome-descriptions-sub-title" = "مضامین کی مختصر ترین وضاحتیں، قارئین کو مضمون کے موضوع کو ایک ہی نظر میں، سمجھنے میں معاون ہوتی ہیں۔";
+// Fuzzy
 "description-welcome-descriptions-title" = "عنوان کی وضاحتیں";
 "description-welcome-promise-title" = "شروع کرنے سے قبل میں عہد لیتا ہوں کہ اس فیچر کا غلط استعمال نہیں کروں گا۔";
 "description-welcome-start-editing-button" = "ترمیم شروع کریں";
