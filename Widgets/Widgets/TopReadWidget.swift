@@ -34,7 +34,7 @@ final class TopReadData {
     func fetchLatestAvailableTopRead(usingCache: Bool = false, completion userCompletion: @escaping (TopReadEntry) -> Void) {
         let widgetController = WidgetController.shared
         widgetController.startWidgetUpdateTask(userCompletion) { (dataStore, widgetUpdateTaskCompletion) in
-            widgetController.fetchNewestWidgetContentGroup(with: .topRead, in: dataStore, isNetworkFetchAllowed: !usingCache, shouldApplyPreferredLanguageVariant: true) { (contentGroup) in
+            widgetController.fetchNewestWidgetContentGroup(with: .topRead, in: dataStore, isNetworkFetchAllowed: !usingCache) { (contentGroup) in
                 guard let contentGroup = contentGroup else {
                     widgetUpdateTaskCompletion(self.placeholder)
                     return
