@@ -47,27 +47,24 @@ final class TopReadData {
     // MARK: Private
     
     private func assembleTopReadFromContentGroup(_ topRead: WMFContentGroup, with dataStore: MWKDataStore, usingImageCache: Bool = false, completion: @escaping (TopReadEntry) -> Void) {
-        guard let results = topRead.contentPreview as? [WMFFeedTopReadArticlePreview] else {
+        guard let articlePreviews = topRead.contentPreview as? [WMFFeedTopReadArticlePreview] else {
             completion(placeholder)
             return
         }
 
         // The WMFContentGroup can only be accessed synchronously
         // re-accessing it from the main queue or another queue might lead to unexpected behavior
-        let languageVariant = topRead.variant
         let layoutDirection: LayoutDirection = topRead.isRTL ? .rightToLeft : .leftToRight
         let groupURL = topRead.url
         let isCurrent = topRead.isForToday // even though the top read data is from yesterday, the content group is for today
         var rankedElements: [TopReadEntry.RankedElement] = []
 
-        for article in results {
-            article.articleURL.wmf_languageVariantCode = languageVariant
-            if let articlePreview = dataStore.fetchArticle(with: article.articleURL) {
-                if let viewCounts = articlePreview.pageViewsSortedByDate {
-                    let title = articlePreview.displayTitle ?? article.displayTitle
-                    let description = articlePreview.wikidataDescription ?? article.wikidataDescription ?? articlePreview.snippet ?? article.snippet ?? ""
-                    rankedElements.append(.init(title: title, description: description, articleURL: article.articleURL, thumbnailURL: article.thumbnailURL, viewCounts: viewCounts))
-                }
+        for articlePreview in articlePreviews {
+            if let fetchedArticle = dataStore.fetchArticle(with: articlePreview.articleURL), let viewCounts = fetchedArticle.pageViewsSortedByDate {
+                let title = fetchedArticle.displayTitle ?? articlePreview.displayTitle
+                let description = fetchedArticle.wikidataDescription ?? articlePreview.wikidataDescription ?? fetchedArticle.snippet ?? articlePreview.snippet ?? ""
+                let rankedElement = TopReadEntry.RankedElement(title: title, description: description, articleURL: articlePreview.articleURL, thumbnailURL: articlePreview.thumbnailURL, viewCounts: viewCounts)
+                rankedElements.append(rankedElement)
             }
         }
 
