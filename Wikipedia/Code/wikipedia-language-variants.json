@@ -3,49 +3,37 @@
         {
             "languageVariantCode": "zh-hans",
             "languageName": "简体",
-            "localName": "Chinese (Simplified)",
-            "languageCode": "zh"
-        },
-        {
-            "languageVariantCode": "zh-hant",
-            "languageName": "繁體",
-            "localName": "Chinese (Traditional)",
-            "languageCode": "zh"
-        },
-        {
-            "languageVariantCode": "zh-cn",
-            "languageName": "大陆简体",
-            "localName": "Chinese (Mainland Simplified)",
+            "localName": "Simplified Chinese",
             "languageCode": "zh"
         },
         {
             "languageVariantCode": "zh-hk",
             "languageName": "香港繁體",
-            "localName": "Chinese (Hong Kong Traditional)",
+            "localName": "Traditional Chinese (Hong Kong)",
             "languageCode": "zh"
         },
         {
             "languageVariantCode": "zh-mo",
             "languageName": "澳門繁體",
-            "localName": "Chinese (Macau Traditional)",
+            "localName": "Traditional Chinese (Macao)",
             "languageCode": "zh"
         },
         {
             "languageVariantCode": "zh-my",
             "languageName": "大马简体",
-            "localName": "Chinese (Malaysia Simplified)",
+            "localName": "Simplified Chinese (Malaysia)",
             "languageCode": "zh"
         },
         {
             "languageVariantCode": "zh-sg",
             "languageName": "新加坡简体",
-            "localName": "Chinese (Singapore Simplified)",
+            "localName": "Simplified Chinese (Singapore)",
             "languageCode": "zh"
         },
         {
             "languageVariantCode": "zh-tw",
             "languageName": "臺灣正體",
-            "localName": "Chinese (Taiwanese Traditional)",
+            "localName": "Traditional Chinese (Taiwan)",
             "languageCode": "zh"
         }
     ],

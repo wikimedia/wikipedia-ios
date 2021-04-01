@@ -1213,6 +1213,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         } break;
         default: {
             NSURL *linkURL = [activity wmf_linkURL];
+            // Ensure incoming link is fetched in user's preferred variant if applicable
+            linkURL.wmf_languageVariantCode = [self.dataStore.languageLinkController preferredLanguageVariantCodeForLanguageCode:linkURL.wmf_language];
             if (!linkURL) {
                 done();
                 return NO;
@@ -1434,7 +1436,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)setDidShowOnboarding {
     [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:WMFDidShowOnboarding];
-    
+
     // If the user is onboarding, variant info alerts do not need to be presented
     // So, set the user default to the current library version
     [[NSUserDefaults standardUserDefaults] setInteger:MWKDataStore.currentLibraryVersion forKey:WMFLanguageVariantAlertsLibraryVersion];
