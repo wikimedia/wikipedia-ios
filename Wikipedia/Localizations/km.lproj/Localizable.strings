@@ -1,6 +1,7 @@
 // Messages for Khmer (ភាសាខ្មែរ)
 // Exported from translatewiki.net
 // Author: Nemo bis
+// Author: Pokno Royal
 // Author: Y.snsqr
 // Author: គីមស៊្រុន
 
@@ -109,7 +110,7 @@
 "continue-reading-empty-description" = "រុករកអត្ថបទសម្រាប់អានបន្ថែមតទៀតក្នុងវិគីភីឌា";
 "continue-reading-empty-title" = "គ្មានអត្ថបទទើបអានថ្មីៗទេ";
 "description-add-title" = "បន្ថែមចំណារពន្យល់";
-"description-edit-for-article" = "ចំណារពន្យល់អំពីចំណងជើង $1";
+"description-edit-for-article" = "ចំណារពន្យល់អំពីអត្ថបទសម្រាប់ $1";
 "description-edit-learn-more" = "ស្វែងយល់បន្ថែម";
 "description-edit-length-warning" = "$1 / $2";
 "dim-images" = "រូបភាពស្រអាប់";

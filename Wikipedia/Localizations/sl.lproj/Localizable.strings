@@ -6,6 +6,7 @@
 // Author: P̲̳l̳eo
 
 "aaald-added-text-description-2" = "$1 dodano";
+// Fuzzy
 "aaald-article-description-updated-description" = "Opis naslova članka posodobljen";
 "aaald-article-insert-header" = "Pomembne posodobitve";
 "aaald-article-insert-last-updated" = "Zadnja posodobitev";
@@ -121,14 +122,18 @@
 "close-button-accessibility-label" = "Zapri";
 "compass-direction" = "ob $1 uri";
 "description-add-title" = "Dodaj opis";
+// Fuzzy
 "description-edit-for-article" = "Dodaj opis za $1";
 "description-edit-learn-more" = "Več o tem";
 "description-edit-length-warning" = "$1 / $2";
+// Fuzzy
 "description-edit-license" = "S spremembo opisa naslova se strinjam s $1 in nepreklicno objavljam svoj prispevek pod licenco $2.";
 "description-edit-pencil-introduction" = "Uredi uvod";
+// Fuzzy
 "description-edit-pencil-title" = "Urejanje opisa naslova";
 "description-edit-publish" = "Objavi opis";
 "description-edit-title" = "Uredi opis";
+// Fuzzy
 "description-help-about-description" = "Opisi naslovov povzamejo članek tako, da lahko bralci razumejo temo že ob prvem pogledu";
 "description-help-about-title" = "O projektu";
 "description-help-about-wikidata" = "O projektu Wikidata";
@@ -143,6 +148,7 @@
 "description-welcome-concise-sub-title" = "Najboljše ena vrstica, od dve do dvanajst besed";
 "description-welcome-concise-title" = "Naj bo kratko";
 "description-welcome-descriptions-sub-title" = "Povzetek članka, ki bralcem pomaga razumeti temo ob prvem pogledu";
+// Fuzzy
 "description-welcome-descriptions-title" = "Opisi naslovov";
 "description-welcome-promise-title" = "Ob začetku obljubljam, da te funkcije ne bom zlorabil/a";
 "description-welcome-start-editing-button" = "Začetek urejanja";

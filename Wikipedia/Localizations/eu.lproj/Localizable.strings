@@ -80,7 +80,7 @@
 "action-unsave" = "Ez da gorde";
 "action-unsaved-accessibility-notification" = "Gorde gabeko artikulua";
 "action-update" = "Eguneratu";
-"add-articles-to-reading-list" = "Gehitu {{PLURAL:$1|artikulu $1|$1 artikulu}} irakurketa zerrendara";
+"add-articles-to-reading-list" = "Gehitu {{PLURAL:$1|artikulu bat|$1 artikulu}} irakurketa zerrendara";
 "announcements-dismiss" = "Utzi";
 "app-store-keywords" = "Wikipedia, erreferentzia, wiki, entziklopedia, informazioa, ezagutza, ikerketa, informazioa, arakatu, ikasi";
 // Fuzzy
@@ -287,7 +287,7 @@
 "menu-cancel-accessibility-label" = "Utzi";
 "more-languages-tooltip-description" = "Bilatu Wikipedia 300 hizkuntza baino gehiagotan";
 "more-languages-tooltip-title" = "Hizkuntzak gehitu";
-"move-articles-to-reading-list" = "Mugitu {{PLURAL:$1|artikulu $1|$1 artikulu}} irakurketa zerrendara";
+"move-articles-to-reading-list" = "Mugitu {{PLURAL:$1|artikulu bat|$1 artikulu}} irakurketa zerrendara";
 "navbar-title-mode-edit-wikitext-preview" = "Aurrebista";
 "nearby-distance-label-feet" = "$1 oin";
 "nearby-distance-label-km" = "$1 km";

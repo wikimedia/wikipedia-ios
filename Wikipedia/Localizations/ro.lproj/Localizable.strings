@@ -157,28 +157,35 @@
 "continue-reading-empty-title" = "Nici un articol citit recent";
 "data-migration-status" = "Actualizare...";
 "description-add-title" = "Adaugă descriere";
+// Fuzzy
 "description-edit-for-article" = "Descrierea titlului pentru $1";
 "description-edit-learn-more" = "Aflați mai multe";
 "description-edit-length-warning" = "$1 / $2";
+// Fuzzy
 "description-edit-license" = "Prin schimbarea descrierii titlului, sunt de acord cu $1 și îmi eliberez irevocabil contribuțiile sub licența $2.";
 "description-edit-pencil-introduction" = "Modifică introducerea";
+// Fuzzy
 "description-edit-pencil-title" = "Modificați descrierea titlului";
 "description-edit-placeholder-title" = "Descrierile scurte sunt cele mai bune";
 "description-edit-publish" = "Publică descrierea";
 "description-edit-title" = "Modifică descrierea";
 "description-edit-warning" = "Încercați să păstrați descrierile scurte, astfel încât utilizatorii să înțeleagă subiectul articolului dintr-o privire";
+// Fuzzy
 "description-help-about-description" = "Descrierile titlurilor rezumă un articol pentru a ajuta cititorii să înțeleagă subiectul dintr-o privire.";
 "description-help-about-title" = "Despre";
 "description-help-about-wikidata" = "Despre Wikidata";
 "description-help-more-info-description" = "Descrierile sunt stocate și menținute pe Wikidata, un proiect al Fundației Wikimedia care oferă o bază de date gratuită, colaborativă, multilingvă, secundară, care sprijină Wikipedia și alte proiecte.";
 "description-help-more-info-title" = "Mai multe informații";
 "description-help-tips-description" = "În mod ideal, descrierile ar trebui să se încadreze pe o singură linie și pot avea între două și doisprezece cuvinte. Nu sunt majuscule decât dacă primul cuvânt este un substantiv propriu.";
+// Fuzzy
 "description-help-tips-example-description-one" = "descrierea titlului pentru un articol despre Mona Lisa";
+// Fuzzy
 "description-help-tips-example-description-two" = "descrierea titlului pentru un articol despre Muntele Everest";
 "description-help-tips-example-title-one" = "pictură de Leonardo Da Vinci";
 "description-help-tips-example-title-two" = "Cel mai înalt munte de pe Pământ";
 "description-help-tips-for-example" = "De exemplu:";
 "description-help-tips-title" = "Sfaturi pentru crearea descrierilor";
+// Fuzzy
 "description-help-title" = "Ajutor pentru descrierea titlului";
 "description-help-wikidata-guide" = "Ghidul Wikidata pentru scrierea descrierilor";
 "description-published-button-title" = "Realizat";
@@ -188,6 +195,7 @@
 "description-welcome-concise-sub-title" = "În mod ideal, o linie, între două până la douăsprezece cuvinte";
 "description-welcome-concise-title" = "Pe scurt";
 "description-welcome-descriptions-sub-title" = "Rezumă un articol pentru a ajuta cititorii să înțeleagă subiectul dintr-o privire";
+// Fuzzy
 "description-welcome-descriptions-title" = "Descrierea titlurilor";
 "description-welcome-promise-title" = "Începând, promit să nu folosesc greșit această caracteristică";
 "description-welcome-start-editing-button" = "Începeți să modificați";

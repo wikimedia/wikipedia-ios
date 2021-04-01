@@ -34,7 +34,7 @@
 // Author: Webysther
 
 "aaald-added-text-description-2" = "$1 adicionado";
-"aaald-article-description-updated-description" = "Descrição do título do artigo atualizada";
+"aaald-article-description-updated-description" = "Descrição do artigo atualizada";
 "aaald-article-insert-header" = "Atualizações significativas";
 "aaald-article-insert-last-updated" = "Última atualização";
 "aaald-article-insert-new-changes" = "Novas alterações";
@@ -192,31 +192,34 @@
 "compass-direction" = "às $1 horas";
 "continue-reading-empty-description" = "Explorar a Wikipédia para ler mais artigos";
 "continue-reading-empty-title" = "Nenhum artigo lido recentemente";
+"crimean-tatar-variants-alert-body" = "O aplicativo Wikipedia agora suporta as seguintes variantes de tártara da crimeia como idiomas primários ou secundários dentro do aplicativo, tornando mais fácil ler, pesquisar e editar em suas variantes preferidas:\n\nQırımtatarca, tártara da crimeia latino (chr-latn)\nкъырымтатарджа, tártara da crimeia cirílico (crh-cyrl)";
+"crimean-tatar-variants-alert-title" = "Atualizações para suporte a variantes de tártara da Crimeia";
 "data-migration-status" = "Atualizando...";
 "description-add-title" = "Adicionar descrição";
-"description-edit-for-article" = "Descrição do título para $1";
+"description-edit-for-article" = "Descrição do artigo para $1";
 "description-edit-learn-more" = "Saiba mais";
 "description-edit-length-warning" = "$1 / $2";
-"description-edit-license" = "Ao alterar a descrição do título, eu concordo com os $1 e lanço as minhas contribuições irrevogavelmente sob a licença $2.";
+"description-edit-license" = "Ao alterar a descrição do artigo, eu concordo com os $1 e lanço as minhas contribuições irrevogavelmente sob a licença $2.";
 "description-edit-pencil-introduction" = "Editar introdução";
-"description-edit-pencil-title" = "Editar descrição do título";
+"description-edit-pencil-title" = "Editar descrição do artigo";
 "description-edit-placeholder-title" = "As descrições curtas são melhores";
 "description-edit-publish" = "Publicar descrição";
 "description-edit-title" = "Editar descrição";
 "description-edit-warning" = "tente manter as descrições breves para que os usuários possam entender o assunto do artigo imediatamente";
-"description-help-about-description" = "As descrições dos títulos resumem um artigo para ajudar os leitores a entender o assunto de relance.";
+"description-edit-warning-casing" = "Apenas nomes próprios devem ser escritos em maiúscula, mesmo no início da frase.";
+"description-help-about-description" = "As descrições dos artigos resumem um artigo para ajudar os leitores a entender o assunto de relance.";
 "description-help-about-title" = "Sobre";
 "description-help-about-wikidata" = "Sobre o Wikidata";
 "description-help-more-info-description" = "As descrições são armazenadas no Wikidata, um projeto da Wikimedia Foundation que fornece uma base de dados secundária gratuita, colaborativa e multi-idioma, que suporta a Wikipédia e outros projetos.";
 "description-help-more-info-title" = "Mais informações";
 "description-help-tips-description" = "As descrições devem caber idealmente em uma linha e têm entre duas a doze palavras. Eles não são capitalizados, a menos que a primeira palavra seja um nome próprio.";
-"description-help-tips-example-description-one" = "título para um artigo sobre a Mona Lisa";
-"description-help-tips-example-description-two" = "descrição do título para um artigo sobre o Monte Everest";
+"description-help-tips-example-description-one" = "descrição do artigo para um artigo sobre a Mona Lisa";
+"description-help-tips-example-description-two" = "descrição do artigo para um artigo sobre o Monte Everest";
 "description-help-tips-example-title-one" = "pintado por Leonardo Da Vinci";
 "description-help-tips-example-title-two" = "A montanha mais alta da Terra";
 "description-help-tips-for-example" = "Por exemplo:";
 "description-help-tips-title" = "Dicas para criar descrições";
-"description-help-title" = "Ajuda da descrição do título";
+"description-help-title" = "Ajuda da descrição do artigo";
 "description-help-wikidata-guide" = "Guia Wikidata para escrever descrições";
 "description-published-button-title" = "Feito";
 "description-published-footer" = "Também pode editar artigos com este app. Tente corrigir erros ortográficos e pequenas frases clicando no ícone do lápis da próxima vez";
@@ -225,7 +228,7 @@
 "description-welcome-concise-sub-title" = "Idealmente uma linha, entre 2 a 12 palavras";
 "description-welcome-concise-title" = "Mantenha curta";
 "description-welcome-descriptions-sub-title" = "Resume um artigo para ajudar os leitores a entender o assunto imediatamente";
-"description-welcome-descriptions-title" = "Descrições do título";
+"description-welcome-descriptions-title" = "Descrições de artigos";
 "description-welcome-promise-title" = "Ao iniciar, eu prometo não utilizar de forma irresponsável esta funcionalidade";
 "description-welcome-start-editing-button" = "Começar a editar";
 "diff-compare-header-from-info-heading" = "De:";
@@ -467,6 +470,8 @@
 "forgot-password-instructions" = "Preencha um dos campos abaixo para receber instruções de redefinição de senha por e-mail";
 "forgot-password-title" = "Redefinir senha";
 "forgot-password-username-or-email-title" = "ou";
+"gan-variants-alert-body" = "O aplicativo Wikipedia agora suporta as seguintes variantes Gan como idiomas primários ou secundários dentro do aplicativo, tornando mais fácil ler, pesquisar e editar em suas variantes preferidas:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan simplificado (gan-hans)\n贛語 繁體 Gan tradicional (gan-hant)";
+"gan-variants-alert-title" = "Atualizações para o suporte da variante Gan";
 "history-clear-all" = "Limpar";
 "history-clear-cancel" = "Cancelar";
 "history-clear-confirmation-heading" = "Você tem certeza que quer apagar todos os itens recentes?";
@@ -528,6 +533,9 @@
 "intermediate-edits-editors-count-limited" = "$1+ revisões intermediárias de mais de $2 usuários não mostrados";
 "intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 revisão intermediária|$1 revisões intermediárias}} por $2+ usuários não mostrados";
 "intermediate-edits-limited-editors-count" = "$1+ revisões intermediárias por {{PLURAL:$2|$2 usuário|$2 usuários}} não mostrado";
+"inuktitut-variants-alert-body" = "O aplicativo Wikipedia agora suporta as seguintes variantes do Inuctitute como idiomas primários ou secundários dentro do aplicativo, tornando mais fácil ler, pesquisar e editar em suas variantes preferidas:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ inuctitute silábico (ike-cans)\nInuktitut ilisautik, inuctitute latino (ike-latn)";
+"inuktitut-variants-alert-title" = "Atualizações para suporte a variantes de inuctitute";
+"kazakh-variants-alert-body" = "O aplicativo Wikipedia agora oferece suporte às seguintes variantes do Cazaque como idiomas primários ou secundários dentro do aplicativo, tornando mais fácil ler, pesquisar e editar em suas variantes preferidas:\n\nҚазақша Cazaque (kk)\nҚазақша Кирил Cazaque cirílico (kk-cyrl)\nqazaqşa latin Cazaque latino (kk-latn)\nتوتە قازاقشا Cazaque árabe (kk-arab)";
 "languages-settings-title" = "Idiomas";
 "languages-title" = "Alterar idioma";
 "languages-wikipedia" = "Idiomas de Wikipedia";
@@ -833,6 +841,7 @@
 "table-of-contents-heading" = "Conteúdo";
 "table-of-contents-hide-button-label" = "Ocultar sumário";
 "table-of-contents-subheading-label" = "Subtítulo $1";
+"tajik-variants-alert-title" = "Atualizações para o suporte da variante tajique";
 "talk-page-add-discussion-accessibility-label" = "Adicionar discussão";
 "talk-page-discussion-accessibility-hint" = "Toque duas vezes para abrir o tópico de discussão";
 "talk-page-discussion-read-accessibility-label" = "Ler";
@@ -880,6 +889,7 @@
 "two-factor-login-with-regular-code" = "Usar código de verificação";
 "unable-to-load-talk-page-title" = "Não foi possível carregar a página de discussão";
 "unknown-generic-text" = "Desconhecido";
+"uzbek-variants-alert-title" = "Atualizações para o suporte da variante de usbeque";
 "variants-alert-dismiss-button" = "Não, obrigado";
 "variants-alert-preferences-button" = "Revise suas preferências";
 "welcome-exploration-explore-feed-description" = "Leitura recomendada e artigos diários da nossa comunidade";

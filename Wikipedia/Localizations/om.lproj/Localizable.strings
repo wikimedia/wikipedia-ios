@@ -1,8 +1,10 @@
 // Messages for Oromo (Oromoo)
 // Exported from translatewiki.net
+// Author: Ahrada2016
 // Author: Nemo bis
 // Author: Tumsaa
 
+"aaald-article-description-updated-description" = "Ibsa harguya keeyyataa";
 // Fuzzy
 "about-contributors" = "Gumaachitoota";
 "about-libraries-license" = "Eeyyama";
@@ -14,6 +16,10 @@
 "back-button-accessibility-label" = "Gara duubaa";
 "button-next" = "Itti fufi";
 "close-button-accessibility-label" = "Cufi";
+"description-edit-for-article" = "$1tiif ibsa keeyyataa";
+"description-edit-pencil-title" = "Ibsa keeyyataa gulaali";
+"description-help-title" = "Gargaarsa ibsa keeyyataa";
+"description-welcome-descriptions-title" = "Ibsa keeyyataa";
 "explore-continue-reading-heading" = "Dubbisuu itti fufi";
 "explore-potd-heading" = "Suura har'aa";
 "history-clear-cancel" = "Dhiisi";
