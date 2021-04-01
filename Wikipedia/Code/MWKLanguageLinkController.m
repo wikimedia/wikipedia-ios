@@ -232,6 +232,16 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
     }];
 }
 
+- (void)getPreferredWikiCodes:(void (^)(NSArray<NSString *> *))completion {
+    NSArray<NSURL *> *preferredSiteURLs = [self preferredSiteURLs];
+    NSMutableSet<NSString *> *preferredWikiCodes = [[NSMutableSet alloc] init];
+    for (NSURL *siteURL in preferredSiteURLs) {
+        [preferredWikiCodes addObject: siteURL.wmf_language];
+    }
+    
+    completion(preferredWikiCodes.allObjects);
+}
+
 // This method can only be safely called from the main app target, as an extension's standard `NSUserDefaults` are independent from the main app and other targets.
 + (void)migratePreferredLanguagesToManagedObjectContext:(NSManagedObjectContext *)moc {
     NSArray *preferredLanguages = [[NSUserDefaults standardUserDefaults] arrayForKey:WMFPreviousLanguagesKey];
