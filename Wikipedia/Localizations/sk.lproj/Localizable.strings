@@ -176,7 +176,7 @@
 "continue-reading-empty-title" = "Žiadne nedávno čítané články";
 "crimean-tatar-variants-alert-body" = "Wikipédia teraz podporuje aj nasledovnú varianty jazyka krimských tatárov ako primárny aj sekundárny jazyk aplikácie:\n\nQırımtatarca, Latin Crimean Tatar Latin (chr-latn)\nкъырымтатарджа, Кирил Crimean Tatar Cyrillic (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Aktualizácie variantov jazyka krymských tatárov";
-"data-migration-status" = "Aktualizujem...";
+"data-migration-status" = "Aktualizácia...";
 "description-add-title" = "Pridať popis";
 "description-edit-for-article" = "Popis článku pre $1";
 "description-edit-learn-more" = "Ďalšie informácie";
