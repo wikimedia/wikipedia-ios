@@ -15,6 +15,14 @@
             "my": "zh-my",
             "sg": "zh-sg",
             "tw": "zh-tw"
+        },
+        "hant": {
+            "default": "zh-hk",
+            "hk": "zh-hk",
+            "mo": "zh-mo",
+            "my": "zh-my",
+            "sg": "zh-sg",
+            "tw": "zh-tw"
         }
     },
     "sr": {
