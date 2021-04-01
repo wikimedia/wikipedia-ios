@@ -173,7 +173,7 @@
 "button-skip" = "Omet";
 "cancel" = "Cancel·la";
 "cc-zero" = "Creative Commons CC0";
-"chinese-variants-alert-body" = "L'aplicació de Viquipèdia ara funciona amb les variants xineses a continuació com a llengües primàries o secundàries. Això facilita la lectura, la cerca i l'edició en les vostres variants preferides:\n\n简体 Xinès, simplificat (zh-hans)\n繁體 Xinès, tradicional (zh-hant)\n大陆简体 Simplificat continental (zh-cn)\n香港繁體 Tradicional de Hong Kong (zh-hk)\n澳門繁體 Tradicional de Macau (zh-mo)\n大马简体 Simplificat de Malàisia (zh-my)\n新加坡简体 Simplificat de Singapur (zh-sg)\n臺灣正體 Tradicional taiwanès (zh-tw)";
+"chinese-variants-alert-body" = "L'aplicació de Viquipèdia ara funciona amb les variants xineses a continuació com a llengües primàries o secundàries. Això facilita la lectura, la cerca i l'edició en les vostres variants preferides:\n\n简体 Xinès, simplificat (zh-hans)\n香港繁體 Tradicional de Hong Kong (zh-hk)\n澳門繁體 Tradicional de Macau (zh-mo)\n大马简体 Simplificat de Malàisia (zh-my)\n新加坡简体 Simplificat de Singapur (zh-sg)\n臺灣正體 Tradicional taiwanès (zh-tw)";
 "chinese-variants-alert-title" = "Actualitzacions per a l'admissió de variants xineses";
 "clear-title-accessibility-label" = "Neteja";
 "close-button-accessibility-label" = "Tanca";
