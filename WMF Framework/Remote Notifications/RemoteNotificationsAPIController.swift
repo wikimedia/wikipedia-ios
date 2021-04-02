@@ -179,7 +179,7 @@ class RemoteNotificationsAPIController: Fetcher {
                 case .failure(let error):
                     completion(nil, nil, error)
                 case .success(let token):
-                    self.session.jsonDecodableTask(with: components.url, method: method, bodyParameters: ["token": token], bodyEncoding: .form, completionHandler: completion)
+                    self.session.jsonDecodableTask(with: components.url, method: method, bodyParameters: ["token": token.value], bodyEncoding: .form, completionHandler: completion)
                 }
             }
         }
