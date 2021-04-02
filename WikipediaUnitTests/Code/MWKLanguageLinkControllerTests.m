@@ -122,13 +122,29 @@
     XCTAssertEqualObjects(articleURL.wmf_languageVariantCode, languageVariantCode);
 }
 
+/* Note that this test relies on the OS *not* having Uzbek set as a preferred language.
+ * Since there is no way to change OS language settings from a test, to check the fallback
+ * setting if a language is not found in the app or the OS preferred languages, the tested
+ * language cannot be one of the OS preferred langugages.
+ *
+ * Choosing Uzbek since it is a less frequently used language and because it has the most
+ * fallback choices of any variant-aware language except for Chinese.
+ */
 - (void)testPreferredLanguageVariantForLanguageCode {
     // Only run test if language variants are enabled
     if (!WikipediaLookup.languageVariantsEnabled) {
         return;
     }
+    
+    NSInteger foundIndex = [NSLocale.preferredLanguages indexOfObjectPassingTest:^BOOL(NSString * _Nonnull languageCode, NSUInteger idx, BOOL * _Nonnull stop) {
+        return [languageCode hasPrefix:@"uz"];
+    }];
+    if (foundIndex != NSNotFound) {
+        XCTFail(@"Test being run with Uzbek included in OS preferred languages: '%@'", NSLocale.preferredLanguages[foundIndex]);
+    }
+    
     NSString *chineseLanguageVariantCode = @"zh-my";
-    NSString *serbianLanguageVariantCode = @"sr-ec";
+    NSString *uzbekLanguageVariantCode = @"uz-latin";
 
     MWKLanguageLink *link = [[MWKLanguageLink alloc] initWithLanguageCode:@"zh" pageTitleText:@"" name:@"Malaysia Simplified" localizedName:@"大马简体" languageVariantCode:chineseLanguageVariantCode altISOCode:nil];
     
@@ -142,8 +158,8 @@
     XCTAssertEqualObjects(chineseResult, chineseLanguageVariantCode);
 
     // Test fallback not in app preferences or OS preferences
-    NSString *serbianResult = [self.controller preferredLanguageVariantCodeForLanguageCode:@"sr"];
-    XCTAssertEqualObjects(serbianResult, serbianLanguageVariantCode);
+    NSString *uzbekResult = [self.controller preferredLanguageVariantCodeForLanguageCode:@"uz"];
+    XCTAssertEqualObjects(uzbekResult, uzbekLanguageVariantCode);
 
     // Test non-variant languages not found in app or OS preferences
     NSString *englishResult = [self.controller preferredLanguageVariantCodeForLanguageCode:@"en"];
