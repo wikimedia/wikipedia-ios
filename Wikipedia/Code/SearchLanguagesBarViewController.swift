@@ -128,7 +128,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
     }
     
     fileprivate func languageBarLanguages() -> [MWKLanguageLink] {
-        return Array(MWKDataStore.shared().languageLinkController.preferredLanguages.prefix(3))
+        return MWKDataStore.shared().languageLinkController.preferredLanguages
     }
     
     fileprivate func updateLanguageBarLanguageButtons(){
