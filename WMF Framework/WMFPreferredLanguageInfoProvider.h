@@ -1,10 +1,10 @@
 #ifndef WMFPreferredLanguageCodesProviding_h
 #define WMFPreferredLanguageCodesProviding_h
 NS_ASSUME_NONNULL_BEGIN
-@protocol WMFPreferredCodesProviding
+@protocol WMFPreferredLanguageInfoProvider
 
+- (void)getPreferredContentLanguageCodes:(void (^)(NSArray<NSString *> *))completion;
 - (void)getPreferredLanguageCodes:(void (^)(NSArray<NSString *> *))completion;
-- (void)getPreferredWikiCodes:(void (^)(NSArray<NSString *> *))completion;
 
 @end
 NS_ASSUME_NONNULL_END

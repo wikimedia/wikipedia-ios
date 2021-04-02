@@ -5,7 +5,7 @@ class RemoteNotificationsOperationsController: NSObject {
     private let modelController: RemoteNotificationsModelController?
     private let deadlineController: RemoteNotificationsOperationsDeadlineController?
     private let operationQueue: OperationQueue
-    private let preferredLanguageCodesProvider: WMFPreferredCodesProviding
+    private let preferredLanguageCodesProvider: WMFPreferredLanguageInfoProvider
 
     private var isLocked: Bool = false {
         didSet {
@@ -15,7 +15,7 @@ class RemoteNotificationsOperationsController: NSObject {
         }
     }
 
-    required init(session: Session, configuration: Configuration, preferredLanguageCodesProvider: WMFPreferredCodesProviding) {
+    required init(session: Session, configuration: Configuration, preferredLanguageCodesProvider: WMFPreferredLanguageInfoProvider) {
         apiController = RemoteNotificationsAPIController(session: session, configuration: configuration)
         var modelControllerInitializationError: Error?
         modelController = RemoteNotificationsModelController(&modelControllerInitializationError)
@@ -78,8 +78,8 @@ class RemoteNotificationsOperationsController: NSObject {
         }
         
         let markAsReadOperation = RemoteNotificationsMarkAsReadOperation(with: apiController, modelController: modelController)
-        preferredLanguageCodesProvider.getPreferredWikiCodes({ (wikiCodes) in
-            let targetWikis = wikiCodes + ["wikidata"]
+        preferredLanguageCodesProvider.getPreferredLanguageCodes({ (languageCodes) in
+            let targetWikis = languageCodes + ["wikidata"]
             let fetchOperation = RemoteNotificationsFetchOperation(with: self.apiController, modelController: modelController, targetWikis: targetWikis)
             let completionOperation = BlockOperation(block: completion)
             

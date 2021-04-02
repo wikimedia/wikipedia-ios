@@ -226,13 +226,13 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
     [[NSNotificationCenter defaultCenter] postNotificationName:WMFPreferredLanguagesDidChangeNotification object:self];
 }
 
-- (void)getPreferredLanguageCodes:(void (^)(NSArray<NSString *> *))completion {
+- (void)getPreferredContentLanguageCodes:(void (^)(NSArray<NSString *> *))completion {
     [self.moc performBlock:^{
         completion([self readPreferredLanguageCodes]);
     }];
 }
 
-- (void)getPreferredWikiCodes:(void (^)(NSArray<NSString *> *))completion {
+- (void)getPreferredLanguageCodes:(void (^)(NSArray<NSString *> *))completion {
     NSArray<NSURL *> *preferredSiteURLs = [self preferredSiteURLs];
     NSMutableSet<NSString *> *preferredWikiCodes = [[NSMutableSet alloc] init];
     for (NSURL *siteURL in preferredSiteURLs) {

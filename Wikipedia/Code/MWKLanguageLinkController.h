@@ -1,5 +1,5 @@
 #import <WMF/MWKLanguageFilter.h>
-#import <WMF/WMFPreferredCodesProviding.h>
+#import <WMF/WMFPreferredLanguageInfoProvider.h>
 @import UIKit.UIView;
 @class NSManagedObjectContext;
 @class MWKLanguageLink;
@@ -20,7 +20,7 @@ typedef NS_ENUM(NSInteger, WMFPreferredLanguagesChangeType) {
     WMFPreferredLanguagesChangeTypeReorder
 };
 
-@interface MWKLanguageLinkController : NSObject <MWKLanguageFilterDataSource, WMFPreferredCodesProviding>
+@interface MWKLanguageLinkController : NSObject <MWKLanguageFilterDataSource, WMFPreferredLanguageInfoProvider>
 
 /// Initializes `MWKLanguageLinkController` with the `NSManagedObjectContext` used for storage
 - (instancetype)initWithManagedObjectContext:(NSManagedObjectContext *)moc;
