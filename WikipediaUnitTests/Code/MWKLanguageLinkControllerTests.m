@@ -135,6 +135,14 @@
     if (!WikipediaLookup.languageVariantsEnabled) {
         return;
     }
+    
+    NSInteger foundIndex = [NSLocale.preferredLanguages indexOfObjectPassingTest:^BOOL(NSString * _Nonnull languageCode, NSUInteger idx, BOOL * _Nonnull stop) {
+        return [languageCode hasPrefix:@"uz"];
+    }];
+    if (foundIndex != NSNotFound) {
+        XCTFail(@"Test being run with Uzbek included in OS preferred languages: '%@'", NSLocale.preferredLanguages[foundIndex]);
+    }
+    
     NSString *chineseLanguageVariantCode = @"zh-my";
     NSString *serbianLanguageVariantCode = @"uz-latin";
 
