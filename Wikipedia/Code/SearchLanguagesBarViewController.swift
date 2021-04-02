@@ -23,12 +23,21 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
     
     @objc weak var delegate: SearchLanguagesBarViewControllerDelegate?
     
-    @IBOutlet fileprivate var languageButtons: [SearchLanguageButton] = []
     @IBOutlet fileprivate var otherLanguagesButton: UIButton?
     @IBOutlet weak var otherLanguagesButtonBackgroundView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var gradientView: WMFGradientView!
-    
+
+    lazy var stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        stackView.spacing = 8
+        return stackView
+    }()
+
     @objc var theme: Theme = Theme.standard
     
     @objc fileprivate(set) var currentlySelectedSearchLanguage: MWKLanguageLink? {
@@ -60,7 +69,9 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
         
         NotificationCenter.default.addObserver(self, selector: #selector(appLanguageDidChange(_:)), name: NSNotification.Name.WMFAppLanguageDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(preferredLanguagesDidChange(_:)), name: NSNotification.Name.WMFPreferredLanguagesDidChange, object: nil)
-        
+
+        addLanguageButtonStackView()
+
         apply(theme: theme)
         view.wmf_configureSubviewsForDynamicType()
         
@@ -70,6 +81,17 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
         gradientView.endPoint = isRTL ? .zero : CGPoint(x: 1, y: 0)
         
         scrollView.clipsToBounds = false
+    }
+
+    fileprivate func addLanguageButtonStackView() {
+        scrollView.addSubview(stackView)
+
+        stackView.leadingAnchor.constraint(lessThanOrEqualToSystemSpacingAfter: scrollView.leadingAnchor, multiplier: 2).isActive = true
+
+        stackView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+        stackView.heightAnchor.constraint(equalTo: scrollView.heightAnchor).isActive = true
     }
     
     override func viewDidLayoutSubviews() {
