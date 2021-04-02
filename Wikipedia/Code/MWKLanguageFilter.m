@@ -57,13 +57,48 @@ NSString *const MWKLanguageFilterDataSourceLanguagesDidChangeNotification = @"MW
     [self updateFilteredLanguages];
 }
 
+/* This method will sort the provided array of languages in the following way:
+ * If the data source preferred languages contains a language variant,
+ * all variants for that language are moved to the beginning of resulting array.
+ *
+ * If language variants of multiple languages are present in the data source preferred langugages,
+ * all variants for each language are moved to the beginning of the resulting array in the same
+ * relative order as the variants appear in the original array.
+ */
+- (NSArray<MWKLanguageLink *> *)languagesSortedWithPreferredLanguageVariantLanguagesFirst:(NSArray<MWKLanguageLink *> *)unsortedLanguages {
+    
+    NSMutableArray<MWKLanguageLink *> *temporaryLanguages = [unsortedLanguages mutableCopy];
+
+    // Gather all the preferred languages that support variants
+    // Maintain the preference order so variants are presented using same order
+    NSMutableArray<NSString *> *preferredVariantAwareLanguageCodes = [NSMutableArray array];
+    for (MWKLanguageLink *language in self.dataSource.preferredLanguages) {
+        if (language.languageVariantCode && ![preferredVariantAwareLanguageCodes containsObject:language.languageCode]) {
+            [preferredVariantAwareLanguageCodes addObject:language.languageCode];
+        }
+    }
+    
+    // Process language codes in reverse order so the earlier items are placed earlier in the resulting array
+    for (NSString *languageCode in preferredVariantAwareLanguageCodes.reverseObjectEnumerator) {
+        NSIndexSet *foundIndexes = [temporaryLanguages indexesOfObjectsPassingTest:^BOOL(MWKLanguageLink * _Nonnull language, NSUInteger idx, BOOL * _Nonnull stop) {
+            return [language.languageCode isEqualToString: languageCode];
+        }];
+        NSArray<MWKLanguageLink *> *foundLanguages = [temporaryLanguages objectsAtIndexes:foundIndexes];
+        [temporaryLanguages removeObjectsAtIndexes:foundIndexes];
+        [temporaryLanguages insertObjects:foundLanguages atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, foundLanguages.count)]];
+    }
+    
+    return [temporaryLanguages copy];
+}
+
 - (void)updateFilteredLanguages {
+    NSArray<MWKLanguageLink *> *unsortedFilteredLanguages = nil;
     if ([self.languageFilter length] == 0) {
-        self.filteredLanguages = self.dataSource.allLanguages;
+        unsortedFilteredLanguages = self.dataSource.allLanguages;
         self.filteredPreferredLanguages = self.dataSource.preferredLanguages;
         self.filteredOtherLanguages = self.dataSource.otherLanguages;
     } else {
-        self.filteredLanguages = [self.dataSource.allLanguages wmf_select:^BOOL(MWKLanguageLink *langLink) {
+        unsortedFilteredLanguages = [self.dataSource.allLanguages wmf_select:^BOOL(MWKLanguageLink *langLink) {
             return [langLink.name wmf_caseInsensitiveContainsString:self.languageFilter] || [langLink.localizedName wmf_caseInsensitiveContainsString:self.languageFilter] || [langLink.languageCode wmf_caseInsensitiveContainsString:self.languageFilter];
         }];
         self.filteredPreferredLanguages = [self.dataSource.preferredLanguages wmf_select:^BOOL(MWKLanguageLink *langLink) {
@@ -73,6 +108,8 @@ NSString *const MWKLanguageFilterDataSourceLanguagesDidChangeNotification = @"MW
             return [langLink.name wmf_caseInsensitiveContainsString:self.languageFilter] || [langLink.localizedName wmf_caseInsensitiveContainsString:self.languageFilter] || [langLink.languageCode wmf_caseInsensitiveContainsString:self.languageFilter];
         }];
     }
+        
+    self.filteredLanguages = [self languagesSortedWithPreferredLanguageVariantLanguagesFirst:unsortedFilteredLanguages];
 }
 
 - (void)dataSourceLanguagesDidChange:(NSNotification *)note {
