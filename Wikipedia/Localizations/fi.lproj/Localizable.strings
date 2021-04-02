@@ -11,6 +11,7 @@
 // Author: Joquliina
 // Author: Laurianttila
 // Author: McSalama
+// Author: Mediawikitranslator
 // Author: Nemo bis
 // Author: Nike
 // Author: OneMember
@@ -25,7 +26,6 @@
 // Author: Valtlait
 
 "aaald-added-text-description-2" = "$1 lisätty";
-// Fuzzy
 "aaald-article-description-updated-description" = "Artikkelin kuvaus päivitetty";
 "aaald-article-insert-header" = "Merkittävät päivitykset";
 "aaald-article-insert-last-updated" = "Viimeksi päivitetty";
@@ -869,6 +869,7 @@
 "unable-to-load-talk-page-title" = "Keskustelusivun lataaminen epäonnistui";
 "unknown-generic-text" = "Tuntematon";
 "variants-alert-dismiss-button" = "Ei kiitos";
+"variants-alert-preferences-button" = "Tarkista asetuksesi";
 "welcome-exploration-explore-feed-description" = "Suositellut luettavat ja pävittäiset artikkelit yhteisöstämme";
 "welcome-exploration-explore-feed-title" = "Tutki syötettä";
 "welcome-exploration-on-this-day-description" = "Matkusta takaisin ajassa ja opi mitä tapahtui tänä päivänä historiassa";

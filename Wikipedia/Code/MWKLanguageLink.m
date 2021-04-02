@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink:)
 
 - (BOOL)isEqualToLanguageLink:(MWKLanguageLink *)rhs {
-    return WMF_RHS_PROP_EQUAL(languageCode, isEqualToString:) && WMF_RHS_PROP_EQUAL(pageTitleText, isEqualToString:) && WMF_RHS_PROP_EQUAL(name, isEqualToString:) && WMF_RHS_PROP_EQUAL(localizedName, isEqualToString:) && WMF_RHS_PROP_EQUAL(languageVariantCode, isEqualToString:);
+    return WMF_RHS_PROP_EQUAL(languageCode, isEqualToString:) && WMF_RHS_PROP_EQUAL(pageTitleText, isEqualToString:) && WMF_RHS_PROP_EQUAL(name, isEqualToString:) && WMF_RHS_PROP_EQUAL(localizedName, isEqualToString:) && WMF_RHS_PROP_EQUAL(languageVariantCode, isEqualToString:) && WMF_RHS_PROP_EQUAL(altISOCode, isEqualToString:);
 }
 
 - (NSComparisonResult)compare:(MWKLanguageLink *)other {
@@ -47,7 +47,7 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink:)
 }
 
 - (NSUInteger)hash {
-    return self.languageCode.hash ^ flipBitsWithAdditionalRotation(self.pageTitleText.hash, 1) ^ flipBitsWithAdditionalRotation(self.name.hash, 2) ^ flipBitsWithAdditionalRotation(self.localizedName.hash, 3) ^ flipBitsWithAdditionalRotation(self.languageVariantCode.hash, 4); // When languageVariantCode is nil, the XOR flips the bits
+    return self.languageCode.hash ^ flipBitsWithAdditionalRotation(self.pageTitleText.hash, 1) ^ flipBitsWithAdditionalRotation(self.name.hash, 2) ^ flipBitsWithAdditionalRotation(self.localizedName.hash, 3) ^ flipBitsWithAdditionalRotation(self.languageVariantCode.hash, 4) ^ flipBitsWithAdditionalRotation(self.altISOCode.hash, 4); // When languageVariantCode or altISOCode is nil, the XOR flips the bits
 }
 
 - (NSString *)description {

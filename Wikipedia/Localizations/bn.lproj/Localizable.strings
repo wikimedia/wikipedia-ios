@@ -12,12 +12,15 @@
 // Author: R4356th
 // Author: Rasal Lia
 // Author: Sayma Jahan
+// Author: Tahmid
 // Author: Tahmid02016
 // Author: Tauhid16
+// Author: WikiAbuHuraira
 // Author: আজিজ
 // Author: আফতাবুজ্জামান
 // Author: ফাহাদ কাজমী
 
+"aaald-article-description-updated-description" = "নিবন্ধের বিবরণ হালনাগাদ করা হয়েছে";
 "about-content-license" = "বিষয়বস্তুর লাইসেন্স";
 "about-content-license-details" = "অন্যথায় নির্দিষ্ট করা না থাকলে, বিষয়বস্তু $1-এর অধীনে উপলব্ধ।";
 "about-content-license-details-share-alike-license" = "ক্রিয়েটিভ কমন্স অ্যাট্রিবিউশন শেয়ার অ্যালাইক";
@@ -108,10 +111,12 @@
 "description-add-title" = "বিবরণ যোগ করুন";
 "description-edit-learn-more" = "আরও জানুন";
 "description-edit-length-warning" = "$1/$2";
+"description-edit-pencil-title" = "নিবন্ধের বিবরণ সম্পাদনা করুন";
 "description-edit-title" = "বিবরণ সম্পাদনা করুন";
 "description-help-about-wikidata" = "উইকিউপাত্ত সম্পর্কে";
 "description-help-more-info-title" = "আরও তথ্য";
 "description-help-tips-for-example" = "উদাহরণস্বরূপ:";
+"description-help-title" = "নিবন্ধের বিবরণ সংক্রান্ত সাহায্য";
 "description-published-button-title" = "সম্পন্ন";
 "description-welcome-descriptions-title" = "নিবন্ধের বিবরণ";
 "description-welcome-start-editing-button" = "সম্পাদনা শুরু করুন";
