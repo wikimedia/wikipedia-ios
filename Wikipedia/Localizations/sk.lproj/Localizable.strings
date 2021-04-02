@@ -167,7 +167,7 @@
 "button-skip" = "Preskočiť";
 "cancel" = "Zrušiť";
 "cc-zero" = "Creative Commons CC0";
-"chinese-variants-alert-body" = "Wikopédia teraz podporuje aj tieto čínske varianty ako primárny a sekundárny jazyk aplikácie:\n\n简体 Chinese, Simplified (zh-hans)\n繁體 Chinese, Traditional (zh-hant)\n大陆简体 Mainland Simplified (zh-cn)\n香港繁體 Hong Kong Traditional (zh-hk)\n澳門繁體 Macau Traditional (zh-mo)\n大马简体 Malaysia Simplified (zh-my)\n新加坡简体 Singapore Simplified (zh-sg)\n臺灣正體 Taiwanese Traditional (zh-tw)";
+"chinese-variants-alert-body" = "Wikopédia teraz podporuje aj tieto čínske varianty ako primárny a sekundárny jazyk aplikácie:\n\n简体 Chinese, Simplified (zh-hans)\n香港繁體 Hong Kong Traditional (zh-hk)\n澳門繁體 Macau Traditional (zh-mo)\n大马简体 Malaysia Simplified (zh-my)\n新加坡简体 Singapore Simplified (zh-sg)\n臺灣正體 Taiwanese Traditional (zh-tw)";
 "chinese-variants-alert-title" = "Aktualizácie podpory čínskych variánt";
 "clear-title-accessibility-label" = "Vyčistiť";
 "close-button-accessibility-label" = "Zavrieť";
@@ -176,7 +176,7 @@
 "continue-reading-empty-title" = "Žiadne nedávno čítané články";
 "crimean-tatar-variants-alert-body" = "Wikipédia teraz podporuje aj nasledovnú varianty jazyka krimských tatárov ako primárny aj sekundárny jazyk aplikácie:\n\nQırımtatarca, Latin Crimean Tatar Latin (chr-latn)\nкъырымтатарджа, Кирил Crimean Tatar Cyrillic (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Aktualizácie variantov jazyka krymských tatárov";
-"data-migration-status" = "Aktualizujem...";
+"data-migration-status" = "Aktualizácia...";
 "description-add-title" = "Pridať popis";
 "description-edit-for-article" = "Popis článku pre $1";
 "description-edit-learn-more" = "Ďalšie informácie";

@@ -172,7 +172,7 @@
 "button-skip" = "לדלג";
 "cancel" = "ביטול";
 "cc-zero" = "קריאייטיב קומונז אפס";
-"chinese-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בהגוונים הבאים של סינית בתור השפה הראשית או המשנית ביישום, כדי שיהיה קל יותר לקרוא, לחפש, ולערוך בהגוונים המועדפים עליך:\n\n简体 סינית, מפושטת (zh-hans)\n繁體 סינית, מסורתית (zh-hant)\n大陆简体 יבשתית מפושטת (zh-cn)\n香港繁體 הונג קונג מסורתית (zh-hk)\n澳門繁體 מקאו מסורתית (zh-mo)\n大马简体 מלזיה מפושטת (zh-my)\n新加坡简体 סינגפור מפושטת (zh-sg)\n臺灣正體 טאיוואן מסורתית (zh-tw)";
+"chinese-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בהגוונים הבאים של סינית בתור השפה הראשית או המשנית ביישום, כדי שיהיה קל יותר לקרוא, לחפש, ולערוך בהגוונים המועדפים עליך:\n\n简体 סינית, מפושטת (zh-hans)\n香港繁體 הונג קונג מסורתית (zh-hk)\n澳門繁體 מקאו מסורתית (zh-mo)\n大马简体 מלזיה מפושטת (zh-my)\n新加坡简体 סינגפור מפושטת (zh-sg)\n臺灣正體 טאיוואן מסורתית (zh-tw)";
 "chinese-variants-alert-title" = "עדכונים לתמיכה בהגוונים של סינית";
 "clear-title-accessibility-label" = "ניקוי";
 "close-button-accessibility-label" = "סגירה";
@@ -480,7 +480,7 @@
 "icon-shortcut-random-title" = "ערך אקראי";
 "icon-shortcut-search-title" = "חיפוש בוויקיפדיה";
 "image-gallery-unknown-owner" = "היוצר אינו ידוע.";
-"in-the-news-currently-trending" = "מבוקש עכשיו";
+"in-the-news-currently-trending" = "מוביל עכשיו";
 "in-the-news-notification-read-now-action-title" = "לקרוא עכשיו";
 "in-the-news-notification-save-for-later-action-title" = "לשמור לאחר־כך";
 "in-the-news-notification-share-action-title" = "לשתף...";
@@ -791,7 +791,7 @@
 "settings-notifications-learn-more" = "מידע נוסף על עדכונים";
 "settings-notifications-push-notifications" = "עדכונים";
 "settings-notifications-system-turn-on" = "הפעלת עדכונים";
-"settings-notifications-trending" = "נושאים אקטואליים חמים";
+"settings-notifications-trending" = "נושאים אקטואליים מובילים";
 "settings-primary-language" = "ראשית";
 "settings-primary-language-details" = "השפה הראשונה ברשימה הזאת היא השפה הראשית עבור היישום.";
 "settings-search-footer-text" = "הגדרת היישום להיפתח בלשונית החיפוש במקום בלשונית לחקור";
