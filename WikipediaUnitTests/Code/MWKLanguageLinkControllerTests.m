@@ -144,7 +144,7 @@
     }
     
     NSString *chineseLanguageVariantCode = @"zh-my";
-    NSString *serbianLanguageVariantCode = @"uz-latin";
+    NSString *uzbekLanguageVariantCode = @"uz-latin";
 
     MWKLanguageLink *link = [[MWKLanguageLink alloc] initWithLanguageCode:@"zh" pageTitleText:@"" name:@"Malaysia Simplified" localizedName:@"大马简体" languageVariantCode:chineseLanguageVariantCode altISOCode:nil];
     
@@ -158,8 +158,8 @@
     XCTAssertEqualObjects(chineseResult, chineseLanguageVariantCode);
 
     // Test fallback not in app preferences or OS preferences
-    NSString *serbianResult = [self.controller preferredLanguageVariantCodeForLanguageCode:@"uz"];
-    XCTAssertEqualObjects(serbianResult, serbianLanguageVariantCode);
+    NSString *uzbekResult = [self.controller preferredLanguageVariantCodeForLanguageCode:@"uz"];
+    XCTAssertEqualObjects(uzbekResult, uzbekLanguageVariantCode);
 
     // Test non-variant languages not found in app or OS preferences
     NSString *englishResult = [self.controller preferredLanguageVariantCodeForLanguageCode:@"en"];
