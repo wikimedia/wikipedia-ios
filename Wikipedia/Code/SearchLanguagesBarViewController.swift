@@ -68,6 +68,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
         super.viewDidLoad()
         otherLanguagesButton?.setTitle(WMFLocalizedString("main-menu-title", value:"More", comment:"Title for menu of secondary items. {{Identical|More}}"), for: .normal)
         otherLanguagesButton?.titleLabel?.font = UIFont.wmf_font(.subheadline)
+        otherLanguagesButton?.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0)
         
         NotificationCenter.default.addObserver(self, selector: #selector(appLanguageDidChange(_:)), name: NSNotification.Name.WMFAppLanguageDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(preferredLanguagesDidChange(_:)), name: NSNotification.Name.WMFPreferredLanguagesDidChange, object: nil)
@@ -76,12 +77,14 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
 
         apply(theme: theme)
         view.wmf_configureSubviewsForDynamicType()
-        
-        gradientView.translatesAutoresizingMaskIntoConstraints = false
+
         let isRTL = view.effectiveUserInterfaceLayoutDirection == .rightToLeft
-        gradientView.startPoint = isRTL ? CGPoint(x: 1, y: 0) : .zero
-        gradientView.endPoint = isRTL ? .zero : CGPoint(x: 1, y: 0)
-        
+
+        gradientView.translatesAutoresizingMaskIntoConstraints = false
+        gradientView.startPoint = isRTL ? CGPoint(x: 0.7, y: 0) : .zero
+        gradientView.endPoint = isRTL ? .zero : CGPoint(x: 0.7, y: 0)
+        gradientView.isUserInteractionEnabled = false
+
         scrollView.clipsToBounds = false
     }
 
@@ -230,5 +233,6 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
         }
         gradientView.setStart(bgColor.withAlphaComponent(0), end: bgColor)
         otherLanguagesButtonBackgroundView?.backgroundColor = bgColor
+        otherLanguagesButton?.setTitleColor(theme.colors.link, for: .normal)
     }
 }

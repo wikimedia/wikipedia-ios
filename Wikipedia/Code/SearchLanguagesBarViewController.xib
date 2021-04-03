@@ -33,10 +33,10 @@
                     <rect key="frame" x="0.0" y="6" width="302" height="32"/>
                 </scrollView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jb0-vp-xHE" customClass="WMFGradientView">
-                    <rect key="frame" x="285" y="0.0" width="25" height="44"/>
+                    <rect key="frame" x="270" y="0.0" width="40" height="44"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="25" id="cQV-FM-Z0w"/>
+                        <constraint firstAttribute="width" constant="40" id="cQV-FM-Z0w"/>
                     </constraints>
                 </view>
                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M74-Jn-h71">
