@@ -147,7 +147,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
             button.contentLanguageCode = language.contentLanguageCode
             button.isSelected = language.contentLanguageCode == currentlySelectedLanguage.contentLanguageCode
             button.addTarget(self, action: #selector(setCurrentlySelectedLanguageToButtonLanguage(withSender:)), for: .primaryActionTriggered)
-            button.setTitle(language.localizedName, for: .normal)
+            button.setTitle((language.name as NSString).wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: nil), for: .normal)
 
             stackView.addArrangedSubview(button)
         }
