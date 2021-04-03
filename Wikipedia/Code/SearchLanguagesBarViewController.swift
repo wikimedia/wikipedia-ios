@@ -85,7 +85,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
         gradientView.endPoint = isRTL ? .zero : CGPoint(x: 0.7, y: 0)
         gradientView.isUserInteractionEnabled = false
 
-        scrollView.clipsToBounds = false
+        scrollView.clipsToBounds = true
     }
 
     fileprivate func addSearchLanguageButtonStackView() {
