@@ -5,7 +5,7 @@ class RemoteNotificationsOperationsController: NSObject {
     private let modelController: RemoteNotificationsModelController?
     private let deadlineController: RemoteNotificationsOperationsDeadlineController?
     private let operationQueue: OperationQueue
-    private let preferredLanguageCodesProvider: WMFPreferredLanguageCodesProviding
+    private let preferredLanguageCodesProvider: WMFPreferredLanguageInfoProvider
 
     private var isLocked: Bool = false {
         didSet {
@@ -15,7 +15,7 @@ class RemoteNotificationsOperationsController: NSObject {
         }
     }
 
-    required init(session: Session, configuration: Configuration, preferredLanguageCodesProvider: WMFPreferredLanguageCodesProviding) {
+    required init(session: Session, configuration: Configuration, preferredLanguageCodesProvider: WMFPreferredLanguageInfoProvider) {
         apiController = RemoteNotificationsAPIController(session: session, configuration: configuration)
         var modelControllerInitializationError: Error?
         modelController = RemoteNotificationsModelController(&modelControllerInitializationError)
