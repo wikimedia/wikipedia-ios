@@ -20,7 +20,7 @@ or alternatively using `brew install fastlane`
 ```
 fastlane ios checkout
 ```
-Checks out the sha specified in the environment variables or the develop branch
+Checks out the sha specified in the environment variables or the main branch
 ### ios analyze
 ```
 fastlane ios analyze

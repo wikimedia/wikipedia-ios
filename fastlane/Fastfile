@@ -49,7 +49,7 @@ platform :ios do
      ensure_git_status_clean if ENV['FL_ENSURE_CLEAN']
   end
 
-  desc "Checks out the sha specified in the environment variables or the develop branch"
+  desc "Checks out the sha specified in the environment variables or the main branch"
   lane :checkout do
     sha = ENV['SHA']
     if sha != nil
