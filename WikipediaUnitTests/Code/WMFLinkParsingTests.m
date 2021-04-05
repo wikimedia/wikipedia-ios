@@ -18,14 +18,14 @@
 - (void)testWMFDomain {
     NSURL *URL = [NSURL URLWithString:@"https://en.wikipedia.org/wiki/Tyrannosaurus"];
     XCTAssertEqualObjects(@"wikipedia.org", URL.wmf_domain);
-    XCTAssertEqualObjects(@"en", URL.wmf_language);
+    XCTAssertEqualObjects(@"en", URL.wmf_languageCode);
     XCTAssertEqualObjects(@"Tyrannosaurus", URL.wmf_title);
 }
 
 - (void)testWMFMobileDomain {
     NSURL *URL = [NSURL URLWithString:@"https://en.m.wikipedia.org/wiki/Tyrannosaurus"];
     XCTAssertEqualObjects(@"wikipedia.org", URL.wmf_domain);
-    XCTAssertEqualObjects(@"en", URL.wmf_language);
+    XCTAssertEqualObjects(@"en", URL.wmf_languageCode);
     XCTAssertEqualObjects(@"Tyrannosaurus", URL.wmf_title);
 }
 

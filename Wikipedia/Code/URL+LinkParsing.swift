@@ -49,7 +49,7 @@ extension URL {
     }
     
     public var wmf_language: String? {
-        return (self as NSURL).wmf_language
+        return (self as NSURL).wmf_languageCode
     }
     
     public var wmf_languageVariantCode: String? {

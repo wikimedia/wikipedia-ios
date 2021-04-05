@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable NSString *)language {
-    return self.siteURL.wmf_language;
+    return self.siteURL.wmf_languageCode;
 }
 
 - (NSInteger)previewsImageCount {
@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Presently EN only.
 - (NSUInteger)textDeathRegexMatchCount {
-    if (self.text == nil || self.siteURL == nil || [self.siteURL wmf_language] == nil || ![[self.siteURL wmf_language] isEqualToString:@"en"]) {
+    if (self.text == nil || self.siteURL == nil || [self.siteURL wmf_languageCode] == nil || ![[self.siteURL wmf_languageCode] isEqualToString:@"en"]) {
         return 0;
     }
     return [[WMFFeedOnThisDayEvent enDeathRegex] numberOfMatchesInString:self.text options:0 range:NSMakeRange(0, [self.text length])];
@@ -70,7 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSInteger imageCount = [self previewsImageCount];
 
     // Use image count if not EN.
-    if ([self.siteURL wmf_language] == nil || ![[self.siteURL wmf_language] isEqualToString:@"en"]) {
+    if ([self.siteURL wmf_languageCode] == nil || ![[self.siteURL wmf_languageCode] isEqualToString:@"en"]) {
         return @(imageCount);
     }
 

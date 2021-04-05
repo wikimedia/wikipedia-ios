@@ -89,7 +89,7 @@ NS_ASSUME_NONNULL_BEGIN
             if (urlString) {
                 dict[@"content_urls.desktop.page"] = urlString;
             }
-            NSString *lang = articleURL.wmf_language;
+            NSString *lang = articleURL.wmf_languageCode;
             if (lang) {
                 dict[@"lang"] = lang;
             }
