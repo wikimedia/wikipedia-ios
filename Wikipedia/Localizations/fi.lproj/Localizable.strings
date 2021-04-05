@@ -190,8 +190,7 @@
 // Fuzzy
 "description-edit-license" = "Muuttamalla otsikon kuvausta hyväksyn $1 ja peruuttamattomasti julkaisen muutokseni $2 -lisenssillä.";
 "description-edit-pencil-introduction" = "Muokkaa esittelyä";
-// Fuzzy
-"description-edit-pencil-title" = "Muokkaa otsikon kuvausta";
+"description-edit-pencil-title" = "Muokkaa artikkelin kuvausta";
 "description-edit-placeholder-title" = "Lyhyet kuvaukset ovat parhaita";
 "description-edit-publish" = "Julkaise kuvaus";
 "description-edit-title" = "Muokkaa kuvausta";
@@ -211,8 +210,7 @@
 "description-help-tips-example-title-two" = "Maapallon korkein vuori";
 "description-help-tips-for-example" = "Esimerkkejä:";
 "description-help-tips-title" = "Vinkkejä kuvauksen luomiseen";
-// Fuzzy
-"description-help-title" = "Otsikon kuvauksen ohje";
+"description-help-title" = "Artikkelin kuvauksen ohje";
 "description-help-wikidata-guide" = "Wikidata-opas kuvausten kirjoittamiseen";
 "description-published-button-title" = "Valmis";
 "description-published-footer" = "Artikkeleita voi muokata myös tässä sovelluksessa. Kokeile vaikkapa kirjoitusvirheiden korjaamista napauttamalla kynän kuvaketta.";
@@ -221,8 +219,7 @@
 "description-welcome-concise-sub-title" = "Ideaalisesti yksi rivi, kahdesta kahteenkymmeneen sanaan";
 "description-welcome-concise-title" = "Pidä se lyhyenä";
 "description-welcome-descriptions-sub-title" = "Artikkelin yhteenveto helpottaa sisällön hahmottamista nopealla vilauksella";
-// Fuzzy
-"description-welcome-descriptions-title" = "Otsikon kuvaukset";
+"description-welcome-descriptions-title" = "Artikkelin kuvaukset";
 "description-welcome-promise-title" = "Aloittamalla, lupaan etten väärinkäytä tätä ominaisuutta";
 "description-welcome-start-editing-button" = "Aloita muokkaaminen";
 "diff-compare-header-from-info-heading" = "Alkuperäinen:";
