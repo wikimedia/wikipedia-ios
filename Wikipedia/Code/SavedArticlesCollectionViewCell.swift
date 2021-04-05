@@ -281,7 +281,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             isImageViewHidden = true
         }
         
-        let articleLanguage = article.url?.wmf_language
+        let articleLanguage = article.url?.wmf_languageCode
         titleLabel.accessibilityLanguage = articleLanguage
         descriptionLabel.accessibilityLanguage = articleLanguage
         extractLabel?.accessibilityLanguage = articleLanguage

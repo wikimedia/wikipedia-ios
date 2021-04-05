@@ -66,7 +66,7 @@ struct PlaceSearch {
                 if let siteURL = siteURL, let articleURL = searchResult.articleURL(forSiteURL: siteURL), let articleKey = articleURL.wmf_databaseKey {
                     key.append("|\(articleKey)")
                 } else {
-                    let lang = siteURL?.wmf_language ?? ""
+                    let lang = siteURL?.wmf_languageCode ?? ""
                     key.append("|\(lang)|\(searchResult.displayTitle?.precomposedStringWithCanonicalMapping ?? "")")
                 }
                 

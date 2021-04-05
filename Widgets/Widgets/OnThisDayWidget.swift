@@ -236,7 +236,7 @@ extension OnThisDayEntry {
         else {
             return nil
         }
-        let language = contentGroup.siteURL?.wmf_language
+        let language = contentGroup.siteURL?.wmf_languageCode
         let monthDayFormatter = DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: language)
         monthDay = monthDayFormatter.string(from: midnightUTCDate)
         var components = calendar.components([.month, .year, .day], from: midnightUTCDate)

@@ -72,7 +72,7 @@ class SectionEditorViewController: ViewController {
         self.dataStore = dataStore
         self.selectedTextEditInfo = selectedTextEditInfo
         self.messagingController = messagingController ?? SectionEditorWebViewMessagingController()
-        language = articleURL.wmf_language ?? NSLocale.current.languageCode ?? "en"
+        language = articleURL.wmf_languageCode ?? NSLocale.current.languageCode ?? "en"
         super.init(theme: theme)
     }
     

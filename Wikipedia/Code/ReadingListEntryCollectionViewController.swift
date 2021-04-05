@@ -120,7 +120,7 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
         guard let articleURL = url, dataStore.savedPageList.entry(for: articleURL) == nil else {
             return
         }
-        ReadingListsFunnel.shared.logUnsaveInReadingList(articlesCount: articlesCount, language: articleURL.wmf_language)
+        ReadingListsFunnel.shared.logUnsaveInReadingList(articlesCount: articlesCount, language: articleURL.wmf_languageCode)
     }
     
     // MARK: - Empty state

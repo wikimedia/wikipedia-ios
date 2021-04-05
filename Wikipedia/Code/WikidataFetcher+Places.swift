@@ -5,7 +5,7 @@ import MapKit
 extension WikidataFetcher {
     private func wikidata(forArticleURL articleURL: URL, failure: @escaping (Error) -> Void, success: @escaping ([String: Any]) -> Void) {
         guard let title = articleURL.wmf_title,
-            let language = articleURL.wmf_language else {
+            let language = articleURL.wmf_languageCode else {
                 failure(RequestError.invalidParameters)
                 return
         }

@@ -14,7 +14,7 @@ extension OnThisDayCollectionViewCell {
         
         if let eventYear = onThisDayEvent.year {
             let yearsSinceEvent = currentYear - eventYear.intValue
-            let language = articleSiteURL?.wmf_language
+            let language = articleSiteURL?.wmf_languageCode
             // String.localizedStringWithFormat uses the current locale for plural rules causing incorrect pluralization if the user is looking at content in a language different than their system default language
             let locale = NSLocale.wmf_locale(for: language)
             subTitleLabel.text = String(format: WMFLocalizedDateFormatStrings.yearsAgo(forWikiLanguage: language), locale: locale, yearsSinceEvent)

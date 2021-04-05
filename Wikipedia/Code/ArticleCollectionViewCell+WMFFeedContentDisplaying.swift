@@ -18,7 +18,7 @@ public extension ArticleCollectionViewCell {
             isImageViewHidden = true
         }
         
-        let articleLanguage = article.url?.wmf_language
+        let articleLanguage = article.url?.wmf_languageCode
         
         titleHTML = article.displayTitleHTML
         

@@ -96,7 +96,7 @@ class ArticleViewController: ViewController, HintPresenting {
         let cacheController = dataStore.cacheController.articleCache
 
         self.articleURL = articleURL
-        self.articleLanguage = articleURL.wmf_language ?? Locale.current.languageCode ?? "en"
+        self.articleLanguage = articleURL.wmf_languageCode ?? Locale.current.languageCode ?? "en"
         self.article = article
         
         self.dataStore = dataStore

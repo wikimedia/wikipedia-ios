@@ -12,7 +12,7 @@ extension NewsCollectionViewCell {
         }
 
         
-        let articleLanguage = story.articlePreviews?.first?.articleURL.wmf_language
+        let articleLanguage = story.articlePreviews?.first?.articleURL.wmf_languageCode
         descriptionLabel.accessibilityLanguage = articleLanguage
         semanticContentAttributeOverride = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: articleLanguage)
         

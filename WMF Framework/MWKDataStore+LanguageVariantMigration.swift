@@ -65,7 +65,7 @@ extension MWKDataStore {
     private func migrateSearchLanguageSetting(toLanguageVariants languageMapping: [String:String]) {
         let defaults = UserDefaults.standard
         if let url = defaults.url(forKey: WMFSearchURLKey),
-           let languageCode = url.wmf_language {
+           let languageCode = url.wmf_languageCode {
             let searchLanguageCode = languageMapping[languageCode] ?? languageCode
             defaults.wmf_setCurrentSearchContentLanguageCode(searchLanguageCode)
             defaults.removeObject(forKey: WMFSearchURLKey)
