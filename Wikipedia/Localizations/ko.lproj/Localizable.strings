@@ -21,6 +21,7 @@
 // Author: Priviet
 // Author: Revi
 // Author: SeoJeongHo
+// Author: Tsevener
 // Author: Twotwo2019
 // Author: Viral
 // Author: Ykhwong
@@ -33,8 +34,7 @@
 // Author: 아라
 
 "aaald-added-text-description-2" = "$1 추가됨";
-// Fuzzy
-"aaald-article-description-updated-description" = "글의 제목 설명이 업데이트됨";
+"aaald-article-description-updated-description" = "문서 설명이 업데이트됨";
 "aaald-article-insert-header" = "중요 업데이트";
 "aaald-article-insert-last-updated" = "최근 업데이트";
 "aaald-article-insert-new-changes" = "새 변경사항";
@@ -185,6 +185,7 @@
 "button-skip" = "건너뛰기";
 "cancel" = "취소";
 "cc-zero" = "크리에이티브 커먼즈 CC0";
+// Fuzzy
 "chinese-variants-alert-body" = "이제 위키백과 앱에서 아래의 중국어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\n简体 중국어 간체 (zh-hans)\n香港繁體 홍콩 (zh-hk)\n澳門繁體 마카오 번체 (zh-mo)\n大马简体 말레이시아 간체 (zh-my)\n新加坡简体 싱가포르 간체 (zh-sg)\n臺灣正體 대만 번체 (zh-tw)";
 "chinese-variants-alert-title" = "중국어 변이형 지원 업데이트";
 "clear-title-accessibility-label" = "지우기";
@@ -196,36 +197,29 @@
 "crimean-tatar-variants-alert-title" = "크림 타타르어 변이형 지원 업데이트";
 "data-migration-status" = "업데이트 중...";
 "description-add-title" = "설명 추가";
-// Fuzzy
-"description-edit-for-article" = "$1의 제목 설명";
+"description-edit-for-article" = "$1의 문서 설명";
 "description-edit-learn-more" = "더 알아보기";
 "description-edit-length-warning" = "$1 / $2";
-// Fuzzy
-"description-edit-license" = "제목 설명을 변경하면 당신은 $1에 동의하며 기여한 내용을 $2 라이선스로 배포하는 데 동의하는 것으로 간주합니다. 이 동의는 철회할 수 없습니다.";
+"description-edit-license" = "문서 설명을 변경하면 당신은 $1에 동의하며 기여한 내용을 $2 라이선스로 배포하는 데 동의하는 것으로 간주합니다. 이 동의는 철회할 수 없습니다.";
 "description-edit-pencil-introduction" = "설명 편집";
-// Fuzzy
-"description-edit-pencil-title" = "제목 설명 편집";
+"description-edit-pencil-title" = "문서 설명 편집";
 "description-edit-placeholder-title" = "설명은 짧을수록 좋습니다";
 "description-edit-publish" = "설명 게시";
 "description-edit-title" = "설명 편집";
 "description-edit-warning" = "사용자가 문서의 주제를 바로 이해할 수 있도록 설명은 간결하게 작성하십시오";
-// Fuzzy
-"description-help-about-description" = "제목 설명은 독자들이 한눈에 주제를 파악할 수 있도록 글을 요약합니다.";
+"description-help-about-description" = "문서 설명은 독자들이 한눈에 주제를 파악할 수 있도록 글을 요약합니다.";
 "description-help-about-title" = "정보";
 "description-help-about-wikidata" = "위키데이터 정보";
 "description-help-more-info-description" = "설명은 위키백과와 다른 프로젝트를 지원하는 자유, 협업, 다언어, 2차 데이터베이스를 제공하는 위키미디어 재단의 프로젝트의 하나인 위키데이터에 저장되어 관리됩니다.";
 "description-help-more-info-title" = "자세한 정보";
 "description-help-tips-description" = "설명은 2개에서 12개 사이의 단어 길이의 한 줄에 맞추는 것이 이상적입니다. 처음 오는 단어가 고유 명사가 아니라면 대문자로 쓰지 않습니다.";
-// Fuzzy
-"description-help-tips-example-description-one" = "모나리자에 관한 문서의 제목 설명";
-// Fuzzy
-"description-help-tips-example-description-two" = "에베레스트 산에 관한 문서의 제목 설명";
+"description-help-tips-example-description-one" = "모나리자에 관한 문서의 문서 설명";
+"description-help-tips-example-description-two" = "에베레스트 산에 관한 문서의 문서 설명";
 "description-help-tips-example-title-one" = "레오나르도 다 빈치의 그림";
 "description-help-tips-example-title-two" = "지구상에서 가장 높은 산";
 "description-help-tips-for-example" = "예:";
 "description-help-tips-title" = "설명 작성 팁";
-// Fuzzy
-"description-help-title" = "제목 설명 도움말";
+"description-help-title" = "문서 설명 도움말";
 "description-help-wikidata-guide" = "설명 쓰기에 관한 위키데이터 안내";
 "description-published-button-title" = "완료";
 "description-published-footer" = "이 앱 안에서 문서를 편집할 수도 있습니다. 다음에 연필 아이콘을 클릭하여 오자와 일부 문장을 고쳐보십시오";
@@ -234,8 +228,7 @@
 "description-welcome-concise-sub-title" = "한 줄에, 두 단어에서 열 두 단어가 이상적입니다";
 "description-welcome-concise-title" = "간결한 설명을 추가하십시오";
 "description-welcome-descriptions-sub-title" = "독자들이 한눈에 주제를 파악할 수 있도록 글을 요약합니다";
-// Fuzzy
-"description-welcome-descriptions-title" = "제목 설명";
+"description-welcome-descriptions-title" = "문서 설명";
 "description-welcome-promise-title" = "시작함으로써 나는 이 기능을 오용하지 않을 것을 약속합니다";
 "description-welcome-start-editing-button" = "편집 시작";
 "diff-compare-header-from-info-heading" = "보내는이:";
