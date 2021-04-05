@@ -75,7 +75,7 @@ extension ArticleViewController : ArticleTableOfContentsDisplayControllerDelegat
     public var tableOfContentsArticleLanguageURL: URL? {
         let articleNSURL = self.articleURL as NSURL
         if articleNSURL.wmf_isNonStandardURL {
-            return NSURL.wmf_URL(withDefaultSiteAndlanguage: "en")
+            return NSURL.wmf_URL(withDefaultSiteAndLanguageCode: "en")
         } else {
             return articleNSURL.wmf_site
         }

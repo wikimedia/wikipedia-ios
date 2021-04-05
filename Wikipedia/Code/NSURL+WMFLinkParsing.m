@@ -19,24 +19,24 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
     return [URLComponents URL];
 }
 
-+ (NSURL *)wmf_URLWithDefaultSiteAndlanguage:(nullable NSString *)language {
-    return [self wmf_URLWithDomain:WMFConfiguration.current.defaultSiteDomain language:language];
++ (NSURL *)wmf_URLWithDefaultSiteAndLanguageCode:(nullable NSString *)languageCode {
+    return [self wmf_URLWithDomain:WMFConfiguration.current.defaultSiteDomain languageCode:languageCode];
 }
 
 + (NSURL *)wmf_URLWithDefaultSiteAndLocale:(NSLocale *)locale {
-    return [self wmf_URLWithDomain:WMFConfiguration.current.defaultSiteDomain language:[locale objectForKey:NSLocaleLanguageCode]];
+    return [self wmf_URLWithDomain:WMFConfiguration.current.defaultSiteDomain languageCode:[locale objectForKey:NSLocaleLanguageCode]];
 }
 
 + (NSURL *)wmf_URLWithDefaultSiteAndCurrentLocale {
     return [self wmf_URLWithDefaultSiteAndLocale:[NSLocale currentLocale]];
 }
 
-+ (NSURL *)wmf_URLWithDomain:(NSString *)domain language:(nullable NSString *)language {
-    return [[NSURLComponents wmf_componentsWithDomain:domain language:language] URL];
++ (NSURL *)wmf_URLWithDomain:(NSString *)domain languageCode:(nullable NSString *)languageCode {
+    return [[NSURLComponents wmf_componentsWithDomain:domain language:languageCode] URL];
 }
 
-+ (NSURL *)wmf_URLWithDomain:(NSString *)domain language:(nullable NSString *)language title:(NSString *)title fragment:(nullable NSString *)fragment {
-    return [[NSURLComponents wmf_componentsWithDomain:domain language:language title:title fragment:fragment] URL];
++ (NSURL *)wmf_URLWithDomain:(NSString *)domain languageCode:(nullable NSString *)languageCode title:(NSString *)title fragment:(nullable NSString *)fragment {
+    return [[NSURLComponents wmf_componentsWithDomain:domain language:languageCode title:title fragment:fragment] URL];
 }
 
 + (NSURL *)wmf_URLWithSiteURL:(NSURL *)siteURL title:(nullable NSString *)title fragment:(nullable NSString *)fragment query:(nullable NSString *)query {

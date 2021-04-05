@@ -75,7 +75,7 @@ extension MWKDataStore {
     private func migrateWikipediaEntities(toLanguageVariants languageMapping: [String:String], in moc: NSManagedObjectContext) {
         for (languageCode, languageVariantCode) in languageMapping {
             
-            guard let siteURLString = NSURL.wmf_URL(withDefaultSiteAndlanguage: languageCode)?.wmf_databaseKey else {
+            guard let siteURLString = NSURL.wmf_URL(withDefaultSiteAndLanguageCode: languageCode)?.wmf_databaseKey else {
                 assertionFailure("Could not create URL from language code: '\(languageCode)'")
                 continue
             }

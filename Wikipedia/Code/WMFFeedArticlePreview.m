@@ -73,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
                     lang = value[@"lang"];
                 }
                 NSString *normalizedTitle = value[@"normalizedtitle"];
-                NSURL *siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:lang];
+                NSURL *siteURL = [NSURL wmf_URLWithDefaultSiteAndLanguageCode:lang];
                 url = [siteURL wmf_URLWithTitle:normalizedTitle];
             }
             assert(url);

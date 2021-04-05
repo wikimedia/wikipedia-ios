@@ -42,7 +42,7 @@
 }
 
 - (void)testWMFLinksFromLinks {
-    NSURL *siteURL = [NSURL wmf_URLWithDomain:@"wikipedia.org" language:@"fr"];
+    NSURL *siteURL = [NSURL wmf_URLWithDomain:@"wikipedia.org" languageCode:@"fr"];
     NSURL *titledURL = [siteURL wmf_URLWithTitle:@"Main Page" fragment:nil query:nil];
     XCTAssertEqualObjects(@"https://fr.wikipedia.org/wiki/Main_Page", titledURL.absoluteString);
     titledURL = [siteURL wmf_URLWithTitle:@"Main Page"];
@@ -54,7 +54,7 @@
 }
 
 - (void)testWMFInternalLinks {
-    NSURL *siteURL = [NSURL wmf_URLWithDomain:@"wikipedia.org" language:@"en"];
+    NSURL *siteURL = [NSURL wmf_URLWithDomain:@"wikipedia.org" languageCode:@"en"];
     XCTAssertEqualObjects(@"en.wikipedia.org", siteURL.host);
     NSURL *pageURL = [NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedInternalLink:@"/wiki/Main_Page"];
     XCTAssertEqualObjects(@"https://en.wikipedia.org/wiki/Main_Page", pageURL.absoluteString);
@@ -63,13 +63,13 @@
 }
 
 - (void)testQueryPreservation {
-    NSURL *siteURL = [NSURL wmf_URLWithDomain:@"wikipedia.org" language:@"en"];
+    NSURL *siteURL = [NSURL wmf_URLWithDomain:@"wikipedia.org" languageCode:@"en"];
     NSURL *nonInternalPageURL = [NSURL wmf_URLWithSiteURL:siteURL escapedDenormalizedTitleQueryAndFragment:@"Main_Page?wprov=stii1&a=%3F#blah"];
     XCTAssertEqualObjects(@"https://en.wikipedia.org/wiki/Main_Page?wprov=stii1&a=%3F#blah", nonInternalPageURL.absoluteString);
 }
 
 - (void)testWMFLanguagelessLinks {
-    NSURL *siteURL = [NSURL wmf_URLWithDomain:@"mediawiki.org" language:nil];
+    NSURL *siteURL = [NSURL wmf_URLWithDomain:@"mediawiki.org" languageCode:nil];
     NSURL *desktopURL = [NSURL wmf_desktopURLForURL:siteURL];
     XCTAssertEqualObjects(@"https://mediawiki.org", desktopURL.absoluteString);
     NSURL *mobileURL = [NSURL wmf_mobileURLForURL:siteURL];
@@ -185,16 +185,16 @@
     NSString *languageVariantCode = @"zh-hans";
     
     // If languageVariantCode is non-nil and non-empty string, wmf_contentLanguageCode returns languageVariantCode
-    NSURL *url = [NSURL wmf_URLWithDefaultSiteAndlanguage:languageCode];
+    NSURL *url = [NSURL wmf_URLWithDefaultSiteAndLanguageCode:languageCode];
     url.wmf_languageVariantCode = languageVariantCode;
     XCTAssertEqualObjects(url.wmf_contentLanguageCode, languageVariantCode);
     
     // If languageVariantCode is nil, contentLanguageCode returns languageCode
-    url = [NSURL wmf_URLWithDefaultSiteAndlanguage:languageCode];
+    url = [NSURL wmf_URLWithDefaultSiteAndLanguageCode:languageCode];
     XCTAssertEqualObjects(url.wmf_contentLanguageCode, languageCode);
     
     // If languageVariantCode is an empty string, contentLanguageCode returns languageCode
-    url = [NSURL wmf_URLWithDefaultSiteAndlanguage:languageCode];
+    url = [NSURL wmf_URLWithDefaultSiteAndLanguageCode:languageCode];
     url.wmf_languageVariantCode = @"";
     XCTAssertEqualObjects(url.wmf_contentLanguageCode, languageCode);
 }

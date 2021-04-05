@@ -429,7 +429,7 @@
     NSString *domain = pathComponents[2];
     NSString *language = pathComponents[3];
     NSString *title = [pathComponents[4] stringByRemovingPercentEncoding];
-    NSURL *theURL = [NSURL wmf_URLWithDomain:domain language:language title:title fragment:nil];
+    NSURL *theURL = [NSURL wmf_URLWithDomain:domain languageCode:language title:title fragment:nil];
     theURL.wmf_languageVariantCode = url.wmf_languageVariantCode;
     return theURL;
 }
