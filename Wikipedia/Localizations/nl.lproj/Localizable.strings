@@ -166,28 +166,35 @@
 "continue-reading-empty-description" = "Wikipedia verkennen om meer pagina's te lezen";
 "continue-reading-empty-title" = "Geen recent gelezen pagina's";
 "description-add-title" = "Beschrijving toevoegen";
+// Fuzzy
 "description-edit-for-article" = "Titelbeschrijving voor $1";
 "description-edit-learn-more" = "Meer leren";
 "description-edit-length-warning" = "$1 / $2";
+// Fuzzy
 "description-edit-license" = "Door de titelbeschrijving te wijzigen, ga ik akkoord met de $1 en maak ik mijn bijdragen onherroepelijk vrij onder de licentie $2.";
 "description-edit-pencil-introduction" = "Bewerk inleiding";
+// Fuzzy
 "description-edit-pencil-title" = "Titelbeschrijving bewerken";
 "description-edit-placeholder-title" = "Korte beschrijvingen zijn het beste";
 "description-edit-publish" = "Beschrijving publiceren";
 "description-edit-title" = "Beschrijving bewerken";
 "description-edit-warning" = "Probeer beschrijvingen kort te houden, zodat gebruikers het onderwerp van het artikel in één oogopslag kunnen begrijpen";
+// Fuzzy
 "description-help-about-description" = "Titelbeschrijvingen vatten een artikel samen om lezers in een oogopslag het onderwerp te laten begrijpen.";
 "description-help-about-title" = "Over";
 "description-help-about-wikidata" = "Over Wikidata";
 "description-help-more-info-description" = "Beschrijvingen worden opgeslagen en onderhouden op Wikidata, een project van de Wikimedia Foundation dat een gratis, collaboratieve, meertalige secundaire database biedt die Wikipedia en andere projecten ondersteunt.";
 "description-help-more-info-title" = "Meer informatie";
 "description-help-tips-description" = "Beschrijvingen moeten idealiter op één regel passen en zijn tussen de twee en twaalf woorden lang. Ze worden niet met een hoofdletter geschreven tenzij het eerste woord een eigennaam is.";
+// Fuzzy
 "description-help-tips-example-description-one" = "titelbeschrijving voor een pagina over de Mona Lisa";
+// Fuzzy
 "description-help-tips-example-description-two" = "titelbeschrijving voor een pagina over de Mount Everest";
 "description-help-tips-example-title-one" = "schilderij van Leonardo Da Vinci";
 "description-help-tips-example-title-two" = "de hoogste berg op aarde";
 "description-help-tips-for-example" = "Bijvoorbeeld:";
 "description-help-tips-title" = "Tips voor het aanmaken van beschrijvingen";
+// Fuzzy
 "description-help-title" = "Hulp bij titelbeschrijvingen";
 "description-help-wikidata-guide" = "Wikidata-gids voor het schrijven van beschrijvingen";
 "description-published-button-title" = "Klaar";
@@ -197,6 +204,7 @@
 "description-welcome-concise-sub-title" = "Idealiter één regel, tussen de twee en twaalf woorden";
 "description-welcome-concise-title" = "Houd het kort";
 "description-welcome-descriptions-sub-title" = "Titelbeschrijvingen vatten een pagina samen om de lezers te helpen met het begrijpen van een pagina in een oogwenk.";
+// Fuzzy
 "description-welcome-descriptions-title" = "Titelbeschrijvingen";
 "description-welcome-promise-title" = "Door te beginnen beloof ik om deze functie niet te misbruiken";
 "description-welcome-start-editing-button" = "Begin met bewerken";

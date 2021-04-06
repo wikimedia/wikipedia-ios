@@ -90,10 +90,13 @@
 "continue-reading-empty-description" = "Taiscéal Vicipéid le tuilleadh alt a léamh";
 "continue-reading-empty-title" = "Níor léadh aon alt le déanaí";
 "description-add-title" = "Cuir cur síos leis";
+// Fuzzy
 "description-edit-for-article" = "Sainchuntas teidil ar $1";
 "description-edit-learn-more" = "Foghlaim a thuilleadh";
 "description-edit-length-warning" = "$1 / $2";
+// Fuzzy
 "description-edit-license" = "Ach an sainchuntas teidil a athrú, glacaim leis na $1 agus le mo chuid dréachtaí a scaoileadh go neamh-inchúlghairthe faoin gceadúnas $2.";
+// Fuzzy
 "description-edit-pencil-title" = "Cuir sainchuntas teidil in eagar";
 "description-edit-placeholder-title" = "Is fearr sainchuntais ghearra";
 "description-edit-publish" = "Foilsigh sainchuntas";
@@ -103,12 +106,15 @@
 "description-help-more-info-description" = "Stóráltar agus cothabháltar sainchuntais ar Wikidata, tionscadal de chuid na Fondúireachta Wikimedia a chuireann bunachar sonraí saor in aisce comhoibríoch ilteangach tánaisteach ar fáil mar thacaíocht do Vicipéid agus do thionscadail eile.";
 "description-help-more-info-title" = "Tuilleadh eolais";
 "description-help-tips-description" = "Ba chóir do shainchuntais a oiriúnú ar líne amháin dá bhféadfaí é, idir aon fhocal amháin agus dhá fhocal déag. Ní chuirtear ceannlitreacha orthu, ch amháin ar an gcéad fhocal má tá ainmfhocal dílis i gceist.";
+// Fuzzy
 "description-help-tips-example-description-one" = "sainchuntas teidil ar alt faoin Mona Lisa";
+// Fuzzy
 "description-help-tips-example-description-two" = "sainchuntas teidil ar alt faoi Sliabh Everest";
 "description-help-tips-example-title-one" = "pictiúr de chuid Leonardo da Vinci";
 "description-help-tips-example-title-two" = "an sliabh is airde ar domhan";
 "description-help-tips-for-example" = "Mar shampla:";
 "description-help-tips-title" = "Leideanna ar sainchuntais a chruthú";
+// Fuzzy
 "description-help-title" = "Cabhair le haghaidh sainchuntais theideal";
 "description-help-wikidata-guide" = "Treoirleabhar Wikidata ar sainchuntais a scríobh";
 "description-published-button-title" = "Críochnaithe";
@@ -118,6 +124,7 @@
 "description-welcome-concise-sub-title" = "Da bhféadfaí é, líne amháin idir dhá fhocal agus dhá fhocal déag";
 "description-welcome-concise-title" = "Coinnigh gairid é";
 "description-welcome-descriptions-sub-title" = "Coimrítear alt chun cabhrú le léitheoirí an t-ábhar a thuiscint ar an bpointe";
+// Fuzzy
 "description-welcome-descriptions-title" = "Sainchuntais theideal";
 "description-welcome-start-editing-button" = "Cuir in eagar";
 "dim-images" = "Maolaigh íomhánna";

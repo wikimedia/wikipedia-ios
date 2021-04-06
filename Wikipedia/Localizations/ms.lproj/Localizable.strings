@@ -116,29 +116,35 @@
 "continue-reading-empty-description" = "Jelajahi Wikipedia untuk lebih banyak rencana yang ingin dibaca";
 "continue-reading-empty-title" = "Tiada rencana yang dibaca baru-baru ini";
 "description-add-title" = "Tambah penerangan";
+// Fuzzy
 "description-edit-for-article" = "Huraian tajuk untuk $1";
 "description-edit-learn-more" = "Ketahui lebih lanjut";
 "description-edit-length-warning" = "$1 / $2";
+// Fuzzy
 "description-edit-license" = "Dengan mengubah keterangan tajuk, saya bersetuju dengan $1 dan untuk membatalkan pembaharuan tanpa izin di bawah lesen $2.";
 "description-edit-pencil-introduction" = "Sunting pengenalan";
+// Fuzzy
 "description-edit-pencil-title" = "Sunting huraian tajuk";
 "description-edit-placeholder-title" = "Penerangan pendek adalah yang terbaik";
 "description-edit-publish" = "Terbitkan huraian";
 "description-edit-title" = "Sunting keterangan";
 "description-edit-warning" = "Cuba simpan deskripsi ringkas supaya pengguna dapat memahami subjek rencana sekilas";
+// Fuzzy
 "description-help-about-description" = "Huraian tajuk meringkaskan rencana untuk membantu pembaca memahami subjek dengan pantas.";
 "description-help-about-title" = "Perihal";
 "description-help-about-wikidata" = "Perihal Wikidata";
 "description-help-more-info-description" = "Huraian disimpan dan disenggarakan di Wikidata, projek Wikimedia Foundation yang menyediakan pangkalan pengetahuan bebas, kerjasama, berbilang bahasa, sekunder menyokong Wikipedia dan projek-projek lain.";
 "description-help-more-info-title" = "Maklumat lanjut";
 "description-help-tips-description" = "Huraian ideal harus muat pada satu baris, dan antara dua hingga dua belas perkataan panjang. Huraian tidak ditulis dalam huruf besar kecuali perkataan pertamanya ialah kata nama khas.";
+// Fuzzy
 "description-help-tips-example-description-one" = "huraian tajuk untuk rencana mengenai Mona Lisa";
+// Fuzzy
 "description-help-tips-example-description-two" = "huraian tajuk untuk rencana mengenai Gunung Everest";
 "description-help-tips-example-title-one" = "lukisan oleh Leonardo Da Vinci";
 "description-help-tips-example-title-two" = "gunung tertinggi di Bumi";
 "description-help-tips-for-example" = "Sebagai contoh:";
 "description-help-tips-title" = "Petua untuk membuat penerangan";
-"description-help-title" = "Bantuan huraian tajuk";
+"description-help-title" = "Bantuan keterangan rencana";
 "description-help-wikidata-guide" = "Panduan Wikidata untuk menulis penerangan";
 "description-published-button-title" = "Siap";
 "description-published-footer" = "Anda juga boleh menyunting rencana dalam aplikasi ini. Cuba tentukan kesalahan taip dan kalimat kecil dengan mengklik ikon pensel lain kali";
@@ -147,6 +153,7 @@
 "description-welcome-concise-sub-title" = "Idealnya satu baris, antara dua hingga dua belas kata";
 "description-welcome-concise-title" = "Pastikan ia pendek";
 "description-welcome-descriptions-sub-title" = "Meringkaskan rencana untuk membantu pembaca memahami subjek dengan pantas";
+// Fuzzy
 "description-welcome-descriptions-title" = "Huraian tajuk";
 "description-welcome-promise-title" = "Dengan bermula, saya berjanji tidak menyalahgunakan ciri ini";
 "description-welcome-start-editing-button" = "Mula menyunting";

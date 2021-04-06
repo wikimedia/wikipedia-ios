@@ -39,6 +39,7 @@
 // Author: درفش کاویانی
 
 "aaald-added-text-description-2" = "$1 نویسه افزوده‌شد";
+// Fuzzy
 "aaald-article-description-updated-description" = "توضیحات عنوان مقاله به‌روز شد";
 "aaald-article-insert-header" = "به‌روزرسانی‌های مهم";
 "aaald-article-insert-last-updated" = "آخرین به‌روزرسانی";
@@ -197,28 +198,35 @@
 "continue-reading-empty-title" = "مقالهٔ اخیراً خوانده‌شده‌ای نیست";
 "data-migration-status" = "در حال بروزرسانی...";
 "description-add-title" = "افزودن توضیحات";
+// Fuzzy
 "description-edit-for-article" = "توضیحات عنوان برای $1";
 "description-edit-learn-more" = "اطلاعات بیشتر";
 "description-edit-length-warning" = "$1 / $2";
+// Fuzzy
 "description-edit-license" = "با تغییر توصیف عنوان، $1 را می‌پذیرم و به‌طور غیرقابل بازگشتی مشارکت‌هایم را تحت پروانه $2 منتشر می‌کنم.";
 "description-edit-pencil-introduction" = "ویرایش مقدمه";
+// Fuzzy
 "description-edit-pencil-title" = "ویرایش توضیحات عنوان";
 "description-edit-placeholder-title" = "توضیحات کوتاه بهترند";
 "description-edit-publish" = "انتشار توضیحات";
 "description-edit-title" = "ویرایش توضیحات";
 "description-edit-warning" = "لطفاً توصیف را کوتاه بنویسید تا کاربران بتوانند با یک نگاه موضوع مقاله را دریابند";
+// Fuzzy
 "description-help-about-description" = "توصیف‌های عنوان خلاصهٔ یک مقاله را بیان می‌کنند تا به مخاطبان در درک موضوع با یک نگاه کمک کنند.";
 "description-help-about-title" = "درباره";
 "description-help-about-wikidata" = "دربارهٔ ویکی‌داده";
 "description-help-more-info-description" = "توصیف‌ها در ویکی‌داده جمع‌آوری و نگهداری می‌شوند. ویکی‌داده یکی از پروژه‌های بنیاد ویکی‌مدیا است که یک بانک اطلاعاتی آزاد، مبتنی بر همکاری، چندزبانه و ثانویه را فراهم می‌کند که از ویکی‌پدیا و سایر پروژه‌ها پشتیبانی می‌کنند.";
 "description-help-more-info-title" = "اطلاعات بیشتر";
 "description-help-tips-description" = "توصیف‌ها به‌طور ایده‌آل باید در یک خط جای گیرند و طول آن‌ها بین دو تا دوازده واژه باشد. حرف نخست این متن‌ها تنها در صورتی باید بزرگ نوشته شود که اولین واژه، یک اسم خاص باشد.";
+// Fuzzy
 "description-help-tips-example-description-one" = "توصیف عنوان برای یک مقاله دربارهٔ مونالیزا";
+// Fuzzy
 "description-help-tips-example-description-two" = "توصیف عنوان برای یک مقاله دربارهٔ کوه اورست";
 "description-help-tips-example-title-one" = "نقاشی اثر لئوناردو داوینچی";
 "description-help-tips-example-title-two" = "مرتفع‌ترین قلّهٔ زمین";
 "description-help-tips-for-example" = "برای مثال:";
 "description-help-tips-title" = "نکاتی برای ساخت توصیف‌ها";
+// Fuzzy
 "description-help-title" = "راهنمای توضیحات عنوان";
 "description-help-wikidata-guide" = "راهنمای ویکی‌داده برای نوشتن توضیحات";
 "description-published-button-title" = "انجام شد";
@@ -228,6 +236,7 @@
 "description-welcome-concise-sub-title" = "به طور ایده‌آل یک خط، بین دو تا دوازده واژه";
 "description-welcome-concise-title" = "کوتاه بنویسید";
 "description-welcome-descriptions-sub-title" = "برای درک موضوع در یک نگاه توسط خوانندگان، خلاصه‌ای از مقاله را بیان می‌کند";
+// Fuzzy
 "description-welcome-descriptions-title" = "توضیحات عنوان";
 "description-welcome-promise-title" = "با آغاز ویرایش، تعهد می‌دهم که از این ویژگی سوءاستفاده نکنم";
 "description-welcome-start-editing-button" = "ویرایش را آغاز کنید";

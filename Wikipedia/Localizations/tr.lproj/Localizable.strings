@@ -24,6 +24,7 @@
 // Author: Nemo bis
 // Author: Rapsar
 // Author: Sadrettin
+// Author: SaldırganSincap
 // Author: Sayginer
 // Author: Sucsuzz
 // Author: TmY e12
@@ -37,7 +38,7 @@
 // Author: Ömer Berkay
 
 "aaald-added-text-description-2" = "$1 eklendi";
-"aaald-article-description-updated-description" = "Madde başlığı açıklaması güncellendi";
+"aaald-article-description-updated-description" = "Madde açıklaması güncellendi";
 "aaald-article-insert-header" = "Önemli Güncellemeler";
 "aaald-article-insert-last-updated" = "Son güncelleme";
 "aaald-article-insert-new-changes" = "Yeni değişiklikler";
@@ -188,7 +189,8 @@
 "button-skip" = "Atla";
 "cancel" = "İptal";
 "cc-zero" = "Creative Commons CC0";
-"chinese-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Çince biçimlerini birincil veya ikincil olarak uygulama içinde, tercih ettiğiniz biçim ile okumayı, aramayı veya değişiklik yapmayı kolaylaştırmak için  destekliyor.\n\n简体 Çince, Basitleştirilmiş (zh-hans)\n繁體 Çince, Geleneksel (zh-hant)\n大陆简体 Basitleştirilmiş Anakara (zh-cn)\n香港繁體 Geleneksel Hong Kong (zh-hk)\n澳門繁體 Geleneksel Macau (zh-mo)\n大马简体 Basitleştirilmiş Malezya (zh-my)\n新加坡简体 Basitleştirilmiş Singapur (zh-sg)\n臺灣正體 Geleneksel Tayvanca (zh-tw)";
+// Fuzzy
+"chinese-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Çince biçimlerini birincil veya ikincil olarak uygulama içinde, tercih ettiğiniz biçim ile okumayı, aramayı veya değişiklik yapmayı kolaylaştırmak için destekliyor.\n\n简体 Çince, Basitleştirilmiş (zh-hans)\n香港繁體 Geleneksel Hong Kong (zh-hk)\n澳門繁體 Geleneksel Makao (zh-mo)\n大马简体 Basitleştirilmiş Malezya (zh-my)\n新加坡简体 Basitleştirilmiş Singapur (zh-sg)\n臺灣正體 Geleneksel Tayvan (zh-tw)";
 "chinese-variants-alert-title" = "Çince biçim desteği güncellemeleri";
 "clear-title-accessibility-label" = "Temizle";
 "close-button-accessibility-label" = "Kapat";
@@ -199,29 +201,30 @@
 "crimean-tatar-variants-alert-title" = "Kırım Tatarcası biçim desteği güncellemeleri";
 "data-migration-status" = "Güncelleniyor...";
 "description-add-title" = "Açıklama ekle";
-"description-edit-for-article" = "$1 için başlık açıklaması";
+"description-edit-for-article" = "$1 için madde açıklaması";
 "description-edit-learn-more" = "Daha fazla bilgi edinin";
 "description-edit-length-warning" = "$1 / $2";
-"description-edit-license" = "Başlık açıklamasını değiştirerek $1 şartını kabul ediyorum ve $2 lisansı kapsamındaki katkılarımı geri alınamaz bir şekilde yayımlıyorum.";
+"description-edit-license" = "Madde açıklamasını değiştirerek $1nı kabul ediyorum ve $2 lisansı kapsamındaki katkılarımı geri alınamaz bir şekilde yayımlıyorum.";
 "description-edit-pencil-introduction" = "Girişi düzenle";
-"description-edit-pencil-title" = "Başlık açıklamasını düzenle";
+"description-edit-pencil-title" = "Madde açıklamasını düzenle";
 "description-edit-placeholder-title" = "En güzeli, kısa açıklama yapmaktır";
 "description-edit-publish" = "Açıklamayı yayımla";
 "description-edit-title" = "Açıklamayı düzenle";
 "description-edit-warning" = "Açıklamaları kısa tutmaya çalışın, böylece kullanıcılar maddenin konusunu bir bakışta anlayabilirler.";
-"description-help-about-description" = "Başlık açıklamaları, okuyucuların bir bakışta konuyu anlamalarına yardımcı olmak için bir maddeyi özetler.";
+"description-edit-warning-casing" = "Sadece özel isimler büyük harfle başlamalıdır, cümlenin başında bile.";
+"description-help-about-description" = "Madde açıklamaları, okuyucuların bir bakışta konuyu anlamalarına yardımcı olmak için bir maddeyi özetler.";
 "description-help-about-title" = "Hakkında";
 "description-help-about-wikidata" = "Vikiveri Hakkında";
 "description-help-more-info-description" = "Tanımlar; Wikimedia Vakfı'nın bir projesi olan, ücretsiz, iş birlikçi, çok dilli, Vikipedi ve diğer projelerini destekleyen ikincil veritabanı Vikiveri'de saklanır ve oradan sağlanır.";
 "description-help-more-info-title" = "Daha fazla bilgi";
 "description-help-tips-description" = "Tanımların bir satıra sığacak şekilde, iki ila on iki kelimeden uzunluğunda olması tercih edilir. Özel isim olmadıkça büyük harf kullanılmaz.";
-"description-help-tips-example-description-one" = "Mona Lisa hakkındaki bir madde için başlık tanımı";
-"description-help-tips-example-description-two" = "Everest Dağı hakkındaki bir madde için başlık tanımı";
+"description-help-tips-example-description-one" = "Mona Lisa hakkındaki bir madde için madde açıklaması";
+"description-help-tips-example-description-two" = "Everest Dağı hakkındaki bir madde için madde açıklaması";
 "description-help-tips-example-title-one" = "Leonardo da Vinci tablosu";
 "description-help-tips-example-title-two" = "Dünya'nın en yüksek dağı";
 "description-help-tips-for-example" = "Örneğin:";
 "description-help-tips-title" = "Açıklama oluşturma ipuçları";
-"description-help-title" = "Başlık açıklaması yardımı";
+"description-help-title" = "Madde açıklama yardımı";
 "description-help-wikidata-guide" = "Açıklamaları yazmak için Vikiveri kılavuzu";
 "description-published-button-title" = "Yapıldı";
 "description-published-footer" = "Bu uygulamadaki maddeleri de düzenleyebilirsiniz. Bir dahaki sefere kalem simgesini tıklatarak yazım hatalarını ve küçük cümleleri düzeltmeyi deneyin.";
@@ -230,7 +233,7 @@
 "description-welcome-concise-sub-title" = "İdeal olarak iki ila on iki kelime arasında bir çizgi";
 "description-welcome-concise-title" = "Kısa tut";
 "description-welcome-descriptions-sub-title" = "Okuyucuların bir bakışta konuyu anlamalarına yardımcı olmak için bir maddeyi özetler.";
-"description-welcome-descriptions-title" = "Başlık tanımları";
+"description-welcome-descriptions-title" = "Madde açıklamaları";
 "description-welcome-promise-title" = "Başlayarak bu özelliği kötüye kullanmamaya söz veriyorum";
 "description-welcome-start-editing-button" = "Düzenlemeye başla";
 "diff-compare-header-from-info-heading" = "Gönderen:";
@@ -560,7 +563,7 @@
 "main-menu-account-title-logged-in" = "$1 olarak oturum açıldı";
 "main-menu-heading-legal" = "Gizlilik ve Şartlar";
 "main-menu-nearby" = "Yakınımdakiler";
-"main-menu-privacy-policy" = "Gizlilik politikası";
+"main-menu-privacy-policy" = "Gizlilik ilkesi";
 "main-menu-rate-app" = "Uygulamayı puanla";
 "main-menu-terms-of-use" = "Kullanım Şartları";
 "main-menu-title" = "Daha fazla";

@@ -150,7 +150,7 @@
 "button-skip" = "Skip";
 "cancel" = "Cancel";
 "cc-zero" = "Creative Commons CC0";
-"chinese-variants-alert-body" = "The Wikipedia app now supports the following Chinese variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\n简体 Chinese, Simplified (zh-hans)\n繁體 Chinese, Traditional (zh-hant)\n大陆简体 Mainland Simplified (zh-cn)\n香港繁體 Hong Kong Traditional (zh-hk)\n澳門繁體 Macau Traditional (zh-mo)\n大马简体 Malaysia Simplified (zh-my)\n新加坡简体 Singapore Simplified (zh-sg)\n臺灣正體 Taiwanese Traditional (zh-tw)";
+"chinese-variants-alert-body" = "The Wikipedia app now supports the following Chinese variants as primary or secondary languages within the app, making it easier to read, search and edit in your preferred variants:\n\n简体 Chinese, Simplified (zh-hans)\n香港繁體 Hong Kong Traditional (zh-hk)\n澳門繁體 Macau Traditional (zh-mo)\n大马简体 Malaysia Simplified (zh-my)\n新加坡简体 Singapore Simplified (zh-sg)\n臺灣正體 Taiwanese Traditional (zh-tw)";
 "chinese-variants-alert-title" = "Updates to Chinese variant support";
 "clear-title-accessibility-label" = "Clear";
 "close-button-accessibility-label" = "Close";
@@ -171,6 +171,7 @@
 "description-edit-publish" = "Publish description";
 "description-edit-title" = "Edit description";
 "description-edit-warning" = "Try to keep descriptions short so users can understand the article's subject at a glance";
+"description-edit-warning-casing" = "Only proper nouns should be capitalized, even at the start of the sentence.";
 "description-help-about-description" = "Article descriptions summarize an article to help readers understand the subject at a glance.";
 "description-help-about-title" = "About";
 "description-help-about-wikidata" = "About Wikidata";

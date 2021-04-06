@@ -42,6 +42,7 @@ let WMFSendUsageReports = "WMFSendUsageReports"
         static let didShowDescriptionPublishedPanel = "WMFDidShowDescriptionPublishedPanel"
         static let didShowEditingOnboarding = "WMFDidShowEditingOnboarding"
         static let autoSignTalkPageDiscussions = "WMFAutoSignTalkPageDiscussions"
+        static let talkPageForceRefreshRevisionIDs = "WMFTalkPageForceRefreshRevisionIDs"
     }
 
     @objc func wmf_dateForKey(_ key: String) -> Date? {
@@ -457,6 +458,27 @@ let WMFSendUsageReports = "WMFSendUsageReports"
         }
         set {
             set(newValue, forKey: UserDefaults.Key.autoSignTalkPageDiscussions)
+        }
+    }
+    
+    var talkPageForceRefreshRevisionIDs: Set<Int>? {
+        get {
+            guard let arrayValue = array(forKey: UserDefaults.Key.talkPageForceRefreshRevisionIDs) as? [Int],
+                !arrayValue.isEmpty else {
+                return nil
+            }
+            return Set<Int>(arrayValue)
+        }
+        set {
+            
+            guard let newValue = newValue,
+                !newValue.isEmpty else {
+                removeObject(forKey: UserDefaults.Key.talkPageForceRefreshRevisionIDs)
+                return
+            }
+            
+            let arrayValue = Array(newValue)
+            set(arrayValue, forKey: UserDefaults.Key.talkPageForceRefreshRevisionIDs)
         }
     }
 #if UI_TEST

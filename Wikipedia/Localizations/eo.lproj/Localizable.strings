@@ -130,28 +130,35 @@
 "continue-reading-empty-description" = "Esploru Vikipedion por legi pliajn artikolojn";
 "continue-reading-empty-title" = "Neniuj laste legitaj artikoloj";
 "description-add-title" = "Aldoni priskribon";
+// Fuzzy
 "description-edit-for-article" = "Titola priskribo por $1";
 "description-edit-learn-more" = "Ekscii pli";
 "description-edit-length-warning" = "$1 / $2";
+// Fuzzy
 "description-edit-license" = "Ŝanĝante la titolan priskribon, mi konsentas kun la $1 kaj nenuligeble eldonas miajn kontribuojn laŭ la permesilo $2.";
 "description-edit-pencil-introduction" = "Redakti enkondukon";
+// Fuzzy
 "description-edit-pencil-title" = "Redakti titolan priskribon";
 "description-edit-placeholder-title" = "Mallongaj priskriboj estas plej bonaj";
 "description-edit-publish" = "Publikigi priskribon";
 "description-edit-title" = "Redakti priskribon";
 "description-edit-warning" = "Provu teni priskribojn mallongaj por ke uzantoj povu kompreni la temon de la artikolo unuavide.";
+// Fuzzy
 "description-help-about-description" = "Titolaj priskriboj resumas artikolon por helpi legantojn kompreni la temon unuavide.";
 "description-help-about-title" = "Pri";
 "description-help-about-wikidata" = "Pri Vikidatumoj";
 "description-help-more-info-description" = "Priskriboj estas konservataj sur Vikidatumoj, projekto de la Vikimedia Fondaĵo kiu provizas liberan, kunlaboran, multilingvan, duarangan datumbazon subtenanta Vikipedion kaj aliajn projektojn.";
 "description-help-more-info-title" = "Ekscii pli";
 "description-help-tips-description" = "Priskriboj ideale estu ne pli longaj ol unu linio kaj konsistas el ĝis dek vortoj. Ne aperu en ĝi majuskloj (ankaŭ ne komence), krom se la unua vorto estas nomo.";
+// Fuzzy
 "description-help-tips-example-description-one" = "titola priskribo por artikolo pri la Mona Lisa";
+// Fuzzy
 "description-help-tips-example-description-two" = "titola priskribo por artikolo pri Monto Everest";
 "description-help-tips-example-title-one" = "pentraĵo de Leonardo Da Vinci";
 "description-help-tips-example-title-two" = "plej alta monto de la tero";
 "description-help-tips-for-example" = "Ekzemple:";
 "description-help-tips-title" = "Konsiletoj por krei priskribojn";
+// Fuzzy
 "description-help-title" = "Helpo pri titola priskribo";
 "description-help-wikidata-guide" = "Vikidatumoj-manlibro pri skribado de priskriboj";
 "description-published-button-title" = "Farite";
@@ -161,6 +168,7 @@
 "description-welcome-concise-sub-title" = "Ideale unu linio, inter du kaj dek du vortoj";
 "description-welcome-concise-title" = "Skribu mallonge";
 "description-welcome-descriptions-sub-title" = "Resumas artikolon por helpi legantojn kompreni la temon unuavide";
+// Fuzzy
 "description-welcome-descriptions-title" = "Titolaj priskriboj";
 "description-welcome-promise-title" = "Ekante, mi promesas ne misuzi ĉi tiun eblon";
 "description-welcome-start-editing-button" = "Ekredakti";

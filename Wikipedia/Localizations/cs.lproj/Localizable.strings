@@ -31,6 +31,7 @@
 // Author: Zbyso23
 
 "aaald-added-text-description-2" = "přidáno $1";
+// Fuzzy
 "aaald-article-description-updated-description" = "Popis článku byl aktualizován";
 "aaald-article-insert-header" = "Významné aktualizace";
 "aaald-article-insert-last-updated" = "Naposledy aktualizováno";
@@ -186,28 +187,35 @@
 "continue-reading-empty-title" = "Žádné nedávno přečtené články";
 "data-migration-status" = "Aktualizace…";
 "description-add-title" = "Přidat popis";
+// Fuzzy
 "description-edit-for-article" = "Popis článku pro článek $1";
 "description-edit-learn-more" = "Více informací";
 "description-edit-length-warning" = "$1 / $2";
+// Fuzzy
 "description-edit-license" = "Změnou popisu článku souhlasím s $1 a neodvolatelně uvolňuji své příspěvky pod licencí $2.";
 "description-edit-pencil-introduction" = "Editovat úvod";
+// Fuzzy
 "description-edit-pencil-title" = "Editovat popis článku";
 "description-edit-placeholder-title" = "Nejlepší jsou krátké popisy";
 "description-edit-publish" = "Zveřejnit popis";
 "description-edit-title" = "Editovat popis";
 "description-edit-warning" = "Pokuste se zachovat krátké popisy, aby uživatelé na první pohled pochopili téma článku";
+// Fuzzy
 "description-help-about-description" = "Popis shrnuje základní informace o tématu článku, aby čtenáři ihned pochopili, o čem článek pojednává.";
 "description-help-about-title" = "O aplikaci";
 "description-help-about-wikidata" = "O Wikidatech";
 "description-help-more-info-description" = "Popisy jsou uloženy a spravovány na Wikidatech, projektu nadace Wikimedia, která poskytují bezplatnou, kolaborativní a mnohojazyčnou databázi podporující Wikipedii a další projekty";
 "description-help-more-info-title" = "Více informací";
 "description-help-tips-description" = "Ideální popis se vejde na jeden řádek a je 2 až 12 slov dlouhý. Nezačíná velkým písmenem, tím začíná, jen pokud je prvním slovem popisu vlastní podstatné jméno.";
+// Fuzzy
 "description-help-tips-example-description-one" = "popis článku o Mona Lise";
+// Fuzzy
 "description-help-tips-example-description-two" = "popis titulku pro článek o Mount Everestu";
 "description-help-tips-example-title-one" = "obraz Leonarda da Vinciho";
 "description-help-tips-example-title-two" = "nejvyšší hora na Zemi";
 "description-help-tips-for-example" = "Například:";
 "description-help-tips-title" = "Tipy pro vytváření popisů";
+// Fuzzy
 "description-help-title" = "Nápověda pro popisy článků";
 "description-help-wikidata-guide" = "Průvodce pro psaní popisů na Wikidatech";
 "description-published-button-title" = "Hotovo";
@@ -217,6 +225,7 @@
 "description-welcome-concise-sub-title" = "V ideálním případě jeden řádek, mezi dvěma až dvanácti slovy";
 "description-welcome-concise-title" = "Kratší je lepší";
 "description-welcome-descriptions-sub-title" = "Shrnuje základní informace o tématu článku, aby čtenáři ihned pochopili, o čem článek pojednává.";
+// Fuzzy
 "description-welcome-descriptions-title" = "Popis článku";
 "description-welcome-promise-title" = "Spuštěním slibuji, že této funkce nezneužiji";
 "description-welcome-start-editing-button" = "Začít editovat";

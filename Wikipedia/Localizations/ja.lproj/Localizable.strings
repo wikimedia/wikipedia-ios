@@ -29,6 +29,7 @@
 // Author: Surgical21
 // Author: Suyama
 // Author: Takot
+// Author: Tamaki Wakita
 // Author: Thibaut120094
 // Author: Wat
 // Author: Wicklo
@@ -40,7 +41,7 @@
 // Author: 아라
 
 "aaald-added-text-description-2" = "$1 追加";
-"aaald-article-description-updated-description" = "記事タイトルの説明が更新されました";
+"aaald-article-description-updated-description" = "記事の説明が更新されました";
 "aaald-article-insert-header" = "重要な更新";
 "aaald-article-insert-last-updated" = "最終更新";
 "aaald-article-insert-new-changes" = "新しい変更";
@@ -206,8 +207,8 @@
 "description-help-more-info-description" = "説明はウィキメディア財団のプロジェクトであるウィキデータに保存され、メンテナンスされています。ウィキデータはウィキメディア財団のプロジェクトの一つです。自由、協同的、多言語、二次的なデータベースで、ウィキペディアやその他のプロジェクトを支えています。";
 "description-help-more-info-title" = "詳細情報";
 "description-help-tips-description" = "説明は理想的には1行に収まり、30文字程度の長さです。最初の単語が固有名詞でない限り、大文字ではありません。";
-"description-help-tips-example-description-one" = "モナリザに関する記事の題名の下の説明";
-"description-help-tips-example-description-two" = "エベレストについての記事の題名の下の説明";
+"description-help-tips-example-description-one" = "モナリザに関する記事の題名の説明";
+"description-help-tips-example-description-two" = "エベレストについての記事の説明";
 "description-help-tips-example-title-one" = "レオナルド・ダ・ヴィンチの絵画";
 "description-help-tips-example-title-two" = "地球上で最も高い山";
 "description-help-tips-for-example" = "例:";

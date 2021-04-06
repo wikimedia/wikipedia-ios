@@ -137,15 +137,18 @@
 "continue-reading-empty-title" = "Ingen seneste læste artikler";
 "data-migration-status" = "Opdaterer...";
 "description-add-title" = "Tilføj beskrivelse";
+// Fuzzy
 "description-edit-for-article" = "Titelbeskrivelse for $1";
 "description-edit-learn-more" = "Lær mere";
 "description-edit-length-warning" = "$1 / $2";
+// Fuzzy
 "description-edit-license" = "Ved at ændre titelbeskrivelsen indvilliger jeg i $1 og uigenkaldeligt at udgive mit bidrag under licensen $2.";
 "description-edit-pencil-introduction" = "Rediger introduktion";
-"description-edit-pencil-title" = "Rediger titelbeskrivelse";
+"description-edit-pencil-title" = "Rediger artikelbeskrivelse";
 "description-edit-placeholder-title" = "Korte beskrivelser er de bedste";
 "description-edit-publish" = "Udgiv beskrivelse";
 "description-edit-title" = "Rediger beskrivelse";
+// Fuzzy
 "description-help-about-description" = "Titelbeskrivelser sammenfatter en artikel for at hjælpe læsere til at forstå emnet på et øjeblik.";
 "description-help-about-title" = "Om";
 "description-help-about-wikidata" = "Om Wikidata";
@@ -160,7 +163,7 @@
 "description-published-title" = "Beskrivelse offentliggjort!";
 "description-welcome-concise-sub-title" = "Helst én linje, mellem to og tolv ord";
 "description-welcome-concise-title" = "Gør det kort";
-"description-welcome-descriptions-title" = "Titelbeskrivelser";
+"description-welcome-descriptions-title" = "Artikelbeskrivelser";
 "description-welcome-promise-title" = "Begynder du at redigere, så lover du samtidig ikke at misbruge denne funktion";
 "description-welcome-start-editing-button" = "Start med at redigere";
 "diff-compare-header-from-info-heading" = "Fra:";

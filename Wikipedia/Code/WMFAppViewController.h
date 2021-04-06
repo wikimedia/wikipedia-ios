@@ -37,4 +37,9 @@ extern NSString *const WMFLanguageVariantAlertsLibraryVersion; // NSNumber
 
 @end
 
+// Methods exposed in header for use in WMFAppViewController+Extensions.swift
+@interface WMFAppViewController (SwiftInterfaces)
+- (void)dismissPresentedViewControllers;
+@end
+
 NS_ASSUME_NONNULL_END

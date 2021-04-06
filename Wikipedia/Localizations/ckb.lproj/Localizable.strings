@@ -123,6 +123,7 @@
 "continue-reading-empty-description" = "ویکیپیدیا بگەڕێ بۆ دۆزینەوەی وتاری زیاتر بۆ خوێندنەوەیان";
 "continue-reading-empty-title" = "وتاری خوێندراوە نییە";
 "description-add-title" = "زیادکردنی وەسف";
+// Fuzzy
 "description-edit-for-article" = "وەسفی ناونیشان بۆ $1";
 "description-edit-learn-more" = "زیاتر بزانە";
 "description-edit-length-warning" = "$1 / $2";

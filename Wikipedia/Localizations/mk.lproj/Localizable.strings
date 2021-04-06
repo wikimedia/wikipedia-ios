@@ -4,12 +4,13 @@
 // Author: Bsitzmann
 // Author: Macofe
 // Author: Nemo bis
+// Author: Tsevener
 // Author: Violetova
 // Author: Vlad5250
 // Author: Монтехристо
 
 "aaald-added-text-description-2" = "Додадени $1";
-"aaald-article-description-updated-description" = "Описот на насловот на статијата е подновен";
+"aaald-article-description-updated-description" = "Описот на статијата е подновен";
 "aaald-article-insert-header" = "Значајни поднови";
 "aaald-article-insert-last-updated" = "Последна поднова";
 "aaald-article-insert-new-changes" = "Нови промени";
@@ -160,7 +161,8 @@
 "button-skip" = "Прескокни";
 "cancel" = "Откажи";
 "cc-zero" = "Криејтив комонс CC0";
-"chinese-variants-alert-body" = "Википедииниот прилог сега ги поддржува следниве кинески варијанти како главни и споредни јазици во него, олеснувајќи го читањето, пребарувањето и уредувањето на вашата претпочитана варијанта:\n\n简体 кинески, упростено (zh-hans)\n繁體 кинески, традиционално (zh-hant)\n大陆简体 континентално упростено (zh-cn)\n香港繁體 хонгконшки традиционално (zh-hk)\n澳門繁體 макајски традиционално (zh-mo)\n大马简体 малезиски упростено (zh-my)\n新加坡简体 сингапурски упростено (zh-sg)\n臺灣正體 тајвански традиционално (zh-tw)";
+// Fuzzy
+"chinese-variants-alert-body" = "Википедииниот прилог сега ги поддржува следниве кинески варијанти како главни и споредни јазици во него, олеснувајќи го читањето, пребарувањето и уредувањето на вашата претпочитана варијанта:\n\n简体 кинески, упростено (zh-hans)\n香港繁體 хонгконшки традиционално (zh-hk)\n澳門繁體 макајски традиционално (zh-mo)\n大马简体 малезиски упростено (zh-my)\n新加坡简体 сингапурски упростено (zh-sg)\n臺灣正體 тајвански традиционално (zh-tw)";
 "chinese-variants-alert-title" = "Новост за поддршка на кинески варијанти";
 "clear-title-accessibility-label" = "Исчисти";
 "close-button-accessibility-label" = "Затвори";
@@ -171,29 +173,30 @@
 "crimean-tatar-variants-alert-title" = "Новост за поддршка на кримскотатарски варијанти";
 "data-migration-status" = "Подновувам...";
 "description-add-title" = "Додај опис";
-"description-edit-for-article" = "Опис на насловот „$1“";
+"description-edit-for-article" = "Опис на статијата „$1“";
 "description-edit-learn-more" = "Дознајте повеќе";
 "description-edit-length-warning" = "$1 / $2";
-"description-edit-license" = "Менувајќи го описот се согласувате со $1 и дека вашите придонеси неотповикливо ги објавувате под лиценцата $2";
+"description-edit-license" = "Менувајќи го описот на статијата се согласувате со $1 и дека вашите придонеси неотповикливо ги објавувате под лиценцата $2";
 "description-edit-pencil-introduction" = "Уреди вовед";
-"description-edit-pencil-title" = "Уреди опис на насловот";
+"description-edit-pencil-title" = "Уреди опис на статијата";
 "description-edit-placeholder-title" = "Кратките описи се најдобри";
 "description-edit-publish" = "Објави опис";
 "description-edit-title" = "Уреди опис";
 "description-edit-warning" = "Трудете се описите да бидат кратки, така што читателите би можеле да разберат што обработува статијата со еден поглед";
-"description-help-about-description" = "Описите на насловите даваат претстава за темата статијата на прв поглед.";
+"description-edit-warning-casing" = "Со големи букви треба да почнуваат само личните именки, дури и на почетокот од реченицата.";
+"description-help-about-description" = "Описите на статиите даваат претстава за темата на прв поглед.";
 "description-help-about-title" = "За ова";
 "description-help-about-wikidata" = "За Википодатоците";
 "description-help-more-info-description" = "Описите се складираат и одржуваат на Википодатоците — проект на Фондацијата Викимедија, кој овозможува слободна, соработна, повеќејазична база на податоци што ја поддржува Википедија и другите проекти.";
 "description-help-more-info-title" = "Повеќе информации";
 "description-help-tips-description" = "Описите по можност треба да бидат во еден ред, и да се состојат од два до дванаесет збора. Не се ставаат први почетни букви, освен ако зборот не е лична именка.";
-"description-help-tips-example-description-one" = "опис на насловот на статијата за Мона Лиза";
-"description-help-tips-example-description-two" = "опис на насловот на статија за Монт Еверест";
+"description-help-tips-example-description-one" = "опис на статијата за Мона Лиза";
+"description-help-tips-example-description-two" = "опис на статијата за Монт Еверест";
 "description-help-tips-example-title-one" = "слика на Леонардо да Винчи";
 "description-help-tips-example-title-two" = "Највисока планина во светот";
 "description-help-tips-for-example" = "На пример:";
 "description-help-tips-title" = "Совети за правење описи";
-"description-help-title" = "Помош со опис на насловот";
+"description-help-title" = "Помош со опис на статиите";
 "description-help-wikidata-guide" = "Прирачник за пишување описи на Википодатоците";
 "description-published-button-title" = "Готово";
 "description-published-footer" = "Со прилогов можете и да уредувате статии. Следниот пат стиснете на моливчето за да исправите правописни грешки и куси реченици";
@@ -202,7 +205,7 @@
 "description-welcome-concise-sub-title" = "По можност еден ред, од два до дванаесет збора";
 "description-welcome-concise-title" = "Описот треба да биде краток";
 "description-welcome-descriptions-sub-title" = "Дава краток преглед на статијата за да им помогне на читателите да ја разберат содржината со еден поглед";
-"description-welcome-descriptions-title" = "Описи на наслови";
+"description-welcome-descriptions-title" = "Описи на статии";
 "description-welcome-promise-title" = "Почнувајќи ја употребата, ветувам дека нема да ја злоупотребувам оваа можност";
 "description-welcome-start-editing-button" = "Почнете со уредување";
 "diff-compare-header-from-info-heading" = "Од:";

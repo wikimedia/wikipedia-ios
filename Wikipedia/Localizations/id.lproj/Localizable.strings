@@ -26,10 +26,12 @@
 // Author: Relly Komaruzaman
 // Author: Rizkiahmadz
 // Author: Sonic Speedy
+// Author: Tsevener
 // Author: Ulinfaizah
 // Author: WongKentir
 
 "aaald-added-text-description-2" = "$1 ditambahkan";
+// Fuzzy
 "aaald-article-description-updated-description" = "Deskripsi artikel diperbarui";
 "aaald-article-insert-header" = "Pembaruan Signifikan";
 "aaald-article-insert-last-updated" = "Terakhir diperbarui";
@@ -181,7 +183,8 @@
 "button-skip" = "Lewati";
 "cancel" = "Batal";
 "cc-zero" = "Creative Commons CC0";
-"chinese-variants-alert-body" = "Aplikasi Wikipedia sekarang mendukung varian bahasa Mandarin berikut sebagai bahasa utama atau sekunder di dalam aplikasi, membuatnya lebih mudah untuk membaca, mencari, dan menyunting dalam varian pilihan Anda: \n\n简体 Bahasa Mandarin sederhana (zh-hans)\n繁體 Bahasa Mandarin tradisional (zh-hant)\n大陆简体 Bahasa Mandarin daratan yang disederhanakan (zh-cn)\n香港繁體 Hong Kong Tradisional (zh-hk)\n澳門繁體 Macau Tradisional (zh-mo)\n大马简体 Malaysia Sederhana (zh-my)\n新加坡简体 Singapore Sederhana (zh-sg)\n臺灣正體 Taiwan Tradisional (zh-tw)";
+// Fuzzy
+"chinese-variants-alert-body" = "Aplikasi Wikipedia sekarang mendukung varian bahasa Mandarin berikut sebagai bahasa utama atau sekunder di dalam aplikasi, membuatnya lebih mudah untuk membaca, mencari, dan menyunting dalam varian pilihan Anda: \n\n简体 Bahasa Mandarin sederhana (zh-hans)\n香港繁體 Hong Kong Tradisional (zh-hk)\n澳門繁體 Macau Tradisional (zh-mo)\n大马简体 Malaysia Sederhana (zh-my)\n新加坡简体 Singapore Sederhana (zh-sg)\n臺灣正體 Taiwan Tradisional (zh-tw)";
 "chinese-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Tionghoa";
 "clear-title-accessibility-label" = "Hapus";
 "close-button-accessibility-label" = "Tutup";
@@ -192,28 +195,35 @@
 "crimean-tatar-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Tatar Krimea";
 "data-migration-status" = "Memperbarui...";
 "description-add-title" = "Tambahkan deskripsi";
+// Fuzzy
 "description-edit-for-article" = "Deskripsi judul untuk $1";
 "description-edit-learn-more" = "Pelajari lebih lanjut";
 "description-edit-length-warning" = "$1 / $2";
+// Fuzzy
 "description-edit-license" = "Dengan mengubah deskripsi judul, saya setuju dengan $1 dan melepaskan kontribusi saya di bawah lisensi $2.";
 "description-edit-pencil-introduction" = "Sunting pengantar";
+// Fuzzy
 "description-edit-pencil-title" = "Sunting deskripsi judul";
 "description-edit-placeholder-title" = "Deskripsi singkat adalah yang terbaik";
 "description-edit-publish" = "Terbitkan deskripsi";
 "description-edit-title" = "Sunting deskripsi";
 "description-edit-warning" = "Usahakan agar deskripsi singkat sehingga pengguna dapat memahami subjek artikel dalam sekejap";
+// Fuzzy
 "description-help-about-description" = "Deskripsi judul meringkas artikel untuk membantu pembaca memahami subjek secara sekilas.";
 "description-help-about-title" = "Tentang";
 "description-help-about-wikidata" = "Tentang Wikidata";
 "description-help-more-info-description" = "Deskripsi disimpan dan dipelihara di Wikidata, proyek Wikimedia Foundation yang menyediakan basis data bebas, sekunder, kolaboratif, multibahasa, yang mendukung Wikipedia dan proyek lainnya.";
 "description-help-more-info-title" = "Informasi lebih lanjut";
 "description-help-tips-description" = "Deskripsi idealnya harus sesuai pada satu baris, dan antara dua hingga dua belas kata. Deskripsi tidak dikapitalisasi kecuali kata pertama adalah kata benda yang tepat.";
+// Fuzzy
 "description-help-tips-example-description-one" = "deskripsi judul untuk artikel tentang Mona Lisa";
+// Fuzzy
 "description-help-tips-example-description-two" = "deskripsi judul untuk artikel tentang Gunung Everest";
 "description-help-tips-example-title-one" = "lukisan karya Leonardo Da Vinci";
 "description-help-tips-example-title-two" = "gunung tertinggi di Bumi";
 "description-help-tips-for-example" = "Sebagai contoh:";
 "description-help-tips-title" = "Kiat untuk membuat deskripsi";
+// Fuzzy
 "description-help-title" = "Bantuan deskripsi judul";
 "description-help-wikidata-guide" = "Panduan Wikidata untuk menulis deskripsi";
 "description-published-button-title" = "Selesai";
@@ -223,6 +233,7 @@
 "description-welcome-concise-sub-title" = "Idealnya satu baris, antara dua hingga dua belas kata";
 "description-welcome-concise-title" = "Jaga agar tetap pendek";
 "description-welcome-descriptions-sub-title" = "Merangkum artikel untuk membantu pembaca memahami subjek secara sekilas";
+// Fuzzy
 "description-welcome-descriptions-title" = "Deskripsi judul";
 "description-welcome-promise-title" = "Dengan memulai, saya berjanji untuk tidak menyalahgunakan fitur ini";
 "description-welcome-start-editing-button" = "Mulai menyunting";

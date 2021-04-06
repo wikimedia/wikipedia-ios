@@ -785,7 +785,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                 [self checkRemoteAppConfigIfNecessary];
                 [self setupControllers];
                 if (!self.isWaitingToResumeApp) {
-                    [self resumeApp:[self presentLanguageVariantAlerts]];
+                    [self resumeApp:NULL];
                 }
             });
         }
@@ -812,10 +812,15 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         [self loadMainUI];
         dispatch_block_t done = ^{
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self finishResumingApp];
-                if (completion) {
-                    completion();
-                }
+                [self presentLanguageVariantAlertsWithCompletion:^{
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self finishResumingApp];
+
+                        if (completion) {
+                            completion();
+                        }
+                    });
+                }];
             });
         };
 
@@ -1085,7 +1090,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         case WMFUserActivityTypeSearch:
         case WMFUserActivityTypeSettings:
         case WMFUserActivityTypeAppearanceSettings:
-        case WMFUserActivityTypeLanguageSettings:
         case WMFUserActivityTypeContent:
             return YES;
         case WMFUserActivityTypeSearchResults:
@@ -1207,19 +1211,10 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [appearanceSettingsVC applyTheme:self.theme];
             [self showSettingsWithSubViewController:appearanceSettingsVC animated:animated];
         } break;
-        case WMFUserActivityTypeLanguageSettings: {
-            [self dismissPresentedViewControllers];
-            [self setSelectedIndex:WMFAppTabTypeMain];
-            [self.navigationController popToRootViewControllerAnimated:NO];
-            WMFPreferredLanguagesViewController *languagesVC = [WMFPreferredLanguagesViewController
-                    preferredLanguagesViewController];
-            languagesVC.showExploreFeedCustomizationSettings = YES;
-            languagesVC.delegate = self.settingsViewController;
-            [languagesVC applyTheme:self.theme];
-            [self showSettingsWithSubViewController:languagesVC animated:animated];
-        } break;
         default: {
             NSURL *linkURL = [activity wmf_linkURL];
+            // Ensure incoming link is fetched in user's preferred variant if applicable
+            linkURL.wmf_languageVariantCode = [self.dataStore.languageLinkController preferredLanguageVariantCodeForLanguageCode:linkURL.wmf_language];
             if (!linkURL) {
                 done();
                 return NO;
@@ -1441,7 +1436,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)setDidShowOnboarding {
     [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:WMFDidShowOnboarding];
-    
+
     // If the user is onboarding, variant info alerts do not need to be presented
     // So, set the user default to the current library version
     [[NSUserDefaults standardUserDefaults] setInteger:MWKDataStore.currentLibraryVersion forKey:WMFLanguageVariantAlertsLibraryVersion];

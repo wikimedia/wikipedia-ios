@@ -16,7 +16,7 @@
 // Author: Urbalazs
 
 "aaald-added-text-description-2" = "$1 hozzáadva";
-"aaald-article-description-updated-description" = "Cikk címleírás frissítve";
+"aaald-article-description-updated-description" = "Leírás frissítve";
 "aaald-article-insert-header" = "Fontos frissítések";
 "aaald-article-insert-last-updated" = "Utoljára frissítve";
 "aaald-article-insert-new-changes" = "Új változtatások";
@@ -158,26 +158,27 @@
 "continue-reading-empty-title" = "Nincsenek nemrég olvasott szócikkek";
 "data-migration-status" = "Frissítés...";
 "description-add-title" = "Leírás hozzáadása";
+"description-edit-for-article" = "$1 leírása";
 "description-edit-learn-more" = "Tudj meg többet";
 "description-edit-length-warning" = "$1/$2";
 "description-edit-pencil-introduction" = "Bevezetés szerkesztése";
-"description-edit-pencil-title" = "Címleírás szerkesztése";
+"description-edit-pencil-title" = "Leírás szerkesztése";
 "description-edit-placeholder-title" = "A rövid leírások jobbak";
 "description-edit-publish" = "Leírás közzététele";
 "description-edit-title" = "Leírás szerkesztése";
-"description-help-about-description" = "A címleírások összefoglalják egy cikk tartalmát, hogy az olvasók gyorsan megérthessék, miről szól.";
+"description-help-about-description" = "A cikkleírások összefoglalják egy cikk tartalmát, hogy az olvasók gyorsan megérthessék, miről szól.";
 "description-help-about-title" = "Névjegy";
 "description-help-about-wikidata" = "További információ a Wikidatáról";
 "description-help-more-info-description" = "A leírások a Wikidatán tárolódnak, ami a Wikimédia Alapítvány egyik projektje, egy szabad, együttműködő, többnyelvű, másodlagos adatbázis, ami a Wikipédiát és egyéb projekteket támogat.";
 "description-help-more-info-title" = "További információk";
 "description-help-tips-description" = "A leírások ideális esetben nem hosszabbak egy sornál, és 2–12 szóból állnak. Nem kezdődnek nagybetűvel, csak ha az első szó mondat közepén is nagybetűvel írandó.";
-"description-help-tips-example-description-one" = "címleírás a Mona Lisáról szóló cikkhez";
-"description-help-tips-example-description-two" = "címleírás a Csomolungmáról szóló cikkhez";
+"description-help-tips-example-description-one" = "Leírás a Mona Lisáról szóló cikkhez";
+"description-help-tips-example-description-two" = "Leírás a Csomolungmáról szóló cikkhez";
 "description-help-tips-example-title-one" = "Leonardo da Vinci festménye";
 "description-help-tips-example-title-two" = "A Föld legmagasabb hegye";
 "description-help-tips-for-example" = "Például:";
 "description-help-tips-title" = "Tippek a leírások készítéséhez";
-"description-help-title" = "Címleírás súgó";
+"description-help-title" = "Cikkleírás súgó";
 "description-published-button-title" = "Kész";
 "description-published-footer" = "Az alkalmazás segítségével szócikkeket is szerkeszthetsz. Legközelebb a ceruza ikonra kattintva bátran javíts elírásokat és tipográfia hibákat.";
 "description-published-subtitle" = "Épp jobbá tetted a Wikipédiát mindenkinek";
@@ -185,7 +186,7 @@
 "description-welcome-concise-sub-title" = "Ideális, ha egy sor, kettő és tizenkettő szó között";
 "description-welcome-concise-title" = "Fogalmazz tömören";
 "description-welcome-descriptions-sub-title" = "Összefoglalja a szócikk témáját, hogy az olvasó megtudja, miről szól";
-"description-welcome-descriptions-title" = "Címleírások";
+"description-welcome-descriptions-title" = "Cikkleírások";
 "description-welcome-promise-title" = "Mielőtt nekifognék, megígérem, hogy nem élek vissza ezzel a funkcióval";
 "description-welcome-start-editing-button" = "Szerkesztés elkezdése";
 "diff-context-lines-collapsed-button-title" = "Mutat";

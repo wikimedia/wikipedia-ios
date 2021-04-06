@@ -91,6 +91,10 @@ class ShortDescriptionController: ArticleDescriptionControlling {
         
         return SinglePageWebViewController(url: url, theme: theme, doesUseSimpleNavigationBar: true)
     }
+    
+    func warningTypesForDescription(_ description: String?) -> ArticleDescriptionWarningTypes {
+        return descriptionIsTooLong(description) ? [.length] : []
+    }
 }
 
 //MARK: Private helpers

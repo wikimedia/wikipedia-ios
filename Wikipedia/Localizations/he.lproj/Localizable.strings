@@ -13,6 +13,7 @@
 // Author: Or
 // Author: Steeve815
 // Author: Strayblues
+// Author: Tsevener
 // Author: YaronSh
 // Author: איתן96
 // Author: דגש חזק
@@ -21,7 +22,7 @@
 // Author: שמזן
 
 "aaald-added-text-description-2" = "$1 נוספו";
-"aaald-article-description-updated-description" = "תיאור כותרת הערך עודכן";
+"aaald-article-description-updated-description" = "תיאור הערך עודכן";
 "aaald-article-insert-header" = "עדכונים משמעותיים";
 "aaald-article-insert-last-updated" = "עדכון אחרון";
 "aaald-article-insert-new-changes" = "שינויים חדשים";
@@ -154,7 +155,7 @@
 "article-languages-label" = "בחירת שפה";
 "article-languages-others" = "שפות אחרות";
 "article-languages-yours" = "השפות שלך";
-"article-read-more-title" = "לקרוא עוד";
+"article-read-more-title" = "מידע נוסף";
 "article-reference-view-title" = "הערת שוליים $1";
 "article-save-error-not-enough-space" = "אין מספיק נפח אחסון במכשיר שלך כדי לשמור את הערך";
 "article-share" = "שיתוף";
@@ -172,7 +173,7 @@
 "button-skip" = "לדלג";
 "cancel" = "ביטול";
 "cc-zero" = "קריאייטיב קומונז אפס";
-"chinese-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בהגוונים הבאים של סינית בתור השפה הראשית או המשנית ביישום, כדי שיהיה קל יותר לקרוא, לחפש, ולערוך בהגוונים המועדפים עליך:\n\n简体 סינית, מפושטת (zh-hans)\n繁體 סינית, מסורתית (zh-hant)\n大陆简体 יבשתית מפושטת (zh-cn)\n香港繁體 הונג קונג מסורתית (zh-hk)\n澳門繁體 מקאו מסורתית (zh-mo)\n大马简体 מלזיה מפושטת (zh-my)\n新加坡简体 סינגפור מפושטת (zh-sg)\n臺灣正體 טאיוואן מסורתית (zh-tw)";
+"chinese-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בהגוונים הבאים של סינית בתור השפה הראשית או המשנית ביישום, כדי שיהיה קל יותר לקרוא, לחפש, ולערוך בהגוונים המועדפים עליך:\n\n简体 סינית, מפושטת (zh-hans)\n香港繁體 הונג קונג מסורתית (zh-hk)\n澳門繁體 מקאו מסורתית (zh-mo)\n大马简体 מלזיה מפושטת (zh-my)\n新加坡简体 סינגפור מפושטת (zh-sg)\n臺灣正體 טאיוואן מסורתית (zh-tw)";
 "chinese-variants-alert-title" = "עדכונים לתמיכה בהגוונים של סינית";
 "clear-title-accessibility-label" = "ניקוי";
 "close-button-accessibility-label" = "סגירה";
@@ -183,29 +184,30 @@
 "crimean-tatar-variants-alert-title" = "עדכונים לתמיכה בטטרית של קרים";
 "data-migration-status" = "מתבצע עדכון…";
 "description-add-title" = "הוספת תיאור";
-"description-edit-for-article" = "תיאור כותרת עבור $1";
+"description-edit-for-article" = "תיאור הערך עבור $1";
 "description-edit-learn-more" = "מידע נוסף";
 "description-edit-length-warning" = "$1 מתוך $2";
-"description-edit-license" = "שינוי תיאור הכותרת מהווה את הסכמתי ל$1 ולשחרור בלתי־חוזר של התרומות שלי לפי תנאי רישיון $2.";
+"description-edit-license" = "שינוי תיאור הערך מהווה את הסכמתי ל$1 ולשחרור בלתי־חוזר של התרומות שלי לפי תנאי רישיון $2.";
 "description-edit-pencil-introduction" = "עריכת הפתיחה";
-"description-edit-pencil-title" = "הוספת תיאור כותרת";
+"description-edit-pencil-title" = "הוספת תיאור ערך";
 "description-edit-placeholder-title" = "תיאורים קצרים הם הטובים ביותר";
 "description-edit-publish" = "פרסום התיאור";
 "description-edit-title" = "עריכת תיאור";
 "description-edit-warning" = "השתדלו להקפיד שהתיאורים יהיו קצרים כדי שמשתמשים יוכלו להבין מה נושא הערך במבט אחד";
-"description-help-about-description" = "תיאורי הכותרת מסכמים ערך כדי לעזור לקוראים להבין את הנושא במבט מהיר.";
+"description-edit-warning-casing" = "צריך לכתוב באות גדולה רק שמות פרטיים, גם התחילת משפט";
+"description-help-about-description" = "תיאורי הערכים מסכמים ערך כדי לעזור לקוראים להבין את הנושא במבט מהיר.";
 "description-help-about-title" = "אודות";
 "description-help-about-wikidata" = "אודות ויקינתונים";
 "description-help-more-info-description" = "התיאורים נשמרים ומתוחזקים בוויקינתונים (Wikidata), מיזם של קרן ויקימדיה שמספק מסד נתונים משני חופשי, שיתופי ורב־לשוני שתומך בוויקיפדיה ובמיזמים אחרים.";
 "description-help-more-info-title" = "מידע נוסף";
 "description-help-tips-description" = "תיאורים אמורים להיכנס לשורה אחת, ולכלול בין שתיים לשתים־עשרה מילים. אין להשתמש באותיות גדולות בלועזית אלא אם מדובר בשם עצם פרטי (שם של אדם, מקום, ישות או ארגון).";
-"description-help-tips-example-description-one" = "תיאור כותרת של ערך על המונה ליזה";
-"description-help-tips-example-description-two" = "תיאור הכותרת של ערך על הר אוורסט";
+"description-help-tips-example-description-one" = "תיאור ערך של ערך על המונה ליזה";
+"description-help-tips-example-description-two" = "תיאור ערך של ערך על הר אוורסט";
 "description-help-tips-example-title-one" = "ציור של לאונרדו דה וינצ'י";
 "description-help-tips-example-title-two" = "ההר הגבוה בכדור הארץ";
 "description-help-tips-for-example" = "למשל:";
 "description-help-tips-title" = "עצות ליצירת תיאורים";
-"description-help-title" = "עזרה עם תיאור כותרת";
+"description-help-title" = "עזרה עם תיאור ערך";
 "description-help-wikidata-guide" = "מדריך ויקינתונים לכתיבת תיאורים";
 "description-published-button-title" = "בוצע";
 "description-published-footer" = "אפשר גם לערוך ערכים בתוך ביישום הזה. נסו לתקן שגיאות כתיב ומשפטים קצרים באמצעות לחיצה על סמל העיפרון בפעם הבאה";
@@ -214,7 +216,7 @@
 "description-welcome-concise-sub-title" = "הכי טוב שורה אחת, בין שתיים לשתים־עשרה מילים";
 "description-welcome-concise-title" = "זה אמור להיות קצר";
 "description-welcome-descriptions-sub-title" = "מסכם את הערך כדי לעזור לקוראים להבין את הנושא במבט מהיר";
-"description-welcome-descriptions-title" = "תיאורי כותרת";
+"description-welcome-descriptions-title" = "תיאורי ערך";
 "description-welcome-promise-title" = "תחילת העבודה היא ההבטחה שלי לא להשתמש באפשרות הזאת לרעה";
 "description-welcome-start-editing-button" = "להתחיל לערוך";
 "diff-compare-header-from-info-heading" = "מ־:";
@@ -479,7 +481,7 @@
 "icon-shortcut-random-title" = "ערך אקראי";
 "icon-shortcut-search-title" = "חיפוש בוויקיפדיה";
 "image-gallery-unknown-owner" = "היוצר אינו ידוע.";
-"in-the-news-currently-trending" = "מבוקש עכשיו";
+"in-the-news-currently-trending" = "מוביל עכשיו";
 "in-the-news-notification-read-now-action-title" = "לקרוא עכשיו";
 "in-the-news-notification-save-for-later-action-title" = "לשמור לאחר־כך";
 "in-the-news-notification-share-action-title" = "לשתף...";
@@ -744,7 +746,7 @@
 "request-feedback-on-error" = "היישום נתקל בבעיה והמפתחים שלנו היו רוצים לדעת עליה יותר. נא ללחוץ כאן כדי לשלוח לנו דואר אלקטרוני עם מידע על השגיאה.";
 "reverted-edit-back-to-article-button-title" = "חזרה לערך";
 "reverted-edit-notification-body" = "העריכה שעשית בערך $1 בוטלה על־ידי $2";
-"reverted-edit-notification-read-more-action-title" = "לקרוא עוד";
+"reverted-edit-notification-read-more-action-title" = "מידע נוסף";
 "reverted-edit-possible-reasons" = "- התרומה שלך לא מקיימת אחת מההנחיות שלנו. $1.\n\n- העריכה שלך נראית כמו ניסוי או השחתה";
 "reverted-edit-possible-reasons-subtitle" = "אנחנו יודעים שניסית לעשות משהו טוב, אבל לאחד מהסוקרים שלנו היה חשד.\n\nסיבות אפשריות לכך שהעריכה שלך בוטלה כוללות:";
 "reverted-edit-thanks-for-editing-title" = "תודה שערכת את ויקיפדיה!";
@@ -790,7 +792,7 @@
 "settings-notifications-learn-more" = "מידע נוסף על עדכונים";
 "settings-notifications-push-notifications" = "עדכונים";
 "settings-notifications-system-turn-on" = "הפעלת עדכונים";
-"settings-notifications-trending" = "נושאים אקטואליים חמים";
+"settings-notifications-trending" = "נושאים אקטואליים מובילים";
 "settings-primary-language" = "ראשית";
 "settings-primary-language-details" = "השפה הראשונה ברשימה הזאת היא השפה הראשית עבור היישום.";
 "settings-search-footer-text" = "הגדרת היישום להיפתח בלשונית החיפוש במקום בלשונית לחקור";

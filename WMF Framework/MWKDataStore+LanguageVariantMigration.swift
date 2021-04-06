@@ -56,7 +56,6 @@ extension MWKDataStore {
         feedContentController.migrateExploreFeedSettings(toLanguageVariants: migrationMapping, in: moc)
         migrateSearchLanguageSetting(toLanguageVariants: migrationMapping)
         migrateWikipediaEntities(toLanguageVariants: migrationMapping, in: moc)
-        
     }
     
     private func migrateSearchLanguageSetting(toLanguageVariants languageMapping: [String:String]) {
@@ -84,6 +83,15 @@ extension MWKDataStore {
                 let groups = try moc.fetch(contentGroupFetchRequest)
                 for group in groups {
                     group.variant = languageVariantCode
+                }
+                
+                // Update Talk Pages
+                let talkPageFetchRequest: NSFetchRequest<TalkPage> = TalkPage.fetchRequest()
+                talkPageFetchRequest.predicate = NSPredicate(format: "key BEGINSWITH %@", siteURLString)
+                let talkPages = try moc.fetch(talkPageFetchRequest)
+                for talkPage in talkPages {
+                    talkPage.variant = languageVariantCode
+                    talkPage.forceRefresh = true
                 }
                 
                 // Update Articles and Gather Keys
@@ -127,9 +135,11 @@ extension MWKDataStore {
         guard !addedVariantLanguageCodes.isEmpty else {
             return []
         }
+        var uniqueLanguageCodes: Set<String> = []
         return languageLinkController.preferredLanguages
             .map { $0.languageCode }
             .filter { addedVariantLanguageCodes.contains($0) }
+            .filter { uniqueLanguageCodes.insert($0).inserted }
     }
     
     // Returns an array of language codes for all languages that have added variant support
@@ -153,6 +163,36 @@ extension MWKDataStore {
         switch libraryVersion {
         case 12: return ["crh", "gan", "iu", "kk", "ku", "sr", "tg", "uz", "zh"]
         default: return []
+        }
+    }
+}
+
+public extension TalkPage {
+    var forceRefresh: Bool {
+        get {
+            
+            guard let revisionID = self.revisionId?.intValue else {
+                return false
+            }
+            
+            return UserDefaults.standard.talkPageForceRefreshRevisionIDs?.contains(revisionID) ?? false
+        }
+        set {
+            
+            guard let revisionID = self.revisionId?.intValue else {
+                assertionFailure("Attempting to set forceRefresh on a talk page that has no revisionID.")
+                return
+            }
+            
+            var revisionIDs = UserDefaults.standard.talkPageForceRefreshRevisionIDs ?? Set<Int>()
+            
+            if (newValue == true) {
+                revisionIDs.insert(revisionID)
+            } else {
+                revisionIDs.remove(revisionID)
+            }
+            
+            UserDefaults.standard.talkPageForceRefreshRevisionIDs = revisionIDs
         }
     }
 }
