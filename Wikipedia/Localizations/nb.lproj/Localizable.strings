@@ -15,6 +15,7 @@
 // Author: Pmt
 // Author: SuperPotato
 // Author: Tsaetre
+// Author: Tsevener
 
 "aaald-added-text-description-2" = "$1 lagt til";
 "aaald-article-description-updated-description" = "Artikkelbeskrivelse oppdatert";
@@ -168,6 +169,7 @@
 "button-skip" = "Hopp over";
 "cancel" = "Avbryt";
 "cc-zero" = "Creative Commons CC0";
+// Fuzzy
 "chinese-variants-alert-body" = "Wikipedia-appen støtter nå følgende kinesiske varianter som primær- eller sekundærspråk i appen, noe som gjør det enklere å lese, søke i eller redigere på dine foretrukne varianter:\n\n简体 Forenklet kinesisk (zh-hans)\n香港繁體 Tradisjonell Hongkong-kinesisk (zh-hk)\n澳門繁體 Tradisjonell Macao-kinesisk (zh-mo)\n大马简体 Forenklet Malaysia-kinesisk (zh-my)\n新加坡简体 Forenklet Signapore-kinesisk (zh-sg)\n臺灣正體 Tradisjonell Taiwan-kinesisk (zh-tw)";
 "chinese-variants-alert-title" = "Oppdateringer i støtte for kinesiske varianter";
 "clear-title-accessibility-label" = "Tøm";
