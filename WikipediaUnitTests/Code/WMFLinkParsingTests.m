@@ -30,14 +30,14 @@
 }
 
 - (void)testWMFDomainComponents {
-    NSURLComponents *components = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" language:@"en" isMobile:NO];
+    NSURLComponents *components = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" languageCode:@"en" isMobile:NO];
     XCTAssertEqualObjects(@"en.wikipedia.org", components.host);
-    components = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" language:@"en"];
+    components = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" languageCode:@"en"];
     XCTAssertEqualObjects(@"en.wikipedia.org", components.host);
 }
 
 - (void)testWMFMobileDomainComponents {
-    NSURLComponents *components = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" language:@"en" isMobile:YES];
+    NSURLComponents *components = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" languageCode:@"en" isMobile:YES];
     XCTAssertEqualObjects(@"en.m.wikipedia.org", components.host);
 }
 
@@ -109,15 +109,15 @@
 }
 
 - (void)testWMFCanonicalMappingURLComponents {
-    NSURL *one = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" language:@"it" title:@"Teoria della relatività"].URL;
-    NSURL *two = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" language:@"it" title:@"Teoria della relativit\u00E0"].URL;
-    NSURL *three = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" language:@"it" title:@"Teoria della relativita\u0300"].URL;
+    NSURL *one = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" languageCode:@"it" title:@"Teoria della relatività"].URL;
+    NSURL *two = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" languageCode:@"it" title:@"Teoria della relativit\u00E0"].URL;
+    NSURL *three = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" languageCode:@"it" title:@"Teoria della relativita\u0300"].URL;
     XCTAssertEqualObjects(one, two);
     XCTAssertEqualObjects(two, three);
 
-    one = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" language:@"it" title:@"Teoria della relatività" fragment:@"La_relatività_galileiana"].URL;
-    two = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" language:@"it" title:@"Teoria della relativit\u00E0" fragment:@"La_relativit\u00E0_galileiana"].URL;
-    three = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" language:@"it" title:@"Teoria della relativita\u0300" fragment:@"La_relativita\u0300_galileiana"].URL;
+    one = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" languageCode:@"it" title:@"Teoria della relatività" fragment:@"La_relatività_galileiana"].URL;
+    two = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" languageCode:@"it" title:@"Teoria della relativit\u00E0" fragment:@"La_relativit\u00E0_galileiana"].URL;
+    three = [NSURLComponents wmf_componentsWithDomain:@"wikipedia.org" languageCode:@"it" title:@"Teoria della relativita\u0300" fragment:@"La_relativita\u0300_galileiana"].URL;
     XCTAssertEqualObjects(one, two);
     XCTAssertEqualObjects(two, three);
 }
