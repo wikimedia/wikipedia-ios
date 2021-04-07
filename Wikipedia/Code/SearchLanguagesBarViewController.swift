@@ -243,9 +243,19 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
             stackView.addArrangedSubview(button)
         }
 
+        scrollToSelectedSearchLanguageButton()
         apply(theme: theme)
     }
-    
+
+    fileprivate func scrollToSelectedSearchLanguageButton() {
+        guard let selectedButton = searchLanguageButtons().first(where: { $0.isSelected }) else {
+            return
+        }
+
+        view.layoutIfNeeded()
+        scrollView.scrollRectToVisible(selectedButton.frame, animated: true)
+    }
+
     fileprivate func showMoreLanguagesTooltipIfNecessary() {
         guard !view.isHidden && languageBarLanguages().count >= 2 && !UserDefaults.standard.wmf_didShowMoreLanguagesTooltip() else {
             return
