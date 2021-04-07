@@ -1,10 +1,12 @@
-import Foundation
+import UIKit
 
 @objc protocol SearchLanguagesBarViewControllerDelegate: class {
     func searchLanguagesBarViewController(_ controller: SearchLanguagesBarViewController, didChangeCurrentlySelectedSearchLanguage language: MWKLanguageLink)
 }
 
 class SearchLanguageButton: UnderlineButton {
+    var contentLanguageCode: String?
+
     override func setup() {
         super.setup()
         titleLabel?.numberOfLines = 1
@@ -22,13 +24,22 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
     }
     
     @objc weak var delegate: SearchLanguagesBarViewControllerDelegate?
-    
-    @IBOutlet fileprivate var languageButtons: [SearchLanguageButton] = []
+
     @IBOutlet fileprivate var otherLanguagesButton: UIButton?
     @IBOutlet weak var otherLanguagesButtonBackgroundView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var gradientView: WMFGradientView!
-    
+
+    lazy var stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        stackView.spacing = 8
+        return stackView
+    }()
+
     @objc var theme: Theme = Theme.standard
     
     @objc fileprivate(set) var currentlySelectedSearchLanguage: MWKLanguageLink? {
@@ -49,7 +60,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
         set {
             UserDefaults.standard.wmf_setCurrentSearchContentLanguageCode(newValue?.contentLanguageCode)
             delegate?.searchLanguagesBarViewController(self, didChangeCurrentlySelectedSearchLanguage: newValue!)
-            updateLanguageBarLanguageButtons()
+            updateSearchLanguageButtons()
         }
     }
     
@@ -57,19 +68,35 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
         super.viewDidLoad()
         otherLanguagesButton?.setTitle(WMFLocalizedString("main-menu-title", value:"More", comment:"Title for menu of secondary items. {{Identical|More}}"), for: .normal)
         otherLanguagesButton?.titleLabel?.font = UIFont.wmf_font(.subheadline)
+        otherLanguagesButton?.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0)
         
         NotificationCenter.default.addObserver(self, selector: #selector(appLanguageDidChange(_:)), name: NSNotification.Name.WMFAppLanguageDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(preferredLanguagesDidChange(_:)), name: NSNotification.Name.WMFPreferredLanguagesDidChange, object: nil)
-        
+
+        addSearchLanguageButtonStackView()
+
         apply(theme: theme)
         view.wmf_configureSubviewsForDynamicType()
-        
-        gradientView.translatesAutoresizingMaskIntoConstraints = false
+
         let isRTL = view.effectiveUserInterfaceLayoutDirection == .rightToLeft
-        gradientView.startPoint = isRTL ? CGPoint(x: 1, y: 0) : .zero
-        gradientView.endPoint = isRTL ? .zero : CGPoint(x: 1, y: 0)
-        
-        scrollView.clipsToBounds = false
+
+        gradientView.translatesAutoresizingMaskIntoConstraints = false
+        gradientView.startPoint = isRTL ? CGPoint(x: 0.7, y: 0) : .zero
+        gradientView.endPoint = isRTL ? .zero : CGPoint(x: 0.7, y: 0)
+        gradientView.isUserInteractionEnabled = false
+
+        scrollView.clipsToBounds = true
+    }
+
+    fileprivate func addSearchLanguageButtonStackView() {
+        scrollView.addSubview(stackView)
+
+        stackView.leadingAnchor.constraint(lessThanOrEqualToSystemSpacingAfter: scrollView.leadingAnchor, multiplier: 2).isActive = true
+
+        stackView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+        stackView.heightAnchor.constraint(equalTo: scrollView.heightAnchor).isActive = true
     }
     
     override func viewDidLayoutSubviews() {
@@ -84,15 +111,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        updateLanguageBarLanguageButtons()
-        
-        var selectedButtonCount = 0
-        for button in languageButtons{
-            if button.isSelected {
-                selectedButtonCount += 1
-            }
-        }
-        assert(selectedButtonCount == 1, "One button should be selected by now")
+        updateSearchLanguageButtons()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -106,32 +125,33 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
     }
     
     fileprivate func languageBarLanguages() -> [MWKLanguageLink] {
-        return Array(MWKDataStore.shared().languageLinkController.preferredLanguages.prefix(3))
+        return MWKDataStore.shared().languageLinkController.preferredLanguages
+    }
+
+    fileprivate func searchLanguageButtons() -> [SearchLanguageButton] {
+        return stackView.arrangedSubviews.compactMap { $0 as? SearchLanguageButton }
     }
     
-    fileprivate func updateLanguageBarLanguageButtons(){
-        for (index, language) in languageBarLanguages().enumerated() {
-            if index >= languageButtons.count {
-                break
-            }
-            let button = languageButtons[index]
-            button.setTitle(language.localizedName, for: .normal)
-            if let selectedLanguage = currentlySelectedSearchLanguage {
-                button.isSelected = language.contentLanguageCode == selectedLanguage.contentLanguageCode
-            }else{
-                assertionFailure("selectedLanguage should have been set at this point")
-                button.isSelected = false
-            }
+    fileprivate func updateSearchLanguageButtons() {
+        guard let currentlySelectedLanguage = currentlySelectedSearchLanguage else {
+            assertionFailure("No current app language")
+            return
         }
-        for(index, button) in languageButtons.enumerated(){
-            if index >= languageBarLanguages().count {
-                button.isEnabled = false
-                button.isHidden = true
-            }else{
-                button.isEnabled = true
-                button.isHidden = false
-            }
+
+        stackView.subviews.forEach { $0.removeFromSuperview() }
+
+        for language in languageBarLanguages() {
+            let button = SearchLanguageButton()
+
+            button.contentLanguageCode = language.contentLanguageCode
+            button.isSelected = language.contentLanguageCode == currentlySelectedLanguage.contentLanguageCode
+            button.addTarget(self, action: #selector(setCurrentlySelectedLanguageToButtonLanguage(withSender:)), for: .primaryActionTriggered)
+            button.setTitle((language.name as NSString).wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: nil), for: .normal)
+
+            stackView.addArrangedSubview(button)
         }
+
+        apply(theme: theme)
     }
     
     fileprivate func showMoreLanguagesTooltipIfNecessary() {
@@ -149,12 +169,13 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
         UserDefaults.standard.wmf_setDidShowMoreLanguagesTooltip(true)
     }
     
-    @IBAction fileprivate func setCurrentlySelectedLanguageToButtonLanguage(withSender sender: SearchLanguageButton) {
-        guard let buttonIndex = languageButtons.firstIndex(of: sender), languageBarLanguages().indices.contains(buttonIndex) else {
-            assertionFailure("Language button not found for language")
+    @objc fileprivate func setCurrentlySelectedLanguageToButtonLanguage(withSender sender: SearchLanguageButton) {
+        guard let senderLanguage = languageBarLanguages().first(where: { $0.contentLanguageCode == sender.contentLanguageCode }) else {
+            assertionFailure("Language for button not found")
             return
         }
-        currentlySelectedSearchLanguage = languageBarLanguages()[buttonIndex]
+
+        currentlySelectedSearchLanguage = senderLanguage
     }
     
     @IBAction fileprivate func openLanguagePicker() {
@@ -193,7 +214,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
                 // Reminder: cannot use "reorderPreferredLanguage" for this (in "didUpdatePreferredLanguages:") because
                 // that would undo the dragging the user just did and would also not work for changes made from settings.
             } else {
-                updateLanguageBarLanguageButtons()
+                updateSearchLanguageButtons()
             }
         }
     }
@@ -205,11 +226,12 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
         }
         let bgColor = theme.colors.paperBackground
         view.backgroundColor = bgColor
-        for languageButton in languageButtons {
+        for languageButton in searchLanguageButtons() {
             languageButton.setTitleColor(theme.colors.primaryText, for: .normal)
             languageButton.tintColor = theme.colors.link
         }
         gradientView.setStart(bgColor.withAlphaComponent(0), end: bgColor)
         otherLanguagesButtonBackgroundView?.backgroundColor = bgColor
+        otherLanguagesButton?.setTitleColor(theme.colors.link, for: .normal)
     }
 }

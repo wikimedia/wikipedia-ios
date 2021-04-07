@@ -79,5 +79,10 @@
         "latn": {
             "default": "uz-latin",
         }
+    },
+    "nb": {
+        "default": {
+            "default": "no",
+        }
     }
 }
