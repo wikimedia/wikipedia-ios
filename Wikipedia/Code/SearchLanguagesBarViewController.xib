@@ -62,7 +62,7 @@
             <viewLayoutGuide key="safeArea" id="hUX-g2-rde"/>
             <color key="backgroundColor" red="0.97647058819999999" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="Yuq-ja-3NK" firstAttribute="leading" secondItem="tPw-FY-7pj" secondAttribute="leading" id="07m-Gf-lMh"/>
+                <constraint firstItem="Yuq-ja-3NK" firstAttribute="leading" secondItem="hUX-g2-rde" secondAttribute="leading" id="07m-Gf-lMh"/>
                 <constraint firstItem="uA2-xO-xXY" firstAttribute="centerY" secondItem="tPw-FY-7pj" secondAttribute="centerY" id="4RB-9j-lcn"/>
                 <constraint firstItem="M74-Jn-h71" firstAttribute="leading" secondItem="jb0-vp-xHE" secondAttribute="trailing" id="62I-UV-161"/>
                 <constraint firstAttribute="trailing" secondItem="LQt-NK-neD" secondAttribute="trailing" id="6rQ-6w-KOQ"/>
