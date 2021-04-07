@@ -187,7 +187,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
 
         let isRTL = view.effectiveUserInterfaceLayoutDirection == .rightToLeft
         let defaultContentInset: CGFloat = 8
-        let gradientFrameInset = gradientView.frame.size.width / 2.0
+        let gradientFrameInset = gradientView.frame.size.width / 1.5
         let preferredLeftInset = isRTL ? gradientFrameInset : defaultContentInset
         let preferredRightInset = isRTL ? defaultContentInset : gradientFrameInset
 
