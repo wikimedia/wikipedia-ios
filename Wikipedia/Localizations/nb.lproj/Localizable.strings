@@ -15,6 +15,7 @@
 // Author: Pmt
 // Author: SuperPotato
 // Author: Tsaetre
+// Author: Tsevener
 
 "aaald-added-text-description-2" = "$1 lagt til";
 "aaald-article-description-updated-description" = "Artikkelbeskrivelse oppdatert";
@@ -168,6 +169,7 @@
 "button-skip" = "Hopp over";
 "cancel" = "Avbryt";
 "cc-zero" = "Creative Commons CC0";
+// Fuzzy
 "chinese-variants-alert-body" = "Wikipedia-appen støtter nå følgende kinesiske varianter som primær- eller sekundærspråk i appen, noe som gjør det enklere å lese, søke i eller redigere på dine foretrukne varianter:\n\n简体 Forenklet kinesisk (zh-hans)\n香港繁體 Tradisjonell Hongkong-kinesisk (zh-hk)\n澳門繁體 Tradisjonell Macao-kinesisk (zh-mo)\n大马简体 Forenklet Malaysia-kinesisk (zh-my)\n新加坡简体 Forenklet Signapore-kinesisk (zh-sg)\n臺灣正體 Tradisjonell Taiwan-kinesisk (zh-tw)";
 "chinese-variants-alert-title" = "Oppdateringer i støtte for kinesiske varianter";
 "clear-title-accessibility-label" = "Tøm";
@@ -314,6 +316,8 @@
 "editing-welcome-set-knowledge-free-subtitle" = "For å gi alle tilgang til all verdens kunnskap trenger vi din deltakelse i å lese, redigere og bidra til de temaene som har størst betydning for deg.";
 "editing-welcome-set-knowledge-free-title" = "Sett kunnskap fri";
 "empty-diff-compare-title" = "Ingen forskjeller mellom revisjoner";
+"empty-diff-single-title" = "Ingen synlige endringer gjort";
+"empty-insert-media-title" = "Velg ei fil fra Wikimedia Commons";
 "empty-no-article-message" = "Artikkelen kunne ikke lastes";
 "empty-no-feed-action-message" = "Du kan fremdeles lese lagrede sider";
 "empty-no-feed-message" = "Du kan se de anbefalte artiklene dine når du ikke har internett";
@@ -326,6 +330,7 @@
 "empty-no-saved-pages-message" = "Lagre sider for senere visning, også offline.";
 "empty-no-saved-pages-title" = "Ingen sider lagret enda";
 "empty-no-search-results-message" = "Ingen resultater ble funnet";
+"empty-talk-page-title" = "Denne brukeren har ikke fått noen meldinger ennå";
 "error-generic-recovery-suggestion" = "Prøv igjen senere";
 "error-unknown" = "En ukjent feil oppsto";
 "explore-another-random" = "En annen tilfeldig artikkel";
@@ -351,15 +356,13 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Alle på";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "På";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "På $1";
-// Fuzzy
-"explore-feed-preferences-feed-cards-hidden-title" = "Alle %@-kort skjult";
+"explore-feed-preferences-feed-cards-hidden-title" = "Alle «$1»-kort skjult";
 "explore-feed-preferences-global-card-footer-text" = "Dette kortet er ikke språkspesifikt, ved å skru det av vil det forsvinne fra utforskingssiden din.";
 "explore-feed-preferences-global-cards-description" = "Ikke-språkspesifikke kort";
 "explore-feed-preferences-global-cards-subtitle" = "Ikke-språkspesifikk";
 "explore-feed-preferences-global-cards-title" = "Globale kort";
 "explore-feed-preferences-hide-card-action-title" = "Skjul dette kortet";
-// Fuzzy
-"explore-feed-preferences-hide-feed-cards-action-title" = "Skjul alle «%@»-kort";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Skjul alle «$1»-kort";
 "explore-feed-preferences-in-the-news-description" = "Artikler om aktuelle hendelser";
 "explore-feed-preferences-languages-footer-text" = "Hvis du skjuler alle kort på alle språk vil utforskingsfanen bli skrudd av.";
 "explore-feed-preferences-on-this-day-description" = "Historiske hendelser på denne dagen";
@@ -414,6 +417,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Fra $1 Wikipedia";
 "explore-random-article-sub-heading-from-wikipedia" = "Fra Wikipedia";
 "explore-randomizer" = "Tilfeldig artikkel";
+"featured-article-empty-title" = "Ingen utvalgt artikkel tilgjengelig i dag";
 "feed-news-notification-button-text" = "Slå på varslinger";
 "feed-news-notification-text" = "Slå på varslinger for å bli tipset om Wikipedia-artikler om aktuelle hendelser fra nyhetsbildet.";
 "fetcher-error-generic" = "Noe gikk galt. Prøv igjen senere.";
@@ -451,6 +455,8 @@
 "forgot-password-instructions" = "Fyll inn et av feltene under for å motta instruksjoner for tilbakestilling av passord per epost";
 "forgot-password-title" = "Tilbakestill passord";
 "forgot-password-username-or-email-title" = "Eller";
+"gan-variants-alert-body" = "Wikipedia-appen støtter nå følgende gan-varianter som primær- eller sekundærspråk i appen, noe som gjør det enklere å lese, søke i og redigere på dine foretrukne varianter:\n\n贛語 原文 gan (gan)\n赣语 简体 forenklet gan (gan-hans)\n贛語 繁體 tradisjonell gan (gan-hant)";
+"gan-variants-alert-title" = "Oppdateringer i støtte for gan-varianter";
 "history-clear-all" = "Tøm";
 "history-clear-cancel" = "Avbryt";
 "history-clear-confirmation-heading" = "Er du sikker på at du vil tømme loggen din?";
@@ -475,11 +481,49 @@
 "in-the-news-currently-trending" = "Populært nå";
 "in-the-news-notification-read-now-action-title" = "Les nå";
 "in-the-news-notification-save-for-later-action-title" = "Lagre til senere";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Del...";
+"in-the-news-notification-share-action-title" = "Del …";
 "in-the-news-sub-title-from-language-wikipedia" = "Fra Wikipedia på $1";
 "in-the-news-sub-title-from-wikipedia" = "Fra Wikipedia";
 "in-the-news-title" = "Aktuelt";
+"insert-action-title" = "Sett inn";
+"insert-link-title" = "Sett inn lenke";
+"insert-media-alternative-text-description" = "Tekstbeskrivelse for lesere som ikke kan se bildet";
+"insert-media-alternative-text-placeholder" = "Beskriv bildet";
+"insert-media-alternative-text-title" = "Alternativ tekst";
+"insert-media-caption-caption-placeholder" = "Hvordan relaterer dette bildet seg til artikkelen?";
+"insert-media-caption-description" = "Etikett som vises ved siden av elementet for alle lesere";
+"insert-media-caption-title" = "Bildetekst";
+"insert-media-image-position-setting-center" = "Midtstilt";
+"insert-media-image-position-setting-left" = "Venstre";
+"insert-media-image-position-setting-none" = "Ingen";
+"insert-media-image-position-setting-right" = "Høyre";
+"insert-media-image-position-settings-title" = "Bildeposisjon";
+"insert-media-image-preview-more-information-action-title" = "Mer informasjon";
+"insert-media-image-preview-select-image-action-title" = "Velg bilde";
+"insert-media-image-size-setting-custom" = "Egendefinert";
+"insert-media-image-size-setting-default" = "Standard";
+"insert-media-image-size-settings-px-unit-name" = "px";
+"insert-media-image-size-settings-title" = "Bildestørrelse";
+"insert-media-image-type-setting-basic" = "Enkel";
+"insert-media-image-type-setting-frame" = "Ramme";
+"insert-media-image-type-setting-frameless" = "Rammeløs";
+"insert-media-image-type-setting-thumbnail" = "Miniatyr";
+"insert-media-image-type-settings-title" = "Bildetype";
+"insert-media-media-settings-title" = "Medieinnstillinger";
+"insert-media-title" = "Sett inn media";
+"insert-media-uploaded-image-title" = "Opplastet bilde";
+"intermediate-edits-count" = "$1 mellomliggende {{PLURAL:$1|revisjon|revisjoner}} ikke vist";
+"intermediate-edits-count-limited" = "$1+ mellomliggende revisjoner ikke vist";
+"intermediate-edits-editors-count" = "$1 mellomliggende {{PLURAL:$1|revisjon|revisjoner}} av $2 {{PLURAL:$2|bruker|brukere}} ikke vist";
+"intermediate-edits-editors-count-limited" = "$1+ mellomliggende revisjoner av $2+ brukere ikke vist";
+"intermediate-edits-editors-limited-count" = "$1 mellomliggende {{PLURAL:$1|revisjon|revisjoner}} av $2+ brukere ikke vist";
+"intermediate-edits-limited-editors-count" = "$1+ mellomliggende revisjoner av $2 {{PLURAL:$2|bruker|brukere}} ikke vist";
+"inuktitut-variants-alert-body" = "Wikipedia-appen støtter nå følgende inuktitut-varianter som primær- eller sekundærspråk i appen, noe som gjør det enklere å lese, søke i og redigere på dine foretrukne varianter:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ inuktitut med stavelsesskrift (ike-cans)\nInuktitut ilisautik, inuktitut med latinsk skrift (ike-latn)";
+"inuktitut-variants-alert-title" = "Oppdateringer i støtte for inkutitut-varianter";
+"kazakh-variants-alert-body" = "Wikipedia-appen støtter nå følgende kasakhiske varianter som primær- eller sekundærspråk i appen, noe som gjør det enklere å lese, søke i og redigere på dine foretrukne varianter:\n\nҚазақша kasakhisk (kk)\nҚазақша Кирил kyrillisk kasakhisk (kk-cyrl)\nqazaqşa latin latinsk kasakhisk (kk-latn)\nتوتە قازاقشا arabisk kasakhisk (kk-arab)";
+"kazakh-variants-alert-title" = "Oppdateringer i støtte for kasakhiske varianter";
+"kurdish-variants-alert-body" = "Wikipedia-appen støtter nå følgende kurdiske varianter som primær- eller sekundærspråk i appen, noe som gjør det enklere å lese, søke i og redigere på dine foretrukne varianter:\n\nKurdî Latînî latinsk kurdisk (ku-latn)\nكوردی arabisk kurdisk (kk-arab)";
+"kurdish-variants-alert-title" = "Oppdateringer i støtte for kurdiske varianter";
 "languages-settings-title" = "Språk";
 "languages-title" = "Endre språk";
 "languages-wikipedia" = "Wikipedia-språk";
@@ -505,8 +549,7 @@
 "main-menu-title" = "Mer";
 "main-menu-zero-faq" = "Wikipedia Zero-FAQ";
 "menu-cancel-accessibility-label" = "Avbryt";
-// Fuzzy
-"more-languages-tooltip-description" = "Søk i Wikipedia på nesten 300 språk";
+"more-languages-tooltip-description" = "Søk i Wikipedia på over 300 språk";
 "more-languages-tooltip-title" = "Legg til språk";
 "move-articles-to-reading-list" = "Flytt {{PLURAL:$1|$1 artikkel|$1 artikler}} til leselisten";
 "navbar-title-mode-edit-wikitext-preview" = "Forhåndsvis";
@@ -526,14 +569,36 @@
 "on-this-day-detail-header-date-range" = "from $1–$2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historisk hendelse|$1 historiske hendelser}}";
 "on-this-day-footer" = "Flere historiske hendelser på denne dagen";
+"on-this-day-footer-showing-event-count" = "$1 {{PLURAL:$1|historisk hendelse|historiske hendelser}} til på denne dag";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 fra Wikipedia på $2";
 "on-this-day-title" = "På denne dag";
 "original-tab-button-popover-description" = "Trykk på «W» for å gå tilbake til fanen du startet fra";
+"page-history-anonymous-edits" = "anonyme redigeringer";
+"page-history-bot-edits" = "botredigeringer";
+"page-history-compare-accessibility-hint" = "Trykk for å velge to revisjoner å sammenligne";
+"page-history-compare-title" = "Sammenlign";
+"page-history-graph-accessibility-label" = "Graf over redigeringer over tid";
+"page-history-minor-edits" = "mindre redigeringer";
+"page-history-revision-author-accessibility-label" = "Forfatter: $1";
+"page-history-revision-comment-accessibility-label" = "Kommentar: $1";
+"page-history-revision-history-title" = "Revisjonshistorikk";
+"page-history-revision-minor-edit-accessibility-label" = "Mindre endring";
+"page-history-revision-size-diff-addition" = "La til $1 {{PLURAL:$1|byte}}";
+"page-history-revision-size-diff-subtraction" = "Fjernet $1 {{PLURAL:$1|byte}}";
+"page-history-revision-time-accessibility-label" = "Revisjon gjort $1";
+"page-history-revisions-comparison-warning" = "Kun to revisjoner kan velges";
+"page-history-stats-text" = "$1 {{PLURAL:$1|redigering|redigeringer}} siden $2";
+"page-history-user-edits" = "brukerredigeringer";
+"page-issues" = "Merknader for siden";
+"page-location" = "Vis på kart";
 "page-protected-autoconfirmed" = "Denne siden er delvis beskyttet.";
 "page-protected-can-not-edit" = "Du har ikke rettigheter til å redigere denne siden";
 "page-protected-can-not-edit-title" = "Denne siden er beskyttet";
 "page-protected-other" = "Denne siden har blitt beskyttet til følgende nivåer: $1";
 "page-protected-sysop" = "Denne siden er beskyttet.";
+"page-similar-titles" = "Lignende sider";
+"panel-compare-revisions-text" = "Ved å sammenligne revisjoner kan man se hvordan en artikkel har endret seg over tid. Man vil se forskjellen mellom revisjonene ved at innhold som er forskjellig markeres.";
+"panel-compare-revisions-title" = "Sammenligner revisjoner";
 "pictured" = "bildet";
 "places-accessibility-clear-saved-searches" = "Tøm lagrede søk";
 "places-accessibility-group" = "$1 artikler";
@@ -639,8 +704,7 @@
 "reading-lists-default-list-title" = "Lagret";
 "reading-lists-delete-reading-list-alert-message" = "Handlingen kan ikke angres. Artikler som kun er lagret i {{PLURAL:$1|denne listen|disse listene}} vil bli fjernet.";
 "reading-lists-delete-reading-list-alert-title" = "Slett {{PLURAL:$1|listen|listene}}?";
-// Fuzzy
-"reading-lists-large-sync-completed" = "$1 artikler og $2 leselister synkronisert fra kontoen din";
+"reading-lists-large-sync-completed" = "$1 {{PLURAL:$1|artikkel|artikler}} og $2 {{PLURAL:$2|leseliste|leselister}} synkronisert fra kontoen din";
 "reading-lists-list-not-synced-limit-exceeded" = "Listen ble ikke synkronisert, grense overskredet";
 "reading-lists-sort-saved-articles" = "Sorter lagrede artikler";
 "reading-lists-split-notification" = "Det er en grense på $1 artikler per leseliste. Eksisterende lister med flere artikler vil bli delt opp i flere lister.";
@@ -653,10 +717,18 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "Syntaksfremheving";
 "reading-themes-controls-accessibility-text-size-slider" = "Glidebryter for tekststørrelse";
 "reading-themes-controls-syntax-highlighting" = "Syntaksfremheving";
+"reference-section-button-accessibility-label" = "Hopp til referanseseksjonen";
 "reference-title" = "Referanse $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=I dag|1=I går|For $1 dager siden}}";
+"relative-date-hours-abbreviated" = "$1t";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nylig|For $1 time siden|For $1 timer siden}}";
+"relative-date-hours-ago-abbreviated" = "for $1t siden";
+"relative-date-minutes-abbreviated" = "$1m";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Nettopp|For $1 minutt siden|For $1 minutter siden}}";
+"relative-date-minutes-ago-abbreviated" = "for $1m siden";
+"relative-date-months-ago" = "{{PLURAL:$1|0=Denne måneden|1=Forrige måned|For $1 måneder siden}}";
+"relative-date-seconds-abbreviated" = "$1s";
+"relative-date-seconds-ago-abbreviated" = "for $1s siden";
 "relative-date-years-ago" = "{{PLURAL:$1|0=I år|1=I fjor|For $1 år siden}}";
 "replace-button-accessibility" = "Utfør $1.";
 "replace-buttons-replace-accessibility" = "Erstatt enkeltforekomst";
@@ -699,6 +771,9 @@
 "search-recent-title" = "Siste søk";
 "search-result-redirected-from" = "Omdirigert fra: $1";
 "search-title" = "Søk";
+"serbian-variants-alert-body" = "Wikipedia-appen støtter nå følgende serbiske varianter som primær- eller sekundærspråk i appen, noe som gjør det enklere å lese, søke i og redigere på dine foretrukne varianter:\n\nсрпски ћирилица kyrillisk serbisk (sr-ec)\nsrpski latinica Serbian, latinsk serbisk (sr-el)";
+"serbian-variants-alert-title" = "Oppdateringer i støtte for serbiske varianter";
+"settings-account" = "Konto";
 "settings-appearance" = "Leseinnstillinger";
 "settings-clear-cache" = "Tøm mellomlager";
 "settings-clear-cache-are-you-sure-message" = "Ved å tømme mellomlageret frigjør du rundt $1 med plass. Eventuelle lagrede sider vil ikke bli fjernet.";
@@ -754,11 +829,48 @@
 "table-of-contents-close-accessibility-hint" = "Lukk";
 "table-of-contents-close-accessibility-label" = "Lukk innholdsfortegnelsen";
 "table-of-contents-heading" = "Innhold";
+"table-of-contents-hide-button-label" = "Skjul innholdsfortegnelsen";
+"table-of-contents-subheading-label" = "Underoverskrift $1";
+"tachelhit-variants-alert-body" = "Wikipedia-appen støtter nå følgende varianter av tachelhit som primær- eller sekundærspråk i appen, noe som gjør det enklere å lese, søke i og redigere på dine foretrukne varianter:\n\nⵜⴰⵛⵍⵃⵉⵜ tachelhit med tifinagh (shi-tfng)\nTaclḥit latinsk tachelhit (shi-latn)";
+"tachelhit-variants-alert-title" = "Oppdateringer i støtte for tachelhit-varianter";
+"tajik-variants-alert-body" = "Wikipedia-appen støtter nå følgende tadsjikiske varianter som primær- eller sekundærspråk i appen, noe som gjør det enklere å lese, søke i og redigere på dine foretrukne varianter:\n\nтоҷикӣ кирилликӣ kyrillisk tadsjikisk (tg-cyrl)\ntojikī lotinī latinsk tadsjikisk (tg-latn)";
+"tajik-variants-alert-title" = "Oppdateringer i støtte for tadsjikiske varianter";
+"talk-page-add-discussion-accessibility-label" = "Legg til diskusjon";
+"talk-page-discussion-accessibility-hint" = "Dobbeltrykk for å åpne diskusjonstråd";
+"talk-page-discussion-read-accessibility-label" = "Lest";
 "talk-page-discussion-read-ipa-accessibility-attribute" = "leːst";
+"talk-page-discussion-unread-accessibility-label" = "Ulest";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "ʉːˈlɛst";
+"talk-page-error-unable-to-post-reply" = "Ingen internettforbindelse. Kunne ikke poste svar.";
+"talk-page-error-unable-to-post-topic" = "Ingen internettforbindelse. Kunne ikke poste diskusjon.";
+"talk-page-info-active-conversations" = "Aktive samtaler på Wikipedia på $1";
+"talk-page-info-active-conversations-generic" = "Aktive samtaler på Wikipedia";
+"talk-page-link-user-action-sheet-app" = "Vis brukerdiskusjonsside i appen";
+"talk-page-link-user-action-sheet-safari" = "Vis brukerside i Safari";
+"talk-page-link-user-action-sheet-title" = "Brukersider";
+"talk-page-new-banner-subtitle" = "Husk at vi alle er mennesker her";
+"talk-page-new-banner-title" = "Vær snill";
+"talk-page-new-body-textfield-accessibility-label" = "Diskusjonskropp";
+"talk-page-new-reply-body-accessibility-label" = "Skriv svar";
+"talk-page-new-reply-body-placeholder-text" = "Skriv svar";
+"talk-page-new-reply-success-text" = "Svaret ditt ble publisert";
+"talk-page-new-subject-clear-button-accessibility" = "Tøm emne";
+"talk-page-new-subject-placeholder-text" = "Emne";
+"talk-page-new-subject-textfield-accessibility-label" = "Emne";
+"talk-page-new-topic-body-placeholder-text" = "Skriv ny diskusjon";
+"talk-page-new-topic-success-text" = "Diskusjonen din ble publisert";
+"talk-page-new-topic-title" = "Ny diskusjon";
+"talk-page-publish-terms-and-licenses" = "Ved å lagre endringene samtykker du i $1bruksvilkårene$2 og i å slippe ditt bidrag under lisensene $3CC BY-SA 3.0$4 og $5GFDL$6.";
+"talk-page-reply-title" = "Svar";
+"talk-page-title-article-talk" = "Artikkeldiskusjon";
+"talk-page-title-user-talk" = "Brukerdiskusjon";
+"talk-page-topic-title" = "Diskusjon";
+"talk-pages-reply-button-title" = "Svar på denne diskusjonen";
 "theme-black-display-name" = "Svart";
 "theme-dark-display-name" = "Mørk";
 "theme-default-display-name" = "Standard";
+"theme-default-explanation" = "Matcher systemtemaet";
+"theme-light-display-name" = "Lys";
 "theme-sepia-display-name" = "Sepia";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia på $1";
@@ -768,6 +880,12 @@
 "two-factor-login-title" = "Logg inn med kontoen din";
 "two-factor-login-with-backup-code" = "Bruk en av reservekodene dine";
 "two-factor-login-with-regular-code" = "Bruk bekreftelseskode";
+"unable-to-load-talk-page-title" = "Kunne ikke last diskusjonsside";
+"unknown-generic-text" = "Ukjent";
+"uzbek-variants-alert-body" = "Wikipedia-appen støtter nå følgende usbekiske varianter som primær- eller sekundærspråk i appen, noe som gjør det enklere å lese, søke i og redigere på dine foretrukne varianter:\n\noʻzbekcha lotin latinsk usbekisk (uz-latin)\nўзбекча кирилл kyrillisk usbekisk (uz-cyrl)";
+"uzbek-variants-alert-title" = "Oppdateringer i støtte for usbekiske varianter";
+"variants-alert-dismiss-button" = "Nei takk";
+"variants-alert-preferences-button" = "Gå gjennom innstillingene dine";
 "welcome-exploration-explore-feed-description" = "Anbefalt lesning og daglige artikler utvalgt av fellesskapet";
 "welcome-exploration-explore-feed-title" = "Utforskingsside";
 "welcome-exploration-on-this-day-description" = "Reis tilbake i tid for å lære hva som skjedde på dagens dato i historien";
@@ -777,8 +895,7 @@
 "welcome-explore-continue-button" = "Kom igang";
 "welcome-explore-new-ways-title" = "Nye måter å utforske på";
 "welcome-explore-tell-me-more-done-button" = "Skjønner";
-// Fuzzy
-"welcome-intro-free-encyclopedia-description" = "Wikipedia er samskrevet av frivillige og består av mer enn 40 millioner artikler på nær 300 språk.";
+"welcome-intro-free-encyclopedia-description" = "Wikipedia skrives på dugnad av frivillige og består av mer enn 40 millioner artikler på mer enn 300 språk.";
 "welcome-intro-free-encyclopedia-more" = "Lær mer om Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "Om Wikipedia";
 "welcome-intro-free-encyclopedia-more-description" = "Wikipedia er et globalt prosjekt for å bygge frie encyklopedier på alle verdens språk. Alle og enhver med internettilgang kan i prinsippet bidra med nøytral og referansebelagt informasjon.";
@@ -786,8 +903,7 @@
 "welcome-languages-add-button" = "Legg til et annet språk";
 "welcome-languages-add-or-edit-button" = "Legg til eller rediger foretrukne språk";
 "welcome-languages-description" = "Språk funnet på enheten din:";
-// Fuzzy
-"welcome-languages-search-title" = "Søk på nesten 300 språk";
+"welcome-languages-search-title" = "Søk på over 300 språk";
 "welcome-notifications-tell-me-more-creation" = "Varslinger lages på enheten din av appen, de leveres ikke fra våre (eller tredjeparters) servere.";
 "welcome-notifications-tell-me-more-storage" = "Innstillinger for notifikasjoner lagres på enheten og er ikke basert på personlige informasjoner eller aktivitet.";
 "welcome-notifications-tell-me-more-title" = "Mer om varslinger";
@@ -798,6 +914,10 @@
 "wikitext-downloading" = "Laster innhold ...";
 "wikitext-preview-changes" = "Laster forhåndsvisning av endringene dine…";
 "wikitext-preview-changes-none" = "Ingen endringer ble gjort som kunne forhåndsvises.";
+"wikitext-preview-link-external-preview-description" = "Denne lenka leder til et eksternt nettsted: $1";
+"wikitext-preview-link-external-preview-title" = "Ekstern lenke";
+"wikitext-preview-link-not-found-preview-description" = "Wikipedia har ikke noen artikkel med dette navnet";
+"wikitext-preview-link-not-found-preview-title" = "Ingen ekstern lenke funnet";
 "wikitext-preview-link-preview-description" = "Denne lenken fører til «$1»";
 "wikitext-preview-link-preview-title" = "Lenkeforhåndsvisning";
 "wikitext-preview-save-changes-title" = "Lagre endringer";

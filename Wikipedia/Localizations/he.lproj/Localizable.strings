@@ -13,6 +13,7 @@
 // Author: Or
 // Author: Steeve815
 // Author: Strayblues
+// Author: Tsevener
 // Author: YaronSh
 // Author: איתן96
 // Author: דגש חזק
@@ -154,7 +155,7 @@
 "article-languages-label" = "בחירת שפה";
 "article-languages-others" = "שפות אחרות";
 "article-languages-yours" = "השפות שלך";
-"article-read-more-title" = "לקרוא עוד";
+"article-read-more-title" = "מידע נוסף";
 "article-reference-view-title" = "הערת שוליים $1";
 "article-save-error-not-enough-space" = "אין מספיק נפח אחסון במכשיר שלך כדי לשמור את הערך";
 "article-share" = "שיתוף";
@@ -480,7 +481,7 @@
 "icon-shortcut-random-title" = "ערך אקראי";
 "icon-shortcut-search-title" = "חיפוש בוויקיפדיה";
 "image-gallery-unknown-owner" = "היוצר אינו ידוע.";
-"in-the-news-currently-trending" = "מבוקש עכשיו";
+"in-the-news-currently-trending" = "מוביל עכשיו";
 "in-the-news-notification-read-now-action-title" = "לקרוא עכשיו";
 "in-the-news-notification-save-for-later-action-title" = "לשמור לאחר־כך";
 "in-the-news-notification-share-action-title" = "לשתף...";
@@ -745,7 +746,7 @@
 "request-feedback-on-error" = "היישום נתקל בבעיה והמפתחים שלנו היו רוצים לדעת עליה יותר. נא ללחוץ כאן כדי לשלוח לנו דואר אלקטרוני עם מידע על השגיאה.";
 "reverted-edit-back-to-article-button-title" = "חזרה לערך";
 "reverted-edit-notification-body" = "העריכה שעשית בערך $1 בוטלה על־ידי $2";
-"reverted-edit-notification-read-more-action-title" = "לקרוא עוד";
+"reverted-edit-notification-read-more-action-title" = "מידע נוסף";
 "reverted-edit-possible-reasons" = "- התרומה שלך לא מקיימת אחת מההנחיות שלנו. $1.\n\n- העריכה שלך נראית כמו ניסוי או השחתה";
 "reverted-edit-possible-reasons-subtitle" = "אנחנו יודעים שניסית לעשות משהו טוב, אבל לאחד מהסוקרים שלנו היה חשד.\n\nסיבות אפשריות לכך שהעריכה שלך בוטלה כוללות:";
 "reverted-edit-thanks-for-editing-title" = "תודה שערכת את ויקיפדיה!";
@@ -791,7 +792,7 @@
 "settings-notifications-learn-more" = "מידע נוסף על עדכונים";
 "settings-notifications-push-notifications" = "עדכונים";
 "settings-notifications-system-turn-on" = "הפעלת עדכונים";
-"settings-notifications-trending" = "נושאים אקטואליים חמים";
+"settings-notifications-trending" = "נושאים אקטואליים מובילים";
 "settings-primary-language" = "ראשית";
 "settings-primary-language-details" = "השפה הראשונה ברשימה הזאת היא השפה הראשית עבור היישום.";
 "settings-search-footer-text" = "הגדרת היישום להיפתח בלשונית החיפוש במקום בלשונית לחקור";

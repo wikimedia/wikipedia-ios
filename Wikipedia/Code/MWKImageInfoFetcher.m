@@ -239,7 +239,7 @@ metadataLanguage:(nullable NSString *)metadataLanguage
             failure(error);
             return;
         }
-        [self getPreferredLanguageCodes:^(NSArray<NSString *> *preferredLanguageCodes) {
+        [self getPreferredContentLanguageCodes:^(NSArray<NSString *> *preferredLanguageCodes) {
             NSError *serializerError = nil;
             NSArray *galleryItems = [self responseObjectForJSON:result preferredLanguageCodes:preferredLanguageCodes error:&serializerError];
             if (serializerError) {
@@ -251,13 +251,13 @@ metadataLanguage:(nullable NSString *)metadataLanguage
     }];
 }
 
-- (void)getPreferredLanguageCodes:(void (^)(NSArray<NSString *> *))completion {
+- (void)getPreferredContentLanguageCodes:(void (^)(NSArray<NSString *> *))completion {
     if (!self.preferredLanguageDelegate) {
         NSAssert(false, @"Preferred language delegate should be set");
         completion(@[@"en"]);
         return;
     }
-    [self.preferredLanguageDelegate getPreferredLanguageCodes:completion];
+    [self.preferredLanguageDelegate getPreferredContentLanguageCodes:completion];
 }
 
 - (void)fetchImageInfoForCommonsFiles:(NSArray *)filenames

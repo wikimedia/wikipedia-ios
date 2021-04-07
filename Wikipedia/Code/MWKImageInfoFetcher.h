@@ -1,7 +1,7 @@
 @import Foundation;
 #import <WMF/WMFLegacyFetcher.h>
 #import <WMF/WMFBlockDefinitions.h>
-#import <WMF/WMFPreferredLanguageCodesProviding.h>
+#import <WMF/WMFPreferredLanguageInfoProvider.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -59,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable NSURLRequest *)urlRequestForFromURL: (NSURL *)url;
 
-@property (weak, nonatomic) id<WMFPreferredLanguageCodesProviding> preferredLanguageDelegate;
+@property (weak, nonatomic) id<WMFPreferredLanguageInfoProvider> preferredLanguageDelegate;
 
 @end
 

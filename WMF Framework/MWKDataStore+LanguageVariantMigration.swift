@@ -135,9 +135,11 @@ extension MWKDataStore {
         guard !addedVariantLanguageCodes.isEmpty else {
             return []
         }
+        var uniqueLanguageCodes: Set<String> = []
         return languageLinkController.preferredLanguages
             .map { $0.languageCode }
             .filter { addedVariantLanguageCodes.contains($0) }
+            .filter { uniqueLanguageCodes.insert($0).inserted }
     }
     
     // Returns an array of language codes for all languages that have added variant support
