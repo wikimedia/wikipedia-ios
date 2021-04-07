@@ -34,6 +34,7 @@
 // Author: Mouse21
 // Author: Movses
 // Author: MuratTheTurkish
+// Author: Nastua Buldakova
 // Author: Nemo bis
 // Author: Nitch
 // Author: Oashnic
@@ -197,6 +198,7 @@
 "button-skip" = "Пропустить";
 "cancel" = "Отмена";
 "cc-zero" = "Creative Commons CC0";
+"chinese-variants-alert-body" = "Приложение Wikipedia теперь поддерживает следующие китайские варианты в качестве основных или вторичных языков в приложении, что облегчает чтение, поиск и редактирование в ваших предпочтительных вариантах:\n\nКитайский, Упрощенный\nГонконгский традиционный\nТрадиционный Макао\nМалайзия Упрощенная\nСингапур Упрощенный\nТайваньская традиционная";
 "clear-title-accessibility-label" = "Очистить";
 "close-button-accessibility-label" = "Закрыть";
 "compass-direction" = "на $1 часов";

@@ -4,8 +4,6 @@ We welcome volunteers to contribute to the Wikipedia iOS app codebase.
 ## Development instructions
 Before developing, please read the [setup instructions](README.md).
 
-We do all of our active development on the [develop](https://github.com/wikimedia/wikipedia-ios) branch. Your pull requests will automatically be targeted at that branch by Github. To make merging easier, be sure you create your branches based on the develop branch.
-
 Once your contributions are ready for review, add yourself in alphabetical order under contributors in `Code/AboutViewController.plist` and post a pull request on GitHub. One of the maintainers will review the PR. Thanks for contributing! 🎉
 
 ## What can I work on?

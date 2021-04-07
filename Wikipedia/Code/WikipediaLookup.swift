@@ -52,7 +52,7 @@ import CocoaLumberjackSwift
                         localizedName = iOSLocalizedName
                     }
                     
-                    return MWKLanguageLink(languageCode: wikipediaLanguageVariant.languageCode, pageTitleText: "", name: wikipediaLanguageVariant.languageName, localizedName: localizedName, languageVariantCode: wikipediaLanguageVariant.languageVariantCode, altISOCode: wikipediaLanguageVariant.languageVariantCode)
+                    return MWKLanguageLink(languageCode: wikipediaLanguageVariant.languageCode, pageTitleText: "", name: wikipediaLanguageVariant.languageName, localizedName: localizedName, languageVariantCode: wikipediaLanguageVariant.languageVariantCode, altISOCode: wikipediaLanguageVariant.altISOCode)
                 }
             }
         } catch let error {

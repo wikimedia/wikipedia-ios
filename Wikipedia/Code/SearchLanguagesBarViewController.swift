@@ -202,7 +202,6 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateSearchLanguageButtons()
-        assert(searchLanguageButtons().filter { $0.isSelected }.count == 1)
     }
     
     override func viewDidAppear(_ animated: Bool) {
