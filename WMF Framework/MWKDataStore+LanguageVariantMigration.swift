@@ -52,9 +52,13 @@ extension MWKDataStore {
             result[languageCode] = languageVariantCode
         }
         
-        languageLinkController.migratePreferredLanguages(toLanguageVariants: migrationMapping, in: moc)
-        feedContentController.migrateExploreFeedSettings(toLanguageVariants: migrationMapping, in: moc)
-        migrateSearchLanguageSetting(toLanguageVariants: migrationMapping)
+        // Ensure any settings that currently use 'nb' are updated to use 'no'
+        var languageCodeMigrationMapping = migrationMapping
+        languageCodeMigrationMapping["nb"] = "no"
+        
+        languageLinkController.migratePreferredLanguages(toLanguageVariants: languageCodeMigrationMapping, in: moc)
+        feedContentController.migrateExploreFeedSettings(toLanguageVariants: languageCodeMigrationMapping, in: moc)
+        migrateSearchLanguageSetting(toLanguageVariants: languageCodeMigrationMapping)
         migrateWikipediaEntities(toLanguageVariants: migrationMapping, in: moc)
     }
     

@@ -55,7 +55,7 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink:)
                          @"%@ { \n"
                           "\tlanguageCode: %@, \n"
                           "\tlanguageVariantCode: %@, \n"
-                          "\altISOCode: %@, \n"
+                          "\taltISOCode: %@, \n"
                           "\tpageTitleText: %@, \n"
                           "\tname: %@, \n"
                           "\tlocalizedName: %@ \n"
