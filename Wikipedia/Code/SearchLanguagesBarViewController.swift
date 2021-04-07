@@ -68,8 +68,8 @@ class SearchLanguageButton: UnderlineButton {
         
         NSLayoutConstraint.activate([
             languageCodeContainer.trailingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant: -6),
-            languageCodeContainer.topAnchor.constraint(equalTo: topAnchor, constant: 4),
-            languageCodeContainer.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -6),
+            languageCodeContainer.topAnchor.constraint(equalTo: topAnchor, constant: 6),
+            languageCodeContainer.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
             languageCodeContainerDimensionsConstraint,
             languageCodeLabel.centerYAnchor.constraint(equalTo: languageCodeContainer.centerYAnchor),
             languageCodeLabel.centerXAnchor.constraint(equalTo: languageCodeContainer.centerXAnchor),

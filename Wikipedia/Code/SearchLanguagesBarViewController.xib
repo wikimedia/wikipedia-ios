@@ -30,7 +30,7 @@
                     </constraints>
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" contentInsetAdjustmentBehavior="never" translatesAutoresizingMaskIntoConstraints="NO" id="Yuq-ja-3NK">
-                    <rect key="frame" x="0.0" y="6" width="302" height="32"/>
+                    <rect key="frame" x="0.0" y="6" width="302" height="38"/>
                 </scrollView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jb0-vp-xHE" customClass="WMFGradientView">
                     <rect key="frame" x="270" y="0.0" width="40" height="44"/>
@@ -43,7 +43,7 @@
                     <rect key="frame" x="310" y="0.0" width="65" height="44"/>
                 </view>
                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="754" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uA2-xO-xXY" customClass="WMFTitleInsetRespectingButton">
-                    <rect key="frame" x="310" y="6" width="49" height="32"/>
+                    <rect key="frame" x="310" y="10" width="49" height="32"/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <state key="normal" title="Button">
                         <color key="titleColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -63,14 +63,14 @@
             <color key="backgroundColor" red="0.97647058819999999" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Yuq-ja-3NK" firstAttribute="leading" secondItem="hUX-g2-rde" secondAttribute="leading" id="07m-Gf-lMh"/>
-                <constraint firstItem="uA2-xO-xXY" firstAttribute="centerY" secondItem="tPw-FY-7pj" secondAttribute="centerY" id="4RB-9j-lcn"/>
+                <constraint firstItem="uA2-xO-xXY" firstAttribute="centerY" secondItem="tPw-FY-7pj" secondAttribute="centerY" constant="4" id="4RB-9j-lcn"/>
                 <constraint firstItem="M74-Jn-h71" firstAttribute="leading" secondItem="jb0-vp-xHE" secondAttribute="trailing" id="62I-UV-161"/>
                 <constraint firstAttribute="trailing" secondItem="LQt-NK-neD" secondAttribute="trailing" id="6rQ-6w-KOQ"/>
                 <constraint firstAttribute="bottom" secondItem="LQt-NK-neD" secondAttribute="bottom" id="8B7-LQ-Hdr"/>
                 <constraint firstItem="jb0-vp-xHE" firstAttribute="bottom" secondItem="hUX-g2-rde" secondAttribute="bottom" id="AyO-Wu-UMI"/>
                 <constraint firstItem="LQt-NK-neD" firstAttribute="top" secondItem="tPw-FY-7pj" secondAttribute="top" id="BV5-mE-fCP"/>
                 <constraint firstItem="LQt-NK-neD" firstAttribute="width" secondItem="tPw-FY-7pj" secondAttribute="width" id="E5c-np-RRB"/>
-                <constraint firstItem="hUX-g2-rde" firstAttribute="bottom" secondItem="Yuq-ja-3NK" secondAttribute="bottom" constant="6" id="QuJ-Mr-xIX"/>
+                <constraint firstItem="hUX-g2-rde" firstAttribute="bottom" secondItem="Yuq-ja-3NK" secondAttribute="bottom" id="QuJ-Mr-xIX"/>
                 <constraint firstItem="jb0-vp-xHE" firstAttribute="trailingMargin" secondItem="Yuq-ja-3NK" secondAttribute="trailing" id="Sg6-Rs-bLF"/>
                 <constraint firstAttribute="bottom" secondItem="M74-Jn-h71" secondAttribute="bottom" id="TMM-HO-3n5"/>
                 <constraint firstItem="jb0-vp-xHE" firstAttribute="top" secondItem="LQt-NK-neD" secondAttribute="top" id="X1R-CS-J9q"/>
