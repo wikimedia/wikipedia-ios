@@ -5,13 +5,97 @@ import UIKit
 }
 
 class SearchLanguageButton: UnderlineButton {
+
+    // MARK: - Properties
+
     var contentLanguageCode: String?
+    var languageCode: String? {
+        didSet {
+            languageCodeLabel.text = languageCode?.localizedUppercase
+        }
+    }
+    
+    // MARK: - UI Elements
+
+    private lazy var languageCodeContainer: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isUserInteractionEnabled = false
+        view.layer.cornerRadius = 2
+        view.layer.masksToBounds = true
+        return view
+    }()
+
+    private lazy var languageCodeLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 1
+        label.textAlignment = .center
+        label.baselineAdjustment = .alignCenters
+        label.font = .wmf_font(.boldSubheadline)
+        label.adjustsFontForContentSizeCategory = true
+        label.adjustsFontSizeToFitWidth = true
+        return label
+    }()
+
+    // MARK: - Lifecycle
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+    }
 
     override func setup() {
         super.setup()
-        titleLabel?.numberOfLines = 1
-        titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 0)
+
+        guard let titleLabel = titleLabel else {
+            return
+        }
+        
+        titleLabel.numberOfLines = 1
+        titleLabel.adjustsFontForContentSizeCategory = true
+
+        addSubview(languageCodeContainer)
+        languageCodeContainer.addSubview(languageCodeLabel)
+        
+        let languageCodeContainerDimensionsConstraint = languageCodeContainer.widthAnchor.constraint(equalTo: languageCodeContainer.heightAnchor)
+        languageCodeContainerDimensionsConstraint.priority = .required
+        
+        NSLayoutConstraint.activate([
+            languageCodeContainer.trailingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant: -6),
+            languageCodeContainer.topAnchor.constraint(equalTo: topAnchor, constant: 4),
+            languageCodeContainer.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -6),
+            languageCodeContainerDimensionsConstraint,
+            languageCodeLabel.centerYAnchor.constraint(equalTo: languageCodeContainer.centerYAnchor),
+            languageCodeLabel.centerXAnchor.constraint(equalTo: languageCodeContainer.centerXAnchor),
+            languageCodeLabel.leadingAnchor.constraint(equalTo: languageCodeContainer.leadingAnchor, constant: 2),
+            languageCodeLabel.trailingAnchor.constraint(equalTo: languageCodeContainer.trailingAnchor, constant: -2),
+        ])
+
+        let isRTL = effectiveUserInterfaceLayoutDirection == .rightToLeft
+
+        titleEdgeInsets = UIEdgeInsets(
+            top: titleEdgeInsets.top,
+            left: titleEdgeInsets.left + (isRTL ? 4 : 18),
+            bottom: titleEdgeInsets.bottom,
+            right: titleEdgeInsets.right + (isRTL ? 18 : 4)
+        )
     }
+    
+    // MARK: - Configuration
+
+    func apply(theme: Theme) {
+        setTitleColor(theme.colors.primaryText, for: .normal)
+        tintColor = theme.colors.link
+        languageCodeContainer.backgroundColor = theme.colors.link
+        languageCodeLabel.textColor = theme.colors.paperBackground
+    }
+    
 }
 
 class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesViewControllerDelegate, WMFLanguagesViewControllerDelegate, Themeable {
@@ -144,6 +228,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
         for language in languageBarLanguages() {
             let button = SearchLanguageButton()
 
+            button.languageCode = language.languageCode
             button.contentLanguageCode = language.contentLanguageCode
             button.isSelected = language.contentLanguageCode == currentlySelectedLanguage.contentLanguageCode
             button.addTarget(self, action: #selector(setCurrentlySelectedLanguageToButtonLanguage(withSender:)), for: .primaryActionTriggered)
@@ -228,8 +313,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
         let bgColor = theme.colors.paperBackground
         view.backgroundColor = bgColor
         for languageButton in searchLanguageButtons() {
-            languageButton.setTitleColor(theme.colors.primaryText, for: .normal)
-            languageButton.tintColor = theme.colors.link
+            languageButton.apply(theme: theme)
         }
         gradientView.setStart(bgColor.withAlphaComponent(0), end: bgColor)
         otherLanguagesButtonBackgroundView?.backgroundColor = bgColor
