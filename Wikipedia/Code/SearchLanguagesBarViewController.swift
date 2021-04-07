@@ -175,18 +175,24 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
     fileprivate func addSearchLanguageButtonStackView() {
         scrollView.addSubview(stackView)
 
-        stackView.leadingAnchor.constraint(lessThanOrEqualToSystemSpacingAfter: scrollView.leadingAnchor, multiplier: 2).isActive = true
-
+        stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
         stackView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
         stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
         stackView.heightAnchor.constraint(equalTo: scrollView.heightAnchor).isActive = true
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: gradientView.frame.size.width)
-        scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: -5, right: gradientView.frame.size.width)
+
+        let isRTL = view.effectiveUserInterfaceLayoutDirection == .rightToLeft
+        let defaultContentInset: CGFloat = 8
+        let gradientFrameInset = gradientView.frame.size.width / 2.0
+        let preferredLeftInset = isRTL ? gradientFrameInset : defaultContentInset
+        let preferredRightInset = isRTL ? defaultContentInset : gradientFrameInset
+
+        scrollView.contentInset = UIEdgeInsets(top: 0, left: preferredLeftInset, bottom: 0, right: preferredRightInset)
+        scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: preferredLeftInset, bottom: -5, right: preferredRightInset)
     }
     
     deinit {
