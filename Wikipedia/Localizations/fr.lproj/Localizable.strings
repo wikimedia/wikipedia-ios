@@ -183,7 +183,6 @@
 "button-skip" = "Passer";
 "cancel" = "Annuler";
 "cc-zero" = "Creative Commons Zéro";
-// Fuzzy
 "chinese-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes du chinois comme langues primaire ou secondaires dans l’application, le rendant plus facile à lire, rechercher et modifier dans vos variantes préférées :\n\n简体 – chinois simplifié (zh-hans)\n香港繁體 – chinois de Hong-Kong traditionnel (zh-hk)\n澳門繁體 – chinois macanais traditionnel (zh-mo)\n大马简体 – chinois malaisien simplifié (zh-my)\n新加坡简体 – chinois singapourien simplifié (zh-sg)\n臺灣正體 – chinois taïwanais traditionnel (zh-tw)";
 "chinese-variants-alert-title" = "Mises à jour de la prise en charge des variantes du chinois";
 "clear-title-accessibility-label" = "Effacer";

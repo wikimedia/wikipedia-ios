@@ -189,7 +189,6 @@
 "button-skip" = "Atla";
 "cancel" = "İptal";
 "cc-zero" = "Creative Commons CC0";
-// Fuzzy
 "chinese-variants-alert-body" = "Vikipedi uygulaması artık aşağıdaki Çince biçimlerini birincil veya ikincil olarak uygulama içinde, tercih ettiğiniz biçim ile okumayı, aramayı veya değişiklik yapmayı kolaylaştırmak için destekliyor.\n\n简体 Çince, Basitleştirilmiş (zh-hans)\n香港繁體 Geleneksel Hong Kong (zh-hk)\n澳門繁體 Geleneksel Makao (zh-mo)\n大马简体 Basitleştirilmiş Malezya (zh-my)\n新加坡简体 Basitleştirilmiş Singapur (zh-sg)\n臺灣正體 Geleneksel Tayvan (zh-tw)";
 "chinese-variants-alert-title" = "Çince biçim desteği güncellemeleri";
 "clear-title-accessibility-label" = "Temizle";
