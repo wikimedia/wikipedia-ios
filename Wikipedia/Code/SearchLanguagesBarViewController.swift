@@ -90,9 +90,10 @@ class SearchLanguageButton: UnderlineButton {
     // MARK: - Configuration
 
     func apply(theme: Theme) {
-        setTitleColor(theme.colors.primaryText, for: .normal)
-        tintColor = theme.colors.link
-        languageCodeContainer.backgroundColor = theme.colors.link
+        setTitleColor(theme.colors.tertiaryText, for: .normal)
+        setTitleColor(theme.colors.link, for: .selected)
+        tintColor = isSelected ? theme.colors.link : theme.colors.tertiaryText
+        languageCodeContainer.backgroundColor = isSelected ? theme.colors.link : theme.colors.tertiaryText
         languageCodeLabel.textColor = theme.colors.paperBackground
     }
     
