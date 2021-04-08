@@ -1,6 +1,7 @@
 // Messages for Oromo (Oromoo)
 // Exported from translatewiki.net
 // Author: Ahrada2016
+// Author: Lalise2021
 // Author: Nemo bis
 // Author: Tumsaa
 
@@ -44,12 +45,12 @@
 "page-protected-can-not-edit" = "Fuula kana jijjiiruuf mirga hin qabdu";
 "search-did-you-mean" = "$1 jechuu keetii?";
 "search-field-placeholder-text" = "Wiikippiidiyaa keessa barbaadi";
-"search-recent-clear-cancel" = "Dhiisi";
+"search-recent-clear-cancel" = "Haqi";
 "search-recent-clear-delete-all" = "Hunda haqi";
 // Fuzzy
 "table-of-contents-button-label" = "Baafata";
-"table-of-contents-heading" = "Qabiyyee";
-"wikitext-downloading" = "Qabiyyee fidaa jira...";
+"table-of-contents-heading" = "Qabiyyeewwan";
+"wikitext-downloading" = "Qabiyyee fe'aa jira...";
 // Fuzzy
 "wikitext-upload-save" = "Olkaawaa...";
 "wikitext-upload-save-sign-in" = "Seeni";

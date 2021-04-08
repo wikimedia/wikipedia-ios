@@ -9,6 +9,7 @@
 // Author: Evica
 // Author: Fitoschido
 // Author: Frettie
+// Author: Georg101
 // Author: H4nek
 // Author: Ilimanaq29
 // Author: Jan Myšák
@@ -180,6 +181,7 @@
 "button-skip" = "Přeskočit";
 "cancel" = "Storno";
 "cc-zero" = "Creative Commons CC0";
+"chinese-variants-alert-body" = "Aplikace wikipedie nyní podporuje následující Čínské varianty jako primární nebo sekundární jazyky v aplikaci, aby bylo jednodušší číst, hledat nebo upravovat ve vaší oblíbené variantě.\n\n简体 Čínština, Zjednodušená (zh-hans)\n香港繁體 Hong Kongská tradiční (zh-hk)\n澳門繁體 Macauská tradiční (zh-mo)\n大马简体 Malajská zjednodušená (zh-my)\n新加坡简体 Singapurská zjednodušená (zh-sg)\n臺灣正體 Taiwanská Tradiční (zh-tw)";
 "clear-title-accessibility-label" = "Vymazat";
 "close-button-accessibility-label" = "Zavřít";
 "compass-direction" = "na $1. hodině";
