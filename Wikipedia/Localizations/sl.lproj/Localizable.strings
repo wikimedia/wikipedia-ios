@@ -42,7 +42,7 @@
 "about-libraries-complete-list" = "Popolni seznam";
 "about-libraries-license" = "Licenca";
 "about-repositories" = "Repozitoriji";
-"about-repositories-app-source-license" = "Izvorna koda je na razpolago pod licenco $1.";
+"about-repositories-app-source-license" = "Izvorna koda je na voljo pod licenco $1.";
 "about-repositories-app-source-license-mit" = "MIT licenca";
 "about-send-feedback" = "Sporočite svoje mnenje";
 "about-testers" = "Testerji";

@@ -22,6 +22,7 @@
 // Author: Nemo bis
 // Author: NeverBehave
 // Author: NigelSoft
+// Author: Njzjz
 // Author: Phenolla
 // Author: Qiyue2001
 // Author: Shizhao
@@ -282,9 +283,9 @@
 "edit-subscript-accessibility-label" = "添加下标格式";
 "edit-subscript-remove-accessibility-label" = "移除下标格式";
 "edit-summary-add-summary-text" = "添加编辑摘要";
-"edit-summary-choice-fixed-grammar" = "已确定语法";
+"edit-summary-choice-fixed-grammar" = "修正语病";
 "edit-summary-choice-fixed-typos" = "修正笔误";
-"edit-summary-choice-linked-words" = "已添加链接";
+"edit-summary-choice-linked-words" = "添加链接";
 "edit-summary-learn-more-text" = "了解更多";
 "edit-summary-placeholder-text" = "您如何改进条目的？";
 "edit-superscript-accessibility-label" = "添加上标格式";
