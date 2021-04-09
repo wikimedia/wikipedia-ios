@@ -11,7 +11,12 @@ class SearchLanguageButton: UnderlineButton {
     var contentLanguageCode: String?
     var languageCode: String? {
         didSet {
-            languageCodeLabel.text = languageCode?.localizedUppercase
+            // Truncate to a max of 4 characters, discarding any trailing punctuation
+            if let truncatedLanguageCode = languageCode?.localizedUppercase.prefix(4) {
+                languageCodeLabel.text = truncatedLanguageCode.last?.isPunctuation ?? false
+                    ? String(truncatedLanguageCode.dropLast())
+                    : String(truncatedLanguageCode)
+            }
         }
     }
     
