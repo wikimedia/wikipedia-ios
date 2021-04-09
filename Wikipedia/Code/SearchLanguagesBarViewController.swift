@@ -11,7 +11,12 @@ class SearchLanguageButton: UnderlineButton {
     var contentLanguageCode: String?
     var languageCode: String? {
         didSet {
-            languageCodeLabel.text = languageCode?.localizedUppercase
+            // Truncate to a max of 4 characters, discarding any trailing punctuation
+            if let truncatedLanguageCode = languageCode?.localizedUppercase.prefix(4) {
+                languageCodeLabel.text = truncatedLanguageCode.last?.isPunctuation ?? false
+                    ? String(truncatedLanguageCode.dropLast())
+                    : String(truncatedLanguageCode)
+            }
         }
     }
     
@@ -90,9 +95,10 @@ class SearchLanguageButton: UnderlineButton {
     // MARK: - Configuration
 
     func apply(theme: Theme) {
-        setTitleColor(theme.colors.primaryText, for: .normal)
-        tintColor = theme.colors.link
-        languageCodeContainer.backgroundColor = theme.colors.link
+        setTitleColor(theme.colors.tertiaryText, for: .normal)
+        setTitleColor(theme.colors.link, for: .selected)
+        tintColor = isSelected ? theme.colors.link : theme.colors.tertiaryText
+        languageCodeContainer.backgroundColor = isSelected ? theme.colors.link : theme.colors.tertiaryText
         languageCodeLabel.textColor = theme.colors.paperBackground
     }
     

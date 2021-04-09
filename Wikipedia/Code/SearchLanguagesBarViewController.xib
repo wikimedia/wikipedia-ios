@@ -29,7 +29,7 @@
                         <constraint firstAttribute="height" constant="44" id="1Xh-Hy-U4t"/>
                     </constraints>
                 </view>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" contentInsetAdjustmentBehavior="never" translatesAutoresizingMaskIntoConstraints="NO" id="Yuq-ja-3NK">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" translatesAutoresizingMaskIntoConstraints="NO" id="Yuq-ja-3NK">
                     <rect key="frame" x="0.0" y="6" width="302" height="38"/>
                 </scrollView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jb0-vp-xHE" customClass="WMFGradientView">
