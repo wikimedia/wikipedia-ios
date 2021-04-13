@@ -14,9 +14,11 @@
 // Author: Sarrus
 // Author: Weblars
 
+"aaald-added-text-description-2" = "$1 tilføjet";
 "aaald-article-insert-last-updated" = "Sidst opdateret";
 "aaald-article-insert-new-changes" = "Nye ændringer";
 "aaald-article-insert-read-more" = "Læs flere opdateringer";
+"aaald-deleted-text-description-2" = "$1 slettet";
 "aaald-new-book-reference-title" = "Bog";
 "aaald-new-discussion" = "Ny diskussion";
 "aaald-new-news-reference-title" = "Nyheder";
@@ -49,8 +51,7 @@
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "Et automatisk filter har identificeret denne redigering som potentielt ukonstruktiv eller forsøg på hærværk.";
 "abuse-filter-warning-blanking" = "Tømning af afsnit eller hele artikler";
-// Fuzzy
-"abuse-filter-warning-caps" = "Tekst skrevet med STORE BOGSTAVER";
+"abuse-filter-warning-caps" = "Tekst skrevet med store bogstaver";
 "abuse-filter-warning-heading" = "Dette ligner en redigering som ikke er konstruktiv. Er du sikker på at du ønsker at udgive den?";
 "abuse-filter-warning-irrelevant" = "Irrelevante eksterne links eller billeder";
 "abuse-filter-warning-repeat" = "Gentagende tegn";
@@ -583,6 +584,7 @@
 "talk-page-new-subject-clear-button-accessibility" = "Ryd emne";
 "talk-page-new-subject-placeholder-text" = "Emne";
 "talk-page-new-subject-textfield-accessibility-label" = "Emne";
+"talk-page-new-topic-title" = "Ny diskussion";
 "talk-page-reply-title" = "Svar";
 "talk-page-title-user-talk" = "Brugerdiskussion";
 "talk-page-topic-title" = "Diskussion";
