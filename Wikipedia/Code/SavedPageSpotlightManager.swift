@@ -66,16 +66,25 @@ public class WMFSavedPageSpotlightManager: NSObject {
             return
         }
         
-        queue.async {
+        dataStore.viewContext.perform { [weak self] in
+            
+            guard let self = self else {
+                return
+            }
+            
             let searchableItemAttributes = self.searchableItemAttribues(for: article)
-            searchableItemAttributes.keywords?.append("Saved")
             
-            let item = CSSearchableItem(uniqueIdentifier: identifier, domainIdentifier: "org.wikimedia.wikipedia", attributeSet: searchableItemAttributes)
-            item.expirationDate = NSDate.distantFuture
-            
-            CSSearchableIndex.default().indexSearchableItems([item]) { (error) -> Void in
-                if let error = error {
-                    DDLogError("Indexing error: \(error.localizedDescription)")
+            self.queue.async {
+                
+                searchableItemAttributes.keywords?.append("Saved")
+                
+                let item = CSSearchableItem(uniqueIdentifier: identifier, domainIdentifier: "org.wikimedia.wikipedia", attributeSet: searchableItemAttributes)
+                item.expirationDate = NSDate.distantFuture
+                
+                CSSearchableIndex.default().indexSearchableItems([item]) { (error) -> Void in
+                    if let error = error {
+                        DDLogError("Indexing error: \(error.localizedDescription)")
+                    }
                 }
             }
         }
