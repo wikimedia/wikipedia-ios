@@ -70,16 +70,15 @@ extension ArticleScrolling where Self: ViewController {
         } else {
             adjustmentY = overlayTop
         }
-        let minY = 0 - scrollView.contentInset.top
-        let maxY = scrollView.contentSize.height - scrollView.bounds.height + scrollView.contentInset.bottom
+        let minYScrollPoint = 0 - scrollView.contentInset.top
+        let largestY = scrollView.contentSize.height + scrollView.contentInset.bottom
+        let maxYScrollPoint = largestY - scrollView.bounds.height
 
         /// If y lies within the last screen, scroll should be to the final full screen.
-        let y = min(offset.y + adjustmentY, maxY)
-        guard y >= minY else {
-            completion?(false)
-            return
-        }
-        guard y <= maxY else {
+        let yContentPoint = offset.y + adjustmentY
+        let y = (maxYScrollPoint...largestY).contains(yContentPoint) ? maxYScrollPoint : yContentPoint
+
+        guard (minYScrollPoint...maxYScrollPoint).contains(y) else {
             completion?(false)
             return
         }
