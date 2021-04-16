@@ -58,9 +58,9 @@ public enum ArticleDescriptionSource: String {
     ///   - newWikidataDescription: new wikidata description to be published, e.g., "Capital of England and the United Kingdom".
     ///   - source: description source; none, central or local.
     ///   - wikidataID: id for the Wikidata entity including the prefix
-    ///   - language: language code of the page's wiki, e.g., "en".
+    ///   - languageCode: language code of the page's wiki, e.g., "en".
     ///   - completion: completion block called when operation is completed.
-    public func publish(newWikidataDescription: String, from source: ArticleDescriptionSource, forWikidataID wikidataID: String, language: String, completion: @escaping (Error?) -> Void) {
+    public func publish(newWikidataDescription: String, from source: ArticleDescriptionSource, forWikidataID wikidataID: String, languageCode: String, completion: @escaping (Error?) -> Void) {
         guard source != .local else {
             completion(WikidataPublishingError.notEditable)
             return
@@ -85,7 +85,7 @@ public enum ArticleDescriptionSource: String {
         
         let languageCodeParameters = WikipediaSiteInfo.defaultRequestParameters
 
-        let languageCodeComponents = configuration.mediaWikiAPIURLForWikiLanguage(language, with: languageCodeParameters)
+        let languageCodeComponents = configuration.mediaWikiAPIURLForWikiLanguage(languageCode, with: languageCodeParameters)
         session.jsonDecodableTask(with: languageCodeComponents.url) { (siteInfo: MediaWikiSiteInfoResult?, response, error) in
             let normalizedLanguage = siteInfo?.query.general.lang ?? "en"
             let queryParameters = ["action": "wbsetdescription",
