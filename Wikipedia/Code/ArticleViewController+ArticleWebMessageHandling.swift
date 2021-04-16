@@ -43,8 +43,8 @@ extension ArticleViewController: ArticleWebMessageHandling {
         let titleItem = TableOfContentsItem(id: 0, titleHTML: article.displayTitleHTML, anchor: "", rootItemId: 0, indentationLevel: 0)
         var allItems: [TableOfContentsItem] = [titleItem]
         allItems.append(contentsOf: items)
-        let aboutThisArticleTitle = CommonStrings.aboutThisArticleTitle(with: articleLanguage)
-        let readMoreTitle = CommonStrings.readMoreTitle(with: articleLanguage)
+        let aboutThisArticleTitle = CommonStrings.aboutThisArticleTitle(with: articleLanguageCode)
+        let readMoreTitle = CommonStrings.readMoreTitle(with: articleLanguageCode)
         let aboutThisArticleItem = TableOfContentsItem(id: -2, titleHTML: aboutThisArticleTitle, anchor: PageContentService.Footer.Menu.fragment, rootItemId: -2, indentationLevel: 0)
         allItems.append(aboutThisArticleItem)
         let readMoreItem = TableOfContentsItem(id: -3, titleHTML: readMoreTitle, anchor: PageContentService.Footer.ReadMore.fragment, rootItemId: -3, indentationLevel: 0)

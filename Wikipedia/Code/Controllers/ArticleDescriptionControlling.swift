@@ -16,7 +16,7 @@ struct ArticleDescriptionPublishResult {
 protocol ArticleDescriptionControlling {
     var descriptionSource: ArticleDescriptionSource { get }
     var article: WMFArticle { get }
-    var articleLanguage: String { get }
+    var articleLanguageCode: String { get }
     func publishDescription(_ description: String, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void)
     func currentDescription(completion: @escaping (String?) -> Void)
     func errorTextFromError(_ error: Error) -> String

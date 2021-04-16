@@ -7,14 +7,14 @@ class WikidataDescriptionController: ArticleDescriptionControlling {
     private let wikidataDescription: String?
     private let wikiDataID: String
     let article: WMFArticle
-    let articleLanguage: String
+    let articleLanguageCode: String
     let descriptionSource: ArticleDescriptionSource
     
-    init?(article: WMFArticle, articleLanguage: String, descriptionSource: ArticleDescriptionSource, fetcher: WikidataFetcher = WikidataFetcher()) {
+    init?(article: WMFArticle, articleLanguageCode: String, descriptionSource: ArticleDescriptionSource, fetcher: WikidataFetcher = WikidataFetcher()) {
         self.fetcher = fetcher
         self.wikidataDescription = article.wikidataDescription
         self.article = article
-        self.articleLanguage = articleLanguage
+        self.articleLanguageCode = articleLanguageCode
         self.descriptionSource = descriptionSource
         
         guard let wikiDataID = article.wikidataID else {
@@ -30,7 +30,7 @@ class WikidataDescriptionController: ArticleDescriptionControlling {
     
     func publishDescription(_ description: String, completion: @escaping (Result<ArticleDescriptionPublishResult, Error>) -> Void) {
         
-        fetcher.publish(newWikidataDescription: description, from: descriptionSource, forWikidataID: wikiDataID, language: articleLanguage) { (error) in
+        fetcher.publish(newWikidataDescription: description, from: descriptionSource, forWikidataID: wikiDataID, language: articleLanguageCode) { (error) in
             if let error = error {
                 completion(.failure(error))
                 return

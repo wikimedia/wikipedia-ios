@@ -18,7 +18,7 @@ class ShortDescriptionController: ArticleDescriptionControlling {
     
     private let articleURL: URL
     let article: WMFArticle
-    let articleLanguage: String
+    let articleLanguageCode: String
     
     private let sectionID: Int = 0
     
@@ -34,16 +34,16 @@ class ShortDescriptionController: ArticleDescriptionControlling {
     ///   - sectionFetcher: section fetcher that fetches the first section of wikitext. Injectable for unit tests.
     ///   - sectionUploader: section uploader that uploads the new section wikitext. Injectable for unit tests.
     ///   - article: WMFArticle from ArticleViewController
-    ///   - articleLanguage: Language of article that we want to update (from ArticleViewController)
+    ///   - articleLanguageCode: Language code of article that we want to update (from ArticleViewController)
     ///   - articleURL: URL of article that we want to update (from ArticleViewController)
     ///   - descriptionSource: ArticleDescriptionSource determined via .edit action across ArticleViewController js bridge
     ///   - delegate: Delegate that can extract the current description from the article content
-    init(sectionFetcher: SectionFetcher = SectionFetcher(), sectionUploader: WikiTextSectionUploader = WikiTextSectionUploader(), article: WMFArticle, articleLanguage: String, articleURL: URL, descriptionSource: ArticleDescriptionSource, delegate: ShortDescriptionControllerDelegate) {
+    init(sectionFetcher: SectionFetcher = SectionFetcher(), sectionUploader: WikiTextSectionUploader = WikiTextSectionUploader(), article: WMFArticle, articleLanguageCode: String, articleURL: URL, descriptionSource: ArticleDescriptionSource, delegate: ShortDescriptionControllerDelegate) {
         self.sectionFetcher = sectionFetcher
         self.sectionUploader = sectionUploader
         self.article = article
         self.articleURL = articleURL
-        self.articleLanguage = articleLanguage
+        self.articleLanguageCode = articleLanguageCode
         self.descriptionSource = descriptionSource
         self.delegate = delegate
     }

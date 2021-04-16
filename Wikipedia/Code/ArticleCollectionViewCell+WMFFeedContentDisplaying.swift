@@ -18,7 +18,7 @@ public extension ArticleCollectionViewCell {
             isImageViewHidden = true
         }
         
-        let articleLanguage = article.url?.wmf_languageCode
+        let articleLanguageCode = article.url?.wmf_languageCode
         
         titleHTML = article.displayTitleHTML
         
@@ -71,10 +71,10 @@ public extension ArticleCollectionViewCell {
             extractLabel?.text = nil
         }
         
-        titleLabel.accessibilityLanguage = articleLanguage
-        descriptionLabel.accessibilityLanguage = articleLanguage
-        extractLabel?.accessibilityLanguage = articleLanguage
-        articleSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: articleLanguage)
+        titleLabel.accessibilityLanguage = articleLanguageCode
+        descriptionLabel.accessibilityLanguage = articleLanguageCode
+        extractLabel?.accessibilityLanguage = articleLanguageCode
+        articleSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: articleLanguageCode)
         setNeedsLayout()
         group.notify(queue: .main) {
             completion?()

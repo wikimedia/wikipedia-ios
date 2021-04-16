@@ -10,7 +10,7 @@ extension OnThisDayCollectionViewCell {
         titleLabel.text = onThisDayEvent.yearString
 
         let articleSiteURL = onThisDayEvent.siteURL
-        let articleLanguage = onThisDayEvent.language
+        let articleLanguageCode = onThisDayEvent.language
         
         if let eventYear = onThisDayEvent.year {
             let yearsSinceEvent = currentYear - eventYear.intValue
@@ -30,8 +30,8 @@ extension OnThisDayCollectionViewCell {
             }
         }
         
-        descriptionLabel.accessibilityLanguage = articleLanguage
-        semanticContentAttributeOverride = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: articleLanguage)
+        descriptionLabel.accessibilityLanguage = articleLanguageCode
+        semanticContentAttributeOverride = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: articleLanguageCode)
         
         isImageViewHidden = true
         timelineView.shouldAnimateDots = shouldAnimateDots

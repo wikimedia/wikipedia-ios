@@ -205,7 +205,7 @@ protocol DescriptionEditViewControllerDelegate: class {
     }
 
     @IBAction private func publishDescriptionButton(withSender sender: UIButton) {
-        editFunnel?.logTitleDescriptionSaveAttempt(source: editFunnelSource, isAddingNewTitleDescription: isAddingNewTitleDescription, language: articleDescriptionController.articleLanguage)
+        editFunnel?.logTitleDescriptionSaveAttempt(source: editFunnelSource, isAddingNewTitleDescription: isAddingNewTitleDescription, language: articleDescriptionController.articleLanguageCode)
         save()
     }
 
@@ -237,7 +237,7 @@ protocol DescriptionEditViewControllerDelegate: class {
                 self.enableProgressiveButton(true)
                 switch result {
                 case .success(let result):
-                    self.editFunnel?.logTitleDescriptionSaved(source: self.editFunnelSource, isAddingNewTitleDescription: self.isAddingNewTitleDescription, language: self.articleDescriptionController.articleLanguage)
+                    self.editFunnel?.logTitleDescriptionSaved(source: self.editFunnelSource, isAddingNewTitleDescription: self.isAddingNewTitleDescription, language: self.articleDescriptionController.articleLanguageCode)
                     self.delegate?.descriptionEditViewControllerEditSucceeded(self, result: result)
                     self.dismiss(animated: true) {
                         presentingVC?.wmf_showDescriptionPublishedPanelViewController(theme: self.theme)
@@ -245,7 +245,7 @@ protocol DescriptionEditViewControllerDelegate: class {
                     }
                 case .failure(let error):
                     let errorText = self.articleDescriptionController.errorTextFromError(error)
-                    self.editFunnel?.logTitleDescriptionSaveError(source: self.editFunnelSource, isAddingNewTitleDescription: self.isAddingNewTitleDescription, language: self.articleDescriptionController.articleLanguage, errorText: errorText)
+                    self.editFunnel?.logTitleDescriptionSaveError(source: self.editFunnelSource, isAddingNewTitleDescription: self.isAddingNewTitleDescription, language: self.articleDescriptionController.articleLanguageCode, errorText: errorText)
                     WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
                 }
             }
