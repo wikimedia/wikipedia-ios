@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
     return self.articlePreviews.firstObject.articleURL.wmf_siteURL;
 }
 
-- (nullable NSString *)language {
+- (nullable NSString *)languageCode {
     return self.siteURL.wmf_languageCode;
 }
 

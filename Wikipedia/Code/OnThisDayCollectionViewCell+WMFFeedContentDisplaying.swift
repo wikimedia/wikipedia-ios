@@ -10,7 +10,7 @@ extension OnThisDayCollectionViewCell {
         titleLabel.text = onThisDayEvent.yearString
 
         let articleSiteURL = onThisDayEvent.siteURL
-        let articleLanguageCode = onThisDayEvent.language
+        let articleLanguageCode = onThisDayEvent.languageCode
         
         if let eventYear = onThisDayEvent.year {
             let yearsSinceEvent = currentYear - eventYear.intValue
