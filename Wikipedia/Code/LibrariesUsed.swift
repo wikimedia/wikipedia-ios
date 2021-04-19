@@ -91,7 +91,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
                     assertionFailure("\n\nOne of the following required keys not found in '\(LibrariesUsedViewController.plistLibrariesUsedKey)' array in '\(LibrariesUsedViewController.dataFileName)': '\(LibrariesUsedViewController.plistTitleKey)', '\(LibrariesUsedViewController.plistLicenseNameKey)', '\(LibrariesUsedViewController.plistLicenseTextKey)'\n\n")
                     return nil
                 }
-                return LibraryUsed.init(title: title.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: "en"), licenseName: licenseName, licenseText: licenseText)
+                return LibraryUsed.init(title: title.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguageCode: "en"), licenseName: licenseName, licenseText: licenseText)
             }
             .sorted(by: {
                 $0.title < $1.title

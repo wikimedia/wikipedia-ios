@@ -132,9 +132,9 @@ extension NSLocale {
     
     fileprivate static var localeCache: [String: Locale] = [:]
     
-    @objc(wmf_localeForWikipediaLanguage:)
-    public static func wmf_locale(for wikipediaLanguage: String?) -> Locale {
-        guard let language = wikipediaLanguage else {
+    @objc(wmf_localeForWikipediaLanguageCode:)
+    public static func wmf_locale(for wikipediaLanguageCode: String?) -> Locale {
+        guard let language = wikipediaLanguageCode else {
             return Locale.autoupdatingCurrent
         }
         

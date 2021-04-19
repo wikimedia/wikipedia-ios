@@ -10,7 +10,7 @@
 @implementation WMFArticle (Extensions)
 
 - (NSString *)capitalizedWikidataDescription {
-    return [self.wikidataDescription wmf_stringByCapitalizingFirstCharacterUsingWikipediaLanguage:self.URL.wmf_languageCode];
+    return [self.wikidataDescription wmf_stringByCapitalizingFirstCharacterUsingWikipediaLanguageCode:self.URL.wmf_languageCode];
 }
 
 - (nullable NSURL *)URL {
