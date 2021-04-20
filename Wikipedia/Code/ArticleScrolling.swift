@@ -72,7 +72,9 @@ extension ArticleScrolling where Self: ViewController {
         }
         let minYScrollPoint = 0 - scrollView.contentInset.top
         let largestY = scrollView.contentSize.height + scrollView.contentInset.bottom
-        let maxYScrollPoint = largestY - scrollView.bounds.height
+
+        /// If there is less than one screen of content, do not let this number be negative, to ensure the ranges below are valid.
+        let maxYScrollPoint = max(largestY - scrollView.bounds.height, 0)
 
         /// If y lies within the last screen, scroll should be to the final full screen.
         let yContentPoint = offset.y + adjustmentY
