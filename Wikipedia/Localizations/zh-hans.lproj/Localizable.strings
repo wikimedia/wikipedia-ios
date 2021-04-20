@@ -30,6 +30,7 @@
 // Author: Viztor
 // Author: VulpesVulpes825
 // Author: Wxyveronica
+// Author: Xiplus
 // Author: Yfdyh000
 // Author: Ywang
 // Author: 予弦
@@ -164,6 +165,8 @@
 "button-skip" = "跳过";
 "cancel" = "取消";
 "cc-zero" = "知识共享CC0";
+"chinese-variants-alert-body" = "维基百科应用程序现在支持下列中文变体作为应用程序里的主要语言或次要语言，使用您偏好的变体以更容易地阅读、搜索、编辑：\n\n简体（zh-hans）\n香港繁体（zh-hk）\n澳门繁体（zh-mo）\n大马简体（zh-my）\n新加坡简体（zh-sg）\n台湾繁体（zh-tw）";
+"chinese-variants-alert-title" = "中文变体支持更新";
 "clear-title-accessibility-label" = "清空";
 "close-button-accessibility-label" = "关闭";
 "compass-direction" = "$1点钟";
@@ -862,6 +865,8 @@
 "two-factor-login-with-regular-code" = "使用验证码";
 "unable-to-load-talk-page-title" = "无法加载讨论页";
 "unknown-generic-text" = "未知";
+"variants-alert-dismiss-button" = "不用了，谢谢";
+"variants-alert-preferences-button" = "查看您的参数设置";
 "welcome-exploration-explore-feed-description" = "来自我们社群的推荐阅读和每日条目";
 "welcome-exploration-explore-feed-title" = "探索订阅";
 "welcome-exploration-on-this-day-description" = "穿越时间了解历史上的今天发生了什么";
