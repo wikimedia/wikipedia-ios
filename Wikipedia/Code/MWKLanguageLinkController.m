@@ -281,7 +281,7 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
 - (NSArray<MWKLanguageLink *> *)remainingLanguageLinkVariantsForArticleURL:(NSURL *)articleURL {
     // If the original URL is a variant, include the other variants as choices
     NSString *originalURLLanguageVariantCode = articleURL.wmf_languageVariantCode;
-    NSString *originalURLLanguageCode = articleURL.wmf_language;
+    NSString *originalURLLanguageCode = articleURL.wmf_languageCode;
     NSMutableArray *remainingLanguageVariantLinks = [[NSMutableArray alloc] init];
     if (originalURLLanguageVariantCode && originalURLLanguageCode) {
         NSArray<MWKLanguageLink *> *variants = [MWKLanguageLinkController allLanguageVariantsBySiteLanguageCode][originalURLLanguageCode];

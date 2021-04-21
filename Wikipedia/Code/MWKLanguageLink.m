@@ -70,7 +70,7 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink:)
 }
 
 - (NSURL *)siteURL {
-    NSURL *siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:self.languageCode];
+    NSURL *siteURL = [NSURL wmf_URLWithDefaultSiteAndLanguageCode:self.languageCode];
     siteURL.wmf_languageVariantCode = self.languageVariantCode;
     return siteURL;
 }

@@ -11,7 +11,7 @@ extension ArticleViewController {
     }
     
     func showEditorForSection(with id: Int, selectedTextEditInfo: SelectedTextEditInfo? = nil, funnelSource: EditFunnelSource) {
-        editFunnel.logSectionEditingStart(from: funnelSource, language: articleLanguage)
+        editFunnel.logSectionEditingStart(from: funnelSource, language: articleLanguageCode)
         cancelWIconPopoverDisplay()
         let sectionEditVC = SectionEditorViewController(articleURL: articleURL, sectionID: id, dataStore: dataStore, selectedTextEditInfo: selectedTextEditInfo, theme: theme)
         sectionEditVC.delegate = self
@@ -25,7 +25,7 @@ extension ArticleViewController {
         
         sectionEditVC.shouldFocusWebView = !needsIntro
         let showIntro: (() -> Void)? = {
-            self.editFunnel.logOnboardingPresentation(initiatedBy: funnelSource, language: self.articleLanguage)
+            self.editFunnel.logOnboardingPresentation(initiatedBy: funnelSource, language: self.articleLanguageCode)
             let editingWelcomeViewController = EditingWelcomeViewController(theme: self.theme) {
                 sectionEditVC.shouldFocusWebView = true
             }
@@ -44,9 +44,9 @@ extension ArticleViewController {
     
     func showTitleDescriptionEditor(with descriptionSource: ArticleDescriptionSource, funnelSource: EditFunnelSource) {
 
-        editFunnel.logTitleDescriptionEditingStart(from: funnelSource, language: articleLanguage)
+        editFunnel.logTitleDescriptionEditingStart(from: funnelSource, language: articleLanguageCode)
 
-        let maybeDescriptionController: ArticleDescriptionControlling? = articleURL.wmf_isEnglishWikipedia ? ShortDescriptionController(article: article, articleLanguage: articleLanguage, articleURL: articleURL, descriptionSource: descriptionSource, delegate: self) : WikidataDescriptionController(article: article, articleLanguage: articleLanguage, descriptionSource: descriptionSource)
+        let maybeDescriptionController: ArticleDescriptionControlling? = articleURL.wmf_isEnglishWikipedia ? ShortDescriptionController(article: article, articleLanguageCode: articleLanguageCode, articleURL: articleURL, descriptionSource: descriptionSource, delegate: self) : WikidataDescriptionController(article: article, articleLanguageCode: articleLanguageCode, descriptionSource: descriptionSource)
 
         guard let descriptionController = maybeDescriptionController else {
             showGenericError()
@@ -66,10 +66,10 @@ extension ArticleViewController {
            navigationController.view.alpha = 0
        }
         let showIntro: (() -> Void)? = {
-            self.editFunnel.logOnboardingPresentation(initiatedBy: funnelSource, language: self.articleLanguage)
+            self.editFunnel.logOnboardingPresentation(initiatedBy: funnelSource, language: self.articleLanguageCode)
             let welcomeVC = DescriptionWelcomeInitialViewController.wmf_viewControllerFromDescriptionWelcomeStoryboard()
             welcomeVC.completionBlock = {
-                self.editFunnel.logTitleDescriptionReadyToEditFrom(from: funnelSource, isAddingNewTitleDescription: descriptionSource == .none, language: self.articleLanguage)
+                self.editFunnel.logTitleDescriptionReadyToEditFrom(from: funnelSource, isAddingNewTitleDescription: descriptionSource == .none, language: self.articleLanguageCode)
             }
             welcomeVC.apply(theme: self.theme)
             navigationController.present(welcomeVC, animated: true) {
@@ -81,7 +81,7 @@ extension ArticleViewController {
             if needsIntro {
                 showIntro?()
             } else {
-                self.editFunnel.logTitleDescriptionReadyToEditFrom(from: funnelSource, isAddingNewTitleDescription: descriptionSource == .none, language: self.articleLanguage)
+                self.editFunnel.logTitleDescriptionReadyToEditFrom(from: funnelSource, isAddingNewTitleDescription: descriptionSource == .none, language: self.articleLanguageCode)
             }
         }
     }

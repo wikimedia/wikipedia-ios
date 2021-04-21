@@ -20,7 +20,7 @@
 
 - (void)fetchOnThisDayEventsForURL:(NSURL *)siteURL month:(NSUInteger)month day:(NSUInteger)day failure:(WMFErrorHandler)failure success:(void (^)(NSArray<WMFFeedOnThisDayEvent *> *announcements))success {
     NSParameterAssert(siteURL);
-    if (siteURL == nil || siteURL.wmf_language == nil || ![WMFOnThisDayEventsFetcher isOnThisDaySupportedByLanguage:siteURL.wmf_language] || month < 1 || day < 1) {
+    if (siteURL == nil || siteURL.wmf_languageCode == nil || ![WMFOnThisDayEventsFetcher isOnThisDaySupportedByLanguage:siteURL.wmf_languageCode] || month < 1 || day < 1) {
         NSError *error = [WMFFetcher invalidParametersError];
         failure(error);
         return;

@@ -5,37 +5,37 @@
 @implementation NSURLComponents (WMFLinkParsing)
 
 + (NSURLComponents *)wmf_componentsWithDomain:(NSString *)domain
-                                     language:(NSString *)language {
-    return [self wmf_componentsWithDomain:domain language:language isMobile:NO];
+                                 languageCode:(NSString *)languageCode {
+    return [self wmf_componentsWithDomain:domain languageCode:languageCode isMobile:NO];
 }
 
 + (NSURLComponents *)wmf_componentsWithDomain:(NSString *)domain
-                                     language:(NSString *)language
+                                 languageCode:(NSString *)languageCode
                                      isMobile:(BOOL)isMobile {
-    return [self wmf_componentsWithDomain:domain language:language title:nil fragment:nil isMobile:isMobile];
+    return [self wmf_componentsWithDomain:domain languageCode:languageCode title:nil fragment:nil isMobile:isMobile];
 }
 
 + (NSURLComponents *)wmf_componentsWithDomain:(NSString *)domain
-                                     language:(NSString *)language
+                                 languageCode:(NSString *)languageCode
                                         title:(NSString *)title {
-    return [self wmf_componentsWithDomain:domain language:language title:title fragment:nil];
+    return [self wmf_componentsWithDomain:domain languageCode:languageCode title:title fragment:nil];
 }
 
 + (NSURLComponents *)wmf_componentsWithDomain:(NSString *)domain
-                                     language:(NSString *)language
+                                 languageCode:(NSString *)languageCode
                                         title:(NSString *)title
                                      fragment:(NSString *)fragment {
-    return [self wmf_componentsWithDomain:domain language:language title:title fragment:fragment isMobile:NO];
+    return [self wmf_componentsWithDomain:domain languageCode:languageCode title:title fragment:fragment isMobile:NO];
 }
 
 + (NSURLComponents *)wmf_componentsWithDomain:(NSString *)domain
-                                     language:(NSString *)language
+                                 languageCode:(NSString *)languageCode
                                         title:(NSString *)title
                                      fragment:(NSString *)fragment
                                      isMobile:(BOOL)isMobile {
     NSURLComponents *URLComponents = [[NSURLComponents alloc] init];
     URLComponents.scheme = @"https";
-    URLComponents.host = [NSURLComponents wmf_hostWithDomain:domain language:language isMobile:isMobile];
+    URLComponents.host = [NSURLComponents wmf_hostWithDomain:domain languageCode:languageCode isMobile:isMobile];
     if (fragment != nil) {
         URLComponents.wmf_fragment = fragment;
     }
@@ -46,9 +46,9 @@
 }
 
 + (NSString *)wmf_hostWithDomain:(NSString *)domain
-                        language:(NSString *)language
+                    languageCode:(NSString *)languageCode
                         isMobile:(BOOL)isMobile {
-    return [self wmf_hostWithDomain:domain subDomain:language isMobile:isMobile];
+    return [self wmf_hostWithDomain:domain subDomain:languageCode isMobile:isMobile];
 }
 
 + (NSString *)wmf_hostWithDomain:(NSString *)domain

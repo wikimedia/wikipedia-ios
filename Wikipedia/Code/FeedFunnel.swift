@@ -194,6 +194,6 @@
         guard let siteURLString = siteURLString else {
             return nil
         }
-        return URL(string: siteURLString)?.wmf_language
+        return URL(string: siteURLString)?.wmf_languageCode
     }
 }

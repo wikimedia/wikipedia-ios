@@ -75,7 +75,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
     }
     
     func descriptionForSearchResult(_ result: MWKSearchResult) -> String? {
-        let capitalizedWikidataDescription = (result.wikidataDescription as NSString?)?.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: searchSiteURL?.wmf_language)
+        let capitalizedWikidataDescription = (result.wikidataDescription as NSString?)?.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguageCode: searchSiteURL?.wmf_languageCode)
         let mapping = redirectMappingForSearchResult(result)
         guard let redirectFromTitle = mapping?.redirectFromTitle else {
             return capitalizedWikidataDescription
@@ -96,7 +96,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
             return
         }
         let result = results[indexPath.item]
-        guard let language = searchSiteURL?.wmf_language else {
+        guard let language = searchSiteURL?.wmf_languageCode else {
             return
         }
         cell.configureForCompactList(at: indexPath.item)

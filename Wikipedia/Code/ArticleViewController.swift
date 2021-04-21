@@ -20,9 +20,9 @@ class ArticleViewController: ViewController, HintPresenting {
     internal var article: WMFArticle
     internal var mediaList: MediaList?
     
-    /// Use separate properties for URL and language since they're optional on WMFArticle and to save having to re-calculate them
+    /// Use separate properties for URL and language code since they're optional on WMFArticle and to save having to re-calculate them
     @objc public var articleURL: URL
-    let articleLanguage: String
+    let articleLanguageCode: String
     
     /// Set by the state restoration system
     /// Scroll to the last viewed scroll position in this case
@@ -96,7 +96,7 @@ class ArticleViewController: ViewController, HintPresenting {
         let cacheController = dataStore.cacheController.articleCache
 
         self.articleURL = articleURL
-        self.articleLanguage = articleURL.wmf_language ?? Locale.current.languageCode ?? "en"
+        self.articleLanguageCode = articleURL.wmf_languageCode ?? Locale.current.languageCode ?? "en"
         self.article = article
         
         self.dataStore = dataStore
@@ -1021,7 +1021,7 @@ private extension ArticleViewController {
             messagingController.shouldAttemptToShowArticleAsLivingDoc = articleAsLivingDocController.shouldAttemptToShowArticleAsLivingDoc
         }
 
-        messagingController.setup(with: webView, language: articleLanguage, theme: theme, layoutMargins: articleMargins, leadImageHeight: leadImageHeight, areTablesInitiallyExpanded: areTablesInitiallyExpanded, userGroups: userGroups)
+        messagingController.setup(with: webView, languageCode: articleLanguageCode, theme: theme, layoutMargins: articleMargins, leadImageHeight: leadImageHeight, areTablesInitiallyExpanded: areTablesInitiallyExpanded, userGroups: userGroups)
     }
     
     func setupToolbar() {
