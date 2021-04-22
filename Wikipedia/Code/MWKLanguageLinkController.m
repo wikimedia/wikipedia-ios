@@ -96,6 +96,27 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
     return [NSLocale wmf_bestLanguageVariantCodeForLanguageCode:languageCode];
 }
 
++ (nullable NSString *)languageCodeForISOLanguageCode:(nullable NSString *)isoLanguageCode {
+    // Map altISOCodes to languageCodes once for fast lookups
+    static dispatch_once_t onceToken;
+    static NSDictionary<NSString *, NSString *> *languageCodesByAltISOCode;
+    dispatch_once(&onceToken, ^{
+        NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] init];
+        for (MWKLanguageLink *language in self.allLanguages) {
+            if (language.altISOCode) {
+                tempDict[language.altISOCode] = language.languageCode;
+            }
+        }
+        languageCodesByAltISOCode = [tempDict copy];
+    });
+    if (!isoLanguageCode) {
+        return nil;
+    }
+    
+    NSString *languageCode = languageCodesByAltISOCode[isoLanguageCode];
+    return languageCode ? : isoLanguageCode; // If no alternative ISO code, use the original value
+}
+
 - (nullable MWKLanguageLink *)appLanguage {
     return [self.preferredLanguages firstObject];
 }
