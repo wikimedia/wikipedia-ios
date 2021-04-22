@@ -104,12 +104,10 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
     NSArray *preferredLanguageCodes = [self readPreferredLanguageCodes];
     return [preferredLanguageCodes wmf_mapAndRejectNil:^id(NSString *langString) {
         return [self.allLanguages wmf_match:^BOOL(MWKLanguageLink *langLink) {
-            //Note, sometimes the device iOS language codes will return a code that doesn't line up with the Wikipedia language codes we have set,
-            //so we are also checking for a match against the altISOCode (currently only set for "no.wikipedia.org")
-            //Fixes https://phabricator.wikimedia.org/T276645
-            return [langLink.contentLanguageCode isEqualToString:langString] ||
-                   (langLink.altISOCode &&
-                    [langLink.altISOCode isEqualToString:langString]);
+            // The Norwegian language code 'nb' used by the OS should be automatically converted to 'no' used by Wikipedia during onboarding.
+            // Issue described in  https://phabricator.wikimedia.org/T276645
+            NSAssert(![langString isEqualToString:@"nb"], @"Inaccurate language code found in preferred language codes. Language code 'nb' should be 'no'.");
+            return [langLink.contentLanguageCode isEqualToString:langString];
         }];
     }];
 }
