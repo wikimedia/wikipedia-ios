@@ -54,7 +54,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
 
     private func setupNetworkStubs() {
         
-        guard let siteUrl = NSURL.wmf_URL(withDefaultSiteAndlanguage: "en"),
+        guard let siteUrl = NSURL.wmf_URL(withDefaultSiteAndLanguageCode: "en"),
             let url = NSURL.wmf_desktopAPIURL(for: siteUrl),
             let regex = try? NSRegularExpression(pattern: "\(url.absoluteString).*", options: []),
             let json = wmf_bundle().wmf_data(fromContentsOfFile: "BarackEarlyLife", ofType: "json")
@@ -72,7 +72,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
     
     private func loadSectionEditor() {
         
-        guard let siteUrl = NSURL.wmf_URL(withDefaultSiteAndlanguage: "en") else {
+        guard let siteUrl = NSURL.wmf_URL(withDefaultSiteAndLanguageCode: "en") else {
             return
         }
         

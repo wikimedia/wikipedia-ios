@@ -5,86 +5,86 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSURLComponents (WMFLinkParsing)
 
 /**
- * Create new NSURLComponents with a Wikimedia `domain` and `language`.
+ * Create new NSURLComponents with a Wikimedia `domain` and `languageCode`.
  *
  * @param domain        Wikimedia domain - for example: `wikimedia.org`.
  *
- * @param language      An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for exmaple: `en`.
+ * @param languageCode  An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for exmaple: `en`.
  *
- * @return New NSURLComponents with the given domain and language.
+ * @return New NSURLComponents with the given domain and languageCode.
  **/
 + (nonnull NSURLComponents *)wmf_componentsWithDomain:(nonnull NSString *)domain
-                                             language:(nullable NSString *)language;
+                                         languageCode:(nullable NSString *)languageCode;
 /**
- * Create new NSURLComponents with a Wikimedia `domain` and `language` for the mobile or desktop site.
+ * Create new NSURLComponents with a Wikimedia `domain` and `languageCode` for the mobile or desktop site.
  *
  * @param domain        Wikimedia domain - for example: `wikimedia.org`.
- * @param language      An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for exmaple: `en`.
+ * @param languageCode  An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for exmaple: `en`.
  * @param isMobile      A boolean indicating whether or not the returned URL components should be for the mobile version of the site.
  *
- * @return New NSURLComponents with the given domain and language.
+ * @return New NSURLComponents with the given domain and languageCode.
  **/
 + (nonnull NSURLComponents *)wmf_componentsWithDomain:(nonnull NSString *)domain
-                                             language:(nullable NSString *)language
+                                         languageCode:(nullable NSString *)languageCode
                                              isMobile:(BOOL)isMobile;
 
 /**
  * Create new NSURLComponents with a Wikimedia `domain`, `language` and `title`.
  *
  * @param domain        Wikimedia domain - for example: `wikimedia.org`.
- * @param language      An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for exmaple: `en`.
+ * @param languageCode  An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for exmaple: `en`.
  * @param title         An optional Wikimedia title. For exmaple: `Main Page`.
  *
- * @return New NSURLComponents with the given domain, language and title.
+ * @return New NSURLComponents with the given domain, languageCode and title.
  **/
 + (nonnull NSURLComponents *)wmf_componentsWithDomain:(nonnull NSString *)domain
-                                             language:(nullable NSString *)language
+                                         languageCode:(nullable NSString *)languageCode
                                                 title:(nullable NSString *)title;
 
 /**
- * Create new NSURLComponents with a Wikimedia `domain`, `language`, `title` and `fragment`.
+ * Create new NSURLComponents with a Wikimedia `domain`, `languageCode`, `title` and `fragment`.
  *
  * @param domain        Wikimedia domain - for example: `wikimedia.org`.
- * @param language      An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for exmaple: `en`.
+ * @param languageCode  An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for exmaple: `en`.
  * @param title         An optional Wikimedia title. For exmaple: `Main Page`.
  * @param fragment      An optional fragment, for example if you want the URL to contain `#section`, the fragment is `section`.
  *
  *
- * @return New NSURLComponents with the given domain, language, title and fragment.
+ * @return New NSURLComponents with the given domain, languageCode, title and fragment.
  **/
 + (NSURLComponents *__nonnull)wmf_componentsWithDomain:(nonnull NSString *)domain
-                                              language:(nullable NSString *)language
+                                          languageCode:(nullable NSString *)languageCode
                                                  title:(nullable NSString *)title
                                               fragment:(nullable NSString *)fragment;
 
 /**
- * Create new NSURLComponents with a Wikimedia `domain`, `language`, `title` and `fragment` for mobile or desktop based on `isMobile`.
+ * Create new NSURLComponents with a Wikimedia `domain`, `languageCode`, `title` and `fragment` for mobile or desktop based on `isMobile`.
  *
  * @param domain        Wikimedia domain - for example: `wikimedia.org`.
- * @param language      An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for exmaple: `en`.
+ * @param languageCode  An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for exmaple: `en`.
  * @param title         An optional Wikimedia title. For exmaple: `Main Page`.
  * @param fragment      An optional fragment, for example if you want the URL to contain `#section`, the fragment is `section`.
  * @param isMobile      A boolean indicating whether or not the returned URL components should be for the mobile version of the site.
  *
- * @return New NSURLComponents with the given domain, language, title and fragment for mobile or desktop based on `isMobile`.
+ * @return New NSURLComponents with the given domain, languageCode, title and fragment for mobile or desktop based on `isMobile`.
  **/
 + (nonnull NSURLComponents *)wmf_componentsWithDomain:(nonnull NSString *)domain
-                                             language:(nullable NSString *)language
+                                         languageCode:(nullable NSString *)languageCode
                                                 title:(nullable NSString *)title
                                              fragment:(nullable NSString *)fragment
                                              isMobile:(BOOL)isMobile;
 
 /**
- * Create new NSString containing the full host for a Wikimedia `domain` and `language` for mobile or desktop based on `isMobile`.
+ * Create new NSString containing the full host for a Wikimedia `domain` and `languageCode` for mobile or desktop based on `isMobile`.
  *
  * @param domain        Wikimedia domain - for example: `wikimedia.org`.
- * @param language      An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for exmaple: `en`.
+ * @param languageCode   An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for exmaple: `en`.
  * @param isMobile      A boolean indicating whether or not the returned URL components should be for the mobile version of the site.
  *
- * @return A new NSString containing the full host for a Wikimedia `domain` and `language` for mobile or desktop based on `isMobile`.
+ * @return A new NSString containing the full host for a Wikimedia `domain` and `languageCode` for mobile or desktop based on `isMobile`.
  **/
 + (nonnull NSString *)wmf_hostWithDomain:(nonnull NSString *)domain
-                                language:(nullable NSString *)language
+                            languageCode:(nullable NSString *)languageCode
                                 isMobile:(BOOL)isMobile;
 
 /**

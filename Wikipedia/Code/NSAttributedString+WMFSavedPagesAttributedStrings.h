@@ -4,6 +4,6 @@
 
 + (NSAttributedString *)wmf_attributedStringWithTitle:(NSString *)title
                                           description:(NSString *)description
-                                             language:(NSString *)language;
+                                         languageCode:(NSString *)languageCode;
 
 @end

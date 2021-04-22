@@ -281,11 +281,11 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             isImageViewHidden = true
         }
         
-        let articleLanguage = article.url?.wmf_language
-        titleLabel.accessibilityLanguage = articleLanguage
-        descriptionLabel.accessibilityLanguage = articleLanguage
-        extractLabel?.accessibilityLanguage = articleLanguage
-        articleSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: articleLanguage)
+        let articleLanguageCode = article.url?.wmf_languageCode
+        titleLabel.accessibilityLanguage = articleLanguageCode
+        descriptionLabel.accessibilityLanguage = articleLanguageCode
+        extractLabel?.accessibilityLanguage = articleLanguageCode
+        articleSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: articleLanguageCode)
         
         isStatusViewHidden = article.isDownloaded
         

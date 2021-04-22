@@ -7,8 +7,8 @@ import Foundation
 @objc(WMFCommonStrings)
 public class CommonStrings: NSObject {
     @objc public static let plainWikipediaName = CommonStrings.plainWikipediaName()
-    @objc public static func plainWikipediaName(with language: String? = nil) -> String {
-        WMFLocalizedString("about-wikipedia", language: language, value:"Wikipedia", comment: "Wikipedia {{Identical|Wikipedia}}")
+    @objc public static func plainWikipediaName(with languageCode: String? = nil) -> String {
+        WMFLocalizedString("about-wikipedia", languageCode: languageCode, value:"Wikipedia", comment: "Wikipedia {{Identical|Wikipedia}}")
     }
 
     @objc public static let articleCountFormat = WMFLocalizedString("places-filter-top-articles-count", value:"{{PLURAL:%1$d|%1$d article|%1$d articles}}", comment: "Describes how many top articles are found in the top articles filter - %1$d is replaced with the number of articles")
@@ -35,8 +35,8 @@ public class CommonStrings: NSObject {
     }
 
     @objc public static let shortSaveTitle = WMFLocalizedString("action-save", value: "Save", comment: "Title for the 'Save' action {{Identical|Save}}")
-    @objc public static let savedTitle:String = CommonStrings.savedTitle(language: nil)
-    @objc public static let saveTitle:String = CommonStrings.saveTitle(language: nil)
+    @objc public static let savedTitle:String = CommonStrings.savedTitle(languageCode: nil)
+    @objc public static let saveTitle:String = CommonStrings.saveTitle(languageCode: nil)
     @objc public static let dimImagesTitle = WMFLocalizedString("dim-images", value: "Dim images", comment: "Label for image dimming setting")
 
     @objc public static let searchTitle = WMFLocalizedString("search-title", value: "Search", comment: "Title for search interface. {{Identical|Search}}")
@@ -49,8 +49,8 @@ public class CommonStrings: NSObject {
     @objc public static let exploreFeedTitle = WMFLocalizedString("welcome-exploration-explore-feed-title", value:"Explore feed", comment:"Title for Explore feed")
     @objc public static let featuredArticleTitle = WMFLocalizedString("explore-featured-article-heading", value: "Featured article", comment: "Text for 'Featured article' header")
     @objc public static let onThisDayTitle = CommonStrings.onThisDayTitle()
-    @objc public static func onThisDayTitle(with language: String? = nil) -> String {
-        WMFLocalizedString("on-this-day-title", language: language, value: "On this day", comment: "Title for the 'On this day' feed section")
+    @objc public static func onThisDayTitle(with languageCode: String? = nil) -> String {
+        WMFLocalizedString("on-this-day-title", languageCode: languageCode, value: "On this day", comment: "Title for the 'On this day' feed section")
     }
     @objc public static let topReadTitle = WMFLocalizedString("places-filter-top-articles", value:"Top read", comment: "Title of places search filter that searches top articles")
     @objc public static let pictureOfTheDayTitle = WMFLocalizedString("explore-potd-heading", value: "Picture of the day", comment: "Text for 'Picture of the day' header");
@@ -61,12 +61,12 @@ public class CommonStrings: NSObject {
 
     @objc public static let hideCardTitle = WMFLocalizedString("explore-hide-card-prompt", value: "Hide this card", comment: "Title of button shown for users to confirm the hiding of a suggestion in the explore feed")
 
-    @objc static public func savedTitle(language: String?) -> String {
-        return WMFLocalizedString("button-saved-for-later", language: language, value: "Saved for later", comment: "Longer button text for already saved button used in various places.")
+    @objc static public func savedTitle(languageCode: String?) -> String {
+        return WMFLocalizedString("button-saved-for-later", languageCode: languageCode, value: "Saved for later", comment: "Longer button text for already saved button used in various places.")
     }
 
-    @objc static public func saveTitle(language: String?) -> String {
-        return WMFLocalizedString("button-save-for-later", language: language, value: "Save for later", comment: "Longer button text for save button used in various places.")
+    @objc static public func saveTitle(languageCode: String?) -> String {
+        return WMFLocalizedString("button-save-for-later", languageCode: languageCode, value: "Save for later", comment: "Longer button text for save button used in various places.")
     }
 
     @objc public static let shortShareTitle = WMFLocalizedString("action-share", value: "Share", comment: "Short title for the 'Share' action. Please use the shortest translation possible. {{Identical|Share}}")
@@ -221,11 +221,11 @@ public class CommonStrings: NSObject {
 
     @objc public static let unknownTitle = WMFLocalizedString("unknown-generic-text", value: "Unknown", comment: "Default text used in places where no contextual information is provided")
 
-    public static func aboutThisArticleTitle(with language: String) -> String {
-        return WMFLocalizedString("article-about-title", language: language, value: "About this article", comment: "The text that is displayed before the 'about' section at the bottom of an article")
+    public static func aboutThisArticleTitle(with languageCode: String) -> String {
+        return WMFLocalizedString("article-about-title", languageCode: languageCode, value: "About this article", comment: "The text that is displayed before the 'about' section at the bottom of an article")
     }
-    public static func readMoreTitle(with language: String) -> String {
-        return WMFLocalizedString("article-read-more-title", language: language, value: "Read more", comment: "The text that is displayed before the read more section at the bottom of an article {{Identical|Read more}}")
+    public static func readMoreTitle(with languageCode: String) -> String {
+        return WMFLocalizedString("article-read-more-title", languageCode: languageCode, value: "Read more", comment: "The text that is displayed before the read more section at the bottom of an article {{Identical|Read more}}")
     }
 
     public static let revisionMadeFormat = WMFLocalizedString("page-history-revision-time-accessibility-label", value: "Revision made %@", comment: "Label text telling the user what time revision was made - %@ is replaced with the time")
@@ -312,14 +312,14 @@ public class CommonStrings: NSObject {
         value:"{{PLURAL:%1$d|0=0 changes|%1$d change|%1$d changes}} by {{PLURAL:%2$d|0=0 editors|%2$d editor|%2$d editors}} in {{PLURAL:%3$d|0=0 days|%3$d day|%3$d days}}",
         comment:"Describes how many small changes are batched together in the article as a living document timeline view. %1$d is replaced by the number of accumulated changes editors made, %2$d is replaced by the number of editors that made that change and %3$d is replaced with relative timeframe date that the edit counting started (e.g. 10 days).")
 
-    @objc public static func onThisDayAdditionalEventsMessage(with language: String?, locale: Locale, eventsCount: Int) -> String {
-        return String(format: WMFLocalizedString("on-this-day-detail-header-title", language: language, value:"{{PLURAL:%1$d|%1$d historical event|%1$d historical events}}", comment:"Title for 'On this day' detail view - %1$d is replaced with the number of historical events which occurred on the given day"), locale: locale, eventsCount)
+    @objc public static func onThisDayAdditionalEventsMessage(with languageCode: String?, locale: Locale, eventsCount: Int) -> String {
+        return String(format: WMFLocalizedString("on-this-day-detail-header-title", languageCode: languageCode, value:"{{PLURAL:%1$d|%1$d historical event|%1$d historical events}}", comment:"Title for 'On this day' detail view - %1$d is replaced with the number of historical events which occurred on the given day"), locale: locale, eventsCount)
     }
-    @objc public static func onThisDayHeaderDateRangeMessage(with language: String?, locale: Locale, lastEvent: String, firstEvent: String) -> String {
-        return String(format: WMFLocalizedString("on-this-day-detail-header-date-range", language: language, value:"from %1$@ - %2$@", comment:"Text for 'On this day' detail view events 'year range' label - %1$@ is replaced with string version of the oldest event year - i.e. '300 BC', %2$@ is replaced with string version of the most recent event year - i.e. '2006', "), locale: locale, lastEvent, firstEvent)
+    @objc public static func onThisDayHeaderDateRangeMessage(with languageCode: String?, locale: Locale, lastEvent: String, firstEvent: String) -> String {
+        return String(format: WMFLocalizedString("on-this-day-detail-header-date-range", languageCode: languageCode, value:"from %1$@ - %2$@", comment:"Text for 'On this day' detail view events 'year range' label - %1$@ is replaced with string version of the oldest event year - i.e. '300 BC', %2$@ is replaced with string version of the most recent event year - i.e. '2006', "), locale: locale, lastEvent, firstEvent)
     }
-    public static func onThisDayFooterWith(with eventCount: Int, language: String? = nil, locale: Locale = Locale.autoupdatingCurrent) -> String {
-        return String(format: WMFLocalizedString("on-this-day-footer-showing-event-count", language: language, value: "{{PLURAL:%1$d|%1$d more historical event|%1$d more historical events}} on this day", comment: "Footer for presenting user option to see longer list of 'On this day' articles. %1$@ will be substituted with the number of events"), locale: locale, eventCount)
+    public static func onThisDayFooterWith(with eventCount: Int, languageCode: String? = nil, locale: Locale = Locale.autoupdatingCurrent) -> String {
+        return String(format: WMFLocalizedString("on-this-day-footer-showing-event-count", languageCode: languageCode, value: "{{PLURAL:%1$d|%1$d more historical event|%1$d more historical events}} on this day", comment: "Footer for presenting user option to see longer list of 'On this day' articles. %1$@ will be substituted with the number of events"), locale: locale, eventCount)
     }
     public static let articleAsLivingDocErrorTitle = WMFLocalizedString("aaald-error-title", value: "Unable to load inline article history", comment: "Title of error banner that appears at the bottom of an article when significant events fail to load.")
 

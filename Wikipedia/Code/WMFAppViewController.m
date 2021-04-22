@@ -1215,7 +1215,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             NSURL *linkURL = [activity wmf_linkURL];
             // Ensure incoming link is fetched in user's preferred variant if applicable
             if (!linkURL.wmf_languageVariantCode) {
-                linkURL.wmf_languageVariantCode = [self.dataStore.languageLinkController preferredLanguageVariantCodeForLanguageCode:linkURL.wmf_language];
+                linkURL.wmf_languageVariantCode = [self.dataStore.languageLinkController preferredLanguageVariantCodeForLanguageCode:linkURL.wmf_languageCode];
             }
             if (!linkURL) {
                 done();

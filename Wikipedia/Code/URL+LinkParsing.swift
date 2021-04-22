@@ -48,8 +48,8 @@ extension URL {
         return resolvedURL
     }
     
-    public var wmf_language: String? {
-        return (self as NSURL).wmf_language
+    public var wmf_languageCode: String? {
+        return (self as NSURL).wmf_languageCode
     }
     
     public var wmf_languageVariantCode: String? {
@@ -103,7 +103,7 @@ extension URL {
     }
 
     public var wmf_wiki: String? {
-        return wmf_language?.replacingOccurrences(of: "-", with: "_").appending("wiki")
+        return wmf_languageCode?.replacingOccurrences(of: "-", with: "_").appending("wiki")
     }
     
     fileprivate func wmf_URLForSharing(with wprov: String) -> URL {
@@ -136,14 +136,14 @@ extension URL {
     }
     
     public var namespace: PageNamespace? {
-        guard let language = wmf_language else {
+        guard let language = wmf_languageCode else {
             return nil
         }
         return wikiResourcePath?.namespaceOfWikiResourcePath(with: language)
     }
     
     public var namespaceAndTitle: (namespace: PageNamespace, title: String)? {
-        guard let language = wmf_language else {
+        guard let language = wmf_languageCode else {
             return nil
         }
         return wikiResourcePath?.namespaceAndTitleOfWikiResourcePath(with: language)

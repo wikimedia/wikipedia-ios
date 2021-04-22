@@ -366,7 +366,7 @@
 }
 
 + (nullable NSURL *)mainPageURLForSiteURL:(NSURL *)URL {
-    NSString *language = URL.wmf_language;
+    NSString *language = URL.wmf_languageCode;
     NSString *domain = URL.wmf_domain;
     NSParameterAssert(domain);
     NSParameterAssert(language);
@@ -385,7 +385,7 @@
     NSParameterAssert(url);
     NSString *title = url.wmf_title;
     NSString *domain = url.wmf_domain;
-    NSString *language = url.wmf_language;
+    NSString *language = url.wmf_languageCode;
     NSParameterAssert(title);
     NSParameterAssert(domain);
     NSParameterAssert(language);
@@ -403,7 +403,7 @@
     NSParameterAssert(url);
     NSString *title = url.wmf_title;
     NSString *domain = url.wmf_domain;
-    NSString *language = url.wmf_language;
+    NSString *language = url.wmf_languageCode;
     NSParameterAssert(title);
     NSParameterAssert(domain);
     NSParameterAssert(language);
@@ -429,7 +429,7 @@
     NSString *domain = pathComponents[2];
     NSString *language = pathComponents[3];
     NSString *title = [pathComponents[4] stringByRemovingPercentEncoding];
-    NSURL *theURL = [NSURL wmf_URLWithDomain:domain language:language title:title fragment:nil];
+    NSURL *theURL = [NSURL wmf_URLWithDomain:domain languageCode:language title:title fragment:nil];
     theURL.wmf_languageVariantCode = url.wmf_languageVariantCode;
     return theURL;
 }
@@ -448,7 +448,7 @@
 }
 
 + (nullable NSURL *)contentGroupURLForSiteURL:(NSURL *)siteURL groupKindString:(NSString *)groupKindString {
-    NSString *language = siteURL.wmf_language;
+    NSString *language = siteURL.wmf_languageCode;
     NSString *domain = siteURL.wmf_domain;
     NSParameterAssert(domain);
     NSParameterAssert(language);
@@ -527,7 +527,7 @@
 }
 
 - (BOOL)isRTL {
-    return [MWKLanguageLinkController isLanguageRTLForContentLanguageCode:self.siteURL.wmf_language];
+    return [MWKLanguageLinkController isLanguageRTLForContentLanguageCode:self.siteURL.wmf_languageCode];
 }
 
 - (void)markDismissed {

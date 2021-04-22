@@ -88,12 +88,12 @@
     return mutableSelf;
 }
 
-- (NSString *)wmf_stringByCapitalizingFirstCharacterUsingWikipediaLanguage:(nullable NSString *)wikipediaLanguage {
+- (NSString *)wmf_stringByCapitalizingFirstCharacterUsingWikipediaLanguageCode:(nullable NSString *)wikipediaLanguageCode {
     // Capitalize first character of WikiData description.
     if (self.length > 1) {
         NSString *firstChar = [self substringToIndex:1];
         NSString *remainingChars = [self substringFromIndex:1];
-        NSLocale *locale = [NSLocale wmf_localeForWikipediaLanguage:wikipediaLanguage];
+        NSLocale *locale = [NSLocale wmf_localeForWikipediaLanguageCode:wikipediaLanguageCode];
         firstChar = [firstChar capitalizedStringWithLocale:locale];
         return [firstChar stringByAppendingString:remainingChars];
     }

@@ -63,7 +63,7 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
                         fromSiteURL:siteURL
                      thumbnailWidth:[NSNumber numberWithInteger:[[UIScreen mainScreen] wmf_articleImageWidthForScale]]
                     extmetadataKeys:[MWKImageInfoFetcher galleryExtMetadataKeys]
-                   metadataLanguage:siteURL.wmf_language
+                   metadataLanguage:siteURL.wmf_languageCode
                        useGenerator:NO
                             success:success
                             failure:failure];
@@ -169,7 +169,7 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
 - (nullable NSURL *)galleryInfoURLForImageTitles: (NSArray *)imageTitles
                             fromSiteURL: (NSURL *)siteURL {
     
-    NSDictionary *params = [self queryParametersForTitles:imageTitles fromSiteURL:siteURL thumbnailWidth:[NSNumber numberWithInteger:[[UIScreen mainScreen] wmf_articleImageWidthForScale]] extmetadataKeys:[MWKImageInfoFetcher galleryExtMetadataKeys] metadataLanguage:siteURL.wmf_language useGenerator:NO];
+    NSDictionary *params = [self queryParametersForTitles:imageTitles fromSiteURL:siteURL thumbnailWidth:[NSNumber numberWithInteger:[[UIScreen mainScreen] wmf_articleImageWidthForScale]] extmetadataKeys:[MWKImageInfoFetcher galleryExtMetadataKeys] metadataLanguage:siteURL.wmf_languageCode useGenerator:NO];
     
     if (siteURL.host) {
         return [self.configuration mediaWikiAPIURLForURL:siteURL withQueryParameters:params];

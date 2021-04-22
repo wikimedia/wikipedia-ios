@@ -836,7 +836,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
             // Remaining keys should be site URL strings prior to migration
             if ([key hasPrefix:@"http"]) {
                 NSURL *oldKeyURL = [NSURL URLWithString:key];
-                languageCode = oldKeyURL.wmf_language;
+                languageCode = oldKeyURL.wmf_languageCode;
             }
             // Interim code for migration may have been previously run
             // Allow for that case as well

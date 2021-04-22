@@ -58,7 +58,7 @@ class SavedArticlesCollectionViewController: ReadingListEntryCollectionViewContr
         dataStore.readingListsController.unsave(articles, in: dataStore.viewContext)
         let articlesCount = articles.count
         UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.articleDeletedNotification(articleCount: articlesCount))
-        let language = articles.count == 1 ? articles.first?.url?.wmf_language : nil
+        let language = articles.count == 1 ? articles.first?.url?.wmf_languageCode : nil
         ReadingListsFunnel.shared.logUnsaveInReadingList(articlesCount: articlesCount, language: language)
     }
     

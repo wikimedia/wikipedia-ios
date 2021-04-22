@@ -46,7 +46,7 @@ public class Router: NSObject {
         guard let path = url.wikiResourcePath else {
             return nil
         }
-        let language = url.wmf_language ?? "en"
+        let language = url.wmf_languageCode ?? "en"
         let namespaceAndTitle = path.namespaceAndTitleOfWikiResourcePath(with: language)
         let namespace = namespaceAndTitle.0
         let title = namespaceAndTitle.1

@@ -16,13 +16,13 @@ extern NSString *const WMFEditPencil;
 + (nullable NSURL *)wmf_wikimediaCommonsURL;
 
 /**
- * Initialize a new URL with the default Site domain -wikipedia.org - and `language`.
+ * Initialize a new URL with the default Site domain -wikipedia.org - and `languageCode`.
  *
- * @param language      An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for example: `en`.
+ * @param languageCode      An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for example: `en`.
  *
- * @return A new URL with the default domain and language.
+ * @return A new URL with the default domain and language code.
  **/
-+ (nullable NSURL *)wmf_URLWithDefaultSiteAndlanguage:(nullable NSString *)language;
++ (nullable NSURL *)wmf_URLWithDefaultSiteAndLanguageCode:(nullable NSString *)languageCode;
 
 /// @return A URL with the default domain and the language code returned by @c locale.
 + (nullable NSURL *)wmf_URLWithDefaultSiteAndLocale:(NSLocale *)locale;
@@ -31,26 +31,26 @@ extern NSString *const WMFEditPencil;
 + (nullable NSURL *)wmf_URLWithDefaultSiteAndCurrentLocale;
 
 /**
- * Initialize a new URL with a Wikimedia `domain` and `language`.
+ * Initialize a new URL with a Wikimedia `domain` and `languageCode`.
  *
  * @param domain        Wikimedia domain - for example: `wikimedia.org`.
- * @param language      An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for example: `en`.
+ * @param languageCode      An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for example: `en`.
  *
- * @return A new URL with the given domain and language.
+ * @return A new URL with the given domain and language code.
  **/
-+ (nullable NSURL *)wmf_URLWithDomain:(NSString *)domain language:(nullable NSString *)language;
++ (nullable NSURL *)wmf_URLWithDomain:(NSString *)domain languageCode:(nullable NSString *)languageCode;
 
 /**
- * Initialize a new URL with a Wikimedia `domain`, `language`, `title` and `fragment`.
+ * Initialize a new URL with a Wikimedia `domain`, `languageCode`, `title` and `fragment`.
  *
  * @param domain        Wikimedia domain - for example: `wikimedia.org`.
- * @param language      An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for exmaple: `en`.
+ * @param languageCode  An optional Wikimedia language code. Should be ISO 639-x/IETF BCP 47 @see kCFLocaleLanguageCode - for exmaple: `en`.
  * @param title         An optional Wikimedia title. For exmaple: `Main Page`.
  * @param fragment      An optional fragment, for example if you want the URL to contain `#section`, the fragment is `section`.
  *
- * @return A new URL with the given domain, language, title and fragment.
+ * @return A new URL with the given domain, language code, title and fragment.
  **/
-+ (nullable NSURL *)wmf_URLWithDomain:(NSString *)domain language:(nullable NSString *)language title:(nullable NSString *)title fragment:(nullable NSString *)fragment;
++ (nullable NSURL *)wmf_URLWithDomain:(NSString *)domain languageCode:(nullable NSString *)languageCode title:(nullable NSString *)title fragment:(nullable NSString *)fragment;
 
 /**
  * Return a new URL constructed from the `siteURL`, replacing the `title` and `fragment` with the given values.
@@ -170,7 +170,7 @@ extern NSString *const WMFEditPencil;
 
 @property (nonatomic, copy, readonly, nullable) NSString *wmf_domain;
 
-@property (nonatomic, copy, readonly, nullable) NSString *wmf_language;
+@property (nonatomic, copy, readonly, nullable) NSString *wmf_languageCode;
 
 @property (nonatomic, copy, readonly, nullable) NSString *wmf_pathWithoutWikiPrefix;
 
@@ -183,7 +183,7 @@ extern NSString *const WMFEditPencil;
 @property (nonatomic, copy, readonly, nullable) NSString *wmf_databaseKey; // string suitable for using as a unique key for any wiki page
 
 /**
- *  Returns @c wmf_languageVariantCode if non-nil and non-empty string, @c wmf_language otherwise
+ *  Returns @c wmf_languageVariantCode if non-nil and non-empty string, @c wmf_languageCode otherwise
  */
 @property (nonatomic, copy, readonly, nullable) NSString *wmf_contentLanguageCode;
 

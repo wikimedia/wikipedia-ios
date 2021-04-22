@@ -73,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
                     lang = value[@"lang"];
                 }
                 NSString *normalizedTitle = value[@"normalizedtitle"];
-                NSURL *siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:lang];
+                NSURL *siteURL = [NSURL wmf_URLWithDefaultSiteAndLanguageCode:lang];
                 url = [siteURL wmf_URLWithTitle:normalizedTitle];
             }
             assert(url);
@@ -89,7 +89,7 @@ NS_ASSUME_NONNULL_BEGIN
             if (urlString) {
                 dict[@"content_urls.desktop.page"] = urlString;
             }
-            NSString *lang = articleURL.wmf_language;
+            NSString *lang = articleURL.wmf_languageCode;
             if (lang) {
                 dict[@"lang"] = lang;
             }

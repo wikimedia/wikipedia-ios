@@ -188,10 +188,10 @@ public class Configuration: NSObject {
         // This ensures the existing language variant behavior continues working.
         // This guard statment can be removed when languageVariantsEnabled is removed.
         guard WikipediaLookup.languageVariantsEnabled else {
-            guard let apiLanguage = url.wmf_language else {
+            guard let apiLanguage = url.wmf_languageCode else {
                 return [:]
             }
-            guard let preferredLanguage = Locale.preferredWikipediaLanguageVariant(wmf_language: apiLanguage) else {
+            guard let preferredLanguage = Locale.preferredWikipediaLanguageVariant(wmf_languageCode: apiLanguage) else {
                 return [:]
             }
             return ["Accept-Language": preferredLanguage]
