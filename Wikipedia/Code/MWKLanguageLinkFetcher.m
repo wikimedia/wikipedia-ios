@@ -2,6 +2,7 @@
 @import WMF.NSURL_WMFLinkParsing;
 @import WMF.Swift;
 @import WMF.MWKLanguageLink;
+@import WMF.MWKLanguageLinkController;
 @import WMF.WMFComparison;
 
 @implementation MWKLanguageLinkFetcher
@@ -34,7 +35,8 @@
                          NSDictionary *pagesByID = result[@"query"][@"pages"];
                          NSDictionary *indexedLanguageLinks = [[pagesByID wmf_map:^id(id key, NSDictionary *result) {
                              return [result[@"langlinks"] wmf_map:^MWKLanguageLink *(NSDictionary *jsonLink) {
-                                 return [[MWKLanguageLink alloc] initWithLanguageCode:jsonLink[@"lang"]
+                                 NSString *languageCode = [MWKLanguageLinkController languageCodeForISOLanguageCode:jsonLink[@"lang"]];
+                                 return [[MWKLanguageLink alloc] initWithLanguageCode:languageCode
                                                                         pageTitleText:jsonLink[@"*"]
                                                                                  name:jsonLink[@"autonym"]
                                                                         localizedName:jsonLink[@"langname"]
