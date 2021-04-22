@@ -1,6 +1,7 @@
 // Messages for Finnish (suomi)
 // Exported from translatewiki.net
 // Author: 01miki10
+// Author: 3Johnny
 // Author: 4shadoww
 // Author: AinScept
 // Author: Alluk.
@@ -183,29 +184,24 @@
 "continue-reading-empty-title" = "Ei äskettäin luettuja artikkeleja";
 "data-migration-status" = "Päivitetäään...";
 "description-add-title" = "Lisää kuvaus";
-// Fuzzy
-"description-edit-for-article" = "Otsikon kuvaus artikkelille $1";
+"description-edit-for-article" = "Artikkelin kuvaus $1";
 "description-edit-learn-more" = "Lisätietoja";
 "description-edit-length-warning" = "$1 / $2";
-// Fuzzy
-"description-edit-license" = "Muuttamalla otsikon kuvausta hyväksyn $1 ja peruuttamattomasti julkaisen muutokseni $2 -lisenssillä.";
+"description-edit-license" = "Muuttamalla artikkelin kuvausta hyväksyn $1 ja peruuttamattomasti julkaisen muutokseni $2 -lisenssillä.";
 "description-edit-pencil-introduction" = "Muokkaa esittelyä";
 "description-edit-pencil-title" = "Muokkaa artikkelin kuvausta";
 "description-edit-placeholder-title" = "Lyhyet kuvaukset ovat parhaita";
 "description-edit-publish" = "Julkaise kuvaus";
 "description-edit-title" = "Muokkaa kuvausta";
 "description-edit-warning" = "Yritä pitää kuvaus lyhyenä, jotta käyttäjät ymmärtäisivät artikkelin aiheen yhdellä silmäyksellä";
-// Fuzzy
 "description-help-about-description" = "Lyhyet kuvaukset tiivistävät artikkelin aiheen ja auttavat ymmärtämään sen yhdellä silmäyksellä.";
 "description-help-about-title" = "Tietoja";
 "description-help-about-wikidata" = "Tietoja Wikidatasta";
 "description-help-more-info-description" = "Kuvaukset tallennetaan Wikidataan. Se on Wikimedia-säätiön ylläpitämä vapaasti muokattava monikielinen tietokanta, joka toimii Wikipedian ja muiden wikiprojektien tukena.";
 "description-help-more-info-title" = "Lisää tietoa";
 "description-help-tips-description" = "Kuvauksen tulisi mahtua yhdelle riville eli olla 2-12 sanan pituinen.";
-// Fuzzy
-"description-help-tips-example-description-one" = "Mona Lisaa käsittelevän artikkelin otsikon kuvaus";
-// Fuzzy
-"description-help-tips-example-description-two" = "Mount Everestiä käsittelevän artikkelin otsikon kuvaus";
+"description-help-tips-example-description-one" = "Mona Lisaa käsittelevän artikkelin kuvaus";
+"description-help-tips-example-description-two" = "Mount Everestiä käsittelevän artikkelin kuvaus";
 "description-help-tips-example-title-one" = "Leonardo da Vincin maalaus";
 "description-help-tips-example-title-two" = "Maapallon korkein vuori";
 "description-help-tips-for-example" = "Esimerkkejä:";
