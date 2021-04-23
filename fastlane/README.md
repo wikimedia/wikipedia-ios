@@ -85,7 +85,7 @@ Add a tag for the current build number and push to repo.
 ```
 fastlane ios tag_release
 ```
-Tag for the current version number push to repo.
+Add a tag for the current version number push to repo.
 ### ios build
 ```
 fastlane ios build

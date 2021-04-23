@@ -29,7 +29,7 @@ def get_devices_by_scheme_from_options(options)
   return devices_by_scheme
 end
 
-
+ 
 def get_version_number_from_options(options)
   scheme = options[:scheme] || 'Wikipedia'
   config = options[:configuration] || 'Release'
@@ -114,19 +114,19 @@ platform :ios do
         project: 'Wikipedia.xcodeproj',
         configuration: 'Test',
         disable_concurrent_testing: true,
-        output_files: "#{scheme}.junit",
+        output_files: "#{scheme}.junit",		
         output_types: 'junit',
         slack_message: slack_message
       }
       scan(opts)
     end
   end
-
+  
   desc "Records visual tests."
   lane :record_visual_tests do |options|
     read_xcversion
     clean_out_reference_images
-    options[:configurations] ||= configurations_to_test
+    options[:configurations] ||= configurations_to_test 
     devices_by_scheme = get_devices_by_scheme_from_options(options)
     devices_by_scheme.each do |scheme, devices|
       opts = {
@@ -143,7 +143,7 @@ platform :ios do
       scan(opts)
     end
   end
-
+  
   desc "Set the build number"
   lane :set_build_number do |options|
     build = options[:build] || 0
@@ -151,7 +151,7 @@ platform :ios do
       build_number: build
     })
   end
-
+  
   desc "Set version number"
   lane :set_version_number do |options|
     increment_version_number(
@@ -189,38 +189,31 @@ platform :ios do
     sh "git push origin --tags"
   end
 
-  desc "Tag for the current version number push to repo."
+  desc "Add a tag for the current version number push to repo."
   lane :tag_release do |options|
-    sh "git tag -l 'betas/*' | cut -c 7- | sort -n | tail -1 | sed 's/^/betas\//' | xargs git checkout"
     version = options[:version] || get_version_number_from_options(options)
     tag_name = "releases/#{version}"
     add_git_tag(tag: tag_name)
-    sh "git push origin --tags && git checkout main"
-    set_github_release(
-        repository_name: "wikimedia/wikipedia-ios",
-        api_token: ENV["GITHUB_TOKEN"],
-        name: "{version}",
-        tag_name: "{tag_name}"
-     )
+    sh "git push origin --tags"
   end
 
   desc "Build the app for distibution"
   lane :build do |options|
     project_dir = ".."
     build_dir = "../build"
-
+    
     product_name = options[:product_name] || "Wikipedia"
     project_name = options[:project] || product_name
     scheme_name = options[:scheme] || product_name
     version = options[:version] || ''
     number = options[:number] || ''
-
+    
     read_xcversion
 
     sh "xcodebuild -project \"#{project_dir}/#{project_name}.xcodeproj\" -scheme \"#{scheme_name}\" -archivePath \"#{build_dir}/#{product_name}.xcarchive\" archive"
     sh "xcodebuild -exportArchive -exportOptionsPlist ExportOptions.plist -archivePath \"#{build_dir}/#{product_name}.xcarchive\" -exportPath \"#{build_dir}\""
   end
-
+  
   desc "Pushes both the production and staging apps to TestFlight and tags the release. Only releases to internal testers."
   lane :deploy do |options|
     tag_prefix = "betas"
@@ -247,7 +240,7 @@ platform :ios do
       build: options[:build]
     )
   end
-
+  
   desc "Updates version, builds, and pushes experimental build to TestFlight. Only releases to internal testers."
   lane :push_experimental do |options|
     tag_prefix = "alphas"
@@ -264,7 +257,7 @@ platform :ios do
     prefix = options[:prefix] || "betas/"
     `git tag -l #{prefix}* --sort=-creatordate | head -n 1`
   end
-
+  
   lane :get_latest_build_number do |options|
     prefix = options[:prefix] || "betas"
     prefix = "#{prefix}/"
@@ -291,14 +284,14 @@ platform :ios do
     increment_build_number(
       build_number: build_number
     )
-
+    
     # the changelog was overwriting whatever custom test notes we added
     # changelog_from_git_commits(
     #   pretty: '- (%ae) %s', # Optional, lets you provide a custom format to apply to each commit when generating the changelog text
     #   tag_match_pattern: "#{tag_prefix}/*", # Optional, lets you search for a tag name that matches a glob(7) pattern
     #   include_merges: false # Optional, lets you filter out merge commits
     # )
-
+    
     build(
       product_name: product_name,
       project: "Wikipedia",
@@ -318,7 +311,7 @@ platform :ios do
   end
 
   desc "Upload app store metadata"
-  lane :upload_app_store_metadata do
+  lane :upload_app_store_metadata do 
     deliver(skip_binary_upload: true, skip_screenshots: true)
   end
 
@@ -329,9 +322,9 @@ platform :ios do
     build_number = options[:build_number]  || latest_testflight_build_number(app_identifier: app_identifier)
     ipa_path = options[:ipa_path]
     output_directory = options[:output_directory] || "build"
-
+    
     raise "Missing parameters" unless app_identifier && version && build_number && ipa_path && output_directory
-
+    
     download_dsyms(
       build_number: build_number.to_s,
       version: version.to_s,
@@ -339,7 +332,7 @@ platform :ios do
       output_directory: output_directory
     ) # Download dSYM files from iTC
   end
-
+  
   lane :dsyms_alpha do |options|
     app_identifier = "org.wikimedia.wikipedia.tfalpha"
     ipa_path = "build/Wikipedia Alpha.ipa"
@@ -351,7 +344,7 @@ platform :ios do
       ipa_path: ipa_path
     )
   end
-
+  
   lane :dsyms_beta do |options|
     app_identifier = "org.wikimedia.wikipedia"
     ipa_path = "build/Wikipedia.ipa"
@@ -363,7 +356,7 @@ platform :ios do
       ipa_path: ipa_path
     )
   end
-
+  
   lane :dsyms_beta_app do |options|
     app_identifier = "org.wikimedia.wikipedia.tfbeta"
     ipa_path = "build/Wikipedia.ipa"
@@ -375,5 +368,5 @@ platform :ios do
       ipa_path: ipa_path
     )
   end
-
+  
 end
