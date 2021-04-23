@@ -173,13 +173,6 @@ extension NSLocale {
         Locale.uniqueWikipediaLanguages(with: preferredLanguages, useLocaleIdentifiers: false)
     
     
-    // This is the old method to get the suggested languages from the user's OS settings during onboarding.
-    // It can be removed once its one client in MWKLanguageLinkController is removed when language variants are turned on.
-    @objc public static var wmf_preferredLocaleLanguageCodes: [String] {
-        // use language code when determining if a langauge is preferred (e.g. "en_US" is preferred if "en" was selected)
-        preferredLanguages.compactMap { NSLocale(localeIdentifier: $0).languageCode }
-    }
-    
     // This method is used when an incoming article has no language variant information. For instance, when syncing reading lists.
     // Given a language code returns the best guess of a language variant for languages that support variants.
     // First it checks for a preferred variant from the user's OS language settings.
