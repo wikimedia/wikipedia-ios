@@ -742,7 +742,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         guard let articleURL = remoteEntry.articleURL  else {
             return nil
         }
-        let preferredLanguageVariantCode = dataStore.languageLinkController.preferredLanguageVariantCode(forLanguageCode: articleURL.wmf_language)
+        let preferredLanguageVariantCode = dataStore.languageLinkController.preferredLanguageVariantCode(forLanguageCode: articleURL.wmf_languageCode)
         var variantAwareArticleURL = articleURL
         variantAwareArticleURL.wmf_languageVariantCode = preferredLanguageVariantCode
         return variantAwareArticleURL

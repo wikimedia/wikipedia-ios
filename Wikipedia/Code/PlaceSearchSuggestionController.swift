@@ -23,10 +23,10 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
     static let currentStringSection = 2
     static let completionSection = 3
     
-    var wikipediaLanguage: String? = "en"
+    var wikipediaLanguageCode: String? = "en"
     var siteURL: URL? = nil {
         didSet {
-            wikipediaLanguage = siteURL?.wmf_language
+            wikipediaLanguageCode = siteURL?.wmf_languageCode
         }
     }
     
@@ -100,7 +100,7 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
             
         }
         searchSuggestionCell.titleLabel.text = search.localizedDescription
-        searchSuggestionCell.detailLabel.text = search.searchResult?.wikidataDescription?.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: wikipediaLanguage)
+        searchSuggestionCell.detailLabel.text = search.searchResult?.wikidataDescription?.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguageCode: wikipediaLanguageCode)
         searchSuggestionCell.apply(theme: theme)
         return cell
     }

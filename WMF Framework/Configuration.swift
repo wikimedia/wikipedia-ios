@@ -184,19 +184,6 @@ public class Configuration: NSObject {
     /// Returns the default request headers for Page Content Service API requests
     public func pageContentServiceHeaders(for url: URL) -> [String: String] {
         
-        // If the language variants feature is not turned on, use the old behavior.
-        // This ensures the existing language variant behavior continues working.
-        // This guard statment can be removed when languageVariantsEnabled is removed.
-        guard WikipediaLookup.languageVariantsEnabled else {
-            guard let apiLanguage = url.wmf_language else {
-                return [:]
-            }
-            guard let preferredLanguage = Locale.preferredWikipediaLanguageVariant(wmf_language: apiLanguage) else {
-                return [:]
-            }
-            return ["Accept-Language": preferredLanguage]
-        }
-        
         // If the language supports variants, only send a single code with variant for that language.
         // This is a workaround for an issue with server-side Accept-Language header handling and
         // can be removed when https://phabricator.wikimedia.org/T256491 is fixed.

@@ -41,7 +41,7 @@ final class EditHistoryCompareFunnel: EventLoggingFunnel, EventLoggingStandardEv
     }
     
     public func logShowHistory(articleURL: URL) {
-        log(event(action: .showHistory), language: articleURL.wmf_language)
+        log(event(action: .showHistory), language: articleURL.wmf_languageCode)
         newLog(action: .showHistory, domain: articleURL.wmf_site?.host)
     }
 
@@ -51,32 +51,32 @@ final class EditHistoryCompareFunnel: EventLoggingFunnel, EventLoggingStandardEv
      *   or a `pageURL` (when logging from `DiffContainerViewController`)
      */
     public func logRevisionView(url: URL) {
-        log(event(action: .revisionView), language: url.wmf_language)
+        log(event(action: .revisionView), language: url.wmf_languageCode)
         newLog(action: .revisionView, domain: url.wmf_site?.host)
     }
     
     public func logCompare1(articleURL: URL) {
-        log(event(action: .compare1), language: articleURL.wmf_language)
+        log(event(action: .compare1), language: articleURL.wmf_languageCode)
         newLog(action: .compare1, domain: articleURL.wmf_site?.host)
     }
     
     public func logCompare2(articleURL: URL) {
-        log(event(action: .compare2), language: articleURL.wmf_language)
+        log(event(action: .compare2), language: articleURL.wmf_languageCode)
         newLog(action: .compare2, domain: articleURL.wmf_site?.host)
     }
 
     public func logThankTry(siteURL: URL) {
-        log(event(action: .thankTry), language: siteURL.wmf_language)
+        log(event(action: .thankTry), language: siteURL.wmf_languageCode)
         newLog(action: .thankTry, domain: siteURL.host)
     }
 
     public func logThankSuccess(siteURL: URL) {
-        log(event(action: .thankSuccess), language: siteURL.wmf_language)
+        log(event(action: .thankSuccess), language: siteURL.wmf_languageCode)
         newLog(action: .thankSuccess, domain: siteURL.host)
     }
 
     public func logThankFail(siteURL: URL) {
-        log(event(action: .thankFail), language: siteURL.wmf_language)
+        log(event(action: .thankFail), language: siteURL.wmf_languageCode)
         newLog(action: .thankFail, domain: siteURL.host)
     }
 }

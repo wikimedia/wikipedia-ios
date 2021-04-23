@@ -16,9 +16,9 @@
     return wmf_languageBundles;
 }
 
-- (nonnull NSString *)wmf_languageBundleNameForWikipediaLanguage:(nonnull NSString *)language {
-    NSString *bundleName = language;
-    if ([language isEqualToString:@"zh"]) {
+- (nonnull NSString *)wmf_languageBundleNameForWikipediaLanguageCode:(nonnull NSString *)languageCode {
+    NSString *bundleName = languageCode;
+    if ([languageCode isEqualToString:@"zh"]) {
         bundleName = @"zh-hans";
         for (NSString *code in [NSLocale wmf_preferredLanguageCodes]) {
             if (![code hasPrefix:@"zh"]) {
@@ -31,19 +31,19 @@
             }
             
         }
-    } else if ([language isEqualToString:@"sr"]) {
+    } else if ([languageCode isEqualToString:@"sr"]) {
         bundleName = @"sr-ec";
-    } else if ([language isEqualToString:@"no"]) {
+    } else if ([languageCode isEqualToString:@"no"]) {
         bundleName = @"nb";
     }
     return bundleName;
 }
 
-- (nullable NSBundle *)wmf_languageBundleForWikipediaLanguage:(nonnull NSString *)language {
+- (nullable NSBundle *)wmf_languageBundleForWikipediaLanguageCode:(nonnull NSString *)languageCode {
     NSMutableDictionary *bundles = [NSBundle wmf_languageBundles];
-    NSBundle *bundle = bundles[language];
+    NSBundle *bundle = bundles[languageCode];
     if (!bundle) {
-        NSString *languageBundleName = [self wmf_languageBundleNameForWikipediaLanguage:language];
+        NSString *languageBundleName = [self wmf_languageBundleNameForWikipediaLanguageCode:languageCode];
         NSArray *paths = [self pathsForResourcesOfType:@"lproj" inDirectory:nil];
         NSString *filename = [[languageBundleName lowercaseString] stringByAppendingPathExtension:@"lproj"];
         NSString *path = nil;
@@ -59,7 +59,7 @@
         }
         bundle = [NSBundle bundleWithPath:path];
         if (bundle) {
-            bundles[language] = bundle;
+            bundles[languageCode] = bundle;
         }
     }
     return bundle;
@@ -77,16 +77,16 @@
 
 @end
 
-NSString *WMFLocalizedStringWithDefaultValue(NSString *key, NSString *_Nullable wikipediaLanguage, NSBundle *_Nullable bundle, NSString *value, NSString *comment) {
+NSString *WMFLocalizedStringWithDefaultValue(NSString *key, NSString *_Nullable wikipediaLanguageCode, NSBundle *_Nullable bundle, NSString *value, NSString *comment) {
     if (bundle == nil) {
         bundle = NSBundle.wmf_localizationBundle;
     }
 
     NSString *translation = nil;
-    if (wikipediaLanguage == nil) {
+    if (wikipediaLanguageCode == nil) {
         translation = [bundle localizedStringForKey:key value:nil table:nil];
     } else {
-        NSBundle *languageBundle = [bundle wmf_languageBundleForWikipediaLanguage:wikipediaLanguage];
+        NSBundle *languageBundle = [bundle wmf_languageBundleForWikipediaLanguageCode:wikipediaLanguageCode];
         translation = [languageBundle localizedStringForKey:key value:nil table:nil];
     }
 

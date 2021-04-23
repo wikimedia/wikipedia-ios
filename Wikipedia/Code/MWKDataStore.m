@@ -668,7 +668,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 - (NSString *)pathForDomainInURL:(NSURL *)url {
     NSString *sitesPath = [self pathForSites];
     NSString *domainPath = [sitesPath stringByAppendingPathComponent:url.wmf_domain];
-    return [domainPath stringByAppendingPathComponent:url.wmf_language];
+    return [domainPath stringByAppendingPathComponent:url.wmf_languageCode];
 }
 
 - (NSString *)pathForArticlesInDomainFromURL:(NSURL *)url {
@@ -915,7 +915,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 }
 
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL inManagedObjectContext:(NSManagedObjectContext *)moc {
-    NSString *language = URL.wmf_language;
+    NSString *language = URL.wmf_languageCode;
     NSString *title = URL.wmf_title;
     NSString *key = URL.wmf_databaseKey;
     if (!language || !title || !key) {

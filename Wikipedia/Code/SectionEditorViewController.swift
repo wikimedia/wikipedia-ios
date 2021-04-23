@@ -14,7 +14,7 @@ class SectionEditorViewController: ViewController {
     
     private let sectionID: Int
     private let articleURL: URL
-    private let language: String
+    private let languageCode: String
     
     private var selectedTextEditInfo: SelectedTextEditInfo?
     private var dataStore: MWKDataStore
@@ -72,7 +72,7 @@ class SectionEditorViewController: ViewController {
         self.dataStore = dataStore
         self.selectedTextEditInfo = selectedTextEditInfo
         self.messagingController = messagingController ?? SectionEditorWebViewMessagingController()
-        language = articleURL.wmf_language ?? NSLocale.current.languageCode ?? "en"
+        languageCode = articleURL.wmf_languageCode ?? NSLocale.current.languageCode ?? "en"
         super.init(theme: theme)
     }
     
@@ -179,9 +179,9 @@ class SectionEditorViewController: ViewController {
         messagingController.buttonSelectionDelegate = self
         messagingController.alertDelegate = self
         messagingController.scrollDelegate = self
-        let layoutDirection = MWKLanguageLinkController.layoutDirection(forContentLanguageCode: language)
+        let layoutDirection = MWKLanguageLinkController.layoutDirection(forContentLanguageCode: languageCode)
         let isSyntaxHighlighted = UserDefaults.standard.wmf_IsSyntaxHighlightingEnabled
-        let setupUserScript = CodemirrorSetupUserScript(language: language, direction: CodemirrorSetupUserScript.CodemirrorDirection(rawValue: layoutDirection) ?? .ltr, theme: theme, textSizeAdjustment: textSizeAdjustment, isSyntaxHighlighted: isSyntaxHighlighted) { [weak self] in
+        let setupUserScript = CodemirrorSetupUserScript(languageCode: languageCode, direction: CodemirrorSetupUserScript.CodemirrorDirection(rawValue: layoutDirection) ?? .ltr, theme: theme, textSizeAdjustment: textSizeAdjustment, isSyntaxHighlighted: isSyntaxHighlighted) { [weak self] in
             self?.isCodemirrorReady = true
         }
         
@@ -269,7 +269,7 @@ class SectionEditorViewController: ViewController {
     }
     
     private func showCouldNotFindSelectionInWikitextAlert() {
-        editFunnel.logSectionHighlightToEditError(language: language)
+        editFunnel.logSectionHighlightToEditError(language: languageCode)
         let alertTitle = WMFLocalizedString("edit-menu-item-could-not-find-selection-alert-title", value:"The text that you selected could not be located", comment:"Title for alert informing user their text selection could not be located in the article wikitext.")
         let alertMessage = WMFLocalizedString("edit-menu-item-could-not-find-selection-alert-message", value:"This might be because the text you selected is not editable (eg. article title or infobox titles) or the because of the length of the text that was highlighted", comment:"Description of possible reasons the user text selection could not be located in the article wikitext.")
         let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
@@ -387,7 +387,7 @@ class SectionEditorViewController: ViewController {
         guard !loggedEditActions.contains(EditFunnel.Action.ready) else {
             return
         }
-        editFunnel.logSectionReadyToEdit(from: editFunnelSource, language: language)
+        editFunnel.logSectionReadyToEdit(from: editFunnelSource, language: languageCode)
         loggedEditActions.add(EditFunnel.Action.ready)
     }
 
@@ -438,7 +438,7 @@ extension SectionEditorViewController: SectionEditorNavigationItemControllerDele
                     self.needsSelectLastSelection = true
                     vc.theme = self.theme
                     vc.sectionID = self.sectionID
-                    vc.language = self.language
+                    vc.languageCode = self.languageCode
                     vc.wikitext = wikitext
                     vc.delegate = self
                     vc.editFunnel = self.editFunnel
@@ -563,7 +563,7 @@ extension SectionEditorViewController: EditPreviewViewControllerDelegate {
         vc.dataStore = dataStore
         vc.articleURL = self.articleURL
         vc.sectionID = self.sectionID
-        vc.language = self.language
+        vc.languageCode = self.languageCode
         vc.wikitext = editPreviewViewController.wikitext
         vc.delegate = self
         vc.theme = self.theme

@@ -23,20 +23,20 @@ class OnThisDayViewControllerHeader: UICollectionReusableView {
     
     func configureFor(eventCount: Int, firstEvent: WMFFeedOnThisDayEvent?, lastEvent: WMFFeedOnThisDayEvent?, midnightUTCDate: Date) {
     
-        let language = firstEvent?.language
-        let locale = NSLocale.wmf_locale(for: language)
+        let languageCode = firstEvent?.languageCode
+        let locale = NSLocale.wmf_locale(for: languageCode)
         
-        semanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: language)
+        semanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: languageCode)
         eventsLabel.semanticContentAttribute = semanticContentAttribute
         onLabel.semanticContentAttribute = semanticContentAttribute
         fromLabel.semanticContentAttribute = semanticContentAttribute
         
-        eventsLabel.text = CommonStrings.onThisDayAdditionalEventsMessage(with: language, locale: locale, eventsCount: eventCount).uppercased(with: locale)
+        eventsLabel.text = CommonStrings.onThisDayAdditionalEventsMessage(with: languageCode, locale: locale, eventsCount: eventCount).uppercased(with: locale)
         
-        onLabel.text = DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: language).string(from: midnightUTCDate)
+        onLabel.text = DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: languageCode).string(from: midnightUTCDate)
         
         if let firstEventEraString = firstEvent?.yearString, let lastEventEraString = lastEvent?.yearString {
-            fromLabel.text = CommonStrings.onThisDayHeaderDateRangeMessage(with: language, locale: locale, lastEvent: lastEventEraString, firstEvent: firstEventEraString)
+            fromLabel.text = CommonStrings.onThisDayHeaderDateRangeMessage(with: languageCode, locale: locale, lastEvent: lastEventEraString, firstEvent: firstEventEraString)
         } else {
             fromLabel.text = nil
         }

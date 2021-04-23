@@ -176,8 +176,7 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
     NSMutableArray<NSString *> *preferredLanguages = [[self readSavedPreferredLanguageCodes] mutableCopy];
 
     if (preferredLanguages.count == 0) {
-        // When language variant feature is turned on, the flag will be removed and use NSLocale.wmf_preferredWikipediaLanguageCodes
-        NSArray<NSString *> *osLanguages = WikipediaLookup.languageVariantsEnabled ? NSLocale.wmf_preferredWikipediaLanguageCodes : NSLocale.wmf_preferredLocaleLanguageCodes;
+        NSArray<NSString *> *osLanguages = NSLocale.wmf_preferredWikipediaLanguageCodes;
         [osLanguages enumerateObjectsWithOptions:0
                                       usingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
                                           if (![preferredLanguages containsObject:obj]) {
@@ -281,7 +280,7 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
 - (NSArray<MWKLanguageLink *> *)remainingLanguageLinkVariantsForArticleURL:(NSURL *)articleURL {
     // If the original URL is a variant, include the other variants as choices
     NSString *originalURLLanguageVariantCode = articleURL.wmf_languageVariantCode;
-    NSString *originalURLLanguageCode = articleURL.wmf_language;
+    NSString *originalURLLanguageCode = articleURL.wmf_languageCode;
     NSMutableArray *remainingLanguageVariantLinks = [[NSMutableArray alloc] init];
     if (originalURLLanguageVariantCode && originalURLLanguageCode) {
         NSArray<MWKLanguageLink *> *variants = [MWKLanguageLinkController allLanguageVariantsBySiteLanguageCode][originalURLLanguageCode];

@@ -8,7 +8,7 @@ protocol EditPreviewViewControllerDelegate: NSObjectProtocol {
 class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegate, InternalLinkPreviewing {
     var sectionID: Int?
     var articleURL: URL
-    var language: String?
+    var languageCode: String?
     var wikitext = ""
     var editFunnel: EditFunnel?
     var loggedEditActions: NSMutableSet?
@@ -99,7 +99,7 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
 
         if let loggedEditActions = loggedEditActions,
             !loggedEditActions.contains(EditFunnel.Action.preview) {
-            editFunnel?.logEditPreviewForArticle(from: editFunnelSource, language: language)
+            editFunnel?.logEditPreviewForArticle(from: editFunnelSource, language: languageCode)
             loggedEditActions.add(EditFunnel.Action.preview)
         }
         apply(theme: theme)
@@ -127,7 +127,7 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
             return
         }
         hasPreviewed = true
-        messagingController.setup(with: previewWebViewContainer.webView, language: language ?? "en", theme: theme, layoutMargins: articleMargins, areTablesInitiallyExpanded: true)
+        messagingController.setup(with: previewWebViewContainer.webView, languageCode: languageCode ?? "en", theme: theme, layoutMargins: articleMargins, areTablesInitiallyExpanded: true)
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("wikitext-preview-changes", value: "Retrieving preview of your changes...", comment: "Alert text shown when getting preview of user changes to wikitext"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
         do {
             #if WMF_LOCAL_PAGE_CONTENT_SERVICE || WMF_APPS_LABS_PAGE_CONTENT_SERVICE
