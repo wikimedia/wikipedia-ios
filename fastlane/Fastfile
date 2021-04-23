@@ -189,25 +189,20 @@ platform :ios do
     sh "git push origin --tags"
   end
 
-  desc "Add a tag for the current version number push to repo."
+  desc "Add a release tag for the latest beta and push to repo."
   lane :tag_release do |options|
+    latest_beta = get_latest_build_number()
+    sh "git checkout betas/#{latest_beta}"
     version = options[:version] || get_version_number_from_options(options)
     tag_name = "releases/#{version}"
     add_git_tag(tag: tag_name)
     sh "git push origin --tags && git checkout main"
-    apple_key = `cat ~/AuthKey.p8`
-    issuer_id = `cat ~/issuerID.txt`
-    key_id = `cat ~/keyID.txt`
-    api_key = app_store_connect_api_key(
-      key_id: key_id,
-      issuer_id: issuer_id,
-      key_content: apple_key
-    )
     set_github_release(
         repository_name: "wikimedia/wikipedia-ios",
-        api_key: api_key,
-        name: "{version}",
-        tag_name: "{tag_name}"
+        api_token: ENV['GITHUB_TOKEN'],
+        name: version,
+        tag_name: tag_name,
+        description: "release to iOS app store"
      )
   end
 

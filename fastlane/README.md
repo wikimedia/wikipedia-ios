@@ -80,7 +80,7 @@ Increment the app version major
 ```
 fastlane ios tag
 ```
-Add a tag for the current build number and push to repo.
+Add a release tag for the latest beta and push to repo.
 ### ios tag_release
 ```
 fastlane ios tag_release
