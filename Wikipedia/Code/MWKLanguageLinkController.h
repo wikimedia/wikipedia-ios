@@ -84,8 +84,6 @@ typedef NS_ENUM(NSInteger, WMFPreferredLanguagesChangeType) {
  */
 - (nullable NSString *)preferredLanguageVariantCodeForLanguageCode:(nullable NSString *)languageCode;
 
-- (nullable MWKLanguageLink *)languageForContentLanguageCode:(NSString *)contentLanguageCode;
-
 /**
  *  Given an ISO language code, returns the correct Wikipedia language code for use in the app.
  *

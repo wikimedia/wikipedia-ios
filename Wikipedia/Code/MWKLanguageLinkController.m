@@ -73,12 +73,6 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
     return [MWKLanguageLinkController allLanguages];
 }
 
-- (nullable MWKLanguageLink *)languageForContentLanguageCode:(NSString *)contentLanguageCode {
-    return [self.allLanguages wmf_match:^BOOL(MWKLanguageLink *obj) {
-        return [obj.contentLanguageCode isEqual:contentLanguageCode];
-    }];
-}
-
 - (nullable NSString *)preferredLanguageVariantCodeForLanguageCode:(nullable NSString *)languageCode {
     if (!languageCode) {
         return nil;
