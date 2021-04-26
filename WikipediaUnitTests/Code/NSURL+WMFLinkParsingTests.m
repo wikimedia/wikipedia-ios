@@ -85,4 +85,28 @@
     XCTAssertEqualObjects(url.wmf_languageVariantCode, languageVariantCode);
 }
 
+- (void)testSiteURLFromContentLanguageCode {
+    NSArray *codes = @[@"en", @"zh-hans", @"fr", @"sr-ec", @"ku-latn"];
+    NSArray *expectedSiteHostStrings = @[@"en.wikipedia.org", @"zh.wikipedia.org", @"fr.wikipedia.org", @"sr.wikipedia.org", @"ku.wikipedia.org"];
+    NSArray *expectedLanguageVariantCodes = @[[NSNull null], @"zh-hans", [NSNull null], @"sr-ec", @"ku-latn"]; // Use NSNull to represent null value
+    
+    NSInteger index = 0;
+    for (NSString *code in codes) {
+        NSURL *url = [NSURL wmf_URLWithDefaultSiteAndContentLanguageCode: code];
+        XCTAssertEqualObjects(expectedSiteHostStrings[index], url.host);
+        
+        id languageVariantCode = expectedLanguageVariantCodes[index];
+        if ([languageVariantCode isKindOfClass:[NSString class]]) {
+            XCTAssertEqualObjects(languageVariantCode, url.wmf_languageVariantCode);
+        } else {
+            XCTAssertNil(url.wmf_languageVariantCode);
+        }
+        
+        index++;
+    }
+    
+    NSURL *nilArgumentResult = [NSURL wmf_URLWithDefaultSiteAndContentLanguageCode: nil];
+    XCTAssertNil(nilArgumentResult);
+}
+
 @end
