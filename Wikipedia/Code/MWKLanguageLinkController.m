@@ -176,8 +176,7 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
     NSMutableArray<NSString *> *preferredLanguages = [[self readSavedPreferredLanguageCodes] mutableCopy];
 
     if (preferredLanguages.count == 0) {
-        // When language variant feature is turned on, the flag will be removed and use NSLocale.wmf_preferredWikipediaLanguageCodes
-        NSArray<NSString *> *osLanguages = WikipediaLookup.languageVariantsEnabled ? NSLocale.wmf_preferredWikipediaLanguageCodes : NSLocale.wmf_preferredLocaleLanguageCodes;
+        NSArray<NSString *> *osLanguages = NSLocale.wmf_preferredWikipediaLanguageCodes;
         [osLanguages enumerateObjectsWithOptions:0
                                       usingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
                                           if (![preferredLanguages containsObject:obj]) {

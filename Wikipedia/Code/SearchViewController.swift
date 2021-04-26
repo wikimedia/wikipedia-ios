@@ -297,6 +297,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
 
         shouldDisplayIncomingTransitionOverlay = true
         collectionView.alpha = 0
+        view.backgroundColor = .clear
     }
     
     func prepareForOutgoingTransition(with outgoingNavigationBar: NavigationBar) {
@@ -307,6 +308,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
 
     func beginTransitionFromExploreFeed(enteringSearch: Bool) {
         nonSearchAlpha = enteringSearch ? 1 : 0
+        view.backgroundColor = enteringSearch ? theme.colors.paperBackground : .clear
     }
 
     func completeTransitionFromExploreFeed(enteringSearch: Bool) {
@@ -485,7 +487,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         searchBarContainerView.backgroundColor = theme.colors.paperBackground
         searchLanguageBarViewController?.apply(theme: theme)
         resultsViewController.apply(theme: theme)
-        view.backgroundColor = .clear
+        view.backgroundColor = theme.colors.paperBackground
         collectionView.backgroundColor = theme.colors.paperBackground
         incomingTransitionOverlay.backgroundColor = theme.colors.paperBackground
     }

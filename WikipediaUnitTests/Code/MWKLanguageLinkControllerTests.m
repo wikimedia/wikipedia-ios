@@ -131,11 +131,6 @@
  * fallback choices of any variant-aware language except for Chinese.
  */
 - (void)testPreferredLanguageVariantForLanguageCode {
-    // Only run test if language variants are enabled
-    if (!WikipediaLookup.languageVariantsEnabled) {
-        return;
-    }
-    
     NSInteger foundIndex = [NSLocale.preferredLanguages indexOfObjectPassingTest:^BOOL(NSString * _Nonnull languageCode, NSUInteger idx, BOOL * _Nonnull stop) {
         return [languageCode hasPrefix:@"uz"];
     }];
