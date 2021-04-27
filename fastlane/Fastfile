@@ -191,7 +191,7 @@ platform :ios do
 
   desc "Add a release tag for the latest beta and push to repo."
   lane :tag_release do |options|
-    if options[:build_tag].nil?
+    if options[:build_tag].nil? || options[:build_tag].empty?
         latest_beta = get_latest_build_number()
         sh "echo Using latest beta"
         sh "git checkout betas/#{latest_beta}"
