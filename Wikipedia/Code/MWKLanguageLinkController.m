@@ -16,6 +16,7 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
 @interface MWKLanguageLinkController ()
 
 @property (weak, nonatomic) NSManagedObjectContext *moc;
+@property (nullable, copy, nonatomic) NSArray<MWKLanguageLink *> *cachedPreferredLanguages;
 
 @end
 
@@ -24,6 +25,7 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
 - (instancetype)initWithManagedObjectContext:(NSManagedObjectContext *)moc {
     if (self = [super init]) {
         self.moc = moc;
+        self.cachedPreferredLanguages = nil;
     }
     return self;
 }
@@ -122,15 +124,18 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
 }
 
 - (NSArray<MWKLanguageLink *> *)preferredLanguages {
-    NSArray *preferredLanguageCodes = [self readPreferredLanguageCodes];
-    return [preferredLanguageCodes wmf_mapAndRejectNil:^id(NSString *langString) {
-        return [self.allLanguages wmf_match:^BOOL(MWKLanguageLink *langLink) {
-            // The Norwegian language code 'nb' used by the OS should be automatically converted to 'no' used by Wikipedia during onboarding.
-            // Issue described in  https://phabricator.wikimedia.org/T276645
-            NSAssert(![langString isEqualToString:@"nb"], @"Inaccurate language code found in preferred language codes. Language code 'nb' should be 'no'.");
-            return [langLink.contentLanguageCode isEqualToString:langString];
+    // Without caching, every call does a database fetch and lookup through allLanguages
+    // even though the array contents change only when user updates preferred language settings
+    if (!self.cachedPreferredLanguages) {
+        NSArray *preferredLanguageCodes = [self readPreferredLanguageCodes];
+        self.cachedPreferredLanguages = [preferredLanguageCodes wmf_mapAndRejectNil:^id(NSString *isoLanguageCode) {
+            NSString *contentLanguageCode = [MWKLanguageLinkController languageCodeForISOLanguageCode:isoLanguageCode];
+            return [self.allLanguages wmf_match:^BOOL(MWKLanguageLink *languageLink) {
+                return [languageLink.contentLanguageCode isEqualToString:contentLanguageCode];
+            }];
         }];
-    }];
+    }
+    return self.cachedPreferredLanguages;
 }
 
 - (NSArray<NSURL *> *)preferredSiteURLs {
@@ -221,6 +226,10 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
             DDLogError(@"Error saving preferred languages: %@", preferredLanguageCodeSaveError);
         }
     }];
+    
+    // Even when supressing external notifications during language variant migration,
+    // the internal cache always needs to be refreshed when new preferred language codes are saved.
+    self.cachedPreferredLanguages = nil;
 
     // Send notifications only if there is a change type and changed language
     // Used to avoid sending notifications during language variant migration
@@ -239,6 +248,7 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
     [self.moc performBlockAndWait:^{
         [self.moc wmf_setValue:nil forKey:WMFPreviousLanguagesKey];
     }];
+    self.cachedPreferredLanguages = nil;
     [[NSNotificationCenter defaultCenter] postNotificationName:MWKLanguageFilterDataSourceLanguagesDidChangeNotification object:self];
     [[NSNotificationCenter defaultCenter] postNotificationName:WMFPreferredLanguagesDidChangeNotification object:self];
 }
