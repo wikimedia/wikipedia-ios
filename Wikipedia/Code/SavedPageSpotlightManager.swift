@@ -49,7 +49,7 @@ public class WMFSavedPageSpotlightManager: NSObject {
         }
     }
     
-    private func searchableItemAttribues(for article: WMFArticle) -> CSSearchableItemAttributeSet {
+    private func searchableItemAttributes(for article: WMFArticle) -> CSSearchableItemAttributeSet {
         let searchableItem = article.url?.searchableItemAttributes ??
                 CSSearchableItemAttributeSet(itemContentType: kUTTypeInternetLocation as String)
 
@@ -72,7 +72,7 @@ public class WMFSavedPageSpotlightManager: NSObject {
                 return
             }
             
-            let searchableItemAttributes = self.searchableItemAttribues(for: article)
+            let searchableItemAttributes = self.searchableItemAttributes(for: article)
             
             self.queue.async {
                 
