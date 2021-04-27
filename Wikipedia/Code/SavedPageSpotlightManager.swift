@@ -49,7 +49,7 @@ public class WMFSavedPageSpotlightManager: NSObject {
         }
     }
     
-    private func searchableItemAttribues(for article: WMFArticle) -> CSSearchableItemAttributeSet {
+    private func searchableItemAttributes(for article: WMFArticle) -> CSSearchableItemAttributeSet {
         let searchableItem = article.url?.searchableItemAttributes ??
                 CSSearchableItemAttributeSet(itemContentType: kUTTypeInternetLocation as String)
 
@@ -66,16 +66,25 @@ public class WMFSavedPageSpotlightManager: NSObject {
             return
         }
         
-        queue.async {
-            let searchableItemAttributes = self.searchableItemAttribues(for: article)
-            searchableItemAttributes.keywords?.append("Saved")
+        dataStore.viewContext.perform { [weak self] in
             
-            let item = CSSearchableItem(uniqueIdentifier: identifier, domainIdentifier: "org.wikimedia.wikipedia", attributeSet: searchableItemAttributes)
-            item.expirationDate = NSDate.distantFuture
+            guard let self = self else {
+                return
+            }
             
-            CSSearchableIndex.default().indexSearchableItems([item]) { (error) -> Void in
-                if let error = error {
-                    DDLogError("Indexing error: \(error.localizedDescription)")
+            let searchableItemAttributes = self.searchableItemAttributes(for: article)
+            
+            self.queue.async {
+                
+                searchableItemAttributes.keywords?.append("Saved")
+                
+                let item = CSSearchableItem(uniqueIdentifier: identifier, domainIdentifier: "org.wikimedia.wikipedia", attributeSet: searchableItemAttributes)
+                item.expirationDate = NSDate.distantFuture
+                
+                CSSearchableIndex.default().indexSearchableItems([item]) { (error) -> Void in
+                    if let error = error {
+                        DDLogError("Indexing error: \(error.localizedDescription)")
+                    }
                 }
             }
         }
