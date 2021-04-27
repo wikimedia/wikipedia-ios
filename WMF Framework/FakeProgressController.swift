@@ -5,7 +5,7 @@ public protocol FakeProgressReceiving {
     func setProgress(_ progress: Float, animated: Bool)
 }
 
-public protocol FakeProgressDelegate: class {
+public protocol FakeProgressDelegate: AnyObject {
     func setProgressHidden(_ hidden: Bool, animated: Bool)
 }
 

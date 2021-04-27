@@ -7,7 +7,7 @@ enum ShortDescriptionControllerError: Error {
     case missingSelf
 }
 
-protocol ShortDescriptionControllerDelegate: class {
+protocol ShortDescriptionControllerDelegate: AnyObject {
     func currentDescription(completion: @escaping (String?) -> Void)
 }
 

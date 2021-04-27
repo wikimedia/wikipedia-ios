@@ -1,6 +1,6 @@
 import CocoaLumberjackSwift
 
-protocol SectionEditorViewControllerDelegate: class {
+protocol SectionEditorViewControllerDelegate: AnyObject {
     func sectionEditorDidCancelEditing(_ sectionEditor: SectionEditorViewController)
     func sectionEditorDidFinishEditing(_ sectionEditor: SectionEditorViewController, result: Result<SectionEditorChanges, Error>)
     func sectionEditorDidFinishLoadingWikitext(_ sectionEditor: SectionEditorViewController)

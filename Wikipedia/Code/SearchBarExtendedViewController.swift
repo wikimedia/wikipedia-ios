@@ -14,7 +14,7 @@ enum SearchBarExtendedViewButtonType {
     }
 }
 
-protocol SearchBarExtendedViewControllerDataSource: class {
+protocol SearchBarExtendedViewControllerDataSource: AnyObject {
     func returnKeyType(for searchBar: UISearchBar) -> UIReturnKeyType
     func placeholder(for searchBar: UISearchBar) -> String?
     func isSeparatorViewHidden(above searchBar: UISearchBar) -> Bool
@@ -22,7 +22,7 @@ protocol SearchBarExtendedViewControllerDataSource: class {
     func textStyle(for button: UIButton) -> DynamicTextStyle
 }
 
-protocol SearchBarExtendedViewControllerDelegate: class {
+protocol SearchBarExtendedViewControllerDelegate: AnyObject {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar)

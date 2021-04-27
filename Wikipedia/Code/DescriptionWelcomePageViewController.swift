@@ -6,7 +6,7 @@ enum DescriptionWelcomePageType {
     case exploration
 }
 
-public protocol DescriptionWelcomeNavigationDelegate: class{
+public protocol DescriptionWelcomeNavigationDelegate: AnyObject {
     func showNextWelcomePage(_ sender: AnyObject)
 }
 

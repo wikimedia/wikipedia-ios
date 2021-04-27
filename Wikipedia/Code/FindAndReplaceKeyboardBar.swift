@@ -1,7 +1,7 @@
 import UIKit
 
 @objc (WMFFindAndReplaceKeyboardBarDelegate)
-protocol FindAndReplaceKeyboardBarDelegate: class {
+protocol FindAndReplaceKeyboardBarDelegate: AnyObject {
     func keyboardBar(_ keyboardBar: FindAndReplaceKeyboardBar, didChangeSearchTerm searchTerm: String?)
     func keyboardBarDidTapClose(_ keyboardBar: FindAndReplaceKeyboardBar)
     func keyboardBarDidTapClear(_ keyboardBar: FindAndReplaceKeyboardBar)
@@ -11,7 +11,7 @@ protocol FindAndReplaceKeyboardBarDelegate: class {
     func keyboardBarDidTapReplace(_ keyboardBar: FindAndReplaceKeyboardBar, replaceText: String, replaceType: ReplaceType)
 }
 
-protocol FindAndReplaceKeyboardBarDisplayDelegate: class {
+protocol FindAndReplaceKeyboardBarDisplayDelegate: AnyObject {
     func keyboardBarDidTapReplaceSwitch(_ keyboardBar: FindAndReplaceKeyboardBar)
     func keyboardBarDidShow(_ keyboardBar: FindAndReplaceKeyboardBar)
     func keyboardBarDidHide(_ keyboardBar: FindAndReplaceKeyboardBar)

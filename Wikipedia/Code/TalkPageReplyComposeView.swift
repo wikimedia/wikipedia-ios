@@ -1,7 +1,7 @@
 
 import UIKit
 
-protocol TalkPageReplyComposeViewDelegate: class {
+protocol TalkPageReplyComposeViewDelegate: AnyObject {
     func composeTextDidChange(text: String?)
      var collectionViewFrame: CGRect { get }
 }

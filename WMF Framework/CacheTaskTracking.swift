@@ -9,7 +9,7 @@ struct IdentifiedTask {
 // TODO: less of a sledgehammer here
 let CacheTaskTrackingSemaphore = DispatchSemaphore(value: 1)
 
-protocol CacheTaskTracking: class {
+protocol CacheTaskTracking: AnyObject {
     var groupedTasks: [String: [IdentifiedTask]] { get set }
     func cancelAllTasks()
     func cancelTasks(for groupKey: String)

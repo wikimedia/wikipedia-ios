@@ -3,7 +3,7 @@ import UIKit
 import WMF
 
 @available(iOS 13.0, *)
-protocol ArticleAsLivingDocViewControllerDelegate: class {
+protocol ArticleAsLivingDocViewControllerDelegate: AnyObject {
     var articleAsLivingDocViewModel: ArticleAsLivingDocViewModel? { get }
     var articleURL: URL { get }
     var isFetchingAdditionalPages: Bool { get }
@@ -14,7 +14,7 @@ protocol ArticleAsLivingDocViewControllerDelegate: class {
     func livingDocViewWillPush()
 }
 
-protocol ArticleDetailsShowing: class {
+protocol ArticleDetailsShowing: AnyObject {
     func goToHistory()
     func goToDiff(revisionId: UInt, parentId: UInt, diffType: DiffContainerViewModel.DiffType)
     func showTalkPageWithSectionName(_ sectionName: String?)

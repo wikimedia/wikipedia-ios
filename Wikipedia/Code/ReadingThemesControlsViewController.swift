@@ -1,6 +1,6 @@
 import UIKit
 
-protocol WMFReadingThemesControlsViewControllerDelegate: class {
+protocol WMFReadingThemesControlsViewControllerDelegate: AnyObject {
     
     func fontSizeSliderValueChangedInController(_ controller: ReadingThemesControlsViewController, value: Int)
     func toggleSyntaxHighlighting(_ controller: ReadingThemesControlsViewController)

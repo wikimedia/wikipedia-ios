@@ -1,6 +1,6 @@
 import UIKit
 
-@objc protocol SearchLanguagesBarViewControllerDelegate: class {
+@objc protocol SearchLanguagesBarViewControllerDelegate: AnyObject {
     func searchLanguagesBarViewController(_ controller: SearchLanguagesBarViewController, didChangeCurrentlySelectedSearchLanguage language: MWKLanguageLink)
 }
 
