@@ -193,9 +193,12 @@ platform :ios do
   lane :tag_release do |options|
     if options[:build_tag].nil?
         latest_beta = get_latest_build_number()
+        sh "echo \'Using latest beta: #{latest_beta}\'"
         sh "git checkout betas/#{latest_beta}"
     else
-        sh "git checkout #{options[:build_tag]}"
+        specified_build = #{options[:build_tag]}
+        sh "echo \'Using specified build: #{specified_build}\'"
+        sh "git checkout #{specified_build}"
     end
     version = options[:version] || get_version_number_from_options(options)
     tag_name = "releases/#{version}"
