@@ -223,13 +223,12 @@ platform :ios do
     sh "xcodebuild -exportArchive -exportOptionsPlist ExportOptions.plist -archivePath \"#{build_dir}/#{product_name}.xcarchive\" -exportPath \"#{build_dir}\""
   end
 
-  desc "Pushes both the production and staging apps to TestFlight and tags the release. Only releases to internal testers."
+  desc "Pushes the production app to TestFlight and tags the release. Only releases to internal testers."
   lane :deploy do |options|
     tag_prefix = "betas"
     build = options[:build] || get_latest_build_number(prefix: tag_prefix) + 1
     push_production(build: build)
     tag(prefix: tag_prefix, build_number: build)
-    push_staging(build: build)
   end
 
   desc "updates version, builds, and pushes the production build to TestFlight. Only releases to internal testers."

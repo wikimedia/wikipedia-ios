@@ -21,7 +21,6 @@
 // Author: Дар'я Козлова
 
 "aaald-added-text-description-2" = "$1 додано";
-// Fuzzy
 "aaald-article-description-updated-description" = "Опис заголовку статті оновлено";
 "aaald-article-insert-header" = "Важливі оновлення";
 "aaald-article-insert-last-updated" = "Останнє оновлення";
@@ -173,6 +172,7 @@
 "button-skip" = "Пропустити";
 "cancel" = "Скасувати";
 "cc-zero" = "Creative Commons CC0";
+"chinese-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти китайської мови як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\n简体 китайська, спрощена (zh-hans)\n香港繁體 гонконзька традиційна (zh-hk)\n澳門繁體 макауська традиційна (zh-mo)\n大马简体 малайзійська спрощена (zh-my)\n新加坡简体 сінгапурська спрощена (zh-sg)\n臺灣正體 тайванська традиційна (zh-tw)";
 "chinese-variants-alert-title" = "Оновлення щодо підтримки варіантів китайської";
 "clear-title-accessibility-label" = "Очистити";
 "close-button-accessibility-label" = "Закрити";
@@ -183,36 +183,30 @@
 "crimean-tatar-variants-alert-title" = "Оновлення щодо підтримки варіантів кримськотатарської";
 "data-migration-status" = "Оновлення…";
 "description-add-title" = "Додати опис";
-// Fuzzy
-"description-edit-for-article" = "Короткий опис «$1»";
+"description-edit-for-article" = "Опис статті «$1»";
 "description-edit-learn-more" = "Дізнатися більше";
 "description-edit-length-warning" = "$1 / $2";
-// Fuzzy
-"description-edit-license" = "Змінюючи опис назви, я погоджуюся на $1 та безвідклично публікую свій внесок за ліцензією $2.";
+"description-edit-license" = "Змінюючи опис назви, я погоджуюся із $1 та безвідклично публікую свій внесок за ліцензією $2.";
 "description-edit-pencil-introduction" = "Редагувати вступ";
-// Fuzzy
-"description-edit-pencil-title" = "Редагувати опис назви";
+"description-edit-pencil-title" = "Редагувати опис статті";
 "description-edit-placeholder-title" = "Найкращі — короткі описи";
 "description-edit-publish" = "Опублікувати опис";
 "description-edit-title" = "Редагувати опис";
 "description-edit-warning" = "Намагайтеся обмежувати обсяг описів, щоб користувачі могли зрозуміти предмет статті з одного погляду";
-// Fuzzy
-"description-help-about-description" = "Описи допомагають читачам зрозуміти предмет статті з першого погляду, підсумовуючи вміст статті";
+"description-edit-warning-casing" = "Тільки власні назви пишуться з великої літери, навіть на початку речення.";
+"description-help-about-description" = "Описи статей допомагають читачам зрозуміти їхній предмет з першого погляду, підсумовуючи вміст статті";
 "description-help-about-title" = "Про";
 "description-help-about-wikidata" = "Про Вікідані";
 "description-help-more-info-description" = "Описи зберігаються та обслуговуються на Вікіданих — проекті Фонду Вікімедіа, який слугує вільною, спільною, багатомовною, допоміжною базою даних, яка підтримує Вікіпедію та інші проекти.";
 "description-help-more-info-title" = "Більше інформації";
 "description-help-tips-description" = "В ідеалі описи мають бути не більшими як один рядок, і мають містити від двох до дванадцяти слів. Велика літера на початку використовується лише в разі, якщо перше слово є власною назвою.";
-// Fuzzy
 "description-help-tips-example-description-one" = "опис статті про Мону Лізу";
-// Fuzzy
-"description-help-tips-example-description-two" = "опис статті про Еверест";
+"description-help-tips-example-description-two" = "опис статті про гору Еверест";
 "description-help-tips-example-title-one" = "картина Леонардо да Вінчі";
 "description-help-tips-example-title-two" = "найвища гора на Землі";
 "description-help-tips-for-example" = "Наприклад:";
 "description-help-tips-title" = "Поради зі створення описів";
-// Fuzzy
-"description-help-title" = "Допомога зі створення описів";
+"description-help-title" = "Допомога зі створення описів статей";
 "description-help-wikidata-guide" = "Довідка Вікіданих зі створення описів";
 "description-published-button-title" = "Готово";
 "description-published-footer" = "У цьому додатку ви також можете редагувати статті. Натисніть на іконку із зображенням ручки, аби виправити описки та невеликі речення";
@@ -221,8 +215,7 @@
 "description-welcome-concise-sub-title" = "В ідеалі один рядок від двох до дванадцяти слів";
 "description-welcome-concise-title" = "Будь ласка, коротше";
 "description-welcome-descriptions-sub-title" = "Підсумовує вміст статті, щоб допомогти читачам зрозуміти предмет статті з першого погляду";
-// Fuzzy
-"description-welcome-descriptions-title" = "Описи назв";
+"description-welcome-descriptions-title" = "Описи статей";
 "description-welcome-promise-title" = "Розпочинаючи використання, я обіцяю не зловживати цією можливістю";
 "description-welcome-start-editing-button" = "Почати редагування";
 "diff-compare-header-from-info-heading" = "Від:";
@@ -464,6 +457,7 @@
 "forgot-password-instructions" = "Заповніть одне з полів нижче, щоб отримати на скриньку електронної пошти інструкції щодо скидання пароля";
 "forgot-password-title" = "Скинути пароль";
 "forgot-password-username-or-email-title" = "Або";
+"gan-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти мови ґань як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\n贛語 原文 ґань (gan)\n赣语 简体 ґань, спрощена (gan-hans)\n贛語 繁體 ґань, традиційна (gan-hant)";
 "gan-variants-alert-title" = "Оновлення щодо підтримки варіантів ґань";
 "history-clear-all" = "Очистити";
 "history-clear-cancel" = "Скасувати";
@@ -526,8 +520,11 @@
 "intermediate-edits-editors-count-limited" = "Не показано $1+ проміжних версій $2+ користувачів";
 "intermediate-edits-editors-limited-count" = "Не {{PLURAL:$1|показано $1 проміжну версію|показані $1 проміжні версії|показано $1 проміжних версій}} $2+ користувачів";
 "intermediate-edits-limited-editors-count" = "Не показано $1+ проміжних версій {{PLURAL:$2|$2 користувача|$2 користувачів}}";
+"inuktitut-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти мови інуктитут як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ інуктитут, складове письмо (ike-cans)\nInuktitut ilisautik, інуктитут, латинка (ike-latn)";
 "inuktitut-variants-alert-title" = "Оновлення щодо підтримки варіантів інуктитуту";
+"kazakh-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти казахської мови як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\nҚазақша казахська (kk)\nҚазақша Кирил казахська, кирилиця (kk-cyrl)\nqazaqşa latin казахська, латинка (kk-latn)\nتوتە قازاقشا казахська, арабиця (kk-arab)";
 "kazakh-variants-alert-title" = "Оновлення щодо підтримки варіантів казахської";
+"kurdish-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти курдської мови як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\nKurdî Latînî курдська, латинка (ku-latn)\nكوردی курдська, арабиця (kk-arab)";
 "kurdish-variants-alert-title" = "Оновлення щодо підтримки варіантів курдської";
 "languages-settings-title" = "Мови";
 "languages-title" = "Змінити мову";
@@ -776,6 +773,7 @@
 "search-recent-title" = "Недавні пошуки";
 "search-result-redirected-from" = "Перенаправлено з: $1";
 "search-title" = "Пошук";
+"serbian-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти сербської мови як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\nсрпски ћирилица сербська, кирилиця (sr-ec)\nsrpski latinica сербська, латинка (sr-el)";
 "serbian-variants-alert-title" = "Оновлення щодо підтримки варіантів сербської";
 "settings-account" = "Обліковий запис";
 "settings-appearance" = "Зовнішній вигляд";
@@ -835,7 +833,9 @@
 "table-of-contents-heading" = "Вміст";
 "table-of-contents-hide-button-label" = "Приховати вміст";
 "table-of-contents-subheading-label" = "Підзаголовок $1";
+"tachelhit-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти мови ташельхіт як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\nⵜⴰⵛⵍⵃⵉⵜ ташельхіт, тифінаг (shi-tfng)\nTaclḥit ташельхіт, латинка (shi-latn)";
 "tachelhit-variants-alert-title" = "Оновлення щодо підтримки варіантів ташельхіт";
+"tajik-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти таджицької мови як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\nтоҷикӣ кирилликӣ таджицька, кирилиця (tg-cyrl)\ntojikī lotinī таджицька, латинка (tg-latn)";
 "tajik-variants-alert-title" = "Оновлення щодо підтримки варіантів таджицької";
 "talk-page-add-discussion-accessibility-label" = "Додати обговорення";
 "talk-page-discussion-accessibility-hint" = "Натисніть двічі, щоб відкрити гілку обговорення";
@@ -884,6 +884,7 @@
 "two-factor-login-with-regular-code" = "Використати код верифікації";
 "unable-to-load-talk-page-title" = "Неможливо завантажити сторінку обговорення";
 "unknown-generic-text" = "Невідомо";
+"uzbek-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти узбецької мови як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\noʻzbekcha lotin узбецька, латинка (uz-latin)\nўзбекча кирилл узбецька, кирилиця (uz-cyrl)";
 "uzbek-variants-alert-title" = "Оновлення щодо підтримки варіантів узбецької";
 "variants-alert-dismiss-button" = "Ні, дякую";
 "variants-alert-preferences-button" = "Переглянути свої налаштування";

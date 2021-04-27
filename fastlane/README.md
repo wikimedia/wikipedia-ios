@@ -85,22 +85,22 @@ Add a release tag for the latest beta and push to repo.
 ```
 fastlane ios tag_release
 ```
-Add a tag for the current version number push to repo.
+Add a release tag for the latest beta and push to repo.
 ### ios build
 ```
 fastlane ios build
 ```
-Build the app for distibution
+Build the app for distribution
 ### ios deploy
 ```
 fastlane ios deploy
 ```
-Pushes both the production and staging apps to TestFlight and tags the release. Only releases to internal testers.
+Pushes the production app to TestFlight and tags the release. Only releases to internal testers. (This is very similar to `push_production`, although this command also tags the build in git.)
 ### ios push_production
 ```
 fastlane ios push_production
 ```
-updates version, builds, and pushes the production build to TestFlight. Only releases to internal testers.
+Updates version, builds, and pushes the production build to TestFlight. Only releases to internal testers.
 ### ios push_staging
 ```
 fastlane ios push_staging
