@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MTLJSONAdapter (LanguageVariantExtensions)
 /// Allows creation of a model instance from a JSONDictionary that propagates the provided language variant code through the created instance and its graph of subelements
-+ (id)modelOfClass:(Class)modelClass fromJSONDictionary:(NSDictionary *)JSONDictionary languageVariantCode:(nullable NSString *)languageVariantCode error:(NSError **)error;
++ (nullable id)modelOfClass:(Class)modelClass fromJSONDictionary:(NSDictionary *)JSONDictionary languageVariantCode:(nullable NSString *)languageVariantCode error:(NSError **)error;
 
 /// Allows creation of an array of model instances from a JSONDictionary that propagates the provided language variant code through each created instance and its graph of subelements
 + (NSArray *)modelsOfClass:(Class)modelClass fromJSONArray:(NSArray *)JSONArray languageVariantCode:(nullable NSString *)languageVariantCode error:(NSError **)error;

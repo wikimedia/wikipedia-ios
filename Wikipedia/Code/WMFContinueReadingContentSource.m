@@ -32,18 +32,20 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 60 * 60 * 2
 }
 
 - (void)loadNewContentInManagedObjectContext:(NSManagedObjectContext *)moc force:(BOOL)force completion:(nullable dispatch_block_t)completion {
-    NSURL *lastRead = [moc wmf_openArticleURL] ?: moc.mostRecentlyReadArticle.URL;
-
-    if (!lastRead) {
-        completion();
-        return;
-    }
-
-    NSDate *resignActiveDate = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
-
-    BOOL shouldShowContinueReading = fabs([resignActiveDate timeIntervalSinceNow]) >= WMFTimeBeforeDisplayingLastReadArticle || force;
 
     [moc performBlock:^{
+        
+        NSURL *lastRead = [moc wmf_openArticleURL] ?: moc.mostRecentlyReadArticle.URL;
+
+        if (!lastRead) {
+            completion();
+            return;
+        }
+
+        NSDate *resignActiveDate = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
+
+        BOOL shouldShowContinueReading = fabs([resignActiveDate timeIntervalSinceNow]) >= WMFTimeBeforeDisplayingLastReadArticle || force;
+        
         NSArray<WMFContentGroup *> *groups = [moc contentGroupsOfKind:WMFContentGroupKindContinueReading];
         if (!shouldShowContinueReading) {
             if (groups.count > 0) {

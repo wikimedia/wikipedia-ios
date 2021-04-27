@@ -852,7 +852,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     }
     [moc wmf_setValue:migratedPreferences forKey:WMFExploreFeedPreferencesKey];
     [self save:moc];
-    NSDictionary *preferences = (NSDictionary *)[moc wmf_keyValueForKey:WMFExploreFeedPreferencesKey].value;
+    __unused NSDictionary *preferences = (NSDictionary *)[moc wmf_keyValueForKey:WMFExploreFeedPreferencesKey].value;
     assert(preferences);
 }
 
