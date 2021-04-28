@@ -155,7 +155,8 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
     }
     
     var selectedSiteURL: URL? {
-        NSURL.wmf_URL(withDefaultSiteAndContentLanguageCode: selectedSearchContentLanguageCode)
+        let selectedLanguageLink = languageBarLanguages().first { $0.contentLanguageCode == selectedSearchContentLanguageCode }
+        return selectedLanguageLink?.siteURL
     }
 
     override func viewDidLoad() {
