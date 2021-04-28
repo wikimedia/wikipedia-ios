@@ -96,16 +96,17 @@ class SearchResultsViewController: ArticleCollectionViewController {
             return
         }
         let result = results[indexPath.item]
-        guard let language = searchSiteURL?.wmf_languageCode else {
+        guard let languageCode = searchSiteURL?.wmf_languageCode,
+              let contentLanguageCode = searchSiteURL?.wmf_contentLanguageCode else {
             return
         }
         cell.configureForCompactList(at: indexPath.item)
         cell.setTitleHTML(result.displayTitleHTML, boldedString: resultsInfo?.searchTerm)
        
-        cell.articleSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: language)
-        cell.titleLabel.accessibilityLanguage = language
+        cell.articleSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: contentLanguageCode)
+        cell.titleLabel.accessibilityLanguage = languageCode
         cell.descriptionLabel.text = descriptionForSearchResult(result)
-        cell.descriptionLabel.accessibilityLanguage = language
+        cell.descriptionLabel.accessibilityLanguage = languageCode
         if layoutOnly {
             cell.isImageViewHidden = result.thumbnailURL != nil
         } else {
