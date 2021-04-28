@@ -218,7 +218,8 @@ private extension SavedArticlesFetcher {
             
             if let articleToDelete = articleToDelete {
                 
-                guard let articleKey = articleToDelete.key else {
+                guard let articleKey = articleToDelete.key,
+                      let articleURL = articleToDelete.url else {
                     noArticleToDeleteCompletion()
                     return
                 }
@@ -237,6 +238,7 @@ private extension SavedArticlesFetcher {
                         switch groupResult {
                         case .success:
                             DDLogInfo("Successfully removed all items for \(articleKey)")
+                            self.spotlightManager.removeFromIndex(url: articleURL as NSURL)
                         case .failure(let error):
                             DDLogError("Failed removing items for \(articleKey): \(error)")
                             break
