@@ -23,23 +23,6 @@ NSString *const WMFEditPencil = @"WMFEditPencil";
     return [self wmf_URLWithDomain:WMFConfiguration.current.defaultSiteDomain languageCode:languageCode];
 }
 
-+ (NSURL *)wmf_URLWithDefaultSiteAndContentLanguageCode:(nullable NSString *)contentLangaugeCode {
-    if (!contentLangaugeCode) return nil;
-    NSString *languageCode = nil;
-    NSString *languageVariantCode = nil;
-    if ([contentLangaugeCode containsString:@"-"]) {
-        NSArray *components = [contentLangaugeCode componentsSeparatedByString:@"-"];
-        languageCode = components.firstObject;
-        languageVariantCode = contentLangaugeCode;
-    } else {
-        languageCode = contentLangaugeCode;
-    }
-    if (!languageCode) return nil;
-    NSURL *url = [self wmf_URLWithDefaultSiteAndLanguageCode:languageCode];
-    url.wmf_languageVariantCode = languageVariantCode;
-    return url;
-}
-
 + (NSURL *)wmf_URLWithDefaultSiteAndLocale:(NSLocale *)locale {
     return [self wmf_URLWithDomain:WMFConfiguration.current.defaultSiteDomain languageCode:[locale objectForKey:NSLocaleLanguageCode]];
 }

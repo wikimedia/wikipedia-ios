@@ -24,16 +24,6 @@ extern NSString *const WMFEditPencil;
  **/
 + (nullable NSURL *)wmf_URLWithDefaultSiteAndLanguageCode:(nullable NSString *)languageCode;
 
-/**
- * Initialize a new URL with the default Site domain -wikipedia.org - and `contentLanguageCode`.
- * If contentLanguageCode is a language variant code, the returned URL will have its wmf_languageVariantCode property property set.
- *
- * @param contentLanguageCode An optional content language code, which represents either a wikipedia language code or a language variant code
- *
- * @return A new URL with the default domain and language code. If a nil contentLanguageCode is provided, a nil value is returned.
- **/
-+ (nullable NSURL *)wmf_URLWithDefaultSiteAndContentLanguageCode:(nullable NSString *)contentLangaugeCode;
-
 /// @return A URL with the default domain and the language code returned by @c locale.
 + (nullable NSURL *)wmf_URLWithDefaultSiteAndLocale:(NSLocale *)locale;
 
