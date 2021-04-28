@@ -1,7 +1,7 @@
 
 import UIKit
 
-protocol DiffToolbarViewDelegate: class {
+protocol DiffToolbarViewDelegate: AnyObject {
     func tappedPrevious()
     func tappedNext()
     func tappedShare(_ sender: UIBarButtonItem)

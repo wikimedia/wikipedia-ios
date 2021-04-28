@@ -1,8 +1,8 @@
-protocol SectionEditorMenuItemsDataSource: class {
+protocol SectionEditorMenuItemsDataSource: AnyObject {
     var availableMenuActions: [Selector] { get }
 }
 
-protocol SectionEditorMenuItemsDelegate: class {
+protocol SectionEditorMenuItemsDelegate: AnyObject {
     func sectionEditorWebViewDidTapSelectAll(_ sectionEditorWebView: SectionEditorWebView)
     func sectionEditorWebViewDidTapBoldface(_ sectionEditorWebView: SectionEditorWebView)
     func sectionEditorWebViewDidTapItalics(_ sectionEditorWebView: SectionEditorWebView)

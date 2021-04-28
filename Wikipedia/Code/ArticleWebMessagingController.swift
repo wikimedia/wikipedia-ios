@@ -2,7 +2,7 @@
 import Foundation
 import CocoaLumberjackSwift
 
-protocol ArticleWebMessageHandling: class {
+protocol ArticleWebMessageHandling: AnyObject {
     func didRecieve(action: ArticleWebMessagingController.Action)
 }
 

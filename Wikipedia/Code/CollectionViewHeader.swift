@@ -1,6 +1,6 @@
 import UIKit
 
-protocol CollectionViewHeaderDelegate: class {
+protocol CollectionViewHeaderDelegate: AnyObject {
     func collectionViewHeaderButtonWasPressed(_ collectionViewHeader: CollectionViewHeader)
 }
 

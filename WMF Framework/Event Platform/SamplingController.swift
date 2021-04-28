@@ -1,7 +1,7 @@
 import Foundation
 import CocoaLumberjackSwift
 
-protocol SamplingControllerDelegate: class {
+protocol SamplingControllerDelegate: AnyObject {
     var sessionID: String { get }
 }
 

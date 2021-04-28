@@ -1,7 +1,7 @@
 import UIKit
 import WMF
 
-protocol DescriptionEditViewControllerDelegate: class {
+protocol DescriptionEditViewControllerDelegate: AnyObject {
     func descriptionEditViewControllerEditSucceeded(_ descriptionEditViewController: DescriptionEditViewController, result: ArticleDescriptionPublishResult)
 }
 

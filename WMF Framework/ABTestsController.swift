@@ -2,7 +2,7 @@
 
 import Foundation
 
-@objc public protocol ABTestsPersisting: class {
+@objc public protocol ABTestsPersisting: AnyObject {
     func libraryValue(for key: String) -> NSCoding?
     func setLibraryValue(_ value: NSCoding?, for key: String)
 }

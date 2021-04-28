@@ -1,7 +1,7 @@
 
 import UIKit
 
-protocol DiffListContextCellDelegate: class {
+protocol DiffListContextCellDelegate: AnyObject {
     func didTapContextExpand(indexPath: IndexPath)
 }
 

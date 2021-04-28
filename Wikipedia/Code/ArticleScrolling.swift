@@ -1,6 +1,6 @@
 import Foundation
 
-protocol ArticleScrolling: class {
+protocol ArticleScrolling: AnyObject {
     /// Used to wait for the callback that the anchor is ready for scrollin'
     typealias ScrollToAnchorCompletion = (_ anchor: String, _ rect: CGRect) -> Void
 

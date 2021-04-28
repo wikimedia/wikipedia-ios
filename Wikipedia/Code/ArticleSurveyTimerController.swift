@@ -1,6 +1,6 @@
 import Foundation
 
-protocol ArticleSurveyTimerControllerDelegate: class {
+protocol ArticleSurveyTimerControllerDelegate: AnyObject {
     var isInValidSurveyCampaignAndArticleList: Bool { get }
     var shouldAttemptToShowArticleAsLivingDoc: Bool { get }
     var shouldShowArticleAsLivingDoc: Bool { get }

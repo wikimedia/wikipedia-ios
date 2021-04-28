@@ -24,7 +24,7 @@ extension LocationManagerConfiguration {
 
 // MARK: - LocationManagerDelegate
 
-@objc public protocol LocationManagerDelegate: class {
+@objc public protocol LocationManagerDelegate: AnyObject {
     @objc(locationManager:didUpdateLocation:) optional
     func locationManager(_ locationManager: LocationManagerProtocol, didUpdate location: CLLocation)
     @objc(locationManager:didUpdateHeading:) optional

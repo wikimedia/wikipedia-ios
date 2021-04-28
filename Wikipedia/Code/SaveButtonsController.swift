@@ -1,6 +1,6 @@
 import UIKit
 
-public protocol SaveButtonsControllerDelegate: class {
+public protocol SaveButtonsControllerDelegate: AnyObject {
     func didSaveArticle(_ saveButton: SaveButton?, didSave: Bool, article: WMFArticle, userInfo: Any?)
     func willUnsaveArticle(_ article: WMFArticle, userInfo: Any?)
     func showAddArticlesToReadingListViewController(for article: WMFArticle)
