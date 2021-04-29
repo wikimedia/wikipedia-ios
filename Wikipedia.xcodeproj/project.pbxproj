@@ -9368,7 +9368,7 @@
 				);
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 1200;
-				LastUpgradeCheck = 1240;
+				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = "Wikimedia Foundation";
 				TargetAttributes = {
 					00021DE024D48EFD00476F97 = {

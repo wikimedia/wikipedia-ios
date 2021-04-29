@@ -4,7 +4,7 @@ import UIKit
 import CocoaLumberjackSwift
 import WMF
 
-protocol ArticleAsLivingDocControllerDelegate: class {
+protocol ArticleAsLivingDocControllerDelegate: AnyObject {
     var articleURL: URL { get }
     var article: WMFArticle { get }
     var messagingController: ArticleWebMessagingController { get }

@@ -1,7 +1,7 @@
 
 import UIKit
 
-protocol DiffListDelegate: class {
+protocol DiffListDelegate: AnyObject {
     func diffListScrollViewDidScroll(_ scrollView: UIScrollView)
 }
 

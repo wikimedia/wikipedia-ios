@@ -1,7 +1,7 @@
 
 import UIKit
 
-protocol TalkPageHeaderViewDelegate: class {
+protocol TalkPageHeaderViewDelegate: AnyObject {
     func tappedLink(_ url: URL, headerView: TalkPageHeaderView, sourceView: UIView, sourceRect: CGRect?)
     func tappedIntro(headerView: TalkPageHeaderView)
 }

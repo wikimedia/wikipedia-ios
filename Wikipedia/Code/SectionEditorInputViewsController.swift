@@ -1,4 +1,4 @@
-protocol SectionEditorInputViewsSource: class {
+protocol SectionEditorInputViewsSource: AnyObject {
     var inputViewController: UIInputViewController? { get }
 }
 

@@ -1,7 +1,7 @@
 
 import UIKit
 
-protocol TalkPageReplyCellDelegate: class {
+protocol TalkPageReplyCellDelegate: AnyObject {
     func tappedLink(_ url: URL, cell: TalkPageReplyCell, sourceView: UIView, sourceRect: CGRect?)
 }
 

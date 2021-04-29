@@ -1,7 +1,7 @@
 
 import UIKit
 
-protocol DiffListChangeCellDelegate: class {
+protocol DiffListChangeCellDelegate: AnyObject {
     func didTapItem(item: DiffListChangeItemViewModel)
 }
 

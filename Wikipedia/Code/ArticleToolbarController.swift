@@ -1,7 +1,7 @@
 
 import UIKit
 
-protocol ArticleToolbarHandling: class {
+protocol ArticleToolbarHandling: AnyObject {
     func toggleSave(from controller: ArticleToolbarController)
     func saveButtonWasLongPressed(from controller: ArticleToolbarController)
     func showThemePopover(from controller: ArticleToolbarController)

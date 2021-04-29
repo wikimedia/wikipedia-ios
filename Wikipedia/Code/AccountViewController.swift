@@ -2,7 +2,7 @@
 import UIKit
 
 @objc(WMFAccountViewControllerDelegate)
-protocol AccountViewControllerDelegate: class {
+protocol AccountViewControllerDelegate: AnyObject {
     func accountViewControllerDidTapLogout(_ accountViewController: AccountViewController)
 }
 

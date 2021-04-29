@@ -2,7 +2,7 @@
 import UIKit
 import CocoaLumberjackSwift
 
-protocol TalkPageReplyListViewControllerDelegate: class {
+protocol TalkPageReplyListViewControllerDelegate: AnyObject {
     func tappedLink(_ url: URL, viewController: TalkPageReplyListViewController, sourceView: UIView, sourceRect: CGRect?)
     func tappedPublish(topic: TalkPageTopic, composeText: String, viewController: TalkPageReplyListViewController)
     func didTriggerRefresh(viewController: TalkPageReplyListViewController)

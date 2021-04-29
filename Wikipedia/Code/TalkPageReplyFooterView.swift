@@ -1,7 +1,7 @@
 
 import UIKit
 
-protocol ReplyButtonFooterViewDelegate: class {
+protocol ReplyButtonFooterViewDelegate: AnyObject {
     func tappedReply(from view: TalkPageReplyFooterView)
     func composeTextDidChange(text: String?)
     var collectionViewFrame: CGRect { get }

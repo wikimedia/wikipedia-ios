@@ -1,4 +1,4 @@
-protocol TextFormattingProviding: class {
+protocol TextFormattingProviding: AnyObject {
     var delegate: TextFormattingDelegate? { get set }
 }
 
@@ -23,7 +23,7 @@ extension TextFormattingButtonsProviding {
         buttons.lazy.forEach { $0.isSelected = false }
     }
 }
-protocol TextFormattingDelegate: class {
+protocol TextFormattingDelegate: AnyObject {
     func textFormattingProvidingDidTapClose()
     func textFormattingProvidingDidTapHeading(depth: Int)
     func textFormattingProvidingDidTapBold()

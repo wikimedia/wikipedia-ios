@@ -1,7 +1,7 @@
 
 import UIKit
 
-protocol DiffHeaderActionDelegate: class {
+protocol DiffHeaderActionDelegate: AnyObject {
     func tappedUsername(username: String)
     func tappedRevision(revisionID: Int)
 }
