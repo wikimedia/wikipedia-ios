@@ -10,7 +10,7 @@
 "aaald-article-insert-header" = "Pomembne posodobitve";
 "aaald-article-insert-last-updated" = "Zadnja posodobitev";
 "aaald-article-insert-new-changes" = "Nove spremembe";
-"aaald-article-insert-read-more" = "Preberite več posodobitev";
+"aaald-article-insert-read-more" = "Preberi več posodobitev";
 "aaald-characters-text-description" = "{{PLURAL:$1|0=znakov|one=znak|two=znaka|few=znaki|znakov}}";
 "aaald-deleted-text-description-2" = "$1 izbrisano";
 "aaald-error-subitle" = "Osvežite za ponovni poskus";
@@ -115,7 +115,7 @@
 "article-languages-label" = "Izberite jezik";
 "article-languages-others" = "Drugi jeziki";
 "article-languages-yours" = "Vaši jeziki";
-"article-read-more-title" = "Preberite še kaj";
+"article-read-more-title" = "Preberi še kaj";
 "article-share" = "Deli";
 "back-button-accessibility-label" = "Nazaj";
 "back-button-popover-title" = "Tapnite, da se vrnete nazaj";
