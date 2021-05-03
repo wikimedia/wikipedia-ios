@@ -647,6 +647,11 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     return languagesVC;
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.hideLanguageFilter = YES;
+}
+
 #pragma mark - Getters & Setters
 
 - (void)setArticleURL:(NSURL *)articleURL {
@@ -678,6 +683,13 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     [self.titleLanguageController
         fetchLanguagesWithSuccess:^{
             @strongify(self)
+                if (self.titleLanguageController.allLanguages.count == 0) {
+                    [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoOtherArticleLanguages theme:self.theme frame:self.view.bounds];
+                    self.hideLanguageFilter = YES;
+                } else {
+                    [self wmf_hideEmptyView];
+                    self.hideLanguageFilter = NO;
+                }
                 [self reloadDataSections];
         }
         failure:^(NSError *__nonnull error) {
