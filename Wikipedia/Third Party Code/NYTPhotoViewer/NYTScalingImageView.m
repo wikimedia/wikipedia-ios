@@ -123,11 +123,7 @@
 }
 
 - (void)updateZoomScale {
-#ifdef ANIMATED_GIF_SUPPORT
     if (self.imageView.animatedImage || self.imageView.image) {
-#else
-    if (self.imageView.image) {
-#endif
         CGRect scrollViewFrame = self.bounds;
         
         CGFloat scaleWidth = scrollViewFrame.size.width / self.imageView.image.size.width;
