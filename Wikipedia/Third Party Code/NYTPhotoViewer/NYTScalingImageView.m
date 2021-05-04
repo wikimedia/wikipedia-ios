@@ -10,19 +10,14 @@
 
 #import "tgmath.h"
 
-#ifdef ANIMATED_GIF_SUPPORT
-#import <FLAnimatedImage/FLAnimatedImage.h>
-#endif
+#import "FLAnimatedImage.h"
 
 @interface NYTScalingImageView ()
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
 
-#ifdef ANIMATED_GIF_SUPPORT
 @property (nonatomic) FLAnimatedImageView *imageView;
-#else
-@property (nonatomic) UIImageView *imageView;
-#endif
+
 @end
 
 @implementation NYTScalingImageView
@@ -87,11 +82,7 @@
 - (void)setupInternalImageViewWithImage:(UIImage *)image imageData:(NSData *)imageData {
     UIImage *imageToUse = image ?: [UIImage imageWithData:imageData];
 
-#ifdef ANIMATED_GIF_SUPPORT
     self.imageView = [[FLAnimatedImageView alloc] initWithImage:imageToUse];
-#else
-    self.imageView = [[UIImageView alloc] initWithImage:imageToUse];
-#endif
     [self updateImage:imageToUse imageData:imageData];
     
     [self addSubview:self.imageView];
@@ -106,25 +97,15 @@
 }
 
 - (void)updateImage:(UIImage *)image imageData:(NSData *)imageData {
-#ifdef DEBUG
-#ifndef ANIMATED_GIF_SUPPORT
-    if (imageData != nil) {
-        NSLog(@"[NYTPhotoViewer] Warning! You're providing imageData for a photo, but NYTPhotoViewer was compiled without animated GIF support. You should use native UIImages for non-animated photos. See the NYTPhoto protocol documentation for discussion.");
-    }
-#endif // ANIMATED_GIF_SUPPORT
-#endif // DEBUG
-
     UIImage *imageToUse = image ?: [UIImage imageWithData:imageData];
 
     // Remove any transform currently applied by the scroll view zooming.
     self.imageView.transform = CGAffineTransformIdentity;
     self.imageView.image = imageToUse;
     
-#ifdef ANIMATED_GIF_SUPPORT
     // It's necessarry to first assign the UIImage so calulations for layout go right (see above)
     self.imageView.animatedImage = [[FLAnimatedImage alloc] initWithAnimatedGIFData:imageData];
-#endif
-    
+
     self.imageView.frame = CGRectMake(0, 0, imageToUse.size.width, imageToUse.size.height);
     
     self.contentSize = imageToUse.size;
@@ -142,11 +123,7 @@
 }
 
 - (void)updateZoomScale {
-#ifdef ANIMATED_GIF_SUPPORT
     if (self.imageView.animatedImage || self.imageView.image) {
-#else
-    if (self.imageView.image) {
-#endif
         CGRect scrollViewFrame = self.bounds;
         
         CGFloat scaleWidth = scrollViewFrame.size.width / self.imageView.image.size.width;

@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  The image data to display.
  *  
- *  This property's value, if non-`nil`, is preferred over `-image`. This allows clients to provide image data for FLAnimatedImage when the library is compiled with `ANIMATED_GIF_SUPPORT` defined.
+ *  This property's value, if non-`nil`, is preferred over `-image`. This allows clients to provide image data for FLAnimatedImage.
  *
  *  Note that if you're working with a non-animated image, using a native `UIImage` will provide better performance. Therefore, it is recommended to return `nil` from this property unless this photo is an animated GIF.
  */

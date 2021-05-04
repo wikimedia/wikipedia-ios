@@ -10,9 +10,7 @@
 #import "NYTPhoto.h"
 #import "NYTScalingImageView.h"
 
-#ifdef ANIMATED_GIF_SUPPORT
-#import <FLAnimatedImage/FLAnimatedImage.h>
-#endif
+#import "FLAnimatedImage.h"
 
 NSString * const NYTPhotoViewControllerPhotoImageUpdatedNotification = @"NYTPhotoViewControllerPhotoImageUpdatedNotification";
 
