@@ -1,4 +1,4 @@
-protocol Collection: class {
+protocol Collection: AnyObject {
     var collectionView: UICollectionView { get set }
 }
 

@@ -23,7 +23,7 @@ private class CardBackgroundView: UIView {
     }
 }
 
-public protocol ExploreCardCollectionViewCellDelegate: class {
+public protocol ExploreCardCollectionViewCellDelegate: AnyObject {
     func exploreCardCollectionViewCellWantsCustomization(_ cell: ExploreCardCollectionViewCell)
     func exploreCardCollectionViewCellWantsToUndoCustomization(_ cell: ExploreCardCollectionViewCell)
 }

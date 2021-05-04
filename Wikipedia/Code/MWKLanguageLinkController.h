@@ -84,7 +84,22 @@ typedef NS_ENUM(NSInteger, WMFPreferredLanguagesChangeType) {
  */
 - (nullable NSString *)preferredLanguageVariantCodeForLanguageCode:(nullable NSString *)languageCode;
 
-- (nullable MWKLanguageLink *)languageForContentLanguageCode:(NSString *)contentLanguageCode;
+/**
+ *  Given an ISO language code, returns the correct Wikipedia language code for use in the app.
+ *
+ *  Used when creating article language links to use the correct Wikipedia language code for
+ *  use within the app when the returned ISO language code is different.
+ *
+ *  For example, the language links service returns 'nb' as the language code for Norwegian.
+ *  Within the app and in querying Norwegian Wikipedia, the code 'no' should be used.
+ *
+ *  For languages with an altISOCode value, returns the languageCode for the corresopnding altISOCode.
+ *  For all other values returns the same value passed in without validating if it is a valid ISO language code.
+ *  Returns nil for a nil ISO language code.
+ *  @param isoLanguageCode an ISO language code
+ *  @return The Wikipedia languageCode for the ISO language code. Usually the same value except for languages with an altISOCode.
+ */
++ (nullable NSString *)languageCodeForISOLanguageCode:(nullable NSString *)isoLanguageCode;
 
 + (void)migratePreferredLanguagesToManagedObjectContext:(NSManagedObjectContext *)moc;
 

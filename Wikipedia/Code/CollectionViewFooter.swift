@@ -1,4 +1,4 @@
-protocol CollectionViewFooterDelegate: class {
+protocol CollectionViewFooterDelegate: AnyObject {
     func collectionViewFooterButtonWasPressed(_ collectionViewFooter: CollectionViewFooter)
 }
 

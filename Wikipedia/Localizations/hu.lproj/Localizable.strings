@@ -151,11 +151,13 @@
 "button-skip" = "Kihagyás";
 "cancel" = "Mégse";
 "cc-zero" = "Creative Commons CC0";
+"chinese-variants-alert-title" = "Kínai nyelvű változat támogatásának frissítése";
 "clear-title-accessibility-label" = "Törlés";
 "close-button-accessibility-label" = "Bezárás";
 "compass-direction" = "$1 óra irányban";
 "continue-reading-empty-description" = "Fedezd fel a Wikipédiát több szócikkért";
 "continue-reading-empty-title" = "Nincsenek nemrég olvasott szócikkek";
+"crimean-tatar-variants-alert-title" = "Krími tatár nyelvű változat támogatásának frissítése";
 "data-migration-status" = "Frissítés...";
 "description-add-title" = "Leírás hozzáadása";
 "description-edit-for-article" = "$1 leírása";
@@ -398,6 +400,7 @@
 "insert-media-uploaded-image-title" = "Feltöltött kép";
 "intermediate-edits-count" = "{{PLURAL:$1|Egy közbenső módosítás|$1 közbenső módosítás}} nincs mutatva";
 "intermediate-edits-count-limited" = "$1+ közbenső változtatás nincs mutatva";
+"kurdish-variants-alert-title" = "A kurd nyelvi változat támogatásának frissítése";
 "languages-settings-title" = "Nyelvek";
 "languages-title" = "Nyelvváltás";
 "languages-wikipedia" = "Wikipédia nyelvek";
@@ -584,6 +587,7 @@
 "search-recent-title" = "Legutóbbi keresések";
 "search-result-redirected-from" = "$1 szócikkből átirányítva";
 "search-title" = "Keresés";
+"serbian-variants-alert-title" = "A szerb nyelvi változat támogatásának frissítése";
 "settings-account" = "Fiók";
 "settings-appearance" = "Olvasási preferenciák";
 "settings-clear-cache" = "Gyorsítótárazott adatok törlése";
@@ -623,6 +627,7 @@
 "table-of-contents-close-accessibility-label" = "Tartalomjegyzék bezárása";
 "table-of-contents-heading" = "Tartalom";
 "table-of-contents-subheading-label" = "Alcím $1";
+"tajik-variants-alert-title" = "A tadzsik nyelvi változat támogatásának frissítése";
 "talk-page-discussion-read-accessibility-label" = "Olvasott";
 "talk-page-discussion-unread-accessibility-label" = "Olvasatlan";
 "talk-page-error-unable-to-post-reply" = "Nincs internetkapcsolat, nem sikerült elküldeni a választ.";
@@ -648,6 +653,7 @@
 "two-factor-login-with-backup-code" = "Használd az egyik visszaállítási kódod";
 "two-factor-login-with-regular-code" = "Ellenőrző kód használata";
 "unable-to-load-talk-page-title" = "Nem sikerült betölteni a vitalapot";
+"uzbek-variants-alert-title" = "Az üzbég nyelvi változat támogatásának frissítése";
 "variants-alert-dismiss-button" = "Nem, köszönöm";
 "variants-alert-preferences-button" = "Beállításaid áttekintése";
 "welcome-exploration-explore-feed-description" = "A közösség által napi olvasásra ajánlott szócikk";

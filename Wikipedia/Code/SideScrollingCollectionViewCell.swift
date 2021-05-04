@@ -8,7 +8,7 @@ internal struct CellArticle {
     let imageURL: URL?
 }
 
-public protocol SideScrollingCollectionViewCellDelegate: class {
+public protocol SideScrollingCollectionViewCellDelegate: AnyObject {
     func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL, at indexPath: IndexPath)
 }
 

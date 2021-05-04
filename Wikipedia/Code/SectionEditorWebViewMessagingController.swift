@@ -1,21 +1,21 @@
-protocol SectionEditorWebViewMessagingControllerButtonMessageDelegate: class {
+protocol SectionEditorWebViewMessagingControllerButtonMessageDelegate: AnyObject {
     func sectionEditorWebViewMessagingControllerDidReceiveSelectButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorButton)
     func sectionEditorWebViewMessagingControllerDidReceiveDisableButtonMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, button: SectionEditorButton)
 }
 
-protocol SectionEditorWebViewMessagingControllerTextSelectionDelegate: class {
+protocol SectionEditorWebViewMessagingControllerTextSelectionDelegate: AnyObject {
     func sectionEditorWebViewMessagingControllerDidReceiveTextSelectionChangeMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, isRangeSelected: Bool)
 }
 
-protocol SectionEditorWebViewMessagingControllerFindInPageDelegate: class {
+protocol SectionEditorWebViewMessagingControllerFindInPageDelegate: AnyObject {
     func sectionEditorWebViewMessagingControllerDidReceiveFindInPagesMatchesMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, matchesCount: Int, matchIndex: Int, matchID: String?)
 }
 
-protocol SectionEditorWebViewMessagingControllerAlertDelegate: class {
+protocol SectionEditorWebViewMessagingControllerAlertDelegate: AnyObject {
     func sectionEditorWebViewMessagingControllerDidReceiveReplaceAllMessage(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, replacedCount: Int)
 }
 
-protocol SectionEditorWebViewMessagingControllerScrollDelegate: class {
+protocol SectionEditorWebViewMessagingControllerScrollDelegate: AnyObject {
     func sectionEditorWebViewMessagingController(_ sectionEditorWebViewMessagingController: SectionEditorWebViewMessagingController, didReceiveScrollMessageWithNewContentOffset newContentOffset: CGPoint)
 }
 

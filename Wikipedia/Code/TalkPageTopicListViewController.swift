@@ -1,7 +1,7 @@
 
 import UIKit
 
-protocol TalkPageTopicListDelegate: class {
+protocol TalkPageTopicListDelegate: AnyObject {
     func tappedTopic(_ topic: TalkPageTopic, viewController: TalkPageTopicListViewController)
     func scrollViewDidScroll(_ scrollView: UIScrollView, viewController: TalkPageTopicListViewController)
     func didTriggerRefresh(viewController: TalkPageTopicListViewController)

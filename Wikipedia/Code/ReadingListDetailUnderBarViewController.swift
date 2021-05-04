@@ -1,4 +1,4 @@
-protocol ReadingListDetailUnderBarViewControllerDelegate: class {
+protocol ReadingListDetailUnderBarViewControllerDelegate: AnyObject {
     func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, didEdit name: String?, description: String?)
     func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, didBeginEditing textField: UITextField)
     func readingListDetailUnderBarViewController(_ underBarViewController: ReadingListDetailUnderBarViewController, titleTextFieldTextDidChange textField: UITextField)

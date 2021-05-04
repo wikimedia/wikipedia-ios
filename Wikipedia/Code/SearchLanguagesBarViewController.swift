@@ -1,7 +1,7 @@
 import UIKit
 
-@objc protocol SearchLanguagesBarViewControllerDelegate: class {
-    func searchLanguagesBarViewController(_ controller: SearchLanguagesBarViewController, didChangeCurrentlySelectedSearchLanguage language: MWKLanguageLink)
+@objc protocol SearchLanguagesBarViewControllerDelegate: AnyObject {
+    func searchLanguagesBarViewController(_ controller: SearchLanguagesBarViewController, didChangeSelectedSearchContentLanguageCode contentLanguageCode: String)
 }
 
 class SearchLanguageButton: UnderlineButton {
@@ -132,15 +132,15 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
 
     @objc var theme: Theme = Theme.standard
     
-    @objc fileprivate(set) var currentlySelectedSearchLanguage: MWKLanguageLink? {
+    fileprivate var selectedSearchContentLanguageCode: String? {
         get {
-            if let contentLanguageCode = UserDefaults.standard.wmf_currentSearchContentLanguageCode(), let selectedLanguage = MWKDataStore.shared().languageLinkController.language(forContentLanguageCode: contentLanguageCode) {
-                return selectedLanguage
+            if let contentLanguageCode = UserDefaults.standard.wmf_currentSearchContentLanguageCode() {
+                return contentLanguageCode
             } else {
                 
-                if let appLang = MWKDataStore.shared().languageLinkController.appLanguage {
-                    self.currentlySelectedSearchLanguage = appLang
-                    return appLang
+                if let appContentLanguageCode = MWKDataStore.shared().languageLinkController.appLanguage?.contentLanguageCode {
+                    self.selectedSearchContentLanguageCode = appContentLanguageCode
+                    return appContentLanguageCode
                 } else {
                     assertionFailure("appLanguage should have been set at this point")
                     return nil
@@ -148,12 +148,17 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
             }
         }
         set {
-            UserDefaults.standard.wmf_setCurrentSearchContentLanguageCode(newValue?.contentLanguageCode)
-            delegate?.searchLanguagesBarViewController(self, didChangeCurrentlySelectedSearchLanguage: newValue!)
+            UserDefaults.standard.wmf_setCurrentSearchContentLanguageCode(newValue)
+            delegate?.searchLanguagesBarViewController(self, didChangeSelectedSearchContentLanguageCode: newValue!)
             updateSearchLanguageButtons()
         }
     }
     
+    var selectedSiteURL: URL? {
+        let selectedLanguageLink = languageBarLanguages().first { $0.contentLanguageCode == selectedSearchContentLanguageCode }
+        return selectedLanguageLink?.siteURL
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         otherLanguagesButton?.setTitle(WMFLocalizedString("main-menu-title", value:"More", comment:"Title for menu of secondary items. {{Identical|More}}"), for: .normal)
@@ -229,8 +234,8 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
     }
     
     fileprivate func updateSearchLanguageButtons() {
-        guard let currentlySelectedLanguage = currentlySelectedSearchLanguage else {
-            assertionFailure("No current app language")
+        guard let currentlySelectedContentLanguageCode = selectedSearchContentLanguageCode else {
+            assertionFailure("No current app content language code")
             return
         }
 
@@ -241,7 +246,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
 
             button.languageCode = language.languageCode
             button.contentLanguageCode = language.contentLanguageCode
-            button.isSelected = language.contentLanguageCode == currentlySelectedLanguage.contentLanguageCode
+            button.isSelected = language.contentLanguageCode == currentlySelectedContentLanguageCode
             button.addTarget(self, action: #selector(setCurrentlySelectedLanguageToButtonLanguage(withSender:)), for: .primaryActionTriggered)
             button.setTitle((language.name as NSString).wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguageCode: nil), for: .normal)
 
@@ -282,7 +287,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
             return
         }
 
-        currentlySelectedSearchLanguage = senderLanguage
+        selectedSearchContentLanguageCode = senderLanguage.contentLanguageCode
     }
     
     @IBAction fileprivate func openLanguagePicker() {
@@ -300,7 +305,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
             MWKDataStore.shared().languageLinkController.reorderPreferredLanguage(language, to: 2)
         }
         
-        currentlySelectedSearchLanguage = language
+        selectedSearchContentLanguageCode = language.contentLanguageCode
         controller.dismiss(animated: true, completion: nil)
     }
     
@@ -309,21 +314,11 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
             assertionFailure("Could not extract app language from WMFAppLanguageDidChangeNotification")
             return
         }
-        currentlySelectedSearchLanguage = appLanguage
+        selectedSearchContentLanguageCode = appLanguage?.contentLanguageCode
     }
     
     @objc func preferredLanguagesDidChange(_ notification: Notification) {
-        if let selectedLang = currentlySelectedSearchLanguage {
-            // The selected lang won't be in languageBarLanguages() if the user has dragged it down so it's not in top 3 langs...
-            if(languageBarLanguages().firstIndex(of: selectedLang) == nil){
-                // ...so select first lang if the selected lang has been moved down out of the top 3.
-                currentlySelectedSearchLanguage = languageBarLanguages().first
-                // Reminder: cannot use "reorderPreferredLanguage" for this (in "didUpdatePreferredLanguages:") because
-                // that would undo the dragging the user just did and would also not work for changes made from settings.
-            } else {
-                updateSearchLanguageButtons()
-            }
-        }
+        updateSearchLanguageButtons()
     }
     
     func apply(theme: Theme) {

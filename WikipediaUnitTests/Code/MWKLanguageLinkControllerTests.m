@@ -164,6 +164,29 @@
     XCTAssertNil(frenchResult);
 }
 
+- (void)testLanguageCodeForISOLanguageCode {
+    
+    // Test the single case where the ISO language code does not match the Wikipedia language code
+    NSString *norwegianISOCode = @"nb";
+    NSString *norwegianLanguageCode = @"no";
+
+    NSString *norwegianResult = [MWKLanguageLinkController languageCodeForISOLanguageCode:norwegianISOCode];
+    XCTAssertEqualObjects(norwegianResult, norwegianLanguageCode);
+    
+    // Test that other language codes are returned just as passed in
+    // Note that the method does not check if the passed in code is a valid language code
+    NSArray<NSString *> *identicalLanguageCodes = @[@"de", @"ja", @"en", @"es", @"zh", @"uz"];
+    
+    for (NSString *currentLanguageCode in identicalLanguageCodes) {
+        NSString *result = [MWKLanguageLinkController languageCodeForISOLanguageCode:currentLanguageCode];
+        XCTAssertEqualObjects(result, currentLanguageCode);
+    }
+    
+    // Test that if a nil value is passed in, nil is returned
+    NSString *expectingNil = [MWKLanguageLinkController languageCodeForISOLanguageCode:nil];
+    XCTAssertNil(expectingNil);
+}
+
 #pragma mark - Utils
 
 - (void)verifyAllLanguageArrayProperties {
