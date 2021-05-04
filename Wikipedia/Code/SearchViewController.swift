@@ -420,7 +420,8 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
             }
             navigationController.popViewController(animated: true)
         } else {
-            searchBar.endEditing(true)
+            searchBar.resignFirstResponder()
+            setSearchVisible(false, animated: shouldAnimateSearchBar)
             didCancelSearch()
         }
         deselectAll(animated: true)
