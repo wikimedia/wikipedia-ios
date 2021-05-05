@@ -57,6 +57,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSValueTransformer *)imageDescriptionIsRTLJSONTransformer {
     return [MTLValueTransformer transformerUsingForwardBlock:^(NSString *lang, BOOL *success, NSError *__autoreleasing *error) {
+        // The image description service returns a language but not a language variant code.
+        // The language variant in the request is currenty not taken into account in the response.
+        // So using the language code is correct in this case.
         return @([MWKLanguageLinkController isLanguageRTLForContentLanguageCode:lang]);
     }];
 }
