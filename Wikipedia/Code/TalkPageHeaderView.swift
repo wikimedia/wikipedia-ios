@@ -127,7 +127,10 @@ class TalkPageHeaderView: UIView {
     }
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        
+        guard !UIAccessibility.isVoiceOverRunning else {
+            return super.point(inside: point, with: event)
+        }
+
         let titleConvertedPoint = self.convert(point, to: titleTextView)
         if titleTextView.point(inside: titleConvertedPoint, with: event) {
             return true

@@ -5,6 +5,10 @@ import Foundation
 class LinkOnlyTextView: UITextView {
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        guard !UIAccessibility.isVoiceOverRunning else {
+            return super.point(inside: point, with: event)
+        }
+
         let glyphIndex = self.layoutManager.glyphIndex(for: point, in: self.textContainer)
         
         //Ensure the glyphIndex actually matches the point and isn't just the closest glyph to the point
