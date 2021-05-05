@@ -62,6 +62,9 @@ static const char *const WMFEmptyViewKey = "WMFEmptyView";
         case WMFEmptyViewTypeDiffErrorSingle:
             view = [WMFEmptyView errorDiffSingleEmptyView];
             break;
+        case WMFEmptyViewTypeNoOtherArticleLanguages:
+            view = [WMFEmptyView noOtherArticleLanguagesEmptyView];
+            break;
             
         default:
             return nil;
