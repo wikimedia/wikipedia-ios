@@ -8,6 +8,7 @@
 #import "WMFArticleLanguagesSectionFooter.h"
 #import "WMFLanguagesViewControllerDelegate.h"
 
+static const NSTimeInterval WMFActivityCompletionAnimationDuration = 0.15;
 static CGFloat const WMFOtherLanguageRowHeight = 138.f;
 static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
@@ -73,7 +74,6 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
     return languagesVC;
 }
-
 
 - (void)setup {
     _showNonPreferredLanguages = YES;
@@ -381,11 +381,10 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     return [self shouldShowHeaderForSection:section] ? WMFLanguageHeaderHeight : 0;
 }
 
--(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.showAllLanguages && [self isFilteredPreferredLanguage:self.languageFilter.filteredLanguages[indexPath.row]]) {
         return nil;
-    }
-    else {
+    } else {
         return indexPath;
     }
 }
@@ -628,6 +627,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
 @property (strong, nonatomic) MWKTitleLanguageController *titleLanguageController;
 @property (nonatomic, strong, readonly) NSURL *articleURL;
+@property (strong) UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -649,7 +649,24 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setActivityIndicatorVisible:YES];
+
     self.hideLanguageFilter = YES;
+}
+
+- (void)setActivityIndicatorVisible:(BOOL)visible {
+    if (visible) {
+        if (_activityIndicator == nil) {
+            _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+            _activityIndicator.color = self.theme.colors.primaryText;
+            [self.view wmf_addSubviewWithConstraintsToEdges:_activityIndicator];
+            [_activityIndicator startAnimating];
+        } else {
+            [_activityIndicator startAnimating];
+        }
+    } else {
+        [_activityIndicator stopAnimating];
+    }
 }
 
 #pragma mark - Getters & Setters
@@ -683,16 +700,22 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     [self.titleLanguageController
         fetchLanguagesWithSuccess:^{
             @strongify(self)
-                if (self.titleLanguageController.allLanguages.count == 0) {
-                    [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoOtherArticleLanguages theme:self.theme frame:self.view.bounds];
-                    self.hideLanguageFilter = YES;
-                } else {
-                    [self wmf_hideEmptyView];
-                    self.hideLanguageFilter = NO;
-                }
-                [self reloadDataSections];
+                [self setActivityIndicatorVisible:NO];
+            if (self.titleLanguageController.allLanguages.count == 0) {
+                [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoOtherArticleLanguages theme:self.theme frame:self.view.bounds];
+                [self.wmf_emptyView setAlpha:0];
+                [UIView animateWithDuration:WMFActivityCompletionAnimationDuration
+                                 animations:^{
+                                     [self.wmf_emptyView setAlpha:1];
+                                 }];
+            } else {
+                [self wmf_hideEmptyView];
+                self.hideLanguageFilter = NO;
+            }
+            [self reloadDataSections];
         }
         failure:^(NSError *__nonnull error) {
+            [self setActivityIndicatorVisible:NO];
             [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
         }];
 }
