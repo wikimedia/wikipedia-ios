@@ -69,6 +69,7 @@ class SavedViewController: ViewController {
         toggleButtons.first { $0.tag != sender.tag }?.isSelected = false
         sender.isSelected = true
         currentView = View(rawValue: sender.tag) ?? .savedArticles
+        logTappedView(currentView)
     }
 
     func toggleCurrentView(_ newViewRawValue: Int) {
@@ -160,6 +161,15 @@ class SavedViewController: ViewController {
         vc.view.removeFromSuperview()
         vc.willMove(toParent: nil)
         vc.removeFromParent()
+    }
+    
+    private func logTappedView(_ view: View) {
+        switch view {
+        case .savedArticles:
+            NavigationEventsFunnel.shared.logTappedSavedAllArticles()
+        case .readingLists:
+            NavigationEventsFunnel.shared.logTappedSavedReadingLists()
+        }
     }
     
     // MARK: - View lifecycle
