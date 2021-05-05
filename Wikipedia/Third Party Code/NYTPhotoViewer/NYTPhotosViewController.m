@@ -18,9 +18,7 @@
 #import "NSBundle+NYTPhotoViewer.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 
-#ifdef ANIMATED_GIF_SUPPORT
-#import <FLAnimatedImage/FLAnimatedImage.h>
-#endif
+#import "FLAnimatedImage.h"
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated"

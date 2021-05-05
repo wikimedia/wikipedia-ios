@@ -749,7 +749,7 @@
 "reverted-edit-view-guidelines-text" = "Zobraziť pravidlá";
 "saved-all-articles-title" = "Všetky články";
 "saved-default-reading-list-tag" = "Tento zoznam nie je možné odstrániť";
-"saved-pages-image-download-error" = "Nepodarilo sa prevziať obrázky pre túto uloženú stránku.";
+"saved-pages-image-download-error" = "Nepodarilo sa stiahnuť obrázky pre túto uloženú stránku.";
 "saved-pages-progress-syncing" = "Preberá sa článok...";
 "saved-reading-lists-title" = "Zoznamy na prečítanie";
 "saved-search-default-text" = "Hľadať uložené články";

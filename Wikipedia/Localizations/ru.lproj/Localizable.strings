@@ -44,6 +44,7 @@
 // Author: Redredsonia
 // Author: Rubin16
 // Author: Saimongoltinio
+// Author: Soul Train
 // Author: Stjn
 // Author: Valencia212
 // Author: Vlad5250
@@ -244,7 +245,9 @@
 "description-welcome-descriptions-title" = "Краткие описания";
 "description-welcome-promise-title" = "Начиная использование, я обещаю не злоупотреблять этой возможностью";
 "description-welcome-start-editing-button" = "Начать редактирование";
+"diff-compare-header-from-info-heading" = "От:";
 "diff-compare-header-heading" = "Сравнить версии";
+"diff-compare-header-to-info-heading" = "Кому:";
 "diff-compare-title" = "Сравнить версии";
 "diff-context-lines-collapsed-button-title" = "Показать";
 "diff-context-lines-expanded-button-title" = "Скрыть";
