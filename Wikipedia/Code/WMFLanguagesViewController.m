@@ -625,9 +625,9 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 
 @interface WMFArticleLanguagesViewController ()
 
-@property (strong, nonatomic) MWKTitleLanguageController *titleLanguageController;
+@property (nonatomic, strong) MWKTitleLanguageController *titleLanguageController;
 @property (nonatomic, strong, readonly) NSURL *articleURL;
-@property (strong) UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 
 @end
 
