@@ -33,6 +33,10 @@ NS_ASSUME_NONNULL_BEGIN
     return self.siteURL.wmf_languageCode;
 }
 
+- (nullable NSString *)contentLanguageCode {
+    return self.siteURL.wmf_contentLanguageCode;
+}
+
 - (NSInteger)previewsImageCount {
     __block NSInteger imageCount = 0;
     [self.articlePreviews enumerateObjectsUsingBlock:^(WMFFeedArticlePreview *_Nonnull articlePreview, NSUInteger idx, BOOL *_Nonnull stop) {

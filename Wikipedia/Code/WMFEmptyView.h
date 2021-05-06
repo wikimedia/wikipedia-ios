@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)emptyDiffSingleEmptyView;
 + (instancetype)errorDiffCompareEmptyView;
 + (instancetype)errorDiffSingleEmptyView;
++ (instancetype)noOtherArticleLanguagesEmptyView;
 
 NS_ASSUME_NONNULL_END
 

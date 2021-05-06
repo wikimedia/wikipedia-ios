@@ -355,7 +355,7 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
 @implementation MWKLanguageLinkController (LayoutDirectionAdditions)
 
 + (BOOL)isLanguageRTLForContentLanguageCode:(nullable NSString *)contentLanguageCode {
-    return contentLanguageCode && [[MWKLanguageLinkController rtlLanguages] containsObject:contentLanguageCode];
+    return contentLanguageCode && [[MWKLanguageLinkController rtlContentLanguageCodes] containsObject:contentLanguageCode];
 }
 
 + (NSString *)layoutDirectionForContentLanguageCode:(nullable NSString *)contentLanguageCode {
@@ -370,18 +370,15 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
 }
 
 /*
- * IMPORTANT: At present no RTL languages have language variants.
- * The public methods in this category accept a contentLanguageCode, but in current usage always accept a language code
- * which does not take language variants into account. If a language variant is added to the set returned by this method, the call sites
- * of the public methods in this category need to be updated to ensure that the content language code is passed in.
- *
- * Note also that if a language with variants is RTL, each RTL variant must be added to the set.
+ * The set of content language codes that should be displayed right-to-left. This includes both language codes as well as any right-to-left language variants.
+ * For example, Kurdish has a Latin left-to-right variant (kk-latn) and an Arabic right-to-left variant (kk-arab). For languages with variants only variants
+ * that are right-to-left should be included in the set.
  */
-+ (NSSet *)rtlLanguages {
++ (NSSet *)rtlContentLanguageCodes {
     static dispatch_once_t onceToken;
     static NSSet *rtlLanguages;
     dispatch_once(&onceToken, ^{
-        rtlLanguages = [NSSet setWithObjects:@"arc", @"arz", @"ar", @"azb", @"bcc", @"bqi", @"ckb", @"dv", @"fa", @"glk", @"lrc", @"he", @"khw", @"ks", @"mzn", @"nqo", @"pnb", @"ps", @"sd", @"ug", @"ur", @"yi", nil];
+        rtlLanguages = [NSSet setWithObjects:@"arc", @"arz", @"ar", @"azb", @"bcc", @"bqi", @"ckb", @"dv", @"fa", @"glk", @"lrc", @"he", @"khw", @"ks", @"mzn", @"nqo", @"pnb", @"ps", @"sd", @"ug", @"ur", @"yi", @"kk-arab", @"ku-arab", nil];
     });
     return rtlLanguages;
 }

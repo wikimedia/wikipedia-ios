@@ -179,7 +179,8 @@ class SectionEditorViewController: ViewController {
         messagingController.buttonSelectionDelegate = self
         messagingController.alertDelegate = self
         messagingController.scrollDelegate = self
-        let layoutDirection = MWKLanguageLinkController.layoutDirection(forContentLanguageCode: languageCode)
+        let contentLanguageCode: String = articleURL.wmf_contentLanguageCode ?? dataStore.languageLinkController.preferredLanguageVariantCode(forLanguageCode: languageCode) ?? languageCode
+        let layoutDirection = MWKLanguageLinkController.layoutDirection(forContentLanguageCode: contentLanguageCode)
         let isSyntaxHighlighted = UserDefaults.standard.wmf_IsSyntaxHighlightingEnabled
         let setupUserScript = CodemirrorSetupUserScript(languageCode: languageCode, direction: CodemirrorSetupUserScript.CodemirrorDirection(rawValue: layoutDirection) ?? .ltr, theme: theme, textSizeAdjustment: textSizeAdjustment, isSyntaxHighlighted: isSyntaxHighlighted) { [weak self] in
             self?.isCodemirrorReady = true
