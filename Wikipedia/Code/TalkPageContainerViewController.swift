@@ -160,8 +160,8 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         
         assert(title.contains(":"), "Title must already be prefixed with namespace.")
         
-        let language = siteURL.wmf_languageCode
-        talkPageSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: language)
+        let contentLanguageCode = siteURL.wmf_contentLanguageCode
+        talkPageSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: contentLanguageCode)
 
         super.init()
         
@@ -551,8 +551,8 @@ private extension TalkPageContainerViewController {
     
     func changeLanguage(siteURL: URL) {
         controller = TalkPageController(moc: dataStore.viewContext, title: talkPageTitle, siteURL: siteURL, type: type)
-        let language = siteURL.wmf_languageCode
-        talkPageSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: language)
+        let contentLanguageCode = siteURL.wmf_contentLanguageCode
+        talkPageSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: contentLanguageCode)
         resetTopicList()
         fetch { [weak self] in
             guard let self = self else {

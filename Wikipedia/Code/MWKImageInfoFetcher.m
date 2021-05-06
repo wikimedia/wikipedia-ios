@@ -113,6 +113,9 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
             NSDictionary *availableDescriptionsByLangCode = imageDescriptionValue;
             descriptionLangCode = [self descriptionLangCodeToUseFromAvailableDescriptionsByLangCode:availableDescriptionsByLangCode forPreferredLangCodes:preferredLanguageCodes];
             if (descriptionLangCode) {
+                // The image description service returns languages but not language variant codes.
+                // The language variant in the request is currenty not taken into account in the response.
+                // So using the language code is correct in this case.
                 description = availableDescriptionsByLangCode[descriptionLangCode];
                 descriptionIsRTL = [MWKLanguageLinkController isLanguageRTLForContentLanguageCode:descriptionLangCode];
             }
