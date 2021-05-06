@@ -8,6 +8,7 @@ struct SectionEditorChanges {
 
 protocol EditSaveViewControllerDelegate: NSObjectProtocol {
     func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<SectionEditorChanges, Error>)
+    func editSaveViewControllerWillCancel(_ saveData: EditSaveViewController.SaveData)
 }
 
 private enum NavigationMode : Int {
@@ -19,6 +20,15 @@ private enum NavigationMode : Int {
 }
 
 class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDelegate, UIScrollViewDelegate, WMFCaptchaViewControllerDelegate, EditSummaryViewDelegate {
+
+    struct SaveData {
+        let summmaryText: String
+        let isMinorEdit: Bool
+        let shouldAddToWatchList: Bool
+    }
+
+    var savedData: SaveData?
+
     var sectionID: Int?
     var articleURL: URL?
     var languageCode: String?
@@ -129,6 +139,8 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         if mode == .abuseFilterWarning {
             editFunnel?.logAbuseFilterWarningBackForSectionEdit(abuseFilterName: abuseFilterCode, source: editFunnelSource, language: languageCode)
         }
+
+        delegate?.editSaveViewControllerWillCancel(SaveData(summmaryText: summaryText, isMinorEdit: minorEditToggle.isOn, shouldAddToWatchList: addToWatchlistToggle.isOn))
         
         navigationController?.popViewController(animated: true)
     }
@@ -148,8 +160,8 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        mode = .preview
         setupButtonsAndTitle()
+        mode = .preview
         
         for dividerHeightContraint in dividerHeightConstraits {
             dividerHeightContraint.constant = 1.0 / UIScreen.main.scale
@@ -176,6 +188,12 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 
         if dataStore?.authenticationManager.isLoggedIn ?? false {
             licenseLoginTextView.isHidden = true
+        }
+
+        if let savedData = savedData {
+            vc.updateInputText(to: savedData.summmaryText)
+            minorEditToggle.isOn = savedData.isMinorEdit
+            addToWatchlistToggle.isOn = savedData.shouldAddToWatchList
         }
     }
 
