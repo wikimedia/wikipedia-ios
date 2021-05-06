@@ -187,6 +187,15 @@
     XCTAssertNil(expectingNil);
 }
 
+- (void)testDuplicateLanguageCodeFiltering {
+    // This tests that the first item is the one that remains in an ordered set if there are duplicate items.
+    // This ensures that the preferred langauge uniquing code will behave as expected.
+    NSArray *array = @[@"en", @"no", @"fr", @"no"];
+    NSArray *expectedResult = @[@"en", @"no", @"fr"];
+    NSArray *uniquedArray = [[NSOrderedSet orderedSetWithArray:array] array];
+    XCTAssertEqualObjects(uniquedArray, expectedResult);
+}
+
 #pragma mark - Utils
 
 - (void)verifyAllLanguageArrayProperties {
