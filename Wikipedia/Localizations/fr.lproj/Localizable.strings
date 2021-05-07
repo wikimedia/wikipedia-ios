@@ -336,6 +336,9 @@
 "empty-no-feed-message" = "Vous pouvez voir vos articles recommandés quand vous avez Internet";
 "empty-no-history-message" = "Garder une trace de ce que vous avez lu ici";
 "empty-no-history-title" = "Aucun historique à afficher";
+// Fuzzy
+"empty-no-other-article-languages-message" = "Cet article n’a pas encore été traduit dans d’autres langues";
+"empty-no-other-article-languages-title" = "Aucune autre langue disponible";
 "empty-no-reading-lists-message" = "Créer des listes de lieux à visiter, de sujets favoris et beaucoup d’autres";
 "empty-no-reading-lists-title" = "Organiser les articles enregistrés avec les listes de lecture";
 "empty-no-saved-pages-in-reading-list-message" = "Enregistrer des pages dans cette liste pour les voir apparaître ici";
