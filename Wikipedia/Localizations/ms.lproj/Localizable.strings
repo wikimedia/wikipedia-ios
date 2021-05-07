@@ -10,6 +10,21 @@
 // Author: Nemo bis
 // Author: Tofeiku
 
+"aaald-added-text-description-2" = "$1 ditambah";
+"aaald-article-insert-last-updated" = "Kali terakhir dikemas kini";
+"aaald-article-insert-new-changes" = "Perubahan baru";
+"aaald-article-insert-read-more" = "Baca lebih banyak kemas kini";
+"aaald-new-book-reference-title" = "Buku";
+"aaald-new-discussion" = "Perbincangan baru";
+"aaald-new-journal-reference-database" = "melalui $1";
+"aaald-new-journal-reference-title" = "Jurnal";
+"aaald-new-news-reference-title" = "Berita";
+"aaald-new-talk-topic-description-format" = "$1 tentang rencana ini";
+"aaald-new-website-reference-archive-url-text" = "URL Archive.org";
+"aaald-new-website-reference-title" = "Tapak web";
+"aaald-revision-by-anonymous" = "Suntingan oleh pengguna awanama";
+"aaald-single-reference-added-description" = "Rujukan ditambah";
+"aaald-view-full-history-button" = "Lihat sejarah rencana penuh";
 "about-content-license" = "Lesen kandungan";
 "about-content-license-details" = "Kecuali ditentukan lain, kandungan tersedia di bawah $1.";
 "about-content-license-details-share-alike-license" = "Lesen Atribusi-BerbagiSerupa Creative Commons";
@@ -54,6 +69,9 @@
 "account-creation-passwords-mismatched" = "Kata laluan tidak sepadan.";
 "account-creation-saving" = "Menyimpan...";
 "account-creation-title" = "Buka akaun baru";
+"account-group-title" = "Akaun anda";
+"account-talk-page-title" = "Laman perbincangan anda";
+"account-talk-preferences-title" = "Keutamaan laman perbincangan";
 "action-add-to" = "Tambah ke...";
 "action-add-to-reading-list" = "Tambahkan ke senarai bacaan";
 "action-add-to-reading-list-short" = "Tambahkan kepada senarai";
@@ -65,17 +83,20 @@
 "action-read" = "Baca";
 "action-redo" = "Buat semula";
 "action-remove" = "Buang";
+"action-retry" = "Cuba lagi";
 "action-save" = "Simpan";
 "action-saved" = "Disimpan";
 "action-saved-accessibility" = "Disimpan. Aktifkan untuk batal menyimpan.";
 "action-saved-accessibility-notification" = "Rencana disimpan untuk kemudian";
 "action-share" = "Kongsi";
+"action-share-accessibility" = "Kongsi";
 "action-sort" = "Isih";
 "action-undo" = "Nyahbuat";
 "action-unsave" = "Nyahsimpan";
 "action-unsaved-accessibility-notification" = "Rencana batal disimpan";
 "action-update" = "Kemas kini";
 "add-articles-to-reading-list" = "Tambahkan {{PLURAL:$1|$1 rencana|$1 rencana}} ke senarai bacaan";
+"add-citation-title" = "Tambah petikan";
 "announcements-dismiss" = "Singkir";
 "app-store-keywords" = "Wikipedia, rujukan, wiki, ensiklopedia, info, pengetahuan, penyelidikan, maklumat, meneroka, belajar";
 "app-store-release-notes" = "Sepenuhnya disesuaikan dan mudah dibaca meneroka suapan. Penyetempatan, penambahbaikan prestasi dan pembetulan pepijat.";
@@ -89,12 +110,14 @@
 "appearance-settings-set-automatic-table-opening" = "Tetapan Jadual";
 "appearance-settings-text-sizing-example-text" = "Seret gelangsar untuk mengubah ukuran teks rencana. Gunakan saiz teks sistem anda untuk mengubah saiz kawasan teks lain dalam aplikasi.";
 "appearance-settings-theme-options" = "Pilihan tema";
+"article-about-title" = "Tentang rencana ini";
 "article-delete" = "Hapuskan";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|rencana|rencana}} dipadamkan";
 "article-languages-filter-placeholder" = "Cari bahasa";
 "article-languages-label" = "Pilih bahasa";
 "article-languages-others" = "Bahasa lain";
 "article-languages-yours" = "Bahasa anda";
+"article-reference-view-title" = "Rujukan $1";
 "article-save-error-not-enough-space" = "Anda tidak mempunyai ruang yang cukup pada peranti anda untuk menyimpan rencana ini";
 "article-share" = "Kongsi";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Kawalan Tema Bacaan";
@@ -111,33 +134,31 @@
 "button-skip" = "Langkau";
 "cancel" = "Batalkan";
 "cc-zero" = "Creative Commons CC0";
+"chinese-variants-alert-body" = "Aplikasi Wikipedia kini menyokong kelainan bahasa Cina berikut sebagai bahasa utama atau sekunder di dalam aplikasi, membuatkannya senang untuk baca, cari dan sunting dalam kelainan yang anda lebih suka:\n\n简体 Cina, Ringkas (zh-hans)\n香港繁體 Hong Kong Tradisional (zh-hk)\n澳門繁體 Makau Tradisional (zh-mo)\n大马简体 Malaysia Ringkas (zh-my)\n新加坡简体 Singapura Ringkas (zh-sg)\n臺灣正體 Taiwan Tradisional (zh-tw)";
 "close-button-accessibility-label" = "Tutup";
 "compass-direction" = "pada pukul $1 tepat";
 "continue-reading-empty-description" = "Jelajahi Wikipedia untuk lebih banyak rencana yang ingin dibaca";
 "continue-reading-empty-title" = "Tiada rencana yang dibaca baru-baru ini";
+"data-migration-status" = "Mengemas kini...";
 "description-add-title" = "Tambah penerangan";
-// Fuzzy
-"description-edit-for-article" = "Huraian tajuk untuk $1";
+"description-edit-for-article" = "Huraian rencana untuk $1";
 "description-edit-learn-more" = "Ketahui lebih lanjut";
 "description-edit-length-warning" = "$1 / $2";
 // Fuzzy
 "description-edit-license" = "Dengan mengubah keterangan tajuk, saya bersetuju dengan $1 dan untuk membatalkan pembaharuan tanpa izin di bawah lesen $2.";
 "description-edit-pencil-introduction" = "Sunting pengenalan";
-// Fuzzy
-"description-edit-pencil-title" = "Sunting huraian tajuk";
+"description-edit-pencil-title" = "Sunting huraian rencana";
 "description-edit-placeholder-title" = "Penerangan pendek adalah yang terbaik";
 "description-edit-publish" = "Terbitkan huraian";
 "description-edit-title" = "Sunting keterangan";
 "description-edit-warning" = "Cuba simpan deskripsi ringkas supaya pengguna dapat memahami subjek rencana sekilas";
-// Fuzzy
-"description-help-about-description" = "Huraian tajuk meringkaskan rencana untuk membantu pembaca memahami subjek dengan pantas.";
+"description-help-about-description" = "Huraian rencana meringkaskan rencana untuk membantu pembaca memahami subjek dengan pantas.";
 "description-help-about-title" = "Perihal";
 "description-help-about-wikidata" = "Perihal Wikidata";
 "description-help-more-info-description" = "Huraian disimpan dan disenggarakan di Wikidata, projek Wikimedia Foundation yang menyediakan pangkalan pengetahuan bebas, kerjasama, berbilang bahasa, sekunder menyokong Wikipedia dan projek-projek lain.";
 "description-help-more-info-title" = "Maklumat lanjut";
 "description-help-tips-description" = "Huraian ideal harus muat pada satu baris, dan antara dua hingga dua belas perkataan panjang. Huraian tidak ditulis dalam huruf besar kecuali perkataan pertamanya ialah kata nama khas.";
-// Fuzzy
-"description-help-tips-example-description-one" = "huraian tajuk untuk rencana mengenai Mona Lisa";
+"description-help-tips-example-description-one" = "huraian rencana untuk rencana mengenai Mona Lisa";
 // Fuzzy
 "description-help-tips-example-description-two" = "huraian tajuk untuk rencana mengenai Gunung Everest";
 "description-help-tips-example-title-one" = "lukisan oleh Leonardo Da Vinci";
@@ -153,10 +174,22 @@
 "description-welcome-concise-sub-title" = "Idealnya satu baris, antara dua hingga dua belas kata";
 "description-welcome-concise-title" = "Pastikan ia pendek";
 "description-welcome-descriptions-sub-title" = "Meringkaskan rencana untuk membantu pembaca memahami subjek dengan pantas";
-// Fuzzy
-"description-welcome-descriptions-title" = "Huraian tajuk";
+"description-welcome-descriptions-title" = "Huraian rencana";
 "description-welcome-promise-title" = "Dengan bermula, saya berjanji tidak menyalahgunakan ciri ini";
 "description-welcome-start-editing-button" = "Mula menyunting";
+"diff-compare-header-heading" = "Banding Semakan";
+"diff-context-lines-collapsed-button-title" = "Tunjukkan";
+"diff-context-lines-expanded-button-title" = "Sorokkan";
+"diff-paragraph-moved-direction-down" = "bawah";
+"diff-paragraph-moved-direction-up" = "atas";
+"diff-single-header-editor-title" = "Maklumat penyunting";
+"diff-single-header-summary-heading" = "Ringkasan suntingan";
+"diff-single-intro-title" = "Pengenalan";
+"diff-single-line-format" = "Baris $1";
+"diff-thanks-anonymous-no-thanks" = "Pengguna awanama tidak dapat dihantar ucapan terima kasih";
+"diff-thanks-login-title" = "Log masuk untuk hantar ucapan 'Terima kasih'";
+"diff-thanks-send-button-title" = "Ucap 'Terima kasih'";
+"diff-thanks-sent-cannot-unsend" = "Ucapan terima kasih tidak boleh dinyahhantar";
 "dim-images" = "Samarkan imej";
 "edit-bold-accessibility-label" = "Tambah pemformatan tebal";
 "edit-bold-remove-accessibility-label" = "Buang pemformatan tebal";
@@ -208,6 +241,7 @@
 "edit-unordered-list-remove-accessibility-label" = "Buang senarai tanpa urutan dari baris semasa";
 "edit-watch-list-learn-more-text" = "Ketahui lebih lanjut mengenai senarai pantau";
 "edit-watch-this-page-text" = "Pantau laman ini";
+"editing-welcome-be-bold-title" = "Suara anda penting";
 "empty-no-article-message" = "Maaf, rencana tidak boleh dimuat";
 "empty-no-feed-action-message" = "Anda masih boleh membaca laman tersimpan";
 "empty-no-feed-message" = "Anda boleh lihat rencana cadangan anda apabila anda mempunyai internet";
@@ -245,15 +279,13 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Hidup semua";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Buka";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Dalam $1";
-// Fuzzy
-"explore-feed-preferences-feed-cards-hidden-title" = "Semua %@ kad tersembunyi";
+"explore-feed-preferences-feed-cards-hidden-title" = "Semua $1 kad tersembunyi";
 "explore-feed-preferences-global-card-footer-text" = "Kad ini bukan bahasa khusus, mematikan kad ini akan mengeluarkannya dari suapan Teroka anda.";
 "explore-feed-preferences-global-cards-description" = "Kad khusus non-bahasa";
 "explore-feed-preferences-global-cards-subtitle" = "Bukan bahasa khusus";
 "explore-feed-preferences-global-cards-title" = "Kad global";
 "explore-feed-preferences-hide-card-action-title" = "Sembunyikan kad ini";
-// Fuzzy
-"explore-feed-preferences-hide-feed-cards-action-title" = "Sembunyikan semua kad “%@”";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Sembunyikan semua kad “$1”";
 "explore-feed-preferences-in-the-news-description" = "Rencana mengenai peristiwa semasa";
 "explore-feed-preferences-languages-footer-text" = "Menyembunyikan semua Mencari kad suapan dalam semua bahasa anda akan mematikan tab Jelajah.";
 "explore-feed-preferences-on-this-day-description" = "Peristiwa dalam sejarah pada hari ini";
@@ -334,6 +366,7 @@
 "field-username-placeholder" = "masukkan nama pengguna";
 "field-username-title" = "Nama pengguna";
 "find-infolabel-number-matches" = "$1 / $2";
+"find-textfield-accessibility" = "Cari";
 "forgot-password-button-title" = "Set semula";
 "forgot-password-email-sent" = "E-mel dengan arahan set semula kata laluan telah dihantar";
 "forgot-password-instructions" = "Isikan dalam salah satu medan di bawah untuk menerima arahan set semula kata laluan melalui e-mel";
@@ -363,11 +396,21 @@
 "in-the-news-currently-trending" = "Semasa ini ngetren";
 "in-the-news-notification-read-now-action-title" = "Baca Sekarang";
 "in-the-news-notification-save-for-later-action-title" = "Simpan untuk nanti";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Sebarkan...";
+"in-the-news-notification-share-action-title" = "Kongsikan…";
 "in-the-news-sub-title-from-language-wikipedia" = "Dari Wikipedia $1";
 "in-the-news-sub-title-from-wikipedia" = "Dari Wikipedia";
 "in-the-news-title" = "Berita terkini";
+"insert-action-title" = "Sisipkan";
+"insert-link-title" = "Sisip pautan";
+"insert-media-alternative-text-placeholder" = "Huraikan imej ini";
+"insert-media-image-position-setting-left" = "Kiri";
+"insert-media-image-position-setting-none" = "Tiada";
+"insert-media-image-position-setting-right" = "Kanan";
+"insert-media-image-position-settings-title" = "Kedudukan imej";
+"insert-media-image-preview-select-image-action-title" = "Pilih imej";
+"insert-media-image-size-settings-title" = "Saiz imej";
+"insert-media-image-type-setting-basic" = "Asas";
+"insert-media-uploaded-image-title" = "Imej yang dimuat naik";
 "languages-settings-title" = "Bahasa";
 "languages-title" = "Tukar bahasa";
 "languages-wikipedia" = "Bahasa Wikipedia";
@@ -393,8 +436,7 @@
 "main-menu-title" = "Lagi";
 "main-menu-zero-faq" = "Soalan Lazim Wikipedia Zero";
 "menu-cancel-accessibility-label" = "Batal";
-// Fuzzy
-"more-languages-tooltip-description" = "Cari Wikipedia dalam hampir 300 bahasa";
+"more-languages-tooltip-description" = "Cari Wikipedia dalam lebih 300 bahasa";
 "more-languages-tooltip-title" = "Tambahkan bahasa";
 "move-articles-to-reading-list" = "Pindahkan {{PLURAL:$1|$1 rencana|$1 rencana}} ke daftar bacaan";
 "navbar-title-mode-edit-wikitext-preview" = "Pralihat";
@@ -417,6 +459,13 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 dari Wikipedia $2";
 "on-this-day-title" = "Pada hari ini";
 "original-tab-button-popover-description" = "Ketik pada 'W' untuk kembali ke tab yang anda bermula";
+"page-history-anonymous-edits" = "suntingan awanama";
+"page-history-bot-edits" = "suntingan bot";
+"page-history-compare-title" = "Bandingkan";
+"page-history-minor-edits" = "suntingan kecil";
+"page-history-revision-author-accessibility-label" = "Pengarang: $1";
+"page-history-revision-history-title" = "Sejarah semakan";
+"page-history-revision-minor-edit-accessibility-label" = "Suntingan kecil";
 "page-protected-autoconfirmed" = "Laman ini telah diberi perlindungan separa.";
 "page-protected-can-not-edit" = "Anda tidak mempunyai izin untuk menyunting laman ini";
 "page-protected-can-not-edit-title" = "Halaman ini dilindungi";
@@ -527,8 +576,7 @@
 "reading-lists-default-list-title" = "Disimpan";
 "reading-lists-delete-reading-list-alert-message" = "Tindakan ini tidak dapat dibatalkan. Sebarang rencana yang disimpan hanya untuk {{PLURAL:$1|senarai ini|senarai ini}} tidak akan disimpan.";
 "reading-lists-delete-reading-list-alert-title" = "Padamkan {{PLURAL:$1|senarai|senarai}}?";
-// Fuzzy
-"reading-lists-large-sync-completed" = "$1 rencana dan $2 senarai bacaan disegerakkan dari akaun anda";
+"reading-lists-large-sync-completed" = "{{PLURAL:$1|$1 rencana|$1 rencana}} dan {{PLURAL:$2|$2 senarai bacaan|$2 senarai bacaan}} disegerakkan daripada akaun anda";
 "reading-lists-list-not-synced-limit-exceeded" = "Senarai tidak disegerakkan, had melebihi";
 "reading-lists-sort-saved-articles" = "Isih rencana yang disimpan";
 "reading-lists-split-notification" = "Terdapat had $1 rencana setiap senarai bacaan. Senarai sedia ada dengan lebih daripada had ini telah dibahagikan kepada beberapa senarai.";
@@ -541,9 +589,16 @@
 "reading-themes-controls-accessibility-text-size-slider" = "Slider saiz teks";
 "reference-title" = "Referensi $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Hari ini|1=Semalam|$1 hari yang lalu}}";
+"relative-date-hours-abbreviated" = "$1j";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Baru-baru ini|$1 jam yang lalu|$1 jam yang lalu}}";
+"relative-date-hours-ago-abbreviated" = "$1j lalu";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Tadi|$1 minit yang lalu|$1 minit yang lalu}}";
+"relative-date-minutes-ago-abbreviated" = "$1m lalu";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Tahun ini|1=Tahun lepas|$1 tahun lepas}}";
+"replace-infolabel-method-replace" = "Ganti";
+"replace-infolabel-method-replace-all" = "Ganti semua";
+"replace-textfield-accessibility" = "Ganti";
+"replace-textfield-placeholder" = "Ganti dengan...";
 "request-feedback-on-error" = "Aplikasi ini telah menghadapi masalah yang pemaju kami ingin tahu lebih lanjut mengenai. Sila ketik di sini untuk menghantar e-mel kepada kami dengan butiran ralat.";
 "reverted-edit-back-to-article-button-title" = "Kembali ke rencana";
 "reverted-edit-notification-body" = "Penyuntingan yang anda buat dari rencana $1 telah dikembalikan oleh $2";
@@ -575,6 +630,7 @@
 "search-recent-title" = "Carian terkini";
 "search-result-redirected-from" = "Dilencongkan dari: $1";
 "search-title" = "Cari";
+"settings-account" = "Akaun";
 "settings-appearance" = "Keutamaan membaca";
 "settings-clear-cache" = "Padamkan data dalam cache";
 "settings-clear-cache-are-you-sure-message" = "Mengosongkan data cache akan membebaskan kira-kira $1 ruang. Ia tidak akan memadamkan halaman anda disimpan.";
@@ -631,9 +687,16 @@
 "table-of-contents-close-accessibility-label" = "Tutup jadual isi kandungan";
 "table-of-contents-heading" = "Kandungan";
 "talk-page-add-discussion-accessibility-label" = "Tambah perbincangan";
+"talk-page-discussion-read-accessibility-label" = "Baca";
+"talk-page-link-user-action-sheet-title" = "Laman pengguna";
+"talk-page-reply-title" = "Balas";
+"talk-page-title-user-talk" = "Perbincangan Pengguna";
+"talk-page-topic-title" = "Perbincangan";
+"talk-pages-reply-button-title" = "Balas perbincangan ini";
 "theme-black-display-name" = "Hitam";
 "theme-dark-display-name" = "Gelap";
 "theme-default-display-name" = "Asali";
+"theme-light-display-name" = "Terang";
 "theme-sepia-display-name" = "Sepia";
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia Bahasa $1";
@@ -643,6 +706,7 @@
 "two-factor-login-title" = "Log masuk ke akaun anda";
 "two-factor-login-with-backup-code" = "Gunakan salah satu kod sandaran anda";
 "two-factor-login-with-regular-code" = "Gunakan kod pengesahan";
+"unknown-generic-text" = "Tidak diketahui";
 "welcome-exploration-explore-feed-description" = "Bacaan yang disyorkan dan rencana harian dari komuniti kami";
 "welcome-exploration-explore-feed-title" = "Umpan Jelajah";
 "welcome-exploration-on-this-day-description" = "Perjalanan kembali ke masa untuk mempelajari apa yang berlaku hari ini dalam sejarah";
@@ -652,8 +716,7 @@
 "welcome-explore-continue-button" = "Memulakan";
 "welcome-explore-new-ways-title" = "Cara-cara baru untuk meneroka";
 "welcome-explore-tell-me-more-done-button" = "Faham";
-// Fuzzy
-"welcome-intro-free-encyclopedia-description" = "Wikipedia ditulis secara sukarela oleh sukarelawan dan terdiri daripada lebih 40 juta rencana dalam hampir 300 bahasa.";
+"welcome-intro-free-encyclopedia-description" = "Wikipedia ditulis secara sukarela oleh sukarelawan dan terdiri daripada lebih 40 juta rencana dalam lebih 300 bahasa.";
 "welcome-intro-free-encyclopedia-more" = "Ketahui lebih lanjut mengenai Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "Mengenai Wikipedia";
 "welcome-intro-free-encyclopedia-more-description" = "Wikipedia adalah projek global untuk membina ensiklopedia bebas dalam semua bahasa di dunia. Hampir semua orang yang mempunyai akses Internet bebas untuk mengambil bahagian dengan menyumbang maklumat neutral, yang disebut.";
@@ -661,8 +724,7 @@
 "welcome-languages-add-button" = "Tambahkan bahasa lain";
 "welcome-languages-add-or-edit-button" = "Tambah atau sunting bahasa pilihan";
 "welcome-languages-description" = "Kami telah menemui bahasa berikut pada peranti anda:";
-// Fuzzy
-"welcome-languages-search-title" = "Cari dalam hampir 300 bahasa";
+"welcome-languages-search-title" = "Cari dalam lebih 300 bahasa";
 "welcome-notifications-tell-me-more-creation" = "Pemberitahuan dicipta dan dihantar pada peranti anda dengan aplikasi, bukan dari pelayan kami (atau pihak ketiga).";
 "welcome-notifications-tell-me-more-storage" = "Pilihan pemberitahuan disimpan pada peranti dan tidak berdasarkan kepada maklumat peribadi atau aktiviti.";
 "welcome-notifications-tell-me-more-title" = "Lebih lanjut mengenai pemberitahuan";
@@ -673,6 +735,8 @@
 "wikitext-downloading" = "Memuat kandungan...";
 "wikitext-preview-changes" = "Mengoleh pralihat suntingan anda...";
 "wikitext-preview-changes-none" = "Tiada suntingan yang dilakukan untuk pralihat.";
+"wikitext-preview-link-external-preview-title" = "Pautan luar";
+"wikitext-preview-link-not-found-preview-description" = "Wikipedia tidak mempunyai rencana dengan nama yang tepat";
 "wikitext-preview-link-preview-description" = "Pautan ini membawa kepada '$1'";
 "wikitext-preview-link-preview-title" = "Pralihat pautan";
 "wikitext-preview-save-changes-title" = "Simpan perubahan";
