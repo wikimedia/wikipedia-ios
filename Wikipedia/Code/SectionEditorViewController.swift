@@ -430,7 +430,10 @@ class SectionEditorViewController: ViewController {
 extension SectionEditorViewController: SectionEditorNavigationItemControllerDelegate {
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapProgressButton progressButton: UIBarButtonItem) {
         messagingController.getWikitext { [weak self] (result, error) in
+            
             guard let self = self else { return }
+            self.webView.resignFirstResponder()
+            
             if let error = error {
                 assertionFailure(error.localizedDescription)
                 return
