@@ -74,7 +74,7 @@ public extension ArticleCollectionViewCell {
         titleLabel.accessibilityLanguage = articleLanguageCode
         descriptionLabel.accessibilityLanguage = articleLanguageCode
         extractLabel?.accessibilityLanguage = articleLanguageCode
-        articleSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: articleLanguageCode)
+        articleSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: article.url?.wmf_contentLanguageCode)
         setNeedsLayout()
         group.notify(queue: .main) {
             completion?()

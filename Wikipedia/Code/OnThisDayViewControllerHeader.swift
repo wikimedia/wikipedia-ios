@@ -26,7 +26,7 @@ class OnThisDayViewControllerHeader: UICollectionReusableView {
         let languageCode = firstEvent?.languageCode
         let locale = NSLocale.wmf_locale(for: languageCode)
         
-        semanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: languageCode)
+        semanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: firstEvent?.contentLanguageCode)
         eventsLabel.semanticContentAttribute = semanticContentAttribute
         onLabel.semanticContentAttribute = semanticContentAttribute
         fromLabel.semanticContentAttribute = semanticContentAttribute
