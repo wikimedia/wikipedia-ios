@@ -65,6 +65,8 @@ class SectionEditorViewController: ViewController {
     private var scriptMessageHandlers: [ScriptMessageHandler] = []
     
     private let findAndReplaceHeaderTitle = WMFLocalizedString("find-replace-header", value: "Find and replace", comment: "Find and replace header title.")
+
+    private var editConfirmationSavedData: EditSaveViewController.SaveData? = nil
     
     init(articleURL: URL, sectionID: Int, messagingController: SectionEditorWebViewMessagingController? = nil, dataStore: MWKDataStore, selectedTextEditInfo: SelectedTextEditInfo? = nil, theme: Theme = Theme.standard) {
         self.articleURL = articleURL
@@ -179,7 +181,8 @@ class SectionEditorViewController: ViewController {
         messagingController.buttonSelectionDelegate = self
         messagingController.alertDelegate = self
         messagingController.scrollDelegate = self
-        let layoutDirection = MWKLanguageLinkController.layoutDirection(forContentLanguageCode: languageCode)
+        let contentLanguageCode: String = articleURL.wmf_contentLanguageCode ?? dataStore.languageLinkController.preferredLanguageVariantCode(forLanguageCode: languageCode) ?? languageCode
+        let layoutDirection = MWKLanguageLinkController.layoutDirection(forContentLanguageCode: contentLanguageCode)
         let isSyntaxHighlighted = UserDefaults.standard.wmf_IsSyntaxHighlightingEnabled
         let setupUserScript = CodemirrorSetupUserScript(languageCode: languageCode, direction: CodemirrorSetupUserScript.CodemirrorDirection(rawValue: layoutDirection) ?? .ltr, theme: theme, textSizeAdjustment: textSizeAdjustment, isSyntaxHighlighted: isSyntaxHighlighted) { [weak self] in
             self?.isCodemirrorReady = true
@@ -427,7 +430,10 @@ class SectionEditorViewController: ViewController {
 extension SectionEditorViewController: SectionEditorNavigationItemControllerDelegate {
     func sectionEditorNavigationItemController(_ sectionEditorNavigationItemController: SectionEditorNavigationItemController, didTapProgressButton progressButton: UIBarButtonItem) {
         messagingController.getWikitext { [weak self] (result, error) in
+            
             guard let self = self else { return }
+            self.webView.resignFirstResponder()
+            
             if let error = error {
                 assertionFailure(error.localizedDescription)
                 return
@@ -551,6 +557,10 @@ extension SectionEditorViewController: EditSaveViewControllerDelegate {
     func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<SectionEditorChanges, Error>) {
         delegate?.sectionEditorDidFinishEditing(self, result: result)
     }
+
+    func editSaveViewControllerWillCancel(_ saveData: EditSaveViewController.SaveData) {
+        editConfirmationSavedData = saveData
+    }
 }
 
 // MARK - EditPreviewViewControllerDelegate
@@ -560,6 +570,8 @@ extension SectionEditorViewController: EditPreviewViewControllerDelegate {
         guard let vc = EditSaveViewController.wmf_initialViewControllerFromClassStoryboard() else {
             return
         }
+
+        vc.savedData = editConfirmationSavedData
         vc.dataStore = dataStore
         vc.articleURL = self.articleURL
         vc.sectionID = self.sectionID

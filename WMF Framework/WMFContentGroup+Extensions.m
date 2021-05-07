@@ -527,7 +527,7 @@
 }
 
 - (BOOL)isRTL {
-    return [MWKLanguageLinkController isLanguageRTLForContentLanguageCode:self.siteURL.wmf_languageCode];
+    return [MWKLanguageLinkController isLanguageRTLForContentLanguageCode:self.siteURL.wmf_contentLanguageCode];
 }
 
 - (void)markDismissed {

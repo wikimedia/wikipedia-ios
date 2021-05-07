@@ -254,7 +254,7 @@
     
     view.imageView.image = [UIImage imageNamed:@"no-other-article-languages"];
     view.titleLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-other-article-languages-title", nil, nil, @"No other languages available", @"Title text shown in place of languages list when when no alternative article languages exist.");
-    view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-other-article-languages-message", nil, nil, @"This article has not yet been translated into any other languages", @"Message text shown in place of languages list when when no alternative article languages exist.");
+    view.messageLabel.text = WMFLocalizedStringWithDefaultValue(@"empty-no-other-article-languages-message", nil, nil, @"This article has not yet been written in any other languages", @"Message text shown in place of languages list when when no alternative article languages exist.");
     view.backgroundColorKeyPath = @"colors.baseBackground";
     
     [view.actionLabel removeFromSuperview];

@@ -7,8 +7,7 @@
 // Author: Youssoufkadialy
 
 "aaald-added-text-description-2" = "$1 ߓߘߊ߫ ߝߙߊ߬";
-// Fuzzy
-"aaald-article-description-updated-description" = "ߞߎߡߘߊ ߞߎ߲߬ߕߐ߮ ߞߊ߲߬ߛߓߍߟߌ ߓߘߊ߫ ߟߏ߲ߘߐߦߊ߫";
+"aaald-article-description-updated-description" = "ߞߎߡߘߊ ߞߎ߲߬ߕߐ߮ ߞߊ߲߬ߛߓߍߟߌ ߓߘߊ߫ ߟߊߞߎߘߦߊ߫";
 "aaald-article-insert-last-updated" = "ߟߏ߲ߘߐߦߊߟߌ ߞߐ߯ߟߕߊ";
 "aaald-article-insert-new-changes" = "ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ ߞߎߘߊ ߟߎ߬";
 "aaald-article-insert-read-more" = "ߟߏ߲ߘߐߦߊߣߍ߲߫ ߜߘߍ߫ ߟߎ߫ ߘߐߞߊ߬ߙߊ߲߬";
@@ -335,6 +334,15 @@
 "insert-media-image-position-setting-right" = "ߞߌߣߌ߲";
 "insert-media-image-preview-more-information-action-title" = "ߞߎ߲߬ߠߊ߬ߝߎ߬ߟߋ߲߬ ߜߘߍ ߟߎ߬";
 "insert-media-image-preview-select-image-action-title" = "ߖߌ߬ߦߊ߬ߓߍ ߓߊߕߐ߬ߡߐ߲߬";
+"insert-media-image-size-setting-default" = "ߓߐߛߎ߲";
+"insert-media-image-size-settings-title" = "ߖߌ߬ߦߊ߬ߓߍ ߢߊ߲ߞߊ߲";
+"insert-media-image-type-setting-basic" = "ߓߊߖߎߡߊ";
+"insert-media-image-type-setting-frame" = "ߡߊ߬ߞߟߐ";
+"insert-media-image-type-setting-frameless" = "ߡߊ߬ߞߟߐ߬ߒߕߊ߲";
+"insert-media-image-type-setting-thumbnail" = "ߞߝߊ߬ߟߋ߲ߛߋ߲";
+"insert-media-image-type-settings-title" = "ߖߌ߬ߦߊ߬ߓߍ ߛߎ߯ߦߊ";
+"insert-media-media-settings-title" = "ߡߋߘߌߦߊ ߟߊ߬ߓߍ߲߬ߢߐ߲߰ߡߦߊ߬ߘߊ ߟߎ߬";
+"insert-media-title" = "ߡߋߘߌߦߊ ߟߊߘߏ߲߬";
 "insert-media-uploaded-image-title" = "ߖߌ߬ߦߊ߬ߓߍ߫ ߟߊߦߟߍ߬ߣߍ߲";
 "languages-settings-title" = "ߞߊ߲ ߠߎ߬";
 "languages-title" = "ߞߊ߲ ߡߊߝߊ߬ߟߋ߲߬";

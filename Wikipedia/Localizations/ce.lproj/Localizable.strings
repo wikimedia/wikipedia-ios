@@ -17,7 +17,7 @@
 "abuse-filter-warning-caps" = "ДАКХИЙ ЭЛПАШЦАМ ЗОРБА";
 // Fuzzy
 "abuse-filter-warning-heading" = "ХӀара нисдар зуламе долчух тера ду. Лаьий хьуна и Ӏалашдан?";
-"abuse-filter-warning-irrelevant" = "Нийса йоцу арахьара хьажоргаш я сурт";
+"abuse-filter-warning-irrelevant" = "Нийса йоцу арахьара хьажоргаш йа сурт";
 "abuse-filter-warning-repeat" = "Юх-юха долу хьаьркаш";
 "account-creation-logging-in" = "Системин чудахар...";
 "action-previous-revision-accessibility" = "Хьалхара верси";
@@ -53,7 +53,7 @@
 "nearby-distance-label-km" = "$1 км";
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 миль";
-"page-protected-can-not-edit" = "ХӀара агӀо таян хьан бакъо яц";
+"page-protected-can-not-edit" = "ХӀара агӀо тайан хьан бакъо йац";
 "page-protected-can-not-edit-title" = "ХӀара агӀо ларйина ю";
 // Fuzzy
 "places-search-default-text" = "Лахар";

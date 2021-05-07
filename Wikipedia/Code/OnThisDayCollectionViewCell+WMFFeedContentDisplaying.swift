@@ -31,7 +31,7 @@ extension OnThisDayCollectionViewCell {
         }
         
         descriptionLabel.accessibilityLanguage = articleLanguageCode
-        semanticContentAttributeOverride = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: articleLanguageCode)
+        semanticContentAttributeOverride = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: onThisDayEvent.contentLanguageCode)
         
         isImageViewHidden = true
         timelineView.shouldAnimateDots = shouldAnimateDots
