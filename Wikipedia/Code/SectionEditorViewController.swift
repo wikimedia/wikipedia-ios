@@ -65,6 +65,8 @@ class SectionEditorViewController: ViewController {
     private var scriptMessageHandlers: [ScriptMessageHandler] = []
     
     private let findAndReplaceHeaderTitle = WMFLocalizedString("find-replace-header", value: "Find and replace", comment: "Find and replace header title.")
+
+    private var editConfirmationSavedData: EditSaveViewController.SaveData? = nil
     
     init(articleURL: URL, sectionID: Int, messagingController: SectionEditorWebViewMessagingController? = nil, dataStore: MWKDataStore, selectedTextEditInfo: SelectedTextEditInfo? = nil, theme: Theme = Theme.standard) {
         self.articleURL = articleURL
@@ -552,6 +554,10 @@ extension SectionEditorViewController: EditSaveViewControllerDelegate {
     func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<SectionEditorChanges, Error>) {
         delegate?.sectionEditorDidFinishEditing(self, result: result)
     }
+
+    func editSaveViewControllerWillCancel(_ saveData: EditSaveViewController.SaveData) {
+        editConfirmationSavedData = saveData
+    }
 }
 
 // MARK - EditPreviewViewControllerDelegate
@@ -561,6 +567,8 @@ extension SectionEditorViewController: EditPreviewViewControllerDelegate {
         guard let vc = EditSaveViewController.wmf_initialViewControllerFromClassStoryboard() else {
             return
         }
+
+        vc.savedData = editConfirmationSavedData
         vc.dataStore = dataStore
         vc.articleURL = self.articleURL
         vc.sectionID = self.sectionID
