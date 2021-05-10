@@ -12,10 +12,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%1$d яззам</string>
 			<key>other</key>
-			<string>%1$d яззамаш</string>
+			<string>%1$d йаззам</string>
 		</dict>
 	</dict>
 	<key>relative-date-days-ago</key>
