@@ -17,12 +17,12 @@
 "abuse-filter-warning-caps" = "ДАКХИЙ ЭЛПАШЦАМ ЗОРБА";
 // Fuzzy
 "abuse-filter-warning-heading" = "ХӀара нисдар зуламе долчух тера ду. Лаьий хьуна и Ӏалашдан?";
-"abuse-filter-warning-irrelevant" = "Нийса йоцу арахьара хьажоргаш я сурт";
-"abuse-filter-warning-repeat" = "Юх-юха долу хьаьркаш";
+"abuse-filter-warning-irrelevant" = "Нийса йоцу арахьара хьажоргаш йа сурт";
+"abuse-filter-warning-repeat" = "Йух-йуха долу хьаьркаш";
 "account-creation-logging-in" = "Системин чудахар...";
 "action-previous-revision-accessibility" = "Хьалхара верси";
 "action-unsave" = "Ӏалаш цайина";
-"add-articles-to-reading-list" = "ТӀетоха {{PLURAL:$1|$1 яззам|$1 яззамаш}} бешаран могӀаме";
+"add-articles-to-reading-list" = "ТӀетоха {{PLURAL:$1|$1 йаззам}} бешаран могӀаме";
 // Fuzzy
 "article-languages-filter-placeholder" = "Меттанийн луьттург";
 "article-languages-label" = "Харжа мотт";
@@ -53,14 +53,14 @@
 "nearby-distance-label-km" = "$1 км";
 "nearby-distance-label-meters" = "$1 м";
 "nearby-distance-label-miles" = "$1 миль";
-"page-protected-can-not-edit" = "ХӀара агӀо таян хьан бакъо яц";
-"page-protected-can-not-edit-title" = "ХӀара агӀо ларйина ю";
+"page-protected-can-not-edit" = "ХӀара агӀо тайан хьан бакъо йац";
+"page-protected-can-not-edit-title" = "ХӀара агӀо ларйина йу";
 // Fuzzy
 "places-search-default-text" = "Лахар";
 // Fuzzy
 "places-search-saved-articles" = "Ӏалашйина агӀонаш";
 "preference-title-eventlogging-opt-in" = "Лелорах лаьцна дӀадохьуьйту";
-"reading-lists-default-list-title" = "Ӏалашъян";
+"reading-lists-default-list-title" = "Ӏалашйинарш";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Тахана|1=Селхана|$1 де хьалха}}";
 "search-did-you-mean" = "Хила мега ахьа лоьхарг: $1";
 "search-recent-clear-cancel" = "Цаоьшу";

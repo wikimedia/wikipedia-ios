@@ -74,13 +74,18 @@ class EditSummaryViewController: UIViewController, Themeable {
     }
 
     @IBAction private func cannedSummaryButtonTapped(sender: UIButton) {
-        summaryTextField.text = sender.titleLabel?.text
-        notifyDelegateOfSummaryChange()
-        guard let buttonType = EditSummaryViewCannedButtonType(rawValue: sender.tag) else {
-            assertionFailure("Expected button type not found")
+        guard let senderLabel = sender.titleLabel?.text,
+              let buttonType = EditSummaryViewCannedButtonType(rawValue: sender.tag) else {
+            assertionFailure("Expected button information not found")
             return
         }
+        updateInputText(to: senderLabel)
         delegate?.cannedButtonTapped(type: buttonType)
+    }
+
+    func updateInputText(to text: String) {
+        summaryTextField.text = text
+        notifyDelegateOfSummaryChange()
     }
 
     public func apply(theme: Theme) {
