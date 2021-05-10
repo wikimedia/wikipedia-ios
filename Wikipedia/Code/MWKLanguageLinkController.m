@@ -291,6 +291,15 @@ static NSString *const WMFPreviousLanguagesKey = @"WMFPreviousSelectedLanguagesK
     }
 }
 
+- (void)migrateToUniquedPreferredLanguagesInManagedObjectContext:(NSManagedObjectContext *)moc {
+    NSArray *preferredLangaugeCodes = [self readSavedPreferredLanguageCodesInManagedObjectContext:moc];
+    NSArray *uniquedCodes = [[NSOrderedSet orderedSetWithArray:preferredLangaugeCodes] array];
+    if (preferredLangaugeCodes.count != uniquedCodes.count) {
+        // No changeType and nil changedLanguage will skip sending of notifications that preferred languages changed
+        [self savePreferredLanguageCodes:uniquedCodes changeType:0 changedLanguage:nil inManagedObjectContext:moc];
+    }
+}
+
 @end
 
 #pragma mark -

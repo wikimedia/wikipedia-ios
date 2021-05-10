@@ -7,6 +7,7 @@
 // Author: BaRaN6161 TURK
 // Author: Botansahin
 // Author: Bulgu
+// Author: Cobija
 // Author: HakanIST
 // Author: Hedda
 // Author: Incelemeelemani
@@ -214,7 +215,7 @@
 "description-help-about-description" = "Madde açıklamaları, okuyucuların bir bakışta konuyu anlamalarına yardımcı olmak için bir maddeyi özetler.";
 "description-help-about-title" = "Hakkında";
 "description-help-about-wikidata" = "Vikiveri Hakkında";
-"description-help-more-info-description" = "Tanımlar; Wikimedia Vakfı'nın bir projesi olan, ücretsiz, iş birlikçi, çok dilli, Vikipedi ve diğer projelerini destekleyen ikincil veritabanı Vikiveri'de saklanır ve oradan sağlanır.";
+"description-help-more-info-description" = "Tanımlar Wikimedia Vakfının bir projesi olan ücretsiz, iş birlikçi, çokdilli, Vikipedi ve diğer projelerini de destekleyen ikincil veritabanı Vikiveri'de saklanır ve oradan sağlanır.";
 "description-help-more-info-title" = "Daha fazla bilgi";
 "description-help-tips-description" = "Tanımların bir satıra sığacak şekilde, iki ila on iki kelimeden uzunluğunda olması tercih edilir. Özel isim olmadıkça büyük harf kullanılmaz.";
 "description-help-tips-example-description-one" = "Mona Lisa hakkındaki bir madde için madde açıklaması";

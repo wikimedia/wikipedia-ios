@@ -327,6 +327,8 @@
 "empty-no-feed-message" = "אפשר לראות הצעות לערכים כשיהיה לך אינטרנט";
 "empty-no-history-message" = "כאן אפשר לעקוב אחרי מה שקראת";
 "empty-no-history-title" = "אין היסטוריה להציג";
+"empty-no-other-article-languages-message" = "הערך הזה עדיין לא נכתב בשום שפה אחרת";
+"empty-no-other-article-languages-title" = "שפות אחרות אינן זמינות";
 "empty-no-reading-lists-message" = "צרו רשימות קריאה עבור מקומות שאתם רוצים לטייל בהם, נושאים שמעניינים אתכם, ועוד";
 "empty-no-reading-lists-title" = "סדרו ערכים שמורים ברשימות קריאה";
 "empty-no-saved-pages-in-reading-list-message" = "שמרו דפים ברשימה זו כדי לראות אותם כאן";
