@@ -339,8 +339,7 @@
 "empty-no-feed-message" = "زمانی که به اینترنت متصل باشید می‌توانید مقالات پیشنهادی را مشاهده کنید.";
 "empty-no-history-message" = "پیگیری مواردی که مطالعه کرده‌اید";
 "empty-no-history-title" = "تاریخچه‌ای برای نمایش وجود ندارد";
-// Fuzzy
-"empty-no-other-article-languages-message" = "این مقاله هنوز به هیچ زبان دیگری ترجمه نشده‌است";
+"empty-no-other-article-languages-message" = "این مقاله هنوز در زبان‌های دیگر نوشته نشده است";
 "empty-no-other-article-languages-title" = "زبان دیگری در دسترس نیست";
 "empty-no-reading-lists-message" = "فهرستی برای مکان‌هایی که می‌خواهید به آن‌ها سفر کنید، موضوعات مورد علاقه و چیزهای بیشتر ایجاد کنید";
 "empty-no-reading-lists-title" = "مرتب‌کردن مقاله‌های ذخیره‌شده با استفاده از فهرست‌های مطالعه";
