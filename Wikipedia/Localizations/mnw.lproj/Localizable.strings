@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Aue Nai
 // Author: Htawmonzel
+// Author: 咽頭べさ
 
 "about-content-license" = "ပရူပရာ လာင်ဇြေန်";
 "about-content-license-details" = "ယဝ်ရ ဟွံယောင်ယာဒၟံင် မွဲမွဲမ္ဂး အရာမကတဵုဒှ်ပြဟ်ဟ်ဂှ် ဂွံဆဵုကေတ် ပ္ဍဲ$1";
@@ -275,6 +276,7 @@
 "empty-no-feed-message" = "လိက်ပရေင် မၞးမကဵုလဝ် ကသပ်တအ်ဂှ် မၞးမဂွံဆဵုကေတ်မာန် ကာလမၞးအေန်တာနေတ် နွံတှ်ေ၊၊";
 "empty-no-history-message" = "ဆက် ကလေင်ကျောဝ် မုမၞးမဗှ်လဝ် ပ္ဍဲဒၞာဲဏအ်၊၊";
 "empty-no-history-title" = "အရာမကၠောန်လဝ်တုဲတုဲ သွက်ဂွံထ္ၜး ဟွံမွဲ";
+"empty-no-other-article-languages-title" = "ဟွံမွဲအရေဝ်ဘာသာတဏဟ်ဂမၠိုင်";
 "empty-no-reading-lists-message" = "စွံကောန်လဴ လတူ အသာ်သၚေက် ‘+’ သွက်ဂွံ ခၞံကၠောန် စရင် လိက်ဗွဟ် သွက်ဒၞာဲ သွက်ဂွံအာဝေင်၊ က္ဍိုပ်လိက် မဒးဂၞပ် ကေုာံ အရာတၞဟ်၊၊";
 "empty-no-reading-lists-title" = "ပကောံစွံ လိက်ပရေင် မဂိုင်သိပ် နကဵု စရင် လိက်ဗွဟ်";
 "empty-no-saved-pages-in-reading-list-message" = "ဂိုင်သိပ် မုက်လိက် ပ္ဍဲ စရင်ဏအ် သွက်ဂွံဆဵု မုက်လိက်တအ် ပ္ဍဲဒၞာဲဏအ်";

@@ -106,6 +106,11 @@ typedef NS_ENUM(NSInteger, WMFPreferredLanguagesChangeType) {
 /// The expected dictionary uses language codes as the key with the value being the desired language variant code for that language.
 - (void)migratePreferredLanguagesToLanguageVariants:(NSDictionary<NSString *, NSString *> *)languageMapping inManagedObjectContext:(NSManagedObjectContext *)moc;
 
+/// Removes duplicate language codes from the saved preferred language codes. If there are duplicate codes, all duplicate codes after the first found are removed.
+/// If the number of codes changes after uniquing, saves the new array of codes.
+/// Although generally useful, this is added specifically to address the case of duplicate codes for Norwegian being introduced. https://phabricator.wikimedia.org/T281378
+- (void)migrateToUniquedPreferredLanguagesInManagedObjectContext:(NSManagedObjectContext *)moc;
+
 @end
 
 /// This category is specific to processing MWKLanguageLink instances that represent articles

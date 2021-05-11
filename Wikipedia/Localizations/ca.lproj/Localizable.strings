@@ -16,6 +16,7 @@
 // Author: Nemo bis
 // Author: Rbndev
 // Author: SMP
+// Author: Skurz0
 // Author: Ssola
 // Author: Toniher
 // Author: Tsevener
@@ -327,6 +328,8 @@
 "empty-no-feed-message" = "Podeu veure els vostres articles recomanats quan tingueu Internet";
 "empty-no-history-message" = "Mantén un registre del que he llegit aquí";
 "empty-no-history-title" = "No hi ha historial per mostrar";
+"empty-no-other-article-languages-message" = "Aquest article no encara ha estat escrit en cap altra llengua";
+"empty-no-other-article-languages-title" = "No hi ha altres llengües disponibles";
 "empty-no-reading-lists-message" = "Crea llistes de llocs on viatjar, temes preferits i molt més";
 "empty-no-reading-lists-title" = "Organitzeu els articles desats amb les llistes de lectura";
 "empty-no-saved-pages-in-reading-list-message" = "Desa les pàgines a aquesta llista perquè hi apareguin";

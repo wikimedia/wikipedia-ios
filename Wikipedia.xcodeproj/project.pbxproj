@@ -499,6 +499,10 @@
 		678D79FD235E59B2006161FF /* DiffListUneditedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79FB235E59B2006161FF /* DiffListUneditedViewModel.swift */; };
 		678D79FE235E59B2006161FF /* DiffListUneditedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79FB235E59B2006161FF /* DiffListUneditedViewModel.swift */; };
 		678D79FF235E59B2006161FF /* DiffListUneditedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79FB235E59B2006161FF /* DiffListUneditedViewModel.swift */; };
+		678E7E8126432F060005439C /* NavigationEventsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678E7E8026432F060005439C /* NavigationEventsFunnel.swift */; };
+		678E7E8226432F060005439C /* NavigationEventsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678E7E8026432F060005439C /* NavigationEventsFunnel.swift */; };
+		678E7E8326432F060005439C /* NavigationEventsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678E7E8026432F060005439C /* NavigationEventsFunnel.swift */; };
+		678E7E8426432F060005439C /* NavigationEventsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678E7E8026432F060005439C /* NavigationEventsFunnel.swift */; };
 		678F512A23A7EE5100CE5357 /* ArticleCacheDBWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678F511823A4B92000CE5357 /* ArticleCacheDBWriter.swift */; };
 		678F512B23A7EE6600CE5357 /* ArticleFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676A8A8223A4013D0084B967 /* ArticleFetcher.swift */; };
 		67901E232550E45D0018B218 /* ArticleAsLivingDocFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FF8E2C2550BB6F0048E741 /* ArticleAsLivingDocFunnel.swift */; };
@@ -3692,6 +3696,7 @@
 		678D79EF235E5979006161FF /* DiffListChangeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListChangeViewModel.swift; sourceTree = "<group>"; };
 		678D79F5235E599B006161FF /* DiffListContextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListContextViewModel.swift; sourceTree = "<group>"; };
 		678D79FB235E59B2006161FF /* DiffListUneditedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListUneditedViewModel.swift; sourceTree = "<group>"; };
+		678E7E8026432F060005439C /* NavigationEventsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationEventsFunnel.swift; sourceTree = "<group>"; };
 		678F511823A4B92000CE5357 /* ArticleCacheDBWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArticleCacheDBWriter.swift; path = ../Wikipedia/Code/ArticleCacheDBWriter.swift; sourceTree = "<group>"; };
 		6798035B24F94CE300D765AA /* SignificantEventsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignificantEventsFetcher.swift; sourceTree = "<group>"; };
 		6798036024F94CEE00D765AA /* ArticleAsLivingDocController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocController.swift; sourceTree = "<group>"; };
@@ -6179,6 +6184,7 @@
 				B0E8059C1C0CE2F50065EBC0 /* WMFShareFunnel.m */,
 				7AF1B19520A1E14F000C8DFE /* ReadingListsFunnel.swift */,
 				67E466F9241BED770014149B /* EditHistoryCompareFunnel.swift */,
+				678E7E8026432F060005439C /* NavigationEventsFunnel.swift */,
 				7A25B1CB20A483F1008C6F29 /* LoginFunnel.swift */,
 				7A00E0BF20A9E54400F033C8 /* SettingsFunnel.swift */,
 				7A07A46D20AA482C00F7B2BB /* SessionsFunnel.swift */,
@@ -10579,6 +10585,7 @@
 				7A715667226974D10066FEC4 /* InsertMediaImageSizeSettingsViewController.swift in Sources */,
 				B02B82751C696ECA00B19309 /* WMFSettingsTableViewCell.m in Sources */,
 				B00DDEDB1DB4B76B00615FA2 /* UIView+WMFSubviews.swift in Sources */,
+				678E7E8126432F060005439C /* NavigationEventsFunnel.swift in Sources */,
 				830ECACF1FBDD8C00080B1EF /* ReadingListsViewController.swift in Sources */,
 				D82117FC1EE58C080076C040 /* MapAnnotation.swift in Sources */,
 				7AF0265622985CB9000E0A06 /* BeKindInputAccessoryView.swift in Sources */,
@@ -11432,6 +11439,7 @@
 				7A71566A226974D10066FEC4 /* InsertMediaImageSizeSettingsViewController.swift in Sources */,
 				D8A42A821E815A9C00D8E281 /* WMFPageHistoryRevision.m in Sources */,
 				D8A42A891E815A9C00D8E281 /* WMFEmptyView.m in Sources */,
+				678E7E8426432F060005439C /* NavigationEventsFunnel.swift in Sources */,
 				830ECAD21FBDD8C00080B1EF /* ReadingListsViewController.swift in Sources */,
 				D8A42A8C1E815A9C00D8E281 /* WMFSettingsTableViewCell.m in Sources */,
 				D8A42A8D1E815A9C00D8E281 /* UIView+WMFSubviews.swift in Sources */,
@@ -11894,6 +11902,7 @@
 				6782DBB02343B812003FA21B /* DiffHeaderCompareView.swift in Sources */,
 				83DAA9B123FEB611002D5716 /* ReferenceBackLinksViewController.swift in Sources */,
 				7A9524D822669A8B00C55CDC /* InsertMediaSettingsButtonView.swift in Sources */,
+				678E7E8326432F060005439C /* NavigationEventsFunnel.swift in Sources */,
 				FF2B2112254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift in Sources */,
 				8351CE7920D4424100E32FC1 /* CollectionViewHeader.swift in Sources */,
 				7A20AE092057F39C005FB5DF /* UIView+Identifier.swift in Sources */,
@@ -12381,6 +12390,7 @@
 				6782DBB12343B812003FA21B /* DiffHeaderCompareView.swift in Sources */,
 				83DAA9B223FEB611002D5716 /* ReferenceBackLinksViewController.swift in Sources */,
 				7A9524D922669A8B00C55CDC /* InsertMediaSettingsButtonView.swift in Sources */,
+				678E7E8226432F060005439C /* NavigationEventsFunnel.swift in Sources */,
 				FF2B2111254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift in Sources */,
 				83023C2120E6584F00EC7592 /* SearchTransition.swift in Sources */,
 				D8EC3DF61E9BDA35006712EB /* NSDate+WMFPOTDTitle.m in Sources */,
