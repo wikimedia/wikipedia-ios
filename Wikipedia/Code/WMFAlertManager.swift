@@ -21,7 +21,8 @@ extension NSError {
 
 }
 
-open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
+
+open class WMFAlertManager: NSObject, RMessageProtocol, MFMailComposeViewControllerDelegate, Themeable {
     
     @objc static let sharedInstance = WMFAlertManager()
 
@@ -137,4 +138,29 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
         }
     }
     
+    @objc func showEmailFeedbackAlertViewWithError(_ error: NSError) {
+       let message = WMFLocalizedString("request-feedback-on-error", value:"The app has encountered a problem that our developers would like to know more about. Please tap here to send us an email with the error details.", comment:"Displayed to beta users when they encounter an error we'd like feedback on")
+        showErrorAlertWithMessage(message, sticky: true, dismissPreviousAlerts: true) {
+            self.dismissAllAlerts()
+            if MFMailComposeViewController.canSendMail() {
+                guard let rootVC = UIApplication.shared.keyWindow?.rootViewController else {
+                    return
+                }
+                let vc = MFMailComposeViewController()
+                vc.setSubject("Bug:\(WikipediaAppUtils.versionedUserAgent())")
+                vc.setToRecipients(["mobile-ios-wikipedia@wikimedia.org"])
+                vc.mailComposeDelegate = self
+                vc.setMessageBody("Domain:\t\(error.domain)\nCode:\t\(error.code)\nDescription:\t\(error.localizedDescription)\n\n\n\nVersion:\t\(WikipediaAppUtils.versionedUserAgent())", isHTML: false)
+                rootVC.present(vc, animated: true, completion: nil)
+            } else {
+                self.showErrorAlertWithMessage(WMFLocalizedString("no-email-account-alert", value:"Please setup an email account on your device and try again.", comment:"Displayed to the user when they try to send a feedback email, but they have never set up an account on their device"), sticky: false, dismissPreviousAlerts: false) {
+                    
+                }
+            }
+        }
+    }
+    
+    @objc public func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
 }
