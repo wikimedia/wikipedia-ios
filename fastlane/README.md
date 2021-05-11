@@ -121,6 +121,11 @@ fastlane ios get_latest_tag_with_prefix
 fastlane ios get_latest_build_number
 ```
 
+### ios get_recent_commits
+```
+fastlane ios get_recent_commits
+```
+
 ### ios push
 ```
 fastlane ios push

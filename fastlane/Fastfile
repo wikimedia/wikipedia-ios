@@ -231,8 +231,15 @@ platform :ios do
   desc "Pushes the production app to TestFlight and tags the release. Only releases to internal testers."
   lane :deploy do |options|
     tag_prefix = "betas"
-    build = options[:build] || get_latest_build_number(prefix: tag_prefix) + 1
-    push_production(build: build)
+    last_build = get_latest_build_number(prefix: tag_prefix)
+    build = options[:build] || last_build + 1
+
+    merges_since_last_build = get_recent_commits(start: "betas/#{last_build}")
+    last_public_release = get_latest_tag_with_prefix(prefix: "releases/")[0..-2]
+    merges_since_last_release = get_recent_commits(start: last_public_release)
+    changelog = "____New since last build (#{tag_prefix}/#{last_build})____\n#{merges_since_last_build.empty? ? 'None' : merges_since_last_build}\n\n" +
+        "____New since last public release (#{last_public_release})____\n#{merges_since_last_release.empty? ? 'None' : merges_since_last_release}"
+    push_production(build: build, changelog: changelog)
     tag(prefix: tag_prefix, build_number: build)
   end
 
@@ -241,7 +248,8 @@ platform :ios do
     push(
       product_name: "Wikipedia",
       app_identifier: "org.wikimedia.wikipedia",
-      build: options[:build]
+      build: options[:build],
+      changelog: options[:changelog]
     )
   end
 
@@ -275,6 +283,11 @@ platform :ios do
     prefix = options[:prefix] || "betas"
     prefix = "#{prefix}/"
     get_latest_tag_with_prefix(prefix: prefix)[prefix.length..-1].to_i
+  end
+
+  lane :get_recent_commits do |options|
+    start = options[:start] || "HEAD"
+    `git log #{start}..HEAD --merges --first-parent main --pretty=format:"%h - %s" | sed 's/Merge pull request \#/https:\\/\\/github.com\\/wikimedia\\/wikipedia-ios\\/pull\\//g'`
   end
 
   desc "updates version, builds, and pushes to TestFlight"
@@ -319,7 +332,8 @@ platform :ios do
       skip_submission: true,
       distribute_external: false,
       app_identifier:  app_identifier,
-      beta_app_feedback_email: "mobile-ios-wikipedia@wikimedia.org"
+      beta_app_feedback_email: "mobile-ios-wikipedia@wikimedia.org",
+      changelog: options[:changelog]
     )
   end
 
