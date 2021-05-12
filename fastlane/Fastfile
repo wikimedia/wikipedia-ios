@@ -180,7 +180,7 @@ platform :ios do
     )
   end
 
-  desc "Add a tag for the current build number and push to repo."
+  desc "Add a release tag for the latest beta and push to repo."
   lane :tag do |options|
     prefix = options[:prefix] || "betas"
     build_number = options[:build_number] || options[:build] || get_build_number
@@ -211,7 +211,7 @@ platform :ios do
      )
   end
 
-  desc "Build the app for distibution"
+  desc "Build the app for distribution"
   lane :build do |options|
     project_dir = ".."
     build_dir = "../build"
@@ -228,7 +228,7 @@ platform :ios do
     sh "xcodebuild -exportArchive -exportOptionsPlist ExportOptions.plist -archivePath \"#{build_dir}/#{product_name}.xcarchive\" -exportPath \"#{build_dir}\""
   end
 
-  desc "Pushes the production app to TestFlight and tags the release. Only releases to internal testers."
+  desc "Pushes the production app to TestFlight and tags the release. Only releases to internal testers. (This is very similar to `push_production`, although this command also tags the build in git.)"
   lane :deploy do |options|
     tag_prefix = "betas"
     last_build = get_latest_build_number(prefix: tag_prefix)
@@ -243,7 +243,7 @@ platform :ios do
     tag(prefix: tag_prefix, build_number: build)
   end
 
-  desc "updates version, builds, and pushes the production build to TestFlight. Only releases to internal testers."
+  desc "Updates version, builds, and pushes the production build to TestFlight. Only releases to internal testers."
   lane :push_production do |options|
     push(
       product_name: "Wikipedia",
