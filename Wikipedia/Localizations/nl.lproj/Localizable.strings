@@ -41,7 +41,7 @@
 "aaald-article-insert-new-changes" = "Nieuwe wijzigingen";
 "aaald-article-insert-read-more" = "Lees meer updates";
 "aaald-characters-text-description" = "{{PLURAL:$1|0=tekens|teken|tekens}}";
-"aaald-deleted-text-description-2" = "%s verwijderd";
+"aaald-deleted-text-description-2" = "$1 verwijderd";
 "aaald-error-subitle" = "Herlaad om opnieuw te proberen";
 "aaald-multiple-changes-description" = "Meerdere wijzigingen gemaakt";
 "aaald-multiple-references-added-description" = "Meerdere referenties toegevoegd";
