@@ -673,7 +673,6 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|Ein Objekt|$1 Objekte}} ersetzt";
 "replace-textfield-accessibility" = "Ersetzen";
 "replace-textfield-placeholder" = "Ersetzen durch …";
-"request-feedback-on-error" = "Die App hat ein Problem festgestellt und unsere Entwickler möchten gerne mehr darüber wissen. Bitte tippe hier, um eine E-Mail mit den Einzelheiten zum Fehler an uns zu senden.";
 "reverted-edit-back-to-article-button-title" = "Zurück zum Artikel";
 "reverted-edit-notification-body" = "Deine Bearbeitung am Artikel $1 wurde von $2 zurückgesetzt";
 "reverted-edit-notification-read-more-action-title" = "Mehr erfahren";

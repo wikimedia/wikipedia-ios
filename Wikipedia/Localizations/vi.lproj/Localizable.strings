@@ -728,7 +728,6 @@
 "replace-replace-all-results-count" = "$1 mục được thay thế";
 "replace-textfield-accessibility" = "Thay thế";
 "replace-textfield-placeholder" = "Thay thế bằng…";
-"request-feedback-on-error" = "Ứng dụng này đã gặp sự cố mà nhóm phát triển của chúng tôi muốn biết đến. Xin vui lòng chạm tại đây để gửi thư điện tử cho chúng tôi có chi tiết về lỗi này.";
 "reverted-edit-back-to-article-button-title" = "Quay lại bài viết";
 "reverted-edit-notification-body" = "Sửa đổi mà bạn thực hiện ở bài viết $1 đã bị $2 lùi lại";
 "reverted-edit-notification-read-more-action-title" = "Tìm hiểu thêm";

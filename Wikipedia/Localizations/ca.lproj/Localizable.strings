@@ -747,7 +747,6 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 element reemplaçat|$1 elements reemplaçats}}";
 "replace-textfield-accessibility" = "Reemplaça";
 "replace-textfield-placeholder" = "Reemplaça per…";
-"request-feedback-on-error" = "L'aplicació s'ha trobat amb un problema que els nostres desenvolupadors voldrien conèixer més en detall. Toqueu aquí per enviar-nos un correu amb els detalls de l'error.";
 "reverted-edit-back-to-article-button-title" = "Torna a l'article";
 "reverted-edit-notification-body" = "La modificació que vàreu fer de l'article $1 va ser revertida per $2";
 "reverted-edit-notification-read-more-action-title" = "Més informació";
