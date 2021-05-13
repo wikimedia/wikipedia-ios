@@ -740,7 +740,6 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 forekomst erstattet|$1 forekomster erstattet}}";
 "replace-textfield-accessibility" = "Erstatt";
 "replace-textfield-placeholder" = "Erstatt med…";
-"request-feedback-on-error" = "Appen har støtt på et problem som utviklerne våre gjerne vil vite mer om. Trykk her for å sende oss en epost med informasjon om feilen.";
 "reverted-edit-back-to-article-button-title" = "Tilbake til artikkelen";
 "reverted-edit-notification-body" = "Redigeringen du gjorde på artikkelen $1 ble tilbakestilt av $2";
 "reverted-edit-notification-read-more-action-title" = "Les mer";

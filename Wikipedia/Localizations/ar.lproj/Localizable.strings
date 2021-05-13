@@ -712,7 +712,6 @@
 "replace-replace-all-results-count" = "تم استبدال {{PLURAL:$1|$1 عنصر|$1 عناصر}}";
 "replace-textfield-accessibility" = "استبدال";
 "replace-textfield-placeholder" = "استبدل بـ…";
-"request-feedback-on-error" = "واجه التطبيق مشكلة والتي يود مطورينا أن يتعرفوا على المزيد عنها. يرجى النقر هنا كي ترسل لينا رسالة بريد إلكتروني تبين لنا فيها تفاصيل الخطأ.";
 "reverted-edit-back-to-article-button-title" = "العودة إلى المقالة";
 "reverted-edit-notification-body" = "تم إرجاع التعديل الذي تم إجراؤه بمقالة $1 بواسطة $2";
 "reverted-edit-notification-read-more-action-title" = "قراءة المزيد";

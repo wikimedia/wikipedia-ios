@@ -431,7 +431,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Aurreko batean|Orain dela ordu $1|Orain dela $1 ordu}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Oraintxe|Orain dela minutu $1|Orain dela $1 minutu}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Aurten|Aurreko urtea|$1 duela urteak}}";
-"request-feedback-on-error" = "Aplikazioak arazo bat topatu du, programatzaileek horri buruzko zeozer gehiago jakin nahiko luketeena. Mesedez, sakatu hemen eta kontaiguzu errorea detaile gehiagoz.";
 "saved-all-articles-title" = "Artikulu guztiak";
 "saved-default-reading-list-tag" = "Zerrenda hau ezin da ezabatu";
 "saved-pages-image-download-error" = "Akatsa gordetako orrialdetik argazkiak deskargatzean.";
