@@ -682,7 +682,6 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 atriði skipt út|$1 atriðum skipt út}}";
 "replace-textfield-accessibility" = "Skipta út";
 "replace-textfield-placeholder" = "Skipta út með…";
-"request-feedback-on-error" = "Forritið varð fyrir vandamáli sem forriturum okkar þætti forvitnilegt að skoða nánar. Endilega ýttu hér til að senda okkur tölvupóst með tæknilegum upplýsingum um villuna.";
 "reverted-edit-back-to-article-button-title" = "Til baka í grein";
 "reverted-edit-notification-body" = "Breyting þín á greininni $1 var tekin aftur af $2";
 "reverted-edit-notification-read-more-action-title" = "Lesa meira";

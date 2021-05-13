@@ -747,7 +747,6 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 instans ersättes|$1 instanser ersättes}}";
 "replace-textfield-accessibility" = "Ersätt";
 "replace-textfield-placeholder" = "Ersätt med…";
-"request-feedback-on-error" = "Appen har stött på ett problem som våra utvecklare vill veta mer om. Tryck här för att skicka ett e-postmeddelanden till oss med information om felet.";
 "reverted-edit-back-to-article-button-title" = "Tillbaka till artikeln";
 "reverted-edit-notification-body" = "Redigeringen du gjorde på artikeln $1 ångrades av $2";
 "reverted-edit-notification-read-more-action-title" = "Läs mer";

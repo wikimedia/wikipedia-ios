@@ -760,7 +760,6 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 öge değiştirildi|$1 öge değiştirildi}}";
 "replace-textfield-accessibility" = "Değiştir";
 "replace-textfield-placeholder" = "Şununla değiştir:";
-"request-feedback-on-error" = "Uygulama bir sorunla karşılaştı ve geliştiricilerimiz bu konu hakkında daha fazla şey bilmek isteyecektir. Lütfen hata detaylarını bize e-posta ile göndermek için buraya dokunun.";
 "reverted-edit-back-to-article-button-title" = "Maddeye dön";
 "reverted-edit-notification-body" = "$1 maddesinde yaptığınız düzenleme $2 tarafından geri alındı.";
 "reverted-edit-notification-read-more-action-title" = "Devamını oku";

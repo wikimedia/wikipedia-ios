@@ -99,6 +99,7 @@
 "empty-no-feed-message" = "Preporučene članke možete vidjeti kad se povežete na internet";
 "empty-no-history-message" = "Ovdje pratite sve što ste čitali";
 "empty-no-history-title" = "Nema historije";
+"empty-no-other-article-languages-message" = "Članak nije još napisan na drugim jezicima";
 "empty-no-saved-pages-message" = "Sačuvajte stranice da biste ih kasnije čitali, čak i kad niste na mreži";
 "empty-no-saved-pages-title" = "Zasad nema sačuvanih stranica";
 "empty-no-search-results-message" = "Nema rezultata";
@@ -264,7 +265,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Upravo|Prije $1 minute|Prije $1 minute|Prije $1 minuta}}";
 // Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=Ove godine|Prošle godine|Prije $1 godine|Prije $1 godina}}";
-"request-feedback-on-error" = "Aplikacija je naišla na problem za koji naši programeri želi doznati više. Dodirnite ovdje da biste nam poslali e-poruku s informacijama o grešci.";
 "saved-pages-image-download-error" = "Ne mogu preuzeti slike za ovu sačuvanu stranicu.";
 "saved-title" = "Sačuvano";
 "search-did-you-mean" = "Jeste li mislili $1?";

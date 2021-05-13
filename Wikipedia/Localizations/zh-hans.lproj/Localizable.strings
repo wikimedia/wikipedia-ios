@@ -730,7 +730,6 @@
 "replace-replace-all-results-count" = "替换了{{PLURAL:$1|$1个项目|$1个项目}}";
 "replace-textfield-accessibility" = "替换";
 "replace-textfield-placeholder" = "替换为…";
-"request-feedback-on-error" = "应用程序遇到问题，需要我们开发人员了解更多关于它的信息。请在此点按以向我们发送带有错误详情的电子邮件。";
 "reverted-edit-back-to-article-button-title" = "返回到文章";
 "reverted-edit-notification-body" = "您对文章“$1”的编辑已由 $2 还原";
 "reverted-edit-notification-read-more-action-title" = "阅读更多";

@@ -642,7 +642,6 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 شيءِ مٽائجي وئي|$1 شيون مٽائجي ويون}}";
 "replace-textfield-accessibility" = "مٽايو";
 "replace-textfield-placeholder" = "سان مٽايو…";
-"request-feedback-on-error" = "ايپ ھڪ اھڙي مسئلي کي منھن ڏنو آھي جنھن بابت اسان جا ترقيڪار وڌيڪ ڄاڻڻ پسند ڪندا. براءِ مھرباني خرابي جي تفصيلن سان ھڪ برقٽپال موڪلڻ لاءِ ھتي ٽڙڪ ڪريو.";
 "reverted-edit-back-to-article-button-title" = "مضمون ڏانھن واپس";
 "reverted-edit-notification-body" = "$1 مضمون ۾ توھان جي ڪيل سنوار $2 پاران ورائي وئي";
 "reverted-edit-notification-read-more-action-title" = "وڌيڪ پڙهو";

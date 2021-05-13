@@ -284,7 +284,6 @@
 // Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=Taun ieu|Taun kamari|$1 taun kaliwat}}";
 "replace-method-button-accessibility" = "Ganti métodeu. Setél ka $1. Pilih jang ngarobah.";
-"request-feedback-on-error" = "Ieu aplikasi ngalaman masalah nu nyumebabkeun pangembang kami hayng mikanyaho leuwih jero. Pék totog di dieu pikeun ngirimkeun surélék kalawan wincikan kasalahan.";
 "saved-pages-image-download-error" = "Gagal ngundeur gambar pikeun ieu kaca kasimpen.";
 "saved-search-default-text" = "Paluruh artikel kasimpen";
 "saved-title" = "Kasimpen";
