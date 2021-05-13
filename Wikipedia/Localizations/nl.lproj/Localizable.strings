@@ -18,6 +18,7 @@
 // Author: MrLeopold
 // Author: Ndecouck
 // Author: Nemo bis
+// Author: Nickthijssen1994
 // Author: Optilete
 // Author: Patio
 // Author: Robin van der Linde
@@ -34,17 +35,27 @@
 // Author: Xbaked potatox
 
 "aaald-added-text-description-2" = "$1 toegevoegd";
+"aaald-article-description-updated-description" = "Artikelbeschrijving gewijzigd";
+"aaald-article-insert-header" = "Belangrijke Wijzigingen";
 "aaald-article-insert-last-updated" = "Laatst bijgewerkt";
 "aaald-article-insert-new-changes" = "Nieuwe wijzigingen";
+"aaald-article-insert-read-more" = "Lees meer updates";
 "aaald-characters-text-description" = "{{PLURAL:$1|0=tekens|teken|tekens}}";
+"aaald-deleted-text-description-2" = "$1 verwijderd";
+"aaald-error-subitle" = "Herlaad om opnieuw te proberen";
+"aaald-multiple-changes-description" = "Meerdere wijzigingen gemaakt";
+"aaald-multiple-references-added-description" = "Meerdere referenties toegevoegd";
 "aaald-new-book-reference-title" = "Boek";
 "aaald-new-discussion" = "Nieuw overleg";
+"aaald-new-journal-reference-database" = "via $1";
+"aaald-new-journal-reference-title" = "Tijdschrift";
 "aaald-new-news-reference-title" = "Nieuws";
 "aaald-new-talk-topic-description-format" = "$1 over dit artikel";
 "aaald-new-website-reference-title" = "Website";
 "aaald-revision-by-anonymous" = "Bewerking door anonieme gebruiker";
 "aaald-revision-userInfo" = "Bewerking door $1 ($2 bewerkingen)";
 "aaald-small-change-description" = "{{PLURAL:$1|0=Geen kleine aanpassingen gemaakt|$1 kleine aanpassing gemaakt|$1 kleine aanpassingen gemaakt}}";
+"aaald-vandalism-revert-description" = "Vermoedelijk Vandalisme teruggedraaid";
 "about-content-license" = "Inhoudslicentie";
 "about-content-license-details" = "Tenzij anders vermeld, is de inhoud beschikbaar onder een $1.";
 "about-content-license-details-share-alike-license" = "Creative Commons Naamsvermelding-Gelijk delen-licentie";
@@ -165,37 +176,31 @@
 "compass-direction" = "op $1 uur";
 "continue-reading-empty-description" = "Wikipedia verkennen om meer pagina's te lezen";
 "continue-reading-empty-title" = "Geen recent gelezen pagina's";
+"data-migration-status" = "Bijwerken...";
 "description-add-title" = "Beschrijving toevoegen";
-// Fuzzy
-"description-edit-for-article" = "Titelbeschrijving voor $1";
+"description-edit-for-article" = "Artikelbeschrijving voor $1";
 "description-edit-learn-more" = "Meer leren";
 "description-edit-length-warning" = "$1 / $2";
-// Fuzzy
-"description-edit-license" = "Door de titelbeschrijving te wijzigen, ga ik akkoord met de $1 en maak ik mijn bijdragen onherroepelijk vrij onder de licentie $2.";
+"description-edit-license" = "Door de artikelbeschrijving te wijzigen, ga ik akkoord met de $1 en maak ik mijn bijdragen onherroepelijk vrij onder de $2 licentie.";
 "description-edit-pencil-introduction" = "Bewerk inleiding";
-// Fuzzy
-"description-edit-pencil-title" = "Titelbeschrijving bewerken";
+"description-edit-pencil-title" = "Artikelbeschrijving bewerken";
 "description-edit-placeholder-title" = "Korte beschrijvingen zijn het beste";
 "description-edit-publish" = "Beschrijving publiceren";
 "description-edit-title" = "Beschrijving bewerken";
 "description-edit-warning" = "Probeer beschrijvingen kort te houden, zodat gebruikers het onderwerp van het artikel in één oogopslag kunnen begrijpen";
-// Fuzzy
-"description-help-about-description" = "Titelbeschrijvingen vatten een artikel samen om lezers in een oogopslag het onderwerp te laten begrijpen.";
+"description-help-about-description" = "Artikelbeschrijvingen vatten een artikel samen om lezers in een oogopslag het onderwerp te laten begrijpen.";
 "description-help-about-title" = "Over";
 "description-help-about-wikidata" = "Over Wikidata";
 "description-help-more-info-description" = "Beschrijvingen worden opgeslagen en onderhouden op Wikidata, een project van de Wikimedia Foundation dat een gratis, collaboratieve, meertalige secundaire database biedt die Wikipedia en andere projecten ondersteunt.";
 "description-help-more-info-title" = "Meer informatie";
 "description-help-tips-description" = "Beschrijvingen moeten idealiter op één regel passen en zijn tussen de twee en twaalf woorden lang. Ze worden niet met een hoofdletter geschreven tenzij het eerste woord een eigennaam is.";
-// Fuzzy
-"description-help-tips-example-description-one" = "titelbeschrijving voor een pagina over de Mona Lisa";
-// Fuzzy
-"description-help-tips-example-description-two" = "titelbeschrijving voor een pagina over de Mount Everest";
+"description-help-tips-example-description-one" = "artikelbeschrijving voor een pagina over de Mona Lisa";
+"description-help-tips-example-description-two" = "artikelbeschrijving voor een pagina over de Mount Everest";
 "description-help-tips-example-title-one" = "schilderij van Leonardo Da Vinci";
 "description-help-tips-example-title-two" = "de hoogste berg op aarde";
 "description-help-tips-for-example" = "Bijvoorbeeld:";
 "description-help-tips-title" = "Tips voor het aanmaken van beschrijvingen";
-// Fuzzy
-"description-help-title" = "Hulp bij titelbeschrijvingen";
+"description-help-title" = "Hulp bij artikelbeschrijvingen";
 "description-help-wikidata-guide" = "Wikidata-gids voor het schrijven van beschrijvingen";
 "description-published-button-title" = "Klaar";
 "description-published-footer" = "U kunt ook artikelen bewerken binnen de app. Probeer spelfouten en korte zinnen te repareren door de volgende keer te klikken op het pen-icoontje";
@@ -204,8 +209,7 @@
 "description-welcome-concise-sub-title" = "Idealiter één regel, tussen de twee en twaalf woorden";
 "description-welcome-concise-title" = "Houd het kort";
 "description-welcome-descriptions-sub-title" = "Titelbeschrijvingen vatten een pagina samen om de lezers te helpen met het begrijpen van een pagina in een oogwenk.";
-// Fuzzy
-"description-welcome-descriptions-title" = "Titelbeschrijvingen";
+"description-welcome-descriptions-title" = "Artikelbeschrijvingen";
 "description-welcome-promise-title" = "Door te beginnen beloof ik om deze functie niet te misbruiken";
 "description-welcome-start-editing-button" = "Begin met bewerken";
 "diff-compare-header-from-info-heading" = "Van:";
@@ -527,6 +531,7 @@
 "page-history-compare-title" = "Vergelijken";
 "page-history-minor-edits" = "kleine bewerkingen";
 "page-history-revision-author-accessibility-label" = "Auteur: $1";
+"page-history-revision-comment-accessibility-label" = "Opmerking $1";
 "page-history-revision-history-title" = "Bewerkingsoverzicht";
 "page-history-revision-minor-edit-accessibility-label" = "Kleine bewerking";
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|1 byte|$1 bytes}} toegevoegd";
@@ -674,7 +679,6 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 item vervangen|$1 items vervangen}}";
 "replace-textfield-accessibility" = "Vervangen";
 "replace-textfield-placeholder" = "Vervangen door...";
-"request-feedback-on-error" = "Er is in de app een probleem opgetreden waarover de ontwikkelaars graag meer willen weten. Klik hier om ons een e-mail te sturen met de foutgegevens.";
 "reverted-edit-back-to-article-button-title" = "Terug naar artikel";
 "reverted-edit-notification-body" = "De bewerking die u deed in het artikel $1 is teruggedraaid door $2";
 "reverted-edit-notification-read-more-action-title" = "Meer lezen";

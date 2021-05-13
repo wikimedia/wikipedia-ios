@@ -727,7 +727,6 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 kohde korvattu|$1 kohdetta korvattu}}";
 "replace-textfield-accessibility" = "Korvaa";
 "replace-textfield-placeholder" = "Korvaa seuraavalla...";
-"request-feedback-on-error" = "Tämä sovellus on kohdannut virheen, josta kehittäjämme haluaisivat tietää lisää. Napauta tästä lähettääksesi meille sähköpostitse virheen tiedot.";
 "reverted-edit-back-to-article-button-title" = "Takaisin artikkeliin";
 "reverted-edit-notification-body" = "$2 palautti artikkeliin $1 tekemäsi muutoksen";
 "reverted-edit-notification-read-more-action-title" = "Lue lisää";

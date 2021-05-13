@@ -734,7 +734,6 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|выполнена 1 замена|выполнены $1 замены|выполнены $1 замен}}";
 "replace-textfield-accessibility" = "Заменить";
 "replace-textfield-placeholder" = "Заменить на…";
-"request-feedback-on-error" = "Приложение столкнулся с проблемой, о которой нашим разработчикам хотелось бы знать побольше. Пожалуйста, нажмите здесь, чтобы отправить нам электронное письмо с подробной информацией об ошибке.";
 "reverted-edit-back-to-article-button-title" = "Назад к статье";
 "reverted-edit-notification-body" = "Правка, которую вы сделали в статье $1, была отменена $2";
 "reverted-edit-notification-read-more-action-title" = "Подробнее";

@@ -733,7 +733,6 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|Заменета $1 ставка|Заменети $1 ставки}}";
 "replace-textfield-accessibility" = "Замени";
 "replace-textfield-placeholder" = "Замени со...";
-"request-feedback-on-error" = "Прилогот наиде на проблем за кој нашите програмери сакаат да дознаат повеќе. Допрете тука за да ни испратите е-пошта со поединости за грешката.";
 "reverted-edit-back-to-article-button-title" = "Назад на статијата";
 "reverted-edit-notification-body" = "Вашето уредување на статијата $1 беше отповикано од $2";
 "reverted-edit-notification-read-more-action-title" = "Прочитајте повеќе";

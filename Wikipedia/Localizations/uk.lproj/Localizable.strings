@@ -179,7 +179,7 @@
 "compass-direction" = "на $1 годину";
 "continue-reading-empty-description" = "Дослідіть Вікіпедію, аби знайти більше статей для читання";
 "continue-reading-empty-title" = "Немає нещодавно прочитаних статей";
-"crimean-tatar-variants-alert-body" = "програмка Вікіпедії тепер підтримує такі варіанти кримськотатарської як основний та другорядний, завдяки чому легше читати, шукати та редагувати варіантом, якому ви надаєте перевагу:\n\nQırımtatarca, Latin кримськотатарська латинка (chr-latn)\nкъырымтатарджа, Кирил кримськотатарська кирилиця (crh-cyrl)";
+"crimean-tatar-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти кримськотатарської мови як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\nQırımtatarca кримськотатарська, латинка (chr-latn)\nкъырымтатарджа кримськотатарська, кирилиця (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Оновлення щодо підтримки варіантів кримськотатарської";
 "data-migration-status" = "Оновлення…";
 "description-add-title" = "Додати опис";
@@ -325,6 +325,8 @@
 "empty-no-feed-message" = "Ви можете побачити рекомендовані статті, коли у вас є інтернет";
 "empty-no-history-message" = "Стежте за тим, що ви вже прочитали";
 "empty-no-history-title" = "Немає історії для відображення";
+"empty-no-other-article-languages-message" = "Цю статтю ще не написано жодними іншими мовами";
+"empty-no-other-article-languages-title" = "Нема інших доступних мов";
 "empty-no-reading-lists-message" = "Створюйте списки зі статей про місця подорожей, найцікавіші теми та ще про багато іншого";
 "empty-no-reading-lists-title" = "Упорядкуйте збережені статті за допомоги читальних списків";
 "empty-no-saved-pages-in-reading-list-message" = "Сторінки з'являться тут після того, як ви збережете їх у списку";
@@ -742,7 +744,6 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|виконана 1 заміна|виконані $1 заміни|виконано $1 замін}}";
 "replace-textfield-accessibility" = "Замінити";
 "replace-textfield-placeholder" = "Замінити на…";
-"request-feedback-on-error" = "Додаток зіткнувся з проблемою, про яку нашим розробникам хотілося б знати більше. Будь ласка, натисніть тут, щоб надіслати нам листа з детальним описом помилки.";
 "reverted-edit-back-to-article-button-title" = "Назад до статті";
 "reverted-edit-notification-body" = "Редагування, яке ви зробили у статті $1, було скасовано користувачем $2";
 "reverted-edit-notification-read-more-action-title" = "Пов'язані сторінки";
@@ -834,7 +835,7 @@
 "table-of-contents-hide-button-label" = "Приховати вміст";
 "table-of-contents-subheading-label" = "Підзаголовок $1";
 "tachelhit-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти мови ташельхіт як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\nⵜⴰⵛⵍⵃⵉⵜ ташельхіт, тифінаг (shi-tfng)\nTaclḥit ташельхіт, латинка (shi-latn)";
-"tachelhit-variants-alert-title" = "Оновлення щодо підтримки варіантів ташельхіт";
+"tachelhit-variants-alert-title" = "Оновлення щодо підтримки варіантів ташельхіту";
 "tajik-variants-alert-body" = "Тепер додаток Вікіпедії підтримує різні варіанти таджицької мови як основну чи другорядну мову додатка, полегшуючи читання, пошук і редагування відповідно до ваших вподобань:\n\nтоҷикӣ кирилликӣ таджицька, кирилиця (tg-cyrl)\ntojikī lotinī таджицька, латинка (tg-latn)";
 "tajik-variants-alert-title" = "Оновлення щодо підтримки варіантів таджицької";
 "talk-page-add-discussion-accessibility-label" = "Додати обговорення";
