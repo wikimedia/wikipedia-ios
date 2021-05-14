@@ -13,9 +13,9 @@ These files are only used for users who upgrade from the 6.5.1 release to the 6.
 3.  Run `npm install` and `npm build` in the pcs-html-converter root directory.
 4. Copy the newly generated `PCSHTMLConverter.js` and `Polyfill.js` files and replace them in the wikipedia-ios repository, under `Wikipedia/assets/pcs-html-converter/build`.
 5. The other files within `assets/pcs-html-converter` are simply copied from what the server is serving. Copy the responses from these and paste in the appropriate files:
-- (https://meta.wikimedia.org/api/rest_v1/data/css/mobile/base)[https://meta.wikimedia.org/api/rest_v1/data/css/mobile/base] > base.css
-- (https://meta.wikimedia.org/api/rest_v1/data/css/mobile/pcs)[https://meta.wikimedia.org/api/rest_v1/data/css/mobile/pcs] > pcs.css
-- (https://meta.wikimedia.org/api/rest_v1/data/javascript/mobile/pcs)[https://meta.wikimedia.org/api/rest_v1/data/javascript/mobile/pcs] > pcs.js
+- https://meta.wikimedia.org/api/rest_v1/data/css/mobile/base > base.css
+- https://meta.wikimedia.org/api/rest_v1/data/css/mobile/pcs > pcs.css
+- https://meta.wikimedia.org/api/rest_v1/data/javascript/mobile/pcs > pcs.js
 6. Make a PR into the `wikipedia-ios` repository with these changes.
 
 #### Editing View
