@@ -738,7 +738,6 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 položka zmenená|$1 položky zmenené|$1 položiek zmenených}}";
 "replace-textfield-accessibility" = "Nahradiť";
 "replace-textfield-placeholder" = "Nahradiť za...";
-"request-feedback-on-error" = "Aplikácia narazila na problém, o ktorom by naši vývojári chceli vedieť viac. Prosím, odošlite nám e-mail s podrobnosťami o chybe.";
 "reverted-edit-back-to-article-button-title" = "Späť na článok";
 "reverted-edit-notification-body" = "Vaša úprava článku $1 bola vrátená redaktorom $2";
 "reverted-edit-notification-read-more-action-title" = "Ďalšie informácie";

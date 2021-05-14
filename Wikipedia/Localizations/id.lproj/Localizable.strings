@@ -761,7 +761,6 @@
 "replace-replace-all-results-count" = "$1 butir diganti";
 "replace-textfield-accessibility" = "Ganti";
 "replace-textfield-placeholder" = "Ganti dengan...";
-"request-feedback-on-error" = "Aplikasi ini mengalami masalah yang menyebabkan pengembang kami ingin tahu lebih lanjut. Silakan ketuk di sini untuk mengirimkan kami surel dengan rincian kesalahan.";
 "reverted-edit-back-to-article-button-title" = "Kembali ke artikel";
 "reverted-edit-notification-body" = "Suntingan yang Anda buat dari artikel $1 dikembalikan oleh $2";
 "reverted-edit-notification-read-more-action-title" = "Baca lebih lanjut";

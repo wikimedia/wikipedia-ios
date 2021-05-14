@@ -80,9 +80,13 @@
 "action-language-accessibility" = "Tukar bahasa";
 "action-move-to" = "Pindah ke...";
 "action-move-to-reading-list" = "Pindahkan ke senarai bacaan";
+"action-next-revision-accessibility" = "Semakan Seterusnya";
+"action-previous-revision-accessibility" = "Semakan Sebelumnya";
 "action-read" = "Baca";
 "action-redo" = "Buat semula";
 "action-remove" = "Buang";
+"action-replace" = "Ganti";
+"action-replace-all" = "Ganti semua";
 "action-retry" = "Cuba lagi";
 "action-save" = "Simpan";
 "action-saved" = "Disimpan";
@@ -599,7 +603,6 @@
 "replace-infolabel-method-replace-all" = "Ganti semua";
 "replace-textfield-accessibility" = "Ganti";
 "replace-textfield-placeholder" = "Ganti dengan...";
-"request-feedback-on-error" = "Aplikasi ini telah menghadapi masalah yang pemaju kami ingin tahu lebih lanjut mengenai. Sila ketik di sini untuk menghantar e-mel kepada kami dengan butiran ralat.";
 "reverted-edit-back-to-article-button-title" = "Kembali ke rencana";
 "reverted-edit-notification-body" = "Penyuntingan yang anda buat dari rencana $1 telah dikembalikan oleh $2";
 "reverted-edit-notification-read-more-action-title" = "Baca lagi";
