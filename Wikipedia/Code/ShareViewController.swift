@@ -2,6 +2,10 @@ import UIKit
 
 @objc(WMFShareViewController)
 class ShareViewController: UIViewController, Themeable {
+    private enum ShareType {
+        case shareAFact, rabbitHole
+    }
+
     @IBOutlet weak var cancelButton: UIButton!
     let text: String
     let articleTitle: String
@@ -9,6 +13,7 @@ class ShareViewController: UIViewController, Themeable {
     let articleImageURL: URL?
     let articleDescription: String?
     let loadGroup: WMFTaskGroup
+    private let shareType: ShareType
     var theme: Theme
     var image: UIImage?
     var imageLicense: MWKLicense?
@@ -33,9 +38,24 @@ class ShareViewController: UIViewController, Themeable {
         self.articleImageURL = article.imageURL(forWidth: 640)
         self.theme = theme
         self.loadGroup = WMFTaskGroup()
+        self.shareType = .shareAFact
         super.init(nibName: "ShareViewController", bundle: nil)
         modalPresentationStyle = .overCurrentContext
         loadImage()
+    }
+
+    public init(image: UIImage, theme: Theme) {
+        self.theme = theme
+        self.image = image
+        self.shareType = .rabbitHole
+        self.text = ""
+        self.articleTitle = ""
+        self.articleURL = URL(string: "http://www.wikimedia.org")!
+        self.articleImageURL = URL(string: "http://www.wikimedia.org")!
+        self.articleDescription = nil
+        self.loadGroup = WMFTaskGroup()
+        super.init(nibName: "ShareViewController", bundle: nil)
+        modalPresentationStyle = .overCurrentContext
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
@@ -44,16 +64,27 @@ class ShareViewController: UIViewController, Themeable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        busyLabel.text = WMFLocalizedString("share-building", value: "Building Share-a-fact card…", comment: "Shown while Share-a-fact card is being constructed")
+        switch shareType {
+        case .shareAFact:
+            busyLabel.text = WMFLocalizedString("share-building", value: "Building Share-a-fact card…", comment: "Shown while Share-a-fact card is being constructed")
+        case .rabbitHole:
+            busyLabel.text = WMFLocalizedString("rabbit-hole-building", value: "Building your rabbit hole image…", comment: "Shown while rabbit hole image is being constructed")
+        }
         cancelButton.setTitle(WMFLocalizedString("cancel", value: "Cancel", comment: "Cancel"), for: .normal)
         apply(theme: theme)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.loadGroup.waitInBackground {
-            let image = self.createShareAFactCard()
-            self.showActivityViewController(with: image)
+
+        switch shareType {
+        case .shareAFact:
+            self.loadGroup.waitInBackground {
+                let image = self.createShareAFactCard()
+                self.showActivityViewController(with: image)
+            }
+        case .rabbitHole:
+            showActivityViewController(with: image)
         }
     }
 

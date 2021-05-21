@@ -77,6 +77,8 @@ class ArticleViewController: ViewController, HintPresenting {
         tapGR.isEnabled = false
         return tapGR
     }()
+
+    var articleRabbitHole: [RabbitHoleData]?
     
     //BEGIN: Article As Living Doc properties
     private(set) var surveyTimerController: ArticleSurveyTimerController?
@@ -893,7 +895,7 @@ private extension ArticleViewController {
     
     func setup() {
         setupWButton()
-        setupSearchButton()
+        setupRightBarButtons()
         addNotificationHandlers()
         setupWebView()
         setupMessagingController()
@@ -936,8 +938,9 @@ private extension ArticleViewController {
         surveyTimerController?.didBecomeActive(withState: state)
     }
     
-    func setupSearchButton() {
-        navigationItem.rightBarButtonItem = AppSearchBarButtonItem.newAppSearchBarButtonItem
+    func setupRightBarButtons() {
+        let rabbitHoleShareButton = UIBarButtonItem(image: #imageLiteral(resourceName: "settings-project"), style: .plain, target: self, action: #selector(rabbitHoleShare))
+        navigationItem.rightBarButtonItems = [AppSearchBarButtonItem.newAppSearchBarButtonItem, rabbitHoleShareButton]
     }
     
     func setupMessagingController() {
@@ -1265,6 +1268,5 @@ extension ArticleViewController: ArticleSurveyTimerControllerDelegate {
             return .notInExperiment
         }
     }
-    
-    
+
 }

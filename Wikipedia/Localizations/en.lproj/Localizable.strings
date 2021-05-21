@@ -618,6 +618,7 @@
 "potd-empty-error-description" = "Failed to retrieve picture of the day for $1";
 "preference-summary-eventlogging-opt-in" = "Allow Wikimedia Foundation to collect information about how you use the app to make the app better";
 "preference-title-eventlogging-opt-in" = "Send usage reports";
+"rabbit-hole-building" = "Building your rabbit hole image…";
 "rank-accessibility-label" = "Number $1";
 "readers-accessibility-label" = "$1 readers";
 "reading-list-add-generic-hint-title" = "Add this article to a reading list?";

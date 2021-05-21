@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -25,17 +25,17 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a3r-Et-NLq">
-                    <rect key="frame" x="262.5" y="440.5" width="243" height="143"/>
+                    <rect key="frame" x="263.5" y="442.5" width="241" height="139"/>
                     <subviews>
                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" image="share-building" translatesAutoresizingMaskIntoConstraints="NO" id="zDc-fC-axl">
-                            <rect key="frame" x="55" y="0.0" width="134" height="76"/>
+                            <rect key="frame" x="53.5" y="0.0" width="134" height="76"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="134" id="0Dx-gF-W2J"/>
                                 <constraint firstAttribute="height" constant="76" id="0bs-xo-wSJ"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Building Share-a-fact card..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PB8-bf-PDt">
-                            <rect key="frame" x="8" y="99" width="227" height="21"/>
+                            <rect key="frame" x="8" y="99" width="225" height="17"/>
                             <constraints>
                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="225" id="iaI-ws-KF8"/>
                             </constraints>
@@ -53,8 +53,8 @@
                         <constraint firstItem="PB8-bf-PDt" firstAttribute="top" secondItem="zDc-fC-axl" secondAttribute="bottom" constant="23" id="wcT-W6-pgR"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wRv-BJ-5qn">
-                    <rect key="frame" x="356.5" y="964" width="55" height="33"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wRv-BJ-5qn">
+                    <rect key="frame" x="360.5" y="968" width="47" height="29"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                     <state key="normal" title="Cancel"/>
                     <connections>
@@ -68,6 +68,7 @@
                     </constraints>
                 </imageView>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <constraints>
                 <constraint firstItem="a3r-Et-NLq" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="3Fp-9h-943"/>
                 <constraint firstItem="VCO-jP-6OH" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.5" priority="900" id="74X-Oh-XuR"/>
@@ -86,7 +87,6 @@
                 </constraint>
                 <constraint firstItem="VCO-jP-6OH" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="zjX-56-tnT"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <variation key="default">
                 <mask key="constraints">
                     <exclude reference="74X-Oh-XuR"/>

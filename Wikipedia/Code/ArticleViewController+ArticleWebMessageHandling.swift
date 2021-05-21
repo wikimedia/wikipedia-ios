@@ -89,11 +89,15 @@ extension ArticleViewController: ArticleWebMessageHandling {
         assert(Thread.isMainThread)
         guard let source = source else {
             leadImageHeightConstraint.constant = 0
+            // This is so ugly here
+            setRabbitHoleStack(with: nil)
             return
         }
         guard let leadImageURLToRequest = WMFArticle.imageURL(forTargetImageWidth: traitCollection.wmf_leadImageWidth, fromImageSource: source, withOriginalWidth: width ?? 0) else {
+            setRabbitHoleStack(with: nil)
             return
         }
+        setRabbitHoleStack(with: leadImageURLToRequest)
         loadLeadImage(with: leadImageURLToRequest)
     }
     

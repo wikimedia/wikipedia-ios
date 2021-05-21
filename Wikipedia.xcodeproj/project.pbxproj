@@ -3058,6 +3058,16 @@
 		D8FAC7DD1D6F88AB00C2A6BC /* WMF.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D8FEECCD1DE3729400B883F0 /* WMFChange.m in Sources */ = {isa = PBXBuildFile; fileRef = D8FEECCC1DE3729400B883F0 /* WMFChange.m */; };
 		E1CFD6E6210C103900D8E37C /* ExploreCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA612920D1675800EF0C4A /* ExploreCardViewController.swift */; };
+		FF1EC9D826532AC5007E7FC5 /* UIView+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1EC9D726532AC5007E7FC5 /* UIView+Image.swift */; };
+		FF1EC9DA2655CB8C007E7FC5 /* ArticleViewController+RabbitHole.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1EC9D92655CB8C007E7FC5 /* ArticleViewController+RabbitHole.swift */; };
+		FF1EC9DC2655DEE4007E7FC5 /* RabbitHolePresentationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF1EC9DB2655DEE4007E7FC5 /* RabbitHolePresentationView.xib */; };
+		FF1EC9DE2655DF01007E7FC5 /* RabbitHolePresentationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1EC9DD2655DF01007E7FC5 /* RabbitHolePresentationView.swift */; };
+		FF1EC9DF2656E0DE007E7FC5 /* RabbitHolePresentationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF1EC9DB2655DEE4007E7FC5 /* RabbitHolePresentationView.xib */; };
+		FF1EC9E02656E0DE007E7FC5 /* RabbitHolePresentationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF1EC9DB2655DEE4007E7FC5 /* RabbitHolePresentationView.xib */; };
+		FF1EC9E12656E0DF007E7FC5 /* RabbitHolePresentationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF1EC9DB2655DEE4007E7FC5 /* RabbitHolePresentationView.xib */; };
+		FF1EC9E22656E0E6007E7FC5 /* RabbitHolePresentationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1EC9DD2655DF01007E7FC5 /* RabbitHolePresentationView.swift */; };
+		FF1EC9E32656E0E7007E7FC5 /* RabbitHolePresentationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1EC9DD2655DF01007E7FC5 /* RabbitHolePresentationView.swift */; };
+		FF1EC9E42656E0E8007E7FC5 /* RabbitHolePresentationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1EC9DD2655DF01007E7FC5 /* RabbitHolePresentationView.swift */; };
 		FF2090F02500247100849774 /* ThreeLineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2090EE2500247100849774 /* ThreeLineHeaderView.swift */; };
 		FF2B2110254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2B210F254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift */; };
 		FF2B2111254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2B210F254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift */; };
@@ -5072,6 +5082,10 @@
 		FF0261872627B2D800CBD55F /* kcg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = kcg; path = kcg.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FF19C1AB260548FD000AC20B /* kcg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = kcg; path = kcg.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FF19C1AC26054909000AC20B /* kcg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = kcg; path = kcg.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		FF1EC9D726532AC5007E7FC5 /* UIView+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Image.swift"; sourceTree = "<group>"; };
+		FF1EC9D92655CB8C007E7FC5 /* ArticleViewController+RabbitHole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+RabbitHole.swift"; sourceTree = "<group>"; };
+		FF1EC9DB2655DEE4007E7FC5 /* RabbitHolePresentationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RabbitHolePresentationView.xib; sourceTree = "<group>"; };
+		FF1EC9DD2655DF01007E7FC5 /* RabbitHolePresentationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RabbitHolePresentationView.swift; sourceTree = "<group>"; };
 		FF2090EE2500247100849774 /* ThreeLineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeLineHeaderView.swift; sourceTree = "<group>"; };
 		FF2B210F254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorCollectionViewFooter.swift; sourceTree = "<group>"; };
 		FF338A0A258D572900292602 /* nqo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nqo; path = nqo.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -6634,6 +6648,7 @@
 				00A7946A245CA4E60063BA18 /* ArticleSurveyTimerController.swift */,
 				67DC5BE223A017CA00B03A84 /* ArticleViewController.swift */,
 				D8A47C8E23D7338C002AA823 /* ArticleViewController+TableOfContents.swift */,
+				FF1EC9D92655CB8C007E7FC5 /* ArticleViewController+RabbitHole.swift */,
 				83B01F7123DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift */,
 				83B01F7623DA5348001185F4 /* ArticleViewController+ArticleToolbarHandling.swift */,
 				83B01F7B23DB0BA2001185F4 /* ArticleViewController+Editing.swift */,
@@ -8296,6 +8311,7 @@
 			children = (
 				D82E95691F156F77007BD960 /* UIView+SubviewEnumeration.swift */,
 				7A20AE072057F39C005FB5DF /* UIView+Identifier.swift */,
+				FF1EC9D726532AC5007E7FC5 /* UIView+Image.swift */,
 				83987ACF20E4FB2C00C92C60 /* UISearchBar+Theme.swift */,
 				834CC34A21075B7600F62818 /* UITabBar+Theme.swift */,
 			);
@@ -8317,6 +8333,8 @@
 				D83F5C0B1F0E51E4006130FF /* Accessory Views */,
 				6798331922C174ED0073CE6F /* LinkOnlyTextView.swift */,
 				FF2090EE2500247100849774 /* ThreeLineHeaderView.swift */,
+				FF1EC9DB2655DEE4007E7FC5 /* RabbitHolePresentationView.xib */,
+				FF1EC9DD2655DF01007E7FC5 /* RabbitHolePresentationView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -9804,6 +9822,7 @@
 				D8D92B5B1DF22E1700B95311 /* NotificationBackgroundError@2x.png in Resources */,
 				0E9B9E321CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				7AE1D3331FCD057200393471 /* Saved.storyboard in Resources */,
+				FF1EC9DC2655DEE4007E7FC5 /* RabbitHolePresentationView.xib in Resources */,
 				B0C17B9321FAB048009ED5C3 /* AbuseFilterAlertView.xib in Resources */,
 				D8E27BAD1F82B54D00F9D2B3 /* RMessageDefaultDesign.json in Resources */,
 				B01EA07E2022856300813726 /* ScrollableEducationPanelView.xib in Resources */,
@@ -9922,6 +9941,7 @@
 				7A25367F21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib in Resources */,
 				D8A42BE41E815A9C00D8E281 /* NotificationBackgroundWarning@2x.png in Resources */,
 				B0EFCD6B1EBEC2FA008F36E5 /* LibrariesUsed.storyboard in Resources */,
+				FF1EC9E12656E0DF007E7FC5 /* RabbitHolePresentationView.xib in Resources */,
 				B0524AF92144D7BE00D8FD8D /* DescriptionHelpViewController.xib in Resources */,
 				D8A42BE51E815A9C00D8E281 /* NotificationBackgroundSuccess@2x.png in Resources */,
 				7AF0265E22985CB9000E0A06 /* BeKindInputAccessoryView.xib in Resources */,
@@ -10046,6 +10066,7 @@
 				7A25367D21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib in Resources */,
 				D8CE266B1E698E2400DAE2E0 /* NotificationBackgroundWarning@2x.png in Resources */,
 				B0EFCD691EBEC2F7008F36E5 /* LibrariesUsed.storyboard in Resources */,
+				FF1EC9E02656E0DE007E7FC5 /* RabbitHolePresentationView.xib in Resources */,
 				B0524AF72144D7BE00D8FD8D /* DescriptionHelpViewController.xib in Resources */,
 				D8CE266C1E698E2400DAE2E0 /* NotificationBackgroundSuccess@2x.png in Resources */,
 				7AF0265C22985CB9000E0A06 /* BeKindInputAccessoryView.xib in Resources */,
@@ -10170,6 +10191,7 @@
 				7A25367E21B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.xib in Resources */,
 				D8EC3F6B1E9BDA35006712EB /* NotificationBackgroundWarning@2x.png in Resources */,
 				B0EFCD6A1EBEC2F8008F36E5 /* LibrariesUsed.storyboard in Resources */,
+				FF1EC9DF2656E0DE007E7FC5 /* RabbitHolePresentationView.xib in Resources */,
 				B0524AF82144D7BE00D8FD8D /* DescriptionHelpViewController.xib in Resources */,
 				D8EC3F6C1E9BDA35006712EB /* NotificationBackgroundSuccess@2x.png in Resources */,
 				7AF0265D22985CB9000E0A06 /* BeKindInputAccessoryView.xib in Resources */,
@@ -10559,8 +10581,10 @@
 				67E8B0762268DE4B00537BC9 /* TalkPageContainerViewController.swift in Sources */,
 				6780D5BA237AF8A10087A5D1 /* DiffToolbarView.swift in Sources */,
 				7A49A20121231510005C574C /* CollectionViewFooter.swift in Sources */,
+				FF1EC9DE2655DF01007E7FC5 /* RabbitHolePresentationView.swift in Sources */,
 				41CCB67421CC1F9700206B47 /* SavedArticlesCollectionViewController.swift in Sources */,
 				0EE2438D1DC9889B00066CBD /* WMFTableHeaderFooterLabelView.m in Sources */,
+				FF1EC9DA2655CB8C007E7FC5 /* ArticleViewController+RabbitHole.swift in Sources */,
 				83B4CDBF20E3DCD6007D5A6E /* SearchViewController.swift in Sources */,
 				D8E6FF6724054FA100686272 /* ArticleViewController+LinkPreviewing.swift in Sources */,
 				8350FC4C20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */,
@@ -10919,6 +10943,7 @@
 				6782DBBB2343B861003FA21B /* DiffListViewController.swift in Sources */,
 				7A29A5C81F6C405900E8F42B /* HistoryViewController.swift in Sources */,
 				D808DCEF1E438C5100A3E89C /* MKCoordinateRegion+Dimensions.swift in Sources */,
+				FF1EC9D826532AC5007E7FC5 /* UIView+Image.swift in Sources */,
 				7ADEAB031FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift in Sources */,
 				0EBCA7481C176389004F1FD9 /* WMFAlertManager.swift in Sources */,
 				B083375F1DB17DA5002860D2 /* WMFWelcomeLanguageTableViewController.swift in Sources */,
@@ -11602,6 +11627,7 @@
 				7A8422562268DA2C0074648E /* InsertMediaSearchResultPreviewingViewController.swift in Sources */,
 				D8A42AFC1E815A9C00D8E281 /* WMFCompassView.m in Sources */,
 				D8A42AFD1E815A9C00D8E281 /* WMFWelcomeIntroductionViewController.swift in Sources */,
+				FF1EC9E22656E0E6007E7FC5 /* RabbitHolePresentationView.swift in Sources */,
 				678D79F3235E5979006161FF /* DiffListChangeViewModel.swift in Sources */,
 				B0BCF0BC202537D800986F72 /* Panels.swift in Sources */,
 				6782DBCA2343FDE4003FA21B /* DiffListContextCell.swift in Sources */,
@@ -12034,6 +12060,7 @@
 				7A2FE55D20517BAE00F92F8F /* EraseSavedArticlesView.swift in Sources */,
 				7A6F560621AF527A0076D184 /* TextFormattingInputViewController.swift in Sources */,
 				D8CE256D1E698E2400DAE2E0 /* UIViewController+WMFHideKeyboard.swift in Sources */,
+				FF1EC9E32656E0E7007E7FC5 /* RabbitHolePresentationView.swift in Sources */,
 				BA4524191F324C3100439C42 /* FontSizeSliderViewController.swift in Sources */,
 				FF921887252F7EA500C39A8F /* ThanksGiving.swift in Sources */,
 				83023C1220E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */,
@@ -12522,6 +12549,7 @@
 				7A9524CD22665E6400C55CDC /* InsertMediaSettingsImageView.swift in Sources */,
 				B0524B71214854E900D8FD8D /* DescriptionWelcomeContentsViewController.swift in Sources */,
 				D8EC3E5D1E9BDA35006712EB /* AboutViewController.m in Sources */,
+				FF1EC9E42656E0E8007E7FC5 /* RabbitHolePresentationView.swift in Sources */,
 				7A6F560721AF527A0076D184 /* TextFormattingInputViewController.swift in Sources */,
 				D818D38D1ED765470076110D /* ArticleLocationCollectionViewController.swift in Sources */,
 				7A2FE55E20517BAE00F92F8F /* EraseSavedArticlesView.swift in Sources */,
