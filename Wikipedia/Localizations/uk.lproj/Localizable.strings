@@ -50,7 +50,7 @@
 "aaald-revision-userInfo" = "Відредаговано $1 ($2 змін)";
 "aaald-single-reference-added-description" = "Примітку додано";
 "aaald-small-change-description" = "{{PLURAL:$1|0=Не виконано жодних малих редагувань|Виконано $1 мале редагування|Виконано $1 малі редагування|Виконано $1 малих редагувань}}";
-"aaald-summary-title" = "{{PLURAL:$1|0=0 змін|$1 зміна|$1 зміни|$1 змін}} від {{PLURAL:$2|0=0 дописувачів|$2 дописувача|$2 дописувачів}} протягом {{PLURAL:$3|0=0 днів|$3 день|$3 днів}}";
+"aaald-summary-title" = "{{PLURAL:$1|0=0 змін|$1 зміна|$1 зміни|$1 змін}} від {{PLURAL:$2|0=0 дописувачів|$2 дописувачі|$2 дописувачів}} протягом {{PLURAL:$3|0=0 днів|$3 день|$3 днів}}";
 "aaald-two-sections-description" = "у розділах $1 і $2";
 "aaald-vandalism-revert-description" = "Імовірний вандалізм відкочено";
 "aaald-view-full-history-button" = "Переглянути всю історію статті";
@@ -704,7 +704,7 @@
 "reading-lists-articles-not-synced-limit-exceeded" = "Деякі статті не збережені, ліміт перевищений";
 "reading-lists-conflicting-reading-list-name-updated" = "Ваш список «$1» перейменовано на «$2»";
 "reading-lists-count" = "{{PLURAL:$1|$1 читальний список|$1 читальні списки|$1 читальних списків}}";
-"reading-lists-default-list-description" = "Стандартний список для ваших збережених статей";
+"reading-lists-default-list-description" = "Типовий список для ваших збережених статей";
 "reading-lists-default-list-title" = "Збережене";
 "reading-lists-delete-reading-list-alert-message" = "Ця дія не може була скасована. Жодні статті, збережені тільки для {{PLURAL:$1|цього списку|цих списків}}, не збережуться.";
 "reading-lists-delete-reading-list-alert-title" = "Вилучити {{PLURAL:$1|список|списки}}?";
