@@ -14,10 +14,10 @@
 "aaald-article-insert-new-changes" = "Nove izmjene";
 "aaald-article-insert-read-more" = "Prikaži još ažuriranja";
 "aaald-characters-text-description" = "{{PLURAL:$1|znak|znaka|znakova}}";
-"aaald-deleted-text-description-2" = "$1 {{PLURAL:$1|izbrisan|izbrisana|izbrisano}}";
+"aaald-deleted-text-description-2" = "$1 izbrisano";
 "aaald-error-subitle" = "Osvježite da pokušate ponovo";
 "aaald-error-title" = "Nije moguće učitati umetnutu historiju članka";
-"aaald-many-sections-description" = "u {{PLURAL:|$1 odlomku|$1 odlomka|$ odlomaka}}";
+"aaald-many-sections-description" = "u $1 odlomaka";
 "aaald-multiple-changes-description" = "Napravljeno više izmjena";
 "aaald-multiple-references-added-description" = "Dodano više referenci";
 "aaald-new-book-reference-title" = "Knjiga";
@@ -34,7 +34,7 @@
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|Dodana $1 referenca|Dodane $1 reference|Dodano $1 referenci}}";
 "aaald-one-section-description" = "u odlomku $1";
 "aaald-revision-by-anonymous" = "Izmjena anonimnog korisnika";
-"aaald-revision-userInfo" = "Izmjenio $1 ($2 {{PLURAL:$2|izmjena|izmjene|izmjena}})";
+"aaald-revision-userInfo" = "Izmjenio $1 ($2 izmjena)";
 "aaald-single-reference-added-description" = "Referenca dodana";
 "aaald-small-change-description" = "{{PLURAL:$1|0=Bez manjih izmjena|napravljena $1 manja izmjena|napravljene $1 manje izmjene|napravljeno $1 manjih izmjena}}";
 "aaald-summary-title" = "{{PLURAL:$1|0=0 promjena|$1 promjena|$1 promjene|$1 promjena}} od $2 urednika za {{PLURAL:$3|0=0 dana|$3 dan|$3 dana}}";
@@ -163,7 +163,7 @@
 "chinese-variants-alert-title" = "Ažuriranja podrške za varijantu kineskog jezika";
 "clear-title-accessibility-label" = "Očisti";
 "close-button-accessibility-label" = "Zatvori";
-"compass-direction" = "na {{PLURAL:$1|$1 sat|$1 sata|$1 sati}}";
+"compass-direction" = "na $1 sati";
 "continue-reading-empty-description" = "Istražite Wikipediju – pročitajte još članaka";
 "continue-reading-empty-title" = "Nema nedavno pročitanih članaka";
 "crimean-tatar-variants-alert-body" = "Aplikacija Wikipedia sada podržava sljedeće varijante krimskotatarskog jezika kao primarnih ili sekundarnih jezika unutar aplikacije, što olakšava čitanje, pretraživanje i uređivanje u željenim varijantama:\n\nQırımtatarca, Latin krimskotatarski, latinica (chr-latn)\nкъырымтатарджа, Кирил krimskotatarski, ćirilica (crh-cyrl)";
@@ -504,9 +504,9 @@
 "insert-media-title" = "Umetnite medij";
 "insert-media-uploaded-image-title" = "Postavljena slika";
 "intermediate-edits-count" = "{{PLURAL:$1|$1 međuizmjena nije prikazana|$1 međuizmjene nisu prikazane|$1 međuizmjena nije prikazano}}";
-"intermediate-edits-count-limited" = "{{PLURAL:$1|Nije prikazana $1+ međuverzija|Nisu prikazane $1+ međuverzije|Nije prikazano $1+ međuverzija}}";
+"intermediate-edits-count-limited" = "Nije prikazano $1+ međuverzija";
 "intermediate-edits-editors-count" = "{{PLURAL:$1|Nije prikazana $1 međuverzija|Nisu prikazane $1 međuverzije|Nije prikazano $1 međuverzija}} od $2 korisnika";
-"intermediate-edits-editors-count-limited" = "{{PLURAL:$1|Nije prikazana $1+ međuverzija|Nisu prikazane $1+ međuverzije|Nije prikazano $1+ međuverzija}} od $2+ korisnika";
+"intermediate-edits-editors-count-limited" = "Nije prikazano $1+ međuverzija od $2+ korisnika";
 "intermediate-edits-editors-limited-count" = "{{PLURAL:$1|Nije prikazana $1 međuverzija|Nisu prikazane $1 međuverzije|Nije prikazano $1 međuverzija}} od $2+ korisnika";
 "intermediate-edits-limited-editors-count" = "{{PLURAL:$1|Nije prikazana $1+ međuverzija|Nisu prikazane $1+ međuverzije|Nije prikazano $1+ međuverzija}} od $2 korisnika";
 "inuktitut-variants-alert-body" = "Aplikacija Wikipedia sada podržava sljedeće varijante inuktitut jezika kao primarnih ili sekundarnih jezika unutar aplikacije, što olakšava čitanje, pretraživanje i uređivanje u željenim varijantama:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ inuktitut, slogovi (ike-cans)\nInuktitut ilisautik, inuktitut, latinica (ike-latn)";
@@ -658,7 +658,7 @@
 "reading-list-limit-hit-for-unsorted-articles-title" = "Dostigli ste ograničenje za nerazvrstane članke";
 "reading-list-list-limit-exceeded-message" = "Ovaj spisak za čitanje i članci sačuvani na njemu neće biti sinhronizovani, smanjite broj spiskova na $1 da biste nastavili sa sinhronizacijom ovog spiska.";
 "reading-list-list-limit-exceeded-title" = "Prekoračili ste ograničenje od {{PLURAL:$1|$1 spiska za čitanje|$1 spiska za čitanje|$1 spiskova za čitanje}} po računu.";
-"reading-list-list-limit-reached" = "Dostigli ste ograničenje od {{PLURAL:$1|$1 spiska za čitanje|$1 spiska za čitanje|$1 spiskova za čitanje}} po računu.";
+"reading-list-list-limit-reached" = "Dostigli ste ograničenje od $1 spiskova za čitanje po računu.";
 "reading-list-login-button-title" = "Prijavite se kako bi sinhronizovali svoje sačuvane članke";
 "reading-list-login-or-create-account-button-title" = "Prijavi se ili napravi račun";
 "reading-list-login-or-create-account-title" = "Prijavite se kako bi sinhronizovali sačuvane članke";
@@ -698,7 +698,7 @@
 "reading-lists-large-sync-completed" = "{{PLURAL:$1|$1 članak|$1 članka|$1 članaka}} i {{PLURAL:$2|$2 spisak za čitanje|$2 spiska za čitanje|$2 spiskova za čitanje}} su sinhronizirani sa Vašeg računa";
 "reading-lists-list-not-synced-limit-exceeded" = "Spisak nije sinhroniziran, prekoračeno ograničenje";
 "reading-lists-sort-saved-articles" = "Poredaj sačuvane članke";
-"reading-lists-split-notification" = "Postoji ograničenje od {{PLURAL: $1|$1 članka|$1 članka|$1 članaka}} po spisku za čitanje. Postojeći spiskovi sa više od ovog ograničenja su podijeljeni na više spiskova.";
+"reading-lists-split-notification" = "Postoji ograničenje od $1 članaka po spisku za čitanje. Postojeći spiskovi sa više od ovog ograničenja su podijeljeni na više spiskova.";
 "reading-lists-sync-error-no-internet-connection" = "Sinkronizacija će se nastaviti kada internetska veza bude dostupna";
 "reading-themes-controls-accessibility-black-theme-button" = "Crna tema";
 "reading-themes-controls-accessibility-brightness-slider" = "Klizač svjetline";
@@ -916,5 +916,5 @@
 "wikitext-upload-save-anonymously-or-login" = "Izmjene će biti pripisane IP-adresi Vašeg uređaja. Ako se $1Prijavite$2, imat ćete više privatnosti.";
 "wikitext-upload-save-anonymously-warning" = "Izmjene će biti pripisane IP-adresi Vašeg uređaja. Ako pritisnete $1, imat ćete više privatnosti.";
 "wikitext-upload-save-sign-in" = "Prijava";
-"wikitext-upload-save-terms-and-licenses" = "Objavljivanjem izmjena prihvatate <a href=\"%1$s\">uslove korištenja</a> i neopozivo prihvatate objavljivanje Vaših doprinosa pod licencom $3CC BY-SA 3.0$4 i $5GFDL$6. Slažete se da je hyperlink ili URL dovoljna atribucija pod Creative Commons licencom.";
+"wikitext-upload-save-terms-and-licenses" = "Objavljivanjem izmjena prihvatate $1uslove korištenja$2 i neopozivo prihvatate objavljivanje Vaših doprinosa pod licencom $3CC BY-SA 3.0$4 i $5GFDL$6. Slažete se da je hyperlink ili URL dovoljna atribucija pod Creative Commons licencom.";
 "wikitext-upload-save-terms-name" = "uslove korištenja";
