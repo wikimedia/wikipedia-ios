@@ -330,6 +330,8 @@
 "empty-no-feed-message" = "Du kan se dina rekommenderade artiklar när du har Internetåtkomst";
 "empty-no-history-message" = "Håll koll på vad du har läst här";
 "empty-no-history-title" = "Ingen historik att visa";
+"empty-no-other-article-languages-message" = "Denna artikel har inte ännu skrivits på något annat språk";
+"empty-no-other-article-languages-title" = "Inga andra språk är tillgängliga";
 "empty-no-reading-lists-message" = "Skapa listor för platser att resa till, favoritämnen och mycket mer";
 "empty-no-reading-lists-title" = "Organisera sparade artiklar med läslistor";
 "empty-no-saved-pages-in-reading-list-message" = "Spara sidor i denna lista för att se dem dyka upp här";

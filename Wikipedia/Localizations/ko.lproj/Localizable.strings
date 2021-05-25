@@ -338,6 +338,8 @@
 "empty-no-feed-message" = "인터넷 이용이 가능할 때 추천 문서를 읽을 수 있습니다.";
 "empty-no-history-message" = "여기에는 당신이 읽은 문서들이 표시됩니다";
 "empty-no-history-title" = "표시할 역사가 없습니다";
+"empty-no-other-article-languages-message" = "이 문서는 아직 다른 언어로 작성되지 않았습니다";
+"empty-no-other-article-languages-title" = "사용 가능한 다른 언어 없음";
 "empty-no-reading-lists-message" = "여행 갈 장소, 좋아하는 주제 등을 위한 목록을 만드세요";
 "empty-no-reading-lists-title" = "저장된 문서를 읽기 목록으로 정리합니다";
 "empty-no-saved-pages-in-reading-list-message" = "여기에 문서를 표시하려면 문서를 이 목록에 저장하세요";
