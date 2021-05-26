@@ -13326,8 +13326,6 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 6.7.1;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -13365,7 +13363,6 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 6.7.1;
-				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -13402,7 +13399,6 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 6.7.1;
-				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -13439,7 +13435,6 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 6.7.1;
-				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -13476,7 +13471,6 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 6.7.1;
-				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -13513,7 +13507,6 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 6.7.1;
-				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -13550,7 +13543,6 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 6.7.1;
-				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -13587,7 +13579,6 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 6.7.1;
-				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -13624,7 +13615,6 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 6.7.1;
-				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -13661,7 +13651,6 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 6.7.1;
-				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -13698,7 +13687,6 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 6.7.1;
-				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -13735,7 +13723,6 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 6.7.1;
-				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -13772,7 +13759,6 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 6.7.1;
-				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -13809,7 +13795,6 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 6.7.1;
-				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -13840,7 +13825,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -13866,7 +13850,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -13891,7 +13874,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -13955,7 +13937,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DNDEBUG -DTEST";
 				SDKROOT = iphoneos;
@@ -13984,7 +13965,6 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
@@ -14019,9 +13999,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"SOURCE_ROOT_DIR=@\\\"\"$(SOURCE_ROOT)\"\\\"",
-					"MKT_SHORTHAND=1",
-					"HC_SHORTHAND=1",
-					"FB_REFERENCE_IMAGE_DIR=\\\"\"$(SOURCE_ROOT)/WikipediaUnitTests/ReferenceImages\"\\\"",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
@@ -14035,7 +14012,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -14091,7 +14067,6 @@
 					"NS_ENFORCE_NSOBJECT_DESIGNATED_INITIALIZER=0",
 					"$(inherited)",
 					"WMF_APP_GROUP_IDENTIFIER=$(WMF_APP_GROUP_IDENTIFIER)",
-					"WMF_IS_NEW_EVENT_LOGGING_ENABLED=1",
 					"UI_TEST=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -14104,7 +14079,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG -DUI_TEST";
 				SDKROOT = iphoneos;
@@ -14130,10 +14104,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -14162,10 +14133,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -14194,10 +14162,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -14225,10 +14190,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -14266,7 +14228,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -14290,9 +14251,6 @@
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"FB_REFERENCE_IMAGE_DIR=\\\"\"$(SOURCE_ROOT)/WikipediaUnitTests/ReferenceImages\"\\\"",
-					"MKT_SHORTHAND=1",
-					"HC_SHORTHAND=1",
 					"SOURCE_ROOT_DIR=@\\\"\"$(SOURCE_ROOT)\"\\\"",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -14307,7 +14265,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -14339,7 +14296,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -14369,7 +14325,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -14443,10 +14398,7 @@
 				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "WMF Framework/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -14455,7 +14407,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -14517,11 +14468,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Wikipedia;
 			};
 			name = UITest;
 		};
@@ -14571,7 +14520,6 @@
 					"NS_ENFORCE_NSOBJECT_DESIGNATED_INITIALIZER=0",
 					"$(inherited)",
 					"WMF_APP_GROUP_IDENTIFIER=$(WMF_APP_GROUP_IDENTIFIER)",
-					"WMF_IS_NEW_EVENT_LOGGING_ENABLED=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
@@ -14583,7 +14531,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG -DWMF_EVENT_LOGGING_DEV_DEBUG";
 				SDKROOT = iphoneos;
@@ -14609,10 +14556,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -14641,10 +14585,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -14673,10 +14614,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -14704,10 +14642,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -14745,7 +14680,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -14769,9 +14703,6 @@
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"FB_REFERENCE_IMAGE_DIR=\\\"\"$(SOURCE_ROOT)/WikipediaUnitTests/ReferenceImages\"\\\"",
-					"MKT_SHORTHAND=1",
-					"HC_SHORTHAND=1",
 					"SOURCE_ROOT_DIR=@\\\"\"$(SOURCE_ROOT)\"\\\"",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -14786,7 +14717,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -14818,7 +14748,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -14848,7 +14777,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -14922,10 +14850,7 @@
 				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "WMF Framework/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -14934,7 +14859,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -14995,11 +14919,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Wikipedia;
 			};
 			name = EventLoggingDevDebug;
 		};
@@ -15032,11 +14954,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Wikipedia;
 			};
 			name = Debug;
 		};
@@ -15066,10 +14986,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Wikipedia;
 			};
 			name = UserTestingDebug;
 		};
@@ -15099,10 +15017,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Wikipedia;
 			};
 			name = StagingDebug;
 		};
@@ -15132,10 +15048,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Wikipedia;
 			};
 			name = MediaWikiBetaClusterDebug;
 		};
@@ -15165,10 +15079,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Wikipedia;
 			};
 			name = ExperimentalDebug;
 		};
@@ -15198,10 +15110,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Wikipedia;
 			};
 			name = Release;
 		};
@@ -15231,10 +15141,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Wikipedia;
 			};
 			name = UserTesting;
 		};
@@ -15264,10 +15172,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Wikipedia;
 			};
 			name = Staging;
 		};
@@ -15297,10 +15203,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Wikipedia;
 			};
 			name = MediaWikiBetaCluster;
 		};
@@ -15330,10 +15234,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Wikipedia;
 			};
 			name = Test;
 		};
@@ -15363,10 +15265,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Wikipedia;
 			};
 			name = Experimental;
 		};
@@ -15386,9 +15286,6 @@
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"FB_REFERENCE_IMAGE_DIR=\\\"\"$(SOURCE_ROOT)/WikipediaUnitTests/ReferenceImages\"\\\"",
-					"MKT_SHORTHAND=1",
-					"HC_SHORTHAND=1",
 					"SOURCE_ROOT_DIR=@\\\"\"$(SOURCE_ROOT)\"\\\"",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -15403,7 +15300,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -15431,9 +15327,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"SOURCE_ROOT_DIR=@\\\"\"$(SOURCE_ROOT)\"\\\"",
-					"MKT_SHORTHAND=1",
-					"HC_SHORTHAND=1",
-					"FB_REFERENCE_IMAGE_DIR=\\\"\"$(SOURCE_ROOT)/WikipediaUnitTests/ReferenceImages\"\\\"",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
@@ -15447,7 +15340,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -15514,7 +15406,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				SDKROOT = iphoneos;
@@ -15580,7 +15471,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "-DNDEBUG";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -15607,10 +15497,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -15642,7 +15529,6 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
@@ -15704,7 +15590,6 @@
 					"DEBUG=1",
 					"NS_ENFORCE_NSOBJECT_DESIGNATED_INITIALIZER=0",
 					"$(inherited)",
-					"BETA=1",
 					"WMF_APP_GROUP_IDENTIFIER=$(WMF_APP_GROUP_IDENTIFIER)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -15717,7 +15602,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG -DWMF_LABS";
 				SDKROOT = iphoneos;
@@ -15743,10 +15627,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -15784,7 +15665,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.InTheNewsNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -15808,9 +15688,6 @@
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"FB_REFERENCE_IMAGE_DIR=\\\"\"$(SOURCE_ROOT)/WikipediaUnitTests/ReferenceImages\"\\\"",
-					"MKT_SHORTHAND=1",
-					"HC_SHORTHAND=1",
 					"SOURCE_ROOT_DIR=@\\\"\"$(SOURCE_ROOT)\"\\\"",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -15825,7 +15702,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -15857,7 +15733,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -15887,7 +15762,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -15909,10 +15783,7 @@
 				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "WMF Framework/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -15921,7 +15792,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16223,10 +16093,7 @@
 				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "WMF Framework/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -16235,7 +16102,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16260,7 +16126,6 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WMF_APP_EXTENSION=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -16271,7 +16136,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16296,7 +16160,6 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WMF_APP_EXTENSION=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -16307,7 +16170,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16557,7 +16419,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfalpha.InTheNewsNotification;
 				PRODUCT_NAME = InTheNewsNotification;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -16585,7 +16446,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfalpha.InTheNewsNotification;
 				PRODUCT_NAME = InTheNewsNotification;
 			};
@@ -16649,7 +16509,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG -DWMF_LOCAL_ANNOUNCEMENTS -DWMF_LOCAL_PAGE_CONTENT_SERVICE";
 				SDKROOT = iphoneos;
@@ -16675,10 +16534,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Local-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -16707,10 +16563,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -16739,10 +16592,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -16770,10 +16620,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -16811,7 +16658,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16835,9 +16681,6 @@
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"FB_REFERENCE_IMAGE_DIR=\\\"\"$(SOURCE_ROOT)/WikipediaUnitTests/ReferenceImages\"\\\"",
-					"MKT_SHORTHAND=1",
-					"HC_SHORTHAND=1",
 					"SOURCE_ROOT_DIR=@\\\"\"$(SOURCE_ROOT)\"\\\"",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -16852,7 +16695,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -16884,7 +16726,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -16914,7 +16755,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -16988,10 +16828,7 @@
 				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "WMF Framework/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -17000,7 +16837,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17061,11 +16897,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.uitesting.WikipediaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Wikipedia;
 			};
 			name = LocalDebug;
 		};
@@ -17107,10 +16941,8 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"NDEBUG=1",
-					"BETA=1",
 					"NS_ENFORCE_NSOBJECT_DESIGNATED_INITIALIZER=0",
 					"$(inherited)",
-					"ALPHA=1",
 					"NS_BLOCK_ASSERTIONS=1",
 					"WMF_APP_GROUP_IDENTIFIER=$(WMF_APP_GROUP_IDENTIFIER)",
 				);
@@ -17123,7 +16955,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "-DNDEBUG";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -17153,8 +16984,6 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-					"WMF_UX_STUDY_ENABLED=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
@@ -17204,7 +17033,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -17232,7 +17060,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfalpha.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17257,7 +17084,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfalpha.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17280,7 +17106,6 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WMF_APP_EXTENSION=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -17291,7 +17116,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17345,8 +17169,6 @@
 					"DEBUG=1",
 					"NS_ENFORCE_NSOBJECT_DESIGNATED_INITIALIZER=0",
 					"$(inherited)",
-					"ALPHA=1",
-					"BETA=1",
 					"WMF_APP_GROUP_IDENTIFIER=$(WMF_APP_GROUP_IDENTIFIER)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -17359,7 +17181,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				SDKROOT = iphoneos;
@@ -17385,11 +17206,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-					"WMF_UX_STUDY_ENABLED=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -17428,9 +17245,6 @@
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"FB_REFERENCE_IMAGE_DIR=\\\"\"$(SOURCE_ROOT)/WikipediaUnitTests/ReferenceImages\"\\\"",
-					"MKT_SHORTHAND=1",
-					"HC_SHORTHAND=1",
 					"SOURCE_ROOT_DIR=@\\\"\"$(SOURCE_ROOT)\"\\\"",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -17445,7 +17259,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -17477,7 +17290,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfalpha.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -17507,7 +17319,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfalpha.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17529,10 +17340,7 @@
 				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "WMF Framework/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -17541,7 +17349,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17572,7 +17379,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17598,7 +17404,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17623,7 +17428,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17874,7 +17678,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17899,7 +17702,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17923,7 +17725,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -17982,7 +17783,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "-DNDEBUG -DWMF_APPS_LABS_PAGE_CONTENT_SERVICE";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -18012,7 +17812,6 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
@@ -18044,7 +17843,6 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
@@ -18078,7 +17876,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.InTheNewsNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -18103,9 +17900,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"SOURCE_ROOT_DIR=@\\\"\"$(SOURCE_ROOT)\"\\\"",
-					"MKT_SHORTHAND=1",
-					"HC_SHORTHAND=1",
-					"FB_REFERENCE_IMAGE_DIR=\\\"\"$(SOURCE_ROOT)/WikipediaUnitTests/ReferenceImages\"\\\"",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
@@ -18119,7 +17913,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -18147,7 +17940,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -18172,7 +17964,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -18195,7 +17986,6 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WMF_APP_EXTENSION=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -18206,7 +17996,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -18272,7 +18061,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG -DWMF_APPS_LABS_PAGE_CONTENT_SERVICE";
 				SDKROOT = iphoneos;
@@ -18298,10 +18086,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -18330,10 +18115,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -18371,7 +18153,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.InTheNewsNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -18395,9 +18176,6 @@
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"FB_REFERENCE_IMAGE_DIR=\\\"\"$(SOURCE_ROOT)/WikipediaUnitTests/ReferenceImages\"\\\"",
-					"MKT_SHORTHAND=1",
-					"HC_SHORTHAND=1",
 					"SOURCE_ROOT_DIR=@\\\"\"$(SOURCE_ROOT)\"\\\"",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -18412,7 +18190,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -18444,7 +18221,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -18474,7 +18250,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -18496,10 +18271,7 @@
 				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "WMF Framework/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -18508,7 +18280,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -18528,10 +18299,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -18559,10 +18327,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -18590,10 +18355,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -18621,11 +18383,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-					"WMF_UX_STUDY_ENABLED=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -18662,7 +18420,6 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
@@ -18693,7 +18450,6 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
@@ -18724,7 +18480,6 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
@@ -18755,7 +18510,6 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
@@ -18786,8 +18540,6 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-					"WMF_UX_STUDY_ENABLED=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
@@ -18864,7 +18616,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "-DNDEBUG -DWMF_NO_APP_GROUP";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -18894,7 +18645,6 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
@@ -18926,7 +18676,6 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
@@ -18957,7 +18706,6 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
@@ -18991,7 +18739,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -19016,9 +18763,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"SOURCE_ROOT_DIR=@\\\"\"$(SOURCE_ROOT)\"\\\"",
-					"MKT_SHORTHAND=1",
-					"HC_SHORTHAND=1",
-					"FB_REFERENCE_IMAGE_DIR=\\\"\"$(SOURCE_ROOT)/WikipediaUnitTests/ReferenceImages\"\\\"",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
@@ -19032,7 +18776,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -19060,7 +18803,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -19085,7 +18827,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -19108,7 +18849,6 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WMF_APP_EXTENSION=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -19119,7 +18859,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -19186,7 +18925,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG -DWMF_NO_APP_GROUP";
 				SDKROOT = iphoneos;
@@ -19212,10 +18950,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -19244,10 +18979,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -19275,10 +19007,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -19316,7 +19045,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.InTheNewsNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -19340,9 +19068,6 @@
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"FB_REFERENCE_IMAGE_DIR=\\\"\"$(SOURCE_ROOT)/WikipediaUnitTests/ReferenceImages\"\\\"",
-					"MKT_SHORTHAND=1",
-					"HC_SHORTHAND=1",
 					"SOURCE_ROOT_DIR=@\\\"\"$(SOURCE_ROOT)\"\\\"",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -19357,7 +19082,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -19389,7 +19113,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -19419,7 +19142,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -19441,10 +19163,7 @@
 				DYLIB_CURRENT_VERSION = 0;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "WMF Framework/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -19453,7 +19172,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -19483,8 +19201,6 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -19510,7 +19226,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -19535,7 +19250,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -19560,7 +19274,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -19585,7 +19298,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -19610,7 +19322,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -19635,7 +19346,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -19660,7 +19370,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -19685,7 +19394,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -19710,7 +19418,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -19735,7 +19442,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -19760,7 +19466,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -19785,7 +19490,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -19810,7 +19514,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -19829,10 +19532,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -19861,10 +19561,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -19893,11 +19590,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-					"WMF_UX_STUDY_ENABLED=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -19935,7 +19628,6 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
@@ -19967,7 +19659,6 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
@@ -19999,8 +19690,6 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-					"WMF_UX_STUDY_ENABLED=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
@@ -20065,7 +19754,6 @@
 					"NS_ENFORCE_NSOBJECT_DESIGNATED_INITIALIZER=0",
 					"$(inherited)",
 					"NS_BLOCK_ASSERTIONS=1",
-					"BETA=1",
 					"WMF_APP_GROUP_IDENTIFIER=$(WMF_APP_GROUP_IDENTIFIER)",
 				);
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
@@ -20077,7 +19765,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "-DNDEBUG -DWMF_LABS";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -20107,7 +19794,6 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
@@ -20139,7 +19825,6 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Experimental-Info.plist";
@@ -20173,7 +19858,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.InTheNewsNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -20198,9 +19882,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"SOURCE_ROOT_DIR=@\\\"\"$(SOURCE_ROOT)\"\\\"",
-					"MKT_SHORTHAND=1",
-					"HC_SHORTHAND=1",
-					"FB_REFERENCE_IMAGE_DIR=\\\"\"$(SOURCE_ROOT)/WikipediaUnitTests/ReferenceImages\"\\\"",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
@@ -20214,7 +19895,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -20242,7 +19922,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.ContinueReadingWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -20267,7 +19946,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta.TopReadWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -20290,7 +19968,6 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WMF_APP_EXTENSION=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -20301,7 +19978,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.WMF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -20322,10 +19998,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -20354,10 +20027,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -20386,10 +20056,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -20418,10 +20085,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -20450,11 +20114,7 @@
 				DEVELOPMENT_TEAM = AKK7J2GV64;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-					"WMF_UX_STUDY_ENABLED=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -20492,7 +20152,6 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
@@ -20524,7 +20183,6 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
@@ -20556,7 +20214,6 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
@@ -20588,7 +20245,6 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
@@ -20620,7 +20276,6 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
@@ -20652,8 +20307,6 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"WMF_APP_EXTENSION=0",
-					"WMF_UX_STUDY_ENABLED=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				INFOPLIST_FILE = "Wikipedia/Staging-Info.plist";
