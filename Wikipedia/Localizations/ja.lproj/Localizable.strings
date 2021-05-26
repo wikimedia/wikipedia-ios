@@ -732,7 +732,6 @@
 "replace-replace-all-results-count" = "$1件置換しました";
 "replace-textfield-accessibility" = "置換";
 "replace-textfield-placeholder" = "置換後の文字列";
-"request-feedback-on-error" = "アプリが遭遇した問題について、開発者はもっと詳しく知りたいと考えています。こちらをタップして、エラーの詳細についてメールをご送信ください。";
 "reverted-edit-back-to-article-button-title" = "記事に戻る";
 "reverted-edit-notification-body" = "$1にあなたが加えた編集は$2さんによって差し戻されました";
 "reverted-edit-notification-read-more-action-title" = "さらに詳しく";
