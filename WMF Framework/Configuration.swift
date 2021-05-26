@@ -54,84 +54,43 @@ public class Configuration: NSObject {
         return Configuration(
             environment: .production,
             defaultSiteDomain: Domain.wikipedia,
-            pageContentServiceAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.RESTBase.getProductionBuilderFactory(),
-            feedContentAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.RESTBase.getProductionBuilderFactory(),
-            announcementsAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.RESTBase.getProductionBuilderFactory(),
-            eventLoggingAPIURLComponentsBuilder: APIURLComponentsBuilder.EventLogging.getProductionBuilder()
-        )
+            pageContentServiceAPIType: .production,
+            feedContentAPIType: .production,
+            announcementsAPIType: .production,
+            eventLoggingAPIType: .production)
     }()
     
     private static func staging(options: StagingOptions) -> Configuration {
-        let pcsBuilderFactory: (String?) -> APIURLComponentsBuilder
-        if options.contains(.appsLabsforPCS) {
-            var appsLabsHostComponents = URLComponents()
-            appsLabsHostComponents.scheme = Scheme.https
-            appsLabsHostComponents.host = Domain.appsLabs
-            pcsBuilderFactory = APIURLComponentsBuilder.RESTBase.getStagingBuilderFactory(with: appsLabsHostComponents)
-        } else {
-            pcsBuilderFactory = APIURLComponentsBuilder.RESTBase.getProductionBuilderFactory()
-        }
         
-        let defaultSiteDomain: String
-        let otherDomains: [String]
-        if options.contains(.betaClusterForMediaWiki) {
-            defaultSiteDomain = Domain.betaLabs
-            otherDomains = [Domain.wikipedia]
-        } else {
-            defaultSiteDomain = Domain.wikipedia
-            otherDomains = []
-        }
-        
-        let eventLoggingBuilder: APIURLComponentsBuilder
-        if options.contains(.deploymentLabsForEventLogging) {
-            eventLoggingBuilder = APIURLComponentsBuilder.EventLogging.getStagingBuilder()
-        } else {
-            eventLoggingBuilder = APIURLComponentsBuilder.EventLogging.getProductionBuilder()
-        }
+        let pcsApiType: APIURLComponentsBuilder.RESTBase.BuilderType = options.contains(.appsLabsforPCS) ? .stagingAppsLabsPCS : .production
+        let defaultSiteDomain: String = options.contains(.betaClusterForMediaWiki) ? Domain.betaLabs : Domain.wikipedia
+        let otherDomains: [String] = options.contains(.betaClusterForMediaWiki) ? [Domain.wikipedia] : []
+        let eventLoggingApiType: APIURLComponentsBuilder.EventLogging
+            .BuilderType = options.contains(.deploymentLabsForEventLogging) ? .staging : .production
         
         return Configuration(
             environment: .staging(options),
             defaultSiteDomain: defaultSiteDomain,
             otherDomains: otherDomains,
-            pageContentServiceAPIURLComponentsBuilderFactory: pcsBuilderFactory,
-            feedContentAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.RESTBase.getProductionBuilderFactory(),
-            announcementsAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.RESTBase.getProductionBuilderFactory(),
-            eventLoggingAPIURLComponentsBuilder: eventLoggingBuilder
+            pageContentServiceAPIType: pcsApiType,
+            feedContentAPIType: .production,
+            announcementsAPIType: .production,
+            eventLoggingAPIType: eventLoggingApiType
         )
     }
     
     private static func local(options: LocalOptions) -> Configuration {
         
-        let pcsBuilderFactory: (String?) -> APIURLComponentsBuilder
-        if options.contains(.localPCS) {
-            var pageContentServiceHostComponents = URLComponents()
-            pageContentServiceHostComponents.scheme = Scheme.http
-            pageContentServiceHostComponents.host = Domain.localhost
-            pageContentServiceHostComponents.port = 8888
-            pcsBuilderFactory = APIURLComponentsBuilder.RESTBase.getStagingBuilderFactory(with: pageContentServiceHostComponents)
-        } else {
-            pcsBuilderFactory = APIURLComponentsBuilder.RESTBase.getProductionBuilderFactory()
-        }
-        
-        let announcementsBuilderFactory: (String?) -> APIURLComponentsBuilder
-        if options.contains(.localAnnouncements) {
-            var announcementsHostComponents = URLComponents()
-            announcementsHostComponents.scheme = Scheme.http
-            announcementsHostComponents.host = Domain.localhost
-            announcementsHostComponents.port = 8889
-            announcementsBuilderFactory = APIURLComponentsBuilder.RESTBase.getStagingBuilderFactory(with: announcementsHostComponents)
-        } else {
-            announcementsBuilderFactory = APIURLComponentsBuilder.RESTBase.getProductionBuilderFactory()
-        }
+        let pcsApiType: APIURLComponentsBuilder.RESTBase.BuilderType = options.contains(.localPCS) ? .localPCS : .production
+        let announcementsApiType: APIURLComponentsBuilder.RESTBase.BuilderType = options.contains(.localAnnouncements) ? .localAnnouncements : .production
         
         return Configuration(
             environment: .local(options),
             defaultSiteDomain: Domain.wikipedia,
-            pageContentServiceAPIURLComponentsBuilderFactory: pcsBuilderFactory,
-            feedContentAPIURLComponentsBuilderFactory: APIURLComponentsBuilder.RESTBase.getProductionBuilderFactory(),
-            announcementsAPIURLComponentsBuilderFactory: announcementsBuilderFactory,
-            eventLoggingAPIURLComponentsBuilder: APIURLComponentsBuilder.EventLogging.getProductionBuilder()
-        )
+            pageContentServiceAPIType: pcsApiType,
+            feedContentAPIType: .production,
+            announcementsAPIType: announcementsApiType,
+            eventLoggingAPIType: .production)
     }
     
     // MARK: Constants
@@ -181,9 +140,10 @@ public class Configuration: NSObject {
        return Router(configuration: self)
     }()
 
-    required init(environment: Environment, defaultSiteDomain: String, otherDomains: [String] = [], pageContentServiceAPIURLComponentsBuilderFactory: @escaping (String?) -> APIURLComponentsBuilder, feedContentAPIURLComponentsBuilderFactory: @escaping (String?) -> APIURLComponentsBuilder,
-        announcementsAPIURLComponentsBuilderFactory: @escaping (String?) -> APIURLComponentsBuilder,
-        eventLoggingAPIURLComponentsBuilder: APIURLComponentsBuilder) {
+    required init(environment: Environment, defaultSiteDomain: String, otherDomains: [String] = [], pageContentServiceAPIType: APIURLComponentsBuilder.RESTBase.BuilderType,
+        feedContentAPIType: APIURLComponentsBuilder.RESTBase.BuilderType,
+        announcementsAPIType: APIURLComponentsBuilder.RESTBase.BuilderType,
+        eventLoggingAPIType: APIURLComponentsBuilder.EventLogging.BuilderType) {
         self.environment = environment
         self.defaultSiteDomain = defaultSiteDomain
         var components = URLComponents()
@@ -198,53 +158,32 @@ public class Configuration: NSObject {
         self.centralAuthCookieTargetDomains = [self.wikidataCookieDomain, self.mediaWikiCookieDomain, self.wikimediaCookieDomain]
         self.wikiResourceDomains = [defaultSiteDomain] + otherDomains
         self.inAppLinkDomains = [defaultSiteDomain, Domain.mediaWiki, Domain.wikidata, Domain.wikimedia, Domain.wikimediafoundation] + otherDomains
-        self.pageContentServiceAPIURLComponentsBuilderFactory = pageContentServiceAPIURLComponentsBuilderFactory
-        self.feedContentAPIURLComponentsBuilderFactory = feedContentAPIURLComponentsBuilderFactory
-        self.announcementsAPIURLComponentsBuilderFactory = announcementsAPIURLComponentsBuilderFactory
-        self.eventLoggingAPIURLComponentsBuilder = eventLoggingAPIURLComponentsBuilder
+        self.pageContentServiceAPIType = pageContentServiceAPIType
+        self.feedContentAPIType = feedContentAPIType
+        self.announcementsAPIType = announcementsAPIType
+        self.eventLoggingAPIType = eventLoggingAPIType
     }
     
-    let pageContentServiceAPIURLComponentsBuilderFactory: (String?) -> APIURLComponentsBuilder
-    func pageContentServiceAPIURLComponentsBuilderForHost(_ host: String? = nil) -> APIURLComponentsBuilder {
-        return pageContentServiceAPIURLComponentsBuilderFactory(host)
-    }
+    let pageContentServiceAPIType: APIURLComponentsBuilder.RESTBase.BuilderType
+    let feedContentAPIType: APIURLComponentsBuilder.RESTBase.BuilderType
+    let announcementsAPIType: APIURLComponentsBuilder.RESTBase.BuilderType
+    let eventLoggingAPIType: APIURLComponentsBuilder.EventLogging.BuilderType
+    let mediaWikiRestAPIType: APIURLComponentsBuilder.MediaWiki.BuilderType = .productionRest
+    let mediaWikiAPIType: APIURLComponentsBuilder.MediaWiki.BuilderType = .production
+    private let metricsAPIType = APIURLComponentsBuilder.RESTBase.BuilderType.production
     
-    private let feedContentAPIURLComponentsBuilderFactory: (String?) -> APIURLComponentsBuilder
-    private func feedContentAPIURLComponentsBuilderForHost(_ host: String? = nil) -> APIURLComponentsBuilder {
-        return feedContentAPIURLComponentsBuilderFactory(host)
-    }
+    //MARK: Page Content Service
     
-    private let announcementsAPIURLComponentsBuilderFactory: (String?) -> APIURLComponentsBuilder
-    private func announcementsAPIURLComponentsBuilderForHost(_ host: String? = nil) -> APIURLComponentsBuilder {
-        return announcementsAPIURLComponentsBuilderFactory(host)
-    }
-    
-    private let eventLoggingAPIURLComponentsBuilder: APIURLComponentsBuilder
-    
-    func mediaWikiAPIURLComponentsBuilderForHost(_ host: String? = nil) -> APIURLComponentsBuilder {
-        var components = URLComponents()
-        components.host = host ?? Domain.metaWiki
-        components.scheme = Scheme.https
-        return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Path.mediaWikiAPIComponents)
-    }
-
-    private let mediaWikiRestAPIURLComponentsBuilderFactory = APIURLComponentsBuilder.MediaWiki.getProductionBuilderFactory()
-    private func mediaWikiRestAPIURLComponentsBuilderForHost(_ host: String? = nil) -> APIURLComponentsBuilder {
-        return mediaWikiRestAPIURLComponentsBuilderFactory(host)
-    }
-    
-    func articleURLComponentsBuilder(for host: String) -> APIURLComponentsBuilder {
-        var components = URLComponents()
-        components.host = host
-        components.scheme = Scheme.https
-        return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Path.wikiResourceComponent)
+    public func pageContentServiceBuilder(withWikiHost wikiHost: String? = nil) -> APIURLComponentsBuilder {
+        let builder = pageContentServiceAPIType.builder(withWikiHost: wikiHost)
+        return builder
     }
     
     /// The Page Content Service includes mobile-html and the associated endpoints. It can be run locally with this repository: https://gerrit.wikimedia.org/r/admin/projects/mediawiki/services/mobileapps
     /// On production, it is run through RESTBase at  https://en.wikipedia.org/api/rest_v1/ (works for all language wikis)
     @objc(pageContentServiceAPIURLForURL:appendingPathComponents:)
     public func pageContentServiceAPIURLForURL(_ url: URL? = nil, appending pathComponents: [String] = [""]) -> URL? {
-        let builder = pageContentServiceAPIURLComponentsBuilderForHost(url?.host)
+        let builder = pageContentServiceAPIType.builder(withWikiHost: url?.host)
         let components = builder.components(byAppending: pathComponents)
         return components.wmf_URLWithLanguageVariantCode(url?.wmf_languageVariantCode)
     }
@@ -264,18 +203,22 @@ public class Configuration: NSObject {
         }
     }
     
-    private let metricsAPIURLComponentsBuilder = APIURLComponentsBuilder.RESTBase.getProductionBuilderFactory()(Domain.wikimedia)
+    //MARK: Metrics
+    
     /// The metrics API lives only on wikimedia.org: https://wikimedia.org/api/rest_v1/
     @objc(metricsAPIURLComponentsAppendingPathComponents:)
     public func metricsAPIURLComponents(appending pathComponents: [String] = [""]) -> URLComponents {
-        return metricsAPIURLComponentsBuilder.components(byAppending: ["metrics"] + pathComponents)
+        let builder = metricsAPIType.builder(withWikiHost: Domain.wikimedia)
+        return builder.components(byAppending: ["metrics"] + pathComponents)
     }
+    
+    //MARK: Wikifeeds (Feed Content and Announcements)
     
     /// Feed content is located in the wikifeeds repository. It can be run locally with: https://gerrit.wikimedia.org/r/admin/projects/mediawiki/services/wikifeeds
     /// On production, it is run through RESTBase at  https://en.wikipedia.org/api/rest_v1/ (works for all language wikis)
     @objc(feedContentAPIURLForURL:appendingPathComponents:)
     public func feedContentAPIURLForURL(_ url: URL?, appending pathComponents: [String] = [""]) -> URL? {
-        let builder = feedContentAPIURLComponentsBuilderForHost(url?.host)
+        let builder = feedContentAPIType.builder(withWikiHost: url?.host)
         let components = builder.components(byAppending: pathComponents)
         return components.wmf_URLWithLanguageVariantCode(url?.wmf_languageVariantCode)
     }
@@ -284,17 +227,29 @@ public class Configuration: NSObject {
     /// On production, it is run through RESTBase at  https://en.wikipedia.org/api/rest_v1/ (works for all language wikis)
     @objc(announcementsAPIURLForURL:appendingPathComponents:)
     public func announcementsAPIURLForURL(_ url: URL?, appending pathComponents: [String] = [""]) -> URL? {
-        let builder = announcementsAPIURLComponentsBuilderForHost(url?.host)
+        let builder = announcementsAPIType.builder(withWikiHost: url?.host)
         let components = builder.components(byAppending: pathComponents)
         return components.wmf_URLWithLanguageVariantCode(url?.wmf_languageVariantCode)
     }
     
+    //MARK: Event Logging
+    
     @objc(eventLoggingAPIURLWithPayload:)
     public func eventLoggingAPIURL(with payload: NSObject) -> URL? {
-        let builder = eventLoggingAPIURLComponentsBuilder
+        let builder = eventLoggingAPIType.builder()
         let components = try? builder.components(byAssigningPayloadToPercentEncodedQuery: payload)
         return components?.url
     }
+    
+    //MARK: MediaWiki Rest
+    
+    public func mediaWikiRestAPIURLForURL(_ url: URL? = nil, appending pathComponents: [String] = [""], queryParameters: [String: Any]? = nil) -> URL? {
+        let builder = mediaWikiRestAPIType.builder(withWikiHost: url?.host)
+        let components = builder.components(byAppending: pathComponents, queryParameters: queryParameters)
+        return components.wmf_URLWithLanguageVariantCode(url?.wmf_languageVariantCode)
+    }
+    
+    //MARK: MediaWiki
     
     @objc(mediaWikiAPIURLForURL:withQueryParameters:)
     public func mediaWikiAPIURLForURL(_ url: URL?, with queryParameters: [String: Any]? = nil) -> URL? {
@@ -303,23 +258,11 @@ public class Configuration: NSObject {
     }
     
     private func mediaWikiAPIURLForHost(_ host: String? = nil, with queryParameters: [String: Any]? = nil) -> URLComponents {
-        let builder = mediaWikiAPIURLComponentsBuilderForHost(host)
+        let builder = mediaWikiAPIType.builder(withWikiHost: host)
         guard let queryParameters = queryParameters else {
             return builder.components()
         }
         return builder.components(queryParameters: queryParameters)
-    }
-
-    public func mediaWikiRestAPIURLForURL(_ url: URL? = nil, appending pathComponents: [String] = [""], queryParameters: [String: Any]? = nil) -> URL? {
-        let builder = mediaWikiRestAPIURLComponentsBuilderForHost(url?.host)
-        let components = builder.components(byAppending: pathComponents, queryParameters: queryParameters)
-        return components.wmf_URLWithLanguageVariantCode(url?.wmf_languageVariantCode)
-    }
-    
-    public func articleURLForHost(_ host: String, languageVariantCode: String?, appending pathComponents: [String]) -> URL? {
-        let builder = articleURLComponentsBuilder(for: host)
-        let components = builder.components(byAppending: pathComponents)
-        return components.wmf_URLWithLanguageVariantCode(languageVariantCode)
     }
     
     public func mediaWikiAPIURLForWikiLanguage(_ wikiLanguage: String? = nil, with queryParameters: [String: Any]?) -> URLComponents {
@@ -330,16 +273,37 @@ public class Configuration: NSObject {
         return mediaWikiAPIURLForHost(host, with: queryParameters)
     }
     
+    //MARK: WikiData
+    
     public func wikidataAPIURLComponents(with queryParameters: [String: Any]?) -> URLComponents {
-        let builder = mediaWikiAPIURLComponentsBuilderForHost("www.\(Domain.wikidata)")
+        let builder = mediaWikiAPIType.builder(withWikiHost: "www.\(Domain.wikidata)")
         return builder.components(queryParameters: queryParameters)
     }
+    
+    //MARK: Commons
 
     @objc(commonsAPIURLComponentsWithQueryParameters:)
     public func commonsAPIURLComponents(with queryParameters: [String: Any]?) -> URLComponents {
-        let builder = mediaWikiAPIURLComponentsBuilderForHost("commons.\(Domain.wikimedia)")
+        let builder = mediaWikiAPIType.builder(withWikiHost: "commons.\(Domain.wikimedia)")
         return builder.components(queryParameters: queryParameters)
     }
+    
+    //MARK: Article URLs
+    
+    func articleURLComponentsBuilder(for host: String) -> APIURLComponentsBuilder {
+        var components = URLComponents()
+        components.host = host
+        components.scheme = Scheme.https
+        return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Path.wikiResourceComponent)
+    }
+    
+    public func articleURLForHost(_ host: String, languageVariantCode: String?, appending pathComponents: [String]) -> URL? {
+        let builder = articleURLComponentsBuilder(for: host)
+        let components = builder.components(byAppending: pathComponents)
+        return components.wmf_URLWithLanguageVariantCode(languageVariantCode)
+    }
+    
+    //MARK: Routing Helpers
 
     public func isWikipediaHost(_ host: String?) -> Bool {
         guard let host = host else {
