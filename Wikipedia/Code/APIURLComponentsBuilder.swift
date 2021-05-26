@@ -1,3 +1,7 @@
+enum APIURLComponentsBuilderError: Error {
+    case failureConvertingJsonDataToString
+}
+
 /// APIURLComponentsBuilder stores API host components and the base path (/w/api.php, /api/rest_v1, etc) and builds URLs for various endpoints
 public struct APIURLComponentsBuilder {
     let hostComponents: URLComponents
@@ -7,6 +11,21 @@ public struct APIURLComponentsBuilder {
         var components = hostComponents
         components.replacePercentEncodedPathWithPathComponents(basePathComponents + pathComponents)
         components.replacePercentEncodedQueryWithQueryParameters(queryParameters)
+        return components
+    }
+    
+    func components(byAssigningPayloadToPercentEncodedQuery payload: NSObject) throws -> URLComponents {
+        
+        let payloadJsonData = try JSONSerialization.data(withJSONObject:payload, options: [])
+        
+        guard let payloadString = String(data: payloadJsonData, encoding: .utf8) else {
+            throw APIURLComponentsBuilderError.failureConvertingJsonDataToString
+        }
+        
+        let encodedPayloadJsonString = payloadString.wmf_UTF8StringWithPercentEscapes()
+        
+        var components = hostComponents
+        components.percentEncodedQuery = encodedPayloadJsonString
         return components
     }
 
@@ -57,5 +76,22 @@ public struct APIURLComponentsBuilder {
                 return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Configuration.Path.mediaWikiRestAPIComponents)
             }
         }
+    }
+    
+    struct EventLogging {
+        static func getProductionBuilder() -> APIURLComponentsBuilder {
+            var eventLoggingComponents = URLComponents()
+            eventLoggingComponents.scheme = "https"
+            eventLoggingComponents.host = "meta.wikimedia.org"
+            return APIURLComponentsBuilder(hostComponents: eventLoggingComponents, basePathComponents: ["beacon","event"])
+        }
+        
+        static func getStagingBuilder() -> APIURLComponentsBuilder {
+            var eventLoggingComponents = URLComponents()
+            eventLoggingComponents.scheme = "https"
+            eventLoggingComponents.host = "deployment.wikimedia.beta.wmflabs.org"
+            return APIURLComponentsBuilder(hostComponents: eventLoggingComponents, basePathComponents: ["beacon","event"])
+        }
+        
     }
 }
