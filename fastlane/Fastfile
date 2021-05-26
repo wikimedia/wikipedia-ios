@@ -180,7 +180,7 @@ platform :ios do
     )
   end
 
-  desc "Add a release tag for the latest beta and push to repo."
+  desc "Add a build tag for the current build number and push to repo. While this tags a build, tag_release sets a release tag."
   lane :tag do |options|
     prefix = options[:prefix] || "betas"
     build_number = options[:build_number] || options[:build] || get_build_number
@@ -189,7 +189,7 @@ platform :ios do
     sh "git push origin --tags"
   end
 
-  desc "Add a release tag for the latest beta and push to repo."
+  desc "Add a release tag for the latest beta and push to repo. For tagging non-releases, use `tag`."
   lane :tag_release do |options|
     specified_build = options[:build_tag]
     if specified_build.nil? || specified_build.empty?
@@ -287,7 +287,7 @@ platform :ios do
 
   lane :get_recent_commits do |options|
     start = options[:start] || "HEAD"
-    `git log #{start}..HEAD --merges --first-parent main --pretty=format:"%h - %s" | sed 's/Merge pull request \#/https:\\/\\/github.com\\/wikimedia\\/wikipedia-ios\\/pull\\//g'`
+    `git log betas/1808..HEAD --merges --first-parent main --pretty=format:"%h - %b (%s)" | sed 's/Merge pull request //g'`
   end
 
   desc "updates version, builds, and pushes to TestFlight"
