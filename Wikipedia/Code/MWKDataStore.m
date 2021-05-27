@@ -118,7 +118,6 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningWithNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
         self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWithSession:session configuration:configuration preferredLanguageCodesProvider:self.languageLinkController];
         self.notificationsController = [[WMFNotificationsController alloc] initWithDataStore:self];
-        self.articleSummaryController = [[WMFArticleSummaryController alloc] initWithSession:session configuration:configuration dataStore:self];
         self.mobileviewConverter = [[MobileviewToMobileHTMLConverter alloc] init];
     }
     return self;
@@ -472,6 +471,8 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
             }
             WMFPermanentCacheController *permanentCacheController = [[WMFPermanentCacheController alloc] initWithMoc:moc session:self.session configuration:self.configuration preferredLanguageDelegate:self.languageLinkController];
             self.cacheController = permanentCacheController;
+            // WMFArticleSummaryController depends on the permanent cache controller being already created and set
+            self.articleSummaryController = [[WMFArticleSummaryController alloc] initWithSession:self.session configuration:self.configuration dataStore:self];
             [self startSynchronizingCacheContext:moc];
             if (completion) {
                 completion();
