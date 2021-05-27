@@ -1,4 +1,4 @@
-**Fixes Phabricator ticket:** 
+**Phabricator:** 
 
 ### Notes
 * 
@@ -6,5 +6,5 @@
 ### Test Steps
 1. 
 
-### Screenshots/Videos *(if applicable)*
+### Screenshots/Videos
 

@@ -755,7 +755,6 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 item substituído|$1 itens substituídos}}";
 "replace-textfield-accessibility" = "Substituir";
 "replace-textfield-placeholder" = "Substituir com…";
-"request-feedback-on-error" = "O aplicativo encontrou um problema que nossos desenvolvedores gostariam de saber mais sobre. Toque aqui para enviar um e-mail com os detalhes do erro.";
 "reverted-edit-back-to-article-button-title" = "Voltar ao artigo";
 "reverted-edit-notification-body" = "A edição que você fez do artigo $1 foi revertida por $2";
 "reverted-edit-notification-read-more-action-title" = "Ler mais";

@@ -685,7 +685,6 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 အရာ မစုတ်လဝ်စၞး|$1 အရာ မစုတ်လဝ်စၞးဂမၠိုင်}}";
 "replace-textfield-accessibility" = "စုတ်စၞး";
 "replace-textfield-placeholder" = "စုတ်စၞး နကဵု…";
-"request-feedback-on-error" = "app ဒးစုက် ကုပြသၞာ ဟိုတ်ဂှ်ရ ပိုယ်မိက်ဂွံတီ ဟိုတ်ပြသၞာဂှ်ရ၊၊ ပဂုန်တုဲ ဍဵုဒၞာဲဏအ် သွက်ဂွံ ပလံင် တင်မဗၠေတ်ယောင်ယာဂှ် ကဵုပိုယ် နကဵု အဳမေဝ်၊၊";
 "reverted-edit-back-to-article-button-title" = "ကလေင်အာ ဇရေင် လိက်ပရေင်";
 "reverted-edit-notification-body" = "ပလေဝ်ဒါန် မၞးမကၠောန်လဝ် ပ္ဍဲ လိက်ပရေင် $1 ဂှ် မၞးဂွံဒုင်ထိုင်သး နကဵု $2";
 "reverted-edit-notification-read-more-action-title" = "ဆက် ဗှ်";

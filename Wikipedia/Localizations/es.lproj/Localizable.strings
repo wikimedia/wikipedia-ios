@@ -732,7 +732,6 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 elemento fue reemplazado|$1 elementos fueron reemplazados}}";
 "replace-textfield-accessibility" = "Reemplazar";
 "replace-textfield-placeholder" = "Reemplazar por…";
-"request-feedback-on-error" = "La aplicación ha detectado un problema sobre el cual nuestros desarrolladores les gustaría saber más. Pulsa aquí para enviarnos un correo electrónico con los detalles del error.";
 "reverted-edit-back-to-article-button-title" = "Volver al artículo";
 "reverted-edit-notification-body" = "La edición que hiciste del artículo $1 ha sido rechazada por $2";
 "reverted-edit-notification-read-more-action-title" = "Leer más";

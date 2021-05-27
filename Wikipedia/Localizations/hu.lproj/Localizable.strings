@@ -561,7 +561,6 @@
 "replace-infolabel-method-replace-all" = "Összes cseréje";
 "replace-textfield-accessibility" = "Csere";
 "replace-textfield-placeholder" = "Csere a következőre...";
-"request-feedback-on-error" = "Az alkalmazás egy olyan hibát észlelt, amiről a fejlesztőink szeretnének többet tudni. Koppints ide egy e-mail elküldéséhez a hiba részleteivel.";
 "reverted-edit-back-to-article-button-title" = "Vissza a szócikkhez";
 "reverted-edit-notification-body" = "A(z) „$1” szócikkben végzett szerkesztésedet $2 visszavonta";
 "reverted-edit-notification-read-more-action-title" = "További információ";

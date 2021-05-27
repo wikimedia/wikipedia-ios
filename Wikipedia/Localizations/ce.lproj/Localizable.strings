@@ -21,7 +21,7 @@
 "abuse-filter-warning-repeat" = "Йух-йуха долу хьаьркаш";
 "account-creation-logging-in" = "Системин чудахар...";
 "action-previous-revision-accessibility" = "Хьалхара верси";
-"action-unsave" = "Ӏалаш цайина";
+"action-unsave" = "Ӏалашцайина";
 "add-articles-to-reading-list" = "ТӀетоха {{PLURAL:$1|$1 йаззам}} бешаран могӀаме";
 // Fuzzy
 "article-languages-filter-placeholder" = "Меттанийн луьттург";
@@ -29,7 +29,8 @@
 "back-button-accessibility-label" = "Юханехьа";
 "button-next" = "Кхин дӀа";
 "button-ok" = "ХӀаъ";
-"cancel" = "Юхаяккха";
+"cancel" = "Йухайаккха";
+"edit-summary-choice-fixed-grammar" = "Нийсайаздар";
 "insert-media-image-position-setting-right" = "Аьтту";
 "languages-settings-title" = "Меттанаш";
 // Fuzzy

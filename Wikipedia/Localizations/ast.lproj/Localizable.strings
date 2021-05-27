@@ -500,7 +500,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recién|Hai $1 hora|Hai $1 hores}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Agora mesmo|Hai $1 minutu|Hai $1 minutos}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Esti añu|1=L'añu pasáu|Hai $1 años}}";
-"request-feedback-on-error" = "L'aplicación detectó un problema del que los nuesos desendolcadores quedríen saber más. Toca equí pa unvianos un corréu electrónicu colos detalles del fallu.";
 "saved-all-articles-title" = "Tolos artículos";
 "saved-default-reading-list-tag" = "Esta llista nun puede desaniciase";
 "saved-pages-image-download-error" = "Nun pudieron descargase les imáxenes d'esta páxina guardada.";

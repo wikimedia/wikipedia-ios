@@ -713,7 +713,6 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 element înlocuit|$1 elemente înlocuite}}";
 "replace-textfield-accessibility" = "Înlocuiește";
 "replace-textfield-placeholder" = "Înlocuiește cu...";
-"request-feedback-on-error" = "Aplicația a întâmpinat o problemă despre care programatorii noștri ar dori să afle mai multe. Apăsați aici pentru a ne trimite un e-mail cu detalii despre eroare.";
 "reverted-edit-back-to-article-button-title" = "Înapoi la articol";
 "reverted-edit-notification-body" = "Editarea care a fost făcută la articolul $1 a fost anulată de $2";
 "reverted-edit-notification-read-more-action-title" = "Citește mai mult";
