@@ -1,4 +1,5 @@
 import Foundation
+import CocoaLumberjackSwift
 
 /** The PermanentCacheCore is the lowest layer of the permanent cache.
  *  It serves as a fallback for standard URLCache behavior for PermanentlyPersistableURLCache.
@@ -12,6 +13,253 @@ class PermanentCacheCore {
         cacheManagedObjectContext = moc
     }
     
+}
+
+//MARK: Public - Permanent Cache Writing
+
+extension PermanentCacheCore {
+    
+    func cacheResponse(httpUrlResponse: HTTPURLResponse, content: CacheResponseContentType, urlRequest: URLRequest, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
+        
+        guard let url = urlRequest.url else {
+            failure(PermanentlyPersistableURLCacheError.unableToDetermineURLFromRequest)
+            return
+        }
+            
+        guard let type = typeFromURLRequest(urlRequest: urlRequest) else {
+                failure(PermanentlyPersistableURLCacheError.unableToDetermineTypeFromRequest)
+            return
+        }
+        
+        guard let headerFileName = uniqueHeaderFileNameForURL(url, type: type),
+        let contentFileName = uniqueFileNameForURL(url, type: type) else {
+            failure(PermanentlyPersistableURLCacheError.unableToDetermineHeaderOrContentFileName)
+            return
+        }
+        
+        let dispatchGroup = DispatchGroup()
+        
+        dispatchGroup.enter()
+        var headerSaveError: Error? = nil
+        var contentSaveError: Error? = nil
+        
+        CacheFileWriterHelper.saveResponseHeader(httpUrlResponse: httpUrlResponse, toNewFileName: headerFileName) { (result) in
+            
+            defer {
+                dispatchGroup.leave()
+            }
+            
+            switch result {
+            case .success, .exists:
+                break
+            case .failure(let error):
+                headerSaveError = error
+            }
+        }
+        
+        switch content {
+        case .data((let data)):
+            dispatchGroup.enter()
+            CacheFileWriterHelper.saveData(data: data, toNewFileWithKey: contentFileName) { (result) in
+                
+                defer {
+                    dispatchGroup.leave()
+                }
+                
+                switch result {
+                case .success, .exists:
+                    break
+                case .failure(let error):
+                    contentSaveError = error
+                }
+            }
+        case .string(let string):
+            dispatchGroup.enter()
+            CacheFileWriterHelper.saveContent(string, toNewFileName: contentFileName) { (result) in
+                defer {
+                    dispatchGroup.leave()
+                }
+                
+                switch result {
+                case .success, .exists:
+                    break
+                case .failure(let error):
+                    contentSaveError = error
+                }
+            }
+        }
+        
+        dispatchGroup.notify(queue: DispatchQueue.global(qos: .default)) { [headerSaveError, contentSaveError] in
+            
+            if let contentSaveError = contentSaveError {
+                self.remove(fileName: headerFileName) {
+                    failure(contentSaveError)
+                }
+                return
+            }
+            
+            if let headerSaveError = headerSaveError {
+                self.remove(fileName: contentFileName) {
+                    failure(headerSaveError)
+                }
+                return
+            }
+            
+            success()
+        }
+    }
+    
+    //Bundled migration only - copies files into cache
+    func writeBundledFiles(mimeType: String, bundledFileURL: URL, urlRequest: URLRequest, completion: @escaping (Result<Void, Error>) -> Void) {
+        
+        guard let url = urlRequest.url else {
+            completion(.failure(PermanentlyPersistableURLCacheError.unableToDetermineURLFromRequest))
+            return
+        }
+            
+        guard let type = typeFromURLRequest(urlRequest: urlRequest) else {
+            completion(.failure(PermanentlyPersistableURLCacheError.unableToDetermineTypeFromRequest))
+            return
+        }
+        
+        guard let headerFileName = uniqueHeaderFileNameForURL(url, type: type),
+        let contentFileName = uniqueFileNameForURL(url, type: type) else {
+            completion(.failure(PermanentlyPersistableURLCacheError.unableToDetermineHeaderOrContentFileName))
+            return
+        }
+        
+        CacheFileWriterHelper.copyFile(from: bundledFileURL, toNewFileWithKey: contentFileName) { (result) in
+            switch result {
+            case .success, .exists:
+                 CacheFileWriterHelper.saveResponseHeader(headerFields: ["Content-Type": mimeType], toNewFileName: headerFileName) { (result) in
+                    switch result {
+                    case .success, .exists:
+                        completion(.success(()))
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
+                }
+                
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    private func remove(fileName: String, completion: () -> Void) {
+        
+        //remove from file system
+        let fileURL = CacheFileWriterHelper.fileURL(for: fileName)
+        do {
+            try FileManager.default.removeItem(at: fileURL)
+        } catch let error as NSError {
+            DDLogError("Error removing file: \(error)")
+        }
+        
+        completion()
+    }
+    
+    private func updateCacheWithCachedResponse(_ cachedResponse: CachedURLResponse, request: URLRequest) {
+        
+        func customCacheUpdatingItemKeyForURLRequest(_ urlRequest: URLRequest) -> String? {
+            
+            //this inner method is a workaround to allow the mobile-html URLRequest with a revisionID in the url to update the cached response under the revisionless url.
+            //we intentionally don't want to modify the itemKeyForURLRequest(_ urlRequest: URLRequest) method to keep this a lighter touch
+            
+            guard let url = urlRequest.customCacheUpdatingURL ?? urlRequest.url,
+                let type = typeFromURLRequest(urlRequest: urlRequest) else {
+                return nil
+            }
+            
+            return itemKeyForURL(url, type: type)
+        }
+        
+        func clearCustomCacheUpdatingResponseFromFoundation(with urlRequest: URLRequest) {
+            
+            //If we have a custom cache url to update, we need to remove that from foundation's URLCache, otherwise that
+            //will still take over even if we have updated the saved article cache.
+            
+            if let customCacheUpdatingURL = urlRequest.customCacheUpdatingURL {
+                let updatingRequest = URLRequest(url: customCacheUpdatingURL)
+                urlCache.removeCachedResponse(for: updatingRequest)
+            }
+        }
+
+        let isArticleOrImageInfoRequest: Bool
+        if let typeRaw = request.allHTTPHeaderFields?[Header.persistentCacheItemType],
+            let type = Header.PersistItemType(rawValue: typeRaw),
+            (type == .article || type == .imageInfo) {
+            isArticleOrImageInfoRequest = true
+        } else {
+            isArticleOrImageInfoRequest = false
+        }
+        
+        //we only want to update specific variant for image types
+        //for articles and imageInfo's it's okay to update the alternative language variants in the cache.
+        let variant: String? = isArticleOrImageInfoRequest ? nil : variantForURLRequest(request)
+        
+        clearCustomCacheUpdatingResponseFromFoundation(with: request)
+        
+        guard let itemKey = customCacheUpdatingItemKeyForURLRequest(request),
+            let httpResponse = cachedResponse.response as? HTTPURLResponse,
+            httpResponse.statusCode == 200 else {
+            return
+        }
+        
+        let moc = cacheManagedObjectContext
+        
+        CacheDBWriterHelper.isCached(itemKey: itemKey, variant: variant, in: moc, completion: { (isCached) in
+            guard isCached else {
+                return
+            }
+
+            let cachedHeaders = self.permanentlyCachedHeaders(for: request)
+            let cachedETag = cachedHeaders?[HTTPURLResponse.etagHeaderKey]
+            let responseETag = httpResponse.allHeaderFields[HTTPURLResponse.etagHeaderKey] as? String
+            guard cachedETag == nil || cachedETag != responseETag else {
+                return
+            }
+            
+            let headerFileName: String
+            let contentFileName: String
+            
+            if isArticleOrImageInfoRequest,
+                let topVariant = CacheDBWriterHelper.allDownloadedVariantItems(itemKey: itemKey, in: moc).first {
+                
+                headerFileName = self.uniqueHeaderFileNameForItemKey(itemKey, variant: topVariant.variant)
+                contentFileName = self.uniqueFileNameForItemKey(itemKey, variant: topVariant.variant)
+                
+            } else {
+                headerFileName = self.uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
+                contentFileName = self.uniqueFileNameForItemKey(itemKey, variant: variant)
+            }
+            
+            CacheFileWriterHelper.replaceResponseHeaderWithURLResponse(httpResponse, atFileName: headerFileName) { (result) in
+                switch result {
+                case .success:
+                    break
+                case .failure(let error):
+                    DDLogError("Failed updating cached header file: \(error)")
+                case .exists:
+                    assertionFailure("This shouldn't happen.")
+                    break
+                }
+            }
+            
+            CacheFileWriterHelper.replaceFileWithData(cachedResponse.data, fileName: contentFileName) { (result) in
+                switch result {
+                case .success:
+                    break
+                case .failure(let error):
+                    DDLogError("Failed updating cached content file: \(error)")
+                case .exists:
+                    assertionFailure("This shouldn't happen.")
+                    break
+                }
+            }
+        })
+
+    }
 }
 
 //MARK: Private - Permanent Cache Fetching
