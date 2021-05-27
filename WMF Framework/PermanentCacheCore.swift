@@ -6,6 +6,7 @@ import Foundation
  */
 class PermanentCacheCore {
     let cacheManagedObjectContext: NSManagedObjectContext
+    weak var urlCache: URLCache!
 
     init(moc: NSManagedObjectContext) {
         cacheManagedObjectContext = moc

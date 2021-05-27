@@ -28,6 +28,7 @@ class PermanentlyPersistableURLCache: URLCache {
         cacheManagedObjectContext = moc
         self.permanentCacheCore = permanentCacheCore
         super.init(memoryCapacity: URLCache.shared.memoryCapacity, diskCapacity: URLCache.shared.diskCapacity, diskPath: nil)
+        self.permanentCacheCore.urlCache = self
     }
     
 //MARK: Public - Overrides
