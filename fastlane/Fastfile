@@ -209,9 +209,9 @@ platform :ios do
       api_token: ENV['GITHUB_TOKEN'],
       repo: "wikimedia/wikipedia-ios",
       title: "Version bump",
-      head: "version_bump",
+      head: "fastlane_version_bump",
       base: "main",
-      body: "Please pull this in!"
+      body: "Please merge this in."
     )
   end
 
