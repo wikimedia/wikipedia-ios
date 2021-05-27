@@ -182,10 +182,6 @@ platform :ios do
 
   desc "Change version number and create PR with changes"
   lane :change_version do |options|
-    #sh "git branch version_bump && git checkout version_bump"
-    # same thing w/ or w/o any or all of these
-    #sh "git checkout main"
-    #git_pull
 
     size = options[:size]
     case size
