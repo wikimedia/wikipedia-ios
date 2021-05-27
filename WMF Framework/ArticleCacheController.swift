@@ -3,7 +3,7 @@ import Foundation
 
 public final class ArticleCacheController: CacheController {
     
-    init(moc: NSManagedObjectContext, imageCacheController: ImageCacheController, session: Session, configuration: Configuration, preferredLanguageDelegate: WMFPreferredLanguageInfoProvider) {
+    init(moc: NSManagedObjectContext, imageCacheController: ImageCacheController, session: Session, configuration: Configuration, preferredLanguageDelegate: WMFPreferredLanguageInfoProvider, permanentCacheCore: PermanentCacheCore) {
         let articleFetcher = ArticleFetcher(session: session, configuration: configuration)
         let imageInfoFetcher = MWKImageInfoFetcher(session: session, configuration: configuration)
         imageInfoFetcher.preferredLanguageDelegate = preferredLanguageDelegate
