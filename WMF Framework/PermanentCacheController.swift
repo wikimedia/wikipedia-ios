@@ -12,9 +12,10 @@ public final class PermanentCacheController: NSObject {
     /// - Parameter configuration: the configuration to utilize for configuring requests
     /// - Parameter preferredLanguageDelegate: the preferredLanguageDelegate to utilize for determining the user's preferred languages
     @objc public init(moc: NSManagedObjectContext, session: Session, configuration: Configuration, preferredLanguageDelegate: WMFPreferredLanguageInfoProvider) {
+        let cacheCore = PermanentCacheCore()
         imageCache = ImageCacheController(moc: moc, session: session, configuration: configuration)
         articleCache = ArticleCacheController(moc: moc, imageCacheController: imageCache, session: session, configuration: configuration, preferredLanguageDelegate: preferredLanguageDelegate)
-        urlCache = PermanentlyPersistableURLCache(moc: moc)
+        urlCache = PermanentlyPersistableURLCache(moc: moc, permanentCacheCore: cacheCore)
         managedObjectContext = moc
         super.init()
         session.permanentCache = self

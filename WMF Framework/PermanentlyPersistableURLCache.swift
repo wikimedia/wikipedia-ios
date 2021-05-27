@@ -22,9 +22,11 @@ public struct Header {
 
 class PermanentlyPersistableURLCache: URLCache {
     let cacheManagedObjectContext: NSManagedObjectContext
+    let permanentCacheCore: PermanentCacheCore
     
-    init(moc: NSManagedObjectContext) {
+    init(moc: NSManagedObjectContext, permanentCacheCore: PermanentCacheCore) {
         cacheManagedObjectContext = moc
+        self.permanentCacheCore = permanentCacheCore
         super.init(memoryCapacity: URLCache.shared.memoryCapacity, diskCapacity: URLCache.shared.diskCapacity, diskPath: nil)
     }
     
