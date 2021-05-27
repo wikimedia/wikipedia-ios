@@ -39,7 +39,7 @@ public final class ImageCacheController: CacheController {
     fileprivate let memoryCache: NSCache<NSString, Image>
     
     init(moc: NSManagedObjectContext, session: Session, configuration: Configuration, permanentCacheCore: PermanentCacheCore) {
-        self.imageFetcher = ImageFetcher(session: session, configuration: configuration)
+        self.imageFetcher = ImageFetcher(session: session, configuration: configuration, permanentCacheCore: permanentCacheCore)
         memoryCache = NSCache<NSString, Image>()
         memoryCache.totalCostLimit = 10000000 //pixel count
         let fileWriter = CacheFileWriter(fetcher: imageFetcher)
