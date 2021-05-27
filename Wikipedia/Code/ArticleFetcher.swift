@@ -20,8 +20,31 @@ enum ArticleFetcherError: LocalizedError {
     }
 }
 
-@objc(WMFArticleFetcher)
-final public class ArticleFetcher: Fetcher, CacheFetching {    
+final public class ArticleFetcher: Fetcher, CacheFetching {
+    let permanentCacheCore: PermanentCacheCore
+
+    required public init(session: Session, configuration: Configuration) {
+        fatalError("ArticleFetcher must be created using init(session:configuration:permanentCacheCore:)")
+    }
+    
+    internal init(session: Session, configuration: Configuration, permanentCacheCore: PermanentCacheCore) {
+        self.permanentCacheCore = permanentCacheCore
+        #if WMF_APPS_LABS_PAGE_CONTENT_SERVICE
+        super.init(session: session, configuration: Configuration.appsLabsPageContentService)
+        #elseif WMF_LOCAL_PAGE_CONTENT_SERVICE
+        super.init(session: session, configuration: Configuration.localPageContentService)
+        #else
+        super.init(session: session, configuration: configuration)
+        #endif
+    }
+    
+    // Note the MWKDataStore must have a valid permanent cache controller
+    // There is a short period of time during startup where the data store is initialized but
+    // the permanent cache has not been created and set yet.
+    public convenience init(session: Session, configuration: Configuration, dataStore: MWKDataStore) {
+        let permanentCacheCore = dataStore.cacheController.urlCache.permanentCacheCore
+        self.init(session: session, configuration: configuration, permanentCacheCore: permanentCacheCore)
+    }
     
     public enum EndpointType: String {
         case summary

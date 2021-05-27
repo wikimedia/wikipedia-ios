@@ -8,7 +8,7 @@ public class ArticleSummaryController: NSObject {
     
     @objc required init(session: Session, configuration: Configuration, dataStore: MWKDataStore) {
         self.dataStore = dataStore
-        self.fetcher = ArticleFetcher(session: session, configuration: configuration)
+        self.fetcher = ArticleFetcher(session: session, configuration: configuration, dataStore: dataStore)
     }
     
     @discardableResult public func updateOrCreateArticleSummaryForArticle(withKey articleKey: WMFInMemoryURLKey, cachePolicy: URLRequest.CachePolicy? = nil, completion: ((WMFArticle?, Error?) -> Void)? = nil) -> URLSessionTask? {

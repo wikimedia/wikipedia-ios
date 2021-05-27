@@ -52,7 +52,7 @@ class ArticleViewController: ViewController, HintPresenting {
         return dataStore.authenticationManager
     }
     
-    internal lazy var fetcher: ArticleFetcher = ArticleFetcher(session: session, configuration: configuration)
+    internal lazy var fetcher: ArticleFetcher = ArticleFetcher(session: session, configuration: configuration, dataStore: dataStore)
 
     private var leadImageHeight: CGFloat = 210
 

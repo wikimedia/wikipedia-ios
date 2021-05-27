@@ -26,7 +26,7 @@ class BasicCachingWebViewController: UIViewController, WKNavigationDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    internal lazy var fetcher: ArticleFetcher = ArticleFetcher(session: session, configuration: configuration)
+    internal lazy var fetcher: ArticleFetcher = ArticleFetcher(session: session, configuration: configuration, permanentCacheCore: permanentCache.urlCache.permanentCacheCore)
     
     lazy var webViewConfiguration: WKWebViewConfiguration = {
         let configuration = WKWebViewConfiguration()
