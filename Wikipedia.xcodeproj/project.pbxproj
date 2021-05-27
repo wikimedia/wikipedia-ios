@@ -226,6 +226,7 @@
 		53A575FB2602C845009835E6 /* WMFAppViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A575F92602C845009835E6 /* WMFAppViewController+Extensions.swift */; };
 		53A575FC2602C845009835E6 /* WMFAppViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A575F92602C845009835E6 /* WMFAppViewController+Extensions.swift */; };
 		53A575FD2602C845009835E6 /* WMFAppViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A575F92602C845009835E6 /* WMFAppViewController+Extensions.swift */; };
+		5384779125E9C0DD00493104 /* PermanentCacheCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5384779025E9C0DD00493104 /* PermanentCacheCore.swift */; };
 		670063AF22540AC500E4CE3B /* SectionEditorFindAndReplaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670063AE22540AC500E4CE3B /* SectionEditorFindAndReplaceTests.swift */; };
 		67059DB52260D034009811AA /* SchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67059DB42260D034009811AA /* SchemeHandler.swift */; };
 		67059DB62260D619009811AA /* SchemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67059DB42260D034009811AA /* SchemeHandler.swift */; };
@@ -3613,6 +3614,7 @@
 		53478DE425AF8CB900F31DC2 /* Wikipedia 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Wikipedia 5.xcdatamodel"; sourceTree = "<group>"; };
 		535F16D525CE11A300875AAD /* MWKDataStore+LanguageVariantMigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MWKDataStore+LanguageVariantMigration.swift"; sourceTree = "<group>"; };
 		53A575F92602C845009835E6 /* WMFAppViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFAppViewController+Extensions.swift"; sourceTree = "<group>"; };
+		5384779025E9C0DD00493104 /* PermanentCacheCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermanentCacheCore.swift; sourceTree = "<group>"; };
 		53BAB79925DDDEE100A5ED4E /* Wikipedia 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Wikipedia 6.xcdatamodel"; sourceTree = "<group>"; };
 		670063AE22540AC500E4CE3B /* SectionEditorFindAndReplaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditorFindAndReplaceTests.swift; sourceTree = "<group>"; };
 		67059DB42260D034009811AA /* SchemeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemeHandler.swift; sourceTree = "<group>"; };
@@ -6523,6 +6525,7 @@
 			isa = PBXGroup;
 			children = (
 				6773B1FD240F02E40022A70E /* PermanentlyPersistableURLCache.swift */,
+				5384779025E9C0DD00493104 /* PermanentCacheCore.swift */,
 				678C7C2923BE67F0001AC4D5 /* CacheController.swift */,
 				67DAEDA023CD1BC9003AA208 /* CacheGatekeeper.swift */,
 				678C7C2D23BE705C001AC4D5 /* CacheDBWriting.swift */,
@@ -11256,6 +11259,7 @@
 				D88E0E1D1EBB5A97005B8E9E /* Bundle.swift in Sources */,
 				7AEF527320ADF07100DDF791 /* KeychainCredentialsManager.swift in Sources */,
 				6779D45123F60903002840CA /* CacheFileWriter.swift in Sources */,
+				5384779125E9C0DD00493104 /* PermanentCacheCore.swift in Sources */,
 				83ACAAAB24E6E745003B3035 /* WikipediaLookup.swift in Sources */,
 				B3632E7F1EE5F98C007A2464 /* EventLoggingService.swift in Sources */,
 				D8FA18F61E1BDA3F009675C3 /* UIFont+WMFDynamicType.swift in Sources */,
