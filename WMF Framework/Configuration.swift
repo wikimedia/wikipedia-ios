@@ -10,9 +10,8 @@ public class Configuration: NSObject {
     public struct StagingOptions: OptionSet {
         public let rawValue: Int
 
-        public static let betaClusterForMediaWiki = StagingOptions(rawValue: 1 << 0)
-        public static let appsLabsforPCS = StagingOptions(rawValue: 1 << 1)
-        public static let deploymentLabsForEventLogging = StagingOptions(rawValue: 1 << 2)
+        public static let appsLabsforPCS = StagingOptions(rawValue: 1 << 0)
+        public static let deploymentLabsForEventLogging = StagingOptions(rawValue: 1 << 1)
         
         public init(rawValue: Int) {
             self.rawValue = rawValue
@@ -71,15 +70,12 @@ public class Configuration: NSObject {
     private static func staging(options: StagingOptions) -> Configuration {
         
         let pcsApiType: APIURLComponentsBuilder.RESTBase.BuilderType = options.contains(.appsLabsforPCS) ? .stagingAppsLabsPCS : .production
-        let defaultSiteDomain: String = options.contains(.betaClusterForMediaWiki) ? Domain.betaLabs : Domain.wikipedia
-        let otherDomains: [String] = options.contains(.betaClusterForMediaWiki) ? [Domain.wikipedia] : []
         let eventLoggingApiType: APIURLComponentsBuilder.EventLogging
             .BuilderType = options.contains(.deploymentLabsForEventLogging) ? .staging : .production
         
         return Configuration(
             environment: .staging(options),
-            defaultSiteDomain: defaultSiteDomain,
-            otherDomains: otherDomains,
+            defaultSiteDomain: Domain.wikipedia,
             pageContentServiceAPIType: pcsApiType,
             feedContentAPIType: .production,
             announcementsAPIType: .production,
