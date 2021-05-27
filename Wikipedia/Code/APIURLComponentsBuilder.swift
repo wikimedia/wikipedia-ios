@@ -25,6 +25,7 @@ public struct APIURLComponentsBuilder {
         let encodedPayloadJsonString = payloadString.wmf_UTF8StringWithPercentEscapes()
         
         var components = hostComponents
+        components.replacePercentEncodedPathWithPathComponents(basePathComponents)
         components.percentEncodedQuery = encodedPayloadJsonString
         return components
     }
