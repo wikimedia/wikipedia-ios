@@ -15,6 +15,73 @@ class PermanentCacheCore {
     
 }
 
+//MARK: Public - URLRequest Creation
+
+extension PermanentCacheCore {
+    func urlRequestFromURL(_ url: URL, type: Header.PersistItemType, cachePolicy: WMFCachePolicy? = nil) -> URLRequest {
+        
+        var request = URLRequest(url: url)
+        
+        let typeHeaders = typeHeadersForType(type)
+        
+        for (key, value) in typeHeaders {
+            request.setValue(value, forHTTPHeaderField: key)
+        }
+        
+        let additionalHeaders = additionalHeadersForType(type, urlRequest: request)
+        
+        for (key, value) in additionalHeaders {
+            request.setValue(value, forHTTPHeaderField: key)
+        }
+        
+        if let cachePolicy = cachePolicy {
+            switch cachePolicy {
+            case .foundation(let cachePolicy):
+                request.cachePolicy = cachePolicy
+                request.prefersPersistentCacheOverError = true
+            case .noPersistentCacheOnError:
+                request.cachePolicy = .reloadIgnoringLocalCacheData
+                request.prefersPersistentCacheOverError = false
+            }
+        }
+        
+        return request
+    }
+    
+    func typeHeadersForType(_ type: Header.PersistItemType) -> [String: String] {
+        return [Header.persistentCacheItemType: type.rawValue]
+    }
+    
+    func additionalHeadersForType(_ type: Header.PersistItemType, urlRequest: URLRequest) -> [String: String] {
+        
+        var headers: [String: String] = [:]
+        
+        //add If-None-Match, otherwise it will not be populated if URLCache.shared is cleared but persistent cache exists.
+        switch type {
+        case .article, .imageInfo:
+            guard let cachedHeaders = permanentlyCachedHeaders(for: urlRequest) else {
+                break
+            }
+            headers[URLRequest.ifNoneMatchHeaderKey] = cachedHeaders[HTTPURLResponse.etagHeaderKey]
+        case .image:
+            break
+        }
+        
+        return headers
+    }
+    
+    func isCachedWithURLRequest(_ urlRequest: URLRequest, completion: @escaping (Bool) -> Void) {
+        guard let itemKey = itemKeyForURLRequest(urlRequest) else {
+            completion(false)
+            return
+        }
+        let moc = cacheManagedObjectContext
+        let variant = variantForURLRequest(urlRequest)
+        
+        return CacheDBWriterHelper.isCached(itemKey: itemKey, variant: variant, in: moc, completion: completion)
+    }
+}
+
 //MARK: Public - Permanent Cache Writing
 
 extension PermanentCacheCore {
