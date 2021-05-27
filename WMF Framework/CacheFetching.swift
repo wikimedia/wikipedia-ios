@@ -85,64 +85,70 @@ internal extension CacheFetching where Self:Fetcher {
     }
 }
 
-//MARK: Session Passthroughs
+//MARK: PermanentCacheCore Passthroughs (and one remaining Session Passthrough)
 
 internal extension CacheFetching where Self:Fetcher {
     
-    func cachedResponseForURL(_ url: URL, type: Header.PersistItemType) -> CachedURLResponse? {
-        return session.cachedResponseForURL(url, type: type)
+    // This method still passes through to session. It uses a session call internally. The session method only seems to be used by this protocol extension
+    // and one call from MWKImageInfoFetcher. Will leave untangling it until later - MWKImageInfoFetcher has the data source passed into it, so it should
+    // be possible to disentangle.
+    func urlRequestFromPersistence(with url: URL, persistType: Header.PersistItemType, cachePolicy: WMFCachePolicy? = nil, headers: [String: String] = [:]) -> URLRequest? {
+        session.urlRequestFromPersistence(with: url, persistType: persistType, cachePolicy: cachePolicy, headers: headers)
     }
     
+    func cachedResponseForURL(_ url: URL, type: Header.PersistItemType) -> CachedURLResponse? {
+        let request = permanentCacheCore.urlRequestFromURL(url, type: type)
+        return cachedResponseForURLRequest(request)
+    }
+    
+    // This method calls through from the cache core to the url cache itself.
+    // That is the pattern this refactor is trying to avoid, but one case of it is better than 14 or so
+    // It may be possible to disentangle this one in a future commit also.
     func cachedResponseForURLRequest(_ urlRequest: URLRequest) -> CachedURLResponse? {
-        return session.cachedResponseForURLRequest(urlRequest)
+        permanentCacheCore.urlCache.cachedResponse(for: urlRequest)
     }
     
     func uniqueFileNameForURLRequest(_ urlRequest: URLRequest) -> String? {
-        return session.uniqueFileNameForURLRequest(urlRequest)
+        permanentCacheCore.uniqueFileNameForURLRequest(urlRequest)
     }
     
     func uniqueKeyForURL(_ url: URL, type: Header.PersistItemType) -> String? {
-        return session.uniqueKeyForURL(url, type: type)
+        permanentCacheCore.uniqueFileNameForURL(url, type: type)
     }
     
     func cacheResponse(httpUrlResponse: HTTPURLResponse, content: CacheResponseContentType, urlRequest: URLRequest, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
-        
-        session.cacheResponse(httpUrlResponse: httpUrlResponse, content: content, urlRequest: urlRequest, success: success, failure: failure)
+        permanentCacheCore.cacheResponse(httpUrlResponse: httpUrlResponse, content: content, urlRequest: urlRequest, success: success, failure: failure)
     }
     
     func writeBundledFiles(mimeType: String, bundledFileURL: URL, urlRequest: URLRequest, completion: @escaping (Result<Void, Error>) -> Void) {
-        session.writeBundledFiles(mimeType: mimeType, bundledFileURL: bundledFileURL, urlRequest: urlRequest, completion: completion)
+        permanentCacheCore.writeBundledFiles(mimeType: mimeType, bundledFileURL: bundledFileURL, urlRequest: urlRequest, completion: completion)
     }
     
     func uniqueFileNameForItemKey(_ itemKey: CacheController.ItemKey, variant: String?) -> String? {
-        return session.uniqueFileNameForItemKey(itemKey, variant: variant)
+        permanentCacheCore.uniqueFileNameForItemKey(itemKey, variant: variant)
     }
     
     func itemKeyForURLRequest(_ urlRequest: URLRequest) -> String? {
-        return session.itemKeyForURLRequest(urlRequest)
+        permanentCacheCore.itemKeyForURLRequest(urlRequest)
     }
     
     func variantForURLRequest(_ urlRequest: URLRequest) -> String? {
-        return session.variantForURLRequest(urlRequest)
+        permanentCacheCore.variantForURLRequest(urlRequest)
     }
     
     func itemKeyForURL(_ url: URL, type: Header.PersistItemType) -> String? {
-        return session.itemKeyForURL(url, type: type)
+        permanentCacheCore.itemKeyForURL(url, type: type)
     }
     
     func variantForURL(_ url: URL, type: Header.PersistItemType) -> String? {
-        return session.variantForURL(url, type: type)
+        permanentCacheCore.variantForURL(url, type: type)
     }
-    
-    func urlRequestFromPersistence(with url: URL, persistType: Header.PersistItemType, cachePolicy: WMFCachePolicy? = nil, headers: [String: String] = [:]) -> URLRequest? {
-        return session.urlRequestFromPersistence(with: url, persistType: persistType, cachePolicy: cachePolicy, headers: headers)
-    }
-    
+        
     func uniqueHeaderFileNameForItemKey(_ itemKey: CacheController.ItemKey, variant: String?) -> String? {
-        return session.uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
+        permanentCacheCore.uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
     }
     
     func isCachedWithURLRequest(_ request: URLRequest, completion: @escaping (Bool) -> Void) {
-        return session.isCachedWithURLRequest(request, completion: completion)
+        permanentCacheCore.isCachedWithURLRequest(request, completion: completion)
     }
 }
