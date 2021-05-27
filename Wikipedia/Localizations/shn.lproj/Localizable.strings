@@ -622,7 +622,6 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|တႅၼ်းတီႈယဝ်ႉ $1 ဢၼ် |တႅၼ်းတီႈယဝ်ႉ $1 ဢၼ်}}";
 "replace-textfield-accessibility" = "တႅၼ်းတီႈ";
 "replace-textfield-placeholder" = "တႅၼ်းတီႈတင်း...";
-"request-feedback-on-error" = "ဢႅပ်ႉဢၼ်ၼႆႉ လႆႈထူပ်းႁၼ်ၺႃးပၼ်ႁႃ ဢၼ်ႁဵတ်းႁႂ်ႈ ၽူႈၶူင်သၢင်ႈႁဝ်းၶႃႈ လႆႈႁူႉလွင်ႈမၼ်းလိူဝ်ၼၼ်ႉ။ ၶႅၼ်းတေႃႈ ၼဵၵ်းပၼ်ႁိမ်းၼႆႉသေ သူင်ႇပၼ်ဢီးမေးလ် ၸိူဝ်းပဵၼ်ႁူဝ်ယွႆႈ လွင်ႈၽိတ်းပိူင်ႈ။";
 "reverted-edit-back-to-article-button-title" = "ႁူၼ်လင်ၸူး ပွင်ႈၵႂၢမ်း";
 "reverted-edit-notification-body" = "လွင်ႈမႄးထတ်း ဢၼ်ၸဝ်ႈၵဝ်ႇ ႁဵတ်းမႃးတီႈပွင်ႈၵႂၢမ်း $1 ၼႆႉ ထုၵ်ႇ $2 ၶိုၼ်ၶိုၼ်းဝႆႉ။";
 "reverted-edit-notification-read-more-action-title" = "လူၼမ်လိူဝ်";

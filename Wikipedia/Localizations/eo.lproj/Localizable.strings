@@ -624,7 +624,6 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 ero anstataŭigita|$1 eroj anstataŭigitaj}}";
 "replace-textfield-accessibility" = "Anstataŭigi";
 "replace-textfield-placeholder" = "Anstataŭigi per…";
-"request-feedback-on-error" = "La aplikaĵo ekhavis problemon pri kiu niaj programistoj ŝatus scii pli. Bonvolu tuŝeti ĉi tie por sendi retmesaĝon al ni kun la eraro-detaloj.";
 "reverted-edit-back-to-article-button-title" = "Reen al la artikolo";
 "reverted-edit-notification-body" = "La redakto de la artikolo $1 kiun vi faris, estas malfarita de $2";
 "reverted-edit-notification-read-more-action-title" = "Legi pli";

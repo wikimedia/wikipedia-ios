@@ -746,7 +746,6 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 položka změněna|$1 položky změněny|$1 položek změněno}}";
 "replace-textfield-accessibility" = "Nahradit";
 "replace-textfield-placeholder" = "Nahradit za...";
-"request-feedback-on-error" = "V aplikaci došlo k chybě, o které by naši vývojáři chtěli vědět více. Prosím, klikněte zde a pošlete nám e-mail s podrobnostmi o chybě.";
 "reverted-edit-back-to-article-button-title" = "Zpět do článku";
 "reverted-edit-notification-body" = "Vaše editace článku $1 byla revertována wikipedistou $2";
 "reverted-edit-notification-read-more-action-title" = "Více informací";

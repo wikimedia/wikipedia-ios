@@ -750,7 +750,6 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 مورد جایگزین شد|$1 مورد جایگزین شد}}";
 "replace-textfield-accessibility" = "جایگزینی";
 "replace-textfield-placeholder" = "جایگزینی با…";
-"request-feedback-on-error" = "این برنامه با مشکلی مواجه شده است که توسعه‌دهندگان ما به دانستن بیشتر در مورد آن علاقه‌مند هستند. لطفاً با ضربه‌زدن بر اینجا، برایمان یک پست الکترونیکی با جزئیات بیشتری بفرستید.";
 "reverted-edit-back-to-article-button-title" = "برگشت به مقاله";
 "reverted-edit-notification-body" = "ویرایش شما در مقالهٔ $1 توسط $2 برگردانده شد";
 "reverted-edit-notification-read-more-action-title" = "بیشتر بخوانید";

@@ -279,6 +279,7 @@
 "empty-no-feed-message" = "Du kannst deine empfohlenen Artikel ansehen, wenn du Internet hast.";
 "empty-no-history-message" = "Gehe hier deinen gelesenen Seiten nach";
 "empty-no-history-title" = "Keine Versionsgeschichte anzuzeigen";
+"empty-no-other-article-languages-title" = "Keine anderen Sprachen verfügbar";
 "empty-no-reading-lists-message" = "Erstelle Listen für Reiseziele, Lieblingsthemen und vieles mehr.";
 "empty-no-reading-lists-title" = "Organisiere gespeicherte Artikel mit Leselisten";
 "empty-no-saved-pages-in-reading-list-message" = "Speichere Seiten in diese Liste, um sie hier zu sehen.";
@@ -673,7 +674,6 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|Ein Objekt|$1 Objekte}} ersetzt";
 "replace-textfield-accessibility" = "Ersetzen";
 "replace-textfield-placeholder" = "Ersetzen durch …";
-"request-feedback-on-error" = "Die App hat ein Problem festgestellt und unsere Entwickler möchten gerne mehr darüber wissen. Bitte tippe hier, um eine E-Mail mit den Einzelheiten zum Fehler an uns zu senden.";
 "reverted-edit-back-to-article-button-title" = "Zurück zum Artikel";
 "reverted-edit-notification-body" = "Deine Bearbeitung am Artikel $1 wurde von $2 zurückgesetzt";
 "reverted-edit-notification-read-more-action-title" = "Mehr erfahren";

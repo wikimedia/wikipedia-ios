@@ -524,7 +524,6 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 elemento sostituito|$1 elementi sostituiti}}";
 "replace-textfield-accessibility" = "Sostituisci";
 "replace-textfield-placeholder" = "Sostituisci con…";
-"request-feedback-on-error" = "L'applicazione ha riscontrato un problema su cui i nostri sviluppatori vorrebbero saperne di più. Si prega di toccare qui per inviarci una email con i dettagli dell'errore.";
 "reverted-edit-back-to-article-button-title" = "Torna alla voce";
 "reverted-edit-notification-body" = "La modifica che hai fatto alla voce $1 è stata annullata da $2";
 "reverted-edit-notification-read-more-action-title" = "Per saperne di più";
