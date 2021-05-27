@@ -250,7 +250,7 @@ class ArticleTestHelpers {
         }
         
         //set up file names and content
-        let fileNameGenerator = PermanentlyPersistableURLCache(moc: moc)
+        let fileNameGenerator = PermanentCacheCore(moc: moc)
         guard let htmlURL = URL(string: "https://en.wikipedia.org/api/rest_v1/page/mobile-html/United_States"),
             let uniqueHTMLFileName = fileNameGenerator.uniqueFileNameForURL(htmlURL, type: .article),
             let uniqueHTMLHeaderFileName = fileNameGenerator.uniqueHeaderFileNameForURL(htmlURL, type: .article) else {
@@ -373,7 +373,7 @@ class ArticleTestHelpers {
         }
         
         //set up file names and content
-        let fileNameGenerator = PermanentlyPersistableURLCache(moc: moc)
+        let fileNameGenerator = PermanentCacheCore(moc: moc)
         guard let htmlURL = URL(string: mobileHTMLURLString),
             let uniqueHTMLFileName = fileNameGenerator.uniqueFileNameForURL(htmlURL, type: .article),
             let uniqueHTMLHeaderFileName = fileNameGenerator.uniqueHeaderFileNameForURL(htmlURL, type: .article) else {
