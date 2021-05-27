@@ -159,7 +159,7 @@ extension PermanentCacheCore {
         completion()
     }
     
-    private func updateCacheWithCachedResponse(_ cachedResponse: CachedURLResponse, request: URLRequest) {
+    internal func updateCacheWithCachedResponse(_ cachedResponse: CachedURLResponse, request: URLRequest) {
         
         func customCacheUpdatingItemKeyForURLRequest(_ urlRequest: URLRequest) -> String? {
             

@@ -59,14 +59,14 @@ class PermanentlyPersistableURLCache: URLCache {
     override func storeCachedResponse(_ cachedResponse: CachedURLResponse, for request: URLRequest) {
         super.storeCachedResponse(cachedResponse, for: request)
         
-        updateCacheWithCachedResponse(cachedResponse, request: request)
+        permanentCacheCore.updateCacheWithCachedResponse(cachedResponse, request: request)
     }
     
     override func storeCachedResponse(_ cachedResponse: CachedURLResponse, for dataTask: URLSessionDataTask) {
         super.storeCachedResponse(cachedResponse, for: dataTask)
         
         if let request = dataTask.originalRequest {
-            updateCacheWithCachedResponse(cachedResponse, request: request)
+            permanentCacheCore.updateCacheWithCachedResponse(cachedResponse, request: request)
         }
     }
 }
@@ -450,108 +450,6 @@ extension PermanentlyPersistableURLCache {
         }
         
         completion()
-    }
-    
-    private func updateCacheWithCachedResponse(_ cachedResponse: CachedURLResponse, request: URLRequest) {
-        
-        func customCacheUpdatingItemKeyForURLRequest(_ urlRequest: URLRequest) -> String? {
-            
-            //this inner method is a workaround to allow the mobile-html URLRequest with a revisionID in the url to update the cached response under the revisionless url.
-            //we intentionally don't want to modify the itemKeyForURLRequest(_ urlRequest: URLRequest) method to keep this a lighter touch
-            
-            guard let url = urlRequest.customCacheUpdatingURL ?? urlRequest.url,
-                let type = typeFromURLRequest(urlRequest: urlRequest) else {
-                return nil
-            }
-            
-            return itemKeyForURL(url, type: type)
-        }
-        
-        func clearCustomCacheUpdatingResponseFromFoundation(with urlRequest: URLRequest) {
-            
-            //If we have a custom cache url to update, we need to remove that from foundation's URLCache, otherwise that
-            //will still take over even if we have updated the saved article cache.
-            
-            if let customCacheUpdatingURL = urlRequest.customCacheUpdatingURL {
-                let updatingRequest = URLRequest(url: customCacheUpdatingURL)
-                removeCachedResponse(for: updatingRequest)
-            }
-        }
-
-        let isArticleOrImageInfoRequest: Bool
-        if let typeRaw = request.allHTTPHeaderFields?[Header.persistentCacheItemType],
-            let type = Header.PersistItemType(rawValue: typeRaw),
-            (type == .article || type == .imageInfo) {
-            isArticleOrImageInfoRequest = true
-        } else {
-            isArticleOrImageInfoRequest = false
-        }
-        
-        //we only want to update specific variant for image types
-        //for articles and imageInfo's it's okay to update the alternative language variants in the cache.
-        let variant: String? = isArticleOrImageInfoRequest ? nil : variantForURLRequest(request)
-        
-        clearCustomCacheUpdatingResponseFromFoundation(with: request)
-        
-        guard let itemKey = customCacheUpdatingItemKeyForURLRequest(request),
-            let httpResponse = cachedResponse.response as? HTTPURLResponse,
-            httpResponse.statusCode == 200 else {
-            return
-        }
-        
-        let moc = cacheManagedObjectContext
-        
-        CacheDBWriterHelper.isCached(itemKey: itemKey, variant: variant, in: moc, completion: { (isCached) in
-            guard isCached else {
-                return
-            }
-
-            let cachedHeaders = self.permanentCacheCore.permanentlyCachedHeaders(for: request)
-            let cachedETag = cachedHeaders?[HTTPURLResponse.etagHeaderKey]
-            let responseETag = httpResponse.allHeaderFields[HTTPURLResponse.etagHeaderKey] as? String
-            guard cachedETag == nil || cachedETag != responseETag else {
-                return
-            }
-            
-            let headerFileName: String
-            let contentFileName: String
-            
-            if isArticleOrImageInfoRequest,
-                let topVariant = CacheDBWriterHelper.allDownloadedVariantItems(itemKey: itemKey, in: moc).first {
-                
-                headerFileName = self.uniqueHeaderFileNameForItemKey(itemKey, variant: topVariant.variant)
-                contentFileName = self.uniqueFileNameForItemKey(itemKey, variant: topVariant.variant)
-                
-            } else {
-                headerFileName = self.uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
-                contentFileName = self.uniqueFileNameForItemKey(itemKey, variant: variant)
-            }
-            
-            CacheFileWriterHelper.replaceResponseHeaderWithURLResponse(httpResponse, atFileName: headerFileName) { (result) in
-                switch result {
-                case .success:
-                    break
-                case .failure(let error):
-                    DDLogError("Failed updating cached header file: \(error)")
-                case .exists:
-                    assertionFailure("This shouldn't happen.")
-                    break
-                }
-            }
-            
-            CacheFileWriterHelper.replaceFileWithData(cachedResponse.data, fileName: contentFileName) { (result) in
-                switch result {
-                case .success:
-                    break
-                case .failure(let error):
-                    DDLogError("Failed updating cached content file: \(error)")
-                case .exists:
-                    assertionFailure("This shouldn't happen.")
-                    break
-                }
-            }
-        })
-
     }
 }
 
