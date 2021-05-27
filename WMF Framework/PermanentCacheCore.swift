@@ -17,7 +17,7 @@ class PermanentCacheCore {
 
 extension PermanentCacheCore {
     
-    private func permanentlyCachedHeaders(for request: URLRequest) -> [String: String]? {
+    internal func permanentlyCachedHeaders(for request: URLRequest) -> [String: String]? {
         guard let url = request.url,
             let typeRaw = request.allHTTPHeaderFields?[Header.persistentCacheItemType],
             let type = Header.PersistItemType(rawValue: typeRaw) else {
