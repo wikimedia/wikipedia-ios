@@ -48,6 +48,14 @@ public class Configuration: NSObject {
         #endif
     }()
     
+    private let pageContentServiceAPIType: APIURLComponentsBuilder.RESTBase.BuilderType
+    private let feedContentAPIType: APIURLComponentsBuilder.RESTBase.BuilderType
+    private let announcementsAPIType: APIURLComponentsBuilder.RESTBase.BuilderType
+    private let eventLoggingAPIType: APIURLComponentsBuilder.EventLogging.BuilderType
+    private let mediaWikiRestAPIType = APIURLComponentsBuilder.MediaWiki.BuilderType.productionRest
+    private let mediaWikiAPIType = APIURLComponentsBuilder.MediaWiki.BuilderType.production
+    private let metricsAPIType = APIURLComponentsBuilder.RESTBase.BuilderType.production
+    
     // MARK: Configurations
     
     public static let production: Configuration = {
@@ -140,10 +148,7 @@ public class Configuration: NSObject {
        return Router(configuration: self)
     }()
 
-    required init(environment: Environment, defaultSiteDomain: String, otherDomains: [String] = [], pageContentServiceAPIType: APIURLComponentsBuilder.RESTBase.BuilderType,
-        feedContentAPIType: APIURLComponentsBuilder.RESTBase.BuilderType,
-        announcementsAPIType: APIURLComponentsBuilder.RESTBase.BuilderType,
-        eventLoggingAPIType: APIURLComponentsBuilder.EventLogging.BuilderType) {
+    required init(environment: Environment, defaultSiteDomain: String, otherDomains: [String] = [], pageContentServiceAPIType: APIURLComponentsBuilder.RESTBase.BuilderType, feedContentAPIType: APIURLComponentsBuilder.RESTBase.BuilderType, announcementsAPIType: APIURLComponentsBuilder.RESTBase.BuilderType, eventLoggingAPIType: APIURLComponentsBuilder.EventLogging.BuilderType) {
         self.environment = environment
         self.defaultSiteDomain = defaultSiteDomain
         var components = URLComponents()
@@ -163,14 +168,6 @@ public class Configuration: NSObject {
         self.announcementsAPIType = announcementsAPIType
         self.eventLoggingAPIType = eventLoggingAPIType
     }
-    
-    let pageContentServiceAPIType: APIURLComponentsBuilder.RESTBase.BuilderType
-    let feedContentAPIType: APIURLComponentsBuilder.RESTBase.BuilderType
-    let announcementsAPIType: APIURLComponentsBuilder.RESTBase.BuilderType
-    let eventLoggingAPIType: APIURLComponentsBuilder.EventLogging.BuilderType
-    let mediaWikiRestAPIType: APIURLComponentsBuilder.MediaWiki.BuilderType = .productionRest
-    let mediaWikiAPIType: APIURLComponentsBuilder.MediaWiki.BuilderType = .production
-    private let metricsAPIType = APIURLComponentsBuilder.RESTBase.BuilderType.production
     
     //MARK: Page Content Service
     
