@@ -5,5 +5,10 @@ import Foundation
  *  The article and image cache controller subsystems both sit on top of PermanentCacheCore.
  */
 class PermanentCacheCore {
+    let cacheManagedObjectContext: NSManagedObjectContext
+
+    init(moc: NSManagedObjectContext) {
+        cacheManagedObjectContext = moc
+    }
     
 }
