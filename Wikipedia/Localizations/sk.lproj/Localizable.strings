@@ -321,6 +321,8 @@
 "empty-no-feed-message" = "Odporúčané články uvidíte keď budete pripojení na internet";
 "empty-no-history-message" = "Vaša história je prázdna";
 "empty-no-history-title" = "Nemáte žiadnu históriu.";
+"empty-no-other-article-languages-message" = "Tento článok ešte nebol napísaný v žiadnom inom jazyku";
+"empty-no-other-article-languages-title" = "Žiadne iné jazyky nie sú dostupné";
 "empty-no-reading-lists-message" = "Vytvorte si zoznamy miest, kam sa chcete vydať, zoznamy obľúbených tém a ďalšie";
 "empty-no-reading-lists-title" = "Organizujte si uložené články pomocou zoznamov na prečítanie";
 "empty-no-saved-pages-in-reading-list-message" = "Uložte stránky do tohto zoznamu a zobrazte ich tu";

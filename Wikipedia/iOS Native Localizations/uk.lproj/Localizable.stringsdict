@@ -80,7 +80,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%2$d дописувача</string>
+			<string>%2$d дописувачі</string>
 			<key>other</key>
 			<string>%2$d дописувачів</string>
 			<key>zero</key>
