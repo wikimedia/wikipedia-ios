@@ -21,7 +21,7 @@
 "abuse-filter-warning-repeat" = "Йух-йуха долу хьаьркаш";
 "account-creation-logging-in" = "Системин чудахар...";
 "action-previous-revision-accessibility" = "Хьалхара верси";
-"action-unsave" = "Ӏалаш цайина";
+"action-unsave" = "Ӏалашцайина";
 "add-articles-to-reading-list" = "ТӀетоха {{PLURAL:$1|$1 йаззам}} бешаран могӀаме";
 // Fuzzy
 "article-languages-filter-placeholder" = "Меттанийн луьттург";
@@ -30,6 +30,7 @@
 "button-next" = "Кхин дӀа";
 "button-ok" = "ХӀаъ";
 "cancel" = "Йухайаккха";
+"edit-summary-choice-fixed-grammar" = "Нийсайаздар";
 "insert-media-image-position-setting-right" = "Аьтту";
 "languages-settings-title" = "Меттанаш";
 // Fuzzy
@@ -67,7 +68,7 @@
 "settings-clear-cache-cancel" = "Цаоьшу";
 "settings-help-and-feedback" = "ЗӀе";
 "share-default-format" = "«$1» «$2» чуьра: $3";
-"share-email-format" = "«$1»\n\n«$2» чура\n\n$3";
+"share-email-format" = "«$1»\n\n«$2» чуьра \n\n$3";
 "share-menu-item" = "Екха...";
 "share-message-format" = "«$1» $2";
 "share-social-format" = "«$1» Википеди чохь: $2";
