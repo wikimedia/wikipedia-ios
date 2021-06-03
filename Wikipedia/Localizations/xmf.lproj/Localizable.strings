@@ -1,5 +1,6 @@
 // Messages for Mingrelian (მარგალური)
 // Exported from translatewiki.net
+// Author: Narazeni
 // Author: Silovan
 
 // Fuzzy
@@ -12,6 +13,8 @@
 "article-languages-filter-placeholder" = "ნინაშ ფილტრი";
 "article-languages-label" = "გეგშაგორით ნინა";
 "edit-summary-choice-linked-words" = "გეძინელი რსხუეფი";
+"empty-no-other-article-languages-message" = "თე სტატია დიო ვა რე ჭარილი შხვა ნინაშა";
+"empty-no-other-article-languages-title" = "შხვა ნინეფი ვა რე ხემიოჭირინაფუს";
 "error-unknown" = "მეგორაფილი რე უჩინებუ ჩილათაშა.";
 "history-clear-cancel" = "გოუქვაფა";
 // Fuzzy

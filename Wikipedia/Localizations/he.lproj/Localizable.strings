@@ -746,7 +746,6 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|פריט אחד הוחלף|$1 פריטים הוחלפו}}";
 "replace-textfield-accessibility" = "החלפה";
 "replace-textfield-placeholder" = "החלפה ב…";
-"request-feedback-on-error" = "היישום נתקל בבעיה והמפתחים שלנו היו רוצים לדעת עליה יותר. נא ללחוץ כאן כדי לשלוח לנו דואר אלקטרוני עם מידע על השגיאה.";
 "reverted-edit-back-to-article-button-title" = "חזרה לערך";
 "reverted-edit-notification-body" = "העריכה שעשית בערך $1 בוטלה על־ידי $2";
 "reverted-edit-notification-read-more-action-title" = "מידע נוסף";

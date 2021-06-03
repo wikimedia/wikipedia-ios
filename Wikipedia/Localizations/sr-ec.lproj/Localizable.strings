@@ -675,7 +675,6 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 измењена ставка|$1 измењене ставке}}";
 "replace-textfield-accessibility" = "Замени";
 "replace-textfield-placeholder" = "Замени са…";
-"request-feedback-on-error" = "Апликација је наишла на проблем о ком би наши програмери желели да знају више. Додирните овде да бисте нам послали имејл са детаљима о грешци.";
 "reverted-edit-back-to-article-button-title" = "Назад на чланак";
 "reverted-edit-notification-body" = "Измена коју сте направили на чланку $1 је враћена од стране $2";
 "reverted-edit-notification-read-more-action-title" = "Прочитајте више";
@@ -706,6 +705,8 @@
 "search-recent-title" = "Недавне претраге";
 "search-result-redirected-from" = "Преусмерено са: $1";
 "search-title" = "Претрага";
+"serbian-variants-alert-body" = "Апликација Википедија одсад подржава следеће варијанте српског језика као главне или споредне језике олакшавајући читање, претраживање и уређивање у жељеним варијантама:\n\nсрпски ћирилица (sr-ec)\nsrpski latinica (sr-el)";
+"serbian-variants-alert-title" = "Ажурирања подршке за варијанте српског језика";
 "settings-account" = "Налог";
 "settings-appearance" = "Подешавања за читање";
 "settings-clear-cache" = "Брисање кешираних података";

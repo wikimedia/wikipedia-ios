@@ -336,8 +336,7 @@
 "empty-no-feed-message" = "Vous pouvez voir vos articles recommandés quand vous avez Internet";
 "empty-no-history-message" = "Garder une trace de ce que vous avez lu ici";
 "empty-no-history-title" = "Aucun historique à afficher";
-// Fuzzy
-"empty-no-other-article-languages-message" = "Cet article n’a pas encore été traduit dans d’autres langues";
+"empty-no-other-article-languages-message" = "Cet article n’a pas encore été écrit dans d’autres langues";
 "empty-no-other-article-languages-title" = "Aucune autre langue disponible";
 "empty-no-reading-lists-message" = "Créer des listes de lieux à visiter, de sujets favoris et beaucoup d’autres";
 "empty-no-reading-lists-title" = "Organiser les articles enregistrés avec les listes de lecture";
@@ -756,7 +755,6 @@
 "replace-replace-all-results-count" = "$1 élément{{PLURAL:$1||s}} remplacé{{PLURAL:$1||s}}";
 "replace-textfield-accessibility" = "Remplacer";
 "replace-textfield-placeholder" = "Remplacer par...";
-"request-feedback-on-error" = "L’application a rencontré un problème à propos duquel nos développeurs aimeraient en savoir plus. Veuillez toucher ici pour nous envoyer un courriel avec les détails de l’erreur.";
 "reverted-edit-back-to-article-button-title" = "Retour à l’article";
 "reverted-edit-notification-body" = "La modification que vous avez apportée à l’article $1 a été annulée par $2";
 "reverted-edit-notification-read-more-action-title" = "Lire la suite";

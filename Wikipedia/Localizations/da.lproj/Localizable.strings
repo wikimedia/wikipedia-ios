@@ -492,7 +492,6 @@
 "replace-infolabel-method-replace-all" = "Erstat alle";
 "replace-textfield-accessibility" = "Erstat";
 "replace-textfield-placeholder" = "Erstat med...";
-"request-feedback-on-error" = "Appen er stødt på et problem, som vores udviklere gerne vil vide mere om. Tryk her for at sende os en e-mail med oplysninger om fejlen.";
 "reverted-edit-back-to-article-button-title" = "Tilbage til artiklen";
 "reverted-edit-notification-body" = "Redigeringen du lavede på artiklen $1 blev omgjort af $2";
 "reverted-edit-notification-read-more-action-title" = "Læs mere";
