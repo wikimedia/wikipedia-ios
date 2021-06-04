@@ -193,7 +193,7 @@ platform :ios do
       bump_major()
     end
 
-    git_add(path: "./Wikipedia.xcodeproj/*", shell_escape: false)
+    git_add(path: ["*/Info.plist"], shell_escape: false)
 
     commit_version_bump(message: "Version bump")
     push_to_git_remote(
