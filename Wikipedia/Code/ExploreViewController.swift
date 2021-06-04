@@ -60,7 +60,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         restoreScrollPositionIfNeeded()
 
         /// Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
-        parent?.navigationItem.backButtonTitle = title
+        (parent as? WMFAppViewController)?.navigationItem.backButtonTitle = title
     }
 
     private func restoreScrollPositionIfNeeded() {

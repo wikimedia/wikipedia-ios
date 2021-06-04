@@ -457,6 +457,7 @@
 "field-token-title" = "Verificatiecode";
 "field-username-placeholder" = "voer gebruikersnaam in";
 "field-username-title" = "Gebruikersnaam";
+"find-clear-button-accessibility" = "Leeg zoekveld";
 "find-infolabel-number-matches" = "$1 van $2";
 "find-next-button-accessibility" = "Volgende zoekresultaat";
 "find-previous-button-accessibility" = "Vorige zoekresultaat";
