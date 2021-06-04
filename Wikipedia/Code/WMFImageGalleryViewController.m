@@ -465,10 +465,14 @@ NS_ASSUME_NONNULL_BEGIN
     [self.infoFetcher fetchPicOfTheDayGalleryInfoForDate:date
         metadataLanguage:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]
         failure:^(NSError *_Nonnull error) {
-            UIViewController *vcToPresentError = [self presentingViewController];
-            [self dismissViewControllerAnimated:true completion:^{
-                [vcToPresentError wmf_showAlertWithError:error];
-            }];
+            @strongify(self);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UIViewController *vcToPresentError = [self presentingViewController];
+                [self dismissViewControllerAnimated:true
+                                         completion:^{
+                                             [vcToPresentError wmf_showAlertWithError:error];
+                                         }];
+            });
         }
         success:^(id _Nonnull info) {
             @strongify(self);
@@ -484,18 +488,18 @@ NS_ASSUME_NONNULL_BEGIN
     @weakify(self);
     UIImage *memoryCachedImage = [galleryImage memoryCachedImage];
     if (memoryCachedImage == nil) {
-        
+
         [[[MWKDataStore shared] cacheController] fetchImageWithURL:[galleryImage bestImageURL]
-        failure:^(NSError *_Nonnull error) {
-            if (error) {
-                //show error
-                return;
+            failure:^(NSError *_Nonnull error) {
+                if (error) {
+                    //show error
+                    return;
+                }
             }
-        }
-         success:^(WMFImageDownload *_Nonnull download) {
-             @strongify(self);
-             [self updateImageForPhotoAfterUserInteractionIsFinished:galleryImage];
-         }];
+            success:^(WMFImageDownload *_Nonnull download) {
+                @strongify(self);
+                [self updateImageForPhotoAfterUserInteractionIsFinished:galleryImage];
+            }];
     } else {
         [self updateImageForPhotoAfterUserInteractionIsFinished:galleryImage];
     }
