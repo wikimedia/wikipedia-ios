@@ -183,7 +183,10 @@ platform :ios do
   desc "Change version number and create PR with changes"
   lane :change_version do |options|
 
+    ensure_git_status_clean(show_diff: true)
+
     size = options[:size]
+    branch = "fastlane_version_bump"
     case size
     when "patch"
       bump_patch()
@@ -195,15 +198,15 @@ platform :ios do
 
     commit_version_bump(message: "Version bump")
     push_to_git_remote(
-      local_branch: "main",
-      remote_branch: "fastlane_version_bump",
+      local_branch: "HEAD",
+      remote_branch: branch,
       set_upstream: true
     )
     create_pull_request(
       api_token: ENV['GITHUB_TOKEN'],
       repo: "wikimedia/wikipedia-ios",
       title: "Version bump",
-      head: "fastlane_version_bump",
+      head: branch,
       base: "main",
       body: "Please merge this in."
     )
