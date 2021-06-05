@@ -193,11 +193,9 @@ platform :ios do
       bump_major()
     end
 
-    git_add(path: ["*/Info.plist"], shell_escape: false)
-
     commit_version_bump(message: "Version bump")
     push_to_git_remote(
-      local_branch: "main",
+      local_branch: "fastlane_version_bump",
       remote_branch: "fastlane_version_bump",
       set_upstream: true
     )
