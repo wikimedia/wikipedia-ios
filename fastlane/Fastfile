@@ -195,7 +195,7 @@ platform :ios do
 
     commit_version_bump(message: "Version bump")
     push_to_git_remote(
-      local_branch: "fastlane_version_bump",
+      local_branch: "main",
       remote_branch: "fastlane_version_bump",
       set_upstream: true
     )
