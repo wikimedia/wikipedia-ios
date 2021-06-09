@@ -198,7 +198,7 @@ platform :ios do
 
     commit_version_bump(message: "Version bump")
     push_to_git_remote(
-      local_branch: "HEAD",
+      remote: "origin",
       remote_branch: branch,
       set_upstream: true
     )
