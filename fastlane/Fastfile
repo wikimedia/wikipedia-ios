@@ -235,10 +235,11 @@ platform :ios do
     build = options[:build] || last_build + 1
 
     merges_since_last_build = get_recent_commits(start: "betas/#{last_build}")
-    last_public_release = get_latest_tag_with_prefix(prefix: "releases/")[0..-2]
-    merges_since_last_release = get_recent_commits(start: last_public_release)
-    changelog = "____New since last build (#{tag_prefix}/#{last_build})____\n#{merges_since_last_build.empty? ? 'None' : merges_since_last_build}\n\n" +
-        "____New since last public release (#{last_public_release})____\n#{merges_since_last_release.empty? ? 'None' : merges_since_last_release}"
+    last_public_release_tag = get_latest_tag_with_prefix(prefix: "releases/")[0..-2]
+    last_public_release_number = last_public_release_tag.gsub("releases/", "")
+    merges_since_last_release = get_recent_commits(start: last_public_release_tag)
+    changelog = "__New since last build (#{last_build})__\n#{merges_since_last_build.empty? ? 'None' : merges_since_last_build}\n\n" +
+        "__New since last public release (#{last_public_release_number})__\n#{merges_since_last_release.empty? ? 'None' : merges_since_last_release}"
     push_production(build: build, changelog: changelog)
     tag(prefix: tag_prefix, build_number: build)
   end
