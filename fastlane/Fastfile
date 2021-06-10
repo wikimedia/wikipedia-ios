@@ -185,7 +185,8 @@ platform :ios do
     prefix = options[:prefix] || "betas"
     build_number = options[:build_number] || options[:build] || get_build_number
     tag_name = "#{prefix}/#{build_number}"
-    add_git_tag(tag: tag_name)
+    message = options[:message] || ""
+    add_git_tag(tag: tag_name, message: message)
     sh "git push origin --tags"
   end
 
@@ -233,15 +234,21 @@ platform :ios do
     tag_prefix = "betas"
     last_build = get_latest_build_number(prefix: tag_prefix)
     build = options[:build] || last_build + 1
-
-    merges_since_last_build = get_recent_commits(start: "betas/#{last_build}")
     last_public_release_tag = get_latest_tag_with_prefix(prefix: "releases/")[0..-2]
     last_public_release_number = last_public_release_tag.gsub("releases/", "")
-    merges_since_last_release = get_recent_commits(start: last_public_release_tag)
-    changelog = "__New since last build (#{last_build})__\n#{merges_since_last_build.empty? ? 'None' : merges_since_last_build}\n\n" +
-        "__New since last public release (#{last_public_release_number})__\n#{merges_since_last_release.empty? ? 'None' : merges_since_last_release}"
-    push_production(build: build, changelog: changelog)
-    tag(prefix: tag_prefix, build_number: build)
+
+    full_merges_since_last_build = get_recent_commits(start: "#{tag_prefix}/#{last_build}", is_brief: false)
+    full_merges_since_last_release = get_recent_commits(start: last_public_release_tag, is_brief: false)
+    full_changelog = "\n__New since last build (#{last_build})__\n#{full_merges_since_last_build.empty? ? 'None' : full_merges_since_last_build}\n\n" +
+        "__New since last public release (#{last_public_release_number})__\n#{full_merges_since_last_release.empty? ? 'None' : full_merges_since_last_release}"
+
+    brief_merges_since_last_build = get_recent_commits(start: "betas/#{last_build}", is_brief: true)
+    brief_merges_since_last_release = get_recent_commits(start: last_public_release_tag, is_brief: true)
+    brief_changelog = "__New since last build (#{last_build})__\n#{brief_merges_since_last_build.empty? ? 'None' : brief_merges_since_last_build}\n\n" +
+            "__New since last public release (#{last_public_release_number})__\n#{brief_merges_since_last_release.empty? ? 'None' : brief_merges_since_last_release}"
+
+    push_production(build: build, changelog: brief_changelog)
+    tag(prefix: tag_prefix, build_number: build, message: full_changelog)
   end
 
   desc "Updates version, builds, and pushes the production build to TestFlight. Only releases to internal testers."
@@ -288,7 +295,11 @@ platform :ios do
 
   lane :get_recent_commits do |options|
     start = options[:start] || "HEAD"
-    `git log #{start}..HEAD --merges --first-parent origin/main --grep="Merge branch 'main' into" --invert-grep --pretty=format:"%h - %b (%s)" | sed 's/Merge pull request //g'`
+    is_brief = options[:is_brief] || false
+    format = is_brief ? '• %b (%s)' : '• %h - %b (%s)'
+    small_sed = "s/(Merge pull.*\\(#[0-9]*\\).*)/(\\1)/"
+    sed_removal = is_brief ? small_sed : "s/Merge pull request //g"
+    `git log #{start}..HEAD --merges --first-parent origin/main --grep="Merge branch 'main' into" --invert-grep --pretty=format:"#{format}" | sed '#{sed_removal}'`
   end
 
   desc "updates version, builds, and pushes to TestFlight"
