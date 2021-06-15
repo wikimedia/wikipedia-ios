@@ -759,12 +759,17 @@ class ArticleViewController: ViewController, HintPresenting {
         if #available(iOS 13.0, *) {
             articleAsLivingDocController.articleDidTriggerPullToRefresh()
         }
-
-        #if WMF_LOCAL_PAGE_CONTENT_SERVICE // on local PCS builds, reload everything including JS and CSS
-            webView.reloadFromOrigin()
-        #else // on release builds, just reload the page with a different cache policy
+        
+        switch Configuration.current.environment {
+        case .local(let options):
+            if options.contains(.localPCS) {
+                webView.reloadFromOrigin()
+            } else {
+                loadPage(cachePolicy: .noPersistentCacheOnError, revisionID: revisionID)
+            }
+        default:
             loadPage(cachePolicy: .noPersistentCacheOnError, revisionID: revisionID)
-        #endif
+        }
     }
 
     internal func updateRefreshOverlay(visible: Bool, animated: Bool = true) {

@@ -4,7 +4,7 @@ import Foundation
 public final class RandomArticleFetcher: Fetcher {
     @objc public func fetchRandomArticle(withSiteURL siteURL: URL, completion: @escaping (Error?, URL?, ArticleSummary?) -> Void) {
         let pathComponents = ["page", "random", "summary"]
-        guard let taskURL = configuration.pageContentServiceAPIURLForURL(siteURL, appending: pathComponents) else {
+        guard let taskURL = configuration.feedContentAPIURLForURL(siteURL, appending: pathComponents) else {
             completion(Fetcher.invalidParametersError, nil, nil)
             return
         }
