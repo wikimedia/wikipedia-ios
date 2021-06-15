@@ -9,8 +9,6 @@ The official Wikipedia iOS app.
 * **Planning (bugs & features)**: https://phabricator.wikimedia.org/project/view/782/
 * **Team page**: https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS
 
-**Note: The latest `main` branch is set up to build with Xcode 12.**
-
 ## Building and Running
 
 In the directory, run `./scripts/setup`.  Note: going to `scripts` directory and running `setup` will not work due to relative paths.
@@ -50,24 +48,25 @@ When reading logs, note that the log levels are shortened to emoji.
 - 🚨 Error 
 
 ### Testing
-The **Wikipedia** scheme is configured to execute the project's iOS unit tests, which can be run using the `Cmd+U` hotkey or the **Product → Test** menu bar action. Screenshot tests will fail unless you are running on one of the configurations defined by `configurations_to_test_on_pull` in `fastlane/Fastfile`. In order for the tests to pass, the test device's language and region must be set to `en-US` in Settings → General → Language & Region. There is a [ticket filed](https://phabricator.wikimedia.org/T259859) to update the tests to pass regardless of language and region.
+The **Wikipedia** scheme is configured to execute the project's iOS unit tests, which can be run using the `Cmd+U` hotkey or the **Product → Test** menu bar action. In order for the tests to pass, the test device's language and region must be set to `en-US` in Settings → General → Language & Region. There is a [ticket filed](https://phabricator.wikimedia.org/T259859) to update the tests to pass regardless of language and region.
 
-### Targets
-- **Wikipedia** - Points to production servers.
-- **Staging** - Points to the [Apps team's staging environment](https://mobileapps.wmflabs.org) for page content and production for everything else. Has additional debugging menus and is pushed to TestFlight as a separate app bundle.
-- **Local Page Content Service and Announcements** - Points to the [mobileapps](https://gerrit.wikimedia.org/r/q/project:mediawiki%252Fservices%252Fmobileapps) and [wikifeeds](https://gerrit.wikimedia.org/r/q/project:mediawiki%252Fservices%252Fwikifeeds) repos running locally.
-- **MediaWiki Beta Cluster** - Points to the [MediaWiki beta cluster](https://www.mediawiki.org/wiki/Beta_Cluster) for MediaWiki API calls and production for everything else.
-- **RTL** - Launches the app in an RTL locale using the `-AppleLocale` argument.
-- **Experimental** - For one off builds. Can point to whatever is needed for the given experiment.
-- **User Testing** - For user testing. Has an alternate configuration so that it can be delivered ad hoc.
-- **Event Logging Dev Debug** - For testing the events that the app sends to [Event Logging](https://wikitech.wikimedia.org/wiki/Analytics/Systems/EventLogging). Points to the Event Logging staging environment.
-- **Beta Cluster tests** - Tests that run against the [MediaWiki beta cluster](https://www.mediawiki.org/wiki/Beta_Cluster), checking for upstream changes to MediaWiki that might break any assumptions we have.
-- **UITests** - Runs automated screenshot tests.
-- **WMF** - Bundles up the app logic shared between the main app and the extensions (widgets, notifications).
-- **Update Localizations** - Covered in the [localization document](docs/localization.md).
-- **Update Languages** - For adding new Wikipedia languages or updating language configurations. Covered in the [languages document](docs/languages.md).
-- **{{name}}Widget, {{name}}Notification, {{name}}Stickers** - Extensions for widgets, notifications, and stickers.
-- **codemirror-config** - Generates the [CodeMirror](https://codemirror.net) configuration files. CodeMirror is used in the section editor.
+### Schemes and Targets
+* **Wikipedia** - Points to production servers.
+* **Staging** -  Pushed to TestFlight as a separate app bundle, and has the ability to toggle different staging environments within the `current` [property](https://github.com/wikimedia/wikipedia-ios/blob/de349525f652ca59c3437cd36fcb13846d737f1e/WMF%20Framework/Configuration.swift#L41) of `Configuration`:
+    - An option of `appsLabsForPCS` will point to the [Apps team's staging environment](https://mobileapps.wmflabs.org) for page content. This is selected by default.
+    - An option of `deploymentLabsForEventLogging` will point to the  [Event Logging](https://wikitech.wikimedia.org/wiki/Analytics/Systems/EventLogging) staging environment. It is for testing analytics events that the app sends to Event Logging. It is not selected by default.
+    - All other endpoints will point to production.
+* **Local Page Content Service and Announcements** - used in Debug mode only, has the ability to toggle different local environments within the `current` [property](https://github.com/wikimedia/wikipedia-ios/blob/de349525f652ca59c3437cd36fcb13846d737f1e/WMF%20Framework/Configuration.swift#L41) of `Configuration`:
+    - An option of `localPCS` will point to a locally running [mobileapps](https://gerrit.wikimedia.org/r/q/project:mediawiki%252Fservices%252Fmobileapps) repository for page content. This is selected by default.
+    - An option of `localAnnouncements` will point to a locally running [wikifeeds](https://gerrit.wikimedia.org/r/q/project:mediawiki%252Fservices%252Fwikifeeds) repository for the announcements endpoint. This is selected by default.
+    -  All other endpoints will point to production.
+* **RTL** - Launches the app in an RTL locale using the `-AppleLocale` argument.
+* **Experimental** - For one off builds. Can point to whatever is needed for the given experiment. Pushed to TestFlight as a separate app bundle.
+* **User Testing** - For user testing. Has an alternate configuration so that it can be delivered ad hoc. Pushed to TestFlight as a separate app bundle.
+* **WMF** - Bundles up the app logic shared between the main app and the extensions (widgets, notifications).
+* **Update Localizations** - Covered in the [localization document](docs/localization.md).
+* **Update Languages** - For adding new Wikipedia languages or updating language configurations. Covered in the [languages document](docs/languages.md).
+* **{{name}}Widget, {{name}}Notification, {{name}}Stickers** - Extensions for widgets, notifications, and stickers.
 
 ### Continuous Integration
 Covered in the [CI document](docs/ci.md).

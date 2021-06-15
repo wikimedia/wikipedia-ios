@@ -287,7 +287,7 @@ platform :ios do
 
   lane :get_recent_commits do |options|
     start = options[:start] || "HEAD"
-    `git log #{start}..HEAD --merges --first-parent main --grep="Merge branch 'main' into" --invert-grep --pretty=format:"%h - %b (%s)" | sed 's/Merge pull request //g'`
+    `git log #{start}..HEAD --merges --first-parent origin/main --grep="Merge branch 'main' into" --invert-grep --pretty=format:"%h - %b (%s)" | sed 's/Merge pull request //g'`
   end
 
   desc "updates version, builds, and pushes to TestFlight"
