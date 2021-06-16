@@ -3,11 +3,11 @@ Note: Testing event logging requires `labs` access to `deployment-eventlog05.eqi
 
 To test event logging:
 - ensure event logging is enabled via `Gear icon > Send usage reports`
-- select `Event Logging Dev Debug` scheme in Xcode
+- select `Staging` scheme in Xcode, then in `Configuration`'s `current` [property](https://github.com/wikimedia/wikipedia-ios/blob/de349525f652ca59c3437cd36fcb13846d737f1e/WMF%20Framework/Configuration.swift#L41), change the staging options to `return Configuration.staging(options: [.deploymentLabsForEventLogging])`. 
 - get the app install id:
   - run app in the simulator
   - pause
-  - paste `po [WMFEventLoggingService sharedInstance].appInstallID` in the Xcode console and copy the resulting string
+  - paste `po [[NSUserDefaults standardUserDefaults] wmf_appInstallId];` in the Xcode console and copy the resulting string
 - ssh to labs: `ssh deployment-eventlog05.eqiad.wmflabs`
 - [tail](https://en.wikipedia.org/wiki/Tail_%28Unix%29) the following files (`tail` keeps stream open and prints last few lines of a file any time it changes) with the app install id and the id of the schema being tested (from [MPopov](https://meta.wikimedia.org/wiki/User:MPopov_%28WMF%29/Notes/Android_app_analytics#Verifying)):
   - `/srv/log/eventlogging/all-events.log`

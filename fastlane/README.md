@@ -76,6 +76,11 @@ Increment the app version minor
 fastlane ios bump_major
 ```
 Increment the app version major
+### ios change_version
+```
+fastlane ios change_version
+```
+Change version number and create PR with changes
 ### ios tag
 ```
 fastlane ios tag
