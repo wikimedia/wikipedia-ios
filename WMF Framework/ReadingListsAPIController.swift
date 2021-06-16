@@ -130,13 +130,13 @@ extension APIReadingListEntry {
 }
 
 class ReadingListsAPIController: Fetcher {
-    private let api = Configuration.current.pageContentServiceAPIURLComponentsBuilderFactory("en.wikipedia.org")
+    private let builder = Configuration.current.pageContentServiceBuilder(withWikiHost: "en.wikipedia.org")
     private let basePathComponents = ["data", "lists"]
     public var lastRequestType: APIReadingListRequestType?
 
     fileprivate func get<T: Codable>(path: [String], queryParameters: [String: Any]? = nil, completionHandler: @escaping (T?, URLResponse?, Error?) -> Swift.Void) {
         let key = UUID().uuidString
-        let components = api.components(byAppending: basePathComponents + path, queryParameters: queryParameters)
+        let components = builder.components(byAppending: basePathComponents + path, queryParameters: queryParameters)
         guard
             let task = session.jsonDecodableTaskWithDecodableError(with: components.url, method: .get, completionHandler: { (result: T?, errorResult: APIReadingListErrorResponse?, response, error) in
             if let errorResult = errorResult, let error = APIReadingListError(rawValue: errorResult.title) {
@@ -153,7 +153,7 @@ class ReadingListsAPIController: Fetcher {
     }
     
     fileprivate func requestWithCSRF(path: [String], method: Session.Request.Method, bodyParameters: [String: Any]? = nil, completion: @escaping ([String: Any]?, URLResponse?, Error?) -> Void) {
-        let components = api.components(byAppending: basePathComponents + path)
+        let components = builder.components(byAppending: basePathComponents + path)
         requestMediaWikiAPIAuthToken(for: components.url, type: .csrf) { (result) in
             switch result {
             case .failure(let error):
