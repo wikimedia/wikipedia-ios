@@ -180,6 +180,39 @@ platform :ios do
     )
   end
 
+  desc "Change version number and create PR with changes"
+  lane :change_version do |options|
+
+    ensure_git_status_clean(show_diff: true)
+
+    size = options[:size]
+    branch = "fastlane_version_bump"
+    case size
+    when "patch"
+      bump_patch()
+    when "minor"
+      bump_minor()
+    when "major"
+      bump_major()
+    end
+
+    commit_version_bump(message: "Version bump")
+    push_to_git_remote(
+      remote: "origin",
+      remote_branch: branch,
+      force: true,
+      set_upstream: true
+    )
+    create_pull_request(
+      api_token: ENV['GITHUB_TOKEN'],
+      repo: "wikimedia/wikipedia-ios",
+      title: "Version bump",
+      head: branch,
+      base: "main",
+      body: "Please merge this in."
+    )
+  end
+
   desc "Add a build tag for the current build number and push to repo. While this tags a build, tag_release sets a release tag."
   lane :tag do |options|
     prefix = options[:prefix] || "betas"
