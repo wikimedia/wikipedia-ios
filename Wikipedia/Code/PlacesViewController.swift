@@ -1950,6 +1950,10 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         recenterOnUserLocation(self)
     }
     
+    @objc public func showLocation(_ params: [String: String]) {
+        print("showLocation \(params)")
+    }
+
     @objc public func showArticleURL(_ articleURL: URL) {
         guard let article = dataStore.fetchArticle(with: articleURL), let title = articleURL.wmf_title,
             let _ = view else { // force view instantiation

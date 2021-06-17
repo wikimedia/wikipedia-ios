@@ -59,6 +59,18 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
     return activity;
 }
 
++ (instancetype)wmf_locationActivityWithURL:(NSURL *)activityURL {
+    NSURLComponents *components = [NSURLComponents componentsWithURL:activityURL resolvingAgainstBaseURL:NO];
+
+    NSUserActivity *activity = [self wmf_pageActivityWithName:@"Location"];
+    NSMutableDictionary *userInfo = [activity.userInfo mutableCopy];
+    for (NSURLQueryItem *item in components.queryItems) {
+        userInfo[item.name] = item.value;
+    }
+    activity.userInfo = userInfo;
+    return activity;
+}
+
 + (instancetype)wmf_placesActivityWithURL:(NSURL *)activityURL {
     NSURLComponents *components = [NSURLComponents componentsWithURL:activityURL resolvingAgainstBaseURL:NO];
     NSURL *articleURL = nil;
@@ -120,6 +132,8 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
         return [self wmf_exploreViewActivity];
     } else if ([url.host isEqualToString:@"places"]) {
         return [self wmf_placesActivityWithURL:url];
+    } else if ([url.host isEqualToString:@"Location"]) {
+        return [self wmf_locationActivityWithURL:url];
     } else if ([url.host isEqualToString:@"saved"]) {
         return [self wmf_savedPagesViewActivity];
     } else if ([url.host isEqualToString:@"history"]) {
@@ -208,6 +222,8 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
             return WMFUserActivityTypeExplore;
         } else if ([page isEqualToString:@"Places"]) {
             return WMFUserActivityTypePlaces;
+        } else if ([page isEqualToString:@"Location"]) {
+            return WMFUserActivityTypeLocation;
         } else if ([page isEqualToString:@"Saved"]) {
             return WMFUserActivityTypeSavedPages;
         } else if ([page isEqualToString:@"History"]) {
