@@ -1951,7 +1951,10 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     }
     
     @objc public func showLocation(_ params: [String: String]) {
-        print("showLocation \(params)")
+        if let lat = params["lat"], let latitude = Double(lat), let long = params["long"], let longitude = Double(long) {
+            let location = CLLocation(latitude: CLLocationDegrees(latitude), longitude: CLLocationDegrees(longitude))
+            zoomAndPanMapView(toLocation: location)
+       }
     }
 
     @objc public func showArticleURL(_ articleURL: URL) {
