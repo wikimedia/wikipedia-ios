@@ -27,13 +27,22 @@ class NotificationSettingsViewController: SubSettingsViewController {
     
     var sections = [NotificationSettingsSection]()
     var observationToken: NSObjectProtocol?
+    @objc var pushNotificationsController: PushNotificationsController?
+    
+    private var pushFullyEnabled: Bool = false {
+        didSet {
+            updateSections()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = CommonStrings.notifications
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier)
         observationToken = NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: OperationQueue.main) { [weak self] (note) in
-            self?.updateSections()
+            self?.pushNotificationsController?.checkNotificationsFullyEnabled(completion: { fullyEnabled in
+                self?.pushFullyEnabled = fullyEnabled
+            })
         }
     }
     
@@ -45,39 +54,41 @@ class NotificationSettingsViewController: SubSettingsViewController {
     
     override func viewWillAppear(_ animated: Bool) {
        super.viewWillAppear(animated)
-       updateSections()
+        pushNotificationsController?.checkNotificationsFullyEnabled(completion: { [weak self] fullyEnabled in
+            self?.pushFullyEnabled = fullyEnabled
+        })
     }
     
     func sectionsForSystemSettingsAuthorized() -> [NotificationSettingsSection] {
         var updatedSections = [NotificationSettingsSection]()
         
-        let infoItems: [NotificationSettingsItem] = [NotificationSettingsButtonItem(title: WMFLocalizedString("settings-notifications-learn-more", value:"Learn more about notifications", comment:"A title for a button to learn more about notifications"), buttonAction: { [weak self] in
-            let title = WMFLocalizedString("welcome-notifications-tell-me-more-title", value:"More about notifications", comment:"Title for detailed notification explanation")
-            let message = "\(WMFLocalizedString("welcome-notifications-tell-me-more-storage", value:"Notification preferences are stored on device and not based on personal information or activity.", comment:"An explanation of how notifications are stored"))\n\n\(WMFLocalizedString("welcome-notifications-tell-me-more-creation", value:"Notifications are created and delivered on your device by the app, not from our (or third party) servers.", comment:"An explanation of how notifications are created"))"
-            let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-            alertController.addAction(UIAlertAction(title: CommonStrings.gotItButtonTitle, style: UIAlertAction.Style.default, handler: { (action) in
-            }))
-            self?.present(alertController, animated: true, completion: nil)
-        })]
-        
-        let infoSection = NotificationSettingsSection(headerTitle: WMFLocalizedString("settings-notifications-info", value:"Be alerted to trending and top read articles on Wikipedia with our push notifications. All provided with respect to privacy and up to the minute data.", comment:"A short description of notifications shown in settings"), items: infoItems)
-        updatedSections.append(infoSection)
-        
-        let notificationSettingsItems: [NotificationSettingsItem] = [NotificationSettingsSwitchItem(title: WMFLocalizedString("settings-notifications-trending", value:"Trending current events", comment:"Title for the setting for trending notifications"), switchChecker: { () -> Bool in
-            return UserDefaults.standard.wmf_inTheNewsNotificationsEnabled()
+        let notificationSettingsItems: [NotificationSettingsItem] = [NotificationSettingsSwitchItem(title: WMFLocalizedString("settings-notifications-enable-push-notifications", value:"Enable push notifications", comment:"Title for enabling push notifications"), switchChecker: { () -> Bool in
+            return self.pushFullyEnabled
             }, switchAction: { [weak self] (isOn) in
                 //This (and everything else that references UNUserNotificationCenter in this class) should be moved into WMFNotificationsController
                 if (isOn) {
-                    // SINGLETONTODO
-                    MWKDataStore.shared().notificationsController.requestAuthenticationIfNecessary(completionHandler: { [weak self] (granted, error) in
-                        if let error = error as NSError? {
-                            self?.wmf_showAlertWithError(error)
+                    self?.pushNotificationsController?.fullyEnableNotifications(completion: { [weak self] success, error in
+                        if let error = error {
+                            self?.wmf_showAlertWithError(error as NSError)
+                            return
+                        }
+                        
+                        if success {
+                            self?.pushFullyEnabled = true
                         }
                     })
                 } else {
-                    UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                    self?.pushNotificationsController?.fullyDisableNotifications(completion: { [weak self] success, error in
+                        if let error = error {
+                            self?.wmf_showAlertWithError(error as NSError)
+                            return
+                        }
+                        
+                        if success {
+                            self?.pushFullyEnabled = false
+                        }
+                    })
                 }
-                UserDefaults.standard.wmf_setInTheNewsNotificationsEnabled(isOn)
         })]
         let notificationSettingsSection = NotificationSettingsSection(headerTitle: WMFLocalizedString("settings-notifications-push-notifications", value:"Push notifications", comment:"A title for a list of Push notifications"), items: notificationSettingsItems)
         
@@ -151,7 +162,7 @@ class NotificationSettingsViewController: SubSettingsViewController {
     
     @objc func handleSwitchValueChange(_ sender: UISwitch) {
         // FIXME: hardcoded item below
-        let item = sections[1].items[0]
+        let item = sections[0].items[0]
         if let switchItem = item as? NotificationSettingsSwitchItem {
             switchItem.switchAction(sender.isOn)
         }

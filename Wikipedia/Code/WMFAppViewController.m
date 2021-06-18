@@ -117,6 +117,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @property (nonatomic, strong) WMFConfiguration *configuration;
 @property (nonatomic, strong) WMFViewControllerRouter *router;
 
+@property (nonatomic, strong) WMFPushNotificationsController *pushNotificationsController;
+
 @end
 
 @implementation WMFAppViewController
@@ -235,6 +237,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     self.editHintController = [[WMFEditHintController alloc] init];
     self.talkPageReplyHintController = [[WMFTalkPageReplyHintController alloc] init];
     self.talkPageTopicHintController = [[WMFTalkPageTopicHintController alloc] init];
+    self.pushNotificationsController = [[WMFPushNotificationsController alloc] initWithAuthenticationManager: self.dataStore.authenticationManager];
+    
     if (@available(iOS 14.0, *)) {
         self.navigationItem.backButtonDisplayMode = UINavigationItemBackButtonDisplayModeGeneric;
     }
@@ -843,13 +847,10 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                done();
                            }];
         } else if (NSUserDefaults.standardUserDefaults.shouldRestoreNavigationStackOnResume) {
-            [self.navigationStateController restoreNavigationStateFor:self.navigationController
-                                                                   in:self.dataStore.viewContext
-                                                                 with:self.theme
-                                                           completion:^{
-                                                               [self hideSplashViewAnimated:!didShowOnboarding];
-                                                               done();
-                                                           }];
+            [self.navigationStateController restoreNavigationStateFor:self.navigationController in:self.dataStore.viewContext with:self.theme pushNotificationsController:self.pushNotificationsController completion:^{
+                [self hideSplashViewAnimated:!didShowOnboarding];
+                done();
+            }];
         } else if ([self shouldShowExploreScreenOnLaunch]) {
             [self hideSplashViewAnimated:!didShowOnboarding];
             [self showExplore];
@@ -1964,7 +1965,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (nonnull WMFSettingsViewController *)settingsViewController {
     if (!_settingsViewController) {
         WMFSettingsViewController *settingsVC =
-            [WMFSettingsViewController settingsViewControllerWithDataStore:self.dataStore];
+        [WMFSettingsViewController settingsViewControllerWithDataStore:self.dataStore andPushNotificationsController:self.pushNotificationsController];
         [settingsVC applyTheme:self.theme];
         _settingsViewController = settingsVC;
         _settingsViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-explore"];
@@ -2082,6 +2083,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)userWasLoggedOut:(NSNotification *)note {
     [self showLoggedOutPanelIfNeeded];
+    [self.pushNotificationsController fullyDisableNotificationsWithCompletion:^(BOOL success, NSError * _Nullable error) {
+        DDLogDebug(@"Attempted to disable echo notifications...success: %d, error: %@", success, error);
+    }];
 }
 
 - (void)showLoggedOutPanelIfNeeded {
@@ -2128,6 +2132,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)logTappedSettingsFromExplore {
     [[WMFNavigationEventsFunnel shared] logTappedSettingsFromExplore];
+}
+
+- (void)setPushNotificationsDeviceToken:(NSData *)deviceToken {
+    self.pushNotificationsController.deviceToken = deviceToken;
 }
 
 @end

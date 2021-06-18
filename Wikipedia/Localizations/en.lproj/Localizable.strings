@@ -766,11 +766,10 @@
 "settings-languages-feed-customization" = "You can manage which languages are shown on your Explore feed by customizing your Explore feed settings.";
 "settings-my-languages" = "My languages";
 "settings-notifications" = "Notifications";
+"settings-notifications-enable-push-notifications" = "Enable push notifications";
 "settings-notifications-info" = "Be alerted to trending and top read articles on Wikipedia with our push notifications. All provided with respect to privacy and up to the minute data.";
-"settings-notifications-learn-more" = "Learn more about notifications";
 "settings-notifications-push-notifications" = "Push notifications";
 "settings-notifications-system-turn-on" = "Turn on Notifications";
-"settings-notifications-trending" = "Trending current events";
 "settings-primary-language" = "Primary";
 "settings-primary-language-details" = "The first language in this list is used as the primary language for the app.";
 "settings-search-footer-text" = "Set the app to open to the Search tab instead of the Explore tab";
@@ -885,9 +884,6 @@
 "welcome-languages-add-or-edit-button" = "Add or edit preferred languages";
 "welcome-languages-description" = "We've found the following languages on your device:";
 "welcome-languages-search-title" = "Search in over 300 languages";
-"welcome-notifications-tell-me-more-creation" = "Notifications are created and delivered on your device by the app, not from our (or third party) servers.";
-"welcome-notifications-tell-me-more-storage" = "Notification preferences are stored on device and not based on personal information or activity.";
-"welcome-notifications-tell-me-more-title" = "More about notifications";
 "welcome-send-data-helps-title" = "Help make the app better";
 "welcome-send-data-learn-more" = "Learn more about data collected";
 "welcome-send-data-sub-title" = "Help improve the app by letting the Wikimedia Foundation know how you use it. Data collected is anonymous.";

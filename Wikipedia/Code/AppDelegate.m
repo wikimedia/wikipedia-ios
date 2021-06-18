@@ -11,7 +11,7 @@
 static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 static NSString *const WMFBackgroundAppRefreshTaskIdentifier = @"org.wikimedia.wikipedia.appRefresh";
 
-@interface AppDelegate ()
+@interface AppDelegate () <UNUserNotificationCenterDelegate>
 
 @property (nonatomic, strong) WMFAppViewController *appViewController;
 @property (nonatomic) BOOL appNeedsResume;
@@ -86,7 +86,10 @@ static NSString *const WMFBackgroundAppRefreshTaskIdentifier = @"org.wikimedia.w
     self.appViewController = vc;
 
     [self updateDynamicIconShortcutItems];
-
+    
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
+    [UNUserNotificationCenter currentNotificationCenter].delegate = self;
+    
     return YES;
 }
 
@@ -249,6 +252,20 @@ static NSString *const WMFBackgroundAppRefreshTaskIdentifier = @"org.wikimedia.w
             DDLogError(@"Unable to schedule background task: %@", taskSubmitError);
         }
     }
+}
+
+#pragma mark - Notifications
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    DDLogError(@"Remote notification is unavailable: %@", error.localizedDescription);
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    [self.appViewController setPushNotificationsDeviceToken:deviceToken];
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
+    completionHandler((UNNotificationPresentationOptionSound|UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionAlert));
 }
 
 @end

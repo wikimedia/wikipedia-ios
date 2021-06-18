@@ -23,6 +23,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 @interface WMFSettingsViewController () <UITableViewDelegate, UITableViewDataSource, WMFAccountViewControllerDelegate>
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
+@property (nonatomic, strong) WMFPushNotificationsController *pushNotificationsController;
 
 @property (nonatomic, strong) NSMutableArray *sections;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
@@ -33,10 +34,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 @implementation WMFSettingsViewController
 
-+ (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store {
++ (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store andPushNotificationsController:(WMFPushNotificationsController *)pushNotificationsController {
     NSParameterAssert(store);
     WMFSettingsViewController *vc = [WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard];
     vc.dataStore = store;
+    vc.pushNotificationsController = pushNotificationsController;
     return vc;
 }
 
@@ -433,6 +435,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (void)showNotifications {
     WMFNotificationSettingsViewController *notificationSettingsVC = [[WMFNotificationSettingsViewController alloc] init];
     [notificationSettingsVC applyTheme:self.theme];
+    notificationSettingsVC.pushNotificationsController = self.pushNotificationsController;
     [self.navigationController pushViewController:notificationSettingsVC animated:YES];
 }
 

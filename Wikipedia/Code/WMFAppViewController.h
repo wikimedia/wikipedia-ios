@@ -35,6 +35,8 @@ extern NSString *const WMFLanguageVariantAlertsLibraryVersion; // NSNumber
 /// Returning WMFArticleViewController (which is ArticleViewController in Swift) makes this not work from Swift
 - (void)swiftCompatibleShowArticleWithURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion;
 
+- (void)setPushNotificationsDeviceToken:(NSData *)deviceToken;
+
 @end
 
 // Methods exposed in header for use in WMFAppViewController+Extensions.swift
