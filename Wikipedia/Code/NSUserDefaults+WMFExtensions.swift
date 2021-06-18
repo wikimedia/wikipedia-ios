@@ -6,6 +6,7 @@ let WMFMostRecentInTheNewsNotificationDateKey = "WMFMostRecentInTheNewsNotificat
 let WMFInTheNewsMostRecentDateNotificationCountKey = "WMFInTheNewsMostRecentDateNotificationCount"
 let WMFDidShowNewsNotificatonInFeedKey = "WMFDidShowNewsNotificatonInFeedKey"
 let WMFInTheNewsNotificationsEnabled = "WMFInTheNewsNotificationsEnabled"
+let WMFEchoPushNotificationsRegistered = "WMFEchoPushNotificationsRegistered"
 let WMFFeedRefreshDateKey = "WMFFeedRefreshDateKey"
 let WMFLocationAuthorizedKey = "WMFLocationAuthorizedKey"
 let WMFPlacesDidPromptForLocationAuthorization = "WMFPlacesDidPromptForLocationAuthorization"
@@ -326,8 +327,16 @@ let WMFSendUsageReports = "WMFSendUsageReports"
         return self.bool(forKey: WMFInTheNewsNotificationsEnabled)
     }
     
+    @objc func wmf_echoPushNotificationsRegistered() -> Bool {
+        return self.bool(forKey: WMFEchoPushNotificationsRegistered)
+    }
+    
     @objc func wmf_setInTheNewsNotificationsEnabled(_ enabled: Bool) {
         self.set(enabled, forKey: WMFInTheNewsNotificationsEnabled)
+    }
+    
+    @objc func wmf_setEchoPushNotificationsRegistered(_ enabled: Bool) {
+        self.set(enabled, forKey: WMFEchoPushNotificationsRegistered)
     }
 
     @objc func wmf_setDidShowNewsNotificationCardInFeed(_ didShow: Bool) {

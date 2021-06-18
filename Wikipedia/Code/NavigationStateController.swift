@@ -18,7 +18,7 @@ final class NavigationStateController: NSObject {
     private typealias Presentation = ViewController.Presentation
     private typealias Info = ViewController.Info
 
-    @objc func restoreNavigationState(for navigationController: UINavigationController, in moc: NSManagedObjectContext, with theme: Theme, completion: @escaping () -> Void) {
+    @objc func restoreNavigationState(for navigationController: UINavigationController, in moc: NSManagedObjectContext, with theme: Theme, pushNotificationsController: PushNotificationsController, completion: @escaping () -> Void) {
         guard let tabBarController = navigationController.viewControllers.first as? UITabBarController else {
             assertionFailure("Expected root view controller to be UITabBarController")
             completion()
@@ -32,7 +32,7 @@ final class NavigationStateController: NSObject {
         let restore = {
             completion()
             for viewController in navigationState.viewControllers {
-                self.restore(viewController: viewController, for: tabBarController, navigationController: navigationController, in: moc)
+                self.restore(viewController: viewController, for: tabBarController, navigationController: navigationController, pushNotificationsController: pushNotificationsController, in: moc)
             }
         }
         if navigationState.shouldAttemptLogin {
@@ -72,7 +72,7 @@ final class NavigationStateController: NSObject {
         return articleURL
     }
 
-    private func restore(viewController: ViewController, for tabBarController: UITabBarController, navigationController: UINavigationController, in moc: NSManagedObjectContext) {
+    private func restore(viewController: ViewController, for tabBarController: UITabBarController, navigationController: UINavigationController, pushNotificationsController: PushNotificationsController, in moc: NSManagedObjectContext) {
         var newNavigationController: UINavigationController?
 
         if let info = viewController.info, let selectedIndex = info.selectedIndex {
@@ -116,7 +116,7 @@ final class NavigationStateController: NSObject {
                 pushOrPresent(themeableNavigationController, navigationController: navigationController, presentation: viewController.presentation)
                 newNavigationController = themeableNavigationController
             case (.settings, _):
-                let settingsVC = WMFSettingsViewController(dataStore: dataStore)
+                let settingsVC = WMFSettingsViewController(dataStore: dataStore, andPushNotificationsController: pushNotificationsController)
                 pushOrPresent(settingsVC, navigationController: navigationController, presentation: viewController.presentation)
             case (.account, _):
                 let accountVC = AccountViewController()
@@ -172,7 +172,7 @@ final class NavigationStateController: NSObject {
         }
 
         for child in viewController.children {
-            restore(viewController: child, for: tabBarController, navigationController: newNavigationController ?? navigationController, in: moc)
+            restore(viewController: child, for: tabBarController, navigationController: newNavigationController ?? navigationController, pushNotificationsController: pushNotificationsController, in: moc)
         }
     }
 
