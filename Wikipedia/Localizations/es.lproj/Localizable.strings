@@ -48,8 +48,13 @@
 // Author: Zpizza
 
 "aaald-added-text-description-2" = "$1 añadido";
+"aaald-article-description-updated-description" = "Se publicó la descripción del artículo.";
+"aaald-article-insert-header" = "Actualizaciones significativas";
+"aaald-article-insert-last-updated" = "Última actualización";
 "aaald-article-insert-new-changes" = "Cambios nuevos";
+"aaald-article-insert-read-more" = "Consulta las actualizaciones";
 "aaald-deleted-text-description-2" = "$1 eliminado";
+"aaald-error-subitle" = "Actualiza la página para probar otra vez";
 "aaald-many-sections-description" = "en $1 secciones";
 "aaald-new-discussion" = "Nueva discusión";
 "aaald-new-website-reference-title" = "Sitio web";
