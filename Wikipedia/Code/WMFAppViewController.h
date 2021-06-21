@@ -8,7 +8,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 extern NSString *const WMFLanguageVariantAlertsLibraryVersion; // NSNumber
 
-@interface WMFAppViewController : UITabBarController <UNUserNotificationCenterDelegate>
+@interface WMFAppViewController : UITabBarController
 
 @property (nonatomic, readonly, nullable) UINavigationController *currentNavigationController;
 @property (nonatomic, readonly) WMFTheme *theme;

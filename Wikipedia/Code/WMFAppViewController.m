@@ -1623,56 +1623,56 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     return ![gestureRecognizer isMemberOfClass:[UIScreenEdgePanGestureRecognizer class]];
 }
 
-#pragma mark - UNUserNotificationCenterDelegate
-
-// The method will be called on the delegate only if the application is in the foreground. If the method is not implemented or the handler is not called in a timely manner then the notification will not be presented. The application can choose to have the notification presented as a sound, badge, alert and/or in the notification list. This decision should be based on whether the information in the notification is otherwise visible to the user.
-- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
-    completionHandler(UNNotificationPresentationOptionAlert);
-    UNNotificationContent *notificationContent = notification.request.content;
-    NSString *categoryIdentifier = notificationContent.categoryIdentifier;
-    NSString *notificationID = (NSString *)notificationContent.userInfo[WMFEditRevertedNotificationIDKey];
-    if ([categoryIdentifier isEqualToString:WMFEditRevertedNotificationCategoryIdentifier]) {
-        [self.remoteNotificationsModelChangeResponseCoordinator markAsSeenNotificationWithID:notificationID];
-    }
-}
-
-// The method will be called on the delegate when the user responded to the notification by opening the application, dismissing the notification or choosing a UNNotificationAction. The delegate must be set before the application returns from applicationDidFinishLaunching:.
-- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
-    NSString *categoryIdentifier = response.notification.request.content.categoryIdentifier;
-    NSString *actionIdentifier = response.actionIdentifier;
-
-    if ([categoryIdentifier isEqualToString:WMFInTheNewsNotificationCategoryIdentifier]) {
-        NSDictionary *info = response.notification.request.content.userInfo;
-        NSString *articleURLString = info[WMFNotificationInfoArticleURLStringKey];
-        NSURL *articleURL = [NSURL URLWithString:articleURLString];
-        if ([actionIdentifier isEqualToString:WMFInTheNewsNotificationShareActionIdentifier]) {
-            WMFArticleViewController *articleVC = [self showArticleWithURL:articleURL animated:NO];
-            [articleVC shareArticleWhenReady];
-        } else if ([actionIdentifier isEqualToString:UNNotificationDefaultActionIdentifier]) {
-            [self showInTheNewsForNotificationInfo:info];
-        } else if ([actionIdentifier isEqualToString:UNNotificationDismissActionIdentifier]) {
-        }
-        // WMFEditRevertedNotification
-    } else if ([categoryIdentifier isEqualToString:WMFEditRevertedNotificationCategoryIdentifier]) {
-        NSDictionary *info = response.notification.request.content.userInfo;
-        NSString *articleURLString = (NSString *)info[WMFNotificationInfoArticleURLStringKey];
-        NSString *notificationID = (NSString *)info[WMFEditRevertedNotificationIDKey];
-        assert(articleURLString);
-        assert(notificationID);
-        if ([actionIdentifier isEqualToString:WMFEditRevertedReadMoreActionIdentifier] || [actionIdentifier isEqualToString:UNNotificationDefaultActionIdentifier]) {
-            NSURL *articleURL = [NSURL URLWithString:articleURLString];
-            assert(articleURL);
-            [self showReadMoreAboutRevertedEditViewControllerWithArticleURL:articleURL
-                                                                 completion:^{
-                                                                     [self.remoteNotificationsModelChangeResponseCoordinator markAsReadNotificationWithID:notificationID];
-                                                                 }];
-        } else {
-            [self.remoteNotificationsModelChangeResponseCoordinator markAsReadNotificationWithID:notificationID];
-        }
-    }
-
-    completionHandler();
-}
+//#pragma mark - UNUserNotificationCenterDelegate
+//
+//// The method will be called on the delegate only if the application is in the foreground. If the method is not implemented or the handler is not called in a timely manner then the notification will not be presented. The application can choose to have the notification presented as a sound, badge, alert and/or in the notification list. This decision should be based on whether the information in the notification is otherwise visible to the user.
+//- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
+//    completionHandler(UNNotificationPresentationOptionAlert);
+//    UNNotificationContent *notificationContent = notification.request.content;
+//    NSString *categoryIdentifier = notificationContent.categoryIdentifier;
+//    NSString *notificationID = (NSString *)notificationContent.userInfo[WMFEditRevertedNotificationIDKey];
+//    if ([categoryIdentifier isEqualToString:WMFEditRevertedNotificationCategoryIdentifier]) {
+//        [self.remoteNotificationsModelChangeResponseCoordinator markAsSeenNotificationWithID:notificationID];
+//    }
+//}
+//
+//// The method will be called on the delegate when the user responded to the notification by opening the application, dismissing the notification or choosing a UNNotificationAction. The delegate must be set before the application returns from applicationDidFinishLaunching:.
+//- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
+//    NSString *categoryIdentifier = response.notification.request.content.categoryIdentifier;
+//    NSString *actionIdentifier = response.actionIdentifier;
+//
+//    if ([categoryIdentifier isEqualToString:WMFInTheNewsNotificationCategoryIdentifier]) {
+//        NSDictionary *info = response.notification.request.content.userInfo;
+//        NSString *articleURLString = info[WMFNotificationInfoArticleURLStringKey];
+//        NSURL *articleURL = [NSURL URLWithString:articleURLString];
+//        if ([actionIdentifier isEqualToString:WMFInTheNewsNotificationShareActionIdentifier]) {
+//            WMFArticleViewController *articleVC = [self showArticleWithURL:articleURL animated:NO];
+//            [articleVC shareArticleWhenReady];
+//        } else if ([actionIdentifier isEqualToString:UNNotificationDefaultActionIdentifier]) {
+//            [self showInTheNewsForNotificationInfo:info];
+//        } else if ([actionIdentifier isEqualToString:UNNotificationDismissActionIdentifier]) {
+//        }
+//        // WMFEditRevertedNotification
+//    } else if ([categoryIdentifier isEqualToString:WMFEditRevertedNotificationCategoryIdentifier]) {
+//        NSDictionary *info = response.notification.request.content.userInfo;
+//        NSString *articleURLString = (NSString *)info[WMFNotificationInfoArticleURLStringKey];
+//        NSString *notificationID = (NSString *)info[WMFEditRevertedNotificationIDKey];
+//        assert(articleURLString);
+//        assert(notificationID);
+//        if ([actionIdentifier isEqualToString:WMFEditRevertedReadMoreActionIdentifier] || [actionIdentifier isEqualToString:UNNotificationDefaultActionIdentifier]) {
+//            NSURL *articleURL = [NSURL URLWithString:articleURLString];
+//            assert(articleURL);
+//            [self showReadMoreAboutRevertedEditViewControllerWithArticleURL:articleURL
+//                                                                 completion:^{
+//                                                                     [self.remoteNotificationsModelChangeResponseCoordinator markAsReadNotificationWithID:notificationID];
+//                                                                 }];
+//        } else {
+//            [self.remoteNotificationsModelChangeResponseCoordinator markAsReadNotificationWithID:notificationID];
+//        }
+//    }
+//
+//    completionHandler();
+//}
 
 - (void)showInTheNewsForNotificationInfo:(NSDictionary *)info {
     if (!self.isMigrationComplete) {
