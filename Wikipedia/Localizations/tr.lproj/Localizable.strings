@@ -19,6 +19,7 @@
 // Author: Mavrikant2
 // Author: McAang
 // Author: Meelo
+// Author: Melissadilara
 // Author: Mirzali
 // Author: MrSchipunov
 // Author: MuratTheTurkish
@@ -343,6 +344,8 @@
 "empty-no-feed-message" = "İnternet bağlantınız olduğunda, size önerilen makaleleri görebilirsiniz";
 "empty-no-history-message" = "Okuduklarını buradan takip et";
 "empty-no-history-title" = "Görüntülenebilecek bir geçmiş yok";
+"empty-no-other-article-languages-message" = "Bu madde henüz başka hiç bir dilde yazılmadı";
+"empty-no-other-article-languages-title" = "Başka dil mevcut değil";
 "empty-no-reading-lists-message" = "Seyahat edilecek yerler, favori konular ve daha pek çok şey için okuma listeleri oluşturun";
 "empty-no-reading-lists-title" = "Kaydedilen okuma listelerini düzenle";
 "empty-no-saved-pages-in-reading-list-message" = "Sayfaları bu listeye kaydederek burada nasıl göründüğüne bakın";

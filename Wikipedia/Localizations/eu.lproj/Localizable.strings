@@ -83,7 +83,6 @@
 "add-articles-to-reading-list" = "Gehitu {{PLURAL:$1|artikulu bat|$1 artikulu}} irakurketa zerrendara";
 "announcements-dismiss" = "Utzi";
 "app-store-keywords" = "Wikipedia, erreferentzia, wiki, entziklopedia, informazioa, ezagutza, ikerketa, informazioa, arakatu, ikasi";
-// Fuzzy
 "app-store-release-notes" = "Gordetako artikuluak jada irakurketa zerrendetan antola daitezke eta gailuetatik zehar sinkroniza daitezke ere.";
 "app-store-short-description" = "Jaitsi Wikipedia app zugandik gertu dauden lekuak exploratzeko, sinkronizatu artikuluak offline irakurtzeko eta zure irakurtze-esperientziari probetxua ateratzeko.";
 "app-store-subtitle" = "Entziklopedia askea";
