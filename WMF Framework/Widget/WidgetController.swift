@@ -240,7 +240,7 @@ public extension WidgetController {
         }
         
         // If cached data is still relevant, use it
-        if let cachedContent = widgetCache.featuredContent, Calendar.current.isDateInToday(cachedContent.fetchDate), let cachedLanguageCode = cachedContent.featuredArticle?.languageCode, cachedLanguageCode == widgetCache.settings.languageCode {
+        if let cachedContent = widgetCache.featuredContent, let fetchDate = cachedContent.fetchDate, Calendar.current.isDateInToday(fetchDate), let cachedLanguageCode = cachedContent.featuredArticle?.languageCode, cachedLanguageCode == widgetCache.settings.languageCode {
             performCompletion(result: .success(cachedContent))
             return
         }

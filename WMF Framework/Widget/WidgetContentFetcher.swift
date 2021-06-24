@@ -31,7 +31,8 @@ public final class WidgetContentFetcher {
 		
 		let featuredURL = WMFFeedContentFetcher.feedContentURL(forSiteURL: siteURL, on: date, configuration: .current)
 		let task = session.dataTask(with: featuredURL) { data, _, error in
-			if let data = data, let decoded = try? JSONDecoder().decode(WidgetFeaturedContent.self, from: data) {
+			if let data = data, var decoded = try? JSONDecoder().decode(WidgetFeaturedContent.self, from: data) {
+				decoded.fetchDate = Date()
 				completion(.success(decoded))
 			} else {
 				completion(.failure(.contentFailure))
