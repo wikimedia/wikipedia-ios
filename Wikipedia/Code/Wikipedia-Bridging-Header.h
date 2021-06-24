@@ -26,6 +26,8 @@
 #import "WMFShareFunnel.h"
 #import "WMFLanguagesViewControllerDelegate.h"
 
+#import "UIApplicationShortcutItem+WMFShortcutItem.h"
+
 // Model
 #import "MWKLicense.h"
 #import "WMFArticleRevisionFetcher.h"

@@ -13,8 +13,6 @@
 #import "WMFSettingsViewController.h"
 #import "WMFFirstRandomViewController.h"
 
-#import "AppDelegate.h"
-
 #import "WMFDailyStatsLoggingFunnel.h"
 
 #import "Wikipedia-Swift.h"

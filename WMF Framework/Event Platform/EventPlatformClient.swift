@@ -223,9 +223,10 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
      * This method is called by the application delegate in
      * `applicationWillResignActive()` and disables event logging.
      */
-    @objc public func appInBackground() {
+    public func appInBackground() {
         lastTimestamp = Date()
     }
+    
     /**
      * This method is called by the application delegate in
      * `applicationDidBecomeActive()` and re-enables event logging.
@@ -233,11 +234,12 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
      * If it has been more than 15 minutes since the app entered background state,
      * a new session is started.
      */
-    @objc public func appInForeground() {
+    public func appInForeground() {
         if sessionTimedOut() {
             resetSession()
         }
     }
+    
     /**
      * This method is called by the application delegate in
      * `applicationWillTerminate()`
@@ -246,8 +248,9 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
      * session ends when the user (or the OS) has closed the app or when 15
      * minutes of inactivity have passed.
      */
-    @objc public func appWillClose() {
+    public func appWillClose() {
         // Placeholder for any onTerminate logic
+        //TODO: Flush the queue one last time?
     }
 
     /**
