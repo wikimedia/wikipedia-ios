@@ -253,14 +253,14 @@ struct FeaturedArticleView: View {
 
 	func noContent(message: String) -> some View {
 		Rectangle()
-			.foregroundColor(Color(colorScheme == .light ? Theme.light.colors.paperBackground : Theme.dark.colors.paperBackground))
+			.foregroundColor(Color(UIColor.base30))
 			.overlay(
 				Text(message)
 					.font(.caption)
 					.bold()
 					.multilineTextAlignment(.leading)
 					.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
-					.foregroundColor(Color(colorScheme == .light ? Theme.light.colors.primaryText : Theme.dark.colors.primaryText))
+					.foregroundColor(.white)
 					.padding()
 			)
 	}
@@ -269,6 +269,7 @@ struct FeaturedArticleView: View {
 	var widgetBody: some View {
 		if entry.hasDisplayableContent {
 			content
+				.overlay(FeaturedArticleOverlayView())
 		} else if entry.fetchError == .unsupportedLanguage {
 			noContent(message: FeaturedArticleWidget.LocalizedStrings.widgetLanguageFailure)
 		} else {
@@ -280,7 +281,6 @@ struct FeaturedArticleView: View {
 
 	var body: some View {
 		widgetBody
-			.overlay(FeaturedArticleOverlayView())
 			.widgetURL(entry.contentURL)
 			.environment(\.layoutDirection, entry.layoutDirection)
 			.flipsForRightToLeftLayoutDirection(true)
