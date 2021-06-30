@@ -10,7 +10,6 @@
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
 
 // View Controllers
-#import "WMFSettingsViewController.h"
 #import "WMFFirstRandomViewController.h"
 
 #import "WMFDailyStatsLoggingFunnel.h"

@@ -271,7 +271,7 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
      * This assumes storageManager's deviceID will be reset separately by a
      * different owner (EventLoggingService's `reset()` method)
      */
-    @objc public func reset() {
+    public func reset() {
         resetSession()
     }
 
