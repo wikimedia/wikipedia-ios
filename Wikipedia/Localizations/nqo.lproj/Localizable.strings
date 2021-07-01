@@ -158,10 +158,8 @@
 "description-help-about-title" = "ߞߊ߬ ߓߍ߲߬";
 "description-help-about-wikidata" = "ߞߊ߬ ߓߍ߲߬ ߥߞߌߘߕߊ߫ ߡߊ߬";
 "description-help-more-info-title" = "ߞߌ߬ߓߊ߬ߙߏ߬ߦߊ߬ ߜߘߍ߫ ߟߎ߫";
-// Fuzzy
-"description-help-tips-example-description-one" = "ߞߎߡߘߊ ߞߎ߲߬ߕߐ߮ ߞߊ߲߬ߛߓߍߟߌ ߞߊ߬ ߓߍ߲߬ ߡߎߣߊ ߟߌߛߊ߫ ߡߊ߬";
-// Fuzzy
-"description-help-tips-example-description-two" = "ߞߎߡߘߊ ߞߎ߲߬ߕߐ߮ ߞߊ߲߬ߛߓߍߟߌ ߞߊ߬ ߓߍ߲߬ ߌߝ߭ߊߙߍߛߕ ߞߎ߬ߙߎ ߡߊ߬";
+"description-help-tips-example-description-one" = "ߞߎߡߘߊ ߞߊ߲߬ߛߓߍߟߌ ߞߊ߬ ߓߍ߲߬ ߡߐߣߊ ߟߌߛߊ߫ ߟߊ߫ ߞߎߡߘߊ ߡߊ߬";
+"description-help-tips-example-description-two" = "ߞߎߡߘߊ ߞߊ߲߬ߛߓߍߟߌ ߞߊ߬ ߓߍ߲߬ ߌߝ߭ߊߙߍߛߕ ߞߎ߬ߙߎ ߞߎߡߘߊ ߡߊ߬";
 "description-help-tips-example-title-two" = "ߘߎ߱ ߕߌ߲ߘߌ߫ ߖߊ߲ ߠߎ߬";
 "description-help-tips-for-example" = "ߟߊߒߡߊ߫ ߘߐ߫";
 "description-help-tips-title" = "ߊ߬ ߛߐ߲߬ߞߌ߲߫ ߞߊ߲߬ߛߓߍߟߌ ߛߌ߲ߘߌ߫ ߞߊ߲ߡߊ߬";
@@ -256,6 +254,7 @@
 "explore-feed-preferences-featured-article-description" = "ߕߋ߬ߟߋ߲ ߞߎߡߘߊ߫ ߡߊߦߋߙߋ߲ߣߍ߲ ߠߎ߬ ߥߞߌߔߋߘߌߦߊ ߞߊ߲߬";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "ߊ߬ ߓߍ߯ ߘߐ߫";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "ߊ߬ ߟߊ߫";
+"explore-feed-preferences-global-cards-subtitle" = "ߞߊ߲߫ ߞߙߍߞߙߍߣߍ߲ ߞߏ߫ ߕߍ߫";
 "explore-feed-preferences-on-this-day-description" = "ߖߊ߲߬ߖߏ߲ ߡߍ߲ ߦߋ߫ ߘߐ߬ߝߐ ߘߐ߫ ߟߏ߲ ߣߌ߲߬ ߡߊ߬";
 "explore-feed-preferences-places-description" = "ߥߞߌߔߋߘߌߦߊ߫ ߞߎߡߘߊ ߡߍ߲ ߦߴߌ ߘߌ߲߬ߞߌߙߊ ߕߙߐߝߍ߬";
 "explore-feed-preferences-potd-description" = "ߕߋ߬ߟߋ ߖߌ߬ߦߊ߬ߓߍ߬ ߡߊߦߋߙߋ߲ߣߍ߲ ߠߎ߬ ߥߞߌߡߋߘߌߦߊ߫ ߞߐߡߐ߲ ߞߊ߲߬";
@@ -301,6 +300,7 @@
 "field-token-title" = "ߘߏߝߙߍߕߍ ߝߛߍ߬ߝߛߍ߬ߟߌ";
 "field-username-placeholder" = "ߟߊ߬ߓߊ߰ߙߊ߬ߕߐ߮ ߟߊߘߏ߲߬";
 "field-username-title" = "ߟߊ߬ߓߊ߰ߙߊ߬ߟߊ ߕߐ߮";
+"find-clear-button-accessibility" = "ߢߌߣߌ߲ߠߌ߲߫ ߛߊߣߌ߲ߡߊ߲";
 "find-infolabel-number-matches" = "$1\\$2 ߟߊ߫";
 "forgot-password-title" = "ߕߊ߬ߡߌ߲߬ߞߊ߲ ߡߊߦߟߍ߬ߡߊ߲߬";
 "forgot-password-username-or-email-title" = "ߥߟߊ߫";
@@ -387,6 +387,32 @@
 "on-this-day-title" = "ߟߏ߲ ߣߌ߲߬ ߡߊ߬";
 "page-history-anonymous-edits" = "ߕߐ߯ߒߕߊ߲ ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲߬ ߣߐ";
 "page-history-bot-edits" = "ߡߐ߰ߡߐ߮ ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲߬ ߣߐ";
+"page-history-minor-edits" = "ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲߬ ߘߋ߬ߣߍ߲ ߠߎ߬";
+"page-history-revision-author-accessibility-label" = "ߞߍߓߊ߮: $1";
+"page-history-revision-comment-accessibility-label" = "ߡߙߌߣߊ߲ $1";
+"page-history-revision-history-title" = "ߟߢߊ߬ߟߌ ߘߐ߬ߝߐ";
+"page-history-revision-minor-edit-accessibility-label" = "ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲߬ ߘߋ߬ߣߍ߲";
+"page-history-revision-size-diff-addition" = "{{PLURAL:|byte $1|bytes $1}} ߝߙߊ߬ߣߍ߲";
+"page-history-revision-size-diff-subtraction" = "{{PLURAL:|ߓߌߕ $1|ߓߌߕ $1 ߟߎ߫}} ߓߘߊ߫ ߢߌ߬ߣߊ߬ߓߐ߫";
+"page-history-revision-time-accessibility-label" = "ߟߢߊ߬ߟߌ ߛߌ߲ߘߌ߫ $1";
+"page-history-revisions-comparison-warning" = "ߟߢߊ߬ߟߌ߫ ߝߌ߬ߟߊ߬ ߘߐߙߐ߲߫ ߠߎ߫ ߟߋ߬ ߘߌ߫ ߛߋ߫ ߓߊߕߐ߬ߡߐ߲߬ ߠߊ߫";
+"page-history-stats-text" = "{{PLURAL:|ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ $1|ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ $1 ߟߎ߫}} ߞߊ߬ߦߌ߯ $2 ߟߊ߫";
+"page-history-user-edits" = "ߟߊ߬ߓߊ߰ߙߊ߬ߟߊ ߟߊ߫ ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ ߠߎ߬";
+"page-issues" = "ߞߐߜߍ ߓߐ߲ߘߊ ߟߎ߬";
+"page-location" = "ߊ߬ ߦߋ߫ ߔߊ߬ߔߘߊ ߞߊ߲߬";
+"page-protected-autoconfirmed" = "ߞߐߜߍ ߣߌ߲߬ ߓߘߊ߫ ߞߍ߫ ߟߊ߬ߞߊ߲߬ߘߊ߬ߟߌ߬ ߕߟߊߒߕߍ ߟߋ߬ ߘߌ߫.";
+"page-protected-can-not-edit" = "ߤߊߞߍ߫ ߕߴߌ ߓߟߏ߫ ߞߊ߬ ߞߐߜߍ ߣߌ߲߬ ߡߊߦߟߍ߬ߡߊ߲߫";
+"page-protected-can-not-edit-title" = "ߞߐߜߍ ߣߌ߲߬ ߠߊߞߊ߲ߘߊߣߍ߲ ߠߋ߬";
+"page-protected-other" = "ߞߐߜߍ ߓߘߊ߫ ߓߊ߲߫ ߟߊߞߊ߲ߘߊ߫ ߟߊ߫ ߞߊߓߋ ߣߌ߲߬ ߠߊ߫: $1";
+"page-protected-sysop" = "ߞߐߜߍ ߣߌ߲߬ ߓߘߊ߫ ߟߊߞߊ߲ߘߊ߫ ߞߏߟߌߞߏߟߌ߫.";
+"page-similar-titles" = "ߞߐߜߍ߫ ߡߎߣߎ߲ߣߍ߲ ߠߎ߬";
+"panel-compare-revisions-title" = "ߟߢߊ߬ߟߌ ߟߎ߬ ߟߊ߫ ߢߐ߲߯ߡߊ߬";
+"places-accessibility-clear-saved-searches" = "ߢߌߣߌ߲ߠߌ߲߫ ߠߊߞߎ߲߬ߘߎ߬ߣߍ߲ ߠߎ߬ ߖߏ߰ߛߌ߬";
+"places-accessibility-group" = "ߞߎߡߘߊ $1 ߟߎ߬";
+"places-accessibility-recenter-map-on-user-location" = "ߞߍߣߍ߲߫ ߞߎߘߊ ߟߎ߬ ߌ ߘߌ߲߬ߞߌߙߊ ߘߐ߫";
+"places-accessibility-show-as-list" = "ߊ߬ ߦߌ߬ߘߊ߬ ߛߙߍߘߍ ߘߌ߫";
+"places-accessibility-show-as-map" = "ߊ߬ ߦߌ߬ߘߊ߬ ߡߊߔ ߘߌ߫";
+"places-accessibility-show-more" = "ߞߎߡߘߊ߫ ߜߘߍ߫ ߟߎ߫ ߦߌ߬ߘߊ߬";
 "reading-lists-article-not-synced-list-limit-exceeded" = "ߛߙߍߘߍ ߓߘߊ߫ ߕߊ߬ߡߌ߲߬ ߊ߬ ߘߊ߲߭ ߠߊ߫ ߸ ߊ߬ ߕߴߛߋ߫ ߞߴߊ߬ ߓߌ߬ߟߊ߬ ߢߐ߲߯ ߡߊ߬";
 "reading-lists-articles-not-synced-limit-exceeded" = "ߞߎߡߘߊ ߘߏ߫ ߟߎ߫ ߡߊ߫ ߓߌ߬ߟߊ߬ ߢߐ߲߯ ߡߊ߬ ߸ ߊ߬ ߓߘߊ߫ ߕߊ߬ߡߴߊ߬ ߘߊ߲߭ ߠߊ߫";
 "reading-lists-list-not-synced-limit-exceeded" = "ߛߙߍߘߍ ߡߊ߫ ߓߌ߬ߟߊ߬ ߢߐ߲߯ ߡߊ߬ ߸ߊ߬ ߓߘߊ߫ ߕߊ߬ߡߌ߲߬ ߊ߬ ߘߊ߲߭ ߠߊ߫";

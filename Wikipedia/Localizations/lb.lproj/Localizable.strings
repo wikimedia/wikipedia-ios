@@ -80,7 +80,7 @@
 "action-unsaved-accessibility-notification" = "Artikel net gespäichert";
 "action-update" = "Aktualiséieren";
 "add-articles-to-reading-list" = "{{PLURAL:$1|Een Artikel|$1 Artikelen}} op d'Lieslëscht derbäisetzen";
-"add-citation-title" = "Zitat dobäisetzen";
+"add-citation-title" = "Zitat derbäisetzen";
 "announcements-dismiss" = "Verwerfen";
 "app-store-subtitle" = "Déi fräi Enzyklopedie";
 "article-delete" = "Läschen";
@@ -147,7 +147,7 @@
 "edit-published-subtitle" = "Dir hutt elo Wikipedia fir jidderee besser gemaach";
 "edit-strikethrough-remove-accessibility-label" = "Duerchsträichen ewech huelen";
 "edit-style-table-view-title" = "Stil";
-"edit-summary-add-summary-text" = "E Resumé vun der Ännerung dobäisetzen";
+"edit-summary-add-summary-text" = "E Resumé vun der Ännerung derbäisetzen";
 "edit-summary-choice-fixed-grammar" = "Grammaire verbessert";
 "edit-summary-choice-fixed-typos" = "Tippfeeler verbessert";
 "edit-summary-choice-linked-words" = "Dobäigesat Linken";
@@ -494,7 +494,7 @@
 "table-of-contents-close-accessibility-hint" = "Zoumaachen";
 "table-of-contents-close-accessibility-label" = "Inhaltsverzeechnes zoumaachen";
 "table-of-contents-heading" = "Inhalter";
-"talk-page-add-discussion-accessibility-label" = "Diskussioun dobäisetzen";
+"talk-page-add-discussion-accessibility-label" = "Diskussioun derbäisetzen";
 "talk-page-discussion-read-accessibility-label" = "Gelies";
 "talk-page-discussion-unread-accessibility-label" = "Net gelies";
 "talk-page-info-active-conversations-generic" = "Aktiv Gespréicher op Wikipedia";
