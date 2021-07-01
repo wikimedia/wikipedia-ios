@@ -440,11 +440,18 @@ class ArticleViewController: ViewController, HintPresenting {
             guard let article = article else {
                 return
             }
+            
+            let oldArticle = self.article
             self.article = article
+            
             // Handle redirects
             guard let newKey = article.inMemoryKey, newKey != key, let newURL = article.url else {
                 return
             }
+            
+            NotificationCenter.default.removeObserver(self, name: NSNotification.Name.WMFArticleUpdated, object: oldArticle)
+            NotificationCenter.default.addObserver(self, selector: #selector(self.didReceiveArticleUpdatedNotification), name: NSNotification.Name.WMFArticleUpdated, object: article)
+            
             self.articleURL = newURL
             self.addToHistory()
         }

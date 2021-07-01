@@ -108,16 +108,22 @@ extension NSManagedObjectContext {
             do {
                 let articlesWithKey = try fetchArticles(with: key.url)
                 let articlesWithSummaryKey = try fetchArticles(with: summaryKey.url)
+                
+                let canonicalArticleIsFromSummaryKey = articlesWithSummaryKey.first != nil
                 guard let canonicalArticle = articlesWithSummaryKey.first ?? articlesWithKey.first else {
                     continue
                 }
                 for article in articlesWithKey {
                     canonicalArticle.merge(article)
-                    delete(article)
+                    if canonicalArticleIsFromSummaryKey {
+                        delete(article)
+                    }
                 }
                 for article in articlesWithSummaryKey {
                     canonicalArticle.merge(article)
-                    delete(article)
+                    if !canonicalArticleIsFromSummaryKey {
+                        delete(article)
+                    }
                 }
                 canonicalArticle.key = summaryKey.databaseKey
                 canonicalArticle.variant = summaryKey.languageVariantCode
