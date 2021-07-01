@@ -26,6 +26,8 @@
 #import "WMFShareFunnel.h"
 #import "WMFLanguagesViewControllerDelegate.h"
 
+#import "UIApplicationShortcutItem+WMFShortcutItem.h"
+
 // Model
 #import "MWKLicense.h"
 #import "WMFArticleRevisionFetcher.h"
@@ -38,13 +40,13 @@
 #import "WMFLanguagesViewController.h"
 #import "WMFReferencePopoverMessageViewController.h"
 #import "WMFSettingsTableViewCell.h"
-#import "WMFSettingsViewController.h"
 #import "WMFEmptyView.h"
 #import "UIViewController+WMFEmptyView.h"
 #import "UIViewController+WMFDynamicHeightPopoverMessage.h"
 #import "WMFThemeableNavigationController.h"
 #import "WMFFirstRandomViewController.h"
 #import "WMFImageGalleryViewController.h"
+#import "AboutViewController.h"
 
 // Views
 #import "WMFTableHeaderFooterLabelView.h"
@@ -66,6 +68,7 @@
 #import "WMFLoginFunnel.h"
 #import "CreateAccountFunnel.h"
 #import "SavedPagesFunnel.h"
+#import "WMFDailyStatsLoggingFunnel.h"
 
 // Third Party
 #import "TUSafariActivity.h"

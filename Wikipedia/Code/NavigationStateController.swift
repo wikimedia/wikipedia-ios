@@ -116,7 +116,9 @@ final class NavigationStateController: NSObject {
                 pushOrPresent(themeableNavigationController, navigationController: navigationController, presentation: viewController.presentation)
                 newNavigationController = themeableNavigationController
             case (.settings, _):
-                let settingsVC = WMFSettingsViewController(dataStore: dataStore)
+                guard let settingsVC = WMFSettingsViewController.settingsViewController(dataStore: dataStore) else {
+                    return
+                }
                 pushOrPresent(settingsVC, navigationController: navigationController, presentation: viewController.presentation)
             case (.account, _):
                 let accountVC = AccountViewController()
