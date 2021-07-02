@@ -2,15 +2,29 @@ import Foundation
 
 @objc class WMFDatabaseHouseKeeper : NSObject {
     
-    // Returns deleted URLs
-    @discardableResult @objc func performHouseKeepingOnManagedObjectContext(_ moc: NSManagedObjectContext, navigationStateController: NavigationStateController) throws -> [URL] {
+    private let readingListsController: ReadingListsController
+    private let articleSummaryController: ArticleSummaryController
+    
+    @objc init(readingListsController: ReadingListsController, articleSummaryController: ArticleSummaryController) {
+        self.readingListsController = readingListsController
+        self.articleSummaryController = articleSummaryController
+    }
+    
+    // Returns deleted WMFArticle URLs. Deleted WMFAnnouncements, ReadingListEntries TalkPages and CacheGroups are not returned.
+    @objc func performHouseKeepingOnManagedObjectContext(_ moc: NSManagedObjectContext, navigationStateController: NavigationStateController, completion: @escaping (([URL], Error?) -> Void)) {
         
-        let urls = try deleteStaleUnreferencedArticles(moc, navigationStateController: navigationStateController)
+        moc.perform {
+            do {
+                let urls = try self.deleteStaleUnreferencedArticles(moc, navigationStateController: navigationStateController)
 
-        try deleteStaleTalkPages(moc)
-        try deleteStaleAnnouncements(moc)
-
-        return urls
+                try self.deleteStaleTalkPages(moc)
+                try self.deleteStaleAnnouncements(moc)
+                
+                completion(urls, nil)
+            } catch (let error) {
+                completion([], error)
+            }
+        }
     }
     
     private func deleteStaleAnnouncements(_ moc: NSManagedObjectContext) throws {
@@ -52,6 +66,7 @@ import Foundation
         try moc.removeUnlinkedTalkPageTopicContent()
     }
     
+    @discardableResult
     private func deleteStaleUnreferencedArticles(_ moc: NSManagedObjectContext, navigationStateController: NavigationStateController) throws -> [URL] {
         
         /**
@@ -182,5 +197,56 @@ import Foundation
         }
         
         return urls
+    }
+    
+    //maybe do this one-time as a part of migration instead, not sure.
+    private func deleteOrphanedReadingListEntries(_ moc: NSManagedObjectContext, completion: () -> Void) throws {
+        let readingListRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
+        let readingListEntries = try moc.fetch(readingListRequest)
+        var entriesToDelete: [ReadingListEntry] = []
+        for readingListEntry in readingListEntries {
+            
+            guard let readingListKey = readingListEntry.articleKey else {
+                return
+            }
+            
+            let articleFetchRequest: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
+            let finalPredicate: NSPredicate
+            let firstPredicate = NSPredicate(format: "key == %@", readingListKey)
+            if let variant = readingListEntry.variant {
+                let nextPredicate = NSPredicate(format: "variant == %@", variant)
+                finalPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [firstPredicate, nextPredicate])
+            } else {
+                finalPredicate = firstPredicate
+            }
+            
+            articleFetchRequest.predicate = finalPredicate
+            let countOfArticles = try moc.count(for: articleFetchRequest)
+            if countOfArticles == 0 {
+                entriesToDelete.append(readingListEntry)
+            }
+        }
+        
+        let articleKeys: [WMFInMemoryURLKey] = entriesToDelete.compactMap {
+            guard let articleKey = $0.articleKey else { return nil }
+            return WMFInMemoryURLKey(databaseKey: articleKey, languageVariantCode: $0.variant)
+        }
+        
+        try self.readingListsController.remove(entries: entriesToDelete)
+        
+        self.articleSummaryController.updateOrCreateArticleSummariesForArticles(withKeys: articleKeys, cachePolicy: .reloadRevalidatingCacheData) { result, error in
+            
+            guard error == nil else {
+                return
+            }
+            
+            for (articleKey, article) in result {
+                print("todo: need to map these articleKeys OR articles somehow to entiresToDelete, create a new ReadingListEntry from it. that flow should automatically mark WMFArticle with savedDate.")
+            }
+        }
+        
+        if (moc.hasChanges) {
+            try moc.save()
+        }
     }
 }
