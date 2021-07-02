@@ -206,7 +206,7 @@ import Foundation
         return urls
     }
     
-    //maybe do this one-time as a part of migration instead, not sure.
+    //TODO: maybe do this one-time as a part of migration instead, not sure.
     private func deleteOrphanedReadingListEntries(_ moc: NSManagedObjectContext, completion: @escaping (Result<Void, Error>) -> Void) {
         let readingListRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
         
@@ -271,8 +271,18 @@ import Foundation
             }
             
             for (originalKey, newArticle) in result {
-                let deletedReadingListEntry = entriesToDelete.first(where: { $0.articleKey == originalKey.databaseKey && $0.variant == originalKey.languageVariantCode })
+                let deletedReadingListEntry = entriesToDelete.first { deletedEntry in
+                    
+                    guard let deletedEntryArticleKey = deletedEntry.articleKey else {
+                        return false
+                    }
+                    
+                    let deletedEntryVariant = deletedEntry.variant
+
+                    return deletedEntryArticleKey == originalKey.databaseKey && deletedEntryVariant == originalKey.languageVariantCode
+                }
                 if let deletedEntryList = deletedReadingListEntry?.list {
+                    //TODO: this changes savedDate which will alter sorting, should we instead set savedDate (for WMFArticle and new ReadingListEntry) to deletedReadingListEntry date?
                     try? self.readingListsController.add(articles: [newArticle], to: deletedEntryList)
                 }
             }
@@ -285,8 +295,6 @@ import Foundation
                     completion(.failure(error))
                 }
             }
-            
-            print("why")
         }
     }
 }
