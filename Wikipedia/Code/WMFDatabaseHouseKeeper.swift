@@ -273,7 +273,7 @@ import Foundation
             for (originalKey, newArticle) in result {
                 let deletedReadingListEntry = entriesToDelete.first(where: { $0.articleKey == originalKey.databaseKey && $0.variant == originalKey.languageVariantCode })
                 if let deletedEntryList = deletedReadingListEntry?.list {
-                    deletedEntryList.addToArticles(newArticle)
+                    try? self.readingListsController.add(articles: [newArticle], to: deletedEntryList)
                 }
             }
             
