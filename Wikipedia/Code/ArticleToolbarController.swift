@@ -126,6 +126,10 @@ class ArticleToolbarController: Themeable {
         }
     }
     
+    func setSavedEnabledState(isEnabled: Bool) {
+        self.saveButton.isEnabled = isEnabled
+    }
+    
     // MARK: Theme
     
     var theme: Theme = Theme.standard

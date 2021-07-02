@@ -53,12 +53,11 @@ extension ArticleViewController: ArticleWebMessageHandling {
     }
     
     func handlePCSDidFinishInitialSetup() {
-        let oldState = state
         state = .loaded
         showWIconPopoverIfNecessary()
         refreshControl.endRefreshing()
         surveyTimerController?.articleContentDidLoad()
-        loadSummary(oldState: oldState)
+        loadSummary()
         initialSetupCompletion?()
         initialSetupCompletion = nil
     }

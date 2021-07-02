@@ -425,17 +425,18 @@ class ArticleViewController: ViewController, HintPresenting {
         }
     }
     
-    internal func loadSummary(oldState: ViewState) {
+    internal func loadSummary() {
         guard let key = article.inMemoryKey else {
             return
         }
         
         articleLoadWaitGroup?.enter()
-        let cachePolicy: URLRequest.CachePolicy? = oldState == .reloading ? .reloadRevalidatingCacheData : nil
+        let cachePolicy: URLRequest.CachePolicy = .reloadRevalidatingCacheData
         self.dataStore.articleSummaryController.updateOrCreateArticleSummaryForArticle(withKey: key, cachePolicy: cachePolicy) { (article, error) in
             defer {
                 self.articleLoadWaitGroup?.leave()
                 self.updateMenuItems()
+                self.toolbarController.setSavedEnabledState(isEnabled: true)
             }
             guard let article = article else {
                 return
@@ -1040,6 +1041,7 @@ private extension ArticleViewController {
         enableToolbar()
         toolbarController.apply(theme: theme)
         toolbarController.setSavedState(isSaved: article.isAnyVariantSaved)
+        toolbarController.setSavedEnabledState(isEnabled: false)
         setToolbarHidden(false, animated: false)
     }
     
