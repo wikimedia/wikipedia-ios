@@ -20,7 +20,14 @@ import Foundation
                 try self.deleteStaleTalkPages(moc)
                 try self.deleteStaleAnnouncements(moc)
                 
-                completion(urls, nil)
+                self.deleteOrphanedReadingListEntries(moc) { result in
+                    switch result {
+                    case .success:
+                        completion(urls, nil)
+                    case .failure(let error):
+                        completion([], error)
+                    }
+                }
             } catch (let error) {
                 completion([], error)
             }
@@ -200,14 +207,22 @@ import Foundation
     }
     
     //maybe do this one-time as a part of migration instead, not sure.
-    private func deleteOrphanedReadingListEntries(_ moc: NSManagedObjectContext, completion: () -> Void) throws {
+    private func deleteOrphanedReadingListEntries(_ moc: NSManagedObjectContext, completion: @escaping (Result<Void, Error>) -> Void) {
         let readingListRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-        let readingListEntries = try moc.fetch(readingListRequest)
+        
+        let readingListEntries: [ReadingListEntry]
+        do {
+            readingListEntries = try moc.fetch(readingListRequest)
+        } catch (let error) {
+            completion(.failure(error))
+            return
+        }
+        
         var entriesToDelete: [ReadingListEntry] = []
         for readingListEntry in readingListEntries {
             
             guard let readingListKey = readingListEntry.articleKey else {
-                return
+                continue
             }
             
             let articleFetchRequest: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
@@ -221,8 +236,8 @@ import Foundation
             }
             
             articleFetchRequest.predicate = finalPredicate
-            let countOfArticles = try moc.count(for: articleFetchRequest)
-            if countOfArticles == 0 {
+            if let countOfArticles = try? moc.count(for: articleFetchRequest),
+               countOfArticles == 0 {
                 entriesToDelete.append(readingListEntry)
             }
         }
@@ -232,21 +247,46 @@ import Foundation
             return WMFInMemoryURLKey(databaseKey: articleKey, languageVariantCode: $0.variant)
         }
         
-        try self.readingListsController.remove(entries: entriesToDelete)
+        do {
+            try self.readingListsController.remove(entries: entriesToDelete)
+        } catch (let error) {
+            completion(.failure(error))
+            return
+        }
         
         self.articleSummaryController.updateOrCreateArticleSummariesForArticles(withKeys: articleKeys, cachePolicy: .reloadRevalidatingCacheData) { result, error in
             
-            guard error == nil else {
+            if let summaryUpdateError = error {
+                if (moc.hasChanges) {
+                    do {
+                        try moc.save()
+                        completion(.failure((summaryUpdateError)))
+                    } catch (let error) {
+                        completion(.failure(error))
+                    }
+                    return
+                }
+                completion(.failure(summaryUpdateError))
                 return
             }
             
-            for (articleKey, article) in result {
-                print("todo: need to map these articleKeys OR articles somehow to entiresToDelete, create a new ReadingListEntry from it. that flow should automatically mark WMFArticle with savedDate.")
+            for (originalKey, newArticle) in result {
+                let deletedReadingListEntry = entriesToDelete.first(where: { $0.articleKey == originalKey.databaseKey && $0.variant == originalKey.languageVariantCode })
+                if let deletedEntryList = deletedReadingListEntry?.list {
+                    deletedEntryList.addToArticles(newArticle)
+                }
             }
-        }
-        
-        if (moc.hasChanges) {
-            try moc.save()
+            
+            if (moc.hasChanges) {
+                do {
+                    try moc.save()
+                    completion(.success(()))
+                } catch (let error) {
+                    completion(.failure(error))
+                }
+            }
+            
+            print("why")
         }
     }
 }
