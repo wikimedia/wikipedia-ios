@@ -52,18 +52,16 @@ import CocoaLumberjackSwift
  * - `app_session_id`: the ID of the session at the time of the event when it was
  *   originally submitted
  */
-@objc (WMFEventPlatformClient)
 public class EventPlatformClient: NSObject, SamplingControllerDelegate {
     // MARK: - Properties
 
-    @objc(sharedInstance) public static let shared: EventPlatformClient = {
+    public static let shared: EventPlatformClient = {
         return EventPlatformClient()
     }()
     
     // SINGLETONTODO
     /// Session for requesting data
     let session = MWKDataStore.shared().session
-
     let samplingController: SamplingController
     let storageManager: StorageManager?
 
@@ -223,7 +221,7 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
      * This method is called by the application delegate in
      * `applicationWillResignActive()` and disables event logging.
      */
-    @objc public func appInBackground() {
+    public func appInBackground() {
         lastTimestamp = Date()
     }
     /**
@@ -233,7 +231,7 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
      * If it has been more than 15 minutes since the app entered background state,
      * a new session is started.
      */
-    @objc public func appInForeground() {
+    public func appInForeground() {
         if sessionTimedOut() {
             resetSession()
         }
@@ -246,7 +244,7 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
      * session ends when the user (or the OS) has closed the app or when 15
      * minutes of inactivity have passed.
      */
-    @objc public func appWillClose() {
+    public func appWillClose() {
         // Placeholder for any onTerminate logic
     }
 
@@ -268,7 +266,7 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
      * This assumes storageManager's deviceID will be reset separately by a
      * different owner (EventLoggingService's `reset()` method)
      */
-    @objc public func reset() {
+    public func reset() {
         resetSession()
     }
 
@@ -387,7 +385,7 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
      * Flush the queue of outgoing requests in a first-in-first-out,
      * fire-and-forget fashion
      */
-    private func postAllScheduled(_ completion: (() -> Void)? = nil) {
+    func postAllScheduled(_ completion: (() -> Void)? = nil) {
         guard let storageManager = self.storageManager else {
             completion?()
             return
@@ -715,29 +713,6 @@ private extension EventPlatformClient {
     }
 }
 
-//MARK: PeriodicWorker
-
-extension EventPlatformClient: PeriodicWorker {
-    public func doPeriodicWork(_ completion: @escaping () -> Void) {
-        guard let storageManager = self.storageManager else {
-            return
-        }
-        storageManager.pruneStaleEvents(completion: {
-            self.postAllScheduled(completion)
-        })
-    }
-}
-
-//MARK: BackgroundFetcher
-
-extension EventPlatformClient: BackgroundFetcher {
-    public func performBackgroundFetch(_ completion: @escaping (UIBackgroundFetchResult) -> Void) {
-        doPeriodicWork {
-            completion(.noData)
-        }
-    }
-}
-
 // MARK: EventInterface
 
 /**
@@ -750,4 +725,13 @@ public protocol EventInterface: Codable {
      * Check the documentation for `EPC.Schema` for more information.
      */
     static var schema: EventPlatformClient.Schema { get }
+}
+
+// MARK: Objective-C
+
+public protocol MetricsClientObjectiveCCompat: BackgroundFetcher, PeriodicWorker {
+    func appInBackground()
+    func appInForeground()
+    func appWillClose()
+    func reset()
 }
