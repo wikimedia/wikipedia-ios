@@ -934,4 +934,4 @@
 "wikitext-upload-save-anonymously-warning" = "העריכות שלך תיוחסנה לכתובת ה־IP של המכשיר שלך. רישום באמצעות הכפתור $1 יעניק לך יותר פרטיות.";
 "wikitext-upload-save-sign-in" = "כניסה";
 "wikitext-upload-save-terms-and-licenses" = "פרסום השינויים מהווה את הסכמתך ל$1תנאי השימוש$2, כמו כן, את הסכמתך שלא לחזור בך מהפצת התרומות שלך תחת הרישיון $3CC BY-SA 3.0$4 ותחת $5GFDL$6. זוהי גם הסכמתך שקישור או כתובת מספקים אותך כייחוס תחת רישיון Creative Commons.";
-"wikitext-upload-save-terms-name" = "תנאי השימוש";
+"wikitext-upload-save-terms-name" = "תנאי שימוש";

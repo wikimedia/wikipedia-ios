@@ -94,6 +94,7 @@
 "action-retry" = "ߊ߬ ߡߊߝߍߣߍ߲߫";
 "action-save" = "ߊ߬ ߟߊߞߎ߲߬ߘߎ߬";
 "action-saved" = "ߊ߬ ߓߘߊ߫ ߟߊߞߎ߲߬ߘߎ߬";
+"action-saved-accessibility" = "ߟߊ߬ߞߎ߲߬ߘߎ߬ߣߍ߲. ߟߊߞߎߣߎ߲߫ ߟߊ߬ߞߎ߲߬ߘߎ߬ߓߊߟߌ ߘߌ߫.";
 "action-saved-accessibility-notification" = "ߞߎߡߘߊ߫ ߟߊߞߎ߲߬ߘߎ߬ߣߍ߲ ߞߐߝߍߟߊ ߦߋ߫";
 "action-share" = "ߊ߬ ߟߊߖߍ߲ߛߍ߲߫";
 "action-share-accessibility" = "ߊ߬ ߟߊߖߍ߲ߛߍ߲߫";
@@ -106,7 +107,9 @@
 "add-articles-to-reading-list" = "{{PLURAL:$1|ߞߎߡߘߊ $1|ߞߎߡߘߊ $1 ߟߎ߬}} ߝߙߊ߬ ߘߐ߬ߞߊ߬ߙߊ߲߬ߠߌ߲߬ ߛߙߍߘߍ ߡߊ߬";
 "add-citation-title" = "ߝߍ߬ߛߓߍߟߌ ߝߙߊ߬";
 "announcements-dismiss" = "ߓߙߐߕߐ߫";
+"app-store-keywords" = "ߥߞߌߔߋߘߌߦߊ߸ ߦߟߌߡߊߛߙߋ߸ ߥߞߌ߸ ߔߘߋߞߎ߸ ߞߌ߬ߓߊ߬ߙߏ߬ߦߊ߸ ߝߊ߰ߡߎ߲߬ߦߊ߸ ߢߌߣߌ߲ߠߌ߲߸ ߞߟߊ߬ߟߐ߲߬ߠߌ߲߸ ߛߏ߲߯ߓߊߟߌ߸ ߘߐ߬ߞߊ߬ߙߊ߲߬ߠߌ߲";
 "app-store-subtitle" = "ߔߘߋߞߎ ߛߙߊ߬ߓߊߟߌ";
+"appearance-settings-adjust-text-sizing" = "ߞߎߡߘߊ ߞߟߏߘߋ߲ ߠߎ߬ ߢߊ߲ߞߊ߲ߦߊ ߝߙߊ߬ߟߌ";
 "appearance-settings-expand-tables" = "ߥߟߊ߬ߟߋ߲ ߘߐߦߙߌߥߊ߫";
 "appearance-settings-set-automatic-table-opening" = "ߥߟߊ߬ߟߋ߲ ߟߊ߬ߓߍ߲߬ߢߐ߲߰ߡߦߊ߬ߘߊ";
 "article-about-title" = "ߞߊ߬ ߓߍ߲߬ ߞߎߡߘߊ ߣߌ߲߬ ߡߊ߬";
@@ -132,18 +135,23 @@
 "button-saved-remove" = "ߊ߬ ߛߋ߲߬ߓߐ߫ ߟߊ߬ߞߎ߲߬ߘߎ߬ߣߍ߲ ߠߎ߬ ߘߐ߫";
 "button-skip" = "ߊ߬ ߟߊߜߊ߲߫";
 "cancel" = "ߊ߬ ߘߐߛߊ߬";
+"chinese-variants-alert-body" = "ߥߞߌߔߋߘߌߦߊ ߟߥߊ߬ߟߌ߬ߟߊ߲ ߓߘߊ߫ ߛ߭ߌߣߌ߲ߞߊ߲ ߓߐߣߍ߲ߢߐ߲߯ߡߊ ߢߌ߲߬ ߠߎ߬ ߟߊߘߤߊ߬ ߞߊ߲߫ ߝߟߐ ߘߌ߫ ߥߟߊ߫ ߝߌߟߊߣߊ߲ ߘߌ߫ ߟߥߊ߬ߟߌ߬ߟߊ߲ ߠߊ߫߸ ߞߵߊ߬ ߘߐߞߊ߬ߙߊ߲ ߠߊߣߐ߰ߦߊ߫߸ ߞߵߊ߬ ߢߌߣߌ߲ߠߌ߲ ߣߴߊ߬ ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ ߠߎ߬ ߟߊߣߐ߰ߦߊ߫ ߌ ߞߊ߬ߣߌ߲߬ߕߊ ߛߎ߯ߦߊ ߘߐ߫: \n\n简体 ߛ߭ߌߣߌ߲ߞߊ߲߸ ߠߊߣߐ߰ߦߊ߬ߣߍ߲ (zh-hans) \n香港繁體 ߤߐ߲ߞߐ߲߬ ߦߋߢߐ߲߯ߠߕߊ (zh-hk) \n澳門繁體 ߡߞߊߏ߫ ߦߋߢߐ߲߯ߠߕߊ (zh-mo)\n大马简体 ߡߊߟߍߛߌ߫ ߟߊߣߐ߰ߦߊ߬ߣߍ߲ (zh-my)\n新加坡简体 ߛߌ߲ߜ߭ߊߔߏߙߦ ߟߊߣߐ߰ߦߊ߬ߣߍ߲ (zh-sg)\n臺灣正體 ߕߊߌߥߊ߲ߞߊ ߦߋߢߐ߲߯ߠߕߊ (zh-tw)";
+"chinese-variants-alert-title" = "ߊ߬ ߟߊߞߎߘߦߊ߫ ߞߵߊ߬ ߓߌ߬ߟߊ߬ ߛ߭ߌߣߌ߲ߞߊ߲ ߦߌߟߡߊ ߟߊߘߌߢߍ߬ߕߊ ߟߊ߫";
 "clear-title-accessibility-label" = "ߊ߬ ߟߊߛߊ߬";
 "close-button-accessibility-label" = "ߊ߬ ߘߊߕߎ߲߯";
 "compass-direction" = "$1 ߙߋ߲ ߠߊ߫";
 "continue-reading-empty-description" = "ߥߞߌߔߋߘߌߦߊ ߛߏ߲߯ߓߊ߫ ߞߊ߬ ߞߎߡߘߊ߫ ߛߌߦߊߡߊ߲߫ ߠߎ߫ ߘߐߞߊ߬ߙߊ߲߬";
 "continue-reading-empty-title" = "ߞߎߡߘߊ߫ ߘߐߞߊ߬ߙߊ߲߬ߣߍ߲߬ ߞߎߘߊ߫ ߕߍ߫";
+"crimean-tatar-variants-alert-body" = "ߥߞߌߔߋߘߌߦߊ ߟߥߊ߬ߟߌ߬ߟߊ߲ ߓߘߊ߫ ߞߙߌߡߋ߫ ߕߊߕߊߙߌ߫ ߞߊ߲ ߢߌ߲߬ ߠߎ߬ ߟߊߘߌ߬ߢߍ߬ ߞߊ߲߫ ߝߟߐ ߥߟߊ߫ ߝߌߟߊߣߊ߲ߦߊ ߟߊ߫ ߟߥߊ߬ߟߌ߬ߟߊ߲ ߠߊ߫߸ ߞߵߊ߬ ߘߐߞߊ߬ߙߊ߲ ߠߊߣߐ߰ߦߊ߫߸ ߢߌߣߌ߲ߠߌ߲ ߥߟߊ߫ ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ ߌ ߘߌߦߊߣߍ߲ߕߊ ߟߎ߬ ߘߐ߫: \n\nߞߙߌߡߑߕߊߕߊߙߑߞߊ߸ ߟߊ߬ߕߍ߲ ߞߙߌߡߋ߫ ߕߊߕߊߙߌ (crh-latin) \nкъырымтатарджа, Кирил ߞߙߌߡߋ߫ ߕߊߕߊߙߌ߫ ߛߌ߯ߙߟߌߞ (crh-cyrl)";
+"crimean-tatar-variants-alert-title" = "ߊ߬ ߟߊߞߎߘߦߊ߫ ߞߙߌߡߋ߫ ߕߊߕߊߙߌ ߦߌߟߡߊ ߟߊߘߌߢߍ߬ߕߊ ߟߊ߫";
+"data-migration-status" = "ߟߊ߬ߞߎ߬ߘߊ߬ߟߌ ߦߴߌ ߘߐ߫...";
 "description-add-title" = "ߞߊ߲߬ߛߓߍߟߌ ߟߊߘߏ߲߬";
-// Fuzzy
-"description-edit-for-article" = "$1 ߞߎ߲߬ߕߐ߮ ߞߊ߲߬ߛߓߍߟߌ";
+"description-edit-for-article" = "$1 ߞߎߡߘߊ ߞߊ߲߬ߛߓߍߟߌ";
 "description-edit-learn-more" = "ߘߏߜߘߍ߫ ߟߎ߫ ߘߐߞߊ߬ߙߊ߲߬";
+"description-edit-length-warning" = "$1 / $2";
+"description-edit-license" = "ߖߐ߲߬ߛߊ߫ ߞߊ߬ ߞߎߡߘߊ ߞߊ߲߬ߛߓߍߟߌ ߡߊߝߊ߬ߟߋ߲߬߸ ߒ ߘߌ߬ߢߍ߬ߣߍ߲߬ ߦߋ߫ $1 ߡߵߊ߬ ߣߌ߫ ߒ ߣߡߌߛߊߓߊߟߌߦߊ߫ ߘߌߢߍߣߍ߲߫ ߦߋ߫ ߒ ߠߊ߫ ߓߟߏߡߊߜߍ߲ ߠߎ߬ ߟߊߓߌ߬ߟߊ ߡߊ߬ $2 ߟߊ߫ ߕߌ߰ߦߊ ߞߐ߬ߣߐߡߊ߬.";
 "description-edit-pencil-introduction" = "ߟߊߘߏ߲߬ߠߌ߲ ߡߊߦߟߍ߬ߡߊ߲߫";
-// Fuzzy
-"description-edit-pencil-title" = "ߞߎ߲߬ߕߐ߮ ߞߊ߲߬ߛߓߍߟߌ ߡߊߦߟߍ߬ߡߊ߲߫";
+"description-edit-pencil-title" = "ߞߎߡߘߊ ߞߊ߲߬ߛߓߍߟߌ ߡߊߦߟߍ߬ߡߊ߲߫";
 "description-edit-placeholder-title" = "ߞߊ߲߬ߛߓߍ߬ߟߌ߬ ߛߎߘߎ߲ ߠߋ߬ ߦߋ߫ ߓߍ߬ߘߍ ߘߌ߫";
 "description-edit-publish" = "ߞߊ߲߬ߛߓߍߟߌ ߟߊߥߊ߲߬ߞߊ߫";
 "description-edit-title" = "ߞߊ߲߬ߛߓߍߟߌ ߡߊߦߟߍ߬ߡߊ߲߫";
@@ -157,15 +165,14 @@
 "description-help-tips-example-title-two" = "ߘߎ߱ ߕߌ߲ߘߌ߫ ߖߊ߲ ߠߎ߬";
 "description-help-tips-for-example" = "ߟߊߒߡߊ߫ ߘߐ߫";
 "description-help-tips-title" = "ߊ߬ ߛߐ߲߬ߞߌ߲߫ ߞߊ߲߬ߛߓߍߟߌ ߛߌ߲ߘߌ߫ ߞߊ߲ߡߊ߬";
-// Fuzzy
-"description-help-title" = "ߞߎ߲߬ߕߐ߮ ߞߊ߲߬ߛߓߍߟߌ ߘߍ߬ߡߍ߲߬ߠߌ߲";
+"description-help-title" = "ߞߎߡߘߊ ߞߊ߲߬ߛߓߍߟߌ ߘߍ߬ߡߍ߲߬ߠߌ߲";
 "description-help-wikidata-guide" = "ߥߞߌߘߕߊ ߞߊ߲߬ߛߓߍ߬ߟߌ ߟߎ߬ ߛߓߍߟߌ ߟߊߛߌ߲ߟߊ߲";
 "description-published-button-title" = "ߊ߬ ߓߘߊ߫ ߞߍ߫";
+"description-published-footer" = "ߌ ߘߌ߫ ߛߋ߫ ߞߊ߬ ߞߎߡߘߊ ߟߎ߬ ߡߊߦߟߍ߬ߡߊ߲߫ ߟߥߊ߬ߟߌ߬ߟߊ߲ ߣߌ߲߬ ߠߊ߫ ߝߣߊ߫. ߌ ߞߊߘߊ߲߫ ߞߊ߬ ߛߓߍߟߌ ߞߍߢߊ ߣߌ߫ ߛߓߍߟߌ ߞߍߛߋ߲߫ ߘߋߣߍ߲ ߠߎ߬ ߘߐߓߍ߲߬ ߞߟߊ߬ߙߊ߲ ߛߌ߲ߞߐ߲ ߛߐ߲߬ߞߌ߲ ߠߊ߫ ߛߋ߲߬ߧߊ߫ ߣߊ߬ߕߐ";
 "description-published-subtitle" = "ߌ ߓߘߊ߫ ߥߞߌߔߋߘߌߦߊ߫ ߛߌ߲ߘߌ ߟߊߢߊ߬ ߡߐ߱ ߓߍ߯ ߢߍ߫.";
 "description-published-title" = "ߞߊ߲߬ߛߓߍߟߌ ߓߘߊ߫ ߟߊߥߊ߲߬ߞߊ߫߹";
 "description-welcome-concise-title" = "ߊ߬ ߕߏ߫ ߛߎ߬ߘߎ߲߬ߧߊ ߘߐ߫";
-// Fuzzy
-"description-welcome-descriptions-title" = "ߞߐߕߐ߮ ߞߊ߲߬ߛߓߍߟߌ";
+"description-welcome-descriptions-title" = "ߞߎߡߘߊ ߞߊ߲߬ߛߓߍߟߌ ߟߎ߬";
 "description-welcome-start-editing-button" = "ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ ߘߊߡߌ߬ߣߊ߬";
 "diff-compare-header-from-info-heading" = "ߞߊ߬ ߝߘߊ߫:";
 "diff-compare-header-heading" = "ߟߢߊ߬ߟߌ ߟߎ߬ ߟߊ߫ ߢߐ߲߯ߡߊ߬";
