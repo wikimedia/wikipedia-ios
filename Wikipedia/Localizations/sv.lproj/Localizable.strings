@@ -125,7 +125,7 @@
 "action-replace-all" = "Ersätt alla";
 "action-retry" = "Försök igen";
 "action-save" = "Spara";
-"action-saved" = "Sparades";
+"action-saved" = "Sparad";
 "action-saved-accessibility" = "Sparades. Aktivera för att ångra.";
 "action-saved-accessibility-notification" = "Artikeln sparades till senare";
 "action-share" = "Dela";

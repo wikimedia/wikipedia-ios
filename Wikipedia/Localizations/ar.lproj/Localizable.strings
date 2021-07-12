@@ -30,8 +30,11 @@
 
 "aaald-article-insert-header" = "تحديثات ملحوظة";
 "aaald-article-insert-new-changes" = "تغييرات جديدة";
+"aaald-multiple-changes-description" = "أجريت تغييرات عديدة";
 "aaald-new-discussion" = "نقاش حديد";
 "aaald-new-news-reference-title" = "أخبار";
+"aaald-new-website-reference-title" = "موقع ويب";
+"aaald-revision-by-anonymous" = "تعديل بواسطة مستخدم مجهول";
 "aaald-single-reference-added-description" = "أضيف المرجع";
 "aaald-view-full-history-button" = "عرض كامل تاريخ المقالة";
 "about-content-license" = "رخصة المحتوى";
