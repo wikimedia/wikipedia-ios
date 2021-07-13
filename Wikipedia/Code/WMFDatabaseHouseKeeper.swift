@@ -2,36 +2,15 @@ import Foundation
 
 @objc class WMFDatabaseHouseKeeper : NSObject {
     
-    private let readingListsController: ReadingListsController
-    private let articleSummaryController: ArticleSummaryController
-    
-    @objc init(readingListsController: ReadingListsController, articleSummaryController: ArticleSummaryController) {
-        self.readingListsController = readingListsController
-        self.articleSummaryController = articleSummaryController
-    }
-    
-    // Returns deleted WMFArticle URLs. Deleted WMFAnnouncements, ReadingListEntries TalkPages and CacheGroups are not returned.
-    @objc func performHouseKeepingOnManagedObjectContext(_ moc: NSManagedObjectContext, navigationStateController: NavigationStateController, completion: @escaping (([URL], Error?) -> Void)) {
+    // Returns deleted WMFArticle URLs. Deleted WMFAnnouncements, and TalkPages are not returned.
+    @discardableResult @objc func performHouseKeepingOnManagedObjectContext(_ moc: NSManagedObjectContext, navigationStateController: NavigationStateController) throws -> [URL] {
         
-        moc.perform {
-            do {
-                let urls = try self.deleteStaleUnreferencedArticles(moc, navigationStateController: navigationStateController)
-
-                try self.deleteStaleTalkPages(moc)
-                try self.deleteStaleAnnouncements(moc)
-                
-                self.deleteOrphanedReadingListEntries(moc) { result in
-                    switch result {
-                    case .success:
-                        completion(urls, nil)
-                    case .failure(let error):
-                        completion([], error)
-                    }
-                }
-            } catch (let error) {
-                completion([], error)
-            }
-        }
+        let urls = try deleteStaleUnreferencedArticles(moc, navigationStateController: navigationStateController)
+        
+        try deleteStaleTalkPages(moc)
+        try deleteStaleAnnouncements(moc)
+        
+        return urls
     }
     
     private func deleteStaleAnnouncements(_ moc: NSManagedObjectContext) throws {
@@ -204,97 +183,5 @@ import Foundation
         }
         
         return urls
-    }
-    
-    //TODO: maybe do this one-time as a part of migration instead, not sure.
-    private func deleteOrphanedReadingListEntries(_ moc: NSManagedObjectContext, completion: @escaping (Result<Void, Error>) -> Void) {
-        let readingListRequest: NSFetchRequest<ReadingListEntry> = ReadingListEntry.fetchRequest()
-        
-        let readingListEntries: [ReadingListEntry]
-        do {
-            readingListEntries = try moc.fetch(readingListRequest)
-        } catch (let error) {
-            completion(.failure(error))
-            return
-        }
-        
-        var entriesToDelete: [ReadingListEntry] = []
-        for readingListEntry in readingListEntries {
-            
-            guard let readingListKey = readingListEntry.articleKey else {
-                continue
-            }
-            
-            let articleFetchRequest: NSFetchRequest<WMFArticle> = WMFArticle.fetchRequest()
-            let finalPredicate: NSPredicate
-            let firstPredicate = NSPredicate(format: "key == %@", readingListKey)
-            if let variant = readingListEntry.variant {
-                let nextPredicate = NSPredicate(format: "variant == %@", variant)
-                finalPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [firstPredicate, nextPredicate])
-            } else {
-                finalPredicate = firstPredicate
-            }
-            
-            articleFetchRequest.predicate = finalPredicate
-            if let countOfArticles = try? moc.count(for: articleFetchRequest),
-               countOfArticles == 0 {
-                entriesToDelete.append(readingListEntry)
-            }
-        }
-        
-        let articleKeys: [WMFInMemoryURLKey] = entriesToDelete.compactMap {
-            guard let articleKey = $0.articleKey else { return nil }
-            return WMFInMemoryURLKey(databaseKey: articleKey, languageVariantCode: $0.variant)
-        }
-        
-        do {
-            try self.readingListsController.remove(entries: entriesToDelete)
-        } catch (let error) {
-            completion(.failure(error))
-            return
-        }
-        
-        self.articleSummaryController.updateOrCreateArticleSummariesForArticles(withKeys: articleKeys, cachePolicy: .reloadRevalidatingCacheData) { result, error in
-            
-            if let summaryUpdateError = error {
-                if (moc.hasChanges) {
-                    do {
-                        try moc.save()
-                        completion(.failure((summaryUpdateError)))
-                    } catch (let error) {
-                        completion(.failure(error))
-                    }
-                    return
-                }
-                completion(.failure(summaryUpdateError))
-                return
-            }
-            
-            for (originalKey, newArticle) in result {
-                let deletedReadingListEntry = entriesToDelete.first { deletedEntry in
-                    
-                    guard let deletedEntryArticleKey = deletedEntry.articleKey else {
-                        return false
-                    }
-                    
-                    let deletedEntryVariant = deletedEntry.variant
-
-                    return deletedEntryArticleKey == originalKey.databaseKey && deletedEntryVariant == originalKey.languageVariantCode
-                }
-                if let deletedEntryList = deletedReadingListEntry?.list {
-                    //TODO: this changes savedDate which will alter sorting, should we instead set savedDate (for WMFArticle and new ReadingListEntry) to deletedReadingListEntry date?
-                    try? self.readingListsController.add(articles: [newArticle], to: deletedEntryList)
-                }
-            }
-            
-            if (moc.hasChanges) {
-                do {
-                    try moc.save()
-                    completion(.success(()))
-                } catch (let error) {
-                    completion(.failure(error))
-                }
-            }
-        }
     }
 }

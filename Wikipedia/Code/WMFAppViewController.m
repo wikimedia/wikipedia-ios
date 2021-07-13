@@ -988,20 +988,18 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
     [self.dataStore.feedContentController stopContentSources];
 
-    self.houseKeeper = [[WMFDatabaseHouseKeeper alloc] initWithReadingListsController:self.dataStore.readingListsController articleSummaryController:self.dataStore.articleSummaryController];
+    self.houseKeeper = [WMFDatabaseHouseKeeper new];
     //TODO: these tasks should be converted to async so we can end the background task as soon as possible
     [self.dataStore clearMemoryCache];
 
     //TODO: implement completion block to cancel download task with the 2 tasks above
-    [self.houseKeeper performHouseKeepingOnManagedObjectContext:self.dataStore.viewContext
-                                      navigationStateController:self.navigationStateController
-                                                     completion:^(NSArray<NSURL *> *_Nonnull urls, NSError *_Nullable error) {
-                                                         if (error != nil) {
-                                                             DDLogError(@"Error on cleanup: %@", error);
-                                                         }
-
-                                                         [self endHousekeepingBackgroundTask];
-                                                     }];
+    NSError *housekeepingError = nil;
+    [self.houseKeeper performHouseKeepingOnManagedObjectContext:self.dataStore.viewContext navigationStateController:self.navigationStateController error:&housekeepingError];
+    if (housekeepingError) {
+        DDLogError(@"Error on cleanup: %@", housekeepingError);
+        housekeepingError = nil;
+    }
+    [self endHousekeepingBackgroundTask];
 }
 
 #pragma mark - Memory Warning
