@@ -1978,6 +1978,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [self applyTheme:self.theme toNavigationControllers:@[navController]];
         _settingsNavigationController = navController;
         _settingsNavigationController.modalPresentationStyle = UIModalPresentationOverFullScreen;
+        _settingsNavigationController.interactivePopGestureRecognizer.delegate = nil;
     }
 
     if (_settingsNavigationController.viewControllers.firstObject != self.settingsViewController) {
