@@ -9,7 +9,7 @@ struct WikipediaWidgets: WidgetBundle {
 		PictureOfTheDayWidget()
 		OnThisDayWidget()
         TopReadWidget()
-        // We can support more widgets just by adding them here
+        FeaturedArticleWidget()
 	}
 
 }
