@@ -52,7 +52,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAlertsLibraryVersion";
 
-@interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable, ReadMoreAboutRevertedEditViewControllerDelegate, WMFWorkerControllerDelegate, WMFThemeableNavigationControllerDelegate, WMFAppTabBarDelegate>
+@interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable, ReadMoreAboutRevertedEditViewControllerDelegate, WMFWorkerControllerDelegate, WMFThemeableNavigationControllerDelegate, WMFAppTabBarDelegate, NotificationDrawerDelegate>
 
 @property (nonatomic, strong) WMFPeriodicWorkerController *periodicWorkerController;
 @property (nonatomic, strong) WMFBackgroundFetcherController *backgroundFetcherController;
@@ -63,7 +63,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @property (nonatomic, strong) WMFSettingsViewController *settingsViewController;
 @property (nonatomic, strong, readonly) ExploreViewController *exploreViewController;
 @property (nonatomic, strong, readonly) SearchViewController *searchViewController;
-@property (nonatomic, strong, readonly) WMFSavedViewController *savedViewController;
+@property (nonatomic, strong, readonly) NotificationsViewController *notificationsViewController;
 @property (nonatomic, strong, readonly) WMFPlacesViewController *placesViewController;
 @property (nonatomic, strong, readonly) WMFHistoryViewController *recentArticlesViewController;
 
@@ -122,7 +122,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @implementation WMFAppViewController
 @synthesize exploreViewController = _exploreViewController;
 @synthesize searchViewController = _searchViewController;
-@synthesize savedViewController = _savedViewController;
+@synthesize notificationsViewController = _notificationsViewController;
 @synthesize recentArticlesViewController = _recentArticlesViewController;
 @synthesize placesViewController = _placesViewController;
 
@@ -300,7 +300,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self.searchViewController applyTheme:self.theme];
     [self.settingsViewController applyTheme:self.theme];
 
-    UITabBarItem *savedTabBarItem = [self.savedViewController tabBarItem];
+    UITabBarItem *savedTabBarItem = [self.notificationsViewController tabBarItem];
     self.savedTabBarItemProgressBadgeManager = [[SavedTabBarItemProgressBadgeManager alloc] initWithTabBarItem:savedTabBarItem];
 
     [self.dataStore.notificationsController updateCategories];
@@ -320,7 +320,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             break;
     }
 
-    NSArray<UIViewController *> *viewControllers = @[mainViewController, [self placesViewController], [self savedViewController], [self recentArticlesViewController], [self searchViewController]];
+    NSArray<UIViewController *> *viewControllers = @[mainViewController, [self placesViewController], [self notificationsViewController], [self recentArticlesViewController], [self searchViewController]];
 
     [self setViewControllers:viewControllers animated:NO];
 
@@ -1378,6 +1378,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
         settingsBarButtonItem.accessibilityLabel = [WMFCommonStrings settingsTitle];
         _exploreViewController.navigationItem.rightBarButtonItem = settingsBarButtonItem;
+        _exploreViewController.notificationsDrawerDelegate = self;
     }
     return _exploreViewController;
 }
@@ -1393,16 +1394,23 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     return _searchViewController;
 }
 
-- (WMFSavedViewController *)savedViewController {
-    if (!_savedViewController) {
+- (NotificationsViewController *)notificationsViewController {
+    if (!_notificationsViewController) {
+        /*
         _savedViewController = [[UIStoryboard storyboardWithName:@"Saved" bundle:nil] instantiateInitialViewController];
         [_savedViewController applyTheme:self.theme];
         _savedViewController.dataStore = self.dataStore;
         _savedViewController.tabBarDelegate = self;
         _savedViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-save"];
         _savedViewController.title = [WMFCommonStrings savedTabTitle];
+         */
+        _notificationsViewController = [[NotificationsViewController alloc] initWithTheme:self.theme];
+        if (@available(iOS 13.0, *)) {
+            _notificationsViewController.tabBarItem.image = [UIImage systemImageNamed:@"app.badge.fill"];
+        }
+        _notificationsViewController.title = @"Notifications";
     }
-    return _savedViewController;
+    return _notificationsViewController;
 }
 
 - (WMFHistoryViewController *)recentArticlesViewController {
@@ -1602,10 +1610,14 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (id<UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController {
+    return nil;
     return [self.transitionsController navigationController:navigationController interactionControllerForAnimationController:animationController];
 }
 
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
+    if ([toVC isKindOfClass:[NotificationsViewController class]]) {
+        return nil;
+    }
     return [self.transitionsController navigationController:navigationController animationControllerForOperation:operation fromViewController:fromVC toViewController:toVC];
 }
 
@@ -1776,7 +1788,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self.settingsViewController applyTheme:theme];
     [self.exploreViewController applyTheme:theme];
     [self.placesViewController applyTheme:theme];
-    [self.savedViewController applyTheme:theme];
+    [self.notificationsViewController applyTheme:theme];
     [self.recentArticlesViewController applyTheme:theme];
     [self.searchViewController applyTheme:theme];
 
@@ -2128,6 +2140,17 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)logTappedSettingsFromExplore {
     [[WMFNavigationEventsFunnel shared] logTappedSettingsFromExplore];
+}
+
+// MARK: - NotificationDrawerDelegate
+
+- (void)userDidTapDrawerButton {
+    [[NotificationsDrawerHandler shared] userDidTapDrawerWithContainerView:self.view completion:^(BOOL success){}];
+}
+
+
+- (void)userDidTapInPlaceButton {
+    [self.navigationController wmf_pushViewController:[[NotificationsViewController alloc] initWithTheme:self.theme]  animated:YES];
 }
 
 @end

@@ -2,10 +2,31 @@ import UIKit
 import WMF
 import CocoaLumberjackSwift
 
+extension ExploreViewController {
+
+    @objc public func userDidTapNotificationDrawer() {        
+        notificationsDrawerDelegate?.userDidTapDrawerButton()
+    }
+
+    @objc public func userDidTapInPlaceNotifications() {
+        notificationsDrawerDelegate?.userDidTapInPlaceButton()
+    }
+
+}
+
+extension ExploreViewController: NotificationsButtonTapDelegate {
+    func userDidTapDrawerButton() {
+        notificationsDrawerDelegate?.userDidTapDrawerButton()
+        notificationsDrawerDelegate?.userDidTapInPlaceButton()
+    }
+}
+
 class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewControllerDelegate, UISearchBarDelegate, CollectionViewUpdaterDelegate, ImageScaleTransitionProviding, DetailTransitionSourceProviding, EventLoggingEventValuesProviding {
 
     public var presentedContentGroupKey: String?
     public var shouldRestoreScrollPosition = false
+
+    @objc public weak var notificationsDrawerDelegate: NotificationDrawerDelegate?
 
     // MARK - UIViewController
     
@@ -16,9 +37,17 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         navigationItem.titleView = titleView
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
         navigationBar.isUnderBarViewHidingEnabled = true
-        navigationBar.displayType = .largeTitle
+        navigationBar.displayType = .modal
         navigationBar.shouldTransformUnderBarViewWithBar = true
         navigationBar.isShadowHidingEnabled = true
+
+        NotificationsDrawerHandler.shared.delegate = self
+        if #available(iOS 14.0, *) {
+            let drawerButton = UIBarButtonItem(image: UIImage(systemName: "person.crop.circle"), style: .plain, target: self, action: #selector(userDidTapNotificationDrawer))
+            let inPlaceNotificationsButton = UIBarButtonItem(image: UIImage(systemName: "bell.badge"), style: .plain, target: self, action: #selector(userDidTapInPlaceNotifications))
+
+            navigationItem.leftBarButtonItems = [drawerButton, inPlaceNotificationsButton]
+        }
 
         isRefreshControlEnabled = true
         collectionView.refreshControl?.layer.zPosition = 0

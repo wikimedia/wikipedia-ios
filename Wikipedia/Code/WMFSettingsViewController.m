@@ -431,9 +431,13 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Notifications
 
 - (void)showNotifications {
-    WMFNotificationSettingsViewController *notificationSettingsVC = [[WMFNotificationSettingsViewController alloc] init];
-    [notificationSettingsVC applyTheme:self.theme];
-    [self.navigationController pushViewController:notificationSettingsVC animated:YES];
+//    WMFNotificationSettingsViewController *notificationSettingsVC = [[WMFNotificationSettingsViewController alloc] init];
+//    [notificationSettingsVC applyTheme:self.theme];
+//    [self.navigationController pushViewController:notificationSettingsVC animated:YES];
+	
+	NotificationsViewController *nvc = [[NotificationsViewController alloc] init];
+    [nvc applyTheme:self.theme];
+    [self.navigationController pushViewController:nvc animated:YES];
 }
 
 #pragma mark - Appearance

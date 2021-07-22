@@ -134,6 +134,8 @@
 		0062597324DE0A2500C95037 /* WidgetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0062597224DE0A2500C95037 /* WidgetController.swift */; };
 		006D273524D8BAFB00947551 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D273424D8BAFB00947551 /* View+Extensions.swift */; };
 		006D273724D8D8D100947551 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D273624D8D8D100947551 /* Date+Extensions.swift */; };
+		0071B1B726A8C82400859F48 /* TalkPageHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 672B127722A450F000CC85A5 /* TalkPageHeaderView.xib */; };
+		0071B1B826A8C86600859F48 /* EmptyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 671F5E0A236B8CAF00111116 /* EmptyViewController.xib */; };
 		00841DE524477805003CF74A /* AppTabBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE891452445150B0058B642 /* AppTabBarDelegate.swift */; };
 		00841DE724477806003CF74A /* AppTabBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE891452445150B0058B642 /* AppTabBarDelegate.swift */; };
 		00A7946B245CA4E60063BA18 /* ArticleSurveyTimerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A7946A245CA4E60063BA18 /* ArticleSurveyTimerController.swift */; };
@@ -146,6 +148,8 @@
 		00D280F9247EFFFE006BEE23 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D280F6247EFFFE006BEE23 /* Date+Extensions.swift */; };
 		00D280FA247EFFFE006BEE23 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D280F6247EFFFE006BEE23 /* Date+Extensions.swift */; };
 		00D280FC247F019C006BEE23 /* Date+ExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D280FB247F019C006BEE23 /* Date+ExtensionTests.swift */; };
+		00F34FE026A5ED1E003871B2 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F34FDF26A5ED1E003871B2 /* NotificationsViewController.swift */; };
+		00F34FE126A5ED1E003871B2 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F34FDF26A5ED1E003871B2 /* NotificationsViewController.swift */; };
 		041EFC371996A1F800B2CB28 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 041EFC361996A1F800B2CB28 /* MapKit.framework */; };
 		0E281A331DC263DE00FA1AB1 /* WMFLegacyReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E281A321DC263DE00FA1AB1 /* WMFLegacyReference.swift */; };
 		0E36C2271AE0B59D00C58CFF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
@@ -3528,6 +3532,7 @@
 		00D280F6247EFFFE006BEE23 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; usesTabs = 0; };
 		00D280FB247F019C006BEE23 /* Date+ExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+ExtensionTests.swift"; sourceTree = "<group>"; usesTabs = 0; };
 		00D5593424DB152300C78F08 /* WidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetsExtension.entitlements; sourceTree = "<group>"; };
+		00F34FDF26A5ED1E003871B2 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		040E5C4E184566F4007AFE6F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		041EFC361996A1F800B2CB28 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		0E10C4FD1C81046300CEB5C2 /* Wikipedia.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Wikipedia.entitlements; sourceTree = "<group>"; };
@@ -8287,6 +8292,7 @@
 				83E3E7292440F24300AA2E9A /* LoadingAnimationViewController.xib */,
 				83DE45B72449C09B00671878 /* SplashScreenViewController.swift */,
 				D8940CEA1DB56C0500E17F9E /* In The News */,
+				00F34FDF26A5ED1E003871B2 /* NotificationsViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -10029,6 +10035,7 @@
 				D8CE265F1E698E2400DAE2E0 /* NotificationBackgroundMessage@2x.png in Resources */,
 				7A393287236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.xib in Resources */,
 				BA45241E1F324C3100439C42 /* FontSizeSliderViewController.xib in Resources */,
+				0071B1B726A8C82400859F48 /* TalkPageHeaderView.xib in Resources */,
 				BA45242A1F32500C00439C42 /* TextSizeChangeExampleViewController.xib in Resources */,
 				6782DBF123453799003FA21B /* DiffHeaderCompareView.xib in Resources */,
 				7ADF498121B45CEE009EA338 /* TextFormattingPlainToolbarView.xib in Resources */,
@@ -10075,6 +10082,7 @@
 				D8CE26831E698E2400DAE2E0 /* ArticlePopoverViewController.xib in Resources */,
 				67861A1C223C13990044F69D /* FocusNavigationView.xib in Resources */,
 				D8C4D3D41FD5D9260089CEC2 /* TUSafariActivity.bundle in Resources */,
+				0071B1B826A8C86600859F48 /* EmptyViewController.xib in Resources */,
 				67861A14223C13820044F69D /* WMFFindAndReplaceKeyboardBar.xib in Resources */,
 				D8CE26841E698E2400DAE2E0 /* Launch Screen.storyboard in Resources */,
 				D8CE26851E698E2400DAE2E0 /* EditSaveViewController.storyboard in Resources */,
@@ -10941,6 +10949,7 @@
 				83B01F9A23DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift in Sources */,
 				B0CD9DD71F70997300051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
 				7A203F0B1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */,
+				00F34FE026A5ED1E003871B2 /* NotificationsViewController.swift in Sources */,
 				B09B03F21CE0FB6300009083 /* PageHistoryFetcher.swift in Sources */,
 				7ABE17182239B8EE006BA309 /* WelcomeContainerViewController.swift in Sources */,
 				B04AE84C21C6475C00CE51D8 /* WKWebViewWithSettableInputViews.swift in Sources */,
@@ -12020,6 +12029,7 @@
 				7A6F560621AF527A0076D184 /* TextFormattingInputViewController.swift in Sources */,
 				D8CE256D1E698E2400DAE2E0 /* UIViewController+WMFHideKeyboard.swift in Sources */,
 				BA4524191F324C3100439C42 /* FontSizeSliderViewController.swift in Sources */,
+				00F34FE126A5ED1E003871B2 /* NotificationsViewController.swift in Sources */,
 				FF921887252F7EA500C39A8F /* ThanksGiving.swift in Sources */,
 				83023C1220E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */,
 				0042813B25E6E841004945B3 /* NYTScalingImageView.m in Sources */,
