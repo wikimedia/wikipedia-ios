@@ -63,4 +63,14 @@ public struct WidgetFeaturedContent: Codable {
 	public var fetchDate: Date?
 	public var featuredArticle: FeaturedArticleContent?
 
+	// MARK: - Public
+
+	public static func previewContent() -> WidgetFeaturedContent? {
+		if let previewContentFilePath = Bundle.main.path(forResource: "Featured Article Widget Preview Content", ofType: "json"), let jsonData = try? String(contentsOfFile: previewContentFilePath).data(using: .utf8) {
+			return try? JSONDecoder().decode(WidgetFeaturedContent.self, from: jsonData)
+		}
+		
+		return nil
+	}
+
 }
