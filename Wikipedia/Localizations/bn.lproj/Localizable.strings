@@ -146,7 +146,6 @@
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "চালু";
 "explore-main-page-description" = "উইকিমিডিয়া প্রকল্পের প্রধান পাতা";
 "explore-main-page-heading" = "আজ উইকিপিডিয়ায়";
-// Fuzzy
 "explore-most-read-footer" = "সর্বাধিক পঠিত নিবন্ধগুলি";
 "explore-most-read-generic-heading" = "শীর্ষ পঠিত";
 "explore-most-read-more-list-title-for-date" = "$1 শীর্ষ পঠিত";
@@ -203,10 +202,10 @@
 "home-more-like-footer" = "$1 এর মতো আরও";
 "home-nearby-footer" = "আপনার কাছাকাটি আরও স্থান";
 "home-nearby-location-footer" = "$1-এর আরো কাছাকাছি";
-// Fuzzy
-"home-news-footer" = "সংবাদে আরো";
+"home-news-footer" = "আরও বর্তমান ঘটনা";
 "home-themes-action-title" = "পছন্দসমূহ নিয়ন্ত্রণ করুন";
 "home-title" = "অন্বেষণ";
+"home-title-accessibility-label" = "উইকিপিডিয়া, অন্বেষণের শীর্ষে স্ক্রোল করুন";
 "icon-shortcut-nearby-title" = "কাছাকাছি নিবন্ধ";
 "icon-shortcut-random-title" = "অজানা নিবন্ধ";
 "icon-shortcut-search-title" = "উইকিপিডিয়া অনুসন্ধান";
@@ -274,6 +273,7 @@
 "places-filter-saved-articles" = "সংরক্ষিত নিবন্ধ";
 "places-filter-top-articles" = "শীর্ষ পঠিত";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1টি নিবন্ধ}}";
+"places-filter-top-read-articles" = "শীর্ষ পঠিত নিবন্ধ";
 "places-no-saved-articles-have-location" = "আপনার সংরক্ষিত নিবন্ধগুলির কোনটিতে অবস্থানের তথ্য নেই";
 "places-search-default-text" = "পাতা অনুসন্ধান";
 "places-search-did-you-mean" = "আপনি কি বোঝাতে চাচ্ছেন $1?";
@@ -300,16 +300,14 @@
 "reading-themes-controls-accessibility-light-theme-button" = "অল্পোজ্জ্বল থিম";
 "reading-themes-controls-accessibility-sepia-theme-button" = "কালচে-বাদামি থিম";
 "reference-title" = "তথ্যসূত্র $1";
-// Fuzzy
-"relative-date-days-ago" = "{{PLURAL:$1|0=আজ|গতকাল|$1 দিন আগে}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=আজ|1=গতকাল|$1 দিন আগে}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=সম্প্রতি|$1 ঘণ্টা আগে}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=এইমাত্র|$1 মিনিট আগে}}";
 "relative-date-months-ago" = "{{PLURAL:$1|0=এই মাস|1=গত মাস|$1 মাস আগে}}";
 "reverted-edit-thanks-for-editing-title" = "উইকিপিডিয়ায় সম্পাদনা করার জন্য ধন্যবাদ!";
 "saved-all-articles-title" = "সব নিবন্ধ";
 "saved-pages-image-download-error" = "এই সংরক্ষিত পাতার জন্য চিত্র ডাউনলোড করা ব্যর্থ হয়েছে।";
-// Fuzzy
-"saved-search-default-text" = "অনুসন্ধান";
+"saved-search-default-text" = "সংরক্ষিত নিবন্ধগুলি অনুসন্ধান করুন";
 "saved-title" = "সংরক্ষিত";
 "search-button-accessibility-label" = "উইকিপিডিয়া অনুসন্ধান";
 "search-clear-title" = "পরিষ্কার করুন";
@@ -332,8 +330,7 @@
 "settings-notifications-push-notifications" = "পাঠানো বিজ্ঞপ্তি";
 "settings-notifications-system-turn-on" = "বিজ্ঞপ্তি বন্ধ করুন";
 "settings-primary-language" = "প্রাথমিক";
-// Fuzzy
-"settings-primary-language-details" = "এই তালিকার প্রথম ভাষাটি অ্যাপের প্রাথমিক ভাষা হিসেবে ব্যবহর করা হয়েছে। এই ভাষা পরিবর্তন অন্বেষণে দেখানো দৈনিক বিষয়বস্তুকে (যেমন নির্বাচিত নিবন্ধ) পরিবর্তন করতে পারে।";
+"settings-primary-language-details" = "এই তালিকার প্রথম ভাষাটি অ্যাপের প্রাথমিক ভাষা হিসেবে ব্যবহৃত হয়।";
 "settings-support" = "উইকিপিডিয়াকে সাহায্য করুন";
 "settings-title" = "সেটিংস";
 "share-article-name-on-wikipedia" = "@Wikipedia -এ \"$1\":";
