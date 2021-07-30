@@ -313,10 +313,10 @@
 "edit-template-accessibility-label" = "افزودن ساختار الگو";
 "edit-template-remove-accessibility-label" = "حذف ساختار الگو";
 "edit-text-clear-formatting" = "پاک‌کردن قالب‌بندی";
-"edit-text-formatting-accessibility-label" = "نمایش منوی قالب‌بندی متن";
+"edit-text-formatting-accessibility-label" = "نمایش منوِ قالب‌بندی متن";
 "edit-text-formatting-table-view-title" = "قالب‌بندی متن";
 "edit-text-size-table-view-title" = "اندازهٔ متن";
-"edit-text-style-accessibility-label" = "نمایش منوی سبک‌های متن";
+"edit-text-style-accessibility-label" = "نمایش منوِ سبک‌های متن";
 "edit-underline-accessibility-label" = "افزودن زیرخط";
 "edit-underline-remove-accessibility-label" = "حذف زیرخط";
 "edit-unordered-list-accessibility-label" = "تبدیل سطر کنونی به فهرست غیرترتیبی";
@@ -435,7 +435,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "از ویکی‌پدیای $1";
 "explore-random-article-sub-heading-from-wikipedia" = "از ویکی‌پدیا";
 "explore-randomizer" = "تصادفی";
-"featured-article-empty-title" = "امروز مقالهٔ برگزیده‌ای در دسترس نیست";
+"featured-article-empty-title" = "امروز مقالهٔ برگزیده‌ای موجود نیست";
 "feed-news-notification-button-text" = "روشن کردن اعلان‌ها";
 "feed-news-notification-text" = "فعال‌کردن اعلان‌ها برای آگاه‌شدن توسط ویکی‌پدیا زمانی که مقالات در اخبار پربازدید هستند.";
 "fetcher-error-generic" = "چیزی اشتباه شده‌است! لطفاً دوباره تلاش کنید.";
@@ -689,7 +689,7 @@
 "reading-list-sync-disabled-panel-message" = "همگام‌سازی فهرست مطالعه برای حساب کاربری ویکی‌پدیای شما بر روی دستگاه دیگری غیرفعال شده است. می‌توانید با بروزرسانی تنظیمات خود، قابلیت همگام‌سازی را دوباره فعال کنید.";
 "reading-list-sync-disabled-panel-title" = "همگام‌سازی غیر فعال شد";
 "reading-list-sync-enable-button-title" = "فعال‌کردن همگام‌سازی";
-"reading-list-sync-enable-subtitle" = "مقاله‌ها و فهرست‌های مطالعه‌تان اکنون می‌تواند در حساب کاربری ویکی‌پدیای شما ذخیره‌شده و با همهٔ نرم‌افزارهای ویکی‌پدیا همگام‌سازی شود.";
+"reading-list-sync-enable-subtitle" = "مقاله‌ها و فهرست‌های مطالعه‌تان اکنون می‌تواند در حساب کاربری ویکی‌پدیای شما ذخیره و با همهٔ نرم‌افزارهای ویکی‌پدیا همگام‌سازی شود.";
 "reading-list-sync-enable-title" = "همگام‌سازی فهرست مطالعه فعال شود؟";
 "reading-list-sync-enabled-panel-message" = "همگام‌سازی فهرست مطالعه برای این حساب کاربری فعال است. برای توقف همگام‌سازی، می‌توانید با بروزرسانی تنظیمات خود، همگام‌سازی را برای این حساب کاربری غیرفعال کنید.";
 "reading-list-sync-enabled-panel-title" = "همگام‌سازی برای این حساب کاربری فعال است";
@@ -697,7 +697,7 @@
 "reading-list-unable-to-create" = "هنگام ساخت فهرست مطالعهٔ شما یک خطای غیرمنتظره رخ داد. لطفا بعداً دوباره تلاش کنید.";
 "reading-list-unable-to-delete" = "هنگام حذف فهرست مطالعهٔ شما یک خطای غیرمنتظره رخ داد. لطفا بعداً دوباره تلاش کنید.";
 "reading-list-unable-to-remove-entry" = "هنگام حذف یک ورودی از فهرست مطالعهٔ شما یک خطای غیرمنتظره رخ داد. لطفاً بعداً دوباره تلاش کنید.";
-"reading-list-unable-to-update" = "هنگام روزآمدسازی فهرست مطالعهٔ شما یک خطای غیرمنتظره رخ داد. لطفاً بعداً دوباره تلاش کنید.";
+"reading-list-unable-to-update" = "در هنگام روزآمدسازی فهرست مطالعهٔ شما خطایی غیرمنتظره رخ داد. لطفاً بعداً دوباره تلاش کنید.";
 "reading-list-with-provided-name-not-found" = "فهرست مطالعه‌ای با نام «$1» یافت نشد. لطفا مطمئن شوید که نام درست را وارد کرده‌اید.";
 "reading-lists-article-added-confirmation" = "مقاله به «$1» افزوده شد.";
 "reading-lists-article-api-failure" = "ناتوان از همگام‌سازی مقاله";

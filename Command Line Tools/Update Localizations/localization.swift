@@ -109,10 +109,16 @@ extension String {
             guard countOfComponents > 1 else {
                 continue
             }
-            
+
+            let pluralPrefix = "PLURAL:"
             let firstComponent = components[0]
-            guard firstComponent.hasPrefix("PLURAL:") else {
+            guard firstComponent.hasPrefix(pluralPrefix) else {
                 continue
+            }
+
+            if firstComponent == pluralPrefix {
+                print("Incorrectly formatted plural: \(self)")
+                abort()
             }
             
             let token = firstComponent.suffix(from: firstComponent.index(firstComponent.startIndex, offsetBy: 7)).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
