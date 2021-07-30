@@ -272,7 +272,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self.periodicWorkerController add:self.dataStore.readingListsController];
     [self.periodicWorkerController add:self.dataStore.remoteNotificationsController];
     [self.periodicWorkerController add:[WMFEventLoggingService sharedInstance]];
-    [self.periodicWorkerController add:[WMFEventPlatformClient sharedInstance]];
+    [self.periodicWorkerController add:[WMFMetricsClientBridge sharedInstance]];
 
     self.backgroundFetcherController = [[WMFBackgroundFetcherController alloc] init];
     self.backgroundFetcherController.delegate = self;
@@ -280,7 +280,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self.backgroundFetcherController add:self.dataStore.remoteNotificationsController];
     [self.backgroundFetcherController add:(id<WMFBackgroundFetcher>)self.dataStore.feedContentController];
     [self.backgroundFetcherController add:[WMFEventLoggingService sharedInstance]];
-    [self.backgroundFetcherController add:[WMFEventPlatformClient sharedInstance]];
+    [self.backgroundFetcherController add:[WMFMetricsClientBridge sharedInstance]];
 }
 
 - (void)loadMainUI {
