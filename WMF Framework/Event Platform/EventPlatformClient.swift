@@ -726,12 +726,3 @@ public protocol EventInterface: Codable {
      */
     static var schema: EventPlatformClient.Schema { get }
 }
-
-// MARK: Objective-C
-
-public protocol MetricsClientObjectiveCCompat: BackgroundFetcher, PeriodicWorker {
-    func appInBackground()
-    func appInForeground()
-    func appWillClose()
-    func reset()
-}

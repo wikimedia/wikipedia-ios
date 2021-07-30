@@ -1,7 +1,7 @@
 import Foundation
 
 @objc(WMFMetricsClientBridge)
-public class MetricsClientBridge: NSObject, MetricsClientObjectiveCCompat {
+public class MetricsClientBridge: NSObject {
     
     let client = EventPlatformClient.shared
     
