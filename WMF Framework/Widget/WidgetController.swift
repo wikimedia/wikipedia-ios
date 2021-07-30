@@ -210,6 +210,7 @@ public extension WidgetController {
         try? encodedCache.write(to: widgetCacheDataFileURL)
     }
 
+    /// This is currently unused. It will be useful when we update the main app to also update the widget's cache when it performs any updates to the featured content in the explore feed.
     func updateCacheWith(featuredContent: WidgetFeaturedContent) {
         var updatedCache = loadCache()
         updatedCache.featuredContent = featuredContent
