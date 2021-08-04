@@ -16,7 +16,7 @@ public final class WidgetContentFetcher {
 
 	public static let shared = WidgetContentFetcher()
 
-	let session = URLSession.shared
+	let session = Session(configuration: .current)
 
 	// From supported language list at https://www.mediawiki.org/wiki/Wikifeeds
 	private let supportedFeaturedArticleLanguageCodes = ["bg", "bn", "bs", "cs", "de", "el", "en", "fa", "he", "hu", "ja", "la", "no", "sco", "sd", "sv", "ur", "vi", "zh"]
@@ -39,7 +39,12 @@ public final class WidgetContentFetcher {
 			}
 		}
 
-		task.resume()
+		guard let dataTask = task else {
+			completion(.failure(.urlFailure))
+			return
+		}
+
+		dataTask.resume()
 	}
 
 	public func fetchImageDataFrom(imageSource: WidgetFeaturedContent.FeaturedArticleContent.ImageSource, completion: @escaping (Result<Data, FetcherError>) -> Void) {
@@ -56,7 +61,12 @@ public final class WidgetContentFetcher {
 			}
 		}
 
-		task.resume()
+		guard let dataTask = task else {
+			completion(.failure(.urlFailure))
+			return
+		}
+
+		dataTask.resume()
 	}
 
 }
