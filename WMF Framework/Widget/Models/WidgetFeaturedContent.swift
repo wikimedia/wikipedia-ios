@@ -14,7 +14,7 @@ public struct WidgetFeaturedContent: Codable {
 		// MARK: - Featured Article - Nested Types
 
 		enum CodingKeys: String, CodingKey {
-			case normalizedTitle = "normalizedtitle"
+			case displayTitle = "displaytitle"
 			case description
 			case extract
 			case languageCode = "lang"
@@ -48,7 +48,7 @@ public struct WidgetFeaturedContent: Codable {
 
 		// MARK: - Featured Article - Properties
 
-		public var normalizedTitle: String
+		public var displayTitle: String
 		public let description: String?
 		public let extract: String
 		public let languageCode: String

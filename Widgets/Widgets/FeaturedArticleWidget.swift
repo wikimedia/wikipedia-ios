@@ -39,7 +39,7 @@ struct FeaturedArticleEntry: TimelineEntry {
 	}
 
 	var title: String {
-		return content?.featuredArticle?.normalizedTitle ?? ""
+		return content?.featuredArticle?.displayTitle ?? ""
 	}
 
 	var description: String {
