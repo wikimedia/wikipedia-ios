@@ -23,13 +23,15 @@ public final class WidgetContentFetcher {
 
 	// MARK: - Public - Featured Article Widget
 
-	public func fetchFeaturedContent(forDate date: Date, siteURL: URL, languageCode: String, completion: @escaping (FeaturedContentResult) -> Void) {
+	public func fetchFeaturedContent(forDate date: Date, siteURL: URL, languageCode: String, languageVariantCode: String? = nil, completion: @escaping (FeaturedContentResult) -> Void) {
 		guard supportedFeaturedArticleLanguageCodes.contains(languageCode) else {
 			completion(.failure(.unsupportedLanguage))
 			return
 		}
 		
-		let featuredURL = WMFFeedContentFetcher.feedContentURL(forSiteURL: siteURL, on: date, configuration: .current)
+		var featuredURL = WMFFeedContentFetcher.feedContentURL(forSiteURL: siteURL, on: date, configuration: .current)
+		featuredURL.wmf_languageVariantCode = languageVariantCode
+		
 		let task = session.dataTask(with: featuredURL) { data, _, error in
 			if let data = data, var decoded = try? JSONDecoder().decode(WidgetFeaturedContent.self, from: data) {
 				decoded.fetchDate = Date()
