@@ -7,6 +7,7 @@ public struct WidgetFeaturedContent: Codable {
 	enum CodingKeys: String, CodingKey {
 		case featuredArticle = "tfa"
 		case fetchDate
+		case fetchedLanguageVariantCode
 	}
 
 	public struct FeaturedArticleContent: Codable {
@@ -60,7 +61,11 @@ public struct WidgetFeaturedContent: Codable {
 
 	// MARK: - Properties
 
-	public var fetchDate: Date?
 	public var featuredArticle: FeaturedArticleContent?
+
+	// MARK: - Properties - Network Fetch Metadata
+
+	public var fetchDate: Date?
+	public var fetchedLanguageVariantCode: String?
 
 }
