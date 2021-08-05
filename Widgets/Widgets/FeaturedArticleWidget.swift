@@ -39,7 +39,7 @@ struct FeaturedArticleEntry: TimelineEntry {
 	}
 
 	var title: String {
-		return content?.featuredArticle?.displayTitle ?? ""
+		return (content?.featuredArticle?.displayTitle as NSString?)?.wmf_stringByRemovingHTML() ?? ""
 	}
 
 	var description: String {
