@@ -99,17 +99,25 @@ NSString *const MWKLanguageFilterDataSourceLanguagesDidChangeNotification = @"MW
         self.filteredOtherLanguages = self.dataSource.otherLanguages;
     } else {
         unsortedFilteredLanguages = [self.dataSource.allLanguages wmf_select:^BOOL(MWKLanguageLink *langLink) {
-            return [langLink.name wmf_caseInsensitiveContainsString:self.languageFilter] || [langLink.localizedName wmf_caseInsensitiveContainsString:self.languageFilter] || [langLink.languageCode wmf_caseInsensitiveContainsString:self.languageFilter];
+            return [self langLinkMatchesFilter:langLink];
         }];
         self.filteredPreferredLanguages = [self.dataSource.preferredLanguages wmf_select:^BOOL(MWKLanguageLink *langLink) {
-            return [langLink.name wmf_caseInsensitiveContainsString:self.languageFilter] || [langLink.localizedName wmf_caseInsensitiveContainsString:self.languageFilter] || [langLink.languageCode wmf_caseInsensitiveContainsString:self.languageFilter];
+            return [self langLinkMatchesFilter:langLink];
         }];
         self.filteredOtherLanguages = [self.dataSource.otherLanguages wmf_select:^BOOL(MWKLanguageLink *langLink) {
-            return [langLink.name wmf_caseInsensitiveContainsString:self.languageFilter] || [langLink.localizedName wmf_caseInsensitiveContainsString:self.languageFilter] || [langLink.languageCode wmf_caseInsensitiveContainsString:self.languageFilter];
+            return [self langLinkMatchesFilter:langLink];
         }];
     }
         
     self.filteredLanguages = [self languagesSortedWithPreferredLanguageVariantLanguagesFirst:unsortedFilteredLanguages];
+}
+
+- (BOOL)langLinkMatchesFilter:(MWKLanguageLink *) langLink {
+    return [langLink.name wmf_caseInsensitiveContainsString:self.languageFilter] ||
+        [langLink.localizedName wmf_caseInsensitiveContainsString:self.languageFilter] ||
+        [langLink.languageCode wmf_caseInsensitiveContainsString:self.languageFilter] ||
+        // Farsi/Perisan hack: To fix https://phabricator.wikimedia.org/T107530, explicitly checking for Farsi in search box.
+        ([@"Farsi" wmf_caseInsensitiveContainsString:self.languageFilter] && [langLink.languageCode wmf_isEqualToStringIgnoringCase:@"fa"]);
 }
 
 - (void)dataSourceLanguagesDidChange:(NSNotification *)note {

@@ -891,7 +891,7 @@
 "theme-black-display-name" = "Siyah";
 "theme-dark-display-name" = "Koyu";
 "theme-default-display-name" = "Varsayılan";
-"theme-default-explanation" = "Maçlar sistem teması";
+"theme-default-explanation" = "Sistem temasıyla eşleş";
 "theme-light-display-name" = "Açık";
 "theme-sepia-display-name" = "Sepya";
 "top-read-header-generic" = "Vikipedi";

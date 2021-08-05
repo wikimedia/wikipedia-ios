@@ -25,16 +25,6 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     
     private var debugDisableImmediateSend = false
     
-
-#if WMF_EVENT_LOGGING_DEV_DEBUG
-    private static let scheme = "https"
-    private static let host = "deployment.wikimedia.beta.wmflabs.org"
-#else
-    private static let scheme = "https"
-    private static let host = "meta.wikimedia.org"
-#endif
-    private static let path = "/beacon/event"
-    
     private let session: Session
     
     private let persistentStoreCoordinator: NSPersistentStoreCoordinator
@@ -299,51 +289,30 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     }
     
     private func submit(payload: NSObject, userAgent: String, onlyWiFi: Bool, completion: @escaping (EventLoggingError?) -> Void) {
-        do {
-            let payloadJsonData = try JSONSerialization.data(withJSONObject:payload, options: [])
-            
-            guard let payloadString = String(data: payloadJsonData, encoding: .utf8) else {
-                DDLogError("EventLoggingService: Could not convert JSON data to string")
-                completion(EventLoggingError.generic)
-                return
-            }
-            
-            let encodedPayloadJsonString = payloadString.wmf_UTF8StringWithPercentEscapes()
-            var components = URLComponents()
-            components.scheme = EventLoggingService.scheme
-            components.host = EventLoggingService.host
-            components.path = EventLoggingService.path
-            components.percentEncodedQuery = encodedPayloadJsonString
-            guard let url = components.url else {
-                DDLogError("EventLoggingService: Could not creatre URL")
-                completion(EventLoggingError.generic)
-                return
-            }
-            
-            var request = URLRequest(url: url)
-            request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
-            let session = onlyWiFi ? self.session.wifiOnlyURLSession : self.session.defaultURLSession
-            let task = session.dataTask(with: request, completionHandler: { (_, response, error) in
-                guard error == nil,
-                    let httpResponse = response as? HTTPURLResponse,
-                    httpResponse.statusCode / 100 == 2 else {
-                        if let error = error as NSError?, error.domain == NSURLErrorDomain {
-                            completion(EventLoggingError.network)
-                        } else {
-                            completion(EventLoggingError.generic)
-                        }
-                        return
-                }
-                completion(nil)
-                // DDLogDebug("EventLoggingService: event \(eventRecord.objectID) posted!")
-            })
-            task.resume()
-            
-        } catch let error {
-            DDLogError(error.localizedDescription)
+        guard let url = Configuration.current.eventLoggingAPIURL(with: payload) else {
+            DDLogError("EventLoggingService: Could not create URL")
             completion(EventLoggingError.generic)
             return
         }
+        
+        var request = URLRequest(url: url)
+        request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
+        let session = onlyWiFi ? self.session.wifiOnlyURLSession : self.session.defaultURLSession
+        let task = session.dataTask(with: request, completionHandler: { (_, response, error) in
+            guard error == nil,
+                let httpResponse = response as? HTTPURLResponse,
+                httpResponse.statusCode / 100 == 2 else {
+                    if let error = error as NSError?, error.domain == NSURLErrorDomain {
+                        completion(EventLoggingError.network)
+                    } else {
+                        completion(EventLoggingError.generic)
+                    }
+                    return
+            }
+            completion(nil)
+            // DDLogDebug("EventLoggingService: event \(eventRecord.objectID) posted!")
+        })
+        task.resume()
     }
     
     // mark stored values

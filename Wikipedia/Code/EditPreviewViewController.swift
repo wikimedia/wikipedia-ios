@@ -129,8 +129,13 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
         hasPreviewed = true
         messagingController.setup(with: previewWebViewContainer.webView, languageCode: languageCode ?? "en", theme: theme, layoutMargins: articleMargins, areTablesInitiallyExpanded: true)
         WMFAlertManager.sharedInstance.showAlert(WMFLocalizedString("wikitext-preview-changes", value: "Retrieving preview of your changes...", comment: "Alert text shown when getting preview of user changes to wikitext"), sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
-        do {
-            #if WMF_LOCAL_PAGE_CONTENT_SERVICE || WMF_APPS_LABS_PAGE_CONTENT_SERVICE
+        
+        let pcsLocalAndStagingEnvironmentsCompletion: () throws -> Void = { [weak self] in
+            
+            guard let self = self else {
+                return
+            }
+            
             // If on local or staging PCS, we need to split this call. On the RESTBase server, wikitext-to-mobilehtml just puts together two other
             // calls - wikitext-to-html, and html-to-mobilehtml. Since we have html-to-mobilehtml in local/staging PCS but not the first call, if
             // we're making PCS edits to mobilehtml we need this code in order to view them. We split the call (similar to what the server dioes)
@@ -147,11 +152,37 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
                     self?.previewWebViewContainer.webView.loadHTMLString(html, baseURL: responseUrl)
                 }
             }
-            try fetcher.fetchMobileHTMLFromWikitext(articleURL: articleURL, wikitext: wikitext, mobileHTMLOutput: .editPreview, completion: completion)
-            #else
-            let request = try fetcher.wikitextToMobileHTMLPreviewRequest(articleURL: articleURL, wikitext: wikitext, mobileHTMLOutput: .editPreview)
-            previewWebViewContainer.webView.load(request)
-            #endif
+            try self.fetcher.fetchMobileHTMLFromWikitext(articleURL: self.articleURL, wikitext: self.wikitext, mobileHTMLOutput: .editPreview, completion: completion)
+        }
+        
+        let pcsProductionCompletion: () throws -> Void = { [weak self] in
+            
+            guard let self = self else {
+                return
+            }
+            
+            let request = try self.fetcher.wikitextToMobileHTMLPreviewRequest(articleURL: self.articleURL, wikitext: self.wikitext, mobileHTMLOutput: .editPreview)
+            self.previewWebViewContainer.webView.load(request)
+        }
+        
+        do {
+            let environment = Configuration.current.environment
+            switch environment {
+            case .local(let options):
+                if options.contains(.localPCS) {
+                    try pcsLocalAndStagingEnvironmentsCompletion()
+                    return
+                }
+                try pcsProductionCompletion()
+            case .staging(let options):
+                if options.contains(.appsLabsforPCS) {
+                    try pcsLocalAndStagingEnvironmentsCompletion()
+                    return
+                }
+                try pcsProductionCompletion()
+            default:
+                try pcsProductionCompletion()
+            }
         } catch {
             showGenericError()
         }

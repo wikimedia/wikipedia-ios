@@ -1,5 +1,6 @@
 // Messages for Italian (italiano)
 // Exported from translatewiki.net
+// Author: Ajeje Brazorf
 // Author: Alexmar983
 // Author: Annibale covini gerolamo
 // Author: Anto
@@ -43,6 +44,7 @@
 "aaald-article-description-updated-description" = "Descrizione della voce aggiornata";
 "aaald-article-insert-last-updated" = "Ultimo aggiornamento";
 "aaald-article-insert-new-changes" = "Nuove modifiche";
+"aaald-deleted-text-description-2" = "$1 cancellato";
 "aaald-many-sections-description" = "nelle sezioni $1";
 "aaald-new-book-reference-title" = "Libro";
 "aaald-new-discussion" = "Nuova discussione";
@@ -194,9 +196,13 @@
 "diff-context-lines-collapsed-button-title" = "Mostra";
 "diff-context-lines-expanded-button-title" = "Nascondi";
 "diff-multi-line-format" = "Righe $1 - $2";
+"diff-paragraph-moved-direction-down" = "giù";
+"diff-paragraph-moved-direction-up" = "su";
+"diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1 linea|$1 linee}}";
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 sezione|$1 sezioni}}";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 modifica|$1 modifiche}}";
 "diff-single-header-subtitle-bytes-added" = "$1 byte {{PLURAL:$1|aggiunto|aggiunti}}";
+"diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 byte rimosso|$1 byte rimossi}}";
 "diff-single-header-summary-heading" = "Oggetto della modifica";
 "diff-single-line-format" = "Riga $1";
 "diff-thanks-anonymous-no-thanks" = "Gli utenti anonimi non possono essere ringraziati";
@@ -268,7 +274,9 @@
 "explore-featured-article-sub-heading-from-wikipedia" = "Da Wikipedia";
 "explore-feed-customize-accessibility-title" = "Personalizza";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Disattivato";
+"explore-feed-preferences-feed-card-visibility-all-languages-on" = "Su tutto";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Attivo";
+"explore-feed-preferences-feed-card-visibility-languages-count" = "Su $1";
 "explore-feed-preferences-hide-card-action-title" = "Nascondi questa scheda";
 "explore-hide-card-prompt" = "Nascondi questa scheda";
 "explore-main-page-description" = "Pagina principale dei progetti Wikimedia";

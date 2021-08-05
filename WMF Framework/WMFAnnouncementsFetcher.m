@@ -13,11 +13,7 @@
         return;
     }
     
-#if WMF_LOCAL_ANNOUNCEMENTS
-    NSURL *url = [WMFConfiguration.localWikiFeeds wikiFeedsAPIURLForURL:siteURL appendingPathComponents:@[@"feed", @"announcements"]];
-#else
-    NSURL *url = [self.configuration wikiFeedsAPIURLForURL:siteURL appendingPathComponents:@[@"feed", @"announcements"]];
-#endif
+    NSURL *url = [self.configuration announcementsAPIURLForURL:siteURL appendingPathComponents:@[@"feed", @"announcements"]];
     [self.session getJSONDictionaryFromURL:url ignoreCache:YES completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             failure(error);

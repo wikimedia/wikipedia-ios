@@ -389,7 +389,7 @@ struct TopReadOverlayView: View {
         VStack(alignment: .leading, spacing: 5) {
             Text(TopReadWidget.LocalizedStrings.widgetTitle)
                 .font(.caption2)
-                .fontWeight(.heavy)
+                .fontWeight(.bold)
                 .aspectRatio(contentMode: .fit)
                 .foregroundColor(primaryTextColor)
                 .readableShadow(intensity: isExpandedStyle ? 0 : 0.8)

@@ -11,6 +11,7 @@
 // Author: Jack Phoenix
 // Author: Joquliina
 // Author: Laurianttila
+// Author: MITO
 // Author: McSalama
 // Author: Mediawikitranslator
 // Author: Nemo bis
@@ -319,6 +320,7 @@
 "empty-no-feed-message" = "Näet suositellut artikkelisi kun sinulla on Internet-yhteys";
 "empty-no-history-message" = "Pidä kirjaa lukemistasi artikkeleista";
 "empty-no-history-title" = "Ei näytettävää historiaa";
+"empty-no-other-article-languages-title" = "Muita kieliä ei saatavilla";
 "empty-no-reading-lists-message" = "Luo lukulistoja matkustettaville paikoille, suosikkiartikkeleille ja paljon enemmän";
 "empty-no-reading-lists-title" = "Järjestä tallennetut artikkelit lukulistoilla";
 "empty-no-saved-pages-in-reading-list-message" = "Tallenna sivuja tähän listaan nähdäksesi ne täällä";
