@@ -76,16 +76,21 @@ Increment the app version minor
 fastlane ios bump_major
 ```
 Increment the app version major
+### ios change_version
+```
+fastlane ios change_version
+```
+Change version number and create PR with changes
 ### ios tag
 ```
 fastlane ios tag
 ```
-Add a release tag for the latest beta and push to repo.
+Add a build tag for the current build number and push to repo. While this tags a build, tag_release sets a release tag.
 ### ios tag_release
 ```
 fastlane ios tag_release
 ```
-Add a release tag for the latest beta and push to repo.
+Add a release tag for the latest beta and push to repo. For tagging non-releases, use `tag`.
 ### ios build
 ```
 fastlane ios build
@@ -119,6 +124,11 @@ fastlane ios get_latest_tag_with_prefix
 ### ios get_latest_build_number
 ```
 fastlane ios get_latest_build_number
+```
+
+### ios get_recent_commits
+```
+fastlane ios get_recent_commits
 ```
 
 ### ios push

@@ -1,6 +1,7 @@
 // Messages for Korean (한국어)
 // Exported from translatewiki.net
 // Author: Alex00728
+// Author: Apzp79
 // Author: Bluemersen
 // Author: CYAN
 // Author: Codenstory
@@ -185,8 +186,7 @@
 "button-skip" = "건너뛰기";
 "cancel" = "취소";
 "cc-zero" = "크리에이티브 커먼즈 CC0";
-// Fuzzy
-"chinese-variants-alert-body" = "이제 위키백과 앱에서 아래의 중국어 변이형을 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 변이형으로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\n简体 중국어 간체 (zh-hans)\n香港繁體 홍콩 (zh-hk)\n澳門繁體 마카오 번체 (zh-mo)\n大马简体 말레이시아 간체 (zh-my)\n新加坡简体 싱가포르 간체 (zh-sg)\n臺灣正體 대만 번체 (zh-tw)";
+"chinese-variants-alert-body" = "이제 위키백과 앱에서 아래에 표기한 여러 종류의 중국어를 주 언어나 보조 언어로 설정할 수 있으며, 이를 통해 선호하는 중국어로 문서의 열람, 검색, 편집 작업을 쉽게 할 수 있습니다.\n\n简体 중국어 간체 (zh-hans)\n香港繁體 홍콩 번체 (zh-hk)\n澳門繁體 마카오 번체 (zh-mo)\n大马简体 말레이시아 간체 (zh-my)\n新加坡简体 싱가포르 간체 (zh-sg)\n臺灣正體 대만 정체 (zh-tw)";
 "chinese-variants-alert-title" = "중국어 변이형 지원 업데이트";
 "clear-title-accessibility-label" = "지우기";
 "close-button-accessibility-label" = "닫기";
@@ -207,6 +207,7 @@
 "description-edit-publish" = "설명 게시";
 "description-edit-title" = "설명 편집";
 "description-edit-warning" = "사용자가 문서의 주제를 바로 이해할 수 있도록 설명은 간결하게 작성하십시오";
+"description-edit-warning-casing" = "문장 시작이라 하여도, 고유명사만 대문자로 표기해야 합니다.";
 "description-help-about-description" = "문서 설명은 독자들이 한눈에 주제를 파악할 수 있도록 글을 요약합니다.";
 "description-help-about-title" = "정보";
 "description-help-about-wikidata" = "위키데이터 정보";

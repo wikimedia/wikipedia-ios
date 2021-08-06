@@ -49,11 +49,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Виконано %1$d мале редагування</string>
+			<string>Виконано %1$d незначне редагування</string>
 			<key>other</key>
-			<string>Виконано %1$d малих редагувань</string>
+			<string>Виконано %1$d незначних редагувань</string>
 			<key>zero</key>
-			<string>Не виконано жодних малих редагувань</string>
+			<string>Не виконано жодних незначних редагувань</string>
 		</dict>
 	</dict>
 	<key>aaald-summary-title</key>

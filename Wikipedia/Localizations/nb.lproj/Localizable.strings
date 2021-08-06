@@ -169,8 +169,7 @@
 "button-skip" = "Hopp over";
 "cancel" = "Avbryt";
 "cc-zero" = "Creative Commons CC0";
-// Fuzzy
-"chinese-variants-alert-body" = "Wikipedia-appen støtter nå følgende kinesiske varianter som primær- eller sekundærspråk i appen, noe som gjør det enklere å lese, søke i eller redigere på dine foretrukne varianter:\n\n简体 Forenklet kinesisk (zh-hans)\n香港繁體 Tradisjonell Hongkong-kinesisk (zh-hk)\n澳門繁體 Tradisjonell Macao-kinesisk (zh-mo)\n大马简体 Forenklet Malaysia-kinesisk (zh-my)\n新加坡简体 Forenklet Signapore-kinesisk (zh-sg)\n臺灣正體 Tradisjonell Taiwan-kinesisk (zh-tw)";
+"chinese-variants-alert-body" = "Wikipedia-appen støtter nå følgende kinesiske varianter som primær- eller sekundærspråk, noe som gjør det enklere å lese, søke i eller redigere på dine foretrukne varianter:\n\n简体 Forenklet kinesisk (zh-hans)\n香港繁體 Tradisjonell Hongkong-kinesisk (zh-hk)\n澳門繁體 Tradisjonell Macao-kinesisk (zh-mo)\n大马简体 Forenklet Malaysia-kinesisk (zh-my)\n新加坡简体 Forenklet Signapore-kinesisk (zh-sg)\n臺灣正體 Tradisjonell Taiwan-kinesisk (zh-tw)";
 "chinese-variants-alert-title" = "Oppdateringer i støtte for kinesiske varianter";
 "clear-title-accessibility-label" = "Tøm";
 "close-button-accessibility-label" = "Lukk";
@@ -323,6 +322,8 @@
 "empty-no-feed-message" = "Du kan se de anbefalte artiklene dine når du ikke har internett";
 "empty-no-history-message" = "Her kan du holde styr på hva du har lest";
 "empty-no-history-title" = "Ingen historikk å vise";
+"empty-no-other-article-languages-message" = "Denne artikkelen har foreløpig ikke blitt skrevet på noe annet språk";
+"empty-no-other-article-languages-title" = "Ingen andre språk tilgjengelig";
 "empty-no-reading-lists-message" = "Opprett lister for steder du vil reise til, favorittemner og mye mer";
 "empty-no-reading-lists-title" = "Organiser lagrede artikler i leselister";
 "empty-no-saved-pages-in-reading-list-message" = "Lagre sider i denne listen og de vil dukke opp her";

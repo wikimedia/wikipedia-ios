@@ -16,20 +16,22 @@ public final class WidgetContentFetcher {
 
 	public static let shared = WidgetContentFetcher()
 
-	let session = URLSession.shared
+	let session = Session(configuration: .current)
 
 	// From supported language list at https://www.mediawiki.org/wiki/Wikifeeds
 	private let supportedFeaturedArticleLanguageCodes = ["bg", "bn", "bs", "cs", "de", "el", "en", "fa", "he", "hu", "ja", "la", "no", "sco", "sd", "sv", "ur", "vi", "zh"]
 
 	// MARK: - Public - Featured Article Widget
 
-	public func fetchFeaturedContent(forDate date: Date, siteURL: URL, languageCode: String, completion: @escaping (FeaturedContentResult) -> Void) {
+	public func fetchFeaturedContent(forDate date: Date, siteURL: URL, languageCode: String, languageVariantCode: String? = nil, completion: @escaping (FeaturedContentResult) -> Void) {
 		guard supportedFeaturedArticleLanguageCodes.contains(languageCode) else {
 			completion(.failure(.unsupportedLanguage))
 			return
 		}
 		
-		let featuredURL = WMFFeedContentFetcher.feedContentURL(forSiteURL: siteURL, on: date, configuration: .current)
+		var featuredURL = WMFFeedContentFetcher.feedContentURL(forSiteURL: siteURL, on: date, configuration: .current)
+		featuredURL.wmf_languageVariantCode = languageVariantCode
+		
 		let task = session.dataTask(with: featuredURL) { data, _, error in
 			if let data = data, var decoded = try? JSONDecoder().decode(WidgetFeaturedContent.self, from: data) {
 				decoded.fetchDate = Date()
@@ -39,7 +41,12 @@ public final class WidgetContentFetcher {
 			}
 		}
 
-		task.resume()
+		guard let dataTask = task else {
+			completion(.failure(.urlFailure))
+			return
+		}
+
+		dataTask.resume()
 	}
 
 	public func fetchImageDataFrom(imageSource: WidgetFeaturedContent.FeaturedArticleContent.ImageSource, completion: @escaping (Result<Data, FetcherError>) -> Void) {
@@ -56,7 +63,12 @@ public final class WidgetContentFetcher {
 			}
 		}
 
-		task.resume()
+		guard let dataTask = task else {
+			completion(.failure(.urlFailure))
+			return
+		}
+
+		dataTask.resume()
 	}
 
 }

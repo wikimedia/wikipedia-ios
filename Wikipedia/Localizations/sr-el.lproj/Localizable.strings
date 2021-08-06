@@ -1,5 +1,6 @@
 // Messages for Serbian (Latin script) (srpski (latinica)‎)
 // Exported from translatewiki.net
+// Author: BadDog
 // Author: Kizule
 // Author: Milicevic01
 
@@ -683,6 +684,8 @@
 "search-recent-title" = "Nedavne pretrage";
 "search-result-redirected-from" = "Preusmereno sa: $1";
 "search-title" = "Pretraga";
+"serbian-variants-alert-body" = "Aplikacija Vikipedija odsad podržava sledeće varijante srpskog jezika kao glavne ili sporedne jezike olakšavajući čitanje, pretraživanje i uređivanje u željenim varijantama:\n\nsrpski ćirilica (sr-ec)\nsrpski latinica (sr-el)";
+"serbian-variants-alert-title" = "Ažuriranja podrške za varijante srpskog jezika";
 "settings-account" = "Nalog";
 "settings-appearance" = "Podešavanja za čitanje";
 "settings-clear-cache" = "Brisanje keširanih podataka";

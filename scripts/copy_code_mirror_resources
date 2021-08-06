@@ -1,0 +1,12 @@
+#!/bin/bash
+# Copies CodeMirror/resources files into Wikipedia/assets
+
+DEST=../Wikipedia/assets/codemirror
+SOURCE=../CodeMirror/wikipedia-ios-codemirror/resources
+
+if [ "$(ls -A $SOURCE)" ]; then
+   rm -rf $DEST/resources
+   cp -r $SOURCE $DEST
+else
+   echo "$SOURCE is empty, be sure to run update_submodules script to pull codemirror submodule"
+fi

@@ -6,6 +6,7 @@
 // Author: A2B4C
 // Author: Angrydog001
 // Author: Chixvv
+// Author: Crowley666
 // Author: Cwek
 // Author: Davidzdh
 // Author: Endermoon
@@ -203,8 +204,8 @@
 "compass-direction" = "$1点钟";
 "continue-reading-empty-description" = "探索维基百科阅读更多条目";
 "continue-reading-empty-title" = "没有最近阅读的条目";
-"crimean-tatar-variants-alert-body" = "维基百科应用现在支持以下克里米亚塔塔尔语变体作为应用程序中的主要语言或次要语言，从而使您更易于阅读，搜索和编辑您喜欢的变体形式：\n\nQırımtatarca, Latin Crimean Tatar Latin (chr-latn)\nкъырымтатарджа, Кирил Crimean Tatar Cyrillic (crh-cyrl)";
-"crimean-tatar-variants-alert-title" = "更新克里米亚塔塔尔语变体支持";
+"crimean-tatar-variants-alert-body" = "维基百科应用现在支持以下克里米亚鞑靼语变体作为应用程序中的主要语言或次要语言，从而使您更易于阅读，搜索和编辑您喜欢的变体形式：\n\nQırımtatarca, Latin Crimean Tatar Latin (chr-latn)\nкъырымтатарджа, Кирил Crimean Tatar Cyrillic (crh-cyrl)";
+"crimean-tatar-variants-alert-title" = "更新克里米亚鞑靼语变体支持";
 "data-migration-status" = "正在更新...";
 "description-add-title" = "添加描述";
 "description-edit-for-article" = "$1的条目描述";

@@ -117,6 +117,7 @@ final class NavigationStateController: NSObject {
                 newNavigationController = themeableNavigationController
             case (.settings, _):
                 let settingsVC = WMFSettingsViewController(dataStore: dataStore)
+                navigationController.interactivePopGestureRecognizer?.delegate = nil
                 pushOrPresent(settingsVC, navigationController: navigationController, presentation: viewController.presentation)
             case (.account, _):
                 let accountVC = AccountViewController()
