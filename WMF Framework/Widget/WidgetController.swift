@@ -8,8 +8,9 @@ public final class WidgetController: NSObject {
     // MARK: Nested Types
 
     public enum SupportedWidget: String {
-        case pictureOfTheDay = "org.wikimedia.wikipedia.widgets.potd"
+        case featuredArticle = "org.wikimedia.wikipedia.widgets.featuredArticle"
         case onThisDay = "org.wikimedia.wikipedia.widgets.onThisDay"
+        case pictureOfTheDay = "org.wikimedia.wikipedia.widgets.potd"
         case topRead = "org.wikimedia.wikipedia.widgets.topRead"
 
         public var identifier: String {
@@ -27,6 +28,14 @@ public final class WidgetController: NSObject {
         guard #available(iOS 14.0, *), !Bundle.main.isAppExtension else {
             return
         }
+
+        let dataStore = MWKDataStore.shared()
+        let appLanguage = dataStore.languageLinkController.appLanguage
+        if let siteURL = appLanguage?.siteURL, let languageCode = appLanguage?.languageCode {
+            let updatedWidgetSettings = WidgetSettings(siteURL: siteURL, languageCode: languageCode, languageVariantCode: appLanguage?.languageVariantCode)
+            updateCacheWith(settings: updatedWidgetSettings)
+        }
+
         WidgetCenter.shared.reloadAllTimelines()
 	}
     
@@ -166,4 +175,98 @@ public final class WidgetController: NSObject {
     }
     #endif
     
+}
+
+/// When the old widget data loading model is removed, this should be moved out of this extension into the class itself and refactored (e.g. the properties here don't need to be computed).
+public extension WidgetController {
+
+    // MARK: - Properties
+
+    fileprivate var widgetCacheDirectoryContainerURL: URL {
+        FileManager.default.wmf_containerURL()
+    }
+
+    fileprivate var widgetCacheDataFileURL: URL {
+        return widgetCacheDirectoryContainerURL.appendingPathComponent("Widget Cache").appendingPathExtension("json")
+    }
+
+    // MARK: - Widget Cache
+
+    /// Returns currently cached `WidgetCache` or an empty default
+    func loadCache() -> WidgetCache {
+        if let data = try? Data(contentsOf: widgetCacheDataFileURL), let decodedCache = try? JSONDecoder().decode(WidgetCache.self, from: data) {
+            return decodedCache
+        }
+
+        return WidgetCache(settings: .default, featuredContent: nil)
+    }
+
+    func saveCache(_ widgetCache: WidgetCache) {
+        let encoder = JSONEncoder()
+        guard let encodedCache = try? encoder.encode(widgetCache) else {
+            return
+        }
+
+        try? encodedCache.write(to: widgetCacheDataFileURL)
+    }
+
+    /// This is currently unused. It will be useful when we update the main app to also update the widget's cache when it performs any updates to the featured content in the explore feed.
+    func updateCacheWith(featuredContent: WidgetFeaturedContent) {
+        var updatedCache = loadCache()
+        updatedCache.featuredContent = featuredContent
+        saveCache(updatedCache)
+    }
+
+    func updateCacheWith(settings: WidgetSettings) {
+        var updatedCache = loadCache()
+        updatedCache.settings = settings
+        saveCache(updatedCache)
+    }
+
+    // MARK: - Featured Article Widget
+
+    func fetchFeaturedContent(isSnapshot: Bool = false, completion: @escaping (WidgetContentFetcher.FeaturedContentResult) -> Void) {
+        func performCompletion(result: WidgetContentFetcher.FeaturedContentResult) {
+            DispatchQueue.main.async {
+                completion(result)
+            }
+        }
+
+        let fetcher = WidgetContentFetcher.shared
+        var widgetCache = loadCache()
+
+        guard !isSnapshot else {
+            performCompletion(result: .success(widgetCache.featuredContent ?? WidgetFeaturedContent(featuredArticle: nil)))
+            return
+        }
+        
+        // If cached data is still relevant, use it
+        if let cachedContent = widgetCache.featuredContent, let fetchDate = cachedContent.fetchDate, Calendar.current.isDateInToday(fetchDate), let cachedLanguageCode = cachedContent.featuredArticle?.languageCode, cachedLanguageCode == widgetCache.settings.languageCode, widgetCache.settings.languageVariantCode == cachedContent.fetchedLanguageVariantCode {
+            performCompletion(result: .success(cachedContent))
+            return
+        }
+
+        // Fetch fresh feed content from network
+        fetcher.fetchFeaturedContent(forDate: Date(), siteURL: widgetCache.settings.siteURL, languageCode: widgetCache.settings.languageCode, languageVariantCode: widgetCache.settings.languageVariantCode) { result in
+            switch result {
+            case .success(var featuredContent):
+                if let featuredArticleThumbnailImageSource = featuredContent.featuredArticle?.thumbnailImageSource {
+                    fetcher.fetchImageDataFrom(imageSource: featuredArticleThumbnailImageSource) { imageResult in
+                        featuredContent.featuredArticle?.thumbnailImageSource?.data = try? imageResult.get()
+                        widgetCache.featuredContent = featuredContent
+                        self.saveCache(widgetCache)
+                        performCompletion(result: .success(featuredContent))
+                    }
+                } else {
+                    widgetCache.featuredContent = featuredContent
+                    self.saveCache(widgetCache)
+                    performCompletion(result: .success(featuredContent))
+                }
+            case .failure(let error):
+                self.saveCache(widgetCache)
+                performCompletion(result: .failure(error))
+            }
+        }
+    }
+
 }
