@@ -400,6 +400,12 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Subtext beneath the 'Random article' header when the specific language wikipedia is unknown.";
 "explore-randomizer" = "Displayed on a button that loads another random article - it's a 'Randomizer'";
 "featured-article-empty-title" = "Title that displays when featured article is not available";
+"featured-widget-content-failure-for-date" = "Text displayed when Featured article is not available on the current date.";
+"featured-widget-description" = "Text for description of Featured article widget displayed when adding to home screen.";
+"featured-widget-from-language-wikipedia" = "Text displayed as Wikipedia source on Featured article widget. $1 will be replaced with the language.";
+"featured-widget-from-wikipedia" = "Text displayed as Wikipedia source on Featured article widget if language is unavailable.";
+"featured-widget-language-failure" = "Error message shown when the user's primary language Wikipedia does not support the 'Featured article' feature.";
+"featured-widget-title" = "Text for title of Featured article widget.";
 "feed-news-notification-button-text" = "Text for button to turn on trending news notifications";
 "feed-news-notification-text" = "Text shown to users to notify them that it is now possible to get notifications for articles related to trending news";
 "fetcher-error-generic" = "Error shown to the user for generic errors with no clear recovery steps for the user.";
@@ -552,6 +558,8 @@
 "on-this-day-detail-header-title" = "Title for 'On this day' detail view - $1 is replaced with the number of historical events which occurred on the given day";
 "on-this-day-footer" = "Footer for presenting user option to see longer list of 'On this day' articles. $1 will be substituted with the number of events";
 "on-this-day-footer-showing-event-count" = "Footer for presenting user option to see longer list of 'On this day' articles. $1 will be substituted with the number of events";
+"on-this-day-language-does-not-support-error" = "Error message shown when the user's primary language Wikipedia does not have the 'On this day' feature.";
+"on-this-day-no-internet-error" = "error message shown when device is not connected to internet";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "Subtext beneath the 'On this day' header when describing the date and which specific Wikipedia. $1 will be substituted with the date. $2 will be replaced with the language - for example, 'June 8th from English Wikipedia'";
 "on-this-day-title" = "Title for the 'On this day' feed section";
 "original-tab-button-popover-description" = "Description for popover explaining the 'W' icon may be tapped to return to the original tab.";
@@ -616,6 +624,9 @@
 "places-unknown-distance" = "Indicates that a place is an unknown distance away";
 "potd-description-prefix" = "Prefix to picture of the day description which states it was the picture of the day for a specific date. The $1 token is subtituted for the date.";
 "potd-empty-error-description" = "Error message when app fails to download Commons Picture of the Day. $1 will be substitued with the date which the app attempted to retrieve.";
+"potd-sample-entry-description" = "Text for sample entry image caption. It is displayed when app is unable to fetch Picture of the day data.";
+"potd-widget-description" = "Text for description of Picture of the day widget displayed when adding to home screen.";
+"potd-widget-title" = "Text for title of Picture of the day widget.";
 "preference-summary-eventlogging-opt-in" = "Description of preference that when checked enables data collection of user behavior.";
 "preference-title-eventlogging-opt-in" = "Title of preference that when checked enables data collection of user behavior.";
 "rank-accessibility-label" = "Accessibility label read aloud to sight impared users to indicate a ranking - Number 1, Number 2, etc. $1 is replaced with the ranking {{Identical|Number}}";
@@ -856,6 +867,9 @@
 "top-read-header-generic" = "Wikipedia {{Identical|Wikipedia}}";
 "top-read-header-with-language" = "$1 Wikipedia - for example English Wikipedia {{Identical|Wikipedia}}";
 "top-read-see-more" = "Text for footer button allowing the user to see more top read articles";
+"top-read-widget-description" = "Text for description of top read widget displayed when adding to home screen.";
+"top-read-widget-readers-count" = "Text for displaying the number of readers an article has in the top read widget. $1 is replaced with the number of readers.";
+"top-read-widget-title" = "Text for title of Top read widget.";
 "two-factor-login-continue" = "Button text for finishing two factor login";
 "two-factor-login-instructions" = "Instructions for two factor login interface";
 "two-factor-login-title" = "Title for two factor login interface";
@@ -892,6 +906,9 @@
 "welcome-send-data-learn-more" = "Text for link for learning more about opting-in to anonymous data collection";
 "welcome-send-data-sub-title" = "Sub-title explaining how sending usage reports can help improve the app";
 "welcome-volunteer-send-usage-reports" = "Text for switch allowing user to choose whether to send usage reports";
+"widget-onthisday-description" = "Description for 'On this day' view in iOS widget gallery";
+"widget-onthisday-placeholder-article-snippet" = "Placeholder text for On This Day widget: Article description for an article about Wikipedia";
+"widget-onthisday-placeholder-event-snippet" = "Placeholder text for On This Day widget: Event describing launch of Wikipedia";
 "wikitext-downloading" = "Alert text shown when obtaining latest revision of the section being edited";
 "wikitext-preview-changes" = "Alert text shown when getting preview of user changes to wikitext";
 "wikitext-preview-changes-none" = "Alert text shown if no changes were made to be previewed.";

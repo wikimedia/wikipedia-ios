@@ -132,6 +132,12 @@
 		004281C925E6EFC4004945B3 /* LSStubResponseDSL.m in Sources */ = {isa = PBXBuildFile; fileRef = 004281AE25E6EFC4004945B3 /* LSStubResponseDSL.m */; };
 		004281CA25E6EFC4004945B3 /* LSStubRequestDSL.m in Sources */ = {isa = PBXBuildFile; fileRef = 004281AF25E6EFC4004945B3 /* LSStubRequestDSL.m */; };
 		0062597324DE0A2500C95037 /* WidgetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0062597224DE0A2500C95037 /* WidgetController.swift */; };
+		006694FC265D9F2900E23AE4 /* WidgetSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006694FB265D9F2900E23AE4 /* WidgetSettings.swift */; };
+		006694FE265D9F3A00E23AE4 /* WidgetCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006694FD265D9F3A00E23AE4 /* WidgetCache.swift */; };
+		00669500265DA01000E23AE4 /* WidgetContentFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006694FF265DA01000E23AE4 /* WidgetContentFetcher.swift */; };
+		00669505265DA3D300E23AE4 /* FeaturedArticleWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00669504265DA3D300E23AE4 /* FeaturedArticleWidget.swift */; };
+		00669507265DAB7800E23AE4 /* FeaturedArticleWidget+LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00669506265DAB7800E23AE4 /* FeaturedArticleWidget+LocalizedStrings.swift */; };
+		0066BE30265EC4A900512BE8 /* WidgetFeaturedContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0066BE2F265EC4A900512BE8 /* WidgetFeaturedContent.swift */; };
 		006D273524D8BAFB00947551 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D273424D8BAFB00947551 /* View+Extensions.swift */; };
 		006D273724D8D8D100947551 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D273624D8D8D100947551 /* Date+Extensions.swift */; };
 		00841DE524477805003CF74A /* AppTabBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE891452445150B0058B642 /* AppTabBarDelegate.swift */; };
@@ -3523,6 +3529,12 @@
 		004281B025E6EFC4004945B3 /* LSHTTPRequestDSLRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSHTTPRequestDSLRepresentation.h; sourceTree = "<group>"; };
 		004281B125E6EFC4004945B3 /* LSStubResponseDSL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSStubResponseDSL.h; sourceTree = "<group>"; };
 		0062597224DE0A2500C95037 /* WidgetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetController.swift; sourceTree = "<group>"; usesTabs = 0; };
+		006694FB265D9F2900E23AE4 /* WidgetSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSettings.swift; sourceTree = "<group>"; };
+		006694FD265D9F3A00E23AE4 /* WidgetCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetCache.swift; sourceTree = "<group>"; };
+		006694FF265DA01000E23AE4 /* WidgetContentFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetContentFetcher.swift; sourceTree = "<group>"; };
+		00669504265DA3D300E23AE4 /* FeaturedArticleWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedArticleWidget.swift; sourceTree = "<group>"; };
+		00669506265DAB7800E23AE4 /* FeaturedArticleWidget+LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeaturedArticleWidget+LocalizedStrings.swift"; sourceTree = "<group>"; };
+		0066BE2F265EC4A900512BE8 /* WidgetFeaturedContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetFeaturedContent.swift; sourceTree = "<group>"; };
 		006D273424D8BAFB00947551 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; usesTabs = 0; };
 		006D273624D8D8D100947551 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; usesTabs = 0; };
 		00A7946A245CA4E60063BA18 /* ArticleSurveyTimerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSurveyTimerController.swift; sourceTree = "<group>"; usesTabs = 0; };
@@ -5258,9 +5270,11 @@
 		00021DFE24D48F2200476F97 /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
-				00021E0324D4A42A00476F97 /* PictureOfTheDayWidget.swift */,
+				00669504265DA3D300E23AE4 /* FeaturedArticleWidget.swift */,
+				00669506265DAB7800E23AE4 /* FeaturedArticleWidget+LocalizedStrings.swift */,
 				FF9416D724E203030070FEE7 /* OnThisDayWidget.swift */,
 				FF9416DD24E2098C0070FEE7 /* OnThisDayView.swift */,
+				00021E0324D4A42A00476F97 /* PictureOfTheDayWidget.swift */,
 				002AB86F250BEFBE00ADAC87 /* PictureOfTheDayWidget+LocalizedStrings.swift */,
 				0033D79824F818EC00CAB5B3 /* TopReadWidget.swift */,
 				0033D79724F818EB00CAB5B3 /* TopReadWidget+LocalizedStrings.swift */,
@@ -5571,6 +5585,26 @@
 				004281B125E6EFC4004945B3 /* LSStubResponseDSL.h */,
 			);
 			path = DSL;
+			sourceTree = "<group>";
+		};
+		006694FA265D9ECD00E23AE4 /* Widget */ = {
+			isa = PBXGroup;
+			children = (
+				00669503265DA10B00E23AE4 /* Models */,
+				0062597224DE0A2500C95037 /* WidgetController.swift */,
+				006694FF265DA01000E23AE4 /* WidgetContentFetcher.swift */,
+			);
+			path = Widget;
+			sourceTree = "<group>";
+		};
+		00669503265DA10B00E23AE4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				006694FD265D9F3A00E23AE4 /* WidgetCache.swift */,
+				006694FB265D9F2900E23AE4 /* WidgetSettings.swift */,
+				0066BE2F265EC4A900512BE8 /* WidgetFeaturedContent.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		006D273324D8BAE500947551 /* Utilities */ = {
@@ -8467,7 +8501,7 @@
 				D8733C911ECA16580011E379 /* UIView+SemanticContent.swift */,
 				0E28C4641D74AAB0000C5919 /* User DataStore */,
 				D8FA18A91E1BD84D009675C3 /* Utilities */,
-				0062597224DE0A2500C95037 /* WidgetController.swift */,
+				006694FA265D9ECD00E23AE4 /* Widget */,
 				B0E8072D1C0CED810065EBC0 /* WikipediaAppUtils.h */,
 				B0E8072E1C0CED810065EBC0 /* WikipediaAppUtils.m */,
 				D84C36511F33866C00895FA1 /* WMF Framework.xcassets */,
@@ -10330,6 +10364,7 @@
 				00021DE824D48EFD00476F97 /* Widgets.swift in Sources */,
 				0033D79A24F818EC00CAB5B3 /* TopReadWidget.swift in Sources */,
 				0033D79E24F8193900CAB5B3 /* CGPoint+Extensions.swift in Sources */,
+				00669507265DAB7800E23AE4 /* FeaturedArticleWidget+LocalizedStrings.swift in Sources */,
 				0033D79924F818EC00CAB5B3 /* TopReadWidget+LocalizedStrings.swift in Sources */,
 				006D273724D8D8D100947551 /* Date+Extensions.swift in Sources */,
 				FF9416D824E203030070FEE7 /* OnThisDayWidget.swift in Sources */,
@@ -10337,6 +10372,7 @@
 				0033D79D24F8193900CAB5B3 /* UIColor+Extensions.swift in Sources */,
 				006D273524D8BAFB00947551 /* View+Extensions.swift in Sources */,
 				0033D7A124F8199300CAB5B3 /* Sparkline.swift in Sources */,
+				00669505265DA3D300E23AE4 /* FeaturedArticleWidget.swift in Sources */,
 				00021E0424D4A42A00476F97 /* PictureOfTheDayWidget.swift in Sources */,
 				002AB870250BEFBE00ADAC87 /* PictureOfTheDayWidget+LocalizedStrings.swift in Sources */,
 			);
@@ -11087,6 +11123,7 @@
 				D84B22521DAFD1E1007C44AA /* CIContext+WMFImageProcessing.m in Sources */,
 				D81A28BE231E8F4C001CC77D /* ExtensionViewController.swift in Sources */,
 				8330531F23EF051900123141 /* NSArray+WMFMapping.m in Sources */,
+				006694FC265D9F2900E23AE4 /* WidgetSettings.swift in Sources */,
 				0E728D1D1DAEE2B50074EB4B /* WMFFeedTopReadResponse.m in Sources */,
 				7A0312FF215422960095C953 /* RemoteNotificationsMarkAsReadOperation.swift in Sources */,
 				B0B4237A1F0211AB00D3DC4C /* WMFFeedArticlePreview+DescriptionOrSnippet.swift in Sources */,
@@ -11176,6 +11213,7 @@
 				D8EBD1B81FBB13EE00AA7DA9 /* ReadingList+JSON.swift in Sources */,
 				D84C36201F32404700895FA1 /* OnThisDayExploreCollectionViewCell.swift in Sources */,
 				D84C361C1F32403D00895FA1 /* OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
+				0066BE30265EC4A900512BE8 /* WidgetFeaturedContent.swift in Sources */,
 				7A0312FB215402FD0095C953 /* RemoteNotificationsFetchOperation.swift in Sources */,
 				D82C3A99213451100073EEAC /* DeviceInfo.swift in Sources */,
 				6773B2022411D8600022A70E /* ArticleCacheDBWriter+SyncResources.swift in Sources */,
@@ -11195,6 +11233,7 @@
 				D844D9B51D6CB77D0042D692 /* MWKSavedPageList.m in Sources */,
 				D84C35F31F323CD100895FA1 /* ArticleFullWidthImageCollectionViewCell.swift in Sources */,
 				83222DB41F8E554800338BE5 /* WMFContent+CoreDataProperties.m in Sources */,
+				006694FE265D9F3A00E23AE4 /* WidgetCache.swift in Sources */,
 				0042808F25E6E395004945B3 /* NSDictionary+MTLJSONKeyPath.m in Sources */,
 				83E9A2121F56FE5E006EB091 /* FakeProgressController.swift in Sources */,
 				D84C36441F3245E600895FA1 /* WMFContentGroup+WMFFeedContentDisplaying.m in Sources */,
@@ -11228,6 +11267,7 @@
 				0E87683B1DDE00D600B8CACD /* WMFAnnouncementsFetcher.m in Sources */,
 				67DAEDA123CD1BC9003AA208 /* CacheGatekeeper.swift in Sources */,
 				D881B1131E32874500D33F62 /* WMFArticle+QuadKey.swift in Sources */,
+				00669500265DA01000E23AE4 /* WidgetContentFetcher.swift in Sources */,
 				D8E78FA61FB4C8740094B968 /* Session.swift in Sources */,
 				D8FA18D51E1BD891009675C3 /* NSError+WMFExtensions.m in Sources */,
 				8320332322B906A0004A9EDA /* NavigationState.swift in Sources */,
