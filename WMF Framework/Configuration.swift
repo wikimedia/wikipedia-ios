@@ -12,6 +12,7 @@ public class Configuration: NSObject {
 
         public static let appsLabsforPCS = StagingOptions(rawValue: 1 << 0)
         public static let deploymentLabsForEventLogging = StagingOptions(rawValue: 1 << 1)
+        public static let betaCluster = StagingOptions(rawValue: 1 << 2) //note, this will force beta cluster for PCS (thus ignoring an appsLabsforPCS value if also set) and force deploymentLabsForEventLogging
         
         public init(rawValue: Int) {
             self.rawValue = rawValue
@@ -41,7 +42,7 @@ public class Configuration: NSObject {
         #if WMF_LOCAL
         return Configuration.local(options: [.localPCS, .localAnnouncements])
         #elseif WMF_STAGING
-        return Configuration.staging(options: [.appsLabsforPCS])
+        return Configuration.staging(options: [.betaCluster])
         #else
         return .production
         #endif
@@ -69,13 +70,14 @@ public class Configuration: NSObject {
     
     private static func staging(options: StagingOptions) -> Configuration {
         
-        let pcsApiType: APIURLComponentsBuilder.RESTBase.BuilderType = options.contains(.appsLabsforPCS) ? .stagingAppsLabsPCS : .production
+        let defaultSiteDomain = options.contains(.betaCluster) ? Domain.betaLabs : Domain.wikipedia
+        let pcsApiType: APIURLComponentsBuilder.RESTBase.BuilderType = options.contains(.appsLabsforPCS) && !options.contains(.betaCluster) ? .stagingAppsLabsPCS : .production
         let eventLoggingApiType: APIURLComponentsBuilder.EventLogging
-            .BuilderType = options.contains(.deploymentLabsForEventLogging) ? .staging : .production
+            .BuilderType = options.contains(.deploymentLabsForEventLogging) || options.contains(.betaCluster) ? .staging : .production
         
         return Configuration(
             environment: .staging(options),
-            defaultSiteDomain: Domain.wikipedia,
+            defaultSiteDomain: defaultSiteDomain,
             pageContentServiceAPIType: pcsApiType,
             feedContentAPIType: .production,
             announcementsAPIType: .production,
