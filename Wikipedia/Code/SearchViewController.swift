@@ -17,6 +17,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         view.bringSubviewToFront(resultsViewController.view)
         resultsViewController.view.isHidden = true
         useNavigationBarVisibleHeightForScrollViewInsets = true
+        handleBecomingFirstResponderAfterTappingOnSearchTab()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -402,6 +403,23 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     lazy var fakeProgressController: FakeProgressController = {
         return FakeProgressController(progress: navigationBar, delegate: navigationBar)
     }()
+    
+    // MARK - Tab bar related
+    
+    private func handleBecomingFirstResponderAfterTappingOnSearchTab() {
+        guard let tabBarItemView = tabBarItem.value(forKey: "view") as? UIView else {
+            return
+        }
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapOnTabBarItem))
+        tapGestureRecognizer.cancelsTouchesInView = false
+        tabBarItemView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc func handleTapOnTabBarItem() {
+        if tabBarController?.selectedViewController is Self {
+            searchBar.becomeFirstResponder()
+        }
+    }
     
     // MARK - Recent Search Saving
     
