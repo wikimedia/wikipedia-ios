@@ -256,6 +256,7 @@
 		670AF19026BDE6E7005F76D0 /* EmptyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 671F5E0A236B8CAF00111116 /* EmptyViewController.xib */; };
 		670AF19126BDE6E8005F76D0 /* EmptyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 671F5E0A236B8CAF00111116 /* EmptyViewController.xib */; };
 		670AF19226BDE6E9005F76D0 /* EmptyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 671F5E0A236B8CAF00111116 /* EmptyViewController.xib */; };
+		670AF19F26C1CA38005F76D0 /* EchoSubscriptionFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670AF19A26C1CA38005F76D0 /* EchoSubscriptionFetcher.swift */; };
 		670F765F22B0C10600D87545 /* FakeProgressLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670F765E22B0C10600D87545 /* FakeProgressLoading.swift */; };
 		670F766022B0C48E00D87545 /* FakeProgressLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670F765E22B0C10600D87545 /* FakeProgressLoading.swift */; };
 		670F766122B0C48F00D87545 /* FakeProgressLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670F765E22B0C10600D87545 /* FakeProgressLoading.swift */; };
@@ -3644,6 +3645,7 @@
 		6706A21822927D63004774E2 /* TalkPageHintViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageHintViewController.swift; sourceTree = "<group>"; };
 		6707C031237DBCEA0017E7B6 /* DiffRevisionTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffRevisionTransition.swift; sourceTree = "<group>"; };
 		6707C037237F0A6E0017E7B6 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
+		670AF19A26C1CA38005F76D0 /* EchoSubscriptionFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EchoSubscriptionFetcher.swift; sourceTree = "<group>"; };
 		670F765E22B0C10600D87545 /* FakeProgressLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeProgressLoading.swift; sourceTree = "<group>"; };
 		67146031243B885E008CE885 /* SurveyAnnouncementsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyAnnouncementsController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		67146033243B8B4F008CE885 /* AnnouncementType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementType.swift; sourceTree = "<group>"; };
@@ -8743,6 +8745,7 @@
 				83E9C45A2419193C006BDBC2 /* WikipediaSiteInfo.swift */,
 				D85F56A1219C45C900AF3E13 /* URLComponents+Extensions.swift */,
 				835A042C223AD63000D4D758 /* ArticleSummaryController.swift */,
+				670AF19A26C1CA38005F76D0 /* EchoSubscriptionFetcher.swift */,
 			);
 			name = Controllers;
 			path = ../Wikipedia/Code;
@@ -11155,6 +11158,7 @@
 				8330531F23EF051900123141 /* NSArray+WMFMapping.m in Sources */,
 				006694FC265D9F2900E23AE4 /* WidgetSettings.swift in Sources */,
 				0E728D1D1DAEE2B50074EB4B /* WMFFeedTopReadResponse.m in Sources */,
+				670AF19F26C1CA38005F76D0 /* EchoSubscriptionFetcher.swift in Sources */,
 				7A0312FF215422960095C953 /* RemoteNotificationsMarkAsReadOperation.swift in Sources */,
 				B0B4237A1F0211AB00D3DC4C /* WMFFeedArticlePreview+DescriptionOrSnippet.swift in Sources */,
 				D8FA18BC1E1BD891009675C3 /* NSFileManager+WMFGroup.m in Sources */,
