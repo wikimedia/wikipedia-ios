@@ -26,6 +26,8 @@ extern NSString *const WMFNotificationInfoFeedNewsStoryKey;
 
 @property (nonatomic, readonly, getter=isAuthorized) BOOL authorized;
 @property (nonatomic, getter=isApplicationActive) BOOL applicationActive;
+@property (nonatomic, readonly, copy, nullable) NSData  *remoteRegistrationDeviceToken;
+@property (nonatomic, readonly, strong, nullable) NSError *remoteRegistrationError;
 
 - (void)requestAuthenticationIfNecessaryWithCompletionHandler:(void (^)(BOOL granted, NSError *__nullable error))completionHandler;
 
@@ -33,6 +35,8 @@ extern NSString *const WMFNotificationInfoFeedNewsStoryKey;
 
 /// Registers notification categories for the app. Should only be called once at launch.
 - (void)updateCategories;
+
+- (void)setRemoteNotificationRegistrationStatusWithDeviceToken: (nullable NSData *)deviceToken error: (nullable NSError *)error;
 
 @end
 
