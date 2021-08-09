@@ -2024,6 +2024,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 #pragma mark - Remote Notifications
 
+- (void)setRemoteNotificationRegistrationStatusWithDeviceToken: (nullable NSData *)deviceToken error: (nullable NSError *)error{
+    [self.notificationsController setRemoteNotificationRegistrationStatusWithDeviceToken:deviceToken error:error];
+}
+
 - (void)remoteNotificationsModelDidChange:(NSNotification *)note {
     self.remoteNotificationsModelChangeResponseCoordinator = (RemoteNotificationsModelChangeResponseCoordinator *)note.object;
     assert(self.remoteNotificationsModelChangeResponseCoordinator);

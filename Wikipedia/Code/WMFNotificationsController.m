@@ -29,6 +29,8 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
 
 @property (nonatomic, readwrite, getter=isAuthorized) BOOL authorized;
 @property (weak, nonatomic) MWKDataStore *dataStore;
+@property (nonatomic, readwrite, copy, nullable) NSData *remoteRegistrationDeviceToken;
+@property (nonatomic, readwrite, strong, nullable) NSError *remoteRegistrationError;
 
 @end
 
@@ -70,6 +72,11 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
                 break;
         }
     }];
+}
+
+- (void)setRemoteNotificationRegistrationStatusWithDeviceToken: (nullable NSData *)deviceToken error: (nullable NSError *)error {
+    self.remoteRegistrationDeviceToken = deviceToken;
+    self.remoteRegistrationError = error;
 }
 
 - (void)updateCategories {
