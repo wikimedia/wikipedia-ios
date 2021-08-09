@@ -1,4 +1,5 @@
 @import Foundation;
+@import UserNotifications;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,12 +25,17 @@ extern NSString *const WMFNotificationInfoFeedNewsStoryKey;
 
 - (instancetype)initWithDataStore:(MWKDataStore *)dataStore NS_DESIGNATED_INITIALIZER;
 
-@property (nonatomic, readonly, getter=isAuthorized) BOOL authorized;
-@property (nonatomic, getter=isApplicationActive) BOOL applicationActive;
 @property (nonatomic, readonly, copy, nullable) NSData  *remoteRegistrationDeviceToken;
 @property (nonatomic, readonly, strong, nullable) NSError *remoteRegistrationError;
 
-- (void)requestAuthenticationIfNecessaryWithCompletionHandler:(void (^)(BOOL granted, NSError *__nullable error))completionHandler;
+
+/// Checks and returns UNNotificationCenter's authorization status asynchronously. If state is .notDetermined, asks permissions from user and returns result.
+/// @param completionHandler Completion handler to call when authorization state has been requested (if needed) and determined. isAllowed = true if it's any state besides UNAuthorizationStatusDenied.
+- (void)requestPermissionsIfNecessaryWithCompletionHandler:(void (^)(BOOL isAllowed, NSError *__nullable error))completionHandler;
+
+/// Checks and returns UNNotificationCenter's authorization status asynchronously.
+/// @param completionHandler Completion handler to call when authorization state has been determined. Passes back UNAuthorizationStatus from UNUserNotificationCenter
+- (void)notificationPermissionsStatusWithCompletionHandler:(void (^)(UNAuthorizationStatus  status))completionHandler;
 
 - (void)sendNotificationWithTitle:(NSString *)title body:(NSString *)body categoryIdentifier:(NSString *)categoryIdentifier userInfo:(NSDictionary *)userInfo atDateComponents:(nullable NSDateComponents *)dateComponents; //null date components will send the notification ASAP
 
