@@ -162,6 +162,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "$1 উইকিপিডিয়া থেকে";
 "explore-random-article-sub-heading-from-wikipedia" = "উইকিপিডিয়া থেকে";
 "explore-randomizer" = "অজানা পাতা";
+"featured-widget-from-language-wikipedia" = "$1 উইকিপিডিয়া থেকে";
 "feed-news-notification-button-text" = "বিজ্ঞপ্তি চালু";
 "fetcher-error-generic" = "কিছু একটায় ভুল হয়েছে। দয়া করে পরে আবার চেষ্টা করুন।";
 "field-alert-captcha-invalid" = "ক্যাপচা সঠিক নয়";
@@ -353,6 +354,7 @@
 "top-read-header-generic" = "উইকিপিডিয়া";
 "top-read-header-with-language" = "$1 উইকিপিডিয়া";
 "top-read-see-more" = "আরও শীর্ষ পঠিত দেখুন";
+"top-read-widget-readers-count" = "$1 জন পাঠক";
 "two-factor-login-continue" = "প্রবেশ অব্যাহত রাখুন";
 "two-factor-login-instructions" = "দুই ধাপের যাচাইকরণ কোড প্রবেশ করান";
 "two-factor-login-title" = "আপনার অ্যাকাউন্টে প্রবেশ করুন";
