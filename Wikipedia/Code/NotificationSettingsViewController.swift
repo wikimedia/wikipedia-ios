@@ -41,7 +41,8 @@ struct NotificationSettingsSection {
 class NotificationSettingsViewController: SubSettingsViewController {
     
     var sections = [NotificationSettingsSection]()
-    var observationToken: NSObjectProtocol?
+    private var permissionsObservationToken: NSObjectProtocol?
+    private var subscriptionObservationToken: NSObjectProtocol?
     private let authManager: WMFAuthenticationManager
     private let notificationsController: WMFNotificationsController
     
@@ -59,13 +60,21 @@ class NotificationSettingsViewController: SubSettingsViewController {
         super.viewDidLoad()
         title = CommonStrings.notifications
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier)
-        observationToken = NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: OperationQueue.main) { [weak self] (note) in
+        permissionsObservationToken = NotificationCenter.default.addObserver(forName: NSNotification.Name.WMFNotificationsControllerPermissionsDidChangeOnForeground, object: nil, queue: OperationQueue.main) { [weak self] (note) in
+            self?.updateSections()
+        }
+        
+        subscriptionObservationToken = NotificationCenter.default.addObserver(forName: NSNotification.Name.WMFNotificationsControllerEchoSubscriptionError, object: nil, queue: OperationQueue.main) { [weak self] (note) in
             self?.updateSections()
         }
     }
     
     deinit {
-        if let token = observationToken {
+        if let token = permissionsObservationToken {
+            NotificationCenter.default.removeObserver(token)
+        }
+        
+        if let token = subscriptionObservationToken {
             NotificationCenter.default.removeObserver(token)
         }
     }
@@ -82,13 +91,19 @@ class NotificationSettingsViewController: SubSettingsViewController {
         let notificationSettingsItems: [NotificationSettingsItem] = [NotificationSettingsSwitchItem(title: "Authorize notifications", switchChecker: { () -> Bool in
             return false
             }, switchAction: { [weak self] (isOn) in
+                
+                guard let self = self else {
+                    return
+                }
+                
                 if (isOn) {
-                    self?.notificationsController.requestPermissionsIfNecessary { isAllowed, error in
+                    self.notificationsController.requestPermissionsIfNecessary { isAllowed, error in
                         DispatchQueue.main.async {
                             if let error = error as NSError? {
-                                self?.wmf_showAlertWithError(error)
+                                self.wmf_showAlertWithError(error)
+                                self.updateSections()
+                                return
                             }
-                            self?.updateSections()
                         }
                     }
                 }
@@ -147,6 +162,12 @@ class NotificationSettingsViewController: SubSettingsViewController {
         }
         
         guard notificationsController.remoteRegistrationDeviceToken != nil else {
+            sections = self.sectionsForSubscriptionFailure()
+            tableView.reloadData()
+            return
+        }
+        
+        guard notificationsController.echoSubscriptionError == nil else {
             sections = self.sectionsForSubscriptionFailure()
             tableView.reloadData()
             return
