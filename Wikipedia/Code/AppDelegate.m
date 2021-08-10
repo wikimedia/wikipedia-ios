@@ -260,6 +260,19 @@ static NSString *const WMFBackgroundAppRefreshTaskIdentifier = @"org.wikimedia.w
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    
+    #if DEBUG
+        const char *data = [deviceToken bytes];
+        NSMutableString *debugToken = [NSMutableString string];
+
+        for (NSUInteger i = 0; i < [deviceToken length]; i++) {
+            [debugToken appendFormat:@"%02.2hhX", data[i]];
+        }
+
+        NSLog(@"\nDevice token: %@", debugToken);
+        NSLog(@"\nBundle identifier: %@", [[NSBundle mainBundle] bundleIdentifier]);
+    #endif
+    
     [self.appViewController setRemoteNotificationRegistrationStatusWithDeviceToken:deviceToken error:nil];
 }
 
