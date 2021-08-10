@@ -191,6 +191,7 @@
 "description-welcome-descriptions-title" = "Cikkleírások";
 "description-welcome-promise-title" = "Mielőtt nekifognék, megígérem, hogy nem élek vissza ezzel a funkcióval";
 "description-welcome-start-editing-button" = "Szerkesztés elkezdése";
+"diff-compare-header-heading" = "Változatok összehasonlítása";
 "diff-context-lines-collapsed-button-title" = "Mutat";
 "diff-context-lines-expanded-button-title" = "Elrejtés";
 "diff-multi-line-format" = "$1 - $2 sor";
@@ -254,12 +255,14 @@
 "edit-watch-this-page-text" = "Lap figyelése";
 "editing-welcome-be-bold-title" = "A hangod fontos";
 "editing-welcome-citations-title" = "Megbízható források megadása";
+"empty-diff-compare-title" = "A változatok között nincs eltérés";
 "empty-insert-media-title" = "Fájl kiválasztása a Wikimedia Commonsról";
 "empty-no-article-message" = "Sajnáljuk, nem sikerült betölteni a cikket";
 "empty-no-feed-action-message" = "Továbbra is olvashatsz elmentett lapokat";
 "empty-no-feed-message" = "A neked ajánlott szócikkeket akkor láthatod, ha kapcsolódsz az internethez";
 "empty-no-history-message" = "Kövesd nyomon, hogy mit olvastál itt";
 "empty-no-history-title" = "Nincsenek megjeleníthető előzmények";
+"empty-no-other-article-languages-message" = "Ez a szócikk még nincs megírva más nyelveken";
 "empty-no-saved-pages-in-reading-list-title" = "Még egyetlen oldal sem lett elmentve a listába";
 "empty-no-saved-pages-message" = "Ments el lapokat, hogy később, akár kapcsolat nélkül is elolvashasd őket";
 "empty-no-saved-pages-title" = "Még nincsenek mentett lapok";
@@ -466,6 +469,7 @@
 "page-protected-other" = "Ez a lap az alábbi szinten védett: $1";
 "page-protected-sysop" = "Ez a lap teljesen védett.";
 "page-similar-titles" = "Hasonló oldalak";
+"panel-compare-revisions-title" = "Változatok összehasonlítása";
 "pictured" = "képpel";
 "places-accessibility-clear-saved-searches" = "Mentett keresések törlése";
 "places-accessibility-group" = "$1 szócikk";
@@ -632,6 +636,10 @@
 "talk-page-error-unable-to-post-reply" = "Nincs internetkapcsolat, nem sikerült elküldeni a választ.";
 "talk-page-link-user-action-sheet-app" = "Felhasználói lap megtekintése az alkalmazásban";
 "talk-page-link-user-action-sheet-safari" = "Felhasználói lap megtekintése Safarival";
+"talk-page-new-reply-body-accessibility-label" = "Válasz írása";
+"talk-page-new-reply-body-placeholder-text" = "Válasz írása";
+"talk-page-new-reply-success-text" = "A válaszod közzétéve";
+"talk-page-new-subject-clear-button-accessibility" = "Téma törlése";
 "talk-page-new-subject-placeholder-text" = "Tárgy";
 "talk-page-new-subject-textfield-accessibility-label" = "Tárgy";
 "talk-page-new-topic-title" = "Új téma";

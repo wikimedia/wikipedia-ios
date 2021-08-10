@@ -411,6 +411,12 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Од Википедија";
 "explore-randomizer" = "Случаен избирач";
 "featured-article-empty-title" = "Нема избрана статија за денес";
+"featured-widget-content-failure-for-date" = "Нема избрана статија за овој датум.";
+"featured-widget-description" = "Откријте ги најдобрите статии на Википедија кои нашата заедница ги бира секој ден.";
+"featured-widget-from-language-wikipedia" = "Од Википедија на $1";
+"featured-widget-from-wikipedia" = "Од Википедија";
+"featured-widget-language-failure" = "Вашиот главен јазик не поддржува „Избрана статија“. Можете да ја смените главната Википедија во нагодувањата на прилогот.";
+"featured-widget-title" = "Избрана статија";
 "feed-news-notification-button-text" = "Вклучи известувања";
 "feed-news-notification-text" = "Овозможи известувања од статии за Википедија кога се тековни во вестите.";
 "fetcher-error-generic" = "Нешто не е во ред. Обидете се подоцна.";
@@ -563,6 +569,8 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 историски настан|$1 историски настани}}";
 "on-this-day-footer" = "Повеќе историски настани на денешен ден";
 "on-this-day-footer-showing-event-count" = "{{PLURAL:$1|Уште $1 историски настан|Уште $1 историски настани}} на денешен ден";
+"on-this-day-language-does-not-support-error" = "Вашиот главен јазик не поддржува „На денешен ден“. Можете да ја смените главната Википедија во нагодувањата на прилогот.";
+"on-this-day-no-internet-error" = "Нема податоци";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 од Википедија на $2";
 "on-this-day-title" = "На денешен ден";
 "original-tab-button-popover-description" = "Допрете на „W“ за да се вратите на почетното јазиче";
@@ -627,6 +635,9 @@
 "places-unknown-distance" = "непозната оддалеченост";
 "potd-description-prefix" = "Слика на денот за $1";
 "potd-empty-error-description" = "Не можев да ја добијам сликата на денот за $1";
+"potd-sample-entry-description" = "Трка со впрегнати бикови во рало. Западна Суматра, Индонезија. 2015, Финалист-45.";
+"potd-widget-description" = "Уживајте во убава дневна слика избрана од нашата заедница.";
+"potd-widget-title" = "Слика на денот";
 "preference-summary-eventlogging-opt-in" = "Ѝ овозможува на Фондацијата Викимедија да собира информации за тоа како го користите прилогот, за да може да го подобри";
 "preference-title-eventlogging-opt-in" = "Испраќај извештаи за употребата";
 "rank-accessibility-label" = "Број $1";
@@ -867,6 +878,9 @@
 "top-read-header-generic" = "Википедија";
 "top-read-header-with-language" = "Википедија на $1";
 "top-read-see-more" = "Повеќе најчитани статии";
+"top-read-widget-description" = "Дознајте што чита светот денес на Википедија.";
+"top-read-widget-readers-count" = "$1 читатели";
+"top-read-widget-title" = "Најчитани";
 "two-factor-login-continue" = "Продолжете со најавата";
 "two-factor-login-instructions" = "Внесете го двочинителскиот код за заверка";
 "two-factor-login-title" = "Најавете се со вашата сметка";
@@ -903,6 +917,9 @@
 "welcome-send-data-learn-more" = "Дознајте повеќе за податоците што се собираат";
 "welcome-send-data-sub-title" = "Помогнете ни да го подобриме прилогот со тоа што ќе ни овозможите да собираме податоци за тоа како го користите. Податоците се собираат анонимно.";
 "welcome-volunteer-send-usage-reports" = "Испраќај извештаи за употребата";
+"widget-onthisday-description" = "Истражете што се случило на денешниот ден во историјата.";
+"widget-onthisday-placeholder-article-snippet" = "Слободна енциклопедија која секој може да ја уредува";
+"widget-onthisday-placeholder-event-snippet" = "Пуштена Википедија — слободна енциклопедија на викисодржини.";
 "wikitext-downloading" = "Ги вчитувам содржините...";
 "wikitext-preview-changes" = "Испишувам преглед на промените што ги направивте...";
 "wikitext-preview-changes-none" = "Не направивте промени.";

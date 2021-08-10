@@ -12,6 +12,7 @@
 // Author: Maroen1990
 // Author: Meno25
 // Author: Mhurd
+// Author: Michel Bakni
 // Author: Mido
 // Author: Musab Moahmmed
 // Author: NEHAOUA
@@ -28,13 +29,29 @@
 // Author: مصعب
 // Author: يونس
 
+"aaald-added-text-description-2" = "أُضيف $1";
+"aaald-article-description-updated-description" = "حُدِّث وصف المقالة";
 "aaald-article-insert-header" = "تحديثات ملحوظة";
+"aaald-article-insert-last-updated" = "التحديث الأخير";
 "aaald-article-insert-new-changes" = "تغييرات جديدة";
+"aaald-article-insert-read-more" = "اقرأ المزيد من التحديثات";
+"aaald-error-subitle" = "حدِّث للمحاولة مجدداً";
+"aaald-error-title" = "لا يمكن تحميل تاريخ الصفحة المختصر";
+"aaald-many-sections-description" = "في $1 أقسام";
 "aaald-multiple-changes-description" = "أجريت تغييرات عديدة";
+"aaald-multiple-references-added-description" = "أُضيفت مراجع مُتعدِّدة";
+"aaald-new-book-reference-title" = "كتاب";
 "aaald-new-discussion" = "نقاش حديد";
+"aaald-new-journal-reference-database" = "بواسطة $1";
+"aaald-new-journal-reference-title" = "دورية";
+"aaald-new-journal-reference-volume" = "المجلد $1:";
 "aaald-new-news-reference-title" = "أخبار";
+"aaald-new-talk-topic-description-format" = "$1 حول هذه المقالة";
+"aaald-new-website-reference-archive-url-text" = "مسار موقع الأرشيف";
 "aaald-new-website-reference-title" = "موقع ويب";
+"aaald-one-section-description" = "في قسم $1";
 "aaald-revision-by-anonymous" = "تعديل بواسطة مستخدم مجهول";
+"aaald-revision-userInfo" = "عُدِّل بواسطة $1 ($2 تعديل)";
 "aaald-single-reference-added-description" = "أضيف المرجع";
 "aaald-view-full-history-button" = "عرض كامل تاريخ المقالة";
 "about-content-license" = "رخصة المحتوى";
@@ -154,42 +171,37 @@
 "button-skip" = "تخطٍ";
 "cancel" = "ألغ";
 "cc-zero" = "المشاع الإبداعي CC0";
+"chinese-variants-alert-title" = "تحديثات لدعم النسخة الصينية";
 "clear-title-accessibility-label" = "امسح";
 "close-button-accessibility-label" = "أغلق";
 "compass-direction" = "عند الساعة $1";
 "continue-reading-empty-description" = "تصفح ويكيبيديا لقراءة المزيد من المقالات";
 "continue-reading-empty-title" = "لا يوجد مقالات قرءت مؤخرا";
+"data-migration-status" = "تحديث...";
 "description-add-title" = "إضافة الوصف";
-// Fuzzy
-"description-edit-for-article" = "وصف العنوان ل$1";
+"description-edit-for-article" = "وصف مقالة $1";
 "description-edit-learn-more" = "معرفة المزيد";
 "description-edit-length-warning" = "$1 من $2";
-// Fuzzy
-"description-edit-license" = "عن طريق تغيير وصف العنوان، فأنا أوافق على $1 وعلى إصدار مساهماتي بلا رجعة تحت ترخيص $2.";
+"description-edit-license" = "عن طريق تغيير وصف المقالة، فأنا أوافق على $1 وعلى نشر مساهماتي بلا رجعة تحت ترخيص $2.";
 "description-edit-pencil-introduction" = "عدل المقدمة";
-// Fuzzy
-"description-edit-pencil-title" = "عدل وصف العنوان";
+"description-edit-pencil-title" = "عدِّل وصف المقالة";
 "description-edit-placeholder-title" = "الوصوفات القصيرة هي الأفضل";
 "description-edit-publish" = "نشر الوصف";
 "description-edit-title" = "عدل الوصف";
 "description-edit-warning" = "حاول إبقاء الوصوفات قصيرة حتى يستطيع المستخدمون فهم موضوع المقالة سريعا";
-// Fuzzy
-"description-help-about-description" = "وصوفات العنوان تلخص المقالة لمساعدة القراء على فهم الموضوع سريعا.";
+"description-help-about-description" = "يلخص الوصفُ المقالةَ لمساعدة القراء على فهم الموضوع سريعاً.";
 "description-help-about-title" = "حول";
 "description-help-about-wikidata" = "حول ويكي بيانات";
 "description-help-more-info-description" = "الوصوفات يتم تخرينها وصيانتها في ويكي بيانات، وهي مشروع لمؤسسة ويكيميديا يوفر قاعدة بيانات حرة، تعاونية، متعددة اللغات وثانوية لدعم ويكيبيديا والمشاريع الأخرى.";
 "description-help-more-info-title" = "المزيد من المعلومات";
 "description-help-tips-description" = "الوصوفات ينبغي أن تكون بشكل مثالي من سطر واحد، وما بين كلمتين إلى 12 كلمة. ولا يبدأ أول حرف بحرف كبير ما لم يكن اسما علما.";
-// Fuzzy
-"description-help-tips-example-description-one" = "وصف عنوان لمقالة عن لوحة الموناليزا";
-// Fuzzy
-"description-help-tips-example-description-two" = "وصف عنوان لمقالة حول جبل إيفرست";
+"description-help-tips-example-description-one" = "الوصف الخاصة بمقالة الموناليزا";
+"description-help-tips-example-description-two" = "وصف مقالة تخصُّ جبل إيفرست";
 "description-help-tips-example-title-one" = "لوحة بواسطة ليوناردو دا فينشي";
 "description-help-tips-example-title-two" = "أعلى جبل في الأرض";
 "description-help-tips-for-example" = "على سبيل المثال:";
 "description-help-tips-title" = "نصائح لإنشاء الوصوفات";
-// Fuzzy
-"description-help-title" = "مساعدة وصف العناوين";
+"description-help-title" = "مساعدة وصف المقالة";
 "description-help-wikidata-guide" = "دليل ويكي بيانات لكتابة الوصوفات";
 "description-published-button-title" = "تم";
 "description-published-footer" = "يمكنك أيضا تعديل المقالات من خلال هذا التطبيق. جرب إصلاح الأخطاء الإملائية والعبارات الصغيرة عن طريق الضغط على أيقونة القلم في المرة القادمة";
@@ -198,8 +210,7 @@
 "description-welcome-concise-sub-title" = "مثاليا سطر واحد، ما بين كلمتين إلى 12 كلمة";
 "description-welcome-concise-title" = "أبقه مختصرا";
 "description-welcome-descriptions-sub-title" = "يلخص المقالة لمساعدة القراء على فهم الموضوع سريعا";
-// Fuzzy
-"description-welcome-descriptions-title" = "وصوفات العنوان";
+"description-welcome-descriptions-title" = "وصف المقالة";
 "description-welcome-promise-title" = "بالبدء، أنا أعد بعدم إساءة استخدام هذه الخاصية";
 "description-welcome-start-editing-button" = "البدء بالتعديل";
 "diff-compare-header-from-info-heading" = "من:";
@@ -309,6 +320,8 @@
 "empty-no-feed-message" = "يمكنك مشاهدة مواضيعك المفضلة عندما تتصل بالانترنت";
 "empty-no-history-message" = "يمكنك متابعة ما قرأته من قبل هنا";
 "empty-no-history-title" = "لا تاريخ لإظهاره";
+"empty-no-other-article-languages-message" = "لم تكتب هذه المقالة بأي لغة أخرى بعدُ";
+"empty-no-other-article-languages-title" = "غير متوافر بلغات أخرى";
 "empty-no-reading-lists-message" = "إنشاء قوائم للأماكن للسفر إليها، والمواضيع المفضلة وأكثر من ذلك بكثير";
 "empty-no-reading-lists-title" = "تنظيم المقالات المحفوظة بقوائم القراءة";
 "empty-no-saved-pages-in-reading-list-message" = "حفظ الصفحات في هذه القائمة لرؤيتها تظهر هنا";
@@ -404,6 +417,10 @@
 "explore-random-article-sub-heading-from-wikipedia" = "من ويكيبيديا";
 "explore-randomizer" = "صفحات عشوائية";
 "featured-article-empty-title" = "لا توجد مقالة مختارة متوفرة اليوم";
+"featured-widget-content-failure-for-date" = "لا تتوفر مقالة مختارة متوافقة مع هذا التاريخ";
+"featured-widget-from-language-wikipedia" = "من ويكيبيديا $1";
+"featured-widget-from-wikipedia" = "من ويكيبيديا";
+"featured-widget-title" = "مقالة متميزة";
 "feed-news-notification-button-text" = "أظهر الإشعارات";
 "feed-news-notification-text" = "تمكين الإخطارات ليتم إعلامك من قبل ويكيبيديا عندما تكون المقالات شائعة في الأخبار.";
 "fetcher-error-generic" = "هناك خطأ ما، الرجاء معاودة المحاولة في وقت لاحق.";
@@ -502,6 +519,7 @@
 "intermediate-edits-editors-count-limited" = "$1+ مراجعات متوسطة بواسطة $2+ مستخدمين غير معروضة";
 "intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 مراجعة|$1 مراجعات}} متوسطة بواسطة $2+ مستخدمين غير معروضة";
 "intermediate-edits-limited-editors-count" = "$1+ مراجعات متوسطة بواسطة {{PLURAL:$2|مستخدم|$2 مستخدمين}} غير معروضة";
+"kurdish-variants-alert-title" = "تحديثات لدعم النسخة الكردية";
 "languages-settings-title" = "لغات";
 "languages-title" = "تغيير اللغة";
 "languages-wikipedia" = "لغات ويكيبيديا";
@@ -527,7 +545,6 @@
 "main-menu-title" = "المزيد";
 "main-menu-zero-faq" = "الأسئلة المتكررة عن ويكيبيديا زيرو";
 "menu-cancel-accessibility-label" = "ألغ";
-// Fuzzy
 "more-languages-tooltip-description" = "ابحث في ويكيبيديا بما يقرب من 300 لغة";
 "more-languages-tooltip-title" = "أضف لغات";
 "move-articles-to-reading-list" = "نقل {{PLURAL:$1|$1 مقالة|$1 مقالات}} إلى قائمة القراءة";
@@ -548,6 +565,7 @@
 "on-this-day-detail-header-date-range" = "من $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 حدث تاريخي|$1 أحداث تاريخية}}";
 "on-this-day-footer" = "المزيد من الأحداث التاريخية في هذا اليوم";
+"on-this-day-no-internet-error" = "لا بيانات متوافرة";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 من ويكيبيديا $2";
 "on-this-day-title" = "في هذا اليوم";
 "original-tab-button-popover-description" = "انقر على \"ص\" للعودة إلى علامة التبويب التي بدأت منها";
@@ -612,6 +630,8 @@
 "places-unknown-distance" = "المسافة غير معروفة";
 "potd-description-prefix" = "صورة اليوم في تاريخ $1";
 "potd-empty-error-description" = "فشل في اجتلاب صورة اليوم في تاريخ $1";
+"potd-widget-description" = "شاهد صورة يومية اختارها مجتمعنا";
+"potd-widget-title" = "صورة اليوم";
 "preference-summary-eventlogging-opt-in" = "السماح لويكيميديا بجمع المعلومات حول كيفية استخدام التطبيق لتحسينه";
 "preference-title-eventlogging-opt-in" = "إرسال تقارير الاستخدام";
 "rank-accessibility-label" = "رقم $1";
@@ -695,6 +715,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "تسليط الضوء على التركيب";
 "reading-themes-controls-accessibility-text-size-slider" = "شريط تمرير حجم النص";
 "reading-themes-controls-syntax-highlighting" = "تسليط الضوء على التركيب";
+"reference-section-button-accessibility-label" = "انتقل إلى قسم المراجع";
 "reference-title" = "$1 مرجع";
 "relative-date-days-ago" = "{{PLURAL:$1|0=اليوم|1=أمس|قبل $1 أيام}}";
 "relative-date-hours-abbreviated" = "$1h";
@@ -747,6 +768,7 @@
 "search-recent-title" = "عمليات البحث الأخيرة";
 "search-result-redirected-from" = "بالتحويل من: $1";
 "search-title" = "بحث";
+"serbian-variants-alert-title" = "تحديثات لدعم النسخة الصربية";
 "settings-account" = "حساب";
 "settings-appearance" = "تفضيلات القراءة";
 "settings-clear-cache" = "مسح المحتوى المخزن";
@@ -804,6 +826,7 @@
 "table-of-contents-close-accessibility-label" = "أغلق قائمة المحتويات";
 "table-of-contents-heading" = "المحتويات";
 "table-of-contents-hide-button-label" = "إخفاء جدول المحتويات.";
+"tajik-variants-alert-title" = "تحديثات لدعم النسخة الطاجكية";
 "talk-page-add-discussion-accessibility-label" = "أضف نقاشا";
 "talk-page-discussion-accessibility-hint" = "انقر نقرًا مزدوجًا لفتح موضوع نقاش";
 "talk-page-discussion-read-accessibility-label" = "قراءة";
@@ -844,6 +867,9 @@
 "top-read-header-generic" = "ويكيبيديا";
 "top-read-header-with-language" = "$1 ويكيبيديا";
 "top-read-see-more" = "طالع المزيد من الأعلى قراءةً";
+"top-read-widget-description" = "تعرَّف على ما أكثر ما قُرأ على ويكيبيديا اليوم";
+"top-read-widget-readers-count" = "$1 قارئ";
+"top-read-widget-title" = "الأكثر قراءة";
 "two-factor-login-continue" = "مواصلة تسجيل الدخول";
 "two-factor-login-instructions" = "يرجى إدخال تشفيرة المصادقة ذات العاملين";
 "two-factor-login-title" = "تسجيل الدخول إلى حسابك";
@@ -851,7 +877,9 @@
 "two-factor-login-with-regular-code" = "استخدم رمز التحقق";
 "unable-to-load-talk-page-title" = "غير قادر على تحميل صفحة النقاش";
 "unknown-generic-text" = "غير معروف";
+"uzbek-variants-alert-title" = "تحديثات لدعم النسخة الأوزبكية";
 "variants-alert-dismiss-button" = "لا شكرًا";
+"variants-alert-preferences-button" = "راجع تفضيلاتك";
 "welcome-exploration-explore-feed-description" = "القراءة الموصى بها والمقالات اليومية من مجتمعنا";
 "welcome-exploration-explore-feed-title" = "خلاصة الاستكشاف";
 "welcome-exploration-on-this-day-description" = "سافر عائدا في الزمن لمعرفة ما حدث اليوم في التاريخ";
@@ -861,8 +889,7 @@
 "welcome-explore-continue-button" = "فلنبدأ";
 "welcome-explore-new-ways-title" = "طرق جديدة للاستكشاف";
 "welcome-explore-tell-me-more-done-button" = "فهمت";
-// Fuzzy
-"welcome-intro-free-encyclopedia-description" = "ويكيبيديا مكتوبة بشكل تعاوني من قبل متطوعين وتتكون من أكثر من 40 مليون مقالة بما يقارب 300 لغة.";
+"welcome-intro-free-encyclopedia-description" = "ويكيبيديا مكتوبة تعاونياً على يد متطوعين وفيها أكثر من 40 مليون مقالة بما يزيد عن 300 لغة.";
 "welcome-intro-free-encyclopedia-more" = "معرفة المزيد عن ويكيبيديا";
 "welcome-intro-free-encyclopedia-more-about" = "عن ويكيبيديا";
 "welcome-intro-free-encyclopedia-more-description" = "ويكيبيديا مشروع عالمي لبناء موسوعات حرة بكل لغات العالم، عمليا أي شخص بوصول إلى إنترنت حر في المشاركة بالمساهمة بالمعلومات المحايدة، والمستشهدة.";
@@ -870,8 +897,7 @@
 "welcome-languages-add-button" = "إضافة لغة آخرى";
 "welcome-languages-add-or-edit-button" = "إضافة أو تحرير اللغات المفضلة";
 "welcome-languages-description" = "لقد وجدنا اللغات التالية على جهازك:";
-// Fuzzy
-"welcome-languages-search-title" = "ابحث فيما يقارب 300 لغة";
+"welcome-languages-search-title" = "ابحث في ما يقارب 300 لغة";
 "welcome-notifications-tell-me-more-creation" = "يتم إنشاء الإشعارات وتسليمها على جهازك من خلال التطبيق، وليس من خوادمنا (أو جهات خارجية).";
 "welcome-notifications-tell-me-more-storage" = "يتم تخزين تفضيلات الإشعارات على الجهاز ولا تعتمد على المعلومات أو النشاط الشخصي.";
 "welcome-notifications-tell-me-more-title" = "معلومات أكثر عن الاشعارات";
@@ -879,6 +905,9 @@
 "welcome-send-data-learn-more" = "معرفة المزيد عن البيانات المجموعة";
 "welcome-send-data-sub-title" = "ساعد في تحسين هذا التطبيق بالسماح لمؤسسة ويكيميديا معرفة كيف تستخدم هذا التطبيق. البيانات التي نجمعها ستكون مجهولة.";
 "welcome-volunteer-send-usage-reports" = "إرسال تقارير الاستخدام";
+"widget-onthisday-description" = "اكتشف ما الذي حصل في مثل هذا اليوم.";
+"widget-onthisday-placeholder-article-snippet" = "الموسوعة الحرة التي يمكن للجميع تحريرها";
+"widget-onthisday-placeholder-event-snippet" = "ويكيبيديا الموسوعة حرة المحتوى المتوفرة على الإنترنت.";
 "wikitext-downloading" = "جارٍ تحميل المحتوى...";
 "wikitext-preview-changes" = "جار جلب عرض التغييرات التي قمت بها...";
 "wikitext-preview-changes-none" = "لم يتم عمل تعديلات لعرضها";
