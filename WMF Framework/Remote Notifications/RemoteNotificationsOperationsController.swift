@@ -19,7 +19,7 @@ class RemoteNotificationsOperationsController: NSObject {
         apiController = RemoteNotificationsAPIController(session: session, configuration: configuration)
         var modelControllerInitializationError: Error?
         modelController = RemoteNotificationsModelController(&modelControllerInitializationError)
-        deadlineController = RemoteNotificationsOperationsDeadlineController(with: modelController?.managedObjectContext)
+        deadlineController = RemoteNotificationsOperationsDeadlineController(with: modelController?.backgroundContext)
         if let modelControllerInitializationError = modelControllerInitializationError {
             DDLogError("Failed to initialize RemoteNotificationsModelController and RemoteNotificationsOperationsDeadlineController: \(modelControllerInitializationError)")
             isLocked = true
@@ -38,6 +38,18 @@ class RemoteNotificationsOperationsController: NSObject {
 
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    func deleteOldDatabaseFiles() throws {
+        let modelName = RemoteNotificationsModelController.modelName
+        let sharedAppContainerURL = FileManager.default.wmf_containerURL()
+        let legacyRemoteNotificationsStorageUrl = sharedAppContainerURL.appendingPathComponent(modelName)
+        let legecyJournalShmUrl = sharedAppContainerURL.appendingPathComponent("\(modelName)-shm")
+        let legecyJournalWalUrl = sharedAppContainerURL.appendingPathComponent("\(modelName)-wal")
+        
+        try FileManager.default.removeItem(at: legacyRemoteNotificationsStorageUrl)
+        try FileManager.default.removeItem(at: legecyJournalShmUrl)
+        try FileManager.default.removeItem(at: legecyJournalWalUrl)
     }
 
     public func stop() {

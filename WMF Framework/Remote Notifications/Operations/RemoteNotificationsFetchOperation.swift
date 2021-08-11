@@ -5,7 +5,7 @@ class RemoteNotificationsFetchOperation: RemoteNotificationsOperation {
         super.init(with: apiController, modelController: modelController)
     }
     override func execute() {
-        self.managedObjectContext.perform {
+        self.backgroundContext.perform {
             self.apiController.getAllUnreadNotifications(from: self.targetWikis) { fetchedNotifications, error in
                 if let error = error {
                     self.finish(with: error)

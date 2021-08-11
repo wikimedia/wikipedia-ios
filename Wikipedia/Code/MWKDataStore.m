@@ -13,7 +13,7 @@ NSString *const WMFFeedImportContextDidSave = @"WMFFeedImportContextDidSave";
 NSString *const WMFViewContextDidSave = @"WMFViewContextDidSave";
 
 NSString *const WMFLibraryVersionKey = @"WMFLibraryVersion";
-static const NSInteger WMFCurrentLibraryVersion = 13;
+static const NSInteger WMFCurrentLibraryVersion = 14;
 
 NSString *const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
 
@@ -453,6 +453,15 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     if (currentLibraryVersion < 13) {
         [self.languageLinkController migrateToUniquedPreferredLanguagesInManagedObjectContext:moc];
         [moc wmf_setValue:@(13) forKey:WMFLibraryVersionKey];
+        if ([moc hasChanges] && ![moc save:&migrationError]) {
+            DDLogError(@"Error saving during migration: %@", migrationError);
+            return;
+        }
+    }
+    
+    if (currentLibraryVersion < 14) {
+        [self.remoteNotificationsController deleteOldDatabaseFiles];
+        [moc wmf_setValue:@(14) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:&migrationError]) {
             DDLogError(@"Error saving during migration: %@", migrationError);
             return;
