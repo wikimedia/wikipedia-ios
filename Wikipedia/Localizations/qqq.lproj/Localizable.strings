@@ -734,8 +734,6 @@
 "replace-textfield-accessibility" = "Accessibility label for the replace text field.";
 "replace-textfield-placeholder" = "Placeholder text seen in replace textfield before textfield is focused.";
 "reverted-edit-back-to-article-button-title" = "Title for button that allows the user to go back to the article they edited";
-"reverted-edit-notification-body" = "Title for notification telling user that the edit they made was reverted. $1 is replaced with the title of the affected article, $2 is replaced with the username of the person who reverted the edit.";
-"reverted-edit-notification-read-more-action-title" = "Title on the 'Read more' action button";
 "reverted-edit-possible-reasons" = "List of possible reasons describing why an edit might have been reverted. $1 is replaced with a link to view editing guidelines";
 "reverted-edit-possible-reasons-subtitle" = "Subtitle leading to an explanation why an edit was reverted.";
 "reverted-edit-thanks-for-editing-title" = "Title thanking the user for contributing to Wikipedia";
