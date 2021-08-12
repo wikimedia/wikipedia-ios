@@ -21,40 +21,47 @@ class RemoteNotificationsAPIController: Fetcher {
 
     struct NotificationsResult: Decodable {
         struct Notification: Decodable, Hashable {
-            let wiki: String?
-            let type: String?
-            let category: String?
-            let id: String?
-            let message: Message?
-            let timestamp: Timestamp?
-            let agent: Agent?
+            let wiki: String
+            let id: String
+            let type: String
+            let category: String
+            let section: String
+            let timestamp: Timestamp
             let affectedPageID: AffectedPageID?
+            let agent: Agent?
+            let message: Message?
+            
+            var key: String {
+                return "\(wiki)-\(id)"
+            }
 
             enum CodingKeys: String, CodingKey {
                 case wiki
+                case id
                 case type
                 case category
-                case id
-                case message = "*"
+                case section
                 case timestamp
-                case agent
                 case affectedPageID = "title"
+                case agent
+                case message = "*"
             }
 
             init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: CodingKeys.self)
                 wiki = try values.decode(String.self, forKey: .wiki)
-                type = try values.decode(String.self, forKey: .type)
-                category = try values.decode(String.self, forKey: .category)
                 do {
                     id = String(try values.decode(Int.self, forKey: .id))
                 } catch {
-                    id = try? values.decode(String.self, forKey: .id)
+                    id = try values.decode(String.self, forKey: .id)
                 }
-                message = try values.decode(Message.self, forKey: .message)
+                type = try values.decode(String.self, forKey: .type)
+                category = try values.decode(String.self, forKey: .category)
+                section = try values.decode(String.self, forKey: .section)
                 timestamp = try values.decode(Timestamp.self, forKey: .timestamp)
-                agent = try values.decode(Agent.self, forKey: .agent)
                 affectedPageID = try? values.decode(AffectedPageID.self, forKey: .affectedPageID)
+                agent = try values.decode(Agent.self, forKey: .agent)
+                message = try values.decode(Message.self, forKey: .message)
             }
         }
         struct Notifications: Decodable {
@@ -67,7 +74,7 @@ class RemoteNotificationsAPIController: Fetcher {
             let header: String?
         }
         struct Timestamp: Decodable, Hashable {
-            let utciso8601: String?
+            let utciso8601: String
         }
         struct Agent: Decodable, Hashable {
             let name: String?

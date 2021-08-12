@@ -30,23 +30,20 @@ public class RemoteNotification: NSManagedObject {
         case read
         case excluded
 
-        public var number: NSNumber{
+        public var number: NSNumber {
             return NSNumber(value: rawValue)
         }
     }
 
     public var state: State? {
         get {
-            guard let value = stateNumber?.int16Value else {
-                return nil
-            }
-            return State(rawValue: value)
+            return State(rawValue: stateNumber)
         }
         set {
             guard let value = newValue?.rawValue else {
                 return
             }
-            stateNumber = NSNumber(value: value)
+            stateNumber = value
         }
     }
 

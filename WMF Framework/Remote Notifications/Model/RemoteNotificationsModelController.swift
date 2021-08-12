@@ -160,19 +160,16 @@ final class RemoteNotificationsModelController: NSObject {
     // inside the perform(_:) or the performAndWait(_:) methods.
     // https://developer.apple.com/documentation/coredata/using_core_data_in_the_background
     private func createNewNotification(from notification: RemoteNotificationsAPIController.NotificationsResult.Notification) {
-        guard let date = date(from: notification.timestamp?.utciso8601) else {
+        guard let date = date(from: notification.timestamp.utciso8601) else {
             assertionFailure("Notification should have a date")
-            return
-        }
-        guard let id = notification.id else {
-            assertionFailure("Notification must have an id")
             return
         }
 
         let message = notification.message?.header?.wmf_stringByRemovingHTML()
         let _ = backgroundContext.wmf_create(entityNamed: "RemoteNotification",
-                                                withKeysAndValues: ["id": id,
+                                                withKeysAndValues: ["id": notification.id,
                                                                     "categoryString" : notification.category,
+                                                                    "key": notification.key,
                                                                     "typeString": notification.type,
                                                                     "agent": notification.agent?.name,
                                                                     "affectedPageID": notification.affectedPageID?.full,
@@ -204,12 +201,8 @@ final class RemoteNotificationsModelController: NSObject {
             }
 
             for notification in notificationsFetchedFromTheServer {
-                guard let id = notification.id else {
-                    assertionFailure("Expected notification to have id")
-                    continue
-                }
-                guard !commonIDs.contains(id) else {
-                    if let savedNotification = savedNotifications.first(where: { $0.id == id }) {
+                guard !commonIDs.contains(notification.id) else {
+                    if let savedNotification = savedNotifications.first(where: { $0.id == notification.id }) {
                         // Update notifications that weren't seen so that moc is notified of the update
                         savedNotification.state = .read
                     }
