@@ -650,6 +650,7 @@
 "places-unknown-distance" = "onbekende afstand";
 "potd-description-prefix" = "Afbeelding van de dag voor $1";
 "potd-empty-error-description" = "Ophalen van de afbeelding van de dag voor $1 is mislukt";
+"potd-widget-title" = "Afbeelding van de dag";
 "preference-summary-eventlogging-opt-in" = "Wikimedia Foundation toestaan om informatie te verzamelen over hoe u deze app gebruikt, zodat de app beter kan worden gemaakt";
 "preference-title-eventlogging-opt-in" = "Gebruiksrapporten verzenden";
 "rank-accessibility-label" = "Nummer $1";
