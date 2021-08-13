@@ -24,27 +24,4 @@ public class RemoteNotification: NSManagedObject {
         }
         return RemoteNotificationCategory(stringValue: categoryString)
     }
-
-    public enum State: Int16 {
-        case seen
-        case read
-        case excluded
-
-        public var number: NSNumber {
-            return NSNumber(value: rawValue)
-        }
-    }
-
-    public var state: State? {
-        get {
-            return State(rawValue: stateNumber)
-        }
-        set {
-            guard let value = newValue?.rawValue else {
-                return
-            }
-            stateNumber = value
-        }
-    }
-
 }

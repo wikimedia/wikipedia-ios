@@ -30,15 +30,6 @@ import CocoaLumberjackSwift
     func markAsRead(notificationWithID notificationID: String) {
         modelController.markAsRead(notificationWithID: notificationID)
     }
-
-    @objc func markAsExcluded(_ notification: RemoteNotification) {
-        modelController.markAsExcluded(notification)
-    }
-
-    @objc(markAsSeenNotificationWithID:)
-    func markAsSeen(notificationWithID notificationID: String) {
-        modelController.markAsSeen(notificationWithID: notificationID)
-    }
 }
 
 final class RemoteNotificationsModelController: NSObject {
@@ -110,12 +101,11 @@ final class RemoteNotificationsModelController: NSObject {
     typealias ResultHandler = (Set<RemoteNotification>?) -> Void
 
     public func getUnreadNotifications(_ completion: @escaping ResultHandler) {
-        return notifications(with: NSPredicate(format: "stateNumber == nil"), completion: completion)
+        return notifications(with: NSPredicate(format: "isRead == %@", NSNumber(value: false)), completion: completion)
     }
 
     public func getReadNotifications(_ completion: @escaping ResultHandler) {
-        let read = RemoteNotification.State.read.number
-        return notifications(with: NSPredicate(format: "stateNumber == %@", read), completion: completion)
+        return notifications(with: NSPredicate(format: "isRead == %@", NSNumber(value: true)), completion: completion)
     }
 
     public func getAllNotifications(_ completion: @escaping ResultHandler) {
@@ -165,7 +155,7 @@ final class RemoteNotificationsModelController: NSObject {
             return
         }
 
-        let message = notification.message?.header?.wmf_stringByRemovingHTML()
+        let isRead = notification.readString == nil ? NSNumber(booleanLiteral: false) : NSNumber(booleanLiteral: true)
         let _ = backgroundContext.wmf_create(entityNamed: "RemoteNotification",
                                                 withKeysAndValues: ["id": notification.id,
                                                                     "categoryString" : notification.category,
@@ -173,7 +163,8 @@ final class RemoteNotificationsModelController: NSObject {
                                                                     "typeString": notification.type,
                                                                     "agent": notification.agent?.name,
                                                                     "affectedPageID": notification.affectedPageID?.full,
-                                                                    "message": message,
+                                                                    "message": notification.message?.header,
+                                                                    "isRead" : isRead,
                                                                     "wiki": notification.wiki,
                                                                     "date": date])
     }
@@ -204,7 +195,7 @@ final class RemoteNotificationsModelController: NSObject {
                 guard !commonIDs.contains(notification.id) else {
                     if let savedNotification = savedNotifications.first(where: { $0.id == notification.id }) {
                         // Update notifications that weren't seen so that moc is notified of the update
-                        savedNotification.state = .read
+                        savedNotification.isRead = true
                     }
                     continue
                 }
@@ -220,32 +211,14 @@ final class RemoteNotificationsModelController: NSObject {
 
     public func markAsRead(_ notification: RemoteNotification) {
         self.backgroundContext.perform {
-            notification.state = .read
+            notification.isRead = true
             self.save()
         }
     }
 
     public func markAsRead(notificationWithID notificationID: String) {
         processNotificationWithID(notificationID) { (notification) in
-            notification.state = .read
-        }
-    }
-
-    // MARK: Mark as excluded
-
-    public func markAsExcluded(_ notification: RemoteNotification) {
-        let moc = backgroundContext
-        moc.perform {
-            notification.state = .excluded
-            self.save()
-        }
-    }
-
-    // MARK: Mark as seen
-
-    public func markAsSeen(notificationWithID notificationID: String) {
-        processNotificationWithID(notificationID) { (notification) in
-            notification.state = .seen
+            notification.isRead = true
         }
     }
 

@@ -14,10 +14,10 @@ extension RemoteNotification {
     @NSManaged public var categoryString: String?
     @NSManaged public var date: Date?
     @NSManaged public var id: String?
+    @NSManaged public var key: String?
     @NSManaged public var message: String?
-    @NSManaged public var stateNumber: Int16
     @NSManaged public var typeString: String?
     @NSManaged public var wiki: String?
-    @NSManaged public var key: String?
+    @NSManaged public var isRead: Bool
 
 }

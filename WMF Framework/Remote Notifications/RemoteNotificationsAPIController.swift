@@ -29,6 +29,7 @@ class RemoteNotificationsAPIController: Fetcher {
             let timestamp: Timestamp
             let affectedPageID: AffectedPageID?
             let agent: Agent?
+            let readString: String?
             let message: Message?
             
             var key: String {
@@ -44,6 +45,7 @@ class RemoteNotificationsAPIController: Fetcher {
                 case timestamp
                 case affectedPageID = "title"
                 case agent
+                case readString = "read"
                 case message = "*"
             }
 
@@ -60,8 +62,9 @@ class RemoteNotificationsAPIController: Fetcher {
                 section = try values.decode(String.self, forKey: .section)
                 timestamp = try values.decode(Timestamp.self, forKey: .timestamp)
                 affectedPageID = try? values.decode(AffectedPageID.self, forKey: .affectedPageID)
-                agent = try values.decode(Agent.self, forKey: .agent)
-                message = try values.decode(Message.self, forKey: .message)
+                agent = try? values.decode(Agent.self, forKey: .agent)
+                readString = try? values.decode(String.self, forKey: .readString)
+                message = try? values.decode(Message.self, forKey: .message)
             }
         }
         struct Notifications: Decodable {
