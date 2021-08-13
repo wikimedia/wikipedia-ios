@@ -1,10 +1,8 @@
 import Foundation
 import CoreData
-
 @objc public enum RemoteNotificationCategory: Int {
     case editReverted
     case unknown
-
     init(stringValue: String) {
         switch stringValue {
         case "reverted":
@@ -14,10 +12,8 @@ import CoreData
         }
     }
 }
-
 @objc(RemoteNotification)
 public class RemoteNotification: NSManagedObject {
-
     public var category: RemoteNotificationCategory {
         guard let categoryString = categoryString else {
             return .unknown

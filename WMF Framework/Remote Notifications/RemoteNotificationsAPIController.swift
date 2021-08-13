@@ -20,14 +20,86 @@ class RemoteNotificationsAPIController: Fetcher {
     }
 
     struct NotificationsResult: Decodable {
+        
+        struct Query: Decodable {
+            
+            struct Notifications: Decodable {
+                let list: [Notification]
+            }
+            
+            let notifications: Notifications?
+        }
+        
+        let error: ResultError?
+        let query: Query?
+        
         struct Notification: Decodable, Hashable {
+            
+            struct Timestamp: Decodable, Hashable {
+                let utciso8601: String
+                let utcunix: String
+                
+                enum CodingKeys: String, CodingKey {
+                    case utciso8601
+                    case utcunix
+                }
+                
+                init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: CodingKeys.self)
+                    utciso8601 = try values.decode(String.self, forKey: .utciso8601)
+                    do {
+                        utcunix = String(try values.decode(Int.self, forKey: .utcunix))
+                    } catch {
+                        utcunix = try values.decode(String.self, forKey: .utcunix)
+                    }
+                }
+            }
+            struct Agent: Decodable, Hashable {
+                let id: String?
+                let name: String?
+                
+                enum CodingKeys: String, CodingKey {
+                    case id
+                    case name
+                }
+                
+                init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: CodingKeys.self)
+                    name = try values.decode(String.self, forKey: .name)
+                    do {
+                        id = String(try values.decode(Int.self, forKey: .id))
+                    } catch {
+                        id = try values.decode(String.self, forKey: .id)
+                    }
+                }
+            }
+            struct Title: Decodable, Hashable {
+                let full: String?
+                let namespace: String?
+                let namespaceKey: Int?
+                let text: String?
+                
+                enum CodingKeys: String, CodingKey {
+                    case full
+                    case namespace
+                    case namespaceKey = "namespace-key"
+                    case text
+                }
+            }
+            
+            struct Message: Decodable, Hashable {
+                let header: String?
+                let body: String?
+                let links: RemoteNotificationLinks?
+            }
+            
             let wiki: String
             let id: String
             let type: String
             let category: String
             let section: String
             let timestamp: Timestamp
-            let affectedPageID: AffectedPageID?
+            let title: Title?
             let agent: Agent?
             let readString: String?
             let message: Message?
@@ -43,7 +115,7 @@ class RemoteNotificationsAPIController: Fetcher {
                 case category
                 case section
                 case timestamp
-                case affectedPageID = "title"
+                case title = "title"
                 case agent
                 case readString = "read"
                 case message = "*"
@@ -61,32 +133,12 @@ class RemoteNotificationsAPIController: Fetcher {
                 category = try values.decode(String.self, forKey: .category)
                 section = try values.decode(String.self, forKey: .section)
                 timestamp = try values.decode(Timestamp.self, forKey: .timestamp)
-                affectedPageID = try? values.decode(AffectedPageID.self, forKey: .affectedPageID)
+                title = try? values.decode(Title.self, forKey: .title)
                 agent = try? values.decode(Agent.self, forKey: .agent)
                 readString = try? values.decode(String.self, forKey: .readString)
                 message = try? values.decode(Message.self, forKey: .message)
             }
         }
-        struct Notifications: Decodable {
-            let list: [Notification]
-        }
-        struct Query: Decodable {
-            let notifications: Notifications?
-        }
-        struct Message: Decodable, Hashable {
-            let header: String?
-        }
-        struct Timestamp: Decodable, Hashable {
-            let utciso8601: String
-        }
-        struct Agent: Decodable, Hashable {
-            let name: String?
-        }
-        struct AffectedPageID: Decodable, Hashable {
-            let full: String?
-        }
-        let error: ResultError?
-        let query: Query?
     }
 
     // MARK: Decodable: MarkReadResult

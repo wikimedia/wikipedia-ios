@@ -157,16 +157,25 @@ final class RemoteNotificationsModelController: NSObject {
 
         let isRead = notification.readString == nil ? NSNumber(booleanLiteral: false) : NSNumber(booleanLiteral: true)
         let _ = backgroundContext.wmf_create(entityNamed: "RemoteNotification",
-                                                withKeysAndValues: ["id": notification.id,
-                                                                    "categoryString" : notification.category,
-                                                                    "key": notification.key,
-                                                                    "typeString": notification.type,
-                                                                    "agent": notification.agent?.name,
-                                                                    "affectedPageID": notification.affectedPageID?.full,
-                                                                    "message": notification.message?.header,
-                                                                    "isRead" : isRead,
-                                                                    "wiki": notification.wiki,
-                                                                    "date": date])
+                                                withKeysAndValues: [
+                                                    "wiki": notification.wiki,
+                                                    "id": notification.id,
+                                                    "key": notification.key,
+                                                    "typeString": notification.type,
+                                                    "categoryString" : notification.category,
+                                                    "section" : notification.section,
+                                                    "date": date,
+                                                    "utcUnixString": notification.timestamp.utcunix,
+                                                    "titleFull": notification.title?.full,
+                                                    "titleNamespace": notification.title?.namespace,
+                                                    "titleNamespaceKey": notification.title?.namespaceKey,
+                                                    "titleText": notification.title?.text,
+                                                    "agentId": notification.agent?.id,
+                                                    "agentName": notification.agent?.name,
+                                                    "isRead" : isRead,
+                                                    "messageHeader": notification.message?.header,
+                                                    "messageBody": notification.message?.body,
+                                                    "messageLinks": notification.message?.links])
     }
 
     private func date(from dateString: String?) -> Date? {
