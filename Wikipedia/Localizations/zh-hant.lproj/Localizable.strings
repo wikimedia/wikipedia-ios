@@ -7,6 +7,7 @@
 // Author: Cwlin0416
 // Author: Eric850130
 // Author: Hello903hello
+// Author: Impartial just
 // Author: Kanashimi
 // Author: Kc kennylau
 // Author: Kly
@@ -431,6 +432,12 @@
 "explore-random-article-sub-heading-from-wikipedia" = "來自維基百科";
 "explore-randomizer" = "隨機條目產生器";
 "featured-article-empty-title" = "今日沒有可用的典範條目";
+"featured-widget-content-failure-for-date" = "沒有此日期可用的典範條目。";
+"featured-widget-description" = "查看由我們社群每日挑選出的維基百科最佳條目。";
+"featured-widget-from-language-wikipedia" = "來自$1維基百科";
+"featured-widget-from-wikipedia" = "來自維基百科";
+"featured-widget-language-failure" = "您主要使用的維基百科語言目前不支援典範條目，您可以在應用程式設定選單中變更主要使用的維基百科。";
+"featured-widget-title" = "典範條目";
 "feed-news-notification-button-text" = "開啟通知";
 "feed-news-notification-text" = "啟用通知來透過維基百科在條目與趨勢新聞相關時獲得提醒。";
 "fetcher-error-generic" = "發生錯誤。請稍後再試。";
@@ -583,6 +590,8 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 個歷史事件|$1 個歷史事件}}";
 "on-this-day-footer" = "更多歷史上的今天事件";
 "on-this-day-footer-showing-event-count" = "更多 {{PLURAL:$1|$1|$1}} 個在今天的歷史事件";
+"on-this-day-language-does-not-support-error" = "您主要使用的語言目前不被支援，您可以在應用程式設定中變更。";
+"on-this-day-no-internet-error" = "沒有資料可用";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "來自於$2維基百科的 $1";
 "on-this-day-title" = "歷史上的今天";
 "original-tab-button-popover-description" = "輕觸「W」來返回至您起始的分頁";
@@ -647,6 +656,9 @@
 "places-unknown-distance" = "未知距離";
 "potd-description-prefix" = "$1的每日圖片";
 "potd-empty-error-description" = "抓取$1的每日圖片失敗";
+"potd-sample-entry-description" = "在2015年的Pacu Jawi活動決賽上（來自米南佳保的「奔牛賽」），一名騎師駕馭兩隻奔跑的公牛。這是印度尼西亞西蘇門答臘島丹那達塔爾的傳統奔牛比賽。";
+"potd-widget-description" = "享受由我們社群挑選的出色每日圖片。";
+"potd-widget-title" = "每日圖片";
 "preference-summary-eventlogging-opt-in" = "允許維基媒體基金會收集有關您如何使用應用程式的資訊，來讓此應用程式能更好";
 "preference-title-eventlogging-opt-in" = "傳送使用情況報告";
 "rank-accessibility-label" = "號碼$1";
@@ -887,6 +899,9 @@
 "top-read-header-generic" = "維基百科";
 "top-read-header-with-language" = "$1維基百科";
 "top-read-see-more" = "查看更多熱門條目";
+"top-read-widget-description" = "在維基裡學習世界";
+"top-read-widget-readers-count" = "$1個讀者";
+"top-read-widget-title" = "最多閱讀";
 "two-factor-login-continue" = "繼續登入";
 "two-factor-login-instructions" = "請輸入雙重驗證代碼";
 "two-factor-login-title" = "登入至您的帳號";
@@ -923,6 +938,9 @@
 "welcome-send-data-learn-more" = "了解更多關於資料採集";
 "welcome-send-data-sub-title" = "透過讓我們了解您是如何使用，來協助維基媒體基金會將應用程式改善。所有蒐集的資料都採用匿名方式。";
 "welcome-volunteer-send-usage-reports" = "傳送使用情況報告";
+"widget-onthisday-description" = "探索歷史上的今天發生的事件。";
+"widget-onthisday-placeholder-article-snippet" = "自由、人人可編輯的線上百科";
+"widget-onthisday-placeholder-event-snippet" = "維基百科，一個已上線、免費 wiki 內容的百科。";
 "wikitext-downloading" = "載入內容中…";
 "wikitext-preview-changes" = "取得您的變更預覽中...";
 "wikitext-preview-changes-none" = "沒有可供預覽的變更。";

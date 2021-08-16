@@ -236,7 +236,8 @@ public extension WidgetController {
         var widgetCache = loadCache()
 
         guard !isSnapshot else {
-            performCompletion(result: .success(widgetCache.featuredContent ?? WidgetFeaturedContent(featuredArticle: nil)))
+            let previewSnapshot = widgetCache.featuredContent ?? WidgetFeaturedContent.previewContent() ?? WidgetFeaturedContent(featuredArticle: nil)
+            performCompletion(result: .success(previewSnapshot))
             return
         }
         

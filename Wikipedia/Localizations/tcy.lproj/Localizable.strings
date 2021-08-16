@@ -1,6 +1,7 @@
 // Messages for Tulu (ತುಳು)
 // Exported from translatewiki.net
 // Author: BHARATHESHA ALASANDEMAJALU
+// Author: Chidananda Kampa
 // Author: Lokesha kunchadka
 // Author: Nemo bis
 // Author: Ravi Mundkur
@@ -150,6 +151,7 @@
 "page-protected-can-not-edit-title" = "ಈ ಪುಟನ್ ಜಾಗ್ರತೆಡ್ ಡಿತುಂಡು";
 "places-accessibility-group" = "$1 ಲೆಕನೋಲು";
 "places-accessibility-show-more" = "ನನತ್ ಲೇಕನೋಲೆನ್ ತೊಜಾಲೆ";
+"potd-widget-title" = "ಇ ದಿನೊತ್ತಾ ಪೆಟೊ";
 "preference-title-eventlogging-opt-in" = "ಬೊಡಪಿ ವರದಿನ್ ಕಡಪುಡ್ಲೆ";
 "saved-title" = "ಒರಿಪಾಂಡ್";
 "search-did-you-mean" = "ಉಂದು ಪಂಡ $1?";
@@ -176,6 +178,7 @@
 "top-read-header-generic" = "ವಿಕಿಪೀಡಿಯ";
 "top-read-header-with-language" = "$1 ವಿಕಿಪೀಡಿಯ";
 "top-read-see-more" = "ಮಸ್ತು ಓದುನೆನ್ ತೂಲೆ";
+"top-read-widget-readers-count" = "$1 ಓದುನಗ್‌ಲ್";
 "two-factor-login-continue" = "ಲಾಗಿನ್ ಅದ್ ಮುಂದುವರಿಲೆ";
 "two-factor-login-title" = "ಇರೇನಾ ಖಾತೆಗ್ ಲಾಗಿನ್ ಅಲೇ";
 "welcome-explore-continue-button" = "ಸುರು ಮಾನ್ಪುಲೆ";
