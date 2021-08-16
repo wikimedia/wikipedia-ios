@@ -597,7 +597,7 @@ extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
             LoginFunnel.shared.logLoginStartInFeed()
             dismissAnnouncementCell(cell)
         case .notification:
-            dataStore.notificationsController.requestAuthenticationIfNecessary { (granted, error) in
+            dataStore.notificationsController.requestPermissionsIfNecessary { (granted, error) in
                 if let error = error {
                     self.wmf_showAlertWithError(error as NSError)
                 }

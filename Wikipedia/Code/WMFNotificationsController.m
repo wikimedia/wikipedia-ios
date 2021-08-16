@@ -2,10 +2,7 @@
 #import <WMF/WMFFaceDetectionCache.h>
 #import <WMF/WMF-Swift.h>
 @import ImageIO;
-@import UserNotifications;
 @import CoreServices;
-
-#define WMF_ALWAYS_ASK_FOR_NOTIFICATION_PERMISSION DEBUG && 0
 
 NSString *const WMFInTheNewsNotificationCategoryIdentifier = @"inTheNewsNotificationCategoryIdentifier";
 NSString *const WMFInTheNewsNotificationReadNowActionIdentifier = @"inTheNewsNotificationReadNowActionIdentifier";
@@ -23,54 +20,196 @@ NSString *const WMFNotificationInfoArticleExtractKey = @"articleExtract";
 NSString *const WMFNotificationInfoViewCountsKey = @"viewCounts";
 NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
 
+NSString *const WMFNotificationsControllerPermissionsDidChangeOnForegroundNotification = @"WMFNotificationsControllerPermissionsDidChangeOnForegroundNotification";
+NSString *const WMFNotificationsControllerEchoSubscriptionErrorNotification = @"WMFNotificationsControllerEchoSubscriptionErrorNotification";
+
 //const CGFloat WMFNotificationImageCropNormalizedMinDimension = 1; //for some reason, cropping isn't respected if a full dimension (1) is indicated
 
 @interface WMFNotificationsController ()
 
-@property (nonatomic, readwrite, getter=isAuthorized) BOOL authorized;
 @property (weak, nonatomic) MWKDataStore *dataStore;
+@property (nonatomic, readwrite, copy, nullable) NSData *remoteRegistrationDeviceToken;
+@property (nonatomic, readwrite, strong, nullable) NSError *remoteRegistrationError;
+@property (nonatomic, readwrite, assign) BOOL isSubscribedToEcho;
+@property (nonatomic, readwrite, strong, nullable) NSError *echoSubscriptionError;
+@property (nonatomic, strong) MWKLanguageLinkController *languageLinkController;
+@property (nonatomic, strong) WMFAuthenticationManager *authManager;
+@property (nonatomic, strong) WMFEchoSubscriptionFetcher *echoSubscriptionFetcher;
+@property (nonatomic, assign) UNAuthorizationStatus authStatus;
 
 @end
 
 @implementation WMFNotificationsController
 
-- (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore languageLinkController:(MWKLanguageLinkController *)languageLinkController authenticationManager:(WMFAuthenticationManager *)authManager {
     self = [super init];
     if (self) {
         self.dataStore = dataStore;
-#if WMF_ALWAYS_ASK_FOR_NOTIFICATION_PERMISSION
-        [self requestAuthenticationIfNecessaryWithCompletionHandler:^(BOOL granted, NSError *_Nullable error){
-
-        }];
-#endif
+        self.languageLinkController = languageLinkController;
+        self.echoSubscriptionFetcher = [[WMFEchoSubscriptionFetcher alloc] initWithSession:dataStore.session configuration:dataStore.configuration];
+        self.authManager = authManager;
+        
+        //set initial value of authStatus
+        [self notificationPermissionsStatusWithCompletionHandler:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(didBecomeActive:)
+                                                     name:UIApplicationDidBecomeActiveNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willLogOut:) name:[WMFAuthenticationManager willLogOutNotification] object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogIn:) name:[WMFAuthenticationManager didLogInNotification] object:nil];
     }
     return self;
 }
 
-- (void)requestAuthenticationIfNecessaryWithCompletionHandler:(void (^)(BOOL granted, NSError *__nullable error))completionHandler {
-    if (![UNUserNotificationCenter class]) {
+- (void)didBecomeActive:(NSNotification *)notification {
+    UNAuthorizationStatus oldStatus = self.authStatus;
+    [self notificationPermissionsStatusWithCompletionHandler:^(UNAuthorizationStatus status) {
+        if (status != oldStatus) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:WMFNotificationsControllerPermissionsDidChangeOnForegroundNotification object:nil];
+        }
+    }];
+}
+
+- (void)willLogOut:(NSNotification *)notification {
+    if ([self authStatusIsAllowed:self.authStatus]) {
+        [self unsubscribeFromEchoNotificationsWithCompletionHandler: nil];
+    }
+}
+
+- (void)didLogIn:(NSNotification *)notification {
+    [self notificationPermissionsStatusWithCompletionHandler:^(UNAuthorizationStatus status) {
+        if ([self authStatusIsAllowed:status]) {
+            [self subscribeToEchoNotificationsWithCompletionHandler: nil];
+        }
+    }];
+}
+
+#pragma mark OS Remote Notification Registration
+
+- (void)setRemoteNotificationRegistrationStatusWithDeviceToken: (nullable NSData *)deviceToken error: (nullable NSError *)error {
+    self.remoteRegistrationDeviceToken = deviceToken;
+    self.remoteRegistrationError = error;
+}
+
+#pragma mark OS Notification Permissions
+
+- (BOOL)authStatusIsAllowed:(UNAuthorizationStatus)authStatus {
+    return authStatus != UNAuthorizationStatusNotDetermined &&
+    authStatus != UNAuthorizationStatusDenied;
+}
+
+- (void)notificationPermissionsStatusWithCompletionHandler:(nullable void (^)(UNAuthorizationStatus status))completionHandler {
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings *_Nonnull settings) {
+        self.authStatus = settings.authorizationStatus;
+        if (completionHandler) {
+            completionHandler(settings.authorizationStatus);
+        }
+    }];
+}
+
+- (void)requestPermissionsIfNecessaryWithCompletionHandler:(void (^)(BOOL isAllowed, NSError *__nullable error))completionHandler {
+    if (![UNUserNotificationCenter class] && completionHandler) {
         completionHandler(NO, nil);
         return;
     }
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    
+    @weakify(self);
     [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings *_Nonnull settings) {
+        @strongify(self);
+        self.authStatus = settings.authorizationStatus;
         switch (settings.authorizationStatus) {
-            case UNAuthorizationStatusAuthorized:
-                self.authorized = YES;
-                completionHandler(YES, nil);
+            case UNAuthorizationStatusNotDetermined:
+                [self requestPermissionsWithCompletionHandler:completionHandler];
                 break;
             case UNAuthorizationStatusDenied:
-                self.authorized = NO;
                 completionHandler(NO, nil);
                 break;
-            case UNAuthorizationStatusNotDetermined:
-                [self requestAuthenticationWithCompletionHandler:completionHandler];
+            case UNAuthorizationStatusAuthorized:
+                completionHandler(YES, nil);
                 break;
-            default:
+            case UNAuthorizationStatusProvisional:
+                completionHandler(YES, nil);
+                break;
+            case UNAuthorizationStatusEphemeral:
+                completionHandler(YES, nil);
                 break;
         }
     }];
 }
+
+- (void)requestPermissionsWithCompletionHandler:(void (^)(BOOL, NSError *_Nullable))completionHandler {
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    [center requestAuthorizationWithOptions:UNAuthorizationOptionAlert | UNAuthorizationOptionSound
+      completionHandler:^(BOOL granted, NSError *_Nullable error) {
+          completionHandler(granted, error);
+      }];
+}
+
+#pragma mark Echo Subscription
+
+- (void)subscribeToEchoNotificationsWithCompletionHandler:(nullable void (^)(NSError *__nullable error))completionHandler {
+    
+    @weakify(self);
+    [self.echoSubscriptionFetcher subscribeWithSiteURL:self.languageLinkController.appLanguage.siteURL deviceToken:self.remoteRegistrationDeviceToken completion:^(NSError * _Nullable error) {
+        @strongify(self);
+        if (error != nil) {
+            self.echoSubscriptionError = error;
+            self.isSubscribedToEcho = NO;
+            if (completionHandler) {
+                completionHandler(error);
+            }
+            return;
+        }
+        
+        self.isSubscribedToEcho = YES;
+        self.echoSubscriptionError = nil;
+        if (completionHandler) {
+            completionHandler(error);
+        }
+    }];
+}
+
+- (void)unsubscribeFromEchoNotificationsWithCompletionHandler:(nullable void (^)(NSError *__nullable error))completionHandler {
+    [self.echoSubscriptionFetcher unsubscribeWithSiteURL:self.languageLinkController.appLanguage.siteURL deviceToken:self.remoteRegistrationDeviceToken completion:completionHandler];
+}
+
+#pragma mark Setters
+
+- (void)setAuthStatus:(UNAuthorizationStatus)authStatus {
+    UNAuthorizationStatus oldStatus = _authStatus;
+    _authStatus = authStatus;
+    
+    if (authStatus == UNAuthorizationStatusDenied && oldStatus != UNAuthorizationStatusDenied) {
+        [self unsubscribeFromEchoNotificationsWithCompletionHandler: nil];
+    } else if ([self authStatusIsAllowed:authStatus] && ![self authStatusIsAllowed:oldStatus]) {
+        [self subscribeToEchoNotificationsWithCompletionHandler: nil];
+    }
+}
+
+- (void)setEchoSubscriptionError:(NSError *)echoSubscriptionError {
+    if (_echoSubscriptionError == nil && echoSubscriptionError != nil) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:WMFNotificationsControllerEchoSubscriptionErrorNotification object:nil];
+    }
+    
+    _echoSubscriptionError = echoSubscriptionError;
+}
+
+- (void)setRemoteRegistrationDeviceToken:(NSData *)remoteRegistrationDeviceToken {
+    _remoteRegistrationDeviceToken = remoteRegistrationDeviceToken;
+    
+    //Note: this syncs up anyone who's permissions have changed upon fresh launch - setting the device token is the earliest point that we can subscribe/unsubscribe from echo
+    [self notificationPermissionsStatusWithCompletionHandler:^(UNAuthorizationStatus status) {
+        if (status == UNAuthorizationStatusDenied) {
+            [self unsubscribeFromEchoNotificationsWithCompletionHandler: nil];
+        } else if ([self authStatusIsAllowed:status]) {
+            [self subscribeToEchoNotificationsWithCompletionHandler: nil];
+        }
+    }];
+}
+
+#pragma mark Legacy Notifications Logic
 
 - (void)updateCategories {
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
@@ -94,15 +233,6 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
     UNNotificationCategory *editRevertedCategory = [UNNotificationCategory categoryWithIdentifier:WMFEditRevertedNotificationCategoryIdentifier actions:@[readMoreAction] intentIdentifiers:@[] options:UNNotificationCategoryOptionNone];
 
     [center setNotificationCategories:[NSSet setWithObjects:inTheNewsCategory, editRevertedCategory, nil]];
-}
-
-- (void)requestAuthenticationWithCompletionHandler:(void (^)(BOOL, NSError *_Nullable))completionHandler {
-    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-    [center requestAuthorizationWithOptions:UNAuthorizationOptionAlert | UNAuthorizationOptionSound
-                          completionHandler:^(BOOL granted, NSError *_Nullable error) {
-                              self.authorized = granted;
-                              completionHandler(granted, error);
-                          }];
 }
 
 - (NSString *)sendNotificationWithTitle:(NSString *)title body:(NSString *)body categoryIdentifier:(NSString *)categoryIdentifier userInfo:(NSDictionary *)userInfo atDateComponents:(nullable NSDateComponents *)dateComponents withAttachements:(nullable NSArray<UNNotificationAttachment *> *)attachements {
