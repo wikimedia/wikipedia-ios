@@ -7,24 +7,12 @@ import CocoaLumberjackSwift
         operationsController = RemoteNotificationsOperationsController(session: session, configuration: configuration, preferredLanguageCodesProvider: preferredLanguageCodesProvider)
         super.init()
     }
-    
+
     @objc func deleteOldDatabaseFiles() {
         do {
             try operationsController.deleteOldDatabaseFiles()
         } catch (let error) {
             DDLogError("Failure deleting legacy RemoteNotifications database files: \(error)")
         }
-    }
-}
-
-extension RemoteNotificationsController: PeriodicWorker {
-    public func doPeriodicWork(_ completion: @escaping () -> Void) {
-        operationsController.doPeriodicWork(completion)
-    }
-}
-
-extension RemoteNotificationsController: BackgroundFetcher {
-    public func performBackgroundFetch(_ completion: @escaping (UIBackgroundFetchResult) -> Void) {
-        operationsController.performBackgroundFetch(completion)
     }
 }
