@@ -78,17 +78,32 @@ class NotificationSettingsViewController: SubSettingsViewController {
     func sectionsForPermissionsNotDetermined() -> [NotificationSettingsSection] {
         var updatedSections = [NotificationSettingsSection]()
         
-        //TODO: Temporary permissions logic, use proper localized string for title when non-temporary
-        let notificationSettingsItems: [NotificationSettingsItem] = [NotificationSettingsSwitchItem(title: "Authorize notifications", switchChecker: { () -> Bool in
+        //TODO: Temporary happy path permissions logic, use proper localized string for title when non-temporary
+        let notificationSettingsItems: [NotificationSettingsItem] = [NotificationSettingsSwitchItem(title: "Enable push notifications", switchChecker: { () -> Bool in
             return false
             }, switchAction: { [weak self] (isOn) in
                 if (isOn) {
-                    self?.notificationsController.requestPermissionsIfNecessary { isAllowed, error in
+                    self?.notificationsController.requestPermissionsIfNecessary {[weak self] isAllowed, error in
                         DispatchQueue.main.async {
                             if let error = error as NSError? {
                                 self?.wmf_showAlertWithError(error)
+                                return
                             }
-                            self?.updateSections()
+                            
+                            guard isAllowed else {
+                                self?.updateSections()
+                                return
+                            }
+                            
+                            self?.notificationsController.subscribeToEchoNotifications(completionHandler: {[weak self] error in
+                                DispatchQueue.main.async {
+                                    if let error = error as NSError? {
+                                        self?.wmf_showAlertWithError(error)
+                                    }
+                                    
+                                    self?.updateSections()
+                                }
+                            })
                         }
                     }
                 }

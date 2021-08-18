@@ -27,15 +27,19 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
 @property (weak, nonatomic) MWKDataStore *dataStore;
 @property (nonatomic, readwrite, copy, nullable) NSData *remoteRegistrationDeviceToken;
 @property (nonatomic, readwrite, strong, nullable) NSError *remoteRegistrationError;
+@property (nonatomic, strong) WMFEchoSubscriptionFetcher *echoSubscriptionFetcher;
+@property (nonatomic, strong) MWKLanguageLinkController *languageLinkController;
 
 @end
 
 @implementation WMFNotificationsController
 
-- (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore languageLinkController:(MWKLanguageLinkController *)languageLinkController {
     self = [super init];
     if (self) {
         self.dataStore = dataStore;
+        self.languageLinkController = languageLinkController;
+        self.echoSubscriptionFetcher = [[WMFEchoSubscriptionFetcher alloc] initWithSession:dataStore.session configuration:dataStore.configuration];
     }
     return self;
 }
@@ -77,6 +81,15 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
 - (void)setRemoteNotificationRegistrationStatusWithDeviceToken: (nullable NSData *)deviceToken error: (nullable NSError *)error {
     self.remoteRegistrationDeviceToken = deviceToken;
     self.remoteRegistrationError = error;
+}
+
+- (void)subscribeToEchoNotificationsWithCompletionHandler:(nullable void (^)(NSError *__nullable error))completionHandler {
+
+    [self.echoSubscriptionFetcher subscribeWithSiteURL:self.languageLinkController.appLanguage.siteURL deviceToken:self.remoteRegistrationDeviceToken completion:completionHandler];
+}
+
+- (void)unsubscribeFromEchoNotificationsWithCompletionHandler:(nullable void (^)(NSError *__nullable error))completionHandler {
+    [self.echoSubscriptionFetcher unsubscribeWithSiteURL:self.languageLinkController.appLanguage.siteURL deviceToken:self.remoteRegistrationDeviceToken completion:completionHandler];
 }
 
 - (void)updateCategories {
