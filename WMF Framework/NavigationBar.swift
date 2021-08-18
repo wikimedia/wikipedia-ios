@@ -1,7 +1,7 @@
 @objc public enum NavigationBarDisplayType: Int {
     case backVisible
     case largeTitle
-	case centeredLargeTitle // If left, title, and right bar button items exist, center title. Otherwise, revert to `largeTitle` behavior.
+    case centeredLargeTitle // If left, title, and right bar button items exist, center title. Otherwise, revert to `largeTitle` behavior.
     case modal
     case hidden
 }
