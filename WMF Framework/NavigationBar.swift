@@ -1,6 +1,7 @@
 @objc public enum NavigationBarDisplayType: Int {
     case backVisible
     case largeTitle
+	case centeredLargeTitle // If left, title, and right bar button items exist, center title. Otherwise, revert to `largeTitle` behavior.
     case modal
     case hidden
 }
@@ -79,7 +80,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
                 return
             }
             _displayType = newValue
-            isTitleShrinkingEnabled = _displayType == .largeTitle
+			isTitleShrinkingEnabled = _displayType == .largeTitle || _displayType == .centeredLargeTitle
             updateTitleBarConstraints()
             updateNavigationItems()
             updateAccessibilityElements()
@@ -87,7 +88,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     }
     
     private func updateAccessibilityElements() {
-        let titleElement = displayType == .largeTitle ? titleBar : bar
+		let titleElement = (displayType == .largeTitle || displayType == .centeredLargeTitle) ? titleBar : bar
         accessibilityElements = [titleElement, underBarView, extendedView]
     }
     
@@ -99,8 +100,8 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             items.append(item)
         }
         
-        if displayType == .largeTitle, let navigationItem = items.last {
-            configureTitleBar(with: navigationItem)
+		if (displayType == .largeTitle || displayType == .centeredLargeTitle), let navigationItem = items.last {
+			configureTitleBar(with: navigationItem, centerTitle: displayType == .centeredLargeTitle)
         } else {
             bar.setItems([], animated: false)
             bar.setItems(items, animated: false)
@@ -111,14 +112,21 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     private var cachedTitleViewItem: UIBarButtonItem?
     private var titleView: UIView?
     
-    private func configureTitleBar(with navigationItem: UINavigationItem) {
+	private func configureTitleBar(with navigationItem: UINavigationItem, centerTitle: Bool) {
         var titleBarItems: [UIBarButtonItem] = []
         titleView = nil
+
+		var extractedTitleBarButtonItem: UIBarButtonItem?
+		var extractedLeftBarButtonItem: UIBarButtonItem?
+		var extractedRightBarButtonItem: UIBarButtonItem?
+
         if let titleView = navigationItem.titleView {
             if let cachedTitleViewItem = cachedTitleViewItem {
-                titleBarItems.append(cachedTitleViewItem)
+				extractedTitleBarButtonItem = cachedTitleViewItem
+				titleBarItems.append(cachedTitleViewItem)
             } else {
                 let titleItem = UIBarButtonItem(customView: titleView)
+				extractedTitleBarButtonItem = titleItem
                 titleBarItems.append(titleItem)
                 cachedTitleViewItem = titleItem
             }
@@ -129,6 +137,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             navigationTitleLabel.font = UIFont.wmf_font(.boldTitle1)
             titleView = navigationTitleLabel
             let titleItem = UIBarButtonItem(customView: navigationTitleLabel)
+			extractedTitleBarButtonItem = titleItem
             titleBarItems.append(titleItem)
         }
         
@@ -136,14 +145,38 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         
         if let item = navigationItem.leftBarButtonItem {
             let leftBarButtonItem = barButtonItem(from: item)
+			extractedLeftBarButtonItem = leftBarButtonItem
             titleBarItems.append(leftBarButtonItem)
         }
-        
+
         if let item = navigationItem.rightBarButtonItem {
             let rightBarButtonItem = barButtonItem(from: item)
+			extractedRightBarButtonItem = rightBarButtonItem
             titleBarItems.append(rightBarButtonItem)
         }
-        titleBar.setItems(titleBarItems, animated: false)
+
+		// The default `largeTitle` behavior left aligns the title view, which isn't desirable for displaying the Notifications Center bar button in the Explore feed.
+		// Center the title element with appropriate flexible space between left and right bar button items, if they exist.
+		if centerTitle {
+			titleBarItems = []
+
+			if let extractedLeftBarButtonItem = extractedLeftBarButtonItem {
+				titleBarItems.append(extractedLeftBarButtonItem)
+				titleBarItems.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil))
+			}
+
+			if let extractedTitleBarButtonItem = extractedTitleBarButtonItem {
+				titleBarItems.append(extractedTitleBarButtonItem)
+			}
+
+			titleBarItems.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil))
+			
+			if let extractedRightBarButtonItem = extractedRightBarButtonItem {
+				titleBarItems.append(extractedRightBarButtonItem)
+			}
+		}
+
+		titleBar.setItems(titleBarItems, animated: false)
     }
     
     // HAX: barButtonItem that we're getting from the navigationItem will not be shown on iOS 11 so we need to recreate it
@@ -466,7 +499,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     }
     
     private func updateTitleBarConstraints() {
-        let isUsingTitleBarInsteadOfNavigationBar = displayType == .largeTitle
+		let isUsingTitleBarInsteadOfNavigationBar = (displayType == .largeTitle || displayType == .centeredLargeTitle)
         underBarViewTopTitleBarBottomConstraint.isActive = isUsingTitleBarInsteadOfNavigationBar
         underBarViewTopBarBottomConstraint.isActive = !isUsingTitleBarInsteadOfNavigationBar && displayType != .hidden
         underBarViewTopBottomConstraint.isActive = displayType == .hidden
@@ -483,7 +516,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     
     // collapse bar top spacing if there's no status bar
     private func updateBarTopSpacing() {
-        guard displayType == .largeTitle else {
+		guard displayType == .largeTitle || displayType == .centeredLargeTitle else {
             barTopSpacing = 0
             return
         }
@@ -499,7 +532,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     }
     
     var barHeight: CGFloat {
-        return (displayType == .largeTitle ? titleBar.frame.height : bar.frame.height)
+		return (displayType == .largeTitle || displayType == .centeredLargeTitle ? titleBar.frame.height : bar.frame.height)
     }
     
     var underBarViewHeight: CGFloat {
