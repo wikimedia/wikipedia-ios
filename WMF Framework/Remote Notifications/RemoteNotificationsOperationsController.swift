@@ -5,6 +5,10 @@ class RemoteNotificationsOperationsController: NSObject {
     private let modelController: RemoteNotificationsModelController?
     private let operationQueue: OperationQueue
     private let preferredLanguageCodesProvider: WMFPreferredLanguageInfoProvider
+    
+    var viewContext: NSManagedObjectContext? {
+        return modelController?.viewContext
+    }
 
     private var isLocked: Bool = false {
         didSet {
@@ -24,7 +28,6 @@ class RemoteNotificationsOperationsController: NSObject {
         }
 
         operationQueue = OperationQueue()
-        operationQueue.maxConcurrentOperationCount = 1
         
         self.preferredLanguageCodesProvider = preferredLanguageCodesProvider
         
@@ -51,6 +54,53 @@ class RemoteNotificationsOperationsController: NSObject {
 
     public func stop() {
         operationQueue.cancelAllOperations()
+    }
+    
+    func fetchFirstPageNotifications(_ completion: @escaping () -> Void) {
+    
+        let completeEarly = {
+            self.operationQueue.addOperation(completion)
+        }
+
+        guard !isLocked else {
+            completeEarly()
+            return
+        }
+        
+        guard apiController.isAuthenticated else {
+            stop()
+            completeEarly()
+            return
+        }
+        
+        guard let modelController = modelController else {
+            assertionFailure("Failure setting up notifications core data stack.")
+            return
+        }
+        
+        preferredLanguageCodesProvider.getPreferredLanguageCodes({ [weak self] (preferredLanguageCodes) in
+            
+            guard let self = self else {
+                return
+            }
+            
+            let languageCodes = preferredLanguageCodes + ["wikidata", "commons"]
+            var operations: [RemoteNotificationsFetchFirstPageOperation] = []
+            for languageCode in languageCodes {
+                let operation = RemoteNotificationsFetchFirstPageOperation(with: self.apiController, modelController: modelController, languageCode: languageCode)
+                operations.append(operation)
+            }
+            
+            let completionOperation = BlockOperation(block: completion)
+            completionOperation.queuePriority = .veryHigh
+            
+            for operation in operations {
+                completionOperation.addDependency(operation)
+            }
+            
+            
+            self.operationQueue.addOperations(operations + [completionOperation], waitUntilFinished: false)
+        })
     }
 
     // MARK: Notifications
