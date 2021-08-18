@@ -3974,7 +3974,7 @@
 		830D71CE1F704DD40080078B /* ArticleFetchedResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleFetchedResultsViewController.swift; sourceTree = "<group>"; };
 		830ECACE1FBDD8C00080B1EF /* ReadingListsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsViewController.swift; sourceTree = "<group>"; };
 		830ECAD51FBDE77F0080B1EF /* ReadingListsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsTests.swift; sourceTree = "<group>"; };
-		831835301FD1AC490025DD3D /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
+		831835301FD1AC490025DD3D /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; usesTabs = 0; };
 		831937E623E1CE80006A9FF3 /* String+LinkParsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+LinkParsing.swift"; sourceTree = "<group>"; };
 		831937E823E1CEAC006A9FF3 /* CharacterSet+LinkParsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterSet+LinkParsing.swift"; sourceTree = "<group>"; };
 		831C15C52099EB3A001B04BF /* WMFArticle+Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFArticle+Errors.swift"; sourceTree = "<group>"; };
@@ -4920,7 +4920,7 @@
 		D8733C911ECA16580011E379 /* UIView+SemanticContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+SemanticContent.swift"; path = "WMF Framework/UIView+SemanticContent.swift"; sourceTree = SOURCE_ROOT; };
 		D8733C931ECA16940011E379 /* HasText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HasText.swift; sourceTree = "<group>"; };
 		D8733C951ECA48490011E379 /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewCell.swift; path = Wikipedia/Code/CollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
-		D87647471F1F9C2500D02CA4 /* CommonStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonStrings.swift; sourceTree = "<group>"; };
+		D87647471F1F9C2500D02CA4 /* CommonStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonStrings.swift; sourceTree = "<group>"; usesTabs = 0; };
 		D876769E21E7B73C00491039 /* ToolbarSeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarSeparatorView.swift; sourceTree = "<group>"; };
 		D876C2851E5CDE6500FCA00A /* AlignedImageButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlignedImageButton.swift; path = ../Wikipedia/Code/AlignedImageButton.swift; sourceTree = "<group>"; };
 		D87721F21EC0CDB60005E634 /* ArticleCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArticleCollectionViewCell.swift; path = Wikipedia/Code/ArticleCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
