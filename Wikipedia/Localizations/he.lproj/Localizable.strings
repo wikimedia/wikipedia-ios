@@ -424,6 +424,12 @@
 "explore-random-article-sub-heading-from-wikipedia" = "מתוך ויקיפדיה";
 "explore-randomizer" = "הגרלה";
 "featured-article-empty-title" = "היום אין ערכים מומלצים זמינים";
+"featured-widget-content-failure-for-date" = "לא זמין ערך מומלץ עבור התאריך הזה.";
+"featured-widget-description" = "גלו את הערכים הטובים ביותר בוויקיפדיה, שנבחרים יום־יום על־ידי הקהילה שלנו.";
+"featured-widget-from-language-wikipedia" = "מתוך ויקיפדיה ה$1";
+"featured-widget-from-wikipedia" = "מתוך ויקיפדיה";
+"featured-widget-language-failure" = "ויקיפדיה בשפה הראשית שלך אינה תומכת בערך מומלץ. אפשר לעדכן את הןויקיפדיה הראשית שלך בתפריט הגדרות של היישום.";
+"featured-widget-title" = "ערך מומלץ";
 "feed-news-notification-button-text" = "הפעלת עדכונים";
 "feed-news-notification-text" = "הפעלת עדכונים כדי לקבל הודעות מוויקיפדיה כשערכים נהיים חמים בחדשות.";
 "fetcher-error-generic" = "משהו השתבש! נא לנסות שוב מאוחר יותר.";
@@ -576,6 +582,8 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|אירוע היסטורי|$1 אירועים היסטוריים}}";
 "on-this-day-footer" = "עוד אירועים היסטוריים ביום הזה";
 "on-this-day-footer-showing-event-count" = "{{PLURAL:$1|אירוע היסטורי נוסף|$1 אירועים היסטוריים נוספים}} ביום הזה";
+"on-this-day-language-does-not-support-error" = "הוויקיפדיה בשפה הראשית שלך אינה תומכת ב\"ביום הזה\". אפשר לעדכן את הןויקיפדיה הראשית שלך בתפריט הגדרות של היישום.";
+"on-this-day-no-internet-error" = "לא זמינים נתונים";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 מתוך ויקיפדיה ב$2";
 "on-this-day-title" = "ביום הזה";
 "original-tab-button-popover-description" = "ניתן ללחוץ על 'W' כדי לחזור ללשונית שהתחלת ממנה";
@@ -621,7 +629,7 @@
 "places-filter-button-title" = "סינון";
 "places-filter-no-saved-places" = "אין לך מקומות שמורים";
 "places-filter-saved-articles" = "ערכים שמורים";
-"places-filter-top-articles" = "ערכים מובילים";
+"places-filter-top-articles" = "הנקראים ביותר";
 "places-filter-top-articles-count" = "{{PLURAL:$1|ערך אחד|$1 ערכים}}";
 "places-filter-top-read-articles" = "הערכים הנקראים ביותר";
 "places-location-enabled" = "המיקום הופעל";
@@ -640,6 +648,9 @@
 "places-unknown-distance" = "מרחק בלתי־ידוע";
 "potd-description-prefix" = "תמונת היום של $1";
 "potd-empty-error-description" = "לא הצלחתי לאחזר את תמונת היום של $1";
+"potd-sample-entry-description" = "שני שוורים רצים בזמן שהרוכב מחזיק בהם בפאצ'ו ג'אווי (משפת מיננגקפבאו, \"מרוץ שוורים\"), מרוץ שוורים מסורתי בטנה דטר, מערב סומטרה, אינדונזיה. 2015, Final-45";
+"potd-widget-description" = "תיהנו מצילום יומי יפה שנבחר על־ידי הקהילה.";
+"potd-widget-title" = "תמונת היום";
 "preference-summary-eventlogging-opt-in" = "לאפשר לקרן ויקימדיה לאסוף מידע על השימוש שלך ביישום כדי לשפר אותו";
 "preference-title-eventlogging-opt-in" = "שליחת דיווחי שימוש";
 "rank-accessibility-label" = "מספר $1";
@@ -880,6 +891,9 @@
 "top-read-header-generic" = "ויקיפדיה";
 "top-read-header-with-language" = "ויקיפדיה ב$1";
 "top-read-see-more" = "צפייה בערכים פופולריים נוספים";
+"top-read-widget-description" = "למדו מה העולם קורה היום בוויקיפדיה.";
+"top-read-widget-readers-count" = "$1 קוראים";
+"top-read-widget-title" = "הנקראים ביותר";
 "two-factor-login-continue" = "המשך כניסה לחשבון";
 "two-factor-login-instructions" = "נא להזין את קוד האימות הדו־שלבי";
 "two-factor-login-title" = "כניסה לחשבון שלך";
@@ -916,6 +930,9 @@
 "welcome-send-data-learn-more" = "מידע נוסף על הנתונים הנאספים";
 "welcome-send-data-sub-title" = "עזרו לשפר את היישום על־ידי זה שתספרו לנו איך אתם משתמשים בו. המידע שנאסף אינו מכיל פרטים מזהים.";
 "welcome-volunteer-send-usage-reports" = "לשלוח דיווחי שימוש";
+"widget-onthisday-description" = "גלו מה קרה ביום הזה בהיסטוריה.";
+"widget-onthisday-placeholder-article-snippet" = "האנציקלופדיה החופשית המקוונת שכולם יכולים לערוך";
+"widget-onthisday-placeholder-event-snippet" = "ויקיפדיה, אנציקלופדיית תוכן הוויקי החופשית, יוצאת לרשת.";
 "wikitext-downloading" = "טעינת תוכן...";
 "wikitext-preview-changes" = "אחזור תצוגה מקדימה של השינויים שלך...";
 "wikitext-preview-changes-none" = "אין שינויים לתצוגה מקדימה.";

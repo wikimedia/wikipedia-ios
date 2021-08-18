@@ -419,6 +419,7 @@
 "places-unknown-distance" = "ukendt afstand";
 "potd-description-prefix" = "Dagens billede for $1";
 "potd-empty-error-description" = "Kunne ikke hente billede af den dag, for $1";
+"potd-widget-title" = "Dagens billede";
 "preference-summary-eventlogging-opt-in" = "Tillad Wikimedia Foundation at indsamle oplysninger om, hvordan du bruger appen, for at gøre appen bedre.";
 "preference-title-eventlogging-opt-in" = "Send anvendelsesrapporter";
 "rank-accessibility-label" = "Nummer $1";

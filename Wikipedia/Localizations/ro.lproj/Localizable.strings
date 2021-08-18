@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: ANDROBETA
 // Author: Andreyyshore
+// Author: Cleinman
 // Author: GabiBil
 // Author: Kyouko
 // Author: MSClaudiu
@@ -11,12 +12,18 @@
 // Author: Nemo bis
 
 "aaald-added-text-description-2" = "$1 adăugat";
+"aaald-article-description-updated-description" = "Descrierea articolului a fost actualizată";
+"aaald-article-insert-header" = "Actualizări semnificative";
 "aaald-article-insert-last-updated" = "Ultima actualizare";
 "aaald-article-insert-new-changes" = "Schimbări recente";
 "aaald-article-insert-read-more" = "Citește mai multe actualizari";
 "aaald-characters-text-description" = "{{PLURAL:$1|0=caractere|caracter|caractere}}";
 "aaald-deleted-text-description-2" = "$1 șters";
 "aaald-error-subitle" = "Reîncărcă pentru a încerca din nou";
+"aaald-error-title" = "Imposibil de încărcat istoricul articolelor în linie";
+"aaald-many-sections-description" = "în $1 secțiuni";
+"aaald-multiple-changes-description" = "Modificări multiple efectuate";
+"aaald-multiple-references-added-description" = "S-au adăugat mai multe referințe";
 "aaald-new-book-reference-title" = "Carte";
 "aaald-new-discussion" = "Discuție nouă";
 "aaald-new-journal-reference-database" = "via $1";
@@ -33,6 +40,11 @@
 "aaald-revision-by-anonymous" = "Modificări de utilizator anonim";
 "aaald-revision-userInfo" = "Editări de $1 ($2 editări)";
 "aaald-single-reference-added-description" = "Referințe adăugate";
+"aaald-small-change-description" = "{{PLURAL:$1|0=Nu au fost efectuate modificări minore|$1 modificare minoră efectuată|$1 modificări minore efectuate}}";
+"aaald-summary-title" = "{{PLURAL:$1|0=0 modificări|$1 modificare|$1 modificări}} de {{PLURAL:$2|0=0 editori|$2 editor|$2 editori}} în {{PLURAL:$3|0=0 zile|$3 zi|$3 zile}}";
+"aaald-two-sections-description" = "în secțiunile $ 1 și $ 2";
+"aaald-vandalism-revert-description" = "Suspiciunea de vandalism a fost revenită";
+"aaald-view-full-history-button" = "Vedeți istoricul articolului complet";
 "about-content-license" = "Licență conținut";
 "about-content-license-details" = "Dacă nu se specifică altfel, conținutul este disponibil sub $1.";
 "about-content-license-details-share-alike-license" = "licența Creative Commons Atribuire și distribuire în condiții identice";
@@ -128,6 +140,7 @@
 "article-about-title" = "Despre acest articol";
 "article-delete" = "Șterge";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|articol|articole}} șterse";
+"article-fetcher-error-updated-content-timeout" = "Aplicația nu a reușit să recupereze conținutul actualizat la timp. Reîmprospătați această pagină mai târziu pentru a vedea modificările reflectate.";
 "article-languages-filter-placeholder" = "Găsește limba";
 "article-languages-label" = "Alegere limbă";
 "article-languages-others" = "Alte limbi";
@@ -150,43 +163,41 @@
 "button-skip" = "Sari";
 "cancel" = "Anulează";
 "cc-zero" = "Creative Commons CC0";
+"chinese-variants-alert-body" = "Aplicația Wikipedia acceptă acum următoarele variante chinezești ca limbi principale sau secundare în cadrul aplicației, facilitând citirea, căutarea și editarea în variantele preferate:\n\n简体 Chineză simplificată (zh-hans)\n香港繁體 Hong Kong Tradiţional (zh-hk)\n澳門繁體 Macau Tradiţional (zh-mo)\n大马简体 Malaeziană simplificată (zh-my)\n新加坡简体 Singapore simplificat (zh-sg)\n臺灣正體 Taiwanez Tradițional (zh-tw)";
+"chinese-variants-alert-title" = "Actualizări ale suportului pentru varianta chineză";
 "clear-title-accessibility-label" = "Șterge";
 "close-button-accessibility-label" = "Închide";
 "compass-direction" = "la ora $1";
 "continue-reading-empty-description" = "Explorați Wikipedia pentru a citi mai multe articole";
 "continue-reading-empty-title" = "Nici un articol citit recent";
+"crimean-tatar-variants-alert-body" = "Aplicația Wikipedia acceptă acum următoarele variante tătare din Crimeea ca limbi principale sau secundare în cadrul aplicației, facilitând citirea, căutarea și editarea în variantele preferate:\n\nQırımtatarca, Latin Crimean Tatar Latin (chr-latn)\nкъырымтатарджа, Кирил Crimean Tatar Cyrillic (crh-cyrl)";
+"crimean-tatar-variants-alert-title" = "Actualizări ale suportului pentru varianta tătară din Crimeea";
 "data-migration-status" = "Actualizare...";
 "description-add-title" = "Adaugă descriere";
-// Fuzzy
-"description-edit-for-article" = "Descrierea titlului pentru $1";
+"description-edit-for-article" = "Descrierea articolului pentru ($1)";
 "description-edit-learn-more" = "Aflați mai multe";
 "description-edit-length-warning" = "$1 / $2";
-// Fuzzy
-"description-edit-license" = "Prin schimbarea descrierii titlului, sunt de acord cu $1 și îmi eliberez irevocabil contribuțiile sub licența $2.";
+"description-edit-license" = "Prin schimbarea descrierii articolului, sunt de acord cu $1 și îmi eliberez irevocabil contribuțiile sub licența $2.";
 "description-edit-pencil-introduction" = "Modifică introducerea";
-// Fuzzy
-"description-edit-pencil-title" = "Modificați descrierea titlului";
+"description-edit-pencil-title" = "Modificați descrierea articolului";
 "description-edit-placeholder-title" = "Descrierile scurte sunt cele mai bune";
 "description-edit-publish" = "Publică descrierea";
 "description-edit-title" = "Modifică descrierea";
 "description-edit-warning" = "Încercați să păstrați descrierile scurte, astfel încât utilizatorii să înțeleagă subiectul articolului dintr-o privire";
-// Fuzzy
-"description-help-about-description" = "Descrierile titlurilor rezumă un articol pentru a ajuta cititorii să înțeleagă subiectul dintr-o privire.";
+"description-edit-warning-casing" = "Doar substantivele proprii trebuie majuscule, chiar și la începutul propoziției.";
+"description-help-about-description" = "Descrierile articolelor rezumă un articol pentru a ajuta cititorii să înțeleagă subiectul dintr-o privire.";
 "description-help-about-title" = "Despre";
 "description-help-about-wikidata" = "Despre Wikidata";
 "description-help-more-info-description" = "Descrierile sunt stocate și menținute pe Wikidata, un proiect al Fundației Wikimedia care oferă o bază de date gratuită, colaborativă, multilingvă, secundară, care sprijină Wikipedia și alte proiecte.";
 "description-help-more-info-title" = "Mai multe informații";
 "description-help-tips-description" = "În mod ideal, descrierile ar trebui să se încadreze pe o singură linie și pot avea între două și doisprezece cuvinte. Nu sunt majuscule decât dacă primul cuvânt este un substantiv propriu.";
-// Fuzzy
-"description-help-tips-example-description-one" = "descrierea titlului pentru un articol despre Mona Lisa";
-// Fuzzy
-"description-help-tips-example-description-two" = "descrierea titlului pentru un articol despre Muntele Everest";
+"description-help-tips-example-description-one" = "descrierea articolului pentru un articol despre Mona Lisa";
+"description-help-tips-example-description-two" = "descrierea articolului pentru un articol despre Muntele Everest";
 "description-help-tips-example-title-one" = "pictură de Leonardo Da Vinci";
 "description-help-tips-example-title-two" = "Cel mai înalt munte de pe Pământ";
 "description-help-tips-for-example" = "De exemplu:";
 "description-help-tips-title" = "Sfaturi pentru crearea descrierilor";
-// Fuzzy
-"description-help-title" = "Ajutor pentru descrierea titlului";
+"description-help-title" = "Ajutor pentru descrierea articolului";
 "description-help-wikidata-guide" = "Ghidul Wikidata pentru scrierea descrierilor";
 "description-published-button-title" = "Realizat";
 "description-published-footer" = "De asemenea, puteți edita articole din această aplicație. Încercați să remediați dactilografiile și propozițiile mici, făcând click pe pictograma creion data viitoare";
@@ -195,8 +206,7 @@
 "description-welcome-concise-sub-title" = "În mod ideal, o linie, între două până la douăsprezece cuvinte";
 "description-welcome-concise-title" = "Pe scurt";
 "description-welcome-descriptions-sub-title" = "Rezumă un articol pentru a ajuta cititorii să înțeleagă subiectul dintr-o privire";
-// Fuzzy
-"description-welcome-descriptions-title" = "Descrierea titlurilor";
+"description-welcome-descriptions-title" = "Descrierea articolelor";
 "description-welcome-promise-title" = "Începând, promit să nu folosesc greșit această caracteristică";
 "description-welcome-start-editing-button" = "Începeți să modificați";
 "diff-compare-header-from-info-heading" = "De la:";
@@ -306,6 +316,8 @@
 "empty-no-feed-message" = "Puteți vedea articolele recomandate atunci când aveți acces la internet";
 "empty-no-history-message" = "Țineți aici evidența a ceea ce ați lecturat";
 "empty-no-history-title" = "Niciun istoric de afișat";
+"empty-no-other-article-languages-message" = "Acest articol nu a fost încă scris în alte limbi";
+"empty-no-other-article-languages-title" = "Nu există alte limbi disponibile";
 "empty-no-reading-lists-message" = "Creați liste pentru locuri în care să călătoriți, subiecte preferate și multe altele";
 "empty-no-reading-lists-title" = "Organizați articole salvate cu liste de citire";
 "empty-no-saved-pages-in-reading-list-message" = "Salvați paginile în această listă pentru a le vedea cum apar aici";
@@ -438,6 +450,8 @@
 "forgot-password-instructions" = "Completați unul dintre câmpurile de mai jos pentru a primi instrucțiuni de resetare a parolei prin e-mail";
 "forgot-password-title" = "Resetează parola";
 "forgot-password-username-or-email-title" = "Sau";
+"gan-variants-alert-body" = "Aplicația Wikipedia acceptă acum următoarele variante Gan ca limbi principale sau secundare în cadrul aplicației, facilitând citirea, căutarea și editarea în variantele preferate:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplificat (gan-hans)\n贛語 繁體 Gan, Tradiţional (gan-hant)";
+"gan-variants-alert-title" = "Actualizări ale suportului pentru varianta Gan";
 "history-clear-all" = "Curăță";
 "history-clear-cancel" = "Revocare";
 "history-clear-confirmation-heading" = "Sigur doriți să ștergeți toate elementele recente?";
@@ -499,6 +513,12 @@
 "intermediate-edits-editors-count-limited" = "$1+ versiuni intermediare de $2+ utilizatori nu sunt afișate";
 "intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 versiune intermediară|$1 versiuni intermediare}} de $2+ utilizatori nu sunt afișate";
 "intermediate-edits-limited-editors-count" = "$1+ versiuni intermediare de {{PLURAL:$2|$2 utilizator|$2 utilizatori}} nu sunt afișate";
+"inuktitut-variants-alert-body" = "Aplicația Wikipedia acceptă acum următoarele variante inuktitut ca limbi principale sau secundare în cadrul aplicației, facilitând citirea, căutarea și editarea în variantele preferate:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Syllabics (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
+"inuktitut-variants-alert-title" = "Actualizări ale suportului pentru varianta Inuktitut";
+"kazakh-variants-alert-body" = "Aplicația Wikipedia acceptă acum următoarele variante kazahe ca limbi principale sau secundare în cadrul aplicației, facilitând citirea, căutarea și editarea în variantele preferate:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, Cyrillic (kk-cyrl)\nqazaqşa latin Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arabic (kk-arab)";
+"kazakh-variants-alert-title" = "Actualizări ale suportului pentru varianta kazahă";
+"kurdish-variants-alert-body" = "Aplicația Wikipedia acceptă acum următoarele variante kurde ca limbi principale sau secundare în cadrul aplicației, facilitând citirea, căutarea și editarea în variantele preferate:\n\nKurdî Latînî Kurdish, Latin (ku-latn)\nكوردی Kurdish, Arabic (kk-arab)";
+"kurdish-variants-alert-title" = "Actualizări ale suportului pentru varianta kurdă";
 "languages-settings-title" = "Limbile";
 "languages-title" = "Schimbare limbă";
 "languages-wikipedia" = "Limbile Wikipedia";
@@ -544,6 +564,7 @@
 "on-this-day-detail-header-date-range" = "de la $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 eveniment istoric|$1 evenimente istorice}}";
 "on-this-day-footer" = "Mai multe evenimente istorice în această zi";
+"on-this-day-footer-showing-event-count" = "{{PLURAL:$1|$1 mai mult despre evenimentul istoric|$1 mai multe evenimente istorice}} din această zi";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 de la $2 Wikipedia";
 "on-this-day-title" = "Astăzi în istorie";
 "original-tab-button-popover-description" = "Atingeți „W” pentru a reveni la fila de la care ați început";
@@ -691,6 +712,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "Evidențierea Sintaxei";
 "reading-themes-controls-accessibility-text-size-slider" = "Slider pentru dimensiunea textului";
 "reading-themes-controls-syntax-highlighting" = "Evidențierea Sintaxei";
+"reference-section-button-accessibility-label" = "Salt la secțiunea de referință";
 "reference-title" = "Referință $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Astăzi|1=Ieri|$1 zile în urmă}}";
 "relative-date-hours-abbreviated" = "$1h";
@@ -743,6 +765,8 @@
 "search-recent-title" = "Căutări recente";
 "search-result-redirected-from" = "Redirecționare de la: $1";
 "search-title" = "Căutare";
+"serbian-variants-alert-body" = "Aplicația Wikipedia acceptă acum următoarele variante sârbești ca limbi principale sau secundare în cadrul aplicației, facilitând citirea, căutarea și editarea în variantele preferate:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
+"serbian-variants-alert-title" = "Actualizări ale suportului pentru varianta sârbească";
 "settings-account" = "Cont";
 "settings-appearance" = "Preferințe de citire";
 "settings-clear-cache" = "Ștergeți datele din cache";
@@ -800,6 +824,11 @@
 "table-of-contents-close-accessibility-label" = "Închide cuprinsul";
 "table-of-contents-heading" = "Cuprins";
 "table-of-contents-hide-button-label" = "Ascundeți cuprinsul";
+"table-of-contents-subheading-label" = "Subtitlu $1";
+"tachelhit-variants-alert-body" = "Aplicația Wikipedia acceptă acum următoarele variante Tachelhit ca limbi principale sau secundare în cadrul aplicației, facilitând citirea, căutarea și editarea în variantele preferate:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
+"tachelhit-variants-alert-title" = "Actualizări ale suportului pentru varianta Tachelhit";
+"tajik-variants-alert-body" = "Aplicația Wikipedia acceptă acum următoarele variante tajik ca limbi principale sau secundare în cadrul aplicației, facilitând citirea, căutarea și editarea în variantele preferate:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";
+"tajik-variants-alert-title" = "Actualizări pentru sprijin varianta tadjică";
 "talk-page-add-discussion-accessibility-label" = "Adăugă discuție";
 "talk-page-discussion-accessibility-hint" = "Atingeți de două ori pentru a deschide un subiect de discuție";
 "talk-page-discussion-read-accessibility-label" = "Citește";
@@ -845,6 +874,8 @@
 "two-factor-login-with-regular-code" = "Utilizați codul de verificare";
 "unable-to-load-talk-page-title" = "Nu se poate încărca pagina de discuții";
 "unknown-generic-text" = "Necunoscut";
+"uzbek-variants-alert-body" = "Aplicația Wikipedia acceptă acum următoarele variante uzbece ca limbi principale sau secundare în cadrul aplicației, facilitând citirea, căutarea și editarea în variantele preferate:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Cyrillic (uz-cyrl)";
+"uzbek-variants-alert-title" = "Actualizări ale suportului pentru varianta uzbekă";
 "variants-alert-dismiss-button" = "Nu mulțumesc";
 "variants-alert-preferences-button" = "Examinați-vă preferințele";
 "welcome-exploration-explore-feed-description" = "Recomandări de citire și articole zilnice din comunitatea noastră";
@@ -856,8 +887,7 @@
 "welcome-explore-continue-button" = "Să începem";
 "welcome-explore-new-ways-title" = "Noi modalități de explorare";
 "welcome-explore-tell-me-more-done-button" = "Am înțeles";
-// Fuzzy
-"welcome-intro-free-encyclopedia-description" = "Wikipedia este scrisă în colaborare de voluntari și constă din peste 40 de milioane de articole în aproape 300 de limbi.";
+"welcome-intro-free-encyclopedia-description" = "Wikipedia este scrisă în colaborare de voluntari și constă din peste 40 de milioane de articole în peste 300 de limbi.";
 "welcome-intro-free-encyclopedia-more" = "Aflați mai multe despre Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "Despre Wikipedia";
 "welcome-intro-free-encyclopedia-more-description" = "Wikipedia este un proiect global pentru construirea de enciclopedii gratuite în toate limbile lumii. Practic, oricine are acces la Internet este liber să participe contribuind cu informații neutre și citate.";
@@ -865,8 +895,7 @@
 "welcome-languages-add-button" = "Adaugă încă o limbă";
 "welcome-languages-add-or-edit-button" = "Adăugați sau editați limbile preferate";
 "welcome-languages-description" = "Am găsit următoarele limbi pe dispozitiv:";
-// Fuzzy
-"welcome-languages-search-title" = "Căutați în aproape 300 de limbi";
+"welcome-languages-search-title" = "Căutați în peste 300 de limbi";
 "welcome-notifications-tell-me-more-creation" = "Notificările sunt create și livrate pe dispozitivul dvs. de către aplicație, nu de pe serverele noastre (sau de la terți).";
 "welcome-notifications-tell-me-more-storage" = "Preferințele de notificare sunt stocate pe dispozitiv și nu se bazează pe informații sau activități personale.";
 "welcome-notifications-tell-me-more-title" = "Mai multe despre notificări";
