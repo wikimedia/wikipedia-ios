@@ -2007,6 +2007,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self showArticleWithURL:articleURL animated:YES];
 }
 
+#pragma mark - Notifications Center
+
+- (UIImage *)notificationsCenterBellImageWithUnreadNotifications:(BOOL)hasUnreadNotifications {
+    return [UIImage imageNamed:hasUnreadNotifications ? @"notifications-bell-with-indicator" : @"notifications-bell"];
+}
+
 #pragma mark - User was logged out
 
 - (void)userWasLoggedOut:(NSNotification *)note {
