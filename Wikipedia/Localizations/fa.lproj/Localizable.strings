@@ -436,6 +436,12 @@
 "explore-random-article-sub-heading-from-wikipedia" = "از ویکی‌پدیا";
 "explore-randomizer" = "تصادفی";
 "featured-article-empty-title" = "امروز مقالهٔ برگزیده‌ای موجود نیست";
+"featured-widget-content-failure-for-date" = "مقالهٔ برگزیده‌ای برای این تاریخ موجود نیست.";
+"featured-widget-description" = "برترین مقاله‌های ویکی‌پدیا، که به‌طور روزانه توسط اجتماع ما انتخاب می‌شوند را بیابید.";
+"featured-widget-from-language-wikipedia" = "از ویکی‌پدیای $1";
+"featured-widget-from-wikipedia" = "از ویکی‌پدیا";
+"featured-widget-language-failure" = "زبان ویکی‌پدیای اصلی شما از مقاله‌های برگزیده پشتیبانی نمی‌کند. می‌توانید ویکی‌پدیای اصلی خود را در منوی تنظیمات نرم‌فازار به‌روز کنید.";
+"featured-widget-title" = "مقالهٔ برگزیده";
 "feed-news-notification-button-text" = "روشن کردن اعلان‌ها";
 "feed-news-notification-text" = "فعال‌کردن اعلان‌ها برای آگاه‌شدن توسط ویکی‌پدیا زمانی که مقالات در اخبار پربازدید هستند.";
 "fetcher-error-generic" = "چیزی اشتباه شده‌است! لطفاً دوباره تلاش کنید.";
@@ -580,6 +586,8 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 رویداد تاریخی|$1 رویداد تاریخی}}";
 "on-this-day-footer" = "وقایع تاریخی بیشتر برای این روز";
 "on-this-day-footer-showing-event-count" = "{{PLURAL:$1|$1 رویداد تاریخی بیشتر|$1 رویداد تاریخی بیشتر}} در این روز";
+"on-this-day-language-does-not-support-error" = "زبان ویکی‌پدیای اصلی شما از «در این روز» پشتیبانی نمی‌کند. می‌توانید ویکی‌پدیای اصلی خود را در منوی تنظیمات نرم‌افزار به‌روز کنید.";
+"on-this-day-no-internet-error" = "هیچ داده‌ای در دسترس نیست";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 از ویکی‌پدیای $2";
 "on-this-day-title" = "در این روز";
 "original-tab-button-popover-description" = "برای بازگشت به زبانه‌ای که از آن شروع کردید، نماد W را لمس کنید";
@@ -644,6 +652,8 @@
 "places-unknown-distance" = "مسافت نامشخص";
 "potd-description-prefix" = "نگارهٔ روز برای $1";
 "potd-empty-error-description" = "ناتوان در دریافت تصویر روز برای $1";
+"potd-widget-description" = "از مشاهدهٔ یک تصویر روزانهٔ زیبا، که توسط احتماع ما انتخاب شده، لذت ببرید.";
+"potd-widget-title" = "نگارهٔ روز";
 "preference-summary-eventlogging-opt-in" = "به بنیاد ویکی‌مدیا برای جمع‌آوری اطلاعات درباره چگونگی استفاده‌تان از این نرم‌افزار جهت بهتر ساختن نرم‌افزار اجازه دهید";
 "preference-title-eventlogging-opt-in" = "ارسال گزارش‌های نحوهٔ استفاده";
 "rank-accessibility-label" = "شمارهٔ $1";
@@ -876,6 +886,9 @@
 "top-read-header-generic" = "ویکی‌پدیا";
 "top-read-header-with-language" = "ویکی‌پدیای $1";
 "top-read-see-more" = "دیدن پربازدیدهای بیشتر";
+"top-read-widget-description" = "از آنچه جهانیان امروز در ویکی‌پدیا می‌خوانند آگاه شوید.";
+"top-read-widget-readers-count" = "$1 مخاطب";
+"top-read-widget-title" = "پربازدیدترین‌ها";
 "two-factor-login-continue" = "ادامه‌دادن ورود به سامانه";
 "two-factor-login-instructions" = "لطفاً کد اعتبارسنجی دوعاملی را وارد کنید";
 "two-factor-login-title" = "ورود به حساب کاربری";
@@ -910,6 +923,9 @@
 "welcome-send-data-learn-more" = "اطلاعات بیشتر در مورد داده‌های جمع‌آوری‌شده";
 "welcome-send-data-sub-title" = "با آگاه‌کردن بنیاد ویکی‌مدیا از نحوهٔ استفادهٔ خود از این نرم‌افزار، به بهتر کردن آن کمک کنید. داده‌ها به‌صورت ناشناس جمع‌آوری می‌شوند.";
 "welcome-volunteer-send-usage-reports" = "ارسال گزارش نحوهٔ استفاده";
+"widget-onthisday-description" = "کنکاش در رویدادهای تاریخی در این روز.";
+"widget-onthisday-placeholder-article-snippet" = "دانشنامه‌ای آزاد که همه می‌توانند آن را ویرایش کنند";
+"widget-onthisday-placeholder-event-snippet" = "ویکی‌پدیا، ویکی دانشنامهٔ محتوایی آزاد، برخط می‌شود.";
 "wikitext-downloading" = "بارگیری محتوا...";
 "wikitext-preview-changes" = "بازیابی پیش‌نمایش تغییرات شما...";
 "wikitext-preview-changes-none" = "تغییری برای پیش نمایش وجود ندارد.";
