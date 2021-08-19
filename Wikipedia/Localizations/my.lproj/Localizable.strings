@@ -10,8 +10,7 @@
 // Author: Teitei
 
 "aaald-added-text-description-2" = "$1 ပေါင်းထည့်ခဲ့သည်";
-// Fuzzy
-"aaald-article-description-updated-description" = "ဆောင်းပါးခေါင်းစဉ်ဖော်ပြချက် မွမ်းမံခဲ့သည်";
+"aaald-article-description-updated-description" = "ဆောင်းပါးခေါင်းစဉ် ဖော်ပြချက် မွမ်းမံခဲ့သည်";
 "aaald-article-insert-header" = "သိသာသော မွမ်းမံမှုများ";
 "aaald-article-insert-last-updated" = "နောက်ဆုံး မွမ်းမံခဲ့သည်";
 "aaald-article-insert-new-changes" = "ပြောင်းလဲမှု အသစ်များ";
@@ -294,6 +293,9 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "$1 ဝီကီပီးဒီးယားမှ";
 "explore-random-article-sub-heading-from-wikipedia" = "ဝီကီပီးဒီးယားမှ";
 "explore-randomizer" = "ကျပန်းစဉ်";
+"featured-widget-from-language-wikipedia" = "$1 ဝီကီပီးဒီးယားမှ";
+"featured-widget-from-wikipedia" = "ဝီကီပီးဒီးယားမှ";
+"featured-widget-title" = "အထူးဆောင်းပါး";
 "feed-news-notification-button-text" = "အသိပေးချက်များ ဖွင့်ရန်။";
 "fetcher-error-generic" = "တစ်ခုခုမှားယွင်းခဲ့ပါသည်။ နောက်မှထပ်မံကြိုးစားပါ။";
 "field-alert-captcha-invalid" = "မမှန်သော CAPTCHA";

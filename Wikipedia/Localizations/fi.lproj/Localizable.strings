@@ -416,6 +416,12 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Wikipediasta";
 "explore-randomizer" = "Satunnaistaminen";
 "featured-article-empty-title" = "Ei saatavilla olevaa suositeltua artikkelia tälle päivälle";
+"featured-widget-content-failure-for-date" = "Suositeltu artikkeli ei ole saatavilla tälle päivälle.";
+"featured-widget-description" = "Löydä parhaat Wikipedian artikkelit, joita yhteisömme valitsee päivittäin.";
+"featured-widget-from-language-wikipedia" = "Wikipedian kieliversiosta $1";
+"featured-widget-from-wikipedia" = "Wikipediasta";
+"featured-widget-language-failure" = "Ensisijainen Wikipedia-kielesi ei tue Suositeltua artikkelia. Voit päivittää Wikipedian asetuksia sovelluksen asetuksista.";
+"featured-widget-title" = "Suositeltu artikkeli";
 "feed-news-notification-button-text" = "Ota ilmoitukset käyttöön";
 "feed-news-notification-text" = "Kytke ilmoitukset päälle saadaksesi ilmoituksen artikkeleista jotka ovat nousussa uutisissa.";
 "fetcher-error-generic" = "Jotain meni pieleen. Yritä uudelleen myöhemmin";
@@ -559,6 +565,7 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historiallinen tapahtuma|$1 historiallista tapahtumaa}}";
 "on-this-day-footer" = "Lisää tänä päivänä tapahtuneita historiallisia tapahtumia";
 "on-this-day-footer-showing-event-count" = "{{PLURAL:$1|$1 historiallinen tapahtuma|$1 historiallista tapahtumaa}} lisää tänä päivänä";
+"on-this-day-no-internet-error" = "Ei internetyhteyttä";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 kieliversion $2 Wikipediassa";
 "on-this-day-title" = "Tänä päivänä";
 "original-tab-button-popover-description" = "Napauta 'W' -kuvaketta palataksesi välilehdelle josta aloitit";
@@ -623,6 +630,8 @@
 "places-unknown-distance" = "tuntematon etäisyys";
 "potd-description-prefix" = "Päivän kuva: $1";
 "potd-empty-error-description" = "Virhe haettaessa päivän kuvaa $1";
+"potd-widget-description" = "Nauti kauniista päivän kuvasta, jonka yhteisömme on valinnut.";
+"potd-widget-title" = "Päivän kuva";
 "preference-summary-eventlogging-opt-in" = "Salli Wikimedia-säätiön kerätä tietoja sovelluksen käyttämisestä käyttökokemuksen parantamiseksi.";
 "preference-title-eventlogging-opt-in" = "Lähetä käyttöraportteja";
 "rank-accessibility-label" = "Numero $1";
@@ -855,6 +864,7 @@
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "Katso lisää luetuimpia";
+"top-read-widget-title" = "Luetuimmat";
 "two-factor-login-continue" = "Jatka sisäänkirjautumista";
 "two-factor-login-instructions" = "Syötä kaksivaiheisen vahvistuksen koodi";
 "two-factor-login-title" = "Kirjaudu sisään käyttäjätunnuksellesi";
@@ -889,6 +899,7 @@
 "welcome-send-data-learn-more" = "Lue lisää kerätyistä tiedoista";
 "welcome-send-data-sub-title" = "Auta sovelluksen kehitystyössä antamalla Wikimedia-säätiön kerätä tietoja sovelluksen käyttötavoista. Tiedot kerätään anonyymisti.";
 "welcome-volunteer-send-usage-reports" = "Lähetä käyttöraportteja";
+"widget-onthisday-placeholder-event-snippet" = "Wikipedia, ilmainen tietosanakirja, siirtyy verkkoon.";
 "wikitext-downloading" = "Ladataan sisältöä...";
 "wikitext-preview-changes" = "Ladataan esikatselua tehdyistä muutoksista...";
 "wikitext-preview-changes-none" = "Ei esikatseltavia muutoksia.";

@@ -418,6 +418,12 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Z Wikipédie";
 "explore-randomizer" = "Randomizér";
 "featured-article-empty-title" = "Nie je dostupný žiadny odporúčaný článok";
+"featured-widget-content-failure-for-date" = "Odporúčaný článok nie je pre tento dátum dostupný.";
+"featured-widget-description" = "Objavte najlepšie články na Wikipédii, vyberané denne našou komunitou.";
+"featured-widget-from-language-wikipedia" = "Z $1 Wikipédie";
+"featured-widget-from-wikipedia" = "Z Wikipédie";
+"featured-widget-language-failure" = "Váš prvotný jazyk Wikipédie nie je pre odporúčaný článok podporovaný. Môžete ho zmeniť v nastaveniach aplikácie.";
+"featured-widget-title" = "Odporúčaný článok";
 "feed-news-notification-button-text" = "Zapnúť upozornenia";
 "feed-news-notification-text" = "Posielať oznámení, ktoré majú byť oznámené Wikipédiou, keď články sú trendy v aktualitách.";
 "fetcher-error-generic" = "Niečo sa nepodarilo. Prosím, skúste to znovu neskôr.";
@@ -570,6 +576,8 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historická udalosť|$1 historické udalosti|$1 historických udalostí}}";
 "on-this-day-footer" = "Ďalšie historické udalosti, ktoré sa odohrali v tento deň";
 "on-this-day-footer-showing-event-count" = "{{PLURAL:$1|$1 historická udalosť v tento deň|historických udalostí v tento deň $1}}";
+"on-this-day-language-does-not-support-error" = "Váš prvotný jazyk na Wikipédii nie je k tomuto dňu podporovaný. Môžete ho zmeniť v nastaveniach aplikácie.";
+"on-this-day-no-internet-error" = "Žiadne dostupné údaje";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 z Wikipédie v jazyku $2";
 "on-this-day-title" = "Dnes";
 "original-tab-button-popover-description" = "Ťuknutím na W sa vrátite na kartu, z ktorej ste začali";
@@ -634,6 +642,9 @@
 "places-unknown-distance" = "neznáma vzdialenosť";
 "potd-description-prefix" = "Obrázok dňa pre $1";
 "potd-empty-error-description" = "Nepodarilo sa načítať obrázok dňa pre $1";
+"potd-sample-entry-description" = "Pacu jawi sú tradičné býčie dostihy v Tanah Datar na západnej Sumatre v Indonézii. V pretekoch stojí džokej na drevenom pluhu voľne priviazanom k ​​páru býkov a drží ich za chvosty, zatiaľ čo býky pokrývajú asi 60–250 metrov rozbahnenej stopy v ryžovom poli.";
+"potd-widget-description" = "Vychutnajte si dnešnú krásnu fotografiu vybranú našou komunitou.";
+"potd-widget-title" = "Obrázok dňa";
 "preference-summary-eventlogging-opt-in" = "Povoliť Nadácii Wikimedia zbierať informácie o vašom používaní aplikácie. Pomáha nám to skvalitniť aplikáciu";
 "preference-title-eventlogging-opt-in" = "Odoslať správu o používaní";
 "rank-accessibility-label" = "Číslo $1";
@@ -872,6 +883,9 @@
 "top-read-header-generic" = "Wikipédia";
 "top-read-header-with-language" = "$1 Wikipédia";
 "top-read-see-more" = "Zobraziť ďalšie najčítanejšie články";
+"top-read-widget-description" = "Zistite čo svet dnes číta na Wikipédii.";
+"top-read-widget-readers-count" = "$1 čitateľov";
+"top-read-widget-title" = "Najčítanejšie články";
 "two-factor-login-continue" = "Pokračovať prihlásiť";
 "two-factor-login-instructions" = "Prosím zadajte dvoufaktorizačný overovací kód";
 "two-factor-login-title" = "Prihláste sa do svojho účtu";
@@ -908,6 +922,9 @@
 "welcome-send-data-learn-more" = "Ďalšie informácie o zbieraných údajoch";
 "welcome-send-data-sub-title" = "Pomôžte Nadácii Wikimedia vylepšiť aplikáciu tak, že budete zdielať údaje o vašom používaní aplikácie. Zozbierané údaje sú anonymné";
 "welcome-volunteer-send-usage-reports" = "Odosielať správu o používaní";
+"widget-onthisday-description" = "Objavte čo sa v histórii stalo v tento deň.";
+"widget-onthisday-placeholder-article-snippet" = "Voľná online encyklopédia, ktorú môže upravovať každý";
+"widget-onthisday-placeholder-event-snippet" = "Wikipédia ide online.";
 "wikitext-downloading" = "Načítavam obsah...";
 "wikitext-preview-changes" = "Načítava sa ukážka vykonaných zmien...";
 "wikitext-preview-changes-none" = "Neboli vykonané žiadne zmeny.";

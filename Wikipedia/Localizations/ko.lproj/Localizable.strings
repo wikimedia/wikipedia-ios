@@ -436,6 +436,10 @@
 "explore-random-article-sub-heading-from-wikipedia" = "위키백과에서";
 "explore-randomizer" = "임의의 문서 보기";
 "featured-article-empty-title" = "오늘 볼 수 있는 알찬 글 없음";
+"featured-widget-content-failure-for-date" = "알찬 글은 현재 날짜 기준으로 사용할 수 없습니다.";
+"featured-widget-from-language-wikipedia" = "$1 위키백과에서";
+"featured-widget-from-wikipedia" = "위키백과에서";
+"featured-widget-title" = "알찬 글";
 "feed-news-notification-button-text" = "알림 켜기";
 "feed-news-notification-text" = "위키백과 문서의 소식 동향이 있을 경우에 알림을 받을 수 있습니다.";
 "fetcher-error-generic" = "무언가가 잘못되었습니다. 나중에 다시 시도해 주십시오.";
@@ -588,6 +592,7 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1개의 역사적 사건}}";
 "on-this-day-footer" = "이 날에 있었던 더 많은 역사적 사건";
 "on-this-day-footer-showing-event-count" = "오늘의 역사 {{PLURAL:$1|$1건 더보기|$1건 더보기}}";
+"on-this-day-no-internet-error" = "이용 가능한 데이터 없음";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 위키백과에서 $1";
 "on-this-day-title" = "오늘의 역사";
 "original-tab-button-popover-description" = "시작한 탭으로 돌아가려면 'W'를 탭하세요";
@@ -652,6 +657,7 @@
 "places-unknown-distance" = "알 수 없는 거리";
 "potd-description-prefix" = "$1의 그림";
 "potd-empty-error-description" = "$1의 사진 가져오기 실패";
+"potd-widget-title" = "오늘의 사진";
 "preference-summary-eventlogging-opt-in" = "당신이 어떻게 앱을 사용하는지에 대한 정보를 모으도록 허용합니다. 보내주신 정보는 위키미디어 재단이 앱을 개선하는 데 도움이 됩니다.";
 "preference-title-eventlogging-opt-in" = "사용 보고서 보내기";
 "rank-accessibility-label" = "$1번";
@@ -890,6 +896,7 @@
 "top-read-header-generic" = "위키백과";
 "top-read-header-with-language" = "$1 위키백과";
 "top-read-see-more" = "윗글 더 보기";
+"top-read-widget-description" = "세상 사람들이 위키백과에서 오늘 무엇을 읽고 있는지 알아보세요.";
 "two-factor-login-continue" = "로그인 계속";
 "two-factor-login-instructions" = "2요소 인증 코드를 입력해 주십시오";
 "two-factor-login-title" = "자신의 계정으로 로그인";
@@ -926,6 +933,7 @@
 "welcome-send-data-learn-more" = "수집된 데이터에 대해 더 알아보기";
 "welcome-send-data-sub-title" = "위키미디어 재단의 앱 개선을 지원하기 위해 앱을 어떻게 사용하고 계신지 알려주세요. 수집된 데이터는 익명 처리됩니다.";
 "welcome-volunteer-send-usage-reports" = "사용 보고서 보내기";
+"widget-onthisday-placeholder-article-snippet" = "누구나 편집할 수 있는 자유로운 온라인 백과사전";
 "wikitext-downloading" = "내용을 불러오는 중...";
 "wikitext-preview-changes" = "바뀐 내용의 미리 보기를 가져오는 중...";
 "wikitext-preview-changes-none" = "미리 보기에 바뀐 내용이 없습니다.";
