@@ -142,7 +142,7 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
         guard navigationMode != .detail else {
             return true
         }
-        return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.phone ? view.bounds.size.width > view.bounds.size.height : false
+        return UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone ? view.bounds.size.width > view.bounds.size.height : false
     }
     
     open var scrollView: UIScrollView? {

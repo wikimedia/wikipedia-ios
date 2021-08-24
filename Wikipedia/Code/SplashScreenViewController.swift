@@ -69,7 +69,7 @@ class SplashScreenViewController: ThemeableViewController {
         let splashView = UIImageView()
         splashView.translatesAutoresizingMaskIntoConstraints = false
         splashView.contentMode = .center
-        if UI_USER_INTERFACE_IDIOM() != .pad {
+        if UIDevice.current.userInterfaceIdiom != .pad {
             splashView.image = UIImage(named: "splashscreen-background")
         }
         if #available(iOS 13.0, *) {
