@@ -2019,7 +2019,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)showNotificationsCenter {
-    NSLog(@"Show Notifications Center");
+    NotificationsCenterViewModel *viewModel = [[NotificationsCenterViewModel alloc] initWithRemoteNotificationsController:_dataStore.remoteNotificationsController];
+    NotificationsCenterViewController *nvc = [[NotificationsCenterViewController alloc] initWithTheme:self.theme viewModel:viewModel];
+    [self.navigationController wmf_pushViewController:nvc animated:YES];
 }
 
 #pragma mark - User was logged out
