@@ -657,7 +657,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 - (void)setActivityIndicatorVisible:(BOOL)visible {
     if (visible) {
         if (_activityIndicator == nil) {
-            _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+            _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
             _activityIndicator.color = self.theme.colors.primaryText;
             [self.view wmf_addSubviewWithConstraintsToEdges:_activityIndicator];
             [_activityIndicator startAnimating];

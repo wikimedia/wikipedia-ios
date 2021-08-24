@@ -60,7 +60,7 @@ extension InsertMediaSearchResultPreviewingViewController: Themeable {
         }
         view.backgroundColor = theme.colors.paperBackground
         imageView.backgroundColor = view.backgroundColor
-        activityIndicator.style = theme.isDark ? .white : .gray
+        activityIndicator.color = theme.isDark ? .white : .gray
         imageInfoView.apply(theme: theme)
     }
 }
