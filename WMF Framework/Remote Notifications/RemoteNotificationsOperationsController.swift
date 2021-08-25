@@ -67,12 +67,6 @@ class RemoteNotificationsOperationsController: NSObject {
             return
         }
         
-        guard apiController.isAuthenticated else {
-            stop()
-            completeEarly()
-            return
-        }
-        
         guard let modelController = modelController else {
             assertionFailure("Failure setting up notifications core data stack.")
             return
@@ -87,7 +81,8 @@ class RemoteNotificationsOperationsController: NSObject {
             let languageCodes = preferredLanguageCodes + ["wikidata", "commons"]
             var operations: [RemoteNotificationsFetchFirstPageOperation] = []
             for languageCode in languageCodes {
-                let operation = RemoteNotificationsFetchFirstPageOperation(with: self.apiController, modelController: modelController, languageCode: languageCode)
+                
+                let operation = RemoteNotificationsFetchFirstPageOperation(with: self.apiController, modelController: modelController, languageCode: languageCode, cookieDomain: self.cookieDomainForLanguageCode(languageCode))
                 operations.append(operation)
             }
             
@@ -101,6 +96,17 @@ class RemoteNotificationsOperationsController: NSObject {
             
             self.operationQueue.addOperations(operations + [completionOperation], waitUntilFinished: false)
         })
+    }
+    
+    private func cookieDomainForLanguageCode(_ languageCode: String) -> String {
+        switch languageCode {
+        case "wikidata":
+            return Configuration.current.wikidataCookieDomain
+        case "commons":
+            return Configuration.current.commonsCookieDomain
+        default:
+            return Configuration.current.wikipediaCookieDomain
+        }
     }
 
     // MARK: Notifications

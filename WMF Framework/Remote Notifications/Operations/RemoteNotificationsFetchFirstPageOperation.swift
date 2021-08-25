@@ -1,10 +1,18 @@
 class RemoteNotificationsFetchFirstPageOperation: RemoteNotificationsOperation {
-    let languageCode: String
-    init(with apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController, languageCode: String) {
+    private let languageCode: String
+    private let cookieDomain: String
+    init(with apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController, languageCode: String, cookieDomain: String) {
         self.languageCode = languageCode
+        self.cookieDomain = cookieDomain
         super.init(with: apiController, modelController: modelController)
     }
     override func execute() {
+        
+        guard apiController.isAuthenticatedForCookieDomain(cookieDomain) else {
+            self.finish(with: RequestError.unauthenticated)
+            return
+        }
+        
         self.backgroundContext.perform {
             self.apiController.getAllNotifications(from: self.languageCode) { [weak self] result, error in
                 

@@ -323,7 +323,7 @@ extension RemoteNotificationsAPIController.ResultError: LocalizedError {
 }
 
 extension RemoteNotificationsAPIController {
-    var isAuthenticated: Bool {
-        return session.hasValidCentralAuthCookies(for: Configuration.current.mediaWikiCookieDomain)
+    func isAuthenticatedForCookieDomain(_ cookieDomain: String) -> Bool {
+        return session.hasValidCentralAuthCookies(for: cookieDomain)
     }
 }
