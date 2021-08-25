@@ -1362,11 +1362,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (!_exploreViewController) {
         _exploreViewController = [[ExploreViewController alloc] init];
         _exploreViewController.dataStore = self.dataStore;
+        _exploreViewController.notificationsCenterPresentationDelegate = self;
         _exploreViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-explore"];
         _exploreViewController.title = [WMFCommonStrings exploreTabTitle];
         [_exploreViewController applyTheme:self.theme];
         UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
-        UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc] initWithImage:[self notificationsCenterBellImageWithUnreadNotifications:YES] style:UIBarButtonItemStylePlain target:self action:@selector(showNotificationsCenter)];
+        UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc] initWithImage:[self notificationsCenterBellImageWithUnreadNotifications:YES] style:UIBarButtonItemStylePlain target:_exploreViewController action:@selector(userDidTapNotificationsCenter)];
 
         settingsBarButtonItem.accessibilityLabel = [WMFCommonStrings settingsTitle];
         notificationsBarButton.accessibilityLabel = [WMFCommonStrings notificationsCenterTitle];
@@ -1938,6 +1939,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         WMFSettingsViewController *settingsVC =
             [WMFSettingsViewController settingsViewControllerWithDataStore:self.dataStore];
         [settingsVC applyTheme:self.theme];
+        _settingsViewController.notificationsCenterPresentationDelegate = self;
         _settingsViewController = settingsVC;
         _settingsViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-explore"];
     }
@@ -2016,12 +2018,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (UIImage *)notificationsCenterBellImageWithUnreadNotifications:(BOOL)hasUnreadNotifications {
     return [UIImage imageNamed:hasUnreadNotifications ? @"notifications-bell-with-indicator" : @"notifications-bell"];
-}
-
-- (void)showNotificationsCenter {
-    NotificationsCenterViewModel *viewModel = [[NotificationsCenterViewModel alloc] initWithRemoteNotificationsController:_dataStore.remoteNotificationsController];
-    NotificationsCenterViewController *nvc = [[NotificationsCenterViewController alloc] initWithTheme:self.theme viewModel:viewModel];
-    [self.navigationController wmf_pushViewController:nvc animated:YES];
 }
 
 #pragma mark - User was logged out
