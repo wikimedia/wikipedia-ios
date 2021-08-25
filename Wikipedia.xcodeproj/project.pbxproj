@@ -368,6 +368,7 @@
 		676C867326D4170100A704C1 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 676C864426D40AEA00A704C1 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		676C868126D4545300A704C1 /* WMF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; };
 		676C868226D4545300A704C1 /* WMF.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		676C868C26D6BD7700A704C1 /* RemoteNotificationsFetchNewPushNotificationsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676C868B26D6BD7700A704C1 /* RemoteNotificationsFetchNewPushNotificationsOperation.swift */; };
 		6771298F24FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771298E24FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift */; };
 		6771299024FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771298E24FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift */; };
 		6771299124FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771298E24FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift */; };
@@ -3735,6 +3736,7 @@
 		676C864626D40AEB00A704C1 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		676C864826D40AEB00A704C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		676C868626D4545D00A704C1 /* NotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationServiceExtension.entitlements; sourceTree = "<group>"; };
+		676C868B26D6BD7700A704C1 /* RemoteNotificationsFetchNewPushNotificationsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsFetchNewPushNotificationsOperation.swift; sourceTree = "<group>"; };
 		6771298E24FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		6771299324FF775E00E89CA5 /* ArticleAsLivingDocLargeEventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocLargeEventCollectionViewCell.swift; sourceTree = "<group>"; };
 		6771299F24FFF43000E89CA5 /* ArticleAsLivingDocHorizontallyScrollingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocHorizontallyScrollingCell.swift; sourceTree = "<group>"; };
@@ -6899,6 +6901,7 @@
 			isa = PBXGroup;
 			children = (
 				7A0312FA215402FD0095C953 /* RemoteNotificationsFetchFirstPageOperation.swift */,
+				676C868B26D6BD7700A704C1 /* RemoteNotificationsFetchNewPushNotificationsOperation.swift */,
 				7A0312FE215422960095C953 /* RemoteNotificationsMarkAsReadOperation.swift */,
 				7A5357AA215552E7007998DC /* RemoteNotificationsOperation.swift */,
 			);
@@ -11296,6 +11299,7 @@
 				D8EBD1BC1FBB177D00AA7DA9 /* ReadingListEntry+JSON.swift in Sources */,
 				0E728D321DAEE8FF0074EB4B /* WMFContinueReadingContentSource.m in Sources */,
 				D8FA18F91E1BDA4C009675C3 /* UIView+WMFDefaultNib.m in Sources */,
+				676C868C26D6BD7700A704C1 /* RemoteNotificationsFetchNewPushNotificationsOperation.swift in Sources */,
 				D84C361D1F32404700895FA1 /* SideScrollingCollectionViewCell.swift in Sources */,
 				0042809225E6E395004945B3 /* MTLReflection.m in Sources */,
 				67D6C0212405B3D2005709B1 /* CacheGroup+CoreDataProperties.swift in Sources */,

@@ -150,7 +150,7 @@ final class RemoteNotificationsModelController: NSObject {
     // inside the perform(_:) or the performAndWait(_:) methods.
     // https://developer.apple.com/documentation/coredata/using_core_data_in_the_background
     private func createNewNotification(from notification: RemoteNotificationsAPIController.NotificationsResult.Notification) {
-        guard let date = date(from: notification.timestamp.utciso8601) else {
+        guard let date = notification.date else {
             assertionFailure("Notification should have a date")
             return
         }

@@ -15,15 +15,15 @@ public class RemoteNotificationsAPIController: Fetcher {
 
     // MARK: Decodable: NotificationsResult
 
-    struct ResultError: Decodable {
+    struct ResultError: Codable {
         let code, info: String?
     }
 
-    public struct NotificationsResult: Decodable {
+    public struct NotificationsResult: Codable {
         
-        struct Query: Decodable {
+        struct Query: Codable {
             
-            struct Notifications: Decodable {
+            struct Notifications: Codable {
                 let list: [Notification]
             }
             
@@ -33,9 +33,9 @@ public class RemoteNotificationsAPIController: Fetcher {
         let error: ResultError?
         let query: Query?
         
-        public struct Notification: Decodable, Hashable {
+        public struct Notification: Codable, Hashable {
             
-            struct Timestamp: Decodable, Hashable {
+            struct Timestamp: Codable, Hashable {
                 let utciso8601: String
                 let utcunix: String
                 
@@ -53,8 +53,14 @@ public class RemoteNotificationsAPIController: Fetcher {
                         utcunix = try values.decode(String.self, forKey: .utcunix)
                     }
                 }
+                
+                func encode(to encoder: Encoder) throws {
+                    var container = encoder.container(keyedBy: CodingKeys.self)
+                    try container.encode(utciso8601, forKey: .utciso8601)
+                    try container.encode(utcunix, forKey: .utcunix)
+                }
             }
-            struct Agent: Decodable, Hashable {
+            struct Agent: Codable, Hashable {
                 let id: String?
                 let name: String?
                 
@@ -72,8 +78,14 @@ public class RemoteNotificationsAPIController: Fetcher {
                         id = try values.decode(String.self, forKey: .id)
                     }
                 }
+                
+                func encode(to encoder: Encoder) throws {
+                    var container = encoder.container(keyedBy: CodingKeys.self)
+                    try container.encode(id, forKey: .id)
+                    try container.encode(name, forKey: .name)
+                }
             }
-            struct Title: Decodable, Hashable {
+            struct Title: Codable, Hashable {
                 let full: String?
                 let namespace: String?
                 let namespaceKey: Int?
@@ -87,7 +99,7 @@ public class RemoteNotificationsAPIController: Fetcher {
                 }
             }
             
-            struct Message: Decodable, Hashable {
+            struct Message: Codable, Hashable {
                 let header: String?
                 let body: String?
                 let links: RemoteNotificationLinks?
@@ -106,6 +118,14 @@ public class RemoteNotificationsAPIController: Fetcher {
             
             var key: String {
                 return "\(wiki)-\(id)"
+            }
+            
+            var date: Date? {
+                return DateFormatter.wmf_iso8601()?.date(from: timestamp.utciso8601)
+            }
+            
+            public var pushContentString: String? {
+                return self.message?.header?.removingHTML
             }
 
             enum CodingKeys: String, CodingKey {
@@ -137,6 +157,24 @@ public class RemoteNotificationsAPIController: Fetcher {
                 agent = try? values.decode(Agent.self, forKey: .agent)
                 readString = try? values.decode(String.self, forKey: .readString)
                 message = try? values.decode(Message.self, forKey: .message)
+            }
+            
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.container(keyedBy: CodingKeys.self)
+                try container.encode(wiki, forKey: .wiki)
+                try container.encode(id, forKey: .id)
+                try container.encode(type, forKey: .type)
+                try container.encode(category, forKey: .category)
+                try container.encode(section, forKey: .section)
+                try container.encode(timestamp, forKey: .timestamp)
+                try container.encode(title, forKey: .title)
+                try container.encode(agent, forKey: .agent)
+                try container.encode(readString, forKey: .readString)
+                try container.encode(message, forKey: .message)
+            }
+            
+            public func hash(into hasher: inout Hasher) {
+                hasher.combine(key)
             }
         }
     }
@@ -188,7 +226,7 @@ public class RemoteNotificationsAPIController: Fetcher {
                 completion(nil, error)
                 return
             }
-            completion(result?.query?.notifications, result?.error)
+            completion(result?.query?.notifications, nil)
         }
         
         request(languageCode: languageCode, queryParameters: Query.notifications(limit: .max, filter: .unread, notifierType: .push), completion: completion)
@@ -200,7 +238,7 @@ public class RemoteNotificationsAPIController: Fetcher {
                 completion(nil, error)
                 return
             }
-            completion(result?.query?.notifications, result?.error)
+            completion(result?.query?.notifications, nil)
         }
         
         request(languageCode: languageCode, queryParameters: Query.notifications(from: [languageCode], limit: .max, filter: .none, notifierType: .web), completion: completion)

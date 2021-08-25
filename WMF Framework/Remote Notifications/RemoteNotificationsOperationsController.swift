@@ -76,28 +76,11 @@ class RemoteNotificationsOperationsController: NSObject {
                 return
             }
             
-            self.apiController.getUnreadPushNotifications(from: primaryLanguageCode) { result, error in
-                
-                if let error = error {
-                    completion(.failure(error))
-                    return
-                }
-                
-                guard let fetchedNotifications = result?.list else {
-                    completion(.failure(RequestError.unexpectedResponse))
-                    return
-                }
-                
-                //TODO: here pull persisted cache of keys already seen, save in variable
-                //TODO: prune persisted keys of any > 1 day? ago.
-                //TODO: here filter out new unread fetched notifications > 10mins ago.
-                //TODO: filter out those new unread fetched notifications that are already in remaining persisted keys
-                completion(.success(fetchedNotifications))
-                //TODO: add whatever notification content we're showing to persisted keys, persist again for next time
-            }
+            //TODO: Not sure that this cookie domain should be hardcoded
+            let fetchOperation = RemoteNotificationsFetchNewPushNotificationsOperation(with: self.apiController, languageCode: primaryLanguageCode, cookieDomain: Configuration.current.wikipediaCookieDomain, completion: completion)
+            
+            self.operationQueue.addOperation(fetchOperation)
         }
-        
-        
     }
     
     func fetchFirstPageNotifications(_ completion: @escaping () -> Void) {

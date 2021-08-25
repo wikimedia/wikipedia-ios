@@ -30,11 +30,29 @@ class NotificationService: UNNotificationServiceExtension {
         self.contentHandler = contentHandler
         bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
         
+        let defaultString = "New activity on Wikipedia"
         if let bestAttemptContent = bestAttemptContent {
             // Modify the notification content here...
 
-            remoteNotificationsController.fetchNewPushNotifications {_ in
-                bestAttemptContent.title = "\(bestAttemptContent.title) [modified]"
+            remoteNotificationsController.fetchNewPushNotifications {result in
+                
+                switch result {
+                case .success(let newNotifications):
+                    
+                    switch newNotifications.count {
+                    case 1:
+                        let newNotification = newNotifications.first!
+                        bestAttemptContent.body = newNotification.pushContentString ?? defaultString
+                        
+                    default:
+                        bestAttemptContent.body = defaultString
+                    }
+                    
+                case .failure(let error):
+                    print("Failure: \(error)")
+                    bestAttemptContent.body = defaultString
+                }
+                
                 contentHandler(bestAttemptContent)
             }
         }
