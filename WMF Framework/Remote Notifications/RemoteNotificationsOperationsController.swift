@@ -56,6 +56,50 @@ class RemoteNotificationsOperationsController: NSObject {
         operationQueue.cancelAllOperations()
     }
     
+    func fetchNewPushNotifications(_ completion: @escaping (Result<[RemoteNotificationsAPIController.NotificationsResult.Notification], Error>) -> Void) {
+        
+        guard Bundle.main.isAppExtension else {
+            assertionFailure("This method only designed to fetch from the Notification Service Extension")
+            completion(.failure(RequestError.invalidParameters))
+            return
+        }
+        
+        preferredLanguageCodesProvider.getPreferredLanguageCodes { [weak self] preferredLanguageCodes in
+            
+            guard let self = self else {
+                return
+            }
+            
+            //TODO: integrate this primary language into WMFPreferredLanguageInfoProvider rather than just grabbing the first preferredLanguageCode.
+            guard let primaryLanguageCode = preferredLanguageCodes.first else {
+                completion(.failure(RequestError.invalidParameters))
+                return
+            }
+            
+            self.apiController.getUnreadPushNotifications(from: primaryLanguageCode) { result, error in
+                
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                guard let fetchedNotifications = result?.list else {
+                    completion(.failure(RequestError.unexpectedResponse))
+                    return
+                }
+                
+                //TODO: here pull persisted cache of keys already seen, save in variable
+                //TODO: prune persisted keys of any > 1 day? ago.
+                //TODO: here filter out new unread fetched notifications > 10mins ago.
+                //TODO: filter out those new unread fetched notifications that are already in remaining persisted keys
+                completion(.success(fetchedNotifications))
+                //TODO: add whatever notification content we're showing to persisted keys, persist again for next time
+            }
+        }
+        
+        
+    }
+    
     func fetchFirstPageNotifications(_ completion: @escaping () -> Void) {
     
         let completeEarly = {

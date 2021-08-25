@@ -1,6 +1,6 @@
 import CocoaLumberjackSwift
 
-class RemoteNotificationsAPIController: Fetcher {
+public class RemoteNotificationsAPIController: Fetcher {
     // MARK: NotificationsAPI constants
 
     private struct NotificationsAPI {
@@ -19,7 +19,7 @@ class RemoteNotificationsAPIController: Fetcher {
         let code, info: String?
     }
 
-    struct NotificationsResult: Decodable {
+    public struct NotificationsResult: Decodable {
         
         struct Query: Decodable {
             
@@ -33,7 +33,7 @@ class RemoteNotificationsAPIController: Fetcher {
         let error: ResultError?
         let query: Query?
         
-        struct Notification: Decodable, Hashable {
+        public struct Notification: Decodable, Hashable {
             
             struct Timestamp: Decodable, Hashable {
                 let utciso8601: String
@@ -121,7 +121,7 @@ class RemoteNotificationsAPIController: Fetcher {
                 case message = "*"
             }
 
-            init(from decoder: Decoder) throws {
+            public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: CodingKeys.self)
                 wiki = try values.decode(String.self, forKey: .wiki)
                 do {
@@ -182,7 +182,7 @@ class RemoteNotificationsAPIController: Fetcher {
         return Set(list)
     }
     
-    public func getAllNotifications(from languageCode: String, completion: @escaping (NotificationsResult.Query.Notifications?, Error?) -> Void) {
+    func getUnreadPushNotifications(from languageCode: String, completion:  @escaping (NotificationsResult.Query.Notifications?, Error?) -> Void) {
         let completion: (NotificationsResult?, URLResponse?, Error?) -> Void = { result, _, error in
             guard error == nil else {
                 completion(nil, error)
@@ -191,7 +191,19 @@ class RemoteNotificationsAPIController: Fetcher {
             completion(result?.query?.notifications, result?.error)
         }
         
-        request(languageCode: languageCode, queryParameters: Query.notifications(from: [languageCode], limit: .max, filter: .none), completion: completion)
+        request(languageCode: languageCode, queryParameters: Query.notifications(limit: .max, filter: .unread, notifierType: .push), completion: completion)
+    }
+    
+    func getAllNotifications(from languageCode: String, completion: @escaping (NotificationsResult.Query.Notifications?, Error?) -> Void) {
+        let completion: (NotificationsResult?, URLResponse?, Error?) -> Void = { result, _, error in
+            guard error == nil else {
+                completion(nil, error)
+                return
+            }
+            completion(result?.query?.notifications, result?.error)
+        }
+        
+        request(languageCode: languageCode, queryParameters: Query.notifications(from: [languageCode], limit: .max, filter: .none, notifierType: .web), completion: completion)
     }
 
     public func markAsRead(_ notifications: Set<RemoteNotification>, completion: @escaping (Error?) -> Void) {
@@ -290,8 +302,14 @@ class RemoteNotificationsAPIController: Fetcher {
             case unread = "!read"
             case none = "read|!read"
         }
+        
+        enum NotifierType: String {
+            case web
+            case push
+            case email
+        }
 
-        static func notifications(from subdomains: [String] = [], limit: Limit = .max, filter: Filter = .none) -> Parameters {
+        static func notifications(from subdomains: [String] = [], limit: Limit = .max, filter: Filter = .none, notifierType: NotifierType?) -> Parameters {
             var dictionary = ["action": "query",
                     "format": "json",
                     "formatversion": "2",
@@ -299,9 +317,18 @@ class RemoteNotificationsAPIController: Fetcher {
                     "meta": "notifications",
                     "notlimit": limit.value,
                     "notfilter": filter.rawValue]
+            
+            if let notifierType = notifierType {
+                dictionary["notnotifiertype"] = notifierType.rawValue
+            }
 
-            let wikis = subdomains.compactMap { $0.replacingOccurrences(of: "-", with: "_").appending("wiki") }
-            dictionary["notwikis"] = wikis.joined(separator: "|")
+            if subdomains.isEmpty {
+                dictionary["notwikis"] = "*"
+            } else {
+                let wikis = subdomains.compactMap { $0.replacingOccurrences(of: "-", with: "_").appending("wiki") }
+                dictionary["notwikis"] = wikis.joined(separator: "|")
+            }
+            
             return dictionary
         }
 

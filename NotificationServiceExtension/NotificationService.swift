@@ -33,7 +33,7 @@ class NotificationService: UNNotificationServiceExtension {
         if let bestAttemptContent = bestAttemptContent {
             // Modify the notification content here...
 
-            remoteNotificationsController.fetchFirstPageNotifications {
+            remoteNotificationsController.fetchNewPushNotifications {_ in
                 bestAttemptContent.title = "\(bestAttemptContent.title) [modified]"
                 contentHandler(bestAttemptContent)
             }

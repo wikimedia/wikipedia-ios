@@ -24,6 +24,10 @@ import CocoaLumberjackSwift
         operationsController.fetchFirstPageNotifications(completion)
     }
     
+    public func fetchNewPushNotifications(_ completion: @escaping (Result<[RemoteNotificationsAPIController.NotificationsResult.Notification], Error>) -> Void) {
+        operationsController.fetchNewPushNotifications(completion)
+    }
+    
     public func fetchedResultsController() -> NSFetchedResultsController<RemoteNotification>? {
         
         guard let viewContext = self.viewContext else {
