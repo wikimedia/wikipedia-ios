@@ -4,10 +4,10 @@ import UIKit
 class ViewControllerTransitionsController: NSObject, UINavigationControllerDelegate {
     @objc func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
 
-		// If either participating view controller prefers standard animations, use a standard transition
-		let participatingViewControllerPrefersStandardAnimationStyle = [fromVC, toVC].filter { vc in
-			prefersStandardAnimationStyleTypes.contains(where: { standardType in type(of: vc) == standardType })
-		}.isEmpty ? false : true
+        // If either participating view controller prefers standard animations, use a standard transition
+        let participatingViewControllerPrefersStandardAnimationStyle = [fromVC, toVC].filter { vc in
+            prefersStandardAnimationStyleTypes.contains(where: { standardType in type(of: vc) == standardType })
+        }.isEmpty ? false : true
 
 		guard !participatingViewControllerPrefersStandardAnimationStyle else {
 			return nil
@@ -106,9 +106,9 @@ class ViewControllerTransitionsController: NSObject, UINavigationControllerDeleg
 
 extension ViewControllerTransitionsController {
 
-	/// These `UIViewController` types prefer a standard `UINavigationController` push/pop style animation.
-	var prefersStandardAnimationStyleTypes: [UIViewController.Type] {
-		return [NotificationsCenterViewController.self]
-	}
+    /// These `UIViewController` types prefer a standard `UINavigationController` push/pop style animation.
+    var prefersStandardAnimationStyleTypes: [UIViewController.Type] {
+        return [NotificationsCenterViewController.self]
+    }
 
 }
