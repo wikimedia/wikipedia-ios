@@ -9,9 +9,9 @@ class ViewControllerTransitionsController: NSObject, UINavigationControllerDeleg
             prefersStandardAnimationStyleTypes.contains(where: { standardType in type(of: vc) == standardType })
         }.isEmpty ? false : true
 
-		guard !participatingViewControllerPrefersStandardAnimationStyle else {
-			return nil
-		}
+        guard !participatingViewControllerPrefersStandardAnimationStyle else {
+            return nil
+        }
 
         if let searchController = searchAnimationController(for: operation, from: fromVC, to: toVC) {
             return searchController
