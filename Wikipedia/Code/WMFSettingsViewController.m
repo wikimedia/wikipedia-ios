@@ -103,7 +103,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)configureNotificationsButton {
     if ([[NSUserDefaults standardUserDefaults] defaultTabType] == WMFAppDefaultTabTypeSettings && [[[self dataStore] authenticationManager] isLoggedIn]) {
-		UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"notifications-bell"] style:UIBarButtonItemStylePlain target:self action:@selector(userDidTapNotificationsCenter)];
+        UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"notifications-bell"] style:UIBarButtonItemStylePlain target:self action:@selector(userDidTapNotificationsCenter)];
         self.navigationItem.rightBarButtonItem = notificationsBarButton;
     }
 }
@@ -626,7 +626,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Notifications Center
 
 - (void)userDidTapNotificationsCenter {
-	[self.notificationsCenterPresentationDelegate userDidTapNotificationsCenterFrom:self];
+    [self.notificationsCenterPresentationDelegate userDidTapNotificationsCenterFrom:self];
 }
 
 @end
