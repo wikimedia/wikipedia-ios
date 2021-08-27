@@ -153,13 +153,14 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
         }
     }
     
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         switch indexPath.section {
         case PlaceSearchSuggestionController.recentSection:
-            return [UITableViewRowAction(style: .destructive, title: "Delete", handler: { (action, indexPath) in
+            let contextItem = UIContextualAction(style: .destructive, title: "Delete") {  (contextualAction, view, boolValue) in
                 let search = self.searchForIndexPath(indexPath)
                 self.delegate?.placeSearchSuggestionController(self, didDeleteSearch: search)
-            })]
+            }
+            return UISwipeActionsConfiguration(actions: [contextItem])
         default:
             return nil
         }
