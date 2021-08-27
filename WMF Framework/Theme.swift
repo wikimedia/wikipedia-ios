@@ -23,8 +23,9 @@ public extension UIColor {
     @objc(initWithHexString:alpha:)
     convenience init(_ hexString: String, alpha: CGFloat = 1.0) {
         let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-        var int = UInt32()
-        guard hex.count == 6, Scanner(string: hex).scanHexInt32(&int) && int != UINT32_MAX else {
+        guard hex.count == 6,
+              let int = Scanner(string: hex).scanInt32(representation: .hexadecimal),
+              int != UINT32_MAX else {
             assertionFailure("Unexpected issue scanning hex string: \(hexString)")
             self.init(white: 0, alpha: alpha)
             return
