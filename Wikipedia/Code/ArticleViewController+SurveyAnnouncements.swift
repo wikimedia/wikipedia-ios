@@ -39,11 +39,9 @@ extension ArticleViewController {
         }
         
         var vcToPresentSurvey: UIViewController? = self
-        if #available(iOS 13.0, *) {
-            if let presentedNavVC = presentedViewController as? UINavigationController,
-               let livingDocVC = presentedNavVC.viewControllers.first as? ArticleAsLivingDocViewController {
-                vcToPresentSurvey = presentedNavVC.viewControllers.count == 1 ? livingDocVC : nil
-            }
+        if let presentedNavVC = presentedViewController as? UINavigationController,
+           let livingDocVC = presentedNavVC.viewControllers.first as? ArticleAsLivingDocViewController {
+            vcToPresentSurvey = presentedNavVC.viewControllers.count == 1 ? livingDocVC : nil
         }
         
         vcToPresentSurvey?.wmf_showAnnouncementPanel(announcement: surveyAnnouncementResult.announcement, style: .minimal, primaryButtonTapHandler: { (sender) in

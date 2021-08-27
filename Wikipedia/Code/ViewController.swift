@@ -158,9 +158,7 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if #available(iOS 13.0, *) {
-            scrollView?.automaticallyAdjustsScrollIndicatorInsets = false
-        }
+        scrollView?.automaticallyAdjustsScrollIndicatorInsets = false
         scrollView?.contentInsetAdjustmentBehavior = .never
  
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(_:)), name: UIWindow.keyboardWillChangeFrameNotification, object: nil)

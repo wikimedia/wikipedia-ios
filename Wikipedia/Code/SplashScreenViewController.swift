@@ -72,11 +72,7 @@ class SplashScreenViewController: ThemeableViewController {
         if UIDevice.current.userInterfaceIdiom != .pad {
             splashView.image = UIImage(named: "splashscreen-background")
         }
-        if #available(iOS 13.0, *) {
-            splashView.backgroundColor = UIColor.systemBackground
-        } else {
-            splashView.backgroundColor = UIColor.white
-        }
+        splashView.backgroundColor = UIColor.systemBackground
         return splashView
     }()
     

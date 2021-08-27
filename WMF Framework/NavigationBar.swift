@@ -590,11 +590,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         self.progressView.transform = isShadowBelowUnderBarView ? underBarTransform : totalTransform
         self.shadow.transform = isShadowBelowUnderBarView ? underBarTransform : totalTransform
     
-        // HAX: something odd going on with iOS 11...
-        insetTop = backgroundView.frame.origin.y
-        if #available(iOS 12, *) {
-            insetTop = visibleHeight
-        }
+        insetTop = visibleHeight
     }
     
     
