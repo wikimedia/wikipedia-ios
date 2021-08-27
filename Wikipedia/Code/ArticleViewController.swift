@@ -844,7 +844,7 @@ class ArticleViewController: ViewController, HintPresenting {
         switch tableOfContentsController.viewController.displayMode {
         case .inline:
             tocScrollView.contentInset = webView.scrollView.contentInset
-            tocScrollView.scrollIndicatorInsets = webView.scrollView.scrollIndicatorInsets
+            tocScrollView.verticalScrollIndicatorInsets = webView.scrollView.verticalScrollIndicatorInsets
         case .modal:
             tocScrollView.contentInset = UIEdgeInsets(top: view.safeAreaInsets.top, left: 0, bottom: view.safeAreaInsets.bottom, right: 0)
             tocScrollView.scrollIndicatorInsets = tocScrollView.contentInset
