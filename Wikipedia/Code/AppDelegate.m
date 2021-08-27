@@ -204,10 +204,6 @@ static NSString *const WMFBackgroundAppRefreshTaskIdentifier = @"org.wikimedia.w
 
 #pragma mark - Background Fetch
 
-- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    [self.appViewController performBackgroundFetchWithCompletion:completionHandler];
-}
-
 /// Cancels any pending background tasks, if applicable on the current platform
 - (void)cancelPendingBackgroundTasks {
     [[BGTaskScheduler sharedScheduler] cancelAllTaskRequests];
