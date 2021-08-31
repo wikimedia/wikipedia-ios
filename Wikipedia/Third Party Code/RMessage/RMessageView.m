@@ -9,6 +9,9 @@
 #import "RMessageView.h"
 #import "Wikipedia-Swift.h"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 static NSString *const RDesignFileName = @"RMessageDefaultDesign";
 
 /** Animation constants */
@@ -129,7 +132,7 @@ static NSMutableDictionary *globalDesignDictionary;
 
 + (UIViewController *)defaultViewController
 {
-    UIViewController *viewController = [UIApplication sharedApplication].workaroundKeyWindow.rootViewController;
+    UIViewController *viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
     if (!viewController) {
         return nil;
     }
@@ -855,7 +858,7 @@ static NSMutableDictionary *globalDesignDictionary;
       /* If view controller edges dont extend under top bars (navigation bar in our case) we must not factor in the
        navigation bar frame when animating RMessage's final position */
       if ([[self class] viewControllerEdgesExtendUnderTopBars:messageNavigationController]) {
-        self.topToVCFinalConstant = [UIApplication sharedApplication].workaroundStatusBarFrame.size.height +
+        self.topToVCFinalConstant = [UIApplication sharedApplication].statusBarFrame.size.height +
                                     messageNavigationController.navigationBar.bounds.size.height +
                                     [self customVerticalOffset];
       } else {
@@ -866,7 +869,7 @@ static NSMutableDictionary *globalDesignDictionary;
        navigation bar */
       self.topToVCFinalConstant = [self customVerticalOffset];
       self.titleSubtitleContainerViewCenterYConstraint.constant =
-        [UIApplication sharedApplication].workaroundStatusBarFrame.size.height / 2.f;
+        [UIApplication sharedApplication].statusBarFrame.size.height / 2.f;
       [self.viewController.view addSubview:self];
     }
   } else {
@@ -890,7 +893,7 @@ static NSMutableDictionary *globalDesignDictionary;
   } else {
     self.topToVCFinalConstant = [self customVerticalOffset];
     self.titleSubtitleContainerViewCenterYConstraint.constant =
-      [UIApplication sharedApplication].workaroundKeyWindow.windowScene.statusBarManager.statusBarFrame.size.height / 2.f;
+      [UIApplication sharedApplication].statusBarFrame.size.height / 2.f;
   }
   [self.viewController.view addSubview:self];
 }
@@ -995,3 +998,4 @@ static NSMutableDictionary *globalDesignDictionary;
 }
 
 @end
+#pragma clang diagnostic pop
