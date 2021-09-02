@@ -105,13 +105,13 @@
 "account-talk-preferences-auto-sign-discussions" = "Автоматичний підпис в обговореннях";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "В обговоренні використовуватиметься той підпис, що зазначений у ваших налаштуваннях";
 "account-talk-preferences-title" = "Налаштування сторінки обговорення";
-"action-add-to" = "Додати до...";
+"action-add-to" = "Додати до…";
 "action-add-to-reading-list" = "Додати до читального списку";
 "action-add-to-reading-list-short" = "Додати до списку";
 "action-cancel" = "Скасувати";
 "action-find-in-page" = "Знайти на сторінці";
 "action-language-accessibility" = "Змінити мову";
-"action-move-to" = "Перенести до...";
+"action-move-to" = "Перенести до…";
 "action-move-to-reading-list" = "Перенести до читального списку";
 "action-next-revision-accessibility" = "Наступна версія";
 "action-previous-revision-accessibility" = "Попередня версія";
@@ -226,7 +226,7 @@
 "diff-compare-title" = "Порівняння версій";
 "diff-context-lines-collapsed-button-title" = "Показати";
 "diff-context-lines-expanded-button-title" = "Приховати";
-"diff-multi-line-format" = "Рядки $1—$2";
+"diff-multi-line-format" = "Рядки $1-$2";
 "diff-paragraph-moved" = "Параграф переміщено";
 "diff-paragraph-moved-direction-down" = "нижче";
 "diff-paragraph-moved-direction-up" = "вище";
@@ -512,7 +512,7 @@
 "insert-media-image-position-settings-title" = "Розміщення зображення";
 "insert-media-image-preview-more-information-action-title" = "Додаткова інформація";
 "insert-media-image-preview-select-image-action-title" = "Вибрати зображення";
-"insert-media-image-size-setting-custom" = "Налаштовуваний";
+"insert-media-image-size-setting-custom" = "Користувацький";
 "insert-media-image-size-setting-default" = "Типовий";
 "insert-media-image-size-settings-px-unit-name" = "пкс";
 "insert-media-image-size-settings-title" = "Розмір зображення";

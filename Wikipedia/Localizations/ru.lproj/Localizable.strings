@@ -458,6 +458,7 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Из Википедии";
 "explore-randomizer" = "Рандомизатор";
 "featured-article-empty-title" = "Сегодня нет избранных статей";
+"featured-widget-from-language-wikipedia" = "Из $1 Википедии";
 "featured-widget-from-wikipedia" = "Из Википедии";
 "featured-widget-title" = "Избранная статья";
 "feed-news-notification-button-text" = "Включить уведомления";
@@ -918,6 +919,7 @@
 "top-read-header-generic" = "Википедия";
 "top-read-header-with-language" = "Раздел Википедии: $1";
 "top-read-see-more" = "Посмотреть больше самых читаемых статей";
+"top-read-widget-readers-count" = "$1 читателей";
 "two-factor-login-continue" = "Продолжить процедуру входа";
 "two-factor-login-instructions" = "Пожалуйста, введите проверочный код двухэтапной авторизации";
 "two-factor-login-title" = "Войдите в свою учётную запись";
