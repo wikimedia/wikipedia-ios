@@ -427,6 +427,12 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Från Wikipedia";
 "explore-randomizer" = "Slumpartikel";
 "featured-article-empty-title" = "Inga tillgängliga utmärkta artiklar idag";
+"featured-widget-content-failure-for-date" = "En utvald artikel finns inte tillgänglig för detta datum.";
+"featured-widget-description" = "Upptäck de bästa artiklarna på Wikipedia som väljs ut dagligen av vår gemenskap.";
+"featured-widget-from-language-wikipedia" = "Från Wikipedia på $1";
+"featured-widget-from-wikipedia" = "Från Wikipedia";
+"featured-widget-language-failure" = "Ditt primära Wikipedia-språk har inte stöd för \"Utvald artikel\". Du kan uppdatera ditt primära Wikipedia-språk i appens inställningsmeny.";
+"featured-widget-title" = "Utmärkt artikel";
 "feed-news-notification-button-text" = "Aktivera notiser";
 "feed-news-notification-text" = "Aktivera notiser för att bli meddelad om Wikipedia-artiklar som är populära aktuella händelser.";
 "fetcher-error-generic" = "Någonting gick fel. Försök igen senare.";
@@ -579,6 +585,8 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historisk händelse|$1 historiska händelser}}";
 "on-this-day-footer" = "Fler historiska händelser på denna dag";
 "on-this-day-footer-showing-event-count" = "{{PLURAL:$1|$1 till historisk händelse|$1 fler historiska händelser}} på denna dag";
+"on-this-day-language-does-not-support-error" = "Ditt primära Wikipedia-språk har inte stöd för \"På denna dag\". Du kan uppdatera ditt primära Wikipedia-språk i appens inställningsmeny.";
+"on-this-day-no-internet-error" = "Ingen tillgänglig data";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 från Wikipedia på $2";
 "on-this-day-title" = "På denna dag";
 "original-tab-button-popover-description" = "Tryck på \"W\" för att återvända till fliken du började ifrån";
@@ -643,6 +651,9 @@
 "places-unknown-distance" = "okänt avstånd";
 "potd-description-prefix" = "Dagens bild för $1";
 "potd-empty-error-description" = "Kunde inte hämta dagens bild för $1";
+"potd-sample-entry-description" = "En jockey håller i springande två tjurar i pacu jawi (från Minangkabau, \"tjurlopp\"), ett traditionellt tjurlopp i Tanah Datar, Sumatera Barat, Indonesien. 2015, Final-45.";
+"potd-widget-description" = "Njut av dagens vackra foto som väljs ut av vår gemenskap.";
+"potd-widget-title" = "Dagens bild";
 "preference-summary-eventlogging-opt-in" = "Tillåt Wikimedia Foundation att samla in information om hur du använder appen. Informationen används för att göra appen bättre.";
 "preference-title-eventlogging-opt-in" = "Skicka användningsrapporter";
 "rank-accessibility-label" = "Nummer $1";
@@ -883,6 +894,9 @@
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "Se fler populära artiklar";
+"top-read-widget-description" = "Ta reda på vad världen läser i dag på Wikipedia.";
+"top-read-widget-readers-count" = "$1 läsare";
+"top-read-widget-title" = "Populära läsningar";
 "two-factor-login-continue" = "Fortsätt att logga in";
 "two-factor-login-instructions" = "Ange tvåstegsverifieringskod";
 "two-factor-login-title" = "Logga in på ditt konto";
@@ -919,6 +933,9 @@
 "welcome-send-data-learn-more" = "Läs mer om data som samlas in";
 "welcome-send-data-sub-title" = "Hjälp till att göra appen bättre genom att låta Wikimedia Foundation veta hur du använder den. All data som samlas in är anonym.";
 "welcome-volunteer-send-usage-reports" = "Skicka användningsrapporter";
+"widget-onthisday-description" = "Utforska vad som hände på denna dag i historien.";
+"widget-onthisday-placeholder-article-snippet" = "Fri encyklopedi på nätet som alla kan redigera";
+"widget-onthisday-placeholder-event-snippet" = "Wikipedia, en fri encyklopedi med wikiinnehåll, på nätet.";
 "wikitext-downloading" = "Laddar innehåll...";
 "wikitext-preview-changes" = "Hämtar förhandsgranskning av dina ändringar...";
 "wikitext-preview-changes-none" = "Inga ändringar som behöver förhandsgranskas har gjorts.";
