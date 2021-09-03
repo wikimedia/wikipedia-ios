@@ -44,7 +44,7 @@ public class Configuration: NSObject {
         #elseif WMF_STAGING
         return Configuration.staging(options: [.betaCluster])
         #else
-        return Configuration.staging(options: [.betaCluster])
+        return .production
         #endif
     }()
     
