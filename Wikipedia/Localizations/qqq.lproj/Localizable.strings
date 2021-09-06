@@ -1,3 +1,24 @@
+// Messages for Message documentation (Message documentation)
+// Exported from translatewiki.net
+// Author: Abijeet Patro
+// Author: Amire80
+// Author: Brion
+// Author: Cleinman
+// Author: Jeeputer
+// Author: Kizule
+// Author: Liuxinyu970226
+// Author: MuratTheTurkish
+// Author: Nemo bis
+// Author: Nike
+// Author: Patrik L.
+// Author: Purodha
+// Author: Robby
+// Author: Shirayuki
+// Author: Siebrand
+// Author: Takot
+// Author: Verdy p
+// Author: Woytecr
+
 "aaald-added-text-description-2" = "Title displayed in an article as a living document cell explaining that a revision has a certain number of characters added. $1 is replaced by a formatted string representing characters added.";
 "aaald-article-description-updated-description" = "Title displayed in an article as a living document cell explaining that an article's description was updated in a revision.";
 "aaald-article-insert-header" = "Header text in article content insert section that displays recent significant article updates.";
@@ -11,7 +32,7 @@
 "aaald-many-sections-description" = "Text explaining what sections an article as a living document change occurred in, if occurred in 3+ sections. $1 is replaced with the number of sections.";
 "aaald-multiple-changes-description" = "Title displayed in article as a living document content insert explaining that multiple changes were made in a revision.";
 "aaald-multiple-references-added-description" = "Title displayed in an article as a living document cell when multiple references were added (and no other changes) to a revision.";
-"aaald-new-book-reference-title" = "Header text for a new book reference type that was added in an article as a living document cell.";
+"aaald-new-book-reference-title" = "Header text for a new book reference type that was added in an article as a living document cell.\n{{identical|Book}}";
 "aaald-new-discussion" = "Portion of title displayed in article as a living document timeline cell and content insert explaining that a new article talk page topic has been posted.";
 "aaald-new-journal-reference-database" = "Database text for a new journal reference type that was added in an article as a living document cell. $1 is replaced by the database volume number of the reference.";
 "aaald-new-journal-reference-title" = "Header text for a new journal reference type that was added in an article as a living document cell.";
@@ -29,7 +50,7 @@
 "aaald-single-reference-added-description" = "Title displayed in an article as a living document timeline cell when a reference was added (and no other changes) to a revision.";
 "aaald-small-change-description" = "Describes how many small changes are batched together in the article as a living document timeline view. $1 is replaced with the number of small changes.";
 "aaald-summary-title" = "Describes how many small changes are batched together in the article as a living document timeline view. $1 is replaced by the number of accumulated changes editors made, $2 is replaced by the number of editors that made that change and $3 is replaced with relative timeframe date that the edit counting started (e.g. 10 days).";
-"aaald-two-sections-description" = "Text explaining what sections an article as a living document event change occurred in, if occurred in two sections. $1 is replaced with the first section name, $2 with the second.";
+"aaald-two-sections-description" = "Text explaining what two sections were changed. $1 is replaced with the first section name, $2 with the second section name.";
 "aaald-vandalism-revert-description" = "Title displayed in an article as a living document timeline cell explaining that a vandalism revision was reverted.";
 "aaald-view-full-history-button" = "Text displayed in a button for pushing to the full article history view on the article as a living document screen.";
 "about-content-license" = "Header text for content license section";
@@ -45,7 +66,7 @@
 "about-places-maps-license-details-link-text" = "Text used for link to maps license";
 "about-product-of" = "Description of who produced the app. $1 is the message {{msg-wikimedia|wikipedia-ios-about-wikimedia-foundation}}.";
 "about-repositories" = "Header text for repositories section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations.  {{Identical|Repository}}";
-"about-repositories-app-source-license" = "Text explaining the app source licensing. $1 is the message {{msg-wikimedia|about-repositories-app-source-license-mit}}.";
+"about-repositories-app-source-license" = "Text explaining the app source licensing. $1 is the message {{msg-wikimedia|Wikipedia-ios-about-repositories-app-source-license-mit}}.";
 "about-repositories-app-source-license-mit" = "Name of the \"MIT\" license";
 "about-send-feedback" = "Link text for sending app feedback";
 "about-testers" = "Header text for (software) testers section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations.";
@@ -84,7 +105,7 @@
 "action-add-to" = "Title of the action that adds the selection to something else.";
 "action-add-to-reading-list" = "Title of the action that adds selected articles to a reading list";
 "action-add-to-reading-list-short" = "Shorter title for the action that adds selected articles to a reading list";
-"action-cancel" = "Title of the cancel action.";
+"action-cancel" = "Title of the cancel action.\n{{Identical|Cancel}}";
 "action-find-in-page" = "Title text and accessibility label for find in page action on buttons or info sheets.";
 "action-language-accessibility" = "Accessibility title for the 'Language' toolbar button on articles and talk pages.";
 "action-move-to" = "Title of the action that moves the selection elsewhere.";
@@ -93,8 +114,8 @@
 "action-previous-revision-accessibility" = "Accessibility title for the 'Previous Revision' action button when viewing a single revision diff.";
 "action-read" = "Title for the 'Read' action\n{{Identical|Read}}";
 "action-redo" = "Title text and accessibility label for redo action on buttons or info sheets.";
-"action-remove" = "Title of the action that removes the selection from the current context.";
-"action-replace" = "Title of the replace all action.";
+"action-remove" = "Title of the action that removes the selection from the current context.\n{{Identical|Remove}}";
+"action-replace" = "Title of the replace all action.\n{{Identical|Replace}}";
 "action-replace-all" = "Title of the replace all action.";
 "action-retry" = "Title of the retry action.";
 "action-save" = "Title for the 'Save' action {{Identical|Save}}";
@@ -102,13 +123,13 @@
 "action-saved-accessibility" = "Accessibility title for the 'Unsave' action {{Identical|Saved}}";
 "action-saved-accessibility-notification" = "Notification spoken after user saves an article for later.";
 "action-share" = "Short title for the 'Share' action. Please use the shortest translation possible. {{Identical|Share}}";
-"action-share-accessibility" = "Accessibility title for the 'Share' action";
-"action-sort" = "Title of the sort action.";
+"action-share-accessibility" = "Accessibility title for the 'Share' action\n{{Identical|Share}}";
+"action-sort" = "Title of the sort action.\n{{Identical|Sort}}";
 "action-thank-user-accessibility" = "Accessibility title for the 'Thank User' action button when viewing a single revision diff.";
 "action-undo" = "Title text and accessibility label for undo action on buttons or info sheets.";
 "action-unsave" = "Short title for the 'Unsave' action. Please use the shortest translation possible. {{Identical|Saved}}";
 "action-unsaved-accessibility-notification" = "Notification spoken after user removes an article from Saved articles.";
-"action-update" = "Title of the update action.";
+"action-update" = "Title of the update action.\n{{Identical|Update}}";
 "add-articles-to-reading-list" = "Title for the view in charge of adding articles to a reading list - $1 is replaced with the number of articles to add";
 "add-citation-title" = "Title for add citation action";
 "announcements-dismiss" = "Button text indicating a user wants to dismiss an announcement {{Identical|No thanks}}";
@@ -118,14 +139,14 @@
 "app-store-subtitle" = "Subtitle describing the app for the app store";
 "appearance-settings-adjust-text-sizing" = "Header of the Text sizing section in Appearance settings";
 "appearance-settings-expand-tables" = "Title for the setting that expands tables in an article by default";
-"appearance-settings-expand-tables-footer" = "Footer of the expand tables section in Appearance settings, explaining the expand tables setting";
+"appearance-settings-expand-tables-footer" = "Footer of the expand tables section in Appearance settings, explaining the expand tables setting. \"Quick facts\" is {{msg-wm|Wikipedia-ios-info-box-title}}.";
 "appearance-settings-image-dimming-footer" = "Footer of the Theme options section in Appearance settings, explaining image dimming";
 "appearance-settings-reading-themes" = "Title of the Reading themes section in Appearance settings";
 "appearance-settings-set-automatic-table-opening" = "Tables in article will be opened automatically";
 "appearance-settings-text-sizing-example-text" = "Example text of the Adjust article text sizing section in Appearance settings";
 "appearance-settings-theme-options" = "Title of the Theme options section in Appearance settings";
 "article-about-title" = "The text that is displayed before the 'about' section at the bottom of an article";
-"article-delete" = "Title of the action that deletes the selected articles article.";
+"article-delete" = "Title of the action that deletes the selected articles article.\n{{Identical|Delete}}";
 "article-deleted-accessibility-notification" = "Notification spoken after user deletes an article from the list. $1 will be replaced with the number of deleted articles.";
 "article-fetcher-error-updated-content-timeout" = "Error shown to the user when the content doesn't update in a reasonable amount of time.";
 "article-languages-filter-placeholder" = "Filter languages text box placeholder text.";
@@ -135,7 +156,7 @@
 "article-read-more-title" = "The text that is displayed before the read more section at the bottom of an article {{Identical|Read more}}";
 "article-reference-view-title" = "Title for the reference view. $1 is replaced by the reference link name, for example [1].";
 "article-save-error-not-enough-space" = "Alert message informing user that article cannot be save due to insufficient storage available";
-"article-share" = "Text of the article list row action shown on swipe which allows the user to choose the sharing option";
+"article-share" = "Text of the article list row action shown on swipe which allows the user to choose the sharing option\n{{Identical|Share}}";
 "article-toolbar-reading-themes-controls-toolbar-item" = "Accessibility label for the Reading Themes Controls article toolbar item";
 "back-button-accessibility-label" = "Accessibility label for a button to navigate back. {{Identical|Back}}";
 "back-button-popover-title" = "Title for popover explaining the 'W' icon may be tapped to go back.";
@@ -148,7 +169,7 @@
 "button-saved-for-later" = "Longer button text for already saved button used in various places.";
 "button-saved-remove" = "Remove from saved button text used in various places.";
 "button-skip" = "Button text for skip button used in various places.";
-"cancel" = "Cancel";
+"cancel" = "Cancel\n{{Identical|Cancel}}";
 "cc-zero" = "Name of the CC Zero license - https://creativecommons.org/publicdomain/zero/1.0";
 "chinese-variants-alert-body" = "Body text of alert used to inform users about Chinese variant support. Please do not translate the newlines (\n) or Chinese characters (简体, 繁體, etc.).";
 "chinese-variants-alert-title" = "Title of alert used to inform users about Chinese variant support.";
@@ -164,7 +185,7 @@
 "description-edit-for-article" = "String describing which article description is being edited. $1 is replaced with the article title";
 "description-edit-learn-more" = "Title text for description editing learn more button";
 "description-edit-length-warning" = "Displayed to indicate how many description characters were entered. Separator can be customized depending on the language. $1 is replaced with the number of characters entered, $2 is replaced with the recommended maximum number of characters.";
-"description-edit-license" = "Button text for information about the Terms of Use and edit licenses. Parameters:\n* $1 - 'Terms of Use' link, $2 - license name link";
+"description-edit-license" = "Button text for information about the Terms of Use and edit licenses. Parameters:\n* $1 - 'Terms of Use' link ({{msg-wm|Wikipedia-ios-wikitext-upload-save-terms-name}})\n* $2 - license name link ({{msg-wm|Wikipedia-ios-cc-zero}})";
 "description-edit-pencil-introduction" = "Title for button used to show article lead section editor";
 "description-edit-pencil-title" = "Title for button used to show article description editor";
 "description-edit-placeholder-title" = "Placeholder text shown inside description field until user taps on it";
@@ -186,7 +207,7 @@
 "description-help-tips-title" = "Description editing tips label text";
 "description-help-title" = "Title for description editing help page";
 "description-help-wikidata-guide" = "Wikidata guide label text";
-"description-published-button-title" = "Title for description panel done button.";
+"description-published-button-title" = "Title for description panel done button.\n{{Identical|Done}}";
 "description-published-footer" = "Title for footer explaining articles may be edited too - not just descriptions.";
 "description-published-subtitle" = "Subtitle encouraging user to continue editing";
 "description-published-title" = "Title for letting the user know their description change succeeded.";
@@ -200,7 +221,7 @@
 "diff-compare-header-heading" = "Heading label in header when comparing two revisions.";
 "diff-compare-header-to-info-heading" = "Heading label in to revision info box when comparing two revisions.";
 "diff-compare-title" = "Title label that shows in the navigation bar when scrolling and comparing revisions.";
-"diff-context-lines-collapsed-button-title" = "Expand button title in diff compare context section when section is in collapsed state.";
+"diff-context-lines-collapsed-button-title" = "Expand button title in diff compare context section when section is in collapsed state.\n{{Identical|Show}}";
 "diff-context-lines-expanded-button-title" = "Expand button title in diff compare context section when section is in expanded state.";
 "diff-multi-line-format" = "Label in diff to indicate how many lines a change section encompases. This format is for multiple change lines. $1 is replaced by the starting line number and $2 is replaced by the ending line number.";
 "diff-paragraph-moved" = "Label in diff to indicate that a paragraph has been moved. This label is in the location of where the paragraph was moved from.";
@@ -248,7 +269,7 @@
 "edit-link-remove-accessibility-label" = "Accessibility label for the button that removes link syntax to the current selection";
 "edit-link-remove-link-title" = "Title for the remove link button";
 "edit-link-title" = "Title for the Edit link screen";
-"edit-menu-item" = "Button label for text selection 'Edit' menu item";
+"edit-menu-item" = "Button label for text selection 'Edit' menu item\n{{Identical|Edit}}";
 "edit-menu-item-could-not-find-selection-alert-message" = "Description of possible reasons the user text selection could not be located in the article wikitext.";
 "edit-menu-item-could-not-find-selection-alert-title" = "Title for alert informing user their text selection could not be located in the article wikitext.";
 "edit-minor-learn-more-text" = "Text for minor edits learn more button";
@@ -300,7 +321,7 @@
 "empty-insert-media-title" = "Text for placeholder label visible when no file was selected or uploaded";
 "empty-no-article-message" = "Shown when an article cant be loaded in place of an article";
 "empty-no-feed-action-message" = "Footer messsage shown in place of content when no feed could be loaded. Tells users they can read saved pages offline";
-"empty-no-feed-message" = "Body of messsage shown in place of content when no feed could be loaded. Tells users they can see the articles when the interent is restored";
+"empty-no-feed-message" = "{{Doc-mobileapp-internet}}\nBody of messsage shown in place of content when no feed could be loaded. Tells users they can see the articles when the interent is restored";
 "empty-no-history-message" = "Message of a blank screen shown when a user has no history";
 "empty-no-history-title" = "Title of a blank screen shown when a user has no history";
 "empty-no-other-article-languages-message" = "Message text shown in place of languages list when when no alternative article languages exist.";
@@ -324,7 +345,7 @@
 "explore-featured-article-heading" = "Text for 'Featured article' header";
 "explore-featured-article-sub-heading-from-language-wikipedia" = "Subtext beneath the 'Featured article' header when describing which specific Wikipedia. $1 will be replaced with the language - for example, 'From English Wikipedia'";
 "explore-featured-article-sub-heading-from-wikipedia" = "Subtext beneath the 'Featured article' header when the specific language wikipedia is unknown.";
-"explore-feed-customize-accessibility-title" = "Accessibility title for feed customization";
+"explore-feed-customize-accessibility-title" = "Accessibility title for feed customization\n{{Identical|Customize}}";
 "explore-feed-language-settings" = "Title for Explore feed language settings.";
 "explore-feed-preferences-additional-languages-footer-text" = "Text explaining how to add additional languages";
 "explore-feed-preferences-card-hidden-title" = "Title for button that appears in place of feed card hidden by user via the overflow button";
@@ -336,7 +357,7 @@
 "explore-feed-preferences-featured-article-description" = "Description of Featured article section of Explore feed";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Text for Explore feed card setting indicating that the feed card is hidden in all preferred languages";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Text for Explore feed card setting indicating that the feed card is active in all preferred languages";
-"explore-feed-preferences-feed-card-visibility-global-cards-on" = "Text for Explore feed card setting indicating that the global feed card is active";
+"explore-feed-preferences-feed-card-visibility-global-cards-on" = "Text for Explore feed card setting indicating that the global feed card is active\n{{Identical|On}}";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "Text for Explore feed card setting indicating the number of languages it's visible in - $1 is replaced with the number of languages";
 "explore-feed-preferences-feed-cards-hidden-title" = "Title for cell that appears in place of feed card hidden by user via the overflow button - $1 is replaced with feed card type";
 "explore-feed-preferences-global-card-footer-text" = "Text describing the effects of turning off a global card";
@@ -404,7 +425,7 @@
 "featured-widget-description" = "Text for description of Featured article widget displayed when adding to home screen.";
 "featured-widget-from-language-wikipedia" = "Text displayed as Wikipedia source on Featured article widget. $1 will be replaced with the language.";
 "featured-widget-from-wikipedia" = "Text displayed as Wikipedia source on Featured article widget if language is unavailable.";
-"featured-widget-language-failure" = "Error message shown when the user's primary language Wikipedia does not support the 'Featured article' feature.";
+"featured-widget-language-failure" = "Error message shown when the user's primary language Wikipedia does not support the 'Featured article' feature.\n\n\"Primary\" is {{msg-wm|Wikipedia-ios-settings-primary-language}}.\n\n\"Settings\" is {{msg-wm|Wikipedia-ios-settings-title}}.";
 "featured-widget-title" = "Text for title of Featured article widget.";
 "feed-news-notification-button-text" = "Text for button to turn on trending news notifications";
 "feed-news-notification-text" = "Text shown to users to notify them that it is now possible to get notifications for articles related to trending news";
@@ -417,7 +438,7 @@
 "field-backup-token-title" = "Title for backup token field";
 "field-captcha-placeholder" = "Placeholder text shown inside captcha field until user taps on it";
 "field-captcha-title" = "Title for captcha field";
-"field-email-placeholder" = "Placeholder text shown inside email address field until user taps on it";
+"field-email-placeholder" = "Placeholder text shown inside email address field until user taps on it.\n\n'''Note :''' do not ''translate'' the \"<tt>@example.org</tt>\" part, which is one of the safe domain names specially reserved by IANA for sample documentation published on the web or elsewhere, standardized in Internet [https://tools.ietf.org/html/rfc2606 RFC 2606] (see also [https://en.wikipedia.org/wiki/Example.com Example.com on Wikipedia]) so that it will not reach anyone and will not display or return harmful contents or steal personal data with unfair practices. Sending any email to that address will go instantly to a dust bin (and no one will reply, except if this address is abused). Mails to that fake address may also be blocked instantly by an upstream mail service provider and not delivered.<br />\nOther ''translated'' domain names may be dangerous (could be hosting scams and malwares), or this could cause spam to be delivered to that target address and could harm an unrelated legitimate user or business.";
 "field-email-title" = "Noun. Title for email address field. {{Identical|E-mail}}";
 "field-email-title-optional" = "Noun. Title for optional email address field.";
 "field-new-password-confirm-placeholder" = "Placeholder text shown inside confirm new password field until user taps on it";
@@ -450,7 +471,7 @@
 "history-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
 "history-clear-delete-all" = "Button text for confirming delete all action";
 "history-title" = "Title of the history screen shown on history tab {{Identical|History}}";
-"home-button-explore-accessibility-label" = "Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore. \"Explore\" is the same as {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.";
+"home-button-explore-accessibility-label" = "Accessibility heading for articles shown within the explore tab, indicating that tapping it will take you back to explore. \"Explore\" is {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}.";
 "home-button-history-accessibility-label" = "Accessibility heading for articles shown within the history articles tab, indicating that tapping it will take you back to the history list. \"History\" is the same as {{msg-wikimedia|Wikipedia-ios-history-title}}.";
 "home-button-saved-accessibility-label" = "Accessibility heading for articles shown within the saved articles tab, indicating that tapping it will take you back to the list of saved articles. \"Saved\" is the same as {{msg-wikimedia|Wikipedia-ios-saved-title}}.";
 "home-more-like-footer" = "Footer for presenting user option to see longer list of articles related to a previously read article. $1 will be replaced with the name of the previously read article.";
@@ -473,7 +494,7 @@
 "in-the-news-sub-title-from-language-wikipedia" = "Subtext beneath the 'In the news' header when describing which specific Wikipedia. $1 will be replaced with the language - for example, 'From English Wikipedia'";
 "in-the-news-sub-title-from-wikipedia" = "Subtext beneath the 'In the news' header when the specific language wikipedia is unknown.";
 "in-the-news-title" = "Title for the 'In the news' notification & feed section";
-"insert-action-title" = "Title for insert action";
+"insert-action-title" = "Title for insert action\n{{Identical|Insert}}";
 "insert-link-title" = "Title for the Insert link screen";
 "insert-media-alternative-text-description" = "Description for setting that allows users to add image alternative text";
 "insert-media-alternative-text-placeholder" = "Placeholder text for setting that allows users to add image alternative text";
@@ -490,13 +511,13 @@
 "insert-media-image-preview-select-image-action-title" = "Title for preview action that results in image selection";
 "insert-media-image-size-setting-custom" = "Title for image size setting that sizes image using custom size";
 "insert-media-image-size-setting-default" = "Title for image size setting that sizes image using default size";
-"insert-media-image-size-settings-px-unit-name" = "Image size unit name, abbreviation for 'pixels'";
+"insert-media-image-size-settings-px-unit-name" = "Image size unit name, abbreviation for 'pixels'.\n\n{{optional}}";
 "insert-media-image-size-settings-title" = "Display ritle for image size setting";
 "insert-media-image-type-setting-basic" = "Title for image type setting that formats image as basic";
-"insert-media-image-type-setting-frame" = "Title for image type setting that formats image as framed";
+"insert-media-image-type-setting-frame" = "Title for image type setting that formats image as framed\n{{Identical|Frame}}";
 "insert-media-image-type-setting-frameless" = "Title for image type setting that formats image as frameless";
 "insert-media-image-type-setting-thumbnail" = "Title for image type setting that formats image as thumbnail";
-"insert-media-image-type-settings-title" = "Display ritle for image type setting";
+"insert-media-image-type-settings-title" = "Display title for image type setting";
 "insert-media-media-settings-title" = "Title for media settings view";
 "insert-media-title" = "Title for the view in charge of inserting media into an article";
 "insert-media-uploaded-image-title" = "Title that appears next to an image in media settings";
@@ -512,7 +533,7 @@
 "kazakh-variants-alert-title" = "Title of alert used to inform users about Kazakh variant support.";
 "kurdish-variants-alert-body" = "Body text of alert used to inform users about Kurdish variant support. Please do not translate the newlines (\n) or Kurdish characters (كوردی, etc.).";
 "kurdish-variants-alert-title" = "Title of alert used to inform users about Kurdish variant support.";
-"languages-settings-title" = "Title for the 'Languages' section in Settings";
+"languages-settings-title" = "Title for the 'Languages' section in Settings\n{{Identical|Language}}";
 "languages-title" = "Title for language picker {{Identical|Language}}";
 "languages-wikipedia" = "Title for list of Wikipedia languages";
 "logged-out-continue-without-logging-in-button-title" = "Title for button allowing user to continue without logging back in to their account";
@@ -558,7 +579,7 @@
 "on-this-day-detail-header-title" = "Title for 'On this day' detail view - $1 is replaced with the number of historical events which occurred on the given day";
 "on-this-day-footer" = "Footer for presenting user option to see longer list of 'On this day' articles. $1 will be substituted with the number of events";
 "on-this-day-footer-showing-event-count" = "Footer for presenting user option to see longer list of 'On this day' articles. $1 will be substituted with the number of events";
-"on-this-day-language-does-not-support-error" = "Error message shown when the user's primary language Wikipedia does not have the 'On this day' feature.";
+"on-this-day-language-does-not-support-error" = "Error message shown when the user's primary language Wikipedia does not have the 'On this day' feature.\n\n\"Primary\" is {{msg-wm|Wikipedia-ios-settings-primary-language}}.\n\n\"On this day\" is {{msg-wm|Wikipedia-ios-on-this-day-title}}";
 "on-this-day-no-internet-error" = "error message shown when device is not connected to internet";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "Subtext beneath the 'On this day' header when describing the date and which specific Wikipedia. $1 will be substituted with the date. $2 will be replaced with the language - for example, 'June 8th from English Wikipedia'";
 "on-this-day-title" = "Title for the 'On this day' feed section";
@@ -577,7 +598,7 @@
 "page-history-revision-size-diff-subtraction" = "Accessibility label text telling the user how many bytes were removed in a revision - $1 is replaced with the number of bytes removed in a revision";
 "page-history-revision-time-accessibility-label" = "Label text telling the user what time revision was made - $1 is replaced with the time";
 "page-history-revisions-comparison-warning" = "Text telling the user how many revisions can be selected for comparison";
-"page-history-stats-text" = "Text for representing the number of edits that were made to an article and the year when the first edit was made. $1 is replaced with the number of edits, $2 is replaced with they year when the first edit was made.";
+"page-history-stats-text" = "Text for representing the number of edits that were made to an article and the year when the first edit was made. $1 is replaced with the number of edits, $2 is replaced with the year when the first edit was made.";
 "page-history-user-edits" = "Text for view that shows many edits were made by logged-in users";
 "page-issues" = "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates). {{Identical|Page issue}}";
 "page-location" = "Label for button used to show an article on the map";
@@ -600,13 +621,13 @@
 "places-empty-search-title" = "Title text shown on an overlay when there are no recent Places searches. Describes that you can search Wikipedia for articles with geographic locations.";
 "places-enable-location-action-button-title" = "Button title to enable location access";
 "places-enable-location-description" = "Describes that access to your location is only used when the app or one of its features is on the screen";
-"places-enable-location-title" = "Explains that you can explore articles near you by enabling location access. \"Location\" should be the same term, which is used in the device settings, under \"Privacy\".";
+"places-enable-location-title" = "Explains that you can explore articles near you by enabling location access. \"Location\" should be the same term, which is used in the device settings, under \"Privacy\". \"Explore\" is {{msg-wikimedia|Wikipedia-ios-welcome-explore-title}}";
 "places-filter-articles-action-sheet-title" = "Title for action sheet that allows users to filter Places articles";
 "places-filter-button-title" = "Title for button that allows users to filter places";
 "places-filter-no-saved-places" = "Explains that you don't have any saved places";
 "places-filter-saved-articles" = "Title of places search filter that searches saved articles";
 "places-filter-top-articles" = "Title of places search filter that searches top articles";
-"places-filter-top-articles-count" = "Describes how many top articles are found in the top articles filter - $1 is replaced with the number of articles";
+"places-filter-top-articles-count" = "Describes how many top articles are found in the top articles filter - $1 is replaced with the number of articles\n{{Identical|Article}}";
 "places-filter-top-read-articles" = "Title for action that allows users to filter top read articles";
 "places-location-enabled" = "Title for button informing user that they successfully enabled location services";
 "places-no-saved-articles-have-location" = "Indicates to the user that none of their saved articles have location information";
@@ -618,7 +639,7 @@
 "places-search-suggested-searches-header" = "Suggested searches - header for the list of suggested searches";
 "places-search-this-area" = "A button title that indicates the search will be redone in the visible area";
 "places-search-top-articles" = "A search suggestion for top articles";
-"places-search-top-articles-that-match-scope" = "Title used in search description when searching an area for Top articles";
+"places-search-top-articles-that-match-scope" = "Title used in search description when searching an area for Top articles\n{{Identical|Nearby}}";
 "places-search-your-current-location" = "A search suggestion for showing articles near your current location.";
 "places-title" = "Title of the Places screen shown on the places tab.";
 "places-unknown-distance" = "Indicates that a place is an unknown distance away";
@@ -640,7 +661,7 @@
 "reading-list-api-error-generic" = "An unexpected error occurred while syncing your reading lists.";
 "reading-list-api-error-list-limit" = "You have too many lists.";
 "reading-list-create-new-list-button-title" = "Title for button allowing the user to create a new reading list.";
-"reading-list-create-new-list-description" = "Title for label above text field for entering new list description.";
+"reading-list-create-new-list-description" = "Title for label above text field for entering new list description.\n{{Identical|Description}}";
 "reading-list-create-new-list-reading-list-name" = "Title for label above text field for entering new list name.";
 "reading-list-create-new-list-title" = "Title for the view in charge of creating a new reading list.";
 "reading-list-deleted-accessibility-notification" = "Notification spoken after user deletes a reading list from the list.";
@@ -695,7 +716,7 @@
 "reading-lists-count" = "Describes the number of reading lists - $1 is replaced with the number of reading lists";
 "reading-lists-default-list-description" = "The description of the default saved pages list.";
 "reading-lists-default-list-title" = "The title of the default saved pages list {{Identical|Saved}}";
-"reading-lists-delete-reading-list-alert-message" = "Title of the altert shown before deleting selected reading lists. $1 will be replaced with the number of lists being deleted";
+"reading-lists-delete-reading-list-alert-message" = "Title of the alert shown before deleting selected reading lists. $1 will be replaced with the number of lists being deleted";
 "reading-lists-delete-reading-list-alert-title" = "Title of the alert shown before deleting selected reading lists. $1 is replaced with number of lists to be deleted. $1 will be replaced with the number of lists being deleted";
 "reading-lists-large-sync-completed" = "Alert message informing user that large sync was completed. $1 will be replaced with the number of articles which were synced and $2 will be replaced with the number of reading lists which were synced";
 "reading-lists-list-not-synced-limit-exceeded" = "Text of the alert label informing the user that list couldn't be synced.";
@@ -713,25 +734,25 @@
 "reference-section-button-accessibility-label" = "Voiceover label for the top button (that jumps to article's reference section) when viewing a reference's details";
 "reference-title" = "Title shown above reference/citation popover. $1 is replaced with the reference link text - i.e. '[1]' {{Identical|Reference}}";
 "relative-date-days-ago" = "Relative days ago. 0 = today, singular = yesterday. $1 will be replaced with the number of days ago.";
-"relative-date-hours-abbreviated" = "Relative hours, abbreviated. $1 will be replaced with the number of hours.";
+"relative-date-hours-abbreviated" = "Relative hours, abbreviated. $1 will be replaced with the number of hours.\n{{optional}}";
 "relative-date-hours-ago" = "Relative hours ago. 0 = this hour. $1 will be replaced with the number of hours ago.";
 "relative-date-hours-ago-abbreviated" = "Relative hours ago, abbreviated. $1 will be replaced with the number of hours ago.";
-"relative-date-minutes-abbreviated" = "Relative minutes, abbreviated. $1 will be replaced with the number of minutes.";
+"relative-date-minutes-abbreviated" = "Relative minutes, abbreviated. $1 will be replaced with the number of minutes.\n{{optional}}";
 "relative-date-minutes-ago" = "Relative minutes ago. 0 = just now. $1 will be replaced with the number of minutes ago.";
 "relative-date-minutes-ago-abbreviated" = "Relative minutes ago, abbreviated. $1 will be replaced with the number of minutes ago.";
 "relative-date-months-ago" = "Relative months ago. 0 = this month, singular = last month. $1 will be replaced with the number of months ago.";
-"relative-date-seconds-abbreviated" = "Relative seconds, abbreviated. $1 will be replaced with the number of seconds.";
+"relative-date-seconds-abbreviated" = "Relative seconds, abbreviated. $1 will be replaced with the number of seconds.\n{{optional}}";
 "relative-date-seconds-ago-abbreviated" = "Relative seconds ago, abbreviated. $1 will be replaced with the number of seconds ago.";
 "relative-date-years-ago" = "Relative years ago. 0 = this year, singular = last year. $1 will be replaced with the number of years ago.";
 "replace-button-accessibility" = "Accessibility label for button that triggers replace action. $1 is replaced by \"Replace single instance\" or \"Replace all instances\"";
 "replace-buttons-replace-accessibility" = "Accessibility text for describing the type of replace the user is set to or about to perform. This is for replacing a single instance.";
 "replace-buttons-replace-all-accessibility" = "Accessibility text for describing the type of replace the user is set to or about to perform. This is for replacing all instances.";
 "replace-clear-button-accessibility" = "Accessibility label for the clear values X button in the replace textfield.";
-"replace-infolabel-method-replace" = "Title for label indicating which replace method they have currently selected. This is for replacing a single instance.";
+"replace-infolabel-method-replace" = "Title for label indicating which replace method they have currently selected. This is for replacing a single instance.\n{{Identical|Replace}}";
 "replace-infolabel-method-replace-all" = "Title for label indicating which replace method they have currently selected. This is for replacing all instances.";
 "replace-method-button-accessibility" = "Accessibility label for replace method switch button in Find and Replace. $1 is replaced by \"Replace single instance\" or \"Replace all instances\"";
 "replace-replace-all-results-count" = "Alert view label that tells the user how many instances they just replaced via \"Replace all\". $1 is replaced with the number of instances that were replaced.";
-"replace-textfield-accessibility" = "Accessibility label for the replace text field.";
+"replace-textfield-accessibility" = "Accessibility label for the replace text field.\n{{Identical|Replace}}";
 "replace-textfield-placeholder" = "Placeholder text seen in replace textfield before textfield is focused.";
 "reverted-edit-back-to-article-button-title" = "Title for button that allows the user to go back to the article they edited";
 "reverted-edit-notification-body" = "Title for notification telling user that the edit they made was reverted. $1 is replaced with the title of the affected article, $2 is replaced with the username of the person who reverted the edit.";
@@ -765,7 +786,7 @@
 "search-title" = "Title for search interface. {{Identical|Search}}";
 "serbian-variants-alert-body" = "Body text of alert used to inform users about Serbian variant support. Please do not translate the newlines (\n) or Serbian characters (nсрпски ћирилица, etc.).";
 "serbian-variants-alert-title" = "Title of alert used to inform users about Serbian variant support.";
-"settings-account" = "Title for button and page letting user view their account page.";
+"settings-account" = "{{Identical|Account}}";
 "settings-appearance" = "Title of the reading preferences screen.";
 "settings-clear-cache" = "Title for the 'Clear cached data' settings row";
 "settings-clear-cache-are-you-sure-message" = "Message for the confirmation presented to the user to verify they are sure they want to clear clear cached data. $1 is replaced with the approximate file size in bytes that will be made available. Also explains that the action will not delete their saved pages.";
@@ -790,7 +811,7 @@
 "settings-storage-and-syncing-enable-sync-title" = "Title of the settings option that enables saved articles and reading lists syncing";
 "settings-storage-and-syncing-erase-saved-articles-alert-message" = "Message for the alert shown before erasing all saved articles.";
 "settings-storage-and-syncing-erase-saved-articles-alert-title" = "Title of the alert shown before erasing all saved article.";
-"settings-storage-and-syncing-erase-saved-articles-button-title" = "Title of the settings button that enables erasing saved articles";
+"settings-storage-and-syncing-erase-saved-articles-button-title" = "Title of the settings button that enables erasing saved articles\n{{Identical|Erase}}";
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Footer text of the settings option that enables erasing saved articles. $1 will be replaced with a number and a system provided localized unit indicator for MB or KB.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Title of the settings option that enables erasing saved articles";
 "settings-storage-and-syncing-full-sync" = "Message confirming to the user that their reading lists will be synced in the background";
@@ -804,7 +825,7 @@
 "share-a-fact-made-with" = "Indicates that the share-a-fact card was made with the Wikipedia app";
 "share-article-name-on-wikipedia" = "Formatted string expressing article being on Wikipedia with at symbol handle. Please do not translate the \"@Wikipedia\" in the message, and preserve the spaces around it, as it refers specifically to the Wikipedia Twitter account. $1 will be an article title, which should be wrapped in the localized double quote marks.";
 "share-building" = "Shown while Share-a-fact card is being constructed";
-"share-default-format" = "Default share format string. $1 is replaced with the selected text, $2 is replaced with the article title, $3 is replaced with the articleURL.";
+"share-default-format" = "Default share format string. $1 is replaced with the selected text, $2 is replaced with the article title, $3 is replaced with the article URL link.";
 "share-email-format" = "Share format string for email. $1 is replaced with the selected text, $2 is replaced with the article title, $3 is replaced with the articleURL.";
 "share-get-directions-in-maps" = "Button to get directions to the current article's location in the Maps app.";
 "share-menu-item" = "'Share…' menu item with ellipsis to indicate further actions are required.";
@@ -830,9 +851,9 @@
 "talk-page-add-discussion-accessibility-label" = "Accessibility label for a button that opens the add new discussion screen.";
 "talk-page-discussion-accessibility-hint" = "Accessibility hint when user is on a discussion title cell.";
 "talk-page-discussion-read-accessibility-label" = "Accessibility text for indicating that a discussion's contents have been read.";
-"talk-page-discussion-read-ipa-accessibility-attribute" = "Accessibility ipa pronounciation for indicating that a discussion's contents have been read.";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "Accessibility IPA pronunciation for indicating that a discussion's contents have been read.\n\n{{optional}}";
 "talk-page-discussion-unread-accessibility-label" = "Accessibility text for indicating that a discussion's contents have not been read.";
-"talk-page-discussion-unread-ipa-accessibility-attribute" = "Accessibility ipa pronounciation for indicating that a discussion's contents have not been read.";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "Accessibility IPA pronunciation for indicating that a discussion's contents have not been read.\n\n{{optional}}";
 "talk-page-error-unable-to-post-reply" = "Error message appearing when user attempts to post a new talk page reply while being offline";
 "talk-page-error-unable-to-post-topic" = "Error message appearing when user attempts to post a new talk page discussion while being offline";
 "talk-page-info-active-conversations" = "This information label is displayed at the top of a talk page discussion list. $1 is replaced by the language wiki they are using - for example, 'Active conversations on English Wikipedia'.";
@@ -847,8 +868,8 @@
 "talk-page-new-reply-body-placeholder-text" = "Placeholder text which appears initially in the new reply field for talk pages.";
 "talk-page-new-reply-success-text" = "Banner text that appears after a new reply was successfully published on a talk page discussion.";
 "talk-page-new-subject-clear-button-accessibility" = "Accessibility label for the clear values X button in the talk page new subject textfield.";
-"talk-page-new-subject-placeholder-text" = "Placeholder text which appears initially in the new topic subject field for talk pages.";
-"talk-page-new-subject-textfield-accessibility-label" = "Accessibility label for subject text field.";
+"talk-page-new-subject-placeholder-text" = "{{Identical|Subject}}";
+"talk-page-new-subject-textfield-accessibility-label" = "Accessibility label for subject text field.\n{{Identical|subject}}";
 "talk-page-new-topic-body-placeholder-text" = "Placeholder text which appears initially in the new topic body field for talk pages.";
 "talk-page-new-topic-success-text" = "Banner text that appears after a new discussion was successfully published on a talk page.";
 "talk-page-new-topic-title" = "Title of page when composing a new topic on talk pages.";
@@ -856,11 +877,11 @@
 "talk-page-reply-title" = "This header label is displayed at the top of a talk page thread once the user taps Reply.";
 "talk-page-title-article-talk" = "This title label is displayed at the top of a talk page topic list, if the talk page type is an article talk page.";
 "talk-page-title-user-talk" = "This title label is displayed at the top of a talk page topic list, if the talk page type is a user talk page.";
-"talk-page-topic-title" = "This header label is displayed at the top of a talk page topic thread.";
+"talk-page-topic-title" = "{{Identical|Discussion}}";
 "talk-pages-reply-button-title" = "Text displayed in a reply button for replying to a talk page topic thread.";
 "theme-black-display-name" = "Black theme name presented to the user";
-"theme-dark-display-name" = "Dark theme name presented to the user";
-"theme-default-display-name" = "Default theme name presented to the user";
+"theme-dark-display-name" = "Dark theme name presented to the user\n{{Identical|Dark}}";
+"theme-default-display-name" = "Default theme name presented to the user\n{{Identical|Default}}";
 "theme-default-explanation" = "Explains that the default theme matches the iOS system theme setting";
 "theme-light-display-name" = "Light theme name presented to the user";
 "theme-sepia-display-name" = "Sepia theme name presented to the user";
@@ -882,7 +903,7 @@
 "variants-alert-dismiss-button" = "Dismiss button on alert used to inform users about variant support.";
 "variants-alert-preferences-button" = "Action button on alert used to inform users about variant support.";
 "welcome-exploration-explore-feed-description" = "Description for Explore feed";
-"welcome-exploration-explore-feed-title" = "Title for Explore feed";
+"welcome-exploration-explore-feed-title" = "Title for Explore feed. Translate as \"the feed ''of'' Explore\".\n\n\"Explore\" is {{msg-wm|Wikipedia-ios-home-title}}.";
 "welcome-exploration-on-this-day-description" = "Description for On this day";
 "welcome-exploration-on-this-day-title" = "Title for On this day";
 "welcome-exploration-places-description" = "Description for Places";
@@ -926,5 +947,5 @@
 "wikitext-upload-save-anonymously-or-login" = "Text informing user of draw-backs of not signing in before saving wikitext. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting.";
 "wikitext-upload-save-anonymously-warning" = "Button sub-text informing user or draw-backs of not signing in before saving wikitext. Parameters:\n* $1 - sign in button text";
 "wikitext-upload-save-sign-in" = "{{Identical|Log in}}";
-"wikitext-upload-save-terms-and-licenses" = "Text for information about the Terms of Use and edit licenses. Parameters:\n* $1 - app-specific non-text formatting, $2 - app-specific non-text formatting, $3 - app-specific non-text formatting, $4 - app-specific non-text formatting, $5 - app-specific non-text formatting,  $6 - app-specific non-text formatting.";
-"wikitext-upload-save-terms-name" = "This message is used in the message [[Wikimedia:Wikipedia-ios-wikitext-upload-save-terms-and-license]].";
+"wikitext-upload-save-terms-and-licenses" = "Text for information about the Terms of Use and edit licenses. Parameters:\n* $1, $2, $3, $4, $5 and $6 - app-specific non-text formatting";
+"wikitext-upload-save-terms-name" = "This message is used in the message {{msg-wm|Wikipedia-ios-wikitext-upload-save-terms-and-license}}.";
