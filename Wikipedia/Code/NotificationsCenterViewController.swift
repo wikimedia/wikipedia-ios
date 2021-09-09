@@ -24,7 +24,6 @@ final class NotificationsCenterViewController: ViewController {
 	}
 
 	override func loadView() {
-		super.loadView()
 		self.view = NotificationsCenterView(frame: .zero)
 	}
 
