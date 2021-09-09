@@ -1939,8 +1939,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         WMFSettingsViewController *settingsVC =
             [WMFSettingsViewController settingsViewControllerWithDataStore:self.dataStore];
         [settingsVC applyTheme:self.theme];
-        _settingsViewController.notificationsCenterPresentationDelegate = self;
         _settingsViewController = settingsVC;
+        _settingsViewController.notificationsCenterPresentationDelegate = self;
         _settingsViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-explore"];
     }
     return _settingsViewController;
