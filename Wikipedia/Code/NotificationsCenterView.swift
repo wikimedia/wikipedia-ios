@@ -2,26 +2,26 @@ import UIKit
 
 final class NotificationsCenterView: SetupView {
 
-	// MARK: - Properties
+    // MARK: - Properties
 
-	lazy var collectionView: UICollectionView = {
-		return UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-	}()
+    lazy var collectionView: UICollectionView = {
+        return UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    }()
 
-	// MARK: - Setup
+    // MARK: - Setup
 
-	override func setup() {
-		backgroundColor = .white
-		wmf_addSubviewWithConstraintsToEdges(collectionView)
-	}
+    override func setup() {
+        backgroundColor = .white
+        wmf_addSubviewWithConstraintsToEdges(collectionView)
+    }
 
 }
 
 extension NotificationsCenterView: Themeable {
 
-	func apply(theme: Theme) {
-		backgroundColor = theme.colors.paperBackground
-		collectionView.backgroundColor = theme.colors.paperBackground
-	}
+    func apply(theme: Theme) {
+        backgroundColor = theme.colors.paperBackground
+        collectionView.backgroundColor = theme.colors.paperBackground
+    }
 
 }

@@ -3,19 +3,19 @@ import Foundation
 @objc
 final class NotificationsCenterViewModel: NSObject {
 
-	// MARK: - Properties
+    // MARK: - Properties
 
-	let remoteNotificationsController: RemoteNotificationsController
+    let remoteNotificationsController: RemoteNotificationsController
 
-	// MARK: - Lifecycle
+    // MARK: - Lifecycle
 
-	@objc
-	init(remoteNotificationsController: RemoteNotificationsController) {
-		self.remoteNotificationsController = remoteNotificationsController
-	}
+    @objc
+    init(remoteNotificationsController: RemoteNotificationsController) {
+        self.remoteNotificationsController = remoteNotificationsController
+    }
 
-	// MARK: - Public
+    // MARK: - Public
 
-	// Data transformations
+    // Data transformations
 
 }
