@@ -212,7 +212,7 @@
 "description-help-wikidata-guide" = "Довідка Вікіданих зі створення описів";
 "description-published-button-title" = "Готово";
 "description-published-footer" = "У цьому додатку ви також можете редагувати статті. Натисніть на іконку із зображенням ручки, аби виправити описки та невеликі речення";
-"description-published-subtitle" = "Ви щойно зробили Вікіпедію кращею для всіх";
+"description-published-subtitle" = "Ви щойно зробили Вікіпедію кращою для всіх";
 "description-published-title" = "Опис опубліковано!";
 "description-welcome-concise-sub-title" = "В ідеалі один рядок від двох до дванадцяти слів";
 "description-welcome-concise-title" = "Будь ласка, коротше";
@@ -226,7 +226,7 @@
 "diff-compare-title" = "Порівняння версій";
 "diff-context-lines-collapsed-button-title" = "Показати";
 "diff-context-lines-expanded-button-title" = "Приховати";
-"diff-multi-line-format" = "Рядки $1-$2";
+"diff-multi-line-format" = "Рядки $1—$2";
 "diff-paragraph-moved" = "Параграф переміщено";
 "diff-paragraph-moved-direction-down" = "нижче";
 "diff-paragraph-moved-direction-up" = "вище";
@@ -313,7 +313,7 @@
 "edit-watch-this-page-text" = "Спостерігати за цією сторінкою";
 "editing-welcome-be-bold-subtitle" = "Редагуйте сміливо, але обдумано. Не засмучуйтеся через помилки — кожна версія статті зберігається, тому помилки можуть легко бути виправлені нашою спільнотою.";
 "editing-welcome-be-bold-title" = "Ваш голос важливий";
-"editing-welcome-citations-subtitle" = "Уся інформація має бути перевірена. Додаючи нову інформацію до статті, редактори мають вказувати посилання на надійне джерело інформації, що підтверджує дану інформацію.";
+"editing-welcome-citations-subtitle" = "Уся інформація має бути перевірена. Додаючи нову інформацію до статті, редактори мають вказувати посилання на надійне джерело інформації, що підтверджує цю інформацію.";
 "editing-welcome-citations-title" = "Користуйтеся перевіреними джерелами";
 "editing-welcome-impartial-tone-subtitle" = "Ми прагнемо, щоб статті були написані безпристрастно. Під час редагування намагайтеся дотримуватися достовірного представлення світу, як його описують надійні джерела.";
 "editing-welcome-impartial-tone-title" = "Пишіть неупереджено";
@@ -544,7 +544,7 @@
 "logged-out-subtitle" = "Під час автентифікації вашого облікового запису виникла проблема. Вам потрібно ще раз увійти, аби можна було узгодити читальні списки та редагувати під вашим ім'ям користувача.";
 "logged-out-title" = "Ви вийшли із системи";
 "login-forgot-password" = "Забули свій пароль?";
-"login-join-wikipedia" = "Приєднайтесь до Вікіпедії.";
+"login-join-wikipedia" = "Приєднайтеся до Вікіпедії.";
 "login-no-account" = "Не маєте облікового запису? $1";
 "login-title" = "Вхід до вашого облікового запису";
 "main-menu-about" = "Про додаток";
