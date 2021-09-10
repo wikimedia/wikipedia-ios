@@ -8245,6 +8245,7 @@
 				67D6C0152405A3E2005709B1 /* Recovered References */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		D4991436181D51DE00E6073C /* Products */ = {
 			isa = PBXGroup;
