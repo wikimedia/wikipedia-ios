@@ -1,10 +1,8 @@
 import Foundation
 
 protocol ArticleContextMenuPresenting {
-    // For Context Menus (used in iOS 13 and later)
     func getPeekViewControllerAsync(for destination: Router.Destination, completion: @escaping (UIViewController?) -> Void)
 
-    // Used for both Context Menus and Peek/Pop
     func hideFindInPage(_ completion: (() -> Void)?)
     var configuration: Configuration { get }
 }

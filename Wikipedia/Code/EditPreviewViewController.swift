@@ -260,8 +260,8 @@ extension EditPreviewViewController: ArticleWebMessageHandling {
     }
 }
 
-// MARK:- Context Menu (iOS 13 and later)
-// All functions in this extension are for Context Menus (used in iOS 13 and later)
+// MARK:- Context Menu
+
 extension EditPreviewViewController: ArticleContextMenuPresenting, WKUIDelegate {
     var configuration: Configuration {
         return Configuration.current
@@ -279,7 +279,6 @@ extension EditPreviewViewController: ArticleContextMenuPresenting, WKUIDelegate 
 //    func webView(_ webView: WKWebView, contextMenuForElement elementInfo: WKContextMenuElementInfo, willCommitWithAnimator animator: UIContextMenuInteractionCommitAnimating)
 //    No function with this signature, as we don't want to have any context menu elements in preview - and we get that behavior by default by not implementing this.
 
-    // This function is used by both Peek/Pop and Context Menu (can remove this note when removing rest of Peek/Pop code, when oldest supported version is iOS 13)
     func getPeekViewController(for destination: Router.Destination) -> UIViewController? {
         let dataStore = MWKDataStore.shared()
         switch destination {
@@ -290,7 +289,6 @@ extension EditPreviewViewController: ArticleContextMenuPresenting, WKUIDelegate 
         }
     }
 
-    // This function is used by both Peek/Pop and Context Menu (can remove this note when removing rest of Peek/Pop code, when oldest supported version is iOS 13)
     // This function needed is for ArticleContextMenuPresenting, but not applicable to EditPreviewVC
     func hideFindInPage(_ completion: (() -> Void)? = nil) {
     }

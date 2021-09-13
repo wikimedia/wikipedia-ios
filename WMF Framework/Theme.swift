@@ -853,11 +853,7 @@ public class Theme: NSObject {
     @objc public static let widgetDark = Theme(colors: .widgetDark, imageOpacity: 1, cardBorderWidthInPixels: Theme.defaultCardBorderWidthInPixels, cardShadowOpacity: 0, multiSelectIndicatorImage: nil, isDark: false, hasInputAccessoryShadow: false, name: "widget-dark", displayName: "", analyticsName: "", webName: "black")
     
     public class func widgetThemeCompatible(with traitCollection: UITraitCollection) -> Theme {
-        if #available(iOSApplicationExtension 13.0, *) {
-            return traitCollection.userInterfaceStyle == .dark ? Theme.widgetDark : Theme.widgetLight
-        } else {
-            return Theme.widgetLight
-        }
+        return traitCollection.userInterfaceStyle == .dark ? Theme.widgetDark : Theme.widgetLight
     }
     
     init(colors: Colors, imageOpacity: CGFloat, cardBorderWidthInPixels: Int, cardShadowOpacity: Float, multiSelectIndicatorImage: UIImage?, isDark: Bool, hasInputAccessoryShadow: Bool, name: String, displayName: String, analyticsName: String, webName: String) {
