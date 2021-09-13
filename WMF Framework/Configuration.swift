@@ -50,7 +50,7 @@ public class Configuration: NSObject {
 			.deploymentLabsForEventLogging = labs instance for testing event logging endpoints
 			All other endpoints would point to production */
 		
-		return Configuration.staging(options: [.betaCluster])
+        return Configuration.staging(options: [.betaCluster])
         #else
         return .production
         #endif
@@ -61,7 +61,7 @@ public class Configuration: NSObject {
     private let announcementsAPIType: APIURLComponentsBuilder.RESTBase.BuilderType
     private let eventLoggingAPIType: APIURLComponentsBuilder.EventLogging.BuilderType
     private let mediaWikiRestAPIType = APIURLComponentsBuilder.MediaWiki.BuilderType.productionRest
-	private let mediaWikiAPIType = APIURLComponentsBuilder.MediaWiki.BuilderType.production
+    private let mediaWikiAPIType = APIURLComponentsBuilder.MediaWiki.BuilderType.production
     private let wikidataAPIType: APIURLComponentsBuilder.Wikidata.BuilderType
     private let commonsAPIType: APIURLComponentsBuilder.Commons.BuilderType
     private let metricsAPIType = APIURLComponentsBuilder.RESTBase.BuilderType.production
