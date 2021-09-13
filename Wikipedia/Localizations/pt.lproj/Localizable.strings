@@ -845,6 +845,10 @@
 "table-of-contents-heading" = "Índice";
 "table-of-contents-hide-button-label" = "Ocultar índice";
 "table-of-contents-subheading-label" = "Subtítulo $1";
+"tachelhit-variants-alert-body" = "A aplicação da Wikipédia admite agora as seguintes variantes da língua tachelhit como línguas principais ou secundárias dentro da aplicação, simplificando a leitura, pesquisa e edição nas suas variantes preferidas:\n\nⵜⴰⵛⵍⵃⵉⵜ - Tachelhit tifinagh (shi-tfng)\nTaclḥit - Tachelhit latino (shi-latn)";
+"tachelhit-variants-alert-title" = "Atualizações ao suporte de variantes do tachelhit";
+"tajik-variants-alert-body" = "A aplicação da Wikipédia admite agora as seguintes variantes da língua tajique como línguas principais ou secundárias dentro da aplicação, simplificando a leitura, pesquisa e edição nas suas variantes preferidas:\n\nтоҷикӣ кирилликӣ - Tajique cirílico (tg-cyrl)\ntojikī lotinī - Tajique latino (tg-latn)";
+"tajik-variants-alert-title" = "Atualizações ao suporte de variantes do tajique";
 "talk-page-add-discussion-accessibility-label" = "Adicionar discussão";
 "talk-page-discussion-accessibility-hint" = "Premir duas vezes para abrir o tópico de discussão";
 "talk-page-discussion-read-accessibility-label" = "Lido";
@@ -885,6 +889,9 @@
 "top-read-header-generic" = "Wikipédia";
 "top-read-header-with-language" = "Wikipédia em $1";
 "top-read-see-more" = "Ver mais artigos dos mais lidos";
+"top-read-widget-description" = "Saiba o que o mundo está a ler hoje na Wikipédia.";
+"top-read-widget-readers-count" = "$1 leitores";
+"top-read-widget-title" = "Mais lidos";
 "two-factor-login-continue" = "Continuar o início de sessão";
 "two-factor-login-instructions" = "Escreva o código de verificação de dois fatores";
 "two-factor-login-title" = "Entrar na sua conta";
@@ -892,6 +899,10 @@
 "two-factor-login-with-regular-code" = "Usar código de verificação";
 "unable-to-load-talk-page-title" = "Não foi possível carregar a página de discussão";
 "unknown-generic-text" = "Desconhecido";
+"uzbek-variants-alert-body" = "A aplicação da Wikipédia admite agora as seguintes variantes da língua uzbeque como línguas principais ou secundárias dentro da aplicação, simplificando a leitura, pesquisa e edição nas suas variantes preferidas:\n\noʻzbekcha lotin - Uzbeque latino (uz-latin)\nўзбекча кирилл - Uzbeque cirílico (uz-cyrl)";
+"uzbek-variants-alert-title" = "Atualizações ao suporte de variantes do uzbeque";
+"variants-alert-dismiss-button" = "Não, obrigado";
+"variants-alert-preferences-button" = "Rever as suas preferências";
 "welcome-exploration-explore-feed-description" = "Leitura recomendada e artigos diários da nossa comunidade";
 "welcome-exploration-explore-feed-title" = "O feed \"Explorar\"";
 "welcome-exploration-on-this-day-description" = "Retroceda no tempo para saber o que aconteceu hoje na história";
@@ -917,6 +928,9 @@
 "welcome-send-data-learn-more" = "Saiba mais sobre os dados recolhidos";
 "welcome-send-data-sub-title" = "Ajude a melhorar a aplicação indicando à Wikimedia Foundation como a utiliza. Os dados recolhidos são anónimos.";
 "welcome-volunteer-send-usage-reports" = "Enviar relatórios de utilização";
+"widget-onthisday-description" = "Explorar o que aconteceu neste dia ao longo da história.";
+"widget-onthisday-placeholder-article-snippet" = "Enciclopédia livre na internet que qualquer pessoa pode editar";
+"widget-onthisday-placeholder-event-snippet" = "A Wikipédia, uma enciclopédia de conteúdo wiki gratuito, surge na internet.";
 "wikitext-downloading" = "A carregar conteúdo...";
 "wikitext-preview-changes" = "A obter a antevisão das suas alterações...";
 "wikitext-preview-changes-none" = "Não existem alterações para antever.";
