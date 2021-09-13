@@ -12,6 +12,7 @@
 // Author: Endermoon
 // Author: FakeGreenHand
 // Author: GoForceX
+// Author: GuoPC
 // Author: Hudafu
 // Author: ITsu
 // Author: Josephine W.
@@ -672,6 +673,7 @@
 "places-unknown-distance" = "未知距离";
 "potd-description-prefix" = "$1的每日图片";
 "potd-empty-error-description" = "无法检索$1的每日图片";
+"potd-sample-entry-description" = "在2015年的Pacu Jawi活动决赛上（源于米南加保的“奔牛赛”），一名骑师驾驭两只奔跑的公牛。这是印度尼西亚西苏门答腊岛丹那达塔尔的传统奔牛比赛。";
 "potd-widget-description" = "享受观看一个由社区选择的每日美丽照片。";
 "potd-widget-title" = "今日图片";
 "preference-summary-eventlogging-opt-in" = "允许维基媒体基金会收集有关您操作本应用的信息，从而改善应用";
