@@ -104,7 +104,6 @@ public struct APIURLComponentsBuilder {
         public enum BuilderType {
             case productionRest
             case production
-            case betaLabs
             
             func builder(withWikiHost wikiHost: String? = nil) -> APIURLComponentsBuilder {
                 switch self {
@@ -112,20 +111,6 @@ public struct APIURLComponentsBuilder {
                     return MediaWiki.productionRestBuilder(withWikiHost: wikiHost)
                 case .production:
                     return MediaWiki.productionBuilder(withWikiHost: wikiHost)
-                case .betaLabs:
-                    DDLogDebug("Cannot tease apart languageCode from host, use builder(withLanguageCode:) instead. Defaulting to production MediaWiki API")
-                    return MediaWiki.productionBuilder(withWikiHost: wikiHost)
-                }
-            }
-            
-            func builder(withLanguageCode languageCode: String? = nil) -> APIURLComponentsBuilder {
-                switch self {
-                case .productionRest:
-                    return MediaWiki.productionRestBuilder(withLanguageCode: languageCode)
-                case .production:
-                    return MediaWiki.productionRestBuilder(withLanguageCode: languageCode)
-                case .betaLabs:
-                    return MediaWiki.betaLabsBuilder(withLanguageCode: languageCode)
                 }
             }
         }
@@ -137,42 +122,9 @@ public struct APIURLComponentsBuilder {
             return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Configuration.Path.mediaWikiRestAPIComponents)
         }
         
-        private static func productionRestBuilder(withLanguageCode languageCode: String? = nil) -> APIURLComponentsBuilder {
-            let host: String
-            if let languageCode = languageCode {
-                host = "\(languageCode).\(Configuration.Domain.wikipedia)"
-            } else {
-                host = Configuration.Domain.englishWikipedia
-            }
-            return productionRestBuilder(withWikiHost: host)
-        }
-        
         private static func productionBuilder(withWikiHost wikiHost: String? = nil) -> APIURLComponentsBuilder {
             var components = URLComponents()
             components.host = wikiHost ?? Configuration.Domain.metaWiki
-            components.scheme = Configuration.Scheme.https
-            return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Configuration.Path.mediaWikiAPIComponents)
-        }
-        
-        private static func productionBuilder(withLanguageCode languageCode: String? = nil) -> APIURLComponentsBuilder {
-            let host: String
-            if let languageCode = languageCode {
-                host = "\(languageCode).\(Configuration.Domain.wikipedia)"
-            } else {
-                host = Configuration.Domain.metaWiki
-            }
-            return productionBuilder(withWikiHost: host)
-        }
-        
-        private static func betaLabsBuilder(withLanguageCode languageCode: String? = nil) -> APIURLComponentsBuilder {
-            var components = URLComponents()
-            let host: String
-            if let languageCode = languageCode {
-                host = "\(languageCode).\(Configuration.Domain.wikipediaBetaLabs)"
-            } else {
-                host = Configuration.Domain.metaWikiBetaLabs
-            }
-            components.host = host
             components.scheme = Configuration.Scheme.https
             return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Configuration.Path.mediaWikiAPIComponents)
         }
