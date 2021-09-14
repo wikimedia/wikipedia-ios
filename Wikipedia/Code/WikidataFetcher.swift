@@ -85,7 +85,7 @@ public enum ArticleDescriptionSource: String {
         
         let languageCodeParameters = WikipediaSiteInfo.defaultRequestParameters
 
-        let languageCodeComponents = configuration.mediaWikiAPIURLForWikiLanguage(languageCode, with: languageCodeParameters)
+        let languageCodeComponents = configuration.mediaWikiAPIURLForLanguageCode(languageCode, with: languageCodeParameters)
         session.jsonDecodableTask(with: languageCodeComponents.url) { (siteInfo: MediaWikiSiteInfoResult?, response, error) in
             let normalizedLanguage = siteInfo?.query.general.lang ?? "en"
             let queryParameters = ["action": "wbsetdescription",

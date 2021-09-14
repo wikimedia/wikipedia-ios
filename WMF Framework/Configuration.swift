@@ -12,6 +12,7 @@ public class Configuration: NSObject {
 
         public static let appsLabsforPCS = StagingOptions(rawValue: 1 << 0)
         public static let deploymentLabsForEventLogging = StagingOptions(rawValue: 1 << 1)
+        public static let betaCluster = StagingOptions(rawValue: 1 << 2) //note, this will force beta cluster for PCS (thus ignoring an appsLabsforPCS value if also set) and force deploymentLabsForEventLogging
         
         public init(rawValue: Int) {
             self.rawValue = rawValue
@@ -41,7 +42,15 @@ public class Configuration: NSObject {
         #if WMF_LOCAL
         return Configuration.local(options: [.localPCS, .localAnnouncements])
         #elseif WMF_STAGING
-        return Configuration.staging(options: [.appsLabsforPCS])
+		
+		/* NOTE: .betaCluster attempts to point to the MediaWiki beta cluster for all possible endpoints.
+		Change this to .appsLabsForPCS and/or .deploymentLabsForEventLogging for alternative staging environments.
+		Example: Configuration.staging(options: [.appsLabsForPCS, .deploymentLabsForEventLogging])
+			.appsLabsForPCS = Product Infrastructure team's labs instance for PCS endpoints
+			.deploymentLabsForEventLogging = labs instance for testing event logging endpoints
+			All other endpoints would point to production */
+		
+        return Configuration.staging(options: [.betaCluster])
         #else
         return .production
         #endif
@@ -53,6 +62,8 @@ public class Configuration: NSObject {
     private let eventLoggingAPIType: APIURLComponentsBuilder.EventLogging.BuilderType
     private let mediaWikiRestAPIType = APIURLComponentsBuilder.MediaWiki.BuilderType.productionRest
     private let mediaWikiAPIType = APIURLComponentsBuilder.MediaWiki.BuilderType.production
+    private let wikidataAPIType: APIURLComponentsBuilder.Wikidata.BuilderType
+    private let commonsAPIType: APIURLComponentsBuilder.Commons.BuilderType
     private let metricsAPIType = APIURLComponentsBuilder.RESTBase.BuilderType.production
     
     // MARK: Configurations
@@ -61,24 +72,40 @@ public class Configuration: NSObject {
         return Configuration(
             environment: .production,
             defaultSiteDomain: Domain.wikipedia,
+            wikipediaCookieDomain: Domain.wikipedia.withDotPrefix,
+            wikidataCookieDomain: Domain.wikidata.withDotPrefix,
+            commonsCookieDomain: Domain.commons.withDotPrefix,
             pageContentServiceAPIType: .production,
             feedContentAPIType: .production,
             announcementsAPIType: .production,
+            wikidataAPIType: .production,
+            commonsAPIType: .production,
             eventLoggingAPIType: .production)
     }()
     
     private static func staging(options: StagingOptions) -> Configuration {
         
-        let pcsApiType: APIURLComponentsBuilder.RESTBase.BuilderType = options.contains(.appsLabsforPCS) ? .stagingAppsLabsPCS : .production
+        let defaultSiteDomain = options.contains(.betaCluster) ? Domain.wikipediaBetaLabs : Domain.wikipedia
+        let wikipediaCookieDomain = options.contains(.betaCluster) ? Domain.wikipediaBetaLabs.withDotPrefix : Domain.wikipedia.withDotPrefix
+        let wikidataCookieDomain = options.contains(.betaCluster) ? Domain.wikidataBetaLabs.withDotPrefix : Domain.wikidata.withDotPrefix
+        let commonsCookieDomain = options.contains(.betaCluster) ? Domain.commonsBetaLabs.withDotPrefix : Domain.commons.withDotPrefix
+        let pcsApiType: APIURLComponentsBuilder.RESTBase.BuilderType = options.contains(.appsLabsforPCS) && !options.contains(.betaCluster) ? .stagingAppsLabsPCS : .production
+        let wikidataApiType: APIURLComponentsBuilder.Wikidata.BuilderType = options.contains(.betaCluster) ? .betaLabs : .production
+        let commonsApiType: APIURLComponentsBuilder.Commons.BuilderType = options.contains(.betaCluster) ? .betaLabs : .production
         let eventLoggingApiType: APIURLComponentsBuilder.EventLogging
-            .BuilderType = options.contains(.deploymentLabsForEventLogging) ? .staging : .production
+            .BuilderType = options.contains(.deploymentLabsForEventLogging) || options.contains(.betaCluster) ? .staging : .production
         
         return Configuration(
             environment: .staging(options),
-            defaultSiteDomain: Domain.wikipedia,
+            defaultSiteDomain: defaultSiteDomain,
+            wikipediaCookieDomain: wikipediaCookieDomain,
+            wikidataCookieDomain: wikidataCookieDomain,
+            commonsCookieDomain: commonsCookieDomain,
             pageContentServiceAPIType: pcsApiType,
             feedContentAPIType: .production,
             announcementsAPIType: .production,
+            wikidataAPIType: wikidataApiType,
+            commonsAPIType: commonsApiType,
             eventLoggingAPIType: eventLoggingApiType
         )
     }
@@ -91,9 +118,14 @@ public class Configuration: NSObject {
         return Configuration(
             environment: .local(options),
             defaultSiteDomain: Domain.wikipedia,
+            wikipediaCookieDomain: Domain.wikipedia.withDotPrefix,
+            wikidataCookieDomain: Domain.wikidata.withDotPrefix,
+            commonsCookieDomain: Domain.commons.withDotPrefix,
             pageContentServiceAPIType: pcsApiType,
             feedContentAPIType: .production,
             announcementsAPIType: announcementsApiType,
+            wikidataAPIType: .production,
+            commonsAPIType: .production,
             eventLoggingAPIType: .production)
     }
     
@@ -106,9 +138,12 @@ public class Configuration: NSObject {
     
     public struct Domain {
         public static let wikipedia = "wikipedia.org"
+        public static let wikipediaBetaLabs = "wikipedia.beta.wmflabs.org"
         public static let wikidata = "wikidata.org"
+        public static let wikidataBetaLabs = "wikidata.beta.wmflabs.org"
+        public static let commons = "commons.wikimedia.org"
+        public static let commonsBetaLabs = "commons.wikimedia.beta.wmflabs.org"
         public static let mediaWiki = "mediawiki.org"
-        public static let betaLabs = "wikipedia.beta.wmflabs.org"
         public static let appsLabs = "mobileapps.wmflabs.org" // Product Infrastructure team's labs instance
         public static let localhost = "localhost"
         public static let englishWikipedia = "en.wikipedia.org"
@@ -133,6 +168,7 @@ public class Configuration: NSObject {
     public let mediaWikiCookieDomain: String
     public let wikipediaCookieDomain: String
     public let wikidataCookieDomain: String
+    public let commonsCookieDomain: String
     public let wikimediaCookieDomain: String
     public let centralAuthCookieSourceDomain: String // copy cookies from
     public let centralAuthCookieTargetDomains: [String] // copy cookies to
@@ -144,7 +180,17 @@ public class Configuration: NSObject {
        return Router(configuration: self)
     }()
 
-    required init(environment: Environment, defaultSiteDomain: String, otherDomains: [String] = [], pageContentServiceAPIType: APIURLComponentsBuilder.RESTBase.BuilderType, feedContentAPIType: APIURLComponentsBuilder.RESTBase.BuilderType, announcementsAPIType: APIURLComponentsBuilder.RESTBase.BuilderType, eventLoggingAPIType: APIURLComponentsBuilder.EventLogging.BuilderType) {
+    required init(environment: Environment, defaultSiteDomain: String,
+                  wikipediaCookieDomain: String,
+                  wikidataCookieDomain: String,
+                  commonsCookieDomain: String,
+                  otherDomains: [String] = [],
+                  pageContentServiceAPIType: APIURLComponentsBuilder.RESTBase.BuilderType,
+                  feedContentAPIType: APIURLComponentsBuilder.RESTBase.BuilderType,
+                  announcementsAPIType: APIURLComponentsBuilder.RESTBase.BuilderType,
+                  wikidataAPIType: APIURLComponentsBuilder.Wikidata.BuilderType,
+                  commonsAPIType: APIURLComponentsBuilder.Commons.BuilderType,
+                  eventLoggingAPIType: APIURLComponentsBuilder.EventLogging.BuilderType) {
         self.environment = environment
         self.defaultSiteDomain = defaultSiteDomain
         var components = URLComponents()
@@ -153,15 +199,18 @@ public class Configuration: NSObject {
         self.defaultSiteURL = components.url!
         self.mediaWikiCookieDomain = Domain.mediaWiki.withDotPrefix
         self.wikimediaCookieDomain = Domain.wikimedia.withDotPrefix
-        self.wikipediaCookieDomain = Domain.wikipedia.withDotPrefix
-        self.wikidataCookieDomain = Domain.wikidata.withDotPrefix
+        self.wikipediaCookieDomain = wikipediaCookieDomain
+        self.wikidataCookieDomain = wikidataCookieDomain
+        self.commonsCookieDomain = commonsCookieDomain
         self.centralAuthCookieSourceDomain = self.wikipediaCookieDomain
-        self.centralAuthCookieTargetDomains = [self.wikidataCookieDomain, self.mediaWikiCookieDomain, self.wikimediaCookieDomain]
+        self.centralAuthCookieTargetDomains = [self.wikidataCookieDomain, self.mediaWikiCookieDomain, self.wikimediaCookieDomain, self.commonsCookieDomain]
         self.wikiResourceDomains = [defaultSiteDomain] + otherDomains
         self.inAppLinkDomains = [defaultSiteDomain, Domain.mediaWiki, Domain.wikidata, Domain.wikimedia, Domain.wikimediafoundation] + otherDomains
         self.pageContentServiceAPIType = pageContentServiceAPIType
         self.feedContentAPIType = feedContentAPIType
         self.announcementsAPIType = announcementsAPIType
+        self.wikidataAPIType = wikidataAPIType
+        self.commonsAPIType = commonsAPIType
         self.eventLoggingAPIType = eventLoggingAPIType
     }
     
@@ -258,18 +307,18 @@ public class Configuration: NSObject {
         return builder.components(queryParameters: queryParameters)
     }
     
-    public func mediaWikiAPIURLForWikiLanguage(_ wikiLanguage: String? = nil, with queryParameters: [String: Any]?) -> URLComponents {
-        guard let wikiLanguage = wikiLanguage else {
+    public func mediaWikiAPIURLForLanguageCode(_ languageCode: String? = nil, with queryParameters: [String: Any]?) -> URLComponents {
+        guard let languageCode = languageCode else {
             return mediaWikiAPIURLForHost(nil, with: queryParameters)
         }
-        let host = "\(wikiLanguage).\(Domain.wikipedia)"
+        let host = "\(languageCode).\(defaultSiteDomain)"
         return mediaWikiAPIURLForHost(host, with: queryParameters)
     }
     
-    //MARK: WikiData
+    //MARK: Wikidata
     
     public func wikidataAPIURLComponents(with queryParameters: [String: Any]?) -> URLComponents {
-        let builder = mediaWikiAPIType.builder(withWikiHost: "www.\(Domain.wikidata)")
+        let builder = wikidataAPIType.builder()
         return builder.components(queryParameters: queryParameters)
     }
     
@@ -277,7 +326,7 @@ public class Configuration: NSObject {
 
     @objc(commonsAPIURLComponentsWithQueryParameters:)
     public func commonsAPIURLComponents(with queryParameters: [String: Any]?) -> URLComponents {
-        let builder = mediaWikiAPIType.builder(withWikiHost: "commons.\(Domain.wikimedia)")
+        let builder = commonsAPIType.builder()
         return builder.components(queryParameters: queryParameters)
     }
     
