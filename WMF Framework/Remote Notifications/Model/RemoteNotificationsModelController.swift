@@ -42,7 +42,6 @@ import CocoaLumberjackSwift
 }
 
 final class RemoteNotificationsModelController: NSObject {
-    public static let modelDidChangeNotification = NSNotification.Name(rawValue: "RemoteNotificationsModelDidChange")
     public static let didLoadPersistentStoresNotification = NSNotification.Name(rawValue: "ModelControllerDidLoadPersistentStores")
     
     let managedObjectContext: NSManagedObjectContext
@@ -90,7 +89,6 @@ final class RemoteNotificationsModelController: NSObject {
         managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = container.persistentStoreCoordinator
         super.init()
-        NotificationCenter.default.addObserver(self, selector: #selector(managedObjectContextDidSave(_:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: managedObjectContext)
     }
 
     deinit {
@@ -136,26 +134,6 @@ final class RemoteNotificationsModelController: NSObject {
         }
     }
 
-    // MARK: Validation
-
-    let validNotificationCategories: Set<RemoteNotificationCategory> = [.editReverted]
-
-    private func validateCategory(of notification: RemoteNotificationsAPIController.NotificationsResult.Notification) -> Bool {
-        guard let categoryString = notification.category else {
-            assertionFailure("Missing notification category")
-            return false
-        }
-        let category = RemoteNotificationCategory(stringValue: categoryString)
-        return validNotificationCategories.contains(category)
-    }
-
-    private func validateAge(ofNotificationDated date: Date) -> Bool {
-        let sinceNow = Int(date.timeIntervalSinceNow)
-        let hoursPassed = abs(sinceNow / 3600)
-        let maxHoursPassed = 24
-        return hoursPassed <= maxHoursPassed
-    }
-
     public func createNewNotifications(from notificationsFetchedFromTheServer: Set<RemoteNotificationsAPIController.NotificationsResult.Notification>, completion: @escaping () -> Void) throws {
         managedObjectContext.perform {
             for notification in notificationsFetchedFromTheServer {
@@ -176,12 +154,6 @@ final class RemoteNotificationsModelController: NSObject {
         }
         guard let id = notification.id else {
             assertionFailure("Notification must have an id")
-            return
-        }
-        guard self.validateCategory(of: notification) else {
-            return
-        }
-        guard self.validateAge(ofNotificationDated: date) else {
             return
         }
         let message = notification.message?.header?.wmf_stringByRemovingHTML()
@@ -285,37 +257,4 @@ final class RemoteNotificationsModelController: NSObject {
             self.save()
         }
     }
-
-    // MARK: Notifications
-
-    @objc private func managedObjectContextDidSave(_ note: Notification) {
-        guard let userInfo = note.userInfo else {
-            assertionFailure("Expected note with userInfo dictionary")
-            return
-        }
-        if let insertedObjects = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject>, !insertedObjects.isEmpty {
-            postModelDidChangeNotification(ofType: .addedNewNotifications, withNotificationsFromObjects: insertedObjects)
-        }
-        if let updatedObjects = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject>, !updatedObjects.isEmpty {
-            postModelDidChangeNotification(ofType: .updatedExistingNotifications, withNotificationsFromObjects: updatedObjects)
-        }
-    }
-
-    private func postModelDidChangeNotification(ofType modelChangeType: RemoteNotificationsModelChangeType, withNotificationsFromObjects objects: Set<NSManagedObject>) {
-        let notifications = objects.compactMap { $0 as? RemoteNotification }.filter { $0.state == nil }
-        guard !notifications.isEmpty else {
-            return
-        }
-        let notificationsGroupedByCategoryNumber = Dictionary(grouping: notifications, by: { NSNumber(value: $0.category.rawValue) })
-        let modelChange = RemoteNotificationsModelChange(type: modelChangeType, notificationsGroupedByCategoryNumber: notificationsGroupedByCategoryNumber)
-        let responseCoordinator = RemoteNotificationsModelChangeResponseCoordinator(modelChange: modelChange, modelController: self)
-        DispatchQueue.main.async {
-            NotificationCenter.default.post(name: RemoteNotificationsModelController.modelDidChangeNotification, object: responseCoordinator)
-        }
-    }
-}
-
-
-@objc public class RemoteNotificationsModelControllerNotification: NSObject {
-    @objc public static let modelDidChange = RemoteNotificationsModelController.modelDidChangeNotification
 }

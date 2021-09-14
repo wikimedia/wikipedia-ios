@@ -734,8 +734,6 @@
 "replace-textfield-accessibility" = "Replace";
 "replace-textfield-placeholder" = "Replace with…";
 "reverted-edit-back-to-article-button-title" = "Back to article";
-"reverted-edit-notification-body" = "The edit you made of the article $1 was reverted by $2";
-"reverted-edit-notification-read-more-action-title" = "Read more";
 "reverted-edit-possible-reasons" = "- Your contribution didn’t follow one of the guidelines. $1 \n\n - Your contribution looked like an experiment or vandalism";
 "reverted-edit-possible-reasons-subtitle" = "We know that you tried your best, but one of the reviewers had a concern.\n\nPossible reasons your edit was reverted include:";
 "reverted-edit-thanks-for-editing-title" = "Thanks for editing Wikipedia!";
