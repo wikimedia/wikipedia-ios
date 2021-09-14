@@ -42,7 +42,6 @@ import CocoaLumberjackSwift
 }
 
 final class RemoteNotificationsModelController: NSObject {
-    public static let modelDidChangeNotification = NSNotification.Name(rawValue: "RemoteNotificationsModelDidChange")
     public static let didLoadPersistentStoresNotification = NSNotification.Name(rawValue: "ModelControllerDidLoadPersistentStores")
     
     let managedObjectContext: NSManagedObjectContext
