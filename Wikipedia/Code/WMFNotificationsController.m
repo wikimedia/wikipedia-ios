@@ -2,10 +2,7 @@
 #import <WMF/WMFFaceDetectionCache.h>
 #import <WMF/WMF-Swift.h>
 @import ImageIO;
-@import UserNotifications;
 @import CoreServices;
-
-#define WMF_ALWAYS_ASK_FOR_NOTIFICATION_PERMISSION DEBUG && 0
 
 NSString *const WMFInTheNewsNotificationCategoryIdentifier = @"inTheNewsNotificationCategoryIdentifier";
 NSString *const WMFInTheNewsNotificationReadNowActionIdentifier = @"inTheNewsNotificationReadNowActionIdentifier";
@@ -27,49 +24,68 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
 
 @interface WMFNotificationsController ()
 
-@property (nonatomic, readwrite, getter=isAuthorized) BOOL authorized;
 @property (weak, nonatomic) MWKDataStore *dataStore;
+@property (nonatomic, readwrite, copy, nullable) NSData *remoteRegistrationDeviceToken;
+@property (nonatomic, readwrite, strong, nullable) NSError *remoteRegistrationError;
+@property (nonatomic, strong) WMFEchoSubscriptionFetcher *echoSubscriptionFetcher;
+@property (nonatomic, strong) MWKLanguageLinkController *languageLinkController;
 
 @end
 
 @implementation WMFNotificationsController
 
-- (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore languageLinkController:(MWKLanguageLinkController *)languageLinkController {
     self = [super init];
     if (self) {
         self.dataStore = dataStore;
-#if WMF_ALWAYS_ASK_FOR_NOTIFICATION_PERMISSION
-        [self requestAuthenticationIfNecessaryWithCompletionHandler:^(BOOL granted, NSError *_Nullable error){
-
-        }];
-#endif
+        self.languageLinkController = languageLinkController;
+        self.echoSubscriptionFetcher = [[WMFEchoSubscriptionFetcher alloc] initWithSession:dataStore.session configuration:dataStore.configuration];
     }
     return self;
 }
 
-- (void)requestAuthenticationIfNecessaryWithCompletionHandler:(void (^)(BOOL granted, NSError *__nullable error))completionHandler {
-    if (![UNUserNotificationCenter class]) {
-        completionHandler(NO, nil);
-        return;
-    }
+- (void)notificationPermissionsStatusWithCompletionHandler:(void (^)(UNAuthorizationStatus status))completionHandler {
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings *_Nonnull settings) {
+        completionHandler(settings.authorizationStatus);
+    }];
+}
+
+- (void)requestPermissionsIfNecessaryWithCompletionHandler:(void (^)(BOOL isAllowed, NSError *__nullable error))completionHandler {
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings *_Nonnull settings) {
         switch (settings.authorizationStatus) {
-            case UNAuthorizationStatusAuthorized:
-                self.authorized = YES;
-                completionHandler(YES, nil);
+            case UNAuthorizationStatusNotDetermined:
+                [self requestPermissionsWithCompletionHandler:completionHandler];
                 break;
             case UNAuthorizationStatusDenied:
-                self.authorized = NO;
                 completionHandler(NO, nil);
                 break;
-            case UNAuthorizationStatusNotDetermined:
-                [self requestAuthenticationWithCompletionHandler:completionHandler];
+            case UNAuthorizationStatusAuthorized:
+                completionHandler(YES, nil);
                 break;
-            default:
+            case UNAuthorizationStatusProvisional:
+                completionHandler(YES, nil);
+                break;
+            case UNAuthorizationStatusEphemeral:
+                completionHandler(YES, nil);
                 break;
         }
     }];
+}
+
+- (void)setRemoteNotificationRegistrationStatusWithDeviceToken:(nullable NSData *)deviceToken error:(nullable NSError *)error {
+    self.remoteRegistrationDeviceToken = deviceToken;
+    self.remoteRegistrationError = error;
+}
+
+- (void)subscribeToEchoNotificationsWithCompletionHandler:(nullable void (^)(NSError *__nullable error))completionHandler {
+
+    [self.echoSubscriptionFetcher subscribeWithSiteURL:self.languageLinkController.appLanguage.siteURL deviceToken:self.remoteRegistrationDeviceToken completion:completionHandler];
+}
+
+- (void)unsubscribeFromEchoNotificationsWithCompletionHandler:(nullable void (^)(NSError *__nullable error))completionHandler {
+    [self.echoSubscriptionFetcher unsubscribeWithSiteURL:self.languageLinkController.appLanguage.siteURL deviceToken:self.remoteRegistrationDeviceToken completion:completionHandler];
 }
 
 - (void)updateCategories {
@@ -96,11 +112,10 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
     [center setNotificationCategories:[NSSet setWithObjects:inTheNewsCategory, editRevertedCategory, nil]];
 }
 
-- (void)requestAuthenticationWithCompletionHandler:(void (^)(BOOL, NSError *_Nullable))completionHandler {
+- (void)requestPermissionsWithCompletionHandler:(void (^)(BOOL, NSError *_Nullable))completionHandler {
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     [center requestAuthorizationWithOptions:UNAuthorizationOptionAlert | UNAuthorizationOptionSound
                           completionHandler:^(BOOL granted, NSError *_Nullable error) {
-                              self.authorized = granted;
                               completionHandler(granted, error);
                           }];
 }
@@ -133,9 +148,6 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
 }
 
 - (void)sendNotificationWithTitle:(NSString *)title body:(NSString *)body categoryIdentifier:(NSString *)categoryIdentifier userInfo:(NSDictionary *)userInfo atDateComponents:(nullable NSDateComponents *)dateComponents {
-    if (![UNUserNotificationCenter class]) {
-        return;
-    }
 
     NSString *thumbnailURLString = userInfo[WMFNotificationInfoThumbnailURLStringKey];
     if (!thumbnailURLString) {
@@ -223,7 +235,6 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
                         [self sendNotificationWithTitle:title body:body categoryIdentifier:categoryIdentifier userInfo:userInfo atDateComponents:dateComponents withAttachements:imageAttachements];
                     }
                 }];
-
         }];
 }
 

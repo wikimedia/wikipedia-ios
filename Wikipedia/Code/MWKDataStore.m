@@ -117,7 +117,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
         [self.feedContentController updateContentSources];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningWithNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
         self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWithSession:session configuration:configuration preferredLanguageCodesProvider:self.languageLinkController];
-        self.notificationsController = [[WMFNotificationsController alloc] initWithDataStore:self];
+        self.notificationsController = [[WMFNotificationsController alloc] initWithDataStore:self languageLinkController:self.languageLinkController];
         self.articleSummaryController = [[WMFArticleSummaryController alloc] initWithSession:session configuration:configuration dataStore:self];
         self.mobileviewConverter = [[MobileviewToMobileHTMLConverter alloc] init];
     }
@@ -424,7 +424,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
             DDLogError(@"Error saving during migration: %@", migrationError);
             return;
         }
-        
+
         if (![self moveImageControllerCacheFolderWithError:&migrationError]) {
             DDLogError(@"Error saving during migration: %@", migrationError);
             return;
@@ -439,7 +439,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
             return;
         }
     }
-    
+
     if (currentLibraryVersion < 12) {
         [[WMFEventLoggingService sharedInstance] migrateShareUsageAndInstallIDToUserDefaults];
         [self migrateToLanguageVariantsForLibraryVersion:12 inManagedObjectContext:moc];
@@ -449,7 +449,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
             return;
         }
     }
-    
+
     if (currentLibraryVersion < 13) {
         [self.languageLinkController migrateToUniquedPreferredLanguagesInManagedObjectContext:moc];
         [moc wmf_setValue:@(13) forKey:WMFLibraryVersionKey];
@@ -466,7 +466,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 /// They can also be used to perform migrations when the underlying Core Data model has not changed version but the apps' logic has changed in a way that requires data migration.
 - (void)performLibraryUpdates:(dispatch_block_t)completion needsMigrateBlock:(dispatch_block_t)needsMigrateBlock {
     dispatch_block_t combinedCompletion = ^{
-        [WMFPermanentCacheController setupCoreDataStack:^(NSManagedObjectContext * _Nullable moc, NSError * _Nullable error) {
+        [WMFPermanentCacheController setupCoreDataStack:^(NSManagedObjectContext *_Nullable moc, NSError *_Nullable error) {
             if (error) {
                 DDLogError(@"Error during cache controller migration: %@", error);
             }
@@ -491,7 +491,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
         combinedCompletion();
         return;
     }
-    
+
     needsMigrateBlock();
     [self performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext *moc) {
         [self performUpdatesFromLibraryVersion:currentUserLibraryVersion inManagedObjectContext:moc];
@@ -565,10 +565,10 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 }
 
 - (BOOL)moveImageControllerCacheFolderWithError:(NSError **)error {
-    
+
     NSURL *legacyDirectory = [[[NSFileManager defaultManager] wmf_containerURL] URLByAppendingPathComponent:@"Permanent Image Cache" isDirectory:YES];
     NSURL *newDirectory = [[[NSFileManager defaultManager] wmf_containerURL] URLByAppendingPathComponent:@"Permanent Cache" isDirectory:YES];
-    
+
     //move legacy image cache to new non-image path name
     return [[NSFileManager defaultManager] moveItemAtURL:legacyDirectory toURL:newDirectory error:error];
 }
@@ -624,7 +624,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     return _recentSearchList;
 }
 
-- (nullable NSURL*)primarySiteURL {
+- (nullable NSURL *)primarySiteURL {
     return self.languageLinkController.appLanguage.siteURL;
 }
 
@@ -803,7 +803,10 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     [self clearMemoryCache];
     [self.session clearTemporaryCache];
     NSSet<NSString *> *typesToClear = [NSSet setWithObjects:WKWebsiteDataTypeDiskCache, WKWebsiteDataTypeMemoryCache, nil];
-    [[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:typesToClear modifiedSince:[NSDate distantPast] completionHandler:^{}];
+    [[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:typesToClear
+                                               modifiedSince:[NSDate distantPast]
+                                           completionHandler:^{
+                                           }];
 }
 
 #pragma mark - Remote Configuration
@@ -823,46 +826,46 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     NSURL *URL = [self.configuration mediaWikiAPIURLForURL:siteURL withQueryParameters:WikipediaSiteInfo.defaultRequestParameters];
     [taskGroup enter];
     [self.session getJSONDictionaryFromURL:URL
-                                      ignoreCache:YES
-                                completionHandler:^(NSDictionary<NSString *, id> *_Nullable siteInfo, NSURLResponse *_Nullable response, NSError *_Nullable error) {
-                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                        if (error) {
-                                            updateError = error;
-                                            [taskGroup leave];
-                                            return;
-                                        }
-                                        NSDictionary *generalProps = [siteInfo valueForKeyPath:@"query.general"];
-                                        NSDictionary *readingListsConfig = generalProps[@"readinglists-config"];
-                                        if (self.isLocalConfigUpdateAllowed) {
-                                            [self updateReadingListsLimits:readingListsConfig];
-                                            self.remoteConfigsThatFailedUpdate &= ~RemoteConfigOptionReadingLists;
-                                        } else {
-                                            self.remoteConfigsThatFailedUpdate |= RemoteConfigOptionReadingLists;
-                                        }
-                                        [taskGroup leave];
-                                    });
-                                }];
+                               ignoreCache:YES
+                         completionHandler:^(NSDictionary<NSString *, id> *_Nullable siteInfo, NSURLResponse *_Nullable response, NSError *_Nullable error) {
+                             dispatch_async(dispatch_get_main_queue(), ^{
+                                 if (error) {
+                                     updateError = error;
+                                     [taskGroup leave];
+                                     return;
+                                 }
+                                 NSDictionary *generalProps = [siteInfo valueForKeyPath:@"query.general"];
+                                 NSDictionary *readingListsConfig = generalProps[@"readinglists-config"];
+                                 if (self.isLocalConfigUpdateAllowed) {
+                                     [self updateReadingListsLimits:readingListsConfig];
+                                     self.remoteConfigsThatFailedUpdate &= ~RemoteConfigOptionReadingLists;
+                                 } else {
+                                     self.remoteConfigsThatFailedUpdate |= RemoteConfigOptionReadingLists;
+                                 }
+                                 [taskGroup leave];
+                             });
+                         }];
     // Remote config
     NSURL *remoteConfigURL = [NSURL URLWithString:@"https://meta.wikimedia.org/static/current/extensions/MobileApp/config/ios.json"];
     [taskGroup enter];
     [self.session getJSONDictionaryFromURL:remoteConfigURL
-                                      ignoreCache:YES
-                                completionHandler:^(NSDictionary<NSString *, id> *_Nullable remoteConfigurationDictionary, NSURLResponse *_Nullable response, NSError *_Nullable error) {
-                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                        if (error) {
-                                            updateError = error;
-                                            [taskGroup leave];
-                                            return;
-                                        }
-                                        if (self.isLocalConfigUpdateAllowed) {
-                                            [self updateLocalConfigurationFromRemoteConfiguration:remoteConfigurationDictionary];
-                                            self.remoteConfigsThatFailedUpdate &= ~RemoteConfigOptionGeneric;
-                                        } else {
-                                            self.remoteConfigsThatFailedUpdate |= RemoteConfigOptionGeneric;
-                                        }
-                                        [taskGroup leave];
-                                    });
-                                }];
+                               ignoreCache:YES
+                         completionHandler:^(NSDictionary<NSString *, id> *_Nullable remoteConfigurationDictionary, NSURLResponse *_Nullable response, NSError *_Nullable error) {
+                             dispatch_async(dispatch_get_main_queue(), ^{
+                                 if (error) {
+                                     updateError = error;
+                                     [taskGroup leave];
+                                     return;
+                                 }
+                                 if (self.isLocalConfigUpdateAllowed) {
+                                     [self updateLocalConfigurationFromRemoteConfiguration:remoteConfigurationDictionary];
+                                     self.remoteConfigsThatFailedUpdate &= ~RemoteConfigOptionGeneric;
+                                 } else {
+                                     self.remoteConfigsThatFailedUpdate |= RemoteConfigOptionGeneric;
+                                 }
+                                 [taskGroup leave];
+                             });
+                         }];
 
     [taskGroup waitInBackgroundWithCompletion:^{
         combinedCompletion(updateError);
@@ -931,7 +934,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
         return nil;
     }
     NSString *variant = URL.wmf_languageVariantCode;
-    WMFArticle *article = [self fetchArticleWithKey:key variant: variant inManagedObjectContext:moc];
+    WMFArticle *article = [self fetchArticleWithKey:key variant:variant inManagedObjectContext:moc];
     if (!article) {
         article = [moc createArticleWithKey:key variant:variant];
         article.displayTitleHTML = article.displayTitle;
@@ -963,7 +966,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 
 #pragma mark - WMFAuthenticationManagerDelegate
 
-- (nullable NSURL*)loginSiteURL {
+- (nullable NSURL *)loginSiteURL {
     return self.primarySiteURL;
 }
 
@@ -979,16 +982,20 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 #pragma mark - WMFSessionAuthenticationDelegate
 
 - (void)attemptReauthentication {
-    [self.authenticationManager attemptLoginWithLogoutOnFailureInitiatedBy:LogoutInitiatorServer completion:^{}];
+    [self.authenticationManager attemptLoginWithLogoutOnFailureInitiatedBy:LogoutInitiatorServer
+                                                                completion:^{
+                                                                }];
 }
 
 - (void)deauthenticate {
-    [self.authenticationManager logoutInitiatedBy:LogoutInitiatorServer completion:^{}];
+    [self.authenticationManager logoutInitiatedBy:LogoutInitiatorServer
+                                       completion:^{
+                                       }];
 }
 
 #pragma mark - ABTestsManaging
 
-- (void)setupAbTestsControllerWithPersistenceService: (id<ABTestsPersisting>)persistenceService {
+- (void)setupAbTestsControllerWithPersistenceService:(id<ABTestsPersisting>)persistenceService {
     self.abTestsController = [[WMFABTestsController alloc] initWithPersistanceService:persistenceService];
 }
 

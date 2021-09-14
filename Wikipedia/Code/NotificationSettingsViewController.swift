@@ -17,16 +17,43 @@ struct NotificationSettingsButtonItem: NotificationSettingsItem {
     let buttonAction: () -> Void
 }
 
+struct NotificationSettingsInfoItem: NotificationSettingsItem {
+    let title: String
+}
+
 struct NotificationSettingsSection {
     let headerTitle:String
     let items: [NotificationSettingsItem]
 }
+
+//TODO: These are just here to prevent localization diffs. Reinstate if needed once notifications type screen is complete.
+/*
+ WMFLocalizedString("settings-notifications-learn-more", value:"Learn more about notifications", comment:"A title for a button to learn more about notifications")
+ WMFLocalizedString("welcome-notifications-tell-me-more-title", value:"More about notifications", comment:"Title for detailed notification explanation")
+ WMFLocalizedString("welcome-notifications-tell-me-more-storage", value:"Notification preferences are stored on device and not based on personal information or activity.", comment:"An explanation of how notifications are stored")
+ WMFLocalizedString("welcome-notifications-tell-me-more-creation", value:"Notifications are created and delivered on your device by the app, not from our (or third party) servers.", comment:"An explanation of how notifications are created")
+ WMFLocalizedString("settings-notifications-info", value:"Be alerted to trending and top read articles on Wikipedia with our push notifications. All provided with respect to privacy and up to the minute data.", comment:"A short description of notifications shown in settings")
+ WMFLocalizedString("settings-notifications-trending", value:"Trending current events", comment:"Title for the setting for trending notifications")
+ WMFLocalizedString("settings-notifications-info", value:"Be alerted to trending and top read articles on Wikipedia with our push notifications. All provided with respect to privacy and up to the minute data.", comment:"A short description of notifications shown in settings")
+ */
 
 @objc(WMFNotificationSettingsViewController)
 class NotificationSettingsViewController: SubSettingsViewController {
     
     var sections = [NotificationSettingsSection]()
     var observationToken: NSObjectProtocol?
+    private let authManager: WMFAuthenticationManager
+    private let notificationsController: WMFNotificationsController
+    
+    @objc init(authManager: WMFAuthenticationManager, notificationsController: WMFNotificationsController) {
+        self.authManager = authManager
+        self.notificationsController = notificationsController
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,36 +75,38 @@ class NotificationSettingsViewController: SubSettingsViewController {
        updateSections()
     }
     
-    func sectionsForSystemSettingsAuthorized() -> [NotificationSettingsSection] {
+    func sectionsForPermissionsNotDetermined() -> [NotificationSettingsSection] {
         var updatedSections = [NotificationSettingsSection]()
         
-        let infoItems: [NotificationSettingsItem] = [NotificationSettingsButtonItem(title: WMFLocalizedString("settings-notifications-learn-more", value:"Learn more about notifications", comment:"A title for a button to learn more about notifications"), buttonAction: { [weak self] in
-            let title = WMFLocalizedString("welcome-notifications-tell-me-more-title", value:"More about notifications", comment:"Title for detailed notification explanation")
-            let message = "\(WMFLocalizedString("welcome-notifications-tell-me-more-storage", value:"Notification preferences are stored on device and not based on personal information or activity.", comment:"An explanation of how notifications are stored"))\n\n\(WMFLocalizedString("welcome-notifications-tell-me-more-creation", value:"Notifications are created and delivered on your device by the app, not from our (or third party) servers.", comment:"An explanation of how notifications are created"))"
-            let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-            alertController.addAction(UIAlertAction(title: CommonStrings.gotItButtonTitle, style: UIAlertAction.Style.default, handler: { (action) in
-            }))
-            self?.present(alertController, animated: true, completion: nil)
-        })]
-        
-        let infoSection = NotificationSettingsSection(headerTitle: WMFLocalizedString("settings-notifications-info", value:"Be alerted to trending and top read articles on Wikipedia with our push notifications. All provided with respect to privacy and up to the minute data.", comment:"A short description of notifications shown in settings"), items: infoItems)
-        updatedSections.append(infoSection)
-        
-        let notificationSettingsItems: [NotificationSettingsItem] = [NotificationSettingsSwitchItem(title: WMFLocalizedString("settings-notifications-trending", value:"Trending current events", comment:"Title for the setting for trending notifications"), switchChecker: { () -> Bool in
-            return UserDefaults.standard.wmf_inTheNewsNotificationsEnabled()
+        //TODO: Temporary happy path permissions logic, use proper localized string for title when non-temporary
+        let notificationSettingsItems: [NotificationSettingsItem] = [NotificationSettingsSwitchItem(title: "Enable push notifications", switchChecker: { () -> Bool in
+            return false
             }, switchAction: { [weak self] (isOn) in
-                //This (and everything else that references UNUserNotificationCenter in this class) should be moved into WMFNotificationsController
                 if (isOn) {
-                    // SINGLETONTODO
-                    MWKDataStore.shared().notificationsController.requestAuthenticationIfNecessary(completionHandler: { [weak self] (granted, error) in
-                        if let error = error as NSError? {
-                            self?.wmf_showAlertWithError(error)
+                    self?.notificationsController.requestPermissionsIfNecessary {[weak self] isAllowed, error in
+                        DispatchQueue.main.async {
+                            if let error = error as NSError? {
+                                self?.wmf_showAlertWithError(error)
+                                return
+                            }
+                            
+                            guard isAllowed else {
+                                self?.updateSections()
+                                return
+                            }
+                            
+                            self?.notificationsController.subscribeToEchoNotifications(completionHandler: {[weak self] error in
+                                DispatchQueue.main.async {
+                                    if let error = error as NSError? {
+                                        self?.wmf_showAlertWithError(error)
+                                    }
+                                    
+                                    self?.updateSections()
+                                }
+                            })
                         }
-                    })
-                } else {
-                    UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                    }
                 }
-                UserDefaults.standard.wmf_setInTheNewsNotificationsEnabled(isOn)
         })]
         let notificationSettingsSection = NotificationSettingsSection(headerTitle: WMFLocalizedString("settings-notifications-push-notifications", value:"Push notifications", comment:"A title for a list of Push notifications"), items: notificationSettingsItems)
         
@@ -85,34 +114,82 @@ class NotificationSettingsViewController: SubSettingsViewController {
         return updatedSections
     }
     
-    func sectionsForSystemSettingsUnauthorized()  -> [NotificationSettingsSection] {
+    //TODO: Temporary login logic, use proper localized string for titles when non-temporary
+    func sectionsForNotLoggedIn() -> [NotificationSettingsSection] {
+        let logInItem: NotificationSettingsItem = NotificationSettingsButtonItem(title: "Log in", buttonAction: {
+            self.wmf_showLoginOrCreateAccountToThankRevisionAuthorPanel(theme: self.theme, dismissHandler: nil, loginSuccessCompletion: {
+                self.updateSections()
+            }, loginDismissedCompletion: nil)
+        })
+        
+        return [NotificationSettingsSection(headerTitle: "Please log in first.", items: [logInItem])]
+    }
+    
+    func sectionsForPermissionsDenied() -> [NotificationSettingsSection] {
         let unauthorizedItems: [NotificationSettingsItem] = [NotificationSettingsButtonItem(title: WMFLocalizedString("settings-notifications-system-turn-on", value:"Turn on Notifications", comment:"Title for a button for turnining on notifications in the system settings"), buttonAction: {
             guard let URL = URL(string: UIApplication.openSettingsURLString) else {
                 return
             }
             UIApplication.shared.open(URL, options: [:], completionHandler: nil)
         })]
-        return [NotificationSettingsSection(headerTitle: WMFLocalizedString("settings-notifications-info", value:"Be alerted to trending and top read articles on Wikipedia with our push notifications. All provided with respect to privacy and up to the minute data.", comment:"A short description of notifications shown in settings"), items: unauthorizedItems)]
+        return [NotificationSettingsSection(headerTitle: "", items: unauthorizedItems)]
+    }
+    
+    //TODO: Temporary subscription failure logic, use proper localized string for titles when non-temporary
+    func sectionsForSubscriptionFailure() -> [NotificationSettingsSection] {
+        let subscriptionFailureItem: NotificationSettingsItem = NotificationSettingsInfoItem(title: "Something failed while attempting to set up notifications on your device. Please try again later.")
+        return [NotificationSettingsSection(headerTitle: "", items: [subscriptionFailureItem])]
+    }
+    
+    //TODO: Temporary permissions allowed logic, use proper localized string for titles when non-temporary
+    func sectionsForPermissionsAllowed() -> [NotificationSettingsSection] {
+        let allowedItems: [NotificationSettingsItem] = [NotificationSettingsButtonItem(title: "Notifications are enabled. Go to iOS settings to disable notifications", buttonAction: {
+            guard let URL = URL(string: UIApplication.openSettingsURLString) else {
+                return
+            }
+            UIApplication.shared.open(URL, options: [:], completionHandler: nil)
+        })]
+        return [NotificationSettingsSection(headerTitle: "", items: allowedItems)]
     }
     
     func updateSections() {
         tableView.reloadData()
-        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
-            DispatchQueue.main.async(execute: {
-                switch settings.authorizationStatus {
-                case .authorized:
-                    fallthrough
-                case .notDetermined:
-                    self.sections = self.sectionsForSystemSettingsAuthorized()
-                    break
+        
+        guard authManager.isLoggedIn else {
+            sections = self.sectionsForNotLoggedIn()
+            tableView.reloadData()
+            return
+        }
+        
+        guard notificationsController.remoteRegistrationDeviceToken != nil else {
+            sections = self.sectionsForSubscriptionFailure()
+            tableView.reloadData()
+            return
+        }
+        
+        notificationsController.notificationPermissionsStatus { [weak self] status in
+            
+            DispatchQueue.main.async {
+                guard let self = self else {
+                    return
+                }
+                
+                switch status {
                 case .denied:
-                    self.sections = self.sectionsForSystemSettingsUnauthorized()
+                    self.sections = self.sectionsForPermissionsDenied()
+                    break
+                case .notDetermined:
+                    self.sections = self.sectionsForPermissionsNotDetermined()
+                    break
+                case .authorized, .provisional, .ephemeral:
+                    self.sections = self.sectionsForPermissionsAllowed()
                     break
                 default:
                     break
                 }
+                
                 self.tableView.reloadData()
-            })
+            }
         }
     }
     
@@ -141,17 +218,18 @@ class NotificationSettingsViewController: SubSettingsViewController {
             cell.disclosureType = .switch
             cell.disclosureSwitch.isOn = switchItem.switchChecker()
             cell.disclosureSwitch.addTarget(self, action: #selector(self.handleSwitchValueChange(_:)), for: .valueChanged)
+        } else if item is NotificationSettingsInfoItem {
+            cell.disclosureType = .none
         } else {
             cell.disclosureType = .viewController
         }
-        
         
         return cell
     }
     
     @objc func handleSwitchValueChange(_ sender: UISwitch) {
         // FIXME: hardcoded item below
-        let item = sections[1].items[0]
+        let item = sections[0].items[0]
         if let switchItem = item as? NotificationSettingsSwitchItem {
             switchItem.switchAction(sender.isOn)
         }
@@ -184,7 +262,6 @@ class NotificationSettingsViewController: SubSettingsViewController {
         item.buttonAction()
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
     
     @objc func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         return sections[indexPath.section].items[indexPath.item] as? NotificationSettingsSwitchItem == nil
