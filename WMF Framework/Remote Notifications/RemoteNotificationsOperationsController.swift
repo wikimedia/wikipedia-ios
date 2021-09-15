@@ -40,16 +40,8 @@ class RemoteNotificationsOperationsController: NSObject {
         NotificationCenter.default.removeObserver(self)
     }
     
-    func deleteOldDatabaseFiles() throws {
-        let modelName = RemoteNotificationsModelController.modelName
-        let sharedAppContainerURL = FileManager.default.wmf_containerURL()
-        let legacyRemoteNotificationsStorageUrl = sharedAppContainerURL.appendingPathComponent(modelName)
-        let legecyJournalShmUrl = sharedAppContainerURL.appendingPathComponent("\(modelName)-shm")
-        let legecyJournalWalUrl = sharedAppContainerURL.appendingPathComponent("\(modelName)-wal")
-        
-        try FileManager.default.removeItem(at: legacyRemoteNotificationsStorageUrl)
-        try FileManager.default.removeItem(at: legecyJournalShmUrl)
-        try FileManager.default.removeItem(at: legecyJournalWalUrl)
+    func deleteLegacyDatabaseFiles() throws {
+        modelController?.deleteLegacyDatabaseFiles()
     }
 
     public func stop() {

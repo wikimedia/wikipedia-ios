@@ -460,7 +460,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     }
     
     if (currentLibraryVersion < 14) {
-        [self.remoteNotificationsController deleteOldDatabaseFiles];
+        [self.remoteNotificationsController deleteLegacyDatabaseFiles];
         [moc wmf_setValue:@(14) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:&migrationError]) {
             DDLogError(@"Error saving during migration: %@", migrationError);

@@ -8,9 +8,9 @@ import CocoaLumberjackSwift
         super.init()
     }
     
-    @objc func deleteOldDatabaseFiles() {
+    @objc func deleteLegacyDatabaseFiles() {
         do {
-            try operationsController.deleteOldDatabaseFiles()
+            try operationsController.deleteLegacyDatabaseFiles()
         } catch (let error) {
             DDLogError("Failure deleting legacy RemoteNotifications database files: \(error)")
         }
