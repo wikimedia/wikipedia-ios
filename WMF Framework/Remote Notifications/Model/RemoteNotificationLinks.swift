@@ -44,7 +44,7 @@ public class RemoteNotificationLink: NSObject, NSSecureCoding, Codable {
         let type = decoder.decodeObject(of: NSString.self, forKey: "type")
         let urlString = decoder.decodeObject(of: NSString.self, forKey: "url")
         let label = decoder.decodeObject(of: NSString.self, forKey: "label")
-        let url = urlString == nil ? nil : URL(string: urlString! as String)
+        let url = URL(string: urlString as String? ?? "")
         self.init(type: type, url: url, label: label)
     }
 
