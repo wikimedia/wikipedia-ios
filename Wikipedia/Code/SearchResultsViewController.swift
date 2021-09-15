@@ -106,7 +106,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
         cell.titleLabel.accessibilityLanguage = languageCode
         cell.descriptionLabel.text = descriptionForSearchResult(result)
         cell.descriptionLabel.accessibilityLanguage = languageCode
-        cell.actions = availableActions(at: indexPath)
+        editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
         if layoutOnly {
             cell.isImageViewHidden = result.thumbnailURL != nil
         } else {
