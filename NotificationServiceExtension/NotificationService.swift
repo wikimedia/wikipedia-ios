@@ -28,22 +28,29 @@ class NotificationService: UNNotificationServiceExtension {
 
     override func didReceive(_ request: UNNotificationRequest, withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void) {
         self.contentHandler = contentHandler
-        bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
         
-        if let bestAttemptContent = bestAttemptContent {
-            // Modify the notification content here...
-
-            remoteNotificationsController.fetchFirstPageNotifications {
-                bestAttemptContent.title = "\(bestAttemptContent.title) [modified]"
-                contentHandler(bestAttemptContent)
-            }
+        //TODO: We will modify content in all error cases to "New activity on Wikipedia" (see: https://phabricator.wikimedia.org/T288773 > Push Notification Content section)
+        guard let bestAttemptContent = request.content.mutableCopy() as? UNMutableNotificationContent else {
+            contentHandler(request.content)
+            return
+        }
+        
+        self.bestAttemptContent = bestAttemptContent
+        
+        //TODO: We will modify this to pull the first page of only **unread** notifications, specifying a notnotifiertype=push parameter in the API call. This needs to be done as the next part of PRs for https://phabricator.wikimedia.org/T287310
+        //This temporary call is just to confirm an authenticated call now works from an extension.
+        remoteNotificationsController.fetchFirstPageNotifications {
+            bestAttemptContent.title = "\(bestAttemptContent.title) [modified]"
+            contentHandler(bestAttemptContent)
         }
     }
     
     override func serviceExtensionTimeWillExpire() {
         // Called just before the extension will be terminated by the system.
         // Use this as an opportunity to deliver your "best attempt" at modified content, otherwise the original push payload will be used.
-        if let contentHandler = contentHandler, let bestAttemptContent =  bestAttemptContent {
+        //TODO: We will modify content in all error cases to "New activity on Wikipedia" (see: https://phabricator.wikimedia.org/T288773 > Push Notification Content section)
+        if let contentHandler = contentHandler,
+           let bestAttemptContent =  bestAttemptContent {
             contentHandler(bestAttemptContent)
         }
     }
