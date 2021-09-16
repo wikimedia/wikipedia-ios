@@ -19,7 +19,7 @@ class RemoteNotificationsOperationsController: NSObject {
         apiController = RemoteNotificationsAPIController(session: session, configuration: configuration)
         var modelControllerInitializationError: Error?
         modelController = RemoteNotificationsModelController(&modelControllerInitializationError)
-        deadlineController = RemoteNotificationsOperationsDeadlineController(with: modelController?.managedObjectContext)
+        deadlineController = RemoteNotificationsOperationsDeadlineController(with: modelController?.backgroundContext)
         if let modelControllerInitializationError = modelControllerInitializationError {
             DDLogError("Failed to initialize RemoteNotificationsModelController and RemoteNotificationsOperationsDeadlineController: \(modelControllerInitializationError)")
             isLocked = true
@@ -38,6 +38,10 @@ class RemoteNotificationsOperationsController: NSObject {
 
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    func deleteLegacyDatabaseFiles() throws {
+        modelController?.deleteLegacyDatabaseFiles()
     }
 
     public func stop() {
