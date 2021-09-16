@@ -1,5 +1,26 @@
 import CocoaLumberjackSwift
 
+enum RemoteNotificationsProject {
+    case language(String)
+    case commons
+    case wikidata
+    
+    var subdomain: String {
+        switch self {
+        case .language(let languageCode):
+            return languageCode
+        case .commons:
+            return "commons"
+        case .wikidata:
+            return "wikidata"
+        }
+    }
+    
+    var notificationsApiWikiIdentifier: String {
+        return subdomain + "wiki"
+    }
+}
+
 class RemoteNotificationsOperationsController: NSObject {
     private let apiController: RemoteNotificationsAPIController
     private let modelController: RemoteNotificationsModelController?
@@ -78,11 +99,17 @@ class RemoteNotificationsOperationsController: NSObject {
                 return
             }
             
-            let languageCodes = preferredLanguageCodes + ["wikidata", "commons"]
+            var projects: [RemoteNotificationsProject] = []
+            for languageCode in preferredLanguageCodes {
+                projects.append(.language(languageCode))
+            }
+            projects.append(.commons)
+            projects.append(.wikidata)
+            
             var operations: [RemoteNotificationsFetchFirstPageOperation] = []
-            for languageCode in languageCodes {
+            for project in projects {
                 
-                let operation = RemoteNotificationsFetchFirstPageOperation(with: self.apiController, modelController: modelController, languageCode: languageCode, cookieDomain: self.cookieDomainForLanguageCode(languageCode))
+                let operation = RemoteNotificationsFetchFirstPageOperation(with: self.apiController, modelController: modelController, project: project, cookieDomain: self.cookieDomainForProject(project))
                 operations.append(operation)
             }
             
@@ -98,11 +125,11 @@ class RemoteNotificationsOperationsController: NSObject {
         })
     }
     
-    private func cookieDomainForLanguageCode(_ languageCode: String) -> String {
-        switch languageCode {
-        case "wikidata":
+    private func cookieDomainForProject(_ project: RemoteNotificationsProject) -> String {
+        switch project {
+        case .wikidata:
             return Configuration.current.wikidataCookieDomain
-        case "commons":
+        case .commons:
             return Configuration.current.commonsCookieDomain
         default:
             return Configuration.current.wikipediaCookieDomain
