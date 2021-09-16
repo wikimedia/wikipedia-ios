@@ -33,6 +33,7 @@
         
         for legacyCookie in legacyCookies {
             sharedStorage.setCookie(legacyCookie)
+            legacyStorage.deleteCookie(legacyCookie)
         }
     }
 }
