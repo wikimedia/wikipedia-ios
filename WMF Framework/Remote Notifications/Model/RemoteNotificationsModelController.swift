@@ -30,15 +30,6 @@ import CocoaLumberjackSwift
     func markAsRead(notificationWithID notificationID: String) {
         modelController.markAsRead(notificationWithID: notificationID)
     }
-
-    @objc func markAsExcluded(_ notification: RemoteNotification) {
-        modelController.markAsExcluded(notification)
-    }
-
-    @objc(markAsSeenNotificationWithID:)
-    func markAsSeen(notificationWithID notificationID: String) {
-        modelController.markAsSeen(notificationWithID: notificationID)
-    }
 }
 
 final class RemoteNotificationsModelController: NSObject {
@@ -135,12 +126,11 @@ final class RemoteNotificationsModelController: NSObject {
     typealias ResultHandler = (Set<RemoteNotification>?) -> Void
 
     public func getUnreadNotifications(_ completion: @escaping ResultHandler) {
-        return notifications(with: NSPredicate(format: "stateNumber == nil"), completion: completion)
+        return notifications(with: NSPredicate(format: "isRead == %@", NSNumber(value: false)), completion: completion)
     }
 
     public func getReadNotifications(_ completion: @escaping ResultHandler) {
-        let read = RemoteNotification.State.read.number
-        return notifications(with: NSPredicate(format: "stateNumber == %@", read), completion: completion)
+        return notifications(with: NSPredicate(format: "isRead == %@", NSNumber(value: true)), completion: completion)
     }
 
     public func getAllNotifications(_ completion: @escaping ResultHandler) {
@@ -185,25 +175,32 @@ final class RemoteNotificationsModelController: NSObject {
     // inside the perform(_:) or the performAndWait(_:) methods.
     // https://developer.apple.com/documentation/coredata/using_core_data_in_the_background
     private func createNewNotification(from notification: RemoteNotificationsAPIController.NotificationsResult.Notification) {
-        guard let date = date(from: notification.timestamp?.utciso8601) else {
+        guard let date = date(from: notification.timestamp.utciso8601) else {
             assertionFailure("Notification should have a date")
             return
         }
-        guard let id = notification.id else {
-            assertionFailure("Notification must have an id")
-            return
-        }
 
-        let message = notification.message?.header?.wmf_stringByRemovingHTML()
+        let isRead = notification.readString == nil ? NSNumber(booleanLiteral: false) : NSNumber(booleanLiteral: true)
         let _ = backgroundContext.wmf_create(entityNamed: "RemoteNotification",
-                                                withKeysAndValues: ["id": id,
-                                                                    "categoryString" : notification.category,
-                                                                    "typeString": notification.type,
-                                                                    "agent": notification.agent?.name,
-                                                                    "affectedPageID": notification.affectedPageID?.full,
-                                                                    "message": message,
-                                                                    "wiki": notification.wiki,
-                                                                    "date": date])
+                                                withKeysAndValues: [
+                                                    "wiki": notification.wiki,
+                                                    "id": notification.id,
+                                                    "key": notification.key,
+                                                    "typeString": notification.type,
+                                                    "categoryString" : notification.category,
+                                                    "section" : notification.section,
+                                                    "date": date,
+                                                    "utcUnixString": notification.timestamp.utcunix,
+                                                    "titleFull": notification.title?.full,
+                                                    "titleNamespace": notification.title?.namespace,
+                                                    "titleNamespaceKey": notification.title?.namespaceKey,
+                                                    "titleText": notification.title?.text,
+                                                    "agentId": notification.agent?.id,
+                                                    "agentName": notification.agent?.name,
+                                                    "isRead" : isRead,
+                                                    "messageHeader": notification.message?.header,
+                                                    "messageBody": notification.message?.body,
+                                                    "messageLinks": notification.message?.links])
     }
 
     private func date(from dateString: String?) -> Date? {
@@ -229,14 +226,10 @@ final class RemoteNotificationsModelController: NSObject {
             }
 
             for notification in notificationsFetchedFromTheServer {
-                guard let id = notification.id else {
-                    assertionFailure("Expected notification to have id")
-                    continue
-                }
-                guard !commonIDs.contains(id) else {
-                    if let savedNotification = savedNotifications.first(where: { $0.id == id }) {
+                guard !commonIDs.contains(notification.id) else {
+                    if let savedNotification = savedNotifications.first(where: { $0.id == notification.id }) {
                         // Update notifications that weren't seen so that moc is notified of the update
-                        savedNotification.state = .read
+                        savedNotification.isRead = true
                     }
                     continue
                 }
@@ -252,32 +245,14 @@ final class RemoteNotificationsModelController: NSObject {
 
     public func markAsRead(_ notification: RemoteNotification) {
         self.backgroundContext.perform {
-            notification.state = .read
+            notification.isRead = true
             self.save()
         }
     }
 
     public func markAsRead(notificationWithID notificationID: String) {
         processNotificationWithID(notificationID) { (notification) in
-            notification.state = .read
-        }
-    }
-
-    // MARK: Mark as excluded
-
-    public func markAsExcluded(_ notification: RemoteNotification) {
-        let moc = backgroundContext
-        moc.perform {
-            notification.state = .excluded
-            self.save()
-        }
-    }
-
-    // MARK: Mark as seen
-
-    public func markAsSeen(notificationWithID notificationID: String) {
-        processNotificationWithID(notificationID) { (notification) in
-            notification.state = .seen
+            notification.isRead = true
         }
     }
 
