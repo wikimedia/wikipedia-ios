@@ -332,7 +332,15 @@ platform :ios do
     format = is_brief ? '• %b (%s)' : '• %h - %b (%s)'
     small_sed = "s/(Merge pull.*\\(#[0-9]*\\).*)/(\\1)/"
     sed_removal = is_brief ? small_sed : "s/Merge pull request //g"
-    `git log #{start}..HEAD --merges --first-parent origin/main --grep="Merge branch 'main' into" --invert-grep --pretty=format:"#{format}" | sed '#{sed_removal}'`
+
+    if is_brief
+      list_without_localizations = `git log #{start}..HEAD --merges --first-parent origin/main --grep="Merge branch 'main' into" --grep="Localisation updates from" --invert-grep --pretty=format:"#{format}" | sed '#{sed_removal}'`
+      localization_numbers = `git log #{start}..HEAD --merges --first-parent origin/main --grep="Localisation updates from" --pretty=format:"%s" | sed "s/Merge pull.*\\(#[0-9]*\\).*/\\1/" | xargs`
+      localizations_list = "• Localisation updates from https://translatewiki.net. Pull requests: " + localization_numbers
+      localization_numbers.empty? ? list_without_localizations : "#{list_without_localizations}\n#{localizations_list}"
+    else
+      `git log #{start}..HEAD --merges --first-parent origin/main --grep="Merge branch 'main' into" --invert-grep --pretty=format:"#{format}" | sed '#{sed_removal}'`
+    end
   end
 
   desc "updates version, builds, and pushes to TestFlight"
