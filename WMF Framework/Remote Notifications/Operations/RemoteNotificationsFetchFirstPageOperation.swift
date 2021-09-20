@@ -1,6 +1,6 @@
 class RemoteNotificationsFetchFirstPageOperation: RemoteNotificationsOperation {
     let languageCode: String
-    private var backgroundContext: NSManagedObjectContext
+    private let backgroundContext: NSManagedObjectContext
     
     init(with apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController, languageCode: String) {
         self.languageCode = languageCode
