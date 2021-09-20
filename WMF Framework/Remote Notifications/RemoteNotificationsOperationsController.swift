@@ -84,22 +84,25 @@ class RemoteNotificationsOperationsController: NSObject {
                 return
             }
             
-            let languageCodes = preferredLanguageCodes + ["wikidata", "commons"]
-            var operations: [RemoteNotificationsFetchFirstPageOperation] = []
-            for languageCode in languageCodes {
-                let operation = RemoteNotificationsFetchFirstPageOperation(with: self.apiController, modelController: modelController, languageCode: languageCode)
-                operations.append(operation)
+            DispatchQueue.main.async {
+                let languageCodes = preferredLanguageCodes + ["wikidata", "commons"]
+                var operations: [RemoteNotificationsFetchFirstPageOperation] = []
+                for languageCode in languageCodes {
+                    let operation = RemoteNotificationsFetchFirstPageOperation(with: self.apiController, modelController: modelController, languageCode: languageCode)
+                    operations.append(operation)
+                }
+                
+                let completionOperation = BlockOperation(block: completion)
+                completionOperation.queuePriority = .veryHigh
+                
+                for operation in operations {
+                    completionOperation.addDependency(operation)
+                }
+                
+                
+                self.operationQueue.addOperations(operations + [completionOperation], waitUntilFinished: false)
             }
             
-            let completionOperation = BlockOperation(block: completion)
-            completionOperation.queuePriority = .veryHigh
-            
-            for operation in operations {
-                completionOperation.addDependency(operation)
-            }
-            
-            
-            self.operationQueue.addOperations(operations + [completionOperation], waitUntilFinished: false)
         })
     }
 
