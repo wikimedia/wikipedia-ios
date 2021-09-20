@@ -76,13 +76,8 @@ class IconTitleBadge: SizeThatFitsView {
         let icon: UIImage?
         switch configuration.icon {
         case .sfSymbol(let symbolName):
-            if #available(iOS 13.0, *) {
-                let configuration = UIImage.SymbolConfiguration(font: font)
-                icon = UIImage(systemName: symbolName, withConfiguration: configuration)
-            } else {
-                assertionFailure("Cannot configure IconTitleBadge with SFSymbol if < iOS13")
-                icon = nil
-            }
+            let configuration = UIImage.SymbolConfiguration(font: font)
+            icon = UIImage(systemName: symbolName, withConfiguration: configuration)
         case .custom(let iconName):
             icon = UIImage(named: iconName)
         }

@@ -25,7 +25,6 @@ enum ArticleAsLivingDocSurveyLinkState {
     case inExperimentLoadedEventsDidSeeModal
 }
 
-@available(iOS 13.0, *)
 class ArticleAsLivingDocController: NSObject {
 
     enum Errors: Error {
@@ -68,11 +67,7 @@ class ArticleAsLivingDocController: NSObject {
     }
     var articleAsLivingDocEditMetrics: [NSNumber]?
     
-    //making lazy to be able to limit just this property to 13+
-    @available(iOS 13.0, *)
-    lazy var articleAsLivingDocViewController: ArticleAsLivingDocViewController? = {
-        return nil
-    }()
+    var articleAsLivingDocViewController: ArticleAsLivingDocViewController?
     
     var shouldAttemptToShowArticleAsLivingDoc: Bool {
         
