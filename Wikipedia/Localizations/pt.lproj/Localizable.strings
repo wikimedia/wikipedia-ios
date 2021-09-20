@@ -21,8 +21,7 @@
 // Author: Webysther
 
 "aaald-added-text-description-2" = "$1 adicionado(s)";
-// Fuzzy
-"aaald-article-description-updated-description" = "Título de descrição do artigo atualizado";
+"aaald-article-description-updated-description" = "Descrição do artigo atualizada";
 "aaald-article-insert-header" = "Atualizações significativas";
 "aaald-article-insert-last-updated" = "Última atualização";
 "aaald-article-insert-new-changes" = "Mudanças recentes";
@@ -173,43 +172,41 @@
 "button-skip" = "Ignorar";
 "cancel" = "Cancelar";
 "cc-zero" = "Creative Commons CC0";
+"chinese-variants-alert-body" = "A aplicação da Wikipédia admite agora as seguintes variantes da língua chinesa como línguas principais ou secundárias dentro da aplicação, simplificando a leitura, pesquisa e edição nas suas variantes preferidas:\n\n简体 - Chinês simplificado (zh-hans)\n香港繁體 - Chinês tradicional de Hong Kong (zh-hk)\n澳門繁體 - Chinês tradicional de Macau (zh-mo)\n大马简体 - Chinês simplificado da Malásia (zh-my)\n新加坡简体 - Chinês simplificado de Singapura (zh-sg)\n臺灣正體 - Chinês tradicional de Taiwan (zh-tw)";
+"chinese-variants-alert-title" = "Atualizações ao suporte de variantes do chinês";
 "clear-title-accessibility-label" = "Limpar";
 "close-button-accessibility-label" = "Fechar";
 "compass-direction" = "às $1 horas";
 "continue-reading-empty-description" = "Explorar na Wikipédia mais artigos para ler";
 "continue-reading-empty-title" = "Nenhum artigo lido recentemente";
+"crimean-tatar-variants-alert-body" = "A aplicação da Wikipédia admite agora as seguintes variantes da língua tártaro da Crimeia como línguas principais ou secundárias dentro da aplicação, simplificando a leitura, pesquisa e edição nas suas variantes preferidas:\n\nQırımtatarca, Latino - Tártaro da Crimeia, latino (chr-latn)\nкъырымтатарджа, Кирил - Tártaro da Crimeia, cirílico (crh-cyrl)";
+"crimean-tatar-variants-alert-title" = "Atualizações ao suporte de variantes do tártaro da Crimeia";
 "data-migration-status" = "A atualizar...";
 "description-add-title" = "Adicionar descrição";
-// Fuzzy
-"description-edit-for-article" = "Título de descrição para $1";
+"description-edit-for-article" = "Descrição do artigo $1";
 "description-edit-learn-more" = "Saber mais";
 "description-edit-length-warning" = "$1 / $2";
-// Fuzzy
-"description-edit-license" = "Ao alterar o título de descrição, concordo com as $1 e publico irrevogavelmente as minhas contribuições com a licença $2.";
+"description-edit-license" = "Ao alterar a descrição do artigo, concordo com as $1 e publico irrevogavelmente as minhas contribuições com a licença $2.";
 "description-edit-pencil-introduction" = "Editar introdução";
-// Fuzzy
-"description-edit-pencil-title" = "Editar título de descrição";
+"description-edit-pencil-title" = "Editar descrição do artigo";
 "description-edit-placeholder-title" = "As descrições curtas são melhores";
 "description-edit-publish" = "Publicar descrição";
 "description-edit-title" = "Editar descrição";
 "description-edit-warning" = "Tente manter as descrições breves para que os utilizadores possam entender o assunto do artigo imediatamente";
-// Fuzzy
-"description-help-about-description" = "Os títulos de descrição sumarizam um artigo para ajudar os leitores a entender o assunto imediatamente";
+"description-edit-warning-casing" = "Só nomes próprios devem ser iniciados por maiúscula, mesmo no início da frase.";
+"description-help-about-description" = "As descrições dos artigos resumem um artigo para ajudar os leitores a entenderem o assunto de forma rápida.";
 "description-help-about-title" = "Sobre";
 "description-help-about-wikidata" = "Sobre a wiki Wikidata";
 "description-help-more-info-description" = "As descrições são armazenadas na wiki Wikidata, um projeto da Wikimedia Foundation que fornece uma base de dados secundária gratuita, colaborativa e multilingue, que suporta a Wikipédia e outros projetos.";
 "description-help-more-info-title" = "Mais informações";
 "description-help-tips-description" = "Idealmente, as descrições devem caber numa linha e ter entre duas a doze palavras. Não têm maiúscula inicial a não ser que a primeira palavra seja um nome próprio.";
-// Fuzzy
-"description-help-tips-example-description-one" = "título de descrição para um artigo sobre a Mona Lisa";
-// Fuzzy
-"description-help-tips-example-description-two" = "título de descrição para um artigo sobre o monte Evereste";
+"description-help-tips-example-description-one" = "descrição de artigo para um artigo sobre a Mona Lisa";
+"description-help-tips-example-description-two" = "descrição de artigo para um artigo sobre o monte Evereste";
 "description-help-tips-example-title-one" = "pintura de Leonardo da Vinci";
 "description-help-tips-example-title-two" = "Evereste, a montanha mais alta da Terra";
 "description-help-tips-for-example" = "Por exemploː";
 "description-help-tips-title" = "Dicas para criar descrições";
-// Fuzzy
-"description-help-title" = "Ajuda do título de descrição";
+"description-help-title" = "Ajuda à descrição de artigo";
 "description-help-wikidata-guide" = "Guia Wikidata para escrever descrições";
 "description-published-button-title" = "Concluído";
 "description-published-footer" = "Também pode editar artigos com esta aplicação. Na próxima vez, tente corrigir erros ortográficos e pequenas frases clicando no ícone do lápis";
@@ -218,8 +215,7 @@
 "description-welcome-concise-sub-title" = "Idealmente uma linha, com entre duas e doze palavras";
 "description-welcome-concise-title" = "Concisa";
 "description-welcome-descriptions-sub-title" = "Resume um artigo para ajudar os leitores a entenderem o assunto imediatamente";
-// Fuzzy
-"description-welcome-descriptions-title" = "Títulos de descrição";
+"description-welcome-descriptions-title" = "Descrições de artigos";
 "description-welcome-promise-title" = "Ao começar, prometo não utilizar de forma irresponsável esta funcionalidade";
 "description-welcome-start-editing-button" = "Começar a editar";
 "diff-compare-header-from-info-heading" = "De:";
@@ -330,7 +326,7 @@
 "empty-no-history-message" = "Registo do que esteve a ler";
 "empty-no-history-title" = "Não há histórico para mostrar";
 "empty-no-other-article-languages-message" = "Este artigo ainda não foi escrito em nenhuma outra língua";
-"empty-no-other-article-languages-title" = "Nenhum outro idioma disponível";
+"empty-no-other-article-languages-title" = "Não há nenhuma outra língua disponível";
 "empty-no-reading-lists-message" = "Criar listas de leitura de lugares a visitar, de temas preferidos e de muito mais";
 "empty-no-reading-lists-title" = "Organizar os artigos guardados com listas de leitura";
 "empty-no-saved-pages-in-reading-list-message" = "Guarde páginas nesta lista para vê-las aparecerem aqui";
@@ -426,6 +422,12 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Da Wikipédia";
 "explore-randomizer" = "Aleatório";
 "featured-article-empty-title" = "Hoje não está disponível nenhum artigo destacado";
+"featured-widget-content-failure-for-date" = "Não está disponível nenhum artigo destacado para esta data.";
+"featured-widget-description" = "Descubra os melhores artigos da Wikipédia, selecionados diariamente pela nossa comunidade.";
+"featured-widget-from-language-wikipedia" = "Da Wikipédia em $1";
+"featured-widget-from-wikipedia" = "Da Wikipédia";
+"featured-widget-language-failure" = "A Wikipédia da sua língua principal não suporta a funcionalidade 'Artigos destacados'. Pode atualizar a sua Wikipédia principal no menu Configurações da aplicação.";
+"featured-widget-title" = "Artigo destacado";
 "feed-news-notification-button-text" = "Ativar as notificações";
 "feed-news-notification-text" = "Ativar as notificações para receber notificação da Wikipédia quando um artigo se tornar uma tendência nas notícias.";
 "fetcher-error-generic" = "Algo correu mal! Tente novamente mais tarde, por favor.";
@@ -463,6 +465,8 @@
 "forgot-password-instructions" = "Preencha um dos campos abaixo para receber instruções de redefinição da palavra-passe por correio eletrónico";
 "forgot-password-title" = "Redefinir palavra-passe";
 "forgot-password-username-or-email-title" = "Ou";
+"gan-variants-alert-body" = "A aplicação da Wikipédia admite agora as seguintes variantes da língua chinês gan como línguas principais ou secundárias dentro da aplicação, simplificando a leitura, pesquisa e edição nas suas variantes preferidas:\n\n贛語 原文 - Chinês gan (gan)\n赣语 简体 - Chinês gan simplificado (gan-hans)\n贛語 繁體 - Chinês gan tradicional (gan-hant)";
+"gan-variants-alert-title" = "Atualizações ao suporte de variantes do chinês gan";
 "history-clear-all" = "Limpar";
 "history-clear-cancel" = "Cancelar";
 "history-clear-confirmation-heading" = "Tem a certeza de que deseja eliminar todos os seus elementos recentes?";
@@ -524,6 +528,12 @@
 "intermediate-edits-editors-count-limited" = "Mais de $1 revisões intermédias de mais de $2 utilizadores não mostradas";
 "intermediate-edits-editors-limited-count" = "$1 {{PLURAL:$1|revisão intermédia|revisões intermédias}} de mais de $2 utilizadores não {{PLURAL:$1|mostrada|mostradas}}";
 "intermediate-edits-limited-editors-count" = "Mais de $1 revisões intermédias de $2 {{PLURAL:$2|utilizador|utilizadores}} não mostradas";
+"inuktitut-variants-alert-body" = "A aplicação da Wikipédia admite agora as seguintes variantes da língua ''inuktitut'' como línguas principais ou secundárias dentro da aplicação, simplificando a leitura, pesquisa e edição nas suas variantes preferidas:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ - Inuktitut silábico (ike-cans)\nInuktitut ilisautik - Inuktitut latino (ike-latn)";
+"inuktitut-variants-alert-title" = "Atualizações ao suporte de variantes do ''inuktitut''";
+"kazakh-variants-alert-body" = "A aplicação da Wikipédia admite agora as seguintes variantes da língua cazaque como línguas principais ou secundárias dentro da aplicação, simplificando a leitura, pesquisa e edição nas suas variantes preferidas:\n\nҚазақша - Cazaque (kk)\nҚазақша Кирил - Cazaque cirílico (kk-cyrl)\nqazaqşa latin - Cazaque latino (kk-latn)\nتوتە قازاقشا - Cazaque árabe (kk-arab)";
+"kazakh-variants-alert-title" = "Atualizações ao suporte de variantes do cazaque";
+"kurdish-variants-alert-body" = "A aplicação da Wikipédia admite agora as seguintes variantes da língua curda como línguas principais ou secundárias dentro da aplicação, simplificando a leitura, pesquisa e edição nas suas variantes preferidas:\n\nKurdî Latînî - Curdo latino (ku-latn)\nكوردی - Curdo árabe (kk-arab)";
+"kurdish-variants-alert-title" = "Atualizações ao suporte de variantes do curdo";
 "languages-settings-title" = "Línguas";
 "languages-title" = "Alterar língua";
 "languages-wikipedia" = "Línguas da Wikipédia";
@@ -570,6 +580,8 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 acontecimento histórico|$1 acontecimentos históricos}}";
 "on-this-day-footer" = "Mais acontecimentos históricos neste dia";
 "on-this-day-footer-showing-event-count" = "Mais {{PLURAL:$1|$1 acontecimento histórico|$1 acontecimentos históricos}} neste dia";
+"on-this-day-language-does-not-support-error" = "A Wikipédia da sua língua principal não suporta a funcionalidade 'Neste dia'. Pode atualizar a sua Wikipédia principal no menu Configurações da aplicação.";
+"on-this-day-no-internet-error" = "Não há dados disponíveis";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 da Wikipédia em $2";
 "on-this-day-title" = "Neste dia";
 "original-tab-button-popover-description" = "Toque no 'W' para regressar ao separador de onde começou";
@@ -634,6 +646,9 @@
 "places-unknown-distance" = "distância desconhecida";
 "potd-description-prefix" = "Imagem do dia de $1";
 "potd-empty-error-description" = "Falha na obtenção da imagem do dia de $1";
+"potd-sample-entry-description" = "Dois touros em corrida enquanto o jóquei se segura a eles numa ''pacu jawi'' (\"corrida de touros\", em menancabo), uma corrida de touros tradicional em Tanah Datar, Sumatra Ocidental, Indonésia. 2015, Final-45.";
+"potd-widget-description" = "Desfrute de uma linda foto diária selecionada pela nossa comunidade.";
+"potd-widget-title" = "Imagem do dia";
 "preference-summary-eventlogging-opt-in" = "Permitir que a Wikimedia Foundation recolha informações sobre o seu uso da aplicação para melhorá-la";
 "preference-title-eventlogging-opt-in" = "Enviar relatórios de uso";
 "rank-accessibility-label" = "Número $1";
@@ -770,6 +785,8 @@
 "search-recent-title" = "Pesquisado recentemente";
 "search-result-redirected-from" = "Redirecionado de: $1";
 "search-title" = "Pesquisar";
+"serbian-variants-alert-body" = "A aplicação da Wikipédia admite agora as seguintes variantes da língua sérvia como línguas principais ou secundárias dentro da aplicação, simplificando a leitura, pesquisa e edição nas suas variantes preferidas:\n\nсрпски ћирилица - Sérvio cirílico (sr-ec)\nsrpski latinica - Sérvio latino (sr-el)";
+"serbian-variants-alert-title" = "Atualizações ao suporte de variantes do sérvio";
 "settings-account" = "Conta";
 "settings-appearance" = "Leitura";
 "settings-clear-cache" = "Limpar dados da cache";
@@ -828,6 +845,10 @@
 "table-of-contents-heading" = "Índice";
 "table-of-contents-hide-button-label" = "Ocultar índice";
 "table-of-contents-subheading-label" = "Subtítulo $1";
+"tachelhit-variants-alert-body" = "A aplicação da Wikipédia admite agora as seguintes variantes da língua tachelhit como línguas principais ou secundárias dentro da aplicação, simplificando a leitura, pesquisa e edição nas suas variantes preferidas:\n\nⵜⴰⵛⵍⵃⵉⵜ - Tachelhit tifinagh (shi-tfng)\nTaclḥit - Tachelhit latino (shi-latn)";
+"tachelhit-variants-alert-title" = "Atualizações ao suporte de variantes do tachelhit";
+"tajik-variants-alert-body" = "A aplicação da Wikipédia admite agora as seguintes variantes da língua tajique como línguas principais ou secundárias dentro da aplicação, simplificando a leitura, pesquisa e edição nas suas variantes preferidas:\n\nтоҷикӣ кирилликӣ - Tajique cirílico (tg-cyrl)\ntojikī lotinī - Tajique latino (tg-latn)";
+"tajik-variants-alert-title" = "Atualizações ao suporte de variantes do tajique";
 "talk-page-add-discussion-accessibility-label" = "Adicionar discussão";
 "talk-page-discussion-accessibility-hint" = "Premir duas vezes para abrir o tópico de discussão";
 "talk-page-discussion-read-accessibility-label" = "Lido";
@@ -868,6 +889,9 @@
 "top-read-header-generic" = "Wikipédia";
 "top-read-header-with-language" = "Wikipédia em $1";
 "top-read-see-more" = "Ver mais artigos dos mais lidos";
+"top-read-widget-description" = "Saiba o que o mundo está a ler hoje na Wikipédia.";
+"top-read-widget-readers-count" = "$1 leitores";
+"top-read-widget-title" = "Mais lidos";
 "two-factor-login-continue" = "Continuar o início de sessão";
 "two-factor-login-instructions" = "Escreva o código de verificação de dois fatores";
 "two-factor-login-title" = "Entrar na sua conta";
@@ -875,6 +899,10 @@
 "two-factor-login-with-regular-code" = "Usar código de verificação";
 "unable-to-load-talk-page-title" = "Não foi possível carregar a página de discussão";
 "unknown-generic-text" = "Desconhecido";
+"uzbek-variants-alert-body" = "A aplicação da Wikipédia admite agora as seguintes variantes da língua uzbeque como línguas principais ou secundárias dentro da aplicação, simplificando a leitura, pesquisa e edição nas suas variantes preferidas:\n\noʻzbekcha lotin - Uzbeque latino (uz-latin)\nўзбекча кирилл - Uzbeque cirílico (uz-cyrl)";
+"uzbek-variants-alert-title" = "Atualizações ao suporte de variantes do uzbeque";
+"variants-alert-dismiss-button" = "Não, obrigado";
+"variants-alert-preferences-button" = "Rever as suas preferências";
 "welcome-exploration-explore-feed-description" = "Leitura recomendada e artigos diários da nossa comunidade";
 "welcome-exploration-explore-feed-title" = "O feed \"Explorar\"";
 "welcome-exploration-on-this-day-description" = "Retroceda no tempo para saber o que aconteceu hoje na história";
@@ -900,6 +928,9 @@
 "welcome-send-data-learn-more" = "Saiba mais sobre os dados recolhidos";
 "welcome-send-data-sub-title" = "Ajude a melhorar a aplicação indicando à Wikimedia Foundation como a utiliza. Os dados recolhidos são anónimos.";
 "welcome-volunteer-send-usage-reports" = "Enviar relatórios de utilização";
+"widget-onthisday-description" = "Explorar o que aconteceu neste dia ao longo da história.";
+"widget-onthisday-placeholder-article-snippet" = "Enciclopédia livre na internet que qualquer pessoa pode editar";
+"widget-onthisday-placeholder-event-snippet" = "A Wikipédia, uma enciclopédia de conteúdo wiki gratuito, surge na internet.";
 "wikitext-downloading" = "A carregar conteúdo...";
 "wikitext-preview-changes" = "A obter a antevisão das suas alterações...";
 "wikitext-preview-changes-none" = "Não existem alterações para antever.";

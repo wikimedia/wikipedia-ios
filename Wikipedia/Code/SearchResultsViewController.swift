@@ -102,11 +102,11 @@ class SearchResultsViewController: ArticleCollectionViewController {
         }
         cell.configureForCompactList(at: indexPath.item)
         cell.setTitleHTML(result.displayTitleHTML, boldedString: resultsInfo?.searchTerm)
-       
         cell.articleSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: contentLanguageCode)
         cell.titleLabel.accessibilityLanguage = languageCode
         cell.descriptionLabel.text = descriptionForSearchResult(result)
         cell.descriptionLabel.accessibilityLanguage = languageCode
+        editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
         if layoutOnly {
             cell.isImageViewHidden = result.thumbnailURL != nil
         } else {
