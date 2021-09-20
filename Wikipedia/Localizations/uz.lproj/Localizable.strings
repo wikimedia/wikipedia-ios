@@ -10,9 +10,9 @@
 // Author: Uzeconomist
 // Author: Zafar Shamsiddinov
 // Author: Таржимон
+// Author: Шоҳидахоним
 
 "aaald-added-text-description-2" = "$1 qoʻshildi";
-// Fuzzy
 "aaald-article-description-updated-description" = "Maqola sarlavhasi yangilandi";
 "aaald-article-insert-header" = "Muhim yangilanishlar";
 "aaald-article-insert-last-updated" = "Soʻnggi tahrir";
@@ -36,10 +36,23 @@
 "aaald-new-website-reference-archive-date-text" = "asl manba $1";
 "aaald-new-website-reference-archive-url-text" = "Archive.org URL";
 "aaald-new-website-reference-title" = "Veb-sayt";
+"about-title" = "Haqida";
+"about-translators" = "Tarjimonlar";
+"about-wikipedia" = "Vikipediya";
+"abuse-filter-disallow-heading" = "Siz bu tahrirni chop eta olmaysiz";
+"abuse-filter-warning-blanking" = "Maqolani to‘liq yoki uning qismini o‘chirish";
+"abuse-filter-warning-spam" = "Maqolalarga spam qo‘shish";
+"account-creation-captcha-cannot-see-image" = "Rasmni ko‘rmayapsizmi? $1";
 "account-creation-captcha-obtaining" = "Yangi CAPTCHA olinmoqda ...";
+"account-creation-captcha-title" = "CAPTCHA xavsizlik tekshiruvi";
+"account-creation-create-account" = "Hisobingizni yarating";
+"account-creation-have-account" = "Allaqachon hisobinfiz bormi? $1";
+"account-creation-log-in" = "Kirish.";
 "account-creation-logging-in" = "Saytga kiryapsiz...";
 "account-creation-passwords-mismatched" = "Maxfiy soʻzlar mos kelmadi.";
 "account-creation-saving" = "Saqlanyapti...";
+"account-creation-title" = "Yangi hisob yaratish";
+"account-group-title" = "Sizning hisobingiz";
 "article-languages-filter-placeholder" = "Tilni izlamoq";
 "article-languages-label" = "Tilni tanlang";
 "button-next" = "Keyingi";

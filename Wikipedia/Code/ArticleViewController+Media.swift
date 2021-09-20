@@ -70,7 +70,8 @@ extension ArticleViewController {
         /// We can't easily change the photos on the VC after it launches, so we create a loading VC screen and then add the proper galleryVC as a child after the data returns.
 
         let emptyPhotoViewer = WMFImageGalleryViewController(photos: nil)
-        let activityIndicator = UIActivityIndicatorView(style: .white)
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        activityIndicator.color = .white
         emptyPhotoViewer.view.addSubview(activityIndicator)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

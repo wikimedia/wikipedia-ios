@@ -40,7 +40,7 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
     return self;
 }
 
-- (void)notificationPermissionsStatusWithCompletionHandler:(void (^)(UNAuthorizationStatus  status))completionHandler {
+- (void)notificationPermissionsStatusWithCompletionHandler:(void (^)(UNAuthorizationStatus status))completionHandler {
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings *_Nonnull settings) {
         completionHandler(settings.authorizationStatus);
@@ -48,10 +48,6 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
 }
 
 - (void)requestPermissionsIfNecessaryWithCompletionHandler:(void (^)(BOOL isAllowed, NSError *__nullable error))completionHandler {
-    if (![UNUserNotificationCenter class]) {
-        completionHandler(NO, nil);
-        return;
-    }
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings *_Nonnull settings) {
         switch (settings.authorizationStatus) {
@@ -74,7 +70,7 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
     }];
 }
 
-- (void)setRemoteNotificationRegistrationStatusWithDeviceToken: (nullable NSData *)deviceToken error: (nullable NSError *)error {
+- (void)setRemoteNotificationRegistrationStatusWithDeviceToken:(nullable NSData *)deviceToken error:(nullable NSError *)error {
     self.remoteRegistrationDeviceToken = deviceToken;
     self.remoteRegistrationError = error;
 }
@@ -145,9 +141,6 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
 }
 
 - (void)sendNotificationWithTitle:(NSString *)title body:(NSString *)body categoryIdentifier:(NSString *)categoryIdentifier userInfo:(NSDictionary *)userInfo atDateComponents:(nullable NSDateComponents *)dateComponents {
-    if (![UNUserNotificationCenter class]) {
-        return;
-    }
 
     NSString *thumbnailURLString = userInfo[WMFNotificationInfoThumbnailURLStringKey];
     if (!thumbnailURLString) {
@@ -235,7 +228,6 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
                         [self sendNotificationWithTitle:title body:body categoryIdentifier:categoryIdentifier userInfo:userInfo atDateComponents:dateComponents withAttachements:imageAttachements];
                     }
                 }];
-
         }];
 }
 

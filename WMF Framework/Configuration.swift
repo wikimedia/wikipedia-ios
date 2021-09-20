@@ -42,6 +42,14 @@ public class Configuration: NSObject {
         #if WMF_LOCAL
         return Configuration.local(options: [.localPCS, .localAnnouncements])
         #elseif WMF_STAGING
+		
+		/* NOTE: .betaCluster attempts to point to the MediaWiki beta cluster for all possible endpoints.
+		Change this to .appsLabsForPCS and/or .deploymentLabsForEventLogging for alternative staging environments.
+		Example: Configuration.staging(options: [.appsLabsForPCS, .deploymentLabsForEventLogging])
+			.appsLabsForPCS = Product Infrastructure team's labs instance for PCS endpoints
+			.deploymentLabsForEventLogging = labs instance for testing event logging endpoints
+			All other endpoints would point to production */
+		
         return Configuration.staging(options: [.betaCluster])
         #else
         return .production
@@ -53,7 +61,7 @@ public class Configuration: NSObject {
     private let announcementsAPIType: APIURLComponentsBuilder.RESTBase.BuilderType
     private let eventLoggingAPIType: APIURLComponentsBuilder.EventLogging.BuilderType
     private let mediaWikiRestAPIType = APIURLComponentsBuilder.MediaWiki.BuilderType.productionRest
-    private let mediaWikiAPIType: APIURLComponentsBuilder.MediaWiki.BuilderType
+    private let mediaWikiAPIType = APIURLComponentsBuilder.MediaWiki.BuilderType.production
     private let wikidataAPIType: APIURLComponentsBuilder.Wikidata.BuilderType
     private let commonsAPIType: APIURLComponentsBuilder.Commons.BuilderType
     private let metricsAPIType = APIURLComponentsBuilder.RESTBase.BuilderType.production
@@ -67,7 +75,6 @@ public class Configuration: NSObject {
             wikipediaCookieDomain: Domain.wikipedia.withDotPrefix,
             wikidataCookieDomain: Domain.wikidata.withDotPrefix,
             commonsCookieDomain: Domain.commons.withDotPrefix,
-            mediaWikiAPIType: .production,
             pageContentServiceAPIType: .production,
             feedContentAPIType: .production,
             announcementsAPIType: .production,
@@ -82,7 +89,6 @@ public class Configuration: NSObject {
         let wikipediaCookieDomain = options.contains(.betaCluster) ? Domain.wikipediaBetaLabs.withDotPrefix : Domain.wikipedia.withDotPrefix
         let wikidataCookieDomain = options.contains(.betaCluster) ? Domain.wikidataBetaLabs.withDotPrefix : Domain.wikidata.withDotPrefix
         let commonsCookieDomain = options.contains(.betaCluster) ? Domain.commonsBetaLabs.withDotPrefix : Domain.commons.withDotPrefix
-        let mediaWikiApiType: APIURLComponentsBuilder.MediaWiki.BuilderType = options.contains(.betaCluster) ? .betaLabs : .production
         let pcsApiType: APIURLComponentsBuilder.RESTBase.BuilderType = options.contains(.appsLabsforPCS) && !options.contains(.betaCluster) ? .stagingAppsLabsPCS : .production
         let wikidataApiType: APIURLComponentsBuilder.Wikidata.BuilderType = options.contains(.betaCluster) ? .betaLabs : .production
         let commonsApiType: APIURLComponentsBuilder.Commons.BuilderType = options.contains(.betaCluster) ? .betaLabs : .production
@@ -95,7 +101,6 @@ public class Configuration: NSObject {
             wikipediaCookieDomain: wikipediaCookieDomain,
             wikidataCookieDomain: wikidataCookieDomain,
             commonsCookieDomain: commonsCookieDomain,
-            mediaWikiAPIType: mediaWikiApiType,
             pageContentServiceAPIType: pcsApiType,
             feedContentAPIType: .production,
             announcementsAPIType: .production,
@@ -116,7 +121,6 @@ public class Configuration: NSObject {
             wikipediaCookieDomain: Domain.wikipedia.withDotPrefix,
             wikidataCookieDomain: Domain.wikidata.withDotPrefix,
             commonsCookieDomain: Domain.commons.withDotPrefix,
-            mediaWikiAPIType: .production,
             pageContentServiceAPIType: pcsApiType,
             feedContentAPIType: .production,
             announcementsAPIType: announcementsApiType,
@@ -145,7 +149,6 @@ public class Configuration: NSObject {
         public static let englishWikipedia = "en.wikipedia.org"
         public static let wikimedia = "wikimedia.org"
         public static let metaWiki = "meta.wikimedia.org"
-        public static let metaWikiBetaLabs = "meta.wikimedia.beta.wmflabs.org"
         public static let wikimediafoundation = "wikimediafoundation.org"
         public static let uploads = "upload.wikimedia.org"
     }
@@ -182,7 +185,6 @@ public class Configuration: NSObject {
                   wikidataCookieDomain: String,
                   commonsCookieDomain: String,
                   otherDomains: [String] = [],
-                  mediaWikiAPIType: APIURLComponentsBuilder.MediaWiki.BuilderType,
                   pageContentServiceAPIType: APIURLComponentsBuilder.RESTBase.BuilderType,
                   feedContentAPIType: APIURLComponentsBuilder.RESTBase.BuilderType,
                   announcementsAPIType: APIURLComponentsBuilder.RESTBase.BuilderType,
@@ -204,7 +206,6 @@ public class Configuration: NSObject {
         self.centralAuthCookieTargetDomains = [self.wikidataCookieDomain, self.mediaWikiCookieDomain, self.wikimediaCookieDomain, self.commonsCookieDomain]
         self.wikiResourceDomains = [defaultSiteDomain] + otherDomains
         self.inAppLinkDomains = [defaultSiteDomain, Domain.mediaWiki, Domain.wikidata, Domain.wikimedia, Domain.wikimediafoundation] + otherDomains
-        self.mediaWikiAPIType = mediaWikiAPIType
         self.pageContentServiceAPIType = pageContentServiceAPIType
         self.feedContentAPIType = feedContentAPIType
         self.announcementsAPIType = announcementsAPIType

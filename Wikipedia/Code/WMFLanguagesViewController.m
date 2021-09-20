@@ -465,9 +465,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
     if (self.viewIfLoaded == nil) {
         return;
     }
-    if (@available(iOS 13.0, *)) {
-        self.overrideUserInterfaceStyle = theme.isDark ? UIUserInterfaceStyleDark : UIUserInterfaceStyleLight;
-    }
+    self.overrideUserInterfaceStyle = theme.isDark ? UIUserInterfaceStyleDark : UIUserInterfaceStyleLight;
     self.view.backgroundColor = theme.colors.baseBackground;
     UIColor *backgroundColor = theme.colors.baseBackground;
     self.tableView.backgroundColor = backgroundColor;
@@ -657,7 +655,7 @@ static CGFloat const WMFLanguageHeaderHeight = 57.f;
 - (void)setActivityIndicatorVisible:(BOOL)visible {
     if (visible) {
         if (_activityIndicator == nil) {
-            _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+            _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
             _activityIndicator.color = self.theme.colors.primaryText;
             [self.view wmf_addSubviewWithConstraintsToEdges:_activityIndicator];
             [_activityIndicator startAnimating];

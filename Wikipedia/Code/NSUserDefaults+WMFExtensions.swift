@@ -134,11 +134,7 @@ let WMFSendUsageReports = "WMFSendUsageReports"
     func theme(compatibleWith traitCollection: UITraitCollection) -> Theme {
         let name = string(forKey: WMFAppThemeName)
         guard name != nil, name != Theme.defaultThemeName else {
-            if #available(iOSApplicationExtension 13.0, *) {
                 return traitCollection.userInterfaceStyle == .dark ? Theme.black.withDimmingEnabled(wmf_isImageDimmingEnabled) : .light
-            } else {
-                return .light
-            }
         }
         let theme = Theme.withName(name) ?? Theme.light
         return theme.isDark ? theme.withDimmingEnabled(wmf_isImageDimmingEnabled) : theme

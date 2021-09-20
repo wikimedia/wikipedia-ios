@@ -19,8 +19,18 @@
 // Author: Nemo bis
 // Author: Purodha
 // Author: Ubahnverleih
+// Author: Umlaut
 
 "aaald-article-description-updated-description" = "Die Artikelbeschreibung wurde aktualisiert";
+"aaald-article-insert-new-changes" = "Neue Änderungen";
+"aaald-characters-text-description" = "{{PLURAL:$1|0=Zeichen|Zeichen|Zeichen}}";
+"aaald-deleted-text-description-2" = "$1 gelöscht";
+"aaald-new-book-reference-title" = "Buch";
+"aaald-new-discussion" = "Neue Diskussion";
+"aaald-new-journal-reference-title" = "Zeitschrift";
+"aaald-new-journal-reference-volume" = "Band $1:";
+"aaald-new-news-reference-title" = "Nachrichten";
+"aaald-new-website-reference-title" = "Webseite";
 "aaald-view-full-history-button" = "Vollständige Versionsgeschichte anzeigen";
 "about-content-license" = "Inhaltslizenz";
 "about-content-license-details" = "Sofern nicht anders angegeben, ist der Inhalt verfügbar unter einer $1.";
@@ -511,6 +521,7 @@
 "on-this-day-detail-header-date-range" = "von $1 bis $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|Ein historisches Ereignis|$1 historische Ereignisse}}";
 "on-this-day-footer" = "Weitere historische Ereignisse an diesem Tag";
+"on-this-day-no-internet-error" = "Keine Daten verfügbar";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 von der Wikipedia auf $2";
 "on-this-day-title" = "Heute";
 "original-tab-button-popover-description" = "Tippe auf das W, um zu dem Reiter zurückzukehren, von dem du gestartet bist.";
@@ -535,6 +546,7 @@
 "page-protected-can-not-edit-title" = "Diese Seite ist geschützt";
 "page-protected-other" = "Diese Seite wurde auf die folgenden Ebenen geschützt: $1";
 "page-protected-sysop" = "Diese Seite wurde vollgesperrt.";
+"page-similar-titles" = "Ähnliche Seiten";
 "panel-compare-revisions-text" = "Der Versionsvergleich hilft dabei zu sehen, wie sich ein Artikel über die Zeit verändert hat. Der Vergleich zweier Versionen zeigt die Unterschiede zwischen den Versionen und hebt hervor was sich geändert hat.";
 "panel-compare-revisions-title" = "Versionen vergleichen";
 "pictured" = "Bild";
@@ -657,11 +669,14 @@
 "reading-themes-controls-syntax-highlighting" = "Syntaxhervorhebung";
 "reference-title" = "Einzelnachweis $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Heute|1=Gestern|Vor $1 Tagen}}";
+"relative-date-hours-abbreviated" = "$1h";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Kürzlich|Vor einer Stunde|Vor $1 Stunden}}";
 "relative-date-hours-ago-abbreviated" = "Vor $1 Stunden";
+"relative-date-minutes-abbreviated" = "$1m";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Gerade eben|Vor einer Minute|Vor $1 Minuten}}";
 "relative-date-minutes-ago-abbreviated" = "Vor $1 Minuten";
 "relative-date-months-ago" = "{{PLURAL:$1|0=Diesen Monat|1=Letzten Monat|Vor $1 Monaten}}";
+"relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "Vor $1 Sekunden";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dieses Jahr|1=Letztes Jahr|Vor $1 Jahren}}";
 "replace-button-accessibility" = "$1 ausführen.";
@@ -791,6 +806,8 @@
 "two-factor-login-title" = "Bei deinem Benutzerkonto anmelden";
 "two-factor-login-with-backup-code" = "Einen deiner Backup-Codes verwenden";
 "two-factor-login-with-regular-code" = "Verifizierungscode verwenden";
+"unknown-generic-text" = "Unbekannt";
+"variants-alert-dismiss-button" = "Nein danke";
 "welcome-exploration-explore-feed-description" = "Empfohlener Lesestoff und täglich wechselnde Artikel aus unserer Gemeinschaft";
 "welcome-exploration-explore-feed-title" = "Entdecken-Feed";
 "welcome-exploration-on-this-day-description" = "Reise in der Zeit zurück, um zu erfahren, was heute in der Vergangenheit passiert ist.";

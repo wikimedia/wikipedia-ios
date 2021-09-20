@@ -364,6 +364,10 @@
 		676070A52280D72400A81F09 /* TalkPageTopicNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */; };
 		676070A62280D72400A81F09 /* TalkPageTopicNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */; };
 		676070A72280D72500A81F09 /* TalkPageTopicNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */; };
+		676C869326D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676C869226D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift */; };
+		676C869426D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676C869226D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift */; };
+		676C869526D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676C869226D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift */; };
+		676C869626D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676C869226D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift */; };
 		6771298F24FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771298E24FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift */; };
 		6771299024FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771298E24FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift */; };
 		6771299124FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6771298E24FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift */; };
@@ -791,10 +795,10 @@
 		7A29A5D01F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A29A5CD1F6C49C600E8F42B /* CollectionViewUpdater.swift */; };
 		7A29A5D11F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A29A5CD1F6C49C600E8F42B /* CollectionViewUpdater.swift */; };
 		7A29A5D31F6C4B9C00E8F42B /* WMFChange.h in Headers */ = {isa = PBXBuildFile; fileRef = D8FEECCB1DE3729400B883F0 /* WMFChange.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7A2BB1D421F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2BB1D321F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift */; };
-		7A2BB1D521F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2BB1D321F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift */; };
-		7A2BB1D621F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2BB1D321F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift */; };
-		7A2BB1D721F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2BB1D321F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift */; };
+		7A2BB1D421F27AC5004C0FDF /* WKWebView+OffsetHack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2BB1D321F27AC5004C0FDF /* WKWebView+OffsetHack.swift */; };
+		7A2BB1D521F27AC5004C0FDF /* WKWebView+OffsetHack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2BB1D321F27AC5004C0FDF /* WKWebView+OffsetHack.swift */; };
+		7A2BB1D621F27AC5004C0FDF /* WKWebView+OffsetHack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2BB1D321F27AC5004C0FDF /* WKWebView+OffsetHack.swift */; };
+		7A2BB1D721F27AC5004C0FDF /* WKWebView+OffsetHack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2BB1D321F27AC5004C0FDF /* WKWebView+OffsetHack.swift */; };
 		7A2FE5562051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A2FE5552051757E00F92F8F /* EraseSavedArticlesView.xib */; };
 		7A2FE5572051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A2FE5552051757E00F92F8F /* EraseSavedArticlesView.xib */; };
 		7A2FE5582051757E00F92F8F /* EraseSavedArticlesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A2FE5552051757E00F92F8F /* EraseSavedArticlesView.xib */; };
@@ -2749,8 +2753,6 @@
 		D8CE9B031FDEBB1900AE7D49 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831835301FD1AC490025DD3D /* NavigationBar.swift */; };
 		D8CE9B041FDEBB2C00AE7D49 /* NavigationBarHider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CE9AFD1FDEB14E00AE7D49 /* NavigationBarHider.swift */; };
 		D8D365151E953C7100593A38 /* ImageControllerCompletionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D365141E953C7100593A38 /* ImageControllerCompletionManager.swift */; };
-		D8D3651A1E955C9000593A38 /* WMFLegacyImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D365181E955C9000593A38 /* WMFLegacyImageCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D8D3651B1E955C9000593A38 /* WMFLegacyImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D365191E955C9000593A38 /* WMFLegacyImageCache.m */; };
 		D8D550811DF0D2BD00B90177 /* NSArray+WMFMatching.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D550801DF0D2BD00B90177 /* NSArray+WMFMatching.m */; };
 		D8D553621DF1B63200B90177 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D553611DF1B63200B90177 /* QuartzCore.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		D8D92B5A1DF22E1700B95311 /* NotificationBackgroundError.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D92B491DF22E1700B95311 /* NotificationBackgroundError.png */; };
@@ -3685,6 +3687,7 @@
 		676070A1227CE60800A81F09 /* TalkPageReplyFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageReplyFooterView.swift; sourceTree = "<group>"; };
 		676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkPageTopicNewViewController.xib; sourceTree = "<group>"; };
 		676A8A8223A4013D0084B967 /* ArticleFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArticleFetcher.swift; path = ../Wikipedia/Code/ArticleFetcher.swift; sourceTree = "<group>"; };
+		676C869226D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+WindowWorkarounds.swift"; sourceTree = "<group>"; };
 		6771298E24FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		6771299324FF775E00E89CA5 /* ArticleAsLivingDocLargeEventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocLargeEventCollectionViewCell.swift; sourceTree = "<group>"; };
 		6771299F24FFF43000E89CA5 /* ArticleAsLivingDocHorizontallyScrollingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocHorizontallyScrollingCell.swift; sourceTree = "<group>"; };
@@ -3835,7 +3838,7 @@
 		7A28126120D3F84A009B42B5 /* FeedCardSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCardSettingsViewController.swift; sourceTree = "<group>"; };
 		7A29A5C71F6C405900E8F42B /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		7A29A5CD1F6C49C600E8F42B /* CollectionViewUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewUpdater.swift; sourceTree = "<group>"; };
-		7A2BB1D321F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+iOS12OffsetHack.swift"; sourceTree = "<group>"; };
+		7A2BB1D321F27AC5004C0FDF /* WKWebView+OffsetHack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+OffsetHack.swift"; sourceTree = "<group>"; };
 		7A2FE5552051757E00F92F8F /* EraseSavedArticlesView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EraseSavedArticlesView.xib; sourceTree = "<group>"; };
 		7A2FE55B20517BAE00F92F8F /* EraseSavedArticlesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraseSavedArticlesView.swift; sourceTree = "<group>"; };
 		7A3159CE206458B000143119 /* ReadingListAlertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListAlertType.swift; sourceTree = "<group>"; };
@@ -4859,7 +4862,7 @@
 		D85219371D6DEFBB00084796 /* WMFTodayContinueReadingWidgetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFTodayContinueReadingWidgetViewController.swift; sourceTree = "<group>"; };
 		D8533ED31ECF581600E44F86 /* NewsCollectionViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsCollectionViewHeader.swift; sourceTree = "<group>"; };
 		D8533ED41ECF581600E44F86 /* NewsCollectionViewHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewsCollectionViewHeader.xib; sourceTree = "<group>"; };
-		D8543230218879D000E895B5 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Configuration.swift; path = "WMF Framework/Configuration.swift"; sourceTree = SOURCE_ROOT; };
+		D8543230218879D000E895B5 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Configuration.swift; path = "WMF Framework/Configuration.swift"; sourceTree = SOURCE_ROOT; usesTabs = 0; };
 		D858A7DE1DA6A04A009C3DEB /* WMFDateCalculationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFDateCalculationTests.m; sourceTree = "<group>"; };
 		D858C7B5210B91CD0039E0C9 /* PassthroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassthroughView.swift; sourceTree = "<group>"; };
 		D85BD2441F8F9D6900D0D478 /* NSManagedObjectContext+WMFKeyValue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+WMFKeyValue.h"; sourceTree = "<group>"; };
@@ -4995,8 +4998,6 @@
 		D8D270391D75ED5000D093A8 /* WMFArticlePreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFArticlePreviewViewController.swift; path = Wikipedia/Code/WMFArticlePreviewViewController.swift; sourceTree = SOURCE_ROOT; };
 		D8D2703A1D75ED5000D093A8 /* WMFArticlePreviewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFArticlePreviewViewController.xib; path = Wikipedia/Code/WMFArticlePreviewViewController.xib; sourceTree = SOURCE_ROOT; };
 		D8D365141E953C7100593A38 /* ImageControllerCompletionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageControllerCompletionManager.swift; path = Wikipedia/Code/ImageControllerCompletionManager.swift; sourceTree = SOURCE_ROOT; };
-		D8D365181E955C9000593A38 /* WMFLegacyImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFLegacyImageCache.h; path = Wikipedia/Code/WMFLegacyImageCache.h; sourceTree = SOURCE_ROOT; };
-		D8D365191E955C9000593A38 /* WMFLegacyImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFLegacyImageCache.m; path = Wikipedia/Code/WMFLegacyImageCache.m; sourceTree = SOURCE_ROOT; };
 		D8D5507F1DF0D2BD00B90177 /* NSArray+WMFMatching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+WMFMatching.h"; path = "WikipediaUnitTests/Code/NSArray+WMFMatching.h"; sourceTree = SOURCE_ROOT; };
 		D8D550801DF0D2BD00B90177 /* NSArray+WMFMatching.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+WMFMatching.m"; path = "WikipediaUnitTests/Code/NSArray+WMFMatching.m"; sourceTree = SOURCE_ROOT; };
 		D8D551411DF1A33D00B90177 /* EXTScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTScope.h; sourceTree = "<group>"; };
@@ -6018,8 +6019,6 @@
 		0E28C4631D74AA81000C5919 /* Image Caching */ = {
 			isa = PBXGroup;
 			children = (
-				D8D365181E955C9000593A38 /* WMFLegacyImageCache.h */,
-				D8D365191E955C9000593A38 /* WMFLegacyImageCache.m */,
 				D80ACD261EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.h */,
 				D80ACD271EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.m */,
 				D8D365141E953C7100593A38 /* ImageControllerCompletionManager.swift */,
@@ -7658,7 +7657,7 @@
 			children = (
 				B0E8052D1C0CE0DC0065EBC0 /* WKWebView+ElementLocation.h */,
 				B0E8052E1C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m */,
-				7A2BB1D321F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift */,
+				7A2BB1D321F27AC5004C0FDF /* WKWebView+OffsetHack.swift */,
 				B0DF6F7F1CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.h */,
 				B0DF6F801CFE1D0B0046E507 /* WKWebView+WMFWebViewControllerJavascript.m */,
 				B09CE599222F623800067D2A /* WKWebView+EditSelectionJavascript.swift */,
@@ -7767,6 +7766,7 @@
 				83DB0A5623EEDE2100DA5F58 /* MobileviewToMobileHTMLConverter.swift */,
 				0022DD2825829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift */,
 				B087F8D023E3AE3B00ACA012 /* MWKDataStore+LegacyMobileview.swift */,
+				676C869226D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -9056,7 +9056,6 @@
 				D844DA061D6CC4C90042D692 /* MWKLanguageFilter.h in Headers */,
 				D844485A1DDCE49D00425630 /* WMFContentGroup+CoreDataProperties.h in Headers */,
 				D8FA18D21E1BD891009675C3 /* WMFTaskGroup.h in Headers */,
-				D8D3651A1E955C9000593A38 /* WMFLegacyImageCache.h in Headers */,
 				D8FA19061E1BDA66009675C3 /* UIColor+WMFStyle.h in Headers */,
 				D844D9701D6CB2600042D692 /* WMF.h in Headers */,
 				D8FA18C61E1BD891009675C3 /* NSIndexSet+BKReduce.h in Headers */,
@@ -10678,7 +10677,7 @@
 				B0421AA2206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift in Sources */,
 				B0F4761B21F921D300C4E254 /* EditSummaryViewController.swift in Sources */,
 				B389CFCE1E6F238300483C06 /* WMFMapsActivity.swift in Sources */,
-				7A2BB1D421F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift in Sources */,
+				7A2BB1D421F27AC5004C0FDF /* WKWebView+OffsetHack.swift in Sources */,
 				B01E3AF921F986750015B715 /* PreviewWebViewContainer.swift in Sources */,
 				7A9524D722669A8B00C55CDC /* InsertMediaSettingsButtonView.swift in Sources */,
 				83B01F7223DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift in Sources */,
@@ -11021,6 +11020,7 @@
 				7A203F0B1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */,
 				B09B03F21CE0FB6300009083 /* PageHistoryFetcher.swift in Sources */,
 				7ABE17182239B8EE006BA309 /* WelcomeContainerViewController.swift in Sources */,
+				676C869326D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift in Sources */,
 				B04AE84C21C6475C00CE51D8 /* WKWebViewWithSettableInputViews.swift in Sources */,
 				B0E8058D1C0CE2C60065EBC0 /* CreateAccountFunnel.m in Sources */,
 				83927D811F705B7B00051890 /* SearchResultsViewController.swift in Sources */,
@@ -11111,7 +11111,6 @@
 				D8BD63BF1EA7E28700BBC082 /* SummaryExtensions.swift in Sources */,
 				D84C36391F3241ED00895FA1 /* WMFGradientView.m in Sources */,
 				83ACAA9E24E6D94C003B3035 /* MWKSearchResult+PageNamespace.swift in Sources */,
-				D8D3651B1E955C9000593A38 /* WMFLegacyImageCache.m in Sources */,
 				0042809125E6E395004945B3 /* MTLTransformerErrorHandling.m in Sources */,
 				67D6C0202405B3D2005709B1 /* CacheGroup+CoreDataClass.swift in Sources */,
 				7A5357AB215552E7007998DC /* RemoteNotificationsOperation.swift in Sources */,
@@ -11539,7 +11538,7 @@
 				D8A42A9D1E815A9C00D8E281 /* WMFTitleInsetRespectingButton.m in Sources */,
 				B0F4761E21F921D300C4E254 /* EditSummaryViewController.swift in Sources */,
 				B0421AA5206991F500C22630 /* SavedTabBarItemProgressBadgeManager.swift in Sources */,
-				7A2BB1D721F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift in Sources */,
+				7A2BB1D721F27AC5004C0FDF /* WKWebView+OffsetHack.swift in Sources */,
 				B01E3AFC21F986750015B715 /* PreviewWebViewContainer.swift in Sources */,
 				7A9524DA22669A8B00C55CDC /* InsertMediaSettingsButtonView.swift in Sources */,
 				67861A1A223C13940044F69D /* FocusNavigationView.swift in Sources */,
@@ -11882,6 +11881,7 @@
 				7A203F0E1FDEDCDD00A229EC /* ReadingListHintController.swift in Sources */,
 				D8A42B961E815A9C00D8E281 /* PageHistoryFetcher.swift in Sources */,
 				7ABE171B2239B8EE006BA309 /* WelcomeContainerViewController.swift in Sources */,
+				676C869626D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift in Sources */,
 				D8A42B981E815A9C00D8E281 /* CreateAccountFunnel.m in Sources */,
 				B04AE84F21C6475C00CE51D8 /* WKWebViewWithSettableInputViews.swift in Sources */,
 				BAC6EECA1F1E519B00228AD0 /* AppearanceSettingsViewController.swift in Sources */,
@@ -11932,6 +11932,7 @@
 				D8CE24E81E698E2400DAE2E0 /* WMFCaptchaResetter.swift in Sources */,
 				B0CD9DDE1F70997400051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
 				67E2E491250452E60070F12D /* ArticleAsLivingDocHeaderView.swift in Sources */,
+				676C869526D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift in Sources */,
 				D87676A021E7B73C00491039 /* ToolbarSeparatorView.swift in Sources */,
 				7ABE17192239B8EE006BA309 /* WelcomeContainerViewController.swift in Sources */,
 				D858C7B7210B91CE0039E0C9 /* PassthroughView.swift in Sources */,
@@ -12299,7 +12300,7 @@
 				67E8B088226A57E900537BC9 /* TalkPageReplyListViewController.swift in Sources */,
 				7AF56C3621DE0E2800563A9C /* SectionEditorWebViewMessagingController.swift in Sources */,
 				7A610CBE220A582A00C266AE /* HintController.swift in Sources */,
-				7A2BB1D521F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift in Sources */,
+				7A2BB1D521F27AC5004C0FDF /* WKWebView+OffsetHack.swift in Sources */,
 				7A9F061A2266432200856321 /* InsertMediaSettingsTextTableViewCell.swift in Sources */,
 				D8CE25EA1E698E2400DAE2E0 /* WMFForgotPasswordViewController.swift in Sources */,
 				D8E6FF6824054FA100686272 /* ArticleViewController+LinkPreviewing.swift in Sources */,
@@ -12420,6 +12421,7 @@
 				B0EFCD6F1EBF12E5008F36E5 /* LibrariesUsed.swift in Sources */,
 				D8EC3DDF1E9BDA35006712EB /* WMFCaptchaResetter.swift in Sources */,
 				D87676A121E7B73C00491039 /* ToolbarSeparatorView.swift in Sources */,
+				676C869426D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift in Sources */,
 				7ABE171A2239B8EE006BA309 /* WelcomeContainerViewController.swift in Sources */,
 				B0CD9DE51F70997400051843 /* WMFWelcomeAnimationExtensions.swift in Sources */,
 				83F26B2C220B62EC002D87A4 /* SectionEditorButton.swift in Sources */,
@@ -12788,7 +12790,7 @@
 				D8EC3EE41E9BDA35006712EB /* NSString+FormattedAttributedString.m in Sources */,
 				7A610CBF220A582A00C266AE /* HintController.swift in Sources */,
 				7A9F061B2266432200856321 /* InsertMediaSettingsTextTableViewCell.swift in Sources */,
-				7A2BB1D621F27AC5004C0FDF /* WKWebView+iOS12OffsetHack.swift in Sources */,
+				7A2BB1D621F27AC5004C0FDF /* WKWebView+OffsetHack.swift in Sources */,
 				FF92187C252F7EA300C39A8F /* ThanksGiving.swift in Sources */,
 				D8E6FF6924054FA100686272 /* ArticleViewController+LinkPreviewing.swift in Sources */,
 				B0CD9DE41F70997400051843 /* WMFWelcomeAnimationView.swift in Sources */,
@@ -13923,7 +13925,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DNDEBUG -DTEST";
@@ -14066,7 +14068,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG -DUI_TEST";
@@ -14886,7 +14888,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
@@ -14952,7 +14954,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "-DNDEBUG";
 				SDKROOT = iphoneos;
@@ -15659,7 +15661,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG -DWMF_LOCAL";
@@ -16111,7 +16113,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "-DNDEBUG";
 				SDKROOT = iphoneos;
@@ -16341,7 +16343,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
@@ -16913,7 +16915,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "-DNDEBUG -DWMF_STAGING";
 				SDKROOT = iphoneos;
@@ -17196,7 +17198,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG -DWMF_STAGING";
@@ -17698,7 +17700,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "-DNDEBUG -DWMF_NO_APP_GROUP";
 				SDKROOT = iphoneos;
@@ -18012,7 +18014,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG -DWMF_NO_APP_GROUP";

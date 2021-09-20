@@ -33,15 +33,13 @@ import CocoaLumberjackSwift
 }
 
 final class RemoteNotificationsModelController: NSObject {
-    public static let modelDidChangeNotification = NSNotification.Name(rawValue: "RemoteNotificationsModelDidChange")
     public static let didLoadPersistentStoresNotification = NSNotification.Name(rawValue: "ModelControllerDidLoadPersistentStores")
-    
-    private let container: NSPersistentContainer
     
     //TODO: Look into removing this in the future (some legacy code still uses this)
     let legacyBackgroundContext: NSManagedObjectContext
     
     let viewContext: NSManagedObjectContext
+    let persistentContainer: NSPersistentContainer
 
     enum InitializationError: Error {
         case unableToCreateModelURL(String, String, Bundle)
@@ -78,6 +76,7 @@ final class RemoteNotificationsModelController: NSObject {
         let container = NSPersistentContainer(name: modelName, managedObjectModel: model)
         let sharedAppContainerURL = FileManager.default.wmf_containerURL()
         let remoteNotificationsStorageURL = sharedAppContainerURL.appendingPathComponent("\(modelName).sqlite")
+
         let description = NSPersistentStoreDescription(url: remoteNotificationsStorageURL)
         container.persistentStoreDescriptions = [description]
         container.loadPersistentStores { (storeDescription, error) in
@@ -95,9 +94,31 @@ final class RemoteNotificationsModelController: NSObject {
         viewContext.automaticallyMergesChangesFromParent = true
         viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
         
-        self.container = container
+        self.persistentContainer = container
         
         super.init()
+    }
+    
+    func deleteLegacyDatabaseFiles() {
+        let modelName = Self.modelName
+        let sharedAppContainerURL = FileManager.default.wmf_containerURL()
+        let legacyStorageURL = sharedAppContainerURL.appendingPathComponent(modelName)
+        do {
+            try persistentContainer.persistentStoreCoordinator.destroyPersistentStore(at: legacyStorageURL, ofType: NSSQLiteStoreType, options: nil)
+        } catch (let error) {
+            DDLogError("Error with destroyPersistentStore for RemoteNotifications: \(error)")
+        }
+        
+        let legecyJournalShmUrl = sharedAppContainerURL.appendingPathComponent("\(modelName)-shm")
+        let legecyJournalWalUrl = sharedAppContainerURL.appendingPathComponent("\(modelName)-wal")
+        
+        do {
+            try FileManager.default.removeItem(at: legacyStorageURL)
+            try FileManager.default.removeItem(at: legecyJournalShmUrl)
+            try FileManager.default.removeItem(at: legecyJournalWalUrl)
+        } catch (let error) {
+            DDLogError("Error deleting legacy RemoteNotifications database files: \(error)")
+        }
     }
 
     deinit {
@@ -107,7 +128,7 @@ final class RemoteNotificationsModelController: NSObject {
     typealias ResultHandler = (Set<RemoteNotification>?) -> Void
     
     public func newBackgroundContext() -> NSManagedObjectContext {
-        let backgroundContext = container.newBackgroundContext()
+        let backgroundContext = persistentContainer.newBackgroundContext()
         backgroundContext.name = "RemoteNotificationsBackgroundContext"
         backgroundContext.automaticallyMergesChangesFromParent = true
         backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy

@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Aranka
 // Author: Bouman4
+// Author: Danieldegroot2
 // Author: Duckson32
 // Author: Elroy
 // Author: FabianRM
@@ -14,6 +15,7 @@
 // Author: Mainframe98
 // Author: Mar(c)
 // Author: Mathonius
+// Author: McDutchie
 // Author: MedShot
 // Author: MrLeopold
 // Author: Ndecouck
@@ -437,6 +439,12 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Uit Wikipedia";
 "explore-randomizer" = "Randomizer";
 "featured-article-empty-title" = "Geen toegelicht artikel beschikbaar voor vandaag";
+"featured-widget-content-failure-for-date" = "Er is geen uitgelicht artikel voor deze datum.";
+"featured-widget-description" = "Ontdek de beste artikelen op Wikipedia, dagelijks uitgekozen door onze gemeenschap.";
+"featured-widget-from-language-wikipedia" = "Uit Wikipedia in het $1";
+"featured-widget-from-wikipedia" = "Uit Wikipedia";
+"featured-widget-language-failure" = "Voor uw primaire Wikipedia-taal worden uitgelichte artikelen niet ondersteund. U kunt uw primaire Wikipedia wijzigen in het menu Instellingen van de app.";
+"featured-widget-title" = "Uitgelicht artikel";
 "feed-news-notification-button-text" = "Meldingen inschakelen";
 "feed-news-notification-text" = "Schakel meldingen in om geïnformeerd te worden door Wikipedia wanneer artikelen trending zijn in het nieuws.";
 "fetcher-error-generic" = "Er is iets misgegaan. Probeer het later opnieuw.";
@@ -470,10 +478,12 @@
 "find-replace-header-close-accessibility" = "Zoeken en vervangen sluiten";
 "find-textfield-accessibility" = "Zoeken";
 "forgot-password-button-title" = "Opnieuw instellen";
-"forgot-password-email-sent" = "Een email met de instructies om uw wachtwoord opnieuw in te stellen is gestuurd";
-"forgot-password-instructions" = "Vul één van de onderstaande velden in hieronder om instructies te ontvangen via email over hoe u uw wachtwoord kunt wijzigen.";
+"forgot-password-email-sent" = "Een e-mail met de instructies om uw wachtwoord opnieuw in te stellen is gestuurd";
+"forgot-password-instructions" = "Vul één van de onderstaande velden in hieronder om instructies te ontvangen via e-mail over hoe u uw wachtwoord kunt wijzigen.";
 "forgot-password-title" = "Wachtwoord opnieuw instellen";
 "forgot-password-username-or-email-title" = "Of";
+"gan-variants-alert-body" = "De Wikipedia-app ondersteunt nu de volgende Gan-varianten als primaire of secundaire talen binnen de app, waardoor het makkelijker wordt om te lezen, zoeken en bewerken in uw voorkeursvarianten:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, vereenvoudigd (gan-hans)\n贛語 繁體 Gan, traditioneel (gan-hant)";
+"gan-variants-alert-title" = "Updates voor ondersteuning van Gan-varianten";
 "history-clear-all" = "Wissen";
 "history-clear-cancel" = "Annuleren";
 "history-clear-confirmation-heading" = "Weet u zeker dat u alle recente items wilt verwijderen?";
@@ -537,6 +547,7 @@
 "intermediate-edits-limited-editors-count" = "$1+ tussenliggende versies door {{PLURAL:$2|$2 gebruiker|$2 gebruikers}} niet weergegeven";
 "inuktitut-variants-alert-body" = "De Wikipedia app ondersteund nu de volgende varianten van Inuktitut als primaire of secundaire talen in de app, wat het makkelijker maakt artikelen te lezen, zoeken en bewerken in deze varianten:";
 "inuktitut-variants-alert-title" = "Updates voor ondersteuning van Inuktitutse variant";
+"kazakh-variants-alert-body" = "De Wikipedia-app ondersteunt nu de volgende Kazachse varianten als primaire of secundaire talen binnen de app, waardoor het makkelijker wordt om te lezen, zoeken en bewerken in uw voorkeursvarianten:\n\nҚазақша Kazachs (kk)\nҚазақша Кирил Kazachs, Cyrillisch (kk-cyrl)\nqazaqşa latin Kazachs, Latijn (kk-latn)\nتوتە قازاقشا Kazachs, Arabisch (kk-arabisch)";
 "kazakh-variants-alert-title" = "Updates voor ondersteuning van Kazachstaanse variant";
 "kurdish-variants-alert-body" = "De Wikipedia app ondersteund nu de volgende varianten van Koerdisch als primaire of secundaire talen in de app, wat het makkelijker maakt artikelen te lezen, zoeken en bewerken in deze varianten:";
 "kurdish-variants-alert-title" = "Updates voor ondersteuning van Koerdische variant";
@@ -586,6 +597,8 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historisch evenement|$1 historische evenementen}}";
 "on-this-day-footer" = "Historische gebeurtenissen op deze dag";
 "on-this-day-footer-showing-event-count" = "{{PLURAL:$1|nog $1 historische gebeurtenis|nog $1 historische gebeurtenissen}} op deze dag";
+"on-this-day-language-does-not-support-error" = "Voor uw primaire Wikipedia-taal wordt \"Deze dag in de geschiedenis\" niet ondersteund. U kunt uw primaire Wikipedia wijzigen in het menu Instellingen van de app.";
+"on-this-day-no-internet-error" = "Geen gegevens beschikbaar";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 van Wikipedia in het $2";
 "on-this-day-title" = "Op deze dag";
 "original-tab-button-popover-description" = "Tik op de 'W' om terug te gaan naar het tabblad waar u vandaan kwam";
@@ -650,6 +663,9 @@
 "places-unknown-distance" = "onbekende afstand";
 "potd-description-prefix" = "Afbeelding van de dag voor $1";
 "potd-empty-error-description" = "Ophalen van de afbeelding van de dag voor $1 is mislukt";
+"potd-sample-entry-description" = "Twee stieren rennen terwijl de jockey ze vasthoudt in pacu jawi (van Minangkabau, \"stierrace\"), een traditionele stierenrace in Tanah Datar, West-Sumatra, Indonesië. 2015, Finale-45.";
+"potd-widget-description" = "Geniet van een prachtige dagelijkse foto, uitgekozen door onze gemeenschap.";
+"potd-widget-title" = "Afbeelding van de dag";
 "preference-summary-eventlogging-opt-in" = "Wikimedia Foundation toestaan om informatie te verzamelen over hoe u deze app gebruikt, zodat de app beter kan worden gemaakt";
 "preference-title-eventlogging-opt-in" = "Gebruiksrapporten verzenden";
 "rank-accessibility-label" = "Nummer $1";
@@ -863,6 +879,7 @@
 "talk-page-link-user-action-sheet-title" = "Gebruikerspagina's";
 "talk-page-new-banner-subtitle" = "Vergeet niet dat we hier allemaal mensen zijn";
 "talk-page-new-banner-title" = "Wees vriendelijk";
+"talk-page-new-body-textfield-accessibility-label" = "Broodtekst van het overleg";
 "talk-page-new-reply-body-accessibility-label" = "Stel een reactie op";
 "talk-page-new-reply-body-placeholder-text" = "Stel een reactie op";
 "talk-page-new-reply-success-text" = "Uw reactie is succesvol gepubliceerd";
@@ -887,6 +904,9 @@
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia in het $1";
 "top-read-see-more" = "Meer meest gelezen pagina's bekijken";
+"top-read-widget-description" = "Ontdek wat de wereld tegenwoordig leest op Wikipedia.";
+"top-read-widget-readers-count" = "$1 lezers";
+"top-read-widget-title" = "Meest gelezen";
 "two-factor-login-continue" = "Doorgaan met aanmelden";
 "two-factor-login-instructions" = "Tweetrapsauthenticatiecode invullen";
 "two-factor-login-title" = "Aanmelden bij uw account";
@@ -923,6 +943,9 @@
 "welcome-send-data-learn-more" = "Leer meer over de verzamelde data";
 "welcome-send-data-sub-title" = "Help de Wikimedia Foundation de app beter te maken door ons te laten weten hoe u de app gebruikt. De verzamelde gegevens zijn anoniem.";
 "welcome-volunteer-send-usage-reports" = "Gebruiksrapporten verzenden";
+"widget-onthisday-description" = "Ontdek wat er op deze dag in de geschiedenis is gebeurd.";
+"widget-onthisday-placeholder-article-snippet" = "Vrije internetencyclopedie die iedereen kan bewerken";
+"widget-onthisday-placeholder-event-snippet" = "Wikipedia, een vrije encyclopedie met wiki-inhoud, gaat online.";
 "wikitext-downloading" = "Inhoud laden...";
 "wikitext-preview-changes" = "Voorvertoning van uw wijzigingen aan het ophalen...";
 "wikitext-preview-changes-none" = "Er zijn geen wijzigingen gemaakt om een voorbeeld van te geven.";
