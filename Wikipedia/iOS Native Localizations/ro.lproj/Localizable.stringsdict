@@ -207,9 +207,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d bit șters</string>
+			<string>%1$d octet șters</string>
 			<key>other</key>
-			<string>%1$d biți șterși</string>
+			<string>%1$d octeți șterși</string>
 		</dict>
 	</dict>
 	<key>diff-unedited-lines-format</key>
