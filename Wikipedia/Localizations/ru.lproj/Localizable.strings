@@ -458,8 +458,11 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Из Википедии";
 "explore-randomizer" = "Рандомизатор";
 "featured-article-empty-title" = "Сегодня нет избранных статей";
+"featured-widget-content-failure-for-date" = "Избранная статья недоступна для этой даты.";
+"featured-widget-description" = "Откройте для себя лучшие статьи из Википедии, ежедневно отбираемые нашим сообществом.";
 "featured-widget-from-language-wikipedia" = "Из $1 Википедии";
 "featured-widget-from-wikipedia" = "Из Википедии";
+"featured-widget-language-failure" = "Язык вашей основной Википедии не поддерживает Избранные статьи. Вы можете изменить вашу основную Википедию в меню настроек приложения.";
 "featured-widget-title" = "Избранная статья";
 "feed-news-notification-button-text" = "Включить уведомления";
 "feed-news-notification-text" = "Включить уведомления, чтобы узнавать от Википедии, когда статьи попадают в тренды новостей.";
