@@ -10,13 +10,14 @@
 // Author: Matrafox
 // Author: Minisarm
 // Author: Nemo bis
+// Author: WebSourceContentRO
 
 "aaald-added-text-description-2" = "$1 adăugat";
 "aaald-article-description-updated-description" = "Descrierea articolului a fost actualizată";
 "aaald-article-insert-header" = "Actualizări semnificative";
 "aaald-article-insert-last-updated" = "Ultima actualizare";
 "aaald-article-insert-new-changes" = "Schimbări recente";
-"aaald-article-insert-read-more" = "Citește mai multe actualizari";
+"aaald-article-insert-read-more" = "Citește mai multe actualizări";
 "aaald-characters-text-description" = "{{PLURAL:$1|0=caractere|caracter|caractere}}";
 "aaald-deleted-text-description-2" = "$1 șters";
 "aaald-error-subitle" = "Reîncărcă pentru a încerca din nou";
@@ -36,24 +37,24 @@
 "aaald-new-website-reference-archive-url-text" = "Archive.org URL";
 "aaald-new-website-reference-title" = "Site web";
 "aaald-numerical-multiple-references-added-description" = "{{PLURAL:$1|0=0 referințe|$1 referință|$1 referințe}} adăugate";
-"aaald-one-section-description" = "în $1 secțiune";
+"aaald-one-section-description" = "în secțiunea $1";
 "aaald-revision-by-anonymous" = "Modificări de utilizator anonim";
-"aaald-revision-userInfo" = "Editări de $1 ($2 editări)";
+"aaald-revision-userInfo" = "Modificări de $1 ($2 editări)";
 "aaald-single-reference-added-description" = "Referințe adăugate";
 "aaald-small-change-description" = "{{PLURAL:$1|0=Nu au fost efectuate modificări minore|$1 modificare minoră efectuată|$1 modificări minore efectuate}}";
 "aaald-summary-title" = "{{PLURAL:$1|0=0 modificări|$1 modificare|$1 modificări}} de {{PLURAL:$2|0=0 editori|$2 editor|$2 editori}} în {{PLURAL:$3|0=0 zile|$3 zi|$3 zile}}";
-"aaald-two-sections-description" = "în secțiunile $ 1 și $ 2";
+"aaald-two-sections-description" = "în secțiunile $1 și $2";
 "aaald-vandalism-revert-description" = "Suspiciunea de vandalism a fost revenită";
 "aaald-view-full-history-button" = "Vedeți istoricul articolului complet";
 "about-content-license" = "Licență conținut";
 "about-content-license-details" = "Dacă nu se specifică altfel, conținutul este disponibil sub $1.";
-"about-content-license-details-share-alike-license" = "licența Creative Commons Atribuire și distribuire în condiții identice";
+"about-content-license-details-share-alike-license" = "Licența Creative Commons Atribuire și distribuire în condiții identice";
 "about-contributors" = "Contribuitori";
 "about-libraries" = "Biblioteci utilizate";
 "about-libraries-complete-list" = "Lista completă";
 "about-libraries-license" = "Licență";
 "about-libraries-licenses-title" = "Ne place software-ul cu sursă deschisă $1";
-"about-places-maps-license" = "Licența hărților locuri";
+"about-places-maps-license" = "Licența hărților cu locuri";
 "about-places-maps-license-details" = "Locurile folosesc hărți oferite de Apple Maps. $1.";
 "about-places-maps-license-details-link-text" = "Vă rugăm să consultați aici pentru detalii despre licență";
 "about-product-of" = "Creat de $1 cu ajutorul voluntarilor ca dumneavoastră";
@@ -65,11 +66,11 @@
 "about-testers-details" = "QA testată de $1";
 "about-title" = "Despre";
 "about-translators" = "Traducători";
-"about-translators-details" = "Această aplicație a fost tradusă de traducătorii voluntari de la $1";
+"about-translators-details" = "Tradusă de traducătorii voluntari de la $1";
 "about-wikimedia-foundation" = "Fundația Wikimedia";
 "about-wikipedia" = "Wikipedia";
-"abuse-filter-disallow-heading" = "Nu puteți publica această editare";
-"abuse-filter-disallow-unconstructive" = "Un filtru automat a identificat această editare ca fiind potențial neconstructivă sau ca o tentativă de vandalism. Vă rugăm să vă întoarceți și să modificați editarea dvs..";
+"abuse-filter-disallow-heading" = "Nu puteți publica această modificare";
+"abuse-filter-disallow-unconstructive" = "Un filtru automat a identificat această modificare ca fiind potențial neconstructivă sau ca o tentativă de vandalism. Vă rugăm să vă întoarceți și să modificați editarea dvs.";
 "abuse-filter-warning-blanking" = "Ștergerea secțiunilor sau a articolelor complete";
 "abuse-filter-warning-caps" = "Scrierea INTEGRALĂ CU MAJUSCULE";
 "abuse-filter-warning-heading" = "Acesta arată ca o editare neconstructivă, sunteți sigur că doriți să o publicați?";
@@ -112,23 +113,23 @@
 "action-retry" = "Reîncercare";
 "action-save" = "Salvează";
 "action-saved" = "Salvat";
-"action-saved-accessibility" = "Salvat. Activați pentru a salva.";
+"action-saved-accessibility" = "Salvat. Activați pentru a anula salvarea.";
 "action-saved-accessibility-notification" = "Articol salvat pentru mai târziu";
 "action-share" = "Distribuie";
 "action-share-accessibility" = "Distribuie";
 "action-sort" = "Sortare";
 "action-thank-user-accessibility" = "Mulțumește Utilizator";
 "action-undo" = "Anulează";
-"action-unsave" = "Nesalvată";
+"action-unsave" = "Nu salva";
 "action-unsaved-accessibility-notification" = "Articol nesalvat";
 "action-update" = "Actualizați";
 "add-articles-to-reading-list" = "Adaugă {{PLURAL:$1|$1 articol|$1 articole}} la lista de citire";
 "add-citation-title" = "Adaugă referință";
 "announcements-dismiss" = "Respinge";
 "app-store-keywords" = "Wikipedia, referință, wiki, enciclopedie, informații, cunoștințe, cercetare, informații, explorați, învățați";
-"app-store-release-notes" = "Complet personalizabile și cel mai ușor de citit flux Explore. Localizare, îmbunătățiri ale performanței și remedieri ale erorilor.";
+"app-store-release-notes" = "Complet personalizabile și cel mai ușor de citit Explorare flux. Localizare, îmbunătățiri ale performanței și remedieri ale erorilor.";
 "app-store-short-description" = "Descărcați aplicația Wikipedia pentru a explora locațiile din apropierea dvs., pentru a sincroniza articole pentru a citi offline și a personaliza experiența dvs. de citire.";
-"app-store-subtitle" = "Enciclopedia gratuită";
+"app-store-subtitle" = "Enciclopedia liberă";
 "appearance-settings-adjust-text-sizing" = "Reglați dimensiunea textului articolului";
 "appearance-settings-expand-tables" = "Extindeți tabelele";
 "appearance-settings-expand-tables-footer" = "Setați ca toate tabelele din toate articolele să fie deschise implicit, inclusiv date rapide, referințe, note și legături externe.";
@@ -165,7 +166,7 @@
 "cc-zero" = "Creative Commons CC0";
 "chinese-variants-alert-body" = "Aplicația Wikipedia acceptă acum următoarele variante chinezești ca limbi principale sau secundare în cadrul aplicației, facilitând citirea, căutarea și editarea în variantele preferate:\n\n简体 Chineză simplificată (zh-hans)\n香港繁體 Hong Kong Tradiţional (zh-hk)\n澳門繁體 Macau Tradiţional (zh-mo)\n大马简体 Malaeziană simplificată (zh-my)\n新加坡简体 Singapore simplificat (zh-sg)\n臺灣正體 Taiwanez Tradițional (zh-tw)";
 "chinese-variants-alert-title" = "Actualizări ale suportului pentru varianta chineză";
-"clear-title-accessibility-label" = "Șterge";
+"clear-title-accessibility-label" = "Curăță";
 "close-button-accessibility-label" = "Închide";
 "compass-direction" = "la ora $1";
 "continue-reading-empty-description" = "Explorați Wikipedia pentru a citi mai multe articole";
@@ -174,7 +175,7 @@
 "crimean-tatar-variants-alert-title" = "Actualizări ale suportului pentru varianta tătară din Crimeea";
 "data-migration-status" = "Actualizare...";
 "description-add-title" = "Adaugă descriere";
-"description-edit-for-article" = "Descrierea articolului pentru ($1)";
+"description-edit-for-article" = "Descrierea articolului pentru $1";
 "description-edit-learn-more" = "Aflați mai multe";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-license" = "Prin schimbarea descrierii articolului, sunt de acord cu $1 și îmi eliberez irevocabil contribuțiile sub licența $2.";
@@ -226,8 +227,8 @@
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 modificare|$1 modificări}}";
 "diff-single-header-editor-title" = "Informații editor";
 "diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 bit adăugat|$1 biți adăugat}}";
-"diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 bit șters|$1 biți șterși}}";
-"diff-single-header-summary-heading" = "Sumarul modificărilor";
+"diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 octet șters|$1 octeți șterși}}";
+"diff-single-header-summary-heading" = "Rezumatul modificărilor";
 "diff-single-intro-title" = "Introducere";
 "diff-single-line-format" = "Linia $1";
 "diff-thanks-anonymous-no-thanks" = "Utilizatorilor anonimi nu li se poate mulțumi";
@@ -279,7 +280,7 @@
 "edit-style-table-view-title" = "Stil";
 "edit-subscript-accessibility-label" = "Adăugați formatarea subscript";
 "edit-subscript-remove-accessibility-label" = "Eliminați formatarea subscript";
-"edit-summary-add-summary-text" = "Adăugați un sumar al modificării";
+"edit-summary-add-summary-text" = "Adăugați un rezumat al modificării";
 "edit-summary-choice-fixed-grammar" = "Ajustări gramaticale";
 "edit-summary-choice-fixed-typos" = "Corectat greșeli ortografice";
 "edit-summary-choice-linked-words" = "Adăugat legături";
@@ -340,13 +341,13 @@
 "explore-feed-customize-accessibility-title" = "Personalizare";
 "explore-feed-language-settings" = "Explorați setările de limbă pentru flux";
 "explore-feed-preferences-additional-languages-footer-text" = "În pagina de setări „Limbile mele” se pot adăuga limbi suplimentare.";
-"explore-feed-preferences-card-hidden-title" = "Card ascuns.";
+"explore-feed-preferences-card-hidden-title" = "Card ascuns";
 "explore-feed-preferences-continue-reading-description" = "Legătură rapid înapoi la citirea unui articol deschis";
-"explore-feed-preferences-customize-explore-feed" = "Personalizați fluxul Explore";
+"explore-feed-preferences-customize-explore-feed" = "Personalizează Explorare flux";
 "explore-feed-preferences-customize-explore-feed-action-title" = "Personalizați fluxul Explorează";
 "explore-feed-preferences-customize-explore-feed-footer-text" = "Ascunderea unui tip de card va opri acest tip de card să apară în fluxul Explore.";
 "explore-feed-preferences-explore-tab" = "Fila Explore";
-"explore-feed-preferences-featured-article-description" = "Articol recomandat zilnic pe Wikipedia";
+"explore-feed-preferences-featured-article-description" = "Articol de calitate zilnic pe Wikipedia";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Oprit";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Pe toate";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Pornit";
@@ -413,6 +414,12 @@
 "explore-random-article-sub-heading-from-wikipedia" = "De la Wikipedia";
 "explore-randomizer" = "Aleatorizare";
 "featured-article-empty-title" = "Nu există niciun articol recomandat astăzi disponibil";
+"featured-widget-content-failure-for-date" = "Un articol de calitate nu este disponibil pentru această dată.";
+"featured-widget-description" = "Descoperă cele mai bune articole de pe Wikipedia, selectate zilnic de comunitatea noastră.";
+"featured-widget-from-language-wikipedia" = "De la $1 Wikipedia";
+"featured-widget-from-wikipedia" = "De la Wikipedia";
+"featured-widget-language-failure" = "Limba dvs. principală Wikipedia nu susține articolul de calitate. Puteți actualiza Wikipedia principală în meniul Setări al aplicației.";
+"featured-widget-title" = "Articol de calitate";
 "feed-news-notification-button-text" = "Activați notificările";
 "feed-news-notification-text" = "Permiteți notificărilor să fie notificate de Wikipedia atunci când articolele sunt în trend în știri.";
 "fetcher-error-generic" = "Ceva nu a mers bine. Vă rugăm să încercați din nou mai târziu.";
@@ -565,6 +572,8 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 eveniment istoric|$1 evenimente istorice}}";
 "on-this-day-footer" = "Mai multe evenimente istorice în această zi";
 "on-this-day-footer-showing-event-count" = "{{PLURAL:$1|$1 mai mult despre evenimentul istoric|$1 mai multe evenimente istorice}} din această zi";
+"on-this-day-language-does-not-support-error" = "Limba dvs. principală Wikipedia nu acceptă În această zi. Puteți actualiza Wikipedia principală în meniul Setări al aplicației.";
+"on-this-day-no-internet-error" = "Nicio informație disponibilă";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 de la $2 Wikipedia";
 "on-this-day-title" = "Astăzi în istorie";
 "original-tab-button-popover-description" = "Atingeți „W” pentru a reveni la fila de la care ați început";
@@ -629,6 +638,9 @@
 "places-unknown-distance" = "distanță necunoscută";
 "potd-description-prefix" = "Imaginea zilei în $1";
 "potd-empty-error-description" = "Nu s-a putut găsi imaginea zilei pentru $1";
+"potd-sample-entry-description" = "Doi tauri galopând în timp ce jockey-ul stă deasupra lor în pacu jawi (de la Minangkabau, „cursă de tauri”), un taur tradițional alergat în Tanah Datar, Sumatra de Vest, Indonezia. 2015, Final-45.";
+"potd-widget-description" = "Bucurați-vă de o fotografie zilnică frumoasă selectată de comunitatea noastră.";
+"potd-widget-title" = "Imaginea zilei";
 "preference-summary-eventlogging-opt-in" = "Permiteți Fundației Wikimedia să colecteze informații despre modul în care utilizați aplicația pentru a îmbunătăți aplicația";
 "preference-title-eventlogging-opt-in" = "Trimite rapoarte de utilizare";
 "rank-accessibility-label" = "Numărul $1";
@@ -867,6 +879,9 @@
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "Vezi mai mult cele mai citite";
+"top-read-widget-description" = "Aflați ce citește lumea astăzi pe Wikipedia.";
+"top-read-widget-readers-count" = "$1 cititori";
+"top-read-widget-title" = "Cele mai citite";
 "two-factor-login-continue" = "Continuă autentificarea";
 "two-factor-login-instructions" = "Vă rugăm să introduceți codul de verificare în doi factori";
 "two-factor-login-title" = "Conectați-vă la contul dvs.";
@@ -903,6 +918,9 @@
 "welcome-send-data-learn-more" = "Aflați mai multe despre datele colectate";
 "welcome-send-data-sub-title" = "Ajutați la îmbunătățirea aplicației, lăsând Fundația Wikimedia să știe cum o utilizați. Datele colectate sunt anonime.";
 "welcome-volunteer-send-usage-reports" = "Trimite rapoarte de utilizare";
+"widget-onthisday-description" = "Explorează ce s-a întâmplat în această zi din istorie.";
+"widget-onthisday-placeholder-article-snippet" = "Enciclopedie online gratuită pe care oricine o poate modifica";
+"widget-onthisday-placeholder-event-snippet" = "Wikipedia, o enciclopedie gratuită de conținut wiki, intră online.";
 "wikitext-downloading" = "Se încarcă conținutul...";
 "wikitext-preview-changes" = "Se obține previzualizarea modificărilor dumneavoastră...";
 "wikitext-preview-changes-none" = "Nicio modificare efectuată pentru a fi previzualizată.";
