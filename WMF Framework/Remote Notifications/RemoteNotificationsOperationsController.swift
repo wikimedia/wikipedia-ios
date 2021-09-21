@@ -5,19 +5,15 @@ enum RemoteNotificationsProject {
     case commons
     case wikidata
     
-    var subdomain: String {
+    var notificationsApiWikiIdentifier: String {
         switch self {
         case .language(let languageCode):
-            return languageCode
+            return languageCode + "wiki"
         case .commons:
-            return "commons"
+            return "commonswiki"
         case .wikidata:
-            return "wikidata"
+            return "wikidatawiki"
         }
-    }
-    
-    var notificationsApiWikiIdentifier: String {
-        return subdomain + "wiki"
     }
 }
 
