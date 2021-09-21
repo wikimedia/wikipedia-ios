@@ -1,6 +1,6 @@
 class RemoteNotificationsMarkAsReadOperation: RemoteNotificationsOperation {
     override func execute() {
-        self.backgroundContext.perform {
+        self.modelController.legacyBackgroundContext.perform {
             self.modelController.getReadNotifications { readNotifications in
                 guard let readNotifications = readNotifications, !readNotifications.isEmpty else {
                     self.finish()

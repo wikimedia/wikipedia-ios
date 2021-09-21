@@ -256,9 +256,9 @@
 		670AF19026BDE6E7005F76D0 /* EmptyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 671F5E0A236B8CAF00111116 /* EmptyViewController.xib */; };
 		670AF19126BDE6E8005F76D0 /* EmptyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 671F5E0A236B8CAF00111116 /* EmptyViewController.xib */; };
 		670AF19226BDE6E9005F76D0 /* EmptyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 671F5E0A236B8CAF00111116 /* EmptyViewController.xib */; };
-		670AF1CF26CD74A6005F76D0 /* EchoSubscriptionFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670AF19A26C1CA38005F76D0 /* EchoSubscriptionFetcher.swift */; };
 		670AF1CC26CA13DC005F76D0 /* RemoteNotification+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670AF1CB26CA13DC005F76D0 /* RemoteNotification+CoreDataProperties.swift */; };
 		670AF1CE26CA188B005F76D0 /* RemoteNotificationLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670AF1CD26CA188B005F76D0 /* RemoteNotificationLinks.swift */; };
+		670AF1CF26CD74A6005F76D0 /* EchoSubscriptionFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670AF19A26C1CA38005F76D0 /* EchoSubscriptionFetcher.swift */; };
 		670F765F22B0C10600D87545 /* FakeProgressLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670F765E22B0C10600D87545 /* FakeProgressLoading.swift */; };
 		670F766022B0C48E00D87545 /* FakeProgressLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670F765E22B0C10600D87545 /* FakeProgressLoading.swift */; };
 		670F766122B0C48F00D87545 /* FakeProgressLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670F765E22B0C10600D87545 /* FakeProgressLoading.swift */; };
@@ -690,7 +690,7 @@
 		7A0161E31FE8B4CA00AEDC3D /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0161DF1FE8B4CA00AEDC3D /* TagCollectionViewCell.swift */; };
 		7A0312F72153C4990095C953 /* RemoteNotificationsModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0312F62153C4990095C953 /* RemoteNotificationsModelController.swift */; };
 		7A0312F92153DEB30095C953 /* RemoteNotificationsAPIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0312F82153DEB30095C953 /* RemoteNotificationsAPIController.swift */; };
-		7A0312FB215402FD0095C953 /* RemoteNotificationsFetchOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0312FA215402FD0095C953 /* RemoteNotificationsFetchOperation.swift */; };
+		7A0312FB215402FD0095C953 /* RemoteNotificationsFetchFirstPageOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0312FA215402FD0095C953 /* RemoteNotificationsFetchFirstPageOperation.swift */; };
 		7A0312FF215422960095C953 /* RemoteNotificationsMarkAsReadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0312FE215422960095C953 /* RemoteNotificationsMarkAsReadOperation.swift */; };
 		7A03130321542F5C0095C953 /* RemoteNotificationsOperationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A03130221542F5C0095C953 /* RemoteNotificationsOperationsController.swift */; };
 		7A06020E20EAAF5A00FBB71D /* ExploreFeedPreferencesUpdateCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A06020D20EAAF5A00FBB71D /* ExploreFeedPreferencesUpdateCoordinator.swift */; };
@@ -3804,9 +3804,9 @@
 		7A0161DF1FE8B4CA00AEDC3D /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
 		7A0312F62153C4990095C953 /* RemoteNotificationsModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsModelController.swift; sourceTree = "<group>"; };
 		7A0312F82153DEB30095C953 /* RemoteNotificationsAPIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsAPIController.swift; sourceTree = "<group>"; };
-		7A0312FA215402FD0095C953 /* RemoteNotificationsFetchOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsFetchOperation.swift; sourceTree = "<group>"; };
+		7A0312FA215402FD0095C953 /* RemoteNotificationsFetchFirstPageOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsFetchFirstPageOperation.swift; sourceTree = "<group>"; usesTabs = 0; };
 		7A0312FE215422960095C953 /* RemoteNotificationsMarkAsReadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsMarkAsReadOperation.swift; sourceTree = "<group>"; };
-		7A03130221542F5C0095C953 /* RemoteNotificationsOperationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsOperationsController.swift; sourceTree = "<group>"; };
+		7A03130221542F5C0095C953 /* RemoteNotificationsOperationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsOperationsController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		7A06020D20EAAF5A00FBB71D /* ExploreFeedPreferencesUpdateCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreFeedPreferencesUpdateCoordinator.swift; sourceTree = "<group>"; };
 		7A07A46720AA3F5100F7B2BB /* WMFContentGroup+EventLogging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFContentGroup+EventLogging.swift"; sourceTree = "<group>"; };
 		7A07A46D20AA482C00F7B2BB /* SessionsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsFunnel.swift; sourceTree = "<group>"; };
@@ -6827,7 +6827,7 @@
 		7A03130021542F120095C953 /* Operations */ = {
 			isa = PBXGroup;
 			children = (
-				7A0312FA215402FD0095C953 /* RemoteNotificationsFetchOperation.swift */,
+				7A0312FA215402FD0095C953 /* RemoteNotificationsFetchFirstPageOperation.swift */,
 				7A0312FE215422960095C953 /* RemoteNotificationsMarkAsReadOperation.swift */,
 				7A5357AA215552E7007998DC /* RemoteNotificationsOperation.swift */,
 			);
@@ -11252,7 +11252,7 @@
 				D84C36201F32404700895FA1 /* OnThisDayExploreCollectionViewCell.swift in Sources */,
 				D84C361C1F32403D00895FA1 /* OnThisDayExploreCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
 				0066BE30265EC4A900512BE8 /* WidgetFeaturedContent.swift in Sources */,
-				7A0312FB215402FD0095C953 /* RemoteNotificationsFetchOperation.swift in Sources */,
+				7A0312FB215402FD0095C953 /* RemoteNotificationsFetchFirstPageOperation.swift in Sources */,
 				D82C3A99213451100073EEAC /* DeviceInfo.swift in Sources */,
 				6773B2022411D8600022A70E /* ArticleCacheDBWriter+SyncResources.swift in Sources */,
 				D80ACD291EA0DD0000DC3F20 /* FLAnimatedImage+SafeForSwift.m in Sources */,
