@@ -47,7 +47,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
-    
+
     [self.tableView registerNib:[WMFSettingsTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFSettingsTableViewCell identifier]];
 
     self.tableView.estimatedRowHeight = 52.0;
@@ -91,6 +91,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)viewWillAppear:(BOOL)animated {
     self.showCloseButton = self.tabBarController == nil;
+    [self configureNotificationsButton];
     [self.navigationController setNavigationBarHidden:YES];
     [super viewWillAppear:animated];
     self.navigationController.toolbarHidden = YES;
@@ -98,6 +99,13 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
     /// Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
     self.parentViewController.navigationItem.backButtonTitle = self.title;
+}
+
+- (void)configureNotificationsButton {
+    if ([[NSUserDefaults standardUserDefaults] defaultTabType] == WMFAppDefaultTabTypeSettings && [[[self dataStore] authenticationManager] isLoggedIn]) {
+        UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"notifications-bell"] style:UIBarButtonItemStylePlain target:self action:nil];
+        self.navigationItem.rightBarButtonItem = notificationsBarButton;
+    }
 }
 
 - (void)configureBackButton {
@@ -195,8 +203,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     }
 }
 
--(void)logNavigationEventsForMenuType:(WMFSettingsMenuItemType)type {
-    
+- (void)logNavigationEventsForMenuType:(WMFSettingsMenuItemType)type {
+
     switch (type) {
         case WMFSettingsMenuItemType_LoginAccount:
             [[WMFNavigationEventsFunnel shared] logTappedSettingsLoginLogout];
@@ -313,11 +321,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         default:
             break;
     }
-    
+
     if (cell.tag != WMFSettingsMenuItemType_SendUsageReports) { //logged elsewhere via disclosureSwitchChanged:
         [self logNavigationEventsForMenuType:cell.tag];
     }
-    
+
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -383,12 +391,13 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)logout {
     [self wmf_showKeepSavedArticlesOnDevicePanelIfNeededTriggeredBy:KeepSavedArticlesTriggerLogout
-                                                                     theme:self.theme
-                                                                completion:^{
-                                                                    [self.dataStore.authenticationManager logoutInitiatedBy:LogoutInitiatorUser completion:^{
-                                                                        [[LoginFunnel shared] logLogoutInSettings];
-                                                                    }];
-                                                                }];
+                                                              theme:self.theme
+                                                         completion:^{
+                                                             [self.dataStore.authenticationManager logoutInitiatedBy:LogoutInitiatorUser
+                                                                                                          completion:^{
+                                                                                                              [[LoginFunnel shared] logLogoutInSettings];
+                                                                                                          }];
+                                                         }];
 }
 
 #pragma mark - Languages
@@ -609,7 +618,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 #pragma Mark WMFAccountViewControllerDelegate
 
-- (void)accountViewControllerDidTapLogout:(WMFAccountViewController * _Nonnull)accountViewController {
+- (void)accountViewControllerDidTapLogout:(WMFAccountViewController *_Nonnull)accountViewController {
     [self logout];
     [self loadSections];
 }
