@@ -141,6 +141,7 @@
 		0066BE30265EC4A900512BE8 /* WidgetFeaturedContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0066BE2F265EC4A900512BE8 /* WidgetFeaturedContent.swift */; };
 		006D273524D8BAFB00947551 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D273424D8BAFB00947551 /* View+Extensions.swift */; };
 		006D273724D8D8D100947551 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006D273624D8D8D100947551 /* Date+Extensions.swift */; };
+		007B5FC526FA40F100180FF8 /* RemoteNotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007B5FC426FA40F000180FF8 /* RemoteNotificationType.swift */; };
 		007CCF0126D5A10200D5EA7C /* NotificationsCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007CCF0026D5A10100D5EA7C /* NotificationsCenterViewController.swift */; };
 		007CCF0226D5A10200D5EA7C /* NotificationsCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007CCF0026D5A10100D5EA7C /* NotificationsCenterViewController.swift */; };
 		007CCF0326D5A10200D5EA7C /* NotificationsCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007CCF0026D5A10100D5EA7C /* NotificationsCenterViewController.swift */; };
@@ -3595,7 +3596,8 @@
 		0066BE2F265EC4A900512BE8 /* WidgetFeaturedContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetFeaturedContent.swift; sourceTree = "<group>"; };
 		006D273424D8BAFB00947551 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; usesTabs = 0; };
 		006D273624D8D8D100947551 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; usesTabs = 0; };
-		007CCF0026D5A10100D5EA7C /* NotificationsCenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
+		007B5FC426FA40F000180FF8 /* RemoteNotificationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteNotificationType.swift; sourceTree = "<group>"; };
+		007CCF0026D5A10100D5EA7C /* NotificationsCenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterViewController.swift; sourceTree = "<group>"; };
 		007CCF0626D5A17200D5EA7C /* NotificationsCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterView.swift; sourceTree = "<group>"; };
 		007CCF0B26D5A5E400D5EA7C /* NotificationsCenterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterViewModel.swift; sourceTree = "<group>"; };
 		007CCF1026D5BF1300D5EA7C /* NotificationsCenterPresentationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterPresentationDelegate.swift; sourceTree = "<group>"; };
@@ -6910,6 +6912,7 @@
 				7A9133A822B162E7002AEBCF /* RemoteNotifications.xcdatamodeld */,
 				7A96C4B72155413E00E8E0C1 /* RemoteNotification+CoreDataClass.swift */,
 				670AF1CD26CA188B005F76D0 /* RemoteNotificationLinks.swift */,
+				007B5FC426FA40F000180FF8 /* RemoteNotificationType.swift */,
 				670AF1CB26CA13DC005F76D0 /* RemoteNotification+CoreDataProperties.swift */,
 				7A0312F62153C4990095C953 /* RemoteNotificationsModelController.swift */,
 			);
@@ -11442,6 +11445,7 @@
 				8380753B20DC7D04000D222C /* ColumnarCollectionViewLayoutMetrics.swift in Sources */,
 				D82CA3332020E8D8005C2D5C /* ReadingListsSyncOperation.swift in Sources */,
 				8387CE9024C99C2600439D93 /* WMFMTLModel.m in Sources */,
+				007B5FC526FA40F100180FF8 /* RemoteNotificationType.swift in Sources */,
 				7AD5D453223874F600C01164 /* RelatedSearchFetcher.swift in Sources */,
 				8386BDF12386D3E1007EE89D /* RequestError.swift in Sources */,
 				67540CA924D221E3008B2894 /* LocationManagerFactory.swift in Sources */,
