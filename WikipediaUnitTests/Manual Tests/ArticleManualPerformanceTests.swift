@@ -66,21 +66,17 @@ class ArticleManualPerformanceTests: XCTestCase {
             
             let contextExpectation = expectation(description: "Waiting for context menu configuration call")
             
-            if #available(iOS 13.0, *) {
-                articleVC.contextMenuConfigurationForLinkURL(appSchemeArticleURL) { (completionType, menuConfig) in
-                    if completionType == .bail {
-                       XCTFail("Menu config should not bail.")
-                    }
-                    
-                    if completionType == .timeout {
-                        XCTFail("Menu config should not time out.")
-                    }
-                    
-                    contextExpectation.fulfill()
-                    dataStore.clearTemporaryCache()
+            articleVC.contextMenuConfigurationForLinkURL(appSchemeArticleURL) { (completionType, menuConfig) in
+                if completionType == .bail {
+                   XCTFail("Menu config should not bail.")
                 }
-            } else {
+                
+                if completionType == .timeout {
+                    XCTFail("Menu config should not time out.")
+                }
+                
                 contextExpectation.fulfill()
+                dataStore.clearTemporaryCache()
             }
         
             wait(for: [contextExpectation], timeout: timeout)

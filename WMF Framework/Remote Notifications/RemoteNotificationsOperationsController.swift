@@ -57,16 +57,8 @@ class RemoteNotificationsOperationsController: NSObject {
         NotificationCenter.default.addObserver(self, selector: #selector(modelControllerDidLoadPersistentStores(_:)), name: RemoteNotificationsModelController.didLoadPersistentStoresNotification, object: nil)
     }
     
-    func deleteOldDatabaseFiles() throws {
-        let modelName = RemoteNotificationsModelController.modelName
-        let sharedAppContainerURL = FileManager.default.wmf_containerURL()
-        let legacyRemoteNotificationsStorageUrl = sharedAppContainerURL.appendingPathComponent(modelName)
-        let legecyJournalShmUrl = sharedAppContainerURL.appendingPathComponent("\(modelName)-shm")
-        let legecyJournalWalUrl = sharedAppContainerURL.appendingPathComponent("\(modelName)-wal")
-        
-        try FileManager.default.removeItem(at: legacyRemoteNotificationsStorageUrl)
-        try FileManager.default.removeItem(at: legecyJournalShmUrl)
-        try FileManager.default.removeItem(at: legecyJournalWalUrl)
+    func deleteLegacyDatabaseFiles() throws {
+        modelController?.deleteLegacyDatabaseFiles()
     }
 
     deinit {
@@ -98,7 +90,7 @@ class RemoteNotificationsOperationsController: NSObject {
             guard let self = self else {
                 return
             }
-            
+
             var projects: [RemoteNotificationsProject] = []
             for languageCode in preferredLanguageCodes {
                 projects.append(.language(languageCode))
@@ -112,15 +104,14 @@ class RemoteNotificationsOperationsController: NSObject {
                 let operation = RemoteNotificationsFetchFirstPageOperation(with: self.apiController, modelController: modelController, project: project, cookieDomain: self.cookieDomainForProject(project))
                 operations.append(operation)
             }
-            
+
             let completionOperation = BlockOperation(block: completion)
             completionOperation.queuePriority = .veryHigh
-            
+
             for operation in operations {
                 completionOperation.addDependency(operation)
             }
-            
-            
+
             self.operationQueue.addOperations(operations + [completionOperation], waitUntilFinished: false)
         })
     }

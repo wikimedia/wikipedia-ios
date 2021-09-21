@@ -437,7 +437,7 @@
 "featured-widget-description" = "Découvrir les meilleurs articles sur Wikipédia, sélectionnés chaque jour par notre communauté.";
 "featured-widget-from-language-wikipedia" = "De Wikipédia en $1";
 "featured-widget-from-wikipedia" = "De Wikipédia";
-"featured-widget-language-failure" = "Le Wikipédia de votre langue principale ne supporte pas l’article mis en avant. Vous pouvez mettre à jour votre Wikipédia principal dans le menu Paramètres de l’application.";
+"featured-widget-language-failure" = "La Wikipédia de votre langue principale ne prend pas en charge l’article mis en avant. Vous pouvez mettre à jour votre Wikipédia principale dans le menu Paramètres de l’application.";
 "featured-widget-title" = "Article mis en avant";
 "feed-news-notification-button-text" = "Activer les notifications";
 "feed-news-notification-text" = "Activer les notifications envoyées par Wikipédia quand des articles suivent la tendance de l’actualité.";
@@ -591,7 +591,7 @@
 "on-this-day-detail-header-title" = "$1 événement{{PLURAL:$1||s}} historique{{PLURAL:$1||s}}";
 "on-this-day-footer" = "Plus d’événements historiques de ce jour";
 "on-this-day-footer-showing-event-count" = "{{PLURAL:$1|$1 événement historique|$1 événements historiques}} de plus pour ce jour";
-"on-this-day-language-does-not-support-error" = "Le Wikipédia de votre langue principale ne supporte pas Ce jour. Vous pouvez mettre à jour votre Wikipédia principal dans le menu Paramètres de l’application.";
+"on-this-day-language-does-not-support-error" = "La Wikipédia de votre langue principale ne prend pas en charge Ce jour. Vous pouvez mettre à jour votre Wikipédia principale dans le menu Paramètres de l’application.";
 "on-this-day-no-internet-error" = "Aucune donnée disponible";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 sur Wikipédia en $2";
 "on-this-day-title" = "Ce jour-là";
@@ -901,7 +901,7 @@
 "top-read-header-with-language" = "Wikipédia en $1";
 "top-read-see-more" = "Voir d’autres articles les plus lus";
 "top-read-widget-description" = "Apprendre ce que le monde lit aujourd’hui sur Wikipédia.";
-"top-read-widget-readers-count" = "$1 lecteurs";
+"top-read-widget-readers-count" = "$1 lecteurs";
 "top-read-widget-title" = "Les plus lus";
 "two-factor-login-continue" = "Continuer la connexion";
 "two-factor-login-instructions" = "Veuillez entrer le code de vérification à deux facteurs";

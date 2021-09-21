@@ -33,11 +33,13 @@ import CocoaLumberjackSwift
 }
 
 final class RemoteNotificationsModelController: NSObject {
-    public static let modelDidChangeNotification = NSNotification.Name(rawValue: "RemoteNotificationsModelDidChange")
     public static let didLoadPersistentStoresNotification = NSNotification.Name(rawValue: "ModelControllerDidLoadPersistentStores")
     
-    let backgroundContext: NSManagedObjectContext
+    //TODO: Look into removing this in the future (some legacy code still uses this)
+    let legacyBackgroundContext: NSManagedObjectContext
+    
     let viewContext: NSManagedObjectContext
+    let persistentContainer: NSPersistentContainer
 
     enum InitializationError: Error {
         case unableToCreateModelURL(String, String, Bundle)
@@ -74,6 +76,7 @@ final class RemoteNotificationsModelController: NSObject {
         let container = NSPersistentContainer(name: modelName, managedObjectModel: model)
         let sharedAppContainerURL = FileManager.default.wmf_containerURL()
         let remoteNotificationsStorageURL = sharedAppContainerURL.appendingPathComponent("\(modelName).sqlite")
+
         let description = NSPersistentStoreDescription(url: remoteNotificationsStorageURL)
         container.persistentStoreDescriptions = [description]
         container.loadPersistentStores { (storeDescription, error) in
@@ -81,17 +84,41 @@ final class RemoteNotificationsModelController: NSObject {
                 NotificationCenter.default.post(name: RemoteNotificationsModelController.didLoadPersistentStoresNotification, object: error)
             }
         }
-        backgroundContext = container.newBackgroundContext()
-        backgroundContext.name = "RemoteNotificationsBackgroundContext"
-        backgroundContext.automaticallyMergesChangesFromParent = true
-        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        legacyBackgroundContext = container.newBackgroundContext()
+        legacyBackgroundContext.name = "RemoteNotificationsLegacyBackgroundContext"
+        legacyBackgroundContext.automaticallyMergesChangesFromParent = true
+        legacyBackgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         
         viewContext = container.viewContext
         viewContext.name = "RemoteNotificationsViewContext"
         viewContext.automaticallyMergesChangesFromParent = true
         viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
         
+        self.persistentContainer = container
+        
         super.init()
+    }
+    
+    func deleteLegacyDatabaseFiles() {
+        let modelName = Self.modelName
+        let sharedAppContainerURL = FileManager.default.wmf_containerURL()
+        let legacyStorageURL = sharedAppContainerURL.appendingPathComponent(modelName)
+        do {
+            try persistentContainer.persistentStoreCoordinator.destroyPersistentStore(at: legacyStorageURL, ofType: NSSQLiteStoreType, options: nil)
+        } catch (let error) {
+            DDLogError("Error with destroyPersistentStore for RemoteNotifications: \(error)")
+        }
+        
+        let legecyJournalShmUrl = sharedAppContainerURL.appendingPathComponent("\(modelName)-shm")
+        let legecyJournalWalUrl = sharedAppContainerURL.appendingPathComponent("\(modelName)-wal")
+        
+        do {
+            try FileManager.default.removeItem(at: legacyStorageURL)
+            try FileManager.default.removeItem(at: legecyJournalShmUrl)
+            try FileManager.default.removeItem(at: legecyJournalWalUrl)
+        } catch (let error) {
+            DDLogError("Error deleting legacy RemoteNotifications database files: \(error)")
+        }
     }
 
     deinit {
@@ -99,6 +126,14 @@ final class RemoteNotificationsModelController: NSObject {
     }
 
     typealias ResultHandler = (Set<RemoteNotification>?) -> Void
+    
+    public func newBackgroundContext() -> NSManagedObjectContext {
+        let backgroundContext = persistentContainer.newBackgroundContext()
+        backgroundContext.name = "RemoteNotificationsBackgroundContext"
+        backgroundContext.automaticallyMergesChangesFromParent = true
+        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        return backgroundContext
+    }
 
     public func getUnreadNotifications(_ completion: @escaping ResultHandler) {
         return notifications(with: NSPredicate(format: "isRead == %@", NSNumber(value: false)), completion: completion)
@@ -115,7 +150,7 @@ final class RemoteNotificationsModelController: NSObject {
     private func notifications(with predicate: NSPredicate? = nil, completion: @escaping ResultHandler) {
         let fetchRequest: NSFetchRequest<RemoteNotification> = RemoteNotification.fetchRequest()
         fetchRequest.predicate = predicate
-        let moc = backgroundContext
+        let moc = legacyBackgroundContext
         moc.perform {
             guard let notifications = try? moc.fetch(fetchRequest) else {
                 completion(nil)
@@ -125,8 +160,7 @@ final class RemoteNotificationsModelController: NSObject {
         }
     }
 
-    private func save() {
-        let moc = backgroundContext
+    private func save(moc: NSManagedObjectContext) {
         if moc.hasChanges {
             do {
                 try moc.save()
@@ -136,12 +170,12 @@ final class RemoteNotificationsModelController: NSObject {
         }
     }
 
-    public func createNewNotifications(from notificationsFetchedFromTheServer: Set<RemoteNotificationsAPIController.NotificationsResult.Notification>, completion: @escaping () -> Void) throws {
-        backgroundContext.perform {
+    public func createNewNotifications(moc: NSManagedObjectContext, notificationsFetchedFromTheServer: Set<RemoteNotificationsAPIController.NotificationsResult.Notification>, completion: @escaping () -> Void) throws {
+        moc.perform {
             for notification in notificationsFetchedFromTheServer {
-                self.createNewNotification(from: notification)
+                self.createNewNotification(moc: moc, notification: notification)
             }
-            self.save()
+            self.save(moc: moc)
             completion()
         }
     }
@@ -149,14 +183,14 @@ final class RemoteNotificationsModelController: NSObject {
     // Reminder: Methods that access managedObjectContext should perform their operations
     // inside the perform(_:) or the performAndWait(_:) methods.
     // https://developer.apple.com/documentation/coredata/using_core_data_in_the_background
-    private func createNewNotification(from notification: RemoteNotificationsAPIController.NotificationsResult.Notification) {
+    private func createNewNotification(moc: NSManagedObjectContext, notification: RemoteNotificationsAPIController.NotificationsResult.Notification) {
         guard let date = date(from: notification.timestamp.utciso8601) else {
             assertionFailure("Notification should have a date")
             return
         }
 
         let isRead = notification.readString == nil ? NSNumber(booleanLiteral: false) : NSNumber(booleanLiteral: true)
-        let _ = backgroundContext.wmf_create(entityNamed: "RemoteNotification",
+        let _ = moc.wmf_create(entityNamed: "RemoteNotification",
                                                 withKeysAndValues: [
                                                     "wiki": notification.wiki,
                                                     "id": notification.id,
@@ -185,43 +219,13 @@ final class RemoteNotificationsModelController: NSObject {
         return DateFormatter.wmf_iso8601()?.date(from: dateString)
     }
 
-    public func updateNotifications(_ savedNotifications: Set<RemoteNotification>, with notificationsFetchedFromTheServer: Set<RemoteNotificationsAPIController.NotificationsResult.Notification>, completion: @escaping () -> Void) throws {
-        let savedIDs = Set(savedNotifications.compactMap { $0.id })
-        let fetchedIDs = Set(notificationsFetchedFromTheServer.compactMap { $0.id })
-        let commonIDs = savedIDs.intersection(fetchedIDs)
-        let moc = backgroundContext
-
-        moc.perform {
-            // Delete notifications that were marked as read on the server
-            for notification in savedNotifications {
-                guard let id = notification.id, !commonIDs.contains(id) else {
-                    continue
-                }
-                moc.delete(notification)
-            }
-
-            for notification in notificationsFetchedFromTheServer {
-                guard !commonIDs.contains(notification.id) else {
-                    if let savedNotification = savedNotifications.first(where: { $0.id == notification.id }) {
-                        // Update notifications that weren't seen so that moc is notified of the update
-                        savedNotification.isRead = true
-                    }
-                    continue
-                }
-                self.createNewNotification(from: notification)
-            }
-
-            self.save()
-            completion()
-        }
-    }
-
     // MARK: Mark as read
 
     public func markAsRead(_ notification: RemoteNotification) {
-        self.backgroundContext.perform {
+        let moc = legacyBackgroundContext
+        moc.perform {
             notification.isRead = true
-            self.save()
+            self.save(moc: moc)
         }
     }
 
@@ -232,7 +236,7 @@ final class RemoteNotificationsModelController: NSObject {
     }
 
     private func processNotificationWithID(_ notificationID: String, handler: @escaping (RemoteNotification) -> Void) {
-        let moc = backgroundContext
+        let moc = legacyBackgroundContext
         moc.perform {
             let fetchRequest: NSFetchRequest<RemoteNotification> = RemoteNotification.fetchRequest()
             fetchRequest.fetchLimit = 1
@@ -242,7 +246,7 @@ final class RemoteNotificationsModelController: NSObject {
                 return
             }
             handler(notification)
-            self.save()
+            self.save(moc: moc)
         }
     }
 }

@@ -739,12 +739,8 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             }
         }
         
-        if #available(iOSApplicationExtension 13.0, *) {
-            let mergedDescription = ListFormatter.localizedString(byJoining: sortedDescriptions.map { $0.text })
-            return mergedDescription.isEmpty ? nil : mergedDescription
-        } else {
-            return nil
-        }
+        let mergedDescription = ListFormatter.localizedString(byJoining: sortedDescriptions.map { $0.text })
+        return mergedDescription.isEmpty ? nil : mergedDescription
     }
     
     // if trait collection or theme is different from the last time attributed strings were generated,
@@ -1546,15 +1542,11 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     private func mutableString(from text: String, linkedTo urlString: String?, with textAttributes: [NSAttributedString.Key:Any], linkColor: UIColor) -> NSMutableAttributedString {
         let mutableAttributedString: NSMutableAttributedString
         if let urlString = urlString, let url = URL(string: urlString), let externalLinkIcon = UIImage(named: "mini-external") {
-            if #available(iOSApplicationExtension 13.0, *) {
-                mutableAttributedString = NSMutableAttributedString(string: text.trimmingCharacters(in: .whitespaces), attributes: textAttributes)
-                mutableAttributedString.append(NSAttributedString(string: " "))
-                let externalLinkString = NSAttributedString(attachment: NSTextAttachment(image: externalLinkIcon))
-                mutableAttributedString.append(externalLinkString)
-                mutableAttributedString.append(NSAttributedString(string: " "))
-            } else {
-                mutableAttributedString = NSMutableAttributedString(string: text, attributes: textAttributes)
-            }
+            mutableAttributedString = NSMutableAttributedString(string: text.trimmingCharacters(in: .whitespaces), attributes: textAttributes)
+            mutableAttributedString.append(NSAttributedString(string: " "))
+            let externalLinkString = NSAttributedString(attachment: NSTextAttachment(image: externalLinkIcon))
+            mutableAttributedString.append(externalLinkString)
+            mutableAttributedString.append(NSAttributedString(string: " "))
             let range = NSRange(location: 0, length: mutableAttributedString.length)
             mutableAttributedString.addAttributes([NSAttributedString.Key.link : url,
                                              NSAttributedString.Key.foregroundColor: linkColor], range: range)

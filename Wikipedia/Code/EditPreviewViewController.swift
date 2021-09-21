@@ -260,14 +260,17 @@ extension EditPreviewViewController: ArticleWebMessageHandling {
     }
 }
 
-// MARK:- Context Menu (iOS 13 and later)
-// All functions in this extension are for Context Menus (used in iOS 13 and later)
+// MARK:- Context Menu
+
 extension EditPreviewViewController: ArticleContextMenuPresenting, WKUIDelegate {
+    var configuration: Configuration {
+        return Configuration.current
+    }
+    
     func getPeekViewControllerAsync(for destination: Router.Destination, completion: @escaping (UIViewController?) -> Void) {
         completion(getPeekViewController(for: destination))
     }
 
-    @available(iOS 13.0, *)
     func webView(_ webView: WKWebView, contextMenuConfigurationForElement elementInfo: WKContextMenuElementInfo, completionHandler: @escaping (UIContextMenuConfiguration?) -> Void) {
 
         self.contextMenuConfigurationForElement(elementInfo, completionHandler: completionHandler)
@@ -276,7 +279,6 @@ extension EditPreviewViewController: ArticleContextMenuPresenting, WKUIDelegate 
 //    func webView(_ webView: WKWebView, contextMenuForElement elementInfo: WKContextMenuElementInfo, willCommitWithAnimator animator: UIContextMenuInteractionCommitAnimating)
 //    No function with this signature, as we don't want to have any context menu elements in preview - and we get that behavior by default by not implementing this.
 
-    // This function is used by both Peek/Pop and Context Menu (can remove this note when removing rest of Peek/Pop code, when oldest supported version is iOS 13)
     func getPeekViewController(for destination: Router.Destination) -> UIViewController? {
         let dataStore = MWKDataStore.shared()
         switch destination {
@@ -287,34 +289,7 @@ extension EditPreviewViewController: ArticleContextMenuPresenting, WKUIDelegate 
         }
     }
 
-    // This function is used by both Peek/Pop and Context Menu (can remove this note when removing rest of Peek/Pop code, when oldest supported version is iOS 13)
     // This function needed is for ArticleContextMenuPresenting, but not applicable to EditPreviewVC
     func hideFindInPage(_ completion: (() -> Void)? = nil) {
-    }
-}
-
-// MARK: Peek/Pop (iOS 12 and earlier, on devices w/ 3D Touch)
-// All functions in this extension are for 3D Touch menus. (Can be removed when the oldest supported version is iOS 13.)
-extension EditPreviewViewController {
-    var configuration: Configuration {
-        return Configuration.current
-    }
-
-    func webView(_ webView: WKWebView, shouldPreviewElement elementInfo: WKPreviewElementInfo) -> Bool {
-        return self.shouldPreview(linkURL: elementInfo.linkURL)
-    }
-
-    func webView(_ webView: WKWebView, previewingViewControllerForElement elementInfo: WKPreviewElementInfo, defaultActions previewActions: [WKPreviewActionItem]) -> UIViewController? {
-        return self.previewingViewController(for: elementInfo.linkURL)
-    }
-
-    func webView(_ webView: WKWebView, commitPreviewingViewController previewingViewController: UIViewController) {
-        // If EditPreviewInternalLinkViewController ever gets refactored, would be nice to break apart it's internal containerView so that here we could wrap
-        // previewingViewController in an EditPreviewInternalLinkViewController. (For now, just loading a new EditPreviewInternalLinkVC would load the articleURL in
-        // viewDidLoad - before we could hijack it - and so we're just reloading our preview again.)
-        guard let url = (previewingViewController as? ArticlePeekPreviewViewController)?.articleURL else {
-            return
-        }
-        showInternalLink(url: url)
     }
 }

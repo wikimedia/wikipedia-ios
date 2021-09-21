@@ -11,7 +11,7 @@
     CGPoint locationInSuperview = [subview convertPoint:CGPointZero toView:self.superview];
     // Determine how far the scroll view will need to be scrolled to move the subview's top
     // just beneath the navigation bar.
-    CGFloat yOffset = self.contentOffset.y + (locationInSuperview.y - self.scrollIndicatorInsets.top) - offset;
+    CGFloat yOffset = self.contentOffset.y + (locationInSuperview.y - self.verticalScrollIndicatorInsets.top) - offset;
     // Scroll!
     [self setContentOffset:CGPointMake(self.contentOffset.x, yOffset) animated:animated];
 }

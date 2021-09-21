@@ -512,7 +512,7 @@
 "no-internet-connection-article-reload-button" = "ကလေင်အာ မူမဂိုင်ဒေပ်လဝ် လက်ကရဴအိုတ်";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
-"number-thousands" = "$1K";
+"number-thousands" = "$1လ္ၚီ";
 "on-this-day-detail-header-date-range" = "နူ $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historical event|$1 historical events}}";
 "on-this-day-footer" = "သဘင်မကတဵုဒှ်လဝ် တၞဟ်ဟ် ပ္ဍဲတ္ၚဲဏအ်";

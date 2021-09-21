@@ -5,7 +5,7 @@ protocol PageHistoryFilterCountsViewControllerDelegate: AnyObject {
 }
 
 class PageHistoryFilterCountsViewController: UIViewController {
-    private let activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
+    private let activityIndicator = UIActivityIndicatorView(style: .large)
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
 
     weak var delegate: PageHistoryFilterCountsViewControllerDelegate?
@@ -61,7 +61,7 @@ class PageHistoryFilterCountsViewController: UIViewController {
         view.wmf_addSubviewWithConstraintsToEdges(collectionView)
 
         addActivityIndicator()
-        activityIndicator.style = theme.isDark ? .white : .gray
+        activityIndicator.color = theme.isDark ? .white : .gray
         activityIndicator.startAnimating()
 
         flowLayout.scrollDirection = .horizontal
@@ -146,6 +146,6 @@ extension PageHistoryFilterCountsViewController: Themeable {
         }
         view.backgroundColor = theme.colors.paperBackground
         collectionView.backgroundColor = view.backgroundColor
-        activityIndicator.style = theme.isDark ? .white : .gray
+        activityIndicator.color = theme.isDark ? .white : .gray
     }
 }

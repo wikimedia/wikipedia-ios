@@ -201,7 +201,7 @@ class EditLinkViewController: ViewController {
         closeButton.tintColor = theme.colors.primaryText
         doneButton.tintColor = theme.colors.link
         displayTextView.textColor = theme.colors.primaryText
-        activityIndicatorView.style = theme.isDark ? .white : .gray
+        activityIndicatorView.color = theme.isDark ? .white : .gray
     }
 }
 

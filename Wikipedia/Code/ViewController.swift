@@ -142,7 +142,7 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
         guard navigationMode != .detail else {
             return true
         }
-        return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.phone ? view.bounds.size.width > view.bounds.size.height : false
+        return UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone ? view.bounds.size.width > view.bounds.size.height : false
     }
     
     open var scrollView: UIScrollView? {
@@ -158,9 +158,7 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if #available(iOS 13.0, *) {
-            scrollView?.automaticallyAdjustsScrollIndicatorInsets = false
-        }
+        scrollView?.automaticallyAdjustsScrollIndicatorInsets = false
         scrollView?.contentInsetAdjustmentBehavior = .never
  
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(_:)), name: UIWindow.keyboardWillChangeFrameNotification, object: nil)
@@ -302,7 +300,7 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
             top += rc.frame.height
         }
         let contentInset = UIEdgeInsets(top: top, left: scrollView.contentInset.left, bottom: bottom, right: scrollView.contentInset.right)
-        if scrollView.setContentInset(contentInset, scrollIndicatorInsets: scrollIndicatorInsets, preserveContentOffset: navigationBar.isAdjustingHidingFromContentInsetChangesEnabled, preserveAnimation: shouldAnimateWhileUpdatingScrollViewInsets) {
+        if scrollView.setContentInset(contentInset, verticalScrollIndicatorInsets: scrollIndicatorInsets, preserveContentOffset: navigationBar.isAdjustingHidingFromContentInsetChangesEnabled, preserveAnimation: shouldAnimateWhileUpdatingScrollViewInsets) {
             scrollViewInsetsDidChange()
         }
     }

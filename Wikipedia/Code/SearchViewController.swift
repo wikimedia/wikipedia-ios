@@ -530,11 +530,20 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     }
     
     override func articleURL(at indexPath: IndexPath) -> URL? {
-        return nil
+        // This guard checks prevents an out of bounds exception, this is due to
+        // `resultsViewController.results` property being empty until performing a search.
+        // The indexPath.row must also be greater than `countOfRecentSearches`, this
+        // ensures that recent search cells remains unchanged and only the delete option
+        // is available.
+        guard
+            !resultsViewController.results.isEmpty,
+            indexPath.row > countOfRecentSearches
+            else { return nil }
+        return resultsViewController.results[indexPath.row].articleURL(forSiteURL: siteURL)
     }
     
     override func article(at indexPath: IndexPath) -> WMFArticle? {
-        return nil
+        return resultsViewController.article(at: indexPath)
     }
     
     override func canDelete(at indexPath: IndexPath) -> Bool {

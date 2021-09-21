@@ -16,6 +16,7 @@
 // Author: Piramidion
 // Author: SimondR
 // Author: Sir-nik
+// Author: Tsevener
 // Author: Visem
 // Author: Vlad5250
 // Author: Ата
@@ -104,13 +105,13 @@
 "account-talk-preferences-auto-sign-discussions" = "Автоматичний підпис в обговореннях";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "В обговоренні використовуватиметься той підпис, що зазначений у ваших налаштуваннях";
 "account-talk-preferences-title" = "Налаштування сторінки обговорення";
-"action-add-to" = "Додати до...";
+"action-add-to" = "Додати до…";
 "action-add-to-reading-list" = "Додати до читального списку";
 "action-add-to-reading-list-short" = "Додати до списку";
 "action-cancel" = "Скасувати";
 "action-find-in-page" = "Знайти на сторінці";
 "action-language-accessibility" = "Змінити мову";
-"action-move-to" = "Перенести до...";
+"action-move-to" = "Перенести до…";
 "action-move-to-reading-list" = "Перенести до читального списку";
 "action-next-revision-accessibility" = "Наступна версія";
 "action-previous-revision-accessibility" = "Попередня версія";
@@ -211,7 +212,7 @@
 "description-help-wikidata-guide" = "Довідка Вікіданих зі створення описів";
 "description-published-button-title" = "Готово";
 "description-published-footer" = "У цьому додатку ви також можете редагувати статті. Натисніть на іконку із зображенням ручки, аби виправити описки та невеликі речення";
-"description-published-subtitle" = "Ви щойно зробили Вікіпедію кращею для всіх";
+"description-published-subtitle" = "Ви щойно зробили Вікіпедію кращою для всіх";
 "description-published-title" = "Опис опубліковано!";
 "description-welcome-concise-sub-title" = "В ідеалі один рядок від двох до дванадцяти слів";
 "description-welcome-concise-title" = "Будь ласка, коротше";
@@ -312,7 +313,7 @@
 "edit-watch-this-page-text" = "Спостерігати за цією сторінкою";
 "editing-welcome-be-bold-subtitle" = "Редагуйте сміливо, але обдумано. Не засмучуйтеся через помилки — кожна версія статті зберігається, тому помилки можуть легко бути виправлені нашою спільнотою.";
 "editing-welcome-be-bold-title" = "Ваш голос важливий";
-"editing-welcome-citations-subtitle" = "Уся інформація має бути перевірена. Додаючи нову інформацію до статті, редактори мають вказувати посилання на надійне джерело інформації, що підтверджує дану інформацію.";
+"editing-welcome-citations-subtitle" = "Уся інформація має бути перевірена. Додаючи нову інформацію до статті, редактори мають вказувати посилання на надійне джерело інформації, що підтверджує цю інформацію.";
 "editing-welcome-citations-title" = "Користуйтеся перевіреними джерелами";
 "editing-welcome-impartial-tone-subtitle" = "Ми прагнемо, щоб статті були написані безпристрастно. Під час редагування намагайтеся дотримуватися достовірного представлення світу, як його описують надійні джерела.";
 "editing-welcome-impartial-tone-title" = "Пишіть неупереджено";
@@ -423,6 +424,12 @@
 "explore-random-article-sub-heading-from-wikipedia" = "З Вікіпедії";
 "explore-randomizer" = "Рандомайзер";
 "featured-article-empty-title" = "Немає обраних статей на сьогодні";
+"featured-widget-content-failure-for-date" = "На цю дату недоступна вибрана стаття.";
+"featured-widget-description" = "Відкрийте найкращі статті Вікіпедії, які обираються вашою спільнотою щоденно.";
+"featured-widget-from-language-wikipedia" = "Із Вікіпедії мовою «$1»";
+"featured-widget-from-wikipedia" = "З Вікіпедії";
+"featured-widget-language-failure" = "Ваша основна мова Вікіпедії не підтримує вибрані статті. Ви можете оновити основну мову Вікіпедії у меню налаштувань застосунка.";
+"featured-widget-title" = "Вибрана стаття";
 "feed-news-notification-button-text" = "Увімкнути сповіщення";
 "feed-news-notification-text" = "Увімкніть сповіщення, аби дізнаватися про статті Вікіпедії, що пов'язані з останніми новинами.";
 "fetcher-error-generic" = "Щось пішло не так. Будь ласка, спробуйте ще раз пізніше.";
@@ -505,7 +512,7 @@
 "insert-media-image-position-settings-title" = "Розміщення зображення";
 "insert-media-image-preview-more-information-action-title" = "Додаткова інформація";
 "insert-media-image-preview-select-image-action-title" = "Вибрати зображення";
-"insert-media-image-size-setting-custom" = "Налаштовуваний";
+"insert-media-image-size-setting-custom" = "Користувацький";
 "insert-media-image-size-setting-default" = "Типовий";
 "insert-media-image-size-settings-px-unit-name" = "пкс";
 "insert-media-image-size-settings-title" = "Розмір зображення";
@@ -537,7 +544,7 @@
 "logged-out-subtitle" = "Під час автентифікації вашого облікового запису виникла проблема. Вам потрібно ще раз увійти, аби можна було узгодити читальні списки та редагувати під вашим ім'ям користувача.";
 "logged-out-title" = "Ви вийшли із системи";
 "login-forgot-password" = "Забули свій пароль?";
-"login-join-wikipedia" = "Приєднайтесь до Вікіпедії.";
+"login-join-wikipedia" = "Приєднайтеся до Вікіпедії.";
 "login-no-account" = "Не маєте облікового запису? $1";
 "login-title" = "Вхід до вашого облікового запису";
 "main-menu-about" = "Про додаток";
@@ -575,6 +582,8 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 історична подія|$1 історичні події|$1 історичних подій}}";
 "on-this-day-footer" = "Більше історичних подій цього дня";
 "on-this-day-footer-showing-event-count" = "{{PLURAL:$1|Ще $1 історична подія|Ще $1 історичні події|Ще $1 історичних подій}} цього дня";
+"on-this-day-language-does-not-support-error" = "Ваша основна мова Вікіпедії не підтримує «Цього дня». Ви можете оновити свою основну Вікіпедію у меню налаштувань застосунку.";
+"on-this-day-no-internet-error" = "Немає доступних даних";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 у Вікіпедії мовою «$2»";
 "on-this-day-title" = "Цього дня";
 "original-tab-button-popover-description" = "Натисніть «W», аби повернутися до вкладинки, з якої ви почали";
@@ -639,6 +648,9 @@
 "places-unknown-distance" = "невідома відстань";
 "potd-description-prefix" = "Зображення дня за $1";
 "potd-empty-error-description" = "Не вдалося отримати зображення дня за $1";
+"potd-sample-entry-description" = "Два бики біжать, а жокей за них тримається, під час паку-яві (мовою мінангкабау «перегони биків»), традиційних бичачих перегонів у Танах-Датарі в Західній Суматрі (Індонезія). 2015 рік, фінал-45.";
+"potd-widget-description" = "Насолоджуйтеся чудовою щоденною світлиною, обраною нашою спільнотою.";
+"potd-widget-title" = "Зображення дня";
 "preference-summary-eventlogging-opt-in" = "Дозвольте Фондові Вікімедіа збирати відомості про те, як ви користуєтеся додатком, аби вдосконалити його";
 "preference-title-eventlogging-opt-in" = "Надсилати звіти про використання";
 "rank-accessibility-label" = "Номер $1";
@@ -879,6 +891,9 @@
 "top-read-header-generic" = "Вікіпедія";
 "top-read-header-with-language" = "$1 Вікіпедія";
 "top-read-see-more" = "Дивитися більше найчитаніших";
+"top-read-widget-description" = "Дізнайтеся, що світ читає у Вікіпедії сьогодні.";
+"top-read-widget-readers-count" = "$1 читачів";
+"top-read-widget-title" = "Найчитаніше";
 "two-factor-login-continue" = "Продовжити вхід";
 "two-factor-login-instructions" = "Будь ласка, введіть код двофакторної верифікації";
 "two-factor-login-title" = "Вхід до вашого облікового запису";
@@ -915,6 +930,9 @@
 "welcome-send-data-learn-more" = "Дізнатися детальніше про збір даних";
 "welcome-send-data-sub-title" = "Допоможіть Фондові Вікімедіа поліпшити цей додаток, повідомивши нас про те, яким чином ви ним користуєтеся. Зібрані дані є анонімними.";
 "welcome-volunteer-send-usage-reports" = "Надсилати звіти про використання";
+"widget-onthisday-description" = "Дізнайтеся, що сталося цього дня в історії.";
+"widget-onthisday-placeholder-article-snippet" = "Вільна онлайн-енциклопедія, яку може редагувати будь-хто";
+"widget-onthisday-placeholder-event-snippet" = "Вікіпедія, вільна вікі-енциклопедія, з'явилася онлайн.";
 "wikitext-downloading" = "Завантаження вмісту…";
 "wikitext-preview-changes" = "Отримання попереднього перегляду змін…";
 "wikitext-preview-changes-none" = "Не було внесено жодних змін, які можна було б переглянути.";

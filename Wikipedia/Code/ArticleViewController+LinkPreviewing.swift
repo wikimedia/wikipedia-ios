@@ -84,12 +84,10 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
         return actions
     }
 
-    @available(iOS 13.0, *)
     func webView(_ webView: WKWebView, contextMenuConfigurationForElement elementInfo: WKContextMenuElementInfo, completionHandler: @escaping (UIContextMenuConfiguration?) -> Void) {
         self.contextMenuConfigurationForElement(elementInfo, completionHandler: completionHandler)
     }
 
-    @available(iOS 13.0, *)
     func webView(_ webView: WKWebView, contextMenuForElement elementInfo: WKContextMenuElementInfo, willCommitWithAnimator animator: UIContextMenuInteractionCommitAnimating) {
         guard
             elementInfo.linkURL != nil,
@@ -132,24 +130,7 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
     }
 }
 
-// MARK: Peek/Pop for ArticleVC (iOS 12 and earlier, on devices w/ 3D Touch)
-// All functions in this extension are for 3D Touch menus. (Can be removed when the oldest supported version is iOS 13.)
-extension ArticleViewController {
-    func webView(_ webView: WKWebView, shouldPreviewElement elementInfo: WKPreviewElementInfo) -> Bool {
-        return self.shouldPreview(linkURL: elementInfo.linkURL)
-    }
-
-    func webView(_ webView: WKWebView, previewingViewControllerForElement elementInfo: WKPreviewElementInfo, defaultActions previewActions: [WKPreviewActionItem]) -> UIViewController? {
-        return self.previewingViewController(for: elementInfo.linkURL)
-    }
-
-    func webView(_ webView: WKWebView, commitPreviewingViewController previewingViewController: UIViewController) {
-        commitPreview(of: previewingViewController)
-    }
-}
-
-// MARK: Peek/Pop for Lead Image of ArticleVC (iOS 13 and later - no equivalent functionality on iOS 12 and prior)
-@available(iOS 13.0, *)
+// MARK: Peek/Pop for Lead Image of ArticleVC
 extension ArticleViewController: UIContextMenuInteractionDelegate {
     func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
         // If gallery has not been opened on that article, self.mediaList is nil - and we need to create the media list

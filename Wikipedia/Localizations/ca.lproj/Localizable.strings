@@ -425,6 +425,12 @@
 "explore-random-article-sub-heading-from-wikipedia" = "De la Viquipèdia";
 "explore-randomizer" = "Article a l’atzar";
 "featured-article-empty-title" = "No hi ha cap article destacat avui";
+"featured-widget-content-failure-for-date" = "No hi ha cap article destacat disponible en aquesta data.";
+"featured-widget-description" = "Descobriu els millors articles de la Viquipèdia, seleccionats cada dia per la nostra comunitat.";
+"featured-widget-from-language-wikipedia" = "De la Viquipèdia en $1";
+"featured-widget-from-wikipedia" = "De la Viquipèdia";
+"featured-widget-language-failure" = "La Viquipèdia de la vostra llengua primària no té l'opció d'article destacat. Podeu triar canviar la vostra Viquipèdia primària en el menú de configuració de l'aplicació.";
+"featured-widget-title" = "Article destacat";
 "feed-news-notification-button-text" = "Activa les notificacions";
 "feed-news-notification-text" = "Habiliteu les notificacions per a rebre avisos de la Viquipèdia quan els articles siguin tendència a les notícies.";
 "fetcher-error-generic" = "Quelcom ha fallat. Torneu-ho a provar més tard.";
@@ -577,6 +583,8 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 esdeveniment històric|$1 esdeveniments històrics}}";
 "on-this-day-footer" = "Més esdeveniments històrics d'aquest dia";
 "on-this-day-footer-showing-event-count" = "{{PLURAL:$1|$1 més esdeveniment històric|$1 més esdeveniments històrics}} en aquest dia";
+"on-this-day-language-does-not-support-error" = "La Viquipèdia de la vostra llengua primària no té l'opció de «tal dia com avui». Podeu triar canviar la vostra Viquipèdia primària en el menú de configuració de l'aplicació.";
+"on-this-day-no-internet-error" = "Cap dada disponible";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 de la Viquipèdia en $2";
 "on-this-day-title" = "Tal dia com avui";
 "original-tab-button-popover-description" = "Feu un toc a la 'W' per tornar a la pestanya d'on heu començat";
@@ -641,6 +649,9 @@
 "places-unknown-distance" = "distància desconeguda";
 "potd-description-prefix" = "Imatge del dia per a $1";
 "potd-empty-error-description" = "Ha fallat en recuperar la imatge del dia per a $1";
+"potd-sample-entry-description" = "Dos braus galopen mentre el genet els condueix en pacu jawi (de Minangkabau, «cursa de braus»), una cursa de braus tradicional a Tanah Datar, a Sumatra Occidental, Indonèsia. 2015, Final-45.";
+"potd-widget-description" = "Gaudiu d'una maca foto cada dia, seleccionada per la nostra comunitat.";
+"potd-widget-title" = "Imatge del dia";
 "preference-summary-eventlogging-opt-in" = "Permeteu a la Fundació Wikimedia recollir informació sobre com utilitzeu l'aplicació per poder-la millorar";
 "preference-title-eventlogging-opt-in" = "Envia informes d'ús";
 "rank-accessibility-label" = "Número $1";
@@ -881,6 +892,9 @@
 "top-read-header-generic" = "Viquipèdia";
 "top-read-header-with-language" = "Viquipèdia en $1";
 "top-read-see-more" = "Vegeu-ne d'altres més llegits";
+"top-read-widget-description" = "Esbrineu que està llegint el món avui a la Viquipèdia.";
+"top-read-widget-readers-count" = "$1 lectors";
+"top-read-widget-title" = "El més llegit";
 "two-factor-login-continue" = "Continua l'inici de sessió";
 "two-factor-login-instructions" = "Introduïu el codi de verificació de dos factors";
 "two-factor-login-title" = "Inicieu una sessió amb el vostre compte";
@@ -917,6 +931,9 @@
 "welcome-send-data-learn-more" = "Més informació de les dades recopilades";
 "welcome-send-data-sub-title" = "Ajudeu a millorar l'aplicació fent saber a la Fundació Wikimedia com la feu servir. Les dades que es recullen són anònimes.";
 "welcome-volunteer-send-usage-reports" = "Envia informes d'ús";
+"widget-onthisday-description" = "Exploreu què va passar aquest dia al llarg de la història.";
+"widget-onthisday-placeholder-article-snippet" = "L'enciclopèdia en línia lliure que tothom pot editar";
+"widget-onthisday-placeholder-event-snippet" = "La Viquipèdia, una enciclopèdia de contingut wiki lliure, es posa en línia.";
 "wikitext-downloading" = "S'està carregant el contingut...";
 "wikitext-preview-changes" = "S'està recuperant una vista prèvia dels canvis...";
 "wikitext-preview-changes-none" = "No s'ha fet cap canvi per previsualitzar.";
