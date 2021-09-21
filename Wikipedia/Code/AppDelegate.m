@@ -205,50 +205,38 @@ static NSString *const WMFBackgroundAppRefreshTaskIdentifier = @"org.wikimedia.w
 
 #pragma mark - Background Fetch
 
-- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    [self.appViewController performBackgroundFetchWithCompletion:completionHandler];
-}
-
 /// Cancels any pending background tasks, if applicable on the current platform
 - (void)cancelPendingBackgroundTasks {
-    if (@available(iOS 13.0, *)) {
-        [[BGTaskScheduler sharedScheduler] cancelAllTaskRequests];
-    }
+    [[BGTaskScheduler sharedScheduler] cancelAllTaskRequests];
 }
 
 /// Register for any necessary background tasks or updates with the method appropriate for the platform
 - (void)registerBackgroundTasksForApplication:(UIApplication *)application {
-    if (@available(iOS 13.0, *)) {
-        [[BGTaskScheduler sharedScheduler] registerForTaskWithIdentifier:WMFBackgroundAppRefreshTaskIdentifier
-                                                              usingQueue:dispatch_get_main_queue()
-                                                           launchHandler:^(__kindof BGTask *_Nonnull task) {
-                                                               [self.appViewController performBackgroundFetchWithCompletion:^(UIBackgroundFetchResult result) {
-                                                                   switch (result) {
-                                                                       case UIBackgroundFetchResultFailed:
-                                                                           [task setTaskCompletedWithSuccess:NO];
-                                                                           break;
-                                                                       default:
-                                                                           [task setTaskCompletedWithSuccess:YES];
-                                                                           break;
-                                                                   }
-                                                                   // The next task needs to be scheduled
-                                                                   [self scheduleBackgroundAppRefreshTask];
-                                                               }];
+    [[BGTaskScheduler sharedScheduler] registerForTaskWithIdentifier:WMFBackgroundAppRefreshTaskIdentifier
+                                                          usingQueue:dispatch_get_main_queue()
+                                                       launchHandler:^(__kindof BGTask *_Nonnull task) {
+                                                           [self.appViewController performBackgroundFetchWithCompletion:^(UIBackgroundFetchResult result) {
+                                                               switch (result) {
+                                                                   case UIBackgroundFetchResultFailed:
+                                                                       [task setTaskCompletedWithSuccess:NO];
+                                                                       break;
+                                                                   default:
+                                                                       [task setTaskCompletedWithSuccess:YES];
+                                                                       break;
+                                                               }
+                                                               // The next task needs to be scheduled
+                                                               [self scheduleBackgroundAppRefreshTask];
                                                            }];
-    } else {
-        [application setMinimumBackgroundFetchInterval:WMFBackgroundFetchInterval];
-    }
+                                                       }];
 }
 
 /// Schedule the next background refresh, if applicable on the current platform
 - (void)scheduleBackgroundAppRefreshTask {
-    if (@available(iOS 13.0, *)) {
-        BGAppRefreshTaskRequest *appRefreshTask = [[BGAppRefreshTaskRequest alloc] initWithIdentifier:WMFBackgroundAppRefreshTaskIdentifier];
-        appRefreshTask.earliestBeginDate = [NSDate dateWithTimeIntervalSinceNow:WMFBackgroundFetchInterval];
-        NSError *taskSubmitError = nil;
-        if (![[BGTaskScheduler sharedScheduler] submitTaskRequest:appRefreshTask error:&taskSubmitError]) {
-            DDLogError(@"Unable to schedule background task: %@", taskSubmitError);
-        }
+    BGAppRefreshTaskRequest *appRefreshTask = [[BGAppRefreshTaskRequest alloc] initWithIdentifier:WMFBackgroundAppRefreshTaskIdentifier];
+    appRefreshTask.earliestBeginDate = [NSDate dateWithTimeIntervalSinceNow:WMFBackgroundFetchInterval];
+    NSError *taskSubmitError = nil;
+    if (![[BGTaskScheduler sharedScheduler] submitTaskRequest:appRefreshTask error:&taskSubmitError]) {
+        DDLogError(@"Unable to schedule background task: %@", taskSubmitError);
     }
 }
 

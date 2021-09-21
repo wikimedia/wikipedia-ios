@@ -3,6 +3,7 @@
 // Author: AmaryllisGardener
 // Author: Fitoschido
 // Author: John Reid
+// Author: MinecraftAustralia
 
 "about-content-license" = "Content license";
 "about-content-license-details" = "Unless itherwise specifee'd, content is available unner a $1.";
@@ -116,6 +117,8 @@
 "explore-most-read-more-list-title-for-date" = "Tap on $1";
 "explore-potd-heading" = "Pictur o the day";
 "explore-random-article-heading" = "Allevolie airticle";
+"featured-widget-from-language-wikipedia" = "From $1 Wikipedia";
+"featured-widget-language-failure" = "Yer primary Wikipædia daes no support Faitured airticle. Ye can update yer primary Wikipædia in the app’s Settins menu.";
 "history-clear-confirmation-heading" = "Are ye shuir ye want tae delete aw yer recent eetems?";
 "history-clear-delete-all" = "Aye, delete aw";
 // Fuzzy
@@ -124,6 +127,7 @@
 // Fuzzy
 "main-menu-account-title-logged-in" = "Loggit in aes: $1";
 "navbar-title-mode-edit-wikitext-preview" = "Luikower";
+"on-this-day-language-does-not-support-error" = "Yer primary Wikipædia leid daes no support On this day. Ye can update yer primary Wikipædia in the app’s Settins menu.";
 "places-accessibility-show-more" = "Shaw mair airticles";
 "saved-pages-image-download-error" = "Failt tae dounlaid eemages for this sauft page.";
 "search-field-placeholder-text" = "Rake Wikipædia";

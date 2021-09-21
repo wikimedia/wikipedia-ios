@@ -169,7 +169,7 @@
 "button-skip" = "Bỏ qua";
 "cancel" = "Hủy bỏ";
 "cc-zero" = "Creative Commons CC0";
-"chinese-variants-alert-body" = "Ứng dụng Wikipedia hiện hỗ trợ các kiểu chữ Hán sau đây khi sử dụng tiếng Trung làm ngôn ngữ chính hoặc phụ trong ứng dụng, giúp bạn đọc, tìm kiếm, và chỉnh sửa dễ dàng hơn trong kiểu chữ ưa thích của mình:\n\n简体 Trung giản thể (zh-hans)\n香港繁體 Hồng Kông phồn thể (zh-hk)\n澳門繁體 Ma Cao phồn thể (zh-mo)\n大马简体 Mã Lai giản thể (zh-my)\n新加坡简体 Singapore giản thể (zh-sg)\n臺灣正體 Đài Loan phồn thể (zh-tw)";
+"chinese-variants-alert-body" = "Ứng dụng Wikipedia hiện hỗ trợ các kiểu chữ Hán sau đây khi sử dụng tiếng Trung làm ngôn ngữ chính hoặc phụ trong ứng dụng, giúp bạn đọc, tìm kiếm, và sửa đổi dễ dàng hơn trong kiểu chữ ưa thích của mình:\n\n简体 Trung giản thể (zh-hans)\n香港繁體 Hồng Kông phồn thể (zh-hk)\n澳門繁體 Ma Cao phồn thể (zh-mo)\n大马简体 Mã Lai giản thể (zh-my)\n新加坡简体 Singapore giản thể (zh-sg)\n臺灣正體 Đài Loan phồn thể (zh-tw)";
 "chinese-variants-alert-title" = "Cập nhật hỗ trợ biến thể chữ Hán";
 "clear-title-accessibility-label" = "Xóa sạch";
 "close-button-accessibility-label" = "Đóng";

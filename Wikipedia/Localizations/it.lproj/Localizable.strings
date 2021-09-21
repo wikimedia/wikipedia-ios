@@ -36,6 +36,7 @@
 // Author: Senpremì
 // Author: Simoarmanni
 // Author: Statix64
+// Author: Stefano
 // Author: SuperVirtual
 // Author: Superpes15
 // Author: Yacine Boussoufa
@@ -298,6 +299,10 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Da Wikipedia";
 "explore-randomizer" = "Una pagina a caso";
 "featured-article-empty-title" = "Nessuna voce in vetrina disponibile oggi";
+"featured-widget-content-failure-for-date" = "Nessun articolo in evidenza disponibile per questa data.";
+"featured-widget-description" = "Scopri i migliori articoli su Wikipedia, selezionati quotidianamente dalla nostra community.";
+"featured-widget-from-wikipedia" = "Da Wikipedia";
+"featured-widget-title" = "Articolo in primo piano";
 "feed-news-notification-button-text" = "Attiva le notifiche";
 "fetcher-error-generic" = "Qualcosa è andato storto. Riprova più tardi.";
 "fetcher-error-unexpected-response" = "L'applicazione ha ricevuto una risposta inaspettata dal server. Si prega di riprovare più tardi.";
@@ -428,6 +433,7 @@
 "on-this-day-detail-header-date-range" = "dal $1 al $2";
 "on-this-day-detail-header-title" = "$1 {{PLURAL:$1|evento storico|eventi storici}}";
 "on-this-day-footer" = "Alti eventi storici in questo giorno";
+"on-this-day-no-internet-error" = "Nessun dato disponibile";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 da Wikipedia in $2";
 "on-this-day-title" = "In questo giorno";
 "page-history-anonymous-edits" = "modifiche di utenti anonimi";
@@ -481,6 +487,8 @@
 "places-unknown-distance" = "distanza sconosciuta";
 "potd-description-prefix" = "Immagine del giorno per $1";
 "potd-empty-error-description" = "Impossibile recuperare l'immagine del giorno del $1";
+"potd-sample-entry-description" = "Due tori che corrono mentre il fantino li tiene in pacu jawi (da Minangkabau, \"corsa dei tori\"), una tradizionale corsa di tori a Tanah Datar, Sumatra occidentale, in Indonesia. 2015, Finale-45.";
+"potd-widget-title" = "Immagine del giorno";
 "preference-summary-eventlogging-opt-in" = "Consenti alla Wikimedia Foundation di raccogliere informazioni su come usi l'applicazione per renderla migliore";
 "preference-title-eventlogging-opt-in" = "Invia rapporti sull'utilizzo";
 "rank-accessibility-label" = "Numero $1";
@@ -629,6 +637,9 @@
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia in $1";
 "top-read-see-more" = "Vedi altri tra i più letti";
+"top-read-widget-description" = "Scopri cosa sta leggendo il mondo oggi su Wikipedia.";
+"top-read-widget-readers-count" = "$1 lettori";
+"top-read-widget-title" = "Più letti";
 "two-factor-login-continue" = "Continua l'accesso";
 "two-factor-login-instructions" = "Inserisci il codice di verifica a due fattori";
 "two-factor-login-title" = "Accedi alla tua utenza";
@@ -662,6 +673,9 @@
 "welcome-send-data-learn-more" = "Ulteriori informazioni sui dati raccolti";
 "welcome-send-data-sub-title" = "Aiuta a migliorare l'applicazione facendo conoscere alla Fondazione Wikimedia come la utilizzi. I dati raccolti sono anonimi.";
 "welcome-volunteer-send-usage-reports" = "Invia rapporti sull'utilizzo";
+"widget-onthisday-description" = "Scopri cosa è successo in questo giorno nella storia.";
+"widget-onthisday-placeholder-article-snippet" = "Enciclopedia online gratuita che chiunque può modificare";
+"widget-onthisday-placeholder-event-snippet" = "Wikipedia, un'enciclopedia gratuita di contenuti wiki, va online.";
 "wikitext-downloading" = "Caricamento contenuto...";
 "wikitext-preview-changes" = "Recupero anteprima delle tue modifiche...";
 "wikitext-preview-changes-none" = "Non sono state apportate modifiche da visualizzare in anteprima.";

@@ -458,6 +458,12 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Из Википедии";
 "explore-randomizer" = "Рандомизатор";
 "featured-article-empty-title" = "Сегодня нет избранных статей";
+"featured-widget-content-failure-for-date" = "Избранная статья недоступна для этой даты.";
+"featured-widget-description" = "Откройте для себя лучшие статьи из Википедии, ежедневно отбираемые нашим сообществом.";
+"featured-widget-from-language-wikipedia" = "Из $1 Википедии";
+"featured-widget-from-wikipedia" = "Из Википедии";
+"featured-widget-language-failure" = "Язык вашей основной Википедии не поддерживает Избранные статьи. Вы можете изменить вашу основную Википедию в меню настроек приложения.";
+"featured-widget-title" = "Избранная статья";
 "feed-news-notification-button-text" = "Включить уведомления";
 "feed-news-notification-text" = "Включить уведомления, чтобы узнавать от Википедии, когда статьи попадают в тренды новостей.";
 "fetcher-error-generic" = "Что-то пошло не так. Пожалуйста, повторите попытку позже.";
@@ -610,6 +616,7 @@
 "on-this-day-detail-header-title" = "$1 {{PLURAL:$1|историческое событие|исторических события|исторических событий}}";
 "on-this-day-footer" = "Больше исторических событий этого дня";
 "on-this-day-footer-showing-event-count" = "{{PLURAL:$1|$1 историческое событие|$1 исторических событий}} в этот день";
+"on-this-day-no-internet-error" = "Нет доступных данных";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 в Википедии: $2 раздел";
 "on-this-day-title" = "В этот день…";
 "original-tab-button-popover-description" = "Нажмите 'W', чтобы вернуться к вкладке, с которой вы начали";
@@ -915,6 +922,7 @@
 "top-read-header-generic" = "Википедия";
 "top-read-header-with-language" = "Раздел Википедии: $1";
 "top-read-see-more" = "Посмотреть больше самых читаемых статей";
+"top-read-widget-readers-count" = "$1 читателей";
 "two-factor-login-continue" = "Продолжить процедуру входа";
 "two-factor-login-instructions" = "Пожалуйста, введите проверочный код двухэтапной авторизации";
 "two-factor-login-title" = "Войдите в свою учётную запись";
@@ -968,5 +976,5 @@
 "wikitext-upload-save-anonymously-or-login" = "Правки будут отмечены IP-адресом вашего устройства. Если вы $1авторизуетесь$2, то получите более высокий уровень конфиденциальности.";
 "wikitext-upload-save-anonymously-warning" = "Правки будут отмечены IP-адресом вашего устройства. Если вы $1, то получите более высокий уровень конфиденциальности.";
 "wikitext-upload-save-sign-in" = "Войти";
-"wikitext-upload-save-terms-and-licenses" = "Публикуя изменения, вы соглашаетесь с $1Условиями использования$2 и с тем, что размещаете свой вклад под лицензиями $3CC BY-SA 3.0$4 и $5GFDL$6. Вы также соглашаетесь, что указанная гиперссылка или URL удовлетворяет лицензии Creative Commons.";
+"wikitext-upload-save-terms-and-licenses" = "Публикуя изменения, вы соглашаетесь с $1Условиями использования$2 и с тем, что размещаете свой вклад под лицензиями $3CC BY-SA 3.0$4 и $5GFDL$6. Вы также соглашаетесь с тем, что для атрибуции согласно условиям лицензии Creative Commons достаточно будет указать гиперссылку или URL страницы.";
 "wikitext-upload-save-terms-name" = "Условия использования";

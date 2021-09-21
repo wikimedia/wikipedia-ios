@@ -1,5 +1,22 @@
 import CocoaLumberjackSwift
 
+enum RemoteNotificationsProject {
+    case language(String)
+    case commons
+    case wikidata
+    
+    var notificationsApiWikiIdentifier: String {
+        switch self {
+        case .language(let languageCode):
+            return languageCode + "wiki"
+        case .commons:
+            return "commonswiki"
+        case .wikidata:
+            return "wikidatawiki"
+        }
+    }
+}
+
 class RemoteNotificationsOperationsController: NSObject {
     private let apiController: RemoteNotificationsAPIController
     private let modelController: RemoteNotificationsModelController?
@@ -36,16 +53,8 @@ class RemoteNotificationsOperationsController: NSObject {
         NotificationCenter.default.addObserver(self, selector: #selector(modelControllerDidLoadPersistentStores(_:)), name: RemoteNotificationsModelController.didLoadPersistentStoresNotification, object: nil)
     }
     
-    func deleteOldDatabaseFiles() throws {
-        let modelName = RemoteNotificationsModelController.modelName
-        let sharedAppContainerURL = FileManager.default.wmf_containerURL()
-        let legacyRemoteNotificationsStorageUrl = sharedAppContainerURL.appendingPathComponent(modelName)
-        let legecyJournalShmUrl = sharedAppContainerURL.appendingPathComponent("\(modelName)-shm")
-        let legecyJournalWalUrl = sharedAppContainerURL.appendingPathComponent("\(modelName)-wal")
-        
-        try FileManager.default.removeItem(at: legacyRemoteNotificationsStorageUrl)
-        try FileManager.default.removeItem(at: legecyJournalShmUrl)
-        try FileManager.default.removeItem(at: legecyJournalWalUrl)
+    func deleteLegacyDatabaseFiles() throws {
+        modelController?.deleteLegacyDatabaseFiles()
     }
 
     deinit {
@@ -104,32 +113,37 @@ class RemoteNotificationsOperationsController: NSObject {
             guard let self = self else {
                 return
             }
+
+            var projects: [RemoteNotificationsProject] = []
+            for languageCode in preferredLanguageCodes {
+                projects.append(.language(languageCode))
+            }
+            projects.append(.commons)
+            projects.append(.wikidata)
             
-            let languageCodes = preferredLanguageCodes + ["wikidata", "commons"]
             var operations: [RemoteNotificationsFetchFirstPageOperation] = []
-            for languageCode in languageCodes {
+            for project in projects {
                 
-                let operation = RemoteNotificationsFetchFirstPageOperation(with: self.apiController, modelController: modelController, languageCode: languageCode, cookieDomain: self.cookieDomainForLanguageCode(languageCode))
+                let operation = RemoteNotificationsFetchFirstPageOperation(with: self.apiController, modelController: modelController, project: project, cookieDomain: self.cookieDomainForProject(project))
                 operations.append(operation)
             }
-            
+
             let completionOperation = BlockOperation(block: completion)
             completionOperation.queuePriority = .veryHigh
-            
+
             for operation in operations {
                 completionOperation.addDependency(operation)
             }
-            
-            
+
             self.operationQueue.addOperations(operations + [completionOperation], waitUntilFinished: false)
         })
     }
     
-    private func cookieDomainForLanguageCode(_ languageCode: String) -> String {
-        switch languageCode {
-        case "wikidata":
+    private func cookieDomainForProject(_ project: RemoteNotificationsProject) -> String {
+        switch project {
+        case .wikidata:
             return Configuration.current.wikidataCookieDomain
-        case "commons":
+        case .commons:
             return Configuration.current.commonsCookieDomain
         default:
             return Configuration.current.wikipediaCookieDomain

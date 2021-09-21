@@ -10,8 +10,7 @@
 // Author: Teitei
 
 "aaald-added-text-description-2" = "$1 ပေါင်းထည့်ခဲ့သည်";
-// Fuzzy
-"aaald-article-description-updated-description" = "ဆောင်းပါးခေါင်းစဉ်ဖော်ပြချက် မွမ်းမံခဲ့သည်";
+"aaald-article-description-updated-description" = "ဆောင်းပါးခေါင်းစဉ် ဖော်ပြချက် မွမ်းမံခဲ့သည်";
 "aaald-article-insert-header" = "သိသာသော မွမ်းမံမှုများ";
 "aaald-article-insert-last-updated" = "နောက်ဆုံး မွမ်းမံခဲ့သည်";
 "aaald-article-insert-new-changes" = "ပြောင်းလဲမှု အသစ်များ";
@@ -294,6 +293,9 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "$1 ဝီကီပီးဒီးယားမှ";
 "explore-random-article-sub-heading-from-wikipedia" = "ဝီကီပီးဒီးယားမှ";
 "explore-randomizer" = "ကျပန်းစဉ်";
+"featured-widget-from-language-wikipedia" = "$1 ဝီကီပီးဒီးယားမှ";
+"featured-widget-from-wikipedia" = "ဝီကီပီးဒီးယားမှ";
+"featured-widget-title" = "အထူးဆောင်းပါး";
 "feed-news-notification-button-text" = "အသိပေးချက်များ ဖွင့်ရန်။";
 "fetcher-error-generic" = "တစ်ခုခုမှားယွင်းခဲ့ပါသည်။ နောက်မှထပ်မံကြိုးစားပါ။";
 "field-alert-captcha-invalid" = "မမှန်သော CAPTCHA";
@@ -413,6 +415,7 @@
 "number-thousands" = "$1ထောင်";
 "on-this-day-detail-header-date-range" = "$1 မှ - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 သမိုင်းဝင်ဖြစ်ရပ်|$1 သမိုင်းဝင်ဖြစ်ရပ်များ}}";
+"on-this-day-no-internet-error" = "ဒေတာမရရှိနိုင်ပါ";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 ဝီကီပီးဒီးယားမှ $1";
 "on-this-day-title" = "ယနေ့ဖြစ်ရပ်များ";
 "page-history-anonymous-edits" = "အမည်မသိ တည်းဖြတ်မှုများ";
@@ -519,11 +522,14 @@
 "reading-themes-controls-accessibility-text-size-slider" = "စာသားအရွယ်အစား ချိန်ညှိခလုတ်";
 "reference-title" = "ရည်ညွှန်း $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=ယနေ့|1=မနေ့က|$1 ရက်အကြာက}}";
+"relative-date-hours-abbreviated" = "$1နာရီ";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=မကြာသေးခင်|$1 နာရီအကြာက|$1 နာရီအကြာက}}";
 "relative-date-hours-ago-abbreviated" = "$1နာရီ အကြာက";
+"relative-date-minutes-abbreviated" = "$1မိနစ်";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=ယခုလေးတင်|$1 မိနစ်အကြာက|$1 မိနစ်အကြာက}}";
 "relative-date-minutes-ago-abbreviated" = "$1မိနစ် အကြာက";
 "relative-date-months-ago" = "{{PLURAL:$1|0=ဤလ|1=ယခင်လ|$1 လအကြာက}}";
+"relative-date-seconds-abbreviated" = "$1စက္ကန့်";
 "relative-date-seconds-ago-abbreviated" = "$1စက္ကန့် အကြာက";
 "relative-date-years-ago" = "{{PLURAL:$1|0=ဒီနှစ်|1=ယခင်နှစ်|$1 နှစ်အကြာက}}";
 "replace-button-accessibility" = "$ ဆောင်ရွက်ပါ";
@@ -635,6 +641,7 @@
 "two-factor-login-with-regular-code" = "အတည်ပြုကုဒ်အား အသုံးချပါ";
 "unable-to-load-talk-page-title" = "ဆွေးနွေးချက်စာမျက်နှာကို ဝန်မဆွဲတင်နိုင်ပါ";
 "unknown-generic-text" = "အမည်မသိ";
+"variants-alert-dismiss-button" = "မလိုပါ၊ ကျေးဇူးတင်ပါသည်။";
 "welcome-exploration-explore-feed-description" = "ကျွန်ုပ်တို့၏အသိုင်းအဝိုင်းမှ အကြံပြု‌ထောက်ခံထားသော ဖတ်ရှုရန်နေ့စဉ်ဆောင်းပါးများ";
 "welcome-exploration-on-this-day-title" = "ယနေ့";
 "welcome-explore-continue-button" = "စတင်ပါ";
@@ -656,6 +663,7 @@
 "welcome-send-data-learn-more" = "ဒေတာစုဆောင်းမှုအကြောင်း ပိုမိုလေ့လာရန်";
 "welcome-send-data-sub-title" = "သင် မည်ကဲ့သို့အသုံးချခဲ့သည်ကို ဝီကီမီဒီယာ ဖောင်ဒေးရှင်းအားအသိပေး၍ ဤဆော့ဝဲလ်အား ပိုကောင်းလာစေရန် ကူညီပေးပါ။ ဒေတာစုဆောင်းခြင်းမှာ အမည်မသိစနစ်ဖြစ်ပါသည်။";
 "welcome-volunteer-send-usage-reports" = "အသုံးပြုမှု အစီရင်ခံချက်များအား ပို့ရန်";
+"widget-onthisday-placeholder-article-snippet" = "မည်သူမဆိုတည်းဖြတ်နိုင်သော အခမဲ့အွန်လိုင်းစွယ်စုံကျမ်း";
 "wikitext-downloading" = "အကြောင်းအရာများ ရယူနေသည်...";
 "wikitext-preview-changes" = "သင့်ပြောင်းလဲမှုများ၏ နမူနာကို ရယူနေသည်...";
 "wikitext-preview-changes-none" = "နမူနာပြရန် ပြောင်းလဲမှု ပြုလုပ်ထားခြင်း မရှိပါ။";

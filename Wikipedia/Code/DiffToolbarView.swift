@@ -109,27 +109,15 @@ class DiffToolbarView: UIView {
         let trailingMarginSpacing = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         switch (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass) {
         case (.regular, .regular):
-            if #available(iOS 13, *) {
-                trailingMarginSpacing.width = 58
-            } else {
-                trailingMarginSpacing.width = 36
-            }
+            trailingMarginSpacing.width = 58
         default:
-            if #available(iOS 13, *) {
-                trailingMarginSpacing.width = 24
-            } else {
-                trailingMarginSpacing.width = 8
-            }
+            trailingMarginSpacing.width = 24
         }
         
         let leadingMarginSpacing = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         switch (traitCollection.horizontalSizeClass, traitCollection.verticalSizeClass) {
         case (.regular, .regular):
-            if #available(iOS 13, *) {
-                leadingMarginSpacing.width = 42
-            } else {
-                leadingMarginSpacing.width = 24
-            }
+            leadingMarginSpacing.width = 42
         default:
             leadingMarginSpacing.width = 0
         }

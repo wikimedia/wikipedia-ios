@@ -7,16 +7,18 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     public var presentedContentGroupKey: String?
     public var shouldRestoreScrollPosition = false
 
+    @objc public weak var notificationsCenterPresentationDelegate: NotificationsCenterPresentationDelegate?
+
     // MARK - UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutManager.register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier, addPlaceholder: true)
-        
+
         navigationItem.titleView = titleView
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
         navigationBar.isUnderBarViewHidingEnabled = true
-        navigationBar.displayType = .largeTitle
+        navigationBar.displayType = .centeredLargeTitle
         navigationBar.shouldTransformUnderBarViewWithBar = true
         navigationBar.isShadowHidingEnabled = true
 
@@ -996,4 +998,13 @@ extension ExploreViewController: EventLoggingSearchSourceProviding {
     var searchSource: String {
         return "top_of_feed"
     }
+}
+
+// MARK: - Notifications Center
+extension ExploreViewController {
+
+    @objc func userDidTapNotificationsCenter() {
+        notificationsCenterPresentationDelegate?.userDidTapNotificationsCenter(from: self)
+    }
+
 }

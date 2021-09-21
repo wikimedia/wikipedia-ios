@@ -61,7 +61,7 @@ extension ArticleScrolling where Self: ViewController {
             completion?(false)
             return
         }
-        let overlayTop = self.webView.iOS12yOffsetHack + self.navigationBar.hiddenHeight
+        let overlayTop = self.webView.yOffsetHack + self.navigationBar.hiddenHeight
         let adjustmentY: CGFloat
         if centered {
             let overlayBottom = self.webView.scrollView.contentInset.bottom

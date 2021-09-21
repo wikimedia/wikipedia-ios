@@ -5,7 +5,7 @@ protocol InsertMediaSelectedImageViewControllerDelegate: AnyObject {
 
 final class InsertMediaSelectedImageViewController: UIViewController {
     private let selectedView = InsertMediaSelectedImageView()
-    private let activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
+    private let activityIndicator = UIActivityIndicatorView(style: .large)
     private var theme = Theme.standard
     weak var delegate: InsertMediaSelectedImageViewControllerDelegate?
     
@@ -90,6 +90,6 @@ extension InsertMediaSelectedImageViewController: Themeable {
         }
         wmf_applyTheme(toEmptyView: theme)
         view.backgroundColor = theme.colors.baseBackground
-        activityIndicator.style = theme.isDark ? .white : .gray
+        activityIndicator.color = theme.isDark ? .white : .gray
     }
 }

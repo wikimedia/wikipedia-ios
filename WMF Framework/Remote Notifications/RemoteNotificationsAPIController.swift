@@ -220,7 +220,7 @@ public class RemoteNotificationsAPIController: Fetcher {
         return Set(list)
     }
     
-    func getUnreadPushNotifications(from languageCode: String, completion:  @escaping (NotificationsResult.Query.Notifications?, Error?) -> Void) {
+    func getUnreadPushNotifications(from project: RemoteNotificationsProject, completion:  @escaping (NotificationsResult.Query.Notifications?, Error?) -> Void) {
         let completion: (NotificationsResult?, URLResponse?, Error?) -> Void = { result, _, error in
             guard error == nil else {
                 completion(nil, error)
@@ -229,10 +229,10 @@ public class RemoteNotificationsAPIController: Fetcher {
             completion(result?.query?.notifications, nil)
         }
         
-        request(languageCode: languageCode, queryParameters: Query.notifications(limit: .max, filter: .unread, notifierType: .push), completion: completion)
+        request(project: project, queryParameters: Query.notifications(limit: .max, filter: .unread, notifierType: .push), completion: completion)
     }
     
-    func getAllNotifications(from languageCode: String, completion: @escaping (NotificationsResult.Query.Notifications?, Error?) -> Void) {
+    func getAllNotifications(from project: RemoteNotificationsProject, completion: @escaping (NotificationsResult.Query.Notifications?, Error?) -> Void) {
         let completion: (NotificationsResult?, URLResponse?, Error?) -> Void = { result, _, error in
             guard error == nil else {
                 completion(nil, error)
@@ -241,7 +241,7 @@ public class RemoteNotificationsAPIController: Fetcher {
             completion(result?.query?.notifications, nil)
         }
         
-        request(languageCode: languageCode, queryParameters: Query.notifications(from: [languageCode], limit: .max, filter: .none, notifierType: .web), completion: completion)
+        request(project: project, queryParameters: Query.notifications(from: [project], limit: .max, filter: .none, notifierType: nil), completion: completion)
     }
 
     public func markAsRead(_ notifications: Set<RemoteNotification>, completion: @escaping (Error?) -> Void) {
@@ -250,7 +250,7 @@ public class RemoteNotificationsAPIController: Fetcher {
         let split = notifications.chunked(into: maxNumberOfNotificationsPerRequest)
 
         split.asyncCompactMap({ (notifications, completion: @escaping (Error?) -> Void) in
-            request(languageCode: nil, queryParameters: Query.markAsRead(notifications: notifications), method: .post) { (result: MarkReadResult?, _, error) in
+            request(project: nil, queryParameters: Query.markAsRead(notifications: notifications), method: .post) { (result: MarkReadResult?, _, error) in
                 if let error = error {
                     completion(error)
                     return
@@ -280,15 +280,16 @@ public class RemoteNotificationsAPIController: Fetcher {
         }
     }
 
-    private func request<T: Decodable>(languageCode: String?, queryParameters: Query.Parameters?, method: Session.Request.Method = .get, completion: @escaping (T?, URLResponse?, Error?) -> Void) {
+    private func request<T: Decodable>(project: RemoteNotificationsProject?, queryParameters: Query.Parameters?, method: Session.Request.Method = .get, completion: @escaping (T?, URLResponse?, Error?) -> Void) {
         
         let url: URL?
-        if let languageCode = languageCode {
-            if languageCode == "wikidata" {
-                url = configuration.wikidataAPIURLComponents(with: queryParameters).url
-            } else if languageCode == "commons" {
+        if let project = project {
+            switch project {
+            case .commons:
                 url = configuration.commonsAPIURLComponents(with: queryParameters).url
-            } else {
+            case .wikidata:
+                url = configuration.wikidataAPIURLComponents(with: queryParameters).url
+            case .language(let languageCode):
                 url = configuration.mediaWikiAPIURLForLanguageCode(languageCode, with: queryParameters).url
             }
         } else {
@@ -347,7 +348,7 @@ public class RemoteNotificationsAPIController: Fetcher {
             case email
         }
 
-        static func notifications(from subdomains: [String] = [], limit: Limit = .max, filter: Filter = .none, notifierType: NotifierType?) -> Parameters {
+        static func notifications(from projects: [RemoteNotificationsProject] = [], limit: Limit = .max, filter: Filter = .none, notifierType: NotifierType?) -> Parameters {
             var dictionary = ["action": "query",
                     "format": "json",
                     "formatversion": "2",
@@ -360,10 +361,10 @@ public class RemoteNotificationsAPIController: Fetcher {
                 dictionary["notnotifiertype"] = notifierType.rawValue
             }
 
-            if subdomains.isEmpty {
+            if projects.isEmpty {
                 dictionary["notwikis"] = "*"
             } else {
-                let wikis = subdomains.compactMap { $0.replacingOccurrences(of: "-", with: "_").appending("wiki") }
+                let wikis = projects.map{ $0.notificationsApiWikiIdentifier }
                 dictionary["notwikis"] = wikis.joined(separator: "|")
             }
             

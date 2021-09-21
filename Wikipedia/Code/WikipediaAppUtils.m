@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 + (NSString *)formFactor {
-    UIUserInterfaceIdiom ff = UI_USER_INTERFACE_IDIOM();
+    UIUserInterfaceIdiom ff = [[UIDevice currentDevice] userInterfaceIdiom];
     // We'll break; on each case, just to follow good form.
     switch (ff) {
         case UIUserInterfaceIdiomPad:

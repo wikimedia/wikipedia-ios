@@ -7,7 +7,7 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
     let articleURL: URL
     fileprivate let dataStore: MWKDataStore
     fileprivate var theme: Theme
-    fileprivate let activityIndicatorView: UIActivityIndicatorView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.whiteLarge)
+    fileprivate let activityIndicatorView: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
     fileprivate let expandedArticleView = ArticleFullWidthImageCollectionViewCell()
 
     @objc required init(articleURL: URL, dataStore: MWKDataStore, theme: Theme) {
@@ -67,7 +67,7 @@ class ArticlePeekPreviewViewController: UIViewController, Peekable {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = theme.colors.paperBackground
-        activityIndicatorView.style = theme.isDark ? .white : .gray
+        activityIndicatorView.color = theme.isDark ? .white : .gray
         activityIndicatorView.startAnimating()
         view.addSubview(activityIndicatorView)
         expandedArticleView.isHidden = true

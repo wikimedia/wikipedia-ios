@@ -33,7 +33,6 @@
 // Author: WongKentir
 
 "aaald-added-text-description-2" = "$1 ditambahkan";
-// Fuzzy
 "aaald-article-description-updated-description" = "Deskripsi artikel diperbarui";
 "aaald-article-insert-header" = "Pembaruan Signifikan";
 "aaald-article-insert-last-updated" = "Terakhir diperbarui";
@@ -196,36 +195,30 @@
 "crimean-tatar-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Tatar Krimea";
 "data-migration-status" = "Memperbarui...";
 "description-add-title" = "Tambahkan deskripsi";
-// Fuzzy
-"description-edit-for-article" = "Deskripsi judul untuk $1";
+"description-edit-for-article" = "Deskripsi artikel untuk $1";
 "description-edit-learn-more" = "Pelajari lebih lanjut";
 "description-edit-length-warning" = "$1 / $2";
-// Fuzzy
-"description-edit-license" = "Dengan mengubah deskripsi judul, saya setuju dengan $1 dan melepaskan kontribusi saya di bawah lisensi $2.";
+"description-edit-license" = "Dengan mengubah deskripsi artikel, saya setuju dengan $1 dan melepaskan kontribusi saya di bawah lisensi $2.";
 "description-edit-pencil-introduction" = "Sunting pengantar";
-// Fuzzy
-"description-edit-pencil-title" = "Sunting deskripsi judul";
+"description-edit-pencil-title" = "Sunting deskripsi artikel";
 "description-edit-placeholder-title" = "Deskripsi singkat adalah yang terbaik";
 "description-edit-publish" = "Terbitkan deskripsi";
 "description-edit-title" = "Sunting deskripsi";
 "description-edit-warning" = "Usahakan agar deskripsi singkat sehingga pengguna dapat memahami subjek artikel dalam sekejap";
-// Fuzzy
-"description-help-about-description" = "Deskripsi judul meringkas artikel untuk membantu pembaca memahami subjek secara sekilas.";
+"description-edit-warning-casing" = "Hanya kata benda yang spesifik (misalnya Joko Widodo dan Indomie; presiden dan mi goreng bukan kata benda yang spesifik) yang harus dikapitalisasi, bahkan di awal kalimat.";
+"description-help-about-description" = "Deskripsi artikel meringkas artikel untuk membantu pembaca memahami subjek secara sekilas.";
 "description-help-about-title" = "Tentang";
 "description-help-about-wikidata" = "Tentang Wikidata";
 "description-help-more-info-description" = "Deskripsi disimpan dan dipelihara di Wikidata, proyek Wikimedia Foundation yang menyediakan basis data bebas, sekunder, kolaboratif, multibahasa, yang mendukung Wikipedia dan proyek lainnya.";
 "description-help-more-info-title" = "Informasi lebih lanjut";
 "description-help-tips-description" = "Deskripsi idealnya harus sesuai pada satu baris, dan antara dua hingga dua belas kata. Deskripsi tidak dikapitalisasi kecuali kata pertama adalah kata benda yang tepat.";
-// Fuzzy
-"description-help-tips-example-description-one" = "deskripsi judul untuk artikel tentang Mona Lisa";
-// Fuzzy
-"description-help-tips-example-description-two" = "deskripsi judul untuk artikel tentang Gunung Everest";
+"description-help-tips-example-description-one" = "deskripsi artikel untuk artikel tentang Mona Lisa";
+"description-help-tips-example-description-two" = "deskripsi artikel untuk artikel tentang Gunung Everest";
 "description-help-tips-example-title-one" = "lukisan karya Leonardo Da Vinci";
 "description-help-tips-example-title-two" = "gunung tertinggi di Bumi";
 "description-help-tips-for-example" = "Sebagai contoh:";
 "description-help-tips-title" = "Kiat untuk membuat deskripsi";
-// Fuzzy
-"description-help-title" = "Bantuan deskripsi judul";
+"description-help-title" = "Bantuan deskripsi artikel";
 "description-help-wikidata-guide" = "Panduan Wikidata untuk menulis deskripsi";
 "description-published-button-title" = "Selesai";
 "description-published-footer" = "Anda juga dapat menyunting artikel dalam aplikasi ini. Coba perbaiki kesalahan ketik dan kalimat kecil dengan mengklik ikon pensil di lain waktu";
@@ -234,8 +227,7 @@
 "description-welcome-concise-sub-title" = "Idealnya satu baris, antara dua hingga dua belas kata";
 "description-welcome-concise-title" = "Jaga agar tetap pendek";
 "description-welcome-descriptions-sub-title" = "Merangkum artikel untuk membantu pembaca memahami subjek secara sekilas";
-// Fuzzy
-"description-welcome-descriptions-title" = "Deskripsi judul";
+"description-welcome-descriptions-title" = "Deskripsi artikel";
 "description-welcome-promise-title" = "Dengan memulai, saya berjanji untuk tidak menyalahgunakan fitur ini";
 "description-welcome-start-editing-button" = "Mulai menyunting";
 "diff-compare-header-from-info-heading" = "Dari:";
@@ -345,6 +337,8 @@
 "empty-no-feed-message" = "Anda bisa melihat artikel yang disarankan untuk Anda saat Anda mempunyai sambungan intenet";
 "empty-no-history-message" = "Melacak apa yang Anda sudah baca di sini";
 "empty-no-history-title" = "Tidak ada riwayat yang muncul";
+"empty-no-other-article-languages-message" = "Artikel ini belum ditulis dalam bahasa lain";
+"empty-no-other-article-languages-title" = "Tidak ada bahasa lain";
 "empty-no-reading-lists-message" = "Buat daftar untuk tempat yang harus dikunjungi, topik favorit dan banyak lagi";
 "empty-no-reading-lists-title" = "Atur artikel tersimpan dengan daftar bacaan";
 "empty-no-saved-pages-in-reading-list-message" = "Simpan halaman ke daftar ini untuk melihatnya muncul di sini";
@@ -440,6 +434,12 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Dari Wikipedia";
 "explore-randomizer" = "Artikel sembarang";
 "featured-article-empty-title" = "Tidak ada artikel pilihan yang tersedia pada hari ini";
+"featured-widget-content-failure-for-date" = "Tidak ada artikel pilihan untuk tanggal ini.";
+"featured-widget-description" = "Temukan artikel yang terbaik di Wikipedia, dipilih setiap hari oleh komunitas kami.";
+"featured-widget-from-language-wikipedia" = "Dari Wikipedia $1";
+"featured-widget-from-wikipedia" = "Dari Wikipedia";
+"featured-widget-language-failure" = "Bahasa Wikipedia utama Anda tidak mendukung artikel pilihan. Anda dapat mengganti bahasa Wikipedia utama Anda di menu Setelan pada aplikasi.";
+"featured-widget-title" = "Artikel pilihan";
 "feed-news-notification-button-text" = "Aktifkan pemberitahuan";
 "feed-news-notification-text" = "Aktifkan pemberitahuan yang akan diberitahu oleh Wikipedia saat artikel sedang tren dalam peristiwa terkini.";
 "fetcher-error-generic" = "Ada yang salah. Silakan coba lagi nanti.";
@@ -592,6 +592,8 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 peristiwa bersejarah|$1 peristiwa bersejarah}}";
 "on-this-day-footer" = "Peristiwa bersejarah lainnya pada hari ini";
 "on-this-day-footer-showing-event-count" = "$1 kejadian historis lainnya pada hari ini";
+"on-this-day-language-does-not-support-error" = "Bahasa Wikipedia utama Anda tidak mendukung Pada hari ini. Anda dapat mengganti bahasa Wikipedia utama Anda di menu Setelan pada aplikasi.";
+"on-this-day-no-internet-error" = "Tidak ada data yang tersedia";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 dari Wikipedia $2";
 "on-this-day-title" = "Pada hari ini";
 "original-tab-button-popover-description" = "Ketuk 'W' untuk kembali ke tab yang Anda mulai dari";
@@ -656,6 +658,9 @@
 "places-unknown-distance" = "jarak tidak diketahui";
 "potd-description-prefix" = "Gambar hari ini pada $1";
 "potd-empty-error-description" = "Gagal untuk menerima gambar hari ini pada $1";
+"potd-sample-entry-description" = "Dua ekor sapi jantan sedang berlari, sementara sang joki berpegangan pada mereka pada pacu jawi (dari bahasa Minangkabau, \"adu banteng\"), sebuah adu banteng tradisional di Tanah Datar, Sumatera Barat, Indonesia. 2015, Final-45.";
+"potd-widget-description" = "Nikmati gambar yang indah setiap hari yang dipilih oleh komunitas kami.";
+"potd-widget-title" = "Gambar pilihan";
 "preference-summary-eventlogging-opt-in" = "Izinkan Wikimedia Foundation untuk mengumpulkan informasi tentang bagaimana Anda menggunakan aplikasi untuk membuat aplikasi yang lebih baik";
 "preference-title-eventlogging-opt-in" = "Kirim laporan penggunaan";
 "rank-accessibility-label" = "Peringkat $1";
@@ -894,6 +899,9 @@
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia $1";
 "top-read-see-more" = "Lihat bacaan teratas lainnya";
+"top-read-widget-description" = "Pelajari apa yang sedang dibaca dunia hari ini di Wikipedia.";
+"top-read-widget-readers-count" = "$1 pembaca";
+"top-read-widget-title" = "Bacaan teratas";
 "two-factor-login-continue" = "Lanjutkan masuk log";
 "two-factor-login-instructions" = "Silakan masukkan kode verifikasi dua faktor";
 "two-factor-login-title" = "Masuk ke akun Anda";
@@ -930,6 +938,9 @@
 "welcome-send-data-learn-more" = "Pelajari lebih lanjut tentang data yang dikumpulkan";
 "welcome-send-data-sub-title" = "Bantu memperbaiki aplikasi dengan membiarkan Wikimedia Foundation mengetahui bagaimana Anda menggunakannya. Data yang dikumpulkan bersifat anonim.";
 "welcome-volunteer-send-usage-reports" = "Kirim laporan penggunaan";
+"widget-onthisday-description" = "Jelajahi apa yang terjadi pada hari ini dalam sejarah.";
+"widget-onthisday-placeholder-article-snippet" = "Ensiklopedia online gratis yang bisa disunting oleh siapapun.";
+"widget-onthisday-placeholder-event-snippet" = "Wikipedia, sebuah ensiklopedia wiki gratis, dirilis.";
 "wikitext-downloading" = "Memuat konten...";
 "wikitext-preview-changes" = "Mengambil pratayang perubahan Anda...";
 "wikitext-preview-changes-none" = "Tidak ada perubahan yang dibuat untuk melihat pratayang.";
