@@ -85,8 +85,7 @@ class RemoteNotificationsOperationsController: NSObject {
                 return
             }
             
-            //TODO: Not sure that this cookie domain should be hardcoded
-            let fetchOperation = RemoteNotificationsFetchNewPushNotificationsOperation(with: self.apiController, languageCode: primaryLanguageCode, cookieDomain: Configuration.current.wikipediaCookieDomain, completion: completion)
+            let fetchOperation = RemoteNotificationsFetchNewPushNotificationsOperation(with: self.apiController, project: .language(primaryLanguageCode), cookieDomain: Configuration.current.wikipediaCookieDomain, completion: completion)
             
             self.operationQueue.addOperation(fetchOperation)
         }

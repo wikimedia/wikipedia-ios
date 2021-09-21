@@ -1,11 +1,11 @@
 class RemoteNotificationsFetchNewPushNotificationsOperation: AsyncOperation {
     private let apiController: RemoteNotificationsAPIController
-    private let languageCode: String
+    private let project: RemoteNotificationsProject
     private let cookieDomain: String
     private(set) var result: Result<[RemoteNotificationsAPIController.NotificationsResult.Notification], Error>?
     
-    init(with apiController: RemoteNotificationsAPIController, languageCode: String, cookieDomain: String, completion: @escaping (Result<[RemoteNotificationsAPIController.NotificationsResult.Notification], Error>) -> Void) {
-        self.languageCode = languageCode
+    init(with apiController: RemoteNotificationsAPIController, project: RemoteNotificationsProject, cookieDomain: String, completion: @escaping (Result<[RemoteNotificationsAPIController.NotificationsResult.Notification], Error>) -> Void) {
+        self.project = project
         self.cookieDomain = cookieDomain
         self.apiController = apiController
         super.init()
@@ -23,7 +23,7 @@ class RemoteNotificationsFetchNewPushNotificationsOperation: AsyncOperation {
             return
         }
         
-        self.apiController.getUnreadPushNotifications(from: self.languageCode) { [weak self] result, error in
+        self.apiController.getUnreadPushNotifications(from: self.project) { [weak self] result, error in
             guard let self = self else {
                 return
             }
