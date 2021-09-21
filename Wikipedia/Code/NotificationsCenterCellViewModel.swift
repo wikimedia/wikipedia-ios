@@ -22,7 +22,7 @@ final class NotificationsCenterCellViewModel {
 
 	var notificationType: RemoteNotificationType? {
 		// TODO: DM-Remove - Populate with actual notification type
-		return .editReverted
+		return .successfulMention
 	}
 	
 }

@@ -22,7 +22,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
 			view.imageView.contentMode = .scaleAspectFit
 			view.layer.borderWidth = 2
 			view.layer.borderColor = UIColor.clear.cgColor
-			view.insets = UIEdgeInsets(top: 6, left: 6, bottom: -6, right: -6)
+			view.insets = UIEdgeInsets(top: 7, left: 7, bottom: -7, right: -7)
 			return view
 		} else {
 			fatalError()
@@ -52,10 +52,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
 	lazy var projectSourceImage: UIImageView = {
 		let imageView = UIImageView()
 		imageView.translatesAutoresizingMaskIntoConstraints = false
-		if #available(iOS 13.0, *) {
-			let symbolConfiguration = UIImage.SymbolConfiguration(weight: .bold)
-			imageView.image = UIImage(systemName: "checkmark", withConfiguration: symbolConfiguration)
-		}
+		imageView.image = UIImage(named: "notifications-project-commons")
 		imageView.contentMode = .scaleAspectFit
 		return imageView
 	}()
@@ -323,6 +320,8 @@ final class NotificationsCenterCell: UICollectionViewCell {
 
 		// Show or hide project source label and image
 		// ...
+		projectSourceLabel.isHidden = true
+		projectSourceImage.isHidden = false
 	}
 
 	fileprivate func updateCellStyle(forDisplayState displayState: NotificationsCenterCellDisplayState) {
@@ -339,13 +338,13 @@ final class NotificationsCenterCell: UICollectionViewCell {
 
 		headerLabel.textColor = cellStyle.headerTextColor(displayState)
 		subheaderLabel.textColor = cellStyle.subheaderTextColor(displayState)
-		messageSummaryLabel.textColor = cellStyle.messageTextColor(displayState)
-		relativeTimeAgoLabel.textColor = cellStyle.relativeTimeAgoColor(displayState)
+		messageSummaryLabel.textColor = cellStyle.messageTextColor
+		relativeTimeAgoLabel.textColor = cellStyle.relativeTimeAgoColor
 		metaActionButton.setTitleColor(cellStyle.metadataTextColor, for: .normal)
 		metaActionButton.imageView?.tintColor = cellStyle.metadataTextColor
-		projectSourceLabel.label.textColor = cellStyle.projectSourceColor(displayState)
-		projectSourceLabel.layer.borderColor = cellStyle.projectSourceColor(displayState).cgColor
-		projectSourceImage.tintColor = cellStyle.projectSourceColor(displayState)
+		projectSourceLabel.label.textColor = cellStyle.projectSourceColor
+		projectSourceLabel.layer.borderColor = cellStyle.projectSourceColor.cgColor
+		projectSourceImage.tintColor = cellStyle.projectSourceColor
 
 		selectedBackgroundView?.backgroundColor = cellStyle.selectedCellBackgroundColor
 

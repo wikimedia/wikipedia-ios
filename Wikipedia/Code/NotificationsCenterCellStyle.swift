@@ -16,9 +16,19 @@ struct NotificationsCenterCellStyle {
 	}
 
 	func headerTextColor(_ displayState: NotificationsCenterCellDisplayState) -> UIColor {
+		guard displayState.isUnread else {
+			return theme.colors.secondaryText
+		}
+
 		switch notificationType {
+		case .welcome, .editMilestone, .translationMilestone(_):
+			return theme.colors.primaryText
+		case .loginFailKnownDevice, .loginFailUnknownDevice, .loginSuccessUnknownDevice:
+			return theme.colors.error
+		case .failedMention:
+			return theme.colors.primaryText
 		default:
-			return displayState.isUnread ? theme.colors.link : theme.colors.secondaryText
+			return theme.colors.link
 		}
 	}
 
@@ -29,29 +39,20 @@ struct NotificationsCenterCellStyle {
 		}
 	}
 
-	func messageTextColor(_ displayState: NotificationsCenterCellDisplayState) -> UIColor {
-		switch notificationType {
-		default:
-			return displayState.isUnread ? theme.colors.secondaryText : theme.colors.secondaryText
-		}
+	var messageTextColor: UIColor {
+		return theme.colors.secondaryText
 	}
 
 	var metadataTextColor: UIColor {
 		return theme.colors.secondaryText
 	}
 
-	func relativeTimeAgoColor(_ displayState: NotificationsCenterCellDisplayState) -> UIColor {
-		switch notificationType {
-		default:
-			return displayState.isUnread ? theme.colors.secondaryText : theme.colors.secondaryText
-		}
+	var relativeTimeAgoColor: UIColor {
+		return theme.colors.secondaryText
 	}
 
-	func projectSourceColor(_ displayState: NotificationsCenterCellDisplayState) -> UIColor {
-		switch notificationType {
-		default:
-			return theme.colors.secondaryText
-		}
+	var projectSourceColor: UIColor {
+		return theme.colors.secondaryText
 	}
 
 	func leadingImageBackgroundColor(_ displayState: NotificationsCenterCellDisplayState) -> UIColor {
@@ -63,6 +64,12 @@ struct NotificationsCenterCellStyle {
 		}
 
 		switch notificationType {
+		case .editMilestone, .translationMilestone(_), .welcome, .thanks:
+			return theme.colors.accent
+		case .loginFailKnownDevice, .loginFailUnknownDevice, .loginSuccessUnknownDevice:
+			return theme.colors.error
+		case .failedMention, .editReverted, .userRightsChange:
+			return theme.colors.warning
 		default:
 			return theme.colors.link
 		}
@@ -150,15 +157,34 @@ struct NotificationsCenterCellStyle {
 			}
 		}
 
-		// Return image for the notification type
-		switch notificationType {
-		default:
-			if #available(iOS 13.0, *) {
-				let image = UIImage(systemName: "bubble.right.fill")
-				return image
-			} else {
-				fatalError()
+		if #available(iOS 13.0, *) {
+			// Return image for the notification type
+			switch notificationType {
+			case .userTalkPageMessage:
+				return UIImage(named: "notifications-type-user-talk-message")
+			case .mentionInTalkPage, .mentionInEditSummary, .successfulMention:
+				return UIImage(systemName: "at", withConfiguration: UIImage.SymbolConfiguration(weight: .heavy))
+			case .editReverted:
+				return UIImage(named: "notifications-type-edit-revert")
+			case .userRightsChange:
+				return UIImage(named: "notifications-type-user-rights")
+			case .pageReviewed:
+				return UIImage(named: "notifications-type-page-reviewed")
+			case .pageLinked, .connectionWithWikidata:
+				return UIImage(systemName: "link", withConfiguration: UIImage.SymbolConfiguration(weight: .semibold))
+			case .thanks:
+				return UIImage(named: "notifications-type-thanks")
+			case .welcome, .translationMilestone(_), .editMilestone:
+				return UIImage(systemName: "heart.fill")
+			case .loginFailKnownDevice, .loginFailUnknownDevice, .loginSuccessUnknownDevice:
+				return UIImage(named: "notifications-type-login-notify")
+			case .emailFromOtherUser:
+				return UIImage(systemName: "mail", withConfiguration: UIImage.SymbolConfiguration(weight: .semibold))
+			default:
+				return UIImage(systemName: "app.badge.fill")
 			}
+		} else {
+			fatalError()
 		}
 	}
 
