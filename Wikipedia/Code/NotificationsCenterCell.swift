@@ -306,8 +306,6 @@ final class NotificationsCenterCell: UICollectionViewCell {
 			projectSourceImage.trailingAnchor.constraint(equalTo: relativeTimeAgoLabel.trailingAnchor),
 			projectSourceImage.centerYAnchor.constraint(greaterThanOrEqualTo: contentView.centerYAnchor),
 		])
-
-		wmf_configureSubviewsForDynamicType()
 	}
 
 	// MARK: - Public
@@ -328,12 +326,12 @@ final class NotificationsCenterCell: UICollectionViewCell {
 	}
 
 	fileprivate func updateCellStyle(forDisplayState displayState: NotificationsCenterCellDisplayState) {
-		guard let category = viewModel?.notification.category else {
+		guard let notificationType = viewModel?.notificationType else {
 			return
 		}
 
 		// let displayState = NotificationsCenterCellDisplayState.allCases.randomElement()!		
-		let cellStyle = NotificationsCenterCellStyle(theme: theme, traitCollection: traitCollection, category: category)
+		let cellStyle = NotificationsCenterCellStyle(theme: theme, traitCollection: traitCollection, notificationType: notificationType)
 
 		// Colors
 

@@ -7,7 +7,7 @@ struct NotificationsCenterCellStyle {
 
 	let theme: Theme
 	let traitCollection: UITraitCollection
-	let category: RemoteNotificationCategory
+	let notificationType: RemoteNotificationType
 
 	// MARK: - Colors
 
@@ -16,21 +16,21 @@ struct NotificationsCenterCellStyle {
 	}
 
 	func headerTextColor(_ displayState: NotificationsCenterCellDisplayState) -> UIColor {
-		switch category {
+		switch notificationType {
 		default:
 			return displayState.isUnread ? theme.colors.link : theme.colors.secondaryText
 		}
 	}
 
 	func subheaderTextColor(_ displayState: NotificationsCenterCellDisplayState) -> UIColor {
-		switch category {
+		switch notificationType {
 		default:
 			return displayState.isUnread ? theme.colors.primaryText : theme.colors.secondaryText
 		}
 	}
 
 	func messageTextColor(_ displayState: NotificationsCenterCellDisplayState) -> UIColor {
-		switch category {
+		switch notificationType {
 		default:
 			return displayState.isUnread ? theme.colors.secondaryText : theme.colors.secondaryText
 		}
@@ -41,14 +41,14 @@ struct NotificationsCenterCellStyle {
 	}
 
 	func relativeTimeAgoColor(_ displayState: NotificationsCenterCellDisplayState) -> UIColor {
-		switch category {
+		switch notificationType {
 		default:
 			return displayState.isUnread ? theme.colors.secondaryText : theme.colors.secondaryText
 		}
 	}
 
 	func projectSourceColor(_ displayState: NotificationsCenterCellDisplayState) -> UIColor {
-		switch category {
+		switch notificationType {
 		default:
 			return theme.colors.secondaryText
 		}
@@ -62,7 +62,7 @@ struct NotificationsCenterCellStyle {
 			return theme.colors.secondaryText
 		}
 
-		switch category {
+		switch notificationType {
 		default:
 			return theme.colors.link
 		}
@@ -92,46 +92,46 @@ struct NotificationsCenterCellStyle {
 			return UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
 		}
 
-		switch category {
+		switch notificationType {
 		default:
 			return UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
 		}
 	}
 
 	func subheaderFont(_ displayState: NotificationsCenterCellDisplayState) -> UIFont {
-		if displayState.isRead {
+		if displayState.isRead {			
 			return UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
 		}
 
-		switch category {
+		switch notificationType {
 		default:
 			return UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
 		}
 	}
 
 	func messageFont(_ displayState: NotificationsCenterCellDisplayState) -> UIFont {
-		switch category {
+		switch notificationType {
 		default:
 			return UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
 		}
 	}
 
 	func metadataFont(_ displayState: NotificationsCenterCellDisplayState) -> UIFont {
-		switch category {
+		switch notificationType {
 		default:
 			return UIFont.wmf_font(.mediumFootnote, compatibleWithTraitCollection: traitCollection)
 		}
 	}
 
 	func relativeTimeAgoFont(_ displayState: NotificationsCenterCellDisplayState) -> UIFont {
-		switch category {
+		switch notificationType {
 		default:
 			return UIFont.wmf_font(.boldFootnote, compatibleWithTraitCollection: traitCollection)
 		}
 	}
 
 	func projectSourceFont(_ displayState: NotificationsCenterCellDisplayState) -> UIFont {
-		switch category {
+		switch notificationType {
 		default:
 			return UIFont.wmf_font(.caption2, compatibleWithTraitCollection: traitCollection)
 		}
@@ -150,8 +150,8 @@ struct NotificationsCenterCellStyle {
 			}
 		}
 
-		// Return image for the notification category type
-		switch category {
+		// Return image for the notification type
+		switch notificationType {
 		default:
 			if #available(iOS 13.0, *) {
 				let image = UIImage(systemName: "bubble.right.fill")

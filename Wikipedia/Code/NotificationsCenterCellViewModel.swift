@@ -19,5 +19,10 @@ final class NotificationsCenterCellViewModel {
 	var isRead: Bool {
 		return notification.isRead
 	}
+
+	var notificationType: RemoteNotificationType? {
+		// TODO: DM-Remove - Populate with actual notification type
+		return .editReverted
+	}
 	
 }
