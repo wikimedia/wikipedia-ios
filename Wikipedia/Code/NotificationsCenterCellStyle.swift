@@ -99,10 +99,7 @@ struct NotificationsCenterCellStyle {
 			return UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
 		}
 
-		switch notificationType {
-		default:
-			return UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
-		}
+		return UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
 	}
 
 	func subheaderFont(_ displayState: NotificationsCenterCellDisplayState) -> UIFont {
@@ -110,38 +107,31 @@ struct NotificationsCenterCellStyle {
 			return UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
 		}
 
-		switch notificationType {
-		default:
-			return UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
-		}
+		return UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
 	}
 
-	func messageFont(_ displayState: NotificationsCenterCellDisplayState) -> UIFont {
-		switch notificationType {
-		default:
-			return UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
-		}
+	var messageFont: UIFont {
+		return UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
 	}
 
 	func metadataFont(_ displayState: NotificationsCenterCellDisplayState) -> UIFont {
-		switch notificationType {
-		default:
-			return UIFont.wmf_font(.mediumFootnote, compatibleWithTraitCollection: traitCollection)
+		if displayState.isRead {
+			return UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
 		}
+
+		return UIFont.wmf_font(.mediumFootnote, compatibleWithTraitCollection: traitCollection)
 	}
 
 	func relativeTimeAgoFont(_ displayState: NotificationsCenterCellDisplayState) -> UIFont {
-		switch notificationType {
-		default:
-			return UIFont.wmf_font(.boldFootnote, compatibleWithTraitCollection: traitCollection)
+		if displayState.isRead {
+			return UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
 		}
+
+		return UIFont.wmf_font(.boldFootnote, compatibleWithTraitCollection: traitCollection)
 	}
 
-	func projectSourceFont(_ displayState: NotificationsCenterCellDisplayState) -> UIFont {
-		switch notificationType {
-		default:
-			return UIFont.wmf_font(.caption2, compatibleWithTraitCollection: traitCollection)
-		}
+	var projectSourceFont: UIFont {
+		return UIFont.wmf_font(.caption2, compatibleWithTraitCollection: traitCollection)
 	}
 
 	// MARK: - Images

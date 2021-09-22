@@ -112,14 +112,13 @@ final class NotificationsCenterCell: UICollectionViewCell {
 		if #available(iOS 13.0, *) {
 			let button = UIButton()
 			button.translatesAutoresizingMaskIntoConstraints = false
-			button.setImage(UIImage(systemName: "text.book.closed.fill"), for: .normal)
+			button.setImage(UIImage(systemName: "doc.plaintext.fill"), for: .normal)
 			button.titleLabel?.numberOfLines = 1
-			button.titleLabel?.textAlignment = .left
 			button.adjustsImageSizeForAccessibilityContentSizeCategory = true
 			button.titleLabel?.adjustsFontForContentSizeCategory = true
 			button.titleLabel?.font = UIFont.wmf_font(DynamicTextStyle.mediumFootnote, compatibleWithTraitCollection: traitCollection)
 			button.setTitle("Article: Wikipedia", for: .normal)
-			button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: -5)
+			button.titleEdgeInsets = UIEdgeInsets(top: 0, left: effectiveUserInterfaceLayoutDirection == .leftToRight ? 5 : -5, bottom: 0, right: effectiveUserInterfaceLayoutDirection == .leftToRight ? -5 : 5)
 			button.isUserInteractionEnabled = false
 			return button
 		} else {
@@ -283,6 +282,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
 			headerLabel.topAnchor.constraint(equalTo: headerTextContainer.topAnchor),
 			headerLabel.bottomAnchor.constraint(equalTo: headerTextContainer.bottomAnchor),
 			headerLabel.trailingAnchor.constraint(equalTo: relativeTimeAgoLabel.leadingAnchor),
+			headerLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 50),
 
 			relativeTimeAgoLabel.topAnchor.constraint(equalTo: headerTextContainer.topAnchor),
 			relativeTimeAgoLabel.bottomAnchor.constraint(equalTo: headerTextContainer.bottomAnchor),
@@ -324,7 +324,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
 		projectSourceImage.isHidden = false
 	}
 
-	fileprivate func updateCellStyle(forDisplayState displayState: NotificationsCenterCellDisplayState) {
+	func updateCellStyle(forDisplayState displayState: NotificationsCenterCellDisplayState) {
 		guard let notificationType = viewModel?.notificationType else {
 			return
 		}
@@ -352,10 +352,10 @@ final class NotificationsCenterCell: UICollectionViewCell {
 
 		headerLabel.font = cellStyle.headerFont(displayState)
 		subheaderLabel.font = cellStyle.subheaderFont(displayState)
-		messageSummaryLabel.font = cellStyle.messageFont(displayState)
+		messageSummaryLabel.font = cellStyle.messageFont
 		relativeTimeAgoLabel.font = cellStyle.relativeTimeAgoFont(displayState)
 		metaActionButton.titleLabel?.font = cellStyle.metadataFont(displayState)
-		projectSourceLabel.label.font = cellStyle.projectSourceFont(displayState)
+		projectSourceLabel.label.font = cellStyle.projectSourceFont
 
 		// Image
 
