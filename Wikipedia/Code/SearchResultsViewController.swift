@@ -17,7 +17,6 @@ class SearchResultsViewController: ArticleCollectionViewController {
         useNavigationBarVisibleHeightForScrollViewInsets = true
         reload()
         NotificationCenter.default.addObserver(self, selector: #selector(updateVisibleCells), name: NSNotification.Name.WMFArticleUpdated, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateVisibleCells), name: NSNotification.Name.WMFArticleDeleted, object: nil)
     }
     
     func reload() {
