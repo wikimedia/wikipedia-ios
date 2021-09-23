@@ -462,7 +462,7 @@
 "featured-widget-description" = "Откройте для себя лучшие статьи из Википедии, ежедневно отбираемые нашим сообществом.";
 "featured-widget-from-language-wikipedia" = "Из $1 Википедии";
 "featured-widget-from-wikipedia" = "Из Википедии";
-"featured-widget-language-failure" = "Язык вашей основной Википедии не поддерживает Избранные статьи. Вы можете изменить вашу основную Википедию в меню настроек приложения.";
+"featured-widget-language-failure" = "Язык вашей основной Википедии не поддерживает «Избранные статьи». Вы можете изменить вашу основную Википедию в меню настроек приложения.";
 "featured-widget-title" = "Избранная статья";
 "feed-news-notification-button-text" = "Включить уведомления";
 "feed-news-notification-text" = "Включить уведомления, чтобы узнавать от Википедии, когда статьи попадают в тренды новостей.";
@@ -616,6 +616,7 @@
 "on-this-day-detail-header-title" = "$1 {{PLURAL:$1|историческое событие|исторических события|исторических событий}}";
 "on-this-day-footer" = "Больше исторических событий этого дня";
 "on-this-day-footer-showing-event-count" = "{{PLURAL:$1|$1 историческое событие|$1 исторических событий}} в этот день";
+"on-this-day-language-does-not-support-error" = "Язык вашей основной Википедии не поддерживает «В этот день». Вы можете изменить вашу основную Википедию в меню настроек приложения.";
 "on-this-day-no-internet-error" = "Нет доступных данных";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 в Википедии: $2 раздел";
 "on-this-day-title" = "В этот день…";
@@ -681,6 +682,8 @@
 "places-unknown-distance" = "расстояние неизвестно";
 "potd-description-prefix" = "Изображение дня за $1";
 "potd-empty-error-description" = "Не удалось получить изображение дня за $1";
+"potd-sample-entry-description" = "Два быка бегут, пока жокей держится за них в pacu jawi (в переводе с языка минангкабау — «бычья гонка»), традиционной гонке на быках в Танах-Датаре (Западная Суматра, Индонезия). 2015, Финал-45.";
+"potd-widget-description" = "Наслаждайтесь красивыми фотографиями, ежедневно выбираемыми нашим сообществом.";
 "potd-widget-title" = "Изображение дня";
 "preference-summary-eventlogging-opt-in" = "Разрешить Фонду Викимедиа собирать информацию о том, как вы используете приложение. Это позволит сделать его лучше.";
 "preference-title-eventlogging-opt-in" = "Отправлять отчёты об использовании";
@@ -922,7 +925,9 @@
 "top-read-header-generic" = "Википедия";
 "top-read-header-with-language" = "Раздел Википедии: $1";
 "top-read-see-more" = "Посмотреть больше самых читаемых статей";
+"top-read-widget-description" = "Узнайте, что мир читает сегодня в Википедии.";
 "top-read-widget-readers-count" = "$1 читателей";
+"top-read-widget-title" = "Самые читаемые";
 "two-factor-login-continue" = "Продолжить процедуру входа";
 "two-factor-login-instructions" = "Пожалуйста, введите проверочный код двухэтапной авторизации";
 "two-factor-login-title" = "Войдите в свою учётную запись";
@@ -959,6 +964,9 @@
 "welcome-send-data-learn-more" = "Узнать подробнее о сборе данных";
 "welcome-send-data-sub-title" = "Помогите Фонду Викимедиа сделать приложение лучше, сообщив нам, как вы используете его. Собранные данные являются анонимными.";
 "welcome-volunteer-send-usage-reports" = "Отправлять отчёты об использовании";
+"widget-onthisday-description" = "Узнайте, что произошло в этот день в истории.";
+"widget-onthisday-placeholder-article-snippet" = "Свободная онлайн-энциклопедия, которую каждый может редактировать";
+"widget-onthisday-placeholder-event-snippet" = "Википедия, бесплатная энциклопедия вики-контента, выходит в Интернет.";
 "wikitext-downloading" = "Загрузка содержимого…";
 "wikitext-preview-changes" = "Получение предварительного просмотра внесённых изменений…";
 "wikitext-preview-changes-none" = "Не было внесено никаких изменений, которые можно было бы просмотреть.";
