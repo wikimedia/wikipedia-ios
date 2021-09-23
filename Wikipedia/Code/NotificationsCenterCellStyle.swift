@@ -138,44 +138,36 @@ struct NotificationsCenterCellStyle {
 
 	func leadingImage(_ displayState: NotificationsCenterCellDisplayState) -> UIImage? {
 		guard !displayState.isEditing else {
-			if #available(iOS 13.0, *) {
-				let symbolConfiguration = UIImage.SymbolConfiguration(weight: .bold)
-				let image = displayState.isSelected ? UIImage(systemName: "checkmark", withConfiguration: symbolConfiguration) : nil
-				return image
-			} else {
-				return nil
-			}
+            let symbolConfiguration = UIImage.SymbolConfiguration(weight: .bold)
+            let image = displayState.isSelected ? UIImage(systemName: "checkmark", withConfiguration: symbolConfiguration) : nil
+            return image
 		}
 
-		if #available(iOS 13.0, *) {
-			// Return image for the notification type
-			switch notificationType {
-			case .userTalkPageMessage:
-				return UIImage(named: "notifications-type-user-talk-message")
-			case .mentionInTalkPage, .mentionInEditSummary, .successfulMention:
-				return UIImage(systemName: "at", withConfiguration: UIImage.SymbolConfiguration(weight: .heavy))
-			case .editReverted:
-				return UIImage(named: "notifications-type-edit-revert")
-			case .userRightsChange:
-				return UIImage(named: "notifications-type-user-rights")
-			case .pageReviewed:
-				return UIImage(named: "notifications-type-page-reviewed")
-			case .pageLinked, .connectionWithWikidata:
-				return UIImage(systemName: "link", withConfiguration: UIImage.SymbolConfiguration(weight: .semibold))
-			case .thanks:
-				return UIImage(named: "notifications-type-thanks")
-			case .welcome, .translationMilestone(_), .editMilestone:
-				return UIImage(systemName: "heart.fill")
-			case .loginFailKnownDevice, .loginFailUnknownDevice, .loginSuccessUnknownDevice:
-				return UIImage(named: "notifications-type-login-notify")
-			case .emailFromOtherUser:
-				return UIImage(systemName: "mail", withConfiguration: UIImage.SymbolConfiguration(weight: .semibold))
-			default:
-				return UIImage(systemName: "app.badge.fill")
-			}
-		} else {
-			fatalError()
-		}
+        // Return image for the notification type
+        switch notificationType {
+        case .userTalkPageMessage:
+            return UIImage(named: "notifications-type-user-talk-message")
+        case .mentionInTalkPage, .mentionInEditSummary, .successfulMention:
+            return UIImage(systemName: "at", withConfiguration: UIImage.SymbolConfiguration(weight: .heavy))
+        case .editReverted:
+            return UIImage(named: "notifications-type-edit-revert")
+        case .userRightsChange:
+            return UIImage(named: "notifications-type-user-rights")
+        case .pageReviewed:
+            return UIImage(named: "notifications-type-page-reviewed")
+        case .pageLinked, .connectionWithWikidata:
+            return UIImage(systemName: "link", withConfiguration: UIImage.SymbolConfiguration(weight: .semibold))
+        case .thanks:
+            return UIImage(named: "notifications-type-thanks")
+        case .welcome, .translationMilestone(_), .editMilestone:
+            return UIImage(systemName: "heart.fill")
+        case .loginFailKnownDevice, .loginFailUnknownDevice, .loginSuccessUnknownDevice:
+            return UIImage(named: "notifications-type-login-notify")
+        case .emailFromOtherUser:
+            return UIImage(systemName: "mail", withConfiguration: UIImage.SymbolConfiguration(weight: .semibold))
+        default:
+            return UIImage(systemName: "app.badge.fill")
+        }
 	}
 
 }

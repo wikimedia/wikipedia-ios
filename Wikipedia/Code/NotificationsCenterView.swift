@@ -14,18 +14,14 @@ final class NotificationsCenterView: SetupView {
 	}()
 
 	private lazy var tableStyleLayout: UICollectionViewLayout = {
-		if #available(iOS 13.0, *) {
-			let estimatedHeightDimension = NSCollectionLayoutDimension.estimated(130)
-			let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),heightDimension: estimatedHeightDimension)
-			let item = NSCollectionLayoutItem(layoutSize: itemSize)
-			let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),heightDimension: estimatedHeightDimension)
-			let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,subitems: [item])
-			let section = NSCollectionLayoutSection(group: group)
-			let layout = UICollectionViewCompositionalLayout(section: section)
-			return layout
-		} else {
-			fatalError()
-		}
+        let estimatedHeightDimension = NSCollectionLayoutDimension.estimated(130)
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),heightDimension: estimatedHeightDimension)
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),heightDimension: estimatedHeightDimension)
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,subitems: [item])
+        let section = NSCollectionLayoutSection(group: group)
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        return layout
 	}()
 
     // MARK: - Setup

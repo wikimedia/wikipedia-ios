@@ -16,17 +16,13 @@ final class NotificationsCenterCell: UICollectionViewCell {
 	// MARK: - UI Elements
 
 	lazy var leadingImageView: RoundedImageView = {
-		if #available(iOS 13.0, *) {
-			let view = RoundedImageView()
-			view.translatesAutoresizingMaskIntoConstraints = false
-			view.imageView.contentMode = .scaleAspectFit
-			view.layer.borderWidth = 2
-			view.layer.borderColor = UIColor.clear.cgColor
-			view.insets = UIEdgeInsets(top: 7, left: 7, bottom: -7, right: -7)
-			return view
-		} else {
-			fatalError()
-		}
+        let view = RoundedImageView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.imageView.contentMode = .scaleAspectFit
+        view.layer.borderWidth = 2
+        view.layer.borderColor = UIColor.clear.cgColor
+        view.insets = UIEdgeInsets(top: 7, left: 7, bottom: -7, right: -7)
+        return view
 	}()
 
 	lazy var projectSourceLabel: InsetLabelView = {
@@ -109,21 +105,17 @@ final class NotificationsCenterCell: UICollectionViewCell {
 	}()
 
 	lazy var metaActionButton: UIButton = {
-		if #available(iOS 13.0, *) {
-			let button = UIButton()
-			button.translatesAutoresizingMaskIntoConstraints = false
-			button.setImage(UIImage(systemName: "doc.plaintext.fill"), for: .normal)
-			button.titleLabel?.numberOfLines = 1
-			button.adjustsImageSizeForAccessibilityContentSizeCategory = true
-			button.titleLabel?.adjustsFontForContentSizeCategory = true
-			button.titleLabel?.font = UIFont.wmf_font(DynamicTextStyle.mediumFootnote, compatibleWithTraitCollection: traitCollection)
-			button.setTitle("Article: Wikipedia", for: .normal)
-			button.titleEdgeInsets = UIEdgeInsets(top: 0, left: effectiveUserInterfaceLayoutDirection == .leftToRight ? 5 : -5, bottom: 0, right: effectiveUserInterfaceLayoutDirection == .leftToRight ? -5 : 5)
-			button.isUserInteractionEnabled = false
-			return button
-		} else {
-			fatalError()
-		}
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(systemName: "doc.plaintext.fill"), for: .normal)
+        button.titleLabel?.numberOfLines = 1
+        button.adjustsImageSizeForAccessibilityContentSizeCategory = true
+        button.titleLabel?.adjustsFontForContentSizeCategory = true
+        button.titleLabel?.font = UIFont.wmf_font(DynamicTextStyle.mediumFootnote, compatibleWithTraitCollection: traitCollection)
+        button.setTitle("Article: Wikipedia", for: .normal)
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: effectiveUserInterfaceLayoutDirection == .leftToRight ? 5 : -5, bottom: 0, right: effectiveUserInterfaceLayoutDirection == .leftToRight ? -5 : 5)
+        button.isUserInteractionEnabled = false
+        return button
 	}()
 
 	lazy var projectImageView: UIImageView = {
