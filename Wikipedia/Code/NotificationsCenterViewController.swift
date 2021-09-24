@@ -82,6 +82,7 @@ final class NotificationsCenterViewController: ViewController {
 extension NotificationsCenterViewController: UICollectionViewDelegate, UICollectionViewDataSource {
 
 	func numberOfSections(in collectionView: UICollectionView) -> Int {
+        notificationsView.updateEmptyOverlay(visible: viewModel.numberOfSections == 0, headerString: NotificationsCenterView.EmptyOverlayStrings.noUnreadMessages)
 		return viewModel.numberOfSections
 	}
 
