@@ -49,6 +49,7 @@ class NotificationSettingsViewController: SubSettingsViewController {
         self.authManager = authManager
         self.notificationsController = notificationsController
         super.init(nibName: nil, bundle: nil)
+        notificationsController.deviceTokenDelegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -82,36 +83,51 @@ class NotificationSettingsViewController: SubSettingsViewController {
         let notificationSettingsItems: [NotificationSettingsItem] = [NotificationSettingsSwitchItem(title: "Enable push notifications", switchChecker: { () -> Bool in
             return false
             }, switchAction: { [weak self] (isOn) in
+                
                 if (isOn) {
-                    self?.notificationsController.requestPermissionsIfNecessary {[weak self] isAllowed, error in
-                        DispatchQueue.main.async {
-                            if let error = error as NSError? {
-                                self?.wmf_showAlertWithError(error)
-                                return
-                            }
-                            
-                            guard isAllowed else {
-                                self?.updateSections()
-                                return
-                            }
-                            
-                            self?.notificationsController.subscribeToEchoNotifications(completionHandler: {[weak self] error in
-                                DispatchQueue.main.async {
-                                    if let error = error as NSError? {
-                                        self?.wmf_showAlertWithError(error)
-                                    }
-                                    
-                                    self?.updateSections()
-                                }
-                            })
-                        }
-                    }
+                    self?.requestPermissionsIfNeededAndRegisterDeviceToken()
                 }
         })]
         let notificationSettingsSection = NotificationSettingsSection(headerTitle: WMFLocalizedString("settings-notifications-push-notifications", value:"Push notifications", comment:"A title for a list of Push notifications"), items: notificationSettingsItems)
         
         updatedSections.append(notificationSettingsSection)
         return updatedSections
+    }
+    
+    private func requestPermissionsIfNeededAndRegisterDeviceToken() {
+        notificationsController.requestPermissionsIfNecessary {[weak self] isAllowed, error in
+            DispatchQueue.main.async {
+                
+                guard let self = self else {
+                    return
+                }
+                
+                if let error = error as NSError? {
+                    self.wmf_showAlertWithError(error)
+                    return
+                }
+                
+                guard isAllowed else {
+                    self.updateSections()
+                    return
+                }
+                
+                guard self.notificationsController.remoteRegistrationDeviceToken != nil else {
+                    self.updateSections()
+                    return
+                }
+                
+                self.notificationsController.subscribeToEchoNotifications(completionHandler: {[weak self] error in
+                    DispatchQueue.main.async {
+                        if let error = error as NSError? {
+                            self?.wmf_showAlertWithError(error)
+                        }
+                        
+                        self?.updateSections()
+                    }
+                })
+            }
+        }
     }
     
     //TODO: Temporary login logic, use proper localized string for titles when non-temporary
@@ -141,6 +157,12 @@ class NotificationSettingsViewController: SubSettingsViewController {
         return [NotificationSettingsSection(headerTitle: "", items: [subscriptionFailureItem])]
     }
     
+    //TODO: Temporary waiting for device token logic
+    func sectionsForWaitingForDeviceToken() -> [NotificationSettingsSection] {
+        let waitingForDeviceTokenItem: NotificationSettingsItem = NotificationSettingsInfoItem(title: "Waiting for device token, will subscribe when it comes in.")
+        return [NotificationSettingsSection(headerTitle: "", items: [waitingForDeviceTokenItem])]
+    }
+    
     //TODO: Temporary permissions allowed logic, use proper localized string for titles when non-temporary
     func sectionsForPermissionsAllowed() -> [NotificationSettingsSection] {
         let allowedItems: [NotificationSettingsItem] = [NotificationSettingsButtonItem(title: "Notifications are enabled. Go to iOS settings to disable notifications", buttonAction: {
@@ -161,12 +183,6 @@ class NotificationSettingsViewController: SubSettingsViewController {
             return
         }
         
-        guard notificationsController.remoteRegistrationDeviceToken != nil else {
-            sections = self.sectionsForSubscriptionFailure()
-            tableView.reloadData()
-            return
-        }
-        
         notificationsController.notificationPermissionsStatus { [weak self] status in
             
             DispatchQueue.main.async {
@@ -177,13 +193,21 @@ class NotificationSettingsViewController: SubSettingsViewController {
                 switch status {
                 case .denied:
                     self.sections = self.sectionsForPermissionsDenied()
-                    break
                 case .notDetermined:
                     self.sections = self.sectionsForPermissionsNotDetermined()
-                    break
                 case .authorized, .provisional, .ephemeral:
+                    
+                    guard !self.notificationsController.isWaitingOnDeviceToken() else {
+                        self.sections = self.sectionsForWaitingForDeviceToken()
+                        return
+                    }
+                    
+                    guard self.notificationsController.remoteRegistrationDeviceToken != nil else {
+                        self.sections = self.sectionsForSubscriptionFailure()
+                        return
+                    }
+                    
                     self.sections = self.sectionsForPermissionsAllowed()
-                    break
                 default:
                     break
                 }
@@ -275,5 +299,11 @@ class NotificationSettingsViewController: SubSettingsViewController {
         view.backgroundColor = theme.colors.baseBackground
         tableView.backgroundColor = theme.colors.baseBackground
         tableView.reloadData()
+    }
+}
+
+extension NotificationSettingsViewController: WMFNotificationsControllerDeviceTokenDelegate {
+    func didUpdateDeviceTokenStatus(from controller: WMFNotificationsController) {
+        requestPermissionsIfNeededAndRegisterDeviceToken()
     }
 }
