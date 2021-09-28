@@ -26,22 +26,22 @@ final class NotificationsCenterCell: UICollectionViewCell {
 	}()
 
 	lazy var projectSourceLabel: InsetLabelView = {
-		let label = InsetLabelView()
+		let insetLabel = InsetLabelView()
 
-		label.translatesAutoresizingMaskIntoConstraints = false
-		label.label.setContentCompressionResistancePriority(.required, for: .vertical)
-		label.label.font = UIFont.wmf_font(.caption1, compatibleWithTraitCollection: traitCollection)
-		label.label.adjustsFontForContentSizeCategory = true
-		label.label.numberOfLines = 1
-		label.label.text = "EN"
-		label.label.textAlignment = .center
+		insetLabel.translatesAutoresizingMaskIntoConstraints = false
+		insetLabel.label.setContentCompressionResistancePriority(.required, for: .vertical)
+		insetLabel.label.font = UIFont.wmf_font(.caption1, compatibleWithTraitCollection: traitCollection)
+		insetLabel.label.adjustsFontForContentSizeCategory = true
+		insetLabel.label.numberOfLines = 1
+		insetLabel.label.text = "EN"
+		insetLabel.label.textAlignment = .center
 
-		label.layer.cornerRadius = 3
-		label.layer.borderWidth = 1
-		label.layer.borderColor = UIColor.black.cgColor
-        label.insets = NSDirectionalEdgeInsets(top: 4, leading: 4, bottom: -4, trailing: -4)
+		insetLabel.layer.cornerRadius = 3
+		insetLabel.layer.borderWidth = 1
+		insetLabel.layer.borderColor = UIColor.black.cgColor
+        insetLabel.insets = NSDirectionalEdgeInsets(top: 4, leading: 4, bottom: -4, trailing: -4)
 
-		return label
+		return insetLabel
 	}()
 
 	lazy var projectSourceImage: UIImageView = {
