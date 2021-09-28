@@ -23,6 +23,7 @@
 // Author: Simon Shek
 // Author: Tsevener
 // Author: Wehwei
+// Author: Winston Sung
 // Author: Wwycheuk
 // Author: Xiplus
 // Author: 予弦
@@ -852,7 +853,7 @@
 "table-of-contents-button-label" = "目錄";
 "table-of-contents-close-accessibility-hint" = "關閉";
 "table-of-contents-close-accessibility-label" = "關閉目錄";
-"table-of-contents-heading" = "內容";
+"table-of-contents-heading" = "目次";
 "table-of-contents-hide-button-label" = "隱藏目錄";
 "table-of-contents-subheading-label" = "副標題$1";
 "tachelhit-variants-alert-body" = "維基百科應用程式現在支援下列施盧赫語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\nⵜⴰⵛⵍⵃⵉⵜ，提非納字母施盧赫語（shi-tfng）\nTaclḥit，拉丁字母施盧赫語（shi-latn）";

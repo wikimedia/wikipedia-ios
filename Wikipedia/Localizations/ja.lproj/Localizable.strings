@@ -427,6 +427,8 @@
 "explore-random-article-sub-heading-from-wikipedia" = "ウィキペディアより";
 "explore-randomizer" = "おまかせ表示";
 "featured-article-empty-title" = "今日は秀逸な記事がありません";
+"featured-widget-from-language-wikipedia" = "$1版ウィキペディアより";
+"featured-widget-from-wikipedia" = "ウィキペディアより";
 "feed-news-notification-button-text" = "通知をオンにする";
 "feed-news-notification-text" = "ニュースで記事が流行しているときに通知をWikipediaで通知できるようにする。";
 "fetcher-error-generic" = "問題が発生しました。しばらくしてから再度、操作をしてください。";
@@ -867,6 +869,7 @@
 "two-factor-login-with-regular-code" = "確認コードを使用する";
 "unable-to-load-talk-page-title" = "ノートページを読み込めませんでした";
 "unknown-generic-text" = "不明";
+"variants-alert-dismiss-button" = "いいえ";
 "welcome-exploration-explore-feed-description" = "私たちコミュニティからの読書のおすすめと毎日の記事";
 "welcome-exploration-explore-feed-title" = "「探してみよう」フィード";
 "welcome-exploration-on-this-day-description" = "歴史の中で今日起こったことを学ぶために時間を遡ります。";
