@@ -60,6 +60,15 @@ final class NotificationsCenterViewController: ViewController {
 
 	// MARK: - Public
 
+
+    // MARK: - Themable
+
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+
+        notificationsView.apply(theme: theme)
+        notificationsView.collectionView.reloadData()
+    }
 }
 
 extension NotificationsCenterViewController: UICollectionViewDelegate, UICollectionViewDataSource {
