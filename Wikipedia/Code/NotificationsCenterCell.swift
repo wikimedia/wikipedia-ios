@@ -21,7 +21,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         view.imageView.contentMode = .scaleAspectFit
         view.layer.borderWidth = 2
         view.layer.borderColor = UIColor.clear.cgColor
-        view.insets = UIEdgeInsets(top: 7, left: 7, bottom: -7, right: -7)
+        view.insets = NSDirectionalEdgeInsets(top: 7, leading: 7, bottom: -7, trailing: -7)
         return view
 	}()
 
@@ -39,8 +39,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
 		label.layer.cornerRadius = 3
 		label.layer.borderWidth = 1
 		label.layer.borderColor = UIColor.black.cgColor
-
-		label.insets = UIEdgeInsets(top: 4, left: 4, bottom: -4, right: -4)
+        label.insets = NSDirectionalEdgeInsets(top: 4, leading: 4, bottom: -4, trailing: -4)
 
 		return label
 	}()

@@ -5,12 +5,12 @@ class InsetLabelView: SetupView {
 
 	// MARK: - Properties
 
-	private(set) var label: UILabel = UILabel()
+	let label: UILabel = UILabel()
 
-	var insets: UIEdgeInsets = .zero {
+	var insets: NSDirectionalEdgeInsets = .zero {
 		didSet {
-			labelLeadingAnchor?.constant = insets.left
-			labelTrailingAnchor?.constant = insets.right
+			labelLeadingAnchor?.constant = insets.leading
+			labelTrailingAnchor?.constant = insets.trailing
 			labelTopAnchor?.constant = insets.top
 			labelBottomAnchor?.constant = insets.bottom
 		}
@@ -28,8 +28,8 @@ class InsetLabelView: SetupView {
 
 		addSubview(label)
 
-		labelLeadingAnchor = label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: insets.left)
-		labelTrailingAnchor = label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: insets.right)
+		labelLeadingAnchor = label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: insets.leading)
+		labelTrailingAnchor = label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: insets.trailing)
 		labelTopAnchor = label.topAnchor.constraint(equalTo: topAnchor, constant: insets.top)
 		labelBottomAnchor = label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: insets.bottom)
 
