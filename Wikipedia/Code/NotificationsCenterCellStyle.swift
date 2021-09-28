@@ -161,10 +161,13 @@ struct NotificationsCenterCellStyle {
             return UIImage(named: "notifications-type-thanks")
         case .welcome, .translationMilestone(_), .editMilestone:
             return UIImage(systemName: "heart.fill")
-        case .loginFailKnownDevice, .loginFailUnknownDevice, .loginSuccessUnknownDevice:
+        case .loginFailKnownDevice, .loginFailUnknownDevice, .loginSuccessUnknownDevice,
+             .unknownSystemAlert, .unknownAlert:
             return UIImage(named: "notifications-type-login-notify")
         case .emailFromOtherUser:
             return UIImage(systemName: "mail", withConfiguration: UIImage.SymbolConfiguration(weight: .semibold))
+        case .unknownSystemNotice, .unknownNotice:
+            return UIImage(systemName: "bell.fill")
         default:
             return UIImage(systemName: "app.badge.fill")
         }

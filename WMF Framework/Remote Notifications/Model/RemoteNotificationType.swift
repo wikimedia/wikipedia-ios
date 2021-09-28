@@ -19,8 +19,11 @@ public enum RemoteNotificationType {
     case loginFailUnknownDevice //Failed log in from an unfamiliar device
     case loginFailKnownDevice //Log in Notify
     case loginSuccessUnknownDevice //Successful log in unfamiliar device
-    case unknownSystem //No type ID, System alert or System notice
-    case unknown //No type ID, Notice
+    case unknownSystemAlert //No specific type ID, system alert type
+    case unknownSystemNotice //No specific type ID, system notice type
+    case unknownNotice //No specific type ID, notice type
+    case unknownAlert //No specific type ID, alert type
+    case unknown
     
 //Possible flow-related notifications to target. Leaving it to default handling for now but we may need to bring these in for special handling.
 //    case flowUserTalkPageNewTopic //Message on your talk page
