@@ -117,23 +117,6 @@ final class NotificationsCenterCell: UICollectionViewCell {
         return button
 	}()
 
-	lazy var projectImageView: UIImageView = {
-		let imageView = UIImageView()
-		imageView.translatesAutoresizingMaskIntoConstraints = false
-		return imageView
-	}()
-
-	lazy var wikipediaLanguageLabel: UILabel = {
-		let label = UILabel()
-		label.translatesAutoresizingMaskIntoConstraints = false
-		label.setContentCompressionResistancePriority(.required, for: .vertical)
-		label.font = UIFont.wmf_font(.caption2, compatibleWithTraitCollection: traitCollection)
-		label.adjustsFontForContentSizeCategory = true
-		label.numberOfLines = 1
-		label.text = ""
-		return label
-	}()
-
 	// MARK - UI Elements - Stacks
 
 	lazy var mainVerticalStackView: UIStackView = {
