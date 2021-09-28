@@ -106,7 +106,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
 	lazy var metaActionButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "doc.plaintext.fill"), for: .normal)
+        button.setImage(UIImage(systemName: "doc.plaintext.fill"), for: .normal) // this SF Symbol is iOS 14+ only
         button.titleLabel?.numberOfLines = 1
         button.adjustsImageSizeForAccessibilityContentSizeCategory = true
         button.titleLabel?.adjustsFontForContentSizeCategory = true

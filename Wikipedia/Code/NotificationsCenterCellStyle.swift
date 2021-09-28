@@ -165,7 +165,10 @@ struct NotificationsCenterCellStyle {
              .unknownSystemAlert, .unknownAlert:
             return UIImage(named: "notifications-type-login-notify")
         case .emailFromOtherUser:
-            return UIImage(systemName: "mail", withConfiguration: UIImage.SymbolConfiguration(weight: .semibold))
+            if #available(iOS 14, *) {
+                return UIImage(systemName: "mail", withConfiguration: UIImage.SymbolConfiguration(weight: .semibold))
+            }
+            return UIImage(systemName: "envelope", withConfiguration: UIImage.SymbolConfiguration(weight: .semibold))
         case .unknownSystemNotice, .unknownNotice:
             return UIImage(systemName: "bell.fill")
         default:
