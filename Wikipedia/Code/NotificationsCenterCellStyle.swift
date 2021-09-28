@@ -147,7 +147,7 @@ struct NotificationsCenterCellStyle {
         switch notificationType {
         case .userTalkPageMessage:
             return UIImage(named: "notifications-type-user-talk-message")
-        case .mentionInTalkPage, .mentionInEditSummary, .successfulMention:
+        case .mentionInTalkPage, .mentionInEditSummary, .successfulMention, .failedMention:
             return UIImage(systemName: "at", withConfiguration: UIImage.SymbolConfiguration(weight: .heavy))
         case .editReverted:
             return UIImage(named: "notifications-type-edit-revert")
