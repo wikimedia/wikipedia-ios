@@ -95,7 +95,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.setContentCompressionResistancePriority(.required, for: .vertical)
-		label.font = UIFont.wmf_font(DynamicTextStyle.boldFootnote, compatibleWithTraitCollection: traitCollection)
+		label.font = UIFont.wmf_font(.boldFootnote, compatibleWithTraitCollection: traitCollection)
 		label.adjustsFontForContentSizeCategory = true
 		label.numberOfLines = 1
 		label.textAlignment = .right
@@ -110,7 +110,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         button.titleLabel?.numberOfLines = 1
         button.adjustsImageSizeForAccessibilityContentSizeCategory = true
         button.titleLabel?.adjustsFontForContentSizeCategory = true
-        button.titleLabel?.font = UIFont.wmf_font(DynamicTextStyle.mediumFootnote, compatibleWithTraitCollection: traitCollection)
+        button.titleLabel?.font = UIFont.wmf_font(.mediumFootnote, compatibleWithTraitCollection: traitCollection)
         button.setTitle("Article: Wikipedia", for: .normal)
         button.titleEdgeInsets = UIEdgeInsets(top: 0, left: effectiveUserInterfaceLayoutDirection == .leftToRight ? 5 : -5, bottom: 0, right: effectiveUserInterfaceLayoutDirection == .leftToRight ? -5 : 5)
         button.isUserInteractionEnabled = false
@@ -127,7 +127,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.setContentCompressionResistancePriority(.required, for: .vertical)
-		label.font = UIFont.wmf_font(DynamicTextStyle.caption2, compatibleWithTraitCollection: traitCollection)
+		label.font = UIFont.wmf_font(.caption2, compatibleWithTraitCollection: traitCollection)
 		label.adjustsFontForContentSizeCategory = true
 		label.numberOfLines = 1
 		label.text = ""
