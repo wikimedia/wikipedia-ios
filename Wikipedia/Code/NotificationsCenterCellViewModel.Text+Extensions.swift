@@ -107,7 +107,7 @@ extension NotificationsCenterCellViewModel.Text {
         case .editMilestone:
             return WMFLocalizedString("notifications-subheader-edit-milestone", value: "Editing milestone", comment: "Subheader text for edit milestone notifications in Notification Center.")
         case .welcome:
-            return WMFLocalizedString("notifications-subheader-welcome", value: "Translation milestone", comment: "Subheader text for welcome notifications in Notification Center.")
+            return WMFLocalizedString("notifications-subheader-welcome", value: "Welcome!", comment: "Subheader text for welcome notifications in Notification Center.")
         case .loginFailUnknownDevice:
             return WMFLocalizedString("notifications-subheader-login-fail-unknown-device", value: "Failed log in attempt", comment: "Subheader text for 'Failed login from an unknown device' notifications in Notification Center.")
         case .loginFailKnownDevice:

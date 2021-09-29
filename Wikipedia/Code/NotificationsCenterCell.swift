@@ -359,28 +359,28 @@ final class NotificationsCenterCell: UICollectionViewCell {
     
     func updateMetaButton(forViewModel viewModel: NotificationsCenterCellViewModel) {
         
-        //Show or hide meta button
-        if let footerText = viewModel.text.footer {
-            metaActionButton.setTitle(footerText, for: .normal)
-            metaActionButton.titleLabel?.isHidden = false
-        } else {
-            metaActionButton.titleLabel?.isHidden = true
+        guard let footerText = viewModel.text.footer else {
+            metaActionButton.isHidden =  true
+            return
         }
         
-        if let footerIcon = viewModel.iconNames.footer {
-            let image: UIImage?
-            switch footerIcon {
-            case .custom(let iconName):
-                image = UIImage(named: iconName)
-            case .system(let iconName):
-                image = UIImage(systemName: iconName)
-            }
-            
-            metaActionButton.setImage(image, for: .normal)
-            metaActionButton.imageView?.isHidden = false
-        } else {
-            metaActionButton.imageView?.isHidden = true
+        metaActionButton.setTitle(footerText, for: .normal)
+        metaActionButton.isHidden =  false
+
+        guard let footerIcon = viewModel.iconNames.footer else {
+            metaActionButton.setImage(nil, for: .normal)
+            return
         }
+        
+        let image: UIImage?
+        switch footerIcon {
+        case .custom(let iconName):
+            image = UIImage(named: iconName)
+        case .system(let iconName):
+            image = UIImage(systemName: iconName)
+        }
+        
+        metaActionButton.setImage(image, for: .normal)
     }
 
 }
