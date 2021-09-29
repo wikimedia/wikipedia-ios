@@ -15,12 +15,15 @@ final class NotificationsCenterViewModel: NSObject {
 	fileprivate var collectionViewUpdater: CollectionViewUpdater<RemoteNotification>?
 
 	weak var delegate: NotificationCenterViewModelDelegate?
+    
+    private let languageLinkController: MWKLanguageLinkController
 
 	// MARK: - Lifecycle
 
 	@objc
-	init(remoteNotificationsController: RemoteNotificationsController) {
+    init(remoteNotificationsController: RemoteNotificationsController, languageLinkController: MWKLanguageLinkController) {
 		self.remoteNotificationsController = remoteNotificationsController
+        self.languageLinkController = languageLinkController
 
 		fetchedResultsController = remoteNotificationsController.fetchedResultsController()
 
@@ -49,8 +52,9 @@ final class NotificationsCenterViewModel: NSObject {
 	}
 
 	func cellViewModel(indexPath: IndexPath) -> NotificationsCenterCellViewModel? {
+        
 		if let remoteNotification =  fetchedResultsController?.object(at: indexPath) {
-			return NotificationsCenterCellViewModel(notification: remoteNotification)
+            return NotificationsCenterCellViewModel(notification: remoteNotification, languageLinkController: languageLinkController)
 		}
 
 		return nil
