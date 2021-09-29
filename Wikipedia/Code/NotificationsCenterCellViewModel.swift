@@ -8,6 +8,7 @@ final class NotificationsCenterCellViewModel {
         let body: String?
         let footer: String?
         let date: String?
+        let project: String? //nil if it's a wikidata or commons project
     }
 
 	// MARK: - Properties

@@ -40,6 +40,8 @@ final class NotificationsCenterCell: UICollectionViewCell {
 		insetLabel.layer.borderWidth = 1
 		insetLabel.layer.borderColor = UIColor.black.cgColor
         insetLabel.insets = NSDirectionalEdgeInsets(top: 4, leading: 4, bottom: -4, trailing: -4)
+        
+        insetLabel.isHidden = true
 
 		return insetLabel
 	}()
@@ -49,6 +51,9 @@ final class NotificationsCenterCell: UICollectionViewCell {
 		imageView.translatesAutoresizingMaskIntoConstraints = false
 		imageView.image = UIImage(named: "notifications-project-commons")
 		imageView.contentMode = .scaleAspectFit
+        
+        imageView.isHidden = true
+        
 		return imageView
 	}()
 
@@ -290,13 +295,18 @@ final class NotificationsCenterCell: UICollectionViewCell {
         messageSummaryLabel.text = viewModel.text.body
         metaActionButton.setTitle(viewModel.text.footer, for: .normal)
         relativeTimeAgoLabel.text = viewModel.text.date
+        projectSourceLabel.label.text = viewModel.text.project
 
 		updateCellStyle(forDisplayState: viewModel.displayState)
 
 		// Show or hide project source label and image
-		// ...
-		projectSourceLabel.isHidden = true
-		projectSourceImage.isHidden = false
+        if viewModel.text.project != nil {
+            projectSourceLabel.isHidden = false
+            projectSourceImage.isHidden = true
+        } else {
+            projectSourceLabel.isHidden = true
+            projectSourceImage.isHidden = false
+        }
 	}
 
 	func updateCellStyle(forDisplayState displayState: NotificationsCenterCellDisplayState) {

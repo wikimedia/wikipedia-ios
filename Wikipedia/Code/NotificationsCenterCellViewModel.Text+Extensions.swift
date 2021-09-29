@@ -8,6 +8,7 @@ extension NotificationsCenterCellViewModel.Text {
         self.body = Self.determineBodyText(notification: notification)
         self.footer = Self.determineFooterText(notification: notification)
         self.date = Self.determineDateText(notification: notification)
+        self.project = Self.determineProjectText(project: project)
     }
     
     private static func determineHeaderText(project: RemoteNotificationsProject, notification: RemoteNotification) -> String {
@@ -196,6 +197,15 @@ extension NotificationsCenterCellViewModel.Text {
 
         //TODO: We might need to tweak the relative logic here
         return (date as NSDate).wmf_fullyLocalizedRelativeDateStringFromLocalDateToNow()
+    }
+    
+    private static func determineProjectText(project: RemoteNotificationsProject) -> String? {
+        switch project {
+        case .language(let languageCode, _):
+            return languageCode.uppercased()
+        case .commons, .wikidata:
+            return nil
+        }
     }
 }
 
