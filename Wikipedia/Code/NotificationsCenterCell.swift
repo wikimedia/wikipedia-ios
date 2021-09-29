@@ -288,47 +288,10 @@ final class NotificationsCenterCell: UICollectionViewCell {
 		self.viewModel = viewModel
 		self.theme = theme
 
-        headerLabel.text = viewModel.text.header
-        subheaderLabel.text = viewModel.text.subheader
-        messageSummaryLabel.text = viewModel.text.body
-        metaActionButton.setTitle(viewModel.text.footer, for: .normal)
-        relativeTimeAgoLabel.text = viewModel.text.date
-
-		updateCellStyle(forDisplayState: viewModel.displayState)
-
-		// Show or hide project source label and image
-        if let projectText = viewModel.text.project {
-            projectSourceLabel.label.text = projectText
-            projectSourceLabel.isHidden = false
-            projectSourceImage.isHidden = true
-        } else if let projectIconName = viewModel.iconNames.project {
-            projectSourceImage.image = UIImage(named: projectIconName)
-            projectSourceLabel.isHidden = true
-            projectSourceImage.isHidden = false
-        }
-        
-        //Show or hide meta button
-        if let footerText = viewModel.text.footer {
-            metaActionButton.setTitle(footerText, for: .normal)
-            metaActionButton.titleLabel?.isHidden = false
-        } else {
-            metaActionButton.titleLabel?.isHidden = true
-        }
-        
-        if let footerIcon = viewModel.iconNames.footer {
-            let image: UIImage?
-            switch footerIcon {
-            case .custom(let iconName):
-                image = UIImage(named: iconName)
-            case .system(let iconName):
-                image = UIImage(systemName: iconName)
-            }
-            
-            metaActionButton.setImage(image, for: .normal)
-            metaActionButton.imageView?.isHidden = false
-        } else {
-            metaActionButton.imageView?.isHidden = true
-        }
+        updateCellStyle(forDisplayState: viewModel.displayState)
+        updateLabels(forViewModel: viewModel)
+        updateProject(forViewModel: viewModel)
+		updateMetaButton(forViewModel: viewModel)
 	}
 
 	func updateCellStyle(forDisplayState displayState: NotificationsCenterCellDisplayState) {
@@ -371,5 +334,53 @@ final class NotificationsCenterCell: UICollectionViewCell {
 		leadingImageView.imageView.tintColor = cellStyle.leadingImageTintColor
 		leadingImageView.layer.borderColor = cellStyle.leadingImageBorderColor(displayState).cgColor
 	}
+    
+    func updateLabels(forViewModel viewModel: NotificationsCenterCellViewModel) {
+        headerLabel.text = viewModel.text.header
+        subheaderLabel.text = viewModel.text.subheader
+        messageSummaryLabel.text = viewModel.text.body
+        metaActionButton.setTitle(viewModel.text.footer, for: .normal)
+        relativeTimeAgoLabel.text = viewModel.text.date
+    }
+    
+    func updateProject(forViewModel viewModel: NotificationsCenterCellViewModel) {
+        
+        // Show or hide project source label and image
+        if let projectText = viewModel.text.project {
+            projectSourceLabel.label.text = projectText
+            projectSourceLabel.isHidden = false
+            projectSourceImage.isHidden = true
+        } else if let projectIconName = viewModel.iconNames.project {
+            projectSourceImage.image = UIImage(named: projectIconName)
+            projectSourceLabel.isHidden = true
+            projectSourceImage.isHidden = false
+        }
+    }
+    
+    func updateMetaButton(forViewModel viewModel: NotificationsCenterCellViewModel) {
+        
+        //Show or hide meta button
+        if let footerText = viewModel.text.footer {
+            metaActionButton.setTitle(footerText, for: .normal)
+            metaActionButton.titleLabel?.isHidden = false
+        } else {
+            metaActionButton.titleLabel?.isHidden = true
+        }
+        
+        if let footerIcon = viewModel.iconNames.footer {
+            let image: UIImage?
+            switch footerIcon {
+            case .custom(let iconName):
+                image = UIImage(named: iconName)
+            case .system(let iconName):
+                image = UIImage(systemName: iconName)
+            }
+            
+            metaActionButton.setImage(image, for: .normal)
+            metaActionButton.imageView?.isHidden = false
+        } else {
+            metaActionButton.imageView?.isHidden = true
+        }
+    }
 
 }
