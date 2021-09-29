@@ -36,13 +36,15 @@ extension NotificationsCenterCellViewModel.IconNames {
             break
         }
         
-        guard let namespace = PageNamespace(rawValue: Int(notification.titleNamespaceKey)) else {
+        guard let namespace = PageNamespace(rawValue: Int(notification.titleNamespaceKey)),
+              notification.titleNamespace != nil else {
             return nil
         }
         
         switch namespace {
         case .talk,
-             .userTalk:
+             .userTalk,
+             .user:
             //TODO: Should we include the other talk types?
             return .system("person.circle.fill")
         case .main:
