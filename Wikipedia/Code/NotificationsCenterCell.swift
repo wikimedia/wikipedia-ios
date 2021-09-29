@@ -295,15 +295,16 @@ final class NotificationsCenterCell: UICollectionViewCell {
         messageSummaryLabel.text = viewModel.text.body
         metaActionButton.setTitle(viewModel.text.footer, for: .normal)
         relativeTimeAgoLabel.text = viewModel.text.date
-        projectSourceLabel.label.text = viewModel.text.project
 
 		updateCellStyle(forDisplayState: viewModel.displayState)
 
 		// Show or hide project source label and image
-        if viewModel.text.project != nil {
+        if let projectText = viewModel.text.project {
+            projectSourceLabel.label.text = projectText
             projectSourceLabel.isHidden = false
             projectSourceImage.isHidden = true
-        } else {
+        } else if let projectIconName = viewModel.iconNames.project {
+            projectSourceImage.image = UIImage(named: projectIconName)
             projectSourceLabel.isHidden = true
             projectSourceImage.isHidden = false
         }

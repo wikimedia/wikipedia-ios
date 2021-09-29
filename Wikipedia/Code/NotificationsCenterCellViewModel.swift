@@ -8,7 +8,11 @@ final class NotificationsCenterCellViewModel {
         let body: String?
         let footer: String?
         let date: String?
-        let project: String? //nil if it's a wikidata or commons project
+        let project: String? //nil if it's a commons or wikidata project type
+    }
+    
+    struct IconNames {
+        let project: String? //nil if it's a language project type
     }
 
 	// MARK: - Properties
@@ -16,6 +20,7 @@ final class NotificationsCenterCellViewModel {
 	let notification: RemoteNotification
 	var displayState: NotificationsCenterCellDisplayState
     let text: Text
+    let iconNames: IconNames
 
 	// MARK: - Lifecycle
 
@@ -30,6 +35,7 @@ final class NotificationsCenterCellViewModel {
 		self.displayState = displayState
         
         self.text = Text(project: project, notification: notification)
+        self.iconNames = IconNames(project: project, notification: notification)
 	}
 
 	// MARK: - Public
