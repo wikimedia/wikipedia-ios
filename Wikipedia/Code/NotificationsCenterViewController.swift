@@ -42,6 +42,14 @@ final class NotificationsCenterViewController: ViewController {
 		viewModel.fetchNotifications(collectionView: notificationsView.collectionView)
 	}
 
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
+            notificationsView.collectionView.reloadData()
+        }
+    }
+
 	// MARK: - Configuration
 
     fileprivate func setupBarButtons() {
