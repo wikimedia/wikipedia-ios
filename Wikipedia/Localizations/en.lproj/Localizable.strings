@@ -553,6 +553,12 @@
 "no-internet-connection-article-reload-button" = "Return to last saved version";
 "notifications-center-edit-button" = "Edit";
 "notifications-center-title" = "Notifications";
+"notifications-commons-project-name" = "Wikimedia Commons";
+"notifications-header-alert-from-project" = "Alert from $1";
+"notifications-header-mention-format" = "To: $1";
+"notifications-header-notice-from-project" = "Notice from $1";
+"notifications-language-project-name-format" = "$1 $2";
+"notifications-wikidata-project-name" = "Wikidata";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";

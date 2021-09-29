@@ -413,6 +413,11 @@
 		676C868126D4545300A704C1 /* WMF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; };
 		6761AEDA2704BA3800E47BAD /* RemoteNotification+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AED82704BA3800E47BAD /* RemoteNotification+CoreDataClass.swift */; };
 		6761AEDB2704BA3800E47BAD /* RemoteNotification+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AED92704BA3800E47BAD /* RemoteNotification+CoreDataProperties.swift */; };
+		6761AEDF2704CF0000E47BAD /* RemoteNotificationsProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEDE2704CF0000E47BAD /* RemoteNotificationsProject.swift */; };
+		6761AEE12704DE4100E47BAD /* NotificationsCenterCellViewModel.Text+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE02704DE4100E47BAD /* NotificationsCenterCellViewModel.Text+Extensions.swift */; };
+		6761AEE22704DE4100E47BAD /* NotificationsCenterCellViewModel.Text+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE02704DE4100E47BAD /* NotificationsCenterCellViewModel.Text+Extensions.swift */; };
+		6761AEE32704DE4100E47BAD /* NotificationsCenterCellViewModel.Text+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE02704DE4100E47BAD /* NotificationsCenterCellViewModel.Text+Extensions.swift */; };
+		6761AEE42704DE4100E47BAD /* NotificationsCenterCellViewModel.Text+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE02704DE4100E47BAD /* NotificationsCenterCellViewModel.Text+Extensions.swift */; };
 		676C869326D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676C869226D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift */; };
 		676C869426D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676C869226D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift */; };
 		676C869526D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676C869226D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift */; };
@@ -3778,6 +3783,8 @@
 		676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkPageTopicNewViewController.xib; sourceTree = "<group>"; };
 		6761AED82704BA3800E47BAD /* RemoteNotification+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteNotification+CoreDataClass.swift"; sourceTree = "<group>"; };
 		6761AED92704BA3800E47BAD /* RemoteNotification+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteNotification+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		6761AEDE2704CF0000E47BAD /* RemoteNotificationsProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsProject.swift; sourceTree = "<group>"; };
+		6761AEE02704DE4100E47BAD /* NotificationsCenterCellViewModel.Text+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationsCenterCellViewModel.Text+Extensions.swift"; sourceTree = "<group>"; };
 		676A8A8223A4013D0084B967 /* ArticleFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArticleFetcher.swift; path = ../Wikipedia/Code/ArticleFetcher.swift; sourceTree = "<group>"; };
 		676C864426D40AEA00A704C1 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		676C864626D40AEB00A704C1 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
@@ -5758,6 +5765,7 @@
 				007CCF1026D5BF1300D5EA7C /* NotificationsCenterPresentationDelegate.swift */,
 				00FCB2BD26D8398700F5A47A /* NotificationsCenterCell.swift */,
 				00FCB2C226D839A500F5A47A /* NotificationsCenterCellViewModel.swift */,
+				6761AEE02704DE4100E47BAD /* NotificationsCenterCellViewModel.Text+Extensions.swift */,
 				00E2EA8826E28A9700B1A741 /* NotificationsCenterCellStyle.swift */,
 				00E2EA8D26E2A45C00B1A741 /* NotificationsCenterCellDisplayState.swift */,
 			);
@@ -6973,6 +6981,7 @@
 				670AF1CD26CA188B005F76D0 /* RemoteNotificationLinks.swift */,
 				007B5FC426FA40F000180FF8 /* RemoteNotificationType.swift */,
 				7A0312F62153C4990095C953 /* RemoteNotificationsModelController.swift */,
+				6761AEDE2704CF0000E47BAD /* RemoteNotificationsProject.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -10812,6 +10821,7 @@
 				7AEC9859219F529000BEF62B /* DefaultEditToolbarView.swift in Sources */,
 				D808DCED1E438C0C00A3E89C /* PlaceSearch.swift in Sources */,
 				B0524B47214854E900D8FD8D /* DescriptionWelcomePageViewController.swift in Sources */,
+				6761AEE12704DE4100E47BAD /* NotificationsCenterCellViewModel.Text+Extensions.swift in Sources */,
 				B3F21D0F1EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */,
 				7A393281236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.swift in Sources */,
 				D84BF62D1DB96E7C00E0C85E /* NotificationSettingsViewController.swift in Sources */,
@@ -11268,6 +11278,7 @@
 				831937E723E1CE80006A9FF3 /* String+LinkParsing.swift in Sources */,
 				D8FA18B81E1BD891009675C3 /* NSDateFormatter+WMFExtensions.m in Sources */,
 				BA7FF0B61F618F5A0054CF02 /* CollectionViewEditController.swift in Sources */,
+				6761AEDF2704CF0000E47BAD /* RemoteNotificationsProject.swift in Sources */,
 				D84C361F1F32404700895FA1 /* OnThisDayCollectionViewCell.swift in Sources */,
 				702096B9256C3D5700E27041 /* SamplingController.swift in Sources */,
 				D826C51521766E570012F940 /* Collection+AsyncMap.swift in Sources */,
@@ -11685,6 +11696,7 @@
 				7AEC985C219F529000BEF62B /* DefaultEditToolbarView.swift in Sources */,
 				B0524B4A214854E900D8FD8D /* DescriptionWelcomePageViewController.swift in Sources */,
 				7A6ED51620ADBF950001849F /* UserHistoryFunnel.swift in Sources */,
+				6761AEE42704DE4100E47BAD /* NotificationsCenterCellViewModel.Text+Extensions.swift in Sources */,
 				7A6ED52020ADBF950001849F /* LoginFunnel.swift in Sources */,
 				D8A42A7C1E815A9C00D8E281 /* WMFDatabaseHouseKeeper.swift in Sources */,
 				7A393284236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.swift in Sources */,
@@ -12421,6 +12433,7 @@
 				D8CE25AF1E698E2400DAE2E0 /* WMFSearchResults.m in Sources */,
 				83DE45BA2449C09B00671878 /* SplashScreenViewController.swift in Sources */,
 				00E2EA9026E2A45C00B1A741 /* NotificationsCenterCellDisplayState.swift in Sources */,
+				6761AEE32704DE4100E47BAD /* NotificationsCenterCellViewModel.Text+Extensions.swift in Sources */,
 				7A9F2777225E3462002119B3 /* InsertMediaSearchResultsCollectionViewController.swift in Sources */,
 				0042812B25E6E841004945B3 /* NYTPhotoViewController.m in Sources */,
 				BAC6EEC81F1E519A00228AD0 /* AppearanceSettingsViewController.swift in Sources */,
@@ -12921,6 +12934,7 @@
 				D8EC3EAC1E9BDA35006712EB /* WMFSearchResults.m in Sources */,
 				83DE45BB2449C09B00671878 /* SplashScreenViewController.swift in Sources */,
 				00E2EA8F26E2A45C00B1A741 /* NotificationsCenterCellDisplayState.swift in Sources */,
+				6761AEE22704DE4100E47BAD /* NotificationsCenterCellViewModel.Text+Extensions.swift in Sources */,
 				7A9F2778225E3462002119B3 /* InsertMediaSearchResultsCollectionViewController.swift in Sources */,
 				0042812A25E6E841004945B3 /* NYTPhotoViewController.m in Sources */,
 				7A4FE5411FA00AF0009FA199 /* ArticlePeekPreviewViewController.swift in Sources */,

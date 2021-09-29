@@ -1,17 +1,33 @@
 import Foundation
 
 final class NotificationsCenterCellViewModel {
+    
+    struct Text {
+        let header: String
+        let subheader: String?
+        let body: String?
+        let footer: String?
+    }
 
 	// MARK: - Properties
 
 	let notification: RemoteNotification
 	var displayState: NotificationsCenterCellDisplayState
+    let text: Text
 
 	// MARK: - Lifecycle
 
-	init(notification: RemoteNotification, displayState: NotificationsCenterCellDisplayState = .defaultUnread) {
+    init?(notification: RemoteNotification, displayState: NotificationsCenterCellDisplayState = .defaultUnread, languageLinkController: MWKLanguageLinkController) {
+        
+        //Validation - all notifications must have a recognized project for display (wikidata, commons, or app-supported language)
+        guard let project = RemoteNotificationsProject(apiIdentifier: notification.wiki, languageLinkController: languageLinkController) else {
+            return nil
+        }
+        
 		self.notification = notification
 		self.displayState = displayState
+        
+        self.text = Text(project: project, notification: notification)
 	}
 
 	// MARK: - Public
@@ -19,10 +35,8 @@ final class NotificationsCenterCellViewModel {
 	var isRead: Bool {
 		return notification.isRead
 	}
-
-	var notificationType: RemoteNotificationType? {
-		// TODO: DM-Remove - Populate with actual notification type
-		return .successfulMention
-	}
-	
+    
+    var notificationType: RemoteNotificationType? {
+        return notification.type
+    }
 }
