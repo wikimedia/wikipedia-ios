@@ -98,7 +98,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
 		label.font = UIFont.wmf_font(.boldFootnote, compatibleWithTraitCollection: traitCollection)
 		label.adjustsFontForContentSizeCategory = true
 		label.numberOfLines = 1
-		label.textAlignment = .right
+        label.textAlignment = effectiveUserInterfaceLayoutDirection == .rightToLeft ? .left : .right
 		label.text = ""
 		return label
 	}()
