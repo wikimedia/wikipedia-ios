@@ -111,12 +111,10 @@ final class NotificationsCenterCell: UICollectionViewCell {
 	lazy var metaActionButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "doc.plaintext.fill"), for: .normal) // this SF Symbol is iOS 14+ only
         button.titleLabel?.numberOfLines = 1
         button.adjustsImageSizeForAccessibilityContentSizeCategory = true
         button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.titleLabel?.font = UIFont.wmf_font(.mediumFootnote, compatibleWithTraitCollection: traitCollection)
-        button.setTitle("Article: Wikipedia", for: .normal)
         button.titleEdgeInsets = UIEdgeInsets(top: 0, left: effectiveUserInterfaceLayoutDirection == .leftToRight ? 5 : -5, bottom: 0, right: effectiveUserInterfaceLayoutDirection == .leftToRight ? -5 : 5)
         button.isUserInteractionEnabled = false
         return button
@@ -307,6 +305,29 @@ final class NotificationsCenterCell: UICollectionViewCell {
             projectSourceImage.image = UIImage(named: projectIconName)
             projectSourceLabel.isHidden = true
             projectSourceImage.isHidden = false
+        }
+        
+        //Show or hide meta button
+        if let footerText = viewModel.text.footer {
+            metaActionButton.setTitle(footerText, for: .normal)
+            metaActionButton.titleLabel?.isHidden = false
+        } else {
+            metaActionButton.titleLabel?.isHidden = true
+        }
+        
+        if let footerIcon = viewModel.iconNames.footer {
+            let image: UIImage?
+            switch footerIcon {
+            case .custom(let iconName):
+                image = UIImage(named: iconName)
+            case .system(let iconName):
+                image = UIImage(systemName: iconName)
+            }
+            
+            metaActionButton.setImage(image, for: .normal)
+            metaActionButton.imageView?.isHidden = false
+        } else {
+            metaActionButton.imageView?.isHidden = true
         }
 	}
 

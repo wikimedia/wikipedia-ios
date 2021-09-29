@@ -12,7 +12,17 @@ final class NotificationsCenterCellViewModel {
     }
     
     struct IconNames {
-        let project: String? //nil if it's a language project type
+        
+        typealias IconName = String
+        
+        //Use if you need to make the system (SFSymbols) vs custom distinction
+        enum IconType {
+            case custom(IconName)
+            case system(IconName)
+        }
+        
+        let project: IconName? //nil if it's a language project type
+        let footer: IconType?
     }
 
 	// MARK: - Properties
