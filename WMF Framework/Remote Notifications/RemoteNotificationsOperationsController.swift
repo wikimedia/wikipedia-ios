@@ -1,5 +1,22 @@
 import CocoaLumberjackSwift
 
+enum RemoteNotificationsProject {
+    case language(String)
+    case commons
+    case wikidata
+    
+    var notificationsApiWikiIdentifier: String {
+        switch self {
+        case .language(let languageCode):
+            return languageCode + "wiki"
+        case .commons:
+            return "commonswiki"
+        case .wikidata:
+            return "wikidatawiki"
+        }
+    }
+}
+
 class RemoteNotificationsOperationsController: NSObject {
     private let apiController: RemoteNotificationsAPIController
     private let modelController: RemoteNotificationsModelController?
@@ -59,12 +76,6 @@ class RemoteNotificationsOperationsController: NSObject {
             return
         }
         
-        guard apiController.isAuthenticated else {
-            stop()
-            completeEarly()
-            return
-        }
-        
         guard let modelController = modelController else {
             assertionFailure("Failure setting up notifications core data stack.")
             return
@@ -76,10 +87,17 @@ class RemoteNotificationsOperationsController: NSObject {
                 return
             }
 
-            let languageCodes = preferredLanguageCodes + ["wikidata", "commons"]
+            var projects: [RemoteNotificationsProject] = []
+            for languageCode in preferredLanguageCodes {
+                projects.append(.language(languageCode))
+            }
+            projects.append(.commons)
+            projects.append(.wikidata)
+            
             var operations: [RemoteNotificationsFetchFirstPageOperation] = []
-            for languageCode in languageCodes {
-                let operation = RemoteNotificationsFetchFirstPageOperation(with: self.apiController, modelController: modelController, languageCode: languageCode)
+            for project in projects {
+                
+                let operation = RemoteNotificationsFetchFirstPageOperation(with: self.apiController, modelController: modelController, project: project, cookieDomain: self.cookieDomainForProject(project))
                 operations.append(operation)
             }
 
@@ -92,6 +110,17 @@ class RemoteNotificationsOperationsController: NSObject {
 
             self.operationQueue.addOperations(operations + [completionOperation], waitUntilFinished: false)
         })
+    }
+    
+    private func cookieDomainForProject(_ project: RemoteNotificationsProject) -> String {
+        switch project {
+        case .wikidata:
+            return Configuration.current.wikidataCookieDomain
+        case .commons:
+            return Configuration.current.commonsCookieDomain
+        default:
+            return Configuration.current.wikipediaCookieDomain
+        }
     }
 
     // MARK: Notifications
