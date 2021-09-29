@@ -519,7 +519,7 @@
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "Méi dacks geliesen Artikele weisen";
 "two-factor-login-continue" = "Virufuere mam Aloggen";
-"two-factor-login-instructions" = "Gitt wgl. den Zwee-Facteur Iwwerpréifungs-Code an";
+"two-factor-login-instructions" = "Gitt wgl. den Zwee-Facteur Iwwerpréiwungscode an";
 "two-factor-login-title" = "An Äre Benotzerkont aloggen";
 "two-factor-login-with-backup-code" = "Benotzt ee vun Äre Backup-Coden";
 "two-factor-login-with-regular-code" = "Verificatiouns-Code benotzen";
@@ -553,7 +553,7 @@
 "wikitext-preview-link-preview-title" = "Preview vum Link";
 "wikitext-preview-save-changes-title" = "Ännerunge späicheren";
 "wikitext-upload-captcha-error" = "Feeler beim Nokucke vum CAPTCHA.";
-"wikitext-upload-captcha-needed" = "CAPTCHA-Iwwerpréifung obligatoresch.";
+"wikitext-upload-captcha-needed" = "CAPTCHA-Iwwerpréiwung obligatoresch.";
 "wikitext-upload-save" = "Verëffentlechen...";
 "wikitext-upload-save-anonymously-warning" = "Ännerunge gi mat der IP-Adress vun Ärem Apparat gespäichert. Wann Dir $1 dann ass den Dateschutz méi grouss.";
 "wikitext-upload-save-sign-in" = "Aloggen";
