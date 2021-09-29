@@ -289,7 +289,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         subheaderLabel.text = viewModel.text.subheader
         messageSummaryLabel.text = viewModel.text.body
         metaActionButton.setTitle(viewModel.text.footer, for: .normal)
-		relativeTimeAgoLabel.text = "12 minutes ago" // from viewModel
+        relativeTimeAgoLabel.text = viewModel.text.date
 
 		updateCellStyle(forDisplayState: viewModel.displayState)
 
