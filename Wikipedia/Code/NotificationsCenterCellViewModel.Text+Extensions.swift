@@ -6,7 +6,7 @@ extension NotificationsCenterCellViewModel.Text {
         self.header = Self.determineHeaderText(project: project, notification: notification)
         self.subheader = Self.determineSubheaderText(notification: notification)
         self.body = Self.determineBodyText(notification: notification)
-        self.footer = nil
+        self.footer = Self.determineFooterText(notification: notification)
     }
     
     private static func determineHeaderText(project: RemoteNotificationsProject, notification: RemoteNotification) -> String {
@@ -149,6 +149,42 @@ extension NotificationsCenterCellViewModel.Text {
              .unknownNotice,
              .unknown:
             return notification.messageBody?.removingHTML
+        }
+    }
+    
+    private static func determineFooterText(notification: RemoteNotification) -> String? {
+        switch notification.type {
+        case .welcome,
+             .emailFromOtherUser:
+            return nil
+        case .loginFailKnownDevice,
+             .loginFailUnknownDevice,
+             .loginSuccessUnknownDevice:
+            return WMFLocalizedString("notifications-footer-change-password", value: "Change password", comment: "Footer text for login-related notifications in Notification Center.")
+        case .unknownSystemAlert,
+             .unknownSystemNotice,
+             .unknownAlert,
+             .unknownNotice,
+             .unknown:
+            guard let primaryLinkTitle = notification.messageLinks?.primaryLabel else {
+                return nil
+            }
+            
+            return primaryLinkTitle
+        case .userTalkPageMessage,
+             .mentionInTalkPage,
+             .mentionInEditSummary,
+             .successfulMention,
+             .failedMention,
+             .editReverted,
+             .userRightsChange,
+             .pageReviewed,
+             .pageLinked,
+            .connectionWithWikidata,
+            .thanks,
+            .translationMilestone,
+            .editMilestone:
+            return notification.titleFull
         }
     }
 }

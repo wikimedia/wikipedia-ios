@@ -554,6 +554,7 @@
 "notifications-center-edit-button" = "Title for navigation bar button to toggle mode for editing notification read status";
 "notifications-center-title" = "Title for Notifications Center interface.";
 "notifications-commons-project-name" = "Project name description for Wikimedia Commons, used in notification headers.";
+"notifications-footer-change-password" = "Footer text for login-related notifications in Notification Center.";
 "notifications-header-alert-from-project" = "Header text for alert notifications in Notification Center. $1 is replaced with a project name such as \"EN-Wikipedia\".";
 "notifications-header-mention-format" = "Header text for successful mention notifications in Notification Center. $1 is replaced with the mentioned username (e.g. \"To: Jimbo Wales\").";
 "notifications-header-notice-from-project" = "Header text for notice notifications in Notification Center. $1 is replaced with a project name such as \"EN-Wikipedia\" or \"Wikimedia Commons\".";

@@ -10,6 +10,10 @@ public class RemoteNotificationLinks: NSObject, NSSecureCoding, Codable {
     public var primaryUrl: URL? {
         return primary?.url
     }
+    
+    public var primaryLabel: String? {
+        return primary?.label
+    }
 
     init(primary: RemoteNotificationLink?, secondary: [RemoteNotificationLink]?) {
         self.primary = primary
