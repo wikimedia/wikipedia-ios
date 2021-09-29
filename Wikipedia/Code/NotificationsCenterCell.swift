@@ -286,7 +286,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
 		self.theme = theme
 
         headerLabel.text = viewModel.text.header
-		subheaderLabel.text = "This is the notification's subheader text"
+        subheaderLabel.text = viewModel.text.subheader
 		messageSummaryLabel.text = "This is the notification's body text" // from viewModel
 		relativeTimeAgoLabel.text = "12 minutes ago" // from viewModel
 

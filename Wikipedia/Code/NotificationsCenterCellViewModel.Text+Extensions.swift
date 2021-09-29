@@ -4,7 +4,7 @@ import Foundation
 extension NotificationsCenterCellViewModel.Text {
     init(project: RemoteNotificationsProject, notification: RemoteNotification) {
         self.header = Self.determineHeaderText(project: project, notification: notification)
-        self.subheader = nil
+        self.subheader = Self.determineSubheaderText(notification: notification)
         self.body = nil
         self.footer = nil
     }
@@ -53,6 +53,71 @@ extension NotificationsCenterCellViewModel.Text {
             }
 
             return agentName
+        }
+    }
+    
+    private static func determineSubheaderText(notification: RemoteNotification) -> String? {
+        
+        switch notification.type {
+        case .userTalkPageMessage:
+            guard let topicTitle = topicTitleFromTalkPageNotification(notification) else {
+                return WMFLocalizedString("notifications-subheader-message-user-talk-page", value: "Message on your talk page", comment: "Subheader text for user talk page message notifications in Notification Center.")
+            }
+            
+            return topicTitle
+        case .mentionInTalkPage:
+            
+            guard let topicTitle = topicTitleFromTalkPageNotification(notification) else {
+                
+                guard let namespace = PageNamespace(rawValue: Int(notification.titleNamespaceKey)),
+                      namespace == .talk else {
+                    //TODO: Should we target other talk page types and have a more specific string? See PageNamespace options.
+                    return WMFLocalizedString("notifications-subheader-mention-talk-page", value: "Mention on talk page", comment: "Subheader text for non-Talk namespace mention notifications in Notification Center.")
+                }
+                
+                return WMFLocalizedString("notifications-subheader-mention-article-talk-page", value: "Mention on article talk page", comment: "Subheader text for Talk namespace mention notifications in Notification Center.")
+            }
+            
+            return topicTitle
+            
+        case .mentionInEditSummary:
+            return WMFLocalizedString("notifications-subheader-mention-edit-summary", value: "Mention in edit summary", comment: "Subheader text for 'mention in edit summary' notifications in Notification Center.")
+        case .successfulMention:
+            return WMFLocalizedString("notifications-subheader-mention-successful", value: "Successful mention", comment: "Subheader text for successful mention notifications in Notification Center.")
+        case .failedMention:
+            return WMFLocalizedString("notifications-subheader-mention-failed", value: "Failed mention", comment: "Subheader text for failed mention notifications in Notification Center.")
+        case .editReverted:
+            return WMFLocalizedString("notifications-subheader-edit-reverted", value: "Your edit was reverted", comment: "Subheader text for edit reverted notifications in Notification Center.")
+        case .userRightsChange:
+            return WMFLocalizedString("notifications-subheader-user-rights-change", value: "User rights change", comment: "Subheader text for user rights change notifications in Notification Center.")
+        case .pageReviewed:
+            return WMFLocalizedString("notifications-subheader-page-reviewed", value: "Page reviewed", comment: "Subheader text for page reviewed notifications in Notification Center.")
+        case .pageLinked:
+            return WMFLocalizedString("notifications-subheader-page-link", value: "Page link", comment: "Subheader text for page link notifications in Notification Center.")
+        case .connectionWithWikidata:
+            return WMFLocalizedString("notifications-subheader-wikidata-connection", value: "Wikidata connection made", comment: "Subheader text for 'Wikidata connection made' notifications in Notification Center.")
+        case .emailFromOtherUser:
+            return WMFLocalizedString("notifications-subheader-email-from-other-user", value: "New email", comment: "Subheader text for 'email from other user' notifications in Notification Center.")
+        case .thanks:
+            return WMFLocalizedString("notifications-subheader-thanks", value: "Thanks", comment: "Subheader text for thanks notifications in Notification Center.")
+        case .translationMilestone(_):
+            return WMFLocalizedString("notifications-subheader-translate-milestone", value: "Translation milestone", comment: "Subheader text for translation milestone notifications in Notification Center.")
+        case .editMilestone:
+            return WMFLocalizedString("notifications-subheader-edit-milestone", value: "Editing milestone", comment: "Subheader text for edit milestone notifications in Notification Center.")
+        case .welcome:
+            return WMFLocalizedString("notifications-subheader-welcome", value: "Translation milestone", comment: "Subheader text for welcome notifications in Notification Center.")
+        case .loginFailUnknownDevice:
+            return WMFLocalizedString("notifications-subheader-login-fail-unknown-device", value: "Failed log in attempt", comment: "Subheader text for 'Failed login from an unknown device' notifications in Notification Center.")
+        case .loginFailKnownDevice:
+            return WMFLocalizedString("notifications-subheader-login-fail-known-device", value: "Multiple failed log in attempts", comment: "Subheader text for 'Failed login from a known device' notifications in Notification Center.")
+        case .loginSuccessUnknownDevice:
+            return WMFLocalizedString("notifications-subheader-login-success-unknown-device", value: "Log in from an unfamiliar device", comment: "Subheader text for 'Successful login from an unknown device' notifications in Notification Center.")
+        case .unknownSystemNotice,
+             .unknownSystemAlert,
+             .unknownNotice,
+             .unknownAlert,
+             .unknown:
+            return notification.messageHeader?.removingHTML ?? notification.messageBody?.removingHTML
         }
     }
 }
@@ -114,5 +179,25 @@ private extension NotificationsCenterCellViewModel.Text {
         default:
             return noticeText(project: project)
         }
+    }
+}
+
+//MARK: Subheader text determination helper methods
+
+private extension NotificationsCenterCellViewModel.Text {
+    static func topicTitleFromTalkPageNotification(_ notification: RemoteNotification) -> String? {
+        
+        //We can extract the talk page title from the primary url's first fragment for user talk page message notifications
+        
+        guard let primaryUrl = notification.messageLinks?.primaryUrl else {
+            return nil
+        }
+        
+        let components = URLComponents(url: primaryUrl, resolvingAgainstBaseURL: false)
+        guard let fragment = components?.fragment else {
+            return nil
+        }
+        
+        return fragment.removingPercentEncoding?.replacingOccurrences(of: "_", with: " ")
     }
 }
