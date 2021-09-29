@@ -5,7 +5,7 @@ extension NotificationsCenterCellViewModel.Text {
     init(project: RemoteNotificationsProject, notification: RemoteNotification) {
         self.header = Self.determineHeaderText(project: project, notification: notification)
         self.subheader = Self.determineSubheaderText(notification: notification)
-        self.body = nil
+        self.body = Self.determineBodyText(notification: notification)
         self.footer = nil
     }
     
@@ -117,7 +117,38 @@ extension NotificationsCenterCellViewModel.Text {
              .unknownNotice,
              .unknownAlert,
              .unknown:
-            return notification.messageHeader?.removingHTML ?? notification.messageBody?.removingHTML
+            return notification.messageHeader?.removingHTML
+        }
+    }
+    
+    private static func determineBodyText(notification: RemoteNotification) -> String? {
+        switch notification.type {
+        case .editReverted:
+            return nil
+        case .successfulMention,
+             .failedMention,
+             .userRightsChange,
+             .pageReviewed,
+             .pageLinked,
+             .connectionWithWikidata,
+             .emailFromOtherUser,
+             .thanks,
+             .translationMilestone,
+             .editMilestone,
+             .welcome,
+             .loginFailUnknownDevice,
+             .loginFailKnownDevice,
+             .loginSuccessUnknownDevice:
+            return notification.messageHeader?.removingHTML
+        case .userTalkPageMessage,
+             .mentionInTalkPage,
+             .mentionInEditSummary,
+             .unknownSystemAlert,
+             .unknownSystemNotice,
+             .unknownAlert,
+             .unknownNotice,
+             .unknown:
+            return notification.messageBody?.removingHTML
         }
     }
 }
