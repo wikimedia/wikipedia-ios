@@ -554,6 +554,7 @@
 "notifications-center-edit-button" = "Edit";
 "notifications-center-title" = "Notifications";
 "notifications-commons-project-name" = "Wikimedia Commons";
+"notifications-footer-change-password" = "Change password";
 "notifications-header-alert-from-project" = "Alert from $1";
 "notifications-header-mention-format" = "To: $1";
 "notifications-header-notice-from-project" = "Notice from $1";
