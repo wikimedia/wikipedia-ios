@@ -7,6 +7,7 @@ final class NotificationsCenterCellViewModel {
         let subheader: String?
         let body: String?
         let footer: String?
+        let date: String?
     }
 
 	// MARK: - Properties
