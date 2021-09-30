@@ -21,6 +21,7 @@ public final class WidgetController: NSObject {
     // MARK: Properties
 
 	@objc public static let shared = WidgetController()
+    private let sharedCache = SharedContainerCache<WidgetCache>(pathComponent: .widgetCache, defaultCache: { WidgetCache(settings: .default, featuredContent: nil) })
 
     // MARK: Public
 
@@ -180,47 +181,17 @@ public final class WidgetController: NSObject {
 /// When the old widget data loading model is removed, this should be moved out of this extension into the class itself and refactored (e.g. the properties here don't need to be computed).
 public extension WidgetController {
 
-    // MARK: - Properties
-
-    fileprivate var widgetCacheDirectoryContainerURL: URL {
-        FileManager.default.wmf_containerURL()
-    }
-
-    fileprivate var widgetCacheDataFileURL: URL {
-        return widgetCacheDirectoryContainerURL.appendingPathComponent("Widget Cache").appendingPathExtension("json")
-    }
-
-    // MARK: - Widget Cache
-
-    /// Returns currently cached `WidgetCache` or an empty default
-    func loadCache() -> WidgetCache {
-        if let data = try? Data(contentsOf: widgetCacheDataFileURL), let decodedCache = try? JSONDecoder().decode(WidgetCache.self, from: data) {
-            return decodedCache
-        }
-
-        return WidgetCache(settings: .default, featuredContent: nil)
-    }
-
-    func saveCache(_ widgetCache: WidgetCache) {
-        let encoder = JSONEncoder()
-        guard let encodedCache = try? encoder.encode(widgetCache) else {
-            return
-        }
-
-        try? encodedCache.write(to: widgetCacheDataFileURL)
-    }
-
     /// This is currently unused. It will be useful when we update the main app to also update the widget's cache when it performs any updates to the featured content in the explore feed.
     func updateCacheWith(featuredContent: WidgetFeaturedContent) {
-        var updatedCache = loadCache()
+        var updatedCache = sharedCache.loadCache()
         updatedCache.featuredContent = featuredContent
-        saveCache(updatedCache)
+        sharedCache.saveCache(updatedCache)
     }
 
     func updateCacheWith(settings: WidgetSettings) {
-        var updatedCache = loadCache()
+        var updatedCache = sharedCache.loadCache()
         updatedCache.settings = settings
-        saveCache(updatedCache)
+        sharedCache.saveCache(updatedCache)
     }
 
     // MARK: - Featured Article Widget
@@ -233,7 +204,7 @@ public extension WidgetController {
         }
 
         let fetcher = WidgetContentFetcher.shared
-        var widgetCache = loadCache()
+        var widgetCache = sharedCache.loadCache()
 
         guard !isSnapshot else {
             let previewSnapshot = widgetCache.featuredContent ?? WidgetFeaturedContent.previewContent() ?? WidgetFeaturedContent(featuredArticle: nil)
@@ -255,16 +226,16 @@ public extension WidgetController {
                     fetcher.fetchImageDataFrom(imageSource: featuredArticleThumbnailImageSource) { imageResult in
                         featuredContent.featuredArticle?.thumbnailImageSource?.data = try? imageResult.get()
                         widgetCache.featuredContent = featuredContent
-                        self.saveCache(widgetCache)
+                        self.sharedCache.saveCache(widgetCache)
                         performCompletion(result: .success(featuredContent))
                     }
                 } else {
                     widgetCache.featuredContent = featuredContent
-                    self.saveCache(widgetCache)
+                    self.sharedCache.saveCache(widgetCache)
                     performCompletion(result: .success(featuredContent))
                 }
             case .failure(let error):
-                self.saveCache(widgetCache)
+                self.sharedCache.saveCache(widgetCache)
                 performCompletion(result: .failure(error))
             }
         }
