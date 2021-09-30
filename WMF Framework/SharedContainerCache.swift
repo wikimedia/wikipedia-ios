@@ -1,10 +1,10 @@
 
 import Foundation
 
-final class SharedContainerCache<T: Codable> {
+public final class SharedContainerCache<T: Codable> {
     
     //values must all be distinct
-    enum PathComponent: String {
+    public enum PathComponent: String {
         case widgetCache = "Widget Cache"
         case pushNotificationsCache = "Push Notifications Cache"
     }
@@ -12,7 +12,7 @@ final class SharedContainerCache<T: Codable> {
     private let pathComponent: PathComponent
     private let defaultCache: () -> T
     
-    init(pathComponent: PathComponent, defaultCache: @escaping () -> T) {
+    public init(pathComponent: PathComponent, defaultCache: @escaping () -> T) {
         self.pathComponent = pathComponent
         self.defaultCache = defaultCache
     }

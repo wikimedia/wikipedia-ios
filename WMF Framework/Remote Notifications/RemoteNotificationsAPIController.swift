@@ -1,6 +1,6 @@
 import CocoaLumberjackSwift
 
-class RemoteNotificationsAPIController: Fetcher {
+public class RemoteNotificationsAPIController: Fetcher {
     // MARK: NotificationsAPI constants
 
     private struct NotificationsAPI {
@@ -19,7 +19,7 @@ class RemoteNotificationsAPIController: Fetcher {
         let code, info: String?
     }
 
-    struct NotificationsResult: Decodable {
+    public struct NotificationsResult: Decodable {
         
         struct Query: Decodable {
             
@@ -33,9 +33,9 @@ class RemoteNotificationsAPIController: Fetcher {
         let error: ResultError?
         let query: Query?
         
-        struct Notification: Decodable, Hashable {
+        public struct Notification: Codable, Hashable {
             
-            struct Timestamp: Decodable, Hashable {
+            struct Timestamp: Codable, Hashable {
                 let utciso8601: String
                 let utcunix: String
                 
@@ -54,7 +54,7 @@ class RemoteNotificationsAPIController: Fetcher {
                     }
                 }
             }
-            struct Agent: Decodable, Hashable {
+            struct Agent: Codable, Hashable {
                 let id: String?
                 let name: String?
                 
@@ -73,7 +73,7 @@ class RemoteNotificationsAPIController: Fetcher {
                     }
                 }
             }
-            struct Title: Decodable, Hashable {
+            struct Title: Codable, Hashable {
                 let full: String?
                 let namespace: String?
                 let namespaceKey: Int?
@@ -87,7 +87,7 @@ class RemoteNotificationsAPIController: Fetcher {
                 }
             }
             
-            struct Message: Decodable, Hashable {
+            struct Message: Codable, Hashable {
                 let header: String?
                 let body: String?
                 let links: RemoteNotificationLinks?
@@ -104,8 +104,16 @@ class RemoteNotificationsAPIController: Fetcher {
             let readString: String?
             let message: Message?
             
-            var key: String {
+            public var key: String {
                 return "\(wiki)-\(id)"
+            }
+            
+            public var date: Date? {
+                return DateFormatter.wmf_iso8601()?.date(from: timestamp.utciso8601)
+            }
+            
+            public var pushContentText: String? {
+                return self.message?.header?.removingHTML
             }
 
             enum CodingKeys: String, CodingKey {
@@ -121,7 +129,7 @@ class RemoteNotificationsAPIController: Fetcher {
                 case message = "*"
             }
 
-            init(from decoder: Decoder) throws {
+            public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: CodingKeys.self)
                 wiki = try values.decode(String.self, forKey: .wiki)
                 do {
@@ -182,7 +190,7 @@ class RemoteNotificationsAPIController: Fetcher {
         return Set(list)
     }
     
-    public func getAllNotifications(from project: RemoteNotificationsProject, completion: @escaping (NotificationsResult.Query.Notifications?, Error?) -> Void) {
+    func getAllNotifications(from project: RemoteNotificationsProject, completion: @escaping (NotificationsResult.Query.Notifications?, Error?) -> Void) {
         let completion: (NotificationsResult?, URLResponse?, Error?) -> Void = { result, _, error in
             guard error == nil else {
                 completion(nil, error)
@@ -194,7 +202,7 @@ class RemoteNotificationsAPIController: Fetcher {
         request(project: project, queryParameters: Query.notifications(from: [project], limit: .max, filter: .none), completion: completion)
     }
 
-    public func markAsRead(_ notifications: Set<RemoteNotification>, completion: @escaping (Error?) -> Void) {
+    func markAsRead(_ notifications: Set<RemoteNotification>, completion: @escaping (Error?) -> Void) {
         let maxNumberOfNotificationsPerRequest = 50
         let notifications = Array(notifications)
         let split = notifications.chunked(into: maxNumberOfNotificationsPerRequest)
