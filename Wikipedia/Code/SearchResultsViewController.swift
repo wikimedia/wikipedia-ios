@@ -16,7 +16,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
         super.viewDidLoad()
         useNavigationBarVisibleHeightForScrollViewInsets = true
         reload()
-        NotificationCenter.default.addObserver(self, selector: #selector(updateVisibleCells), name: NSNotification.Name.WMFArticleUpdated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateArticleCell(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
     }
     
     func reload() {
@@ -124,11 +124,19 @@ class SearchResultsViewController: ArticleCollectionViewController {
         collectionView.backgroundColor = theme.colors.midBackground
     }
 
-    @objc func updateVisibleCells() {
+    @objc func updateArticleCell(_ notification: NSNotification) {
+        guard let updatedArticle = notification.object as? WMFArticle,
+              updatedArticle.hasChangedValuesForCurrentEventThatAffectSavedState,
+              let updatedArticleKey = updatedArticle.inMemoryKey else {
+            return
+        }
+
         for indexPath in collectionView.indexPathsForVisibleItems {
-            guard let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell else {
+            guard articleURL(at: indexPath)?.wmf_inMemoryKey == updatedArticleKey,
+                  let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell else {
                 continue
             }
+
             configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
         }
     }
