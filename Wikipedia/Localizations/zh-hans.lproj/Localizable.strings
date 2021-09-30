@@ -12,6 +12,7 @@
 // Author: Endermoon
 // Author: FakeGreenHand
 // Author: GoForceX
+// Author: GuoPC
 // Author: Hudafu
 // Author: ITsu
 // Author: Josephine W.
@@ -35,6 +36,7 @@
 // Author: Xiplus
 // Author: Yfdyh000
 // Author: Ywang
+// Author: Zhang8569
 // Author: 予弦
 // Author: 佛壁灯
 // Author: 夢蝶葬花
@@ -447,6 +449,12 @@
 "explore-random-article-sub-heading-from-wikipedia" = "来自维基百科";
 "explore-randomizer" = "随机条目产生器";
 "featured-article-empty-title" = "今天没有典范条目";
+"featured-widget-content-failure-for-date" = "迄今为止特色条目并不可用。";
+"featured-widget-description" = "发现维基百科上最好的文章，每日由我们的社区选择。";
+"featured-widget-from-language-wikipedia" = "来自$1维基百科";
+"featured-widget-from-wikipedia" = "来自维基百科";
+"featured-widget-language-failure" = "你的首选维基百科语言在今日并不支持该语言。你可以在应用宏程序的设置菜单中更新你的主要维基百科语言。";
+"featured-widget-title" = "特色条目";
 "feed-news-notification-button-text" = "打开通知";
 "feed-news-notification-text" = "当条目在新闻中热门时，启用维基百科通知。";
 "fetcher-error-generic" = "出错了！请稍后重试。";
@@ -599,6 +607,8 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1个历史事件}}";
 "on-this-day-footer" = "这一天的更多历史事件";
 "on-this-day-footer-showing-event-count" = "这一天有{{PLURAL:$1|超过$1个历史事件|超过$1个历史事件}}";
+"on-this-day-language-does-not-support-error" = "你的首选维基百科语言在今日并不支持。你可以在应用宏程序的设置菜单中更新你的主要维基百科语言。";
+"on-this-day-no-internet-error" = "没有可用数据";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1来自$2维基百科";
 "on-this-day-title" = "历史上的今天";
 "original-tab-button-popover-description" = "点按“W”以返回您开始来自的标签";
@@ -663,6 +673,9 @@
 "places-unknown-distance" = "未知距离";
 "potd-description-prefix" = "$1的每日图片";
 "potd-empty-error-description" = "无法检索$1的每日图片";
+"potd-sample-entry-description" = "在2015年的Pacu Jawi活动决赛上（源于米南加保的“奔牛赛”），一名骑师驾驭两只奔跑的公牛。这是印度尼西亚西苏门答腊岛丹那达塔尔的传统奔牛比赛。";
+"potd-widget-description" = "享受观看一个由社区选择的每日美丽照片。";
+"potd-widget-title" = "今日图片";
 "preference-summary-eventlogging-opt-in" = "允许维基媒体基金会收集有关您操作本应用的信息，从而改善应用";
 "preference-title-eventlogging-opt-in" = "发送使用反馈";
 "rank-accessibility-label" = "第$1";
@@ -903,6 +916,9 @@
 "top-read-header-generic" = "维基百科";
 "top-read-header-with-language" = "$1维基百科";
 "top-read-see-more" = "查看更多热门阅读";
+"top-read-widget-description" = "在维基百科上学习世界今天在读什么。";
+"top-read-widget-readers-count" = "$1位读者";
+"top-read-widget-title" = "热门阅读";
 "two-factor-login-continue" = "继续登录";
 "two-factor-login-instructions" = "请输入双因素验证码";
 "two-factor-login-title" = "登录您的账户";
@@ -939,6 +955,9 @@
 "welcome-send-data-learn-more" = "了解更多关于数据收集";
 "welcome-send-data-sub-title" = "通过让维基媒体基金会知道您是如何使用来协助改善应用。收集的数据都是匿名的。";
 "welcome-volunteer-send-usage-reports" = "发送使用情况报告";
+"widget-onthisday-description" = "探索历史上的今日所发生的事情。";
+"widget-onthisday-placeholder-article-snippet" = "任何人都可以编辑的免费的线上百科全书";
+"widget-onthisday-placeholder-event-snippet" = "维基百科，一个免费的维基百科全书内容，现在成为线上了。";
 "wikitext-downloading" = "正在加载内容...";
 "wikitext-preview-changes" = "正在获取您更改的预览…";
 "wikitext-preview-changes-none" = "没有可供预览的更改。";

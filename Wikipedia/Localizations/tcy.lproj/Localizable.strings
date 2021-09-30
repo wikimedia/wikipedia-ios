@@ -27,18 +27,22 @@
 "account-creation-passwords-mismatched" = "ಪ್ರವೇಸೊ ಪದ ಜೋಡಿ ಅಪೂಜಿ.";
 "account-creation-saving" = "ಓರಿಪವೊಂತುಂಡು...";
 "account-creation-title" = "ಪೊಸ ಖಾತೆ ಸುರು ಮಲ್ಪುಲೆ";
+"action-cancel" = "ವಜಾ ಮಲ್ಪುಲೆ";
 "action-read" = "ಓದ್‍ಲೆ";
 "action-redo" = "ಕುಡಮಲ್ಪಿ";
+"action-remove" = "ದೆಪ್ಪುಲೆ";
 "action-save" = "ಒರಿಪಾಲೆ";
 "action-saved" = "ಒರಿಪಾಂಡ್";
 "action-share" = "ಪಟ್ಟ್‍ಲೆ";
+"action-undo" = "ದುಂಬುದಲೆಕೊ";
 "action-unsave" = "ಒರಿಪಾತುಜ್ಜಿ";
 "announcements-dismiss" = "ದೆತ್ತ್ ಪಾಡ್ಲೆ";
 "article-delete" = "ಮಾಜಾಲೆ";
 "article-languages-filter-placeholder" = "ಬಾಸೆನ್ ನಡ್ಲೇ";
 "article-languages-label" = "ಬಾಸೆನ್ ಆಯ್ಕೆ ಮಲ್ತೊನ್ಲೆ";
 "article-languages-others" = "ಬೇತೆ ಬಾಸೆಲೆಡ್";
-"article-languages-yours" = "ಇರೆನಾ ಬಾಸೆ";
+"article-languages-yours" = "ಇರೆನಾ ಬಾಸೆಲು";
+"article-read-more-title" = "ನನಾತ್ ಓದುಲೆ";
 "article-share" = "ಪಟ್ಟ್‍ಲೆ";
 "back-button-accessibility-label" = "ಪಿರ";
 "button-next" = "ನನತಾ";
@@ -51,12 +55,14 @@
 "cancel" = "ವಜಾ ಮಲ್ಪುಲೆ";
 "close-button-accessibility-label" = "ಮುಚ್ಚಿಲೆ";
 "compass-direction" = "$1 ಗಂಟೆಗ್";
+"description-published-button-title" = "ಆಂಡ್";
 "edit-bold-accessibility-label" = "ದಪ್ಪಾಕ್ಷರ ರೂಪನ ಸೇರಾಲೆ";
 "edit-bold-remove-accessibility-label" = "ದಪ್ಪಾಕ್ಷರದ ರೂಪನ ದೆಪ್ಪುಲೆ";
 "edit-direction-left-accessibility-label" = "ಸೂಚಶರ ದತ್ತ್'ಗ್ ಪಂದಾಲೆ";
 "edit-italic-accessibility-label" = "ಓರೆಅಕ್ಷರ ರೂಪನ ಸೇರಾಲೆ";
 // Fuzzy
 "edit-link-title" = "ಕೊಂಡಿ";
+"edit-menu-item" = "ಸಂಪೊಲಿಪುಲೆ";
 "edit-minor-learn-more-text" = "ಎಲ್ಯ ಸಂಪಾದಲೆನ ಬಗ್ಗೆ ಎಚ್ಚ ಕಲ್ಪುಲೆ.";
 "edit-minor-text" = "ಉಂದು ಎಲ್ಯ ಬದಲಾವಣೆ";
 "edit-published" = "ಸಂಪಾದ ಪ್ರಕಟಿಂಡ್";
@@ -98,7 +104,7 @@
 "field-password-placeholder" = "ಪ್ರವೇಸೊ ಪದೊನ್ ಬರೆಲೆ";
 "field-password-title" = "ಪ್ರವೇಶ ಪದೊ";
 "field-username-placeholder" = "ಸದಸ್ಯ ಪುದರ್ ಬರೆಲೆ";
-"field-username-title" = "ಸದಸ್ಯೆರ್ನ ಪುದರ್";
+"field-username-title" = "ಬಳಕೆದಾರೆರೆಪುದರ್";
 "forgot-password-button-title" = "ಪಿರ ಸರಿಮಾನ್ಪಿ";
 "forgot-password-title" = "ಪ್ರವೇಸೊ ಪದೊನ್ ಪಿರ ಸ್ತಾಪನೆ ಮಲ್ಪುಲೆ";
 "forgot-password-username-or-email-title" = "ಅತ್ತಂಡಾ";

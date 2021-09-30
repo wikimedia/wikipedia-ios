@@ -11,6 +11,7 @@
 // Author: Arash.pt
 // Author: Arian Ar
 // Author: BaziOnline
+// Author: Darafsh
 // Author: Ebraminio
 // Author: FarsiNevis
 // Author: Fatemi127
@@ -191,11 +192,15 @@
 "button-skip" = "رها کردن";
 "cancel" = "لغو";
 "cc-zero" = "Creative Commons CC0";
+"chinese-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان چینی به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n简体 Chinese, Simplified (zh-hans)\n香港繁體 Hong Kong Traditional (zh-hk)\n澳門繁體 Macau Traditional (zh-mo)\n大马简体 Malaysia Simplified (zh-my)\n新加坡简体 Singapore Simplified (zh-sg)\n臺灣正體 Taiwanese Traditional (zh-tw)";
+"chinese-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان چینی";
 "clear-title-accessibility-label" = "پاک‌کردن";
 "close-button-accessibility-label" = "بستن";
 "compass-direction" = "در ساعت $1";
 "continue-reading-empty-description" = "کاوش ویکی‌پدیا برای خواندن مقالات بیشتر";
 "continue-reading-empty-title" = "مقالهٔ اخیراً خوانده‌شده‌ای نیست";
+"crimean-tatar-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان تاتاری کریمه به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\nQırımtatarca, Latin Crimean Tatar Latin (chr-latn)\nкъырымтатарджа, Кирил Crimean Tatar Cyrillic (crh-cyrl)";
+"crimean-tatar-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان تارتاری کریمه";
 "data-migration-status" = "در حال بروزرسانی...";
 "description-add-title" = "افزودن توضیحات";
 "description-edit-for-article" = "توضیحات مقاله برای $1";
@@ -208,6 +213,7 @@
 "description-edit-publish" = "انتشار توضیحات";
 "description-edit-title" = "ویرایش توضیحات";
 "description-edit-warning" = "لطفاً توصیف را کوتاه بنویسید تا کاربران بتوانند با یک نگاه موضوع مقاله را دریابند";
+"description-edit-warning-casing" = "Only proper nouns should be capitalized, even at the start of the sentence.";
 "description-help-about-description" = "توصیفات مقاله خلاصهٔ یک مقاله را بیان می‌کنند تا به مخاطبان در درک موضوع با یک نگاه کمک کنند.";
 "description-help-about-title" = "درباره";
 "description-help-about-wikidata" = "دربارهٔ ویکی‌داده";
@@ -436,6 +442,12 @@
 "explore-random-article-sub-heading-from-wikipedia" = "از ویکی‌پدیا";
 "explore-randomizer" = "تصادفی";
 "featured-article-empty-title" = "امروز مقالهٔ برگزیده‌ای موجود نیست";
+"featured-widget-content-failure-for-date" = "مقالهٔ برگزیده‌ای برای این تاریخ موجود نیست.";
+"featured-widget-description" = "برترین مقاله‌های ویکی‌پدیا، که به‌طور روزانه توسط اجتماع ما انتخاب می‌شوند را بیابید.";
+"featured-widget-from-language-wikipedia" = "از ویکی‌پدیای $1";
+"featured-widget-from-wikipedia" = "از ویکی‌پدیا";
+"featured-widget-language-failure" = "زبان ویکی‌پدیای اصلی شما از مقاله‌های برگزیده پشتیبانی نمی‌کند. می‌توانید ویکی‌پدیای اصلی خود را در منوی تنظیمات نرم‌فازار به‌روز کنید.";
+"featured-widget-title" = "مقالهٔ برگزیده";
 "feed-news-notification-button-text" = "روشن کردن اعلان‌ها";
 "feed-news-notification-text" = "فعال‌کردن اعلان‌ها برای آگاه‌شدن توسط ویکی‌پدیا زمانی که مقالات در اخبار پربازدید هستند.";
 "fetcher-error-generic" = "چیزی اشتباه شده‌است! لطفاً دوباره تلاش کنید.";
@@ -473,6 +485,8 @@
 "forgot-password-instructions" = "برای دریافت دستورالعمل بازنشانی گذرواژه از طریق ایمیل، یکی از بخش‌های زیر را پر کنید.";
 "forgot-password-title" = "بازنشانی گذرواژه";
 "forgot-password-username-or-email-title" = "یا";
+"gan-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان گان به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplified (gan-hans)\n贛語 繁體 Gan, Traditional (gan-hant)";
+"gan-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان گان";
 "history-clear-all" = "پاک‌کردن";
 "history-clear-cancel" = "لغو";
 "history-clear-confirmation-heading" = "آیا مطمئن هستید که می‌خواهید همهٔ موارد اخیر را حذف کنید؟";
@@ -498,7 +512,7 @@
 "in-the-news-notification-read-now-action-title" = "الان بخوانید";
 "in-the-news-notification-save-for-later-action-title" = "ذخیره برای بعد";
 "in-the-news-notification-share-action-title" = "اشتراک‌گذاری...";
-"in-the-news-sub-title-from-language-wikipedia" = "از ویکی پدیای $1";
+"in-the-news-sub-title-from-language-wikipedia" = "از ویکی‌پدیای $1";
 "in-the-news-sub-title-from-wikipedia" = "از ویکی‌پدیا";
 "in-the-news-title" = "از میان خبرها";
 "insert-action-title" = "درج";
@@ -534,6 +548,12 @@
 "intermediate-edits-editors-count-limited" = "بیش از $1 نسخهٔ میانی توسط بیش از $2 کاربر نمایش داده نشده‌است";
 "intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 نسخهٔ میانی|$1 نسخهٔ میانی}} توسط بیش از $2 کاربر نمایش داده نشده‌است";
 "intermediate-edits-limited-editors-count" = "بیش از $1 نسخهٔ میانی توسط {{PLURAL:$2|$2 کاربر|$2 کاربر}} نمایش داده نشده‌است";
+"inuktitut-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان اینوکتیتوت به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Syllabics (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
+"inuktitut-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان اینوکتیتوت";
+"kazakh-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان قزاقی به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, Cyrillic (kk-cyrl)\nqazaqşa latin Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arabic (kk-arab)";
+"kazakh-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان قزاقی";
+"kurdish-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان کردی به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\nKurdî Latînî Kurdish, Latin (ku-latn)\nكوردی Kurdish, Arabic (kk-arab)";
+"kurdish-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان کردی";
 "languages-settings-title" = "زبان‌ها";
 "languages-title" = "تغییر زبان";
 "languages-wikipedia" = "زبان‌های ویکی‌پدیا";
@@ -559,7 +579,7 @@
 "main-menu-title" = "بیشتر";
 "main-menu-zero-faq" = "پرسش‌های رایج ویکی‌پدیا صفر";
 "menu-cancel-accessibility-label" = "لغو";
-"more-languages-tooltip-description" = "جستجو در ویکیپدیا به بیش از ۳۰۰ زبان";
+"more-languages-tooltip-description" = "جستجو در ویکی‌پدیا به بیش از ۳۰۰ زبان";
 "more-languages-tooltip-title" = "افزودن زبان";
 "move-articles-to-reading-list" = "انتقال {{PLURAL:$1|$1 مقاله|$1 مقاله}} به فهرست مطالعه";
 "navbar-title-mode-edit-wikitext-preview" = "پیش‌نمایش";
@@ -580,6 +600,8 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 رویداد تاریخی|$1 رویداد تاریخی}}";
 "on-this-day-footer" = "وقایع تاریخی بیشتر برای این روز";
 "on-this-day-footer-showing-event-count" = "{{PLURAL:$1|$1 رویداد تاریخی بیشتر|$1 رویداد تاریخی بیشتر}} در این روز";
+"on-this-day-language-does-not-support-error" = "زبان ویکی‌پدیای اصلی شما از «در این روز» پشتیبانی نمی‌کند. می‌توانید ویکی‌پدیای اصلی خود را در منوی تنظیمات نرم‌افزار به‌روز کنید.";
+"on-this-day-no-internet-error" = "هیچ داده‌ای در دسترس نیست";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 از ویکی‌پدیای $2";
 "on-this-day-title" = "در این روز";
 "original-tab-button-popover-description" = "برای بازگشت به زبانه‌ای که از آن شروع کردید، نماد W را لمس کنید";
@@ -644,6 +666,9 @@
 "places-unknown-distance" = "مسافت نامشخص";
 "potd-description-prefix" = "نگارهٔ روز برای $1";
 "potd-empty-error-description" = "ناتوان در دریافت تصویر روز برای $1";
+"potd-sample-entry-description" = "Two bulls running while the jockey holds on to them in pacu jawi (from Minangkabau, \"bull race\"), a traditional bull race in Tanah Datar, West Sumatra, Indonesia. 2015, Final-45.";
+"potd-widget-description" = "از مشاهدهٔ یک تصویر روزانهٔ زیبا، که توسط احتماع ما انتخاب شده، لذت ببرید.";
+"potd-widget-title" = "نگارهٔ روز";
 "preference-summary-eventlogging-opt-in" = "به بنیاد ویکی‌مدیا برای جمع‌آوری اطلاعات درباره چگونگی استفاده‌تان از این نرم‌افزار جهت بهتر ساختن نرم‌افزار اجازه دهید";
 "preference-title-eventlogging-opt-in" = "ارسال گزارش‌های نحوهٔ استفاده";
 "rank-accessibility-label" = "شمارهٔ $1";
@@ -780,6 +805,8 @@
 "search-recent-title" = "جستجوهای اخیر";
 "search-result-redirected-from" = "تغییرمسیر از: $1";
 "search-title" = "جستجو";
+"serbian-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان صربی به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
+"serbian-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان صربی";
 "settings-account" = "حساب کاربری";
 "settings-appearance" = "تنظیمات مطالعه";
 "settings-clear-cache" = "پاک کردن داده‌‌های گرفته‌شده";
@@ -838,6 +865,10 @@
 "table-of-contents-heading" = "محتویات";
 "table-of-contents-hide-button-label" = "نهفتن جعبهٔ محتویات";
 "table-of-contents-subheading-label" = "زیربخش $1";
+"tachelhit-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان تشلیحت به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
+"tachelhit-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان تشلیحت";
+"tajik-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان تاجیکی به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";
+"tajik-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های تاجیکی";
 "talk-page-add-discussion-accessibility-label" = "افزودن بحث";
 "talk-page-discussion-accessibility-hint" = "برای باز کردن ریسهٔ بحث، اینجا را دوبار لمس کنید";
 "talk-page-discussion-read-accessibility-label" = "خوانده‌شده";
@@ -876,6 +907,9 @@
 "top-read-header-generic" = "ویکی‌پدیا";
 "top-read-header-with-language" = "ویکی‌پدیای $1";
 "top-read-see-more" = "دیدن پربازدیدهای بیشتر";
+"top-read-widget-description" = "از آنچه جهانیان امروز در ویکی‌پدیا می‌خوانند آگاه شوید.";
+"top-read-widget-readers-count" = "$1 مخاطب";
+"top-read-widget-title" = "پربازدیدترین‌ها";
 "two-factor-login-continue" = "ادامه‌دادن ورود به سامانه";
 "two-factor-login-instructions" = "لطفاً کد اعتبارسنجی دوعاملی را وارد کنید";
 "two-factor-login-title" = "ورود به حساب کاربری";
@@ -883,6 +917,8 @@
 "two-factor-login-with-regular-code" = "استفاده از کدهای اعتبارسنجی";
 "unable-to-load-talk-page-title" = "ناتوان در بارگیری صفحه بحث";
 "unknown-generic-text" = "نامشخص";
+"uzbek-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان ازبکی به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Cyrillic (uz-cyrl)";
+"uzbek-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان ازبکی";
 "variants-alert-dismiss-button" = "نه ممنون";
 "variants-alert-preferences-button" = "ترجیحات خود را مرور کنید";
 "welcome-exploration-explore-feed-description" = "مقاله‌های پیشنهادی روزانه برگرفته از نظر اجتماع";
@@ -910,6 +946,9 @@
 "welcome-send-data-learn-more" = "اطلاعات بیشتر در مورد داده‌های جمع‌آوری‌شده";
 "welcome-send-data-sub-title" = "با آگاه‌کردن بنیاد ویکی‌مدیا از نحوهٔ استفادهٔ خود از این نرم‌افزار، به بهتر کردن آن کمک کنید. داده‌ها به‌صورت ناشناس جمع‌آوری می‌شوند.";
 "welcome-volunteer-send-usage-reports" = "ارسال گزارش نحوهٔ استفاده";
+"widget-onthisday-description" = "کنکاش در رویدادهای تاریخی در این روز.";
+"widget-onthisday-placeholder-article-snippet" = "دانشنامه‌ای آزاد که همه می‌توانند آن را ویرایش کنند";
+"widget-onthisday-placeholder-event-snippet" = "ویکی‌پدیا، ویکی دانشنامهٔ محتوایی آزاد، برخط می‌شود.";
 "wikitext-downloading" = "بارگیری محتوا...";
 "wikitext-preview-changes" = "بازیابی پیش‌نمایش تغییرات شما...";
 "wikitext-preview-changes-none" = "تغییری برای پیش نمایش وجود ندارد.";

@@ -358,7 +358,7 @@
 "error-unknown" = "Bilinmeyen bir hata oluştu";
 "explore-another-random" = "Rastgele başka bir madde";
 "explore-because-you-read" = "Okuduklarına benzer";
-"explore-because-you-read-footer" = "İlgili diğer maddeler";
+"explore-because-you-read-footer" = "Diğer ilgili maddeler";
 "explore-continue-reading-heading" = "Okumaya devam et";
 "explore-detail-back-button-title" = "Keşfet akışına geri dön";
 "explore-enable-location-title" = "Mevcut konumunuzun yakınındaki maddeleri keşfedin";
@@ -441,6 +441,12 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Vikipedi'den";
 "explore-randomizer" = "Rastgele";
 "featured-article-empty-title" = "Bugün için seçkin madde mevcut değil";
+"featured-widget-content-failure-for-date" = "Bu tarih için seçkin bir madde mevcut değil.";
+"featured-widget-description" = "Topluluğumuz tarafından günlük olarak seçilen Vikipedi'deki en iyi maddeleri keşfedin.";
+"featured-widget-from-language-wikipedia" = "$1 Vikipedi'den";
+"featured-widget-from-wikipedia" = "Vikipedi'den";
+"featured-widget-language-failure" = "Birincil Vikipedi diliniz seçkin maddeyi desteklemiyor. Birincil Vikipedi'nizi uygulamanın Ayarlar menüsünde güncelleyebilirsiniz.";
+"featured-widget-title" = "Seçkin madde";
 "feed-news-notification-button-text" = "Bildirimleri aç";
 "feed-news-notification-text" = "Gündemde olan Vikipedi maddelerinden haberdar olmak için bildirimleri etkinleştirin.";
 "fetcher-error-generic" = "Bir hata oluştu. Lütfen daha sonra tekrar deneyin.";
@@ -593,6 +599,8 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 tarihi olay|$1 tarihi olay}}";
 "on-this-day-footer" = "Bugünden daha fazla tarihi olay";
 "on-this-day-footer-showing-event-count" = "Bu günde $1 daha tarihi olay";
+"on-this-day-language-does-not-support-error" = "Birincil Vikipedi diliniz \"Tarihte bugün\"ü desteklemiyor. Birincil Vikipedi'nizi uygulamanın Ayarlar menüsünde güncelleyebilirsiniz.";
+"on-this-day-no-internet-error" = "Veri yok";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1, $2 Vikipedi'den";
 "on-this-day-title" = "Tarihte bugün";
 "original-tab-button-popover-description" = "Başladığınız sekmeye geri dönmek için 'W' düğmesine dokunun.";
@@ -657,6 +665,9 @@
 "places-unknown-distance" = "bilinmeyen uzaklık";
 "potd-description-prefix" = "$1 tarihli günün resmi";
 "potd-empty-error-description" = "$1 tarihli günün resmi alınamadı";
+"potd-sample-entry-description" = "Endonezya'nın Batı Sumatra ilinde yer alan Tanah Datar'da gerçekleştirilen geleneksel boğa yarışı pacu jawi'de (boğa yarışı) bir jokey, koşan iki boğaya tutunurken, 2015, Final-45.";
+"potd-widget-description" = "Topluluğumuz tarafından seçilen güzel günlük fotoğrafın keyfini çıkarın.";
+"potd-widget-title" = "Günün resmi";
 "preference-summary-eventlogging-opt-in" = "Wikimedia Vakfı'nın uygulamayı geliştirmek için uygulamayı nasıl kullandığınız hakkında bilgi toplamasına izin verin";
 "preference-title-eventlogging-opt-in" = "Kullanım raporlarını gönder";
 "rank-accessibility-label" = "Sıra $1";
@@ -897,6 +908,9 @@
 "top-read-header-generic" = "Vikipedi";
 "top-read-header-with-language" = "$1 Vikipedi";
 "top-read-see-more" = "En çok okunanları gör";
+"top-read-widget-description" = "Dünyanın bugün Vikipedi'de ne okuduğunu öğrenin.";
+"top-read-widget-readers-count" = "$1 okuyucu";
+"top-read-widget-title" = "En çok okunanlar";
 "two-factor-login-continue" = "Oturum açmaya devam et";
 "two-factor-login-instructions" = "Lütfen iki faktörlü doğrulama kodunu girin";
 "two-factor-login-title" = "Hesabınızda oturum açın";
@@ -933,6 +947,9 @@
 "welcome-send-data-learn-more" = "Toplanan veriler hakkında daha fazla bilgi edin";
 "welcome-send-data-sub-title" = "Uygulamayı nasıl kullandığınızı Wikimedia Vakfı'na bildirerek uygulamanın geliştirilmesine katkı sağlayın. Veriler anonim olarak toplanır.";
 "welcome-volunteer-send-usage-reports" = "Kullanım raporlarını gönder";
+"widget-onthisday-description" = "Tarihte bu günde neler olduğunu keşfedin.";
+"widget-onthisday-placeholder-article-snippet" = "Herkesin düzenleyebileceği özgür çevrimiçi ansiklopedi";
+"widget-onthisday-placeholder-event-snippet" = "Özgür bir wiki içerik ansiklopedisi olan Vikipedi, çevrimiçi oluyor.";
 "wikitext-downloading" = "İçerik yükleniyor...";
 "wikitext-preview-changes" = "Değişikliklerinizin ön izlemesi getiriliyor...";
 "wikitext-preview-changes-none" = "Ön izlemesi yapılacak bir değişiklik yok.";
