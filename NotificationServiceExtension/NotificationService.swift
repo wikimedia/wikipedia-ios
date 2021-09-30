@@ -2,29 +2,18 @@
 import UserNotifications
 import WMF
 
-class FakeLangProvider: WMFPreferredLanguageInfoProvider {
-    func getPreferredContentLanguageCodes(_ completion: @escaping ([String]) -> Void) {
-        completion(["en"])
-    }
-
-    func getPreferredLanguageCodes(_ completion: @escaping ([String]) -> Void) {
-        completion(["en"])
-    }
-
-
-}
-
 class NotificationService: UNNotificationServiceExtension {
 
     var contentHandler: ((UNNotificationContent) -> Void)?
     var bestAttemptContent: UNMutableNotificationContent?
-    lazy var remoteNotificationsController: RemoteNotificationsController = {
+    
+    private lazy var apiController: RemoteNotificationsAPIController = {
         let configuration = Configuration.current
         let session = Session(configuration: configuration)
-        let fakeProvider = FakeLangProvider()
-        let controller = RemoteNotificationsController(session: session, configuration: configuration, preferredLanguageCodesProvider: fakeProvider)
+        let controller = RemoteNotificationsAPIController(session: session, configuration: configuration)
         return controller
     }()
+    private let sharedCache = SharedContainerCache<PushNotificationsCache>.init(pathComponent: .pushNotificationsCache, defaultCache: { PushNotificationsCache(settings: .default, notifications: []) })
 
     override func didReceive(_ request: UNNotificationRequest, withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void) {
         self.contentHandler = contentHandler
@@ -37,9 +26,12 @@ class NotificationService: UNNotificationServiceExtension {
         
         self.bestAttemptContent = bestAttemptContent
         
-        //TODO: We will modify this to pull the first page of only **unread** notifications, specifying a notnotifiertype=push parameter in the API call. This needs to be done as the next part of PRs for https://phabricator.wikimedia.org/T287310
         //This temporary call is just to confirm an authenticated call now works from an extension.
-        remoteNotificationsController.fetchFirstPageNotifications {
+        let cache = sharedCache.loadCache()
+        let project = RemoteNotificationsProject.language(cache.settings.primaryLanguageCode, nil)
+        
+        apiController.getUnreadPushNotifications(from: project) { newNotifications, error in
+            
             bestAttemptContent.title = "\(bestAttemptContent.title) [modified]"
             contentHandler(bestAttemptContent)
         }
