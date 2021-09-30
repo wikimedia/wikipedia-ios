@@ -189,6 +189,16 @@ public class RemoteNotificationsAPIController: Fetcher {
         }
         return Set(list)
     }
+    public func getUnreadPushNotifications(from project: RemoteNotificationsProject, completion: @escaping ([NotificationsResult.Notification], Error?) -> Void) {
+        let completion: (NotificationsResult?, URLResponse?, Error?) -> Void = { result, _, error in
+            guard error == nil else {
+                completion([], error)
+                return
+            }
+            completion(result?.query?.notifications?.list ?? [], nil)
+        }
+        request(project: project, queryParameters: Query.notifications(limit: .max, filter: .unread, notifierType: .push), completion: completion)
+    }
     
     func getAllNotifications(from project: RemoteNotificationsProject, completion: @escaping (NotificationsResult.Query.Notifications?, Error?) -> Void) {
         let completion: (NotificationsResult?, URLResponse?, Error?) -> Void = { result, _, error in
@@ -299,8 +309,14 @@ public class RemoteNotificationsAPIController: Fetcher {
             case unread = "!read"
             case none = "read|!read"
         }
+        
+        enum NotifierType: String {
+            case web
+            case push
+            case email
+        }
 
-        static func notifications(from projects: [RemoteNotificationsProject] = [], limit: Limit = .max, filter: Filter = .none) -> Parameters {
+        static func notifications(from projects: [RemoteNotificationsProject] = [], limit: Limit = .max, filter: Filter = .none, notifierType: NotifierType? = nil) -> Parameters {
             var dictionary = ["action": "query",
                     "format": "json",
                     "formatversion": "2",
@@ -308,9 +324,18 @@ public class RemoteNotificationsAPIController: Fetcher {
                     "meta": "notifications",
                     "notlimit": limit.value,
                     "notfilter": filter.rawValue]
-
-            let wikis = projects.map{ $0.notificationsApiWikiIdentifier }
-            dictionary["notwikis"] = wikis.joined(separator: "|")
+            
+            if let notifierType = notifierType {
+                dictionary["notnotifiertypes"] = notifierType.rawValue
+            }
+            
+            if projects.isEmpty {
+                dictionary["notwikis"] = "*"
+            } else {
+                let wikis = projects.map{ $0.notificationsApiWikiIdentifier }
+                dictionary["notwikis"] = wikis.joined(separator: "|")
+            }
+            
             return dictionary
         }
 
