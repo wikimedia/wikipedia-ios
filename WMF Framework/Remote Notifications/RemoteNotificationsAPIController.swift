@@ -189,13 +189,14 @@ public class RemoteNotificationsAPIController: Fetcher {
         }
         return Set(list)
     }
-    public func getUnreadPushNotifications(from project: RemoteNotificationsProject, completion: @escaping ([NotificationsResult.Notification], Error?) -> Void) {
+    public func getUnreadPushNotifications(from project: RemoteNotificationsProject, completion: @escaping (Set<NotificationsResult.Notification>, Error?) -> Void) {
         let completion: (NotificationsResult?, URLResponse?, Error?) -> Void = { result, _, error in
             guard error == nil else {
                 completion([], error)
                 return
             }
-            completion(result?.query?.notifications?.list ?? [], nil)
+            let result = result?.query?.notifications?.list ?? []
+            completion(Set(result), nil)
         }
         request(project: project, queryParameters: Query.notifications(limit: .max, filter: .unread, notifierType: .push), completion: completion)
     }
