@@ -22,15 +22,19 @@ class RemoteNotificationsImportOperation: RemoteNotificationsOperation {
     override func execute() {
         
         //Confirm we haven't already imported for this language before kicking off import
-        let key = LibraryKey.completedImportFlags.fullKeyForProject(project)
-        let isAlreadyImported = libraryBool(for: key)
+        let importedFlagkey = LibraryKey.completedImportFlags.fullKeyForProject(project)
+        let isAlreadyImported = libraryBoolValue(for: importedFlagkey)
         
         guard !isAlreadyImported else {
             finish()
             return
         }
         
-        importNotifications()
+        //see if there is a persisted continue flag so we can pick up importing where we left off
+        let continueIdKey = LibraryKey.continueIdentifer.fullKeyForProject(project)
+        let continueId = libraryStringValue(for: continueIdKey)
+        
+        importNotifications(continueId: continueId)
     }
     
     private func importNotifications(continueId: String? = nil) {
@@ -65,11 +69,12 @@ class RemoteNotificationsImportOperation: RemoteNotificationsOperation {
                     
                     guard let newContinueId = result?.continueId,
                           newContinueId != continueId else {
-                        self.markLanguageAsImportCompleted()
+                        self.saveLanguageAsImportCompleted()
                         self.finish()
                         return
                     }
                     
+                    self.saveContinueId(newContinueId)
                     self.importNotifications(continueId: newContinueId)
                 })
             } catch let error {
@@ -78,16 +83,45 @@ class RemoteNotificationsImportOperation: RemoteNotificationsOperation {
         }
     }
     
-    private func markLanguageAsImportCompleted() {
+    private func saveLanguageAsImportCompleted() {
         let key = LibraryKey.completedImportFlags.fullKeyForProject(project)
-        setLibraryBool(true, for: key)
+        setLibraryBoolValue(true, for: key)
+    }
+    
+    private func saveContinueId(_ continueId: String) {
+        let key = LibraryKey.continueIdentifer.fullKeyForProject(project)
+        setLibraryStringValue(continueId, for: key)
     }
 }
 
 //MARK: Library Key Value helpers
 
 private extension RemoteNotificationsImportOperation {
-    func libraryBool(for key: String) -> Bool {
+    func libraryStringValue(for key: String) -> String? {
+        
+        var result: String? = nil
+        let backgroundContext = self.modelController.newBackgroundContext()
+        backgroundContext.performAndWait {
+            result = backgroundContext.wmf_stringValue(forKey: key)
+        }
+        
+        return result
+    }
+    
+    func setLibraryStringValue(_ value: String, for key: String) {
+        
+        let backgroundContext = self.modelController.newBackgroundContext()
+        backgroundContext.perform {
+            backgroundContext.wmf_setValue(value as NSString, forKey: key)
+            do {
+                try backgroundContext.save()
+            } catch let error {
+                DDLogError("Error saving RemoteNotificationsImportOperation backgroundContext for library keys: \(error)")
+            }
+        }
+    }
+    
+    func libraryBoolValue(for key: String) -> Bool {
         
         var result: Bool = false
         let backgroundContext = self.modelController.newBackgroundContext()
@@ -98,11 +132,11 @@ private extension RemoteNotificationsImportOperation {
         return result
     }
     
-    func setLibraryBool(_ bool: Bool, for key: String) {
+    func setLibraryBoolValue(_ value: Bool, for key: String) {
         
         let backgroundContext = self.modelController.newBackgroundContext()
         backgroundContext.perform {
-            let nsNumber = NSNumber(value: bool)
+            let nsNumber = NSNumber(value: value)
             backgroundContext.wmf_setValue(nsNumber, forKey: key)
             do {
                 try backgroundContext.save()
