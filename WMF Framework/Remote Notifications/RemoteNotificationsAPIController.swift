@@ -121,6 +121,14 @@ public class RemoteNotificationsAPIController: Fetcher {
             public var pushContentText: String? {
                 return self.message?.header?.removingHTML
             }
+            
+            public var namespaceKey: Int? {
+                return self.title?.namespaceKey
+            }
+            
+            public var titleFull: String? {
+                return self.title?.full
+            }
 
             enum CodingKeys: String, CodingKey {
                 case wiki
