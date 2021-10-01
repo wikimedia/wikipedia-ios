@@ -34,26 +34,28 @@ class NotificationService: UNNotificationServiceExtension {
         
         apiController.getUnreadPushNotifications(from: project) { [weak self] newNotifications, error in
             
-            guard let self = self,
-                  error == nil else {
+            DispatchQueue.main.async {
+                guard let self = self,
+                      error == nil else {
+                    contentHandler(bestAttemptContent)
+                    return
+                }
+                
+                let finalNotifications = self.determineNewNotificationsAndUpdateCache(newNotifications: newNotifications, cache: cache)
+                
+                guard finalNotifications.count == 1 else {
+                    contentHandler(bestAttemptContent)
+                    return
+                }
+                
+                guard let pushContentText = Array(finalNotifications)[0].pushContentText else {
+                    contentHandler(bestAttemptContent)
+                    return
+                }
+                
+                bestAttemptContent.body = pushContentText
                 contentHandler(bestAttemptContent)
-                return
             }
-            
-            let finalNotifications = self.determineNewNotificationsAndUpdateCache(newNotifications: newNotifications, cache: cache)
-            
-            guard finalNotifications.count == 1 else {
-                contentHandler(bestAttemptContent)
-                return
-            }
-            
-            guard let pushContentText = Array(finalNotifications)[0].pushContentText else {
-                contentHandler(bestAttemptContent)
-                return
-            }
-            
-            bestAttemptContent.body = pushContentText
-            contentHandler(bestAttemptContent)
         }
     }
     

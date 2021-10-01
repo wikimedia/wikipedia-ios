@@ -128,6 +128,15 @@ public class RemoteNotificationsAPIController: Fetcher {
                 case readString = "read"
                 case message = "*"
             }
+            
+            public func hash(into hasher: inout Hasher) {
+                hasher.combine(key)
+            }
+            
+            public static func ==(lhs: Notification, rhs: Notification) -> Bool {
+                return lhs.key == rhs.key &&
+                    lhs.readString == rhs.readString
+            }
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: CodingKeys.self)
