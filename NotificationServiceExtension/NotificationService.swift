@@ -15,8 +15,7 @@ class NotificationService: UNNotificationServiceExtension {
     }()
     private let sharedCache = SharedContainerCache<PushNotificationsCache>.init(pathComponent: .pushNotificationsCache, defaultCache: { PushNotificationsCache(settings: .default, notifications: []) })
     
-    //TODO: Be sure the build script localizes this
-    private let fallbackPushContent = WMFLocalizedString("notifications-push-fallback-title", value: "New activity on Wikipedia", comment: "Fallback content of a push notification whose content cannot be determined. Could be either due multiple notifications represented or errors.")
+    private let fallbackPushContent = WMFLocalizedString("notifications-push-fallback-body-text", value: "New activity on Wikipedia", comment: "Fallback body content of a push notification whose content cannot be determined. Could be either due multiple notifications represented or errors.")
 
     override func didReceive(_ request: UNNotificationRequest, withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void) {
         self.contentHandler = contentHandler
@@ -43,12 +42,20 @@ class NotificationService: UNNotificationServiceExtension {
                 
                 let finalNotifications = self.determineNewNotificationsAndUpdateCache(newNotifications: newNotifications, cache: cache)
                 
+                //specific handling for talk page types (New messages title, bundled body)
+                let handledAsTalkPage = self.handleTalkPageTypeNotificationsIfNeeded(notifications: finalNotifications, bestAttemptContent: bestAttemptContent, contentHandler: contentHandler)
+                
+                guard !handledAsTalkPage else {
+                    return
+                }
+                
+                //generic handling for other types
                 guard finalNotifications.count == 1 else {
                     contentHandler(bestAttemptContent)
                     return
                 }
                 
-                guard let pushContentText = Array(finalNotifications)[0].pushContentText else {
+                guard let pushContentText = finalNotifications.first?.pushContentText else {
                     contentHandler(bestAttemptContent)
                     return
                 }
@@ -66,6 +73,68 @@ class NotificationService: UNNotificationServiceExtension {
            let bestAttemptContent =  bestAttemptContent {
             contentHandler(bestAttemptContent)
         }
+    }
+    
+    private func handleTalkPageTypeNotificationsIfNeeded(notifications: Set<RemoteNotificationsAPIController.NotificationsResult.Notification>, bestAttemptContent: UNMutableNotificationContent, contentHandler: ((UNNotificationContent) -> Void)) -> Bool {
+        
+        if allNotificationsAreForSameTalkPage(notifications: notifications) {
+            let messageText = String.localizedStringWithFormat(WMFLocalizedString("notifications-push-talk-messages-format", value: "{{PLURAL:%1$d|message|messages}}", comment: "Plural messages text to be inserted into push notification content - %1$d is replaced with the number of talk page messages."), notifications.count)
+            bestAttemptContent.subtitle = String.localizedStringWithFormat(WMFLocalizedString("notifications-push-talk-title-format", value: "New %1$@", comment: "Title text for a push notification that represents talk page messages - %1$@ is replaced with \"Messages\" text (can be plural or singular)."), messageText)
+            
+            if notifications.count == 1 {
+                guard let pushContentText = notifications.first?.pushContentText else {
+                    contentHandler(bestAttemptContent)
+                    return true
+                }
+                
+                bestAttemptContent.body = pushContentText
+                contentHandler(bestAttemptContent)
+                return true
+            } else {
+                
+                guard let talkPageTitle = notifications.first?.titleFull else {
+                    contentHandler(bestAttemptContent)
+                    return true
+                }
+                
+                bestAttemptContent.body = String.localizedStringWithFormat(WMFLocalizedString("notifications-push-talk-body-format", value: "%1$d new %2$@ on %3$@", comment: "Body text for a push notification that represents talk page messages - %1$d is replaced with the number of talk page messages, %2$@ is replaced with \"messages\" text (can be plural or singular), and %3$@ is replaced with the talk page title. For example, \"3 new messages on User talk: Username\""), notifications.count, messageText, talkPageTitle)
+                contentHandler(bestAttemptContent)
+                return true
+            }
+        }
+        
+        return false
+    }
+    
+    private func allNotificationsAreForSameTalkPage(notifications: Set<RemoteNotificationsAPIController.NotificationsResult.Notification>) -> Bool {
+        
+        guard notifications.count > 0 else {
+            return false
+        }
+        
+        typealias TalkPageName = String
+        typealias NotificationKey = String
+        var talkDictionary: [TalkPageName: [NotificationKey]] = [:]
+        
+        for notification in notifications {
+            guard let namespaceKey = notification.namespaceKey,
+                  let namespace = PageNamespace(rawValue: namespaceKey),
+                  let titleFull = notification.titleFull,
+                  (namespace == .talk || namespace == .userTalk) else {
+                continue
+            }
+            
+            let newValue = (talkDictionary[titleFull] ?? []) + [notification.key]
+            talkDictionary[titleFull] = newValue
+        }
+        
+        guard talkDictionary.count == 1,
+              let firstElement = talkDictionary.first else {
+            return false
+        }
+        
+        let groupedNotifications = firstElement.value
+        return groupedNotifications.count == notifications.count
     }
     
     private func determineNewNotificationsAndUpdateCache(newNotifications: Set<RemoteNotificationsAPIController.NotificationsResult.Notification>, cache: PushNotificationsCache) -> Set<RemoteNotificationsAPIController.NotificationsResult.Notification> {

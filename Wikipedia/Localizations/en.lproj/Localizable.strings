@@ -559,6 +559,10 @@
 "notifications-header-mention-format" = "To: $1";
 "notifications-header-notice-from-project" = "Notice from $1";
 "notifications-language-project-name-format" = "$1 $2";
+"notifications-push-fallback-body-text" = "New activity on Wikipedia";
+"notifications-push-talk-body-format" = "$1 new $2 on $3";
+"notifications-push-talk-messages-format" = "{{PLURAL:$1|message|messages}}";
+"notifications-push-talk-title-format" = "New $1";
 "notifications-subheader-edit-milestone" = "Editing milestone";
 "notifications-subheader-edit-reverted" = "Your edit was reverted";
 "notifications-subheader-email-from-other-user" = "New email";

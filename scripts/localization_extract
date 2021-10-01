@@ -2,4 +2,4 @@
 # Extracts localizations from source code
 
 cd "$1"
-xcrun extractLocStrings -s WMFLocalizedString -o Wikipedia/iOS\ Native\ Localizations/en.lproj/ Wikipedia/Code/*.m Wikipedia/Code/*.swift WMF\ Framework/*.m WMF\ Framework/*.swift InTheNewsNotification/*.swift TopReadWidget/*.swift ContinueReadingWidget/*.swift FeaturedArticleWidget/*.swift Widgets/Widgets/*.swift
+xcrun extractLocStrings -s WMFLocalizedString -o Wikipedia/iOS\ Native\ Localizations/en.lproj/ Wikipedia/Code/*.m Wikipedia/Code/*.swift WMF\ Framework/*.m WMF\ Framework/*.swift InTheNewsNotification/*.swift TopReadWidget/*.swift ContinueReadingWidget/*.swift FeaturedArticleWidget/*.swift Widgets/Widgets/*.swift NotificationServiceExtension/*.swift
