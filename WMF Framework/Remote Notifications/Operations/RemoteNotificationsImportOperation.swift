@@ -8,13 +8,16 @@ class RemoteNotificationsImportOperation: RemoteNotificationsOperation {
     }
     
     override func execute() {
-
+        importNotifications()
+    }
+    
+    private func importNotifications(continueId: String? = nil) {
         guard apiController.isAuthenticatedForCookieDomain(cookieDomain) else {
             self.finish(with: RequestError.unauthenticated)
             return
         }
 
-        self.apiController.getAllNotifications(from: self.project) { [weak self] result, error in
+        apiController.getAllNotifications(from: project, continueId: continueId) { [weak self] result, error in
             
             guard let self = self else {
                 return
@@ -37,8 +40,14 @@ class RemoteNotificationsImportOperation: RemoteNotificationsOperation {
                     guard let self = self else {
                         return
                     }
+                    
+                    guard let newContinueId = result?.continueId,
+                          newContinueId != continueId else {
+                        self.finish()
+                        return
+                    }
 
-                    self.finish()
+                    self.importNotifications(continueId: newContinueId)
                 })
             } catch let error {
                 self.finish(with: error)
