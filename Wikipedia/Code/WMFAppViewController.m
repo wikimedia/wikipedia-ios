@@ -818,7 +818,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
         if (self.notificationUserInfoToShow) {
             [self hideSplashViewAnimated:!didShowOnboarding];
-            [self showInTheNewsForNotificationInfo:self.notificationUserInfoToShow];
+            [self showNotificationCenterForNotificationInfo:self.notificationUserInfoToShow];
             self.notificationUserInfoToShow = nil;
             done();
         } else if (self.unprocessedUserActivity) {
@@ -1627,53 +1627,20 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 // The method will be called on the delegate when the user responded to the notification by opening the application, dismissing the notification or choosing a UNNotificationAction. The delegate must be set before the application returns from applicationDidFinishLaunching:.
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
-    NSString *categoryIdentifier = response.notification.request.content.categoryIdentifier;
-    NSString *actionIdentifier = response.actionIdentifier;
-
-    if ([categoryIdentifier isEqualToString:WMFInTheNewsNotificationCategoryIdentifier]) {
-        NSDictionary *info = response.notification.request.content.userInfo;
-        NSString *articleURLString = info[WMFNotificationInfoArticleURLStringKey];
-        NSURL *articleURL = [NSURL URLWithString:articleURLString];
-        if ([actionIdentifier isEqualToString:WMFInTheNewsNotificationShareActionIdentifier]) {
-            WMFArticleViewController *articleVC = [self showArticleWithURL:articleURL animated:NO];
-            [articleVC shareArticleWhenReady];
-        } else if ([actionIdentifier isEqualToString:UNNotificationDefaultActionIdentifier]) {
-            [self showInTheNewsForNotificationInfo:info];
-        } else if ([actionIdentifier isEqualToString:UNNotificationDismissActionIdentifier]) {
-        }
-    }
+    NSDictionary *info = response.notification.request.content.userInfo;
+    
+    //Note: Add back in category and action identifier checks here if In the News notification is restored.
+    [self showNotificationCenterForNotificationInfo:info];
 
     completionHandler();
 }
 
-- (void)showInTheNewsForNotificationInfo:(NSDictionary *)info {
+- (void)showNotificationCenterForNotificationInfo:(NSDictionary *)info {
     if (!self.isMigrationComplete) {
         self.notificationUserInfoToShow = info;
         return;
     }
-    NSString *articleURLString = info[WMFNotificationInfoArticleURLStringKey];
-    NSURL *articleURL = [NSURL URLWithString:articleURLString];
-    NSDictionary *JSONDictionary = info[WMFNotificationInfoFeedNewsStoryKey];
-    NSError *JSONError = nil;
-    WMFFeedNewsStory *feedNewsStory = [MTLJSONAdapter modelOfClass:[WMFFeedNewsStory class] fromJSONDictionary:JSONDictionary languageVariantCode:nil error:&JSONError];
-    if (!feedNewsStory || JSONError) {
-        DDLogError(@"Error parsing feed news story: %@", JSONError);
-        [self showArticleWithURL:articleURL animated:NO];
-        return;
-    }
-    [self dismissPresentedViewControllers];
-
-    if (!feedNewsStory) {
-        return;
-    }
-
-    UIViewController *vc = [[WMFNewsViewController alloc] initWithStories:@[feedNewsStory] dataStore:self.dataStore contentGroup:nil theme:self.theme];
-    if (!vc) {
-        return;
-    }
-
-    [self.navigationController popToRootViewControllerAnimated:NO];
-    [self.navigationController pushViewController:vc animated:NO];
+    [self userDidTapPushNotification];
 }
 
 #pragma mark - Themeable
