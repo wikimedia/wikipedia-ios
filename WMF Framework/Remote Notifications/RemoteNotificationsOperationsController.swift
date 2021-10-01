@@ -48,7 +48,7 @@ class RemoteNotificationsOperationsController: NSObject {
         operationQueue.cancelAllOperations()
     }
     
-    func fetchFirstPageNotifications(_ completion: @escaping () -> Void) {
+    func importNotificationsIfNeeded(_ completion: @escaping () -> Void) {
     
         let completeEarly = {
             self.operationQueue.addOperation(completion)
@@ -77,10 +77,10 @@ class RemoteNotificationsOperationsController: NSObject {
             projects.append(.commons)
             projects.append(.wikidata)
             
-            var operations: [RemoteNotificationsFetchFirstPageOperation] = []
+            var operations: [RemoteNotificationsImportOperation] = []
             for project in projects {
                 
-                let operation = RemoteNotificationsFetchFirstPageOperation(with: self.apiController, modelController: modelController, project: project, cookieDomain: self.cookieDomainForProject(project))
+                let operation = RemoteNotificationsImportOperation(with: self.apiController, modelController: modelController, project: project, cookieDomain: self.cookieDomainForProject(project))
                 operations.append(operation)
             }
 

@@ -1,4 +1,4 @@
-class RemoteNotificationsFetchFirstPageOperation: RemoteNotificationsOperation {
+class RemoteNotificationsImportOperation: RemoteNotificationsOperation {
     private let project: RemoteNotificationsProject
     private let cookieDomain: String
     init(with apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController, project: RemoteNotificationsProject, cookieDomain: String) {
