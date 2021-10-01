@@ -421,6 +421,7 @@
 		6761AEED2706247800E47BAD /* PushNotificationsSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEEC2706247800E47BAD /* PushNotificationsSettings.swift */; };
 		6761AEEF2706249300E47BAD /* PushNotificationsCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEEE2706249300E47BAD /* PushNotificationsCache.swift */; };
 		6761AEF327065DE400E47BAD /* WMFNotificationsController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEF227065DE400E47BAD /* WMFNotificationsController+Extensions.swift */; };
+		6761AEF52707BE4200E47BAD /* RemoteNotificationsRefreshOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEF42707BE4200E47BAD /* RemoteNotificationsRefreshOperation.swift */; };
 		676C864726D40AEB00A704C1 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676C864626D40AEB00A704C1 /* NotificationService.swift */; };
 		676C864B26D40AEB00A704C1 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 676C864426D40AEA00A704C1 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		676C867026D416FB00A704C1 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 676C864426D40AEA00A704C1 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -3798,6 +3799,7 @@
 		6761AEEC2706247800E47BAD /* PushNotificationsSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsSettings.swift; sourceTree = "<group>"; };
 		6761AEEE2706249300E47BAD /* PushNotificationsCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsCache.swift; sourceTree = "<group>"; };
 		6761AEF227065DE400E47BAD /* WMFNotificationsController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFNotificationsController+Extensions.swift"; sourceTree = "<group>"; };
+		6761AEF42707BE4200E47BAD /* RemoteNotificationsRefreshOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsRefreshOperation.swift; sourceTree = "<group>"; };
 		676A8A8223A4013D0084B967 /* ArticleFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArticleFetcher.swift; path = ../Wikipedia/Code/ArticleFetcher.swift; sourceTree = "<group>"; };
 		676C864426D40AEA00A704C1 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		676C864626D40AEB00A704C1 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
@@ -6998,6 +7000,7 @@
 				6761AEDE2704CF0000E47BAD /* RemoteNotificationsProject.swift */,
 				6761AEEC2706247800E47BAD /* PushNotificationsSettings.swift */,
 				6761AEEE2706249300E47BAD /* PushNotificationsCache.swift */,
+				6761AEF42707BE4200E47BAD /* RemoteNotificationsRefreshOperation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -11580,6 +11583,7 @@
 				D82CA3332020E8D8005C2D5C /* ReadingListsSyncOperation.swift in Sources */,
 				8387CE9024C99C2600439D93 /* WMFMTLModel.m in Sources */,
 				007B5FC526FA40F100180FF8 /* RemoteNotificationType.swift in Sources */,
+				6761AEF52707BE4200E47BAD /* RemoteNotificationsRefreshOperation.swift in Sources */,
 				7AD5D453223874F600C01164 /* RelatedSearchFetcher.swift in Sources */,
 				8386BDF12386D3E1007EE89D /* RequestError.swift in Sources */,
 				67540CA924D221E3008B2894 /* LocationManagerFactory.swift in Sources */,

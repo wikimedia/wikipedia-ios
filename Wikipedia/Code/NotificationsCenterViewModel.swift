@@ -30,6 +30,12 @@ final class NotificationsCenterViewModel: NSObject {
 		// TODO: DM-Remove
 		remoteNotificationsController.importNotificationsIfNeeded {}
 	}
+    
+    func refreshNotifications() {
+        remoteNotificationsController.refreshNotifications {
+            //TODO: Set any refreshing loading states here
+        }
+    }
 
     // MARK: - Public
 

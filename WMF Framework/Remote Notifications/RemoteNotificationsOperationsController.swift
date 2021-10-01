@@ -106,6 +106,52 @@ class RemoteNotificationsOperationsController: NSObject {
         })
     }
     
+    func refreshNotifications(_ completion: @escaping () -> Void) {
+        
+        guard !isLocked,
+              !isImporting else {
+            self.isImporting = false
+            self.operationQueue.addOperation(completion)
+            return
+        }
+        
+        guard let modelController = modelController else {
+            assertionFailure("Failure setting up notifications core data stack.")
+            self.operationQueue.addOperation(completion)
+            return
+        }
+        
+        preferredLanguageCodesProvider.getPreferredLanguageCodes({ [weak self] (preferredLanguageCodes) in
+            
+            guard let self = self else {
+                return
+            }
+
+            var projects: [RemoteNotificationsProject] = []
+            for languageCode in preferredLanguageCodes {
+                projects.append(.language(languageCode, nil))
+            }
+            projects.append(.commons)
+            projects.append(.wikidata)
+            
+            var operations: [RemoteNotificationsRefreshOperation] = []
+            for project in projects {
+                
+                let operation = RemoteNotificationsRefreshOperation(with: self.apiController, modelController: modelController, project: project, cookieDomain: self.cookieDomainForProject(project))
+                operations.append(operation)
+            }
+            
+            let completionOperation = BlockOperation(block: completion)
+            completionOperation.queuePriority = .normal
+            
+            for operation in operations {
+                completionOperation.addDependency(operation)
+            }
+            
+            self.operationQueue.addOperations(operations + [completionOperation], waitUntilFinished: true)
+        })
+    }
+    
     private func cookieDomainForProject(_ project: RemoteNotificationsProject) -> String {
         switch project {
         case .wikidata:
