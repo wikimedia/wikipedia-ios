@@ -559,6 +559,10 @@
 "notifications-header-mention-format" = "Header text for successful mention notifications in Notification Center. $1 is replaced with the mentioned username (e.g. \"To: Jimbo Wales\").";
 "notifications-header-notice-from-project" = "Header text for notice notifications in Notification Center. $1 is replaced with a project name such as \"EN-Wikipedia\" or \"Wikimedia Commons\".";
 "notifications-language-project-name-format" = "Format used for the ordering of language project name descriptions. This description is inserted into the header text of notifications in Notification Center. For example, \"English Wikipedia\". Use this format to reorder these words if necessary or insert additional connecting words. Parameters: $1 = localized language name (\"English\"), $2 = localized name for Wikipedia (\"Wikipedia\")";
+"notifications-push-fallback-body-text" = "Fallback body content of a push notification whose content cannot be determined. Could be either due multiple notifications represented or errors.";
+"notifications-push-talk-body-format" = "Body text for a push notification that represents talk page messages - $1 is replaced with the number of talk page messages, $2 is replaced with \"messages\" text (can be plural or singular), and $3 is replaced with the talk page title. For example, \"3 new messages on User talk: Username\"";
+"notifications-push-talk-messages-format" = "Plural messages text to be inserted into push notification content - $1 is replaced with the number of talk page messages.";
+"notifications-push-talk-title-format" = "Title text for a push notification that represents talk page messages - $1 is replaced with \"Messages\" text (can be plural or singular).";
 "notifications-subheader-edit-milestone" = "Subheader text for edit milestone notifications in Notification Center.";
 "notifications-subheader-edit-reverted" = "Subheader text for edit reverted notifications in Notification Center.";
 "notifications-subheader-email-from-other-user" = "Subheader text for 'email from other user' notifications in Notification Center.";
