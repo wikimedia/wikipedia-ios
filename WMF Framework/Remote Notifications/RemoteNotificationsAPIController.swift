@@ -25,6 +25,12 @@ public class RemoteNotificationsAPIController: Fetcher {
             
             struct Notifications: Decodable {
                 let list: [Notification]
+                let continueId: String?
+                
+                enum CodingKeys: String, CodingKey {
+                    case list
+                    case continueId = "continue"
+                }
             }
             
             let notifications: Notifications?
@@ -215,10 +221,10 @@ public class RemoteNotificationsAPIController: Fetcher {
             let result = result?.query?.notifications?.list ?? []
             completion(Set(result), nil)
         }
-        request(project: project, queryParameters: Query.notifications(limit: .max, filter: .unread, notifierType: .push), completion: completion)
+        request(project: project, queryParameters: Query.notifications(limit: .max, filter: .unread, notifierType: .push, continueId: nil), completion: completion)
     }
     
-    func getAllNotifications(from project: RemoteNotificationsProject, completion: @escaping (NotificationsResult.Query.Notifications?, Error?) -> Void) {
+    func getAllNotifications(from project: RemoteNotificationsProject, continueId: String?, completion: @escaping (NotificationsResult.Query.Notifications?, Error?) -> Void) {
         let completion: (NotificationsResult?, URLResponse?, Error?) -> Void = { result, _, error in
             guard error == nil else {
                 completion(nil, error)
@@ -227,7 +233,7 @@ public class RemoteNotificationsAPIController: Fetcher {
             completion(result?.query?.notifications, result?.error)
         }
         
-        request(project: project, queryParameters: Query.notifications(from: [project], limit: .max, filter: .none), completion: completion)
+        request(project: project, queryParameters: Query.notifications(from: [project], limit: .max, filter: .none, continueId: continueId), completion: completion)
     }
 
     func markAsRead(_ notifications: Set<RemoteNotification>, completion: @escaping (Error?) -> Void) {
@@ -334,7 +340,7 @@ public class RemoteNotificationsAPIController: Fetcher {
             case email
         }
 
-        static func notifications(from projects: [RemoteNotificationsProject] = [], limit: Limit = .max, filter: Filter = .none, notifierType: NotifierType? = nil) -> Parameters {
+        static func notifications(from projects: [RemoteNotificationsProject] = [], limit: Limit = .max, filter: Filter = .none, notifierType: NotifierType? = nil, continueId: String?) -> Parameters {
             var dictionary = ["action": "query",
                     "format": "json",
                     "formatversion": "2",
@@ -345,6 +351,10 @@ public class RemoteNotificationsAPIController: Fetcher {
             
             if let notifierType = notifierType {
                 dictionary["notnotifiertypes"] = notifierType.rawValue
+            }
+            
+            if let continueId = continueId {
+                dictionary["notcontinue"] = continueId
             }
             
             if projects.isEmpty {
