@@ -5,6 +5,7 @@ class RemoteNotificationsOperationsController: NSObject {
     private let modelController: RemoteNotificationsModelController?
     private let operationQueue: OperationQueue
     private let preferredLanguageCodesProvider: WMFPreferredLanguageInfoProvider
+    private var isImporting = false
     
     var viewContext: NSManagedObjectContext? {
         return modelController?.viewContext
@@ -49,20 +50,24 @@ class RemoteNotificationsOperationsController: NSObject {
     }
     
     func importNotificationsIfNeeded(_ completion: @escaping () -> Void) {
-    
-        let completeEarly = {
-            self.operationQueue.addOperation(completion)
-        }
+        
+        assert(Thread.isMainThread)
 
-        guard !isLocked else {
-            completeEarly()
+        guard !isLocked,
+              !isImporting else {
+            self.isImporting = false
+            self.operationQueue.addOperation(completion)
             return
         }
         
+        //TODO: we should test how the app handles if the database fails to set up
         guard let modelController = modelController else {
             assertionFailure("Failure setting up notifications core data stack.")
+            self.operationQueue.addOperation(completion)
             return
         }
+        
+        isImporting = true
         
         preferredLanguageCodesProvider.getPreferredLanguageCodes({ [weak self] (preferredLanguageCodes) in
             
@@ -84,7 +89,13 @@ class RemoteNotificationsOperationsController: NSObject {
                 operations.append(operation)
             }
 
-            let completionOperation = BlockOperation(block: completion)
+            let completionOperation = BlockOperation { [weak self] in
+                DispatchQueue.main.async {
+                    self?.isImporting = false
+                    completion()
+                }
+            }
+            
             completionOperation.queuePriority = .veryHigh
 
             for operation in operations {
