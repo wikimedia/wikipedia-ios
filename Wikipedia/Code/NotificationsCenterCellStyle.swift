@@ -173,5 +173,9 @@ struct NotificationsCenterCellStyle {
             return UIImage(systemName: "app.badge.fill")
         }
     }
+    
+    func isLeadingImageTapGestureEnabled(_ displayState: NotificationsCenterCellDisplayState) -> Bool {
+        return displayState.isEditing
+    }
 
 }

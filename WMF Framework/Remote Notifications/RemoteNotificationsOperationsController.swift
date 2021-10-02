@@ -50,20 +50,25 @@ class RemoteNotificationsOperationsController: NSObject {
         operationQueue.cancelAllOperations()
     }
     
-    func importNotificationsIfNeeded(_ completion: @escaping () -> Void) {
+    func importNotificationsIfNeeded(primaryLanguageCompletion: @escaping () -> Void, allLanguagesCompletion: @escaping () -> Void) {
         
         assert(Thread.isMainThread)
+        
+        let exitEarly: () -> Void = {
+            self.operationQueue.addOperation(primaryLanguageCompletion)
+            self.operationQueue.addOperation(allLanguagesCompletion)
+        }
 
         guard !isLocked,
               !isImporting else {
-            self.operationQueue.addOperation(completion)
+            exitEarly()
             return
         }
         
         //TODO: we should test how the app handles if the database fails to set up
         guard let modelController = modelController else {
             assertionFailure("Failure setting up notifications core data stack.")
-            self.operationQueue.addOperation(completion)
+            exitEarly()
             return
         }
         
@@ -75,27 +80,38 @@ class RemoteNotificationsOperationsController: NSObject {
                 return
             }
 
-            var projects: [RemoteNotificationsProject] = []
-            for languageCode in preferredLanguageCodes {
-                projects.append(.language(languageCode, nil))
-            }
-            projects.append(.commons)
-            projects.append(.wikidata)
-            
             var operations: [RemoteNotificationsImportOperation] = []
-            for project in projects {
+            
+            var isPrimary = true
+            for languageCode in preferredLanguageCodes {
                 
+                let project = RemoteNotificationsProject.language(languageCode, nil)
                 let operation = RemoteNotificationsImportOperation(with: self.apiController, modelController: modelController, project: project, cookieDomain: self.cookieDomainForProject(project))
+                
+                //TODO: Probably shouldn't assume isPrimary is the first one, but that seems to be what
+                //MWKLanguageLinkController's appLanguage does
+                if isPrimary {
+                    operation.completionBlock = primaryLanguageCompletion
+                }
+                
                 operations.append(operation)
+                isPrimary = false
             }
+            
+            let commonsProject = RemoteNotificationsProject.commons
+            let commonsOperation = RemoteNotificationsImportOperation(with: self.apiController, modelController: modelController, project: commonsProject, cookieDomain: self.cookieDomainForProject(commonsProject))
+            operations.append(commonsOperation)
+            
+            let wikidataProject = RemoteNotificationsProject.wikidata
+            let wikidataOperation = RemoteNotificationsImportOperation(with: self.apiController, modelController: modelController, project: wikidataProject, cookieDomain: self.cookieDomainForProject(wikidataProject))
+            operations.append(wikidataOperation)
 
             let completionOperation = BlockOperation { [weak self] in
                 DispatchQueue.main.async {
                     self?.isImporting = false
-                    completion()
+                    allLanguagesCompletion()
                 }
             }
-            
             completionOperation.queuePriority = .veryHigh
 
             for operation in operations {
