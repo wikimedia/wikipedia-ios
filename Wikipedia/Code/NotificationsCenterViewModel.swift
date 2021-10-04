@@ -42,9 +42,11 @@ final class NotificationsCenterViewModel: NSObject {
 	}
     
     @objc func contextObjectsDidChange(_ notification: NSNotification) {
-        guard let refreshedNotifications = notification.userInfo?[NSRefreshedObjectsKey] as? Set<RemoteNotification>,
-              let newNotifications = notification.userInfo?[NSInsertedObjectsKey] as? Set<RemoteNotification>,
-              (refreshedNotifications.count > 0 || newNotifications.count > 0) else {
+        
+        let refreshedNotifications = notification.userInfo?[NSRefreshedObjectsKey] as? Set<RemoteNotification> ?? []
+        let newNotifications = notification.userInfo?[NSInsertedObjectsKey] as? Set<RemoteNotification> ?? []
+        
+        guard (refreshedNotifications.count > 0 || newNotifications.count > 0) else {
             return
         }
         
