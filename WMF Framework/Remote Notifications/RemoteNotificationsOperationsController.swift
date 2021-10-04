@@ -6,6 +6,7 @@ class RemoteNotificationsOperationsController: NSObject {
     private let operationQueue: OperationQueue
     private let preferredLanguageCodesProvider: WMFPreferredLanguageInfoProvider
     private var isImporting = false
+    private var isRefreshing = false
     
     var viewContext: NSManagedObjectContext? {
         return modelController?.viewContext
@@ -123,9 +124,11 @@ class RemoteNotificationsOperationsController: NSObject {
     
     func refreshNotifications(_ completion: @escaping () -> Void) {
         
+        assert(Thread.isMainThread)
+        
         guard !isLocked,
-              !isImporting else {
-            self.isImporting = false
+              !isImporting,
+              !isRefreshing else {
             self.operationQueue.addOperation(completion)
             return
         }
@@ -135,6 +138,8 @@ class RemoteNotificationsOperationsController: NSObject {
             self.operationQueue.addOperation(completion)
             return
         }
+        
+        self.isRefreshing = true
         
         preferredLanguageCodesProvider.getPreferredLanguageCodes({ [weak self] (preferredLanguageCodes) in
             
@@ -156,14 +161,20 @@ class RemoteNotificationsOperationsController: NSObject {
                 operations.append(operation)
             }
             
-            let completionOperation = BlockOperation(block: completion)
+            let completionOperation = BlockOperation { [weak self] in
+                DispatchQueue.main.async {
+                    self?.isRefreshing = false
+                    completion()
+                }
+            }
+            
             completionOperation.queuePriority = .normal
             
             for operation in operations {
                 completionOperation.addDependency(operation)
             }
             
-            self.operationQueue.addOperations(operations + [completionOperation], waitUntilFinished: true)
+            self.operationQueue.addOperations(operations + [completionOperation], waitUntilFinished: false)
         })
     }
     
