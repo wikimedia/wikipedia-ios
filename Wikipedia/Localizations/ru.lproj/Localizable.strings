@@ -47,6 +47,7 @@
 // Author: Saimongoltinio
 // Author: Soul Train
 // Author: Stjn
+// Author: Sunpriat
 // Author: Valencia212
 // Author: Vlad5250
 // Author: WindEwriX
@@ -351,8 +352,8 @@
 "editing-welcome-citations-title" = "Используйте проверенные источники";
 "editing-welcome-impartial-tone-subtitle" = "Мы стремимся, чтобы статьи были написаны беспристрастно. При редактировании постарайтесь составить достоверное представление о мире, как его описывают надёжные источники.";
 "editing-welcome-impartial-tone-title" = "Пишите непредвзято";
-"editing-welcome-set-knowledge-free-subtitle" = "Чтобы любому человеку было доступно знание всего человечества мы нуждаемся лично в вас! Поучаствуйте в вычитке, редактировании и добавлении информации в тех темах, которые значимы для вас.";
-"editing-welcome-set-knowledge-free-title" = "Сделайте информацию доступным всем";
+"editing-welcome-set-knowledge-free-subtitle" = "Чтобы дать каждому доступ к знаниям всего мира, нам нужно, чтобы Вы участвовали в их создании, вычитывая, редактируя и внося вклад в самые значимые для Вас темы.";
+"editing-welcome-set-knowledge-free-title" = "Сделайте знания свободными";
 "empty-diff-compare-title" = "Нет различий между версиями";
 "empty-diff-single-title" = "Нет видимых изменений";
 "empty-insert-media-title" = "Выберите файл на Викискладе";
