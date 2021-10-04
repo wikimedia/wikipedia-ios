@@ -54,7 +54,7 @@ final class NotificationsCenterView: SetupView {
     private lazy var emptyOverlayHeaderLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.wmf_font(.mediumBody)
+        label.font = UIFont.wmf_font(.mediumBody, compatibleWithTraitCollection: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -64,12 +64,23 @@ final class NotificationsCenterView: SetupView {
     private lazy var emptyOverlaySubheaderLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.wmf_font(.subheadline)
+        label.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.textAlignment = .center
         label.numberOfLines = 0
         return label
     }()
+
+    // MARK: - Lifecycle
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
+            emptyOverlayHeaderLabel.font = UIFont.wmf_font(.mediumBody, compatibleWithTraitCollection: traitCollection)
+            emptyOverlaySubheaderLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        }
+    }
 
     // MARK: - Setup
 
