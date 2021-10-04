@@ -56,7 +56,6 @@ class RemoteNotificationsOperationsController: NSObject {
 
         guard !isLocked,
               !isImporting else {
-            self.isImporting = false
             self.operationQueue.addOperation(completion)
             return
         }
