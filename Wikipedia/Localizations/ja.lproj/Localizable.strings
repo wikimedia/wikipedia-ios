@@ -332,6 +332,7 @@
 "empty-no-feed-message" = "おすすめの記事は、インターネットに接続されているときに見ることができます";
 "empty-no-history-message" = "ここには、あなたが閲読した記事の履歴が表示されます";
 "empty-no-history-title" = "表示する履歴がありません";
+"empty-no-other-article-languages-title" = "ほかの言語は利用できません";
 "empty-no-reading-lists-message" = "あとで読むリストを作成し、旅行に行きたいところ、好きな話題、何でも保存しましょう";
 "empty-no-reading-lists-title" = "あとで読むリストに保存した記事を整理しましょう";
 "empty-no-saved-pages-in-reading-list-message" = "ページをこのリストに保存するとここに表示されます";
@@ -629,6 +630,7 @@
 "places-unknown-distance" = "不明な距離";
 "potd-description-prefix" = "$1日の写真";
 "potd-empty-error-description" = "$1日の写真の取得に失敗しました";
+"potd-widget-title" = "今日の一枚";
 "preference-summary-eventlogging-opt-in" = "このアプリの改善に役立てるため、ウィキメディア財団がアプリの使用情報を収集することを許可する";
 "preference-title-eventlogging-opt-in" = "利用状況レポートを送信";
 "rank-accessibility-label" = "$1位";
@@ -862,6 +864,7 @@
 "top-read-header-generic" = "ウィキペディア";
 "top-read-header-with-language" = "$1ウィキペディア";
 "top-read-see-more" = "詳細を読む";
+"top-read-widget-readers-count" = "$1人の読者";
 "two-factor-login-continue" = "ログインを続行";
 "two-factor-login-instructions" = "２段階認証コードを入力してください";
 "two-factor-login-title" = "あなたのアカウントにログイン";
@@ -895,6 +898,7 @@
 "welcome-send-data-learn-more" = "収集されたデータの詳細";
 "welcome-send-data-sub-title" = "アプリケーション改善に役立てるため、ウィキメディア財団にあなたの使用状況を送信します。収集されるデータは匿名です。";
 "welcome-volunteer-send-usage-reports" = "利用状況レポートを送信";
+"widget-onthisday-placeholder-article-snippet" = "誰もが編集できる無料のオンライン百科事典";
 "wikitext-downloading" = "本文を読み込み中...";
 "wikitext-preview-changes" = "編集のプレビューを取得中...";
 "wikitext-preview-changes-none" = "プレビューが必要な変更はありません。";

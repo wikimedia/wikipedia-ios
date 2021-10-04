@@ -848,7 +848,9 @@
 "talk-page-add-discussion-accessibility-label" = "Pridať diskusiu";
 "talk-page-discussion-accessibility-hint" = "Ťuknite dvakrát pre založenie nového vlákna";
 "talk-page-discussion-read-accessibility-label" = "Prečítané";
+"talk-page-discussion-read-ipa-accessibility-attribute" = "rɛd";
 "talk-page-discussion-unread-accessibility-label" = "Neprečítané";
+"talk-page-discussion-unread-ipa-accessibility-attribute" = "ʌnˈrɛd";
 "talk-page-error-unable-to-post-reply" = "Žiadne internetové pripojenie. Nedá sa odoslať odpoveď.";
 "talk-page-error-unable-to-post-topic" = "Žiadne internetové pripojenie. Nedá sa zverejniť diskusiu.";
 "talk-page-info-active-conversations" = "Aktívne diskusie na Wikipédii v jazyku $1";
