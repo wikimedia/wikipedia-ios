@@ -121,10 +121,10 @@ final class NotificationsCenterView: SetupView {
 
     // MARK: - Public
 
-    func updateEmptyOverlay(visible: Bool, headerString: String = "", subheaderText: String = "") {
+    func updateEmptyOverlay(visible: Bool, headerText: String = "", subheaderText: String = "") {
         emptyScrollView.isHidden = !visible
         emptyScrollView.isUserInteractionEnabled = visible
-        emptyOverlayHeaderLabel.text = headerString
+        emptyOverlayHeaderLabel.text = headerText
         emptyOverlaySubheaderLabel.text = subheaderText
     }
 
