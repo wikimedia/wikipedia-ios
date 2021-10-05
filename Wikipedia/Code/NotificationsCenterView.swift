@@ -32,6 +32,16 @@ final class NotificationsCenterView: SetupView {
         return layout
 	}()
 
+    private lazy var emptyScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.alwaysBounceVertical = true
+        scrollView.isUserInteractionEnabled = false
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.isHidden = true
+        return scrollView
+    }()
+
     private lazy var emptyOverlayStack: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -39,7 +49,6 @@ final class NotificationsCenterView: SetupView {
         stackView.distribution = .equalSpacing
         stackView.alignment = .center
         stackView.spacing = 15
-        stackView.isHidden = true        
         return stackView
     }()
 
@@ -87,29 +96,34 @@ final class NotificationsCenterView: SetupView {
     override func setup() {
         backgroundColor = .white
         wmf_addSubviewWithConstraintsToEdges(collectionView)
+        wmf_addSubviewWithConstraintsToEdges(emptyScrollView)
 
         emptyOverlayStack.addArrangedSubview(emptyStateImageView)
         emptyOverlayStack.addArrangedSubview(emptyOverlayHeaderLabel)
         emptyOverlayStack.addArrangedSubview(emptyOverlaySubheaderLabel)
 
-        addSubview(emptyOverlayStack)
+        emptyScrollView.addSubview(emptyOverlayStack)
+
         NSLayoutConstraint.activate([
-            emptyOverlayHeaderLabel.widthAnchor.constraint(equalTo: emptyStateImageView.widthAnchor, constant: 60),
-            emptyOverlayHeaderLabel.centerXAnchor.constraint(equalTo: emptyStateImageView.centerXAnchor),
-            emptyOverlaySubheaderLabel.widthAnchor.constraint(equalTo: emptyOverlayHeaderLabel.widthAnchor, constant: 20),
+            emptyScrollView.contentLayoutGuide.heightAnchor.constraint(equalTo: emptyScrollView.frameLayoutGuide.heightAnchor),
+            emptyScrollView.contentLayoutGuide.widthAnchor.constraint(equalTo: emptyScrollView.frameLayoutGuide.widthAnchor),
+
+            emptyOverlayStack.centerXAnchor.constraint(equalTo: emptyScrollView.contentLayoutGuide.centerXAnchor),
+            emptyOverlayStack.centerYAnchor.constraint(equalTo: emptyScrollView.contentLayoutGuide.centerYAnchor, constant: -30),
 
             emptyStateImageView.heightAnchor.constraint(equalToConstant: 185),
-            emptyStateImageView.widthAnchor.constraint(equalTo: emptyStateImageView.heightAnchor),
+            emptyStateImageView.widthAnchor.constraint(equalToConstant: 185),
 
-            emptyOverlayStack.centerXAnchor.constraint(equalTo: centerXAnchor),
-            emptyOverlayStack.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -5)
+            emptyOverlayHeaderLabel.widthAnchor.constraint(equalTo: emptyScrollView.contentLayoutGuide.widthAnchor, multiplier: 3/4),
+            emptyOverlaySubheaderLabel.widthAnchor.constraint(equalTo: emptyScrollView.contentLayoutGuide.widthAnchor, multiplier: 4/5)
         ])
     }
 
     // MARK: - Public
 
     func updateEmptyOverlay(visible: Bool, headerString: String = "", subheaderText: String = "") {
-        emptyOverlayStack.isHidden = !visible
+        emptyScrollView.isHidden = !visible
+        emptyScrollView.isUserInteractionEnabled = visible
         emptyOverlayHeaderLabel.text = headerString
         emptyOverlaySubheaderLabel.text = subheaderText
     }
