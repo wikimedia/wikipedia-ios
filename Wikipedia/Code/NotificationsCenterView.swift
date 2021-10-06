@@ -106,11 +106,16 @@ final class NotificationsCenterView: SetupView {
         emptyScrollView.addSubview(emptyOverlayStack)
 
         NSLayoutConstraint.activate([
-            emptyScrollView.contentLayoutGuide.heightAnchor.constraint(equalTo: emptyScrollView.frameLayoutGuide.heightAnchor),
             emptyScrollView.contentLayoutGuide.widthAnchor.constraint(equalTo: emptyScrollView.frameLayoutGuide.widthAnchor),
+            emptyScrollView.contentLayoutGuide.heightAnchor.constraint(greaterThanOrEqualTo: emptyScrollView.frameLayoutGuide.heightAnchor),
 
             emptyOverlayStack.centerXAnchor.constraint(equalTo: emptyScrollView.contentLayoutGuide.centerXAnchor),
             emptyOverlayStack.centerYAnchor.constraint(equalTo: emptyScrollView.contentLayoutGuide.centerYAnchor),
+
+            emptyOverlayStack.topAnchor.constraint(greaterThanOrEqualTo: emptyScrollView.contentLayoutGuide.topAnchor, constant: 100),
+            emptyOverlayStack.leadingAnchor.constraint(greaterThanOrEqualTo: emptyScrollView.contentLayoutGuide.leadingAnchor, constant: 50),
+            emptyOverlayStack.trailingAnchor.constraint(lessThanOrEqualTo: emptyScrollView.contentLayoutGuide.trailingAnchor, constant: -50),
+            emptyOverlayStack.bottomAnchor.constraint(lessThanOrEqualTo: emptyScrollView.contentLayoutGuide.bottomAnchor, constant: -100),
 
             emptyStateImageView.heightAnchor.constraint(equalToConstant: 185),
             emptyStateImageView.widthAnchor.constraint(equalToConstant: 185),
