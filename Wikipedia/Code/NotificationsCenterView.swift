@@ -35,7 +35,6 @@ final class NotificationsCenterView: SetupView {
     private lazy var emptyScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.alwaysBounceVertical = true
         scrollView.isUserInteractionEnabled = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.contentInsetAdjustmentBehavior = .never
@@ -90,6 +89,13 @@ final class NotificationsCenterView: SetupView {
             emptyOverlayHeaderLabel.font = UIFont.wmf_font(.mediumBody, compatibleWithTraitCollection: traitCollection)
             emptyOverlaySubheaderLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
         }
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        // If the stack view content is approaching or greater than the visible view's height, allow scrolling to read all content
+        emptyScrollView.alwaysBounceVertical = emptyOverlayStack.bounds.height > emptyScrollView.bounds.height - 100
     }
 
     // MARK: - Setup
