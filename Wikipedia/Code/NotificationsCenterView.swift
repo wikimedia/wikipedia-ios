@@ -38,6 +38,7 @@ final class NotificationsCenterView: SetupView {
         scrollView.alwaysBounceVertical = true
         scrollView.isUserInteractionEnabled = false
         scrollView.showsVerticalScrollIndicator = false
+        scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.isHidden = true
         return scrollView
     }()
@@ -109,7 +110,7 @@ final class NotificationsCenterView: SetupView {
             emptyScrollView.contentLayoutGuide.widthAnchor.constraint(equalTo: emptyScrollView.frameLayoutGuide.widthAnchor),
 
             emptyOverlayStack.centerXAnchor.constraint(equalTo: emptyScrollView.contentLayoutGuide.centerXAnchor),
-            emptyOverlayStack.centerYAnchor.constraint(equalTo: emptyScrollView.contentLayoutGuide.centerYAnchor, constant: -30),
+            emptyOverlayStack.centerYAnchor.constraint(equalTo: emptyScrollView.contentLayoutGuide.centerYAnchor),
 
             emptyStateImageView.heightAnchor.constraint(equalToConstant: 185),
             emptyStateImageView.widthAnchor.constraint(equalToConstant: 185),
