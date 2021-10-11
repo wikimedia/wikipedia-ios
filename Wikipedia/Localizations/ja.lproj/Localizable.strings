@@ -561,8 +561,8 @@
 "no-internet-connection" = "インターネットに接続されていません";
 "no-internet-connection-article-reload" = "この記事の新しい版があるかもしれませんが、インターネットに接続するまで読みこめません。";
 "no-internet-connection-article-reload-button" = "最後に保存した版に戻る";
-"number-billions" = "$1十億";
-"number-millions" = "$1百万";
+"number-billions" = "$1";
+"number-millions" = "$1";
 "number-thousands" = "$1千";
 "on-this-day-detail-header-date-range" = "$1 - $2から";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1件の歴史上の出来事|$1件の歴史上の出来事}}";
