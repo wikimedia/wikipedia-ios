@@ -21,19 +21,15 @@ class RemoteNotificationsImportOperation: RemoteNotificationsOperation {
     
     override func execute() {
         
-        //Confirm we haven't already imported for this language before kicking off import
-        let importedFlagkey = LibraryKey.completedImportFlags.fullKeyForProject(project)
-        let isAlreadyImported = libraryBoolValue(for: importedFlagkey)
-        
+        //Confirm we haven't already imported for this language before kicking off import.
+        //isAlreadyImported computed property fetches a persisted flag
         guard !isAlreadyImported else {
             finish()
             return
         }
         
-        //see if there is a persisted continue flag so we can pick up importing where we left off
-        let continueIdKey = LibraryKey.continueIdentifer.fullKeyForProject(project)
-        let continueId = libraryStringValue(for: continueIdKey)
-        
+        //See if there is a persisted continue flag so we can pick up importing where we left off
+        //continueId computed property fetches a persisted continue id
         importNotifications(continueId: continueId)
     }
     
@@ -53,7 +49,7 @@ class RemoteNotificationsImportOperation: RemoteNotificationsOperation {
                 self.finish(with: error)
                 return
             }
-
+            
             guard let fetchedNotifications = result?.list else {
                 self.finish(with: RequestError.unexpectedResponse)
                 return
@@ -85,59 +81,57 @@ class RemoteNotificationsImportOperation: RemoteNotificationsOperation {
     
     private func saveLanguageAsImportCompleted() {
         let key = LibraryKey.completedImportFlags.fullKeyForProject(project)
-        setLibraryBoolValue(true, for: key)
+        setAlreadyImported(true, forKey: key)
     }
     
     private func saveContinueId(_ continueId: String) {
         let key = LibraryKey.continueIdentifer.fullKeyForProject(project)
-        setLibraryStringValue(continueId, for: key)
+        setContinueId(continueId, forKey: key)
     }
 }
 
 //MARK: Library Key Value helpers
 
 private extension RemoteNotificationsImportOperation {
-    func libraryStringValue(for key: String) -> String? {
+    var continueId: String? {
         
-        var result: String? = nil
+        let key = LibraryKey.continueIdentifer.fullKeyForProject(project)
+        return libraryValue(forKey: key) as? String
+    }
+    
+    var isAlreadyImported: Bool {
+        
+        let key = LibraryKey.completedImportFlags.fullKeyForProject(project)
+        guard let nsNumber = libraryValue(forKey: key) as? NSNumber else {
+            return false
+        }
+        
+        return nsNumber.boolValue
+    }
+    
+    func setContinueId(_ continueId: String, forKey key: String) {
+        setLibraryValue(continueId as NSString, forKey: key)
+    }
+    
+    func setAlreadyImported(_ value: Bool, forKey key: String) {
+        let nsNumber = NSNumber(value: value)
+        setLibraryValue(nsNumber, forKey: key)
+    }
+    
+    func libraryValue(forKey key: String) -> NSCoding? {
+        var result: NSCoding? = nil
         let backgroundContext = self.modelController.newBackgroundContext()
         backgroundContext.performAndWait {
-            result = backgroundContext.wmf_stringValue(forKey: key)
+            result = backgroundContext.wmf_keyValue(forKey: key)?.value
         }
         
         return result
     }
     
-    func setLibraryStringValue(_ value: String, for key: String) {
-        
+    func setLibraryValue(_ value: NSCoding, forKey key: String) {
         let backgroundContext = self.modelController.newBackgroundContext()
         backgroundContext.perform {
-            backgroundContext.wmf_setValue(value as NSString, forKey: key)
-            do {
-                try backgroundContext.save()
-            } catch let error {
-                DDLogError("Error saving RemoteNotificationsImportOperation backgroundContext for library keys: \(error)")
-            }
-        }
-    }
-    
-    func libraryBoolValue(for key: String) -> Bool {
-        
-        var result: Bool = false
-        let backgroundContext = self.modelController.newBackgroundContext()
-        backgroundContext.performAndWait {
-            result = backgroundContext.wmf_numberValue(forKey: key)?.boolValue ?? false
-        }
-        
-        return result
-    }
-    
-    func setLibraryBoolValue(_ value: Bool, for key: String) {
-        
-        let backgroundContext = self.modelController.newBackgroundContext()
-        backgroundContext.perform {
-            let nsNumber = NSNumber(value: value)
-            backgroundContext.wmf_setValue(nsNumber, forKey: key)
+            backgroundContext.wmf_setValue(value, forKey: key)
             do {
                 try backgroundContext.save()
             } catch let error {
