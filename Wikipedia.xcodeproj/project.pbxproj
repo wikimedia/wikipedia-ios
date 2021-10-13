@@ -406,11 +406,6 @@
 		676070A52280D72400A81F09 /* TalkPageTopicNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */; };
 		676070A62280D72400A81F09 /* TalkPageTopicNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */; };
 		676070A72280D72500A81F09 /* TalkPageTopicNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */; };
-		676C864726D40AEB00A704C1 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676C864626D40AEB00A704C1 /* NotificationService.swift */; };
-		676C864B26D40AEB00A704C1 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 676C864426D40AEA00A704C1 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		676C867026D416FB00A704C1 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 676C864426D40AEA00A704C1 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		676C867326D4170100A704C1 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 676C864426D40AEA00A704C1 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		676C868126D4545300A704C1 /* WMF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; };
 		6761AEDA2704BA3800E47BAD /* RemoteNotification+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AED82704BA3800E47BAD /* RemoteNotification+CoreDataClass.swift */; };
 		6761AEDB2704BA3800E47BAD /* RemoteNotification+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AED92704BA3800E47BAD /* RemoteNotification+CoreDataProperties.swift */; };
 		6761AEDF2704CF0000E47BAD /* RemoteNotificationsProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEDE2704CF0000E47BAD /* RemoteNotificationsProject.swift */; };
@@ -418,10 +413,15 @@
 		6761AEE22704DE4100E47BAD /* NotificationsCenterCellViewModel.Text+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE02704DE4100E47BAD /* NotificationsCenterCellViewModel.Text+Extensions.swift */; };
 		6761AEE32704DE4100E47BAD /* NotificationsCenterCellViewModel.Text+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE02704DE4100E47BAD /* NotificationsCenterCellViewModel.Text+Extensions.swift */; };
 		6761AEE42704DE4100E47BAD /* NotificationsCenterCellViewModel.Text+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE02704DE4100E47BAD /* NotificationsCenterCellViewModel.Text+Extensions.swift */; };
-		6761AEE62704FD3F00E47BAD /* NotificationsCenterCellViewModel.IconNames+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE52704FD3F00E47BAD /* NotificationsCenterCellViewModel.IconNames+Extensions.swift */; };
-		6761AEE72704FD3F00E47BAD /* NotificationsCenterCellViewModel.IconNames+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE52704FD3F00E47BAD /* NotificationsCenterCellViewModel.IconNames+Extensions.swift */; };
-		6761AEE82704FD3F00E47BAD /* NotificationsCenterCellViewModel.IconNames+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE52704FD3F00E47BAD /* NotificationsCenterCellViewModel.IconNames+Extensions.swift */; };
-		6761AEE92704FD3F00E47BAD /* NotificationsCenterCellViewModel.IconNames+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE52704FD3F00E47BAD /* NotificationsCenterCellViewModel.IconNames+Extensions.swift */; };
+		6761AEE62704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE52704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift */; };
+		6761AEE72704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE52704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift */; };
+		6761AEE82704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE52704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift */; };
+		6761AEE92704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE52704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift */; };
+		676C864726D40AEB00A704C1 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676C864626D40AEB00A704C1 /* NotificationService.swift */; };
+		676C864B26D40AEB00A704C1 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 676C864426D40AEA00A704C1 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		676C867026D416FB00A704C1 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 676C864426D40AEA00A704C1 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		676C867326D4170100A704C1 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 676C864426D40AEA00A704C1 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		676C868126D4545300A704C1 /* WMF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D844D96C1D6CB2600042D692 /* WMF.framework */; };
 		676C869326D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676C869226D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift */; };
 		676C869426D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676C869226D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift */; };
 		676C869526D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676C869226D98D8D00A704C1 /* UIApplication+WindowWorkarounds.swift */; };
@@ -3789,7 +3789,7 @@
 		6761AED92704BA3800E47BAD /* RemoteNotification+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteNotification+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		6761AEDE2704CF0000E47BAD /* RemoteNotificationsProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsProject.swift; sourceTree = "<group>"; };
 		6761AEE02704DE4100E47BAD /* NotificationsCenterCellViewModel.Text+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationsCenterCellViewModel.Text+Extensions.swift"; sourceTree = "<group>"; };
-		6761AEE52704FD3F00E47BAD /* NotificationsCenterCellViewModel.IconNames+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationsCenterCellViewModel.IconNames+Extensions.swift"; sourceTree = "<group>"; };
+		6761AEE52704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationsCenterCellViewModel+IconNameExtensions.swift"; sourceTree = "<group>"; };
 		676A8A8223A4013D0084B967 /* ArticleFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArticleFetcher.swift; path = ../Wikipedia/Code/ArticleFetcher.swift; sourceTree = "<group>"; };
 		676C864426D40AEA00A704C1 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		676C864626D40AEB00A704C1 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
@@ -5771,7 +5771,7 @@
 				00FCB2BD26D8398700F5A47A /* NotificationsCenterCell.swift */,
 				00FCB2C226D839A500F5A47A /* NotificationsCenterCellViewModel.swift */,
 				6761AEE02704DE4100E47BAD /* NotificationsCenterCellViewModel.Text+Extensions.swift */,
-				6761AEE52704FD3F00E47BAD /* NotificationsCenterCellViewModel.IconNames+Extensions.swift */,
+				6761AEE52704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift */,
 				00E2EA8826E28A9700B1A741 /* NotificationsCenterCellStyle.swift */,
 				00E2EA8D26E2A45C00B1A741 /* NotificationsCenterCellDisplayState.swift */,
 			);
@@ -11173,7 +11173,7 @@
 				6734115922735832005B31DA /* TalkPagesController.swift in Sources */,
 				7ABAD6BF20349B91006A364C /* Collection.swift in Sources */,
 				7A5A0543225FBE0500BBEAC1 /* InsertMediaSearchResultCollectionViewCell.swift in Sources */,
-				6761AEE62704FD3F00E47BAD /* NotificationsCenterCellViewModel.IconNames+Extensions.swift in Sources */,
+				6761AEE62704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift in Sources */,
 				671DF9C125F2AE4E0011799E /* ArticleDescriptionControlling.swift in Sources */,
 				67CEF26F2351113000D5CA6C /* DiffController.swift in Sources */,
 				67D3C453228CB54E001D5741 /* TalkPageReplyComposeView.swift in Sources */,
@@ -12049,7 +12049,7 @@
 				D8A42B7E1E815A9C00D8E281 /* DDLog+WMFLogger.m in Sources */,
 				674711862507253500287951 /* ArticleAsLivingDocSnippetCollectionViewCell.swift in Sources */,
 				67E8B092226A57EA00537BC9 /* TalkPageContainerViewController.swift in Sources */,
-				6761AEE92704FD3F00E47BAD /* NotificationsCenterCellViewModel.IconNames+Extensions.swift in Sources */,
+				6761AEE92704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift in Sources */,
 				671DF9C425F2AE4E0011799E /* ArticleDescriptionControlling.swift in Sources */,
 				D8A42B801E815A9C00D8E281 /* WMFLegacyReference.swift in Sources */,
 				D8A42B811E815A9C00D8E281 /* WMFWelcomePageViewController.swift in Sources */,
@@ -12418,7 +12418,7 @@
 				B0FFFB2B21C9BED1001E787E /* TextFormattingButton.swift in Sources */,
 				7A420DB522A029780005689B /* EditFunnel.swift in Sources */,
 				0042811F25E6E841004945B3 /* NYTPhotoTransitionAnimator.m in Sources */,
-				6761AEE82704FD3F00E47BAD /* NotificationsCenterCellViewModel.IconNames+Extensions.swift in Sources */,
+				6761AEE82704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift in Sources */,
 				D8CE259F1E698E2400DAE2E0 /* UIViewController+WMFScrollToTop.swift in Sources */,
 				B0524B52214854E900D8FD8D /* DescriptionWelcomeContainerViewController.swift in Sources */,
 				D81446021E7094290078D71E /* WMFAuthButton.swift in Sources */,
@@ -12920,7 +12920,7 @@
 				7A420DB622A029780005689B /* EditFunnel.swift in Sources */,
 				D8EC3E9C1E9BDA35006712EB /* WMFAuthButton.swift in Sources */,
 				0042811E25E6E841004945B3 /* NYTPhotoTransitionAnimator.m in Sources */,
-				6761AEE72704FD3F00E47BAD /* NotificationsCenterCellViewModel.IconNames+Extensions.swift in Sources */,
+				6761AEE72704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift in Sources */,
 				B0524B53214854E900D8FD8D /* DescriptionWelcomeContainerViewController.swift in Sources */,
 				BA69725A1F2BA2D800E35F78 /* SettingsTableViewSection.swift in Sources */,
 				B0C17B9B21FAB060009ED5C3 /* AbuseFilterAlertView.swift in Sources */,
