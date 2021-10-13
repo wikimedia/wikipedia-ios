@@ -336,17 +336,17 @@ final class NotificationsCenterCell: UICollectionViewCell {
 	}
     
     func updateLabels(forViewModel viewModel: NotificationsCenterCellViewModel) {
-        headerLabel.text = viewModel.text.header
-        subheaderLabel.text = viewModel.text.subheader
-        messageSummaryLabel.text = viewModel.text.body
-        metaActionButton.setTitle(viewModel.text.footer, for: .normal)
-        relativeTimeAgoLabel.text = viewModel.text.date
+        headerLabel.text = viewModel.headerText
+        subheaderLabel.text = viewModel.subheaderText
+        messageSummaryLabel.text = viewModel.bodyText
+        metaActionButton.setTitle(viewModel.footerText, for: .normal)
+        relativeTimeAgoLabel.text = viewModel.dateText
     }
     
     func updateProject(forViewModel viewModel: NotificationsCenterCellViewModel) {
         
         // Show or hide project source label and image
-        if let projectText = viewModel.text.project {
+        if let projectText = viewModel.projectText {
             projectSourceLabel.label.text = projectText
             projectSourceLabel.isHidden = false
             projectSourceImage.isHidden = true
@@ -359,7 +359,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
     
     func updateMetaButton(forViewModel viewModel: NotificationsCenterCellViewModel) {
         
-        guard let footerText = viewModel.text.footer else {
+        guard let footerText = viewModel.footerText else {
             metaActionButton.isHidden =  true
             return
         }

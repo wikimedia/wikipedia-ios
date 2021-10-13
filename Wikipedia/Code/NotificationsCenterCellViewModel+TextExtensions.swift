@@ -1,17 +1,9 @@
 
 import Foundation
 
-extension NotificationsCenterCellViewModel.Text {
-    init(project: RemoteNotificationsProject, notification: RemoteNotification) {
-        self.header = Self.determineHeaderText(project: project, notification: notification)
-        self.subheader = Self.determineSubheaderText(notification: notification)
-        self.body = Self.determineBodyText(notification: notification)
-        self.footer = Self.determineFooterText(notification: notification)
-        self.date = Self.determineDateText(notification: notification)
-        self.project = Self.determineProjectText(project: project)
-    }
+extension NotificationsCenterCellViewModel {
     
-    private static func determineHeaderText(project: RemoteNotificationsProject, notification: RemoteNotification) -> String {
+    var headerText: String {
         switch notification.type {
         case .userTalkPageMessage,
              .mentionInTalkPage,
@@ -58,7 +50,7 @@ extension NotificationsCenterCellViewModel.Text {
         }
     }
     
-    private static func determineSubheaderText(notification: RemoteNotification) -> String? {
+    var subheaderText: String? {
         
         switch notification.type {
         case .userTalkPageMessage:
@@ -123,7 +115,7 @@ extension NotificationsCenterCellViewModel.Text {
         }
     }
     
-    private static func determineBodyText(notification: RemoteNotification) -> String? {
+    var bodyText: String? {
         switch notification.type {
         case .editReverted:
             return nil
@@ -154,7 +146,7 @@ extension NotificationsCenterCellViewModel.Text {
         }
     }
     
-    private static func determineFooterText(notification: RemoteNotification) -> String? {
+    var footerText: String? {
         switch notification.type {
         case .welcome,
              .emailFromOtherUser:
@@ -190,7 +182,7 @@ extension NotificationsCenterCellViewModel.Text {
         }
     }
     
-    private static func determineDateText(notification: RemoteNotification) -> String? {
+    var dateText: String? {
         guard let date = notification.date else {
             return nil
         }
@@ -199,7 +191,7 @@ extension NotificationsCenterCellViewModel.Text {
         return (date as NSDate).wmf_fullyLocalizedRelativeDateStringFromLocalDateToNow()
     }
     
-    private static func determineProjectText(project: RemoteNotificationsProject) -> String? {
+    var projectText: String? {
         switch project {
         case .language(let languageCode, _):
             return languageCode.uppercased()
@@ -211,14 +203,14 @@ extension NotificationsCenterCellViewModel.Text {
 
 //MARK: Header text determination helper methods
 
-private extension NotificationsCenterCellViewModel.Text {
+private extension NotificationsCenterCellViewModel {
 
     /// Returns formatted descriptive project name
     /// - Parameters:
     ///   - project: RemoteNotificationsProject that the notification is from
     ///   - shouldReturnCodedFormat: Boolean for if you want description in coded format for langauge projects ("EN-Wikipedia" vs  "English Wikipedia"). This is ignored for commons and wikidata projects.
     /// - Returns: Formatted descriptive project name
-    static func projectName(project: RemoteNotificationsProject, shouldReturnCodedFormat: Bool) -> String {
+    func projectName(project: RemoteNotificationsProject, shouldReturnCodedFormat: Bool) -> String {
         
         switch project {
         case .language(let languageCode, let localizedLanguageName):
@@ -239,25 +231,25 @@ private extension NotificationsCenterCellViewModel.Text {
         }
     }
     
-    static func noticeText(project: RemoteNotificationsProject) -> String {
+    func noticeText(project: RemoteNotificationsProject) -> String {
         let format = WMFLocalizedString("notifications-center-header-notice-from-project", value: "Notice from %1$@", comment: "Header text for notice notifications in Notifications Center. %1$@ is replaced with a project name such as \"EN-Wikipedia\" or \"Wikimedia Commons\".")
         let projectName = projectName(project: project, shouldReturnCodedFormat: true)
         return String.localizedStringWithFormat(format, projectName)
     }
     
-    static func alertText(project: RemoteNotificationsProject) -> String {
+    func alertText(project: RemoteNotificationsProject) -> String {
 
         let format = WMFLocalizedString("notifications-center-header-alert-from-project", value: "Alert from %1$@", comment: "Header text for alert notifications in Notifications Center. %1$@ is replaced with a project name such as \"EN-Wikipedia\".")
         let projectName = projectName(project: project, shouldReturnCodedFormat: true)
         return String.localizedStringWithFormat(format, projectName)
     }
     
-    static func mentionText(agentName: String) -> String {
+    func mentionText(agentName: String) -> String {
         let format = WMFLocalizedString("notifications-center-header-mention-format", value: "To: %1$@", comment: "Header text for successful mention notifications in Notifications Center. %1$@ is replaced with the mentioned username (e.g. \"To: Jimbo Wales\").")
         return String.localizedStringWithFormat(format, agentName)
     }
     
-    static func genericHeaderText(type: RemoteNotificationType, project: RemoteNotificationsProject) -> String {
+    func genericHeaderText(type: RemoteNotificationType, project: RemoteNotificationsProject) -> String {
         switch type {
         case .unknownSystemAlert, .unknownAlert:
             return alertText(project: project)
@@ -271,8 +263,8 @@ private extension NotificationsCenterCellViewModel.Text {
 
 //MARK: Subheader text determination helper methods
 
-private extension NotificationsCenterCellViewModel.Text {
-    static func topicTitleFromTalkPageNotification(_ notification: RemoteNotification) -> String? {
+private extension NotificationsCenterCellViewModel {
+    func topicTitleFromTalkPageNotification(_ notification: RemoteNotification) -> String? {
         
         //We can extract the talk page title from the primary url's first fragment for user talk page message notifications
         
