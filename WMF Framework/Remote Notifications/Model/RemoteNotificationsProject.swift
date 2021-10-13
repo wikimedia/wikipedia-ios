@@ -7,15 +7,27 @@ public enum RemoteNotificationsProject {
     case language(LanguageCode, LocalizedLanguageName?)
     case commons
     case wikidata
+    
+    private static var commonsIdentifier: String {
+        return "commonswiki"
+    }
+
+    private static var wikidataIdentifier: String {
+        return "wikidatawiki"
+    }
+
+    private static var languageIdentifierSuffix: String {
+        return "wiki"
+    }
 
     var notificationsApiWikiIdentifier: String {
         switch self {
         case .language(let languageCode, _):
-            return languageCode + "wiki"
+            return languageCode + Self.languageIdentifierSuffix
         case .commons:
-            return "commonswiki"
+            return Self.commonsIdentifier
         case .wikidata:
-            return "wikidatawiki"
+            return Self.wikidataIdentifier
         }
     }
     
@@ -32,7 +44,7 @@ public enum RemoteNotificationsProject {
             self = .wikidata
         default:
             //confirm it is a recognized language
-            let suffix = "wiki"
+            let suffix = Self.languageIdentifierSuffix
             let strippedIdentifier = apiIdentifier.hasSuffix(suffix) ? String(apiIdentifier.dropLast(suffix.count)) : apiIdentifier
             let recognizedLanguage = languageLinkController.allLanguages.first { languageLink in
                 languageLink.languageCode == strippedIdentifier
