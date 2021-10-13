@@ -276,11 +276,11 @@ private extension NotificationsCenterCellViewModel.Text {
         
         //We can extract the talk page title from the primary url's first fragment for user talk page message notifications
         
-        guard let primaryUrl = notification.messageLinks?.primaryUrl else {
+        guard let primaryURL = notification.messageLinks?.primaryURL else {
             return nil
         }
         
-        let components = URLComponents(url: primaryUrl, resolvingAgainstBaseURL: false)
+        let components = URLComponents(url: primaryURL, resolvingAgainstBaseURL: false)
         guard let fragment = components?.fragment else {
             return nil
         }

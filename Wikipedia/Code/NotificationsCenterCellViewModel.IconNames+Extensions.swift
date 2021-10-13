@@ -48,8 +48,10 @@ extension NotificationsCenterCellViewModel.IconNames {
             //TODO: Should we include the other talk types?
             return .system("person.circle.fill")
         case .main:
-            //TODO: doc.plaintext.fill is iOS14+ only, add .custom for iOS13
-            return .system("doc.plaintext.fill")
+            if #available(iOS 14, *) {
+                return .system("doc.plaintext.fill")
+            }
+            return .system("doc.text.fill")
         case .file:
             return .system("photo")
         default:
