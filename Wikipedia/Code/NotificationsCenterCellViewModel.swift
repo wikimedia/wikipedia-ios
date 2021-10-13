@@ -2,11 +2,11 @@ import Foundation
 
 final class NotificationsCenterCellViewModel {
 
-	// MARK: - Properties
+    // MARK: - Properties
 
-	let notification: RemoteNotification
+    let notification: RemoteNotification
     let project: RemoteNotificationsProject
-	var displayState: NotificationsCenterCellDisplayState
+    var displayState: NotificationsCenterCellDisplayState
 
 	// MARK: - Lifecycle
 
@@ -17,16 +17,16 @@ final class NotificationsCenterCellViewModel {
             return nil
         }
         
-		self.notification = notification
+        self.notification = notification
         self.project = project
-		self.displayState = displayState
-	}
+        self.displayState = displayState
+    }
 
-	// MARK: - Public
+    // MARK: - Public
 
-	var isRead: Bool {
-		return notification.isRead
-	}
+    var isRead: Bool {
+        return notification.isRead
+    }
     
     var notificationType: RemoteNotificationType? {
         return notification.type
