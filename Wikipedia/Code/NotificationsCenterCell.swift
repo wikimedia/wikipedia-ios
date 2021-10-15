@@ -194,6 +194,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
 	}
 
 	func setup() {
+        let topMargin: CGFloat = 13
 		let edgeMargin: CGFloat = 11
 
 		selectedBackgroundView = UIView()
@@ -228,11 +229,11 @@ final class NotificationsCenterCell: UICollectionViewCell {
 
 		NSLayoutConstraint.activate([
 			leadingContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-			leadingContainer.topAnchor.constraint(equalTo: contentView.topAnchor),
+            leadingContainer.topAnchor.constraint(equalTo: mainVerticalStackView.topAnchor),
 			leadingContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 			leadingContainer.trailingAnchor.constraint(equalTo: mainVerticalStackView.leadingAnchor),
 
-			mainVerticalStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: edgeMargin),
+			mainVerticalStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: topMargin),
 			mainVerticalStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -edgeMargin),
 			mainVerticalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
 
@@ -249,7 +250,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
 			leadingImageView.widthAnchor.constraint(equalToConstant: 32),
 			leadingImageView.leadingAnchor.constraint(equalTo: leadingContainer.leadingAnchor, constant: edgeMargin),
 			leadingImageView.trailingAnchor.constraint(equalTo: leadingContainer.trailingAnchor, constant: -edgeMargin),
-			leadingImageView.topAnchor.constraint(equalTo: leadingContainer.topAnchor, constant: edgeMargin),
+            leadingImageView.centerYAnchor.constraint(equalTo: headerLabel.centerYAnchor, constant: topMargin/3)
 		])
 
 		// Header label constraints
