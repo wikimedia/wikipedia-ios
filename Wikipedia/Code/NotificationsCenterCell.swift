@@ -1,21 +1,21 @@
 import UIKit
 
 protocol NotificationsCenterCellDelegate: AnyObject {
-	func userDidTapSecondaryActionForCellIdentifier(id: String)
+    func userDidTapSecondaryActionForCellIdentifier(id: String)
 }
 
 final class NotificationsCenterCell: UICollectionViewCell {
 
-	// MARK: - Properties
+    // MARK: - Properties
 
-	static let reuseIdentifier = "NotificationsCenterCell"
+    static let reuseIdentifier = "NotificationsCenterCell"
 
-	fileprivate var theme: Theme = .light
-	fileprivate weak var viewModel: NotificationsCenterCellViewModel?
+    fileprivate var theme: Theme = .light
+    fileprivate weak var viewModel: NotificationsCenterCellViewModel?
 
-	// MARK: - UI Elements
+    // MARK: - UI Elements
 
-	lazy var leadingImageView: RoundedImageView = {
+    lazy var leadingImageView: RoundedImageView = {
         let view = RoundedImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.imageView.contentMode = .scaleAspectFit
@@ -23,92 +23,92 @@ final class NotificationsCenterCell: UICollectionViewCell {
         view.layer.borderColor = UIColor.clear.cgColor
         view.insets = NSDirectionalEdgeInsets(top: 7, leading: 7, bottom: -7, trailing: -7)
         return view
-	}()
+    }()
 
-	lazy var projectSourceLabel: InsetLabelView = {
-		let insetLabel = InsetLabelView()
+    lazy var projectSourceLabel: InsetLabelView = {
+        let insetLabel = InsetLabelView()
 
-		insetLabel.translatesAutoresizingMaskIntoConstraints = false
-		insetLabel.label.setContentCompressionResistancePriority(.required, for: .vertical)
-		insetLabel.label.font = UIFont.wmf_font(.caption1, compatibleWithTraitCollection: traitCollection)
-		insetLabel.label.adjustsFontForContentSizeCategory = true
-		insetLabel.label.numberOfLines = 1
-		insetLabel.label.text = "EN"
-		insetLabel.label.textAlignment = .center
+        insetLabel.translatesAutoresizingMaskIntoConstraints = false
+        insetLabel.label.setContentCompressionResistancePriority(.required, for: .vertical)
+        insetLabel.label.font = UIFont.wmf_font(.caption1, compatibleWithTraitCollection: traitCollection)
+        insetLabel.label.adjustsFontForContentSizeCategory = true
+        insetLabel.label.numberOfLines = 1
+        insetLabel.label.text = "EN"
+        insetLabel.label.textAlignment = .center
 
-		insetLabel.layer.cornerRadius = 3
-		insetLabel.layer.borderWidth = 1
-		insetLabel.layer.borderColor = UIColor.black.cgColor
+        insetLabel.layer.cornerRadius = 3
+        insetLabel.layer.borderWidth = 1
+        insetLabel.layer.borderColor = UIColor.black.cgColor
         insetLabel.insets = NSDirectionalEdgeInsets(top: 4, leading: 4, bottom: -4, trailing: -4)
-        
+
         insetLabel.isHidden = true
 
-		return insetLabel
-	}()
+        return insetLabel
+    }()
 
-	lazy var projectSourceImage: UIImageView = {
-		let imageView = UIImageView()
-		imageView.translatesAutoresizingMaskIntoConstraints = false
-		imageView.image = UIImage(named: "notifications-project-commons")
-		imageView.contentMode = .scaleAspectFit
-        
+    lazy var projectSourceImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(named: "notifications-project-commons")
+        imageView.contentMode = .scaleAspectFit
+
         imageView.isHidden = true
-        
-		return imageView
-	}()
 
-	lazy var headerLabel: UILabel = {
-		let label = UILabel()
-		label.translatesAutoresizingMaskIntoConstraints = false
-		label.setContentCompressionResistancePriority(.required, for: .vertical)
-		label.font = UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
-		label.adjustsFontForContentSizeCategory = true
-		label.textAlignment = .left
-		label.numberOfLines = 1
-		label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-		label.setContentHuggingPriority(.required, for: .horizontal)
-		label.text = ""
-		return label
-	}()
+        return imageView
+    }()
 
-	lazy var subheaderLabel: UILabel = {
-		let label = UILabel()
-		label.translatesAutoresizingMaskIntoConstraints = false
-		label.setContentCompressionResistancePriority(.required, for: .vertical)
-		label.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
-		label.adjustsFontForContentSizeCategory = true
-		label.numberOfLines = 1
-		label.textAlignment = .left
-		label.text = ""
-		return label
-	}()
+    lazy var headerLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
+        label.font = UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
+        label.adjustsFontForContentSizeCategory = true
+        label.textAlignment = .left
+        label.numberOfLines = 1
+        label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        label.setContentHuggingPriority(.required, for: .horizontal)
+        label.text = ""
+        return label
+    }()
 
-	lazy var messageSummaryLabel: UILabel = {
-		let label = UILabel()
-		label.translatesAutoresizingMaskIntoConstraints = false
-		label.setContentCompressionResistancePriority(.required, for: .vertical)
-		label.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
-		label.adjustsFontForContentSizeCategory = true
-		label.lineBreakMode = .byTruncatingTail
-		label.textAlignment = .left
-		label.numberOfLines = 1
-		label.text = ""
-		return label
-	}()
+    lazy var subheaderLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
+        label.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        label.adjustsFontForContentSizeCategory = true
+        label.numberOfLines = 1
+        label.textAlignment = .left
+        label.text = ""
+        return label
+    }()
 
-	lazy var relativeTimeAgoLabel: UILabel = {
-		let label = UILabel()
-		label.translatesAutoresizingMaskIntoConstraints = false
-		label.setContentCompressionResistancePriority(.required, for: .vertical)
-		label.font = UIFont.wmf_font(.boldFootnote, compatibleWithTraitCollection: traitCollection)
-		label.adjustsFontForContentSizeCategory = true
-		label.numberOfLines = 1
+    lazy var messageSummaryLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
+        label.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        label.adjustsFontForContentSizeCategory = true
+        label.lineBreakMode = .byTruncatingTail
+        label.textAlignment = .left
+        label.numberOfLines = 1
+        label.text = ""
+        return label
+    }()
+
+    lazy var relativeTimeAgoLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
+        label.font = UIFont.wmf_font(.boldFootnote, compatibleWithTraitCollection: traitCollection)
+        label.adjustsFontForContentSizeCategory = true
+        label.numberOfLines = 1
         label.textAlignment = effectiveUserInterfaceLayoutDirection == .rightToLeft ? .left : .right
-		label.text = ""
-		return label
-	}()
+        label.text = ""
+        return label
+    }()
 
-	lazy var metaActionButton: UIButton = {
+    lazy var metaActionButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.numberOfLines = 1
@@ -118,222 +118,222 @@ final class NotificationsCenterCell: UICollectionViewCell {
         button.titleEdgeInsets = UIEdgeInsets(top: 0, left: effectiveUserInterfaceLayoutDirection == .leftToRight ? 5 : -5, bottom: 0, right: effectiveUserInterfaceLayoutDirection == .leftToRight ? -5 : 5)
         button.isUserInteractionEnabled = false
         return button
-	}()
+    }()
 
-	// MARK - UI Elements - Stacks
+    // MARK - UI Elements - Stacks
 
-	lazy var mainVerticalStackView: UIStackView = {
-		let stackView = UIStackView()
-		stackView.translatesAutoresizingMaskIntoConstraints = false
-		stackView.axis = .vertical
-		stackView.distribution = .fill
-		stackView.alignment = .leading
-		return stackView
-	}()
+    lazy var mainVerticalStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .leading
+        return stackView
+    }()
 
-	lazy var internalHorizontalStackView: UIStackView = {
-		let stackView = UIStackView()
-		stackView.translatesAutoresizingMaskIntoConstraints = false
-		stackView.axis = .horizontal
-		stackView.distribution = .fill
-		return stackView
-	}()
+    lazy var internalHorizontalStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        return stackView
+    }()
 
-	lazy var internalVerticalNotificationContentStack: UIStackView = {
-		let stackView = UIStackView()
-		stackView.translatesAutoresizingMaskIntoConstraints = false
-		stackView.axis = .vertical
-		stackView.distribution = .fill
-		stackView.alignment = .leading
-		return stackView
-	}()
+    lazy var internalVerticalNotificationContentStack: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .leading
+        return stackView
+    }()
 
-	// MARK: - UI Elements - Containers
+    // MARK: - UI Elements - Containers
 
-	lazy var leadingContainer: UIView = {
-		let view = UIView()
-		view.translatesAutoresizingMaskIntoConstraints = false
-		return view
-	}()
+    lazy var leadingContainer: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 
-	lazy var projectSourceContainer: UIView = {
-		let view = UIView()
-		view.translatesAutoresizingMaskIntoConstraints = false
-		return view
-	}()
+    lazy var projectSourceContainer: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 
-	lazy var headerTextContainer: UIView = {
-		let view = UIView()
-		view.translatesAutoresizingMaskIntoConstraints = false
-		return view
-	}()
+    lazy var headerTextContainer: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 
-	// MARK: - UI Elements - Helpers
+    // MARK: - UI Elements - Helpers
 
-	lazy var cellSeparator: UIView = {
-		let view = UIView()
-		view.translatesAutoresizingMaskIntoConstraints = false
-		return view
-	}()
+    lazy var cellSeparator: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 
-	// MARK: - Lifecycle
+    // MARK: - Lifecycle
 
-	override init(frame: CGRect) {
-		super.init(frame: frame)
-		setup()
-	}
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
 
-	required init?(coder: NSCoder) {
-		super.init(coder: coder)
-		setup()
-	}
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+    }
 
-	override func prepareForReuse() {
-		super.prepareForReuse()
-		self.viewModel = nil
-	}
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.viewModel = nil
+    }
 
-	func setup() {
+    func setup() {
         let topMargin: CGFloat = 13
-		let edgeMargin: CGFloat = 11
+        let edgeMargin: CGFloat = 11
 
-		selectedBackgroundView = UIView()
+        selectedBackgroundView = UIView()
 
-		contentView.addSubview(leadingContainer)
-		contentView.addSubview(mainVerticalStackView)
-		contentView.addSubview(cellSeparator)
+        contentView.addSubview(leadingContainer)
+        contentView.addSubview(mainVerticalStackView)
+        contentView.addSubview(cellSeparator)
 
-		leadingContainer.addSubview(leadingImageView)
+        leadingContainer.addSubview(leadingImageView)
 
-		headerTextContainer.addSubview(headerLabel)
-		headerTextContainer.addSubview(relativeTimeAgoLabel)
+        headerTextContainer.addSubview(headerLabel)
+        headerTextContainer.addSubview(relativeTimeAgoLabel)
 
-		mainVerticalStackView.addArrangedSubview(headerTextContainer)
-		mainVerticalStackView.addArrangedSubview(internalHorizontalStackView)
+        mainVerticalStackView.addArrangedSubview(headerTextContainer)
+        mainVerticalStackView.addArrangedSubview(internalHorizontalStackView)
 
-		internalHorizontalStackView.addArrangedSubview(internalVerticalNotificationContentStack)
-		internalHorizontalStackView.addArrangedSubview(projectSourceContainer)
+        internalHorizontalStackView.addArrangedSubview(internalVerticalNotificationContentStack)
+        internalHorizontalStackView.addArrangedSubview(projectSourceContainer)
 
-		projectSourceContainer.addSubview(projectSourceLabel)
-		projectSourceContainer.addSubview(projectSourceImage)
+        projectSourceContainer.addSubview(projectSourceLabel)
+        projectSourceContainer.addSubview(projectSourceImage)
 
-		internalVerticalNotificationContentStack.addArrangedSubview(VerticalSpacerView.spacerWith(space: 3))
-		internalVerticalNotificationContentStack.addArrangedSubview(subheaderLabel)
-		internalVerticalNotificationContentStack.addArrangedSubview(VerticalSpacerView.spacerWith(space: 3))
-		internalVerticalNotificationContentStack.addArrangedSubview(messageSummaryLabel)
-		internalVerticalNotificationContentStack.addArrangedSubview(VerticalSpacerView.spacerWith(space: 10))
-		internalVerticalNotificationContentStack.addArrangedSubview(metaActionButton)
-		internalVerticalNotificationContentStack.addArrangedSubview(VerticalSpacerView.spacerWith(space: 3))
+        internalVerticalNotificationContentStack.addArrangedSubview(VerticalSpacerView.spacerWith(space: 3))
+        internalVerticalNotificationContentStack.addArrangedSubview(subheaderLabel)
+        internalVerticalNotificationContentStack.addArrangedSubview(VerticalSpacerView.spacerWith(space: 3))
+        internalVerticalNotificationContentStack.addArrangedSubview(messageSummaryLabel)
+        internalVerticalNotificationContentStack.addArrangedSubview(VerticalSpacerView.spacerWith(space: 10))
+        internalVerticalNotificationContentStack.addArrangedSubview(metaActionButton)
+        internalVerticalNotificationContentStack.addArrangedSubview(VerticalSpacerView.spacerWith(space: 3))
 
-		// Primary Hierarchy Constraints
+        // Primary Hierarchy Constraints
 
-		NSLayoutConstraint.activate([
-			leadingContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+        NSLayoutConstraint.activate([
+            leadingContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             leadingContainer.topAnchor.constraint(equalTo: mainVerticalStackView.topAnchor),
-			leadingContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-			leadingContainer.trailingAnchor.constraint(equalTo: mainVerticalStackView.leadingAnchor),
+            leadingContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            leadingContainer.trailingAnchor.constraint(equalTo: mainVerticalStackView.leadingAnchor),
 
-			mainVerticalStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: topMargin),
-			mainVerticalStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -edgeMargin),
-			mainVerticalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            mainVerticalStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: topMargin),
+            mainVerticalStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -edgeMargin),
+            mainVerticalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
 
-			cellSeparator.heightAnchor.constraint(equalToConstant: 0.5),
-			cellSeparator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-			cellSeparator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-			cellSeparator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-		])
+            cellSeparator.heightAnchor.constraint(equalToConstant: 0.5),
+            cellSeparator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            cellSeparator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            cellSeparator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+        ])
 
-		// Leading Image Constraints
+        // Leading Image Constraints
 
-		NSLayoutConstraint.activate([
-			leadingImageView.heightAnchor.constraint(equalToConstant: 32),
-			leadingImageView.widthAnchor.constraint(equalToConstant: 32),
-			leadingImageView.leadingAnchor.constraint(equalTo: leadingContainer.leadingAnchor, constant: edgeMargin),
-			leadingImageView.trailingAnchor.constraint(equalTo: leadingContainer.trailingAnchor, constant: -edgeMargin),
+        NSLayoutConstraint.activate([
+            leadingImageView.heightAnchor.constraint(equalToConstant: 32),
+            leadingImageView.widthAnchor.constraint(equalToConstant: 32),
+            leadingImageView.leadingAnchor.constraint(equalTo: leadingContainer.leadingAnchor, constant: edgeMargin),
+            leadingImageView.trailingAnchor.constraint(equalTo: leadingContainer.trailingAnchor, constant: -edgeMargin),
             leadingImageView.centerYAnchor.constraint(equalTo: headerLabel.centerYAnchor, constant: topMargin/3)
-		])
+        ])
 
-		// Header label constraints
+        // Header label constraints
 
-		NSLayoutConstraint.activate([
-			headerLabel.leadingAnchor.constraint(equalTo: headerTextContainer.leadingAnchor),
-			headerLabel.topAnchor.constraint(equalTo: headerTextContainer.topAnchor),
-			headerLabel.bottomAnchor.constraint(equalTo: headerTextContainer.bottomAnchor),
-			headerLabel.trailingAnchor.constraint(equalTo: relativeTimeAgoLabel.leadingAnchor),
-			headerLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 50),
+        NSLayoutConstraint.activate([
+            headerLabel.leadingAnchor.constraint(equalTo: headerTextContainer.leadingAnchor),
+            headerLabel.topAnchor.constraint(equalTo: headerTextContainer.topAnchor),
+            headerLabel.bottomAnchor.constraint(equalTo: headerTextContainer.bottomAnchor),
+            headerLabel.trailingAnchor.constraint(equalTo: relativeTimeAgoLabel.leadingAnchor),
+            headerLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 50),
 
-			relativeTimeAgoLabel.topAnchor.constraint(equalTo: headerTextContainer.topAnchor),
-			relativeTimeAgoLabel.bottomAnchor.constraint(equalTo: headerTextContainer.bottomAnchor),
-			relativeTimeAgoLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -edgeMargin)
-		])
+            relativeTimeAgoLabel.topAnchor.constraint(equalTo: headerTextContainer.topAnchor),
+            relativeTimeAgoLabel.bottomAnchor.constraint(equalTo: headerTextContainer.bottomAnchor),
+            relativeTimeAgoLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -edgeMargin)
+        ])
 
-		// Project Source
+        // Project Source
 
-		NSLayoutConstraint.activate([
-			projectSourceContainer.widthAnchor.constraint(equalToConstant: 50),
-			projectSourceContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -edgeMargin),
+        NSLayoutConstraint.activate([
+            projectSourceContainer.widthAnchor.constraint(equalToConstant: 50),
+            projectSourceContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -edgeMargin),
 
             projectSourceLabel.topAnchor.constraint(equalTo: subheaderLabel.topAnchor),
-			projectSourceLabel.trailingAnchor.constraint(equalTo: relativeTimeAgoLabel.trailingAnchor),
+            projectSourceLabel.trailingAnchor.constraint(equalTo: relativeTimeAgoLabel.trailingAnchor),
 
-			projectSourceImage.topAnchor.constraint(equalTo: subheaderLabel.topAnchor),
-			projectSourceImage.trailingAnchor.constraint(equalTo: relativeTimeAgoLabel.trailingAnchor),
-		])
-	}
+            projectSourceImage.topAnchor.constraint(equalTo: subheaderLabel.topAnchor),
+            projectSourceImage.trailingAnchor.constraint(equalTo: relativeTimeAgoLabel.trailingAnchor),
+        ])
+    }
 
-	// MARK: - Public
+    // MARK: - Public
 
-	func configure(viewModel: NotificationsCenterCellViewModel, theme: Theme) {
-		self.viewModel = viewModel
-		self.theme = theme
+    func configure(viewModel: NotificationsCenterCellViewModel, theme: Theme) {
+        self.viewModel = viewModel
+        self.theme = theme
 
         updateCellStyle(forDisplayState: viewModel.displayState)
         updateLabels(forViewModel: viewModel)
         updateProject(forViewModel: viewModel)
-		updateMetaButton(forViewModel: viewModel)
-	}
+        updateMetaButton(forViewModel: viewModel)
+    }
 
-	func updateCellStyle(forDisplayState displayState: NotificationsCenterCellDisplayState) {
-		guard let notificationType = viewModel?.notificationType else {
-			return
-		}
+    func updateCellStyle(forDisplayState displayState: NotificationsCenterCellDisplayState) {
+        guard let notificationType = viewModel?.notificationType else {
+            return
+        }
 
-		// let displayState = NotificationsCenterCellDisplayState.allCases.randomElement()!
-		let cellStyle = NotificationsCenterCellStyle(theme: theme, traitCollection: traitCollection, notificationType: notificationType)
+        // let displayState = NotificationsCenterCellDisplayState.allCases.randomElement()!
+        let cellStyle = NotificationsCenterCellStyle(theme: theme, traitCollection: traitCollection, notificationType: notificationType)
 
-		// Colors
+        // Colors
 
-		cellSeparator.backgroundColor = cellStyle.cellSeparatorColor
+        cellSeparator.backgroundColor = cellStyle.cellSeparatorColor
 
-		headerLabel.textColor = cellStyle.headerTextColor(displayState)
-		subheaderLabel.textColor = cellStyle.subheaderTextColor(displayState)
-		messageSummaryLabel.textColor = cellStyle.messageTextColor
-		relativeTimeAgoLabel.textColor = cellStyle.relativeTimeAgoColor
-		metaActionButton.setTitleColor(cellStyle.metadataTextColor, for: .normal)
-		metaActionButton.imageView?.tintColor = cellStyle.metadataTextColor
-		projectSourceLabel.label.textColor = cellStyle.projectSourceColor
-		projectSourceLabel.layer.borderColor = cellStyle.projectSourceColor.cgColor
-		projectSourceImage.tintColor = cellStyle.projectSourceColor
+        headerLabel.textColor = cellStyle.headerTextColor(displayState)
+        subheaderLabel.textColor = cellStyle.subheaderTextColor(displayState)
+        messageSummaryLabel.textColor = cellStyle.messageTextColor
+        relativeTimeAgoLabel.textColor = cellStyle.relativeTimeAgoColor
+        metaActionButton.setTitleColor(cellStyle.metadataTextColor, for: .normal)
+        metaActionButton.imageView?.tintColor = cellStyle.metadataTextColor
+        projectSourceLabel.label.textColor = cellStyle.projectSourceColor
+        projectSourceLabel.layer.borderColor = cellStyle.projectSourceColor.cgColor
+        projectSourceImage.tintColor = cellStyle.projectSourceColor
 
-		selectedBackgroundView?.backgroundColor = cellStyle.selectedCellBackgroundColor
+        selectedBackgroundView?.backgroundColor = cellStyle.selectedCellBackgroundColor
 
-		// Fonts
+        // Fonts
 
-		headerLabel.font = cellStyle.headerFont(displayState)
-		subheaderLabel.font = cellStyle.subheaderFont(displayState)
-		messageSummaryLabel.font = cellStyle.messageFont
-		relativeTimeAgoLabel.font = cellStyle.relativeTimeAgoFont(displayState)
-		metaActionButton.titleLabel?.font = cellStyle.metadataFont(displayState)
-		projectSourceLabel.label.font = cellStyle.projectSourceFont
+        headerLabel.font = cellStyle.headerFont(displayState)
+        subheaderLabel.font = cellStyle.subheaderFont(displayState)
+        messageSummaryLabel.font = cellStyle.messageFont
+        relativeTimeAgoLabel.font = cellStyle.relativeTimeAgoFont(displayState)
+        metaActionButton.titleLabel?.font = cellStyle.metadataFont(displayState)
+        projectSourceLabel.label.font = cellStyle.projectSourceFont
 
-		// Image
+        // Image
 
-		leadingImageView.backgroundColor = cellStyle.leadingImageBackgroundColor(displayState)
-		leadingImageView.imageView.image = cellStyle.leadingImage(displayState)
-		leadingImageView.imageView.tintColor = cellStyle.leadingImageTintColor
-		leadingImageView.layer.borderColor = cellStyle.leadingImageBorderColor(displayState).cgColor
-	}
-    
+        leadingImageView.backgroundColor = cellStyle.leadingImageBackgroundColor(displayState)
+        leadingImageView.imageView.image = cellStyle.leadingImage(displayState)
+        leadingImageView.imageView.tintColor = cellStyle.leadingImageTintColor
+        leadingImageView.layer.borderColor = cellStyle.leadingImageBorderColor(displayState).cgColor
+    }
+
     func updateLabels(forViewModel viewModel: NotificationsCenterCellViewModel) {
         headerLabel.text = viewModel.text.header
         subheaderLabel.text = viewModel.text.subheader
@@ -341,9 +341,9 @@ final class NotificationsCenterCell: UICollectionViewCell {
         messageSummaryLabel.text = messageSummaryText.isEmpty ? " " : viewModel.text.body
         relativeTimeAgoLabel.text = viewModel.text.date
     }
-    
+
     func updateProject(forViewModel viewModel: NotificationsCenterCellViewModel) {
-        
+
         // Show or hide project source label and image
         if let projectText = viewModel.text.project {
             projectSourceLabel.label.text = projectText
@@ -355,7 +355,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
             projectSourceImage.isHidden = false
         }
     }
-    
+
     func updateMetaButton(forViewModel viewModel: NotificationsCenterCellViewModel) {
         let footerText = viewModel.text.footer ?? ""
         metaActionButton.setTitle(footerText.isEmpty ? " " : viewModel.text.footer, for: .normal)
@@ -364,7 +364,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
             metaActionButton.setImage(nil, for: .normal)
             return
         }
-        
+
         let image: UIImage?
         switch footerIcon {
         case .custom(let iconName):
@@ -372,7 +372,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         case .system(let iconName):
             image = UIImage(systemName: iconName)
         }
-        
+
         metaActionButton.setImage(image, for: .normal)
     }
 
