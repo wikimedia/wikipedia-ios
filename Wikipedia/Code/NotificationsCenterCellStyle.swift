@@ -57,8 +57,6 @@ struct NotificationsCenterCellStyle {
         if displayState.isSelectionDisplay {
             let color = displayState.isSelected ? theme.colors.link : .clear
             return color
-        } else if displayState == .defaultRead {
-            return theme.colors.secondaryText
         }
 
         switch notificationType {
