@@ -109,7 +109,7 @@ struct NotificationsCenterCellStyle {
     }
 
     var messageFont: UIFont {
-        return UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        return UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
     }
 
     func metadataFont(_ displayState: NotificationsCenterCellDisplayState) -> UIFont {
