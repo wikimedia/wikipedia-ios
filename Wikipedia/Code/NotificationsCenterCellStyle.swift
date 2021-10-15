@@ -105,7 +105,7 @@ struct NotificationsCenterCellStyle {
             return UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
         }
 
-        return UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+        return UIFont.wmf_font(.boldSubheadline, compatibleWithTraitCollection: traitCollection)
     }
 
     var messageFont: UIFont {
