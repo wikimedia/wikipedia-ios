@@ -272,13 +272,11 @@ final class NotificationsCenterCell: UICollectionViewCell {
 			projectSourceContainer.widthAnchor.constraint(equalToConstant: 50),
 			projectSourceContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -edgeMargin),
 
-			projectSourceLabel.topAnchor.constraint(greaterThanOrEqualTo: projectSourceContainer.topAnchor),
+            projectSourceLabel.topAnchor.constraint(equalTo: subheaderLabel.topAnchor),
 			projectSourceLabel.trailingAnchor.constraint(equalTo: relativeTimeAgoLabel.trailingAnchor),
-			projectSourceLabel.centerYAnchor.constraint(greaterThanOrEqualTo: contentView.centerYAnchor),
 
-			projectSourceImage.topAnchor.constraint(greaterThanOrEqualTo: projectSourceContainer.topAnchor),
+			projectSourceImage.topAnchor.constraint(equalTo: subheaderLabel.topAnchor),
 			projectSourceImage.trailingAnchor.constraint(equalTo: relativeTimeAgoLabel.trailingAnchor),
-			projectSourceImage.centerYAnchor.constraint(greaterThanOrEqualTo: contentView.centerYAnchor),
 		])
 	}
 
@@ -299,7 +297,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
 			return
 		}
 
-		// let displayState = NotificationsCenterCellDisplayState.allCases.randomElement()!		
+		// let displayState = NotificationsCenterCellDisplayState.allCases.randomElement()!
 		let cellStyle = NotificationsCenterCellStyle(theme: theme, traitCollection: traitCollection, notificationType: notificationType)
 
 		// Colors
