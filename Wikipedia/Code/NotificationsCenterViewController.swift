@@ -82,6 +82,10 @@ final class NotificationsCenterViewController: ViewController {
 extension NotificationsCenterViewController: UICollectionViewDelegate, UICollectionViewDataSource {
 
 	func numberOfSections(in collectionView: UICollectionView) -> Int {
+        let hasNotificationContent = viewModel.numberOfSections != 0
+        notificationsView.updateEmptyOverlay(visible: !hasNotificationContent, headerText: NotificationsCenterView.EmptyOverlayStrings.noUnreadMessages)
+        navigationItem.rightBarButtonItem?.isEnabled = hasNotificationContent
+        
 		return viewModel.numberOfSections
 	}
 

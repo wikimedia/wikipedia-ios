@@ -8,8 +8,7 @@
 // Author: Tweety
 
 "aaald-added-text-description-2" = "$1 شامل ڪيل";
-// Fuzzy
-"aaald-article-description-updated-description" = "مضمون جي عنوان جي تشريح جي تجديد ٿي وئي";
+"aaald-article-description-updated-description" = "مضمون جي تشريح جي تجديد ٿي وئي";
 "aaald-article-insert-header" = "وڏيون تجديدون";
 "aaald-article-insert-last-updated" = "آخري ڀيرو تجديد ٿي";
 "aaald-article-insert-new-changes" = "نيون تبديليون";
@@ -116,7 +115,7 @@
 "action-update" = "تجديد";
 "add-articles-to-reading-list" = "{{PLURAL:$1|$1 مضمون|$1 مضمونَ}} پڙھڻ جي فھرست ۾ وجھو";
 "add-citation-title" = "حوالو وجھو";
-"announcements-dismiss" = "برخاست";
+"announcements-dismiss" = "برخواست";
 "app-store-keywords" = "وڪيپيڊيا، حوالا، وڪي، ڄاڻ-چيڪلو، ڄاڻ، علم، تحقيق، ڄاڻ، تلاش، سکو";
 "app-store-release-notes" = "مڪمل تبديل ٿيندڙ، ۽ پڙهڻ ۾ آسان ايڪسپلورر فيڊ. گھڻي زباني، ڪارڪردگي ۾ بهتري، ۽ ڪيتران ئي مسئلا حل ڪيا ويا.";
 "app-store-short-description" = "پنهنجي ويجھو جڳھن کي جاکوڙڻ، مضمونن کي آف لائين پڙهڻ، ۽ پنھنجي پڙهڻ جي تجربي کي پنھنجو ڪرڻ لاءِ وڪيپيڊياڻايپ ڊائونلوڊ ڪريو.";
@@ -161,36 +160,29 @@
 "continue-reading-empty-title" = "ڪي بہ تازو پڙھيل مضمون ناھن";
 "data-migration-status" = "تجديد ڪندي...";
 "description-add-title" = "تشريح وجھو";
-// Fuzzy
-"description-edit-for-article" = "$1 لاءِ عنوان جي تشريح";
+"description-edit-for-article" = "$1 لاءِ تشريح";
 "description-edit-learn-more" = "وڌيڪ سکو";
 "description-edit-length-warning" = "$1 / $2";
-// Fuzzy
-"description-edit-license" = "عنوان جي تشريح بدلائيندي، آئون $1 سان ۽ پنھنجون ڀاڱيداريون بغير رد ڪئي $2 اجازتنامي ھيٺ جاري ڪرڻ لاءِ راضي آھيان.";
+"description-edit-license" = "مضمون جي تشريح بدلائيندي، آئون $1 سان ۽ پنھنجون ڀاڱيداريون بغير رد ڪئي $2 اجازتنامي ھيٺ جاري ڪرڻ لاءِ راضي آھيان.";
 "description-edit-pencil-introduction" = "تعارف سنواريو";
-// Fuzzy
-"description-edit-pencil-title" = "عنوان جي تشريح سنواريو";
+"description-edit-pencil-title" = "مضمون جي تشريح سنواريو";
 "description-edit-placeholder-title" = "مختصر تشريحون بھترين آھن";
 "description-edit-publish" = "تشريح ڇاپيو";
 "description-edit-title" = "تشريح سنواريو";
 "description-edit-warning" = "تشريح مختصر رکڻ جي ڪوشش ڪريو جيئن وپرائيندڙ ھڪ جھلڪ ۾ مضمون جو موضوع سمجھي وڃن";
-// Fuzzy
-"description-help-about-description" = "عنوان جون تشريحون ڪنھن بہ مضمون جو تت ڏين ٿيون جيئن پڙھندڙ موضوع کي ھڪ جھلڪ ۾ سمجھي وڃن.";
+"description-help-about-description" = "مضمون جون تشريحون ڪنھن بہ مضمون جو تت ڏين ٿيون جيئن پڙھندڙ موضوع کي ھڪ جهلڪ ۾ سمجهي وڃن.";
 "description-help-about-title" = "بابت";
 "description-help-about-wikidata" = "وڪيڊيٽا بابت";
-"description-help-more-info-description" = "تشريحن کي وڪيڊيٽا ۾ سنڀاليو ۽ سھيڙيو ويندو آھي، جيڪا پڻ وڪيميڊيا فائونڊيشن جي ھڪ رٿا آھي، اھا مفت، گڏيل، گھڻ-لساني، ثانوي ڊيٽابيس آھي، جيڪا وڪيپيڊيا ۽ ٻين رٿائن جي پٺڀرائي ڪري ٿي.";
+"description-help-more-info-description" = "تشريحن کي وڪيڊيٽا ۾ سنڀاليو ۽ سھيڙيو ويندو آھي، جيڪا پڻ وڪيميڊيا فائونڊيشن جي ھڪ رٿا آھي، اھا مفت، گڏيل، گھڻ-لساني، ثانوي ڊيٽابيس آھي، جيڪا وڪيپيڊيا ۽ ٻين رٿائن جي سھڪار ڪري ٿي.";
 "description-help-more-info-title" = "وڌيڪ معلومات";
 "description-help-tips-description" = "تشريحون ھڪ سٽ تي پوريون ٿيڻ گھرجن، ۽ اھي ڊيگھ ۾ ٻن کان ٻارھن لفظن جي وچ ۾ ھجڻ گھرجن. انھن کي وڏن اکرن ۾ لکيو وڃي جيسيتائين پھريون لفظ ڪو خاص اسم ھجي.";
-// Fuzzy
-"description-help-tips-example-description-one" = "مونا ليزا بابت ھڪ مضمون جي عنوان جي تشريح";
-// Fuzzy
-"description-help-tips-example-description-two" = "مائونٽ ايوريسٽ بابت ھڪ مضمون جي عنوان جي تشريح";
+"description-help-tips-example-description-one" = "مونا ليزا بابت ھڪ مضمون جي تشريح";
+"description-help-tips-example-description-two" = "ايوريسٽ ج بابت ھڪ مضمون جي تشريح";
 "description-help-tips-example-title-one" = "ليونارڊو ڊا ونسي پاران مصوري";
 "description-help-tips-example-title-two" = "ڌرتي جو سڀ کان اوچو جبل";
 "description-help-tips-for-example" = "مثال طور:";
 "description-help-tips-title" = "تشريح لکڻ لاءِ صلاحون";
-// Fuzzy
-"description-help-title" = "عنوان جي تشريح بابت مدد";
+"description-help-title" = "مضمون جي تشريح لاءِ مدد";
 "description-help-wikidata-guide" = "تشريحون لکڻ لاءِ وڪيڊيٽا رھنما";
 "description-published-button-title" = "ٿي ويو";
 "description-published-footer" = "اوهان هن ايپ ذريعي مضمون سنواري سگھو ٿا. جملن ۽ گرامر جون غلطيون ڪڍڻ لاءِ ٻي دفعي پينسل واري نشان کي ڪلڪ ڪريو";
@@ -199,8 +191,7 @@
 "description-welcome-concise-sub-title" = "مثالي طور هڪ سٽ، 2 کان 12 لفظن ائين";
 "description-welcome-concise-title" = "ان کي مختصر رکو";
 "description-welcome-descriptions-sub-title" = "ڪنھن بہ مضمون جو تت ڏئي ٿي تہ جيئن پڙھندڙ موضوع کي ھڪ جھلڪ ۾ سمجھي وڃن";
-// Fuzzy
-"description-welcome-descriptions-title" = "عنوان جون تشريحون";
+"description-welcome-descriptions-title" = "مضمونن جون تشريحون";
 "description-welcome-promise-title" = "شروع ڪرڻ سان، آئون واعدو ڪريان ٿو تہ هن خصوصيت جو غلط استعمال نہ ڪندس";
 "description-welcome-start-editing-button" = "سنوارڻ شروع ڪريو";
 "diff-compare-header-from-info-heading" = "طرفان:";
@@ -381,6 +372,9 @@
 "explore-random-article-sub-heading-from-wikipedia" = "وڪيپيڊيا تان";
 "explore-randomizer" = "بلاترتيبڪار";
 "featured-article-empty-title" = "اڄ ڪوبہ نمايان مضمون موجود ناھي";
+"featured-widget-from-language-wikipedia" = "$1 وڪيپيڊيا تان";
+"featured-widget-from-wikipedia" = "وڪيپيڊيا تان";
+"featured-widget-title" = "چونڊ مضمون";
 "feed-news-notification-button-text" = "اطلاع آن ڪريو";
 "feed-news-notification-text" = "خبرن ۾ لاڙو رکندڙ وڪيپيڊيا مضمونن بابت اطلاع قابلِڪار ڪريو.";
 "fetcher-error-generic" = "ڪاشيءِ غلط وئي. مھرباني ڪري ٻيھر ڪوشش ڪريو.";
@@ -515,6 +509,7 @@
 "on-this-day-detail-header-date-range" = "$1 - $2 کان";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 تاريخي واقعو|$1 تاريخي واقعا}}";
 "on-this-day-footer" = "ھن ڏينھن تي وڌيڪ تاريخي واقعا";
+"on-this-day-no-internet-error" = "ڪابہ ڊيٽا موجود ناھي";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 وڪيپيڊيا مان $1";
 "on-this-day-title" = "ھن ڏينھن تي";
 "original-tab-button-popover-description" = "جنھن ٽيب کان توھان شروع ڪيو ان ڏانھن ورڻ لاءِ 'W' تي ڇھو";
@@ -577,6 +572,7 @@
 "places-unknown-distance" = "اَڻڄاتل مفاضلو";
 "potd-description-prefix" = "$1 لاءِ اڄ جي تصوير";
 "potd-empty-error-description" = "$1 لاءِ اڄ جي تصوير حاصل ڪرڻ ۾ ناڪام";
+"potd-widget-title" = "اڄ جي تصوير";
 "preference-summary-eventlogging-opt-in" = "وڪيميڊيا فائونڊيشن کي اجازت ڏيو تہ توهان هن ايپ ڪيئن استعمال ڪريو ٿا جي معلومات جمع ڪري تہ جيئن هن ايپ کي وڌيڪ بھتر بڻائي سگھجي";
 "preference-title-eventlogging-opt-in" = "استعمال جون رپورٽون اماڻيو";
 "rank-accessibility-label" = "انگ $1";
@@ -739,7 +735,7 @@
 "talk-page-new-body-textfield-accessibility-label" = "گفتگو جو جسم";
 "talk-page-new-reply-body-accessibility-label" = "جواب جوڙيو";
 "talk-page-new-reply-body-placeholder-text" = "جواب جوڙيو";
-"talk-page-new-reply-success-text" = "توھان جو جواب ڪاميابيءَ سان ڇپجي ويو";
+"talk-page-new-reply-success-text" = "توھان جي ورندي ڪاميابيءَ سان ڇپجي وئي";
 "talk-page-new-subject-clear-button-accessibility" = "موضوع ڊاهيو";
 "talk-page-new-subject-placeholder-text" = "موضوع";
 "talk-page-new-subject-textfield-accessibility-label" = "موضوع";
@@ -751,7 +747,7 @@
 "talk-page-title-article-talk" = "مضمون بحث";
 "talk-page-title-user-talk" = "واپرائيندڙ بحث";
 "talk-page-topic-title" = "گفتگو";
-"talk-pages-reply-button-title" = "ھن گفتگو جو جواب ڏيو";
+"talk-pages-reply-button-title" = "ھن گفتگو کي ورندي ڏيو";
 "theme-black-display-name" = "ڪارو";
 "theme-dark-display-name" = "گھرو";
 "theme-default-display-name" = "ڏنل";
@@ -761,12 +757,16 @@
 "top-read-header-generic" = "وڪيپيڊيا";
 "top-read-header-with-language" = "$1 وڪيپيڊيا";
 "top-read-see-more" = "وڌيڪ گھڻو پڙھيل ڏسو";
+"top-read-widget-readers-count" = "$1 پڙھندڙ";
+"top-read-widget-title" = "گهڻو پڙھيل";
 "two-factor-login-continue" = "داخل ٿيڻ جاري رکو";
 "two-factor-login-title" = "پنھنجي کاتي ۾ داخل ٿيو";
 "two-factor-login-with-backup-code" = "پنھنجو ڪوبہ بيڪ اپ ڪوڊ استعمال ڪريو";
 "two-factor-login-with-regular-code" = "تصديقي ڪوڊ استعمال ڪيو";
 "unable-to-load-talk-page-title" = "بحث صفحو لاھڻ ۾ ناڪام";
 "unknown-generic-text" = "اڻڄاتل";
+"variants-alert-dismiss-button" = "نہ مھرباني";
+"variants-alert-preferences-button" = "پنھنجي تجيحن تي نظرثاني ڪريو";
 "welcome-exploration-explore-feed-description" = "اسان جي نيات طرفان سفارش ڪيل پڙھائي ۽ روزانو مضمون";
 "welcome-exploration-explore-feed-title" = "پھچ کوجيو";
 "welcome-exploration-on-this-day-description" = "اڄ تاريخ ۾ ڇا ٿيو ڄاڻڻ لاءِ وقت ۾ واپس سفر ڪريو";
@@ -792,6 +792,9 @@
 "welcome-send-data-learn-more" = "ميڙيل ڊيٽا بابت وڌيڪ ڄاڻو";
 "welcome-send-data-sub-title" = "ايپ کي بھتر بڻائڻ ۾ مدد ڪريو ان جي استعمال بابت وڪيميڊيا فائونڊيشن کي ڄاڻائي ڪري. حاصل ڪيل ڊيٽا گنمام آھي.";
 "welcome-volunteer-send-usage-reports" = "استعمال ڪرڻ جون رپورٽون موڪليو";
+"widget-onthisday-description" = "تاريخ ۾ اڄوڪي ڏينھن تي ڇا ٿيو اھو کوجيو.";
+"widget-onthisday-placeholder-article-snippet" = "کليل آنلائين انسائيڪلوپيڊيا جنھن کي ھر ڪوئي سنواري سگهي ٿو";
+"widget-onthisday-placeholder-event-snippet" = "وڪيپيڊيا، ھڪ کليل وڪي مواد وارو انسائيڪلوپيڊيا، آنلائين وڃي ٿو.";
 "wikitext-downloading" = "مواد لوڊ ڪندي...";
 "wikitext-preview-changes" = "توهان جي تبديلين جي پيش-نگاھ آڻيندي...";
 "wikitext-preview-changes-none" = "ڪي بہ تبديليون نہ ڪيون ويون ھيون جون پيش-نگاھ ڏجي.";
