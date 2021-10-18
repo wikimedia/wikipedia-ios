@@ -119,15 +119,15 @@ final class NotificationsCenterView: SetupView {
             emptyOverlayStack.centerYAnchor.constraint(equalTo: emptyScrollView.contentLayoutGuide.centerYAnchor),
 
             emptyOverlayStack.topAnchor.constraint(greaterThanOrEqualTo: emptyScrollView.contentLayoutGuide.topAnchor, constant: 100),
-            emptyOverlayStack.leadingAnchor.constraint(greaterThanOrEqualTo: emptyScrollView.contentLayoutGuide.leadingAnchor, constant: 50),
-            emptyOverlayStack.trailingAnchor.constraint(lessThanOrEqualTo: emptyScrollView.contentLayoutGuide.trailingAnchor, constant: -50),
+            emptyOverlayStack.leadingAnchor.constraint(greaterThanOrEqualTo: emptyScrollView.contentLayoutGuide.leadingAnchor, constant: 25),
+            emptyOverlayStack.trailingAnchor.constraint(lessThanOrEqualTo: emptyScrollView.contentLayoutGuide.trailingAnchor, constant: -25),
             emptyOverlayStack.bottomAnchor.constraint(lessThanOrEqualTo: emptyScrollView.contentLayoutGuide.bottomAnchor, constant: -100),
 
             emptyStateImageView.heightAnchor.constraint(equalToConstant: 185),
             emptyStateImageView.widthAnchor.constraint(equalToConstant: 185),
 
-            emptyOverlayHeaderLabel.widthAnchor.constraint(equalTo: emptyScrollView.contentLayoutGuide.widthAnchor, multiplier: 3/4),
-            emptyOverlaySubheaderLabel.widthAnchor.constraint(equalTo: emptyScrollView.contentLayoutGuide.widthAnchor, multiplier: 4/5)
+            emptyOverlayHeaderLabel.widthAnchor.constraint(equalTo: emptyOverlayStack.widthAnchor, multiplier: 3/4),
+            emptyOverlaySubheaderLabel.widthAnchor.constraint(equalTo: emptyOverlayStack.widthAnchor, multiplier: 4/5)
         ])
     }
 
