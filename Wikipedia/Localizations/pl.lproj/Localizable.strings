@@ -193,8 +193,7 @@
 "description-help-tips-example-title-two" = "najwyższy szczyt Ziemi";
 "description-help-tips-for-example" = "Na przykład:";
 "description-help-tips-title" = "Wskazówki dotyczące tworzenia opisów";
-// Fuzzy
-"description-help-title" = "Pomoc w opisie tytułu";
+"description-help-title" = "Pomoc w opisie artykułu";
 "description-help-wikidata-guide" = "Przewodnik Wikidata do pisania opisów";
 "description-published-button-title" = "Gotowe";
 "description-published-footer" = "Możesz także edytować artykuły w tej aplikacji. Spróbuj poprawić literówki i małe zdania, klikając ikonę ołówka następnym razem";
@@ -407,6 +406,8 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Z Wikipedii";
 "explore-randomizer" = "Losowy artykuł";
 "featured-article-empty-title" = "Brak polecanego artykułu";
+"featured-widget-from-wikipedia" = "Z Wikipedii";
+"featured-widget-title" = "Wyróżniony artykuł";
 "feed-news-notification-button-text" = "Włącz powiadomienia";
 "feed-news-notification-text" = "Zezwól na powiadomienia żeby dostać informacje od Wikipedii kiedy artykuły stają się popularne w wiadomościach";
 "fetcher-error-generic" = "Coś poszło nie tak. Spróbuj ponownie później.";
@@ -546,6 +547,7 @@
 "on-this-day-detail-header-date-range" = "Pomiędzy $1 a $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 wydarzenie historyczne|$1 wydarzenia historyczne|$1 wydarzeń historycznych}}";
 "on-this-day-footer" = "Więcej wydarzeń historycznych w tym dniu";
+"on-this-day-no-internet-error" = "Brak dostępnych danych";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 z $2 Wikipedii";
 "on-this-day-title" = "W tym dniu...";
 "original-tab-button-popover-description" = "Stuknij w 'W' żeby powrócić to początkowej karty";
@@ -603,6 +605,7 @@
 "places-title" = "Miejsca";
 "places-unknown-distance" = "odległość nieznana";
 "potd-description-prefix" = "Ilustracja dnia na $1";
+"potd-widget-title" = "Grafika dnia";
 "preference-summary-eventlogging-opt-in" = "Pozwól Fundacji Wikimedia zbierać informacje o tym, jak korzystasz z aplikacji, aby ją ulepszać";
 "preference-title-eventlogging-opt-in" = "Wyślij raporty używania";
 "rank-accessibility-label" = "Liczba $1";
@@ -714,6 +717,7 @@
 "search-result-redirected-from" = "Przekierowanie z: $1";
 "search-title" = "Wyszukiwanie";
 "settings-account" = "Konto";
+"settings-appearance" = "Preferencje czytania";
 "settings-clear-cache" = "Wyczyść dane z pamięci podręcznej";
 "settings-clear-cache-are-you-sure-title" = "Czy wyczyścić dane z pamięci podręcznej?";
 "settings-clear-cache-cancel" = "Anuluj";
