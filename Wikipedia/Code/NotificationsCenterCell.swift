@@ -40,6 +40,8 @@ final class NotificationsCenterCell: UICollectionViewCell {
 		insetLabel.layer.borderWidth = 1
 		insetLabel.layer.borderColor = UIColor.black.cgColor
         insetLabel.insets = NSDirectionalEdgeInsets(top: 4, leading: 4, bottom: -4, trailing: -4)
+        
+        insetLabel.isHidden = true
 
 		return insetLabel
 	}()
@@ -49,6 +51,9 @@ final class NotificationsCenterCell: UICollectionViewCell {
 		imageView.translatesAutoresizingMaskIntoConstraints = false
 		imageView.image = UIImage(named: "notifications-project-commons")
 		imageView.contentMode = .scaleAspectFit
+        
+        imageView.isHidden = true
+        
 		return imageView
 	}()
 
@@ -106,12 +111,10 @@ final class NotificationsCenterCell: UICollectionViewCell {
 	lazy var metaActionButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "doc.plaintext.fill"), for: .normal) // this SF Symbol is iOS 14+ only
         button.titleLabel?.numberOfLines = 1
         button.adjustsImageSizeForAccessibilityContentSizeCategory = true
         button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.titleLabel?.font = UIFont.wmf_font(.mediumFootnote, compatibleWithTraitCollection: traitCollection)
-        button.setTitle("Article: Wikipedia", for: .normal)
         button.titleEdgeInsets = UIEdgeInsets(top: 0, left: effectiveUserInterfaceLayoutDirection == .leftToRight ? 5 : -5, bottom: 0, right: effectiveUserInterfaceLayoutDirection == .leftToRight ? -5 : 5)
         button.isUserInteractionEnabled = false
         return button
@@ -285,17 +288,10 @@ final class NotificationsCenterCell: UICollectionViewCell {
 		self.viewModel = viewModel
 		self.theme = theme
 
-		headerLabel.text = viewModel.notification.agentName
-		subheaderLabel.text = viewModel.notification.messageHeader
-		messageSummaryLabel.text = "This is the notification's body text" // from viewModel
-		relativeTimeAgoLabel.text = "12 minutes ago" // from viewModel
-
-		updateCellStyle(forDisplayState: viewModel.displayState)
-
-		// Show or hide project source label and image
-		// ...
-		projectSourceLabel.isHidden = true
-		projectSourceImage.isHidden = false
+        updateCellStyle(forDisplayState: viewModel.displayState)
+        updateLabels(forViewModel: viewModel)
+        updateProject(forViewModel: viewModel)
+		updateMetaButton(forViewModel: viewModel)
 	}
 
 	func updateCellStyle(forDisplayState displayState: NotificationsCenterCellDisplayState) {
@@ -338,5 +334,53 @@ final class NotificationsCenterCell: UICollectionViewCell {
 		leadingImageView.imageView.tintColor = cellStyle.leadingImageTintColor
 		leadingImageView.layer.borderColor = cellStyle.leadingImageBorderColor(displayState).cgColor
 	}
+    
+    func updateLabels(forViewModel viewModel: NotificationsCenterCellViewModel) {
+        headerLabel.text = viewModel.headerText
+        subheaderLabel.text = viewModel.subheaderText
+        messageSummaryLabel.text = viewModel.bodyText
+        metaActionButton.setTitle(viewModel.footerText, for: .normal)
+        relativeTimeAgoLabel.text = viewModel.dateText
+    }
+    
+    func updateProject(forViewModel viewModel: NotificationsCenterCellViewModel) {
+        
+        // Show or hide project source label and image
+        if let projectText = viewModel.projectText {
+            projectSourceLabel.label.text = projectText
+            projectSourceLabel.isHidden = false
+            projectSourceImage.isHidden = true
+        } else if let projectIconName = viewModel.projectIconName {
+            projectSourceImage.image = UIImage(named: projectIconName)
+            projectSourceLabel.isHidden = true
+            projectSourceImage.isHidden = false
+        }
+    }
+    
+    func updateMetaButton(forViewModel viewModel: NotificationsCenterCellViewModel) {
+        
+        guard let footerText = viewModel.footerText else {
+            metaActionButton.isHidden =  true
+            return
+        }
+        
+        metaActionButton.setTitle(footerText, for: .normal)
+        metaActionButton.isHidden =  false
+
+        guard let footerIconType = viewModel.footerIconType else {
+            metaActionButton.setImage(nil, for: .normal)
+            return
+        }
+        
+        let image: UIImage?
+        switch footerIconType {
+        case .custom(let iconName):
+            image = UIImage(named: iconName)
+        case .system(let iconName):
+            image = UIImage(systemName: iconName)
+        }
+        
+        metaActionButton.setImage(image, for: .normal)
+    }
 
 }

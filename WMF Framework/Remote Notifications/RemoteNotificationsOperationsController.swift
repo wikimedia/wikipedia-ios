@@ -1,22 +1,5 @@
 import CocoaLumberjackSwift
 
-enum RemoteNotificationsProject {
-    case language(String)
-    case commons
-    case wikidata
-    
-    var notificationsApiWikiIdentifier: String {
-        switch self {
-        case .language(let languageCode):
-            return languageCode + "wiki"
-        case .commons:
-            return "commonswiki"
-        case .wikidata:
-            return "wikidatawiki"
-        }
-    }
-}
-
 class RemoteNotificationsOperationsController: NSObject {
     private let apiController: RemoteNotificationsAPIController
     private let modelController: RemoteNotificationsModelController?
@@ -89,7 +72,7 @@ class RemoteNotificationsOperationsController: NSObject {
 
             var projects: [RemoteNotificationsProject] = []
             for languageCode in preferredLanguageCodes {
-                projects.append(.language(languageCode))
+                projects.append(.language(languageCode, nil))
             }
             projects.append(.commons)
             projects.append(.wikidata)

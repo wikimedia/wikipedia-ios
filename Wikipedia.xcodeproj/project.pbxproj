@@ -301,7 +301,6 @@
 		670AF19026BDE6E7005F76D0 /* EmptyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 671F5E0A236B8CAF00111116 /* EmptyViewController.xib */; };
 		670AF19126BDE6E8005F76D0 /* EmptyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 671F5E0A236B8CAF00111116 /* EmptyViewController.xib */; };
 		670AF19226BDE6E9005F76D0 /* EmptyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 671F5E0A236B8CAF00111116 /* EmptyViewController.xib */; };
-		670AF1CC26CA13DC005F76D0 /* RemoteNotification+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670AF1CB26CA13DC005F76D0 /* RemoteNotification+CoreDataProperties.swift */; };
 		670AF1CE26CA188B005F76D0 /* RemoteNotificationLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670AF1CD26CA188B005F76D0 /* RemoteNotificationLinks.swift */; };
 		670AF1CF26CD74A6005F76D0 /* EchoSubscriptionFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670AF19A26C1CA38005F76D0 /* EchoSubscriptionFetcher.swift */; };
 		670F765F22B0C10600D87545 /* FakeProgressLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670F765E22B0C10600D87545 /* FakeProgressLoading.swift */; };
@@ -407,6 +406,17 @@
 		676070A52280D72400A81F09 /* TalkPageTopicNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */; };
 		676070A62280D72400A81F09 /* TalkPageTopicNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */; };
 		676070A72280D72500A81F09 /* TalkPageTopicNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */; };
+		6761AEDA2704BA3800E47BAD /* RemoteNotification+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AED82704BA3800E47BAD /* RemoteNotification+CoreDataClass.swift */; };
+		6761AEDB2704BA3800E47BAD /* RemoteNotification+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AED92704BA3800E47BAD /* RemoteNotification+CoreDataProperties.swift */; };
+		6761AEDF2704CF0000E47BAD /* RemoteNotificationsProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEDE2704CF0000E47BAD /* RemoteNotificationsProject.swift */; };
+		6761AEE12704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE02704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift */; };
+		6761AEE22704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE02704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift */; };
+		6761AEE32704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE02704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift */; };
+		6761AEE42704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE02704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift */; };
+		6761AEE62704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE52704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift */; };
+		6761AEE72704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE52704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift */; };
+		6761AEE82704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE52704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift */; };
+		6761AEE92704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE52704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift */; };
 		676C864726D40AEB00A704C1 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676C864626D40AEB00A704C1 /* NotificationService.swift */; };
 		676C864B26D40AEB00A704C1 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 676C864426D40AEA00A704C1 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		676C867026D416FB00A704C1 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 676C864426D40AEA00A704C1 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -1060,7 +1070,6 @@
 		7A9524DD22669A8B00C55CDC /* InsertMediaSettingsButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A9524D622669A8B00C55CDC /* InsertMediaSettingsButtonView.xib */; };
 		7A9524DE22669A8B00C55CDC /* InsertMediaSettingsButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A9524D622669A8B00C55CDC /* InsertMediaSettingsButtonView.xib */; };
 		7A9524DF22669A8B00C55CDC /* InsertMediaSettingsButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A9524D622669A8B00C55CDC /* InsertMediaSettingsButtonView.xib */; };
-		7A96C4B92155413E00E8E0C1 /* RemoteNotification+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A96C4B72155413E00E8E0C1 /* RemoteNotification+CoreDataClass.swift */; };
 		7A96EBA922CFDA4B0037C8A8 /* PageNamespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4170D8229EFC2A00251582 /* PageNamespace.swift */; };
 		7A998AC11FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998AC01FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift */; };
 		7A998AC21FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A998AC01FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift */; };
@@ -3743,7 +3752,6 @@
 		6707C037237F0A6E0017E7B6 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		670AF19A26C1CA38005F76D0 /* EchoSubscriptionFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EchoSubscriptionFetcher.swift; sourceTree = "<group>"; };
 		670AF1B826C573EB005F76D0 /* RemoteNotifications 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "RemoteNotifications 3.xcdatamodel"; sourceTree = "<group>"; };
-		670AF1CB26CA13DC005F76D0 /* RemoteNotification+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteNotification+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		670AF1CD26CA188B005F76D0 /* RemoteNotificationLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationLinks.swift; sourceTree = "<group>"; };
 		670F765E22B0C10600D87545 /* FakeProgressLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeProgressLoading.swift; sourceTree = "<group>"; };
 		67146031243B885E008CE885 /* SurveyAnnouncementsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyAnnouncementsController.swift; sourceTree = "<group>"; usesTabs = 0; };
@@ -3777,6 +3785,11 @@
 		675A7CFD227A3F7C0034D9D9 /* TalkPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageHeaderView.swift; sourceTree = "<group>"; };
 		676070A1227CE60800A81F09 /* TalkPageReplyFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageReplyFooterView.swift; sourceTree = "<group>"; };
 		676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkPageTopicNewViewController.xib; sourceTree = "<group>"; };
+		6761AED82704BA3800E47BAD /* RemoteNotification+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteNotification+CoreDataClass.swift"; sourceTree = "<group>"; };
+		6761AED92704BA3800E47BAD /* RemoteNotification+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteNotification+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		6761AEDE2704CF0000E47BAD /* RemoteNotificationsProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsProject.swift; sourceTree = "<group>"; };
+		6761AEE02704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationsCenterCellViewModel+TextExtensions.swift"; sourceTree = "<group>"; };
+		6761AEE52704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationsCenterCellViewModel+IconNameExtensions.swift"; sourceTree = "<group>"; };
 		676A8A8223A4013D0084B967 /* ArticleFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArticleFetcher.swift; path = ../Wikipedia/Code/ArticleFetcher.swift; sourceTree = "<group>"; };
 		676C864426D40AEA00A704C1 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		676C864626D40AEB00A704C1 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
@@ -3993,7 +4006,6 @@
 		7A9524CA22665E6400C55CDC /* InsertMediaSettingsImageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsertMediaSettingsImageView.xib; sourceTree = "<group>"; };
 		7A9524D522669A8B00C55CDC /* InsertMediaSettingsButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertMediaSettingsButtonView.swift; sourceTree = "<group>"; };
 		7A9524D622669A8B00C55CDC /* InsertMediaSettingsButtonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InsertMediaSettingsButtonView.xib; sourceTree = "<group>"; };
-		7A96C4B72155413E00E8E0C1 /* RemoteNotification+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteNotification+CoreDataClass.swift"; sourceTree = "<group>"; };
 		7A998AC01FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionViewEditControllerNavigationDelegate+Extensions.swift"; sourceTree = "<group>"; };
 		7A9A611721124CF500403154 /* CreateNewReadingListButtonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateNewReadingListButtonView.xib; sourceTree = "<group>"; };
 		7A9A611D21124D0E00403154 /* CreateNewReadingListButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewReadingListButtonView.swift; sourceTree = "<group>"; };
@@ -5758,6 +5770,8 @@
 				007CCF1026D5BF1300D5EA7C /* NotificationsCenterPresentationDelegate.swift */,
 				00FCB2BD26D8398700F5A47A /* NotificationsCenterCell.swift */,
 				00FCB2C226D839A500F5A47A /* NotificationsCenterCellViewModel.swift */,
+				6761AEE02704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift */,
+				6761AEE52704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift */,
 				00E2EA8826E28A9700B1A741 /* NotificationsCenterCellStyle.swift */,
 				00E2EA8D26E2A45C00B1A741 /* NotificationsCenterCellDisplayState.swift */,
 			);
@@ -6967,12 +6981,13 @@
 		7A03130121542F250095C953 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6761AED82704BA3800E47BAD /* RemoteNotification+CoreDataClass.swift */,
+				6761AED92704BA3800E47BAD /* RemoteNotification+CoreDataProperties.swift */,
 				7A9133A822B162E7002AEBCF /* RemoteNotifications.xcdatamodeld */,
-				7A96C4B72155413E00E8E0C1 /* RemoteNotification+CoreDataClass.swift */,
 				670AF1CD26CA188B005F76D0 /* RemoteNotificationLinks.swift */,
 				007B5FC426FA40F000180FF8 /* RemoteNotificationType.swift */,
-				670AF1CB26CA13DC005F76D0 /* RemoteNotification+CoreDataProperties.swift */,
 				7A0312F62153C4990095C953 /* RemoteNotificationsModelController.swift */,
+				6761AEDE2704CF0000E47BAD /* RemoteNotificationsProject.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -10812,6 +10827,7 @@
 				7AEC9859219F529000BEF62B /* DefaultEditToolbarView.swift in Sources */,
 				D808DCED1E438C0C00A3E89C /* PlaceSearch.swift in Sources */,
 				B0524B47214854E900D8FD8D /* DescriptionWelcomePageViewController.swift in Sources */,
+				6761AEE12704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift in Sources */,
 				B3F21D0F1EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */,
 				7A393281236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.swift in Sources */,
 				D84BF62D1DB96E7C00E0C85E /* NotificationSettingsViewController.swift in Sources */,
@@ -11157,6 +11173,7 @@
 				6734115922735832005B31DA /* TalkPagesController.swift in Sources */,
 				7ABAD6BF20349B91006A364C /* Collection.swift in Sources */,
 				7A5A0543225FBE0500BBEAC1 /* InsertMediaSearchResultCollectionViewCell.swift in Sources */,
+				6761AEE62704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift in Sources */,
 				671DF9C125F2AE4E0011799E /* ArticleDescriptionControlling.swift in Sources */,
 				67CEF26F2351113000D5CA6C /* DiffController.swift in Sources */,
 				67D3C453228CB54E001D5741 /* TalkPageReplyComposeView.swift in Sources */,
@@ -11258,9 +11275,7 @@
 				D826C51721766F1A0012F940 /* BackgroundFetcher.swift in Sources */,
 				D84C36401F3245A200895FA1 /* ArticleCollectionViewCell+Themeable.swift in Sources */,
 				83D5EC871F755E1F003DE6F2 /* SwipeableCell.swift in Sources */,
-				7A96C4B92155413E00E8E0C1 /* RemoteNotification+CoreDataClass.swift in Sources */,
 				B0B423481EF1FEE000D3DC4C /* WMFFeedOnThisDayEvent.m in Sources */,
-				670AF1CC26CA13DC005F76D0 /* RemoteNotification+CoreDataProperties.swift in Sources */,
 				83EE477020D01A9A00A21F34 /* ExploreCardCollectionViewCell.swift in Sources */,
 				D84C36411F3245CD00895FA1 /* ArticleCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
 				D84448591DDCE49D00425630 /* WMFContentGroup+CoreDataClass.m in Sources */,
@@ -11270,6 +11285,7 @@
 				831937E723E1CE80006A9FF3 /* String+LinkParsing.swift in Sources */,
 				D8FA18B81E1BD891009675C3 /* NSDateFormatter+WMFExtensions.m in Sources */,
 				BA7FF0B61F618F5A0054CF02 /* CollectionViewEditController.swift in Sources */,
+				6761AEDF2704CF0000E47BAD /* RemoteNotificationsProject.swift in Sources */,
 				D84C361F1F32404700895FA1 /* OnThisDayCollectionViewCell.swift in Sources */,
 				702096B9256C3D5700E27041 /* SamplingController.swift in Sources */,
 				D826C51521766E570012F940 /* Collection+AsyncMap.swift in Sources */,
@@ -11296,6 +11312,7 @@
 				8380753920DC7684000D222C /* ColumarCollectionViewLayoutSection.swift in Sources */,
 				B32536011EE87A6200372E93 /* EventRecord+CoreDataProperties.swift in Sources */,
 				D8BD63BF1EA7E28700BBC082 /* SummaryExtensions.swift in Sources */,
+				6761AEDB2704BA3800E47BAD /* RemoteNotification+CoreDataProperties.swift in Sources */,
 				D84C36391F3241ED00895FA1 /* WMFGradientView.m in Sources */,
 				83ACAA9E24E6D94C003B3035 /* MWKSearchResult+PageNamespace.swift in Sources */,
 				0042809125E6E395004945B3 /* MTLTransformerErrorHandling.m in Sources */,
@@ -11336,6 +11353,7 @@
 				7A2432ED1FCF469100FB4BA5 /* SetupView.swift in Sources */,
 				833D4FFB20A9E20800B44E7C /* String+HTML.swift in Sources */,
 				67146034243B8B4F008CE885 /* AnnouncementType.swift in Sources */,
+				6761AEDA2704BA3800E47BAD /* RemoteNotification+CoreDataClass.swift in Sources */,
 				B019FED02029347300BDE9C9 /* UIStackView+SubviewVerification.swift in Sources */,
 				83C643582239508600FC16BF /* RandomArticleFetcher.swift in Sources */,
 				D87647481F1F9C2500D02CA4 /* CommonStrings.swift in Sources */,
@@ -11685,6 +11703,7 @@
 				7AEC985C219F529000BEF62B /* DefaultEditToolbarView.swift in Sources */,
 				B0524B4A214854E900D8FD8D /* DescriptionWelcomePageViewController.swift in Sources */,
 				7A6ED51620ADBF950001849F /* UserHistoryFunnel.swift in Sources */,
+				6761AEE42704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift in Sources */,
 				7A6ED52020ADBF950001849F /* LoginFunnel.swift in Sources */,
 				D8A42A7C1E815A9C00D8E281 /* WMFDatabaseHouseKeeper.swift in Sources */,
 				7A393284236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.swift in Sources */,
@@ -12030,6 +12049,7 @@
 				D8A42B7E1E815A9C00D8E281 /* DDLog+WMFLogger.m in Sources */,
 				674711862507253500287951 /* ArticleAsLivingDocSnippetCollectionViewCell.swift in Sources */,
 				67E8B092226A57EA00537BC9 /* TalkPageContainerViewController.swift in Sources */,
+				6761AEE92704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift in Sources */,
 				671DF9C425F2AE4E0011799E /* ArticleDescriptionControlling.swift in Sources */,
 				D8A42B801E815A9C00D8E281 /* WMFLegacyReference.swift in Sources */,
 				D8A42B811E815A9C00D8E281 /* WMFWelcomePageViewController.swift in Sources */,
@@ -12398,6 +12418,7 @@
 				B0FFFB2B21C9BED1001E787E /* TextFormattingButton.swift in Sources */,
 				7A420DB522A029780005689B /* EditFunnel.swift in Sources */,
 				0042811F25E6E841004945B3 /* NYTPhotoTransitionAnimator.m in Sources */,
+				6761AEE82704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift in Sources */,
 				D8CE259F1E698E2400DAE2E0 /* UIViewController+WMFScrollToTop.swift in Sources */,
 				B0524B52214854E900D8FD8D /* DescriptionWelcomeContainerViewController.swift in Sources */,
 				D81446021E7094290078D71E /* WMFAuthButton.swift in Sources */,
@@ -12421,6 +12442,7 @@
 				D8CE25AF1E698E2400DAE2E0 /* WMFSearchResults.m in Sources */,
 				83DE45BA2449C09B00671878 /* SplashScreenViewController.swift in Sources */,
 				00E2EA9026E2A45C00B1A741 /* NotificationsCenterCellDisplayState.swift in Sources */,
+				6761AEE32704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift in Sources */,
 				7A9F2777225E3462002119B3 /* InsertMediaSearchResultsCollectionViewController.swift in Sources */,
 				0042812B25E6E841004945B3 /* NYTPhotoViewController.m in Sources */,
 				BAC6EEC81F1E519A00228AD0 /* AppearanceSettingsViewController.swift in Sources */,
@@ -12898,6 +12920,7 @@
 				7A420DB622A029780005689B /* EditFunnel.swift in Sources */,
 				D8EC3E9C1E9BDA35006712EB /* WMFAuthButton.swift in Sources */,
 				0042811E25E6E841004945B3 /* NYTPhotoTransitionAnimator.m in Sources */,
+				6761AEE72704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift in Sources */,
 				B0524B53214854E900D8FD8D /* DescriptionWelcomeContainerViewController.swift in Sources */,
 				BA69725A1F2BA2D800E35F78 /* SettingsTableViewSection.swift in Sources */,
 				B0C17B9B21FAB060009ED5C3 /* AbuseFilterAlertView.swift in Sources */,
@@ -12921,6 +12944,7 @@
 				D8EC3EAC1E9BDA35006712EB /* WMFSearchResults.m in Sources */,
 				83DE45BB2449C09B00671878 /* SplashScreenViewController.swift in Sources */,
 				00E2EA8F26E2A45C00B1A741 /* NotificationsCenterCellDisplayState.swift in Sources */,
+				6761AEE22704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift in Sources */,
 				7A9F2778225E3462002119B3 /* InsertMediaSearchResultsCollectionViewController.swift in Sources */,
 				0042812A25E6E841004945B3 /* NYTPhotoViewController.m in Sources */,
 				7A4FE5411FA00AF0009FA199 /* ArticlePeekPreviewViewController.swift in Sources */,

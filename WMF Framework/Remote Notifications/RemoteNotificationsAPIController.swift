@@ -239,7 +239,7 @@ class RemoteNotificationsAPIController: Fetcher {
                 url = configuration.commonsAPIURLComponents(with: queryParameters).url
             case .wikidata:
                 url = configuration.wikidataAPIURLComponents(with: queryParameters).url
-            case .language(let languageCode):
+            case .language(let languageCode, _):
                 url = configuration.mediaWikiAPIURLForLanguageCode(languageCode, with: queryParameters).url
             }
         } else {
