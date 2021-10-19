@@ -57,8 +57,6 @@ struct NotificationsCenterCellStyle {
         if displayState.isSelectionDisplay {
             let color = displayState.isSelected ? theme.colors.link : .clear
             return color
-        } else if displayState == .defaultRead {
-            return theme.colors.secondaryText
         }
 
         switch notificationType {
@@ -97,7 +95,7 @@ struct NotificationsCenterCellStyle {
             return UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
         }
 
-        return UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
+        return UIFont.wmf_font(.boldHeadline, compatibleWithTraitCollection: traitCollection)
     }
 
     func subheaderFont(_ displayState: NotificationsCenterCellDisplayState) -> UIFont {
@@ -105,11 +103,11 @@ struct NotificationsCenterCellStyle {
             return UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
         }
 
-        return UIFont.wmf_font(.semiboldSubheadline, compatibleWithTraitCollection: traitCollection)
+        return UIFont.wmf_font(.boldSubheadline, compatibleWithTraitCollection: traitCollection)
     }
 
     var messageFont: UIFont {
-        return UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
+        return UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
     }
 
     func metadataFont(_ displayState: NotificationsCenterCellDisplayState) -> UIFont {
