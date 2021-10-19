@@ -335,11 +335,11 @@ final class NotificationsCenterCell: UICollectionViewCell {
     }
 
     func updateLabels(forViewModel viewModel: NotificationsCenterCellViewModel) {
-        headerLabel.text = viewModel.text.header
-        subheaderLabel.text = viewModel.text.subheader
-        let messageSummaryText = viewModel.text.body ?? ""
-        messageSummaryLabel.text = messageSummaryText.isEmpty ? " " : viewModel.text.body
-        relativeTimeAgoLabel.text = viewModel.text.date
+        headerLabel.text = viewModel.headerText
+        subheaderLabel.text = viewModel.subheaderText
+        let messageSummaryText = viewModel.bodyText ?? ""
+        messageSummaryLabel.text = messageSummaryText.isEmpty ? " " : viewModel.bodyText
+        relativeTimeAgoLabel.text = viewModel.dateText
     }
 
     func updateProject(forViewModel viewModel: NotificationsCenterCellViewModel) {
@@ -357,8 +357,8 @@ final class NotificationsCenterCell: UICollectionViewCell {
     }
 
     func updateMetaButton(forViewModel viewModel: NotificationsCenterCellViewModel) {
-        let footerText = viewModel.text.footer ?? ""
-        metaActionButton.setTitle(footerText.isEmpty ? " " : viewModel.text.footer, for: .normal)
+        let footerText = viewModel.footerText ?? ""
+        metaActionButton.setTitle(footerText.isEmpty ? " " : viewModel.footerText, for: .normal)
 
         guard let footerIconType = viewModel.footerIconType else {
             metaActionButton.setImage(nil, for: .normal)
