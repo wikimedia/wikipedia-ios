@@ -25,6 +25,12 @@ class RemoteNotificationsAPIController: Fetcher {
             
             struct Notifications: Decodable {
                 let list: [Notification]
+                let continueId: String?
+                
+                enum CodingKeys: String, CodingKey {
+                    case list
+                    case continueId = "continue"
+                }
             }
             
             let notifications: Notifications?
@@ -182,7 +188,7 @@ class RemoteNotificationsAPIController: Fetcher {
         return Set(list)
     }
     
-    public func getAllNotifications(from project: RemoteNotificationsProject, completion: @escaping (NotificationsResult.Query.Notifications?, Error?) -> Void) {
+    public func getAllNotifications(from project: RemoteNotificationsProject, continueId: String?, completion: @escaping (NotificationsResult.Query.Notifications?, Error?) -> Void) {
         let completion: (NotificationsResult?, URLResponse?, Error?) -> Void = { result, _, error in
             guard error == nil else {
                 completion(nil, error)
@@ -191,7 +197,7 @@ class RemoteNotificationsAPIController: Fetcher {
             completion(result?.query?.notifications, result?.error)
         }
         
-        request(project: project, queryParameters: Query.notifications(from: [project], limit: .max, filter: .none), completion: completion)
+        request(project: project, queryParameters: Query.notifications(from: [project], limit: .max, filter: .none, continueId: continueId), completion: completion)
     }
 
     public func markAsRead(_ notifications: Set<RemoteNotification>, completion: @escaping (Error?) -> Void) {
@@ -292,7 +298,7 @@ class RemoteNotificationsAPIController: Fetcher {
             case none = "read|!read"
         }
 
-        static func notifications(from projects: [RemoteNotificationsProject] = [], limit: Limit = .max, filter: Filter = .none) -> Parameters {
+        static func notifications(from projects: [RemoteNotificationsProject] = [], limit: Limit = .max, filter: Filter = .none, continueId: String?) -> Parameters {
             var dictionary = ["action": "query",
                     "format": "json",
                     "formatversion": "2",
@@ -303,6 +309,11 @@ class RemoteNotificationsAPIController: Fetcher {
 
             let wikis = projects.map{ $0.notificationsApiWikiIdentifier }
             dictionary["notwikis"] = wikis.joined(separator: "|")
+
+            if let continueId = continueId {
+                dictionary["notcontinue"] = continueId
+            }
+            
             return dictionary
         }
 
