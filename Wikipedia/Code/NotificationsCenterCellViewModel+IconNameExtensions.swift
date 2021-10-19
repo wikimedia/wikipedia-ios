@@ -1,14 +1,17 @@
 
 import Foundation
 
-extension NotificationsCenterCellViewModel.IconNames {
+extension NotificationsCenterCellViewModel {
     
-    init(project: RemoteNotificationsProject, notification: RemoteNotification) {
-        self.project = Self.determineProjectIcon(project: project)
-        self.footer = Self.determineFooterIcon(notification: notification)
+    typealias IconName = String
+    
+    //Use if you need to make the system (SFSymbols) vs custom distinction
+    enum IconType {
+        case custom(IconName)
+        case system(IconName)
     }
-    
-    private static func determineProjectIcon(project: RemoteNotificationsProject) -> String? {
+        
+    var projectIconName: IconName? {
         switch project {
         case .commons:
             return "notifications-project-commons"
@@ -18,9 +21,8 @@ extension NotificationsCenterCellViewModel.IconNames {
             return nil
         }
     }
-    
-    private static func determineFooterIcon(notification: RemoteNotification) -> IconType? {
         
+    var footerIconType: IconType? {
         switch notification.type {
         case .loginFailKnownDevice,
              .loginFailUnknownDevice,
@@ -48,8 +50,10 @@ extension NotificationsCenterCellViewModel.IconNames {
             //TODO: Should we include the other talk types?
             return .system("person.circle.fill")
         case .main:
-            //TODO: doc.plaintext.fill is iOS14+ only, add .custom for iOS13
-            return .system("doc.plaintext.fill")
+            if #available(iOS 14, *) {
+                return .system("doc.plaintext.fill")
+            }
+            return .system("doc.text.fill")
         case .file:
             return .system("photo")
         default:

@@ -3,22 +3,7 @@ import CoreData
 
 @objc(RemoteNotification)
 public class RemoteNotification: NSManagedObject {
-    public lazy var type: RemoteNotificationType = {
-        return calculateRemoteNotificationType()
-    }()
-    
-    public override func didChangeValue(forKey key: String,
-        withSetMutation mutationKind: NSKeyValueSetMutationKind,
-        using objects: Set<AnyHashable>) {
-        super.didChangeValue(forKey: key, withSetMutation: mutationKind, using: objects)
-        if key == "categoryString" || key == "typeString" || key == "section" {
-            type = calculateRemoteNotificationType()
-        }
-    }
-}
-
-private extension RemoteNotification {
-    func calculateRemoteNotificationType() -> RemoteNotificationType {
+    public var type: RemoteNotificationType {
         switch (categoryString, typeString) {
         case ("edit-user-talk", "edit-user-talk"):
             return .userTalkPageMessage

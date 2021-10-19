@@ -345,11 +345,11 @@ final class NotificationsCenterCell: UICollectionViewCell {
     func updateProject(forViewModel viewModel: NotificationsCenterCellViewModel) {
 
         // Show or hide project source label and image
-        if let projectText = viewModel.text.project {
+        if let projectText = viewModel.projectText {
             projectSourceLabel.label.text = projectText
             projectSourceLabel.isHidden = false
             projectSourceImage.isHidden = true
-        } else if let projectIconName = viewModel.iconNames.project {
+        } else if let projectIconName = viewModel.projectIconName {
             projectSourceImage.image = UIImage(named: projectIconName)
             projectSourceLabel.isHidden = true
             projectSourceImage.isHidden = false
@@ -360,13 +360,13 @@ final class NotificationsCenterCell: UICollectionViewCell {
         let footerText = viewModel.text.footer ?? ""
         metaActionButton.setTitle(footerText.isEmpty ? " " : viewModel.text.footer, for: .normal)
 
-        guard let footerIcon = viewModel.iconNames.footer else {
+        guard let footerIconType = viewModel.footerIconType else {
             metaActionButton.setImage(nil, for: .normal)
             return
         }
 
         let image: UIImage?
-        switch footerIcon {
+        switch footerIconType {
         case .custom(let iconName):
             image = UIImage(named: iconName)
         case .system(let iconName):

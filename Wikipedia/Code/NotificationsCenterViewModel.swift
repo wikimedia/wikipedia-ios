@@ -11,65 +11,65 @@ final class NotificationsCenterViewModel: NSObject {
 
     let remoteNotificationsController: RemoteNotificationsController
 
-	fileprivate let fetchedResultsController: NSFetchedResultsController<RemoteNotification>?
-	fileprivate var collectionViewUpdater: CollectionViewUpdater<RemoteNotification>?
+    fileprivate let fetchedResultsController: NSFetchedResultsController<RemoteNotification>?
+    fileprivate var collectionViewUpdater: CollectionViewUpdater<RemoteNotification>?
 
-	weak var delegate: NotificationCenterViewModelDelegate?
-    
+    weak var delegate: NotificationCenterViewModelDelegate?
+
     private let languageLinkController: MWKLanguageLinkController
 
-	// MARK: - Lifecycle
+    // MARK: - Lifecycle
 
-	@objc
+    @objc
     init(remoteNotificationsController: RemoteNotificationsController, languageLinkController: MWKLanguageLinkController) {
-		self.remoteNotificationsController = remoteNotificationsController
+        self.remoteNotificationsController = remoteNotificationsController
         self.languageLinkController = languageLinkController
 
-		fetchedResultsController = remoteNotificationsController.fetchedResultsController()
+        fetchedResultsController = remoteNotificationsController.fetchedResultsController()
 
-		// TODO: DM-Remove
-		remoteNotificationsController.fetchFirstPageNotifications {}
-	}
+        // TODO: DM-Remove
+        remoteNotificationsController.fetchFirstPageNotifications {}
+    }
 
     // MARK: - Public
 
-	func fetchNotifications(collectionView: UICollectionView) {
-		guard let fetchedResultsController = fetchedResultsController else {
-			return
-		}
+    func fetchNotifications(collectionView: UICollectionView) {
+        guard let fetchedResultsController = fetchedResultsController else {
+            return
+        }
 
-		collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
-		collectionViewUpdater?.delegate = self
-		collectionViewUpdater?.performFetch()
-	}
+        collectionViewUpdater = CollectionViewUpdater(fetchedResultsController: fetchedResultsController, collectionView: collectionView)
+        collectionViewUpdater?.delegate = self
+        collectionViewUpdater?.performFetch()
+    }
 
-	var numberOfSections: Int {
-		return fetchedResultsController?.sections?.count ?? 0
-	}
+    var numberOfSections: Int {
+        return fetchedResultsController?.sections?.count ?? 0
+    }
 
-	func numberOfItems(section: Int) -> Int {
-		return fetchedResultsController?.sections?[section].numberOfObjects ?? 0
-	}
+    func numberOfItems(section: Int) -> Int {
+        return fetchedResultsController?.sections?[section].numberOfObjects ?? 0
+    }
 
-	func cellViewModel(indexPath: IndexPath) -> NotificationsCenterCellViewModel? {
+    func cellViewModel(indexPath: IndexPath) -> NotificationsCenterCellViewModel? {
         
-		if let remoteNotification =  fetchedResultsController?.object(at: indexPath) {
+        if let remoteNotification =  fetchedResultsController?.object(at: indexPath) {
             return NotificationsCenterCellViewModel(notification: remoteNotification, languageLinkController: languageLinkController)
-		}
+        }
 
-		return nil
-	}
+        return nil
+    }
 
 }
 
 extension NotificationsCenterViewModel: CollectionViewUpdaterDelegate {
 
-	func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) where T : NSFetchRequestResult {
-		delegate?.collectionViewUpdaterDidUpdate()
-	}
+    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) where T : NSFetchRequestResult {
+        delegate?.collectionViewUpdaterDidUpdate()
+    }
 
-	func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
-		
-	}
+    func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
+
+    }
 
 }
