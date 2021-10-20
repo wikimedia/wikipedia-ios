@@ -1,7 +1,7 @@
 import UIKit
 
 protocol NotificationsCenterCellDelegate: AnyObject {
-	func userDidTapSecondaryActionForCellIdentifier(id: String)
+    func userDidTapSecondaryActionForCellIdentifier(id: String)
     func toggleCheckedStatus(viewModel: NotificationsCenterCellViewModel)
 }
 
@@ -11,8 +11,8 @@ final class NotificationsCenterCell: UICollectionViewCell {
 
     static let reuseIdentifier = "NotificationsCenterCell"
 
-	fileprivate var theme: Theme = .light
-	private(set) weak var viewModel: NotificationsCenterCellViewModel?
+    fileprivate var theme: Theme = .light
+    private(set) weak var viewModel: NotificationsCenterCellViewModel?
     weak var delegate: NotificationsCenterCellDelegate?
 
     // MARK: - UI Elements
