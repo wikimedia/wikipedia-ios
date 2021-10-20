@@ -39,10 +39,10 @@ class NotificationService: UNNotificationServiceExtension {
         
         //TODO: We will modify this to pull the first page of only **unread** notifications, specifying a notnotifiertype=push parameter in the API call. This needs to be done as the next part of PRs for https://phabricator.wikimedia.org/T287310
         //This temporary call is just to confirm an authenticated call now works from an extension.
-        remoteNotificationsController.fetchFirstPageNotifications {
+        //remoteNotificationsController.fetchFirstPageNotifications {
             bestAttemptContent.title = "\(bestAttemptContent.title) [modified]"
             contentHandler(bestAttemptContent)
-        }
+        //}
     }
     
     override func serviceExtensionTimeWillExpire() {
