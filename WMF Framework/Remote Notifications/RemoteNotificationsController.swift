@@ -24,6 +24,10 @@ import CocoaLumberjackSwift
         operationsController.importNotificationsIfNeeded(completion)
     }
     
+    public func refreshNotifications(_ completion: @escaping () -> Void) {
+        operationsController.refreshNotifications(completion)
+    }
+    
     public func fetchedResultsController() -> NSFetchedResultsController<RemoteNotification>? {
         
         guard let viewContext = self.viewContext else {

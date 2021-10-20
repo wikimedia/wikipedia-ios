@@ -6,6 +6,7 @@ class RemoteNotificationsOperationsController: NSObject {
     private let operationQueue: OperationQueue
     private let preferredLanguageCodesProvider: WMFPreferredLanguageInfoProvider
     private var isImporting = false
+    private var isRefreshing = false
     
     var viewContext: NSManagedObjectContext? {
         return modelController?.viewContext
@@ -17,6 +18,10 @@ class RemoteNotificationsOperationsController: NSObject {
                 stop()
             }
         }
+    }
+    
+    private var isAvailableForPagingOperations: Bool {
+        return !isLocked && !isImporting && !isRefreshing
     }
 
     required init(session: Session, configuration: Configuration, preferredLanguageCodesProvider: WMFPreferredLanguageInfoProvider) {
@@ -49,24 +54,52 @@ class RemoteNotificationsOperationsController: NSObject {
         operationQueue.cancelAllOperations()
     }
     
+    /// Kicks off operations to fetch and persist read and unread history of notifications from app languages, Commons, and Wikidata. Designed to fully import once per installation. Will not attempt if import is already in progress or refreshing is in progress.
+    /// - Parameter completion: Block to run once operations have completed. Dispatched to main thread.
     func importNotificationsIfNeeded(_ completion: @escaping () -> Void) {
         
+        kickoffPagingOperations(operationType: RemoteNotificationsImportOperation.self, willRunOperationsBlock:{ [weak self] in
+                self?.isImporting = true
+            }, didRunOperationsBlock: { [weak self] in
+                self?.isImporting = false
+                completion()
+        })
+    }
+    
+    /// Kicks off operations to fetch and persist any new read and unread notifications from app languages, Commons, and Wikidata. Will not attempt if import is already in progress or refreshing is in progress.
+    /// - Parameter completion: Block to run once operations have completed. Dispatched to main thread.
+    func refreshNotifications(_ completion: @escaping () -> Void) {
+        
+        kickoffPagingOperations(operationType: RemoteNotificationsRefreshOperation.self,
+            willRunOperationsBlock: { [weak self] in
+                self?.isRefreshing = true
+            }, didRunOperationsBlock: { [weak self] in
+                self?.isRefreshing = false
+                completion()
+        })
+    }
+    
+    /// Method that instantiates the appropriate paging operations for fetching & persisting remote notifications and adds them to the operation queue. Must be called from main thread.
+    /// - Parameters:
+    ///   - operationType: RemoteNotificationsPagingOperation class to instantiate. Can be an Import or Refresh type.
+    ///   - willRunOperationsBlock: Block to run after passing initial common validation, but before operations kick off. Helps with setting gatekeeping flags like isImporting or isRefreshing.
+    ///   - didRunOperationsBlock: Block to run after operations have completed. Dispatched to main thread.
+    private func kickoffPagingOperations(operationType: RemoteNotificationsPagingOperation.Type, willRunOperationsBlock: () -> Void, didRunOperationsBlock: @escaping () -> Void) {
+        
         assert(Thread.isMainThread)
-
-        guard !isLocked,
-              !isImporting else {
-            self.operationQueue.addOperation(completion)
+        
+        guard isAvailableForPagingOperations else {
+            self.operationQueue.addOperation(didRunOperationsBlock)
             return
         }
         
-        //TODO: we should test how the app handles if the database fails to set up
         guard let modelController = modelController else {
             assertionFailure("Failure setting up notifications core data stack.")
-            self.operationQueue.addOperation(completion)
+            self.operationQueue.addOperation(didRunOperationsBlock)
             return
         }
         
-        isImporting = true
+        willRunOperationsBlock()
         
         preferredLanguageCodesProvider.getPreferredLanguageCodes({ [weak self] (preferredLanguageCodes) in
             
@@ -74,46 +107,24 @@ class RemoteNotificationsOperationsController: NSObject {
                 return
             }
 
-            var projects: [RemoteNotificationsProject] = []
-            for languageCode in preferredLanguageCodes {
-                projects.append(.language(languageCode, nil))
-            }
+            var projects: [RemoteNotificationsProject] = preferredLanguageCodes.map { .language($0, nil) }
             projects.append(.commons)
             projects.append(.wikidata)
             
-            var operations: [RemoteNotificationsImportOperation] = []
-            for project in projects {
-                
-                let operation = RemoteNotificationsImportOperation(with: self.apiController, modelController: modelController, project: project, cookieDomain: self.cookieDomainForProject(project))
-                operations.append(operation)
-            }
-
-            let completionOperation = BlockOperation { [weak self] in
+            let operations = projects.map { operationType.init(with: self.apiController, modelController: modelController, project: $0) }
+            
+            let completionOperation = BlockOperation {
                 DispatchQueue.main.async {
-                    self?.isImporting = false
-                    completion()
+                    didRunOperationsBlock()
                 }
             }
             
-            completionOperation.queuePriority = .veryHigh
-
             for operation in operations {
                 completionOperation.addDependency(operation)
             }
-
+            
             self.operationQueue.addOperations(operations + [completionOperation], waitUntilFinished: false)
         })
-    }
-    
-    private func cookieDomainForProject(_ project: RemoteNotificationsProject) -> String {
-        switch project {
-        case .wikidata:
-            return Configuration.current.wikidataCookieDomain
-        case .commons:
-            return Configuration.current.commonsCookieDomain
-        default:
-            return Configuration.current.wikipediaCookieDomain
-        }
     }
 
     // MARK: Notifications
