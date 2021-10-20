@@ -1,6 +1,6 @@
 import CocoaLumberjackSwift
 
-class RemoteNotificationsAPIController: Fetcher {
+public class RemoteNotificationsAPIController: Fetcher {
     // MARK: NotificationsAPI constants
 
     private struct NotificationsAPI {
@@ -19,7 +19,7 @@ class RemoteNotificationsAPIController: Fetcher {
         let code, info: String?
     }
 
-    struct NotificationsResult: Decodable {
+    public struct NotificationsResult: Decodable {
         
         struct Query: Decodable {
             
@@ -33,9 +33,9 @@ class RemoteNotificationsAPIController: Fetcher {
         let error: ResultError?
         let query: Query?
         
-        struct Notification: Decodable, Hashable {
+        public struct Notification: Codable, Hashable {
             
-            struct Timestamp: Decodable, Hashable {
+            struct Timestamp: Codable, Hashable {
                 let utciso8601: String
                 let utcunix: String
                 
@@ -54,7 +54,7 @@ class RemoteNotificationsAPIController: Fetcher {
                     }
                 }
             }
-            struct Agent: Decodable, Hashable {
+            struct Agent: Codable, Hashable {
                 let id: String?
                 let name: String?
                 
@@ -73,7 +73,7 @@ class RemoteNotificationsAPIController: Fetcher {
                     }
                 }
             }
-            struct Title: Decodable, Hashable {
+            struct Title: Codable, Hashable {
                 let full: String?
                 let namespace: String?
                 let namespaceKey: Int?
@@ -87,7 +87,7 @@ class RemoteNotificationsAPIController: Fetcher {
                 }
             }
             
-            struct Message: Decodable, Hashable {
+            struct Message: Codable, Hashable {
                 let header: String?
                 let body: String?
                 let links: RemoteNotificationLinks?
@@ -104,8 +104,24 @@ class RemoteNotificationsAPIController: Fetcher {
             let readString: String?
             let message: Message?
             
-            var key: String {
+            public var key: String {
                 return "\(wiki)-\(id)"
+            }
+            
+            public var date: Date? {
+                return DateFormatter.wmf_iso8601()?.date(from: timestamp.utciso8601)
+            }
+            
+            public var pushContentText: String? {
+                return self.message?.header?.removingHTML
+            }
+            
+            public var namespaceKey: Int? {
+                return self.title?.namespaceKey
+            }
+            
+            public var titleFull: String? {
+                return self.title?.full
             }
 
             enum CodingKeys: String, CodingKey {
@@ -120,8 +136,17 @@ class RemoteNotificationsAPIController: Fetcher {
                 case readString = "read"
                 case message = "*"
             }
+            
+            public func hash(into hasher: inout Hasher) {
+                hasher.combine(key)
+            }
+            
+            public static func ==(lhs: Notification, rhs: Notification) -> Bool {
+                return lhs.key == rhs.key &&
+                    lhs.readString == rhs.readString
+            }
 
-            init(from decoder: Decoder) throws {
+            public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: CodingKeys.self)
                 wiki = try values.decode(String.self, forKey: .wiki)
                 do {
@@ -181,8 +206,19 @@ class RemoteNotificationsAPIController: Fetcher {
         }
         return Set(list)
     }
+    public func getUnreadPushNotifications(from project: RemoteNotificationsProject, completion: @escaping (Set<NotificationsResult.Notification>, Error?) -> Void) {
+        let completion: (NotificationsResult?, URLResponse?, Error?) -> Void = { result, _, error in
+            guard error == nil else {
+                completion([], error)
+                return
+            }
+            let result = result?.query?.notifications?.list ?? []
+            completion(Set(result), nil)
+        }
+        request(project: project, queryParameters: Query.notifications(limit: .max, filter: .unread, notifierType: .push), completion: completion)
+    }
     
-    public func getAllNotifications(from project: RemoteNotificationsProject, completion: @escaping (NotificationsResult.Query.Notifications?, Error?) -> Void) {
+    func getAllNotifications(from project: RemoteNotificationsProject, completion: @escaping (NotificationsResult.Query.Notifications?, Error?) -> Void) {
         let completion: (NotificationsResult?, URLResponse?, Error?) -> Void = { result, _, error in
             guard error == nil else {
                 completion(nil, error)
@@ -194,7 +230,7 @@ class RemoteNotificationsAPIController: Fetcher {
         request(project: project, queryParameters: Query.notifications(from: [project], limit: .max, filter: .none), completion: completion)
     }
 
-    public func markAsRead(_ notifications: Set<RemoteNotification>, completion: @escaping (Error?) -> Void) {
+    func markAsRead(_ notifications: Set<RemoteNotification>, completion: @escaping (Error?) -> Void) {
         let maxNumberOfNotificationsPerRequest = 50
         let notifications = Array(notifications)
         let split = notifications.chunked(into: maxNumberOfNotificationsPerRequest)
@@ -291,8 +327,14 @@ class RemoteNotificationsAPIController: Fetcher {
             case unread = "!read"
             case none = "read|!read"
         }
+        
+        enum NotifierType: String {
+            case web
+            case push
+            case email
+        }
 
-        static func notifications(from projects: [RemoteNotificationsProject] = [], limit: Limit = .max, filter: Filter = .none) -> Parameters {
+        static func notifications(from projects: [RemoteNotificationsProject] = [], limit: Limit = .max, filter: Filter = .none, notifierType: NotifierType? = nil) -> Parameters {
             var dictionary = ["action": "query",
                     "format": "json",
                     "formatversion": "2",
@@ -300,9 +342,18 @@ class RemoteNotificationsAPIController: Fetcher {
                     "meta": "notifications",
                     "notlimit": limit.value,
                     "notfilter": filter.rawValue]
-
-            let wikis = projects.map{ $0.notificationsApiWikiIdentifier }
-            dictionary["notwikis"] = wikis.joined(separator: "|")
+            
+            if let notifierType = notifierType {
+                dictionary["notnotifiertypes"] = notifierType.rawValue
+            }
+            
+            if projects.isEmpty {
+                dictionary["notwikis"] = "*"
+            } else {
+                let wikis = projects.map{ $0.notificationsApiWikiIdentifier }
+                dictionary["notwikis"] = wikis.joined(separator: "|")
+            }
+            
             return dictionary
         }
 

@@ -93,5 +93,17 @@ extension WMFAppViewController: NotificationsCenterPresentationDelegate {
         let notificationsCenterViewController = NotificationsCenterViewController(theme: theme, viewModel: viewModel)
         navigationController?.pushViewController(notificationsCenterViewController, animated: true)
     }
+}
 
+extension WMFAppViewController {
+    @objc func userDidTapPushNotification() {
+        //TODO: This is a very basic push to Notification Center.
+        //This will need refinement when https://phabricator.wikimedia.org/T287628 is tackled
+        
+        dismissPresentedViewControllers()
+        navigationController?.popToRootViewController(animated: false)
+        let viewModel = NotificationsCenterViewModel(remoteNotificationsController: dataStore.remoteNotificationsController, languageLinkController: dataStore.languageLinkController)
+        let notificationsCenterViewController = NotificationsCenterViewController(theme: theme, viewModel: viewModel)
+        navigationController?.pushViewController(notificationsCenterViewController, animated: true)
+    }
 }
