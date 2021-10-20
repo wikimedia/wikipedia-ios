@@ -5,6 +5,7 @@ class RemoteNotificationsOperationsController: NSObject {
     private let modelController: RemoteNotificationsModelController?
     private let operationQueue: OperationQueue
     private let preferredLanguageCodesProvider: WMFPreferredLanguageInfoProvider
+    private var isImporting = false
     
     var viewContext: NSManagedObjectContext? {
         return modelController?.viewContext
@@ -48,21 +49,24 @@ class RemoteNotificationsOperationsController: NSObject {
         operationQueue.cancelAllOperations()
     }
     
-    func fetchFirstPageNotifications(_ completion: @escaping () -> Void) {
-    
-        let completeEarly = {
-            self.operationQueue.addOperation(completion)
-        }
+    func importNotificationsIfNeeded(_ completion: @escaping () -> Void) {
+        
+        assert(Thread.isMainThread)
 
-        guard !isLocked else {
-            completeEarly()
+        guard !isLocked,
+              !isImporting else {
+            self.operationQueue.addOperation(completion)
             return
         }
         
+        //TODO: we should test how the app handles if the database fails to set up
         guard let modelController = modelController else {
             assertionFailure("Failure setting up notifications core data stack.")
+            self.operationQueue.addOperation(completion)
             return
         }
+        
+        isImporting = true
         
         preferredLanguageCodesProvider.getPreferredLanguageCodes({ [weak self] (preferredLanguageCodes) in
             
@@ -77,14 +81,20 @@ class RemoteNotificationsOperationsController: NSObject {
             projects.append(.commons)
             projects.append(.wikidata)
             
-            var operations: [RemoteNotificationsFetchFirstPageOperation] = []
+            var operations: [RemoteNotificationsImportOperation] = []
             for project in projects {
                 
-                let operation = RemoteNotificationsFetchFirstPageOperation(with: self.apiController, modelController: modelController, project: project, cookieDomain: self.cookieDomainForProject(project))
+                let operation = RemoteNotificationsImportOperation(with: self.apiController, modelController: modelController, project: project, cookieDomain: self.cookieDomainForProject(project))
                 operations.append(operation)
             }
 
-            let completionOperation = BlockOperation(block: completion)
+            let completionOperation = BlockOperation { [weak self] in
+                DispatchQueue.main.async {
+                    self?.isImporting = false
+                    completion()
+                }
+            }
+            
             completionOperation.queuePriority = .veryHigh
 
             for operation in operations {

@@ -27,9 +27,9 @@ final class NotificationsCenterViewModel: NSObject {
 
         fetchedResultsController = remoteNotificationsController.fetchedResultsController()
 
-        // TODO: DM-Remove
-        remoteNotificationsController.fetchFirstPageNotifications {}
-    }
+		// TODO: DM-Remove
+		remoteNotificationsController.importNotificationsIfNeeded {}
+	}
 
     // MARK: - Public
 
