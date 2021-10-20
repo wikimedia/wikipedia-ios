@@ -69,6 +69,23 @@ NSString *const WMFAbbreviatedRelativeDate = @"excludingAgo";
     }
 }
 
+- (NSString *)wmf_localizedShortDateStringRelativeToDate:(nonnull NSDate*)date {
+    NSCalendar *calender = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calender components:NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:self toDate:date options:0];
+
+    if ([date compare:self] == NSOrderedAscending) { // Date (self) is in future
+        return [[NSDateFormatter wmf_shortDateFormatter] stringFromDate:self];
+    } else if ([components day] < 1) {
+        if ([components hour] > 0) {
+            return [NSString localizedStringWithFormat:[WMFLocalizedDateFormatStrings hoursAgo], components.hour];
+        } else {
+            return [NSString localizedStringWithFormat:[WMFLocalizedDateFormatStrings minutesAgo], components.minute];
+        }
+    } else {
+        return [[NSDateFormatter wmf_shortDateFormatter] stringFromDate:self];
+    }
+}
+
 - (NSString *)wmf_fullyLocalizedRelativeDateStringFromLocalDateToLocalDate:(nonnull NSDate *)date {
     NSCalendar *calendar = [NSCalendar wmf_gregorianCalendar];
     NSInteger days = [calendar wmf_daysFromDate:self toDate:date]; // Calendar days - less than 24 hours ago that is yesterday returns 1 day ago

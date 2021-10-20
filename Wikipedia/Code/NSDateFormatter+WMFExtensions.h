@@ -27,6 +27,8 @@
  */
 + (NSDateFormatter *)wmf_shortTimeFormatter;
 
++ (NSDateFormatter*)wmf_shortDateFormatter;
+
 + (NSDateFormatter *)wmf_24hshortTimeFormatter;
 
 + (NSDateFormatter *)wmf_24hshortTimeFormatterWithUTCTimeZone;
