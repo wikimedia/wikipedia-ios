@@ -50,6 +50,7 @@ final class NotificationsCenterViewController: ViewController {
         
         setupCollectionView()
         setupDataSource()
+        configureEmptyState(isEmpty: true)
         viewModel.fetchFirstPage()
 	}
 
@@ -126,12 +127,19 @@ private extension NotificationsCenterViewController {
             dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
         }
     }
+    
+    func configureEmptyState(isEmpty: Bool) {
+        notificationsView.updateEmptyOverlay(visible: isEmpty, headerText: NotificationsCenterView.EmptyOverlayStrings.noUnreadMessages, subheaderText: NotificationsCenterView.EmptyOverlayStrings.checkingForNotifications)
+        navigationItem.rightBarButtonItem?.isEnabled = !isEmpty
+    }
 }
 
 // MARK: - NotificationCenterViewModelDelegate
 
 extension NotificationsCenterViewController: NotificationCenterViewModelDelegate {
     func cellViewModelsDidChange(cellViewModels: [NotificationsCenterCellViewModel]) {
+        
+        configureEmptyState(isEmpty: cellViewModels.isEmpty)
         applySnapshot(cellViewModels: cellViewModels, animatingDifferences: true)
     }
     
