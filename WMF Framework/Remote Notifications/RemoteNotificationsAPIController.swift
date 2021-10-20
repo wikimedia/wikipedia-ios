@@ -333,9 +333,3 @@ extension RemoteNotificationsAPIController.ResultError: LocalizedError {
         return info
     }
 }
-
-extension RemoteNotificationsAPIController {
-    func isAuthenticatedForCookieDomain(_ cookieDomain: String) -> Bool {
-        return session.hasValidCentralAuthCookies(for: cookieDomain)
-    }
-}
