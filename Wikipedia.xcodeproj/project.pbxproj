@@ -417,6 +417,10 @@
 		6761AEE72704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE52704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift */; };
 		6761AEE82704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE52704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift */; };
 		6761AEE92704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEE52704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift */; };
+		6761AEF72707E34F00E47BAD /* NotificationsCenterModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEF62707E34F00E47BAD /* NotificationsCenterModelController.swift */; };
+		6761AEF82707E34F00E47BAD /* NotificationsCenterModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEF62707E34F00E47BAD /* NotificationsCenterModelController.swift */; };
+		6761AEF92707E34F00E47BAD /* NotificationsCenterModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEF62707E34F00E47BAD /* NotificationsCenterModelController.swift */; };
+		6761AEFA2707E34F00E47BAD /* NotificationsCenterModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEF62707E34F00E47BAD /* NotificationsCenterModelController.swift */; };
 		676C864726D40AEB00A704C1 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676C864626D40AEB00A704C1 /* NotificationService.swift */; };
 		676C864B26D40AEB00A704C1 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 676C864426D40AEA00A704C1 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		676C867026D416FB00A704C1 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 676C864426D40AEA00A704C1 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -3790,6 +3794,8 @@
 		6761AEDE2704CF0000E47BAD /* RemoteNotificationsProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsProject.swift; sourceTree = "<group>"; };
 		6761AEE02704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationsCenterCellViewModel+TextExtensions.swift"; sourceTree = "<group>"; };
 		6761AEE52704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationsCenterCellViewModel+IconNameExtensions.swift"; sourceTree = "<group>"; };
+		6761AEF62707E34F00E47BAD /* NotificationCenterModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterModelController.swift; sourceTree = "<group>"; };
+        6761AEF62707E34F00E47BAD /* NotificationsCenterModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterModelController.swift; sourceTree = "<group>"; };
 		676A8A8223A4013D0084B967 /* ArticleFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArticleFetcher.swift; path = ../Wikipedia/Code/ArticleFetcher.swift; sourceTree = "<group>"; };
 		676C864426D40AEA00A704C1 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		676C864626D40AEB00A704C1 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
@@ -5774,6 +5780,7 @@
 				6761AEE52704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift */,
 				00E2EA8826E28A9700B1A741 /* NotificationsCenterCellStyle.swift */,
 				00E2EA8D26E2A45C00B1A741 /* NotificationsCenterCellDisplayState.swift */,
+				6761AEF62707E34F00E47BAD /* NotificationsCenterModelController.swift */,
 			);
 			name = "Notifications Center";
 			sourceTree = "<group>";
@@ -11037,6 +11044,7 @@
 				6734116422739CA2005B31DA /* TalkPageLocalHandler.swift in Sources */,
 				D84692E01D5E1E3F000A7058 /* TableOfContentsHeader.swift in Sources */,
 				83F26B2A220B62EC002D87A4 /* SectionEditorButton.swift in Sources */,
+				6761AEF72707E34F00E47BAD /* NotificationsCenterModelController.swift in Sources */,
 				0EE489031D4ADCA00088505C /* UIViewController+WMFScrollToTop.swift in Sources */,
 				7A9F060D2266425700856321 /* InsertMediaSettingsViewController.swift in Sources */,
 				7AA96D5C21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */,
@@ -11913,6 +11921,7 @@
 				D8A42B161E815A9C00D8E281 /* TableOfContentsHeader.swift in Sources */,
 				D8A42B191E815A9C00D8E281 /* UIViewController+WMFScrollToTop.swift in Sources */,
 				6734116722739CCC005B31DA /* TalkPageLocalHandler.swift in Sources */,
+				6761AEFA2707E34F00E47BAD /* NotificationsCenterModelController.swift in Sources */,
 				D8703DC21EE84533001A4BAB /* PreviewingViewController.swift in Sources */,
 				7A9F06102266425700856321 /* InsertMediaSettingsViewController.swift in Sources */,
 				D8A42B1F1E815A9C00D8E281 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
@@ -12448,6 +12457,7 @@
 				BAC6EEC81F1E519A00228AD0 /* AppearanceSettingsViewController.swift in Sources */,
 				D8E6FF7D2405AAC400686272 /* ArticleViewController+Analytics.swift in Sources */,
 				D82E95861F16502E007BD960 /* WMFLanguagesViewController.m in Sources */,
+				6761AEF92707E34F00E47BAD /* NotificationsCenterModelController.swift in Sources */,
 				672C35EC22D8E7D2007B8D46 /* EmptyViewController.swift in Sources */,
 				7A4FE5401FA00AEF009FA199 /* ArticlePeekPreviewViewController.swift in Sources */,
 				D8CE25B11E698E2400DAE2E0 /* WMFBarButtonItemPopoverMessageViewController.m in Sources */,
@@ -12950,6 +12960,7 @@
 				7A4FE5411FA00AF0009FA199 /* ArticlePeekPreviewViewController.swift in Sources */,
 				D8E6FF7E2405AAC400686272 /* ArticleViewController+Analytics.swift in Sources */,
 				D8EC3EAE1E9BDA35006712EB /* WMFBarButtonItemPopoverMessageViewController.m in Sources */,
+				6761AEF82707E34F00E47BAD /* NotificationsCenterModelController.swift in Sources */,
 				672C35ED22D8E7D2007B8D46 /* EmptyViewController.swift in Sources */,
 				67E2E490250452E60070F12D /* ArticleAsLivingDocHeaderView.swift in Sources */,
 				B01E54B1206479CC00374FEE /* ProgressContainer.swift in Sources */,
