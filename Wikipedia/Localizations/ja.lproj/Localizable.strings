@@ -370,7 +370,7 @@
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "オン";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "$1の言語で利用可能";
 "explore-feed-preferences-feed-cards-hidden-title" = "隠されている$1のカードすべて";
-"explore-feed-preferences-global-card-footer-text" = "このカードは言語に依存しないため、非表示にすると「探してみよう」フィードから除去されます。";
+"explore-feed-preferences-global-card-footer-text" = "このカードは言語に依存しないため、非表示にすると探索フィードから除去されます。";
 "explore-feed-preferences-global-cards-description" = "言語非依存のカードです";
 "explore-feed-preferences-global-cards-subtitle" = "言語に関係ないもの";
 "explore-feed-preferences-global-cards-title" = "グローバルカード";
@@ -408,7 +408,7 @@
 "explore-feed-preferences-turn-off-feed-disclosure" = "探索タブをオフにすると、設定タブに入れ替わります。";
 "explore-feed-preferences-turn-on-explore-feed-alert-message" = "探索フィードのカードをオンにすると、探索タブも表示されます";
 "explore-feed-preferences-turn-on-explore-tab-action-title" = "探索をオンにする";
-"explore-feed-preferences-turn-on-explore-tab-message" = "これは設定タブを非表示にして「探してみよう」タブを表示します。設定タブは「探してみよう」画面の上部の歯車アイコンをタップすると開きます";
+"explore-feed-preferences-turn-on-explore-tab-message" = "これは設定タブを非表示にして探索タブを表示します。設定タブは探索画面の上部の歯車アイコンをタップすると開きます";
 "explore-feed-preferences-turn-on-explore-tab-title" = "探索タブをオンにしますか?";
 "explore-hide-card-prompt" = "このカードを隠す";
 "explore-main-page-description" = "ウィキメディア・プロジェクトのメインページ";
@@ -843,7 +843,7 @@
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "mʲidokɯ̹";
 "talk-page-error-unable-to-post-reply" = "インターネット接続がないため返信を投稿できません。";
 "talk-page-error-unable-to-post-topic" = "インターネット接続がないため議論を投稿できません。";
-"talk-page-info-active-conversations" = "$1 ウィキペディア上でのアクティブな会話";
+"talk-page-info-active-conversations" = "$1ウィキペディア上でのアクティブな会話";
 "talk-page-info-active-conversations-generic" = "ウィキペディア上でのアクティブな会話";
 "talk-page-link-user-action-sheet-app" = "アプリ内で利用者の会話ページを表示";
 "talk-page-link-user-action-sheet-safari" = "利用者ページをSafariで見る";
