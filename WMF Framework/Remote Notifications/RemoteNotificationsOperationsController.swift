@@ -1,11 +1,16 @@
 import CocoaLumberjackSwift
 
+public enum RemoteNotificationsImportError: Error {
+    case failureSettingUpModelController
+}
+
 class RemoteNotificationsOperationsController: NSObject {
     private let apiController: RemoteNotificationsAPIController
     private let modelController: RemoteNotificationsModelController?
     private let operationQueue: OperationQueue
     private let preferredLanguageCodesProvider: WMFPreferredLanguageInfoProvider
     private var isImporting = false
+    private var importingCompletionBlocks: [(RemoteNotificationsImportError?) -> Void] = []
     
     var viewContext: NSManagedObjectContext? {
         return modelController?.viewContext
@@ -49,20 +54,22 @@ class RemoteNotificationsOperationsController: NSObject {
         operationQueue.cancelAllOperations()
     }
     
-    func importNotificationsIfNeeded(_ completion: @escaping () -> Void) {
+    func importNotificationsIfNeeded(_ completion: @escaping (RemoteNotificationsImportError?) -> Void) {
         
-        assert(Thread.isMainThread)
-
-        guard !isLocked,
-              !isImporting else {
-            self.operationQueue.addOperation(completion)
+        //TODO: we should test how the app handles if the database fails to set up
+        guard let modelController = modelController,
+              !isLocked else {
+            assertionFailure("Failure setting up notifications core data stack.")
+            let error = RemoteNotificationsImportError.failureSettingUpModelController
+            completion(error)
             return
         }
         
-        //TODO: we should test how the app handles if the database fails to set up
-        guard let modelController = modelController else {
-            assertionFailure("Failure setting up notifications core data stack.")
-            self.operationQueue.addOperation(completion)
+        assert(Thread.isMainThread)
+        
+        importingCompletionBlocks.append(completion)
+
+        guard !isImporting else {
             return
         }
         
@@ -91,7 +98,11 @@ class RemoteNotificationsOperationsController: NSObject {
             let completionOperation = BlockOperation { [weak self] in
                 DispatchQueue.main.async {
                     self?.isImporting = false
-                    completion()
+                    self?.importingCompletionBlocks.forEach { completionBlock in
+                        completionBlock(nil)
+                    }
+                    
+                    self?.importingCompletionBlocks.removeAll()
                 }
             }
             

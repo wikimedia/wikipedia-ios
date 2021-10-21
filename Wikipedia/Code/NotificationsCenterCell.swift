@@ -2,6 +2,7 @@ import UIKit
 
 protocol NotificationsCenterCellDelegate: AnyObject {
     func userDidTapSecondaryActionForCellIdentifier(id: String)
+    func toggleCheckedStatus(viewModel: NotificationsCenterCellViewModel)
 }
 
 final class NotificationsCenterCell: UICollectionViewCell {
@@ -11,7 +12,8 @@ final class NotificationsCenterCell: UICollectionViewCell {
     static let reuseIdentifier = "NotificationsCenterCell"
 
     fileprivate var theme: Theme = .light
-    fileprivate weak var viewModel: NotificationsCenterCellViewModel?
+    private(set) weak var viewModel: NotificationsCenterCellViewModel?
+    weak var delegate: NotificationsCenterCellDelegate?
 
     // MARK: - UI Elements
 
@@ -23,6 +25,12 @@ final class NotificationsCenterCell: UICollectionViewCell {
         view.layer.borderColor = UIColor.clear.cgColor
         view.insets = NSDirectionalEdgeInsets(top: 7, leading: 7, bottom: -7, trailing: -7)
         return view
+    }()
+    
+    lazy var leadingImageTapGestureRecognizer: UITapGestureRecognizer = {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tappedLeadingImage))
+        leadingImageView.addGestureRecognizer(tap)
+        return tap
     }()
 
     lazy var projectSourceLabel: InsetLabelView = {
@@ -315,7 +323,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         projectSourceLabel.layer.borderColor = cellStyle.projectSourceColor.cgColor
         projectSourceImage.tintColor = cellStyle.projectSourceColor
 
-        selectedBackgroundView?.backgroundColor = cellStyle.selectedCellBackgroundColor
+        //selectedBackgroundView?.backgroundColor = cellStyle.selectedCellBackgroundColor
 
         // Fonts
 
@@ -332,6 +340,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         leadingImageView.imageView.image = cellStyle.leadingImage(displayState)
         leadingImageView.imageView.tintColor = cellStyle.leadingImageTintColor
         leadingImageView.layer.borderColor = cellStyle.leadingImageBorderColor(displayState).cgColor
+        leadingImageTapGestureRecognizer.isEnabled = cellStyle.isLeadingImageTapGestureEnabled(displayState)
     }
 
     func updateLabels(forViewModel viewModel: NotificationsCenterCellViewModel) {
@@ -376,4 +385,11 @@ final class NotificationsCenterCell: UICollectionViewCell {
         metaActionButton.setImage(image, for: .normal)
     }
 
+    @objc func tappedLeadingImage() {
+        guard let viewModel = viewModel else {
+            return
+        }
+        
+        delegate?.toggleCheckedStatus(viewModel: viewModel)
+    }
 }
