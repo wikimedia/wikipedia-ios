@@ -747,6 +747,8 @@
 "relative-date-hours-abbreviated" = "Relative hours, abbreviated. $1 will be replaced with the number of hours.";
 "relative-date-hours-ago" = "Relative hours ago. 0 = this hour. $1 will be replaced with the number of hours ago.";
 "relative-date-hours-ago-abbreviated" = "Relative hours ago, abbreviated. $1 will be replaced with the number of hours ago.";
+"relative-date-hrs-ago" = "Relative hours ago. 0 = this hour. $1 will be replaced with the number of hours ago.";
+"relative-date-min-ago" = "Relative minutes ago. 0 = just now. $1 will be replaced with the number of minutes ago.";
 "relative-date-minutes-abbreviated" = "Relative minutes, abbreviated. $1 will be replaced with the number of minutes.";
 "relative-date-minutes-ago" = "Relative minutes ago. 0 = just now. $1 will be replaced with the number of minutes ago.";
 "relative-date-minutes-ago-abbreviated" = "Relative minutes ago, abbreviated. $1 will be replaced with the number of minutes ago.";
