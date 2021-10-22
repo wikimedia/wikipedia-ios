@@ -47,6 +47,7 @@ class Date_ExtensionTests: XCTestCase {
         let testDate = Calendar.current.date(from: testDateComponents)!
 
         // Setup test dates
+        let oneMinuteAgoDate = Calendar.current.date(byAdding: DateComponents(minute: -1), to: testDate)! as NSDate
         let thirtyMinutesAgoDate = Calendar.current.date(byAdding: DateComponents(minute: -30), to: testDate)! as NSDate
         let oneHourAgoDate = Calendar.current.date(byAdding: DateComponents(hour: -1), to: testDate)! as NSDate
         let tenHoursAgoDate = Calendar.current.date(byAdding: DateComponents(hour: -10), to: testDate)! as NSDate
@@ -55,10 +56,11 @@ class Date_ExtensionTests: XCTestCase {
         let oneMonthAgoDate = Calendar.current.date(byAdding: DateComponents(month: -1), to: testDate)! as NSDate
         let futureDate = Calendar.current.date(byAdding: DateComponents(month: 1), to: testDate)! as NSDate
 
-        XCTAssertEqual((testDate as NSDate).wmf_localizedShortDateStringRelative(to: testDate), "Just now")
-        XCTAssertEqual(thirtyMinutesAgoDate.wmf_localizedShortDateStringRelative(to: testDate), "30 minutes ago")
-        XCTAssertEqual(oneHourAgoDate.wmf_localizedShortDateStringRelative(to: testDate), "1 hour ago")
-        XCTAssertEqual(tenHoursAgoDate.wmf_localizedShortDateStringRelative(to: testDate), "10 hours ago")
+        XCTAssertEqual((testDate as NSDate).wmf_localizedShortDateStringRelative(to: testDate), "Now")
+        XCTAssertEqual(oneMinuteAgoDate.wmf_localizedShortDateStringRelative(to: testDate), "1 min ago")
+        XCTAssertEqual(thirtyMinutesAgoDate.wmf_localizedShortDateStringRelative(to: testDate), "30 mins ago")
+        XCTAssertEqual(oneHourAgoDate.wmf_localizedShortDateStringRelative(to: testDate), "1 hr ago")
+        XCTAssertEqual(tenHoursAgoDate.wmf_localizedShortDateStringRelative(to: testDate), "10 hrs ago")
         XCTAssertEqual(twentyFourHoursAgoDate.wmf_localizedShortDateStringRelative(to: testDate), "10/19/21")
         XCTAssertEqual(oneDayAgoDate.wmf_localizedShortDateStringRelative(to: testDate), "10/19/21")
         XCTAssertEqual(oneMonthAgoDate.wmf_localizedShortDateStringRelative(to: testDate), "9/20/21")
