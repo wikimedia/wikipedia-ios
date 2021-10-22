@@ -41,6 +41,11 @@ final class NotificationsCenterViewController: ViewController {
 
 		viewModel.fetchNotifications(collectionView: notificationsView.collectionView)
 	}
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel.refreshNotifications()
+    }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
