@@ -38,11 +38,15 @@ static NSString *const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     return shortTimeFormatter;
 }
 
-+ (NSDateFormatter*)wmf_shortDateFormatter {
-    NSDateFormatter *shortDateFormatter = [NSDateFormatter new];
-    shortDateFormatter.dateStyle = NSDateFormatterShortStyle;
-    shortDateFormatter.timeStyle = NSDateFormatterNoStyle;
-    shortDateFormatter.formatterBehavior = NSDateFormatterBehavior10_4;
++ (NSDateFormatter *)wmf_shortDateFormatter {
+    static dispatch_once_t onceToken;
+    static NSDateFormatter *shortDateFormatter = nil;
+    dispatch_once(&onceToken, ^{
+        shortDateFormatter = [NSDateFormatter new];
+        shortDateFormatter.dateStyle = NSDateFormatterShortStyle;
+        shortDateFormatter.timeStyle = NSDateFormatterNoStyle;
+        shortDateFormatter.formatterBehavior = NSDateFormatterBehavior10_4;
+    });
     return shortDateFormatter;
 }
 
