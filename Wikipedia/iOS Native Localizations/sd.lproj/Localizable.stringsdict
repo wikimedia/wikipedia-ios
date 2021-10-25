@@ -103,7 +103,7 @@
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ پڙھڻ جي فھرست ۾ وجھو</string>
+		<string>%#@v1@ پڙھڻ جي فھرست ۾ شامل ڪريو</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

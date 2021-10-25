@@ -111,7 +111,7 @@
 "action-add-to-reading-list-short" = "Afegeix a la llista";
 "action-cancel" = "Cancel·la";
 "action-find-in-page" = "Cerca a la pàgina";
-"action-language-accessibility" = "Canvia la llengua";
+"action-language-accessibility" = "Canvia l'idioma";
 "action-move-to" = "Mou a…";
 "action-move-to-reading-list" = "Mou a la llista de lectura";
 "action-next-revision-accessibility" = "Revisió següent";
@@ -153,7 +153,7 @@
 "article-delete" = "Elimina";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|S'ha eliminat l'article|S'han eliminat els articles}}";
 "article-fetcher-error-updated-content-timeout" = "L'aplicació no ha pogut recuperar el contingut actualitzat a temps. Refresqueu la pàgina més endavant per a veure com s'hi han reflectit els canvis.";
-"article-languages-filter-placeholder" = "Cerca una llengua";
+"article-languages-filter-placeholder" = "Cerca un idioma";
 "article-languages-label" = "Trieu un idioma";
 "article-languages-others" = "Altres llengües";
 "article-languages-yours" = "Les vostres llengües";
@@ -328,7 +328,7 @@
 "empty-no-feed-message" = "Podeu veure els vostres articles recomanats quan tingueu Internet";
 "empty-no-history-message" = "Mantén un registre del que he llegit aquí";
 "empty-no-history-title" = "No hi ha historial per mostrar";
-"empty-no-other-article-languages-message" = "Aquest article no encara ha estat escrit en cap altra llengua";
+"empty-no-other-article-languages-message" = "Aquest article no encara ha estat escrit en cap altre idioma";
 "empty-no-other-article-languages-title" = "No hi ha altres llengües disponibles";
 "empty-no-reading-lists-message" = "Crea llistes de llocs on viatjar, temes preferits i molt més";
 "empty-no-reading-lists-title" = "Organitzeu els articles desats amb les llistes de lectura";
@@ -350,7 +350,7 @@
 "explore-featured-article-sub-heading-from-language-wikipedia" = "De la Viquipèdia en $1";
 "explore-featured-article-sub-heading-from-wikipedia" = "De la Viquipèdia";
 "explore-feed-customize-accessibility-title" = "Personalitza";
-"explore-feed-language-settings" = "Paràmetres de llengua del canal d'exploració";
+"explore-feed-language-settings" = "Paràmetres d'idioma del canal d'exploració";
 "explore-feed-preferences-additional-languages-footer-text" = "Es poden afegir més llengües des de la pàgina de configuració 'Les meves llengües'.";
 "explore-feed-preferences-card-hidden-title" = "Targeta amagada";
 "explore-feed-preferences-continue-reading-description" = "Enllaç de retorn ràpid per llegir un article obert";
@@ -364,9 +364,9 @@
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "Activat";
 "explore-feed-preferences-feed-card-visibility-languages-count" = "En $1";
 "explore-feed-preferences-feed-cards-hidden-title" = "Totes les targetes $1 són amagades";
-"explore-feed-preferences-global-card-footer-text" = "Aquesta targeta no és específica de llengua, en desactivar-la se suprimirà del canal d'exploració.";
-"explore-feed-preferences-global-cards-description" = "Targetes no específiques de la llengua";
-"explore-feed-preferences-global-cards-subtitle" = "No específic de la llengua";
+"explore-feed-preferences-global-card-footer-text" = "Aquesta targeta no és específica d'idioma, en desactivar-la se suprimirà del canal d'exploració.";
+"explore-feed-preferences-global-cards-description" = "Targetes no específiques de l'idioma";
+"explore-feed-preferences-global-cards-subtitle" = "No específic de l'idioma";
 "explore-feed-preferences-global-cards-title" = "Targetes globals";
 "explore-feed-preferences-hide-card-action-title" = "Amaga la targeta";
 "explore-feed-preferences-hide-feed-cards-action-title" = "Amaga totes les targetes «$1»";
@@ -429,7 +429,7 @@
 "featured-widget-description" = "Descobriu els millors articles de la Viquipèdia, seleccionats cada dia per la nostra comunitat.";
 "featured-widget-from-language-wikipedia" = "De la Viquipèdia en $1";
 "featured-widget-from-wikipedia" = "De la Viquipèdia";
-"featured-widget-language-failure" = "La Viquipèdia de la vostra llengua primària no té l'opció d'article destacat. Podeu triar canviar la vostra Viquipèdia primària en el menú de configuració de l'aplicació.";
+"featured-widget-language-failure" = "La Viquipèdia del seu idioma principal no té l'opció d'article destacat. Podeu triar canviar la vostra Viquipèdia principal en el menú de configuració de l'aplicació.";
 "featured-widget-title" = "Article destacat";
 "feed-news-notification-button-text" = "Activa les notificacions";
 "feed-news-notification-text" = "Habiliteu les notificacions per a rebre avisos de la Viquipèdia quan els articles siguin tendència a les notícies.";
@@ -538,7 +538,7 @@
 "kurdish-variants-alert-body" = "L’aplicació Wikipedia admet ara les següents variants kurdes com a idiomes principals o secundaris de l’aplicació, cosa que facilita la lectura, la cerca i l’edició de les vostres variants preferides:\n\nKurdî Latînî Kurd, llatí (ku-latn)\nكوردی kurd, àrab (kk-arab)";
 "kurdish-variants-alert-title" = "Actualitzacions per a l'admissió de variants kurdes";
 "languages-settings-title" = "Llengües";
-"languages-title" = "Canvia la llengua";
+"languages-title" = "Canvia l'idioma";
 "languages-wikipedia" = "Llengües de la Viquipèdia";
 "logged-out-continue-without-logging-in-button-title" = "Continua sense iniciar una sessió";
 "logged-out-log-back-in-button-title" = "Torna a iniciar la sessió amb el vostre compte";
@@ -583,7 +583,7 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 esdeveniment històric|$1 esdeveniments històrics}}";
 "on-this-day-footer" = "Més esdeveniments històrics d'aquest dia";
 "on-this-day-footer-showing-event-count" = "{{PLURAL:$1|$1 més esdeveniment històric|$1 més esdeveniments històrics}} en aquest dia";
-"on-this-day-language-does-not-support-error" = "La Viquipèdia de la vostra llengua primària no té l'opció de «tal dia com avui». Podeu triar canviar la vostra Viquipèdia primària en el menú de configuració de l'aplicació.";
+"on-this-day-language-does-not-support-error" = "La Viquipèdia en el seu idioma principal no té l'opció de «tal dia com avui». Podeu triar canviar la vostra Viquipèdia principal en el menú de configuració de l'aplicació.";
 "on-this-day-no-internet-error" = "Cap dada disponible";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 de la Viquipèdia en $2";
 "on-this-day-title" = "Tal dia com avui";
@@ -808,7 +808,7 @@
 "settings-notifications-system-turn-on" = "Activa les notificacions";
 "settings-notifications-trending" = "Tendències actuals";
 "settings-primary-language" = "Principal";
-"settings-primary-language-details" = "La primera llengua de la llista s'utilitza com a llengua primària de l'aplicació.";
+"settings-primary-language-details" = "El primer idioma de la llista s'utilitza com a idioma principal de l'aplicació.";
 "settings-search-footer-text" = "Defineix l'aplicació per obrir la pestanya de cerca en comptes de la pestanya d'exploració";
 "settings-search-open-app-on-search" = "Obre l'aplicació en la pestanya de cerca";
 "settings-storage-and-syncing-enable-sync-footer-text" = "Permet a Wikimedia desar els articles desats i les llistes de lectures a les vostres preferències d'usuari quan inicieu una sessió i sincronitzeu.";
@@ -920,7 +920,7 @@
 "welcome-intro-free-encyclopedia-more-about" = "Quant a la Viquipèdia";
 "welcome-intro-free-encyclopedia-more-description" = "La Viquipèdia és un projecte global per construir enciclopèdies lliures en totes les llengües del món. Virtualment qualsevol amb accés a Internet és lliure de participar-hi tot contribuint-hi informació neutral i que es pugui citar.";
 "welcome-intro-free-encyclopedia-title" = "L’enciclopèdia lliure";
-"welcome-languages-add-button" = "Afegeix una altra llengua";
+"welcome-languages-add-button" = "Afegeix un altre idioma";
 "welcome-languages-add-or-edit-button" = "Afegeix o modifica les llengües preferides";
 "welcome-languages-description" = "Hem trobat les llengües següents en el vostre dispositiu:";
 "welcome-languages-search-title" = "Cerca en més de 300 llengües";
