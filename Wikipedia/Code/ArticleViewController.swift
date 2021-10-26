@@ -35,7 +35,6 @@ class ArticleViewController: ViewController, HintPresenting {
     /// Called when initial JS setup is complete
     @objc public var initialSetupCompletion: (() -> Void)?
     
-    internal let schemeHandler: SchemeHandler
     internal let dataStore: MWKDataStore
     
     private let cacheController: ArticleCacheController
@@ -100,7 +99,6 @@ class ArticleViewController: ViewController, HintPresenting {
         self.article = article
         
         self.dataStore = dataStore
-        self.schemeHandler = schemeHandler ?? SchemeHandler(scheme: "app", session: dataStore.session)
         self.cacheController = cacheController
         
         super.init(theme: theme)
@@ -123,7 +121,6 @@ class ArticleViewController: ViewController, HintPresenting {
     lazy var webViewConfiguration: WKWebViewConfiguration = {
         let configuration = WKWebViewConfiguration()
         configuration.processPool = ArticleViewController.webProcessPool
-        configuration.setURLSchemeHandler(schemeHandler, forURLScheme: schemeHandler.scheme)
         return configuration
     }()
     
@@ -455,7 +452,7 @@ class ArticleViewController: ViewController, HintPresenting {
             callLoadCompletionIfNecessary()
         }
         
-        guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, revisionID: revisionID, scheme: schemeHandler.scheme, cachePolicy: cachePolicy, isPageView: true) else {
+        guard let request = try? fetcher.mobileHTMLRequest(articleURL: articleURL, revisionID: revisionID, scheme: nil, cachePolicy: cachePolicy, isPageView: true) else {
             showGenericError()
             state = .error
             return
