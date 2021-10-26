@@ -747,6 +747,8 @@
 "relative-date-hours-abbreviated" = "$1h";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recently|$1 hour ago|$1 hours ago}}";
 "relative-date-hours-ago-abbreviated" = "$1h ago";
+"relative-date-hrs-ago" = "{{PLURAL:$1|0=Recently|$1 hr ago|$1 hrs ago}}";
+"relative-date-min-ago" = "{{PLURAL:$1|0=Now|$1 min ago|$1 mins ago}}";
 "relative-date-minutes-abbreviated" = "$1m";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Just now|$1 minute ago|$1 minutes ago}}";
 "relative-date-minutes-ago-abbreviated" = "$1m ago";

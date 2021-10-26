@@ -187,8 +187,7 @@ extension NotificationsCenterCellViewModel {
             return nil
         }
 
-        //TODO: We might need to tweak the relative logic here
-        return (date as NSDate).wmf_fullyLocalizedRelativeDateStringFromLocalDateToNow()
+        return (date as NSDate).wmf_localizedShortDateStringRelative(to: Date())
     }
     
     var projectText: String? {
