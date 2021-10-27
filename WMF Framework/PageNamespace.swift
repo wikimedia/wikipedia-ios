@@ -58,6 +58,8 @@ import Foundation
             return "Talk"
         case .userTalk:
             return "User talk"
+        case .user:
+            return "User"
         default: // add these as needed
             return ""
         }

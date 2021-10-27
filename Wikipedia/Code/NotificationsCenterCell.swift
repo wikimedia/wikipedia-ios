@@ -197,7 +197,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         let topMargin: CGFloat = 13
         let edgeMargin: CGFloat = 11
 
-        selectedBackgroundView = UIView()
+        //selectedBackgroundView = UIView()
 
         contentView.addSubview(leadingContainer)
         contentView.addSubview(mainVerticalStackView)
@@ -315,7 +315,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         projectSourceLabel.layer.borderColor = cellStyle.projectSourceColor.cgColor
         projectSourceImage.tintColor = cellStyle.projectSourceColor
 
-        selectedBackgroundView?.backgroundColor = cellStyle.selectedCellBackgroundColor
+        //selectedBackgroundView?.backgroundColor = cellStyle.selectedCellBackgroundColor
 
         // Fonts
 
