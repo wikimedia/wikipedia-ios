@@ -17,6 +17,10 @@ final class NotificationsCenterViewModel: NSObject {
     weak var delegate: NotificationCenterViewModelDelegate?
 
     private let languageLinkController: MWKLanguageLinkController
+    
+    var configuration: Configuration {
+        return remoteNotificationsController.configuration
+    }
 
     // MARK: - Lifecycle
 
