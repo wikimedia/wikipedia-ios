@@ -144,7 +144,7 @@ struct NotificationsCenterCellStyle {
         case .userTalkPageMessage:
             return UIImage(named: "notifications-type-user-talk-message")
         case .mentionInTalkPage, .mentionInEditSummary, .successfulMention, .failedMention:
-            return UIImage(systemName: "at", withConfiguration: UIImage.SymbolConfiguration(weight: .heavy))
+            return UIImage(named: "notifications-type-mention")
         case .editReverted:
             return UIImage(named: "notifications-type-edit-revert")
         case .userRightsChange:
@@ -152,23 +152,18 @@ struct NotificationsCenterCellStyle {
         case .pageReviewed:
             return UIImage(named: "notifications-type-page-reviewed")
         case .pageLinked, .connectionWithWikidata:
-            return UIImage(systemName: "link", withConfiguration: UIImage.SymbolConfiguration(weight: .semibold))
+            return UIImage(named: "notifications-type-link")
         case .thanks:
             return UIImage(named: "notifications-type-thanks")
         case .welcome, .translationMilestone(_), .editMilestone:
-            return UIImage(systemName: "heart.fill")
+            return UIImage(named: "notifications-type-milestone")
         case .loginFailKnownDevice, .loginFailUnknownDevice, .loginSuccessUnknownDevice,
              .unknownSystemAlert, .unknownAlert:
             return UIImage(named: "notifications-type-login-notify")
         case .emailFromOtherUser:
-            if #available(iOS 14, *) {
-                return UIImage(systemName: "mail", withConfiguration: UIImage.SymbolConfiguration(weight: .semibold))
-            }
-            return UIImage(systemName: "envelope", withConfiguration: UIImage.SymbolConfiguration(weight: .semibold))
-        case .unknownSystemNotice, .unknownNotice:
-            return UIImage(systemName: "bell.fill")
+            return UIImage(named: "notifications-type-email")
         default:
-            return UIImage(systemName: "app.badge.fill")
+            return UIImage(named: "notifications-type-default")
         }
     }
     
