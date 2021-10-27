@@ -53,6 +53,40 @@ extension NotificationsCenterCellViewModel {
         //If unable to calculate url, default to primary url returned from server
         return (calculatedURL ?? notification.primaryLinkURL)
     }
+    
+    func secondaryURL(for configuration: Configuration) -> URL? {
+        var calculatedURL: URL? = nil
+
+        switch notification.type {
+        case .userTalkPageMessage,
+             .mentionInTalkPage,
+             .mentionInEditSummary,
+             .editReverted,
+             .userRightsChange,
+             .pageReviewed,
+             .pageLinked,
+             .connectionWithWikidata,
+             .thanks,
+             .unknownAlert,
+             .unknownNotice:
+            calculatedURL = customPrefixAgentNameURL(for: configuration, pageNamespace: .user)
+        case .failedMention,
+             .successfulMention,
+             .emailFromOtherUser,
+             .translationMilestone,
+             .editMilestone,
+             .welcome,
+             .loginFailUnknownDevice,
+             .loginFailKnownDevice,
+             .loginSuccessUnknownDevice,
+             .unknownSystemAlert,
+             .unknownSystemNotice,
+             .unknown:
+            break
+        }
+
+        return calculatedURL
+    }
 }
 
 //MARK: Private Helpers - LinkData
