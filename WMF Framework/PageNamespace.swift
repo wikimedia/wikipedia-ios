@@ -65,7 +65,7 @@ import Foundation
 }
 
 extension PageNamespace {
-    init?(namespaceValue: Int?) {
+    public init?(namespaceValue: Int?) {
         guard let rawValue = namespaceValue else {
             return nil
         }

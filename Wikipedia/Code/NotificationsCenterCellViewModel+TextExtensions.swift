@@ -160,11 +160,11 @@ extension NotificationsCenterCellViewModel {
              .unknownAlert,
              .unknownNotice,
              .unknown:
-            guard let primaryLinkTitle = notification.messageLinks?.primaryLabel else {
+            guard let primaryLinkLabel = notification.primaryLinkLabel else {
                 return nil
             }
             
-            return primaryLinkTitle
+            return primaryLinkLabel
         case .userTalkPageMessage,
              .mentionInTalkPage,
              .mentionInEditSummary,
@@ -192,7 +192,7 @@ extension NotificationsCenterCellViewModel {
     
     var projectText: String? {
         switch project {
-        case .language(let languageCode, _):
+        case .language(let languageCode, _, _):
             return languageCode.uppercased()
         case .commons, .wikidata:
             return nil
@@ -212,7 +212,7 @@ private extension NotificationsCenterCellViewModel {
     func projectName(project: RemoteNotificationsProject, shouldReturnCodedFormat: Bool) -> String {
         
         switch project {
-        case .language(let languageCode, let localizedLanguageName):
+        case .language(let languageCode, let localizedLanguageName, _):
             let format = WMFLocalizedString("notifications-center-language-project-name-format", value: "%1$@ %2$@", comment: "Format used for the ordering of language project name descriptions. This description is inserted into the header text of notifications in Notifications Center. For example, \"English Wikipedia\". Use this format to reorder these words if necessary or insert additional connecting words. Parameters: %1$@ = localized language name (\"English\"), %2$@ = localized name for Wikipedia (\"Wikipedia\")")
 
             if let localizedLanguageName = localizedLanguageName,
@@ -267,7 +267,7 @@ private extension NotificationsCenterCellViewModel {
         
         //We can extract the talk page title from the primary url's first fragment for user talk page message notifications
         
-        guard let primaryURL = notification.messageLinks?.primaryURL else {
+        guard let primaryURL = notification.primaryLinkURL else {
             return nil
         }
         
