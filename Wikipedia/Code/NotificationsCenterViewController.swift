@@ -38,17 +38,17 @@ final class NotificationsCenterViewController: ViewController {
 
         notificationsView.apply(theme: theme)
 
-		title = CommonStrings.notificationsCenterTitle
-		setupBarButtons()
+        title = CommonStrings.notificationsCenterTitle
+        setupBarButtons()
 
-		notificationsView.collectionView.delegate = self
-		notificationsView.collectionView.dataSource = self
+        notificationsView.collectionView.delegate = self
+        notificationsView.collectionView.dataSource = self
 
         notificationsView.collectionView.addGestureRecognizer(cellPanGestureRecognizer)
         cellPanGestureRecognizer.addTarget(self, action: #selector(userDidPanCell(_:)))
         cellPanGestureRecognizer.delegate = self
 
-		viewModel.fetchNotifications(collectionView: notificationsView.collectionView)
+        viewModel.fetchNotifications(collectionView: notificationsView.collectionView)
 	}
     
     override func viewDidAppear(_ animated: Bool) {
