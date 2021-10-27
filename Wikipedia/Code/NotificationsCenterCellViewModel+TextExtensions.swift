@@ -25,18 +25,14 @@ extension NotificationsCenterCellViewModel {
              .editMilestone,
              .translationMilestone:
             return projectName(project: project, shouldReturnCodedFormat: false)
-        case .successfulMention:
-            
-            guard let agentName = notification.agentName else {
-                return genericHeaderText(type: notification.type, project: project)
-            }
-            
-            return mentionText(agentName: agentName)
+
         case .loginFailKnownDevice,
              .loginFailUnknownDevice,
              .loginSuccessUnknownDevice,
-             .failedMention:
+             .failedMention,
+             .successfulMention:
             return alertText(project: project)
+            
         case .unknownSystemAlert,
              .unknownSystemNotice,
              .unknownAlert,
@@ -241,11 +237,6 @@ private extension NotificationsCenterCellViewModel {
         let format = WMFLocalizedString("notifications-center-header-alert-from-project", value: "Alert from %1$@", comment: "Header text for alert notifications in Notifications Center. %1$@ is replaced with a project name such as \"EN-Wikipedia\".")
         let projectName = projectName(project: project, shouldReturnCodedFormat: true)
         return String.localizedStringWithFormat(format, projectName)
-    }
-    
-    func mentionText(agentName: String) -> String {
-        let format = WMFLocalizedString("notifications-center-header-mention-format", value: "To: %1$@", comment: "Header text for successful mention notifications in Notifications Center. %1$@ is replaced with the mentioned username (e.g. \"To: Jimbo Wales\").")
-        return String.localizedStringWithFormat(format, agentName)
     }
     
     func genericHeaderText(type: RemoteNotificationType, project: RemoteNotificationsProject) -> String {
