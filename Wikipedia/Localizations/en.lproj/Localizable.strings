@@ -559,7 +559,6 @@
 "notifications-center-empty-not-subscribed" = "You are not currently subscribed to any Wikipedia Notifications";
 "notifications-center-footer-change-password" = "Change password";
 "notifications-center-header-alert-from-project" = "Alert from $1";
-"notifications-center-header-mention-format" = "To: $1";
 "notifications-center-header-notice-from-project" = "Notice from $1";
 "notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-subheader-edit-milestone" = "Editing milestone";

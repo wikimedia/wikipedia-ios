@@ -1,3 +1,4 @@
+
 import Foundation
 import CoreData
 
@@ -26,6 +27,7 @@ extension RemoteNotification {
     @NSManaged public var typeString: String?
     @NSManaged public var utcUnixString: String?
     @NSManaged public var wiki: String?
+    @NSManaged public var revisionID: String?
 
 }
 

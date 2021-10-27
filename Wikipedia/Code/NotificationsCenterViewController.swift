@@ -21,6 +21,9 @@ final class NotificationsCenterViewController: ViewController {
     private lazy var editButton = {
         return UIBarButtonItem(title: editTitle, style: .plain, target: self, action: #selector(userDidTapEditButton))
     }()
+    
+    //super temporary to get to a build
+    private var cellViewModels: [NotificationsCenterCellViewModel] = []
 
     // MARK: - Lifecycle
 
@@ -126,10 +129,12 @@ private extension NotificationsCenterViewController {
         }
         
         snapshotUpdateQueue.async {
+            self.cellViewModels.removeAll()
             var snapshot = Snapshot()
             snapshot.appendSections([.main])
             snapshot.appendItems(cellViewModels)
             dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
+            self.cellViewModels.append(contentsOf: cellViewModels)
         }
     }
     
@@ -175,11 +180,22 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
             viewModel.fetchNextPage()
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cellViewModel = cellViewModels[safeIndex: indexPath.item],
+              let url = cellViewModel.primaryURL(for: viewModel.configuration) else {
+            return
+        }
+        navigate(to: url)
+    }
 }
 
 extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
-    func userDidTapSecondaryActionForCellIdentifier(id: String) {
-        //TODO
+    func userDidTapSecondaryActionForViewModel(_ cellViewModel: NotificationsCenterCellViewModel) {
+        guard let url = cellViewModel.secondaryURL(for: viewModel.configuration) else {
+            return
+        }
+        navigate(to: url)
     }
     
     func toggleCheckedStatus(viewModel: NotificationsCenterCellViewModel) {

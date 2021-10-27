@@ -21,12 +21,33 @@ struct NotificationsCenterCellStyle {
         }
 
         switch notificationType {
-        case .welcome, .editMilestone, .translationMilestone(_), .failedMention:
+        case .welcome, .editMilestone, .translationMilestone(_), .failedMention, .successfulMention:
             return theme.colors.primaryText
         case .loginFailKnownDevice, .loginFailUnknownDevice, .loginSuccessUnknownDevice:
             return theme.colors.error
         default:
             return theme.colors.link
+        }
+    }
+    
+    func isHeaderLabelTapGestureEnabled(_ displayState: NotificationsCenterCellDisplayState) -> Bool {
+
+        guard displayState.isUnread else {
+            return false
+        }
+
+        switch notificationType {
+        case .welcome,
+             .editMilestone,
+             .translationMilestone,
+             .failedMention,
+             .successfulMention,
+             .loginFailKnownDevice,
+             .loginFailUnknownDevice,
+             .loginSuccessUnknownDevice:
+            return false
+        default:
+            return true
         }
     }
 

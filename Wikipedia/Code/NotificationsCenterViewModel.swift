@@ -19,6 +19,7 @@ final class NotificationsCenterViewModel: NSObject {
     weak var delegate: NotificationCenterViewModelDelegate?
 
     private let languageLinkController: MWKLanguageLinkController
+
     lazy private var modelController = NotificationsCenterModelController(languageLinkController: self.languageLinkController, delegate: self)
     
     private var isPagingEnabled = true
@@ -28,6 +29,10 @@ final class NotificationsCenterViewModel: NSObject {
                 modelController.updateCurrentCellViewModelsWith(editMode: editMode)
             }
         }
+    }
+    
+    var configuration: Configuration {
+        return remoteNotificationsController.configuration
     }
 
     // MARK: - Lifecycle

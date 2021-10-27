@@ -4,7 +4,8 @@ import Foundation
 public enum RemoteNotificationsProject {
     public typealias LanguageCode = String
     public typealias LocalizedLanguageName = String
-    case language(LanguageCode, LocalizedLanguageName?)
+    public typealias LanguageVariantCode = String
+    case language(LanguageCode, LocalizedLanguageName?, LanguageVariantCode?)
     case commons
     case wikidata
     
@@ -22,12 +23,21 @@ public enum RemoteNotificationsProject {
 
     var notificationsApiWikiIdentifier: String {
         switch self {
-        case .language(let languageCode, _):
+        case .language(let languageCode, _, _):
             return languageCode + Self.languageIdentifierSuffix
         case .commons:
             return Self.commonsIdentifier
         case .wikidata:
             return Self.wikidataIdentifier
+        }
+    }
+    
+    public var languageVariantCode: String? {
+        switch self {
+        case .language(_, _, let languageVariantCode):
+            return languageVariantCode
+        default:
+            return nil
         }
     }
     
@@ -51,7 +61,7 @@ public enum RemoteNotificationsProject {
             }
             
             if let recognizedLanguage = recognizedLanguage {
-                self = .language(strippedIdentifier, recognizedLanguage.localizedName)
+                self = .language(strippedIdentifier, recognizedLanguage.localizedName, recognizedLanguage.languageVariantCode)
             } else {
                 return nil
             }
