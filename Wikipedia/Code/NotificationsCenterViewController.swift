@@ -281,6 +281,12 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
             
             alertController.addAction(alertAction)
         }
+        
+        //Temporary Cancel action for non-popover
+        if (traitCollection.horizontalSizeClass == .compact) {
+            let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
+            alertController.addAction(cancelAction)
+        }
 
         if let popoverController = alertController.popoverPresentationController, let cell = notificationsView.collectionView.cellForItem(at: indexPath) {
             popoverController.sourceView = cell
