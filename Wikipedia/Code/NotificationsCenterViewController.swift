@@ -175,24 +175,41 @@ extension NotificationsCenterViewController: NotificationCenterViewModelDelegate
         }
     }
 
-    /// This will be removed in the final implementation
+    /// TODO: This will be removed in the final implementation
     fileprivate func userDidSwipeCell(indexPath: IndexPath?) {
-        /*
-        guard let indexPath = indexPath, let cellViewModel = viewModel.cellViewModel(indexPath: indexPath) else {
+        guard let indexPath = indexPath,
+              let cellViewModel = viewModel.cellViewModel(indexPath: indexPath) else {
+            return
+        }
+        
+        let swipeActions = cellViewModel.swipeActions(for: viewModel.configuration)
+        guard !swipeActions.isEmpty else {
             return
         }
 
         let alertController = UIAlertController(title: cellViewModel.headerText, message: cellViewModel.bodyText, preferredStyle: .actionSheet)
 
-        let firstAction = UIAlertAction(title: "Action 1", style: .default)
-        let secondAction = UIAlertAction(title: "Action 2", style: .default)
-        let thirdAction = UIAlertAction(title: "Action 3", style: .default)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-
-        alertController.addAction(firstAction)
-        alertController.addAction(secondAction)
-        alertController.addAction(thirdAction)
-        alertController.addAction(cancelAction)
+        swipeActions.forEach { action in
+            
+            let alertAction: UIAlertAction
+            switch action {
+            case .markAsRead(let data):
+                alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
+                    //TODO: Mark as Read handling
+                })
+            case .notificationSubscriptionSettings(let data):
+                alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
+                    //TODO: Notification subscription settings routing
+                })
+            case .custom(let data):
+                alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
+                    let url = data.url
+                    self.navigate(to: url)
+                })
+            }
+            
+            alertController.addAction(alertAction)
+        }
 
         if let popoverController = alertController.popoverPresentationController, let cell = notificationsView.collectionView.cellForItem(at: indexPath) {
             popoverController.sourceView = cell
@@ -200,7 +217,6 @@ extension NotificationsCenterViewController: NotificationCenterViewModelDelegate
         }
 
         present(alertController, animated: true, completion: nil)
-        */
     }
 }
 

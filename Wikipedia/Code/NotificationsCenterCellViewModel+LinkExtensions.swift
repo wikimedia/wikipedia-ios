@@ -91,7 +91,7 @@ extension NotificationsCenterCellViewModel {
 
 //MARK: Private Helpers - LinkData
 
-private extension NotificationsCenterCellViewModel {
+extension NotificationsCenterCellViewModel {
 
     //common data used throughout url generation helpers
     struct LinkData {
@@ -125,12 +125,13 @@ private extension NotificationsCenterCellViewModel {
     }
 }
 
-//MARK: Private Helpers - URL Generation Methods
+//MARK: Helpers - URL Generation Methods
 
-private extension NotificationsCenterCellViewModel {
+extension NotificationsCenterCellViewModel {
 
     /// Generates a wiki url with the full (i.e. already prefixed) title from the notification
     func fullTitleURL(for configuration: Configuration) -> URL? {
+
         guard let data = linkData(for: configuration),
               let fullTitle = data.fullTitle else {
             return nil
@@ -150,6 +151,39 @@ private extension NotificationsCenterCellViewModel {
         return components.url
     }
     
+    /// Generates a wiki url with the titleText value from the notification
+    /// Prefixes titleText text with PageNamespace parameter
+    func customPrefixTitleURL(for configuration: Configuration, pageNamespace: PageNamespace) -> URL? {
+        guard let data = linkData(for: configuration),
+              let title = data.title,
+              let prefix = pageNamespace.canonicalName.denormalizedPageTitle else {
+            return nil
+        }
+
+        guard let url = configuration.articleURLForHost(data.host, languageVariantCode: data.languageVariantCode, appending: ["\(prefix):\(title)"]) else {
+            return nil
+        }
+
+        return url
+    }
+    
+    /// Generates a wiki url with the agentName from the notification
+    /// Prefixes agentName text with PageNamespace parameter
+    func customPrefixAgentNameURL(for configuration: Configuration, pageNamespace: PageNamespace) -> URL? {
+        guard let data = linkData(for: configuration),
+              let agentName = data.agentName else {
+            return nil
+        }
+
+        let prefix = pageNamespace.canonicalName
+
+        guard let url = configuration.articleURLForHost(data.host, languageVariantCode: data.languageVariantCode, appending: ["\(prefix):\(agentName)"]) else {
+            return nil
+        }
+
+        return url
+    }
+    
     /// Generates a wiki diff url with the full (i.e. already prefixed) title from the notification
     func fullTitleDiffURL(for configuration: Configuration) -> URL? {
         guard let data = linkData(for: configuration),
@@ -163,6 +197,19 @@ private extension NotificationsCenterCellViewModel {
         }
 
         return url
+    }
+    
+    //https://en.wikipedia.org/wiki/Special:ChangeCredentials
+    func changePasswordURL(for configuration: Configuration) -> URL? {
+        guard let data = linkData(for: configuration) else {
+            return nil
+        }
+
+        var components = URLComponents()
+        components.host = data.host
+        components.scheme = "https"
+        components.path = "/wiki/Special:ChangeCredentials"
+        return components.url
     }
     
     var primaryLinkMinusQueryItemsURL: URL? {
@@ -187,6 +234,19 @@ private extension NotificationsCenterCellViewModel {
 
         components.fragment = nil
         return components.url
+    }
+    
+    var specificUserGroupRightsURL: URL? {
+        //Note: Sample notification json indicates that specific user group link we want is listed as the primary URL + fragment
+        //Ex. https://en.wikipedia.org/wiki/Special:ListGroupRights?markasread=nnnnnnnn&markasreadwiki=enwiki#confirmed
+        return primaryLinkMinusQueryItemsURL
+    }
+    
+    //For a page link notification type (FROM page > TO page), this is the url of the TO page
+    var pageLinkToURL: URL? {
+        //Note: Sample notification json indicates that the url we want is listed as the primary URL
+        //Ex. https://en.wikipedia.org/wiki/Cat?markasread=nnnnnnnn&markasreadwiki=enwiki
+        return primaryLinkMinusQueryItemsURL
     }
     
     var connectionWithWikidataItemURL: URL? {
@@ -219,23 +279,6 @@ private extension NotificationsCenterCellViewModel {
         }
 
         return wikidataItemURL
-    }
-    
-    /// Generates a wiki url with the agentName from the notification
-    /// Prefixes agentName text with PageNamespace parameter
-    func customPrefixAgentNameURL(for configuration: Configuration, pageNamespace: PageNamespace) -> URL? {
-        guard let data = linkData(for: configuration),
-              let agentName = data.agentName else {
-            return nil
-        }
-
-        let prefix = pageNamespace.canonicalName
-
-        guard let url = configuration.articleURLForHost(data.host, languageVariantCode: data.languageVariantCode, appending: ["\(prefix):\(agentName)"]) else {
-            return nil
-        }
-
-        return url
     }
     
     //https://en.wikipedia.org/wiki/Help:Getting_started

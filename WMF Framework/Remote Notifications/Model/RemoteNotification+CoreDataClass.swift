@@ -71,7 +71,7 @@ public class RemoteNotification: NSManagedObject {
             }
         }
     }
-    
+
     public var primaryLinkHost: String? {
         return messageLinks?.primary?.url?.host
     }
@@ -86,6 +86,10 @@ public class RemoteNotification: NSManagedObject {
     
     public var primaryLinkLabel: String? {
         return messageLinks?.primary?.label
+    }
+    
+    public var primaryLink: RemoteNotificationLink? {
+        return messageLinks?.primary
     }
     
     public var secondaryLinks: [RemoteNotificationLink]? {
