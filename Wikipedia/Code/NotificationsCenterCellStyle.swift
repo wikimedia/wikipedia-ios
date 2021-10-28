@@ -134,8 +134,7 @@ struct NotificationsCenterCellStyle {
 
     func leadingImage(_ displayState: NotificationsCenterCellDisplayState) -> UIImage? {
         guard !displayState.isEditing else {
-            let symbolConfiguration = UIImage.SymbolConfiguration(weight: .bold)
-            let image = displayState.isSelected ? UIImage(systemName: "checkmark", withConfiguration: symbolConfiguration) : nil
+            let image = displayState.isSelected ? UIImage(named: "notifications-center-checkmark") : nil
             return image
         }
 
