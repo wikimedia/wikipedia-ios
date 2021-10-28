@@ -25,6 +25,11 @@ final class NotificationsCenterViewController: ViewController {
     //super temporary to get to a build
     private var cellViewModels: [NotificationsCenterCellViewModel] = []
 
+    // MARK: - Properties - Cell Swipe Actions
+
+    fileprivate lazy var cellPanGestureRecognizer = UIPanGestureRecognizer()
+    fileprivate var activelyPannedCellIndexPath: IndexPath?
+
     // MARK: - Lifecycle
 
     @objc
@@ -104,6 +109,9 @@ final class NotificationsCenterViewController: ViewController {
 private extension NotificationsCenterViewController {
     func setupCollectionView() {
         notificationsView.collectionView.delegate = self
+        notificationsView.collectionView.addGestureRecognizer(cellPanGestureRecognizer)
+        cellPanGestureRecognizer.addTarget(self, action: #selector(userDidPanCell(_:)))
+        cellPanGestureRecognizer.delegate = self
     }
     
     func setupDataSource() {
@@ -182,6 +190,7 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         guard let cellViewModel = cellViewModels[safeIndex: indexPath.item],
               let url = cellViewModel.primaryURL(for: viewModel.configuration) else {
             return
@@ -200,5 +209,84 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
     
     func toggleCheckedStatus(viewModel: NotificationsCenterCellViewModel) {
         self.viewModel.toggleCheckedStatus(cellViewModel: viewModel)
+    }
+}
+
+// MARK: - Cell Swipe Actions
+
+@objc extension NotificationsCenterViewController: UIGestureRecognizerDelegate {
+
+    /// Only allow cell pan gesture if user's horizontal cell panning behavior seems intentional
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer == cellPanGestureRecognizer {
+            let panVelocity = cellPanGestureRecognizer.velocity(in: notificationsView.collectionView)
+            if abs(panVelocity.x) > abs(panVelocity.y) {
+                return true
+            }
+        }
+
+        return false
+    }
+
+    @objc fileprivate func userDidPanCell(_ gestureRecognizer: UIPanGestureRecognizer) {
+        switch gestureRecognizer.state {
+        case .began:
+            let touchPosition = gestureRecognizer.location(in: notificationsView.collectionView)
+            guard let cellIndexPath = notificationsView.collectionView.indexPathForItem(at: touchPosition) else {
+                gestureRecognizer.state = .ended
+                break
+            }
+
+            activelyPannedCellIndexPath = cellIndexPath
+        case .ended:
+            userDidSwipeCell(indexPath: activelyPannedCellIndexPath)
+            activelyPannedCellIndexPath = nil
+        default:
+            return
+        }
+    }
+
+    /// TODO: This will be removed in the final implementation
+    fileprivate func userDidSwipeCell(indexPath: IndexPath?) {
+        guard let indexPath = indexPath,
+              let cellViewModel = cellViewModels[safeIndex: indexPath.item] else {
+            return
+        }
+        
+        let swipeActions = cellViewModel.swipeActions(for: viewModel.configuration)
+        guard !swipeActions.isEmpty else {
+            return
+        }
+
+        let alertController = UIAlertController(title: cellViewModel.headerText, message: cellViewModel.bodyText, preferredStyle: .actionSheet)
+
+        swipeActions.forEach { action in
+            
+            let alertAction: UIAlertAction
+            switch action {
+            case .markAsRead(let data):
+                alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
+                    //TODO: Mark as Read handling
+                })
+            case .notificationSubscriptionSettings(let data):
+                alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
+                    //TODO: Notification subscription settings routing
+                })
+            case .custom(let data):
+                alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
+                    let url = data.url
+                    self.navigate(to: url)
+                })
+            }
+            
+            alertController.addAction(alertAction)
+        }
+
+        if let popoverController = alertController.popoverPresentationController, let cell = notificationsView.collectionView.cellForItem(at: indexPath) {
+            popoverController.sourceView = cell
+            popoverController.sourceRect = CGRect(x: cell.bounds.midX, y: cell.bounds.midY, width: 0, height: 0)
+        }
+
+        present(alertController, animated: true, completion: nil)
     }
 }

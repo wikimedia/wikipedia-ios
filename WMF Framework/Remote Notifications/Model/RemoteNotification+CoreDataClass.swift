@@ -88,6 +88,10 @@ public class RemoteNotification: NSManagedObject {
         return messageLinks?.primary?.label
     }
     
+    public var primaryLink: RemoteNotificationLink? {
+        return messageLinks?.primary
+    }
+    
     public var secondaryLinks: [RemoteNotificationLink]? {
         return messageLinks?.secondary
     }

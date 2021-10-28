@@ -401,12 +401,11 @@ final class NotificationsCenterCell: UICollectionViewCell {
         
         delegate?.toggleCheckedStatus(viewModel: viewModel)
     }
-    
+
     @objc func tappedHeaderLabel() {
         guard let viewModel = viewModel else {
             return
         }
-        
         delegate?.userDidTapSecondaryActionForViewModel(viewModel)
     }
 }

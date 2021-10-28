@@ -64,6 +64,17 @@ import Foundation
             return ""
         }
     }
+    
+    public var talkEquivalent: PageNamespace? {
+        switch self {
+        case .main, .talk:
+            return .talk
+        case .user, .userTalk:
+            return .userTalk
+        default:
+            return nil
+        }
+    }
 }
 
 extension PageNamespace {

@@ -19,6 +19,10 @@ final class NotificationsCenterViewModel: NSObject {
     weak var delegate: NotificationCenterViewModelDelegate?
 
     private let languageLinkController: MWKLanguageLinkController
+    
+    var configuration: Configuration {
+        return remoteNotificationsController.configuration
+    }
 
     lazy private var modelController = NotificationsCenterModelController(languageLinkController: self.languageLinkController, delegate: self)
     
@@ -29,10 +33,6 @@ final class NotificationsCenterViewModel: NSObject {
                 modelController.updateCurrentCellViewModelsWith(editMode: editMode)
             }
         }
-    }
-    
-    var configuration: Configuration {
-        return remoteNotificationsController.configuration
     }
 
     // MARK: - Lifecycle
