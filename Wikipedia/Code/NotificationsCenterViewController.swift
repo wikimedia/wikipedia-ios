@@ -199,7 +199,8 @@ extension NotificationsCenterViewController: NotificationCenterViewModelDelegate
                 })
             case .notificationSubscriptionSettings(let data):
                 alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
-                    //TODO: Notification subscription settings routing
+                    let userActivity = NSUserActivity.wmf_notificationSettings()
+                    NSUserActivity.wmf_navigate(to: userActivity)
                 })
             case .custom(let data):
                 alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
