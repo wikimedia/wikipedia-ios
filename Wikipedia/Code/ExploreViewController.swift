@@ -933,7 +933,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         guard group.contentGroupKind.isCustomizable || group.contentGroupKind.isGlobal else {
             return nil
         }
-        let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         let customizeExploreFeed = UIAlertAction(title: CommonStrings.customizeExploreFeedTitle, style: .default) { (_) in
             let exploreFeedSettingsViewController = ExploreFeedSettingsViewController()
             exploreFeedSettingsViewController.showCloseButton = true
