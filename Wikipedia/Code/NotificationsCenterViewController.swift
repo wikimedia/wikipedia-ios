@@ -193,7 +193,7 @@ extension NotificationsCenterViewController: NotificationCenterViewModelDelegate
             
             let alertAction: UIAlertAction
             switch action {
-            case .markAsRead(let data):
+            case .markAsReadOrUnread(let data):
                 alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
                     //TODO: Mark as Read handling
                 })

@@ -569,6 +569,7 @@
 "notifications-center-language-project-name-format" = "Format used for the ordering of language project name descriptions. This description is inserted into the header text of notifications in Notifications Center. For example, \"English Wikipedia\". Use this format to reorder these words if necessary or insert additional connecting words. Parameters: $1 = localized language name (\"English\"), $2 = localized name for Wikipedia (\"Wikipedia\")";
 "notifications-center-login-notifications" = "Button text in Notifications Center that routes user to login notifications help page in web view.";
 "notifications-center-mark-as-read" = "Button text in Notifications Center to mark a notification as read.";
+"notifications-center-mark-as-unread" = "Button text in Notifications Center to mark a notification as unread.";
 "notifications-center-notifications-settings" = "Button text in Notifications Center that automatically routes to the notifications settings screen.";
 "notifications-center-subheader-edit-milestone" = "Subheader text for edit milestone notifications in Notifications Center.";
 "notifications-center-subheader-edit-reverted" = "Subheader text for edit reverted notifications in Notifications Center.";
