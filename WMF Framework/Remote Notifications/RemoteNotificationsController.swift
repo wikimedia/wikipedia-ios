@@ -31,6 +31,14 @@ import CocoaLumberjackSwift
         operationsController.refreshNotifications(completion)
     }
     
+    public func markAsReadOrUnread(notifications: Set<RemoteNotification>, shouldMarkRead: Bool) {
+        operationsController.markAsReadOrUnread(notifications: notifications, shouldMarkRead: shouldMarkRead)
+    }
+    
+    public func markAllAsRead() {
+        operationsController.markAllAsRead()
+    }
+    
     public func fetchedResultsController() -> NSFetchedResultsController<RemoteNotification>? {
         
         guard let viewContext = self.viewContext else {
