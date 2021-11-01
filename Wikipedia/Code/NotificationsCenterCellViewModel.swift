@@ -28,6 +28,10 @@ final class NotificationsCenterCellViewModel {
         return notification.type
     }
     
+    var isRead: Bool {
+        return notification.isRead
+    }
+    
     func updateWith(editMode: Bool) {
         
         //preserve selected state, unless params indicate edit mode has switched
