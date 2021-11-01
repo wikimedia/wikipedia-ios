@@ -570,6 +570,7 @@
 "notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "Login Notifications";
 "notifications-center-mark-as-read" = "Mark as Read";
+"notifications-center-mark-as-unread" = "Mark as Unread";
 "notifications-center-notifications-settings" = "Notification settings";
 "notifications-center-subheader-edit-milestone" = "Editing milestone";
 "notifications-center-subheader-edit-reverted" = "Your edit was reverted";

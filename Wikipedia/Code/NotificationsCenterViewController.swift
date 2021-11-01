@@ -264,13 +264,14 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
             
             let alertAction: UIAlertAction
             switch action {
-            case .markAsRead(let data):
+            case .markAsReadOrUnread(let data):
                 alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
                     //TODO: Mark as Read handling
                 })
             case .notificationSubscriptionSettings(let data):
                 alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
-                    //TODO: Notification subscription settings routing
+                    let userActivity = NSUserActivity.wmf_notificationSettings()
+                    NSUserActivity.wmf_navigate(to: userActivity)
                 })
             case .custom(let data):
                 alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in

@@ -4,7 +4,7 @@ import Foundation
 extension NotificationsCenterCellViewModel {
     
     enum SwipeAction {
-        case markAsRead(SwipeActionData)
+        case markAsReadOrUnread(SwipeActionData)
         case custom(SwipeActionData)
         case notificationSubscriptionSettings(SwipeActionData)
     }
@@ -18,8 +18,10 @@ extension NotificationsCenterCellViewModel {
         
         var swipeActions: [SwipeAction] = []
         let markAsReadText = WMFLocalizedString("notifications-center-mark-as-read", value: "Mark as Read", comment: "Button text in Notifications Center to mark a notification as read.")
-        let markAsReadActionData = SwipeActionData(text: markAsReadText, url: nil)
-        swipeActions.append(.markAsRead(markAsReadActionData))
+        let markAsUnreadText = WMFLocalizedString("notifications-center-mark-as-unread", value: "Mark as Unread", comment: "Button text in Notifications Center to mark a notification as unread.")
+        let markAsReadOrUnreadText = isRead ? markAsUnreadText : markAsReadText
+        let markAsReadOrUnreadActionData = SwipeActionData(text: markAsReadOrUnreadText, url: nil)
+        swipeActions.append(.markAsReadOrUnread(markAsReadOrUnreadActionData))
         
         switch notification.type {
         case .userTalkPageMessage:

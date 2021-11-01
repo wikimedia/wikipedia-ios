@@ -1081,6 +1081,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         case WMFUserActivityTypeSearch:
         case WMFUserActivityTypeSettings:
         case WMFUserActivityTypeAppearanceSettings:
+        case WMFUserActivityTypeNotificationSettings:
         case WMFUserActivityTypeContent:
             return YES;
         case WMFUserActivityTypeSearchResults:
@@ -1201,6 +1202,14 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             WMFAppearanceSettingsViewController *appearanceSettingsVC = [[WMFAppearanceSettingsViewController alloc] init];
             [appearanceSettingsVC applyTheme:self.theme];
             [self showSettingsWithSubViewController:appearanceSettingsVC animated:animated];
+        } break;
+        case WMFUserActivityTypeNotificationSettings: {
+            [self dismissPresentedViewControllers];
+            [self setSelectedIndex:WMFAppTabTypeMain];
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            WMFNotificationSettingsViewController *notificationSettingsVC = [[WMFNotificationSettingsViewController alloc] initWithAuthManager:self.dataStore.authenticationManager notificationsController:self.notificationsController];
+            [notificationSettingsVC applyTheme:self.theme];
+            [self showSettingsWithSubViewController:notificationSettingsVC animated:animated];
         } break;
         default: {
             NSURL *linkURL = [activity wmf_linkURL];
