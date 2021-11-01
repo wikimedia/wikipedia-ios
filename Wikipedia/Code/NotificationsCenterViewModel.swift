@@ -15,9 +15,8 @@ final class NotificationsCenterViewModel: NSObject {
 
     // MARK: - Properties
 
-    let remoteNotificationsController: RemoteNotificationsController
+    private let remoteNotificationsController: RemoteNotificationsController
     weak var delegate: NotificationCenterViewModelDelegate?
-
     private let languageLinkController: MWKLanguageLinkController
     
     var configuration: Configuration {
@@ -44,6 +43,8 @@ final class NotificationsCenterViewModel: NSObject {
 
         super.init()
 	}
+
+    // MARK: - Public
     
     @objc func contextObjectsDidChange(_ notification: NSNotification) {
         
@@ -65,6 +66,15 @@ final class NotificationsCenterViewModel: NSObject {
         remoteNotificationsController.refreshNotifications { _ in
             //TODO: Set any refreshing loading states here
         }
+    }
+    
+    func markAsReadOrUnread(viewModels: [NotificationsCenterCellViewModel], shouldMarkRead: Bool) {
+        let notifications = viewModels.map { $0.notification }
+        remoteNotificationsController.markAsReadOrUnread(notifications: Set(notifications), shouldMarkRead: shouldMarkRead)
+    }
+    
+    func markAllAsRead() {
+        remoteNotificationsController.markAllAsRead()
     }
     
     func fetchFirstPage() {

@@ -266,7 +266,8 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
             switch action {
             case .markAsReadOrUnread(let data):
                 alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
-                    //TODO: Mark as Read handling
+                    let shouldMarkRead = cellViewModel.isRead ? false : true
+                    self.viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: shouldMarkRead)
                 })
             case .notificationSubscriptionSettings(let data):
                 alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in

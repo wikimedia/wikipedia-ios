@@ -31,6 +31,14 @@ import CocoaLumberjackSwift
         operationsController.refreshNotifications(completion)
     }
     
+    public func markAsReadOrUnread(notifications: Set<RemoteNotification>, shouldMarkRead: Bool) {
+        operationsController.markAsReadOrUnread(notifications: notifications, shouldMarkRead: shouldMarkRead)
+    }
+    
+    public func markAllAsRead() {
+        operationsController.markAllAsRead()
+    }
+    
     public func fetchNotifications(fetchLimit: Int = 50, fetchOffset: Int = 0) -> [RemoteNotification] {
         assert(Thread.isMainThread)
         

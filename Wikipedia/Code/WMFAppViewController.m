@@ -105,8 +105,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 @property (nonatomic) BOOL hasSyncErrorBeenShownThisSesssion;
 
-@property (nonatomic, strong) RemoteNotificationsModelChangeResponseCoordinator *remoteNotificationsModelChangeResponseCoordinator;
-
 @property (nonatomic, strong) WMFReadingListHintController *readingListHintController;
 @property (nonatomic, strong) WMFEditHintController *editHintController;
 

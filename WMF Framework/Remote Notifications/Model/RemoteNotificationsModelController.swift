@@ -1,37 +1,5 @@
 import CocoaLumberjackSwift
 
-@objc enum RemoteNotificationsModelChangeType: Int {
-    case addedNewNotifications
-    case updatedExistingNotifications
-}
-
-@objc final class RemoteNotificationsModelChange: NSObject {
-    @objc let type: RemoteNotificationsModelChangeType
-    @objc let notificationsGroupedByCategoryNumber: [NSNumber: [RemoteNotification]]
-
-    init(type: RemoteNotificationsModelChangeType, notificationsGroupedByCategoryNumber: [NSNumber: [RemoteNotification]]) {
-        self.type = type
-        self.notificationsGroupedByCategoryNumber = notificationsGroupedByCategoryNumber
-        super.init()
-    }
-}
-
-@objc final class RemoteNotificationsModelChangeResponseCoordinator: NSObject {
-    @objc let modelChange: RemoteNotificationsModelChange
-    private let modelController: RemoteNotificationsModelController
-
-    init(modelChange: RemoteNotificationsModelChange, modelController: RemoteNotificationsModelController) {
-        self.modelChange = modelChange
-        self.modelController = modelController
-        super.init()
-    }
-
-    @objc(markAsReadNotificationWithID:)
-    func markAsRead(notificationWithID notificationID: String) {
-        modelController.markAsRead(notificationWithID: notificationID)
-    }
-}
-
 final class RemoteNotificationsModelController: NSObject {
     public static let didLoadPersistentStoresNotification = NSNotification.Name(rawValue: "ModelControllerDidLoadPersistentStores")
     
@@ -135,29 +103,39 @@ final class RemoteNotificationsModelController: NSObject {
         return backgroundContext
     }
 
-    public func getUnreadNotifications(_ completion: @escaping ResultHandler) {
-        return notifications(with: NSPredicate(format: "isRead == %@", NSNumber(value: false)), completion: completion)
+    public func getUnreadNotifications(moc: NSManagedObjectContext, completion: @escaping ResultHandler) {
+        return notifications(with: NSPredicate(format: "isRead == %@", NSNumber(value: false)), moc: moc, completion: completion)
+    }
+    
+    public func markAllAsRead(completion: @escaping () -> Void) {
+        let moc = newBackgroundContext()
+        moc.perform {
+            self.getUnreadNotifications(moc: moc) { notifications in
+                guard let notifications = notifications,
+                      !notifications.isEmpty else {
+                    completion()
+                    return
+                }
+                
+                notifications.forEach { notification in
+                    notification.isRead = true
+                }
+                
+                self.save(moc: moc)
+                completion()
+            }
+        }
+        
     }
 
-    public func getReadNotifications(_ completion: @escaping ResultHandler) {
-        return notifications(with: NSPredicate(format: "isRead == %@", NSNumber(value: true)), completion: completion)
-    }
-
-    public func getAllNotifications(_ completion: @escaping ResultHandler) {
-        return notifications(completion: completion)
-    }
-
-    private func notifications(with predicate: NSPredicate? = nil, completion: @escaping ResultHandler) {
+    private func notifications(with predicate: NSPredicate? = nil, moc: NSManagedObjectContext, completion: ResultHandler) {
         let fetchRequest: NSFetchRequest<RemoteNotification> = RemoteNotification.fetchRequest()
         fetchRequest.predicate = predicate
-        let moc = legacyBackgroundContext
-        moc.perform {
-            guard let notifications = try? moc.fetch(fetchRequest) else {
-                completion(nil)
-                return
-            }
-            completion(Set(notifications))
+        guard let notifications = try? moc.fetch(fetchRequest) else {
+            completion(nil)
+            return
         }
+        completion(Set(notifications))
     }
 
     private func save(moc: NSManagedObjectContext) {
@@ -215,32 +193,39 @@ final class RemoteNotificationsModelController: NSObject {
 
     // MARK: Mark as read
 
-    public func markAsRead(_ notification: RemoteNotification) {
-        let moc = legacyBackgroundContext
-        moc.perform {
-            notification.isRead = true
-            self.save(moc: moc)
+    public func markAsReadOrUnread(notifications: Set<RemoteNotification>, shouldMarkRead: Bool, completion: @escaping () -> Void) {
+        
+        guard let viewContext = notifications.first?.managedObjectContext else {
+            completion()
+            return
         }
+        
+        //it is assumed notifications are from view context. We want to only write on background context.
+        var keys: [String] = []
+        viewContext.performAndWait {
+            keys = notifications.compactMap { $0.key }
+        }
+        
+        let backgroundContext = newBackgroundContext()
+        processNotificationsWithKeys(keys, moc: backgroundContext, handler: { (notification) in
+            notification.isRead = shouldMarkRead
+        }, completion: completion)
     }
 
-    public func markAsRead(notificationWithID notificationID: String) {
-        processNotificationWithID(notificationID) { (notification) in
-            notification.isRead = true
-        }
-    }
-
-    private func processNotificationWithID(_ notificationID: String, handler: @escaping (RemoteNotification) -> Void) {
-        let moc = legacyBackgroundContext
+    private func processNotificationsWithKeys(_ keys: [String], moc: NSManagedObjectContext, handler: @escaping (RemoteNotification) -> Void, completion: @escaping () -> Void) {
         moc.perform {
             let fetchRequest: NSFetchRequest<RemoteNotification> = RemoteNotification.fetchRequest()
             fetchRequest.fetchLimit = 1
-            let predicate = NSPredicate(format: "id == %@", notificationID)
+            let predicate = NSPredicate(format: "key IN %@", keys)
             fetchRequest.predicate = predicate
-            guard let notifications = try? moc.fetch(fetchRequest), let notification = notifications.first else {
+            guard let notifications = try? moc.fetch(fetchRequest) else {
                 return
             }
-            handler(notification)
+            notifications.forEach { notification in
+                handler(notification)
+            }
             self.save(moc: moc)
+            completion()
         }
     }
 }
