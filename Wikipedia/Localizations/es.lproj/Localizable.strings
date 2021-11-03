@@ -18,6 +18,7 @@
 // Author: Indiralena
 // Author: Irus
 // Author: JO777
+// Author: Jakeukalane
 // Author: Javiersanp
 // Author: Jduranboger
 // Author: Joanmp17
@@ -39,6 +40,7 @@
 // Author: Pginer
 // Author: RicardoSGZ
 // Author: Rodm23
+// Author: Rodney Araujo
 // Author: Ryo567
 // Author: Tiberius1701
 // Author: VegaDark
@@ -53,12 +55,24 @@
 "aaald-article-insert-last-updated" = "Última actualización";
 "aaald-article-insert-new-changes" = "Cambios nuevos";
 "aaald-article-insert-read-more" = "Consulta las actualizaciones";
+"aaald-characters-text-description" = "{{PLURAL:$1|0=caracteres|caracter|caracteres}}";
 "aaald-deleted-text-description-2" = "$1 eliminado";
 "aaald-error-subitle" = "Actualiza la página para probar otra vez";
 "aaald-many-sections-description" = "en $1 secciones";
+"aaald-new-book-reference-title" = "Libro";
 "aaald-new-discussion" = "Nueva discusión";
+"aaald-new-journal-reference-database" = "via $1";
+"aaald-new-journal-reference-title" = "Revista";
+"aaald-new-journal-reference-volume" = "Volumen $1:";
+"aaald-new-news-reference-retrieved-date" = "Consultado el $1";
+"aaald-new-news-reference-title" = "Noticias";
+"aaald-new-talk-topic-description-format" = "$1 acerca de este artículo";
+"aaald-new-website-reference-archive-date-text" = "desde el original en $1";
+"aaald-new-website-reference-archive-url-text" = "URL de Archive.org";
 "aaald-new-website-reference-title" = "Sitio web";
 "aaald-one-section-description" = "en la sección $1";
+"aaald-vandalism-revert-description" = "Se revirtió por sospecha de vandalismo";
+"aaald-view-full-history-button" = "Ver el historial completo del artículo";
 "about-content-license" = "Licencia del contenido";
 "about-content-license-details" = "A menos que se especifique lo contrario, el contenido está disponible bajo una $1.";
 "about-content-license-details-share-alike-license" = "Licencia Creative Commons Atribución-CompartirIgual";
@@ -425,6 +439,10 @@
 "explore-random-article-sub-heading-from-wikipedia" = "De Wikipedia";
 "explore-randomizer" = "Aleatorio";
 "featured-article-empty-title" = "No hay artículo destacado hoy";
+"featured-widget-from-language-wikipedia" = "De Wikipedia en $1";
+"featured-widget-from-wikipedia" = "De Wikipedia";
+"featured-widget-language-failure" = "Su idioma principal de Wikipedia no soporta Artículo destacado. Puede actualizar su Wikipedia principal en el menú de Configuración de la aplicación.";
+"featured-widget-title" = "Artículo destacado";
 "feed-news-notification-button-text" = "Activar las notificaciones";
 "feed-news-notification-text" = "Activa las notificaciones para recibir avisos de Wikipedia cuando haya artículos en tendencia en las noticias.";
 "fetcher-error-generic" = "Algo falló. Por favor, prueba de nuevo más tarde.";
@@ -462,6 +480,8 @@
 "forgot-password-instructions" = "Rellena uno de los campos abajo para recibir instrucciones de restablecimiento de la contraseña vía email";
 "forgot-password-title" = "Restablecer contraseña";
 "forgot-password-username-or-email-title" = "O";
+"gan-variants-alert-body" = "La aplicación de Wikipedia ahora soporta las variantes del gan siguientes como lenguas primarias o secundarias dentro de la aplicación, haciéndolo más fácil de leer, buscar y editar en tus variantes preferidas:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, simplificado (gan-hans)\n贛語 繁體 Gan, tradicional (gan-hant)";
+"gan-variants-alert-title" = "Actualizaciones a soporte de variantes del gan";
 "history-clear-all" = "Vaciar";
 "history-clear-cancel" = "Cancelar";
 "history-clear-confirmation-heading" = "¿Confirmas que quieres borrar todos los elementos recientes?";
@@ -523,6 +543,12 @@
 "intermediate-edits-editors-count-limited" = "$1+ revisiones intermedias de $2+ usuarios no mostradas";
 "intermediate-edits-editors-limited-count" = "No se {{PLURAL:$1|muestra una revisión intermedia|muestran $1 revisiones intermedias}} de $2+ usuarios";
 "intermediate-edits-limited-editors-count" = "No se muestran $1+ revisiones intermedias de {{PLURAL:$2|$2 usuario|$2 usuarios}}";
+"inuktitut-variants-alert-body" = "La aplicación de Wikipedia ahora soporta las variantes del inuit siguientes como lenguas primarias o secundarias dentro de la aplicación, haciéndolo más fácil de leer, buscar y editar en tus variantes preferidas:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ inuit, silabarios (ike-cans)\nInuktitut ilisautik, inuit, latino (ike-latn)";
+"inuktitut-variants-alert-title" = "Actualizaciones a soporte de variantes del inuit";
+"kazakh-variants-alert-body" = "La aplicación de Wikipedia ahora soporta las variantes del kazajo siguientes como lenguas primarias o secundarias dentro de la aplicación, haciéndolo más fácil de leer, buscar y editar en tus variantes preferidas:\n\nҚазақша kazajo (kk)\nҚазақша Кирил kazajo, cirílico (kk-cyrl)\nqazaqşa latin kazajo, latino (kk-latn)\nتوتە قازاقشا kazajo, árabe (kk-arab)";
+"kazakh-variants-alert-title" = "Actualizaciones a soporte de variantes del kazajo";
+"kurdish-variants-alert-body" = "La aplicación de Wikipedia ahora soporta las variantes del kurdo siguientes como lenguas primarias o secundarias dentro de la aplicación, haciéndolo más fácil de leer, buscar y editar en tus variantes preferidas:\n\nKurdî Latînî kurdo, latino (ku-latn)\nكوردی kurdo, árabe (kk-arab)";
+"kurdish-variants-alert-title" = "Actualizaciones a soporte de variantes del kurdo";
 "languages-settings-title" = "Idiomas";
 "languages-title" = "Cambiar idioma";
 "languages-wikipedia" = "Idiomas de Wikipedia";
@@ -568,6 +594,9 @@
 "on-this-day-detail-header-date-range" = "de $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 acontecimiento histórico|$1 acontecimientos históricos}}";
 "on-this-day-footer" = "Más acontecimientos históricos en este día";
+"on-this-day-footer-showing-event-count" = "{{PLURAL:$1|$1 evento histórico más|$1 eventos históricos}} en este día";
+"on-this-day-language-does-not-support-error" = "Su idioma principal de Wikipedia no soporta \"Efemérides\". Puede actualizar su Wikipedia principal en el menú de Configuración de la aplicación.";
+"on-this-day-no-internet-error" = "No hay datos disponibles";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1, de Wikipedia en $2";
 "on-this-day-title" = "Un día como hoy";
 "original-tab-button-popover-description" = "Pulsa en la 'W' para volver a la pestaña desde la que comenzaste";
@@ -632,6 +661,9 @@
 "places-unknown-distance" = "distancia desconocida";
 "potd-description-prefix" = "Foto del día del $1";
 "potd-empty-error-description" = "No se pudo obtener la foto del día del $1";
+"potd-sample-entry-description" = "Dos toros corriendo mientras el jockey se les agarra a en pacu jawi (del minangkabau, \"carrera de toros\"), una carrera de toros tradicional en Tanah Datar, Sumatra Occidental, Indonesia. 2015, Final-45.";
+"potd-widget-description" = "Disfruta una hermosa foto diaria seleccionada por nuestra comunidad.";
+"potd-widget-title" = "Imagen del día";
 "preference-summary-eventlogging-opt-in" = "Permitir que la Fundación Wikimedia recopile información acerca de cómo utilizas la aplicación para mejorarla";
 "preference-title-eventlogging-opt-in" = "Enviar informes de uso";
 "rank-accessibility-label" = "Número $1";
@@ -715,6 +747,7 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "Resaltado de sintaxis";
 "reading-themes-controls-accessibility-text-size-slider" = "Control de tamaño de texto";
 "reading-themes-controls-syntax-highlighting" = "Resaltado de sintaxis";
+"reference-section-button-accessibility-label" = "Saltar a la sección de referencias";
 "reference-title" = "Referencia $1";
 "relative-date-days-ago" = "\n{{PLURAL:$1|0=Hoy|Ayer|Hace $1 días}}";
 "relative-date-hours-abbreviated" = "$1 h";
@@ -767,6 +800,8 @@
 "search-recent-title" = "Búsquedas recientes";
 "search-result-redirected-from" = "Redirigido desde: $1";
 "search-title" = "Buscar";
+"serbian-variants-alert-body" = "La aplicación de Wikipedia ahora soporta las variantes del serbio siguientes como lenguas primarias o secundarias dentro de la aplicación, haciéndolo más fácil de leer, buscar y editar en tus variantes preferidas:\n\nсрпски ћирилица Serbio, cirílico (sr-ec)\nsrpski latinica Serbio, latino (sr-el)";
+"serbian-variants-alert-title" = "Actualizaciones a soporte de variantes del serbio";
 "settings-account" = "Cuenta";
 "settings-appearance" = "Preferencias de lectura";
 "settings-clear-cache" = "Borrar datos en antememoria";
@@ -824,6 +859,11 @@
 "table-of-contents-close-accessibility-label" = "Cerrar el sumario";
 "table-of-contents-heading" = "Sumario";
 "table-of-contents-hide-button-label" = "Ocultar sumario";
+"table-of-contents-subheading-label" = "Subtítulo $1";
+"tachelhit-variants-alert-body" = "La aplicación de Wikipedia ahora soporta las variantes del tashelit siguientes como lenguas primarias o secundarias dentro de la aplicación, haciéndolo más fácil de leer, buscar y editar en tus variantes preferidas:\n\nⵜⴰⵛⵍⵃⵉⵜ tashelit, tifinagh (shi-tfng)\nTaclḥit tashelit, latino (shi-latn)";
+"tachelhit-variants-alert-title" = "Actualizaciones a soporte de variantes del tashelhit";
+"tajik-variants-alert-body" = "La aplicación de Wikipedia ahora soporta las variantes del tayiko siguientes como lenguas primarias o secundarias dentro de la aplicación, haciéndolo más fácil de leer, buscar y editar en tus variantes preferidas:\n\nтоҷикӣ кирилликӣ tayiko, cirílico (tg-cyrl)\ntojikī lotinī tayiko, latino (tg-latn)";
+"tajik-variants-alert-title" = "Actualizaciones a soporte de variantes del tayiko";
 "talk-page-add-discussion-accessibility-label" = "Añadir discusión";
 "talk-page-discussion-accessibility-hint" = "Toca dos veces para abrir el hilo de discusión";
 "talk-page-discussion-read-accessibility-label" = "Leer";
@@ -862,6 +902,9 @@
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia en $1";
 "top-read-see-more" = "Ver otros de los más leídos";
+"top-read-widget-description" = "Entérate lo que el mundo está leyendo hoy en Wikipedia.";
+"top-read-widget-readers-count" = "$1 lectores";
+"top-read-widget-title" = "Más leídos";
 "two-factor-login-continue" = "Continuar con el acceso";
 "two-factor-login-instructions" = "Escribe el código de verificación de 2 factores";
 "two-factor-login-title" = "Inicia sesión en tu cuenta";
@@ -869,6 +912,10 @@
 "two-factor-login-with-regular-code" = "Usar código de verificación";
 "unable-to-load-talk-page-title" = "No se puede cargar la página de discusión";
 "unknown-generic-text" = "Desconocido";
+"uzbek-variants-alert-body" = "La aplicación de Wikipedia ahora soporta las variantes del uzbeko siguientes como lenguas primarias o secundarias dentro de la aplicación, haciéndolo más fácil de leer, buscar y editar en tus variantes preferidas:\n\noʻzbekcha lotin uzbeko, latino (uz-latin)\nўзбекча кирилл uzbeko, cirílico (uz-cyrl)";
+"uzbek-variants-alert-title" = "Actualizaciones a soporte de variantes del uzbeko";
+"variants-alert-dismiss-button" = "No, gracias";
+"variants-alert-preferences-button" = "Revisar tus preferencias";
 "welcome-exploration-explore-feed-description" = "Lecturas recomendadas y artículos diarios de nuestra comunidad";
 "welcome-exploration-explore-feed-title" = "Canal Explorar";
 "welcome-exploration-on-this-day-description" = "Viaja en el tiempo para saber qué sucedió un día como hoy";
@@ -894,6 +941,9 @@
 "welcome-send-data-learn-more" = "Más información sobre los datos recopilados";
 "welcome-send-data-sub-title" = "Ayuda a la Fundación Wikimedia a mejorar la aplicación al decirnos cómo la usas. Los datos recolectados son anónimos.";
 "welcome-volunteer-send-usage-reports" = "Enviar informes de uso";
+"widget-onthisday-description" = "Explora qué pasado en este día en la historia.";
+"widget-onthisday-placeholder-article-snippet" = "La enciclopedia en línea libre que cualquiera puede editar";
+"widget-onthisday-placeholder-event-snippet" = "Wikipedia, una enciclopedia wiki de contenido libre, va online.";
 "wikitext-downloading" = "Cargando el contenido…";
 "wikitext-preview-changes" = "Generando previsualización de tus cambios…";
 "wikitext-preview-changes-none" = "No se realizaron cambios que revisar.";
