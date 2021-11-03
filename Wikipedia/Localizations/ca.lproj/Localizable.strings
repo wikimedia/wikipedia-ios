@@ -154,7 +154,7 @@
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|S'ha eliminat l'article|S'han eliminat els articles}}";
 "article-fetcher-error-updated-content-timeout" = "L'aplicació no ha pogut recuperar el contingut actualitzat a temps. Refresqueu la pàgina més endavant per a veure com s'hi han reflectit els canvis.";
 "article-languages-filter-placeholder" = "Cerca una llengua";
-"article-languages-label" = "Trieu un idioma";
+"article-languages-label" = "Trieu una llengua";
 "article-languages-others" = "Altres llengües";
 "article-languages-yours" = "Les vostres llengües";
 "article-read-more-title" = "Més informació";
@@ -182,7 +182,7 @@
 "compass-direction" = "a les $1 en punt";
 "continue-reading-empty-description" = "Exploreu la Viquipèdia per a llegir més articles";
 "continue-reading-empty-title" = "No hi ha cap article llegit recentment";
-"crimean-tatar-variants-alert-body" = "L’aplicació Wikipedia admet ara les següents variants del tàtar de Crimea com a idiomes principals o secundaris a l’aplicació, cosa que facilita la lectura, la cerca i l’edició de les vostres variants preferides:\n\nQırımtatarca - tàrtar llatí de Crimea (chr-latn)\nкъырымтатарджа, Кирил - Tàrtar ciríl·lic de Crimea (crh-cyrl)";
+"crimean-tatar-variants-alert-body" = "L’aplicació Wikipedia admet ara les següents variants del tàtar de Crimea com a llengües primàries o secundàries de l’aplicació, cosa que facilita la lectura, la cerca i l’edició de les vostres variants preferides:\n\nQırımtatarca - tàrtar llatí de Crimea (chr-latn)\nкъырымтатарджа, Кирил - Tàrtar ciríl·lic de Crimea (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "Actualitzacions per a l'admissió de variant del tàtar de Crimea";
 "data-migration-status" = "Actualitzant...";
 "description-add-title" = "Afegeix una descripció";
@@ -468,7 +468,7 @@
 "forgot-password-instructions" = "Omple un dels camps a continuació per a rebre instruccions de reinicialització de contrasenya per correu electrònic";
 "forgot-password-title" = "Restablir contrasenya";
 "forgot-password-username-or-email-title" = "O";
-"gan-variants-alert-body" = "Ara l’aplicació Wikipedia admet les següents variants Gan com a idiomes principals o secundaris dins de l’aplicació, cosa que facilita la lectura, la cerca i l’edició de les vostres variants preferides:\n\n贛 語 原文 Gan (gan)\n赣 语 简体 Gan, simplificat (gan-hans)\n贛 語 繁體 Gan, tradicional (gan-hant)";
+"gan-variants-alert-body" = "Ara l’aplicació Wikipedia admet les següents variants Gan com a llengües primàries o secundàries de l’aplicació, cosa que facilita la lectura, la cerca i l’edició de les vostres variants preferides:\n\n贛 語 原文 Gan (gan)\n赣 语 简体 Gan, simplificat (gan-hans)\n贛 語 繁體 Gan, tradicional (gan-hant)";
 "gan-variants-alert-title" = "Actualitzacions del suport a les variants Gan";
 "history-clear-all" = "Neteja";
 "history-clear-cancel" = "Cancel·la";
@@ -531,11 +531,11 @@
 "intermediate-edits-editors-count-limited" = "$1+ revisions intermèdies per $2+ usuaris no mostrats";
 "intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 revisió intermèdia|$1 revisions intermèdies}} per $2+ usuaris no mostrats";
 "intermediate-edits-limited-editors-count" = "$1+ revisions intermèdies per {{PLURAL:$2|$2 usuari|$2 usuaris}} no mostrades";
-"inuktitut-variants-alert-body" = "L'aplicació Wikipedia admet ara les següents variants inuktitut com a idiomes principals o secundaris de l'aplicació, cosa que facilita la lectura, la cerca i l'edició de les vostres variants preferides: \n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, síl·labes (ike-cans)\nInuktitut ilisautik, Inuktitut, llatí ( ike-latn)";
+"inuktitut-variants-alert-body" = "L'aplicació Wikipedia admet ara les següents variants inuktitut com a llengües principals o secundàries de l'aplicació, cosa que facilita la lectura, la cerca i l'edició de les vostres variants preferides: \n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, síl·labes (ike-cans)\nInuktitut ilisautik, Inuktitut, llatí ( ike-latn)";
 "inuktitut-variants-alert-title" = "Actualitzacions del suport a les variants Inuktitut";
-"kazakh-variants-alert-body" = "L’aplicació Wikipedia admet ara les següents variants kazakhs com a idiomes principals o secundaris de l’aplicació, cosa que facilita la lectura, la cerca i l’edició de les vostres variants preferides:\n\nҚазақша kazakh (kk)\nҚазақша Кирил Kazakh, ciríl·lic (kk-cyrl)\nqazaqşa llatí kazakh, llatí (kk-latn)\nتوتە قازاقشا kazakh, àrab (kk-arab)";
+"kazakh-variants-alert-body" = "L’aplicació Wikipedia admet ara les següents variants kazakhs com a llengües primàries o secundàries de l’aplicació, cosa que facilita la lectura, la cerca i l’edició de les vostres variants preferides:\n\nҚазақша kazakh (kk)\nҚазақша Кирил Kazakh, ciríl·lic (kk-cyrl)\nqazaqşa llatí kazakh, llatí (kk-latn)\nتوتە قازاقشا kazakh, àrab (kk-arab)";
 "kazakh-variants-alert-title" = "Actualitzacions del suport a les variants Kazakh";
-"kurdish-variants-alert-body" = "L’aplicació Wikipedia admet ara les següents variants kurdes com a idiomes principals o secundaris de l’aplicació, cosa que facilita la lectura, la cerca i l’edició de les vostres variants preferides:\n\nKurdî Latînî Kurd, llatí (ku-latn)\nكوردی kurd, àrab (kk-arab)";
+"kurdish-variants-alert-body" = "L’aplicació Wikipedia admet ara les següents variants kurdes com a llengües primàries o secundàries de l’aplicació, cosa que facilita la lectura, la cerca i l’edició de les vostres variants preferides:\n\nKurdî Latînî Kurd, llatí (ku-latn)\nكوردی kurd, àrab (kk-arab)";
 "kurdish-variants-alert-title" = "Actualitzacions per a l'admissió de variants kurdes";
 "languages-settings-title" = "Llengües";
 "languages-title" = "Canvia la llengua";
@@ -788,7 +788,7 @@
 "search-recent-title" = "Cerques recents";
 "search-result-redirected-from" = "Redirigit de: $1";
 "search-title" = "Cerca";
-"serbian-variants-alert-body" = "L'aplicació Wikipedia admet ara les següents variants sèrbies com a idiomes principals o secundaris de l'aplicació, cosa que facilita la lectura, la cerca i l'edició de les vostres variants preferides:\n\nсрпски ћирилица Serbi, ciríl·lic (sr-ec)\nsrpski latinica serbi, llatí (sr-el)";
+"serbian-variants-alert-body" = "L'aplicació Wikipedia admet ara les següents variants sèrbies com a llengües primàries o secundàries de l'aplicació, cosa que facilita la lectura, la cerca i l'edició de les vostres variants preferides:\n\nсрпски ћирилица Serbi, ciríl·lic (sr-ec)\nsrpski latinica serbi, llatí (sr-el)";
 "serbian-variants-alert-title" = "Actualitzacions per a l'admissió de variants sèrbies";
 "settings-account" = "Compte";
 "settings-appearance" = "Preferències de lectura";
@@ -848,9 +848,9 @@
 "table-of-contents-heading" = "Continguts";
 "table-of-contents-hide-button-label" = "Amaga la taula de continguts";
 "table-of-contents-subheading-label" = "Subtítol $1";
-"tachelhit-variants-alert-body" = "L'aplicació Wikipedia admet ara les següents variants de Tachelhit com a idiomes principals o secundaris de l'aplicació, cosa que facilita la lectura, la cerca i l'edició de les vostres variants preferides: \n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng) \nTaclḥit Tachelhit, llatí (shi-latn)";
+"tachelhit-variants-alert-body" = "L'aplicació Wikipedia admet ara les següents variants de Tachelhit com a llengües primàries o secundàries de l'aplicació, cosa que facilita la lectura, la cerca i l'edició de les vostres variants preferides: \n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng) \nTaclḥit Tachelhit, llatí (shi-latn)";
 "tachelhit-variants-alert-title" = "Actualitzacions del suport a les variants Tachelhit";
-"tajik-variants-alert-body" = "L'aplicació Wikipedia admet ara les següents variants tayik com a idiomes principals o secundaris de l'aplicació, cosa que facilita la lectura, la cerca i l'edició de les vostres variants preferides: \n\nтоҷикӣ кирилликӣ Tadjik, ciríl·lic (tg-cyrl) \ntojikī lotinī Tadjik, llatí (tg- latn)";
+"tajik-variants-alert-body" = "L'aplicació Wikipedia admet ara les següents variants tayik com a llengües primàries o secundàries de l'aplicació, cosa que facilita la lectura, la cerca i l'edició de les vostres variants preferides: \n\nтоҷикӣ кирилликӣ Tadjik, ciríl·lic (tg-cyrl) \ntojikī lotinī Tadjik, llatí (tg- latn)";
 "tajik-variants-alert-title" = "Actualitzacions per a l'admissió de variants tajik";
 "talk-page-add-discussion-accessibility-label" = "Afegeix una discussió";
 "talk-page-discussion-accessibility-hint" = "Feu un toc doble per obrir el fil de discussió";
@@ -902,7 +902,7 @@
 "two-factor-login-with-regular-code" = "Utilitza un codi de verificació";
 "unable-to-load-talk-page-title" = "No es pot carregar la pàgina de discussió";
 "unknown-generic-text" = "Desconegut";
-"uzbek-variants-alert-body" = "L’aplicació Wikipedia admet ara les següents variants uzbekes com a idiomes principals o secundaris de l’aplicació, cosa que facilita la lectura, la cerca i l’edició de les vostres variants preferides: \n\noʻzbekcha lotin uzbek, llatí (uz-latin)\nўзбекча кирилл Uzbek, ciríl·lic (uz-cyrl)";
+"uzbek-variants-alert-body" = "L’aplicació Wikipedia admet ara les següents variants uzbekes com a llengües primàries o secundàries de l’aplicació, cosa que facilita la lectura, la cerca i l’edició de les vostres variants preferides: \n\noʻzbekcha lotin uzbek, llatí (uz-latin)\nўзбекча кирилл Uzbek, ciríl·lic (uz-cyrl)";
 "uzbek-variants-alert-title" = "Actualitzacions del suport a les variants Uzbek";
 "variants-alert-dismiss-button" = "No, gràcies";
 "variants-alert-preferences-button" = "Reviseu les vostres preferències";
