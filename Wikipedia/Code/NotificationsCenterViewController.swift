@@ -14,7 +14,7 @@ final class NotificationsCenterViewController: ViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<NotificationsCenterSection, NotificationsCenterCellViewModel>
     typealias Snapshot = NSDiffableDataSourceSnapshot<NotificationsCenterSection, NotificationsCenterCellViewModel>
     private var dataSource: DataSource?
-    private let snapshotUpdateQueue = DispatchQueue(label: "org.wikipedia.notificationcenter.snapshotUpdateQueue", qos: .userInteractive)
+    private let snapshotUpdateQueue = DispatchQueue(label: "org.wikipedia.notificationscenter.snapshotUpdateQueue", qos: .userInteractive)
     
     private let editTitle = WMFLocalizedString("notifications-center-edit-button-edit", value: "Edit", comment: "Title for navigation bar button to turn on edit mode for toggling notification read status")
     private let doneTitle = WMFLocalizedString("notifications-center-edit-button-done", value: "Done", comment: "Title for navigation bar button to turn off edit mode for toggling notification read status")
@@ -116,7 +116,7 @@ private extension NotificationsCenterViewController {
         dataSource = DataSource(
         collectionView: notificationsView.collectionView,
         cellProvider: { [weak self] (collectionView, indexPath, viewModel) ->
-            UICollectionViewCell? in
+            NotificationsCenterCell? in
 
             guard let self = self,
                   let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NotificationsCenterCell.reuseIdentifier, for: indexPath) as? NotificationsCenterCell else {
@@ -191,7 +191,7 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
         //TODO
     }
     
-    func toggleCheckedStatus(viewModel: NotificationsCenterCellViewModel) {
+    func userDidToggleCheckedStatus(viewModel: NotificationsCenterCellViewModel) {
         self.viewModel.toggleCheckedStatus(cellViewModel: viewModel)
     }
 }

@@ -111,7 +111,7 @@ private extension NotificationsCenterViewModel {
             }
             
             if let error = error,
-               error == RemoteNotificationsOperationsError.failureSettingUpModelController {
+               error == RemoteNotificationsOperationsError.dataUnavailable {
                 //TODO: trigger error state of some sort
                 completion()
                 return

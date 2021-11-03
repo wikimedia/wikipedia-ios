@@ -2,7 +2,7 @@ import UIKit
 
 protocol NotificationsCenterCellDelegate: AnyObject {
     func userDidTapSecondaryActionForCellIdentifier(id: String)
-    func toggleCheckedStatus(viewModel: NotificationsCenterCellViewModel)
+    func userDidToggleCheckedStatus(viewModel: NotificationsCenterCellViewModel)
 }
 
 final class NotificationsCenterCell: UICollectionViewCell {
@@ -339,7 +339,8 @@ final class NotificationsCenterCell: UICollectionViewCell {
         leadingImageView.imageView.image = cellStyle.leadingImage(displayState)
         leadingImageView.imageView.tintColor = cellStyle.leadingImageTintColor
         leadingImageView.layer.borderColor = cellStyle.leadingImageBorderColor(displayState).cgColor
-        leadingImageTapGestureRecognizer.isEnabled = cellStyle.isLeadingImageTapGestureEnabled(displayState)
+        
+        leadingImageTapGestureRecognizer.isEnabled = displayState.isEditing
     }
 
     func updateLabels(forViewModel viewModel: NotificationsCenterCellViewModel) {
@@ -389,6 +390,6 @@ final class NotificationsCenterCell: UICollectionViewCell {
             return
         }
         
-        delegate?.toggleCheckedStatus(viewModel: viewModel)
+        delegate?.userDidToggleCheckedStatus(viewModel: viewModel)
     }
 }

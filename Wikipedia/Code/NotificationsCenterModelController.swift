@@ -59,7 +59,7 @@ final class NotificationsCenterModelController {
         }
         
         cellViewModelsToUpdate.forEach {
-            $0.updateWith(editMode: editMode)
+            $0.updateDisplayState(editMode: editMode)
             self.delegate?.reloadCellWithViewModelIfNeeded(viewModel: $0)
         }
     }

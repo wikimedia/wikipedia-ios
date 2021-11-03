@@ -165,9 +165,5 @@ struct NotificationsCenterCellStyle {
             return UIImage(named: "notifications-type-default")
         }
     }
-    
-    func isLeadingImageTapGestureEnabled(_ displayState: NotificationsCenterCellDisplayState) -> Bool {
-        return displayState.isEditing
-    }
 
 }

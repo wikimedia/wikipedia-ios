@@ -28,47 +28,47 @@ final class NotificationsCenterCellViewModel {
         return notification.type
     }
     
-    func updateWith(editMode: Bool) {
+    func updateDisplayState(editMode: Bool) {
         
         //preserve selected state, unless params indicate edit mode has switched
-        if (self.displayState.isEditing && editMode == false) ||
-            (editMode == true && !self.displayState.isEditing) {
-            self.displayState = Self.displayStateForNotification(notification, editMode: editMode)
+        if (displayState.isEditing && editMode == false) ||
+            (editMode == true && !displayState.isEditing) {
+            displayState = Self.displayStateForNotification(notification, editMode: editMode)
         }
         
         //if read flag has flipped, update display state to reflect what it should be.
-        switch (self.displayState, notification.isRead) {
+        switch (displayState, notification.isRead) {
         case (.defaultRead, false):
-            self.displayState = .defaultUnread
+            displayState = .defaultUnread
         case (.defaultUnread, true):
-            self.displayState = .defaultRead
+            displayState = .defaultRead
         case (.editSelectedRead, false):
-            self.displayState = .editSelectedUnread
+            displayState = .editSelectedUnread
         case (.editSelectedUnread, true):
-            self.displayState = .editSelectedRead
+            displayState = .editSelectedRead
         case (.editUnselectedRead, false):
-            self.displayState = .editUnselectedUnread
+            displayState = .editUnselectedUnread
         case (.editUnselectedUnread, true):
-            self.displayState = .editUnselectedRead
+            displayState = .editUnselectedRead
         default:
             break
         }
     }
     
     func toggleCheckedStatus() {
-        switch self.displayState {
+        switch displayState {
         case .defaultUnread,
              .defaultRead:
             assertionFailure("This method shouldn't be called while in default state.")
             return
         case .editSelectedRead:
-            self.displayState = .editUnselectedRead
+            displayState = .editUnselectedRead
         case .editSelectedUnread:
-            self.displayState = .editUnselectedUnread
+            displayState = .editUnselectedUnread
         case .editUnselectedUnread:
-            self.displayState = .editSelectedUnread
+            displayState = .editSelectedUnread
         case .editUnselectedRead:
-            self.displayState = .editSelectedRead
+            displayState = .editSelectedRead
         }
     }
 }
@@ -87,7 +87,7 @@ private extension NotificationsCenterCellViewModel {
     static func displayStateForNotification(_ notification: RemoteNotification, editMode: Bool) -> NotificationsCenterCellDisplayState {
         switch (editMode, notification.isRead) {
             case (false, true):
-            return .defaultRead
+                return .defaultRead
             case (false, false):
                 return .defaultUnread
             case (true, false):
