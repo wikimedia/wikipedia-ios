@@ -1567,7 +1567,13 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                 ExploreViewController *exploreViewController = (ExploreViewController *)[self exploreViewController];
                 [exploreViewController scrollToTop];
             } break;
+            case WMFAppTabTypeSearch: {
+                SearchViewController *searchViewController = (SearchViewController *)[self searchViewController];
+                [searchViewController makeSearchBarBecomeFirstResponder];
+            } break;
         }
+        // Must return NO if already visible to prevent unintended effect when tapping the Search tab bar button multiple times.
+        return NO;
     }
     return YES;
 }

@@ -22,6 +22,11 @@ final class NotificationsCenterViewController: ViewController {
         return UIBarButtonItem(title: editTitle, style: .plain, target: self, action: #selector(userDidTapEditButton))
     }()
 
+    // MARK: - Properties - Cell Swipe Actions
+
+    fileprivate lazy var cellPanGestureRecognizer = UIPanGestureRecognizer()
+    fileprivate var activelyPannedCellIndexPath: IndexPath?
+
     // MARK: - Lifecycle
 
     @objc
@@ -52,6 +57,10 @@ final class NotificationsCenterViewController: ViewController {
         setupDataSource()
         configureEmptyState(isEmpty: true)
         viewModel.fetchFirstPage()
+        
+        notificationsView.collectionView.addGestureRecognizer(cellPanGestureRecognizer)
+        cellPanGestureRecognizer.addTarget(self, action: #selector(userDidPanCell(_:)))
+        cellPanGestureRecognizer.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -185,4 +194,68 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
     func toggleCheckedStatus(viewModel: NotificationsCenterCellViewModel) {
         self.viewModel.toggleCheckedStatus(cellViewModel: viewModel)
     }
+}
+
+// MARK: - Cell Swipe Actions
+
+@objc extension NotificationsCenterViewController: UIGestureRecognizerDelegate {
+
+    /// Only allow cell pan gesture if user's horizontal cell panning behavior seems intentional
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer == cellPanGestureRecognizer {
+            let panVelocity = cellPanGestureRecognizer.velocity(in: notificationsView.collectionView)
+            if abs(panVelocity.x) > abs(panVelocity.y) {
+                return true
+            }
+        }
+
+        return false
+    }
+
+    @objc fileprivate func userDidPanCell(_ gestureRecognizer: UIPanGestureRecognizer) {
+        switch gestureRecognizer.state {
+        case .began:
+            let touchPosition = gestureRecognizer.location(in: notificationsView.collectionView)
+            guard let cellIndexPath = notificationsView.collectionView.indexPathForItem(at: touchPosition) else {
+                gestureRecognizer.state = .ended
+                break
+            }
+
+            activelyPannedCellIndexPath = cellIndexPath
+        case .ended:
+            userDidSwipeCell(indexPath: activelyPannedCellIndexPath)
+            activelyPannedCellIndexPath = nil
+        default:
+            return
+        }
+    }
+
+    /// This will be removed in the final implementation
+    fileprivate func userDidSwipeCell(indexPath: IndexPath?) {
+        /*
+        guard let indexPath = indexPath, let cellViewModel = viewModel.cellViewModel(indexPath: indexPath) else {
+            return
+        }
+
+        let alertController = UIAlertController(title: cellViewModel.headerText, message: cellViewModel.bodyText, preferredStyle: .actionSheet)
+
+        let firstAction = UIAlertAction(title: "Action 1", style: .default)
+        let secondAction = UIAlertAction(title: "Action 2", style: .default)
+        let thirdAction = UIAlertAction(title: "Action 3", style: .default)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+
+        alertController.addAction(firstAction)
+        alertController.addAction(secondAction)
+        alertController.addAction(thirdAction)
+        alertController.addAction(cancelAction)
+
+        if let popoverController = alertController.popoverPresentationController, let cell = notificationsView.collectionView.cellForItem(at: indexPath) {
+            popoverController.sourceView = cell
+            popoverController.sourceRect = CGRect(x: cell.bounds.midX, y: cell.bounds.midY, width: 0, height: 0)
+        }
+
+        present(alertController, animated: true, completion: nil)
+        */
+    }
+
 }

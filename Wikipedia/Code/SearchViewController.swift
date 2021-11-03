@@ -479,7 +479,9 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     }
     
     @objc func makeSearchBarBecomeFirstResponder() {
-        searchBar.becomeFirstResponder()
+        if !searchBar.isFirstResponder {
+            searchBar.becomeFirstResponder()
+        }
     }
 
     // MARK - Theme

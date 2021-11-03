@@ -103,7 +103,7 @@
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ پڙھڻ جي فھرست ۾ وجھو</string>
+		<string>%#@v1@ پڙھڻ جي فھرست ۾ شامل ڪريو</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -456,6 +456,24 @@
 			<string>%1$d منٽَ اڳ</string>
 			<key>zero</key>
 			<string>بلڪل ھاڻي</string>
+		</dict>
+	</dict>
+	<key>relative-date-months-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>گذريل مھينو</string>
+			<key>other</key>
+			<string>%1$d مھينا اڳ</string>
+			<key>zero</key>
+			<string>ھي مھينو</string>
 		</dict>
 	</dict>
 	<key>relative-date-years-ago</key>
