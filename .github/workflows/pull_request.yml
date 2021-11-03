@@ -1,0 +1,26 @@
+name: Run tests on pull request
+
+on:
+  pull_request::
+
+jobs:
+  test:
+    runs-on: macos-11.6
+    timeout-minutes: 15
+    steps:
+      - name: Cancel previous jobs
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+      - name: Git - Checkout
+        uses: actions/checkout@v2.4.0
+        with:
+          ref: ${{ github.ref }}
+      - name: Setup - Xcode
+        run: sudo xcode-select -s /Applications/Xcode_12.5.1.app
+      - name: Setup - Ruby and bundler dependencies
+        uses: ruby/setup-ruby@v1.84.0
+        with:
+          bundler-cache: true
+      - name: Test - Fastlane tests
+        run: bundle exec fastlane ios verify_pull_request
