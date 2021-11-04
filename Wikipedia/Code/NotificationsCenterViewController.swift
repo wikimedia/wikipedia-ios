@@ -86,15 +86,15 @@ final class NotificationsCenterViewController: ViewController {
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         
-        notificationsView.collectionView.allowsSelection = editing
         notificationsView.collectionView.allowsMultipleSelection = editing
+        deselectAllCells()
         
         //Reconfigure visible cells to reflect new edit mode.
         //This has a smoother change vs reloadData()
         if #available(iOS 15.0, *) {
-            if var snapshot = dataSource?.snapshot() {
+            if var snapshot = self.dataSource?.snapshot() {
                 snapshot.reconfigureItems(snapshot.itemIdentifiers)
-                dataSource?.apply(snapshot)
+                self.dataSource?.apply(snapshot)
             }
         } else {
             notificationsView.collectionView.visibleCells.forEach { cell in
@@ -171,6 +171,12 @@ private extension NotificationsCenterViewController {
         let selectedViewModels = selectedIndexes.compactMap { viewModels.count > $0 ? viewModels[$0] : nil }
         return selectedViewModels
     }
+    
+    func deselectAllCells() {
+        notificationsView.collectionView.indexPathsForSelectedItems?.forEach {
+            notificationsView.collectionView.deselectItem(at: $0, animated: false)
+        }
+    }
 }
 
 // MARK: - NotificationCenterViewModelDelegate
@@ -215,6 +221,12 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
         }
         
         return false
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if !isEditing {
+            collectionView.deselectItem(at: indexPath, animated: true)
+        }
     }
 }
 
