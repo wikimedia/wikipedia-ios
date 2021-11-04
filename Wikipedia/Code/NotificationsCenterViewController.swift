@@ -49,7 +49,8 @@ final class NotificationsCenterViewController: ViewController {
         
         setupCollectionView()
         setupDataSource()
-        configureEmptyState(isEmpty: true, subheaderText: NotificationsCenterView.EmptyOverlayStrings.checkingForNotifications)
+        //TODO: Revisit and enable importing empty states in a delayed manner to avoid flashing.
+        //configureEmptyState(isEmpty: true, subheaderText: NotificationsCenterView.EmptyOverlayStrings.checkingForNotifications)
         viewModel.fetchFirstPage()
         
         notificationsView.collectionView.addGestureRecognizer(cellPanGestureRecognizer)
