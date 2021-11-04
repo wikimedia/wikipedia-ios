@@ -87,10 +87,6 @@ final class NotificationsCenterViewModel: NSObject {
         modelController.addNewCellViewModelsWith(notifications: notifications)
         self.delegate?.cellViewModelsDidChange(cellViewModels: modelController.sortedCellViewModels)
     }
-    
-    func toggleCheckedStatus(cellViewModel: NotificationsCenterCellViewModel) {
-        reloadCellWithViewModelIfNeeded(viewModel: cellViewModel)
-    }
 }
 
 private extension NotificationsCenterViewModel {

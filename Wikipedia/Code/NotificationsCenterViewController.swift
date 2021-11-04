@@ -47,7 +47,7 @@ final class NotificationsCenterViewController: ViewController {
         title = CommonStrings.notificationsCenterTitle
         setupBarButtons()
         
-        setupCollectionView()
+        notificationsView.collectionView.delegate = self
         setupDataSource()
         //TODO: Revisit and enable importing empty states in a delayed manner to avoid flashing.
         //configureEmptyState(isEmpty: true, subheaderText: NotificationsCenterView.EmptyOverlayStrings.checkingForNotifications)
@@ -87,26 +87,8 @@ final class NotificationsCenterViewController: ViewController {
         super.setEditing(editing, animated: animated)
         
         notificationsView.collectionView.allowsMultipleSelection = editing
-        deselectAllCells()
-        
-        //Reconfigure visible cells to reflect new edit mode.
-        //This has a smoother change vs reloadData()
-        if #available(iOS 15.0, *) {
-            snapshotUpdateQueue.async {
-                if var snapshot = self.dataSource?.snapshot() {
-                    snapshot.reconfigureItems(snapshot.itemIdentifiers)
-                    self.dataSource?.apply(snapshot)
-                }
-            }
-        } else {
-            notificationsView.collectionView.visibleCells.forEach { cell in
-                guard let cell = cell as? NotificationsCenterCell else {
-                    return
-                }
-                
-                cell.configure(theme: theme, isEditing: editing)
-            }
-        }
+        deselectCells()
+        reconfigureCells()
     }
 
 
@@ -123,9 +105,6 @@ final class NotificationsCenterViewController: ViewController {
 //MARK: Private
 
 private extension NotificationsCenterViewController {
-    func setupCollectionView() {
-        notificationsView.collectionView.delegate = self
-    }
     
     func setupDataSource() {
         dataSource = DataSource(
@@ -137,7 +116,7 @@ private extension NotificationsCenterViewController {
                   let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NotificationsCenterCell.reuseIdentifier, for: indexPath) as? NotificationsCenterCell else {
                 return nil
             }
-            cell.configure(viewModel: viewModel, theme: self.theme, isEditing: self.isEditing )
+            cell.configure(viewModel: viewModel, theme: self.theme, isEditing: self.isEditing)
             cell.delegate = self
             return cell
         })
@@ -174,9 +153,46 @@ private extension NotificationsCenterViewController {
         return selectedViewModels
     }
     
-    func deselectAllCells() {
+    func deselectCells() {
         notificationsView.collectionView.indexPathsForSelectedItems?.forEach {
             notificationsView.collectionView.deselectItem(at: $0, animated: false)
+        }
+    }
+    
+    /// Calls cell configure methods again without instantiating a new cell.
+    /// - Parameter viewModels: Cell view models whose associated cells you want to configure again. If nil, method uses available items in the snapshot (or visible cells) to configure.
+    func reconfigureCells(with viewModels: [NotificationsCenterCellViewModel]? = nil) {
+        
+        if #available(iOS 15.0, *) {
+            snapshotUpdateQueue.async {
+                if var snapshot = self.dataSource?.snapshot() {
+                    let viewModelsToUpdate = viewModels ?? snapshot.itemIdentifiers
+                    snapshot.reconfigureItems(viewModelsToUpdate)
+                    self.dataSource?.apply(snapshot, animatingDifferences: false)
+                }
+            }
+        } else {
+            
+            let cellsToReconfigure: [NotificationsCenterCell]
+            if let viewModels = viewModels {
+                
+                //Limit visible cells only by those we're interested in reconfiguring. Note cell must already contain reference to view model in order for this reconfiguration to go through.
+                cellsToReconfigure = notificationsView.collectionView.visibleCells.compactMap { cell in
+                    
+                    guard let notificationsCell = cell as? NotificationsCenterCell,
+                          let cellViewModel = notificationsCell.viewModel else {
+                        return nil
+                    }
+                    
+                    return viewModels.contains(cellViewModel) ? notificationsCell : nil
+                }
+            } else {
+                cellsToReconfigure = notificationsView.collectionView.visibleCells as? [NotificationsCenterCell] ?? []
+            }
+            
+            cellsToReconfigure.forEach { cell in
+                cell.configure(theme: theme, isEditing: isEditing)
+            }
         }
     }
 }
@@ -191,15 +207,7 @@ extension NotificationsCenterViewController: NotificationCenterViewModelDelegate
     }
     
     func reloadCellWithViewModelIfNeeded(_ viewModel: NotificationsCenterCellViewModel) {
-        for cell in notificationsView.collectionView.visibleCells {
-            guard let cell = cell as? NotificationsCenterCell,
-                  let cellViewModel = cell.viewModel,
-                  cellViewModel == viewModel else {
-                continue
-            }
-            
-            cell.configure(viewModel: viewModel, theme: theme, isEditing: isEditing)
-        }
+        reconfigureCells(with: [viewModel])
     }
 }
 
@@ -235,10 +243,6 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
 extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
     func userDidTapSecondaryActionForCellIdentifier(id: String) {
         //TODO
-    }
-    
-    func userDidToggleCheckedStatus(viewModel: NotificationsCenterCellViewModel) {
-        self.viewModel.toggleCheckedStatus(cellViewModel: viewModel)
     }
 }
 
