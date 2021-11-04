@@ -353,8 +353,6 @@ final class NotificationsCenterCell: UICollectionViewCell {
         leadingImageView.imageView.image = cellStyle.leadingImage(displayState)
         leadingImageView.imageView.tintColor = cellStyle.leadingImageTintColor
         leadingImageView.layer.borderColor = cellStyle.leadingImageBorderColor(displayState).cgColor
-        
-        //leadingImageTapGestureRecognizer.isEnabled = displayState.isEditing
     }
 
     func updateLabels(forViewModel viewModel: NotificationsCenterCellViewModel) {
