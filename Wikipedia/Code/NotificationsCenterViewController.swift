@@ -92,9 +92,11 @@ final class NotificationsCenterViewController: ViewController {
         //Reconfigure visible cells to reflect new edit mode.
         //This has a smoother change vs reloadData()
         if #available(iOS 15.0, *) {
-            if var snapshot = self.dataSource?.snapshot() {
-                snapshot.reconfigureItems(snapshot.itemIdentifiers)
-                self.dataSource?.apply(snapshot)
+            snapshotUpdateQueue.async {
+                if var snapshot = self.dataSource?.snapshot() {
+                    snapshot.reconfigureItems(snapshot.itemIdentifiers)
+                    self.dataSource?.apply(snapshot)
+                }
             }
         } else {
             notificationsView.collectionView.visibleCells.forEach { cell in
