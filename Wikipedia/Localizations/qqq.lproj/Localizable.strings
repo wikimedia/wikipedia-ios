@@ -552,8 +552,6 @@
 "no-internet-connection-article-reload" = "Subtitle for letting users know article cannot be reloaded without internet connection.";
 "no-internet-connection-article-reload-button" = "Title for button to return to last saved version of article.";
 "notifications-center-commons-project-name" = "Project name description for Wikimedia Commons, used in notification headers.";
-"notifications-center-edit-button-done" = "Title for navigation bar button to turn off edit mode for toggling notification read status";
-"notifications-center-edit-button-edit" = "Title for navigation bar button to turn on edit mode for toggling notification read status";
 "notifications-center-empty-checking-for-notifications" = "Text displayed when Notifications Center is checking for notifications.";
 "notifications-center-empty-no-unread-messages" = "Text displayed when no Notifications Center notifications are available.";
 "notifications-center-empty-not-subscribed" = "Text displayed when user has not subscribed to any Wikipedia notifications.";

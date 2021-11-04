@@ -22,13 +22,6 @@ final class NotificationsCenterViewModel: NSObject {
     lazy private var modelController = NotificationsCenterModelController(languageLinkController: self.languageLinkController, delegate: self)
     
     private var isPagingEnabled = true
-    var editMode = false {
-        didSet {
-            if oldValue != editMode {
-                modelController.updateCurrentCellViewModelsWith(editMode: editMode)
-            }
-        }
-    }
 
     // MARK: - Lifecycle
 
@@ -49,8 +42,8 @@ final class NotificationsCenterViewModel: NSObject {
             return
         }
         
-        modelController.addNewCellViewModelsWith(notifications: Array(newNotifications), editMode: self.editMode)
-        modelController.updateCurrentCellViewModelsWith(updatedNotifications: Array(refreshedNotifications), editMode: self.editMode)
+        modelController.addNewCellViewModelsWith(notifications: Array(newNotifications))
+        modelController.updateCurrentCellViewModelsWith(updatedNotifications: Array(refreshedNotifications))
         self.delegate?.cellViewModelsDidChange(cellViewModels: modelController.sortedCellViewModels)
     }
 
@@ -71,7 +64,7 @@ final class NotificationsCenterViewModel: NSObject {
                 }
                 
                 let notifications = self.remoteNotificationsController.fetchNotifications()
-                self.modelController.addNewCellViewModelsWith(notifications: notifications, editMode: self.editMode)
+                self.modelController.addNewCellViewModelsWith(notifications: notifications)
                 self.delegate?.cellViewModelsDidChange(cellViewModels: self.modelController.sortedCellViewModels)
             }
         }
@@ -91,15 +84,13 @@ final class NotificationsCenterViewModel: NSObject {
             return
         }
         
-        modelController.addNewCellViewModelsWith(notifications: notifications, editMode: self.editMode)
+        modelController.addNewCellViewModelsWith(notifications: notifications)
         self.delegate?.cellViewModelsDidChange(cellViewModels: modelController.sortedCellViewModels)
     }
     
     func toggleCheckedStatus(cellViewModel: NotificationsCenterCellViewModel) {
-        cellViewModel.toggleCheckedStatus()
         reloadCellWithViewModelIfNeeded(viewModel: cellViewModel)
     }
-
 }
 
 private extension NotificationsCenterViewModel {

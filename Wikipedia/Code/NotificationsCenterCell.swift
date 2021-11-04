@@ -25,12 +25,6 @@ final class NotificationsCenterCell: UICollectionViewCell {
         view.layer.borderColor = UIColor.clear.cgColor
         return view
     }()
-    
-    lazy var leadingImageTapGestureRecognizer: UITapGestureRecognizer = {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(tappedLeadingImage))
-        leadingImageView.addGestureRecognizer(tap)
-        return tap
-    }()
 
     lazy var projectSourceLabel: InsetLabelView = {
         let insetLabel = InsetLabelView()
@@ -199,6 +193,17 @@ final class NotificationsCenterCell: UICollectionViewCell {
         super.prepareForReuse()
         self.viewModel = nil
     }
+    
+    override var isSelected: Bool {
+        didSet {
+            guard let viewModel = viewModel else {
+                return
+            }
+            
+            viewModel.updateDisplayState(isSelected: isSelected)
+            updateCellStyle(forDisplayState: viewModel.displayState)
+        }
+    }
 
     func setup() {
         let topMargin: CGFloat = 13
@@ -290,14 +295,24 @@ final class NotificationsCenterCell: UICollectionViewCell {
 
     // MARK: - Public
 
-    func configure(viewModel: NotificationsCenterCellViewModel, theme: Theme) {
+    func configure(viewModel: NotificationsCenterCellViewModel, theme: Theme, isEditing: Bool) {
         self.viewModel = viewModel
         self.theme = theme
+        
+        viewModel.updateDisplayState(isEditing: isEditing, isSelected: isSelected)
 
         updateCellStyle(forDisplayState: viewModel.displayState)
         updateLabels(forViewModel: viewModel)
         updateProject(forViewModel: viewModel)
         updateMetaButton(forViewModel: viewModel)
+    }
+    
+    func configure(theme: Theme, isEditing: Bool) {
+        guard let viewModel = viewModel else {
+            return
+        }
+        
+        configure(viewModel: viewModel, theme: theme, isEditing: isEditing)
     }
 
     func updateCellStyle(forDisplayState displayState: NotificationsCenterCellDisplayState) {
@@ -305,7 +320,6 @@ final class NotificationsCenterCell: UICollectionViewCell {
             return
         }
 
-        // let displayState = NotificationsCenterCellDisplayState.allCases.randomElement()!
         let cellStyle = NotificationsCenterCellStyle(theme: theme, traitCollection: traitCollection, notificationType: notificationType)
 
         // Colors
@@ -322,7 +336,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         projectSourceLabel.layer.borderColor = cellStyle.projectSourceColor.cgColor
         projectSourceImage.tintColor = cellStyle.projectSourceColor
 
-        //selectedBackgroundView?.backgroundColor = cellStyle.selectedCellBackgroundColor
+        selectedBackgroundView?.backgroundColor = cellStyle.selectedCellBackgroundColor
 
         // Fonts
 
@@ -340,7 +354,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         leadingImageView.imageView.tintColor = cellStyle.leadingImageTintColor
         leadingImageView.layer.borderColor = cellStyle.leadingImageBorderColor(displayState).cgColor
         
-        leadingImageTapGestureRecognizer.isEnabled = displayState.isEditing
+        //leadingImageTapGestureRecognizer.isEnabled = displayState.isEditing
     }
 
     func updateLabels(forViewModel viewModel: NotificationsCenterCellViewModel) {
@@ -383,13 +397,5 @@ final class NotificationsCenterCell: UICollectionViewCell {
         }
 
         metaActionButton.setImage(image, for: .normal)
-    }
-
-    @objc func tappedLeadingImage() {
-        guard let viewModel = viewModel else {
-            return
-        }
-        
-        delegate?.userDidToggleCheckedStatus(viewModel: viewModel)
     }
 }

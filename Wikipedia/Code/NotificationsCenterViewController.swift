@@ -15,12 +15,6 @@ final class NotificationsCenterViewController: ViewController {
     typealias Snapshot = NSDiffableDataSourceSnapshot<NotificationsCenterSection, NotificationsCenterCellViewModel>
     private var dataSource: DataSource?
     private let snapshotUpdateQueue = DispatchQueue(label: "org.wikipedia.notificationscenter.snapshotUpdateQueue", qos: .userInteractive)
-    
-    private let editTitle = WMFLocalizedString("notifications-center-edit-button-edit", value: "Edit", comment: "Title for navigation bar button to turn on edit mode for toggling notification read status")
-    private let doneTitle = WMFLocalizedString("notifications-center-edit-button-done", value: "Done", comment: "Title for navigation bar button to turn off edit mode for toggling notification read status")
-    private lazy var editButton = {
-        return UIBarButtonItem(title: editTitle, style: .plain, target: self, action: #selector(userDidTapEditButton))
-    }()
 
     // MARK: - Properties - Cell Swipe Actions
 
@@ -82,17 +76,28 @@ final class NotificationsCenterViewController: ViewController {
         enableToolbar()
         setToolbarHidden(false, animated: false)
 
-		navigationItem.rightBarButtonItem = editButton
-	}
-
-	// MARK: - Edit button
-
-	@objc func userDidTapEditButton() {
-        viewModel.editMode.toggle()
-        editButton.title = viewModel.editMode ? doneTitle : editTitle
+		navigationItem.rightBarButtonItem = editButtonItem
+        isEditing = false
 	}
 
 	// MARK: - Public
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        
+        notificationsView.collectionView.allowsSelection = editing
+        notificationsView.collectionView.allowsMultipleSelection = editing
+        
+        //Reconfigure visible cells to reflect new edit mode.
+        //This has a smoother change vs reloadData()
+        notificationsView.collectionView.visibleCells.forEach { cell in
+            guard let cell = cell as? NotificationsCenterCell else {
+                return
+            }
+            
+            cell.configure(theme: theme, isEditing: editing)
+        }
+    }
 
 
     // MARK: - Themable
@@ -122,7 +127,7 @@ private extension NotificationsCenterViewController {
                   let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NotificationsCenterCell.reuseIdentifier, for: indexPath) as? NotificationsCenterCell else {
                 return nil
             }
-            cell.configure(viewModel: viewModel, theme: self.theme)
+            cell.configure(viewModel: viewModel, theme: self.theme, isEditing: self.isEditing )
             cell.delegate = self
             return cell
         })
@@ -147,6 +152,17 @@ private extension NotificationsCenterViewController {
         navigationItem.rightBarButtonItems?.forEach { $0.isEnabled = !isEmpty }
         navigationItem.rightBarButtonItem?.isEnabled = !isEmpty
     }
+    
+    /// TODO: Use this to determine selected view models when in editing mode. We will send to NotificationsCenterViewModel for marking as read/unread when
+    /// the associated toolbar button is pressed.
+    /// - Returns:View models that represent cells in the selected state.
+    func selectedCellViewModels() -> [NotificationsCenterCellViewModel] {
+        let selectedIndexes = notificationsView.collectionView.indexPathsForSelectedItems?.map { $0.item } ?? []
+        let currentSnapshot = dataSource?.snapshot()
+        let viewModels = currentSnapshot?.itemIdentifiers ?? []
+        let selectedViewModels = selectedIndexes.compactMap { viewModels.count > $0 ? viewModels[$0] : nil }
+        return selectedViewModels
+    }
 }
 
 // MARK: - NotificationCenterViewModelDelegate
@@ -166,7 +182,7 @@ extension NotificationsCenterViewController: NotificationCenterViewModelDelegate
                 continue
             }
             
-            cell.configure(viewModel: viewModel, theme: theme)
+            cell.configure(viewModel: viewModel, theme: theme, isEditing: isEditing)
         }
     }
 }
@@ -183,6 +199,14 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
         if isLast {
             viewModel.fetchNextPage()
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldBeginMultipleSelectionInteractionAt indexPath: IndexPath) -> Bool {
+        if isEditing {
+            return true
+        }
+        
+        return false
     }
 }
 

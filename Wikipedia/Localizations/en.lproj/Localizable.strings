@@ -552,8 +552,6 @@
 "no-internet-connection-article-reload" = "A newer version of this article might be available, but cannot be loaded without a connection to the internet";
 "no-internet-connection-article-reload-button" = "Return to last saved version";
 "notifications-center-commons-project-name" = "Wikimedia Commons";
-"notifications-center-edit-button-done" = "Done";
-"notifications-center-edit-button-edit" = "Edit";
 "notifications-center-empty-checking-for-notifications" = "Checking for notifications...";
 "notifications-center-empty-no-unread-messages" = "You have no unread messages";
 "notifications-center-empty-not-subscribed" = "You are not currently subscribed to any Wikipedia Notifications";

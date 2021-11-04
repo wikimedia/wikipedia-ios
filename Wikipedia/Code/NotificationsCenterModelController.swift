@@ -22,13 +22,13 @@ final class NotificationsCenterModelController {
         self.languageLinkController = languageLinkController
     }
     
-    func addNewCellViewModelsWith(notifications: [RemoteNotification], editMode: Bool) {
+    func addNewCellViewModelsWith(notifications: [RemoteNotification]) {
         for notification in notifications {
 
             //Instantiate new view model and insert it into tracking properties
             
             guard let key = notification.key,
-                  let newCellViewModel = NotificationsCenterCellViewModel(notification: notification, languageLinkController: languageLinkController, editMode: editMode) else {
+                  let newCellViewModel = NotificationsCenterCellViewModel(notification: notification, languageLinkController: languageLinkController) else {
                 continue
             }
             
@@ -37,7 +37,7 @@ final class NotificationsCenterModelController {
         }
     }
     
-    func updateCurrentCellViewModelsWith(updatedNotifications: [RemoteNotification]? = nil, editMode: Bool) {
+    func updateCurrentCellViewModelsWith(updatedNotifications: [RemoteNotification]? = nil) {
 
         let cellViewModelsToUpdate: [NotificationsCenterCellViewModel]
         
@@ -59,7 +59,6 @@ final class NotificationsCenterModelController {
         }
         
         cellViewModelsToUpdate.forEach {
-            $0.updateDisplayState(editMode: editMode)
             self.delegate?.reloadCellWithViewModelIfNeeded(viewModel: $0)
         }
     }
