@@ -49,7 +49,7 @@ final class NotificationsCenterViewController: ViewController {
         
         setupCollectionView()
         setupDataSource()
-        configureEmptyState(isEmpty: true)
+        configureEmptyState(isEmpty: true, subheaderText: NotificationsCenterView.EmptyOverlayStrings.checkingForNotifications)
         viewModel.fetchFirstPage()
         
         notificationsView.collectionView.addGestureRecognizer(cellPanGestureRecognizer)
@@ -147,8 +147,8 @@ private extension NotificationsCenterViewController {
         }
     }
     
-    func configureEmptyState(isEmpty: Bool) {
-        notificationsView.updateEmptyOverlay(visible: isEmpty, headerText: NotificationsCenterView.EmptyOverlayStrings.noUnreadMessages, subheaderText: NotificationsCenterView.EmptyOverlayStrings.checkingForNotifications)
+    func configureEmptyState(isEmpty: Bool, subheaderText: String = "") {
+        notificationsView.updateEmptyOverlay(visible: isEmpty, headerText: NotificationsCenterView.EmptyOverlayStrings.noUnreadMessages, subheaderText: subheaderText)
         navigationItem.rightBarButtonItems?.forEach { $0.isEnabled = !isEmpty }
         navigationItem.rightBarButtonItem?.isEnabled = !isEmpty
     }
