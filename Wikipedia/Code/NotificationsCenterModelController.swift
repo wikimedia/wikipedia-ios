@@ -3,7 +3,7 @@ import Foundation
 import WMF
 
 protocol NotificationsCenterModelControllerDelegate: AnyObject {
-    func reloadCellWithViewModelIfNeeded(viewModel: NotificationsCenterCellViewModel)
+    func reconfigureCellsWithViewModelsIfNeeded(cellViewModels: [NotificationsCenterCellViewModel])
 }
 
 //Keeps track of the RemoteNotification managed objects and NotificationCenterCellViewModels that power Notification Center in a performant way
@@ -58,9 +58,7 @@ final class NotificationsCenterModelController {
             cellViewModelsToUpdate = Array(cellViewModels)
         }
         
-        cellViewModelsToUpdate.forEach {
-            self.delegate?.reloadCellWithViewModelIfNeeded(viewModel: $0)
-        }
+        delegate?.reconfigureCellsWithViewModelsIfNeeded(cellViewModels: cellViewModelsToUpdate)
     }
     
     var fetchOffset: Int {
@@ -74,6 +72,15 @@ final class NotificationsCenterModelController {
                 return false
             }
             return lhsDate > rhsDate
+        }
+    }
+    
+    func updateCellDisplayStates(cellViewModels: [NotificationsCenterCellViewModel]?, isEditing: Bool, isSelected: Bool) {
+        
+        let viewModelsToUpdate = cellViewModels ?? Array(self.cellViewModels)
+        
+        viewModelsToUpdate.forEach { cellViewModel in
+            cellViewModel.updateDisplayState(isEditing: isEditing, isSelected: isSelected)
         }
     }
 }

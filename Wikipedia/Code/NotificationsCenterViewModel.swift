@@ -2,8 +2,11 @@ import Foundation
 import CocoaLumberjackSwift
 
 protocol NotificationCenterViewModelDelegate: AnyObject {
+    /// This causes snapshot to update entirely, inserting new cells as needed
     func cellViewModelsDidChange(cellViewModels: [NotificationsCenterCellViewModel])
-    func reloadCellWithViewModelIfNeeded(_ viewModel: NotificationsCenterCellViewModel)
+    
+    /// This seeks out cells that are currently displaying and reconfigures them
+    func reconfigureCellsWithViewModelsIfNeeded(_ cellViewModels: [NotificationsCenterCellViewModel]?)
 }
 
 enum NotificationsCenterSection {
@@ -22,6 +25,8 @@ final class NotificationsCenterViewModel: NSObject {
     lazy private var modelController = NotificationsCenterModelController(languageLinkController: self.languageLinkController, delegate: self)
     
     private var isPagingEnabled = true
+    
+    var isEditing: Bool = false
 
     // MARK: - Lifecycle
 
@@ -87,6 +92,10 @@ final class NotificationsCenterViewModel: NSObject {
         modelController.addNewCellViewModelsWith(notifications: notifications)
         self.delegate?.cellViewModelsDidChange(cellViewModels: modelController.sortedCellViewModels)
     }
+    
+    func updateCellDisplayStates(cellViewModels: [NotificationsCenterCellViewModel]? = nil, isSelected: Bool) {
+        modelController.updateCellDisplayStates(cellViewModels: cellViewModels, isEditing: isEditing, isSelected: isSelected)
+    }
 }
 
 private extension NotificationsCenterViewModel {
@@ -112,7 +121,7 @@ private extension NotificationsCenterViewModel {
 }
 
 extension NotificationsCenterViewModel: NotificationsCenterModelControllerDelegate {
-    func reloadCellWithViewModelIfNeeded(viewModel: NotificationsCenterCellViewModel) {
-        delegate?.reloadCellWithViewModelIfNeeded(viewModel)
+    func reconfigureCellsWithViewModelsIfNeeded(cellViewModels: [NotificationsCenterCellViewModel]) {
+        delegate?.reconfigureCellsWithViewModelsIfNeeded(cellViewModels)
     }
 }

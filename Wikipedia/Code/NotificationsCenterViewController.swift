@@ -87,8 +87,11 @@ final class NotificationsCenterViewController: ViewController {
         super.setEditing(editing, animated: animated)
         
         notificationsView.collectionView.allowsMultipleSelection = editing
-        deselectCells()
+        viewModel.isEditing = editing
+        viewModel.updateCellDisplayStates(isSelected: false)
         reconfigureCells()
+        
+        deselectCells()
     }
 
 
@@ -109,14 +112,17 @@ private extension NotificationsCenterViewController {
     func setupDataSource() {
         dataSource = DataSource(
         collectionView: notificationsView.collectionView,
-        cellProvider: { [weak self] (collectionView, indexPath, viewModel) ->
+        cellProvider: { [weak self] (collectionView, indexPath, cellViewModel) ->
             NotificationsCenterCell? in
 
             guard let self = self,
                   let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NotificationsCenterCell.reuseIdentifier, for: indexPath) as? NotificationsCenterCell else {
                 return nil
             }
-            cell.configure(viewModel: viewModel, theme: self.theme, isEditing: self.isEditing)
+            
+            let isSelected = (collectionView.indexPathsForSelectedItems ?? []).contains(indexPath)
+            self.viewModel.updateCellDisplayStates(cellViewModels: [cellViewModel], isSelected: isSelected)
+            cell.configure(viewModel: cellViewModel, theme: self.theme)
             cell.delegate = self
             return cell
         })
@@ -146,10 +152,12 @@ private extension NotificationsCenterViewController {
     /// the associated toolbar button is pressed.
     /// - Returns:View models that represent cells in the selected state.
     func selectedCellViewModels() -> [NotificationsCenterCellViewModel] {
-        let selectedIndexes = notificationsView.collectionView.indexPathsForSelectedItems?.map { $0.item } ?? []
-        let currentSnapshot = dataSource?.snapshot()
-        let viewModels = currentSnapshot?.itemIdentifiers ?? []
-        let selectedViewModels = selectedIndexes.compactMap { viewModels.count > $0 ? viewModels[$0] : nil }
+        guard let selectedIndexPaths = notificationsView.collectionView.indexPathsForSelectedItems,
+        let dataSource = dataSource else {
+            return []
+        }
+        
+        let selectedViewModels = selectedIndexPaths.compactMap { dataSource.itemIdentifier(for: $0) }
         return selectedViewModels
     }
     
@@ -160,13 +168,21 @@ private extension NotificationsCenterViewController {
     }
     
     /// Calls cell configure methods again without instantiating a new cell.
-    /// - Parameter viewModels: Cell view models whose associated cells you want to configure again. If nil, method uses available items in the snapshot (or visible cells) to configure.
+    /// - Parameter viewModels: Cell view models whose associated cells you want to configure again. If nil, method uses all available items in the snapshot (or visible cells) to configure.
     func reconfigureCells(with viewModels: [NotificationsCenterCellViewModel]? = nil) {
         
         if #available(iOS 15.0, *) {
             snapshotUpdateQueue.async {
                 if var snapshot = self.dataSource?.snapshot() {
-                    let viewModelsToUpdate = viewModels ?? snapshot.itemIdentifiers
+                    
+                    let viewModelsToUpdate = snapshot.itemIdentifiers.filter {
+                        guard let viewModels = viewModels else {
+                            return true
+                        }
+                        
+                        return viewModels.contains($0)
+                    }
+                    
                     snapshot.reconfigureItems(viewModelsToUpdate)
                     self.dataSource?.apply(snapshot, animatingDifferences: false)
                 }
@@ -174,24 +190,15 @@ private extension NotificationsCenterViewController {
         } else {
             
             let cellsToReconfigure: [NotificationsCenterCell]
-            if let viewModels = viewModels {
-                
-                //Limit visible cells only by those we're interested in reconfiguring. Note cell must already contain reference to view model in order for this reconfiguration to go through.
-                cellsToReconfigure = notificationsView.collectionView.visibleCells.compactMap { cell in
-                    
-                    guard let notificationsCell = cell as? NotificationsCenterCell,
-                          let cellViewModel = notificationsCell.viewModel else {
-                        return nil
-                    }
-                    
-                    return viewModels.contains(cellViewModel) ? notificationsCell : nil
-                }
+            if let viewModels = viewModels, let dataSource = dataSource {
+                let indexPathsToReconfigure = viewModels.compactMap { dataSource.indexPath(for: $0) }
+                cellsToReconfigure = indexPathsToReconfigure.compactMap { notificationsView.collectionView.cellForItem(at: $0) as? NotificationsCenterCell}
             } else {
                 cellsToReconfigure = notificationsView.collectionView.visibleCells as? [NotificationsCenterCell] ?? []
             }
             
             cellsToReconfigure.forEach { cell in
-                cell.configure(theme: theme, isEditing: isEditing)
+                cell.configure(theme: theme)
             }
         }
     }
@@ -200,14 +207,14 @@ private extension NotificationsCenterViewController {
 // MARK: - NotificationCenterViewModelDelegate
 
 extension NotificationsCenterViewController: NotificationCenterViewModelDelegate {
+    func reconfigureCellsWithViewModelsIfNeeded(_ cellViewModels: [NotificationsCenterCellViewModel]?) {
+        reconfigureCells(with: cellViewModels)
+    }
+    
     func cellViewModelsDidChange(cellViewModels: [NotificationsCenterCellViewModel]) {
         
         configureEmptyState(isEmpty: cellViewModels.isEmpty)
         applySnapshot(cellViewModels: cellViewModels, animatingDifferences: true)
-    }
-    
-    func reloadCellWithViewModelIfNeeded(_ viewModel: NotificationsCenterCellViewModel) {
-        reconfigureCells(with: [viewModel])
     }
 }
 
@@ -226,7 +233,7 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldBeginMultipleSelectionInteractionAt indexPath: IndexPath) -> Bool {
-        if isEditing {
+        if viewModel.isEditing {
             return true
         }
         
@@ -234,9 +241,27 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if !isEditing {
+        
+        guard let cellViewModel = dataSource?.itemIdentifier(for: indexPath) else {
+            return
+        }
+        
+        viewModel.updateCellDisplayStates(cellViewModels: [cellViewModel], isSelected: true)
+        reconfigureCells(with: [cellViewModel])
+        
+        if !viewModel.isEditing {
             collectionView.deselectItem(at: indexPath, animated: true)
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        
+        guard let cellViewModel = dataSource?.itemIdentifier(for: indexPath) else {
+            return
+        }
+        
+        viewModel.updateCellDisplayStates(cellViewModels: [cellViewModel], isSelected: false)
+        reconfigureCells(with: [cellViewModel])
     }
 }
 

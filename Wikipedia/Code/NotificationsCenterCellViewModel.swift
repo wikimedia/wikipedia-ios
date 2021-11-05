@@ -27,17 +27,9 @@ final class NotificationsCenterCellViewModel {
         return notification.type
     }
     
-    func updateDisplayState(isEditing: Bool? = nil, isSelected: Bool) {
-        
-        //if isEditing = nil, base it on current display state
-        let isInEditingMode: Bool
-        if let isEditing = isEditing {
-            isInEditingMode = isEditing
-        } else {
-            isInEditingMode = displayState.isEditing
-        }
-        
-        switch (isInEditingMode, isSelected, notification.isRead) {
+    func updateDisplayState(isEditing: Bool, isSelected: Bool) {
+
+        switch (isEditing, isSelected, notification.isRead) {
             case (false, _, true):
                 displayState = .defaultRead
             case (false, _, false):

@@ -192,17 +192,6 @@ final class NotificationsCenterCell: UICollectionViewCell {
         super.prepareForReuse()
         self.viewModel = nil
     }
-    
-    override var isSelected: Bool {
-        didSet {
-            guard let viewModel = viewModel else {
-                return
-            }
-            
-            viewModel.updateDisplayState(isSelected: isSelected)
-            updateCellStyle(forDisplayState: viewModel.displayState)
-        }
-    }
 
     func setup() {
         let topMargin: CGFloat = 13
@@ -294,11 +283,9 @@ final class NotificationsCenterCell: UICollectionViewCell {
 
     // MARK: - Public
 
-    func configure(viewModel: NotificationsCenterCellViewModel, theme: Theme, isEditing: Bool) {
+    func configure(viewModel: NotificationsCenterCellViewModel, theme: Theme) {
         self.viewModel = viewModel
         self.theme = theme
-        
-        viewModel.updateDisplayState(isEditing: isEditing, isSelected: isSelected)
 
         updateCellStyle(forDisplayState: viewModel.displayState)
         updateLabels(forViewModel: viewModel)
@@ -306,12 +293,12 @@ final class NotificationsCenterCell: UICollectionViewCell {
         updateMetaButton(forViewModel: viewModel)
     }
     
-    func configure(theme: Theme, isEditing: Bool) {
+    func configure(theme: Theme) {
         guard let viewModel = viewModel else {
             return
         }
         
-        configure(viewModel: viewModel, theme: theme, isEditing: isEditing)
+        configure(viewModel: viewModel, theme: theme)
     }
 
     func updateCellStyle(forDisplayState displayState: NotificationsCenterCellDisplayState) {
