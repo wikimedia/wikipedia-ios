@@ -302,32 +302,13 @@ final class NotificationsCenterCell: UICollectionViewCell {
         updateProject(forViewModel: viewModel)
         updateMetaButton(forViewModel: viewModel)
         
-        headerLabelTapGestureRecognizer.isEnabled = isHeaderLabelTapGestureEnabled
+        headerLabelTapGestureRecognizer.isEnabled = viewModel.shouldAllowSecondaryTapAction
     }
 }
 
 //MARK: - Private
 
 private extension NotificationsCenterCell {
-    
-    var isHeaderLabelTapGestureEnabled: Bool {
-    
-        guard let viewModel = self.viewModel,
-              !viewModel.displayState.isEditing else {
-            return false
-        }
-
-        switch viewModel.notification.type {
-        case .welcome,
-             .editMilestone,
-             .translationMilestone,
-             .failedMention,
-             .successfulMention:
-            return false
-        default:
-            return true
-        }
-    }
 
     func updateCellStyle(forDisplayState displayState: NotificationsCenterCellDisplayState) {
         guard let notificationType = viewModel?.notificationType else {

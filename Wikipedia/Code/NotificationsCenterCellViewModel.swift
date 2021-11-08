@@ -31,4 +31,22 @@ final class NotificationsCenterCellViewModel {
     var notificationType: RemoteNotificationType? {
         return notification.type
     }
+    
+    var shouldAllowSecondaryTapAction: Bool {
+    
+        guard !displayState.isEditing else {
+            return false
+        }
+
+        switch notification.type {
+        case .welcome,
+             .editMilestone,
+             .translationMilestone,
+             .failedMention,
+             .successfulMention:
+            return false
+        default:
+            return true
+        }
+    }
 }
