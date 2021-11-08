@@ -137,7 +137,7 @@
 "article-languages-yours" = "توھان جون ٻوليون";
 "article-read-more-title" = "وڌيڪ پڙھو";
 "article-reference-view-title" = "حوالو $1";
-"article-save-error-not-enough-space" = "توھان کي پنھنجي آلي تي ايتري جڳھ ناھي جو ھي مضمون سانڍي سگھجي";
+"article-save-error-not-enough-space" = "توھان جي ڊوائيس تي ايتري جڳھ ناھي جو ھي مضمون سانڍي سگهجي";
 "article-share" = "ونڊيو";
 "article-toolbar-reading-themes-controls-toolbar-item" = "پڙھڻ جي نظارن جا ضابطا";
 "back-button-accessibility-label" = "واپس";
@@ -175,7 +175,7 @@
 "description-help-about-wikidata" = "وڪيڊيٽا بابت";
 "description-help-more-info-description" = "تشريحن کي وڪيڊيٽا ۾ سنڀاليو ۽ سھيڙيو ويندو آھي، جيڪا پڻ وڪيميڊيا فائونڊيشن جي ھڪ رٿا آھي، اھا مفت، گڏيل، گهڻ-لساني، ثانوي ڊيٽابيس آھي، جيڪا وڪيپيڊيا ۽ ٻين رٿائن جي سھڪار ڪري ٿي.";
 "description-help-more-info-title" = "وڌيڪ معلومات";
-"description-help-tips-description" = "تشريحون ھڪ سٽ تي پوريون ٿيڻ گھرجن، ۽ اھي ڊيگھ ۾ ٻن کان ٻارھن لفظن جي وچ ۾ ھجڻ گھرجن. انھن کي وڏن اکرن ۾ لکيو وڃي جيسيتائين پھريون لفظ ڪو خاص اسم ھجي.";
+"description-help-tips-description" = "تشريحون ھڪ سٽ تي پوريون ٿيڻ گهرجن، ۽ اھي ڊيگهہ ۾ ٻن کان ٻارھن لفظن جي وچ ۾ ھجڻ گهرجن. انھن کي وڏن اکرن ۾ نہ لکيو وڃي جيسيتائين پھريون لفظ ڪو خاص اسم نہ ھجي.";
 "description-help-tips-example-description-one" = "مونا ليزا بابت ھڪ مضمون جي تشريح";
 "description-help-tips-example-description-two" = "ايوريسٽ ج بابت ھڪ مضمون جي تشريح";
 "description-help-tips-example-title-one" = "ليونارڊو ڊا ونسي پاران مصوري";
@@ -215,15 +215,15 @@
 "diff-single-header-summary-heading" = "سنوار جو تتُ";
 "diff-single-intro-title" = "تعارف";
 "diff-single-line-format" = "سِٽَ $1";
-"diff-thanks-anonymous-no-thanks" = "گمنام واپرائيندڙ کي مھرباني نٿي چئي سگھجي";
+"diff-thanks-anonymous-no-thanks" = "گمنام واپرائيندڙن کي مھرباني نٿي چئي سگهجي";
 "diff-thanks-login-subtitle" = "'مھربانيون' وڪيپيڊيا تي ڪنھن سنواريندڙ جي ڪم جي تعريف ڪرڻ جو آسان طريقو آھن. 'مھربانيون' موڪلڻ لاءِ توھان کي لازماً داخل ٿيل ھئڻ گهرجي.";
 "diff-thanks-login-title" = "'مھربانيون' موڪلڻ لاءِ داخل ٿيو";
 "diff-thanks-send-button-title" = "'مھربانيون' موڪليو";
-"diff-thanks-send-subtitle" = "'مھربانيون' وڪيپيڊيا تي ڪنھن سنواريندڙ جي ڪم جي تعريف ڪرڻ جو آسان طريقو آھن. 'مھربانيون' اڻ نٿيون ڪري سگھجن ۽ عوامي طور ڏسي سگھجندڙ آھن.";
+"diff-thanks-send-subtitle" = "'مھربانيون' وڪيپيڊيا تي ڪنھن سنواريندڙ جي ڪم جي تعريف ڪرڻ جو آسان طريقو آھن. 'مھربانيون' اڻ نٿيون ڪري سگهجن ۽ عوامي طور ڏسي سگهجندڙ آھن.";
 "diff-thanks-send-title" = "عوامي طور 'مھربانيون' موڪليون";
 "diff-thanks-sent" = "توھان جي 'مھرباني' $1 ڏانھن موڪلي وئي";
 "diff-thanks-sent-already" = "توھان اڳ ئي ھن سنوار لاءِ 'مھربانيون' موڪلي چڪا آھيو";
-"diff-thanks-sent-cannot-unsend" = "مھربانيون اڻ-موڪلجي نٿيون سگھجن";
+"diff-thanks-sent-cannot-unsend" = "مھربانيون اڻ-موڪلجي نٿيون سگهجن";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 سٽ اڻسنواريل|$1 سٽون اڻسنواريل}}";
 "dim-images" = "ڊم عڪس";
 "edit-bold-accessibility-label" = "ٿلھي فارميٽنگ وجهو";
@@ -299,7 +299,7 @@
 "explore-featured-article-sub-heading-from-wikipedia" = "وڪيپيڊيا تان";
 "explore-feed-customize-accessibility-title" = "پنھنجايو";
 "explore-feed-language-settings" = "ايڪسپلورر فيڊ ٻولي ترتيبون";
-"explore-feed-preferences-additional-languages-footer-text" = "‘منھنجون ٻوليون’ ترتيبن جي صفحي ۾ واڌو ٻوليو وجھي سگھجن ٿيون.";
+"explore-feed-preferences-additional-languages-footer-text" = "’منھنجون ٻوليون‘ ترتيبن جي صفحي ۾ واڌو ٻوليون وجهي سگهجن ٿيون.";
 "explore-feed-preferences-card-hidden-title" = "ڪارڊ لڪيل";
 "explore-feed-preferences-continue-reading-description" = "ڪنھن کليل پڙھيو ويندڙ مضمون ڏانھن تڪڙو واپس ڳنڍيو";
 "explore-feed-preferences-customize-explore-feed" = "کوجنا رسد کي پنھنجايو";
@@ -345,7 +345,7 @@
 "explore-feed-preferences-turn-off-explore-feed-alert-message" = "سڀ کوجنا پتا لڪائڻ سان کوجنا ٽيب بند ٿي ويندي ۽ ترتيبون ٽيب سان مٽائجي ويندي";
 "explore-feed-preferences-turn-off-explore-feed-alert-title" = "کوجنا رسد بند ڪجي؟";
 "explore-feed-preferences-turn-off-explore-tab-action-title" = "کوجنا بند ڪريو";
-"explore-feed-preferences-turn-off-explore-tab-message" = "کوجنا رسد ترتتيبن ۾ کوجنا رسد ٽيب واپس آڻي سگھجي ٿي";
+"explore-feed-preferences-turn-off-explore-tab-message" = "کوجنا رسد ترتتيبن ۾ کوجنا رسد ٽيب واپس آڻي سگهجي ٿي";
 "explore-feed-preferences-turn-off-explore-tab-title" = "کوجنا ٽيب بند ڪجي؟";
 "explore-feed-preferences-turn-off-feed-disclosure" = "کوجنا ٽيب کي بند ڪرڻ کوجنا ٽيب کي ترتيبون ٽيب سان مٽائيندو";
 "explore-feed-preferences-turn-on-explore-feed-alert-message" = "کوجنا رسد پتا ڏيکاريو چونڊڻ سان توھان کوجنا ٽيب کي کولي رھيا آھيو";
@@ -525,8 +525,8 @@
 "page-history-revision-minor-edit-accessibility-label" = "معمولي سنوار";
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|$1 بائيٽ|$1 بائيٽون}} وڌيـ(ـون)";
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|$1 بائيٽ|$1 بائيٽون}} ھٽائيـ(ـون)";
-"page-history-revision-time-accessibility-label" = "$1 مطابق ڪيل ورجاءُ";
-"page-history-revisions-comparison-warning" = "صرف ٻہ ورجاءَ چونڊي سگھجن ٿا";
+"page-history-revision-time-accessibility-label" = "$1ع مطابق ڪيل ورجاءُ";
+"page-history-revisions-comparison-warning" = "صرف ٻہ ورجاءَ چونڊي سگهجن ٿا";
 "page-history-stats-text" = "$2 کان {{PLURAL:$1|$1 سنوار|$1 سنوارون}}";
 "page-history-user-edits" = "واپرائيندڙ سنوارون";
 "page-issues" = "صفحي جا مسئلا";
@@ -573,7 +573,7 @@
 "potd-description-prefix" = "$1 لاءِ اڄ جي تصوير";
 "potd-empty-error-description" = "$1 لاءِ اڄ جي تصوير حاصل ڪرڻ ۾ ناڪام";
 "potd-widget-title" = "اڄ جي تصوير";
-"preference-summary-eventlogging-opt-in" = "وڪيميڊيا فائونڊيشن کي اجازت ڏيو تہ توهان هن ايپ ڪيئن استعمال ڪريو ٿا جي معلومات جمع ڪري تہ جيئن هن ايپ کي وڌيڪ بھتر بڻائي سگھجي";
+"preference-summary-eventlogging-opt-in" = "وڪيميڊيا فائونڊيشن کي اجازت ڏيو تہ توهان هن ايپ ڪيئن استعمال ڪريو ٿا جي معلومات جمع ڪري تہ جيئن هن ايپ کي وڌيڪ بھتر بڻائي سگهجي";
 "preference-title-eventlogging-opt-in" = "استعمال جون رپورٽون اماڻيو";
 "rank-accessibility-label" = "انگ $1";
 "readers-accessibility-label" = "$1 پڙھندڙ";
@@ -588,7 +588,7 @@
 "reading-list-deleted-accessibility-notification" = "پڙھڻ جي فھرست ڊاٿي وئي";
 "reading-list-do-not-keep-button-title" = "نہ، مضمونن کي آلي مان ڊاھيو";
 "reading-list-entry-limit-exceeded-title" = "توھان في کاتو {{PLURAL:$1|$1 مضمون|$1 مضمونن}} جي حد کان اڳتي وڌي ويا آھيو.";
-"reading-list-entry-limit-reached" = "{{PLURAL:$1|مضمون|مضمون}} فھرست ۾ نٿو/نٿا وجھي سگھجي(جن). توھان في فھرست $2 مضمونن جي حد تي $3 لاءِ پھچي ويا آھيو";
+"reading-list-entry-limit-reached" = "{{PLURAL:$1|مضمون|مضمون}} فھرست ۾ نٿو/نٿا وجهي سگهجي(جن). توھان في فھرست $2 مضمونن جي حد تي $3 لاءِ پھچي ويا آھيو";
 "reading-list-exists-with-same-name" = "پڙھڻ جي فھرست جو نالو سڳ ئي استعمال ھيٺ آھي";
 "reading-list-generic-error" = "توھان جي پڙھڻ جون فھرستون چاڙھيندي غير متوقع چڪ پيش آئي.";
 "reading-list-keep-button-title" = "ھا، مضمونن کي آلي تي رکو";
@@ -612,7 +612,7 @@
 "reading-lists-count" = "{{PLURAL:$1|$1 پڙھڻ جي فھرست|$1 پڙھڻ جون فھرستون}}";
 "reading-lists-default-list-description" = "توھان جي سانڍيل مضمونن جي لاءِ ڏنل فھرست";
 "reading-lists-default-list-title" = "سانڍيل";
-"reading-lists-delete-reading-list-alert-message" = "ھي عمل اڻڪري نٿو سگھجي. رڳو {{PLURAL:$1|ھن فھرست|ھنن فھرستن}} ۾ سانڍيل مضمون اڻسانڍجي ويندا.";
+"reading-lists-delete-reading-list-alert-message" = "ھي عمل اڻڪري نٿو سگهجي. رڳو {{PLURAL:$1|ھن فھرست|ھنن فھرستن}} ۾ سانڍيل مضمون اڻسانڍجي ويندا.";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|فھرست|فھرستون}} ڊاھيو؟";
 "reading-lists-sort-saved-articles" = "سانڍيل مضمون مرتب ڪريو";
 "reading-themes-controls-accessibility-black-theme-button" = "ڪارو نظارو";
@@ -650,7 +650,7 @@
 "reverted-edit-title" = "ورايل سنوار";
 "reverted-edit-view-guidelines-text" = "ھدايتون ڏسو";
 "saved-all-articles-title" = "سڀ مضمون";
-"saved-default-reading-list-tag" = "ھي فھرست نٿي ڊاھي سگھجي";
+"saved-default-reading-list-tag" = "ھي فھرست نٿي ڊاھي سگهجي";
 "saved-pages-image-download-error" = "هن سانڍيل صفحي لاءِ عڪس لاھڻ ۾ ناڪامي ٿي.";
 "saved-pages-progress-syncing" = "آرٽيڪل لاھڻ عمل ۾ آھي…";
 "saved-reading-lists-title" = "پڙھڻ جون فھرستون";
