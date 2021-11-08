@@ -301,6 +301,35 @@ final class NotificationsCenterCell: UICollectionViewCell {
         updateLabels(forViewModel: viewModel)
         updateProject(forViewModel: viewModel)
         updateMetaButton(forViewModel: viewModel)
+        
+        headerLabelTapGestureRecognizer.isEnabled = isHeaderLabelTapGestureEnabled
+    }
+}
+
+//MARK: - Private
+
+private extension NotificationsCenterCell {
+    
+    var isHeaderLabelTapGestureEnabled: Bool {
+    
+        guard let viewModel = self.viewModel,
+              !viewModel.displayState.isEditing else {
+            return false
+        }
+
+        switch viewModel.notification.type {
+        case .welcome,
+             .editMilestone,
+             .translationMilestone,
+             .failedMention,
+             .successfulMention,
+             .loginFailKnownDevice,
+             .loginFailUnknownDevice,
+             .loginSuccessUnknownDevice:
+            return false
+        default:
+            return true
+        }
     }
 
     func updateCellStyle(forDisplayState displayState: NotificationsCenterCellDisplayState) {
@@ -316,7 +345,6 @@ final class NotificationsCenterCell: UICollectionViewCell {
         cellSeparator.backgroundColor = cellStyle.cellSeparatorColor
 
         headerLabel.textColor = cellStyle.headerTextColor(displayState)
-        headerLabelTapGestureRecognizer.isEnabled = cellStyle.isHeaderLabelTapGestureEnabled(displayState)
         subheaderLabel.textColor = cellStyle.subheaderTextColor(displayState)
         messageSummaryLabel.textColor = cellStyle.messageTextColor
         relativeTimeAgoLabel.textColor = cellStyle.relativeTimeAgoColor

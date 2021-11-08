@@ -195,7 +195,7 @@ private extension NotificationsCenterCellViewModel {
         //Return this link if we're fairly certain it's what we think it is
         
         guard let secondaryLinks = notification.secondaryLinks,
-              secondaryLinks.count > 1,
+              secondaryLinks.indices.contains(1),
               let wikidataItemURL = secondaryLinks[1].url else {
             return nil
         }
