@@ -29,27 +29,6 @@ struct NotificationsCenterCellStyle {
             return theme.colors.link
         }
     }
-    
-    func isHeaderLabelTapGestureEnabled(_ displayState: NotificationsCenterCellDisplayState) -> Bool {
-
-        guard displayState.isUnread else {
-            return false
-        }
-
-        switch notificationType {
-        case .welcome,
-             .editMilestone,
-             .translationMilestone,
-             .failedMention,
-             .successfulMention,
-             .loginFailKnownDevice,
-             .loginFailUnknownDevice,
-             .loginSuccessUnknownDevice:
-            return false
-        default:
-            return true
-        }
-    }
 
     func subheaderTextColor(_ displayState: NotificationsCenterCellDisplayState) -> UIColor {
         switch notificationType {

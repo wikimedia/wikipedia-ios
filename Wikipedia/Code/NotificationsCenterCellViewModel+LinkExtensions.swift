@@ -40,7 +40,7 @@ extension NotificationsCenterCellViewModel {
         case .loginFailUnknownDevice,
              .loginFailKnownDevice,
              .loginSuccessUnknownDevice:
-            calculatedURL = loginNotificationsHelpURL
+            calculatedURL = changePasswordURL(for: configuration)
 
         case .unknownSystemAlert,
              .unknownSystemNotice,
@@ -70,15 +70,16 @@ extension NotificationsCenterCellViewModel {
              .unknownAlert,
              .unknownNotice:
             calculatedURL = customPrefixAgentNameURL(for: configuration, pageNamespace: .user)
+        case .loginFailUnknownDevice,
+             .loginFailKnownDevice,
+             .loginSuccessUnknownDevice:
+            calculatedURL = loginNotificationsHelpURL
         case .failedMention,
              .successfulMention,
              .emailFromOtherUser,
              .translationMilestone,
              .editMilestone,
              .welcome,
-             .loginFailUnknownDevice,
-             .loginFailKnownDevice,
-             .loginSuccessUnknownDevice,
              .unknownSystemAlert,
              .unknownSystemNotice,
              .unknown:
@@ -255,7 +256,7 @@ extension NotificationsCenterCellViewModel {
         //Return this link if we're fairly certain it's what we think it is
         
         guard let secondaryLinks = notification.secondaryLinks,
-              secondaryLinks.count > 1,
+              secondaryLinks.indices.contains(1),
               let wikidataItemURL = secondaryLinks[1].url else {
             return nil
         }
