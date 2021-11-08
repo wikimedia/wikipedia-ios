@@ -85,7 +85,7 @@
 }
 
 - (NSString *)geoIPCookieString {
-    NSArray<NSHTTPCookie *> *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
+    NSArray<NSHTTPCookie *> *cookies = [[WMFSession sharedCookieStorage] cookies];;
     NSHTTPCookie *cookie = [cookies wmf_match:^BOOL(NSHTTPCookie *obj) {
         if ([[obj name] containsString:@"GeoIP"]) {
             return YES;
