@@ -40,7 +40,7 @@ extension NotificationsCenterCellViewModel {
         case .loginFailUnknownDevice,
              .loginFailKnownDevice,
              .loginSuccessUnknownDevice:
-            calculatedURL = loginNotificationsHelpURL
+            calculatedURL = changePasswordURL(for: configuration)
 
         case .unknownSystemAlert,
              .unknownSystemNotice,
@@ -70,15 +70,16 @@ extension NotificationsCenterCellViewModel {
              .unknownAlert,
              .unknownNotice:
             calculatedURL = customPrefixAgentNameURL(for: configuration, pageNamespace: .user)
+        case .loginFailUnknownDevice,
+             .loginFailKnownDevice,
+             .loginSuccessUnknownDevice:
+            calculatedURL = loginNotificationsHelpURL
         case .failedMention,
              .successfulMention,
              .emailFromOtherUser,
              .translationMilestone,
              .editMilestone,
              .welcome,
-             .loginFailUnknownDevice,
-             .loginFailKnownDevice,
-             .loginSuccessUnknownDevice,
              .unknownSystemAlert,
              .unknownSystemNotice,
              .unknown:
@@ -163,6 +164,19 @@ private extension NotificationsCenterCellViewModel {
         }
 
         return url
+    }
+    
+    //https://en.wikipedia.org/wiki/Special:ChangeCredentials
+    func changePasswordURL(for configuration: Configuration) -> URL? {
+        guard let data = linkData(for: configuration) else {
+            return nil
+        }
+
+        var components = URLComponents()
+        components.host = data.host
+        components.scheme = "https"
+        components.path = "/wiki/Special:ChangeCredentials"
+        return components.url
     }
     
     var primaryLinkMinusQueryItemsURL: URL? {

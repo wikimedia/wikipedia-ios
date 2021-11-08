@@ -322,10 +322,7 @@ private extension NotificationsCenterCell {
              .editMilestone,
              .translationMilestone,
              .failedMention,
-             .successfulMention,
-             .loginFailKnownDevice,
-             .loginFailUnknownDevice,
-             .loginSuccessUnknownDevice:
+             .successfulMention:
             return false
         default:
             return true
