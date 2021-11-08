@@ -108,6 +108,7 @@ class RemoteNotificationsAPIController: Fetcher {
             let title: Title?
             let agent: Agent?
             let readString: String?
+            let revisionID: String?
             let message: Message?
             
             var key: String {
@@ -124,6 +125,7 @@ class RemoteNotificationsAPIController: Fetcher {
                 case title = "title"
                 case agent
                 case readString = "read"
+                case revisionID = "revid"
                 case message = "*"
             }
 
@@ -142,6 +144,13 @@ class RemoteNotificationsAPIController: Fetcher {
                 title = try? values.decode(Title.self, forKey: .title)
                 agent = try? values.decode(Agent.self, forKey: .agent)
                 readString = try? values.decode(String.self, forKey: .readString)
+                
+                if let intRevID = try? values.decode(Int.self, forKey: .revisionID) {
+                    revisionID = String(intRevID)
+                } else {
+                    revisionID = (try? values.decode(String.self, forKey: .revisionID)) ?? nil
+                }
+                
                 message = try? values.decode(Message.self, forKey: .message)
             }
         }
@@ -245,7 +254,7 @@ class RemoteNotificationsAPIController: Fetcher {
                 url = configuration.commonsAPIURLComponents(with: queryParameters).url
             case .wikidata:
                 url = configuration.wikidataAPIURLComponents(with: queryParameters).url
-            case .language(let languageCode, _):
+            case .language(let languageCode, _, _):
                 url = configuration.mediaWikiAPIURLForLanguageCode(languageCode, with: queryParameters).url
             }
         } else {
