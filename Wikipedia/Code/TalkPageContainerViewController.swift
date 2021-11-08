@@ -104,7 +104,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     }()
     private lazy var replyRoutingActivityIndicator: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView(style: .medium)
-        view.color = theme.isDark ? .white : .gray
+        view.color = theme.colors.primaryText
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
