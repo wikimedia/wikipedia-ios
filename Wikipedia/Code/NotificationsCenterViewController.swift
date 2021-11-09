@@ -113,8 +113,17 @@ extension NotificationsCenterViewController: UICollectionViewDelegate, UICollect
 		}
 
 		cell.configure(viewModel: cellViewModel, theme: theme)
+        cell.delegate = self
 		return cell
 	}
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cellViewModel = viewModel.cellViewModel(indexPath: indexPath),
+              let url = cellViewModel.primaryURL(for: viewModel.configuration) else {
+            return
+        }
+        navigate(to: url)
+    }
 
 }
 
@@ -193,5 +202,14 @@ extension NotificationsCenterViewController: NotificationCenterViewModelDelegate
         present(alertController, animated: true, completion: nil)
         */
     }
+}
 
+//MARK: NotificationCenterCellDelegate
+extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
+    func userDidTapSecondaryActionForViewModel(_ cellViewModel: NotificationsCenterCellViewModel) {
+        guard let url = cellViewModel.secondaryURL(for: viewModel.configuration) else {
+            return
+        }
+        navigate(to: url)
+    }
 }

@@ -58,6 +58,8 @@ import Foundation
             return "Talk"
         case .userTalk:
             return "User talk"
+        case .user:
+            return "User"
         default: // add these as needed
             return ""
         }
@@ -65,7 +67,7 @@ import Foundation
 }
 
 extension PageNamespace {
-    init?(namespaceValue: Int?) {
+    public init?(namespaceValue: Int?) {
         guard let rawValue = namespaceValue else {
             return nil
         }

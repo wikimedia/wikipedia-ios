@@ -7,8 +7,11 @@ import CocoaLumberjackSwift
         return operationsController.viewContext
     }
     
+    public let configuration: Configuration
+    
     @objc public required init(session: Session, configuration: Configuration, preferredLanguageCodesProvider: WMFPreferredLanguageInfoProvider) {
         operationsController = RemoteNotificationsOperationsController(session: session, configuration: configuration, preferredLanguageCodesProvider: preferredLanguageCodesProvider)
+        self.configuration = configuration
         super.init()
     }
     

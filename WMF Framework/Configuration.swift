@@ -158,6 +158,7 @@ public class Configuration: NSObject {
         static let restBaseAPIComponents = ["api", "rest_v1"]
         static let mediaWikiAPIComponents = ["w", "api.php"]
         static let mediaWikiRestAPIComponents = ["w", "rest.php"]
+        static let expandedWikiResourceComponents = ["w", "index.php"]
     }
     
     // MARK: State
@@ -339,9 +340,24 @@ public class Configuration: NSObject {
         return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Path.wikiResourceComponent)
     }
     
+    func expandedArticleURLComponentsBuilder(for host: String) -> APIURLComponentsBuilder {
+        var components = URLComponents()
+        components.host = host
+        components.scheme = Scheme.https
+        return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Path.expandedWikiResourceComponents)
+    }
+    
     public func articleURLForHost(_ host: String, languageVariantCode: String?, appending pathComponents: [String]) -> URL? {
         let builder = articleURLComponentsBuilder(for: host)
         let components = builder.components(byAppending: pathComponents)
+        return components.wmf_URLWithLanguageVariantCode(languageVariantCode)
+    }
+    
+    //Uses format https://en.wikipedia.org/w/index.php?title=Main_Page
+    //As opposed to https://en.wikipedia.org/wiki/Main_Page
+    public func expandedArticleURLForHost(_ host: String, languageVariantCode: String?, queryParameters: [String: Any]?) -> URL? {
+        let builder = expandedArticleURLComponentsBuilder(for: host)
+        let components = builder.components(byAppending: [], queryParameters: queryParameters)
         return components.wmf_URLWithLanguageVariantCode(languageVariantCode)
     }
     
