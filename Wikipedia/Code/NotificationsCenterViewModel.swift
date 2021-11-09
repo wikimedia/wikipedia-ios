@@ -27,6 +27,10 @@ final class NotificationsCenterViewModel: NSObject {
     private var isPagingEnabled = true
     
     var isEditing: Bool = false
+    
+    var configuration: Configuration {
+        return remoteNotificationsController.configuration
+    }
 
     // MARK: - Lifecycle
 

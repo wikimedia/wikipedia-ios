@@ -557,7 +557,6 @@
 "notifications-center-empty-not-subscribed" = "Text displayed when user has not subscribed to any Wikipedia notifications.";
 "notifications-center-footer-change-password" = "Footer text for login-related notifications in Notifications Center.";
 "notifications-center-header-alert-from-project" = "Header text for alert notifications in Notifications Center. $1 is replaced with a project name such as \"EN-Wikipedia\".";
-"notifications-center-header-mention-format" = "Header text for successful mention notifications in Notifications Center. $1 is replaced with the mentioned username (e.g. \"To: Jimbo Wales\").";
 "notifications-center-header-notice-from-project" = "Header text for notice notifications in Notifications Center. $1 is replaced with a project name such as \"EN-Wikipedia\" or \"Wikimedia Commons\".";
 "notifications-center-language-project-name-format" = "Format used for the ordering of language project name descriptions. This description is inserted into the header text of notifications in Notifications Center. For example, \"English Wikipedia\". Use this format to reorder these words if necessary or insert additional connecting words. Parameters: $1 = localized language name (\"English\"), $2 = localized name for Wikipedia (\"Wikipedia\")";
 "notifications-center-subheader-edit-milestone" = "Subheader text for edit milestone notifications in Notifications Center.";

@@ -1,7 +1,7 @@
 import UIKit
 
 protocol NotificationsCenterCellDelegate: AnyObject {
-    func userDidTapSecondaryActionForCellIdentifier(id: String)
+    func userDidTapSecondaryActionForViewModel(_ cellViewModel: NotificationsCenterCellViewModel)
 }
 
 final class NotificationsCenterCell: UICollectionViewCell {
@@ -11,7 +11,8 @@ final class NotificationsCenterCell: UICollectionViewCell {
     static let reuseIdentifier = "NotificationsCenterCell"
 
     fileprivate var theme: Theme = .light
-    private(set) weak var viewModel: NotificationsCenterCellViewModel?
+    fileprivate var viewModel: NotificationsCenterCellViewModel?
+
     weak var delegate: NotificationsCenterCellDelegate?
 
     // MARK: - UI Elements
@@ -66,9 +67,16 @@ final class NotificationsCenterCell: UICollectionViewCell {
         label.textAlignment = .left
         label.numberOfLines = 1
         label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        label.setContentHuggingPriority(.required, for: .horizontal)
+        label.setContentHuggingPriority(.defaultLow, for: .horizontal)
         label.text = ""
+        label.isUserInteractionEnabled = true
         return label
+    }()
+    
+    lazy var headerLabelTapGestureRecognizer: UITapGestureRecognizer = {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tappedHeaderLabel))
+        headerLabel.addGestureRecognizer(tap)
+        return tap
     }()
 
     lazy var subheaderLabel: UILabel = {
@@ -236,6 +244,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
             mainVerticalStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: topMargin),
             mainVerticalStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -edgeMargin),
             mainVerticalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            headerTextContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -edgeMargin),
 
             cellSeparator.heightAnchor.constraint(equalToConstant: 0.5),
             cellSeparator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
@@ -264,7 +273,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
 
             relativeTimeAgoLabel.topAnchor.constraint(equalTo: headerTextContainer.topAnchor),
             relativeTimeAgoLabel.bottomAnchor.constraint(equalTo: headerTextContainer.bottomAnchor),
-            relativeTimeAgoLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -edgeMargin)
+            relativeTimeAgoLabel.trailingAnchor.constraint(equalTo: headerTextContainer.trailingAnchor)
         ])
 
         // Project Source
@@ -274,10 +283,10 @@ final class NotificationsCenterCell: UICollectionViewCell {
             projectSourceContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -edgeMargin),
 
             projectSourceLabel.topAnchor.constraint(equalTo: subheaderLabel.topAnchor),
-            projectSourceLabel.trailingAnchor.constraint(equalTo: relativeTimeAgoLabel.trailingAnchor),
+            projectSourceLabel.trailingAnchor.constraint(equalTo: projectSourceContainer.trailingAnchor),
 
             projectSourceImage.topAnchor.constraint(equalTo: subheaderLabel.topAnchor),
-            projectSourceImage.trailingAnchor.constraint(equalTo: relativeTimeAgoLabel.trailingAnchor),
+            projectSourceImage.trailingAnchor.constraint(equalTo: projectSourceContainer.trailingAnchor),
         ])
     }
 
@@ -291,6 +300,8 @@ final class NotificationsCenterCell: UICollectionViewCell {
         updateLabels(forViewModel: viewModel)
         updateProject(forViewModel: viewModel)
         updateMetaButton(forViewModel: viewModel)
+        
+        headerLabelTapGestureRecognizer.isEnabled = viewModel.shouldAllowSecondaryTapAction
     }
     
     func configure(theme: Theme) {
@@ -300,6 +311,11 @@ final class NotificationsCenterCell: UICollectionViewCell {
         
         configure(viewModel: viewModel, theme: theme)
     }
+}
+
+//MARK: - Private
+
+private extension NotificationsCenterCell {
 
     func updateCellStyle(forDisplayState displayState: NotificationsCenterCellDisplayState) {
         guard let notificationType = viewModel?.notificationType else {
@@ -381,5 +397,13 @@ final class NotificationsCenterCell: UICollectionViewCell {
         }
 
         metaActionButton.setImage(image, for: .normal)
+    }
+    
+    @objc func tappedHeaderLabel() {
+        guard let viewModel = viewModel else {
+            return
+        }
+
+        delegate?.userDidTapSecondaryActionForViewModel(viewModel)
     }
 }

@@ -343,7 +343,7 @@
 	<key>reading-list-entry-limit-reached</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ فھرست ۾ نٿو/نٿا وجھي سگھجي(جن). توھان في فھرست %2$d مضمونن جي حد تي %3$@ لاءِ پھچي ويا آھيو</string>
+		<string>%#@v1@ فھرست ۾ نٿو/نٿا وجهي سگهجي(جن). توھان في فھرست %2$d مضمونن جي حد تي %3$@ لاءِ پھچي ويا آھيو</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -375,7 +375,7 @@
 	<key>reading-lists-delete-reading-list-alert-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>ھي عمل اڻڪري نٿو سگھجي. رڳو %#@v1@ ۾ سانڍيل مضمون اڻسانڍجي ويندا.</string>
+		<string>ھي عمل اڻڪري نٿو سگهجي. رڳو %#@v1@ ۾ سانڍيل مضمون اڻسانڍجي ويندا.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

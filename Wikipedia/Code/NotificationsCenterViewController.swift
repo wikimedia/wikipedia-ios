@@ -251,6 +251,10 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
         
         if !viewModel.isEditing {
             collectionView.deselectItem(at: indexPath, animated: true)
+            
+            if let primaryURL = cellViewModel.primaryURL(for: viewModel.configuration) {
+                navigate(to: primaryURL)
+            }
         }
     }
     
@@ -262,12 +266,6 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
         
         viewModel.updateCellDisplayStates(cellViewModels: [cellViewModel], isSelected: false)
         reconfigureCells(with: [cellViewModel])
-    }
-}
-
-extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
-    func userDidTapSecondaryActionForCellIdentifier(id: String) {
-        //TODO
     }
 }
 
@@ -332,5 +330,15 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
         present(alertController, animated: true, completion: nil)
         */
     }
+}
 
+//MARK: NotificationCenterCellDelegate
+
+extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
+    func userDidTapSecondaryActionForViewModel(_ cellViewModel: NotificationsCenterCellViewModel) {
+        guard let url = cellViewModel.secondaryURL(for: viewModel.configuration) else {
+            return
+        }
+        navigate(to: url)
+    }
 }

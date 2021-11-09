@@ -207,6 +207,7 @@ final class RemoteNotificationsModelController: NSObject {
                                                     "agentId": notification.agent?.id,
                                                     "agentName": notification.agent?.name,
                                                     "isRead" : isRead,
+                                                    "revisionID": notification.revisionID,
                                                     "messageHeader": notification.message?.header,
                                                     "messageBody": notification.message?.body,
                                                     "messageLinks": notification.message?.links])
