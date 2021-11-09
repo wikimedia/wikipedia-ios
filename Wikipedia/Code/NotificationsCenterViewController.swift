@@ -183,14 +183,14 @@ extension NotificationsCenterViewController: NotificationCenterViewModelDelegate
             return
         }
         
-        let swipeActions = cellViewModel.swipeActions(for: viewModel.configuration)
-        guard !swipeActions.isEmpty else {
+        let sheetActions = cellViewModel.sheetActions(for: viewModel.configuration)
+        guard !sheetActions.isEmpty else {
             return
         }
 
         let alertController = UIAlertController(title: cellViewModel.headerText, message: cellViewModel.bodyText, preferredStyle: .actionSheet)
 
-        swipeActions.forEach { action in
+        sheetActions.forEach { action in
             
             let alertAction: UIAlertAction
             switch action {
