@@ -165,7 +165,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         mapView.mapType = .standard
         mapView.showsBuildings = false
         mapView.showsTraffic = false
-        mapView.showsPointsOfInterest = false
+        mapView.pointOfInterestFilter = .excludingAll
         mapView.showsScale = false
         mapView.showsUserLocation = true
         mapView.isRotateEnabled = false

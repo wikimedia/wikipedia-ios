@@ -9,6 +9,9 @@
 #import "RMessageView.h"
 #import "Wikipedia-Swift.h"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 static NSString *const RDesignFileName = @"RMessageDefaultDesign";
 
 /** Animation constants */
@@ -995,3 +998,4 @@ static NSMutableDictionary *globalDesignDictionary;
 }
 
 @end
+#pragma clang diagnostic pop

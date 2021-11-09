@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20G165" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="RemoteNotification" representedClassName="RemoteNotification" syncable="YES">
+        <attribute name="agentId" optional="YES" attributeType="String"/>
+        <attribute name="agentName" optional="YES" attributeType="String"/>
+        <attribute name="categoryString" attributeType="String"/>
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="isRead" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="key" attributeType="String"/>
+        <attribute name="messageBody" optional="YES" attributeType="String"/>
+        <attribute name="messageHeader" optional="YES" attributeType="String"/>
+        <attribute name="messageLinks" optional="YES" attributeType="Transformable" valueTransformerName="WMFSecureUnarchiveFromDataTransformer" customClassName="RemoteNotificationLinks"/>
+        <attribute name="revisionID" optional="YES" attributeType="String"/>
+        <attribute name="section" optional="YES" attributeType="String"/>
+        <attribute name="titleFull" optional="YES" attributeType="String"/>
+        <attribute name="titleNamespace" optional="YES" attributeType="String"/>
+        <attribute name="titleNamespaceKey" optional="YES" attributeType="Integer 16" usesScalarValueType="YES"/>
+        <attribute name="titleText" optional="YES" attributeType="String"/>
+        <attribute name="typeString" attributeType="String"/>
+        <attribute name="utcUnixString" optional="YES" attributeType="String"/>
+        <attribute name="wiki" attributeType="String"/>
+        <fetchIndex name="byPropertyIndex">
+            <fetchIndexElement property="key" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="key"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="WMFKeyValue" representedClassName="WMFKeyValue" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="group" optional="YES" attributeType="String"/>
+        <attribute name="key" optional="YES" attributeType="String"/>
+        <attribute name="value" optional="YES" attributeType="Transformable" valueTransformerName="WMFSecureUnarchiveFromDataTransformer"/>
+        <fetchIndex name="compoundIndex">
+            <fetchIndexElement property="key" type="Binary" order="ascending"/>
+            <fetchIndexElement property="group" type="Binary" order="ascending"/>
+            <fetchIndexElement property="date" type="Binary" order="ascending"/>
+        </fetchIndex>
+    </entity>
+    <elements>
+        <element name="RemoteNotification" positionX="-63" positionY="-18" width="128" height="314"/>
+        <element name="WMFKeyValue" positionX="-63" positionY="54" width="128" height="103"/>
+    </elements>
+</model>

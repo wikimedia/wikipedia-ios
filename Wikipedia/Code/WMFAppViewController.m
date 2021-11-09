@@ -207,11 +207,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(remoteNotificationsModelDidChange:)
-                                                 name:[RemoteNotificationsModelControllerNotification modelDidChange]
-                                               object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(userWasLoggedOut:)
                                                  name:[WMFAuthenticationManager didLogOutNotification]
                                                object:nil];
@@ -270,14 +265,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     self.periodicWorkerController = [[WMFPeriodicWorkerController alloc] initWithInterval:30 initialDelay:1 leeway:15];
     self.periodicWorkerController.delegate = self;
     [self.periodicWorkerController add:self.dataStore.readingListsController];
-    [self.periodicWorkerController add:self.dataStore.remoteNotificationsController];
     [self.periodicWorkerController add:[WMFEventLoggingService sharedInstance]];
     [self.periodicWorkerController add:[WMFMetricsClientBridge sharedInstance]];
 
     self.backgroundFetcherController = [[WMFBackgroundFetcherController alloc] init];
     self.backgroundFetcherController.delegate = self;
     [self.backgroundFetcherController add:self.dataStore.readingListsController];
-    [self.backgroundFetcherController add:self.dataStore.remoteNotificationsController];
     [self.backgroundFetcherController add:(id<WMFBackgroundFetcher>)self.dataStore.feedContentController];
     [self.backgroundFetcherController add:[WMFEventLoggingService sharedInstance]];
     [self.backgroundFetcherController add:[WMFMetricsClientBridge sharedInstance]];
@@ -362,7 +355,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self.periodicWorkerController start];
     [self.savedArticlesFetcher start];
     [self.mobileViewToMobileHTMLMigrationController start];
-    self.notificationsController.applicationActive = YES;
 }
 
 - (void)performTasksThatShouldOccurAfterAnnouncementsUpdated {
@@ -970,7 +962,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
     [[NSUserDefaults standardUserDefaults] wmf_setDidShowSyncDisabledPanel:NO];
 
-    self.notificationsController.applicationActive = NO;
     [self.reachabilityNotifier stop];
     [self.periodicWorkerController stop];
     [self.savedArticlesFetcher stop];
@@ -1353,7 +1344,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 - (WMFNotificationsController *)notificationsController {
     WMFNotificationsController *controller = self.dataStore.notificationsController;
-    controller.applicationActive = [[UIApplication sharedApplication] applicationState] == UIApplicationStateActive;
     return controller;
 }
 
@@ -1372,11 +1362,17 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (!_exploreViewController) {
         _exploreViewController = [[ExploreViewController alloc] init];
         _exploreViewController.dataStore = self.dataStore;
+        _exploreViewController.notificationsCenterPresentationDelegate = self;
         _exploreViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-explore"];
         _exploreViewController.title = [WMFCommonStrings exploreTabTitle];
         [_exploreViewController applyTheme:self.theme];
         UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
+        UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc] initWithImage:[self notificationsCenterBellImageWithUnreadNotifications:YES] style:UIBarButtonItemStylePlain target:_exploreViewController action:@selector(userDidTapNotificationsCenter)];
+
         settingsBarButtonItem.accessibilityLabel = [WMFCommonStrings settingsTitle];
+        notificationsBarButton.accessibilityLabel = [WMFCommonStrings notificationsCenterTitle];
+
+        _exploreViewController.navigationItem.leftBarButtonItem = notificationsBarButton;
         _exploreViewController.navigationItem.rightBarButtonItem = settingsBarButtonItem;
     }
     return _exploreViewController;
@@ -1633,12 +1629,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 // The method will be called on the delegate only if the application is in the foreground. If the method is not implemented or the handler is not called in a timely manner then the notification will not be presented. The application can choose to have the notification presented as a sound, badge, alert and/or in the notification list. This decision should be based on whether the information in the notification is otherwise visible to the user.
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
     completionHandler(UNNotificationPresentationOptionAlert);
-    UNNotificationContent *notificationContent = notification.request.content;
-    NSString *categoryIdentifier = notificationContent.categoryIdentifier;
-    NSString *notificationID = (NSString *)notificationContent.userInfo[WMFEditRevertedNotificationIDKey];
-    if ([categoryIdentifier isEqualToString:WMFEditRevertedNotificationCategoryIdentifier]) {
-        [self.remoteNotificationsModelChangeResponseCoordinator markAsSeenNotificationWithID:notificationID];
-    }
 }
 
 // The method will be called on the delegate when the user responded to the notification by opening the application, dismissing the notification or choosing a UNNotificationAction. The delegate must be set before the application returns from applicationDidFinishLaunching:.
@@ -1656,23 +1646,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         } else if ([actionIdentifier isEqualToString:UNNotificationDefaultActionIdentifier]) {
             [self showInTheNewsForNotificationInfo:info];
         } else if ([actionIdentifier isEqualToString:UNNotificationDismissActionIdentifier]) {
-        }
-        // WMFEditRevertedNotification
-    } else if ([categoryIdentifier isEqualToString:WMFEditRevertedNotificationCategoryIdentifier]) {
-        NSDictionary *info = response.notification.request.content.userInfo;
-        NSString *articleURLString = (NSString *)info[WMFNotificationInfoArticleURLStringKey];
-        NSString *notificationID = (NSString *)info[WMFEditRevertedNotificationIDKey];
-        assert(articleURLString);
-        assert(notificationID);
-        if ([actionIdentifier isEqualToString:WMFEditRevertedReadMoreActionIdentifier] || [actionIdentifier isEqualToString:UNNotificationDefaultActionIdentifier]) {
-            NSURL *articleURL = [NSURL URLWithString:articleURLString];
-            assert(articleURL);
-            [self showReadMoreAboutRevertedEditViewControllerWithArticleURL:articleURL
-                                                                 completion:^{
-                                                                     [self.remoteNotificationsModelChangeResponseCoordinator markAsReadNotificationWithID:notificationID];
-                                                                 }];
-        } else {
-            [self.remoteNotificationsModelChangeResponseCoordinator markAsReadNotificationWithID:notificationID];
         }
     }
 
@@ -1837,23 +1810,19 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 }
 
 - (void)updateUserInterfaceStyleOfViewControllerForCurrentTheme:(UIViewController *)viewController {
-    if (@available(iOS 13.0, *)) {
-        NSString *themeName = [NSUserDefaults.standardUserDefaults themeName];
-        if ([WMFTheme isDefaultThemeName:themeName]) {
-            viewController.overrideUserInterfaceStyle = UIUserInterfaceStyleUnspecified;
-        } else if ([WMFTheme isDarkThemeName:themeName]) {
-            viewController.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
-        } else {
-            viewController.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
-        }
+    NSString *themeName = [NSUserDefaults.standardUserDefaults themeName];
+    if ([WMFTheme isDefaultThemeName:themeName]) {
+        viewController.overrideUserInterfaceStyle = UIUserInterfaceStyleUnspecified;
+    } else if ([WMFTheme isDarkThemeName:themeName]) {
+        viewController.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
+    } else {
+        viewController.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
     }
 }
 
 - (void)debounceTraitCollectionThemeUpdate {
-    if (@available(iOS 13.0, *)) {
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateAppThemeIfNecessary) object:nil];
-        [self performSelector:@selector(updateAppThemeIfNecessary) withObject:nil afterDelay:0.3];
-    }
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateAppThemeIfNecessary) object:nil];
+    [self performSelector:@selector(updateAppThemeIfNecessary) withObject:nil afterDelay:0.3];
 }
 
 - (void)themeableNavigationControllerTraitCollectionDidChange:(nonnull WMFThemeableNavigationController *)navigationController {
@@ -1973,6 +1942,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
             [WMFSettingsViewController settingsViewControllerWithDataStore:self.dataStore];
         [settingsVC applyTheme:self.theme];
         _settingsViewController = settingsVC;
+        _settingsViewController.notificationsCenterPresentationDelegate = self;
         _settingsViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-explore"];
     }
     return _settingsViewController;
@@ -2030,47 +2000,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 #pragma mark - Remote Notifications
 
-- (void)remoteNotificationsModelDidChange:(NSNotification *)note {
-    self.remoteNotificationsModelChangeResponseCoordinator = (RemoteNotificationsModelChangeResponseCoordinator *)note.object;
-    assert(self.remoteNotificationsModelChangeResponseCoordinator);
-    RemoteNotificationsModelChange *modelChange = (RemoteNotificationsModelChange *)self.remoteNotificationsModelChangeResponseCoordinator.modelChange;
-    NSDictionary<NSNumber *, NSArray<RemoteNotification *> *> *notificationsGroupedByCategoryNumber = (NSDictionary<NSNumber *, NSArray<RemoteNotification *> *> *)modelChange.notificationsGroupedByCategoryNumber;
-    assert(modelChange);
-    switch (modelChange.type) {
-        case RemoteNotificationsModelChangeTypeAddedNewNotifications:
-        case RemoteNotificationsModelChangeTypeUpdatedExistingNotifications:
-            [self scheduleLocalNotificationsForRemoteNotificationsWithCategory:RemoteNotificationCategoryEditReverted notificationsGroupedByCategoryNumber:notificationsGroupedByCategoryNumber];
-        default:
-            break;
-    }
-}
-
-- (void)scheduleLocalNotificationsForRemoteNotificationsWithCategory:(RemoteNotificationCategory)category notificationsGroupedByCategoryNumber:(NSDictionary<NSNumber *, NSArray<RemoteNotification *> *> *)notificationsGroupedByCategoryNumber {
-    NSAssert(category == RemoteNotificationCategoryEditReverted, @"Categories other than RemoteNotificationCategoryEditReverted are not supported");
-
-    NSNumber *editRevertedCategoryNumber = [NSNumber numberWithInt:RemoteNotificationCategoryEditReverted];
-    NSArray<RemoteNotification *> *editRevertedNotifications = notificationsGroupedByCategoryNumber[editRevertedCategoryNumber];
-    if (editRevertedNotifications.count == 0) {
-        return;
-    }
-
-    for (RemoteNotification *editRevertedNotification in editRevertedNotifications) {
-        WMFArticle *article = [self.dataStore fetchArticleWithWikidataID:editRevertedNotification.affectedPageID];
-        if (!article || !article.displayTitle || !article.URL || !editRevertedNotification.agent) {
-            // Exclude notifications without article context or notification agent
-            [self.remoteNotificationsModelChangeResponseCoordinator markAsExcluded:editRevertedNotification];
-        } else {
-            NSString *articleTitle = article.displayTitle;
-            NSString *agent = editRevertedNotification.agent;
-
-            NSString *notificationTitle = [WMFCommonStrings revertedEditTitle];
-            NSString *notificationBodyFormat = WMFLocalizedStringWithDefaultValue(@"reverted-edit-notification-body", nil, nil, @"The edit you made of the article %1$@ was reverted by %2$@", @"Title for notification telling user that the edit they made was reverted. %1$@ is replaced with the title of the affected article, %2$@ is replaced with the username of the person who reverted the edit.");
-            NSString *notificationBody = [NSString localizedStringWithFormat:notificationBodyFormat, articleTitle, agent];
-
-            NSDictionary *userInfo = @{WMFNotificationInfoArticleURLStringKey: article.URL.absoluteString, WMFEditRevertedNotificationIDKey: editRevertedNotification.id};
-            [self.notificationsController sendNotificationWithTitle:notificationTitle body:notificationBody categoryIdentifier:WMFEditRevertedNotificationCategoryIdentifier userInfo:userInfo atDateComponents:nil];
-        }
-    }
+- (void)setRemoteNotificationRegistrationStatusWithDeviceToken: (nullable NSData *)deviceToken error: (nullable NSError *)error{
+    [self.notificationsController setRemoteNotificationRegistrationStatusWithDeviceToken:deviceToken error:error];
 }
 
 - (void)showReadMoreAboutRevertedEditViewControllerWithArticleURL:(NSURL *)articleURL completion:(void (^)(void))completion {
@@ -2083,6 +2014,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)readMoreAboutRevertedEditViewControllerDidPressGoToArticleButton:(nonnull NSURL *)articleURL {
     [self showArticleWithURL:articleURL animated:YES];
+}
+
+#pragma mark - Notifications Center
+
+- (UIImage *)notificationsCenterBellImageWithUnreadNotifications:(BOOL)hasUnreadNotifications {
+    return [UIImage imageNamed:hasUnreadNotifications ? @"notifications-bell-with-indicator" : @"notifications-bell"];
 }
 
 #pragma mark - User was logged out

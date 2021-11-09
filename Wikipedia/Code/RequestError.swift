@@ -4,6 +4,7 @@ public enum RequestError: LocalizedError {
     case unexpectedResponse
     case notModified
     case noNewData
+    case unauthenticated
     case http(Int)
     case api(String)
     

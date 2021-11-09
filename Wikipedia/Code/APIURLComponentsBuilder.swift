@@ -1,3 +1,5 @@
+import CocoaLumberjackSwift
+
 enum APIURLComponentsBuilderError: Error {
     case failureConvertingJsonDataToString
 }
@@ -123,6 +125,70 @@ public struct APIURLComponentsBuilder {
         private static func productionBuilder(withWikiHost wikiHost: String? = nil) -> APIURLComponentsBuilder {
             var components = URLComponents()
             components.host = wikiHost ?? Configuration.Domain.metaWiki
+            components.scheme = Configuration.Scheme.https
+            return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Configuration.Path.mediaWikiAPIComponents)
+        }
+    }
+    
+    // This is still the MediaWiki API, but because there is no associated language, the calls to build these urls need to be slightly different.
+    struct Wikidata {
+        
+        public enum BuilderType {
+            case production
+            case betaLabs
+            
+            func builder() -> APIURLComponentsBuilder {
+                switch self {
+                case .production:
+                    return Wikidata.productionBuilder()
+                case .betaLabs:
+                    return Wikidata.betaLabsBuilder()
+                }
+            }
+        }
+        
+        private static func productionBuilder() -> APIURLComponentsBuilder {
+            var components = URLComponents()
+            components.host =  "www.\(Configuration.Domain.wikidata)"
+            components.scheme = Configuration.Scheme.https
+            return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Configuration.Path.mediaWikiAPIComponents)
+        }
+        
+        private static func betaLabsBuilder() -> APIURLComponentsBuilder {
+            var components = URLComponents()
+            components.host = Configuration.Domain.wikidataBetaLabs
+            components.scheme = Configuration.Scheme.https
+            return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Configuration.Path.mediaWikiAPIComponents)
+        }
+    }
+    
+    // This is still the MediaWiki API, but because there is no associated language, the calls to build these urls need to be slightly different.
+    struct Commons {
+        
+        public enum BuilderType {
+            case production
+            case betaLabs
+            
+            func builder() -> APIURLComponentsBuilder {
+                switch self {
+                case .production:
+                    return Commons.productionBuilder()
+                case .betaLabs:
+                    return Commons.betaLabsBuilder()
+                }
+            }
+        }
+        
+        private static func productionBuilder() -> APIURLComponentsBuilder {
+            var components = URLComponents()
+            components.host =  "commons.\(Configuration.Domain.wikimedia)"
+            components.scheme = Configuration.Scheme.https
+            return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Configuration.Path.mediaWikiAPIComponents)
+        }
+        
+        private static func betaLabsBuilder() -> APIURLComponentsBuilder {
+            var components = URLComponents()
+            components.host = Configuration.Domain.commonsBetaLabs
             components.scheme = Configuration.Scheme.https
             return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Configuration.Path.mediaWikiAPIComponents)
         }

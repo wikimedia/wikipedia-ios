@@ -71,23 +71,13 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
             }
         }
 
-        let subtitle: String?
-        if #available(iOS 13, *) {
-            subtitle =  WMFLocalizedString("theme-default-explanation", value:"Matches system theme", comment: "Explains that the default theme matches the iOS system theme setting")
-        } else {
-            subtitle = nil
-        }
+        let subtitle =   WMFLocalizedString("theme-default-explanation", value:"Matches system theme", comment: "Explains that the default theme matches the iOS system theme setting")
         
         let defaultThemeItem = AppearanceSettingsCheckmarkItem(title: CommonStrings.defaultThemeDisplayName, subtitle: subtitle, theme: Theme.defaultThemeName, checkmarkAction: { [weak self] in
             self?.userDidSelect(theme: Theme.defaultThemeName)
         })
         
-        let items: [AppearanceSettingsCheckmarkItem]
-        if #available(iOS 13, *) {
-            items = [defaultThemeItem, checkmarkItem(for: Theme.light), checkmarkItem(for: Theme.sepia), checkmarkItem(for: Theme.dark), checkmarkItem(for: Theme.black)]
-        } else {
-            items = [defaultThemeItem, checkmarkItem(for: Theme.sepia), checkmarkItem(for: Theme.dark), checkmarkItem(for: Theme.black)]
-        }
+        let items = [defaultThemeItem, checkmarkItem(for: Theme.light), checkmarkItem(for: Theme.sepia), checkmarkItem(for: Theme.dark), checkmarkItem(for: Theme.black)]
         
         let readingThemesSection =
             AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-reading-themes", value: "Reading themes", comment: "Title of the Reading themes section in Appearance settings"), footerText: nil, items: items)

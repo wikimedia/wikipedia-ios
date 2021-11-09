@@ -86,7 +86,7 @@ public class Session: NSObject {
     }
     
     private static let defaultCookieStorage: HTTPCookieStorage = {
-        let storage = HTTPCookieStorage.shared
+        let storage = sharedCookieStorage
         storage.cookieAcceptPolicy = .always
         return storage
     }()
@@ -108,6 +108,7 @@ public class Session: NSObject {
         storage.cookies?.forEach { cookie in
             storage.deleteCookie(cookie)
         }
+        
         cacheQueue.async(flags: .barrier) {
             self._isAuthenticated = nil
         }
@@ -142,6 +143,8 @@ public class Session: NSObject {
         self.sessionDelegate = SessionDelegate()
         self.defaultURLSession = Session.getURLSession(delegate: sessionDelegate)
     }
+    
+    public static let sharedCookieStorage = HTTPCookieStorage.sharedCookieStorage(forGroupContainerIdentifier: WMFApplicationGroupIdentifier)
     
     deinit {
         teardown()

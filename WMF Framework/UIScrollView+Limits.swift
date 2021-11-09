@@ -41,14 +41,14 @@ extension UIScrollView {
         }
     }
 
-    @objc(wmf_setContentInset:scrollIndicatorInsets:preserveContentOffset:preserveAnimation:)
-    public func setContentInset(_ updatedContentInset: UIEdgeInsets, scrollIndicatorInsets updatedScrollIndicatorInsets: UIEdgeInsets, preserveContentOffset: Bool = true, preserveAnimation: Bool = false) -> Bool {
-        guard updatedContentInset != contentInset || updatedScrollIndicatorInsets != scrollIndicatorInsets else {
+    @objc(wmf_setContentInset:verticalScrollIndicatorInsets:preserveContentOffset:preserveAnimation:)
+    public func setContentInset(_ updatedContentInset: UIEdgeInsets, verticalScrollIndicatorInsets updatedVerticalScrollIndicatorInsets: UIEdgeInsets, preserveContentOffset: Bool = true, preserveAnimation: Bool = false) -> Bool {
+        guard updatedContentInset != contentInset || updatedVerticalScrollIndicatorInsets != verticalScrollIndicatorInsets else {
             return false
         }
         let wasAtTop = isAtTop
         let wasAtBottom = isAtBottom
-        scrollIndicatorInsets = updatedScrollIndicatorInsets
+        verticalScrollIndicatorInsets = updatedVerticalScrollIndicatorInsets
 
         if preserveAnimation {
             contentInset = updatedContentInset

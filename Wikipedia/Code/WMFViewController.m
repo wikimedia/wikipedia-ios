@@ -158,10 +158,10 @@ static const CGFloat WMFToolbarConstrainedHeight = 32;
     }
     UIEdgeInsets contentInset = UIEdgeInsetsMake(top, 0, bottom, 0);
 
-    if (UIEdgeInsetsEqualToEdgeInsets(contentInset, scrollView.contentInset) && UIEdgeInsetsEqualToEdgeInsets(scrollIndicatorInsets, scrollView.scrollIndicatorInsets)) {
+    if (UIEdgeInsetsEqualToEdgeInsets(contentInset, scrollView.contentInset) && UIEdgeInsetsEqualToEdgeInsets(scrollIndicatorInsets, scrollView.verticalScrollIndicatorInsets)) {
         return;
     }
-    if ([self.scrollView wmf_setContentInset:contentInset scrollIndicatorInsets:scrollIndicatorInsets preserveContentOffset:YES preserveAnimation:NO]) {
+    if ([self.scrollView wmf_setContentInset:contentInset verticalScrollIndicatorInsets:scrollIndicatorInsets preserveContentOffset:YES preserveAnimation:NO]) {
         [self scrollViewInsetsDidChange];
     }
 }

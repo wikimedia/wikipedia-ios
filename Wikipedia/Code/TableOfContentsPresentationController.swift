@@ -23,7 +23,7 @@ open class TableOfContentsPresentationController: UIPresentationController, Them
     open var minimumVisibleBackgroundWidth: CGFloat = 60.0
     open var maximumTableOfContentsWidth: CGFloat = 300.0
     open var statusBarEstimatedHeight: CGFloat {
-        return max(UIApplication.shared.statusBarFrame.size.height, presentedView?.safeAreaInsets.top ?? 0)
+        return max(UIApplication.shared.workaroundStatusBarFrame.size.height, presentedView?.safeAreaInsets.top ?? 0)
     }
     
     // MARK: - Views

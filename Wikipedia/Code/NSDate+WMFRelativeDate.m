@@ -25,6 +25,10 @@ NSString *const WMFAbbreviatedRelativeDate = @"excludingAgo";
     return WMFLocalizedStringWithDefaultValue(@"relative-date-hours-ago", nil, nil, @"{{PLURAL:%1$d|0=Recently|%1$d hour ago|%1$d hours ago}}", @"Relative hours ago. 0 = this hour. %1$d will be replaced with the number of hours ago.");
 }
 
++ (NSString *)hoursAgoShortAbbreviated {
+    return WMFLocalizedStringWithDefaultValue(@"relative-date-hrs-ago", nil, nil, @"{{PLURAL:%1$d|0=Recently|%1$d hr ago|%1$d hrs ago}}", @"Relative hours ago. 0 = this hour. %1$d will be replaced with the number of hours ago.");
+}
+
 + (NSString *)hoursAgoAbbreviated {
     return WMFLocalizedStringWithDefaultValue(@"relative-date-hours-ago-abbreviated", nil, nil, @"%1$dh ago", @"Relative hours ago, abbreviated. %1$d will be replaced with the number of hours ago.");
 }
@@ -35,6 +39,10 @@ NSString *const WMFAbbreviatedRelativeDate = @"excludingAgo";
 
 + (NSString *)minutesAgo {
     return WMFLocalizedStringWithDefaultValue(@"relative-date-minutes-ago", nil, nil, @"{{PLURAL:%1$d|0=Just now|%1$d minute ago|%1$d minutes ago}}", @"Relative minutes ago. 0 = just now. %1$d will be replaced with the number of minutes ago.");
+}
+
++ (NSString *)minutesAgoShortAbbreviated {
+    return WMFLocalizedStringWithDefaultValue(@"relative-date-min-ago", nil, nil, @"{{PLURAL:%1$d|0=Now|%1$d min ago|%1$d mins ago}}", @"Relative minutes ago. 0 = just now. %1$d will be replaced with the number of minutes ago.");
 }
 
 + (NSString *)minutesAgoAbbreviated {
@@ -66,6 +74,23 @@ NSString *const WMFAbbreviatedRelativeDate = @"excludingAgo";
         return [NSString localizedStringWithFormat:[WMFLocalizedDateFormatStrings daysAgo], days];
     } else {
         return [self localizedStringForDaysHoursOrMinutesForDate:date days:days];
+    }
+}
+
+- (NSString *)wmf_localizedShortDateStringRelativeToDate:(nonnull NSDate *)date {
+    NSCalendar *calender = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calender components:NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute fromDate:self toDate:date options:0];
+
+    if ([date compare:self] == NSOrderedAscending) { // Date (self) is in future
+        return [[NSDateFormatter wmf_shortDateFormatter] stringFromDate:self];
+    } else if ([components day] < 1) {
+        if ([components hour] > 0) {
+            return [NSString localizedStringWithFormat:[WMFLocalizedDateFormatStrings hoursAgoShortAbbreviated], components.hour];
+        } else {
+            return [NSString localizedStringWithFormat:[WMFLocalizedDateFormatStrings minutesAgoShortAbbreviated], components.minute];
+        }
+    } else {
+        return [[NSDateFormatter wmf_shortDateFormatter] stringFromDate:self];
     }
 }
 
@@ -121,7 +146,7 @@ NSString *const WMFAbbreviatedRelativeDate = @"excludingAgo";
     }
 }
 
-- (NSDictionary<NSString *, NSString *>*)wmf_localizedRelativeDateStringFromLocalDateToNowAbbreviated {
+- (NSDictionary<NSString *, NSString *> *)wmf_localizedRelativeDateStringFromLocalDateToNowAbbreviated {
     NSDate *now = [NSDate date];
     NSMutableDictionary *result = [NSMutableDictionary new];
 

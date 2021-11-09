@@ -20,63 +20,140 @@ class RemoteNotificationsAPIController: Fetcher {
     }
 
     struct NotificationsResult: Decodable {
+        
+        struct Query: Decodable {
+            
+            struct Notifications: Decodable {
+                let list: [Notification]
+                let continueId: String?
+                
+                enum CodingKeys: String, CodingKey {
+                    case list
+                    case continueId = "continue"
+                }
+            }
+            
+            let notifications: Notifications?
+        }
+        
+        let error: ResultError?
+        let query: Query?
+        
         struct Notification: Decodable, Hashable {
-            let wiki: String?
-            let type: String?
-            let category: String?
-            let id: String?
-            let message: Message?
-            let timestamp: Timestamp?
+            
+            struct Timestamp: Decodable, Hashable {
+                let utciso8601: String
+                let utcunix: String
+                
+                enum CodingKeys: String, CodingKey {
+                    case utciso8601
+                    case utcunix
+                }
+                
+                init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: CodingKeys.self)
+                    utciso8601 = try values.decode(String.self, forKey: .utciso8601)
+                    do {
+                        utcunix = String(try values.decode(Int.self, forKey: .utcunix))
+                    } catch {
+                        utcunix = try values.decode(String.self, forKey: .utcunix)
+                    }
+                }
+            }
+            struct Agent: Decodable, Hashable {
+                let id: String?
+                let name: String?
+                
+                enum CodingKeys: String, CodingKey {
+                    case id
+                    case name
+                }
+                
+                init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: CodingKeys.self)
+                    name = try values.decode(String.self, forKey: .name)
+                    do {
+                        id = String(try values.decode(Int.self, forKey: .id))
+                    } catch {
+                        id = try values.decode(String.self, forKey: .id)
+                    }
+                }
+            }
+            struct Title: Decodable, Hashable {
+                let full: String?
+                let namespace: String?
+                let namespaceKey: Int?
+                let text: String?
+                
+                enum CodingKeys: String, CodingKey {
+                    case full
+                    case namespace
+                    case namespaceKey = "namespace-key"
+                    case text
+                }
+            }
+            
+            struct Message: Decodable, Hashable {
+                let header: String?
+                let body: String?
+                let links: RemoteNotificationLinks?
+            }
+            
+            let wiki: String
+            let id: String
+            let type: String
+            let category: String
+            let section: String
+            let timestamp: Timestamp
+            let title: Title?
             let agent: Agent?
-            let affectedPageID: AffectedPageID?
+            let readString: String?
+            let revisionID: String?
+            let message: Message?
+            
+            var key: String {
+                return "\(wiki)-\(id)"
+            }
 
             enum CodingKeys: String, CodingKey {
                 case wiki
+                case id
                 case type
                 case category
-                case id
-                case message = "*"
+                case section
                 case timestamp
+                case title = "title"
                 case agent
-                case affectedPageID = "title"
+                case readString = "read"
+                case revisionID = "revid"
+                case message = "*"
             }
 
             init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: CodingKeys.self)
                 wiki = try values.decode(String.self, forKey: .wiki)
-                type = try values.decode(String.self, forKey: .type)
-                category = try values.decode(String.self, forKey: .category)
                 do {
                     id = String(try values.decode(Int.self, forKey: .id))
                 } catch {
-                    id = try? values.decode(String.self, forKey: .id)
+                    id = try values.decode(String.self, forKey: .id)
                 }
-                message = try values.decode(Message.self, forKey: .message)
+                type = try values.decode(String.self, forKey: .type)
+                category = try values.decode(String.self, forKey: .category)
+                section = try values.decode(String.self, forKey: .section)
                 timestamp = try values.decode(Timestamp.self, forKey: .timestamp)
-                agent = try values.decode(Agent.self, forKey: .agent)
-                affectedPageID = try? values.decode(AffectedPageID.self, forKey: .affectedPageID)
+                title = try? values.decode(Title.self, forKey: .title)
+                agent = try? values.decode(Agent.self, forKey: .agent)
+                readString = try? values.decode(String.self, forKey: .readString)
+                
+                if let intRevID = try? values.decode(Int.self, forKey: .revisionID) {
+                    revisionID = String(intRevID)
+                } else {
+                    revisionID = (try? values.decode(String.self, forKey: .revisionID)) ?? nil
+                }
+                
+                message = try? values.decode(Message.self, forKey: .message)
             }
         }
-        struct Notifications: Decodable {
-            let list: [Notification]
-        }
-        struct Query: Decodable {
-            let notifications: Notifications?
-        }
-        struct Message: Decodable, Hashable {
-            let header: String?
-        }
-        struct Timestamp: Decodable, Hashable {
-            let utciso8601: String?
-        }
-        struct Agent: Decodable, Hashable {
-            let name: String?
-        }
-        struct AffectedPageID: Decodable, Hashable {
-            let full: String?
-        }
-        let error: ResultError?
-        let query: Query?
     }
 
     // MARK: Decodable: MarkReadResult
@@ -119,17 +196,17 @@ class RemoteNotificationsAPIController: Fetcher {
         }
         return Set(list)
     }
-
-    public func getAllUnreadNotifications(from subdomains: [String], completion: @escaping (Set<NotificationsResult.Notification>?, Error?) -> Void) {
+    
+    public func getAllNotifications(from project: RemoteNotificationsProject, continueId: String?, completion: @escaping (NotificationsResult.Query.Notifications?, Error?) -> Void) {
         let completion: (NotificationsResult?, URLResponse?, Error?) -> Void = { result, _, error in
             guard error == nil else {
-                completion([], error)
+                completion(nil, error)
                 return
             }
-            let notifications = self.notifications(from: result)
-            completion(notifications, result?.error)
+            completion(result?.query?.notifications, result?.error)
         }
-        request(Query.notifications(from: subdomains, limit: .max, filter: .unread), completion: completion)
+        
+        request(project: project, queryParameters: Query.notifications(from: [project], limit: .max, filter: .none, continueId: continueId), completion: completion)
     }
 
     public func markAsRead(_ notifications: Set<RemoteNotification>, completion: @escaping (Error?) -> Void) {
@@ -138,7 +215,7 @@ class RemoteNotificationsAPIController: Fetcher {
         let split = notifications.chunked(into: maxNumberOfNotificationsPerRequest)
 
         split.asyncCompactMap({ (notifications, completion: @escaping (Error?) -> Void) in
-            request(Query.markAsRead(notifications: notifications), method: .post) { (result: MarkReadResult?, _, error) in
+            request(project: nil, queryParameters: Query.markAsRead(notifications: notifications), method: .post) { (result: MarkReadResult?, _, error) in
                 if let error = error {
                     completion(error)
                     return
@@ -168,18 +245,38 @@ class RemoteNotificationsAPIController: Fetcher {
         }
     }
 
-    private func request<T: Decodable>(_ queryParameters: Query.Parameters?, method: Session.Request.Method = .get, completion: @escaping (T?, URLResponse?, Error?) -> Void) {
-        var components = NotificationsAPI.components
-        components.replacePercentEncodedQueryWithQueryParameters(queryParameters)
-        if method == .get {
-            session.jsonDecodableTask(with: components.url, method: .get, completionHandler: completion)
+    private func request<T: Decodable>(project: RemoteNotificationsProject?, queryParameters: Query.Parameters?, method: Session.Request.Method = .get, completion: @escaping (T?, URLResponse?, Error?) -> Void) {
+        
+        let url: URL?
+        if let project = project {
+            switch project {
+            case .commons:
+                url = configuration.commonsAPIURLComponents(with: queryParameters).url
+            case .wikidata:
+                url = configuration.wikidataAPIURLComponents(with: queryParameters).url
+            case .language(let languageCode, _, _):
+                url = configuration.mediaWikiAPIURLForLanguageCode(languageCode, with: queryParameters).url
+            }
         } else {
-            requestMediaWikiAPIAuthToken(for: components.url, type: .csrf) { (result) in
+            var components = NotificationsAPI.components
+            components.replacePercentEncodedQueryWithQueryParameters(queryParameters)
+            url = components.url
+        }
+        
+        guard let url = url else {
+            completion(nil, nil, RequestError.invalidParameters)
+            return
+        }
+        
+        if method == .get {
+            session.jsonDecodableTask(with: url, method: .get, completionHandler: completion)
+        } else {
+            requestMediaWikiAPIAuthToken(for:url, type: .csrf) { (result) in
                 switch result {
                 case .failure(let error):
                     completion(nil, nil, error)
                 case .success(let token):
-                    self.session.jsonDecodableTask(with: components.url, method: method, bodyParameters: ["token": token.value], bodyEncoding: .form, completionHandler: completion)
+                    self.session.jsonDecodableTask(with: url, method: method, bodyParameters: ["token": token.value], bodyEncoding: .form, completionHandler: completion)
                 }
             }
         }
@@ -210,7 +307,7 @@ class RemoteNotificationsAPIController: Fetcher {
             case none = "read|!read"
         }
 
-        static func notifications(from subdomains: [String] = [], limit: Limit = .max, filter: Filter = .none) -> Parameters {
+        static func notifications(from projects: [RemoteNotificationsProject] = [], limit: Limit = .max, filter: Filter = .none, continueId: String?) -> Parameters {
             var dictionary = ["action": "query",
                     "format": "json",
                     "formatversion": "2",
@@ -219,8 +316,13 @@ class RemoteNotificationsAPIController: Fetcher {
                     "notlimit": limit.value,
                     "notfilter": filter.rawValue]
 
-            let wikis = subdomains.compactMap { $0.replacingOccurrences(of: "-", with: "_").appending("wiki") }
+            let wikis = projects.map{ $0.notificationsApiWikiIdentifier }
             dictionary["notwikis"] = wikis.joined(separator: "|")
+
+            if let continueId = continueId {
+                dictionary["notcontinue"] = continueId
+            }
+            
             return dictionary
         }
 
@@ -238,11 +340,5 @@ class RemoteNotificationsAPIController: Fetcher {
 extension RemoteNotificationsAPIController.ResultError: LocalizedError {
     var errorDescription: String? {
         return info
-    }
-}
-
-extension RemoteNotificationsAPIController {
-    var isAuthenticated: Bool {
-        return session.hasValidCentralAuthCookies(for: Configuration.current.mediaWikiCookieDomain)
     }
 }
