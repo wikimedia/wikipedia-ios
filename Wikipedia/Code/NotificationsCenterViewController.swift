@@ -1,4 +1,5 @@
 import UIKit
+import WMF
 
 @objc
 final class NotificationsCenterViewController: ViewController {
@@ -211,6 +212,9 @@ extension NotificationsCenterViewController: NotificationCenterViewModelDelegate
             
             alertController.addAction(alertAction)
         }
+        
+        let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .default, handler: nil)
+        alertController.addAction(cancelAction)
 
         if let popoverController = alertController.popoverPresentationController, let cell = notificationsView.collectionView.cellForItem(at: indexPath) {
             popoverController.sourceView = cell
