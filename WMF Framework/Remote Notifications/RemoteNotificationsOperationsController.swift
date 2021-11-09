@@ -107,7 +107,7 @@ class RemoteNotificationsOperationsController: NSObject {
                 return
             }
 
-            var projects: [RemoteNotificationsProject] = preferredLanguageCodes.map { .language($0, nil) }
+            var projects: [RemoteNotificationsProject] = preferredLanguageCodes.map { .language($0, nil, nil) }
             projects.append(.commons)
             projects.append(.wikidata)
             
