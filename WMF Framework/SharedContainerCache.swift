@@ -21,7 +21,7 @@ public final class SharedContainerCache<T: Codable> {
         FileManager.default.wmf_containerURL()
     }
     
-    fileprivate var cacheDataFileURL: URL {
+    private var cacheDataFileURL: URL {
         return cacheDirectoryContainerURL.appendingPathComponent(pathComponent.rawValue).appendingPathExtension("json")
     }
     

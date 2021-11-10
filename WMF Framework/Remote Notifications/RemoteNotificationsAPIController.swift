@@ -110,26 +110,6 @@ public class RemoteNotificationsAPIController: Fetcher {
             let readString: String?
             let revisionID: String?
             let message: Message?
-            
-            public var key: String {
-                return "\(wiki)-\(id)"
-            }
-            
-            public var date: Date? {
-                return DateFormatter.wmf_iso8601()?.date(from: timestamp.utciso8601)
-            }
-            
-            public var pushContentText: String? {
-                return self.message?.header?.removingHTML
-            }
-            
-            public var namespaceKey: Int? {
-                return self.title?.namespaceKey
-            }
-            
-            public var titleFull: String? {
-                return self.title?.full
-            }
 
             enum CodingKeys: String, CodingKey {
                 case wiki
@@ -162,6 +142,7 @@ public class RemoteNotificationsAPIController: Fetcher {
                 } catch {
                     id = try values.decode(String.self, forKey: .id)
                 }
+                
                 type = try values.decode(String.self, forKey: .type)
                 category = try values.decode(String.self, forKey: .category)
                 section = try values.decode(String.self, forKey: .section)
@@ -179,6 +160,8 @@ public class RemoteNotificationsAPIController: Fetcher {
                 message = try? values.decode(Message.self, forKey: .message)
             }
         }
+        
+        
     }
 
     // MARK: Decodable: MarkReadResult
@@ -366,12 +349,8 @@ public class RemoteNotificationsAPIController: Fetcher {
                 dictionary["notnotifiertypes"] = notifierType.rawValue
             }
             
-            if projects.isEmpty {
-                dictionary["notwikis"] = "*"
-            } else {
-                let wikis = projects.map{ $0.notificationsApiWikiIdentifier }
-                dictionary["notwikis"] = wikis.joined(separator: "|")
-            }
+            let wikis = projects.map{ $0.notificationsApiWikiIdentifier }
+            dictionary["notwikis"] = wikis.isEmpty ? "*" : wikis.joined(separator: "|")
             
             return dictionary
         }
@@ -392,3 +371,115 @@ extension RemoteNotificationsAPIController.ResultError: LocalizedError {
         return info
     }
 }
+
+//MARK: Public Notification Extensions
+
+public extension RemoteNotificationsAPIController.NotificationsResult.Notification {
+
+    var key: String {
+        return "\(wiki)-\(id)"
+    }
+    
+    var date: Date? {
+        return DateFormatter.wmf_iso8601()?.date(from: timestamp.utciso8601)
+    }
+    
+    var pushContentText: String? {
+        return self.message?.header?.removingHTML
+    }
+    
+    var namespaceKey: Int? {
+        return self.title?.namespaceKey
+    }
+    
+    var titleFull: String? {
+        return self.title?.full
+    }
+    
+    func isNewerThan(timeAgo: TimeInterval) -> Bool {
+        guard let date = date else {
+            return false
+        }
+
+        return date > Date().addingTimeInterval(-timeAgo)
+    }
+    
+    var namespace: PageNamespace? {
+        return PageNamespace(namespaceValue: title?.namespaceKey)
+    }
+}
+
+#if TEST
+
+extension RemoteNotificationsAPIController.NotificationsResult.Notification {
+    
+    init?(project: RemoteNotificationsProject, titleText: String, titleNamespace: PageNamespace, remoteNotificationType: RemoteNotificationType, date: Date, customID: String? = nil) {
+        
+        switch remoteNotificationType {
+        case .userTalkPageMessage:
+            self.category = "edit-user-talk"
+            self.type = "edit-user-talk"
+            self.section = "alert"
+        case .editReverted:
+            self.category = "reverted"
+            self.type = "reverted"
+            self.section = "alert"
+        default:
+            assertionFailure("Haven't set up test models for this type.")
+            return nil
+        }
+        
+        self.wiki = project.notificationsApiWikiIdentifier
+
+        let identifier = customID ?? UUID().uuidString
+        self.id = identifier
+        
+        let timestamp = Timestamp(date: date)
+        self.timestamp = timestamp
+        self.title = Title(titleText: titleText, titleNamespace: titleNamespace)
+        self.agent = Agent()
+        
+        self.revisionID = nil
+        self.readString = nil
+       
+        self.message = Message(identifier: identifier)
+    }
+}
+
+extension RemoteNotificationsAPIController.NotificationsResult.Notification.Timestamp {
+    init(date: Date) {
+        let dateString8601 = DateFormatter.wmf_iso8601().string(from: date)
+        let unixTimeInterval = date.timeIntervalSince1970
+        self.utciso8601 = dateString8601
+        self.utcunix = String(unixTimeInterval)
+    }
+}
+
+extension RemoteNotificationsAPIController.NotificationsResult.Notification.Title {
+    init(titleText: String, titleNamespace: PageNamespace) {
+        
+        let namespaceText = titleNamespace.canonicalName
+        self.full = "\(namespaceText):\(titleText)"
+        self.namespace = titleNamespace.canonicalName.denormalizedPageTitle
+        self.namespaceKey = titleNamespace.rawValue
+        self.text = titleText
+    }
+}
+
+extension RemoteNotificationsAPIController.NotificationsResult.Notification.Agent {
+    init() {
+        self.id = String(12345)
+        self.name = "Test Agent Name"
+    }
+}
+
+extension RemoteNotificationsAPIController.NotificationsResult.Notification.Message {
+    init(identifier: String) {
+        self.header = "\(identifier)"
+        self.body = "Test body text for identifier: \(identifier)"
+        let primaryLink = RemoteNotificationLink(type: nil, url: URL(string:"https://en.wikipedia.org/wiki/Cat")!, label: "Label for primary link")
+        self.links = RemoteNotificationLinks(primary: primaryLink, secondary: nil)
+    }
+}
+
+#endif
