@@ -566,10 +566,14 @@
 		678C7C3423BE75F9001AC4D5 /* CacheFileWriterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678C7C3323BE75F9001AC4D5 /* CacheFileWriterHelper.swift */; };
 		678C7C3623BE7779001AC4D5 /* FileManager+CacheExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678C7C3523BE7779001AC4D5 /* FileManager+CacheExtensions.swift */; };
 		678D29AC2729EAD20036C5D9 /* RemoteNotification+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D29AB2729EAD20036C5D9 /* RemoteNotification+CoreDataProperties.swift */; };
-		678D29AE2729F0580036C5D9 /* NotificationsCenterViewModel+LinkExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D29AD2729F0580036C5D9 /* NotificationsCenterViewModel+LinkExtensions.swift */; };
-		678D29AF2729F0580036C5D9 /* NotificationsCenterViewModel+LinkExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D29AD2729F0580036C5D9 /* NotificationsCenterViewModel+LinkExtensions.swift */; };
-		678D29B02729F0580036C5D9 /* NotificationsCenterViewModel+LinkExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D29AD2729F0580036C5D9 /* NotificationsCenterViewModel+LinkExtensions.swift */; };
-		678D29B12729F0580036C5D9 /* NotificationsCenterViewModel+LinkExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D29AD2729F0580036C5D9 /* NotificationsCenterViewModel+LinkExtensions.swift */; };
+		678D29AE2729F0580036C5D9 /* NotificationsCenterCellViewModel+LinkExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D29AD2729F0580036C5D9 /* NotificationsCenterCellViewModel+LinkExtensions.swift */; };
+		678D29AF2729F0580036C5D9 /* NotificationsCenterCellViewModel+LinkExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D29AD2729F0580036C5D9 /* NotificationsCenterCellViewModel+LinkExtensions.swift */; };
+		678D29B02729F0580036C5D9 /* NotificationsCenterCellViewModel+LinkExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D29AD2729F0580036C5D9 /* NotificationsCenterCellViewModel+LinkExtensions.swift */; };
+		678D29B12729F0580036C5D9 /* NotificationsCenterCellViewModel+LinkExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D29AD2729F0580036C5D9 /* NotificationsCenterCellViewModel+LinkExtensions.swift */; };
+		678D29B3272AF1DA0036C5D9 /* NotificationsCenterCellViewModel+SheetActionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D29B2272AF1DA0036C5D9 /* NotificationsCenterCellViewModel+SheetActionExtensions.swift */; };
+		678D29B4272AF1DA0036C5D9 /* NotificationsCenterCellViewModel+SheetActionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D29B2272AF1DA0036C5D9 /* NotificationsCenterCellViewModel+SheetActionExtensions.swift */; };
+		678D29B5272AF1DA0036C5D9 /* NotificationsCenterCellViewModel+SheetActionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D29B2272AF1DA0036C5D9 /* NotificationsCenterCellViewModel+SheetActionExtensions.swift */; };
+		678D29B6272AF1DA0036C5D9 /* NotificationsCenterCellViewModel+SheetActionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D29B2272AF1DA0036C5D9 /* NotificationsCenterCellViewModel+SheetActionExtensions.swift */; };
 		678D79E4235E592F006161FF /* DiffListChangeItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79E3235E592F006161FF /* DiffListChangeItemViewModel.swift */; };
 		678D79EB235E5959006161FF /* DiffListChangeItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79E3235E592F006161FF /* DiffListChangeItemViewModel.swift */; };
 		678D79EC235E595A006161FF /* DiffListChangeItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678D79E3235E592F006161FF /* DiffListChangeItemViewModel.swift */; };
@@ -3842,7 +3846,8 @@
 		678C7C3323BE75F9001AC4D5 /* CacheFileWriterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheFileWriterHelper.swift; sourceTree = "<group>"; };
 		678C7C3523BE7779001AC4D5 /* FileManager+CacheExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+CacheExtensions.swift"; sourceTree = "<group>"; };
 		678D29AB2729EAD20036C5D9 /* RemoteNotification+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteNotification+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		678D29AD2729F0580036C5D9 /* NotificationsCenterViewModel+LinkExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NotificationsCenterViewModel+LinkExtensions.swift"; sourceTree = "<group>"; };
+		678D29AD2729F0580036C5D9 /* NotificationsCenterCellViewModel+LinkExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NotificationsCenterCellViewModel+LinkExtensions.swift"; sourceTree = "<group>"; };
+		678D29B2272AF1DA0036C5D9 /* NotificationsCenterCellViewModel+SheetActionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationsCenterCellViewModel+SheetActionExtensions.swift"; sourceTree = "<group>"; };
 		678D79E3235E592F006161FF /* DiffListChangeItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListChangeItemViewModel.swift; sourceTree = "<group>"; };
 		678D79EF235E5979006161FF /* DiffListChangeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListChangeViewModel.swift; sourceTree = "<group>"; };
 		678D79F5235E599B006161FF /* DiffListContextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffListContextViewModel.swift; sourceTree = "<group>"; };
@@ -5781,7 +5786,8 @@
 				00FCB2C226D839A500F5A47A /* NotificationsCenterCellViewModel.swift */,
 				6761AEE02704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift */,
 				6761AEE52704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift */,
-				678D29AD2729F0580036C5D9 /* NotificationsCenterViewModel+LinkExtensions.swift */,
+				678D29AD2729F0580036C5D9 /* NotificationsCenterCellViewModel+LinkExtensions.swift */,
+				678D29B2272AF1DA0036C5D9 /* NotificationsCenterCellViewModel+SheetActionExtensions.swift */,
 				00E2EA8826E28A9700B1A741 /* NotificationsCenterCellStyle.swift */,
 				00E2EA8D26E2A45C00B1A741 /* NotificationsCenterCellDisplayState.swift */,
 			);
@@ -10941,7 +10947,7 @@
 				7AB809D022675B2300BFAB7C /* ThemeableTextView.swift in Sources */,
 				83A642752226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift in Sources */,
 				B0C7A07A1F710E75008415E7 /* WMFWelcomeExplorationAnimationBackgroundView.swift in Sources */,
-				678D29AE2729F0580036C5D9 /* NotificationsCenterViewModel+LinkExtensions.swift in Sources */,
+				678D29AE2729F0580036C5D9 /* NotificationsCenterCellViewModel+LinkExtensions.swift in Sources */,
 				7A827659226E4E41000A2389 /* EditPreviewInternalLinkViewController.swift in Sources */,
 				B0E8036D1C0CD98B0065EBC0 /* TableOfContentsViewController.swift in Sources */,
 				B0E805921C0CE2C60065EBC0 /* ProtectedEditAttemptFunnel.m in Sources */,
@@ -11209,6 +11215,7 @@
 				834CC34B21075B7600F62818 /* UITabBar+Theme.swift in Sources */,
 				D88FCAE11E4B776600505A9F /* MapUtilities.swift in Sources */,
 				7AB20A0C22FC8432006FECB4 /* PageHistoryCountsViewController.swift in Sources */,
+				678D29B3272AF1DA0036C5D9 /* NotificationsCenterCellViewModel+SheetActionExtensions.swift in Sources */,
 				6706A21722925FD2004774E2 /* InfoBannerView.swift in Sources */,
 				B068EDE0206B183500C827D1 /* Progress+ProgressUI.swift in Sources */,
 				7A9F06192266432200856321 /* InsertMediaSettingsTextTableViewCell.swift in Sources */,
@@ -11820,7 +11827,7 @@
 				6782DBD02343FDF2003FA21B /* DiffListUneditedCell.swift in Sources */,
 				7AB809D322675B2300BFAB7C /* ThemeableTextView.swift in Sources */,
 				D8A42AC41E815A9C00D8E281 /* TableOfContentsViewController.swift in Sources */,
-				678D29B12729F0580036C5D9 /* NotificationsCenterViewModel+LinkExtensions.swift in Sources */,
+				678D29B12729F0580036C5D9 /* NotificationsCenterCellViewModel+LinkExtensions.swift in Sources */,
 				83A642782226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift in Sources */,
 				7A82765C226E4E41000A2389 /* EditPreviewInternalLinkViewController.swift in Sources */,
 				D8A42AC61E815A9C00D8E281 /* ProtectedEditAttemptFunnel.m in Sources */,
@@ -12088,6 +12095,7 @@
 				7AF56C3821DE0E2800563A9C /* SectionEditorWebViewMessagingController.swift in Sources */,
 				D8A42B891E815A9C00D8E281 /* MapUtilities.swift in Sources */,
 				834CC34E21075B7600F62818 /* UITabBar+Theme.swift in Sources */,
+				678D29B6272AF1DA0036C5D9 /* NotificationsCenterCellViewModel+SheetActionExtensions.swift in Sources */,
 				7AFEB1BF1FA236A100B8DF32 /* UIViewController+Peekable.swift in Sources */,
 				D8A42B8B1E815A9C00D8E281 /* WKWebView+ElementLocation.m in Sources */,
 				7AB20A0F22FC8432006FECB4 /* PageHistoryCountsViewController.swift in Sources */,
@@ -12210,6 +12218,7 @@
 				D8CE25001E698E2400DAE2E0 /* WMFTableHeaderFooterLabelView.m in Sources */,
 				6782DBB02343B812003FA21B /* DiffHeaderCompareView.swift in Sources */,
 				83DAA9B123FEB611002D5716 /* ReferenceBackLinksViewController.swift in Sources */,
+				678D29B5272AF1DA0036C5D9 /* NotificationsCenterCellViewModel+SheetActionExtensions.swift in Sources */,
 				7A9524D822669A8B00C55CDC /* InsertMediaSettingsButtonView.swift in Sources */,
 				678E7E8326432F060005439C /* NavigationEventsFunnel.swift in Sources */,
 				FF2B2112254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift in Sources */,
@@ -12509,7 +12518,7 @@
 				D8CE25CE1E698E2400DAE2E0 /* WMFHamburgerMenuFunnel.m in Sources */,
 				8386BDF52386D735007EE89D /* ViewController+URLHandling.swift in Sources */,
 				D8CE25CF1E698E2400DAE2E0 /* UIViewController+WMFWelcomeStoryboard.swift in Sources */,
-				678D29B02729F0580036C5D9 /* NotificationsCenterViewModel+LinkExtensions.swift in Sources */,
+				678D29B02729F0580036C5D9 /* NotificationsCenterCellViewModel+LinkExtensions.swift in Sources */,
 				D8E27BA71F82B38500F9D2B3 /* RMessage.m in Sources */,
 				B01E3B0021F98BFF0015B715 /* EditPreviewViewController.swift in Sources */,
 				D8CE25D01E698E2400DAE2E0 /* WMFLanguageCell.m in Sources */,
@@ -12713,6 +12722,7 @@
 				D8EC3DF51E9BDA35006712EB /* UIViewController+WMFAlerts.swift in Sources */,
 				6782DBB12343B812003FA21B /* DiffHeaderCompareView.swift in Sources */,
 				83DAA9B223FEB611002D5716 /* ReferenceBackLinksViewController.swift in Sources */,
+				678D29B4272AF1DA0036C5D9 /* NotificationsCenterCellViewModel+SheetActionExtensions.swift in Sources */,
 				7A9524D922669A8B00C55CDC /* InsertMediaSettingsButtonView.swift in Sources */,
 				678E7E8226432F060005439C /* NavigationEventsFunnel.swift in Sources */,
 				FF2B2111254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift in Sources */,
@@ -13012,7 +13022,7 @@
 				D8EC3ECD1E9BDA35006712EB /* UIViewController+WMFWelcomeStoryboard.swift in Sources */,
 				8386BDF72386D735007EE89D /* ViewController+URLHandling.swift in Sources */,
 				D8E27BA81F82B38600F9D2B3 /* RMessage.m in Sources */,
-				678D29AF2729F0580036C5D9 /* NotificationsCenterViewModel+LinkExtensions.swift in Sources */,
+				678D29AF2729F0580036C5D9 /* NotificationsCenterCellViewModel+LinkExtensions.swift in Sources */,
 				D8EC3ECE1E9BDA35006712EB /* WMFLanguageCell.m in Sources */,
 				B01E3B0121F98BFF0015B715 /* EditPreviewViewController.swift in Sources */,
 				7A6ED50A20ADBF950001849F /* SessionsFunnel.swift in Sources */,
