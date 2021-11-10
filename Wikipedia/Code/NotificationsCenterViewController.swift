@@ -213,7 +213,7 @@ extension NotificationsCenterViewController: NotificationCenterViewModelDelegate
             alertController.addAction(alertAction)
         }
         
-        let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
         alertController.addAction(cancelAction)
 
         if let popoverController = alertController.popoverPresentationController, let cell = notificationsView.collectionView.cellForItem(at: indexPath) {
