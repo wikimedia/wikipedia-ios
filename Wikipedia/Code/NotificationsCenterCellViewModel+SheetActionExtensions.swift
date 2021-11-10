@@ -29,7 +29,7 @@ extension NotificationsCenterCellViewModel {
         case .mentionInTalkPage,
              .editReverted:
             sheetActions.append(contentsOf: mentionInTalkAndEditRevertedPageActions(for: configuration))
-        case .mentionInEditSummary: //done
+        case .mentionInEditSummary:
             sheetActions.append(contentsOf: mentionInEditSummaryActions(for: configuration))
         case .successfulMention,
              .failedMention:
