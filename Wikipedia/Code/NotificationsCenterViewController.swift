@@ -1,4 +1,5 @@
 import UIKit
+import WMF
 
 @objc
 final class NotificationsCenterViewController: ViewController {
@@ -182,14 +183,14 @@ extension NotificationsCenterViewController: NotificationCenterViewModelDelegate
             return
         }
         
-        let swipeActions = cellViewModel.swipeActions(for: viewModel.configuration)
-        guard !swipeActions.isEmpty else {
+        let sheetActions = cellViewModel.sheetActions(for: viewModel.configuration)
+        guard !sheetActions.isEmpty else {
             return
         }
 
         let alertController = UIAlertController(title: cellViewModel.headerText, message: cellViewModel.bodyText, preferredStyle: .actionSheet)
 
-        swipeActions.forEach { action in
+        sheetActions.forEach { action in
             
             let alertAction: UIAlertAction
             switch action {
@@ -212,6 +213,9 @@ extension NotificationsCenterViewController: NotificationCenterViewModelDelegate
             
             alertController.addAction(alertAction)
         }
+        
+        let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
+        alertController.addAction(cancelAction)
 
         if let popoverController = alertController.popoverPresentationController, let cell = notificationsView.collectionView.cellForItem(at: indexPath) {
             popoverController.sourceView = cell

@@ -23,7 +23,6 @@ final class NotificationsCenterCell: UICollectionViewCell {
         view.imageView.contentMode = .scaleAspectFit
         view.layer.borderWidth = 2
         view.layer.borderColor = UIColor.clear.cgColor
-        view.insets = NSDirectionalEdgeInsets(top: 7, leading: 7, bottom: -7, trailing: -7)
         return view
     }()
 
@@ -206,7 +205,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         let topMargin: CGFloat = 13
         let edgeMargin: CGFloat = 11
 
-        //selectedBackgroundView = UIView()
+        selectedBackgroundView = UIView()
 
         contentView.addSubview(leadingContainer)
         contentView.addSubview(mainVerticalStackView)
@@ -302,32 +301,13 @@ final class NotificationsCenterCell: UICollectionViewCell {
         updateProject(forViewModel: viewModel)
         updateMetaButton(forViewModel: viewModel)
         
-        headerLabelTapGestureRecognizer.isEnabled = isHeaderLabelTapGestureEnabled
+        headerLabelTapGestureRecognizer.isEnabled = viewModel.shouldAllowSecondaryTapAction
     }
 }
 
 //MARK: - Private
 
 private extension NotificationsCenterCell {
-    
-    var isHeaderLabelTapGestureEnabled: Bool {
-    
-        guard let viewModel = self.viewModel,
-              !viewModel.displayState.isEditing else {
-            return false
-        }
-
-        switch viewModel.notification.type {
-        case .welcome,
-             .editMilestone,
-             .translationMilestone,
-             .failedMention,
-             .successfulMention:
-            return false
-        default:
-            return true
-        }
-    }
 
     func updateCellStyle(forDisplayState displayState: NotificationsCenterCellDisplayState) {
         guard let notificationType = viewModel?.notificationType else {
@@ -351,7 +331,7 @@ private extension NotificationsCenterCell {
         projectSourceLabel.layer.borderColor = cellStyle.projectSourceColor.cgColor
         projectSourceImage.tintColor = cellStyle.projectSourceColor
 
-        //selectedBackgroundView?.backgroundColor = cellStyle.selectedCellBackgroundColor
+        selectedBackgroundView?.backgroundColor = cellStyle.selectedCellBackgroundColor
 
         // Fonts
 
