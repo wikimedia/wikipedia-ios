@@ -51,7 +51,7 @@ class NotificationService: UNNotificationServiceExtension {
                 self.sharedCache.saveCache(newCache)
                 
                 //specific handling for talk page types (New messages title, bundled body)
-                if let talkPageContent = NotificationServiceHelper.bundledTalkPageContent(for: finalNotificationsToDisplay) {
+                if let talkPageContent = NotificationServiceHelper.talkPageContent(for: finalNotificationsToDisplay) {
                     bestAttemptContent.subtitle = talkPageContent.subtitle
                     bestAttemptContent.body = talkPageContent.body
                 } else {

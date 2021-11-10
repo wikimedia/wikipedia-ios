@@ -55,15 +55,15 @@ class NotificationServiceHelperTest: XCTestCase {
         XCTAssertFalse(NotificationServiceHelper.allNotificationsAreForSameTalkPage(notifications: differentNotifications), "Notifications of different types should not be seen as the same.")
     }
     
-    func testBundledTalkPageContent() {
+    func testTalkPageContent() {
         let singleTalkPageNotification = Set<RemoteNotificationsAPIController.NotificationsResult.Notification>(userTwoTalkPageNotifications)
-        XCTAssertNil(NotificationServiceHelper.bundledTalkPageContent(for:singleTalkPageNotification), "Bundled talk page content should not be returned for a single notification.")
+        XCTAssertNotNil(NotificationServiceHelper.talkPageContent(for:singleTalkPageNotification), "Talk page content should be returned for a single talk notification.")
         
         let talkPageNotificationsDifferentTitles = Set<RemoteNotificationsAPIController.NotificationsResult.Notification>(userOneTalkPageNotifications + userTwoTalkPageNotifications)
-        XCTAssertNil(NotificationServiceHelper.bundledTalkPageContent(for:talkPageNotificationsDifferentTitles), "Bundled talk page content should not be returned for notifications that originated from different talk pages.")
+        XCTAssertNil(NotificationServiceHelper.talkPageContent(for:talkPageNotificationsDifferentTitles), "Bundled talk page content should not be returned for notifications that originated from different talk pages.")
         
         let talkPageNotificationsSameTitles = Set<RemoteNotificationsAPIController.NotificationsResult.Notification>(userOneTalkPageNotifications)
-        XCTAssertNotNil(NotificationServiceHelper.bundledTalkPageContent(for:talkPageNotificationsSameTitles), "Missing bundled talk page content for notifications that originated from the same talk page.")
+        XCTAssertNotNil(NotificationServiceHelper.talkPageContent(for:talkPageNotificationsSameTitles), "Missing bundled talk page content for notifications that originated from the same talk page.")
     }
     
     func testDetermineNotificationsToDisplayAndCache() {
