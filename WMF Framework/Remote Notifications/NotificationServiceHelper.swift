@@ -51,9 +51,8 @@ public class NotificationServiceHelper {
         let messageText = String.localizedStringWithFormat(WMFLocalizedString("notifications-push-talk-messages-format", value: "{{PLURAL:%1$d|message|messages}}", comment: "Plural messages text to be inserted into push notification content - %1$d is replaced with the number of talk page messages."), notifications.count)
         subtitle = String.localizedStringWithFormat(WMFLocalizedString("notifications-push-talk-title-format", value: "New %1$@", comment: "Title text for a push notification that represents talk page messages - %1$@ is replaced with \"Messages\" text (can be plural or singular)."), messageText)
         
-        if let first = notifications.first,
-           notifications.count == 1,
-           let pushContentText = first.pushContentText {
+        if notifications.count == 1,
+           let pushContentText = notifications.first?.pushContentText {
             body = pushContentText
         } else {
             body = String.localizedStringWithFormat(WMFLocalizedString("notifications-push-talk-body-format", value: "%1$d new %2$@ on %3$@", comment: "Body text for a push notification that represents talk page messages - %1$d is replaced with the number of talk page messages, %2$@ is replaced with \"messages\" text (can be plural or singular), and %3$@ is replaced with the talk page title. For example, \"3 new messages on User talk: Username\""), notifications.count, messageText, talkPageTitle)

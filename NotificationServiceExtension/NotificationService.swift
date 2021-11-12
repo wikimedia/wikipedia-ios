@@ -25,7 +25,6 @@ class NotificationService: UNNotificationServiceExtension {
             return
         }
         
-        bestAttemptContent.body = fallbackPushContent
         self.bestAttemptContent = bestAttemptContent
         
         //TODO: Should we consider versioning here? Bail now and show fallback content if current content is anything other than "checkEchoV1".
@@ -54,11 +53,11 @@ class NotificationService: UNNotificationServiceExtension {
                 if let talkPageContent = NotificationServiceHelper.talkPageContent(for: finalNotificationsToDisplay) {
                     bestAttemptContent.subtitle = talkPageContent.subtitle
                     bestAttemptContent.body = talkPageContent.body
-                } else {
-                    if finalNotificationsToDisplay.count == 1,
+                } else if finalNotificationsToDisplay.count == 1,
                        let pushContentText = finalNotificationsToDisplay.first?.pushContentText {
-                        bestAttemptContent.body = pushContentText
-                    }
+                    bestAttemptContent.body = pushContentText
+                } else {
+                    bestAttemptContent.body = self.fallbackPushContent
                 }
                 
                 contentHandler(bestAttemptContent)
@@ -70,7 +69,8 @@ class NotificationService: UNNotificationServiceExtension {
         // Called just before the extension will be terminated by the system.
         // Use this as an opportunity to deliver your "best attempt" at modified content, otherwise the original push payload will be used.
         if let contentHandler = contentHandler,
-           let bestAttemptContent =  bestAttemptContent {
+            let bestAttemptContent =  bestAttemptContent {
+            bestAttemptContent.body = fallbackPushContent
             contentHandler(bestAttemptContent)
         }
     }
