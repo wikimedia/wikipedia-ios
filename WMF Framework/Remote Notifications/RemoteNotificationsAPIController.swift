@@ -232,13 +232,13 @@ class RemoteNotificationsAPIController: Fetcher {
         }
     }
 
-    public func markAsReadOrUnread(_ notifications: Set<RemoteNotification>, shouldMarkRead: Bool, completion: @escaping (Error?) -> Void) {
+    public func markAsReadOrUnread(_ identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, completion: @escaping (Error?) -> Void) {
         let maxNumberOfNotificationsPerRequest = 50
-        let notifications = Array(notifications)
-        let split = notifications.chunked(into: maxNumberOfNotificationsPerRequest)
+        let identifierGroups = Array(identifierGroups)
+        let split = identifierGroups.chunked(into: maxNumberOfNotificationsPerRequest)
 
-        split.asyncCompactMap({ (notifications, completion: @escaping (Error?) -> Void) in
-            request(project: nil, queryParameters: Query.markAsReadOrUnread(notifications: notifications, shouldMarkRead: shouldMarkRead), method: .post) { (result: MarkReadResult?, _, error) in
+        split.asyncCompactMap({ (identifierGroups, completion: @escaping (Error?) -> Void) in
+            request(project: nil, queryParameters: Query.markAsReadOrUnread(identifierGroups: identifierGroups, shouldMarkRead: shouldMarkRead), method: .post) { (result: MarkReadResult?, _, error) in
                 if let error = error {
                     completion(error)
                     return
@@ -349,9 +349,9 @@ class RemoteNotificationsAPIController: Fetcher {
             return dictionary
         }
 
-        static func markAsReadOrUnread(notifications: [RemoteNotification], shouldMarkRead: Bool) -> Parameters? {
-            let IDs = notifications.compactMap { $0.id }
-            let wikis = notifications.compactMap { $0.wiki }
+        static func markAsReadOrUnread(identifierGroups: [RemoteNotification.IdentifierGroup], shouldMarkRead: Bool) -> Parameters? {
+            let IDs = identifierGroups.compactMap { $0.id }
+            let wikis = identifierGroups.compactMap { $0.wiki }
             
             var dictionary = ["action": "echomarkread",
                               "format": "json",

@@ -1,11 +1,11 @@
 class RemoteNotificationsMarkReadOrUnreadOperation: RemoteNotificationsOperation {
     
     private let shouldMarkRead: Bool
-    private let notifications: Set<RemoteNotification>
+    private let identifierGroups: Set<RemoteNotification.IdentifierGroup>
     
-    required init(with apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController, notifications: Set<RemoteNotification>, shouldMarkRead: Bool) {
+    required init(with apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController, identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool) {
         self.shouldMarkRead = shouldMarkRead
-        self.notifications = notifications
+        self.identifierGroups = identifierGroups
         super.init(with: apiController, modelController: modelController)
     }
     
@@ -16,13 +16,13 @@ class RemoteNotificationsMarkReadOrUnreadOperation: RemoteNotificationsOperation
     override func execute() {
         
         //optimistically mark in database first for UI to reflect, then in API.
-        modelController.markAsReadOrUnread(notifications: notifications, shouldMarkRead: shouldMarkRead) { [weak self] in
+        modelController.markAsReadOrUnread(identifierGroups: identifierGroups, shouldMarkRead: shouldMarkRead) { [weak self] in
             
             guard let self = self else {
                 return
             }
             
-            self.apiController.markAsReadOrUnread(self.notifications, shouldMarkRead: self.shouldMarkRead) { error in
+            self.apiController.markAsReadOrUnread(self.identifierGroups, shouldMarkRead: self.shouldMarkRead) { error in
                 if let error = error {
                     //MAYBETODO: Revert to old values?
                     self.finish(with: error)

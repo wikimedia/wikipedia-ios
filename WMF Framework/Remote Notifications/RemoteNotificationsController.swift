@@ -31,8 +31,8 @@ import CocoaLumberjackSwift
         operationsController.refreshNotifications(completion)
     }
     
-    public func markAsReadOrUnread(notifications: Set<RemoteNotification>, shouldMarkRead: Bool) {
-        operationsController.markAsReadOrUnread(notifications: notifications, shouldMarkRead: shouldMarkRead)
+    public func markAsReadOrUnread(identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool) {
+        operationsController.markAsReadOrUnread(identifierGroups: identifierGroups, shouldMarkRead: shouldMarkRead)
     }
     
     public func markAllAsRead() {

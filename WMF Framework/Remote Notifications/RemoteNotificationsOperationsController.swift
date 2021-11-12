@@ -127,13 +127,13 @@ class RemoteNotificationsOperationsController: NSObject {
         })
     }
     
-    func markAsReadOrUnread(notifications: Set<RemoteNotification>, shouldMarkRead: Bool) {
+    func markAsReadOrUnread(identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool) {
         guard !isLocked,
               let modelController = modelController else {
             return
         }
         
-        let operation = RemoteNotificationsMarkReadOrUnreadOperation(with: apiController, modelController: modelController, notifications: notifications, shouldMarkRead: shouldMarkRead)
+        let operation = RemoteNotificationsMarkReadOrUnreadOperation(with: apiController, modelController: modelController, identifierGroups: identifierGroups, shouldMarkRead: shouldMarkRead)
         
         operationQueue.addOperation(operation)
     }

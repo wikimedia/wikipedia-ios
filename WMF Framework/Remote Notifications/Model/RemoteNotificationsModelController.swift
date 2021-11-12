@@ -200,26 +200,16 @@ final class RemoteNotificationsModelController: NSObject {
 
     // MARK: Mark as read
 
-    public func markAsReadOrUnread(notifications: Set<RemoteNotification>, shouldMarkRead: Bool, completion: @escaping () -> Void) {
-        
-        guard let viewContext = notifications.first?.managedObjectContext else {
-            completion()
-            return
-        }
-        
-        //it is assumed notifications are from view context. We want to only write on background context.
-        var keys: [String] = []
-        viewContext.performAndWait {
-            keys = notifications.compactMap { $0.key }
-        }
+    public func markAsReadOrUnread(identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, completion: @escaping () -> Void) {
         
         let backgroundContext = newBackgroundContext()
-        processNotificationsWithKeys(keys, moc: backgroundContext, handler: { (notification) in
+        processNotificationsWithIdentifierGroups(identifierGroups, moc: backgroundContext, handler: { (notification) in
             notification.isRead = shouldMarkRead
         }, completion: completion)
     }
 
-    private func processNotificationsWithKeys(_ keys: [String], moc: NSManagedObjectContext, handler: @escaping (RemoteNotification) -> Void, completion: @escaping () -> Void) {
+    private func processNotificationsWithIdentifierGroups(_ identifierGroups: Set<RemoteNotification.IdentifierGroup>, moc: NSManagedObjectContext, handler: @escaping (RemoteNotification) -> Void, completion: @escaping () -> Void) {
+        let keys = identifierGroups.compactMap { $0.key }
         moc.perform {
             let fetchRequest: NSFetchRequest<RemoteNotification> = RemoteNotification.fetchRequest()
             fetchRequest.fetchLimit = 1
