@@ -17,6 +17,9 @@ final class SearchSettingsViewController: SubSettingsViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier)
+        tableView.register(WMFTableHeaderFooterLabelView.wmf_classNib(), forHeaderFooterViewReuseIdentifier: WMFTableHeaderFooterLabelView.identifier)
+        tableView.sectionFooterHeight = UITableView.automaticDimension
+        tableView.estimatedSectionFooterHeight = 44
         title = CommonStrings.searchTitle
         reloadSectionData()
     }
@@ -82,8 +85,18 @@ extension SearchSettingsViewController {
 }
 
 extension SearchSettingsViewController {
-    @objc public func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return getSection(at: section).footerTitle
+    @objc func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        guard let _ = self.tableView(tableView, viewForFooterInSection: section) as? WMFTableHeaderFooterLabelView else {
+            return 0
+        }
+        
+        return UITableView.automaticDimension
+    }
+    
+    @objc func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        
+        let text = getSection(at: section).footerTitle
+        return WMFTableHeaderFooterLabelView.headerFooterViewForTableView(tableView, text: text, type: .footer, theme: theme)
     }
 }
 
