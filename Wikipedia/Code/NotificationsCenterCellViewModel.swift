@@ -27,6 +27,10 @@ final class NotificationsCenterCellViewModel {
         return notification.type
     }
     
+    var isRead: Bool {
+        return notification.isRead
+    }
+    
     func updateDisplayState(isEditing: Bool, isSelected: Bool) {
 
         switch (isEditing, isSelected, notification.isRead) {

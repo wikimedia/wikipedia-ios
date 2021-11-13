@@ -184,8 +184,8 @@ private extension NotificationsCenterViewController {
                         return viewModels.contains($0)
                     }
                     
-                    snapshot.reconfigureItems(viewModelsToUpdate)
-                    self.dataSource?.apply(snapshot, animatingDifferences: false)
+                    //snapshot.reconfigureItems(viewModelsToUpdate)
+                    //self.dataSource?.apply(snapshot, animatingDifferences: false)
                 }
             }
         } else {
@@ -306,8 +306,9 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
 
     /// TODO: This will be removed in the final implementation
     fileprivate func userDidSwipeCell(indexPath: IndexPath?) {
+        
         guard let indexPath = indexPath,
-              let cellViewModel = viewModel.cellViewModel(indexPath: indexPath) else {
+              let cellViewModel = dataSource?.itemIdentifier(for: indexPath) else {
             return
         }
         
