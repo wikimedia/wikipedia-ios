@@ -95,4 +95,14 @@ public class RemoteNotification: NSManagedObject {
     public var secondaryLinks: [RemoteNotificationLink]? {
         return messageLinks?.secondary
     }
+    
+    public struct IdentifierGroup: Hashable {
+        let key: String?
+        let id: String?
+        let wiki: String?
+    }
+    
+    public var identifierGroup: IdentifierGroup {
+        return IdentifierGroup(key: key, id: id, wiki: wiki)
+    }
 }
