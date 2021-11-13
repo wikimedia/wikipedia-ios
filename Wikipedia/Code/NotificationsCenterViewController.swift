@@ -184,8 +184,8 @@ private extension NotificationsCenterViewController {
                         return viewModels.contains($0)
                     }
                     
-                    //snapshot.reconfigureItems(viewModelsToUpdate)
-                    //self.dataSource?.apply(snapshot, animatingDifferences: false)
+                    snapshot.reconfigureItems(viewModelsToUpdate)
+                    self.dataSource?.apply(snapshot, animatingDifferences: false)
                 }
             }
         } else {
