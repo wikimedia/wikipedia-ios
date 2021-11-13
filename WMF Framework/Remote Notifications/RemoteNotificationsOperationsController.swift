@@ -1,5 +1,9 @@
 import CocoaLumberjackSwift
 
+public enum RemoteNotificationsOperationsError: Error {
+    case dataUnavailable //triggered when there was an issue when setting up the Core Data stack
+}
+
 class RemoteNotificationsOperationsController: NSObject {
     private let apiController: RemoteNotificationsAPIController
     private let modelController: RemoteNotificationsModelController?
@@ -7,6 +11,7 @@ class RemoteNotificationsOperationsController: NSObject {
     private let preferredLanguageCodesProvider: WMFPreferredLanguageInfoProvider
     private var isImporting = false
     private var isRefreshing = false
+    private var importingCompletionBlocks: [(RemoteNotificationsOperationsError?) -> Void] = []
     
     var viewContext: NSManagedObjectContext? {
         return modelController?.viewContext
@@ -18,10 +23,6 @@ class RemoteNotificationsOperationsController: NSObject {
                 stop()
             }
         }
-    }
-    
-    private var isAvailableForPagingOperations: Bool {
-        return !isLocked && !isImporting && !isRefreshing
     }
 
     required init(session: Session, configuration: Configuration, preferredLanguageCodesProvider: WMFPreferredLanguageInfoProvider) {
@@ -54,52 +55,78 @@ class RemoteNotificationsOperationsController: NSObject {
         operationQueue.cancelAllOperations()
     }
     
-    /// Kicks off operations to fetch and persist read and unread history of notifications from app languages, Commons, and Wikidata. Designed to fully import once per installation. Will not attempt if import is already in progress or refreshing is in progress.
+    /// Kicks off operations to fetch and persist read and unread history of notifications from app languages, Commons, and Wikidata. Designed to fully import once per installation. Will not attempt if import is already in progress. Must be called from main thread.
     /// - Parameter completion: Block to run once operations have completed. Dispatched to main thread.
-    func importNotificationsIfNeeded(_ completion: @escaping () -> Void) {
+    func importNotificationsIfNeeded(_ completion: @escaping (RemoteNotificationsOperationsError?) -> Void) {
         
-        kickoffPagingOperations(operationType: RemoteNotificationsImportOperation.self, willRunOperationsBlock:{ [weak self] in
-                self?.isImporting = true
-            }, didRunOperationsBlock: { [weak self] in
+        assert(Thread.isMainThread)
+        
+        guard !isLocked else {
+            assertionFailure("Failure setting up notifications core data stack.")
+            completion(.dataUnavailable)
+            return
+        }
+        
+        importingCompletionBlocks.append(completion)
+        
+        //Purposefully not calling completion block here, because we are tracking it in line above. It will be called when
+        //currently running operation completes.
+        guard !isImporting else {
+            return
+        }
+        
+        isImporting = true
+        
+        kickoffPagingOperations(operationType: RemoteNotificationsImportOperation.self) { [weak self] error in
+            DispatchQueue.main.async {
                 self?.isImporting = false
-                completion()
-        })
+                self?.importingCompletionBlocks.forEach { completionBlock in
+                    completionBlock(error)
+                }
+
+                self?.importingCompletionBlocks.removeAll()
+            }
+        }
     }
     
-    /// Kicks off operations to fetch and persist any new read and unread notifications from app languages, Commons, and Wikidata. Will not attempt if import is already in progress or refreshing is in progress.
+    /// Kicks off operations to fetch and persist any new read and unread notifications from app languages, Commons, and Wikidata. Will not attempt if importing or refreshing is already in progress. Must be called from main thread.
     /// - Parameter completion: Block to run once operations have completed. Dispatched to main thread.
-    func refreshNotifications(_ completion: @escaping () -> Void) {
+    func refreshNotifications(_ completion: @escaping (RemoteNotificationsOperationsError?) -> Void) {
         
-        kickoffPagingOperations(operationType: RemoteNotificationsRefreshOperation.self,
-            willRunOperationsBlock: { [weak self] in
-                self?.isRefreshing = true
-            }, didRunOperationsBlock: { [weak self] in
+        assert(Thread.isMainThread)
+        
+        guard !isLocked else {
+            assertionFailure("Failure setting up notifications core data stack.")
+            completion(.dataUnavailable)
+            return
+        }
+        
+        guard !isImporting && !isRefreshing else {
+            completion(nil)
+            return
+        }
+        
+        isRefreshing = true
+        
+        kickoffPagingOperations(operationType: RemoteNotificationsRefreshOperation.self) { [weak self] error in
+            DispatchQueue.main.async {
                 self?.isRefreshing = false
-                completion()
-        })
+                completion(error)
+            }
+        }
     }
     
     /// Method that instantiates the appropriate paging operations for fetching & persisting remote notifications and adds them to the operation queue. Must be called from main thread.
     /// - Parameters:
     ///   - operationType: RemoteNotificationsPagingOperation class to instantiate. Can be an Import or Refresh type.
-    ///   - willRunOperationsBlock: Block to run after passing initial common validation, but before operations kick off. Helps with setting gatekeeping flags like isImporting or isRefreshing.
-    ///   - didRunOperationsBlock: Block to run after operations have completed. Dispatched to main thread.
-    private func kickoffPagingOperations(operationType: RemoteNotificationsPagingOperation.Type, willRunOperationsBlock: () -> Void, didRunOperationsBlock: @escaping () -> Void) {
-        
-        assert(Thread.isMainThread)
-        
-        guard isAvailableForPagingOperations else {
-            self.operationQueue.addOperation(didRunOperationsBlock)
-            return
-        }
+    ///   - completion: Block to run after operations have completed.
+    private func kickoffPagingOperations(operationType: RemoteNotificationsPagingOperation.Type, completion: @escaping (RemoteNotificationsOperationsError?) -> Void) {
         
         guard let modelController = modelController else {
             assertionFailure("Failure setting up notifications core data stack.")
-            self.operationQueue.addOperation(didRunOperationsBlock)
+            completion(.dataUnavailable)
             return
         }
-        
-        willRunOperationsBlock()
         
         preferredLanguageCodesProvider.getPreferredLanguageCodes({ [weak self] (preferredLanguageCodes) in
             
@@ -114,9 +141,7 @@ class RemoteNotificationsOperationsController: NSObject {
             let operations = projects.map { operationType.init(with: self.apiController, modelController: modelController, project: $0) }
             
             let completionOperation = BlockOperation {
-                DispatchQueue.main.async {
-                    didRunOperationsBlock()
-                }
+                completion(nil)
             }
             
             for operation in operations {

@@ -17,7 +17,6 @@ final class NotificationsCenterView: SetupView {
 		collectionView.register(NotificationsCenterCell.self, forCellWithReuseIdentifier: NotificationsCenterCell.reuseIdentifier)
 		collectionView.alwaysBounceVertical = true
 		collectionView.translatesAutoresizingMaskIntoConstraints = false
-		// collectionView.allowsMultipleSelection = true
 		return collectionView
 	}()
 

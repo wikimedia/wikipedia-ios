@@ -22,26 +22,33 @@ import CocoaLumberjackSwift
             DDLogError("Failure deleting legacy RemoteNotifications database files: \(error)")
         }
     }
-    
-    public func importNotificationsIfNeeded(_ completion: @escaping () -> Void) {
+        
+    public func importNotificationsIfNeeded(_ completion: @escaping (RemoteNotificationsOperationsError?) -> Void) {
         operationsController.importNotificationsIfNeeded(completion)
     }
     
-    public func refreshNotifications(_ completion: @escaping () -> Void) {
+    public func refreshNotifications(_ completion: @escaping (RemoteNotificationsOperationsError?) -> Void) {
         operationsController.refreshNotifications(completion)
     }
     
-    public func fetchedResultsController() -> NSFetchedResultsController<RemoteNotification>? {
+    public func fetchNotifications(fetchLimit: Int = 50, fetchOffset: Int = 0) -> [RemoteNotification] {
+        assert(Thread.isMainThread)
         
         guard let viewContext = self.viewContext else {
-            return nil
+            DDLogError("Failure fetching notifications from persistence: missing viewContext")
+            return []
         }
         
         let fetchRequest: NSFetchRequest<RemoteNotification> = RemoteNotification.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: viewContext, sectionNameKeyPath: nil, cacheName: nil)
-
-        return fetchedResultsController
+        fetchRequest.fetchLimit = fetchLimit
+        fetchRequest.fetchOffset = fetchOffset
+        
+        do {
+            return try viewContext.fetch(fetchRequest)
+        } catch {
+            DDLogError("Failure fetching notifications from persistence: \(error)")
+            return []
+        }
     }
 }

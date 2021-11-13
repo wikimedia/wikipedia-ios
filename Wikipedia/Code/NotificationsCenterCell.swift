@@ -12,7 +12,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
 
     fileprivate var theme: Theme = .light
     fileprivate var viewModel: NotificationsCenterCellViewModel?
-    
+
     weak var delegate: NotificationsCenterCellDelegate?
 
     // MARK: - UI Elements
@@ -303,6 +303,14 @@ final class NotificationsCenterCell: UICollectionViewCell {
         
         headerLabelTapGestureRecognizer.isEnabled = viewModel.shouldAllowSecondaryTapAction
     }
+    
+    func configure(theme: Theme) {
+        guard let viewModel = viewModel else {
+            return
+        }
+        
+        configure(viewModel: viewModel, theme: theme)
+    }
 }
 
 //MARK: - Private
@@ -314,7 +322,6 @@ private extension NotificationsCenterCell {
             return
         }
 
-        // let displayState = NotificationsCenterCellDisplayState.allCases.randomElement()!
         let cellStyle = NotificationsCenterCellStyle(theme: theme, traitCollection: traitCollection, notificationType: notificationType)
 
         // Colors
