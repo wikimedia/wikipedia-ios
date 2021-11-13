@@ -49,6 +49,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self.tableView setDataSource:self];
 
     [self.tableView registerNib:[WMFSettingsTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFSettingsTableViewCell identifier]];
+    [self.tableView registerNib:[WMFTableHeaderFooterLabelView wmf_classNib] forHeaderFooterViewReuseIdentifier:[WMFTableHeaderFooterLabelView identifier]];
+    self.tableView.sectionHeaderHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedSectionHeaderHeight = 44;
+    self.tableView.sectionFooterHeight = 0;
 
     self.tableView.estimatedRowHeight = 52.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
@@ -440,7 +444,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Notifications
 
 - (void)showNotifications {
-    WMFNotificationSettingsViewController *notificationSettingsVC = [[WMFNotificationSettingsViewController alloc] initWithAuthManager: self.dataStore.authenticationManager notificationsController:self.dataStore.notificationsController];
+    WMFNotificationSettingsViewController *notificationSettingsVC = [[WMFNotificationSettingsViewController alloc] initWithAuthManager:self.dataStore.authenticationManager notificationsController:self.dataStore.notificationsController];
     [notificationSettingsVC applyTheme:self.theme];
     [self.navigationController pushViewController:notificationSettingsVC animated:YES];
 }
@@ -489,13 +493,28 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     return items.count;
 }
 
-- (nullable NSString *)tableView:(UITableView *)tableView
-         titleForHeaderInSection:(NSInteger)section {
-    NSString *header = [self.sections[section] getHeaderTitle];
-    if (header != nil) {
-        return header;
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    WMFTableHeaderFooterLabelView *header = (WMFTableHeaderFooterLabelView *)[self tableView:tableView viewForHeaderInSection:section];
+    if (header) {
+
+        if (@available(iOS 15.0, *)) {
+
+        } else {
+            //Hides odd content inset bug in iOS 13 & 14
+            if (section == 0) {
+                return 0;
+            }
+        }
+
+        return UITableViewAutomaticDimension;
     }
-    return nil;
+
+    return 0;
+}
+
+- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    NSString *text = self.sections.count > section ? [self.sections[section] getHeaderTitle] : nil;
+    return [WMFTableHeaderFooterLabelView headerFooterViewForTableView:tableView text:text type:WMFTableHeaderFooterLabelViewType_Header setShortTextAsProse:NO theme:self.theme];
 }
 
 - (void)loadSections {
