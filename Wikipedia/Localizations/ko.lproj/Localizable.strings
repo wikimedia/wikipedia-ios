@@ -24,6 +24,7 @@
 // Author: SeoJeongHo
 // Author: Tsevener
 // Author: Twotwo2019
+// Author: Underbaaar
 // Author: Viral
 // Author: Ykhwong
 // Author: Ysjbserver
@@ -587,6 +588,44 @@
 "no-internet-connection" = "인터넷 연결 없음";
 "no-internet-connection-article-reload" = "이 문서의 더 새로운 판을 볼 수 있으나 인터넷에 연결되지 않으면 불러올 수 없습니다";
 "no-internet-connection-article-reload-button" = "마지막으로 저장한 판으로 돌아가기";
+"notifications-center-change-password" = "비밀번호 바꾸기";
+"notifications-center-commons-project-name" = "위키미디어 공용";
+"notifications-center-edit-button" = "편집";
+"notifications-center-empty-checking-for-notifications" = "알림을 확인하는 중...";
+"notifications-center-empty-no-unread-messages" = "읽지 않은 메시지가 없습니다";
+"notifications-center-empty-not-subscribed" = "현재 어느 위키백과 알림에도 구독되어 있지 않습니다";
+"notifications-center-footer-change-password" = "비밀번호 바꾸기";
+"notifications-center-go-to-diff" = "차이로 이동";
+"notifications-center-go-to-talk-page" = "토론 문서로 이동";
+"notifications-center-go-to-title" = "$1 주제로 이동";
+"notifications-center-go-to-user-page" = "$1님의 사용자 문서로 이동";
+"notifications-center-go-to-wikidata-item" = "위키데이터 항목으로 이동";
+"notifications-center-go-to-your-talk-page" = "내 토론 문서로 이동";
+"notifications-center-header-alert-from-project" = "$1에서의 경고";
+"notifications-center-header-notice-from-project" = "$1의 알림";
+"notifications-center-language-project-name-format" = "$1 $2";
+"notifications-center-login-notifications" = "로그인 알림";
+"notifications-center-mark-as-read" = "읽은 것으로 표시";
+"notifications-center-mark-as-unread" = "읽지않음으로 표기";
+"notifications-center-notifications-settings" = "알림 설정";
+"notifications-center-subheader-edit-reverted" = "내 편집이 되돌려졌습니다";
+"notifications-center-subheader-email-from-other-user" = "새 이메일";
+"notifications-center-subheader-login-fail-known-device" = "여러 차례의 로그인 시도 실패";
+"notifications-center-subheader-login-fail-unknown-device" = "로그인 시도 실패";
+"notifications-center-subheader-login-success-unknown-device" = "낯선 기기에서의 로그인";
+"notifications-center-subheader-mention-article-talk-page" = "문서의 토론 문서에 언급";
+"notifications-center-subheader-mention-edit-summary" = "편집 요약에 언급";
+"notifications-center-subheader-mention-failed" = "언급 실패";
+"notifications-center-subheader-mention-successful" = "언급 성공";
+"notifications-center-subheader-mention-talk-page" = "토론 문서에 언급";
+"notifications-center-subheader-message-user-talk-page" = "내 토론 문서의 메시지";
+"notifications-center-subheader-page-link" = "문서 링크";
+"notifications-center-subheader-thanks" = "감사합니다";
+"notifications-center-subheader-user-rights-change" = "사용자 권한 변경";
+"notifications-center-subheader-welcome" = "환영합니다!";
+"notifications-center-subheader-wikidata-connection" = "위키데이터에 연결됨";
+"notifications-center-title" = "알림";
+"notifications-center-wikidata-project-name" = "위키데이터";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
@@ -751,6 +790,8 @@
 "relative-date-hours-abbreviated" = "$1시간";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=최근|$1시간 전|$1시간 전}}";
 "relative-date-hours-ago-abbreviated" = "$1시간 전";
+"relative-date-hrs-ago" = "{{PLURAL:$1|0=최근|$1시간 전|$1시간 전}}";
+"relative-date-min-ago" = "{{PLURAL:$1|0=방금 전|$1분 전|$1분 전}}";
 "relative-date-minutes-abbreviated" = "$1분";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=방금 전|$1분 전|$1분 전}}";
 "relative-date-minutes-ago-abbreviated" = "$1분 전";
@@ -769,8 +810,6 @@
 "replace-textfield-accessibility" = "바꾸기";
 "replace-textfield-placeholder" = "다음으로 바꾸기...";
 "reverted-edit-back-to-article-button-title" = "문서로 돌아가기";
-"reverted-edit-notification-body" = "$1 문서에 한 편집은 $2님에 의해 되돌려졌습니다";
-"reverted-edit-notification-read-more-action-title" = "더 읽어보기";
 "reverted-edit-possible-reasons" = "- 기여가 지침 중 하나를 따르지 않았습니다. $1 \n\n - 기여는 실험적이거나 문서 훼손처럼 보입니다";
 "reverted-edit-possible-reasons-subtitle" = "저희는 당신이 최선의 노력을 다해주신 것을 알고 있습니다만, 검토자들 중 한 명이 걱정하는 부분이 있습니다.\n\n당신의 편집이 되돌려진 잠재적인 이유는 다음과 같습니다:";
 "reverted-edit-thanks-for-editing-title" = "위키백과를 편집해 주셔서 감사합니다!";

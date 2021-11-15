@@ -748,8 +748,6 @@
 "replace-textfield-accessibility" = "Înlocuiește";
 "replace-textfield-placeholder" = "Înlocuiește cu...";
 "reverted-edit-back-to-article-button-title" = "Înapoi la articol";
-"reverted-edit-notification-body" = "Editarea care a fost făcută la articolul $1 a fost anulată de $2";
-"reverted-edit-notification-read-more-action-title" = "Citește mai mult";
 "reverted-edit-possible-reasons" = "- Contribuția dvs. nu a respectat niciuna din îndrumările. $1 \n\n- Contribuția ta arăta ca un experiment sau un vandalism";
 "reverted-edit-possible-reasons-subtitle" = "Știm că ai oferit ce aveai mai bun din tine, dar unul dintre recenzori avea o îndoială.\n\nPosibilele motive pentru care modificarea dvs. a fost anulată includ:";
 "reverted-edit-thanks-for-editing-title" = "Mulțumim pentru editarea Wikipedia!";

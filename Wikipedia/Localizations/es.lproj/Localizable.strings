@@ -771,8 +771,6 @@
 "replace-textfield-accessibility" = "Reemplazar";
 "replace-textfield-placeholder" = "Reemplazar por…";
 "reverted-edit-back-to-article-button-title" = "Volver al artículo";
-"reverted-edit-notification-body" = "La edición que hiciste del artículo $1 ha sido rechazada por $2";
-"reverted-edit-notification-read-more-action-title" = "Leer más";
 "reverted-edit-possible-reasons" = "- Tu contribución no sigue alguna de las guías. $1\n\n- Tu contribución parece un experimento o un acto vandálico";
 "reverted-edit-possible-reasons-subtitle" = "Sabemos intentaste hacer lo mejor, pero uno de los revisores planteó una duda.\n\n\nPosibles razones por las que tu edición se rechazó:";
 "reverted-edit-thanks-for-editing-title" = "¡Gracias por editar en Wikipedia!";

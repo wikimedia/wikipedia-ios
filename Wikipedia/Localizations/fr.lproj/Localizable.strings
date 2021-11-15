@@ -767,8 +767,6 @@
 "replace-textfield-accessibility" = "Remplacer";
 "replace-textfield-placeholder" = "Remplacer par...";
 "reverted-edit-back-to-article-button-title" = "Retour à l’article";
-"reverted-edit-notification-body" = "La modification que vous avez apportée à l’article $1 a été annulée par $2";
-"reverted-edit-notification-read-more-action-title" = "Lire la suite";
 "reverted-edit-possible-reasons" = "- Votre contribution ne suit pas l’une des règles. $1 \n\n- Votre contribution ressemble à un essai ou a du vandalisme";
 "reverted-edit-possible-reasons-subtitle" = "Nous savons que vous avez fait de votre mieux, mais un de nos relecteurs a eu un souci. \n\nLes raisons possibles de l’annulation de votre modification sont :";
 "reverted-edit-thanks-for-editing-title" = "Merci d’avoir enrichi Wikipédia !";

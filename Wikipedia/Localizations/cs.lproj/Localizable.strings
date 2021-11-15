@@ -747,8 +747,6 @@
 "replace-textfield-accessibility" = "Nahradit";
 "replace-textfield-placeholder" = "Nahradit za...";
 "reverted-edit-back-to-article-button-title" = "Zpět do článku";
-"reverted-edit-notification-body" = "Vaše editace článku $1 byla revertována wikipedistou $2";
-"reverted-edit-notification-read-more-action-title" = "Více informací";
 "reverted-edit-possible-reasons" = "- Váš příspěvek neodpovídal některému z pokynů. $ 1\n\n- Váš příspěvek vypadal (anebo byl) experiment nebo vandalismus.";
 "reverted-edit-possible-reasons-subtitle" = "Víme, že jste se snažili o to nejlepší, ale jeden z wikipedistů revertoval editaci. \n\nMožné důvody revertu jsou:";
 "reverted-edit-thanks-for-editing-title" = "Děkujeme, že editujete Wikipediiǃ";
