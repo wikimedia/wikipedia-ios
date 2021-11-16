@@ -566,8 +566,6 @@
 "replace-textfield-accessibility" = "Csere";
 "replace-textfield-placeholder" = "Csere a következőre...";
 "reverted-edit-back-to-article-button-title" = "Vissza a szócikkhez";
-"reverted-edit-notification-body" = "A(z) „$1” szócikkben végzett szerkesztésedet $2 visszavonta";
-"reverted-edit-notification-read-more-action-title" = "További információ";
 "reverted-edit-thanks-for-editing-title" = "Köszönjük, hogy szerkesztetted a Wikipédiát!";
 "reverted-edit-title" = "Visszavont szerkesztés";
 "reverted-edit-view-guidelines-text" = "Útmutatók megtekintése";

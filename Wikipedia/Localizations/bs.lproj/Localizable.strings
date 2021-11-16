@@ -733,8 +733,6 @@
 "replace-textfield-accessibility" = "Zamijeni";
 "replace-textfield-placeholder" = "Zamijeni sa...";
 "reverted-edit-back-to-article-button-title" = "Nazad na članak";
-"reverted-edit-notification-body" = "Korisnik $2 je vratio izmjenu koju ste napravili u članku $1";
-"reverted-edit-notification-read-more-action-title" = "Pročitaj više";
 "reverted-edit-possible-reasons" = "- Vaš doprinos nije slijedio jednu od smjernica. $1 \n\n - Vaš doprinos je izgledao kao eksperiment ili vandalizam";
 "reverted-edit-possible-reasons-subtitle" = "Znamo da ste dali sve od sebe, ali jedan od pregledavača je procijenio da izmjena ne može biti prihvaćena.\n\nMogući razlozi zašto je Vaša izmjena vraćena uključuju:";
 "reverted-edit-thanks-for-editing-title" = "Hvala za uređivanje Wikipedije!";

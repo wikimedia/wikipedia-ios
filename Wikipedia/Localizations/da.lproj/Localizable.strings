@@ -494,8 +494,6 @@
 "replace-textfield-accessibility" = "Erstat";
 "replace-textfield-placeholder" = "Erstat med...";
 "reverted-edit-back-to-article-button-title" = "Tilbage til artiklen";
-"reverted-edit-notification-body" = "Redigeringen du lavede på artiklen $1 blev omgjort af $2";
-"reverted-edit-notification-read-more-action-title" = "Læs mere";
 "reverted-edit-thanks-for-editing-title" = "Tak fordi du redigerer Wikipedia!";
 "reverted-edit-title" = "Omgjort redigering";
 "reverted-edit-view-guidelines-text" = "Vis retningslinjer";
