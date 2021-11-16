@@ -1,5 +1,6 @@
 
 import Foundation
+import CocoaLumberjackSwift
 
 /// Base class for operations that deal with fetching and persisting user notifications. Operation will recursively call the next page, with overrideable hooks to adjust this behavior.
 class RemoteNotificationsPagingOperation: RemoteNotificationsOperation {
@@ -103,4 +104,6 @@ class RemoteNotificationsPagingOperation: RemoteNotificationsOperation {
             }
         }
     }
+    
+    
 }

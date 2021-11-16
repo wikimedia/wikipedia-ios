@@ -3,7 +3,7 @@ import Foundation
 import WMF
 
 protocol NotificationsCenterModelControllerDelegate: AnyObject {
-    func reconfigureCellsWithViewModelsIfNeeded(cellViewModels: [NotificationsCenterCellViewModel])
+    func dataDidChange()
 }
 
 //Keeps track of the RemoteNotification managed objects and NotificationCenterCellViewModels that power Notification Center in a performant way
@@ -14,51 +14,60 @@ final class NotificationsCenterModelController {
     private var cellViewModelsDict: [RemoteNotificationKey: NotificationsCenterCellViewModel] = [:]
     private var cellViewModels: Set<NotificationsCenterCellViewModel> = []
     
-    weak var delegate: NotificationsCenterModelControllerDelegate?
     private let languageLinkController: MWKLanguageLinkController
     
+    private weak var delegate: NotificationsCenterModelControllerDelegate?
+    
     init(languageLinkController: MWKLanguageLinkController, delegate: NotificationsCenterModelControllerDelegate?) {
-        self.delegate = delegate
         self.languageLinkController = languageLinkController
+        self.delegate = delegate
     }
     
-    func addNewCellViewModelsWith(notifications: [RemoteNotification]) {
+    func addNewCellViewModelsWith(notifications: [RemoteNotification], isEditing: Bool) {
+        
+        var atLeastOneNewCellViewModelInserted = false
+        
         for notification in notifications {
 
             //Instantiate new view model and insert it into tracking properties
             
             guard let key = notification.key,
-                  let newCellViewModel = NotificationsCenterCellViewModel(notification: notification, languageLinkController: languageLinkController) else {
+                  let newCellViewModel = NotificationsCenterCellViewModel(notification: notification, languageLinkController: languageLinkController, isEditing: isEditing) else {
                 continue
             }
             
+            atLeastOneNewCellViewModelInserted = true
+            
+            if atLeastOneNewCellViewModelInserted == false && !cellViewModels.contains(newCellViewModel) {
+                atLeastOneNewCellViewModelInserted = true
+            }
             cellViewModelsDict[key] = newCellViewModel
             cellViewModels.insert(newCellViewModel)
         }
+        
+        if atLeastOneNewCellViewModelInserted {
+            delegate?.dataDidChange()
+        }
     }
     
-    func updateCurrentCellViewModelsWith(updatedNotifications: [RemoteNotification]? = nil) {
-
-        let cellViewModelsToUpdate: [NotificationsCenterCellViewModel]
+    func evaluateUpdatedNotifications(updatedNotifications: [RemoteNotification], isEditing: Bool) {
+        //Find existing cell view models via tracking properties
         
-        if let updatedNotifications = updatedNotifications {
+        let viewModelsToUpdate: [NotificationsCenterCellViewModel] = updatedNotifications.compactMap { notification in
             
-            //Find existing cell view models via tracking properties
-            cellViewModelsToUpdate = updatedNotifications.compactMap { notification in
-                
-                guard let key = notification.key else {
-                    return nil
-                }
-                
-                return cellViewModelsDict[key]
-                
+            guard let key = notification.key else {
+                return nil
             }
             
-        } else {
-            cellViewModelsToUpdate = Array(cellViewModels)
+            return cellViewModelsDict[key]
+            
         }
         
-        delegate?.reconfigureCellsWithViewModelsIfNeeded(cellViewModels: cellViewModelsToUpdate)
+        updateCellDisplayStates(cellViewModels: viewModelsToUpdate, isEditing: isEditing)
+        
+        if viewModelsToUpdate.count > 0 {
+            delegate?.dataDidChange()
+        }
     }
     
     var fetchOffset: Int {
@@ -75,12 +84,20 @@ final class NotificationsCenterModelController {
         }
     }
     
-    func updateCellDisplayStates(cellViewModels: [NotificationsCenterCellViewModel]?, isEditing: Bool, isSelected: Bool) {
+    func updateCellDisplayStates(cellViewModels: [NotificationsCenterCellViewModel], isEditing: Bool, isSelected: Bool? = nil) {
+        var dataChanged = false
         
-        let viewModelsToUpdate = cellViewModels ?? Array(self.cellViewModels)
-        
-        viewModelsToUpdate.forEach { cellViewModel in
+        cellViewModels.forEach { cellViewModel in
+            
+            let oldDisplayState = cellViewModel.displayState
             cellViewModel.updateDisplayState(isEditing: isEditing, isSelected: isSelected)
+            if cellViewModel.displayState != oldDisplayState {
+                    dataChanged = true
+            }
+        }
+        
+        if dataChanged {
+            delegate?.dataDidChange()
         }
     }
 }

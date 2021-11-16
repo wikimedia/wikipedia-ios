@@ -567,9 +567,14 @@
 "notifications-center-header-notice-from-project" = "Notice from $1";
 "notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "Login Notifications";
+"notifications-center-mark" = "Mark";
+"notifications-center-mark-all-as-read" = "Mark all as read";
+"notifications-center-mark-all-as-read-confirmation-format" = "Are you sure that you want to mark all {{PLURAL:$1|$1 message|$1 messages}} of your notifications as read? Your notifications will be marked as read on all of your devices.";
+"notifications-center-mark-all-as-read-missing-number" = "Are you sure that you want to mark all of your notifications as read? Your notifications will be marked as read on all of your devices.";
 "notifications-center-mark-as-read" = "Mark as Read";
 "notifications-center-mark-as-unread" = "Mark as Unread";
 "notifications-center-notifications-settings" = "Notification settings";
+"notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 message|$1 messages}}";
 "notifications-center-subheader-edit-milestone" = "Editing milestone";
 "notifications-center-subheader-edit-reverted" = "Your edit was reverted";
 "notifications-center-subheader-email-from-other-user" = "New email";

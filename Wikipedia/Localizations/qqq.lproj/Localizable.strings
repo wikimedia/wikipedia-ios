@@ -567,9 +567,14 @@
 "notifications-center-header-notice-from-project" = "Header text for notice notifications in Notifications Center. $1 is replaced with a project name such as \"EN-Wikipedia\" or \"Wikimedia Commons\".";
 "notifications-center-language-project-name-format" = "Format used for the ordering of language project name descriptions. This description is inserted into the header text of notifications in Notifications Center. For example, \"English Wikipedia\". Use this format to reorder these words if necessary or insert additional connecting words. Parameters: $1 = localized language name (\"English\"), $2 = localized name for Wikipedia (\"Wikipedia\")";
 "notifications-center-login-notifications" = "Button text in Notifications Center that routes user to login notifications help page in web view.";
+"notifications-center-mark" = "Button text in Notifications Center. Presents menu of options to mark selected notifications as read or unread.";
+"notifications-center-mark-all-as-read" = "Toolbar button text in Notifications Center that marks all user notifications as read on the server.";
+"notifications-center-mark-all-as-read-confirmation-format" = "Title format for confirmation alert when choosing \"Mark all as read\" toolbar button in notifications center editing mode - $1 is replaced with the number of unread notifications on the server.";
+"notifications-center-mark-all-as-read-missing-number" = "Title for confirmation alert when choosing \"Mark all as read\" toolbar button in notifications center editing mode, when there was an issue with pulling the count of unread notifications on the server.";
 "notifications-center-mark-as-read" = "Button text in Notifications Center to mark a notification as read.";
 "notifications-center-mark-as-unread" = "Button text in Notifications Center to mark a notification as unread.";
 "notifications-center-notifications-settings" = "Button text in Notifications Center that automatically routes to the notifications settings screen.";
+"notifications-center-num-selected-messages-format" = "Title for options menu when choosing \"Mark\" toolbar button in notifications center editing mode - $1 is replaced with the number of selected notifications.";
 "notifications-center-subheader-edit-milestone" = "Subheader text for edit milestone notifications in Notifications Center.";
 "notifications-center-subheader-edit-reverted" = "Subheader text for edit reverted notifications in Notifications Center.";
 "notifications-center-subheader-email-from-other-user" = "Subheader text for 'email from other user' notifications in Notifications Center.";

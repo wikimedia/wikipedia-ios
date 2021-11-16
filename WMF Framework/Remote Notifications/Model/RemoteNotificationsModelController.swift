@@ -1,6 +1,16 @@
 import CocoaLumberjackSwift
 
 final class RemoteNotificationsModelController: NSObject {
+    
+    enum LibraryKey: String {
+        case completedImportFlags = "RemoteNotificationsCompletedImportFlags"
+        case continueIdentifer = "RemoteNotificationsContinueIdentifier"
+        
+        func fullKeyForProject(_ project: RemoteNotificationsProject) -> String {
+            return "\(self.rawValue)-\(project.notificationsApiWikiIdentifier)"
+        }
+    }
+    
     public static let didLoadPersistentStoresNotification = NSNotification.Name(rawValue: "ModelControllerDidLoadPersistentStores")
     
     //TODO: Look into removing this in the future (some legacy code still uses this)
@@ -102,15 +112,50 @@ final class RemoteNotificationsModelController: NSObject {
         backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         return backgroundContext
     }
+    
+    private var unreadNotificationsPredicate: NSPredicate {
+        return NSPredicate(format: "isRead == %@", NSNumber(value: false))
+    }
 
     public func getUnreadNotifications(moc: NSManagedObjectContext, completion: @escaping ResultHandler) {
-        return notifications(with: NSPredicate(format: "isRead == %@", NSNumber(value: false)), moc: moc, completion: completion)
+        return notifications(with: unreadNotificationsPredicate, moc: moc, completion: completion)
     }
     
-    public func markAllAsRead(completion: @escaping () -> Void) {
+    public func wikisWithUnreadNotifications(completion: @escaping ([String]) -> Void) {
+        
         let moc = newBackgroundContext()
         moc.perform {
-            self.getUnreadNotifications(moc: moc) { notifications in
+            guard let entityName = RemoteNotification.entity().name else {
+                return
+            }
+            
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+            fetchRequest.predicate = self.unreadNotificationsPredicate
+            fetchRequest.resultType = .dictionaryResultType
+            fetchRequest.propertiesToFetch = ["wiki"]
+            fetchRequest.returnsDistinctResults = true
+            guard let dictionaries = (try? moc.fetch(fetchRequest)) as? [[String: String]] else {
+                completion([])
+                return
+            }
+            
+            let results = dictionaries.reduce([String]()) { res, item in
+                var arr = res
+                arr.append(contentsOf: item.values)
+                return arr
+            }
+            
+            completion(results)
+        }
+    }
+    
+    public func markAllAsRead(project: RemoteNotificationsProject, completion: @escaping () -> Void) {
+        let moc = newBackgroundContext()
+        moc.perform {
+            let unreadPredicate = self.unreadNotificationsPredicate
+            let wikiPredicate = NSPredicate(format: "wiki == %@", project.notificationsApiWikiIdentifier)
+            let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [unreadPredicate, wikiPredicate])
+            self.notifications(with: compoundPredicate, moc: moc) { notifications in
                 guard let notifications = notifications,
                       !notifications.isEmpty else {
                     completion()
@@ -127,10 +172,20 @@ final class RemoteNotificationsModelController: NSObject {
         }
         
     }
-
-    private func notifications(with predicate: NSPredicate? = nil, moc: NSManagedObjectContext, completion: ResultHandler) {
+    
+    var numberOfUnreadNotifications: Int? {
+        let fetchRequest = notificationsFetchRequest(with: unreadNotificationsPredicate)
+        return try? viewContext.count(for: fetchRequest)
+    }
+    
+    private func notificationsFetchRequest(with predicate: NSPredicate? = nil) -> NSFetchRequest<RemoteNotification> {
         let fetchRequest: NSFetchRequest<RemoteNotification> = RemoteNotification.fetchRequest()
         fetchRequest.predicate = predicate
+        return fetchRequest
+    }
+
+    private func notifications(with predicate: NSPredicate? = nil, moc: NSManagedObjectContext, completion: ResultHandler) {
+        let fetchRequest = notificationsFetchRequest(with: predicate)
         guard let notifications = try? moc.fetch(fetchRequest) else {
             completion(nil)
             return
@@ -205,7 +260,6 @@ final class RemoteNotificationsModelController: NSObject {
         let keys = identifierGroups.compactMap { $0.key }
         moc.perform {
             let fetchRequest: NSFetchRequest<RemoteNotification> = RemoteNotification.fetchRequest()
-            fetchRequest.fetchLimit = 1
             let predicate = NSPredicate(format: "key IN %@", keys)
             fetchRequest.predicate = predicate
             guard let notifications = try? moc.fetch(fetchRequest) else {
@@ -216,6 +270,31 @@ final class RemoteNotificationsModelController: NSObject {
             }
             self.save(moc: moc)
             completion()
+        }
+    }
+    
+    //MARK: WMFLibraryValue Helpers
+    //TODO: Cache this (see EventLoggingService as an example)
+    
+    func libraryValue(forKey key: String) -> NSCoding? {
+        var result: NSCoding? = nil
+        let backgroundContext = newBackgroundContext()
+        backgroundContext.performAndWait {
+            result = backgroundContext.wmf_keyValue(forKey: key)?.value
+        }
+        
+        return result
+    }
+    
+    func setLibraryValue(_ value: NSCoding, forKey key: String) {
+        let backgroundContext = newBackgroundContext()
+        backgroundContext.perform {
+            backgroundContext.wmf_setValue(value, forKey: key)
+            do {
+                try backgroundContext.save()
+            } catch let error {
+                DDLogError("Error saving RemoteNotifications backgroundContext for library keys: \(error)")
+            }
         }
     }
 }

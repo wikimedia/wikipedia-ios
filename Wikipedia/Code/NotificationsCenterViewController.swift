@@ -12,6 +12,12 @@ final class NotificationsCenterViewController: ViewController {
 
     let viewModel: NotificationsCenterViewModel
     
+    lazy var markAllAsReadButton: UIBarButtonItem = {
+        let markAllAsReadText = WMFLocalizedString("notifications-center-mark-all-as-read", value: "Mark all as read", comment: "Toolbar button text in Notifications Center that marks all user notifications as read on the server.")
+        return UIBarButtonItem(title: markAllAsReadText, style: .plain, target: self, action: #selector(didTapMarkAllAsReadButton(_:)))
+    }()
+    
+    // MARK: Properties - Diffable Data Source
     typealias DataSource = UICollectionViewDiffableDataSource<NotificationsCenterSection, NotificationsCenterCellViewModel>
     typealias Snapshot = NSDiffableDataSourceSnapshot<NotificationsCenterSection, NotificationsCenterCellViewModel>
     private var dataSource: DataSource?
@@ -50,8 +56,6 @@ final class NotificationsCenterViewController: ViewController {
         
         notificationsView.collectionView.delegate = self
         setupDataSource()
-        //TODO: Revisit and enable importing empty states in a delayed manner to avoid flashing.
-        //configureEmptyState(isEmpty: true, subheaderText: NotificationsCenterView.EmptyOverlayStrings.checkingForNotifications)
         viewModel.fetchFirstPage()
         
         notificationsView.collectionView.addGestureRecognizer(cellPanGestureRecognizer)
@@ -79,7 +83,6 @@ final class NotificationsCenterViewController: ViewController {
         setToolbarHidden(false, animated: false)
 
 		navigationItem.rightBarButtonItem = editButtonItem
-        isEditing = false
 	}
 
 	// MARK: - Public
@@ -88,11 +91,7 @@ final class NotificationsCenterViewController: ViewController {
         super.setEditing(editing, animated: animated)
         
         notificationsView.collectionView.allowsMultipleSelection = editing
-        viewModel.isEditing = editing
-        viewModel.updateCellDisplayStates(isSelected: false)
-        reconfigureCells()
-        
-        deselectCells()
+        viewModel.updateStateFromEditingModeChange(isEditing: isEditing)
     }
 
 
@@ -120,9 +119,6 @@ private extension NotificationsCenterViewController {
                   let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NotificationsCenterCell.reuseIdentifier, for: indexPath) as? NotificationsCenterCell else {
                 return nil
             }
-            
-            let isSelected = (collectionView.indexPathsForSelectedItems ?? []).contains(indexPath)
-            self.viewModel.updateCellDisplayStates(cellViewModels: [cellViewModel], isSelected: isSelected)
             cell.configure(viewModel: cellViewModel, theme: self.theme)
             cell.delegate = self
             return cell
@@ -169,53 +165,235 @@ private extension NotificationsCenterViewController {
     }
     
     /// Calls cell configure methods again without instantiating a new cell.
-    /// - Parameter viewModels: Cell view models whose associated cells you want to configure again. If nil, method uses all available items in the snapshot (or visible cells) to configure.
-    func reconfigureCells(with viewModels: [NotificationsCenterCellViewModel]? = nil) {
+    func reconfigureCells() {
         
         if #available(iOS 15.0, *) {
             snapshotUpdateQueue.async {
                 if var snapshot = self.dataSource?.snapshot() {
                     
-                    let viewModelsToUpdate = snapshot.itemIdentifiers.filter {
-                        guard let viewModels = viewModels else {
-                            return true
-                        }
-                        
-                        return viewModels.contains($0)
-                    }
-                    
+                    let viewModelsToUpdate = snapshot.itemIdentifiers
                     snapshot.reconfigureItems(viewModelsToUpdate)
                     self.dataSource?.apply(snapshot, animatingDifferences: false)
                 }
             }
         } else {
             
-            let cellsToReconfigure: [NotificationsCenterCell]
-            if let viewModels = viewModels, let dataSource = dataSource {
-                let indexPathsToReconfigure = viewModels.compactMap { dataSource.indexPath(for: $0) }
-                cellsToReconfigure = indexPathsToReconfigure.compactMap { notificationsView.collectionView.cellForItem(at: $0) as? NotificationsCenterCell}
-            } else {
-                cellsToReconfigure = notificationsView.collectionView.visibleCells as? [NotificationsCenterCell] ?? []
-            }
+            let cellsToReconfigure = notificationsView.collectionView.visibleCells as? [NotificationsCenterCell] ?? []
             
             cellsToReconfigure.forEach { cell in
                 cell.configure(theme: theme)
             }
         }
     }
+    
+    func updateToolbar(for state: NotificationsCenterViewModel.State) {
+        switch state {
+        case .data(_, let dataState):
+            switch dataState {
+            case .editing(let dataEditingState):
+                
+                let markButton: UIBarButtonItem
+                let markAllAsReadButton = self.markAllAsReadButton
+                switch dataEditingState {
+                case .noneSelected:
+                    markButton = markButtonForNumberOfSelectedMessages(numSelectedMessages: 0)
+                    markButton.isEnabled = false
+                    markAllAsReadButton.isEnabled = true
+                case .oneOrMoreSelected(let numSelected):
+                    markButton = markButtonForNumberOfSelectedMessages(numSelectedMessages: numSelected)
+                    markButton.isEnabled = true
+                    markAllAsReadButton.isEnabled = false
+                }
+                
+                toolbar.items = [
+                    markButton,
+                    UIBarButtonItem.flexibleSpaceToolbar(),
+                    markAllAsReadButton
+                ]
+            case .nonEditing:
+                toolbar.items = []
+            }
+        case .empty:
+            toolbar.items = []
+        }
+    }
+    
+    func markButtonForNumberOfSelectedMessages(numSelectedMessages: Int) -> UIBarButtonItem {
+        let titleFormat = WMFLocalizedString("notifications-center-num-selected-messages-format", value:"{{PLURAL:%1$d|%1$d message|%1$d messages}}", comment:"Title for options menu when choosing \"Mark\" toolbar button in notifications center editing mode - %1$@ is replaced with the number of selected notifications.")
+        let title = String.localizedStringWithFormat(titleFormat, numSelectedMessages)
+        let optionsMenu = UIMenu(title: title, children: [
+            UIAction.init(title: CommonStrings.notificationsCenterMarkAsRead, image: UIImage(systemName: "envelope.open"), handler: { _ in
+                let selectedCellViewModels = self.selectedCellViewModels()
+                self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: true)
+                self.isEditing = false
+            }),
+            UIAction(title: CommonStrings.notificationsCenterMarkAsUnread, image: UIImage(systemName: "envelope"), handler: { _ in
+                let selectedCellViewModels = self.selectedCellViewModels()
+                self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: false)
+                self.isEditing = false
+            })
+        ])
+        let markButton: UIBarButtonItem
+        let markText = WMFLocalizedString("notifications-center-mark", value: "Mark", comment: "Button text in Notifications Center. Presents menu of options to mark selected notifications as read or unread.")
+        if #available(iOS 14.0, *) {
+            markButton = UIBarButtonItem(title: markText, image: nil, primaryAction: nil, menu: optionsMenu)
+        } else {
+            markButton = UIBarButtonItem(title: markText, style: .plain, target: self, action: #selector(didTapMarkButtonIOS13(_:)))
+        }
+        return markButton
+    }
+    
+    @objc func didTapMarkButtonIOS13(_ sender: UIBarButtonItem) {
+        
+        var numberSelected: Int?
+        switch viewModel.state {
+        case .data(_, let dataState):
+            switch dataState {
+            case .editing(let editingState):
+                switch editingState {
+                case .oneOrMoreSelected(let num):
+                    numberSelected = num
+                default:
+                    assertionFailure("Unexpected view model state, should be in oneOrMoreSelected editing state.")
+                    return
+                }
+            default:
+                assertionFailure("Unexpected view model state, should be in oneOrMoreSelected editing state.")
+                return
+            }
+        default:
+            assertionFailure("Unexpected view model state, should be in oneOrMoreSelected editing state.")
+            return
+        }
+        
+        guard let numberSelected = numberSelected else {
+            return
+        }
+        
+        let titleFormat = WMFLocalizedString("notifications-center-num-selected-messages-format", value:"{{PLURAL:%1$d|%1$d message|%1$d messages}}", comment:"Title for options menu when choosing \"Mark\" toolbar button in notifications center editing mode - %1$@ is replaced with the number of selected notifications.")
+        let title = String.localizedStringWithFormat(titleFormat, numberSelected)
+
+        let alertController = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
+        let action1 = UIAlertAction(title: CommonStrings.notificationsCenterMarkAsRead, style: .default) { _ in
+            let selectedCellViewModels = self.selectedCellViewModels()
+            self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: true)
+            self.isEditing = false
+        }
+        
+        let action2 = UIAlertAction(title: CommonStrings.notificationsCenterMarkAsUnread, style: .default) { _ in
+            let selectedCellViewModels = self.selectedCellViewModels()
+            self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: false)
+            self.isEditing = false
+        }
+        
+        let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil)
+        alertController.addAction(action1)
+        alertController.addAction(action2)
+        alertController.addAction(cancelAction)
+        
+        if let popoverController = alertController.popoverPresentationController {
+            popoverController.barButtonItem = sender
+        }
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    @objc func didTapMarkAllAsReadButton(_ sender: UIBarButtonItem) {
+        
+        var numberOfUnreadNotifications: Int?
+        switch viewModel.state {
+        case .data(_, let dataState):
+            switch dataState {
+            case .editing(let editingState):
+                switch editingState {
+                case .noneSelected(let num):
+                    numberOfUnreadNotifications = num
+                default:
+                    assertionFailure("Unexpected view model state, should be in oneOrMoreSelected editing state.")
+                    return
+                }
+            default:
+                assertionFailure("Unexpected view model state, should be in oneOrMoreSelected editing state.")
+                return
+            }
+        default:
+            assertionFailure("Unexpected view model state, should be in oneOrMoreSelected editing state.")
+            return
+        }
+        
+        let titleText: String
+        if let numberOfUnreadNotifications = numberOfUnreadNotifications {
+            let titleFormat = WMFLocalizedString("notifications-center-mark-all-as-read-confirmation-format", value:"Are you sure that you want to mark all {{PLURAL:%1$d|%1$d message|%1$d messages}} of your notifications as read? Your notifications will be marked as read on all of your devices.", comment:"Title format for confirmation alert when choosing \"Mark all as read\" toolbar button in notifications center editing mode - %1$@ is replaced with the number of unread notifications on the server.")
+            titleText = String.localizedStringWithFormat(titleFormat, numberOfUnreadNotifications)
+        } else {
+            titleText = WMFLocalizedString("notifications-center-mark-all-as-read-missing-number", value:"Are you sure that you want to mark all of your notifications as read? Your notifications will be marked as read on all of your devices.", comment:"Title for confirmation alert when choosing \"Mark all as read\" toolbar button in notifications center editing mode, when there was an issue with pulling the count of unread notifications on the server.")
+        }
+        
+        let alertController = UIAlertController(title: titleText, message: nil, preferredStyle: .actionSheet)
+        let action = UIAlertAction(title: CommonStrings.notificationsCenterMarkAsRead, style: .destructive) { _ in
+            self.viewModel.markAllAsRead()
+            self.isEditing = false
+        }
+        let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil)
+        alertController.addAction(action)
+        alertController.addAction(cancelAction)
+        
+        if let popoverController = alertController.popoverPresentationController {
+            popoverController.barButtonItem = sender
+        }
+        
+        present(alertController, animated: true, completion: nil)
+    }
 }
 
 // MARK: - NotificationCenterViewModelDelegate
 
 extension NotificationsCenterViewController: NotificationCenterViewModelDelegate {
-    func reconfigureCellsWithViewModelsIfNeeded(_ cellViewModels: [NotificationsCenterCellViewModel]?) {
-        reconfigureCells(with: cellViewModels)
+    
+    func stateDidChange(_ newState: NotificationsCenterViewModel.State) {
+        updateToolbar(for: newState)
+        switch newState {
+        case .empty(let emptyState):
+            switch emptyState {
+            case .loading:
+                print("empty loading")
+                configureEmptyState(isEmpty: true, subheaderText: NotificationsCenterView.EmptyOverlayStrings.checkingForNotifications)
+            case .noData:
+                print("empty nodata")
+                configureEmptyState(isEmpty: true)
+            case .filters:
+                print("empty filters")
+                //TODO: filters text
+                configureEmptyState(isEmpty: true)
+            case .initial:
+                print("empty initial")
+                configureEmptyState(isEmpty: false)
+            case .subscriptions:
+                print("empty subscriptions")
+                //TODO: subscriptions text
+                configureEmptyState(isEmpty: true)
+            }
+        case .data(let cellViewModels, let dataState):
+            configureEmptyState(isEmpty: false)
+            applySnapshot(cellViewModels: cellViewModels, animatingDifferences: true)
+            reconfigureCells()
+            
+            switch dataState {
+            case .nonEditing:
+                deselectCells()
+            case .editing(let editingState):
+                switch editingState {
+                case .noneSelected:
+                    deselectCells()
+                case .oneOrMoreSelected:
+                    break
+                }
+            }
+        }
     }
     
-    func cellViewModelsDidChange(cellViewModels: [NotificationsCenterCellViewModel]) {
-        
-        configureEmptyState(isEmpty: cellViewModels.isEmpty)
-        applySnapshot(cellViewModels: cellViewModels, animatingDifferences: true)
+    var numCellsSelected: Int {
+        return notificationsView.collectionView.indexPathsForSelectedItems?.count ?? 0
     }
 }
 
@@ -234,7 +412,7 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldBeginMultipleSelectionInteractionAt indexPath: IndexPath) -> Bool {
-        if viewModel.isEditing {
+        if viewModel.state.isEditing {
             return true
         }
         
@@ -247,15 +425,15 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
             return
         }
         
-        viewModel.updateCellDisplayStates(cellViewModels: [cellViewModel], isSelected: true)
-        reconfigureCells(with: [cellViewModel])
-        
-        if !viewModel.isEditing {
-            collectionView.deselectItem(at: indexPath, animated: true)
-            
+        viewModel.updateCellSelectionState(cellViewModel: cellViewModel, isSelected: true)
+
+        if !viewModel.state.isEditing {
             if let primaryURL = cellViewModel.primaryURL(for: viewModel.configuration) {
                 navigate(to: primaryURL)
             }
+            
+            viewModel.updateCellSelectionState(cellViewModel: cellViewModel, isSelected: false)
+            notificationsView.collectionView.deselectItem(at: indexPath, animated: true)
         }
     }
     
@@ -265,8 +443,7 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
             return
         }
         
-        viewModel.updateCellDisplayStates(cellViewModels: [cellViewModel], isSelected: false)
-        reconfigureCells(with: [cellViewModel])
+        viewModel.updateCellSelectionState(cellViewModel: cellViewModel, isSelected: false)
     }
 }
 

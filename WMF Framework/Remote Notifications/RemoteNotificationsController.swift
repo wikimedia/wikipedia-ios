@@ -31,12 +31,12 @@ import CocoaLumberjackSwift
         operationsController.refreshNotifications(completion)
     }
     
-    public func markAsReadOrUnread(identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool) {
-        operationsController.markAsReadOrUnread(identifierGroups: identifierGroups, shouldMarkRead: shouldMarkRead)
+    public func markAsReadOrUnread(identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, languageLinkController: MWKLanguageLinkController) {
+        operationsController.markAsReadOrUnread(identifierGroups: identifierGroups, shouldMarkRead: shouldMarkRead, languageLinkController: languageLinkController)
     }
     
-    public func markAllAsRead() {
-        operationsController.markAllAsRead()
+    public func markAllAsRead(languageLinkController: MWKLanguageLinkController) {
+        operationsController.markAllAsRead(languageLinkController: languageLinkController)
     }
     
     public func fetchNotifications(fetchLimit: Int = 50, fetchOffset: Int = 0) -> [RemoteNotification] {
@@ -58,5 +58,9 @@ import CocoaLumberjackSwift
             DDLogError("Failure fetching notifications from persistence: \(error)")
             return []
         }
+    }
+    
+    public var numberOfUnreadNotifications: Int? {
+        return self.operationsController.numberOfUnreadNotifications
     }
 }
