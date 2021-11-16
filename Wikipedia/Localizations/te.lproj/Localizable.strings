@@ -152,7 +152,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=ఇప్పుడే|$1 నిమిషం క్రితం|$1 నిమిషాల క్రితం}}";
 "relative-date-minutes-ago-abbreviated" = "$1ని క్రితం";
 "reverted-edit-back-to-article-button-title" = "తిరిగి వ్యాసానికి";
-"reverted-edit-notification-read-more-action-title" = "ఇంకా చదవండి";
 "saved-all-articles-title" = "వ్యాసాలన్నీ";
 "saved-title" = "భద్రపరచబడింది";
 "search-recent-clear-cancel" = "రద్దుచేయి";

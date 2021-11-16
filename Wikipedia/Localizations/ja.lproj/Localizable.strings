@@ -748,8 +748,6 @@
 "replace-textfield-accessibility" = "置換";
 "replace-textfield-placeholder" = "置換後の文字列";
 "reverted-edit-back-to-article-button-title" = "記事に戻る";
-"reverted-edit-notification-body" = "$1にあなたが加えた編集は$2さんによって差し戻されました";
-"reverted-edit-notification-read-more-action-title" = "さらに詳しく";
 "reverted-edit-possible-reasons" = "- あなたの貢献の内容がガイドラインのひとつに反しています。$1 \n\n - あなたの貢献の内容は実験か不正行為と見なされました";
 "reverted-edit-possible-reasons-subtitle" = "あなたがベストを尽くそうとしたのはよく分かりますが、レビュアーは懸念を持ったようです。\n\nあなたの編集が差し戻された理由としては、以下のような可能性があります。";
 "reverted-edit-thanks-for-editing-title" = "ウィキペディアを編集していただきありがとうございます!";
