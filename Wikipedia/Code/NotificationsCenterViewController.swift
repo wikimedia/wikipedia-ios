@@ -328,7 +328,7 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
     }
 
     fileprivate func animateSwipePanel(open: Bool, for cell: NotificationsCenterCell) {
-       UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.5, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
+       UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.5, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
            if open {
                cell.foregroundContentContainer.transform = CGAffineTransform.identity.translatedBy(x: -cell.swipeActionButtonStack.frame.size.width, y: 0)
            } else {
