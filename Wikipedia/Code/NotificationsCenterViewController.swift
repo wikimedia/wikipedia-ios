@@ -19,8 +19,26 @@ final class NotificationsCenterViewController: ViewController {
 
     // MARK: - Properties - Cell Swipe Actions
 
+    fileprivate struct CellSwipeData {
+        var activelyPannedCellIndexPath: IndexPath? // IndexPath of actively panned or open cell
+        var activelyPannedCellTranslationX: CGFloat? // translation on x-axis of open cell
+
+        func activeCell(in collectionView: UICollectionView) -> NotificationsCenterCell? {
+            guard let activelyPannedCellIndexPath = activelyPannedCellIndexPath else {
+                return nil
+            }
+
+            return collectionView.cellForItem(at: activelyPannedCellIndexPath) as? NotificationsCenterCell
+        }
+
+        mutating func resetActiveData() {
+            activelyPannedCellIndexPath = nil
+            activelyPannedCellTranslationX = nil
+        }
+    }
+
     fileprivate lazy var cellPanGestureRecognizer = UIPanGestureRecognizer()
-    fileprivate var activelyPannedCellIndexPath: IndexPath?
+    fileprivate lazy var cellSwipeData = CellSwipeData()
 
     // MARK: - Lifecycle
 
@@ -62,6 +80,11 @@ final class NotificationsCenterViewController: ViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.refreshNotifications()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        closeActiveSwipePanelIfNecessary()
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -286,21 +309,109 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
         return false
     }
 
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        super.scrollViewWillBeginDragging(scrollView)
+        closeActiveSwipePanelIfNecessary()
+    }
+
+    func closeActiveSwipePanelIfNecessary() {
+        if let activeCell = cellSwipeData.activeCell(in: notificationsView.collectionView) {
+            animateSwipePanel(open: false, for: activeCell)
+            cellSwipeData.resetActiveData()
+        }
+    }
+
+    fileprivate func animateSwipePanel(open: Bool, for cell: NotificationsCenterCell) {
+       UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.5, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
+           if open {
+               cell.foregroundContentContainer.transform = CGAffineTransform.identity.translatedBy(x: -cell.swipeActionButtonStack.frame.size.width, y: 0)
+           } else {
+               cell.foregroundContentContainer.transform = CGAffineTransform.identity
+           }
+       }, completion: nil)
+    }
+
     @objc fileprivate func userDidPanCell(_ gestureRecognizer: UIPanGestureRecognizer) {
+        // TODO let isRTL = UIApplication.shared.wmf_isRTL
+        let triggerVelocity: CGFloat = 400
+        let swipeEdgeBuffer = NotificationsCenterCell.swipeEdgeBuffer
+        let touchPosition = gestureRecognizer.location(in: notificationsView.collectionView)
+        let translationX = gestureRecognizer.translation(in: notificationsView.collectionView).x
+        let velocityX = gestureRecognizer.velocity(in: notificationsView.collectionView).x
+
         switch gestureRecognizer.state {
         case .began:
-            let touchPosition = gestureRecognizer.location(in: notificationsView.collectionView)
-            guard let cellIndexPath = notificationsView.collectionView.indexPathForItem(at: touchPosition) else {
+            guard let touchCellIndexPath = notificationsView.collectionView.indexPathForItem(at: touchPosition), let cell = notificationsView.collectionView.cellForItem(at: touchCellIndexPath) as? NotificationsCenterCell else {
                 gestureRecognizer.state = .ended
                 break
             }
 
-            activelyPannedCellIndexPath = cellIndexPath
+            // If the new touch is on a new cell, and a current cell is already open, close it first
+            if let currentlyActiveIndexPath = cellSwipeData.activelyPannedCellIndexPath, currentlyActiveIndexPath != touchCellIndexPath, let cell = notificationsView.collectionView.cellForItem(at: currentlyActiveIndexPath) as? NotificationsCenterCell {
+                animateSwipePanel(open: false, for: cell)
+            }
+
+            if cell.foregroundContentContainer.transform.isIdentity {
+                cellSwipeData.activelyPannedCellTranslationX = nil
+                if velocityX > 0 {
+                    gestureRecognizer.state = .ended
+                    break
+                }
+            } else {
+                cellSwipeData.activelyPannedCellTranslationX = cell.foregroundContentContainer.transform.tx
+            }
+
+            cellSwipeData.activelyPannedCellIndexPath = touchCellIndexPath
+        case .changed:
+            guard let cell = cellSwipeData.activeCell(in: notificationsView.collectionView) else {
+                break
+            }
+
+            let swipeStackWidth = cell.swipeActionButtonStack.frame.size.width
+            var totalTranslationX = translationX + (cellSwipeData.activelyPannedCellTranslationX ?? 0)
+
+            let maximumTranslationX = swipeStackWidth + swipeEdgeBuffer
+
+            // The user is trying to pan too far left
+            if totalTranslationX < -maximumTranslationX {
+                totalTranslationX = -maximumTranslationX - log(abs(translationX))
+            }
+
+            // Extends too far right
+            if totalTranslationX > swipeEdgeBuffer {
+                totalTranslationX = swipeEdgeBuffer + log(abs(translationX))
+            }
+
+            cell.foregroundContentContainer.transform = CGAffineTransform(translationX: totalTranslationX, y: 0)
         case .ended:
-            userDidSwipeCell(indexPath: activelyPannedCellIndexPath)
-            activelyPannedCellIndexPath = nil
+            guard let cell = cellSwipeData.activeCell(in: notificationsView.collectionView) else {
+                break
+            }
+
+            var shouldOpenSwipePanel: Bool
+            let currentCellTranslationX = cell.foregroundContentContainer.transform.tx
+
+            if currentCellTranslationX > 0 {
+                shouldOpenSwipePanel = false
+            } else {
+                if velocityX < -triggerVelocity {
+                    shouldOpenSwipePanel = true
+                } else {
+                    shouldOpenSwipePanel = abs(currentCellTranslationX) > (0.5 * cell.swipeActionButtonStack.frame.size.width)
+                }
+            }
+
+            if velocityX > triggerVelocity {
+                shouldOpenSwipePanel = false
+            }
+
+            if !shouldOpenSwipePanel {
+                cellSwipeData.resetActiveData()
+            }
+
+            animateSwipePanel(open: shouldOpenSwipePanel, for: cell)
         default:
-            return
+            break
         }
     }
 
