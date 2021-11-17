@@ -186,6 +186,7 @@ private extension NotificationsCenterViewController {
     }
     
     func deselectCells() {
+        closeActiveSwipePanelIfNecessary()
         notificationsView.collectionView.indexPathsForSelectedItems?.forEach {
             notificationsView.collectionView.deselectItem(at: $0, animated: false)
         }
@@ -269,7 +270,12 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
         guard let cellViewModel = dataSource?.itemIdentifier(for: indexPath) else {
             return
         }
-        
+
+        if cellSwipeData.activeCell(in: collectionView) != nil {
+            closeActiveSwipePanelIfNecessary()
+            return
+        }
+
         viewModel.updateCellDisplayStates(cellViewModels: [cellViewModel], isSelected: true)
         reconfigureCells(with: [cellViewModel])
         
@@ -415,14 +421,32 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
         }
     }
 
-    /// TODO: This will be removed in the final implementation
-    fileprivate func userDidSwipeCell(indexPath: IndexPath?) {
-        
-        guard let indexPath = indexPath,
-              let cellViewModel = dataSource?.itemIdentifier(for: indexPath) else {
+}
+
+//MARK: NotificationCenterCellDelegate
+
+extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
+
+    func userDidTapSecondaryActionForViewModel(_ cellViewModel: NotificationsCenterCellViewModel) {
+        guard cellSwipeData.activeCell(in: notificationsView.collectionView) == nil else {
+            closeActiveSwipePanelIfNecessary()
             return
         }
-        
+
+        guard let url = cellViewModel.secondaryURL(for: viewModel.configuration) else {
+            return
+        }
+
+        navigate(to: url)
+    }
+
+    func userDidTapMoreActionForCell(_ cell: NotificationsCenterCell) {
+        guard let cellViewModel = cell.viewModel else {
+            return
+        }
+
+        closeActiveSwipePanelIfNecessary()
+
         let sheetActions = cellViewModel.sheetActions(for: viewModel.configuration)
         guard !sheetActions.isEmpty else {
             return
@@ -431,7 +455,7 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
         let alertController = UIAlertController(title: cellViewModel.headerText, message: cellViewModel.bodyText, preferredStyle: .actionSheet)
 
         sheetActions.forEach { action in
-            
+
             let alertAction: UIAlertAction
             switch action {
             case .markAsReadOrUnread(let data):
@@ -450,29 +474,28 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
                     self.navigate(to: url)
                 })
             }
-            
+
             alertController.addAction(alertAction)
         }
-        
+
         let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
         alertController.addAction(cancelAction)
 
-        if let popoverController = alertController.popoverPresentationController, let cell = notificationsView.collectionView.cellForItem(at: indexPath) {
+        if let popoverController = alertController.popoverPresentationController {
             popoverController.sourceView = cell
             popoverController.sourceRect = CGRect(x: cell.bounds.midX, y: cell.bounds.midY, width: 0, height: 0)
         }
 
         present(alertController, animated: true, completion: nil)
     }
-}
 
-//MARK: NotificationCenterCellDelegate
-
-extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
-    func userDidTapSecondaryActionForViewModel(_ cellViewModel: NotificationsCenterCellViewModel) {
-        guard let url = cellViewModel.secondaryURL(for: viewModel.configuration) else {
+    func userDidTapMarkAsReadUnreadActionForCell(_ cell: NotificationsCenterCell) {
+        guard let cellViewModel = cell.viewModel else {
             return
         }
-        navigate(to: url)
+        
+        closeActiveSwipePanelIfNecessary()
+        viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: !cellViewModel.isRead)
     }
+
 }
