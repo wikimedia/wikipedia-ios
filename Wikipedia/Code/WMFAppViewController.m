@@ -379,7 +379,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (![self uiIsLoaded]) {
         return;
     }
-    [self.navigationStateController saveNavigationStateFor:self.navigationController in:self.dataStore.viewContext];
+    [self.navigationStateController saveNavigationStateFor:self.navigationController
+                                                        in:self.dataStore.viewContext];
     NSError *saveError = nil;
     if (![self.dataStore save:&saveError]) {
         DDLogError(@"Error saving dataStore: %@", saveError);
@@ -511,21 +512,24 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (!visibleHintPresentingViewController) {
         return;
     }
-    [self toggleHint:self.readingListHintController context:@{WMFReadingListHintController.ContextArticleKey: article}];
+    [self toggleHint:self.readingListHintController
+             context:@{WMFReadingListHintController.ContextArticleKey: article}];
 }
 
 - (void)editWasPublished:(NSNotification *)note {
     if (![NSUserDefaults.standardUserDefaults wmf_didShowFirstEditPublishedPanel]) {
         return;
     }
-    [self toggleHint:self.editHintController context:nil];
+    [self toggleHint:self.editHintController
+             context:nil];
 }
 
 - (void)descriptionEditWasPublished:(NSNotification *)note {
     if (![NSUserDefaults.standardUserDefaults didShowDescriptionPublishedPanel]) {
         return;
     }
-    [self toggleHint:self.editHintController context:nil];
+    [self toggleHint:self.editHintController
+             context:nil];
 }
 
 - (void)talkPageReplyWasPublished:(NSNotification *)note {
@@ -549,7 +553,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (!visibleHintPresentingViewController) {
         return;
     }
-    [hintController toggleWithPresenter:visibleHintPresentingViewController context:context theme:self.theme];
+    [hintController toggleWithPresenter:visibleHintPresentingViewController
+                                context:context
+                                  theme:self.theme];
 }
 
 - (UIViewController *)visibleViewController {
@@ -1374,7 +1380,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         _exploreViewController.title = [WMFCommonStrings exploreTabTitle];
         [_exploreViewController applyTheme:self.theme];
         UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
-        UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc] initWithImage:[self notificationsCenterBellImageWithUnreadNotifications:YES] style:UIBarButtonItemStylePlain target:_exploreViewController action:@selector(userDidTapNotificationsCenter)];
+        UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc] initWithImage:[self notificationsCenterBellImageWithUnreadNotifications:NO] style:UIBarButtonItemStylePlain target:_exploreViewController action:@selector(userDidTapNotificationsCenter)];
 
         settingsBarButtonItem.accessibilityLabel = [WMFCommonStrings settingsTitle];
         notificationsBarButton.accessibilityLabel = [WMFCommonStrings notificationsCenterTitle];
@@ -1641,7 +1647,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 // The method will be called on the delegate when the user responded to the notification by opening the application, dismissing the notification or choosing a UNNotificationAction. The delegate must be set before the application returns from applicationDidFinishLaunching:.
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
     NSDictionary *info = response.notification.request.content.userInfo;
-    
+
     //Note: Add back in category and action identifier checks here if In the News notification is restored. Removed in: https://github.com/wikimedia/wikipedia-ios/pull/4046
     [self showNotificationCenterForNotificationInfo:info];
 
@@ -1739,7 +1745,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     [self applyTheme:theme toNavigationControllers:[self allNavigationControllers]];
     [self.tabBar applyTheme:theme];
-    
+
     [[UISwitch appearance] setOnTintColor:theme.colors.accent];
 
     [self.readingListHintController applyTheme:self.theme];
@@ -1892,7 +1898,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         searchVC.dataStore = self.dataStore;
     }
 
-    [nc pushViewController:searchVC animated:true];
+    [nc pushViewController:searchVC
+                  animated:true];
 }
 
 - (nonnull WMFSettingsViewController *)settingsViewController {
@@ -1959,7 +1966,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 #pragma mark - Remote Notifications
 
-- (void)setRemoteNotificationRegistrationStatusWithDeviceToken: (nullable NSData *)deviceToken error: (nullable NSError *)error{
+- (void)setRemoteNotificationRegistrationStatusWithDeviceToken:(nullable NSData *)deviceToken error:(nullable NSError *)error {
     [self.notificationsController setRemoteNotificationRegistrationStatusWithDeviceToken:deviceToken error:error];
 }
 
