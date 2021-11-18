@@ -158,7 +158,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         let stack = StackedImageLabelView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.label.text = "More"
-        let configuration = UIImage.SymbolConfiguration(weight: .bold)
+        let configuration = UIImage.SymbolConfiguration(weight: .semibold)
         stack.imageView.image = UIImage(systemName: "ellipsis.circle.fill", withConfiguration: configuration)
         stack.backgroundColor = .base30
         return stack
@@ -168,7 +168,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         let stack = StackedImageLabelView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.label.text = "Mark as"
-        let configuration = UIImage.SymbolConfiguration(weight: .bold)
+        let configuration = UIImage.SymbolConfiguration(weight: .semibold)
         stack.imageView.image = UIImage(systemName: "envelope", withConfiguration: configuration)
         stack.backgroundColor = .green50
         return stack
@@ -580,7 +580,7 @@ final class StackedImageLabelView: SetupView {
         label.textColor = .white
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.font  = UIFont.systemFont(ofSize: 14, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         return label
     }()
 
