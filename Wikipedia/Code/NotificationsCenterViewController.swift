@@ -632,7 +632,7 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
             return
         }
 
-        let alertController = UIAlertController(title: cellViewModel.headerText, message: cellViewModel.bodyText, preferredStyle: .actionSheet)
+        let alertController = UIAlertController(title: cellViewModel.headerText, message: cellViewModel.bodyText ?? cellViewModel.subheaderText, preferredStyle: .actionSheet)
 
         sheetActions.forEach { action in
 
