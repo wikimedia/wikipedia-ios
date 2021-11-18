@@ -461,6 +461,9 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
 
             if let primaryURL = cellViewModel.primaryURL(for: viewModel.configuration) {
                 navigate(to: primaryURL)
+                if !cellViewModel.isRead {
+                    viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true)
+                }
             }
             
             viewModel.updateCellSelectionState(cellViewModel: cellViewModel, isSelected: false)
@@ -618,6 +621,9 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
         }
 
         navigate(to: url)
+        if !cellViewModel.isRead {
+            viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true)
+        }
     }
 
     func userDidTapMoreActionForCell(_ cell: NotificationsCenterCell) {
@@ -647,11 +653,17 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
                 alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
                     let userActivity = NSUserActivity.wmf_notificationSettings()
                     NSUserActivity.wmf_navigate(to: userActivity)
+                    if !cellViewModel.isRead {
+                        self.viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true)
+                    }
                 })
             case .custom(let data):
                 alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
                     let url = data.url
                     self.navigate(to: url)
+                    if !cellViewModel.isRead {
+                        self.viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true)
+                    }
                 })
             }
 
