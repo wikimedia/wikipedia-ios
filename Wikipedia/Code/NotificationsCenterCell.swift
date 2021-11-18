@@ -17,6 +17,15 @@ final class NotificationsCenterCell: UICollectionViewCell {
     fileprivate(set) var viewModel: NotificationsCenterCellViewModel?
 
     weak var delegate: NotificationsCenterCellDelegate?
+    
+    override var isSelected: Bool {
+        didSet {
+            //re-theme if needed
+            if let displayState = viewModel?.displayState {
+                updateCellStyle(forDisplayState: displayState)
+            }
+        }
+    }
 
     // MARK: - UI Elements
 
@@ -287,7 +296,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         let topMargin: CGFloat = 13
         let edgeMargin: CGFloat = 11
 
-        selectedBackgroundView = UIView()
+        selectedBackgroundView = nil
 
         foregroundContentContainer.addSubview(leadingContainer)
         foregroundContentContainer.addSubview(mainVerticalStackView)
@@ -452,8 +461,8 @@ final class NotificationsCenterCell: UICollectionViewCell {
 //MARK: - Private
 
 private extension NotificationsCenterCell {
-
-    func updateCellStyle(forDisplayState displayState: NotificationsCenterCellDisplayState) {
+    
+    func updateColors(forDisplayState displayState: NotificationsCenterCellDisplayState) {
         guard let notificationType = viewModel?.notificationType else {
             return
         }
@@ -462,7 +471,7 @@ private extension NotificationsCenterCell {
 
         // Colors
 
-        foregroundContentContainer.backgroundColor = theme.colors.paperBackground
+        foregroundContentContainer.backgroundColor = isSelected ? cellStyle.selectedCellBackgroundColor : theme.colors.paperBackground
         cellSeparator.backgroundColor = cellStyle.cellSeparatorColor
 
         headerLabel.textColor = cellStyle.headerTextColor(displayState)
@@ -474,8 +483,16 @@ private extension NotificationsCenterCell {
         projectSourceLabel.label.textColor = cellStyle.projectSourceColor
         projectSourceLabel.layer.borderColor = cellStyle.projectSourceColor.cgColor
         projectSourceImage.tintColor = cellStyle.projectSourceColor
+    }
 
-        selectedBackgroundView?.backgroundColor = cellStyle.selectedCellBackgroundColor
+    func updateCellStyle(forDisplayState displayState: NotificationsCenterCellDisplayState) {
+        guard let notificationType = viewModel?.notificationType else {
+            return
+        }
+
+        let cellStyle = NotificationsCenterCellStyle(theme: theme, traitCollection: traitCollection, notificationType: notificationType)
+        
+        updateColors(forDisplayState: displayState)
 
         // Fonts
 

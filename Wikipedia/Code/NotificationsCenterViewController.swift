@@ -454,7 +454,8 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
             return
         }
         
-        viewModel.updateCellSelectionState(cellViewModel: cellViewModel, isSelected: true)
+        let callbackForReload = viewModel.state.isEditing
+        viewModel.updateCellSelectionState(cellViewModel: cellViewModel, isSelected: true, callbackForReload: callbackForReload)
 
         if !viewModel.state.isEditing {
 
@@ -473,7 +474,8 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
             return
         }
         
-        viewModel.updateCellSelectionState(cellViewModel: cellViewModel, isSelected: false)
+        let callbackForReload = viewModel.state.isEditing
+        viewModel.updateCellSelectionState(cellViewModel: cellViewModel, isSelected: false, callbackForReload: callbackForReload)
     }
 }
 

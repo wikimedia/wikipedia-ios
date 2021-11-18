@@ -84,7 +84,7 @@ final class NotificationsCenterModelController {
         }
     }
     
-    func updateCellDisplayStates(cellViewModels: [NotificationsCenterCellViewModel], isEditing: Bool, isSelected: Bool? = nil) {
+    func updateCellDisplayStates(cellViewModels: [NotificationsCenterCellViewModel], isEditing: Bool, isSelected: Bool? = nil, callbackForReload: Bool = true) {
         var dataChanged = false
         
         cellViewModels.forEach { cellViewModel in
@@ -96,7 +96,7 @@ final class NotificationsCenterModelController {
             }
         }
         
-        if dataChanged {
+        if dataChanged && callbackForReload {
             delegate?.dataDidChange()
         }
     }

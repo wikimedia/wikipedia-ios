@@ -180,8 +180,8 @@ final class NotificationsCenterViewModel: NSObject {
         modelController.addNewCellViewModelsWith(notifications: notifications, isEditing: state.isEditing)
     }
     
-    func updateCellSelectionState(cellViewModel: NotificationsCenterCellViewModel, isSelected: Bool) {
-        modelController.updateCellDisplayStates(cellViewModels: [cellViewModel], isEditing: self.state.isEditing, isSelected: isSelected)
+    func updateCellSelectionState(cellViewModel: NotificationsCenterCellViewModel, isSelected: Bool, callbackForReload: Bool = false) {
+        modelController.updateCellDisplayStates(cellViewModels: [cellViewModel], isEditing: self.state.isEditing, isSelected: isSelected, callbackForReload: callbackForReload)
     }
     
     func updateStateFromEditingModeChange(isEditing: Bool) {
