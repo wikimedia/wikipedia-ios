@@ -122,6 +122,10 @@ final class RemoteNotificationsModelController: NSObject {
     }
     
     public func wikisWithUnreadNotifications(completion: @escaping ([String]) -> Void) {
+        return wikis(with: unreadNotificationsPredicate, completion: completion)
+    }
+    
+    public func wikis(with predicate: NSPredicate?, completion: @escaping ([String]) -> Void) {
         
         let moc = newBackgroundContext()
         moc.perform {
@@ -130,7 +134,7 @@ final class RemoteNotificationsModelController: NSObject {
             }
             
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
-            fetchRequest.predicate = self.unreadNotificationsPredicate
+            fetchRequest.predicate = predicate
             fetchRequest.resultType = .dictionaryResultType
             fetchRequest.propertiesToFetch = ["wiki"]
             fetchRequest.returnsDistinctResults = true

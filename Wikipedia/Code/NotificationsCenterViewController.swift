@@ -17,6 +17,10 @@ final class NotificationsCenterViewController: ViewController {
         return UIBarButtonItem(title: markAllAsReadText, style: .plain, target: self, action: #selector(didTapMarkAllAsReadButton(_:)))
     }()
     
+    lazy var filterButton: UIBarButtonItem = {
+        return UIBarButtonItem.init(image: UIImage(systemName: filterButtonNameForFiltersEnabled(viewModel.filtersToolbarViewModel.areFiltersEnabled)), style: .plain, target: self, action: #selector(didTapFilterButton))
+    }()
+    
     // MARK: Properties - Diffable Data Source
     typealias DataSource = UICollectionViewDiffableDataSource<NotificationsCenterSection, NotificationsCenterCellViewModel>
     typealias Snapshot = NSDiffableDataSourceSnapshot<NotificationsCenterSection, NotificationsCenterCellViewModel>
@@ -60,7 +64,9 @@ final class NotificationsCenterViewController: ViewController {
     }
 
     override func loadView() {
-        view = NotificationsCenterView(frame: UIScreen.main.bounds)
+        let notificationsCenterView = NotificationsCenterView(frame: UIScreen.main.bounds)
+        notificationsCenterView.addSubheaderTapGestureRecognizer(target: self, action: #selector(tappedEmptyStateSubheader))
+        view = notificationsCenterView
         scrollView = notificationsView.collectionView
     }
 
@@ -162,8 +168,9 @@ private extension NotificationsCenterViewController {
         }
     }
     
-    func configureEmptyState(isEmpty: Bool, subheaderText: String = "") {
-        notificationsView.updateEmptyOverlay(visible: isEmpty, headerText: NotificationsCenterView.EmptyOverlayStrings.noUnreadMessages, subheaderText: subheaderText)
+    func configureEmptyState(isEmpty: Bool, subheaderText: String = "", subheaderAttributedString: NSAttributedString? = nil) {
+        notificationsView.updateEmptyOverlay(visible: isEmpty, headerText: NotificationsCenterView.EmptyOverlayStrings.noUnreadMessages, subheaderText: subheaderText, subheaderAttributedString: subheaderAttributedString)
+        notificationsView.collectionView.isHidden = isEmpty
         navigationItem.rightBarButtonItems?.forEach { $0.isEnabled = !isEmpty }
         navigationItem.rightBarButtonItem?.isEnabled = !isEmpty
     }
@@ -210,7 +217,145 @@ private extension NotificationsCenterViewController {
         }
     }
     
+    var titleForToolbarTitleView: String? {
+        
+        guard viewModel.remoteNotificationsController.areFiltersEnabled else {
+            return "All notifications"
+        }
+        
+        return "Filtered by:"
+    }
+    
+    var subtitleForToolbarTitleView: (String, String)? {
+        
+        guard viewModel.remoteNotificationsController.areFiltersEnabled else {
+            return nil
+        }
+        
+        let filterState = viewModel.remoteNotificationsController.filterSavedState
+        var readStatusString: String?
+        switch filterState.readStatusSetting {
+        case .read:
+            readStatusString = "Read"
+        case .unread:
+            readStatusString = "Unread"
+        default:
+            readStatusString = nil
+        }
+        
+        let typesStringFormat = WMFLocalizedString("notifications-center-num-types-in-filter-format", value:"{{PLURAL:%1$d|%1$d type|%1$d types}}", comment:"Portion of subtitle of notfications center toolbar indicating how many types user has selected in their filter - %1$d is replaced with the number of notification types selected in their filter.")
+        let typeTitle = String.localizedStringWithFormat(typesStringFormat, filterState.filterTypeSetting.count)
+        let typeStatusString: String? = filterState.filterTypeSetting.count > 0 ? typeTitle : nil
+        
+        let projectsStringFormat = WMFLocalizedString("notifications-center-num-projects-in-filter-format", value:"{{PLURAL:%1$d|%1$d project|%1$d projects}}", comment:"Portion of subtitle of notfications center toolbar indicating how many projects user has selected in their filter - %1$d is replaced with the number of notification projeccts selected in their filter.")
+        let projectTitle = String.localizedStringWithFormat(projectsStringFormat, filterState.projectsSetting.count)
+        
+        let projectStatusString: String
+        if filterState.projectsSetting.count == 1,
+           let project = filterState.projectsSetting.first {
+            projectStatusString = project.projectName(shouldReturnCodedFormat: false)
+        } else {
+            projectStatusString = projectTitle
+        }
+        
+        let suffix = "in \(projectStatusString)"
+        let prefix = [readStatusString, typeStatusString].compactMap { $0 }.joined(separator: " and ")
+        
+        return ("\(prefix) \(suffix)", prefix)
+    }
+    
+    var attributedStringForToolbarTitleView: NSAttributedString? {
+        
+        guard let titleForToolbarTitleView = titleForToolbarTitleView else {
+            return nil
+        }
+
+        let font = UIFont.systemFont(ofSize: 11)
+        let titleAttributes: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.font: font,
+            NSAttributedString.Key.foregroundColor: theme.colors.primaryText
+            ]
+        
+        let mutableAttributedString = NSMutableAttributedString(string: titleForToolbarTitleView)
+        mutableAttributedString.setAttributes(titleAttributes, range: NSRange.init(location: 0, length: titleForToolbarTitleView.count))
+        
+        guard let subtitle = subtitleForToolbarTitleView?.0,
+              let subtitleLinkPrefix: String = subtitleForToolbarTitleView?.1 else {
+            return mutableAttributedString.copy() as? NSAttributedString
+        }
+        
+        let spacerString = "\n"
+        let spacerAttributedString = NSMutableAttributedString(string: spacerString)
+        spacerAttributedString.setAttributes(titleAttributes, range: NSRange.init(location: 0, length: spacerString.count))
+        mutableAttributedString.append(spacerAttributedString)
+
+        let subtitleAttributes: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.font: font,
+            NSAttributedString.Key.foregroundColor: theme.colors.secondaryText
+            ]
+        let linkAttributes = [
+            NSAttributedString.Key.font: font,
+            NSAttributedString.Key.foregroundColor: theme.colors.link
+            ]
+        
+        let subtitleAttributedString = NSMutableAttributedString(string: subtitle)
+        subtitleAttributedString.setAttributes(subtitleAttributes, range: NSRange.init(location: 0, length: subtitle.count))
+        
+        let linkRange = (subtitle as NSString).range(of: subtitleLinkPrefix)
+        
+        if linkRange.location != NSNotFound {
+            subtitleAttributedString.setAttributes(linkAttributes, range: linkRange)
+        }
+        
+        mutableAttributedString.append(subtitleAttributedString)
+        return mutableAttributedString.copy() as? NSAttributedString
+        
+    }
+    
+    @objc func tappedToolbarCustomTitleView() {
+        presentFiltersViewController()
+    }
+    
+    var customViewForToolbarTitleView: UIView? {
+        //TODO: a lot of this logic should come from a view model
+        
+        let testCustomView = UILabel.init(frame: .zero)
+        testCustomView.numberOfLines = 0
+        testCustomView.textAlignment = .center
+        if viewModel.remoteNotificationsController.areFiltersEnabled {
+            testCustomView.isUserInteractionEnabled = true
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedToolbarCustomTitleView))
+            testCustomView.addGestureRecognizer(tapGestureRecognizer)
+        }
+        
+        switch viewModel.state {
+        case .empty(let emptyState):
+            switch emptyState {
+            case .filters:
+                if let attributedString = attributedStringForToolbarTitleView {
+                    testCustomView.attributedText = attributedString
+                }
+                
+                return testCustomView
+            default:
+                return nil
+            }
+        case .data(_, let dataState):
+            switch dataState {
+            case .editing:
+                return nil
+            case .nonEditing:
+                if let attributedString = attributedStringForToolbarTitleView {
+                    testCustomView.attributedText = attributedString
+                }
+                
+                return testCustomView
+            }
+        }
+    }
+    
     func updateToolbar(for state: NotificationsCenterViewModel.State) {
+        
         switch state {
         case .data(_, let dataState):
             switch dataState {
@@ -235,15 +380,40 @@ private extension NotificationsCenterViewController {
                     markAllAsReadButton
                 ]
             case .nonEditing:
-                toolbar.items = []
+                if let customView = customViewForToolbarTitleView {
+                    toolbar.items = [
+                        filterButton,
+                        UIBarButtonItem.flexibleSpaceToolbar(),
+                        UIBarButtonItem.init(customView: customView),
+                        UIBarButtonItem.flexibleSpaceToolbar(),
+                    ]
+                } else {
+                    toolbar.items = [
+                        filterButton,
+                        UIBarButtonItem.flexibleSpaceToolbar()
+                    ]
+                }
             }
         case .empty:
-            toolbar.items = []
+            if let customView = customViewForToolbarTitleView {
+                toolbar.items = [
+                    filterButton,
+                    UIBarButtonItem.flexibleSpaceToolbar(),
+                    UIBarButtonItem.init(customView: customView),
+                    UIBarButtonItem.flexibleSpaceToolbar(),
+                ]
+            } else {
+                toolbar.items = [
+                    filterButton,
+                    UIBarButtonItem.flexibleSpaceToolbar()
+                ]
+            }
+            
         }
     }
     
     func markButtonForNumberOfSelectedMessages(numSelectedMessages: Int) -> UIBarButtonItem {
-        let titleFormat = WMFLocalizedString("notifications-center-num-selected-messages-format", value:"{{PLURAL:%1$d|%1$d message|%1$d messages}}", comment:"Title for options menu when choosing \"Mark\" toolbar button in notifications center editing mode - %1$@ is replaced with the number of selected notifications.")
+        let titleFormat = WMFLocalizedString("notifications-center-num-selected-messages-format", value:"{{PLURAL:%1$d|%1$d message|%1$d messages}}", comment:"Title for options menu when choosing \"Mark\" toolbar button in notifications center editing mode - %1$d is replaced with the number of selected notifications.")
         let title = String.localizedStringWithFormat(titleFormat, numSelectedMessages)
         let optionsMenu = UIMenu(title: title, children: [
             UIAction.init(title: CommonStrings.notificationsCenterMarkAsRead, image: UIImage(systemName: "envelope.open"), handler: { _ in
@@ -294,7 +464,7 @@ private extension NotificationsCenterViewController {
             return
         }
         
-        let titleFormat = WMFLocalizedString("notifications-center-num-selected-messages-format", value:"{{PLURAL:%1$d|%1$d message|%1$d messages}}", comment:"Title for options menu when choosing \"Mark\" toolbar button in notifications center editing mode - %1$@ is replaced with the number of selected notifications.")
+        let titleFormat = WMFLocalizedString("notifications-center-num-selected-messages-format", value:"{{PLURAL:%1$d|%1$d message|%1$d messages}}", comment:"Title for options menu when choosing \"Mark\" toolbar button in notifications center editing mode - %1$d is replaced with the number of selected notifications.")
         let title = String.localizedStringWithFormat(titleFormat, numberSelected)
 
         let alertController = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
@@ -347,7 +517,7 @@ private extension NotificationsCenterViewController {
         
         let titleText: String
         if let numberOfUnreadNotifications = numberOfUnreadNotifications {
-            let titleFormat = WMFLocalizedString("notifications-center-mark-all-as-read-confirmation-format", value:"Are you sure that you want to mark all {{PLURAL:%1$d|%1$d message|%1$d messages}} of your notifications as read? Your notifications will be marked as read on all of your devices.", comment:"Title format for confirmation alert when choosing \"Mark all as read\" toolbar button in notifications center editing mode - %1$@ is replaced with the number of unread notifications on the server.")
+            let titleFormat = WMFLocalizedString("notifications-center-mark-all-as-read-confirmation-format", value:"Are you sure that you want to mark all {{PLURAL:%1$d|%1$d message|%1$d messages}} of your notifications as read? Your notifications will be marked as read on all of your devices.", comment:"Title format for confirmation alert when choosing \"Mark all as read\" toolbar button in notifications center editing mode - %1$d is replaced with the number of unread notifications on the server.")
             titleText = String.localizedStringWithFormat(titleFormat, numberOfUnreadNotifications)
         } else {
             titleText = WMFLocalizedString("notifications-center-mark-all-as-read-missing-number", value:"Are you sure that you want to mark all of your notifications as read? Your notifications will be marked as read on all of your devices.", comment:"Title for confirmation alert when choosing \"Mark all as read\" toolbar button in notifications center editing mode, when there was an issue with pulling the count of unread notifications on the server.")
@@ -367,6 +537,61 @@ private extension NotificationsCenterViewController {
         }
         
         present(alertController, animated: true, completion: nil)
+    }
+    
+    @objc func didTapFilterButton() {
+        presentFiltersViewController()
+    }
+    
+    func presentFiltersViewController() {
+        let filtersViewModel = NotificationsCenterFiltersViewModel(remoteNotificationsController: viewModel.remoteNotificationsController)
+        let vc = NotificationsCenterFiltersViewController(viewModel: filtersViewModel, languageLinkController: viewModel.languageLinkController, didUpdateFiltersCallback: { [weak self] in
+            
+            guard let self = self else {
+                return
+            }
+            
+            self.viewModel.resetAndRefreshData()
+            self.viewModel.filtersToolbarViewModelNeedsReload()
+            self.scrollToTop()
+        })
+        let nc = WMFThemeableNavigationController(rootViewController: vc)
+        present(nc, animated: true, completion: nil)
+    }
+    
+    func filterButtonNameForFiltersEnabled(_ filtersEnabled: Bool) -> String {
+        return filtersEnabled ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle"
+    }
+    
+    func filterEmptyStateSubtitleAttributedStringForFilterViewModel(_ filterViewModel: NotificationsCenterViewModel.FiltersToolbarViewModel) -> NSAttributedString? {
+            let filtersLinkFormat = WMFLocalizedString("notifications-center-empty-state-num-filters", value:"{{PLURAL:%1$d|%1$d filter|%1$d filters}}", comment:"Portion of empty state subtitle showing number of filters the user has set in notifications center - %1$d is replaced with the number filters.")
+            let filtersSubtitleFormat = WMFLocalizedString("notifications-center-empty-state-filters-subtitle", value:"Remove %1$@ to see more messages", comment:"Format of empty state subtitle when the user has filters on - %1$@ is replaced with a string representing the number of filters the user has set.")
+            let filtersLink = String.localizedStringWithFormat(filtersLinkFormat, filterViewModel.countOfFilters)
+            let filtersSubtitle = String.localizedStringWithFormat(filtersSubtitleFormat, filtersLink)
+
+            let rangeOfFiltersLink = (filtersSubtitle as NSString).range(of: filtersLink)
+
+            let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+            let attributes: [NSAttributedString.Key: Any] = [
+                NSAttributedString.Key.font: font,
+                NSAttributedString.Key.foregroundColor: theme.colors.secondaryText
+                ]
+            let linkAttributes = [
+                NSAttributedString.Key.font: font,
+                NSAttributedString.Key.foregroundColor: theme.colors.link
+                ]
+        
+            let attributedString = NSMutableAttributedString(string: filtersSubtitle)
+            attributedString.setAttributes(attributes, range: NSRange(location: 0, length: filtersSubtitle.count) )
+            if rangeOfFiltersLink.location != NSNotFound {
+                attributedString.setAttributes(linkAttributes, range: rangeOfFiltersLink)
+            }
+
+            return attributedString.copy() as? NSAttributedString
+    }
+    
+    @objc func tappedEmptyStateSubheader() {
+        presentFiltersViewController()
     }
 }
 
@@ -388,7 +613,7 @@ extension NotificationsCenterViewController: NotificationCenterViewModelDelegate
             case .filters:
                 print("empty filters")
                 //TODO: filters text
-                configureEmptyState(isEmpty: true)
+                configureEmptyState(isEmpty: true, subheaderAttributedString: filterEmptyStateSubtitleAttributedStringForFilterViewModel(viewModel.filtersToolbarViewModel))
             case .initial:
                 print("empty initial")
                 configureEmptyState(isEmpty: false)
@@ -418,6 +643,10 @@ extension NotificationsCenterViewController: NotificationCenterViewModelDelegate
     
     var numCellsSelected: Int {
         return notificationsView.collectionView.indexPathsForSelectedItems?.count ?? 0
+    }
+    
+    func filtersToolbarViewModelDidChange(_ newViewModel: NotificationsCenterViewModel.FiltersToolbarViewModel) {
+        filterButton.image = UIImage(systemName: filterButtonNameForFiltersEnabled(newViewModel.areFiltersEnabled))
     }
 }
 

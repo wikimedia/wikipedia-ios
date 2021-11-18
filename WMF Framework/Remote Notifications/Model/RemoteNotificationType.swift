@@ -33,3 +33,47 @@ public enum RemoteNotificationType {
 //    case flowMention //Mention in article talk
 //    case flowThanks //Thanks
 }
+
+public extension RemoteNotificationType {
+    var imageName: String? {
+        // Return image for the notification type
+        switch self {
+        case .userTalkPageMessage:
+            return "notifications-type-user-talk-message"
+        case .mentionInTalkPage, .mentionInEditSummary, .successfulMention, .failedMention:
+            return "notifications-type-mention"
+        case .editReverted:
+            return "notifications-type-edit-revert"
+        case .userRightsChange:
+            return "notifications-type-user-rights"
+        case .pageReviewed:
+            return "notifications-type-page-reviewed"
+        case .pageLinked, .connectionWithWikidata:
+            return "notifications-type-link"
+        case .thanks:
+            return "notifications-type-thanks"
+        case .welcome, .translationMilestone(_), .editMilestone:
+            return "notifications-type-milestone"
+        case .loginFailKnownDevice, .loginFailUnknownDevice, .loginSuccessUnknownDevice,
+             .unknownSystemAlert, .unknownAlert:
+            return "notifications-type-login-notify"
+        case .emailFromOtherUser:
+            return "notifications-type-email"
+        default:
+            return "notifications-type-default"
+        }
+    }
+    
+    func imageBackgroundColorWithTheme(_ theme: Theme) -> UIColor {
+        switch self {
+        case .editMilestone, .translationMilestone(_), .welcome, .thanks:
+            return theme.colors.accent
+        case .loginFailKnownDevice, .loginFailUnknownDevice, .loginSuccessUnknownDevice:
+            return theme.colors.error
+        case .failedMention, .editReverted, .userRightsChange:
+            return theme.colors.warning
+        default:
+            return theme.colors.link
+        }
+    }
+}
