@@ -504,9 +504,10 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
     }
 
     func closeActiveSwipePanelIfNecessary() {
-        if let activeCell = cellSwipeData.activeCell(in: notificationsView.collectionView) {
+        if let activeCell = cellSwipeData.activeCell(in: notificationsView.collectionView){
             animateSwipePanel(open: false, for: activeCell)
             cellSwipeData.resetActiveData()
+            deselectCells()
         }
     }
 
