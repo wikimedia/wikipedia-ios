@@ -35,6 +35,8 @@ class NotificationsCenterFiltersViewController: UIViewController {
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier)
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(tappedDone))
+        
+        overrideUserInterfaceStyle = .light
     }
     
     @objc func tappedDone() {

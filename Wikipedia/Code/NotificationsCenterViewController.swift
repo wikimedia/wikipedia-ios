@@ -561,7 +561,8 @@ private extension NotificationsCenterViewController {
             self.viewModel.filtersToolbarViewModelNeedsReload()
             self.scrollToTop()
         })
-        let nc = WMFThemeableNavigationController(rootViewController: vc)
+        let nc = WMFThemeableNavigationController(rootViewController: vc, theme: .light)
+        nc.modalPresentationStyle = .pageSheet
         present(nc, animated: true, completion: nil)
     }
     
