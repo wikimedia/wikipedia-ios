@@ -140,10 +140,6 @@ final class NotificationsCenterViewModel: NSObject {
             return
         }
         
-        print(refreshedNotifications.count)
-        print(refreshedNotifications.first?.key)
-        print(newNotifications.count)
-        
         modelController.addNewCellViewModelsWith(notifications: Array(newNotifications), isEditing: state.isEditing)
         modelController.evaluateUpdatedNotifications(updatedNotifications: Array(refreshedNotifications), isEditing: state.isEditing)
     }

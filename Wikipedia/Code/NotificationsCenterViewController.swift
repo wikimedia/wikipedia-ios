@@ -18,7 +18,7 @@ final class NotificationsCenterViewController: ViewController {
     }()
     
     lazy var filterButton: UIBarButtonItem = {
-        return UIBarButtonItem.init(image: UIImage(systemName: filterButtonNameForFiltersEnabled(viewModel.filtersToolbarViewModel.areFiltersEnabled)), style: .plain, target: self, action: #selector(didTapFilterButton))
+        return UIBarButtonItem.init(image: filterButtonImageForFiltersEnabled(viewModel.filtersToolbarViewModel.areFiltersEnabled), style: .plain, target: self, action: #selector(didTapFilterButton))
     }()
     
     // MARK: Properties - Diffable Data Source
@@ -394,20 +394,26 @@ private extension NotificationsCenterViewController {
                     ]
                 }
             }
-        case .empty:
-            if let customView = customViewForToolbarTitleView {
-                toolbar.items = [
-                    filterButton,
-                    UIBarButtonItem.flexibleSpaceToolbar(),
-                    UIBarButtonItem.init(customView: customView),
-                    UIBarButtonItem.flexibleSpaceToolbar(),
-                ]
-            } else {
-                toolbar.items = [
-                    filterButton,
-                    UIBarButtonItem.flexibleSpaceToolbar()
-                ]
+        case .empty(let emptyState):
+            switch emptyState {
+            case .filters:
+                if let customView = customViewForToolbarTitleView {
+                    toolbar.items = [
+                        filterButton,
+                        UIBarButtonItem.flexibleSpaceToolbar(),
+                        UIBarButtonItem.init(customView: customView),
+                        UIBarButtonItem.flexibleSpaceToolbar(),
+                    ]
+                } else {
+                    toolbar.items = [
+                        filterButton,
+                        UIBarButtonItem.flexibleSpaceToolbar()
+                    ]
+                }
+            default:
+                toolbar.items = []
             }
+            
             
         }
     }
@@ -559,6 +565,14 @@ private extension NotificationsCenterViewController {
         present(nc, animated: true, completion: nil)
     }
     
+    func filterButtonImageForFiltersEnabled(_ filtersEnabled: Bool) -> UIImage? {
+        if #available(iOS 15.0, *) {
+            return UIImage(systemName: filterButtonNameForFiltersEnabled(filtersEnabled))
+        } else {
+            return UIImage(named: filterButtonNameForFiltersEnabled(filtersEnabled))
+        }
+    }
+    
     func filterButtonNameForFiltersEnabled(_ filtersEnabled: Bool) -> String {
         return filtersEnabled ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle"
     }
@@ -646,7 +660,7 @@ extension NotificationsCenterViewController: NotificationCenterViewModelDelegate
     }
     
     func filtersToolbarViewModelDidChange(_ newViewModel: NotificationsCenterViewModel.FiltersToolbarViewModel) {
-        filterButton.image = UIImage(systemName: filterButtonNameForFiltersEnabled(newViewModel.areFiltersEnabled))
+        filterButton.image = filterButtonImageForFiltersEnabled(newViewModel.areFiltersEnabled)
     }
 }
 

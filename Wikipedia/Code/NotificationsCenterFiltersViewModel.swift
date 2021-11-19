@@ -104,20 +104,20 @@ private extension RemoteNotificationType {
     static var orderingForFilters: [RemoteNotificationType] {
         return [
             .userTalkPageMessage,
-            .editReverted,
-            .mentionInTalkPage,
-            .mentionInEditSummary,
-            .thanks,
             .pageReviewed,
             .pageLinked,
             .connectionWithWikidata,
+            .emailFromOtherUser,
+            .mentionInTalkPage, //todo: combine this and edit summary mention to "received mention"?
+            .mentionInEditSummary,
             .successfulMention,
             .failedMention,
-            .emailFromOtherUser,
             .userRightsChange,
+            .editReverted,
+            .loginFailKnownDevice, //for filters this represents any login-related notification (i.e. also loginFailUnknownDevice, loginSuccessUnknownDevice, etc.). todo: clean this up. todo: split up into login attempts vs login success?
             .editMilestone,
             .translationMilestone(1), //for filters this represents other translation associated values as well (ten, hundred milestones).
-            .loginFailKnownDevice, //for filters this represents any login-related notification (i.e. also loginFailUnknownDevice, loginSuccessUnknownDevice, etc.). todo: clean this up.
+            .thanks,
             .welcome
         ]
     }
@@ -138,7 +138,7 @@ private extension RemoteNotificationType {
         case .userRightsChange: return "User rights change"
         case .editMilestone: return "Edit milestone"
         case .translationMilestone: return "Translation milestone"
-        case .loginFailKnownDevice: return "Login"
+        case .loginFailKnownDevice: return "Login issues"
         case .welcome: return "Welcome"
         default:
             return ""
