@@ -162,8 +162,9 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
 
             if let extractedLeftBarButtonItem = extractedLeftBarButtonItem {
                 titleBarItems.append(extractedLeftBarButtonItem)
-                titleBarItems.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil))
             }
+            
+            titleBarItems.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil))
 
             if let extractedTitleBarButtonItem = extractedTitleBarButtonItem {
                 titleBarItems.append(extractedTitleBarButtonItem)

@@ -109,6 +109,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     if ([[NSUserDefaults standardUserDefaults] defaultTabType] == WMFAppDefaultTabTypeSettings && [[[self dataStore] authenticationManager] isLoggedIn]) {
         UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"notifications-bell"] style:UIBarButtonItemStylePlain target:self action:@selector(userDidTapNotificationsCenter)];
         self.navigationItem.rightBarButtonItem = notificationsBarButton;
+//        [self.navigationBar updateNavigationItems];
+//    } else if ([[NSUserDefaults standardUserDefaults] defaultTabType] == WMFAppDefaultTabTypeSettings) {
+//        self.navigationItem.rightBarButtonItem = nil;
+//        [self.navigationBar updateNavigationItems];
     }
 }
 
@@ -616,6 +620,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     if (context == &kvo_WMFSettingsViewController_authManager_loggedInUsername) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self loadSections];
+            //[self configureNotificationsButton];
         });
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];

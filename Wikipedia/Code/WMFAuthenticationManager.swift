@@ -57,6 +57,11 @@ import CocoaLumberjackSwift
         didSet {
             loggedInUserCache = [:]
             isAnonCache = [:]
+            
+            //TODO: TEMPORARY LOGIC
+            if loggedInUsername != nil {
+                NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
+            }
         }
     }
     
@@ -313,6 +318,7 @@ extension WMFAuthenticationManager {
     }
 
     @objc public static let didLogOutNotification = Notification.Name("WMFAuthenticationManagerDidLogOut")
+    @objc public static let didLogInNotification = Notification.Name("WMFAuthenticationManagerDidLogIn")
 
     @objc public func userDidAcknowledgeUnintentionalLogout() {
         isUserUnawareOfLogout = false

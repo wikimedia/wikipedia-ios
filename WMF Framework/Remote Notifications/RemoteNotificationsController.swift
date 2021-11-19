@@ -60,7 +60,7 @@ import CocoaLumberjackSwift
         }
     }
     
-    public var numberOfUnreadNotifications: Int? {
-        return self.operationsController.numberOfUnreadNotifications
+    @objc public var numberOfUnreadNotifications: Int {
+        return self.operationsController.numberOfUnreadNotifications ?? 0
     }
 }

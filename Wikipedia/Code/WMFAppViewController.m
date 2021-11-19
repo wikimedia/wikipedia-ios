@@ -208,6 +208,16 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                              selector:@selector(userWasLoggedOut:)
                                                  name:[WMFAuthenticationManager didLogOutNotification]
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(userWasLoggedIn:)
+                                                 name:[WMFAuthenticationManager didLogInNotification]
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleExploreCenterBadgeNeedsUpdateNotification)
+                                                 name:NSNotification.notificationsCenterBadgeNeedsUpdate
+                                               object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(editWasPublished:)
@@ -1379,16 +1389,35 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         _exploreViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-explore"];
         _exploreViewController.title = [WMFCommonStrings exploreTabTitle];
         [_exploreViewController applyTheme:self.theme];
+        [self setNotificationsCenterButtonForExploreViewController:_exploreViewController];
         UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
-        UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc] initWithImage:[self notificationsCenterBellImageWithUnreadNotifications:NO] style:UIBarButtonItemStylePlain target:_exploreViewController action:@selector(userDidTapNotificationsCenter)];
 
         settingsBarButtonItem.accessibilityLabel = [WMFCommonStrings settingsTitle];
-        notificationsBarButton.accessibilityLabel = [WMFCommonStrings notificationsCenterTitle];
 
-        _exploreViewController.navigationItem.leftBarButtonItem = notificationsBarButton;
+        
         _exploreViewController.navigationItem.rightBarButtonItem = settingsBarButtonItem;
     }
     return _exploreViewController;
+}
+
+- (void)setNotificationsCenterButtonForExploreViewController: (ExploreViewController *)exploreViewController {
+    if (self.dataStore.authenticationManager.isLoggedIn) {
+        NSInteger numUnreadNotifications = [self.dataStore.remoteNotificationsController numberOfUnreadNotifications];
+        UIImage *image = numUnreadNotifications == 0 ? [self notificationsCenterBellImageWithUnreadNotifications:NO] : [self notificationsCenterBellImageWithUnreadNotifications:YES];
+        UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:_exploreViewController action:@selector(userDidTapNotificationsCenter)];
+        notificationsBarButton.accessibilityLabel = [WMFCommonStrings notificationsCenterTitle];
+        exploreViewController.navigationItem.leftBarButtonItem = notificationsBarButton;
+    } else {
+        exploreViewController.navigationItem.leftBarButtonItem = nil;
+    }
+    
+    [exploreViewController.navigationBar updateNavigationItems];
+}
+
+- (void)handleExploreCenterBadgeNeedsUpdateNotification {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self setNotificationsCenterButtonForExploreViewController:self.exploreViewController];
+    });
 }
 
 - (SearchViewController *)searchViewController {
@@ -1992,6 +2021,15 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)userWasLoggedOut:(NSNotification *)note {
     [self showLoggedOutPanelIfNeeded];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self setNotificationsCenterButtonForExploreViewController:self.exploreViewController];
+    });
+}
+
+- (void)userWasLoggedIn:(NSNotification *)note {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self setNotificationsCenterButtonForExploreViewController:self.exploreViewController];
+    });
 }
 
 - (void)showLoggedOutPanelIfNeeded {

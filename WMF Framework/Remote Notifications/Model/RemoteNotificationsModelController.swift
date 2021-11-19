@@ -1,5 +1,13 @@
 import CocoaLumberjackSwift
 
+public extension Notification.Name {
+    static let NotificationsCenterBadgeNeedsUpdate = Notification.Name("NotificationsCenterBadgeNeedsUpdate")
+}
+
+@objc public extension NSNotification {
+    static let notificationsCenterBadgeNeedsUpdate = Notification.Name.NotificationsCenterBadgeNeedsUpdate
+}
+
 final class RemoteNotificationsModelController: NSObject {
     
     enum LibraryKey: String {
@@ -167,6 +175,9 @@ final class RemoteNotificationsModelController: NSObject {
                 }
                 
                 self.save(moc: moc)
+                
+                NotificationCenter.default.post(name: Notification.Name.NotificationsCenterBadgeNeedsUpdate, object: nil)
+                
                 completion()
             }
         }
@@ -208,6 +219,15 @@ final class RemoteNotificationsModelController: NSObject {
             for notification in notificationsFetchedFromTheServer {
                 self.createNewNotification(moc: moc, notification: notification)
             }
+            
+            let newPageContainsUnread = notificationsFetchedFromTheServer.contains(where: { notification in
+                notification.readString != nil
+            })
+                
+            if newPageContainsUnread {
+                NotificationCenter.default.post(name: Notification.Name.NotificationsCenterBadgeNeedsUpdate, object: nil)
+            }
+            
             self.save(moc: moc)
             completion()
         }
@@ -251,9 +271,12 @@ final class RemoteNotificationsModelController: NSObject {
     public func markAsReadOrUnread(identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, completion: @escaping () -> Void) {
         
         let backgroundContext = newBackgroundContext()
-        processNotificationsWithIdentifierGroups(identifierGroups, moc: backgroundContext, handler: { (notification) in
+        processNotificationsWithIdentifierGroups(identifierGroups, moc: backgroundContext) { notification in
             notification.isRead = shouldMarkRead
-        }, completion: completion)
+        } completion: {
+            NotificationCenter.default.post(name: Notification.Name.NotificationsCenterBadgeNeedsUpdate, object: nil)
+            completion()
+        }
     }
 
     private func processNotificationsWithIdentifierGroups(_ identifierGroups: Set<RemoteNotification.IdentifierGroup>, moc: NSManagedObjectContext, handler: @escaping (RemoteNotification) -> Void, completion: @escaping () -> Void) {

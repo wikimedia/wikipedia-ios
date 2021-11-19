@@ -209,7 +209,7 @@ class RemoteNotificationsOperationsController: NSObject {
         }
     }
     
-    var numberOfUnreadNotifications: Int? {
+    public var numberOfUnreadNotifications: Int? {
         return self.modelController?.numberOfUnreadNotifications
     }
 
