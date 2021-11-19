@@ -212,6 +212,16 @@ class RemoteNotificationsOperationsController: NSObject {
     public var numberOfUnreadNotifications: Int? {
         return self.modelController?.numberOfUnreadNotifications
     }
+    
+    func listAllProjectsFromLocalNotifications(languageLinkController: MWKLanguageLinkController, completion: @escaping ([RemoteNotificationsProject]) -> Void) {
+        modelController?.wikis(with: nil, completion: { wikis in
+            
+            let projects = wikis.compactMap { RemoteNotificationsProject(apiIdentifier: $0, languageLinkController: languageLinkController) }
+            
+            completion(projects)
+            
+        })
+    }
 
     // MARK: Notifications
     

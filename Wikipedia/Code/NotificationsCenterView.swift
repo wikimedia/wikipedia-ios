@@ -76,6 +76,7 @@ final class NotificationsCenterView: SetupView {
         label.adjustsFontForContentSizeCategory = true
         label.textAlignment = .center
         label.numberOfLines = 0
+        label.isUserInteractionEnabled = true
         return label
     }()
 
@@ -131,12 +132,26 @@ final class NotificationsCenterView: SetupView {
     }
 
     // MARK: - Public
+    
+    private var subheaderTapGR: UITapGestureRecognizer?
+    
+    func addSubheaderTapGestureRecognizer(target: Any, action: Selector) {
+        let tap = UITapGestureRecognizer(target: target, action: action)
+        self.subheaderTapGR = tap
+        emptyOverlaySubheaderLabel.addGestureRecognizer(tap)
+    }
 
-    func updateEmptyOverlay(visible: Bool, headerText: String = "", subheaderText: String = "") {
+    func updateEmptyOverlay(visible: Bool, headerText: String = "", subheaderText: String = "", subheaderAttributedString: NSAttributedString?) {
         emptyScrollView.isHidden = !visible
         emptyScrollView.isUserInteractionEnabled = visible
         emptyOverlayHeaderLabel.text = headerText
-        emptyOverlaySubheaderLabel.text = subheaderText
+        if let subheaderAttributedString = subheaderAttributedString {
+            emptyOverlaySubheaderLabel.attributedText = subheaderAttributedString
+            subheaderTapGR?.isEnabled = true
+        } else {
+            emptyOverlaySubheaderLabel.text = subheaderText
+            subheaderTapGR?.isEnabled = false
+        }
     }
 
 }

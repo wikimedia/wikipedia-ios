@@ -1,11 +1,13 @@
 import Foundation
 import CocoaLumberjackSwift
 import Combine
+import WMF
 
 protocol NotificationCenterViewModelDelegate: AnyObject {
 
     /// This updates view controller subviews to reflect the new state it switches between various empty states and data states).
     func stateDidChange(_ newState: NotificationsCenterViewModel.State)
+    func filtersToolbarViewModelDidChange(_ newViewModel: NotificationsCenterViewModel.FiltersToolbarViewModel)
     var numCellsSelected: Int { get }
 }
 
@@ -15,6 +17,18 @@ enum NotificationsCenterSection {
 
 @objc
 final class NotificationsCenterViewModel: NSObject {
+    
+    struct FiltersToolbarViewModel {
+        let areFiltersEnabled: Bool
+        let countOfFilters: Int
+        
+        static func filtersToolbarViewModel(from remoteNotificationsController: RemoteNotificationsController) -> FiltersToolbarViewModel {
+            
+            return FiltersToolbarViewModel(areFiltersEnabled: remoteNotificationsController.areFiltersEnabled, countOfFilters: remoteNotificationsController.countOfFilters)
+        }
+    }
+    
+    private(set) var filtersToolbarViewModel: FiltersToolbarViewModel
     
     enum State {
         
@@ -57,12 +71,12 @@ final class NotificationsCenterViewModel: NSObject {
 
     // MARK: - Properties
 
-    private let remoteNotificationsController: RemoteNotificationsController
+    let remoteNotificationsController: RemoteNotificationsController
     
     weak var delegate: NotificationCenterViewModelDelegate?
 
-    private let languageLinkController: MWKLanguageLinkController
-    lazy private var modelController = NotificationsCenterModelController(languageLinkController: self.languageLinkController, delegate: self)
+    let languageLinkController: MWKLanguageLinkController
+    lazy private var modelController = NotificationsCenterModelController(languageLinkController: self.languageLinkController, delegate: self, remoteNotificationsController: remoteNotificationsController)
     
     private var isPagingEnabled = true
     
@@ -74,7 +88,7 @@ final class NotificationsCenterViewModel: NSObject {
             switch state {
             case .empty(let emptyState):
                 switch emptyState {
-                case .loading:
+                case .loading: //sending to debouncer. Otherwise flash on screen when loading from db
                     stateSubject.send(state)
                     return
                 default:
@@ -101,6 +115,7 @@ final class NotificationsCenterViewModel: NSObject {
         self.languageLinkController = languageLinkController
         self.state = .empty(.initial)
         self.stateSubject = PassthroughSubject<NotificationsCenterViewModel.State, Never>()
+        filtersToolbarViewModel = FiltersToolbarViewModel.filtersToolbarViewModel(from: remoteNotificationsController)
 
         super.init()
         
@@ -125,6 +140,10 @@ final class NotificationsCenterViewModel: NSObject {
             return
         }
         
+        print(refreshedNotifications.count)
+        print(refreshedNotifications.first?.key)
+        print(newNotifications.count)
+        
         modelController.addNewCellViewModelsWith(notifications: Array(newNotifications), isEditing: state.isEditing)
         modelController.evaluateUpdatedNotifications(updatedNotifications: Array(refreshedNotifications), isEditing: state.isEditing)
     }
@@ -146,6 +165,12 @@ final class NotificationsCenterViewModel: NSObject {
         }
     }
     
+    func resetAndRefreshData() {
+        modelController.reset(callbackForReload: true)
+        fetchFirstPage()
+        isPagingEnabled = true
+    }
+    
     func fetchFirstPage() {
         
         state = .empty(.loading)
@@ -158,6 +183,13 @@ final class NotificationsCenterViewModel: NSObject {
                 }
                 
                 let notifications = self.remoteNotificationsController.fetchNotifications()
+                if notifications.isEmpty {
+                    if self.remoteNotificationsController.areFiltersEnabled {
+                        self.state = .empty(.filters)
+                    } else {
+                        self.state = .empty(.noData)
+                    }
+                }
                 self.modelController.addNewCellViewModelsWith(notifications: notifications, isEditing: self.state.isEditing)
             }
         }
@@ -191,6 +223,11 @@ final class NotificationsCenterViewModel: NSObject {
         }
         
         self.state = newState
+    }
+    
+    func filtersToolbarViewModelNeedsReload() {
+        self.filtersToolbarViewModel = FiltersToolbarViewModel.filtersToolbarViewModel(from: remoteNotificationsController)
+        delegate?.filtersToolbarViewModelDidChange(self.filtersToolbarViewModel)
     }
 }
 
@@ -248,7 +285,12 @@ private extension NotificationsCenterViewModel {
     func newStateFromUnderlyingDataChange() -> NotificationsCenterViewModel.State {
         
         guard !modelController.sortedCellViewModels.isEmpty else {
-            return .empty(.noData)
+            
+            if self.remoteNotificationsController.areFiltersEnabled {
+                return .empty(.filters)
+            } else {
+                return .empty(.noData)
+            }
         }
         
         switch state {

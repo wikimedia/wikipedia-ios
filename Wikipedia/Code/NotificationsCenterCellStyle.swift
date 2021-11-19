@@ -59,16 +59,7 @@ struct NotificationsCenterCellStyle {
             return color
         }
 
-        switch notificationType {
-        case .editMilestone, .translationMilestone(_), .welcome, .thanks:
-            return theme.colors.accent
-        case .loginFailKnownDevice, .loginFailUnknownDevice, .loginSuccessUnknownDevice:
-            return theme.colors.error
-        case .failedMention, .editReverted, .userRightsChange:
-            return theme.colors.warning
-        default:
-            return theme.colors.link
-        }
+        return notificationType.imageBackgroundColorWithTheme(theme)
     }
 
     func leadingImageBorderColor(_ displayState: NotificationsCenterCellDisplayState) -> UIColor {
@@ -137,33 +128,12 @@ struct NotificationsCenterCellStyle {
             let image = displayState.isSelected ? UIImage(named: "notifications-center-checkmark") : nil
             return image
         }
-
-        // Return image for the notification type
-        switch notificationType {
-        case .userTalkPageMessage:
-            return UIImage(named: "notifications-type-user-talk-message")
-        case .mentionInTalkPage, .mentionInEditSummary, .successfulMention, .failedMention:
-            return UIImage(named: "notifications-type-mention")
-        case .editReverted:
-            return UIImage(named: "notifications-type-edit-revert")
-        case .userRightsChange:
-            return UIImage(named: "notifications-type-user-rights")
-        case .pageReviewed:
-            return UIImage(named: "notifications-type-page-reviewed")
-        case .pageLinked, .connectionWithWikidata:
-            return UIImage(named: "notifications-type-link")
-        case .thanks:
-            return UIImage(named: "notifications-type-thanks")
-        case .welcome, .translationMilestone(_), .editMilestone:
-            return UIImage(named: "notifications-type-milestone")
-        case .loginFailKnownDevice, .loginFailUnknownDevice, .loginSuccessUnknownDevice,
-             .unknownSystemAlert, .unknownAlert:
-            return UIImage(named: "notifications-type-login-notify")
-        case .emailFromOtherUser:
-            return UIImage(named: "notifications-type-email")
-        default:
-            return UIImage(named: "notifications-type-default")
+        
+        if let imageName = notificationType.imageName {
+            return UIImage(named: imageName)
         }
+        
+        return nil
     }
 
 }

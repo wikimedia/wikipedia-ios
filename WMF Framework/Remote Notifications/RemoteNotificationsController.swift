@@ -1,5 +1,6 @@
 import CocoaLumberjackSwift
 
+//TODO: clean up this file. only operations-related methods should call into operations controller, otherwise most other things should be calling straight to the model controller
 @objc public final class RemoteNotificationsController: NSObject {
     private let operationsController: RemoteNotificationsOperationsController
     
@@ -49,6 +50,7 @@ import CocoaLumberjackSwift
         
         let fetchRequest: NSFetchRequest<RemoteNotification> = RemoteNotification.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        fetchRequest.predicate = predicateForFilterSavedState(filterSavedState)
         fetchRequest.fetchLimit = fetchLimit
         fetchRequest.fetchOffset = fetchOffset
         
@@ -62,5 +64,93 @@ import CocoaLumberjackSwift
     
     @objc public var numberOfUnreadNotifications: Int {
         return self.operationsController.numberOfUnreadNotifications ?? 0
+    }
+    
+    public func listAllProjectsFromLocalNotifications(languageLinkController: MWKLanguageLinkController, completion: @escaping ([RemoteNotificationsProject]) -> Void) {
+        operationsController.listAllProjectsFromLocalNotifications(languageLinkController: languageLinkController, completion: completion)
+    }
+    
+    public var areFiltersEnabled: Bool {
+        return countOfFilters > 0
+    }
+    
+    public var countOfFilters: Int {
+        let savedState = filterSavedState
+        
+        var countOfFilters = 0
+        if savedState.readStatusSetting == .read || savedState.readStatusSetting == .unread {
+            countOfFilters = 1
+        }
+        
+        countOfFilters += savedState.filterTypeSetting.count
+        
+        return countOfFilters
+    }
+    
+    public lazy var filterSavedState: RemoteNotificationsFiltersSavedState = {
+        //todo: extract from persistence
+        return RemoteNotificationsFiltersSavedState(readStatusSetting: .all, filterTypeSetting: [], projectsSetting: [])
+    }() {
+        didSet {
+            //todo: save to persistence
+        }
+    }
+    
+    private func predicateForFilterSavedState(_ filterSavedState: RemoteNotificationsFiltersSavedState) -> NSPredicate? {
+        
+        var readStatusPredicate: NSPredicate?
+        let readStatusSetting = filterSavedState.readStatusSetting
+        
+        switch readStatusSetting {
+        case .all:
+            readStatusPredicate = nil
+        case .read:
+            readStatusPredicate = NSPredicate(format: "isRead == %@", NSNumber(value: true))
+        case .unread:
+            readStatusPredicate = NSPredicate(format: "isRead == %@", NSNumber(value: false))
+        }
+        
+        let filterTypeSetting = filterSavedState.filterTypeSetting
+        let filterTypePredicates: [NSPredicate] = filterTypeSetting.compactMap { settingType in
+            let categoryStrings = RemoteNotification.categoryStringsForRemoteNotificationType(type: settingType)
+            let typeStrings = RemoteNotification.typeStringsForRemoteNotificationType(type: settingType)
+            
+            guard categoryStrings.count > 0 && typeStrings.count > 0 else {
+                return nil
+            }
+            
+            return NSPredicate(format: "categoryString IN %@ AND typeString IN %@", categoryStrings, typeStrings)
+        }
+        
+        guard readStatusPredicate != nil || filterTypePredicates.count > 0 else {
+            return nil
+        }
+        
+        let combinedFilterTypePredicate = NSCompoundPredicate(orPredicateWithSubpredicates: filterTypePredicates)
+        
+        if let readStatusPredicate = readStatusPredicate {
+            return filterTypePredicates.count > 0 ? NSCompoundPredicate(andPredicateWithSubpredicates: [readStatusPredicate, combinedFilterTypePredicate]) : readStatusPredicate
+        }
+        
+        return combinedFilterTypePredicate
+    }
+}
+
+public struct RemoteNotificationsFiltersSavedState {
+    
+    public enum ReadStatus: Int, CaseIterable {
+        case all
+        case read
+        case unread
+    }
+    
+    public let readStatusSetting: ReadStatus
+    public let filterTypeSetting: [RemoteNotificationType]
+    public let projectsSetting: [RemoteNotificationsProject]
+    
+    public init(readStatusSetting: ReadStatus, filterTypeSetting: [RemoteNotificationType], projectsSetting: [RemoteNotificationsProject]) {
+        self.readStatusSetting = readStatusSetting
+        self.filterTypeSetting = filterTypeSetting
+        self.projectsSetting = projectsSetting
     }
 }
