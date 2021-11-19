@@ -102,7 +102,7 @@ extension NotificationsCenterFiltersViewController: UITableViewDataSource {
         }
         
         if sender.isOn {
-            viewModel.appendFilterType(filterType, languageLinkController: languageLinkController) {
+            viewModel.removeFilterType(filterType, languageLinkController: languageLinkController) {
                 DispatchQueue.main.async {
                     let newViewModel = NotificationsCenterFiltersViewModel(remoteNotificationsController: self.viewModel.remoteNotificationsController)
                     self.viewModel = newViewModel
@@ -110,7 +110,7 @@ extension NotificationsCenterFiltersViewController: UITableViewDataSource {
                 }
             }
         } else {
-            viewModel.removeFilterType(filterType, languageLinkController: languageLinkController) {
+            viewModel.appendFilterType(filterType, languageLinkController: languageLinkController) {
                 DispatchQueue.main.async {
                     let newViewModel = NotificationsCenterFiltersViewModel(remoteNotificationsController: self.viewModel.remoteNotificationsController)
                     self.viewModel = newViewModel

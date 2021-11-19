@@ -119,14 +119,14 @@ import CocoaLumberjackSwift
                 return nil
             }
             
-            return NSPredicate(format: "categoryString IN %@ AND typeString IN %@", categoryStrings, typeStrings)
+            return NSPredicate(format: "NOT (categoryString IN %@ AND typeString IN %@)", categoryStrings, typeStrings)
         }
         
         guard readStatusPredicate != nil || filterTypePredicates.count > 0 else {
             return nil
         }
         
-        let combinedFilterTypePredicate = NSCompoundPredicate(orPredicateWithSubpredicates: filterTypePredicates)
+        let combinedFilterTypePredicate = NSCompoundPredicate(andPredicateWithSubpredicates: filterTypePredicates)
         
         if let readStatusPredicate = readStatusPredicate {
             return filterTypePredicates.count > 0 ? NSCompoundPredicate(andPredicateWithSubpredicates: [readStatusPredicate, combinedFilterTypePredicate]) : readStatusPredicate

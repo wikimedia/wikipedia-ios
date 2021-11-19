@@ -42,7 +42,7 @@ struct NotificationsCenterFiltersViewModel {
         
         let items2: [ItemViewModel] = RemoteNotificationType.orderingForFilters.map {
             
-            let isSelected = savedState.filterTypeSetting.contains($0)
+            let isSelected = !savedState.filterTypeSetting.contains($0)
             return ItemViewModel(title: $0.title, selectionType:.toggle, isSelected: isSelected, readStatus: nil, type: $0)
             
         }
