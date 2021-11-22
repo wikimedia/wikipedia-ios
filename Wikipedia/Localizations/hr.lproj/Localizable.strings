@@ -8,6 +8,7 @@
 // Author: MaGa
 // Author: Neptune, the Mystic
 // Author: Npavcec
+// Author: Ponor
 
 "about-content-license" = "Licencija sadržaja";
 "about-contributors" = "Doprinositelji";
@@ -250,6 +251,8 @@
 "main-menu-title" = "Više";
 "menu-cancel-accessibility-label" = "Odustani";
 "more-languages-tooltip-title" = "Dodajte jezike";
+"notifications-push-talk-messages-format" = "{{PLURAL:$1|poruka|poruke}}";
+"notifications-push-talk-title-format" = "{{PLURAL:$1|Nova|Nove}} $1";
 "on-this-day-title" = "Na današnji dan";
 "places-filter-button-title" = "Filtar";
 "places-filter-saved-articles" = "Spremljeni članci";

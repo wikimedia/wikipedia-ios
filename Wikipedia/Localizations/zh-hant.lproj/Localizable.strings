@@ -942,7 +942,7 @@
 "top-read-header-generic" = "維基百科";
 "top-read-header-with-language" = "$1維基百科";
 "top-read-see-more" = "查看更多熱門條目";
-"top-read-widget-description" = "在維基裡學習世界";
+"top-read-widget-description" = "在維基百科裡學習世界";
 "top-read-widget-readers-count" = "$1個讀者";
 "top-read-widget-title" = "最多閱讀";
 "two-factor-login-continue" = "繼續登入";

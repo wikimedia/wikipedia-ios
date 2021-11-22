@@ -626,6 +626,7 @@
 "notifications-center-subheader-wikidata-connection" = "위키데이터에 연결됨";
 "notifications-center-title" = "알림";
 "notifications-center-wikidata-project-name" = "위키데이터";
+"notifications-push-talk-messages-format" = "{{PLURAL:$1|메시지}}";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
