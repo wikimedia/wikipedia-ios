@@ -54,6 +54,11 @@ class AccountViewController: SubSettingsViewController {
         super.viewDidLoad()
         title = CommonStrings.account
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier)
+        tableView.register(WMFTableHeaderFooterLabelView.wmf_classNib(), forHeaderFooterViewReuseIdentifier: WMFTableHeaderFooterLabelView.identifier)
+        tableView.sectionHeaderHeight = UITableView.automaticDimension
+        tableView.estimatedSectionHeaderHeight = 44
+        tableView.sectionFooterHeight = UITableView.automaticDimension
+        tableView.estimatedSectionFooterHeight = 44
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -125,21 +130,33 @@ class AccountViewController: SubSettingsViewController {
         }
     }
     
-    @objc func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        guard let section = sections[safeIndex: section] else {
-            return nil
+    @objc func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        guard let _ = self.tableView(tableView, viewForHeaderInSection: section) as? WMFTableHeaderFooterLabelView else {
+            return 0
         }
-        
-        return section.headerTitle
+
+        return UITableView.automaticDimension
+    }
+
+    @objc func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+
+        let text = sections[safeIndex: section]?.headerTitle
+        return WMFTableHeaderFooterLabelView.headerFooterViewForTableView(tableView, text: text, theme: theme)
     }
     
-    @objc func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        guard let section = sections[safeIndex: section] else {
-            return nil
-        }
-        
-        return section.footerTitle
-    }
+    @objc func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+       guard let _ = self.tableView(tableView, viewForHeaderInSection: section) as? WMFTableHeaderFooterLabelView else {
+           return 0
+       }
+
+       return UITableView.automaticDimension
+   }
+
+   @objc func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+
+       let text = sections[safeIndex: section]?.footerTitle
+       return WMFTableHeaderFooterLabelView.headerFooterViewForTableView(tableView, text: text, type: .footer, theme: theme)
+   }
     
     private func showLogoutAlert() {
         let alertController = UIAlertController(title: WMFLocalizedString("main-menu-account-logout-are-you-sure", value: "Are you sure you want to log out?", comment: "Header asking if user is sure they wish to log out."), message: nil, preferredStyle: .alert)
