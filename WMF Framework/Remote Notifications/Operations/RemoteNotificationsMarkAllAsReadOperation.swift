@@ -5,15 +5,24 @@ class RemoteNotificationsMarkAllAsReadOperation: RemoteNotificationsOperation {
     
     override func execute() {
         
-        self.apiController.markAllAsRead { [weak self] error in
-            
-            if let error = error {
-                self?.finish(with: error)
+        //optimistically mark in database first for UI to reflect, then in API.
+        let backgroundContext = modelController.newBackgroundContext()
+        self.modelController.markAllAsRead(moc: backgroundContext, project: project) { [weak self] in
+            guard let self = self else {
                 return
             }
             
-            self?.modelController.markAllAsRead { [weak self] in
-                self?.finish()
+            self.apiController.markAllAsRead(project: self.project) { [weak self] error in
+                guard let self = self else {
+                    return
+                }
+
+                if let error = error {
+                    self.finish(with: error)
+                    return
+                }
+
+                self.finish()
             }
         }
     }

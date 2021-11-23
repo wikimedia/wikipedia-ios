@@ -103,41 +103,6 @@ final class RemoteNotificationsModelController: NSObject {
         return backgroundContext
     }
 
-    public func getUnreadNotifications(moc: NSManagedObjectContext, completion: @escaping ResultHandler) {
-        return notifications(with: NSPredicate(format: "isRead == %@", NSNumber(value: false)), moc: moc, completion: completion)
-    }
-    
-    public func markAllAsRead(completion: @escaping () -> Void) {
-        let moc = newBackgroundContext()
-        moc.perform {
-            self.getUnreadNotifications(moc: moc) { notifications in
-                guard let notifications = notifications,
-                      !notifications.isEmpty else {
-                    completion()
-                    return
-                }
-                
-                notifications.forEach { notification in
-                    notification.isRead = true
-                }
-                
-                self.save(moc: moc)
-                completion()
-            }
-        }
-        
-    }
-
-    private func notifications(with predicate: NSPredicate? = nil, moc: NSManagedObjectContext, completion: ResultHandler) {
-        let fetchRequest: NSFetchRequest<RemoteNotification> = RemoteNotification.fetchRequest()
-        fetchRequest.predicate = predicate
-        guard let notifications = try? moc.fetch(fetchRequest) else {
-            completion(nil)
-            return
-        }
-        completion(Set(notifications))
-    }
-
     private func save(moc: NSManagedObjectContext) {
         if moc.hasChanges {
             do {
@@ -199,20 +164,49 @@ final class RemoteNotificationsModelController: NSObject {
     }
 
     // MARK: Mark as read
-
-    public func markAsReadOrUnread(identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, completion: @escaping () -> Void) {
+    
+    public func markAllAsRead(moc: NSManagedObjectContext, project: RemoteNotificationsProject, completion: @escaping () -> Void) {
+        moc.perform {
+            let unreadPredicate = self.unreadNotificationsPredicate
+            let wikiPredicate = NSPredicate(format: "wiki == %@", project.notificationsApiWikiIdentifier)
+            let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [unreadPredicate, wikiPredicate])
+            self.notifications(with: compoundPredicate, moc: moc) { notifications in
+                guard let notifications = notifications,
+                      !notifications.isEmpty else {
+                    completion()
+                    return
+                }
+                
+                notifications.forEach { notification in
+                    notification.isRead = true
+                }
+                
+                self.save(moc: moc)
+                completion()
+            }
+        }
         
-        let backgroundContext = newBackgroundContext()
-        processNotificationsWithIdentifierGroups(identifierGroups, moc: backgroundContext, handler: { (notification) in
+    }
+
+    public func markAsReadOrUnread(moc: NSManagedObjectContext, identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, completion: @escaping () -> Void) {
+        
+        processNotifications(moc: moc, identifierGroups: identifierGroups, handler: { (notification) in
             notification.isRead = shouldMarkRead
         }, completion: completion)
     }
+    
+    public func wikisWithUnreadNotifications(moc: NSManagedObjectContext, completion: @escaping ([String]) -> Void) {
+        return wikis(moc: moc, predicate: unreadNotificationsPredicate, completion: completion)
+    }
+    
+    private var unreadNotificationsPredicate: NSPredicate {
+        return NSPredicate(format: "isRead == %@", NSNumber(value: false))
+    }
 
-    private func processNotificationsWithIdentifierGroups(_ identifierGroups: Set<RemoteNotification.IdentifierGroup>, moc: NSManagedObjectContext, handler: @escaping (RemoteNotification) -> Void, completion: @escaping () -> Void) {
+    private func processNotifications(moc: NSManagedObjectContext, identifierGroups: Set<RemoteNotification.IdentifierGroup>,  handler: @escaping (RemoteNotification) -> Void, completion: @escaping () -> Void) {
         let keys = identifierGroups.compactMap { $0.key }
         moc.perform {
             let fetchRequest: NSFetchRequest<RemoteNotification> = RemoteNotification.fetchRequest()
-            fetchRequest.fetchLimit = 1
             let predicate = NSPredicate(format: "key IN %@", keys)
             fetchRequest.predicate = predicate
             guard let notifications = try? moc.fetch(fetchRequest) else {
@@ -223,6 +217,42 @@ final class RemoteNotificationsModelController: NSObject {
             }
             self.save(moc: moc)
             completion()
+        }
+    }
+    
+    private func notifications(with predicate: NSPredicate? = nil, moc: NSManagedObjectContext, completion: ResultHandler) {
+        let fetchRequest: NSFetchRequest<RemoteNotification> = RemoteNotification.fetchRequest()
+        fetchRequest.predicate = predicate
+        guard let notifications = try? moc.fetch(fetchRequest) else {
+            completion(nil)
+            return
+        }
+        completion(Set(notifications))
+    }
+    
+    private func wikis(moc: NSManagedObjectContext, predicate: NSPredicate?, completion: @escaping ([String]) -> Void) {
+        moc.perform {
+            guard let entityName = RemoteNotification.entity().name else {
+                return
+            }
+
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+            fetchRequest.predicate = predicate
+            fetchRequest.resultType = .dictionaryResultType
+            fetchRequest.propertiesToFetch = ["wiki"]
+            fetchRequest.returnsDistinctResults = true
+            guard let dictionaries = (try? moc.fetch(fetchRequest)) as? [[String: String]] else {
+                completion([])
+                return
+            }
+
+            let results = dictionaries.reduce([String]()) { results, item in
+                var array = results
+                array.append(contentsOf: item.values)
+                return array
+            }
+
+            completion(results)
         }
     }
 }

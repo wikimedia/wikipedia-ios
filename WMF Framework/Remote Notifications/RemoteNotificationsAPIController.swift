@@ -209,8 +209,9 @@ class RemoteNotificationsAPIController: Fetcher {
         request(project: project, queryParameters: Query.notifications(from: [project], limit: .max, filter: .none, continueId: continueId), completion: completion)
     }
     
-    public func markAllAsRead(completion: @escaping (Error?) -> Void) {
-        request(project: nil, queryParameters: Query.markAllAsRead(), method: .post) { (result: MarkReadResult?, _, error) in
+    public func markAllAsRead(project: RemoteNotificationsProject, completion: @escaping (Error?) -> Void) {
+        
+        request(project: project, queryParameters: Query.markAllAsRead(project: project), method: .post) { (result: MarkReadResult?, _, error) in
             if let error = error {
                 completion(error)
                 return
@@ -232,13 +233,13 @@ class RemoteNotificationsAPIController: Fetcher {
         }
     }
 
-    public func markAsReadOrUnread(_ identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, completion: @escaping (Error?) -> Void) {
+    public func markAsReadOrUnread(project: RemoteNotificationsProject, identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, completion: @escaping (Error?) -> Void) {
         let maxNumberOfNotificationsPerRequest = 50
         let identifierGroups = Array(identifierGroups)
         let split = identifierGroups.chunked(into: maxNumberOfNotificationsPerRequest)
 
         split.asyncCompactMap({ (identifierGroups, completion: @escaping (Error?) -> Void) in
-            request(project: nil, queryParameters: Query.markAsReadOrUnread(identifierGroups: identifierGroups, shouldMarkRead: shouldMarkRead), method: .post) { (result: MarkReadResult?, _, error) in
+            request(project: project, queryParameters: Query.markAsReadOrUnread(identifierGroups: identifierGroups, shouldMarkRead: shouldMarkRead), method: .post) { (result: MarkReadResult?, _, error) in
                 if let error = error {
                     completion(error)
                     return
@@ -351,11 +352,9 @@ class RemoteNotificationsAPIController: Fetcher {
 
         static func markAsReadOrUnread(identifierGroups: [RemoteNotification.IdentifierGroup], shouldMarkRead: Bool) -> Parameters? {
             let IDs = identifierGroups.compactMap { $0.id }
-            let wikis = identifierGroups.compactMap { $0.wiki }
             
             var dictionary = ["action": "echomarkread",
-                              "format": "json",
-                              "wikis": wikis.joined(separator: "|")]
+                              "format": "json"]
             if shouldMarkRead {
                 dictionary["list"] = IDs.joined(separator: "|")
             } else {
@@ -365,10 +364,10 @@ class RemoteNotificationsAPIController: Fetcher {
             return dictionary
         }
         
-        static func markAllAsRead() -> Parameters? {
+        static func markAllAsRead(project: RemoteNotificationsProject) -> Parameters? {
             let dictionary = ["action": "echomarkread",
                               "all": "true",
-                              "wikis": "*",
+                              "wikis": project.notificationsApiWikiIdentifier,
                               "format": "json"]
             return dictionary
         }
