@@ -46,18 +46,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         if !animated && shouldBecomeFirstResponder {
             searchBar.becomeFirstResponder()
         }
-        navigationBar.isAdjustingHidingFromContentInsetChangesEnabled = false
         shouldAnimateSearchBar = true
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationBar.isAdjustingHidingFromContentInsetChangesEnabled = false
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        navigationBar.isAdjustingHidingFromContentInsetChangesEnabled = false
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -339,13 +328,11 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     private var _isSearchVisible: Bool = false
     private func setSearchVisible(_ visible: Bool, animated: Bool) {
         _isSearchVisible = visible
-        navigationBar.isAdjustingHidingFromContentInsetChangesEnabled = false
         useNavigationBarMaximumHeightForScrollViewInsets = false
         useNavigationBarVisibleHeightForScrollViewInsets = true
         let completion = { (finished: Bool) in
             self.isAnimatingSearchBarState = false
             self.navigationBar.isTitleShrinkingEnabled = true
-            self.navigationBar.isAdjustingHidingFromContentInsetChangesEnabled  = false
             self.useNavigationBarMaximumHeightForScrollViewInsets = true
             self.useNavigationBarVisibleHeightForScrollViewInsets = false
         }
