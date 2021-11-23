@@ -243,6 +243,8 @@
 "new-password-instructions" = "अपने एक अस्थाई पासवर्ड से लॉगिन किया। लॉगिन को पूरा करने के लिए यहाँ एक नया पासवर्ड जोड़ें।";
 "new-password-title" = "एक पासवर्ड जोड़ें";
 "no-email-account-alert" = "कृपया अपनी डिवाइस पर एक ईमेल अकाउंट स्थापित करें और पुनः प्रयास करें।";
+"notifications-center-subheader-thanks" = "धन्यवाद";
+"notifications-center-subheader-welcome" = "सुस्वागतम्‌!";
 "number-billions" = "$1 बिलियन";
 "number-millions" = "$1 मिलियन";
 "number-thousands" = "$1 हज़ार";

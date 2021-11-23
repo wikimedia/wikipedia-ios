@@ -683,8 +683,6 @@
 "replace-textfield-accessibility" = "Skipta út";
 "replace-textfield-placeholder" = "Skipta út með…";
 "reverted-edit-back-to-article-button-title" = "Til baka í grein";
-"reverted-edit-notification-body" = "Breyting þín á greininni $1 var tekin aftur af $2";
-"reverted-edit-notification-read-more-action-title" = "Lesa meira";
 "reverted-edit-possible-reasons" = "- Framlagið þitt fylgdi ekki einni af reglunum. $1 \n\n - framlagið þitt lítur út eins og tilraunastarfsemi eða jafnvel skemmdarverk";
 "reverted-edit-possible-reasons-subtitle" = "Við vitum að þú reyndir þitt besta, en einn í yfirlestrarhópnum var í vafa. \n\nHugsanlegar ástæður fyrir því að breytingunni þinni var hafnað, gætu meðal annars verið:";
 "reverted-edit-thanks-for-editing-title" = "Takk fyrir framlag þitt til Wikipedia!";

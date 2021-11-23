@@ -569,6 +569,26 @@
 			<string>Недавно</string>
 		</dict>
 	</dict>
+	<key>relative-date-min-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d минут назад</string>
+			<key>one</key>
+			<string>%1$d минуту назад</string>
+			<key>other</key>
+			<string>%1$d минуты назад</string>
+			<key>zero</key>
+			<string>Только что</string>
+		</dict>
+	</dict>
 	<key>relative-date-minutes-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

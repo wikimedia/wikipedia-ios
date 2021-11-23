@@ -742,8 +742,6 @@
 "replace-textfield-accessibility" = "Erstatt";
 "replace-textfield-placeholder" = "Erstatt med…";
 "reverted-edit-back-to-article-button-title" = "Tilbake til artikkelen";
-"reverted-edit-notification-body" = "Redigeringen du gjorde på artikkelen $1 ble tilbakestilt av $2";
-"reverted-edit-notification-read-more-action-title" = "Les mer";
 "reverted-edit-possible-reasons" = "- Bidraget ditt brøt med en av retningslinjene. $ 1\n\n- Bidraget fremsto som testing eller vandalisme";
 "reverted-edit-possible-reasons-subtitle" = "Vi regner med at du prøvde ditt beste, men redigeringen passerte ikke kvalitetskontrollen.\n\nMulige årsaker til at redigeringen din ble tilbakestilt inkluderer:";
 "reverted-edit-thanks-for-editing-title" = "Takk for at du redigerer Wikipedia!";

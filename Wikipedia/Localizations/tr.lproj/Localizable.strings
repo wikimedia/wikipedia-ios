@@ -775,8 +775,6 @@
 "replace-textfield-accessibility" = "Değiştir";
 "replace-textfield-placeholder" = "Şununla değiştir:";
 "reverted-edit-back-to-article-button-title" = "Maddeye dön";
-"reverted-edit-notification-body" = "$1 maddesinde yaptığınız düzenleme $2 tarafından geri alındı.";
-"reverted-edit-notification-read-more-action-title" = "Devamını oku";
 "reverted-edit-possible-reasons" = "- Katkınız kurallarımızdan birini ihlal etti. $1 \n\n - Katkınız bir deneme ya da vandalizme benziyor";
 "reverted-edit-possible-reasons-subtitle" = "Elinizden gelenin en iyisini yaptığınızı biliyoruz, ancak inceleyicilerden birinin endişesi vardı.\n\n\nDüzenlemenizin geri alınmasının olası nedenleri şunlardır:";
 "reverted-edit-thanks-for-editing-title" = "Vikipedi'yi düzenlediğiniz için teşekkürler!";

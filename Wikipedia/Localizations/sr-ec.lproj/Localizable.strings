@@ -676,8 +676,6 @@
 "replace-textfield-accessibility" = "Замени";
 "replace-textfield-placeholder" = "Замени са…";
 "reverted-edit-back-to-article-button-title" = "Назад на чланак";
-"reverted-edit-notification-body" = "Измена коју сте направили на чланку $1 је враћена од стране $2";
-"reverted-edit-notification-read-more-action-title" = "Прочитајте више";
 "reverted-edit-possible-reasons" = "- Ваш допринос није пратио једну од смерница. $1\n\n - Ваш допринос је изгледао као експеримент или вандализам";
 "reverted-edit-possible-reasons-subtitle" = "Знамо да сте дали све од себе, али један од прегледача има примедбу.\n\nМогући разлози због чега је ваша измена поништена:";
 "reverted-edit-thanks-for-editing-title" = "Хвала вам што уређујете Википедију!";

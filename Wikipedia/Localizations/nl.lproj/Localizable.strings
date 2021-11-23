@@ -773,8 +773,6 @@
 "replace-textfield-accessibility" = "Vervangen";
 "replace-textfield-placeholder" = "Vervangen door...";
 "reverted-edit-back-to-article-button-title" = "Terug naar artikel";
-"reverted-edit-notification-body" = "De bewerking die u deed in het artikel $1 is teruggedraaid door $2";
-"reverted-edit-notification-read-more-action-title" = "Meer lezen";
 "reverted-edit-possible-reasons" = "- Uw bijdrage voldeed niet aan een van de richtlijnen $1\n\n- Uw bijdrage leek op een experiment of vandalisme.";
 "reverted-edit-possible-reasons-subtitle" = "We weten dat u uw best heeft gedaan, maar een van de reviewers maakt zich zorgen.\n\nMogelijke redenen waarom uw bewerking is teruggedraaid, zijn onder meer:";
 "reverted-edit-thanks-for-editing-title" = "Bedankt voor het bewerken van Wikipedia!";
