@@ -1,6 +1,6 @@
 import UIKit
 
-protocol FocusNavigationViewDelegate: class {
+protocol FocusNavigationViewDelegate: AnyObject {
     func focusNavigationViewDidTapClose(_ focusNavigationView: FocusNavigationView)
 }
 

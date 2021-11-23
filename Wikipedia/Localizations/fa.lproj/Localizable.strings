@@ -11,6 +11,7 @@
 // Author: Arash.pt
 // Author: Arian Ar
 // Author: BaziOnline
+// Author: Darafsh
 // Author: Ebraminio
 // Author: FarsiNevis
 // Author: Fatemi127
@@ -27,6 +28,7 @@
 // Author: Mardetanha
 // Author: Maspadana
 // Author: Mehdi
+// Author: Mohammad ebz
 // Author: Namo
 // Author: Nemo bis
 // Author: Ni eu
@@ -39,7 +41,7 @@
 // Author: درفش کاویانی
 
 "aaald-added-text-description-2" = "$1 نویسه افزوده‌شد";
-"aaald-article-description-updated-description" = "توضیحات عنوان مقاله به‌روز شد";
+"aaald-article-description-updated-description" = "توضیحات مقاله به روز شد";
 "aaald-article-insert-header" = "به‌روزرسانی‌های مهم";
 "aaald-article-insert-last-updated" = "آخرین به‌روزرسانی";
 "aaald-article-insert-new-changes" = "تغییرات جدید";
@@ -190,36 +192,41 @@
 "button-skip" = "رها کردن";
 "cancel" = "لغو";
 "cc-zero" = "Creative Commons CC0";
+"chinese-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان چینی به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n简体 Chinese, Simplified (zh-hans)\n香港繁體 Hong Kong Traditional (zh-hk)\n澳門繁體 Macau Traditional (zh-mo)\n大马简体 Malaysia Simplified (zh-my)\n新加坡简体 Singapore Simplified (zh-sg)\n臺灣正體 Taiwanese Traditional (zh-tw)";
+"chinese-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان چینی";
 "clear-title-accessibility-label" = "پاک‌کردن";
 "close-button-accessibility-label" = "بستن";
 "compass-direction" = "در ساعت $1";
 "continue-reading-empty-description" = "کاوش ویکی‌پدیا برای خواندن مقالات بیشتر";
 "continue-reading-empty-title" = "مقالهٔ اخیراً خوانده‌شده‌ای نیست";
+"crimean-tatar-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان تاتاری کریمه به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\nQırımtatarca, Latin Crimean Tatar Latin (chr-latn)\nкъырымтатарджа, Кирил Crimean Tatar Cyrillic (crh-cyrl)";
+"crimean-tatar-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان تارتاری کریمه";
 "data-migration-status" = "در حال بروزرسانی...";
 "description-add-title" = "افزودن توضیحات";
-"description-edit-for-article" = "توضیحات عنوان برای $1";
+"description-edit-for-article" = "توضیحات مقاله برای $1";
 "description-edit-learn-more" = "اطلاعات بیشتر";
 "description-edit-length-warning" = "$1 / $2";
-"description-edit-license" = "با تغییر توصیف عنوان، $1 را می‌پذیرم و به‌طور غیرقابل بازگشتی مشارکت‌هایم را تحت پروانه $2 منتشر می‌کنم.";
+"description-edit-license" = "با تغییر توصیف مقاله، $1 را می‌پذیرم و به‌طور غیرقابل بازگشتی مشارکت‌هایم را تحت پروانه $2 منتشر می‌کنم.";
 "description-edit-pencil-introduction" = "ویرایش مقدمه";
-"description-edit-pencil-title" = "ویرایش توضیحات عنوان";
+"description-edit-pencil-title" = "ویرایش توضیحات مقاله";
 "description-edit-placeholder-title" = "توضیحات کوتاه بهترند";
 "description-edit-publish" = "انتشار توضیحات";
 "description-edit-title" = "ویرایش توضیحات";
 "description-edit-warning" = "لطفاً توصیف را کوتاه بنویسید تا کاربران بتوانند با یک نگاه موضوع مقاله را دریابند";
-"description-help-about-description" = "توصیف‌های عنوان خلاصهٔ یک مقاله را بیان می‌کنند تا به مخاطبان در درک موضوع با یک نگاه کمک کنند.";
+"description-edit-warning-casing" = "Only proper nouns should be capitalized, even at the start of the sentence.";
+"description-help-about-description" = "توصیفات مقاله خلاصهٔ یک مقاله را بیان می‌کنند تا به مخاطبان در درک موضوع با یک نگاه کمک کنند.";
 "description-help-about-title" = "درباره";
 "description-help-about-wikidata" = "دربارهٔ ویکی‌داده";
 "description-help-more-info-description" = "توصیف‌ها در ویکی‌داده جمع‌آوری و نگهداری می‌شوند. ویکی‌داده یکی از پروژه‌های بنیاد ویکی‌مدیا است که یک بانک اطلاعاتی آزاد، مبتنی بر همکاری، چندزبانه و ثانویه را فراهم می‌کند که از ویکی‌پدیا و سایر پروژه‌ها پشتیبانی می‌کنند.";
 "description-help-more-info-title" = "اطلاعات بیشتر";
 "description-help-tips-description" = "توصیف‌ها به‌طور ایده‌آل باید در یک خط جای گیرند و طول آن‌ها بین دو تا دوازده واژه باشد. حرف نخست این متن‌ها تنها در صورتی باید بزرگ نوشته شود که اولین واژه، یک اسم خاص باشد.";
-"description-help-tips-example-description-one" = "توصیف عنوان برای یک مقاله دربارهٔ مونالیزا";
-"description-help-tips-example-description-two" = "توصیف عنوان برای یک مقاله دربارهٔ کوه اورست";
+"description-help-tips-example-description-one" = "توصیف مقاله برای یک مقاله دربارهٔ مونالیزا";
+"description-help-tips-example-description-two" = "توصیف مقاله برای یک مقاله دربارهٔ کوه اورست";
 "description-help-tips-example-title-one" = "نقاشی اثر لئوناردو داوینچی";
 "description-help-tips-example-title-two" = "مرتفع‌ترین قلّهٔ زمین";
 "description-help-tips-for-example" = "برای مثال:";
 "description-help-tips-title" = "نکاتی برای ساخت توصیف‌ها";
-"description-help-title" = "راهنمای توضیحات عنوان";
+"description-help-title" = "راهنمای توضیحات مقاله";
 "description-help-wikidata-guide" = "راهنمای ویکی‌داده برای نوشتن توضیحات";
 "description-published-button-title" = "انجام شد";
 "description-published-footer" = "شما با این نرم‌افزار می‌توانید مقالات را هم ویرایش کنید. با لمس کردن آیکون قلم می‌توانید غلط‌های تایپی، املایی و نوشتاری را برطرف کنید.";
@@ -228,7 +235,7 @@
 "description-welcome-concise-sub-title" = "به طور ایده‌آل یک خط، بین دو تا دوازده واژه";
 "description-welcome-concise-title" = "کوتاه بنویسید";
 "description-welcome-descriptions-sub-title" = "برای درک موضوع در یک نگاه توسط خوانندگان، خلاصه‌ای از مقاله را بیان می‌کند";
-"description-welcome-descriptions-title" = "توضیحات عنوان";
+"description-welcome-descriptions-title" = "توضیحات مقاله";
 "description-welcome-promise-title" = "با آغاز ویرایش، تعهد می‌دهم که از این ویژگی سوءاستفاده نکنم";
 "description-welcome-start-editing-button" = "ویرایش را آغاز کنید";
 "diff-compare-header-from-info-heading" = "از:";
@@ -312,10 +319,10 @@
 "edit-template-accessibility-label" = "افزودن ساختار الگو";
 "edit-template-remove-accessibility-label" = "حذف ساختار الگو";
 "edit-text-clear-formatting" = "پاک‌کردن قالب‌بندی";
-"edit-text-formatting-accessibility-label" = "نمایش منوی قالب‌بندی متن";
+"edit-text-formatting-accessibility-label" = "نمایش منوِ قالب‌بندی متن";
 "edit-text-formatting-table-view-title" = "قالب‌بندی متن";
 "edit-text-size-table-view-title" = "اندازهٔ متن";
-"edit-text-style-accessibility-label" = "نمایش منوی سبک‌های متن";
+"edit-text-style-accessibility-label" = "نمایش منوِ سبک‌های متن";
 "edit-underline-accessibility-label" = "افزودن زیرخط";
 "edit-underline-remove-accessibility-label" = "حذف زیرخط";
 "edit-unordered-list-accessibility-label" = "تبدیل سطر کنونی به فهرست غیرترتیبی";
@@ -338,6 +345,8 @@
 "empty-no-feed-message" = "زمانی که به اینترنت متصل باشید می‌توانید مقالات پیشنهادی را مشاهده کنید.";
 "empty-no-history-message" = "پیگیری مواردی که مطالعه کرده‌اید";
 "empty-no-history-title" = "تاریخچه‌ای برای نمایش وجود ندارد";
+"empty-no-other-article-languages-message" = "این مقاله هنوز در زبان‌های دیگر نوشته نشده است";
+"empty-no-other-article-languages-title" = "زبان دیگری در دسترس نیست";
 "empty-no-reading-lists-message" = "فهرستی برای مکان‌هایی که می‌خواهید به آن‌ها سفر کنید، موضوعات مورد علاقه و چیزهای بیشتر ایجاد کنید";
 "empty-no-reading-lists-title" = "مرتب‌کردن مقاله‌های ذخیره‌شده با استفاده از فهرست‌های مطالعه";
 "empty-no-saved-pages-in-reading-list-message" = "برای مشاهدهٔ صفحه‌ها در اینجا، آن‌ها را در این فهرست ذخیره کنید";
@@ -432,7 +441,13 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "از ویکی‌پدیای $1";
 "explore-random-article-sub-heading-from-wikipedia" = "از ویکی‌پدیا";
 "explore-randomizer" = "تصادفی";
-"featured-article-empty-title" = "امروز مقالهٔ برگزیده‌ای در دسترس نیست";
+"featured-article-empty-title" = "امروز مقالهٔ برگزیده‌ای موجود نیست";
+"featured-widget-content-failure-for-date" = "مقالهٔ برگزیده‌ای برای این تاریخ موجود نیست.";
+"featured-widget-description" = "برترین مقاله‌های ویکی‌پدیا، که به‌طور روزانه توسط اجتماع ما انتخاب می‌شوند را بیابید.";
+"featured-widget-from-language-wikipedia" = "از ویکی‌پدیای $1";
+"featured-widget-from-wikipedia" = "از ویکی‌پدیا";
+"featured-widget-language-failure" = "زبان ویکی‌پدیای اصلی شما از مقاله‌های برگزیده پشتیبانی نمی‌کند. می‌توانید ویکی‌پدیای اصلی خود را در منوی تنظیمات نرم‌فازار به‌روز کنید.";
+"featured-widget-title" = "مقالهٔ برگزیده";
 "feed-news-notification-button-text" = "روشن کردن اعلان‌ها";
 "feed-news-notification-text" = "فعال‌کردن اعلان‌ها برای آگاه‌شدن توسط ویکی‌پدیا زمانی که مقالات در اخبار پربازدید هستند.";
 "fetcher-error-generic" = "چیزی اشتباه شده‌است! لطفاً دوباره تلاش کنید.";
@@ -470,6 +485,8 @@
 "forgot-password-instructions" = "برای دریافت دستورالعمل بازنشانی گذرواژه از طریق ایمیل، یکی از بخش‌های زیر را پر کنید.";
 "forgot-password-title" = "بازنشانی گذرواژه";
 "forgot-password-username-or-email-title" = "یا";
+"gan-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان گان به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Simplified (gan-hans)\n贛語 繁體 Gan, Traditional (gan-hant)";
+"gan-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان گان";
 "history-clear-all" = "پاک‌کردن";
 "history-clear-cancel" = "لغو";
 "history-clear-confirmation-heading" = "آیا مطمئن هستید که می‌خواهید همهٔ موارد اخیر را حذف کنید؟";
@@ -495,7 +512,7 @@
 "in-the-news-notification-read-now-action-title" = "الان بخوانید";
 "in-the-news-notification-save-for-later-action-title" = "ذخیره برای بعد";
 "in-the-news-notification-share-action-title" = "اشتراک‌گذاری...";
-"in-the-news-sub-title-from-language-wikipedia" = "از ویکی پدیای $1";
+"in-the-news-sub-title-from-language-wikipedia" = "از ویکی‌پدیای $1";
 "in-the-news-sub-title-from-wikipedia" = "از ویکی‌پدیا";
 "in-the-news-title" = "از میان خبرها";
 "insert-action-title" = "درج";
@@ -531,6 +548,12 @@
 "intermediate-edits-editors-count-limited" = "بیش از $1 نسخهٔ میانی توسط بیش از $2 کاربر نمایش داده نشده‌است";
 "intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 نسخهٔ میانی|$1 نسخهٔ میانی}} توسط بیش از $2 کاربر نمایش داده نشده‌است";
 "intermediate-edits-limited-editors-count" = "بیش از $1 نسخهٔ میانی توسط {{PLURAL:$2|$2 کاربر|$2 کاربر}} نمایش داده نشده‌است";
+"inuktitut-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان اینوکتیتوت به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Syllabics (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
+"inuktitut-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان اینوکتیتوت";
+"kazakh-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان قزاقی به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, Cyrillic (kk-cyrl)\nqazaqşa latin Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arabic (kk-arab)";
+"kazakh-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان قزاقی";
+"kurdish-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان کردی به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\nKurdî Latînî Kurdish, Latin (ku-latn)\nكوردی Kurdish, Arabic (kk-arab)";
+"kurdish-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان کردی";
 "languages-settings-title" = "زبان‌ها";
 "languages-title" = "تغییر زبان";
 "languages-wikipedia" = "زبان‌های ویکی‌پدیا";
@@ -556,7 +579,7 @@
 "main-menu-title" = "بیشتر";
 "main-menu-zero-faq" = "پرسش‌های رایج ویکی‌پدیا صفر";
 "menu-cancel-accessibility-label" = "لغو";
-"more-languages-tooltip-description" = "جستجو در ویکیپدیا به بیش از ۳۰۰ زبان";
+"more-languages-tooltip-description" = "جستجو در ویکی‌پدیا به بیش از ۳۰۰ زبان";
 "more-languages-tooltip-title" = "افزودن زبان";
 "move-articles-to-reading-list" = "انتقال {{PLURAL:$1|$1 مقاله|$1 مقاله}} به فهرست مطالعه";
 "navbar-title-mode-edit-wikitext-preview" = "پیش‌نمایش";
@@ -570,6 +593,46 @@
 "no-internet-connection" = "عدم اتصال به اینترنت";
 "no-internet-connection-article-reload" = "نسخهٔ جدیدتر این مقاله ممکن است موجود باشد، اما بدون اتصال به اینترنت، قابل دست‌یابی نیست";
 "no-internet-connection-article-reload-button" = "برگشت به آخرین نسخهٔ ذخیره‌شده";
+"notifications-center-change-password" = "تغییر گذرواژه";
+"notifications-center-commons-project-name" = "ویکی‌انبار";
+"notifications-center-edit-button" = "ویرایش";
+"notifications-center-empty-checking-for-notifications" = "در حال بررسی اعلان‌ها...";
+"notifications-center-empty-no-unread-messages" = "هیچ پیام خوانده‌نشده‌ای ندارید";
+"notifications-center-empty-not-subscribed" = "در حال حاضر شما در هیچ اعلانی در ویکی‌پدیا مشترک نیستید";
+"notifications-center-footer-change-password" = "تغییر گذرواژه";
+"notifications-center-go-to-diff" = "رفتن به تفاوت";
+"notifications-center-go-to-talk-page" = "رفتن به صفحهٔ بحث";
+"notifications-center-go-to-title" = "رفتن به $1";
+"notifications-center-go-to-user-page" = "رفتن به صفحهٔ بحث $1";
+"notifications-center-go-to-wikidata-item" = "رفتن به آیتم ویکی‌داده";
+"notifications-center-go-to-your-talk-page" = "رفتن به صفحهٔ بحث خودتان";
+"notifications-center-header-alert-from-project" = "هشدار از $1";
+"notifications-center-header-notice-from-project" = "اعلان از $1";
+"notifications-center-language-project-name-format" = "$1 $2";
+"notifications-center-login-notifications" = "اعلان‌های ورود به حساب";
+"notifications-center-mark-as-read" = "علامت‌گذاری به عنوان خوانده‌شده";
+"notifications-center-mark-as-unread" = "علامت‌گذاری به عنوان خوانده‌نشده";
+"notifications-center-notifications-settings" = "تنظیمات اعلان‌ها";
+"notifications-center-subheader-edit-milestone" = "دستاورد ویرایشی";
+"notifications-center-subheader-edit-reverted" = "برگردانده‌شدن ویرایش شما";
+"notifications-center-subheader-email-from-other-user" = "ایمیل تازه";
+"notifications-center-subheader-login-fail-known-device" = "چندین اقدام ناموفق برای ورود به حساب";
+"notifications-center-subheader-login-fail-unknown-device" = "اقدام ناموفق برای ورود به حساب";
+"notifications-center-subheader-mention-article-talk-page" = "اشاره در بحث مقاله";
+"notifications-center-subheader-mention-edit-summary" = "اشاره در خلاصه ویرایش";
+"notifications-center-subheader-mention-failed" = "اشارهٔ ناموفق";
+"notifications-center-subheader-mention-successful" = "اشارهٔ موفق";
+"notifications-center-subheader-mention-talk-page" = "اشاره در صفحهٔ بحث";
+"notifications-center-subheader-message-user-talk-page" = "پیام در صفحهٔ بحث شما";
+"notifications-center-subheader-page-link" = "پیوند به صفحه";
+"notifications-center-subheader-page-reviewed" = "بازبینی صفحه";
+"notifications-center-subheader-thanks" = "تشکرها";
+"notifications-center-subheader-translate-milestone" = "دستاوردهای ترجمه";
+"notifications-center-subheader-user-rights-change" = "تغییرات اختیارات کاربر";
+"notifications-center-subheader-welcome" = "خوش آمدید!";
+"notifications-center-subheader-wikidata-connection" = "ایجاد ارتباط با ویکی‌داده";
+"notifications-center-title" = "اعلان‌ها";
+"notifications-center-wikidata-project-name" = "ویکی‌داده";
 "number-billions" = "$1میلیارد";
 "number-millions" = "$1میلیون";
 "number-thousands" = "$1هزار";
@@ -577,6 +640,8 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 رویداد تاریخی|$1 رویداد تاریخی}}";
 "on-this-day-footer" = "وقایع تاریخی بیشتر برای این روز";
 "on-this-day-footer-showing-event-count" = "{{PLURAL:$1|$1 رویداد تاریخی بیشتر|$1 رویداد تاریخی بیشتر}} در این روز";
+"on-this-day-language-does-not-support-error" = "زبان ویکی‌پدیای اصلی شما از «در این روز» پشتیبانی نمی‌کند. می‌توانید ویکی‌پدیای اصلی خود را در منوی تنظیمات نرم‌افزار به‌روز کنید.";
+"on-this-day-no-internet-error" = "هیچ داده‌ای در دسترس نیست";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 از ویکی‌پدیای $2";
 "on-this-day-title" = "در این روز";
 "original-tab-button-popover-description" = "برای بازگشت به زبانه‌ای که از آن شروع کردید، نماد W را لمس کنید";
@@ -641,6 +706,9 @@
 "places-unknown-distance" = "مسافت نامشخص";
 "potd-description-prefix" = "نگارهٔ روز برای $1";
 "potd-empty-error-description" = "ناتوان در دریافت تصویر روز برای $1";
+"potd-sample-entry-description" = "Two bulls running while the jockey holds on to them in pacu jawi (from Minangkabau, \"bull race\"), a traditional bull race in Tanah Datar, West Sumatra, Indonesia. 2015, Final-45.";
+"potd-widget-description" = "از مشاهدهٔ یک تصویر روزانهٔ زیبا، که توسط احتماع ما انتخاب شده، لذت ببرید.";
+"potd-widget-title" = "نگارهٔ روز";
 "preference-summary-eventlogging-opt-in" = "به بنیاد ویکی‌مدیا برای جمع‌آوری اطلاعات درباره چگونگی استفاده‌تان از این نرم‌افزار جهت بهتر ساختن نرم‌افزار اجازه دهید";
 "preference-title-eventlogging-opt-in" = "ارسال گزارش‌های نحوهٔ استفاده";
 "rank-accessibility-label" = "شمارهٔ $1";
@@ -686,7 +754,7 @@
 "reading-list-sync-disabled-panel-message" = "همگام‌سازی فهرست مطالعه برای حساب کاربری ویکی‌پدیای شما بر روی دستگاه دیگری غیرفعال شده است. می‌توانید با بروزرسانی تنظیمات خود، قابلیت همگام‌سازی را دوباره فعال کنید.";
 "reading-list-sync-disabled-panel-title" = "همگام‌سازی غیر فعال شد";
 "reading-list-sync-enable-button-title" = "فعال‌کردن همگام‌سازی";
-"reading-list-sync-enable-subtitle" = "مقاله‌ها و فهرست‌های مطالعه‌تان اکنون می‌تواند در حساب کاربری ویکی‌پدیای شما ذخیره‌شده و با همهٔ نرم‌افزارهای ویکی‌پدیا همگام‌سازی شود.";
+"reading-list-sync-enable-subtitle" = "مقاله‌ها و فهرست‌های مطالعه‌تان اکنون می‌تواند در حساب کاربری ویکی‌پدیای شما ذخیره و با همهٔ نرم‌افزارهای ویکی‌پدیا همگام‌سازی شود.";
 "reading-list-sync-enable-title" = "همگام‌سازی فهرست مطالعه فعال شود؟";
 "reading-list-sync-enabled-panel-message" = "همگام‌سازی فهرست مطالعه برای این حساب کاربری فعال است. برای توقف همگام‌سازی، می‌توانید با بروزرسانی تنظیمات خود، همگام‌سازی را برای این حساب کاربری غیرفعال کنید.";
 "reading-list-sync-enabled-panel-title" = "همگام‌سازی برای این حساب کاربری فعال است";
@@ -694,7 +762,7 @@
 "reading-list-unable-to-create" = "هنگام ساخت فهرست مطالعهٔ شما یک خطای غیرمنتظره رخ داد. لطفا بعداً دوباره تلاش کنید.";
 "reading-list-unable-to-delete" = "هنگام حذف فهرست مطالعهٔ شما یک خطای غیرمنتظره رخ داد. لطفا بعداً دوباره تلاش کنید.";
 "reading-list-unable-to-remove-entry" = "هنگام حذف یک ورودی از فهرست مطالعهٔ شما یک خطای غیرمنتظره رخ داد. لطفاً بعداً دوباره تلاش کنید.";
-"reading-list-unable-to-update" = "هنگام روزآمدسازی فهرست مطالعهٔ شما یک خطای غیرمنتظره رخ داد. لطفاً بعداً دوباره تلاش کنید.";
+"reading-list-unable-to-update" = "در هنگام روزآمدسازی فهرست مطالعهٔ شما خطایی غیرمنتظره رخ داد. لطفاً بعداً دوباره تلاش کنید.";
 "reading-list-with-provided-name-not-found" = "فهرست مطالعه‌ای با نام «$1» یافت نشد. لطفا مطمئن شوید که نام درست را وارد کرده‌اید.";
 "reading-lists-article-added-confirmation" = "مقاله به «$1» افزوده شد.";
 "reading-lists-article-api-failure" = "ناتوان از همگام‌سازی مقاله";
@@ -730,6 +798,8 @@
 "relative-date-hours-abbreviated" = "$1 ساعت";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=اخیراً|$1 ساعت پیش|$1 ساعت پیش}}";
 "relative-date-hours-ago-abbreviated" = "$1 ساعت پیش";
+"relative-date-hrs-ago" = "{{PLURAL:$1|0=اخیراً|$1 ساعت پیش}}";
+"relative-date-min-ago" = "{{PLURAL:$1|0=اکنون|$1 دقیقه پیش}}";
 "relative-date-minutes-abbreviated" = "$1 دقیقه";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=چند لحظه پیش|$1 دقیقه پیش|$1 دقیقه پیش}}";
 "relative-date-minutes-ago-abbreviated" = "$1 دقیقه پیش";
@@ -747,10 +817,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 مورد جایگزین شد|$1 مورد جایگزین شد}}";
 "replace-textfield-accessibility" = "جایگزینی";
 "replace-textfield-placeholder" = "جایگزینی با…";
-"request-feedback-on-error" = "این برنامه با مشکلی مواجه شده است که توسعه‌دهندگان ما به دانستن بیشتر در مورد آن علاقه‌مند هستند. لطفاً با ضربه‌زدن بر اینجا، برایمان یک پست الکترونیکی با جزئیات بیشتری بفرستید.";
 "reverted-edit-back-to-article-button-title" = "برگشت به مقاله";
-"reverted-edit-notification-body" = "ویرایش شما در مقالهٔ $1 توسط $2 برگردانده شد";
-"reverted-edit-notification-read-more-action-title" = "بیشتر بخوانید";
 "reverted-edit-possible-reasons" = "- مشارکت شما از یکی از رهنمودها تبعیت نکرد. $1\n\n- مشارکت شما شبیه یک آزمایش یا خرابکاری به نظر رسید.";
 "reverted-edit-possible-reasons-subtitle" = "می‌دانیم که شما بهترین تلاش‌تان را کردید، اما یکی از بازبین‌های ما یک نگرانی داشته است.\n\nدلایل احتمالی برگردانده‌شدن ویرایش شما شامل موارد زیر است:";
 "reverted-edit-thanks-for-editing-title" = "سپاس بابت ویرایش در ویکی‌پدیا!";
@@ -778,6 +845,8 @@
 "search-recent-title" = "جستجوهای اخیر";
 "search-result-redirected-from" = "تغییرمسیر از: $1";
 "search-title" = "جستجو";
+"serbian-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان صربی به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
+"serbian-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان صربی";
 "settings-account" = "حساب کاربری";
 "settings-appearance" = "تنظیمات مطالعه";
 "settings-clear-cache" = "پاک کردن داده‌‌های گرفته‌شده";
@@ -834,8 +903,12 @@
 "table-of-contents-close-accessibility-hint" = "بستن";
 "table-of-contents-close-accessibility-label" = "بستن جعبه محتویات";
 "table-of-contents-heading" = "محتویات";
-"table-of-contents-hide-button-label" = "نهفتن جعبه محتویات";
+"table-of-contents-hide-button-label" = "نهفتن جعبهٔ محتویات";
 "table-of-contents-subheading-label" = "زیربخش $1";
+"tachelhit-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان تشلیحت به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
+"tachelhit-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان تشلیحت";
+"tajik-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان تاجیکی به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";
+"tajik-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های تاجیکی";
 "talk-page-add-discussion-accessibility-label" = "افزودن بحث";
 "talk-page-discussion-accessibility-hint" = "برای باز کردن ریسهٔ بحث، اینجا را دوبار لمس کنید";
 "talk-page-discussion-read-accessibility-label" = "خوانده‌شده";
@@ -874,6 +947,9 @@
 "top-read-header-generic" = "ویکی‌پدیا";
 "top-read-header-with-language" = "ویکی‌پدیای $1";
 "top-read-see-more" = "دیدن پربازدیدهای بیشتر";
+"top-read-widget-description" = "از آنچه جهانیان امروز در ویکی‌پدیا می‌خوانند آگاه شوید.";
+"top-read-widget-readers-count" = "$1 مخاطب";
+"top-read-widget-title" = "پربازدیدترین‌ها";
 "two-factor-login-continue" = "ادامه‌دادن ورود به سامانه";
 "two-factor-login-instructions" = "لطفاً کد اعتبارسنجی دوعاملی را وارد کنید";
 "two-factor-login-title" = "ورود به حساب کاربری";
@@ -881,6 +957,10 @@
 "two-factor-login-with-regular-code" = "استفاده از کدهای اعتبارسنجی";
 "unable-to-load-talk-page-title" = "ناتوان در بارگیری صفحه بحث";
 "unknown-generic-text" = "نامشخص";
+"uzbek-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان ازبکی به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Cyrillic (uz-cyrl)";
+"uzbek-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان ازبکی";
+"variants-alert-dismiss-button" = "نه ممنون";
+"variants-alert-preferences-button" = "ترجیحات خود را مرور کنید";
 "welcome-exploration-explore-feed-description" = "مقاله‌های پیشنهادی روزانه برگرفته از نظر اجتماع";
 "welcome-exploration-explore-feed-title" = "خوراک بازدید";
 "welcome-exploration-on-this-day-description" = "سفر به گذشته برای آگاهی از رویدادهایی که در چنین روزی رخ داده‌است";
@@ -906,6 +986,9 @@
 "welcome-send-data-learn-more" = "اطلاعات بیشتر در مورد داده‌های جمع‌آوری‌شده";
 "welcome-send-data-sub-title" = "با آگاه‌کردن بنیاد ویکی‌مدیا از نحوهٔ استفادهٔ خود از این نرم‌افزار، به بهتر کردن آن کمک کنید. داده‌ها به‌صورت ناشناس جمع‌آوری می‌شوند.";
 "welcome-volunteer-send-usage-reports" = "ارسال گزارش نحوهٔ استفاده";
+"widget-onthisday-description" = "کنکاش در رویدادهای تاریخی در این روز.";
+"widget-onthisday-placeholder-article-snippet" = "دانشنامه‌ای آزاد که همه می‌توانند آن را ویرایش کنند";
+"widget-onthisday-placeholder-event-snippet" = "ویکی‌پدیا، ویکی دانشنامهٔ محتوایی آزاد، برخط می‌شود.";
 "wikitext-downloading" = "بارگیری محتوا...";
 "wikitext-preview-changes" = "بازیابی پیش‌نمایش تغییرات شما...";
 "wikitext-preview-changes-none" = "تغییری برای پیش نمایش وجود ندارد.";

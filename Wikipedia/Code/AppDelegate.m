@@ -81,6 +81,7 @@ static NSString *const WMFBackgroundAppRefreshTaskIdentifier = @"org.wikimedia.w
 
     self.appNeedsResume = YES;
     WMFAppViewController *vc = [[WMFAppViewController alloc] init];
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
     [UNUserNotificationCenter currentNotificationCenter].delegate = vc; // this needs to be set before the end of didFinishLaunchingWithOptions:
     [vc launchAppInWindow:self.window waitToResumeApp:self.appNeedsResume];
     self.appViewController = vc;
@@ -98,7 +99,7 @@ static NSString *const WMFBackgroundAppRefreshTaskIdentifier = @"org.wikimedia.w
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     [self resumeAppIfNecessary];
-    [[WMFEventPlatformClient sharedInstance] appInForeground];
+    [[WMFMetricsClientBridge sharedInstance] appInForeground];
 }
 
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
@@ -186,7 +187,7 @@ static NSString *const WMFBackgroundAppRefreshTaskIdentifier = @"org.wikimedia.w
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     [[NSUserDefaults standardUserDefaults] wmf_setAppResignActiveDate:[NSDate date]];
-    [[WMFEventPlatformClient sharedInstance] appInBackground];
+    [[WMFMetricsClientBridge sharedInstance] appInBackground];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
@@ -199,56 +200,55 @@ static NSString *const WMFBackgroundAppRefreshTaskIdentifier = @"org.wikimedia.w
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     [self applicationDidEnterBackground:application];
-    [[WMFEventPlatformClient sharedInstance] appWillClose];
+    [[WMFMetricsClientBridge sharedInstance] appWillClose];
 }
 
 #pragma mark - Background Fetch
 
-- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    [self.appViewController performBackgroundFetchWithCompletion:completionHandler];
-}
-
 /// Cancels any pending background tasks, if applicable on the current platform
 - (void)cancelPendingBackgroundTasks {
-    if (@available(iOS 13.0, *)) {
-        [[BGTaskScheduler sharedScheduler] cancelAllTaskRequests];
-    }
+    [[BGTaskScheduler sharedScheduler] cancelAllTaskRequests];
 }
 
 /// Register for any necessary background tasks or updates with the method appropriate for the platform
 - (void)registerBackgroundTasksForApplication:(UIApplication *)application {
-    if (@available(iOS 13.0, *)) {
-        [[BGTaskScheduler sharedScheduler] registerForTaskWithIdentifier:WMFBackgroundAppRefreshTaskIdentifier
-                                                              usingQueue:dispatch_get_main_queue()
-                                                           launchHandler:^(__kindof BGTask *_Nonnull task) {
-                                                               [self.appViewController performBackgroundFetchWithCompletion:^(UIBackgroundFetchResult result) {
-                                                                   switch (result) {
-                                                                       case UIBackgroundFetchResultFailed:
-                                                                           [task setTaskCompletedWithSuccess:NO];
-                                                                           break;
-                                                                       default:
-                                                                           [task setTaskCompletedWithSuccess:YES];
-                                                                           break;
-                                                                   }
-                                                                   // The next task needs to be scheduled
-                                                                   [self scheduleBackgroundAppRefreshTask];
-                                                               }];
+    [[BGTaskScheduler sharedScheduler] registerForTaskWithIdentifier:WMFBackgroundAppRefreshTaskIdentifier
+                                                          usingQueue:dispatch_get_main_queue()
+                                                       launchHandler:^(__kindof BGTask *_Nonnull task) {
+                                                           [self.appViewController performBackgroundFetchWithCompletion:^(UIBackgroundFetchResult result) {
+                                                               switch (result) {
+                                                                   case UIBackgroundFetchResultFailed:
+                                                                       [task setTaskCompletedWithSuccess:NO];
+                                                                       break;
+                                                                   default:
+                                                                       [task setTaskCompletedWithSuccess:YES];
+                                                                       break;
+                                                               }
+                                                               // The next task needs to be scheduled
+                                                               [self scheduleBackgroundAppRefreshTask];
                                                            }];
-    } else {
-        [application setMinimumBackgroundFetchInterval:WMFBackgroundFetchInterval];
-    }
+                                                       }];
 }
 
 /// Schedule the next background refresh, if applicable on the current platform
 - (void)scheduleBackgroundAppRefreshTask {
-    if (@available(iOS 13.0, *)) {
-        BGAppRefreshTaskRequest *appRefreshTask = [[BGAppRefreshTaskRequest alloc] initWithIdentifier:WMFBackgroundAppRefreshTaskIdentifier];
-        appRefreshTask.earliestBeginDate = [NSDate dateWithTimeIntervalSinceNow:WMFBackgroundFetchInterval];
-        NSError *taskSubmitError = nil;
-        if (![[BGTaskScheduler sharedScheduler] submitTaskRequest:appRefreshTask error:&taskSubmitError]) {
-            DDLogError(@"Unable to schedule background task: %@", taskSubmitError);
-        }
+    BGAppRefreshTaskRequest *appRefreshTask = [[BGAppRefreshTaskRequest alloc] initWithIdentifier:WMFBackgroundAppRefreshTaskIdentifier];
+    appRefreshTask.earliestBeginDate = [NSDate dateWithTimeIntervalSinceNow:WMFBackgroundFetchInterval];
+    NSError *taskSubmitError = nil;
+    if (![[BGTaskScheduler sharedScheduler] submitTaskRequest:appRefreshTask error:&taskSubmitError]) {
+        DDLogError(@"Unable to schedule background task: %@", taskSubmitError);
     }
+}
+
+#pragma mark - Notifications
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    DDLogError(@"Remote notification registration failure: %@", error.localizedDescription);
+    [self.appViewController setRemoteNotificationRegistrationStatusWithDeviceToken:nil error:error];
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    [self.appViewController setRemoteNotificationRegistrationStatusWithDeviceToken:deviceToken error:nil];
 }
 
 @end

@@ -20,8 +20,8 @@ static NSString *const kFormatString = @"$1$2$3$4$5";
 
 + (NSAttributedString *)wmf_attributedStringWithTitle:(NSString *)title
                                           description:(NSString *)description
-                                             language:(NSString *)language {
-    description = [description wmf_stringByCapitalizingFirstCharacterUsingWikipediaLanguage:language];
+                                         languageCode:(NSString *)languageCode {
+    description = [description wmf_stringByCapitalizingFirstCharacterUsingWikipediaLanguageCode:languageCode];
 
     // Shrink super long titles.
     CGFloat titleSizeMultiplier = 1.0f;
@@ -59,11 +59,11 @@ static NSString *const kFormatString = @"$1$2$3$4$5";
 
     NSString *descripLineBreak = (description.length == 0) ? @"" : kLineBreak;
     description = description ? description : @"";
-    language = language ? language : @"";
+    languageCode = languageCode ? languageCode : @"";
 
     return
         [kFormatString attributedStringWithAttributes:@{}
-                                  substitutionStrings:@[title, kLineBreak, description, descripLineBreak, language]
+                                  substitutionStrings:@[title, kLineBreak, description, descripLineBreak, languageCode]
                                substitutionAttributes:@[titleAttribs, @{}, descripAttribs, @{}, langAttribs]];
 }
 

@@ -2,7 +2,6 @@
     "zh": {
         "default": {
             "default": "zh-hans",
-            "cn": "zh-cn",
             "hk": "zh-hk",
             "mo": "zh-mo",
             "my": "zh-my",
@@ -11,7 +10,6 @@
         },
         "hans": {
             "default": "zh-hans",
-            "cn": "zh-cn",
             "hk": "zh-hk",
             "mo": "zh-mo",
             "my": "zh-my",
@@ -19,8 +17,7 @@
             "tw": "zh-tw"
         },
         "hant": {
-            "default": "zh-hant",
-            "cn": "zh-cn",
+            "default": "zh-hk",
             "hk": "zh-hk",
             "mo": "zh-mo",
             "my": "zh-my",
@@ -81,6 +78,11 @@
         },
         "latn": {
             "default": "uz-latin",
+        }
+    },
+    "nb": {
+        "default": {
+            "default": "no",
         }
     }
 }

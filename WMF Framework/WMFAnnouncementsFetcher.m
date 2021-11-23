@@ -13,11 +13,7 @@
         return;
     }
     
-#if WMF_LOCAL_ANNOUNCEMENTS
-    NSURL *url = [WMFConfiguration.localWikiFeeds wikiFeedsAPIURLForURL:siteURL appendingPathComponents:@[@"feed", @"announcements"]];
-#else
-    NSURL *url = [self.configuration wikiFeedsAPIURLForURL:siteURL appendingPathComponents:@[@"feed", @"announcements"]];
-#endif
+    NSURL *url = [self.configuration announcementsAPIURLForURL:siteURL appendingPathComponents:@[@"feed", @"announcements"]];
     [self.session getJSONDictionaryFromURL:url ignoreCache:YES completionHandler:^(NSDictionary<NSString *,id> * _Nullable result, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             failure(error);
@@ -79,7 +75,7 @@
         if (![obj isKindOfClass:[WMFAnnouncement class]]) {
             return NO;
         }
-        if ([obj.platforms containsObject:@"iOSAppV4"]) {
+        if ([obj.platforms containsObject:@"iOSAppV5"]) {
             return YES;
         } else {
             return NO;
@@ -89,7 +85,7 @@
 }
 
 - (NSString *)geoIPCookieString {
-    NSArray<NSHTTPCookie *> *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
+    NSArray<NSHTTPCookie *> *cookies = [[WMFSession sharedCookieStorage] cookies];;
     NSHTTPCookie *cookie = [cookies wmf_match:^BOOL(NSHTTPCookie *obj) {
         if ([[obj name] containsString:@"GeoIP"]) {
             return YES;

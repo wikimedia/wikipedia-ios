@@ -167,6 +167,7 @@ class EditLinkViewController: ViewController {
     @IBAction private func searchArticles(_ sender: UITapGestureRecognizer) {
         let searchViewController = SearchViewController()
         searchViewController.shouldSetTitleViewWhenRecentSearchesAreDisabled = false
+        searchViewController.shouldAdjustNavigationBarInsetHidingOnAppearance = false
         searchViewController.siteURL = siteURL
         searchViewController.shouldSetSearchVisible = false
         searchViewController.shouldBecomeFirstResponder = true
@@ -200,7 +201,7 @@ class EditLinkViewController: ViewController {
         closeButton.tintColor = theme.colors.primaryText
         doneButton.tintColor = theme.colors.link
         displayTextView.textColor = theme.colors.primaryText
-        activityIndicatorView.style = theme.isDark ? .white : .gray
+        activityIndicatorView.color = theme.isDark ? .white : .gray
     }
 }
 

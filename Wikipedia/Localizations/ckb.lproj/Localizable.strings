@@ -123,6 +123,7 @@
 "continue-reading-empty-description" = "ویکیپیدیا بگەڕێ بۆ دۆزینەوەی وتاری زیاتر بۆ خوێندنەوەیان";
 "continue-reading-empty-title" = "وتاری خوێندراوە نییە";
 "description-add-title" = "زیادکردنی وەسف";
+// Fuzzy
 "description-edit-for-article" = "وەسفی ناونیشان بۆ $1";
 "description-edit-learn-more" = "زیاتر بزانە";
 "description-edit-length-warning" = "$1 / $2";
@@ -323,8 +324,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=لەم ماوەیەدا|$1 سەعات لەمەوبەر|$1 سەعات لەمەوبەر}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=ھەر ئێستا|$1 دەقە لەمەوبەر|$1 دەقە لەمەوبەر}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=ئەم ساڵ|Last year|$1 ساڵ لەمەوبەر}}";
-"request-feedback-on-error" = "ئەپەکە کێشەیەکی تووشبوو کە پەرەپێدەرەکانمان دەیانەوێت زیاتر بزانن لەبارەیەوە. تکایە کرتە لێرە بکە بۆ ناردنی ئیمەیڵێک بۆمان بە وردەکاری کێشەکەوە.";
-"reverted-edit-notification-read-more-action-title" = "زیاتر بخوێنەوە";
 "saved-pages-image-download-error" = "داگرتنی وێنەکان بۆ ئەم وتارە خەزن کراوە شکستی ھێنا";
 "saved-title" = "پاشەکەوت کرا";
 "search-button-accessibility-label" = "گەڕان بە ویکیپیدیادا";

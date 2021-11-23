@@ -69,6 +69,7 @@ class SavedViewController: ViewController {
         toggleButtons.first { $0.tag != sender.tag }?.isSelected = false
         sender.isSelected = true
         currentView = View(rawValue: sender.tag) ?? .savedArticles
+        logTappedView(currentView)
     }
 
     func toggleCurrentView(_ newViewRawValue: Int) {
@@ -162,6 +163,15 @@ class SavedViewController: ViewController {
         vc.removeFromParent()
     }
     
+    private func logTappedView(_ view: View) {
+        switch view {
+        case .savedArticles:
+            NavigationEventsFunnel.shared.logTappedSavedAllArticles()
+        case .readingLists:
+            NavigationEventsFunnel.shared.logTappedSavedReadingLists()
+        }
+    }
+    
     // MARK: - View lifecycle
     
     override func viewDidLoad() {
@@ -216,7 +226,7 @@ class SavedViewController: ViewController {
         }
 
         /// Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
-        parent?.navigationItem.backButtonTitle = title
+        (parent as? WMFAppViewController)?.navigationItem.backButtonTitle = title
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

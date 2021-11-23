@@ -20,7 +20,7 @@ or alternatively using `brew install fastlane`
 ```
 fastlane ios checkout
 ```
-Checks out the sha specified in the environment variables or the develop branch
+Checks out the sha specified in the environment variables or the main branch
 ### ios analyze
 ```
 fastlane ios analyze
@@ -76,31 +76,36 @@ Increment the app version minor
 fastlane ios bump_major
 ```
 Increment the app version major
+### ios change_version
+```
+fastlane ios change_version
+```
+Change version number and create PR with changes
 ### ios tag
 ```
 fastlane ios tag
 ```
-Add a tag for the current build number and push to repo.
+Add a build tag for the current build number and push to repo. While this tags a build, tag_release sets a release tag.
 ### ios tag_release
 ```
 fastlane ios tag_release
 ```
-Add a tag for the current version number push to repo.
+Add a release tag for the latest beta and push to repo. For tagging non-releases, use `tag`.
 ### ios build
 ```
 fastlane ios build
 ```
-Build the app for distibution
+Build the app for distribution
 ### ios deploy
 ```
 fastlane ios deploy
 ```
-Pushes both the production and staging apps to TestFlight and tags the release. Only releases to internal testers.
+Pushes the production app to TestFlight and tags the release. Only releases to internal testers. (This is very similar to `push_production`, although this command also tags the build in git.)
 ### ios push_production
 ```
 fastlane ios push_production
 ```
-updates version, builds, and pushes the production build to TestFlight. Only releases to internal testers.
+Updates version, builds, and pushes the production build to TestFlight. Only releases to internal testers.
 ### ios push_staging
 ```
 fastlane ios push_staging
@@ -119,6 +124,11 @@ fastlane ios get_latest_tag_with_prefix
 ### ios get_latest_build_number
 ```
 fastlane ios get_latest_build_number
+```
+
+### ios get_recent_commits
+```
+fastlane ios get_recent_commits
 ```
 
 ### ios push

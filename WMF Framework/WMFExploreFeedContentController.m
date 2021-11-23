@@ -448,11 +448,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     WMFKeyValue *keyValue = [moc wmf_keyValueForKey:WMFExploreFeedPreferencesKey];
     NSDictionary *exploreFeedPreferences = (NSDictionary *)keyValue.value;
     if (exploreFeedPreferences && [exploreFeedPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey]) {
-        if ([self exploreFeedPreferencesNeedMigration:exploreFeedPreferences]) {
-            return [self migrateExploreFeedPreferences:exploreFeedPreferences inManagedObjectContext:moc];
-        } else {
-            return exploreFeedPreferences;
-        }
+        return exploreFeedPreferences;
     }
     [moc wmf_setValue:[self defaultExploreFeedPreferences] forKey:WMFExploreFeedPreferencesKey];
     [self save:moc];
@@ -733,62 +729,6 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     }
 }
 
-#pragma mark - Language Variant Migration
-/* NOTE: The methods in this section are currently called from -exploreFeedPreferencesInManagedObjectContext:.
- * This is a way to bootstrap migration to the new method of storing these settings until the full one-time
- * language variant migration process is in place.
- */
- static BOOL preferencesNeedMigration;
-- (BOOL)exploreFeedPreferencesNeedMigration:(NSDictionary *)preferences {
-    // Check once to avoid rechecking repeatedly
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        preferencesNeedMigration = NO;
-        for (NSString *key in preferences.allKeys) {
-            if ([key isEqualToString:WMFExploreFeedPreferencesGlobalCardsKey]) {
-                continue;
-            } else if ([key hasPrefix:@"http"]) {
-                preferencesNeedMigration = YES;
-                break;
-            } else {
-                break;
-            }
-        }
-    });
-    return preferencesNeedMigration;
-}
-
-// Move from siteURL-based to contentLanguageCode-based keys to support language variants
-- (NSDictionary *)migrateExploreFeedPreferences:(NSDictionary *)originalPreferences inManagedObjectContext:(NSManagedObjectContext *)moc {
-    NSArray *preferedSiteURLs = self.preferredSiteURLs;
-    NSMutableDictionary *migratedPreferences = [[NSMutableDictionary alloc] init];
-    for (NSString *key in originalPreferences.allKeys) {
-        // Just pass the global key along as-is
-        if ([key isEqualToString:WMFExploreFeedPreferencesGlobalCardsKey]) {
-            [migratedPreferences setValue:[originalPreferences valueForKey:key] forKey:key];
-        }
-        else {
-            NSInteger foundIndex = [preferedSiteURLs indexOfObjectPassingTest:^BOOL(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                BOOL isMatch = [[(NSURL *)obj wmf_databaseKey] isEqualToString:key];
-                *stop = isMatch;
-                return isMatch;
-            }];
-            if (foundIndex != NSNotFound) {
-                NSURL *foundURL = [preferedSiteURLs objectAtIndex:foundIndex];
-                NSString *newKey = foundURL.wmf_contentLanguageCode;
-                [migratedPreferences setValue:[originalPreferences valueForKey:key] forKey:newKey];
-            }
-        }
-    }
-    [moc wmf_setValue:migratedPreferences forKey:WMFExploreFeedPreferencesKey];
-    [self save:moc];
-    NSDictionary *preferences = (NSDictionary *)[moc wmf_keyValueForKey:WMFExploreFeedPreferencesKey].value;
-    assert(preferences);
-    preferencesNeedMigration = NO;
-    return preferences;
-}
-
-
 #pragma mark - Debug
 
 #if DEBUG
@@ -872,6 +812,48 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
             completion();
         }
     }];
+}
+
+@end
+
+@implementation WMFExploreFeedContentController (LanguageVariantMigration)
+
+/// The expected dictionary uses language codes as the key with the value being the desired language variant code for that language.
+/// Move from siteURL-based to contentLanguageCode-based keys to support language variants
+- (void)migrateExploreFeedSettingsToLanguageVariants:(NSDictionary<NSString *, NSString *> *)languageMapping inManagedObjectContext:(NSManagedObjectContext *)moc{
+    
+    WMFKeyValue *keyValue = [moc wmf_keyValueForKey:WMFExploreFeedPreferencesKey];
+    NSDictionary *originalPreferences = (NSDictionary *)keyValue.value;
+
+    NSMutableDictionary *migratedPreferences = [[NSMutableDictionary alloc] init];
+    for (NSString *key in originalPreferences.allKeys) {
+        // Just pass the global key along as-is
+        if ([key isEqualToString:WMFExploreFeedPreferencesGlobalCardsKey]) {
+            [migratedPreferences setValue:[originalPreferences valueForKey:key] forKey:key];
+        }
+        else {
+            NSString *languageCode = nil;
+            // Remaining keys should be site URL strings prior to migration
+            if ([key hasPrefix:@"http"]) {
+                NSURL *oldKeyURL = [NSURL URLWithString:key];
+                languageCode = oldKeyURL.wmf_languageCode;
+            }
+            // Interim code for migration may have been previously run
+            // Allow for that case as well
+            else {
+                languageCode = key;
+            }
+            if (languageCode) {
+                NSString *languageVariantCode = languageMapping[languageCode];
+                NSString *newKey = languageVariantCode ? : languageCode;
+                [migratedPreferences setValue:[originalPreferences valueForKey:key] forKey:newKey];
+            }
+        }
+    }
+    [moc wmf_setValue:migratedPreferences forKey:WMFExploreFeedPreferencesKey];
+    [self save:moc];
+    __unused NSDictionary *preferences = (NSDictionary *)[moc wmf_keyValueForKey:WMFExploreFeedPreferencesKey].value;
+    assert(preferences);
 }
 
 @end

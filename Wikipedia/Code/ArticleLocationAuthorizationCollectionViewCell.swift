@@ -1,6 +1,6 @@
 import UIKit
 
-protocol ArticleLocationAuthorizationCollectionViewCellDelegate: class {
+protocol ArticleLocationAuthorizationCollectionViewCellDelegate: AnyObject {
     func articleLocationAuthorizationCollectionViewCellDidTapAuthorize(_ cell: ArticleLocationAuthorizationCollectionViewCell)
 }
 

@@ -110,15 +110,17 @@
 "continue-reading-empty-description" = "Dlajahi Wikipédia supaya bisa maca werna-werna artikelé";
 "continue-reading-empty-title" = "Ora ana artikel kang mentas kawaca";
 "description-add-title" = "Wuwuh wedharan";
+// Fuzzy
 "description-edit-for-article" = "Wedharaning sesirah tumrap $1";
 "description-edit-learn-more" = "Sinaoni candhaké";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "Besut purwaka";
+// Fuzzy
 "description-edit-pencil-title" = "Besut wedharaning sesirah";
 "description-edit-publish" = "Babar wedharan";
 "description-edit-title" = "Besut wedharan";
 "description-help-about-title" = "Bab";
-"description-help-about-wikidata" = "Bab Wikidhata";
+"description-help-about-wikidata" = "Bab Wikidata";
 "description-help-tips-for-example" = "Contoné:";
 "description-published-button-title" = "Rampung";
 "description-welcome-start-editing-button" = "Wiwit mbesut";
@@ -168,7 +170,7 @@
 "explore-feed-preferences-potd-description" = "Gambar pinilih padinan saka Commons";
 "explore-feed-preferences-randomizer-description" = "Asilaké sembarang artikel saperlu kawaca";
 "explore-feed-preferences-related-pages-description" = "Saran kang dhedhasar sajarah wacan";
-"explore-main-page-description" = "Kaca tepas proyèk-proyèké Wikimedia";
+"explore-main-page-description" = "Kaca pendhapa saka proyèk-proyèké Wikimédia";
 "explore-main-page-heading" = "Dina iki ing Wikipédia";
 "explore-most-read-footer" = "Kabèh artikel kang kerep dhéwé kawaca";
 "explore-most-read-generic-heading" = "Wacan kasuwur";
@@ -336,9 +338,7 @@
 "replace-infolabel-method-replace-all" = "Ganti kabèh";
 "replace-textfield-accessibility" = "Ganti";
 "replace-textfield-placeholder" = "Ganti mawa...";
-"request-feedback-on-error" = "Aplikasiné kena masalah sing arep dingertèni déning para pangembangé awak dhéwé. Mangga tunyuk ing kéné kanggo ngirimi awak dhéwé layang-èl sing isiné rerincèn masalah.";
 "reverted-edit-back-to-article-button-title" = "Bali menyang artikel";
-"reverted-edit-notification-read-more-action-title" = "Waca candhaké";
 "saved-all-articles-title" = "Kabèh artikel";
 "saved-default-reading-list-tag" = "Pratélan iki ora bisa dibusek";
 "saved-pages-image-download-error" = "Wurung ngundhuh gambar tumrap kaca simpenan iki.";

@@ -23,6 +23,7 @@
 // Author: The RedBurn
 // Author: Thibaut120094
 // Author: Trial
+// Author: Tsevener
 // Author: Urhixidur
 // Author: VIGNERON
 // Author: Verdy p
@@ -31,12 +32,12 @@
 // Author: Zarisi
 
 "aaald-added-text-description-2" = "$1 ajouté";
-"aaald-article-description-updated-description" = "Description du titre de l’article mise à jour";
+"aaald-article-description-updated-description" = "Description de l’article mise à jour";
 "aaald-article-insert-header" = "Mises à jour significatives";
 "aaald-article-insert-last-updated" = "Dernière mise à jour";
 "aaald-article-insert-new-changes" = "Nouvelles modifications";
 "aaald-article-insert-read-more" = "Voir plus de mises à jour";
-"aaald-characters-text-description" = "{{PLURAL:$1|0=caractère|caractère|caractères}}";
+"aaald-characters-text-description" = "caractère{{PLURAL:$1|0=||s}}";
 "aaald-deleted-text-description-2" = "$1 supprimé";
 "aaald-error-subitle" = "Actualisez pour essayer à nouveau";
 "aaald-error-title" = "Impossible de charger l’historique en ligne de l’article";
@@ -182,40 +183,41 @@
 "button-skip" = "Passer";
 "cancel" = "Annuler";
 "cc-zero" = "Creative Commons Zéro";
-"chinese-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes du chinois comme langues primaire ou secondaire dans l’application, facilitant la lecture, la recherche et la modification dans vos variantes préférées :\n\n简体 Chinois simplifié (zh-hans)\n繁體 Chinois traditionnel (zh-hant)\n大陆简体 Continental simplifié (zh-cn)\n香港繁體 Hong-Kong traditionnel (zh-hk)\n澳門繁體 Macao traditionnel (zh-mo)\n大马简体 Malaisien simplifié (zh-my)\n新加坡简体 Singapourien simplifié (zh-sg)\n臺灣正體 Taïwanais traditionnel (zh-tw)";
-"chinese-variants-alert-title" = "Mettre à jour la prise en charge des variantes du chinois";
+"chinese-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes du chinois comme langues primaire ou secondaires dans l’application, le rendant plus facile à lire, rechercher et modifier dans vos variantes préférées :\n\n简体 – chinois simplifié (zh-hans)\n香港繁體 – chinois de Hong-Kong traditionnel (zh-hk)\n澳門繁體 – chinois macanais traditionnel (zh-mo)\n大马简体 – chinois malaisien simplifié (zh-my)\n新加坡简体 – chinois singapourien simplifié (zh-sg)\n臺灣正體 – chinois taïwanais traditionnel (zh-tw)";
+"chinese-variants-alert-title" = "Mises à jour de la prise en charge des variantes du chinois";
 "clear-title-accessibility-label" = "Effacer";
 "close-button-accessibility-label" = "Fermer";
 "compass-direction" = "à $1 heures";
 "continue-reading-empty-description" = "Explorer Wikipédia pour plus d’articles à lire";
 "continue-reading-empty-title" = "Aucun article lu récemment";
-"crimean-tatar-variants-alert-body" = "L’application Wikipédia supporte maintenant les variantes du Tatar de Crimée suivantes comme langues principale ou secondaire avec l’application, la rendant plus facile à lire, à rechercher et à modifier dans vos variantes préférées :\n\nQırımtatarca, Tartare de Crimée latin (chr-latn)\nкъырымтатарджа, Кирил Tartare de Crimée cyrillique (crh-cyrl)";
-"crimean-tatar-variants-alert-title" = "Met à jour le support de la variante Tatar de Crimée";
+"crimean-tatar-variants-alert-body" = "L’application Wikipédia prends maintenant en charge les variantes suivantes du tatar de Crimée comme langues primaire ou secondaires dans l’application, le rendant plus facile à lire, à rechercher et à modifier dans vos variantes préférées :\n\nQırımtatarca – tatar de Crimée latin (chr-latn)\nкъырымтатарджа, Кирил – tatar de Crimée cyrillique (crh-cyrl)";
+"crimean-tatar-variants-alert-title" = "Mises à jour de la prise en charge des variantes du tatar de Crimée";
 "data-migration-status" = "Mise à jour...";
 "description-add-title" = "Ajouter une description";
-"description-edit-for-article" = "Description du titre pour $1";
+"description-edit-for-article" = "Description de l’article $1";
 "description-edit-learn-more" = "En savoir plus";
 "description-edit-length-warning" = "$1 / $2";
-"description-edit-license" = "En modifiant la description du titre, j’accepte les $1 et je m’engage à diffuser irrévocablement mes contributions sous la licence $2.";
+"description-edit-license" = "En modifiant la description de l’article, j’accepte les $1 et je m’engage à diffuser irrévocablement mes contributions sous la licence $2.";
 "description-edit-pencil-introduction" = "Modifier l’introduction";
-"description-edit-pencil-title" = "Modifier la description du titre";
+"description-edit-pencil-title" = "Modifier la description de l’article";
 "description-edit-placeholder-title" = "Les descriptions courtes sont les meilleures";
 "description-edit-publish" = "Publier la description";
 "description-edit-title" = "Modifier la description";
 "description-edit-warning" = "Essayez de garder les descriptions courtes afin que les utilisateurs puissent comprendre les articles au premier coup d’œil";
-"description-help-about-description" = "Les descriptions de titre résument un article pour aider les lecteurs à comprendre le sujet du premier coup d’œil.";
+"description-edit-warning-casing" = "Seuls les noms propres devraient être capitalisés, même au début de la phrase.";
+"description-help-about-description" = "Les descriptions d’article résument un article pour aider les lecteurs à comprendre le sujet du premier coup d’œil.";
 "description-help-about-title" = "À propos";
 "description-help-about-wikidata" = "À propos de Wikidata";
 "description-help-more-info-description" = "Les descriptions sont enregistrées et maintenues sur Wikidata, un projet de la Fondation Wikimedia qui fournit une base de données secondaire gratuite, collaborative et multilingue qui prend en charge Wikipédia et d’autres projets.";
 "description-help-more-info-title" = "Davantage d’information";
 "description-help-tips-description" = "Les descriptions devraient, dans l’idéal, tenir en une ligne et comporter entre deux et douze mots. Elles ne sont pas mises en majuscules sauf si le premier mot est un nom propre.";
-"description-help-tips-example-description-one" = "description de titre pour un article sur Mona Lisa";
-"description-help-tips-example-description-two" = "description de titre pour un article sur le mont Everest";
+"description-help-tips-example-description-one" = "description de l’article pour un article concernant Mona Lisa";
+"description-help-tips-example-description-two" = "description de l’article pour un article concernant le mont Everest";
 "description-help-tips-example-title-one" = "peinture de Léonard de Vinci";
 "description-help-tips-example-title-two" = "Le plus haut sommet sur terre";
 "description-help-tips-for-example" = "Par exemple :";
 "description-help-tips-title" = "Conseils pour créer des descriptions";
-"description-help-title" = "Aide de la description du titre";
+"description-help-title" = "Aide à la description de l’article";
 "description-help-wikidata-guide" = "Guide Wikidata pour l'écriture des descriptions";
 "description-published-button-title" = "Fait";
 "description-published-footer" = "Vous pouvez aussi modifier les articles dans cette application. La prochaine fois, essayez de corriger les fautes de frappe et les petites phrases en cliquant sur l’icône du crayon.";
@@ -224,7 +226,7 @@
 "description-welcome-concise-sub-title" = "En une ligne dans l’idéal, entre deux et douze mots";
 "description-welcome-concise-title" = "Faites court";
 "description-welcome-descriptions-sub-title" = "Résume un article pour aider le lecteur à comprendre le sujet au premier coup d’œil";
-"description-welcome-descriptions-title" = "Descriptions du titre";
+"description-welcome-descriptions-title" = "Descriptions d’articles";
 "description-welcome-promise-title" = "En commençant, je promets de ne pas faire mauvais emploi de cette fonctionnalité";
 "description-welcome-start-editing-button" = "Commencer à modifier";
 "diff-compare-header-from-info-heading" = "De :";
@@ -334,6 +336,8 @@
 "empty-no-feed-message" = "Vous pouvez voir vos articles recommandés quand vous avez Internet";
 "empty-no-history-message" = "Garder une trace de ce que vous avez lu ici";
 "empty-no-history-title" = "Aucun historique à afficher";
+"empty-no-other-article-languages-message" = "Cet article n’a pas encore été écrit dans d’autres langues";
+"empty-no-other-article-languages-title" = "Aucune autre langue disponible";
 "empty-no-reading-lists-message" = "Créer des listes de lieux à visiter, de sujets favoris et beaucoup d’autres";
 "empty-no-reading-lists-title" = "Organiser les articles enregistrés avec les listes de lecture";
 "empty-no-saved-pages-in-reading-list-message" = "Enregistrer des pages dans cette liste pour les voir apparaître ici";
@@ -429,6 +433,12 @@
 "explore-random-article-sub-heading-from-wikipedia" = "De Wikipédia";
 "explore-randomizer" = "Au hasard";
 "featured-article-empty-title" = "Aucun article en vedette disponible aujourd’hui";
+"featured-widget-content-failure-for-date" = "Un article mis en avant n’est pas disponible à cette date.";
+"featured-widget-description" = "Découvrir les meilleurs articles sur Wikipédia, sélectionnés chaque jour par notre communauté.";
+"featured-widget-from-language-wikipedia" = "De Wikipédia en $1";
+"featured-widget-from-wikipedia" = "De Wikipédia";
+"featured-widget-language-failure" = "La Wikipédia de votre langue principale ne prend pas en charge l’article mis en avant. Vous pouvez mettre à jour votre Wikipédia principale dans le menu Paramètres de l’application.";
+"featured-widget-title" = "Article mis en avant";
 "feed-news-notification-button-text" = "Activer les notifications";
 "feed-news-notification-text" = "Activer les notifications envoyées par Wikipédia quand des articles suivent la tendance de l’actualité.";
 "fetcher-error-generic" = "Quelque chose s’est mal passé. Veuillez réessayer ultérieurement.";
@@ -466,8 +476,8 @@
 "forgot-password-instructions" = "Remplir un des champs ci-dessous pour recevoir les instructions de réinitialisation du mot de passe par courriel";
 "forgot-password-title" = "Réinitialiser le mot de passe";
 "forgot-password-username-or-email-title" = "Ou";
-"gan-variants-alert-body" = "L’application Wikipédia supporte maintenant les variantes suivantes de Gan comme langues principale et secondaire dans l’application, la rendant plus facile à lire, rechercher et modifier dans vos variantes préférées :\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan simplifié (gan-hans)\n贛語 繁體 Gan traditionnel (gan-hant)";
-"gan-variants-alert-title" = "Met à jour le support des variantes Gan";
+"gan-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes du gan comme langues principale et secondaire dans l’application, le rendant plus facile à lire, rechercher et modifier dans vos variantes préférées :\n\n贛語 原文 – gan (gan)\n赣语 简体 – gan simplifié (gan-hans)\n贛語 繁體 – gan traditionnel (gan-hant)";
+"gan-variants-alert-title" = "Mises à jour de la prise en charge des variantes du gan";
 "history-clear-all" = "Effacer";
 "history-clear-cancel" = "Annuler";
 "history-clear-confirmation-heading" = "Êtes-vous sûr{{GENDER:||e}} de vouloir supprimer tous vos éléments récents ?";
@@ -529,12 +539,12 @@
 "intermediate-edits-editors-count-limited" = "$1+ révisions intermédiaires par $2+ utilisateurs non affichées";
 "intermediate-edits-editors-limited-count" = "$1 version{{PLURAL:$1||s}} intermédiaire{{PLURAL:$1||s}} par $2+ utilisateurs non affichée{{PLURAL:$1||s}}";
 "intermediate-edits-limited-editors-count" = "$1+ versions intermédiaires par $2 utilisateur{{PLURAL:$2||s}} non affichées";
-"inuktitut-variants-alert-body" = "L’application Wikipédia supporte maintenant les variantes suivantes de l’Inuktitut comme langues principale ou secondaire dans l’application, rendant plus facile de lire, rechercher ou modifier dans vos variantes préférées :\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut syllabique (ike-cans)\nInuktitut ilisautik, Inuktitut latin (ike-latn)";
-"inuktitut-variants-alert-title" = "Met à jour le support des variantes d’Inuktitut";
-"kazakh-variants-alert-body" = "L’application Wikipédia supporte maintenant les variantes suivantes du kazakhe comme langues principale ou secondaire dans l’application, rendant plus facile de lire, rechercher ou modifier dans vos variantes préférées :\n\nҚазақша Kazakhe (kk)\nҚазақша Кирил Kazakhe cyrillique (kk-cyrl)\nqazaqşa latin Kazakhe latin (kk-latn)\nتوتە قازاقشا Kazakhe arabe (kk-arab)";
-"kazakh-variants-alert-title" = "Met à jour le support des variantes du Kazakhe";
-"kurdish-variants-alert-body" = "L’application Wikipédia supporte maintenant les variantes suivantes du Kurde comme langues principale ou secondaire dans l’application, rendant plus facile de lire, rechercher ou modifier dans vos variantes préférées :\n\nKurdî Latînî Kurde latin (ku-latn)\nكوردی Kurde arabe (kk-arab)";
-"kurdish-variants-alert-title" = "Met à jour le support des variantes du Kurde";
+"inuktitut-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes de l’inuktitut comme langues primaire ou secondaires dans l’application, le rendant plus facile à lire, rechercher ou modifier dans vos variantes préférées :\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ – inuktitut syllabique (ike-cans)\nInuktitut ilisautik – inuktitut latin (ike-latn)";
+"inuktitut-variants-alert-title" = "Mises à jour de la prise en charge des variantes de l’inuktitut";
+"kazakh-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes du kazakhe comme langues primaire ou secondaires dans l’application, le rendant plus facile à lire, rechercher ou modifier dans vos variantes préférées :\n\nҚазақша – kazakhe (kk)\nҚазақша Кирил – kazakhe cyrillique (kk-cyrl)\nqazaqşa latin – kazakhe latin (kk-latn)\nتوتە قازاقشا – kazakhe arabe (kk-arab)";
+"kazakh-variants-alert-title" = "Mises à jour de la prise en charge des variantes du kazakhe";
+"kurdish-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes du kurde comme langues primaire ou secondaires dans l’application, le rendant plus facile à lire, rechercher ou modifier dans vos variantes préférées :\n\nKurdî Latînî – kurde latin (ku-latn)\nكوردی – kurde arabe (kk-arab)";
+"kurdish-variants-alert-title" = "Mises à jour de la prise en charge des variantes du kurde";
 "languages-settings-title" = "Langues";
 "languages-title" = "Changer de langue";
 "languages-wikipedia" = "Langues de Wikipédia";
@@ -580,7 +590,9 @@
 "on-this-day-detail-header-date-range" = "de $1 à $2";
 "on-this-day-detail-header-title" = "$1 événement{{PLURAL:$1||s}} historique{{PLURAL:$1||s}}";
 "on-this-day-footer" = "Plus d’événements historiques de ce jour";
-"on-this-day-footer-showing-event-count" = "{{PLURAL:$1|$1 événement historique de plus|$1 événements historiques de plus}} ce jour";
+"on-this-day-footer-showing-event-count" = "{{PLURAL:$1|$1 événement historique|$1 événements historiques}} de plus pour ce jour";
+"on-this-day-language-does-not-support-error" = "La Wikipédia de votre langue principale ne prend pas en charge Ce jour. Vous pouvez mettre à jour votre Wikipédia principale dans le menu Paramètres de l’application.";
+"on-this-day-no-internet-error" = "Aucune donnée disponible";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 sur Wikipédia en $2";
 "on-this-day-title" = "Ce jour-là";
 "original-tab-button-popover-description" = "Tapez sur l’icône « W » pour revenir à l’onglet avec lequel vous avez commencé";
@@ -645,6 +657,9 @@
 "places-unknown-distance" = "distance inconnue";
 "potd-description-prefix" = "Image du jour pour $1";
 "potd-empty-error-description" = "Échec de récupération de l’image du jour pour $1";
+"potd-sample-entry-description" = "Deux taureaux galopant alors que le jockey se tient sur eux en pacu jawi (de Minangkabau, « course de taureau »), une course de taureaux traditionnelle à Tanah Datar, ouest de Sumatra, Indonésie. 2015, fin 45.";
+"potd-widget-description" = "Profiter d’une jolie photo quotidienne sélectionnée par notre communauté.";
+"potd-widget-title" = "Image du jour";
 "preference-summary-eventlogging-opt-in" = "Permettre à la Fondation Wikimedia de collecter des informations sur la manière dont vous utilisez l’application, afin de l’améliorer";
 "preference-title-eventlogging-opt-in" = "Envoyer les rapports d’utilisation";
 "rank-accessibility-label" = "Numéro $1";
@@ -751,10 +766,7 @@
 "replace-replace-all-results-count" = "$1 élément{{PLURAL:$1||s}} remplacé{{PLURAL:$1||s}}";
 "replace-textfield-accessibility" = "Remplacer";
 "replace-textfield-placeholder" = "Remplacer par...";
-"request-feedback-on-error" = "L’application a rencontré un problème à propos duquel nos développeurs aimeraient en savoir plus. Veuillez toucher ici pour nous envoyer un courriel avec les détails de l’erreur.";
 "reverted-edit-back-to-article-button-title" = "Retour à l’article";
-"reverted-edit-notification-body" = "La modification que vous avez apportée à l’article $1 a été annulée par $2";
-"reverted-edit-notification-read-more-action-title" = "Lire la suite";
 "reverted-edit-possible-reasons" = "- Votre contribution ne suit pas l’une des règles. $1 \n\n- Votre contribution ressemble à un essai ou a du vandalisme";
 "reverted-edit-possible-reasons-subtitle" = "Nous savons que vous avez fait de votre mieux, mais un de nos relecteurs a eu un souci. \n\nLes raisons possibles de l’annulation de votre modification sont :";
 "reverted-edit-thanks-for-editing-title" = "Merci d’avoir enrichi Wikipédia !";
@@ -782,8 +794,8 @@
 "search-recent-title" = "Récemment recherché";
 "search-result-redirected-from" = "(Redirigé depuis $1)";
 "search-title" = "Rechercher";
-"serbian-variants-alert-body" = "L’application Wikipédia supporte maintenant les variantes suivantes du Serbe comme langues principale ou secondaire dans l’application, rendant plus facile de lire, rechercher ou modifier dans vos variantes préférées :\n\nсрпски ћирилица Serbe cyrillique (sr-ec)\nsrpski latinica Serbe latin (sr-el)";
-"serbian-variants-alert-title" = "Met à jour le support des variantes du Serbe";
+"serbian-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes du serbe comme langues primaire ou secondaires dans l’application, le rendant plus facile à lire, rechercher ou modifier dans vos variantes préférées :\n\nсрпски ћирилица – serbe cyrillique (sr-ec)\nsrpski latinica – serbe latin (sr-el)";
+"serbian-variants-alert-title" = "Mises à jour de la prise en charge des variantes du serbe";
 "settings-account" = "Compte";
 "settings-appearance" = "Préférences de lecture";
 "settings-clear-cache" = "Effacer les données en cache";
@@ -842,10 +854,10 @@
 "table-of-contents-heading" = "Contenus";
 "table-of-contents-hide-button-label" = "Masquer la table des matières";
 "table-of-contents-subheading-label" = "Sous-titre $1";
-"tachelhit-variants-alert-body" = "L’application Wikipédia supporte maintenant les variantes suivantes du Chleuh comme langues principale ou secondaire dans l’application, rendant plus facile de lire, rechercher ou modifier dans vos variantes préférées :\n\nⵜⴰⵛⵍⵃⵉⵜ Chleuh, Tifinagh (shi-tfng)\nTaclḥit Chleuh latin (shi-latn)";
-"tachelhit-variants-alert-title" = "Met à jour le support des variantes du Chleuh";
-"tajik-variants-alert-body" = "L’application Wikipédia supporte maintenant les variantes suivantes du Tadjik comme langues principale ou secondaire dans l’application, rendant plus facile de lire, rechercher ou modifier dans vos variantes préférées :\n\nтоҷикӣ кирилликӣ Tadjik cyrillique (tg-cyrl)\ntojikī lotinī Tadjik latin (tg-latn)";
-"tajik-variants-alert-title" = "Met à jour le support des variantes du Tadjik";
+"tachelhit-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes du chleuh comme langues primaire ou secondaires dans l’application, le rendant plus facile à lire, rechercher ou modifier dans vos variantes préférées :\n\nⵜⴰⵛⵍⵃⵉⵜ – chleuh tifinagh (shi-tfng)\nTaclḥit – chleuh latin (shi-latn)";
+"tachelhit-variants-alert-title" = "Mises à jour de la prise en charge des variantes du chleuh";
+"tajik-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes du tadjik comme langues primaire ou secondaires dans l’application, le rendant plus facile à lire, rechercher ou modifier dans vos variantes préférées :\n\nтоҷикӣ кирилликӣ – tadjik cyrillique (tg-cyrl)\ntojikī lotinī – tadjik latin (tg-latn)";
+"tajik-variants-alert-title" = "Mises à jour de la prise en charge des variantes du tadjik";
 "talk-page-add-discussion-accessibility-label" = "Ajouter une discussion";
 "talk-page-discussion-accessibility-hint" = "Taper deux fois pour ouvrir un fil de discussion";
 "talk-page-discussion-read-accessibility-label" = "Lu";
@@ -886,6 +898,9 @@
 "top-read-header-generic" = "Wikipédia";
 "top-read-header-with-language" = "Wikipédia en $1";
 "top-read-see-more" = "Voir d’autres articles les plus lus";
+"top-read-widget-description" = "Apprendre ce que le monde lit aujourd’hui sur Wikipédia.";
+"top-read-widget-readers-count" = "$1 lecteurs";
+"top-read-widget-title" = "Les plus lus";
 "two-factor-login-continue" = "Continuer la connexion";
 "two-factor-login-instructions" = "Veuillez entrer le code de vérification à deux facteurs";
 "two-factor-login-title" = "Se connecter à votre compte";
@@ -893,8 +908,8 @@
 "two-factor-login-with-regular-code" = "Utiliser un code de vérification";
 "unable-to-load-talk-page-title" = "Impossible de charger la page de discussion";
 "unknown-generic-text" = "Inconnu";
-"uzbek-variants-alert-body" = "L’application Wikipédia supporte maintenant les variantes suivantes du Ouzbek comme langues principale ou secondaire dans l’application, rendant plus facile de lire, rechercher ou modifier dans vos variantes préférées :\n\noʻzbekcha lotin Ouzbek latin (uz-latin)\nўзбекча кирилл Ouzbek cyrillique (uz-cyrl)";
-"uzbek-variants-alert-title" = "Met à jour le support des variantes de l’Ouzbek";
+"uzbek-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes de l’ouzbek comme langues primaire ou secondaires dans l’application, le rendant plus facile à lire, rechercher ou modifier dans vos variantes préférées :\n\noʻzbekcha lotin – ouzbek latin (uz-latin)\nўзбекча кирилл – ouzbek cyrillique (uz-cyrl)";
+"uzbek-variants-alert-title" = "Mises à jour de la prise en charge des variantes de l’ouzbek";
 "variants-alert-dismiss-button" = "Non merci";
 "variants-alert-preferences-button" = "Revoir vos préférences";
 "welcome-exploration-explore-feed-description" = "Lecture recommandée et articles du jour de notre communauté";
@@ -922,6 +937,9 @@
 "welcome-send-data-learn-more" = "En savoir plus sur les données collectées";
 "welcome-send-data-sub-title" = "Aider à améliorer l’application en indiquant à la Fondation Wikimedia la manière dont vous l’utilisez. Les données collectées sont anonymes.";
 "welcome-volunteer-send-usage-reports" = "Envoyer les rapports d’utilisation";
+"widget-onthisday-description" = "Explorer ce qui s’est passé ce jour-ci dans l’histoire.";
+"widget-onthisday-placeholder-article-snippet" = "Encyclopédie en ligne gratuite que tout le monde peut modifier";
+"widget-onthisday-placeholder-event-snippet" = "Wikipédia, une encyclopédie de contenu wiki libre, est mise en ligne.";
 "wikitext-downloading" = "Chargement du contenu...";
 "wikitext-preview-changes" = "Récupération de l’aperçu de vos modifications...";
 "wikitext-preview-changes-none" = "Aucune modification faite pour l’aperçu.";

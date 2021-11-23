@@ -92,7 +92,7 @@ final class OnThisDayData {
     // From https://en.wikipedia.org/api/rest_v1/feed/onthisday/events/01/15, taken on 03 Sept 2020.
     func placeholderEntryFromLanguage(_ language: MWKLanguageLink?) -> OnThisDayEntry {
         let locale = NSLocale.wmf_locale(for: language?.languageCode)
-        let isRTL = MWKLanguageLinkController.isLanguageRTL(forContentLanguageCode: language?.languageCode)
+        let isRTL = MWKLanguageLinkController.isLanguageRTL(forContentLanguageCode: language?.contentLanguageCode)
 
         let fullDate: String
         let eventYear: String
@@ -112,8 +112,8 @@ final class OnThisDayData {
             monthDay = "January 15"
         }
 
-        let eventSnippet = WMFLocalizedString("widget-onthisday-placeholder-event-snippet", language: language?.languageCode, value: "Wikipedia, a free wiki content encyclopedia, goes online.", comment: "Placeholder text for On This Day widget: Event describing launch of Wikipedia")
-        let articleSnippet = WMFLocalizedString("widget-onthisday-placeholder-article-snippet", language: language?.languageCode, value: "Free online encyclopedia that anyone can edit", comment: "Placeholder text for On This Day widget: Article description for an article about Wikipedia")
+        let eventSnippet = WMFLocalizedString("widget-onthisday-placeholder-event-snippet", languageCode: language?.languageCode, value: "Wikipedia, a free wiki content encyclopedia, goes online.", comment: "Placeholder text for On This Day widget: Event describing launch of Wikipedia")
+        let articleSnippet = WMFLocalizedString("widget-onthisday-placeholder-article-snippet", languageCode: language?.languageCode, value: "Free online encyclopedia that anyone can edit", comment: "Placeholder text for On This Day widget: Article description for an article about Wikipedia")
 
         // It seems that projects whose article is not titled "Wikipedia" (Arabic, for instance) all redirect this URL appropriately.
         let articleURL = URL(string: ((language?.siteURL.absoluteString ?? "https://en.wikipedia.org") + "/wiki/Wikipedia"))
@@ -124,7 +124,7 @@ final class OnThisDayData {
                                           onThisDayTitle: CommonStrings.onThisDayTitle(with: language?.languageCode),
                                           monthDay: monthDay,
                                           fullDate: fullDate,
-                                          otherEventsText: CommonStrings.onThisDayFooterWith(with: 49, language: language?.languageCode),
+                                          otherEventsText: CommonStrings.onThisDayFooterWith(with: 49, languageCode: language?.languageCode),
                                           contentURL: URL(string: "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today"),
                                           eventSnippet: eventSnippet,
                                           eventYear: eventYear,
@@ -236,7 +236,7 @@ extension OnThisDayEntry {
         else {
             return nil
         }
-        let language = contentGroup.siteURL?.wmf_language
+        let language = contentGroup.siteURL?.wmf_languageCode
         let monthDayFormatter = DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: language)
         monthDay = monthDayFormatter.string(from: midnightUTCDate)
         var components = calendar.components([.month, .year, .day], from: midnightUTCDate)
@@ -253,7 +253,7 @@ extension OnThisDayEntry {
         onThisDayTitle = CommonStrings.onThisDayTitle(with: language)
         isRTLLanguage = contentGroup.isRTL
         error = nil
-        otherEventsText = CommonStrings.onThisDayFooterWith(with: (eventsCount - 1), language: language)
+        otherEventsText = CommonStrings.onThisDayFooterWith(with: (eventsCount - 1), languageCode: language)
         eventSnippet = previewEvent.text
         articleTitle = article.displayTitle
         articleSnippet = article.descriptionOrSnippet

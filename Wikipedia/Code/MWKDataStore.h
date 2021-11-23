@@ -6,7 +6,6 @@
 @class WMFArticle;
 @class WMFExploreFeedContentController;
 @class WMFReadingListsController;
-@class WikidataDescriptionEditingController;
 @class RemoteNotificationsController;
 @class WMFArticleSummaryController;
 @class MobileviewToMobileHTMLConverter;
@@ -49,6 +48,9 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 
 @interface MWKDataStore : NSObject
 
+/// The current library version as used in migrations
+@property (class, nonatomic, readonly) NSInteger currentLibraryVersion;
+
 /**
  *  Initialize with sharedInstance database and legacyDataBasePath
  *
@@ -80,7 +82,6 @@ typedef NS_OPTIONS(NSUInteger, RemoteConfigOption) {
 @property (readonly, strong, nonatomic) MWKSavedPageList *savedPageList;
 @property (readonly, strong, nonatomic) MWKRecentSearchList *recentSearchList;
 @property (readonly, strong, nonatomic) WMFReadingListsController *readingListsController;
-@property (readonly, strong, nonatomic) WikidataDescriptionEditingController *wikidataDescriptionEditingController;
 @property (readonly, strong, nonatomic) RemoteNotificationsController *remoteNotificationsController;
 @property (readonly, strong, nonatomic) WMFArticleSummaryController *articleSummaryController;
 @property (readonly, strong, nonatomic) MWKLanguageLinkController *languageLinkController;

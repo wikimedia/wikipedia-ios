@@ -91,7 +91,7 @@
 #pragma mark - MTLJSONAdapter Language Variant Extensions
 
 @implementation MTLJSONAdapter (LanguageVariantExtensions)
-+ (id)modelOfClass:(Class)modelClass fromJSONDictionary:(NSDictionary *)JSONDictionary languageVariantCode:(nullable NSString *) languageVariantCode error:(NSError **)error {
++ (nullable id)modelOfClass:(Class)modelClass fromJSONDictionary:(NSDictionary *)JSONDictionary languageVariantCode:(nullable NSString *) languageVariantCode error:(NSError **)error {
     id model = [[self class] modelOfClass:modelClass fromJSONDictionary:JSONDictionary error:error];
     if (model && [model respondsToSelector:@selector(propagateLanguageVariantCode:)]) {
         [model propagateLanguageVariantCode: languageVariantCode];

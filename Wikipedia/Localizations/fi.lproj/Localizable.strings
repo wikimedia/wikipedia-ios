@@ -1,6 +1,7 @@
 // Messages for Finnish (suomi)
 // Exported from translatewiki.net
 // Author: 01miki10
+// Author: 3Johnny
 // Author: 4shadoww
 // Author: AinScept
 // Author: Alluk.
@@ -8,8 +9,11 @@
 // Author: Areee
 // Author: ElmA
 // Author: Jack Phoenix
+// Author: Joquliina
 // Author: Laurianttila
+// Author: MITO
 // Author: McSalama
+// Author: Mediawikitranslator
 // Author: Nemo bis
 // Author: Nike
 // Author: OneMember
@@ -181,12 +185,12 @@
 "continue-reading-empty-title" = "Ei äskettäin luettuja artikkeleja";
 "data-migration-status" = "Päivitetäään...";
 "description-add-title" = "Lisää kuvaus";
-"description-edit-for-article" = "Otsikon kuvaus artikkelille $1";
+"description-edit-for-article" = "Artikkelin kuvaus $1";
 "description-edit-learn-more" = "Lisätietoja";
 "description-edit-length-warning" = "$1 / $2";
-"description-edit-license" = "Muuttamalla otsikon kuvausta hyväksyn $1 ja peruuttamattomasti julkaisen muutokseni $2 -lisenssillä.";
+"description-edit-license" = "Muuttamalla artikkelin kuvausta hyväksyn $1 ja peruuttamattomasti julkaisen muutokseni $2 -lisenssillä.";
 "description-edit-pencil-introduction" = "Muokkaa esittelyä";
-"description-edit-pencil-title" = "Muokkaa otsikon kuvausta";
+"description-edit-pencil-title" = "Muokkaa artikkelin kuvausta";
 "description-edit-placeholder-title" = "Lyhyet kuvaukset ovat parhaita";
 "description-edit-publish" = "Julkaise kuvaus";
 "description-edit-title" = "Muokkaa kuvausta";
@@ -197,13 +201,13 @@
 "description-help-more-info-description" = "Kuvaukset tallennetaan Wikidataan. Se on Wikimedia-säätiön ylläpitämä vapaasti muokattava monikielinen tietokanta, joka toimii Wikipedian ja muiden wikiprojektien tukena.";
 "description-help-more-info-title" = "Lisää tietoa";
 "description-help-tips-description" = "Kuvauksen tulisi mahtua yhdelle riville eli olla 2-12 sanan pituinen.";
-"description-help-tips-example-description-one" = "Mona Lisaa käsittelevän artikkelin otsikon kuvaus";
-"description-help-tips-example-description-two" = "Mount Everestiä käsittelevän artikkelin otsikon kuvaus";
+"description-help-tips-example-description-one" = "Mona Lisaa käsittelevän artikkelin kuvaus";
+"description-help-tips-example-description-two" = "Mount Everestiä käsittelevän artikkelin kuvaus";
 "description-help-tips-example-title-one" = "Leonardo da Vincin maalaus";
 "description-help-tips-example-title-two" = "Maapallon korkein vuori";
 "description-help-tips-for-example" = "Esimerkkejä:";
 "description-help-tips-title" = "Vinkkejä kuvauksen luomiseen";
-"description-help-title" = "Otsikon kuvauksen ohje";
+"description-help-title" = "Artikkelin kuvauksen ohje";
 "description-help-wikidata-guide" = "Wikidata-opas kuvausten kirjoittamiseen";
 "description-published-button-title" = "Valmis";
 "description-published-footer" = "Artikkeleita voi muokata myös tässä sovelluksessa. Kokeile vaikkapa kirjoitusvirheiden korjaamista napauttamalla kynän kuvaketta.";
@@ -212,7 +216,7 @@
 "description-welcome-concise-sub-title" = "Ideaalisesti yksi rivi, kahdesta kahteenkymmeneen sanaan";
 "description-welcome-concise-title" = "Pidä se lyhyenä";
 "description-welcome-descriptions-sub-title" = "Artikkelin yhteenveto helpottaa sisällön hahmottamista nopealla vilauksella";
-"description-welcome-descriptions-title" = "Otsikon kuvaukset";
+"description-welcome-descriptions-title" = "Artikkelin kuvaukset";
 "description-welcome-promise-title" = "Aloittamalla, lupaan etten väärinkäytä tätä ominaisuutta";
 "description-welcome-start-editing-button" = "Aloita muokkaaminen";
 "diff-compare-header-from-info-heading" = "Alkuperäinen:";
@@ -287,6 +291,8 @@
 "edit-summary-choice-linked-words" = "Lisätty linkkejä";
 "edit-summary-learn-more-text" = "Lisätietoja";
 "edit-summary-placeholder-text" = "Miten paransit artikkelia?";
+"edit-template-accessibility-label" = "Lisää mallinesyntaksi";
+"edit-template-remove-accessibility-label" = "Poista mallinesyntaksi";
 "edit-text-clear-formatting" = "Tyhjennä muotoilu";
 "edit-text-formatting-accessibility-label" = "Näytä tekstinmuotoiluvalikko";
 "edit-text-formatting-table-view-title" = "Tekstin muotoilu";
@@ -314,6 +320,7 @@
 "empty-no-feed-message" = "Näet suositellut artikkelisi kun sinulla on Internet-yhteys";
 "empty-no-history-message" = "Pidä kirjaa lukemistasi artikkeleista";
 "empty-no-history-title" = "Ei näytettävää historiaa";
+"empty-no-other-article-languages-title" = "Muita kieliä ei saatavilla";
 "empty-no-reading-lists-message" = "Luo lukulistoja matkustettaville paikoille, suosikkiartikkeleille ja paljon enemmän";
 "empty-no-reading-lists-title" = "Järjestä tallennetut artikkelit lukulistoilla";
 "empty-no-saved-pages-in-reading-list-message" = "Tallenna sivuja tähän listaan nähdäksesi ne täällä";
@@ -409,6 +416,12 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Wikipediasta";
 "explore-randomizer" = "Satunnaistaminen";
 "featured-article-empty-title" = "Ei saatavilla olevaa suositeltua artikkelia tälle päivälle";
+"featured-widget-content-failure-for-date" = "Suositeltu artikkeli ei ole saatavilla tälle päivälle.";
+"featured-widget-description" = "Löydä parhaat Wikipedian artikkelit, joita yhteisömme valitsee päivittäin.";
+"featured-widget-from-language-wikipedia" = "Wikipedian kieliversiosta $1";
+"featured-widget-from-wikipedia" = "Wikipediasta";
+"featured-widget-language-failure" = "Ensisijainen Wikipedia-kielesi ei tue Suositeltua artikkelia. Voit päivittää Wikipedian asetuksia sovelluksen asetuksista.";
+"featured-widget-title" = "Suositeltu artikkeli";
 "feed-news-notification-button-text" = "Ota ilmoitukset käyttöön";
 "feed-news-notification-text" = "Kytke ilmoitukset päälle saadaksesi ilmoituksen artikkeleista jotka ovat nousussa uutisissa.";
 "fetcher-error-generic" = "Jotain meni pieleen. Yritä uudelleen myöhemmin";
@@ -545,6 +558,39 @@
 "no-internet-connection" = "Ei Internet-yhteyttä";
 "no-internet-connection-article-reload" = "Uudempi versio tästä artikkelista saattaa olla saatavilla, mutta sitä ei voida ladata ilman yhteyttä Internetiin";
 "no-internet-connection-article-reload-button" = "Palaa viimeksi tallennettuun versioon";
+"notifications-center-change-password" = "Vaihda salasana";
+"notifications-center-edit-button" = "Muokkaa";
+"notifications-center-empty-checking-for-notifications" = "Tarkistetaan ilmoituksia...";
+"notifications-center-empty-no-unread-messages" = "Sinulla ei ole lukemattomia viestejä";
+"notifications-center-footer-change-password" = "Vaihda salasana";
+"notifications-center-go-to-talk-page" = "Mene keskustelusivulle";
+"notifications-center-go-to-title" = "Mene sivulle $1";
+"notifications-center-go-to-user-page" = "Mene käyttäjän $1 käyttäjäsivulle";
+"notifications-center-go-to-wikidata-item" = "Mene Wikidata-kohteeseen";
+"notifications-center-go-to-your-talk-page" = "Mene keskustelusivullesi";
+"notifications-center-header-alert-from-project" = "Ilmoitus projektista $1";
+"notifications-center-header-notice-from-project" = "Ilmoitus projektista $1";
+"notifications-center-login-notifications" = "Kirjautumisilmoitukset";
+"notifications-center-mark-as-read" = "Merkitse luetuksi";
+"notifications-center-mark-as-unread" = "Merkitse lukemattomaksi";
+"notifications-center-notifications-settings" = "Ilmoitusasetukset";
+"notifications-center-subheader-edit-milestone" = "Muokkausvirstanpylväs";
+"notifications-center-subheader-edit-reverted" = "Muokkauksesi on kumottu";
+"notifications-center-subheader-email-from-other-user" = "Uusi sähköposti";
+"notifications-center-subheader-login-fail-known-device" = "Useita epäonnistuneita kirjautumisyrityksiä";
+"notifications-center-subheader-login-success-unknown-device" = "Kirjautuminen tuntemattomalta laitteelta";
+"notifications-center-subheader-mention-article-talk-page" = "Maininta artikkelin keskustelusivulla";
+"notifications-center-subheader-mention-edit-summary" = "Maininta muokkausyhteenvedossa";
+"notifications-center-subheader-mention-failed" = "Epäonnistunut maininta";
+"notifications-center-subheader-mention-successful" = "Onnistunut maininta";
+"notifications-center-subheader-mention-talk-page" = "Maininta keskustelusivulla";
+"notifications-center-subheader-message-user-talk-page" = "Viesti keskustelusivullasi";
+"notifications-center-subheader-page-link" = "Sivulinkki";
+"notifications-center-subheader-thanks" = "Kiitos";
+"notifications-center-subheader-user-rights-change" = "Käyttäjäoikeuksien muutos";
+"notifications-center-subheader-welcome" = "Tervetuloa!";
+"notifications-center-subheader-wikidata-connection" = "Wikidata-yhteys muodostettu";
+"notifications-center-title" = "Ilmoitukset";
 "number-billions" = "$1 mrd.";
 "number-millions" = "$1 milj.";
 "number-thousands" = "$1 t.";
@@ -552,6 +598,7 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historiallinen tapahtuma|$1 historiallista tapahtumaa}}";
 "on-this-day-footer" = "Lisää tänä päivänä tapahtuneita historiallisia tapahtumia";
 "on-this-day-footer-showing-event-count" = "{{PLURAL:$1|$1 historiallinen tapahtuma|$1 historiallista tapahtumaa}} lisää tänä päivänä";
+"on-this-day-no-internet-error" = "Ei internetyhteyttä";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 kieliversion $2 Wikipediassa";
 "on-this-day-title" = "Tänä päivänä";
 "original-tab-button-popover-description" = "Napauta 'W' -kuvaketta palataksesi välilehdelle josta aloitit";
@@ -616,6 +663,8 @@
 "places-unknown-distance" = "tuntematon etäisyys";
 "potd-description-prefix" = "Päivän kuva: $1";
 "potd-empty-error-description" = "Virhe haettaessa päivän kuvaa $1";
+"potd-widget-description" = "Nauti kauniista päivän kuvasta, jonka yhteisömme on valinnut.";
+"potd-widget-title" = "Päivän kuva";
 "preference-summary-eventlogging-opt-in" = "Salli Wikimedia-säätiön kerätä tietoja sovelluksen käyttämisestä käyttökokemuksen parantamiseksi.";
 "preference-title-eventlogging-opt-in" = "Lähetä käyttöraportteja";
 "rank-accessibility-label" = "Numero $1";
@@ -705,6 +754,8 @@
 "relative-date-hours-abbreviated" = "$1 t";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Äskettäin|$1 tunti sitten|$1 tuntia sitten}}";
 "relative-date-hours-ago-abbreviated" = "$1 t sitten";
+"relative-date-hrs-ago" = "{{PLURAL:$1|0=Äskettäin|$1 tunti sitten|$1 tuntia sitten}}";
+"relative-date-min-ago" = "{{PLURAL:$|0=Juuri nyt|$1 minuutti sitten|$1 minuuttia sitten}}";
 "relative-date-minutes-abbreviated" = "$1 min";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Juuri nyt|$1 minuutti sitten|$1 minuuttia sitten}}";
 "relative-date-minutes-ago-abbreviated" = "$1 min sitten";
@@ -722,10 +773,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 kohde korvattu|$1 kohdetta korvattu}}";
 "replace-textfield-accessibility" = "Korvaa";
 "replace-textfield-placeholder" = "Korvaa seuraavalla...";
-"request-feedback-on-error" = "Tämä sovellus on kohdannut virheen, josta kehittäjämme haluaisivat tietää lisää. Napauta tästä lähettääksesi meille sähköpostitse virheen tiedot.";
 "reverted-edit-back-to-article-button-title" = "Takaisin artikkeliin";
-"reverted-edit-notification-body" = "$2 palautti artikkeliin $1 tekemäsi muutoksen";
-"reverted-edit-notification-read-more-action-title" = "Lue lisää";
 "reverted-edit-possible-reasons" = "- Muutoksesi ei noudata yhtä suuntaviivoista. $1 \n\n - Muutoksesi näyttää kokeilulta tai vandalismilta";
 "reverted-edit-possible-reasons-subtitle" = "Teit varmasti parhaasi, mutta muokkauksessasi oli puutteita.\n\nKumoamisen syy saattoi olla:";
 "reverted-edit-thanks-for-editing-title" = "Kiitos Wikipedian muokkaamisesta!";
@@ -849,6 +897,7 @@
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "Katso lisää luetuimpia";
+"top-read-widget-title" = "Luetuimmat";
 "two-factor-login-continue" = "Jatka sisäänkirjautumista";
 "two-factor-login-instructions" = "Syötä kaksivaiheisen vahvistuksen koodi";
 "two-factor-login-title" = "Kirjaudu sisään käyttäjätunnuksellesi";
@@ -857,6 +906,7 @@
 "unable-to-load-talk-page-title" = "Keskustelusivun lataaminen epäonnistui";
 "unknown-generic-text" = "Tuntematon";
 "variants-alert-dismiss-button" = "Ei kiitos";
+"variants-alert-preferences-button" = "Tarkista asetuksesi";
 "welcome-exploration-explore-feed-description" = "Suositellut luettavat ja pävittäiset artikkelit yhteisöstämme";
 "welcome-exploration-explore-feed-title" = "Tutki syötettä";
 "welcome-exploration-on-this-day-description" = "Matkusta takaisin ajassa ja opi mitä tapahtui tänä päivänä historiassa";
@@ -882,6 +932,7 @@
 "welcome-send-data-learn-more" = "Lue lisää kerätyistä tiedoista";
 "welcome-send-data-sub-title" = "Auta sovelluksen kehitystyössä antamalla Wikimedia-säätiön kerätä tietoja sovelluksen käyttötavoista. Tiedot kerätään anonyymisti.";
 "welcome-volunteer-send-usage-reports" = "Lähetä käyttöraportteja";
+"widget-onthisday-placeholder-event-snippet" = "Wikipedia, ilmainen tietosanakirja, siirtyy verkkoon.";
 "wikitext-downloading" = "Ladataan sisältöä...";
 "wikitext-preview-changes" = "Ladataan esikatselua tehdyistä muutoksista...";
 "wikitext-preview-changes-none" = "Ei esikatseltavia muutoksia.";

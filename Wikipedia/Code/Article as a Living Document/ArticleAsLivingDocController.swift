@@ -4,7 +4,7 @@ import UIKit
 import CocoaLumberjackSwift
 import WMF
 
-protocol ArticleAsLivingDocControllerDelegate: class {
+protocol ArticleAsLivingDocControllerDelegate: AnyObject {
     var articleURL: URL { get }
     var article: WMFArticle { get }
     var messagingController: ArticleWebMessagingController { get }
@@ -25,7 +25,6 @@ enum ArticleAsLivingDocSurveyLinkState {
     case inExperimentLoadedEventsDidSeeModal
 }
 
-@available(iOS 13.0, *)
 class ArticleAsLivingDocController: NSObject {
 
     enum Errors: Error {
@@ -68,16 +67,12 @@ class ArticleAsLivingDocController: NSObject {
     }
     var articleAsLivingDocEditMetrics: [NSNumber]?
     
-    //making lazy to be able to limit just this property to 13+
-    @available(iOS 13.0, *)
-    lazy var articleAsLivingDocViewController: ArticleAsLivingDocViewController? = {
-        return nil
-    }()
+    var articleAsLivingDocViewController: ArticleAsLivingDocViewController?
     
     var shouldAttemptToShowArticleAsLivingDoc: Bool {
         
         guard let delegate = delegate,
-              delegate.articleURL.host == Configuration.Domain.englishWikipedia,
+              delegate.articleURL.wmf_isEnglishWikipedia,
               let view = delegate.view,
               view.effectiveUserInterfaceLayoutDirection == .leftToRight
                else {

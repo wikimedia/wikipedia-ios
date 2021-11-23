@@ -17,6 +17,7 @@
 // Author: Vinhtantran
 
 "aaald-added-text-description-2" = "$1 được thêm";
+// Fuzzy
 "aaald-article-description-updated-description" = "Đã cập nhật lời tóm lược bài viết";
 "aaald-article-insert-header" = "Cập nhật Quan trọng";
 "aaald-article-insert-last-updated" = "Cập nhật lần cuối cùng";
@@ -168,7 +169,7 @@
 "button-skip" = "Bỏ qua";
 "cancel" = "Hủy bỏ";
 "cc-zero" = "Creative Commons CC0";
-"chinese-variants-alert-body" = "Ứng dụng Wikipedia hiện hỗ trợ các biến thể chữ Hán sau đây khi sử dụng tiếng Trung làm ngôn ngữ chính hoặc phụ trong ứng dụng, giúp bạn đọc, tìm kiếm, và chỉnh sửa dễ dàng hơn trong biến thể ưa thích của mình:\n\n简体 Trung giản thể (zh-hans)\n繁體 Trung phồn thể (zh-hant)\n大陆简体 Hoa Lục giản thể (zh-cn)\n香港繁體 Hồng Kông phồn thể (zh-hk)\n澳門繁體 Ma Cao phồn thể (zh-mo)\n大马简体 Mã Lai giản thể (zh-my)\n新加坡简体 Singapore giản thể (zh-sg)\n臺灣正體 Đài Loan phồn thể (zh-tw)";
+"chinese-variants-alert-body" = "Ứng dụng Wikipedia hiện hỗ trợ các kiểu chữ Hán sau đây khi sử dụng tiếng Trung làm ngôn ngữ chính hoặc phụ trong ứng dụng, giúp bạn đọc, tìm kiếm, và sửa đổi dễ dàng hơn trong kiểu chữ ưa thích của mình:\n\n简体 Trung giản thể (zh-hans)\n香港繁體 Hồng Kông phồn thể (zh-hk)\n澳門繁體 Ma Cao phồn thể (zh-mo)\n大马简体 Mã Lai giản thể (zh-my)\n新加坡简体 Singapore giản thể (zh-sg)\n臺灣正體 Đài Loan phồn thể (zh-tw)";
 "chinese-variants-alert-title" = "Cập nhật hỗ trợ biến thể chữ Hán";
 "clear-title-accessibility-label" = "Xóa sạch";
 "close-button-accessibility-label" = "Đóng";
@@ -177,28 +178,35 @@
 "continue-reading-empty-title" = "Không bài nào được đọc gần đây";
 "data-migration-status" = "Đang cập nhật…";
 "description-add-title" = "Thêm lời tóm lược";
+// Fuzzy
 "description-edit-for-article" = "Tóm lược $1";
 "description-edit-learn-more" = "Tìm hiểu thêm";
 "description-edit-length-warning" = "$1 / $2";
+// Fuzzy
 "description-edit-license" = "Với việc thay đổi lời tóm lược, tôi chấp nhận $1 và đồng ý phát hành các đóng góp của mình theo giấy phép $2 một cách không thể hủy bỏ.";
 "description-edit-pencil-introduction" = "Sửa phần đầu";
+// Fuzzy
 "description-edit-pencil-title" = "Sửa lời tóm lược bài viết";
 "description-edit-placeholder-title" = "Lời tóm lược càng ngắn càng tốt";
 "description-edit-publish" = "Đăng tóm lược";
 "description-edit-title" = "Sửa tóm lược";
 "description-edit-warning" = "Cố gắng giữ lời tóm lược cho ngắn gọn để người dùng có thể hiểu nhanh chủ đề của bài viết";
+// Fuzzy
 "description-help-about-description" = "Lời tóm lược giúp độc giả dễ dàng hiểu bài viết hơn.";
 "description-help-about-title" = "Giới thiệu";
 "description-help-about-wikidata" = "Giới thiệu về Wikidata";
 "description-help-more-info-description" = "Các lời tóm lược bài viết được lưu trữ trên Wikidata, một dự án trực thuộc Quỹ Wikimedia cung cấp cơ sở kiến thức chung tự do, hợp tác, đa ngôn ngữ, hỗ trợ Wikipedia và các dự án khác.";
 "description-help-more-info-title" = "Xem thêm thông tin";
 "description-help-tips-description" = "Lời tóm lược nên vừa một dòng không nên dài quá 60 ký tự. Các lời tóm lược không nên viết hoa ở đầu câu trừ khi đầu câu là danh từ riêng.";
+// Fuzzy
 "description-help-tips-example-description-one" = "lời tóm lược bài viết về Mona Lisa";
+// Fuzzy
 "description-help-tips-example-description-two" = "lời tóm lược bài viết về đỉnh Everest";
 "description-help-tips-example-title-one" = "bức tranh của Leonardo Da Vinci";
 "description-help-tips-example-title-two" = "Ngọn núi cao nhất trên Trái Đất";
 "description-help-tips-for-example" = "Ví dụ:";
 "description-help-tips-title" = "Cách tóm lược bài viết";
+// Fuzzy
 "description-help-title" = "Trợ giúp tóm lược bài viết";
 "description-help-wikidata-guide" = "Hướng dẫn viết miêu tả tại Wikidata";
 "description-published-button-title" = "Xong";
@@ -208,6 +216,7 @@
 "description-welcome-concise-sub-title" = "Hãy cố gắng ghi lời tóm lược vừa một dòng và không quá 60 ký tự";
 "description-welcome-concise-title" = "Làm ngắn gọn";
 "description-welcome-descriptions-sub-title" = "Tóm lược bài để giúp độc giả dễ dàng hiểu đề tài";
+// Fuzzy
 "description-welcome-descriptions-title" = "Tóm lược bài viết";
 "description-welcome-promise-title" = "Với việc bắt đầu sửa đổi lời tóm lược, tôi hứa sẽ không lạm dụng tính năng này";
 "description-welcome-start-editing-button" = "Bắt đầu sửa đổi";
@@ -719,10 +728,7 @@
 "replace-replace-all-results-count" = "$1 mục được thay thế";
 "replace-textfield-accessibility" = "Thay thế";
 "replace-textfield-placeholder" = "Thay thế bằng…";
-"request-feedback-on-error" = "Ứng dụng này đã gặp sự cố mà nhóm phát triển của chúng tôi muốn biết đến. Xin vui lòng chạm tại đây để gửi thư điện tử cho chúng tôi có chi tiết về lỗi này.";
 "reverted-edit-back-to-article-button-title" = "Quay lại bài viết";
-"reverted-edit-notification-body" = "Sửa đổi mà bạn thực hiện ở bài viết $1 đã bị $2 lùi lại";
-"reverted-edit-notification-read-more-action-title" = "Tìm hiểu thêm";
 "reverted-edit-possible-reasons" = "- Đóng góp của bạn không tuân theo quy định. $1 \n\n - Đóng góp của bạn có vẻ như thử nghiệm hoặc phá hoại";
 "reverted-edit-possible-reasons-subtitle" = "Rất tiếc, bạn đã cố gắng sửa đổi một cách chính xác, nhưng một người xem lại đã nhận thấy vấn đề.\n\nHọ đã lùi lại sửa đổi của bạn, có thể do một lý do sau:";
 "reverted-edit-thanks-for-editing-title" = "Cảm ơn bạn đã đóng góp cho Wikipedia!";

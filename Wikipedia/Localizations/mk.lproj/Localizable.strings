@@ -4,12 +4,13 @@
 // Author: Bsitzmann
 // Author: Macofe
 // Author: Nemo bis
+// Author: Tsevener
 // Author: Violetova
 // Author: Vlad5250
 // Author: Монтехристо
 
 "aaald-added-text-description-2" = "Додадени $1";
-"aaald-article-description-updated-description" = "Описот на насловот на статијата е подновен";
+"aaald-article-description-updated-description" = "Описот на статијата е подновен";
 "aaald-article-insert-header" = "Значајни поднови";
 "aaald-article-insert-last-updated" = "Последна поднова";
 "aaald-article-insert-new-changes" = "Нови промени";
@@ -160,7 +161,7 @@
 "button-skip" = "Прескокни";
 "cancel" = "Откажи";
 "cc-zero" = "Криејтив комонс CC0";
-"chinese-variants-alert-body" = "Википедииниот прилог сега ги поддржува следниве кинески варијанти како главни и споредни јазици во него, олеснувајќи го читањето, пребарувањето и уредувањето на вашата претпочитана варијанта:\n\n简体 кинески, упростено (zh-hans)\n繁體 кинески, традиционално (zh-hant)\n大陆简体 континентално упростено (zh-cn)\n香港繁體 хонгконшки традиционално (zh-hk)\n澳門繁體 макајски традиционално (zh-mo)\n大马简体 малезиски упростено (zh-my)\n新加坡简体 сингапурски упростено (zh-sg)\n臺灣正體 тајвански традиционално (zh-tw)";
+"chinese-variants-alert-body" = "Википедииниот прилог сега ги поддржува следниве кинески варијанти како главни и споредни јазици во него, олеснувајќи го читањето, пребарувањето и уредувањето на вашата претпочитана варијанта:\n\n简体 — кинески, упростено (zh-hans)\n香港繁體 — хонгконшки традиционално (zh-hk)\n澳門繁體 — макајски традиционално (zh-mo)\n大马简体 — малезиски упростено (zh-my)\n新加坡简体 — сингапурски упростено (zh-sg)\n臺灣正體 — тајвански традиционално (zh-tw)";
 "chinese-variants-alert-title" = "Новост за поддршка на кинески варијанти";
 "clear-title-accessibility-label" = "Исчисти";
 "close-button-accessibility-label" = "Затвори";
@@ -171,29 +172,30 @@
 "crimean-tatar-variants-alert-title" = "Новост за поддршка на кримскотатарски варијанти";
 "data-migration-status" = "Подновувам...";
 "description-add-title" = "Додај опис";
-"description-edit-for-article" = "Опис на насловот „$1“";
+"description-edit-for-article" = "Опис на статијата „$1“";
 "description-edit-learn-more" = "Дознајте повеќе";
 "description-edit-length-warning" = "$1 / $2";
-"description-edit-license" = "Менувајќи го описот се согласувате со $1 и дека вашите придонеси неотповикливо ги објавувате под лиценцата $2";
+"description-edit-license" = "Менувајќи го описот на статијата се согласувате со $1 и дека вашите придонеси неотповикливо ги објавувате под лиценцата $2";
 "description-edit-pencil-introduction" = "Уреди вовед";
-"description-edit-pencil-title" = "Уреди опис на насловот";
+"description-edit-pencil-title" = "Уреди опис на статијата";
 "description-edit-placeholder-title" = "Кратките описи се најдобри";
 "description-edit-publish" = "Објави опис";
 "description-edit-title" = "Уреди опис";
 "description-edit-warning" = "Трудете се описите да бидат кратки, така што читателите би можеле да разберат што обработува статијата со еден поглед";
-"description-help-about-description" = "Описите на насловите даваат претстава за темата статијата на прв поглед.";
+"description-edit-warning-casing" = "Со големи букви треба да почнуваат само личните именки, дури и на почетокот од реченицата.";
+"description-help-about-description" = "Описите на статиите даваат претстава за темата на прв поглед.";
 "description-help-about-title" = "За ова";
 "description-help-about-wikidata" = "За Википодатоците";
 "description-help-more-info-description" = "Описите се складираат и одржуваат на Википодатоците — проект на Фондацијата Викимедија, кој овозможува слободна, соработна, повеќејазична база на податоци што ја поддржува Википедија и другите проекти.";
 "description-help-more-info-title" = "Повеќе информации";
 "description-help-tips-description" = "Описите по можност треба да бидат во еден ред, и да се состојат од два до дванаесет збора. Не се ставаат први почетни букви, освен ако зборот не е лична именка.";
-"description-help-tips-example-description-one" = "опис на насловот на статијата за Мона Лиза";
-"description-help-tips-example-description-two" = "опис на насловот на статија за Монт Еверест";
+"description-help-tips-example-description-one" = "опис на статијата за Мона Лиза";
+"description-help-tips-example-description-two" = "опис на статијата за Монт Еверест";
 "description-help-tips-example-title-one" = "слика на Леонардо да Винчи";
 "description-help-tips-example-title-two" = "Највисока планина во светот";
 "description-help-tips-for-example" = "На пример:";
 "description-help-tips-title" = "Совети за правење описи";
-"description-help-title" = "Помош со опис на насловот";
+"description-help-title" = "Помош со опис на статиите";
 "description-help-wikidata-guide" = "Прирачник за пишување описи на Википодатоците";
 "description-published-button-title" = "Готово";
 "description-published-footer" = "Со прилогов можете и да уредувате статии. Следниот пат стиснете на моливчето за да исправите правописни грешки и куси реченици";
@@ -202,7 +204,7 @@
 "description-welcome-concise-sub-title" = "По можност еден ред, од два до дванаесет збора";
 "description-welcome-concise-title" = "Описот треба да биде краток";
 "description-welcome-descriptions-sub-title" = "Дава краток преглед на статијата за да им помогне на читателите да ја разберат содржината со еден поглед";
-"description-welcome-descriptions-title" = "Описи на наслови";
+"description-welcome-descriptions-title" = "Описи на статии";
 "description-welcome-promise-title" = "Почнувајќи ја употребата, ветувам дека нема да ја злоупотребувам оваа можност";
 "description-welcome-start-editing-button" = "Почнете со уредување";
 "diff-compare-header-from-info-heading" = "Од:";
@@ -312,6 +314,8 @@
 "empty-no-feed-message" = "Препорачаните статии ќе ги видите кога ќе се поврзете со семрежјето";
 "empty-no-history-message" = "Тука се заведува сè имате читано";
 "empty-no-history-title" = "Нема историја";
+"empty-no-other-article-languages-message" = "Статијава засега не е напишана на ниеден друг јазик";
+"empty-no-other-article-languages-title" = "Нема други јазици на располагање";
 "empty-no-reading-lists-message" = "Правете списоци за читање за местата што сакате да ги посетите, омилени теми и многу друго";
 "empty-no-reading-lists-title" = "Организирајте ги зачуваните статии со списоци за читање";
 "empty-no-saved-pages-in-reading-list-message" = "Зачувајте ги страниците во списоков за да ги видите наведени овде";
@@ -407,6 +411,12 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Од Википедија";
 "explore-randomizer" = "Случаен избирач";
 "featured-article-empty-title" = "Нема избрана статија за денес";
+"featured-widget-content-failure-for-date" = "Нема избрана статија за овој датум.";
+"featured-widget-description" = "Откријте ги најдобрите статии на Википедија кои нашата заедница ги бира секој ден.";
+"featured-widget-from-language-wikipedia" = "Од Википедија на $1";
+"featured-widget-from-wikipedia" = "Од Википедија";
+"featured-widget-language-failure" = "Вашиот главен јазик не поддржува „Избрана статија“. Можете да ја смените главната Википедија во нагодувањата на прилогот.";
+"featured-widget-title" = "Избрана статија";
 "feed-news-notification-button-text" = "Вклучи известувања";
 "feed-news-notification-text" = "Овозможи известувања од статии за Википедија кога се тековни во вестите.";
 "fetcher-error-generic" = "Нешто не е во ред. Обидете се подоцна.";
@@ -552,6 +562,47 @@
 "no-internet-connection" = "Не сте поврзани со семрежјето";
 "no-internet-connection-article-reload" = "Може да постои понова верзија на статијава, но не може да се вчита без врска со семрежјето";
 "no-internet-connection-article-reload-button" = "Врати на последната зачувана верзија";
+"notifications-center-change-password" = "Смени лозинка";
+"notifications-center-commons-project-name" = "Ризница";
+"notifications-center-edit-button" = "Уреди";
+"notifications-center-empty-checking-for-notifications" = "Проверувам известувања...";
+"notifications-center-empty-no-unread-messages" = "Немате непрочитани пораки";
+"notifications-center-empty-not-subscribed" = "Не сте претплатени на никакви известувања од Википедија";
+"notifications-center-footer-change-password" = "Смени лозинка";
+"notifications-center-go-to-diff" = "Оди на разл.";
+"notifications-center-go-to-talk-page" = "Оди на разговорната страница";
+"notifications-center-go-to-title" = "Оди на $1";
+"notifications-center-go-to-user-page" = "Оди на корисничката страница на $1";
+"notifications-center-go-to-wikidata-item" = "Оди на предметот на Википодатоци";
+"notifications-center-go-to-your-talk-page" = "Оди на мојата разговорна страница";
+"notifications-center-header-alert-from-project" = "Напомена од $1";
+"notifications-center-header-notice-from-project" = "Известување од $1";
+"notifications-center-language-project-name-format" = "$1 $2";
+"notifications-center-login-notifications" = "Известувања за најава";
+"notifications-center-mark-as-read" = "Означи како прочитано";
+"notifications-center-mark-as-unread" = "Означи како непрочитано";
+"notifications-center-notifications-settings" = "Нагодувања за ивестувања`";
+"notifications-center-subheader-edit-milestone" = "Уредувачко достигнување";
+"notifications-center-subheader-edit-reverted" = "Вашето уредување е вратено";
+"notifications-center-subheader-email-from-other-user" = "Нова е-пошта";
+"notifications-center-subheader-login-fail-known-device" = "Повеќе неуспешни обиди за најава";
+"notifications-center-subheader-login-fail-unknown-device" = "Неуспешен обид за најава";
+"notifications-center-subheader-login-success-unknown-device" = "Најава од непознат уред";
+"notifications-center-subheader-mention-article-talk-page" = "Спомнување на статиска разговорна страница";
+"notifications-center-subheader-mention-edit-summary" = "Спомнување во опис на уредување";
+"notifications-center-subheader-mention-failed" = "Неуспешно спомнување";
+"notifications-center-subheader-mention-successful" = "Успешно спомнување";
+"notifications-center-subheader-mention-talk-page" = "Спомнување на разговорна страница";
+"notifications-center-subheader-message-user-talk-page" = "Порака на вашата разговорна страница";
+"notifications-center-subheader-page-link" = "Врска до страница";
+"notifications-center-subheader-page-reviewed" = "Прегледана страница";
+"notifications-center-subheader-thanks" = "Благодарности";
+"notifications-center-subheader-translate-milestone" = "Преведувачко достигнување";
+"notifications-center-subheader-user-rights-change" = "Измена во кориснички права";
+"notifications-center-subheader-welcome" = "Добре дојдовте!";
+"notifications-center-subheader-wikidata-connection" = "Направена врска со Википодатоци";
+"notifications-center-title" = "Известувања";
+"notifications-center-wikidata-project-name" = "Википодатоци";
 "number-billions" = "$1 млрд.";
 "number-millions" = "$1 млн.";
 "number-thousands" = "$1 илј.";
@@ -559,6 +610,8 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 историски настан|$1 историски настани}}";
 "on-this-day-footer" = "Повеќе историски настани на денешен ден";
 "on-this-day-footer-showing-event-count" = "{{PLURAL:$1|Уште $1 историски настан|Уште $1 историски настани}} на денешен ден";
+"on-this-day-language-does-not-support-error" = "Вашиот главен јазик не поддржува „На денешен ден“. Можете да ја смените главната Википедија во нагодувањата на прилогот.";
+"on-this-day-no-internet-error" = "Нема податоци";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 од Википедија на $2";
 "on-this-day-title" = "На денешен ден";
 "original-tab-button-popover-description" = "Допрете на „W“ за да се вратите на почетното јазиче";
@@ -623,6 +676,9 @@
 "places-unknown-distance" = "непозната оддалеченост";
 "potd-description-prefix" = "Слика на денот за $1";
 "potd-empty-error-description" = "Не можев да ја добијам сликата на денот за $1";
+"potd-sample-entry-description" = "Трка со впрегнати бикови во рало. Западна Суматра, Индонезија. 2015, Финалист-45.";
+"potd-widget-description" = "Уживајте во убава дневна слика избрана од нашата заедница.";
+"potd-widget-title" = "Слика на денот";
 "preference-summary-eventlogging-opt-in" = "Ѝ овозможува на Фондацијата Викимедија да собира информации за тоа како го користите прилогот, за да може да го подобри";
 "preference-title-eventlogging-opt-in" = "Испраќај извештаи за употребата";
 "rank-accessibility-label" = "Број $1";
@@ -712,6 +768,8 @@
 "relative-date-hours-abbreviated" = "$1 ч.";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=неодамна|пред $1 час|пред $1 часа}}";
 "relative-date-hours-ago-abbreviated" = "пред $1 ч.";
+"relative-date-hrs-ago" = "{{PLURAL:$1|0=Неодамна|пред $1 час|пред $1 часа}}";
+"relative-date-min-ago" = "{{PLURAL:$1|0=Штотуку|пред $1 минута|пред $1 минути}}";
 "relative-date-minutes-abbreviated" = "$1 мин.";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Штотуку|пред $1 минута|пред $1 минути}}";
 "relative-date-minutes-ago-abbreviated" = "пред $1 мин.";
@@ -729,10 +787,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|Заменета $1 ставка|Заменети $1 ставки}}";
 "replace-textfield-accessibility" = "Замени";
 "replace-textfield-placeholder" = "Замени со...";
-"request-feedback-on-error" = "Прилогот наиде на проблем за кој нашите програмери сакаат да дознаат повеќе. Допрете тука за да ни испратите е-пошта со поединости за грешката.";
 "reverted-edit-back-to-article-button-title" = "Назад на статијата";
-"reverted-edit-notification-body" = "Вашето уредување на статијата $1 беше отповикано од $2";
-"reverted-edit-notification-read-more-action-title" = "Прочитајте повеќе";
 "reverted-edit-possible-reasons" = "- Вашето уредување не беше во склад со едно од напатствијата. $1 \n\n - Вашето уредување делуваше како проба или вандализам";
 "reverted-edit-possible-reasons-subtitle" = "Знаеме дека се трудите да напишете што подобро, но еден од прегледувачите има примедба за уреденото. \n\nВеројатни причини за отповиканото уредување се:";
 "reverted-edit-thanks-for-editing-title" = "Ви благодариме што ја уредувате Википедија!";
@@ -864,6 +919,9 @@
 "top-read-header-generic" = "Википедија";
 "top-read-header-with-language" = "Википедија на $1";
 "top-read-see-more" = "Повеќе најчитани статии";
+"top-read-widget-description" = "Дознајте што чита светот денес на Википедија.";
+"top-read-widget-readers-count" = "$1 читатели";
+"top-read-widget-title" = "Најчитани";
 "two-factor-login-continue" = "Продолжете со најавата";
 "two-factor-login-instructions" = "Внесете го двочинителскиот код за заверка";
 "two-factor-login-title" = "Најавете се со вашата сметка";
@@ -900,6 +958,9 @@
 "welcome-send-data-learn-more" = "Дознајте повеќе за податоците што се собираат";
 "welcome-send-data-sub-title" = "Помогнете ни да го подобриме прилогот со тоа што ќе ни овозможите да собираме податоци за тоа како го користите. Податоците се собираат анонимно.";
 "welcome-volunteer-send-usage-reports" = "Испраќај извештаи за употребата";
+"widget-onthisday-description" = "Истражете што се случило на денешниот ден во историјата.";
+"widget-onthisday-placeholder-article-snippet" = "Слободна енциклопедија која секој може да ја уредува";
+"widget-onthisday-placeholder-event-snippet" = "Пуштена Википедија — слободна енциклопедија на викисодржини.";
 "wikitext-downloading" = "Ги вчитувам содржините...";
 "wikitext-preview-changes" = "Испишувам преглед на промените што ги направивте...";
 "wikitext-preview-changes-none" = "Не направивте промени.";

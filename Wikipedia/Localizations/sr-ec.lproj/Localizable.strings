@@ -1,4 +1,4 @@
-// Messages for Serbian (Cyrillic script) (српски (ћирилица)‎)
+// Messages for Serbian (Cyrillic script) (српски (ћирилица))
 // Exported from translatewiki.net
 // Author: Acamicamacaraca
 // Author: Aktron
@@ -19,6 +19,14 @@
 // Author: Милан Јелисавчић
 // Author: Сербијана
 
+"aaald-article-insert-last-updated" = "Последње ажурирање";
+"aaald-article-insert-new-changes" = "Нове промене";
+"aaald-new-book-reference-title" = "Књига";
+"aaald-new-discussion" = "Нова дискусија";
+"aaald-new-journal-reference-database" = "преко $1";
+"aaald-new-news-reference-title" = "Новости";
+"aaald-new-website-reference-title" = "Веб-сајт";
+"aaald-one-section-description" = "У одељку $1";
 "about-content-license" = "Лиценца садржаја";
 "about-content-license-details" = "Осим ако није другачије наведено, садржај је доступан под $1.";
 "about-content-license-details-share-alike-license" = "лиценцом Creative Commons Ауторство-Делити под истим условима";
@@ -141,30 +149,31 @@
 "compass-direction" = "у $1 ч.";
 "continue-reading-empty-description" = "Истражите Википедију да бисте нашли још чланака за читање";
 "continue-reading-empty-title" = "Нема недавно прочитаних чланака";
+"data-migration-status" = "Ажурирање...";
 "description-add-title" = "Додавање описа";
-"description-edit-for-article" = "Опис наслова за страницу $1";
+"description-edit-for-article" = "Опис чланка за страницу $1";
 "description-edit-learn-more" = "Сазнајте више";
 "description-edit-length-warning" = "$1 / $2";
-"description-edit-license" = "Променом описа наслова, прихватам $1 и неопозиво објављујем доприносе под лиценцом $2.";
+"description-edit-license" = "Променом описа чланка, прихватам $1 и неопозиво објављујем доприносе под лиценцом $2.";
 "description-edit-pencil-introduction" = "Уреди увод";
-"description-edit-pencil-title" = "Додај опис наслова";
+"description-edit-pencil-title" = "Додај опис чланка";
 "description-edit-placeholder-title" = "Кратки описи су најбољи";
 "description-edit-publish" = "Објави опис";
 "description-edit-title" = "Уређивање описа";
 "description-edit-warning" = "Покушајте да задржите описе кратким тако да корисници могу да разумеју тему чланка на први поглед";
-"description-help-about-description" = "Описи наслова резимирају чланак како би читаоци на први поглед разумели његову тему.";
+"description-help-about-description" = "Описи чланака резимирају чланак како би читаоци на први поглед разумели његову тему.";
 "description-help-about-title" = "О апликацији";
 "description-help-about-wikidata" = "О Википодацима";
 "description-help-more-info-description" = "Описи се смештају и одржавају на Википодацима, пројекту Задужбине Викимедија, који пружа слободну, колаборативну, вишејезичку, секундарну базу података, која помаже Википедији и другим пројектима.";
 "description-help-more-info-title" = "Више информација";
 "description-help-tips-description" = "Описи би, по могућству, требало да буду у једном реду и да се састоје од две до дванаест речи. Не почињу великим словом осим ако је прва реч властита именица.";
-"description-help-tips-example-description-one" = "опис наслова за чланак о Мона Лизи";
-"description-help-tips-example-description-two" = "опис наслова за чланак о Монт Евересту";
+"description-help-tips-example-description-one" = "опис чланка за чланак о Мона Лизи";
+"description-help-tips-example-description-two" = "опис чланка за чланак о Монт Евересту";
 "description-help-tips-example-title-one" = "слика Леонарда да Винчија";
 "description-help-tips-example-title-two" = "највиша планина на Земљи";
 "description-help-tips-for-example" = "На пример:";
 "description-help-tips-title" = "Савети за прављење описа";
-"description-help-title" = "Помоћ за описивање наслова";
+"description-help-title" = "Помоћ за описивање чланка";
 "description-help-wikidata-guide" = "Водич за писање описа на Википодацима";
 "description-published-button-title" = "Готово";
 "description-published-footer" = "Такође можете да уређујете чланке у овој апликацији. Следећи пут покушајте да поправите грешке у куцању и кратке реченице кликом на икону оловке";
@@ -173,7 +182,7 @@
 "description-welcome-concise-sub-title" = "Идеално један ред, између две и дванаест речи";
 "description-welcome-concise-title" = "Будите кратки";
 "description-welcome-descriptions-sub-title" = "Описи наслова резимирају чланак како би читаоци на први поглед разумели његову тему.";
-"description-welcome-descriptions-title" = "Описи наслова";
+"description-welcome-descriptions-title" = "Описи чланака";
 "description-welcome-promise-title" = "Започињањем, обећавам да нећу злоупотребити ову функцију";
 "description-welcome-start-editing-button" = "Почни са уређивањем";
 "diff-compare-header-from-info-heading" = "Од:";
@@ -263,6 +272,8 @@
 "edit-watch-list-learn-more-text" = "Сазнајте више о листама за надгледање";
 "edit-watch-this-page-text" = "Надгледај ову страницу";
 "editing-welcome-be-bold-title" = "Ваш глас је важан";
+"empty-diff-compare-title" = "Нема разлика између измена";
+"empty-diff-single-title" = "Нема направљених видљивих промена";
 "empty-insert-media-title" = "Изаберите датотеку са Викимедијине оставе";
 "empty-no-article-message" = "Није могуће учитати чланак";
 "empty-no-feed-action-message" = "И даље можете да читате сачуване странице";
@@ -479,8 +490,7 @@
 "main-menu-title" = "Више";
 "main-menu-zero-faq" = "Честа питања о Википедији нула";
 "menu-cancel-accessibility-label" = "Откажи";
-// Fuzzy
-"more-languages-tooltip-description" = "Претражујте Википедију на готово 300 језика";
+"more-languages-tooltip-description" = "Претражујте Википедију на преко 300 језика";
 "more-languages-tooltip-title" = "Додај језике";
 "move-articles-to-reading-list" = "Премести {{PLURAL:$1|$1 чланак|$1 чланка|$1 чланака}} на листу за читање";
 "navbar-title-mode-edit-wikitext-preview" = "Преглед";
@@ -519,6 +529,7 @@
 "page-history-revisions-comparison-warning" = "Могу се изабрати само две измене";
 "page-history-stats-text" = "{{PLURAL:$1|$1 измена|$1 измене}} од $2";
 "page-history-user-edits" = "измене корисника";
+"page-issues" = "Проблеми са страницом";
 "page-protected-autoconfirmed" = "Ова страница је полузаштићена.";
 "page-protected-can-not-edit" = "Немате права да уређујете ову страницу";
 "page-protected-can-not-edit-title" = "Ова страница је заштићена";
@@ -664,10 +675,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 измењена ставка|$1 измењене ставке}}";
 "replace-textfield-accessibility" = "Замени";
 "replace-textfield-placeholder" = "Замени са…";
-"request-feedback-on-error" = "Апликација је наишла на проблем о ком би наши програмери желели да знају више. Додирните овде да бисте нам послали имејл са детаљима о грешци.";
 "reverted-edit-back-to-article-button-title" = "Назад на чланак";
-"reverted-edit-notification-body" = "Измена коју сте направили на чланку $1 је враћена од стране $2";
-"reverted-edit-notification-read-more-action-title" = "Прочитајте више";
 "reverted-edit-possible-reasons" = "- Ваш допринос није пратио једну од смерница. $1\n\n - Ваш допринос је изгледао као експеримент или вандализам";
 "reverted-edit-possible-reasons-subtitle" = "Знамо да сте дали све од себе, али један од прегледача има примедбу.\n\nМогући разлози због чега је ваша измена поништена:";
 "reverted-edit-thanks-for-editing-title" = "Хвала вам што уређујете Википедију!";
@@ -695,6 +703,8 @@
 "search-recent-title" = "Недавне претраге";
 "search-result-redirected-from" = "Преусмерено са: $1";
 "search-title" = "Претрага";
+"serbian-variants-alert-body" = "Апликација Википедија одсад подржава следеће варијанте српског језика као главне или споредне језике олакшавајући читање, претраживање и уређивање у жељеним варијантама:\n\nсрпски ћирилица (sr-ec)\nsrpski latinica (sr-el)";
+"serbian-variants-alert-title" = "Ажурирања подршке за варијанте српског језика";
 "settings-account" = "Налог";
 "settings-appearance" = "Подешавања за читање";
 "settings-clear-cache" = "Брисање кешираних података";
@@ -796,6 +806,8 @@
 "two-factor-login-with-regular-code" = "Користите кôд за верификацију";
 "unable-to-load-talk-page-title" = "Није могуће учитати страницу за разговор";
 "unknown-generic-text" = "Непознато";
+"variants-alert-dismiss-button" = "Не, хвала";
+"variants-alert-preferences-button" = "Прегледајте своја подешавања";
 "welcome-exploration-explore-feed-description" = "Препоручени и дневни чланци од наше заједнице";
 "welcome-exploration-explore-feed-title" = "Фид „Истражи“";
 "welcome-exploration-on-this-day-description" = "Вратите се назад кроз време да бисте сазнали шта се одиграло на данашњи дан";
@@ -805,8 +817,7 @@
 "welcome-explore-continue-button" = "Почни";
 "welcome-explore-new-ways-title" = "Нови начини за истраживање";
 "welcome-explore-tell-me-more-done-button" = "Разумем";
-// Fuzzy
-"welcome-intro-free-encyclopedia-description" = "Википедију заједничким снагама пишу добровољци и садржи преко 40 милиона чланака на готово 300 језика.";
+"welcome-intro-free-encyclopedia-description" = "Википедију заједничким снагама пишу добровољци и садржи преко 40 милиона чланака на преко 300 језика.";
 "welcome-intro-free-encyclopedia-more" = "Сазнајте више о Википедији";
 "welcome-intro-free-encyclopedia-more-about" = "О Википедији";
 "welcome-intro-free-encyclopedia-more-description" = "Википедија је глобални пројекат слободних енциклопедија на свим језицима света. Свако са приступом интернету може да учествује под условом да располаже неутралним и провереним информацијама.";
@@ -814,8 +825,7 @@
 "welcome-languages-add-button" = "Додај други језик";
 "welcome-languages-add-or-edit-button" = "Додај или уреди жељене језике";
 "welcome-languages-description" = "Пронашли смо следеће језике на вашем уређају:";
-// Fuzzy
-"welcome-languages-search-title" = "Претражујте на готово 300 језика";
+"welcome-languages-search-title" = "Претражујте на преко 300 језика";
 "welcome-notifications-tell-me-more-creation" = "Апликација прави и доставља обавештења на ваш уређај, а не наши сервери (или трећих страна).";
 "welcome-notifications-tell-me-more-storage" = "Подешавања обавештења се смештају на уређају и нису заснована на личним информацијама или активности.";
 "welcome-notifications-tell-me-more-title" = "Више о обавештењима";

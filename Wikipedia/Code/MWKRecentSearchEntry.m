@@ -32,7 +32,7 @@
     if ([urlString length]) {
         url = [NSURL URLWithString:urlString];
     } else if (domain && language) {
-        url = [NSURL wmf_URLWithDomain:domain language:language];
+        url = [NSURL wmf_URLWithDomain:domain languageCode:language];
     } else {
         return nil;
     }

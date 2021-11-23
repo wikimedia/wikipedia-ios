@@ -9,6 +9,7 @@
 // Author: Evica
 // Author: Fitoschido
 // Author: Frettie
+// Author: Georg101
 // Author: H4nek
 // Author: Ilimanaq29
 // Author: Jan Myšák
@@ -31,6 +32,7 @@
 // Author: Zbyso23
 
 "aaald-added-text-description-2" = "přidáno $1";
+// Fuzzy
 "aaald-article-description-updated-description" = "Popis článku byl aktualizován";
 "aaald-article-insert-header" = "Významné aktualizace";
 "aaald-article-insert-last-updated" = "Naposledy aktualizováno";
@@ -179,6 +181,7 @@
 "button-skip" = "Přeskočit";
 "cancel" = "Storno";
 "cc-zero" = "Creative Commons CC0";
+"chinese-variants-alert-body" = "Aplikace wikipedie nyní podporuje následující Čínské varianty jako primární nebo sekundární jazyky v aplikaci, aby bylo jednodušší číst, hledat nebo upravovat ve vaší oblíbené variantě.\n\n简体 Čínština, Zjednodušená (zh-hans)\n香港繁體 Hong Kongská tradiční (zh-hk)\n澳門繁體 Macauská tradiční (zh-mo)\n大马简体 Malajská zjednodušená (zh-my)\n新加坡简体 Singapurská zjednodušená (zh-sg)\n臺灣正體 Taiwanská Tradiční (zh-tw)";
 "clear-title-accessibility-label" = "Vymazat";
 "close-button-accessibility-label" = "Zavřít";
 "compass-direction" = "na $1. hodině";
@@ -186,28 +189,35 @@
 "continue-reading-empty-title" = "Žádné nedávno přečtené články";
 "data-migration-status" = "Aktualizace…";
 "description-add-title" = "Přidat popis";
+// Fuzzy
 "description-edit-for-article" = "Popis článku pro článek $1";
 "description-edit-learn-more" = "Více informací";
 "description-edit-length-warning" = "$1 / $2";
+// Fuzzy
 "description-edit-license" = "Změnou popisu článku souhlasím s $1 a neodvolatelně uvolňuji své příspěvky pod licencí $2.";
 "description-edit-pencil-introduction" = "Editovat úvod";
+// Fuzzy
 "description-edit-pencil-title" = "Editovat popis článku";
 "description-edit-placeholder-title" = "Nejlepší jsou krátké popisy";
 "description-edit-publish" = "Zveřejnit popis";
 "description-edit-title" = "Editovat popis";
 "description-edit-warning" = "Pokuste se zachovat krátké popisy, aby uživatelé na první pohled pochopili téma článku";
+// Fuzzy
 "description-help-about-description" = "Popis shrnuje základní informace o tématu článku, aby čtenáři ihned pochopili, o čem článek pojednává.";
 "description-help-about-title" = "O aplikaci";
 "description-help-about-wikidata" = "O Wikidatech";
 "description-help-more-info-description" = "Popisy jsou uloženy a spravovány na Wikidatech, projektu nadace Wikimedia, která poskytují bezplatnou, kolaborativní a mnohojazyčnou databázi podporující Wikipedii a další projekty";
 "description-help-more-info-title" = "Více informací";
 "description-help-tips-description" = "Ideální popis se vejde na jeden řádek a je 2 až 12 slov dlouhý. Nezačíná velkým písmenem, tím začíná, jen pokud je prvním slovem popisu vlastní podstatné jméno.";
+// Fuzzy
 "description-help-tips-example-description-one" = "popis článku o Mona Lise";
+// Fuzzy
 "description-help-tips-example-description-two" = "popis titulku pro článek o Mount Everestu";
 "description-help-tips-example-title-one" = "obraz Leonarda da Vinciho";
 "description-help-tips-example-title-two" = "nejvyšší hora na Zemi";
 "description-help-tips-for-example" = "Například:";
 "description-help-tips-title" = "Tipy pro vytváření popisů";
+// Fuzzy
 "description-help-title" = "Nápověda pro popisy článků";
 "description-help-wikidata-guide" = "Průvodce pro psaní popisů na Wikidatech";
 "description-published-button-title" = "Hotovo";
@@ -217,6 +227,7 @@
 "description-welcome-concise-sub-title" = "V ideálním případě jeden řádek, mezi dvěma až dvanácti slovy";
 "description-welcome-concise-title" = "Kratší je lepší";
 "description-welcome-descriptions-sub-title" = "Shrnuje základní informace o tématu článku, aby čtenáři ihned pochopili, o čem článek pojednává.";
+// Fuzzy
 "description-welcome-descriptions-title" = "Popis článku";
 "description-welcome-promise-title" = "Spuštěním slibuji, že této funkce nezneužiji";
 "description-welcome-start-editing-button" = "Začít editovat";
@@ -735,10 +746,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 položka změněna|$1 položky změněny|$1 položek změněno}}";
 "replace-textfield-accessibility" = "Nahradit";
 "replace-textfield-placeholder" = "Nahradit za...";
-"request-feedback-on-error" = "V aplikaci došlo k chybě, o které by naši vývojáři chtěli vědět více. Prosím, klikněte zde a pošlete nám e-mail s podrobnostmi o chybě.";
 "reverted-edit-back-to-article-button-title" = "Zpět do článku";
-"reverted-edit-notification-body" = "Vaše editace článku $1 byla revertována wikipedistou $2";
-"reverted-edit-notification-read-more-action-title" = "Více informací";
 "reverted-edit-possible-reasons" = "- Váš příspěvek neodpovídal některému z pokynů. $ 1\n\n- Váš příspěvek vypadal (anebo byl) experiment nebo vandalismus.";
 "reverted-edit-possible-reasons-subtitle" = "Víme, že jste se snažili o to nejlepší, ale jeden z wikipedistů revertoval editaci. \n\nMožné důvody revertu jsou:";
 "reverted-edit-thanks-for-editing-title" = "Děkujeme, že editujete Wikipediiǃ";

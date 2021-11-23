@@ -19,20 +19,20 @@ fileprivate let mediaWikiCodeLookupGlobal: [String: [String: [String: String]]] 
 
 extension Locale {
     /// - Parameter url: The URL to check
-    /// - Parameter urlLanguage: use to override the language code that we should be checking against, if say url doesn't contain language in it's host. Else internally language will default to url.wmf_language.
+    /// - Parameter urlLanguage: use to override the language code that we should be checking against, if say url doesn't contain language in it's host. Else internally language will default to url.wmf_languageCode.
     /// - Parameter preferredLanguages: The list of preferred languages to check. Defaults to a list of the user's preferred Wikipedia languages that support variants.
     /// - Returns: The first preferred language variant for a given URL, or nil if the URL is for a Wikipedia with a language that doesn't support variants
     public static func preferredWikipediaLanguageVariant(for url: URL, urlLanguage: String? = nil, preferredLanguages: [String] = preferredWikipediaLanguagesWithVariants) -> String? {
         
-        let maybeLanguage = urlLanguage ?? url.wmf_language
+        let maybeLanguage = urlLanguage ?? url.wmf_languageCode
         
         guard let language = maybeLanguage else {
             return nil
         }
-        return preferredWikipediaLanguageVariant(wmf_language: language, preferredLanguages: preferredLanguages)
+        return preferredWikipediaLanguageVariant(wmf_languageCode: language, preferredLanguages: preferredLanguages)
     }
     
-    public static func preferredWikipediaLanguageVariant(wmf_language language: String, preferredLanguages: [String] = preferredWikipediaLanguagesWithVariants) -> String? {
+    public static func preferredWikipediaLanguageVariant(wmf_languageCode language: String, preferredLanguages: [String] = preferredWikipediaLanguagesWithVariants) -> String? {
         for languageCode in preferredLanguages {
             guard languageCode.hasPrefix(language + "-") else {
                 continue
@@ -132,9 +132,9 @@ extension NSLocale {
     
     fileprivate static var localeCache: [String: Locale] = [:]
     
-    @objc(wmf_localeForWikipediaLanguage:)
-    public static func wmf_locale(for wikipediaLanguage: String?) -> Locale {
-        guard let language = wikipediaLanguage else {
+    @objc(wmf_localeForWikipediaLanguageCode:)
+    public static func wmf_locale(for wikipediaLanguageCode: String?) -> Locale {
+        guard let language = wikipediaLanguageCode else {
             return Locale.autoupdatingCurrent
         }
         
@@ -172,13 +172,6 @@ extension NSLocale {
     @objc public static let wmf_preferredWikipediaLanguageCodes: [String] =
         Locale.uniqueWikipediaLanguages(with: preferredLanguages, useLocaleIdentifiers: false)
     
-    
-    // This is the old method to get the suggested languages from the user's OS settings during onboarding.
-    // It can be removed once its one client in MWKLanguageLinkController is removed when language variants are turned on.
-    @objc public static var wmf_preferredLocaleLanguageCodes: [String] {
-        // use language code when determining if a langauge is preferred (e.g. "en_US" is preferred if "en" was selected)
-        preferredLanguages.compactMap { NSLocale(localeIdentifier: $0).languageCode }
-    }
     
     // This method is used when an incoming article has no language variant information. For instance, when syncing reading lists.
     // Given a language code returns the best guess of a language variant for languages that support variants.

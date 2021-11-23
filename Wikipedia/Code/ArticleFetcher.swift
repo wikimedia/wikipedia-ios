@@ -22,15 +22,6 @@ enum ArticleFetcherError: LocalizedError {
 
 @objc(WMFArticleFetcher)
 final public class ArticleFetcher: Fetcher, CacheFetching {    
-    @objc required public init(session: Session, configuration: Configuration) {
-        #if WMF_APPS_LABS_PAGE_CONTENT_SERVICE
-        super.init(session: session, configuration: Configuration.appsLabsPageContentService)
-        #elseif WMF_LOCAL_PAGE_CONTENT_SERVICE
-        super.init(session: session, configuration: Configuration.localPageContentService)
-        #else
-        super.init(session: session, configuration: configuration)
-        #endif
-    }
     
     public enum EndpointType: String {
         case summary
@@ -179,16 +170,48 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             throw RequestError.invalidParameters
         }
         
-        #if WMF_LOCAL_PAGE_CONTENT_SERVICE || WMF_APPS_LABS_PAGE_CONTENT_SERVICE
-        // As of April 2020, the /transform/wikitext/to/html/{article} endpoint is only available on production, not local or staging PCS.
-        guard let url = Configuration.production.pageContentServiceAPIURLForURL(articleURL, appending: ["transform", "wikitext", "to", "html", percentEncodedTitle]) else {
-            throw RequestError.invalidParameters
+        let localAndStagingUrlBlock: () throws -> URL = {
+
+            // As of April 2020, the /transform/wikitext/to/html/{article} endpoint is only available on production, not local or staging PCS.
+            guard let url = Configuration.production.pageContentServiceAPIURLForURL(articleURL, appending: ["transform", "wikitext", "to", "html", percentEncodedTitle]) else {
+                throw RequestError.invalidParameters
+            }
+            
+            return url
         }
-        #else
-        guard let url = configuration.pageContentServiceAPIURLForURL(articleURL, appending: ["transform", "wikitext", "to", "html", percentEncodedTitle]) else {
-            throw RequestError.invalidParameters
+        
+        let prodUrlBlock: () throws -> URL = { [weak self] in
+            
+            guard let self = self else {
+                throw RequestError.invalidParameters
+            }
+            
+            guard let url = self.configuration.pageContentServiceAPIURLForURL(articleURL, appending: ["transform", "wikitext", "to", "html", percentEncodedTitle]) else {
+                throw RequestError.invalidParameters
+            }
+            
+            return url
         }
-        #endif
+        
+        let url: URL
+        switch Configuration.current.environment {
+        case .local(let options):
+            if options.contains(.localPCS) {
+                url = try localAndStagingUrlBlock()
+                break
+            }
+            
+            url = try prodUrlBlock()
+        case .staging(let options):
+            if options.contains(.appsLabsforPCS) {
+                url = try localAndStagingUrlBlock()
+                break
+            }
+            
+            url = try prodUrlBlock()
+        default:
+            url = try prodUrlBlock()
+        }
 
         let params: [String: String] = ["wikitext": wikitext]
         let headers = previewHeaders(with: articleURL, mobileHTMLOutput: mobileHTMLOutput)
@@ -417,13 +440,27 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
     
     let expectedNumberOfBundledOfflineResources = 3
     
-    #if WMF_APPS_LABS_PAGE_CONTENT_SERVICE
-     static let pcsBaseURI = "//\(Configuration.Domain.appsLabs)/api/v1/"
-    #elseif WMF_LOCAL_PAGE_CONTENT_SERVICE
-     static let pcsBaseURI = "//\(Configuration.Domain.localhost):8888/api/v1/"
-    #else
-     static let pcsBaseURI = "//\(Configuration.Domain.metaWiki)/api/rest_v1/"
-    #endif
+    static var pcsBaseURI: String = {
+        let prodUri = "//\(Configuration.Domain.metaWiki)/api/rest_v1/"
+        
+        switch Configuration.current.environment {
+        case .local(let options):
+            if options.contains(.localPCS) {
+                return "//\(Configuration.Domain.localhost):8888/api/v1/"
+            }
+            return prodUri
+        case .staging(let options):
+            if options.contains(.appsLabsforPCS) {
+                return "//\(Configuration.Domain.appsLabs)/api/v1/"
+            }
+            
+            return prodUri
+            
+        default:
+            return prodUri
+            
+        }
+    }()
     
     func bundledOfflineResourceURLs() -> BundledOfflineResources? {
         guard
@@ -483,7 +520,14 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
             guard let articleURL = articleKey.url else {
                 throw Fetcher.invalidParametersError
             }
-            let request = try summaryRequest(articleURL: articleURL)
+            
+            let request: URLRequest
+            if let cachePolicy = cachePolicy {
+                request = try summaryRequest(articleURL: articleURL, cachePolicy: .foundation(cachePolicy))
+            } else {
+                request = try summaryRequest(articleURL: articleURL)
+            }
+            
             return trackedJSONDecodableTask(with: request) { (result: Result<ArticleSummary, Error>, response) in
                 switch result {
                 case .success(let summary):

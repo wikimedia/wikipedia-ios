@@ -3,6 +3,7 @@
 // Author: Aefgh39622
 // Author: Ans
 // Author: B20180
+// Author: Bebiezaza
 // Author: CodeNameBOSS
 // Author: Geonuch
 // Author: Horus
@@ -134,28 +135,34 @@
 "continue-reading-empty-description" = "สำรวจบทความเพิ่มเติมที่คุณอยากอ่านในวิกิพีเดีย";
 "continue-reading-empty-title" = "ไม่มีบทความที่อ่านล่าสุด";
 "description-add-title" = "เพิ่มคำอธิบาย";
+// Fuzzy
 "description-edit-for-article" = "คำอธิบายชื่อเรื่องสำหรับ $1";
 "description-edit-learn-more" = "เรียนรู้เพิ่มเติม";
 "description-edit-length-warning" = "$1 / $2";
+// Fuzzy
 "description-edit-license" = "การเปลี่ยนคำอธิบายชื่อเรื่องถือว่าคุณยอมรับ $1 และยอมเผยแพร่งานของคุณภายใต้สัญญาอนุญาต $2 อย่างถาวร";
 "description-edit-pencil-introduction" = "แก้ไขคำแนะนำ";
-"description-edit-pencil-title" = "แก้ไขคำอธิบายชื่อเรื่อง";
+"description-edit-pencil-title" = "แก้ไขคำอธิบายบทความ";
 "description-edit-placeholder-title" = "ควรกำหนดคำอธิบายอย่างสั้น ๆ";
 "description-edit-publish" = "เผยแพร่คำอธิบาย";
 "description-edit-title" = "แก้ไขคำอธิบาย";
 "description-edit-warning" = "พยายามเขียนคำอธิบายอย่างสั้น ๆ เพื่อให้ผู้ใช้เข้าใจหัวข้อบทความได้อย่างรวดเร็ว";
+// Fuzzy
 "description-help-about-description" = "คำอธิบายชื่อเรื่องใช้สรุปบทความเพื่อช่วยให้ผู้อ่านเข้าใจบทความได้อย่างรวดเร็ว";
 "description-help-about-title" = "เกี่ยวกับ";
 "description-help-about-wikidata" = "เกี่ยวกับวิกิสนเทศ";
 "description-help-more-info-description" = "คำอธิบายจะถูกเก็บและรักษาไว้บนวิกิสนเทศ ซึ่งเป็นโครงการของมูลนิธิวิกิมีเดียซึ่งจัดเตรียมฐานข้อมูลเสรีหลายภาษาที่ใช้งานร่วมกับวิกิพีเดียและโครงการอื่น ๆ";
 "description-help-more-info-title" = "ข้อมูลเพิ่มเติม";
 "description-help-tips-description" = "ควรเขียนคำอธิบายให้พอดีหนึ่งบรรทัด และควรมีความยาวตั้งแต่ 2-12 คำ และไม่ควรเขียนด้วยอักษรตัวพิมพ์ใหญ่หากไม่ใช่วิสามานยนาม";
+// Fuzzy
 "description-help-tips-example-description-one" = "คำอธิบายชื่อเรื่องสำหรับบทความเกี่ยวกับโมนาลิซา";
+// Fuzzy
 "description-help-tips-example-description-two" = "คำอธิบายชื่อเรื่องสำหรับบทความเกี่ยวกับยอดเขาเอเวอเรสต์";
 "description-help-tips-example-title-one" = "ภาพวาดโดยเลโอนาร์โด ดา วินชี";
 "description-help-tips-example-title-two" = "ภูเขาที่สูงที่สุดในโลก";
 "description-help-tips-for-example" = "ตัวอย่าง:";
 "description-help-tips-title" = "คำแนะนำการเขียนคำอธิบาย";
+// Fuzzy
 "description-help-title" = "วิธีเขียนคำอธิบายชื่อเรื่อง";
 "description-help-wikidata-guide" = "คู่มือวิกิสนเทศเกี่ยวกับการเขียนคำอธิบาย";
 "description-published-button-title" = "เสร็จสิ้น";
@@ -165,6 +172,7 @@
 "description-welcome-concise-sub-title" = "ควรเขียนให้พอดีหนึ่งบรรทัด และเขียนตั้งแต่ 2-12 คำ";
 "description-welcome-concise-title" = "ควรเขียนสั้น ๆ";
 "description-welcome-descriptions-sub-title" = "ใช้สรุปบทความเพื่อช่วยให้ผู้อ่านเข้าใจบทความได้อย่างรวดเร็ว";
+// Fuzzy
 "description-welcome-descriptions-title" = "คำอธิบายชื่อเรื่อง";
 "description-welcome-promise-title" = "ฉันสัญญาว่าจะไม่ใช้คุณลักษณะนี้ในทางที่ผิด";
 "description-welcome-start-editing-button" = "เริ่มแก้ไข";
@@ -599,7 +607,6 @@
 "replace-textfield-accessibility" = "แทนที่";
 "replace-textfield-placeholder" = "แทนที่ด้วย…";
 "reverted-edit-back-to-article-button-title" = "กลับไปยังบทความ";
-"reverted-edit-notification-read-more-action-title" = "อ่านเพิ่มเติม";
 "reverted-edit-thanks-for-editing-title" = "ขอบคุณที่แก้ไขวิกิพีเดีย!";
 "reverted-edit-title" = "การแก้ไขที่ถูกย้อน";
 "reverted-edit-view-guidelines-text" = "ดูแนวทาง";

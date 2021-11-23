@@ -14,9 +14,11 @@
 // Author: Sarrus
 // Author: Weblars
 
+"aaald-added-text-description-2" = "$1 tilføjet";
 "aaald-article-insert-last-updated" = "Sidst opdateret";
 "aaald-article-insert-new-changes" = "Nye ændringer";
 "aaald-article-insert-read-more" = "Læs flere opdateringer";
+"aaald-deleted-text-description-2" = "$1 slettet";
 "aaald-new-book-reference-title" = "Bog";
 "aaald-new-discussion" = "Ny diskussion";
 "aaald-new-news-reference-title" = "Nyheder";
@@ -49,8 +51,7 @@
 // Fuzzy
 "abuse-filter-disallow-unconstructive" = "Et automatisk filter har identificeret denne redigering som potentielt ukonstruktiv eller forsøg på hærværk.";
 "abuse-filter-warning-blanking" = "Tømning af afsnit eller hele artikler";
-// Fuzzy
-"abuse-filter-warning-caps" = "Tekst skrevet med STORE BOGSTAVER";
+"abuse-filter-warning-caps" = "Tekst skrevet med store bogstaver";
 "abuse-filter-warning-heading" = "Dette ligner en redigering som ikke er konstruktiv. Er du sikker på at du ønsker at udgive den?";
 "abuse-filter-warning-irrelevant" = "Irrelevante eksterne links eller billeder";
 "abuse-filter-warning-repeat" = "Gentagende tegn";
@@ -137,15 +138,18 @@
 "continue-reading-empty-title" = "Ingen seneste læste artikler";
 "data-migration-status" = "Opdaterer...";
 "description-add-title" = "Tilføj beskrivelse";
+// Fuzzy
 "description-edit-for-article" = "Titelbeskrivelse for $1";
 "description-edit-learn-more" = "Lær mere";
 "description-edit-length-warning" = "$1 / $2";
+// Fuzzy
 "description-edit-license" = "Ved at ændre titelbeskrivelsen indvilliger jeg i $1 og uigenkaldeligt at udgive mit bidrag under licensen $2.";
 "description-edit-pencil-introduction" = "Rediger introduktion";
-"description-edit-pencil-title" = "Rediger titelbeskrivelse";
+"description-edit-pencil-title" = "Rediger artikelbeskrivelse";
 "description-edit-placeholder-title" = "Korte beskrivelser er de bedste";
 "description-edit-publish" = "Udgiv beskrivelse";
 "description-edit-title" = "Rediger beskrivelse";
+// Fuzzy
 "description-help-about-description" = "Titelbeskrivelser sammenfatter en artikel for at hjælpe læsere til at forstå emnet på et øjeblik.";
 "description-help-about-title" = "Om";
 "description-help-about-wikidata" = "Om Wikidata";
@@ -160,7 +164,7 @@
 "description-published-title" = "Beskrivelse offentliggjort!";
 "description-welcome-concise-sub-title" = "Helst én linje, mellem to og tolv ord";
 "description-welcome-concise-title" = "Gør det kort";
-"description-welcome-descriptions-title" = "Titelbeskrivelser";
+"description-welcome-descriptions-title" = "Artikelbeskrivelser";
 "description-welcome-promise-title" = "Begynder du at redigere, så lover du samtidig ikke at misbruge denne funktion";
 "description-welcome-start-editing-button" = "Start med at redigere";
 "diff-compare-header-from-info-heading" = "Fra:";
@@ -415,6 +419,7 @@
 "places-unknown-distance" = "ukendt afstand";
 "potd-description-prefix" = "Dagens billede for $1";
 "potd-empty-error-description" = "Kunne ikke hente billede af den dag, for $1";
+"potd-widget-title" = "Dagens billede";
 "preference-summary-eventlogging-opt-in" = "Tillad Wikimedia Foundation at indsamle oplysninger om, hvordan du bruger appen, for at gøre appen bedre.";
 "preference-title-eventlogging-opt-in" = "Send anvendelsesrapporter";
 "rank-accessibility-label" = "Nummer $1";
@@ -488,10 +493,7 @@
 "replace-infolabel-method-replace-all" = "Erstat alle";
 "replace-textfield-accessibility" = "Erstat";
 "replace-textfield-placeholder" = "Erstat med...";
-"request-feedback-on-error" = "Appen er stødt på et problem, som vores udviklere gerne vil vide mere om. Tryk her for at sende os en e-mail med oplysninger om fejlen.";
 "reverted-edit-back-to-article-button-title" = "Tilbage til artiklen";
-"reverted-edit-notification-body" = "Redigeringen du lavede på artiklen $1 blev omgjort af $2";
-"reverted-edit-notification-read-more-action-title" = "Læs mere";
 "reverted-edit-thanks-for-editing-title" = "Tak fordi du redigerer Wikipedia!";
 "reverted-edit-title" = "Omgjort redigering";
 "reverted-edit-view-guidelines-text" = "Vis retningslinjer";
@@ -580,6 +582,7 @@
 "talk-page-new-subject-clear-button-accessibility" = "Ryd emne";
 "talk-page-new-subject-placeholder-text" = "Emne";
 "talk-page-new-subject-textfield-accessibility-label" = "Emne";
+"talk-page-new-topic-title" = "Ny diskussion";
 "talk-page-reply-title" = "Svar";
 "talk-page-title-user-talk" = "Brugerdiskussion";
 "talk-page-topic-title" = "Diskussion";

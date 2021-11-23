@@ -4,6 +4,7 @@
 // Author: BodminPill
 // Author: DraconicDark
 // Author: Envlh
+// Author: FF-11
 // Author: Ferdinand0101
 // Author: Fitoschido
 // Author: Hikemaniac
@@ -18,7 +19,18 @@
 // Author: Nemo bis
 // Author: Purodha
 // Author: Ubahnverleih
+// Author: Umlaut
 
+"aaald-article-description-updated-description" = "Die Artikelbeschreibung wurde aktualisiert";
+"aaald-article-insert-new-changes" = "Neue Änderungen";
+"aaald-characters-text-description" = "{{PLURAL:$1|0=Zeichen|Zeichen|Zeichen}}";
+"aaald-deleted-text-description-2" = "$1 gelöscht";
+"aaald-new-book-reference-title" = "Buch";
+"aaald-new-discussion" = "Neue Diskussion";
+"aaald-new-journal-reference-title" = "Zeitschrift";
+"aaald-new-journal-reference-volume" = "Band $1:";
+"aaald-new-news-reference-title" = "Nachrichten";
+"aaald-new-website-reference-title" = "Webseite";
 "aaald-view-full-history-button" = "Vollständige Versionsgeschichte anzeigen";
 "about-content-license" = "Inhaltslizenz";
 "about-content-license-details" = "Sofern nicht anders angegeben, ist der Inhalt verfügbar unter einer $1.";
@@ -144,29 +156,29 @@
 "continue-reading-empty-description" = "Wikipedia für weitere Artikel entdecken";
 "continue-reading-empty-title" = "Keine kürzlich gelesenen Artikel";
 "description-add-title" = "Beschreibung hinzufügen";
-"description-edit-for-article" = "Titelbeschreibung für $1";
+"description-edit-for-article" = "Artikelbeschreibung für $1";
 "description-edit-learn-more" = "Mehr erfahren";
 "description-edit-length-warning" = "$1 von $2";
-"description-edit-license" = "Durch die Änderung der Titelbeschreibung stimme ich den $1 und der unwiderruflichen Veröffentlichung meiner Beiträge unter der Lizenz $2 zu.";
+"description-edit-license" = "Durch die Änderung der Artikelbeschreibung stimme ich den $1 und der unwiderruflichen Veröffentlichung meiner Beiträge unter der Lizenz $2 zu.";
 "description-edit-pencil-introduction" = "Einleitung bearbeiten";
-"description-edit-pencil-title" = "Titelbeschreibung bearbeiten";
+"description-edit-pencil-title" = "Artikelbeschreibung bearbeiten";
 "description-edit-placeholder-title" = "Kurze Beschreibungen sind am Besten";
 "description-edit-publish" = "Beschreibung veröffentlichen";
 "description-edit-title" = "Beschreibung bearbeiten";
 "description-edit-warning" = "Versuche, die Beschreibungen kurz zu halten, so dass Benutzer das Thema des Artikels im Überblick verstehen können.";
-"description-help-about-description" = "Titelbeschreibungen fassen einen Artikel zusammen, um Lesern beim Verstehen des Themas im Überblick zu helfen.";
+"description-help-about-description" = "Artikelbeschreibungen fassen einen Artikel zusammen, um Lesern beim Verstehen des Themas im Überblick zu helfen.";
 "description-help-about-title" = "Über";
 "description-help-about-wikidata" = "Über Wikidata";
 "description-help-more-info-description" = "Beschreibungen werden auf Wikidata gespeichert und verwaltet, einem Projekt der Wikimedia Foundation, das eine freie, kollaborative, mehrsprachige und sekundäre Datenbank zur Verfügung stellt, die Wikipedia und weitere Projekte unterstützt.";
 "description-help-more-info-title" = "Weitere Informationen";
 "description-help-tips-description" = "Beschreibungen sollten idealerweise in eine Zeile passen und zwischen zwei und zwölf Wörtern lang sein. Der erste Buchstabe ist nicht groß geschrieben, es sei denn, das erste Wort ist ein Eigenname.";
-"description-help-tips-example-description-one" = "Titelbeschreibung für einen Artikel über die Mona Lisa";
-"description-help-tips-example-description-two" = "Titelbeschreibung für einen Artikel über den Mount Everest";
+"description-help-tips-example-description-one" = "Artikelbeschreibung für einen Artikel über die Mona Lisa";
+"description-help-tips-example-description-two" = "Artikelbeschreibung für einen Artikel über den Mount Everest";
 "description-help-tips-example-title-one" = "Gemälde von Leonardo da Vinci";
 "description-help-tips-example-title-two" = "höchster Berg der Erde";
 "description-help-tips-for-example" = "Zum Beispiel:";
 "description-help-tips-title" = "Tipps zum Erstellen von Beschreibungen";
-"description-help-title" = "Hilfe zu Titelbeschreibungen";
+"description-help-title" = "Hilfe zu Artikelbeschreibungen";
 "description-help-wikidata-guide" = "Wikidata-Anleitung zum Verfassen von Beschreibungen";
 "description-published-button-title" = "Fertig";
 "description-published-footer" = "Du kannst Artikel auch innerhalb dieser App bearbeiten. Versuche, Tippfehler und kleine Sätze zu korrigieren, indem du das nächste Mal auf das Stiftsymbol klickst.";
@@ -175,7 +187,7 @@
 "description-welcome-concise-sub-title" = "Idealerweise eine Zeile, zwischen zwei und zwölf Wörtern";
 "description-welcome-concise-title" = "Halte sie kurz";
 "description-welcome-descriptions-sub-title" = "Fasst einen Artikel zusammen, um Lesern beim Verstehen des Themas im Überblick zu helfen.";
-"description-welcome-descriptions-title" = "Titelbeschreibungen";
+"description-welcome-descriptions-title" = "Artikelbeschreibungen";
 "description-welcome-promise-title" = "Mit dem Anfangen verspreche ich, diese Funktion nicht zu missbrauchen.";
 "description-welcome-start-editing-button" = "Jetzt bearbeiten";
 "diff-compare-header-from-info-heading" = "Von:";
@@ -277,6 +289,7 @@
 "empty-no-feed-message" = "Du kannst deine empfohlenen Artikel ansehen, wenn du Internet hast.";
 "empty-no-history-message" = "Gehe hier deinen gelesenen Seiten nach";
 "empty-no-history-title" = "Keine Versionsgeschichte anzuzeigen";
+"empty-no-other-article-languages-title" = "Keine anderen Sprachen verfügbar";
 "empty-no-reading-lists-message" = "Erstelle Listen für Reiseziele, Lieblingsthemen und vieles mehr.";
 "empty-no-reading-lists-title" = "Organisiere gespeicherte Artikel mit Leselisten";
 "empty-no-saved-pages-in-reading-list-message" = "Speichere Seiten in diese Liste, um sie hier zu sehen.";
@@ -508,6 +521,7 @@
 "on-this-day-detail-header-date-range" = "von $1 bis $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|Ein historisches Ereignis|$1 historische Ereignisse}}";
 "on-this-day-footer" = "Weitere historische Ereignisse an diesem Tag";
+"on-this-day-no-internet-error" = "Keine Daten verfügbar";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 von der Wikipedia auf $2";
 "on-this-day-title" = "Heute";
 "original-tab-button-popover-description" = "Tippe auf das W, um zu dem Reiter zurückzukehren, von dem du gestartet bist.";
@@ -532,6 +546,7 @@
 "page-protected-can-not-edit-title" = "Diese Seite ist geschützt";
 "page-protected-other" = "Diese Seite wurde auf die folgenden Ebenen geschützt: $1";
 "page-protected-sysop" = "Diese Seite wurde vollgesperrt.";
+"page-similar-titles" = "Ähnliche Seiten";
 "panel-compare-revisions-text" = "Der Versionsvergleich hilft dabei zu sehen, wie sich ein Artikel über die Zeit verändert hat. Der Vergleich zweier Versionen zeigt die Unterschiede zwischen den Versionen und hebt hervor was sich geändert hat.";
 "panel-compare-revisions-title" = "Versionen vergleichen";
 "pictured" = "Bild";
@@ -654,11 +669,14 @@
 "reading-themes-controls-syntax-highlighting" = "Syntaxhervorhebung";
 "reference-title" = "Einzelnachweis $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Heute|1=Gestern|Vor $1 Tagen}}";
+"relative-date-hours-abbreviated" = "$1h";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Kürzlich|Vor einer Stunde|Vor $1 Stunden}}";
 "relative-date-hours-ago-abbreviated" = "Vor $1 Stunden";
+"relative-date-minutes-abbreviated" = "$1m";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Gerade eben|Vor einer Minute|Vor $1 Minuten}}";
 "relative-date-minutes-ago-abbreviated" = "Vor $1 Minuten";
 "relative-date-months-ago" = "{{PLURAL:$1|0=Diesen Monat|1=Letzten Monat|Vor $1 Monaten}}";
+"relative-date-seconds-abbreviated" = "$1s";
 "relative-date-seconds-ago-abbreviated" = "Vor $1 Sekunden";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dieses Jahr|1=Letztes Jahr|Vor $1 Jahren}}";
 "replace-button-accessibility" = "$1 ausführen.";
@@ -671,10 +689,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|Ein Objekt|$1 Objekte}} ersetzt";
 "replace-textfield-accessibility" = "Ersetzen";
 "replace-textfield-placeholder" = "Ersetzen durch …";
-"request-feedback-on-error" = "Die App hat ein Problem festgestellt und unsere Entwickler möchten gerne mehr darüber wissen. Bitte tippe hier, um eine E-Mail mit den Einzelheiten zum Fehler an uns zu senden.";
 "reverted-edit-back-to-article-button-title" = "Zurück zum Artikel";
-"reverted-edit-notification-body" = "Deine Bearbeitung am Artikel $1 wurde von $2 zurückgesetzt";
-"reverted-edit-notification-read-more-action-title" = "Mehr erfahren";
 "reverted-edit-possible-reasons" = "- Dein Beitrag folgte nicht einer der Richtlinien. $1\n\n- Dein Beitrag sieht nach einem Experiment oder Vandalismus aus.";
 "reverted-edit-possible-reasons-subtitle" = "Wir wissen, dass du dein Bestes versucht hast, aber einer der Überprüfer hatte einen Bedenken.\n\nMögliche Gründe, warum deine Bearbeitung zurückgesetzt wurde, sind:";
 "reverted-edit-thanks-for-editing-title" = "Vielen Dank für deine Bearbeitungen auf Wikipedia!";
@@ -789,6 +804,8 @@
 "two-factor-login-title" = "Bei deinem Benutzerkonto anmelden";
 "two-factor-login-with-backup-code" = "Einen deiner Backup-Codes verwenden";
 "two-factor-login-with-regular-code" = "Verifizierungscode verwenden";
+"unknown-generic-text" = "Unbekannt";
+"variants-alert-dismiss-button" = "Nein danke";
 "welcome-exploration-explore-feed-description" = "Empfohlener Lesestoff und täglich wechselnde Artikel aus unserer Gemeinschaft";
 "welcome-exploration-explore-feed-title" = "Entdecken-Feed";
 "welcome-exploration-on-this-day-description" = "Reise in der Zeit zurück, um zu erfahren, was heute in der Vergangenheit passiert ist.";

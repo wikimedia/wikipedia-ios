@@ -10,6 +10,7 @@
 @property (readwrite, copy, nonatomic, nonnull) NSString *localizedName;
 @property (readwrite, copy, nonatomic, nonnull) NSString *name;
 @property (readwrite, copy, nonatomic, nullable) NSString *languageVariantCode;
+@property (readwrite, copy, nonatomic, nullable) NSString *altISOCode;
 
 @end
 
@@ -21,7 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
                        pageTitleText:(nonnull NSString *)pageTitleText
                                 name:(nonnull NSString *)name
                        localizedName:(nonnull NSString *)localizedName
-                 languageVariantCode:(nullable NSString *)languageVariantCode {
+                 languageVariantCode:(nullable NSString *)languageVariantCode
+                          altISOCode:(nullable NSString *)altISOCode {
     self = [super init];
     if (self) {
         self.languageCode = languageCode;
@@ -29,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
         self.name = name;
         self.localizedName = localizedName;
         self.languageVariantCode = languageVariantCode;
+        self.altISOCode = altISOCode;
     }
     return self;
 }
@@ -36,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink:)
 
 - (BOOL)isEqualToLanguageLink:(MWKLanguageLink *)rhs {
-    return WMF_RHS_PROP_EQUAL(languageCode, isEqualToString:) && WMF_RHS_PROP_EQUAL(pageTitleText, isEqualToString:) && WMF_RHS_PROP_EQUAL(name, isEqualToString:) && WMF_RHS_PROP_EQUAL(localizedName, isEqualToString:) && WMF_RHS_PROP_EQUAL(languageVariantCode, isEqualToString:);
+    return WMF_RHS_PROP_EQUAL(languageCode, isEqualToString:) && WMF_RHS_PROP_EQUAL(pageTitleText, isEqualToString:) && WMF_RHS_PROP_EQUAL(name, isEqualToString:) && WMF_RHS_PROP_EQUAL(localizedName, isEqualToString:) && WMF_RHS_PROP_EQUAL(languageVariantCode, isEqualToString:) && WMF_RHS_PROP_EQUAL(altISOCode, isEqualToString:);
 }
 
 - (NSComparisonResult)compare:(MWKLanguageLink *)other {
@@ -44,7 +47,7 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink:)
 }
 
 - (NSUInteger)hash {
-    return self.languageCode.hash ^ flipBitsWithAdditionalRotation(self.pageTitleText.hash, 1) ^ flipBitsWithAdditionalRotation(self.name.hash, 2) ^ flipBitsWithAdditionalRotation(self.localizedName.hash, 3) ^ flipBitsWithAdditionalRotation(self.languageVariantCode.hash, 4); // When languageVariantCode is nil, the XOR flips the bits
+    return self.languageCode.hash ^ flipBitsWithAdditionalRotation(self.pageTitleText.hash, 1) ^ flipBitsWithAdditionalRotation(self.name.hash, 2) ^ flipBitsWithAdditionalRotation(self.localizedName.hash, 3) ^ flipBitsWithAdditionalRotation(self.languageVariantCode.hash, 4) ^ flipBitsWithAdditionalRotation(self.altISOCode.hash, 4); // When languageVariantCode or altISOCode is nil, the XOR flips the bits
 }
 
 - (NSString *)description {
@@ -52,11 +55,12 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink:)
                          @"%@ { \n"
                           "\tlanguageCode: %@, \n"
                           "\tlanguageVariantCode: %@, \n"
+                          "\taltISOCode: %@, \n"
                           "\tpageTitleText: %@, \n"
                           "\tname: %@, \n"
                           "\tlocalizedName: %@ \n"
                           "}",
-                         [super description], self.languageCode, self.languageVariantCode, self.pageTitleText, self.name, self.localizedName];
+                         [super description], self.languageCode, self.languageVariantCode, self.altISOCode, self.pageTitleText, self.name, self.localizedName];
 }
 
 #pragma mark - Computed Properties
@@ -66,7 +70,7 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink:)
 }
 
 - (NSURL *)siteURL {
-    NSURL *siteURL = [NSURL wmf_URLWithDefaultSiteAndlanguage:self.languageCode];
+    NSURL *siteURL = [NSURL wmf_URLWithDefaultSiteAndLanguageCode:self.languageCode];
     siteURL.wmf_languageVariantCode = self.languageVariantCode;
     return siteURL;
 }
@@ -82,7 +86,8 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink:)
                                            pageTitleText:pageTitleText
                                                     name:self.name
                                            localizedName:self.localizedName
-                                     languageVariantCode:self.languageVariantCode];
+                                     languageVariantCode:self.languageVariantCode
+                                              altISOCode:self.altISOCode];
 }
 
 @end

@@ -1,6 +1,6 @@
 import Foundation
 
-protocol ArticleScrolling: class {
+protocol ArticleScrolling: AnyObject {
     /// Used to wait for the callback that the anchor is ready for scrollin'
     typealias ScrollToAnchorCompletion = (_ anchor: String, _ rect: CGRect) -> Void
 
@@ -61,7 +61,7 @@ extension ArticleScrolling where Self: ViewController {
             completion?(false)
             return
         }
-        let overlayTop = self.webView.iOS12yOffsetHack + self.navigationBar.hiddenHeight
+        let overlayTop = self.webView.yOffsetHack + self.navigationBar.hiddenHeight
         let adjustmentY: CGFloat
         if centered {
             let overlayBottom = self.webView.scrollView.contentInset.bottom
@@ -70,14 +70,17 @@ extension ArticleScrolling where Self: ViewController {
         } else {
             adjustmentY = overlayTop
         }
-        let y = offset.y + adjustmentY
-        let minY = 0 - scrollView.contentInset.top
-        guard y > minY else {
-            completion?(false)
-            return
-        }
-        let maxY = scrollView.contentSize.height - scrollView.bounds.height + scrollView.contentInset.bottom
-        guard y < maxY else {
+        let minYScrollPoint = 0 - scrollView.contentInset.top
+        let largestY = scrollView.contentSize.height + scrollView.contentInset.bottom
+
+        /// If there is less than one screen of content, do not let this number be negative, to ensure the ranges below are valid.
+        let maxYScrollPoint = max(largestY - scrollView.bounds.height, 0)
+
+        /// If y lies within the last screen, scroll should be to the final full screen.
+        let yContentPoint = offset.y + adjustmentY
+        let y = (maxYScrollPoint...largestY).contains(yContentPoint) ? maxYScrollPoint : yContentPoint
+
+        guard (minYScrollPoint...maxYScrollPoint).contains(y) else {
             completion?(false)
             return
         }

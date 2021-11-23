@@ -1,7 +1,7 @@
 import UIKit
 import WMF
 
-@objc protocol ReadMoreAboutRevertedEditViewControllerDelegate: class {
+@objc protocol ReadMoreAboutRevertedEditViewControllerDelegate: AnyObject {
     func readMoreAboutRevertedEditViewControllerDidPressGoToArticleButton(_ articleURL: URL)
 }
 

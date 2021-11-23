@@ -22,10 +22,11 @@
 // Author: Skalman
 // Author: Smetanakaviar
 // Author: Technic2
+// Author: Tsevener
 // Author: WikiPhoenix
 
 "aaald-added-text-description-2" = "$1 lades till";
-"aaald-article-description-updated-description" = "Artikelns titelbeskrivning uppdaterades";
+"aaald-article-description-updated-description" = "Artikelbeskrivningen uppdaterades";
 "aaald-article-insert-header" = "Betydande uppdateringar";
 "aaald-article-insert-last-updated" = "Senast uppdaterad";
 "aaald-article-insert-new-changes" = "Nya ändringar";
@@ -124,7 +125,7 @@
 "action-replace-all" = "Ersätt alla";
 "action-retry" = "Försök igen";
 "action-save" = "Spara";
-"action-saved" = "Sparades";
+"action-saved" = "Sparad";
 "action-saved-accessibility" = "Sparades. Aktivera för att ångra.";
 "action-saved-accessibility-notification" = "Artikeln sparades till senare";
 "action-share" = "Dela";
@@ -176,7 +177,7 @@
 "button-skip" = "Hoppa över";
 "cancel" = "Avbryt";
 "cc-zero" = "Creative Commons CC0";
-"chinese-variants-alert-body" = "Wikipedia-appen stöder nu följande kinesiska varianter som huvudsakliga eller sekundära språk inom appen, som underlättar att läsa, söka och redigera i appen på dina önskade varianter:\n\n简体 kinesiska, förenklad (zh-hans)\n繁體 kinesiska, traditionell (zh-hant)\n大陆简体 fastlandet, förenklad (zh-cn)\n香港繁體 Hong Kong, traditionell (zh-hk)\n澳門繁體 Macau, traditionell (zh-mo)\n大马简体 Malaysia, förenklad (zh-my)\n新加坡简体 Singapore, förenklad (zh-sg)\n臺灣正體 Taiwan, traditionell (zh-tw)";
+"chinese-variants-alert-body" = "Wikipedia-appen stöder nu följande kinesiska varianter som huvudsakliga eller sekundära språk inom appen, som underlättar att läsa, söka och redigera i appen på dina önskade varianter:\n\n简体 kinesiska, förenklad (zh-hans)\n香港繁體 Hong Kong, traditionell (zh-hk)\n澳門繁體 Macau, traditionell (zh-mo)\n大马简体 Malaysia, förenklad (zh-my)\n新加坡简体 Singapore, förenklad (zh-sg)\n臺灣正體 Taiwan, traditionell (zh-tw)";
 "chinese-variants-alert-title" = "Uppdaterades till stöd för kinesiska varianter";
 "clear-title-accessibility-label" = "Rensa";
 "close-button-accessibility-label" = "Stäng";
@@ -187,29 +188,30 @@
 "crimean-tatar-variants-alert-title" = "Uppdaterades till stöd för krimtatariska varianter";
 "data-migration-status" = "Uppdaterar...";
 "description-add-title" = "Lägg till beskrivning";
-"description-edit-for-article" = "Titelbeskrivning för $1";
+"description-edit-for-article" = "Artikelbeskrivning för $1";
 "description-edit-learn-more" = "Läs mer";
 "description-edit-length-warning" = "$1 / $2";
-"description-edit-license" = "Genom att ändra titelbeskrivningen samtycker jag till $1 och att oåterkalleligt släppa mina bidrag under licensen $2.";
+"description-edit-license" = "Genom att ändra artikelbeskrivningen samtycker jag till $1 och att oåterkalleligt släppa mina bidrag under licensen $2.";
 "description-edit-pencil-introduction" = "Redigera inledningen";
-"description-edit-pencil-title" = "Redigera titelbeskrivningen";
+"description-edit-pencil-title" = "Redigera artikelbeskrivningen";
 "description-edit-placeholder-title" = "Korta beskrivningar är bäst";
 "description-edit-publish" = "Publicera beskrivning";
 "description-edit-title" = "Redigera beskrivning";
 "description-edit-warning" = "Försök att hålla beskrivningar korta så användare kan förstå artikeln ämne på ett ögonblick";
-"description-help-about-description" = "Titelbeskrivningar sammanfattar en artikel för att hjälpa läsare förstå ämnet med ett ögonkast.";
+"description-edit-warning-casing" = "Bara egennamn bör inledas med en versal, även i början av meningen.";
+"description-help-about-description" = "Artikelbeskrivningar sammanfattar en artikel för att hjälpa läsare förstå ämnet med ett ögonkast.";
 "description-help-about-title" = "Om";
 "description-help-about-wikidata" = "Om Wikidata";
 "description-help-more-info-description" = "Beskrivningar lagras och underhålls på Wikidata, ett projekt av Wikimedia Foundation som tillhandahåller en gratis, gemensam och flerspråkig sekundär databas som stödjer Wikipedia och andra projekt.";
 "description-help-more-info-title" = "Mer information";
 "description-help-tips-description" = "Beskrivningar bör helst vara en rad och är mellan två och tolv ord långt. De inleds inte med en versal om det första ordet inte är ett egennamn.";
-"description-help-tips-example-description-one" = "titelbeskrivning av en artikel om Mona Lisa";
-"description-help-tips-example-description-two" = "titelbeskrivning av en artikel om Mount Everest";
+"description-help-tips-example-description-one" = "artikelbeskrivning av en artikel om Mona Lisa";
+"description-help-tips-example-description-two" = "artikelbeskrivning av en artikel om Mount Everest";
 "description-help-tips-example-title-one" = "målning av Leonardo Da Vinci";
 "description-help-tips-example-title-two" = "Jordens högsta berg";
 "description-help-tips-for-example" = "Till exempel:";
 "description-help-tips-title" = "Tips för att skapa beskrivningar";
-"description-help-title" = "Hjälp om titelbeskrivningar";
+"description-help-title" = "Hjälp om artikelbeskrivningar";
 "description-help-wikidata-guide" = "Guide på Wikidata om att skriva beskrivningar";
 "description-published-button-title" = "Klar";
 "description-published-footer" = "Du kan även redigera artiklar i denna app. Försök att åtgärda stavfel och mindre meningar genom att klicka på pennikonen nästa gång.";
@@ -218,7 +220,7 @@
 "description-welcome-concise-sub-title" = "Ideellt en rad, mellan två till tolv ord";
 "description-welcome-concise-title" = "Gör den kort";
 "description-welcome-descriptions-sub-title" = "Sammanfattar en artikel för att hjälpa läsare förstå ämnet med ett ögonkast";
-"description-welcome-descriptions-title" = "Titelbeskrivningar";
+"description-welcome-descriptions-title" = "Artikelbeskrivningar";
 "description-welcome-promise-title" = "Genom att börja lovar jag att inte missbruka denna funktion";
 "description-welcome-start-editing-button" = "Börja redigera";
 "diff-compare-header-from-info-heading" = "Från:";
@@ -328,6 +330,8 @@
 "empty-no-feed-message" = "Du kan se dina rekommenderade artiklar när du har Internetåtkomst";
 "empty-no-history-message" = "Håll koll på vad du har läst här";
 "empty-no-history-title" = "Ingen historik att visa";
+"empty-no-other-article-languages-message" = "Denna artikel har inte ännu skrivits på något annat språk";
+"empty-no-other-article-languages-title" = "Inga andra språk är tillgängliga";
 "empty-no-reading-lists-message" = "Skapa listor för platser att resa till, favoritämnen och mycket mer";
 "empty-no-reading-lists-title" = "Organisera sparade artiklar med läslistor";
 "empty-no-saved-pages-in-reading-list-message" = "Spara sidor i denna lista för att se dem dyka upp här";
@@ -423,6 +427,12 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Från Wikipedia";
 "explore-randomizer" = "Slumpartikel";
 "featured-article-empty-title" = "Inga tillgängliga utmärkta artiklar idag";
+"featured-widget-content-failure-for-date" = "En utvald artikel finns inte tillgänglig för detta datum.";
+"featured-widget-description" = "Upptäck de bästa artiklarna på Wikipedia som väljs ut dagligen av vår gemenskap.";
+"featured-widget-from-language-wikipedia" = "Från Wikipedia på $1";
+"featured-widget-from-wikipedia" = "Från Wikipedia";
+"featured-widget-language-failure" = "Ditt primära Wikipedia-språk har inte stöd för \"Utvald artikel\". Du kan uppdatera ditt primära Wikipedia-språk i appens inställningsmeny.";
+"featured-widget-title" = "Utmärkt artikel";
 "feed-news-notification-button-text" = "Aktivera notiser";
 "feed-news-notification-text" = "Aktivera notiser för att bli meddelad om Wikipedia-artiklar som är populära aktuella händelser.";
 "fetcher-error-generic" = "Någonting gick fel. Försök igen senare.";
@@ -575,6 +585,8 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historisk händelse|$1 historiska händelser}}";
 "on-this-day-footer" = "Fler historiska händelser på denna dag";
 "on-this-day-footer-showing-event-count" = "{{PLURAL:$1|$1 till historisk händelse|$1 fler historiska händelser}} på denna dag";
+"on-this-day-language-does-not-support-error" = "Ditt primära Wikipedia-språk har inte stöd för \"På denna dag\". Du kan uppdatera ditt primära Wikipedia-språk i appens inställningsmeny.";
+"on-this-day-no-internet-error" = "Ingen tillgänglig data";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 från Wikipedia på $2";
 "on-this-day-title" = "På denna dag";
 "original-tab-button-popover-description" = "Tryck på \"W\" för att återvända till fliken du började ifrån";
@@ -639,6 +651,9 @@
 "places-unknown-distance" = "okänt avstånd";
 "potd-description-prefix" = "Dagens bild för $1";
 "potd-empty-error-description" = "Kunde inte hämta dagens bild för $1";
+"potd-sample-entry-description" = "En jockey håller i springande två tjurar i pacu jawi (från Minangkabau, \"tjurlopp\"), ett traditionellt tjurlopp i Tanah Datar, Sumatera Barat, Indonesien. 2015, Final-45.";
+"potd-widget-description" = "Njut av dagens vackra foto som väljs ut av vår gemenskap.";
+"potd-widget-title" = "Dagens bild";
 "preference-summary-eventlogging-opt-in" = "Tillåt Wikimedia Foundation att samla in information om hur du använder appen. Informationen används för att göra appen bättre.";
 "preference-title-eventlogging-opt-in" = "Skicka användningsrapporter";
 "rank-accessibility-label" = "Nummer $1";
@@ -745,10 +760,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 instans ersättes|$1 instanser ersättes}}";
 "replace-textfield-accessibility" = "Ersätt";
 "replace-textfield-placeholder" = "Ersätt med…";
-"request-feedback-on-error" = "Appen har stött på ett problem som våra utvecklare vill veta mer om. Tryck här för att skicka ett e-postmeddelanden till oss med information om felet.";
 "reverted-edit-back-to-article-button-title" = "Tillbaka till artikeln";
-"reverted-edit-notification-body" = "Redigeringen du gjorde på artikeln $1 ångrades av $2";
-"reverted-edit-notification-read-more-action-title" = "Läs mer";
 "reverted-edit-possible-reasons" = "- Ditt bidrag följde inte en av riktlinjerna. $1 \n\n - Ditt bidrag såg ut som ett experiment eller vandalism";
 "reverted-edit-possible-reasons-subtitle" = "Vi vet att du försökte ditt bästa men en av granskarna hade en invändning.\n\nMöjliga anledningar till att din redigering gjordes om inkluderar:";
 "reverted-edit-thanks-for-editing-title" = "Tack för att du redigerar på Wikipedia!";
@@ -880,6 +892,9 @@
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "Se fler populära artiklar";
+"top-read-widget-description" = "Ta reda på vad världen läser i dag på Wikipedia.";
+"top-read-widget-readers-count" = "$1 läsare";
+"top-read-widget-title" = "Populära läsningar";
 "two-factor-login-continue" = "Fortsätt att logga in";
 "two-factor-login-instructions" = "Ange tvåstegsverifieringskod";
 "two-factor-login-title" = "Logga in på ditt konto";
@@ -916,6 +931,9 @@
 "welcome-send-data-learn-more" = "Läs mer om data som samlas in";
 "welcome-send-data-sub-title" = "Hjälp till att göra appen bättre genom att låta Wikimedia Foundation veta hur du använder den. All data som samlas in är anonym.";
 "welcome-volunteer-send-usage-reports" = "Skicka användningsrapporter";
+"widget-onthisday-description" = "Utforska vad som hände på denna dag i historien.";
+"widget-onthisday-placeholder-article-snippet" = "Fri encyklopedi på nätet som alla kan redigera";
+"widget-onthisday-placeholder-event-snippet" = "Wikipedia, en fri encyklopedi med wikiinnehåll, på nätet.";
 "wikitext-downloading" = "Laddar innehåll...";
 "wikitext-preview-changes" = "Hämtar förhandsgranskning av dina ändringar...";
 "wikitext-preview-changes-none" = "Inga ändringar som behöver förhandsgranskas har gjorts.";

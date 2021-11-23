@@ -21,7 +21,8 @@ typedef NS_ENUM(NSUInteger, WMFEmptyViewType) {
     WMFEmptyViewTypeDiffCompare,
     WMFEmptyViewTypeDiffSingle,
     WMFEmptyViewTypeDiffErrorCompare,
-    WMFEmptyViewTypeDiffErrorSingle
+    WMFEmptyViewTypeDiffErrorSingle,
+    WMFEmptyViewTypeNoOtherArticleLanguages
 };
 
 @protocol WMFEmptyViewContainer

@@ -6,6 +6,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern NSString *const WMFLanguageVariantAlertsLibraryVersion; // NSNumber
+
 @interface WMFAppViewController : UITabBarController <UNUserNotificationCenterDelegate>
 
 @property (nonatomic, readonly, nullable) UINavigationController *currentNavigationController;
@@ -30,9 +32,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)showSearchInCurrentNavigationController;
 
+- (void)setRemoteNotificationRegistrationStatusWithDeviceToken: (nullable NSData *)deviceToken error: (nullable NSError *)error;
+
 /// Returning WMFArticleViewController (which is ArticleViewController in Swift) makes this not work from Swift
 - (void)swiftCompatibleShowArticleWithURL:(NSURL *)articleURL animated:(BOOL)animated completion:(nonnull dispatch_block_t)completion;
 
+@end
+
+// Methods exposed in header for use in WMFAppViewController+Extensions.swift
+@interface WMFAppViewController (SwiftInterfaces)
+- (void)dismissPresentedViewControllers;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -1,7 +1,7 @@
 
 import UIKit
 
-protocol TalkPageTopicNewViewControllerDelegate: class {
+protocol TalkPageTopicNewViewControllerDelegate: AnyObject {
     func tappedPublish(subject: String, body: String, viewController: TalkPageTopicNewViewController)
 }
 

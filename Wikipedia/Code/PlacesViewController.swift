@@ -165,7 +165,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         mapView.mapType = .standard
         mapView.showsBuildings = false
         mapView.showsTraffic = false
-        mapView.showsPointsOfInterest = false
+        mapView.pointOfInterestFilter = .excludingAll
         mapView.showsScale = false
         mapView.showsUserLocation = true
         mapView.isRotateEnabled = false
@@ -235,6 +235,8 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             defaults.wmf_setPlacesHasAppeared(true)
         }
 
+        /// Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
+        (parent as? WMFAppViewController)?.navigationItem.backButtonTitle = title
         
         guard locationManager.isAuthorized else {
             if !defaults.wmf_placesDidPromptForLocationAuthorization() {
@@ -248,9 +250,6 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         
         locationManager.startMonitoringLocation()
         mapView.showsUserLocation = true
-
-        /// Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
-        parent?.navigationItem.backButtonTitle = title
     }
 
     override func viewWillDisappear(_ animated: Bool) {

@@ -30,11 +30,12 @@
 // Author: Rodrigo codignoli
 // Author: Tks4Fish
 // Author: Tooguether
+// Author: Tsevener
 // Author: Walesson
 // Author: Webysther
 
 "aaald-added-text-description-2" = "$1 adicionado";
-"aaald-article-description-updated-description" = "Descrição do título do artigo atualizada";
+"aaald-article-description-updated-description" = "Descrição do artigo atualizada";
 "aaald-article-insert-header" = "Atualizações significativas";
 "aaald-article-insert-last-updated" = "Última atualização";
 "aaald-article-insert-new-changes" = "Novas alterações";
@@ -134,8 +135,8 @@
 "action-retry" = "Atualizar";
 "action-save" = "Salvar";
 "action-saved" = "Salvo";
-"action-saved-accessibility" = "Salvou. Ative para não se proteger.";
-"action-saved-accessibility-notification" = "Artigo salvo para posterior";
+"action-saved-accessibility" = "Salvo. Ative para cancelar o salvamento.";
+"action-saved-accessibility-notification" = "Artigo salvo para mais tarde";
 "action-share" = "Compartilhar";
 "action-share-accessibility" = "Compartilhar";
 "action-sort" = "Ordenar";
@@ -181,42 +182,45 @@
 "button-report-a-bug" = "Reportar um erro";
 "button-save-for-later" = "Salvar para mais tarde";
 "button-saved-for-later" = "Salvo para mais tarde";
-"button-saved-remove" = "Remover do salvo";
+"button-saved-remove" = "Remover dos salvos";
 "button-skip" = "Pular";
 "cancel" = "Cancelar";
 "cc-zero" = "Creative Commons CC0";
-"chinese-variants-alert-body" = "O aplicativo da Wikipédia agora suporta as seguintes variantes chinesas como idiomas primários ou secundários dentro do aplicativo, tornando mais fácil ler, pesquisar e editar em suas variantes preferidas:\n\n简体 Chinês simplificado (zh-hans)\n繁體 Chinês tradicional (zh-hant)\n大陆简体 Continental simplificado (zh-cn)\n香港繁體 Hong Kong tradicional (zh-hk)\n澳門繁體 Macau tradicional (zh-mo)\n大马简体 Malaio simplificado (zh-my)\n新加坡简体 Singapore simplificado (zh-sg)\n臺灣正體 Taiwanês tradicional (zh-tw)";
+"chinese-variants-alert-body" = "O aplicativo da Wikipédia agora suporta as seguintes variantes chinesas como idiomas primários ou secundários dentro do aplicativo, tornando mais fácil ler, pesquisar e editar em suas variantes preferidas:\n\n简体 Chinês simplificado (zh-hans)\n香港繁體 Hong Kong tradicional (zh-hk)\n澳門繁體 Macau tradicional (zh-mo)\n大马简体 Malaio simplificado (zh-my)\n新加坡简体 Singapore simplificado (zh-sg)\n臺灣正體 Taiwanês tradicional (zh-tw)";
 "chinese-variants-alert-title" = "Atualizações para suporte a variantes chinesas";
 "clear-title-accessibility-label" = "Limpar";
 "close-button-accessibility-label" = "Fechar";
 "compass-direction" = "às $1 horas";
 "continue-reading-empty-description" = "Explorar a Wikipédia para ler mais artigos";
 "continue-reading-empty-title" = "Nenhum artigo lido recentemente";
+"crimean-tatar-variants-alert-body" = "O aplicativo Wikipedia agora suporta as seguintes variantes de tártara da crimeia como idiomas primários ou secundários dentro do aplicativo, tornando mais fácil ler, pesquisar e editar em suas variantes preferidas:\n\nQırımtatarca, tártara da crimeia latino (chr-latn)\nкъырымтатарджа, tártara da crimeia cirílico (crh-cyrl)";
+"crimean-tatar-variants-alert-title" = "Atualizações para suporte a variantes de tártara da Crimeia";
 "data-migration-status" = "Atualizando...";
 "description-add-title" = "Adicionar descrição";
-"description-edit-for-article" = "Descrição do título para $1";
+"description-edit-for-article" = "Descrição do artigo para $1";
 "description-edit-learn-more" = "Saiba mais";
 "description-edit-length-warning" = "$1 / $2";
-"description-edit-license" = "Ao alterar a descrição do título, eu concordo com os $1 e lanço as minhas contribuições irrevogavelmente sob a licença $2.";
+"description-edit-license" = "Ao alterar a descrição do artigo, eu concordo com os $1 e lanço as minhas contribuições irrevogavelmente sob a licença $2.";
 "description-edit-pencil-introduction" = "Editar introdução";
-"description-edit-pencil-title" = "Editar descrição do título";
+"description-edit-pencil-title" = "Editar descrição do artigo";
 "description-edit-placeholder-title" = "As descrições curtas são melhores";
 "description-edit-publish" = "Publicar descrição";
 "description-edit-title" = "Editar descrição";
 "description-edit-warning" = "tente manter as descrições breves para que os usuários possam entender o assunto do artigo imediatamente";
-"description-help-about-description" = "As descrições dos títulos resumem um artigo para ajudar os leitores a entender o assunto de relance.";
+"description-edit-warning-casing" = "Apenas nomes próprios devem ser escritos em maiúscula, mesmo no início da frase.";
+"description-help-about-description" = "As descrições dos artigos resumem um artigo para ajudar os leitores a entender o assunto de relance.";
 "description-help-about-title" = "Sobre";
 "description-help-about-wikidata" = "Sobre o Wikidata";
 "description-help-more-info-description" = "As descrições são armazenadas no Wikidata, um projeto da Wikimedia Foundation que fornece uma base de dados secundária gratuita, colaborativa e multi-idioma, que suporta a Wikipédia e outros projetos.";
 "description-help-more-info-title" = "Mais informações";
 "description-help-tips-description" = "As descrições devem caber idealmente em uma linha e têm entre duas a doze palavras. Eles não são capitalizados, a menos que a primeira palavra seja um nome próprio.";
-"description-help-tips-example-description-one" = "título para um artigo sobre a Mona Lisa";
-"description-help-tips-example-description-two" = "descrição do título para um artigo sobre o Monte Everest";
+"description-help-tips-example-description-one" = "descrição do artigo para um artigo sobre a Mona Lisa";
+"description-help-tips-example-description-two" = "descrição do artigo para um artigo sobre o Monte Everest";
 "description-help-tips-example-title-one" = "pintado por Leonardo Da Vinci";
 "description-help-tips-example-title-two" = "A montanha mais alta da Terra";
 "description-help-tips-for-example" = "Por exemplo:";
 "description-help-tips-title" = "Dicas para criar descrições";
-"description-help-title" = "Ajuda da descrição do título";
+"description-help-title" = "Ajuda da descrição do artigo";
 "description-help-wikidata-guide" = "Guia Wikidata para escrever descrições";
 "description-published-button-title" = "Feito";
 "description-published-footer" = "Também pode editar artigos com este app. Tente corrigir erros ortográficos e pequenas frases clicando no ícone do lápis da próxima vez";
@@ -225,7 +229,7 @@
 "description-welcome-concise-sub-title" = "Idealmente uma linha, entre 2 a 12 palavras";
 "description-welcome-concise-title" = "Mantenha curta";
 "description-welcome-descriptions-sub-title" = "Resume um artigo para ajudar os leitores a entender o assunto imediatamente";
-"description-welcome-descriptions-title" = "Descrições do título";
+"description-welcome-descriptions-title" = "Descrições de artigos";
 "description-welcome-promise-title" = "Ao iniciar, eu prometo não utilizar de forma irresponsável esta funcionalidade";
 "description-welcome-start-editing-button" = "Começar a editar";
 "diff-compare-header-from-info-heading" = "De:";
@@ -335,6 +339,8 @@
 "empty-no-feed-message" = "Você pode ver os seus artigos recomendados quando houver conexão com a internet";
 "empty-no-history-message" = "Manter um registro do que você esteve lendo aqui";
 "empty-no-history-title" = "Sem histórico para exibir";
+"empty-no-other-article-languages-message" = "Este artigo ainda não foi escrito em outros idiomas";
+"empty-no-other-article-languages-title" = "Nenhum outro idioma disponível";
 "empty-no-reading-lists-message" = "Criar listas de lugares para viajar, tópicos favoritos e muito mais";
 "empty-no-reading-lists-title" = "Organiza os artigos salvados com as listas de leitura";
 "empty-no-saved-pages-in-reading-list-message" = "Guarde páginas nesta lista para vê-las aparecerem aqui";
@@ -383,7 +389,7 @@
 "explore-feed-preferences-randomizer-description" = "Gerar artigos aleatórios para ler";
 "explore-feed-preferences-related-pages-description" = "Sugestões baseadas no histórico de leituras";
 "explore-feed-preferences-show-continue-reading-title" = "Mostrar o cartão 'Continuar a ler'";
-"explore-feed-preferences-show-featured-article-footer-text" = "Desativar o cartão de artigo em destaque desativará o cartão em todos os idiomas disponíveis.";
+"explore-feed-preferences-show-featured-article-footer-text" = "Desativar o cartão de artigo destacado desativará o cartão em todos os idiomas disponíveis.";
 "explore-feed-preferences-show-featured-article-title" = "Mostrar cartão de artigo em destaque";
 "explore-feed-preferences-show-news-footer-text" = "Desativar o o cartão de notícias, o cartão será desativado em todos os idiomas disponíveis.";
 "explore-feed-preferences-show-news-title" = "Mostrar no cartão de notícias";
@@ -430,6 +436,12 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Da Wikipedia";
 "explore-randomizer" = "Aleatório";
 "featured-article-empty-title" = "Hoje não está disponível nenhum artigo destacado";
+"featured-widget-content-failure-for-date" = "Um artigo destacado não está disponível para esta data.";
+"featured-widget-description" = "Descubra os melhores artigos da Wikipédia, selecionados diariamente por nossa comunidade.";
+"featured-widget-from-language-wikipedia" = "Da Wikipédia em $1";
+"featured-widget-from-wikipedia" = "Da Wikipédia";
+"featured-widget-language-failure" = "Seu idioma principal da Wikipédia não oferece suporte a artigos destacados. Você pode atualizar a sua Wikipédia principal no menu Configurações do aplicativo.";
+"featured-widget-title" = "Artigo destacado";
 "feed-news-notification-button-text" = "Ativar notificações";
 "feed-news-notification-text" = "Ative notificações para serem notificadas pela Wikipedia quando os artigos estiverem sendo divulgados nas notícias.";
 "fetcher-error-generic" = "Algo deu errado. Por favor, tente novamente mais tarde.";
@@ -467,6 +479,8 @@
 "forgot-password-instructions" = "Preencha um dos campos abaixo para receber instruções de redefinição de senha por e-mail";
 "forgot-password-title" = "Redefinir senha";
 "forgot-password-username-or-email-title" = "ou";
+"gan-variants-alert-body" = "O aplicativo Wikipedia agora suporta as seguintes variantes Gan como idiomas primários ou secundários dentro do aplicativo, tornando mais fácil ler, pesquisar e editar em suas variantes preferidas:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan simplificado (gan-hans)\n贛語 繁體 Gan tradicional (gan-hant)";
+"gan-variants-alert-title" = "Atualizações para o suporte da variante Gan";
 "history-clear-all" = "Limpar";
 "history-clear-cancel" = "Cancelar";
 "history-clear-confirmation-heading" = "Você tem certeza que quer apagar todos os itens recentes?";
@@ -479,7 +493,7 @@
 "home-nearby-footer" = "Mais lugares perto de sua localização";
 "home-nearby-location-footer" = "Mais perto de $1";
 "home-news-footer" = "Eventos mais atuais";
-"home-reading-list-prompt" = "Seus artigos salvos agora podem ser organizados em listas de leitura e sincronizados em dispositivos. Faça login para permitir que suas listas de leitura sejam salvas nas preferências do usuário.";
+"home-reading-list-prompt" = "Seus artigos salvos agora podem ser organizados em listas de leitura e sincronizados entre dispositivos. Faça login para permitir que suas listas de leitura sejam salvas nas preferências do usuário.";
 "home-themes-action-title" = "Gerenciar preferências";
 "home-themes-prompt" = "Ajuste suas preferências de leitura, incluindo tamanho e tema do texto, na barra de ferramentas do artigo ou nas configurações do usuário para uma experiência de leitura mais confortável.";
 "home-title" = "Explorar";
@@ -528,6 +542,12 @@
 "intermediate-edits-editors-count-limited" = "$1+ revisões intermediárias de mais de $2 usuários não mostrados";
 "intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 revisão intermediária|$1 revisões intermediárias}} por $2+ usuários não mostrados";
 "intermediate-edits-limited-editors-count" = "$1+ revisões intermediárias por {{PLURAL:$2|$2 usuário|$2 usuários}} não mostrado";
+"inuktitut-variants-alert-body" = "O aplicativo Wikipedia agora suporta as seguintes variantes do Inuctitute como idiomas primários ou secundários dentro do aplicativo, tornando mais fácil ler, pesquisar e editar em suas variantes preferidas:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ inuctitute silábico (ike-cans)\nInuktitut ilisautik, inuctitute latino (ike-latn)";
+"inuktitut-variants-alert-title" = "Atualizações para suporte a variantes de inuctitute";
+"kazakh-variants-alert-body" = "O aplicativo Wikipedia agora oferece suporte às seguintes variantes do Cazaque como idiomas primários ou secundários dentro do aplicativo, tornando mais fácil ler, pesquisar e editar em suas variantes preferidas:\n\nҚазақша Cazaque (kk)\nҚазақша Кирил Cazaque cirílico (kk-cyrl)\nqazaqşa latin Cazaque latino (kk-latn)\nتوتە قازاقشا Cazaque árabe (kk-arab)";
+"kazakh-variants-alert-title" = "Atualizações para o suporte à variante do idioma Cazaque";
+"kurdish-variants-alert-body" = "O aplicativo da Wikipédia agora suporta as seguintes variantes curdas como idiomas principais ou secundários dentro do aplicativo, tornando mais fácil ler, editar e pesquisar em suas variantes preferidas:\n\nKurdî Latînî Kurdish, Latino (ku-latn)\nكوردی Kurdish, Árabe (kk-arab)";
+"kurdish-variants-alert-title" = "Atualizações para o suporte à variante Curda";
 "languages-settings-title" = "Idiomas";
 "languages-title" = "Alterar idioma";
 "languages-wikipedia" = "Idiomas de Wikipedia";
@@ -567,6 +587,29 @@
 "no-internet-connection" = "Sem conexão com a internet";
 "no-internet-connection-article-reload" = "Uma versão mais recente deste artigo pode estar disponível, mas não pode ser carregada sem uma conexão com a Internet";
 "no-internet-connection-article-reload-button" = "Retornar para a última versão salva";
+"notifications-center-change-password" = "Alterar senha";
+"notifications-center-commons-project-name" = "Wikimedia Commons";
+"notifications-center-edit-button" = "Editar";
+"notifications-center-empty-checking-for-notifications" = "Verificando notificações...";
+"notifications-center-empty-no-unread-messages" = "Você não tem mensagens não lidas";
+"notifications-center-footer-change-password" = "Alterar senha";
+"notifications-center-go-to-talk-page" = "Ir para a página de discussão";
+"notifications-center-go-to-title" = "Ir para $1";
+"notifications-center-go-to-user-page" = "Ir para a página de discussão de $1";
+"notifications-center-mark-as-read" = "Marcar como lida";
+"notifications-center-mark-as-unread" = "Marcar como não lida";
+"notifications-center-notifications-settings" = "Configurações de notificação";
+"notifications-center-subheader-login-success-unknown-device" = "Entrar em um dispositivo desconhecido";
+"notifications-center-subheader-mention-failed" = "Menção falhada";
+"notifications-center-subheader-mention-successful" = "Menção bem sucedida";
+"notifications-center-subheader-mention-talk-page" = "Menção na página de discussão";
+"notifications-center-subheader-page-link" = "Link da página";
+"notifications-center-subheader-page-reviewed" = "Página revisada";
+"notifications-center-subheader-thanks" = "Agradecimento";
+"notifications-center-subheader-user-rights-change" = "Mudanças nos direitos do usuário";
+"notifications-center-subheader-welcome" = "Bem-vindo!";
+"notifications-center-title" = "Notificações";
+"notifications-center-wikidata-project-name" = "Wikidata";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
@@ -574,6 +617,8 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 evento histórico|$1 eventos históricos}}";
 "on-this-day-footer" = "Mais eventos históricos neste dia";
 "on-this-day-footer-showing-event-count" = "{{PLURAL:$1|Mais $1 evento histórico|Mais $1 eventos históricos}} nesse dia";
+"on-this-day-language-does-not-support-error" = "Seu idioma principal da Wikipédia não suporta o Neste dia. Você pode atualizar sua Wikipédia principal no menu de Configurações do aplicativo.";
+"on-this-day-no-internet-error" = "Sem dados disponíveis";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 a partir de $2 Wikipedia";
 "on-this-day-title" = "Neste dia";
 "original-tab-button-popover-description" = "Toque no 'W' para voltar a a guia onde começou";
@@ -638,6 +683,9 @@
 "places-unknown-distance" = "distância desconhecida";
 "potd-description-prefix" = "Imagem do dia de $1";
 "potd-empty-error-description" = "Erro ao baixar imagem do dia de $1";
+"potd-sample-entry-description" = "Dois touros correm enquanto o jóquei os segura no pacu jawi (de Minangkabau, \"corrida de touros\"), uma corrida de touros tradicional em Tanah Datar, Sumatra Ocidental, Indonésia. 2015, Final-45.";
+"potd-widget-description" = "Desfrute de uma bela foto diária selecionada por nossa comunidade.";
+"potd-widget-title" = "Imagem do dia";
 "preference-summary-eventlogging-opt-in" = "Permitir que a Fundação Wikimedia recolha informações sobre o uso do aplicativo para aperfeiçoá-lo";
 "preference-title-eventlogging-opt-in" = "Enviar relatórios de uso";
 "rank-accessibility-label" = "Número $1";
@@ -676,14 +724,14 @@
 "reading-list-login-or-create-account-button-title" = "Faça login ou crie uma conta";
 "reading-list-login-or-create-account-title" = "Faça o login para sincronizar artigos salvos";
 "reading-list-login-subtitle" = "Faça login ou crie uma conta para permitir que seus artigos salvos e listas de leitura sejam sincronizados entre dispositivos e sejam salvos nas preferências do usuário.";
-"reading-list-login-title" = "Sincronize seus artigos salvos?";
+"reading-list-login-title" = "Sincronizar seus artigos salvos?";
 "reading-list-name-user-created-annotation" = "_[criada pelo usuário]";
 "reading-list-new-list-description-placeholder" = "descrição curta opcional";
 "reading-list-new-list-name-placeholder" = "Título da lista de leitura";
 "reading-list-sync-disabled-panel-message" = "A sincronização das listas de leitura foi desativada para a sua conta da Wikipédia outro dispositivo. Pode reativar a sincronização atualizando as suas definições.";
 "reading-list-sync-disabled-panel-title" = "Sincronização desativada";
 "reading-list-sync-enable-button-title" = "Ativar sincronização";
-"reading-list-sync-enable-subtitle" = "Os artigos guardados e as listas de leitura agora podem ser salvados na sua conta Wikipedia e sincronizados entre aplicativos da Wikipedia.";
+"reading-list-sync-enable-subtitle" = "Seus artigos salvos e listas de leitura podem ser salvos em sua conta da Wikipédia e sincronizados entre aplicativos.";
 "reading-list-sync-enable-title" = "Deseja ativar a sincronização das listas de leitura?";
 "reading-list-sync-enabled-panel-message" = "A sincronização das listas de leitura está ativada para esta conta. Para parar a sincronização, desative a sincronização para esta conta, ao atualizar as suas configurações.";
 "reading-list-sync-enabled-panel-title" = "A sincronização está ativada nesta conta";
@@ -705,7 +753,7 @@
 "reading-lists-conflicting-reading-list-name-updated" = "O nome da sua lista '$1' foi alterado para '$2'";
 "reading-lists-count" = "{{PLURAL:$1|$1 lista|$1 listas}} de leitura";
 "reading-lists-default-list-description" = "Lista padrão para seus artigos salvos";
-"reading-lists-default-list-title" = "Salvo";
+"reading-lists-default-list-title" = "Salvos";
 "reading-lists-delete-reading-list-alert-message" = "Esta ação não pode ser desfeita. Todos os artigos salvados apenas {{PLURAL:$1|nesta lista|nestas listas}} não serão salvados.";
 "reading-lists-delete-reading-list-alert-title" = "Eliminar {{PLURAL:$1|lista|listas}}?";
 "reading-lists-large-sync-completed" = "{{PLURAL:$1|$1 artigo|$1 artigos}} e {{PLURAL:$2|$2 lista de leitura|$2 listas de leitura}} sincronizado a partir da sua conta";
@@ -727,6 +775,8 @@
 "relative-date-hours-abbreviated" = "$1h";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentemente|$1 hora atrás|$1 horas atrás}}";
 "relative-date-hours-ago-abbreviated" = "$1h atrás";
+"relative-date-hrs-ago" = "{{PLURAL:$1|0=Recentemente|$1 hora atrás|$1 horas atrás}}";
+"relative-date-min-ago" = "{{PLURAL:$1|0=Agora|$1 minuto atrás|$1 minutos atrás}}";
 "relative-date-minutes-abbreviated" = "$1m";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Agora mesmo|$1 minuto atrás|$1 minutos atrás}}";
 "relative-date-minutes-ago-abbreviated" = "$1m atrás";
@@ -744,10 +794,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 item substituído|$1 itens substituídos}}";
 "replace-textfield-accessibility" = "Substituir";
 "replace-textfield-placeholder" = "Substituir com…";
-"request-feedback-on-error" = "O aplicativo encontrou um problema que nossos desenvolvedores gostariam de saber mais sobre. Toque aqui para enviar um e-mail com os detalhes do erro.";
 "reverted-edit-back-to-article-button-title" = "Voltar ao artigo";
-"reverted-edit-notification-body" = "A edição que você fez do artigo $1 foi revertida por $2";
-"reverted-edit-notification-read-more-action-title" = "Ler mais";
 "reverted-edit-possible-reasons" = "- Sua contribuição não seguiu uma das diretrizes. $1 \n\n - Sua contribuição parecia um experimento ou vandalismo";
 "reverted-edit-possible-reasons-subtitle" = "Sabemos que você tentou o seu melhor, mas um dos revisores teve uma preocupação.\n\nPossíveis razões pelas quais sua edição foi revertida incluem:";
 "reverted-edit-thanks-for-editing-title" = "Obrigado por editar a Wikipédia!";
@@ -775,6 +822,8 @@
 "search-recent-title" = "recentemente Procurado";
 "search-result-redirected-from" = "Redirecionado de: $1";
 "search-title" = "Pesquisar";
+"serbian-variants-alert-body" = "O aplicativo da Wikipédia agora suporta as seguintes variantes sérvias como idiomas principais ou secundários dentro do aplicativo, tornando mais fácil ler, editar e pesquisar em suas variantes preferidas:\n\nсрпски ћирилица Serbian, Cirílico (sr-ec)\nsrpski latinica Serbian, Latino (sr-el)";
+"serbian-variants-alert-title" = "Atualizações para o suporte à variante sérvia";
 "settings-account" = "Conta";
 "settings-appearance" = "Preferências de leitura";
 "settings-clear-cache" = "Limpar dados em cache";
@@ -833,6 +882,10 @@
 "table-of-contents-heading" = "Conteúdo";
 "table-of-contents-hide-button-label" = "Ocultar sumário";
 "table-of-contents-subheading-label" = "Subtítulo $1";
+"tachelhit-variants-alert-body" = "O aplicativo da Wikipédia agora suporta as seguintes variantes Tachelhit como idiomas principais ou secundários dentro do aplicativo, tornando mais fácil ler, editar e pesquisar em suas variantes preferidas:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latino (shi-latn)";
+"tachelhit-variants-alert-title" = "Atualizações para o suporte da variante Tachelhit";
+"tajik-variants-alert-body" = "O aplicativo da Wikipédia agora suporta as seguintes variantes tadjique como idiomas principais ou secundários dentro do aplicativo, tornando mais fácil ler, editar e pesquisar em suas variantes preferidas:\n\nтоҷикӣ кирилликӣ Tajik, Cirílico (tg-cyrl)\ntojikī lotinī Tajik, Latino (tg-latn)";
+"tajik-variants-alert-title" = "Atualizações para o suporte da variante tajique";
 "talk-page-add-discussion-accessibility-label" = "Adicionar discussão";
 "talk-page-discussion-accessibility-hint" = "Toque duas vezes para abrir o tópico de discussão";
 "talk-page-discussion-read-accessibility-label" = "Ler";
@@ -873,6 +926,9 @@
 "top-read-header-generic" = "Wikipédia";
 "top-read-header-with-language" = "$1 Wikipédia";
 "top-read-see-more" = "Ver mais artigos dos mais lidos";
+"top-read-widget-description" = "Saiba o que o mundo está lendo hoje na Wikipédia.";
+"top-read-widget-readers-count" = "$1 leitores";
+"top-read-widget-title" = "Mais lidos";
 "two-factor-login-continue" = "Continuar conectado";
 "two-factor-login-instructions" = "Por favor, insira o código de verificação de dois fatores";
 "two-factor-login-title" = "Entrar na sua conta";
@@ -880,6 +936,8 @@
 "two-factor-login-with-regular-code" = "Usar código de verificação";
 "unable-to-load-talk-page-title" = "Não foi possível carregar a página de discussão";
 "unknown-generic-text" = "Desconhecido";
+"uzbek-variants-alert-body" = "O aplicativo da Wikipédia agora suporta as seguintes variantes uzbeque como idiomas principais ou secundários dentro do aplicativo, tornando mais fácil ler, editar e pesquisar em suas variantes preferidas:\n\noʻzbekcha lotin Uzbek, Latino (uz-latin)\nўзбекча кирилл Uzbek, Cirílico (uz-cyrl)";
+"uzbek-variants-alert-title" = "Atualizações para o suporte da variante de usbeque";
 "variants-alert-dismiss-button" = "Não, obrigado";
 "variants-alert-preferences-button" = "Revise suas preferências";
 "welcome-exploration-explore-feed-description" = "Leitura recomendada e artigos diários da nossa comunidade";
@@ -907,6 +965,9 @@
 "welcome-send-data-learn-more" = "Saiba mais sobre dados coletados";
 "welcome-send-data-sub-title" = "Ajude a melhorar o aplicativo, permitindo que a Wikimedia Foundation saiba como você o usa. Os dados coletados são anônimos";
 "welcome-volunteer-send-usage-reports" = "Enviar relatório de uso";
+"widget-onthisday-description" = "Explore o que aconteceu neste dia na história.";
+"widget-onthisday-placeholder-article-snippet" = "A enciclopédia online livre que qualquer um pode editar";
+"widget-onthisday-placeholder-event-snippet" = "A Wikipédia, uma enciclopédia de conteúdo wiki gratuito, fica online.";
 "wikitext-downloading" = "Carregando conteúdo...";
 "wikitext-preview-changes" = "Recuperando uma pré-visualização de suas mudanças...";
 "wikitext-preview-changes-none" = "Nenhuma mudança foi feita para ser prevista.";

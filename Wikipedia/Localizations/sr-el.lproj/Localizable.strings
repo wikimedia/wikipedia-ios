@@ -1,5 +1,7 @@
-// Messages for Serbian (Latin script) (srpski (latinica)‎)
+// Messages for Serbian (Latin script) (srpski (latinica))
 // Exported from translatewiki.net
+// Author: BadDog
+// Author: Kizule
 // Author: Milicevic01
 
 "about-content-license" = "Licenca sadržaja";
@@ -123,28 +125,35 @@
 "continue-reading-empty-description" = "Istražite Vikipediju da biste našli još članaka za čitanje";
 "continue-reading-empty-title" = "Nema nedavno pročitanih članaka";
 "description-add-title" = "Dodavanje opisa";
+// Fuzzy
 "description-edit-for-article" = "Opis naslova za stranicu $1";
 "description-edit-learn-more" = "Saznajte više";
 "description-edit-length-warning" = "$1 / $2";
+// Fuzzy
 "description-edit-license" = "Promenom opisa naslova, prihvatam $1 i neopozivo objavljujem doprinose pod licencom $2.";
 "description-edit-pencil-introduction" = "Uredi uvod";
+// Fuzzy
 "description-edit-pencil-title" = "Dodaj opis naslova";
 "description-edit-placeholder-title" = "Kratki opisi su najbolji";
 "description-edit-publish" = "Objavi opis";
 "description-edit-title" = "Uređivanje opisa";
 "description-edit-warning" = "Pokušajte da zadržite opise kratkim tako da korisnici mogu da razumeju temu članka na prvi pogled";
+// Fuzzy
 "description-help-about-description" = "Opisi naslova rezimiraju članak kako bi čitaoci na prvi pogled razumeli njegovu temu.";
 "description-help-about-title" = "O aplikaciji";
 "description-help-about-wikidata" = "O Vikipodacima";
 "description-help-more-info-description" = "Opisi se smeštaju i održavaju na Vikipodacima, projektu Zadužbine Vikimedija, koji pruža slobodnu, kolaborativnu, višejezičku, sekundarnu bazu podataka, koja pomaže Vikipediji i drugim projektima.";
 "description-help-more-info-title" = "Više informacija";
 "description-help-tips-description" = "Opisi bi, po mogućstvu, trebalo da budu u jednom redu i da se sastoje od dve do dvanaest reči. Ne počinju velikim slovom osim ako je prva reč vlastita imenica.";
+// Fuzzy
 "description-help-tips-example-description-one" = "opis naslova za članak o Mona Lizi";
+// Fuzzy
 "description-help-tips-example-description-two" = "opis naslova za članak o Mont Everestu";
 "description-help-tips-example-title-one" = "slika Leonarda da Vinčija";
 "description-help-tips-example-title-two" = "najviša planina na Zemlji";
 "description-help-tips-for-example" = "Na primer:";
 "description-help-tips-title" = "Saveti za pravljenje opisa";
+// Fuzzy
 "description-help-title" = "Pomoć za opisivanje naslova";
 "description-help-wikidata-guide" = "Vodič za pisanje opisa na Vikipodacima";
 "description-published-button-title" = "Gotovo";
@@ -154,6 +163,7 @@
 "description-welcome-concise-sub-title" = "Idealno jedan red, između dve i dvanaest reči";
 "description-welcome-concise-title" = "Budite kratki";
 "description-welcome-descriptions-sub-title" = "Opisi naslova rezimiraju članak kako bi čitaoci na prvi pogled razumeli njegovu temu.";
+// Fuzzy
 "description-welcome-descriptions-title" = "Opisi naslova";
 "description-welcome-promise-title" = "Započinjanjem, obećavam da neću zloupotrebiti ovu funkciju";
 "description-welcome-start-editing-button" = "Počni sa uređivanjem";
@@ -644,10 +654,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 izmenjena stavka|$1 izmenjene stavke}}";
 "replace-textfield-accessibility" = "Zameni";
 "replace-textfield-placeholder" = "Zameni sa…";
-"request-feedback-on-error" = "Aplikacija je naišla na problem o kom bi naši programeri želeli da znaju više. Dodirnite ovde da biste nam poslali imejl sa detaljima o grešci.";
 "reverted-edit-back-to-article-button-title" = "Nazad na članak";
-"reverted-edit-notification-body" = "Izmena koju ste napravili na članku $1 je vraćena od strane $2";
-"reverted-edit-notification-read-more-action-title" = "Pročitajte više";
 "reverted-edit-possible-reasons" = "- Vaš doprinos nije pratio jednu od smernica. $1\n\n - Vaš doprinos je izgledao kao eksperiment ili vandalizam";
 "reverted-edit-possible-reasons-subtitle" = "Znamo da ste dali sve od sebe, ali jedan od pregledača ima primedbu.\n\nMogući razlozi zbog čega je vaša izmena poništena:";
 "reverted-edit-thanks-for-editing-title" = "Hvala vam što uređujete Vikipediju!";
@@ -675,6 +682,8 @@
 "search-recent-title" = "Nedavne pretrage";
 "search-result-redirected-from" = "Preusmereno sa: $1";
 "search-title" = "Pretraga";
+"serbian-variants-alert-body" = "Aplikacija Vikipedija odsad podržava sledeće varijante srpskog jezika kao glavne ili sporedne jezike olakšavajući čitanje, pretraživanje i uređivanje u željenim varijantama:\n\nsrpski ćirilica (sr-ec)\nsrpski latinica (sr-el)";
+"serbian-variants-alert-title" = "Ažuriranja podrške za varijante srpskog jezika";
 "settings-account" = "Nalog";
 "settings-appearance" = "Podešavanja za čitanje";
 "settings-clear-cache" = "Brisanje keširanih podataka";
@@ -775,6 +784,8 @@
 "two-factor-login-with-regular-code" = "Koristite kôd za verifikaciju";
 "unable-to-load-talk-page-title" = "Nije moguće učitati stranicu za razgovor";
 "unknown-generic-text" = "Nepoznato";
+"variants-alert-dismiss-button" = "Ne, hvala";
+"variants-alert-preferences-button" = "Pregledajte svoja podešavanja";
 "welcome-exploration-explore-feed-description" = "Preporučeni i dnevni članci od naše zajednice";
 "welcome-exploration-explore-feed-title" = "Fid „Istraži“";
 "welcome-exploration-on-this-day-description" = "Vratite se nazad kroz vreme da biste saznali šta se odigralo na današnji dan";

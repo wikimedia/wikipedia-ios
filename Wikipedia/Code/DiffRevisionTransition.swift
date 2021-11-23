@@ -1,7 +1,7 @@
 
 import Foundation
 
-protocol DiffRevisionAnimating: class {
+protocol DiffRevisionAnimating: AnyObject {
     var embeddedViewController: UIViewController? { get }
     var animateDirection: DiffRevisionTransition.Direction?  { get set }
 }

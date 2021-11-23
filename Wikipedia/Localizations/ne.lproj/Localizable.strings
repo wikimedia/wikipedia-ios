@@ -100,10 +100,12 @@
 "clear-title-accessibility-label" = "खाली गर्नुहोस्";
 "close-button-accessibility-label" = "बन्द गर्नुहोस्";
 "description-add-title" = "विवरण थप्नुहोस्";
+// Fuzzy
 "description-edit-for-article" = "$1का लागि शीर्षक जानकारी";
 "description-edit-learn-more" = "थप जान्नुहोस्";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "परिचय सम्पादन गर्नुहोस्";
+// Fuzzy
 "description-edit-pencil-title" = "शीर्षक विवरण सम्पादन गर्नुहाेस्";
 "description-edit-placeholder-title" = "छाेटा विवरणहरू उपयुक्त हुन्छन्";
 "description-edit-publish" = "सार्वजनिक विवरण";
@@ -317,7 +319,6 @@
 "replace-infolabel-method-replace" = "बदल्नुहोस्";
 "replace-infolabel-method-replace-all" = "सबै बदल्नुहोस्";
 "reverted-edit-back-to-article-button-title" = "लेखमा फर्कनुहोस्";
-"reverted-edit-notification-read-more-action-title" = "थप पढ्नुहोस्";
 "reverted-edit-thanks-for-editing-title" = "विकिपिडियामा सम्पादन गर्नुभएको धन्यवाद!";
 "saved-all-articles-title" = "सबै लेखहरू";
 "saved-reading-lists-title" = "अध्ययन सूचीहरू";

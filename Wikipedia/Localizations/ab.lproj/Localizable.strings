@@ -1,5 +1,6 @@
 // Messages for Abkhazian (Аҧсшәа)
 // Exported from translatewiki.net
+// Author: Pupsik-ipa
 // Author: Surprizi
 // Author: Андрей
 
@@ -15,7 +16,7 @@
 "account-creation-saving" = "Аиқәырхара...";
 // Fuzzy
 "action-find-in-page" = "Иҧшаатәуп адаҟьаҟны";
-"action-read" = "Иаҧхьатәуп";
+"action-read" = "Иаԥхьатәуп";
 "action-save" = "Еиқәырхатәуп";
 "action-saved" = "Еиқәырхоуп";
 "action-unsave" = "Еиқәырхаӡам";
@@ -31,14 +32,14 @@
 "back-button-accessibility-label" = "Шьҭахьҟа";
 "button-next" = "Анаҩс";
 "button-ok" = "OK";
-"button-read-now" = "Иаҧхьатәуп уажәы";
+"button-read-now" = "Иаԥхьатәуп уажәы";
 "button-skip" = "Ибжьажьтәуп";
 "cancel" = "Аҟәыхра";
 "close-button-accessibility-label" = "Иарктәуп";
-"edit-summary-choice-linked-words" = "Иацҵоу азхьарҧшқәа";
-"empty-no-search-results-message" = "Акагь ҧшаам";
+"edit-summary-choice-linked-words" = "Иацҵоу азхьарԥшқәа";
+"empty-no-search-results-message" = "Акагь ԥшаам";
 "error-unknown" = "Иҟалеит идырым агха";
-"explore-most-read-generic-heading" = "Иаҳа изыҧхьо";
+"explore-most-read-generic-heading" = "Иаҳа изыԥхьо";
 "field-alert-token-invalid" = "Ииашам акод.";
 "field-email-placeholder" = "example@example.org";
 "field-email-title" = "Email";
@@ -59,8 +60,8 @@
 "history-clear-delete-all" = "Ааи, ианыхтәуп зегьы";
 "history-title" = "Аҭоурых";
 "home-title" = "Иҭышәҵаала!";
-"in-the-news-notification-read-now-action-title" = "Иаҧхьатәуп уажәы";
-"languages-title" = "Иҧсахтәуп абызшәа";
+"in-the-news-notification-read-now-action-title" = "Иаԥхьатәуп уажәы";
+"languages-title" = "Иԥсахтәуп абызшәа";
 "languages-wikipedia" = "Википедиа Абызшәақәа";
 "login-forgot-password" = "Ишәхашҭыма ажәамаӡа?";
 "main-menu-account-login" = "Иҭалатәуп";
@@ -81,17 +82,17 @@
 "places-accessibility-show-as-list" = "Иаарҧштәуп ахьӡынҵа еиҧш";
 "places-filter-saved-articles" = "Еиқәырхо астатиақәа";
 "places-filter-top-articles" = "Иаҳа изыҧхьо";
-"places-search-default-text" = "Аҧшаара аҭыҧқәа";
+"places-search-default-text" = "Аԥшаара аҭыҧқәа";
 "places-search-saved-articles" = "Еиқәырхо астатиақәа зегьы";
 "places-title" = "Аҭыҧқәа";
-"rank-accessibility-label" = "Ахыҧхьаӡара $1";
+"rank-accessibility-label" = "Ахыԥхьаӡара $1";
 "reading-themes-controls-accessibility-light-theme-button" = "Илашоу атема";
 "reference-title" = "Азгәаҭа $1";
 "saved-title" = "Еиқәырхоуп";
-"search-button-accessibility-label" = "Википедиа аҟны аҧшаара";
+"search-button-accessibility-label" = "Википедиа аҟны аԥшаара";
 "search-recent-clear-cancel" = "Аҟәыхра";
 "search-recent-clear-delete-all" = "Ианыхтәуп зегьы";
-"search-title" = "Аҧшаара";
+"search-title" = "Аԥшаара";
 "settings-clear-cache-cancel" = "Аҟәыхра";
 "settings-my-languages" = "Сара сбызшәақәа";
 "settings-title" = "Архиарақәа";

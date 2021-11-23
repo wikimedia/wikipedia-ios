@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)wmf_stringBySanitizingForJavaScript;
 
-- (NSString *)wmf_stringByCapitalizingFirstCharacterUsingWikipediaLanguage:(nullable NSString *)wikipediaLanguage; //Language is the string `en` in `en.wikipedia.org` or `de` in `de.wikipedia.org`. nil will use the current locale
+- (NSString *)wmf_stringByCapitalizingFirstCharacterUsingWikipediaLanguageCode:(nullable NSString *)wikipediaLanguageCode; //Wikipedia language code is the string `en` in `en.wikipedia.org` or `de` in `de.wikipedia.org`. nil will use the current locale
 
 - (BOOL)wmf_containsString:(NSString *)string;
 

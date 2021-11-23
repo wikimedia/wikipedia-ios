@@ -133,28 +133,35 @@
 "continue-reading-empty-description" = "Explorar Wikipedia para atopar máis artigos para ler";
 "continue-reading-empty-title" = "Non hai artigos lidos recentemente";
 "description-add-title" = "Engadir unha descrición";
+// Fuzzy
 "description-edit-for-article" = "Descrición de título para $1";
 "description-edit-learn-more" = "Máis información";
 "description-edit-length-warning" = "$1 / $2";
+// Fuzzy
 "description-edit-license" = "Ó alterar o título de descrición, concordo co $1 e publico irrevogablemente as miñas contribucións coa licenza $2.";
 "description-edit-pencil-introduction" = "Editar introdución";
+// Fuzzy
 "description-edit-pencil-title" = "Editar descrición de título";
 "description-edit-placeholder-title" = "As descricións curtas son mellores";
 "description-edit-publish" = "Publicar descrición";
 "description-edit-title" = "Editar descrición";
 "description-edit-warning" = "Probe a manter as descricións curtas, así os usuarios poden entender o tema do artigo nunha ollada";
+// Fuzzy
 "description-help-about-description" = "Os títulos de descrición resumen o artigo para axudar ós lectores a entender o tema inmediatamente.";
 "description-help-about-title" = "Acerca de";
 "description-help-about-wikidata" = "Sobre Wikidata";
 "description-help-more-info-description" = "As descricións están almacenadas e mantidas en Wikidata, un proxecto da Fundación Wikimedia que proporciona unha base de datos secundaria, gratuíta, colaborativa, multilingüe, que soporta a Wikipedia e outros proxectos.";
 "description-help-more-info-title" = "Máis información";
 "description-help-tips-description" = "As descricións deberían coller nunha liña, e ter entre dúas e doce palabras. Non usan maiúsculas, a non ser que a primeira palabra sexa un nome propio.";
+// Fuzzy
 "description-help-tips-example-description-one" = "descrición de título para un artigo sobre a Mona Lisa";
+// Fuzzy
 "description-help-tips-example-description-two" = "descrición de título para un artigo sobre o monte Everest";
 "description-help-tips-example-title-one" = "pintura de Leonardo da Vinci";
 "description-help-tips-example-title-two" = "A montaña máis alta da Terra";
 "description-help-tips-for-example" = "Por exemploː";
 "description-help-tips-title" = "Consellos para crear descricións";
+// Fuzzy
 "description-help-title" = "Axuda da descrición do título";
 "description-help-wikidata-guide" = "Guía de Wikidata para escribir descricións";
 "description-published-button-title" = "Feito";
@@ -164,6 +171,7 @@
 "description-welcome-concise-sub-title" = "Idealmente unha liña, entre dúas e doce palabras";
 "description-welcome-concise-title" = "Concisa";
 "description-welcome-descriptions-sub-title" = "Resume un artigo para axudar ós lectores a entender o tema nunha primeira ollada";
+// Fuzzy
 "description-welcome-descriptions-title" = "Descricións do título";
 "description-welcome-promise-title" = "Ó comezar, prometo non utilizar de forma irresponsable esta funcionalidade";
 "description-welcome-start-editing-button" = "Comezar a editar";
@@ -635,10 +643,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 instancia substituída|$1 instancias substituídas}}";
 "replace-textfield-accessibility" = "Substituír";
 "replace-textfield-placeholder" = "Substituír por...";
-"request-feedback-on-error" = "A aplicación atopou un problema da que os nosos desenvolvedores querrían ter máis información. Por favor presiona aquí para enviarnos un correo electrónico cos detalles do erro.";
 "reverted-edit-back-to-article-button-title" = "Voltar ó artigo";
-"reverted-edit-notification-body" = "A edición que fixo no artigo $1 foi revertida por $2";
-"reverted-edit-notification-read-more-action-title" = "Ler máis";
 "reverted-edit-possible-reasons" = "- A súa contribución non segue algunha das recomendacións. $1 \n\n - A súa contribución parece un experimento ou vandalismo";
 "reverted-edit-possible-reasons-subtitle" = "Sabemos que tentou facelo o mellor posible, pero un dos revisores non concorda.\n\nAs posibles razóns de que a súa edición fose revertida inclúenː";
 "reverted-edit-thanks-for-editing-title" = "Grazas por editar a Wikipediaǃ";

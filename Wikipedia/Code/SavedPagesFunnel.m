@@ -28,7 +28,7 @@ static NSString *const kAppInstallIdKey = @"appInstallID";
 }
 
 - (void)logSaveNewWithArticleURL:(NSURL *)articleURL {
-    [self log:@{@"action": @"savenew"} language:articleURL.wmf_language];
+    [self log:@{@"action": @"savenew"} language:articleURL.wmf_languageCode];
 }
 
 // TODO: Unused
@@ -43,11 +43,11 @@ static NSString *const kAppInstallIdKey = @"appInstallID";
 }
 
 - (void)logDeleteWithArticleURL:(NSURL *)articleURL {
-    [self log:@{@"action": @"delete"} language:articleURL.wmf_language];
+    [self log:@{@"action": @"delete"} language:articleURL.wmf_languageCode];
 }
 
 - (void)logEditAttemptWithArticleURL:(NSURL *)articleURL {
-    [self log:@{@"action": @"editattempt"} language:articleURL.wmf_language];
+    [self log:@{@"action": @"editattempt"} language:articleURL.wmf_languageCode];
 }
 
 // TODO: Unused

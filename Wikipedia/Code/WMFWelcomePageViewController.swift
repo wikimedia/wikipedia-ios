@@ -8,7 +8,7 @@ enum WMFWelcomePageType {
     case analytics
 }
 
-public protocol WMFWelcomeNavigationDelegate: class{
+public protocol WMFWelcomeNavigationDelegate: AnyObject {
     func showNextWelcomePage(_ sender: AnyObject)
 }
 

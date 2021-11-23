@@ -97,15 +97,15 @@
     }
     
     private func logSave(category: EventLoggingCategory, label: EventLoggingLabel? = nil, measure: Int = 1, articleURL: URL, measureAge: Int? = nil, measurePosition: Int? = nil) {
-        log(event(category: category, label: label, action: .save, measure: measure, measureAge: measureAge, measurePosition: measurePosition), language: articleURL.wmf_language)
+        log(event(category: category, label: label, action: .save, measure: measure, measureAge: measureAge, measurePosition: measurePosition), language: articleURL.wmf_languageCode)
     }
     
     @objc public func logSave(category: EventLoggingCategory, label: EventLoggingLabel?, articleURL: URL?) {
-        log(event(category: category, label: label, action: .save, measure: 1), language: articleURL?.wmf_language)
+        log(event(category: category, label: label, action: .save, measure: 1), language: articleURL?.wmf_languageCode)
     }
     
     @objc public func logUnsave(category: EventLoggingCategory, label: EventLoggingLabel?, articleURL: URL?) {
-        log(event(category: category, label: label, action: .unsave, measure: 1), language: articleURL?.wmf_language)
+        log(event(category: category, label: label, action: .unsave, measure: 1), language: articleURL?.wmf_languageCode)
     }
     
     private func logUnsave(category: EventLoggingCategory, label: EventLoggingLabel? = nil, measure: Int = 1, language: String?, measureAge: Int? = nil, measurePosition: Int? = nil) {
@@ -113,15 +113,15 @@
     }
     
     private func logUnsave(category: EventLoggingCategory, label: EventLoggingLabel? = nil, measure: Int = 1, articleURL: URL, measureAge: Int? = nil, measurePosition: Int? = nil) {
-        log(event(category: category, label: label, action: .unsave, measure: measure, measureAge: measureAge, measurePosition: measurePosition), language: articleURL.wmf_language)
+        log(event(category: category, label: label, action: .unsave, measure: measure, measureAge: measureAge, measurePosition: measurePosition), language: articleURL.wmf_languageCode)
     }
 
     public func logUnsave(category: EventLoggingCategory, label: EventLoggingLabel? = nil, measure: Int = 1, articleURL: URL, date: Date?, measurePosition: Int) {
-        log(event(category: category, label: label, action: .unsave, measure: measure, measureAge: daysSince(date), measurePosition: measurePosition), language: articleURL.wmf_language)
+        log(event(category: category, label: label, action: .unsave, measure: measure, measureAge: daysSince(date), measurePosition: measurePosition), language: articleURL.wmf_languageCode)
     }
 
     public func logSave(category: EventLoggingCategory, label: EventLoggingLabel? = nil, measure: Int = 1, articleURL: URL, date: Date?, measurePosition: Int) {
-        log(event(category: category, label: label, action: .save, measure: measure, measureAge: daysSince(date), measurePosition: measurePosition), language: articleURL.wmf_language)
+        log(event(category: category, label: label, action: .save, measure: measure, measureAge: daysSince(date), measurePosition: measurePosition), language: articleURL.wmf_languageCode)
     }
     
     // - MARK: Saved - default reading list
@@ -131,7 +131,7 @@
     }
     
     public func logReadStartIReadingList(_ articleURL: URL) {
-        log(event(category: .saved, label: .items, action: .readStart), language: articleURL.wmf_language)
+        log(event(category: .saved, label: .items, action: .readStart), language: articleURL.wmf_languageCode)
     }
     
     // - MARK: Saved - reading lists

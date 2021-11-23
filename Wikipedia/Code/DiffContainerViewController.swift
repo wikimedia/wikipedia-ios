@@ -9,7 +9,7 @@ struct StubRevisionModel {
     let timestamp: Date
 }
 
-protocol DiffRevisionRetrieving: class {
+protocol DiffRevisionRetrieving: AnyObject {
     func retrievePreviousRevision(with sourceRevision: WMFPageHistoryRevision) -> WMFPageHistoryRevision?
     func retrieveNextRevision(with sourceRevision: WMFPageHistoryRevision) -> WMFPageHistoryRevision?
 }

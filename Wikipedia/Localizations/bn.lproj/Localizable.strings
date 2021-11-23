@@ -12,12 +12,15 @@
 // Author: R4356th
 // Author: Rasal Lia
 // Author: Sayma Jahan
+// Author: Tahmid
 // Author: Tahmid02016
 // Author: Tauhid16
+// Author: WikiAbuHuraira
 // Author: আজিজ
 // Author: আফতাবুজ্জামান
 // Author: ফাহাদ কাজমী
 
+"aaald-article-description-updated-description" = "নিবন্ধের বিবরণ হালনাগাদ করা হয়েছে";
 "about-content-license" = "বিষয়বস্তুর লাইসেন্স";
 "about-content-license-details" = "অন্যথায় নির্দিষ্ট করা না থাকলে, বিষয়বস্তু $1-এর অধীনে উপলব্ধ।";
 "about-content-license-details-share-alike-license" = "ক্রিয়েটিভ কমন্স অ্যাট্রিবিউশন শেয়ার অ্যালাইক";
@@ -108,11 +111,14 @@
 "description-add-title" = "বিবরণ যোগ করুন";
 "description-edit-learn-more" = "আরও জানুন";
 "description-edit-length-warning" = "$1/$2";
+"description-edit-pencil-title" = "নিবন্ধের বিবরণ সম্পাদনা করুন";
 "description-edit-title" = "বিবরণ সম্পাদনা করুন";
 "description-help-about-wikidata" = "উইকিউপাত্ত সম্পর্কে";
 "description-help-more-info-title" = "আরও তথ্য";
 "description-help-tips-for-example" = "উদাহরণস্বরূপ:";
+"description-help-title" = "নিবন্ধের বিবরণ সংক্রান্ত সাহায্য";
 "description-published-button-title" = "সম্পন্ন";
+"description-welcome-descriptions-title" = "নিবন্ধের বিবরণ";
 "description-welcome-start-editing-button" = "সম্পাদনা শুরু করুন";
 "dim-images" = "অনুজ্জ্বল ছবি";
 "edit-link-title" = "সংযোগ সম্পাদনা";
@@ -140,7 +146,6 @@
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "চালু";
 "explore-main-page-description" = "উইকিমিডিয়া প্রকল্পের প্রধান পাতা";
 "explore-main-page-heading" = "আজ উইকিপিডিয়ায়";
-// Fuzzy
 "explore-most-read-footer" = "সর্বাধিক পঠিত নিবন্ধগুলি";
 "explore-most-read-generic-heading" = "শীর্ষ পঠিত";
 "explore-most-read-more-list-title-for-date" = "$1 শীর্ষ পঠিত";
@@ -157,6 +162,7 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "$1 উইকিপিডিয়া থেকে";
 "explore-random-article-sub-heading-from-wikipedia" = "উইকিপিডিয়া থেকে";
 "explore-randomizer" = "অজানা পাতা";
+"featured-widget-from-language-wikipedia" = "$1 উইকিপিডিয়া থেকে";
 "feed-news-notification-button-text" = "বিজ্ঞপ্তি চালু";
 "fetcher-error-generic" = "কিছু একটায় ভুল হয়েছে। দয়া করে পরে আবার চেষ্টা করুন।";
 "field-alert-captcha-invalid" = "ক্যাপচা সঠিক নয়";
@@ -197,10 +203,10 @@
 "home-more-like-footer" = "$1 এর মতো আরও";
 "home-nearby-footer" = "আপনার কাছাকাটি আরও স্থান";
 "home-nearby-location-footer" = "$1-এর আরো কাছাকাছি";
-// Fuzzy
-"home-news-footer" = "সংবাদে আরো";
+"home-news-footer" = "আরও বর্তমান ঘটনা";
 "home-themes-action-title" = "পছন্দসমূহ নিয়ন্ত্রণ করুন";
 "home-title" = "অন্বেষণ";
+"home-title-accessibility-label" = "উইকিপিডিয়া, অন্বেষণের শীর্ষে স্ক্রোল করুন";
 "icon-shortcut-nearby-title" = "কাছাকাছি নিবন্ধ";
 "icon-shortcut-random-title" = "অজানা নিবন্ধ";
 "icon-shortcut-search-title" = "উইকিপিডিয়া অনুসন্ধান";
@@ -268,6 +274,7 @@
 "places-filter-saved-articles" = "সংরক্ষিত নিবন্ধ";
 "places-filter-top-articles" = "শীর্ষ পঠিত";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1টি নিবন্ধ}}";
+"places-filter-top-read-articles" = "শীর্ষ পঠিত নিবন্ধ";
 "places-no-saved-articles-have-location" = "আপনার সংরক্ষিত নিবন্ধগুলির কোনটিতে অবস্থানের তথ্য নেই";
 "places-search-default-text" = "পাতা অনুসন্ধান";
 "places-search-did-you-mean" = "আপনি কি বোঝাতে চাচ্ছেন $1?";
@@ -294,17 +301,14 @@
 "reading-themes-controls-accessibility-light-theme-button" = "অল্পোজ্জ্বল থিম";
 "reading-themes-controls-accessibility-sepia-theme-button" = "কালচে-বাদামি থিম";
 "reference-title" = "তথ্যসূত্র $1";
-// Fuzzy
-"relative-date-days-ago" = "{{PLURAL:$1|0=আজ|গতকাল|$1 দিন আগে}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=আজ|1=গতকাল|$1 দিন আগে}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=সম্প্রতি|$1 ঘণ্টা আগে}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=এইমাত্র|$1 মিনিট আগে}}";
 "relative-date-months-ago" = "{{PLURAL:$1|0=এই মাস|1=গত মাস|$1 মাস আগে}}";
-"request-feedback-on-error" = "এই অ্যাপলিকেশনটি একটি সমস্যার সম্মুখীন হয়েছে, যা আমাদের উন্নয়নকারী জানতে চান। এই ত্রুটির বিবরণসহ ইমেইল পাঠাতে দয়া করে এখানে টোকা দিন।";
 "reverted-edit-thanks-for-editing-title" = "উইকিপিডিয়ায় সম্পাদনা করার জন্য ধন্যবাদ!";
 "saved-all-articles-title" = "সব নিবন্ধ";
 "saved-pages-image-download-error" = "এই সংরক্ষিত পাতার জন্য চিত্র ডাউনলোড করা ব্যর্থ হয়েছে।";
-// Fuzzy
-"saved-search-default-text" = "অনুসন্ধান";
+"saved-search-default-text" = "সংরক্ষিত নিবন্ধগুলি অনুসন্ধান করুন";
 "saved-title" = "সংরক্ষিত";
 "search-button-accessibility-label" = "উইকিপিডিয়া অনুসন্ধান";
 "search-clear-title" = "পরিষ্কার করুন";
@@ -327,8 +331,7 @@
 "settings-notifications-push-notifications" = "পাঠানো বিজ্ঞপ্তি";
 "settings-notifications-system-turn-on" = "বিজ্ঞপ্তি বন্ধ করুন";
 "settings-primary-language" = "প্রাথমিক";
-// Fuzzy
-"settings-primary-language-details" = "এই তালিকার প্রথম ভাষাটি অ্যাপের প্রাথমিক ভাষা হিসেবে ব্যবহর করা হয়েছে। এই ভাষা পরিবর্তন অন্বেষণে দেখানো দৈনিক বিষয়বস্তুকে (যেমন নির্বাচিত নিবন্ধ) পরিবর্তন করতে পারে।";
+"settings-primary-language-details" = "এই তালিকার প্রথম ভাষাটি অ্যাপের প্রাথমিক ভাষা হিসেবে ব্যবহৃত হয়।";
 "settings-support" = "উইকিপিডিয়াকে সাহায্য করুন";
 "settings-title" = "সেটিংস";
 "share-article-name-on-wikipedia" = "@Wikipedia -এ \"$1\":";
@@ -351,6 +354,7 @@
 "top-read-header-generic" = "উইকিপিডিয়া";
 "top-read-header-with-language" = "$1 উইকিপিডিয়া";
 "top-read-see-more" = "আরও শীর্ষ পঠিত দেখুন";
+"top-read-widget-readers-count" = "$1 জন পাঠক";
 "two-factor-login-continue" = "প্রবেশ অব্যাহত রাখুন";
 "two-factor-login-instructions" = "দুই ধাপের যাচাইকরণ কোড প্রবেশ করান";
 "two-factor-login-title" = "আপনার অ্যাকাউন্টে প্রবেশ করুন";

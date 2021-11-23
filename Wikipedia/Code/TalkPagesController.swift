@@ -94,7 +94,7 @@ class TalkPageController {
                     switch result {
                     case .success(let lastRevisionID):
                         //if latest revision ID is the same return local talk page. else forward revision ID onto talk page fetcher
-                        if localRevisionID == lastRevisionID {
+                        if localRevisionID == lastRevisionID && localTalkPage.forceRefresh == false {
                             let fetchResult = FetchResult(objectID: localObjectID, isInitialLocalResult: false)
                             completion?(.success(fetchResult))
                         } else {

@@ -2,7 +2,7 @@
 import Foundation
 import CocoaLumberjackSwift
 
-protocol ArticleWebMessageHandling: class {
+protocol ArticleWebMessageHandling: AnyObject {
     func didRecieve(action: ArticleWebMessagingController.Action)
 }
 
@@ -18,7 +18,7 @@ class ArticleWebMessagingController: NSObject {
     var contentController: WKUserContentController?
     var shouldAttemptToShowArticleAsLivingDoc = false
     
-    func setup(with webView: WKWebView, language: String, theme: Theme, layoutMargins: UIEdgeInsets, leadImageHeight: CGFloat = 0, areTablesInitiallyExpanded: Bool = false, textSizeAdjustment: Int? = nil, userGroups: [String] = []) {
+    func setup(with webView: WKWebView, languageCode: String, theme: Theme, layoutMargins: UIEdgeInsets, leadImageHeight: CGFloat = 0, areTablesInitiallyExpanded: Bool = false, textSizeAdjustment: Int? = nil, userGroups: [String] = []) {
         let margins = getPageContentServiceMargins(from: layoutMargins)
         let textSizeAdjustment =  textSizeAdjustment ?? UserDefaults.standard.wmf_articleFontSizeMultiplier() as? Int ?? 100
         let parameters = PageContentService.Setup.Parameters(theme: theme.webName.lowercased(), dimImages: theme.imageOpacity < 1, margins: margins, leadImageHeight: "\(leadImageHeight)px", areTablesInitiallyExpanded: areTablesInitiallyExpanded, textSizeAdjustmentPercentage: "\(textSizeAdjustment)%", userGroups: userGroups)
@@ -288,12 +288,9 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
             guard let sectionIDString = data?["sectionId"] as? String, let sectionID = Int(sectionIDString) else {
                 return nil
             }
-            let source: ArticleDescriptionSource?
-            if let sourceString = data?["descriptionSource"] as? String {
-                source = ArticleDescriptionSource.from(string: sourceString)
-            } else {
-                source = nil
-            }
+            
+            let sourceString = data?["descriptionSource"] as? String
+            let source = ArticleDescriptionSource.from(string: sourceString)
             return .edit(sectionID: sectionID, descriptionSource: source)
         }
         

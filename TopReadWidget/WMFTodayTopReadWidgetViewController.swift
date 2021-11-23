@@ -160,7 +160,7 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
         
         var language: String? = nil
         let siteURL = dataStore.primarySiteURL
-        if let languageCode = siteURL?.wmf_language {
+        if let languageCode = siteURL?.wmf_languageCode {
             language = Locale.current.localizedString(forLanguageCode: languageCode)
         }
         
@@ -217,7 +217,7 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
 
             vc.titleHTML = result.displayTitleHTML
             if let wikidataDescription = result.wikidataDescription {
-                vc.subtitleLabel.text = wikidataDescription.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: siteURL?.wmf_language)
+                vc.subtitleLabel.text = wikidataDescription.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguageCode: siteURL?.wmf_languageCode)
             } else {
                 vc.subtitleLabel.text = result.snippet
             }

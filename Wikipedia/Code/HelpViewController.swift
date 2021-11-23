@@ -38,32 +38,25 @@ class HelpViewController: SinglePageWebViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
-    
-    @objc func sendEmail() {
-        guard MFMailComposeViewController.canSendMail() else {
-            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(WMFLocalizedString("no-email-account-alert", value: "Please setup an email account on your device and try again.", comment: "Displayed to the user when they try to send a feedback email, but they have never set up an account on their device"), sticky: false, dismissPreviousAlerts: false)
-            return
-        }
-        let vc = MFMailComposeViewController()
-        vc.setSubject(HelpViewController.emailSubject)
-        vc.setToRecipients([HelpViewController.emailAddress])
-        vc.setMessageBody("\n\n\n\nVersion: \(WikipediaAppUtils.versionedUserAgent())", isHTML: false)
-        if let data = DDLog.wmf_currentLogFile()?.data(using: .utf8) {
-            vc.addAttachmentData(data, mimeType: "text/plain", fileName: "Log.txt")
-        }
-        vc.mailComposeDelegate = self
-        present(vc, animated: true)
-    }
-    
+
     private func setupToolbar() {
         enableToolbar()
         toolbar.items = [UIBarButtonItem.flexibleSpaceToolbar(), sendEmailToolbarItem, UIBarButtonItem.wmf_barButtonItem(ofFixedWidth: 8)]
         setToolbarHidden(false, animated: false)
     }
-}
+    
+    @objc func sendEmail() {
+        let address = HelpViewController.emailAddress
+        let subject = HelpViewController.emailSubject
+        let body = "\n\n\n\nVersion: \(WikipediaAppUtils.versionedUserAgent())"
+        let mailto = "mailto:\(address)?subject=\(subject)&body=\(body)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
 
-extension HelpViewController: MFMailComposeViewControllerDelegate {
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        dismiss(animated: true)
+        guard let encodedMailto = mailto, let mailtoURL = URL(string: encodedMailto), UIApplication.shared.canOpenURL(mailtoURL) else {
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(WMFLocalizedString("no-email-account-alert", value: "Please setup an email account on your device and try again.", comment: "Displayed to the user when they try to send a feedback email, but they have never set up an account on their device"), sticky: false, dismissPreviousAlerts: false)
+            return
+        }
+
+        UIApplication.shared.open(mailtoURL)
     }
+
 }

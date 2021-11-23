@@ -243,6 +243,8 @@
 "new-password-instructions" = "अपने एक अस्थाई पासवर्ड से लॉगिन किया। लॉगिन को पूरा करने के लिए यहाँ एक नया पासवर्ड जोड़ें।";
 "new-password-title" = "एक पासवर्ड जोड़ें";
 "no-email-account-alert" = "कृपया अपनी डिवाइस पर एक ईमेल अकाउंट स्थापित करें और पुनः प्रयास करें।";
+"notifications-center-subheader-thanks" = "धन्यवाद";
+"notifications-center-subheader-welcome" = "सुस्वागतम्‌!";
 "number-billions" = "$1 बिलियन";
 "number-millions" = "$1 मिलियन";
 "number-thousands" = "$1 हज़ार";
@@ -313,7 +315,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=बिल्कुल अभी|$1 मिनट पहले|$1 मिनट पहले}}";
 // Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=इस वर्ष|पिछला वर्ष|$1 वर्ष पहले}}";
-"request-feedback-on-error" = "ऐप ने एक समस्या का सामना किया है जिसके बारे में हमारे डेवलपर्स अधिक जानना चाहेंगे। एरर डिटेल्स के साथ हमें ईमेल भेजने के किये कृपया यहाँ टैप करें।";
 "saved-pages-image-download-error" = "सहेजे गए पेज के लिए चित्र डाउनलोड करने में विफल रहे।";
 // Fuzzy
 "saved-pages-progress-syncing" = "अनुच्छेद सिंकिंग प्रगति में हैं...";

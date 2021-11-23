@@ -16,6 +16,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
         super.viewDidLoad()
         useNavigationBarVisibleHeightForScrollViewInsets = true
         reload()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateArticleCell(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
     }
     
     func reload() {
@@ -75,7 +76,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
     }
     
     func descriptionForSearchResult(_ result: MWKSearchResult) -> String? {
-        let capitalizedWikidataDescription = (result.wikidataDescription as NSString?)?.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguage: searchSiteURL?.wmf_language)
+        let capitalizedWikidataDescription = (result.wikidataDescription as NSString?)?.wmf_stringByCapitalizingFirstCharacter(usingWikipediaLanguageCode: searchSiteURL?.wmf_languageCode)
         let mapping = redirectMappingForSearchResult(result)
         guard let redirectFromTitle = mapping?.redirectFromTitle else {
             return capitalizedWikidataDescription
@@ -96,16 +97,17 @@ class SearchResultsViewController: ArticleCollectionViewController {
             return
         }
         let result = results[indexPath.item]
-        guard let language = searchSiteURL?.wmf_language else {
+        guard let languageCode = searchSiteURL?.wmf_languageCode,
+              let contentLanguageCode = searchSiteURL?.wmf_contentLanguageCode else {
             return
         }
         cell.configureForCompactList(at: indexPath.item)
         cell.setTitleHTML(result.displayTitleHTML, boldedString: resultsInfo?.searchTerm)
-       
-        cell.articleSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: language)
-        cell.titleLabel.accessibilityLanguage = language
+        cell.articleSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: contentLanguageCode)
+        cell.titleLabel.accessibilityLanguage = languageCode
         cell.descriptionLabel.text = descriptionForSearchResult(result)
-        cell.descriptionLabel.accessibilityLanguage = language
+        cell.descriptionLabel.accessibilityLanguage = languageCode
+        editController.configureSwipeableCell(cell, forItemAt: indexPath, layoutOnly: layoutOnly)
         if layoutOnly {
             cell.isImageViewHidden = result.thumbnailURL != nil
         } else {
@@ -122,5 +124,20 @@ class SearchResultsViewController: ArticleCollectionViewController {
         collectionView.backgroundColor = theme.colors.midBackground
     }
 
-}
+    @objc func updateArticleCell(_ notification: NSNotification) {
+        guard let updatedArticle = notification.object as? WMFArticle,
+              updatedArticle.hasChangedValuesForCurrentEventThatAffectSavedState,
+              let updatedArticleKey = updatedArticle.inMemoryKey else {
+            return
+        }
 
+        for indexPath in collectionView.indexPathsForVisibleItems {
+            guard articleURL(at: indexPath)?.wmf_inMemoryKey == updatedArticleKey,
+                  let cell = collectionView.cellForItem(at: indexPath) as? ArticleRightAlignedImageCollectionViewCell else {
+                continue
+            }
+
+            configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
+        }
+    }
+}

@@ -64,11 +64,11 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
                 return true
             })
             
-            guard !shouldShowNavigationBar, isDateVisibleInTitle, let language = firstEventWithArticlePreviews?.language else {
+            guard !shouldShowNavigationBar, isDateVisibleInTitle, let languageCode = firstEventWithArticlePreviews?.languageCode else {
                 title = CommonStrings.onThisDayTitle
                 return
             }
-            title = DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: language).string(from: midnightUTCDate)
+            title = DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: languageCode).string(from: midnightUTCDate)
         }
     }
     
@@ -123,9 +123,9 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
         let headerView = ThreeLineHeaderView()
         headerView.apply(theme: theme)
 
-        let language = events.first?.language
-        let locale = NSLocale.wmf_locale(for: language)
-        let semanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: language)
+        let languageCode = events.first?.languageCode
+        let locale = NSLocale.wmf_locale(for: languageCode)
+        let semanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: events.first?.contentLanguageCode)
 
         headerView.topSmallLine.semanticContentAttribute = semanticContentAttribute
         headerView.middleLargeLine.semanticContentAttribute = semanticContentAttribute
@@ -133,12 +133,12 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
 
         headerView.topSmallLine.text = CommonStrings.onThisDayTitle.uppercased()
 
-        let eventCountText = CommonStrings.onThisDayAdditionalEventsMessage(with: language, locale: locale, eventsCount: events.count).uppercased(with: locale)
+        let eventCountText = CommonStrings.onThisDayAdditionalEventsMessage(with: languageCode, locale: locale, eventsCount: events.count).uppercased(with: locale)
 
-        headerView.middleLargeLine.text = DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: language).string(from: midnightUTCDate)
+        headerView.middleLargeLine.text = DateFormatter.wmf_monthNameDayNumberGMTFormatter(for: languageCode).string(from: midnightUTCDate)
 
         if let firstEventEraString = events.first?.yearString, let lastEventEraString = events.last?.yearString {
-            let dateRangeText = CommonStrings.onThisDayHeaderDateRangeMessage(with: language, locale: locale, lastEvent: lastEventEraString, firstEvent: firstEventEraString)
+            let dateRangeText = CommonStrings.onThisDayHeaderDateRangeMessage(with: languageCode, locale: locale, lastEvent: lastEventEraString, firstEvent: firstEventEraString)
             headerView.bottomSmallLine.text = "\(eventCountText)\n\(dateRangeText)"
         } else {
             headerView.bottomSmallLine.text = nil

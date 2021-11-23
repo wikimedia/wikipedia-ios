@@ -1,6 +1,6 @@
 import UIKit
 
-protocol BeKindInputAccessoryViewDelegate: class {
+protocol BeKindInputAccessoryViewDelegate: AnyObject {
     func didUpdateHeight(view: BeKindInputAccessoryView)
 }
 

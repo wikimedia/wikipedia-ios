@@ -10,9 +10,7 @@
 #import "NYTPhoto.h"
 #import "NYTScalingImageView.h"
 
-#ifdef ANIMATED_GIF_SUPPORT
-#import <FLAnimatedImage/FLAnimatedImage.h>
-#endif
+#import "FLAnimatedImage.h"
 
 NSString * const NYTPhotoViewControllerPhotoImageUpdatedNotification = @"NYTPhotoViewControllerPhotoImageUpdatedNotification";
 
@@ -117,7 +115,11 @@ NSString * const NYTPhotoViewControllerPhotoImageUpdatedNotification = @"NYTPhot
 - (void)setupLoadingView:(UIView *)loadingView {
     self.loadingView = loadingView;
     if (!loadingView) {
+        
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+#pragma clang diagnostic pop
         [activityIndicator startAnimating];
         self.loadingView = activityIndicator;
     }

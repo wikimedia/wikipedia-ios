@@ -24,12 +24,20 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         super.viewWillAppear(animated)
         reloadRecentSearches()
         if animated && shouldBecomeFirstResponder {
-            navigationBar.isAdjustingHidingFromContentInsetChangesEnabled = false
+            if shouldAdjustNavigationBarInsetHidingOnAppearance {
+                navigationBar.isAdjustingHidingFromContentInsetChangesEnabled = false
+            }
             searchBar.becomeFirstResponder()
         }
 
         /// Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
-        parent?.navigationItem.backButtonTitle = title
+        if let appVC = parent as? WMFAppViewController {
+            appVC.navigationItem.backButtonTitle = title
+        } else if #available(iOS 14.0, *) {
+            /// If the parent isn't `WMFAppViewController`, then its being presented from an articleVC and we need to set the back button title in the typical way.
+            self.navigationItem.backButtonTitle = CommonStrings.searchTitle
+            self.navigationItem.backButtonDisplayMode = .generic
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -73,6 +81,13 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     var displayType: NavigationBarDisplayType = .largeTitle
     var shouldSetSearchVisible: Bool = true
     var shouldSetTitleViewWhenRecentSearchesAreDisabled: Bool = true
+    var shouldScrollToTopOnVisibilityChange = true
+    var shouldAdjustNavigationBarInsetHidingOnAppearance = true
+    var shouldDisplayIncomingTransitionOverlay: Bool = false {
+        didSet {
+            incomingTransitionOverlay.isHidden = !shouldDisplayIncomingTransitionOverlay
+        }
+    }
 
     var shouldShowCancelButton: Bool = true
     var delegatesSelection: Bool = false {
@@ -83,14 +98,6 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
 
     var showLanguageBar: Bool?
 
-    var nonSearchAlpha: CGFloat = 1 {
-        didSet {
-            collectionView.alpha = nonSearchAlpha
-            resultsViewController.view.alpha = nonSearchAlpha
-            navigationBar.backgroundAlpha = nonSearchAlpha
-        }
-    }
-    
     var searchTerm: String? {
         set {
             searchBar.text = newValue
@@ -104,7 +111,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
 
     var siteURL: URL? {
         get {
-            return _siteURL ?? searchLanguageBarViewController?.currentlySelectedSearchLanguage?.siteURL ?? MWKDataStore.shared().primarySiteURL ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
+            return _siteURL ?? searchLanguageBarViewController?.selectedSiteURL ?? MWKDataStore.shared().primarySiteURL ?? NSURL.wmf_URLWithDefaultSiteAndCurrentLocale()
         }
         set {
             _siteURL = newValue
@@ -266,10 +273,25 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         searchBar.placeholder =  WMFLocalizedString("search-field-placeholder-text", value: "Search Wikipedia", comment: "Search field placeholder text")
         return searchBar
     }()
-    
+
+    let incomingTransitionOverlay = UIView()
+
+    var nonSearchAlpha: CGFloat = 1 {
+        didSet {
+            incomingTransitionOverlay.alpha = nonSearchAlpha
+            resultsViewController.view.alpha = nonSearchAlpha
+            navigationBar.backgroundAlpha = nonSearchAlpha
+        }
+    }
+
     // used to match the transition with explore
     
     func prepareForIncomingTransition(with incomingNavigationBar: NavigationBar) {
+        // Add overlay to hide jarring transition
+        view.insertSubview(incomingTransitionOverlay, aboveSubview: resultsViewController.view)
+        view.wmf_addConstraintsToEdgesOfView(incomingTransitionOverlay)
+        incomingTransitionOverlay.isHidden = true
+
         navigationBarTopSpacingPercentHidden = incomingNavigationBar.topSpacingPercentHidden
         navigationBarTopSpacing = incomingNavigationBar.barTopSpacing
         navigationBar.isTopSpacingHidingEnabled = true
@@ -278,12 +300,32 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         navigationBar.isTopSpacingHidingEnabled = !_isSearchVisible
         navigationBarShadowAlpha = incomingNavigationBar.shadowAlpha
         navigationBar.shadowAlpha = navigationBarShadowAlpha
+
+        shouldDisplayIncomingTransitionOverlay = true
+        collectionView.alpha = 0
+        view.backgroundColor = .clear
     }
     
     func prepareForOutgoingTransition(with outgoingNavigationBar: NavigationBar) {
         navigationBarTopSpacingPercentHidden = outgoingNavigationBar.topSpacingPercentHidden
         navigationBarShadowAlpha = outgoingNavigationBar.shadowAlpha
         navigationBarTopSpacing = outgoingNavigationBar.barTopSpacing
+    }
+
+    func beginTransitionFromExploreFeed(enteringSearch: Bool) {
+        nonSearchAlpha = enteringSearch ? 1 : 0
+        view.backgroundColor = enteringSearch ? theme.colors.paperBackground : .clear
+    }
+
+    func completeTransitionFromExploreFeed(enteringSearch: Bool) {
+        collectionView.alpha = 1
+        UIView.animate(withDuration: 0.1, animations: {
+            if enteringSearch {
+                self.incomingTransitionOverlay.alpha = 0
+            } else {
+                self.incomingTransitionOverlay.alpha = 1
+            }
+        })
     }
     
     private var navigationBarShadowAlpha: CGFloat = 0
@@ -295,12 +337,18 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     override var shouldAnimateWhileUpdatingScrollViewInsets: Bool {
         return isAnimatingSearchBarState
     }
-    
+
     private var _isSearchVisible: Bool = false
     private func setSearchVisible(_ visible: Bool, animated: Bool) {
         _isSearchVisible = visible
         navigationBar.isAdjustingHidingFromContentInsetChangesEnabled = false
         let completion = { (finished: Bool) in
+            if self.shouldScrollToTopOnVisibilityChange {
+                self.collectionView.setContentOffset(.init(x: 0, y: -self.navigationBar.visibleHeight), animated: false)
+                UIView.animate(withDuration: 0.1, animations: {
+                    self.collectionView.alpha = 1
+                })
+            }
             self.isAnimatingSearchBarState = false
             self.navigationBar.isTitleShrinkingEnabled = true
             self.navigationBar.isAdjustingHidingFromContentInsetChangesEnabled  = true
@@ -314,6 +362,9 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
             navigationBarTopSpacing = navigationBar.barTopSpacing
         }
         let animations = {
+            if self.shouldScrollToTopOnVisibilityChange {
+                self.collectionView.alpha = 0
+            }
             self.navigationBar.isBarHidingEnabled = true
             self.navigationBar.isTopSpacingHidingEnabled = true
             self.navigationBar.isTitleShrinkingEnabled = false
@@ -429,7 +480,9 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     }
     
     @objc func makeSearchBarBecomeFirstResponder() {
-        searchBar.becomeFirstResponder()
+        if !searchBar.isFirstResponder {
+            searchBar.becomeFirstResponder()
+        }
     }
 
     // MARK - Theme
@@ -443,8 +496,9 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         searchBarContainerView.backgroundColor = theme.colors.paperBackground
         searchLanguageBarViewController?.apply(theme: theme)
         resultsViewController.apply(theme: theme)
-        view.backgroundColor = .clear
+        view.backgroundColor = theme.colors.paperBackground
         collectionView.backgroundColor = theme.colors.paperBackground
+        incomingTransitionOverlay.backgroundColor = theme.colors.paperBackground
     }
     
     // Recent
@@ -597,7 +651,7 @@ extension SearchViewController: ArticleCollectionViewControllerDelegate {
 }
 
 extension SearchViewController: SearchLanguagesBarViewControllerDelegate {
-    func searchLanguagesBarViewController(_ controller: SearchLanguagesBarViewController, didChangeCurrentlySelectedSearchLanguage language: MWKLanguageLink) {
+    func searchLanguagesBarViewController(_ controller: SearchLanguagesBarViewController, didChangeSelectedSearchContentLanguageCode contentLanguageCode: String) {
         funnel.logSearchLangSwitch(source)
         search()
     }

@@ -17,7 +17,7 @@ public class SystemBarButton: UIBarButtonItem {
     }
 }
 
-public protocol CollectionViewEditControllerNavigationDelegate: class {
+public protocol CollectionViewEditControllerNavigationDelegate: AnyObject {
     func didChangeEditingState(from oldEditingState: EditingState, to newEditingState: EditingState, rightBarButton: UIBarButtonItem?, leftBarButton: UIBarButtonItem?) // same implementation for 2/3
     func didSetBatchEditToolbarHidden(_ batchEditToolbarViewController: BatchEditToolbarViewController, isHidden: Bool, with items: [UIButton]) // has default implementation
     func newEditingState(for currentEditingState: EditingState, fromEditBarButtonWithSystemItem systemItem: UIBarButtonItem.SystemItem) -> EditingState

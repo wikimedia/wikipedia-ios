@@ -2,8 +2,7 @@
 import UIKit
 import WMF
 
-@available(iOS 13.0, *)
-protocol ArticleAsLivingDocViewControllerDelegate: class {
+protocol ArticleAsLivingDocViewControllerDelegate: AnyObject {
     var articleAsLivingDocViewModel: ArticleAsLivingDocViewModel? { get }
     var articleURL: URL { get }
     var isFetchingAdditionalPages: Bool { get }
@@ -14,14 +13,13 @@ protocol ArticleAsLivingDocViewControllerDelegate: class {
     func livingDocViewWillPush()
 }
 
-protocol ArticleDetailsShowing: class {
+protocol ArticleDetailsShowing: AnyObject {
     func goToHistory()
     func goToDiff(revisionId: UInt, parentId: UInt, diffType: DiffContainerViewModel.DiffType)
     func showTalkPageWithSectionName(_ sectionName: String?)
     func thankButtonTapped(for revisionID: Int, isUserAnonymous: Bool, livingDocLoggingValues: ArticleAsLivingDocLoggingValues)
 }
 
-@available(iOS 13.0, *)
 class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
     
     private let articleTitle: String?
@@ -426,7 +424,6 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
 }
 
 // MARK:- ArticleAsLivingDocHorizontallyScrollingCellDelegate
-@available(iOS 13.0, *)
 extension ArticleAsLivingDocViewController: ArticleAsLivingDocHorizontallyScrollingCellDelegate, InternalLinkPreviewing {
     func tappedLink(_ url: URL) {
         guard let fullURL = delegate?.articleURL.resolvingRelativeWikiHref(url.absoluteString) else {
@@ -439,7 +436,6 @@ extension ArticleAsLivingDocViewController: ArticleAsLivingDocHorizontallyScroll
     }
 }
 
-@available(iOS 13.0, *)
 extension ArticleAsLivingDocViewController: ArticleDetailsShowing {
     func showTalkPageWithSectionName(_ sectionName: String?) {
         
@@ -488,7 +484,6 @@ extension ArticleAsLivingDocViewController: ArticleDetailsShowing {
     }
 }
 
-@available(iOS 13.0, *)
 extension ArticleAsLivingDocViewController: ThanksGiving {
     var url: URL? {
         return self.delegate?.articleURL.wmf_site
@@ -541,7 +536,6 @@ extension ArticleAsLivingDocViewController: ThanksGiving {
     }
 }
 
-@available(iOS 13.0, *)
 extension ArticleAsLivingDocViewController: UIAdaptivePresentationControllerDelegate {
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         ArticleAsLivingDocFunnel.shared.logModalSwipedToDismiss()

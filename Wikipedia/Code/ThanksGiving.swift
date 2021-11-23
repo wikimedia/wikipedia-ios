@@ -24,13 +24,9 @@ extension ThanksGiving where Self: ViewController {
 
     var source: ThanksGivingSource {
         
-        if #available(iOS 13.0, *) {
-            if self is ArticleAsLivingDocViewController {
-                return .articleAsLivingDoc
-            }
-        }
-        
         switch self {
+        case is ArticleAsLivingDocViewController:
+            return .articleAsLivingDoc
         case is DiffContainerViewController:
             return .diff
         default:

@@ -9,6 +9,8 @@
 // Author: Ravichandra
 // Author: Veeven
 
+"aaald-new-discussion" = "కొత్త చర్చ";
+"aaald-new-news-reference-title" = "వార్తలు";
 "about-content-license" = "విషయపు లైసెన్సు";
 "about-libraries-license" = "లైసెన్సు";
 "about-title" = "గురించి";
@@ -20,12 +22,16 @@
 "account-creation-logging-in" = "ప్రవేశిస్తున్నారు...";
 "account-creation-passwords-mismatched" = "సంకేతపదం క్షేత్రాలు సరిపోలలేదు.";
 "account-creation-saving" = "భద్రపరుస్తున్నాము...";
+"account-group-title" = "మీ ఖాతా";
+"account-talk-page-title" = "మీ చర్చా పేజీ";
 "action-cancel" = "రద్దుచేయి";
 "action-find-in-page" = "పేజీలో వెతుకు";
 "action-save" = "భద్రపరచు";
 "action-saved" = "భద్రపరచబడింది";
 "action-share" = "పంచుకోండి";
 "appearance-settings-set-automatic-table-opening" = "పట్టిక అమరికలు";
+"appearance-settings-theme-options" = "అలంకారపు ఎంపికలు";
+"article-about-title" = "ఈ వ్యాసం గురించి";
 "article-delete" = "తొలగింపు";
 "article-languages-filter-placeholder" = "భాషను వెతకండి";
 "article-languages-label" = "భాషని ఎంచుకోండి";
@@ -91,11 +97,15 @@
 "icon-shortcut-nearby-title" = "చుట్టుపక్కల వ్యాసాలు";
 "icon-shortcut-random-title" = "యాదృచ్ఛిక వ్యాసం";
 "image-gallery-unknown-owner" = "గుర్తుతెలియని రచయిత.";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "పంచుకోండి...";
+"in-the-news-notification-read-now-action-title" = "ఇప్పుడే చదవండి";
+"in-the-news-notification-share-action-title" = "పంచుకోండి…";
+"in-the-news-sub-title-from-language-wikipedia" = "$1 వికీపీడియా నుండి";
+"in-the-news-sub-title-from-wikipedia" = "వికీపీడియా నుండి";
 "in-the-news-title" = "వార్తల్లో";
+"insert-media-caption-title" = "వ్యాఖ్య";
 "insert-media-image-position-setting-center" = "మధ్య";
 "insert-media-image-position-setting-left" = "ఎడమ";
+"insert-media-image-position-setting-none" = "ఏమీలేదు";
 "insert-media-image-position-setting-right" = "కుడి";
 "insert-media-image-preview-more-information-action-title" = "మరింత సమాచారం";
 "insert-media-image-size-setting-default" = "అప్రమేయం";
@@ -105,11 +115,12 @@
 "login-forgot-password" = "సంకేతపదం మర్చిపోయారా?";
 "login-join-wikipedia" = "వికీపీడియాలో చేరండి.";
 "login-no-account" = "ఖాతా లేదా? $1";
+"login-title" = "మీ ఖాతాలోకి ప్రవేశించండి";
 "main-menu-about" = "యాప్ గురించి";
-// Fuzzy
 "main-menu-account-login" = "ప్రవేశించండి";
 "main-menu-account-logout" = "నిష్క్రమించండి";
 "main-menu-account-logout-cancel" = "రద్దుచేయి";
+"main-menu-heading-legal" = "గోప్యత, నియమాలు";
 "main-menu-nearby" = "దగ్గరలో";
 "main-menu-privacy-policy" = "గోప్యతా విధానం";
 "main-menu-terms-of-use" = "వాడుక నియమాలు";
@@ -121,6 +132,7 @@
 "nearby-distance-label-km" = "$1 కిమీ";
 "nearby-distance-label-meters" = "$1 మీ";
 "nearby-distance-label-miles" = "$1 మైళ్ళు";
+"on-this-day-title" = "ఈ రోజున";
 "page-history-revision-minor-edit-accessibility-label" = "చిన్న మార్పు";
 "page-protected-autoconfirmed" = "ఈ పేజి సగం-రక్షించబడింది.";
 "page-protected-can-not-edit-title" = "ఈ పేజీ సంరక్షించబడింది";
@@ -136,7 +148,9 @@
 "reading-list-create-new-list-description" = "వివరణ";
 "relative-date-days-ago" = "{{PLURAL:$1|0=ఈరోజు|1=నిన్న|$1 రోజుల క్రితం}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=ఇప్పుడే|$1 గంట క్రితం|$1 గంటల క్రితం}}";
+"relative-date-hours-ago-abbreviated" = "$1గం క్రితం";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=ఇప్పుడే|$1 నిమిషం క్రితం|$1 నిమిషాల క్రితం}}";
+"relative-date-minutes-ago-abbreviated" = "$1ని క్రితం";
 "reverted-edit-back-to-article-button-title" = "తిరిగి వ్యాసానికి";
 "saved-all-articles-title" = "వ్యాసాలన్నీ";
 "saved-title" = "భద్రపరచబడింది";
@@ -156,11 +170,15 @@
 "table-of-contents-close-accessibility-hint" = "మూసివేయి";
 "table-of-contents-close-accessibility-label" = "విషయ సూచికను మూసివేయి";
 "table-of-contents-heading" = "విషయాలు";
+"talk-page-topic-title" = "చర్చ";
 "theme-default-display-name" = "అప్రమేయం";
 "top-read-header-generic" = "వికీపీడియా";
 "top-read-header-with-language" = "$1 వికీపీడియా";
+"welcome-exploration-on-this-day-title" = "ఈ రోజున";
 "welcome-explore-continue-button" = "మొదలుపెట్టండి";
 "welcome-explore-tell-me-more-done-button" = "అర్థమైంది";
+"welcome-intro-free-encyclopedia-more" = "వికీపీడియా గురించి మరింత తెలుసుకోండి";
+"welcome-intro-free-encyclopedia-more-about" = "వికీపీడియా గురించి";
 "welcome-languages-add-button" = "మరొక భాషను చేర్చు";
 "wikitext-upload-save-sign-in" = "ప్రవేశించండి";
 "wikitext-upload-save-terms-name" = "వాడుక నియమాలు";

@@ -35,6 +35,11 @@
     "localName" : "Alemannisch"
   },
   {
+    "languageCode" : "alt",
+    "languageName" : "алтай тил",
+    "localName" : "Southern Altai"
+  },
+  {
     "languageCode" : "am",
     "languageName" : "አማርኛ",
     "localName" : "Amharic"
@@ -121,7 +126,7 @@
   },
   {
     "languageCode" : "ban",
-    "languageName" : "Bali",
+    "languageName" : "Basa Bali",
     "localName" : "Balinese"
   },
   {
@@ -406,8 +411,8 @@
   },
   {
     "languageCode" : "fiu-vro",
-    "languageName" : "Võro",
-    "localName" : "Võro"
+    "languageName" : "võro",
+    "localName" : "võro"
   },
   {
     "languageCode" : "fj",
@@ -726,7 +731,7 @@
   },
   {
     "languageCode" : "koi",
-    "languageName" : "Перем Коми",
+    "languageName" : "перем коми",
     "localName" : "Komi-Permyak"
   },
   {
@@ -855,6 +860,11 @@
     "localName" : "Latvian"
   },
   {
+    "languageCode" : "mad",
+    "languageName" : "Madhurâ",
+    "localName" : "Madurese"
+  },
+  {
     "languageCode" : "mai",
     "languageName" : "मैथिली",
     "localName" : "Maithili"
@@ -908,6 +918,11 @@
     "languageCode" : "mn",
     "languageName" : "монгол",
     "localName" : "Mongolian"
+  },
+  {
+    "languageCode" : "mni",
+    "languageName" : "ꯃꯤꯇꯩ ꯂꯣꯟ",
+    "localName" : "Manipuri"
   },
   {
     "languageCode" : "mnw",
@@ -1005,6 +1020,11 @@
     "localName" : "Ndonga"
   },
   {
+    "languageCode" : "nia",
+    "languageName" : "Li Niha",
+    "localName" : "Nias"
+  },
+  {
     "languageCode" : "nl",
     "languageName" : "Nederlands",
     "localName" : "Dutch"
@@ -1015,6 +1035,7 @@
     "localName" : "Norwegian Nynorsk"
   },
   {
+    "altISOCode" : "nb",
     "languageCode" : "no",
     "languageName" : "norsk",
     "localName" : "Norwegian"
@@ -1056,7 +1077,7 @@
   },
   {
     "languageCode" : "olo",
-    "languageName" : "Livvinkarjala",
+    "languageName" : "livvinkarjala",
     "localName" : "Livvi-Karelian"
   },
   {
@@ -1255,6 +1276,11 @@
     "localName" : "Shan"
   },
   {
+    "languageCode" : "shy",
+    "languageName" : "tacawit",
+    "localName" : "Shawiya"
+  },
+  {
     "languageCode" : "si",
     "languageName" : "සිංහල",
     "localName" : "Sinhala"
@@ -1270,6 +1296,11 @@
     "localName" : "Slovak"
   },
   {
+    "languageCode" : "skr",
+    "languageName" : "سرائیکی",
+    "localName" : "Saraiki"
+  },
+  {
     "languageCode" : "sl",
     "languageName" : "slovenščina",
     "localName" : "Slovenian"
@@ -1278,6 +1309,11 @@
     "languageCode" : "sm",
     "languageName" : "Gagana Samoa",
     "localName" : "Samoan"
+  },
+  {
+    "languageCode" : "smn",
+    "languageName" : "anarâškielâ",
+    "localName" : "Inari Sami"
   },
   {
     "languageCode" : "sn",
@@ -1350,6 +1386,11 @@
     "localName" : "Tamil"
   },
   {
+    "languageCode" : "tay",
+    "languageName" : "Tayal",
+    "localName" : "Tayal"
+  },
+  {
     "languageCode" : "tcy",
     "languageName" : "ತುಳು",
     "localName" : "Tulu"
@@ -1413,6 +1454,11 @@
     "languageCode" : "tr",
     "languageName" : "Türkçe",
     "localName" : "Turkish"
+  },
+  {
+    "languageCode" : "trv",
+    "languageName" : "Seediq",
+    "localName" : "Taroko"
   },
   {
     "languageCode" : "ts",

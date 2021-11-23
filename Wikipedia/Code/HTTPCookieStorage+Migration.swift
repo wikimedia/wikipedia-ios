@@ -1,4 +1,4 @@
-extension HTTPCookieStorage {
+@objc extension HTTPCookieStorage {
     public func cookiesWithNamePrefix(_ prefix: String, for domain: String) -> [HTTPCookie] {
         guard let cookies = cookies, !cookies.isEmpty else {
             return []
@@ -24,4 +24,16 @@ extension HTTPCookieStorage {
         }
     }
     
+    @objc public static func migrateCookiesToSharedStorage() {
+        let legacyStorage = HTTPCookieStorage.shared
+        let sharedStorage = Session.sharedCookieStorage
+        guard let legacyCookies = legacyStorage.cookies else {
+            return
+        }
+        
+        for legacyCookie in legacyCookies {
+            sharedStorage.setCookie(legacyCookie)
+            legacyStorage.deleteCookie(legacyCookie)
+        }
+    }
 }

@@ -19,11 +19,15 @@ NS_ASSUME_NONNULL_BEGIN
 /// If representing a language variant, the language variant code. Otherwise nil.
 @property (readonly, copy, nonatomic, nullable) NSString *languageVariantCode;
 
+/// Alternative ISO code that is useful in some instances where the languageCode lookup fails. So far this is only set and in use for Norwegian (Bokmål) ("no" languageCode, "nb" altISOCode)
+@property (readonly, copy, nonatomic, nullable) NSString *altISOCode;
+
 - (instancetype)initWithLanguageCode:(nonnull NSString *)languageCode
                        pageTitleText:(nonnull NSString *)pageTitleText
                                 name:(nonnull NSString *)name
                        localizedName:(nonnull NSString *)localizedName
-                 languageVariantCode:(nullable NSString *)languageVariantCode NS_DESIGNATED_INITIALIZER;
+                 languageVariantCode:(nullable NSString *)languageVariantCode
+                          altISOCode:(nullable NSString *)altISOCode NS_DESIGNATED_INITIALIZER;
 
 ///
 /// @name Comparison

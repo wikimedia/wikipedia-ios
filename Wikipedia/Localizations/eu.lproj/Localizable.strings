@@ -80,10 +80,9 @@
 "action-unsave" = "Ez da gorde";
 "action-unsaved-accessibility-notification" = "Gorde gabeko artikulua";
 "action-update" = "Eguneratu";
-"add-articles-to-reading-list" = "Gehitu {{PLURAL:$1|artikulu $1|$1 artikulu}} irakurketa zerrendara";
+"add-articles-to-reading-list" = "Gehitu {{PLURAL:$1|artikulu bat|$1 artikulu}} irakurketa zerrendara";
 "announcements-dismiss" = "Utzi";
 "app-store-keywords" = "Wikipedia, erreferentzia, wiki, entziklopedia, informazioa, ezagutza, ikerketa, informazioa, arakatu, ikasi";
-// Fuzzy
 "app-store-release-notes" = "Gordetako artikuluak jada irakurketa zerrendetan antola daitezke eta gailuetatik zehar sinkroniza daitezke ere.";
 "app-store-short-description" = "Jaitsi Wikipedia app zugandik gertu dauden lekuak exploratzeko, sinkronizatu artikuluak offline irakurtzeko eta zure irakurtze-esperientziari probetxua ateratzeko.";
 "app-store-subtitle" = "Entziklopedia askea";
@@ -287,7 +286,7 @@
 "menu-cancel-accessibility-label" = "Utzi";
 "more-languages-tooltip-description" = "Bilatu Wikipedia 300 hizkuntza baino gehiagotan";
 "more-languages-tooltip-title" = "Hizkuntzak gehitu";
-"move-articles-to-reading-list" = "Mugitu {{PLURAL:$1|artikulu $1|$1 artikulu}} irakurketa zerrendara";
+"move-articles-to-reading-list" = "Mugitu {{PLURAL:$1|artikulu bat|$1 artikulu}} irakurketa zerrendara";
 "navbar-title-mode-edit-wikitext-preview" = "Aurrebista";
 "nearby-distance-label-feet" = "$1 oin";
 "nearby-distance-label-km" = "$1 km";
@@ -431,7 +430,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Aurreko batean|Orain dela ordu $1|Orain dela $1 ordu}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Oraintxe|Orain dela minutu $1|Orain dela $1 minutu}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Aurten|Aurreko urtea|$1 duela urteak}}";
-"request-feedback-on-error" = "Aplikazioak arazo bat topatu du, programatzaileek horri buruzko zeozer gehiago jakin nahiko luketeena. Mesedez, sakatu hemen eta kontaiguzu errorea detaile gehiagoz.";
 "saved-all-articles-title" = "Artikulu guztiak";
 "saved-default-reading-list-tag" = "Zerrenda hau ezin da ezabatu";
 "saved-pages-image-download-error" = "Akatsa gordetako orrialdetik argazkiak deskargatzean.";

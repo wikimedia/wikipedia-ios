@@ -20,7 +20,7 @@ static NSString *const WMFSettingsURLTerms = @"https://foundation.m.wikimedia.or
 static NSString *const WMFSettingsURLRate = @"itms-apps://itunes.apple.com/app/id324715238";
 static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=<app-version>&uselang=<langcode>";
 
-@interface WMFSettingsViewController () <UITableViewDelegate, UITableViewDataSource, WMFPreferredLanguagesViewControllerDelegate, WMFAccountViewControllerDelegate>
+@interface WMFSettingsViewController () <UITableViewDelegate, UITableViewDataSource, WMFAccountViewControllerDelegate>
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 
@@ -47,7 +47,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
-    
+
     [self.tableView registerNib:[WMFSettingsTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFSettingsTableViewCell identifier]];
 
     self.tableView.estimatedRowHeight = 52.0;
@@ -91,6 +91,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)viewWillAppear:(BOOL)animated {
     self.showCloseButton = self.tabBarController == nil;
+    [self configureNotificationsButton];
     [self.navigationController setNavigationBarHidden:YES];
     [super viewWillAppear:animated];
     self.navigationController.toolbarHidden = YES;
@@ -98,6 +99,13 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
     /// Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
     self.parentViewController.navigationItem.backButtonTitle = self.title;
+}
+
+- (void)configureNotificationsButton {
+    if ([[NSUserDefaults standardUserDefaults] defaultTabType] == WMFAppDefaultTabTypeSettings && [[[self dataStore] authenticationManager] isLoggedIn]) {
+        UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"notifications-bell"] style:UIBarButtonItemStylePlain target:self action:@selector(userDidTapNotificationsCenter)];
+        self.navigationItem.rightBarButtonItem = notificationsBarButton;
+    }
 }
 
 - (void)configureBackButton {
@@ -117,6 +125,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)closeButtonPressed {
+    [[WMFNavigationEventsFunnel shared] logTappedSettingsCloseButton];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -164,6 +173,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (void)disclosureSwitchChanged:(UISwitch *)disclosureSwitch {
     WMFSettingsMenuItemType type = (WMFSettingsMenuItemType)disclosureSwitch.tag;
     [self updateStateForMenuItemType:type isSwitchOnValue:disclosureSwitch.isOn];
+    [self logNavigationEventsForMenuType:type];
     [self loadSections];
 }
 
@@ -173,11 +183,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     switch (type) {
         case WMFSettingsMenuItemType_SendUsageReports: {
             WMFEventLoggingService *eventLoggingService = [WMFEventLoggingService sharedInstance];
-            WMFEventPlatformClient *eventPlatformClient = [WMFEventPlatformClient sharedInstance];
+            WMFMetricsClientBridge *metricsClientBridge = [WMFMetricsClientBridge sharedInstance];
             NSUserDefaults.standardUserDefaults.wmf_sendUsageReports = isOn;
             if (isOn) {
                 [eventLoggingService reset];
-                [eventPlatformClient reset];
+                [metricsClientBridge reset];
                 [[WMFDailyStatsLoggingFunnel shared] logAppNumberOfDaysSinceInstall];
                 [[SessionsFunnel shared] logSessionStart];
                 [[UserHistoryFunnel shared] logStartingSnapshot];
@@ -185,9 +195,65 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
                 [[SessionsFunnel shared] logSessionEnd];
                 [[UserHistoryFunnel shared] logSnapshot];
                 [eventLoggingService reset];
-                [eventPlatformClient reset];
+                [metricsClientBridge reset];
             }
         } break;
+        default:
+            break;
+    }
+}
+
+- (void)logNavigationEventsForMenuType:(WMFSettingsMenuItemType)type {
+
+    switch (type) {
+        case WMFSettingsMenuItemType_LoginAccount:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsLoginLogout];
+            break;
+        case WMFSettingsMenuItemType_SearchLanguage:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsLanguages];
+            break;
+        case WMFSettingsMenuItemType_Search:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsSearch];
+            break;
+        case WMFSettingsMenuItemType_ExploreFeed:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsExploreFeed];
+            break;
+        case WMFSettingsMenuItemType_Notifications:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsNotifications];
+            break;
+        case WMFSettingsMenuItemType_Appearance:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsReadingPreferences];
+            break;
+        case WMFSettingsMenuItemType_StorageAndSyncing:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsArticleStorageAndSyncing];
+            break;
+        case WMFSettingsMenuItemType_StorageAndSyncingDebug:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsReadingListDangerZone];
+            break;
+        case WMFSettingsMenuItemType_Support:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsSupportWikipedia];
+            break;
+        case WMFSettingsMenuItemType_PrivacyPolicy:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsPrivacyPolicy];
+            break;
+        case WMFSettingsMenuItemType_Terms:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsTermsOfUse];
+            break;
+        case WMFSettingsMenuItemType_RateApp:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsRateTheApp];
+            break;
+        case WMFSettingsMenuItemType_SendFeedback:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsHelp];
+            break;
+        case WMFSettingsMenuItemType_About:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsAbout];
+            break;
+        case WMFSettingsMenuItemType_ClearCache:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsClearCachedData];
+            break;
+        case WMFSettingsMenuItemType_SendUsageReports:
+            [[WMFNavigationEventsFunnel shared] logTappedSettingsSendUsageReports];
+            break;
         default:
             break;
     }
@@ -255,6 +321,11 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         default:
             break;
     }
+
+    if (cell.tag != WMFSettingsMenuItemType_SendUsageReports) { //logged elsewhere via disclosureSwitchChanged:
+        [self logNavigationEventsForMenuType:cell.tag];
+    }
+
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -320,12 +391,13 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)logout {
     [self wmf_showKeepSavedArticlesOnDevicePanelIfNeededTriggeredBy:KeepSavedArticlesTriggerLogout
-                                                                     theme:self.theme
-                                                                completion:^{
-                                                                    [self.dataStore.authenticationManager logoutInitiatedBy:LogoutInitiatorUser completion:^{
-                                                                        [[LoginFunnel shared] logLogoutInSettings];
-                                                                    }];
-                                                                }];
+                                                              theme:self.theme
+                                                         completion:^{
+                                                             [self.dataStore.authenticationManager logoutInitiatedBy:LogoutInitiatorUser
+                                                                                                          completion:^{
+                                                                                                              [[LoginFunnel shared] logLogoutInSettings];
+                                                                                                          }];
+                                                         }];
 }
 
 #pragma mark - Languages
@@ -368,7 +440,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Notifications
 
 - (void)showNotifications {
-    WMFNotificationSettingsViewController *notificationSettingsVC = [[WMFNotificationSettingsViewController alloc] init];
+    WMFNotificationSettingsViewController *notificationSettingsVC = [[WMFNotificationSettingsViewController alloc] initWithAuthManager: self.dataStore.authenticationManager notificationsController:self.dataStore.notificationsController];
     [notificationSettingsVC applyTheme:self.theme];
     [self.navigationController pushViewController:notificationSettingsVC animated:YES];
 }
@@ -546,9 +618,15 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 #pragma Mark WMFAccountViewControllerDelegate
 
-- (void)accountViewControllerDidTapLogout:(WMFAccountViewController * _Nonnull)accountViewController {
+- (void)accountViewControllerDidTapLogout:(WMFAccountViewController *_Nonnull)accountViewController {
     [self logout];
     [self loadSections];
+}
+
+#pragma mark - Notifications Center
+
+- (void)userDidTapNotificationsCenter {
+    [self.notificationsCenterPresentationDelegate userDidTapNotificationsCenterFrom:self];
 }
 
 @end

@@ -16,13 +16,15 @@
 // Author: Nemo bis
 // Author: Rbndev
 // Author: SMP
+// Author: Skurz0
 // Author: Ssola
 // Author: Toniher
+// Author: Tsevener
 // Author: Vriullop
 // Author: Xavier Dengra
 
 "aaald-added-text-description-2" = "$1 afegit";
-"aaald-article-description-updated-description" = "La descripció del títol de l'article s'ha actualitzat";
+"aaald-article-description-updated-description" = "S'ha actualitzat la descripció de l'article";
 "aaald-article-insert-header" = "Actualitzacions significatives";
 "aaald-article-insert-last-updated" = "Darrera actualització";
 "aaald-article-insert-new-changes" = "Canvis recents";
@@ -152,7 +154,7 @@
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|S'ha eliminat l'article|S'han eliminat els articles}}";
 "article-fetcher-error-updated-content-timeout" = "L'aplicació no ha pogut recuperar el contingut actualitzat a temps. Refresqueu la pàgina més endavant per a veure com s'hi han reflectit els canvis.";
 "article-languages-filter-placeholder" = "Cerca una llengua";
-"article-languages-label" = "Trieu un idioma";
+"article-languages-label" = "Trieu una llengua";
 "article-languages-others" = "Altres llengües";
 "article-languages-yours" = "Les vostres llengües";
 "article-read-more-title" = "Més informació";
@@ -173,38 +175,41 @@
 "button-skip" = "Omet";
 "cancel" = "Cancel·la";
 "cc-zero" = "Creative Commons CC0";
-"chinese-variants-alert-body" = "L'aplicació de Viquipèdia ara funciona amb les variants xineses a continuació com a llengües primàries o secundàries. Això facilita la lectura, la cerca i l'edició en les vostres variants preferides:\n\n简体 Xinès, simplificat (zh-hans)\n繁體 Xinès, tradicional (zh-hant)\n大陆简体 Simplificat continental (zh-cn)\n香港繁體 Tradicional de Hong Kong (zh-hk)\n澳門繁體 Tradicional de Macau (zh-mo)\n大马简体 Simplificat de Malàisia (zh-my)\n新加坡简体 Simplificat de Singapur (zh-sg)\n臺灣正體 Tradicional taiwanès (zh-tw)";
-"chinese-variants-alert-title" = "Actualitzacions del suport a la variant xinesa";
+"chinese-variants-alert-body" = "L'aplicació de Viquipèdia ara funciona amb les variants xineses a continuació com a llengües primàries o secundàries. Això facilita la lectura, la cerca i l'edició en les vostres variants preferides:\n\n简体 Xinès, simplificat (zh-hans)\n香港繁體 Tradicional de Hong Kong (zh-hk)\n澳門繁體 Tradicional de Macau (zh-mo)\n大马简体 Simplificat de Malàisia (zh-my)\n新加坡简体 Simplificat de Singapur (zh-sg)\n臺灣正體 Tradicional taiwanès (zh-tw)";
+"chinese-variants-alert-title" = "Actualitzacions per a l'admissió de variants xineses";
 "clear-title-accessibility-label" = "Neteja";
 "close-button-accessibility-label" = "Tanca";
 "compass-direction" = "a les $1 en punt";
 "continue-reading-empty-description" = "Exploreu la Viquipèdia per a llegir més articles";
 "continue-reading-empty-title" = "No hi ha cap article llegit recentment";
+"crimean-tatar-variants-alert-body" = "L’aplicació Wikipedia admet ara les següents variants del tàtar de Crimea com a llengües primàries o secundàries de l’aplicació, cosa que facilita la lectura, la cerca i l’edició de les vostres variants preferides:\n\nQırımtatarca - tàrtar llatí de Crimea (chr-latn)\nкъырымтатарджа, Кирил - Tàrtar ciríl·lic de Crimea (crh-cyrl)";
+"crimean-tatar-variants-alert-title" = "Actualitzacions per a l'admissió de variant del tàtar de Crimea";
 "data-migration-status" = "Actualitzant...";
 "description-add-title" = "Afegeix una descripció";
-"description-edit-for-article" = "Descripció del títol de $1";
+"description-edit-for-article" = "Descripció de l'article $1";
 "description-edit-learn-more" = "Més informació";
 "description-edit-length-warning" = "$1 / $2";
-"description-edit-license" = "En canviar la descripció del títol, accepteu $1 i alliberar irrevocablement les contribucions sota la llicència $2.";
+"description-edit-license" = "En canviar la descripció de l'article, accepteu $1 i alliberar irrevocablement les contribucions sota la llicència $2.";
 "description-edit-pencil-introduction" = "Modifica la introducció";
-"description-edit-pencil-title" = "Modifica la descripció del títol";
+"description-edit-pencil-title" = "Modifica la descripció de l'article";
 "description-edit-placeholder-title" = "Les descripcions curtes són millors";
 "description-edit-publish" = "Publica la descripció";
 "description-edit-title" = "Modifica la descripció";
 "description-edit-warning" = "Proveu de mantenir les descripcions curtes per tal que els usuaris puguin entendre el tema de l'article a primer cop d'ull";
-"description-help-about-description" = "Les descripcions de títol resumeixen un articles per ajudar als lectors entendre el tema a primer cop d'ull.";
+"description-edit-warning-casing" = "Només es poden posar en majúscula els noms propis (tampoc al començant de la frase).";
+"description-help-about-description" = "Les descripcions d'article resumeixen els articles per a ajudar als lectors entendre el tema amb un primer cop d'ull.";
 "description-help-about-title" = "Quant a";
 "description-help-about-wikidata" = "Quant a Wikidata";
 "description-help-more-info-description" = "Les descripcions s'emmagatzemen i mantenen a Wikidata, un projecte de la Fundació Wikimedia que proporciona una base de dades secundària lliure, col·laborativa i multilingüe que dóna suport a la Viquipèdia i a altres projectes.";
 "description-help-more-info-title" = "Més informació";
 "description-help-tips-description" = "Les descripcions haurien de cabre en una sola línia i tenir una extensió d'entre dues i dotze paraules. No cal que siguin en majúscules a menys que la primera paraula sigui un nom propi.";
-"description-help-tips-example-description-one" = "descripció del títol d'un article sobre la Mona Lisa";
-"description-help-tips-example-description-two" = "descripció del títol d'un article sobre el Mont Everest";
+"description-help-tips-example-description-one" = "descripció d'article d'un article sobre la Mona Lisa";
+"description-help-tips-example-description-two" = "descripció d'article d'un article sobre el Mont Everest";
 "description-help-tips-example-title-one" = "una pintura de Leonardo Da Vinci";
 "description-help-tips-example-title-two" = "La muntanya de més alçada de la Terra";
 "description-help-tips-for-example" = "Per exemple:";
 "description-help-tips-title" = "Consells per crear descripcions";
-"description-help-title" = "Ajuda de la descripció del títol";
+"description-help-title" = "Ajuda de la descripció d'article";
 "description-help-wikidata-guide" = "Guia de la Wikidata per a escriure descripcions";
 "description-published-button-title" = "Fet";
 "description-published-footer" = "Podeu editar articles des d'aquesta aplicació. Proveu d'arreglar-hi errades i frases curtes fent clic a la icona del llapis la propera vegada";
@@ -213,7 +218,7 @@
 "description-welcome-concise-sub-title" = "Idealment una línia, entre dos i dotze paraules";
 "description-welcome-concise-title" = "Feu-la curta";
 "description-welcome-descriptions-sub-title" = "Resumeix un article per ajudar als lectors a entre el tema a primer cop d'ull";
-"description-welcome-descriptions-title" = "Descripcions del títol";
+"description-welcome-descriptions-title" = "Descripcions d'article";
 "description-welcome-promise-title" = "En començar prometo no fer mal ús d'aquesta funcionalitat";
 "description-welcome-start-editing-button" = "Comença a editar-hi";
 "diff-compare-header-from-info-heading" = "De:";
@@ -323,6 +328,8 @@
 "empty-no-feed-message" = "Podeu veure els vostres articles recomanats quan tingueu Internet";
 "empty-no-history-message" = "Mantén un registre del que he llegit aquí";
 "empty-no-history-title" = "No hi ha historial per mostrar";
+"empty-no-other-article-languages-message" = "Aquest article no encara ha estat escrit en cap altra llengua";
+"empty-no-other-article-languages-title" = "No hi ha altres llengües disponibles";
 "empty-no-reading-lists-message" = "Crea llistes de llocs on viatjar, temes preferits i molt més";
 "empty-no-reading-lists-title" = "Organitzeu els articles desats amb les llistes de lectura";
 "empty-no-saved-pages-in-reading-list-message" = "Desa les pàgines a aquesta llista perquè hi apareguin";
@@ -418,6 +425,12 @@
 "explore-random-article-sub-heading-from-wikipedia" = "De la Viquipèdia";
 "explore-randomizer" = "Article a l’atzar";
 "featured-article-empty-title" = "No hi ha cap article destacat avui";
+"featured-widget-content-failure-for-date" = "No hi ha cap article destacat disponible en aquesta data.";
+"featured-widget-description" = "Descobriu els millors articles de la Viquipèdia, seleccionats cada dia per la nostra comunitat.";
+"featured-widget-from-language-wikipedia" = "De la Viquipèdia en $1";
+"featured-widget-from-wikipedia" = "De la Viquipèdia";
+"featured-widget-language-failure" = "La Viquipèdia de la vostra llengua primària no té l'opció d'article destacat. Podeu triar canviar la vostra Viquipèdia primària en el menú de configuració de l'aplicació.";
+"featured-widget-title" = "Article destacat";
 "feed-news-notification-button-text" = "Activa les notificacions";
 "feed-news-notification-text" = "Habiliteu les notificacions per a rebre avisos de la Viquipèdia quan els articles siguin tendència a les notícies.";
 "fetcher-error-generic" = "Quelcom ha fallat. Torneu-ho a provar més tard.";
@@ -455,6 +468,8 @@
 "forgot-password-instructions" = "Omple un dels camps a continuació per a rebre instruccions de reinicialització de contrasenya per correu electrònic";
 "forgot-password-title" = "Restablir contrasenya";
 "forgot-password-username-or-email-title" = "O";
+"gan-variants-alert-body" = "Ara l’aplicació Wikipedia admet les següents variants Gan com a llengües primàries o secundàries de l’aplicació, cosa que facilita la lectura, la cerca i l’edició de les vostres variants preferides:\n\n贛 語 原文 Gan (gan)\n赣 语 简体 Gan, simplificat (gan-hans)\n贛 語 繁體 Gan, tradicional (gan-hant)";
+"gan-variants-alert-title" = "Actualitzacions del suport a les variants Gan";
 "history-clear-all" = "Neteja";
 "history-clear-cancel" = "Cancel·la";
 "history-clear-confirmation-heading" = "Esteu segurs que voleu eliminar els elements recents?";
@@ -516,7 +531,12 @@
 "intermediate-edits-editors-count-limited" = "$1+ revisions intermèdies per $2+ usuaris no mostrats";
 "intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 revisió intermèdia|$1 revisions intermèdies}} per $2+ usuaris no mostrats";
 "intermediate-edits-limited-editors-count" = "$1+ revisions intermèdies per {{PLURAL:$2|$2 usuari|$2 usuaris}} no mostrades";
-"kurdish-variants-alert-title" = "Actualitzacions del suport a la variant kurda";
+"inuktitut-variants-alert-body" = "L'aplicació Wikipedia admet ara les següents variants inuktitut com a llengües principals o secundàries de l'aplicació, cosa que facilita la lectura, la cerca i l'edició de les vostres variants preferides: \n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, síl·labes (ike-cans)\nInuktitut ilisautik, Inuktitut, llatí ( ike-latn)";
+"inuktitut-variants-alert-title" = "Actualitzacions del suport a les variants Inuktitut";
+"kazakh-variants-alert-body" = "L’aplicació Wikipedia admet ara les següents variants kazakhs com a llengües primàries o secundàries de l’aplicació, cosa que facilita la lectura, la cerca i l’edició de les vostres variants preferides:\n\nҚазақша kazakh (kk)\nҚазақша Кирил Kazakh, ciríl·lic (kk-cyrl)\nqazaqşa llatí kazakh, llatí (kk-latn)\nتوتە قازاقشا kazakh, àrab (kk-arab)";
+"kazakh-variants-alert-title" = "Actualitzacions del suport a les variants Kazakh";
+"kurdish-variants-alert-body" = "L’aplicació Wikipedia admet ara les següents variants kurdes com a llengües primàries o secundàries de l’aplicació, cosa que facilita la lectura, la cerca i l’edició de les vostres variants preferides:\n\nKurdî Latînî Kurd, llatí (ku-latn)\nكوردی kurd, àrab (kk-arab)";
+"kurdish-variants-alert-title" = "Actualitzacions per a l'admissió de variants kurdes";
 "languages-settings-title" = "Llengües";
 "languages-title" = "Canvia la llengua";
 "languages-wikipedia" = "Llengües de la Viquipèdia";
@@ -563,6 +583,8 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 esdeveniment històric|$1 esdeveniments històrics}}";
 "on-this-day-footer" = "Més esdeveniments històrics d'aquest dia";
 "on-this-day-footer-showing-event-count" = "{{PLURAL:$1|$1 més esdeveniment històric|$1 més esdeveniments històrics}} en aquest dia";
+"on-this-day-language-does-not-support-error" = "La Viquipèdia de la vostra llengua primària no té l'opció de «tal dia com avui». Podeu triar canviar la vostra Viquipèdia primària en el menú de configuració de l'aplicació.";
+"on-this-day-no-internet-error" = "Cap dada disponible";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 de la Viquipèdia en $2";
 "on-this-day-title" = "Tal dia com avui";
 "original-tab-button-popover-description" = "Feu un toc a la 'W' per tornar a la pestanya d'on heu començat";
@@ -627,6 +649,9 @@
 "places-unknown-distance" = "distància desconeguda";
 "potd-description-prefix" = "Imatge del dia per a $1";
 "potd-empty-error-description" = "Ha fallat en recuperar la imatge del dia per a $1";
+"potd-sample-entry-description" = "Dos braus galopen mentre el genet els condueix en pacu jawi (de Minangkabau, «cursa de braus»), una cursa de braus tradicional a Tanah Datar, a Sumatra Occidental, Indonèsia. 2015, Final-45.";
+"potd-widget-description" = "Gaudiu d'una maca foto cada dia, seleccionada per la nostra comunitat.";
+"potd-widget-title" = "Imatge del dia";
 "preference-summary-eventlogging-opt-in" = "Permeteu a la Fundació Wikimedia recollir informació sobre com utilitzeu l'aplicació per poder-la millorar";
 "preference-title-eventlogging-opt-in" = "Envia informes d'ús";
 "rank-accessibility-label" = "Número $1";
@@ -733,10 +758,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 element reemplaçat|$1 elements reemplaçats}}";
 "replace-textfield-accessibility" = "Reemplaça";
 "replace-textfield-placeholder" = "Reemplaça per…";
-"request-feedback-on-error" = "L'aplicació s'ha trobat amb un problema que els nostres desenvolupadors voldrien conèixer més en detall. Toqueu aquí per enviar-nos un correu amb els detalls de l'error.";
 "reverted-edit-back-to-article-button-title" = "Torna a l'article";
-"reverted-edit-notification-body" = "La modificació que vàreu fer de l'article $1 va ser revertida per $2";
-"reverted-edit-notification-read-more-action-title" = "Més informació";
 "reverted-edit-possible-reasons" = "- La contribució que heu fet no segueix alguna de les recomanacions. $1 \n\n- La contribució semblava que fos un experiment o un vandalisme";
 "reverted-edit-possible-reasons-subtitle" = "Sabem que heu provat de fer-ho el millor possible, però un dels revisors n'ha discrepat.\n\nAlguns dels motius pels quals la vostra modificació va ser revertida:";
 "reverted-edit-thanks-for-editing-title" = "Gràcies per editar a la Viquipèdia!";
@@ -764,7 +786,8 @@
 "search-recent-title" = "Cerques recents";
 "search-result-redirected-from" = "Redirigit de: $1";
 "search-title" = "Cerca";
-"serbian-variants-alert-title" = "Actualitzacions del suport a la variant sèrbia";
+"serbian-variants-alert-body" = "L'aplicació Wikipedia admet ara les següents variants sèrbies com a llengües primàries o secundàries de l'aplicació, cosa que facilita la lectura, la cerca i l'edició de les vostres variants preferides:\n\nсрпски ћирилица Serbi, ciríl·lic (sr-ec)\nsrpski latinica serbi, llatí (sr-el)";
+"serbian-variants-alert-title" = "Actualitzacions per a l'admissió de variants sèrbies";
 "settings-account" = "Compte";
 "settings-appearance" = "Preferències de lectura";
 "settings-clear-cache" = "Neteja les dades en cau";
@@ -823,6 +846,10 @@
 "table-of-contents-heading" = "Continguts";
 "table-of-contents-hide-button-label" = "Amaga la taula de continguts";
 "table-of-contents-subheading-label" = "Subtítol $1";
+"tachelhit-variants-alert-body" = "L'aplicació Wikipedia admet ara les següents variants de Tachelhit com a llengües primàries o secundàries de l'aplicació, cosa que facilita la lectura, la cerca i l'edició de les vostres variants preferides: \n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng) \nTaclḥit Tachelhit, llatí (shi-latn)";
+"tachelhit-variants-alert-title" = "Actualitzacions del suport a les variants Tachelhit";
+"tajik-variants-alert-body" = "L'aplicació Wikipedia admet ara les següents variants tayik com a llengües primàries o secundàries de l'aplicació, cosa que facilita la lectura, la cerca i l'edició de les vostres variants preferides: \n\nтоҷикӣ кирилликӣ Tadjik, ciríl·lic (tg-cyrl) \ntojikī lotinī Tadjik, llatí (tg- latn)";
+"tajik-variants-alert-title" = "Actualitzacions per a l'admissió de variants tajik";
 "talk-page-add-discussion-accessibility-label" = "Afegeix una discussió";
 "talk-page-discussion-accessibility-hint" = "Feu un toc doble per obrir el fil de discussió";
 "talk-page-discussion-read-accessibility-label" = "Llegit";
@@ -863,6 +890,9 @@
 "top-read-header-generic" = "Viquipèdia";
 "top-read-header-with-language" = "Viquipèdia en $1";
 "top-read-see-more" = "Vegeu-ne d'altres més llegits";
+"top-read-widget-description" = "Esbrineu que està llegint el món avui a la Viquipèdia.";
+"top-read-widget-readers-count" = "$1 lectors";
+"top-read-widget-title" = "El més llegit";
 "two-factor-login-continue" = "Continua l'inici de sessió";
 "two-factor-login-instructions" = "Introduïu el codi de verificació de dos factors";
 "two-factor-login-title" = "Inicieu una sessió amb el vostre compte";
@@ -870,6 +900,8 @@
 "two-factor-login-with-regular-code" = "Utilitza un codi de verificació";
 "unable-to-load-talk-page-title" = "No es pot carregar la pàgina de discussió";
 "unknown-generic-text" = "Desconegut";
+"uzbek-variants-alert-body" = "L’aplicació Wikipedia admet ara les següents variants uzbekes com a llengües primàries o secundàries de l’aplicació, cosa que facilita la lectura, la cerca i l’edició de les vostres variants preferides: \n\noʻzbekcha lotin uzbek, llatí (uz-latin)\nўзбекча кирилл Uzbek, ciríl·lic (uz-cyrl)";
+"uzbek-variants-alert-title" = "Actualitzacions del suport a les variants Uzbek";
 "variants-alert-dismiss-button" = "No, gràcies";
 "variants-alert-preferences-button" = "Reviseu les vostres preferències";
 "welcome-exploration-explore-feed-description" = "Lectura recomanada i articles diaris de la nostra comunitat";
@@ -897,6 +929,9 @@
 "welcome-send-data-learn-more" = "Més informació de les dades recopilades";
 "welcome-send-data-sub-title" = "Ajudeu a millorar l'aplicació fent saber a la Fundació Wikimedia com la feu servir. Les dades que es recullen són anònimes.";
 "welcome-volunteer-send-usage-reports" = "Envia informes d'ús";
+"widget-onthisday-description" = "Exploreu què va passar aquest dia al llarg de la història.";
+"widget-onthisday-placeholder-article-snippet" = "L'enciclopèdia en línia lliure que tothom pot editar";
+"widget-onthisday-placeholder-event-snippet" = "La Viquipèdia, una enciclopèdia de contingut wiki lliure, es posa en línia.";
 "wikitext-downloading" = "S'està carregant el contingut...";
 "wikitext-preview-changes" = "S'està recuperant una vista prèvia dels canvis...";
 "wikitext-preview-changes-none" = "No s'ha fet cap canvi per previsualitzar.";

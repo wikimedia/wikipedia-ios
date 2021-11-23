@@ -2,20 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>aaald-characters-text-description</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>other</key>
-			<string>文字</string>
-		</dict>
-	</dict>
 	<key>aaald-numerical-multiple-references-added-description</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -28,6 +14,22 @@
 			<string>d</string>
 			<key>other</key>
 			<string>%1$dつの参考文献</string>
+		</dict>
+	</dict>
+	<key>aaald-small-change-description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d個の小さな変更をしました</string>
+			<key>zero</key>
+			<string>小さな変更をしていません</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
@@ -248,12 +250,6 @@
 			<string>記事</string>
 		</dict>
 	</dict>
-	<key>reading-list-list-limit-exceeded-title</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>1アカウントあたりに保存できる「あとで読むリスト」の上限
-を超えました。</string>
-	</dict>
 	<key>reading-lists-count</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -409,22 +405,6 @@
 			<string>この記事を削除</string>
 			<key>other</key>
 			<string>これらの記事を削除</string>
-		</dict>
-	</dict>
-	<key>saved-unsave-article-and-remove-from-reading-lists-title</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@を削除しますか?</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>記事</string>
-			<key>other</key>
-			<string>記事</string>
 		</dict>
 	</dict>
 </dict>

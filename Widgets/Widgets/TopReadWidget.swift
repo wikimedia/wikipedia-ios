@@ -47,7 +47,7 @@ final class TopReadData {
     // MARK: Private
     
     private func assembleTopReadFromContentGroup(_ topRead: WMFContentGroup, with dataStore: MWKDataStore, usingImageCache: Bool = false, completion: @escaping (TopReadEntry) -> Void) {
-        guard let results = topRead.contentPreview as? [WMFFeedTopReadArticlePreview] else {
+        guard let articlePreviews = topRead.contentPreview as? [WMFFeedTopReadArticlePreview] else {
             completion(placeholder)
             return
         }
@@ -58,11 +58,13 @@ final class TopReadData {
         let groupURL = topRead.url
         let isCurrent = topRead.isForToday // even though the top read data is from yesterday, the content group is for today
         var rankedElements: [TopReadEntry.RankedElement] = []
-        for article in results {
-            if let articlePreview = dataStore.fetchArticle(with: article.articleURL) {
-                if let viewCounts = articlePreview.pageViewsSortedByDate {
-                    rankedElements.append(.init(title: article.displayTitle, description: article.wikidataDescription ?? article.snippet ?? "", articleURL: article.articleURL, thumbnailURL: article.thumbnailURL, viewCounts: viewCounts))
-                }
+
+        for articlePreview in articlePreviews {
+            if let fetchedArticle = dataStore.fetchArticle(with: articlePreview.articleURL), let viewCounts = fetchedArticle.pageViewsSortedByDate {
+                let title = fetchedArticle.displayTitle ?? articlePreview.displayTitle
+                let description = fetchedArticle.wikidataDescription ?? articlePreview.wikidataDescription ?? fetchedArticle.snippet ?? articlePreview.snippet ?? ""
+                let rankedElement = TopReadEntry.RankedElement(title: title, description: description, articleURL: articlePreview.articleURL, thumbnailURL: articlePreview.thumbnailURL, viewCounts: viewCounts)
+                rankedElements.append(rankedElement)
             }
         }
 
@@ -387,7 +389,7 @@ struct TopReadOverlayView: View {
         VStack(alignment: .leading, spacing: 5) {
             Text(TopReadWidget.LocalizedStrings.widgetTitle)
                 .font(.caption2)
-                .fontWeight(.heavy)
+                .fontWeight(.bold)
                 .aspectRatio(contentMode: .fit)
                 .foregroundColor(primaryTextColor)
                 .readableShadow(intensity: isExpandedStyle ? 0 : 0.8)

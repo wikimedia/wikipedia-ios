@@ -54,7 +54,7 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
     } else {
         path = @[@"feed", @"featured"];
     }
-    return [configuration wikiFeedsAPIURLForURL:siteURL appendingPathComponents:path];
+    return [configuration feedContentAPIURLForURL:siteURL appendingPathComponents:path];
 }
 
 + (NSRegularExpression *)cacheControlRegex {
@@ -131,7 +131,7 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
     NSParameterAssert(titleURL);
 
     NSString *title = [titleURL.wmf_titleWithUnderscores wmf_UTF8StringWithPercentEscapes];
-    NSString *language = titleURL.wmf_language;
+    NSString *language = titleURL.wmf_languageCode;
     NSString *domain = titleURL.wmf_domain;
 
     NSParameterAssert(title);

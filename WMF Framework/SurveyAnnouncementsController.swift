@@ -37,7 +37,7 @@ public final class SurveyAnnouncementsController: NSObject {
         
         //assign and persist ab test bucket &  percentage
         //this works for now since we only have one experiment for this release but will likely need to change as we expand
-        if let articleAsLivingDocAnnouncement = surveyAnnouncements.first(where: { $0.identifier == "IOSSURVEY20IOSV4EN" }),
+        if let articleAsLivingDocAnnouncement = surveyAnnouncements.first(where: { ($0.identifier?.hasPrefix("IOSAAALDSURVEY")) ?? false }),
            let percentage = articleAsLivingDocAnnouncement.percentReceivingExperiment {
             
             do {

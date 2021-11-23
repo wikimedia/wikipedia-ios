@@ -7,16 +7,18 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     public var presentedContentGroupKey: String?
     public var shouldRestoreScrollPosition = false
 
+    @objc public weak var notificationsCenterPresentationDelegate: NotificationsCenterPresentationDelegate?
+
     // MARK - UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutManager.register(ExploreCardCollectionViewCell.self, forCellWithReuseIdentifier: ExploreCardCollectionViewCell.identifier, addPlaceholder: true)
-        
+
         navigationItem.titleView = titleView
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
         navigationBar.isUnderBarViewHidingEnabled = true
-        navigationBar.displayType = .largeTitle
+        navigationBar.displayType = .centeredLargeTitle
         navigationBar.shouldTransformUnderBarViewWithBar = true
         navigationBar.isShadowHidingEnabled = true
 
@@ -60,7 +62,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         restoreScrollPositionIfNeeded()
 
         /// Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
-        parent?.navigationItem.backButtonTitle = title
+        (parent as? WMFAppViewController)?.navigationItem.backButtonTitle = title
     }
 
     private func restoreScrollPositionIfNeeded() {
@@ -996,4 +998,13 @@ extension ExploreViewController: EventLoggingSearchSourceProviding {
     var searchSource: String {
         return "top_of_feed"
     }
+}
+
+// MARK: - Notifications Center
+extension ExploreViewController {
+
+    @objc func userDidTapNotificationsCenter() {
+        notificationsCenterPresentationDelegate?.userDidTapNotificationsCenter(from: self)
+    }
+
 }

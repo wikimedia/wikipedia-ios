@@ -13,15 +13,17 @@
 // Author: Or
 // Author: Steeve815
 // Author: Strayblues
+// Author: Tsevener
 // Author: YaronSh
 // Author: איתן96
+// Author: דגש
 // Author: דגש חזק
 // Author: ישראל קלר
 // Author: נדב ס
 // Author: שמזן
 
 "aaald-added-text-description-2" = "$1 נוספו";
-"aaald-article-description-updated-description" = "תיאור כותרת הערך עודכן";
+"aaald-article-description-updated-description" = "תיאור הערך עודכן";
 "aaald-article-insert-header" = "עדכונים משמעותיים";
 "aaald-article-insert-last-updated" = "עדכון אחרון";
 "aaald-article-insert-new-changes" = "שינויים חדשים";
@@ -154,7 +156,7 @@
 "article-languages-label" = "בחירת שפה";
 "article-languages-others" = "שפות אחרות";
 "article-languages-yours" = "השפות שלך";
-"article-read-more-title" = "לקרוא עוד";
+"article-read-more-title" = "מידע נוסף";
 "article-reference-view-title" = "הערת שוליים $1";
 "article-save-error-not-enough-space" = "אין מספיק נפח אחסון במכשיר שלך כדי לשמור את הערך";
 "article-share" = "שיתוף";
@@ -172,38 +174,41 @@
 "button-skip" = "לדלג";
 "cancel" = "ביטול";
 "cc-zero" = "קריאייטיב קומונז אפס";
-"chinese-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בהגוונים הבאים של סינית בתור השפה הראשית או המשנית ביישום, כדי שיהיה קל יותר לקרוא, לחפש, ולערוך בהגוונים המועדפים עליך:\n\n简体 סינית, מפושטת (zh-hans)\n繁體 סינית, מסורתית (zh-hant)\n大陆简体 יבשתית מפושטת (zh-cn)\n香港繁體 הונג קונג מסורתית (zh-hk)\n澳門繁體 מקאו מסורתית (zh-mo)\n大马简体 מלזיה מפושטת (zh-my)\n新加坡简体 סינגפור מפושטת (zh-sg)\n臺灣正體 טאיוואן מסורתית (zh-tw)";
+"chinese-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בהגוונים הבאים של סינית בתור השפה הראשית או המשנית ביישום, כדי שיהיה קל יותר לקרוא, לחפש, ולערוך בהגוונים המועדפים עליך:\n\n简体 סינית, מפושטת (zh-hans)\n香港繁體 הונג קונג מסורתית (zh-hk)\n澳門繁體 מקאו מסורתית (zh-mo)\n大马简体 מלזיה מפושטת (zh-my)\n新加坡简体 סינגפור מפושטת (zh-sg)\n臺灣正體 טאיוואן מסורתית (zh-tw)";
 "chinese-variants-alert-title" = "עדכונים לתמיכה בהגוונים של סינית";
 "clear-title-accessibility-label" = "ניקוי";
 "close-button-accessibility-label" = "סגירה";
 "compass-direction" = "בשעה $1";
 "continue-reading-empty-description" = "לגלות עוד ערכים לקרוא בוויקיפדיה";
 "continue-reading-empty-title" = "אין ערכים שנקראו לאחרונה";
+"crimean-tatar-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בסוגים הבאים של טטרית של קרים בתור שפה ראשית או משנית בתוך היישום, כדי שיהיה קל לקרוא, לחפש, ולערוך בצורות הכתב המועדפות עליך:\n\nQırımtatarca, טטרית של קרים באותיות לטיניות (crh-latn)\nкъырымтатарджа, טטרית של קרים באותיות קיריליות (crh-cyrl)";
+"crimean-tatar-variants-alert-title" = "עדכונים לתמיכה בטטרית של קרים";
 "data-migration-status" = "מתבצע עדכון…";
 "description-add-title" = "הוספת תיאור";
-"description-edit-for-article" = "תיאור כותרת עבור $1";
+"description-edit-for-article" = "תיאור הערך עבור $1";
 "description-edit-learn-more" = "מידע נוסף";
 "description-edit-length-warning" = "$1 מתוך $2";
-"description-edit-license" = "שינוי תיאור הכותרת מהווה את הסכמתי ל$1 ולשחרור בלתי־חוזר של התרומות שלי לפי תנאי רישיון $2.";
+"description-edit-license" = "שינוי תיאור הערך מהווה את הסכמתי ל$1 ולשחרור בלתי־חוזר של התרומות שלי לפי תנאי רישיון $2.";
 "description-edit-pencil-introduction" = "עריכת הפתיחה";
-"description-edit-pencil-title" = "הוספת תיאור כותרת";
+"description-edit-pencil-title" = "הוספת תיאור ערך";
 "description-edit-placeholder-title" = "תיאורים קצרים הם הטובים ביותר";
 "description-edit-publish" = "פרסום התיאור";
 "description-edit-title" = "עריכת תיאור";
 "description-edit-warning" = "השתדלו להקפיד שהתיאורים יהיו קצרים כדי שמשתמשים יוכלו להבין מה נושא הערך במבט אחד";
-"description-help-about-description" = "תיאורי הכותרת מסכמים ערך כדי לעזור לקוראים להבין את הנושא במבט מהיר.";
+"description-edit-warning-casing" = "צריך לכתוב באות גדולה רק שמות פרטיים, גם התחילת משפט";
+"description-help-about-description" = "תיאורי הערכים מסכמים ערך כדי לעזור לקוראים להבין את הנושא במבט מהיר.";
 "description-help-about-title" = "אודות";
 "description-help-about-wikidata" = "אודות ויקינתונים";
 "description-help-more-info-description" = "התיאורים נשמרים ומתוחזקים בוויקינתונים (Wikidata), מיזם של קרן ויקימדיה שמספק מסד נתונים משני חופשי, שיתופי ורב־לשוני שתומך בוויקיפדיה ובמיזמים אחרים.";
 "description-help-more-info-title" = "מידע נוסף";
 "description-help-tips-description" = "תיאורים אמורים להיכנס לשורה אחת, ולכלול בין שתיים לשתים־עשרה מילים. אין להשתמש באותיות גדולות בלועזית אלא אם מדובר בשם עצם פרטי (שם של אדם, מקום, ישות או ארגון).";
-"description-help-tips-example-description-one" = "תיאור כותרת של ערך על המונה ליזה";
-"description-help-tips-example-description-two" = "תיאור הכותרת של ערך על הר אוורסט";
+"description-help-tips-example-description-one" = "תיאור ערך של ערך על המונה ליזה";
+"description-help-tips-example-description-two" = "תיאור ערך של ערך על הר אוורסט";
 "description-help-tips-example-title-one" = "ציור של לאונרדו דה וינצ'י";
 "description-help-tips-example-title-two" = "ההר הגבוה בכדור הארץ";
 "description-help-tips-for-example" = "למשל:";
 "description-help-tips-title" = "עצות ליצירת תיאורים";
-"description-help-title" = "עזרה עם תיאור כותרת";
+"description-help-title" = "עזרה עם תיאור ערך";
 "description-help-wikidata-guide" = "מדריך ויקינתונים לכתיבת תיאורים";
 "description-published-button-title" = "בוצע";
 "description-published-footer" = "אפשר גם לערוך ערכים בתוך ביישום הזה. נסו לתקן שגיאות כתיב ומשפטים קצרים באמצעות לחיצה על סמל העיפרון בפעם הבאה";
@@ -212,7 +217,7 @@
 "description-welcome-concise-sub-title" = "הכי טוב שורה אחת, בין שתיים לשתים־עשרה מילים";
 "description-welcome-concise-title" = "זה אמור להיות קצר";
 "description-welcome-descriptions-sub-title" = "מסכם את הערך כדי לעזור לקוראים להבין את הנושא במבט מהיר";
-"description-welcome-descriptions-title" = "תיאורי כותרת";
+"description-welcome-descriptions-title" = "תיאורי ערך";
 "description-welcome-promise-title" = "תחילת העבודה היא ההבטחה שלי לא להשתמש באפשרות הזאת לרעה";
 "description-welcome-start-editing-button" = "להתחיל לערוך";
 "diff-compare-header-from-info-heading" = "מ־:";
@@ -322,6 +327,8 @@
 "empty-no-feed-message" = "אפשר לראות הצעות לערכים כשיהיה לך אינטרנט";
 "empty-no-history-message" = "כאן אפשר לעקוב אחרי מה שקראת";
 "empty-no-history-title" = "אין היסטוריה להציג";
+"empty-no-other-article-languages-message" = "הערך הזה עדיין לא נכתב בשום שפה אחרת";
+"empty-no-other-article-languages-title" = "שפות אחרות אינן זמינות";
 "empty-no-reading-lists-message" = "צרו רשימות קריאה עבור מקומות שאתם רוצים לטייל בהם, נושאים שמעניינים אתכם, ועוד";
 "empty-no-reading-lists-title" = "סדרו ערכים שמורים ברשימות קריאה";
 "empty-no-saved-pages-in-reading-list-message" = "שמרו דפים ברשימה זו כדי לראות אותם כאן";
@@ -417,6 +424,12 @@
 "explore-random-article-sub-heading-from-wikipedia" = "מתוך ויקיפדיה";
 "explore-randomizer" = "הגרלה";
 "featured-article-empty-title" = "היום אין ערכים מומלצים זמינים";
+"featured-widget-content-failure-for-date" = "לא זמין ערך מומלץ עבור התאריך הזה.";
+"featured-widget-description" = "גלו את הערכים הטובים ביותר בוויקיפדיה, שנבחרים יום־יום על־ידי הקהילה שלנו.";
+"featured-widget-from-language-wikipedia" = "מתוך ויקיפדיה ה$1";
+"featured-widget-from-wikipedia" = "מתוך ויקיפדיה";
+"featured-widget-language-failure" = "ויקיפדיה בשפה הראשית שלך אינה תומכת בערך מומלץ. אפשר לעדכן את הןויקיפדיה הראשית שלך בתפריט הגדרות של היישום.";
+"featured-widget-title" = "ערך מומלץ";
 "feed-news-notification-button-text" = "הפעלת עדכונים";
 "feed-news-notification-text" = "הפעלת עדכונים כדי לקבל הודעות מוויקיפדיה כשערכים נהיים חמים בחדשות.";
 "fetcher-error-generic" = "משהו השתבש! נא לנסות שוב מאוחר יותר.";
@@ -454,6 +467,8 @@
 "forgot-password-instructions" = "נא למלא אחד מהשדות להלן כדי לקבל את הוראות אתחול הסיסמה בדוא\"ל";
 "forgot-password-title" = "איפוס סיסמה";
 "forgot-password-username-or-email-title" = "או";
+"gan-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בסוגים הבאים של גאנית בתור שפה ראשית או משנית בתוך היישום, כדי שיהיה קל לקרוא, לחפש, ולערוך בצורות הכתב המועדפות עליך:\n\n贛語 原文 גאנית (gan)\n赣语 简体 גאנית, מפושטת (gan-hans)\n贛語 繁體 גאנית, מסורתית (gan-hant)";
+"gan-variants-alert-title" = "עדכונים לתמיכה בהגוונים של גאנית";
 "history-clear-all" = "ניקוי";
 "history-clear-cancel" = "ביטול";
 "history-clear-confirmation-heading" = "האם באמת למחוק את כל הפריטים האחרונים שלך?";
@@ -475,7 +490,7 @@
 "icon-shortcut-random-title" = "ערך אקראי";
 "icon-shortcut-search-title" = "חיפוש בוויקיפדיה";
 "image-gallery-unknown-owner" = "היוצר אינו ידוע.";
-"in-the-news-currently-trending" = "מבוקש עכשיו";
+"in-the-news-currently-trending" = "מוביל עכשיו";
 "in-the-news-notification-read-now-action-title" = "לקרוא עכשיו";
 "in-the-news-notification-save-for-later-action-title" = "לשמור לאחר־כך";
 "in-the-news-notification-share-action-title" = "לשתף...";
@@ -515,6 +530,12 @@
 "intermediate-edits-editors-count-limited" = "$1+ גרסאות־ביניים מאת $2+ משתמשים אינן מוצגות";
 "intermediate-edits-editors-limited-count" = "{{PLURAL:$1|גרסת־ביניים אחת|$1 גרסאות־ביניים}} מאת $2+ {{PLURAL:$1|אינה מוצגת|אינן מוצגות}}";
 "intermediate-edits-limited-editors-count" = "$1+ גרסאות־ביניים מאת {{PLURAL:$2|משתמש אחד|$2 משתמשים}} אינן מוצגות";
+"inuktitut-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בסוגים הבאים של טטרית של קרים בתור שפה ראשית או משניות בתוך היישום, כדי שיהיה קל לקרוא, לחפש, ולערוך בצורות הכתב המועדפות עליך:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ אינוקטיטוט, כתב הברתי (ike-cans)\nInuktitut ilisautik, אינוקטיטוט, לטינית (ike-latn)";
+"inuktitut-variants-alert-title" = "עדכונים לתמיכה בהגוונים של אינקטיטוט";
+"kazakh-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בסוגים הבאים של קזחית בתור שפה ראשית או משנית בתוך היישום, כדי שיהיה קל לקרוא, לחפש, ולערוך בצורות הכתב המועדפות עליך:\n\nҚазақша קזחית (kk)\nҚазақша Кирил קזחית, קירילית (kk-cyrl)\nqazaqşa latin קזחית, לטינית (kk-latn)\nتوتە قازاقشا קזחתית, ערבית (kk-arab)";
+"kazakh-variants-alert-title" = "עדכונים לתמיכה בהגוונים של קזחית";
+"kurdish-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בסוגים הבאים של כורדית בתור שפה ראשית או משנית בתוך היישום, כדי שיהיה קל לקרוא, לחפש, ולערוך בצורות הכתב המועדפות עליך:\n\nKurdî Latînî כורדית, לטינית (ku-latn)\nكوردی כורדית, ערבית (kk-arab)";
+"kurdish-variants-alert-title" = "עדכונים לתמיכה בהגוונים של כורדית";
 "languages-settings-title" = "שפות";
 "languages-title" = "שינוי שפה";
 "languages-wikipedia" = "שפות ויקיפדיה";
@@ -554,6 +575,46 @@
 "no-internet-connection" = "אין חיבור אינטרנט";
 "no-internet-connection-article-reload" = "ייתכן שזמינה גרסה חדשה של הערך הזה, אבל אי־אפשר לטעון אותה ללא חיבור לאינטרנט";
 "no-internet-connection-article-reload-button" = "חזרה לגרסה השמורה האחרונה";
+"notifications-center-change-password" = "שינוי סיסמה";
+"notifications-center-commons-project-name" = "ויקישיתוף";
+"notifications-center-edit-button" = "עריכה";
+"notifications-center-empty-checking-for-notifications" = "בדיקת התראות...";
+"notifications-center-empty-no-unread-messages" = "אין לך הודעות שלא נקראו";
+"notifications-center-empty-not-subscribed" = "אינך מנוי על שום התראות ויקיפדיה";
+"notifications-center-footer-change-password" = "שינוי סיסמה";
+"notifications-center-go-to-diff" = "לעבור להשוואה";
+"notifications-center-go-to-talk-page" = "לעבור לדף השיחה";
+"notifications-center-go-to-title" = "לעבור לדף $1";
+"notifications-center-go-to-user-page" = "לעבור לדף השיחה של $1";
+"notifications-center-go-to-wikidata-item" = "לעבור לחפריט ויקינתונים";
+"notifications-center-go-to-your-talk-page" = "לעבור לדף השיחה שלך";
+"notifications-center-header-alert-from-project" = "התראה מאתר $1";
+"notifications-center-header-notice-from-project" = "הודעה מאתר $1";
+"notifications-center-login-notifications" = "התראות כניסה";
+"notifications-center-mark-as-read" = "סימון כהודעה שנקראה";
+"notifications-center-mark-as-unread" = "סימון כהודעה שלא נקראה";
+"notifications-center-notifications-settings" = "הגדרות התראות";
+"notifications-center-subheader-edit-milestone" = "אבן דרך בעריכה";
+"notifications-center-subheader-edit-reverted" = "העריכה שלך שוחזרה";
+"notifications-center-subheader-email-from-other-user" = "דוא\"ל חדש";
+"notifications-center-subheader-login-fail-known-device" = "ניסיונות כניסה כושלים מרובים";
+"notifications-center-subheader-login-fail-unknown-device" = "ניסיון כניסה כושל";
+"notifications-center-subheader-login-success-unknown-device" = "כניסה ממכשיר לא מוכר";
+"notifications-center-subheader-mention-article-talk-page" = "אזכור בדף שיחה של ערך";
+"notifications-center-subheader-mention-edit-summary" = "אזכור בתקציר עריכה";
+"notifications-center-subheader-mention-failed" = "אזכור כושל";
+"notifications-center-subheader-mention-successful" = "אזכור מוצלח";
+"notifications-center-subheader-mention-talk-page" = "אזכור בדף שיחה";
+"notifications-center-subheader-message-user-talk-page" = "הודעה בדף השיחה שלך";
+"notifications-center-subheader-page-link" = "קישור לדף";
+"notifications-center-subheader-page-reviewed" = "הדף נסקר";
+"notifications-center-subheader-thanks" = "תודה";
+"notifications-center-subheader-translate-milestone" = "אבן דרך בתרגום";
+"notifications-center-subheader-user-rights-change" = "שינוי הרשאות משתמש";
+"notifications-center-subheader-welcome" = "ברוך בואך!";
+"notifications-center-subheader-wikidata-connection" = "קישור ויקינתונים בוצע";
+"notifications-center-title" = "התראות";
+"notifications-center-wikidata-project-name" = "ויקינתונים";
 "number-billions" = "$1";
 "number-millions" = "$1";
 "number-thousands" = "$1K";
@@ -561,6 +622,8 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|אירוע היסטורי|$1 אירועים היסטוריים}}";
 "on-this-day-footer" = "עוד אירועים היסטוריים ביום הזה";
 "on-this-day-footer-showing-event-count" = "{{PLURAL:$1|אירוע היסטורי נוסף|$1 אירועים היסטוריים נוספים}} ביום הזה";
+"on-this-day-language-does-not-support-error" = "הוויקיפדיה בשפה הראשית שלך אינה תומכת ב\"ביום הזה\". אפשר לעדכן את הןויקיפדיה הראשית שלך בתפריט הגדרות של היישום.";
+"on-this-day-no-internet-error" = "לא זמינים נתונים";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 מתוך ויקיפדיה ב$2";
 "on-this-day-title" = "ביום הזה";
 "original-tab-button-popover-description" = "ניתן ללחוץ על 'W' כדי לחזור ללשונית שהתחלת ממנה";
@@ -606,7 +669,7 @@
 "places-filter-button-title" = "סינון";
 "places-filter-no-saved-places" = "אין לך מקומות שמורים";
 "places-filter-saved-articles" = "ערכים שמורים";
-"places-filter-top-articles" = "ערכים מובילים";
+"places-filter-top-articles" = "הנקראים ביותר";
 "places-filter-top-articles-count" = "{{PLURAL:$1|ערך אחד|$1 ערכים}}";
 "places-filter-top-read-articles" = "הערכים הנקראים ביותר";
 "places-location-enabled" = "המיקום הופעל";
@@ -625,6 +688,9 @@
 "places-unknown-distance" = "מרחק בלתי־ידוע";
 "potd-description-prefix" = "תמונת היום של $1";
 "potd-empty-error-description" = "לא הצלחתי לאחזר את תמונת היום של $1";
+"potd-sample-entry-description" = "שני שוורים רצים בזמן שהרוכב מחזיק בהם בפאצ'ו ג'אווי (משפת מיננגקפבאו, \"מרוץ שוורים\"), מרוץ שוורים מסורתי בטנה דטר, מערב סומטרה, אינדונזיה. 2015, Final-45";
+"potd-widget-description" = "תיהנו מצילום יומי יפה שנבחר על־ידי הקהילה.";
+"potd-widget-title" = "תמונת היום";
 "preference-summary-eventlogging-opt-in" = "לאפשר לקרן ויקימדיה לאסוף מידע על השימוש שלך ביישום כדי לשפר אותו";
 "preference-title-eventlogging-opt-in" = "שליחת דיווחי שימוש";
 "rank-accessibility-label" = "מספר $1";
@@ -714,6 +780,8 @@
 "relative-date-hours-abbreviated" = "$1 שע׳";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=לפני זמן קצר|1=לפני שעה|2=לפני שעתיים|לפני $1 שעות}}";
 "relative-date-hours-ago-abbreviated" = "לפני $1 שע׳";
+"relative-date-hrs-ago" = "{{PLURAL:$1|0=לפני זמן קצר|1=לפני שעה|2=לפני שעתיים|לפני $1 שעות}}";
+"relative-date-min-ago" = "{{PLURAL:$1|0=זה עתה|1=לפני דקה|לפני $1 דקות}}";
 "relative-date-minutes-abbreviated" = "$1 דק׳";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=זה עתה|1=לפני דקה|לפני $1 דקות}}";
 "relative-date-minutes-ago-abbreviated" = "לפני $1 דק׳";
@@ -731,10 +799,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|פריט אחד הוחלף|$1 פריטים הוחלפו}}";
 "replace-textfield-accessibility" = "החלפה";
 "replace-textfield-placeholder" = "החלפה ב…";
-"request-feedback-on-error" = "היישום נתקל בבעיה והמפתחים שלנו היו רוצים לדעת עליה יותר. נא ללחוץ כאן כדי לשלוח לנו דואר אלקטרוני עם מידע על השגיאה.";
 "reverted-edit-back-to-article-button-title" = "חזרה לערך";
-"reverted-edit-notification-body" = "העריכה שעשית בערך $1 בוטלה על־ידי $2";
-"reverted-edit-notification-read-more-action-title" = "לקרוא עוד";
 "reverted-edit-possible-reasons" = "- התרומה שלך לא מקיימת אחת מההנחיות שלנו. $1.\n\n- העריכה שלך נראית כמו ניסוי או השחתה";
 "reverted-edit-possible-reasons-subtitle" = "אנחנו יודעים שניסית לעשות משהו טוב, אבל לאחד מהסוקרים שלנו היה חשד.\n\nסיבות אפשריות לכך שהעריכה שלך בוטלה כוללות:";
 "reverted-edit-thanks-for-editing-title" = "תודה שערכת את ויקיפדיה!";
@@ -762,6 +827,8 @@
 "search-recent-title" = "חיפושים אחרונים";
 "search-result-redirected-from" = "הופנה מהדף: $1";
 "search-title" = "חיפוש";
+"serbian-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בסוגים הבאים של קזחית בתור שפה ראשית או משנית בתוך היישום, כדי שיהיה קל לקרוא, לחפש, ולערוך בצורות הכתב המועדפות עליך:\n\nсрпски ћирилица סרבית, קירילית (sr-ec)\nsrpski latinica סרבית, לטינית (sr-el)";
+"serbian-variants-alert-title" = "עדכונים לתמיכה בהגוונים של סרבית";
 "settings-account" = "חשבון";
 "settings-appearance" = "העדפות קריאה";
 "settings-clear-cache" = "ניקוי נתונים מוטמנים";
@@ -778,7 +845,7 @@
 "settings-notifications-learn-more" = "מידע נוסף על עדכונים";
 "settings-notifications-push-notifications" = "עדכונים";
 "settings-notifications-system-turn-on" = "הפעלת עדכונים";
-"settings-notifications-trending" = "נושאים אקטואליים חמים";
+"settings-notifications-trending" = "נושאים אקטואליים מובילים";
 "settings-primary-language" = "ראשית";
 "settings-primary-language-details" = "השפה הראשונה ברשימה הזאת היא השפה הראשית עבור היישום.";
 "settings-search-footer-text" = "הגדרת היישום להיפתח בלשונית החיפוש במקום בלשונית לחקור";
@@ -820,6 +887,10 @@
 "table-of-contents-heading" = "תוכן עניינים";
 "table-of-contents-hide-button-label" = "הסתרת תוכן העניינים";
 "table-of-contents-subheading-label" = "כותרת־משנה $1";
+"tachelhit-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בסוגים הבאים של קזחית בתור שפה ראשית או משנית בתוך היישום, כדי שיהיה קל לקרוא, לחפש, ולערוך בצורות הכתב המועדפות עליך:\n\nⵜⴰⵛⵍⵃⵉⵜ תשלחית, תיפינג (shi-tfng)\nTaclḥit תשלחית, לטינית (shi-latn)";
+"tachelhit-variants-alert-title" = "עדכונים לתמיכה בהגוונים של תשלחית";
+"tajik-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בסוגים הבאים של קזחית בתור שפה ראשית או משנית בתוך היישום, כדי שיהיה קל לקרוא, לחפש, ולערוך בצורות הכתב המועדפות עליך:\n\nтоҷикӣ кирилликӣ טג'יקית, קירילית (tg-cyrl)\ntojikī lotinī טג'יקית, לטינית (tg-latn)";
+"tajik-variants-alert-title" = "עדכונים לתמיכה בהגוונים של טג'יקית";
 "talk-page-add-discussion-accessibility-label" = "הוספת דיון";
 "talk-page-discussion-accessibility-hint" = "יש לגעת נגיעה כפולה כדי לפתוח שרשור דיון";
 "talk-page-discussion-read-accessibility-label" = "נקרא";
@@ -860,6 +931,9 @@
 "top-read-header-generic" = "ויקיפדיה";
 "top-read-header-with-language" = "ויקיפדיה ב$1";
 "top-read-see-more" = "צפייה בערכים פופולריים נוספים";
+"top-read-widget-description" = "למדו מה העולם קורה היום בוויקיפדיה.";
+"top-read-widget-readers-count" = "$1 קוראים";
+"top-read-widget-title" = "הנקראים ביותר";
 "two-factor-login-continue" = "המשך כניסה לחשבון";
 "two-factor-login-instructions" = "נא להזין את קוד האימות הדו־שלבי";
 "two-factor-login-title" = "כניסה לחשבון שלך";
@@ -867,6 +941,8 @@
 "two-factor-login-with-regular-code" = "להשתמש בקוד אימות";
 "unable-to-load-talk-page-title" = "לא ניתן לטעון את דף השיחה";
 "unknown-generic-text" = "לא ידוע";
+"uzbek-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בסוגים הבאים של קזחית בתור שפה ראשית או משנית בתוך היישום, כדי שיהיה קל לקרוא, לחפש, ולערוך בצורות הכתב המועדפות עליך:\n\noʻzbekcha lotin אוזבקית, לטינית (uz-latin)\nўзбекча кирилл אוזבקית, קירילית (uz-cyrl)";
+"uzbek-variants-alert-title" = "עדכונים לתמיכה בהגוונים של אוזבקית";
 "variants-alert-dismiss-button" = "לא, תודה";
 "variants-alert-preferences-button" = "סקירת ההעדפות שלך";
 "welcome-exploration-explore-feed-description" = "קריאה מומלצת וערכים יומיים מהקהילה שלנו";
@@ -894,6 +970,9 @@
 "welcome-send-data-learn-more" = "מידע נוסף על הנתונים הנאספים";
 "welcome-send-data-sub-title" = "עזרו לשפר את היישום על־ידי זה שתספרו לנו איך אתם משתמשים בו. המידע שנאסף אינו מכיל פרטים מזהים.";
 "welcome-volunteer-send-usage-reports" = "לשלוח דיווחי שימוש";
+"widget-onthisday-description" = "גלו מה קרה ביום הזה בהיסטוריה.";
+"widget-onthisday-placeholder-article-snippet" = "האנציקלופדיה החופשית המקוונת שכולם יכולים לערוך";
+"widget-onthisday-placeholder-event-snippet" = "ויקיפדיה, אנציקלופדיית תוכן הוויקי החופשית, יוצאת לרשת.";
 "wikitext-downloading" = "טעינת תוכן...";
 "wikitext-preview-changes" = "אחזור תצוגה מקדימה של השינויים שלך...";
 "wikitext-preview-changes-none" = "אין שינויים לתצוגה מקדימה.";
@@ -912,4 +991,4 @@
 "wikitext-upload-save-anonymously-warning" = "העריכות שלך תיוחסנה לכתובת ה־IP של המכשיר שלך. רישום באמצעות הכפתור $1 יעניק לך יותר פרטיות.";
 "wikitext-upload-save-sign-in" = "כניסה";
 "wikitext-upload-save-terms-and-licenses" = "פרסום השינויים מהווה את הסכמתך ל$1תנאי השימוש$2, כמו כן, את הסכמתך שלא לחזור בך מהפצת התרומות שלך תחת הרישיון $3CC BY-SA 3.0$4 ותחת $5GFDL$6. זוהי גם הסכמתך שקישור או כתובת מספקים אותך כייחוס תחת רישיון Creative Commons.";
-"wikitext-upload-save-terms-name" = "תנאי השימוש";
+"wikitext-upload-save-terms-name" = "תנאי שימוש";

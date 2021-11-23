@@ -1,5 +1,5 @@
 class ActivityIndicatorCollectionViewFooter: UICollectionReusableView {
-    private let loadingIndicator = UIActivityIndicatorView(style: .gray)
+    private let loadingIndicator = UIActivityIndicatorView(style: .medium)
     private let loadingLabel = UILabel()
 
     override init(frame: CGRect) {

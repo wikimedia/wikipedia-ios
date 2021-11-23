@@ -31,9 +31,11 @@
 // Author: Mariya
 // Author: MaxBioHazard
 // Author: Megakott
+// Author: Mikhail94
 // Author: Mouse21
 // Author: Movses
 // Author: MuratTheTurkish
+// Author: Nastua Buldakova
 // Author: Nemo bis
 // Author: Nitch
 // Author: Oashnic
@@ -43,7 +45,9 @@
 // Author: Redredsonia
 // Author: Rubin16
 // Author: Saimongoltinio
+// Author: Soul Train
 // Author: Stjn
+// Author: Sunpriat
 // Author: Valencia212
 // Author: Vlad5250
 // Author: WindEwriX
@@ -53,10 +57,16 @@
 // Author: Александр Сигачёв
 // Author: Марио
 
+"aaald-added-text-description-2" = "$1 добавлено";
+"aaald-article-description-updated-description" = "Описание статьи обновлено";
 "aaald-article-insert-header" = "Значительные обновления";
 "aaald-article-insert-last-updated" = "Последнее обновление";
 "aaald-article-insert-new-changes" = "Новые изменения";
+"aaald-article-insert-read-more" = "Читать больше обновлений";
+"aaald-characters-text-description" = "{{PLURAL:$1|0=символов|символ|символа|символы}}";
+"aaald-deleted-text-description-2" = "$1 удалено";
 "aaald-error-subitle" = "Обновите, чтобы попробовать еще раз";
+"aaald-error-title" = "Невозможно загрузить историю статьи";
 "aaald-many-sections-description" = "в $1 разделах";
 "aaald-multiple-changes-description" = "Сделано несколько изменений";
 "aaald-multiple-references-added-description" = "Добавлено несколько примечаний";
@@ -79,6 +89,7 @@
 "aaald-small-change-description" = "{{PLURAL:$1|0=Не сделано малых изменений|Сделано $1 малое изменение|Сделано $1 малых изменений}}";
 "aaald-summary-title" = "{{PLURAL:$1|0=0 изменений|$1 изменение|$1 изменений}} от {{PLURAL:$2|0=0 редакторов|$2 редактора|$2 редакторов}} за {{PLURAL:$3|0=0 дней|$3 день|$3 дней}}";
 "aaald-two-sections-description" = "в разделах $1 и $2";
+"aaald-vandalism-revert-description" = "Предотвращен вероятный вандализм";
 "aaald-view-full-history-button" = "Посмотреть всю историю статьи";
 "about-content-license" = "Лицензия содержимого";
 "about-content-license-details" = "Если не указано иное, содержание доступно в соответствии с $1.";
@@ -175,6 +186,7 @@
 "article-about-title" = "Об этой статье";
 "article-delete" = "Удалить";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|статья|статьи}} удалена";
+"article-fetcher-error-updated-content-timeout" = "Приложению не удалось вовремя получить обновленный контент. Пожалуйста, обновите эту страницу позже, чтобы увидеть ваши изменения.";
 "article-languages-filter-placeholder" = "Языковой фильтр";
 "article-languages-label" = "Выберите язык";
 "article-languages-others" = "Другие языки";
@@ -197,24 +209,29 @@
 "button-skip" = "Пропустить";
 "cancel" = "Отмена";
 "cc-zero" = "Creative Commons CC0";
+"chinese-variants-alert-body" = "Приложение Wikipedia теперь поддерживает следующие китайские варианты в качестве основных или вторичных языков в приложении, что облегчает чтение, поиск и редактирование в ваших предпочтительных вариантах:\n\nКитайский, Упрощенный\nГонконгский традиционный\nТрадиционный Макао\nМалайзия Упрощенная\nСингапур Упрощенный\nТайваньская традиционная";
+"chinese-variants-alert-title" = "Обновления поддержки вариантов Китайского";
 "clear-title-accessibility-label" = "Очистить";
 "close-button-accessibility-label" = "Закрыть";
 "compass-direction" = "на $1 часов";
 "continue-reading-empty-description" = "Исследуйте Википедию, чтобы найти больше статей для чтения";
 "continue-reading-empty-title" = "Нет недавно прочитанных статей";
+"crimean-tatar-variants-alert-body" = "Приложение Википедия теперь поддерживает следующие варианты крымскотатарского языка в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\nQırımtatarca, крымскотатарский латиница (chr-latn)\nКъырымтатарджа, крымскотатарская кириллица (crh-cyrl)";
+"crimean-tatar-variants-alert-title" = "Обновления поддержки вариантов Крымскотатарского";
 "data-migration-status" = "Обновление…";
 "description-add-title" = "Добавить описание";
-"description-edit-for-article" = "Краткое описание «$1»";
+"description-edit-for-article" = "Описание статьи для $1";
 "description-edit-learn-more" = "Подробнее";
 "description-edit-length-warning" = "$1 / $2";
-"description-edit-license" = "Изменяя описание названия, я соглашаюсь на $1 и безотзывно опубликовать свой вклад под лицензией $2";
+"description-edit-license" = "Изменяя описание статьи, я соглашаюсь на $1 и безотзывно опубликовать свой вклад под лицензией $2";
 "description-edit-pencil-introduction" = "Редактировать введение";
-"description-edit-pencil-title" = "Редактировать краткое описание";
+"description-edit-pencil-title" = "Редактировать описание статьи";
 "description-edit-placeholder-title" = "Краткие описания лучше всего";
 "description-edit-publish" = "Записать описание";
 "description-edit-title" = "Править описание";
 "description-edit-warning" = "Старайтесь ограничивать размер описаний, чтобы участники могли понимать предмет статьи с одного взгляда";
-"description-help-about-description" = "Краткие описания помогают читателям понять тему статьи с первого взгляда.";
+"description-edit-warning-casing" = "Только собственные имена должны быть написаны с большой буквы, даже в начале предложения.";
+"description-help-about-description" = "Описания статей помогают читателям понять их тему с первого взгляда, суммируя содержание статьи";
 "description-help-about-title" = "О приложении";
 "description-help-about-wikidata" = "О Викиданных";
 "description-help-more-info-description" = "Описания хранятся в Викиданных (Wikidata) — проекте Фонда Викимедиа, представляющем собой свободную совместно наполняемую  многоязычную основанную на внешних источниках вторичную базу данных для поддержки Википедии и других проектов.";
@@ -226,7 +243,7 @@
 "description-help-tips-example-title-two" = "Самая высокая гора Земли";
 "description-help-tips-for-example" = "Например:";
 "description-help-tips-title" = "Советы по созданию описаний";
-"description-help-title" = "Помощь по кратким описаниям";
+"description-help-title" = "Помощь по описаниям статей";
 "description-help-wikidata-guide" = "Руководство Викиданных по созданию описаний.";
 "description-published-button-title" = "Готово";
 "description-published-footer" = "С этим приложением вы также можете редактировать статьи. Нажмите на иконку с изображением ручки, чтобы исправить опечатки и небольшие предложения";
@@ -235,22 +252,40 @@
 "description-welcome-concise-sub-title" = "По возможности одна строка, от двух до двадцати слов";
 "description-welcome-concise-title" = "Пожалуйста, кратко";
 "description-welcome-descriptions-sub-title" = "Краткие описания помогают читателям понять тему статьи с первого взгляда";
-"description-welcome-descriptions-title" = "Краткие описания";
+"description-welcome-descriptions-title" = "Описания статей";
 "description-welcome-promise-title" = "Начиная использование, я обещаю не злоупотреблять этой возможностью";
 "description-welcome-start-editing-button" = "Начать редактирование";
+"diff-compare-header-from-info-heading" = "От:";
 "diff-compare-header-heading" = "Сравнить версии";
+"diff-compare-header-to-info-heading" = "Кому:";
 "diff-compare-title" = "Сравнить версии";
 "diff-context-lines-collapsed-button-title" = "Показать";
 "diff-context-lines-expanded-button-title" = "Скрыть";
+"diff-multi-line-format" = "Строки $1 - $2";
+"diff-paragraph-moved" = "Абзац перемещен";
 "diff-paragraph-moved-direction-down" = "вниз";
 "diff-paragraph-moved-direction-up" = "вверх";
+"diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1 строка|$1 строки|$1 строк}}";
+"diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 раздел|$1 раздела|$1 разделов}}";
+"diff-paragraph-moved-format" = "Абзац перемещен $1 $2";
+"diff-revision-error-title" = "Не удалось загрузить ревизию";
 "diff-single-header-editor-number-edits-format" = "$1 {{PLURAL:$1|правка|правки|правок}}";
+"diff-single-header-editor-title" = "Информация редактора";
+"diff-single-header-subtitle-bytes-added" = "{{PLURAL:$1|$1 байт добавлен|$1 байта добавлено|$1 байтов добавлено}}";
+"diff-single-header-subtitle-bytes-removed" = "{{PLURAL:$1|$1 байт удален|$1 байта удалено|$1 байтов удалено}}";
 "diff-single-header-summary-heading" = "Описание изменений";
+"diff-single-intro-title" = "Вступление";
 "diff-single-line-format" = "Строка $1";
 "diff-thanks-anonymous-no-thanks" = "Анонимным участникам нельзя отправлять благодарности";
+"diff-thanks-login-subtitle" = "'Спасибо' - это простой способ выразить признательность редактору Википедии за его работу. Вы должны войти в систему, чтобы отправить 'Спасибо'.";
+"diff-thanks-login-title" = "Авторизуйтесь, чтобы отправить 'Спасибо'";
 "diff-thanks-send-button-title" = "Отправить благодарность";
+"diff-thanks-send-subtitle" = "'Спасибо' - это простой способ выразить признательность редактору Википедии за его работу. 'Спасибо' нельзя отменить и оно отображается публично.";
 "diff-thanks-send-title" = "Публично отправить 'Спасибо'";
+"diff-thanks-sent" = "Ваше 'Спасибо' отправлено $1";
+"diff-thanks-sent-already" = "Вы уже отправили 'Спасибо' за это изменение";
 "diff-thanks-sent-cannot-unsend" = "Отправка благодарности не может быть отменена";
+"diff-unedited-lines-format" = "{{PLURAL:$1|$1 строка не изменилась|$1 строки не изменилось|$1 строк не изменилось}}";
 "dim-images" = "Делать изображения менее яркими";
 "edit-bold-accessibility-label" = "Добавить полужирное начертание";
 "edit-bold-remove-accessibility-label" = "Убрать полужирное начертание";
@@ -317,8 +352,8 @@
 "editing-welcome-citations-title" = "Используйте проверенные источники";
 "editing-welcome-impartial-tone-subtitle" = "Мы стремимся, чтобы статьи были написаны беспристрастно. При редактировании постарайтесь составить достоверное представление о мире, как его описывают надёжные источники.";
 "editing-welcome-impartial-tone-title" = "Пишите непредвзято";
-"editing-welcome-set-knowledge-free-subtitle" = "Чтобы любому человеку было доступно знание всего человечества мы нуждаемся лично в вас! Поучаствуйте в вычитке, редактировании и добавлении информации в тех темах, которые значимы для вас.";
-"editing-welcome-set-knowledge-free-title" = "Сделайте информацию доступным всем";
+"editing-welcome-set-knowledge-free-subtitle" = "Чтобы дать каждому доступ к знаниям всего мира, нам нужно, чтобы Вы участвовали в их создании, вычитывая, редактируя и внося вклад в самые значимые для Вас темы.";
+"editing-welcome-set-knowledge-free-title" = "Сделайте знания свободными";
 "empty-diff-compare-title" = "Нет различий между версиями";
 "empty-diff-single-title" = "Нет видимых изменений";
 "empty-insert-media-title" = "Выберите файл на Викискладе";
@@ -327,6 +362,8 @@
 "empty-no-feed-message" = "Вы можете увидеть рекомендованные статьи, когда у вас есть доступ в интернет";
 "empty-no-history-message" = "Отслеживайте здесь прочитанные вами статьи.";
 "empty-no-history-title" = "Нет истории для отображения";
+"empty-no-other-article-languages-message" = "Эта статья еще не была написана ни на каком другом языке";
+"empty-no-other-article-languages-title" = "Нет других доступных языков";
 "empty-no-reading-lists-message" = "Создавайте списки статей, например, о местах для путешествий, об интересующих вас темах и о многом другом";
 "empty-no-reading-lists-title" = "Организуйте сохранённые статьи с помощью списков чтения";
 "empty-no-saved-pages-in-reading-list-message" = "Страницы появятся здесь, когда вы их сохраните в списке";
@@ -422,6 +459,12 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Из Википедии";
 "explore-randomizer" = "Рандомизатор";
 "featured-article-empty-title" = "Сегодня нет избранных статей";
+"featured-widget-content-failure-for-date" = "Избранная статья недоступна для этой даты.";
+"featured-widget-description" = "Откройте для себя лучшие статьи из Википедии, ежедневно отбираемые нашим сообществом.";
+"featured-widget-from-language-wikipedia" = "Из $1 Википедии";
+"featured-widget-from-wikipedia" = "Из Википедии";
+"featured-widget-language-failure" = "Язык вашей основной Википедии не поддерживает «Избранные статьи». Вы можете изменить вашу основную Википедию в меню настроек приложения.";
+"featured-widget-title" = "Избранная статья";
 "feed-news-notification-button-text" = "Включить уведомления";
 "feed-news-notification-text" = "Включить уведомления, чтобы узнавать от Википедии, когда статьи попадают в тренды новостей.";
 "fetcher-error-generic" = "Что-то пошло не так. Пожалуйста, повторите попытку позже.";
@@ -459,6 +502,8 @@
 "forgot-password-instructions" = "Заполните одно из полей ниже, чтобы получить инструкции сброса пароля по электронной почте";
 "forgot-password-title" = "Сбросить пароль";
 "forgot-password-username-or-email-title" = "Или";
+"gan-variants-alert-body" = "Приложение Wikipedia теперь поддерживает следующие варианты Gan в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Упрощенный (gan-hans)\n贛語 繁體 Gan, Традиционный (gan-hant)";
+"gan-variants-alert-title" = "Обновление поддержки вариантов Gan";
 "history-clear-all" = "Очистить";
 "history-clear-cancel" = "Отмена";
 "history-clear-confirmation-heading" = "Вы уверены, что хотите удалить все недавние элементы?";
@@ -515,6 +560,17 @@
 "insert-media-title" = "Вставить медиа-файл";
 "insert-media-uploaded-image-title" = "Загруженное изображение";
 "intermediate-edits-count" = "Подзаголовок для количества изменений, которые были сделаны между двумя выбранными изменениями.  $ 1 заменяется количеством промежуточных ревизий.";
+"intermediate-edits-count-limited" = "Промежуточных ревизий не показано: $1+";
+"intermediate-edits-editors-count" = "{{PLURAL:$1|$1 промежуточная ревизия|$1 промежуточные ревизии|$1 промежуточных ревизий}} от {{PLURAL:$2|$2 пользователя|$2 пользователей}} не показано";
+"intermediate-edits-editors-count-limited" = "$1+ промежуточные версии от $2+ пользователей не показаны";
+"intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 промежуточная ревизия|$1 промежуточные ревизии|$1 промежуточных ревизий}} от $2+ пользователей не показано";
+"intermediate-edits-limited-editors-count" = "$1+ промежуточных ревизий от {{PLURAL:$2|$2 пользователя|$2 пользователей}} не показано";
+"inuktitut-variants-alert-body" = "Приложение Wikipedia теперь поддерживает следующие варианты Инуктитут в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Syllabics (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
+"inuktitut-variants-alert-title" = "Обновления поддержки вариантов Инуктитут";
+"kazakh-variants-alert-body" = "Приложение Wikipedia теперь поддерживает следующие варианты казахского языка в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\nҚазақша Kazakh (kk)\nҚазақша Kazakh, Cyrillic (kk-cyrl)\nqazaqşa Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arabic (kk-arab)";
+"kazakh-variants-alert-title" = "Обновление поддержки вариантов Казахского";
+"kurdish-variants-alert-body" = "Приложение Википедия теперь поддерживает следующие варианты курдского языка в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\nKurdî Latînî Kurdish, Latin (ku-latn)\nكوردی Kurdish, Arabic (kk-arab)";
+"kurdish-variants-alert-title" = "Обновления поддержки вариантов Курдского";
 "languages-settings-title" = "Языки";
 "languages-title" = "Изменить язык";
 "languages-wikipedia" = "Языки Википедии";
@@ -554,18 +610,31 @@
 "no-internet-connection" = "Нет подключения к интернету";
 "no-internet-connection-article-reload" = "Возможно есть более новая версия статьи, но, чтобы её скачать, требуется подключение к интернету";
 "no-internet-connection-article-reload-button" = "Вернуться к последней сохранённой версии";
+"notifications-center-change-password" = "Изменить пароль";
+"notifications-center-commons-project-name" = "Викисклад";
+"notifications-center-edit-button" = "Править";
+"notifications-center-mark-as-read" = "Отметить как прочитанное";
+"notifications-center-mark-as-unread" = "Пометить как непрочитанное";
+"notifications-center-subheader-thanks" = "Благодарность";
+"notifications-center-subheader-welcome" = "Добро пожаловать!";
+"notifications-center-wikidata-project-name" = "Викиданные";
 "number-billions" = "$1 млрд.";
 "number-millions" = "$1М";
 "number-thousands" = "$1 тыс.";
 "on-this-day-detail-header-date-range" = "с $1 по $2";
 "on-this-day-detail-header-title" = "$1 {{PLURAL:$1|историческое событие|исторических события|исторических событий}}";
 "on-this-day-footer" = "Больше исторических событий этого дня";
+"on-this-day-footer-showing-event-count" = "{{PLURAL:$1|$1 историческое событие|$1 исторических событий}} в этот день";
+"on-this-day-language-does-not-support-error" = "Язык вашей основной Википедии не поддерживает «В этот день». Вы можете изменить вашу основную Википедию в меню настроек приложения.";
+"on-this-day-no-internet-error" = "Нет доступных данных";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 в Википедии: $2 раздел";
 "on-this-day-title" = "В этот день…";
 "original-tab-button-popover-description" = "Нажмите 'W', чтобы вернуться к вкладке, с которой вы начали";
 "page-history-anonymous-edits" = "анонимные правки";
 "page-history-bot-edits" = "правки ботов";
+"page-history-compare-accessibility-hint" = "Нажмите, чтобы выбрать две версии для сравнения";
 "page-history-compare-title" = "Сравнить";
+"page-history-graph-accessibility-label" = "График изменений во времени";
 "page-history-minor-edits" = "малые правки";
 "page-history-revision-author-accessibility-label" = "Автор: $1";
 "page-history-revision-comment-accessibility-label" = "Комментарий $1";
@@ -573,6 +642,7 @@
 "page-history-revision-minor-edit-accessibility-label" = "Малая правка";
 "page-history-revision-size-diff-addition" = "{{PLURAL:$1|Добавлен $1 байт|Добавлено $1 байта|Добавлено $1 байтов}}";
 "page-history-revision-size-diff-subtraction" = "{{PLURAL:$1|Удалён $1 байт|Удалено $1 байта|Удалено $1 байтов}}";
+"page-history-revision-time-accessibility-label" = "Изменения внесены $1";
 "page-history-revisions-comparison-warning" = "Можно выбрать только две версии";
 "page-history-stats-text" = "{{PLURAL:$1|$1 правка|$1 правки|$1 правок}} с $2";
 "page-history-user-edits" = "правки участников";
@@ -584,6 +654,7 @@
 "page-protected-other" = "Эта страница были защищена на следующих уровнях: $1";
 "page-protected-sysop" = "Эта страница была полностью защищена.";
 "page-similar-titles" = "Похожие страницы";
+"panel-compare-revisions-text" = "Сравнение редакций помогает показать, как статья менялась с течением времени. Сравнение двух редакций статьи покажет разницу между этими редакциями, выделив все содержание, которое было изменено.";
 "panel-compare-revisions-title" = "Сравнение версий";
 "pictured" = "иллюстрировано";
 "places-accessibility-clear-saved-searches" = "Очистить сохранённые поисковые запросы";
@@ -620,6 +691,9 @@
 "places-unknown-distance" = "расстояние неизвестно";
 "potd-description-prefix" = "Изображение дня за $1";
 "potd-empty-error-description" = "Не удалось получить изображение дня за $1";
+"potd-sample-entry-description" = "Два быка бегут, пока жокей держится за них в pacu jawi (в переводе с языка минангкабау — «бычья гонка»), традиционной гонке на быках в Танах-Датаре (Западная Суматра, Индонезия). 2015, Финал-45.";
+"potd-widget-description" = "Наслаждайтесь красивыми фотографиями, ежедневно выбираемыми нашим сообществом.";
+"potd-widget-title" = "Изображение дня";
 "preference-summary-eventlogging-opt-in" = "Разрешить Фонду Викимедиа собирать информацию о том, как вы используете приложение. Это позволит сделать его лучше.";
 "preference-title-eventlogging-opt-in" = "Отправлять отчёты об использовании";
 "rank-accessibility-label" = "Количество $1";
@@ -709,9 +783,11 @@
 "relative-date-hours-abbreviated" = "$1 ч.";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Недавно|$1 час назад|$1 часов назад|$1 часа назад}}";
 "relative-date-hours-ago-abbreviated" = "$1 ч. назад";
+"relative-date-min-ago" = "{{PLURAL:$1|0=Только что|$1 минуту назад|$1 минут назад|$1 минуты назад}}";
 "relative-date-minutes-abbreviated" = "$1 мин.";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Только что|$1 минуту назад|$1 минут назад|$1 минуты назад}}";
 "relative-date-minutes-ago-abbreviated" = "$1 мин. назад";
+"relative-date-months-ago" = "{{PLURAL:$1|0=Этот месяц|1=Последний месяц|$1 месяцев назад}}";
 "relative-date-seconds-abbreviated" = "$1 с.";
 "relative-date-seconds-ago-abbreviated" = "$1 с. назад";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Этот год|1=Прошлый год|one=$1 год назад|few=$1 года назад|many=$1 лет назад}}";
@@ -725,10 +801,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|выполнена 1 замена|выполнены $1 замены|выполнены $1 замен}}";
 "replace-textfield-accessibility" = "Заменить";
 "replace-textfield-placeholder" = "Заменить на…";
-"request-feedback-on-error" = "Приложение столкнулся с проблемой, о которой нашим разработчикам хотелось бы знать побольше. Пожалуйста, нажмите здесь, чтобы отправить нам электронное письмо с подробной информацией об ошибке.";
 "reverted-edit-back-to-article-button-title" = "Назад к статье";
-"reverted-edit-notification-body" = "Правка, которую вы сделали в статье $1, была отменена $2";
-"reverted-edit-notification-read-more-action-title" = "Подробнее";
 "reverted-edit-possible-reasons" = "- Ваш вклад не соответствует одному из руководств. $1 \n\n - Ваш вклад похож на вандальный";
 "reverted-edit-possible-reasons-subtitle" = "Мы знаем, что вы старались, но один из участников заметил что-то некорректное. \n\nВозможные причины, почему ваша правка была отменена:";
 "reverted-edit-thanks-for-editing-title" = "Спасибо за редактирование Википедии!";
@@ -756,6 +829,8 @@
 "search-recent-title" = "Недавно искали";
 "search-result-redirected-from" = "Перенаправлено с: $1";
 "search-title" = "Поиск";
+"serbian-variants-alert-body" = "Приложение Wikipedia теперь поддерживает следующие варианты сербского языка в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
+"serbian-variants-alert-title" = "Обновления поддержки вариантов Сербского";
 "settings-account" = "Учётная запись";
 "settings-appearance" = "Настройки чтения";
 "settings-clear-cache" = "Очистить кэш";
@@ -814,6 +889,10 @@
 "table-of-contents-heading" = "Содержание";
 "table-of-contents-hide-button-label" = "Скрывает содержание";
 "table-of-contents-subheading-label" = "Подзаголовок $1";
+"tachelhit-variants-alert-body" = "Приложение Wikipedia теперь поддерживает следующие варианты Тачелхита в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
+"tachelhit-variants-alert-title" = "Обновление поддержки вариантов Тачелхита";
+"tajik-variants-alert-body" = "Приложение Википедия теперь поддерживает следующие варианты Таджикского языка в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\nтоҷикӣ кирилликӣ Tajik, Cyrillic (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";
+"tajik-variants-alert-title" = "Обновление поддержки вариантов Таджикского";
 "talk-page-add-discussion-accessibility-label" = "Добавить обсуждение";
 "talk-page-discussion-accessibility-hint" = "Нажмите дважды, чтобы открыть ветку обсуждения";
 "talk-page-discussion-read-accessibility-label" = "Прочитано";
@@ -854,6 +933,9 @@
 "top-read-header-generic" = "Википедия";
 "top-read-header-with-language" = "Раздел Википедии: $1";
 "top-read-see-more" = "Посмотреть больше самых читаемых статей";
+"top-read-widget-description" = "Узнайте, что мир читает сегодня в Википедии.";
+"top-read-widget-readers-count" = "$1 читателей";
+"top-read-widget-title" = "Самые читаемые";
 "two-factor-login-continue" = "Продолжить процедуру входа";
 "two-factor-login-instructions" = "Пожалуйста, введите проверочный код двухэтапной авторизации";
 "two-factor-login-title" = "Войдите в свою учётную запись";
@@ -861,6 +943,10 @@
 "two-factor-login-with-regular-code" = "Использовать код подтверждения";
 "unable-to-load-talk-page-title" = "Невозможно загрузить страницу обсуждения";
 "unknown-generic-text" = "Неизвестно";
+"uzbek-variants-alert-body" = "Приложение Википедия теперь поддерживает следующие Узбекские варианты в качестве основных или дополнительных языков в приложении, что упрощает чтение, поиск и редактирование в предпочтительных вариантах:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Cyrillic (uz-cyrl)";
+"uzbek-variants-alert-title" = "Обновление поддержки вариантов Узбекского";
+"variants-alert-dismiss-button" = "Нет, спасибо";
+"variants-alert-preferences-button" = "Просмотреть свои настройки";
 "welcome-exploration-explore-feed-description" = "Рекомендованные записи и ежедневные статьи от нашего сообщества";
 "welcome-exploration-explore-feed-title" = "Лента";
 "welcome-exploration-on-this-day-description" = "Перенеситесь назад во времени, чтобы узнать, что произошло сегодня в истории";
@@ -886,6 +972,9 @@
 "welcome-send-data-learn-more" = "Узнать подробнее о сборе данных";
 "welcome-send-data-sub-title" = "Помогите Фонду Викимедиа сделать приложение лучше, сообщив нам, как вы используете его. Собранные данные являются анонимными.";
 "welcome-volunteer-send-usage-reports" = "Отправлять отчёты об использовании";
+"widget-onthisday-description" = "Узнайте, что произошло в этот день в истории.";
+"widget-onthisday-placeholder-article-snippet" = "Свободная онлайн-энциклопедия, которую каждый может редактировать";
+"widget-onthisday-placeholder-event-snippet" = "Википедия, бесплатная энциклопедия вики-контента, выходит в Интернет.";
 "wikitext-downloading" = "Загрузка содержимого…";
 "wikitext-preview-changes" = "Получение предварительного просмотра внесённых изменений…";
 "wikitext-preview-changes-none" = "Не было внесено никаких изменений, которые можно было бы просмотреть.";
@@ -903,5 +992,5 @@
 "wikitext-upload-save-anonymously-or-login" = "Правки будут отмечены IP-адресом вашего устройства. Если вы $1авторизуетесь$2, то получите более высокий уровень конфиденциальности.";
 "wikitext-upload-save-anonymously-warning" = "Правки будут отмечены IP-адресом вашего устройства. Если вы $1, то получите более высокий уровень конфиденциальности.";
 "wikitext-upload-save-sign-in" = "Войти";
-"wikitext-upload-save-terms-and-licenses" = "Публикуя изменения, вы соглашаетесь с $1Условиями использования$2 и с тем, что размещаете свой вклад под лицензиями $3CC BY-SA 3.0$4 и $5GFDL$6. Вы также соглашаетесь, что указанная гиперссылка или URL удовлетворяет лицензии Creative Commons.";
+"wikitext-upload-save-terms-and-licenses" = "Публикуя изменения, вы соглашаетесь с $1Условиями использования$2 и с тем, что размещаете свой вклад под лицензиями $3CC BY-SA 3.0$4 и $5GFDL$6. Вы также соглашаетесь с тем, что для атрибуции согласно условиям лицензии Creative Commons достаточно будет указать гиперссылку или URL страницы.";
 "wikitext-upload-save-terms-name" = "Условия использования";

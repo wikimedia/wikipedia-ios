@@ -90,10 +90,13 @@
 "continue-reading-empty-description" = "Taiscéal Vicipéid le tuilleadh alt a léamh";
 "continue-reading-empty-title" = "Níor léadh aon alt le déanaí";
 "description-add-title" = "Cuir cur síos leis";
+// Fuzzy
 "description-edit-for-article" = "Sainchuntas teidil ar $1";
 "description-edit-learn-more" = "Foghlaim a thuilleadh";
 "description-edit-length-warning" = "$1 / $2";
+// Fuzzy
 "description-edit-license" = "Ach an sainchuntas teidil a athrú, glacaim leis na $1 agus le mo chuid dréachtaí a scaoileadh go neamh-inchúlghairthe faoin gceadúnas $2.";
+// Fuzzy
 "description-edit-pencil-title" = "Cuir sainchuntas teidil in eagar";
 "description-edit-placeholder-title" = "Is fearr sainchuntais ghearra";
 "description-edit-publish" = "Foilsigh sainchuntas";
@@ -103,12 +106,15 @@
 "description-help-more-info-description" = "Stóráltar agus cothabháltar sainchuntais ar Wikidata, tionscadal de chuid na Fondúireachta Wikimedia a chuireann bunachar sonraí saor in aisce comhoibríoch ilteangach tánaisteach ar fáil mar thacaíocht do Vicipéid agus do thionscadail eile.";
 "description-help-more-info-title" = "Tuilleadh eolais";
 "description-help-tips-description" = "Ba chóir do shainchuntais a oiriúnú ar líne amháin dá bhféadfaí é, idir aon fhocal amháin agus dhá fhocal déag. Ní chuirtear ceannlitreacha orthu, ch amháin ar an gcéad fhocal má tá ainmfhocal dílis i gceist.";
+// Fuzzy
 "description-help-tips-example-description-one" = "sainchuntas teidil ar alt faoin Mona Lisa";
+// Fuzzy
 "description-help-tips-example-description-two" = "sainchuntas teidil ar alt faoi Sliabh Everest";
 "description-help-tips-example-title-one" = "pictiúr de chuid Leonardo da Vinci";
 "description-help-tips-example-title-two" = "an sliabh is airde ar domhan";
 "description-help-tips-for-example" = "Mar shampla:";
 "description-help-tips-title" = "Leideanna ar sainchuntais a chruthú";
+// Fuzzy
 "description-help-title" = "Cabhair le haghaidh sainchuntais theideal";
 "description-help-wikidata-guide" = "Treoirleabhar Wikidata ar sainchuntais a scríobh";
 "description-published-button-title" = "Críochnaithe";
@@ -118,6 +124,7 @@
 "description-welcome-concise-sub-title" = "Da bhféadfaí é, líne amháin idir dhá fhocal agus dhá fhocal déag";
 "description-welcome-concise-title" = "Coinnigh gairid é";
 "description-welcome-descriptions-sub-title" = "Coimrítear alt chun cabhrú le léitheoirí an t-ábhar a thuiscint ar an bpointe";
+// Fuzzy
 "description-welcome-descriptions-title" = "Sainchuntais theideal";
 "description-welcome-start-editing-button" = "Cuir in eagar";
 "dim-images" = "Maolaigh íomhánna";
@@ -248,7 +255,6 @@
 "in-the-news-currently-trending" = "Ag treochtáil faoi láthair";
 "in-the-news-notification-read-now-action-title" = "Léigh Anois";
 "in-the-news-notification-save-for-later-action-title" = "Sábháil le léamh níos déanaí";
-// Fuzzy
 "in-the-news-notification-share-action-title" = "Comhroinn...";
 "in-the-news-sub-title-from-language-wikipedia" = "Ó Vicipéid ($1)";
 "in-the-news-sub-title-from-wikipedia" = "Ón Vicipéid";
@@ -280,8 +286,7 @@
 "main-menu-title" = "Tuilleadh";
 "main-menu-zero-faq" = "CCanna Vicipéid a Náid";
 "menu-cancel-accessibility-label" = "Cealaigh";
-// Fuzzy
-"more-languages-tooltip-description" = "Cuardaigh Vicipéid i mbeagnach 300 teanga";
+"more-languages-tooltip-description" = "Cuardaigh i Vicipéid i níos mó ná 300 teanga";
 "more-languages-tooltip-title" = "Cuir teangacha leis";
 "navbar-title-mode-edit-wikitext-preview" = "Réamhamharc";
 "nearby-distance-label-feet" = "$1 troithe";
@@ -298,6 +303,7 @@
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 ó Vicipéid ($2)";
 "on-this-day-title" = "Ar an lá seo";
 "original-tab-button-popover-description" = "Tapáil ar an 'W' le fill ar an táb inar thosaigh tú";
+"page-history-revision-author-accessibility-label" = "Údar: $1";
 "page-protected-autoconfirmed" = "Tá an leathanach seo leath-chosanta.";
 "page-protected-can-not-edit-title" = "Tá an leathanach seo cosanta.";
 "page-protected-sysop" = "Tá an leathanach seo cosanta go hiomlán.";
@@ -379,7 +385,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Díreach anois|$1 nóiméad amháin ó shin|$1 nóiméad ó shin}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=I mbliana|1=I mbliana|$1 bliana ó shin}}";
 "reverted-edit-back-to-article-button-title" = "Siar go halt";
-"reverted-edit-notification-read-more-action-title" = "Léigh tuilleadh";
 "reverted-edit-thanks-for-editing-title" = "Go raibh maith agat as Vicipéid a chur in eagar!";
 "reverted-edit-view-guidelines-text" = "Féach ar treoirlínte";
 "saved-all-articles-title" = "Na hailt uile";
@@ -459,16 +464,14 @@
 "welcome-explore-continue-button" = "Tosaigh";
 "welcome-explore-new-ways-title" = "Modhanna nua le taiscéaladh";
 "welcome-explore-tell-me-more-done-button" = "Tuigim";
-// Fuzzy
-"welcome-intro-free-encyclopedia-description" = "Comhfhiontar idir scríbhneoirí dheonacha atá i Vicipéid, atá níos mó ná 40 milliún alt i níos mó ná 300 teanga inti.";
+"welcome-intro-free-encyclopedia-description" = "Comhfhiontar idir scríbhneoirí dheonacha atá i gceist le Vicipéid, ina bhfuil níos mó ná 40 milliún alt i níos mó ná 300 teanga.";
 "welcome-intro-free-encyclopedia-more" = "Foghlaim tuilleadh maidir le Vicipéid";
 "welcome-intro-free-encyclopedia-more-about" = "Maidir le Vicipéid";
 "welcome-intro-free-encyclopedia-more-description" = "Is tionscadal domhanda í Vicipéid le ciclipéidí saora a thógáil i ngach uile teanga ar domhan. Tá beagnach gach aon duine le rochtain Idirlín ábalta páirt a ghlacadh trí ábhar neodrach a bhfuil tagairtí tugtha dóibh a scríobh.";
 "welcome-intro-free-encyclopedia-title" = "An chiclipéid shaor";
 "welcome-languages-add-button" = "Cuir teanga eile leis";
 "welcome-languages-description" = "D'aimsíomar na teangacha seo a leanas ar do ghléas:";
-// Fuzzy
-"welcome-languages-search-title" = "Cuardaigh i mbeagnach 300 teanga";
+"welcome-languages-search-title" = "Cuardaigh i níos mó ná 300 teanga";
 "welcome-notifications-tell-me-more-creation" = "Ní chruthaítear agus ní sholáthraítear fógraí ónár gcuid freastálaithe (nó ó thríú páirtí), ach ón aip féin ar do ghléas.";
 "welcome-notifications-tell-me-more-storage" = "Stóráltar sainroghanna fógraí ar an ngléas agus ní bhunaítear ar sonraí pearsanta nó ar gníomhaíocht iad.";
 "welcome-notifications-tell-me-more-title" = "Tuilleadh maidir le fógraí";

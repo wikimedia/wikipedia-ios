@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
                summary:(nullable NSString *)summary
            isMinorEdit:(BOOL)isMinorEdit
         addToWatchlist:(BOOL)addToWatchlist
+             baseRevID:(nullable NSNumber *)baseRevID
              captchaId:(nullable NSString *)captchaId
            captchaWord:(nullable NSString *)captchaWord
             completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion;
@@ -34,6 +35,13 @@ NS_ASSUME_NONNULL_BEGIN
                    text:(NSString *)text
           forArticleURL:(NSURL *)articleURL
              completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion;
+
+- (void)prependToSectionID:(NSString *)sectionID
+                         text:(NSString *)text
+                forArticleURL:(NSURL *)articleURL
+             isMinorEdit:(BOOL)isMinorEdit
+               baseRevID:(nullable NSNumber *)baseRevID
+              completion:(void (^)(NSDictionary * _Nullable result, NSError * _Nullable error))completion;
 @end
 
 NS_ASSUME_NONNULL_END

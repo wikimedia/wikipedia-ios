@@ -12,9 +12,9 @@ extension NewsCollectionViewCell {
         }
 
         
-        let articleLanguage = story.articlePreviews?.first?.articleURL.wmf_language
-        descriptionLabel.accessibilityLanguage = articleLanguage
-        semanticContentAttributeOverride = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: articleLanguage)
+        let firstArticleURL = story.articlePreviews?.first?.articleURL
+        descriptionLabel.accessibilityLanguage = firstArticleURL?.wmf_languageCode
+        semanticContentAttributeOverride = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: firstArticleURL?.wmf_contentLanguageCode)
         
         let imageWidthToRequest = traitCollection.wmf_potdImageWidth
         if let articleURL = story.featuredArticlePreview?.articleURL ?? previews.first?.articleURL, let article = dataStore.fetchArticle(with: articleURL), let imageURL = article.imageURL(forWidth: imageWidthToRequest) {

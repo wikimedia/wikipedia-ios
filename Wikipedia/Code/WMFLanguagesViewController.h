@@ -4,15 +4,25 @@
 @class WMFLanguagesViewController;
 @protocol WMFLanguagesViewControllerDelegate;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface WMFLanguagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, WMFThemeable>
 
-@property (nonatomic, weak) id<WMFLanguagesViewControllerDelegate> delegate;
+@property (nonatomic, weak, nullable) id<WMFLanguagesViewControllerDelegate> delegate;
 
 + (instancetype)languagesViewController;
 
 + (instancetype)nonPreferredLanguagesViewController;
 
 @property (nonatomic, assign) BOOL showExploreFeedCustomizationSettings;
+
+// Block called after dismissal by user, by tapping the close button,
+// and by the accessibility escape gesture
+@property (nonatomic, copy, nullable) void (^userDismissalCompletionBlock)(void);
+
+// Declared so that the method is visible from Swift. Theoretically conforming to WMFThemeable should
+// already do that, but it's hard to argue with the compiler.
+- (void)applyTheme:(WMFTheme *)theme;
 
 @end
 
@@ -39,6 +49,6 @@
 
 + (instancetype)articleLanguagesViewControllerWithArticleURL:(NSURL *)url;
 
-@property (nonatomic, strong, readonly) NSURL *articleURL;
-
 @end
+
+NS_ASSUME_NONNULL_END

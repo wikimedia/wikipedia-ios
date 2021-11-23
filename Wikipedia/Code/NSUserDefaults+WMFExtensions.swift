@@ -42,6 +42,7 @@ let WMFSendUsageReports = "WMFSendUsageReports"
         static let didShowDescriptionPublishedPanel = "WMFDidShowDescriptionPublishedPanel"
         static let didShowEditingOnboarding = "WMFDidShowEditingOnboarding"
         static let autoSignTalkPageDiscussions = "WMFAutoSignTalkPageDiscussions"
+        static let talkPageForceRefreshRevisionIDs = "WMFTalkPageForceRefreshRevisionIDs"
     }
 
     @objc func wmf_dateForKey(_ key: String) -> Date? {
@@ -133,11 +134,7 @@ let WMFSendUsageReports = "WMFSendUsageReports"
     func theme(compatibleWith traitCollection: UITraitCollection) -> Theme {
         let name = string(forKey: WMFAppThemeName)
         guard name != nil, name != Theme.defaultThemeName else {
-            if #available(iOSApplicationExtension 13.0, *) {
                 return traitCollection.userInterfaceStyle == .dark ? Theme.black.withDimmingEnabled(wmf_isImageDimmingEnabled) : .light
-            } else {
-                return .light
-            }
         }
         let theme = Theme.withName(name) ?? Theme.light
         return theme.isDark ? theme.withDimmingEnabled(wmf_isImageDimmingEnabled) : theme
@@ -253,18 +250,7 @@ let WMFSendUsageReports = "WMFSendUsageReports"
     }
     
     @objc func wmf_currentSearchContentLanguageCode() -> String? {
-        // This is a temporary migration until the full language variant migration is in place.
-        // At that point, it should no longer be necessary to check WMFSearchURLKey
-        if let url = url(forKey: WMFSearchURLKey) {
-            let code = url.wmf_contentLanguageCode
-            wmf_setCurrentSearchContentLanguageCode(code)
-            removeObject(forKey: WMFSearchURLKey)
-            return code
-        } else if let contentLanguageCode = self.string(forKey: WMFSearchLanguageKey) {
-            return contentLanguageCode
-        } else{
-            return nil
-        }
+        self.string(forKey: WMFSearchLanguageKey)
     }
     
     @objc func wmf_setCurrentSearchContentLanguageCode(_ code: String?) {
@@ -468,6 +454,27 @@ let WMFSendUsageReports = "WMFSendUsageReports"
         }
         set {
             set(newValue, forKey: UserDefaults.Key.autoSignTalkPageDiscussions)
+        }
+    }
+    
+    var talkPageForceRefreshRevisionIDs: Set<Int>? {
+        get {
+            guard let arrayValue = array(forKey: UserDefaults.Key.talkPageForceRefreshRevisionIDs) as? [Int],
+                !arrayValue.isEmpty else {
+                return nil
+            }
+            return Set<Int>(arrayValue)
+        }
+        set {
+            
+            guard let newValue = newValue,
+                !newValue.isEmpty else {
+                removeObject(forKey: UserDefaults.Key.talkPageForceRefreshRevisionIDs)
+                return
+            }
+            
+            let arrayValue = Array(newValue)
+            set(arrayValue, forKey: UserDefaults.Key.talkPageForceRefreshRevisionIDs)
         }
     }
 #if UI_TEST

@@ -42,11 +42,16 @@ extension SchemeHandler: WKURLSchemeHandler {
             return
         }
         
-        #if WMF_LOCAL_PAGE_CONTENT_SERVICE
-        components.scheme = components.host == Configuration.Domain.localhost ? "http" : "https"
-        #else
-        components.scheme =  "https"
-        #endif
+        switch Configuration.current.environment {
+        case .local(let options):
+            if options.contains(.localPCS) {
+                components.scheme = components.host == Configuration.Domain.localhost ? "http" : "https"
+            } else {
+                components.scheme =  "https"
+            }
+        default:
+            components.scheme =  "https"
+        }
         
         guard
             let requestURL = components.url,

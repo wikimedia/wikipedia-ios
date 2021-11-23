@@ -8,6 +8,7 @@
 // Author: Tokvo
 // Author: Xuacu
 
+"aaald-new-book-reference-title" = "Llibru";
 "about-content-license" = "Llicencia del conteníu";
 "about-content-license-details" = "Sacante que s'especifique lo contrario, el conteníu ta disponible baxo una $1.";
 "about-content-license-details-share-alike-license" = "Llicencia Creative Commons Reconocimientu CompartirIgual";
@@ -127,26 +128,29 @@
 "continue-reading-empty-description" = "Esplora Wikipedia p'atopar más artículos pa lleer";
 "continue-reading-empty-title" = "Nun hai artículos lleíos apocayá";
 "description-add-title" = "Amestar descripción";
-"description-edit-for-article" = "Descripción de títulu pa $1";
+"description-edit-for-article" = "Descripción d'artículu pa $1";
 "description-edit-learn-more" = "Más información";
 "description-edit-length-warning" = "$1 / $2";
 "description-edit-pencil-introduction" = "Editar introducción";
-"description-edit-pencil-title" = "Editar la descripción del títulu";
+"description-edit-pencil-title" = "Editar la descripción del artículu";
 "description-edit-placeholder-title" = "Les descripciones curties son meyores";
 "description-edit-publish" = "Publicar descripción";
 "description-edit-title" = "Editar la descripción";
 "description-edit-warning" = "Tenta caltener les descripciones curties pa que los usuarios puedan enterase de la tema del artículu d'una güeyada";
-"description-help-about-description" = "Les descripciones de títulos resumen un artículu p'ayudar a que los llectores puedan enterase de la tema del artículu d'una güeyada.";
+"description-help-about-description" = "Les descripciones d'artículos resumen un artículu p'ayudar a que los llectores puedan enterase de la tema del artículu d'una güeyada.";
 "description-help-about-title" = "Tocante a";
 "description-help-about-wikidata" = "Tocante a Wikidata";
 "description-help-more-info-title" = "Más información";
 "description-help-tips-description" = "Idealmente, les descripciones tendríen de caber n'una llinia, y tener ente dos y dolce palabres. Nun tán en mayúscules, nun siendo que la primera palabra sía un nome propiu.";
+// Fuzzy
 "description-help-tips-example-description-one" = "descripción del títulu pa un artículu sobro la Mona Lisa";
+// Fuzzy
 "description-help-tips-example-description-two" = "descripción del títulu pa un artículu sobro'l Monte Everest";
 "description-help-tips-example-title-one" = "pintura de Leonardo da Vinci";
 "description-help-tips-example-title-two" = "El monte más altu de la tierra";
 "description-help-tips-for-example" = "Por casu:";
 "description-help-tips-title" = "Conseyos pa crear descripciones";
+// Fuzzy
 "description-help-title" = "Ayuda de descripción del títulu";
 "description-help-wikidata-guide" = "Guía de Wikidata pa escribir descripciones";
 "description-published-button-title" = "Fecho";
@@ -155,6 +159,7 @@
 "description-welcome-concise-sub-title" = "Idealmente una llinia, ente dos y dolce palabres";
 "description-welcome-concise-title" = "Faila curtia";
 "description-welcome-descriptions-sub-title" = "Resume un artículu p'ayudar a que los llectores entiendan la tema d'una güeyada.";
+// Fuzzy
 "description-welcome-descriptions-title" = "Descripciones del títulu";
 "description-welcome-promise-title" = "De mano, prometo nun abusar d'esta carauterística";
 "description-welcome-start-editing-button" = "Principiar a editar";
@@ -190,6 +195,7 @@
 "edit-summary-choice-linked-words" = "Enllaces amestaos";
 "edit-summary-placeholder-text" = "¿Cómo ameyorasti l'artículu?";
 "edit-text-size-table-view-title" = "Tamañu de testu";
+"edit-underline-accessibility-label" = "Amestar sorrayáu";
 "empty-no-article-message" = "Nun pudo cargase l'artículu";
 "empty-no-feed-action-message" = "Inda puedes lleer páxines guardaes";
 "empty-no-feed-message" = "Puedes ver los artículos recomendaos cuando tengas internet";
@@ -325,6 +331,7 @@
 "in-the-news-sub-title-from-language-wikipedia" = "De Wikipedia en $1";
 "in-the-news-sub-title-from-wikipedia" = "De Wikipedia";
 "in-the-news-title" = "Actualidá";
+"insert-media-image-position-setting-left" = "Izquierda";
 "languages-settings-title" = "Llingües";
 "languages-title" = "Camudar llingua";
 "languages-wikipedia" = "Llingües de Wikipedia";
@@ -493,7 +500,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recién|Hai $1 hora|Hai $1 hores}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Agora mesmo|Hai $1 minutu|Hai $1 minutos}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=Esti añu|1=L'añu pasáu|Hai $1 años}}";
-"request-feedback-on-error" = "L'aplicación detectó un problema del que los nuesos desendolcadores quedríen saber más. Toca equí pa unvianos un corréu electrónicu colos detalles del fallu.";
 "saved-all-articles-title" = "Tolos artículos";
 "saved-default-reading-list-tag" = "Esta llista nun puede desaniciase";
 "saved-pages-image-download-error" = "Nun pudieron descargase les imáxenes d'esta páxina guardada.";
@@ -589,8 +595,7 @@
 "welcome-explore-continue-button" = "Primeros pasos";
 "welcome-explore-new-ways-title" = "Nueves formes d'esplorar";
 "welcome-explore-tell-me-more-done-button" = "Entendílo";
-// Fuzzy
-"welcome-intro-free-encyclopedia-description" = "Wikipedia ta escrita n'andecha por voluntarios, y contien más de 40 millones d'artículos en casi 300 llingües.";
+"welcome-intro-free-encyclopedia-description" = "Wikipedia ta escrita n'andecha por voluntarios, y contien más de 40 millones d'artículos en más de 300 llingües.";
 "welcome-intro-free-encyclopedia-more" = "Saber más sobre Wikipedia";
 "welcome-intro-free-encyclopedia-more-about" = "Tocante a Wikipedia";
 "welcome-intro-free-encyclopedia-more-description" = "Wikipedia ye un proyectu global pa crear enciclopedies llibres en toles llingües del mundu. Virtualmente cualquiera con accesu a Internet tien llibertá pa participar apurriendo información neutral y con referencies.";
@@ -598,8 +603,7 @@
 "welcome-languages-add-button" = "Amestar otra llingua";
 "welcome-languages-add-or-edit-button" = "Amestar o editar llingües preferíes";
 "welcome-languages-description" = "Alcontramos les llingües siguientes nel to preséu:";
-// Fuzzy
-"welcome-languages-search-title" = "Guetar en casi 300 llingües";
+"welcome-languages-search-title" = "Guetar en más de 300 llingües";
 "welcome-notifications-tell-me-more-creation" = "Los avisos creense y entréguense nel preséu pola app, non polos nuesos sirvidores (nin de terceros).";
 "welcome-notifications-tell-me-more-storage" = "Les preferencies d'avisos guárdense nel preséu y nun se basen n'información o actividá personal.";
 "welcome-notifications-tell-me-more-title" = "Más tocante a los avisos";

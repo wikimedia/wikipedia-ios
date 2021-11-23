@@ -63,7 +63,7 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
                         fromSiteURL:siteURL
                      thumbnailWidth:[NSNumber numberWithInteger:[[UIScreen mainScreen] wmf_articleImageWidthForScale]]
                     extmetadataKeys:[MWKImageInfoFetcher galleryExtMetadataKeys]
-                   metadataLanguage:siteURL.wmf_language
+                   metadataLanguage:siteURL.wmf_languageCode
                        useGenerator:NO
                             success:success
                             failure:failure];
@@ -113,6 +113,9 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
             NSDictionary *availableDescriptionsByLangCode = imageDescriptionValue;
             descriptionLangCode = [self descriptionLangCodeToUseFromAvailableDescriptionsByLangCode:availableDescriptionsByLangCode forPreferredLangCodes:preferredLanguageCodes];
             if (descriptionLangCode) {
+                // The image description service returns languages but not language variant codes.
+                // The language variant in the request is currenty not taken into account in the response.
+                // So using the language code is correct in this case.
                 description = availableDescriptionsByLangCode[descriptionLangCode];
                 descriptionIsRTL = [MWKLanguageLinkController isLanguageRTLForContentLanguageCode:descriptionLangCode];
             }
@@ -169,7 +172,7 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary *json, NSString *widthKey, N
 - (nullable NSURL *)galleryInfoURLForImageTitles: (NSArray *)imageTitles
                             fromSiteURL: (NSURL *)siteURL {
     
-    NSDictionary *params = [self queryParametersForTitles:imageTitles fromSiteURL:siteURL thumbnailWidth:[NSNumber numberWithInteger:[[UIScreen mainScreen] wmf_articleImageWidthForScale]] extmetadataKeys:[MWKImageInfoFetcher galleryExtMetadataKeys] metadataLanguage:siteURL.wmf_language useGenerator:NO];
+    NSDictionary *params = [self queryParametersForTitles:imageTitles fromSiteURL:siteURL thumbnailWidth:[NSNumber numberWithInteger:[[UIScreen mainScreen] wmf_articleImageWidthForScale]] extmetadataKeys:[MWKImageInfoFetcher galleryExtMetadataKeys] metadataLanguage:siteURL.wmf_languageCode useGenerator:NO];
     
     if (siteURL.host) {
         return [self.configuration mediaWikiAPIURLForURL:siteURL withQueryParameters:params];
@@ -239,7 +242,7 @@ metadataLanguage:(nullable NSString *)metadataLanguage
             failure(error);
             return;
         }
-        [self getPreferredLanguageCodes:^(NSArray<NSString *> *preferredLanguageCodes) {
+        [self getPreferredContentLanguageCodes:^(NSArray<NSString *> *preferredLanguageCodes) {
             NSError *serializerError = nil;
             NSArray *galleryItems = [self responseObjectForJSON:result preferredLanguageCodes:preferredLanguageCodes error:&serializerError];
             if (serializerError) {
@@ -251,13 +254,13 @@ metadataLanguage:(nullable NSString *)metadataLanguage
     }];
 }
 
-- (void)getPreferredLanguageCodes:(void (^)(NSArray<NSString *> *))completion {
+- (void)getPreferredContentLanguageCodes:(void (^)(NSArray<NSString *> *))completion {
     if (!self.preferredLanguageDelegate) {
         NSAssert(false, @"Preferred language delegate should be set");
         completion(@[@"en"]);
         return;
     }
-    [self.preferredLanguageDelegate getPreferredLanguageCodes:completion];
+    [self.preferredLanguageDelegate getPreferredContentLanguageCodes:completion];
 }
 
 - (void)fetchImageInfoForCommonsFiles:(NSArray *)filenames

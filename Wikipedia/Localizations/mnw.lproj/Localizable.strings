@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Aue Nai
 // Author: Htawmonzel
+// Author: 咽頭べさ
 
 "about-content-license" = "ပရူပရာ လာင်ဇြေန်";
 "about-content-license-details" = "ယဝ်ရ ဟွံယောင်ယာဒၟံင် မွဲမွဲမ္ဂး အရာမကတဵုဒှ်ပြဟ်ဟ်ဂှ် ဂွံဆဵုကေတ် ပ္ဍဲ$1";
@@ -126,28 +127,35 @@
 "continue-reading-empty-description" = "ဂၠာဲသ္ၚေဝ် လိက်ပရေင် ပ္ဍဲ ဝဳကဳပဳဒဳယာ သွက်ဂွံ ဗှ်";
 "continue-reading-empty-title" = "လိက်ပရေင် မဗှ်လဝ်တုဲ ပြဟ်ဟ်ဏအ် ဟွံမွဲ";
 "description-add-title" = "ထပ် မဗၟံက်ထ္ၜး";
+// Fuzzy
 "description-edit-for-article" = "က္ဍိုပ်လိက် မဗမံက်ထ္ၜး သွက်$1";
 "description-edit-learn-more" = "ဆက် လ္ၚတ်";
 "description-edit-length-warning" = "$1 / $2";
+// Fuzzy
 "description-edit-license" = "နပွမပြံၚ်ကေတ် မဗမံက်ထ္ၜးက္ဍိုပ်လိက်, အဲတုပ်ကဵု $1 ကေုာံ သ္ဂောံပတိတ်မကလေၚ်ဂွံမာန် ရီုဗၚ်အဲ သၟတ်လာၚ်ဇြေန် $2";
 "description-edit-pencil-introduction" = "ပလေဝ်ဒါန် မဆက်မိတ်";
+// Fuzzy
 "description-edit-pencil-title" = "ပလေဝ်ဒါန် က္ဍိုပ်လိက် မဗမံက်ထ္ၜး";
 "description-edit-placeholder-title" = "မဗမံက်ထ္ၜးဂၠိဂှ်ဒှ်ခိုဟ်အိုတ်";
 "description-edit-publish" = "တြးပတိတ် မဗမံက်ထ္ၜး";
 "description-edit-title" = "ပလေဝ်ဒါန် မဗၟံက်ထ္ၜး";
 "description-edit-warning" = "ဂစာန်သ္ဂောံသီ မဗမံက်ထ္ၜးဂၠိညိ ညအ်တှ် ညးလွပ်တအ် ကၠိုဟ်မာန်ကဵု ဘာသာလိက်ပရေၚ် အပ္ဍဲမရံၚ်မွဲတမြိပ်မတ်";
+// Fuzzy
 "description-help-about-description" = "က္ဍိုပ်လိက် မဖဍန်ချူ လိက်ပရေင်မွဲ သွက်ဂွံ ရီု ညးဗွဟ်လိက် ဂွံတီ ပရူ ပ္ဍဲ ဒၞာဲမွဲဓရေပ်မတ်၊၊";
 "description-help-about-title" = "ပရူ";
 "description-help-about-wikidata" = "ပရူ ဝဳကဳဒေတ";
 "description-help-more-info-description" = "ပရူမချူထ္ၜးဂှ် ဂိုင်ဒိပ် တုဲ သှ်ေဒၟံင် ပ္ဍဲ ဝဳကဳပဳဒဳယာ၊ မဒှ် ပရဝ်ဂျေန် the Wikimedia Foundation မဒှ် အရာ သက္ကုၚုဟ်၊ မပံင်တောဲကၠောန်၊ မစုင်လေင်၊ မပကောံတင်ဂၞင်တုဲ ထံက်ပင် ဝဳကဳပဳဒဳယာ ကေုာံ ပရဝ်ဂျေန် တၞဟ်တအ်၊၊";
 "description-help-more-info-title" = "ဆက်ကဵု ပရိုင်တင်ဂၞင်";
 "description-help-tips-description" = "ချူဗၟံက်ထ္ၜးဂှ် သ္ဒးဒှ် မွဲ ပၞောန် တုဲ မၞုံ အကြာ မလိက် ၂ ကဵု ၁၂ မ၊၊ ယဝ်ရ မလိက်ကၠာဂှ် ဟွံဒှ် မနာမ်ယၟုမ္ဂး လ္ပစကာ မအက္ခရ်ဇၞော်ညိ၊၊";
+// Fuzzy
 "description-help-tips-example-description-one" = "က္ဍိုပ်လိက် ပရူ သွက် လိက်ပရေင် ပရူ Mona Lisa";
+// Fuzzy
 "description-help-tips-example-description-two" = "က္ဍိုပ်လိက် သွက် လိက်ပရေင် ပူ ဒဵုသန္နရာဇ်";
 "description-help-tips-example-title-one" = "ဓဇက်လဝ် နကဵု Leonardo da Vinci";
 "description-help-tips-example-title-two" = "ဂၠးတိ ဒဵု သၠုင်အိုတ်";
 "description-help-tips-for-example" = "သွက် ဥပမာ:";
 "description-help-tips-title" = "ဂလာန်မြော် သွက်ဂွံခၞံကၠောန်အာ မဗမံက်ထ္ၜးဂမၠိုၚ်";
+// Fuzzy
 "description-help-title" = "က္ဍိုပ်လိက် မဗမံက်ထ္ၜး ရီု";
 "description-help-wikidata-guide" = "သ္ကအ်တဲ ဝဳကဳဒေသ သွက်မချူဗမံက်ထ္ၜး";
 "description-published-button-title" = "တုဲဒှ်";
@@ -157,6 +165,7 @@
 "description-welcome-concise-sub-title" = "မွဲကသပ် မွဲရေၚ်, အြကာ မအက္ခရ် ၜါမ ကဵု စှ်ၜါမ ဂမၠိုၚ်";
 "description-welcome-concise-title" = "သီကေတ်ဍေံဗွဲဂၠိ";
 "description-welcome-descriptions-sub-title" = "သ္ပသရုပ်ကဵုလိက်ပရေၚ် သ္ဂောံရီုဗၚ်ညးဗှ်လိက် ဂွံကၠိုဟ်ပရူပရာ မွဲဓရေပ်မတ်။";
+// Fuzzy
 "description-welcome-descriptions-title" = "က္ဍိုပ်လိက် မဗမံက်ထ္ၜး";
 "description-welcome-promise-title" = "နပွစကေတ်, အဲကဵုကတိ ဟွံသ္ဂောအ်ကဵုသုၚ်စောဲလိက်ပရေၚ်ဏအ် ဒၞဲါဗၠေတ်";
 "description-welcome-start-editing-button" = "စပလေဝ်ဒါန်ဒၟံၚ်";
@@ -267,6 +276,7 @@
 "empty-no-feed-message" = "လိက်ပရေင် မၞးမကဵုလဝ် ကသပ်တအ်ဂှ် မၞးမဂွံဆဵုကေတ်မာန် ကာလမၞးအေန်တာနေတ် နွံတှ်ေ၊၊";
 "empty-no-history-message" = "ဆက် ကလေင်ကျောဝ် မုမၞးမဗှ်လဝ် ပ္ဍဲဒၞာဲဏအ်၊၊";
 "empty-no-history-title" = "အရာမကၠောန်လဝ်တုဲတုဲ သွက်ဂွံထ္ၜး ဟွံမွဲ";
+"empty-no-other-article-languages-title" = "ဟွံမွဲအရေဝ်ဘာသာတဏဟ်ဂမၠိုင်";
 "empty-no-reading-lists-message" = "စွံကောန်လဴ လတူ အသာ်သၚေက် ‘+’ သွက်ဂွံ ခၞံကၠောန် စရင် လိက်ဗွဟ် သွက်ဒၞာဲ သွက်ဂွံအာဝေင်၊ က္ဍိုပ်လိက် မဒးဂၞပ် ကေုာံ အရာတၞဟ်၊၊";
 "empty-no-reading-lists-title" = "ပကောံစွံ လိက်ပရေင် မဂိုင်သိပ် နကဵု စရင် လိက်ဗွဟ်";
 "empty-no-saved-pages-in-reading-list-message" = "ဂိုင်သိပ် မုက်လိက် ပ္ဍဲ စရင်ဏအ် သွက်ဂွံဆဵု မုက်လိက်တအ် ပ္ဍဲဒၞာဲဏအ်";
@@ -502,7 +512,7 @@
 "no-internet-connection-article-reload-button" = "ကလေင်အာ မူမဂိုင်ဒေပ်လဝ် လက်ကရဴအိုတ်";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
-"number-thousands" = "$1K";
+"number-thousands" = "$1လ္ၚီ";
 "on-this-day-detail-header-date-range" = "နူ $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historical event|$1 historical events}}";
 "on-this-day-footer" = "သဘင်မကတဵုဒှ်လဝ် တၞဟ်ဟ် ပ္ဍဲတ္ၚဲဏအ်";
@@ -675,10 +685,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 အရာ မစုတ်လဝ်စၞး|$1 အရာ မစုတ်လဝ်စၞးဂမၠိုင်}}";
 "replace-textfield-accessibility" = "စုတ်စၞး";
 "replace-textfield-placeholder" = "စုတ်စၞး နကဵု…";
-"request-feedback-on-error" = "app ဒးစုက် ကုပြသၞာ ဟိုတ်ဂှ်ရ ပိုယ်မိက်ဂွံတီ ဟိုတ်ပြသၞာဂှ်ရ၊၊ ပဂုန်တုဲ ဍဵုဒၞာဲဏအ် သွက်ဂွံ ပလံင် တင်မဗၠေတ်ယောင်ယာဂှ် ကဵုပိုယ် နကဵု အဳမေဝ်၊၊";
 "reverted-edit-back-to-article-button-title" = "ကလေင်အာ ဇရေင် လိက်ပရေင်";
-"reverted-edit-notification-body" = "ပလေဝ်ဒါန် မၞးမကၠောန်လဝ် ပ္ဍဲ လိက်ပရေင် $1 ဂှ် မၞးဂွံဒုင်ထိုင်သး နကဵု $2";
-"reverted-edit-notification-read-more-action-title" = "ဆက် ဗှ်";
 "reverted-edit-possible-reasons" = "- အရာမၞးမကၠောန်ပတိတ်ဂှ် ဟွံဒှ်အတိုင် လၟေင်ဂၠံင် $1 \n\n - အရာမၞးမကၠောန်ပတိတ်ဂှ် ဒှ်ဒၟံင် ညံင်ကဵု ဆစမ်ဝေင် ဟွံသေင်မ္ဂး မကြာန်ဓမာန်";
 "reverted-edit-possible-reasons-subtitle" = "ပိုယ်တီ မၞးဂစာန်ကၠောန်လဝ် ၜိုတ်မၞးမသၟဟ်အစောမ်ရ၊ ဆဂး ပရေင်ပလေဝ်မၞးမွဲဂှ် ဒးဒုင်တးပါဲ။\n\nဟိုတ်ဍေဟ်ဂှ် ပလေဝ်ဒါန်မၞးဂှ် ဟိုတ်နူကဵု တင်တအ်ဏအ် ဒှ်မာန်ရ။";
 "reverted-edit-thanks-for-editing-title" = "တင်ဂုန်ရ ဟိုတ် မပလေဝ်ဒါန်လဝ် ဝဳကဳပဳဒဳယာ!";

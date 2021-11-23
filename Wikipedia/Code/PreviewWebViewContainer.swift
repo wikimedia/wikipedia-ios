@@ -2,7 +2,7 @@ import Foundation
 import WebKit
 import WMF
 
-@objc protocol WMFPreviewAnchorTapAlertDelegate: class {
+@objc protocol WMFPreviewAnchorTapAlertDelegate: AnyObject {
     func previewWebViewContainer(_ previewWebViewContainer: PreviewWebViewContainer, didTapLink url: URL)
 }
 

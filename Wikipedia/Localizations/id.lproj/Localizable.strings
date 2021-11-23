@@ -1,5 +1,6 @@
 // Messages for Indonesian (Bahasa Indonesia)
 // Exported from translatewiki.net
+// Author: AJBot2
 // Author: Akmaie Ajam
 // Author: Arief
 // Author: Arifin.wijaya
@@ -22,10 +23,12 @@
 // Author: Mas ady
 // Author: Naufal06
 // Author: Nemo bis
+// Author: Polos
 // Author: Presidenvolksraad
 // Author: Relly Komaruzaman
 // Author: Rizkiahmadz
 // Author: Sonic Speedy
+// Author: Tsevener
 // Author: Ulinfaizah
 // Author: WongKentir
 
@@ -181,36 +184,41 @@
 "button-skip" = "Lewati";
 "cancel" = "Batal";
 "cc-zero" = "Creative Commons CC0";
+"chinese-variants-alert-body" = "Aplikasi Wikipedia sekarang mendukung varian bahasa Mandarin berikut sebagai bahasa utama atau sekunder di dalam aplikasi, membuatnya lebih mudah untuk membaca, mencari, dan menyunting dalam varian pilihan Anda: \n\n简体 Cina, Sederhana (zh-hans)\n香港繁體 Hong Kong Tradisional (zh-hk)\n澳門繁體 Macau Tradisional (zh-mo)\n大马简体 Malaysia Sederhana (zh-my)\n新加坡简体 Singapore Sederhana (zh-sg)\n臺灣正體 Taiwan Tradisional (zh-tw)";
+"chinese-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Tionghoa";
 "clear-title-accessibility-label" = "Hapus";
 "close-button-accessibility-label" = "Tutup";
 "compass-direction" = "pada pukul $1 tepat";
 "continue-reading-empty-description" = "Jelajahi Wikipedia untuk lebih banyak artikel yang ingin dibaca";
 "continue-reading-empty-title" = "Tidak ada artikel yang dibaca baru-baru ini";
+"crimean-tatar-variants-alert-body" = "Aplikasi Wikipedia kini mendukung varian bahasa Tatar Krimea berikut sebagai bahasa utama maupun bahasa kedua di dalam aplikasi, membuatnya lebih mudah untuk dibaca, cari dan sunting dalam varian pilihan Anda:\n\nQırımtatarca, Latin Tatar Krimea Latin (chr-latn)\nкъырымтатарджа, Кирил Tatar Krimea Sirilik (crh-cyrl)";
+"crimean-tatar-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Tatar Krimea";
 "data-migration-status" = "Memperbarui...";
 "description-add-title" = "Tambahkan deskripsi";
-"description-edit-for-article" = "Deskripsi judul untuk $1";
+"description-edit-for-article" = "Deskripsi artikel untuk $1";
 "description-edit-learn-more" = "Pelajari lebih lanjut";
 "description-edit-length-warning" = "$1 / $2";
-"description-edit-license" = "Dengan mengubah deskripsi judul, saya setuju dengan $1 dan melepaskan kontribusi saya di bawah lisensi $2.";
+"description-edit-license" = "Dengan mengubah deskripsi artikel, saya setuju dengan $1 dan melepaskan kontribusi saya di bawah lisensi $2.";
 "description-edit-pencil-introduction" = "Sunting pengantar";
-"description-edit-pencil-title" = "Sunting deskripsi judul";
+"description-edit-pencil-title" = "Sunting deskripsi artikel";
 "description-edit-placeholder-title" = "Deskripsi singkat adalah yang terbaik";
 "description-edit-publish" = "Terbitkan deskripsi";
 "description-edit-title" = "Sunting deskripsi";
 "description-edit-warning" = "Usahakan agar deskripsi singkat sehingga pengguna dapat memahami subjek artikel dalam sekejap";
-"description-help-about-description" = "Deskripsi judul meringkas artikel untuk membantu pembaca memahami subjek secara sekilas.";
+"description-edit-warning-casing" = "Hanya kata benda yang spesifik (misalnya Joko Widodo dan Indomie; presiden dan mi goreng bukan kata benda yang spesifik) yang harus dikapitalisasi, bahkan di awal kalimat.";
+"description-help-about-description" = "Deskripsi artikel meringkas artikel untuk membantu pembaca memahami subjek secara sekilas.";
 "description-help-about-title" = "Tentang";
 "description-help-about-wikidata" = "Tentang Wikidata";
 "description-help-more-info-description" = "Deskripsi disimpan dan dipelihara di Wikidata, proyek Wikimedia Foundation yang menyediakan basis data bebas, sekunder, kolaboratif, multibahasa, yang mendukung Wikipedia dan proyek lainnya.";
 "description-help-more-info-title" = "Informasi lebih lanjut";
 "description-help-tips-description" = "Deskripsi idealnya harus sesuai pada satu baris, dan antara dua hingga dua belas kata. Deskripsi tidak dikapitalisasi kecuali kata pertama adalah kata benda yang tepat.";
-"description-help-tips-example-description-one" = "deskripsi judul untuk artikel tentang Mona Lisa";
-"description-help-tips-example-description-two" = "deskripsi judul untuk artikel tentang Gunung Everest";
+"description-help-tips-example-description-one" = "deskripsi artikel untuk artikel tentang Mona Lisa";
+"description-help-tips-example-description-two" = "deskripsi artikel untuk artikel tentang Gunung Everest";
 "description-help-tips-example-title-one" = "lukisan karya Leonardo Da Vinci";
 "description-help-tips-example-title-two" = "gunung tertinggi di Bumi";
 "description-help-tips-for-example" = "Sebagai contoh:";
 "description-help-tips-title" = "Kiat untuk membuat deskripsi";
-"description-help-title" = "Bantuan deskripsi judul";
+"description-help-title" = "Bantuan deskripsi artikel";
 "description-help-wikidata-guide" = "Panduan Wikidata untuk menulis deskripsi";
 "description-published-button-title" = "Selesai";
 "description-published-footer" = "Anda juga dapat menyunting artikel dalam aplikasi ini. Coba perbaiki kesalahan ketik dan kalimat kecil dengan mengklik ikon pensil di lain waktu";
@@ -219,7 +227,7 @@
 "description-welcome-concise-sub-title" = "Idealnya satu baris, antara dua hingga dua belas kata";
 "description-welcome-concise-title" = "Jaga agar tetap pendek";
 "description-welcome-descriptions-sub-title" = "Merangkum artikel untuk membantu pembaca memahami subjek secara sekilas";
-"description-welcome-descriptions-title" = "Deskripsi judul";
+"description-welcome-descriptions-title" = "Deskripsi artikel";
 "description-welcome-promise-title" = "Dengan memulai, saya berjanji untuk tidak menyalahgunakan fitur ini";
 "description-welcome-start-editing-button" = "Mulai menyunting";
 "diff-compare-header-from-info-heading" = "Dari:";
@@ -329,6 +337,8 @@
 "empty-no-feed-message" = "Anda bisa melihat artikel yang disarankan untuk Anda saat Anda mempunyai sambungan intenet";
 "empty-no-history-message" = "Melacak apa yang Anda sudah baca di sini";
 "empty-no-history-title" = "Tidak ada riwayat yang muncul";
+"empty-no-other-article-languages-message" = "Artikel ini belum ditulis dalam bahasa lain";
+"empty-no-other-article-languages-title" = "Tidak ada bahasa lain";
 "empty-no-reading-lists-message" = "Buat daftar untuk tempat yang harus dikunjungi, topik favorit dan banyak lagi";
 "empty-no-reading-lists-title" = "Atur artikel tersimpan dengan daftar bacaan";
 "empty-no-saved-pages-in-reading-list-message" = "Simpan halaman ke daftar ini untuk melihatnya muncul di sini";
@@ -424,6 +434,12 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Dari Wikipedia";
 "explore-randomizer" = "Artikel sembarang";
 "featured-article-empty-title" = "Tidak ada artikel pilihan yang tersedia pada hari ini";
+"featured-widget-content-failure-for-date" = "Tidak ada artikel pilihan untuk tanggal ini.";
+"featured-widget-description" = "Temukan artikel yang terbaik di Wikipedia, dipilih setiap hari oleh komunitas kami.";
+"featured-widget-from-language-wikipedia" = "Dari Wikipedia $1";
+"featured-widget-from-wikipedia" = "Dari Wikipedia";
+"featured-widget-language-failure" = "Bahasa Wikipedia utama Anda tidak mendukung artikel pilihan. Anda dapat mengganti bahasa Wikipedia utama Anda di menu Setelan pada aplikasi.";
+"featured-widget-title" = "Artikel pilihan";
 "feed-news-notification-button-text" = "Aktifkan pemberitahuan";
 "feed-news-notification-text" = "Aktifkan pemberitahuan yang akan diberitahu oleh Wikipedia saat artikel sedang tren dalam peristiwa terkini.";
 "fetcher-error-generic" = "Ada yang salah. Silakan coba lagi nanti.";
@@ -461,6 +477,8 @@
 "forgot-password-instructions" = "Isi salah satu bidang di bawah untuk menerima instruksi penyetelan ulang kata sandi melalui surel";
 "forgot-password-title" = "Setel ulang kata sandi";
 "forgot-password-username-or-email-title" = "Atau";
+"gan-variants-alert-body" = "Aplikasi Wikipedia sekarang mendukung varian bahasa Gan berikut sebagai bahasa utama atau sekunder dalam aplikasi, sehingga lebih mudah untuk membaca, mencari, dan mengedit dalam varian yang Anda sukai: \n\n贛語 原文 Gan (gan)\n赣语 简体 Gan, Sederhana (gan-hans)\n贛語 繁體 Gan, Tradisional (gan-hant)";
+"gan-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Gan";
 "history-clear-all" = "Kosongkan";
 "history-clear-cancel" = "Batalkan";
 "history-clear-confirmation-heading" = "Apakah Anda yakin ingin menghapus semua butir terkini Anda?";
@@ -522,6 +540,12 @@
 "intermediate-edits-editors-count-limited" = "$1+ revisi antara oleh $2+ pengguna tidak ditampilkan";
 "intermediate-edits-editors-limited-count" = "$1 revisi antara oleh $2+ pengguna tidak ditampilkan";
 "intermediate-edits-limited-editors-count" = "$1+ revisi antara oleh $2 pengguna tidak ditampilkan";
+"inuktitut-variants-alert-body" = "Aplikasi Wikipedia kini mendukung varian bahasa Inuktitut berikut sebagai bahasa utama maupun bahasa kedua di dalam aplikasi, membuatnya lebih mudah untuk dibaca, cari dan sunting dalam varian pilihan Anda:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, Silabis (ike-cans)\nInuktitut ilisautik, Inuktitut, Latin (ike-latn)";
+"inuktitut-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Inuktitut";
+"kazakh-variants-alert-body" = "Aplikasi Wikipedia kini mendukung varian bahasa Kazakh berikut sebagai bahasa utama maupun bahasa kedua di dalam aplikasi, membuatnya lebih mudah untuk dibaca, cari dan sunting dalam varian pilihan Anda:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, Sirilik (kk-cyrl)\nqazaqşa latin Kazakh, Latin (kk-latn)\nتوتە قازاقشا Kazakh, Arab (kk-arab)";
+"kazakh-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Kazakh";
+"kurdish-variants-alert-body" = "Aplikasi Wikipedia kini mendukung varian bahasa Kurdi berikut sebagai bahasa utama maupun bahasa kedua di dalam aplikasi, membuatnya lebih mudah untuk dibaca, cari dan sunting dalam varian pilihan Anda:\n\nKurdî Latînî Kurdi, Latin (ku-latn)\nكوردی Kurdi, Arab (kk-arab)";
+"kurdish-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Kurdi";
 "languages-settings-title" = "Bahasa";
 "languages-title" = "Ubah bahasa";
 "languages-wikipedia" = "Bahasa Wikipedia";
@@ -561,6 +585,47 @@
 "no-internet-connection" = "Tidak ada sambungan internet";
 "no-internet-connection-article-reload" = "Versi yang lebih baru dari artikel ini mungkin tersedia, tetapi tidak dapat dimuat tanpa sambungan ke internet";
 "no-internet-connection-article-reload-button" = "Kembali ke versi terakhir yang disimpan";
+"notifications-center-change-password" = "Ganti Kata Sandi";
+"notifications-center-commons-project-name" = "Wikimedia Commons";
+"notifications-center-edit-button" = "Sunting";
+"notifications-center-empty-checking-for-notifications" = "Memeriksa notifikasi...";
+"notifications-center-empty-no-unread-messages" = "Anda tidak memiliki pesan yang belum dibaca";
+"notifications-center-empty-not-subscribed" = "Anda belum berlangganan notifikasi Wikipedia apapun";
+"notifications-center-footer-change-password" = "Ganti kata sandi";
+"notifications-center-go-to-diff" = "Pergi ke perbedaan";
+"notifications-center-go-to-talk-page" = "Pergi ke halaman pembicaraan";
+"notifications-center-go-to-title" = "Pergi ke $1";
+"notifications-center-go-to-user-page" = "Pergi ke halaman pengguna $1";
+"notifications-center-go-to-wikidata-item" = "Pergi ke item Wikidata";
+"notifications-center-go-to-your-talk-page" = "Pergi ke halaman pembicaraan Anda";
+"notifications-center-header-alert-from-project" = "Peringatan dari $1";
+"notifications-center-header-notice-from-project" = "Pemberitahuan dari $1";
+"notifications-center-language-project-name-format" = "$2 $1";
+"notifications-center-login-notifications" = "Notifikasi Login";
+"notifications-center-mark-as-read" = "Tandai sudah dibaca";
+"notifications-center-mark-as-unread" = "Tandai belum dibaca";
+"notifications-center-notifications-settings" = "Setelan notifikasi";
+"notifications-center-subheader-edit-milestone" = "Pencapaian penyuntingan";
+"notifications-center-subheader-edit-reverted" = "Suntingan Anda dibalikkan";
+"notifications-center-subheader-email-from-other-user" = "Email baru";
+"notifications-center-subheader-login-fail-known-device" = "Beberapa upaya masuk gagal";
+"notifications-center-subheader-login-fail-unknown-device" = "Upaya masuk gagal";
+"notifications-center-subheader-login-success-unknown-device" = "Masuk log dari gawai tak dikenal";
+"notifications-center-subheader-mention-article-talk-page" = "Sebutan pada halaman pembicaraan artikel";
+"notifications-center-subheader-mention-edit-summary" = "Sebutan dalam ringkasan suntingan";
+"notifications-center-subheader-mention-failed" = "Sebutan gagal";
+"notifications-center-subheader-mention-successful" = "Sebutah berhasil";
+"notifications-center-subheader-mention-talk-page" = "Sebutan pada halaman pembicaraan";
+"notifications-center-subheader-message-user-talk-page" = "Pesan pada halaman pembicaraan Anda";
+"notifications-center-subheader-page-link" = "Pranala halaman";
+"notifications-center-subheader-page-reviewed" = "Halaman ditinjau";
+"notifications-center-subheader-thanks" = "Terima kasih";
+"notifications-center-subheader-translate-milestone" = "Pencapaian terjemahan";
+"notifications-center-subheader-user-rights-change" = "Perubahan hak pengguna";
+"notifications-center-subheader-welcome" = "Selamat datang!";
+"notifications-center-subheader-wikidata-connection" = "Koneksi Wikidata dibuat";
+"notifications-center-title" = "Pemberitahuan";
+"notifications-center-wikidata-project-name" = "Wikidata";
 "number-billions" = "$1 miliar";
 "number-millions" = "$1 juta";
 "number-thousands" = "$1 ribu";
@@ -568,6 +633,8 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 peristiwa bersejarah|$1 peristiwa bersejarah}}";
 "on-this-day-footer" = "Peristiwa bersejarah lainnya pada hari ini";
 "on-this-day-footer-showing-event-count" = "$1 kejadian historis lainnya pada hari ini";
+"on-this-day-language-does-not-support-error" = "Bahasa Wikipedia utama Anda tidak mendukung Pada hari ini. Anda dapat mengganti bahasa Wikipedia utama Anda di menu Setelan pada aplikasi.";
+"on-this-day-no-internet-error" = "Tidak ada data yang tersedia";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 dari Wikipedia $2";
 "on-this-day-title" = "Pada hari ini";
 "original-tab-button-popover-description" = "Ketuk 'W' untuk kembali ke tab yang Anda mulai dari";
@@ -632,6 +699,9 @@
 "places-unknown-distance" = "jarak tidak diketahui";
 "potd-description-prefix" = "Gambar hari ini pada $1";
 "potd-empty-error-description" = "Gagal untuk menerima gambar hari ini pada $1";
+"potd-sample-entry-description" = "Dua ekor sapi jantan sedang berlari, sementara sang joki berpegangan pada mereka pada pacu jawi (dari bahasa Minangkabau, \"adu banteng\"), sebuah adu banteng tradisional di Tanah Datar, Sumatera Barat, Indonesia. 2015, Final-45.";
+"potd-widget-description" = "Nikmati gambar yang indah setiap hari yang dipilih oleh komunitas kami.";
+"potd-widget-title" = "Gambar pilihan";
 "preference-summary-eventlogging-opt-in" = "Izinkan Wikimedia Foundation untuk mengumpulkan informasi tentang bagaimana Anda menggunakan aplikasi untuk membuat aplikasi yang lebih baik";
 "preference-title-eventlogging-opt-in" = "Kirim laporan penggunaan";
 "rank-accessibility-label" = "Peringkat $1";
@@ -721,6 +791,8 @@
 "relative-date-hours-abbreviated" = "$1j";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Baru-baru ini|$1 jam yang lalu|$1 jam yang lalu}}";
 "relative-date-hours-ago-abbreviated" = "$1j yang lalu";
+"relative-date-hrs-ago" = "{{PLURAL:$1|0=Baru-baru ini|$1 jam yang lalu|$1 jam yang lalu}}";
+"relative-date-min-ago" = "{{PLURAL:$1|0=Baru saja|$1 menit yang lalu|$1 menit yang lalu}}";
 "relative-date-minutes-abbreviated" = "$1m";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Baru saja|$1 menit yang lalu|$1 menit yang lalu}}";
 "relative-date-minutes-ago-abbreviated" = "$1m yang lalu";
@@ -738,10 +810,7 @@
 "replace-replace-all-results-count" = "$1 butir diganti";
 "replace-textfield-accessibility" = "Ganti";
 "replace-textfield-placeholder" = "Ganti dengan...";
-"request-feedback-on-error" = "Aplikasi ini mengalami masalah yang menyebabkan pengembang kami ingin tahu lebih lanjut. Silakan ketuk di sini untuk mengirimkan kami surel dengan rincian kesalahan.";
 "reverted-edit-back-to-article-button-title" = "Kembali ke artikel";
-"reverted-edit-notification-body" = "Suntingan yang Anda buat dari artikel $1 dikembalikan oleh $2";
-"reverted-edit-notification-read-more-action-title" = "Baca lebih lanjut";
 "reverted-edit-possible-reasons" = "- Kontribusi Anda tidak mengikuti salah satu pedoman. $1 \n\n - Kontribusi Anda tampak seperti eksperimen atau vandalisme";
 "reverted-edit-possible-reasons-subtitle" = "Kami tahu bahwa Anda telah mencoba yang terbaik, tetapi salah satu peninjau memiliki kekhawatiran.\n\nKemungkinan alasan suntingan Anda dikembalikan meliputi:";
 "reverted-edit-thanks-for-editing-title" = "Terima kasih telah menyunting di Wikipedia!";
@@ -769,6 +838,8 @@
 "search-recent-title" = "Dicari baru-baru ini";
 "search-result-redirected-from" = "Dialihkan dari: $1";
 "search-title" = "Cari";
+"serbian-variants-alert-body" = "Aplikasi Wikipedia kini mendukung varian bahasa Serbia berikut sebagai bahasa utama maupun bahasa kedua di dalam aplikasi, membuatnya lebih mudah untuk dibaca, cari dan sunting dalam varian pilihan Anda:\n\nсрпски ћирилица Serbian, Sirilik (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
+"serbian-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Serbia";
 "settings-account" = "Akun";
 "settings-appearance" = "Preferensi pembacaan";
 "settings-clear-cache" = "Hapus data dalam cache";
@@ -827,6 +898,10 @@
 "table-of-contents-heading" = "Konten";
 "table-of-contents-hide-button-label" = "Sembunyikan daftar isi.";
 "table-of-contents-subheading-label" = "Judul tingkat $1";
+"tachelhit-variants-alert-body" = "Aplikasi Wikipedia kini mendukung varian bahasa Tachelhit berikut sebagai bahasa utama maupun bahasa kedua di dalam aplikasi, membuatnya lebih mudah untuk dibaca, cari dan sunting dalam varian pilihan Anda:\n\nⵜⴰⵛⵍⵃⵉⵜ Tachelhit, Tifinagh (shi-tfng)\nTaclḥit Tachelhit, Latin (shi-latn)";
+"tachelhit-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Tachelhit";
+"tajik-variants-alert-body" = "Aplikasi Wikipedia kini mendukung varian bahasa Tajik berikut sebagai bahasa utama maupun bahasa kedua di dalam aplikasi, membuatnya lebih mudah untuk dibaca, cari dan sunting dalam varian pilihan Anda:\n\nтоҷикӣ кирилликӣ Tajik, Sirilik (tg-cyrl)\ntojikī lotinī Tajik, Latin (tg-latn)";
+"tajik-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Tajik";
 "talk-page-add-discussion-accessibility-label" = "Tambahkan diskusi";
 "talk-page-discussion-accessibility-hint" = "Ketuk ganda untuk membuka utas diskusi";
 "talk-page-discussion-read-accessibility-label" = "Baca";
@@ -865,6 +940,9 @@
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia $1";
 "top-read-see-more" = "Lihat bacaan teratas lainnya";
+"top-read-widget-description" = "Pelajari apa yang sedang dibaca dunia hari ini di Wikipedia.";
+"top-read-widget-readers-count" = "$1 pembaca";
+"top-read-widget-title" = "Bacaan teratas";
 "two-factor-login-continue" = "Lanjutkan masuk log";
 "two-factor-login-instructions" = "Silakan masukkan kode verifikasi dua faktor";
 "two-factor-login-title" = "Masuk ke akun Anda";
@@ -872,6 +950,8 @@
 "two-factor-login-with-regular-code" = "Gunakan kode verifikasi";
 "unable-to-load-talk-page-title" = "Tidak bisa memuat halaman pembicaraan";
 "unknown-generic-text" = "Tidak diketahui";
+"uzbek-variants-alert-body" = "Aplikasi Wikipedia kini mendukung varian bahasa Uzbek berikut sebagai bahasa utama maupun bahasa kedua di dalam aplikasi, membuatnya lebih mudah untuk dibaca, cari dan sunting dalam varian pilihan Anda:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Sirilik (uz-cyrl)";
+"uzbek-variants-alert-title" = "Pembaruan dukungan untuk varian bahasa Uzbek";
 "variants-alert-dismiss-button" = "Tidak, terima kasih";
 "variants-alert-preferences-button" = "Tinjau preferensi Anda";
 "welcome-exploration-explore-feed-description" = "Bacaan yang disarankan dan artikel harian dari komunitas kami";
@@ -899,6 +979,9 @@
 "welcome-send-data-learn-more" = "Pelajari lebih lanjut tentang data yang dikumpulkan";
 "welcome-send-data-sub-title" = "Bantu memperbaiki aplikasi dengan membiarkan Wikimedia Foundation mengetahui bagaimana Anda menggunakannya. Data yang dikumpulkan bersifat anonim.";
 "welcome-volunteer-send-usage-reports" = "Kirim laporan penggunaan";
+"widget-onthisday-description" = "Jelajahi apa yang terjadi pada hari ini dalam sejarah.";
+"widget-onthisday-placeholder-article-snippet" = "Ensiklopedia online gratis yang bisa disunting oleh siapapun.";
+"widget-onthisday-placeholder-event-snippet" = "Wikipedia, sebuah ensiklopedia wiki gratis, dirilis.";
 "wikitext-downloading" = "Memuat konten...";
 "wikitext-preview-changes" = "Mengambil pratayang perubahan Anda...";
 "wikitext-preview-changes-none" = "Tidak ada perubahan yang dibuat untuk melihat pratayang.";
