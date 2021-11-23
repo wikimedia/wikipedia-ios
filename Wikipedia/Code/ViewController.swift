@@ -256,6 +256,7 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
     }
     
     var useNavigationBarVisibleHeightForScrollViewInsets: Bool = false
+    var useNavigationBarMaximumHeightForScrollViewInsets: Bool = false
     
     //override if needed to preserve scroll view inset animation
     public var shouldAnimateWhileUpdatingScrollViewInsets: Bool {
@@ -271,6 +272,8 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
         if showsNavigationBar {
             if useNavigationBarVisibleHeightForScrollViewInsets {
                 top = navigationBar.visibleHeight
+            } else if useNavigationBarMaximumHeightForScrollViewInsets {
+                top = navigationBar.maximumVisibleHeight
             } else {
                 top = navigationBar.frame.maxY
             }

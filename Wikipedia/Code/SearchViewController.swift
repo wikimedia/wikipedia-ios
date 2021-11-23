@@ -16,7 +16,9 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
         view.bringSubviewToFront(resultsViewController.view)
         resultsViewController.view.isHidden = true
-        useNavigationBarVisibleHeightForScrollViewInsets = true
+        navigationBar.isAdjustingHidingFromContentInsetChangesEnabled = false
+        useNavigationBarMaximumHeightForScrollViewInsets = true
+        useNavigationBarVisibleHeightForScrollViewInsets = false
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -44,7 +46,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         if !animated && shouldBecomeFirstResponder {
             searchBar.becomeFirstResponder()
         }
-        navigationBar.isAdjustingHidingFromContentInsetChangesEnabled = true
+        navigationBar.isAdjustingHidingFromContentInsetChangesEnabled = false
         shouldAnimateSearchBar = true
     }
     
@@ -55,7 +57,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        navigationBar.isAdjustingHidingFromContentInsetChangesEnabled = true
+        navigationBar.isAdjustingHidingFromContentInsetChangesEnabled = false
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -338,10 +340,14 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     private func setSearchVisible(_ visible: Bool, animated: Bool) {
         _isSearchVisible = visible
         navigationBar.isAdjustingHidingFromContentInsetChangesEnabled = false
+        useNavigationBarMaximumHeightForScrollViewInsets = false
+        useNavigationBarVisibleHeightForScrollViewInsets = true
         let completion = { (finished: Bool) in
             self.isAnimatingSearchBarState = false
             self.navigationBar.isTitleShrinkingEnabled = true
-            self.navigationBar.isAdjustingHidingFromContentInsetChangesEnabled  = true
+            self.navigationBar.isAdjustingHidingFromContentInsetChangesEnabled  = false
+            self.useNavigationBarMaximumHeightForScrollViewInsets = true
+            self.useNavigationBarVisibleHeightForScrollViewInsets = false
         }
         if searchLanguageBarViewController != nil {
             navigationBar.shadowAlpha = 0

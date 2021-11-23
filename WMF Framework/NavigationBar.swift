@@ -435,6 +435,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     }
     
     @objc dynamic public var visibleHeight: CGFloat = 0
+    public private(set) var maximumVisibleHeight: CGFloat = 0 //the maximum visible height a navigation bar could be, taking percent hidden values out of consideration. Not used in any hide calculations, purely for external reference.
     @objc dynamic public var insetTop: CGFloat = 0
     @objc public var hiddenHeight: CGFloat = 0
 
@@ -448,6 +449,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     }
     
     @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, topSpacingPercentHidden: CGFloat, shadowAlpha: CGFloat = -1, animated: Bool, additionalAnimations: (() -> Void)? = nil) {
+
         if (animated) {
             layoutIfNeeded()
         }
@@ -575,6 +577,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         let extendedViewHeight = extendedView.frame.height
         
         visibleHeight = statusBarUnderlay.frame.size.height + barHeight * (1.0 - navigationBarPercentHidden) + extendedViewHeight * (1.0 - extendedViewPercentHidden) + underBarViewHeight * (1.0 - underBarViewPercentHidden) + (barTopSpacing * (1.0 - topSpacingPercentHidden))
+        maximumVisibleHeight = statusBarUnderlay.frame.size.height + barHeight * (1.0 - navigationBarPercentHidden) + extendedViewHeight * (1.0 - extendedViewPercentHidden) + underBarViewHeight * (1.0 - underBarViewPercentHidden) + barTopSpacing
         
         let spacingTransformHeight = barTopSpacing * topSpacingPercentHidden
         let barTransformHeight = barHeight * navigationBarPercentHidden + spacingTransformHeight
