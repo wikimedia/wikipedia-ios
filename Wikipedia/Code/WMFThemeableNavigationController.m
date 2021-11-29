@@ -47,6 +47,11 @@
         self.navigationBar.barTintColor = theme.colors.chromeBackground;
     }
 
+    if (self.style == WMFThemeableNavigationControllerStyleGallery) {
+        self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self setNavigationBarHidden:YES animated:NO];
+    }
+
     self.view.tintColor = theme.colors.link;
     [self setNeedsStatusBarAppearanceUpdate];
 }
