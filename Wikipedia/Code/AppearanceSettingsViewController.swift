@@ -278,7 +278,8 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
     @objc func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         guard let text = sections[safeIndex: section]?.footerText,
               !text.isEmpty else {
-            return 0
+               
+                  return section < (self.sections.count - 1) ? 0 : 44
         }
         
         return UITableView.automaticDimension
