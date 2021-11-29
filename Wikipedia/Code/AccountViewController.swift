@@ -141,7 +141,7 @@ class AccountViewController: SubSettingsViewController {
     @objc func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 
         let text = sections[safeIndex: section]?.headerTitle
-        return WMFTableHeaderFooterLabelView.headerFooterViewForTableView(tableView, text: text, theme: theme)
+        return WMFTableHeaderFooterLabelView.headerFooterViewForTableView(tableView, text: text, type: .header, theme: theme)
     }
     
     @objc func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
