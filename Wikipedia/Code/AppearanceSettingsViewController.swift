@@ -266,10 +266,6 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
     }
     
     @objc func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard let _ = self.tableView(tableView, viewForHeaderInSection: section) as? WMFTableHeaderFooterLabelView else {
-            return 0
-        }
-        
         return UITableView.automaticDimension
     }
     
@@ -280,7 +276,8 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
     }
     
     @objc func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        guard let _ = self.tableView(tableView, viewForHeaderInSection: section) as? WMFTableHeaderFooterLabelView else {
+        guard let text = sections[safeIndex: section]?.footerText,
+              !text.isEmpty else {
             return 0
         }
         

@@ -131,10 +131,6 @@ class AccountViewController: SubSettingsViewController {
     }
     
     @objc func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard let _ = self.tableView(tableView, viewForHeaderInSection: section) as? WMFTableHeaderFooterLabelView else {
-            return 0
-        }
-
         return UITableView.automaticDimension
     }
 
@@ -145,11 +141,13 @@ class AccountViewController: SubSettingsViewController {
     }
     
     @objc func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-       guard let _ = self.tableView(tableView, viewForHeaderInSection: section) as? WMFTableHeaderFooterLabelView else {
-           return 0
-       }
+        
+        guard let text = sections[safeIndex: section]?.footerTitle,
+              !text.isEmpty else {
+          return 0
+        }
 
-       return UITableView.automaticDimension
+        return UITableView.automaticDimension
    }
 
    @objc func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

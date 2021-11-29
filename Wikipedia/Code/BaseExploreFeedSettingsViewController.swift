@@ -291,10 +291,6 @@ extension BaseExploreFeedSettingsViewController {
 extension BaseExploreFeedSettingsViewController {
     
     @objc func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard let _ = self.tableView(tableView, viewForHeaderInSection: section) as? WMFTableHeaderFooterLabelView else {
-            return 0
-        }
-        
         return UITableView.automaticDimension
     }
     
@@ -309,9 +305,12 @@ extension BaseExploreFeedSettingsViewController {
     }
 
     @objc func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        guard let _ = self.tableView(tableView, viewForFooterInSection: section) as? WMFTableHeaderFooterLabelView else {
+        
+        let text = getSection(at: section).footerTitle
+        guard !text.isEmpty else {
             return 0
         }
+        
         return UITableView.automaticDimension
     }
 }
