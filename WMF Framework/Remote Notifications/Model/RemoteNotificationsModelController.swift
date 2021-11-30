@@ -238,12 +238,8 @@ final class RemoteNotificationsModelController: NSObject {
                 completion([])
                 return
             }
-
-            let results = dictionaries.reduce([String]()) { results, item in
-                var array = results
-                array.append(contentsOf: item.values)
-                return array
-            }
+            
+            let results = dictionaries.flatMap { $0.values }
 
             completion(results)
         }
