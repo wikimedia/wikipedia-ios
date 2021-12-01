@@ -385,7 +385,6 @@
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Díreach anois|$1 nóiméad amháin ó shin|$1 nóiméad ó shin}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=I mbliana|1=I mbliana|$1 bliana ó shin}}";
 "reverted-edit-back-to-article-button-title" = "Siar go halt";
-"reverted-edit-notification-read-more-action-title" = "Léigh tuilleadh";
 "reverted-edit-thanks-for-editing-title" = "Go raibh maith agat as Vicipéid a chur in eagar!";
 "reverted-edit-view-guidelines-text" = "Féach ar treoirlínte";
 "saved-all-articles-title" = "Na hailt uile";

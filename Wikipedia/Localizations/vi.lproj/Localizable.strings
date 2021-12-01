@@ -729,8 +729,6 @@
 "replace-textfield-accessibility" = "Thay thế";
 "replace-textfield-placeholder" = "Thay thế bằng…";
 "reverted-edit-back-to-article-button-title" = "Quay lại bài viết";
-"reverted-edit-notification-body" = "Sửa đổi mà bạn thực hiện ở bài viết $1 đã bị $2 lùi lại";
-"reverted-edit-notification-read-more-action-title" = "Tìm hiểu thêm";
 "reverted-edit-possible-reasons" = "- Đóng góp của bạn không tuân theo quy định. $1 \n\n - Đóng góp của bạn có vẻ như thử nghiệm hoặc phá hoại";
 "reverted-edit-possible-reasons-subtitle" = "Rất tiếc, bạn đã cố gắng sửa đổi một cách chính xác, nhưng một người xem lại đã nhận thấy vấn đề.\n\nHọ đã lùi lại sửa đổi của bạn, có thể do một lý do sau:";
 "reverted-edit-thanks-for-editing-title" = "Cảm ơn bạn đã đóng góp cho Wikipedia!";

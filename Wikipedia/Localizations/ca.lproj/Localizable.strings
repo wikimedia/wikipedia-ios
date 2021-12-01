@@ -759,8 +759,6 @@
 "replace-textfield-accessibility" = "Reemplaça";
 "replace-textfield-placeholder" = "Reemplaça per…";
 "reverted-edit-back-to-article-button-title" = "Torna a l'article";
-"reverted-edit-notification-body" = "La modificació que vàreu fer de l'article $1 va ser revertida per $2";
-"reverted-edit-notification-read-more-action-title" = "Més informació";
 "reverted-edit-possible-reasons" = "- La contribució que heu fet no segueix alguna de les recomanacions. $1 \n\n- La contribució semblava que fos un experiment o un vandalisme";
 "reverted-edit-possible-reasons-subtitle" = "Sabem que heu provat de fer-ho el millor possible, però un dels revisors n'ha discrepat.\n\nAlguns dels motius pels quals la vostra modificació va ser revertida:";
 "reverted-edit-thanks-for-editing-title" = "Gràcies per editar a la Viquipèdia!";

@@ -690,8 +690,6 @@
 "replace-textfield-accessibility" = "Ersetzen";
 "replace-textfield-placeholder" = "Ersetzen durch …";
 "reverted-edit-back-to-article-button-title" = "Zurück zum Artikel";
-"reverted-edit-notification-body" = "Deine Bearbeitung am Artikel $1 wurde von $2 zurückgesetzt";
-"reverted-edit-notification-read-more-action-title" = "Mehr erfahren";
 "reverted-edit-possible-reasons" = "- Dein Beitrag folgte nicht einer der Richtlinien. $1\n\n- Dein Beitrag sieht nach einem Experiment oder Vandalismus aus.";
 "reverted-edit-possible-reasons-subtitle" = "Wir wissen, dass du dein Bestes versucht hast, aber einer der Überprüfer hatte einen Bedenken.\n\nMögliche Gründe, warum deine Bearbeitung zurückgesetzt wurde, sind:";
 "reverted-edit-thanks-for-editing-title" = "Vielen Dank für deine Bearbeitungen auf Wikipedia!";

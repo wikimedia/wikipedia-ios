@@ -120,102 +120,86 @@ final class RemoteNotificationsModelController: NSObject {
         backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         return backgroundContext
     }
-    
-    private var unreadNotificationsPredicate: NSPredicate {
-        return NSPredicate(format: "isRead == %@", NSNumber(value: false))
-    }
 
-    public func getUnreadNotifications(moc: NSManagedObjectContext, completion: @escaping ResultHandler) {
-        return notifications(with: unreadNotificationsPredicate, moc: moc, completion: completion)
-    }
-    
-    public func wikisWithUnreadNotifications(completion: @escaping ([String]) -> Void) {
-        return wikis(with: unreadNotificationsPredicate, completion: completion)
-    }
-    
-    public func wikis(with predicate: NSPredicate?, completion: @escaping ([String]) -> Void) {
-        
-        let moc = newBackgroundContext()
-        moc.perform {
-            guard let entityName = RemoteNotification.entity().name else {
-                return
-            }
-            
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
-            fetchRequest.predicate = predicate
-            fetchRequest.resultType = .dictionaryResultType
-            fetchRequest.propertiesToFetch = ["wiki"]
-            fetchRequest.returnsDistinctResults = true
-            guard let dictionaries = (try? moc.fetch(fetchRequest)) as? [[String: String]] else {
-                completion([])
-                return
-            }
-            
-            let results = dictionaries.reduce([String]()) { res, item in
-                var arr = res
-                arr.append(contentsOf: item.values)
-                return arr
-            }
-            
-            completion(results)
-        }
-    }
-    
-    public func markAllAsRead(project: RemoteNotificationsProject, completion: @escaping () -> Void) {
-        let moc = newBackgroundContext()
-        moc.perform {
-            let unreadPredicate = self.unreadNotificationsPredicate
-            let wikiPredicate = NSPredicate(format: "wiki == %@", project.notificationsApiWikiIdentifier)
-            let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [unreadPredicate, wikiPredicate])
-            self.notifications(with: compoundPredicate, moc: moc) { notifications in
-                guard let notifications = notifications,
-                      !notifications.isEmpty else {
-                    completion()
-                    return
-                }
-                
-                notifications.forEach { notification in
-                    notification.isRead = true
-                }
-                
-                self.save(moc: moc)
-                
-                NotificationCenter.default.post(name: Notification.Name.NotificationsCenterBadgeNeedsUpdate, object: nil)
-                
-                completion()
-            }
-        }
-        
-    }
+//    public func getUnreadNotifications(moc: NSManagedObjectContext, completion: @escaping ResultHandler) {
+//        return notifications(with: unreadNotificationsPredicate, moc: moc, completion: completion)
+//    }
+//
+//    public func wikisWithUnreadNotifications(completion: @escaping ([String]) -> Void) {
+//        return wikis(with: unreadNotificationsPredicate, completion: completion)
+//    }
+//
+//    public func wikis(with predicate: NSPredicate?, completion: @escaping ([String]) -> Void) {
+//
+//        let moc = newBackgroundContext()
+//        moc.perform {
+//            guard let entityName = RemoteNotification.entity().name else {
+//                return
+//            }
+//
+//            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+//            fetchRequest.predicate = predicate
+//            fetchRequest.resultType = .dictionaryResultType
+//            fetchRequest.propertiesToFetch = ["wiki"]
+//            fetchRequest.returnsDistinctResults = true
+//            guard let dictionaries = (try? moc.fetch(fetchRequest)) as? [[String: String]] else {
+//                completion([])
+//                return
+//            }
+//
+//            let results = dictionaries.reduce([String]()) { res, item in
+//                var arr = res
+//                arr.append(contentsOf: item.values)
+//                return arr
+//            }
+//
+//            completion(results)
+//        }
+//    }
+//
+//    public func markAllAsRead(project: RemoteNotificationsProject, completion: @escaping () -> Void) {
+//        let moc = newBackgroundContext()
+//        moc.perform {
+//            let unreadPredicate = self.unreadNotificationsPredicate
+//            let wikiPredicate = NSPredicate(format: "wiki == %@", project.notificationsApiWikiIdentifier)
+//            let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [unreadPredicate, wikiPredicate])
+//            self.notifications(with: compoundPredicate, moc: moc) { notifications in
+//                guard let notifications = notifications,
+//                      !notifications.isEmpty else {
+//                    completion()
+//                    return
+//                }
+//
+//                notifications.forEach { notification in
+//                    notification.isRead = true
+//                }
+//
+//                self.save(moc: moc)
+//
+//                NotificationCenter.default.post(name: Notification.Name.NotificationsCenterBadgeNeedsUpdate, object: nil)
+//
+//                completion()
+//            }
+//        }
+//
+//    }
+//
+//
+
+//
+//    private func notifications(with predicate: NSPredicate? = nil, moc: NSManagedObjectContext, completion: ResultHandler) {
+//        let fetchRequest = notificationsFetchRequest(with: predicate)
+//        guard let notifications = try? moc.fetch(fetchRequest) else {
+//            completion(nil)
+//            return
+//        }
+//        completion(Set(notifications))
+//    }
     
     var numberOfUnreadNotifications: Int? {
-        let fetchRequest = notificationsFetchRequest(with: unreadNotificationsPredicate)
-        return try? viewContext.count(for: fetchRequest)
-    }
-    
-    private func notificationsFetchRequest(with predicate: NSPredicate? = nil) -> NSFetchRequest<RemoteNotification> {
         let fetchRequest: NSFetchRequest<RemoteNotification> = RemoteNotification.fetchRequest()
-        fetchRequest.predicate = predicate
-        return fetchRequest
-    }
-
-    private func notifications(with predicate: NSPredicate? = nil, moc: NSManagedObjectContext, completion: ResultHandler) {
-        let fetchRequest = notificationsFetchRequest(with: predicate)
-        guard let notifications = try? moc.fetch(fetchRequest) else {
-            completion(nil)
-            return
-        }
-        completion(Set(notifications))
-    }
-
-    private func save(moc: NSManagedObjectContext) {
-        if moc.hasChanges {
-            do {
-                try moc.save()
-            } catch let error {
-                DDLogError("Error saving RemoteNotificationsModelController managedObjectContext: \(error)")
-            }
-        }
+        fetchRequest.predicate = unreadNotificationsPredicate
+        return try? viewContext.count(for: fetchRequest)
     }
 
     public func createNewNotifications(moc: NSManagedObjectContext, notificationsFetchedFromTheServer: Set<RemoteNotificationsAPIController.NotificationsResult.Notification>, completion: @escaping () -> Void) throws {
@@ -271,19 +255,45 @@ final class RemoteNotificationsModelController: NSObject {
     }
 
     // MARK: Mark as read
-
-    public func markAsReadOrUnread(identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, completion: @escaping () -> Void) {
-        
-        let backgroundContext = newBackgroundContext()
-        processNotificationsWithIdentifierGroups(identifierGroups, moc: backgroundContext) { notification in
-            notification.isRead = shouldMarkRead
-        } completion: {
-            NotificationCenter.default.post(name: Notification.Name.NotificationsCenterBadgeNeedsUpdate, object: nil)
-            completion()
+    
+    public func markAllAsRead(moc: NSManagedObjectContext, project: RemoteNotificationsProject, completion: @escaping () -> Void) {
+        moc.perform {
+            let unreadPredicate = self.unreadNotificationsPredicate
+            let wikiPredicate = NSPredicate(format: "wiki == %@", project.notificationsApiWikiIdentifier)
+            let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [unreadPredicate, wikiPredicate])
+            self.notifications(with: compoundPredicate, moc: moc) { notifications in
+                guard let notifications = notifications,
+                      !notifications.isEmpty else {
+                    completion()
+                    return
+                }
+                
+                notifications.forEach { notification in
+                    notification.isRead = true
+                }
+                
+                self.save(moc: moc)
+                completion()
+            }
         }
+        
     }
 
-    private func processNotificationsWithIdentifierGroups(_ identifierGroups: Set<RemoteNotification.IdentifierGroup>, moc: NSManagedObjectContext, handler: @escaping (RemoteNotification) -> Void, completion: @escaping () -> Void) {
+    public func markAsReadOrUnread(moc: NSManagedObjectContext, identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, completion: @escaping () -> Void) {
+        
+        processNotifications(moc: moc, identifierGroups: identifierGroups, handler: { (notification) in
+            notification.isRead = shouldMarkRead
+        }, completion: {
+            NotificationCenter.default.post(name: Notification.Name.NotificationsCenterBadgeNeedsUpdate, object: nil)
+            completion()
+        })
+    }
+    
+    public func wikisWithUnreadNotifications(moc: NSManagedObjectContext, completion: @escaping ([String]) -> Void) {
+        return wikis(moc: moc, predicate: unreadNotificationsPredicate, completion: completion)
+    }
+
+    private func processNotifications(moc: NSManagedObjectContext, identifierGroups: Set<RemoteNotification.IdentifierGroup>,  handler: @escaping (RemoteNotification) -> Void, completion: @escaping () -> Void) {
         let keys = identifierGroups.compactMap { $0.key }
         moc.perform {
             let fetchRequest: NSFetchRequest<RemoteNotification> = RemoteNotification.fetchRequest()
@@ -297,6 +307,52 @@ final class RemoteNotificationsModelController: NSObject {
             }
             self.save(moc: moc)
             completion()
+        }
+    }
+    
+    private func notifications(with predicate: NSPredicate? = nil, moc: NSManagedObjectContext, completion: ResultHandler) {
+        let fetchRequest: NSFetchRequest<RemoteNotification> = RemoteNotification.fetchRequest()
+        fetchRequest.predicate = predicate
+        guard let notifications = try? moc.fetch(fetchRequest) else {
+            completion(nil)
+            return
+        }
+        completion(Set(notifications))
+    }
+    
+    func wikis(moc: NSManagedObjectContext, predicate: NSPredicate?, completion: @escaping ([String]) -> Void) {
+        moc.perform {
+            guard let entityName = RemoteNotification.entity().name else {
+                return
+            }
+
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+            fetchRequest.predicate = predicate
+            fetchRequest.resultType = .dictionaryResultType
+            fetchRequest.propertiesToFetch = ["wiki"]
+            fetchRequest.returnsDistinctResults = true
+            guard let dictionaries = (try? moc.fetch(fetchRequest)) as? [[String: String]] else {
+                completion([])
+                return
+            }
+            
+            let results = dictionaries.flatMap { $0.values }
+
+            completion(results)
+        }
+    }
+    
+    private var unreadNotificationsPredicate: NSPredicate {
+        return NSPredicate(format: "isRead == %@", NSNumber(value: false))
+    }
+
+    private func save(moc: NSManagedObjectContext) {
+        if moc.hasChanges {
+            do {
+                try moc.save()
+            } catch let error {
+                DDLogError("Error saving RemoteNotificationsModelController managedObjectContext: \(error)")
+            }
         }
     }
     

@@ -783,8 +783,6 @@
 "replace-textfield-accessibility" = "替换";
 "replace-textfield-placeholder" = "替换为…";
 "reverted-edit-back-to-article-button-title" = "返回到条目";
-"reverted-edit-notification-body" = "您对条目“$1”的编辑已被$2回退";
-"reverted-edit-notification-read-more-action-title" = "阅读更多";
 "reverted-edit-possible-reasons" = "- 您的编辑并未遵循编辑指引。$1 \n\n - 您似乎在试验性地编辑或在恶意破坏";
 "reverted-edit-possible-reasons-subtitle" = "我们知道您做出了最大的努力，但有位复核者对此表示关注。\n\n您的编辑被回退的原因可能包括：";
 "reverted-edit-thanks-for-editing-title" = "感谢编辑维基百科！";

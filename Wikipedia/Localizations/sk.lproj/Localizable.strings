@@ -752,8 +752,6 @@
 "replace-textfield-accessibility" = "Nahradiť";
 "replace-textfield-placeholder" = "Nahradiť za...";
 "reverted-edit-back-to-article-button-title" = "Späť na článok";
-"reverted-edit-notification-body" = "Vaša úprava článku $1 bola vrátená redaktorom $2";
-"reverted-edit-notification-read-more-action-title" = "Ďalšie informácie";
 "reverted-edit-possible-reasons" = "- Váš príspevok nezodpovedal niektorému z pokynov. $1\n\n\n- Váš príspevok vyzeral (alebo bol) experiment alebo vandalizmus.";
 "reverted-edit-possible-reasons-subtitle" = "Vieme, že ste sa snažili o to najlepšie, ale jeden z redaktorov vrátil úpravu.\n\nMožné dôvody vrátenie úpravy sú:";
 "reverted-edit-thanks-for-editing-title" = "Ďakujeme za úpravu Wikipédie!";

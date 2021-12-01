@@ -5,17 +5,6 @@ import CocoaLumberjackSwift
 /// Base class for operations that deal with fetching and persisting user notifications. Operation will recursively call the next page, with overrideable hooks to adjust this behavior.
 class RemoteNotificationsPagingOperation: RemoteNotificationsOperation {
     
-    let project: RemoteNotificationsProject
-    
-    required init(with apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController, project: RemoteNotificationsProject) {
-        self.project = project
-        super.init(with: apiController, modelController: modelController)
-    }
-    
-    required init(with apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController) {
-        fatalError("init(with:modelController:) has not been implemented")
-    }
-    
     //MARK: Overridable hooks
     
     ///Boolean logic for allowing operation execution. Override to add any validation before executing this operation.
