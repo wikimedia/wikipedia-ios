@@ -63,11 +63,12 @@ import CocoaLumberjackSwift
     }
     
     @objc public var numberOfUnreadNotifications: Int {
-        return self.operationsController.numberOfUnreadNotifications ?? 0
+        return self.operationsController
+            .numberOfUnreadNotifications ?? 0
     }
     
-    public func listAllProjectsFromLocalNotifications(languageLinkController: MWKLanguageLinkController, completion: @escaping ([RemoteNotificationsProject]) -> Void) {
-        operationsController.listAllProjectsFromLocalNotifications(languageLinkController: languageLinkController, completion: completion)
+    public func listAllProjectsFromLocalNotifications(completion: @escaping ([RemoteNotificationsProject]) -> Void) {
+        operationsController.listAllProjectsFromLocalNotifications(completion: completion)
     }
     
     public var areFiltersEnabled: Bool {

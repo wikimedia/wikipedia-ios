@@ -56,7 +56,7 @@ struct NotificationsCenterFiltersViewModel {
         
         let currentSavedState = remoteNotificationsController.filterSavedState
         //get current list of wikis
-        remoteNotificationsController.listAllProjectsFromLocalNotifications(languageLinkController: languageLinkController) { projects in
+        remoteNotificationsController.listAllProjectsFromLocalNotifications { projects in
             let newSavedState = RemoteNotificationsFiltersSavedState(readStatusSetting: newReadStatus, filterTypeSetting: currentSavedState.filterTypeSetting, projectsSetting: projects)
             remoteNotificationsController.filterSavedState = newSavedState
             completion()
@@ -68,7 +68,7 @@ struct NotificationsCenterFiltersViewModel {
         var newFilterTypeSetting = currentSavedState.filterTypeSetting
         newFilterTypeSetting.append(type)
         
-        remoteNotificationsController.listAllProjectsFromLocalNotifications(languageLinkController: languageLinkController) { projects in
+        remoteNotificationsController.listAllProjectsFromLocalNotifications { projects in
             let newSavedState = RemoteNotificationsFiltersSavedState(readStatusSetting: currentSavedState.readStatusSetting, filterTypeSetting: newFilterTypeSetting, projectsSetting: projects)
             remoteNotificationsController.filterSavedState = newSavedState
             completion()
@@ -82,7 +82,7 @@ struct NotificationsCenterFiltersViewModel {
             return loopType == type
         }
         
-        remoteNotificationsController.listAllProjectsFromLocalNotifications(languageLinkController: languageLinkController) { projects in
+        remoteNotificationsController.listAllProjectsFromLocalNotifications { projects in
             let newSavedState = RemoteNotificationsFiltersSavedState(readStatusSetting: currentSavedState.readStatusSetting, filterTypeSetting: newFilterTypeSetting, projectsSetting: projects)
             remoteNotificationsController.filterSavedState = newSavedState
             completion()
