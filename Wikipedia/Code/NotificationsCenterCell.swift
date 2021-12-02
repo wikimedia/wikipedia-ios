@@ -76,7 +76,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         label.setContentCompressionResistancePriority(.required, for: .vertical)
         label.font = UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
         label.adjustsFontForContentSizeCategory = true
-        label.textAlignment = .left
+        label.textAlignment = effectiveUserInterfaceLayoutDirection == .rightToLeft ? .right : .left
         label.numberOfLines = 1
         label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         label.setContentHuggingPriority(.defaultLow, for: .horizontal)
@@ -98,7 +98,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         label.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 1
-        label.textAlignment = .left
+        label.textAlignment = effectiveUserInterfaceLayoutDirection == .rightToLeft ? .right : .left
         label.text = ""
         return label
     }()
@@ -110,7 +110,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         label.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.lineBreakMode = .byTruncatingTail
-        label.textAlignment = .left
+        label.textAlignment = effectiveUserInterfaceLayoutDirection == .rightToLeft ? .right : .left
         label.numberOfLines = 1
         label.text = ""
         return label
