@@ -220,6 +220,11 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleNotificationsCenterContextDidSave)
+                                                 name:NSNotification.notificationsCenterContextDidSave
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(editWasPublished:)
                                                  name:[WMFSectionEditorViewController editWasPublished]
                                                object:nil];
@@ -1417,6 +1422,13 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 - (void)handleExploreCenterBadgeNeedsUpdateNotification {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self setNotificationsCenterButtonForExploreViewController:self.exploreViewController];
+    });
+}
+
+-(void)handleNotificationsCenterContextDidSave {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIApplication.sharedApplication.applicationIconBadgeNumber = [self.dataStore.remoteNotificationsController numberOfUnreadNotifications];
+        [self.dataStore.remoteNotificationsController updateCacheWithCurrentUnreadNotificationsCount];
     });
 }
 

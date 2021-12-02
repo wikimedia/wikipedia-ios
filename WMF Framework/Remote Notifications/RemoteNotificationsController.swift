@@ -135,6 +135,15 @@ import CocoaLumberjackSwift
         
         return combinedFilterTypePredicate
     }
+
+    @objc public func updateCacheWithCurrentUnreadNotificationsCount() {
+        let currentCount = numberOfUnreadNotifications
+        let sharedCache = SharedContainerCache<PushNotificationsCache>(pathComponent: .pushNotificationsCache, defaultCache: { PushNotificationsCache(settings: .default, notifications: []) })
+        var pushCache = sharedCache.loadCache()
+        pushCache.currentUnreadCount = currentCount
+        sharedCache.saveCache(pushCache)
+    }
+
 }
 
 public struct RemoteNotificationsFiltersSavedState {

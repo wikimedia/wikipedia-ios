@@ -1,10 +1,12 @@
 import CocoaLumberjackSwift
 
 public extension Notification.Name {
+    static let NotificationsCenterContextDidSave = Notification.Name("NotificationsCenterContextDidSave")
     static let NotificationsCenterBadgeNeedsUpdate = Notification.Name("NotificationsCenterBadgeNeedsUpdate")
 }
 
 @objc public extension NSNotification {
+    static let notificationsCenterContextDidSave = Notification.Name.NotificationsCenterContextDidSave
     static let notificationsCenterBadgeNeedsUpdate = Notification.Name.NotificationsCenterBadgeNeedsUpdate
 }
 
@@ -350,6 +352,7 @@ final class RemoteNotificationsModelController: NSObject {
         if moc.hasChanges {
             do {
                 try moc.save()
+                NotificationCenter.default.post(name: Notification.Name.NotificationsCenterContextDidSave, object: nil)
             } catch let error {
                 DDLogError("Error saving RemoteNotificationsModelController managedObjectContext: \(error)")
             }

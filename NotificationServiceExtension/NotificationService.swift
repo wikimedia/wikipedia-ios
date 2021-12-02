@@ -59,6 +59,8 @@ class NotificationService: UNNotificationServiceExtension {
                 } else {
                     bestAttemptContent.body = self.fallbackPushContent
                 }
+
+                bestAttemptContent.badge = NSNumber(value: newCache.currentUnreadCount + finalNotificationsToDisplay.count)
                 
                 contentHandler(bestAttemptContent)
             }
