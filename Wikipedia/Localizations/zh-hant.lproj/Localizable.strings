@@ -111,10 +111,10 @@
 "account-creation-saving" = "儲存中...";
 "account-creation-title" = "建立新帳號";
 "account-group-title" = "您的帳號";
-"account-talk-page-title" = "您的對話頁";
+"account-talk-page-title" = "您的討論頁";
 "account-talk-preferences-auto-sign-discussions" = "自動簽名討論";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "討論的自動簽名，會使用在簽名設定裡所定義的簽名";
-"account-talk-preferences-title" = "對話頁偏好設定";
+"account-talk-preferences-title" = "討論頁偏好設定";
 "action-add-to" = "新增至…";
 "action-add-to-reading-list" = "新增至閱讀清單";
 "action-add-to-reading-list-short" = "加入至清單";
@@ -337,7 +337,7 @@
 "empty-no-feed-message" = "在有網路時，您可以看到推薦的條目";
 "empty-no-history-message" = "在此記錄您的閱讀歷程";
 "empty-no-history-title" = "無歷史可顯示";
-"empty-no-other-article-languages-message" = "這篇文章還未被翻譯成其他語言";
+"empty-no-other-article-languages-message" = "這篇條目還未被翻譯成其他語言";
 "empty-no-other-article-languages-title" = "沒有別種語言可用";
 "empty-no-reading-lists-message" = "建立前往旅行的地點、喜愛的主題，以及更多其它事物的清單";
 "empty-no-reading-lists-title" = "組織已以閱讀清單儲存條目";
@@ -611,7 +611,7 @@
 "notifications-center-subheader-login-fail-known-device" = "多次登錄嘗試失敗";
 "notifications-center-subheader-login-fail-unknown-device" = "登錄嘗試失敗";
 "notifications-center-subheader-login-success-unknown-device" = "從不熟悉的設備登錄";
-"notifications-center-subheader-mention-article-talk-page" = "在文章討論頁提及";
+"notifications-center-subheader-mention-article-talk-page" = "在條目討論頁提及";
 "notifications-center-subheader-mention-edit-summary" = "在編輯摘要中提及";
 "notifications-center-subheader-mention-failed" = "未提及";
 "notifications-center-subheader-mention-successful" = "成功提及";
@@ -626,6 +626,10 @@
 "notifications-center-subheader-wikidata-connection" = "已建立維基數據連接";
 "notifications-center-title" = "通知";
 "notifications-center-wikidata-project-name" = "維基數據";
+"notifications-push-fallback-body-text" = "在維基百科上的新活動";
+"notifications-push-talk-body-format" = "在$3的 $1 個新$2";
+"notifications-push-talk-messages-format" = "{{PLURAL:$1|訊息}}";
+"notifications-push-talk-title-format" = "新$1";
 "number-billions" = "$1十億";
 "number-millions" = "$1百萬";
 "number-thousands" = "$1千";
@@ -912,7 +916,7 @@
 "talk-page-error-unable-to-post-topic" = "沒有連結到網路，無法發佈討論。";
 "talk-page-info-active-conversations" = "在$1維基百科上積極交談";
 "talk-page-info-active-conversations-generic" = "在維基百科上積極交談";
-"talk-page-link-user-action-sheet-app" = "在應用程式上檢視使用者對話頁";
+"talk-page-link-user-action-sheet-app" = "在應用程式上檢視使用者討論頁";
 "talk-page-link-user-action-sheet-safari" = "在 Safari 上檢視使用者頁面";
 "talk-page-link-user-action-sheet-title" = "使用者頁面";
 "talk-page-new-banner-subtitle" = "請記得，在此我們也只是一般人";
@@ -942,7 +946,7 @@
 "top-read-header-generic" = "維基百科";
 "top-read-header-with-language" = "$1維基百科";
 "top-read-see-more" = "查看更多熱門條目";
-"top-read-widget-description" = "在維基裡學習世界";
+"top-read-widget-description" = "在維基百科裡學習世界";
 "top-read-widget-readers-count" = "$1個讀者";
 "top-read-widget-title" = "最多閱讀";
 "two-factor-login-continue" = "繼續登入";
@@ -950,7 +954,7 @@
 "two-factor-login-title" = "登入至您的帳號";
 "two-factor-login-with-backup-code" = "使用您的任一備份代碼";
 "two-factor-login-with-regular-code" = "使用驗證代碼";
-"unable-to-load-talk-page-title" = "無法載入對話頁";
+"unable-to-load-talk-page-title" = "無法載入討論頁";
 "unknown-generic-text" = "未知";
 "uzbek-variants-alert-body" = "維基百科應用程式現在支援下列烏茲別克語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\noʻzbekcha lotin，拉丁字母烏茲別克語（uz-latin）\nўзбекча кирилл，西里爾字母烏茲別克語（uz-cyrl）";
 "uzbek-variants-alert-title" = "烏茲別克語異體字支援更新";

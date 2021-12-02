@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Bjankuloski06
 // Author: Bsitzmann
+// Author: Cleinman
 // Author: Macofe
 // Author: Nemo bis
 // Author: Tsevener
@@ -603,6 +604,10 @@
 "notifications-center-subheader-wikidata-connection" = "Направена врска со Википодатоци";
 "notifications-center-title" = "Известувања";
 "notifications-center-wikidata-project-name" = "Википодатоци";
+"notifications-push-fallback-body-text" = "Нови активности на Википедија";
+"notifications-push-talk-body-format" = "$1 нови $2 на $3";
+"notifications-push-talk-messages-format" = "{{PLURAL:$1|порака|пораки}}";
+"notifications-push-talk-title-format" = "Нови $1";
 "number-billions" = "$1 млрд.";
 "number-millions" = "$1 млн.";
 "number-thousands" = "$1 илј.";

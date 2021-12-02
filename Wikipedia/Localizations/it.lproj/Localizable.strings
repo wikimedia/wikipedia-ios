@@ -53,7 +53,7 @@
 "aaald-new-news-reference-title" = "Notizie";
 "aaald-new-talk-topic-description-format" = "$1 su questa voce";
 "aaald-new-website-reference-title" = "Sito web";
-"aaald-one-section-description" = "nella sezione  $1";
+"aaald-one-section-description" = "nella sezione $1";
 "aaald-revision-by-anonymous" = "Modificato da un utente anonimo";
 "aaald-revision-userInfo" = "Modificato da $1 ($2 modifiche)";
 "aaald-single-reference-added-description" = "Riferimenti aggiunti";
@@ -613,7 +613,7 @@
 "table-of-contents-close-accessibility-label" = "Chiudi l'indice";
 "table-of-contents-heading" = "Contenuti";
 "talk-page-add-discussion-accessibility-label" = "Aggiungi discussione";
-"talk-page-discussion-read-accessibility-label" = "Leggi";
+"talk-page-discussion-read-accessibility-label" = "Letta";
 "talk-page-discussion-unread-accessibility-label" = "Non lette";
 "talk-page-error-unable-to-post-reply" = "Nessuna connessione a internet. Impossibile pubblicare la risposta.";
 "talk-page-error-unable-to-post-topic" = "Nessuna connessione a internet. Impossibile pubblicare la risposta.";
