@@ -79,6 +79,27 @@
     }];
 }
 
++ (NSDictionary *)allowedSecureCodingClassesByPropertyKey {
+    
+    //Add NSString to list of allowed classes for NSArray properties.
+    //This fixes the "[NSKeyedUnarchiver validateAllowedClass:forKey:] allowed unarchiving safe plist type 'NSString' for key 'NS.objects', even though it was not explicitly included in the client allowed classes set" console error in iOS 15
+    NSDictionary *superAllowedClassesDict = [super allowedSecureCodingClassesByPropertyKey];
+    NSMutableDictionary *allowedClassesDict = [[NSMutableDictionary alloc] initWithDictionary:superAllowedClassesDict];
+
+    NSArray *keysToCheck = @[@"countries", @"platforms", @"articleTitles"];
+
+    for (NSString *key in keysToCheck) {
+        NSObject *object = [allowedClassesDict objectForKey:key];
+        if ([object isKindOfClass:[NSArray class]]) {
+            NSMutableArray *allowedClasses = [NSMutableArray arrayWithArray:(NSArray *)object];
+            [allowedClasses addObject:[NSString class]];
+            [allowedClassesDict setObject:[NSArray arrayWithArray:allowedClasses] forKey:key];
+        }
+    }
+
+    return [NSDictionary dictionaryWithDictionary:allowedClassesDict];
+}
+
 // No languageVariantCodePropagationSubelementKeys
 
 + (NSArray<NSString *> *)languageVariantCodePropagationURLKeys {

@@ -60,6 +60,11 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
         title = CommonStrings.readingPreferences
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: AppearanceSettingsViewController.customViewCellReuseIdentifier)
+        tableView.register(WMFTableHeaderFooterLabelView.wmf_classNib(), forHeaderFooterViewReuseIdentifier: WMFTableHeaderFooterLabelView.identifier)
+        tableView.sectionHeaderHeight = UITableView.automaticDimension
+        tableView.estimatedSectionHeaderHeight = 44
+        tableView.sectionFooterHeight = UITableView.automaticDimension
+        tableView.estimatedSectionFooterHeight = 44
         sections = sectionsForAppearanceSettings()
     }
     
@@ -260,12 +265,30 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
         perform(selector, with: NSNumber(value: sender.isOn), afterDelay: CATransaction.animationDuration())
     }
     
-    @objc public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sections[section].headerTitle
+    @objc func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return UITableView.automaticDimension
     }
     
-    @objc public func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return sections[section].footerText
+    @objc func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let text = sections[safeIndex: section]?.headerTitle
+        return WMFTableHeaderFooterLabelView.headerFooterViewForTableView(tableView, text: text, type: .header, theme: theme)
+    }
+    
+    @objc func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        guard let text = sections[safeIndex: section]?.footerText,
+              !text.isEmpty else {
+               
+                  return section < (self.sections.count - 1) ? 0 : 44
+        }
+        
+        return UITableView.automaticDimension
+    }
+    
+    @objc func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        
+        let text = sections[safeIndex: section]?.footerText
+        return WMFTableHeaderFooterLabelView.headerFooterViewForTableView(tableView, text: text, type: .footer, theme: theme)
     }
 
     // MARK: - Themeable

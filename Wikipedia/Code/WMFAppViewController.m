@@ -1738,23 +1738,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [[WMFAlertManager sharedInstance] applyTheme:theme];
 
     [self applyTheme:theme toNavigationControllers:[self allNavigationControllers]];
-
-    // Tab bars
-
-    NSArray<UITabBar *> *tabBars = @[self.tabBar, [UITabBar appearance]];
-    NSMutableArray<UITabBarItem *> *tabBarItems = [NSMutableArray arrayWithCapacity:5];
-    for (UITabBar *tabBar in tabBars) {
-        [tabBar applyTheme:theme];
-        if (tabBar.items.count > 0) {
-            [tabBarItems addObjectsFromArray:tabBar.items];
-        }
-    }
-
-    // Tab bar items
-    for (UITabBarItem *item in tabBarItems) {
-        [item applyTheme:theme];
-    }
-
+    [self.tabBar applyTheme:theme];
+    
     [[UISwitch appearance] setOnTintColor:theme.colors.accent];
 
     [self.readingListHintController applyTheme:self.theme];

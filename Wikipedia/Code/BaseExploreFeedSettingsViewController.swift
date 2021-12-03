@@ -160,6 +160,8 @@ class BaseExploreFeedSettingsViewController: SubSettingsViewController {
         super.viewDidLoad()
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier)
         tableView.register(WMFTableHeaderFooterLabelView.wmf_classNib(), forHeaderFooterViewReuseIdentifier: WMFTableHeaderFooterLabelView.identifier)
+        tableView.sectionHeaderHeight = UITableView.automaticDimension
+        tableView.estimatedSectionHeaderHeight = 44
         tableView.sectionFooterHeight = UITableView.automaticDimension
         tableView.estimatedSectionFooterHeight = 44
         NotificationCenter.default.addObserver(self, selector: #selector(exploreFeedPreferencesDidSave(_:)), name: NSNotification.Name.WMFExploreFeedPreferencesDidSave, object: nil)
@@ -287,28 +289,28 @@ extension BaseExploreFeedSettingsViewController {
 // MARK: - UITableViewDelegate
 
 extension BaseExploreFeedSettingsViewController {
-    @objc func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let section = getSection(at: section)
-        return section.headerTitle
+    
+    @objc func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return UITableView.automaticDimension
     }
-
+    
+    @objc func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let text = getSection(at: section).headerTitle
+        return WMFTableHeaderFooterLabelView.headerFooterViewForTableView(tableView, text: text, theme: theme)
+    }
+    
     @objc func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        guard let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: WMFTableHeaderFooterLabelView.identifier) as? WMFTableHeaderFooterLabelView else {
-            return nil
-        }
-        let section = getSection(at: section)
-        footer.setShortTextAsProse(section.footerTitle)
-        footer.type = .footer
-        if let footer = footer as Themeable? {
-            footer.apply(theme: theme)
-        }
-        return footer
+        let text = getSection(at: section).footerTitle
+        return WMFTableHeaderFooterLabelView.headerFooterViewForTableView(tableView, text: text, type: .footer, setShortTextAsProse: true, theme: theme)
     }
 
     @objc func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        guard let _ = self.tableView(tableView, viewForFooterInSection: section) as? WMFTableHeaderFooterLabelView else {
+        
+        let text = getSection(at: section).footerTitle
+        guard !text.isEmpty else {
             return 0
         }
+        
         return UITableView.automaticDimension
     }
 }
