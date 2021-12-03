@@ -553,7 +553,6 @@
 "no-internet-connection-article-reload-button" = "Title for button to return to last saved version of article.";
 "notifications-center-change-password" = "Button text in Notifications Center that routes user to change password screen.";
 "notifications-center-commons-project-name" = "Project name description for Wikimedia Commons, used in notification headers.";
-"notifications-center-edit-button" = "Title for navigation bar button to toggle mode for editing notification read status";
 "notifications-center-empty-checking-for-notifications" = "Text displayed when Notifications Center is checking for notifications.";
 "notifications-center-empty-no-unread-messages" = "Text displayed when no Notifications Center notifications are available.";
 "notifications-center-empty-not-subscribed" = "Text displayed when user has not subscribed to any Wikipedia notifications.";
