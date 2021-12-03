@@ -3,10 +3,10 @@ class RemoteNotificationsOperation: AsyncOperation {
     let modelController: RemoteNotificationsModelController
     let project: RemoteNotificationsProject
     
-    required init(with apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController, project: RemoteNotificationsProject) {
+    required init(project: RemoteNotificationsProject, apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController) {
+        self.project = project
         self.apiController = apiController
         self.modelController = modelController
-        self.project = project
         super.init()
     }
 }

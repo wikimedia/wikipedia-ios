@@ -7,11 +7,21 @@
 // Author: Robby
 // Author: Soued031
 
+"aaald-added-text-description-2" = "$1 derbäigesat";
+"aaald-article-description-updated-description" = "Beschreiwung vum Artikel aktualiséiert";
 "aaald-article-insert-header" = "Bedeitend Aktualiséierungen";
 "aaald-article-insert-last-updated" = "Lescht Aktualiséierung";
 "aaald-article-insert-new-changes" = "Nei Ännerungen";
+"aaald-article-insert-read-more" = "Liest méi Aktualiséierungen";
+"aaald-characters-text-description" = "{{PLURAL:$1|0=Zeechen|Zeechen|Zeechen}}";
+"aaald-deleted-text-description-2" = "$1 geläscht";
+"aaald-error-subitle" = "Aktualiséiert fir nach eng Kéier ze probéieren";
 "aaald-new-book-reference-title" = "Buch";
 "aaald-new-news-reference-title" = "Neiegkeeten";
+"aaald-new-talk-topic-description-format" = "$1 iwwer dësen Artikel";
+"aaald-new-website-reference-title" = "Internetsite";
+"aaald-revision-by-anonymous" = "Geännert vun engem anonymme Benotzer";
+"aaald-single-reference-added-description" = "Referenz derbäigesat";
 "about-content-license" = "Lizenz vum Inhalt";
 "about-content-license-details" = "Wann et net anescht uginn ass, ass den Inhalt ënnert enger $1 disponibel.";
 "about-content-license-details-share-alike-license" = "Creative-Commons-Attribution-ShareAlike Lizenz";
@@ -319,6 +329,30 @@
 "no-email-account-alert" = "Configuréiert wgl. en E-Mail-Kont op Ärem Apparat a probéiert nach eng Kéier.";
 "no-internet-connection" = "Keng Internet Verbindung";
 "no-internet-connection-article-reload-button" = "Zréck op déi lescht gespäichert Versioun";
+"notifications-center-change-password" = "Passwuert änneren";
+"notifications-center-commons-project-name" = "Wikimedia-Commons";
+"notifications-center-edit-button" = "Änneren";
+"notifications-center-empty-no-unread-messages" = "Dir hutt keng net-geliest Messagen";
+"notifications-center-footer-change-password" = "Passwuert änneren";
+"notifications-center-go-to-diff" = "Op den Ënnerscheed goen";
+"notifications-center-go-to-talk-page" = "Op d'Diskussiounssäit goen";
+"notifications-center-go-to-wikidata-item" = "Op d'Wikidata-Element goen";
+"notifications-center-header-alert-from-project" = "Warnung vu(n) $1";
+"notifications-center-header-notice-from-project" = "Informatioun vu(n) $1";
+"notifications-center-mark-as-read" = "Als gelies markéieren";
+"notifications-center-mark-as-unread" = "Als net gelies markéieren";
+"notifications-center-subheader-edit-reverted" = "Är Ännerung gouf zréckgesat";
+"notifications-center-subheader-email-from-other-user" = "Nei E-Mail";
+"notifications-center-subheader-login-success-unknown-device" = "Alogge vun engem onbekannten Apparat";
+"notifications-center-subheader-page-reviewed" = "Säit nogekuckt";
+"notifications-center-subheader-thanks" = "Merci";
+"notifications-center-subheader-user-rights-change" = "Ännerung vun de Benotzerrechter";
+"notifications-center-subheader-welcome" = "Wëllkomm!";
+"notifications-center-title" = "Notifikatiounen";
+"notifications-center-wikidata-project-name" = "Wikidata";
+"notifications-push-fallback-body-text" = "Nei Aktivitéit op Wikipedia";
+"notifications-push-talk-messages-format" = "{{PLURAL:$1|Message|Messagen}}";
+"notifications-push-talk-title-format" = "Nei $1";
 "number-billions" = "$1 Mrd.";
 "number-millions" = "$1 Mio.";
 "number-thousands" = "$1 D";
@@ -419,6 +453,8 @@
 "relative-date-hours-abbreviated" = "$1 h";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Rezent|virun enger Stonn|viru(n) $1 Stonnen}}";
 "relative-date-hours-ago-abbreviated" = "viru(n) $1h";
+"relative-date-hrs-ago" = "{{PLURAL:$1|0=Rezent|virun enger Stonn|viru(n) $1 Stonnen}}";
+"relative-date-min-ago" = "{{PLURAL:$1|0=Elo grad|Virun enger Minutt|Viru(n) $1 Minutten}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Elo grad|Virun enger Minutt|Viru(n) $1 Minutten}}";
 // Fuzzy
 "relative-date-years-ago" = "{{PLURAL:$1|0=Dëst Joer|Lescht Joer|Viru(n) $1 Joer}}";
@@ -428,7 +464,6 @@
 "replace-textfield-accessibility" = "Ersetzen";
 "replace-textfield-placeholder" = "Ersetzen duerch...";
 "reverted-edit-back-to-article-button-title" = "Zréck op den Artikel";
-"reverted-edit-notification-read-more-action-title" = "Liest méi";
 "saved-all-articles-title" = "All Artikelen";
 "saved-default-reading-list-tag" = "Dës Lëscht kann net geläscht ginn";
 "saved-pages-image-download-error" = "D'Biller fir dës gespäichert Säit konnten net erofgeluede ginn.";

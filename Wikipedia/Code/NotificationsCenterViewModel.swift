@@ -9,7 +9,7 @@ final class NotificationsCenterViewModel: NSObject {
 
     // MARK: - Properties
 
-    let remoteNotificationsController: RemoteNotificationsController
+    private let remoteNotificationsController: RemoteNotificationsController
 
     fileprivate let fetchedResultsController: NSFetchedResultsController<RemoteNotification>?
     fileprivate var collectionViewUpdater: CollectionViewUpdater<RemoteNotification>?
@@ -34,14 +34,23 @@ final class NotificationsCenterViewModel: NSObject {
 		// TODO: DM-Remove
 		remoteNotificationsController.importNotificationsIfNeeded {}
 	}
+
+    // MARK: - Public
     
     func refreshNotifications() {
         remoteNotificationsController.refreshNotifications {
             //TODO: Set any refreshing loading states here
         }
     }
-
-    // MARK: - Public
+    
+    func markAsReadOrUnread(viewModels: [NotificationsCenterCellViewModel], shouldMarkRead: Bool) {
+        let identifierGroups = viewModels.map { $0.notification.identifierGroup }
+        remoteNotificationsController.markAsReadOrUnread(identifierGroups: Set(identifierGroups), shouldMarkRead: shouldMarkRead)
+    }
+    
+    func markAllAsRead() {
+        remoteNotificationsController.markAllAsRead()
+    }
 
     func fetchNotifications(collectionView: UICollectionView) {
         guard let fetchedResultsController = fetchedResultsController else {

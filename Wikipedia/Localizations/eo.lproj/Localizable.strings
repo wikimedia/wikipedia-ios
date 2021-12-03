@@ -625,8 +625,6 @@
 "replace-textfield-accessibility" = "Anstataŭigi";
 "replace-textfield-placeholder" = "Anstataŭigi per…";
 "reverted-edit-back-to-article-button-title" = "Reen al la artikolo";
-"reverted-edit-notification-body" = "La redakto de la artikolo $1 kiun vi faris, estas malfarita de $2";
-"reverted-edit-notification-read-more-action-title" = "Legi pli";
 "reverted-edit-possible-reasons" = "- Via kontribuo ne estas farita laŭ unu de la gvidnormoj. $1 \n\n - Via kontribuo aspektis kiel eksperimento aŭ vandalismo";
 "reverted-edit-possible-reasons-subtitle" = "Ni scias ke vi provis vian plej bonan, sed unu el la reviziantoj esprimis sian dubon.\n\nEblaj kialoj ke via redakto estas malfarita inkluzivas:";
 "reverted-edit-thanks-for-editing-title" = "Dankon pro tio ke vi redaktas Vikipedion!";

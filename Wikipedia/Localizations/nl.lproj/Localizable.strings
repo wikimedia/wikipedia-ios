@@ -590,6 +590,18 @@
 "no-internet-connection" = "Geen internetverbinding";
 "no-internet-connection-article-reload" = "Een nieuwere versie van dit artikel kan mogelijk beschikbaar zijn, maar kan niet worden geladen zonder internetverbinding";
 "no-internet-connection-article-reload-button" = "Terug naar laatst bewaarde versie";
+"notifications-center-change-password" = "Wachtwoord wijzigen";
+"notifications-center-edit-button" = "Bewerken";
+"notifications-center-footer-change-password" = "Wachtwoord wijzigen";
+"notifications-center-mark-as-read" = "Als gelezen markeren";
+"notifications-center-mark-as-unread" = "Als ongelezen markeren";
+"notifications-center-subheader-email-from-other-user" = "Nieuwe e-mail";
+"notifications-center-subheader-thanks" = "Bedankjes";
+"notifications-center-subheader-welcome" = "Welkom!";
+"notifications-center-title" = "Meldingen";
+"notifications-push-talk-body-format" = "$1 nieuwe $2 op $3";
+"notifications-push-talk-messages-format" = "{{PLURAL:$1|bericht|berichten}}";
+"notifications-push-talk-title-format" = "Nieuw(e) $1";
 "number-billions" = "$1 mld.";
 "number-millions" = "$1 mln.";
 "number-thousands" = "$1k";
@@ -755,6 +767,8 @@
 "relative-date-hours-abbreviated" = "$1u";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recent|$1 uur geleden|$1 uur geleden}}";
 "relative-date-hours-ago-abbreviated" = "$1u geleden";
+"relative-date-hrs-ago" = "{{PLURAL:$1|0=Recent|$1 uur geleden|$1 uur geleden}}";
+"relative-date-min-ago" = "{{PLURAL:$1|0=Nu|$1 minuut geleden|$1 minuten geleden}}";
 "relative-date-minutes-abbreviated" = "$1m";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Nu|$1 minuut geleden|$1 minuten geleden}}";
 "relative-date-minutes-ago-abbreviated" = "$1m geleden";
@@ -773,8 +787,6 @@
 "replace-textfield-accessibility" = "Vervangen";
 "replace-textfield-placeholder" = "Vervangen door...";
 "reverted-edit-back-to-article-button-title" = "Terug naar artikel";
-"reverted-edit-notification-body" = "De bewerking die u deed in het artikel $1 is teruggedraaid door $2";
-"reverted-edit-notification-read-more-action-title" = "Meer lezen";
 "reverted-edit-possible-reasons" = "- Uw bijdrage voldeed niet aan een van de richtlijnen $1\n\n- Uw bijdrage leek op een experiment of vandalisme.";
 "reverted-edit-possible-reasons-subtitle" = "We weten dat u uw best heeft gedaan, maar een van de reviewers maakt zich zorgen.\n\nMogelijke redenen waarom uw bewerking is teruggedraaid, zijn onder meer:";
 "reverted-edit-thanks-for-editing-title" = "Bedankt voor het bewerken van Wikipedia!";

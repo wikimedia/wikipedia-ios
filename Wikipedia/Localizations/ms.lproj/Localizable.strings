@@ -640,8 +640,6 @@
 "replace-textfield-accessibility" = "Ganti";
 "replace-textfield-placeholder" = "Ganti dengan...";
 "reverted-edit-back-to-article-button-title" = "Kembali ke rencana";
-"reverted-edit-notification-body" = "Penyuntingan yang anda buat dari rencana $1 telah dikembalikan oleh $2";
-"reverted-edit-notification-read-more-action-title" = "Baca lagi";
 "reverted-edit-possible-reasons" = "- Sumbangan anda tidak mengikuti salah satu garis panduan. $1 \n\n - Sumbangan anda kelihatan seperti percubaan atau vandalisme";
 "reverted-edit-possible-reasons-subtitle" = "Kami tahu bahawa anda mencuba yang terbaik, tetapi salah seorang pengulas mempunyai kebimbangan.\n\nSebab-sebab yang mungkin penyuntingan anda dikembalikan termasuk:";
 "reverted-edit-thanks-for-editing-title" = "Terima kasih kerana menyunting di Wikipedia!";
