@@ -144,7 +144,7 @@ public class Session: NSObject {
         self.defaultURLSession = Session.getURLSession(delegate: sessionDelegate)
     }
     
-    public static let sharedCookieStorage = HTTPCookieStorage.sharedCookieStorage(forGroupContainerIdentifier: WMFApplicationGroupIdentifier)
+    @objc public static let sharedCookieStorage = HTTPCookieStorage.sharedCookieStorage(forGroupContainerIdentifier: WMFApplicationGroupIdentifier)
     
     deinit {
         teardown()

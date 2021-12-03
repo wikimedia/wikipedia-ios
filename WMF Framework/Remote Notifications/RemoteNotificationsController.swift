@@ -30,7 +30,15 @@ import CocoaLumberjackSwift
     public func refreshNotifications(_ completion: @escaping (RemoteNotificationsOperationsError?) -> Void) {
         operationsController.refreshNotifications(completion)
     }
+
+    public func markAsReadOrUnread(identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool) {
+        operationsController.markAsReadOrUnread(identifierGroups: identifierGroups, shouldMarkRead: shouldMarkRead)
+    }
     
+    public func markAllAsRead() {
+        operationsController.markAllAsRead()
+    }
+
     public func fetchNotifications(fetchLimit: Int = 50, fetchOffset: Int = 0) -> [RemoteNotification] {
         assert(Thread.isMainThread)
         

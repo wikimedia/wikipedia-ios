@@ -22,9 +22,11 @@
 - (void)setType:(WMFTableHeaderFooterLabelViewType)type {
     switch (type) {
         case WMFTableHeaderFooterLabelViewType_Header:
-            self.topConstraint.constant = 15;
+            self.topConstraint.constant = [[UIFontMetrics defaultMetrics] scaledValueForValue:30];
+            break;
         case WMFTableHeaderFooterLabelViewType_Footer:
-            self.topConstraint.constant = 8;
+            self.topConstraint.constant = [[UIFontMetrics defaultMetrics] scaledValueForValue:8];
+            break;
     }
 }
 

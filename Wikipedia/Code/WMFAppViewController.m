@@ -105,8 +105,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 @property (nonatomic) BOOL hasSyncErrorBeenShownThisSesssion;
 
-@property (nonatomic, strong) RemoteNotificationsModelChangeResponseCoordinator *remoteNotificationsModelChangeResponseCoordinator;
-
 @property (nonatomic, strong) WMFReadingListHintController *readingListHintController;
 @property (nonatomic, strong) WMFEditHintController *editHintController;
 
@@ -818,7 +816,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
         if (self.notificationUserInfoToShow) {
             [self hideSplashViewAnimated:!didShowOnboarding];
-            [self showInTheNewsForNotificationInfo:self.notificationUserInfoToShow];
+            [self showNotificationCenterForNotificationInfo:self.notificationUserInfoToShow];
             self.notificationUserInfoToShow = nil;
             done();
         } else if (self.unprocessedUserActivity) {
@@ -1081,6 +1079,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         case WMFUserActivityTypeSearch:
         case WMFUserActivityTypeSettings:
         case WMFUserActivityTypeAppearanceSettings:
+        case WMFUserActivityTypeNotificationSettings:
         case WMFUserActivityTypeContent:
             return YES;
         case WMFUserActivityTypeSearchResults:
@@ -1201,6 +1200,14 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             WMFAppearanceSettingsViewController *appearanceSettingsVC = [[WMFAppearanceSettingsViewController alloc] init];
             [appearanceSettingsVC applyTheme:self.theme];
             [self showSettingsWithSubViewController:appearanceSettingsVC animated:animated];
+        } break;
+        case WMFUserActivityTypeNotificationSettings: {
+            [self dismissPresentedViewControllers];
+            [self setSelectedIndex:WMFAppTabTypeMain];
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            WMFNotificationSettingsViewController *notificationSettingsVC = [[WMFNotificationSettingsViewController alloc] initWithAuthManager:self.dataStore.authenticationManager notificationsController:self.notificationsController];
+            [notificationSettingsVC applyTheme:self.theme];
+            [self showSettingsWithSubViewController:notificationSettingsVC animated:animated];
         } break;
         default: {
             NSURL *linkURL = [activity wmf_linkURL];
@@ -1633,53 +1640,20 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 // The method will be called on the delegate when the user responded to the notification by opening the application, dismissing the notification or choosing a UNNotificationAction. The delegate must be set before the application returns from applicationDidFinishLaunching:.
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
-    NSString *categoryIdentifier = response.notification.request.content.categoryIdentifier;
-    NSString *actionIdentifier = response.actionIdentifier;
-
-    if ([categoryIdentifier isEqualToString:WMFInTheNewsNotificationCategoryIdentifier]) {
-        NSDictionary *info = response.notification.request.content.userInfo;
-        NSString *articleURLString = info[WMFNotificationInfoArticleURLStringKey];
-        NSURL *articleURL = [NSURL URLWithString:articleURLString];
-        if ([actionIdentifier isEqualToString:WMFInTheNewsNotificationShareActionIdentifier]) {
-            WMFArticleViewController *articleVC = [self showArticleWithURL:articleURL animated:NO];
-            [articleVC shareArticleWhenReady];
-        } else if ([actionIdentifier isEqualToString:UNNotificationDefaultActionIdentifier]) {
-            [self showInTheNewsForNotificationInfo:info];
-        } else if ([actionIdentifier isEqualToString:UNNotificationDismissActionIdentifier]) {
-        }
-    }
+    NSDictionary *info = response.notification.request.content.userInfo;
+    
+    //Note: Add back in category and action identifier checks here if In the News notification is restored. Removed in: https://github.com/wikimedia/wikipedia-ios/pull/4046
+    [self showNotificationCenterForNotificationInfo:info];
 
     completionHandler();
 }
 
-- (void)showInTheNewsForNotificationInfo:(NSDictionary *)info {
+- (void)showNotificationCenterForNotificationInfo:(NSDictionary *)info {
     if (!self.isMigrationComplete) {
         self.notificationUserInfoToShow = info;
         return;
     }
-    NSString *articleURLString = info[WMFNotificationInfoArticleURLStringKey];
-    NSURL *articleURL = [NSURL URLWithString:articleURLString];
-    NSDictionary *JSONDictionary = info[WMFNotificationInfoFeedNewsStoryKey];
-    NSError *JSONError = nil;
-    WMFFeedNewsStory *feedNewsStory = [MTLJSONAdapter modelOfClass:[WMFFeedNewsStory class] fromJSONDictionary:JSONDictionary languageVariantCode:nil error:&JSONError];
-    if (!feedNewsStory || JSONError) {
-        DDLogError(@"Error parsing feed news story: %@", JSONError);
-        [self showArticleWithURL:articleURL animated:NO];
-        return;
-    }
-    [self dismissPresentedViewControllers];
-
-    if (!feedNewsStory) {
-        return;
-    }
-
-    UIViewController *vc = [[WMFNewsViewController alloc] initWithStories:@[feedNewsStory] dataStore:self.dataStore contentGroup:nil theme:self.theme];
-    if (!vc) {
-        return;
-    }
-
-    [self.navigationController popToRootViewControllerAnimated:NO];
-    [self.navigationController pushViewController:vc animated:NO];
+    [self userDidTapPushNotification];
 }
 
 #pragma mark - Themeable
@@ -1764,23 +1738,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [[WMFAlertManager sharedInstance] applyTheme:theme];
 
     [self applyTheme:theme toNavigationControllers:[self allNavigationControllers]];
-
-    // Tab bars
-
-    NSArray<UITabBar *> *tabBars = @[self.tabBar, [UITabBar appearance]];
-    NSMutableArray<UITabBarItem *> *tabBarItems = [NSMutableArray arrayWithCapacity:5];
-    for (UITabBar *tabBar in tabBars) {
-        [tabBar applyTheme:theme];
-        if (tabBar.items.count > 0) {
-            [tabBarItems addObjectsFromArray:tabBar.items];
-        }
-    }
-
-    // Tab bar items
-    for (UITabBarItem *item in tabBarItems) {
-        [item applyTheme:theme];
-    }
-
+    [self.tabBar applyTheme:theme];
+    
     [[UISwitch appearance] setOnTintColor:theme.colors.accent];
 
     [self.readingListHintController applyTheme:self.theme];
@@ -1954,7 +1913,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [self applyTheme:self.theme toNavigationControllers:@[navController]];
         _settingsNavigationController = navController;
         _settingsNavigationController.modalPresentationStyle = UIModalPresentationOverFullScreen;
-        _settingsNavigationController.interactivePopGestureRecognizer.delegate = nil;
     }
 
     if (_settingsNavigationController.viewControllers.firstObject != self.settingsViewController) {

@@ -260,19 +260,13 @@ extension StorageAndSyncingSettingsViewController {
 
 extension StorageAndSyncingSettingsViewController {
     @objc func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        guard let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: WMFTableHeaderFooterLabelView.identifier) as? WMFTableHeaderFooterLabelView else {
-            return nil
-        }
-        footer.setShortTextAsProse(sections[section].footerText)
-        footer.type = .footer
-        if let footer = footer as Themeable? {
-            footer.apply(theme: theme)
-        }
-        return footer
+        let text = sections[safeIndex: section]?.footerText
+        return WMFTableHeaderFooterLabelView.headerFooterViewForTableView(tableView, text: text, type: .footer, setShortTextAsProse: true, theme: theme)
     }
     
     @objc func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        guard let _ = self.tableView(tableView, viewForFooterInSection: section) as? WMFTableHeaderFooterLabelView else {
+        guard let text = sections[safeIndex: section]?.footerText,
+              !text.isEmpty else {
             return 0
         }
         return UITableView.automaticDimension

@@ -71,7 +71,7 @@ public class RemoteNotification: NSManagedObject {
             }
         }
     }
-    
+
     public var primaryLinkHost: String? {
         return messageLinks?.primary?.url?.host
     }
@@ -88,7 +88,21 @@ public class RemoteNotification: NSManagedObject {
         return messageLinks?.primary?.label
     }
     
+    public var primaryLink: RemoteNotificationLink? {
+        return messageLinks?.primary
+    }
+    
     public var secondaryLinks: [RemoteNotificationLink]? {
         return messageLinks?.secondary
+    }
+    
+    public struct IdentifierGroup: Hashable {
+        let key: String?
+        let id: String?
+        let wiki: String?
+    }
+    
+    public var identifierGroup: IdentifierGroup {
+        return IdentifierGroup(key: key, id: id, wiki: wiki)
     }
 }

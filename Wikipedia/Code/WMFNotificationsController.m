@@ -36,8 +36,13 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
         self.dataStore = dataStore;
         self.languageLinkController = languageLinkController;
         self.echoSubscriptionFetcher = [[WMFEchoSubscriptionFetcher alloc] initWithSession:dataStore.session configuration:dataStore.configuration];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAppLanguageDidChangeNotification:) name:WMFAppLanguageDidChangeNotification object:nil];
     }
     return self;
+}
+
+- (void)handleAppLanguageDidChangeNotification: (NSNotification *)notification {
+    [self updatePushNotificationsCacheWithNewPrimaryAppLanguage:self.languageLinkController.appLanguage];
 }
 
 - (void)notificationPermissionsStatusWithCompletionHandler:(void (^)(UNAuthorizationStatus status))completionHandler {
@@ -77,7 +82,7 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
 }
 
 - (void)subscribeToEchoNotificationsWithCompletionHandler:(nullable void (^)(NSError *__nullable error))completionHandler {
-
+    [self updatePushNotificationsCacheWithNewPrimaryAppLanguage:self.languageLinkController.appLanguage];
     [self.echoSubscriptionFetcher subscribeWithSiteURL:self.languageLinkController.appLanguage.siteURL deviceToken:self.remoteRegistrationDeviceToken completion:completionHandler];
 }
 

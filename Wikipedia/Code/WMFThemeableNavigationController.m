@@ -34,30 +34,24 @@
 
 - (void)applyTheme:(WMFTheme *)theme {
     self.theme = theme;
-    self.navigationBar.barTintColor = theme.colors.chromeBackground;
     self.navigationBar.translucent = NO;
     self.navigationBar.tintColor = theme.colors.chromeText;
-    UIImage *backgroundImage = nil;
-    switch (self.style) {
-        case WMFThemeableNavigationControllerStyleEditor:
-            backgroundImage = theme.editorNavigationBarBackgroundImage;
-            break;
-        case WMFThemeableNavigationControllerStyleSheet:
-            backgroundImage = theme.sheetNavigationBarBackgroundImage;
-            break;
-        case WMFThemeableNavigationControllerStyleGallery:
-            self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-            [self setNavigationBarHidden:YES animated:NO];
-            break;
-        default:
-            backgroundImage = theme.navigationBarBackgroundImage;
-            break;
-    }
-    [self.navigationBar setBackgroundImage:backgroundImage forBarMetrics:UIBarMetricsDefault];
-    [self.navigationBar setTitleTextAttributes:theme.navigationBarTitleTextAttributes];
+    UINavigationBarAppearance *appearance = [UINavigationBarAppearance appearanceForTheme:theme style:self.style];
+    self.navigationBar.standardAppearance = appearance;
+    self.navigationBar.scrollEdgeAppearance = appearance;
+    self.navigationBar.compactAppearance = appearance;
 
-    self.toolbar.barTintColor = theme.colors.chromeBackground;
-    self.toolbar.translucent = NO;
+    if (@available(iOS 15.0, *)) {
+        //do nothing
+    } else {
+        self.navigationBar.barTintColor = theme.colors.chromeBackground;
+    }
+
+    if (self.style == WMFThemeableNavigationControllerStyleGallery) {
+        self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self setNavigationBarHidden:YES animated:NO];
+    }
+
     self.view.tintColor = theme.colors.link;
     [self setNeedsStatusBarAppearanceUpdate];
 }

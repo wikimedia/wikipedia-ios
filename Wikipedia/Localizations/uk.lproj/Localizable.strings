@@ -14,6 +14,7 @@
 // Author: Nemo bis
 // Author: NickK
 // Author: Piramidion
+// Author: Renvoy
 // Author: SimondR
 // Author: Sir-nik
 // Author: Tsevener
@@ -247,7 +248,7 @@
 "diff-thanks-send-button-title" = "Подякувати";
 "diff-thanks-send-subtitle" = "«Подяка» — це легкий спосіб висловити вдячність за внесок редактора у Вікіпедії. Вона не може бути відкликана і є видимою публічно.";
 "diff-thanks-send-title" = "Висловлення подяки";
-"diff-thanks-sent" = "Ваша подяка надіслана до $1";
+"diff-thanks-sent" = "Вашу подяку надіслано до $1";
 "diff-thanks-sent-already" = "Ви вже подякували за це редагування";
 "diff-thanks-sent-cannot-unsend" = "Подяка не може бути відкликана";
 "diff-unedited-lines-format" = "{{PLURAL:$1|$1 рядок не змінився|$1 рядки не змінилися|$1 рядків не змінилось}}";
@@ -575,6 +576,51 @@
 "no-internet-connection" = "Немає з'єднання з інтернетом";
 "no-internet-connection-article-reload" = "Можливо, доступна новіша версія цієї статті, але вона не може бути завантажена через відсутність підключення до Інтернету";
 "no-internet-connection-article-reload-button" = "Повернутися до останньої збереженої версії";
+"notifications-center-change-password" = "Змінити пароль";
+"notifications-center-commons-project-name" = "Вікісховище";
+"notifications-center-edit-button" = "Редагувати";
+"notifications-center-empty-checking-for-notifications" = "Перевірка сповіщень…";
+"notifications-center-empty-no-unread-messages" = "У вас немає непрочитаних повідомлень";
+"notifications-center-empty-not-subscribed" = "Наразі ви не підписані на жодні сповіщення Вікіпедії";
+"notifications-center-footer-change-password" = "Змінити пароль";
+"notifications-center-go-to-diff" = "Перейти до дифа";
+"notifications-center-go-to-talk-page" = "Перейти на сторінку обговорення";
+"notifications-center-go-to-title" = "Перейти на $1";
+"notifications-center-go-to-user-page" = "Перейти на сторінку користувача $1";
+"notifications-center-go-to-wikidata-item" = "Перейти до елемента Вікіданих";
+"notifications-center-go-to-your-talk-page" = "Перейти на свою сторінку обговорення";
+"notifications-center-header-alert-from-project" = "Сповіщення від $1";
+"notifications-center-header-notice-from-project" = "Повідомлення від $1";
+"notifications-center-language-project-name-format" = "$1 $2";
+"notifications-center-login-notifications" = "Повідомлення про вхід";
+"notifications-center-mark-as-read" = "Позначити як прочитане";
+"notifications-center-mark-as-unread" = "Позначити як непрочитане";
+"notifications-center-notifications-settings" = "Налаштування сповіщень";
+"notifications-center-subheader-edit-milestone" = "Етап редагування";
+"notifications-center-subheader-edit-reverted" = "Ваше редагування було відкочено";
+"notifications-center-subheader-email-from-other-user" = "Нова електронна пошта";
+"notifications-center-subheader-login-fail-known-device" = "Кілька невдалих спроб входу";
+"notifications-center-subheader-login-fail-unknown-device" = "Невдала спроба входу";
+"notifications-center-subheader-login-success-unknown-device" = "Увійти з незнайомого пристрою";
+"notifications-center-subheader-mention-article-talk-page" = "Згадка на сторінці обговорення статті";
+"notifications-center-subheader-mention-edit-summary" = "Згадка в описі редагування";
+"notifications-center-subheader-mention-failed" = "Не вдалося згадати";
+"notifications-center-subheader-mention-successful" = "Вдале згадування";
+"notifications-center-subheader-mention-talk-page" = "Згадка на сторінці обговорення";
+"notifications-center-subheader-message-user-talk-page" = "Повідомлення на вашій сторінці обговорення";
+"notifications-center-subheader-page-link" = "Посилання на сторінку";
+"notifications-center-subheader-page-reviewed" = "Сторінку переглянуто";
+"notifications-center-subheader-thanks" = "Подяка";
+"notifications-center-subheader-translate-milestone" = "Етап перекладу";
+"notifications-center-subheader-user-rights-change" = "Зміна прав користувача";
+"notifications-center-subheader-welcome" = "Ласкаво просимо!";
+"notifications-center-subheader-wikidata-connection" = "Встановлено підключення до Вікіданих";
+"notifications-center-title" = "Сповіщення";
+"notifications-center-wikidata-project-name" = "Вікідані";
+"notifications-push-fallback-body-text" = "Нова активність у Вікіпедії";
+"notifications-push-talk-body-format" = "$1 новий $2 на $3";
+"notifications-push-talk-messages-format" = "{{PLURAL:$1|повідомлення|повідомлень}}";
+"notifications-push-talk-title-format" = "Новий $1";
 "number-billions" = "$1 млрд";
 "number-millions" = "$1 млн";
 "number-thousands" = "$1 тис.";
@@ -740,6 +786,8 @@
 "relative-date-hours-abbreviated" = "$1 г.";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Нещодавно|$1 годину назад|$1 години назад|$1 годин назад}}";
 "relative-date-hours-ago-abbreviated" = "$1 г. тому";
+"relative-date-hrs-ago" = "{{PLURAL:$1|0=Нещодавно|$1 годину тому|$1 години тому|$1 годин тому}}";
+"relative-date-min-ago" = "{{PLURAL:$1|0=Щойно|$1 хвилину назад|$1 хвилини назад|$1 хвилин назад}}";
 "relative-date-minutes-abbreviated" = "$1 хв.";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Щойно|$1 хвилину назад|$1 хвилини назад|$1 хвилин назад}}";
 "relative-date-minutes-ago-abbreviated" = "$1 хв. тому";
@@ -758,8 +806,6 @@
 "replace-textfield-accessibility" = "Замінити";
 "replace-textfield-placeholder" = "Замінити на…";
 "reverted-edit-back-to-article-button-title" = "Назад до статті";
-"reverted-edit-notification-body" = "Редагування, яке ви зробили у статті $1, було скасовано користувачем $2";
-"reverted-edit-notification-read-more-action-title" = "Пов'язані сторінки";
 "reverted-edit-possible-reasons" = "- Ваш внесок не відповідає одній з настанов. $1\n\n- Ваш внесок схожий на вандалізм";
 "reverted-edit-possible-reasons-subtitle" = "Ми знаємо, що ви старалися як могли, але в одного з перевіряльників виникли сумніви.\n\nЙмовірні причини скасування вашого редагування:";
 "reverted-edit-thanks-for-editing-title" = "Дякуємо за редагування Вікіпедії!";
@@ -798,7 +844,7 @@
 "settings-clear-cache-ok" = "Очистити кеш";
 "settings-help-and-feedback" = "Допомога та зворотний зв'язок";
 "settings-language-bar" = "Показувати мови при пошуку";
-"settings-languages-feed-customization" = "Ви можете зазначити в налаштуваннях, які мови будуть показані у вашій стрічці.";
+"settings-languages-feed-customization" = "Ви можете зазначити в налаштуваннях, які мови показуватимуться у вашій стрічці.";
 "settings-my-languages" = "Мої мови";
 "settings-notifications" = "Сповіщення";
 "settings-notifications-info" = "Будьте в курсі трендових і найпопулярніших статей у Вікіпедії з нашими push-сповіщеннями. Уся інформація надається зі збереженням конфіденційності та з точністю до хвилини.";
@@ -818,7 +864,7 @@
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "Вилучення збережених статей призведе до вилучення їх з вашого облікового запису користувача, якщо у вас увімкнена синхронізація, а також з цього пристрою.\n\nВилучення збережених статей вивільнить близько $1 місця.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "Стерти збережені статті";
 "settings-storage-and-syncing-full-sync" = "Ваші читальні списки синхронізовуватимуться у фоновому режимі";
-"settings-storage-and-syncing-server-sync-footer-text" = "Запросити синхронізацію для оновлення ваших статей і читальних списків.";
+"settings-storage-and-syncing-server-sync-footer-text" = "Створити запит на синхронізацію для оновлення ваших статей і читальних списків.";
 "settings-storage-and-syncing-server-sync-title" = "Оновити синхронізовані читальні списки";
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "Показувати «Збережене» окремо від читальних списків. Цей список буде показано на пристроях Android.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "Показувати «Збережене»";

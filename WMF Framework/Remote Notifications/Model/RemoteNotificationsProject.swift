@@ -40,12 +40,12 @@ public enum RemoteNotificationsProject {
             return nil
         }
     }
-    
-    public init?(apiIdentifier: String?, languageLinkController: MWKLanguageLinkController) {
-        
-        guard let apiIdentifier = apiIdentifier else {
-            return nil
-        }
+
+    /// Initializes RemoteNotificationProject with wiki identifier recognize by the MediaWiki Notifications API
+    /// - Parameters:
+    ///   - apiIdentifier: The API identifier used by the MediaWiki Notifications API. (e.g. "enwiki", "commonswiki", "wikidatawiki", etc.)
+    ///   - languageLinkController: Include if you want to validate project against a list of languages that the app recognizes. If it isn't contained in languageLinkController's allLanguages property, instantiation fails. Including this also associates extra metadata to language enum associated value, like localizedName and languageVariantCode.
+    public init?(apiIdentifier: String, languageLinkController: MWKLanguageLinkController? = nil) {
         
         switch apiIdentifier {
         case "commonswiki":
@@ -53,9 +53,16 @@ public enum RemoteNotificationsProject {
         case "wikidatawiki":
             self = .wikidata
         default:
-            //confirm it is a recognized language
+            
             let suffix = Self.languageIdentifierSuffix
             let strippedIdentifier = apiIdentifier.hasSuffix(suffix) ? String(apiIdentifier.dropLast(suffix.count)) : apiIdentifier
+            
+            guard let languageLinkController = languageLinkController else {
+                self = .language(strippedIdentifier, nil, nil)
+                return
+            }
+            
+            //confirm it is a recognized language
             let recognizedLanguage = languageLinkController.allLanguages.first { languageLink in
                 languageLink.languageCode == strippedIdentifier
             }

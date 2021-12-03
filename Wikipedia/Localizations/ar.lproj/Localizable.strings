@@ -739,8 +739,6 @@
 "replace-textfield-accessibility" = "استبدال";
 "replace-textfield-placeholder" = "استبدل بـ…";
 "reverted-edit-back-to-article-button-title" = "العودة إلى المقالة";
-"reverted-edit-notification-body" = "تم إرجاع التعديل الذي تم إجراؤه بمقالة $1 بواسطة $2";
-"reverted-edit-notification-read-more-action-title" = "قراءة المزيد";
 "reverted-edit-possible-reasons" = "- لم تتوافق مساهمتك مع إحدى الإرشادات، $1\n - بدت مساهمتك كتجربة أو تخريب";
 "reverted-edit-possible-reasons-subtitle" = "نحن نعلم أنك جربت أفضل ما لديك، ولكن كان أحد المراجعين قلقا.\n\nمن بين الأسباب المحتملة لإعادة تعديلك:";
 "reverted-edit-thanks-for-editing-title" = "شكرا على تحرير ويكيبيديا!";

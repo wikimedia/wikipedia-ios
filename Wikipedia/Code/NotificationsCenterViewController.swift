@@ -1,4 +1,5 @@
 import UIKit
+import WMF
 
 @objc
 final class NotificationsCenterViewController: ViewController {
@@ -303,23 +304,45 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
         }
     }
 
-    /// This will be removed in the final implementation
+    /// TODO: This will be removed in the final implementation
     fileprivate func userDidSwipeCell(indexPath: IndexPath?) {
-        /*
-        guard let indexPath = indexPath, let cellViewModel = viewModel.cellViewModel(indexPath: indexPath) else {
+        guard let indexPath = indexPath,
+              let cellViewModel = dataSource?.itemIdentifier(for: indexPath) else {
+            return
+        }
+        
+        let sheetActions = cellViewModel.sheetActions(for: viewModel.configuration)
+        guard !sheetActions.isEmpty else {
             return
         }
 
         let alertController = UIAlertController(title: cellViewModel.headerText, message: cellViewModel.bodyText, preferredStyle: .actionSheet)
 
-        let firstAction = UIAlertAction(title: "Action 1", style: .default)
-        let secondAction = UIAlertAction(title: "Action 2", style: .default)
-        let thirdAction = UIAlertAction(title: "Action 3", style: .default)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-
-        alertController.addAction(firstAction)
-        alertController.addAction(secondAction)
-        alertController.addAction(thirdAction)
+        sheetActions.forEach { action in
+            
+            let alertAction: UIAlertAction
+            switch action {
+            case .markAsReadOrUnread(let data):
+                alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
+                    let shouldMarkRead = cellViewModel.isRead ? false : true
+                    self.viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: shouldMarkRead)
+                })
+            case .notificationSubscriptionSettings(let data):
+                alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
+                    let userActivity = NSUserActivity.wmf_notificationSettings()
+                    NSUserActivity.wmf_navigate(to: userActivity)
+                })
+            case .custom(let data):
+                alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
+                    let url = data.url
+                    self.navigate(to: url)
+                })
+            }
+            
+            alertController.addAction(alertAction)
+        }
+        
+        let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
         alertController.addAction(cancelAction)
 
         if let popoverController = alertController.popoverPresentationController, let cell = notificationsView.collectionView.cellForItem(at: indexPath) {
@@ -328,7 +351,6 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
         }
 
         present(alertController, animated: true, completion: nil)
-        */
     }
 }
 

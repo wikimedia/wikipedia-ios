@@ -136,7 +136,6 @@ class DetailTransition: NSObject, UIViewControllerAnimatedTransitioning {
             let copiedItems: [UITabBarItem]? = tb.items?.compactMap { (item: UITabBarItem) -> UITabBarItem in
                 let copiedItem = UITabBarItem(title: item.title, image: item.image, selectedImage: item.selectedImage)
                 copiedItem.badgeValue = item.badgeValue
-                copiedItem.apply(theme: theme)
                 if item === tb.selectedItem {
                     selectedItem = copiedItem
                 }

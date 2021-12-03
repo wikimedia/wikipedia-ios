@@ -307,6 +307,22 @@
 			<string>%1$d artiklar</string>
 		</dict>
 	</dict>
+	<key>notifications-push-talk-messages-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>meddelande</string>
+			<key>other</key>
+			<string>meddelanden</string>
+		</dict>
+	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -556,6 +572,42 @@
 			<string>%1$d timmar sedan</string>
 			<key>zero</key>
 			<string>Nyligen</string>
+		</dict>
+	</dict>
+	<key>relative-date-hrs-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d t sedan</string>
+			<key>other</key>
+			<string>%1$d t sedan</string>
+			<key>zero</key>
+			<string>Nyligen</string>
+		</dict>
+	</dict>
+	<key>relative-date-min-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d min sedan</string>
+			<key>other</key>
+			<string>%1$d min sedan</string>
+			<key>zero</key>
+			<string>Nu</string>
 		</dict>
 	</dict>
 	<key>relative-date-minutes-ago</key>

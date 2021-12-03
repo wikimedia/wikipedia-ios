@@ -53,7 +53,7 @@
 "aaald-new-news-reference-title" = "Notizie";
 "aaald-new-talk-topic-description-format" = "$1 su questa voce";
 "aaald-new-website-reference-title" = "Sito web";
-"aaald-one-section-description" = "nella sezione  $1";
+"aaald-one-section-description" = "nella sezione $1";
 "aaald-revision-by-anonymous" = "Modificato da un utente anonimo";
 "aaald-revision-userInfo" = "Modificato da $1 ($2 modifiche)";
 "aaald-single-reference-added-description" = "Riferimenti aggiunti";
@@ -427,6 +427,13 @@
 "no-internet-connection" = "Nessuna connessione internet";
 "no-internet-connection-article-reload" = "Potrebbe essere disponibile una versione più recente di questa voce, ma non può essere caricata senza una connessione a internet";
 "no-internet-connection-article-reload-button" = "Torna all'ultima versione salvata";
+"notifications-center-commons-project-name" = "Wikimedia Commons";
+"notifications-center-edit-button" = "Modifica";
+"notifications-center-footer-change-password" = "Cambia password";
+"notifications-center-subheader-thanks" = "Ringraziamenti";
+"notifications-center-subheader-welcome" = "Benvenuto/a!";
+"notifications-center-title" = "Notifiche";
+"notifications-center-wikidata-project-name" = "Wikidata";
 "number-billions" = "$1";
 "number-millions" = "$1";
 "number-thousands" = "$1 mila";
@@ -527,6 +534,8 @@
 "relative-date-hours-abbreviated" = "$1h";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recentemente|$1 ora fa|$1 ore fa}}";
 "relative-date-hours-ago-abbreviated" = "$1h fa";
+"relative-date-hrs-ago" = "{{PLURAL:$1|0=Recentemente|$1 ora fa|$1 ore fa}}";
+"relative-date-min-ago" = "{{PLURAL:$1|0=Ora|$1 minuto fa|$1 minuti fa}}";
 "relative-date-minutes-abbreviated" = "$1m";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Proprio ora|$1 minuto fa|$1 minuti fa}}";
 "relative-date-minutes-ago-abbreviated" = "$1m fa";
@@ -541,8 +550,6 @@
 "replace-textfield-accessibility" = "Sostituisci";
 "replace-textfield-placeholder" = "Sostituisci con…";
 "reverted-edit-back-to-article-button-title" = "Torna alla voce";
-"reverted-edit-notification-body" = "La modifica che hai fatto alla voce $1 è stata annullata da $2";
-"reverted-edit-notification-read-more-action-title" = "Per saperne di più";
 "reverted-edit-possible-reasons" = "- Il tuo contributo non segue alcune linee guida. $1\n\n- Il tuo contributo è sembrato un test o un vandalismo";
 "reverted-edit-thanks-for-editing-title" = "Grazie per aver modificato Wikipedia!";
 "reverted-edit-title" = "Modifica annullata";
@@ -606,7 +613,7 @@
 "table-of-contents-close-accessibility-label" = "Chiudi l'indice";
 "table-of-contents-heading" = "Contenuti";
 "talk-page-add-discussion-accessibility-label" = "Aggiungi discussione";
-"talk-page-discussion-read-accessibility-label" = "Leggi";
+"talk-page-discussion-read-accessibility-label" = "Letta";
 "talk-page-discussion-unread-accessibility-label" = "Non lette";
 "talk-page-error-unable-to-post-reply" = "Nessuna connessione a internet. Impossibile pubblicare la risposta.";
 "talk-page-error-unable-to-post-topic" = "Nessuna connessione a internet. Impossibile pubblicare la risposta.";

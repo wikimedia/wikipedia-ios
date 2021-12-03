@@ -15,7 +15,6 @@ open class CollectionViewCell: UICollectionViewCell {
     
     // Subclassers should override setup instead of any of the initializers. Subclassers must call super.setup()
     open func setup() {
-        translatesAutoresizingMaskIntoConstraints = false
         contentView.translatesAutoresizingMaskIntoConstraints = false
         preservesSuperviewLayoutMargins = false
         contentView.preservesSuperviewLayoutMargins = false
