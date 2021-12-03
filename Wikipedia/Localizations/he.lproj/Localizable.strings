@@ -615,6 +615,10 @@
 "notifications-center-subheader-wikidata-connection" = "קישור ויקינתונים בוצע";
 "notifications-center-title" = "התראות";
 "notifications-center-wikidata-project-name" = "ויקינתונים";
+"notifications-push-fallback-body-text" = "פעילות חדשה בוויקיפדיה";
+"notifications-push-talk-body-format" = "$1 $2 בדף $3";
+"notifications-push-talk-messages-format" = "{{PLURAL:$1|הודעה חדשה|הודעות חדשות}}";
+"notifications-push-talk-title-format" = "$1";
 "number-billions" = "$1";
 "number-millions" = "$1";
 "number-thousands" = "$1K";

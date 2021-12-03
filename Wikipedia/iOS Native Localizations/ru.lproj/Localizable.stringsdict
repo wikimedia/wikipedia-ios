@@ -325,6 +325,24 @@
 			<string>%1$d статей</string>
 		</dict>
 	</dict>
+	<key>notifications-push-talk-messages-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>сообщения</string>
+			<key>one</key>
+			<string>сообщение</string>
+			<key>other</key>
+			<string>сообщений</string>
+		</dict>
+	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -550,6 +568,26 @@
 		</dict>
 	</dict>
 	<key>relative-date-hours-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>few</key>
+			<string>%1$d часов назад</string>
+			<key>one</key>
+			<string>%1$d час назад</string>
+			<key>other</key>
+			<string>%1$d часа назад</string>
+			<key>zero</key>
+			<string>Недавно</string>
+		</dict>
+	</dict>
+	<key>relative-date-hrs-ago</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v1@</string>

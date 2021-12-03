@@ -26,6 +26,7 @@
 // Author: SuperPete
 // Author: Surjection
 // Author: Valtlait
+// Author: Veikk0.ma
 
 "aaald-added-text-description-2" = "$1 lisätty";
 "aaald-article-description-updated-description" = "Artikkelin kuvaus päivitetty";
@@ -320,6 +321,7 @@
 "empty-no-feed-message" = "Näet suositellut artikkelisi kun sinulla on Internet-yhteys";
 "empty-no-history-message" = "Pidä kirjaa lukemistasi artikkeleista";
 "empty-no-history-title" = "Ei näytettävää historiaa";
+"empty-no-other-article-languages-message" = "Artikkelia ei ole vielä kirjoitettu muilla kielillä.";
 "empty-no-other-article-languages-title" = "Muita kieliä ei saatavilla";
 "empty-no-reading-lists-message" = "Luo lukulistoja matkustettaville paikoille, suosikkiartikkeleille ja paljon enemmän";
 "empty-no-reading-lists-title" = "Järjestä tallennetut artikkelit lukulistoilla";
@@ -559,9 +561,11 @@
 "no-internet-connection-article-reload" = "Uudempi versio tästä artikkelista saattaa olla saatavilla, mutta sitä ei voida ladata ilman yhteyttä Internetiin";
 "no-internet-connection-article-reload-button" = "Palaa viimeksi tallennettuun versioon";
 "notifications-center-change-password" = "Vaihda salasana";
+"notifications-center-commons-project-name" = "Wikimedia Commons";
 "notifications-center-edit-button" = "Muokkaa";
 "notifications-center-empty-checking-for-notifications" = "Tarkistetaan ilmoituksia...";
 "notifications-center-empty-no-unread-messages" = "Sinulla ei ole lukemattomia viestejä";
+"notifications-center-empty-not-subscribed" = "Et ole tilannut Wikipedia-ilmoituksia";
 "notifications-center-footer-change-password" = "Vaihda salasana";
 "notifications-center-go-to-talk-page" = "Mene keskustelusivulle";
 "notifications-center-go-to-title" = "Mene sivulle $1";
@@ -587,10 +591,15 @@
 "notifications-center-subheader-message-user-talk-page" = "Viesti keskustelusivullasi";
 "notifications-center-subheader-page-link" = "Sivulinkki";
 "notifications-center-subheader-thanks" = "Kiitos";
+"notifications-center-subheader-translate-milestone" = "Käännösvirstanpylväs";
 "notifications-center-subheader-user-rights-change" = "Käyttäjäoikeuksien muutos";
 "notifications-center-subheader-welcome" = "Tervetuloa!";
 "notifications-center-subheader-wikidata-connection" = "Wikidata-yhteys muodostettu";
 "notifications-center-title" = "Ilmoitukset";
+"notifications-center-wikidata-project-name" = "Wikidata";
+"notifications-push-talk-body-format" = "$1 $2 sivulla $3";
+"notifications-push-talk-messages-format" = "{{PLURAL:$1|uusi viesti|uutta viestiä}}";
+"notifications-push-talk-title-format" = "Uusi $1";
 "number-billions" = "$1 mrd.";
 "number-millions" = "$1 milj.";
 "number-thousands" = "$1 t.";
@@ -897,6 +906,7 @@
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "Katso lisää luetuimpia";
+"top-read-widget-readers-count" = "$ lukijaa";
 "top-read-widget-title" = "Luetuimmat";
 "two-factor-login-continue" = "Jatka sisäänkirjautumista";
 "two-factor-login-instructions" = "Syötä kaksivaiheisen vahvistuksen koodi";
@@ -932,6 +942,7 @@
 "welcome-send-data-learn-more" = "Lue lisää kerätyistä tiedoista";
 "welcome-send-data-sub-title" = "Auta sovelluksen kehitystyössä antamalla Wikimedia-säätiön kerätä tietoja sovelluksen käyttötavoista. Tiedot kerätään anonyymisti.";
 "welcome-volunteer-send-usage-reports" = "Lähetä käyttöraportteja";
+"widget-onthisday-placeholder-article-snippet" = "Vapaa tietosanakirja, jota kuka tahansa voi muokata";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, ilmainen tietosanakirja, siirtyy verkkoon.";
 "wikitext-downloading" = "Ladataan sisältöä...";
 "wikitext-preview-changes" = "Ladataan esikatselua tehdyistä muutoksista...";

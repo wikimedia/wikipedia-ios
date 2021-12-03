@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Aftab1995
 // Author: Aftabuzzaman
+// Author: Ankan
 // Author: Bodhisattwa
 // Author: Elias Ahmmad
 // Author: JoeWalshWMF
@@ -51,8 +52,7 @@
 "abuse-filter-warning-heading" = "এটি অ-গঠনমূলক সম্পাদনা বলে মনে হচ্ছে, আপনি কি নিশ্চিতভাবে এটি প্রকাশ করতে চান?";
 "abuse-filter-warning-irrelevant" = "অপ্রাসঙ্গিক বাহ্যিক লিঙ্ক বা চিত্র";
 "abuse-filter-warning-repeat" = "অক্ষরেররর পুনরাবৃত্তি";
-// Fuzzy
-"abuse-filter-warning-subheading" = "আপনার সম্পাদনায় নিম্নলিখিতগুলি এক বা একাধিক থাকতে পারে:";
+"abuse-filter-warning-subheading" = "আপনার সম্পাদনায় থাকতে পারে:";
 "account-creation-captcha-cannot-see-image" = "চিত্রটি দেখতে পাচ্ছেন না? $1";
 "account-creation-captcha-obtaining" = "একটি নতুন ক্যাপচা সংগ্রহ করা হচ্ছে...";
 "account-creation-captcha-request-account" = "অ্যাকাউন্টের অনুরোধ করুন।";
@@ -249,6 +249,47 @@
 "new-password-instructions" = "আপনি সাময়িক পাসওয়ার্ড দিয়ে প্রবেশ করেছেন। প্রবেশ সম্পূর্ণ করতে এখানে একটি নতুন পাসওয়ার্ড নির্ধারণ করুন।";
 "new-password-title" = "আপনার পাসওয়ার্ড স্থাপন করুন";
 "no-email-account-alert" = "দয়া করে আপনার ডিভাসে একটি ইমেইল অ্যাকাউন্ট নির্ধারণ করুন এবং আবার চেষ্টা করুন।";
+"notifications-center-change-password" = "পাসওয়ার্ড পরিবর্তন";
+"notifications-center-commons-project-name" = "উইকিমিডিয়া কমন্স";
+"notifications-center-edit-button" = "সম্পাদনা";
+"notifications-center-empty-checking-for-notifications" = "বিজ্ঞপ্তির জন্য অনুসন্ধান করা হচ্ছে...";
+"notifications-center-empty-no-unread-messages" = "আপনার কোনো নতুন বার্তা নেই";
+"notifications-center-empty-not-subscribed" = "আপনি বর্তমানে কোনো উইকিপিডিয়া বিজ্ঞপ্তির সদস্যতা গ্রহণ করেননি";
+"notifications-center-footer-change-password" = "পাসওয়ার্ড পরিবর্তন";
+"notifications-center-go-to-diff" = "পরিবর্তনে যান";
+"notifications-center-go-to-talk-page" = "আলাপ পাতায় যান";
+"notifications-center-go-to-title" = "$1-এ যান";
+"notifications-center-go-to-user-page" = "$1-এর আলাপ পাতায় যান";
+"notifications-center-go-to-wikidata-item" = "উইকিউপাত্তের ভুক্তিতে যান";
+"notifications-center-go-to-your-talk-page" = "আপনার আলাপ পাতায় যান";
+"notifications-center-header-alert-from-project" = "$1 থেকে সতর্কতা";
+"notifications-center-header-notice-from-project" = "$1 হতে বিজ্ঞপ্তি";
+"notifications-center-language-project-name-format" = "$1 $2";
+"notifications-center-login-notifications" = "প্রবেশের বিজ্ঞপ্তি";
+"notifications-center-mark-as-read" = "পঠিত হিসেবে চিহ্নিত করুন";
+"notifications-center-mark-as-unread" = "অপঠিত হিসেবে চিহ্নিত করুন";
+"notifications-center-notifications-settings" = "বিজ্ঞপ্তির সেটিংস";
+"notifications-center-subheader-edit-milestone" = "সম্পাদনার মাইলফলক";
+"notifications-center-subheader-edit-reverted" = "আপনার সম্পাদনা সরিয়ে আগের অবস্থায় নিয়ে যাওয়া হয়েছে";
+"notifications-center-subheader-email-from-other-user" = "নতুন ইমেইল";
+"notifications-center-subheader-login-fail-known-device" = "একাধিক ব্যর্থ প্রবেশের প্রচেষ্টা";
+"notifications-center-subheader-login-fail-unknown-device" = "ব্যর্থ প্রবেশের প্রচেষ্টা";
+"notifications-center-subheader-login-success-unknown-device" = "একটি অপরিচিত ডিভাইস থেকে প্রবেশ";
+"notifications-center-subheader-mention-article-talk-page" = "নিবন্ধের আলাপ পাতায় উল্লেখ";
+"notifications-center-subheader-mention-edit-summary" = "সম্পাদনা সারাংশে উল্লেখ করুন";
+"notifications-center-subheader-mention-failed" = "ব্যর্থ উল্লেখ";
+"notifications-center-subheader-mention-successful" = "সফলভাবে উল্লেখ করা হয়েছে";
+"notifications-center-subheader-mention-talk-page" = "আলাপ পাতায় উল্লেখ";
+"notifications-center-subheader-message-user-talk-page" = "আপনার আলাপ পাতার বার্তা";
+"notifications-center-subheader-page-link" = "পাতার লিঙ্ক";
+"notifications-center-subheader-page-reviewed" = "পাতা পর্যালোচিত";
+"notifications-center-subheader-thanks" = "ধন্যবাদ";
+"notifications-center-subheader-translate-milestone" = "অনুবাদের মাইলফলক";
+"notifications-center-subheader-user-rights-change" = "ব্যবহারকারী অধিকারের পরিবর্তন";
+"notifications-center-subheader-welcome" = "স্বাগতম!";
+"notifications-center-subheader-wikidata-connection" = "উইকিউপাত্তের সংযোগ তৈরি হয়েছে";
+"notifications-center-title" = "বিজ্ঞপ্তি";
+"notifications-center-wikidata-project-name" = "উইকিউপাত্ত";
 "number-billions" = "$1 বিলিয়ন";
 "number-millions" = "$1 মিলিয়ন";
 "number-thousands" = "$1 হাজার";
@@ -303,6 +344,8 @@
 "reference-title" = "তথ্যসূত্র $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=আজ|1=গতকাল|$1 দিন আগে}}";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=সম্প্রতি|$1 ঘণ্টা আগে}}";
+"relative-date-hrs-ago" = "{{PLURAL:$1|0=সম্প্রতি|$1 ঘণ্টা আগে}}";
+"relative-date-min-ago" = "{{PLURAL:$1|0=এইমাত্র|$1 মিনিট আগে}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=এইমাত্র|$1 মিনিট আগে}}";
 "relative-date-months-ago" = "{{PLURAL:$1|0=এই মাস|1=গত মাস|$1 মাস আগে}}";
 "reverted-edit-thanks-for-editing-title" = "উইকিপিডিয়ায় সম্পাদনা করার জন্য ধন্যবাদ!";
