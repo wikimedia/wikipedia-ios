@@ -593,7 +593,6 @@
 "no-internet-connection-article-reload" = "Bu maddenin daha yeni bir sürümü mevcut olabilir ancak internet bağlantısı olmadan yüklenemez";
 "no-internet-connection-article-reload-button" = "En son kaydedilen sürüme dön";
 "notifications-center-change-password" = "Parolayı Değiştir";
-"notifications-center-edit-button" = "Düzenle";
 "notifications-center-empty-checking-for-notifications" = "Bildirimler kontrol ediliyor...";
 "notifications-center-empty-no-unread-messages" = "Okunmamış mesajınız yok";
 "notifications-center-empty-not-subscribed" = "Herhangi bir Vikipedi Bildirimine üye değilsiniz";
