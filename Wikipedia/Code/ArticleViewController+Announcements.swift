@@ -31,6 +31,7 @@ extension ArticleViewController {
         else {
             return
         }
+        
         let dismiss = {
             // re-fetch since time has elapsed
             let contentGroup = self.dataStore.viewContext.contentGroup(for: contentGroupURL)
@@ -42,6 +43,12 @@ extension ArticleViewController {
                 DDLogError("Error saving after marking article announcement as dismissed: \(saveError)")
             }
         }
+        
+        guard !articleURL.isThankYouDonationURL else {
+            dismiss()
+            return
+        }
+        
         let context = FeedFunnelContext(contentGroup)
         FeedFunnel.shared.logFeedImpression(for: context)
         wmf_showAnnouncementPanel(announcement: announcement, primaryButtonTapHandler: { (sender) in
@@ -55,5 +62,11 @@ extension ArticleViewController {
         }, traceableDismissHandler: { _ in
             dismiss()
         }, theme: theme)
+    }
+}
+
+private extension URL {
+    var isThankYouDonationURL: Bool {
+        return self.host == "thankyou.wikipedia.org"
     }
 }
