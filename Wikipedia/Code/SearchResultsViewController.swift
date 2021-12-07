@@ -93,6 +93,10 @@ class SearchResultsViewController: ArticleCollectionViewController {
     }
     
     override func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool) {
+        configure(cell: cell, forItemAt: indexPath, layoutOnly: layoutOnly, configureForCompact: true)
+    }
+    
+    private func configure(cell: ArticleRightAlignedImageCollectionViewCell, forItemAt indexPath: IndexPath, layoutOnly: Bool, configureForCompact: Bool) {
         guard indexPath.item < results.count else {
             return
         }
@@ -101,7 +105,11 @@ class SearchResultsViewController: ArticleCollectionViewController {
               let contentLanguageCode = searchSiteURL?.wmf_contentLanguageCode else {
             return
         }
-        cell.configureForCompactList(at: indexPath.item)
+        
+        if configureForCompact {
+            cell.configureForCompactList(at: indexPath.item)
+        }
+        
         cell.setTitleHTML(result.displayTitleHTML, boldedString: resultsInfo?.searchTerm)
         cell.articleSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: contentLanguageCode)
         cell.titleLabel.accessibilityLanguage = languageCode
@@ -112,7 +120,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
             cell.isImageViewHidden = result.thumbnailURL != nil
         } else {
             cell.imageURL = result.thumbnailURL
-        } 
+        }
         cell.apply(theme: theme)
     }
     
@@ -137,7 +145,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
                 continue
             }
 
-            configure(cell: cell, forItemAt: indexPath, layoutOnly: false)
+            configure(cell: cell, forItemAt: indexPath, layoutOnly: false, configureForCompact: false)
         }
     }
 }
