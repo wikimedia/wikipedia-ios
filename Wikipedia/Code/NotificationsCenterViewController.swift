@@ -362,7 +362,6 @@ private extension NotificationsCenterViewController {
     }
     
     func updateToolbar(for state: NotificationsCenterViewModel.State) {
-        print(state)
         switch state {
         case .data(_, let dataState):
             switch dataState {
@@ -602,8 +601,7 @@ private extension NotificationsCenterViewController {
                 return
             }
             
-            let hostingVC = UIHostingController(rootView: NotificationsCenterInboxView(viewModel: inboxViewModel, didUpdateFiltersCallback: { [weak self] in
-                
+            let inboxView = NotificationsCenterInboxView(viewModel: inboxViewModel) { [weak self] in
                 guard let self = self else {
                     return
                 }
@@ -611,10 +609,13 @@ private extension NotificationsCenterViewController {
                 self.viewModel.resetAndRefreshData()
                 self.viewModel.filtersToolbarViewModelNeedsReload()
                 self.scrollToTop()
-            }))
-            let nc = WMFThemeableNavigationController(rootViewController: hostingVC, theme: .light)
-            nc.modalPresentationStyle = .pageSheet
-            self.present(nc, animated: true, completion: nil)
+            } doneAction: { [weak self] in
+                self?.dismiss(animated: true, completion: nil)
+            }
+
+            
+            let hostingVC = UIHostingController(rootView: inboxView)
+            self.present(hostingVC, animated: true, completion: nil)
             
         }
     }
@@ -685,20 +686,15 @@ extension NotificationsCenterViewController: NotificationCenterViewModelDelegate
         case .empty(let emptyState):
             switch emptyState {
             case .loading:
-                print("empty loading")
                 configureEmptyState(isEmpty: true, subheaderText: NotificationsCenterView.EmptyOverlayStrings.checkingForNotifications)
             case .noData, .inboxFilters:
-                print("empty nodata")
                 configureEmptyState(isEmpty: true)
             case .filters:
-                print("empty filters")
                 //TODO: filters text
                 configureEmptyState(isEmpty: true, subheaderAttributedString: filterEmptyStateSubtitleAttributedStringForFilterViewModel(viewModel.filtersToolbarViewModel))
             case .initial:
-                print("empty initial")
                 configureEmptyState(isEmpty: false)
             case .subscriptions:
-                print("empty subscriptions")
                 //TODO: subscriptions text
                 configureEmptyState(isEmpty: true)
             }

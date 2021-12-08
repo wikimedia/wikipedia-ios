@@ -26,9 +26,11 @@ struct NotificationsCenterInboxView: View {
     
     let viewModel: NotificationsCenterInboxViewModel
     let didUpdateFiltersCallback: () -> Void
+    let doneAction: () -> Void
+    @Environment(\.presentationMode) private var presentationMode
     
     var body: some View {
-        //NavigationView {
+        NavigationView {
             List {
                 ForEach(viewModel.sections) { section in
                     Section(header: Text(section.header)) {
@@ -38,7 +40,18 @@ struct NotificationsCenterInboxView: View {
                     }
                 }
             }
-            .navigationBarTitle(Text("Projects"))
-        //}
+            .listStyle(GroupedListStyle())
+            .navigationBarItems(
+                trailing:
+                    Button(action: {
+                        doneAction()
+                    }) {
+                          Text("Done")
+                            .fontWeight(Font.Weight.semibold)
+                            .foregroundColor(Color.black)
+                        }
+            )
+            .navigationBarTitle(Text("Projects"), displayMode: .inline)
+        }
     }
 }
