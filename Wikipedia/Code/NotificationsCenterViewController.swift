@@ -597,9 +597,19 @@ private extension NotificationsCenterViewController {
                 return
             }
             
-            guard let inboxViewModel = NotificationsCenterInboxViewModel(remoteNotificationsController: self.viewModel.remoteNotificationsController, allInboxProjects: Set(projects)) else {
+            guard let inboxViewModel = NotificationsCenterInboxViewModel(remoteNotificationsController: self.viewModel.remoteNotificationsController, allInboxProjects: Set(projects), theme: self.theme) else {
                 return
             }
+            
+            UITableView.appearance().backgroundColor = UIColor.clear
+            let themedAppearance = UINavigationBarAppearance()
+            themedAppearance.configureWithTransparentBackground()
+            themedAppearance.backgroundColor = self.theme.colors.chromeBackground
+            themedAppearance.titleTextAttributes = self.theme.navigationBarTitleTextAttributes
+
+            UINavigationBar.appearance().standardAppearance = themedAppearance
+            UINavigationBar.appearance().compactAppearance = themedAppearance
+            UINavigationBar.appearance().scrollEdgeAppearance = themedAppearance
             
             let inboxView = NotificationsCenterInboxView(viewModel: inboxViewModel) { [weak self] in
                 guard let self = self else {
@@ -609,8 +619,14 @@ private extension NotificationsCenterViewController {
                 self.viewModel.resetAndRefreshData()
                 self.viewModel.filtersToolbarViewModelNeedsReload()
                 self.scrollToTop()
+                
             } doneAction: { [weak self] in
-                self?.dismiss(animated: true, completion: nil)
+                self?.dismiss(animated: true, completion: {
+                    UINavigationBar.appearance().standardAppearance = inboxViewModel.oldStandardAppearance
+                    UINavigationBar.appearance().compactAppearance = inboxViewModel.oldCompactAppearance
+                    UINavigationBar.appearance().scrollEdgeAppearance = inboxViewModel.oldScrollEdgeAppearance
+                    UITableView.appearance().backgroundColor = inboxViewModel.oldTableViewBackgroundColor
+                })
             }
 
             
@@ -629,11 +645,11 @@ private extension NotificationsCenterViewController {
     }
     
     func inboxButtonImageForFiltersEnabled(_ filtersEnabled: Bool) -> UIImage? {
-        if #available(iOS 15.0, *) {
+        //if #available(iOS 15.0, *) {
             return UIImage(systemName: inboxButtonNameForFiltersEnabled(filtersEnabled))
-        } else {
-            return UIImage(named: inboxButtonNameForFiltersEnabled(filtersEnabled))
-        }
+        //} else {
+        //    return UIImage(named: inboxButtonNameForFiltersEnabled(filtersEnabled))
+        //}
     }
     
     func filterButtonNameForFiltersEnabled(_ filtersEnabled: Bool) -> String {
@@ -641,7 +657,7 @@ private extension NotificationsCenterViewController {
     }
     
     func inboxButtonNameForFiltersEnabled(_ filtersEnabled: Bool) -> String {
-        return filtersEnabled ? "tray.fill" : "tray"
+        return filtersEnabled ? "tray.fill" : "tray.2"
     }
     
     func filterEmptyStateSubtitleAttributedStringForFilterViewModel(_ filterViewModel: NotificationsCenterViewModel.FiltersToolbarViewModel) -> NSAttributedString? {
