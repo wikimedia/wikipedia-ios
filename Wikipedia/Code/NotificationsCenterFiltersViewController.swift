@@ -6,14 +6,12 @@ import WMF
 class NotificationsCenterFiltersViewController: UIViewController {
     
     private var viewModel: NotificationsCenterFiltersViewModel
-    private let languageLinkController: MWKLanguageLinkController
     private let didUpdateFiltersCallback: () -> Void
     
     private let tableView = UITableView.init(frame: CGRect.zero, style: .grouped)
     
-    init(viewModel: NotificationsCenterFiltersViewModel, languageLinkController: MWKLanguageLinkController, didUpdateFiltersCallback: @escaping () -> Void) {
+    init(viewModel: NotificationsCenterFiltersViewModel, didUpdateFiltersCallback: @escaping () -> Void) {
         self.viewModel = viewModel
-        self.languageLinkController = languageLinkController
         self.didUpdateFiltersCallback = didUpdateFiltersCallback
         super.init(nibName: nil, bundle: nil)
     }
@@ -104,20 +102,16 @@ extension NotificationsCenterFiltersViewController: UITableViewDataSource {
         }
         
         if sender.isOn {
-            viewModel.removeFilterType(filterType, languageLinkController: languageLinkController) {
-                DispatchQueue.main.async {
-                    let newViewModel = NotificationsCenterFiltersViewModel(remoteNotificationsController: self.viewModel.remoteNotificationsController)
-                    self.viewModel = newViewModel
-                    self.didUpdateFiltersCallback()
-                }
+            viewModel.removeFilterType(filterType)
+            if let newViewModel = NotificationsCenterFiltersViewModel(remoteNotificationsController: self.viewModel.remoteNotificationsController) {
+                self.viewModel = newViewModel
+                self.didUpdateFiltersCallback()
             }
         } else {
-            viewModel.appendFilterType(filterType, languageLinkController: languageLinkController) {
-                DispatchQueue.main.async {
-                    let newViewModel = NotificationsCenterFiltersViewModel(remoteNotificationsController: self.viewModel.remoteNotificationsController)
-                    self.viewModel = newViewModel
-                    self.didUpdateFiltersCallback()
-                }
+            viewModel.appendFilterType(filterType)
+            if let newViewModel = NotificationsCenterFiltersViewModel(remoteNotificationsController: self.viewModel.remoteNotificationsController) {
+                self.viewModel = newViewModel
+                self.didUpdateFiltersCallback()
             }
         }
     }
@@ -143,13 +137,11 @@ extension NotificationsCenterFiltersViewController: UITableViewDelegate {
             return
         }
         
-        viewModel.setFilterReadStatus(newReadStatus: readStatus, languageLinkController: languageLinkController) {
-            DispatchQueue.main.async {
-                let newViewModel = NotificationsCenterFiltersViewModel(remoteNotificationsController: self.viewModel.remoteNotificationsController)
-                self.viewModel = newViewModel
-                self.tableView.reloadData()
-                self.didUpdateFiltersCallback()
-            }
+        viewModel.setFilterReadStatus(newReadStatus: readStatus)
+        if let newViewModel = NotificationsCenterFiltersViewModel(remoteNotificationsController: self.viewModel.remoteNotificationsController) {
+            self.viewModel = newViewModel
+            self.tableView.reloadData()
+            self.didUpdateFiltersCallback()
         }
         
     }

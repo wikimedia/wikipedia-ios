@@ -76,4 +76,274 @@ public extension RemoteNotificationType {
             return theme.colors.link
         }
     }
+    
+    init?(from filterIdentifier: String) {
+        
+        switch filterIdentifier {
+            case "userTalkPageMessage":
+                self = .userTalkPageMessage
+            case "pageReviewed":
+                self = .pageReviewed
+            case "pageLinked":
+                self = .pageLinked
+            case "connectionWithWikidata":
+                self = .connectionWithWikidata
+            case "emailFromOtherUser":
+                self = .emailFromOtherUser
+            case "mentionInTalkPage":
+                self = .mentionInTalkPage
+            case "mentionInEditSummary":
+                self = .mentionInEditSummary
+            case "successfulMention":
+                self = .successfulMention
+            case "failedMention":
+                self = .failedMention
+            case "userRightsChange":
+                self = .userRightsChange
+            case "editReverted":
+                self = .editReverted
+            case "loginFailKnownDevice", //for filters this represents any login-related notification (i.e. also loginFailUnknownDevice, loginSuccessUnknownDevice, etc.). todo: clean this up. todo: split up into login attempts vs login success?
+                    "loginFailUnknownDevice",
+                    "loginSuccessUnknownDevice":
+                self = .loginFailKnownDevice
+            case "editMilestone":
+                self = .editMilestone
+            case "translationMilestone":
+                self = .translationMilestone(1) //for filters this represents other translation associated values as well (ten, hundred milestones).
+            case "thanks":
+                self = .thanks
+            case "welcome":
+                self = .welcome
+            default:
+                return nil
+        }
+    }
+    
+    var filterIdentifier: String? {
+        switch self {
+        case .userTalkPageMessage:
+            return "userTalkPageMessage"
+        case .pageReviewed:
+            return "pageReviewed"
+        case .pageLinked:
+            return "pageLinked"
+        case .connectionWithWikidata:
+            return "connectionWithWikidata"
+        case .emailFromOtherUser:
+            return "emailFromOtherUser"
+        case .mentionInTalkPage:
+            return "mentionInTalkPage"
+        case .mentionInEditSummary:
+            return "mentionInEditSummary"
+        case .successfulMention:
+            return "successfulMention"
+        case .failedMention:
+            return "failedMention"
+        case .userRightsChange:
+            return "userRightsChange"
+        case .editReverted:
+            return "editReverted"
+        case .loginFailKnownDevice, //for filters this represents any login-related notification (i.e. also loginFailUnknownDevice, loginSuccessUnknownDevice, etc.). todo: clean this up. todo: split up into login attempts vs login success?
+                .loginFailUnknownDevice,
+                .loginSuccessUnknownDevice:
+            return "loginFailKnownDevice"
+        case .editMilestone:
+            return "editMilestone"
+        case .translationMilestone:
+            return "translationMilestone" //for filters this represents other translation associated values as well (ten, hundred milestones).
+        case .thanks:
+            return "thanks"
+        case .welcome:
+            return "welcome"
+        default:
+            return nil
+        }
+    }
+}
+
+public extension RemoteNotificationType {
+    static var orderingForFilters: [RemoteNotificationType] {
+        return [
+            .userTalkPageMessage,
+            .pageReviewed,
+            .pageLinked,
+            .connectionWithWikidata,
+            .emailFromOtherUser,
+            .mentionInTalkPage, //todo: combine this and edit summary mention to "received mention"?
+            .mentionInEditSummary,
+            .successfulMention,
+            .failedMention,
+            .userRightsChange,
+            .editReverted,
+            .loginFailKnownDevice, //for filters this represents any login-related notification (i.e. also loginFailUnknownDevice, loginSuccessUnknownDevice, etc.). todo: clean this up. todo: split up into login attempts vs login success?
+            .editMilestone,
+            .translationMilestone(1), //for filters this represents other translation associated values as well (ten, hundred milestones).
+            .thanks,
+            .welcome
+        ]
+    }
+    
+    var title: String? {
+        switch self {
+        case .userTalkPageMessage: return "Talk page message"
+        case .pageReviewed: return "Page review"
+        case .pageLinked: return "Page link"
+        case .connectionWithWikidata: return "Connection with Wikidata"
+        case .emailFromOtherUser: return "Email from other user"
+        case .mentionInTalkPage: return "Talk page mention"
+        case .mentionInEditSummary: return "Edit summary mention"
+        case .successfulMention: return "Sent mention success"
+        case .failedMention: return "Sent mention failure"
+        case .userRightsChange: return "User rights change"
+        case .editReverted: return "Edit reverted"
+        case .loginFailKnownDevice: return "Login issues" //for filters this represents any login-related notification (i.e. also loginFailUnknownDevice, loginSuccessUnknownDevice, etc.). todo: clean this up. todo: split up into login attempts vs login success?
+        case .editMilestone: return "Edit milestone"
+        case .translationMilestone: return "Translation milestone"  //for filters this represents other translation associated values as well (ten, hundred milestones).
+        case .thanks: return "Thanks"
+        case .welcome: return "Welcome"
+        default:
+            return nil
+        }
+    }
+}
+
+extension RemoteNotificationType: Equatable {
+    public static func == (lhs: RemoteNotificationType, rhs: RemoteNotificationType) -> Bool {
+        switch lhs {
+        case .userTalkPageMessage:
+            switch rhs {
+            case .userTalkPageMessage:
+                return true
+            default:
+                return false
+            }
+        case .pageReviewed:
+            switch rhs {
+            case .pageReviewed:
+                return true
+            default:
+                return false
+            }
+            
+        case .pageLinked:
+            switch rhs {
+            case .pageLinked:
+                return true
+            default:
+                return false
+            }
+            
+        case .connectionWithWikidata:
+            switch rhs {
+            case .connectionWithWikidata:
+                return true
+            default:
+                return false
+            }
+            
+        case .emailFromOtherUser:
+            switch rhs {
+            case .emailFromOtherUser:
+                return true
+            default:
+                return false
+            }
+            
+        case .mentionInTalkPage:
+            switch rhs {
+            case .mentionInTalkPage:
+                return true
+            default:
+                return false
+            }
+            
+        case .mentionInEditSummary:
+            switch rhs {
+            case .mentionInEditSummary:
+                return true
+            default:
+                return false
+            }
+            
+        case .successfulMention:
+            switch rhs {
+            case .successfulMention:
+                return true
+            default:
+                return false
+            }
+            
+        case .failedMention:
+            switch rhs {
+            case .failedMention:
+                return true
+            default:
+                return false
+            }
+        
+        
+            
+        case .userRightsChange:
+            switch rhs {
+            case .userRightsChange:
+                return true
+            default:
+                return false
+            }
+            
+            
+        case .editReverted:
+            switch rhs {
+            case .editReverted:
+                return true
+            default:
+                return false
+            }
+            
+        case .loginFailKnownDevice: //for filters this represents any login-related notification (i.e. also loginFailUnknownDevice, loginSuccessUnknownDevice, etc.). todo: clean this up. todo: split up into login attempts vs login success?
+            switch rhs {
+            case .loginFailKnownDevice:
+                return true
+            default:
+                return false
+            }
+            
+        case .editMilestone:
+            switch rhs {
+            case .editMilestone:
+                return true
+            default:
+                return false
+            }
+            
+        case .translationMilestone: //for filters this represents other translation associated values as well (ten, hundred milestones).
+            switch rhs {
+            case .translationMilestone:
+                return true
+            default:
+                return false
+            }
+        
+            
+        case .thanks:
+            switch rhs {
+            case .thanks:
+                return true
+            default:
+                return false
+            }
+            
+        case .welcome:
+            switch rhs {
+            case .welcome:
+                return true
+            default:
+                return false
+            }
+        default:
+            return false
+        }
+    }
+    
+    
 }

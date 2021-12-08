@@ -236,4 +236,14 @@ class RemoteNotificationsOperationsController: NSObject {
             isLocked = false
         }
     }
+    
+    // MARK: Notification Center Filters
+    
+    func getFilterSettingsFromLibrary() -> NSDictionary? {
+        return modelController?.getFilterSettingsFromLibrary()
+    }
+    
+    func setFilterSettingsToLibrary(dictionary: NSDictionary?) {
+        modelController?.setFilterSettingsToLibrary(dictionary: dictionary)
+    }
 }

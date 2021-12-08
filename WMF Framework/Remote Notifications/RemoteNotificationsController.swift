@@ -50,7 +50,9 @@ import CocoaLumberjackSwift
         
         let fetchRequest: NSFetchRequest<RemoteNotification> = RemoteNotification.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-        fetchRequest.predicate = predicateForFilterSavedState(filterSavedState)
+        if let filterSavedState = filterSavedState {
+            fetchRequest.predicate = predicateForFilterSavedState(filterSavedState)
+        }
         fetchRequest.fetchLimit = fetchLimit
         fetchRequest.fetchOffset = fetchOffset
         
@@ -72,11 +74,20 @@ import CocoaLumberjackSwift
     }
     
     public var areFiltersEnabled: Bool {
+        
         return countOfFilters > 0
     }
     
+    public var areInboxFiltersEnabled: Bool {
+
+        return cachedShowingInboxProjects.count < cachedAllInboxProjects.count
+    }
+    
     public var countOfFilters: Int {
-        let savedState = filterSavedState
+        
+        guard let savedState = filterSavedState else {
+            return 0
+        }
         
         var countOfFilters = 0
         if savedState.readStatusSetting == .read || savedState.readStatusSetting == .unread {
@@ -88,13 +99,62 @@ import CocoaLumberjackSwift
         return countOfFilters
     }
     
-    public lazy var filterSavedState: RemoteNotificationsFiltersSavedState = {
-        //todo: extract from persistence
-        return RemoteNotificationsFiltersSavedState(readStatusSetting: .all, filterTypeSetting: [], projectsSetting: [])
-    }() {
+    public var filterSavedState: RemoteNotificationsFiltersSavedState? {
         didSet {
-            //todo: save to persistence
+            //save to library
+            operationsController.setFilterSettingsToLibrary(dictionary: filterSavedState?.serialize())
+            if let filterSavedState = filterSavedState {
+                cachedShowingInboxProjects = cachedAllInboxProjects.subtracting(filterSavedState.projectsSetting)
+            } else {
+                cachedShowingInboxProjects = cachedAllInboxProjects
+            }
         }
+    }
+    
+    public private(set) var cachedAllInboxProjects: Set<RemoteNotificationsProject> = []
+    public private(set) var cachedShowingInboxProjects: Set<RemoteNotificationsProject> = []
+    
+    public func allInboxProjects(languageLinkController: MWKLanguageLinkController, completion: @escaping ([RemoteNotificationsProject]) -> Void) {
+        
+        let sideProjects: Set<RemoteNotificationsProject> = [.commons, .wikidata]
+        
+        let appLanguageProjects =  languageLinkController.preferredLanguages.map { RemoteNotificationsProject.language($0.languageCode, $0.localizedName, $0.languageVariantCode) }
+        
+        var inboxProjects = sideProjects.union(appLanguageProjects)
+        
+        listAllProjectsFromLocalNotifications { localProjects in
+            
+            for localProject in localProjects {
+                inboxProjects.insert(localProject)
+            }
+            
+            DispatchQueue.main.async {
+                self.cachedAllInboxProjects = inboxProjects
+                completion(Array(inboxProjects))
+            }
+        }
+        
+    }
+    
+    public func setupInitialFilters(languageLinkController: MWKLanguageLinkController, completion: @escaping () -> Void) {
+        
+        //populate inbox project cache properties
+        allInboxProjects(languageLinkController: languageLinkController) { project in
+            //first try to populate in-memory state from persistance. otherwise set up default filters
+            if let persistentFiltersDict = self.operationsController.getFilterSettingsFromLibrary(),
+               let persistentFilters = RemoteNotificationsFiltersSavedState(nsDictionary: persistentFiltersDict) {
+                self.filterSavedState = persistentFilters
+                self.cachedShowingInboxProjects = self.cachedAllInboxProjects.subtracting(persistentFilters.projectsSetting)
+                
+            } else {
+                self.filterSavedState = RemoteNotificationsFiltersSavedState(readStatusSetting: .all, filterTypeSetting: [], projectsSetting: [])
+                self.cachedShowingInboxProjects = self.cachedAllInboxProjects
+            }
+            
+            completion()
+        }
+        
+        
     }
     
     private func predicateForFilterSavedState(_ filterSavedState: RemoteNotificationsFiltersSavedState) -> NSPredicate? {
@@ -123,17 +183,27 @@ import CocoaLumberjackSwift
             return NSPredicate(format: "NOT (categoryString IN %@ AND typeString IN %@)", categoryStrings, typeStrings)
         }
         
-        guard readStatusPredicate != nil || filterTypePredicates.count > 0 else {
+        let projectsSetting = filterSavedState.projectsSetting
+        let projectPredicates: [NSPredicate] = projectsSetting.compactMap { return NSPredicate(format: "NOT (wiki == %@)", $0.notificationsApiWikiIdentifier) }
+        
+        guard readStatusPredicate != nil || filterTypePredicates.count > 0 || projectPredicates.count > 0 else {
             return nil
         }
         
-        let combinedFilterTypePredicate = NSCompoundPredicate(andPredicateWithSubpredicates: filterTypePredicates)
-        
-        if let readStatusPredicate = readStatusPredicate {
-            return filterTypePredicates.count > 0 ? NSCompoundPredicate(andPredicateWithSubpredicates: [readStatusPredicate, combinedFilterTypePredicate]) : readStatusPredicate
+        var combinedFilterTypePredicate: NSPredicate? = nil
+        if filterTypePredicates.count > 0 {
+            combinedFilterTypePredicate = NSCompoundPredicate(andPredicateWithSubpredicates: filterTypePredicates)
         }
         
-        return combinedFilterTypePredicate
+        var combinedProjectPredicate: NSPredicate? = nil
+        if projectPredicates.count > 0 {
+            combinedProjectPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: projectPredicates)
+        }
+        
+        
+        let finalPredicates = [readStatusPredicate, combinedFilterTypePredicate, combinedProjectPredicate].compactMap { $0 }
+        
+        return finalPredicates.count > 0 ? NSCompoundPredicate(andPredicateWithSubpredicates: finalPredicates) : nil
     }
 
     @objc public func updateCacheWithCurrentUnreadNotificationsCount() {
@@ -162,5 +232,39 @@ public struct RemoteNotificationsFiltersSavedState {
         self.readStatusSetting = readStatusSetting
         self.filterTypeSetting = filterTypeSetting
         self.projectsSetting = projectsSetting
+    }
+    
+    func serialize() -> NSDictionary? {
+        let mutableDictionary = NSMutableDictionary()
+        let numReadStatus = NSNumber(value: readStatusSetting.rawValue)
+        mutableDictionary.setValue(numReadStatus, forKey: "readStatusSetting")
+        let typeIdentifiers = filterTypeSetting.compactMap { $0.filterIdentifier as NSString? }
+        mutableDictionary.setValue(NSArray(array: typeIdentifiers), forKey: "filterTypeSetting")
+        let projectIdentifiers = projectsSetting.compactMap { $0.notificationsApiWikiIdentifier as NSString? }
+        mutableDictionary.setValue(NSArray(array: projectIdentifiers), forKey: "projectsSetting")
+        
+        return mutableDictionary.copy() as? NSDictionary
+    }
+    
+    init?(nsDictionary: NSDictionary) {
+        
+        guard let dictionary = nsDictionary as? [String: AnyObject] else {
+            return nil
+        }
+        
+        guard let numReadStatus = dictionary["readStatusSetting"] as? NSNumber,
+              let readStatus = ReadStatus(rawValue: numReadStatus.intValue),
+              let typeIdentifiers = dictionary["filterTypeSetting"] as? [NSString],
+              let projectApiIdentifiers = dictionary["projectsSetting"] as? [NSString] else {
+                  return nil
+              }
+        
+        let types = typeIdentifiers.compactMap { RemoteNotificationType(from: $0 as String) }
+        let projects = projectApiIdentifiers.compactMap { RemoteNotificationsProject(apiIdentifier: $0 as String) }
+        
+        
+        self.readStatusSetting = readStatus
+        self.filterTypeSetting = types
+        self.projectsSetting = projects
     }
 }

@@ -1,5 +1,6 @@
 import UIKit
 import WMF
+import SwiftUI
 
 @objc
 final class NotificationsCenterViewController: ViewController {
@@ -19,6 +20,10 @@ final class NotificationsCenterViewController: ViewController {
     
     lazy var filterButton: UIBarButtonItem = {
         return UIBarButtonItem.init(image: filterButtonImageForFiltersEnabled(viewModel.filtersToolbarViewModel.areFiltersEnabled), style: .plain, target: self, action: #selector(didTapFilterButton))
+    }()
+    
+    lazy var inboxButton: UIBarButtonItem = {
+        return UIBarButtonItem.init(image: inboxButtonImageForFiltersEnabled(viewModel.filtersToolbarViewModel.areInboxFiltersEnabled), style: .plain, target: self, action: #selector(didTapInboxButton))
     }()
     
     // MARK: Properties - Diffable Data Source
@@ -228,11 +233,11 @@ private extension NotificationsCenterViewController {
     
     var subtitleForToolbarTitleView: (String, String)? {
         
-        guard viewModel.remoteNotificationsController.areFiltersEnabled else {
+        guard viewModel.remoteNotificationsController.areFiltersEnabled,
+              let filterState = viewModel.remoteNotificationsController.filterSavedState else {
             return nil
         }
         
-        let filterState = viewModel.remoteNotificationsController.filterSavedState
         var readStatusString: String?
         switch filterState.readStatusSetting {
         case .read:
@@ -248,11 +253,13 @@ private extension NotificationsCenterViewController {
         let typeStatusString: String? = filterState.filterTypeSetting.count > 0 ? typeTitle : nil
         
         let projectsStringFormat = WMFLocalizedString("notifications-center-num-projects-in-filter-format", value:"{{PLURAL:%1$d|%1$d project|%1$d projects}}", comment:"Portion of subtitle of notfications center toolbar indicating how many projects user has selected in their filter - %1$d is replaced with the number of notification projeccts selected in their filter.")
-        let projectTitle = String.localizedStringWithFormat(projectsStringFormat, filterState.projectsSetting.count)
+        let showingInboxProjects = viewModel.remoteNotificationsController.cachedShowingInboxProjects
+        
+        let projectTitle = String.localizedStringWithFormat(projectsStringFormat, showingInboxProjects.count)
         
         let projectStatusString: String
-        if filterState.projectsSetting.count == 1,
-           let project = filterState.projectsSetting.first {
+        if showingInboxProjects.count == 1,
+           let project = showingInboxProjects.first {
             projectStatusString = project.projectName(shouldReturnCodedFormat: false)
         } else {
             projectStatusString = projectTitle
@@ -355,7 +362,7 @@ private extension NotificationsCenterViewController {
     }
     
     func updateToolbar(for state: NotificationsCenterViewModel.State) {
-        
+        print(state)
         switch state {
         case .data(_, let dataState):
             switch dataState {
@@ -386,11 +393,13 @@ private extension NotificationsCenterViewController {
                         UIBarButtonItem.flexibleSpaceToolbar(),
                         UIBarButtonItem.init(customView: customView),
                         UIBarButtonItem.flexibleSpaceToolbar(),
+                        inboxButton
                     ]
                 } else {
                     toolbar.items = [
                         filterButton,
-                        UIBarButtonItem.flexibleSpaceToolbar()
+                        UIBarButtonItem.flexibleSpaceToolbar(),
+                        inboxButton
                     ]
                 }
             }
@@ -403,13 +412,21 @@ private extension NotificationsCenterViewController {
                         UIBarButtonItem.flexibleSpaceToolbar(),
                         UIBarButtonItem.init(customView: customView),
                         UIBarButtonItem.flexibleSpaceToolbar(),
+                        inboxButton
                     ]
                 } else {
                     toolbar.items = [
                         filterButton,
-                        UIBarButtonItem.flexibleSpaceToolbar()
+                        UIBarButtonItem.flexibleSpaceToolbar(),
+                        inboxButton
                     ]
                 }
+            case .inboxFilters:
+                toolbar.items = [
+                    filterButton,
+                    UIBarButtonItem.flexibleSpaceToolbar(),
+                    inboxButton
+                ]
             default:
                 toolbar.items = []
             }
@@ -549,9 +566,16 @@ private extension NotificationsCenterViewController {
         presentFiltersViewController()
     }
     
+    @objc func didTapInboxButton() {
+        presentInboxViewController()
+    }
+    
     func presentFiltersViewController() {
-        let filtersViewModel = NotificationsCenterFiltersViewModel(remoteNotificationsController: viewModel.remoteNotificationsController)
-        let vc = NotificationsCenterFiltersViewController(viewModel: filtersViewModel, languageLinkController: viewModel.languageLinkController, didUpdateFiltersCallback: { [weak self] in
+        guard let filtersViewModel = NotificationsCenterFiltersViewModel(remoteNotificationsController: viewModel.remoteNotificationsController) else {
+            return
+        }
+        
+        let vc = NotificationsCenterFiltersViewController(viewModel: filtersViewModel, didUpdateFiltersCallback: { [weak self] in
             
             guard let self = self else {
                 return
@@ -566,6 +590,35 @@ private extension NotificationsCenterViewController {
         present(nc, animated: true, completion: nil)
     }
     
+    func presentInboxViewController() {
+        
+        viewModel.remoteNotificationsController.allInboxProjects(languageLinkController: viewModel.languageLinkController) { [weak self] projects in
+            
+            guard let self = self else {
+                return
+            }
+            
+            guard let inboxViewModel = NotificationsCenterInboxViewModel(remoteNotificationsController: self.viewModel.remoteNotificationsController, allInboxProjects: Set(projects)) else {
+                return
+            }
+            
+            let hostingVC = UIHostingController(rootView: NotificationsCenterInboxView(viewModel: inboxViewModel, didUpdateFiltersCallback: { [weak self] in
+                
+                guard let self = self else {
+                    return
+                }
+                
+                self.viewModel.resetAndRefreshData()
+                self.viewModel.filtersToolbarViewModelNeedsReload()
+                self.scrollToTop()
+            }))
+            let nc = WMFThemeableNavigationController(rootViewController: hostingVC, theme: .light)
+            nc.modalPresentationStyle = .pageSheet
+            self.present(nc, animated: true, completion: nil)
+            
+        }
+    }
+    
     func filterButtonImageForFiltersEnabled(_ filtersEnabled: Bool) -> UIImage? {
         if #available(iOS 15.0, *) {
             return UIImage(systemName: filterButtonNameForFiltersEnabled(filtersEnabled))
@@ -574,8 +627,20 @@ private extension NotificationsCenterViewController {
         }
     }
     
+    func inboxButtonImageForFiltersEnabled(_ filtersEnabled: Bool) -> UIImage? {
+        if #available(iOS 15.0, *) {
+            return UIImage(systemName: inboxButtonNameForFiltersEnabled(filtersEnabled))
+        } else {
+            return UIImage(named: inboxButtonNameForFiltersEnabled(filtersEnabled))
+        }
+    }
+    
     func filterButtonNameForFiltersEnabled(_ filtersEnabled: Bool) -> String {
         return filtersEnabled ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle"
+    }
+    
+    func inboxButtonNameForFiltersEnabled(_ filtersEnabled: Bool) -> String {
+        return filtersEnabled ? "tray.fill" : "tray"
     }
     
     func filterEmptyStateSubtitleAttributedStringForFilterViewModel(_ filterViewModel: NotificationsCenterViewModel.FiltersToolbarViewModel) -> NSAttributedString? {
@@ -622,7 +687,7 @@ extension NotificationsCenterViewController: NotificationCenterViewModelDelegate
             case .loading:
                 print("empty loading")
                 configureEmptyState(isEmpty: true, subheaderText: NotificationsCenterView.EmptyOverlayStrings.checkingForNotifications)
-            case .noData:
+            case .noData, .inboxFilters:
                 print("empty nodata")
                 configureEmptyState(isEmpty: true)
             case .filters:
@@ -662,6 +727,7 @@ extension NotificationsCenterViewController: NotificationCenterViewModelDelegate
     
     func filtersToolbarViewModelDidChange(_ newViewModel: NotificationsCenterViewModel.FiltersToolbarViewModel) {
         filterButton.image = filterButtonImageForFiltersEnabled(newViewModel.areFiltersEnabled)
+        inboxButton.image = inboxButtonImageForFiltersEnabled(newViewModel.areInboxFiltersEnabled)
     }
 }
 

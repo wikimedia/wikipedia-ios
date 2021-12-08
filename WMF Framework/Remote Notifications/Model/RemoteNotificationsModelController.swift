@@ -15,8 +15,12 @@ final class RemoteNotificationsModelController: NSObject {
     enum LibraryKey: String {
         case completedImportFlags = "RemoteNotificationsCompletedImportFlags"
         case continueIdentifer = "RemoteNotificationsContinueIdentifier"
+        case filterSettings = "RemoteNotificationsFilterSettings"
         
         func fullKeyForProject(_ project: RemoteNotificationsProject) -> String {
+            if self == .filterSettings {
+                assertionFailure("Shouldn't be using this key for filterSettings")
+            }
             return "\(self.rawValue)-\(project.notificationsApiWikiIdentifier)"
         }
     }
@@ -359,6 +363,15 @@ final class RemoteNotificationsModelController: NSObject {
         }
     }
     
+    //MARK: Notifications Center Filter
+    func getFilterSettingsFromLibrary() -> NSDictionary? {
+        return libraryValue(forKey: LibraryKey.filterSettings.rawValue) as? NSDictionary
+    }
+    
+    func setFilterSettingsToLibrary(dictionary: NSDictionary?) {
+        setLibraryValue(dictionary, forKey: LibraryKey.filterSettings.rawValue)
+    }
+    
     //MARK: WMFLibraryValue Helpers
     //TODO: Cache this (see EventLoggingService as an example)
     
@@ -372,7 +385,7 @@ final class RemoteNotificationsModelController: NSObject {
         return result
     }
     
-    func setLibraryValue(_ value: NSCoding, forKey key: String) {
+    func setLibraryValue(_ value: NSCoding?, forKey key: String) {
         let backgroundContext = newBackgroundContext()
         backgroundContext.perform {
             backgroundContext.wmf_setValue(value, forKey: key)

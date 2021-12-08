@@ -20,11 +20,13 @@ final class NotificationsCenterViewModel: NSObject {
     
     struct FiltersToolbarViewModel {
         let areFiltersEnabled: Bool
+        let areInboxFiltersEnabled: Bool
         let countOfFilters: Int
         
         static func filtersToolbarViewModel(from remoteNotificationsController: RemoteNotificationsController) -> FiltersToolbarViewModel {
             
-            return FiltersToolbarViewModel(areFiltersEnabled: remoteNotificationsController.areFiltersEnabled, countOfFilters: remoteNotificationsController.countOfFilters)
+            return FiltersToolbarViewModel(areFiltersEnabled: remoteNotificationsController.areFiltersEnabled,
+                                           areInboxFiltersEnabled: remoteNotificationsController.areInboxFiltersEnabled, countOfFilters: remoteNotificationsController.countOfFilters)
         }
     }
     
@@ -37,6 +39,7 @@ final class NotificationsCenterViewModel: NSObject {
             case noData //pure empty state, not due to loading or filters or subscriptions. It's unlikely this state is ever achieved
             case loading
             case filters
+            case inboxFilters
             case subscriptions
         }
         
@@ -183,7 +186,7 @@ final class NotificationsCenterViewModel: NSObject {
                     if self.remoteNotificationsController.areFiltersEnabled {
                         self.state = .empty(.filters)
                     } else {
-                        self.state = .empty(.noData)
+                        self.state = self.remoteNotificationsController.areInboxFiltersEnabled ? .empty(.inboxFilters) : .empty(.noData)
                     }
                 }
                 self.modelController.addNewCellViewModelsWith(notifications: notifications, isEditing: self.state.isEditing)
@@ -242,9 +245,12 @@ private extension NotificationsCenterViewModel {
                 return
             }
             
-            NotificationCenter.default.addObserver(self, selector: #selector(self.contextObjectsDidChange(_:)), name: Notification.Name.NSManagedObjectContextObjectsDidChange, object: self.remoteNotificationsController.viewContext)
+            self.remoteNotificationsController.setupInitialFilters(languageLinkController: self.languageLinkController) {
+                self.filtersToolbarViewModelNeedsReload()
+                NotificationCenter.default.addObserver(self, selector: #selector(self.contextObjectsDidChange(_:)), name: Notification.Name.NSManagedObjectContextObjectsDidChange, object: self.remoteNotificationsController.viewContext)
 
-            completion()
+                completion()
+            }
         }
     }
     
@@ -285,7 +291,7 @@ private extension NotificationsCenterViewModel {
             if self.remoteNotificationsController.areFiltersEnabled {
                 return .empty(.filters)
             } else {
-                return .empty(.noData)
+                return self.remoteNotificationsController.areInboxFiltersEnabled ? .empty(.inboxFilters) : .empty(.noData)
             }
         }
         

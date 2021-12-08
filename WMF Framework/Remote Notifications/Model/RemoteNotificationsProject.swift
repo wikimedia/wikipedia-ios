@@ -1,7 +1,7 @@
 
 import Foundation
 
-public enum RemoteNotificationsProject {
+public enum RemoteNotificationsProject: Hashable {
     public typealias LanguageCode = String
     public typealias LocalizedLanguageName = String
     public typealias LanguageVariantCode = String
@@ -30,6 +30,10 @@ public enum RemoteNotificationsProject {
         case .wikidata:
             return Self.wikidataIdentifier
         }
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(notificationsApiWikiIdentifier)
     }
     
     /// Returns formatted descriptive project name
@@ -96,6 +100,36 @@ public enum RemoteNotificationsProject {
                 self = .language(strippedIdentifier, recognizedLanguage.localizedName, recognizedLanguage.languageVariantCode)
             } else {
                 return nil
+            }
+        }
+    }
+}
+
+extension RemoteNotificationsProject: Equatable {
+    public static func ==(lhs: RemoteNotificationsProject, rhs: RemoteNotificationsProject) -> Bool {
+        
+        switch lhs {
+        case .language(let lhsLanguageCode, _, _):
+            switch rhs {
+            case .language(let rhsLanguageCode, _, _):
+                return lhsLanguageCode == rhsLanguageCode
+            default:
+                return false
+        
+            }
+        case .commons:
+            switch rhs {
+            case .commons:
+                return true
+            default:
+                return false
+            }
+        case .wikidata:
+            switch rhs {
+            case .wikidata:
+                return true
+            default:
+                return false
             }
         }
     }
