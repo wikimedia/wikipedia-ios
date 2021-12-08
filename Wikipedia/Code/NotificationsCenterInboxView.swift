@@ -34,7 +34,6 @@ struct NotificationsCenterInboxView: View {
     let doneAction: () -> Void
     
     var body: some View {
-        NavigationView {
             List {
                 ForEach(viewModel.sections) { section in
                     let header = Text(section.header)
@@ -61,6 +60,12 @@ struct NotificationsCenterInboxView: View {
             )
             .background(Color(viewModel.theme.colors.baseBackground).edgesIgnoringSafeArea(.all))
             .navigationBarTitle(Text("Projects"), displayMode: .inline)
-        }
+            .onAppear(perform: {
+                    UITableView.appearance().backgroundColor = UIColor.clear
+            })
+            .onDisappear(perform: {
+                
+                UITableView.appearance().backgroundColor = UIColor.systemBackground
+            })
     }
 }

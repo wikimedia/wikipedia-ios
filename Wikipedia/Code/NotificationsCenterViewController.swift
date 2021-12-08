@@ -601,16 +601,6 @@ private extension NotificationsCenterViewController {
                 return
             }
             
-            UITableView.appearance().backgroundColor = UIColor.clear
-            let themedAppearance = UINavigationBarAppearance()
-            themedAppearance.configureWithTransparentBackground()
-            themedAppearance.backgroundColor = self.theme.colors.chromeBackground
-            themedAppearance.titleTextAttributes = self.theme.navigationBarTitleTextAttributes
-
-            UINavigationBar.appearance().standardAppearance = themedAppearance
-            UINavigationBar.appearance().compactAppearance = themedAppearance
-            UINavigationBar.appearance().scrollEdgeAppearance = themedAppearance
-            
             let inboxView = NotificationsCenterInboxView(viewModel: inboxViewModel) { [weak self] in
                 guard let self = self else {
                     return
@@ -621,17 +611,15 @@ private extension NotificationsCenterViewController {
                 self.scrollToTop()
                 
             } doneAction: { [weak self] in
-                self?.dismiss(animated: true, completion: {
-                    UINavigationBar.appearance().standardAppearance = inboxViewModel.oldStandardAppearance
-                    UINavigationBar.appearance().compactAppearance = inboxViewModel.oldCompactAppearance
-                    UINavigationBar.appearance().scrollEdgeAppearance = inboxViewModel.oldScrollEdgeAppearance
-                    UITableView.appearance().backgroundColor = inboxViewModel.oldTableViewBackgroundColor
-                })
+                self?.dismiss(animated: true)
             }
 
-            
             let hostingVC = UIHostingController(rootView: inboxView)
-            self.present(hostingVC, animated: true, completion: nil)
+            
+            let nc = WMFThemeableNavigationController(rootViewController: hostingVC, theme: self.theme)
+            
+            nc.modalPresentationStyle = .pageSheet
+            self.present(nc, animated: true, completion: nil)
             
         }
     }
