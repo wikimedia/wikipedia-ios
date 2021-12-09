@@ -2,6 +2,22 @@
 import SwiftUI
 import WMF
 
+struct NotificationsCenterIconImage: View {
+    let iconName: String
+    let iconColor: Color
+    let iconBackgroundColor: Color
+    
+    
+    var body: some View {
+        Image(iconName)
+            .padding(6)
+            .foregroundColor(iconColor)
+            .background(iconBackgroundColor)
+            .cornerRadius(6)
+            .padding(.trailing, 6)
+    }
+}
+
 struct NotificationsCenterInboxItemView: View {
     @ObservedObject var itemViewModel: NotificationsCenterInboxViewModel.ItemViewModel
     let theme: Theme
@@ -13,6 +29,11 @@ struct NotificationsCenterInboxItemView: View {
             didUpdateFiltersCallback()
         }) {
             HStack {
+                let iconColor = theme.colors.icon ?? UIColor.white
+                let iconBackgroundColor = theme.colors.iconBackground ?? theme.colors.secondaryText
+                if let iconName = itemViewModel.iconName {
+                    NotificationsCenterIconImage(iconName: iconName, iconColor: Color(iconColor), iconBackgroundColor: Color(iconBackgroundColor))
+                }
                 Text(itemViewModel.title)
                     .foregroundColor(Color(theme.colors.primaryText))
                 Spacer()
@@ -65,7 +86,7 @@ struct NotificationsCenterInboxView: View {
             })
             .onDisappear(perform: {
                 
-                UITableView.appearance().backgroundColor = UIColor.systemBackground
+                UITableView.appearance().backgroundColor = UIColor.systemGroupedBackground
             })
     }
 }

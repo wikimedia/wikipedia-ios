@@ -20,6 +20,17 @@ public enum RemoteNotificationsProject: Hashable {
     private static var languageIdentifierSuffix: String {
         return "wiki"
     }
+    
+    public var inboxFiltersIconName: String? {
+        switch self {
+        case .commons:
+            return "notifications-project-commons"
+        case .wikidata:
+            return "notifications-project-wikidata"
+        default:
+            return nil
+        }
+    }
 
     var notificationsApiWikiIdentifier: String {
         switch self {

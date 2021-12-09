@@ -31,14 +31,14 @@ class NotificationsCenterInboxViewModel: ObservableObject {
                 }
             }
         }
-        let imageName: String?
+        let iconName: String?
         let project: RemoteNotificationsProject
         let remoteNotificationsController: RemoteNotificationsController
         
-        init(title: String, isSelected: Bool, imageName: String?, project: RemoteNotificationsProject, remoteNotificationsController: RemoteNotificationsController) {
+        init(title: String, isSelected: Bool, iconName: String?, project: RemoteNotificationsProject, remoteNotificationsController: RemoteNotificationsController) {
             self.title = title
             self.isSelected = isSelected
-            self.imageName = imageName
+            self.iconName = iconName
             self.remoteNotificationsController = remoteNotificationsController
             self.project = project
         }
@@ -74,10 +74,6 @@ class NotificationsCenterInboxViewModel: ObservableObject {
     let sections: [SectionViewModel]
     @Published var theme: Theme
     let remoteNotificationsController: RemoteNotificationsController
-    let oldStandardAppearance:UINavigationBarAppearance = UINavigationBar.appearance().standardAppearance
-    let oldCompactAppearance = UINavigationBar.appearance().standardAppearance
-    let oldScrollEdgeAppearance = UINavigationBar.appearance().scrollEdgeAppearance
-    let oldTableViewBackgroundColor = UITableView.appearance().backgroundColor
  
     init?(remoteNotificationsController: RemoteNotificationsController, allInboxProjects: Set<RemoteNotificationsProject>, theme: Theme) {
      
@@ -99,9 +95,9 @@ class NotificationsCenterInboxViewModel: ObservableObject {
             return lhs.projectName(shouldReturnCodedFormat: false) < rhs.projectName(shouldReturnCodedFormat: false)
         }
         
-        let firstSectionItems = nonLanguageProjects.map { ItemViewModel(title: $0.projectName(shouldReturnCodedFormat: false), isSelected: !unselectedProjects.contains($0), imageName: nil, project: $0, remoteNotificationsController: remoteNotificationsController) }
+        let firstSectionItems = nonLanguageProjects.map { ItemViewModel(title: $0.projectName(shouldReturnCodedFormat: false), isSelected: !unselectedProjects.contains($0), iconName: $0.inboxFiltersIconName, project: $0, remoteNotificationsController: remoteNotificationsController) }
         
-        let secondSectionItems = alphabeticalAppLanguageProjects.map { ItemViewModel(title: $0.projectName(shouldReturnCodedFormat: false), isSelected: !unselectedProjects.contains($0), imageName: nil, project: $0, remoteNotificationsController: remoteNotificationsController) }
+        let secondSectionItems = alphabeticalAppLanguageProjects.map { ItemViewModel(title: $0.projectName(shouldReturnCodedFormat: false), isSelected: !unselectedProjects.contains($0), iconName: nil, project: $0, remoteNotificationsController: remoteNotificationsController) }
         
         let firstSection = SectionViewModel(header: "Wikimedia Projects".uppercased(), footer: "Only projects you have created an account for will appear here", items: firstSectionItems)
         let secondSection = SectionViewModel(header: "Wikipedias".uppercased(), footer: "", items: secondSectionItems)

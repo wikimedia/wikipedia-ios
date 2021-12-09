@@ -611,6 +611,7 @@ private extension NotificationsCenterViewController {
                 self.scrollToTop()
                 
             } doneAction: { [weak self] in
+                
                 self?.dismiss(animated: true)
             }
 
@@ -633,11 +634,7 @@ private extension NotificationsCenterViewController {
     }
     
     func inboxButtonImageForFiltersEnabled(_ filtersEnabled: Bool) -> UIImage? {
-        //if #available(iOS 15.0, *) {
             return UIImage(systemName: inboxButtonNameForFiltersEnabled(filtersEnabled))
-        //} else {
-        //    return UIImage(named: inboxButtonNameForFiltersEnabled(filtersEnabled))
-        //}
     }
     
     func filterButtonNameForFiltersEnabled(_ filtersEnabled: Bool) -> String {
