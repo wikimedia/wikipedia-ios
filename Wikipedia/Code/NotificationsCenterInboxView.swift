@@ -6,11 +6,11 @@ struct NotificationsCenterIconImage: View {
     let iconName: String
     let iconColor: Color
     let iconBackgroundColor: Color
-    
+    let padding: Int
     
     var body: some View {
         Image(iconName)
-            .padding(6)
+            .padding(CGFloat(padding))
             .foregroundColor(iconColor)
             .background(iconBackgroundColor)
             .cornerRadius(6)
@@ -32,7 +32,7 @@ struct NotificationsCenterInboxItemView: View {
                 let iconColor = theme.colors.icon ?? UIColor.white
                 let iconBackgroundColor = theme.colors.iconBackground ?? theme.colors.secondaryText
                 if let iconName = itemViewModel.iconName {
-                    NotificationsCenterIconImage(iconName: iconName, iconColor: Color(iconColor), iconBackgroundColor: Color(iconBackgroundColor))
+                    NotificationsCenterIconImage(iconName: iconName, iconColor: Color(iconColor), iconBackgroundColor: Color(iconBackgroundColor), padding: 6)
                 }
                 Text(itemViewModel.title)
                     .foregroundColor(Color(theme.colors.primaryText))

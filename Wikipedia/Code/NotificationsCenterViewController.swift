@@ -570,12 +570,8 @@ private extension NotificationsCenterViewController {
     }
     
     func presentFiltersViewController() {
-        guard let filtersViewModel = NotificationsCenterFiltersViewModel(remoteNotificationsController: viewModel.remoteNotificationsController) else {
-            return
-        }
         
-        let vc = NotificationsCenterFiltersViewController(viewModel: filtersViewModel, didUpdateFiltersCallback: { [weak self] in
-            
+        let filtersViewModel = NotificationsCenterFiltersViewModel(remoteNotificationsController: viewModel.remoteNotificationsController, theme: theme, didUpdateFiltersCallback: { [weak self] in
             guard let self = self else {
                 return
             }
@@ -584,9 +580,22 @@ private extension NotificationsCenterViewController {
             self.viewModel.filtersToolbarViewModelNeedsReload()
             self.scrollToTop()
         })
-        let nc = WMFThemeableNavigationController(rootViewController: vc, theme: .light)
+        
+        guard let filtersViewModel = filtersViewModel else {
+            return
+        }
+        
+        let filterView = NotificationsCenterFilterView(viewModel: filtersViewModel) { [weak self] in
+                
+                self?.dismiss(animated: true)
+        }
+        
+        let hostingVC = UIHostingController(rootView: filterView)
+        
+        let nc = WMFThemeableNavigationController(rootViewController: hostingVC, theme: self.theme)
+        
         nc.modalPresentationStyle = .pageSheet
-        present(nc, animated: true, completion: nil)
+        self.present(nc, animated: true, completion: nil)
     }
     
     func presentInboxViewController() {
