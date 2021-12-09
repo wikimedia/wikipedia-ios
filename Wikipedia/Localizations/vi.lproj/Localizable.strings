@@ -17,7 +17,6 @@
 // Author: Vinhtantran
 
 "aaald-added-text-description-2" = "$1 được thêm";
-// Fuzzy
 "aaald-article-description-updated-description" = "Đã cập nhật lời tóm lược bài viết";
 "aaald-article-insert-header" = "Cập nhật Quan trọng";
 "aaald-article-insert-last-updated" = "Cập nhật lần cuối cùng";
@@ -176,37 +175,33 @@
 "compass-direction" = "hướng $1 giờ";
 "continue-reading-empty-description" = "Kiếm thêm bài Wikipedia để đọc";
 "continue-reading-empty-title" = "Không bài nào được đọc gần đây";
+"crimean-tatar-variants-alert-body" = "Ứng dụng Wikipedia mới hỗ trợ các hệ chữ viết tiếng Tatar Crưm là ngôn ngữ giao diện chính hoặc phụ để cho bạn dễ tra cứu, tìm kiếm, và sửa đổi trong hệ chữ viết của bạn:\n\nQırımtatarca, Latin Tatar Crưm chữ Latinh (chr-latn)\nкъырымтатарджа, Кирил Tatar Crưm chữ Kirin (crh-cyrl)";
+"crimean-tatar-variants-alert-title" = "Cập nhật hỗ trợ hệ chữ viết trong tiếng Tatar Crưm";
 "data-migration-status" = "Đang cập nhật…";
 "description-add-title" = "Thêm lời tóm lược";
-// Fuzzy
-"description-edit-for-article" = "Tóm lược $1";
+"description-edit-for-article" = "Tóm lược bài viết $1";
 "description-edit-learn-more" = "Tìm hiểu thêm";
 "description-edit-length-warning" = "$1 / $2";
-// Fuzzy
-"description-edit-license" = "Với việc thay đổi lời tóm lược, tôi chấp nhận $1 và đồng ý phát hành các đóng góp của mình theo giấy phép $2 một cách không thể hủy bỏ.";
+"description-edit-license" = "Với việc thay đổi lời tóm lược bài viết, tôi chấp nhận $1 và đồng ý phát hành các đóng góp của mình theo giấy phép $2 một cách không thể hủy bỏ.";
 "description-edit-pencil-introduction" = "Sửa phần đầu";
-// Fuzzy
 "description-edit-pencil-title" = "Sửa lời tóm lược bài viết";
 "description-edit-placeholder-title" = "Lời tóm lược càng ngắn càng tốt";
 "description-edit-publish" = "Đăng tóm lược";
 "description-edit-title" = "Sửa tóm lược";
 "description-edit-warning" = "Cố gắng giữ lời tóm lược cho ngắn gọn để người dùng có thể hiểu nhanh chủ đề của bài viết";
-// Fuzzy
-"description-help-about-description" = "Lời tóm lược giúp độc giả dễ dàng hiểu bài viết hơn.";
+"description-edit-warning-casing" = "Viết thường chữ đầu của lời tóm lược; chỉ viết hoa danh từ riêng.";
+"description-help-about-description" = "Lời tóm lược bài viết giúp độc giả dễ dàng hiểu chủ đề.";
 "description-help-about-title" = "Giới thiệu";
 "description-help-about-wikidata" = "Giới thiệu về Wikidata";
 "description-help-more-info-description" = "Các lời tóm lược bài viết được lưu trữ trên Wikidata, một dự án trực thuộc Quỹ Wikimedia cung cấp cơ sở kiến thức chung tự do, hợp tác, đa ngôn ngữ, hỗ trợ Wikipedia và các dự án khác.";
 "description-help-more-info-title" = "Xem thêm thông tin";
 "description-help-tips-description" = "Lời tóm lược nên vừa một dòng không nên dài quá 60 ký tự. Các lời tóm lược không nên viết hoa ở đầu câu trừ khi đầu câu là danh từ riêng.";
-// Fuzzy
 "description-help-tips-example-description-one" = "lời tóm lược bài viết về Mona Lisa";
-// Fuzzy
 "description-help-tips-example-description-two" = "lời tóm lược bài viết về đỉnh Everest";
 "description-help-tips-example-title-one" = "bức tranh của Leonardo Da Vinci";
 "description-help-tips-example-title-two" = "Ngọn núi cao nhất trên Trái Đất";
 "description-help-tips-for-example" = "Ví dụ:";
 "description-help-tips-title" = "Cách tóm lược bài viết";
-// Fuzzy
 "description-help-title" = "Trợ giúp tóm lược bài viết";
 "description-help-wikidata-guide" = "Hướng dẫn viết miêu tả tại Wikidata";
 "description-published-button-title" = "Xong";
@@ -216,7 +211,6 @@
 "description-welcome-concise-sub-title" = "Hãy cố gắng ghi lời tóm lược vừa một dòng và không quá 60 ký tự";
 "description-welcome-concise-title" = "Làm ngắn gọn";
 "description-welcome-descriptions-sub-title" = "Tóm lược bài để giúp độc giả dễ dàng hiểu đề tài";
-// Fuzzy
 "description-welcome-descriptions-title" = "Tóm lược bài viết";
 "description-welcome-promise-title" = "Với việc bắt đầu sửa đổi lời tóm lược, tôi hứa sẽ không lạm dụng tính năng này";
 "description-welcome-start-editing-button" = "Bắt đầu sửa đổi";
@@ -321,6 +315,8 @@
 "empty-no-feed-message" = "Bạn có thể xem các bài được gợi ý cho bạn khi bạn có kết nối Internet";
 "empty-no-history-message" = "Ghi lại danh sách các trang bạn đã đọc ở đây";
 "empty-no-history-title" = "Không có gì để hiển thị";
+"empty-no-other-article-languages-message" = "Bài viết này chưa được viết trong ngôn ngữ nào khác";
+"empty-no-other-article-languages-title" = "Không có sẵn ngôn ngữ khác";
 "empty-no-reading-lists-message" = "Tạo danh sách đọc về những điểm du lịch thú vị, những chủ để bạn yêu thích và nhiều hơn nữa";
 "empty-no-reading-lists-title" = "Sắp xếp các bài viết được lưu vào thiết bị bằng danh sách đọc";
 "empty-no-saved-pages-in-reading-list-message" = "Lưu các trang vào danh sách này để chúng xuất hiện ở đây";
@@ -416,6 +412,10 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Từ Wikipedia";
 "explore-randomizer" = "Ngẫu nhiên";
 "featured-article-empty-title" = "Hôm nay không có bài viết chọn lọc";
+"featured-widget-content-failure-for-date" = "Không có sẵn bài viết chọn lọc vào ngày này.";
+"featured-widget-from-language-wikipedia" = "Từ Wikipedia $1";
+"featured-widget-from-wikipedia" = "Từ Wikipedia";
+"featured-widget-title" = "Bài viết chọn lọc";
 "feed-news-notification-button-text" = "Bật thông báo";
 "feed-news-notification-text" = "Nhận thông báo về các bài Wikipedia vào lúc thịnh hành về tin tức.";
 "fetcher-error-generic" = "Đã xuất hiện một lỗi bất ngờ. Xin vui lòng thử lại sau.";
@@ -453,6 +453,8 @@
 "forgot-password-instructions" = "Điền vào một trong những trường sau để nhận hướng dẫn đặt lại mật khẩu qua thư điện tử";
 "forgot-password-title" = "Đặt lại mật khẩu";
 "forgot-password-username-or-email-title" = "Hoặc";
+"gan-variants-alert-body" = "Ứng dụng Wikipedia mới hỗ trợ các biến thể chữ Hán cho tiếng Cám là ngôn ngữ giao diện chính hoặc phụ để cho bạn dễ tra cứu, tìm kiếm, và sửa đổi trong biến thể của bạn:\n\n贛語 原文 Cám (gan)\n赣语 简体 Cám giản thể (gan-hans)\n贛語 繁體 Cám phồn thể (gan-hant)";
+"gan-variants-alert-title" = "Cập nhật hỗ trợ biến thể chữ Hán trong tiếng Cám";
 "history-clear-all" = "Xóa sạch";
 "history-clear-cancel" = "Hủy bỏ";
 "history-clear-confirmation-heading" = "Bạn có chắc chắn muốn xóa tất cả các mục gần đây của bạn?";
@@ -514,11 +516,18 @@
 "intermediate-edits-editors-count-limited" = "Không hiển thị $1+ phiên bản ở giữa bởi $2+ người dùng";
 "intermediate-edits-editors-limited-count" = "Không hiển thị $1 phiên bản ở giữa bởi $2+ người dùng";
 "intermediate-edits-limited-editors-count" = "Không hiển thị $1+ phiên bản ở giữa bởi $2 người dùng";
+"inuktitut-variants-alert-body" = "Ứng dụng Wikipedia mới hỗ trợ các hệ chữ viết tiếng Inuktitut là ngôn ngữ giao diện chính hoặc phụ để cho bạn dễ tra cứu, tìm kiếm, và sửa đổi trong hệ chữ viết của bạn:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut chữ tượng thanh âm tiết (ike-cans)\nInuktitut ilisautik, Inuktitut chữ Latinh (ike-latn)";
+"inuktitut-variants-alert-title" = "Cập nhật hỗ trợ hệ chữ viết trong tiếng Inuktitut";
+"kazakh-variants-alert-body" = "Ứng dụng Wikipedia mới hỗ trợ các hệ chữ viết tiếng Kazakh là ngôn ngữ giao diện chính hoặc phụ để cho bạn dễ tra cứu, tìm kiếm, và sửa đổi trong hệ chữ viết của bạn:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh chữ Kirin (kk-cyrl)\nqazaqşa latin Kazakh chữ Latinh (kk-latn)\nتوتە قازاقشا Kazakh chữ Ả Rập (kk-arab)";
+"kazakh-variants-alert-title" = "Cập nhật hỗ trợ biến thể trong tiếng Kazakh";
+"kurdish-variants-alert-body" = "Ứng dụng Wikipedia mới hỗ trợ các hệ chữ viết tiếng Kurd là ngôn ngữ giao diện chính hoặc phụ để cho bạn dễ tra cứu, tìm kiếm, và sửa đổi trong hệ chữ viết của bạn:\n\nKurdî Latînî Kurd chữ Latinh (ku-latn)\nكوردی Kurd chữ Ả Rập (kk-arab)";
+"kurdish-variants-alert-title" = "Cập nhật hỗ trợ hệ chữ viết trong tiếng Kurd";
 "languages-settings-title" = "Ngôn ngữ";
 "languages-title" = "Thay đổi ngôn ngữ";
 "languages-wikipedia" = "Ngôn ngữ Wikipedia";
 "logged-out-continue-without-logging-in-button-title" = "Tiếp tục mà không đăng nhập";
 "logged-out-log-back-in-button-title" = "Đăng nhập vào tài khoản của bạn";
+"logged-out-subtitle" = "Đã gặp sự cố khi xác minh tài khoản của bạn. Để đồng bộ hóa các danh sách đọc của bạn và sửa đổi với tên của bạn, xin hãy đăng nhập lại.";
 "logged-out-title" = "Bạn đã đăng xuất";
 "login-forgot-password" = "Quên mật khẩu?";
 "login-join-wikipedia" = "Tham gia Wikipedia.";
@@ -552,6 +561,50 @@
 "no-internet-connection" = "Không có kết nối Internet";
 "no-internet-connection-article-reload" = "Bài viết này có thể có một phiên bản mới hơn nhưng không thể tải nó vì không có kết nối Internet";
 "no-internet-connection-article-reload-button" = "Quay về phiên bản cuối cùng được lưu";
+"notifications-center-change-password" = "Thay đổi Mật khẩu";
+"notifications-center-commons-project-name" = "Wikimedia Commons";
+"notifications-center-empty-checking-for-notifications" = "Đang kiểm tra thông báo…";
+"notifications-center-empty-no-unread-messages" = "Bạn không có tin nhắn mới";
+"notifications-center-empty-not-subscribed" = "Bạn hiện không theo dõi thông báo Wikipedia nào";
+"notifications-center-footer-change-password" = "Thay đổi mật khẩu";
+"notifications-center-go-to-diff" = "Xem khác biệt";
+"notifications-center-go-to-talk-page" = "Xem trang thảo luận";
+"notifications-center-go-to-title" = "Xem $1";
+"notifications-center-go-to-user-page" = "Xem trang thảo luận của $1";
+"notifications-center-go-to-wikidata-item" = "Xem khoản mục Wikidata";
+"notifications-center-go-to-your-talk-page" = "Xem trang thảo luận của bạn";
+"notifications-center-header-alert-from-project" = "Cảnh báo từ $1";
+"notifications-center-header-notice-from-project" = "Thông báo từ $1";
+"notifications-center-language-project-name-format" = "$2 $1";
+"notifications-center-login-notifications" = "Thông báo Lần Đăng nhập";
+"notifications-center-mark-as-read" = "Đánh dấu là Đã đọc";
+"notifications-center-mark-as-unread" = "Đánh dấu là chưa đọc";
+"notifications-center-notifications-settings" = "Tùy chọn thông báo";
+"notifications-center-subheader-edit-milestone" = "Cột mốc sửa đổi";
+"notifications-center-subheader-edit-reverted" = "Sửa đổi của bạn bị lùi lại";
+"notifications-center-subheader-email-from-other-user" = "Thư điện tử mới";
+"notifications-center-subheader-login-fail-known-device" = "Nhiều lần đăng nhập không thành công";
+"notifications-center-subheader-login-fail-unknown-device" = "Lần đăng nhập không thành công";
+"notifications-center-subheader-login-success-unknown-device" = "Đăng nhập từ thiết bị không quen";
+"notifications-center-subheader-mention-article-talk-page" = "Lời nhắc đến tại trang thảo luận bài viết";
+"notifications-center-subheader-mention-edit-summary" = "Lời nhắc đến trong tóm lược sửa đổi";
+"notifications-center-subheader-mention-failed" = "Lời nhắc đến thất bại";
+"notifications-center-subheader-mention-successful" = "Lời nhắc đến thành công";
+"notifications-center-subheader-mention-talk-page" = "Lời nhắc đến tại trang thảo luận";
+"notifications-center-subheader-message-user-talk-page" = "Tin nhắn tại trang thảo luận của bạn";
+"notifications-center-subheader-page-link" = "Liên kết đến trang";
+"notifications-center-subheader-page-reviewed" = "Trang được duyệt";
+"notifications-center-subheader-thanks" = "Lời cảm ơn";
+"notifications-center-subheader-translate-milestone" = "Cột mốc biên dịch";
+"notifications-center-subheader-user-rights-change" = "Thay đổi quyền người dùng";
+"notifications-center-subheader-welcome" = "Hoan nghênh!";
+"notifications-center-subheader-wikidata-connection" = "Liên kết từ Wikidata";
+"notifications-center-title" = "Thông báo";
+"notifications-center-wikidata-project-name" = "Wikidata";
+"notifications-push-fallback-body-text" = "Hoạt động mới tại Wikipedia";
+"notifications-push-talk-body-format" = "$1 $2 mới tại $3";
+"notifications-push-talk-messages-format" = "{{PLURAL:$1}}Thông báo";
+"notifications-push-talk-title-format" = "$1 mới";
 "number-billions" = "$1 tỷ";
 "number-millions" = "$1 triệu";
 "number-thousands" = "$1 ngàn";
@@ -559,6 +612,7 @@
 "on-this-day-detail-header-title" = "$1 sự kiện trong lịch sử";
 "on-this-day-footer" = "Thêm sự kiện xảy ra ngày nay năm xưa";
 "on-this-day-footer-showing-event-count" = "$1 sự kiện lịch sử nữa vào ngày này";
+"on-this-day-no-internet-error" = "Không có sẵn dữ liệu";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 từ Wikipedia $2";
 "on-this-day-title" = "Ngày này năm xưa";
 "original-tab-button-popover-description" = "Chạm vào chữ “W” để quay lại thẻ ban đầu";
@@ -622,6 +676,7 @@
 "places-unknown-distance" = "tầm xa không rõ";
 "potd-description-prefix" = "Hình trong ngày cho $1";
 "potd-empty-error-description" = "Thất bại khi lấy hình trong ngày cho $1";
+"potd-widget-title" = "Hình ảnh trong ngày";
 "preference-summary-eventlogging-opt-in" = "Cho phép Quỹ Wikimedia thu thập thông tin về cách bạn sử dụng ứng dụng để giúp làm ứng dụng tốt hơn";
 "preference-title-eventlogging-opt-in" = "Gửi báo cáo sử dụng";
 "rank-accessibility-label" = "Hạng $1";
@@ -711,6 +766,8 @@
 "relative-date-hours-abbreviated" = "$1g̀";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Mới đây|Cách đây $1 giờ}}";
 "relative-date-hours-ago-abbreviated" = "$1g̀ trước";
+"relative-date-hrs-ago" = "{{PLURAL:$1|0=Mới đây|Cách đây $1 giờ}}";
+"relative-date-min-ago" = "{{PLURAL:$1|0=Bây giờ|Cách đây $1 phút}}";
 "relative-date-minutes-abbreviated" = "$1ph́";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Mới đây|Cách đây $1 phút}}";
 "relative-date-minutes-ago-abbreviated" = "$1ph́ trước";
@@ -756,6 +813,8 @@
 "search-recent-title" = "Tìm kiếm gần đây";
 "search-result-redirected-from" = "Đổi hướng từ: $1";
 "search-title" = "Tìm kiếm";
+"serbian-variants-alert-body" = "Ứng dụng Wikipedia mới hỗ trợ các hệ chữ viết tiếng Serbia là ngôn ngữ giao diện chính hoặc phụ để cho bạn dễ tra cứu, tìm kiếm, và sửa đổi trong hệ chữ viết của bạn:\n\nсрпски ћирилица Serbia chữ Kirin (sr-ec)\nsrpski latinica Serbia chữ Latinh (sr-el)";
+"serbian-variants-alert-title" = "Cập nhật hỗ trợ hệ chữ viết trong tiếng Serbia";
 "settings-account" = "Tài khoản";
 "settings-appearance" = "Tùy chọn đọc";
 "settings-clear-cache" = "Xóa dữ liệu đệm";
@@ -814,6 +873,10 @@
 "table-of-contents-heading" = "Mục lục";
 "table-of-contents-hide-button-label" = "Ẩn mục lục";
 "table-of-contents-subheading-label" = "Đề mục con $1";
+"tachelhit-variants-alert-body" = "Ứng dụng Wikipedia mới hỗ trợ các hệ chữ viết tiếng Shilha là ngôn ngữ giao diện chính hoặc phụ để cho bạn dễ tra cứu, tìm kiếm, và sửa đổi trong hệ chữ viết của bạn:\n\nⵜⴰⵛⵍⵃⵉⵜ Shilha chữ Tifinagh (shi-tfng)\nTaclḥit Shilha chữ Latinh (shi-latn)";
+"tachelhit-variants-alert-title" = "Cập nhật hỗ trợ hệ chữ viết trong tiếng Shilha";
+"tajik-variants-alert-body" = "Ứng dụng Wikipedia mới hỗ trợ các hệ chữ viết tiếng Tajik là ngôn ngữ giao diện chính hoặc phụ để cho bạn dễ tra cứu, tìm kiếm, và sửa đổi trong hệ chữ viết của bạn:\n\nтоҷикӣ кирилликӣ Tajik chữ Kirin (tg-cyrl)\ntojikī lotinī Tajik chữ Latinh (tg-latn)";
+"tajik-variants-alert-title" = "Cập nhật hỗ trợ biến thể trong tiếng Tajik";
 "talk-page-add-discussion-accessibility-label" = "Thêm đề tài";
 "talk-page-discussion-accessibility-hint" = "Chạm đúp để mở đề tài thảo luận";
 "talk-page-discussion-read-accessibility-label" = "Đã đọc";
@@ -852,6 +915,8 @@
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia $1";
 "top-read-see-more" = "Xem thêm bài đọc nhiều nhất";
+"top-read-widget-readers-count" = "$1 người đọc";
+"top-read-widget-title" = "Bài đọc nhiều nhất";
 "two-factor-login-continue" = "Tiếp tục đăng nhập";
 "two-factor-login-instructions" = "Xin vui lòng nhập mã xác thực dùng hai nhân tố";
 "two-factor-login-title" = "Đăng nhập vào tài khoản của bạn";
@@ -859,6 +924,8 @@
 "two-factor-login-with-regular-code" = "Sử dụng mã xác nhận";
 "unable-to-load-talk-page-title" = "Đã xảy ra lỗi khi tải trang thảo luận";
 "unknown-generic-text" = "Không rõ";
+"uzbek-variants-alert-body" = "Ứng dụng Wikipedia mới hỗ trợ các hệ chữ viết tiếng Uzbek là ngôn ngữ giao diện chính hoặc phụ để cho bạn dễ tra cứu, tìm kiếm, và sửa đổi trong hệ chữ viết của bạn:\n\noʻzbekcha lotin Uzbek chữ Latinh (uz-latin)\nўзбекча кирилл Uzbek chữ Kirin (uz-cyrl)";
+"uzbek-variants-alert-title" = "Cập nhật hỗ trợ biến thể trong tiếng Uzbek";
 "variants-alert-dismiss-button" = "Thôi";
 "variants-alert-preferences-button" = "Xem tùy chọn cá nhân của bạn";
 "welcome-exploration-explore-feed-description" = "Các bài đọc được cộng đồng gợi ý hằng ngày";
@@ -886,6 +953,8 @@
 "welcome-send-data-learn-more" = "Tìm hiểu thêm về dữ liệu được thu thập";
 "welcome-send-data-sub-title" = "Giúp cải thiện ứng dụng này bằng cách cho Quỹ Wikimedia biết bạn sử dụng ứng dụng như thế nào. Các dữ liệu được tập hợp là vô danh.";
 "welcome-volunteer-send-usage-reports" = "Gửi báo cáo sử dụng";
+"widget-onthisday-placeholder-article-snippet" = "Bách khoa toàn thư mở trực tuyến cho phép bất cứ người nào góp tay xây dựng";
+"widget-onthisday-placeholder-event-snippet" = "Bách khoa toàn thư nội dung mở Wikipedia mở cửa.";
 "wikitext-downloading" = "Đang tải nội dung…";
 "wikitext-preview-changes" = "Đang lấy bản xem trước các thay đổi của bạn…";
 "wikitext-preview-changes-none" = "Không có thay đổi để xem trước.";
