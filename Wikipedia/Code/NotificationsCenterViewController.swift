@@ -475,8 +475,15 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
         alertController.addAction(cancelAction)
 
         if let popoverController = alertController.popoverPresentationController, let cell = notificationsView.collectionView.cellForItem(at: indexPath) {
-            popoverController.sourceView = cell
-            popoverController.sourceRect = CGRect(x: cell.bounds.midX, y: cell.bounds.midY, width: 0, height: 0)
+            if let activeCell = cellSwipeData.activeCell(in: notificationsView.collectionView) {
+                let sourceView = activeCell.swipeMoreStack
+                popoverController.sourceView = sourceView
+                popoverController.sourceRect = CGRect(x: sourceView.bounds.midX, y: sourceView.bounds.midY, width: 0, height: 0)
+            } else {
+                popoverController.sourceView = cell
+                popoverController.sourceRect = CGRect(x: cell.bounds.midX, y: cell.bounds.midY, width: 0, height: 0)
+
+            }
         }
 
         present(alertController, animated: true, completion: nil)
