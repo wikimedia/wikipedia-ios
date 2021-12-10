@@ -1,3 +1,4 @@
+import Darwin
 let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"
 let WMFShouldRestoreNavigationStackOnResume = "WMFShouldRestoreNavigationStackOnResume"
 let WMFAppSiteKey = "Domain"
@@ -116,10 +117,17 @@ let WMFSendUsageReports = "WMFSendUsageReports"
     
     @objc var themeAnalyticsName: String {
         let name = string(forKey: WMFAppThemeName)
+        let darkMode =  bool(forKey: "SystemDarkMode")
         guard name != nil, name != Theme.defaultThemeName else {
+            let theme = Theme.defaultAnalyticsThemeName
+            return darkMode ? Theme.dark.name : theme
+        }
+        
+        if Theme.withName(name)?.name == Theme.light.name {
             return Theme.defaultAnalyticsThemeName
         }
-        return Theme.withName(name)?.name ?? Theme.light.name
+        
+        return Theme.withName(name)?.name ?? Theme.defaultAnalyticsThemeName
     }
     
     @objc var themeDisplayName: String {
@@ -133,8 +141,11 @@ let WMFSendUsageReports = "WMFSendUsageReports"
     @objc(themeCompatibleWith:)
     func theme(compatibleWith traitCollection: UITraitCollection) -> Theme {
         let name = string(forKey: WMFAppThemeName)
+        let darkMode = traitCollection.userInterfaceStyle == .dark
+
+        self.set(darkMode, forKey: "SystemDarkMode")
         guard name != nil, name != Theme.defaultThemeName else {
-                return traitCollection.userInterfaceStyle == .dark ? Theme.black.withDimmingEnabled(wmf_isImageDimmingEnabled) : .light
+                return darkMode ? Theme.black.withDimmingEnabled(wmf_isImageDimmingEnabled) : .light
         }
         let theme = Theme.withName(name) ?? Theme.light
         return theme.isDark ? theme.withDimmingEnabled(wmf_isImageDimmingEnabled) : theme
