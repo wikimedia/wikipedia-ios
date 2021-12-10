@@ -9,6 +9,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
     // MARK: - Properties
 
     static let reuseIdentifier = "NotificationsCenterCell"
+    static let swipeEdgeBuffer: CGFloat = 20
 
     fileprivate var theme: Theme = .light
     fileprivate var viewModel: NotificationsCenterCellViewModel?
@@ -64,7 +65,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         label.setContentCompressionResistancePriority(.required, for: .vertical)
         label.font = UIFont.wmf_font(.headline, compatibleWithTraitCollection: traitCollection)
         label.adjustsFontForContentSizeCategory = true
-        label.textAlignment = .left
+        label.textAlignment = effectiveUserInterfaceLayoutDirection == .rightToLeft ? .right : .left
         label.numberOfLines = 1
         label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         label.setContentHuggingPriority(.defaultLow, for: .horizontal)
@@ -86,7 +87,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         label.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 1
-        label.textAlignment = .left
+        label.textAlignment = effectiveUserInterfaceLayoutDirection == .rightToLeft ? .right : .left
         label.text = ""
         return label
     }()
@@ -128,6 +129,39 @@ final class NotificationsCenterCell: UICollectionViewCell {
         return button
     }()
 
+    lazy var swipeMoreActionButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(tappedMoreAction), for: .primaryActionTriggered)
+        return button
+    }()
+
+    lazy var swipeMarkAsReadUnreadActionButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(tappedReadUnreadAction), for: .primaryActionTriggered)
+        return button
+    }()
+
+    lazy var swipeMoreStack: StackedImageLabelView = {
+        let stack = StackedImageLabelView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        let configuration = UIImage.SymbolConfiguration(weight: .bold)
+        stack.imageView.image = UIImage(systemName: "ellipsis.circle.fill", withConfiguration: configuration)
+        stack.backgroundColor = .base30
+        stack.increaseLabelTopPadding = true
+        return stack
+    }()
+
+    lazy var swipeReadUnreadStack: StackedImageLabelView = {
+        let stack = StackedImageLabelView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        let configuration = UIImage.SymbolConfiguration(weight: .bold)
+        stack.imageView.image = UIImage(systemName: "envelope", withConfiguration: configuration)
+        stack.backgroundColor = .green50
+        return stack
+    }()
+
     // MARK - UI Elements - Stacks
 
     lazy var mainVerticalStackView: UIStackView = {
@@ -156,7 +190,36 @@ final class NotificationsCenterCell: UICollectionViewCell {
         return stackView
     }()
 
+    lazy var swipeActionButtonStack: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.alignment = .center
+        return stackView
+    }()
+
+    var swipeBackgroundFillView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .base30
+        return view
+    }()
+
     // MARK: - UI Elements - Containers
+
+    lazy var foregroundContentContainer: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    lazy var backgroundActionsContainer: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isUserInteractionEnabled = true
+        return view
+    }()
 
     lazy var leadingContainer: UIView = {
         let view = UIView()
@@ -173,6 +236,22 @@ final class NotificationsCenterCell: UICollectionViewCell {
     lazy var headerTextContainer: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    lazy var swipeMoreActionContainer: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .base30
+        view.isUserInteractionEnabled = true
+        return view
+    }()
+
+    lazy var swipeMarkAsReadUnreadActionContainer: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .green50
+        view.isUserInteractionEnabled = true
         return view
     }()
 
@@ -207,9 +286,10 @@ final class NotificationsCenterCell: UICollectionViewCell {
 
         selectedBackgroundView = UIView()
 
-        contentView.addSubview(leadingContainer)
-        contentView.addSubview(mainVerticalStackView)
-        contentView.addSubview(cellSeparator)
+        foregroundContentContainer.addSubview(leadingContainer)
+        foregroundContentContainer.addSubview(mainVerticalStackView)
+
+        backgroundActionsContainer.addSubview(swipeActionButtonStack)
 
         leadingContainer.addSubview(leadingImageView)
 
@@ -233,18 +313,43 @@ final class NotificationsCenterCell: UICollectionViewCell {
         internalVerticalNotificationContentStack.addArrangedSubview(metaActionButton)
         internalVerticalNotificationContentStack.addArrangedSubview(VerticalSpacerView.spacerWith(space: 3))
 
+        contentView.addSubview(swipeBackgroundFillView)
+        contentView.addSubview(backgroundActionsContainer)
+        contentView.addSubview(foregroundContentContainer)
+        contentView.addSubview(cellSeparator)
+
+        // Foreground and Background Container Constraints
+
+        NSLayoutConstraint.activate([
+            swipeBackgroundFillView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: NotificationsCenterCell.swipeEdgeBuffer * 2.0),
+            swipeBackgroundFillView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            swipeBackgroundFillView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            swipeBackgroundFillView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+
+            backgroundActionsContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            backgroundActionsContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            backgroundActionsContainer.topAnchor.constraint(equalTo: contentView.topAnchor),
+            backgroundActionsContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+
+            foregroundContentContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            foregroundContentContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            foregroundContentContainer.topAnchor.constraint(equalTo: contentView.topAnchor),
+            foregroundContentContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+        ])
+
         // Primary Hierarchy Constraints
 
         NSLayoutConstraint.activate([
-            leadingContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            leadingContainer.leadingAnchor.constraint(equalTo: foregroundContentContainer.leadingAnchor),
             leadingContainer.topAnchor.constraint(equalTo: mainVerticalStackView.topAnchor),
-            leadingContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            leadingContainer.bottomAnchor.constraint(equalTo: foregroundContentContainer.bottomAnchor),
             leadingContainer.trailingAnchor.constraint(equalTo: mainVerticalStackView.leadingAnchor),
 
-            mainVerticalStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: topMargin),
-            mainVerticalStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -edgeMargin),
-            mainVerticalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            headerTextContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -edgeMargin),
+            mainVerticalStackView.topAnchor.constraint(equalTo: foregroundContentContainer.topAnchor, constant: topMargin),
+            mainVerticalStackView.bottomAnchor.constraint(equalTo: foregroundContentContainer.bottomAnchor, constant: -edgeMargin),
+            mainVerticalStackView.trailingAnchor.constraint(equalTo: foregroundContentContainer.trailingAnchor),
+
+            headerTextContainer.trailingAnchor.constraint(equalTo: foregroundContentContainer.trailingAnchor, constant: -edgeMargin),
 
             cellSeparator.heightAnchor.constraint(equalToConstant: 0.5),
             cellSeparator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
@@ -280,13 +385,41 @@ final class NotificationsCenterCell: UICollectionViewCell {
 
         NSLayoutConstraint.activate([
             projectSourceContainer.widthAnchor.constraint(equalToConstant: 50),
-            projectSourceContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -edgeMargin),
+            projectSourceContainer.trailingAnchor.constraint(equalTo: foregroundContentContainer.trailingAnchor, constant: -edgeMargin),
 
             projectSourceLabel.topAnchor.constraint(equalTo: subheaderLabel.topAnchor),
             projectSourceLabel.trailingAnchor.constraint(equalTo: projectSourceContainer.trailingAnchor),
 
             projectSourceImage.topAnchor.constraint(equalTo: subheaderLabel.topAnchor),
             projectSourceImage.trailingAnchor.constraint(equalTo: projectSourceContainer.trailingAnchor),
+        ])
+
+        // Swipe Actions
+
+        swipeActionButtonStack.addArrangedSubview(swipeMoreStack)
+        swipeActionButtonStack.addArrangedSubview(swipeReadUnreadStack)
+
+        swipeMoreStack.addSubview(swipeMoreActionButton)
+        swipeReadUnreadStack.addSubview(swipeMarkAsReadUnreadActionButton)
+
+        NSLayoutConstraint.activate([
+            swipeActionButtonStack.topAnchor.constraint(equalTo: backgroundActionsContainer.topAnchor),
+            swipeActionButtonStack.bottomAnchor.constraint(equalTo: backgroundActionsContainer.bottomAnchor),
+            swipeActionButtonStack.trailingAnchor.constraint(equalTo: backgroundActionsContainer.trailingAnchor),
+            swipeActionButtonStack.widthAnchor.constraint(equalToConstant: 200),
+
+            swipeMoreActionButton.topAnchor.constraint(equalTo: swipeMoreStack.topAnchor),
+            swipeMoreActionButton.bottomAnchor.constraint(equalTo: swipeMoreStack.bottomAnchor),
+            swipeMoreActionButton.leadingAnchor.constraint(equalTo: swipeMoreStack.leadingAnchor),
+            swipeMoreActionButton.trailingAnchor.constraint(equalTo: swipeMoreStack.trailingAnchor),
+
+            swipeMarkAsReadUnreadActionButton.topAnchor.constraint(equalTo: swipeReadUnreadStack.topAnchor),
+            swipeMarkAsReadUnreadActionButton.bottomAnchor.constraint(equalTo: swipeReadUnreadStack.bottomAnchor),
+            swipeMarkAsReadUnreadActionButton.leadingAnchor.constraint(equalTo: swipeReadUnreadStack.leadingAnchor),
+            swipeMarkAsReadUnreadActionButton.trailingAnchor.constraint(equalTo: swipeReadUnreadStack.trailingAnchor),
+
+            swipeMoreStack.heightAnchor.constraint(equalTo: contentView.heightAnchor),
+            swipeReadUnreadStack.heightAnchor.constraint(equalTo: contentView.heightAnchor),
         ])
     }
 
@@ -326,6 +459,7 @@ private extension NotificationsCenterCell {
 
         // Colors
 
+        foregroundContentContainer.backgroundColor = theme.colors.paperBackground
         cellSeparator.backgroundColor = cellStyle.cellSeparatorColor
 
         headerLabel.textColor = cellStyle.headerTextColor(displayState)
@@ -363,6 +497,10 @@ private extension NotificationsCenterCell {
         let messageSummaryText = viewModel.bodyText ?? ""
         messageSummaryLabel.text = messageSummaryText.isEmpty ? " " : viewModel.bodyText
         relativeTimeAgoLabel.text = viewModel.dateText
+        swipeMoreStack.label.text = WMFLocalizedString("notifications-center-swipe-more", value: "More", comment: "Button text for the Notifications Center 'More' swipe action.")
+        swipeReadUnreadStack.label.text = viewModel.isRead
+            ? WMFLocalizedString("notifications-center-swipe-mark-as-unread", value: "Mark as unread", comment: "Button text in Notifications Center swipe actions to mark a notification as unread.")
+            : WMFLocalizedString("notifications-center-swipe-mark-as-read", value: "Mark as read", comment: "Button text in Notifications Center swipe actions to mark a notification as read.")
     }
 
     func updateProject(forViewModel viewModel: NotificationsCenterCellViewModel) {
