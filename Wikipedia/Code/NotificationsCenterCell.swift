@@ -2,6 +2,8 @@ import UIKit
 
 protocol NotificationsCenterCellDelegate: AnyObject {
     func userDidTapSecondaryActionForViewModel(_ cellViewModel: NotificationsCenterCellViewModel)
+    func userDidTapMarkAsReadUnreadActionForCell(_ cell: NotificationsCenterCell)
+    func userDidTapMoreActionForCell(_ cell: NotificationsCenterCell)
 }
 
 final class NotificationsCenterCell: UICollectionViewCell {
@@ -12,7 +14,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
     static let swipeEdgeBuffer: CGFloat = 20
 
     fileprivate var theme: Theme = .light
-    fileprivate var viewModel: NotificationsCenterCellViewModel?
+    fileprivate(set) var viewModel: NotificationsCenterCellViewModel?
 
     weak var delegate: NotificationsCenterCellDelegate?
 
@@ -544,4 +546,13 @@ private extension NotificationsCenterCell {
 
         delegate?.userDidTapSecondaryActionForViewModel(viewModel)
     }
+
+    @objc func tappedMoreAction() {
+        delegate?.userDidTapMoreActionForCell(self)
+    }
+
+    @objc func tappedReadUnreadAction() {
+        delegate?.userDidTapMarkAsReadUnreadActionForCell(self)
+    }
+
 }

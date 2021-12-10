@@ -304,13 +304,24 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
         }
     }
 
-    /// TODO: This will be removed in the final implementation
-    fileprivate func userDidSwipeCell(indexPath: IndexPath?) {
-        guard let indexPath = indexPath,
-              let cellViewModel = dataSource?.itemIdentifier(for: indexPath) else {
+}
+
+//MARK: NotificationCenterCellDelegate
+
+extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
+
+    func userDidTapSecondaryActionForViewModel(_ cellViewModel: NotificationsCenterCellViewModel) {
+        guard let url = cellViewModel.secondaryURL(for: viewModel.configuration) else {
             return
         }
-        
+        navigate(to: url)
+    }
+
+    func userDidTapMoreActionForCell(_ cell: NotificationsCenterCell) {
+        guard let cellViewModel = cell.viewModel, let indexPath = dataSource?.indexPath(for: cellViewModel) else  {
+            return
+        }
+
         let sheetActions = cellViewModel.sheetActions(for: viewModel.configuration)
         guard !sheetActions.isEmpty else {
             return
@@ -319,13 +330,13 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
         let alertController = UIAlertController(title: cellViewModel.headerText, message: cellViewModel.bodyText, preferredStyle: .actionSheet)
 
         sheetActions.forEach { action in
-            
             let alertAction: UIAlertAction
             switch action {
             case .markAsReadOrUnread(let data):
                 alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
                     let shouldMarkRead = cellViewModel.isRead ? false : true
                     self.viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: shouldMarkRead)
+                    self.closeActiveSwipePanelIfNecessary()
                 })
             case .notificationSubscriptionSettings(let data):
                 alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
@@ -338,10 +349,10 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
                     self.navigate(to: url)
                 })
             }
-            
+
             alertController.addAction(alertAction)
         }
-        
+
         let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
         alertController.addAction(cancelAction)
 
@@ -352,15 +363,14 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
 
         present(alertController, animated: true, completion: nil)
     }
-}
 
-//MARK: NotificationCenterCellDelegate
-
-extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
-    func userDidTapSecondaryActionForViewModel(_ cellViewModel: NotificationsCenterCellViewModel) {
-        guard let url = cellViewModel.secondaryURL(for: viewModel.configuration) else {
+    func userDidTapMarkAsReadUnreadActionForCell(_ cell: NotificationsCenterCell) {
+        guard let cellViewModel = cell.viewModel else {
             return
         }
-        navigate(to: url)
+
+        closeActiveSwipePanelIfNecessary()
+        viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: !cellViewModel.isRead)
     }
+    
 }
