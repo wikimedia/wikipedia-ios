@@ -17,7 +17,7 @@ extension NotificationsCenterCellViewModel {
             return "notifications-project-commons"
         case .wikidata:
             return "notifications-project-wikidata"
-        case .language:
+        case .language, .other:
             return nil
         }
     }

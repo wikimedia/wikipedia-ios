@@ -9,8 +9,8 @@ import CocoaLumberjackSwift
     
     public let configuration: Configuration
     
-    @objc public required init(session: Session, configuration: Configuration, preferredLanguageCodesProvider: WMFPreferredLanguageInfoProvider) {
-        operationsController = RemoteNotificationsOperationsController(session: session, configuration: configuration, preferredLanguageCodesProvider: preferredLanguageCodesProvider)
+    @objc public required init(session: Session, configuration: Configuration, languageLinkController: MWKLanguageLinkController) {
+        operationsController = RemoteNotificationsOperationsController(session: session, configuration: configuration, languageLinkController: languageLinkController)
         self.configuration = configuration
         super.init()
     }

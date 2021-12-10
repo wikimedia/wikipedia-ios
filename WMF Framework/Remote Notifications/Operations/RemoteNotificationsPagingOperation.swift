@@ -4,6 +4,18 @@ import Foundation
 /// Base class for operations that deal with fetching and persisting user notifications. Operation will recursively call the next page, with overrideable hooks to adjust this behavior.
 class RemoteNotificationsPagingOperation: RemoteNotificationsOperation {
     
+    private let needsCrossWikiSummary: Bool
+    private(set) var crossWikiSummaryNotification: RemoteNotificationsAPIController.NotificationsResult.Notification?
+    
+    required init(project: RemoteNotificationsProject, apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController, needsCrossWikiSummary: Bool) {
+        self.needsCrossWikiSummary = needsCrossWikiSummary
+        super.init(project: project, apiController: apiController, modelController: modelController)
+    }
+    
+    required init(project: RemoteNotificationsProject, apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController) {
+        fatalError("init(project:apiController:modelController:) has not been implemented")
+    }
+    
     //MARK: Overridable hooks
     
     ///Boolean logic for allowing operation execution. Override to add any validation before executing this operation.
@@ -34,6 +46,11 @@ class RemoteNotificationsPagingOperation: RemoteNotificationsOperation {
         return nil
     }
     
+    /// Override to allow operation to page through a filtered list (read, unread, etc.)
+    var filter: RemoteNotificationsAPIController.Query.Filter {
+        return .none
+    }
+    
     //MARK: General Fetch and Save functionality
     
     override func execute() {
@@ -47,7 +64,7 @@ class RemoteNotificationsPagingOperation: RemoteNotificationsOperation {
     }
     
     private func recursivelyFetchAndSaveNotifications(continueId: String? = nil) {
-        apiController.getAllNotifications(from: project, continueId: continueId) { [weak self] result, error in
+        apiController.getAllNotifications(from: project, needsCrossWikiSummary: needsCrossWikiSummary, filter: filter, continueId: continueId) { [weak self] result, error in
             guard let self = self else {
                 return
             }
@@ -67,10 +84,25 @@ class RemoteNotificationsPagingOperation: RemoteNotificationsOperation {
                 self.finish()
                 return
             }
+            
+            var fetchedNotificationsToPersist = fetchedNotifications
+            if self.needsCrossWikiSummary {
+                
+                let notificationIsSummaryType: (RemoteNotificationsAPIController.NotificationsResult.Notification) -> Bool = { notification in
+                    notification.id == "-1" && notification.type == "foreign"
+                }
+                
+                let crossWikiSummaryNotification = fetchedNotificationsToPersist.first(where: notificationIsSummaryType)
+                self.crossWikiSummaryNotification = crossWikiSummaryNotification
+                
+                fetchedNotificationsToPersist = fetchedNotifications.filter({ notification in
+                    !notificationIsSummaryType(notification)
+                })
+            }
 
             do {
                 let backgroundContext = self.modelController.newBackgroundContext()
-                try self.modelController.createNewNotifications(moc: backgroundContext, notificationsFetchedFromTheServer: Set(fetchedNotifications), completion: { [weak self] in
+                try self.modelController.createNewNotifications(moc: backgroundContext, notificationsFetchedFromTheServer: Set(fetchedNotificationsToPersist), completion: { [weak self] in
 
                     guard let self = self else {
                         return

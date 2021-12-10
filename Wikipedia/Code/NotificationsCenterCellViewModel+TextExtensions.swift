@@ -190,7 +190,7 @@ extension NotificationsCenterCellViewModel {
         switch project {
         case .language(let languageCode, _, _):
             return languageCode.uppercased()
-        case .commons, .wikidata:
+        case .commons, .wikidata, .other:
             return nil
         }
     }
@@ -223,6 +223,9 @@ private extension NotificationsCenterCellViewModel {
             return WMFLocalizedString("notifications-center-commons-project-name", value: "Wikimedia Commons", comment: "Project name description for Wikimedia Commons, used in notification headers.")
         case .wikidata:
             return WMFLocalizedString("notifications-center-wikidata-project-name", value: "Wikidata", comment: "Project name description for Wikidata, used in notification headers.")
+        case .other(let apiIdentifier):
+            //TODO: Fix this, possibly pulling from https://translatewiki.net/w/i.php?title=Special:Translate&group=ext-wikimediaprojectnames&language=fr&filter=&optional=0&action=page
+            return apiIdentifier
         }
     }
     

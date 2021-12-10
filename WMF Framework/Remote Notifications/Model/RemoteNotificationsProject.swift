@@ -5,9 +5,11 @@ public enum RemoteNotificationsProject {
     public typealias LanguageCode = String
     public typealias LocalizedLanguageName = String
     public typealias LanguageVariantCode = String
+    public typealias APIIdentifier = String
     case language(LanguageCode, LocalizedLanguageName?, LanguageVariantCode?)
     case commons
     case wikidata
+    case other(APIIdentifier)
     
     private static var commonsIdentifier: String {
         return "commonswiki"
@@ -29,6 +31,8 @@ public enum RemoteNotificationsProject {
             return Self.commonsIdentifier
         case .wikidata:
             return Self.wikidataIdentifier
+        case .other(let apiIdentifier):
+            return apiIdentifier
         }
     }
     
@@ -44,8 +48,8 @@ public enum RemoteNotificationsProject {
     /// Initializes RemoteNotificationProject with wiki identifier recognize by the MediaWiki Notifications API
     /// - Parameters:
     ///   - apiIdentifier: The API identifier used by the MediaWiki Notifications API. (e.g. "enwiki", "commonswiki", "wikidatawiki", etc.)
-    ///   - languageLinkController: Include if you want to validate project against a list of languages that the app recognizes. If it isn't contained in languageLinkController's allLanguages property, instantiation fails. Including this also associates extra metadata to language enum associated value, like localizedName and languageVariantCode.
-    public init?(apiIdentifier: String, languageLinkController: MWKLanguageLinkController? = nil) {
+    ///   - languageLinkController: Included to validate project against a list of languages that the app recognizes. This also associates extra metadata to language enum associated value, like localizedName and languageVariantCode.
+    public init(apiIdentifier: String, languageLinkController: MWKLanguageLinkController) {
         
         switch apiIdentifier {
         case "commonswiki":
@@ -57,11 +61,6 @@ public enum RemoteNotificationsProject {
             let suffix = Self.languageIdentifierSuffix
             let strippedIdentifier = apiIdentifier.hasSuffix(suffix) ? String(apiIdentifier.dropLast(suffix.count)) : apiIdentifier
             
-            guard let languageLinkController = languageLinkController else {
-                self = .language(strippedIdentifier, nil, nil)
-                return
-            }
-            
             //confirm it is a recognized language
             let recognizedLanguage = languageLinkController.allLanguages.first { languageLink in
                 languageLink.languageCode == strippedIdentifier
@@ -70,7 +69,7 @@ public enum RemoteNotificationsProject {
             if let recognizedLanguage = recognizedLanguage {
                 self = .language(strippedIdentifier, recognizedLanguage.localizedName, recognizedLanguage.languageVariantCode)
             } else {
-                return nil
+                self = .other(apiIdentifier)
             }
         }
     }

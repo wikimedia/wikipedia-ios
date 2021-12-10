@@ -1,5 +1,9 @@
 import CocoaLumberjackSwift
 
+public enum RemoteNotificationsAPIControllerError: Error {
+    case unableToConstructSiteURL
+}
+
 public class RemoteNotificationsAPIController: Fetcher {
     // MARK: NotificationsAPI constants
 
@@ -110,6 +114,7 @@ public class RemoteNotificationsAPIController: Fetcher {
             let readString: String?
             let revisionID: String?
             let message: Message?
+            let sources: [String: [String: String]]?
 
             enum CodingKeys: String, CodingKey {
                 case wiki
@@ -123,6 +128,7 @@ public class RemoteNotificationsAPIController: Fetcher {
                 case readString = "read"
                 case revisionID = "revid"
                 case message = "*"
+                case sources
             }
             
             public func hash(into hasher: inout Hasher) {
@@ -158,6 +164,7 @@ public class RemoteNotificationsAPIController: Fetcher {
                 }
                 
                 message = try? values.decode(Message.self, forKey: .message)
+                sources = try? values.decode([String: [String: String]].self, forKey: .sources)
             }
         }
         
@@ -216,7 +223,7 @@ public class RemoteNotificationsAPIController: Fetcher {
         request(project: project, queryParameters: Query.notifications(limit: .max, filter: .unread, notifierType: .push, continueId: nil), completion: completion)
     }
     
-    func getAllNotifications(from project: RemoteNotificationsProject, continueId: String?, completion: @escaping (NotificationsResult.Query.Notifications?, Error?) -> Void) {
+    func getAllNotifications(from project: RemoteNotificationsProject, needsCrossWikiSummary: Bool = false, filter: Query.Filter = .none, continueId: String?, completion: @escaping (NotificationsResult.Query.Notifications?, Error?) -> Void) {
         let completion: (NotificationsResult?, URLResponse?, Error?) -> Void = { result, _, error in
             guard error == nil else {
                 completion(nil, error)
@@ -225,7 +232,7 @@ public class RemoteNotificationsAPIController: Fetcher {
             completion(result?.query?.notifications, result?.error)
         }
         
-        request(project: project, queryParameters: Query.notifications(from: [project], limit: .max, filter: .none, continueId: continueId), completion: completion)
+        request(project: project, queryParameters: Query.notifications(from: [project], limit: .max, filter: filter, needsCrossWikiSummary: needsCrossWikiSummary, continueId: continueId), completion: completion)
     }
     
     public func markAllAsRead(project: RemoteNotificationsProject, completion: @escaping (Error?) -> Void) {
@@ -299,6 +306,13 @@ public class RemoteNotificationsAPIController: Fetcher {
                 url = configuration.wikidataAPIURLComponents(with: queryParameters).url
             case .language(let languageCode, _, _):
                 url = configuration.mediaWikiAPIURLForLanguageCode(languageCode, with: queryParameters).url
+            case .other(let apiIdentifier):
+                guard let siteURL = apiIdentifier.siteURLForApiIdentifier else {
+                    completion(nil, nil, RemoteNotificationsAPIControllerError.unableToConstructSiteURL)
+                    return
+                }
+                
+                url = configuration.mediaWikiAPIURLForURL(siteURL, with: queryParameters)
             }
         } else {
             var components = NotificationsAPI.components
@@ -327,8 +341,8 @@ public class RemoteNotificationsAPIController: Fetcher {
 
     // MARK: Query parameters
 
-    private struct Query {
-        typealias Parameters = [String: String]
+    public struct Query {
+        typealias Parameters = [String: Any]
 
         enum Limit {
             case max
@@ -344,7 +358,7 @@ public class RemoteNotificationsAPIController: Fetcher {
             }
         }
 
-        enum Filter: String {
+        public enum Filter: String {
             case read = "read"
             case unread = "!read"
             case none = "read|!read"
@@ -356,8 +370,8 @@ public class RemoteNotificationsAPIController: Fetcher {
             case email
         }
 
-        static func notifications(from projects: [RemoteNotificationsProject] = [], limit: Limit = .max, filter: Filter = .none, notifierType: NotifierType? = nil, continueId: String?) -> Parameters {
-            var dictionary = ["action": "query",
+        static func notifications(from projects: [RemoteNotificationsProject] = [], limit: Limit = .max, filter: Filter = .none, notifierType: NotifierType? = nil, needsCrossWikiSummary: Bool = false, continueId: String?) -> Parameters {
+            var dictionary: [String: Any] = ["action": "query",
                     "format": "json",
                     "formatversion": "2",
                     "notformat": "model",
@@ -371,6 +385,10 @@ public class RemoteNotificationsAPIController: Fetcher {
             
             if let notifierType = notifierType {
                 dictionary["notnotifiertypes"] = notifierType.rawValue
+            }
+            
+            if needsCrossWikiSummary {
+                dictionary["notcrosswikisummary"] = 1
             }
             
             let wikis = projects.map{ $0.notificationsApiWikiIdentifier }
@@ -443,6 +461,26 @@ public extension RemoteNotificationsAPIController.NotificationsResult.Notificati
     
     var namespace: PageNamespace? {
         return PageNamespace(namespaceValue: title?.namespaceKey)
+    }
+}
+
+private extension String {
+    
+    //This attempts to take all of the possible wiki values located at https://www.mediawiki.org/wiki/Notifications/API and turn them into a recognizable host for constructing a mediawiki API url
+    var siteURLForApiIdentifier: URL? {
+        //TODO: finish out this list, consider better option that hardcoding
+        let recognizedProjectDomains = ["wikiquote, wikitionary, wikibooks, wikimedia, wikinews, wikisource, wikivoyage"]
+        for projectDomain in recognizedProjectDomains {
+            if self.hasSuffix(projectDomain) {
+                let prefix = self.dropLast(projectDomain.count)
+                let host = "\(prefix).\(projectDomain).org"
+                var components = URLComponents()
+                components.host = host
+                return components.url
+            }
+        }
+        
+        return nil
     }
 }
 
