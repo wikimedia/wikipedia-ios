@@ -1,0 +1,61 @@
+import UIKit
+
+/// A vertically stacked image/label group that resembles `UITableView`'s swipe actions 
+final class StackedImageLabelView: SetupView {
+
+    // MARK: - Properties
+
+    var increaseLabelTopPadding: Bool = false {
+        didSet {
+            labelTopAnchor.constant = increaseLabelTopPadding ? 8 : 2
+            setNeedsLayout()
+        }
+    }
+
+    private var imageDimension: CGFloat = 40
+    private var labelTopAnchor: NSLayoutConstraint = NSLayoutConstraint()
+
+    // MARK: - UI Elements
+
+    lazy var label: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.systemFont(ofSize: 14, weight: .bold), maximumPointSize: 32)
+        label.adjustsFontForContentSizeCategory = true
+        label.adjustsFontSizeToFitWidth = true
+        return label
+    }()
+
+    lazy var imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.tintColor = .white
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+
+    // MARK: - Lifecycle
+
+    override func setup() {
+        addSubview(imageView)
+        addSubview(label)
+
+        labelTopAnchor = label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 2)
+
+        NSLayoutConstraint.activate([
+            imageView.bottomAnchor.constraint(equalTo: centerYAnchor, constant: 3),
+            imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            imageView.widthAnchor.constraint(equalToConstant: imageDimension),
+            imageView.heightAnchor.constraint(equalToConstant: imageDimension),
+
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            labelTopAnchor,
+            label.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -10)
+        ])
+    }
+
+}
