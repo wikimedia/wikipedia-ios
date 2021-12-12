@@ -296,31 +296,8 @@ public class RemoteNotificationsAPIController: Fetcher {
     }
 
     private func request<T: Decodable>(project: RemoteNotificationsProject?, queryParameters: Query.Parameters?, method: Session.Request.Method = .get, completion: @escaping (T?, URLResponse?, Error?) -> Void) {
-        
-        let url: URL?
-        if let project = project {
-            switch project {
-            case .commons:
-                url = configuration.commonsAPIURLComponents(with: queryParameters).url
-            case .wikidata:
-                url = configuration.wikidataAPIURLComponents(with: queryParameters).url
-            case .wikipedia(let languageCode, _, _):
-                url = configuration.mediaWikiAPIURLForLanguageCode(languageCode, with: queryParameters).url
-            case .other(let apiIdentifier):
-                guard let siteURL = apiIdentifier.siteURLForApiIdentifier else {
-                    completion(nil, nil, RemoteNotificationsAPIControllerError.unableToConstructSiteURL)
-                    return
-                }
-                
-                url = configuration.mediaWikiAPIURLForURL(siteURL, with: queryParameters)
-            }
-        } else {
-            var components = NotificationsAPI.components
-            components.replacePercentEncodedQueryWithQueryParameters(queryParameters)
-            url = components.url
-        }
-        
-        guard let url = url else {
+
+        guard let url = project?.mediaWikiAPIURL(configuration: configuration, queryParameters: queryParameters) else {
             completion(nil, nil, RequestError.invalidParameters)
             return
         }
@@ -461,26 +438,6 @@ public extension RemoteNotificationsAPIController.NotificationsResult.Notificati
     
     var namespace: PageNamespace? {
         return PageNamespace(namespaceValue: title?.namespaceKey)
-    }
-}
-
-private extension String {
-    
-    //This attempts to take all of the possible wiki values located at https://www.mediawiki.org/wiki/Notifications/API and turn them into a recognizable host for constructing a mediawiki API url
-    var siteURLForApiIdentifier: URL? {
-        //TODO: finish out this list, consider better option that hardcoding
-        let recognizedProjectDomains = ["wikiquote, wikitionary, wikibooks, wikimedia, wikinews, wikisource, wikivoyage"]
-        for projectDomain in recognizedProjectDomains {
-            if self.hasSuffix(projectDomain) {
-                let prefix = self.dropLast(projectDomain.count)
-                let host = "\(prefix).\(projectDomain).org"
-                var components = URLComponents()
-                components.host = host
-                return components.url
-            }
-        }
-        
-        return nil
     }
 }
 

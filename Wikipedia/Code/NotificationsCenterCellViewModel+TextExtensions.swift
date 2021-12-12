@@ -190,7 +190,30 @@ extension NotificationsCenterCellViewModel {
         switch project {
         case .wikipedia(let languageCode, _, _):
             return languageCode.uppercased()
-        case .commons, .wikidata, .other:
+        case .commons,
+            .wikidata,
+            .wikiquote:
+            return nil
+        case .wikibooks(_, _):
+            //TODO: project text, if applicable
+            return nil
+        case .wiktionary(_, _):
+            //TODO: project text, if applicable
+            return nil
+        case .wikimedia(_, _):
+            //TODO: project text, if applicable
+            return nil
+        case .wikisource(_, _):
+            //TODO: project text, if applicable
+            return nil
+        case .wikinews(_, _):
+            //TODO: project text, if applicable
+            return nil
+        case .wikiversity(_, _):
+            //TODO: project text, if applicable
+            return nil
+        case .wikivoyage(_, _):
+            //TODO: project text, if applicable
             return nil
         }
     }
@@ -207,24 +230,44 @@ private extension NotificationsCenterCellViewModel {
     /// - Returns: Formatted descriptive project name
     func projectName(project: RemoteNotificationsProject, shouldReturnCodedFormat: Bool) -> String {
         
-        switch project {
-        case .wikipedia(let languageCode, let localizedLanguageName, _):
+        //TODO: This would be better as a generated mapping file that pulled from the project translations here - https://translatewiki.net/w/i.php?title=Special:Translate&group=ext-wikimediaprojectnames&filter=&optional=0&action=page&language=en
+        
+        let createProjectNameBlock: (String, String, String, Bool) -> String = { (languageCode, localizedLanguageName, projectName, shouldReturnCodedFormat) in
+            
             let format = WMFLocalizedString("notifications-center-language-project-name-format", value: "%1$@ %2$@", comment: "Format used for the ordering of language project name descriptions. This description is inserted into the header text of notifications in Notifications Center. For example, \"English Wikipedia\". Use this format to reorder these words if necessary or insert additional connecting words. Parameters: %1$@ = localized language name (\"English\"), %2$@ = localized name for Wikipedia (\"Wikipedia\")")
 
             if !shouldReturnCodedFormat {
-                return String.localizedStringWithFormat(format, localizedLanguageName, CommonStrings.plainWikipediaName)
+                return String.localizedStringWithFormat(format, localizedLanguageName, projectName)
             } else {
-                let codedProjectName = "\(languageCode.localizedUppercase)-\(CommonStrings.plainWikipediaName)"
+                let codedProjectName = "\(languageCode.localizedUppercase)-\(projectName)"
                 return codedProjectName
             }
             
+        }
+        
+        switch project {
+        case .wikipedia(let languageCode, let localizedLanguageName, _):
+            return createProjectNameBlock(languageCode, localizedLanguageName, project.projectName, shouldReturnCodedFormat)
         case .commons:
             return WMFLocalizedString("notifications-center-commons-project-name", value: "Wikimedia Commons", comment: "Project name description for Wikimedia Commons, used in notification headers.")
         case .wikidata:
             return WMFLocalizedString("notifications-center-wikidata-project-name", value: "Wikidata", comment: "Project name description for Wikidata, used in notification headers.")
-        case .other(let apiIdentifier):
-            //TODO: Fix this, possibly pulling from https://translatewiki.net/w/i.php?title=Special:Translate&group=ext-wikimediaprojectnames&language=fr&filter=&optional=0&action=page
-            return apiIdentifier
+        case .wikibooks(let languageCode, let localizedLanguageName):
+            return createProjectNameBlock(languageCode, localizedLanguageName, project.projectName, shouldReturnCodedFormat)
+        case .wiktionary(let languageCode, let localizedLanguageName):
+            return createProjectNameBlock(languageCode, localizedLanguageName, project.projectName, shouldReturnCodedFormat)
+        case .wikiquote(let languageCode, let localizedLanguageName):
+            return createProjectNameBlock(languageCode, localizedLanguageName, project.projectName, shouldReturnCodedFormat)
+        case .wikimedia(let languageCode, let localizedLanguageName):
+            return createProjectNameBlock(languageCode, localizedLanguageName, project.projectName, shouldReturnCodedFormat)
+        case .wikisource(let languageCode, let localizedLanguageName):
+            return createProjectNameBlock(languageCode, localizedLanguageName, project.projectName, shouldReturnCodedFormat)
+        case .wikinews(let languageCode, let localizedLanguageName):
+            return createProjectNameBlock(languageCode, localizedLanguageName, project.projectName, shouldReturnCodedFormat)
+        case .wikiversity(let languageCode, let localizedLanguageName):
+            return createProjectNameBlock(languageCode, localizedLanguageName, project.projectName, shouldReturnCodedFormat)
+        case .wikivoyage(let languageCode, let localizedLanguageName):
+            return createProjectNameBlock(languageCode, localizedLanguageName, project.projectName, shouldReturnCodedFormat)
         }
     }
     

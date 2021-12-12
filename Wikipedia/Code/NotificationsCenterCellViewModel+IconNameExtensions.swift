@@ -17,7 +17,30 @@ extension NotificationsCenterCellViewModel {
             return "notifications-project-commons"
         case .wikidata:
             return "notifications-project-wikidata"
-        case .wikipedia, .other:
+        case .wikiquote:
+            return "notifications-project-wikiquote"
+        case .wikipedia:
+            return nil
+        case .wikibooks:
+            //TODO: icon name, if applicable
+            return nil
+        case .wiktionary:
+            //TODO: icon name, if applicable
+            return nil
+        case .wikimedia:
+            //TODO: icon name, if applicable
+            return nil
+        case .wikisource:
+            //TODO: icon name, if applicable
+            return nil
+        case .wikinews:
+            //TODO: icon name, if applicable
+            return nil
+        case .wikiversity:
+            //TODO: icon name, if applicable
+            return nil
+        case .wikivoyage:
+            //TODO: icon name, if applicable
             return nil
         }
     }

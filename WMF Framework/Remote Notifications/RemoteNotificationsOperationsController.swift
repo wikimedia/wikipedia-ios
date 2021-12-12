@@ -226,9 +226,12 @@ class RemoteNotificationsOperationsController: NSObject {
         }
         
         //turn into array of operations
-        let operations: [RemoteNotificationsMarkReadOrUnreadOperation] = requestDictionary.map { element in
+        let operations: [RemoteNotificationsMarkReadOrUnreadOperation] = requestDictionary.compactMap { element in
+            
             let wiki = element.key
-            let project = RemoteNotificationsProject(apiIdentifier: wiki, languageLinkController: languageLinkController)
+            guard let project = RemoteNotificationsProject(apiIdentifier: wiki, languageLinkController: languageLinkController) else {
+                return nil
+            }
 
             return RemoteNotificationsMarkReadOrUnreadOperation(project: project, apiController: apiController, modelController: modelController, identifierGroups: identifierGroups, shouldMarkRead: shouldMarkRead)
         }
