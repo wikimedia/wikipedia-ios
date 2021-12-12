@@ -130,7 +130,7 @@ class RemoteNotificationsOperationsController: NSObject {
             return
         }
         
-        let preferredLanguageCodes = languageLinkController.preferredLanguages.map { $0.languageCode }
+        let preferredLanguages = languageLinkController.preferredLanguages
    
         guard let appLanguage = languageLinkController.appLanguage else {
             completion(.failurePullingAppLanguage)
@@ -138,9 +138,9 @@ class RemoteNotificationsOperationsController: NSObject {
         }
         
         let primaryLanguageProject = RemoteNotificationsProject.wikipedia(appLanguage.languageCode, appLanguage.localizedName, appLanguage.languageVariantCode)
-        let nonPrimaryLanguageCodes = preferredLanguageCodes.filter { $0 != appLanguage.languageCode }
+        let nonPrimaryLanguages = preferredLanguages.filter { $0.languageCode != appLanguage.languageCode }
 
-        var nonPrimaryProjects: [RemoteNotificationsProject] = nonPrimaryLanguageCodes.map { .wikipedia($0, nil, nil) }
+        var nonPrimaryProjects: [RemoteNotificationsProject] = nonPrimaryLanguages.map { .wikipedia($0.languageCode, $0.localizedName, $0.languageVariantCode) }
         nonPrimaryProjects.append(.commons)
         nonPrimaryProjects.append(.wikidata)
         

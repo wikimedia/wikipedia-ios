@@ -211,8 +211,7 @@ private extension NotificationsCenterCellViewModel {
         case .wikipedia(let languageCode, let localizedLanguageName, _):
             let format = WMFLocalizedString("notifications-center-language-project-name-format", value: "%1$@ %2$@", comment: "Format used for the ordering of language project name descriptions. This description is inserted into the header text of notifications in Notifications Center. For example, \"English Wikipedia\". Use this format to reorder these words if necessary or insert additional connecting words. Parameters: %1$@ = localized language name (\"English\"), %2$@ = localized name for Wikipedia (\"Wikipedia\")")
 
-            if let localizedLanguageName = localizedLanguageName,
-               !shouldReturnCodedFormat {
+            if !shouldReturnCodedFormat {
                 return String.localizedStringWithFormat(format, localizedLanguageName, CommonStrings.plainWikipediaName)
             } else {
                 let codedProjectName = "\(languageCode.localizedUppercase)-\(CommonStrings.plainWikipediaName)"

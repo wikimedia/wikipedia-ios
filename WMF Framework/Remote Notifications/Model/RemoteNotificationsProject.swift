@@ -6,7 +6,7 @@ public enum RemoteNotificationsProject {
     public typealias LocalizedLanguageName = String
     public typealias LanguageVariantCode = String
     public typealias APIIdentifier = String
-    case wikipedia(LanguageCode, LocalizedLanguageName?, LanguageVariantCode?)
+    case wikipedia(LanguageCode, LocalizedLanguageName, LanguageVariantCode?)
     case commons
     case wikidata
     case other(APIIdentifier)
