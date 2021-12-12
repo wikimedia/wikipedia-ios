@@ -6,7 +6,7 @@ public enum RemoteNotificationsProject {
     public typealias LocalizedLanguageName = String
     public typealias LanguageVariantCode = String
     public typealias APIIdentifier = String
-    case language(LanguageCode, LocalizedLanguageName?, LanguageVariantCode?)
+    case wikipedia(LanguageCode, LocalizedLanguageName?, LanguageVariantCode?)
     case commons
     case wikidata
     case other(APIIdentifier)
@@ -25,7 +25,7 @@ public enum RemoteNotificationsProject {
 
     var notificationsApiWikiIdentifier: String {
         switch self {
-        case .language(let languageCode, _, _):
+        case .wikipedia(let languageCode, _, _):
             return languageCode + Self.languageIdentifierSuffix
         case .commons:
             return Self.commonsIdentifier
@@ -38,7 +38,7 @@ public enum RemoteNotificationsProject {
     
     public var languageVariantCode: String? {
         switch self {
-        case .language(_, _, let languageVariantCode):
+        case .wikipedia(_, _, let languageVariantCode):
             return languageVariantCode
         default:
             return nil
@@ -67,7 +67,7 @@ public enum RemoteNotificationsProject {
             }
             
             if let recognizedLanguage = recognizedLanguage {
-                self = .language(strippedIdentifier, recognizedLanguage.localizedName, recognizedLanguage.languageVariantCode)
+                self = .wikipedia(strippedIdentifier, recognizedLanguage.localizedName, recognizedLanguage.languageVariantCode)
             } else {
                 self = .other(apiIdentifier)
             }
