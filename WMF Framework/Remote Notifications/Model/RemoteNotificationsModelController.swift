@@ -106,19 +106,20 @@ final class RemoteNotificationsModelController: NSObject {
                 let result = try backgroundContext.execute(batchRequest) as? NSBatchDeleteResult
                 let objectIDArray = result?.result as? [NSManagedObjectID]
                 let changes: [AnyHashable : Any] = [NSDeletedObjectsKey : objectIDArray as Any]
-                NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [backgroundContext, self.viewContext])
+                NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [self.viewContext])
             } catch (let error) {
                 DDLogError("Error batch deleting notifications upon logout: \(error)")
             }
         }
         
-        //batch delete all notification managed objects from Core Data
         let backgroundContext = newBackgroundContext()
         let request: NSFetchRequest<NSFetchRequestResult> = RemoteNotification.fetchRequest()
         let libraryRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest<NSFetchRequestResult>(entityName: "WMFKeyValue")
         
-        //batch delete all library values from Core Data
+        //batch delete all notification managed objects from Core Data
         batchDeleteBlock(request, backgroundContext)
+        
+        //batch delete all library values from Core Data
         batchDeleteBlock(libraryRequest, backgroundContext)
         
         //remove notifications from shared cache (referenced by the NotificationsService extension)

@@ -475,6 +475,7 @@ extension RemoteNotificationsAPIController.NotificationsResult.Notification {
         self.readString = nil
        
         self.message = Message(identifier: identifier)
+        self.sources = nil
     }
 }
 

@@ -183,7 +183,7 @@ class RemoteNotificationsOperationsController: NSObject {
                 return
             }
             
-            //extract new projects from summary object that aren't already queued up to be fetched from app langauges + wikidata & commons
+            //extract new projects from summary object that aren't already queued up to be fetched from app languages + wikidata & commons
             let crossWikiProjects = crossWikiSources.keys.compactMap { RemoteNotificationsProject(apiIdentifier: $0, languageLinkController: self.languageLinkController) }
             
             let existingProjectIdentifiers = ([primaryLanguageProject] + nonPrimaryProjects).map { $0.notificationsApiWikiIdentifier }
