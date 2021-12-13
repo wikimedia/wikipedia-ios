@@ -239,7 +239,7 @@
 "edit-watch-this-page-text" = "Opazuj stran";
 "empty-no-saved-pages-title" = "Nimate še shranjenih strani";
 "empty-no-search-results-message" = "Ni zadetkov";
-"explore-because-you-read" = "Ker berete";
+"explore-because-you-read" = "Ker ste prebrali";
 "explore-feed-customize-accessibility-title" = "Prilagodi";
 "explore-feed-language-settings" = "Jezikovne nastavitve vira Raziskovanje";
 "explore-feed-preferences-card-hidden-title" = "Kartica skrita";
@@ -381,6 +381,7 @@
 "saved-search-default-text" = "Iskanje shranjenih člankov";
 "saved-title" = "Shranjeno";
 "search-title" = "Iskanje";
+"settings-notifications-push-notifications" = "Potisna obvestila";
 "sort-by-title-action" = "Naslov";
 "talk-page-reply-title" = "Odgovor";
 "theme-default-display-name" = "Privzeto";
