@@ -116,17 +116,16 @@ let WMFSendUsageReports = "WMFSendUsageReports"
     
     @objc var themeAnalyticsName: String {
         let name = string(forKey: WMFAppThemeName)
-        let darkMode =  bool(forKey: "SystemDarkMode")
+        let systemDarkMode = systemDarkModeEnabled
         guard name != nil, name != Theme.defaultThemeName else {
-            let theme = Theme.defaultAnalyticsThemeName
-            return darkMode ? Theme.dark.name : theme
+            return systemDarkMode ? Theme.black.analyticsName : Theme.light.analyticsName
         }
         
         if Theme.withName(name)?.name == Theme.light.name {
             return Theme.defaultAnalyticsThemeName
         }
         
-        return Theme.withName(name)?.name ?? Theme.defaultAnalyticsThemeName
+        return Theme.withName(name)?.name ?? Theme.light.analyticsName
     }
     
     @objc var themeDisplayName: String {
@@ -140,11 +139,10 @@ let WMFSendUsageReports = "WMFSendUsageReports"
     @objc(themeCompatibleWith:)
     func theme(compatibleWith traitCollection: UITraitCollection) -> Theme {
         let name = string(forKey: WMFAppThemeName)
-        let darkMode = traitCollection.userInterfaceStyle == .dark
-
-        self.set(darkMode, forKey: "SystemDarkMode")
+        let systemDarkMode = traitCollection.userInterfaceStyle == .dark
+        systemDarkModeEnabled = systemDarkMode
         guard name != nil, name != Theme.defaultThemeName else {
-                return darkMode ? Theme.black.withDimmingEnabled(wmf_isImageDimmingEnabled) : .light
+                return systemDarkMode ? Theme.black.withDimmingEnabled(wmf_isImageDimmingEnabled) : .light
         }
         let theme = Theme.withName(name) ?? Theme.light
         return theme.isDark ? theme.withDimmingEnabled(wmf_isImageDimmingEnabled) : theme
@@ -485,6 +483,15 @@ let WMFSendUsageReports = "WMFSendUsageReports"
             
             let arrayValue = Array(newValue)
             set(arrayValue, forKey: UserDefaults.Key.talkPageForceRefreshRevisionIDs)
+        }
+    }
+    
+    private var systemDarkModeEnabled: Bool {
+        get {
+            return bool(forKey: "SystemDarkMode")
+        }
+        set {
+            set(newValue, forKey: "SystemDarkMode")
         }
     }
 #if UI_TEST
