@@ -191,29 +191,16 @@ extension NotificationsCenterCellViewModel {
         case .wikipedia(let languageCode, _, _):
             return languageCode.uppercased()
         case .commons,
-            .wikidata,
-            .wikiquote:
-            return nil
-        case .wikibooks(_, _):
-            //TODO: project text, if applicable
-            return nil
-        case .wiktionary(_, _):
-            //TODO: project text, if applicable
-            return nil
-        case .wikimedia(_, _):
-            //TODO: project text, if applicable
-            return nil
-        case .wikisource(_, _):
-            //TODO: project text, if applicable
-            return nil
-        case .wikinews(_, _):
-            //TODO: project text, if applicable
-            return nil
-        case .wikiversity(_, _):
-            //TODO: project text, if applicable
-            return nil
-        case .wikivoyage(_, _):
-            //TODO: project text, if applicable
+                .wikiquote,
+                .wikibooks,
+                .wiktionary,
+                .wikisource,
+                .wikinews,
+                .wikiversity,
+                .wikivoyage,
+                .mediawiki,
+                .wikispecies,
+                .wikidata:
             return nil
         }
     }
@@ -258,8 +245,6 @@ private extension NotificationsCenterCellViewModel {
             return createProjectNameBlock(languageCode, localizedLanguageName, project.projectName, shouldReturnCodedFormat)
         case .wikiquote(let languageCode, let localizedLanguageName):
             return createProjectNameBlock(languageCode, localizedLanguageName, project.projectName, shouldReturnCodedFormat)
-        case .wikimedia(let languageCode, let localizedLanguageName):
-            return createProjectNameBlock(languageCode, localizedLanguageName, project.projectName, shouldReturnCodedFormat)
         case .wikisource(let languageCode, let localizedLanguageName):
             return createProjectNameBlock(languageCode, localizedLanguageName, project.projectName, shouldReturnCodedFormat)
         case .wikinews(let languageCode, let localizedLanguageName):
@@ -268,6 +253,10 @@ private extension NotificationsCenterCellViewModel {
             return createProjectNameBlock(languageCode, localizedLanguageName, project.projectName, shouldReturnCodedFormat)
         case .wikivoyage(let languageCode, let localizedLanguageName):
             return createProjectNameBlock(languageCode, localizedLanguageName, project.projectName, shouldReturnCodedFormat)
+        case .mediawiki:
+            return "MediaWiki" //TODO: make WMFLocalizedString if we don't do generated project names mapping file
+        case .wikispecies:
+            return "Wikispecies" //TODO: make WMFLocalizedString if we don't do generated project names mapping file
         }
     }
     

@@ -9,11 +9,12 @@ public enum RemoteNotificationsProject {
     case wikibooks(LanguageCode, LocalizedLanguageName)
     case wiktionary(LanguageCode, LocalizedLanguageName)
     case wikiquote(LanguageCode, LocalizedLanguageName)
-    case wikimedia(LanguageCode, LocalizedLanguageName)
     case wikisource(LanguageCode, LocalizedLanguageName)
     case wikinews(LanguageCode, LocalizedLanguageName)
     case wikiversity(LanguageCode, LocalizedLanguageName)
     case wikivoyage(LanguageCode, LocalizedLanguageName)
+    case mediawiki
+    case wikispecies
     case commons
     case wikidata
     
@@ -23,6 +24,14 @@ public enum RemoteNotificationsProject {
 
     private static var wikidataIdentifier: String {
         return "wikidatawiki"
+    }
+    
+    private static var mediawikiIdentifier: String {
+        return "mediawikiwiki"
+    }
+    
+    private static var wikispeciesIdentifier: String {
+        return "specieswiki"
     }
     
     private static var wikipediaLanguageSuffix: String {
@@ -75,8 +84,6 @@ public enum RemoteNotificationsProject {
             return languageCode + Self.wiktionaryLanguageSuffix
         case .wikiquote(let languageCode, _):
             return languageCode + Self.wikiquoteLanguageSuffix
-        case .wikimedia(let languageCode, _):
-            return languageCode + Self.wikimediaLanguageSuffix
         case .wikisource(let languageCode, _):
             return languageCode + Self.wikisourceLanguageSuffix
         case .wikinews(let languageCode, _):
@@ -85,12 +92,17 @@ public enum RemoteNotificationsProject {
             return languageCode + Self.wikiversityLanguageSuffix
         case .wikivoyage(let languageCode, _):
             return languageCode + Self.wikivoyageLanguageSuffix
+        case .mediawiki:
+            return Self.mediawikiIdentifier
+        case .wikispecies:
+            return Self.wikispeciesIdentifier
         }
     }
     
     public var projectName: String {
         
         //TODO: This would be better as a generated mapping file that pulled from the project translations here - https://translatewiki.net/w/i.php?title=Special:Translate&group=ext-wikimediaprojectnames&filter=&optional=0&action=page&language=en
+        //If we decide to not go this route, these must be turned into WMFLocalizedStrings.
         
         switch self {
         case .wikipedia(_, _, _):
@@ -101,8 +113,6 @@ public enum RemoteNotificationsProject {
             return "Wiktionary"
         case .wikiquote(_, _):
             return "Wikiquote"
-        case .wikimedia(_, _):
-            return "Wikimedia"
         case .wikisource(_, _):
             return "Wikisource"
         case .wikinews(_, _):
@@ -115,6 +125,10 @@ public enum RemoteNotificationsProject {
             return "Wikimedia Commons"
         case .wikidata:
             return "Wikidata"
+        case .mediawiki:
+            return "MediaWiki"
+        case .wikispecies:
+            return "Wikispecies"
         }
     }
     
@@ -128,37 +142,32 @@ public enum RemoteNotificationsProject {
     }
     
     func mediaWikiAPIURL(configuration: Configuration, queryParameters: RemoteNotificationsAPIController.Query.Parameters?) -> URL? {
-        
-        let createStandardURLBlock: (String, String) -> URL? = { (languageCode, projectDomain) in
-            let host = "\(languageCode).\(projectDomain).org"
-            var components = URLComponents()
-            components.host = host
-            return components.url
-        }
-        
+
         switch self {
         case .commons:
             return configuration.commonsAPIURLComponents(with: queryParameters).url
         case .wikidata:
             return configuration.wikidataAPIURLComponents(with: queryParameters).url
         case .wikipedia(let languageCode, _, _):
-            return configuration.mediaWikiAPIURLForLanguageCode(languageCode, with: queryParameters).url
+            return configuration.mediaWikiAPIURLForLanguageCode(languageCode, queryParameters: queryParameters).url
         case .wikibooks(let languageCode, _):
-            return createStandardURLBlock(languageCode, Self.wikibooksLanguageSuffix)
+            return configuration.mediaWikiAPIURLForLanguageCode(languageCode, siteDomain: Configuration.Domain.wikibooks, queryParameters: queryParameters).url
         case .wiktionary(let languageCode, _):
-            return createStandardURLBlock(languageCode, Self.wiktionaryLanguageSuffix)
+            return configuration.mediaWikiAPIURLForLanguageCode(languageCode, siteDomain: Configuration.Domain.wiktionary, queryParameters: queryParameters).url
         case .wikiquote(let languageCode, _):
-            return createStandardURLBlock(languageCode, Self.wikiquoteLanguageSuffix)
-        case .wikimedia(let languageCode, _):
-            return createStandardURLBlock(languageCode, Self.wikimediaLanguageSuffix)
+            return configuration.mediaWikiAPIURLForLanguageCode(languageCode, siteDomain: Configuration.Domain.wikiquote, queryParameters: queryParameters).url
         case .wikisource(let languageCode, _):
-            return createStandardURLBlock(languageCode, Self.wikisourceLanguageSuffix)
+            return configuration.mediaWikiAPIURLForLanguageCode(languageCode, siteDomain: Configuration.Domain.wikisource, queryParameters: queryParameters).url
         case .wikinews(let languageCode, _):
-            return createStandardURLBlock(languageCode, Self.wikinewsLanguageSuffix)
+            return configuration.mediaWikiAPIURLForLanguageCode(languageCode, siteDomain: Configuration.Domain.wikinews, queryParameters: queryParameters).url
         case .wikiversity(let languageCode, _):
-            return createStandardURLBlock(languageCode, Self.wikiversityLanguageSuffix)
+            return configuration.mediaWikiAPIURLForLanguageCode(languageCode, siteDomain: Configuration.Domain.wikiversity, queryParameters: queryParameters).url
         case .wikivoyage(let languageCode, _):
-            return createStandardURLBlock(languageCode, Self.wikivoyageLanguageSuffix)
+            return configuration.mediaWikiAPIURLForLanguageCode(languageCode, siteDomain: Configuration.Domain.wikivoyage, queryParameters: queryParameters).url
+        case .mediawiki:
+            return configuration.mediaWikiAPIURLForHost(Configuration.Domain.mediaWiki, with: queryParameters).url
+        case .wikispecies:
+            return configuration.mediaWikiAPIURLForHost(Configuration.Domain.wikispecies, with: queryParameters).url
         }
     }
     
@@ -177,8 +186,6 @@ public enum RemoteNotificationsProject {
             return .wiktionary(language.languageCode, language.localizedName)
         case Self.wikiquoteLanguageSuffix:
             return .wikiquote(language.languageCode, language.localizedName)
-        case Self.wikimediaLanguageSuffix:
-            return .wikimedia(language.languageCode, language.localizedName)
         case Self.wikisourceLanguageSuffix:
             return .wikisource(language.languageCode, language.localizedName)
         case Self.wikinewsLanguageSuffix:
@@ -203,6 +210,10 @@ public enum RemoteNotificationsProject {
             self = .commons
         case Self.wikidataIdentifier:
             self = .wikidata
+        case Self.wikispeciesIdentifier:
+            self = .wikispecies
+        case Self.mediawikiIdentifier:
+            self = .mediawiki
         default:
             
             let suffixes = [Self.wikipediaLanguageSuffix, Self.wikibooksLanguageSuffix, Self.wiktionaryLanguageSuffix, Self.wikiquoteLanguageSuffix, Self.wikimediaLanguageSuffix, Self.wikisourceLanguageSuffix, Self.wikinewsLanguageSuffix, Self.wikiversityLanguageSuffix, Self.wikivoyageLanguageSuffix]

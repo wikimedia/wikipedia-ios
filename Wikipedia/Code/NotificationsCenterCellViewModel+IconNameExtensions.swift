@@ -27,9 +27,6 @@ extension NotificationsCenterCellViewModel {
         case .wiktionary:
             //TODO: icon name, if applicable
             return nil
-        case .wikimedia:
-            //TODO: icon name, if applicable
-            return nil
         case .wikisource:
             //TODO: icon name, if applicable
             return nil
@@ -41,6 +38,10 @@ extension NotificationsCenterCellViewModel {
             return nil
         case .wikivoyage:
             //TODO: icon name, if applicable
+            return nil
+        case .mediawiki:
+            return nil
+        case .wikispecies:
             return nil
         }
     }

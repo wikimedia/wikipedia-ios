@@ -144,6 +144,7 @@ public class Configuration: NSObject {
         public static let commons = "commons.wikimedia.org"
         public static let commonsBetaLabs = "commons.wikimedia.beta.wmflabs.org"
         public static let mediaWiki = "mediawiki.org"
+        public static let wikispecies = "species.wikimedia.org"
         public static let appsLabs = "mobileapps.wmflabs.org" // Product Infrastructure team's labs instance
         public static let localhost = "localhost"
         public static let englishWikipedia = "en.wikipedia.org"
@@ -151,6 +152,13 @@ public class Configuration: NSObject {
         public static let metaWiki = "meta.wikimedia.org"
         public static let wikimediafoundation = "wikimediafoundation.org"
         public static let uploads = "upload.wikimedia.org"
+        public static let wikibooks = "wikibooks.org"
+        public static let wiktionary = "wiktionary.org"
+        public static let wikiquote = "wikiquote.org"
+        public static let wikisource = "wikisource.org"
+        public static let wikinews = "wikinews.org"
+        public static let wikiversity = "wikiversity.org"
+        public static let wikivoyage = "wikivoyage.org"
     }
     
     struct Path {
@@ -300,7 +308,7 @@ public class Configuration: NSObject {
         return components.wmf_URLWithLanguageVariantCode(url?.wmf_languageVariantCode)
     }
     
-    private func mediaWikiAPIURLForHost(_ host: String? = nil, with queryParameters: [String: Any]? = nil) -> URLComponents {
+    public func mediaWikiAPIURLForHost(_ host: String? = nil, with queryParameters: [String: Any]? = nil) -> URLComponents {
         let builder = mediaWikiAPIType.builder(withWikiHost: host)
         guard let queryParameters = queryParameters else {
             return builder.components()
@@ -308,11 +316,9 @@ public class Configuration: NSObject {
         return builder.components(queryParameters: queryParameters)
     }
     
-    public func mediaWikiAPIURLForLanguageCode(_ languageCode: String? = nil, with queryParameters: [String: Any]?) -> URLComponents {
-        guard let languageCode = languageCode else {
-            return mediaWikiAPIURLForHost(nil, with: queryParameters)
-        }
-        let host = "\(languageCode).\(defaultSiteDomain)"
+    public func mediaWikiAPIURLForLanguageCode(_ languageCode: String, siteDomain: String? = nil, queryParameters: [String: Any]?) -> URLComponents {
+        let domain = siteDomain ?? defaultSiteDomain
+        let host = "\(languageCode).\(domain)"
         return mediaWikiAPIURLForHost(host, with: queryParameters)
     }
     
