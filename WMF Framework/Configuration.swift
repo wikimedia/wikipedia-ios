@@ -68,13 +68,28 @@ public class Configuration: NSObject {
     
     // MARK: Configurations
     
+    private static var commonProductionCentralAuthCookieTargetDomains = [
+        Domain.mediaWiki.withDotPrefix,
+        Domain.wikimedia.withDotPrefix,
+        Domain.wiktionary.withDotPrefix,
+        Domain.wikiquote.withDotPrefix,
+        Domain.wikibooks.withDotPrefix,
+        Domain.wikisource.withDotPrefix,
+        Domain.wikinews.withDotPrefix,
+        Domain.wikiversity.withDotPrefix,
+        Domain.wikispecies.withDotPrefix,
+        Domain.wikivoyage.withDotPrefix
+    ]
+    
     public static let production: Configuration = {
+        
+        let centralAuthCookieTargetDomains = commonProductionCentralAuthCookieTargetDomains + [Domain.wikidata.withDotPrefix, Domain.commons.withDotPrefix]
+        
         return Configuration(
             environment: .production,
             defaultSiteDomain: Domain.wikipedia,
             wikipediaCookieDomain: Domain.wikipedia.withDotPrefix,
-            wikidataCookieDomain: Domain.wikidata.withDotPrefix,
-            commonsCookieDomain: Domain.commons.withDotPrefix,
+            centralAuthCookieTargetDomains: centralAuthCookieTargetDomains,
             pageContentServiceAPIType: .production,
             feedContentAPIType: .production,
             announcementsAPIType: .production,
@@ -89,6 +104,9 @@ public class Configuration: NSObject {
         let wikipediaCookieDomain = options.contains(.betaCluster) ? Domain.wikipediaBetaLabs.withDotPrefix : Domain.wikipedia.withDotPrefix
         let wikidataCookieDomain = options.contains(.betaCluster) ? Domain.wikidataBetaLabs.withDotPrefix : Domain.wikidata.withDotPrefix
         let commonsCookieDomain = options.contains(.betaCluster) ? Domain.commonsBetaLabs.withDotPrefix : Domain.commons.withDotPrefix
+        
+        let centralAuthCookieTargetDomains = commonProductionCentralAuthCookieTargetDomains + [wikidataCookieDomain, commonsCookieDomain]
+        
         let pcsApiType: APIURLComponentsBuilder.RESTBase.BuilderType = options.contains(.appsLabsforPCS) && !options.contains(.betaCluster) ? .stagingAppsLabsPCS : .production
         let wikidataApiType: APIURLComponentsBuilder.Wikidata.BuilderType = options.contains(.betaCluster) ? .betaLabs : .production
         let commonsApiType: APIURLComponentsBuilder.Commons.BuilderType = options.contains(.betaCluster) ? .betaLabs : .production
@@ -99,8 +117,7 @@ public class Configuration: NSObject {
             environment: .staging(options),
             defaultSiteDomain: defaultSiteDomain,
             wikipediaCookieDomain: wikipediaCookieDomain,
-            wikidataCookieDomain: wikidataCookieDomain,
-            commonsCookieDomain: commonsCookieDomain,
+            centralAuthCookieTargetDomains: centralAuthCookieTargetDomains,
             pageContentServiceAPIType: pcsApiType,
             feedContentAPIType: .production,
             announcementsAPIType: .production,
@@ -115,12 +132,13 @@ public class Configuration: NSObject {
         let pcsApiType: APIURLComponentsBuilder.RESTBase.BuilderType = options.contains(.localPCS) ? .localPCS : .production
         let announcementsApiType: APIURLComponentsBuilder.RESTBase.BuilderType = options.contains(.localAnnouncements) ? .localAnnouncements : .production
         
+        let centralAuthCookieTargetDomains = commonProductionCentralAuthCookieTargetDomains + [Domain.wikidata.withDotPrefix, Domain.commons.withDotPrefix]
+        
         return Configuration(
             environment: .local(options),
             defaultSiteDomain: Domain.wikipedia,
             wikipediaCookieDomain: Domain.wikipedia.withDotPrefix,
-            wikidataCookieDomain: Domain.wikidata.withDotPrefix,
-            commonsCookieDomain: Domain.commons.withDotPrefix,
+            centralAuthCookieTargetDomains: centralAuthCookieTargetDomains,
             pageContentServiceAPIType: pcsApiType,
             feedContentAPIType: .production,
             announcementsAPIType: announcementsApiType,
@@ -174,11 +192,7 @@ public class Configuration: NSObject {
     @objc public let defaultSiteDomain: String
     public let defaultSiteURL: URL
     
-    public let mediaWikiCookieDomain: String
     public let wikipediaCookieDomain: String
-    public let wikidataCookieDomain: String
-    public let commonsCookieDomain: String
-    public let wikimediaCookieDomain: String
     public let centralAuthCookieSourceDomain: String // copy cookies from
     public let centralAuthCookieTargetDomains: [String] // copy cookies to
     
@@ -191,9 +205,7 @@ public class Configuration: NSObject {
 
     required init(environment: Environment, defaultSiteDomain: String,
                   wikipediaCookieDomain: String,
-                  wikidataCookieDomain: String,
-                  commonsCookieDomain: String,
-                  otherDomains: [String] = [],
+                  centralAuthCookieTargetDomains: [String] = [],
                   pageContentServiceAPIType: APIURLComponentsBuilder.RESTBase.BuilderType,
                   feedContentAPIType: APIURLComponentsBuilder.RESTBase.BuilderType,
                   announcementsAPIType: APIURLComponentsBuilder.RESTBase.BuilderType,
@@ -206,15 +218,11 @@ public class Configuration: NSObject {
         components.scheme = "https"
         components.host = defaultSiteDomain
         self.defaultSiteURL = components.url!
-        self.mediaWikiCookieDomain = Domain.mediaWiki.withDotPrefix
-        self.wikimediaCookieDomain = Domain.wikimedia.withDotPrefix
         self.wikipediaCookieDomain = wikipediaCookieDomain
-        self.wikidataCookieDomain = wikidataCookieDomain
-        self.commonsCookieDomain = commonsCookieDomain
         self.centralAuthCookieSourceDomain = self.wikipediaCookieDomain
-        self.centralAuthCookieTargetDomains = [self.wikidataCookieDomain, self.mediaWikiCookieDomain, self.wikimediaCookieDomain, self.commonsCookieDomain]
-        self.wikiResourceDomains = [defaultSiteDomain] + otherDomains
-        self.inAppLinkDomains = [defaultSiteDomain, Domain.mediaWiki, Domain.wikidata, Domain.wikimedia, Domain.wikimediafoundation] + otherDomains
+        self.centralAuthCookieTargetDomains = centralAuthCookieTargetDomains
+        self.wikiResourceDomains = [defaultSiteDomain]
+        self.inAppLinkDomains = [defaultSiteDomain, Domain.mediaWiki, Domain.wikidata, Domain.wikimedia, Domain.wikimediafoundation]
         self.pageContentServiceAPIType = pageContentServiceAPIType
         self.feedContentAPIType = feedContentAPIType
         self.announcementsAPIType = announcementsAPIType
