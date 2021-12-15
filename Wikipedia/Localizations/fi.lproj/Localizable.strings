@@ -283,15 +283,21 @@
 "edit-published-subtitle" = "Teit juuri Wikipediasta paremman kaikille";
 "edit-reference-accessibility-label" = "Lisää viitesyntaksi";
 "edit-reference-remove-accessibility-label" = "Poista viitesyntaksi";
+"edit-signature-accessibility-label" = "Lisää allekirjoituksen syntaksi";
+"edit-signature-remove-accessibility-label" = "Poista allekirjoituksen syntaksi";
 "edit-strikethrough-accessibility-label" = "Lisää yliviivaus";
 "edit-strikethrough-remove-accessibility-label" = "Poista yliviivaus";
 "edit-style-table-view-title" = "Tyyli";
+"edit-subscript-accessibility-label" = "Lisää alaindeksin muotoilu";
+"edit-subscript-remove-accessibility-label" = "Poista alaindeksin muotoilu";
 "edit-summary-add-summary-text" = "Lisää muokkausyhteenveto";
 "edit-summary-choice-fixed-grammar" = "Kielioppia korjattu";
 "edit-summary-choice-fixed-typos" = "Korjattu kirjoitusvirhe";
 "edit-summary-choice-linked-words" = "Lisätty linkkejä";
 "edit-summary-learn-more-text" = "Lisätietoja";
 "edit-summary-placeholder-text" = "Miten paransit artikkelia?";
+"edit-superscript-accessibility-label" = "Lisää yläindeksin muotoilu";
+"edit-superscript-remove-accessibility-label" = "Poista yläindeksin muotoilu";
 "edit-template-accessibility-label" = "Lisää mallinesyntaksi";
 "edit-template-remove-accessibility-label" = "Poista mallinesyntaksi";
 "edit-text-clear-formatting" = "Tyhjennä muotoilu";
@@ -566,6 +572,7 @@
 "notifications-center-empty-no-unread-messages" = "Sinulla ei ole lukemattomia viestejä";
 "notifications-center-empty-not-subscribed" = "Et ole tilannut Wikipedia-ilmoituksia";
 "notifications-center-footer-change-password" = "Vaihda salasana";
+"notifications-center-go-to-diff" = "Siirry versioon";
 "notifications-center-go-to-talk-page" = "Mene keskustelusivulle";
 "notifications-center-go-to-title" = "Mene sivulle $1";
 "notifications-center-go-to-user-page" = "Mene käyttäjän $1 käyttäjäsivulle";
@@ -581,6 +588,7 @@
 "notifications-center-subheader-edit-reverted" = "Muokkauksesi on kumottu";
 "notifications-center-subheader-email-from-other-user" = "Uusi sähköposti";
 "notifications-center-subheader-login-fail-known-device" = "Useita epäonnistuneita kirjautumisyrityksiä";
+"notifications-center-subheader-login-fail-unknown-device" = "Epäonnistunut kirjautumisyritys";
 "notifications-center-subheader-login-success-unknown-device" = "Kirjautuminen tuntemattomalta laitteelta";
 "notifications-center-subheader-mention-article-talk-page" = "Maininta artikkelin keskustelusivulla";
 "notifications-center-subheader-mention-edit-summary" = "Maininta muokkausyhteenvedossa";
@@ -589,6 +597,7 @@
 "notifications-center-subheader-mention-talk-page" = "Maininta keskustelusivulla";
 "notifications-center-subheader-message-user-talk-page" = "Viesti keskustelusivullasi";
 "notifications-center-subheader-page-link" = "Sivulinkki";
+"notifications-center-subheader-page-reviewed" = "Sivu arvioitu";
 "notifications-center-subheader-thanks" = "Kiitos";
 "notifications-center-subheader-translate-milestone" = "Käännösvirstanpylväs";
 "notifications-center-subheader-user-rights-change" = "Käyttäjäoikeuksien muutos";
@@ -596,6 +605,7 @@
 "notifications-center-subheader-wikidata-connection" = "Wikidata-yhteys muodostettu";
 "notifications-center-title" = "Ilmoitukset";
 "notifications-center-wikidata-project-name" = "Wikidata";
+"notifications-push-fallback-body-text" = "Uusi toiminta Wikipediassa";
 "notifications-push-talk-body-format" = "$1 $2 sivulla $3";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|uusi viesti|uutta viestiä}}";
 "notifications-push-talk-title-format" = "Uusi $1";
@@ -905,6 +915,7 @@
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "Katso lisää luetuimpia";
+"top-read-widget-description" = "Opi mitä maailma lukee tänään Wikipediassa.";
 "top-read-widget-readers-count" = "$ lukijaa";
 "top-read-widget-title" = "Luetuimmat";
 "two-factor-login-continue" = "Jatka sisäänkirjautumista";
@@ -941,6 +952,7 @@
 "welcome-send-data-learn-more" = "Lue lisää kerätyistä tiedoista";
 "welcome-send-data-sub-title" = "Auta sovelluksen kehitystyössä antamalla Wikimedia-säätiön kerätä tietoja sovelluksen käyttötavoista. Tiedot kerätään anonyymisti.";
 "welcome-volunteer-send-usage-reports" = "Lähetä käyttöraportteja";
+"widget-onthisday-description" = "Tutki mitä tänä päivänä on tapahtunut historiassa.";
 "widget-onthisday-placeholder-article-snippet" = "Vapaa tietosanakirja, jota kuka tahansa voi muokata";
 "widget-onthisday-placeholder-event-snippet" = "Wikipedia, ilmainen tietosanakirja, siirtyy verkkoon.";
 "wikitext-downloading" = "Ladataan sisältöä...";
