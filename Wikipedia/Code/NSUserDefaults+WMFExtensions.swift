@@ -125,7 +125,7 @@ let WMFSendUsageReports = "WMFSendUsageReports"
             return Theme.defaultAnalyticsThemeName
         }
         
-        return Theme.withName(name)?.name ?? Theme.light.analyticsName
+        return Theme.withName(name)?.analyticsName ?? Theme.light.analyticsName
     }
     
     @objc var themeDisplayName: String {
