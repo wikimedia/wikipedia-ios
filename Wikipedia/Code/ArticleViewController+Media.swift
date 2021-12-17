@@ -46,7 +46,7 @@ extension ArticleViewController {
             case .failure(let error):
                 self.showError(error)
             case .success(let mediaList):
-                self.showImage(in: mediaList, item: nil)
+                self.showImage(in: mediaList, item: mediaList.items.first(where: { $0.isLeadImage }))
             }
         }
     }
