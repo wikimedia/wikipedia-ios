@@ -23,7 +23,7 @@ final class StackedImageLabelView: SetupView {
         label.textColor = .white
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.systemFont(ofSize: 14, weight: .bold), maximumPointSize: 32)
+        label.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .bold, size: 14, maximumPointSize: 32)
         label.adjustsFontForContentSizeCategory = true
         label.adjustsFontSizeToFitWidth = true
         return label
