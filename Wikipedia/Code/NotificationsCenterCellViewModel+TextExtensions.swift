@@ -188,9 +188,19 @@ extension NotificationsCenterCellViewModel {
     
     var projectText: String? {
         switch project {
-        case .language(let languageCode, _, _):
+        case .wikipedia(let languageCode, _, _):
             return languageCode.uppercased()
-        case .commons, .wikidata:
+        case .commons,
+                .wikiquote,
+                .wikibooks,
+                .wiktionary,
+                .wikisource,
+                .wikinews,
+                .wikiversity,
+                .wikivoyage,
+                .mediawiki,
+                .wikispecies,
+                .wikidata:
             return nil
         }
     }

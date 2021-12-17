@@ -2,13 +2,15 @@ import CocoaLumberjackSwift
 
 public enum RemoteNotificationsOperationsError: Error {
     case dataUnavailable //triggered when there was an issue when setting up the Core Data stack
+    case failurePullingAppLanguage
+    case failureCreatingAppLanguagePagingOperation
 }
 
 class RemoteNotificationsOperationsController: NSObject {
     private let apiController: RemoteNotificationsAPIController
     private let modelController: RemoteNotificationsModelController?
     private let operationQueue: OperationQueue
-    private let preferredLanguageCodesProvider: WMFPreferredLanguageInfoProvider
+    private let languageLinkController: MWKLanguageLinkController
     private var isImporting = false
     private var isRefreshing = false
     private var importingCompletionBlocks: [(RemoteNotificationsOperationsError?) -> Void] = []
@@ -25,7 +27,7 @@ class RemoteNotificationsOperationsController: NSObject {
         }
     }
 
-    required init(session: Session, configuration: Configuration, preferredLanguageCodesProvider: WMFPreferredLanguageInfoProvider) {
+    required init(session: Session, configuration: Configuration, languageLinkController: MWKLanguageLinkController) {
         apiController = RemoteNotificationsAPIController(session: session, configuration: configuration)
         var modelControllerInitializationError: Error?
         modelController = RemoteNotificationsModelController(&modelControllerInitializationError)
@@ -36,7 +38,7 @@ class RemoteNotificationsOperationsController: NSObject {
 
         operationQueue = OperationQueue()
         
-        self.preferredLanguageCodesProvider = preferredLanguageCodesProvider
+        self.languageLinkController = languageLinkController
         
         super.init()
 
@@ -128,28 +130,80 @@ class RemoteNotificationsOperationsController: NSObject {
             return
         }
         
-        preferredLanguageCodesProvider.getPreferredLanguageCodes({ [weak self] (preferredLanguageCodes) in
+        let preferredLanguages = languageLinkController.preferredLanguages
+   
+        guard let appLanguage = languageLinkController.appLanguage else {
+            completion(.failurePullingAppLanguage)
+            return
+        }
+        
+        let primaryLanguageProject = RemoteNotificationsProject.wikipedia(appLanguage.languageCode, appLanguage.localizedName, appLanguage.languageVariantCode)
+        let nonPrimaryLanguages = preferredLanguages.filter { $0.languageCode != appLanguage.languageCode }
+
+        var nonPrimaryProjects: [RemoteNotificationsProject] = nonPrimaryLanguages.map { .wikipedia($0.languageCode, $0.localizedName, $0.languageVariantCode) }
+        nonPrimaryProjects.append(.commons)
+        nonPrimaryProjects.append(.wikidata)
+        
+        let completionOperation = BlockOperation {
+            completion(nil)
+        }
+        
+        guard let primaryLanguageOperation = primaryLanguageOperation(primaryLanguageProject: primaryLanguageProject, nonPrimaryProjects: nonPrimaryProjects, operationType: operationType, completionOperation: completionOperation) else {
+            completion(.failureCreatingAppLanguagePagingOperation)
+            return
+        }
+        
+        let nonPrimaryOperations: [RemoteNotificationsPagingOperation] = nonPrimaryProjects.map { operationType.init(project: $0, apiController: self.apiController, modelController: modelController, needsCrossWikiSummary: false) }
+        
+        let finalListOfOperations = nonPrimaryOperations + [primaryLanguageOperation]
+        
+        for operation in finalListOfOperations {
+            completionOperation.addDependency(operation)
+        }
+        
+        self.operationQueue.addOperations(finalListOfOperations + [completionOperation], waitUntilFinished: false)
+    }
+    
+    private func primaryLanguageOperation(primaryLanguageProject: RemoteNotificationsProject, nonPrimaryProjects: [RemoteNotificationsProject], operationType: RemoteNotificationsPagingOperation.Type, completionOperation: Operation) -> RemoteNotificationsPagingOperation? {
+        
+        guard let modelController = self.modelController else {
+            return nil
+        }
+        
+        let primaryLanguageOperation = operationType.init(project: primaryLanguageProject, apiController: self.apiController, modelController: modelController, needsCrossWikiSummary: true)
+        primaryLanguageOperation.completionBlock = { [weak self] in
             
-            guard let self = self else {
+            guard let self = self,
+            let modelController = self.modelController else {
                 return
             }
+            
+            guard let crossWikiSummary = primaryLanguageOperation.crossWikiSummaryNotification,
+                  let crossWikiSources = crossWikiSummary.sources else {
+                return
+            }
+            
+            //extract new projects from summary object that aren't already queued up to be fetched from app languages + wikidata & commons
+            let crossWikiProjects = crossWikiSources.keys.compactMap { RemoteNotificationsProject(apiIdentifier: $0, languageLinkController: self.languageLinkController) }
+            
+            let existingProjectIdentifiers = ([primaryLanguageProject] + nonPrimaryProjects).map { $0.notificationsApiWikiIdentifier }
+            
+            let finalCrossWikiProjects = crossWikiProjects.filter {
+                
+                return !existingProjectIdentifiers.contains($0.notificationsApiWikiIdentifier)
+                
+            }
 
-            var projects: [RemoteNotificationsProject] = preferredLanguageCodes.map { .language($0, nil, nil) }
-            projects.append(.commons)
-            projects.append(.wikidata)
+            let crossWikiOperations = finalCrossWikiProjects.map { RemoteNotificationsRefreshCrossWikiOperation(project: $0, apiController: self.apiController, modelController: modelController, needsCrossWikiSummary: false) }
+
             
-            let operations = projects.map { operationType.init(project: $0, apiController: self.apiController, modelController: modelController) }
-            
-            let completionOperation = BlockOperation {
-                completion(nil)
+            for crossWikiOperation in crossWikiOperations {
+                completionOperation.addDependency(crossWikiOperation)
+                self.operationQueue.addOperation(crossWikiOperation)
             }
-            
-            for operation in operations {
-                completionOperation.addDependency(operation)
-            }
-            
-            self.operationQueue.addOperations(operations + [completionOperation], waitUntilFinished: false)
-        })
+        }
+        
+        return primaryLanguageOperation
     }
     
     func markAsReadOrUnread(identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, languageLinkController: MWKLanguageLinkController) {
@@ -173,8 +227,9 @@ class RemoteNotificationsOperationsController: NSObject {
         
         //turn into array of operations
         let operations: [RemoteNotificationsMarkReadOrUnreadOperation] = requestDictionary.compactMap { element in
+            
             let wiki = element.key
-            guard let project = RemoteNotificationsProject(apiIdentifier: wiki, languageLinkController: nil) else {
+            guard let project = RemoteNotificationsProject(apiIdentifier: wiki, languageLinkController: languageLinkController) else {
                 return nil
             }
 
@@ -199,7 +254,7 @@ class RemoteNotificationsOperationsController: NSObject {
                 return
             }
 
-            let projects = wikis.compactMap { RemoteNotificationsProject(apiIdentifier: $0) }
+            let projects = wikis.compactMap { RemoteNotificationsProject(apiIdentifier: $0, languageLinkController: self.languageLinkController) }
 
             let operations = projects.map { RemoteNotificationsMarkAllAsReadOperation(project: $0, apiController: self.apiController, modelController: modelController) }
             
@@ -212,7 +267,7 @@ class RemoteNotificationsOperationsController: NSObject {
         return self.modelController?.numberOfUnreadNotifications
     }
     
-    func listAllProjectsFromLocalNotifications(completion: @escaping ([RemoteNotificationsProject]) -> Void) {
+    func listAllProjectsFromLocalNotifications(languageLinkController: MWKLanguageLinkController, completion: @escaping ([RemoteNotificationsProject]) -> Void) {
         
         guard let modelController = modelController else {
             completion([])
@@ -221,7 +276,7 @@ class RemoteNotificationsOperationsController: NSObject {
         
         let backgroundContext = modelController.newBackgroundContext()
         modelController.wikis(moc: backgroundContext, predicate: nil, completion: { wikis in
-            let projects = wikis.compactMap { RemoteNotificationsProject(apiIdentifier: $0) }
+            let projects = wikis.compactMap { RemoteNotificationsProject(apiIdentifier: $0, languageLinkController: languageLinkController) }
             completion(projects)
         })
     }

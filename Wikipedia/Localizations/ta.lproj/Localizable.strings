@@ -182,6 +182,7 @@
 "nearby-distance-label-miles" = "$1 மைல்கள்";
 "new-password-instructions" = "நீங்கள் தற்காலிகமாக மின்னஞ்சல் செய்யப்பட்ட குறியீடுடன் புகுபதிந்துள்ளீர்.\nபுகுபதிவை நிறைவு செய்ய, புதிய கடவுச்சொல்லை இங்கு உருவாக்குங்கள்:";
 "new-password-title" = "உங்கள் கடவுச்சொல்லை அமைக்கவும்";
+"notifications-center-subheader-email-from-other-user" = "புது மின்னஞ்சல்";
 "number-billions" = "$1 நிகற்புதம்";
 "number-thousands" = "$1 ஆயிரம்";
 "on-this-day-detail-header-date-range" = " $1 முதல் $2 வரை";

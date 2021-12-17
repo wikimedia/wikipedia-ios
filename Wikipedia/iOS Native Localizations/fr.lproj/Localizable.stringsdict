@@ -319,6 +319,22 @@
 			<string>s</string>
 		</dict>
 	</dict>
+	<key>notifications-push-talk-messages-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>message</string>
+			<key>other</key>
+			<string>messages</string>
+		</dict>
+	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -572,6 +588,42 @@
 			<string>Il y a %1$d heures</string>
 			<key>zero</key>
 			<string>Récemment</string>
+		</dict>
+	</dict>
+	<key>relative-date-hrs-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Il y a %1$d heure</string>
+			<key>other</key>
+			<string>Il y a %1$d heures</string>
+			<key>zero</key>
+			<string>Récemment</string>
+		</dict>
+	</dict>
+	<key>relative-date-min-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Il y a %1$d minute</string>
+			<key>other</key>
+			<string>Il y a %1$d minutes</string>
+			<key>zero</key>
+			<string>Maintenant</string>
 		</dict>
 	</dict>
 	<key>relative-date-minutes-ago</key>

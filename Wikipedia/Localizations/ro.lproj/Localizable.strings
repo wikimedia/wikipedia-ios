@@ -9,6 +9,7 @@
 // Author: Macofe
 // Author: Matrafox
 // Author: Minisarm
+// Author: NGC 54
 // Author: Nemo bis
 // Author: WebSourceContentRO
 
@@ -565,6 +566,24 @@
 "no-internet-connection" = "Fără conexiune internet";
 "no-internet-connection-article-reload" = "O versiune mai recentă a acestui articol poate fi disponibilă, dar nu poate fi încărcată fără o conexiune la internet";
 "no-internet-connection-article-reload-button" = "Reveniți la ultima versiune salvată";
+"notifications-center-change-password" = "Schimbare parolă";
+"notifications-center-commons-project-name" = "Wikimedia Commons";
+"notifications-center-go-to-diff" = "Mergeți la dif";
+"notifications-center-go-to-talk-page" = "Mergeți la pagina de discuție";
+"notifications-center-go-to-title" = "Mergeți la $1";
+"notifications-center-go-to-user-page" = "Mergeți la pagina de utilizator a lui $1";
+"notifications-center-go-to-wikidata-item" = "Mergeți la elementul Wikidata";
+"notifications-center-go-to-your-talk-page" = "Mergeți la pagina de discuție a dvs.";
+"notifications-center-header-alert-from-project" = "Alertă de la $1";
+"notifications-center-header-notice-from-project" = "Înștiințare de la $1";
+"notifications-center-subheader-edit-reverted" = "Editarea dvs. a fost anulată";
+"notifications-center-subheader-mention-failed" = "Menționare eșuată";
+"notifications-center-subheader-mention-successful" = "Menționare reușită";
+"notifications-center-subheader-page-reviewed" = "Pagină revizuită";
+"notifications-center-subheader-thanks" = "Mulțumiri";
+"notifications-center-subheader-welcome" = "Bun venit!";
+"notifications-center-title" = "Notificări";
+"notifications-center-wikidata-project-name" = "Wikidata";
 "number-billions" = "$1Mld.";
 "number-millions" = "$1Mil";
 "number-thousands" = "$1Mii";
@@ -843,7 +862,7 @@
 "talk-page-discussion-accessibility-hint" = "Atingeți de două ori pentru a deschide un subiect de discuție";
 "talk-page-discussion-read-accessibility-label" = "Citește";
 "talk-page-discussion-unread-accessibility-label" = "Necitit";
-"talk-page-error-unable-to-post-reply" = "Fără conexiune internet. Imposibil de postat răspuns.";
+"talk-page-error-unable-to-post-reply" = "Fără conexiune internet. Nu se poate publica răspunsul.";
 "talk-page-error-unable-to-post-topic" = "Fără conexiune internet. Imposibil de postat discuțiile.";
 "talk-page-info-active-conversations" = "Conversații active pe Wikipedia $1";
 "talk-page-info-active-conversations-generic" = "Conversații active pe Wikipedia";

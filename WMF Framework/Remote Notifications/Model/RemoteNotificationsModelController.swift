@@ -87,8 +87,10 @@ final class RemoteNotificationsModelController: NSObject {
         viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
         
         self.persistentContainer = container
-        
+
         super.init()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleDidLogOutNotification), name: WMFAuthenticationManager.didLogOutNotification, object: nil)
     }
     
     func deleteLegacyDatabaseFiles() {
@@ -111,6 +113,44 @@ final class RemoteNotificationsModelController: NSObject {
         } catch (let error) {
             DDLogError("Error deleting legacy RemoteNotifications database files: \(error)")
         }
+    }
+    
+    @objc func handleDidLogOutNotification() {
+        
+        let batchDeleteBlock: (NSFetchRequest<NSFetchRequestResult>, NSManagedObjectContext) -> Void = { [weak self] (fetchRequest, backgroundContext) in
+            
+            guard let self = self else {
+                return
+            }
+            
+            let batchRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+            batchRequest.resultType = .resultTypeObjectIDs
+            
+            do {
+                let result = try backgroundContext.execute(batchRequest) as? NSBatchDeleteResult
+                let objectIDArray = result?.result as? [NSManagedObjectID]
+                let changes: [AnyHashable : Any] = [NSDeletedObjectsKey : objectIDArray as Any]
+                NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [self.viewContext])
+            } catch (let error) {
+                DDLogError("Error batch deleting notifications upon logout: \(error)")
+            }
+        }
+        
+        let backgroundContext = newBackgroundContext()
+        let request: NSFetchRequest<NSFetchRequestResult> = RemoteNotification.fetchRequest()
+        let libraryRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest<NSFetchRequestResult>(entityName: "WMFKeyValue")
+        
+        //batch delete all notification managed objects from Core Data
+        batchDeleteBlock(request, backgroundContext)
+        
+        //batch delete all library values from Core Data
+        batchDeleteBlock(libraryRequest, backgroundContext)
+        
+        //remove notifications from shared cache (referenced by the NotificationsService extension)
+        let sharedCache = SharedContainerCache<PushNotificationsCache>.init(pathComponent: .pushNotificationsCache, defaultCache: { PushNotificationsCache(settings: .default, notifications: []) })
+        var cache = sharedCache.loadCache()
+        cache.notifications = []
+        sharedCache.saveCache(cache)
     }
 
     deinit {

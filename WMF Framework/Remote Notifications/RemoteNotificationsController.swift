@@ -10,8 +10,8 @@ import CocoaLumberjackSwift
     
     public let configuration: Configuration
     
-    @objc public required init(session: Session, configuration: Configuration, preferredLanguageCodesProvider: WMFPreferredLanguageInfoProvider) {
-        operationsController = RemoteNotificationsOperationsController(session: session, configuration: configuration, preferredLanguageCodesProvider: preferredLanguageCodesProvider)
+    @objc public required init(session: Session, configuration: Configuration, languageLinkController: MWKLanguageLinkController) {
+        operationsController = RemoteNotificationsOperationsController(session: session, configuration: configuration, languageLinkController: languageLinkController)
         self.configuration = configuration
         super.init()
     }
@@ -39,7 +39,7 @@ import CocoaLumberjackSwift
     public func markAllAsRead(languageLinkController: MWKLanguageLinkController) {
         operationsController.markAllAsRead(languageLinkController: languageLinkController)
     }
-    
+
     public func fetchNotifications(fetchLimit: Int = 50, fetchOffset: Int = 0) -> [RemoteNotification] {
         assert(Thread.isMainThread)
         
@@ -69,8 +69,8 @@ import CocoaLumberjackSwift
             .numberOfUnreadNotifications ?? 0
     }
     
-    public func listAllProjectsFromLocalNotifications(completion: @escaping ([RemoteNotificationsProject]) -> Void) {
-        operationsController.listAllProjectsFromLocalNotifications(completion: completion)
+    public func listAllProjectsFromLocalNotifications(languageLinkController: MWKLanguageLinkController, completion: @escaping ([RemoteNotificationsProject]) -> Void) {
+        operationsController.listAllProjectsFromLocalNotifications(languageLinkController: languageLinkController, completion: completion)
     }
     
     public var areFiltersEnabled: Bool {
@@ -118,11 +118,11 @@ import CocoaLumberjackSwift
         
         let sideProjects: Set<RemoteNotificationsProject> = [.commons, .wikidata]
         
-        let appLanguageProjects =  languageLinkController.preferredLanguages.map { RemoteNotificationsProject.language($0.languageCode, $0.localizedName, $0.languageVariantCode) }
+        let appLanguageProjects =  languageLinkController.preferredLanguages.map { RemoteNotificationsProject.wikipedia($0.languageCode, $0.localizedName, $0.languageVariantCode) }
         
         var inboxProjects = sideProjects.union(appLanguageProjects)
         
-        listAllProjectsFromLocalNotifications { localProjects in
+        listAllProjectsFromLocalNotifications(languageLinkController: languageLinkController) { localProjects in
             
             for localProject in localProjects {
                 inboxProjects.insert(localProject)
@@ -142,7 +142,7 @@ import CocoaLumberjackSwift
         allInboxProjects(languageLinkController: languageLinkController) { project in
             //first try to populate in-memory state from persistance. otherwise set up default filters
             if let persistentFiltersDict = self.operationsController.getFilterSettingsFromLibrary(),
-               let persistentFilters = RemoteNotificationsFiltersSavedState(nsDictionary: persistentFiltersDict) {
+               let persistentFilters = RemoteNotificationsFiltersSavedState(nsDictionary: persistentFiltersDict, languageLinkController: languageLinkController) {
                 self.filterSavedState = persistentFilters
                 self.cachedShowingInboxProjects = self.cachedAllInboxProjects.subtracting(persistentFilters.projectsSetting)
                 
@@ -246,7 +246,7 @@ public struct RemoteNotificationsFiltersSavedState {
         return mutableDictionary.copy() as? NSDictionary
     }
     
-    init?(nsDictionary: NSDictionary) {
+    init?(nsDictionary: NSDictionary, languageLinkController: MWKLanguageLinkController) {
         
         guard let dictionary = nsDictionary as? [String: AnyObject] else {
             return nil
@@ -260,7 +260,7 @@ public struct RemoteNotificationsFiltersSavedState {
               }
         
         let types = typeIdentifiers.compactMap { RemoteNotificationType(from: $0 as String) }
-        let projects = projectApiIdentifiers.compactMap { RemoteNotificationsProject(apiIdentifier: $0 as String) }
+        let projects = projectApiIdentifiers.compactMap { RemoteNotificationsProject(apiIdentifier: $0 as String, languageLinkController: languageLinkController) }
         
         
         self.readStatusSetting = readStatus

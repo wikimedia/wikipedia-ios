@@ -7,20 +7,16 @@ import UIKit
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = theme.colors.chromeBackground;
         appearance.titleTextAttributes = theme.navigationBarTitleTextAttributes
-        let backgroundImage: UIImage?
         switch style {
-            
         case .editor:
-            backgroundImage = theme.editorNavigationBarBackgroundImage
+            appearance.backgroundImage = theme.editorNavigationBarBackgroundImage
         case .sheet:
-            backgroundImage = theme.sheetNavigationBarBackgroundImage
+            appearance.backgroundImage = theme.sheetNavigationBarBackgroundImage
         case .gallery:
-            backgroundImage = nil
+            appearance.backgroundImage = nil
         default:
-            backgroundImage = theme.navigationBarBackgroundImage
+            appearance.backgroundImage = theme.navigationBarBackgroundImage
         }
-        
-        appearance.backgroundImage = backgroundImage
         
         return appearance
     }

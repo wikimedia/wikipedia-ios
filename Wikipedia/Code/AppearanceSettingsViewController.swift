@@ -266,22 +266,20 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
     }
     
     @objc func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard let _ = self.tableView(tableView, viewForHeaderInSection: section) as? WMFTableHeaderFooterLabelView else {
-            return 0
-        }
-        
         return UITableView.automaticDimension
     }
     
     @objc func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let text = sections[safeIndex: section]?.headerTitle
-        return WMFTableHeaderFooterLabelView.headerFooterViewForTableView(tableView, text: text, theme: theme)
+        return WMFTableHeaderFooterLabelView.headerFooterViewForTableView(tableView, text: text, type: .header, theme: theme)
     }
     
     @objc func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        guard let _ = self.tableView(tableView, viewForHeaderInSection: section) as? WMFTableHeaderFooterLabelView else {
-            return 0
+        guard let text = sections[safeIndex: section]?.footerText,
+              !text.isEmpty else {
+               
+                  return section < (self.sections.count - 1) ? 0 : 44
         }
         
         return UITableView.automaticDimension

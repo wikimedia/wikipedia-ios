@@ -86,7 +86,9 @@ extension SearchSettingsViewController {
 
 extension SearchSettingsViewController {
     @objc func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        guard let _ = self.tableView(tableView, viewForFooterInSection: section) as? WMFTableHeaderFooterLabelView else {
+        
+        let text = getSection(at: section).footerTitle
+        guard !text.isEmpty else {
             return 0
         }
         

@@ -30,7 +30,7 @@ class NotificationService: UNNotificationServiceExtension {
         //TODO: Should we consider versioning here? Bail now and show fallback content if current content is anything other than "checkEchoV1".
         
         let cache = sharedCache.loadCache()
-        let project = RemoteNotificationsProject.language(cache.settings.primaryLanguageCode, nil, nil)
+        let project = RemoteNotificationsProject.wikipedia(cache.settings.primaryLanguageCode, cache.settings.primaryLocalizedName, nil)
         
         apiController.getUnreadPushNotifications(from: project) { [weak self] fetchedNotifications, error in
             

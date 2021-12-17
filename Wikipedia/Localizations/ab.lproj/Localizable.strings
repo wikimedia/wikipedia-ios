@@ -1,10 +1,12 @@
 // Messages for Abkhazian (Аҧсшәа)
 // Exported from translatewiki.net
+// Author: Amire80
 // Author: Pupsik-ipa
 // Author: Surprizi
 // Author: Андрей
 
 "about-contributors" = "Авторцәа";
+// Fuzzy
 "about-libraries" = "Ихархәо абиблиотекақәа";
 "about-libraries-license" = "Алицензиа";
 "about-repositories-app-source-license-mit" = "MIT Алицензиа";
@@ -79,12 +81,12 @@
 "number-billions" = "$1 млрд.";
 "on-this-day-title" = "Ари амш аҽны...";
 "page-protected-can-not-edit-title" = "Ари адаҟьа хьчоуп";
-"places-accessibility-show-as-list" = "Иаарҧштәуп ахьӡынҵа еиҧш";
+"places-accessibility-show-as-list" = "Иаарԥштәуп ахьӡынҵа еиԥш";
 "places-filter-saved-articles" = "Еиқәырхо астатиақәа";
-"places-filter-top-articles" = "Иаҳа изыҧхьо";
-"places-search-default-text" = "Аԥшаара аҭыҧқәа";
+"places-filter-top-articles" = "Иаҳа изыԥхьо";
+"places-search-default-text" = "Аԥшаара аҭыԥқәа";
 "places-search-saved-articles" = "Еиқәырхо астатиақәа зегьы";
-"places-title" = "Аҭыҧқәа";
+"places-title" = "Аҭыԥқәа";
 "rank-accessibility-label" = "Ахыԥхьаӡара $1";
 "reading-themes-controls-accessibility-light-theme-button" = "Илашоу атема";
 "reference-title" = "Азгәаҭа $1";

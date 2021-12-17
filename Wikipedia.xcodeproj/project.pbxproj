@@ -750,6 +750,7 @@
 		67E5DA5D2761B0AB00CE827D /* NotificationsCenterFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E5DA5B2761B0AB00CE827D /* NotificationsCenterFilterView.swift */; };
 		67E5DA5E2761B0AB00CE827D /* NotificationsCenterFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E5DA5B2761B0AB00CE827D /* NotificationsCenterFilterView.swift */; };
 		67E5DA5F2761B0AB00CE827D /* NotificationsCenterFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E5DA5B2761B0AB00CE827D /* NotificationsCenterFilterView.swift */; };
+		67E5DA6B276416A600CE827D /* RemoteNotificationsRefreshCrossWikiOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E5DA6A276416A600CE827D /* RemoteNotificationsRefreshCrossWikiOperation.swift */; };
 		67E8B0742268DA8B00537BC9 /* TalkPageTopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E8B0732268DA8B00537BC9 /* TalkPageTopicCell.swift */; };
 		67E8B0762268DE4B00537BC9 /* TalkPageContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E8B0752268DE4B00537BC9 /* TalkPageContainerViewController.swift */; };
 		67E8B07B226A57DE00537BC9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F73E6C2267B79E0079DEEF /* AccountViewController.swift */; };
@@ -3957,6 +3958,7 @@
 		67E3992B24786E6D00441831 /* TalkPageManualPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageManualPerformanceTests.swift; sourceTree = "<group>"; };
 		67E466F9241BED770014149B /* EditHistoryCompareFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHistoryCompareFunnel.swift; sourceTree = "<group>"; };
 		67E5DA5B2761B0AB00CE827D /* NotificationsCenterFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterFilterView.swift; sourceTree = "<group>"; };
+		67E5DA6A276416A600CE827D /* RemoteNotificationsRefreshCrossWikiOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsRefreshCrossWikiOperation.swift; sourceTree = "<group>"; };
 		67E8B0732268DA8B00537BC9 /* TalkPageTopicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageTopicCell.swift; sourceTree = "<group>"; };
 		67E8B0752268DE4B00537BC9 /* TalkPageContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageContainerViewController.swift; sourceTree = "<group>"; };
 		67E8B0A4226A64CB00537BC9 /* TalkPagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPagesController.swift; sourceTree = "<group>"; };
@@ -7063,6 +7065,7 @@
 			isa = PBXGroup;
 			children = (
 				6761AEF42707BE4200E47BAD /* RemoteNotificationsRefreshOperation.swift */,
+				67E5DA6A276416A600CE827D /* RemoteNotificationsRefreshCrossWikiOperation.swift */,
 				7A0312FA215402FD0095C953 /* RemoteNotificationsImportOperation.swift */,
 				67DA31872720957A0035D40F /* RemoteNotificationsPagingOperation.swift */,
 				7A0312FE215422960095C953 /* RemoteNotificationsMarkReadOrUnreadOperation.swift */,
@@ -11608,6 +11611,7 @@
 				D8FA18F11E1BDA35009675C3 /* UIImage+WMFImageProcessing.m in Sources */,
 				D8FA18E71E1BD8AF009675C3 /* NSProcessInfo+WMFOperatingSystemVersionChecks.m in Sources */,
 				7A3159CF206458B000143119 /* ReadingListAlertType.swift in Sources */,
+				67E5DA6B276416A600CE827D /* RemoteNotificationsRefreshCrossWikiOperation.swift in Sources */,
 				7A3AD05820ADB1A900C92E04 /* WMFAuthenticationManager.swift in Sources */,
 				D87F1D3D1EC0ACC400575CF8 /* AsyncOperation.swift in Sources */,
 				D8650B7C20350FEE0044DFFA /* NSString+SHA256.m in Sources */,

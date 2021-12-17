@@ -17,8 +17,26 @@ extension NotificationsCenterCellViewModel {
             return "notifications-project-commons"
         case .wikidata:
             return "notifications-project-wikidata"
-        case .language:
+        case .wikiquote:
+            return "notifications-project-wikiquote"
+        case .wikipedia:
             return nil
+        case .wikibooks:
+            return "notifications-project-wikibooks"
+        case .wiktionary:
+            return "notifications-project-wiktionary"
+        case .wikisource:
+            return "notifications-project-wikisource"
+        case .wikinews:
+            return "notifications-project-wikinews"
+        case .wikiversity:
+            return "notifications-project-wikiversity"
+        case .wikivoyage:
+            return "notifications-project-wikivoyage"
+        case .mediawiki:
+            return "notifications-project-mediawiki"
+        case .wikispecies:
+            return "notifications-project-wikispecies"
         }
     }
         
