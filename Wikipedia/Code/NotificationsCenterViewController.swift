@@ -17,7 +17,15 @@ final class NotificationsCenterViewController: ViewController {
     private var dataSource: DataSource?
     private let snapshotUpdateQueue = DispatchQueue(label: "org.wikipedia.notificationscenter.snapshotUpdateQueue", qos: .userInteractive)
 
-    // MARK: - Properties - Cell Swipe Actions
+    // MARK: - Properties: Toolbar Buttons
+
+    fileprivate lazy var typeFilterButton: IconBarButtonItem = IconBarButtonItem(image: viewModel.typeFilterButtonImage, style: .plain, target: self, action: #selector(userDidTapTypeFilterButton))
+    fileprivate lazy var projectFilterButton: IconBarButtonItem = IconBarButtonItem(image: viewModel.projectFilterButtonImage, style: .plain, target: self, action: #selector(userDidTapProjectFilterButton))
+    fileprivate lazy var markButton: TextBarButtonItem = TextBarButtonItem(title: WMFLocalizedString("notifications-center-mark", value: "Mark", comment: "Button text in Notifications Center. Presents menu of options to mark selected notifications as read or unread."), target: nil, action: nil)
+    fileprivate lazy var markAllAsReadButton: TextBarButtonItem = TextBarButtonItem(title: WMFLocalizedString("notifications-center-mark-all-as-read", value: "Mark all as read", comment: "Toolbar button text in Notifications Center that marks all user notifications as read on the server."), target: nil, action: nil)
+    fileprivate lazy var statusBarButton: StatusTextBarButtonItem = StatusTextBarButtonItem(text: "")
+
+    // MARK: - Properties: Cell Swipe Actions
 
     fileprivate lazy var cellPanGestureRecognizer = UIPanGestureRecognizer()
     fileprivate var activelyPannedCellIndexPath: IndexPath?
@@ -47,6 +55,7 @@ final class NotificationsCenterViewController: ViewController {
 
         title = CommonStrings.notificationsCenterTitle
         setupBarButtons()
+        updateToolbarDisplayState(isEditing: false)
         
         notificationsView.collectionView.delegate = self
         setupDataSource()
@@ -90,8 +99,9 @@ final class NotificationsCenterViewController: ViewController {
         notificationsView.collectionView.allowsMultipleSelection = editing
         viewModel.isEditing = editing
         viewModel.updateCellDisplayStates(isSelected: false)
+        updateToolbarDisplayState(isEditing: isEditing)
+
         reconfigureCells()
-        
         deselectCells()
     }
 
@@ -103,7 +113,14 @@ final class NotificationsCenterViewController: ViewController {
 
         notificationsView.apply(theme: theme)
         notificationsView.collectionView.reloadData()
+
+        typeFilterButton.apply(theme: theme)
+        projectFilterButton.apply(theme: theme)
+        markButton.apply(theme: theme)
+        markAllAsReadButton.apply(theme: theme)
+        statusBarButton.apply(theme: theme)
     }
+    
 }
 
 //MARK: Private
@@ -213,9 +230,12 @@ extension NotificationsCenterViewController: NotificationCenterViewModelDelegate
     }
     
     func cellViewModelsDidChange(cellViewModels: [NotificationsCenterCellViewModel]) {
-        
         configureEmptyState(isEmpty: cellViewModels.isEmpty)
         applySnapshot(cellViewModels: cellViewModels, animatingDifferences: true)
+    }
+
+    func toolbarContentDidUpdate() {
+        refreshToolbarContent()
     }
 }
 
@@ -363,4 +383,36 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
         }
         navigate(to: url)
     }
+}
+
+// MARK: - Toolbar
+
+extension NotificationsCenterViewController {
+
+    /// Update the bar buttons displayed in the toolbar based on the editing state
+    fileprivate func updateToolbarDisplayState(isEditing: Bool) {
+        if isEditing {
+            toolbar.items = [markButton, .flexibleSpaceToolbar(), markAllAsReadButton]
+        } else {
+            toolbar.items = [typeFilterButton, .flexibleSpaceToolbar(), statusBarButton, .flexibleSpaceToolbar(), projectFilterButton]
+        }
+
+        refreshToolbarContent()
+    }
+
+    /// Refresh the images and strings used in the toolbar, regardless of editing state
+    @objc fileprivate func refreshToolbarContent() {
+        typeFilterButton.image = viewModel.typeFilterButtonImage
+        projectFilterButton.image = viewModel.projectFilterButtonImage
+        statusBarButton.label.text = viewModel.statusBarText
+    }
+
+    @objc fileprivate func userDidTapProjectFilterButton() {
+
+    }
+
+    @objc fileprivate func userDidTapTypeFilterButton() {
+        
+    }
+
 }
