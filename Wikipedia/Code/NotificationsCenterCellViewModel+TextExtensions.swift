@@ -241,17 +241,45 @@ private extension NotificationsCenterCellViewModel {
 private extension NotificationsCenterCellViewModel {
     func topicTitleFromTalkPageNotification(_ notification: RemoteNotification) -> String? {
         
-        //We can extract the talk page title from the primary url's first fragment for user talk page message notifications
+        //We can try extracting the talk page title from the primary url's first fragment for user talk page message notifications
+        
+        let extractTitleFromURLBlock: (URL) -> String? = { url in
+            let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+            guard let fragment = components?.fragment else {
+                return nil
+            }
+            
+            return fragment.removingPercentEncoding?.replacingOccurrences(of: "_", with: " ")
+        }
+        
+        //prefer legacyPrimary, since it seems to retain the section title as a fragment moreso than primary
+        if let legacyPrimaryURL = notification.legacyPrimaryLinkURL,
+        let title = extractTitleFromURLBlock(legacyPrimaryURL) {
+            if !title.hasPrefix("c-") && !title.containsISO8601DateText {
+                return title
+            }
+        }
         
         guard let primaryURL = notification.primaryLinkURL else {
             return nil
         }
         
-        let components = URLComponents(url: primaryURL, resolvingAgainstBaseURL: false)
-        guard let fragment = components?.fragment else {
-            return nil
+        if let title = extractTitleFromURLBlock(primaryURL) {
+            if !title.hasPrefix("c-") && !title.containsISO8601DateText {
+                return title
+            }
         }
         
-        return fragment.removingPercentEncoding?.replacingOccurrences(of: "_", with: " ")
+        return nil
+    }
+}
+
+private extension String {
+    var containsISO8601DateText: Bool {
+        let range = NSRange(location: 0, length: self.utf16.count)
+        let regex = try! NSRegularExpression(pattern: ".+[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{3}Z.+")
+        
+        let exists = regex.firstMatch(in: self, options: [], range: range) != nil
+        return exists
     }
 }

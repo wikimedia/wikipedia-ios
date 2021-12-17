@@ -162,6 +162,10 @@ public class RemoteNotification: NSManagedObject {
         return messageLinks?.primary?.url
     }
     
+    public var legacyPrimaryLinkURL: URL? {
+        return messageLinks?.legacyPrimary?.url
+    }
+    
     public var primaryLinkLabel: String? {
         return messageLinks?.primary?.label
     }
