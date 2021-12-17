@@ -428,10 +428,11 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
 
 extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
 
-    func userDidTapSecondaryActionForViewModel(_ cellViewModel: NotificationsCenterCellViewModel) {
-        guard let url = cellViewModel.secondaryURL(for: viewModel.configuration) else {
+    func userDidTapSecondaryActionForCell(_ cell: NotificationsCenterCell) {
+        guard let cellViewModel = cell.viewModel, let url = cellViewModel.secondaryURL(for: viewModel.configuration) else {
             return
         }
+
         navigate(to: url)
     }
 

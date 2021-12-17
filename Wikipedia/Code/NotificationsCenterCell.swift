@@ -1,7 +1,7 @@
 import UIKit
 
 protocol NotificationsCenterCellDelegate: AnyObject {
-    func userDidTapSecondaryActionForViewModel(_ cellViewModel: NotificationsCenterCellViewModel)
+    func userDidTapSecondaryActionForCell(_ cell: NotificationsCenterCell)
     func userDidTapMarkAsReadUnreadActionForCell(_ cell: NotificationsCenterCell)
     func userDidTapMoreActionForCell(_ cell: NotificationsCenterCell)
 }
@@ -540,11 +540,7 @@ private extension NotificationsCenterCell {
     }
     
     @objc func tappedHeaderLabel() {
-        guard let viewModel = viewModel else {
-            return
-        }
-
-        delegate?.userDidTapSecondaryActionForViewModel(viewModel)
+        delegate?.userDidTapSecondaryActionForCell(self)
     }
 
     @objc func tappedMoreAction() {
