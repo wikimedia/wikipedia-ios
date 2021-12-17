@@ -280,6 +280,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.viewModel = nil
+        self.foregroundContentContainer.transform = .identity
     }
 
     func setup() {

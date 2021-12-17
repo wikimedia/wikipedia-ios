@@ -126,6 +126,8 @@ final class NotificationsCenterViewController: ViewController {
         super.apply(theme: theme)
 
         notificationsView.apply(theme: theme)
+
+        closeSwipeActionsPanelIfNecessary()
         notificationsView.collectionView.reloadData()
     }
 }
