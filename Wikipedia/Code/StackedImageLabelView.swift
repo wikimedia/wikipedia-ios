@@ -7,13 +7,13 @@ final class StackedImageLabelView: SetupView {
 
     var increaseLabelTopPadding: Bool = false {
         didSet {
-            labelTopAnchor.constant = increaseLabelTopPadding ? 8 : 2
+            labelTopConstraint.constant = increaseLabelTopPadding ? 8 : 2
             setNeedsLayout()
         }
     }
 
     private var imageDimension: CGFloat = 40
-    private var labelTopAnchor: NSLayoutConstraint = NSLayoutConstraint()
+    private var labelTopConstraint: NSLayoutConstraint = NSLayoutConstraint()
 
     // MARK: - UI Elements
 
@@ -43,7 +43,7 @@ final class StackedImageLabelView: SetupView {
         addSubview(imageView)
         addSubview(label)
 
-        labelTopAnchor = label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 2)
+        labelTopConstraint = label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 2)
 
         NSLayoutConstraint.activate([
             imageView.bottomAnchor.constraint(equalTo: centerYAnchor, constant: 3),
@@ -53,7 +53,7 @@ final class StackedImageLabelView: SetupView {
 
             label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            labelTopAnchor,
+            labelTopConstraint,
             label.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -10)
         ])
     }
