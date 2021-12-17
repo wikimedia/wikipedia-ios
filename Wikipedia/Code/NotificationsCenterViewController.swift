@@ -437,7 +437,7 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
     }
 
     func userDidTapMoreActionForCell(_ cell: NotificationsCenterCell) {
-        guard let cellViewModel = cell.viewModel, let indexPath = dataSource?.indexPath(for: cellViewModel) else  {
+        guard let cellViewModel = cell.viewModel else  {
             return
         }
 
@@ -475,7 +475,7 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
         let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
         alertController.addAction(cancelAction)
 
-        if let popoverController = alertController.popoverPresentationController, let cell = notificationsView.collectionView.cellForItem(at: indexPath) {
+        if let popoverController = alertController.popoverPresentationController {
             popoverController.sourceView = cell
             popoverController.sourceRect = CGRect(x: cell.bounds.midX, y: cell.bounds.midY, width: 0, height: 0)
         }
