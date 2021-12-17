@@ -36,18 +36,52 @@ struct NotificationsCenterFilterItemView: View {
                 }
                 
                 if #available(iOS 14.0, *) {
-                    Toggle(itemViewModel.title, isOn: $itemViewModel.isSelected)
+                    Toggle(itemViewModel.title, isOn: $itemViewModel.isSelected.didSet { (state) in
+                        itemViewModel.toggleSelectionForToggleType()
+                        print(state)
+                    })
                         .foregroundColor(Color(theme.colors.primaryText))
                         .toggleStyle(SwitchToggleStyle(tint: Color(theme.colors.accent)))
                 } else {
-                    Toggle(itemViewModel.title, isOn: $itemViewModel.isSelected)
+                    Toggle(itemViewModel.title, isOn: $itemViewModel.isSelected.didSet { (state) in
+                        itemViewModel.toggleSelectionForToggleType()
+                    })
                         .foregroundColor(Color(theme.colors.primaryText))
+                }
+            }
+            .listRowBackground(Color(theme.colors.paperBackground).edgesIgnoringSafeArea([.all]))
+        case .toggleAll:
+            HStack {
+                                
+                if #available(iOS 14.0, *) {
+                    Toggle(itemViewModel.title, isOn: $itemViewModel.isSelected.didSet { (state) in
+                        itemViewModel.toggleSelectionForAll()
+                    })
+                    .foregroundColor(Color(theme.colors.primaryText))
+                    .toggleStyle(SwitchToggleStyle(tint: Color(theme.colors.accent)))
+                } else {
+                    Toggle(itemViewModel.title, isOn: $itemViewModel.isSelected.didSet { (state) in
+                        itemViewModel.toggleSelectionForAll()
+                    })
+                    .foregroundColor(Color(theme.colors.primaryText))
                 }
             }
             .listRowBackground(Color(theme.colors.paperBackground).edgesIgnoringSafeArea([.all]))
         }
         
         
+    }
+}
+
+extension Binding {
+    func didSet(execute: @escaping (Value) -> Void) -> Binding {
+        return Binding(
+            get: { self.wrappedValue },
+            set: {
+                self.wrappedValue = $0
+                execute($0)
+            }
+        )
     }
 }
 
@@ -59,9 +93,11 @@ struct NotificationsCenterFilterView: View {
     var body: some View {
             List {
                 ForEach(viewModel.sections) { section in
-                    let header = Text(section.title)
+                    let header = Text(section.title ?? "")
                         .foregroundColor(Color(viewModel.theme.colors.secondaryText))
-                    Section(header: header) {
+                    let footer = Text(section.footer ?? "")
+                        .foregroundColor(Color(viewModel.theme.colors.secondaryText))
+                    Section(header: header, footer: footer) {
                         ForEach(section.items) { item in
                             NotificationsCenterFilterItemView(itemViewModel: item, theme: viewModel.theme)
                         }

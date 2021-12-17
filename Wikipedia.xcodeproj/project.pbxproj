@@ -413,6 +413,10 @@
 		674E8ABA2382DF020053D206 /* DiffTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674E8AB82382DEFF0053D206 /* DiffTransformer.swift */; };
 		674E8ABB2382DF030053D206 /* DiffTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674E8AB82382DEFF0053D206 /* DiffTransformer.swift */; };
 		674E8ABC2382DF030053D206 /* DiffTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674E8AB82382DEFF0053D206 /* DiffTransformer.swift */; };
+		675175DC276D3B9700CD2974 /* DisappearingCallbackNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675175DB276D3B9700CD2974 /* DisappearingCallbackNavigationController.swift */; };
+		675175DD276D3B9700CD2974 /* DisappearingCallbackNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675175DB276D3B9700CD2974 /* DisappearingCallbackNavigationController.swift */; };
+		675175DE276D3B9700CD2974 /* DisappearingCallbackNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675175DB276D3B9700CD2974 /* DisappearingCallbackNavigationController.swift */; };
+		675175DF276D3B9700CD2974 /* DisappearingCallbackNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675175DB276D3B9700CD2974 /* DisappearingCallbackNavigationController.swift */; };
 		67540CA924D221E3008B2894 /* LocationManagerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67540CA824D221E3008B2894 /* LocationManagerFactory.swift */; };
 		6754E44922773587005EEAD1 /* TalkPageReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116F22773122005B31DA /* TalkPageReplyCell.swift */; };
 		6754E44A22773587005EEAD1 /* TalkPageReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116F22773122005B31DA /* TalkPageReplyCell.swift */; };
@@ -3841,6 +3845,7 @@
 		674711822507253500287951 /* ArticleAsLivingDocSnippetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocSnippetCollectionViewCell.swift; sourceTree = "<group>"; };
 		6747118725072D1500287951 /* IconTitleBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTitleBadge.swift; sourceTree = "<group>"; };
 		674E8AB82382DEFF0053D206 /* DiffTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffTransformer.swift; sourceTree = "<group>"; };
+		675175DB276D3B9700CD2974 /* DisappearingCallbackNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisappearingCallbackNavigationController.swift; sourceTree = "<group>"; };
 		67540CA824D221E3008B2894 /* LocationManagerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerFactory.swift; sourceTree = "<group>"; };
 		675A7CFD227A3F7C0034D9D9 /* TalkPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageHeaderView.swift; sourceTree = "<group>"; };
 		676070A1227CE60800A81F09 /* TalkPageReplyFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageReplyFooterView.swift; sourceTree = "<group>"; };
@@ -5859,6 +5864,7 @@
 				676F392C2746107B00F4D33D /* NotificationsCenterFiltersViewController.swift */,
 				679471DA275F245000621071 /* NotificationsCenterInboxView.swift */,
 				67E5DA5B2761B0AB00CE827D /* NotificationsCenterFilterView.swift */,
+				675175DB276D3B9700CD2974 /* DisappearingCallbackNavigationController.swift */,
 			);
 			name = "Notifications Center";
 			sourceTree = "<group>";
@@ -11271,6 +11277,7 @@
 				0E9B9E331CBF3225001E4C3C /* WMFImageGalleryDetailOverlayView.m in Sources */,
 				7A998AC11FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift in Sources */,
 				D81E5F881E5F2C8400E1A80C /* UIApplication+SystemSettings.swift in Sources */,
+				675175DC276D3B9700CD2974 /* DisappearingCallbackNavigationController.swift in Sources */,
 				7ADF497B21B45CEE009EA338 /* TextFormattingPlainToolbarView.swift in Sources */,
 				67E069062238A396008550AC /* FindAndReplaceKeyboardBar.swift in Sources */,
 				6707C038237F0A6E0017E7B6 /* UIFont+Extensions.swift in Sources */,
@@ -12168,6 +12175,7 @@
 				D8A42B701E815A9C00D8E281 /* NSAttributedString+WMFModify.m in Sources */,
 				7A2FE55F20517BAE00F92F8F /* EraseSavedArticlesView.swift in Sources */,
 				BA45241B1F324C3100439C42 /* FontSizeSliderViewController.swift in Sources */,
+				675175DF276D3B9700CD2974 /* DisappearingCallbackNavigationController.swift in Sources */,
 				7A707980223AB69000A2BDFC /* WelcomePanelLabelContentViewController.swift in Sources */,
 				D84DAA191EEEF527008E4B18 /* SWStepSlider.swift in Sources */,
 				B0524AF42144D7BE00D8FD8D /* DescriptionHelpViewController.swift in Sources */,
@@ -12583,6 +12591,7 @@
 				83927D7C1F70570400051890 /* DisambiguationPagesViewController.swift in Sources */,
 				D8CE25AB1E698E2400DAE2E0 /* AppDelegate.m in Sources */,
 				83E776A420FFA4D700E26A47 /* DetailTransition.swift in Sources */,
+				675175DE276D3B9700CD2974 /* DisappearingCallbackNavigationController.swift in Sources */,
 				D8CE25AD1E698E2400DAE2E0 /* ArticlePlace.swift in Sources */,
 				D8CE25AF1E698E2400DAE2E0 /* WMFSearchResults.m in Sources */,
 				83DE45BA2449C09B00671878 /* SplashScreenViewController.swift in Sources */,
@@ -13096,6 +13105,7 @@
 				BAC6EEC91F1E519B00228AD0 /* AppearanceSettingsViewController.swift in Sources */,
 				D82E95871F16502E007BD960 /* WMFLanguagesViewController.m in Sources */,
 				D8EC3EA81E9BDA35006712EB /* AppDelegate.m in Sources */,
+				675175DD276D3B9700CD2974 /* DisappearingCallbackNavigationController.swift in Sources */,
 				D8EC3EAA1E9BDA35006712EB /* ArticlePlace.swift in Sources */,
 				D8EC3EAC1E9BDA35006712EB /* WMFSearchResults.m in Sources */,
 				83DE45BB2449C09B00671878 /* SplashScreenViewController.swift in Sources */,

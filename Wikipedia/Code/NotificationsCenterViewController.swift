@@ -13,6 +13,8 @@ final class NotificationsCenterViewController: ViewController {
 
     let viewModel: NotificationsCenterViewModel
     
+    var didUpdateFiltersCallback: (() -> Void)?
+    
     lazy var markAllAsReadButton: UIBarButtonItem = {
         let markAllAsReadText = WMFLocalizedString("notifications-center-mark-all-as-read", value: "Mark all as read", comment: "Toolbar button text in Notifications Center that marks all user notifications as read on the server.")
         return UIBarButtonItem(title: markAllAsReadText, style: .plain, target: self, action: #selector(didTapMarkAllAsReadButton(_:)))
@@ -571,15 +573,7 @@ private extension NotificationsCenterViewController {
     
     func presentFiltersViewController() {
         
-        let filtersViewModel = NotificationsCenterFiltersViewModel(remoteNotificationsController: viewModel.remoteNotificationsController, theme: theme, didUpdateFiltersCallback: { [weak self] in
-            guard let self = self else {
-                return
-            }
-            
-            self.viewModel.resetAndRefreshData()
-            self.viewModel.filtersToolbarViewModelNeedsReload()
-            self.scrollToTop()
-        })
+        let filtersViewModel = NotificationsCenterFiltersViewModel(remoteNotificationsController: viewModel.remoteNotificationsController, theme: theme)
         
         guard let filtersViewModel = filtersViewModel else {
             return
@@ -592,7 +586,16 @@ private extension NotificationsCenterViewController {
         
         let hostingVC = UIHostingController(rootView: filterView)
         
-        let nc = WMFThemeableNavigationController(rootViewController: hostingVC, theme: self.theme)
+        let nc = DisappearingCallbackNavigationController(rootViewController: hostingVC, theme: self.theme)
+        nc.willDisappearCallback = { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            self.viewModel.resetAndRefreshData()
+            self.viewModel.filtersToolbarViewModelNeedsReload()
+            self.scrollToTop()
+        }
         
         nc.modalPresentationStyle = .pageSheet
         self.present(nc, animated: true, completion: nil)
@@ -611,6 +614,14 @@ private extension NotificationsCenterViewController {
             }
             
             let inboxView = NotificationsCenterInboxView(viewModel: inboxViewModel) { [weak self] in
+            
+                self?.dismiss(animated: true)
+            }
+
+            let hostingVC = UIHostingController(rootView: inboxView)
+            
+            let nc = DisappearingCallbackNavigationController(rootViewController: hostingVC, theme: self.theme)
+            nc.willDisappearCallback = { [weak self] in
                 guard let self = self else {
                     return
                 }
@@ -618,15 +629,7 @@ private extension NotificationsCenterViewController {
                 self.viewModel.resetAndRefreshData()
                 self.viewModel.filtersToolbarViewModelNeedsReload()
                 self.scrollToTop()
-                
-            } doneAction: { [weak self] in
-                
-                self?.dismiss(animated: true)
             }
-
-            let hostingVC = UIHostingController(rootView: inboxView)
-            
-            let nc = WMFThemeableNavigationController(rootViewController: hostingVC, theme: self.theme)
             
             nc.modalPresentationStyle = .pageSheet
             self.present(nc, animated: true, completion: nil)
@@ -656,7 +659,7 @@ private extension NotificationsCenterViewController {
     
     func filterEmptyStateSubtitleAttributedStringForFilterViewModel(_ filterViewModel: NotificationsCenterViewModel.FiltersToolbarViewModel) -> NSAttributedString? {
             let filtersLinkFormat = WMFLocalizedString("notifications-center-empty-state-num-filters", value:"{{PLURAL:%1$d|%1$d filter|%1$d filters}}", comment:"Portion of empty state subtitle showing number of filters the user has set in notifications center - %1$d is replaced with the number filters.")
-            let filtersSubtitleFormat = WMFLocalizedString("notifications-center-empty-state-filters-subtitle", value:"Remove %1$@ to see more messages", comment:"Format of empty state subtitle when the user has filters on - %1$@ is replaced with a string representing the number of filters the user has set.")
+            let filtersSubtitleFormat = WMFLocalizedString("notifications-center-empty-state-filters-subtitle", value:"Modify %1$@ to see more messages", comment:"Format of empty state subtitle when the user has filters on - %1$@ is replaced with a string representing the number of filters the user has set.")
             let filtersLink = String.localizedStringWithFormat(filtersLinkFormat, filterViewModel.countOfFilters)
             let filtersSubtitle = String.localizedStringWithFormat(filtersSubtitleFormat, filtersLink)
 

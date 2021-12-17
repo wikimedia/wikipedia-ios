@@ -4,6 +4,7 @@ import Foundation
 extension NotificationsCenterCellViewModel {
     
     var headerText: String {
+        
         switch notification.type {
         case .userTalkPageMessage,
              .mentionInTalkPage,

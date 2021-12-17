@@ -21,12 +21,10 @@ struct NotificationsCenterIconImage: View {
 struct NotificationsCenterInboxItemView: View {
     @ObservedObject var itemViewModel: NotificationsCenterInboxViewModel.ItemViewModel
     let theme: Theme
-    let didUpdateFiltersCallback: () -> Void
     
     var body: some View {
         Button(action: {
             itemViewModel.isSelected.toggle()
-            didUpdateFiltersCallback()
         }) {
             HStack {
                 let iconColor = theme.colors.icon ?? UIColor.white
@@ -51,7 +49,6 @@ struct NotificationsCenterInboxItemView: View {
 struct NotificationsCenterInboxView: View {
     
     let viewModel: NotificationsCenterInboxViewModel
-    let didUpdateFiltersCallback: () -> Void
     let doneAction: () -> Void
     
     var body: some View {
@@ -63,7 +60,7 @@ struct NotificationsCenterInboxView: View {
                         .foregroundColor(Color(viewModel.theme.colors.secondaryText))
                     Section(header: header, footer: footer) {
                         ForEach(section.items) { item in
-                            NotificationsCenterInboxItemView(itemViewModel: item, theme: viewModel.theme, didUpdateFiltersCallback: didUpdateFiltersCallback)
+                            NotificationsCenterInboxItemView(itemViewModel: item, theme: viewModel.theme)
                         }
                     }
                 }

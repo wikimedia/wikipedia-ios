@@ -101,6 +101,7 @@ import CocoaLumberjackSwift
     
     public var filterSavedState: RemoteNotificationsFiltersSavedState? {
         didSet {
+            
             //save to library
             operationsController.setFilterSettingsToLibrary(dictionary: filterSavedState?.serialize())
             if let filterSavedState = filterSavedState {
