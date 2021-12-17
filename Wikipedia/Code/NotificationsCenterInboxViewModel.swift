@@ -86,16 +86,29 @@ class NotificationsCenterInboxViewModel: ObservableObject {
         
         let unselectedProjects = Set(savedState.projectsSetting)
         
-        let nonLanguageProjects: [RemoteNotificationsProject] = [.commons, .wikidata]
-        var appLanguageProjects = allInboxProjects
-        appLanguageProjects.remove(.commons)
-        appLanguageProjects.remove(.wikidata)
+        let nonLanguageProjects = allInboxProjects.filter { project in
+            switch project {
+            case .wikipedia:
+                return false
+            default:
+                return true
+            }
+        }
+        
+        let appLanguageProjects = allInboxProjects.filter { project in
+            switch project {
+            case .wikipedia:
+                return true
+            default:
+                return false
+            }
+        }
         
         let alphabeticalAppLanguageProjects = Array(appLanguageProjects).sorted { lhs, rhs in
             return lhs.projectName(shouldReturnCodedFormat: false) < rhs.projectName(shouldReturnCodedFormat: false)
         }
         
-        let firstSectionItems = nonLanguageProjects.map { ItemViewModel(title: $0.projectName(shouldReturnCodedFormat: false), isSelected: !unselectedProjects.contains($0), iconName: $0.inboxFiltersIconName, project: $0, remoteNotificationsController: remoteNotificationsController) }
+        let firstSectionItems = nonLanguageProjects.map { ItemViewModel(title: $0.projectName(shouldReturnCodedFormat: false), isSelected: !unselectedProjects.contains($0), iconName: $0.projectIconName, project: $0, remoteNotificationsController: remoteNotificationsController) }
         
         let secondSectionItems = alphabeticalAppLanguageProjects.map { ItemViewModel(title: $0.projectName(shouldReturnCodedFormat: false), isSelected: !unselectedProjects.contains($0), iconName: nil, project: $0, remoteNotificationsController: remoteNotificationsController) }
         
