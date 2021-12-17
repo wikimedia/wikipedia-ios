@@ -22,27 +22,21 @@ extension NotificationsCenterCellViewModel {
         case .wikipedia:
             return nil
         case .wikibooks:
-            //TODO: icon name, if applicable
-            return nil
+            return "notifications-project-wikibooks"
         case .wiktionary:
-            //TODO: icon name, if applicable
-            return nil
+            return "notifications-project-wiktionary"
         case .wikisource:
-            //TODO: icon name, if applicable
-            return nil
+            return "notifications-project-wikisource"
         case .wikinews:
-            //TODO: icon name, if applicable
-            return nil
+            return "notifications-project-wikinews"
         case .wikiversity:
-            //TODO: icon name, if applicable
-            return nil
+            return "notifications-project-wikiversity"
         case .wikivoyage:
-            //TODO: icon name, if applicable
-            return nil
+            return "notifications-project-wikivoyage"
         case .mediawiki:
-            return nil
+            return "notifications-project-mediawiki"
         case .wikispecies:
-            return nil
+            return "notifications-project-wikispecies"
         }
     }
         

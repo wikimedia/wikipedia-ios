@@ -55,7 +55,7 @@ public enum RemoteNotificationsProject {
     }
     
     private static var wikisourceLanguageSuffix: String {
-        return "wiksource"
+        return "wikisource"
     }
     
     private static var wikinewsLanguageSuffix: String {
