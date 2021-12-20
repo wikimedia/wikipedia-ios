@@ -126,6 +126,8 @@ final class NotificationsCenterViewController: ViewController {
         super.apply(theme: theme)
 
         notificationsView.apply(theme: theme)
+
+        closeSwipeActionsPanelIfNecessary()
         notificationsView.collectionView.reloadData()
     }
 }
@@ -428,15 +430,16 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
 
 extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
 
-    func userDidTapSecondaryActionForViewModel(_ cellViewModel: NotificationsCenterCellViewModel) {
-        guard let url = cellViewModel.secondaryURL(for: viewModel.configuration) else {
+    func userDidTapSecondaryActionForCell(_ cell: NotificationsCenterCell) {
+        guard let cellViewModel = cell.viewModel, let url = cellViewModel.secondaryURL(for: viewModel.configuration) else {
             return
         }
+
         navigate(to: url)
     }
 
     func userDidTapMoreActionForCell(_ cell: NotificationsCenterCell) {
-        guard let cellViewModel = cell.viewModel, let indexPath = dataSource?.indexPath(for: cellViewModel) else  {
+        guard let cellViewModel = cell.viewModel else  {
             return
         }
 
@@ -474,7 +477,7 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
         let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
         alertController.addAction(cancelAction)
 
-        if let popoverController = alertController.popoverPresentationController, let cell = notificationsView.collectionView.cellForItem(at: indexPath) {
+        if let popoverController = alertController.popoverPresentationController {
             if let activeCell = cellSwipeData.activeCell(in: notificationsView.collectionView) {
                 let sourceView = activeCell.swipeMoreStack
                 popoverController.sourceView = sourceView
