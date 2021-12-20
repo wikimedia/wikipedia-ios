@@ -1,10 +1,12 @@
 // Messages for Abkhazian (Аҧсшәа)
 // Exported from translatewiki.net
+// Author: Amire80
 // Author: Pupsik-ipa
 // Author: Surprizi
 // Author: Андрей
 
 "about-contributors" = "Авторцәа";
+// Fuzzy
 "about-libraries" = "Ихархәо абиблиотекақәа";
 "about-libraries-license" = "Алицензиа";
 "about-repositories-app-source-license-mit" = "MIT Алицензиа";
