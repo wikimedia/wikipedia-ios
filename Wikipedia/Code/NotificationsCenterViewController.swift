@@ -87,7 +87,7 @@ final class NotificationsCenterViewController: ViewController {
         enableToolbar()
         setToolbarHidden(false, animated: false)
 
-		navigationItem.rightBarButtonItem = editButtonItem
+        navigationItem.rightBarButtonItem = editButtonItem
         isEditing = false
 	}
 

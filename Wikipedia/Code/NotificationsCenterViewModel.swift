@@ -182,7 +182,7 @@ extension NotificationsCenterViewModel {
     // MARK: - Public
 
     var typeFilterButtonImage: UIImage? {
-        return toolbarImageForTypeFilter(engaged: remoteNotificationsController.filterState.types.count > 0)
+        return toolbarImageForTypeFilter(engaged: remoteNotificationsController.filterState.types.count > 0 || remoteNotificationsController.filterState.readStatus != .all)
     }
 
     var projectFilterButtonImage: UIImage? {
