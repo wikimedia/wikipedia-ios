@@ -158,6 +158,10 @@
 		007CCF1226D5BF1300D5EA7C /* NotificationsCenterPresentationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007CCF1026D5BF1300D5EA7C /* NotificationsCenterPresentationDelegate.swift */; };
 		007CCF1326D5BF1300D5EA7C /* NotificationsCenterPresentationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007CCF1026D5BF1300D5EA7C /* NotificationsCenterPresentationDelegate.swift */; };
 		007CCF1426D5BF1300D5EA7C /* NotificationsCenterPresentationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007CCF1026D5BF1300D5EA7C /* NotificationsCenterPresentationDelegate.swift */; };
+		007F5C6D275AA74200E4B02C /* StackedImageLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007F5C6C275AA74200E4B02C /* StackedImageLabelView.swift */; };
+		007F5C6E275AA74200E4B02C /* StackedImageLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007F5C6C275AA74200E4B02C /* StackedImageLabelView.swift */; };
+		007F5C6F275AA74200E4B02C /* StackedImageLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007F5C6C275AA74200E4B02C /* StackedImageLabelView.swift */; };
+		007F5C70275AA74200E4B02C /* StackedImageLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007F5C6C275AA74200E4B02C /* StackedImageLabelView.swift */; };
 		00841DE524477805003CF74A /* AppTabBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE891452445150B0058B642 /* AppTabBarDelegate.swift */; };
 		00841DE724477806003CF74A /* AppTabBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE891452445150B0058B642 /* AppTabBarDelegate.swift */; };
 		00A7946B245CA4E60063BA18 /* ArticleSurveyTimerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A7946A245CA4E60063BA18 /* ArticleSurveyTimerController.swift */; };
@@ -3688,6 +3692,7 @@
 		007CCF0626D5A17200D5EA7C /* NotificationsCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterView.swift; sourceTree = "<group>"; };
 		007CCF0B26D5A5E400D5EA7C /* NotificationsCenterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterViewModel.swift; sourceTree = "<group>"; };
 		007CCF1026D5BF1300D5EA7C /* NotificationsCenterPresentationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterPresentationDelegate.swift; sourceTree = "<group>"; };
+		007F5C6C275AA74200E4B02C /* StackedImageLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedImageLabelView.swift; sourceTree = "<group>"; usesTabs = 0; };
 		00A7946A245CA4E60063BA18 /* ArticleSurveyTimerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSurveyTimerController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		00A8F58526BDD5E700175B8E /* WidgetSampleContentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSampleContentTests.swift; sourceTree = "<group>"; };
 		00AA5AA6276BF29E005295B0 /* StatusTextBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTextBarButtonItem.swift; sourceTree = "<group>"; };
@@ -7771,6 +7776,7 @@
 				00BCB71726DEE04D002C3F72 /* InsetLabelView.swift */,
 				00BCB71C26DEE1C7002C3F72 /* VerticalSpacerView.swift */,
 				00BCB72126DEEB1C002C3F72 /* RoundedImageView.swift */,
+				007F5C6C275AA74200E4B02C /* StackedImageLabelView.swift */,
 			);
 			name = "UI Components";
 			sourceTree = "<group>";
@@ -11132,6 +11138,7 @@
 				6761AEF72707E34F00E47BAD /* NotificationsCenterModelController.swift in Sources */,
 				0EE489031D4ADCA00088505C /* UIViewController+WMFScrollToTop.swift in Sources */,
 				7A9F060D2266425700856321 /* InsertMediaSettingsViewController.swift in Sources */,
+				007F5C6D275AA74200E4B02C /* StackedImageLabelView.swift in Sources */,
 				7AA96D5C21B733A800DE9877 /* TextFormattingProvidingTableViewController.swift in Sources */,
 				0042811D25E6E841004945B3 /* NYTPhotoTransitionAnimator.m in Sources */,
 				B09CE59A222F623900067D2A /* WKWebView+EditSelectionJavascript.swift in Sources */,
@@ -12025,6 +12032,7 @@
 				6761AEFA2707E34F00E47BAD /* NotificationsCenterModelController.swift in Sources */,
 				D8703DC21EE84533001A4BAB /* PreviewingViewController.swift in Sources */,
 				7A9F06102266425700856321 /* InsertMediaSettingsViewController.swift in Sources */,
+				007F5C70275AA74200E4B02C /* StackedImageLabelView.swift in Sources */,
 				D8A42B1F1E815A9C00D8E281 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */,
 				0042812025E6E841004945B3 /* NYTPhotoTransitionAnimator.m in Sources */,
 				83F26B2D220B62EC002D87A4 /* SectionEditorButton.swift in Sources */,
@@ -12600,6 +12608,7 @@
 				B0ACB13421265B9C0078C136 /* WMFImageGalleryDescriptionTextView.swift in Sources */,
 				7A1469C6220BC223000A20F1 /* EditHintController.swift in Sources */,
 				D8CE25CC1E698E2400DAE2E0 /* UIView+IBExtras.swift in Sources */,
+				007F5C6F275AA74200E4B02C /* StackedImageLabelView.swift in Sources */,
 				B0524B20214854E900D8FD8D /* DescriptionWelcomeInitialViewController.swift in Sources */,
 				6771299124FF76AC00E89CA5 /* ArticleAsLivingDocViewController.swift in Sources */,
 				7A4D227E21B1CD8600D889BD /* TextFormattingTableViewCell.swift in Sources */,
@@ -13110,6 +13119,7 @@
 				B0ACB13521265B9D0078C136 /* WMFImageGalleryDescriptionTextView.swift in Sources */,
 				D8EC3ECA1E9BDA35006712EB /* UIView+IBExtras.swift in Sources */,
 				7A1469C7220BC223000A20F1 /* EditHintController.swift in Sources */,
+				007F5C6E275AA74200E4B02C /* StackedImageLabelView.swift in Sources */,
 				8382F8DB20D9371E00AE5250 /* WMFContentGroup+DetailViewControllers.swift in Sources */,
 				B0524B21214854E900D8FD8D /* DescriptionWelcomeInitialViewController.swift in Sources */,
 				7A4D227F21B1CD8600D889BD /* TextFormattingTableViewCell.swift in Sources */,
