@@ -347,6 +347,7 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
     }
 }
 
+// MARK: - UICollectionViewDataSource
 extension ColumnarCollectionViewController: UICollectionViewDataSource {
     open func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 0
@@ -408,5 +409,36 @@ extension ColumnarCollectionViewController {
             FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: context, index: index, maxViewed: maxViewed)
         }
 
+    }
+}
+
+// MARK: - CollectionViewContextMenuShowing
+extension ColumnarCollectionViewController {
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard let contextMenuCollectionVC = self as? CollectionViewContextMenuShowing else {
+            return nil
+        }
+        let previewProvider: () -> UIViewController? = {
+            return contextMenuCollectionVC.previewingViewController(for: indexPath)
+        }
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: previewProvider) { (suggestedActions) -> UIMenu? in
+            guard let previewActions = contextMenuCollectionVC.previewActions(for: indexPath) else {
+                return nil
+            }
+            return UIMenu(title: "", image: nil, identifier: nil, options: [], children: previewActions)
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+
+        guard let previewedViewController = animator.previewViewController else {
+            assertionFailure("Should be able to find previewed VC")
+            return
+        }
+        animator.addCompletion { [weak self] in
+            (self as? CollectionViewContextMenuShowing)?.poppingIntoVCCompletion()
+            previewedViewController.wmf_removePeekableChildViewControllers()
+            self?.push(previewedViewController, animated: true)
+        }
     }
 }

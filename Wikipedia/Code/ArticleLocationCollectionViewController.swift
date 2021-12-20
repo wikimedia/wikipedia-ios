@@ -190,8 +190,14 @@ extension ArticleLocationCollectionViewController {
     }
 }
 
-// MARK: - UIViewControllerPreviewingDelegate
-extension ArticleLocationCollectionViewController {
+// MARK: - CollectionViewContextMenuShowing
+extension ArticleLocationCollectionViewController: CollectionViewContextMenuShowing {
+    func articleViewController(for indexPath: IndexPath) -> ArticleViewController? {
+        let articleURL = articleURL(at: indexPath)
+        let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme)
+        return articleViewController
+    }
+
     override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard let indexPath = collectionViewIndexPathForPreviewingContext(previewingContext, location: location) else {
                 return nil
@@ -215,6 +221,35 @@ extension ArticleLocationCollectionViewController {
         }
         viewControllerToCommit.wmf_removePeekableChildViewControllers()
         push(viewControllerToCommit, animated: true)
+    }
+
+    func previewingViewController(for indexPath: IndexPath) -> UIViewController? {
+        guard let articleViewController = articleViewController(for: indexPath) else {
+            return nil
+        }
+        let articleURL = self.articleURL(at: indexPath)
+        articleViewController.articlePreviewingDelegate = self // NEED THIS? Yes, for acitons that we need to add
+        articleViewController.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
+        if let context = feedFunnelContext {
+            FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: context, index: indexPath.item)
+        }
+        previewedIndexPath = indexPath
+        return articleViewController
+    }
+
+    func previewActions(for indexPath: IndexPath) -> [UIMenuElement]? {
+        guard let articleViewController = self.previewingViewController(for: indexPath) as? ArticleViewController else {
+            return nil
+        }
+        return articleViewController.contextMenuItems
+    }
+
+    var poppingIntoVCCompletion: () -> Void {
+        return {
+            if let context = self.feedFunnelContext {
+                FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: context, index: self.previewedIndexPath?.item, maxViewed: self.maxViewed)
+            }
+        }
     }
 }
 

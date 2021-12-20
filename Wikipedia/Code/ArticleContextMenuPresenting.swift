@@ -72,7 +72,7 @@ extension ArticleContextMenuPresenting {
             let config = UIContextMenuConfiguration(identifier: linkURL as NSURL, previewProvider: { () -> UIViewController? in
                 return peekParentVC
             }) { (suggestedActions) -> UIMenu? in
-                return self.previewMenuElements(for: peekParentVC, suggestedActions: suggestedActions)
+                return (peekParentVC as? ArticleViewController)?.previewMenuElements
             }
 
             if let articlePeekVC = peekVC as? ArticlePeekPreviewViewController {
@@ -97,16 +97,10 @@ extension ArticleContextMenuPresenting {
         getPeekViewControllerAsync(for: destination, completion: completion)
     }
 
-    func previewMenuElements(for previewViewController: UIViewController, suggestedActions: [UIMenuElement]) -> UIMenu? {
-        guard let vc = previewViewController as? ArticleViewController else {
+    var previewMenuElements: UIMenu? {
+        guard let vc = self as? ArticleViewController else {
             return nil
         }
-        let legacyActions = vc.previewActions
-        let menuItems = legacyActions.map { (legacyAction) -> UIMenuElement in
-            return UIAction(title: legacyAction.title) { (action) in
-                legacyAction.handler(legacyAction, previewViewController)
-            }
-        }
-        return UIMenu(title: "", image: nil, identifier: nil, options: [], children: menuItems)
+        return UIMenu(title: "", image: nil, identifier: nil, options: [], children: vc.contextMenuItems)
     }
 }
