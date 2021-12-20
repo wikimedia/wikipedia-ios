@@ -589,6 +589,9 @@
 "notifications-center-subheader-user-rights-change" = "Subheader text for user rights change notifications in Notifications Center.";
 "notifications-center-subheader-welcome" = "Subheader text for welcome notifications in Notifications Center.";
 "notifications-center-subheader-wikidata-connection" = "Subheader text for 'Wikidata connection made' notifications in Notifications Center.";
+"notifications-center-swipe-mark-as-read" = "Button text in Notifications Center swipe actions to mark a notification as read.";
+"notifications-center-swipe-mark-as-unread" = "Button text in Notifications Center swipe actions to mark a notification as unread.";
+"notifications-center-swipe-more" = "Button text for the Notifications Center 'More' swipe action.";
 "notifications-center-title" = "Title for Notifications Center interface.";
 "notifications-center-wikidata-project-name" = "Project name description for Wikidata, used in notification headers.";
 "notifications-push-fallback-body-text" = "Fallback body content of a push notification whose content cannot be determined. Could be either due multiple notifications represented or errors.";

@@ -19,8 +19,26 @@ final class NotificationsCenterViewController: ViewController {
 
     // MARK: - Properties - Cell Swipe Actions
 
+    fileprivate struct CellSwipeData {
+        var activelyPannedCellIndexPath: IndexPath? // `IndexPath` of actively panned or open or opening cell
+        var activelyPannedCellTranslationX: CGFloat? // current translation on x-axis of open or opening cell
+
+        func activeCell(in collectionView: UICollectionView) -> NotificationsCenterCell? {
+            guard let activelyPannedCellIndexPath = activelyPannedCellIndexPath else {
+                return nil
+            }
+
+            return collectionView.cellForItem(at: activelyPannedCellIndexPath) as? NotificationsCenterCell
+        }
+
+        mutating func resetActiveData() {
+            activelyPannedCellIndexPath = nil
+            activelyPannedCellTranslationX = nil
+        }
+    }
+
     fileprivate lazy var cellPanGestureRecognizer = UIPanGestureRecognizer()
-    fileprivate var activelyPannedCellIndexPath: IndexPath?
+    fileprivate lazy var cellSwipeData = CellSwipeData()
 
     // MARK: - Lifecycle
 
@@ -64,10 +82,16 @@ final class NotificationsCenterViewController: ViewController {
         viewModel.refreshNotifications()
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        closeSwipeActionsPanelIfNecessary()
+    }
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
 
         if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
+            closeSwipeActionsPanelIfNecessary()
             notificationsView.collectionView.reloadData()
         }
     }
@@ -102,6 +126,8 @@ final class NotificationsCenterViewController: ViewController {
         super.apply(theme: theme)
 
         notificationsView.apply(theme: theme)
+
+        closeSwipeActionsPanelIfNecessary()
         notificationsView.collectionView.reloadData()
     }
 }
@@ -109,7 +135,7 @@ final class NotificationsCenterViewController: ViewController {
 //MARK: Private
 
 private extension NotificationsCenterViewController {
-    
+
     func setupDataSource() {
         dataSource = DataSource(
         collectionView: notificationsView.collectionView,
@@ -166,6 +192,8 @@ private extension NotificationsCenterViewController {
         notificationsView.collectionView.indexPathsForSelectedItems?.forEach {
             notificationsView.collectionView.deselectItem(at: $0, animated: false)
         }
+
+        closeSwipeActionsPanelIfNecessary()
     }
     
     /// Calls cell configure methods again without instantiating a new cell.
@@ -203,6 +231,7 @@ private extension NotificationsCenterViewController {
             }
         }
     }
+
 }
 
 // MARK: - NotificationCenterViewModelDelegate
@@ -246,7 +275,7 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
         guard let cellViewModel = dataSource?.itemIdentifier(for: indexPath) else {
             return
         }
-        
+
         viewModel.updateCellDisplayStates(cellViewModels: [cellViewModel], isSelected: true)
         reconfigureCells(with: [cellViewModel])
         
@@ -264,7 +293,7 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
         guard let cellViewModel = dataSource?.itemIdentifier(for: indexPath) else {
             return
         }
-        
+
         viewModel.updateCellDisplayStates(cellViewModels: [cellViewModel], isSelected: false)
         reconfigureCells(with: [cellViewModel])
     }
@@ -273,6 +302,18 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
 // MARK: - Cell Swipe Actions
 
 @objc extension NotificationsCenterViewController: UIGestureRecognizerDelegate {
+
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        super.scrollViewWillBeginDragging(scrollView)
+        closeSwipeActionsPanelIfNecessary()
+    }
+
+    func closeSwipeActionsPanelIfNecessary() {
+        if let activeCell = cellSwipeData.activeCell(in: notificationsView.collectionView) {
+            animateSwipePanel(open: false, for: activeCell)
+            cellSwipeData.resetActiveData()
+        }
+    }
 
     /// Only allow cell pan gesture if user's horizontal cell panning behavior seems intentional
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -286,31 +327,122 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
         return false
     }
 
+    fileprivate func animateSwipePanel(open: Bool, for cell: NotificationsCenterCell) {
+        let isRTL = UIApplication.shared.wmf_isRTL
+        UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.5, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
+            if open {
+                let translationX = isRTL ? cell.swipeActionButtonStack.frame.size.width : -cell.swipeActionButtonStack.frame.size.width
+                cell.foregroundContentContainer.transform = CGAffineTransform.identity.translatedBy(x: translationX, y: 0)
+            } else {
+                cell.foregroundContentContainer.transform = CGAffineTransform.identity
+            }
+        }, completion: nil)
+    }
+
     @objc fileprivate func userDidPanCell(_ gestureRecognizer: UIPanGestureRecognizer) {
+        let isRTL = UIApplication.shared.wmf_isRTL
+        let triggerVelocity: CGFloat = 400
+        let swipeEdgeBuffer = NotificationsCenterCell.swipeEdgeBuffer
+        let touchPosition = gestureRecognizer.location(in: notificationsView.collectionView)
+        let translationX = gestureRecognizer.translation(in: notificationsView.collectionView).x
+        let velocityX = gestureRecognizer.velocity(in: notificationsView.collectionView).x
+
         switch gestureRecognizer.state {
         case .began:
-            let touchPosition = gestureRecognizer.location(in: notificationsView.collectionView)
-            guard let cellIndexPath = notificationsView.collectionView.indexPathForItem(at: touchPosition) else {
+            guard let touchCellIndexPath = notificationsView.collectionView.indexPathForItem(at: touchPosition), let cell = notificationsView.collectionView.cellForItem(at: touchCellIndexPath) as? NotificationsCenterCell else {
                 gestureRecognizer.state = .ended
                 break
             }
 
-            activelyPannedCellIndexPath = cellIndexPath
+            // If the new touch is on a new cell, and a current cell is already open, close it first
+            if let currentlyActiveIndexPath = cellSwipeData.activelyPannedCellIndexPath, currentlyActiveIndexPath != touchCellIndexPath, let cell = notificationsView.collectionView.cellForItem(at: currentlyActiveIndexPath) as? NotificationsCenterCell {
+                animateSwipePanel(open: false, for: cell)
+            }
+
+            if cell.foregroundContentContainer.transform.isIdentity {
+                cellSwipeData.activelyPannedCellTranslationX = nil
+                if velocityX > 0 {
+                    gestureRecognizer.state = .ended
+                    break
+                }
+            } else {
+                cellSwipeData.activelyPannedCellTranslationX = isRTL ? -cell.foregroundContentContainer.transform.tx : cell.foregroundContentContainer.transform.tx
+            }
+
+            cellSwipeData.activelyPannedCellIndexPath = touchCellIndexPath
+        case .changed:
+            guard let cell = cellSwipeData.activeCell(in: notificationsView.collectionView) else {
+                break
+            }
+
+            let swipeStackWidth = cell.swipeActionButtonStack.frame.size.width
+            var totalTranslationX = translationX + (cellSwipeData.activelyPannedCellTranslationX ?? 0)
+
+            let maximumTranslationX = swipeStackWidth + swipeEdgeBuffer
+
+            // The user is trying to pan too far left
+            if totalTranslationX < -maximumTranslationX {
+                totalTranslationX = -maximumTranslationX - log(abs(translationX))
+            }
+
+            // Extends too far right
+            if totalTranslationX > swipeEdgeBuffer {
+                totalTranslationX = swipeEdgeBuffer + log(abs(translationX))
+            }
+
+            let finalTranslationX = isRTL ? -totalTranslationX : totalTranslationX
+            cell.foregroundContentContainer.transform = CGAffineTransform(translationX: finalTranslationX, y: 0)
         case .ended:
-            userDidSwipeCell(indexPath: activelyPannedCellIndexPath)
-            activelyPannedCellIndexPath = nil
+            guard let cell = cellSwipeData.activeCell(in: notificationsView.collectionView) else {
+                break
+            }
+
+            var shouldOpenSwipePanel: Bool
+            let currentCellTranslationX = isRTL ? -cell.foregroundContentContainer.transform.tx : cell.foregroundContentContainer.transform.tx
+
+            if currentCellTranslationX > 0 {
+                shouldOpenSwipePanel = false
+            } else {
+                if velocityX < -triggerVelocity {
+                    shouldOpenSwipePanel = true
+                } else {
+                    shouldOpenSwipePanel = abs(currentCellTranslationX) > (0.5 * cell.swipeActionButtonStack.frame.size.width)
+                }
+            }
+
+            if velocityX > triggerVelocity {
+                shouldOpenSwipePanel = false
+            }
+
+            if !shouldOpenSwipePanel {
+                cellSwipeData.resetActiveData()
+            }
+
+            animateSwipePanel(open: shouldOpenSwipePanel, for: cell)
         default:
             return
         }
     }
 
-    /// TODO: This will be removed in the final implementation
-    fileprivate func userDidSwipeCell(indexPath: IndexPath?) {
-        guard let indexPath = indexPath,
-              let cellViewModel = dataSource?.itemIdentifier(for: indexPath) else {
+}
+
+//MARK: NotificationCenterCellDelegate
+
+extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
+
+    func userDidTapSecondaryActionForCell(_ cell: NotificationsCenterCell) {
+        guard let cellViewModel = cell.viewModel, let url = cellViewModel.secondaryURL(for: viewModel.configuration) else {
             return
         }
-        
+
+        navigate(to: url)
+    }
+
+    func userDidTapMoreActionForCell(_ cell: NotificationsCenterCell) {
+        guard let cellViewModel = cell.viewModel else  {
+            return
+        }
+
         let sheetActions = cellViewModel.sheetActions(for: viewModel.configuration)
         guard !sheetActions.isEmpty else {
             return
@@ -319,13 +451,13 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
         let alertController = UIAlertController(title: cellViewModel.headerText, message: cellViewModel.bodyText, preferredStyle: .actionSheet)
 
         sheetActions.forEach { action in
-            
             let alertAction: UIAlertAction
             switch action {
             case .markAsReadOrUnread(let data):
                 alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
                     let shouldMarkRead = cellViewModel.isRead ? false : true
                     self.viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: shouldMarkRead)
+                    self.closeSwipeActionsPanelIfNecessary()
                 })
             case .notificationSubscriptionSettings(let data):
                 alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
@@ -338,29 +470,28 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
                     self.navigate(to: url)
                 })
             }
-            
+
             alertController.addAction(alertAction)
         }
-        
+
         let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
         alertController.addAction(cancelAction)
 
-        if let popoverController = alertController.popoverPresentationController, let cell = notificationsView.collectionView.cellForItem(at: indexPath) {
+        if let popoverController = alertController.popoverPresentationController {
             popoverController.sourceView = cell
             popoverController.sourceRect = CGRect(x: cell.bounds.midX, y: cell.bounds.midY, width: 0, height: 0)
         }
 
         present(alertController, animated: true, completion: nil)
     }
-}
 
-//MARK: NotificationCenterCellDelegate
-
-extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
-    func userDidTapSecondaryActionForViewModel(_ cellViewModel: NotificationsCenterCellViewModel) {
-        guard let url = cellViewModel.secondaryURL(for: viewModel.configuration) else {
+    func userDidTapMarkAsReadUnreadActionForCell(_ cell: NotificationsCenterCell) {
+        guard let cellViewModel = cell.viewModel else {
             return
         }
-        navigate(to: url)
+
+        closeSwipeActionsPanelIfNecessary()
+        viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: !cellViewModel.isRead)
     }
+    
 }
