@@ -1133,6 +1133,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         guard viewIfLoaded != nil else {
             return
         }
+        mapListToggle.selectedSegmentIndex = 0
         viewMode = .map
     }
     
