@@ -833,13 +833,20 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                done();
                            }];
         } else if (NSUserDefaults.standardUserDefaults.shouldRestoreNavigationStackOnResume) {
+            self.navigationController.interactivePopGestureRecognizer.delegate = self;
             [self.navigationStateController restoreNavigationStateFor:self.navigationController
                                                                    in:self.dataStore.viewContext
-                                                                 with:self.theme
-                                                           completion:^{
-                                                               [self hideSplashViewAnimated:!didShowOnboarding];
-                                                               done();
-                                                           }];
+                                                                 with:self.theme gestureDelegate:self.navigationController.interactivePopGestureRecognizer.delegate completion:^{
+                [self hideSplashViewAnimated:!didShowOnboarding];
+                done();
+            }];
+//            [self.navigationStateController restoreNavigationStateFor:self.navigationController
+//                                                                   in:self.dataStore.viewContext
+//                                                                 with:self.theme
+//                                                           completion:^{
+//                                                               [self hideSplashViewAnimated:!didShowOnboarding];
+//                                                               done();
+//                                                           }];
         } else if ([self shouldShowExploreScreenOnLaunch]) {
             [self hideSplashViewAnimated:!didShowOnboarding];
             [self showExplore];
@@ -1623,6 +1630,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     if (self.navigationController.interactivePopGestureRecognizer == gestureRecognizer) {
         return self.navigationController.viewControllers.count > 1;
+    } else if (_settingsViewController.navigationController.interactivePopGestureRecognizer == gestureRecognizer) {
+        return _settingsViewController.navigationController.viewControllers.count > 1;
     }
     return YES;
 }

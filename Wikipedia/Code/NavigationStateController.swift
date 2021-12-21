@@ -1,4 +1,5 @@
 import WMF
+import UIKit
 
 protocol DetailPresentingFromContentGroup {
     var contentGroupIDURIString: String? { get }
@@ -17,8 +18,9 @@ final class NavigationStateController: NSObject {
     private typealias ViewController = NavigationState.ViewController
     private typealias Presentation = ViewController.Presentation
     private typealias Info = ViewController.Info
+    private var delegate: UIGestureRecognizerDelegate?
 
-    @objc func restoreNavigationState(for navigationController: UINavigationController, in moc: NSManagedObjectContext, with theme: Theme, completion: @escaping () -> Void) {
+    @objc func restoreNavigationState(for navigationController: UINavigationController, in moc: NSManagedObjectContext, with theme: Theme, gestureDelegate: UIGestureRecognizerDelegate?, completion: @escaping () -> Void) {
         guard let tabBarController = navigationController.viewControllers.first as? UITabBarController else {
             assertionFailure("Expected root view controller to be UITabBarController")
             completion()
@@ -28,6 +30,8 @@ final class NavigationStateController: NSObject {
             completion()
             return
         }
+        
+        self.delegate = gestureDelegate
         self.theme = theme
         let restore = {
             completion()
@@ -118,6 +122,8 @@ final class NavigationStateController: NSObject {
             case (.settings, _):
                 let settingsVC = WMFSettingsViewController(dataStore: dataStore)
                 pushOrPresent(settingsVC, navigationController: navigationController, presentation: viewController.presentation)
+                settingsVC.navigationController?.interactivePopGestureRecognizer?.delegate = delegate
+
             case (.account, _):
                 let accountVC = AccountViewController()
                 accountVC.dataStore = dataStore
