@@ -223,7 +223,7 @@ extension ArticleLocationCollectionViewController: CollectionViewContextMenuShow
         push(viewControllerToCommit, animated: true)
     }
 
-    func previewingViewController(for indexPath: IndexPath) -> UIViewController? {
+    func previewingViewController(for indexPath: IndexPath, at location: CGPoint) -> UIViewController? {
         guard let articleViewController = articleViewController(for: indexPath) else {
             return nil
         }

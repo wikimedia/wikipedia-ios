@@ -415,14 +415,14 @@ extension ColumnarCollectionViewController {
 // MARK: - CollectionViewContextMenuShowing
 extension ColumnarCollectionViewController {
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        guard let contextMenuCollectionVC = self as? CollectionViewContextMenuShowing else {
+        guard let contextMenuCollectionVC = self as? CollectionViewContextMenuShowing, let vc = contextMenuCollectionVC.previewingViewController(for: indexPath, at: point) else {
             return nil
         }
         let previewProvider: () -> UIViewController? = {
-            return contextMenuCollectionVC.previewingViewController(for: indexPath)
+            return vc
         }
         return UIContextMenuConfiguration(identifier: nil, previewProvider: previewProvider) { (suggestedActions) -> UIMenu? in
-            guard let previewActions = contextMenuCollectionVC.previewActions(for: indexPath) else {
+            guard let previewActions = (vc as? ArticleViewController)?.contextMenuItems else {
                 return nil
             }
             return UIMenu(title: "", image: nil, identifier: nil, options: [], children: previewActions)
