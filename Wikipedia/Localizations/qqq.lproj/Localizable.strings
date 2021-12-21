@@ -553,7 +553,7 @@
 "no-internet-connection-article-reload-button" = "Title for button to return to last saved version of article.";
 "notifications-center-change-password" = "Button text in Notifications Center that routes user to change password screen.";
 "notifications-center-empty-checking-for-notifications" = "Text displayed when Notifications Center is checking for notifications.";
-"notifications-center-empty-no-unread-messages" = "Text displayed when no Notifications Center notifications are available.";
+"notifications-center-empty-no-messages" = "Text displayed when no Notifications Center notifications are available.";
 "notifications-center-empty-not-subscribed" = "Text displayed when user has not subscribed to any Wikipedia notifications.";
 "notifications-center-empty-state-filters-subtitle" = "Format of empty state subtitle when the user has filters on - $1 is replaced with a string representing the number of filters the user has set.";
 "notifications-center-empty-state-num-filters" = "Portion of empty state subtitle showing number of filters the user has set in notifications center - $1 is replaced with the number filters.";

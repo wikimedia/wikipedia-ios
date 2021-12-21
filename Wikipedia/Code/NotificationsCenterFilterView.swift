@@ -24,11 +24,10 @@ struct NotificationsCenterFilterItemView: View {
                     }
                 }
             }
-            .listRowBackground(Color(theme.colors.paperBackground).edgesIgnoringSafeArea([.all]))
         case .toggle(let remoteNotificationType):
             
             HStack {
-                
+
                 let iconColor = theme.colors.paperBackground
                 let iconBackgroundColor = remoteNotificationType.imageBackgroundColorWithTheme(theme)
                 if let iconName = remoteNotificationType.imageName {
@@ -49,24 +48,19 @@ struct NotificationsCenterFilterItemView: View {
                         .foregroundColor(Color(theme.colors.primaryText))
                 }
             }
-            .listRowBackground(Color(theme.colors.paperBackground).edgesIgnoringSafeArea([.all]))
         case .toggleAll:
-            HStack {
-                                
-                if #available(iOS 14.0, *) {
-                    Toggle(itemViewModel.title, isOn: $itemViewModel.isSelected.didSet { (state) in
-                        itemViewModel.toggleSelectionForAll()
-                    })
-                    .foregroundColor(Color(theme.colors.primaryText))
-                    .toggleStyle(SwitchToggleStyle(tint: Color(theme.colors.accent)))
-                } else {
-                    Toggle(itemViewModel.title, isOn: $itemViewModel.isSelected.didSet { (state) in
-                        itemViewModel.toggleSelectionForAll()
-                    })
-                    .foregroundColor(Color(theme.colors.primaryText))
-                }
+            if #available(iOS 14.0, *) {
+                Toggle(itemViewModel.title, isOn: $itemViewModel.isSelected.didSet { (state) in
+                    itemViewModel.toggleSelectionForAll()
+                })
+                .foregroundColor(Color(theme.colors.primaryText))
+                .toggleStyle(SwitchToggleStyle(tint: Color(theme.colors.accent)))
+            } else {
+                Toggle(itemViewModel.title, isOn: $itemViewModel.isSelected.didSet { (state) in
+                    itemViewModel.toggleSelectionForAll()
+                })
+                .foregroundColor(Color(theme.colors.primaryText))
             }
-            .listRowBackground(Color(theme.colors.paperBackground).edgesIgnoringSafeArea([.all]))
         }
         
         
@@ -93,18 +87,35 @@ struct NotificationsCenterFilterView: View {
     var body: some View {
             List {
                 ForEach(viewModel.sections) { section in
-                    let header = Text(section.title ?? "")
-                        .foregroundColor(Color(viewModel.theme.colors.secondaryText))
-                    let footer = Text(section.footer ?? "")
-                        .foregroundColor(Color(viewModel.theme.colors.secondaryText))
-                    Section(header: header, footer: footer) {
-                        ForEach(section.items) { item in
-                            NotificationsCenterFilterItemView(itemViewModel: item, theme: viewModel.theme)
+                    
+                    if let title = section.title {
+                        let header = Text(title).foregroundColor(Color(viewModel.theme.colors.secondaryText))
+                        if let footer = section.footer {
+                            let footer = Text(footer)
+                                .foregroundColor(Color(viewModel.theme.colors.secondaryText))
+                            Section(header: header, footer: footer) {
+                                ForEach(section.items) { item in
+                                    NotificationsCenterFilterItemView(itemViewModel: item, theme: viewModel.theme)
+                                }
+                            }
+                        } else {
+                            Section(header: header) {
+                                ForEach(section.items) { item in
+                                    NotificationsCenterFilterItemView(itemViewModel: item, theme: viewModel.theme)
+                                }
+                            }
+                        }
+                    } else {
+                        Section() {
+                            ForEach(section.items) { item in
+                                NotificationsCenterFilterItemView(itemViewModel: item, theme: viewModel.theme)
+                            }
                         }
                     }
                 }
             }
             .listStyle(GroupedListStyle())
+            .listRowBackground(Color(viewModel.theme.colors.paperBackground).edgesIgnoringSafeArea([.all]))
             .navigationBarItems(
                 trailing:
                     Button(action: {

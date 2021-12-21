@@ -21,12 +21,12 @@ final class NotificationsCenterViewModel: NSObject {
     struct FiltersToolbarViewModel {
         let areFiltersEnabled: Bool
         let areInboxFiltersEnabled: Bool
-        let countOfFilters: Int
+        let countOfTypeFilters: Int
         
         static func filtersToolbarViewModel(from remoteNotificationsController: RemoteNotificationsController) -> FiltersToolbarViewModel {
             
             return FiltersToolbarViewModel(areFiltersEnabled: remoteNotificationsController.areFiltersEnabled,
-                                           areInboxFiltersEnabled: remoteNotificationsController.areInboxFiltersEnabled, countOfFilters: remoteNotificationsController.countOfFilters)
+                                           areInboxFiltersEnabled: remoteNotificationsController.areInboxFiltersEnabled, countOfTypeFilters: remoteNotificationsController.countOfTypeFilters)
         }
     }
     

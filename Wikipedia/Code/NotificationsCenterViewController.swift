@@ -660,7 +660,7 @@ private extension NotificationsCenterViewController {
     func filterEmptyStateSubtitleAttributedStringForFilterViewModel(_ filterViewModel: NotificationsCenterViewModel.FiltersToolbarViewModel) -> NSAttributedString? {
             let filtersLinkFormat = WMFLocalizedString("notifications-center-empty-state-num-filters", value:"{{PLURAL:%1$d|%1$d filter|%1$d filters}}", comment:"Portion of empty state subtitle showing number of filters the user has set in notifications center - %1$d is replaced with the number filters.")
             let filtersSubtitleFormat = WMFLocalizedString("notifications-center-empty-state-filters-subtitle", value:"Modify %1$@ to see more messages", comment:"Format of empty state subtitle when the user has filters on - %1$@ is replaced with a string representing the number of filters the user has set.")
-            let filtersLink = String.localizedStringWithFormat(filtersLinkFormat, filterViewModel.countOfFilters)
+            let filtersLink = String.localizedStringWithFormat(filtersLinkFormat, filterViewModel.countOfTypeFilters)
             let filtersSubtitle = String.localizedStringWithFormat(filtersSubtitleFormat, filtersLink)
 
             let rangeOfFiltersLink = (filtersSubtitle as NSString).range(of: filtersLink)
@@ -703,8 +703,11 @@ extension NotificationsCenterViewController: NotificationCenterViewModelDelegate
             case .noData, .inboxFilters:
                 configureEmptyState(isEmpty: true)
             case .filters:
-                //TODO: filters text
-                configureEmptyState(isEmpty: true, subheaderAttributedString: filterEmptyStateSubtitleAttributedStringForFilterViewModel(viewModel.filtersToolbarViewModel))
+                if viewModel.filtersToolbarViewModel.countOfTypeFilters == 0 {
+                    configureEmptyState(isEmpty: true)
+                } else {
+                    configureEmptyState(isEmpty: true, subheaderAttributedString: filterEmptyStateSubtitleAttributedStringForFilterViewModel(viewModel.filtersToolbarViewModel))
+                }
             case .initial:
                 configureEmptyState(isEmpty: false)
             case .subscriptions:

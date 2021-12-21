@@ -5,7 +5,7 @@ final class NotificationsCenterView: SetupView {
     // MARK: - Nested Types
 
     enum EmptyOverlayStrings {
-        static let noUnreadMessages = WMFLocalizedString("notifications-center-empty-no-unread-messages", value: "You have no unread messages", comment: "Text displayed when no Notifications Center notifications are available.")
+        static let noUnreadMessages = WMFLocalizedString("notifications-center-empty-no-messages", value: "You have no messages", comment: "Text displayed when no Notifications Center notifications are available.")
         static let notSubscribed = WMFLocalizedString("notifications-center-empty-not-subscribed", value: "You are not currently subscribed to any Wikipedia Notifications", comment: "Text displayed when user has not subscribed to any Wikipedia notifications.")
         static let checkingForNotifications = WMFLocalizedString("notifications-center-empty-checking-for-notifications", value: "Checking for notifications...", comment: "Text displayed when Notifications Center is checking for notifications.")
     }

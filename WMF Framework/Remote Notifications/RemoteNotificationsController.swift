@@ -75,7 +75,7 @@ import CocoaLumberjackSwift
     
     public var areFiltersEnabled: Bool {
         
-        return countOfFilters > 0
+        return countOfAllFilters > 0
     }
     
     public var areInboxFiltersEnabled: Bool {
@@ -83,20 +83,28 @@ import CocoaLumberjackSwift
         return cachedShowingInboxProjects.count < cachedAllInboxProjects.count
     }
     
-    public var countOfFilters: Int {
+    public var countOfAllFilters: Int {
         
         guard let savedState = filterSavedState else {
             return 0
         }
         
-        var countOfFilters = 0
+        var countOfFilters = countOfTypeFilters
+        
         if savedState.readStatusSetting == .read || savedState.readStatusSetting == .unread {
             countOfFilters = 1
         }
         
-        countOfFilters += savedState.filterTypeSetting.count
-        
         return countOfFilters
+    }
+    
+    public var countOfTypeFilters: Int {
+        
+        guard let savedState = filterSavedState else {
+            return 0
+        }
+        
+        return savedState.filterTypeSetting.count
     }
     
     public var filterSavedState: RemoteNotificationsFiltersSavedState? {

@@ -553,7 +553,7 @@
 "no-internet-connection-article-reload-button" = "Return to last saved version";
 "notifications-center-change-password" = "Change Password";
 "notifications-center-empty-checking-for-notifications" = "Checking for notifications...";
-"notifications-center-empty-no-unread-messages" = "You have no unread messages";
+"notifications-center-empty-no-messages" = "You have no messages";
 "notifications-center-empty-not-subscribed" = "You are not currently subscribed to any Wikipedia Notifications";
 "notifications-center-empty-state-filters-subtitle" = "Modify $1 to see more messages";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter|$1 filters}}";
