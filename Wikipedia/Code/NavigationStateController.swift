@@ -9,6 +9,8 @@ protocol DetailPresentingFromContentGroup {
 final class NavigationStateController: NSObject {
     private let dataStore: MWKDataStore
     private var theme = Theme.standard
+//    private var delegate: UIGestureRecognizerDelegate?
+    private var navController: UINavigationController?
 
     @objc init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
@@ -18,7 +20,6 @@ final class NavigationStateController: NSObject {
     private typealias ViewController = NavigationState.ViewController
     private typealias Presentation = ViewController.Presentation
     private typealias Info = ViewController.Info
-    private var delegate: UIGestureRecognizerDelegate?
 
     @objc func restoreNavigationState(for navigationController: UINavigationController, in moc: NSManagedObjectContext, with theme: Theme, gestureDelegate: UIGestureRecognizerDelegate?, completion: @escaping () -> Void) {
         guard let tabBarController = navigationController.viewControllers.first as? UITabBarController else {
@@ -31,7 +32,7 @@ final class NavigationStateController: NSObject {
             return
         }
         
-        self.delegate = gestureDelegate
+//        self.delegate = gestureDelegate
         self.theme = theme
         let restore = {
             completion()
@@ -121,8 +122,9 @@ final class NavigationStateController: NSObject {
                 newNavigationController = themeableNavigationController
             case (.settings, _):
                 let settingsVC = WMFSettingsViewController(dataStore: dataStore)
+                self.navController = navigationController
                 pushOrPresent(settingsVC, navigationController: navigationController, presentation: viewController.presentation)
-                settingsVC.navigationController?.interactivePopGestureRecognizer?.delegate = delegate
+                settingsVC.navigationController?.interactivePopGestureRecognizer?.delegate = self
 
             case (.account, _):
                 let accountVC = AccountViewController()
@@ -297,5 +299,14 @@ final class NavigationStateController: NSObject {
             }
         }
         return viewControllers
+    }
+}
+
+extension NavigationStateController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if let controller = self.navController?.viewControllers, controller.count > 1{
+            return true
+        }
+        return false
     }
 }
