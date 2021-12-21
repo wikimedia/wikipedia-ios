@@ -79,12 +79,6 @@ class RemoteNotificationsPagingOperation: RemoteNotificationsOperation {
                 self.finish(with: RequestError.unexpectedResponse)
                 return
             }
-
-            guard let lastNotification = fetchedNotifications.last else {
-                //Empty notifications list so nothing to import. Exit early.
-                self.finish()
-                return
-            }
             
             var fetchedNotificationsToPersist = fetchedNotifications
             if self.needsCrossWikiSummary {
@@ -99,6 +93,13 @@ class RemoteNotificationsPagingOperation: RemoteNotificationsOperation {
                 fetchedNotificationsToPersist = fetchedNotifications.filter({ notification in
                     !notificationIsSummaryType(notification)
                 })
+            }
+            
+            guard let lastNotification = fetchedNotifications.last else {
+                //Empty notifications list so nothing to import. Exit early.
+                self.didFetchAndSaveAllPages()
+                self.finish()
+                return
             }
 
             do {

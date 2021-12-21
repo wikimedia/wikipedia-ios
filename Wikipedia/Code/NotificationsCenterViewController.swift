@@ -96,7 +96,7 @@ final class NotificationsCenterViewController: ViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        viewModel.refreshNotifications()
+        viewModel.refreshNotifications(force: true)
     }
 
     override func viewWillDisappear(_ animated: Bool) {

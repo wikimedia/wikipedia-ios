@@ -158,8 +158,8 @@ final class NotificationsCenterViewModel: NSObject {
         remoteNotificationsController.markAllAsRead(languageLinkController: languageLinkController)
     }
     
-    func refreshNotifications() {
-        remoteNotificationsController.refreshNotifications { _ in
+    func refreshNotifications(force: Bool) {
+        remoteNotificationsController.refreshNotifications(force: force) { _ in
             //TODO: Set any refreshing loading states here
         }
     }
@@ -238,7 +238,7 @@ private extension NotificationsCenterViewModel {
                 return
             }
             
-            if let error = error,
+            if let error = error as? RemoteNotificationsOperationsError,
                error == RemoteNotificationsOperationsError.dataUnavailable {
                 //TODO: trigger error state of some sort
                 completion()

@@ -50,6 +50,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         detailTransitionSourceRect = nil
         logFeedImpressionAfterDelay()
         UserHistoryFunnel.shared.logSnapshot()
+        dataStore.remoteNotificationsController.refreshNotifications(force: false) { _ in
+            //
+        }
     }
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {

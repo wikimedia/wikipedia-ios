@@ -3,6 +3,8 @@ import CocoaLumberjackSwift
 //TODO: clean up this file. only operations-related methods should call into operations controller, otherwise most other things should be calling straight to the model controller
 @objc public final class RemoteNotificationsController: NSObject {
     private let operationsController: RemoteNotificationsOperationsController
+    private let refreshDeadlineController = RemoteNotificationsRefreshDeadlineController()
+    private let authManager: WMFAuthenticationManager
     
     public var viewContext: NSManagedObjectContext? {
         return operationsController.viewContext
@@ -10,10 +12,26 @@ import CocoaLumberjackSwift
     
     public let configuration: Configuration
     
-    @objc public required init(session: Session, configuration: Configuration, languageLinkController: MWKLanguageLinkController) {
+    @objc public required init(session: Session, configuration: Configuration, languageLinkController: MWKLanguageLinkController, authManager: WMFAuthenticationManager) {
         operationsController = RemoteNotificationsOperationsController(session: session, configuration: configuration, languageLinkController: languageLinkController)
         self.configuration = configuration
+        self.authManager = authManager
         super.init()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(authManagerDidLogIn), name:WMFAuthenticationManager.didLogInNotification, object: nil)
+    }
+    
+    @objc private func applicationDidBecomeActive() {
+        refreshNotifications(force: false) { _ in
+            //
+        }
+    }
+    
+    @objc private func authManagerDidLogIn() {
+        importNotificationsIfNeeded { _ in
+            //
+        }
     }
     
     @objc func deleteLegacyDatabaseFiles() {
@@ -24,12 +42,30 @@ import CocoaLumberjackSwift
         }
     }
         
-    public func importNotificationsIfNeeded(_ completion: @escaping (RemoteNotificationsOperationsError?) -> Void) {
+    public func importNotificationsIfNeeded(_ completion: @escaping (Error?) -> Void) {
+        
+        guard authManager.isLoggedIn else {
+            completion(RequestError.unauthenticated)
+            return
+        }
+        
         operationsController.importNotificationsIfNeeded(completion)
     }
     
-    public func refreshNotifications(_ completion: @escaping (RemoteNotificationsOperationsError?) -> Void) {
+    public func refreshNotifications(force: Bool, completion: @escaping (Error?) -> Void) {
+        
+        guard authManager.isLoggedIn else {
+            completion(RequestError.unauthenticated)
+            return
+        }
+        
+        if !force && !refreshDeadlineController.shouldRefresh {
+            completion(nil)
+            return
+        }
+        
         operationsController.refreshNotifications(completion)
+        refreshDeadlineController.reset()
     }
     
     public func markAsReadOrUnread(identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, languageLinkController: MWKLanguageLinkController) {

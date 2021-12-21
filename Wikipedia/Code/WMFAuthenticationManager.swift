@@ -57,11 +57,6 @@ import CocoaLumberjackSwift
         didSet {
             loggedInUserCache = [:]
             isAnonCache = [:]
-            
-            //TODO: TEMPORARY LOGIC
-            if loggedInUsername != nil {
-                NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
-            }
         }
     }
     
@@ -167,6 +162,8 @@ import CocoaLumberjackSwift
                 KeychainCredentialsManager.shared.password = password
                 self.session.cloneCentralAuthCookies()
                 self.delegate?.authenticationManagerDidLogin()
+                //TODO: TEMPORARY LOGIC
+                NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
                 completion(.success(result))
             }
         }, failure: { (error) in
@@ -204,6 +201,8 @@ import CocoaLumberjackSwift
                     self.loggedInUserCache[host] = result
                 }
                 self.loggedInUsername = result.name
+                //TODO: TEMPORARY LOGIC
+                NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
                 completion(.alreadyLoggedIn(result))
             }
         }, failure:{ error in
