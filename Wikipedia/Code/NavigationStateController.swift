@@ -123,7 +123,6 @@ final class NavigationStateController: NSObject {
                 self.navController = navigationController
                 pushOrPresent(settingsVC, navigationController: navigationController, presentation: viewController.presentation)
                 settingsVC.navigationController?.interactivePopGestureRecognizer?.delegate = self
-
             case (.account, _):
                 let accountVC = AccountViewController()
                 accountVC.dataStore = dataStore
@@ -302,7 +301,7 @@ final class NavigationStateController: NSObject {
 
 extension NavigationStateController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if let controller = self.navController?.viewControllers, controller.count > 1{
+        if let controller = self.navController?.viewControllers, controller.count > 1 {
             return true
         }
         return false
