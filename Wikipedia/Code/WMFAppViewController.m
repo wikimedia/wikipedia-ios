@@ -836,17 +836,11 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             self.navigationController.interactivePopGestureRecognizer.delegate = self;
             [self.navigationStateController restoreNavigationStateFor:self.navigationController
                                                                    in:self.dataStore.viewContext
-                                                                 with:self.theme gestureDelegate:self.navigationController.interactivePopGestureRecognizer.delegate completion:^{
-                [self hideSplashViewAnimated:!didShowOnboarding];
-                done();
-            }];
-//            [self.navigationStateController restoreNavigationStateFor:self.navigationController
-//                                                                   in:self.dataStore.viewContext
-//                                                                 with:self.theme
-//                                                           completion:^{
-//                                                               [self hideSplashViewAnimated:!didShowOnboarding];
-//                                                               done();
-//                                                           }];
+                                                                 with:self.theme
+                                                           completion:^{
+                                                               [self hideSplashViewAnimated:!didShowOnboarding];
+                                                               done();
+                                                           }];
         } else if ([self shouldShowExploreScreenOnLaunch]) {
             [self hideSplashViewAnimated:!didShowOnboarding];
             [self showExplore];

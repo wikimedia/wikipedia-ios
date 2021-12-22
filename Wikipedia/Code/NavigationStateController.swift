@@ -9,7 +9,6 @@ protocol DetailPresentingFromContentGroup {
 final class NavigationStateController: NSObject {
     private let dataStore: MWKDataStore
     private var theme = Theme.standard
-//    private var delegate: UIGestureRecognizerDelegate?
     private var navController: UINavigationController?
 
     @objc init(dataStore: MWKDataStore) {
@@ -21,7 +20,7 @@ final class NavigationStateController: NSObject {
     private typealias Presentation = ViewController.Presentation
     private typealias Info = ViewController.Info
 
-    @objc func restoreNavigationState(for navigationController: UINavigationController, in moc: NSManagedObjectContext, with theme: Theme, gestureDelegate: UIGestureRecognizerDelegate?, completion: @escaping () -> Void) {
+    @objc func restoreNavigationState(for navigationController: UINavigationController, in moc: NSManagedObjectContext, with theme: Theme, completion: @escaping () -> Void) {
         guard let tabBarController = navigationController.viewControllers.first as? UITabBarController else {
             assertionFailure("Expected root view controller to be UITabBarController")
             completion()
@@ -32,7 +31,6 @@ final class NavigationStateController: NSObject {
             return
         }
         
-//        self.delegate = gestureDelegate
         self.theme = theme
         let restore = {
             completion()
