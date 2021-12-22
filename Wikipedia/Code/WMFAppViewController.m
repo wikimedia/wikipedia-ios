@@ -1916,17 +1916,11 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [self applyTheme:self.theme toNavigationControllers:@[navController]];
         _settingsNavigationController = navController;
         _settingsNavigationController.modalPresentationStyle = UIModalPresentationOverFullScreen;
-        _settingsNavigationController.interactivePopGestureRecognizer.enabled = NO;
-
+        _settingsNavigationController.interactivePopGestureRecognizer.delegate = self;
     }
 
     if (_settingsNavigationController.viewControllers.firstObject != self.settingsViewController) {
         _settingsNavigationController.viewControllers = @[self.settingsViewController];
-    }
-
-    if (!_settingsNavigationController.viewControllers.firstObject) {
-        _settingsNavigationController.interactivePopGestureRecognizer.delegate = self;
-        _settingsNavigationController.interactivePopGestureRecognizer.enabled = YES;
     }
     return _settingsNavigationController;
 }
