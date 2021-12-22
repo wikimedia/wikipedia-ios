@@ -567,6 +567,8 @@
 "notifications-center-header-notice-from-project" = "Header text for notice notifications in Notifications Center. $1 is replaced with a project name such as \"EN-Wikipedia\" or \"Wikimedia Commons\".";
 "notifications-center-language-project-name-format" = "Format used for the ordering of language project name descriptions. This description is inserted into the header text of notifications in Notifications Center. For example, \"English Wikipedia\". Use this format to reorder these words if necessary or insert additional connecting words. Parameters: $1 = localized language name (\"English\"), $2 = localized name for Wikipedia (\"Wikipedia\")";
 "notifications-center-login-notifications" = "Button text in Notifications Center that routes user to login notifications help page in web view.";
+"notifications-center-mark" = "Button text in Notifications Center. Presents menu of options to mark selected notifications as read or unread.";
+"notifications-center-mark-all-as-read" = "Toolbar button text in Notifications Center that marks all user notifications as read on the server.";
 "notifications-center-mark-as-read" = "Button text in Notifications Center to mark a notification as read.";
 "notifications-center-mark-as-unread" = "Button text in Notifications Center to mark a notification as unread.";
 "notifications-center-notifications-settings" = "Button text in Notifications Center that automatically routes to the notifications settings screen.";
@@ -589,6 +591,9 @@
 "notifications-center-subheader-user-rights-change" = "Subheader text for user rights change notifications in Notifications Center.";
 "notifications-center-subheader-welcome" = "Subheader text for welcome notifications in Notifications Center.";
 "notifications-center-subheader-wikidata-connection" = "Subheader text for 'Wikidata connection made' notifications in Notifications Center.";
+"notifications-center-swipe-mark-as-read" = "Button text in Notifications Center swipe actions to mark a notification as read.";
+"notifications-center-swipe-mark-as-unread" = "Button text in Notifications Center swipe actions to mark a notification as unread.";
+"notifications-center-swipe-more" = "Button text for the Notifications Center 'More' swipe action.";
 "notifications-center-title" = "Title for Notifications Center interface.";
 "notifications-center-wikidata-project-name" = "Project name description for Wikidata, used in notification headers.";
 "notifications-push-fallback-body-text" = "Fallback body content of a push notification whose content cannot be determined. Could be either due multiple notifications represented or errors.";

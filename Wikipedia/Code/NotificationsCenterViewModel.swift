@@ -7,6 +7,8 @@ protocol NotificationCenterViewModelDelegate: AnyObject {
     
     /// This seeks out cells that are currently displaying and reconfigures them
     func reconfigureCellsWithViewModelsIfNeeded(_ cellViewModels: [NotificationsCenterCellViewModel]?)
+
+    func toolbarContentDidUpdate()
 }
 
 enum NotificationsCenterSection {
@@ -23,10 +25,17 @@ final class NotificationsCenterViewModel: NSObject {
     weak var delegate: NotificationCenterViewModelDelegate?
 
     private let languageLinkController: MWKLanguageLinkController
+
     lazy private var modelController = NotificationsCenterModelController(languageLinkController: self.languageLinkController, delegate: self)
-    
+
+    private var isLoading: Bool = false {
+        didSet {
+            delegate?.toolbarContentDidUpdate()
+        }
+    }
+
     private var isPagingEnabled = true
-    
+
     var isEditing: Bool = false
     
     var configuration: Configuration {
@@ -41,7 +50,13 @@ final class NotificationsCenterViewModel: NSObject {
         self.languageLinkController = languageLinkController
 
         super.init()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(remoteNotificationsControllerDidUpdateFilterState), name: RemoteNotificationsController.didUpdateFilterStateNotification, object: nil)
 	}
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 
     // MARK: - Public
     
@@ -62,8 +77,10 @@ final class NotificationsCenterViewModel: NSObject {
     // MARK: - Public
     
     func refreshNotifications() {
+        isLoading = true
         remoteNotificationsController.refreshNotifications { _ in
             //TODO: Set any refreshing loading states here
+            self.isLoading = false
         }
     }
     
@@ -140,4 +157,46 @@ extension NotificationsCenterViewModel: NotificationsCenterModelControllerDelega
     func reconfigureCellsWithViewModelsIfNeeded(cellViewModels: [NotificationsCenterCellViewModel]) {
         delegate?.reconfigureCellsWithViewModelsIfNeeded(cellViewModels)
     }
+}
+
+// MARK: - Toolbar
+
+extension NotificationsCenterViewModel {
+
+    // MARK: - Private
+
+    @objc fileprivate func remoteNotificationsControllerDidUpdateFilterState() {
+        delegate?.toolbarContentDidUpdate()
+    }
+
+    fileprivate func toolbarImageForTypeFilter(engaged: Bool) -> UIImage? {
+        let symbolName = engaged ? "line.horizontal.3.decrease.circle.fill" : "line.horizontal.3.decrease.circle"
+        return UIImage(systemName: symbolName)
+    }
+
+    fileprivate func toolbarImageForProjectFilter(engaged: Bool) -> UIImage? {
+        let symbolName = engaged ? "tray.fill" : "tray.2"
+        return UIImage(systemName: symbolName)
+    }
+
+    // MARK: - Public
+
+    var typeFilterButtonImage: UIImage? {
+        return toolbarImageForTypeFilter(engaged: remoteNotificationsController.filterState.types.count > 0 || remoteNotificationsController.filterState.readStatus != .all)
+    }
+
+    var projectFilterButtonImage: UIImage? {
+        return toolbarImageForProjectFilter(engaged: remoteNotificationsController.filterState.projects.count > 0)
+    }
+
+    var statusBarText: String {
+        if isLoading {
+            return "Checking for notifications..."
+        }
+
+        // Logic for status bar text based on type, project, and read filters here
+
+        return "All Notifications"
+    }
+
 }
