@@ -328,11 +328,11 @@ extension OnThisDayViewController: EventLoggingEventValuesProviding {
     }
 }
 
-// MARK: - SideScrollingContextMenuDelegate
-extension OnThisDayViewController: SideScrollingContextMenuDelegate {
-    func contextMenu(for articleURL: URL, at itemIndex: Int) -> UIContextMenuConfiguration? {
+// MARK: - NestedCollectionViewContextMenuDelegate
+extension OnThisDayViewController: NestedCollectionViewContextMenuDelegate {
+    func contextMenu(with contentGroup: WMFContentGroup? = nil, for articleURL: URL? = nil, at itemIndex: Int) -> UIContextMenuConfiguration? {
 
-        guard let vc = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme) else {
+        guard let articleURL = articleURL, let vc = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme) else {
             return nil
         }
         vc.articlePreviewingDelegate = self

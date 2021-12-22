@@ -12,7 +12,7 @@ class NewsViewController: ColumnarCollectionViewController, DetailPresentingFrom
 
     let contentGroupIDURIString: String?
 
-    // For SideScrollingContextMenuDelegate
+    // For NestedCollectionViewContextMenuDelegate
     private var previewedIndex: Int?
 
     @objc required init(stories: [WMFFeedNewsStory], dataStore: MWKDataStore, contentGroup: WMFContentGroup?, theme: Theme) {
@@ -207,10 +207,10 @@ extension NewsViewController: EventLoggingEventValuesProviding {
     }
 }
 
-// MARK: - SideScrollingContextMenuDelegate
-extension NewsViewController: SideScrollingContextMenuDelegate {
-    func contextMenu(for articleURL: URL, at itemIndex: Int) -> UIContextMenuConfiguration? {
-        guard let vc = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme) else {
+// MARK: - NestedCollectionViewContextMenuDelegate
+extension NewsViewController: NestedCollectionViewContextMenuDelegate {
+    func contextMenu(with contentGroup: WMFContentGroup? = nil, for articleURL: URL? = nil, at itemIndex: Int) -> UIContextMenuConfiguration? {
+        guard let articleURL = articleURL, let vc = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme) else {
             return nil
         }
         vc.articlePreviewingDelegate = self

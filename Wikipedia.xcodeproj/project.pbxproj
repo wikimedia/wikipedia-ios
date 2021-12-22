@@ -3177,6 +3177,9 @@
 		FF2B2112254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2B210F254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift */; };
 		FF2B2113254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2B210F254B7D6A0009E61A /* ActivityIndicatorCollectionViewFooter.swift */; };
 		FF5555642771388F00925099 /* CollectionViewContextMenuShowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5555632771388F00925099 /* CollectionViewContextMenuShowing.swift */; };
+		FF555565277287F300925099 /* CollectionViewContextMenuShowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5555632771388F00925099 /* CollectionViewContextMenuShowing.swift */; };
+		FF555566277287F400925099 /* CollectionViewContextMenuShowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5555632771388F00925099 /* CollectionViewContextMenuShowing.swift */; };
+		FF555567277287F500925099 /* CollectionViewContextMenuShowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5555632771388F00925099 /* CollectionViewContextMenuShowing.swift */; };
 		FF59DF4D2555E0CB0048E66C /* InternalLinkPreviewing.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF59DF4C2555E0CB0048E66C /* InternalLinkPreviewing.swift */; };
 		FF59DF4E2555E0CB0048E66C /* InternalLinkPreviewing.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF59DF4C2555E0CB0048E66C /* InternalLinkPreviewing.swift */; };
 		FF59DF4F2555E0CB0048E66C /* InternalLinkPreviewing.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF59DF4C2555E0CB0048E66C /* InternalLinkPreviewing.swift */; };
@@ -12038,6 +12041,7 @@
 				6734EE7D22976BA300F00B05 /* TalkPageHintViewController.swift in Sources */,
 				D8A42B2C1E815A9C00D8E281 /* WMFBarButtonItemPopoverMessageViewController.m in Sources */,
 				67E8B07D226A57DF00537BC9 /* AccountViewController.swift in Sources */,
+				FF555567277287F500925099 /* CollectionViewContextMenuShowing.swift in Sources */,
 				D8A42B2E1E815A9C00D8E281 /* WMFReferencePageViewController.swift in Sources */,
 				BA4524271F32500C00439C42 /* TextSizeChangeExampleViewController.swift in Sources */,
 				83927D7E1F70570400051890 /* DisambiguationPagesViewController.swift in Sources */,
@@ -12312,6 +12316,7 @@
 				7A610CB8220A30C900C266AE /* HintViewController.swift in Sources */,
 				83E3E7262440F1FE00AA2E9A /* LoadingAnimationViewController.swift in Sources */,
 				D8CE25081E698E2400DAE2E0 /* NotificationSettingsViewController.swift in Sources */,
+				FF555565277287F300925099 /* CollectionViewContextMenuShowing.swift in Sources */,
 				00BCB71F26DEE1C7002C3F72 /* VerticalSpacerView.swift in Sources */,
 				D8CE25091E698E2400DAE2E0 /* PlaceSearchSuggestionController.swift in Sources */,
 				7AF8CEEE22653406000B7676 /* InsertMediaSelectedImageView.swift in Sources */,
@@ -12820,6 +12825,7 @@
 				7A610CB9220A30C900C266AE /* HintViewController.swift in Sources */,
 				83E3E7272440F1FE00AA2E9A /* LoadingAnimationViewController.swift in Sources */,
 				D8E27BA31F82B38100F9D2B3 /* RMessageView.m in Sources */,
+				FF555566277287F400925099 /* CollectionViewContextMenuShowing.swift in Sources */,
 				00BCB71E26DEE1C7002C3F72 /* VerticalSpacerView.swift in Sources */,
 				D8B1668E1FD97FE000097D8B /* WMFViewController.m in Sources */,
 				7AF8CEEF22653406000B7676 /* InsertMediaSelectedImageView.swift in Sources */,
