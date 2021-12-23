@@ -306,20 +306,6 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
     func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
         return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
-    
-    // MARK - Previewing
-    
-    final func collectionViewIndexPathForPreviewingContext(_ previewingContext: UIViewControllerPreviewing, location: CGPoint) -> IndexPath? {
-        let translatedLocation = view.convert(location, to: collectionView)
-        guard
-            let indexPath = collectionView.indexPathForItem(at: translatedLocation),
-            let cell = collectionView.cellForItem(at: indexPath)
-        else {
-                return nil
-        }
-        previewingContext.sourceRect = view.convert(cell.bounds, from: cell)
-        return indexPath
-    }
 
     // MARK: - Event logging utiities
 
@@ -414,6 +400,11 @@ extension ColumnarCollectionViewController {
 
 // MARK: - CollectionViewContextMenuShowing
 extension ColumnarCollectionViewController {
+    func indexPath(for location: CGPoint) -> IndexPath? {
+        let translatedLocation = view.convert(location, to: collectionView)
+        return collectionView.indexPathForItem(at: translatedLocation)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         guard let contextMenuCollectionVC = self as? CollectionViewContextMenuShowing, let vc = contextMenuCollectionVC.previewingViewController(for: indexPath, at: point) else {
             return nil

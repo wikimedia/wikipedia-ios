@@ -195,10 +195,7 @@ extension ArticleCollectionViewController {
             return nil // don't allow 3d touch when swipe actions are active
         }
         
-        guard
-            let indexPath = collectionViewIndexPathForPreviewingContext(previewingContext, location: location),
-            let articleURL = articleURL(at: indexPath)
-        else {
+        guard let indexPath = indexPath(for: location), let articleURL = articleURL(at: indexPath) else {
             return nil
         }
 

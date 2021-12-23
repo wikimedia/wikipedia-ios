@@ -198,31 +198,6 @@ extension ArticleLocationCollectionViewController: CollectionViewContextMenuShow
         return articleViewController
     }
 
-    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard let indexPath = collectionViewIndexPathForPreviewingContext(previewingContext, location: location) else {
-                return nil
-        }
-        previewedIndexPath = indexPath
-        let articleURL = self.articleURL(at: indexPath)
-        guard let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: self.theme) else {
-            return nil
-        }
-        articleViewController.articlePreviewingDelegate = self
-        articleViewController.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
-        if let context = feedFunnelContext {
-            FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: context, index: indexPath.item)
-        }
-        return articleViewController
-    }
-    
-    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        if let context = feedFunnelContext {
-            FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: context, index: previewedIndexPath?.item, maxViewed: maxViewed)
-        }
-        viewControllerToCommit.wmf_removePeekableChildViewControllers()
-        push(viewControllerToCommit, animated: true)
-    }
-
     func previewingViewController(for indexPath: IndexPath, at location: CGPoint) -> UIViewController? {
         guard let articleViewController = articleViewController(for: indexPath) else {
             return nil
@@ -235,13 +210,6 @@ extension ArticleLocationCollectionViewController: CollectionViewContextMenuShow
         }
         previewedIndexPath = indexPath
         return articleViewController
-    }
-
-    func previewActions(for indexPath: IndexPath) -> [UIMenuElement]? {
-        guard let articleViewController = self.previewingViewController(for: indexPath) as? ArticleViewController else {
-            return nil
-        }
-        return articleViewController.contextMenuItems
     }
 
     var poppingIntoVCCompletion: () -> Void {
