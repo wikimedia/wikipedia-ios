@@ -702,7 +702,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     func contextMenu(with contentGroup: WMFContentGroup? = nil, for articleURL: URL? = nil, at itemIndex: Int) -> UIContextMenuConfiguration? {
         guard let contentGroup = contentGroup, let vc = viewController(for: contentGroup, at: itemIndex) else {
-            assertionFailure("There should be a content group and view controller.")
             return nil
         }
 
@@ -727,6 +726,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             } else if let avc = viewControllerToCommit as? ArticleViewController {
                 avc.articlePreviewingDelegate = self
                 avc.wmf_addPeekableChildViewController(for: avc.articleURL, dataStore: dataStore, theme: theme)
+            } else if let otdVC = viewControllerToCommit as? OnThisDayViewController {
+                otdVC.navigationMode = .bar
+            } else if let newsVC = viewControllerToCommit as? NewsViewController {
+                newsVC.navigationMode = .bar
             }
 
             previewed.indexPathItem = itemIndex
@@ -756,6 +759,12 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             } else if let avc = viewControllerToCommit as? ArticleViewController {
                 avc.wmf_removePeekableChildViewControllers()
                 self.push(avc, context: self.previewed.context, index: self.previewed.indexPathItem, animated: false)
+            } else if let otdVC = viewControllerToCommit as? OnThisDayViewController {
+                otdVC.navigationMode = .detail
+                self.push(viewControllerToCommit, context: self.previewed.context, index: self.previewed.indexPathItem, animated: true)
+            } else if let newsVC = viewControllerToCommit as? NewsViewController {
+                newsVC.navigationMode = .detail
+                self.push(viewControllerToCommit, context: self.previewed.context, index: self.previewed.indexPathItem, animated: true)
             } else {
                 self.push(viewControllerToCommit, context: self.previewed.context, index: self.previewed.indexPathItem, animated: true)
             }
