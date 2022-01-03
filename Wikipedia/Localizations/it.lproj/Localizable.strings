@@ -471,8 +471,12 @@
 "no-internet-connection-article-reload-button" = "Torna all'ultima versione salvata";
 "notifications-center-commons-project-name" = "Wikimedia Commons";
 "notifications-center-footer-change-password" = "Cambia password";
+"notifications-center-mark-all-as-read" = "Segna tutti come letti";
 "notifications-center-subheader-thanks" = "Ringraziamenti";
 "notifications-center-subheader-welcome" = "Benvenuto/a!";
+"notifications-center-swipe-mark-as-read" = "Segna come già letto";
+"notifications-center-swipe-mark-as-unread" = "Segna come non letto";
+"notifications-center-swipe-more" = "Altro";
 "notifications-center-title" = "Notifiche";
 "notifications-center-wikidata-project-name" = "Wikidata";
 "number-billions" = "$1";

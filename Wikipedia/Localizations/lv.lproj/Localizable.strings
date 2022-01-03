@@ -152,6 +152,11 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 jūdzes";
+"notifications-center-mark" = "Atzīmēt";
+"notifications-center-mark-all-as-read" = "Atzīmēt visus kā izlasītus";
+"notifications-center-swipe-mark-as-read" = "Atzīmēt kā lasītu";
+"notifications-center-swipe-mark-as-unread" = "Atzīmēt kā nelasītu";
+"notifications-center-swipe-more" = "Vairāk";
 "page-history-compare-title" = "Salīdzināt";
 "page-history-revision-author-accessibility-label" = "Autors: $1";
 "page-history-revision-comment-accessibility-label" = "Komentārs $1";

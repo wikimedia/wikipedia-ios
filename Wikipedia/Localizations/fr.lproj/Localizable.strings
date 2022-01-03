@@ -600,6 +600,8 @@
 "notifications-center-header-notice-from-project" = "Avertissement de $1";
 "notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "Avertissements de connexion";
+"notifications-center-mark" = "Marquer";
+"notifications-center-mark-all-as-read" = "Marquer tout comme lu";
 "notifications-center-mark-as-read" = "Marquer comme lu";
 "notifications-center-mark-as-unread" = "Marquer comme non lu";
 "notifications-center-notifications-settings" = "Paramètres de notification";
@@ -622,6 +624,9 @@
 "notifications-center-subheader-user-rights-change" = "Modification des droits utilisateur";
 "notifications-center-subheader-welcome" = "Bienvenue !";
 "notifications-center-subheader-wikidata-connection" = "Connexion à Wikidata faite";
+"notifications-center-swipe-mark-as-read" = "Marquer comme lu";
+"notifications-center-swipe-mark-as-unread" = "Marquer comme non lu";
+"notifications-center-swipe-more" = "Plus";
 "notifications-center-title" = "Notifications";
 "notifications-center-wikidata-project-name" = "Wikidata";
 "notifications-push-fallback-body-text" = "Nouvelle activité sur Wikipédia";

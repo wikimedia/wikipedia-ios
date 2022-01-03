@@ -152,6 +152,10 @@
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 mylių";
 "no-email-account-alert" = "Prašome nustatyti el. pašto paskyrą savo įrenginyje ir bandyti dar kartą.";
+"notifications-center-mark" = "Pažymėti";
+"notifications-center-mark-all-as-read" = "Pažymėti kaip perskaitytą";
+"notifications-center-swipe-mark-as-unread" = "Pažymėti kaip neskaitytą";
+"notifications-center-swipe-more" = "Daugiau";
 "number-billions" = "$1 mlrd.";
 "number-millions" = "$1 mln.";
 "number-thousands" = "$1 tūkst.";
