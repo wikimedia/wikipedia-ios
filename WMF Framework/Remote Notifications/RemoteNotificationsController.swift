@@ -61,6 +61,24 @@ import CocoaLumberjackSwift
             return []
         }
     }
+    
+    public func inboxCount() -> Int {
+        assert(Thread.isMainThread)
+        
+        guard let viewContext = self.viewContext else {
+            DDLogError("Failure fetching notifications from persistence: missing viewContext")
+            return 0
+        }
+        
+        let fetchRequest: NSFetchRequest<RemoteNotification> = RemoteNotification.fetchRequest()
+        
+        do {
+            return try viewContext.fetch(fetchRequest).count
+        } catch {
+            DDLogError("Failure fetching notifications from persistence: \(error)")
+            return 0
+        }
+    }
 
     public lazy var filterState: RemoteNotificationsFilterState = {
         return RemoteNotificationsFilterState(readStatus: .all, types: [], projects: [])

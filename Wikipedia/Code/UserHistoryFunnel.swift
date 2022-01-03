@@ -53,6 +53,9 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
             event["device_level_enabled"] = self.getDeviceNotificationStatus(status)
         }
         
+        let inboxCount = dataStore.remoteNotificationsController.inboxCount()
+        event["inbox_count"] = inboxCount
+        
         if let articleAsLivingDocBucket = dataStore.abTestsController.bucketForExperiment(.articleAsLivingDoc) {
             event["test_group"] = articleAsLivingDocBucket.rawValue
         }
