@@ -49,11 +49,32 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
 
         event["feed_enabled_list"] = feedEnabledListPayload()
         
+        let _ = dataStore.notificationsController.notificationPermissionsStatus { status in
+            event["device_level_enabled"] = self.getDeviceNotificationStatus(status)
+        }
+        
         if let articleAsLivingDocBucket = dataStore.abTestsController.bucketForExperiment(.articleAsLivingDoc) {
             event["test_group"] = articleAsLivingDocBucket.rawValue
         }
         
         return wholeEvent(with: event)
+    }
+    
+    private func getDeviceNotificationStatus(_ status: UNAuthorizationStatus) -> String {
+        switch status {
+        case .notDetermined:
+            return "notDetermined"
+        case .denied:
+            return "denied"
+        case .authorized:
+            return "authorized"
+        case .provisional:
+            return "provisional"
+        case .ephemeral:
+            return "ephemeral"
+        @unknown default:
+            return "notDetermined"
+        }
     }
     
     private func feedEnabledListPayload() -> [String: Any] {
