@@ -21,7 +21,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
     let dataStore: MWKDataStore
     required init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
-        super.init(schema: "MobileWikiAppiOSUserHistory", version: 20339865)
+        super.init(schema: "MobileWikiAppiOSUserHistory", version: 22479505)
     }
     
     private func event() -> Dictionary<String, Any> {
