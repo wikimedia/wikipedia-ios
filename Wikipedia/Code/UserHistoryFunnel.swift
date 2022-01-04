@@ -49,17 +49,19 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
 
         event["feed_enabled_list"] = feedEnabledListPayload()
         
-        let _ = dataStore.notificationsController.notificationPermissionsStatus { status in
-            event["device_level_enabled"] = self.getDeviceNotificationStatus(status)
-        }
-        
-        let inboxCount = dataStore.remoteNotificationsController.inboxCount()
-        event["inbox_count"] = inboxCount
-        
         if let articleAsLivingDocBucket = dataStore.abTestsController.bucketForExperiment(.articleAsLivingDoc) {
             event["test_group"] = articleAsLivingDocBucket.rawValue
         }
         
+        var autorizationStatus: UNAuthorizationStatus = .notDetermined
+        dataStore.notificationsController.notificationPermissionsStatus { status in
+            autorizationStatus = status
+        }
+        event["device_level_enabled"] = getDeviceNotificationStatus(autorizationStatus)
+        
+        let inboxCount = dataStore.remoteNotificationsController.inboxCount()
+        event["inbox_count"] = inboxCount
+
         return wholeEvent(with: event)
     }
     
@@ -120,9 +122,9 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
             return
         }
         
-        guard isTarget else {
-            return
-        }
+//        guard isTarget else {
+//            return
+//        }
         
         guard let lastAppVersion = UserDefaults.standard.wmf_lastAppVersion else {
             log(event())
