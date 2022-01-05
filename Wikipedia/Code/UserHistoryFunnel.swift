@@ -122,9 +122,9 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
             return
         }
         
-//        guard isTarget else {
-//            return
-//        }
+        guard isTarget else {
+            return
+        }
         
         guard let lastAppVersion = UserDefaults.standard.wmf_lastAppVersion else {
             log(event())
