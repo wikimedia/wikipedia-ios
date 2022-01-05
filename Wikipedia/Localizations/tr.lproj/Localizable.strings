@@ -616,6 +616,11 @@
 "notifications-center-subheader-login-success-unknown-device" = "Tanıdık olmayan bir cihazdan giriş";
 "notifications-center-subheader-mention-article-talk-page" = "Tartışma sayfasında bahsetme";
 "notifications-center-subheader-mention-edit-summary" = "Düzenleme özetinde bahsetme";
+"notifications-center-subheader-mention-failed" = "Başarısız bahsetme";
+"notifications-center-subheader-mention-successful" = "Başarılı bahsetme";
+"notifications-center-subheader-mention-talk-page" = "Tartışma sayfasında bahsetme";
+"notifications-center-subheader-page-link" = "Sayfa bağlantısı";
+"notifications-center-subheader-page-reviewed" = "Sayfa incelendi";
 "number-billions" = "$1Mr";
 "number-millions" = "$1Mn";
 "number-thousands" = "$1B";

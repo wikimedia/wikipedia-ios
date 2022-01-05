@@ -2,6 +2,8 @@ import CocoaLumberjackSwift
 
 @objc public final class RemoteNotificationsController: NSObject {
     private let operationsController: RemoteNotificationsOperationsController
+
+    public static let didUpdateFilterStateNotification = NSNotification.Name(rawValue: "RemoteNotificationsControllerDidUpdateFilterState")
     
     public var viewContext: NSManagedObjectContext? {
         return operationsController.viewContext
@@ -59,4 +61,33 @@ import CocoaLumberjackSwift
             return []
         }
     }
+
+    public lazy var filterState: RemoteNotificationsFilterState = {
+        return RemoteNotificationsFilterState(readStatus: .all, types: [], projects: [])
+    }() {
+        didSet {
+            NotificationCenter.default.post(name: RemoteNotificationsController.didUpdateFilterStateNotification, object: nil)
+        }
+    }
+
+}
+
+public struct RemoteNotificationsFilterState {
+
+    public enum ReadStatus: Int, CaseIterable {
+        case all
+        case read
+        case unread
+    }
+
+    public let readStatus: ReadStatus
+    public let types: [RemoteNotificationType]
+    public let projects: [RemoteNotificationsProject]
+
+    public init(readStatus: ReadStatus, types: [RemoteNotificationType], projects: [RemoteNotificationsProject]) {
+        self.readStatus = readStatus
+        self.types = types
+        self.projects = projects
+    }
+    
 }

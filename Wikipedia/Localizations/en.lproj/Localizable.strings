@@ -567,6 +567,8 @@
 "notifications-center-header-notice-from-project" = "Notice from $1";
 "notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "Login Notifications";
+"notifications-center-mark" = "Mark";
+"notifications-center-mark-all-as-read" = "Mark all as read";
 "notifications-center-mark-as-read" = "Mark as Read";
 "notifications-center-mark-as-unread" = "Mark as Unread";
 "notifications-center-notifications-settings" = "Notification settings";
@@ -589,6 +591,9 @@
 "notifications-center-subheader-user-rights-change" = "User rights change";
 "notifications-center-subheader-welcome" = "Welcome!";
 "notifications-center-subheader-wikidata-connection" = "Wikidata connection made";
+"notifications-center-swipe-mark-as-read" = "Mark as read";
+"notifications-center-swipe-mark-as-unread" = "Mark as unread";
+"notifications-center-swipe-more" = "More";
 "notifications-center-title" = "Notifications";
 "notifications-center-wikidata-project-name" = "Wikidata";
 "notifications-push-fallback-body-text" = "New activity on Wikipedia";
