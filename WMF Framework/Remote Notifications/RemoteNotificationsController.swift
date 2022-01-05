@@ -73,7 +73,7 @@ import CocoaLumberjackSwift
         let fetchRequest: NSFetchRequest<RemoteNotification> = RemoteNotification.fetchRequest()
         
         do {
-            return try viewContext.fetch(fetchRequest).count
+            return try viewContext.count(for: fetchRequest)
         } catch {
             DDLogError("Failure fetching notifications from persistence: \(error)")
             return 0
