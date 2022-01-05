@@ -727,6 +727,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
                 avc.articlePreviewingDelegate = self
                 avc.wmf_addPeekableChildViewController(for: avc.articleURL, dataStore: dataStore, theme: theme)
             } else if let otdVC = viewControllerToCommit as? OnThisDayViewController {
+                otdVC.initialEvent = (contentGroup.contentPreview as? [Any])?[itemIndex] as? WMFFeedOnThisDayEvent
                 otdVC.navigationMode = .bar
             } else if let newsVC = viewControllerToCommit as? NewsViewController {
                 newsVC.navigationMode = .bar
