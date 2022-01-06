@@ -17,6 +17,7 @@
 // Author: Tahmid02016
 // Author: Tauhid16
 // Author: WikiAbuHuraira
+// Author: Yahya
 // Author: আজিজ
 // Author: আফতাবুজ্জামান
 // Author: ফাহাদ কাজমী
@@ -265,6 +266,8 @@
 "notifications-center-header-notice-from-project" = "$1 হতে বিজ্ঞপ্তি";
 "notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "প্রবেশের বিজ্ঞপ্তি";
+"notifications-center-mark" = "চিহ্নিত করুন";
+"notifications-center-mark-all-as-read" = "সব পঠিত হিসেবে চিহ্নিত করুন";
 "notifications-center-mark-as-read" = "পঠিত হিসেবে চিহ্নিত করুন";
 "notifications-center-mark-as-unread" = "অপঠিত হিসেবে চিহ্নিত করুন";
 "notifications-center-notifications-settings" = "বিজ্ঞপ্তির সেটিংস";
@@ -287,6 +290,9 @@
 "notifications-center-subheader-user-rights-change" = "ব্যবহারকারী অধিকারের পরিবর্তন";
 "notifications-center-subheader-welcome" = "স্বাগতম!";
 "notifications-center-subheader-wikidata-connection" = "উইকিউপাত্তের সংযোগ তৈরি হয়েছে";
+"notifications-center-swipe-mark-as-read" = "পঠিত হিসেবে চিহ্নিত করুন";
+"notifications-center-swipe-mark-as-unread" = "অপঠিত হিসেবে চিহ্নিত করুন";
+"notifications-center-swipe-more" = "আরও";
 "notifications-center-title" = "বিজ্ঞপ্তি";
 "notifications-center-wikidata-project-name" = "উইকিউপাত্ত";
 "number-billions" = "$1 বিলিয়ন";

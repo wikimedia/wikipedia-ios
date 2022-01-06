@@ -579,6 +579,8 @@
 "notifications-center-header-notice-from-project" = "Известување од $1";
 "notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "Известувања за најава";
+"notifications-center-mark" = "Означи";
+"notifications-center-mark-all-as-read" = "Означи ги сите како прочитани";
 "notifications-center-mark-as-read" = "Означи како прочитано";
 "notifications-center-mark-as-unread" = "Означи како непрочитано";
 "notifications-center-notifications-settings" = "Нагодувања за ивестувања`";
@@ -601,6 +603,9 @@
 "notifications-center-subheader-user-rights-change" = "Измена во кориснички права";
 "notifications-center-subheader-welcome" = "Добре дојдовте!";
 "notifications-center-subheader-wikidata-connection" = "Направена врска со Википодатоци";
+"notifications-center-swipe-mark-as-read" = "Означи како прочитано";
+"notifications-center-swipe-mark-as-unread" = "Означи како непрочитано";
+"notifications-center-swipe-more" = "Повеќе";
 "notifications-center-title" = "Известувања";
 "notifications-center-wikidata-project-name" = "Википодатоци";
 "notifications-push-fallback-body-text" = "Нови активности на Википедија";

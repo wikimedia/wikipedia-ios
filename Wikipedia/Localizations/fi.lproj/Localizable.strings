@@ -581,6 +581,8 @@
 "notifications-center-header-alert-from-project" = "Ilmoitus projektista $1";
 "notifications-center-header-notice-from-project" = "Ilmoitus projektista $1";
 "notifications-center-login-notifications" = "Kirjautumisilmoitukset";
+"notifications-center-mark" = "Merkitse";
+"notifications-center-mark-all-as-read" = "Merkitse kaikki luetuksi";
 "notifications-center-mark-as-read" = "Merkitse luetuksi";
 "notifications-center-mark-as-unread" = "Merkitse lukemattomaksi";
 "notifications-center-notifications-settings" = "Ilmoitusasetukset";
@@ -603,6 +605,9 @@
 "notifications-center-subheader-user-rights-change" = "Käyttäjäoikeuksien muutos";
 "notifications-center-subheader-welcome" = "Tervetuloa!";
 "notifications-center-subheader-wikidata-connection" = "Wikidata-yhteys muodostettu";
+"notifications-center-swipe-mark-as-read" = "Merkitse luetuksi";
+"notifications-center-swipe-mark-as-unread" = "Merkitse lukemattomaksi";
+"notifications-center-swipe-more" = "Lisää";
 "notifications-center-title" = "Ilmoitukset";
 "notifications-center-wikidata-project-name" = "Wikidata";
 "notifications-push-fallback-body-text" = "Uusi toiminta Wikipediassa";

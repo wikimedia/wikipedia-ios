@@ -604,6 +604,8 @@
 "notifications-center-header-notice-from-project" = "$1의 알림";
 "notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "로그인 알림";
+"notifications-center-mark" = "표시";
+"notifications-center-mark-all-as-read" = "모두 읽은 것으로 표시";
 "notifications-center-mark-as-read" = "읽은 것으로 표시";
 "notifications-center-mark-as-unread" = "읽지않음으로 표기";
 "notifications-center-notifications-settings" = "알림 설정";
@@ -624,6 +626,9 @@
 "notifications-center-subheader-user-rights-change" = "사용자 권한 변경";
 "notifications-center-subheader-welcome" = "환영합니다!";
 "notifications-center-subheader-wikidata-connection" = "위키데이터에 연결됨";
+"notifications-center-swipe-mark-as-read" = "읽은 것으로 표시";
+"notifications-center-swipe-mark-as-unread" = "읽지 않은 것으로 표시";
+"notifications-center-swipe-more" = "더 보기";
 "notifications-center-title" = "알림";
 "notifications-center-wikidata-project-name" = "위키데이터";
 "notifications-push-fallback-body-text" = "위키백과의 새 활동";

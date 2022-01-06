@@ -609,6 +609,8 @@
 "notifications-center-header-notice-from-project" = "اعلان از $1";
 "notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "اعلان‌های ورود به حساب";
+"notifications-center-mark" = "نشان‌گذاری";
+"notifications-center-mark-all-as-read" = "نشان‌گذاری همه به عنوان خوانده‌شده";
 "notifications-center-mark-as-read" = "علامت‌گذاری به عنوان خوانده‌شده";
 "notifications-center-mark-as-unread" = "علامت‌گذاری به عنوان خوانده‌نشده";
 "notifications-center-notifications-settings" = "تنظیمات اعلان‌ها";
@@ -630,6 +632,9 @@
 "notifications-center-subheader-user-rights-change" = "تغییرات اختیارات کاربر";
 "notifications-center-subheader-welcome" = "خوش آمدید!";
 "notifications-center-subheader-wikidata-connection" = "ایجاد ارتباط با ویکی‌داده";
+"notifications-center-swipe-mark-as-read" = "علامت‌گذاری به عنوان خوانده‌شده";
+"notifications-center-swipe-mark-as-unread" = "علامت‌گذاری به عنوان خوانده‌نشده";
+"notifications-center-swipe-more" = "بیشتر";
 "notifications-center-title" = "اعلان‌ها";
 "notifications-center-wikidata-project-name" = "ویکی‌داده";
 "number-billions" = "$1میلیارد";
