@@ -121,7 +121,7 @@ class ArticleCacheReadingTests: XCTestCase {
             }
         }
         
-        UIApplication.shared.keyWindow?.rootViewController = basicVC
+        UIApplication.shared.workaroundKeyWindow?.rootViewController = basicVC
         
         wait(for: [htmlExpectation], timeout: timeout)
         wait(for: [imageExpectation], timeout: timeout)
@@ -169,7 +169,7 @@ class ArticleCacheReadingTests: XCTestCase {
             }
         }
         
-        UIApplication.shared.keyWindow?.rootViewController = basicVC
+        UIApplication.shared.workaroundKeyWindow?.rootViewController = basicVC
         
         wait(for: [htmlExpectation], timeout: timeout)
         wait(for: [imageExpectation], timeout: timeout)
@@ -218,7 +218,7 @@ class ArticleCacheReadingTests: XCTestCase {
             }
         }
         
-        UIApplication.shared.keyWindow?.rootViewController = basicVC
+        UIApplication.shared.workaroundKeyWindow?.rootViewController = basicVC
         
         wait(for: [htmlExpectation], timeout: timeout)
         wait(for: [imageExpectation], timeout: timeout)
@@ -267,7 +267,7 @@ class ArticleCacheReadingTests: XCTestCase {
             }
         }
         
-        UIApplication.shared.keyWindow?.rootViewController = basicVC
+        UIApplication.shared.workaroundKeyWindow?.rootViewController = basicVC
         
         wait(for: [htmlExpectation], timeout: timeout)
         wait(for: [imageExpectation], timeout: timeout)
