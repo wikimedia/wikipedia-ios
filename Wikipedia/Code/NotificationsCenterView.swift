@@ -21,7 +21,7 @@ final class NotificationsCenterView: SetupView {
 	}()
 
 	private lazy var tableStyleLayout: UICollectionViewLayout = {
-        let estimatedHeightDimension = NSCollectionLayoutDimension.estimated(120)
+        let estimatedHeightDimension = NSCollectionLayoutDimension.estimated(150)
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),heightDimension: estimatedHeightDimension)
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),heightDimension: estimatedHeightDimension)

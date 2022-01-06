@@ -21,20 +21,15 @@ struct NotificationsCenterCellStyle {
         }
 
         switch notificationType {
-        case .welcome, .editMilestone, .translationMilestone(_), .failedMention, .successfulMention:
-            return theme.colors.primaryText
-        case .loginFailKnownDevice, .loginFailUnknownDevice, .loginSuccessUnknownDevice:
+        case .loginFailKnownDevice, .loginFailUnknownDevice, .loginSuccessUnknownDevice, .unknownAlert, .unknownSystemAlert:
             return theme.colors.error
         default:
-            return theme.colors.link
+            return theme.colors.primaryText
         }
     }
 
     func subheaderTextColor(_ displayState: NotificationsCenterCellDisplayState) -> UIColor {
-        switch notificationType {
-        default:
-            return displayState.isUnread ? theme.colors.primaryText : theme.colors.secondaryText
-        }
+        return theme.colors.secondaryText
     }
 
     var messageTextColor: UIColor {
@@ -83,22 +78,22 @@ struct NotificationsCenterCellStyle {
 
     func headerFont(_ displayState: NotificationsCenterCellDisplayState) -> UIFont {
         if displayState.isRead {
-            return UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
-        }
-
-        return UIFont.wmf_font(.boldHeadline, compatibleWithTraitCollection: traitCollection)
-    }
-
-    func subheaderFont(_ displayState: NotificationsCenterCellDisplayState) -> UIFont {
-        if displayState.isRead {
             return UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
         }
 
         return UIFont.wmf_font(.boldSubheadline, compatibleWithTraitCollection: traitCollection)
     }
 
+    func subheaderFont(_ displayState: NotificationsCenterCellDisplayState) -> UIFont {
+        if displayState.isRead {
+            return UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+        }
+
+        return UIFont.wmf_font(.boldFootnote, compatibleWithTraitCollection: traitCollection)
+    }
+
     var messageFont: UIFont {
-        return UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        return UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
     }
 
     func metadataFont(_ displayState: NotificationsCenterCellDisplayState) -> UIFont {

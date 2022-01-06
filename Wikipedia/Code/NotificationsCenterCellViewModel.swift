@@ -72,22 +72,4 @@ extension NotificationsCenterCellViewModel: Equatable, Hashable {
     static func == (lhs: NotificationsCenterCellViewModel, rhs: NotificationsCenterCellViewModel) -> Bool {
         return lhs.notification.key == rhs.notification.key
     }
-    
-    var shouldAllowSecondaryTapAction: Bool {
-    
-        guard !displayState.isEditing else {
-            return false
-        }
-
-        switch notification.type {
-        case .welcome,
-             .editMilestone,
-             .translationMilestone,
-             .failedMention,
-             .successfulMention:
-            return false
-        default:
-            return true
-        }
-    }
 }

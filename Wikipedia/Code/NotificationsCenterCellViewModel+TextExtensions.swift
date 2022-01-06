@@ -3,8 +3,7 @@ import Foundation
 
 extension NotificationsCenterCellViewModel {
     
-    var headerText: String {
-        
+    var subheaderText: String {
         switch notification.type {
         case .userTalkPageMessage,
              .mentionInTalkPage,
@@ -20,12 +19,12 @@ extension NotificationsCenterCellViewModel {
                 return genericHeaderText(type: notification.type, project: project)
             }
 
-            return agentName
+            return "From \(agentName)"
 
         case .welcome,
              .editMilestone,
              .translationMilestone:
-            return project.projectName(shouldReturnCodedFormat: false)
+            return "From \(project.projectName(shouldReturnCodedFormat: false))"
 
         case .loginFailKnownDevice,
              .loginFailUnknownDevice,
@@ -43,11 +42,11 @@ extension NotificationsCenterCellViewModel {
                 return genericHeaderText(type: notification.type, project: project)
             }
 
-            return agentName
+            return "Alert from \(agentName)"
         }
     }
     
-    var subheaderText: String? {
+    var headerText: String? {
         
         switch notification.type {
         case .userTalkPageMessage:
