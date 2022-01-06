@@ -589,7 +589,10 @@
 "notifications-center-go-to-your-talk-page" = "לעבור לדף השיחה שלך";
 "notifications-center-header-alert-from-project" = "התראה מאתר $1";
 "notifications-center-header-notice-from-project" = "הודעה מאתר $1";
+"notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "התראות כניסה";
+"notifications-center-mark" = "לסמן";
+"notifications-center-mark-all-as-read" = "לסמן שהכול נקרא";
 "notifications-center-mark-as-read" = "סימון כהודעה שנקראה";
 "notifications-center-mark-as-unread" = "סימון כהודעה שלא נקראה";
 "notifications-center-notifications-settings" = "הגדרות התראות";
@@ -612,6 +615,9 @@
 "notifications-center-subheader-user-rights-change" = "שינוי הרשאות משתמש";
 "notifications-center-subheader-welcome" = "ברוך בואך!";
 "notifications-center-subheader-wikidata-connection" = "קישור ויקינתונים בוצע";
+"notifications-center-swipe-mark-as-read" = "לסמן כהודעה שנקראה";
+"notifications-center-swipe-mark-as-unread" = "לסמן כהודעה שלא נקראה";
+"notifications-center-swipe-more" = "עוד";
 "notifications-center-title" = "התראות";
 "notifications-center-wikidata-project-name" = "ויקינתונים";
 "notifications-push-fallback-body-text" = "פעילות חדשה בוויקיפדיה";

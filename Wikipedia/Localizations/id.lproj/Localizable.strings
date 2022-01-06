@@ -601,6 +601,8 @@
 "notifications-center-header-notice-from-project" = "Pemberitahuan dari $1";
 "notifications-center-language-project-name-format" = "$2 $1";
 "notifications-center-login-notifications" = "Notifikasi Login";
+"notifications-center-mark" = "Tandai";
+"notifications-center-mark-all-as-read" = "Tandai semua sebagai telah dibaca";
 "notifications-center-mark-as-read" = "Tandai sudah dibaca";
 "notifications-center-mark-as-unread" = "Tandai belum dibaca";
 "notifications-center-notifications-settings" = "Setelan notifikasi";
@@ -623,8 +625,15 @@
 "notifications-center-subheader-user-rights-change" = "Perubahan hak pengguna";
 "notifications-center-subheader-welcome" = "Selamat datang!";
 "notifications-center-subheader-wikidata-connection" = "Koneksi Wikidata dibuat";
+"notifications-center-swipe-mark-as-read" = "Tandai sudah dibaca";
+"notifications-center-swipe-mark-as-unread" = "Tandai belum dibaca";
+"notifications-center-swipe-more" = "Lainnya";
 "notifications-center-title" = "Pemberitahuan";
 "notifications-center-wikidata-project-name" = "Wikidata";
+"notifications-push-fallback-body-text" = "Aktivitas baru di Wikipedia";
+"notifications-push-talk-body-format" = "$1 $2 baru di $3";
+"notifications-push-talk-messages-format" = "{{PLURAL:$1|pesan|pesan}}";
+"notifications-push-talk-title-format" = "$1 baru";
 "number-billions" = "$1 miliar";
 "number-millions" = "$1 juta";
 "number-thousands" = "$1 ribu";

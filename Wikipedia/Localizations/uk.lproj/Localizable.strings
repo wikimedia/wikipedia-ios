@@ -592,6 +592,8 @@
 "notifications-center-header-notice-from-project" = "Повідомлення від $1";
 "notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "Повідомлення про вхід";
+"notifications-center-mark" = "Позначити";
+"notifications-center-mark-all-as-read" = "Позначити всі як прочитані";
 "notifications-center-mark-as-read" = "Позначити як прочитане";
 "notifications-center-mark-as-unread" = "Позначити як непрочитане";
 "notifications-center-notifications-settings" = "Налаштування сповіщень";
@@ -614,6 +616,9 @@
 "notifications-center-subheader-user-rights-change" = "Зміна прав користувача";
 "notifications-center-subheader-welcome" = "Ласкаво просимо!";
 "notifications-center-subheader-wikidata-connection" = "Встановлено підключення до Вікіданих";
+"notifications-center-swipe-mark-as-read" = "Позначити як прочитане";
+"notifications-center-swipe-mark-as-unread" = "Позначити як непрочитане";
+"notifications-center-swipe-more" = "Ще";
 "notifications-center-title" = "Сповіщення";
 "notifications-center-wikidata-project-name" = "Вікідані";
 "notifications-push-fallback-body-text" = "Нова активність у Вікіпедії";
@@ -650,11 +655,11 @@
 "page-history-user-edits" = "редагування користувачів";
 "page-issues" = "Проблеми сторінки";
 "page-location" = "Переглянути на мапі";
-"page-protected-autoconfirmed" = "Сторінка є частково захищена.";
+"page-protected-autoconfirmed" = "Ця сторінка частково захищена.";
 "page-protected-can-not-edit" = "Ви не маєте повноважень редагувати цю сторінку";
 "page-protected-can-not-edit-title" = "Сторінку захищено";
 "page-protected-other" = "Цю сторінку захищено на таких рівнях: $1";
-"page-protected-sysop" = "Сторінка є повністю захищена.";
+"page-protected-sysop" = "Ця сторінка повністю захищена.";
 "page-similar-titles" = "Сторінки із схожими назвами";
 "panel-compare-revisions-text" = "Порівняння версій допомагає показати, як стаття змінювалася з часом. Порівняння двох версій статті показує різницю між версіями завдяки підсвічуванню того вмісту, який змінився.";
 "panel-compare-revisions-title" = "Порівняння версій";
