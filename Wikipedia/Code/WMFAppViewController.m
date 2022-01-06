@@ -833,7 +833,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                done();
                            }];
         } else if (NSUserDefaults.standardUserDefaults.shouldRestoreNavigationStackOnResume) {
-            self.navigationController.interactivePopGestureRecognizer.delegate = self;
             [self.navigationStateController restoreNavigationStateFor:self.navigationController
                                                                    in:self.dataStore.viewContext
                                                                  with:self.theme

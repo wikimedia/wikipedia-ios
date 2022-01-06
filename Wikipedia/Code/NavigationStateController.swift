@@ -9,7 +9,7 @@ protocol DetailPresentingFromContentGroup {
 final class NavigationStateController: NSObject {
     private let dataStore: MWKDataStore
     private var theme = Theme.standard
-    private var navController: UINavigationController?
+    private var settingsNavController: UINavigationController?
 
     @objc init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
@@ -120,7 +120,7 @@ final class NavigationStateController: NSObject {
                 newNavigationController = themeableNavigationController
             case (.settings, _):
                 let settingsVC = WMFSettingsViewController(dataStore: dataStore)
-                self.navController = navigationController
+                self.settingsNavController = navigationController
                 pushOrPresent(settingsVC, navigationController: navigationController, presentation: viewController.presentation)
                 settingsVC.navigationController?.interactivePopGestureRecognizer?.delegate = self
             case (.account, _):
@@ -301,7 +301,7 @@ final class NavigationStateController: NSObject {
 
 extension NavigationStateController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if let controller = self.navController?.viewControllers, controller.count > 1 {
+        if let controller = self.settingsNavController?.viewControllers, controller.count > 1 {
             return true
         }
         return false
