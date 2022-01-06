@@ -329,6 +329,7 @@
 "notifications-center-header-notice-from-project" = "$1 ဖေႏသတိꩻချက်";
 "notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "နွို့အကောက် ဖေႏသေချက်ဖိုင်ႏ";
+"notifications-center-mark-all-as-read" = "ဒင်ႏမုဲင် နုဲင်းဟော်ꩻထွားထွူလို့လဲဉ်းအကျောင်ꩻ";
 "notifications-center-mark-as-read" = "မာꩻနုဲင်းဟော်ꩻထွူလဲဉ်း";
 "notifications-center-mark-as-unread" = "မာꩻနုဲင်းဟော်ꩻဗာႏဒွိုန်းပုင်ႏ";
 "notifications-center-notifications-settings" = "ဖေႏသေချက် အပွိုင်အဆင်ဖိုင်ႏ";
@@ -337,6 +338,8 @@
 "notifications-center-subheader-page-link" = "ပေ့လိဉ့်";
 "notifications-center-subheader-thanks" = "ကေꩻဇူꩻသြ";
 "notifications-center-subheader-welcome" = "ကျိုႏဆွုမ်ႏဒျာႏသြ!";
+"notifications-center-swipe-mark-as-unread" = "မာꩻနုဲင်းဟော်ꩻဗာႏဒွိုန်း";
+"notifications-center-swipe-more" = "ထဲင်းယင်း";
 "notifications-center-title" = "ဖေႏသေချက်ဖိုင်ႏ";
 "notifications-center-wikidata-project-name" = "ဝီခီဒေတာ";
 "notifications-push-talk-title-format" = "အတသာ $1";

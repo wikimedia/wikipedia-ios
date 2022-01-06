@@ -585,6 +585,8 @@
 "notifications-center-header-notice-from-project" = "Oznámenie z $1";
 "notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "Prihlasovacie oznámenia";
+"notifications-center-mark" = "Označiť";
+"notifications-center-mark-all-as-read" = "Označiť všetky ako prečítané";
 "notifications-center-mark-as-read" = "Označiť ako prečítané";
 "notifications-center-mark-as-unread" = "Označiť ako neprečítané";
 "notifications-center-notifications-settings" = "Nastavenia oznámení";
@@ -607,6 +609,9 @@
 "notifications-center-subheader-user-rights-change" = "Zmena používateľských práv";
 "notifications-center-subheader-welcome" = "Vitajte!";
 "notifications-center-subheader-wikidata-connection" = "Napojenie Wikidáta";
+"notifications-center-swipe-mark-as-read" = "Označiť ako prečítané";
+"notifications-center-swipe-mark-as-unread" = "Označiť ako neprečítané";
+"notifications-center-swipe-more" = "Viac";
 "notifications-center-title" = "Upozornenia";
 "notifications-center-wikidata-project-name" = "Wikidáta";
 "notifications-push-fallback-body-text" = "Nová aktivita na Wikipédii";
