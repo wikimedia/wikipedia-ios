@@ -24,7 +24,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         super.init(schema: "MobileWikiAppiOSUserHistory", version: 22479505)
     }
     
-    private func event() -> Dictionary<String, Any> {
+    private func event(authorizationStatus: UNAuthorizationStatus?) -> Dictionary<String, Any> {
         let userDefaults = UserDefaults.standard
         
         let fontSize = UserDefaults.standard.wmf_articleFontSizeMultiplier().intValue
@@ -53,11 +53,9 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
             event["test_group"] = articleAsLivingDocBucket.rawValue
         }
         
-        var autorizationStatus: UNAuthorizationStatus = .notDetermined
-        dataStore.notificationsController.notificationPermissionsStatus { status in
-            autorizationStatus = status
+        if let status = authorizationStatus {
+            event["device_level_enabled"] = getDeviceNotificationStatus(status)
         }
-        event["device_level_enabled"] = getDeviceNotificationStatus(autorizationStatus)
         
         let inboxCount = dataStore.remoteNotificationsController.inboxCount()
         event["inbox_count"] = inboxCount
@@ -126,23 +124,31 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
             return
         }
         
-        guard let lastAppVersion = UserDefaults.standard.wmf_lastAppVersion else {
-            log(event())
-            return
+        dataStore.notificationsController.notificationPermissionsStatus { [weak self] authorizationStatus in
+            
+            guard let self = self else {
+                return
+            }
+            
+            DispatchQueue.main.async {
+                guard let lastAppVersion = UserDefaults.standard.wmf_lastAppVersion else {
+                    self.log(self.event(authorizationStatus: authorizationStatus))
+                    return
+                }
+                guard let latestSnapshot = self.latestSnapshot else {
+                    return
+                }
+                
+                let newSnapshot = self.event(authorizationStatus: authorizationStatus)
+                
+                guard !newSnapshot.wmf_isEqualTo(latestSnapshot, excluding: self.standardEvent.keys) || lastAppVersion != WikipediaAppUtils.appVersion() else {
+                    // DDLogDebug("User History snapshots are identical; logging new User History snapshot aborted")
+                    return
+                }
+                // DDLogDebug("User History snapshots are different; logging new User History snapshot")
+                self.log(self.event(authorizationStatus: authorizationStatus))
+            }
         }
-        guard let latestSnapshot = latestSnapshot else {
-            return
-        }
-
-        let newSnapshot = event()
-        
-        guard !newSnapshot.wmf_isEqualTo(latestSnapshot, excluding: standardEvent.keys) || lastAppVersion != WikipediaAppUtils.appVersion() else {
-            // DDLogDebug("User History snapshots are identical; logging new User History snapshot aborted")
-            return
-        }
-        
-        // DDLogDebug("User History snapshots are different; logging new User History snapshot")
-        log(event())
     }
     
     @objc public func logStartingSnapshot() {
@@ -154,8 +160,18 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         guard isTarget else {
             return
         }
-        log(event())
-        // DDLogDebug("Attempted to log starting User History snapshot")
+        dataStore.notificationsController.notificationPermissionsStatus { [weak self] authorizationStatus in
+            
+            guard let self = self else {
+                return
+            }
+            
+            DispatchQueue.main.async {
+                self.log(self.event(authorizationStatus: authorizationStatus))
+                // DDLogDebug("Attempted to log starting User History snapshot")
+            }
+        }
+        
     }
 }
 
