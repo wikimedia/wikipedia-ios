@@ -1,4 +1,5 @@
 import WMF
+import UIKit
 
 protocol DetailPresentingFromContentGroup {
     var contentGroupIDURIString: String? { get }
@@ -8,6 +9,7 @@ protocol DetailPresentingFromContentGroup {
 final class NavigationStateController: NSObject {
     private let dataStore: MWKDataStore
     private var theme = Theme.standard
+    private weak var settingsNavController: UINavigationController?
 
     @objc init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
@@ -28,6 +30,7 @@ final class NavigationStateController: NSObject {
             completion()
             return
         }
+        
         self.theme = theme
         let restore = {
             completion()
@@ -117,7 +120,9 @@ final class NavigationStateController: NSObject {
                 newNavigationController = themeableNavigationController
             case (.settings, _):
                 let settingsVC = WMFSettingsViewController(dataStore: dataStore)
+                self.settingsNavController = navigationController
                 pushOrPresent(settingsVC, navigationController: navigationController, presentation: viewController.presentation)
+                settingsVC.navigationController?.interactivePopGestureRecognizer?.delegate = self
             case (.account, _):
                 let accountVC = AccountViewController()
                 accountVC.dataStore = dataStore
@@ -291,5 +296,14 @@ final class NavigationStateController: NSObject {
             }
         }
         return viewControllers
+    }
+}
+
+extension NavigationStateController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if let controller = self.settingsNavController?.viewControllers, controller.count > 1 {
+            return true
+        }
+        return false
     }
 }
