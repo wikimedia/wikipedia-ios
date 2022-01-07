@@ -9,7 +9,7 @@ protocol DetailPresentingFromContentGroup {
 final class NavigationStateController: NSObject {
     private let dataStore: MWKDataStore
     private var theme = Theme.standard
-    private var settingsNavController: UINavigationController?
+    private weak var settingsNavController: UINavigationController?
 
     @objc init(dataStore: MWKDataStore) {
         self.dataStore = dataStore
