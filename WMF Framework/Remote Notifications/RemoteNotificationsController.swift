@@ -13,7 +13,7 @@ import CocoaLumberjackSwift
     public let configuration: Configuration
     
     @objc public required init(session: Session, configuration: Configuration, languageLinkController: MWKLanguageLinkController, authManager: WMFAuthenticationManager) {
-        operationsController = RemoteNotificationsOperationsController(session: session, configuration: configuration, languageLinkController: languageLinkController)
+        operationsController = RemoteNotificationsOperationsController(session: session, configuration: configuration, languageLinkController: languageLinkController, authManager: authManager)
         self.configuration = configuration
         self.authManager = authManager
         super.init()

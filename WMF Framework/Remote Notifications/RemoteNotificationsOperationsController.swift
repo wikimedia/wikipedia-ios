@@ -14,6 +14,7 @@ class RemoteNotificationsOperationsController: NSObject {
     private var isImporting = false
     private var isRefreshing = false
     private var importingCompletionBlocks: [(RemoteNotificationsOperationsError?) -> Void] = []
+    private let authManager: WMFAuthenticationManager
     
     var viewContext: NSManagedObjectContext? {
         return modelController?.viewContext
@@ -27,7 +28,7 @@ class RemoteNotificationsOperationsController: NSObject {
         }
     }
 
-    required init(session: Session, configuration: Configuration, languageLinkController: MWKLanguageLinkController) {
+    required init(session: Session, configuration: Configuration, languageLinkController: MWKLanguageLinkController, authManager: WMFAuthenticationManager) {
         apiController = RemoteNotificationsAPIController(session: session, configuration: configuration)
         var modelControllerInitializationError: Error?
         modelController = RemoteNotificationsModelController(&modelControllerInitializationError)
@@ -39,6 +40,7 @@ class RemoteNotificationsOperationsController: NSObject {
         operationQueue = OperationQueue()
         
         self.languageLinkController = languageLinkController
+        self.authManager = authManager
         
         super.init()
 
@@ -144,16 +146,39 @@ class RemoteNotificationsOperationsController: NSObject {
         nonPrimaryProjects.append(.commons)
         nonPrimaryProjects.append(.wikidata)
         
-        let completionOperation = BlockOperation {
-            completion(nil)
+        let nonPrimaryOperations: [RemoteNotificationsPagingOperation] = nonPrimaryProjects.map { operationType.init(project: $0, apiController: self.apiController, modelController: modelController, needsCrossWikiSummary: false) }
+        
+        let completionOperation: BlockOperation
+        
+        //supremely hacky way of handling unauthenticated responses from these operations
+        if let firstNonPrimaryOperation = nonPrimaryOperations.first {
+            
+            completionOperation = BlockOperation {
+                if let error = firstNonPrimaryOperation.error as? RemoteNotificationsAPIController.ResultError,
+                   error.code == "login-required" {
+                    self.attemptReauthenticateFromError(error) { result in
+                        switch result {
+                        case .success:
+                            self.kickoffPagingOperations(operationType: operationType, completion: completion)
+                        default:
+                            completion(nil)
+                        }
+                    }
+                }
+                completion(nil)
+            }
+            
+        } else {
+            completionOperation = BlockOperation {
+                completion(nil)
+            }
         }
+        
         
         guard let primaryLanguageOperation = primaryLanguageOperation(primaryLanguageProject: primaryLanguageProject, nonPrimaryProjects: nonPrimaryProjects, operationType: operationType, completionOperation: completionOperation) else {
             completion(.failureCreatingAppLanguagePagingOperation)
             return
         }
-        
-        let nonPrimaryOperations: [RemoteNotificationsPagingOperation] = nonPrimaryProjects.map { operationType.init(project: $0, apiController: self.apiController, modelController: modelController, needsCrossWikiSummary: false) }
         
         let finalListOfOperations = nonPrimaryOperations + [primaryLanguageOperation]
         
@@ -162,6 +187,25 @@ class RemoteNotificationsOperationsController: NSObject {
         }
         
         self.operationQueue.addOperations(finalListOfOperations + [completionOperation], waitUntilFinished: false)
+    }
+    
+    private func attemptReauthenticateFromError(_ error: Error, completion: @escaping (Result<Void, Error>) -> Void) {
+        
+        if let error = error as? RemoteNotificationsAPIController.ResultError,
+           let errorCode = error.code,
+            errorCode == "login-required" {
+            self.authManager.loginWithSavedCredentials { result in
+                switch result {
+                case .success:
+                    completion(.success(()))
+                default:
+                    completion(.failure(error))
+                }
+            }
+            return
+        }
+        
+        completion(.failure(error))
     }
     
     private func primaryLanguageOperation(primaryLanguageProject: RemoteNotificationsProject, nonPrimaryProjects: [RemoteNotificationsProject], operationType: RemoteNotificationsPagingOperation.Type, completionOperation: Operation) -> RemoteNotificationsPagingOperation? {
