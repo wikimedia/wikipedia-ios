@@ -155,7 +155,7 @@ public class RemoteNotification: NSManagedObject {
     }
 
     public var primaryLinkFragment: String? {
-        return messageLinks?.primary?.url?.fragment
+        return primaryLinkURL?.fragment
     }
     
     public var primaryLinkURL: URL? {
@@ -164,6 +164,10 @@ public class RemoteNotification: NSManagedObject {
     
     public var legacyPrimaryLinkURL: URL? {
         return messageLinks?.legacyPrimary?.url
+    }
+    
+    public var legacyPrimaryLinkFragment: String? {
+        return legacyPrimaryLinkURL?.fragment
     }
     
     public var primaryLinkLabel: String? {
