@@ -446,6 +446,8 @@
         BOOL isBold = [tagsForRange containsObject:@"b"];
         BOOL isSubscript = [tagsForRange containsObject:@"sub"];
         BOOL isSuperscript = [tagsForRange containsObject:@"sup"];
+        BOOL isStrikethrough = [tagsForRange containsObject:@"del"] || [tagsForRange containsObject:@"s"];
+        BOOL isUnderline = [tagsForRange containsObject:@"u"];
         if (isItalic && isBold) {
             [attributedString addAttribute:NSFontAttributeName value:boldItalicFont range:range];
         } else if (isItalic) {
@@ -467,6 +469,14 @@
 
             if (isSuperscript) {
                 [attributedString addAttribute:(NSString *)kCTSuperscriptAttributeName value:[NSNumber numberWithInt:1] range:range];
+            }
+            
+            if (isStrikethrough) {
+                [attributedString addAttribute:NSStrikethroughStyleAttributeName value:@2 range:range];
+            }
+            
+            if (isUnderline) {
+                [attributedString addAttribute:NSUnderlineStyleAttributeName value:@1 range:range];
             }
         }
 
