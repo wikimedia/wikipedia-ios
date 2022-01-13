@@ -1670,6 +1670,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     if (self.navigationController.interactivePopGestureRecognizer == gestureRecognizer) {
         return self.navigationController.viewControllers.count > 1;
+    } else if (_settingsViewController.navigationController.interactivePopGestureRecognizer == gestureRecognizer) {
+        return _settingsViewController.navigationController.viewControllers.count > 1;
     }
     return YES;
 }
@@ -1961,12 +1963,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [self applyTheme:self.theme toNavigationControllers:@[navController]];
         _settingsNavigationController = navController;
         _settingsNavigationController.modalPresentationStyle = UIModalPresentationOverFullScreen;
+        _settingsNavigationController.interactivePopGestureRecognizer.delegate = self;
     }
 
     if (_settingsNavigationController.viewControllers.firstObject != self.settingsViewController) {
         _settingsNavigationController.viewControllers = @[self.settingsViewController];
     }
-
     return _settingsNavigationController;
 }
 

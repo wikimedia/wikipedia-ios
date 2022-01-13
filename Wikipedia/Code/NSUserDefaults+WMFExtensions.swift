@@ -116,10 +116,16 @@ let WMFSendUsageReports = "WMFSendUsageReports"
     
     @objc var themeAnalyticsName: String {
         let name = string(forKey: WMFAppThemeName)
+        let systemDarkMode = systemDarkModeEnabled
         guard name != nil, name != Theme.defaultThemeName else {
+            return systemDarkMode ? Theme.black.analyticsName : Theme.light.analyticsName
+        }
+        
+        if Theme.withName(name)?.name == Theme.light.name {
             return Theme.defaultAnalyticsThemeName
         }
-        return Theme.withName(name)?.name ?? Theme.light.name
+        
+        return Theme.withName(name)?.analyticsName ?? Theme.light.analyticsName
     }
     
     @objc var themeDisplayName: String {
@@ -133,8 +139,10 @@ let WMFSendUsageReports = "WMFSendUsageReports"
     @objc(themeCompatibleWith:)
     func theme(compatibleWith traitCollection: UITraitCollection) -> Theme {
         let name = string(forKey: WMFAppThemeName)
+        let systemDarkMode = traitCollection.userInterfaceStyle == .dark
+        systemDarkModeEnabled = systemDarkMode
         guard name != nil, name != Theme.defaultThemeName else {
-                return traitCollection.userInterfaceStyle == .dark ? Theme.black.withDimmingEnabled(wmf_isImageDimmingEnabled) : .light
+                return systemDarkMode ? Theme.black.withDimmingEnabled(wmf_isImageDimmingEnabled) : .light
         }
         let theme = Theme.withName(name) ?? Theme.light
         return theme.isDark ? theme.withDimmingEnabled(wmf_isImageDimmingEnabled) : theme
@@ -475,6 +483,15 @@ let WMFSendUsageReports = "WMFSendUsageReports"
             
             let arrayValue = Array(newValue)
             set(arrayValue, forKey: UserDefaults.Key.talkPageForceRefreshRevisionIDs)
+        }
+    }
+    
+    private var systemDarkModeEnabled: Bool {
+        get {
+            return bool(forKey: "SystemDarkMode")
+        }
+        set {
+            set(newValue, forKey: "SystemDarkMode")
         }
     }
 #if UI_TEST

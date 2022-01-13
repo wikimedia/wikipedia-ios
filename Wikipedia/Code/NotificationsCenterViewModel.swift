@@ -7,8 +7,12 @@ protocol NotificationCenterViewModelDelegate: AnyObject {
 
     /// This updates view controller subviews to reflect the new state it switches between various empty states and data states).
     func stateDidChange(_ newState: NotificationsCenterViewModel.State)
-    func filtersToolbarViewModelDidChange(_ newViewModel: NotificationsCenterViewModel.FiltersToolbarViewModel)
+    //func filtersToolbarViewModelDidChange(_ newViewModel: NotificationsCenterViewModel.FiltersToolbarViewModel)
     var numCellsSelected: Int { get }
+    /// This causes snapshot to update entirely, inserting new cells as needed
+    func cellViewModelsDidChange(cellViewModels: [NotificationsCenterCellViewModel])
+    
+    func toolbarContentDidUpdate()
 }
 
 enum NotificationsCenterSection {
@@ -18,19 +22,19 @@ enum NotificationsCenterSection {
 @objc
 final class NotificationsCenterViewModel: NSObject {
     
-    struct FiltersToolbarViewModel {
-        let areFiltersEnabled: Bool
-        let areInboxFiltersEnabled: Bool
-        let countOfTypeFilters: Int
-        
-        static func filtersToolbarViewModel(from remoteNotificationsController: RemoteNotificationsController) -> FiltersToolbarViewModel {
-            
-            return FiltersToolbarViewModel(areFiltersEnabled: remoteNotificationsController.areFiltersEnabled,
-                                           areInboxFiltersEnabled: remoteNotificationsController.areInboxFiltersEnabled, countOfTypeFilters: remoteNotificationsController.countOfTypeFilters)
-        }
-    }
+//    struct FiltersToolbarViewModel {
+//        let areFiltersEnabled: Bool
+//        let areInboxFiltersEnabled: Bool
+//        let countOfTypeFilters: Int
+//
+//        static func filtersToolbarViewModel(from remoteNotificationsController: RemoteNotificationsController) -> FiltersToolbarViewModel {
+//
+//            return FiltersToolbarViewModel(areFiltersEnabled: remoteNotificationsController.areFiltersEnabled,
+//                                           areInboxFiltersEnabled: remoteNotificationsController.areInboxFiltersEnabled, countOfTypeFilters: remoteNotificationsController.countOfTypeFilters)
+//        }
+//    }
     
-    private(set) var filtersToolbarViewModel: FiltersToolbarViewModel
+    //private(set) var filtersToolbarViewModel: FiltersToolbarViewModel
     
     enum State {
         
@@ -78,33 +82,25 @@ final class NotificationsCenterViewModel: NSObject {
     
     weak var delegate: NotificationCenterViewModelDelegate?
 
-    let languageLinkController: MWKLanguageLinkController
     lazy private var modelController = NotificationsCenterModelController(languageLinkController: self.languageLinkController, delegate: self, remoteNotificationsController: remoteNotificationsController)
-    
-    private var isPagingEnabled = true
-    
-    private let stateSubject: PassthroughSubject<NotificationsCenterViewModel.State, Never>
-    private var debouncedStateSubscription: AnyCancellable?
-    
+
     private(set) var state: NotificationsCenterViewModel.State {
         didSet {
-            switch state {
-            case .empty(let emptyState):
-                switch emptyState {
-                case .loading: //sending to debouncer. Otherwise flash on screen when loading from db
-                    stateSubject.send(state)
-                    return
-                default:
-                    debouncedStateSubscription?.cancel()
-                }
-            case .data:
-                debouncedStateSubscription?.cancel()
-            }
-            
             delegate?.stateDidChange(state)
-            
         }
     }
+
+    private let languageLinkController: MWKLanguageLinkController
+
+    private var isLoading: Bool = false {
+        didSet {
+            delegate?.toolbarContentDidUpdate()
+        }
+    }
+
+    private var isPagingEnabled = true
+
+    var isEditing: Bool = false
     
     var configuration: Configuration {
         return remoteNotificationsController.configuration
@@ -121,15 +117,13 @@ final class NotificationsCenterViewModel: NSObject {
         filtersToolbarViewModel = FiltersToolbarViewModel.filtersToolbarViewModel(from: remoteNotificationsController)
 
         super.init()
-        
-        self.debouncedStateSubscription = stateSubject
-            .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
-            .sink(receiveValue: { [weak self] in
-                
-                self?.delegate?.stateDidChange($0)
-                
-            })
+
+        NotificationCenter.default.addObserver(self, selector: #selector(remoteNotificationsControllerDidUpdateFilterState), name: RemoteNotificationsController.didUpdateFilterStateNotification, object: nil)
 	}
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 
     // MARK: - Public
     
@@ -149,6 +143,14 @@ final class NotificationsCenterViewModel: NSObject {
 
     // MARK: - Public
     
+    func refreshNotifications(force: Bool) {
+        isLoading = true
+        remoteNotificationsController.refreshNotifications(force: force) { _ in
+            //TODO: Set any refreshing loading states here
+            self.isLoading = false
+        }
+    }
+    
     func markAsReadOrUnread(viewModels: [NotificationsCenterCellViewModel], shouldMarkRead: Bool) {
         let identifierGroups = viewModels.map { $0.notification.identifierGroup }
         remoteNotificationsController.markAsReadOrUnread(identifierGroups: Set(identifierGroups), shouldMarkRead: shouldMarkRead, languageLinkController: languageLinkController)
@@ -156,12 +158,6 @@ final class NotificationsCenterViewModel: NSObject {
     
     func markAllAsRead() {
         remoteNotificationsController.markAllAsRead(languageLinkController: languageLinkController)
-    }
-    
-    func refreshNotifications(force: Bool) {
-        remoteNotificationsController.refreshNotifications(force: force) { _ in
-            //TODO: Set any refreshing loading states here
-        }
     }
     
     func resetAndRefreshData() {
@@ -225,8 +221,8 @@ final class NotificationsCenterViewModel: NSObject {
     }
     
     func filtersToolbarViewModelNeedsReload() {
-        self.filtersToolbarViewModel = FiltersToolbarViewModel.filtersToolbarViewModel(from: remoteNotificationsController)
-        delegate?.filtersToolbarViewModelDidChange(self.filtersToolbarViewModel)
+//        self.filtersToolbarViewModel = FiltersToolbarViewModel.filtersToolbarViewModel(from: remoteNotificationsController)
+//        delegate?.filtersToolbarViewModelDidChange(self.filtersToolbarViewModel)
     }
 }
 
@@ -324,4 +320,46 @@ extension NotificationsCenterViewModel: NotificationsCenterModelControllerDelega
     func dataDidChange() {
         self.state = newStateFromUnderlyingDataChange()
     }
+}
+
+// MARK: - Toolbar
+
+extension NotificationsCenterViewModel {
+
+    // MARK: - Private
+
+    @objc fileprivate func remoteNotificationsControllerDidUpdateFilterState() {
+        delegate?.toolbarContentDidUpdate()
+    }
+
+    fileprivate func toolbarImageForTypeFilter(engaged: Bool) -> UIImage? {
+        let symbolName = engaged ? "line.horizontal.3.decrease.circle.fill" : "line.horizontal.3.decrease.circle"
+        return UIImage(systemName: symbolName)
+    }
+
+    fileprivate func toolbarImageForProjectFilter(engaged: Bool) -> UIImage? {
+        let symbolName = engaged ? "tray.fill" : "tray.2"
+        return UIImage(systemName: symbolName)
+    }
+
+    // MARK: - Public
+
+    var typeFilterButtonImage: UIImage? {
+        return toolbarImageForTypeFilter(engaged: remoteNotificationsController.filterState.types.count > 0 || remoteNotificationsController.filterState.readStatus != .all)
+    }
+
+    var projectFilterButtonImage: UIImage? {
+        return toolbarImageForProjectFilter(engaged: remoteNotificationsController.filterState.projects.count > 0)
+    }
+
+    var statusBarText: String {
+        if isLoading {
+            return "Checking for notifications..."
+        }
+
+        // Logic for status bar text based on type, project, and read filters here
+
+        return "All Notifications"
+    }
+
 }

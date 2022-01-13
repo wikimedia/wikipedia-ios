@@ -551,7 +551,7 @@
 			<key>one</key>
 			<string>Gisteren</string>
 			<key>other</key>
-			<string>%1$d dagen gelden</string>
+			<string>%1$d dagen geleden</string>
 			<key>zero</key>
 			<string>Vandaag</string>
 		</dict>

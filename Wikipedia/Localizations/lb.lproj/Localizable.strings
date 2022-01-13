@@ -338,6 +338,8 @@
 "notifications-center-go-to-wikidata-item" = "Op d'Wikidata-Element goen";
 "notifications-center-header-alert-from-project" = "Warnung vu(n) $1";
 "notifications-center-header-notice-from-project" = "Informatioun vu(n) $1";
+"notifications-center-mark" = "Markéieren";
+"notifications-center-mark-all-as-read" = "All als gelies markéieren";
 "notifications-center-mark-as-read" = "Als gelies markéieren";
 "notifications-center-mark-as-unread" = "Als net gelies markéieren";
 "notifications-center-subheader-edit-reverted" = "Är Ännerung gouf zréckgesat";
@@ -347,6 +349,9 @@
 "notifications-center-subheader-thanks" = "Merci";
 "notifications-center-subheader-user-rights-change" = "Ännerung vun de Benotzerrechter";
 "notifications-center-subheader-welcome" = "Wëllkomm!";
+"notifications-center-swipe-mark-as-read" = "Als gelies markéieren";
+"notifications-center-swipe-mark-as-unread" = "Als net gelies markéieren";
+"notifications-center-swipe-more" = "Méi";
 "notifications-center-title" = "Notifikatiounen";
 "notifications-center-wikidata-project-name" = "Wikidata";
 "notifications-push-fallback-body-text" = "Nei Aktivitéit op Wikipedia";

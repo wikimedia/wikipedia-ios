@@ -158,17 +158,16 @@ final class NotificationsCenterCell: UICollectionViewCell {
     lazy var swipeMoreStack: StackedImageLabelView = {
         let stack = StackedImageLabelView()
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.label.text = "More"
         let configuration = UIImage.SymbolConfiguration(weight: .semibold)
         stack.imageView.image = UIImage(systemName: "ellipsis.circle.fill", withConfiguration: configuration)
         stack.backgroundColor = .base30
+        stack.increaseLabelTopPadding = true
         return stack
     }()
 
     lazy var swipeReadUnreadStack: StackedImageLabelView = {
         let stack = StackedImageLabelView()
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.label.text = "Mark as"
         let configuration = UIImage.SymbolConfiguration(weight: .semibold)
         stack.imageView.image = UIImage(systemName: "envelope", withConfiguration: configuration)
         stack.backgroundColor = .green50
@@ -291,6 +290,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.viewModel = nil
+        self.foregroundContentContainer.transform = .identity
     }
 
     func setup() {
@@ -473,7 +473,7 @@ private extension NotificationsCenterCell {
 
         // Colors
 
-        foregroundContentContainer.backgroundColor = isSelected ? cellStyle.selectedCellBackgroundColor : theme.colors.paperBackground
+        foregroundContentContainer.backgroundColor = theme.colors.paperBackground
         cellSeparator.backgroundColor = cellStyle.cellSeparatorColor
 
         headerLabel.textColor = cellStyle.headerTextColor(displayState)
@@ -521,7 +521,10 @@ private extension NotificationsCenterCell {
         let trimmedSummary = messageSummaryLabel.text.replacingOccurrences(of: "^\\s*", with: "", options: .regularExpression)
         messageSummaryLabel.text = trimmedSummary
         relativeTimeAgoLabel.text = viewModel.dateText
-        swipeReadUnreadStack.label.text = viewModel.isRead ? "Mark as\nunread" : "Mark as\nread"
+        swipeMoreStack.label.text = WMFLocalizedString("notifications-center-swipe-more", value: "More", comment: "Button text for the Notifications Center 'More' swipe action.")
+        swipeReadUnreadStack.label.text = viewModel.isRead
+            ? WMFLocalizedString("notifications-center-swipe-mark-as-unread", value: "Mark as unread", comment: "Button text in Notifications Center swipe actions to mark a notification as unread.")
+            : WMFLocalizedString("notifications-center-swipe-mark-as-read", value: "Mark as read", comment: "Button text in Notifications Center swipe actions to mark a notification as read.")
     }
 
     func updateProject(forViewModel viewModel: NotificationsCenterCellViewModel) {
@@ -565,43 +568,4 @@ private extension NotificationsCenterCell {
     @objc func tappedReadUnreadAction() {
         delegate?.userDidTapMarkAsReadUnreadActionForCell(self)
     }
-
-}
-
-final class StackedImageLabelView: SetupView {
-
-    lazy var label: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .white
-        label.numberOfLines = 0
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
-        return label
-    }()
-
-    lazy var imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.tintColor = .white
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-
-    override func setup() {
-        addSubview(imageView)
-        addSubview(label)
-
-        NSLayoutConstraint.activate([
-            imageView.bottomAnchor.constraint(equalTo: centerYAnchor, constant: 3),
-            imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: 40),
-            imageView.heightAnchor.constraint(equalToConstant: 40),
-
-            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 2)
-        ])
-    }
-
 }

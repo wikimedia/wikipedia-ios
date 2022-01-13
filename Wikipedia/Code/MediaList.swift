@@ -24,22 +24,25 @@ public struct MediaListItem: Codable {
     public let sectionID: Int
     public let type: String
     public let showInGallery: Bool
+    public let isLeadImage: Bool
     public let sources: [MediaListItemSource]?
     public let audioType: String?
     enum CodingKeys: String, CodingKey {
         case title
         case sectionID = "section_id"
         case showInGallery
+        case isLeadImage = "leadImage"
         case sources = "srcset"
         case type
         case audioType
     }
 
-    public init(title: String?, sectionID: Int, type: String, showInGallery: Bool, sources: [MediaListItemSource]?, audioType: String? = nil) {
+    public init(title: String?, sectionID: Int, type: String, showInGallery: Bool, isLeadImage: Bool, sources: [MediaListItemSource]?, audioType: String? = nil) {
         self.title = title
         self.sectionID = sectionID
         self.type = type
         self.showInGallery = showInGallery
+        self.isLeadImage = isLeadImage
         self.sources = sources
         self.audioType = audioType
     }
@@ -72,7 +75,7 @@ public struct MediaList: Codable {
             MediaListItemSource(urlString: urlString, scale: "1.5x")
         ]
 
-        let mediaListItem = MediaListItem(title: filename, sectionID: 0, type: "image", showInGallery: true, sources: sources, audioType: nil)
+        let mediaListItem = MediaListItem(title: filename, sectionID: 0, type: "image", showInGallery: true, isLeadImage: true, sources: sources, audioType: nil)
         self = MediaList(items: [mediaListItem])
     }
 }

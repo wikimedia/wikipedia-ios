@@ -596,6 +596,9 @@
 "notifications-center-subheader-user-rights-change" = "User rights change";
 "notifications-center-subheader-welcome" = "Welcome!";
 "notifications-center-subheader-wikidata-connection" = "Wikidata connection made";
+"notifications-center-swipe-mark-as-read" = "Mark as read";
+"notifications-center-swipe-mark-as-unread" = "Mark as unread";
+"notifications-center-swipe-more" = "More";
 "notifications-center-title" = "Notifications";
 "notifications-push-fallback-body-text" = "New activity on Wikipedia";
 "notifications-push-talk-body-format" = "$1 new $2 on $3";

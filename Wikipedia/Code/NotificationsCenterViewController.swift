@@ -15,26 +15,42 @@ final class NotificationsCenterViewController: ViewController {
     
     var didUpdateFiltersCallback: (() -> Void)?
     
-    lazy var markAllAsReadButton: UIBarButtonItem = {
-        let markAllAsReadText = WMFLocalizedString("notifications-center-mark-all-as-read", value: "Mark all as read", comment: "Toolbar button text in Notifications Center that marks all user notifications as read on the server.")
-        return UIBarButtonItem(title: markAllAsReadText, style: .plain, target: self, action: #selector(didTapMarkAllAsReadButton(_:)))
-    }()
-    
-    lazy var filterButton: UIBarButtonItem = {
-        return UIBarButtonItem.init(image: filterButtonImageForFiltersEnabled(viewModel.filtersToolbarViewModel.areFiltersEnabled), style: .plain, target: self, action: #selector(didTapFilterButton))
-    }()
-    
-    lazy var inboxButton: UIBarButtonItem = {
-        return UIBarButtonItem.init(image: inboxButtonImageForFiltersEnabled(viewModel.filtersToolbarViewModel.areInboxFiltersEnabled), style: .plain, target: self, action: #selector(didTapInboxButton))
-    }()
-    
     // MARK: Properties - Diffable Data Source
     typealias DataSource = UICollectionViewDiffableDataSource<NotificationsCenterSection, NotificationsCenterCellViewModel>
     typealias Snapshot = NSDiffableDataSourceSnapshot<NotificationsCenterSection, NotificationsCenterCellViewModel>
     private var dataSource: DataSource?
     private let snapshotUpdateQueue = DispatchQueue(label: "org.wikipedia.notificationscenter.snapshotUpdateQueue", qos: .userInteractive)
 
-    // MARK: - Properties - Cell Swipe Actions
+    // MARK: - Properties: Toolbar Buttons
+
+    fileprivate lazy var typeFilterButton: IconBarButtonItem = IconBarButtonItem(image: viewModel.typeFilterButtonImage, style: .plain, target: self, action: #selector(userDidTapTypeFilterButton))
+    fileprivate lazy var projectFilterButton: IconBarButtonItem = IconBarButtonItem(image: viewModel.projectFilterButtonImage, style: .plain, target: self, action: #selector(userDidTapProjectFilterButton))
+    
+    fileprivate var markButton: TextBarButtonItem!
+    
+    // = TextBarButtonItem(title: WMFLocalizedString("notifications-center-mark", value: "Mark", comment: "Button text in Notifications Center. Presents menu of options to mark selected notifications as read or unread."), target: nil, action: nil)
+    fileprivate lazy var markAllAsReadButton: TextBarButtonItem = TextBarButtonItem(title: WMFLocalizedString("notifications-center-mark-all-as-read", value: "Mark all as read", comment: "Toolbar button text in Notifications Center that marks all user notifications as read on the server."), target: self, action: #selector(didTapMarkAllAsReadButton(_:)))
+    fileprivate lazy var statusBarButton: StatusTextBarButtonItem = StatusTextBarButtonItem(text: "")
+
+    // MARK: - Properties: Cell Swipe Actions
+
+    fileprivate struct CellSwipeData {
+        var activelyPannedCellIndexPath: IndexPath? // `IndexPath` of actively panned or open or opening cell
+        var activelyPannedCellTranslationX: CGFloat? // current translation on x-axis of open or opening cell
+
+        func activeCell(in collectionView: UICollectionView) -> NotificationsCenterCell? {
+            guard let activelyPannedCellIndexPath = activelyPannedCellIndexPath else {
+                return nil
+            }
+
+            return collectionView.cellForItem(at: activelyPannedCellIndexPath) as? NotificationsCenterCell
+        }
+
+        mutating func resetActiveData() {
+            activelyPannedCellIndexPath = nil
+            activelyPannedCellTranslationX = nil
+        }
+    }
 
     fileprivate struct CellSwipeData {
         var activelyPannedCellIndexPath: IndexPath? // IndexPath of actively panned or open cell
@@ -84,9 +100,12 @@ final class NotificationsCenterViewController: ViewController {
 
         title = CommonStrings.notificationsCenterTitle
         setupBarButtons()
+        updateToolbarDisplayState(isEditing: false)
         
         notificationsView.collectionView.delegate = self
         setupDataSource()
+        //TODO: Revisit and enable importing empty states in a delayed manner to avoid flashing.
+        //configureEmptyState(isEmpty: true, subheaderText: NotificationsCenterView.EmptyOverlayStrings.checkingForNotifications)
         viewModel.fetchFirstPage()
         
         notificationsView.collectionView.addGestureRecognizer(cellPanGestureRecognizer)
@@ -104,10 +123,16 @@ final class NotificationsCenterViewController: ViewController {
         closeActiveSwipePanelIfNecessary()
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        closeSwipeActionsPanelIfNecessary()
+    }
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
 
         if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
+            closeSwipeActionsPanelIfNecessary()
             notificationsView.collectionView.reloadData()
         }
     }
@@ -118,7 +143,8 @@ final class NotificationsCenterViewController: ViewController {
         enableToolbar()
         setToolbarHidden(false, animated: false)
 
-		navigationItem.rightBarButtonItem = editButtonItem
+        navigationItem.rightBarButtonItem = editButtonItem
+        isEditing = false
 	}
 
 	// MARK: - Public
@@ -127,7 +153,14 @@ final class NotificationsCenterViewController: ViewController {
         super.setEditing(editing, animated: animated)
         
         notificationsView.collectionView.allowsMultipleSelection = editing
+
         viewModel.updateStateFromEditingModeChange(isEditing: isEditing)
+        viewModel.isEditing = editing
+        updateToolbarDisplayState(isEditing: isEditing)
+
+        //might need this?
+//        reconfigureCells()
+//        deselectCells()
     }
 
 
@@ -137,14 +170,23 @@ final class NotificationsCenterViewController: ViewController {
         super.apply(theme: theme)
 
         notificationsView.apply(theme: theme)
+
+        closeSwipeActionsPanelIfNecessary()
         notificationsView.collectionView.reloadData()
+
+        typeFilterButton.apply(theme: theme)
+        projectFilterButton.apply(theme: theme)
+        markButton.apply(theme: theme)
+        markAllAsReadButton.apply(theme: theme)
+        statusBarButton.apply(theme: theme)
     }
+    
 }
 
 //MARK: Private
 
 private extension NotificationsCenterViewController {
-    
+
     func setupDataSource() {
         dataSource = DataSource(
         collectionView: notificationsView.collectionView,
@@ -155,6 +197,10 @@ private extension NotificationsCenterViewController {
                   let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NotificationsCenterCell.reuseIdentifier, for: indexPath) as? NotificationsCenterCell else {
                 return nil
             }
+            
+            //from main
+            //let isSelected = (collectionView.indexPathsForSelectedItems ?? []).contains(indexPath)
+            //self.viewModel.updateCellDisplayStates(cellViewModels: [cellViewModel], isSelected: isSelected)
             cell.configure(viewModel: cellViewModel, theme: self.theme)
             cell.delegate = self
             return cell
@@ -182,9 +228,6 @@ private extension NotificationsCenterViewController {
         navigationItem.rightBarButtonItem?.isEnabled = !isEmpty
     }
     
-    /// TODO: Use this to determine selected view models when in editing mode. We will send to NotificationsCenterViewModel for marking as read/unread when
-    /// the associated toolbar button is pressed.
-    /// - Returns:View models that represent cells in the selected state.
     func selectedCellViewModels() -> [NotificationsCenterCellViewModel] {
         guard let selectedIndexPaths = notificationsView.collectionView.indexPathsForSelectedItems,
         let dataSource = dataSource else {
@@ -196,10 +239,11 @@ private extension NotificationsCenterViewController {
     }
     
     func deselectCells() {
-        closeActiveSwipePanelIfNecessary()
         notificationsView.collectionView.indexPathsForSelectedItems?.forEach {
             notificationsView.collectionView.deselectItem(at: $0, animated: false)
         }
+
+        closeSwipeActionsPanelIfNecessary()
     }
     
     /// Calls cell configure methods again without instantiating a new cell.
@@ -224,218 +268,6 @@ private extension NotificationsCenterViewController {
         }
     }
     
-    var titleForToolbarTitleView: String? {
-        
-        guard viewModel.remoteNotificationsController.areFiltersEnabled else {
-            return "All notifications"
-        }
-        
-        return "Filtered by:"
-    }
-    
-    var subtitleForToolbarTitleView: (String, String)? {
-        
-        guard viewModel.remoteNotificationsController.areFiltersEnabled,
-              let filterState = viewModel.remoteNotificationsController.filterSavedState else {
-            return nil
-        }
-        
-        var readStatusString: String?
-        switch filterState.readStatusSetting {
-        case .read:
-            readStatusString = "Read"
-        case .unread:
-            readStatusString = "Unread"
-        default:
-            readStatusString = nil
-        }
-        
-        let typesStringFormat = WMFLocalizedString("notifications-center-num-types-in-filter-format", value:"{{PLURAL:%1$d|%1$d type|%1$d types}}", comment:"Portion of subtitle of notfications center toolbar indicating how many types user has selected in their filter - %1$d is replaced with the number of notification types selected in their filter.")
-        let typeTitle = String.localizedStringWithFormat(typesStringFormat, filterState.filterTypeSetting.count)
-        let typeStatusString: String? = filterState.filterTypeSetting.count > 0 ? typeTitle : nil
-        
-        let projectsStringFormat = WMFLocalizedString("notifications-center-num-projects-in-filter-format", value:"{{PLURAL:%1$d|%1$d project|%1$d projects}}", comment:"Portion of subtitle of notfications center toolbar indicating how many projects user has selected in their filter - %1$d is replaced with the number of notification projeccts selected in their filter.")
-        let showingInboxProjects = viewModel.remoteNotificationsController.cachedShowingInboxProjects
-        
-        let projectTitle = String.localizedStringWithFormat(projectsStringFormat, showingInboxProjects.count)
-        
-        let projectStatusString: String
-        if showingInboxProjects.count == 1,
-           let project = showingInboxProjects.first {
-            projectStatusString = project.projectName(shouldReturnCodedFormat: false)
-        } else {
-            projectStatusString = projectTitle
-        }
-        
-        let suffix = "in \(projectStatusString)"
-        let prefix = [readStatusString, typeStatusString].compactMap { $0 }.joined(separator: " and ")
-        
-        return ("\(prefix) \(suffix)", prefix)
-    }
-    
-    var attributedStringForToolbarTitleView: NSAttributedString? {
-        
-        guard let titleForToolbarTitleView = titleForToolbarTitleView else {
-            return nil
-        }
-
-        let font = UIFont.systemFont(ofSize: 11)
-        let titleAttributes: [NSAttributedString.Key: Any] = [
-            NSAttributedString.Key.font: font,
-            NSAttributedString.Key.foregroundColor: theme.colors.primaryText
-            ]
-        
-        let mutableAttributedString = NSMutableAttributedString(string: titleForToolbarTitleView)
-        mutableAttributedString.setAttributes(titleAttributes, range: NSRange.init(location: 0, length: titleForToolbarTitleView.count))
-        
-        guard let subtitle = subtitleForToolbarTitleView?.0,
-              let subtitleLinkPrefix: String = subtitleForToolbarTitleView?.1 else {
-            return mutableAttributedString.copy() as? NSAttributedString
-        }
-        
-        let spacerString = "\n"
-        let spacerAttributedString = NSMutableAttributedString(string: spacerString)
-        spacerAttributedString.setAttributes(titleAttributes, range: NSRange.init(location: 0, length: spacerString.count))
-        mutableAttributedString.append(spacerAttributedString)
-
-        let subtitleAttributes: [NSAttributedString.Key: Any] = [
-            NSAttributedString.Key.font: font,
-            NSAttributedString.Key.foregroundColor: theme.colors.secondaryText
-            ]
-        let linkAttributes = [
-            NSAttributedString.Key.font: font,
-            NSAttributedString.Key.foregroundColor: theme.colors.link
-            ]
-        
-        let subtitleAttributedString = NSMutableAttributedString(string: subtitle)
-        subtitleAttributedString.setAttributes(subtitleAttributes, range: NSRange.init(location: 0, length: subtitle.count))
-        
-        let linkRange = (subtitle as NSString).range(of: subtitleLinkPrefix)
-        
-        if linkRange.location != NSNotFound {
-            subtitleAttributedString.setAttributes(linkAttributes, range: linkRange)
-        }
-        
-        mutableAttributedString.append(subtitleAttributedString)
-        return mutableAttributedString.copy() as? NSAttributedString
-        
-    }
-    
-    @objc func tappedToolbarCustomTitleView() {
-        presentFiltersViewController()
-    }
-    
-    var customViewForToolbarTitleView: UIView? {
-        //TODO: a lot of this logic should come from a view model
-        
-        let testCustomView = UILabel.init(frame: .zero)
-        testCustomView.numberOfLines = 0
-        testCustomView.textAlignment = .center
-        if viewModel.remoteNotificationsController.areFiltersEnabled {
-            testCustomView.isUserInteractionEnabled = true
-            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedToolbarCustomTitleView))
-            testCustomView.addGestureRecognizer(tapGestureRecognizer)
-        }
-        
-        switch viewModel.state {
-        case .empty(let emptyState):
-            switch emptyState {
-            case .filters:
-                if let attributedString = attributedStringForToolbarTitleView {
-                    testCustomView.attributedText = attributedString
-                }
-                
-                return testCustomView
-            default:
-                return nil
-            }
-        case .data(_, let dataState):
-            switch dataState {
-            case .editing:
-                return nil
-            case .nonEditing:
-                if let attributedString = attributedStringForToolbarTitleView {
-                    testCustomView.attributedText = attributedString
-                }
-                
-                return testCustomView
-            }
-        }
-    }
-    
-    func updateToolbar(for state: NotificationsCenterViewModel.State) {
-        switch state {
-        case .data(_, let dataState):
-            switch dataState {
-            case .editing(let dataEditingState):
-                
-                let markButton: UIBarButtonItem
-                let markAllAsReadButton = self.markAllAsReadButton
-                switch dataEditingState {
-                case .noneSelected:
-                    markButton = markButtonForNumberOfSelectedMessages(numSelectedMessages: 0)
-                    markButton.isEnabled = false
-                    markAllAsReadButton.isEnabled = true
-                case .oneOrMoreSelected(let numSelected):
-                    markButton = markButtonForNumberOfSelectedMessages(numSelectedMessages: numSelected)
-                    markButton.isEnabled = true
-                    markAllAsReadButton.isEnabled = false
-                }
-                
-                toolbar.items = [
-                    markButton,
-                    UIBarButtonItem.flexibleSpaceToolbar(),
-                    markAllAsReadButton
-                ]
-            case .nonEditing:
-                if let customView = customViewForToolbarTitleView {
-                    toolbar.items = [
-                        filterButton,
-                        UIBarButtonItem.flexibleSpaceToolbar(),
-                        UIBarButtonItem.init(customView: customView),
-                        UIBarButtonItem.flexibleSpaceToolbar(),
-                        inboxButton
-                    ]
-                } else {
-                    toolbar.items = [
-                        filterButton,
-                        UIBarButtonItem.flexibleSpaceToolbar(),
-                        inboxButton
-                    ]
-                }
-            }
-        case .empty(let emptyState):
-            switch emptyState {
-            case .filters:
-                if let customView = customViewForToolbarTitleView {
-                    toolbar.items = [
-                        filterButton,
-                        UIBarButtonItem.flexibleSpaceToolbar(),
-                        UIBarButtonItem.init(customView: customView),
-                        UIBarButtonItem.flexibleSpaceToolbar(),
-                        inboxButton
-                    ]
-                } else {
-                    toolbar.items = [
-                        filterButton,
-                        UIBarButtonItem.flexibleSpaceToolbar(),
-                        inboxButton
-                    ]
-                }
-            case .inboxFilters:
-                toolbar.items = [
-                    filterButton,
-                    UIBarButtonItem.flexibleSpaceToolbar(),
-                    inboxButton
-                ]
-            default:
-                toolbar.items = []
-            }
-            
-            
-        }
-    }
-    
     func markButtonForNumberOfSelectedMessages(numSelectedMessages: Int) -> UIBarButtonItem {
         let titleFormat = WMFLocalizedString("notifications-center-num-selected-messages-format", value:"{{PLURAL:%1$d|%1$d message|%1$d messages}}", comment:"Title for options menu when choosing \"Mark\" toolbar button in notifications center editing mode - %1$d is replaced with the number of selected notifications.")
         let title = String.localizedStringWithFormat(titleFormat, numSelectedMessages)
@@ -451,12 +283,12 @@ private extension NotificationsCenterViewController {
                 self.isEditing = false
             })
         ])
-        let markButton: UIBarButtonItem
+        
         let markText = WMFLocalizedString("notifications-center-mark", value: "Mark", comment: "Button text in Notifications Center. Presents menu of options to mark selected notifications as read or unread.")
         if #available(iOS 14.0, *) {
-            markButton = UIBarButtonItem(title: markText, image: nil, primaryAction: nil, menu: optionsMenu)
+            return UIBarButtonItem(title: markText, image: nil, primaryAction: nil, menu: optionsMenu)
         } else {
-            markButton = UIBarButtonItem(title: markText, style: .plain, target: self, action: #selector(didTapMarkButtonIOS13(_:)))
+            return UIBarButtonItem(title: markText, style: .plain, target: self, action: #selector(didTapMarkButtonIOS13(_:)))
         }
         return markButton
     }
@@ -563,14 +395,6 @@ private extension NotificationsCenterViewController {
         present(alertController, animated: true, completion: nil)
     }
     
-    @objc func didTapFilterButton() {
-        presentFiltersViewController()
-    }
-    
-    @objc func didTapInboxButton() {
-        presentInboxViewController()
-    }
-    
     func presentFiltersViewController() {
         
         let filtersViewModel = NotificationsCenterFiltersViewModel(remoteNotificationsController: viewModel.remoteNotificationsController, theme: theme)
@@ -637,25 +461,25 @@ private extension NotificationsCenterViewController {
         }
     }
     
-    func filterButtonImageForFiltersEnabled(_ filtersEnabled: Bool) -> UIImage? {
-        if #available(iOS 15.0, *) {
-            return UIImage(systemName: filterButtonNameForFiltersEnabled(filtersEnabled))
-        } else {
-            return UIImage(named: filterButtonNameForFiltersEnabled(filtersEnabled))
-        }
-    }
-    
-    func inboxButtonImageForFiltersEnabled(_ filtersEnabled: Bool) -> UIImage? {
-            return UIImage(systemName: inboxButtonNameForFiltersEnabled(filtersEnabled))
-    }
-    
-    func filterButtonNameForFiltersEnabled(_ filtersEnabled: Bool) -> String {
-        return filtersEnabled ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle"
-    }
-    
-    func inboxButtonNameForFiltersEnabled(_ filtersEnabled: Bool) -> String {
-        return filtersEnabled ? "tray.fill" : "tray.2"
-    }
+//    func filterButtonImageForFiltersEnabled(_ filtersEnabled: Bool) -> UIImage? {
+//        if #available(iOS 15.0, *) {
+//            return UIImage(systemName: filterButtonNameForFiltersEnabled(filtersEnabled))
+//        } else {
+//            return UIImage(named: filterButtonNameForFiltersEnabled(filtersEnabled))
+//        }
+//    }
+//
+//    func inboxButtonImageForFiltersEnabled(_ filtersEnabled: Bool) -> UIImage? {
+//            return UIImage(systemName: inboxButtonNameForFiltersEnabled(filtersEnabled))
+//    }
+//
+//    func filterButtonNameForFiltersEnabled(_ filtersEnabled: Bool) -> String {
+//        return filtersEnabled ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle"
+//    }
+//
+//    func inboxButtonNameForFiltersEnabled(_ filtersEnabled: Bool) -> String {
+//        return filtersEnabled ? "tray.fill" : "tray.2"
+//    }
     
     func filterEmptyStateSubtitleAttributedStringForFilterViewModel(_ filterViewModel: NotificationsCenterViewModel.FiltersToolbarViewModel) -> NSAttributedString? {
             let filtersLinkFormat = WMFLocalizedString("notifications-center-empty-state-num-filters", value:"{{PLURAL:%1$d|%1$d filter|%1$d filters}}", comment:"Portion of empty state subtitle showing number of filters the user has set in notifications center - %1$d is replaced with the number filters.")
@@ -694,7 +518,7 @@ private extension NotificationsCenterViewController {
 extension NotificationsCenterViewController: NotificationCenterViewModelDelegate {
     
     func stateDidChange(_ newState: NotificationsCenterViewModel.State) {
-        updateToolbar(for: newState)
+        updateToolbarDisplayState(isEditing: newState.isEditing)
         switch newState {
         case .empty(let emptyState):
             switch emptyState {
@@ -737,9 +561,18 @@ extension NotificationsCenterViewController: NotificationCenterViewModelDelegate
         return notificationsView.collectionView.indexPathsForSelectedItems?.count ?? 0
     }
     
-    func filtersToolbarViewModelDidChange(_ newViewModel: NotificationsCenterViewModel.FiltersToolbarViewModel) {
-        filterButton.image = filterButtonImageForFiltersEnabled(newViewModel.areFiltersEnabled)
-        inboxButton.image = inboxButtonImageForFiltersEnabled(newViewModel.areInboxFiltersEnabled)
+//    func filtersToolbarViewModelDidChange(_ newViewModel: NotificationsCenterViewModel.FiltersToolbarViewModel) {
+//        filterButton.image = filterButtonImageForFiltersEnabled(newViewModel.areFiltersEnabled)
+//        inboxButton.image = inboxButtonImageForFiltersEnabled(newViewModel.areInboxFiltersEnabled)
+//    }
+    
+    func cellViewModelsDidChange(cellViewModels: [NotificationsCenterCellViewModel]) {
+        configureEmptyState(isEmpty: cellViewModels.isEmpty)
+        applySnapshot(cellViewModels: cellViewModels, animatingDifferences: true)
+    }
+
+    func toolbarContentDidUpdate() {
+        refreshToolbarContent()
     }
 }
 
@@ -770,16 +603,10 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
         guard let cellViewModel = dataSource?.itemIdentifier(for: indexPath) else {
             return
         }
-        
-        if cellSwipeData.activeCell(in: collectionView) != nil {
-            closeActiveSwipePanelIfNecessary()
-            return
-        }
-        
-        let callbackForReload = viewModel.state.isEditing
-        viewModel.updateCellSelectionState(cellViewModel: cellViewModel, isSelected: true, callbackForReload: callbackForReload)
 
         if !viewModel.state.isEditing {
+            
+            collectionView.deselectItem(at: indexPath, animated: true)
 
             if let primaryURL = cellViewModel.primaryURL(for: viewModel.configuration) {
                 navigate(to: primaryURL)
@@ -787,9 +614,9 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
                     viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true)
                 }
             }
-            
-            viewModel.updateCellSelectionState(cellViewModel: cellViewModel, isSelected: false)
-            notificationsView.collectionView.deselectItem(at: indexPath, animated: true)
+        } else {
+            viewModel.updateCellDisplayStates(cellViewModels: [cellViewModel], isSelected: true)
+            reconfigureCells()
         }
     }
     
@@ -798,15 +625,27 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
         guard let cellViewModel = dataSource?.itemIdentifier(for: indexPath) else {
             return
         }
-        
-        let callbackForReload = viewModel.state.isEditing
-        viewModel.updateCellSelectionState(cellViewModel: cellViewModel, isSelected: false, callbackForReload: callbackForReload)
+
+        viewModel.updateCellDisplayStates(cellViewModels: [cellViewModel], isSelected: false)
+        reconfigureCells()
     }
 }
 
 // MARK: - Cell Swipe Actions
 
 @objc extension NotificationsCenterViewController: UIGestureRecognizerDelegate {
+
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        super.scrollViewWillBeginDragging(scrollView)
+        closeSwipeActionsPanelIfNecessary()
+    }
+
+    func closeSwipeActionsPanelIfNecessary() {
+        if let activeCell = cellSwipeData.activeCell(in: notificationsView.collectionView) {
+            animateSwipePanel(open: false, for: activeCell)
+            cellSwipeData.resetActiveData()
+        }
+    }
 
     /// Only allow cell pan gesture if user's horizontal cell panning behavior seems intentional
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -820,31 +659,20 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
         return false
     }
 
-    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        super.scrollViewWillBeginDragging(scrollView)
-        closeActiveSwipePanelIfNecessary()
-    }
-
-    func closeActiveSwipePanelIfNecessary() {
-        if let activeCell = cellSwipeData.activeCell(in: notificationsView.collectionView){
-            animateSwipePanel(open: false, for: activeCell)
-            cellSwipeData.resetActiveData()
-            deselectCells()
-        }
-    }
-
     fileprivate func animateSwipePanel(open: Bool, for cell: NotificationsCenterCell) {
-       UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.5, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
-           if open {
-               cell.foregroundContentContainer.transform = CGAffineTransform.identity.translatedBy(x: -cell.swipeActionButtonStack.frame.size.width, y: 0)
-           } else {
-               cell.foregroundContentContainer.transform = CGAffineTransform.identity
-           }
-       }, completion: nil)
+        let isRTL = UIApplication.shared.wmf_isRTL
+        UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.5, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
+            if open {
+                let translationX = isRTL ? cell.swipeActionButtonStack.frame.size.width : -cell.swipeActionButtonStack.frame.size.width
+                cell.foregroundContentContainer.transform = CGAffineTransform.identity.translatedBy(x: translationX, y: 0)
+            } else {
+                cell.foregroundContentContainer.transform = CGAffineTransform.identity
+            }
+        }, completion: nil)
     }
 
     @objc fileprivate func userDidPanCell(_ gestureRecognizer: UIPanGestureRecognizer) {
-        // TODO let isRTL = UIApplication.shared.wmf_isRTL
+        let isRTL = UIApplication.shared.wmf_isRTL
         let triggerVelocity: CGFloat = 400
         let swipeEdgeBuffer = NotificationsCenterCell.swipeEdgeBuffer
         let touchPosition = gestureRecognizer.location(in: notificationsView.collectionView)
@@ -870,7 +698,7 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
                     break
                 }
             } else {
-                cellSwipeData.activelyPannedCellTranslationX = cell.foregroundContentContainer.transform.tx
+                cellSwipeData.activelyPannedCellTranslationX = isRTL ? -cell.foregroundContentContainer.transform.tx : cell.foregroundContentContainer.transform.tx
             }
 
             cellSwipeData.activelyPannedCellIndexPath = touchCellIndexPath
@@ -894,14 +722,16 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
                 totalTranslationX = swipeEdgeBuffer + log(abs(translationX))
             }
 
-            cell.foregroundContentContainer.transform = CGAffineTransform(translationX: totalTranslationX, y: 0)
+            let finalTranslationX = isRTL ? -totalTranslationX : totalTranslationX
+            cell.foregroundContentContainer.transform = CGAffineTransform(translationX: finalTranslationX, y: 0)
         case .ended:
             guard let cell = cellSwipeData.activeCell(in: notificationsView.collectionView) else {
                 break
             }
 
             var shouldOpenSwipePanel: Bool
-            let currentCellTranslationX = cell.foregroundContentContainer.transform.tx
+            
+            let currentCellTranslationX = isRTL ? -cell.foregroundContentContainer.transform.tx : cell.foregroundContentContainer.transform.tx
 
             if currentCellTranslationX > 0 {
                 shouldOpenSwipePanel = false
@@ -933,28 +763,10 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
 
 extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
 
-    func userDidTapSecondaryActionForViewModel(_ cellViewModel: NotificationsCenterCellViewModel) {
-        guard cellSwipeData.activeCell(in: notificationsView.collectionView) == nil else {
-            closeActiveSwipePanelIfNecessary()
-            return
-        }
-
-        guard let url = cellViewModel.secondaryURL(for: viewModel.configuration) else {
-            return
-        }
-
-        navigate(to: url)
-        if !cellViewModel.isRead {
-            viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true)
-        }
-    }
-
     func userDidTapMoreActionForCell(_ cell: NotificationsCenterCell) {
-        guard let cellViewModel = cell.viewModel else {
+        guard let cellViewModel = cell.viewModel else  {
             return
         }
-
-        closeActiveSwipePanelIfNecessary()
 
         let sheetActions = cellViewModel.sheetActions(for: viewModel.configuration)
         guard !sheetActions.isEmpty else {
@@ -964,13 +776,13 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
         let alertController = UIAlertController(title: cellViewModel.headerText, message: cellViewModel.bodyText ?? cellViewModel.subheaderText, preferredStyle: .actionSheet)
 
         sheetActions.forEach { action in
-
             let alertAction: UIAlertAction
             switch action {
             case .markAsReadOrUnread(let data):
                 alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
                     let shouldMarkRead = cellViewModel.isRead ? false : true
                     self.viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: shouldMarkRead)
+                    self.closeSwipeActionsPanelIfNecessary()
                 })
             case .notificationSubscriptionSettings(let data):
                 alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
@@ -997,8 +809,15 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
         alertController.addAction(cancelAction)
 
         if let popoverController = alertController.popoverPresentationController {
-            popoverController.sourceView = cell
-            popoverController.sourceRect = CGRect(x: cell.bounds.midX, y: cell.bounds.midY, width: 0, height: 0)
+            if let activeCell = cellSwipeData.activeCell(in: notificationsView.collectionView) {
+                let sourceView = activeCell.swipeMoreStack
+                popoverController.sourceView = sourceView
+                popoverController.sourceRect = CGRect(x: sourceView.bounds.midX, y: sourceView.bounds.midY, width: 0, height: 0)
+            } else {
+                popoverController.sourceView = cell
+                popoverController.sourceRect = CGRect(x: cell.bounds.midX, y: cell.bounds.midY, width: 0, height: 0)
+
+            }
         }
 
         present(alertController, animated: true, completion: nil)
@@ -1008,9 +827,41 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
         guard let cellViewModel = cell.viewModel else {
             return
         }
-        
-        closeActiveSwipePanelIfNecessary()
+
+        closeSwipeActionsPanelIfNecessary()
         viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: !cellViewModel.isRead)
     }
+    
+}
 
+// MARK: - Toolbar
+
+extension NotificationsCenterViewController {
+
+    /// Update the bar buttons displayed in the toolbar based on the editing state
+    fileprivate func updateToolbarDisplayState(isEditing: Bool) {
+        markButton = markButtonForNumberOfSelectedMessages(numSelectedMessages: numCellsSelected)
+        if isEditing {
+            toolbar.items = [markButton, .flexibleSpaceToolbar(), markAllAsReadButton]
+        } else {
+            toolbar.items = [typeFilterButton, .flexibleSpaceToolbar(), statusBarButton, .flexibleSpaceToolbar(), projectFilterButton]
+        }
+
+        refreshToolbarContent()
+    }
+
+    /// Refresh the images and strings used in the toolbar, regardless of editing state
+    @objc fileprivate func refreshToolbarContent() {
+        typeFilterButton.image = viewModel.typeFilterButtonImage
+        projectFilterButton.image = viewModel.projectFilterButtonImage
+        statusBarButton.label.text = viewModel.statusBarText
+    }
+
+    @objc fileprivate func userDidTapProjectFilterButton() {
+        presentFiltersViewController()
+    }
+
+    @objc fileprivate func userDidTapTypeFilterButton() {
+        presentInboxViewController()
+    }
 }
