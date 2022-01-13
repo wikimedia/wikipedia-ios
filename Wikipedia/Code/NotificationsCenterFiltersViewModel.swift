@@ -3,7 +3,7 @@ import Foundation
 import WMF
 
 protocol NotificationsCenterFiltersItemViewModelDelegate: AnyObject {
-    func setFilterReadStatus(newReadStatus: RemoteNotificationsFiltersSavedState.ReadStatus)
+    func setFilterReadStatus(newReadStatus: RemoteNotificationsFilterState.ReadStatus)
     func appendFilterType(_ type: RemoteNotificationType)
     func removeFilterType(_ type: RemoteNotificationType)
     func removeAllFilterTypes()
@@ -29,7 +29,7 @@ class NotificationsCenterFiltersViewModel: ObservableObject, NotificationsCenter
     class ItemViewModel: ObservableObject, Identifiable {
         
         enum SelectionType {
-            case checkmark(RemoteNotificationsFiltersSavedState.ReadStatus)
+            case checkmark(RemoteNotificationsFilterState.ReadStatus)
             case toggleAll
             case toggle(RemoteNotificationType)
         }
@@ -102,22 +102,20 @@ class NotificationsCenterFiltersViewModel: ObservableObject, NotificationsCenter
  
     init?(remoteNotificationsController: RemoteNotificationsController, theme: Theme) {
         
-        guard let savedState = remoteNotificationsController.filterSavedState else {
-            return nil
-        }
+        let filterState = remoteNotificationsController.filterState
      
         self.remoteNotificationsController = remoteNotificationsController
         self.theme = theme
         
-        let items1 = RemoteNotificationsFiltersSavedState.ReadStatus.allCases.map {
+        let items1 = RemoteNotificationsFilterState.ReadStatus.allCases.map {
             
-            return ItemViewModel(title: $0.title, selectionType: .checkmark($0), isSelected: $0 == savedState.readStatusSetting)
+            return ItemViewModel(title: $0.title, selectionType: .checkmark($0), isSelected: $0 == filterState.readStatus)
             
         }
         
         let section1 = SectionViewModel(title: "Read Status", footer: nil, items: items1)
         
-        let item2 = ItemViewModel(title: "All types", selectionType: .toggleAll, isSelected: savedState.filterTypeSetting.count == 0)
+        let item2 = ItemViewModel(title: "All types", selectionType: .toggleAll, isSelected: filterState.types.count == 0)
 
         let section2 = SectionViewModel(title: "Types of notifications", footer: "Modify notification types to filter them in/out of your notification inbox. Types that are turned off will not be visible, but their content and any new notifications will be available when the toggle is turned on again.", items: [item2])
         
@@ -127,7 +125,7 @@ class NotificationsCenterFiltersViewModel: ObservableObject, NotificationsCenter
                 return nil
             }
             
-            let isSelected = !savedState.filterTypeSetting.contains($0)
+            let isSelected = !filterState.types.contains($0)
             return ItemViewModel(title: title, selectionType:.toggle($0), isSelected: isSelected)
             
         }
@@ -140,14 +138,12 @@ class NotificationsCenterFiltersViewModel: ObservableObject, NotificationsCenter
         itemViewModels.forEach { $0.delegate = self }
     }
     
-    func setFilterReadStatus(newReadStatus: RemoteNotificationsFiltersSavedState.ReadStatus) {
+    func setFilterReadStatus(newReadStatus: RemoteNotificationsFilterState.ReadStatus) {
         
-        guard let currentSavedState = remoteNotificationsController.filterSavedState else {
-            return
-        }
+        let currentFilterState = remoteNotificationsController.filterState
         
-        let newSavedState = RemoteNotificationsFiltersSavedState(readStatusSetting: newReadStatus, filterTypeSetting: currentSavedState.filterTypeSetting, projectsSetting: currentSavedState.projectsSetting)
-        remoteNotificationsController.filterSavedState = newSavedState
+        let newFilterState = RemoteNotificationsFilterState(readStatus: newReadStatus, types: currentFilterState.types, projects: currentFilterState.projects)
+        remoteNotificationsController.filterState = newFilterState
         
         guard let readStatusSection = sections[safeIndex: 0] else {
             return
@@ -182,12 +178,10 @@ class NotificationsCenterFiltersViewModel: ObservableObject, NotificationsCenter
             }
         }
         
-        guard let currentSavedState = remoteNotificationsController.filterSavedState else {
-            return
-        }
+        let currentFilterState = remoteNotificationsController.filterState
         
-        let newSavedState = RemoteNotificationsFiltersSavedState(readStatusSetting: currentSavedState.readStatusSetting, filterTypeSetting: [], projectsSetting: currentSavedState.projectsSetting)
-        remoteNotificationsController.filterSavedState = newSavedState
+        let newFilterState = RemoteNotificationsFilterState(readStatus: currentFilterState.readStatus, types: [], projects: currentFilterState.projects)
+        remoteNotificationsController.filterState = newFilterState
     }
     
     func appendAllFilterTypes() {
@@ -205,25 +199,21 @@ class NotificationsCenterFiltersViewModel: ObservableObject, NotificationsCenter
             }
         }
         
-        guard let currentSavedState = remoteNotificationsController.filterSavedState else {
-            return
-        }
+        let currentFilterState = remoteNotificationsController.filterState
         
-        let newSavedState = RemoteNotificationsFiltersSavedState(readStatusSetting: currentSavedState.readStatusSetting, filterTypeSetting: RemoteNotificationType.orderingForFilters, projectsSetting: currentSavedState.projectsSetting)
-        remoteNotificationsController.filterSavedState = newSavedState
+        let newFilterState = RemoteNotificationsFilterState(readStatus: currentFilterState.readStatus, types: RemoteNotificationType.orderingForFilters, projects: currentFilterState.projects)
+        remoteNotificationsController.filterState = newFilterState
     }
     
     func appendFilterType(_ type: RemoteNotificationType) {
 
-        guard let currentSavedState = remoteNotificationsController.filterSavedState else {
-            return
-        }
+        let currentFilterState = remoteNotificationsController.filterState
         
-        var newFilterTypeSetting = currentSavedState.filterTypeSetting
-        newFilterTypeSetting.append(type)
+        var newTypes = currentFilterState.types
+        newTypes.append(type)
         
-        let newSavedState = RemoteNotificationsFiltersSavedState(readStatusSetting: currentSavedState.readStatusSetting, filterTypeSetting: newFilterTypeSetting, projectsSetting: currentSavedState.projectsSetting)
-        remoteNotificationsController.filterSavedState = newSavedState
+        let newFilterState = RemoteNotificationsFilterState(readStatus: currentFilterState.readStatus, types: newTypes, projects: currentFilterState.projects)
+        remoteNotificationsController.filterState = newFilterState
         
         guard let allTypeSection = sections[safeIndex: 1],
         let allTypeItem = allTypeSection.items.first else {
@@ -235,19 +225,17 @@ class NotificationsCenterFiltersViewModel: ObservableObject, NotificationsCenter
     
     func removeFilterType(_ type: RemoteNotificationType) {
         
-        guard let currentSavedState = remoteNotificationsController.filterSavedState else {
-            return
-        }
+        let currentFilterState = remoteNotificationsController.filterState
         
-        var newFilterTypeSetting = currentSavedState.filterTypeSetting
-        newFilterTypeSetting.removeAll { loopType in
+        var newTypes = currentFilterState.types
+        newTypes.removeAll { loopType in
             return loopType == type
         }
         
-        let newSavedState = RemoteNotificationsFiltersSavedState(readStatusSetting: currentSavedState.readStatusSetting, filterTypeSetting: newFilterTypeSetting, projectsSetting: currentSavedState.projectsSetting)
-        remoteNotificationsController.filterSavedState = newSavedState
+        let newFilterState = RemoteNotificationsFilterState(readStatus: currentFilterState.readStatus, types: newTypes, projects: currentFilterState.projects)
+        remoteNotificationsController.filterState = newFilterState
         
-        if newFilterTypeSetting.count == 0 {
+        if newTypes.count == 0 {
             
             guard let allTypeSection = sections[safeIndex: 1],
                   let allTypeItem = allTypeSection.items.first else {
@@ -260,7 +248,7 @@ class NotificationsCenterFiltersViewModel: ObservableObject, NotificationsCenter
     }
 }
 
-extension RemoteNotificationsFiltersSavedState.ReadStatus {
+extension RemoteNotificationsFilterState.ReadStatus {
     var title: String {
         switch self {
         case .all: return "All"

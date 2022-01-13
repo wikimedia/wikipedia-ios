@@ -162,7 +162,7 @@ public extension RemoteNotificationType {
 }
 
 public extension RemoteNotificationType {
-    public static var orderingForFilters: [RemoteNotificationType] {
+    static var orderingForFilters: [RemoteNotificationType] {
         return [
             .userTalkPageMessage,
             .pageReviewed,

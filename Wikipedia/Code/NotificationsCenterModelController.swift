@@ -67,9 +67,9 @@ final class NotificationsCenterModelController {
             }
             
             //updated notification read state may cause tracked models here to be out of date (i.e. models only contain unread notifications due to filter, and user marks a notification as read). Remove model from tracking properties if filter indicates we should. This allows cell to disappear from screen when marking it's read/unread state while a read/unread filter is on.
-            if let filterSavedState = remoteNotificationsController.filterSavedState,
-               (filterSavedState.readStatusSetting == .read && !notification.isRead) ||
-                (filterSavedState.readStatusSetting == .unread && notification.isRead) {
+            let filterState = remoteNotificationsController.filterState
+            if (filterState.readStatus == .read && !notification.isRead) ||
+                (filterState.readStatus == .unread && notification.isRead) {
                 cellViewModels.remove(viewModel)
                 cellViewModelsDict.removeValue(forKey: key)
                 didRemoveValueFromTrackingProperties = true
@@ -101,7 +101,7 @@ final class NotificationsCenterModelController {
         }
     }
     
-    func updateCellDisplayStates(cellViewModels: [NotificationsCenterCellViewModel], isEditing: Bool, isSelected: Bool? = nil, callbackForReload: Bool = true) {
+    func updateCellDisplayStates(cellViewModels: [NotificationsCenterCellViewModel], isEditing: Bool, isSelected: Bool? = nil) {
         var dataChanged = false
         
         cellViewModels.forEach { cellViewModel in
@@ -113,16 +113,14 @@ final class NotificationsCenterModelController {
             }
         }
         
-        if dataChanged && callbackForReload {
+        if dataChanged {
             delegate?.dataDidChange()
         }
     }
     
-    func reset(callbackForReload: Bool = false) {
+    func reset() {
         cellViewModelsDict.removeAll()
         cellViewModels.removeAll()
-        if callbackForReload {
-            delegate?.dataDidChange()
-        }
+        delegate?.dataDidChange()
     }
 }

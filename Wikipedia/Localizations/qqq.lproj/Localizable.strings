@@ -574,9 +574,7 @@
 "notifications-center-mark-as-read" = "Button text in Notifications Center to mark a notification as read.";
 "notifications-center-mark-as-unread" = "Button text in Notifications Center to mark a notification as unread.";
 "notifications-center-notifications-settings" = "Button text in Notifications Center that automatically routes to the notifications settings screen.";
-"notifications-center-num-projects-in-filter-format" = "Portion of subtitle of notfications center toolbar indicating how many projects user has selected in their filter - $1 is replaced with the number of notification projeccts selected in their filter.";
 "notifications-center-num-selected-messages-format" = "Title for options menu when choosing \"Mark\" toolbar button in notifications center editing mode - $1 is replaced with the number of selected notifications.";
-"notifications-center-num-types-in-filter-format" = "Portion of subtitle of notfications center toolbar indicating how many types user has selected in their filter - $1 is replaced with the number of notification types selected in their filter.";
 "notifications-center-subheader-edit-milestone" = "Subheader text for edit milestone notifications in Notifications Center.";
 "notifications-center-subheader-edit-reverted" = "Subheader text for edit reverted notifications in Notifications Center.";
 "notifications-center-subheader-email-from-other-user" = "Subheader text for 'email from other user' notifications in Notifications Center.";

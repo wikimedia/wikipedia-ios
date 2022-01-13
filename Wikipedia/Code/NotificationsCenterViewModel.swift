@@ -2,17 +2,16 @@ import Foundation
 import CocoaLumberjackSwift
 import Combine
 import WMF
+import UIKit
 
 protocol NotificationCenterViewModelDelegate: AnyObject {
 
-    /// This updates view controller subviews to reflect the new state it switches between various empty states and data states).
-    func stateDidChange(_ newState: NotificationsCenterViewModel.State)
-    //func filtersToolbarViewModelDidChange(_ newViewModel: NotificationsCenterViewModel.FiltersToolbarViewModel)
-    var numCellsSelected: Int { get }
     /// This causes snapshot to update entirely, inserting new cells as needed
+    /// It also asks the cells to reconfigure (for now, we might make this a distinct ask)
     func cellViewModelsDidChange(cellViewModels: [NotificationsCenterCellViewModel])
     
-    func toolbarContentDidUpdate()
+    //note: might want to separate this from toolbarDisplayState (mark/mark all vs filter/title/inbox) and toolbarContent (filter/title/inbox states and content)
+    func toolbarDidUpdate()
 }
 
 enum NotificationsCenterSection {
@@ -21,60 +20,6 @@ enum NotificationsCenterSection {
 
 @objc
 final class NotificationsCenterViewModel: NSObject {
-    
-//    struct FiltersToolbarViewModel {
-//        let areFiltersEnabled: Bool
-//        let areInboxFiltersEnabled: Bool
-//        let countOfTypeFilters: Int
-//
-//        static func filtersToolbarViewModel(from remoteNotificationsController: RemoteNotificationsController) -> FiltersToolbarViewModel {
-//
-//            return FiltersToolbarViewModel(areFiltersEnabled: remoteNotificationsController.areFiltersEnabled,
-//                                           areInboxFiltersEnabled: remoteNotificationsController.areInboxFiltersEnabled, countOfTypeFilters: remoteNotificationsController.countOfTypeFilters)
-//        }
-//    }
-    
-    //private(set) var filtersToolbarViewModel: FiltersToolbarViewModel
-    
-    enum State {
-        
-        enum EmptyState {
-            case initial
-            case noData //pure empty state, not due to loading or filters or subscriptions. It's unlikely this state is ever achieved
-            case loading
-            case filters
-            case inboxFilters
-            case subscriptions
-        }
-        
-        enum DataState {
-            
-            enum Editing {
-                case noneSelected(Int?)
-                case oneOrMoreSelected(Int)
-            }
-            
-            case nonEditing
-            case editing(Editing)
-        }
-        
-        case empty(EmptyState)
-        case data([NotificationsCenterCellViewModel], DataState)
-        
-        var isEditing: Bool {
-            switch self {
-            case .data(_, let stateData):
-                switch stateData {
-                case .editing:
-                    return true
-                default:
-                    return false
-                }
-            default:
-                return false
-            }
-        }
-    }
 
     // MARK: - Properties
 
@@ -84,23 +29,23 @@ final class NotificationsCenterViewModel: NSObject {
 
     lazy private var modelController = NotificationsCenterModelController(languageLinkController: self.languageLinkController, delegate: self, remoteNotificationsController: remoteNotificationsController)
 
-    private(set) var state: NotificationsCenterViewModel.State {
-        didSet {
-            delegate?.stateDidChange(state)
-        }
-    }
-
-    private let languageLinkController: MWKLanguageLinkController
+    let languageLinkController: MWKLanguageLinkController
 
     private var isLoading: Bool = false {
         didSet {
-            delegate?.toolbarContentDidUpdate()
+            delegate?.toolbarDidUpdate()
         }
     }
 
     private var isPagingEnabled = true
 
-    var isEditing: Bool = false
+    var isEditing = false {
+        didSet {
+            if oldValue != isEditing {
+                updateStateFromEditingModeChange(isEditing: isEditing)
+            }
+        }
+    }
     
     var configuration: Configuration {
         return remoteNotificationsController.configuration
@@ -112,10 +57,7 @@ final class NotificationsCenterViewModel: NSObject {
     init(remoteNotificationsController: RemoteNotificationsController, languageLinkController: MWKLanguageLinkController) {
         self.remoteNotificationsController = remoteNotificationsController
         self.languageLinkController = languageLinkController
-        self.state = .empty(.initial)
-        self.stateSubject = PassthroughSubject<NotificationsCenterViewModel.State, Never>()
-        filtersToolbarViewModel = FiltersToolbarViewModel.filtersToolbarViewModel(from: remoteNotificationsController)
-
+        
         super.init()
 
         NotificationCenter.default.addObserver(self, selector: #selector(remoteNotificationsControllerDidUpdateFilterState), name: RemoteNotificationsController.didUpdateFilterStateNotification, object: nil)
@@ -137,8 +79,8 @@ final class NotificationsCenterViewModel: NSObject {
             return
         }
         
-        modelController.addNewCellViewModelsWith(notifications: Array(newNotifications), isEditing: state.isEditing)
-        modelController.evaluateUpdatedNotifications(updatedNotifications: Array(refreshedNotifications), isEditing: state.isEditing)
+        modelController.evaluateUpdatedNotifications(updatedNotifications: Array(refreshedNotifications), isEditing: isEditing)
+        modelController.addNewCellViewModelsWith(notifications: Array(newNotifications), isEditing: isEditing)
     }
 
     // MARK: - Public
@@ -161,14 +103,14 @@ final class NotificationsCenterViewModel: NSObject {
     }
     
     func resetAndRefreshData() {
-        modelController.reset(callbackForReload: true)
+        modelController.reset()
         fetchFirstPage()
         isPagingEnabled = true
     }
     
     func fetchFirstPage() {
         
-        state = .empty(.loading)
+        isLoading = true
         
         kickoffImportIfNeeded { [weak self] in
             
@@ -178,14 +120,7 @@ final class NotificationsCenterViewModel: NSObject {
                 }
                 
                 let notifications = self.remoteNotificationsController.fetchNotifications()
-                if notifications.isEmpty {
-                    if self.remoteNotificationsController.areFiltersEnabled {
-                        self.state = .empty(.filters)
-                    } else {
-                        self.state = self.remoteNotificationsController.areInboxFiltersEnabled ? .empty(.inboxFilters) : .empty(.noData)
-                    }
-                }
-                self.modelController.addNewCellViewModelsWith(notifications: notifications, isEditing: self.state.isEditing)
+                self.modelController.addNewCellViewModelsWith(notifications: notifications, isEditing: self.isEditing)
             }
         }
     }
@@ -204,25 +139,21 @@ final class NotificationsCenterViewModel: NSObject {
             return
         }
         
-        modelController.addNewCellViewModelsWith(notifications: notifications, isEditing: state.isEditing)
+        modelController.addNewCellViewModelsWith(notifications: notifications, isEditing: isEditing)
     }
     
-    func updateCellSelectionState(cellViewModel: NotificationsCenterCellViewModel, isSelected: Bool, callbackForReload: Bool = false) {
-        modelController.updateCellDisplayStates(cellViewModels: [cellViewModel], isEditing: self.state.isEditing, isSelected: isSelected, callbackForReload: callbackForReload)
+    func updateCellDisplayStates(cellViewModels: [NotificationsCenterCellViewModel], isSelected: Bool? = nil) {
+        modelController.updateCellDisplayStates(cellViewModels: cellViewModels, isEditing: self.isEditing, isSelected: isSelected)
     }
     
     func updateStateFromEditingModeChange(isEditing: Bool) {
-        modelController.updateCellDisplayStates(cellViewModels: modelController.sortedCellViewModels, isEditing: isEditing)
-        guard let newState = newStateFromEditingModeChange(isEditing: isEditing) else {
-            return
-        }
-        
-        self.state = newState
+        self.isEditing = isEditing
+        updateCellDisplayStates(cellViewModels: modelController.sortedCellViewModels)
+        delegate?.toolbarDidUpdate()
     }
     
-    func filtersToolbarViewModelNeedsReload() {
-//        self.filtersToolbarViewModel = FiltersToolbarViewModel.filtersToolbarViewModel(from: remoteNotificationsController)
-//        delegate?.filtersToolbarViewModelDidChange(self.filtersToolbarViewModel)
+    var numberOfUnreadNotifications: Int? {
+        return self.remoteNotificationsController.numberOfUnreadNotifications
     }
 }
 
@@ -242,71 +173,10 @@ private extension NotificationsCenterViewModel {
             }
             
             self.remoteNotificationsController.setupInitialFilters(languageLinkController: self.languageLinkController) {
-                self.filtersToolbarViewModelNeedsReload()
                 NotificationCenter.default.addObserver(self, selector: #selector(self.contextObjectsDidChange(_:)), name: Notification.Name.NSManagedObjectContextObjectsDidChange, object: self.remoteNotificationsController.viewContext)
 
                 completion()
             }
-        }
-    }
-    
-    var numberOfUnreadNotifications: Int? {
-        return self.remoteNotificationsController.numberOfUnreadNotifications
-    }
-    
-    func newStateFromEditingModeChange(isEditing: Bool) -> NotificationsCenterViewModel.State? {
-
-        switch state {
-        case .empty:
-            assertionFailure("It should not be possible to change the editing state while in empty state mode. Edit button should be disabled.")
-            return nil
-        case .data(_, let dataState):
-            switch dataState {
-            case .editing:
-                guard !isEditing else {
-                    assertionFailure("Attempting to change into editing mode while already in editing mode. This seems odd.")
-                    return nil
-                }
-                
-                return .data(modelController.sortedCellViewModels, .nonEditing)
-            case .nonEditing:
-                guard isEditing else {
-                    assertionFailure("Attempting to change into non-editing mode while already in non-editing mode. This seems odd.")
-                    return nil
-                }
-                
-                return .data(modelController.sortedCellViewModels, .editing(.noneSelected(numberOfUnreadNotifications)))
-            }
-        }
-    }
-    
-    func newStateFromUnderlyingDataChange() -> NotificationsCenterViewModel.State {
-        
-        guard !modelController.sortedCellViewModels.isEmpty else {
-            
-            if self.remoteNotificationsController.areFiltersEnabled {
-                return .empty(.filters)
-            } else {
-                return self.remoteNotificationsController.areInboxFiltersEnabled ? .empty(.inboxFilters) : .empty(.noData)
-            }
-        }
-        
-        switch state {
-        case .data(_, let dataState):
-            //TODO: basic reassignment for the most part. Just need to account for number of selected cells
-            switch dataState {
-            case .nonEditing:
-                return .data(modelController.sortedCellViewModels, .nonEditing)
-            case .editing:
-                let numberCellsSelected = delegate?.numCellsSelected ?? 0
-                if numberCellsSelected == 0 {
-                    return .data(modelController.sortedCellViewModels, .editing(.noneSelected(numberOfUnreadNotifications)))
-                } else {
-                    return .data(modelController.sortedCellViewModels, .editing(.oneOrMoreSelected(numberCellsSelected)))
-                }
-            }
-        case .empty:
-            return .data(modelController.sortedCellViewModels, .nonEditing)
         }
     }
 }
@@ -318,7 +188,7 @@ extension NotificationsCenterViewModel: NotificationsCenterModelControllerDelega
     //The next page of notifications have been fetched from the database, transformed into cell view models and added to the model controller.
     //Note all of these have the capability of switching the state from an empty state to a data state (and vice versa), of inserting additional cell view models thus requiring a diffable snapshot update, as well as changing the underlying cell view model states, thus requiring a cell reload.
     func dataDidChange() {
-        self.state = newStateFromUnderlyingDataChange()
+        delegate?.cellViewModelsDidChange(cellViewModels: modelController.sortedCellViewModels)
     }
 }
 
@@ -329,7 +199,7 @@ extension NotificationsCenterViewModel {
     // MARK: - Private
 
     @objc fileprivate func remoteNotificationsControllerDidUpdateFilterState() {
-        delegate?.toolbarContentDidUpdate()
+        delegate?.toolbarDidUpdate()
     }
 
     fileprivate func toolbarImageForTypeFilter(engaged: Bool) -> UIImage? {
@@ -360,6 +230,49 @@ extension NotificationsCenterViewModel {
         // Logic for status bar text based on type, project, and read filters here
 
         return "All Notifications"
+    }
+    
+    var emptyStateHeaderText: String {
+        return NotificationsCenterView.EmptyOverlayStrings.noUnreadMessages
+    }
+    
+    var emptyStateSubheaderText: String {
+        if isLoading {
+            return NotificationsCenterView.EmptyOverlayStrings.checkingForNotifications
+        } else {
+            return ""
+        }
+    }
+    
+    func emptyStateSubheaderAttributedString(theme: Theme, traitCollection: UITraitCollection) -> NSAttributedString? {
+        guard remoteNotificationsController.countOfTypeFilters > 0 else {
+            return nil
+        }
+            
+        let filtersLinkFormat = WMFLocalizedString("notifications-center-empty-state-num-filters", value:"{{PLURAL:%1$d|%1$d filter|%1$d filters}}", comment:"Portion of empty state subtitle showing number of filters the user has set in notifications center - %1$d is replaced with the number filters.")
+        let filtersSubtitleFormat = WMFLocalizedString("notifications-center-empty-state-filters-subtitle", value:"Modify %1$@ to see more messages", comment:"Format of empty state subtitle when the user has filters on - %1$@ is replaced with a string representing the number of filters the user has set.")
+        let filtersLink = String.localizedStringWithFormat(filtersLinkFormat, remoteNotificationsController.countOfTypeFilters)
+        let filtersSubtitle = String.localizedStringWithFormat(filtersSubtitleFormat, filtersLink)
+
+        let rangeOfFiltersLink = (filtersSubtitle as NSString).range(of: filtersLink)
+
+        let font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        let attributes: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.font: font,
+            NSAttributedString.Key.foregroundColor: theme.colors.secondaryText
+            ]
+        let linkAttributes = [
+            NSAttributedString.Key.font: font,
+            NSAttributedString.Key.foregroundColor: theme.colors.link
+            ]
+
+        let attributedString = NSMutableAttributedString(string: filtersSubtitle)
+        attributedString.setAttributes(attributes, range: NSRange(location: 0, length: filtersSubtitle.count) )
+        if rangeOfFiltersLink.location != NSNotFound {
+            attributedString.setAttributes(linkAttributes, range: rangeOfFiltersLink)
+        }
+
+        return attributedString.copy() as? NSAttributedString
     }
 
 }

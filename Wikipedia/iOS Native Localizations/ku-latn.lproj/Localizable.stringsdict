@@ -351,22 +351,6 @@
 			<string>%1$d messages</string>
 		</dict>
 	</dict>
-	<key>notifications-center-num-projects-in-filter-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d project</string>
-			<key>other</key>
-			<string>%1$d projects</string>
-		</dict>
-	</dict>
 	<key>notifications-center-num-selected-messages-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -381,22 +365,6 @@
 			<string>%1$d message</string>
 			<key>other</key>
 			<string>%1$d messages</string>
-		</dict>
-	</dict>
-	<key>notifications-center-num-types-in-filter-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
-		<key>v1</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>d</string>
-			<key>one</key>
-			<string>%1$d type</string>
-			<key>other</key>
-			<string>%1$d types</string>
 		</dict>
 	</dict>
 	<key>notifications-push-talk-messages-format</key>

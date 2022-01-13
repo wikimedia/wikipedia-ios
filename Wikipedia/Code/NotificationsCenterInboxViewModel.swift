@@ -44,30 +44,27 @@ class NotificationsCenterInboxViewModel: ObservableObject {
         }
         
         private func appendProjectToFilter(_ project: RemoteNotificationsProject) {
-            guard let currentSavedState = remoteNotificationsController.filterSavedState else {
-                return
-            }
             
-            var newProjectsSetting = currentSavedState.projectsSetting
-            newProjectsSetting.append(project)
+            let currentFilterState = remoteNotificationsController.filterState
             
-            let newSavedState = RemoteNotificationsFiltersSavedState(readStatusSetting: currentSavedState.readStatusSetting, filterTypeSetting: currentSavedState.filterTypeSetting, projectsSetting: newProjectsSetting)
-            remoteNotificationsController.filterSavedState = newSavedState
+            var newProjects = currentFilterState.projects
+            newProjects.append(project)
+            
+            let newFilterState = RemoteNotificationsFilterState(readStatus: currentFilterState.readStatus, types: currentFilterState.types, projects: newProjects)
+            remoteNotificationsController.filterState = newFilterState
         }
         
         private func removeProjectFromFilter(_ project: RemoteNotificationsProject) {
             
-            guard let currentSavedState = remoteNotificationsController.filterSavedState else {
-                return
-            }
+            let currentFilterState = remoteNotificationsController.filterState
             
-            var newProjectsSetting = currentSavedState.projectsSetting
-            newProjectsSetting.removeAll { loopProject in
+            var newProjects = currentFilterState.projects
+            newProjects.removeAll { loopProject in
                 return loopProject == project
             }
             
-            let newSavedState = RemoteNotificationsFiltersSavedState(readStatusSetting: currentSavedState.readStatusSetting, filterTypeSetting: currentSavedState.filterTypeSetting, projectsSetting: newProjectsSetting)
-            remoteNotificationsController.filterSavedState = newSavedState
+            let newFilterState = RemoteNotificationsFilterState(readStatus: currentFilterState.readStatus, types: currentFilterState.types, projects: newProjects)
+            remoteNotificationsController.filterState = newFilterState
         }
     }
     
@@ -77,14 +74,12 @@ class NotificationsCenterInboxViewModel: ObservableObject {
  
     init?(remoteNotificationsController: RemoteNotificationsController, allInboxProjects: Set<RemoteNotificationsProject>, theme: Theme) {
      
-        guard let savedState = remoteNotificationsController.filterSavedState else {
-            return nil
-        }
+        let filterState = remoteNotificationsController.filterState
         
         self.remoteNotificationsController = remoteNotificationsController
         self.theme = theme
         
-        let unselectedProjects = Set(savedState.projectsSetting)
+        let unselectedProjects = Set(filterState.projects)
         
         let nonLanguageProjects = allInboxProjects.filter { project in
             switch project {

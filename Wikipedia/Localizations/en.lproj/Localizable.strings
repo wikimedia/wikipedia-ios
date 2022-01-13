@@ -574,9 +574,7 @@
 "notifications-center-mark-as-read" = "Mark as Read";
 "notifications-center-mark-as-unread" = "Mark as Unread";
 "notifications-center-notifications-settings" = "Notification settings";
-"notifications-center-num-projects-in-filter-format" = "{{PLURAL:$1|$1 project|$1 projects}}";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 message|$1 messages}}";
-"notifications-center-num-types-in-filter-format" = "{{PLURAL:$1|$1 type|$1 types}}";
 "notifications-center-subheader-edit-milestone" = "Editing milestone";
 "notifications-center-subheader-edit-reverted" = "Your edit was reverted";
 "notifications-center-subheader-email-from-other-user" = "New email";

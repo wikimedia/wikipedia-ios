@@ -255,9 +255,7 @@ import CocoaLumberjackSwift
         }
     }
 
-    public lazy var filterState: RemoteNotificationsFilterState = {
-        return RemoteNotificationsFilterState(readStatus: .all, types: [], projects: [])
-    }() {
+    public var filterState: RemoteNotificationsFilterState = RemoteNotificationsFilterState(readStatus: .all, types: [], projects: []) {
         didSet {
             
             //save to library
