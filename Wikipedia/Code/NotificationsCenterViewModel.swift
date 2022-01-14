@@ -4,14 +4,17 @@ import Combine
 import WMF
 import UIKit
 
-protocol NotificationCenterViewModelDelegate: AnyObject {
+enum NotificationCenterUpdateType {
+    case emptyDisplay(Bool)
+    case emptyContent
+    case toolbarDisplay
+    case toolbarContent
+    case reconfigureCells([NotificationsCenterCellViewModel]) //reconfigures cells without instantiating new cells or updating the snapshot
+    case updateSnapshot([NotificationsCenterCellViewModel]) //updates the snapshot for inserting / deleting cells
+}
 
-    /// This causes snapshot to update entirely, inserting new cells as needed
-    /// It also asks the cells to reconfigure (for now, we might make this a distinct ask)
-    func cellViewModelsDidChange(cellViewModels: [NotificationsCenterCellViewModel])
-    
-    //note: might want to separate this from toolbarDisplayState (mark/mark all vs filter/title/inbox) and toolbarContent (filter/title/inbox states and content)
-    func toolbarDidUpdate()
+protocol NotificationCenterViewModelDelegate: AnyObject {
+    func update(types: [NotificationCenterUpdateType])
 }
 
 enum NotificationsCenterSection {
@@ -27,25 +30,19 @@ final class NotificationsCenterViewModel: NSObject {
     
     weak var delegate: NotificationCenterViewModelDelegate?
 
-    lazy private var modelController = NotificationsCenterModelController(languageLinkController: self.languageLinkController, delegate: self, remoteNotificationsController: remoteNotificationsController)
+    lazy private var modelController = NotificationsCenterModelController(languageLinkController: self.languageLinkController, remoteNotificationsController: remoteNotificationsController)
 
     let languageLinkController: MWKLanguageLinkController
 
     private var isLoading: Bool = false {
         didSet {
-            delegate?.toolbarDidUpdate()
+            delegate?.update(types: [.emptyContent, .toolbarContent])
         }
     }
 
     private var isPagingEnabled = true
 
-    var isEditing = false {
-        didSet {
-            if oldValue != isEditing {
-                updateStateFromEditingModeChange(isEditing: isEditing)
-            }
-        }
-    }
+    var isEditing = false
     
     var configuration: Configuration {
         return remoteNotificationsController.configuration
@@ -66,8 +63,6 @@ final class NotificationsCenterViewModel: NSObject {
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-
-    // MARK: - Public
     
     @objc func contextObjectsDidChange(_ notification: NSNotification) {
         
@@ -79,16 +74,40 @@ final class NotificationsCenterViewModel: NSObject {
             return
         }
         
-        modelController.evaluateUpdatedNotifications(updatedNotifications: Array(refreshedNotifications), isEditing: isEditing)
-        modelController.addNewCellViewModelsWith(notifications: Array(newNotifications), isEditing: isEditing)
+        var updateTypes: [NotificationCenterUpdateType] = []
+        
+        let refreshUpdateTypes = modelController.evaluateUpdatedNotifications(updatedNotifications: Array(refreshedNotifications), isEditing: isEditing)
+        updateTypes.append(contentsOf: refreshUpdateTypes)
+        
+        if let insertUpdateType = modelController.addNewCellViewModelsWith(notifications: Array(newNotifications), isEditing: isEditing) {
+            updateTypes.append(insertUpdateType)
+        }
+        
+        updateTypes.append(.emptyDisplay(modelController.countOfTrackingModels == 0))
+        updateTypes.append(.emptyContent)
+        
+        if updateTypes.count > 0 {
+            delegate?.update(types: updateTypes)
+        }
     }
 
     // MARK: - Public
     
+    func setup() {
+        //TODO: Revisit and enable importing empty states in a delayed manner to avoid flashing.
+        delegate?.update(types: [.emptyDisplay(true), .toolbarDisplay])
+    }
+    
     func refreshNotifications(force: Bool) {
         isLoading = true
-        remoteNotificationsController.refreshNotifications(force: force) { _ in
+        remoteNotificationsController.refreshNotifications(force: force) { error in
             //TODO: Set any refreshing loading states here
+            if let error = error as? RemoteNotificationsOperationsError,
+               error == .alreadyImportingOrRefreshing {
+                //don't turn off loading state
+                return
+            }
+            
             self.isLoading = false
         }
     }
@@ -102,15 +121,7 @@ final class NotificationsCenterViewModel: NSObject {
         remoteNotificationsController.markAllAsRead(languageLinkController: languageLinkController)
     }
     
-    func resetAndRefreshData() {
-        modelController.reset()
-        fetchFirstPage()
-        isPagingEnabled = true
-    }
-    
     func fetchFirstPage() {
-        
-        isLoading = true
         
         kickoffImportIfNeeded { [weak self] in
             
@@ -120,7 +131,14 @@ final class NotificationsCenterViewModel: NSObject {
                 }
                 
                 let notifications = self.remoteNotificationsController.fetchNotifications()
-                self.modelController.addNewCellViewModelsWith(notifications: notifications, isEditing: self.isEditing)
+                var updateTypes: [NotificationCenterUpdateType] = []
+                if let updateType = self.modelController.addNewCellViewModelsWith(notifications: notifications, isEditing: self.isEditing) {
+                    updateTypes.append(updateType)
+                }
+                
+                updateTypes.append(contentsOf: [.toolbarContent, .emptyContent, .emptyDisplay(self.modelController.countOfTrackingModels == 0)])
+                
+                self.delegate?.update(types: updateTypes)
             }
         }
     }
@@ -132,33 +150,48 @@ final class NotificationsCenterViewModel: NSObject {
             return
         }
         
-        let notifications = self.remoteNotificationsController.fetchNotifications(fetchOffset: modelController.fetchOffset)
+        let notifications = self.remoteNotificationsController.fetchNotifications(fetchOffset: modelController.countOfTrackingModels)
         
         guard notifications.count > 0 else {
             isPagingEnabled = false
             return
         }
         
-        modelController.addNewCellViewModelsWith(notifications: notifications, isEditing: isEditing)
+        if let updateType = modelController.addNewCellViewModelsWith(notifications: notifications, isEditing: isEditing) {
+            delegate?.update(types: [updateType])
+        }
     }
     
-    func updateCellDisplayStates(cellViewModels: [NotificationsCenterCellViewModel], isSelected: Bool? = nil) {
-        modelController.updateCellDisplayStates(cellViewModels: cellViewModels, isEditing: self.isEditing, isSelected: isSelected)
+    func updateCellDisplayStates(cellViewModels: [NotificationsCenterCellViewModel]? = nil, isSelected: Bool? = nil) {
+        if let updateType = modelController.updateCellDisplayStates(cellViewModels: cellViewModels, isEditing: isEditing, isSelected: isSelected) {
+            delegate?.update(types: [updateType])
+        }
     }
     
-    func updateStateFromEditingModeChange(isEditing: Bool) {
+    func updateEditingModeState(isEditing: Bool) {
         self.isEditing = isEditing
-        updateCellDisplayStates(cellViewModels: modelController.sortedCellViewModels)
-        delegate?.toolbarDidUpdate()
+        
+        var updateTypes: [NotificationCenterUpdateType] = []
+        if let updateType = modelController.updateCellDisplayStates(isEditing: self.isEditing) {
+            updateTypes.append(updateType)
+        }
+        
+        updateTypes.append(.toolbarDisplay)
+        delegate?.update(types: updateTypes)
     }
     
-    var numberOfUnreadNotifications: Int? {
-        return self.remoteNotificationsController.numberOfUnreadNotifications
+    func resetAndRefreshData() {
+        modelController.reset()
+        fetchFirstPage()
+        isPagingEnabled = true
     }
 }
 
 private extension NotificationsCenterViewModel {
     func kickoffImportIfNeeded(completion: @escaping () -> Void) {
+        
+        isLoading = true
+        
         remoteNotificationsController.importNotificationsIfNeeded() { [weak self] error in
             
             guard let self = self else {
@@ -175,20 +208,10 @@ private extension NotificationsCenterViewModel {
             self.remoteNotificationsController.setupInitialFilters(languageLinkController: self.languageLinkController) {
                 NotificationCenter.default.addObserver(self, selector: #selector(self.contextObjectsDidChange(_:)), name: Notification.Name.NSManagedObjectContextObjectsDidChange, object: self.remoteNotificationsController.viewContext)
 
+                self.isLoading = false
                 completion()
             }
         }
-    }
-}
-
-extension NotificationsCenterViewModel: NotificationsCenterModelControllerDelegate {
-    //Happens when:
-    //Core Data listener indicates new notifications managed objects have been updated or inserted into the database. Would get called during a data refresh.
-    //The first page of notifications have been fetched from the database, transformed into cell view models and added to the model controller
-    //The next page of notifications have been fetched from the database, transformed into cell view models and added to the model controller.
-    //Note all of these have the capability of switching the state from an empty state to a data state (and vice versa), of inserting additional cell view models thus requiring a diffable snapshot update, as well as changing the underlying cell view model states, thus requiring a cell reload.
-    func dataDidChange() {
-        delegate?.cellViewModelsDidChange(cellViewModels: modelController.sortedCellViewModels)
     }
 }
 
@@ -199,7 +222,8 @@ extension NotificationsCenterViewModel {
     // MARK: - Private
 
     @objc fileprivate func remoteNotificationsControllerDidUpdateFilterState() {
-        delegate?.toolbarDidUpdate()
+        //Not doing anything here yet
+        //Because filter screen disapperances call self.resetAndRefreshData from the view controller, which fetches the first page again and relays state changes back to the view controller, there's no need to react to this notification.
     }
 
     fileprivate func toolbarImageForTypeFilter(engaged: Bool) -> UIImage? {
@@ -221,16 +245,30 @@ extension NotificationsCenterViewModel {
     var projectFilterButtonImage: UIImage? {
         return toolbarImageForProjectFilter(engaged: remoteNotificationsController.filterState.projects.count > 0)
     }
-
+    
     var statusBarText: String {
         if isLoading {
             return "Checking for notifications..."
         }
 
         // Logic for status bar text based on type, project, and read filters here
-
+        if remoteNotificationsController.countOfAllFilters > 0 {
+            return "TODO: Filter status bar text here"
+        }
+        
         return "All Notifications"
     }
+    
+    var numberOfUnreadNotifications: Int? {
+        return self.remoteNotificationsController.numberOfUnreadNotifications
+    }
+}
+
+//MARK: - Empty State
+
+extension NotificationsCenterViewModel {
+    
+    //MARK: Public
     
     var emptyStateHeaderText: String {
         return NotificationsCenterView.EmptyOverlayStrings.noUnreadMessages

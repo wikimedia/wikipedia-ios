@@ -4,6 +4,7 @@ public enum RemoteNotificationsOperationsError: Error {
     case dataUnavailable //triggered when there was an issue when setting up the Core Data stack
     case failurePullingAppLanguage
     case failureCreatingAppLanguagePagingOperation
+    case alreadyImportingOrRefreshing
 }
 
 class RemoteNotificationsOperationsController: NSObject {
@@ -106,7 +107,7 @@ class RemoteNotificationsOperationsController: NSObject {
         }
         
         guard !isImporting && !isRefreshing else {
-            completion(nil)
+            completion(.alreadyImportingOrRefreshing)
             return
         }
         

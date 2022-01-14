@@ -140,10 +140,13 @@ final class NotificationsCenterView: SetupView {
         self.subheaderTapGR = tap
         emptyOverlaySubheaderLabel.addGestureRecognizer(tap)
     }
-
-    func updateEmptyOverlay(visible: Bool, headerText: String = "", subheaderText: String = "", subheaderAttributedString: NSAttributedString?) {
+    
+    func updateEmptyVisibility(visible: Bool) {
         emptyScrollView.isHidden = !visible
         emptyScrollView.isUserInteractionEnabled = visible
+    }
+
+    func updateEmptyContent(headerText: String = "", subheaderText: String = "", subheaderAttributedString: NSAttributedString?) {
         emptyOverlayHeaderLabel.text = headerText
         if let subheaderAttributedString = subheaderAttributedString {
             emptyOverlaySubheaderLabel.attributedText = subheaderAttributedString
