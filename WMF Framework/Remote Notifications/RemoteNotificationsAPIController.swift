@@ -511,7 +511,7 @@ extension RemoteNotificationsAPIController.NotificationsResult.Notification.Mess
         self.header = "\(identifier)"
         self.body = "Test body text for identifier: \(identifier)"
         let primaryLink = RemoteNotificationLink(type: nil, url: URL(string:"https://en.wikipedia.org/wiki/Cat")!, label: "Label for primary link")
-        self.links = RemoteNotificationLinks(primary: primaryLink, secondary: nil)
+        self.links = RemoteNotificationLinks(primary: primaryLink, secondary: nil, legacyPrimary: primaryLink)
     }
 }
 
