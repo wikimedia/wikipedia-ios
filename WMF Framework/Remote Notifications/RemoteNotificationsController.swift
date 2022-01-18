@@ -156,7 +156,6 @@ import CocoaLumberjackSwift
                 completion(Array(inboxProjects))
             }
         }
-        
     }
     
     public func setupInitialFilters(languageLinkController: MWKLanguageLinkController, completion: @escaping () -> Void) {
@@ -176,8 +175,6 @@ import CocoaLumberjackSwift
             
             completion()
         }
-        
-        
     }
     
     private func predicateForFilterSavedState(_ filterState: RemoteNotificationsFilterState) -> NSPredicate? {
@@ -223,7 +220,6 @@ import CocoaLumberjackSwift
             combinedProjectPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: projectPredicates)
         }
         
-        
         let finalPredicates = [readStatusPredicate, combinedFilterTypePredicate, combinedProjectPredicate].compactMap { $0 }
         
         return finalPredicates.count > 0 ? NSCompoundPredicate(andPredicateWithSubpredicates: finalPredicates) : nil
@@ -265,7 +261,6 @@ import CocoaLumberjackSwift
             NotificationCenter.default.post(name: RemoteNotificationsController.didUpdateFilterStateNotification, object: nil)
         }
     }
-
 }
 
 public struct RemoteNotificationsFilterState {
@@ -313,7 +308,6 @@ public struct RemoteNotificationsFilterState {
         
         let types = typeIdentifiers.compactMap { RemoteNotificationType(from: $0 as String) }
         let projects = projectApiIdentifiers.compactMap { RemoteNotificationsProject(apiIdentifier: $0 as String, languageLinkController: languageLinkController) }
-        
         
         self.readStatus = readStatus
         self.types = types

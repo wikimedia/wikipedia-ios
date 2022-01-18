@@ -126,6 +126,4 @@ class RemoteNotificationsPagingOperation: RemoteNotificationsOperation {
             }
         }
     }
-    
-    
 }

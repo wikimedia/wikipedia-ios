@@ -12,7 +12,6 @@ protocol NotificationsCenterFiltersItemViewModelDelegate: AnyObject {
 
 class NotificationsCenterFiltersViewModel: ObservableObject, NotificationsCenterFiltersItemViewModelDelegate {
     
-    
     class SectionViewModel: Identifiable {
         let id = UUID()
         let title: String?

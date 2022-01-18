@@ -2,7 +2,7 @@
 import Foundation
 
 class RemoteNotificationsMarkAllAsReadOperation: RemoteNotificationsOperation {
-
+    
     override func execute() {
         
         //optimistically mark in database first for UI to reflect, then in API.
@@ -21,7 +21,7 @@ class RemoteNotificationsMarkAllAsReadOperation: RemoteNotificationsOperation {
                     self.finish(with: error)
                     return
                 }
-                
+
                 self.finish()
             }
         }

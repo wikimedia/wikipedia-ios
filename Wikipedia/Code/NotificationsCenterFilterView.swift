@@ -62,8 +62,6 @@ struct NotificationsCenterFilterItemView: View {
                 .foregroundColor(Color(theme.colors.primaryText))
             }
         }
-        
-        
     }
 }
 

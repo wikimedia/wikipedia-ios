@@ -16,15 +16,6 @@ final class NotificationsCenterCell: UICollectionViewCell {
     fileprivate(set) var viewModel: NotificationsCenterCellViewModel?
 
     weak var delegate: NotificationsCenterCellDelegate?
-    
-    override var isSelected: Bool {
-        didSet {
-            //re-theme if needed
-            if let displayState = viewModel?.displayState {
-                updateCellStyle(forDisplayState: displayState)
-            }
-        }
-    }
 
     // MARK: - UI Elements
 

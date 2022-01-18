@@ -31,9 +31,5 @@
 		<key>NSExtensionPrincipalClass</key>
 		<string>StickerBrowserViewController</string>
 	</dict>
-	<key>UIRequiredDeviceCapabilities</key>
-	<array>
-		<string>arm64</string>
-	</array>
 </dict>
 </plist>
