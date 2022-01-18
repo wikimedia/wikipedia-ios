@@ -1,7 +1,7 @@
 
 import Foundation
 
-public enum RemoteNotificationsProject {
+public enum RemoteNotificationsProject: Hashable {
     public typealias LanguageCode = String
     public typealias LocalizedLanguageName = String
     public typealias LanguageVariantCode = String
