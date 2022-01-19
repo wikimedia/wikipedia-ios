@@ -61,6 +61,24 @@ import CocoaLumberjackSwift
             return []
         }
     }
+    
+    public func inboxCount() -> Int {
+        assert(Thread.isMainThread)
+        
+        guard let viewContext = self.viewContext else {
+            DDLogError("Failure fetching notifications from persistence: missing viewContext")
+            return 0
+        }
+        
+        let fetchRequest: NSFetchRequest<RemoteNotification> = RemoteNotification.fetchRequest()
+        
+        do {
+            return try viewContext.count(for: fetchRequest)
+        } catch {
+            DDLogError("Failure fetching notifications from persistence: \(error)")
+            return 0
+        }
+    }
 
     // TODO: - A count of the total locally available to the user projects/inboxes. Where should this go and how should it be populated?
     public lazy var totalLocalProjectsCount: Int = 5
