@@ -140,26 +140,28 @@ public struct RemoteNotificationsFilterState {
         case (.all, 0, 0):
             // No filtering
             descriptionString = String.localizedStringWithFormat(inProjects, totalProjectCount)
-        case (.all, 0..., 0):
+        case (.all, 1..., 0):
             // Only filtering by type
-            descriptionString = String.localizedStringWithFormat(typesPlain, types.count).highlightDelineated
-        case (.all, 0, 0...):
+            let typesString = String.localizedStringWithFormat(typesPlain, types.count).highlightDelineated
+            let totalProjectString = String.localizedStringWithFormat(projectsPlain, totalProjectCount)
+            descriptionString = String.localizedStringWithFormat(doubleConcatenationTemplate, typesString, totalProjectString)
+        case (.all, 0, 1...):
             // Only filtering by project/inbox
             descriptionString = String.localizedStringWithFormat(inProjects, projects.count).highlightDelineated
         case (.read, 0, 0), (.unread, 0, 0):
             // Only filtering by read status
             let totalProjectString = String.localizedStringWithFormat(projectsPlain, totalProjectCount)
             descriptionString = String.localizedStringWithFormat(doubleConcatenationTemplate, readStatus.localizedDescription.highlightDelineated, totalProjectString)
-        case (.read, 0..., 0), (.unread, 0..., 0):
+        case (.read, 1..., 0), (.unread, 1..., 0):
             // Filtering by read status and type
             let typesString = String.localizedStringWithFormat(typesPlain, types.count).highlightDelineated
             let totalProjectString = String.localizedStringWithFormat(projectsPlain, totalProjectCount)
             descriptionString = String.localizedStringWithFormat(tripleConcatenationTemplate, readStatus.localizedDescription.highlightDelineated, typesString, totalProjectString)
-        case (.read, 0, 0...), (.unread, 0, 0...):
+        case (.read, 0, 1...), (.unread, 0, 1...):
             // Filtering by read status and project/inbox
             let projectString = String.localizedStringWithFormat(projectsPlain, projects.count).highlightDelineated
             descriptionString = String.localizedStringWithFormat(doubleConcatenationTemplate, readStatus.localizedDescription.highlightDelineated, projectString)
-        case (let readStatus, 0..., 0...):
+        case (let readStatus, 1..., 1...):
             // Filtering by type, project/inbox, and potentially read status
             switch readStatus {
             case .all:
