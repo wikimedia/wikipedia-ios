@@ -7,63 +7,65 @@ struct NotificationsCenterFilterItemView: View {
     
     var body: some View {
         
-        switch itemViewModel.selectionType {
-        case .checkmark:
+        Group {
             
-            Button(action: {
-                itemViewModel.toggleSelectionForCheckmarkType()
-            }) {
-                HStack {
-                    Text(itemViewModel.title)
-                        .foregroundColor(Color(theme.colors.primaryText))
-                    Spacer()
-                    if (itemViewModel.isSelected) {
-                        Image(systemName: "checkmark")
-                            .font(Font.body.weight(.semibold))
-                            .foregroundColor(Color(theme.colors.link))
+            switch itemViewModel.selectionType {
+            case .checkmark:
+                
+                Button(action: {
+                    itemViewModel.toggleSelectionForCheckmarkType()
+                }) {
+                    HStack {
+                        Text(itemViewModel.title)
+                            .foregroundColor(Color(theme.colors.primaryText))
+                        Spacer()
+                        if (itemViewModel.isSelected) {
+                            Image(systemName: "checkmark")
+                                .font(Font.body.weight(.semibold))
+                                .foregroundColor(Color(theme.colors.link))
+                        }
                     }
                 }
-            }
-        case .toggle(let remoteNotificationType):
-            
-            HStack {
-
-                let iconColor = theme.colors.paperBackground
-                let iconBackgroundColor = remoteNotificationType.imageBackgroundColorWithTheme(theme)
-                if let iconName = remoteNotificationType.imageName {
-                    NotificationsCenterIconImage(iconName: iconName, iconColor: Color(iconColor), iconBackgroundColor: Color(iconBackgroundColor), padding: 0)
-                }
+            case .toggle(let remoteNotificationType):
                 
+                HStack {
+
+                    let iconColor = theme.colors.paperBackground
+                    let iconBackgroundColor = remoteNotificationType.imageBackgroundColorWithTheme(theme)
+                    if let iconName = remoteNotificationType.imageName {
+                        NotificationsCenterIconImage(iconName: iconName, iconColor: Color(iconColor), iconBackgroundColor: Color(iconBackgroundColor), padding: 0)
+                    }
+                    
+                    if #available(iOS 14.0, *) {
+                        Toggle(itemViewModel.title, isOn: $itemViewModel.isSelected.didSet { (state) in
+                            itemViewModel.toggleSelectionForToggleType()
+                            print(state)
+                        })
+                            .foregroundColor(Color(theme.colors.primaryText))
+                            .toggleStyle(SwitchToggleStyle(tint: Color(theme.colors.accent)))
+                    } else {
+                        Toggle(itemViewModel.title, isOn: $itemViewModel.isSelected.didSet { (state) in
+                            itemViewModel.toggleSelectionForToggleType()
+                        })
+                            .foregroundColor(Color(theme.colors.primaryText))
+                    }
+                }
+            case .toggleAll:
                 if #available(iOS 14.0, *) {
                     Toggle(itemViewModel.title, isOn: $itemViewModel.isSelected.didSet { (state) in
-                        itemViewModel.toggleSelectionForToggleType()
-                        print(state)
+                        itemViewModel.toggleSelectionForAll()
                     })
-                        .foregroundColor(Color(theme.colors.primaryText))
-                        .toggleStyle(SwitchToggleStyle(tint: Color(theme.colors.accent)))
+                    .foregroundColor(Color(theme.colors.primaryText))
+                    .toggleStyle(SwitchToggleStyle(tint: Color(theme.colors.accent)))
                 } else {
                     Toggle(itemViewModel.title, isOn: $itemViewModel.isSelected.didSet { (state) in
-                        itemViewModel.toggleSelectionForToggleType()
+                        itemViewModel.toggleSelectionForAll()
                     })
-                        .foregroundColor(Color(theme.colors.primaryText))
+                    .foregroundColor(Color(theme.colors.primaryText))
                 }
             }
-        case .toggleAll:
-            if #available(iOS 14.0, *) {
-                Toggle(itemViewModel.title, isOn: $itemViewModel.isSelected.didSet { (state) in
-                    itemViewModel.toggleSelectionForAll()
-                })
-                .foregroundColor(Color(theme.colors.primaryText))
-                .toggleStyle(SwitchToggleStyle(tint: Color(theme.colors.accent)))
-            } else {
-                Toggle(itemViewModel.title, isOn: $itemViewModel.isSelected.didSet { (state) in
-                    itemViewModel.toggleSelectionForAll()
-                })
-                .foregroundColor(Color(theme.colors.primaryText))
-            }
         }
-        
-        
+        .listRowBackground(Color(theme.colors.paperBackground).edgesIgnoringSafeArea([.all]))
     }
 }
 
@@ -115,7 +117,6 @@ struct NotificationsCenterFilterView: View {
                 }
             }
             .listStyle(GroupedListStyle())
-            .listRowBackground(Color(viewModel.theme.colors.paperBackground).edgesIgnoringSafeArea([.all]))
             .navigationBarItems(
                 trailing:
                     Button(action: {
