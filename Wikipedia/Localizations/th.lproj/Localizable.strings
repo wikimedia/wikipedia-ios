@@ -660,7 +660,7 @@
 "share-get-directions-in-maps" = "ขอเส้นทาง";
 "share-menu-item" = "แบ่งปัน";
 "share-message-format" = "“$1” $2";
-"share-on-twitter-sign-off" = "ผ่านทาง @Wikipedia";
+"share-on-twitter-sign-off" = "ผ่าน @Wikipedia";
 "share-open-in-maps" = "เปิดในแผนที่";
 "share-social-format" = "“$1” ผ่านทางวิกิพีเดีย: $2";
 "share-social-mention-format" = "“$1” ผ่านทาง @Wikipedia: $2";
