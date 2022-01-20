@@ -251,6 +251,9 @@ import CocoaLumberjackSwift
         }
     }
 
+    // TODO: - A count of the total locally available to the user projects/inboxes. Where should this go and how should it be populated?
+    public lazy var totalLocalProjectsCount: Int = 5
+    
     public var filterState: RemoteNotificationsFilterState = RemoteNotificationsFilterState(readStatus: .all, types: [], projects: []) {
         didSet {
             
@@ -269,6 +272,17 @@ public struct RemoteNotificationsFilterState {
         case all
         case read
         case unread
+
+        var localizedDescription: String {
+            switch self {
+            case .all:
+                return CommonStrings.notificationsCenterAllNotificationsStatus
+            case .read:
+                return CommonStrings.notificationsCenterReadNotificationsStatus
+            case .unread:
+                return CommonStrings.notificationsCenterUnreadNotificationsStatus
+            }
+        }
     }
     
     public let readStatus: ReadStatus
@@ -279,6 +293,85 @@ public struct RemoteNotificationsFilterState {
         self.readStatus = readStatus
         self.types = types
         self.projects = projects
+    }
+
+    private var isReadStatusOrTypeFiltered: Bool {
+        return (readStatus != .all || !types.isEmpty)
+    }
+
+    public var stateDescription: String {
+        let filteredBy = WMFLocalizedString("notifications-center-status-filtered-by", value: "Filtered by", comment: "Status header text in Notifications Center displayed when filtering notifications.")
+
+        let allNotifications = WMFLocalizedString("notifications-center-status-all-notifications", value: "All notifications", comment: "Status header text in Notifications Center displayed when viewing unfiltered list of notifications.")
+
+        let headerText = isReadStatusOrTypeFiltered ? filteredBy : allNotifications
+        return headerText
+    }
+
+    public static var detailDescriptionHighlightDelineator = "**"
+
+    public func detailDescription(totalProjectCount: Int) -> String? {
+        // Generic templates
+
+        let doubleConcatenationTemplate = WMFLocalizedString("notifications-center-status-double-concatenation", value: "%1$@ in %2$@", comment: "Notifications Center status description. %1$@ is replaced with the currently applied filters and %2$@ is replaced with the count of projects/inboxes.")
+
+        let tripleConcatenationTemplate = WMFLocalizedString("notifications-center-status-triple-concatenation", value: "%1$@ and %2$@ in %3$@", comment: "Notifications Center status description. %1$@ is replaced with the currently applied read status filter, %2$@ is replaced with the count of notification type filters, and %3$@ is replaced with the count of projects/inboxes.")
+
+        // Specific plurals
+
+        let inProjects = WMFLocalizedString("notifications-center-status-in-projects", value: "{{PLURAL:%1$d|1=In 1 project|In %1$d projects}}", comment: "Notifications Center status description when filtering by projects/inboxes. %1$d is replaced by the count of local projects.")
+
+        let projectsPlain = WMFLocalizedString("notifications-center-status-in-projects-plain", value: "{{PLURAL:%1$d|1=1 project|%1$d projects}}", comment: "Notifications Center status description when filtering by projects/inboxes, without preposition. %1$d is replaced by the count of local projects.")
+
+        let typesPlain = WMFLocalizedString("notifications-center-status-in-types", value: "{{PLURAL:%1$d|1=1 type|%1$d types}}", comment: "Notifications Center status description when filtering by types. %1$d is replaced by the count of filtered types.")
+
+        var descriptionString: String?
+
+        switch (readStatus, types.count, projects.count) {
+        case (.all, 0, 0):
+            // No filtering
+            descriptionString = String.localizedStringWithFormat(inProjects, totalProjectCount)
+        case (.all, 1..., 0):
+            // Only filtering by type
+            let typesString = String.localizedStringWithFormat(typesPlain, types.count).highlightDelineated
+            let totalProjectString = String.localizedStringWithFormat(projectsPlain, totalProjectCount)
+            descriptionString = String.localizedStringWithFormat(doubleConcatenationTemplate, typesString, totalProjectString)
+        case (.all, 0, 1...):
+            // Only filtering by project/inbox
+            descriptionString = String.localizedStringWithFormat(inProjects, projects.count).highlightDelineated
+        case (.read, 0, 0), (.unread, 0, 0):
+            // Only filtering by read status
+            let totalProjectString = String.localizedStringWithFormat(projectsPlain, totalProjectCount)
+            descriptionString = String.localizedStringWithFormat(doubleConcatenationTemplate, readStatus.localizedDescription.highlightDelineated, totalProjectString)
+        case (.read, 1..., 0), (.unread, 1..., 0):
+            // Filtering by read status and type
+            let typesString = String.localizedStringWithFormat(typesPlain, types.count).highlightDelineated
+            let totalProjectString = String.localizedStringWithFormat(projectsPlain, totalProjectCount)
+            descriptionString = String.localizedStringWithFormat(tripleConcatenationTemplate, readStatus.localizedDescription.highlightDelineated, typesString, totalProjectString)
+        case (.read, 0, 1...), (.unread, 0, 1...):
+            // Filtering by read status and project/inbox
+            let projectString = String.localizedStringWithFormat(projectsPlain, projects.count).highlightDelineated
+            descriptionString = String.localizedStringWithFormat(doubleConcatenationTemplate, readStatus.localizedDescription.highlightDelineated, projectString)
+        case (let readStatus, 1..., 1...):
+            // Filtering by type, project/inbox, and potentially read status
+            switch readStatus {
+            case .all:
+                // Filtering by type and project/inbox
+                let typesString = String.localizedStringWithFormat(typesPlain, types.count).highlightDelineated
+                let projectString = String.localizedStringWithFormat(projectsPlain, projects.count).highlightDelineated
+                descriptionString = String.localizedStringWithFormat(doubleConcatenationTemplate, typesString, projectString)
+            case .read, .unread:
+                // Filtering by read status, type, and project/inbox
+                let readString = readStatus.localizedDescription.highlightDelineated
+                let typesString = String.localizedStringWithFormat(typesPlain, types.count).highlightDelineated
+                let projectString = String.localizedStringWithFormat(projectsPlain, projects.count).highlightDelineated
+                descriptionString = String.localizedStringWithFormat(tripleConcatenationTemplate, readString, typesString, projectString)
+            }
+        default:
+            break
+        }
+
+        return descriptionString
     }
     
     func serialize() -> NSDictionary? {
@@ -313,4 +406,13 @@ public struct RemoteNotificationsFilterState {
         self.types = types
         self.projects = projects
     }
+}
+
+fileprivate extension String {
+
+    /// Delineated section of string to be highlighted in attributed string
+    var highlightDelineated: String {
+        return RemoteNotificationsFilterState.detailDescriptionHighlightDelineator + self + RemoteNotificationsFilterState.detailDescriptionHighlightDelineator
+    }
+
 }

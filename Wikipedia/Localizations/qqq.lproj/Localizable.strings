@@ -552,6 +552,7 @@
 "no-internet-connection-article-reload" = "Subtitle for letting users know article cannot be reloaded without internet connection.";
 "no-internet-connection-article-reload-button" = "Title for button to return to last saved version of article.";
 "notifications-center-change-password" = "Button text in Notifications Center that routes user to change password screen.";
+"notifications-center-checking-for-notifications" = "Status text displayed in Notifications Center when checking for notifications.";
 "notifications-center-empty-checking-for-notifications" = "Text displayed when Notifications Center is checking for notifications.";
 "notifications-center-empty-no-messages" = "Text displayed when no Notifications Center notifications are available.";
 "notifications-center-empty-not-subscribed" = "Text displayed when user has not subscribed to any Wikipedia notifications.";
@@ -575,6 +576,16 @@
 "notifications-center-mark-as-unread" = "Button text in Notifications Center to mark a notification as unread.";
 "notifications-center-notifications-settings" = "Button text in Notifications Center that automatically routes to the notifications settings screen.";
 "notifications-center-num-selected-messages-format" = "Title for options menu when choosing \"Mark\" toolbar button in notifications center editing mode - $1 is replaced with the number of selected notifications.";
+"notifications-center-status-all" = "Text to indicate all notifications in Notifications Center.";
+"notifications-center-status-all-notifications" = "Status header text in Notifications Center displayed when viewing unfiltered list of notifications.";
+"notifications-center-status-double-concatenation" = "Notifications Center status description. $1 is replaced with the currently applied filters and $2 is replaced with the count of projects/inboxes.";
+"notifications-center-status-filtered-by" = "Status header text in Notifications Center displayed when filtering notifications.";
+"notifications-center-status-in-projects" = "Notifications Center status description when filtering by projects/inboxes. $1 is replaced by the count of local projects.";
+"notifications-center-status-in-projects-plain" = "Notifications Center status description when filtering by projects/inboxes, without preposition. $1 is replaced by the count of local projects.";
+"notifications-center-status-in-types" = "Notifications Center status description when filtering by types. $1 is replaced by the count of filtered types.";
+"notifications-center-status-read" = "Text to indicate a read notification in Notifications Center.";
+"notifications-center-status-triple-concatenation" = "Notifications Center status description. $1 is replaced with the currently applied read status filter, $2 is replaced with the count of notification type filters, and $3 is replaced with the count of projects/inboxes.";
+"notifications-center-status-unread" = "Text to indicate an unread notification in Notifications Center.";
 "notifications-center-subheader-edit-milestone" = "Subheader text for edit milestone notifications in Notifications Center.";
 "notifications-center-subheader-edit-reverted" = "Subheader text for edit reverted notifications in Notifications Center.";
 "notifications-center-subheader-email-from-other-user" = "Subheader text for 'email from other user' notifications in Notifications Center.";
