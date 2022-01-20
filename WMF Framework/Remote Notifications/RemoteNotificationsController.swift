@@ -250,9 +250,6 @@ import CocoaLumberjackSwift
             return 0
         }
     }
-
-    // TODO: - A count of the total locally available to the user projects/inboxes. Where should this go and how should it be populated?
-    public lazy var totalLocalProjectsCount: Int = 5
     
     public var filterState: RemoteNotificationsFilterState = RemoteNotificationsFilterState(readStatus: .all, types: [], projects: []) {
         didSet {
@@ -310,7 +307,7 @@ public struct RemoteNotificationsFilterState {
 
     public static var detailDescriptionHighlightDelineator = "**"
 
-    public func detailDescription(totalProjectCount: Int) -> String? {
+    public func detailDescription(totalProjectCount: Int, showingProjectCount: Int) -> String? {
         // Generic templates
 
         let doubleConcatenationTemplate = WMFLocalizedString("notifications-center-status-double-concatenation", value: "%1$@ in %2$@", comment: "Notifications Center status description. %1$@ is replaced with the currently applied filters and %2$@ is replaced with the count of projects/inboxes.")
@@ -338,7 +335,7 @@ public struct RemoteNotificationsFilterState {
             descriptionString = String.localizedStringWithFormat(doubleConcatenationTemplate, typesString, totalProjectString)
         case (.all, 0, 1...):
             // Only filtering by project/inbox
-            descriptionString = String.localizedStringWithFormat(inProjects, projects.count).highlightDelineated
+            descriptionString = String.localizedStringWithFormat(inProjects, showingProjectCount).highlightDelineated
         case (.read, 0, 0), (.unread, 0, 0):
             // Only filtering by read status
             let totalProjectString = String.localizedStringWithFormat(projectsPlain, totalProjectCount)
@@ -350,7 +347,7 @@ public struct RemoteNotificationsFilterState {
             descriptionString = String.localizedStringWithFormat(tripleConcatenationTemplate, readStatus.localizedDescription.highlightDelineated, typesString, totalProjectString)
         case (.read, 0, 1...), (.unread, 0, 1...):
             // Filtering by read status and project/inbox
-            let projectString = String.localizedStringWithFormat(projectsPlain, projects.count).highlightDelineated
+            let projectString = String.localizedStringWithFormat(projectsPlain, showingProjectCount).highlightDelineated
             descriptionString = String.localizedStringWithFormat(doubleConcatenationTemplate, readStatus.localizedDescription.highlightDelineated, projectString)
         case (let readStatus, 1..., 1...):
             // Filtering by type, project/inbox, and potentially read status
@@ -358,13 +355,13 @@ public struct RemoteNotificationsFilterState {
             case .all:
                 // Filtering by type and project/inbox
                 let typesString = String.localizedStringWithFormat(typesPlain, types.count).highlightDelineated
-                let projectString = String.localizedStringWithFormat(projectsPlain, projects.count).highlightDelineated
+                let projectString = String.localizedStringWithFormat(projectsPlain, showingProjectCount).highlightDelineated
                 descriptionString = String.localizedStringWithFormat(doubleConcatenationTemplate, typesString, projectString)
             case .read, .unread:
                 // Filtering by read status, type, and project/inbox
                 let readString = readStatus.localizedDescription.highlightDelineated
                 let typesString = String.localizedStringWithFormat(typesPlain, types.count).highlightDelineated
-                let projectString = String.localizedStringWithFormat(projectsPlain, projects.count).highlightDelineated
+                let projectString = String.localizedStringWithFormat(projectsPlain, showingProjectCount).highlightDelineated
                 descriptionString = String.localizedStringWithFormat(tripleConcatenationTemplate, readString, typesString, projectString)
             }
         default:

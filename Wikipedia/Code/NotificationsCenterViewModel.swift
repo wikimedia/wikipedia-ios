@@ -241,10 +241,11 @@ extension NotificationsCenterViewModel {
             return checkingForNotifications
         }
 
-        let totalProjectCount = remoteNotificationsController.totalLocalProjectsCount
+        let totalProjectCount = remoteNotificationsController.cachedAllInboxProjects.count
+        let showingProjectCount = remoteNotificationsController.cachedShowingInboxProjects.count
         let filterState = remoteNotificationsController.filterState
         let headerText = filterState.stateDescription
-        let subheaderText = filterState.detailDescription(totalProjectCount: totalProjectCount)
+        let subheaderText = filterState.detailDescription(totalProjectCount: totalProjectCount, showingProjectCount: showingProjectCount)
 
         if let subheaderText = subheaderText {
             return headerText + "\n" + subheaderText
