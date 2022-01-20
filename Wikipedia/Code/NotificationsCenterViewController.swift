@@ -88,6 +88,12 @@ final class NotificationsCenterViewController: ViewController {
         notificationsView.collectionView.addGestureRecognizer(cellPanGestureRecognizer)
         cellPanGestureRecognizer.addTarget(self, action: #selector(userDidPanCell(_:)))
         cellPanGestureRecognizer.delegate = self
+
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -97,6 +103,10 @@ final class NotificationsCenterViewController: ViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        closeSwipeActionsPanelIfNecessary()
+    }
+
+    @objc fileprivate func applicationWillResignActive() {
         closeSwipeActionsPanelIfNecessary()
     }
 
