@@ -150,6 +150,7 @@ final class RemoteNotificationsModelController: NSObject {
         let sharedCache = SharedContainerCache<PushNotificationsCache>.init(pathComponent: .pushNotificationsCache, defaultCache: { PushNotificationsCache(settings: .default, notifications: []) })
         var cache = sharedCache.loadCache()
         cache.notifications = []
+        cache.currentUnreadCount = 0
         sharedCache.saveCache(cache)
     }
 
