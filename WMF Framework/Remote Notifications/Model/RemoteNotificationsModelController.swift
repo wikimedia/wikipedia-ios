@@ -320,6 +320,7 @@ final class RemoteNotificationsModelController: NSObject {
                 }
                 
                 self.save(moc: moc)
+                NotificationCenter.default.post(name: Notification.Name.NotificationsCenterBadgeNeedsUpdate, object: nil)
                 completion()
             }
         }
