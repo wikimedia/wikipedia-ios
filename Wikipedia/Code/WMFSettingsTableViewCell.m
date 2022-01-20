@@ -171,7 +171,7 @@
     [self applyTheme:theme];
 }
 
-- (void)configure:(WMFSettingsMenuItemDisclosureType)disclosureType disclosureText:(NSString *)disclosureText title:(NSString *)title subtitle:(NSString *)subtitle iconName:(NSString *)iconName f :(BOOL)isSwitchOn iconColor:(UIColor *)iconColor iconBackgroundColor:(UIColor *)iconBackgroundColor controlTag:(NSInteger)controlTag theme:(WMFTheme *)theme {
+- (void)configure:(WMFSettingsMenuItemDisclosureType)disclosureType disclosureText:(NSString *)disclosureText title:(NSString *)title subtitle:(NSString *)subtitle iconName:(NSString *)iconName isSwitchOn:(BOOL)isSwitchOn iconColor:(UIColor *)iconColor iconBackgroundColor:(UIColor *)iconBackgroundColor controlTag:(NSInteger)controlTag theme:(WMFTheme *)theme {
     self.isSwitchOn = isSwitchOn;
     self.disclosureType = disclosureType;
     self.disclosureText = disclosureText;
