@@ -565,6 +565,7 @@
 "notifications-center-go-to-user-page" = "Button text in Notifications Center that routes to a web view of the user page of the sender that triggered the notification. $1 is replaced with the sender's username.";
 "notifications-center-go-to-wikidata-item" = "Button text in Notifications Center that routes to a Wikidata item page.";
 "notifications-center-go-to-your-talk-page" = "Button text in Notifications Center that routes to user's talk page.";
+"notifications-center-header-alert-from-agent" = "Subheader text for unknown alert type notifications in Notifications Center. $1 will be replaced with the origin agent of the notification.";
 "notifications-center-header-alert-from-project" = "Header text for alert notifications in Notifications Center. $1 is replaced with a project name such as \"EN-Wikipedia\".";
 "notifications-center-header-notice-from-project" = "Header text for notice notifications in Notifications Center. $1 is replaced with a project name such as \"EN-Wikipedia\" or \"Wikimedia Commons\".";
 "notifications-center-login-notifications" = "Button text in Notifications Center that routes user to login notifications help page in web view.";
@@ -589,6 +590,7 @@
 "notifications-center-subheader-edit-milestone" = "Subheader text for edit milestone notifications in Notifications Center.";
 "notifications-center-subheader-edit-reverted" = "Subheader text for edit reverted notifications in Notifications Center.";
 "notifications-center-subheader-email-from-other-user" = "Subheader text for 'email from other user' notifications in Notifications Center.";
+"notifications-center-subheader-from-agent" = "Subheader text for notifications in Notifications Center. $1 will be replaced with the origin agent of the notification.";
 "notifications-center-subheader-login-fail-known-device" = "Subheader text for 'Failed login from a known device' notifications in Notifications Center.";
 "notifications-center-subheader-login-fail-unknown-device" = "Subheader text for 'Failed login from an unknown device' notifications in Notifications Center.";
 "notifications-center-subheader-login-success-unknown-device" = "Subheader text for 'Successful login from an unknown device' notifications in Notifications Center.";

@@ -565,6 +565,7 @@
 "notifications-center-go-to-user-page" = "Go to $1's user page";
 "notifications-center-go-to-wikidata-item" = "Go to Wikidata item";
 "notifications-center-go-to-your-talk-page" = "Go to your talk page";
+"notifications-center-header-alert-from-agent" = "Alert from $1";
 "notifications-center-header-alert-from-project" = "Alert from $1";
 "notifications-center-header-notice-from-project" = "Notice from $1";
 "notifications-center-login-notifications" = "Login Notifications";
@@ -589,6 +590,7 @@
 "notifications-center-subheader-edit-milestone" = "Editing milestone";
 "notifications-center-subheader-edit-reverted" = "Your edit was reverted";
 "notifications-center-subheader-email-from-other-user" = "New email";
+"notifications-center-subheader-from-agent" = "From $1";
 "notifications-center-subheader-login-fail-known-device" = "Multiple failed log in attempts";
 "notifications-center-subheader-login-fail-unknown-device" = "Failed log in attempt";
 "notifications-center-subheader-login-success-unknown-device" = "Log in from an unfamiliar device";
