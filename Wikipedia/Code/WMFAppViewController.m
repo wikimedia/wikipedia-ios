@@ -2036,6 +2036,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self showLoggedOutPanelIfNeeded];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self setNotificationsCenterButtonForExploreViewController:self.exploreViewController];
+        UIApplication.sharedApplication.applicationIconBadgeNumber = 0;
     });
 }
 
