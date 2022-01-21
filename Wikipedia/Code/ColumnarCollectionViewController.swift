@@ -400,11 +400,6 @@ extension ColumnarCollectionViewController {
 
 // MARK: - CollectionViewContextMenuShowing
 extension ColumnarCollectionViewController {
-    func indexPath(for location: CGPoint) -> IndexPath? {
-        let translatedLocation = view.convert(location, to: collectionView)
-        return collectionView.indexPathForItem(at: translatedLocation)
-    }
-    
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         guard let contextMenuCollectionVC = self as? CollectionViewContextMenuShowing, let vc = contextMenuCollectionVC.previewingViewController(for: indexPath, at: point) else {
             return nil

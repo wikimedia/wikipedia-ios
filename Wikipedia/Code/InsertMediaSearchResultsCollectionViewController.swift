@@ -274,7 +274,7 @@ extension InsertMediaSearchResultsCollectionViewController {
                 self.delegate?.insertMediaSearchResultsCollectionViewControllerDidSelect(self, searchResult: vc.searchResult)
             })
             let moreInformationAction = UIAction(title: WMFLocalizedString("insert-media-image-preview-more-information-action-title", value: "More information", comment: "Title for preview action that results in presenting more information"), handler: { [weak self] (_) in
-                guard let url = vc.searchResult.imageInfo?.filePageURL else {
+                guard let url = vc.searchResultImageURL else {
                     return
                 }
                 self?.navigate(to: url, useSafari: true)

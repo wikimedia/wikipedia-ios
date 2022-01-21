@@ -1,10 +1,12 @@
 import Foundation
+import UIKit
 
 protocol ArticleContextMenuPresenting {
     func getPeekViewControllerAsync(for destination: Router.Destination, completion: @escaping (UIViewController?) -> Void)
 
     func hideFindInPage(_ completion: (() -> Void)?)
     var configuration: Configuration { get }
+    var previewMenuItems: [UIMenuElement]? { get }
 }
 
 enum ContextMenuCompletionType {
@@ -72,7 +74,7 @@ extension ArticleContextMenuPresenting {
             let config = UIContextMenuConfiguration(identifier: linkURL as NSURL, previewProvider: { () -> UIViewController? in
                 return peekParentVC
             }) { (suggestedActions) -> UIMenu? in
-                return (peekParentVC as? ArticleViewController)?.previewMenuElements
+                return previewMenu
             }
 
             if let articlePeekVC = peekVC as? ArticlePeekPreviewViewController {
@@ -97,10 +99,11 @@ extension ArticleContextMenuPresenting {
         getPeekViewControllerAsync(for: destination, completion: completion)
     }
 
-    var previewMenuElements: UIMenu? {
-        guard let vc = self as? ArticleViewController else {
+    var previewMenu: UIMenu? {
+        guard let previewMenuItems = previewMenuItems else {
             return nil
         }
-        return UIMenu(title: "", image: nil, identifier: nil, options: [], children: vc.contextMenuItems)
+
+        return UIMenu(title: "", image: nil, identifier: nil, options: [], children: previewMenuItems)
     }
 }

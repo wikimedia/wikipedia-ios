@@ -191,6 +191,7 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
     override func shareArticlePreviewActionSelected(with articleController: ArticleViewController, shareActivityController: UIActivityViewController) {
         FeedFunnel.shared.logFeedDetailShareTapped(for: feedFunnelContext, index: previewedIndex)
         super.shareArticlePreviewActionSelected(with: articleController, shareActivityController: shareActivityController)
+        previewedIndex = nil
     }
 
     override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
@@ -371,6 +372,7 @@ extension OnThisDayViewController: NestedCollectionViewContextMenuDelegate {
             }
             FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: self.feedFunnelContext, index: self.previewedIndex, maxViewed: self.maxViewed)
             self.push(previewedViewController, animated: true)
+            self.previewedIndex = nil
         }
     }
 }

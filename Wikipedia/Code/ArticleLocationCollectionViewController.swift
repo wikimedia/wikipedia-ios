@@ -202,8 +202,8 @@ extension ArticleLocationCollectionViewController: CollectionViewContextMenuShow
         guard let articleViewController = articleViewController(for: indexPath) else {
             return nil
         }
-        let articleURL = self.articleURL(at: indexPath)
-        articleViewController.articlePreviewingDelegate = self // NEED THIS? Yes, for acitons that we need to add
+        let articleURL = articleViewController.articleURL
+        articleViewController.articlePreviewingDelegate = self
         articleViewController.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
         if let context = feedFunnelContext {
             FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: context, index: indexPath.item)

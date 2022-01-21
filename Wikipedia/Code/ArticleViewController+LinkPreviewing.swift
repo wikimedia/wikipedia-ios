@@ -29,25 +29,42 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
     }
 
     var contextMenuItems: [UIAction] {
+        // Read action
         let readActionTitle = WMFLocalizedString("button-read-now", value: "Read now", comment: "Read now button text used in various places.")
         let readAction = UIAction(title: readActionTitle, handler: { (action) in
             self.articlePreviewingDelegate?.readMoreArticlePreviewActionSelected(with: self)
         })
 
-        let saveActionTitle = article.isAnyVariantSaved ? WMFLocalizedString("button-saved-remove", value: "Remove from saved", comment: "Remove from saved button text used in various places.") : CommonStrings.saveTitle
-        let saveAction = UIAction(title: saveActionTitle, handler: { (action) in
-            let isSaved = self.dataStore.savedPageList.toggleSavedPage(for: self.articleURL)
-            let notification = isSaved ? CommonStrings.accessibilitySavedNotification : CommonStrings.accessibilityUnsavedNotification
-            UIAccessibility.post(notification: .announcement, argument: notification)
-            self.articlePreviewingDelegate?.saveArticlePreviewActionSelected(with: self, didSave: isSaved, articleURL: self.articleURL)
-        })
+        var actions = [readAction]
+
+        // Save action
         let logReadingListsSaveIfNeeded = { [weak self] in
             guard let delegate = self?.articlePreviewingDelegate as? EventLoggingEventValuesProviding else {
                 return
             }
             self?.readingListsFunnel.logSave(category: delegate.eventLoggingCategory, label: delegate.eventLoggingLabel, articleURL: self?.articleURL)
         }
+        if articleURL.namespace == .main {
+            let saveActionTitle = article.isAnyVariantSaved ? WMFLocalizedString("button-saved-remove", value: "Remove from saved", comment: "Remove from saved button text used in various places.") : CommonStrings.saveTitle
+            let saveAction = UIAction(title: saveActionTitle, handler: { (action) in
+                let isSaved = self.dataStore.savedPageList.toggleSavedPage(for: self.articleURL)
+                let notification = isSaved ? CommonStrings.accessibilitySavedNotification : CommonStrings.accessibilityUnsavedNotification
+                UIAccessibility.post(notification: .announcement, argument: notification)
+                self.articlePreviewingDelegate?.saveArticlePreviewActionSelected(with: self, didSave: isSaved, articleURL: self.articleURL)
+            })
+            actions.append(saveAction)
+        }
 
+        // Location action
+        if article.location != nil {
+            let placeActionTitle = WMFLocalizedString("page-location", value: "View on a map", comment: "Label for button used to show an article on the map")
+            let placeAction = UIAction(title: placeActionTitle, handler: { (action) in
+                self.articlePreviewingDelegate?.viewOnMapArticlePreviewActionSelected(with: self)
+            })
+            actions.append(placeAction)
+        }
+
+        // Share action
         let shareActionTitle = CommonStrings.shareMenuTitle
         let shareAction = UIAction(title: shareActionTitle, handler: { (action) in
             guard let presenter = self.articlePreviewingDelegate as? UIViewController else {
@@ -62,19 +79,13 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
             self.articlePreviewingDelegate?.shareArticlePreviewActionSelected(with: self, shareActivityController: shareActivityViewController)
         })
 
-        var actions = [readAction, saveAction]
-
-        if article.location != nil {
-            let placeActionTitle = WMFLocalizedString("page-location", value: "View on a map", comment: "Label for button used to show an article on the map")
-            let placeAction = UIAction(title: placeActionTitle, handler: { (action) in
-                self.articlePreviewingDelegate?.viewOnMapArticlePreviewActionSelected(with: self)
-            })
-            actions.append(placeAction)
-        }
-
         actions.append(shareAction)
 
         return actions
+    }
+
+    var previewMenuItems: [UIMenuElement]? {
+        return contextMenuItems
     }
 
     func webView(_ webView: WKWebView, contextMenuConfigurationForElement elementInfo: WKContextMenuElementInfo, completionHandler: @escaping (UIContextMenuConfiguration?) -> Void) {

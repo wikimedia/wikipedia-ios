@@ -90,6 +90,7 @@ class NewsViewController: ColumnarCollectionViewController, DetailPresentingFrom
     override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
         push(articleController, context: feedFunnelContext, index: previewedIndex, animated: true)
+        previewedIndex = nil
     }
 
     // MARK: - CollectionViewFooterDelegate
@@ -245,6 +246,7 @@ extension NewsViewController: NestedCollectionViewContextMenuDelegate {
             }
             FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: self.feedFunnelContext, index: self.previewedIndex, maxViewed: self.maxViewed)
             self.push(previewedViewController, animated: true)
+            self.previewedIndex = nil
         }
     }
 }

@@ -292,4 +292,8 @@ extension EditPreviewViewController: ArticleContextMenuPresenting, WKUIDelegate 
     // This function needed is for ArticleContextMenuPresenting, but not applicable to EditPreviewVC
     func hideFindInPage(_ completion: (() -> Void)? = nil) {
     }
+
+    var previewMenuItems: [UIMenuElement]? {
+        return nil
+    }
 }

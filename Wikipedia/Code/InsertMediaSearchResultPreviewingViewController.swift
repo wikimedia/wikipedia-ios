@@ -11,6 +11,10 @@ final class InsertMediaSearchResultPreviewingViewController: UIViewController {
     private let imageURL: URL
     private var theme = Theme.standard
 
+    var searchResultImageURL: URL? {
+        return searchResult.imageInfo?.filePageURL
+    }
+
     init(imageURL: URL, searchResult: InsertMediaSearchResult) {
         self.imageURL = imageURL
         self.searchResult = searchResult

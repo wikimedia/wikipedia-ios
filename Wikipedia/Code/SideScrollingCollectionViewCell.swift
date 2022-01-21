@@ -45,7 +45,7 @@ open class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtocol 
         }
     }
 
-    public weak var contextMenuShowingDelegate: NestedCollectionViewContextMenuDelegate? = nil
+    public weak var contextMenuShowingDelegate: NestedCollectionViewContextMenuDelegate?
     
     internal var articles: [CellArticle] = []
     
@@ -193,7 +193,7 @@ extension SideScrollingCollectionViewCell: UICollectionViewDelegate {
 
     // ContextMenu
     public func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        guard indexPath.item < articles.count, let articleURL = articles[indexPath.item].articleURL else {
+        guard let articleURL = articles[safeIndex: indexPath.item]?.articleURL else {
             return nil
         }
 
