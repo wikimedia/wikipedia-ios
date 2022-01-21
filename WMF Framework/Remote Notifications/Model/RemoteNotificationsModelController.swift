@@ -179,16 +179,9 @@ final class RemoteNotificationsModelController: NSObject {
             for notification in notificationsFetchedFromTheServer {
                 self.createNewNotification(moc: moc, notification: notification)
             }
-            
-            let newPageContainsUnread = notificationsFetchedFromTheServer.contains(where: { notification in
-                notification.readString != nil
-            })
-                
-            if newPageContainsUnread {
-                NotificationCenter.default.post(name: Notification.Name.NotificationsCenterBadgeNeedsUpdate, object: nil)
-            }
-            
+
             self.save(moc: moc)
+            NotificationCenter.default.post(name: Notification.Name.NotificationsCenterBadgeNeedsUpdate, object: nil)
             completion()
         }
     }
