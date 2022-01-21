@@ -254,18 +254,15 @@ private extension NotificationsCenterCellViewModel {
         
         //prefer legacyPrimary, since it seems to retain the section title as a fragment moreso than primary
         if let legacyPrimaryURL = notification.legacyPrimaryLinkURL,
-        let title = extractTitleFromURLBlock(legacyPrimaryURL) {
-            if !title.hasPrefix("c-") && !title.containsISO8601DateText {
-                return title
+        let legacyTitle = extractTitleFromURLBlock(legacyPrimaryURL) {
+            if !legacyTitle.containsTalkPageSignature {
+                return legacyTitle
             }
         }
         
-        guard let primaryURL = notification.primaryLinkURL else {
-            return nil
-        }
-        
-        if let title = extractTitleFromURLBlock(primaryURL) {
-            if !title.hasPrefix("c-") && !title.containsISO8601DateText {
+        if let primaryURL = notification.primaryLinkURL,
+           let title = extractTitleFromURLBlock(primaryURL) {
+            if !title.containsTalkPageSignature {
                 return title
             }
         }
@@ -281,5 +278,9 @@ private extension String {
         
         let exists = regex.firstMatch(in: self, options: [], range: range) != nil
         return exists
+    }
+    
+    var containsTalkPageSignature: Bool {
+        return hasPrefix("c-") || containsISO8601DateText
     }
 }

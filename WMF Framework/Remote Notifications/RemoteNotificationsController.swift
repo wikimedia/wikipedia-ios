@@ -371,14 +371,18 @@ public struct RemoteNotificationsFilterState {
         return descriptionString
     }
     
+    private let readStatusKey = "readStatus"
+    private let typesKey = "types"
+    private let projectsKey = "projects"
+    
     func serialize() -> NSDictionary? {
         let mutableDictionary = NSMutableDictionary()
         let numReadStatus = NSNumber(value: readStatus.rawValue)
-        mutableDictionary.setValue(numReadStatus, forKey: "readStatus")
+        mutableDictionary.setValue(numReadStatus, forKey: readStatusKey)
         let typeIdentifiers = types.compactMap { $0.filterIdentifier as NSString? }
-        mutableDictionary.setValue(NSArray(array: typeIdentifiers), forKey: "types")
+        mutableDictionary.setValue(NSArray(array: typeIdentifiers), forKey: typesKey)
         let projectIdentifiers = projects.compactMap { $0.notificationsApiWikiIdentifier as NSString? }
-        mutableDictionary.setValue(NSArray(array: projectIdentifiers), forKey: "projects")
+        mutableDictionary.setValue(NSArray(array: projectIdentifiers), forKey: projectsKey)
         
         return mutableDictionary.copy() as? NSDictionary
     }
@@ -389,10 +393,10 @@ public struct RemoteNotificationsFilterState {
             return nil
         }
         
-        guard let numReadStatus = dictionary["readStatus"] as? NSNumber,
+        guard let numReadStatus = dictionary[readStatusKey] as? NSNumber,
               let readStatus = ReadStatus(rawValue: numReadStatus.intValue),
-              let typeIdentifiers = dictionary["types"] as? [NSString],
-              let projectApiIdentifiers = dictionary["projects"] as? [NSString] else {
+              let typeIdentifiers = dictionary[typesKey] as? [NSString],
+              let projectApiIdentifiers = dictionary[projectsKey] as? [NSString] else {
                   return nil
               }
         
