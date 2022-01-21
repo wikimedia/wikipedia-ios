@@ -112,15 +112,18 @@ class NotificationsCenterFiltersViewModel: ObservableObject, NotificationsCenter
             
         }
         
-        let section1 = SectionViewModel(title: "Read Status", footer: nil, items: items1)
+        let section1 = SectionViewModel(title: WMFLocalizedString("notifications-center-filters-read-status-section-title", value: "Read Status", comment: "Section title of the read status filter controls on the notifications center filter view."), footer: nil, items: items1)
         
-        let item2 = ItemViewModel(title: "All types", selectionType: .toggleAll, isSelected: filterState.types.count == 0)
+        let allTypesItemTitle = WMFLocalizedString("notifications-center-filters-types-item-title-all", value: "All types", comment: "Title of the All types toggle in the notifications center filter view. Selecting this turns on or off all notification type filter toggles.")
+        let item2 = ItemViewModel(title: allTypesItemTitle, selectionType: .toggleAll, isSelected: filterState.types.count == 0)
 
-        let section2 = SectionViewModel(title: "Types of notifications", footer: "Modify notification types to filter them in/out of your notification inbox. Types that are turned off will not be visible, but their content and any new notifications will be available when the toggle is turned on again.", items: [item2])
+        let typesSectionTitle = WMFLocalizedString("notifications-center-filters-types-section-title", value: "Types of notifications", comment: "Section title of the notification types filter controls on the notifications center filter view.")
+        let typesFooter = WMFLocalizedString("notifications-center-filters-types-footer", value: "Modify notification types to filter them in/out of your notification inbox. Types that are turned off will not be visible, but their content and any new notifications will be available when the toggle is turned on again.", comment: "Footer text for the types toggles in the notifications center filter view. Explains how the types toggles work.")
+        let section2 = SectionViewModel(title: typesSectionTitle, footer: typesFooter, items: [item2])
         
         let items3: [ItemViewModel] = RemoteNotificationType.orderingForFilters.compactMap {
             
-            guard let title = $0.title else {
+            guard let title = $0.filterTitle else {
                 return nil
             }
             
@@ -250,11 +253,12 @@ class NotificationsCenterFiltersViewModel: ObservableObject, NotificationsCenter
 extension RemoteNotificationsFilterState.ReadStatus {
     var title: String {
         switch self {
-        case .all: return "All"
-        case .unread: return "Unread"
-        case .read: return "Read"
+        case .all:
+            return WMFLocalizedString("notifications-center-filters-read-status-item-title-all", value: "All", comment: "Title of All option in the read status section of the notifications center filter view. Selecting this allows all read statuses to display in the notifications center.")
+        case .unread:
+            return WMFLocalizedString("notifications-center-filters-read-status-item-title-unread", value: "Unread", comment: "Title of Unread option in the read status section of the notifications center filter view. Selecting this only displays unread notifications in the notifications center.")
+        case .read:
+            return WMFLocalizedString("notifications-center-filters-read-status-item-title-read", value: "Read", comment: "Title of Read option in the read status section of the notifications center filter view. Selecting this only displays read notifications in the notifications center.")
         }
     }
 }
-
-

@@ -183,24 +183,40 @@ public extension RemoteNotificationType {
         ]
     }
     
-    var title: String? {
+    var filterTitle: String? {
         switch self {
-        case .userTalkPageMessage: return "Talk page message"
-        case .pageReviewed: return "Page review"
-        case .pageLinked: return "Page link"
-        case .connectionWithWikidata: return "Connection with Wikidata"
-        case .emailFromOtherUser: return "Email from other user"
-        case .mentionInTalkPage: return "Talk page mention"
-        case .mentionInEditSummary: return "Edit summary mention"
-        case .successfulMention: return "Sent mention success"
-        case .failedMention: return "Sent mention failure"
-        case .userRightsChange: return "User rights change"
-        case .editReverted: return "Edit reverted"
-        case .loginFailKnownDevice: return "Login issues" //for filters this represents any login-related notification (i.e. also loginFailUnknownDevice, loginSuccessUnknownDevice, etc.). todo: clean this up. todo: split up into login attempts vs login success?
-        case .editMilestone: return "Edit milestone"
-        case .translationMilestone: return "Translation milestone"  //for filters this represents other translation associated values as well (ten, hundred milestones).
-        case .thanks: return "Thanks"
-        case .welcome: return "Welcome"
+        case .userTalkPageMessage:
+            return WMFLocalizedString("notifications-center-filters-types-item-title-user-talk-page-messsage", value: "Talk page message", comment: "Title of \"user talk page message\" toggle in the types section of the notifications center filter view. Toggling this off removes \"user talk page message\" notifications from the notifications center.")
+        case .pageReviewed:
+            return WMFLocalizedString("notifications-center-filters-types-item-title-page-review", value: "Page review", comment: "Title of \"page review\" toggle in the types section of the notifications center filter view. Toggling this off removes \"page review\" notifications from the notifications center.")
+        case .pageLinked:
+            return WMFLocalizedString("notifications-center-filters-types-item-title-page-link", value: "Page link", comment: "Title of \"page link\" toggle in the types section of the notifications center filter view. Toggling this off removes \"page link\" notifications from the notifications center.")
+        case .connectionWithWikidata:
+            return WMFLocalizedString("notifications-center-filters-types-item-title-connection-with-wikidata", value: "Connection with Wikidata", comment: "Title of \"connection with Wikidata\" toggle in the types section of the notifications center filter view. Toggling this off removes \"connection with Wikidata\" notifications from the notifications center.")
+        case .emailFromOtherUser:
+            return WMFLocalizedString("notifications-center-filters-types-item-title-email-from-other-user", value: "Email from other user", comment: "Title of \"email from other user\" toggle in the types section of the notifications center filter view. Toggling this off removes \"email from other user\" notifications from the notifications center.")
+        case .mentionInTalkPage:
+            return WMFLocalizedString("notifications-center-filters-types-item-title-talk-page-mention", value: "Talk page mention", comment: "Title of \"talk page mention\" toggle in the types section of the notifications center filter view. Toggling this off removes \"talk page mention\" notifications from the notifications center.")
+        case .mentionInEditSummary:
+            return WMFLocalizedString("notifications-center-filters-types-item-title-edit-summary-mention", value: "Edit summary mention", comment: "Title of \"edit summary mention\" toggle in the types section of the notifications center filter view. Toggling this off removes \"edit summary mention\" notifications from the notifications center.")
+        case .successfulMention:
+            return WMFLocalizedString("notifications-center-filters-types-item-title-sent-mention-success", value: "Sent mention success", comment: "Title of \"sent mention success\" toggle in the types section of the notifications center filter view. Toggling this off removes \"successful mention\" notifications from the notifications center.")
+        case .failedMention:
+            return WMFLocalizedString("notifications-center-filters-types-item-title-sent-mention-failure", value: "Sent mention failure", comment: "Title of \"sent mention failure\" toggle in the types section of the notifications center filter view. Toggling this off removes \"failed mention\" notifications from the notifications center.")
+        case .userRightsChange:
+            return WMFLocalizedString("notifications-center-filters-types-item-title-user-rights-change", value: "User rights change", comment: "Title of \"user rights change\" toggle in the types section of the notifications center filter view. Toggling this off removes \"user rights change\" notifications from the notifications center.")
+        case .editReverted:
+            return WMFLocalizedString("notifications-center-filters-types-item-title-edit-reverted", value: "Edit reverted", comment: "Title of \"edit reverted\" toggle in the types section of the notifications center filter view. Toggling this off removes \"edit reverted\" notifications from the notifications center.")
+        case .loginFailKnownDevice:
+            return WMFLocalizedString("notifications-center-filters-types-item-title-login-issues", value: "Login issues", comment: "Title of \"login issues\" toggle in the types section of the notifications center filter view. Toggling this off removes login-related notifications from the notifications center.") //for filters this represents any login-related notification (i.e. also loginFailUnknownDevice, loginSuccessUnknownDevice, etc.). todo: clean this up. todo: split up into login attempts vs login success?
+        case .editMilestone:
+            return WMFLocalizedString("notifications-center-filters-types-item-title-edit-milestone", value: "Edit milestone", comment: "Title of \"edit milestone\" toggle in the types section of the notifications center filter view. Toggling this off removes \"edit milestone\" notifications from the notifications center.")
+        case .translationMilestone:
+            return WMFLocalizedString("notifications-center-filters-types-item-title-translation-milestone", value: "Translation milestone", comment: "Title of \"translation milestone\" toggle in the types section of the notifications center filter view. Toggling this off removes \"translation milestone\" notifications from the notifications center.") //for filters this represents other translation associated values as well (ten, hundred milestones).
+        case .thanks:
+            return WMFLocalizedString("notifications-center-filters-types-item-title-thanks", value: "Thanks", comment: "Title of \"thanks\" toggle in the types section of the notifications center filter view. Toggling this off removes \"thanks\" notifications from the notifications center.")
+        case .welcome:
+            return WMFLocalizedString("notifications-center-filters-types-item-title-welcome", value: "Welcome", comment: "Title of \"welcome\" toggle in the types section of the notifications center filter view. Toggling this off removes \"welcome\" notifications from the notifications center.")
         default:
             return nil
         }

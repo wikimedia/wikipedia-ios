@@ -27,7 +27,7 @@ final class NotificationsCenterViewController: ViewController {
     fileprivate lazy var projectFilterButton: IconBarButtonItem = IconBarButtonItem(image: viewModel.projectFilterButtonImage, style: .plain, target: self, action: #selector(userDidTapProjectFilterButton))
     
     fileprivate var markButton: TextBarButtonItem?
-    fileprivate lazy var markAllAsReadButton: TextBarButtonItem = TextBarButtonItem(title: WMFLocalizedString("notifications-center-mark-all-as-read", value: "Mark all as read", comment: "Toolbar button text in Notifications Center that marks all user notifications as read on the server."), target: self, action: #selector(didTapMarkAllAsReadButton(_:)))
+    fileprivate lazy var markAllAsReadButton: TextBarButtonItem = TextBarButtonItem(title: WMFLocalizedString("notifications-center-mark-all-as-read", value: "Mark all as read", comment: "Toolbar button text in Notifications Center that marks all user notifications as read."), target: self, action: #selector(didTapMarkAllAsReadButton(_:)))
     fileprivate lazy var statusBarButton: StatusTextBarButtonItem = StatusTextBarButtonItem(text: "")
 
     // MARK: - Properties: Cell Swipe Actions
@@ -303,8 +303,11 @@ private extension NotificationsCenterViewController {
         markAllAsReadButton.isEnabled = numSelectedCells == 0
     }
     
+    var numSelectedMessagesFormat: String { WMFLocalizedString("notifications-center-num-selected-messages-format", value:"{{PLURAL:%1$d|%1$d message|%1$d messages}}", comment:"Title for options menu when choosing \"Mark\" toolbar button in notifications center editing mode - %1$d is replaced with the number of selected notifications.")
+    }
+    
     func markButtonOptionsMenuForNumberOfSelectedMessages(selectedCellViewModels: [NotificationsCenterCellViewModel]) -> UIMenu {
-        let titleFormat = WMFLocalizedString("notifications-center-num-selected-messages-format", value:"{{PLURAL:%1$d|%1$d message|%1$d messages}}", comment:"Title for options menu when choosing \"Mark\" toolbar button in notifications center editing mode - %1$d is replaced with the number of selected notifications.")
+        let titleFormat = numSelectedMessagesFormat
         let title = String.localizedStringWithFormat(titleFormat, selectedCellViewModels.count)
         let optionsMenu = UIMenu(title: title, children: [
             UIAction.init(title: CommonStrings.notificationsCenterMarkAsRead, image: UIImage(systemName: "envelope.open"), handler: { _ in
@@ -324,7 +327,7 @@ private extension NotificationsCenterViewController {
         
         let selectedCellViewModels = self.selectedCellViewModels
         
-        let titleFormat = WMFLocalizedString("notifications-center-num-selected-messages-format", value:"{{PLURAL:%1$d|%1$d message|%1$d messages}}", comment:"Title for options menu when choosing \"Mark\" toolbar button in notifications center editing mode - %1$d is replaced with the number of selected notifications.")
+        let titleFormat = numSelectedMessagesFormat
         let title = String.localizedStringWithFormat(titleFormat, selectedCellViewModels.count)
 
         let alertController = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
@@ -356,11 +359,11 @@ private extension NotificationsCenterViewController {
         let numberOfUnreadNotifications = viewModel.numberOfUnreadNotifications
         
         let titleText: String
-        if let numberOfUnreadNotifications = numberOfUnreadNotifications {
+        if numberOfUnreadNotifications > 0 {
             let titleFormat = WMFLocalizedString("notifications-center-mark-all-as-read-confirmation-format", value:"Are you sure that you want to mark all {{PLURAL:%1$d|%1$d message|%1$d messages}} of your notifications as read? Your notifications will be marked as read on all of your devices.", comment:"Title format for confirmation alert when choosing \"Mark all as read\" toolbar button in notifications center editing mode - %1$d is replaced with the number of unread notifications on the server.")
             titleText = String.localizedStringWithFormat(titleFormat, numberOfUnreadNotifications)
         } else {
-            titleText = WMFLocalizedString("notifications-center-mark-all-as-read-missing-number", value:"Are you sure that you want to mark all of your notifications as read? Your notifications will be marked as read on all of your devices.", comment:"Title for confirmation alert when choosing \"Mark all as read\" toolbar button in notifications center editing mode, when there was an issue with pulling the count of unread notifications on the server.")
+            titleText = WMFLocalizedString("notifications-center-mark-all-as-read-missing-number", value:"Are you sure that you want to mark all of your notifications as read? Your notifications will be marked as read on all of your devices.", comment:"Title for confirmation alert when choosing \"Mark all as read\" toolbar button in notifications center editing mode, when there was an issue with pulling the count of unread notifications.")
         }
         
         let alertController = UIAlertController(title: titleText, message: nil, preferredStyle: .actionSheet)

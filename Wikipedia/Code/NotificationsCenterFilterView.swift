@@ -1,5 +1,6 @@
 
 import SwiftUI
+import WMF
 
 struct NotificationsCenterFilterItemView: View {
     @ObservedObject var itemViewModel: NotificationsCenterFiltersViewModel.ItemViewModel
@@ -122,13 +123,13 @@ struct NotificationsCenterFilterView: View {
                     Button(action: {
                         doneAction()
                     }) {
-                          Text("Done")
+                        Text(CommonStrings.doneTitle)
                             .fontWeight(Font.Weight.semibold)
                             .foregroundColor(Color(viewModel.theme.colors.primaryText))
                         }
             )
             .background(Color(viewModel.theme.colors.baseBackground).edgesIgnoringSafeArea(.all))
-            .navigationBarTitle(Text("Filters"), displayMode: .inline)
+            .navigationBarTitle(Text(WMFLocalizedString("notifications-center-filters-title", value: "Filters", comment: "Navigation bar title text for the filters view presented from notifications center. Allows for filtering by read status and notification type.")), displayMode: .inline)
             .onAppear(perform: {
                     UITableView.appearance().backgroundColor = UIColor.clear
             })

@@ -282,7 +282,7 @@ extension NotificationsCenterViewModel {
         }
     }
     
-    var numberOfUnreadNotifications: Int? {
+    var numberOfUnreadNotifications: Int {
         return self.remoteNotificationsController.numberOfUnreadNotifications
     }
 }

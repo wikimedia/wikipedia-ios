@@ -130,34 +130,34 @@ public enum RemoteNotificationsProject: Hashable {
     
     private var projectName: String {
         
-        //TODO: This would be better as a generated mapping file that pulled from the project translations here - https://translatewiki.net/w/i.php?title=Special:Translate&group=ext-wikimediaprojectnames&filter=&optional=0&action=page&language=en
-        //If we decide to not go this route, these must be turned into WMFLocalizedStrings.
+        //TODO: This would be better as a generated mapping file from translatewiki's project translations (for example: https://translatewiki.net/wiki/Special:ExportTranslations?group=ext-wikimediaprojectnames&language=he&format=export-to-file)
+        //See https://phabricator.wikimedia.org/T297620
         
         switch self {
         case .wikipedia(_, _, _):
             return CommonStrings.plainWikipediaName
         case .wikibooks(_, _):
-            return "Wikibooks"
+            return WMFLocalizedString("project-name-wikibooks", value:"Wikibooks", comment: "Project name for Wikibooks.")
         case .wiktionary(_, _):
-            return "Wiktionary"
+            return WMFLocalizedString("project-name-wiktionary", value:"Wiktionary", comment: "Project name for Wiktionary.")
         case .wikiquote(_, _):
-            return "Wikiquote"
+            return WMFLocalizedString("project-name-wikiquote", value:"Wikiquote", comment: "Project name for Wikiquote.")
         case .wikisource(_, _):
-            return "Wikisource"
+            return WMFLocalizedString("project-name-wikisource", value:"Wikisource", comment: "Project name for Wikisource.")
         case .wikinews(_, _):
-            return "Wikinews"
+            return WMFLocalizedString("project-name-wikinews", value:"Wikinews", comment: "Project name for Wikinews.")
         case .wikiversity(_, _):
-            return "Wikiversity"
+            return WMFLocalizedString("project-name-wikiversity", value:"Wikiversity", comment: "Project name for Wikiversity.")
         case .wikivoyage(_, _):
-            return "Wikivoyage"
+            return WMFLocalizedString("project-name-wikivoyage", value:"Wikivoyage", comment: "Project name for Wikivoyage.")
         case .commons:
-            return "Wikimedia Commons"
+            return WMFLocalizedString("project-name-wikimedia-commons", value:"Wikimedia Commons", comment: "Project name for Wikimedia Commons.")
         case .wikidata:
-            return "Wikidata"
+            return WMFLocalizedString("project-name-wikidata", value:"Wikidata", comment: "Project name for Wikidata.")
         case .mediawiki:
-            return "MediaWiki"
+            return WMFLocalizedString("project-name-mediawiki", value:"MediaWiki", comment: "Project name for MediaWiki.")
         case .wikispecies:
-            return "Wikispecies"
+            return WMFLocalizedString("project-name-wikispecies", value:"Wikispecies", comment: "Project name for Wikispecies.")
         }
     }
     
@@ -167,9 +167,7 @@ public enum RemoteNotificationsProject: Hashable {
     /// - Returns: Formatted descriptive project name
     public func projectName(shouldReturnCodedFormat: Bool) -> String {
         
-        //TODO: This would be better as a generated mapping file that pulled from the project translations here - https://translatewiki.net/w/i.php?title=Special:Translate&group=ext-wikimediaprojectnames&filter=&optional=0&action=page&language=en
-        
-        let createProjectNameBlock: (String, String, String, Bool) -> String = { (languageCode, localizedLanguageName, projectName, shouldReturnCodedFormat) in
+        let createLanguageProjectNameBlock: (String, String, String, Bool) -> String = { (languageCode, localizedLanguageName, projectName, shouldReturnCodedFormat) in
             
             let format = WMFLocalizedString("notifications-center-language-project-name-format", value: "%1$@ %2$@", comment: "Format used for the ordering of language project name descriptions. This description is inserted into the header text of notifications in Notifications Center. For example, \"English Wikipedia\". Use this format to reorder these words if necessary or insert additional connecting words. Parameters: %1$@ = localized language name (\"English\"), %2$@ = localized name for Wikipedia (\"Wikipedia\")")
 
@@ -184,29 +182,29 @@ public enum RemoteNotificationsProject: Hashable {
         
         switch self {
         case .wikipedia(let languageCode, let localizedLanguageName, _):
-            return createProjectNameBlock(languageCode, localizedLanguageName, projectName, shouldReturnCodedFormat)
+            return createLanguageProjectNameBlock(languageCode, localizedLanguageName, projectName, shouldReturnCodedFormat)
         case .commons:
-            return WMFLocalizedString("notifications-center-commons-project-name", value: "Wikimedia Commons", comment: "Project name description for Wikimedia Commons, used in notification headers.")
+            return projectName
         case .wikidata:
-            return WMFLocalizedString("notifications-center-wikidata-project-name", value: "Wikidata", comment: "Project name description for Wikidata, used in notification headers.")
+            return projectName
         case .wikibooks(let languageCode, let localizedLanguageName):
-            return createProjectNameBlock(languageCode, localizedLanguageName, projectName, shouldReturnCodedFormat)
+            return createLanguageProjectNameBlock(languageCode, localizedLanguageName, projectName, shouldReturnCodedFormat)
         case .wiktionary(let languageCode, let localizedLanguageName):
-            return createProjectNameBlock(languageCode, localizedLanguageName, projectName, shouldReturnCodedFormat)
+            return createLanguageProjectNameBlock(languageCode, localizedLanguageName, projectName, shouldReturnCodedFormat)
         case .wikiquote(let languageCode, let localizedLanguageName):
-            return createProjectNameBlock(languageCode, localizedLanguageName, projectName, shouldReturnCodedFormat)
+            return createLanguageProjectNameBlock(languageCode, localizedLanguageName, projectName, shouldReturnCodedFormat)
         case .wikisource(let languageCode, let localizedLanguageName):
-            return createProjectNameBlock(languageCode, localizedLanguageName, projectName, shouldReturnCodedFormat)
+            return createLanguageProjectNameBlock(languageCode, localizedLanguageName, projectName, shouldReturnCodedFormat)
         case .wikinews(let languageCode, let localizedLanguageName):
-            return createProjectNameBlock(languageCode, localizedLanguageName, projectName, shouldReturnCodedFormat)
+            return createLanguageProjectNameBlock(languageCode, localizedLanguageName, projectName, shouldReturnCodedFormat)
         case .wikiversity(let languageCode, let localizedLanguageName):
-            return createProjectNameBlock(languageCode, localizedLanguageName, projectName, shouldReturnCodedFormat)
+            return createLanguageProjectNameBlock(languageCode, localizedLanguageName, projectName, shouldReturnCodedFormat)
         case .wikivoyage(let languageCode, let localizedLanguageName):
-            return createProjectNameBlock(languageCode, localizedLanguageName, projectName, shouldReturnCodedFormat)
+            return createLanguageProjectNameBlock(languageCode, localizedLanguageName, projectName, shouldReturnCodedFormat)
         case .mediawiki:
-            return "MediaWiki" //TODO: make WMFLocalizedString if we don't do generated project names mapping file
+            return projectName
         case .wikispecies:
-            return "Wikispecies" //TODO: make WMFLocalizedString if we don't do generated project names mapping file
+            return projectName
         }
     }
     
