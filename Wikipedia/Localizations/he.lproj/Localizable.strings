@@ -433,7 +433,7 @@
 "feed-news-notification-button-text" = "הפעלת עדכונים";
 "feed-news-notification-text" = "הפעלת עדכונים כדי לקבל הודעות מוויקיפדיה כשערכים נהיים חמים בחדשות.";
 "fetcher-error-generic" = "משהו השתבש! נא לנסות שוב מאוחר יותר.";
-"fetcher-error-unexpected-response" = "היישום הזה קיבל תגובה בלתי־צפויה מהשרת. נא לנסות שוב מאוחר יותר.";
+"fetcher-error-unexpected-response" = "היישום הזה קיבל תשובה בלתי־צפויה מהשרת. נא לנסות שוב מאוחר יותר.";
 "field-alert-captcha-invalid" = "קוד אימות בלתי־תקין";
 "field-alert-password-confirm-mismatch" = "הסיסמאות אינן תואמות";
 "field-alert-token-invalid" = "קוד בלתי־תקין";
@@ -589,7 +589,10 @@
 "notifications-center-go-to-your-talk-page" = "לעבור לדף השיחה שלך";
 "notifications-center-header-alert-from-project" = "התראה מאתר $1";
 "notifications-center-header-notice-from-project" = "הודעה מאתר $1";
+"notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "התראות כניסה";
+"notifications-center-mark" = "לסמן";
+"notifications-center-mark-all-as-read" = "לסמן שהכול נקרא";
 "notifications-center-mark-as-read" = "סימון כהודעה שנקראה";
 "notifications-center-mark-as-unread" = "סימון כהודעה שלא נקראה";
 "notifications-center-notifications-settings" = "הגדרות התראות";
@@ -612,6 +615,9 @@
 "notifications-center-subheader-user-rights-change" = "שינוי הרשאות משתמש";
 "notifications-center-subheader-welcome" = "ברוך בואך!";
 "notifications-center-subheader-wikidata-connection" = "קישור ויקינתונים בוצע";
+"notifications-center-swipe-mark-as-read" = "לסמן כהודעה שנקראה";
+"notifications-center-swipe-mark-as-unread" = "לסמן כהודעה שלא נקראה";
+"notifications-center-swipe-more" = "עוד";
 "notifications-center-title" = "התראות";
 "notifications-center-wikidata-project-name" = "ויקינתונים";
 "notifications-push-fallback-body-text" = "פעילות חדשה בוויקיפדיה";
@@ -911,7 +917,7 @@
 "talk-page-new-banner-title" = "היו מנומסים";
 "talk-page-new-body-textfield-accessibility-label" = "גוף הדיון";
 "talk-page-new-reply-body-accessibility-label" = "כתיבת תגובה";
-"talk-page-new-reply-body-placeholder-text" = "תגובה חדשה";
+"talk-page-new-reply-body-placeholder-text" = "כתיבת תגובה";
 "talk-page-new-reply-success-text" = "התגובה שלך פורסמה בהצלחה";
 "talk-page-new-subject-clear-button-accessibility" = "מחיקת הנושא";
 "talk-page-new-subject-placeholder-text" = "נושא";

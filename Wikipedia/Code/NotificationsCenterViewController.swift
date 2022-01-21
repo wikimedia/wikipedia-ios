@@ -542,7 +542,7 @@ extension NotificationsCenterViewController {
     @objc fileprivate func refreshToolbarContent() {
         typeFilterButton.image = viewModel.typeFilterButtonImage
         projectFilterButton.image = viewModel.projectFilterButtonImage
-        statusBarButton.label.text = viewModel.statusBarText
+        statusBarButton.label.attributedText = viewModel.statusBarText(textColor: theme.colors.primaryText, highlightColor: theme.colors.link)
     }
 
     @objc fileprivate func userDidTapProjectFilterButton() {

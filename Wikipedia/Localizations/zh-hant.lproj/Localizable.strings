@@ -22,6 +22,7 @@
 // Author: Nharateh
 // Author: Reke
 // Author: Simon Shek
+// Author: Tranve
 // Author: Tsevener
 // Author: Wehwei
 // Author: Winston Sung
@@ -601,6 +602,8 @@
 "notifications-center-header-notice-from-project" = "$1起的通知";
 "notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "登錄通知";
+"notifications-center-mark" = "標記";
+"notifications-center-mark-all-as-read" = "標記所有為已讀";
 "notifications-center-mark-as-read" = "標記為已讀";
 "notifications-center-mark-as-unread" = "標記為未讀";
 "notifications-center-notifications-settings" = "通知設置";
@@ -623,6 +626,9 @@
 "notifications-center-subheader-user-rights-change" = "用戶權限變更";
 "notifications-center-subheader-welcome" = "歡迎！";
 "notifications-center-subheader-wikidata-connection" = "已建立維基數據連接";
+"notifications-center-swipe-mark-as-read" = "標記為已讀";
+"notifications-center-swipe-mark-as-unread" = "標記為未讀";
+"notifications-center-swipe-more" = "更多";
 "notifications-center-title" = "通知";
 "notifications-center-wikidata-project-name" = "維基數據";
 "notifications-push-fallback-body-text" = "在維基百科上的新活動";
@@ -999,7 +1005,7 @@
 "wikitext-preview-save-changes-title" = "儲存變更";
 "wikitext-upload-captcha-error" = "驗證碼驗証錯誤。";
 "wikitext-upload-captcha-needed" = "需要使用驗證碼驗証。";
-"wikitext-upload-result-unknown" = "無法確定 wiki 語法上傳結果。";
+"wikitext-upload-result-unknown" = "無法確定 wikitext 上傳結果。";
 "wikitext-upload-save" = "發布中…";
 "wikitext-upload-save-anonymously-or-login" = "編輯將作為您的裝置的 IP 位址發佈。如果您$1登入$2，您將擁有更多隱私。";
 "wikitext-upload-save-anonymously-warning" = "編輯將作為您的裝置的 IP 位址發佈。如果您$1，您將擁有更多隱私。";

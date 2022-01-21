@@ -1,6 +1,7 @@
 // Messages for Dutch (Nederlands)
 // Exported from translatewiki.net
 // Author: Aranka
+// Author: Bas dehaan
 // Author: Bouman4
 // Author: Danieldegroot2
 // Author: Duckson32
@@ -596,8 +597,13 @@
 "notifications-center-mark-as-unread" = "Als ongelezen markeren";
 "notifications-center-subheader-email-from-other-user" = "Nieuwe e-mail";
 "notifications-center-subheader-thanks" = "Bedankjes";
+"notifications-center-subheader-user-rights-change" = "Wijzigingen in gebruikersrechten";
 "notifications-center-subheader-welcome" = "Welkom!";
+"notifications-center-swipe-mark-as-read" = "Als gelezen markeren";
+"notifications-center-swipe-mark-as-unread" = "Als ongelezen markeren";
+"notifications-center-swipe-more" = "Meer";
 "notifications-center-title" = "Meldingen";
+"notifications-push-fallback-body-text" = "Nieuwe activiteit op Wikipedia";
 "notifications-push-talk-body-format" = "$1 nieuwe $2 op $3";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|bericht|berichten}}";
 "notifications-push-talk-title-format" = "Nieuw(e) $1";
@@ -762,7 +768,7 @@
 "reading-themes-controls-syntax-highlighting" = "Syntaxismarkering";
 "reference-section-button-accessibility-label" = "Ga naar referenties sectie";
 "reference-title" = "Referentie $1";
-"relative-date-days-ago" = "{{PLURAL:$1|0=Vandaag|1=Gisteren|$1 dagen gelden}}";
+"relative-date-days-ago" = "{{PLURAL:$1|0=Vandaag|1=Gisteren|$1 dagen geleden}}";
 "relative-date-hours-abbreviated" = "$1u";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Recent|$1 uur geleden|$1 uur geleden}}";
 "relative-date-hours-ago-abbreviated" = "$1u geleden";

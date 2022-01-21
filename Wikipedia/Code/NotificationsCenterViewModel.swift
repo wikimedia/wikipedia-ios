@@ -1,5 +1,6 @@
 import Foundation
 import CocoaLumberjackSwift
+import UIKit
 
 protocol NotificationCenterViewModelDelegate: AnyObject {
     /// This causes snapshot to update entirely, inserting new cells as needed
@@ -179,6 +180,24 @@ extension NotificationsCenterViewModel {
         return UIImage(systemName: symbolName)
     }
 
+    private var rawStatusBarText: String? {
+        if isLoading {
+            let checkingForNotifications = WMFLocalizedString("notifications-center-checking-for-notifications", value: "Checking for notifications...", comment: "Status text displayed in Notifications Center when checking for notifications.")
+            return checkingForNotifications
+        }
+
+        let totalProjectCount = remoteNotificationsController.totalLocalProjectsCount
+        let filterState = remoteNotificationsController.filterState
+        let headerText = filterState.stateDescription
+        let subheaderText = filterState.detailDescription(totalProjectCount: totalProjectCount)
+
+        if let subheaderText = subheaderText {
+            return headerText + "\n" + subheaderText
+        }
+
+        return headerText
+    }
+
     // MARK: - Public
 
     var typeFilterButtonImage: UIImage? {
@@ -189,14 +208,22 @@ extension NotificationsCenterViewModel {
         return toolbarImageForProjectFilter(engaged: remoteNotificationsController.filterState.projects.count > 0)
     }
 
-    var statusBarText: String {
-        if isLoading {
-            return "Checking for notifications..."
+    func statusBarText(textColor: UIColor, highlightColor: UIColor) -> NSAttributedString? {
+        guard let rawStatusBarText = rawStatusBarText else {
+            return nil
         }
 
-        // Logic for status bar text based on type, project, and read filters here
+        // Adapted from https://www.swiftbysundell.com/articles/styled-localized-strings-in-swift/
 
-        return "All Notifications"
+        let components = rawStatusBarText.components(separatedBy: RemoteNotificationsFilterState.detailDescriptionHighlightDelineator)
+        let sequence = components.enumerated()
+        let attributedString = NSMutableAttributedString()
+
+        return sequence.reduce(into: attributedString) { string, pair in
+            let isHighlighted = !pair.offset.isMultiple(of: 2)
+            let color = isHighlighted ? highlightColor : textColor
+            string.append(NSAttributedString(string: pair.element, attributes: [.foregroundColor: color]))
+        }
     }
 
 }

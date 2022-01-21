@@ -146,6 +146,10 @@
 "nearby-distance-label-km" = "$1 կմ";
 "nearby-distance-label-meters" = "$1 մ";
 "nearby-distance-label-miles" = "$1 մղոն";
+"notifications-center-mark" = "Նշել";
+"notifications-center-swipe-mark-as-read" = "Նշել ընթերցված";
+"notifications-center-swipe-mark-as-unread" = "Նշել չընթերցված";
+"notifications-center-swipe-more" = "Ավելին";
 "notifications-push-talk-title-format" = "Նոր $1";
 "page-history-compare-title" = "Համեմատել";
 "page-history-minor-edits" = "չնչին խմբագրումներ";
