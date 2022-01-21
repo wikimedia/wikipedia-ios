@@ -49,7 +49,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         imageScaleTransitionView = nil
         detailTransitionSourceRect = nil
         logFeedImpressionAfterDelay()
-        UserHistoryFunnel.shared.logSnapshot()
         dataStore.remoteNotificationsController.refreshNotifications(force: false) { _ in
             //
         }
