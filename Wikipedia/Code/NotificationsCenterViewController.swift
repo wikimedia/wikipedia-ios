@@ -111,7 +111,7 @@ final class NotificationsCenterViewController: ViewController {
     }
 
     @objc fileprivate func applicationWillResignActive() {
-        closeSwipeActionsPanelIfNecessary()
+        closeActiveSwipePanelIfNecessary()
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
