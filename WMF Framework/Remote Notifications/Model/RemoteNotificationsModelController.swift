@@ -1,6 +1,30 @@
 import CocoaLumberjackSwift
 
+public extension Notification.Name {
+    static let NotificationsCenterContextDidSave = Notification.Name("NotificationsCenterContextDidSave")
+    static let NotificationsCenterBadgeNeedsUpdate = Notification.Name("NotificationsCenterBadgeNeedsUpdate")
+}
+
+@objc public extension NSNotification {
+    static let notificationsCenterContextDidSave = Notification.Name.NotificationsCenterContextDidSave
+    static let notificationsCenterBadgeNeedsUpdate = Notification.Name.NotificationsCenterBadgeNeedsUpdate
+}
+
 final class RemoteNotificationsModelController: NSObject {
+    
+    enum LibraryKey: String {
+        case completedImportFlags = "RemoteNotificationsCompletedImportFlags"
+        case continueIdentifer = "RemoteNotificationsContinueIdentifier"
+        case filterSettings = "RemoteNotificationsFilterSettings"
+        
+        func fullKeyForProject(_ project: RemoteNotificationsProject) -> String {
+            if self == .filterSettings {
+                assertionFailure("Shouldn't be using this key for filterSettings")
+            }
+            return "\(self.rawValue)-\(project.notificationsApiWikiIdentifier)"
+        }
+    }
+    
     public static let didLoadPersistentStoresNotification = NSNotification.Name(rawValue: "ModelControllerDidLoadPersistentStores")
     
     //TODO: Look into removing this in the future (some legacy code still uses this)
@@ -63,8 +87,10 @@ final class RemoteNotificationsModelController: NSObject {
         viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
         
         self.persistentContainer = container
-        
+
         super.init()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleDidLogOutNotification), name: WMFAuthenticationManager.didLogOutNotification, object: nil)
     }
     
     func deleteLegacyDatabaseFiles() {
@@ -88,6 +114,45 @@ final class RemoteNotificationsModelController: NSObject {
             DDLogError("Error deleting legacy RemoteNotifications database files: \(error)")
         }
     }
+    
+    @objc func handleDidLogOutNotification() {
+        
+        let batchDeleteBlock: (NSFetchRequest<NSFetchRequestResult>, NSManagedObjectContext) -> Void = { [weak self] (fetchRequest, backgroundContext) in
+            
+            guard let self = self else {
+                return
+            }
+            
+            let batchRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+            batchRequest.resultType = .resultTypeObjectIDs
+            
+            do {
+                let result = try backgroundContext.execute(batchRequest) as? NSBatchDeleteResult
+                let objectIDArray = result?.result as? [NSManagedObjectID]
+                let changes: [AnyHashable : Any] = [NSDeletedObjectsKey : objectIDArray as Any]
+                NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [self.viewContext])
+            } catch (let error) {
+                DDLogError("Error batch deleting notifications upon logout: \(error)")
+            }
+        }
+        
+        let backgroundContext = newBackgroundContext()
+        let request: NSFetchRequest<NSFetchRequestResult> = RemoteNotification.fetchRequest()
+        let libraryRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest<NSFetchRequestResult>(entityName: "WMFKeyValue")
+        
+        //batch delete all notification managed objects from Core Data
+        batchDeleteBlock(request, backgroundContext)
+        
+        //batch delete all library values from Core Data
+        batchDeleteBlock(libraryRequest, backgroundContext)
+        
+        //remove notifications from shared cache (referenced by the NotificationsService extension)
+        let sharedCache = SharedContainerCache<PushNotificationsCache>.init(pathComponent: .pushNotificationsCache, defaultCache: { PushNotificationsCache(settings: .default, notifications: []) })
+        var cache = sharedCache.loadCache()
+        cache.notifications = []
+        cache.currentUnreadCount = 0
+        sharedCache.saveCache(cache)
+    }
 
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -102,15 +167,11 @@ final class RemoteNotificationsModelController: NSObject {
         backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         return backgroundContext
     }
-
-    private func save(moc: NSManagedObjectContext) {
-        if moc.hasChanges {
-            do {
-                try moc.save()
-            } catch let error {
-                DDLogError("Error saving RemoteNotificationsModelController managedObjectContext: \(error)")
-            }
-        }
+    
+    var numberOfUnreadNotifications: Int? {
+        let fetchRequest: NSFetchRequest<RemoteNotification> = RemoteNotification.fetchRequest()
+        fetchRequest.predicate = unreadNotificationsPredicate
+        return try? viewContext.count(for: fetchRequest)
     }
 
     public func createNewNotifications(moc: NSManagedObjectContext, notificationsFetchedFromTheServer: Set<RemoteNotificationsAPIController.NotificationsResult.Notification>, completion: @escaping () -> Void) throws {
@@ -118,7 +179,9 @@ final class RemoteNotificationsModelController: NSObject {
             for notification in notificationsFetchedFromTheServer {
                 self.createNewNotification(moc: moc, notification: notification)
             }
+
             self.save(moc: moc)
+            NotificationCenter.default.post(name: Notification.Name.NotificationsCenterBadgeNeedsUpdate, object: nil)
             completion()
         }
     }
@@ -175,6 +238,7 @@ final class RemoteNotificationsModelController: NSObject {
                 }
                 
                 self.save(moc: moc)
+                NotificationCenter.default.post(name: Notification.Name.NotificationsCenterBadgeNeedsUpdate, object: nil)
                 completion()
             }
         }
@@ -185,15 +249,14 @@ final class RemoteNotificationsModelController: NSObject {
         
         processNotifications(moc: moc, identifierGroups: identifierGroups, handler: { (notification) in
             notification.isRead = shouldMarkRead
-        }, completion: completion)
+        }, completion: {
+            NotificationCenter.default.post(name: Notification.Name.NotificationsCenterBadgeNeedsUpdate, object: nil)
+            completion()
+        })
     }
     
     public func wikisWithUnreadNotifications(moc: NSManagedObjectContext, completion: @escaping ([String]) -> Void) {
         return wikis(moc: moc, predicate: unreadNotificationsPredicate, completion: completion)
-    }
-    
-    private var unreadNotificationsPredicate: NSPredicate {
-        return NSPredicate(format: "isRead == %@", NSNumber(value: false))
     }
 
     private func processNotifications(moc: NSManagedObjectContext, identifierGroups: Set<RemoteNotification.IdentifierGroup>,  handler: @escaping (RemoteNotification) -> Void, completion: @escaping () -> Void) {
@@ -223,7 +286,7 @@ final class RemoteNotificationsModelController: NSObject {
         completion(Set(notifications))
     }
     
-    private func wikis(moc: NSManagedObjectContext, predicate: NSPredicate?, completion: @escaping ([String]) -> Void) {
+    func wikis(moc: NSManagedObjectContext, predicate: NSPredicate?, completion: @escaping ([String]) -> Void) {
         moc.perform {
             guard let entityName = RemoteNotification.entity().name else {
                 return
@@ -242,6 +305,55 @@ final class RemoteNotificationsModelController: NSObject {
             let results = dictionaries.flatMap { $0.values }
 
             completion(results)
+        }
+    }
+    
+    private var unreadNotificationsPredicate: NSPredicate {
+        return NSPredicate(format: "isRead == %@", NSNumber(value: false))
+    }
+
+    private func save(moc: NSManagedObjectContext) {
+        if moc.hasChanges {
+            do {
+                try moc.save()
+                NotificationCenter.default.post(name: Notification.Name.NotificationsCenterContextDidSave, object: nil)
+            } catch let error {
+                DDLogError("Error saving RemoteNotificationsModelController managedObjectContext: \(error)")
+            }
+        }
+    }
+    
+    //MARK: Notifications Center Filter
+    func getFilterSettingsFromLibrary() -> NSDictionary? {
+        return libraryValue(forKey: LibraryKey.filterSettings.rawValue) as? NSDictionary
+    }
+    
+    func setFilterSettingsToLibrary(dictionary: NSDictionary?) {
+        setLibraryValue(dictionary, forKey: LibraryKey.filterSettings.rawValue)
+    }
+    
+    //MARK: WMFLibraryValue Helpers
+    //TODO: Cache this (see EventLoggingService as an example)
+    
+    func libraryValue(forKey key: String) -> NSCoding? {
+        var result: NSCoding? = nil
+        let backgroundContext = newBackgroundContext()
+        backgroundContext.performAndWait {
+            result = backgroundContext.wmf_keyValue(forKey: key)?.value
+        }
+        
+        return result
+    }
+    
+    func setLibraryValue(_ value: NSCoding?, forKey key: String) {
+        let backgroundContext = newBackgroundContext()
+        backgroundContext.perform {
+            backgroundContext.wmf_setValue(value, forKey: key)
+            do {
+                try backgroundContext.save()
+            } catch let error {
+                DDLogError("Error saving RemoteNotifications backgroundContext for library keys: \(error)")
+            }
         }
     }
 }

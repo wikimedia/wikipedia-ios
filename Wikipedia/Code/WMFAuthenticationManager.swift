@@ -162,6 +162,8 @@ import CocoaLumberjackSwift
                 KeychainCredentialsManager.shared.password = password
                 self.session.cloneCentralAuthCookies()
                 self.delegate?.authenticationManagerDidLogin()
+                //TODO: TEMPORARY LOGIC
+                NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
                 completion(.success(result))
             }
         }, failure: { (error) in
@@ -199,6 +201,8 @@ import CocoaLumberjackSwift
                     self.loggedInUserCache[host] = result
                 }
                 self.loggedInUsername = result.name
+                //TODO: TEMPORARY LOGIC
+                NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
                 completion(.alreadyLoggedIn(result))
             }
         }, failure:{ error in
@@ -313,6 +317,7 @@ extension WMFAuthenticationManager {
     }
 
     @objc public static let didLogOutNotification = Notification.Name("WMFAuthenticationManagerDidLogOut")
+    @objc public static let didLogInNotification = Notification.Name("WMFAuthenticationManagerDidLogIn")
 
     @objc public func userDidAcknowledgeUnintentionalLogout() {
         isUserUnawareOfLogout = false

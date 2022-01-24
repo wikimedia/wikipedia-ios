@@ -71,17 +71,103 @@ public class RemoteNotification: NSManagedObject {
             }
         }
     }
+    
+    public static func categoryStringsForRemoteNotificationType(type: RemoteNotificationType) -> [String] {
+        
+        switch type {
+        case .userTalkPageMessage:
+            return ["edit-user-talk"]
+        case .mentionInTalkPage,
+                .mentionInEditSummary:
+            return ["mention"]
+        case .successfulMention:
+            return ["mention-success"]
+        case .failedMention:
+            return ["mention-failure"]
+        case .editReverted:
+            return ["reverted"]
+        case .userRightsChange:
+            return ["user-rights"]
+        case .pageReviewed:
+            return ["page-review"]
+        case .pageLinked:
+            return ["article-linked"]
+        case .connectionWithWikidata:
+            return ["wikibase-action"]
+        case .emailFromOtherUser:
+            return ["emailuser"]
+        case .thanks:
+            return ["edit-thank"]
+        case .translationMilestone: //Note: this will include the other translation type associated values
+            return ["cx"]
+        case .editMilestone:
+            return ["thank-you-edit"]
+        case .welcome:
+            return ["system-noemail"]
+        case .loginFailKnownDevice: //Note: this will include the other login types
+            return ["login-fail", "login-success"]
+        default:
+            return []
+        }
+    }
+    
+    public static func typeStringsForRemoteNotificationType(type: RemoteNotificationType) -> [String] {
+        switch type {
+        case .userTalkPageMessage:
+            return ["edit-user-talk"]
+        case .mentionInTalkPage:
+            return ["mention"]
+        case .mentionInEditSummary:
+            return ["mention-summary"]
+        case .successfulMention:
+            return ["mention-success"]
+        case .failedMention:
+            return ["mention-failure", "mention-failure-too-many"]
+        case .editReverted:
+            return ["reverted"]
+        case .userRightsChange:
+            return ["user-rights"]
+        case .pageReviewed:
+            return ["pagetriage-mark-as-reviewed"]
+        case .pageLinked:
+            return ["page-linked"]
+        case .connectionWithWikidata:
+            return ["page-connection"]
+        case .emailFromOtherUser:
+            return ["emailuser"]
+        case .thanks:
+            return ["edit-thank"]
+        case .translationMilestone: //Note: this will include the other translation type associated values
+            return ["cx-first-translation", "cx-tenth-translation, cx-hundredth-translation"]
+        case .editMilestone:
+            return ["thank-you-edit"]
+        case .welcome:
+            return ["welcome"]
+        case .loginFailKnownDevice: //Note: this will include the other login types
+            return ["login-fail-new", "login-fail-known", "login-success"]
+        default:
+            return []
+        }
+    }
 
     public var primaryLinkHost: String? {
         return messageLinks?.primary?.url?.host
     }
 
     public var primaryLinkFragment: String? {
-        return messageLinks?.primary?.url?.fragment
+        return primaryLinkURL?.fragment
     }
     
     public var primaryLinkURL: URL? {
         return messageLinks?.primary?.url
+    }
+    
+    public var legacyPrimaryLinkURL: URL? {
+        return messageLinks?.legacyPrimary?.url
+    }
+    
+    public var legacyPrimaryLinkFragment: String? {
+        return legacyPrimaryLinkURL?.fragment
     }
     
     public var primaryLinkLabel: String? {

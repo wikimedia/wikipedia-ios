@@ -22,7 +22,7 @@ class NotificationServiceHelperTest: XCTestCase {
     var userTwoTalkPageNotifications: [RemoteNotificationsAPIController.NotificationsResult.Notification] {
         let dateSixMinutesAgo = Date(timeInterval: -TimeInterval.sixMinutes, since: Date())
         
-        guard let notification = RemoteNotificationsAPIController.NotificationsResult.Notification(project: .language("en", nil, nil), titleText: testUsername2, titleNamespace: .userTalk, remoteNotificationType: .userTalkPageMessage, date: dateSixMinutesAgo) else {
+        guard let notification = RemoteNotificationsAPIController.NotificationsResult.Notification(project: .wikipedia("en", "English", nil), titleText: testUsername2, titleNamespace: .userTalk, remoteNotificationType: .userTalkPageMessage, date: dateSixMinutesAgo) else {
             return []
         }
         
@@ -41,7 +41,7 @@ class NotificationServiceHelperTest: XCTestCase {
 
         let dateFiveMinutesAgo = Date(timeInterval: -TimeInterval.fiveMinutes, since: Date())
         
-        guard let editRevertedNotification = RemoteNotificationsAPIController.NotificationsResult.Notification(project: .language("en", nil, nil), titleText: "Article", titleNamespace: .main, remoteNotificationType: .editReverted, date: dateFiveMinutesAgo) else {
+        guard let editRevertedNotification = RemoteNotificationsAPIController.NotificationsResult.Notification(project: .wikipedia("en", "English", nil), titleText: "Article", titleNamespace: .main, remoteNotificationType: .editReverted, date: dateFiveMinutesAgo) else {
             XCTFail("Failure setting up test notifications")
                   return
         }
@@ -138,7 +138,7 @@ class NotificationServiceHelperTest: XCTestCase {
     }
     
     func standardUserTalkMessageNotification(customID: String? = nil, date: Date) -> RemoteNotificationsAPIController.NotificationsResult.Notification? {
-        return RemoteNotificationsAPIController.NotificationsResult.Notification(project: .language("en", nil, nil), titleText: testUsername1, titleNamespace: .userTalk, remoteNotificationType: .userTalkPageMessage, date: date, customID: customID)
+        return RemoteNotificationsAPIController.NotificationsResult.Notification(project: .wikipedia("en", "English", nil), titleText: testUsername1, titleNamespace: .userTalk, remoteNotificationType: .userTalkPageMessage, date: date, customID: customID)
     }
 
 }

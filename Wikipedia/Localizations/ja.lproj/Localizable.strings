@@ -40,7 +40,7 @@
 // Author: ネイ
 // Author: 아라
 
-"aaald-added-text-description-2" = "$1 追加";
+"aaald-added-text-description-2" = "$1追加";
 "aaald-article-description-updated-description" = "記事の説明が更新されました";
 "aaald-article-insert-header" = "重要な更新";
 "aaald-article-insert-last-updated" = "最終更新";
@@ -82,7 +82,7 @@
 "about-product-of" = "あなたのようなボランティアの手助けのもと、$1 によって作られました";
 "about-repositories" = "リポジトリについて";
 "about-repositories-app-source-license" = "ソースコードは$1で利用可能です。";
-"about-repositories-app-source-license-mit" = "MITライセンス";
+"about-repositories-app-source-license-mit" = "MIT License";
 "about-send-feedback" = "フィードバックを送信";
 "about-testers" = "テスター";
 "about-testers-details" = "$1によって品質保証テストされました";
@@ -335,6 +335,7 @@
 "empty-no-feed-message" = "おすすめの記事は、インターネットに接続されているときに見ることができます";
 "empty-no-history-message" = "ここには、あなたが閲読した記事の履歴が表示されます";
 "empty-no-history-title" = "表示する履歴がありません";
+"empty-no-other-article-languages-message" = "この記事は現在、ほかの言語に翻訳されていません";
 "empty-no-other-article-languages-title" = "ほかの言語は利用できません";
 "empty-no-reading-lists-message" = "あとで読むリストを作成し、旅行に行きたいところ、好きな話題、何でも保存しましょう";
 "empty-no-reading-lists-title" = "あとで読むリストに保存した記事を整理しましょう";
@@ -431,6 +432,8 @@
 "explore-random-article-sub-heading-from-wikipedia" = "ウィキペディアより";
 "explore-randomizer" = "おまかせ表示";
 "featured-article-empty-title" = "今日は秀逸な記事がありません";
+"featured-widget-content-failure-for-date" = "この日の秀逸な記事は利用できません。";
+"featured-widget-description" = "コミュニティから選ばれた、ウィキペディアの秀逸な記事を探索しましょう。";
 "featured-widget-from-language-wikipedia" = "$1版ウィキペディアより";
 "featured-widget-from-wikipedia" = "ウィキペディアより";
 "featured-widget-language-failure" = "あなたのメイン言語は秀逸な記事をサポートしていません。アプリの設定メニューからウィキペディアのメイン言語を切り替えることができます。";
@@ -572,12 +575,43 @@
 "no-internet-connection-article-reload-button" = "最後に保存した版に戻る";
 "notifications-center-change-password" = "パスワードを変更";
 "notifications-center-commons-project-name" = "ウィキメディア・コモンズ";
+"notifications-center-empty-checking-for-notifications" = "通知を確認中...";
+"notifications-center-empty-no-unread-messages" = "未読メッセージはありません";
+"notifications-center-empty-not-subscribed" = "現在、ウィキペディアの通知を登録していません";
+"notifications-center-footer-change-password" = "パスワードを変更";
+"notifications-center-go-to-talk-page" = "会話ページに移動";
+"notifications-center-go-to-title" = "$1に移動";
+"notifications-center-go-to-user-page" = "$1の利用者ページに移動";
+"notifications-center-go-to-your-talk-page" = "あなたの会話ページに移動";
+"notifications-center-header-alert-from-project" = "$1からの通知";
+"notifications-center-header-notice-from-project" = "$1からの通知";
+"notifications-center-language-project-name-format" = "$1 $2";
+"notifications-center-login-notifications" = "ログイン通知";
+"notifications-center-mark-all-as-read" = "すべて既読にする";
+"notifications-center-mark-as-read" = "既読にする";
+"notifications-center-mark-as-unread" = "未読にする";
+"notifications-center-notifications-settings" = "通知設定";
+"notifications-center-subheader-email-from-other-user" = "新しいメール";
+"notifications-center-subheader-login-success-unknown-device" = "身に覚えのない端末からのログイン";
+"notifications-center-subheader-mention-failed" = "メンションに失敗しました";
+"notifications-center-subheader-mention-successful" = "メンションに成功しました";
+"notifications-center-subheader-thanks" = "ありがとうございます";
+"notifications-center-subheader-welcome" = "ようこそ!";
+"notifications-center-swipe-mark-as-read" = "既読にする";
+"notifications-center-swipe-mark-as-unread" = "未読にする";
+"notifications-center-title" = "通知";
+"notifications-center-wikidata-project-name" = "ウィキデータ";
+"notifications-push-fallback-body-text" = "ウィキペディア内の新しいアクティビティ";
+"notifications-push-talk-body-format" = "$3の$1件の#2";
+"notifications-push-talk-messages-format" = "メッセージ";
+"notifications-push-talk-title-format" = "新しい$1";
 "number-billions" = "$1";
 "number-millions" = "$1";
 "number-thousands" = "$1千";
 "on-this-day-detail-header-date-range" = "$1 - $2から";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1件の歴史上の出来事|$1件の歴史上の出来事}}";
 "on-this-day-footer" = "この日の多くの歴史的出来事";
+"on-this-day-footer-showing-event-count" = "今日の$1件の歴史的な出来事";
 "on-this-day-no-internet-error" = "利用できるデータがありません";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2版ウィキペディアより$1の記事";
 "on-this-day-title" = "今日は何の日";
