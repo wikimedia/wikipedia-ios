@@ -2,7 +2,7 @@
 import Foundation
 import WMF
 
-//Keeps track of the RemoteNotification managed objects and NotificationCenterCellViewModels that power Notification Center in a performant way
+//Keeps track of the RemoteNotification managed objects and NotificationsCenterCellViewModels that power Notification Center in a performant way
 final class NotificationsCenterModelController {
     
     typealias RemoteNotificationKey = String
@@ -18,7 +18,7 @@ final class NotificationsCenterModelController {
         self.remoteNotificationsController = remoteNotificationsController
     }
     
-    @discardableResult func addNewCellViewModelsWith(notifications: [RemoteNotification], isEditing: Bool) -> NotificationCenterUpdateType? {
+    @discardableResult func addNewCellViewModelsWith(notifications: [RemoteNotification], isEditing: Bool) -> NotificationsCenterUpdateType? {
         
         var newCellViewModels: [NotificationsCenterCellViewModel] = []
         for notification in notifications {
@@ -40,7 +40,7 @@ final class NotificationsCenterModelController {
         return newCellViewModels.count > 0 ? .updateSnapshot(sortedCellViewModels) : nil
     }
     
-    @discardableResult func evaluateUpdatedNotifications(updatedNotifications: [RemoteNotification], isEditing: Bool) -> [NotificationCenterUpdateType] {
+    @discardableResult func evaluateUpdatedNotifications(updatedNotifications: [RemoteNotification], isEditing: Bool) -> [NotificationsCenterUpdateType] {
         //Find existing cell view models via tracking properties
         
         var didRemoveValueFromTrackingProperties: Bool = false
@@ -70,7 +70,7 @@ final class NotificationsCenterModelController {
         
         updateCellDisplayStates(cellViewModels: viewModelsToUpdate, isEditing: isEditing)
         
-        var updateTypes: [NotificationCenterUpdateType] = []
+        var updateTypes: [NotificationsCenterUpdateType] = []
         if viewModelsToUpdate.count > 0 {
             updateTypes.append(.reconfigureCells(viewModelsToUpdate))
         }
@@ -86,7 +86,7 @@ final class NotificationsCenterModelController {
         return cellViewModels.count
     }
     
-    @discardableResult func updateCellDisplayStates(cellViewModels: [NotificationsCenterCellViewModel]? = nil, isEditing: Bool, isSelected: Bool? = nil) -> NotificationCenterUpdateType? {
+    @discardableResult func updateCellDisplayStates(cellViewModels: [NotificationsCenterCellViewModel]? = nil, isEditing: Bool, isSelected: Bool? = nil) -> NotificationsCenterUpdateType? {
         
         let cellViewModels = cellViewModels ?? Array(self.cellViewModels)
         

@@ -453,11 +453,11 @@ private extension NotificationsCenterViewController {
     }
 }
 
-// MARK: - NotificationCenterViewModelDelegate
+// MARK: - NotificationsCenterViewModelDelegate
 
-extension NotificationsCenterViewController: NotificationCenterViewModelDelegate {
+extension NotificationsCenterViewController: NotificationsCenterViewModelDelegate {
     
-    func update(types: [NotificationCenterUpdateType]) {
+    func update(types: [NotificationsCenterUpdateType]) {
         
         for type in types {
             

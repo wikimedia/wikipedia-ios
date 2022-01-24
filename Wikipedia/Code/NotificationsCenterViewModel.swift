@@ -3,7 +3,7 @@ import CocoaLumberjackSwift
 import WMF
 import UIKit
 
-enum NotificationCenterUpdateType {
+enum NotificationsCenterUpdateType {
     case emptyDisplay(Bool)
     case emptyContent
     case toolbarDisplay
@@ -12,8 +12,8 @@ enum NotificationCenterUpdateType {
     case updateSnapshot([NotificationsCenterCellViewModel]) //updates the snapshot for inserting / deleting cells
 }
 
-protocol NotificationCenterViewModelDelegate: AnyObject {
-    func update(types: [NotificationCenterUpdateType])
+protocol NotificationsCenterViewModelDelegate: AnyObject {
+    func update(types: [NotificationsCenterUpdateType])
 }
 
 enum NotificationsCenterSection {
@@ -27,7 +27,7 @@ final class NotificationsCenterViewModel: NSObject {
 
     let remoteNotificationsController: RemoteNotificationsController
     
-    weak var delegate: NotificationCenterViewModelDelegate?
+    weak var delegate: NotificationsCenterViewModelDelegate?
 
     lazy private var modelController = NotificationsCenterModelController(languageLinkController: self.languageLinkController, remoteNotificationsController: remoteNotificationsController)
 
@@ -73,7 +73,7 @@ final class NotificationsCenterViewModel: NSObject {
             return
         }
         
-        var updateTypes: [NotificationCenterUpdateType] = []
+        var updateTypes: [NotificationsCenterUpdateType] = []
         
         let refreshUpdateTypes = modelController.evaluateUpdatedNotifications(updatedNotifications: Array(refreshedNotifications), isEditing: isEditing)
         updateTypes.append(contentsOf: refreshUpdateTypes)
@@ -130,7 +130,7 @@ final class NotificationsCenterViewModel: NSObject {
                 }
                 
                 let notifications = self.remoteNotificationsController.fetchNotifications()
-                var updateTypes: [NotificationCenterUpdateType] = []
+                var updateTypes: [NotificationsCenterUpdateType] = []
                 if let updateType = self.modelController.addNewCellViewModelsWith(notifications: notifications, isEditing: self.isEditing) {
                     updateTypes.append(updateType)
                 }
@@ -170,7 +170,7 @@ final class NotificationsCenterViewModel: NSObject {
     func updateEditingModeState(isEditing: Bool) {
         self.isEditing = isEditing
         
-        var updateTypes: [NotificationCenterUpdateType] = []
+        var updateTypes: [NotificationsCenterUpdateType] = []
         if let updateType = modelController.updateCellDisplayStates(isEditing: self.isEditing) {
             updateTypes.append(updateType)
         }
