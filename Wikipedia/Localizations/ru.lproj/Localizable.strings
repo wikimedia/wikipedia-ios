@@ -227,7 +227,7 @@
 "description-edit-pencil-introduction" = "Редактировать введение";
 "description-edit-pencil-title" = "Редактировать описание статьи";
 "description-edit-placeholder-title" = "Краткие описания лучше всего";
-"description-edit-publish" = "Записать описание";
+"description-edit-publish" = "Опубликовать описание";
 "description-edit-title" = "Править описание";
 "description-edit-warning" = "Старайтесь ограничивать размер описаний, чтобы участники могли понимать предмет статьи с одного взгляда";
 "description-edit-warning-casing" = "Только собственные имена должны быть написаны с большой буквы, даже в начале предложения.";
@@ -620,6 +620,7 @@
 "notifications-center-go-to-wikidata-item" = "Перейти на элемент Викиданных";
 "notifications-center-go-to-your-talk-page" = "Перейти на вашу страницу обсуждения";
 "notifications-center-language-project-name-format" = "$1 $2";
+"notifications-center-mark" = "Пометить";
 "notifications-center-mark-as-read" = "Отметить как прочитанное";
 "notifications-center-mark-as-unread" = "Пометить как непрочитанное";
 "notifications-center-notifications-settings" = "Настройки уведомлений";
@@ -633,6 +634,7 @@
 "notifications-center-subheader-thanks" = "Благодарность";
 "notifications-center-subheader-user-rights-change" = "Изменения прав участника";
 "notifications-center-subheader-welcome" = "Добро пожаловать!";
+"notifications-center-swipe-more" = "Ещё";
 "notifications-center-title" = "Уведомления";
 "notifications-center-wikidata-project-name" = "Викиданные";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|сообщение|сообщения|сообщений}}";

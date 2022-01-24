@@ -433,7 +433,7 @@
 "feed-news-notification-button-text" = "הפעלת עדכונים";
 "feed-news-notification-text" = "הפעלת עדכונים כדי לקבל הודעות מוויקיפדיה כשערכים נהיים חמים בחדשות.";
 "fetcher-error-generic" = "משהו השתבש! נא לנסות שוב מאוחר יותר.";
-"fetcher-error-unexpected-response" = "היישום הזה קיבל תגובה בלתי־צפויה מהשרת. נא לנסות שוב מאוחר יותר.";
+"fetcher-error-unexpected-response" = "היישום הזה קיבל תשובה בלתי־צפויה מהשרת. נא לנסות שוב מאוחר יותר.";
 "field-alert-captcha-invalid" = "קוד אימות בלתי־תקין";
 "field-alert-password-confirm-mismatch" = "הסיסמאות אינן תואמות";
 "field-alert-token-invalid" = "קוד בלתי־תקין";
@@ -917,7 +917,7 @@
 "talk-page-new-banner-title" = "היו מנומסים";
 "talk-page-new-body-textfield-accessibility-label" = "גוף הדיון";
 "talk-page-new-reply-body-accessibility-label" = "כתיבת תגובה";
-"talk-page-new-reply-body-placeholder-text" = "תגובה חדשה";
+"talk-page-new-reply-body-placeholder-text" = "כתיבת תגובה";
 "talk-page-new-reply-success-text" = "התגובה שלך פורסמה בהצלחה";
 "talk-page-new-subject-clear-button-accessibility" = "מחיקת הנושא";
 "talk-page-new-subject-placeholder-text" = "נושא";
