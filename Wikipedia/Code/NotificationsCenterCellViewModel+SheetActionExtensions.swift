@@ -1,5 +1,6 @@
 
 import Foundation
+import WMF
 
 extension NotificationsCenterCellViewModel {
     
@@ -17,8 +18,8 @@ extension NotificationsCenterCellViewModel {
     func sheetActions(for configuration: Configuration) -> [SheetAction] {
         
         var sheetActions: [SheetAction] = []
-        let markAsReadText = WMFLocalizedString("notifications-center-mark-as-read", value: "Mark as Read", comment: "Button text in Notifications Center to mark a notification as read.")
-        let markAsUnreadText = WMFLocalizedString("notifications-center-mark-as-unread", value: "Mark as Unread", comment: "Button text in Notifications Center to mark a notification as unread.")
+        let markAsReadText = CommonStrings.notificationsCenterMarkAsRead
+        let markAsUnreadText = CommonStrings.notificationsCenterMarkAsUnread
         let markAsReadOrUnreadText = isRead ? markAsUnreadText : markAsReadText
         let markAsReadOrUnreadActionData = SheetActionData(text: markAsReadOrUnreadText, url: nil)
         sheetActions.append(.markAsReadOrUnread(markAsReadOrUnreadActionData))

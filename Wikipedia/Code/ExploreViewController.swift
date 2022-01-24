@@ -49,6 +49,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         imageScaleTransitionView = nil
         detailTransitionSourceRect = nil
         logFeedImpressionAfterDelay()
+        dataStore.remoteNotificationsController.refreshNotifications(force: false) { _ in
+            //
+        }
     }
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {

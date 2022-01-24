@@ -101,6 +101,7 @@ extension NotificationsCenterCellViewModel {
         let title: String? //ex: Cat
         let fullTitle: String? //ex: Talk:Cat
         let primaryLinkFragment: String?
+        let legacyPrimaryLinkFragment: String?
         let agentName: String?
         let revisionID: String?
         let titleNamespace: PageNamespace?
@@ -120,8 +121,9 @@ extension NotificationsCenterCellViewModel {
         let titleNamespace = PageNamespace(namespaceValue: Int(notification.titleNamespaceKey))
         let revisionID = notification.revisionID
         let primaryLinkFragment = notification.primaryLinkFragment
+        let legacyPrimaryLinkFragment = notification.legacyPrimaryLinkFragment
 
-        return LinkData(host: host, wiki: wiki, title: title, fullTitle: fullTitle, primaryLinkFragment: primaryLinkFragment, agentName: agentName, revisionID: revisionID, titleNamespace: titleNamespace, languageVariantCode: project.languageVariantCode)
+        return LinkData(host: host, wiki: wiki, title: title, fullTitle: fullTitle, primaryLinkFragment: primaryLinkFragment, legacyPrimaryLinkFragment: legacyPrimaryLinkFragment, agentName: agentName, revisionID: revisionID, titleNamespace: titleNamespace, languageVariantCode: project.languageVariantCode)
 
     }
 }
@@ -148,7 +150,8 @@ extension NotificationsCenterCellViewModel {
             return url
         }
 
-        components.fragment = data.primaryLinkFragment
+        //primaryLinkFragment sometimes returns user's talk signature within in, which messes up deep linking to a talk page topic. Prefer legacyPrimaryLinkFragment which seems to not have this signature.
+        components.fragment = data.legacyPrimaryLinkFragment ?? data.primaryLinkFragment
         return components.url
     }
     

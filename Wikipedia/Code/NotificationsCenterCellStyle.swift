@@ -21,20 +21,15 @@ struct NotificationsCenterCellStyle {
         }
 
         switch notificationType {
-        case .welcome, .editMilestone, .translationMilestone(_), .failedMention, .successfulMention:
-            return theme.colors.primaryText
-        case .loginFailKnownDevice, .loginFailUnknownDevice, .loginSuccessUnknownDevice:
+        case .loginFailKnownDevice, .loginFailUnknownDevice, .loginSuccessUnknownDevice, .unknownAlert, .unknownSystemAlert:
             return theme.colors.error
         default:
-            return theme.colors.link
+            return theme.colors.primaryText
         }
     }
 
     func subheaderTextColor(_ displayState: NotificationsCenterCellDisplayState) -> UIColor {
-        switch notificationType {
-        default:
-            return displayState.isUnread ? theme.colors.primaryText : theme.colors.secondaryText
-        }
+        return theme.colors.secondaryText
     }
 
     var messageTextColor: UIColor {
@@ -59,16 +54,7 @@ struct NotificationsCenterCellStyle {
             return color
         }
 
-        switch notificationType {
-        case .editMilestone, .translationMilestone(_), .welcome, .thanks:
-            return theme.colors.accent
-        case .loginFailKnownDevice, .loginFailUnknownDevice, .loginSuccessUnknownDevice:
-            return theme.colors.error
-        case .failedMention, .editReverted, .userRightsChange:
-            return theme.colors.warning
-        default:
-            return theme.colors.link
-        }
+        return notificationType.imageBackgroundColorWithTheme(theme)
     }
 
     func leadingImageBorderColor(_ displayState: NotificationsCenterCellDisplayState) -> UIColor {
@@ -92,22 +78,22 @@ struct NotificationsCenterCellStyle {
 
     func headerFont(_ displayState: NotificationsCenterCellDisplayState) -> UIFont {
         if displayState.isRead {
-            return UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
-        }
-
-        return UIFont.wmf_font(.boldHeadline, compatibleWithTraitCollection: traitCollection)
-    }
-
-    func subheaderFont(_ displayState: NotificationsCenterCellDisplayState) -> UIFont {
-        if displayState.isRead {
             return UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
         }
 
         return UIFont.wmf_font(.boldSubheadline, compatibleWithTraitCollection: traitCollection)
     }
 
+    func subheaderFont(_ displayState: NotificationsCenterCellDisplayState) -> UIFont {
+        if displayState.isRead {
+            return UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
+        }
+
+        return UIFont.wmf_font(.boldFootnote, compatibleWithTraitCollection: traitCollection)
+    }
+
     var messageFont: UIFont {
-        return UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+        return UIFont.wmf_font(.footnote, compatibleWithTraitCollection: traitCollection)
     }
 
     func metadataFont(_ displayState: NotificationsCenterCellDisplayState) -> UIFont {
@@ -137,33 +123,12 @@ struct NotificationsCenterCellStyle {
             let image = displayState.isSelected ? UIImage(named: "notifications-center-checkmark") : nil
             return image
         }
-
-        // Return image for the notification type
-        switch notificationType {
-        case .userTalkPageMessage:
-            return UIImage(named: "notifications-type-user-talk-message")
-        case .mentionInTalkPage, .mentionInEditSummary, .successfulMention, .failedMention:
-            return UIImage(named: "notifications-type-mention")
-        case .editReverted:
-            return UIImage(named: "notifications-type-edit-revert")
-        case .userRightsChange:
-            return UIImage(named: "notifications-type-user-rights")
-        case .pageReviewed:
-            return UIImage(named: "notifications-type-page-reviewed")
-        case .pageLinked, .connectionWithWikidata:
-            return UIImage(named: "notifications-type-link")
-        case .thanks:
-            return UIImage(named: "notifications-type-thanks")
-        case .welcome, .translationMilestone(_), .editMilestone:
-            return UIImage(named: "notifications-type-milestone")
-        case .loginFailKnownDevice, .loginFailUnknownDevice, .loginSuccessUnknownDevice,
-             .unknownSystemAlert, .unknownAlert:
-            return UIImage(named: "notifications-type-login-notify")
-        case .emailFromOtherUser:
-            return UIImage(named: "notifications-type-email")
-        default:
-            return UIImage(named: "notifications-type-default")
+        
+        if let imageName = notificationType.imageName {
+            return UIImage(named: imageName)
         }
+        
+        return nil
     }
 
 }

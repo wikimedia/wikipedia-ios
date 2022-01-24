@@ -6,11 +6,11 @@ final class NotificationsCenterCellViewModel {
 
     let notification: RemoteNotification
     let project: RemoteNotificationsProject
-    private(set) var displayState: NotificationsCenterCellDisplayState = .defaultUnread
+    private(set) var displayState: NotificationsCenterCellDisplayState
 
 	// MARK: - Lifecycle
 
-    init?(notification: RemoteNotification, languageLinkController: MWKLanguageLinkController) {
+    init?(notification: RemoteNotification, languageLinkController: MWKLanguageLinkController, isEditing: Bool) {
         
         //Validation - all notifications must have a recognized project for display (wikidata, commons, or app-supported language)
         guard let wiki = notification.wiki,
@@ -20,6 +20,8 @@ final class NotificationsCenterCellViewModel {
         
         self.notification = notification
         self.project = project
+        
+        self.displayState = Self.displayStateFor(isEditing: isEditing, isSelected: false, isRead: notification.isRead)
     }
 
     // MARK: - Public
@@ -32,21 +34,31 @@ final class NotificationsCenterCellViewModel {
         return notification.isRead
     }
     
-    func updateDisplayState(isEditing: Bool, isSelected: Bool) {
+    func updateDisplayState(isEditing: Bool? = nil, isSelected: Bool? = nil) {
+        
+        //preserve current values for isEditing and isSelected if not specified
+        let newIsEditingState = isEditing ?? displayState.isEditing
+        let newIsSelectedState = isSelected ?? displayState.isSelected
+        
+        self.displayState = Self.displayStateFor(isEditing: newIsEditingState, isSelected: newIsSelectedState, isRead: isRead)
+        
+    }
+    
+    static func displayStateFor(isEditing: Bool, isSelected: Bool, isRead: Bool) -> NotificationsCenterCellDisplayState {
 
-        switch (isEditing, isSelected, notification.isRead) {
+        switch (isEditing, isSelected, isRead) {
             case (false, _, true):
-                displayState = .defaultRead
+                return .defaultRead
             case (false, _, false):
-                displayState = .defaultUnread
+                return .defaultUnread
             case (true, true, true):
-                displayState = .editSelectedRead
+                return .editSelectedRead
             case (true, true, false):
-                displayState = .editSelectedUnread
+                return .editSelectedUnread
             case (true, false, true):
-                displayState = .editUnselectedRead
+                return .editUnselectedRead
             case (true, false, false):
-                displayState = .editUnselectedUnread
+                return .editUnselectedUnread
         }
     }
     
@@ -59,23 +71,5 @@ extension NotificationsCenterCellViewModel: Equatable, Hashable {
 
     static func == (lhs: NotificationsCenterCellViewModel, rhs: NotificationsCenterCellViewModel) -> Bool {
         return lhs.notification.key == rhs.notification.key
-    }
-    
-    var shouldAllowSecondaryTapAction: Bool {
-    
-        guard !displayState.isEditing else {
-            return false
-        }
-
-        switch notification.type {
-        case .welcome,
-             .editMilestone,
-             .translationMilestone,
-             .failedMention,
-             .successfulMention:
-            return false
-        default:
-            return true
-        }
     }
 }

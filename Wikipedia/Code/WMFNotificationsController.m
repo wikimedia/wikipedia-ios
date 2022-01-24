@@ -37,8 +37,21 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
         self.languageLinkController = languageLinkController;
         self.echoSubscriptionFetcher = [[WMFEchoSubscriptionFetcher alloc] initWithSession:dataStore.session configuration:dataStore.configuration];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAppLanguageDidChangeNotification:) name:WMFAppLanguageDidChangeNotification object:nil];
+
+        [self silentlyOptInToBadgePermissionsIfNecessary];
     }
     return self;
+}
+
+- (void)silentlyOptInToBadgePermissionsIfNecessary {
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings *settings) {
+        if (settings.authorizationStatus == UNAuthorizationStatusAuthorized) {
+            [center requestAuthorizationWithOptions:UNAuthorizationOptionBadge completionHandler:^(BOOL granted, NSError *error) {
+                // Silently opt-in a user who has previously authorized the app for alerts and sounds into the app icon badge permission as well
+            }];
+        }
+    }];
 }
 
 - (void)handleAppLanguageDidChangeNotification: (NSNotification *)notification {
@@ -117,7 +130,7 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
 
 - (void)requestPermissionsWithCompletionHandler:(void (^)(BOOL, NSError *_Nullable))completionHandler {
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-    [center requestAuthorizationWithOptions:UNAuthorizationOptionAlert | UNAuthorizationOptionSound
+    [center requestAuthorizationWithOptions:UNAuthorizationOptionAlert | UNAuthorizationOptionSound | UNAuthorizationOptionBadge
                           completionHandler:^(BOOL granted, NSError *_Nullable error) {
                               completionHandler(granted, error);
                           }];
