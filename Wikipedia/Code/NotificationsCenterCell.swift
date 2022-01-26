@@ -1,7 +1,6 @@
 import UIKit
 
 protocol NotificationsCenterCellDelegate: AnyObject {
-    func userDidTapSecondaryActionForCell(_ cell: NotificationsCenterCell)
     func userDidTapMarkAsReadUnreadActionForCell(_ cell: NotificationsCenterCell)
     func userDidTapMoreActionForCell(_ cell: NotificationsCenterCell)
 }
@@ -75,12 +74,6 @@ final class NotificationsCenterCell: UICollectionViewCell {
         label.isUserInteractionEnabled = true
         return label
     }()
-    
-    lazy var headerLabelTapGestureRecognizer: UITapGestureRecognizer = {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(tappedHeaderLabel))
-        headerLabel.addGestureRecognizer(tap)
-        return tap
-    }()
 
     lazy var subheaderLabel: UILabel = {
         let label = UILabel()
@@ -94,16 +87,24 @@ final class NotificationsCenterCell: UICollectionViewCell {
         return label
     }()
 
-    lazy var messageSummaryLabel: UILabel = {
-        let label = UILabel()
+    lazy var messageSummaryLabel: UITextView = {
+        let label = UITextView()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.setContentCompressionResistancePriority(.required, for: .vertical)
+        label.setContentHuggingPriority(.defaultLow, for: .vertical)
         label.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
         label.adjustsFontForContentSizeCategory = true
-        label.lineBreakMode = .byTruncatingTail
-        label.textAlignment = .left
-        label.numberOfLines = 1
+        label.textContainer.lineBreakMode = .byTruncatingTail
+        label.textAlignment = effectiveUserInterfaceLayoutDirection == .rightToLeft ? .right : .left
+        label.textContainer.maximumNumberOfLines = 3
         label.text = ""
+        label.isScrollEnabled = false
+        label.isEditable = false
+        label.isSelectable = false
+        label.textContainerInset = .zero
+        label.textContainer.lineFragmentPadding = 0
+        label.isUserInteractionEnabled = false
+        label.backgroundColor = .clear
         return label
     }()
 
@@ -148,7 +149,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
     lazy var swipeMoreStack: StackedImageLabelView = {
         let stack = StackedImageLabelView()
         stack.translatesAutoresizingMaskIntoConstraints = false
-        let configuration = UIImage.SymbolConfiguration(weight: .bold)
+        let configuration = UIImage.SymbolConfiguration(weight: .semibold)
         stack.imageView.image = UIImage(systemName: "ellipsis.circle.fill", withConfiguration: configuration)
         stack.backgroundColor = .base30
         stack.increaseLabelTopPadding = true
@@ -158,7 +159,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
     lazy var swipeReadUnreadStack: StackedImageLabelView = {
         let stack = StackedImageLabelView()
         stack.translatesAutoresizingMaskIntoConstraints = false
-        let configuration = UIImage.SymbolConfiguration(weight: .bold)
+        let configuration = UIImage.SymbolConfiguration(weight: .semibold)
         stack.imageView.image = UIImage(systemName: "envelope", withConfiguration: configuration)
         stack.backgroundColor = .green50
         return stack
@@ -287,7 +288,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         let topMargin: CGFloat = 13
         let edgeMargin: CGFloat = 11
 
-        selectedBackgroundView = UIView()
+        selectedBackgroundView = nil
 
         foregroundContentContainer.addSubview(leadingContainer)
         foregroundContentContainer.addSubview(mainVerticalStackView)
@@ -308,11 +309,14 @@ final class NotificationsCenterCell: UICollectionViewCell {
         projectSourceContainer.addSubview(projectSourceLabel)
         projectSourceContainer.addSubview(projectSourceImage)
 
-        internalVerticalNotificationContentStack.addArrangedSubview(VerticalSpacerView.spacerWith(space: 3))
+        internalVerticalNotificationContentStack.addArrangedSubview(VerticalSpacerView.spacerWith(space: 6))
         internalVerticalNotificationContentStack.addArrangedSubview(subheaderLabel)
-        internalVerticalNotificationContentStack.addArrangedSubview(VerticalSpacerView.spacerWith(space: 3))
+        internalVerticalNotificationContentStack.addArrangedSubview(VerticalSpacerView.spacerWith(space: 6))
         internalVerticalNotificationContentStack.addArrangedSubview(messageSummaryLabel)
-        internalVerticalNotificationContentStack.addArrangedSubview(VerticalSpacerView.spacerWith(space: 10))
+        NSLayoutConstraint.activate([
+            messageSummaryLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 64)
+        ])
+        internalVerticalNotificationContentStack.addArrangedSubview(VerticalSpacerView.spacerWith(space: 3))
         internalVerticalNotificationContentStack.addArrangedSubview(metaActionButton)
         internalVerticalNotificationContentStack.addArrangedSubview(VerticalSpacerView.spacerWith(space: 3))
 
@@ -436,8 +440,6 @@ final class NotificationsCenterCell: UICollectionViewCell {
         updateLabels(forViewModel: viewModel)
         updateProject(forViewModel: viewModel)
         updateMetaButton(forViewModel: viewModel)
-        
-        headerLabelTapGestureRecognizer.isEnabled = viewModel.shouldAllowSecondaryTapAction
     }
     
     func configure(theme: Theme) {
@@ -452,8 +454,8 @@ final class NotificationsCenterCell: UICollectionViewCell {
 //MARK: - Private
 
 private extension NotificationsCenterCell {
-
-    func updateCellStyle(forDisplayState displayState: NotificationsCenterCellDisplayState) {
+    
+    func updateColors(forDisplayState displayState: NotificationsCenterCellDisplayState) {
         guard let notificationType = viewModel?.notificationType else {
             return
         }
@@ -474,8 +476,16 @@ private extension NotificationsCenterCell {
         projectSourceLabel.label.textColor = cellStyle.projectSourceColor
         projectSourceLabel.layer.borderColor = cellStyle.projectSourceColor.cgColor
         projectSourceImage.tintColor = cellStyle.projectSourceColor
+    }
 
-        selectedBackgroundView?.backgroundColor = cellStyle.selectedCellBackgroundColor
+    func updateCellStyle(forDisplayState displayState: NotificationsCenterCellDisplayState) {
+        guard let notificationType = viewModel?.notificationType else {
+            return
+        }
+
+        let cellStyle = NotificationsCenterCellStyle(theme: theme, traitCollection: traitCollection, notificationType: notificationType)
+        
+        updateColors(forDisplayState: displayState)
 
         // Fonts
 
@@ -499,6 +509,8 @@ private extension NotificationsCenterCell {
         subheaderLabel.text = viewModel.subheaderText
         let messageSummaryText = viewModel.bodyText ?? ""
         messageSummaryLabel.text = messageSummaryText.isEmpty ? " " : viewModel.bodyText
+        let trimmedSummary = messageSummaryLabel.text.replacingOccurrences(of: "^\\s*", with: "", options: .regularExpression)
+        messageSummaryLabel.text = trimmedSummary
         relativeTimeAgoLabel.text = viewModel.dateText
         swipeMoreStack.label.text = WMFLocalizedString("notifications-center-swipe-more", value: "More", comment: "Button text for the Notifications Center 'More' swipe action.")
         swipeReadUnreadStack.label.text = viewModel.isRead
@@ -540,10 +552,6 @@ private extension NotificationsCenterCell {
         metaActionButton.setImage(image, for: .normal)
     }
     
-    @objc func tappedHeaderLabel() {
-        delegate?.userDidTapSecondaryActionForCell(self)
-    }
-
     @objc func tappedMoreAction() {
         delegate?.userDidTapMoreActionForCell(self)
     }
@@ -551,5 +559,4 @@ private extension NotificationsCenterCell {
     @objc func tappedReadUnreadAction() {
         delegate?.userDidTapMarkAsReadUnreadActionForCell(self)
     }
-
 }

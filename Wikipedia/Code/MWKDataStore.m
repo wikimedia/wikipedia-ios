@@ -116,7 +116,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
         self.feedContentController = [[WMFExploreFeedContentController alloc] initWithDataStore:self];
         [self.feedContentController updateContentSources];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMemoryWarningWithNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
-        self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWithSession:session configuration:configuration preferredLanguageCodesProvider:self.languageLinkController];
+        self.remoteNotificationsController = [[RemoteNotificationsController alloc] initWithSession:session configuration:configuration languageLinkController:self.languageLinkController authManager:authenticationManager];
         self.notificationsController = [[WMFNotificationsController alloc] initWithDataStore:self languageLinkController:self.languageLinkController];
         self.articleSummaryController = [[WMFArticleSummaryController alloc] initWithSession:session configuration:configuration dataStore:self];
         self.mobileviewConverter = [[MobileviewToMobileHTMLConverter alloc] init];
