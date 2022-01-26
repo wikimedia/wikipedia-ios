@@ -113,11 +113,11 @@ final class NotificationsCenterViewModel: NSObject {
     
     func markAsReadOrUnread(viewModels: [NotificationsCenterCellViewModel], shouldMarkRead: Bool) {
         let identifierGroups = viewModels.map { $0.notification.identifierGroup }
-        remoteNotificationsController.markAsReadOrUnread(identifierGroups: Set(identifierGroups), shouldMarkRead: shouldMarkRead, languageLinkController: languageLinkController)
+        remoteNotificationsController.markAsReadOrUnread(identifierGroups: Set(identifierGroups), shouldMarkRead: shouldMarkRead)
     }
     
     func markAllAsRead() {
-        remoteNotificationsController.markAllAsRead(languageLinkController: languageLinkController)
+        remoteNotificationsController.markAllAsRead()
     }
     
     func fetchFirstPage() {
@@ -197,19 +197,18 @@ private extension NotificationsCenterViewModel {
                 return
             }
             
-            if let error = error as? RemoteNotificationsOperationsError,
-               error == RemoteNotificationsOperationsError.dataUnavailable {
+            if let error = error as? RemoteNotificationsControllerError,
+               error == RemoteNotificationsControllerError.databaseUnavailable {
                 //TODO: trigger error state of some sort
                 completion()
                 return
             }
             
-            self.remoteNotificationsController.setupInitialFilters(languageLinkController: self.languageLinkController) {
-                NotificationCenter.default.addObserver(self, selector: #selector(self.contextObjectsDidChange(_:)), name: Notification.Name.NSManagedObjectContextObjectsDidChange, object: self.remoteNotificationsController.viewContext)
-
-                self.isLoading = false
-                completion()
-            }
+            self.remoteNotificationsController.populateFilterStateFromPersistence()
+            
+            self.remoteNotificationsController.addObserverForViewContextChanges(observer: self, selector: #selector(self.contextObjectsDidChange(_:)))
+            self.isLoading = false
+            completion()
         }
     }
 }
@@ -241,8 +240,8 @@ extension NotificationsCenterViewModel {
             return checkingForNotifications
         }
 
-        let totalProjectCount = remoteNotificationsController.cachedAllInboxProjects.count
-        let showingProjectCount = remoteNotificationsController.cachedShowingInboxProjects.count
+        let totalProjectCount = remoteNotificationsController.allInboxProjects.count
+        let showingProjectCount = remoteNotificationsController.showingInboxProjects.count
         let filterState = remoteNotificationsController.filterState
         let headerText = filterState.stateDescription
         let subheaderText = filterState.detailDescription(totalProjectCount: totalProjectCount, showingProjectCount: showingProjectCount)
@@ -257,11 +256,11 @@ extension NotificationsCenterViewModel {
     // MARK: - Public
 
     var typeFilterButtonImage: UIImage? {
-        return toolbarImageForTypeFilter(engaged: remoteNotificationsController.filterState.types.count > 0 || remoteNotificationsController.filterState.readStatus != .all)
+        return toolbarImageForTypeFilter(engaged: remoteNotificationsController.filterState.offTypes.count > 0 || remoteNotificationsController.filterState.readStatus != .all)
     }
 
     var projectFilterButtonImage: UIImage? {
-        return toolbarImageForProjectFilter(engaged: remoteNotificationsController.filterState.projects.count > 0)
+        return toolbarImageForProjectFilter(engaged: remoteNotificationsController.filterState.offProjects.count > 0)
     }
 
     func statusBarText(textColor: UIColor, highlightColor: UIColor) -> NSAttributedString? {
@@ -306,13 +305,15 @@ extension NotificationsCenterViewModel {
     }
     
     func emptyStateSubheaderAttributedString(theme: Theme, traitCollection: UITraitCollection) -> NSAttributedString? {
-        guard remoteNotificationsController.countOfTypeFilters > 0 else {
+        
+        let filterTypesCount = remoteNotificationsController.filterState.offTypes.count
+        guard filterTypesCount > 0 else {
             return nil
         }
             
         let filtersLinkFormat = WMFLocalizedString("notifications-center-empty-state-num-filters", value:"{{PLURAL:%1$d|%1$d filter|%1$d filters}}", comment:"Portion of empty state subtitle showing number of filters the user has set in notifications center - %1$d is replaced with the number filters.")
         let filtersSubtitleFormat = WMFLocalizedString("notifications-center-empty-state-filters-subtitle", value:"Modify %1$@ to see more messages", comment:"Format of empty state subtitle when the user has filters on - %1$@ is replaced with a string representing the number of filters the user has set.")
-        let filtersLink = String.localizedStringWithFormat(filtersLinkFormat, remoteNotificationsController.countOfTypeFilters)
+        let filtersLink = String.localizedStringWithFormat(filtersLinkFormat, filterTypesCount)
         let filtersSubtitle = String.localizedStringWithFormat(filtersSubtitleFormat, filtersLink)
 
         let rangeOfFiltersLink = (filtersSubtitle as NSString).range(of: filtersLink)

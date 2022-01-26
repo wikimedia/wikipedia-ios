@@ -1,7 +1,6 @@
 import CocoaLumberjackSwift
 
 public enum RemoteNotificationsOperationsError: Error {
-    case dataUnavailable //triggered when there was an issue when setting up the Core Data stack
     case failurePullingAppLanguage
     case failureCreatingAppLanguagePagingOperation
     case alreadyImportingOrRefreshing
@@ -9,34 +8,17 @@ public enum RemoteNotificationsOperationsError: Error {
 
 class RemoteNotificationsOperationsController: NSObject {
     private let apiController: RemoteNotificationsAPIController
-    private let modelController: RemoteNotificationsModelController?
+    private let modelController: RemoteNotificationsModelController
     private let operationQueue: OperationQueue
     private let languageLinkController: MWKLanguageLinkController
+    private let authManager: WMFAuthenticationManager
     private var isImporting = false
     private var isRefreshing = false
     private var importingCompletionBlocks: [(RemoteNotificationsOperationsError?) -> Void] = []
-    private let authManager: WMFAuthenticationManager
-    
-    var viewContext: NSManagedObjectContext? {
-        return modelController?.viewContext
-    }
 
-    private var isLocked: Bool = false {
-        didSet {
-            if isLocked {
-                stop()
-            }
-        }
-    }
-
-    required init(session: Session, configuration: Configuration, languageLinkController: MWKLanguageLinkController, authManager: WMFAuthenticationManager) {
-        apiController = RemoteNotificationsAPIController(session: session, configuration: configuration)
-        var modelControllerInitializationError: Error?
-        modelController = RemoteNotificationsModelController(&modelControllerInitializationError)
-        if let modelControllerInitializationError = modelControllerInitializationError {
-            DDLogError("Failed to initialize RemoteNotificationsModelController and RemoteNotificationsOperationsDeadlineController: \(modelControllerInitializationError)")
-            isLocked = true
-        }
+    required init(languageLinkController: MWKLanguageLinkController, authManager: WMFAuthenticationManager, apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController) {
+        self.apiController = apiController
+        self.modelController = modelController
 
         operationQueue = OperationQueue()
         
@@ -44,20 +26,10 @@ class RemoteNotificationsOperationsController: NSObject {
         self.authManager = authManager
         
         super.init()
-
-        NotificationCenter.default.addObserver(self, selector: #selector(modelControllerDidLoadPersistentStores(_:)), name: RemoteNotificationsModelController.didLoadPersistentStoresNotification, object: nil)
-    }
-    
-    func deleteLegacyDatabaseFiles() throws {
-        modelController?.deleteLegacyDatabaseFiles()
     }
 
     deinit {
         NotificationCenter.default.removeObserver(self)
-    }
-
-    public func stop() {
-        operationQueue.cancelAllOperations()
     }
     
     /// Kicks off operations to fetch and persist read and unread history of notifications from app languages, Commons, and Wikidata. Designed to fully import once per installation. Will not attempt if import is already in progress. Must be called from main thread.
@@ -65,12 +37,6 @@ class RemoteNotificationsOperationsController: NSObject {
     func importNotificationsIfNeeded(_ completion: @escaping (RemoteNotificationsOperationsError?) -> Void) {
         
         assert(Thread.isMainThread)
-        
-        guard !isLocked else {
-            assertionFailure("Failure setting up notifications core data stack.")
-            completion(.dataUnavailable)
-            return
-        }
         
         importingCompletionBlocks.append(completion)
         
@@ -100,12 +66,6 @@ class RemoteNotificationsOperationsController: NSObject {
         
         assert(Thread.isMainThread)
         
-        guard !isLocked else {
-            assertionFailure("Failure setting up notifications core data stack.")
-            completion(.dataUnavailable)
-            return
-        }
-        
         guard !isImporting && !isRefreshing else {
             completion(.alreadyImportingOrRefreshing)
             return
@@ -126,12 +86,6 @@ class RemoteNotificationsOperationsController: NSObject {
     ///   - operationType: RemoteNotificationsPagingOperation class to instantiate. Can be an Import or Refresh type.
     ///   - completion: Block to run after operations have completed.
     private func kickoffPagingOperations(operationType: RemoteNotificationsPagingOperation.Type, completion: @escaping (RemoteNotificationsOperationsError?) -> Void) {
-        
-        guard let modelController = modelController else {
-            assertionFailure("Failure setting up notifications core data stack.")
-            completion(.dataUnavailable)
-            return
-        }
         
         let preferredLanguages = languageLinkController.preferredLanguages
    
@@ -211,15 +165,10 @@ class RemoteNotificationsOperationsController: NSObject {
     
     private func primaryLanguageOperation(primaryLanguageProject: RemoteNotificationsProject, nonPrimaryProjects: [RemoteNotificationsProject], operationType: RemoteNotificationsPagingOperation.Type, completionOperation: Operation) -> RemoteNotificationsPagingOperation? {
         
-        guard let modelController = self.modelController else {
-            return nil
-        }
-        
         let primaryLanguageOperation = operationType.init(project: primaryLanguageProject, apiController: self.apiController, modelController: modelController, needsCrossWikiSummary: true)
         primaryLanguageOperation.completionBlock = { [weak self] in
             
-            guard let self = self,
-            let modelController = self.modelController else {
+            guard let self = self else {
                 return
             }
             
@@ -239,7 +188,7 @@ class RemoteNotificationsOperationsController: NSObject {
                 
             }
 
-            let crossWikiOperations = finalCrossWikiProjects.map { RemoteNotificationsRefreshCrossWikiOperation(project: $0, apiController: self.apiController, modelController: modelController, needsCrossWikiSummary: false) }
+            let crossWikiOperations = finalCrossWikiProjects.map { RemoteNotificationsRefreshCrossWikiOperation(project: $0, apiController: self.apiController, modelController: self.modelController, needsCrossWikiSummary: false) }
 
             
             for crossWikiOperation in crossWikiOperations {
@@ -252,10 +201,6 @@ class RemoteNotificationsOperationsController: NSObject {
     }
     
     func markAsReadOrUnread(identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, languageLinkController: MWKLanguageLinkController) {
-        guard !isLocked,
-              let modelController = modelController else {
-            return
-        }
         
         //sort identifier groups into dictionary keyed by wiki
         let requestDictionary: [String: Set<RemoteNotification.IdentifierGroup>] = identifierGroups.reduce([String: Set<RemoteNotification.IdentifierGroup>]()) { partialResult, identifierGroup in
@@ -284,66 +229,16 @@ class RemoteNotificationsOperationsController: NSObject {
         //MAYBETODO: should we make sure this chunk of operations and mark all chunk of operations happens serially?
         operationQueue.addOperations(operations, waitUntilFinished: false)
     }
-
     
     func markAllAsRead(languageLinkController: MWKLanguageLinkController) {
-        guard !isLocked,
-              let modelController = modelController else {
-            return
-        }
+        assert(Thread.isMainThread)
         
-        let backgroundContext = modelController.newBackgroundContext()
-        modelController.wikisWithUnreadNotifications(moc: backgroundContext) {[weak self] wikis in
+        let wikisWithUnreadNotifications = modelController.distinctWikisWithUnreadNotifications()
+        let projects = wikisWithUnreadNotifications.compactMap { RemoteNotificationsProject(apiIdentifier: $0, languageLinkController: self.languageLinkController) }
 
-            guard let self = self else {
-                return
-            }
-
-            let projects = wikis.compactMap { RemoteNotificationsProject(apiIdentifier: $0, languageLinkController: self.languageLinkController) }
-
-            let operations = projects.map { RemoteNotificationsMarkAllAsReadOperation(project: $0, apiController: self.apiController, modelController: modelController) }
-            
-            //MAYBETODO: should we make sure this chunk of operations and mark as read or unread chunk of operations happens serially?
-            self.operationQueue.addOperations(operations, waitUntilFinished: false)
-        }
-    }
-    
-    var numberOfUnreadNotifications: Int? {
-        return self.modelController?.numberOfUnreadNotifications
-    }
-    
-    func listAllProjectsFromLocalNotifications(languageLinkController: MWKLanguageLinkController, completion: @escaping ([RemoteNotificationsProject]) -> Void) {
+        let operations = projects.map { RemoteNotificationsMarkAllAsReadOperation(project: $0, apiController: self.apiController, modelController: self.modelController) }
         
-        guard let modelController = modelController else {
-            completion([])
-            return
-        }
-        
-        let backgroundContext = modelController.newBackgroundContext()
-        modelController.wikis(moc: backgroundContext, predicate: nil, completion: { wikis in
-            let projects = wikis.compactMap { RemoteNotificationsProject(apiIdentifier: $0, languageLinkController: languageLinkController) }
-            completion(projects)
-        })
-    }
-
-    // MARK: Notifications
-    
-    @objc private func modelControllerDidLoadPersistentStores(_ note: Notification) {
-        if let object = note.object, let error = object as? Error {
-            DDLogDebug("RemoteNotificationsModelController failed to load persistent stores with error \(error); stopping RemoteNotificationsOperationsController")
-            isLocked = true
-        } else {
-            isLocked = false
-        }
-    }
-    
-    // MARK: Notification Center Filters
-    
-    func getFilterSettingsFromLibrary() -> NSDictionary? {
-        return modelController?.getFilterSettingsFromLibrary()
-    }
-    
-    func setFilterSettingsToLibrary(dictionary: NSDictionary?) {
-        modelController?.setFilterSettingsToLibrary(dictionary: dictionary)
+        //MAYBETODO: should we make sure this chunk of operations and mark as read or unread chunk of operations happens serially?
+        self.operationQueue.addOperations(operations, waitUntilFinished: false)
     }
 }

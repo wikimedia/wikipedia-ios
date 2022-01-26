@@ -47,10 +47,10 @@ class NotificationsCenterInboxViewModel: ObservableObject {
             
             let currentFilterState = remoteNotificationsController.filterState
             
-            var newProjects = currentFilterState.projects
-            newProjects.append(project)
+            var newProjects = currentFilterState.offProjects
+            newProjects.insert(project)
             
-            let newFilterState = RemoteNotificationsFilterState(readStatus: currentFilterState.readStatus, types: currentFilterState.types, projects: newProjects)
+            let newFilterState = RemoteNotificationsFilterState(readStatus: currentFilterState.readStatus, offTypes: currentFilterState.offTypes, offProjects: newProjects)
             remoteNotificationsController.filterState = newFilterState
         }
         
@@ -58,12 +58,10 @@ class NotificationsCenterInboxViewModel: ObservableObject {
             
             let currentFilterState = remoteNotificationsController.filterState
             
-            var newProjects = currentFilterState.projects
-            newProjects.removeAll { loopProject in
-                return loopProject == project
-            }
+            var newProjects = currentFilterState.offProjects
+            newProjects.remove(project)
             
-            let newFilterState = RemoteNotificationsFilterState(readStatus: currentFilterState.readStatus, types: currentFilterState.types, projects: newProjects)
+            let newFilterState = RemoteNotificationsFilterState(readStatus: currentFilterState.readStatus, offTypes: currentFilterState.offTypes, offProjects: newProjects)
             remoteNotificationsController.filterState = newFilterState
         }
     }
@@ -79,7 +77,7 @@ class NotificationsCenterInboxViewModel: ObservableObject {
         self.remoteNotificationsController = remoteNotificationsController
         self.theme = theme
         
-        let unselectedProjects = Set(filterState.projects)
+        let unselectedProjects = Set(filterState.offProjects)
         
         let nonLanguageProjects = allInboxProjects.filter { project in
             switch project {
