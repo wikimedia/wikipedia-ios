@@ -93,7 +93,7 @@ class ArticleLocationCollectionViewController: ColumnarCollectionViewController,
             return
         }
         articleController.wmf_removePeekableChildViewControllers()
-        push(articleController, context: context, index: previewedIndexPath?.item, animated: true)
+        navigate(to: articleController, context: context, index: previewedIndexPath?.item)
     }
 
     override func saveArticlePreviewActionSelected(with articleController: ArticleViewController, didSave: Bool, articleURL: URL) {

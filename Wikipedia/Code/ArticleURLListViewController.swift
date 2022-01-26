@@ -82,7 +82,7 @@ class ArticleURLListViewController: ArticleCollectionViewController, DetailPrese
 
     override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
-        push(articleController, context: feedFunnelContext, index: previewedIndexPath?.item, animated: true)
+        navigate(to: articleController, context: feedFunnelContext, index: previewedIndexPath?.item)
     }
 
     // MARK: - CollectionViewContextMenuShowing

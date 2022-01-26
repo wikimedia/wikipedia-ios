@@ -107,7 +107,6 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
         }
     }
 
-    // This function is used by both Peek/Pop and Context Menu (can remove this note when removing rest of Peek/Pop code, when oldest supported version is iOS 13)
     func getPeekViewController(for destination: Router.Destination) -> UIViewController? {
         switch destination {
         case .article(let articleURL):
@@ -120,11 +119,9 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
         }
     }
 
-    // This function is used by both Peek/Pop and Context Menu (can remove this note when removing rest of Peek/Pop code, when oldest supported version is iOS 13)
     func commitPreview(of viewControllerToCommit: UIViewController) {
         if let vc = viewControllerToCommit as? ArticleViewController {
-            vc.wmf_removePeekableChildViewControllers()
-            push(vc, animated: true)
+            readMoreArticlePreviewActionSelected(with: vc)
         } else {
             if let vc = viewControllerToCommit as? WMFImageGalleryViewController {
                 vc.setOverlayViewTopBarHidden(false)

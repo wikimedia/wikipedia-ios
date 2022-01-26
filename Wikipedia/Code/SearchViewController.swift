@@ -96,6 +96,12 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         }
     }
 
+    var doResultsShowArticlePreviews = true {
+        didSet {
+            resultsViewController.doesShowArticlePreviews = doResultsShowArticlePreviews
+        }
+    }
+
     var showLanguageBar: Bool?
 
     var searchTerm: String? {

@@ -74,7 +74,7 @@ extension ArticleContextMenuPresenting {
             let config = UIContextMenuConfiguration(identifier: linkURL as NSURL, previewProvider: { () -> UIViewController? in
                 return peekParentVC
             }) { (suggestedActions) -> UIMenu? in
-                return previewMenu
+                return (peekParentVC as? ArticleContextMenuPresenting)?.previewMenu
             }
 
             if let articlePeekVC = peekVC as? ArticlePeekPreviewViewController {
