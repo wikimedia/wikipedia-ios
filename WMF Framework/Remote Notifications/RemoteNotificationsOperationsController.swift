@@ -4,6 +4,12 @@ public enum RemoteNotificationsOperationsError: Error {
     case failurePullingAppLanguage
     case failureCreatingAppLanguagePagingOperation
     case alreadyImportingOrRefreshing
+    case failureToReauthenticate
+}
+
+public extension Notification.Name {
+    static let NotificationsCenterLoadingDidStart = Notification.Name("NotificationsCenterLoadingDidStart") //fired when notifications have begun importing or refreshing
+    static let NotificationsCenterLoadingDidEnd = Notification.Name("NotificationsCenterLoadingDidEnd") //fired when notifications have ended importing or refreshing
 }
 
 class RemoteNotificationsOperationsController: NSObject {
@@ -12,9 +18,8 @@ class RemoteNotificationsOperationsController: NSObject {
     private let operationQueue: OperationQueue
     private let languageLinkController: MWKLanguageLinkController
     private let authManager: WMFAuthenticationManager
-    private var isImporting = false
-    private var isRefreshing = false
-    private var importingCompletionBlocks: [(RemoteNotificationsOperationsError?) -> Void] = []
+    private var isLoadingNotifications = false
+    private var loadingNotificationsCompletionBlocks: [(Result<Void, Error>) -> Void] = []
 
     required init(languageLinkController: MWKLanguageLinkController, authManager: WMFAuthenticationManager, apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController) {
         self.apiController = apiController
@@ -32,172 +37,128 @@ class RemoteNotificationsOperationsController: NSObject {
         NotificationCenter.default.removeObserver(self)
     }
     
-    /// Kicks off operations to fetch and persist read and unread history of notifications from app languages, Commons, and Wikidata. Designed to fully import once per installation. Will not attempt if import is already in progress. Must be called from main thread.
+    /// Kicks off operations to fetch and persist read and unread history of notifications from app languages, Commons, and Wikidata, + other projects with unread notifications. Designed to automatically page and fully import once per installation, then only fetch new notifications for each project when called after that. Will not attempt if loading is already in progress. Must be called from main thread.
     /// - Parameter completion: Block to run once operations have completed. Dispatched to main thread.
-    func importNotificationsIfNeeded(_ completion: @escaping (RemoteNotificationsOperationsError?) -> Void) {
-        
+    func loadNotifications(_ completion: ((Result<Void, Error>) -> Void)? = nil) {
         assert(Thread.isMainThread)
         
-        importingCompletionBlocks.append(completion)
+        if let completion = completion {
+            loadingNotificationsCompletionBlocks.append(completion)
+        }
         
-        //Purposefully not calling completion block here, because we are tracking it in line above. It will be called when
-        //currently running operation completes.
-        guard !isImporting else {
+        //Purposefully not calling completion block here, because we are tracking it in line above. It will be called when currently running loading operations complete.
+        guard !isLoadingNotifications else {
             return
         }
         
-        isImporting = true
+        isLoadingNotifications = true
+        NotificationCenter.default.post(name: Notification.Name.NotificationsCenterLoadingDidStart, object: nil)
         
-        kickoffPagingOperations(operationType: RemoteNotificationsImportOperation.self) { [weak self] error in
+        kickoffPagingOperations() { [weak self] result in
             DispatchQueue.main.async {
-                self?.isImporting = false
-                self?.importingCompletionBlocks.forEach { completionBlock in
-                    completionBlock(error)
+                self?.isLoadingNotifications = false
+                self?.loadingNotificationsCompletionBlocks.forEach { completionBlock in
+                    completionBlock(result)
                 }
 
-                self?.importingCompletionBlocks.removeAll()
+                self?.loadingNotificationsCompletionBlocks.removeAll()
+                
+                NotificationCenter.default.post(name: Notification.Name.NotificationsCenterLoadingDidEnd, object: nil)
             }
         }
     }
     
-    /// Kicks off operations to fetch and persist any new read and unread notifications from app languages, Commons, and Wikidata. Will not attempt if importing or refreshing is already in progress. Must be called from main thread.
-    /// - Parameter completion: Block to run once operations have completed. Dispatched to main thread.
-    func refreshNotifications(_ completion: @escaping (RemoteNotificationsOperationsError?) -> Void) {
+    /// Generates the correct paging operation (Import or Refresh) based on a project's persisted imported state.
+    /// - Parameter project: RemoteNotificationsProject to evaluate
+    /// - Parameter isAppLanguageProject: Boolean if this project is for the app primary language
+    /// - Returns: Appropriate RemoteNotificationsPagingOperation subclass instance
+    private func pagingOperationForProject(_ project: RemoteNotificationsProject, isAppLanguageProject: Bool) -> RemoteNotificationsPagingOperation {
         
-        assert(Thread.isMainThread)
-        
-        guard !isImporting && !isRefreshing else {
-            completion(.alreadyImportingOrRefreshing)
-            return
+        if modelController.isProjectAlreadyImported(project: project) {
+            return RemoteNotificationsRefreshOperation(project: project, apiController: self.apiController, modelController: modelController, needsCrossWikiSummary: isAppLanguageProject)
+        } else {
+            return RemoteNotificationsImportOperation(project: project, apiController: self.apiController, modelController: modelController, needsCrossWikiSummary: isAppLanguageProject)
         }
+    }
+ 
+    private func secondaryProjects(appLanguage: MWKLanguageLink) -> [RemoteNotificationsProject] {
         
-        isRefreshing = true
+        let otherLanguages = languageLinkController.preferredLanguages.filter { $0.languageCode != appLanguage.languageCode }
+
+        var secondaryProjects: [RemoteNotificationsProject] = otherLanguages.map { .wikipedia($0.languageCode, $0.localizedName, $0.languageVariantCode) }
+        secondaryProjects.append(.commons)
+        secondaryProjects.append(.wikidata)
         
-        kickoffPagingOperations(operationType: RemoteNotificationsRefreshOperation.self) { [weak self] error in
-            DispatchQueue.main.async {
-                self?.isRefreshing = false
-                completion(error)
-            }
-        }
+        return secondaryProjects
     }
     
     /// Method that instantiates the appropriate paging operations for fetching & persisting remote notifications and adds them to the operation queue. Must be called from main thread.
     /// - Parameters:
-    ///   - operationType: RemoteNotificationsPagingOperation class to instantiate. Can be an Import or Refresh type.
     ///   - completion: Block to run after operations have completed.
-    private func kickoffPagingOperations(operationType: RemoteNotificationsPagingOperation.Type, completion: @escaping (RemoteNotificationsOperationsError?) -> Void) {
+    private func kickoffPagingOperations(completion: @escaping (Result<Void, Error>) -> Void) {
+        assert(Thread.isMainThread)
         
-        let preferredLanguages = languageLinkController.preferredLanguages
-   
         guard let appLanguage = languageLinkController.appLanguage else {
-            completion(.failurePullingAppLanguage)
+            completion(.failure(RemoteNotificationsOperationsError.failurePullingAppLanguage))
             return
         }
         
-        let primaryLanguageProject = RemoteNotificationsProject.wikipedia(appLanguage.languageCode, appLanguage.localizedName, appLanguage.languageVariantCode)
-        let nonPrimaryLanguages = preferredLanguages.filter { $0.languageCode != appLanguage.languageCode }
-
-        var nonPrimaryProjects: [RemoteNotificationsProject] = nonPrimaryLanguages.map { .wikipedia($0.languageCode, $0.localizedName, $0.languageVariantCode) }
-        nonPrimaryProjects.append(.commons)
-        nonPrimaryProjects.append(.wikidata)
+        let appLanguageProject = RemoteNotificationsProject.wikipedia(appLanguage.languageCode, appLanguage.localizedName, appLanguage.languageVariantCode)
+        let secondaryProjects = secondaryProjects(appLanguage: appLanguage)
         
-        let nonPrimaryOperations: [RemoteNotificationsPagingOperation] = nonPrimaryProjects.map { operationType.init(project: $0, apiController: self.apiController, modelController: modelController, needsCrossWikiSummary: false) }
+        //basic operations first - primary language then secondary (languages, commons & wikidata)
+        let appLanguageOperation = pagingOperationForProject(appLanguageProject, isAppLanguageProject: true)
+        let secondaryOperations = secondaryProjects.map { project in
+            pagingOperationForProject(project, isAppLanguageProject: false)
+        }
         
-        let completionOperation: BlockOperation
+        //BEGIN: chained cross wiki operations
+        //this generates additional API calls to fetch extra unread messages by inspecting the app language operation's cross wiki summary notification object in its response
+        let crossWikiGroupOperation = RemoteNotificationsRefreshCrossWikiGroupOperation(appLanguageProject: appLanguageProject, secondaryProjects: secondaryProjects, languageLinkController: languageLinkController, apiController: apiController, modelController: modelController)
+        let crossWikiAdapterOperation = BlockOperation {
+            crossWikiGroupOperation.crossWikiSummaryNotification = appLanguageOperation.crossWikiSummaryNotification
+        }
+        crossWikiAdapterOperation.addDependency(appLanguageOperation)
+        crossWikiGroupOperation.addDependency(crossWikiAdapterOperation)
+        //END: chained cross wiki operations
         
-        //supremely hacky way of handling unauthenticated responses from these operations
-        if let firstNonPrimaryOperation = nonPrimaryOperations.first {
+        //BEGIN: chained reauthentication operations
+        //these will ask the authManager to reauthenticate if the app language operation has an unauthenticaated error code in it's response
+        //then it will cancel existing operations running and recursively call kickoffPagingOperations again
+        let reauthenticateOperation = RemoteNotificationsReauthenticateOperation(authManager: authManager)
+        let reauthenticateAdapterOperation = BlockOperation {
+            reauthenticateOperation.appLanguageOperationError = appLanguageOperation.error
+        }
+        reauthenticateAdapterOperation.addDependency(appLanguageOperation)
+        reauthenticateOperation.addDependency(reauthenticateAdapterOperation)
+        let recursiveKickoffOperation = BlockOperation { [weak self] in
             
-            completionOperation = BlockOperation {
-                if let error = firstNonPrimaryOperation.error as? RemoteNotificationsAPIController.ResultError,
-                   error.code == "login-required" {
-                    self.attemptReauthenticateFromError(error) { result in
-                        switch result {
-                        case .success:
-                            self.kickoffPagingOperations(operationType: operationType, completion: completion)
-                        default:
-                            completion(nil)
-                        }
-                    }
+            guard let self = self else {
+                return
+            }
+            
+            if reauthenticateOperation.didReauthenticate {
+                DispatchQueue.main.async {
+                    self.operationQueue.cancelAllOperations()
+                    self.kickoffPagingOperations(completion: completion)
                 }
-                completion(nil)
-            }
-            
-        } else {
-            completionOperation = BlockOperation {
-                completion(nil)
             }
         }
+        recursiveKickoffOperation.addDependency(reauthenticateOperation)
+        //END: chained reauthentication operations
         
+        let finalListOfOperations = [appLanguageOperation, crossWikiAdapterOperation, crossWikiGroupOperation, reauthenticateAdapterOperation, reauthenticateOperation, recursiveKickoffOperation] + secondaryOperations
         
-        guard let primaryLanguageOperation = primaryLanguageOperation(primaryLanguageProject: primaryLanguageProject, nonPrimaryProjects: nonPrimaryProjects, operationType: operationType, completionOperation: completionOperation) else {
-            completion(.failureCreatingAppLanguagePagingOperation)
-            return
+        let completionOperation = BlockOperation {
+            //todo: propogate any errors from finalListOfOperations
+            completion(.success(()))
         }
-        
-        let finalListOfOperations = nonPrimaryOperations + [primaryLanguageOperation]
         
         for operation in finalListOfOperations {
             completionOperation.addDependency(operation)
         }
         
         self.operationQueue.addOperations(finalListOfOperations + [completionOperation], waitUntilFinished: false)
-    }
-    
-    private func attemptReauthenticateFromError(_ error: Error, completion: @escaping (Result<Void, Error>) -> Void) {
-        
-        if let error = error as? RemoteNotificationsAPIController.ResultError,
-           let errorCode = error.code,
-            errorCode == "login-required" {
-            self.authManager.loginWithSavedCredentials { result in
-                switch result {
-                case .success:
-                    completion(.success(()))
-                default:
-                    completion(.failure(error))
-                }
-            }
-            return
-        }
-        
-        completion(.failure(error))
-    }
-    
-    private func primaryLanguageOperation(primaryLanguageProject: RemoteNotificationsProject, nonPrimaryProjects: [RemoteNotificationsProject], operationType: RemoteNotificationsPagingOperation.Type, completionOperation: Operation) -> RemoteNotificationsPagingOperation? {
-        
-        let primaryLanguageOperation = operationType.init(project: primaryLanguageProject, apiController: self.apiController, modelController: modelController, needsCrossWikiSummary: true)
-        primaryLanguageOperation.completionBlock = { [weak self] in
-            
-            guard let self = self else {
-                return
-            }
-            
-            guard let crossWikiSummary = primaryLanguageOperation.crossWikiSummaryNotification,
-                  let crossWikiSources = crossWikiSummary.sources else {
-                return
-            }
-            
-            //extract new projects from summary object that aren't already queued up to be fetched from app languages + wikidata & commons
-            let crossWikiProjects = crossWikiSources.keys.compactMap { RemoteNotificationsProject(apiIdentifier: $0, languageLinkController: self.languageLinkController) }
-            
-            let existingProjectIdentifiers = ([primaryLanguageProject] + nonPrimaryProjects).map { $0.notificationsApiWikiIdentifier }
-            
-            let finalCrossWikiProjects = crossWikiProjects.filter {
-                
-                return !existingProjectIdentifiers.contains($0.notificationsApiWikiIdentifier)
-                
-            }
-
-            let crossWikiOperations = finalCrossWikiProjects.map { RemoteNotificationsRefreshCrossWikiOperation(project: $0, apiController: self.apiController, modelController: self.modelController, needsCrossWikiSummary: false) }
-
-            
-            for crossWikiOperation in crossWikiOperations {
-                completionOperation.addDependency(crossWikiOperation)
-                self.operationQueue.addOperation(crossWikiOperation)
-            }
-        }
-        
-        return primaryLanguageOperation
     }
     
     func markAsReadOrUnread(identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, languageLinkController: MWKLanguageLinkController) {

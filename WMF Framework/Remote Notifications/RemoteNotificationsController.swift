@@ -2,6 +2,7 @@ import CocoaLumberjackSwift
 
 public enum RemoteNotificationsControllerError: Error {
     case databaseUnavailable
+    case attemptingToRefreshBeforeDeadline
 }
 
 @objc public final class RemoteNotificationsController: NSObject {
@@ -63,6 +64,7 @@ public enum RemoteNotificationsControllerError: Error {
         
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(authManagerDidLogIn), name:WMFAuthenticationManager.didLogInNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(authManagerDidLogOut), name: WMFAuthenticationManager.didLogOutNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(modelControllerDidLoadPersistentStores(_:)), name: RemoteNotificationsModelController.didLoadPersistentStoresNotification, object: nil)
         
     }
@@ -81,78 +83,60 @@ public enum RemoteNotificationsControllerError: Error {
         }
         
         operationsController = RemoteNotificationsOperationsController(languageLinkController: languageLinkController, authManager: authManager, apiController: apiController, modelController: modelController)
+        
+        populateFilterStateFromPersistence()
     }
     
     @objc private func applicationDidBecomeActive() {
-        refreshNotifications(force: false)
+        loadNotifications(force: false)
+    }
+    
+    @objc private func authManagerDidLogOut() {
+        modelController?.resetDatabaseAndSharedCache()
     }
     
     @objc private func authManagerDidLogIn() {
-        importNotificationsIfNeeded()
+        loadNotifications(force: true)
     }
     
     //MARK: Public
     
-    /// Fetches all notifications from the server for app languages, as well as some other Wikimedia projects that contain unread notifications. Saves notifications to local database on a background context. Only fetches projects that have not already been fully imported.
-    /// - Parameter completion: Completion block called once importing is complete.
-    public func importNotificationsIfNeeded(_ completion: ((Error?) -> Void)? = nil) {
-        
-        guard let operationsController = operationsController else {
-            completion?(RemoteNotificationsControllerError.databaseUnavailable)
-            return
-        }
-        
-        guard authManager.isLoggedIn else {
-            completion?(RequestError.unauthenticated)
-            return
-        }
-        
-        let importCompletion: (Error?) -> Void = { [weak self] (error) in
-            
-            guard let self = self else {
-                return
-            }
-            
-            self.updateInboxProjectTrackingProperties()
-            completion?(error)
-        }
-        
-        operationsController.importNotificationsIfNeeded(importCompletion)
-    }
-    
-    
-    /// Fetches new notifications from the server and imports them into the local database. Updates local database on a backgroundContext.
+    /// Fetches notifications from the server and imports them into the local database. Updates local database on a backgroundContext.
     /// - Parameters:
-    ///   - force: Flag to force an API call, otherwise this will exit early if it's been less than 30 seconds since the last refresh attempt.
+    ///   - force: Flag to force an API call, otherwise this will exit early if it's been less than 30 seconds since the last load attempt.
     ///   - completion: Completion block called once refresh attempt is complete.
-    public func refreshNotifications(force: Bool, completion: ((Error?) -> Void)? = nil) {
+    public func loadNotifications(force: Bool, completion: ((Result<Void, Error>) -> Void)? = nil) {
         
         guard let operationsController = operationsController else {
-            completion?(RemoteNotificationsControllerError.databaseUnavailable)
+            completion?(.failure(RemoteNotificationsControllerError.databaseUnavailable))
             return
         }
         
         guard authManager.isLoggedIn else {
-            completion?(RequestError.unauthenticated)
+            completion?(.failure(RequestError.unauthenticated))
             return
         }
         
         if !force && !refreshDeadlineController.shouldRefresh {
-            completion?(nil)
+            completion?(.failure(RemoteNotificationsControllerError.attemptingToRefreshBeforeDeadline))
             return
         }
         
-        let refreshCompletion: (Error?) -> Void = { [weak self] (error) in
+        operationsController.loadNotifications { [weak self] result in
             
             guard let self = self else {
                 return
             }
             
-            self.updateInboxProjectTrackingProperties()
-            completion?(error)
+            switch result {
+            case .success:
+                self.updateAllInboxProjects()
+                completion?(.success(()))
+            case .failure(let error):
+                completion?(.failure(error))
+            }
         }
         
-        operationsController.refreshNotifications(refreshCompletion)
         refreshDeadlineController.reset()
     }
     
@@ -201,13 +185,34 @@ public enum RemoteNotificationsControllerError: Error {
     ///   - fetchLimit: Number of notifications to fetch. Defaults to 50.
     ///   - fetchOffset: Offset for fetching notifications. Use when fetching later pages of data
     /// - Returns: Array of RemoteNotifications
-    public func fetchNotifications(fetchLimit: Int = 50, fetchOffset: Int = 0) -> [RemoteNotification] {
+    public func fetchNotifications(fetchLimit: Int = 50, fetchOffset: Int = 0, completion: @escaping (Result<[RemoteNotification], Error>) -> Void) {
         guard let modelController = modelController else {
-            return []
+            return completion(.failure(RemoteNotificationsControllerError.databaseUnavailable))
         }
         
-        let predicate = predicateForFilterSavedState(filterState)
-        return modelController.fetchNotifications(fetchLimit: fetchLimit, fetchOffset: fetchOffset, predicate: predicate)
+        loadNotifications(force: false) { [weak self] result in
+             guard let self = self else {
+                 return
+             }
+            
+            let loadingCompletion: () -> Void = {
+                let predicate = self.predicateForFilterSavedState(self.filterState)
+                let notifications = modelController.fetchNotifications(fetchLimit: fetchLimit, fetchOffset: fetchOffset, predicate: predicate)
+                completion(.success(notifications))
+            }
+             
+             switch result {
+             case .success:
+                 loadingCompletion()
+             case .failure(let error):
+                 if let error = error as? RemoteNotificationsControllerError,
+                    error == .attemptingToRefreshBeforeDeadline {
+                     loadingCompletion()
+                 } else {
+                     completion(.failure(error))
+                 }
+             }
+        }
     }
     
     /// Fetches a count of unread notifications from the local database. Uses the viewContext and must be called from the main thread
@@ -221,8 +226,14 @@ public enum RemoteNotificationsControllerError: Error {
         return modelController?.numberOfAllNotifications ?? 0
     }
     
+    /// List of all possible inbox projects available Notifications Center. Used for populating the Inbox screen and the project count toolbar
     public private(set) var allInboxProjects: Set<RemoteNotificationsProject> = []
-    public private(set) var showingInboxProjects: Set<RemoteNotificationsProject> = []
+    
+    /// A count of showing inbox projects (i.e. allInboxProjects minus those toggled off in the inbox filter screen)
+    public var countOfShowingInboxProjects: Int {
+        let filteredProjects = filterState.offProjects
+        return allInboxProjects.subtracting(filteredProjects).count
+    }
 
     @objc public func updateCacheWithCurrentUnreadNotificationsCount() {
         let currentCount = numberOfUnreadNotifications
@@ -230,17 +241,6 @@ public enum RemoteNotificationsControllerError: Error {
         var pushCache = sharedCache.loadCache()
         pushCache.currentUnreadCount = currentCount
         sharedCache.saveCache(pushCache)
-    }
-    
-    /// Pulls filter state from local persistence and saves it in memory
-    public func populateFilterStateFromPersistence() {
-        guard let modelController = modelController,
-        let persistentFiltersDict = modelController.getFilterSettingsFromLibrary(),
-           let persistentFilters = RemoteNotificationsFilterState(nsDictionary: persistentFiltersDict, languageLinkController: languageLinkController) else {
-            return
-        }
-        
-        self.filterState = persistentFilters
     }
     
     public var filterState: RemoteNotificationsFilterState = RemoteNotificationsFilterState(readStatus: .all, offTypes: [], offProjects: []) {
@@ -253,8 +253,6 @@ public enum RemoteNotificationsControllerError: Error {
             //save to library
             modelController.setFilterSettingsToLibrary(dictionary: filterState.serialize())
             
-            updateShowingInboxProjects()
-            
             NotificationCenter.default.post(name: RemoteNotificationsController.didUpdateFilterStateNotification, object: nil)
         }
     }
@@ -266,6 +264,17 @@ public enum RemoteNotificationsControllerError: Error {
     }
     
     //MARK: Private
+    
+    /// Pulls filter state from local persistence and saves it in memory
+    private func populateFilterStateFromPersistence() {
+        guard let modelController = modelController,
+        let persistentFiltersDict = modelController.getFilterSettingsFromLibrary(),
+           let persistentFilters = RemoteNotificationsFilterState(nsDictionary: persistentFiltersDict, languageLinkController: languageLinkController) else {
+            return
+        }
+        
+        self.filterState = persistentFilters
+    }
     
     /// Fetches from the local database all projects that contain a local notification on device. Uses the viewContext and must be called from the main thread.
     /// - Returns: Array of RemoteNotificationsProject
@@ -329,11 +338,6 @@ public enum RemoteNotificationsControllerError: Error {
         return finalPredicates.count > 0 ? NSCompoundPredicate(andPredicateWithSubpredicates: finalPredicates) : nil
     }
     
-    private func updateInboxProjectTrackingProperties() {
-        updateAllInboxProjects()
-        updateShowingInboxProjects()
-    }
-    
     /// Updates value of allInboxProjects by gathering list of static projects, app language projects, and local notifications projects. Involves a fetch to the local database. Uses the viewContext and must be called from the main thread
     private func updateAllInboxProjects() {
         let sideProjects: Set<RemoteNotificationsProject> = [.commons, .wikidata]
@@ -348,12 +352,6 @@ public enum RemoteNotificationsControllerError: Error {
         }
         
         self.allInboxProjects = inboxProjects
-    }
-    
-    /// Updates value of showingInboxProjects by subtracting saved filter projects from allInboxProjects.
-    private func updateShowingInboxProjects() {
-        let filteredProjects = filterState.offProjects
-        showingInboxProjects = allInboxProjects.subtracting(filteredProjects)
     }
 }
 

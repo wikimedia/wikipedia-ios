@@ -1,4 +1,4 @@
-class RemoteNotificationsMarkReadOrUnreadOperation: RemoteNotificationsOperation {
+class RemoteNotificationsMarkReadOrUnreadOperation: RemoteNotificationsProjectOperation {
     
     private let shouldMarkRead: Bool
     private let identifierGroups: Set<RemoteNotification.IdentifierGroup>
@@ -11,6 +11,10 @@ class RemoteNotificationsMarkReadOrUnreadOperation: RemoteNotificationsOperation
     
     required init(project: RemoteNotificationsProject, apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController) {
         fatalError("init(project:apiController:modelController:) has not been implemented")
+    }
+    
+    required init(apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController) {
+        fatalError("init(apiController:modelController:) has not been implemented")
     }
     
     override func execute() {

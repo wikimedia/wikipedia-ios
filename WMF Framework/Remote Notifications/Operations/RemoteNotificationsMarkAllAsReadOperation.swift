@@ -1,7 +1,7 @@
 
 import Foundation
 
-class RemoteNotificationsMarkAllAsReadOperation: RemoteNotificationsOperation {
+class RemoteNotificationsMarkAllAsReadOperation: RemoteNotificationsProjectOperation {
     
     override func execute() {
         

@@ -2,7 +2,7 @@
 import Foundation
 
 /// Base class for operations that deal with fetching and persisting user notifications. Operation will recursively call the next page, with overrideable hooks to adjust this behavior.
-class RemoteNotificationsPagingOperation: RemoteNotificationsOperation {
+class RemoteNotificationsPagingOperation: RemoteNotificationsProjectOperation {
     
     private let needsCrossWikiSummary: Bool
     private(set) var crossWikiSummaryNotification: RemoteNotificationsAPIController.NotificationsResult.Notification?
@@ -14,6 +14,10 @@ class RemoteNotificationsPagingOperation: RemoteNotificationsOperation {
     
     required init(project: RemoteNotificationsProject, apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController) {
         fatalError("init(project:apiController:modelController:) has not been implemented")
+    }
+    
+    required init(apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController) {
+        fatalError("init(apiController:modelController:) has not been implemented")
     }
     
     //MARK: Overridable hooks

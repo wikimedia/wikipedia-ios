@@ -85,8 +85,6 @@ final class RemoteNotificationsModelController {
         viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
         
         self.persistentContainer = container
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(handleDidLogOutNotification), name: WMFAuthenticationManager.didLogOutNotification, object: nil)
     }
     
     func deleteLegacyDatabaseFiles() {
@@ -111,7 +109,7 @@ final class RemoteNotificationsModelController {
         }
     }
     
-    @objc func handleDidLogOutNotification() {
+    func resetDatabaseAndSharedCache() {
         
         let batchDeleteBlock: (NSFetchRequest<NSFetchRequestResult>, NSManagedObjectContext) -> Void = { [weak self] (fetchRequest, backgroundContext) in
             
@@ -382,5 +380,15 @@ final class RemoteNotificationsModelController {
                 DDLogError("Error saving RemoteNotifications backgroundContext for library keys: \(error)")
             }
         }
+    }
+    
+    func isProjectAlreadyImported(project: RemoteNotificationsProject) -> Bool {
+        
+        let key = LibraryKey.completedImportFlags.fullKeyForProject(project)
+        guard let nsNumber = libraryValue(forKey: key) as? NSNumber else {
+            return false
+        }
+        
+        return nsNumber.boolValue
     }
 }
