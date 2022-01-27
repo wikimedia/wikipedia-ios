@@ -567,7 +567,6 @@
 "no-internet-connection-article-reload" = "O versiune mai recentă a acestui articol poate fi disponibilă, dar nu poate fi încărcată fără o conexiune la internet";
 "no-internet-connection-article-reload-button" = "Reveniți la ultima versiune salvată";
 "notifications-center-change-password" = "Schimbare parolă";
-"notifications-center-commons-project-name" = "Wikimedia Commons";
 "notifications-center-go-to-diff" = "Mergeți la dif";
 "notifications-center-go-to-talk-page" = "Mergeți la pagina de discuție";
 "notifications-center-go-to-title" = "Mergeți la $1";
@@ -583,7 +582,6 @@
 "notifications-center-subheader-thanks" = "Mulțumiri";
 "notifications-center-subheader-welcome" = "Bun venit!";
 "notifications-center-title" = "Notificări";
-"notifications-center-wikidata-project-name" = "Wikidata";
 "number-billions" = "$1Mld.";
 "number-millions" = "$1Mil";
 "number-thousands" = "$1Mii";

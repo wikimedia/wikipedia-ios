@@ -16,6 +16,7 @@
 // Author: LaMagiaaa
 // Author: Los688
 // Author: Macofe
+// Author: MathXplore
 // Author: Nemo bis
 // Author: Omotecho
 // Author: Otokoume
@@ -574,23 +575,27 @@
 "no-internet-connection-article-reload" = "この記事の新しい版があるかもしれませんが、インターネットに接続するまで読みこめません。";
 "no-internet-connection-article-reload-button" = "最後に保存した版に戻る";
 "notifications-center-change-password" = "パスワードを変更";
-"notifications-center-commons-project-name" = "ウィキメディア・コモンズ";
 "notifications-center-empty-checking-for-notifications" = "通知を確認中...";
-"notifications-center-empty-no-unread-messages" = "未読メッセージはありません";
 "notifications-center-empty-not-subscribed" = "現在、ウィキペディアの通知を登録していません";
 "notifications-center-footer-change-password" = "パスワードを変更";
+"notifications-center-go-to-diff" = "履歴へ移動";
 "notifications-center-go-to-talk-page" = "会話ページに移動";
 "notifications-center-go-to-title" = "$1に移動";
 "notifications-center-go-to-user-page" = "$1の利用者ページに移動";
 "notifications-center-go-to-your-talk-page" = "あなたの会話ページに移動";
 "notifications-center-header-alert-from-project" = "$1からの通知";
 "notifications-center-header-notice-from-project" = "$1からの通知";
-"notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "ログイン通知";
 "notifications-center-mark-all-as-read" = "すべて既読にする";
 "notifications-center-mark-as-read" = "既読にする";
 "notifications-center-mark-as-unread" = "未読にする";
 "notifications-center-notifications-settings" = "通知設定";
+"notifications-center-status-all" = "すべて";
+"notifications-center-status-all-notifications" = "すべての通知";
+"notifications-center-status-in-projects-plain" = "$1プロジェクト";
+"notifications-center-status-in-types" = "$1タイプ";
+"notifications-center-status-read" = "既読";
+"notifications-center-status-unread" = "未読";
 "notifications-center-subheader-email-from-other-user" = "新しいメール";
 "notifications-center-subheader-login-success-unknown-device" = "身に覚えのない端末からのログイン";
 "notifications-center-subheader-mention-failed" = "メンションに失敗しました";
@@ -600,7 +605,6 @@
 "notifications-center-swipe-mark-as-read" = "既読にする";
 "notifications-center-swipe-mark-as-unread" = "未読にする";
 "notifications-center-title" = "通知";
-"notifications-center-wikidata-project-name" = "ウィキデータ";
 "notifications-push-fallback-body-text" = "ウィキペディア内の新しいアクティビティ";
 "notifications-push-talk-body-format" = "$3の$1件の#2";
 "notifications-push-talk-messages-format" = "メッセージ";
@@ -612,6 +616,7 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1件の歴史上の出来事|$1件の歴史上の出来事}}";
 "on-this-day-footer" = "この日の多くの歴史的出来事";
 "on-this-day-footer-showing-event-count" = "今日の$1件の歴史的な出来事";
+"on-this-day-language-does-not-support-error" = "あなたのウィキペディアのメイン言語は秀逸な記事をサポートしていません。アプリの設定メニューからウィキペディアのメイン言語を切り替えることができます。";
 "on-this-day-no-internet-error" = "利用できるデータがありません";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2版ウィキペディアより$1の記事";
 "on-this-day-title" = "今日は何の日";
@@ -766,6 +771,8 @@
 "relative-date-hours-abbreviated" = "$1時間";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=最近|$11時間前|$1時間前}}";
 "relative-date-hours-ago-abbreviated" = "$1時間前";
+"relative-date-hrs-ago" = "{{PLURAL:$1|0=最近|$1時間前}}";
+"relative-date-min-ago" = "{{PLURAL:$1|0=たった今|$1分前}}";
 "relative-date-minutes-abbreviated" = "$1分";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=たった今|$1分前}}";
 "relative-date-minutes-ago-abbreviated" = "$1分前";
@@ -920,6 +927,7 @@
 "unable-to-load-talk-page-title" = "ノートページを読み込めませんでした";
 "unknown-generic-text" = "不明";
 "variants-alert-dismiss-button" = "いいえ";
+"variants-alert-preferences-button" = "設定を確認する";
 "welcome-exploration-explore-feed-description" = "私たちコミュニティからの読書のおすすめと毎日の記事";
 "welcome-exploration-explore-feed-title" = "探索フィード";
 "welcome-exploration-on-this-day-description" = "歴史の中で今日起こったことを学ぶために時間を遡ります。";

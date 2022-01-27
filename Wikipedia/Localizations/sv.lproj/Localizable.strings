@@ -579,9 +579,7 @@
 "no-internet-connection-article-reload" = "En nyare version av denna artikel kanske finns tillgänglig, men kan inte läsas in utan en Internetanslutning";
 "no-internet-connection-article-reload-button" = "Gå tillbaka till senast sparade version";
 "notifications-center-change-password" = "Ändra lösenord";
-"notifications-center-commons-project-name" = "Wikimedia Commons";
 "notifications-center-empty-checking-for-notifications" = "Letar efter aviseringar...";
-"notifications-center-empty-no-unread-messages" = "Du har inga olästa meddelanden";
 "notifications-center-empty-not-subscribed" = "Du prenumererar för tillfället inte på några av Wikipedias aviseringar";
 "notifications-center-footer-change-password" = "Ändra lösenord";
 "notifications-center-go-to-diff" = "Gå till diff";
@@ -592,7 +590,6 @@
 "notifications-center-go-to-your-talk-page" = "Gå till din diskussionssida";
 "notifications-center-header-alert-from-project" = "Meddelande från $1";
 "notifications-center-header-notice-from-project" = "Notis från $1";
-"notifications-center-language-project-name-format" = "$2 på $1";
 "notifications-center-login-notifications" = "Inloggningsavisering";
 "notifications-center-mark-as-read" = "Markera som läst";
 "notifications-center-mark-as-unread" = "Markera som oläst";
@@ -617,7 +614,6 @@
 "notifications-center-subheader-welcome" = "Välkommen!";
 "notifications-center-subheader-wikidata-connection" = "Anslutning till Wikidata genomfördes";
 "notifications-center-title" = "Aviseringar";
-"notifications-center-wikidata-project-name" = "Wikidata";
 "notifications-push-fallback-body-text" = "Ny aktivitet på Wikipedia";
 "notifications-push-talk-body-format" = "$1 nytt $2 på $3";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|meddelande|meddelanden}}";

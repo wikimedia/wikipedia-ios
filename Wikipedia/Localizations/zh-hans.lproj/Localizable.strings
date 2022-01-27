@@ -33,6 +33,7 @@
 // Author: Tonylianlong
 // Author: Viztor
 // Author: VulpesVulpes825
+// Author: Willy1018
 // Author: Wxyveronica
 // Author: Xiplus
 // Author: Yfdyh000
@@ -602,9 +603,7 @@
 "no-internet-connection-article-reload" = "此条目的新版本可用，但由于无互联网连接而无法加载";
 "no-internet-connection-article-reload-button" = "返回至最近保存的版本";
 "notifications-center-change-password" = "更改密码";
-"notifications-center-commons-project-name" = "维基共享资源";
 "notifications-center-empty-checking-for-notifications" = "正在检查通知……";
-"notifications-center-empty-no-unread-messages" = "没有未读消息";
 "notifications-center-empty-not-subscribed" = "您目前没有订阅任何维基百科通知";
 "notifications-center-footer-change-password" = "更改密码";
 "notifications-center-go-to-diff" = "转到差异";
@@ -615,11 +614,13 @@
 "notifications-center-go-to-your-talk-page" = "转到您的讨论页";
 "notifications-center-header-alert-from-project" = "来自$1的提醒";
 "notifications-center-header-notice-from-project" = "来自$1的通知";
-"notifications-center-language-project-name-format" = "$1$2";
 "notifications-center-login-notifications" = "登录通知";
 "notifications-center-mark-as-read" = "标记为已读";
 "notifications-center-mark-as-unread" = "标记为未读";
 "notifications-center-notifications-settings" = "通知设置";
+"notifications-center-status-all" = "全部";
+"notifications-center-status-all-notifications" = "所有通知";
+"notifications-center-status-read" = "已读";
 "notifications-center-subheader-edit-milestone" = "编辑里程碑";
 "notifications-center-subheader-edit-reverted" = "您的编辑已被回退";
 "notifications-center-subheader-email-from-other-user" = "新邮件";
@@ -640,7 +641,6 @@
 "notifications-center-subheader-welcome" = "欢迎！";
 "notifications-center-subheader-wikidata-connection" = "建立维基数据关联";
 "notifications-center-title" = "通知";
-"notifications-center-wikidata-project-name" = "维基数据";
 "notifications-push-fallback-body-text" = "维基百科上的新活动";
 "notifications-push-talk-body-format" = "$3上的$1条新$2";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|消息}}";
