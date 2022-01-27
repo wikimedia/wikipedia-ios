@@ -68,7 +68,7 @@ class RemoteNotificationsPagingOperation: RemoteNotificationsProjectOperation {
     }
     
     private func recursivelyFetchAndSaveNotifications(continueId: String? = nil) {
-        apiController.getAllNotifications(from: project, needsCrossWikiSummary: needsCrossWikiSummary, filter: filter, continueId: continueId) { [weak self] result, error in
+        apiController.getAllNotifications(from: project, needsCrossWikiSummary: needsCrossWikiSummary, filter: filter, continueId: continueId) { [weak self] apiResult, error in
             guard let self = self else {
                 return
             }
@@ -78,7 +78,7 @@ class RemoteNotificationsPagingOperation: RemoteNotificationsProjectOperation {
                 return
             }
 
-            guard let fetchedNotifications = result?.list else {
+            guard let fetchedNotifications = apiResult?.list else {
                 self.finish(with: RequestError.unexpectedResponse)
                 return
             }
@@ -105,15 +105,17 @@ class RemoteNotificationsPagingOperation: RemoteNotificationsProjectOperation {
                 return
             }
 
-            do {
-                let backgroundContext = self.modelController.newBackgroundContext()
-                try self.modelController.createNewNotifications(moc: backgroundContext, notificationsFetchedFromTheServer: Set(fetchedNotificationsToPersist), completion: { [weak self] in
+            let backgroundContext = self.modelController.newBackgroundContext()
+            self.modelController.createNewNotifications(moc: backgroundContext, notificationsFetchedFromTheServer: Set(fetchedNotificationsToPersist), completion: { [weak self] result in
 
-                    guard let self = self else {
-                        return
-                    }
-
-                    guard let newContinueId = result?.continueId,
+                guard let self = self else {
+                    return
+                }
+                
+                switch result {
+                case .success:
+                    
+                    guard let newContinueId = apiResult?.continueId,
                           newContinueId != continueId,
                           self.shouldContinueToPage(lastNotification: lastNotification) else {
                         self.didFetchAndSaveAllPages()
@@ -123,10 +125,11 @@ class RemoteNotificationsPagingOperation: RemoteNotificationsProjectOperation {
 
                     self.willFetchAndSaveNewPage(newContinueId: newContinueId)
                     self.recursivelyFetchAndSaveNotifications(continueId: newContinueId)
-                })
-            } catch {
-                self.finish(with: error)
-            }
+                    
+                case .failure(let error):
+                    self.finish(with: error)
+                }
+            })
         }
     }
 }

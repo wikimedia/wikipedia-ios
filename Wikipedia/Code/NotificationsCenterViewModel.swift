@@ -125,16 +125,41 @@ final class NotificationsCenterViewModel: NSObject {
     }
     
     func refreshNotifications(force: Bool) {
-        remoteNotificationsController.loadNotifications(force: force)
+        remoteNotificationsController.loadNotifications(force: force) { result in
+            switch result {
+            case .failure(let error):
+                DDLogError("Error refreshing notifications: \(error)")
+                //TODO: show some sort of error state
+            default:
+                break
+            }
+        }
     }
     
     func markAsReadOrUnread(viewModels: [NotificationsCenterCellViewModel], shouldMarkRead: Bool) {
+        
         let identifierGroups = viewModels.map { $0.notification.identifierGroup }
-        remoteNotificationsController.markAsReadOrUnread(identifierGroups: Set(identifierGroups), shouldMarkRead: shouldMarkRead)
+        remoteNotificationsController.markAsReadOrUnread(identifierGroups: Set(identifierGroups), shouldMarkRead: shouldMarkRead) { result in
+            switch result {
+            case .failure(let error):
+                DDLogError("Error marking notifications as read or unread: \(error)")
+                //TODO: show some sort of error state
+            default:
+                break
+            }
+        }
     }
     
     func markAllAsRead() {
-        remoteNotificationsController.markAllAsRead()
+        remoteNotificationsController.markAllAsRead { result in
+            switch result {
+            case .failure(let error):
+                DDLogError("Error marking all notifications as read or unread: \(error)")
+                //TODO: show some sort of error state
+            default:
+                break
+            }
+        }
     }
     
     func fetchFirstPage() {
@@ -288,7 +313,7 @@ extension NotificationsCenterViewModel {
     }
     
     var numberOfUnreadNotifications: Int {
-        return self.remoteNotificationsController.numberOfUnreadNotifications
+        return (try? self.remoteNotificationsController.numberOfUnreadNotifications().intValue) ?? 0
     }
 }
 

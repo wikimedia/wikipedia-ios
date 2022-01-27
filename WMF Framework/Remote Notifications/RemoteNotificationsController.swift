@@ -96,7 +96,12 @@ public enum RemoteNotificationsControllerError: Error {
     }
     
     @objc private func authManagerDidLogOut() {
-        modelController?.resetDatabaseAndSharedCache()
+        do {
+            try modelController?.resetDatabaseAndSharedCache()
+        } catch (let error) {
+            DDLogError("Error resetting notifications database on logout: \(error)")
+        }
+        
     }
     
     @objc private func authManagerDidLogIn() {
@@ -134,8 +139,12 @@ public enum RemoteNotificationsControllerError: Error {
             
             switch result {
             case .success:
-                self.updateAllInboxProjects()
-                completion?(.success(()))
+                do {
+                    try self.updateAllInboxProjects()
+                    completion?(.success(()))
+                } catch (let error) {
+                    completion?(.failure(error))
+                }
             case .failure(let error):
                 completion?(.failure(error))
             }
@@ -148,26 +157,36 @@ public enum RemoteNotificationsControllerError: Error {
     /// - Parameters:
     ///   - identifierGroups: Set of IdentifierGroup objects to identify the correct notification.
     ///   - shouldMarkRead: Boolean for marking as read or unread.
-    public func markAsReadOrUnread(identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool) {
+    public func markAsReadOrUnread(identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, completion: ((Result<Void, Error>) -> Void)? = nil) {
         
-        guard let operationsController = operationsController,
-        authManager.isLoggedIn else {
+        guard let operationsController = operationsController else {
+            completion?(.failure(RemoteNotificationsControllerError.databaseUnavailable))
             return
         }
         
-        operationsController.markAsReadOrUnread(identifierGroups: identifierGroups, shouldMarkRead: shouldMarkRead, languageLinkController: languageLinkController)
+        guard authManager.isLoggedIn else {
+            completion?(.failure(RequestError.unauthenticated))
+            return
+        }
+        
+        operationsController.markAsReadOrUnread(identifierGroups: identifierGroups, shouldMarkRead: shouldMarkRead, languageLinkController: languageLinkController, completion: completion)
     }
     
     
     /// Asks server to mark all notifications as read for projects that contain local unread notifications. Errors are not returned. Updates local database on a backgroundContext.
-    public func markAllAsRead() {
+    public func markAllAsRead(completion: ((Result<Void, Error>) -> Void)? = nil) {
         
-        guard let operationsController = operationsController,
-        authManager.isLoggedIn else {
+        guard let operationsController = operationsController else {
+            completion?(.failure(RemoteNotificationsControllerError.databaseUnavailable))
             return
         }
         
-        operationsController.markAllAsRead(languageLinkController: languageLinkController)
+        guard authManager.isLoggedIn else {
+            completion?(.failure(RequestError.unauthenticated))
+            return
+        }
+        
+        operationsController.markAllAsRead(languageLinkController: languageLinkController, completion: completion)
     }
     
     /// Passthrough method to listen for NSManagedObjectContextObjectsDidChange notifications on the viewContext, in order to encapsulate viewContext within the WMF Framework.
@@ -201,8 +220,13 @@ public enum RemoteNotificationsControllerError: Error {
             
             let loadingCompletion: () -> Void = {
                 let predicate = self.predicateForFilterSavedState(self.filterState)
-                let notifications = modelController.fetchNotifications(fetchLimit: fetchLimit, fetchOffset: fetchOffset, predicate: predicate)
-                completion(.success(notifications))
+                
+                do {
+                    let notifications = try modelController.fetchNotifications(fetchLimit: fetchLimit, fetchOffset: fetchOffset, predicate: predicate)
+                    completion(.success(notifications))
+                } catch (let error) {
+                    completion(.failure(error))
+                }
             }
              
              switch result {
@@ -220,14 +244,24 @@ public enum RemoteNotificationsControllerError: Error {
     }
     
     /// Fetches a count of unread notifications from the local database. Uses the viewContext and must be called from the main thread
-    @objc public var numberOfUnreadNotifications: Int {
-        return self.modelController?
-            .numberOfUnreadNotifications ?? 0
+    @objc public func numberOfUnreadNotifications() throws -> NSNumber {
+        
+        guard let modelController = modelController else {
+            throw RemoteNotificationsControllerError.databaseUnavailable
+        }
+        
+        let count = try modelController.numberOfUnreadNotifications()
+        return NSNumber.init(value: count)
     }
     
     /// Fetches a count of all notifications from the local database. Uses the viewContext and must be called from the main thread
-    public var numberOfAllNotifications: Int {
-        return modelController?.numberOfAllNotifications ?? 0
+    public func numberOfAllNotifications() throws -> Int {
+        
+        guard let modelController = modelController else {
+            throw RemoteNotificationsControllerError.databaseUnavailable
+        }
+        
+        return try modelController.numberOfAllNotifications()
     }
     
     /// List of all possible inbox projects available Notifications Center. Used for populating the Inbox screen and the project count toolbar
@@ -239,8 +273,8 @@ public enum RemoteNotificationsControllerError: Error {
         return allInboxProjects.subtracting(filteredProjects).count
     }
 
-    @objc public func updateCacheWithCurrentUnreadNotificationsCount() {
-        let currentCount = numberOfUnreadNotifications
+    @objc public func updateCacheWithCurrentUnreadNotificationsCount() throws {
+        let currentCount = try numberOfUnreadNotifications().intValue
         let sharedCache = SharedContainerCache<PushNotificationsCache>(pathComponent: .pushNotificationsCache, defaultCache: { PushNotificationsCache(settings: .default, notifications: []) })
         var pushCache = sharedCache.loadCache()
         pushCache.currentUnreadCount = currentCount
@@ -263,8 +297,13 @@ public enum RemoteNotificationsControllerError: Error {
     
     //MARK: Internal
     
-    @objc func deleteLegacyDatabaseFiles() {
-        modelController?.deleteLegacyDatabaseFiles()
+    @objc func deleteLegacyDatabaseFiles() throws -> Void {
+        
+        guard let modelController = modelController else {
+            throw RemoteNotificationsControllerError.databaseUnavailable
+        }
+        
+        try modelController.deleteLegacyDatabaseFiles()
     }
     
     //MARK: Private
@@ -282,12 +321,12 @@ public enum RemoteNotificationsControllerError: Error {
     
     /// Fetches from the local database all projects that contain a local notification on device. Uses the viewContext and must be called from the main thread.
     /// - Returns: Array of RemoteNotificationsProject
-    private func projectsFromLocalNotifications() -> Set<RemoteNotificationsProject> {
+    private func projectsFromLocalNotifications() throws -> Set<RemoteNotificationsProject> {
         guard let modelController = modelController else {
             return []
         }
         
-        let wikis = modelController.distinctWikis(predicate: nil)
+        let wikis = try modelController.distinctWikis(predicate: nil)
         let projects = wikis.compactMap { RemoteNotificationsProject(apiIdentifier: $0, languageLinkController: languageLinkController) }
         return Set(projects)
     }
@@ -343,13 +382,13 @@ public enum RemoteNotificationsControllerError: Error {
     }
     
     /// Updates value of allInboxProjects by gathering list of static projects, app language projects, and local notifications projects. Involves a fetch to the local database. Uses the viewContext and must be called from the main thread
-    private func updateAllInboxProjects() {
+    private func updateAllInboxProjects() throws {
         let sideProjects: Set<RemoteNotificationsProject> = [.commons, .wikidata]
         
         let appLanguageProjects =  languageLinkController.preferredLanguages.map { RemoteNotificationsProject.wikipedia($0.languageCode, $0.localizedName, $0.languageVariantCode) }
         
         var inboxProjects = sideProjects.union(appLanguageProjects)
-        let localProjects = projectsFromLocalNotifications()
+        let localProjects = try projectsFromLocalNotifications()
         
         for localProject in localProjects {
             inboxProjects.insert(localProject)

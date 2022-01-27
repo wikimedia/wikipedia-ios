@@ -3,6 +3,10 @@ import Foundation
 
 class RemoteNotificationsRefreshCrossWikiGroupOperation: RemoteNotificationsOperation {
     
+    enum CrossWikiGroupError: Error {
+        case individualErrors([Error])
+    }
+    
     var crossWikiSummaryNotification: RemoteNotificationsAPIController.NotificationsResult.Notification?
     
     private let internalQueue = OperationQueue()
@@ -24,14 +28,19 @@ class RemoteNotificationsRefreshCrossWikiGroupOperation: RemoteNotificationsOper
     }
     
     override func execute() {
-        finishingOperation.completionBlock = {
-            //todo: propogate any errors from crossWikiOperations
-            self.finish()
-        }
         
         let crossWikiOperations = crossWikiOperations()
         for crossWikiOperation in crossWikiOperations {
             finishingOperation.addDependency(crossWikiOperation)
+        }
+        
+        finishingOperation.completionBlock = {
+            let errors = crossWikiOperations.compactMap { $0.error }
+            if errors.count > 0 {
+                self.finish(with: CrossWikiGroupError.individualErrors(errors))
+            } else {
+                self.finish()
+            }
         }
         
         internalQueue.addOperations(crossWikiOperations + [finishingOperation], waitUntilFinished: false)

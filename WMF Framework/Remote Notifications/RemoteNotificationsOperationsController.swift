@@ -2,9 +2,7 @@ import CocoaLumberjackSwift
 
 public enum RemoteNotificationsOperationsError: Error {
     case failurePullingAppLanguage
-    case failureCreatingAppLanguagePagingOperation
-    case alreadyImportingOrRefreshing
-    case failureToReauthenticate
+    case individualErrors([Error])
 }
 
 public extension Notification.Name {
@@ -37,6 +35,8 @@ class RemoteNotificationsOperationsController: NSObject {
         NotificationCenter.default.removeObserver(self)
     }
     
+    //MARK: Public
+    
     /// Kicks off operations to fetch and persist read and unread history of notifications from app languages, Commons, and Wikidata, + other projects with unread notifications. Designed to automatically page and fully import once per installation, then only fetch new notifications for each project when called after that. Will not attempt if loading is already in progress. Must be called from main thread.
     /// - Parameter completion: Block to run once operations have completed. Dispatched to main thread.
     func loadNotifications(_ completion: ((Result<Void, Error>) -> Void)? = nil) {
@@ -67,6 +67,88 @@ class RemoteNotificationsOperationsController: NSObject {
             }
         }
     }
+    
+    func markAsReadOrUnread(identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, languageLinkController: MWKLanguageLinkController, completion: ((Result<Void, Error>) -> Void)? = nil) {
+        assert(Thread.isMainThread)
+        
+        //sort identifier groups into dictionary keyed by wiki
+        let requestDictionary: [String: Set<RemoteNotification.IdentifierGroup>] = identifierGroups.reduce([String: Set<RemoteNotification.IdentifierGroup>]()) { partialResult, identifierGroup in
+
+            var result = partialResult
+            guard let wiki = identifierGroup.wiki else {
+                return result
+            }
+            
+            result[wiki, default: Set<RemoteNotification.IdentifierGroup>()].insert(identifierGroup)
+
+            return result
+        }
+        
+        //turn into array of operations
+        let operations: [RemoteNotificationsMarkReadOrUnreadOperation] = requestDictionary.compactMap { element in
+            
+            let wiki = element.key
+            guard let project = RemoteNotificationsProject(apiIdentifier: wiki, languageLinkController: languageLinkController) else {
+                return nil
+            }
+
+            return RemoteNotificationsMarkReadOrUnreadOperation(project: project, apiController: apiController, modelController: modelController, identifierGroups: identifierGroups, shouldMarkRead: shouldMarkRead)
+        }
+        
+        let completionOperation = BlockOperation {
+            DispatchQueue.main.async {
+                let errors = operations.compactMap { $0.error }
+                if errors.count > 0 {
+                    completion?(.failure(RemoteNotificationsOperationsError.individualErrors(errors)))
+                } else {
+                    completion?(.success(()))
+                }
+            }
+        }
+        
+        for operation in operations {
+            completionOperation.addDependency(operation)
+        }
+        
+        //MAYBETODO: should we make sure this chunk of operations and mark all chunk of operations happens serially?
+        operationQueue.addOperations(operations + [completionOperation], waitUntilFinished: false)
+    }
+    
+    func markAllAsRead(languageLinkController: MWKLanguageLinkController, completion: ((Result<Void, Error>) -> Void)? = nil) {
+        assert(Thread.isMainThread)
+        
+        let wikisWithUnreadNotifications: Set<String>
+        do {
+            wikisWithUnreadNotifications = try modelController.distinctWikisWithUnreadNotifications()
+        } catch (let error) {
+            completion?(.failure(error))
+            return
+        }
+        
+        let projects = wikisWithUnreadNotifications.compactMap { RemoteNotificationsProject(apiIdentifier: $0, languageLinkController: self.languageLinkController) }
+
+        let operations = projects.map { RemoteNotificationsMarkAllAsReadOperation(project: $0, apiController: self.apiController, modelController: self.modelController) }
+        
+        let completionOperation = BlockOperation {
+            DispatchQueue.main.async {
+                let errors = operations.compactMap { $0.error }
+                if errors.count > 0 {
+                    completion?(.failure(RemoteNotificationsOperationsError.individualErrors(errors)))
+                } else {
+                    completion?(.success(()))
+                }
+            }
+        }
+        
+        for operation in operations {
+            completionOperation.addDependency(operation)
+        }
+        
+        //MAYBETODO: should we make sure this chunk of operations and mark as read or unread chunk of operations happens serially?
+        self.operationQueue.addOperations(operations + [completionOperation], waitUntilFinished: false)
+    }
+    
+    //MARK: Private
     
     /// Generates the correct paging operation (Import or Refresh) based on a project's persisted imported state.
     /// - Parameter project: RemoteNotificationsProject to evaluate
@@ -150,8 +232,13 @@ class RemoteNotificationsOperationsController: NSObject {
         let finalListOfOperations = [appLanguageOperation, crossWikiAdapterOperation, crossWikiGroupOperation, reauthenticateAdapterOperation, reauthenticateOperation, recursiveKickoffOperation] + secondaryOperations
         
         let completionOperation = BlockOperation {
-            //todo: propogate any errors from finalListOfOperations
-            completion(.success(()))
+            
+            let errors = finalListOfOperations.compactMap { ($0 as? AsyncOperation)?.error }
+            if errors.count > 0 {
+                completion(.failure(RemoteNotificationsOperationsError.individualErrors(errors)))
+            } else {
+                completion(.success(()))
+            }
         }
         
         for operation in finalListOfOperations {
@@ -159,47 +246,5 @@ class RemoteNotificationsOperationsController: NSObject {
         }
         
         self.operationQueue.addOperations(finalListOfOperations + [completionOperation], waitUntilFinished: false)
-    }
-    
-    func markAsReadOrUnread(identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, languageLinkController: MWKLanguageLinkController) {
-        
-        //sort identifier groups into dictionary keyed by wiki
-        let requestDictionary: [String: Set<RemoteNotification.IdentifierGroup>] = identifierGroups.reduce([String: Set<RemoteNotification.IdentifierGroup>]()) { partialResult, identifierGroup in
-
-            var result = partialResult
-            guard let wiki = identifierGroup.wiki else {
-                return result
-            }
-            
-            result[wiki, default: Set<RemoteNotification.IdentifierGroup>()].insert(identifierGroup)
-
-            return result
-        }
-        
-        //turn into array of operations
-        let operations: [RemoteNotificationsMarkReadOrUnreadOperation] = requestDictionary.compactMap { element in
-            
-            let wiki = element.key
-            guard let project = RemoteNotificationsProject(apiIdentifier: wiki, languageLinkController: languageLinkController) else {
-                return nil
-            }
-
-            return RemoteNotificationsMarkReadOrUnreadOperation(project: project, apiController: apiController, modelController: modelController, identifierGroups: identifierGroups, shouldMarkRead: shouldMarkRead)
-        }
-        
-        //MAYBETODO: should we make sure this chunk of operations and mark all chunk of operations happens serially?
-        operationQueue.addOperations(operations, waitUntilFinished: false)
-    }
-    
-    func markAllAsRead(languageLinkController: MWKLanguageLinkController) {
-        assert(Thread.isMainThread)
-        
-        let wikisWithUnreadNotifications = modelController.distinctWikisWithUnreadNotifications()
-        let projects = wikisWithUnreadNotifications.compactMap { RemoteNotificationsProject(apiIdentifier: $0, languageLinkController: self.languageLinkController) }
-
-        let operations = projects.map { RemoteNotificationsMarkAllAsReadOperation(project: $0, apiController: self.apiController, modelController: self.modelController) }
-        
-        //MAYBETODO: should we make sure this chunk of operations and mark as read or unread chunk of operations happens serially?
-        self.operationQueue.addOperations(operations, waitUntilFinished: false)
     }
 }
