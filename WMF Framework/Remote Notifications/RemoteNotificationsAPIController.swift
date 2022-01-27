@@ -1,21 +1,6 @@
 import CocoaLumberjackSwift
 
-public enum RemoteNotificationsAPIControllerError: Error {
-    case unableToConstructSiteURL
-}
-
 public class RemoteNotificationsAPIController: Fetcher {
-    // MARK: NotificationsAPI constants
-
-    private struct NotificationsAPI {
-        static let components: URLComponents = {
-            var components = URLComponents()
-            components.scheme = "https"
-            components.host = "www.mediawiki.org"
-            components.path = "/w/api.php"
-            return components
-        }()
-    }
 
     // MARK: Decodable: NotificationsResult
 
@@ -173,7 +158,7 @@ public class RemoteNotificationsAPIController: Fetcher {
 
     // MARK: Decodable: MarkReadResult
 
-    struct MarkReadResult: Decodable {
+    private struct MarkReadResult: Decodable {
         let query: Query?
         let error: ResultError?
 
@@ -201,16 +186,9 @@ public class RemoteNotificationsAPIController: Fetcher {
         case unknown
         case multiple([Error])
     }
-
-    private func notifications(from result: NotificationsResult?) -> Set<NotificationsResult.Notification>? {
-        guard let result = result else {
-            return nil
-        }
-        guard let list = result.query?.notifications?.list else {
-            return nil
-        }
-        return Set(list)
-    }
+    
+    //MARK: Public
+    
     public func getUnreadPushNotifications(from project: RemoteNotificationsProject, completion: @escaping (Set<NotificationsResult.Notification>, Error?) -> Void) {
         let completion: (NotificationsResult?, URLResponse?, Error?) -> Void = { result, _, error in
             guard error == nil else {
@@ -235,7 +213,7 @@ public class RemoteNotificationsAPIController: Fetcher {
         request(project: project, queryParameters: Query.notifications(from: [project], limit: .max, filter: filter, needsCrossWikiSummary: needsCrossWikiSummary, continueId: continueId), completion: completion)
     }
     
-    public func markAllAsRead(project: RemoteNotificationsProject, completion: @escaping (Error?) -> Void) {
+    func markAllAsRead(project: RemoteNotificationsProject, completion: @escaping (Error?) -> Void) {
         
         request(project: project, queryParameters: Query.markAllAsRead(project: project), method: .post) { (result: MarkReadResult?, _, error) in
             if let error = error {
@@ -259,7 +237,7 @@ public class RemoteNotificationsAPIController: Fetcher {
         }
     }
 
-    public func markAsReadOrUnread(project: RemoteNotificationsProject, identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, completion: @escaping (Error?) -> Void) {
+    func markAsReadOrUnread(project: RemoteNotificationsProject, identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, completion: @escaping (Error?) -> Void) {
         let maxNumberOfNotificationsPerRequest = 50
         let identifierGroups = Array(identifierGroups)
         let split = identifierGroups.chunked(into: maxNumberOfNotificationsPerRequest)
@@ -294,6 +272,8 @@ public class RemoteNotificationsAPIController: Fetcher {
             }
         }
     }
+    
+    //MARK: Private
 
     private func request<T: Decodable>(project: RemoteNotificationsProject?, queryParameters: Query.Parameters?, method: Session.Request.Method = .get, completion: @escaping (T?, URLResponse?, Error?) -> Void) {
 
@@ -315,10 +295,20 @@ public class RemoteNotificationsAPIController: Fetcher {
             }
         }
     }
+    
+    private func notifications(from result: NotificationsResult?) -> Set<NotificationsResult.Notification>? {
+        guard let result = result else {
+            return nil
+        }
+        guard let list = result.query?.notifications?.list else {
+            return nil
+        }
+        return Set(list)
+    }
 
     // MARK: Query parameters
 
-    public struct Query {
+    struct Query {
         typealias Parameters = [String: Any]
 
         enum Limit {
@@ -335,7 +325,7 @@ public class RemoteNotificationsAPIController: Fetcher {
             }
         }
 
-        public enum Filter: String {
+        enum Filter: String {
             case read = "read"
             case unread = "!read"
             case none = "read|!read"
@@ -440,6 +430,8 @@ public extension RemoteNotificationsAPIController.NotificationsResult.Notificati
         return PageNamespace(namespaceValue: title?.namespaceKey)
     }
 }
+
+//MARK: Test Helpers
 
 #if TEST
 
