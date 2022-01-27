@@ -120,6 +120,7 @@ final class NotificationsCenterViewModel: NSObject {
     
     func setup() {
         //TODO: Revisit and enable importing empty states in a delayed manner to avoid flashing.
+        isLoading = remoteNotificationsController.isLoadingNotifications
         delegate?.update(types: [.emptyDisplay(true), .toolbarDisplay])
     }
     

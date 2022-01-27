@@ -18,7 +18,7 @@ class RemoteNotificationsOperationsController: NSObject {
     private let operationQueue: OperationQueue
     private let languageLinkController: MWKLanguageLinkController
     private let authManager: WMFAuthenticationManager
-    private var isLoadingNotifications = false
+    private(set) var isLoadingNotifications = false
     private var loadingNotificationsCompletionBlocks: [(Result<Void, Error>) -> Void] = []
 
     required init(languageLinkController: MWKLanguageLinkController, authManager: WMFAuthenticationManager, apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController) {

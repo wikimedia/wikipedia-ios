@@ -41,6 +41,10 @@ public enum RemoteNotificationsControllerError: Error {
             _operationsController = newValue
         }
     }
+    
+    public var isLoadingNotifications: Bool {
+        return operationsController?.isLoadingNotifications ?? false
+    }
 
     public static let didUpdateFilterStateNotification = NSNotification.Name(rawValue: "RemoteNotificationsControllerDidUpdateFilterState")
     
