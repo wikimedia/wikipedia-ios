@@ -407,9 +407,7 @@
 "no-internet-connection" = "ߓߟߐߟߐ ߜߊ߲߬ߞߎ߲߬ߠߌ߲߬ ߕߴߦߋ߲߬";
 "no-internet-connection-article-reload-button" = "ߌ ߞߐߛߊ߬ߦߌ߬ ߞߐߟߊ߫ ߦߌߟߡߊ߫ ߟߊߞߎ߲߬ߘߎ߬ߣߍ߲ ߡߊ߬";
 "notifications-center-change-password" = "ߕߊ߬ߡߌ߲߬ߞߊ߲ ߡߊߝߊ߬ߟߋ߲߬";
-"notifications-center-commons-project-name" = "ߥߞߌߡߋߘߌߦߊ߫ ߞߐߡߐ߲ߛ";
 "notifications-center-empty-checking-for-notifications" = "ߊ߬ ߡߊߝߍߣߍ߲߫ ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ߫ ߞߏ ߘߐ߫...";
-"notifications-center-empty-no-unread-messages" = "ߗߋߛߓߍ߫ ߘߐߞߊ߬ߙߊ߲߬ߓߊ߬ߟߌ߫ ߕߴߌ ߓߟߏ߫";
 "notifications-center-empty-not-subscribed" = "ߌ ߕߐ߮ ߛߓߍߣߍ߲߫ ߕߍ߫ ߥߞߌߔߋߘߌߦߊ ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ߫ ߛߌ߫ ߟߊ߫ ߕߊ߲߬.";
 "notifications-center-footer-change-password" = "ߕߊ߬ߡߌ߲߬ߞߊ߲ ߡߊߝߊ߬ߟߋ߲߬";
 "notifications-center-go-to-diff" = "ߕߊ߯ ߓߐߣߍ߲ߢߐ߲߰ߡߊ ߞߊ߲߬";
@@ -420,7 +418,6 @@
 "notifications-center-go-to-your-talk-page" = "ߕߊ߯ ߌ ߟߊ߫ ߞߎߡߊ߫ ߞߐߜߍ ߞߊ߲߬";
 "notifications-center-header-alert-from-project" = "ߟߊ߬ߛߏ߬ߓߌ߬ߟߌ ߞߊ߬ ߝߘߊ߫ $1 ߟߊ߫";
 "notifications-center-header-notice-from-project" = "ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߞߊ߬ ߝߘߊ߫ $1 ߟߊ߫";
-"notifications-center-language-project-name-format" = "$2 $1";
 "notifications-center-login-notifications" = "ߜߊ߲߬ߞߎ߲߬ߠߌ߲ ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߟߎ߬";
 "notifications-center-mark-all-as-read" = "ߊ߬ ߓߍ߯ ߣߐ߬ߣߐ߫ ߘߐ߬ߞߊ߬ߙߊ߲߬ߣߍ߲ ߘߌ߫";
 "notifications-center-mark-as-read" = "ߊ߬ ߞߍ߫ ߘߐ߬ߞߊ߬ߙߊ߲߬ߣߍ߲ ߘߌ߫";
@@ -436,7 +433,6 @@
 "notifications-center-swipe-mark-as-unread" = "ߊ߬ ߞߍ߫ ߞߊ߬ߙߊ߲߬ߓߊߟߌ ߘߌ߫";
 "notifications-center-swipe-more" = "ߡߊ߬ߞߊ߬ߝߏ߬ ߜߘߍ ߟߎ߬";
 "notifications-center-title" = "ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߟߎ߬";
-"notifications-center-wikidata-project-name" = "ߥߞߌߘߕߊ";
 "number-billions" = "ߥ $1";
 "number-millions" = "ߞ $1";
 "number-thousands" = "ߓ $1";
