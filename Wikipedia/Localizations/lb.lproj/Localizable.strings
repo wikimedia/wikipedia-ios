@@ -332,6 +332,7 @@
 "notifications-center-change-password" = "Passwuert änneren";
 "notifications-center-empty-no-messages" = "Dir hutt keng Messagen";
 "notifications-center-filters-read-status-item-title-all" = "All";
+"notifications-center-filters-read-status-item-title-read" = "Liesen";
 "notifications-center-filters-read-status-item-title-unread" = "Net gelies";
 "notifications-center-filters-title" = "Filteren";
 "notifications-center-filters-types-item-title-all" = "All Typpen";
