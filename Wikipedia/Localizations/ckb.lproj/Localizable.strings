@@ -3,6 +3,7 @@
 // Author: Arya sarhan
 // Author: Asoxor
 // Author: Diyariq
+// Author: Halbast
 // Author: Kushared
 // Author: Lost Whispers
 // Author: Macofe
@@ -140,7 +141,7 @@
 "diff-compare-header-to-info-heading" = "بۆ:";
 "diff-context-lines-collapsed-button-title" = "نیشان بدە";
 "diff-context-lines-expanded-button-title" = "بشارەوە";
-"diff-thanks-send-button-title" = "سوپاس بکە";
+"diff-thanks-send-button-title" = "سپاس بکە";
 "dim-images" = "وێنەی کز";
 "edit-link-remove-link-title" = "لابردنی بەستەر";
 "edit-link-title" = "بەستەرەکان دەستکاری بکە";

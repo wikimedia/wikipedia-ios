@@ -587,9 +587,7 @@
 "no-internet-connection-article-reload" = "有可用的此條目新版本，但沒有連上網路無法載入";
 "no-internet-connection-article-reload-button" = "返回上一次儲存的版本";
 "notifications-center-change-password" = "修改密碼";
-"notifications-center-commons-project-name" = "維基共享資源";
 "notifications-center-empty-checking-for-notifications" = "正在檢查通知...";
-"notifications-center-empty-no-unread-messages" = "您沒有未讀消息";
 "notifications-center-empty-not-subscribed" = "您目前沒有訂閱任何維基百科通知";
 "notifications-center-footer-change-password" = "變更密碼";
 "notifications-center-go-to-diff" = "轉到差異";
@@ -600,7 +598,6 @@
 "notifications-center-go-to-your-talk-page" = "轉到您的討論頁";
 "notifications-center-header-alert-from-project" = "$1起的警報";
 "notifications-center-header-notice-from-project" = "$1起的通知";
-"notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "登錄通知";
 "notifications-center-mark" = "標記";
 "notifications-center-mark-all-as-read" = "標記所有為已讀";
@@ -630,7 +627,6 @@
 "notifications-center-swipe-mark-as-unread" = "標記為未讀";
 "notifications-center-swipe-more" = "更多";
 "notifications-center-title" = "通知";
-"notifications-center-wikidata-project-name" = "維基數據";
 "notifications-push-fallback-body-text" = "在維基百科上的新活動";
 "notifications-push-talk-body-format" = "在$3的 $1 個新$2";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|訊息}}";
