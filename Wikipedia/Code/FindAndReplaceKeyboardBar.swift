@@ -382,7 +382,7 @@ private extension FindAndReplaceKeyboardBar {
     }
 }
 
-#if (TEST)
+#if TEST
 //MARK: Helpers for testing
 extension FindAndReplaceKeyboardBar {
     func setFindTextForTesting(_ text: String) {
