@@ -251,9 +251,7 @@
 "new-password-title" = "আপনার পাসওয়ার্ড স্থাপন করুন";
 "no-email-account-alert" = "দয়া করে আপনার ডিভাসে একটি ইমেইল অ্যাকাউন্ট নির্ধারণ করুন এবং আবার চেষ্টা করুন।";
 "notifications-center-change-password" = "পাসওয়ার্ড পরিবর্তন";
-"notifications-center-commons-project-name" = "উইকিমিডিয়া কমন্স";
 "notifications-center-empty-checking-for-notifications" = "বিজ্ঞপ্তির জন্য অনুসন্ধান করা হচ্ছে...";
-"notifications-center-empty-no-unread-messages" = "আপনার কোনো নতুন বার্তা নেই";
 "notifications-center-empty-not-subscribed" = "আপনি বর্তমানে কোনো উইকিপিডিয়া বিজ্ঞপ্তির সদস্যতা গ্রহণ করেননি";
 "notifications-center-footer-change-password" = "পাসওয়ার্ড পরিবর্তন";
 "notifications-center-go-to-diff" = "পরিবর্তনে যান";
@@ -264,7 +262,6 @@
 "notifications-center-go-to-your-talk-page" = "আপনার আলাপ পাতায় যান";
 "notifications-center-header-alert-from-project" = "$1 থেকে সতর্কতা";
 "notifications-center-header-notice-from-project" = "$1 হতে বিজ্ঞপ্তি";
-"notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "প্রবেশের বিজ্ঞপ্তি";
 "notifications-center-mark" = "চিহ্নিত করুন";
 "notifications-center-mark-all-as-read" = "সব পঠিত হিসেবে চিহ্নিত করুন";
@@ -294,7 +291,6 @@
 "notifications-center-swipe-mark-as-unread" = "অপঠিত হিসেবে চিহ্নিত করুন";
 "notifications-center-swipe-more" = "আরও";
 "notifications-center-title" = "বিজ্ঞপ্তি";
-"notifications-center-wikidata-project-name" = "উইকিউপাত্ত";
 "number-billions" = "$1 বিলিয়ন";
 "number-millions" = "$1 মিলিয়ন";
 "number-thousands" = "$1 হাজার";

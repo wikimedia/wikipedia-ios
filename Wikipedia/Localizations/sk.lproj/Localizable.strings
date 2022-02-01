@@ -570,9 +570,7 @@
 "no-internet-connection-article-reload" = "Môže byť dostupná novšia verzia tohto článku, ale nedá sa ju načítať bez pripojenia k internetu.";
 "no-internet-connection-article-reload-button" = "Vrátiť sa k poslednej uloženej verzii";
 "notifications-center-change-password" = "Zmeniť heslo";
-"notifications-center-commons-project-name" = "Wikimédia Commons";
 "notifications-center-empty-checking-for-notifications" = "Kontrola notifikácií...";
-"notifications-center-empty-no-unread-messages" = "Nemáte žiadne neprečítané správy";
 "notifications-center-empty-not-subscribed" = "Neodoberáte žiadne notifikácie z Wikipédie";
 "notifications-center-footer-change-password" = "Zmeniť heslo";
 "notifications-center-go-to-diff" = "Prejsť na rozdiely";
@@ -583,7 +581,6 @@
 "notifications-center-go-to-your-talk-page" = "Prejsť na svoju diskusnú stránku";
 "notifications-center-header-alert-from-project" = "Upozornenie z $1";
 "notifications-center-header-notice-from-project" = "Oznámenie z $1";
-"notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "Prihlasovacie oznámenia";
 "notifications-center-mark" = "Označiť";
 "notifications-center-mark-all-as-read" = "Označiť všetky ako prečítané";
@@ -613,7 +610,6 @@
 "notifications-center-swipe-mark-as-unread" = "Označiť ako neprečítané";
 "notifications-center-swipe-more" = "Viac";
 "notifications-center-title" = "Upozornenia";
-"notifications-center-wikidata-project-name" = "Wikidáta";
 "notifications-push-fallback-body-text" = "Nová aktivita na Wikipédii";
 "notifications-push-talk-body-format" = "$1 nové $2 na $3";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|správa|správy|správ}}";
