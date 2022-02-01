@@ -574,9 +574,7 @@
 "no-internet-connection-article-reload" = "Talvez esteja disponível uma versão mais recente deste artigo, mas não pode ser carregada sem ligação à Internet";
 "no-internet-connection-article-reload-button" = "Voltar à última versão guardada";
 "notifications-center-change-password" = "Alterar Palavra-passe";
-"notifications-center-commons-project-name" = "Wikimedia Commons";
 "notifications-center-empty-checking-for-notifications" = "A verificar se existem notificações...";
-"notifications-center-empty-no-unread-messages" = "Não tem mensagens não lidas";
 "notifications-center-empty-not-subscribed" = "Neste momento não subscreve nenhuma notificação da Wikipédia";
 "notifications-center-footer-change-password" = "Alterar palavra-passe";
 "notifications-center-go-to-diff" = "Ir para diferenças";
@@ -587,7 +585,6 @@
 "notifications-center-go-to-your-talk-page" = "Ir para a sua página de discussão";
 "notifications-center-header-alert-from-project" = "Alerta de $1";
 "notifications-center-header-notice-from-project" = "Notificação de $1";
-"notifications-center-language-project-name-format" = "$2 em $1";
 "notifications-center-login-notifications" = "Notificações de inícios de sessão";
 "notifications-center-mark" = "Marcar";
 "notifications-center-mark-all-as-read" = "Marcar todas como lidas";
@@ -617,7 +614,6 @@
 "notifications-center-swipe-mark-as-unread" = "Marcar como não lida";
 "notifications-center-swipe-more" = "Mais";
 "notifications-center-title" = "Notificações";
-"notifications-center-wikidata-project-name" = "Wikidata";
 "notifications-push-fallback-body-text" = "Atividade nova na Wikipédia";
 "notifications-push-talk-body-format" = "$1 $2 em $3";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|mensagem nova|mensagens novas}}";

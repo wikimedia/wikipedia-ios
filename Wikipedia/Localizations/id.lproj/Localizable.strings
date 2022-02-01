@@ -586,9 +586,7 @@
 "no-internet-connection-article-reload" = "Versi yang lebih baru dari artikel ini mungkin tersedia, tetapi tidak dapat dimuat tanpa sambungan ke internet";
 "no-internet-connection-article-reload-button" = "Kembali ke versi terakhir yang disimpan";
 "notifications-center-change-password" = "Ganti Kata Sandi";
-"notifications-center-commons-project-name" = "Wikimedia Commons";
 "notifications-center-empty-checking-for-notifications" = "Memeriksa notifikasi...";
-"notifications-center-empty-no-unread-messages" = "Anda tidak memiliki pesan yang belum dibaca";
 "notifications-center-empty-not-subscribed" = "Anda belum berlangganan notifikasi Wikipedia apapun";
 "notifications-center-footer-change-password" = "Ganti kata sandi";
 "notifications-center-go-to-diff" = "Pergi ke perbedaan";
@@ -599,7 +597,6 @@
 "notifications-center-go-to-your-talk-page" = "Pergi ke halaman pembicaraan Anda";
 "notifications-center-header-alert-from-project" = "Peringatan dari $1";
 "notifications-center-header-notice-from-project" = "Pemberitahuan dari $1";
-"notifications-center-language-project-name-format" = "$2 $1";
 "notifications-center-login-notifications" = "Notifikasi Login";
 "notifications-center-mark" = "Tandai";
 "notifications-center-mark-all-as-read" = "Tandai semua sebagai telah dibaca";
@@ -629,7 +626,6 @@
 "notifications-center-swipe-mark-as-unread" = "Tandai belum dibaca";
 "notifications-center-swipe-more" = "Lainnya";
 "notifications-center-title" = "Pemberitahuan";
-"notifications-center-wikidata-project-name" = "Wikidata";
 "notifications-push-fallback-body-text" = "Aktivitas baru di Wikipedia";
 "notifications-push-talk-body-format" = "$1 $2 baru di $3";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|pesan|pesan}}";
