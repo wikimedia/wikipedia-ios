@@ -116,6 +116,10 @@ final class FindAndReplaceKeyboardBar: UIInputView {
         updateShowingReplaceState()
         updateReplaceLabelState()
         updateReplaceButtonsState()
+
+        // See comment on findTextFieldTextChanged for why we use these.
+        findTextField.addTarget(self, action: #selector(findTextFieldTextChanged), for: .editingChanged)
+        replaceTextField.addTarget(self, action: #selector(replaceTextFieldTextChanged), for: .editingChanged)
     }
     
     override var intrinsicContentSize: CGSize {
@@ -192,21 +196,20 @@ final class FindAndReplaceKeyboardBar: UIInputView {
     @IBAction func tappedReplaceSwitch() {
         displayDelegate?.keyboardBarDidTapReplaceSwitch(self)
     }
-    
-    @IBAction func textFieldDidChange(_ sender: UITextField) {
-        let count = sender.text?.count ?? 0
-        
-        switch sender {
-        case findTextField:
-            delegate?.keyboardBar(self, didChangeSearchTerm: findTextField.text)
-            findClearButton.isHidden = count == 0
-            updateReplaceButtonsState()
-        case replaceTextField:
-            updateReplaceButtonsState()
-            updateReplaceLabelState()
-        default:
-            break
-        }
+
+    // We are using manually added targets rather than an IBAction because iOS 15 introduced a bug: If `Full Keyboard Access` in enabled within Accessibility
+    // settings, the IBAction `Editing Changed` for a UITextField is not called. This is a workaround for the bug.
+    @objc func findTextFieldTextChanged() {
+        let count = findTextField.text?.count ?? 0
+        delegate?.keyboardBar(self, didChangeSearchTerm: findTextField.text)
+        findClearButton.isHidden = count == 0
+        updateReplaceButtonsState()
+    }
+
+    // See comment above on findTextFieldTextChanged.
+    @objc func replaceTextFieldTextChanged() {
+        updateReplaceButtonsState()
+        updateReplaceLabelState()
     }
 }
 
