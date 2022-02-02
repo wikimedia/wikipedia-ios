@@ -1,4 +1,5 @@
 import UIKit
+import WMF
 
 @objc (WMFFindAndReplaceKeyboardBarDelegate)
 protocol FindAndReplaceKeyboardBarDelegate: AnyObject {
@@ -390,12 +391,12 @@ private extension FindAndReplaceKeyboardBar {
 extension FindAndReplaceKeyboardBar {
     func setFindTextForTesting(_ text: String) {
         findTextField.text = text
-        textFieldDidChange(findTextField)
+        findTextFieldTextChanged()
     }
     
     func setReplaceTextForTesting(_ text: String) {
         replaceTextField.text = text
-        textFieldDidChange(replaceTextField)
+        replaceTextFieldTextChanged()
     }
     
     func tapNextForTesting() {
