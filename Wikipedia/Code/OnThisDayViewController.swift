@@ -196,7 +196,7 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
 
     override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
-        navigate(to: articleController, context: feedFunnelContext, index: previewedIndex)
+        push(articleController, context: feedFunnelContext, index: previewedIndex, animated: true)
     }
 }
 

@@ -784,7 +784,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
     override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
         articleController.wmf_removePeekableChildViewControllers()
-        navigate(to: articleController, context: previewed.context, index: previewed.indexPathItem)
+        push(articleController, context: previewed.context, index: previewed.indexPathItem, animated: true)
     }
 
     override func saveArticlePreviewActionSelected(with articleController: ArticleViewController, didSave: Bool, articleURL: URL) {

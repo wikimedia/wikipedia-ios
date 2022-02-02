@@ -32,7 +32,7 @@ extension ArticleContextMenuPresenting {
         // This "N/A" part is pretty hacky. But we don't want to do a preview for "view article in browser", and this is the URL that is sent
         // for "view article in browser". Without this "N/A" check, "View article in browser"'s preview and context menu shows the one for the
         // article "N/A", which seems more wrong. The trade off: previews for the actual article "N/A" don't work, either.
-        guard let linkURL = elementInfo.linkURL, !linkURL.absoluteString.hasSuffix("wikipedia.org/wiki/N/A") else {
+        guard let linkURL = elementInfo.linkURL, linkURL.wmf_title != "N/A" else {
             nullCompletion()
             return
         }

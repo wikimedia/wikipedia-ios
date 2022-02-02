@@ -377,11 +377,6 @@ extension ColumnarCollectionViewController {
         push(viewController, animated: animated)
     }
 
-    func navigate(to articleViewController: ArticleViewController, context: FeedFunnelContext?, index: Int?) {
-        logFeedEventIfNeeded(for: context, index: index, pushedViewController: articleViewController)
-        navigate(to: articleViewController.articleURL)
-    }
-
     func logFeedEventIfNeeded(for context: FeedFunnelContext?, index: Int?, pushedViewController: UIViewController) {
         guard navigationController != nil,  let viewControllers = navigationController?.viewControllers else {
             return
