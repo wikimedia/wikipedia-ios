@@ -154,14 +154,14 @@ final class RemoteNotificationsModelController {
     
     func numberOfUnreadNotifications() throws -> Int {
         assert(Thread.isMainThread)
-        let fetchRequest: NSFetchRequest<RemoteNotification> = RemoteNotification.fetchRequest()
+        let fetchRequest = RemoteNotification.fetchRequest()
         fetchRequest.predicate = unreadNotificationsPredicate
         return try viewContext.count(for: fetchRequest)
     }
     
     func numberOfAllNotifications() throws -> Int {
         assert(Thread.isMainThread)
-        let fetchRequest: NSFetchRequest<RemoteNotification> = RemoteNotification.fetchRequest()
+        let fetchRequest = RemoteNotification.fetchRequest()
         return try viewContext.count(for: fetchRequest)
     }
     
@@ -170,7 +170,7 @@ final class RemoteNotificationsModelController {
     func fetchNotifications(fetchLimit: Int = 50, fetchOffset: Int = 0, predicate: NSPredicate?) throws -> [RemoteNotification] {
         assert(Thread.isMainThread)
         
-        let fetchRequest: NSFetchRequest<RemoteNotification> = RemoteNotification.fetchRequest()
+        let fetchRequest = RemoteNotification.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         fetchRequest.fetchLimit = fetchLimit
         fetchRequest.fetchOffset = fetchOffset
@@ -353,7 +353,7 @@ final class RemoteNotificationsModelController {
         }
 
         let isRead = notification.readString == nil ? NSNumber(booleanLiteral: false) : NSNumber(booleanLiteral: true)
-        let _ = moc.wmf_create(entityNamed: "RemoteNotification",
+        moc.wmf_create(entityNamed: "RemoteNotification",
                                                 withKeysAndValues: [
                                                     "wiki": notification.wiki,
                                                     "id": notification.id,
@@ -377,7 +377,7 @@ final class RemoteNotificationsModelController {
     }
     
     private func notifications(moc: NSManagedObjectContext, predicate: NSPredicate? = nil) throws -> [RemoteNotification] {
-        let fetchRequest: NSFetchRequest<RemoteNotification> = RemoteNotification.fetchRequest()
+        let fetchRequest = RemoteNotification.fetchRequest()
         fetchRequest.predicate = predicate
         return try moc.fetch(fetchRequest)
     }
