@@ -97,6 +97,8 @@ public enum RemoteNotificationsControllerError: Error {
     
     @objc private func authManagerDidLogOut() {
         do {
+            filterState = RemoteNotificationsFilterState(readStatus: .all, offTypes: [], offProjects: [])
+            allInboxProjects = []
             try modelController?.resetDatabaseAndSharedCache()
         } catch (let error) {
             DDLogError("Error resetting notifications database on logout: \(error)")
