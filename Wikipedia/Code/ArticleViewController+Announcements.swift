@@ -25,6 +25,7 @@ extension ArticleViewController {
         })
         
         guard
+            !isBeingPresentedAsPeek,
             let contentGroupURL = contentGroup?.url,
             let announcement = contentGroup?.contentPreview as? WMFAnnouncement,
             let actionURL = announcement.actionURL

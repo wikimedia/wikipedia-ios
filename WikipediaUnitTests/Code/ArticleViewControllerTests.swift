@@ -46,12 +46,12 @@ class ArticleViewControllerTests: XCTestCase {
         articleVC.initialSetupCompletion = {
             setupExpectation.fulfill()
             XCTAssert(schemeHandler.accessed, "SchemeHandler was not accessed during article load.")
-            UIApplication.shared.keyWindow?.rootViewController = nil
+            UIApplication.shared.workaroundKeyWindow?.rootViewController = nil
             dataStore.clearTemporaryCache()
             dataStore.session.teardown()
         }
             
-        UIApplication.shared.keyWindow?.rootViewController = articleVC
+        UIApplication.shared.workaroundKeyWindow?.rootViewController = articleVC
     
         wait(for: [setupExpectation], timeout: timeout)
     }

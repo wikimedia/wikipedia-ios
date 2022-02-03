@@ -2,7 +2,7 @@
 import Foundation
 
 extension UIApplication {
-    private var workaroundKeyWindow: UIWindow? {
+    var workaroundKeyWindow: UIWindow? {
         return windows.first { $0.isKeyWindow }
     }
     
