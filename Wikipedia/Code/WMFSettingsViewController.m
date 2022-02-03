@@ -113,7 +113,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     } else {
         // If in a tab bar presentation, only show notification bar button item if the user is logged in
         if (self.dataStore.authenticationManager.isLoggedIn) {
-            NSInteger numUnreadNotifications = [self.dataStore.remoteNotificationsController numberOfUnreadNotifications];
+            NSInteger numUnreadNotifications = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
             UIImage *image = numUnreadNotifications == 0 ? [self notificationsCenterBellImageWithUnreadNotifications:NO] : [self notificationsCenterBellImageWithUnreadNotifications:YES];
             UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(userDidTapNotificationsCenter)];
             notificationsBarButton.accessibilityLabel = [WMFCommonStrings notificationsCenterTitle];
@@ -122,7 +122,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             self.navigationItem.leftBarButtonItem = nil;
         }
     }
-    
+
     [self.navigationBar updateNavigationItems];
 }
 
@@ -160,7 +160,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         cell.accessibilityTraits = UIAccessibilityTraitStaticText;
     }
 
-    [cell.disclosureSwitch removeTarget:self action:@selector(disclosureSwitchChanged:) forControlEvents:UIControlEventValueChanged];
+    [cell.disclosureSwitch removeTarget:self
+                                 action:@selector(disclosureSwitchChanged:)
+                       forControlEvents:UIControlEventValueChanged];
     cell.disclosureSwitch.tag = menuItem.type;
     [cell.disclosureSwitch addTarget:self action:@selector(disclosureSwitchChanged:) forControlEvents:UIControlEventValueChanged];
 
@@ -328,7 +330,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         [self logNavigationEventsForMenuType:cell.tag];
     }
 
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.tableView deselectRowAtIndexPath:indexPath
+                                  animated:YES];
 }
 
 #pragma mark - Dynamic URLs
