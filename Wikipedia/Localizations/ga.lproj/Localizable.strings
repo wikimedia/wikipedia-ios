@@ -5,6 +5,9 @@
 // Author: Smirkybec
 // Author: Tem
 
+"aaald-new-book-reference-title" = "Leabhar";
+"aaald-new-website-reference-archive-url-text" = "URL ag Archive.org";
+"aaald-new-website-reference-title" = "Suíomh gréasáin";
 "about-content-license" = "Ceadúnas inneachair";
 "about-content-license-details" = "Mura luaitear a mhalairt, tá an t-inneachar ar fáil faoin $1.";
 "about-content-license-details-share-alike-license" = "Ceadúnas Sannta-ComhroinnteComhionnaine Creative Commons";
@@ -44,11 +47,13 @@
 "account-creation-saving" = "Ag sábháil...";
 "account-creation-title" = "Cruthaigh cuntas nua";
 "account-group-title" = "Do Chuntas";
+"account-talk-page-title" = "Do leathanach plé";
 "action-add-to" = "Cuir le...";
 "action-add-to-reading-list" = "Cuir ar liosta léitheoireachta";
 "action-add-to-reading-list-short" = "Cuir ar liosta";
 "action-cancel" = "Cealaigh";
 "action-find-in-page" = "Aimsigh sa leathanach";
+"action-language-accessibility" = "Athraigh teanga";
 "action-move-to" = "Bog chuig...";
 "action-move-to-reading-list" = "Bog chuig liosta léitheoireachta";
 "action-read" = "Léigh";
@@ -57,6 +62,7 @@
 "action-saved" = "Sábháilte";
 "action-saved-accessibility" = "Sábháilte. Gníomhachtaigh le díshábháil.";
 "action-share" = "Comhroinn";
+"action-share-accessibility" = "Roinn";
 "action-sort" = "Sórtáil";
 "action-undo" = "Cealaigh";
 "action-unsave" = "Díshábháil";
@@ -127,6 +133,10 @@
 // Fuzzy
 "description-welcome-descriptions-title" = "Sainchuntais theideal";
 "description-welcome-start-editing-button" = "Cuir in eagar";
+"diff-thanks-login-title" = "Logáil isteach chun 'Buíochas' a sheoladh";
+"diff-thanks-send-button-title" = "Seol 'Buíochas'";
+"diff-thanks-sent" = "Seoladh do 'Bhuíochas' chuig $1";
+"diff-thanks-sent-cannot-unsend" = "Ní féidir 'Buíochas' a tharraingt siar";
 "dim-images" = "Maolaigh íomhánna";
 "edit-style-table-view-title" = "Stíl";
 "edit-summary-choice-fixed-grammar" = "Réitíodh gramadach";
@@ -228,6 +238,9 @@
 "field-username-placeholder" = "iontráil ainm úsáideora";
 "field-username-title" = "Ainm úsáideora";
 "find-infolabel-number-matches" = "$1 / $2";
+"find-replace-header" = "Aimsigh agus athchuir";
+"find-replace-header-close-accessibility" = "Dún aimsigh agus athchuir";
+"find-textfield-accessibility" = "Aimsigh";
 "forgot-password-button-title" = "Athshocraigh";
 "forgot-password-email-sent" = "Seoladh ríomhphost le treoracha athshocraithe pasfhocail";
 "forgot-password-instructions" = "Líon ceann de na réimsí seo thíos le treoracha athshocraithe pasfhocail a ghlacadh trí ríomhphost";
@@ -260,7 +273,11 @@
 "in-the-news-sub-title-from-wikipedia" = "Ón Vicipéid";
 "in-the-news-title" = "Sa nuacht";
 "insert-action-title" = "Ionsáigh";
+"insert-media-caption-title" = "Foscríbhinn";
+"insert-media-image-position-setting-center" = "Lár";
+"insert-media-image-position-setting-left" = "Clé";
 "insert-media-image-preview-more-information-action-title" = "Tuilleadh eolais";
+"insert-media-image-preview-select-image-action-title" = "Roghnaigh íomhá";
 "insert-media-image-size-setting-default" = "Réamhshocrú";
 "languages-settings-title" = "Teangacha";
 "languages-title" = "Athraigh teanga";
@@ -295,6 +312,16 @@
 "nearby-distance-label-miles" = "$1 míle";
 "new-password-instructions" = "Logáil tú isteach le pasfhocal sealadach. Socraigh pasfhocal nua anseo chun an logáil isteach a chríochnú.";
 "new-password-title" = "Socraigh do phasfhocal";
+"notifications-center-filters-read-status-item-title-all" = "Uile";
+"notifications-center-inbox-wikipedias-section-title" = "Vicipéidí";
+"notifications-center-notifications-settings" = "Socruithe fógraí";
+"notifications-center-status-all" = "Uile";
+"notifications-center-status-all-notifications" = "Na fógraí uile";
+"notifications-center-subheader-mention-article-talk-page" = "Lua ar leathanach plé d'alt";
+"notifications-center-subheader-mention-talk-page" = "Lua ar leathanach plé";
+"notifications-center-subheader-welcome" = "Fáilte!";
+"notifications-center-title" = "Fógraí";
+"notifications-push-fallback-body-text" = "Gníomhaíocht nua ag Vicipéid";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
@@ -324,6 +351,7 @@
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 alt amháin|$1 alt}}";
 "places-filter-top-read-articles" = "Na hailt is mó léamh";
 "places-location-enabled" = "Cumasaítear suíomh";
+"places-search-articles-that-match" = "$1 ag teacht le \"$2\"";
 "places-search-default-text" = "Cuardaigh Áiteanna";
 "places-search-did-you-mean" = "An raibh $1 á lorg agat?";
 "places-search-recently-searched-header" = "Cuardaithe le déanaí";
@@ -332,6 +360,7 @@
 "places-search-top-articles-that-match-scope" = "In aice láimhe";
 "places-title" = "Áiteanna";
 "potd-description-prefix" = "Pictiúr an lae ar $1";
+"potd-widget-title" = "Pictiúr an lae";
 "preference-title-eventlogging-opt-in" = "Seol tuairiscí úsáide";
 "rank-accessibility-label" = "Uimhir $1";
 "readers-accessibility-label" = "$1 léitheoir";
@@ -447,6 +476,7 @@
 "theme-black-display-name" = "Dubh";
 "theme-dark-display-name" = "Dorcha";
 "theme-default-display-name" = "Réamhshocrú";
+"theme-default-explanation" = "Ag teacht le téama an chórais";
 "theme-sepia-display-name" = "Séipia";
 "top-read-header-generic" = "Vicipéid";
 "top-read-header-with-language" = "Vicipéid ($1)";
