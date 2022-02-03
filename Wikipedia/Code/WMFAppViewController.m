@@ -1406,7 +1406,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 - (void)setNotificationsCenterButtonForExploreViewController:(ExploreViewController *)exploreViewController {
     if (self.dataStore.authenticationManager.isLoggedIn) {
-        NSInteger numUnreadNotifications = [self.dataStore.remoteNotificationsController numberOfUnreadNotifications];
+        NSInteger numUnreadNotifications = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
         UIImage *image = numUnreadNotifications == 0 ? [self notificationsCenterBellImageWithUnreadNotifications:NO] : [self notificationsCenterBellImageWithUnreadNotifications:YES];
         UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:_exploreViewController action:@selector(userDidTapNotificationsCenter)];
         notificationsBarButton.accessibilityLabel = [WMFCommonStrings notificationsCenterTitle];
@@ -1431,8 +1431,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 - (void)handleNotificationsCenterContextDidSave {
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIApplication.sharedApplication.applicationIconBadgeNumber = [self.dataStore.remoteNotificationsController numberOfUnreadNotifications];
-        [self.dataStore.remoteNotificationsController updateCacheWithCurrentUnreadNotificationsCount];
+        UIApplication.sharedApplication.applicationIconBadgeNumber = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
+        [self.dataStore.remoteNotificationsController updateCacheWithCurrentUnreadNotificationsCountAndReturnError:nil];
     });
 }
 

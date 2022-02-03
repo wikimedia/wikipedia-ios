@@ -57,7 +57,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
             event["device_level_enabled"] = getDeviceNotificationStatus(status)
         }
         
-        let inboxCount = dataStore.remoteNotificationsController.inboxCount()
+        let inboxCount = dataStore.remoteNotificationsController.numberOfAllNotifications
         event["inbox_count"] = inboxCount
 
         return wholeEvent(with: event)

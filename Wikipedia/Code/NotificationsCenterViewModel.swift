@@ -35,7 +35,12 @@ final class NotificationsCenterViewModel: NSObject {
 
     private var isLoading: Bool = false {
         didSet {
-            delegate?.update(types: [.emptyContent, .toolbarContent])
+            
+            //This setter may be called often due to quickly firing NSNotifications.
+            //Don't allow a view update unless something has actually changed.
+            if oldValue != isLoading {
+                delegate?.update(types: [.emptyContent, .toolbarContent])
+            }
         }
     }
 
@@ -57,11 +62,15 @@ final class NotificationsCenterViewModel: NSObject {
         super.init()
 
         NotificationCenter.default.addObserver(self, selector: #selector(remoteNotificationsControllerDidUpdateFilterState), name: RemoteNotificationsController.didUpdateFilterStateNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(loadingDidStart), name: Notification.Name.NotificationsCenterLoadingDidStart, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(loadingDidEnd), name: Notification.Name.NotificationsCenterLoadingDidEnd, object: nil)
 	}
 
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
+    
+    //MARK: NSNotifications
     
     @objc func contextObjectsDidChange(_ notification: NSNotification) {
         
@@ -89,47 +98,80 @@ final class NotificationsCenterViewModel: NSObject {
             delegate?.update(types: updateTypes)
         }
     }
+    
+    @objc private func remoteNotificationsControllerDidUpdateFilterState() {
+        //Not doing anything here yet
+        //Because filter screen disapperances call self.resetAndRefreshData from the view controller, which fetches the first page again and relays state changes back to the view controller, there's no need to react to this notification.
+    }
+    
+    @objc private func loadingDidStart() {
+        DispatchQueue.main.async {
+            self.isLoading = true
+        }
+    }
+    
+    @objc private func loadingDidEnd() {
+        DispatchQueue.main.async {
+            self.isLoading = false
+        }
+    }
 
     // MARK: - Public
     
     func setup() {
         //TODO: Revisit and enable importing empty states in a delayed manner to avoid flashing.
+        isLoading = remoteNotificationsController.isLoadingNotifications
         delegate?.update(types: [.emptyDisplay(true), .toolbarDisplay])
     }
     
     func refreshNotifications(force: Bool) {
-        isLoading = true
-        remoteNotificationsController.refreshNotifications(force: force) { error in
-            //TODO: Set any refreshing loading states here
-            if let error = error as? RemoteNotificationsOperationsError,
-               error == .alreadyImportingOrRefreshing {
-                //don't turn off loading state
-                return
+        remoteNotificationsController.loadNotifications(force: force) { result in
+            switch result {
+            case .failure(let error):
+                DDLogError("Error refreshing notifications: \(error)")
+                //TODO: show some sort of error state
+            default:
+                break
             }
-            
-            self.isLoading = false
         }
     }
     
     func markAsReadOrUnread(viewModels: [NotificationsCenterCellViewModel], shouldMarkRead: Bool) {
+        
         let identifierGroups = viewModels.map { $0.notification.identifierGroup }
-        remoteNotificationsController.markAsReadOrUnread(identifierGroups: Set(identifierGroups), shouldMarkRead: shouldMarkRead, languageLinkController: languageLinkController)
+        remoteNotificationsController.markAsReadOrUnread(identifierGroups: Set(identifierGroups), shouldMarkRead: shouldMarkRead) { result in
+            switch result {
+            case .failure(let error):
+                DDLogError("Error marking notifications as read or unread: \(error)")
+                //TODO: show some sort of error state
+            default:
+                break
+            }
+        }
     }
     
     func markAllAsRead() {
-        remoteNotificationsController.markAllAsRead(languageLinkController: languageLinkController)
+        remoteNotificationsController.markAllAsRead { result in
+            switch result {
+            case .failure(let error):
+                DDLogError("Error marking all notifications as read or unread: \(error)")
+                //TODO: show some sort of error state
+            default:
+                break
+            }
+        }
     }
     
     func fetchFirstPage() {
         
-        kickoffImportIfNeeded { [weak self] in
+        remoteNotificationsController.fetchNotifications { [weak self] result in
             
-            DispatchQueue.main.async {
-                guard let self = self else {
-                    return
-                }
-                
-                let notifications = self.remoteNotificationsController.fetchNotifications()
+            guard let self = self else {
+                return
+            }
+            
+            switch result {
+            case .success(let notifications):
                 var updateTypes: [NotificationsCenterUpdateType] = []
                 if let updateType = self.modelController.addNewCellViewModelsWith(notifications: notifications, isEditing: self.isEditing) {
                     updateTypes.append(updateType)
@@ -138,6 +180,13 @@ final class NotificationsCenterViewModel: NSObject {
                 updateTypes.append(contentsOf: [.toolbarContent, .emptyContent, .emptyDisplay(self.modelController.countOfTrackingModels == 0)])
                 
                 self.delegate?.update(types: updateTypes)
+                
+                //This allows the collection view to react to new inserted or updated objects from a refresh or mark as read/unread call.
+                //But we don't care to listen for it until after the first page is already fetched from the database and is displaying on screen.
+                self.remoteNotificationsController.addObserverForViewContextChanges(observer: self, selector: #selector(self.contextObjectsDidChange(_:)))
+            case .failure(let error):
+                print(DDLogError("Error fetching first page of notifications: \(error)"))
+                //TODO: show some sort of error state
             }
         }
     }
@@ -149,16 +198,30 @@ final class NotificationsCenterViewModel: NSObject {
             return
         }
         
-        let notifications = self.remoteNotificationsController.fetchNotifications(fetchOffset: modelController.countOfTrackingModels)
-        
-        guard notifications.count > 0 else {
-            isPagingEnabled = false
-            return
+        remoteNotificationsController.fetchNotifications(fetchOffset: modelController.countOfTrackingModels) { [weak self] result in
+            
+            guard let self = self else {
+                return
+            }
+            
+            switch result {
+            case .success(let notifications):
+
+                guard notifications.count > 0 else {
+                    self.isPagingEnabled = false
+                    return
+                }
+                
+                if let updateType = self.modelController.addNewCellViewModelsWith(notifications: notifications, isEditing: self.isEditing) {
+                    self.delegate?.update(types: [updateType])
+                }
+                
+            case .failure(let error):
+                print(DDLogError("Error fetching next page of notifications: \(error)"))
+            }
         }
         
-        if let updateType = modelController.addNewCellViewModelsWith(notifications: notifications, isEditing: isEditing) {
-            delegate?.update(types: [updateType])
-        }
+        
     }
     
     func updateCellDisplayStates(cellViewModels: [NotificationsCenterCellViewModel]? = nil, isSelected: Bool? = nil) {
@@ -186,44 +249,11 @@ final class NotificationsCenterViewModel: NSObject {
     }
 }
 
-private extension NotificationsCenterViewModel {
-    func kickoffImportIfNeeded(completion: @escaping () -> Void) {
-        
-        isLoading = true
-        
-        remoteNotificationsController.importNotificationsIfNeeded() { [weak self] error in
-            
-            guard let self = self else {
-                return
-            }
-            
-            if let error = error as? RemoteNotificationsOperationsError,
-               error == RemoteNotificationsOperationsError.dataUnavailable {
-                //TODO: trigger error state of some sort
-                completion()
-                return
-            }
-            
-            self.remoteNotificationsController.setupInitialFilters(languageLinkController: self.languageLinkController) {
-                NotificationCenter.default.addObserver(self, selector: #selector(self.contextObjectsDidChange(_:)), name: Notification.Name.NSManagedObjectContextObjectsDidChange, object: self.remoteNotificationsController.viewContext)
-
-                self.isLoading = false
-                completion()
-            }
-        }
-    }
-}
-
 // MARK: - Toolbar
 
 extension NotificationsCenterViewModel {
 
     // MARK: - Private
-
-    @objc fileprivate func remoteNotificationsControllerDidUpdateFilterState() {
-        //Not doing anything here yet
-        //Because filter screen disapperances call self.resetAndRefreshData from the view controller, which fetches the first page again and relays state changes back to the view controller, there's no need to react to this notification.
-    }
 
     fileprivate func toolbarImageForTypeFilter(engaged: Bool) -> UIImage? {
         let symbolName = engaged ? "line.horizontal.3.decrease.circle.fill" : "line.horizontal.3.decrease.circle"
@@ -241,8 +271,8 @@ extension NotificationsCenterViewModel {
             return checkingForNotifications
         }
 
-        let totalProjectCount = remoteNotificationsController.cachedAllInboxProjects.count
-        let showingProjectCount = remoteNotificationsController.cachedShowingInboxProjects.count
+        let totalProjectCount = remoteNotificationsController.allInboxProjects.count
+        let showingProjectCount = remoteNotificationsController.countOfShowingInboxProjects
         let filterState = remoteNotificationsController.filterState
         let headerText = filterState.stateDescription
         let subheaderText = filterState.detailDescription(totalProjectCount: totalProjectCount, showingProjectCount: showingProjectCount)
@@ -257,11 +287,11 @@ extension NotificationsCenterViewModel {
     // MARK: - Public
 
     var typeFilterButtonImage: UIImage? {
-        return toolbarImageForTypeFilter(engaged: remoteNotificationsController.filterState.types.count > 0 || remoteNotificationsController.filterState.readStatus != .all)
+        return toolbarImageForTypeFilter(engaged: remoteNotificationsController.filterState.offTypes.count > 0 || remoteNotificationsController.filterState.readStatus != .all)
     }
 
     var projectFilterButtonImage: UIImage? {
-        return toolbarImageForProjectFilter(engaged: remoteNotificationsController.filterState.projects.count > 0)
+        return toolbarImageForProjectFilter(engaged: remoteNotificationsController.filterState.offProjects.count > 0)
     }
 
     func statusBarText(textColor: UIColor, highlightColor: UIColor) -> NSAttributedString? {
@@ -283,7 +313,7 @@ extension NotificationsCenterViewModel {
     }
     
     var numberOfUnreadNotifications: Int {
-        return self.remoteNotificationsController.numberOfUnreadNotifications
+        return (try? self.remoteNotificationsController.numberOfUnreadNotifications().intValue) ?? 0
     }
 }
 
@@ -306,13 +336,15 @@ extension NotificationsCenterViewModel {
     }
     
     func emptyStateSubheaderAttributedString(theme: Theme, traitCollection: UITraitCollection) -> NSAttributedString? {
-        guard remoteNotificationsController.countOfTypeFilters > 0 else {
+        
+        let filterTypesCount = remoteNotificationsController.filterState.offTypes.count
+        guard filterTypesCount > 0 else {
             return nil
         }
             
         let filtersLinkFormat = WMFLocalizedString("notifications-center-empty-state-num-filters", value:"{{PLURAL:%1$d|%1$d filter|%1$d filters}}", comment:"Portion of empty state subtitle showing number of filters the user has set in notifications center - %1$d is replaced with the number filters.")
         let filtersSubtitleFormat = WMFLocalizedString("notifications-center-empty-state-filters-subtitle", value:"Modify %1$@ to see more messages", comment:"Format of empty state subtitle when the user has filters on - %1$@ is replaced with a string representing the number of filters the user has set.")
-        let filtersLink = String.localizedStringWithFormat(filtersLinkFormat, remoteNotificationsController.countOfTypeFilters)
+        let filtersLink = String.localizedStringWithFormat(filtersLinkFormat, filterTypesCount)
         let filtersSubtitle = String.localizedStringWithFormat(filtersSubtitleFormat, filtersLink)
 
         let rangeOfFiltersLink = (filtersSubtitle as NSString).range(of: filtersLink)

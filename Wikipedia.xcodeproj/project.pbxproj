@@ -354,6 +354,8 @@
 		671F5E012367EDC600111116 /* GlobalUserInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */; };
 		671F5E022367EDC600111116 /* GlobalUserInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A5E656236775C3007749FB /* GlobalUserInfoFetcher.swift */; };
 		671F5E0B236B8CAF00111116 /* EmptyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 671F5E0A236B8CAF00111116 /* EmptyViewController.xib */; };
+		672034E327A2531F007DC24F /* RemoteNotificationsReauthenticateOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672034E227A2531F007DC24F /* RemoteNotificationsReauthenticateOperation.swift */; };
+		672034E527A2600C007DC24F /* RemoteNotificationsProjectOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672034E427A2600C007DC24F /* RemoteNotificationsProjectOperation.swift */; };
 		672285722540B56D0038E332 /* ReferenceBackLinksViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD7B85524B3B384005C2471 /* ReferenceBackLinksViewControllerDelegate.swift */; };
 		672285732540B56D0038E332 /* ReferenceBackLinksViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD7B85524B3B384005C2471 /* ReferenceBackLinksViewControllerDelegate.swift */; };
 		672286282540DB330038E332 /* AppTabBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE891452445150B0058B642 /* AppTabBarDelegate.swift */; };
@@ -3846,6 +3848,8 @@
 		671DF9C025F2AE4E0011799E /* WikidataDescriptionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WikidataDescriptionController.swift; sourceTree = "<group>"; };
 		671DF9D725F2B59A0011799E /* ShortDescriptionControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortDescriptionControllerTests.swift; sourceTree = "<group>"; };
 		671F5E0A236B8CAF00111116 /* EmptyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyViewController.xib; sourceTree = "<group>"; };
+		672034E227A2531F007DC24F /* RemoteNotificationsReauthenticateOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsReauthenticateOperation.swift; sourceTree = "<group>"; };
+		672034E427A2600C007DC24F /* RemoteNotificationsProjectOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsProjectOperation.swift; sourceTree = "<group>"; };
 		672428962362113400490629 /* DiffFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffFetcher.swift; sourceTree = "<group>"; };
 		67282FBC24855B7B00B73E20 /* ArticleContextMenuPresenting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleContextMenuPresenting.swift; sourceTree = "<group>"; };
 		672B127722A450F000CC85A5 /* TalkPageHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkPageHeaderView.xib; sourceTree = "<group>"; };
@@ -7096,6 +7100,8 @@
 				7A0312FE215422960095C953 /* RemoteNotificationsMarkReadOrUnreadOperation.swift */,
 				6739A181273061220063E0E0 /* RemoteNotificationsMarkAllAsReadOperation.swift */,
 				7A5357AA215552E7007998DC /* RemoteNotificationsOperation.swift */,
+				672034E427A2600C007DC24F /* RemoteNotificationsProjectOperation.swift */,
+				672034E227A2531F007DC24F /* RemoteNotificationsReauthenticateOperation.swift */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -11442,6 +11448,7 @@
 				67DA31882720957B0035D40F /* RemoteNotificationsPagingOperation.swift in Sources */,
 				D8FA18B81E1BD891009675C3 /* NSDateFormatter+WMFExtensions.m in Sources */,
 				BA7FF0B61F618F5A0054CF02 /* CollectionViewEditController.swift in Sources */,
+				672034E527A2600C007DC24F /* RemoteNotificationsProjectOperation.swift in Sources */,
 				6761AEDF2704CF0000E47BAD /* RemoteNotificationsProject.swift in Sources */,
 				D84C361F1F32404700895FA1 /* OnThisDayCollectionViewCell.swift in Sources */,
 				702096B9256C3D5700E27041 /* SamplingController.swift in Sources */,
@@ -11523,6 +11530,7 @@
 				0E728D381DAEEAD60074EB4B /* WMFLocationSearchResults.m in Sources */,
 				0E728D341DAEE8FF0074EB4B /* WMFFeedContentSource.m in Sources */,
 				D84B22521DAFD1E1007C44AA /* CIContext+WMFImageProcessing.m in Sources */,
+				672034E327A2531F007DC24F /* RemoteNotificationsReauthenticateOperation.swift in Sources */,
 				D81A28BE231E8F4C001CC77D /* ExtensionViewController.swift in Sources */,
 				8330531F23EF051900123141 /* NSArray+WMFMapping.m in Sources */,
 				006694FC265D9F2900E23AE4 /* WidgetSettings.swift in Sources */,
