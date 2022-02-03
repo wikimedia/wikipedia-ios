@@ -421,32 +421,24 @@ extension ReadingListEntryCollectionViewController {
     }
 }
 
-// MARK: - UIViewControllerPreviewingDelegate
+// MARK: - CollectionViewContextMenuShowing
 
-extension ReadingListEntryCollectionViewController {
-    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard !editController.isActive else {
-            return nil // don't allow 3d touch when swipe actions are active
-        }
-        
-        guard
-            let indexPath = collectionViewIndexPathForPreviewingContext(previewingContext, location: location),
-            let articleURL = articleURL(at: indexPath)
-        else {
+extension ReadingListEntryCollectionViewController: CollectionViewContextMenuShowing {
+    func previewingViewController(for indexPath: IndexPath, at location: CGPoint) -> UIViewController? {
+        guard !editController.isActive, // don't allow previewing when swipe actions are active
+              let articleURL = articleURL(at: indexPath),
+              let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme) else {
             return nil
         }
-        
-        guard let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme) else {
-            return nil
-        }
+
         articleViewController.articlePreviewingDelegate = self
         articleViewController.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
         return articleViewController
     }
-    
-    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        viewControllerToCommit.wmf_removePeekableChildViewControllers()
-        push(viewControllerToCommit, animated: true)
+
+    var poppingIntoVCCompletion: () -> Void {
+        // Nothing custom needs to run for this VC
+        return {}
     }
 }
 

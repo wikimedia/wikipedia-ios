@@ -85,7 +85,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
 
         sectionEditorViewController.delegate = self
         
-        UIApplication.shared.keyWindow?.rootViewController = sectionEditorViewController
+        UIApplication.shared.workaroundKeyWindow?.rootViewController = sectionEditorViewController
         let _ = sectionEditorViewController.view
         
         wait(for: [focusedSectionEditorExpectation], timeout: timeout)

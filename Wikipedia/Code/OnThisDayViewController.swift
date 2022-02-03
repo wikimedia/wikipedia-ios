@@ -1,4 +1,4 @@
-import WMF;
+import WMF
 
 class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentingFromContentGroup {
     fileprivate static let cellReuseIdentifier = "OnThisDayCollectionViewCell"
@@ -177,47 +177,8 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
         return estimate
     }
 
-    // MARK: - UIViewControllerPreviewingDelegate
-
+    // For ContextMenu delegate work, in extension below
     var previewedIndex: Int?
-
-    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard let indexPath = collectionViewIndexPathForPreviewingContext(previewingContext, location: location),
-            let cell = collectionView.cellForItem(at: indexPath) as? OnThisDayCollectionViewCell else {
-                return nil
-        }
-
-        let pointInCellCoordinates =  view.convert(location, to: cell)
-        let index = cell.subItemIndex(at: pointInCellCoordinates)
-        guard index != NSNotFound, let subItemView = cell.viewForSubItem(at: index) else {
-            return nil
-        }
-
-        previewedIndex = index
-
-        guard let event = event(for: indexPath.section), let previews = event.articlePreviews, index < previews.count else {
-            return nil
-        }
-
-        previewingContext.sourceRect = view.convert(subItemView.bounds, from: subItemView)
-        let article = previews[index]
-        guard let vc = ArticleViewController(articleURL: article.articleURL, dataStore: dataStore, theme: theme) else {
-            return nil
-        }
-        vc.articlePreviewingDelegate = self
-        vc.wmf_addPeekableChildViewController(for: article.articleURL, dataStore: dataStore, theme: theme)
-        if let themeable = vc as Themeable? {
-            themeable.apply(theme: self.theme)
-        }
-        FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: feedFunnelContext, index: index)
-        return vc
-    }
-
-    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        viewControllerToCommit.wmf_removePeekableChildViewControllers()
-        FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: feedFunnelContext, index: previewedIndex, maxViewed: maxViewed)
-        push(viewControllerToCommit, animated: true)
-    }
 
     // MARK: - CollectionViewFooterDelegate
 
@@ -230,6 +191,7 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
     override func shareArticlePreviewActionSelected(with articleController: ArticleViewController, shareActivityController: UIActivityViewController) {
         FeedFunnel.shared.logFeedDetailShareTapped(for: feedFunnelContext, index: previewedIndex)
         super.shareArticlePreviewActionSelected(with: articleController, shareActivityController: shareActivityController)
+        previewedIndex = nil
     }
 
     override func readMoreArticlePreviewActionSelected(with articleController: ArticleViewController) {
@@ -271,6 +233,7 @@ extension OnThisDayViewController {
         onThisDayCell.layoutMargins = layout.itemLayoutMargins
         onThisDayCell.configure(with: event, dataStore: dataStore, theme: self.theme, layoutOnly: false, shouldAnimateDots: true)
         onThisDayCell.timelineView.extendTimelineAboveDot = indexPath.section == 0 ? false : true
+        onThisDayCell.contextMenuShowingDelegate = self
 
         return onThisDayCell
     }
@@ -363,5 +326,53 @@ extension OnThisDayViewController: EventLoggingEventValuesProviding {
     
     var eventLoggingLabel: EventLoggingLabel? {
         return .onThisDay
+    }
+}
+
+// MARK: - NestedCollectionViewContextMenuDelegate
+extension OnThisDayViewController: NestedCollectionViewContextMenuDelegate {
+    func contextMenu(with contentGroup: WMFContentGroup? = nil, for articleURL: URL? = nil, at itemIndex: Int) -> UIContextMenuConfiguration? {
+
+        guard let articleURL = articleURL, let vc = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: theme) else {
+            return nil
+        }
+        vc.articlePreviewingDelegate = self
+        vc.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
+        if let themeable = vc as Themeable? {
+            themeable.apply(theme: self.theme)
+        }
+
+        previewedIndex = itemIndex
+        FeedFunnel.shared.logArticleInFeedDetailPreviewed(for: feedFunnelContext, index: itemIndex)
+
+        let previewProvider: () -> UIViewController? = {
+            return vc
+        }
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: previewProvider) { (suggestedActions) -> UIMenu? in
+            return nil
+
+            // While we'd like to use this next line to give context menu items, the "collection view within a collection view architecture
+            // results in an assertion failure in dev mode due to constraints that are automatically added by the preview's action menu, which
+            // further results in the horizontally scrollable collection view being broken when coming back to it. I'm not sure that this
+            // functionality was present before this re-write, and so leaving it out for now.
+//            return UIMenu(title: "", image: nil, identifier: nil, options: [], children: vc.contextMenuItems)
+        }
+    }
+
+    func willCommitPreview(with animator: UIContextMenuInteractionCommitAnimating) {
+        guard let previewedViewController = animator.previewViewController else {
+            assertionFailure("Should be able to find previewed VC")
+            return
+        }
+        animator.addCompletion { [weak self] in
+            previewedViewController.wmf_removePeekableChildViewControllers()
+
+            guard let self = self else {
+                return
+            }
+            FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: self.feedFunnelContext, index: self.previewedIndex, maxViewed: self.maxViewed)
+            self.push(previewedViewController, animated: true)
+            self.previewedIndex = nil
+        }
     }
 }

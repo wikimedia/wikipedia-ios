@@ -1,7 +1,8 @@
 import UIKit
 import CocoaLumberjackSwift
+import WMF
 
-protocol ExploreCardViewControllerDelegate {
+protocol ExploreCardViewControllerDelegate: NestedCollectionViewContextMenuDelegate {
     var saveButtonsController: SaveButtonsController { get }
     var layoutCache: ColumnarCollectionViewControllerLayoutCache { get }
     func exploreCardViewController(_ exploreCardViewController: ExploreCardViewController, didSelectItemAtIndexPath: IndexPath)
@@ -692,5 +693,20 @@ extension ExploreCardViewController: EventLoggingEventValuesProviding {
     
     var eventLoggingCategory: EventLoggingCategory {
         return EventLoggingCategory.feed
+    }
+}
+
+// MARK: - Context Menu
+extension ExploreCardViewController {
+    public func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard indexPath.item < numberOfItems else {
+            return nil
+        }
+
+        return delegate?.contextMenu(with: contentGroup, for: nil, at: indexPath.item)
+    }
+
+    public func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+        delegate?.willCommitPreview(with: animator)
     }
 }

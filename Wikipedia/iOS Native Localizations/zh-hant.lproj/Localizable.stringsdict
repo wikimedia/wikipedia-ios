@@ -309,6 +309,96 @@
 			<string>%1$d 個條目</string>
 		</dict>
 	</dict>
+	<key>notifications-center-empty-state-num-filters</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ 種篩選</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d</string>
+		</dict>
+	</dict>
+	<key>notifications-center-mark-all-as-read-confirmation-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>您確定要將您所有的 %#@v1@ 則通知為已讀？這將會在您的所有裝置上的通知標記為已讀。</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d</string>
+		</dict>
+	</dict>
+	<key>notifications-center-num-selected-messages-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ 則訊息</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>other</key>
+			<string>%1$d</string>
+		</dict>
+	</dict>
+	<key>notifications-center-status-in-projects</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>在 %#@v1@ 個專案</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>1</string>
+			<key>other</key>
+			<string>%1$d</string>
+		</dict>
+	</dict>
+	<key>notifications-center-status-in-projects-plain</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ 個專案</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>1</string>
+			<key>other</key>
+			<string>%1$d</string>
+		</dict>
+	</dict>
+	<key>notifications-center-status-in-types</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ 種類型</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>1</string>
+			<key>other</key>
+			<string>%1$d</string>
+		</dict>
+	</dict>
 	<key>notifications-push-talk-messages-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

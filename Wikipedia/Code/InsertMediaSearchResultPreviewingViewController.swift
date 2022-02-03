@@ -7,12 +7,13 @@ final class InsertMediaSearchResultPreviewingViewController: UIViewController {
 
     private lazy var imageInfoView = InsertMediaImageInfoView.wmf_viewFromClassNib()!
 
-    var selectImageAction: (() -> Void)?
-    var moreInformationAction: ((URL) -> Void)?
-
-    private let searchResult: InsertMediaSearchResult
+    let searchResult: InsertMediaSearchResult
     private let imageURL: URL
     private var theme = Theme.standard
+
+    var searchResultImageURL: URL? {
+        return searchResult.imageInfo?.filePageURL
+    }
 
     init(imageURL: URL, searchResult: InsertMediaSearchResult) {
         self.imageURL = imageURL
@@ -35,20 +36,6 @@ final class InsertMediaSearchResultPreviewingViewController: UIViewController {
         imageInfoView.apply(theme: theme)
         imageInfoViewContainer.wmf_addSubviewWithConstraintsToEdges(imageInfoView)
         apply(theme: theme)
-    }
-
-    override var previewActionItems: [UIPreviewActionItem] {
-        let selectImageAction = UIPreviewAction(title: WMFLocalizedString("insert-media-image-preview-select-image-action-title", value: "Select image", comment: "Title for preview action that results in image selection"), style: .default, handler: { [weak self] (_, _) in
-            self?.selectImageAction?()
-        })
-        let moreInformationAction = UIPreviewAction(title: WMFLocalizedString("insert-media-image-preview-more-information-action-title", value: "More information", comment: "Title for preview action that results in presenting more information"), style: .default, handler: { [weak self] (_, _) in
-            guard let url = self?.searchResult.imageInfo?.filePageURL else {
-                return
-            }
-            self?.moreInformationAction?(url)
-        })
-        let cancelAction = UIPreviewAction(title: CommonStrings.cancelActionTitle, style: .default) { (_, _) in }
-        return [selectImageAction, moreInformationAction, cancelAction]
     }
 }
 

@@ -1,10 +1,12 @@
 import Foundation
+import UIKit
 
 protocol ArticleContextMenuPresenting {
     func getPeekViewControllerAsync(for destination: Router.Destination, completion: @escaping (UIViewController?) -> Void)
 
     func hideFindInPage(_ completion: (() -> Void)?)
     var configuration: Configuration { get }
+    var previewMenuItems: [UIMenuElement]? { get }
 }
 
 enum ContextMenuCompletionType {
@@ -27,7 +29,10 @@ extension ArticleContextMenuPresenting {
             completionHandler(nullConfig)
         }
 
-        guard let linkURL = elementInfo.linkURL else {
+        // This "N/A" part is pretty hacky. But we don't want to do a preview for "view article in browser", and this is the URL that is sent
+        // for "view article in browser". Without this "N/A" check, "View article in browser"'s preview and context menu shows the one for the
+        // article "N/A", which seems more wrong. The trade off: previews for the actual article "N/A" don't work, either.
+        guard let linkURL = elementInfo.linkURL, linkURL.wmf_title != "N/A" else {
             nullCompletion()
             return
         }
@@ -72,7 +77,7 @@ extension ArticleContextMenuPresenting {
             let config = UIContextMenuConfiguration(identifier: linkURL as NSURL, previewProvider: { () -> UIViewController? in
                 return peekParentVC
             }) { (suggestedActions) -> UIMenu? in
-                return self.previewMenuElements(for: peekParentVC, suggestedActions: suggestedActions)
+                return (peekParentVC as? ArticleContextMenuPresenting)?.previewMenu
             }
 
             if let articlePeekVC = peekVC as? ArticlePeekPreviewViewController {
@@ -97,16 +102,11 @@ extension ArticleContextMenuPresenting {
         getPeekViewControllerAsync(for: destination, completion: completion)
     }
 
-    func previewMenuElements(for previewViewController: UIViewController, suggestedActions: [UIMenuElement]) -> UIMenu? {
-        guard let vc = previewViewController as? ArticleViewController else {
+    var previewMenu: UIMenu? {
+        guard let previewMenuItems = previewMenuItems else {
             return nil
         }
-        let legacyActions = vc.previewActions
-        let menuItems = legacyActions.map { (legacyAction) -> UIMenuElement in
-            return UIAction(title: legacyAction.title) { (action) in
-                legacyAction.handler(legacyAction, previewViewController)
-            }
-        }
-        return UIMenu(title: "", image: nil, identifier: nil, options: [], children: menuItems)
+
+        return UIMenu(title: "", image: nil, identifier: nil, options: [], children: previewMenuItems)
     }
 }

@@ -43,11 +43,11 @@ class ArticleManualPerformanceTests: XCTestCase {
             
             articleVC.initialSetupCompletion = {
                 setupExpectation.fulfill()
-                UIApplication.shared.keyWindow?.rootViewController = nil
+                UIApplication.shared.workaroundKeyWindow?.rootViewController = nil
                 dataStore.clearTemporaryCache()
             }
             
-            UIApplication.shared.keyWindow?.rootViewController = articleVC
+            UIApplication.shared.workaroundKeyWindow?.rootViewController = articleVC
         
             wait(for: [setupExpectation], timeout: timeout)
         }
@@ -95,11 +95,11 @@ class ArticleManualPerformanceTests: XCTestCase {
             
             peekVC.displayCompletion = {
                 displayExpectation.fulfill()
-                UIApplication.shared.keyWindow?.rootViewController = nil
+                UIApplication.shared.workaroundKeyWindow?.rootViewController = nil
                 dataStore.clearTemporaryCache()
             }
             
-            UIApplication.shared.keyWindow?.rootViewController = peekVC
+            UIApplication.shared.workaroundKeyWindow?.rootViewController = peekVC
             
             wait(for: [displayExpectation], timeout: timeout)
         }

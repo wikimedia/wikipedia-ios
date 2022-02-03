@@ -476,6 +476,13 @@
 "no-internet-connection" = "Interreta konekto mankas";
 "no-internet-connection-article-reload" = "Nova versio de ĉi tiu artikolo eble estas havebla, sed ne povas esti ŝarĝita sen Interreta konekto";
 "no-internet-connection-article-reload-button" = "Reen al lasta konservita versio";
+"notifications-center-filters-types-item-title-all" = "Ĉiuj tipoj";
+"notifications-center-inbox-title" = "Projektoj";
+"notifications-center-inbox-wikimedia-projects-section-title" = "Vikimediaj projektoj";
+"notifications-center-inbox-wikipedias-section-title" = "Vikipedioj";
+"notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 mesaĝo|$1 mesaĝoj}}";
+"notifications-center-status-in-projects" = "{{PLURAL:$1|1=En 1 projekto|En $1 projektoj}}";
+"notifications-center-status-in-projects-plain" = "{{PLURAL:$1|1=1 projekto|$1 projektoj}}";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1mil";

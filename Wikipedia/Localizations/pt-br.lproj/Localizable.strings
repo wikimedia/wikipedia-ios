@@ -588,9 +588,7 @@
 "no-internet-connection-article-reload" = "Uma versão mais recente deste artigo pode estar disponível, mas não pode ser carregada sem uma conexão com a Internet";
 "no-internet-connection-article-reload-button" = "Retornar para a última versão salva";
 "notifications-center-change-password" = "Alterar senha";
-"notifications-center-commons-project-name" = "Wikimedia Commons";
 "notifications-center-empty-checking-for-notifications" = "Verificando notificações...";
-"notifications-center-empty-no-unread-messages" = "Você não tem mensagens não lidas";
 "notifications-center-footer-change-password" = "Alterar senha";
 "notifications-center-go-to-talk-page" = "Ir para a página de discussão";
 "notifications-center-go-to-title" = "Ir para $1";
@@ -608,7 +606,6 @@
 "notifications-center-subheader-user-rights-change" = "Mudanças nos direitos do usuário";
 "notifications-center-subheader-welcome" = "Bem-vindo!";
 "notifications-center-title" = "Notificações";
-"notifications-center-wikidata-project-name" = "Wikidata";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";

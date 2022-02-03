@@ -6,7 +6,7 @@ protocol ArticleCollectionViewControllerDelegate: NSObjectProtocol {
 }
 
 @objc(WMFArticleCollectionViewController)
-class ArticleCollectionViewController: ColumnarCollectionViewController, EditableCollection, EventLoggingEventValuesProviding {
+class ArticleCollectionViewController: ColumnarCollectionViewController, EditableCollection, EventLoggingEventValuesProviding, CollectionViewContextMenuShowing {
     @objc var dataStore: MWKDataStore!
     var cellLayoutEstimate: ColumnarCollectionViewLayoutHeightEstimate?
 
@@ -146,6 +146,28 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
     override func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
         return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
+
+    // MARK: - CollectionViewContextMenuShowing
+    func previewingViewController(for indexPath: IndexPath, at location: CGPoint) -> UIViewController? {
+        guard !editController.isActive,  // don't allow previewing when swipe actions are active
+              let articleURL = articleURL(at: indexPath) else {
+            return nil
+        }
+
+        previewedIndexPath = indexPath
+
+        guard let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: self.theme) else {
+            return nil
+        }
+        articleViewController.articlePreviewingDelegate = self
+        articleViewController.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
+        return articleViewController
+    }
+
+    var poppingIntoVCCompletion: () -> Void {
+        // Nothing special needs to be run for this VC.
+        return {}
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -185,36 +207,6 @@ extension ArticleCollectionViewController {
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         editController.deconfigureSwipeableCell(cell, forItemAt: indexPath)
-    }
-}
-
-// MARK: - UIViewControllerPreviewingDelegate
-extension ArticleCollectionViewController {
-    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard !editController.isActive else {
-            return nil // don't allow 3d touch when swipe actions are active
-        }
-        
-        guard
-            let indexPath = collectionViewIndexPathForPreviewingContext(previewingContext, location: location),
-            let articleURL = articleURL(at: indexPath)
-        else {
-            return nil
-        }
-
-        previewedIndexPath = indexPath
-
-        guard let articleViewController = ArticleViewController(articleURL: articleURL, dataStore: dataStore, theme: self.theme) else {
-            return nil
-        }
-        articleViewController.articlePreviewingDelegate = self
-        articleViewController.wmf_addPeekableChildViewController(for: articleURL, dataStore: dataStore, theme: theme)
-        return articleViewController
-    }
-    
-    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        viewControllerToCommit.wmf_removePeekableChildViewControllers()
-        push(viewControllerToCommit, animated: true)
     }
 }
 

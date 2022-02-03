@@ -1133,6 +1133,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         guard viewIfLoaded != nil else {
             return
         }
+        mapListToggle.selectedSegmentIndex = 0
         viewMode = .map
     }
     
@@ -2419,21 +2420,6 @@ class PlaceSearchEmptySearchOverlayView: UIView {
     @IBOutlet weak var mainLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
     
-}
-
-// MARK: - UIViewControllerPreviewingDelegate
-extension PlacesViewController {
-    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard viewMode == .list else {
-            return nil
-        }
-        return listViewController.previewingContext(previewingContext, viewControllerForLocation: location)
-    }
-    
-    override func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        viewControllerToCommit.wmf_removePeekableChildViewControllers()
-        push(viewControllerToCommit, animated: true)        
-    }
 }
 
 // MARK: - Accessibility
