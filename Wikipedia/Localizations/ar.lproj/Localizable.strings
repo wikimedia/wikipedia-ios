@@ -559,6 +559,7 @@
 "no-internet-connection" = "لا يوجد اتصال بالإنترنت";
 "no-internet-connection-article-reload" = "قد يتوفر إصدار أحدث من هذه المقالة، ولكن لا يمكن تحميله دون الاتصال بالإنترنت";
 "no-internet-connection-article-reload-button" = "العودة إلى النسخة الأخيرة المحفوظة";
+"notifications-center-subheader-email-from-other-user" = "بريد إلكتروني جديد";
 "number-billions" = "$1 مليار";
 "number-millions" = "$1 مليون";
 "number-thousands" = "$1 ألف";

@@ -5,6 +5,7 @@
 // Author: 咽頭べさ
 
 "aaald-added-text-description-2" = "$1 ထဲမ်သော့ꩻခါꩻလဲဉ်း";
+"aaald-article-description-updated-description" = "ဒင်ႏထိုထွူလဲဉ်း ရောမ်ဖြုဲင်ꩻအွောန်ႏနယ်ချက်ခရာႏ";
 "aaald-article-insert-last-updated" = "အဆုဲင်ꩻသွတ်ꩻ ဒင်ႏထိုခါꩻလဲဉ်း";
 "aaald-article-insert-new-changes" = "ပြောင်ꩻလုဲင်ႏမုꩻတသာ";
 "aaald-article-insert-read-more" = "ဟော်ꩻထွားထဲင်းဒင်ႏထိုမုꩻဖိုင်ႏ";
@@ -317,9 +318,7 @@
 "new-password-title" = "နျꩻသော့ꩻသွော့ နာꩻငဝ်းဗိဥ်ႏပလို့ꩻ";
 "no-internet-connection" = "အိဉ်တာနဲက်လဲင်း အဝ်ႏတဝ်းသြ";
 "notifications-center-change-password" = "ပြောင်ꩻငဝ်းဗိဉ်ႏပလို့ꩻ";
-"notifications-center-commons-project-name" = "ဝီခီမီဒီယာ ကောင်မွဉ်းဖိုင်ႏ";
 "notifications-center-empty-checking-for-notifications" = "စဲစ်ထွား ဖေႏသေချက်ဖိုင်ႏတာႏ...";
-"notifications-center-empty-no-unread-messages" = "ဟော်ꩻဗာႏဒွိုန်းလိတ်မဲက်သေ့ အဝ်ႏတဝ်း";
 "notifications-center-footer-change-password" = "ပြောင်ꩻငဝ်းဗိဉ်ႏပလို့ꩻ";
 "notifications-center-go-to-talk-page" = "လွေꩻအိုင်ကိုမ်ဒေါ့ꩻရီလိတ်မဲ့ငါထျꩻ";
 "notifications-center-go-to-title" = "လွေꩻ $1 ထျꩻ";
@@ -327,7 +326,6 @@
 "notifications-center-go-to-your-talk-page" = "လွေꩻ နာꩻအိုင်ကိုမ်ဒေါ့ꩻရီလိတ်မဲ့ငါထျꩻ";
 "notifications-center-header-alert-from-project" = "$1 ဖေႏသေချက်";
 "notifications-center-header-notice-from-project" = "$1 ဖေႏသတိꩻချက်";
-"notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "နွို့အကောက် ဖေႏသေချက်ဖိုင်ႏ";
 "notifications-center-mark-all-as-read" = "ဒင်ႏမုဲင် နုဲင်းဟော်ꩻထွားထွူလို့လဲဉ်းအကျောင်ꩻ";
 "notifications-center-mark-as-read" = "မာꩻနုဲင်းဟော်ꩻထွူလဲဉ်း";
@@ -341,7 +339,6 @@
 "notifications-center-swipe-mark-as-unread" = "မာꩻနုဲင်းဟော်ꩻဗာႏဒွိုန်း";
 "notifications-center-swipe-more" = "ထဲင်းယင်း";
 "notifications-center-title" = "ဖေႏသေချက်ဖိုင်ႏ";
-"notifications-center-wikidata-project-name" = "ဝီခီဒေတာ";
 "notifications-push-talk-title-format" = "အတသာ $1";
 "number-billions" = "$1 ဗီလီယံ";
 "number-millions" = "$1 မီလီယံ";

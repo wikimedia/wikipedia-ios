@@ -94,8 +94,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    self.showCloseButton = self.tabBarController == nil;
-    [self configureNotificationsButton];
+    [self configureBarButtonItems];
     [self.navigationController setNavigationBarHidden:YES];
     [super viewWillAppear:animated];
     self.navigationController.toolbarHidden = YES;
@@ -105,27 +104,26 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     self.parentViewController.navigationItem.backButtonTitle = self.title;
 }
 
-- (void)configureNotificationsButton {
-    if ([[NSUserDefaults standardUserDefaults] defaultTabType] == WMFAppDefaultTabTypeSettings && [[[self dataStore] authenticationManager] isLoggedIn]) {
-        UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"notifications-bell"] style:UIBarButtonItemStylePlain target:self action:@selector(userDidTapNotificationsCenter)];
-        self.navigationItem.rightBarButtonItem = notificationsBarButton;
-    }
-}
-
-- (void)configureBackButton {
-    if (self.navigationItem.rightBarButtonItem != nil) {
-        return;
-    }
-    UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
-    self.navigationItem.rightBarButtonItem = xButton;
-}
-
-- (void)setShowCloseButton:(BOOL)showCloseButton {
-    if (showCloseButton) {
-        [self configureBackButton];
+- (void)configureBarButtonItems {
+    if (self.tabBarController == nil) {
+        // Always show close button if presented modally
+        UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
+        xButton.accessibilityLabel = [WMFCommonStrings closeButtonAccessibilityLabel];
+        self.navigationItem.leftBarButtonItem = xButton;
     } else {
-        self.navigationItem.rightBarButtonItem = nil;
+        // If in a tab bar presentation, only show notification bar button item if the user is logged in
+        if (self.dataStore.authenticationManager.isLoggedIn) {
+            NSInteger numUnreadNotifications = [self.dataStore.remoteNotificationsController numberOfUnreadNotifications];
+            UIImage *image = numUnreadNotifications == 0 ? [self notificationsCenterBellImageWithUnreadNotifications:NO] : [self notificationsCenterBellImageWithUnreadNotifications:YES];
+            UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(userDidTapNotificationsCenter)];
+            notificationsBarButton.accessibilityLabel = [WMFCommonStrings notificationsCenterTitle];
+            self.navigationItem.leftBarButtonItem = notificationsBarButton;
+        } else {
+            self.navigationItem.leftBarButtonItem = nil;
+        }
     }
+    
+    [self.navigationBar updateNavigationItems];
 }
 
 - (void)closeButtonPressed {
@@ -447,6 +445,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     WMFNotificationSettingsViewController *notificationSettingsVC = [[WMFNotificationSettingsViewController alloc] initWithAuthManager:self.dataStore.authenticationManager notificationsController:self.dataStore.notificationsController];
     [notificationSettingsVC applyTheme:self.theme];
     [self.navigationController pushViewController:notificationSettingsVC animated:YES];
+}
+
+- (UIImage *)notificationsCenterBellImageWithUnreadNotifications:(BOOL)hasUnreadNotifications {
+    return [UIImage imageNamed:hasUnreadNotifications ? @"notifications-bell-with-indicator" : @"notifications-bell"];
 }
 
 #pragma mark - Appearance

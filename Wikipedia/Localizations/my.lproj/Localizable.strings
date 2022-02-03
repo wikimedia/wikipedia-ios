@@ -411,7 +411,6 @@
 "no-internet-connection" = "အင်တာနက် ကွန်နက်ရှင် မရှိပါ";
 "no-internet-connection-article-reload" = "ဤဆောင်းပါး၏ ပိုမိုသစ်လွင်သောမူကို ရရှိနိုင်ကောင်းပါသည်၊ သို့သော် အင်တာနက်ကွန်နက်ရှင်မရှိဘဲ မဆွဲတင်နိုင်ပါ။";
 "notifications-center-change-password" = "စကားဝှက် ပြောင်းလဲရန်";
-"notifications-center-commons-project-name" = "ဝီကီမီဒီယာ ကွန်မွန်းစ်";
 "notifications-center-footer-change-password" = "စကားဝှက် ပြောင်းလဲရန်";
 "notifications-center-go-to-talk-page" = "ဆွေးနွေးစာမျက်နှာသို့ သွားရန်";
 "notifications-center-go-to-title" = "$1 သို့ သွားပါ";
@@ -428,7 +427,6 @@
 "notifications-center-subheader-translate-milestone" = "ဘာသာပြန်မှု မိုင်တိုင်";
 "notifications-center-subheader-welcome" = "ကြိုဆိုပါသည်!";
 "notifications-center-title" = "အသိပေးချက်များ";
-"notifications-center-wikidata-project-name" = "ဝီကီဒေတာ";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|မက်ဆေ့|မက်ဆေ့များ}}";
 "notifications-push-talk-title-format" = "အသစ် $1";
 "number-billions" = "$1B";
