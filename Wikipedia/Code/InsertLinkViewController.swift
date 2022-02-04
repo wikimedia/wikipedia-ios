@@ -43,6 +43,7 @@ class InsertLinkViewController: UIViewController {
         searchViewController.delegatesSelection = true
         searchViewController.showLanguageBar = false
 		searchViewController.updateRecentlySearchedVisibility(searchText: nil)
+        searchViewController.doResultsShowArticlePreviews = false
         return searchViewController
     }()
 

@@ -63,7 +63,7 @@ struct OnThisDayView: View {
             case .systemSmall:
                 MainOnThisDayElement(monthDay: entry.monthDay, eventYear: entry.eventYear, eventYearsAgo: entry.eventYearsAgo, fullDate: entry.fullDate, snippet: entry.eventSnippet)
                 .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-            @unknown default:
+            default:
                 MainOnThisDayElement(monthDay: entry.monthDay, eventYear: entry.eventYear, eventYearsAgo: entry.eventYearsAgo, fullDate: entry.fullDate, snippet: entry.eventSnippet)
                 .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
             }

@@ -1,7 +1,7 @@
 import UIKit
 import WMF
 
-class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
+class ViewController: ThemeableViewController, NavigationBarHiderDelegate {
     @objc public init(theme: Theme) {
         super.init(nibName: nil, bundle: nil)
         self.theme = theme

@@ -1,180 +1,336 @@
 import CocoaLumberjackSwift
 
-//TODO: clean up this file. only operations-related methods should call into operations controller, otherwise most other things should be calling straight to the model controller
+public enum RemoteNotificationsControllerError: Error {
+    case databaseUnavailable
+    case attemptingToRefreshBeforeDeadline
+}
+
 @objc public final class RemoteNotificationsController: NSObject {
-    private let operationsController: RemoteNotificationsOperationsController
+    private let apiController: RemoteNotificationsAPIController
     private let refreshDeadlineController = RemoteNotificationsRefreshDeadlineController()
+    private let languageLinkController: MWKLanguageLinkController
     private let authManager: WMFAuthenticationManager
+    
+    private var _modelController: RemoteNotificationsModelController?
+    private var modelController: RemoteNotificationsModelController? {
+        get {
+            
+            guard let modelController = _modelController else {
+                DDLogError("Missing RemoteNotificationsModelController. Confirm Core Data stack was successfully set up.")
+                return nil
+            }
+            
+            return modelController
+        }
+        set {
+            _modelController = newValue
+        }
+    }
+    private var _operationsController: RemoteNotificationsOperationsController?
+    private var operationsController: RemoteNotificationsOperationsController? {
+        get {
+            
+            guard let operationsController = _operationsController else {
+                DDLogError("Missing RemoteNotificationsOperationsController. Confirm Core Data stack was successfully set up in RemoteNotificationsModelController.")
+                return nil
+            }
+            
+            return operationsController
+        }
+        set {
+            _operationsController = newValue
+        }
+    }
+    
+    public var isLoadingNotifications: Bool {
+        return operationsController?.isLoadingNotifications ?? false
+    }
 
     public static let didUpdateFilterStateNotification = NSNotification.Name(rawValue: "RemoteNotificationsControllerDidUpdateFilterState")
-    
-    public var viewContext: NSManagedObjectContext? {
-        return operationsController.viewContext
-    }
     
     public let configuration: Configuration
     
     @objc public required init(session: Session, configuration: Configuration, languageLinkController: MWKLanguageLinkController, authManager: WMFAuthenticationManager) {
-        operationsController = RemoteNotificationsOperationsController(session: session, configuration: configuration, languageLinkController: languageLinkController, authManager: authManager)
+        
+        self.apiController = RemoteNotificationsAPIController(session: session, configuration: configuration)
         self.configuration = configuration
         self.authManager = authManager
+        self.languageLinkController = languageLinkController
+        
         super.init()
+        
+        do {
+            modelController = try RemoteNotificationsModelController()
+        } catch (let error) {
+            DDLogError("Failed to initialize RemoteNotificationsModelController: \(error)")
+            modelController = nil
+        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(authManagerDidLogIn), name:WMFAuthenticationManager.didLogInNotification, object: nil)
-    }
-    
-    @objc private func applicationDidBecomeActive() {
-        refreshNotifications(force: false) { _ in
-            //
-        }
-    }
-    
-    @objc private func authManagerDidLogIn() {
-        importNotificationsIfNeeded { _ in
-            //
-        }
-    }
-    
-    @objc func deleteLegacyDatabaseFiles() {
-        do {
-            try operationsController.deleteLegacyDatabaseFiles()
-        } catch (let error) {
-            DDLogError("Failure deleting legacy RemoteNotifications database files: \(error)")
-        }
-    }
+        NotificationCenter.default.addObserver(self, selector: #selector(authManagerDidLogOut), name: WMFAuthenticationManager.didLogOutNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(modelControllerDidLoadPersistentStores(_:)), name: RemoteNotificationsModelController.didLoadPersistentStoresNotification, object: nil)
         
-    public func importNotificationsIfNeeded(_ completion: @escaping (Error?) -> Void) {
+    }
+    
+    // MARK: NSNotification Listeners
+    
+    @objc private func modelControllerDidLoadPersistentStores(_ note: Notification) {
         
-        guard authManager.isLoggedIn else {
-            completion(RequestError.unauthenticated)
+        guard let modelController = modelController else {
             return
         }
         
-        operationsController.importNotificationsIfNeeded(completion)
+        if let object = note.object, let error = object as? Error {
+            DDLogError("RemoteNotificationsModelController failed to load persistent stores with error \(error); not instantiating RemoteNotificationsOperationsController")
+            return
+        }
+        
+        operationsController = RemoteNotificationsOperationsController(languageLinkController: languageLinkController, authManager: authManager, apiController: apiController, modelController: modelController)
+        
+        populateFilterStateFromPersistence()
     }
     
-    public func refreshNotifications(force: Bool, completion: @escaping (Error?) -> Void) {
+    @objc private func applicationDidBecomeActive() {
+        loadNotifications(force: false)
+    }
+    
+    @objc private func authManagerDidLogOut() {
+        do {
+            filterState = RemoteNotificationsFilterState(readStatus: .all, offTypes: [], offProjects: [])
+            allInboxProjects = []
+            try modelController?.resetDatabaseAndSharedCache()
+        } catch (let error) {
+            DDLogError("Error resetting notifications database on logout: \(error)")
+        }
+        
+    }
+    
+    @objc private func authManagerDidLogIn() {
+        loadNotifications(force: true)
+    }
+    
+    //MARK: Public
+    
+    /// Fetches notifications from the server and imports them into the local database. Updates local database on a backgroundContext.
+    /// - Parameters:
+    ///   - force: Flag to force an API call, otherwise this will exit early if it's been less than 30 seconds since the last load attempt.
+    ///   - completion: Completion block called once refresh attempt is complete.
+    public func loadNotifications(force: Bool, completion: ((Result<Void, Error>) -> Void)? = nil) {
+        
+        guard let operationsController = operationsController else {
+            completion?(.failure(RemoteNotificationsControllerError.databaseUnavailable))
+            return
+        }
         
         guard authManager.isLoggedIn else {
-            completion(RequestError.unauthenticated)
+            completion?(.failure(RequestError.unauthenticated))
             return
         }
         
         if !force && !refreshDeadlineController.shouldRefresh {
-            completion(nil)
+            completion?(.failure(RemoteNotificationsControllerError.attemptingToRefreshBeforeDeadline))
             return
         }
         
-        operationsController.refreshNotifications(completion)
+        operationsController.loadNotifications { [weak self] result in
+            
+            guard let self = self else {
+                return
+            }
+            
+            switch result {
+            case .success:
+                do {
+                    try self.updateAllInboxProjects()
+                    completion?(.success(()))
+                } catch (let error) {
+                    completion?(.failure(error))
+                }
+            case .failure(let error):
+                completion?(.failure(error))
+            }
+        }
+        
         refreshDeadlineController.reset()
     }
     
-    public func markAsReadOrUnread(identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, languageLinkController: MWKLanguageLinkController) {
-        operationsController.markAsReadOrUnread(identifierGroups: identifierGroups, shouldMarkRead: shouldMarkRead, languageLinkController: languageLinkController)
-    }
-    
-    public func markAllAsRead(languageLinkController: MWKLanguageLinkController) {
-        operationsController.markAllAsRead(languageLinkController: languageLinkController)
-    }
-
-    public func fetchNotifications(fetchLimit: Int = 50, fetchOffset: Int = 0) -> [RemoteNotification] {
-        assert(Thread.isMainThread)
+    /// Marks notifications as read or unread in the local database and on the server. Errors are not returned. Updates local database on a backgroundContext.
+    /// - Parameters:
+    ///   - identifierGroups: Set of IdentifierGroup objects to identify the correct notification.
+    ///   - shouldMarkRead: Boolean for marking as read or unread.
+    public func markAsReadOrUnread(identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, completion: ((Result<Void, Error>) -> Void)? = nil) {
         
-        guard let viewContext = self.viewContext else {
-            DDLogError("Failure fetching notifications from persistence: missing viewContext")
-            return []
+        guard let operationsController = operationsController else {
+            completion?(.failure(RemoteNotificationsControllerError.databaseUnavailable))
+            return
         }
         
-        let fetchRequest: NSFetchRequest<RemoteNotification> = RemoteNotification.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-        fetchRequest.predicate = predicateForFilterSavedState(filterState)
-        fetchRequest.fetchLimit = fetchLimit
-        fetchRequest.fetchOffset = fetchOffset
-        
-        do {
-            return try viewContext.fetch(fetchRequest)
-        } catch {
-            DDLogError("Failure fetching notifications from persistence: \(error)")
-            return []
-        }
-    }
-    
-    @objc public var numberOfUnreadNotifications: Int {
-        return self.operationsController
-            .numberOfUnreadNotifications ?? 0
-    }
-    
-    public func listAllProjectsFromLocalNotifications(languageLinkController: MWKLanguageLinkController, completion: @escaping ([RemoteNotificationsProject]) -> Void) {
-        operationsController.listAllProjectsFromLocalNotifications(languageLinkController: languageLinkController, completion: completion)
-    }
-    
-    public var areFiltersEnabled: Bool {
-        
-        return countOfAllFilters > 0
-    }
-    
-    public var areInboxFiltersEnabled: Bool {
-
-        return cachedShowingInboxProjects.count < cachedAllInboxProjects.count
-    }
-    
-    public var countOfAllFilters: Int {
-        
-        var countOfFilters = countOfTypeFilters
-        
-        if filterState.readStatus == .read || filterState.readStatus == .unread {
-            countOfFilters = 1
+        guard authManager.isLoggedIn else {
+            completion?(.failure(RequestError.unauthenticated))
+            return
         }
         
-        return countOfFilters
+        operationsController.markAsReadOrUnread(identifierGroups: identifierGroups, shouldMarkRead: shouldMarkRead, languageLinkController: languageLinkController, completion: completion)
     }
     
-    public var countOfTypeFilters: Int {
-        return filterState.types.count
+    
+    /// Asks server to mark all notifications as read for projects that contain local unread notifications. Errors are not returned. Updates local database on a backgroundContext.
+    public func markAllAsRead(completion: ((Result<Void, Error>) -> Void)? = nil) {
+        
+        guard let operationsController = operationsController else {
+            completion?(.failure(RemoteNotificationsControllerError.databaseUnavailable))
+            return
+        }
+        
+        guard authManager.isLoggedIn else {
+            completion?(.failure(RequestError.unauthenticated))
+            return
+        }
+        
+        operationsController.markAllAsRead(languageLinkController: languageLinkController, completion: completion)
     }
     
-    public private(set) var cachedAllInboxProjects: Set<RemoteNotificationsProject> = []
-    public private(set) var cachedShowingInboxProjects: Set<RemoteNotificationsProject> = []
+    /// Passthrough method to listen for NSManagedObjectContextObjectsDidChange notifications on the viewContext, in order to encapsulate viewContext within the WMF Framework.
+    /// - Parameters:
+    ///   - observer: NSNotification observer
+    ///   - selector: Selector to call on the observer once the NSNotification fires
+    public func addObserverForViewContextChanges(observer: AnyObject, selector:
+    Selector) {
+        
+        guard let viewContext = modelController?.viewContext else {
+            return
+        }
+        
+        NotificationCenter.default.addObserver(observer, selector: selector, name: Notification.Name.NSManagedObjectContextObjectsDidChange, object: viewContext)
+    }
     
-    public func allInboxProjects(languageLinkController: MWKLanguageLinkController, completion: @escaping ([RemoteNotificationsProject]) -> Void) {
+    /// Fetches notifications from the local database. Uses the viewContext and must be called from the main thread
+    /// - Parameters:
+    ///   - fetchLimit: Number of notifications to fetch. Defaults to 50.
+    ///   - fetchOffset: Offset for fetching notifications. Use when fetching later pages of data
+    /// - Returns: Array of RemoteNotifications
+    public func fetchNotifications(fetchLimit: Int = 50, fetchOffset: Int = 0, completion: @escaping (Result<[RemoteNotification], Error>) -> Void) {
+        guard let modelController = modelController else {
+            return completion(.failure(RemoteNotificationsControllerError.databaseUnavailable))
+        }
         
-        let sideProjects: Set<RemoteNotificationsProject> = [.commons, .wikidata]
-        
-        let appLanguageProjects =  languageLinkController.preferredLanguages.map { RemoteNotificationsProject.wikipedia($0.languageCode, $0.localizedName, $0.languageVariantCode) }
-        
-        var inboxProjects = sideProjects.union(appLanguageProjects)
-        
-        listAllProjectsFromLocalNotifications(languageLinkController: languageLinkController) { localProjects in
+        loadNotifications(force: false) { [weak self] result in
+             guard let self = self else {
+                 return
+             }
             
-            for localProject in localProjects {
-                inboxProjects.insert(localProject)
-            }
-            
-            DispatchQueue.main.async {
-                self.cachedAllInboxProjects = inboxProjects
-                completion(Array(inboxProjects))
-            }
-        }
-    }
-    
-    public func setupInitialFilters(languageLinkController: MWKLanguageLinkController, completion: @escaping () -> Void) {
-        
-        //populate inbox project cache properties
-        allInboxProjects(languageLinkController: languageLinkController) { project in
-            //first try to populate in-memory state from persistance. otherwise set up default filters
-            if let persistentFiltersDict = self.operationsController.getFilterSettingsFromLibrary(),
-               let persistentFilters = RemoteNotificationsFilterState(nsDictionary: persistentFiltersDict, languageLinkController: languageLinkController) {
-                self.filterState = persistentFilters
-                self.cachedShowingInboxProjects = self.cachedAllInboxProjects.subtracting(persistentFilters.projects)
+            let loadingCompletion: () -> Void = {
+                let predicate = self.predicateForFilterSavedState(self.filterState)
                 
-            } else {
-                self.filterState = RemoteNotificationsFilterState(readStatus: .all, types: [], projects: [])
-                self.cachedShowingInboxProjects = self.cachedAllInboxProjects
+                do {
+                    let notifications = try modelController.fetchNotifications(fetchLimit: fetchLimit, fetchOffset: fetchOffset, predicate: predicate)
+                    completion(.success(notifications))
+                } catch (let error) {
+                    completion(.failure(error))
+                }
+            }
+             
+             switch result {
+             case .success:
+                 loadingCompletion()
+             case .failure(let error):
+                 if let error = error as? RemoteNotificationsControllerError,
+                    error == .attemptingToRefreshBeforeDeadline {
+                     loadingCompletion()
+                 } else {
+                     completion(.failure(error))
+                 }
+             }
+        }
+    }
+    
+    /// Fetches a count of unread notifications from the local database. Uses the viewContext and must be called from the main thread
+    @objc public func numberOfUnreadNotifications() throws -> NSNumber {
+        
+        guard let modelController = modelController else {
+            throw RemoteNotificationsControllerError.databaseUnavailable
+        }
+        
+        let count = try modelController.numberOfUnreadNotifications()
+        return NSNumber.init(value: count)
+    }
+    
+    /// Fetches a count of all notifications from the local database. Uses the viewContext and must be called from the main thread
+    public func numberOfAllNotifications() throws -> Int {
+        
+        guard let modelController = modelController else {
+            throw RemoteNotificationsControllerError.databaseUnavailable
+        }
+        
+        return try modelController.numberOfAllNotifications()
+    }
+    
+    /// List of all possible inbox projects available Notifications Center. Used for populating the Inbox screen and the project count toolbar
+    public private(set) var allInboxProjects: Set<RemoteNotificationsProject> = []
+    
+    /// A count of showing inbox projects (i.e. allInboxProjects minus those toggled off in the inbox filter screen)
+    public var countOfShowingInboxProjects: Int {
+        let filteredProjects = filterState.offProjects
+        return allInboxProjects.subtracting(filteredProjects).count
+    }
+
+    @objc public func updateCacheWithCurrentUnreadNotificationsCount() throws {
+        let currentCount = try numberOfUnreadNotifications().intValue
+        let sharedCache = SharedContainerCache<PushNotificationsCache>(pathComponent: .pushNotificationsCache, defaultCache: { PushNotificationsCache(settings: .default, notifications: []) })
+        var pushCache = sharedCache.loadCache()
+        pushCache.currentUnreadCount = currentCount
+        sharedCache.saveCache(pushCache)
+    }
+    
+    public var filterState: RemoteNotificationsFilterState = RemoteNotificationsFilterState(readStatus: .all, offTypes: [], offProjects: []) {
+        didSet {
+            
+            guard let modelController = modelController else {
+                return
             }
             
-            completion()
+            //save to library
+            modelController.setFilterSettingsToLibrary(dictionary: filterState.serialize())
+            
+            NotificationCenter.default.post(name: RemoteNotificationsController.didUpdateFilterStateNotification, object: nil)
         }
+    }
+    
+    //MARK: Internal
+    
+    @objc func deleteLegacyDatabaseFiles() throws -> Void {
+        
+        guard let modelController = modelController else {
+            throw RemoteNotificationsControllerError.databaseUnavailable
+        }
+        
+        try modelController.deleteLegacyDatabaseFiles()
+    }
+    
+    //MARK: Private
+    
+    /// Pulls filter state from local persistence and saves it in memory
+    private func populateFilterStateFromPersistence() {
+        guard let modelController = modelController,
+        let persistentFiltersDict = modelController.getFilterSettingsFromLibrary(),
+           let persistentFilters = RemoteNotificationsFilterState(nsDictionary: persistentFiltersDict, languageLinkController: languageLinkController) else {
+            return
+        }
+        
+        self.filterState = persistentFilters
+    }
+    
+    /// Fetches from the local database all projects that contain a local notification on device. Uses the viewContext and must be called from the main thread.
+    /// - Returns: Array of RemoteNotificationsProject
+    private func projectsFromLocalNotifications() throws -> Set<RemoteNotificationsProject> {
+        guard let modelController = modelController else {
+            return []
+        }
+        
+        let wikis = try modelController.distinctWikis(predicate: nil)
+        let projects = wikis.compactMap { RemoteNotificationsProject(apiIdentifier: $0, languageLinkController: languageLinkController) }
+        return Set(projects)
     }
     
     private func predicateForFilterSavedState(_ filterState: RemoteNotificationsFilterState) -> NSPredicate? {
@@ -191,8 +347,10 @@ import CocoaLumberjackSwift
             readStatusPredicate = NSPredicate(format: "isRead == %@", NSNumber(value: false))
         }
         
-        let types = filterState.types
-        let filterTypePredicates: [NSPredicate] = types.compactMap { settingType in
+        //Note: The nature of the type and project predicates may feel backwards, but it allows unknown notification types to get past the filter. We COULD write these predicates by going through a list of types and projects toggled ON, with a predicate format of each like "categoryString IN %@ AND typeString IN %@", but this would then exclude unknown notification types when any filter is enabled. If the server started returning notifications with categoryString and typeStrings the app doesn't recognize (but is capable of displaying in a generic way), we would unintentionally filter them out with this style of predicate. So instead we are going through a list of types and projects toggled OFF, and writing the predicates as "NOT (categoryString IN %@ AND typeString IN %@)". We're filtering projects in a similar manner for the sake of consistency.
+        
+        let offTypes = filterState.offTypes
+        let offTypePredicates: [NSPredicate] = offTypes.compactMap { settingType in
             let categoryStrings = RemoteNotification.categoryStringsForRemoteNotificationType(type: settingType)
             let typeStrings = RemoteNotification.typeStringsForRemoteNotificationType(type: settingType)
             
@@ -203,63 +361,42 @@ import CocoaLumberjackSwift
             return NSPredicate(format: "NOT (categoryString IN %@ AND typeString IN %@)", categoryStrings, typeStrings)
         }
         
-        let projects = filterState.projects
-        let projectPredicates: [NSPredicate] = projects.compactMap { return NSPredicate(format: "NOT (wiki == %@)", $0.notificationsApiWikiIdentifier) }
+        let offProjects = filterState.offProjects
+        let offProjectPredicates: [NSPredicate] = offProjects.compactMap { return NSPredicate(format: "NOT (wiki == %@)", $0.notificationsApiWikiIdentifier) }
         
-        guard readStatusPredicate != nil || filterTypePredicates.count > 0 || projectPredicates.count > 0 else {
+        guard readStatusPredicate != nil || offTypePredicates.count > 0 || offProjectPredicates.count > 0 else {
             return nil
         }
         
-        var combinedFilterTypePredicate: NSPredicate? = nil
-        if filterTypePredicates.count > 0 {
-            combinedFilterTypePredicate = NSCompoundPredicate(andPredicateWithSubpredicates: filterTypePredicates)
+        var combinedOffTypePredicate: NSPredicate? = nil
+        if offTypePredicates.count > 0 {
+            combinedOffTypePredicate = NSCompoundPredicate(andPredicateWithSubpredicates: offTypePredicates)
         }
         
-        var combinedProjectPredicate: NSPredicate? = nil
-        if projectPredicates.count > 0 {
-            combinedProjectPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: projectPredicates)
+        var combinedOffProjectPredicate: NSPredicate? = nil
+        if offProjectPredicates.count > 0 {
+            combinedOffProjectPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: offProjectPredicates)
         }
         
-        let finalPredicates = [readStatusPredicate, combinedFilterTypePredicate, combinedProjectPredicate].compactMap { $0 }
+        let finalPredicates = [readStatusPredicate, combinedOffTypePredicate, combinedOffProjectPredicate].compactMap { $0 }
         
         return finalPredicates.count > 0 ? NSCompoundPredicate(andPredicateWithSubpredicates: finalPredicates) : nil
     }
-
-    @objc public func updateCacheWithCurrentUnreadNotificationsCount() {
-        let currentCount = numberOfUnreadNotifications
-        let sharedCache = SharedContainerCache<PushNotificationsCache>(pathComponent: .pushNotificationsCache, defaultCache: { PushNotificationsCache(settings: .default, notifications: []) })
-        var pushCache = sharedCache.loadCache()
-        pushCache.currentUnreadCount = currentCount
-        sharedCache.saveCache(pushCache)
-    }
-
-    public func inboxCount() -> Int {
-        assert(Thread.isMainThread)
-        
-        guard let viewContext = self.viewContext else {
-            DDLogError("Failure fetching notifications from persistence: missing viewContext")
-            return 0
-        }
-        
-        let fetchRequest: NSFetchRequest<RemoteNotification> = RemoteNotification.fetchRequest()
-        
-        do {
-            return try viewContext.count(for: fetchRequest)
-        } catch {
-            DDLogError("Failure fetching notifications from persistence: \(error)")
-            return 0
-        }
-    }
     
-    public var filterState: RemoteNotificationsFilterState = RemoteNotificationsFilterState(readStatus: .all, types: [], projects: []) {
-        didSet {
-            
-            //save to library
-            operationsController.setFilterSettingsToLibrary(dictionary: filterState.serialize())
-            cachedShowingInboxProjects = cachedAllInboxProjects.subtracting(filterState.projects)
-            
-            NotificationCenter.default.post(name: RemoteNotificationsController.didUpdateFilterStateNotification, object: nil)
+    /// Updates value of allInboxProjects by gathering list of static projects, app language projects, and local notifications projects. Involves a fetch to the local database. Uses the viewContext and must be called from the main thread
+    private func updateAllInboxProjects() throws {
+        let sideProjects: Set<RemoteNotificationsProject> = [.commons, .wikidata]
+        
+        let appLanguageProjects =  languageLinkController.preferredLanguages.map { RemoteNotificationsProject.wikipedia($0.languageCode, $0.localizedName, $0.languageVariantCode) }
+        
+        var inboxProjects = sideProjects.union(appLanguageProjects)
+        let localProjects = try projectsFromLocalNotifications()
+        
+        for localProject in localProjects {
+            inboxProjects.insert(localProject)
         }
+        
+        self.allInboxProjects = inboxProjects
     }
 }
 
@@ -283,17 +420,17 @@ public struct RemoteNotificationsFilterState {
     }
     
     public let readStatus: ReadStatus
-    public let types: [RemoteNotificationType]
-    public let projects: [RemoteNotificationsProject]
+    public let offTypes: Set<RemoteNotificationType>
+    public let offProjects: Set<RemoteNotificationsProject>
     
-    public init(readStatus: ReadStatus, types: [RemoteNotificationType], projects: [RemoteNotificationsProject]) {
+    public init(readStatus: ReadStatus, offTypes: Set<RemoteNotificationType>, offProjects: Set<RemoteNotificationsProject>) {
         self.readStatus = readStatus
-        self.types = types
-        self.projects = projects
+        self.offTypes = offTypes
+        self.offProjects = offProjects
     }
 
     private var isReadStatusOrTypeFiltered: Bool {
-        return (readStatus != .all || !types.isEmpty)
+        return (readStatus != .all || !offTypes.isEmpty)
     }
 
     public var stateDescription: String {
@@ -324,13 +461,13 @@ public struct RemoteNotificationsFilterState {
 
         var descriptionString: String?
 
-        switch (readStatus, types.count, projects.count) {
+        switch (readStatus, offTypes.count, offProjects.count) {
         case (.all, 0, 0):
             // No filtering
             descriptionString = String.localizedStringWithFormat(inProjects, totalProjectCount)
         case (.all, 1..., 0):
             // Only filtering by type
-            let typesString = String.localizedStringWithFormat(typesPlain, types.count).highlightDelineated
+            let typesString = String.localizedStringWithFormat(typesPlain, offTypes.count).highlightDelineated
             let totalProjectString = String.localizedStringWithFormat(projectsPlain, totalProjectCount)
             descriptionString = String.localizedStringWithFormat(doubleConcatenationTemplate, typesString, totalProjectString)
         case (.all, 0, 1...):
@@ -342,7 +479,7 @@ public struct RemoteNotificationsFilterState {
             descriptionString = String.localizedStringWithFormat(doubleConcatenationTemplate, readStatus.localizedDescription.highlightDelineated, totalProjectString)
         case (.read, 1..., 0), (.unread, 1..., 0):
             // Filtering by read status and type
-            let typesString = String.localizedStringWithFormat(typesPlain, types.count).highlightDelineated
+            let typesString = String.localizedStringWithFormat(typesPlain, offTypes.count).highlightDelineated
             let totalProjectString = String.localizedStringWithFormat(projectsPlain, totalProjectCount)
             descriptionString = String.localizedStringWithFormat(tripleConcatenationTemplate, readStatus.localizedDescription.highlightDelineated, typesString, totalProjectString)
         case (.read, 0, 1...), (.unread, 0, 1...):
@@ -354,13 +491,13 @@ public struct RemoteNotificationsFilterState {
             switch readStatus {
             case .all:
                 // Filtering by type and project/inbox
-                let typesString = String.localizedStringWithFormat(typesPlain, types.count).highlightDelineated
+                let typesString = String.localizedStringWithFormat(typesPlain, offTypes.count).highlightDelineated
                 let projectString = String.localizedStringWithFormat(projectsPlain, showingProjectCount).highlightDelineated
                 descriptionString = String.localizedStringWithFormat(doubleConcatenationTemplate, typesString, projectString)
             case .read, .unread:
                 // Filtering by read status, type, and project/inbox
                 let readString = readStatus.localizedDescription.highlightDelineated
-                let typesString = String.localizedStringWithFormat(typesPlain, types.count).highlightDelineated
+                let typesString = String.localizedStringWithFormat(typesPlain, offTypes.count).highlightDelineated
                 let projectString = String.localizedStringWithFormat(projectsPlain, showingProjectCount).highlightDelineated
                 descriptionString = String.localizedStringWithFormat(tripleConcatenationTemplate, readString, typesString, projectString)
             }
@@ -372,17 +509,17 @@ public struct RemoteNotificationsFilterState {
     }
     
     private let readStatusKey = "readStatus"
-    private let typesKey = "types"
-    private let projectsKey = "projects"
+    private let offTypesKey = "offTypes"
+    private let offProjectsKey = "offProjects"
     
     func serialize() -> NSDictionary? {
         let mutableDictionary = NSMutableDictionary()
         let numReadStatus = NSNumber(value: readStatus.rawValue)
         mutableDictionary.setValue(numReadStatus, forKey: readStatusKey)
-        let typeIdentifiers = types.compactMap { $0.filterIdentifier as NSString? }
-        mutableDictionary.setValue(NSArray(array: typeIdentifiers), forKey: typesKey)
-        let projectIdentifiers = projects.compactMap { $0.notificationsApiWikiIdentifier as NSString? }
-        mutableDictionary.setValue(NSArray(array: projectIdentifiers), forKey: projectsKey)
+        let offTypeIdentifiers = offTypes.compactMap { $0.filterIdentifier as NSString? }
+        mutableDictionary.setValue(NSArray(array: offTypeIdentifiers), forKey: offTypesKey)
+        let offProjectIdentifiers = offProjects.compactMap { $0.notificationsApiWikiIdentifier as NSString? }
+        mutableDictionary.setValue(NSArray(array: offProjectIdentifiers), forKey: offProjectsKey)
         
         return mutableDictionary.copy() as? NSDictionary
     }
@@ -395,17 +532,17 @@ public struct RemoteNotificationsFilterState {
         
         guard let numReadStatus = dictionary[readStatusKey] as? NSNumber,
               let readStatus = ReadStatus(rawValue: numReadStatus.intValue),
-              let typeIdentifiers = dictionary[typesKey] as? [NSString],
-              let projectApiIdentifiers = dictionary[projectsKey] as? [NSString] else {
+              let offTypeIdentifiers = dictionary[offTypesKey] as? [NSString],
+              let offProjectApiIdentifiers = dictionary[offProjectsKey] as? [NSString] else {
                   return nil
               }
         
-        let types = typeIdentifiers.compactMap { RemoteNotificationType(from: $0 as String) }
-        let projects = projectApiIdentifiers.compactMap { RemoteNotificationsProject(apiIdentifier: $0 as String, languageLinkController: languageLinkController) }
+        let offTypes = offTypeIdentifiers.compactMap { RemoteNotificationType(from: $0 as String) }
+        let offProjects = offProjectApiIdentifiers.compactMap { RemoteNotificationsProject(apiIdentifier: $0 as String, languageLinkController: languageLinkController) }
         
         self.readStatus = readStatus
-        self.types = types
-        self.projects = projects
+        self.offTypes = Set(offTypes)
+        self.offProjects = Set(offProjects)
     }
 }
 

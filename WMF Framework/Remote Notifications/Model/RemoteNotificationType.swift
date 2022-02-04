@@ -1,6 +1,6 @@
 import Foundation
 
-public enum RemoteNotificationType {
+public enum RemoteNotificationType: Hashable {
     case userTalkPageMessage //Message on your talk page
     case mentionInTalkPage //Mention in article talk
     case mentionInEditSummary //Mention in edit summary

@@ -11,11 +11,6 @@
         .size = CGSizeMake(floor(width), floor(sizeThatFitsWidth.height))};
 }
 
-- (void)wmf_sizeToFitWindowWidth {
-    UIWindow *window = self.window ?: [[UIApplication sharedApplication] keyWindow];
-    [self wmf_sizeToFitWidth:window.bounds.size.width];
-}
-
 - (void)wmf_sizeToFitWidth:(CGFloat)width {
     self.frame = [self wmf_sizeThatFitsWidth:width];
 }

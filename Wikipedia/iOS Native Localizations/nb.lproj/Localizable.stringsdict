@@ -303,6 +303,118 @@
 			<string>%1$d artikler</string>
 		</dict>
 	</dict>
+	<key>notifications-center-empty-state-num-filters</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d filter</string>
+			<key>other</key>
+			<string>%1$d filtre</string>
+		</dict>
+	</dict>
+	<key>notifications-center-mark-all-as-read-confirmation-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Er du sikker på at du ønsker å merke %#@v1@ fra varslene dine som lest? Varslene blir merket som lest på alle enhetene dine.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>den ene meldingen</string>
+			<key>other</key>
+			<string>alle %1$d meldinger</string>
+		</dict>
+	</dict>
+	<key>notifications-center-num-selected-messages-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$d %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>melding</string>
+			<key>other</key>
+			<string>meldinger</string>
+		</dict>
+	</dict>
+	<key>notifications-center-status-in-projects</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>På %1$d %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>prosjekt</string>
+			<key>other</key>
+			<string>prosjekter</string>
+		</dict>
+	</dict>
+	<key>notifications-center-status-in-projects-plain</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$d %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>prosjekt</string>
+			<key>other</key>
+			<string>prosjekter</string>
+		</dict>
+	</dict>
+	<key>notifications-center-status-in-types</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$d %#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>type</string>
+			<key>other</key>
+			<string>typer</string>
+		</dict>
+	</dict>
+	<key>notifications-push-talk-messages-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>melding</string>
+			<key>other</key>
+			<string>meldinger</string>
+		</dict>
+	</dict>
 	<key>on-this-day-detail-header-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

@@ -111,7 +111,6 @@ class InsertMediaSearchResultsCollectionViewController: UICollectionViewControll
         super.viewDidLoad()
         collectionView.register(InsertMediaSearchResultCollectionViewCell.self, forCellWithReuseIdentifier: InsertMediaSearchResultCollectionViewCell.identifier)
         additionalSafeAreaInsets = UIEdgeInsets(top: 0, left: 0, bottom: flowLayout.minimumLineSpacing, right: 0)
-        registerForPreviewing(with: self, sourceView: collectionView)
         apply(theme: theme)
     }
 
@@ -246,39 +245,46 @@ extension InsertMediaSearchResultsCollectionViewController {
     }
 }
 
-extension InsertMediaSearchResultsCollectionViewController: UIViewControllerPreviewingDelegate {
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        //
-    }
-
-    final func collectionViewIndexPathForPreviewingContext(_ previewingContext: UIViewControllerPreviewing, location: CGPoint) -> IndexPath? {
-        guard
-            let indexPath = collectionView.indexPathForItem(at: location),
-            let cell = collectionView.cellForItem(at: indexPath)
-        else {
-            return nil
-        }
-        previewingContext.sourceRect = view.convert(cell.bounds, from: cell)
-        return indexPath
-    }
-
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard
-            let indexPath = collectionViewIndexPathForPreviewingContext(previewingContext, location: location),
-            let searchResult = searchResults[safeIndex: indexPath.item],
+// MARK: - Context Menu (and preview)
+extension InsertMediaSearchResultsCollectionViewController {
+    func viewController(for indexPath: IndexPath) -> UIViewController? {
+        guard let searchResult = searchResults[safeIndex: indexPath.item],
             let imageURL = searchResult.imageURL(for: view.bounds.width)
         else {
             return nil
         }
         let previewingViewController = InsertMediaSearchResultPreviewingViewController(imageURL: imageURL, searchResult: searchResult)
-        previewingViewController.selectImageAction = {
-            self.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
-            self.delegate?.insertMediaSearchResultsCollectionViewControllerDidSelect(self, searchResult: searchResult)
-        }
-        previewingViewController.moreInformationAction = { url in
-            self.navigate(to: url, useSafari: true)
-        }
         previewingViewController.apply(theme: theme)
         return previewingViewController
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard let vc = viewController(for: indexPath) as? InsertMediaSearchResultPreviewingViewController else {
+            return nil
+        }
+        let previewProvider: () -> UIViewController? = {
+            return vc
+        }
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: previewProvider) { (suggestedActions) -> UIMenu? in
+            let selectImageAction = UIAction(title: WMFLocalizedString("insert-media-image-preview-select-image-action-title", value: "Select image", comment: "Title for preview action that results in image selection"), handler: { [weak self] (_) in
+                guard let self = self else {
+                    return
+                }
+                self.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
+                self.delegate?.insertMediaSearchResultsCollectionViewControllerDidSelect(self, searchResult: vc.searchResult)
+            })
+            let moreInformationAction = UIAction(title: WMFLocalizedString("insert-media-image-preview-more-information-action-title", value: "More information", comment: "Title for preview action that results in presenting more information"), handler: { [weak self] (_) in
+                guard let url = vc.searchResultImageURL else {
+                    return
+                }
+                self?.navigate(to: url, useSafari: true)
+            })
+            let cancelAction = UIAction(title: CommonStrings.cancelActionTitle, handler: {(_) in })
+            return UIMenu(title: "", image: nil, identifier: nil, options: [], children: [selectImageAction, moreInformationAction, cancelAction])
+        }
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+        // We do not let this preview commit.
     }
 }

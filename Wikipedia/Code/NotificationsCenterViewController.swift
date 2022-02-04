@@ -419,37 +419,31 @@ private extension NotificationsCenterViewController {
     
     func presentInboxViewController() {
         
-        viewModel.remoteNotificationsController.allInboxProjects(languageLinkController: viewModel.languageLinkController) { [weak self] projects in
-            
+        let allInboxProjects = viewModel.remoteNotificationsController.allInboxProjects
+        
+        guard let inboxViewModel = NotificationsCenterInboxViewModel(remoteNotificationsController: viewModel.remoteNotificationsController, allInboxProjects: allInboxProjects, theme: self.theme) else {
+            return
+        }
+        
+        let inboxView = NotificationsCenterInboxView(viewModel: inboxViewModel) { [weak self] in
+        
+            self?.dismiss(animated: true)
+        }
+
+        let hostingVC = UIHostingController(rootView: inboxView)
+        
+        let nc = DisappearingCallbackNavigationController(rootViewController: hostingVC, theme: self.theme)
+        nc.willDisappearCallback = { [weak self] in
             guard let self = self else {
                 return
             }
             
-            guard let inboxViewModel = NotificationsCenterInboxViewModel(remoteNotificationsController: self.viewModel.remoteNotificationsController, allInboxProjects: Set(projects), theme: self.theme) else {
-                return
-            }
-            
-            let inboxView = NotificationsCenterInboxView(viewModel: inboxViewModel) { [weak self] in
-            
-                self?.dismiss(animated: true)
-            }
-
-            let hostingVC = UIHostingController(rootView: inboxView)
-            
-            let nc = DisappearingCallbackNavigationController(rootViewController: hostingVC, theme: self.theme)
-            nc.willDisappearCallback = { [weak self] in
-                guard let self = self else {
-                    return
-                }
-                
-                self.viewModel.resetAndRefreshData()
-                self.scrollToTop()
-            }
-            
-            nc.modalPresentationStyle = .pageSheet
-            self.present(nc, animated: true, completion: nil)
-            
+            self.viewModel.resetAndRefreshData()
+            self.scrollToTop()
         }
+        
+        nc.modalPresentationStyle = .pageSheet
+        self.present(nc, animated: true, completion: nil)
     }
 }
 

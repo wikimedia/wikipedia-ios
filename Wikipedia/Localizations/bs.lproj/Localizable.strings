@@ -562,9 +562,7 @@
 "no-internet-connection-article-reload" = "Moguće da je novija verzija ovog članka dostupna, ali se ne može učitati bez veze s internetom";
 "no-internet-connection-article-reload-button" = "Povratak na posljednju sačuvanu verziju";
 "notifications-center-change-password" = "Promijeni lozinku";
-"notifications-center-commons-project-name" = "Wikimedia Commons";
 "notifications-center-empty-checking-for-notifications" = "Provjera obavijesti...";
-"notifications-center-empty-no-unread-messages" = "Nemate nepročitanih poruka";
 "notifications-center-empty-not-subscribed" = "Trenutno niste pretplaćeni na obavještenja Wikipedije";
 "notifications-center-footer-change-password" = "Promijeni lozinku";
 "notifications-center-go-to-talk-page" = "Idi na stranicu za razgovor";
@@ -572,7 +570,6 @@
 "notifications-center-go-to-user-page" = "Idi na stranicu za razgovor korisnika $1";
 "notifications-center-go-to-wikidata-item" = "Idi na stavku Wikipodataka";
 "notifications-center-go-to-your-talk-page" = "Idi na svoju stranicu za razgovor";
-"notifications-center-language-project-name-format" = "$2 ($1)";
 "notifications-center-mark" = "Označi";
 "notifications-center-mark-all-as-read" = "Označi sve kao pročitano";
 "notifications-center-mark-as-read" = "Označi kao pročitano";
@@ -586,7 +583,6 @@
 "notifications-center-swipe-mark-as-unread" = "Označi kao nepročitano";
 "notifications-center-swipe-more" = "Više";
 "notifications-center-title" = "Obavještenja";
-"notifications-center-wikidata-project-name" = "Wikipodaci";
 "notifications-push-fallback-body-text" = "Nova aktivnost na Wikipediji";
 "number-billions" = "$1";
 "number-millions" = "$1";

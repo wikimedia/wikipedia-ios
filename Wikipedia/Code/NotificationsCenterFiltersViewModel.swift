@@ -115,7 +115,7 @@ class NotificationsCenterFiltersViewModel: ObservableObject, NotificationsCenter
         let section1 = SectionViewModel(title: WMFLocalizedString("notifications-center-filters-read-status-section-title", value: "Read Status", comment: "Section title of the read status filter controls on the notifications center filter view."), footer: nil, items: items1)
         
         let allTypesItemTitle = WMFLocalizedString("notifications-center-filters-types-item-title-all", value: "All types", comment: "Title of the All types toggle in the notifications center filter view. Selecting this turns on or off all notification type filter toggles.")
-        let item2 = ItemViewModel(title: allTypesItemTitle, selectionType: .toggleAll, isSelected: filterState.types.count == 0)
+        let item2 = ItemViewModel(title: allTypesItemTitle, selectionType: .toggleAll, isSelected: filterState.offTypes.count == 0)
 
         let typesSectionTitle = WMFLocalizedString("notifications-center-filters-types-section-title", value: "Types of notifications", comment: "Section title of the notification types filter controls on the notifications center filter view.")
         let typesFooter = WMFLocalizedString("notifications-center-filters-types-footer", value: "Modify notification types to filter them in/out of your notification inbox. Types that are turned off will not be visible, but their content and any new notifications will be available when the toggle is turned on again.", comment: "Footer text for the types toggles in the notifications center filter view. Explains how the types toggles work.")
@@ -127,7 +127,7 @@ class NotificationsCenterFiltersViewModel: ObservableObject, NotificationsCenter
                 return nil
             }
             
-            let isSelected = !filterState.types.contains($0)
+            let isSelected = !filterState.offTypes.contains($0)
             return ItemViewModel(title: title, selectionType:.toggle($0), isSelected: isSelected)
             
         }
@@ -144,7 +144,7 @@ class NotificationsCenterFiltersViewModel: ObservableObject, NotificationsCenter
         
         let currentFilterState = remoteNotificationsController.filterState
         
-        let newFilterState = RemoteNotificationsFilterState(readStatus: newReadStatus, types: currentFilterState.types, projects: currentFilterState.projects)
+        let newFilterState = RemoteNotificationsFilterState(readStatus: newReadStatus, offTypes: currentFilterState.offTypes, offProjects: currentFilterState.offProjects)
         remoteNotificationsController.filterState = newFilterState
         
         guard let readStatusSection = sections[safeIndex: 0] else {
@@ -182,7 +182,7 @@ class NotificationsCenterFiltersViewModel: ObservableObject, NotificationsCenter
         
         let currentFilterState = remoteNotificationsController.filterState
         
-        let newFilterState = RemoteNotificationsFilterState(readStatus: currentFilterState.readStatus, types: [], projects: currentFilterState.projects)
+        let newFilterState = RemoteNotificationsFilterState(readStatus: currentFilterState.readStatus, offTypes: [], offProjects: currentFilterState.offProjects)
         remoteNotificationsController.filterState = newFilterState
     }
     
@@ -203,7 +203,7 @@ class NotificationsCenterFiltersViewModel: ObservableObject, NotificationsCenter
         
         let currentFilterState = remoteNotificationsController.filterState
         
-        let newFilterState = RemoteNotificationsFilterState(readStatus: currentFilterState.readStatus, types: RemoteNotificationType.orderingForFilters, projects: currentFilterState.projects)
+        let newFilterState = RemoteNotificationsFilterState(readStatus: currentFilterState.readStatus, offTypes: Set(RemoteNotificationType.orderingForFilters), offProjects: currentFilterState.offProjects)
         remoteNotificationsController.filterState = newFilterState
     }
     
@@ -211,10 +211,10 @@ class NotificationsCenterFiltersViewModel: ObservableObject, NotificationsCenter
 
         let currentFilterState = remoteNotificationsController.filterState
         
-        var newTypes = currentFilterState.types
-        newTypes.append(type)
+        var newTypes = currentFilterState.offTypes
+        newTypes.insert(type)
         
-        let newFilterState = RemoteNotificationsFilterState(readStatus: currentFilterState.readStatus, types: newTypes, projects: currentFilterState.projects)
+        let newFilterState = RemoteNotificationsFilterState(readStatus: currentFilterState.readStatus, offTypes: newTypes, offProjects: currentFilterState.offProjects)
         remoteNotificationsController.filterState = newFilterState
         
         guard let allTypeSection = sections[safeIndex: 1],
@@ -229,12 +229,10 @@ class NotificationsCenterFiltersViewModel: ObservableObject, NotificationsCenter
         
         let currentFilterState = remoteNotificationsController.filterState
         
-        var newTypes = currentFilterState.types
-        newTypes.removeAll { loopType in
-            return loopType == type
-        }
+        var newTypes = currentFilterState.offTypes
+        newTypes.remove(type)
         
-        let newFilterState = RemoteNotificationsFilterState(readStatus: currentFilterState.readStatus, types: newTypes, projects: currentFilterState.projects)
+        let newFilterState = RemoteNotificationsFilterState(readStatus: currentFilterState.readStatus, offTypes: newTypes, offProjects: currentFilterState.offProjects)
         remoteNotificationsController.filterState = newFilterState
         
         if newTypes.count == 0 {

@@ -11,6 +11,7 @@ class SearchResultsViewController: ArticleCollectionViewController {
     }
 
     var delegatesSelection: Bool = false
+    var doesShowArticlePreviews = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -147,5 +148,12 @@ class SearchResultsViewController: ArticleCollectionViewController {
 
             configure(cell: cell, forItemAt: indexPath, layoutOnly: false, configureForCompact: false)
         }
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard doesShowArticlePreviews else {
+            return nil
+        }
+        return super.collectionView(collectionView, contextMenuConfigurationForItemAt: indexPath, point: point)
     }
 }

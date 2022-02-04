@@ -108,6 +108,8 @@ class ArticleViewController: ViewController, HintPresenting {
     }
     
     deinit {
+        // Need following line to prevent memory leak.
+        articleLoadWaitGroup?.leave()
         NotificationCenter.default.removeObserver(self)
         contentSizeObservation?.invalidate()
         messagingController.removeScriptMessageHandler()

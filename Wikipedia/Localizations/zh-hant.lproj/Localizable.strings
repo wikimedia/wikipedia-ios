@@ -5,6 +5,7 @@
 // Author: Cathypilot0117
 // Author: Chixvv
 // Author: Chubit
+// Author: Cleinman
 // Author: Cwlin0416
 // Author: Eric850130
 // Author: Hello903hello
@@ -587,10 +588,20 @@
 "no-internet-connection-article-reload" = "有可用的此條目新版本，但沒有連上網路無法載入";
 "no-internet-connection-article-reload-button" = "返回上一次儲存的版本";
 "notifications-center-change-password" = "修改密碼";
-"notifications-center-commons-project-name" = "維基共享資源";
+"notifications-center-checking-for-notifications" = "正在檢查通知…";
 "notifications-center-empty-checking-for-notifications" = "正在檢查通知...";
-"notifications-center-empty-no-unread-messages" = "您沒有未讀消息";
+"notifications-center-empty-no-messages" = "您沒有訊息";
 "notifications-center-empty-not-subscribed" = "您目前沒有訂閱任何維基百科通知";
+"notifications-center-empty-state-filters-subtitle" = "變動$1來查看更多通知";
+"notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1}} 種篩選";
+"notifications-center-filters-read-status-item-title-all" = "所有";
+"notifications-center-filters-read-status-item-title-read" = "已讀";
+"notifications-center-filters-read-status-item-title-unread" = "未讀";
+"notifications-center-filters-read-status-section-title" = "讀取狀態";
+"notifications-center-filters-title" = "篩選";
+"notifications-center-filters-types-footer" = "變動通知類型來對您的通知收件箱裡的進/出內容篩選。在類型為關閉時會不顯示，內容和任何新通知會在再次切換打開後可用。";
+"notifications-center-filters-types-item-title-all" = "所有類型";
+"notifications-center-filters-types-section-title" = "通知類型";
 "notifications-center-footer-change-password" = "變更密碼";
 "notifications-center-go-to-diff" = "轉到差異";
 "notifications-center-go-to-talk-page" = "進入討論頁";
@@ -598,18 +609,36 @@
 "notifications-center-go-to-user-page" = "轉到$1的用戶頁面";
 "notifications-center-go-to-wikidata-item" = "前往維基數據項";
 "notifications-center-go-to-your-talk-page" = "轉到您的討論頁";
-"notifications-center-header-alert-from-project" = "$1起的警報";
+"notifications-center-header-alert-from-agent" = "來自$1的告警";
+"notifications-center-header-alert-from-project" = "來自$1的告警";
 "notifications-center-header-notice-from-project" = "$1起的通知";
-"notifications-center-language-project-name-format" = "$1 $2";
+"notifications-center-inbox-title" = "專案";
+"notifications-center-inbox-wikimedia-projects-section-footer" = "僅有您有建立帳號的專案來出現在此";
+"notifications-center-inbox-wikimedia-projects-section-title" = "維基媒體專案";
+"notifications-center-inbox-wikipedias-section-title" = "維基百科";
 "notifications-center-login-notifications" = "登錄通知";
 "notifications-center-mark" = "標記";
 "notifications-center-mark-all-as-read" = "標記所有為已讀";
+"notifications-center-mark-all-as-read-confirmation-format" = "您確定要將您所有的 {{PLURAL:$1|$1}} 則通知為已讀？這將會在您的所有裝置上的通知標記為已讀。";
+"notifications-center-mark-all-as-read-missing-number" = "您確定要將您的所有通知標記為已讀？這將會在您的所有裝置上的通知標記為已讀。";
 "notifications-center-mark-as-read" = "標記為已讀";
 "notifications-center-mark-as-unread" = "標記為未讀";
 "notifications-center-notifications-settings" = "通知設置";
+"notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1}} 則訊息";
+"notifications-center-status-all" = "所有";
+"notifications-center-status-all-notifications" = "所有通知";
+"notifications-center-status-double-concatenation" = "$1在 $2 個專案/收件箱上";
+"notifications-center-status-filtered-by" = "篩選依照";
+"notifications-center-status-in-projects" = "在 {{PLURAL:$1|1=1|$1}} 個專案";
+"notifications-center-status-in-projects-plain" = "{{PLURAL:$1|1=1|$1}} 個專案";
+"notifications-center-status-in-types" = "{{PLURAL:$1|1=1|$1}} 種類型";
+"notifications-center-status-read" = "已讀";
+"notifications-center-status-triple-concatenation" = "$1，在 $3 個專案/收件箱上有 $2 個";
+"notifications-center-status-unread" = "未讀";
 "notifications-center-subheader-edit-milestone" = "編輯里程碑";
 "notifications-center-subheader-edit-reverted" = "您的修改已被還原";
 "notifications-center-subheader-email-from-other-user" = "新郵件";
+"notifications-center-subheader-from-agent" = "來自$1";
 "notifications-center-subheader-login-fail-known-device" = "多次登錄嘗試失敗";
 "notifications-center-subheader-login-fail-unknown-device" = "登錄嘗試失敗";
 "notifications-center-subheader-login-success-unknown-device" = "從不熟悉的設備登錄";
@@ -630,7 +659,6 @@
 "notifications-center-swipe-mark-as-unread" = "標記為未讀";
 "notifications-center-swipe-more" = "更多";
 "notifications-center-title" = "通知";
-"notifications-center-wikidata-project-name" = "維基數據";
 "notifications-push-fallback-body-text" = "在維基百科上的新活動";
 "notifications-push-talk-body-format" = "在$3的 $1 個新$2";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|訊息}}";

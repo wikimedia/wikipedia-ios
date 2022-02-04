@@ -460,7 +460,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     }
     
     if (currentLibraryVersion < 14) {
-        [self.remoteNotificationsController deleteLegacyDatabaseFiles];
+        [self.remoteNotificationsController deleteLegacyDatabaseFilesAndReturnError:nil];
         [NSHTTPCookieStorage migrateCookiesToSharedStorage];
         [moc wmf_setValue:@(14) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:&migrationError]) {

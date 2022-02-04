@@ -45,13 +45,7 @@ private extension RemoteNotificationsImportOperation {
     }
     
     var isAlreadyImported: Bool {
-        
-        let key = RemoteNotificationsModelController.LibraryKey.completedImportFlags.fullKeyForProject(project)
-        guard let nsNumber = modelController.libraryValue(forKey: key) as? NSNumber else {
-            return false
-        }
-        
-        return nsNumber.boolValue
+        return modelController.isProjectAlreadyImported(project: project)
     }
     
     func setContinueId(_ continueId: String, forKey key: String) {
