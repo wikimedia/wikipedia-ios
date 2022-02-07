@@ -14,6 +14,7 @@ extension RemoteNotification {
     @NSManaged public var categoryString: String?
     @NSManaged public var date: Date?
     @NSManaged public var id: String?
+    @NSManaged public var isSeen: Bool
     @NSManaged public var isRead: Bool
     @NSManaged public var key: String?
     @NSManaged public var messageBody: String?
