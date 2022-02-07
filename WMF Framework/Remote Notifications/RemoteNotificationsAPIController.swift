@@ -187,6 +187,38 @@ public class RemoteNotificationsAPIController: Fetcher {
         case multiple([Error])
     }
     
+    // MARK: Decodable: MarkSeenResult
+    
+    struct MarkSeenResult: Decodable {
+        let query: Query?
+        let error: ResultError?
+        
+        var succeeded: Bool {
+            return query?.markAsSeen?.result == .success
+        }
+        
+        struct Query: Decodable {
+            let markAsSeen: MarkAsSeen?
+            
+            enum CodingKeys: String, CodingKey {
+                case markAsSeen = "echomarkseen"
+            }
+        }
+        
+        struct MarkAsSeen: Decodable {
+            let result: Result?
+        }
+        
+        enum Result: String, Decodable {
+            case success
+        }
+    }
+    
+    enum MarkSeenError: LocalizedError {
+        case noResult
+        case unknown
+    }
+    
     //MARK: Public
     
     public func getUnreadPushNotifications(from project: RemoteNotificationsProject, completion: @escaping (Set<NotificationsResult.Notification>, Error?) -> Void) {
@@ -214,7 +246,29 @@ public class RemoteNotificationsAPIController: Fetcher {
     }
     
     func markAllAsSeen(project: RemoteNotificationsProject, completion: @escaping (Error?) -> Void) {
-        
+        request(project: project, queryParameters: Query.markAllAsSeen(project: project), method: .post) { (result: MarkSeenResult?, _, error) in
+                    if let error = error {
+                        completion(error)
+                        return
+                    }
+
+                    guard let result = result else {
+                        assertionFailure("Expected result")
+                        completion(MarkSeenError.noResult)
+                        return
+                    }
+
+                    if let error = result.error {
+                        completion(error)
+                        return
+                    }
+
+                    if !result.succeeded {
+                        completion(MarkSeenError.unknown)
+                        return
+                    }
+                    completion(nil)
+                }
     }
     
     func markAllAsRead(project: RemoteNotificationsProject, completion: @escaping (Error?) -> Void) {
