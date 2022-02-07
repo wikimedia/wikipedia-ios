@@ -213,6 +213,10 @@ public class RemoteNotificationsAPIController: Fetcher {
         request(project: project, queryParameters: Query.notifications(from: [project], limit: .max, filter: filter, needsCrossWikiSummary: needsCrossWikiSummary, continueId: continueId), completion: completion)
     }
     
+    func markAllAsSeen(project: RemoteNotificationsProject, completion: @escaping (Error?) -> Void) {
+        
+    }
+    
     func markAllAsRead(project: RemoteNotificationsProject, completion: @escaping (Error?) -> Void) {
         
         request(project: project, queryParameters: Query.markAllAsRead(project: project), method: .post) { (result: MarkReadResult?, _, error) in

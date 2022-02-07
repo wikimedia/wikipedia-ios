@@ -1,4 +1,5 @@
 import CocoaLumberjackSwift
+import CoreData
 
 public extension Notification.Name {
     static let NotificationsCenterContextDidSave = Notification.Name("NotificationsCenterContextDidSave")
@@ -200,6 +201,27 @@ final class RemoteNotificationsModelController {
             
         }
     }
+    
+    // MARK: Mark as seen
+    
+    func markAllAsSeen(moc: NSManagedObjectContext, project:RemoteNotificationsProject, completion: @escaping (Result<Void, Error>) -> Void) {
+        moc.perform { [weak self] in
+            
+            guard let self = self else {
+                return
+            }
+            
+            let unseenPredicate = self.unseenNotificationsPredicate
+            let wikiPredicate = NSPredicate(format: "wiki == %@", project.notificationsApiWikiIdentifier)
+            let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [unseenPredicate, wikiPredicate])
+            
+            /*
+             REDO
+             */
+            completion(.success(()))
+        
+    }
+}
 
     // MARK: Mark as read
     
@@ -268,6 +290,10 @@ final class RemoteNotificationsModelController {
     }
     
     //MARK: Fetch Distinct Wikis
+    
+    func distinctWikisWithUnseenNotifications() throws -> Set<String> {
+        return try distinctWikis(predicate: unseenNotificationsPredicate)
+    }
     
     func distinctWikisWithUnreadNotifications() throws -> Set<String> {
         return try distinctWikis(predicate: unreadNotificationsPredicate)
@@ -345,6 +371,10 @@ final class RemoteNotificationsModelController {
     private var unreadNotificationsPredicate: NSPredicate {
         return NSPredicate(format: "isRead == %@", NSNumber(value: false))
     }
+    
+    private var unseenNotificationsPredicate: NSPredicate {
+            return NSPredicate(format: "isSeen == %@", NSNumber(value: false))
+        }
     
     private func createNewNotification(moc: NSManagedObjectContext, notification: RemoteNotificationsAPIController.NotificationsResult.Notification) throws {
         guard let date = notification.date else {
