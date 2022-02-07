@@ -581,6 +581,7 @@
 "notifications-center-checking-for-notifications" = "Comprovació de les notificacions...";
 "notifications-center-empty-checking-for-notifications" = "S'estan comprovant les notificacions...";
 "notifications-center-empty-not-subscribed" = "No esteu subscrit a cap notificació de la Viquipèdia";
+"notifications-center-filters-title" = "Filtres";
 "notifications-center-footer-change-password" = "Canvia la contrasenya";
 "notifications-center-go-to-diff" = "Vés a la diferència";
 "notifications-center-go-to-talk-page" = "Vés a la pàgina de discussió";
@@ -590,12 +591,16 @@
 "notifications-center-go-to-your-talk-page" = "Vés a la vostra pàgina de discussió";
 "notifications-center-header-alert-from-project" = "Alerta de $1";
 "notifications-center-header-notice-from-project" = "Avís de $1";
+"notifications-center-inbox-title" = "Projectes";
+"notifications-center-inbox-wikimedia-projects-section-title" = "Projectes Wikimedia";
+"notifications-center-inbox-wikipedias-section-title" = "Viquipèdies";
 "notifications-center-login-notifications" = "Notificacions d'inici de sessió";
 "notifications-center-mark" = "Marca";
 "notifications-center-mark-all-as-read" = "Marca'ls tots com a llegits";
 "notifications-center-mark-as-read" = "Marca com a llegida";
 "notifications-center-mark-as-unread" = "Marca com a no llegida";
 "notifications-center-notifications-settings" = "Paràmetres de notificació";
+"notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 missatge|$1 missatges}}";
 "notifications-center-status-all" = "Totes";
 "notifications-center-status-all-notifications" = "Totes les notificacions";
 "notifications-center-status-double-concatenation" = "$1 de $2";
@@ -609,6 +614,7 @@
 "notifications-center-subheader-edit-milestone" = "Fita d'edició";
 "notifications-center-subheader-edit-reverted" = "S'ha revertit la vostra modificació";
 "notifications-center-subheader-email-from-other-user" = "Correu electrònic nou";
+"notifications-center-subheader-from-agent" = "De $1";
 "notifications-center-subheader-login-fail-known-device" = "Múltiples intents d'inici de sessió fallits";
 "notifications-center-subheader-login-fail-unknown-device" = "Intent d'inici de sessió fallit";
 "notifications-center-subheader-login-success-unknown-device" = "Inici de sessió d'un dispositiu no habitual";
