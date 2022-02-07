@@ -314,11 +314,11 @@ public class RemoteNotificationsAPIController: Fetcher {
 
     struct Query {
         typealias Parameters = [String: Any]
-
+        
         enum Limit {
             case max
             case numeric(Int)
-
+            
             var value: String {
                 switch self {
                 case .max:
@@ -328,7 +328,7 @@ public class RemoteNotificationsAPIController: Fetcher {
                 }
             }
         }
-
+        
         enum Filter: String {
             case read = "read"
             case unread = "!read"
@@ -340,16 +340,16 @@ public class RemoteNotificationsAPIController: Fetcher {
             case push
             case email
         }
-
+        
         static func notifications(from projects: [RemoteNotificationsProject] = [], limit: Limit = .max, filter: Filter = .none, notifierType: NotifierType? = nil, needsCrossWikiSummary: Bool = false, continueId: String?) -> Parameters {
             var dictionary: [String: Any] = ["action": "query",
-                    "format": "json",
-                    "formatversion": "2",
-                    "notformat": "model",
-                    "meta": "notifications",
-                    "notlimit": limit.value,
-                    "notfilter": filter.rawValue]
-
+                                             "format": "json",
+                                             "formatversion": "2",
+                                             "notformat": "model",
+                                             "meta": "notifications",
+                                             "notlimit": limit.value,
+                                             "notfilter": filter.rawValue]
+            
             if let continueId = continueId {
                 dictionary["notcontinue"] = continueId
             }
@@ -367,7 +367,7 @@ public class RemoteNotificationsAPIController: Fetcher {
             
             return dictionary
         }
-
+        
         static func markAsReadOrUnread(identifierGroups: [RemoteNotification.IdentifierGroup], shouldMarkRead: Bool) -> Parameters? {
             let IDs = identifierGroups.compactMap { $0.id }
             
@@ -384,6 +384,14 @@ public class RemoteNotificationsAPIController: Fetcher {
         
         static func markAllAsRead(project: RemoteNotificationsProject) -> Parameters? {
             let dictionary = ["action": "echomarkread",
+                              "all": "true",
+                              "wikis": project.notificationsApiWikiIdentifier,
+                              "format": "json"]
+            return dictionary
+        }
+        
+        static func markAllAsSeen(project: RemoteNotificationsProject) -> Parameters? {
+            let dictionary = ["action": "echomarkseen",
                               "all": "true",
                               "wikis": project.notificationsApiWikiIdentifier,
                               "format": "json"]
