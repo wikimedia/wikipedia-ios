@@ -162,6 +162,17 @@ final class NotificationsCenterViewModel: NSObject {
         }
     }
     
+    func markAllAsSeen() {
+        remoteNotificationsController.markAllAsSeen { result in
+            switch result {
+            case let .failure(error):
+                DDLogError("Error marking all notifications as seen: \(error)")
+            default:
+                break
+            }
+        }
+    }
+    
     func fetchFirstPage() {
         
         remoteNotificationsController.fetchNotifications { [weak self] result in

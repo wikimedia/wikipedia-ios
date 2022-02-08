@@ -195,8 +195,22 @@ public enum RemoteNotificationsControllerError: Error {
         operationsController.markAllAsRead(languageLinkController: languageLinkController, completion: completion)
     }
     
-    public func markAllAsSeen() {
+    public func markAllAsSeen(completion: ((Result<Void, Error>) -> Void)? = nil) {
+        guard areFiltersEnabled else {
+            return
+        }
         
+        guard let operationsController = operationsController else {
+            completion?(.failure(RemoteNotificationsControllerError.databaseUnavailable))
+            return
+        }
+        
+        guard authManager.isLoggedIn else {
+            completion?(.failure(RequestError.unauthenticated))
+            return
+        }
+        
+        operationsController.markAllAsSeen(languageLinkController: languageLinkController, completion: completion)
     }
     
     /// Passthrough method to listen for NSManagedObjectContextObjectsDidChange notifications on the viewContext, in order to encapsulate viewContext within the WMF Framework.

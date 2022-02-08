@@ -148,9 +148,39 @@ class RemoteNotificationsOperationsController: NSObject {
         self.operationQueue.addOperations(operations + [completionOperation], waitUntilFinished: false)
     }
     
-    func markAllAsSeen() {
+    func markAllAsSeen(languageLinkController: MWKLanguageLinkController, completion: ((Result<Void, Error>) -> Void)? = nil) {
+        assert(Thread.isMainThread)
         
+        let wikisWithUnseenNotifications: Set<String>
+        do {
+            wikisWithUnseenNotifications = try modelController.distinctWikisWithUnseenNotifications()
+        } catch (let error) {
+            completion?(.failure(error))
+            return
+        }
+        
+        let projects = wikisWithUnseenNotifications.compactMap { RemoteNotificationsProject(apiIdentifier: $0, languageLinkController: languageLinkController) }
+        
+        let operations = projects.map { RemoteNotificationsMarkAsSeenOperation(project: $0, apiController: self.apiController, modelController: self.modelController) }
+        
+        let completionOperation = BlockOperation {
+            DispatchQueue.main.async {
+                let errors = operations.compactMap { $0.error }
+                if errors.count > 0 {
+                    completion?(.failure(RemoteNotificationsOperationsError.individualErrors(errors)))
+                } else {
+                    completion?(.success(()))
+                }
+            }
+        }
+        
+        for operation in operations {
+            completionOperation.addDependency(operation)
+        }
+        
+        self.operationQueue.addOperations(operations + [completionOperation], waitUntilFinished: false)
     }
+    
     //MARK: Private
     
     /// Generates the correct paging operation (Import or Refresh) based on a project's persisted imported state.
