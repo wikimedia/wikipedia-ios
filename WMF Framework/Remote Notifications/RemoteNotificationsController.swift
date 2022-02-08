@@ -45,6 +45,10 @@ public enum RemoteNotificationsControllerError: Error {
     public var isLoadingNotifications: Bool {
         return operationsController?.isLoadingNotifications ?? false
     }
+    
+    public var areFiltersEnabled: Bool {
+        return filterState.readStatus != .all || filterState.offProjects.count != 0 || filterState.offTypes.count != 0
+    }
 
     public static let didUpdateFilterStateNotification = NSNotification.Name(rawValue: "RemoteNotificationsControllerDidUpdateFilterState")
     
@@ -189,6 +193,10 @@ public enum RemoteNotificationsControllerError: Error {
         }
         
         operationsController.markAllAsRead(languageLinkController: languageLinkController, completion: completion)
+    }
+    
+    public func markAllAsSeen() {
+        
     }
     
     /// Passthrough method to listen for NSManagedObjectContextObjectsDidChange notifications on the viewContext, in order to encapsulate viewContext within the WMF Framework.

@@ -148,6 +148,9 @@ class RemoteNotificationsOperationsController: NSObject {
         self.operationQueue.addOperations(operations + [completionOperation], waitUntilFinished: false)
     }
     
+    func markAllAsSeen() {
+        
+    }
     //MARK: Private
     
     /// Generates the correct paging operation (Import or Refresh) based on a project's persisted imported state.
