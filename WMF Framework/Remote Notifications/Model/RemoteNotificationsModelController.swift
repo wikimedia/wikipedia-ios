@@ -215,9 +215,7 @@ final class RemoteNotificationsModelController {
             let wikiPredicate = NSPredicate(format: "wiki == %@", project.notificationsApiWikiIdentifier)
             let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [unseenPredicate, wikiPredicate])
             
-            /*
-             REDO
-             */
+            
             completion(.success(()))
         
     }

@@ -196,9 +196,9 @@ public enum RemoteNotificationsControllerError: Error {
     }
     
     public func markAllAsSeen(completion: ((Result<Void, Error>) -> Void)? = nil) {
-        guard areFiltersEnabled else {
-            return
-        }
+//        guard areFiltersEnabled else {
+//            return
+//        }
         
         guard let operationsController = operationsController else {
             completion?(.failure(RemoteNotificationsControllerError.databaseUnavailable))
