@@ -197,7 +197,7 @@ public enum RemoteNotificationsControllerError: Error {
     
     /// Asks server to mark all notifications as seen for projects that contain local unread notifications. Updates local database on a backgroundContext.
     public func markAllAsSeen(completion: ((Result<Void, Error>) -> Void)? = nil) {
-        guard areFiltersEnabled else {
+        guard !areFiltersEnabled else {
             return
         }
         
