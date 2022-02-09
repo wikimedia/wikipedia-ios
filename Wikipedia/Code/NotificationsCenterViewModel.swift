@@ -167,6 +167,7 @@ final class NotificationsCenterViewModel: NSObject {
             switch result {
             case let .failure(error):
                 DDLogError("Error marking all notifications as seen: \(error)")
+                //TODO: show some sort of error state
             default:
                 break
             }

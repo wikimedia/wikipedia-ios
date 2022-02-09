@@ -215,11 +215,26 @@ final class RemoteNotificationsModelController {
             let wikiPredicate = NSPredicate(format: "wiki == %@", project.notificationsApiWikiIdentifier)
             let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [unseenPredicate, wikiPredicate])
             
-            
-            completion(.success(()))
-        
+            do {
+                let notifications = try self.notifications(moc: moc, predicate: compoundPredicate)
+                
+                guard !notifications.isEmpty else {
+                    completion(.failure(ReadWriteError.missingNotifications))
+                    return
+                }
+                
+                notifications.forEach { notification in
+                    notification.isSeen = true
+                }
+                
+                try self.save(moc: moc)
+                completion(.success(()))
+                
+            } catch (let error) {
+                completion(.failure(error))
+            }
+        }
     }
-}
 
     // MARK: Mark as read
     
@@ -371,8 +386,8 @@ final class RemoteNotificationsModelController {
     }
     
     private var unseenNotificationsPredicate: NSPredicate {
-            return NSPredicate(format: "isSeen == %@", NSNumber(value: false))
-        }
+        return NSPredicate(format: "isSeen == %@", NSNumber(value: false))
+    }
     
     private func createNewNotification(moc: NSManagedObjectContext, notification: RemoteNotificationsAPIController.NotificationsResult.Notification) throws {
         guard let date = notification.date else {
