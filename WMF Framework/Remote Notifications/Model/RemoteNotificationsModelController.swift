@@ -202,40 +202,6 @@ final class RemoteNotificationsModelController {
         }
     }
     
-    // MARK: Mark as seen
-    
-    func markAllAsSeen(moc: NSManagedObjectContext, project:RemoteNotificationsProject, completion: @escaping (Result<Void, Error>) -> Void) {
-        moc.perform { [weak self] in
-            
-            guard let self = self else {
-                return
-            }
-            
-            let unseenPredicate = self.unseenNotificationsPredicate
-            let wikiPredicate = NSPredicate(format: "wiki == %@", project.notificationsApiWikiIdentifier)
-            let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [unseenPredicate, wikiPredicate])
-            
-            do {
-                let notifications = try self.notifications(moc: moc, predicate: compoundPredicate)
-                
-                guard !notifications.isEmpty else {
-                    completion(.failure(ReadWriteError.missingNotifications))
-                    return
-                }
-                
-                notifications.forEach { notification in
-                    notification.isSeen = true
-                }
-                
-                try self.save(moc: moc)
-                completion(.success(()))
-                
-            } catch (let error) {
-                completion(.failure(error))
-            }
-        }
-    }
-
     // MARK: Mark as read
     
     func markAllAsRead(moc: NSManagedObjectContext, project: RemoteNotificationsProject, completion: @escaping (Result<Void, Error>) -> Void) {
@@ -303,11 +269,7 @@ final class RemoteNotificationsModelController {
     }
     
     //MARK: Fetch Distinct Wikis
-    
-    func distinctWikisWithUnseenNotifications() throws -> Set<String> {
-        return try distinctWikis(predicate: unseenNotificationsPredicate)
-    }
-    
+
     func distinctWikisWithUnreadNotifications() throws -> Set<String> {
         return try distinctWikis(predicate: unreadNotificationsPredicate)
     }
@@ -384,11 +346,7 @@ final class RemoteNotificationsModelController {
     private var unreadNotificationsPredicate: NSPredicate {
         return NSPredicate(format: "isRead == %@", NSNumber(value: false))
     }
-    
-    private var unseenNotificationsPredicate: NSPredicate {
-        return NSPredicate(format: "isSeen == %@", NSNumber(value: false))
-    }
-    
+
     private func createNewNotification(moc: NSManagedObjectContext, notification: RemoteNotificationsAPIController.NotificationsResult.Notification) throws {
         guard let date = notification.date else {
             assertionFailure("Notification should have a date")

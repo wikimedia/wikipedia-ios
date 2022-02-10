@@ -3,6 +3,7 @@ import CocoaLumberjackSwift
 public enum RemoteNotificationsControllerError: Error {
     case databaseUnavailable
     case attemptingToRefreshBeforeDeadline
+    case failurePullingAppLanguage
 }
 
 @objc public final class RemoteNotificationsController: NSObject {
@@ -195,23 +196,24 @@ public enum RemoteNotificationsControllerError: Error {
         operationsController.markAllAsRead(languageLinkController: languageLinkController, completion: completion)
     }
     
-    /// Asks server to mark all notifications as seen for projects that contain local unread notifications. Updates local database on a backgroundContext.
-    public func markAllAsSeen(completion: ((Result<Void, Error>) -> Void)? = nil) {
+    /// Asks server to mark all notifications as seen for wikipedias that contain local unread notifications.
+    public func markAllAsSeen(completion: @escaping ((Result<Void, Error>) -> Void)) {
         guard !areFiltersEnabled else {
             return
         }
         
-        guard let operationsController = operationsController else {
-            completion?(.failure(RemoteNotificationsControllerError.databaseUnavailable))
-            return
-        }
-        
         guard authManager.isLoggedIn else {
-            completion?(.failure(RequestError.unauthenticated))
+            completion(.failure(RequestError.unauthenticated))
             return
         }
         
-        operationsController.markAllAsSeen(languageLinkController: languageLinkController, completion: completion)
+        guard let appLanguage = languageLinkController.appLanguage else {
+            completion(.failure(RemoteNotificationsControllerError.failurePullingAppLanguage))
+            return
+        }
+        
+        let appLanguageProject =  RemoteNotificationsProject.wikipedia(appLanguage.languageCode, appLanguage.localizedName, appLanguage.languageVariantCode)
+        apiController.markAllAsSeen(project: appLanguageProject, completion: completion)
     }
     
     /// Passthrough method to listen for NSManagedObjectContextObjectsDidChange notifications on the viewContext, in order to encapsulate viewContext within the WMF Framework.

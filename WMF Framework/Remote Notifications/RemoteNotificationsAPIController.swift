@@ -97,6 +97,7 @@ public class RemoteNotificationsAPIController: Fetcher {
             let title: Title?
             let agent: Agent?
             let readString: String?
+            let seenString: String?
             let revisionID: String?
             let message: Message?
             let sources: [String: [String: String]]?
@@ -111,6 +112,7 @@ public class RemoteNotificationsAPIController: Fetcher {
                 case title = "title"
                 case agent
                 case readString = "read"
+                case seenString = "seen"
                 case revisionID = "revid"
                 case message = "*"
                 case sources
@@ -141,6 +143,7 @@ public class RemoteNotificationsAPIController: Fetcher {
                 title = try? values.decode(Title.self, forKey: .title)
                 agent = try? values.decode(Agent.self, forKey: .agent)
                 readString = try? values.decode(String.self, forKey: .readString)
+                seenString = try? values.decode(String.self, forKey: .seenString)
                 
                 if let intRevID = try? values.decode(Int.self, forKey: .revisionID) {
                     revisionID = String(intRevID)
@@ -245,30 +248,30 @@ public class RemoteNotificationsAPIController: Fetcher {
         request(project: project, queryParameters: Query.notifications(from: [project], limit: .max, filter: filter, needsCrossWikiSummary: needsCrossWikiSummary, continueId: continueId), completion: completion)
     }
     
-    func markAllAsSeen(project: RemoteNotificationsProject, completion: @escaping (Error?) -> Void) {
+    func markAllAsSeen(project: RemoteNotificationsProject, completion: @escaping ((Result<Void, Error>) -> Void)) {
         request(project: project, queryParameters: Query.markAllAsSeen(project: project), method: .post) { (result: MarkSeenResult?, _, error) in
-                    if let error = error {
-                        completion(error)
-                        return
-                    }
-
-                    guard let result = result else {
-                        assertionFailure("Expected result")
-                        completion(MarkSeenError.noResult)
-                        return
-                    }
-
-                    if let error = result.error {
-                        completion(error)
-                        return
-                    }
-
-                    if !result.succeeded {
-                        completion(MarkSeenError.unknown)
-                        return
-                    }
-                    completion(nil)
-                }
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let result = result else {
+                assertionFailure("Expected result")
+                completion(.failure(MarkSeenError.noResult))
+                return
+            }
+            
+            if let error = result.error {
+                completion(.failure(error))
+                return
+            }
+            
+            if !result.succeeded {
+                completion(.failure(MarkSeenError.unknown))
+                return
+            }
+            completion(.success(()))
+        }
     }
     
     func markAllAsRead(project: RemoteNotificationsProject, completion: @escaping (Error?) -> Void) {
@@ -448,7 +451,8 @@ public class RemoteNotificationsAPIController: Fetcher {
             let dictionary = ["action": "echomarkseen",
                               "all": "true",
                               "wikis": project.notificationsApiWikiIdentifier,
-                              "format": "json"]
+                              "format": "json",
+                              "type": "all"]
             return dictionary
         }
     }
