@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -36,7 +34,7 @@
                                                     </constraints>
                                                     <state key="normal" image="chevron-up"/>
                                                     <connections>
-                                                        <action selector="tappedPrevious" destination="-2" eventType="touchUpInside" id="DfR-RX-MOc"/>
+                                                        <action selector="tappedPrevious" destination="iN0-l3-epB" eventType="touchUpInside" id="wX5-Bl-uAB"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ygy-QU-ZCs">
@@ -47,7 +45,7 @@
                                                     </constraints>
                                                     <state key="normal" image="chevron-down"/>
                                                     <connections>
-                                                        <action selector="tappedNext" destination="-2" eventType="touchUpInside" id="82Z-DO-PAd"/>
+                                                        <action selector="tappedNext" destination="iN0-l3-epB" eventType="touchUpInside" id="p28-89-FcV"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -59,11 +57,11 @@
                                                     <rect key="frame" x="10" y="8.5" width="13" height="13"/>
                                                 </imageView>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SWF-dB-rso">
-                                                    <rect key="frame" x="33" y="6.5" width="223" height="17"/>
+                                                    <rect key="frame" x="33" y="6" width="223" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search" enablesReturnKeyAutomatically="YES" smartQuotesType="no"/>
                                                     <connections>
-                                                        <action selector="textFieldDidChange:" destination="-2" eventType="editingChanged" id="AbV-ee-dAL"/>
+                                                        <action selector="textFieldDidChange:" destination="iN0-l3-epB" eventType="editingChanged" id="kcU-cf-daZ"/>
                                                         <outlet property="delegate" destination="iN0-l3-epB" id="LDX-LI-4nu"/>
                                                     </connections>
                                                 </textField>
@@ -81,7 +79,7 @@
                                                     </constraints>
                                                     <state key="normal" image="clear-mini"/>
                                                     <connections>
-                                                        <action selector="tappedFindClear" destination="-2" eventType="touchUpInside" id="Qtf-PV-mgi"/>
+                                                        <action selector="tappedFindClear" destination="iN0-l3-epB" eventType="touchUpInside" id="LnL-AX-1YN"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -113,7 +111,7 @@
                                             </constraints>
                                             <state key="normal" image="close"/>
                                             <connections>
-                                                <action selector="tappedClose" destination="-2" eventType="touchUpInside" id="mXn-CZ-ZKx"/>
+                                                <action selector="tappedClose" destination="iN0-l3-epB" eventType="touchUpInside" id="Bxp-S2-tY1"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -128,11 +126,11 @@
                                                     <rect key="frame" x="10" y="8.5" width="13" height="13"/>
                                                 </imageView>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dce-vp-s0R">
-                                                    <rect key="frame" x="33" y="6.5" width="267" height="17"/>
+                                                    <rect key="frame" x="33" y="6" width="267" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="go" enablesReturnKeyAutomatically="YES" smartQuotesType="no"/>
                                                     <connections>
-                                                        <action selector="textFieldDidChange:" destination="-2" eventType="editingChanged" id="dWX-yg-1uq"/>
+                                                        <action selector="textFieldDidChange:" destination="iN0-l3-epB" eventType="editingChanged" id="YXc-f4-Iu2"/>
                                                         <outlet property="delegate" destination="iN0-l3-epB" id="XLZ-Yt-8tI"/>
                                                     </connections>
                                                 </textField>
@@ -156,7 +154,7 @@
                                                     </constraints>
                                                     <state key="normal" image="clear-mini"/>
                                                     <connections>
-                                                        <action selector="tappedReplaceClear" destination="-2" eventType="touchUpInside" id="oA5-sa-bRQ"/>
+                                                        <action selector="tappedReplaceClear" destination="iN0-l3-epB" eventType="touchUpInside" id="JQF-P2-BI4"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -194,7 +192,7 @@
                                                     </constraints>
                                                     <state key="normal" image="replace"/>
                                                     <connections>
-                                                        <action selector="tappedReplace" destination="-2" eventType="touchUpInside" id="mOP-Vp-2gK"/>
+                                                        <action selector="tappedReplace" destination="iN0-l3-epB" eventType="touchUpInside" id="Bkc-lZ-0hx"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ID5-aA-3Fl">
@@ -205,7 +203,7 @@
                                                     </constraints>
                                                     <state key="normal" image="dots"/>
                                                     <connections>
-                                                        <action selector="tappedReplaceSwitch" destination="-2" eventType="touchUpInside" id="Rg4-pH-Fzt"/>
+                                                        <action selector="tappedReplaceSwitch" destination="iN0-l3-epB" eventType="touchUpInside" id="nh5-nr-Q2G"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -224,6 +222,7 @@
                     </constraints>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="nUH-ZK-lDf"/>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="mcZ-4f-6ui" firstAttribute="leading" secondItem="nUH-ZK-lDf" secondAttribute="leading" id="Hb3-fq-BHR"/>
@@ -235,7 +234,6 @@
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="nUH-ZK-lDf"/>
             <connections>
                 <outlet property="closeButton" destination="cVz-34-psT" id="ugE-BQ-Wie"/>
                 <outlet property="currentMatchLabel" destination="6cQ-Pa-aFx" id="K9Y-CS-Rke"/>
@@ -271,6 +269,6 @@
         <image name="dots" width="18" height="4"/>
         <image name="find-replace-search" width="13" height="13"/>
         <image name="pencil" width="13" height="13"/>
-        <image name="replace" width="19" height="18"/>
+        <image name="replace" width="19" height="19"/>
     </resources>
 </document>
