@@ -403,7 +403,7 @@ public class RemoteNotificationsAPIController: Fetcher {
                                              "meta": "notifications",
                                              "notlimit": limit.value,
                                              "notfilter": filter.rawValue]
-            
+
             if let continueId = continueId {
                 dictionary["notcontinue"] = continueId
             }
