@@ -94,7 +94,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [self configureBarButtonItems];
+    NSInteger numUnreadNotifications = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
+    [self configureBarButtonItemsWithNumUnreadNotifications:numUnreadNotifications andNeedsUpdate:YES];
     [self.navigationController setNavigationBarHidden:YES];
     [super viewWillAppear:animated];
     self.navigationController.toolbarHidden = YES;
@@ -104,26 +105,31 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     self.parentViewController.navigationItem.backButtonTitle = self.title;
 }
 
-- (void)configureBarButtonItems {
+- (void)configureBarButtonItemsWithNumUnreadNotifications: (NSInteger)numUnreadNotifications andNeedsUpdate: (BOOL)needsUpdate {
     if (self.tabBarController == nil) {
         // Always show close button if presented modally
         UIBarButtonItem *xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX target:self action:@selector(closeButtonPressed)];
         xButton.accessibilityLabel = [WMFCommonStrings closeButtonAccessibilityLabel];
         self.navigationItem.leftBarButtonItem = xButton;
-    } else {
-        // If in a tab bar presentation, only show notification bar button item if the user is logged in
-        if (self.dataStore.authenticationManager.isLoggedIn) {
-            NSInteger numUnreadNotifications = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
-            UIImage *image = numUnreadNotifications == 0 ? [self notificationsCenterBellImageWithUnreadNotifications:NO] : [self notificationsCenterBellImageWithUnreadNotifications:YES];
-            UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(userDidTapNotificationsCenter)];
-            notificationsBarButton.accessibilityLabel = [WMFCommonStrings notificationsCenterTitle];
-            self.navigationItem.leftBarButtonItem = notificationsBarButton;
-        } else {
-            self.navigationItem.leftBarButtonItem = nil;
-        }
+        [self.navigationBar updateNavigationItems];
+        return;
     }
-
-    [self.navigationBar updateNavigationItems];
+    
+    if (!self.dataStore.authenticationManager.isLoggedIn) {
+        self.navigationItem.leftBarButtonItem = nil;
+        [self.navigationBar updateNavigationItems];
+        return;
+    }
+    
+    // If in a tab bar presentation, only show notification bar button item if the user is logged in and caching logic passed in indicates that we need a nav bar update.
+    if (needsUpdate) {
+        NSInteger numUnreadNotifications = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
+        UIImage *image = numUnreadNotifications == 0 ? [self notificationsCenterBellImageWithUnreadNotifications:NO] : [self notificationsCenterBellImageWithUnreadNotifications:YES];
+        UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(userDidTapNotificationsCenter)];
+        notificationsBarButton.accessibilityLabel = [WMFCommonStrings notificationsCenterTitle];
+        self.navigationItem.leftBarButtonItem = notificationsBarButton;
+        [self.navigationBar updateNavigationItems];
+    }
 }
 
 - (void)closeButtonPressed {

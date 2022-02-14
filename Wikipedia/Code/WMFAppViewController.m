@@ -115,6 +115,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @property (nonatomic, strong) WMFConfiguration *configuration;
 @property (nonatomic, strong) WMFViewControllerRouter *router;
 
+@property (nonatomic, assign) NSNumber *lastNumUnreadNotificationsForBadgeConsideration;
+
 @end
 
 @implementation WMFAppViewController
@@ -135,6 +137,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (self) {
         self.configuration = [WMFConfiguration current];
         self.router = [[WMFViewControllerRouter alloc] initWithAppViewController:self router:self.configuration.router];
+        self.lastNumUnreadNotificationsForBadgeConsideration = @0;
     }
     return self;
 }
@@ -215,7 +218,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleExploreCenterBadgeNeedsUpdateNotification)
+                                             selector:@selector(handleNotificationsBadgeNeedsUpdateNotification)
                                                  name:NSNotification.notificationsCenterBadgeNeedsUpdate
                                                object:nil];
 
@@ -1394,7 +1397,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         _exploreViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-explore"];
         _exploreViewController.title = [WMFCommonStrings exploreTabTitle];
         [_exploreViewController applyTheme:self.theme];
-        [self setNotificationsCenterButtonForExploreViewController:_exploreViewController];
+        [self setNotificationsCenterButtonForExploreViewController:_exploreViewController numUnreadNotifications:@0 force:YES];
         UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
 
         settingsBarButtonItem.accessibilityLabel = [WMFCommonStrings settingsTitle];
@@ -1404,28 +1407,53 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     return _exploreViewController;
 }
 
-- (void)setNotificationsCenterButtonForExploreViewController:(ExploreViewController *)exploreViewController {
-    if (self.dataStore.authenticationManager.isLoggedIn) {
-        NSInteger numUnreadNotifications = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
-        UIImage *image = numUnreadNotifications == 0 ? [self notificationsCenterBellImageWithUnreadNotifications:NO] : [self notificationsCenterBellImageWithUnreadNotifications:YES];
+- (void)setNotificationsCenterButtonForExploreViewController:(ExploreViewController *)exploreViewController numUnreadNotifications:(NSNumber *)numUnreadNotifications force:(BOOL)force {
+
+    if (!self.dataStore.authenticationManager.isLoggedIn) {
+        exploreViewController.navigationItem.leftBarButtonItem = nil;
+        [exploreViewController.navigationBar updateNavigationItems];
+        return;
+    }
+
+    if (!numUnreadNotifications || !self.lastNumUnreadNotificationsForBadgeConsideration) {
+        return;
+    }
+
+    if ((self.lastNumUnreadNotificationsForBadgeConsideration.integerValue == 0 && numUnreadNotifications.integerValue > 0) ||
+        (self.lastNumUnreadNotificationsForBadgeConsideration.integerValue > 0 && numUnreadNotifications.integerValue == 0)) {
+        UIImage *image = numUnreadNotifications.integerValue == 0 ? [self notificationsCenterBellImageWithUnreadNotifications:NO] : [self notificationsCenterBellImageWithUnreadNotifications:YES];
         UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:_exploreViewController action:@selector(userDidTapNotificationsCenter)];
         notificationsBarButton.accessibilityLabel = [WMFCommonStrings notificationsCenterTitle];
         exploreViewController.navigationItem.leftBarButtonItem = notificationsBarButton;
-    } else {
-        exploreViewController.navigationItem.leftBarButtonItem = nil;
+        [exploreViewController.navigationBar updateNavigationItems];
+    }
+}
+
+- (void)setNotificationsCenterButtonForSettingsViewController:(WMFSettingsViewController *)settingsViewController numUnreadNotifications:(NSNumber *)numUnreadNotifications force:(BOOL)force {
+
+    if (!numUnreadNotifications || !self.lastNumUnreadNotificationsForBadgeConsideration) {
+        return;
     }
 
-    [exploreViewController.navigationBar updateNavigationItems];
+    BOOL needsUpdate = false;
+    if (force) {
+        needsUpdate = true;
+    } else if ((self.lastNumUnreadNotificationsForBadgeConsideration.integerValue == 0 && numUnreadNotifications.integerValue > 0) ||
+               (self.lastNumUnreadNotificationsForBadgeConsideration.integerValue > 0 && numUnreadNotifications.integerValue == 0)) {
+        needsUpdate = true;
+    }
+
+    [settingsViewController configureBarButtonItemsWithNumUnreadNotifications:numUnreadNotifications.integerValue andNeedsUpdate:needsUpdate];
 }
 
-- (void)setNotificationsCenterButtonForSettingsViewController:(WMFSettingsViewController *)settingsViewController {
-    [settingsViewController configureBarButtonItems];
-}
-
-- (void)handleExploreCenterBadgeNeedsUpdateNotification {
+- (void)handleNotificationsBadgeNeedsUpdateNotification {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self setNotificationsCenterButtonForExploreViewController:self.exploreViewController];
-        [self setNotificationsCenterButtonForSettingsViewController:self.settingsViewController];
+        NSNumber *numUnreadNotifications = [self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil];
+
+        [self setNotificationsCenterButtonForExploreViewController:self.exploreViewController numUnreadNotifications:numUnreadNotifications force:NO];
+        [self setNotificationsCenterButtonForSettingsViewController:self.settingsViewController numUnreadNotifications:numUnreadNotifications force:NO];
+
+        self.lastNumUnreadNotificationsForBadgeConsideration = numUnreadNotifications;
     });
 }
 
@@ -2039,16 +2067,24 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)userWasLoggedOut:(NSNotification *)note {
     [self showLoggedOutPanelIfNeeded];
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self setNotificationsCenterButtonForExploreViewController:self.exploreViewController];
-        [self setNotificationsCenterButtonForSettingsViewController:self.settingsViewController];
+        NSNumber *numUnreadNotifications = [self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil];
+
+        [self setNotificationsCenterButtonForExploreViewController:self.exploreViewController numUnreadNotifications:numUnreadNotifications force:YES];
+        [self setNotificationsCenterButtonForSettingsViewController:self.settingsViewController numUnreadNotifications:numUnreadNotifications force:YES];
+
+        self.lastNumUnreadNotificationsForBadgeConsideration = numUnreadNotifications;
         UIApplication.sharedApplication.applicationIconBadgeNumber = 0;
     });
 }
 
 - (void)userWasLoggedIn:(NSNotification *)note {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self setNotificationsCenterButtonForExploreViewController:self.exploreViewController];
-        [self setNotificationsCenterButtonForSettingsViewController:self.settingsViewController];
+        NSNumber *numUnreadNotifications = [self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil];
+
+        [self setNotificationsCenterButtonForExploreViewController:self.exploreViewController numUnreadNotifications:numUnreadNotifications force:YES];
+        [self setNotificationsCenterButtonForSettingsViewController:self.settingsViewController numUnreadNotifications:numUnreadNotifications force:YES];
+
+        self.lastNumUnreadNotificationsForBadgeConsideration = numUnreadNotifications;
     });
 }
 

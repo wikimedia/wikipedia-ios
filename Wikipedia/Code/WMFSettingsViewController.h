@@ -9,7 +9,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)settingsViewControllerWithDataStore:(MWKDataStore *)store;
 
 - (void)loadSections;
-- (void)configureBarButtonItems;
+- (void)configureBarButtonItemsWithNumUnreadNotifications: (NSInteger)numUnreadNotifications andNeedsUpdate: (BOOL)needsUpdate;
 
 @property (nonatomic, strong, readonly) MWKDataStore *dataStore;
 @property (nonatomic, weak, nullable) id<NotificationsCenterPresentationDelegate> notificationsCenterPresentationDelegate;
