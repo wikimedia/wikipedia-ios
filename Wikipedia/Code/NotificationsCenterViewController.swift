@@ -179,7 +179,7 @@ private extension NotificationsCenterViewController {
             }
             
             let isSelected = (collectionView.indexPathsForSelectedItems ?? []).contains(indexPath)
-            self.viewModel.updateCellDisplayStates(cellViewModels: [cellViewModel], isSelected: isSelected)
+            cellViewModel.updateDisplayState(isEditing: self.viewModel.isEditing, isSelected: isSelected)
             cell.configure(viewModel: cellViewModel, theme: self.theme)
             cell.delegate = self
             return cell
@@ -224,15 +224,13 @@ private extension NotificationsCenterViewController {
             snapshotUpdateQueue.async {
                 if var snapshot = self.dataSource?.snapshot() {
                     
-                    let viewModelsToUpdate = snapshot.itemIdentifiers.filter {
-                        guard let viewModels = viewModels else {
-                            return true
-                        }
-                        
-                        return viewModels.contains($0)
+                    let itemIdentifiers = Set(snapshot.itemIdentifiers)
+                    var viewModelsToUpdate = itemIdentifiers
+                    if let viewModels = viewModels {
+                        viewModelsToUpdate = itemIdentifiers.union(Set(viewModels))
                     }
                     
-                    snapshot.reconfigureItems(viewModelsToUpdate)
+                    snapshot.reconfigureItems(Array(viewModelsToUpdate))
                     self.dataSource?.apply(snapshot, animatingDifferences: false)
                 }
             }
