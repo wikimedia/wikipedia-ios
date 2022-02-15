@@ -283,6 +283,10 @@ public enum RemoteNotificationsControllerError: Error {
         sharedCache.saveCache(pushCache)
     }
     
+    public var filterPredicate: NSPredicate? {
+        predicateForFilterSavedState(filterState)
+    }
+    
     public var filterState: RemoteNotificationsFilterState = RemoteNotificationsFilterState(readStatus: .all, offTypes: [], offProjects: []) {
         didSet {
             

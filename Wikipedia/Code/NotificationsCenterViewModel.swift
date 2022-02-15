@@ -76,9 +76,11 @@ final class NotificationsCenterViewModel: NSObject {
         
         //TODO: Handle other key types? (Deleted, Updated, Invalidated)
         let refreshedNotifications = notification.userInfo?[NSRefreshedObjectsKey] as? Set<RemoteNotification> ?? []
-        let newNotifications = notification.userInfo?[NSInsertedObjectsKey] as? Set<RemoteNotification> ?? []
+        let insertedNotifications = notification.userInfo?[NSInsertedObjectsKey] as? Set<RemoteNotification> ?? []
         
-        guard (refreshedNotifications.count > 0 || newNotifications.count > 0) else {
+        let insertedNotificationsToDisplay = notificationsToDisplayFromManagedObjectContextInsert(insertedNotifications: insertedNotifications)
+        
+        guard (refreshedNotifications.count > 0 || insertedNotificationsToDisplay.count > 0) else {
             return
         }
         
@@ -87,7 +89,7 @@ final class NotificationsCenterViewModel: NSObject {
         let refreshUpdateTypes = modelController.evaluateUpdatedNotifications(updatedNotifications: Array(refreshedNotifications), isEditing: isEditing)
         updateTypes.append(contentsOf: refreshUpdateTypes)
         
-        if let insertUpdateType = modelController.addNewCellViewModelsWith(notifications: Array(newNotifications), isEditing: isEditing) {
+        if let insertUpdateType = modelController.addNewCellViewModelsWith(notifications: Array(insertedNotificationsToDisplay), isEditing: isEditing) {
             updateTypes.append(insertUpdateType)
         }
         
@@ -97,6 +99,30 @@ final class NotificationsCenterViewModel: NSObject {
         if updateTypes.count > 0 {
             delegate?.update(types: updateTypes)
         }
+    }
+    
+    private func notificationsToDisplayFromManagedObjectContextInsert(insertedNotifications: Set<RemoteNotification>) -> Set<RemoteNotification> {
+        
+        //run new notifications through saved filter so we're not inserting objects that shouldn't display
+        var notificationsToDisplay = insertedNotifications
+        if let predicate = remoteNotificationsController.filterPredicate {
+            notificationsToDisplay = (insertedNotifications as NSSet).filtered(using: predicate) as? Set<RemoteNotification> ?? insertedNotifications
+        }
+        
+        //do not insert any notifications older than the oldest displayed notification.
+        //subsequent page fetches should eventually pull these
+        if let oldestDisplayedDate = modelController.oldestDisplayedNotificationDate {
+            notificationsToDisplay = notificationsToDisplay.filter({ notification in
+                if let notificationDate = notification.date {
+                    return oldestDisplayedDate < notificationDate
+                }
+                
+                return false
+            })
+        }
+        
+        
+        return notificationsToDisplay
     }
     
     @objc private func remoteNotificationsControllerDidUpdateFilterState() {
