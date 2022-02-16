@@ -40,7 +40,6 @@ struct NotificationsCenterFilterItemView: View {
                     if #available(iOS 14.0, *) {
                         Toggle(itemViewModel.title, isOn: $itemViewModel.isSelected.didSet { (state) in
                             itemViewModel.toggleSelectionForToggleType()
-                            print(state)
                         })
                             .foregroundColor(Color(theme.colors.primaryText))
                             .toggleStyle(SwitchToggleStyle(tint: Color(theme.colors.accent)))
