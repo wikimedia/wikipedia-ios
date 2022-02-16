@@ -231,7 +231,7 @@ public enum RemoteNotificationsControllerError: Error {
         }
             
             
-        guard willNeedImporting() else {
+        guard !isFullyImported else {
             fetchFromDatabase()
             return
         }
@@ -299,6 +299,22 @@ public enum RemoteNotificationsControllerError: Error {
         }
     }
     
+    public var isFullyImported: Bool {
+        
+        guard let modelController = modelController else {
+            return false
+        }
+        
+        let appLanguageProjects =  languageLinkController.preferredLanguages.map { RemoteNotificationsProject.wikipedia($0.languageCode, $0.localizedName, $0.languageVariantCode) }
+        for project in appLanguageProjects {
+            if !modelController.isProjectAlreadyImported(project: project) {
+                return false
+            }
+        }
+
+        return true
+    }
+    
     //MARK: Internal
     
     @objc func deleteLegacyDatabaseFiles() throws -> Void {
@@ -311,18 +327,6 @@ public enum RemoteNotificationsControllerError: Error {
     }
     
     //MARK: Private
-    
-    private func willNeedImporting() -> Bool {
-        let appLanguageProjects =  languageLinkController.preferredLanguages.map { RemoteNotificationsProject.wikipedia($0.languageCode, $0.localizedName, $0.languageVariantCode) }
-        for project in appLanguageProjects {
-            if let alreadyImported = modelController?.isProjectAlreadyImported(project: project),
-              !alreadyImported {
-                return true
-            }
-        }
-
-        return false
-    }
     
     /// Pulls filter state from local persistence and saves it in memory
     private func populateFilterStateFromPersistence() {

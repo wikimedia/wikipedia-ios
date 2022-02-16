@@ -293,6 +293,10 @@ extension NotificationsCenterViewModel {
     var projectFilterButtonImage: UIImage? {
         return toolbarImageForProjectFilter(engaged: remoteNotificationsController.filterState.offProjects.count > 0)
     }
+    
+    var filterAndInboxButtonsAreDisabled: Bool {
+        modelController.countOfTrackingModels == 0 && isLoading && !remoteNotificationsController.isFullyImported
+    }
 
     func statusBarText(textColor: UIColor, highlightColor: UIColor) -> NSAttributedString? {
         guard let rawStatusBarText = rawStatusBarText else {

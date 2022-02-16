@@ -760,6 +760,9 @@ extension NotificationsCenterViewController {
     @objc fileprivate func refreshToolbarContent() {
         typeFilterButton.image = viewModel.typeFilterButtonImage
         projectFilterButton.image = viewModel.projectFilterButtonImage
+        let buttonsAreEnabled = !viewModel.filterAndInboxButtonsAreDisabled
+        typeFilterButton.isEnabled = buttonsAreEnabled
+        projectFilterButton.isEnabled = buttonsAreEnabled
         statusBarButton.label.attributedText = viewModel.statusBarText(textColor: theme.colors.primaryText, highlightColor: theme.colors.link)
     }
 
