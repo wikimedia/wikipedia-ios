@@ -384,7 +384,7 @@ private extension NotificationsCenterViewController {
     
 }
 
-//MARK: Filters
+//MARK: Filters and Inbox
 
 private extension NotificationsCenterViewController {
     
@@ -396,25 +396,11 @@ private extension NotificationsCenterViewController {
             return
         }
         
-        let filterView = NotificationsCenterFilterView(viewModel: filtersViewModel) { [weak self] in
-                
-                self?.dismiss(animated: true)
-        }
+        let filterView = NotificationsCenterFilterView(viewModel: filtersViewModel, doneAction: { [weak self] in
+            self?.dismiss(animated: true)
+        })
         
-        let hostingVC = UIHostingController(rootView: filterView)
-        
-        let nc = DisappearingCallbackNavigationController(rootViewController: hostingVC, theme: self.theme)
-        nc.willDisappearCallback = { [weak self] in
-            guard let self = self else {
-                return
-            }
-            
-            self.viewModel.resetAndRefreshData()
-            self.scrollToTop()
-        }
-        
-        nc.modalPresentationStyle = .pageSheet
-        self.present(nc, animated: true, completion: nil)
+        presentView(view: filterView)
     }
     
     func presentInboxViewController() {
@@ -425,21 +411,30 @@ private extension NotificationsCenterViewController {
             return
         }
         
-        let inboxView = NotificationsCenterInboxView(viewModel: inboxViewModel) { [weak self] in
-        
+        let inboxView = NotificationsCenterInboxView(viewModel: inboxViewModel, doneAction: { [weak self] in
             self?.dismiss(animated: true)
-        }
+        })
 
-        let hostingVC = UIHostingController(rootView: inboxView)
+        presentView(view: inboxView)
+    }
+    
+    func presentView<T: View>(view: T) {
+        let hostingVC = UIHostingController(rootView: view)
+        
+        let currentFilterState = viewModel.remoteNotificationsController.filterState
         
         let nc = DisappearingCallbackNavigationController(rootViewController: hostingVC, theme: self.theme)
+        
         nc.willDisappearCallback = { [weak self] in
             guard let self = self else {
                 return
             }
             
-            self.viewModel.resetAndRefreshData()
-            self.scrollToTop()
+            //only reset if filter has actually changed since first presenting
+            if currentFilterState != self.viewModel.remoteNotificationsController.filterState {
+                self.viewModel.resetAndRefreshData()
+                self.scrollToTop()
+            }
         }
         
         nc.modalPresentationStyle = .pageSheet

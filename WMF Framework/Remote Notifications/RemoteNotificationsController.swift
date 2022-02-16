@@ -418,7 +418,7 @@ public enum RemoteNotificationsControllerError: Error {
     }
 }
 
-public struct RemoteNotificationsFilterState {
+public struct RemoteNotificationsFilterState: Equatable {
 
     public enum ReadStatus: Int, CaseIterable {
         case all
