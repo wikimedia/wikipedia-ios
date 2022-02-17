@@ -428,7 +428,7 @@
 "featured-widget-description" = "גלו את הערכים הטובים ביותר בוויקיפדיה, שנבחרים יום־יום על־ידי הקהילה שלנו.";
 "featured-widget-from-language-wikipedia" = "מתוך ויקיפדיה ה$1";
 "featured-widget-from-wikipedia" = "מתוך ויקיפדיה";
-"featured-widget-language-failure" = "ויקיפדיה בשפה הראשית שלך אינה תומכת בערך מומלץ. אפשר לעדכן את הןויקיפדיה הראשית שלך בתפריט הגדרות של היישום.";
+"featured-widget-language-failure" = "ויקיפדיה בשפה הראשית שלך אינה תומכת בערך מומלץ. אפשר לעדכן את השפה הראשית שלך בתפריט ההגדרות של היישום.";
 "featured-widget-title" = "ערך מומלץ";
 "feed-news-notification-button-text" = "הפעלת עדכונים";
 "feed-news-notification-text" = "הפעלת עדכונים כדי לקבל הודעות מוויקיפדיה כשערכים נהיים חמים בחדשות.";
@@ -658,7 +658,7 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|אירוע היסטורי|$1 אירועים היסטוריים}}";
 "on-this-day-footer" = "עוד אירועים היסטוריים ביום הזה";
 "on-this-day-footer-showing-event-count" = "{{PLURAL:$1|אירוע היסטורי נוסף|$1 אירועים היסטוריים נוספים}} ביום הזה";
-"on-this-day-language-does-not-support-error" = "הוויקיפדיה בשפה הראשית שלך אינה תומכת ב\"ביום הזה\". אפשר לעדכן את הןויקיפדיה הראשית שלך בתפריט הגדרות של היישום.";
+"on-this-day-language-does-not-support-error" = "הוויקיפדיה בשפה הראשית שלך אינה תומכת ב\"ביום הזה\". אפשר לעדכן את השפה הראשית שלך בתפריט ההגדרות של היישום.";
 "on-this-day-no-internet-error" = "לא זמינים נתונים";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 מתוך ויקיפדיה ב$2";
 "on-this-day-title" = "ביום הזה";
