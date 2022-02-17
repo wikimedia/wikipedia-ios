@@ -169,6 +169,22 @@
     }
 }
 
+- (void)assertLprojFiles:(NSArray *)lprojFiles withTranslationStringsInDirectory:(NSString *)directory doesNotContain:(NSString *)banned {
+    XCTAssertNotNil(banned);
+    NSString * bannedUpper = [banned uppercaseString];
+    for (NSString *lprojFileName in lprojFiles) {
+        if (![TWNStringsTests localeForLprojFilenameIsAvailableOniOS:lprojFileName]) {
+            continue;
+        }
+        NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[directory stringByAppendingPathComponent:lprojFileName]];
+        for (NSString *key in stringsDict) {
+            NSString *localizedString = stringsDict[key];
+            BOOL doesContainBannedString = [[localizedString uppercaseString] containsString:bannedUpper];
+            XCTAssertFalse(doesContainBannedString, @"Invalid substring %@ found in: %@ for key: %@ in locale: %@", banned, localizedString, key, lprojFileName);
+        }
+    }
+}
+
 - (void)testiOSTranslationStringForTWNSubstitutionShortcuts {
     [self assertLprojFiles:TWNStringsTests.iOSLprojFiles withTranslationStringsInDirectory:TWNStringsTests.bundleRoot haveNoMatchesWithRegex:TWNStringsTests.twnTokenRegex];
 }
@@ -196,6 +212,10 @@
 
 - (void)testIncomingTranslationStringForHTML {
     [self assertLprojFiles:TWNStringsTests.twnLprojFiles withTranslationStringsInDirectory:TWNStringsTests.bundleRoot haveNoMatchesWithRegex:TWNStringsTests.htmlTagRegex];
+}
+
+- (void)testIncomingTranslationStringForNBSP {
+    [self assertLprojFiles:TWNStringsTests.twnLprojFiles withTranslationStringsInDirectory:TWNStringsTests.bundleRoot doesNotContain:@"&nbsp;"];
 }
 
 - (void)testIncomingTranslationStringForBracketSubstitutions {

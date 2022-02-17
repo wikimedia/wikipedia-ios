@@ -322,7 +322,7 @@
 	<key>notifications-center-empty-state-num-filters</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$d filtre%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -330,9 +330,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d filtre</string>
+			<string></string>
 			<key>other</key>
-			<string>%1$d filtres</string>
+			<string>s</string>
 		</dict>
 	</dict>
 	<key>notifications-center-mark-all-as-read-confirmation-format</key>
@@ -354,7 +354,7 @@
 	<key>notifications-center-num-selected-messages-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>%1$d message%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -362,15 +362,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d message</string>
+			<string></string>
 			<key>other</key>
-			<string>%1$d messages</string>
+			<string>s</string>
 		</dict>
 	</dict>
 	<key>notifications-center-status-in-projects</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>Dans 1 projet%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -378,15 +378,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Dans 1 projet</string>
+			<string></string>
 			<key>other</key>
-			<string>Dans %1$d projets</string>
+			<string>s</string>
 		</dict>
 	</dict>
 	<key>notifications-center-status-in-projects-plain</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>1 projet%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -394,15 +394,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>1 projet</string>
+			<string></string>
 			<key>other</key>
-			<string>%1$d projets</string>
+			<string>s</string>
 		</dict>
 	</dict>
 	<key>notifications-center-status-in-types</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>1 type%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -410,15 +410,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>1 type</string>
+			<string></string>
 			<key>other</key>
-			<string>%1$d types</string>
+			<string>s</string>
 		</dict>
 	</dict>
 	<key>notifications-push-talk-messages-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@</string>
+		<string>message%#@v1@</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -426,9 +426,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>message</string>
+			<string></string>
 			<key>other</key>
-			<string>messages</string>
+			<string>s</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>

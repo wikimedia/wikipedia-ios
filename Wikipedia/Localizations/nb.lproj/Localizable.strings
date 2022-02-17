@@ -631,6 +631,7 @@
 "notifications-center-subheader-mention-talk-page" = "Nevning på diskusjonsside";
 "notifications-center-subheader-message-user-talk-page" = "Melding på diskusjonssiden din";
 "notifications-center-subheader-page-link" = "Sidelenke";
+"notifications-center-subheader-page-reviewed" = "Side gjennomgått";
 "notifications-center-subheader-thanks" = "Takk";
 "notifications-center-subheader-translate-milestone" = "Oversettelsesmilepæl";
 "notifications-center-subheader-user-rights-change" = "Endring av brukerrettigheter";
@@ -650,6 +651,7 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 historisk hendelse|$1 historiske hendelser}}";
 "on-this-day-footer" = "Flere historiske hendelser på denne dagen";
 "on-this-day-footer-showing-event-count" = "$1 {{PLURAL:$1|historisk hendelse|historiske hendelser}} til på denne dag";
+"on-this-day-no-internet-error" = "Ingen tilgjengelige data";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 fra Wikipedia på $2";
 "on-this-day-title" = "På denne dag";
 "original-tab-button-popover-description" = "Trykk på «W» for å gå tilbake til fanen du startet fra";
@@ -714,6 +716,7 @@
 "places-unknown-distance" = "ukjent avstand";
 "potd-description-prefix" = "Dagens bilde $1";
 "potd-empty-error-description" = "Klarte ikke hente dagens bilde $1";
+"potd-widget-title" = "Dagens bilde";
 "preference-summary-eventlogging-opt-in" = "Tillatt at Wikimedia Foundation samler informasjon om hvordan du bruker appen for å gjøre den bedre";
 "preference-title-eventlogging-opt-in" = "Send bruksrapporter";
 "rank-accessibility-label" = "Nummer $1";
@@ -803,6 +806,8 @@
 "relative-date-hours-abbreviated" = "$1t";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Nylig|For $1 time siden|For $1 timer siden}}";
 "relative-date-hours-ago-abbreviated" = "for $1t siden";
+"relative-date-hrs-ago" = "{{PLURAL:$1|0=Nylig|For $1 time siden|For $1 timer siden}}";
+"relative-date-min-ago" = "{{PLURAL:$1|0=Nå|For $1 minutt siden|For $1 minutter siden}}";
 "relative-date-minutes-abbreviated" = "$1m";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Nettopp|For $1 minutt siden|For $1 minutter siden}}";
 "relative-date-minutes-ago-abbreviated" = "for $1m siden";
@@ -952,6 +957,9 @@
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "Wikipedia på $1";
 "top-read-see-more" = "Se flere populære artikler";
+"top-read-widget-description" = "Få greie på hva verden leser om på Wikipedia i dag.";
+"top-read-widget-readers-count" = "$1 lesere";
+"top-read-widget-title" = "Mest leste";
 "two-factor-login-continue" = "Fortsett innlogging";
 "two-factor-login-instructions" = "Fyll inn bekreftelseskoden for totrinnspålogging";
 "two-factor-login-title" = "Logg inn med kontoen din";
@@ -988,6 +996,9 @@
 "welcome-send-data-learn-more" = "Lær mer om innsamling av data";
 "welcome-send-data-sub-title" = "Hjelp til med å gjøre appen bedre ved å la Wikipedia Foundation få vite hvordan du bruker den. Data samles inn anonymt.";
 "welcome-volunteer-send-usage-reports" = "Send bruksrapporter";
+"widget-onthisday-description" = "Finn ut hva som skjedde på denne datoen i historien.";
+"widget-onthisday-placeholder-article-snippet" = "Fritt nettleksikon som alle kan redigere";
+"widget-onthisday-placeholder-event-snippet" = "Det frie nettleksikonet Wikipedia blir lansert.";
 "wikitext-downloading" = "Laster innhold ...";
 "wikitext-preview-changes" = "Laster forhåndsvisning av endringene dine…";
 "wikitext-preview-changes-none" = "Ingen endringer ble gjort som kunne forhåndsvises.";
