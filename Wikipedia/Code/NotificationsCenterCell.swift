@@ -296,6 +296,18 @@ final class NotificationsCenterCell: UICollectionViewCell {
         self.foregroundContentContainer.transform = .identity
     }
 
+    override var isHighlighted: Bool {
+        didSet {
+            foregroundContentContainer.backgroundColor = isHighlighted ? theme.colors.batchSelectionBackground : theme.colors.paperBackground
+        }
+    }
+
+    override var isSelected: Bool {
+        didSet {
+            foregroundContentContainer.backgroundColor = isSelected ? theme.colors.batchSelectionBackground : theme.colors.paperBackground
+        }
+    }
+
     func setup() {
         let topMargin: CGFloat = 13
         let edgeMargin: CGFloat = 11
@@ -486,7 +498,7 @@ private extension NotificationsCenterCell {
 
         // Colors
 
-        foregroundContentContainer.backgroundColor = theme.colors.paperBackground
+        foregroundContentContainer.backgroundColor = isHighlighted || isSelected || displayState.isSelected ? theme.colors.batchSelectionBackground : theme.colors.paperBackground
         cellSeparator.backgroundColor = cellStyle.cellSeparatorColor
 
         headerLabel.textColor = cellStyle.headerTextColor(displayState)
