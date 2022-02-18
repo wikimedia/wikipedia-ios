@@ -580,8 +580,13 @@
 "notifications-center-change-password" = "Canvia la contrasenya";
 "notifications-center-checking-for-notifications" = "Comprovació de les notificacions...";
 "notifications-center-empty-checking-for-notifications" = "S'estan comprovant les notificacions...";
+"notifications-center-empty-no-messages" = "No teniu missatges";
 "notifications-center-empty-not-subscribed" = "No esteu subscrit a cap notificació de la Viquipèdia";
+"notifications-center-empty-state-filters-subtitle" = "Modifiqueu $1 per a mostrar més missatges";
+"notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filtre|$1 filtres}}";
 "notifications-center-filters-title" = "Filtres";
+"notifications-center-filters-types-item-title-all" = "Tots els tipus";
+"notifications-center-filters-types-section-title" = "Tipus de notificacions";
 "notifications-center-footer-change-password" = "Canvia la contrasenya";
 "notifications-center-go-to-diff" = "Vés a la diferència";
 "notifications-center-go-to-talk-page" = "Vés a la pàgina de discussió";
@@ -589,9 +594,11 @@
 "notifications-center-go-to-user-page" = "Vés a la pàgina d'usuari de $1";
 "notifications-center-go-to-wikidata-item" = "Vés a l'element de Wikidata";
 "notifications-center-go-to-your-talk-page" = "Vés a la vostra pàgina de discussió";
+"notifications-center-header-alert-from-agent" = "Alerta de $1";
 "notifications-center-header-alert-from-project" = "Alerta de $1";
 "notifications-center-header-notice-from-project" = "Avís de $1";
 "notifications-center-inbox-title" = "Projectes";
+"notifications-center-inbox-wikimedia-projects-section-footer" = "Només els projectes on heu creat un compte apareixeran aquí";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Projectes Wikimedia";
 "notifications-center-inbox-wikipedias-section-title" = "Viquipèdies";
 "notifications-center-login-notifications" = "Notificacions d'inici de sessió";

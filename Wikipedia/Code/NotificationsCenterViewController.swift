@@ -179,7 +179,7 @@ private extension NotificationsCenterViewController {
             }
             
             let isSelected = (collectionView.indexPathsForSelectedItems ?? []).contains(indexPath)
-            self.viewModel.updateCellDisplayStates(cellViewModels: [cellViewModel], isSelected: isSelected)
+            cellViewModel.updateDisplayState(isEditing: self.viewModel.isEditing, isSelected: isSelected)
             cell.configure(viewModel: cellViewModel, theme: self.theme)
             cell.delegate = self
             return cell
@@ -196,7 +196,10 @@ private extension NotificationsCenterViewController {
             var snapshot = Snapshot()
             snapshot.appendSections([.main])
             snapshot.appendItems(cellViewModels)
-            dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
+            dataSource.apply(snapshot, animatingDifferences: animatingDifferences) {
+                //Note: API docs indicate this completion block is already called on the main thread
+                self.notificationsView.updateCalculatedCellHeightIfNeeded()
+            }
         }
     }
     
@@ -224,15 +227,13 @@ private extension NotificationsCenterViewController {
             snapshotUpdateQueue.async {
                 if var snapshot = self.dataSource?.snapshot() {
                     
-                    let viewModelsToUpdate = snapshot.itemIdentifiers.filter {
-                        guard let viewModels = viewModels else {
-                            return true
-                        }
-                        
-                        return viewModels.contains($0)
+                    let itemIdentifiers = Set(snapshot.itemIdentifiers)
+                    var viewModelsToUpdate = itemIdentifiers
+                    if let viewModels = viewModels {
+                        viewModelsToUpdate = itemIdentifiers.union(Set(viewModels))
                     }
                     
-                    snapshot.reconfigureItems(viewModelsToUpdate)
+                    snapshot.reconfigureItems(Array(viewModelsToUpdate))
                     self.dataSource?.apply(snapshot, animatingDifferences: false)
                 }
             }
@@ -384,7 +385,7 @@ private extension NotificationsCenterViewController {
     
 }
 
-//MARK: Filters
+//MARK: Filters and Inbox
 
 private extension NotificationsCenterViewController {
     
@@ -396,25 +397,11 @@ private extension NotificationsCenterViewController {
             return
         }
         
-        let filterView = NotificationsCenterFilterView(viewModel: filtersViewModel) { [weak self] in
-                
-                self?.dismiss(animated: true)
-        }
+        let filterView = NotificationsCenterFilterView(viewModel: filtersViewModel, doneAction: { [weak self] in
+            self?.dismiss(animated: true)
+        })
         
-        let hostingVC = UIHostingController(rootView: filterView)
-        
-        let nc = DisappearingCallbackNavigationController(rootViewController: hostingVC, theme: self.theme)
-        nc.willDisappearCallback = { [weak self] in
-            guard let self = self else {
-                return
-            }
-            
-            self.viewModel.resetAndRefreshData()
-            self.scrollToTop()
-        }
-        
-        nc.modalPresentationStyle = .pageSheet
-        self.present(nc, animated: true, completion: nil)
+        presentView(view: filterView)
     }
     
     func presentInboxViewController() {
@@ -425,21 +412,30 @@ private extension NotificationsCenterViewController {
             return
         }
         
-        let inboxView = NotificationsCenterInboxView(viewModel: inboxViewModel) { [weak self] in
-        
+        let inboxView = NotificationsCenterInboxView(viewModel: inboxViewModel, doneAction: { [weak self] in
             self?.dismiss(animated: true)
-        }
+        })
 
-        let hostingVC = UIHostingController(rootView: inboxView)
+        presentView(view: inboxView)
+    }
+    
+    func presentView<T: View>(view: T) {
+        let hostingVC = UIHostingController(rootView: view)
+        
+        let currentFilterState = viewModel.remoteNotificationsController.filterState
         
         let nc = DisappearingCallbackNavigationController(rootViewController: hostingVC, theme: self.theme)
+        
         nc.willDisappearCallback = { [weak self] in
             guard let self = self else {
                 return
             }
             
-            self.viewModel.resetAndRefreshData()
-            self.scrollToTop()
+            //only reset if filter has actually changed since first presenting
+            if currentFilterState != self.viewModel.remoteNotificationsController.filterState {
+                self.viewModel.resetAndRefreshData()
+                self.scrollToTop()
+            }
         }
         
         nc.modalPresentationStyle = .pageSheet
@@ -760,6 +756,9 @@ extension NotificationsCenterViewController {
     @objc fileprivate func refreshToolbarContent() {
         typeFilterButton.image = viewModel.typeFilterButtonImage
         projectFilterButton.image = viewModel.projectFilterButtonImage
+        let buttonsAreEnabled = !viewModel.filterAndInboxButtonsAreDisabled
+        typeFilterButton.isEnabled = buttonsAreEnabled
+        projectFilterButton.isEnabled = buttonsAreEnabled
         statusBarButton.label.attributedText = viewModel.statusBarText(textColor: theme.colors.primaryText, highlightColor: theme.colors.link)
     }
 

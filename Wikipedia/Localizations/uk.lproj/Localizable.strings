@@ -588,6 +588,7 @@
 "notifications-center-filters-read-status-item-title-unread" = "Непрочитане";
 "notifications-center-filters-read-status-section-title" = "Прочитаність";
 "notifications-center-filters-title" = "Фільтри";
+"notifications-center-filters-types-footer" = "Змініть типи сповіщень, щоб відфільтрувати їх у папці вхідних сповіщень. Типи, які вимкнено, не відображатимуться, але їх вміст і будь-які нові сповіщення будуть доступні, коли перемикач знову ввімкнути.";
 "notifications-center-filters-types-item-title-all" = "Усі типи";
 "notifications-center-filters-types-section-title" = "Типи сповіщень";
 "notifications-center-footer-change-password" = "Змінити пароль";
