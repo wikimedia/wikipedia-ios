@@ -196,7 +196,10 @@ private extension NotificationsCenterViewController {
             var snapshot = Snapshot()
             snapshot.appendSections([.main])
             snapshot.appendItems(cellViewModels)
-            dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
+            dataSource.apply(snapshot, animatingDifferences: animatingDifferences) {
+                //Note: API docs indicate this completion block is already called on the main thread
+                self.notificationsView.updateCalculatedCellHeightIfNeeded()
+            }
         }
     }
     
