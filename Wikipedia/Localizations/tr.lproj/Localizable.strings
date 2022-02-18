@@ -618,6 +618,7 @@
 "notifications-center-header-notice-from-project" = "$1 sitesinden bildiri";
 "notifications-center-inbox-title" = "Projeler";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Wikimedia Projeleri";
+"notifications-center-inbox-wikipedias-section-title" = "Vikipediler";
 "notifications-center-login-notifications" = "Giriş Bildirimleri";
 "notifications-center-mark" = "İşaretle";
 "notifications-center-mark-all-as-read" = "Tümünü okundu olarak işaretle";

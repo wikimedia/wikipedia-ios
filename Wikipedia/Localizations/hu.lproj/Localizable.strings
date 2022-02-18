@@ -21,6 +21,7 @@
 "aaald-article-insert-last-updated" = "Utoljára frissítve";
 "aaald-article-insert-new-changes" = "Új változtatások";
 "aaald-article-insert-read-more" = "További frissítések elolvasása";
+"aaald-characters-text-description" = "{{PLURAL:$1|0=karakter|karakter|karakter}}";
 "aaald-deleted-text-description-2" = "$1 törölve";
 "aaald-error-subitle" = "Frissítsd és próbáld újra";
 "aaald-multiple-changes-description" = "Több változtatás is történt";
@@ -128,6 +129,7 @@
 "appearance-settings-reading-themes" = "Olvasási témák";
 "appearance-settings-set-automatic-table-opening" = "Táblázatbeállítások";
 "appearance-settings-theme-options" = "Témabeállítások";
+"article-about-title" = "A szócikkről";
 "article-delete" = "Törlés";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|szócikk|szócikk}} törölve";
 "article-fetcher-error-updated-content-timeout" = "Az applikációnak nem sikerült időben lehívnia a frissített tartalmat. Kérjük, frissítsd az oldalt később a változások megtekintéséhez.";
@@ -169,6 +171,8 @@
 "description-edit-placeholder-title" = "A rövid leírások jobbak";
 "description-edit-publish" = "Leírás közzététele";
 "description-edit-title" = "Leírás szerkesztése";
+"description-edit-warning" = "A leírás legyen rövid, hogy az olvasó könnyen megérthesse a szócikk témáját";
+"description-edit-warning-casing" = "Csak a tulajdonneveket kell nagy kezdőbetűvel kezdeni.";
 "description-help-about-description" = "A cikkleírások összefoglalják egy cikk tartalmát, hogy az olvasók gyorsan megérthessék, miről szól.";
 "description-help-about-title" = "Névjegy";
 "description-help-about-wikidata" = "További információ a Wikidatáról";
@@ -282,6 +286,7 @@
 "explore-featured-article-sub-heading-from-wikipedia" = "A Wikipédiáról";
 "explore-feed-customize-accessibility-title" = "Testreszabás";
 "explore-feed-preferences-card-hidden-title" = "Kártya elrejtve";
+"explore-feed-preferences-explore-tab" = "Felfedezés";
 "explore-feed-preferences-featured-article-description" = "A Wikipédia napi kiemelt cikke";
 "explore-feed-preferences-feed-card-visibility-all-languages-off" = "Ki";
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "Mindegyiken";
@@ -460,11 +465,16 @@
 "notifications-center-filters-types-item-title-all" = "Minden típus";
 "notifications-center-filters-types-section-title" = "Értesítések típusai";
 "notifications-center-footer-change-password" = "Jelszó módosítása";
+"notifications-center-inbox-wikimedia-projects-section-title" = "Wikimédia-projektek";
+"notifications-center-inbox-wikipedias-section-title" = "Wikipédiák";
 "notifications-center-mark-all-as-read" = "Az összes megjelölése olvasottként";
 "notifications-center-mark-as-read" = "Megjelölés olvasottként";
 "notifications-center-mark-as-unread" = "Megjelölés olvasatlanként";
 "notifications-center-status-all" = "Mind";
 "notifications-center-status-all-notifications" = "Összes értesítés";
+"notifications-center-status-filtered-by" = "Szűrés";
+"notifications-center-subheader-edit-milestone" = "Szerkesztési mérföldkő";
+"notifications-center-subheader-edit-reverted" = "Szerkesztésedet visszavonták";
 "notifications-center-subheader-email-from-other-user" = "Új email";
 "notifications-center-subheader-login-fail-unknown-device" = "Sikertelen bejelentkezés";
 "notifications-center-subheader-login-success-unknown-device" = "Bejelentkezés ismeretlen eszközről";
@@ -472,6 +482,10 @@
 "notifications-center-subheader-thanks" = "Köszönetek";
 "notifications-center-subheader-user-rights-change" = "Szerkesztői jog módosulása";
 "notifications-center-subheader-welcome" = "Üdvözlet!";
+"notifications-center-swipe-mark-as-read" = "Jelölés olvasottként";
+"notifications-center-swipe-mark-as-unread" = "Jelölés olvasatlanként";
+"notifications-center-swipe-more" = "Tovább";
+"notifications-center-title" = "Értesítések";
 "number-billions" = "$1 Mrd";
 "number-millions" = "$1M";
 "number-thousands" = "$1k";
@@ -681,6 +695,7 @@
 "theme-black-display-name" = "Fekete";
 "theme-dark-display-name" = "Sötét";
 "theme-default-display-name" = "Alapértelmezés";
+"theme-light-display-name" = "Világos";
 "theme-sepia-display-name" = "Szépia";
 "top-read-header-generic" = "Wikipédia";
 "top-read-header-with-language" = "$1 Wikipédia";
@@ -717,6 +732,7 @@
 "welcome-send-data-learn-more" = "Tudj meg többet a gyűjtött adatokról";
 "welcome-send-data-sub-title" = "Segíts az alkalmazás jobbá tételében azzal, hogy megosztod a Wikimédia Alapítvánnyal, hogyan használod azt. A gyűjtött adatok névtelenek.";
 "welcome-volunteer-send-usage-reports" = "Használati jelentés küldése";
+"widget-onthisday-description" = "Mi történt a történelemben ezen a napon?";
 "widget-onthisday-placeholder-article-snippet" = "Ingyenes online enciklopédia, amelyet bárki szerkeszthet";
 "wikitext-downloading" = "Tartalom betöltése…";
 "wikitext-preview-changes" = "A változtatásaid előnézetének lekérése…";
