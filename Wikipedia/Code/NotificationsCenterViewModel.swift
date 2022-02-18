@@ -211,7 +211,7 @@ final class NotificationsCenterViewModel: NSObject {
                 //But we don't care to listen for it until after the first page is already fetched from the database and is displaying on screen.
                 self.remoteNotificationsController.addObserverForViewContextChanges(observer: self, selector: #selector(self.contextObjectsDidChange(_:)))
             case .failure(let error):
-                print(DDLogError("Error fetching first page of notifications: \(error)"))
+                DDLogError("Error fetching first page of notifications: \(error)")
                 //TODO: show some sort of error state
             }
         }
@@ -243,7 +243,7 @@ final class NotificationsCenterViewModel: NSObject {
                 }
                 
             case .failure(let error):
-                print(DDLogError("Error fetching next page of notifications: \(error)"))
+                DDLogError("Error fetching next page of notifications: \(error)")
             }
         }
         
@@ -318,6 +318,10 @@ extension NotificationsCenterViewModel {
 
     var projectFilterButtonImage: UIImage? {
         return toolbarImageForProjectFilter(engaged: remoteNotificationsController.filterState.offProjects.count > 0)
+    }
+    
+    var filterAndInboxButtonsAreDisabled: Bool {
+        modelController.countOfTrackingModels == 0 && isLoading && !remoteNotificationsController.isFullyImported
     }
 
     func statusBarText(textColor: UIColor, highlightColor: UIColor) -> NSAttributedString? {
