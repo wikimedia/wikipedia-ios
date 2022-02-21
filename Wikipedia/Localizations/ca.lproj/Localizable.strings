@@ -584,7 +584,12 @@
 "notifications-center-empty-not-subscribed" = "No esteu subscrit a cap notificació de la Viquipèdia";
 "notifications-center-empty-state-filters-subtitle" = "Modifiqueu $1 per a mostrar més missatges";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filtre|$1 filtres}}";
+"notifications-center-filters-read-status-item-title-all" = "Tots";
+"notifications-center-filters-read-status-item-title-read" = "Llegit";
+"notifications-center-filters-read-status-item-title-unread" = "Per llegir";
+"notifications-center-filters-read-status-section-title" = "Estatus de lectura";
 "notifications-center-filters-title" = "Filtres";
+"notifications-center-filters-types-footer" = "Modifiqueu els tipus de notificació per a filtrar-les de la vostra bústia de notificacions. Els tipus desactivats no seran visibles, però llurs continguts i les noves notificacions esdevindran disponibles en activar-se de nou.";
 "notifications-center-filters-types-item-title-all" = "Tots els tipus";
 "notifications-center-filters-types-section-title" = "Tipus de notificacions";
 "notifications-center-footer-change-password" = "Canvia la contrasenya";
@@ -604,6 +609,8 @@
 "notifications-center-login-notifications" = "Notificacions d'inici de sessió";
 "notifications-center-mark" = "Marca";
 "notifications-center-mark-all-as-read" = "Marca'ls tots com a llegits";
+"notifications-center-mark-all-as-read-confirmation-format" = "Esteu segur que voleu marcar {{PLURAL:$1|$1 missatge|tots els $1 missatges}} de les notificacions com a llegits. Les notificacions es marcaran com a llegides en tots els vostres dispositius.";
+"notifications-center-mark-all-as-read-missing-number" = "Esteu segur que voleu marcar totes les notificacions com a llegides? Les notificacions es marcaran com a llegides en tots els vostres dispositius.";
 "notifications-center-mark-as-read" = "Marca com a llegida";
 "notifications-center-mark-as-unread" = "Marca com a no llegida";
 "notifications-center-notifications-settings" = "Paràmetres de notificació";
