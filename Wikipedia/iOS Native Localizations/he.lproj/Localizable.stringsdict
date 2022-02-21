@@ -111,9 +111,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>דף אחד</string>
+			<string>ערך אחד</string>
 			<key>other</key>
-			<string>%1$d דפים</string>
+			<string>%1$d ערכים</string>
 		</dict>
 	</dict>
 	<key>article-deleted-accessibility-notification</key>
