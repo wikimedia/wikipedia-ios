@@ -1,5 +1,6 @@
 // Messages for Spanish (español)
 // Exported from translatewiki.net
+// Author: AVIADOR71
 // Author: Agusbou2015
 // Author: Andru1013
 // Author: Asierog
@@ -260,10 +261,10 @@
 "diff-single-line-format" = "Renglón $1";
 "diff-thanks-anonymous-no-thanks" = "No se puede agradecer a usuarios anónimos";
 "diff-thanks-login-subtitle" = "'Gracias' es una manera fácil de mostrar agradecimiento por el trabajo de un editor en Wikipedia. Tienes que acceder para enviar 'Gracias'.";
-"diff-thanks-login-title" = "Accede para enviar agradecimientos";
+"diff-thanks-login-title" = "Accede para agradecer";
 "diff-thanks-send-button-title" = "Agradecer";
 "diff-thanks-send-subtitle" = "'Gracias' es una manera fácil de mostrar agradecimiento por el trabajo de un editor en Wikipedia. Dar las 'Gracias' no se puede deshacer y es públicamente visible.";
-"diff-thanks-send-title" = "Enviar agradecimiento públicamente";
+"diff-thanks-send-title" = "Agradecer públicamente";
 "diff-thanks-sent" = "Tu agradecimiento se envió a $1";
 "diff-thanks-sent-already" = "Ya has enviado un agradecimiento por esta edición";
 "diff-thanks-sent-cannot-unsend" = "No se puede deshacer el envío de agradecimientos";

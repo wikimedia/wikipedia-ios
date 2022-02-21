@@ -335,6 +335,22 @@
 			<string>%1$d filtres</string>
 		</dict>
 	</dict>
+	<key>notifications-center-mark-all-as-read-confirmation-format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>Esteu segur que voleu marcar %#@v1@ de les notificacions com a llegits. Les notificacions es marcaran com a llegides en tots els vostres dispositius.</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d missatge</string>
+			<key>other</key>
+			<string>tots els %1$d missatges</string>
+		</dict>
+	</dict>
 	<key>notifications-center-num-selected-messages-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

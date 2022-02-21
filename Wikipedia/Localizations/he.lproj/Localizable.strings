@@ -9,6 +9,7 @@
 // Author: Macofe
 // Author: Matanya
 // Author: Mhurd
+// Author: N100a
 // Author: Nemo bis
 // Author: Or
 // Author: Steeve815
@@ -84,10 +85,10 @@
 "abuse-filter-warning-blanking" = "מחיקת פרקים או ערכים שלמים";
 "abuse-filter-warning-caps" = "הקלדה באותיות גדולות";
 "abuse-filter-warning-heading" = "עריכה זו זוהתה כעריכה בלתי מועילה. האם ברצונך לפרסם אותה?";
-"abuse-filter-warning-irrelevant" = "קישורים חיצוניים או צילומים בלתי־רלוונטיים";
+"abuse-filter-warning-irrelevant" = "קישורים חיצוניים או תמונות בלתי־רלוונטיים";
 "abuse-filter-warning-repeat" = "אותיות חוזרות";
 "abuse-filter-warning-spam" = "הוספת פרסום זבל לערכים";
-"abuse-filter-warning-subheading" = "ייתכן שהעריכה שלך מכילה:";
+"abuse-filter-warning-subheading" = "ייתן שהעריכה שלך מכילה:";
 "account-creation-captcha-cannot-see-image" = "אינך יכול לראות את התמונה? $1";
 "account-creation-captcha-obtaining" = "הצגת תמונת אימות חדשה...";
 "account-creation-captcha-request-account" = "בקשת חשבון.";
@@ -124,7 +125,7 @@
 "action-save" = "שמירה";
 "action-saved" = "נשמר";
 "action-saved-accessibility" = "נשמר. נא להפעיל כדי לבטל את השמירה.";
-"action-saved-accessibility-notification" = "ערכים שנשמרו לאחר־כך";
+"action-saved-accessibility-notification" = "ערך נשמר לאחר־כך";
 "action-share" = "שיתוף";
 "action-share-accessibility" = "שיתוף";
 "action-sort" = "מיון";
@@ -133,7 +134,7 @@
 "action-unsave" = "ביטול שמירה";
 "action-unsaved-accessibility-notification" = "שמירת הערך בוטלה";
 "action-update" = "עדכון";
-"add-articles-to-reading-list" = "הוספת {{PLURAL:$1|דף אחד|$1 דפים}} לרשימת הקריאה";
+"add-articles-to-reading-list" = "הוספת {{PLURAL:$1|ערך אחד|$1 ערכים}} לרשימת הקריאה";
 "add-citation-title" = "הוספת הערת שוליים";
 "announcements-dismiss" = "סגירה";
 "app-store-keywords" = "ויקיפדיה, מקורות, ויקי, אנציקלופדיה, מידע, ידע, חקר, מחקר, גילוי, למידה";
@@ -179,7 +180,7 @@
 "clear-title-accessibility-label" = "ניקוי";
 "close-button-accessibility-label" = "סגירה";
 "compass-direction" = "בשעה $1";
-"continue-reading-empty-description" = "לגלות עוד ערכים לקרוא בוויקיפדיה";
+"continue-reading-empty-description" = "לחקור את ויקיפדיה כדי למצוא ערכים נוספים לקריאה";
 "continue-reading-empty-title" = "אין ערכים שנקראו לאחרונה";
 "crimean-tatar-variants-alert-body" = "יישום ויקיפדיה תומך עכשיו בסוגים הבאים של טטרית של קרים בתור שפה ראשית או משנית בתוך היישום, כדי שיהיה קל לקרוא, לחפש, ולערוך בצורות הכתב המועדפות עליך:\n\nQırımtatarca, טטרית של קרים באותיות לטיניות (crh-latn)\nкъырымтатарджа, טטרית של קרים באותיות קיריליות (crh-cyrl)";
 "crimean-tatar-variants-alert-title" = "עדכונים לתמיכה בטטרית של קרים";
@@ -190,11 +191,11 @@
 "description-edit-length-warning" = "$1 מתוך $2";
 "description-edit-license" = "שינוי תיאור הערך מהווה את הסכמתי ל$1 ולשחרור בלתי־חוזר של התרומות שלי לפי תנאי רישיון $2.";
 "description-edit-pencil-introduction" = "עריכת הפתיחה";
-"description-edit-pencil-title" = "הוספת תיאור ערך";
+"description-edit-pencil-title" = "עריכת תיאור ערך";
 "description-edit-placeholder-title" = "תיאורים קצרים הם הטובים ביותר";
 "description-edit-publish" = "פרסום התיאור";
 "description-edit-title" = "עריכת תיאור";
-"description-edit-warning" = "השתדלו להקפיד שהתיאורים יהיו קצרים כדי שמשתמשים יוכלו להבין מה נושא הערך במבט אחד";
+"description-edit-warning" = "השתדלו להקפיד שהתיאורים יהיו קצרים כדי שמשתמשים יוכלו להבין מה נושא הערך במבט מהיר";
 "description-edit-warning-casing" = "צריך לכתוב באות גדולה רק שמות פרטיים, גם התחילת משפט";
 "description-help-about-description" = "תיאורי הערכים מסכמים ערך כדי לעזור לקוראים להבין את הנושא במבט מהיר.";
 "description-help-about-title" = "אודות";
@@ -428,7 +429,7 @@
 "featured-widget-description" = "גלו את הערכים הטובים ביותר בוויקיפדיה, שנבחרים יום־יום על־ידי הקהילה שלנו.";
 "featured-widget-from-language-wikipedia" = "מתוך ויקיפדיה ה$1";
 "featured-widget-from-wikipedia" = "מתוך ויקיפדיה";
-"featured-widget-language-failure" = "ויקיפדיה בשפה הראשית שלך אינה תומכת בערך מומלץ. אפשר לעדכן את הןויקיפדיה הראשית שלך בתפריט הגדרות של היישום.";
+"featured-widget-language-failure" = "ויקיפדיה בשפה הראשית שלך אינה תומכת ב״ערך מומלץ״. אפשר לעדכן את שפת הוויקיפדיה הראשית שלך בתפריט ההגדרות של היישום.";
 "featured-widget-title" = "ערך מומלץ";
 "feed-news-notification-button-text" = "הפעלת עדכונים";
 "feed-news-notification-text" = "הפעלת עדכונים כדי לקבל הודעות מוויקיפדיה כשערכים נהיים חמים בחדשות.";
@@ -658,7 +659,7 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|אירוע היסטורי|$1 אירועים היסטוריים}}";
 "on-this-day-footer" = "עוד אירועים היסטוריים ביום הזה";
 "on-this-day-footer-showing-event-count" = "{{PLURAL:$1|אירוע היסטורי נוסף|$1 אירועים היסטוריים נוספים}} ביום הזה";
-"on-this-day-language-does-not-support-error" = "הוויקיפדיה בשפה הראשית שלך אינה תומכת ב\"ביום הזה\". אפשר לעדכן את הןויקיפדיה הראשית שלך בתפריט הגדרות של היישום.";
+"on-this-day-language-does-not-support-error" = "ויקיפדיה בשפה הראשית שלך אינה תומכת ב\"ביום בהיסטוריה\". אפשר לעדכן את שפת הוויקיפדיה הראשית שלך בתפריט ההגדרות של היישום.";
 "on-this-day-no-internet-error" = "לא זמינים נתונים";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 מתוך ויקיפדיה ב$2";
 "on-this-day-title" = "ביום הזה";
