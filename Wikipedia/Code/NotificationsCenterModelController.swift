@@ -13,6 +13,8 @@ final class NotificationsCenterModelController {
     private let languageLinkController: MWKLanguageLinkController
     private let remoteNotificationsController: RemoteNotificationsController
     
+    private(set) var oldestDisplayedNotificationDate: Date?
+    
     init(languageLinkController: MWKLanguageLinkController, remoteNotificationsController: RemoteNotificationsController) {
         self.languageLinkController = languageLinkController
         self.remoteNotificationsController = remoteNotificationsController
@@ -22,7 +24,7 @@ final class NotificationsCenterModelController {
         
         var newCellViewModels: [NotificationsCenterCellViewModel] = []
         for notification in notifications {
-
+            
             //Instantiate new view model and insert it into tracking properties
             
             guard let key = notification.key,
@@ -110,12 +112,15 @@ final class NotificationsCenterModelController {
     }
     
     private var sortedCellViewModels: [NotificationsCenterCellViewModel] {
-        return cellViewModels.sorted { lhs, rhs in
+        let sortedCellViewModels = cellViewModels.sorted { lhs, rhs in
             guard let lhsDate = lhs.notification.date,
                   let rhsDate = rhs.notification.date else {
                 return false
             }
             return lhsDate > rhsDate
         }
+        
+        oldestDisplayedNotificationDate = sortedCellViewModels.last?.notification.date
+        return sortedCellViewModels
     }
 }
