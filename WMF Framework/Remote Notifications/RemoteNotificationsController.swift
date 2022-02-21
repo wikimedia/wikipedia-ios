@@ -112,7 +112,7 @@ public enum RemoteNotificationsControllerError: Error {
     
     //MARK: Public
     
-    /// Fetches notifications from the server and imports them into the local database. Updates local database on a backgroundContext.
+    /// Fetches notifications from the server and saves them into the local database. Updates local database on a backgroundContext.
     /// - Parameters:
     ///   - force: Flag to force an API call, otherwise this will exit early if it's been less than 30 seconds since the last load attempt.
     ///   - completion: Completion block called once refresh attempt is complete.
@@ -215,32 +215,34 @@ public enum RemoteNotificationsControllerError: Error {
             return completion(.failure(RemoteNotificationsControllerError.databaseUnavailable))
         }
         
-        loadNotifications(force: false) { [weak self] result in
-             guard let self = self else {
-                 return
-             }
-            
-            let loadingCompletion: () -> Void = {
-                let predicate = self.predicateForFilterSavedState(self.filterState)
-                
-                do {
-                    let notifications = try modelController.fetchNotifications(fetchLimit: fetchLimit, fetchOffset: fetchOffset, predicate: predicate)
-                    completion(.success(notifications))
-                } catch (let error) {
-                    completion(.failure(error))
-                }
+        let fetchFromDatabase: () -> Void = { [weak self] in
+            guard let self = self else {
+                return
             }
+
+            let predicate = self.predicateForFilterSavedState(self.filterState)
+
+            do {
+                let notifications = try modelController.fetchNotifications(fetchLimit: fetchLimit, fetchOffset: fetchOffset, predicate: predicate)
+                completion(.success(notifications))
+            } catch (let error) {
+                completion(.failure(error))
+            }
+        }
+            
+            
+        guard !isFullyImported else {
+            fetchFromDatabase()
+            return
+        }
+
+        loadNotifications(force: true) { result in
              
              switch result {
              case .success:
-                 loadingCompletion()
+                 fetchFromDatabase()
              case .failure(let error):
-                 if let error = error as? RemoteNotificationsControllerError,
-                    error == .attemptingToRefreshBeforeDeadline {
-                     loadingCompletion()
-                 } else {
-                     completion(.failure(error))
-                 }
+                 completion(.failure(error))
              }
         }
     }
@@ -283,6 +285,10 @@ public enum RemoteNotificationsControllerError: Error {
         sharedCache.saveCache(pushCache)
     }
     
+    public var filterPredicate: NSPredicate? {
+        predicateForFilterSavedState(filterState)
+    }
+    
     public var filterState: RemoteNotificationsFilterState = RemoteNotificationsFilterState(readStatus: .all, offTypes: [], offProjects: []) {
         didSet {
             
@@ -295,6 +301,22 @@ public enum RemoteNotificationsControllerError: Error {
             
             NotificationCenter.default.post(name: RemoteNotificationsController.didUpdateFilterStateNotification, object: nil)
         }
+    }
+    
+    public var isFullyImported: Bool {
+        
+        guard let modelController = modelController else {
+            return false
+        }
+        
+        let appLanguageProjects =  languageLinkController.preferredLanguages.map { RemoteNotificationsProject.wikipedia($0.languageCode, $0.localizedName, $0.languageVariantCode) }
+        for project in appLanguageProjects {
+            if !modelController.isProjectAlreadyImported(project: project) {
+                return false
+            }
+        }
+
+        return true
     }
     
     //MARK: Internal
@@ -400,7 +422,7 @@ public enum RemoteNotificationsControllerError: Error {
     }
 }
 
-public struct RemoteNotificationsFilterState {
+public struct RemoteNotificationsFilterState: Equatable {
 
     public enum ReadStatus: Int, CaseIterable {
         case all

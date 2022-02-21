@@ -76,9 +76,11 @@ final class NotificationsCenterViewModel: NSObject {
         
         //TODO: Handle other key types? (Deleted, Updated, Invalidated)
         let refreshedNotifications = notification.userInfo?[NSRefreshedObjectsKey] as? Set<RemoteNotification> ?? []
-        let newNotifications = notification.userInfo?[NSInsertedObjectsKey] as? Set<RemoteNotification> ?? []
+        let insertedNotifications = notification.userInfo?[NSInsertedObjectsKey] as? Set<RemoteNotification> ?? []
         
-        guard (refreshedNotifications.count > 0 || newNotifications.count > 0) else {
+        let insertedNotificationsToDisplay = notificationsToDisplayFromManagedObjectContextInsert(insertedNotifications: insertedNotifications)
+        
+        guard (refreshedNotifications.count > 0 || insertedNotificationsToDisplay.count > 0) else {
             return
         }
         
@@ -87,7 +89,7 @@ final class NotificationsCenterViewModel: NSObject {
         let refreshUpdateTypes = modelController.evaluateUpdatedNotifications(updatedNotifications: Array(refreshedNotifications), isEditing: isEditing)
         updateTypes.append(contentsOf: refreshUpdateTypes)
         
-        if let insertUpdateType = modelController.addNewCellViewModelsWith(notifications: Array(newNotifications), isEditing: isEditing) {
+        if let insertUpdateType = modelController.addNewCellViewModelsWith(notifications: Array(insertedNotificationsToDisplay), isEditing: isEditing) {
             updateTypes.append(insertUpdateType)
         }
         
@@ -97,6 +99,30 @@ final class NotificationsCenterViewModel: NSObject {
         if updateTypes.count > 0 {
             delegate?.update(types: updateTypes)
         }
+    }
+    
+    private func notificationsToDisplayFromManagedObjectContextInsert(insertedNotifications: Set<RemoteNotification>) -> Set<RemoteNotification> {
+        
+        //run new notifications through saved filter so we're not inserting objects that shouldn't display
+        var notificationsToDisplay = insertedNotifications
+        if let predicate = remoteNotificationsController.filterPredicate {
+            notificationsToDisplay = (insertedNotifications as NSSet).filtered(using: predicate) as? Set<RemoteNotification> ?? insertedNotifications
+        }
+        
+        //do not insert any notifications older than the oldest displayed notification.
+        //subsequent page fetches should eventually pull these
+        if let oldestDisplayedDate = modelController.oldestDisplayedNotificationDate {
+            notificationsToDisplay = notificationsToDisplay.filter({ notification in
+                if let notificationDate = notification.date {
+                    return oldestDisplayedDate < notificationDate
+                }
+                
+                return false
+            })
+        }
+        
+        
+        return notificationsToDisplay
     }
     
     @objc private func remoteNotificationsControllerDidUpdateFilterState() {
@@ -185,7 +211,7 @@ final class NotificationsCenterViewModel: NSObject {
                 //But we don't care to listen for it until after the first page is already fetched from the database and is displaying on screen.
                 self.remoteNotificationsController.addObserverForViewContextChanges(observer: self, selector: #selector(self.contextObjectsDidChange(_:)))
             case .failure(let error):
-                print(DDLogError("Error fetching first page of notifications: \(error)"))
+                DDLogError("Error fetching first page of notifications: \(error)")
                 //TODO: show some sort of error state
             }
         }
@@ -217,7 +243,7 @@ final class NotificationsCenterViewModel: NSObject {
                 }
                 
             case .failure(let error):
-                print(DDLogError("Error fetching next page of notifications: \(error)"))
+                DDLogError("Error fetching next page of notifications: \(error)")
             }
         }
         
@@ -292,6 +318,10 @@ extension NotificationsCenterViewModel {
 
     var projectFilterButtonImage: UIImage? {
         return toolbarImageForProjectFilter(engaged: remoteNotificationsController.filterState.offProjects.count > 0)
+    }
+    
+    var filterAndInboxButtonsAreDisabled: Bool {
+        modelController.countOfTrackingModels == 0 && isLoading && !remoteNotificationsController.isFullyImported
     }
 
     func statusBarText(textColor: UIColor, highlightColor: UIColor) -> NSAttributedString? {
