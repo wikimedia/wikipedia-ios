@@ -14,6 +14,7 @@
 // Author: Nemo bis
 // Author: Orf3us
 // Author: Pmt
+// Author: Premeditated
 // Author: SuperPotato
 // Author: Tsaetre
 // Author: Tsevener
@@ -424,6 +425,7 @@
 "featured-widget-description" = "Oppdag de beste artiklene på Wikipedia, som velges ut daglig av bidragsyterne.";
 "featured-widget-from-language-wikipedia" = "Fra Wikipedia på $1";
 "featured-widget-from-wikipedia" = "Fra Wikipedia";
+"featured-widget-language-failure" = "Ditt hoved Wikipedia-språk har ikke støtte for Utmerkede artikler. Du kan oppdatere ditt hoved Wikipedia-språk i applikasjons innstillingene.";
 "featured-widget-title" = "Utvalgt artikkel";
 "feed-news-notification-button-text" = "Slå på varslinger";
 "feed-news-notification-text" = "Slå på varslinger for å bli tipset om Wikipedia-artikler om aktuelle hendelser fra nyhetsbildet.";
@@ -644,6 +646,7 @@
 "notifications-push-fallback-body-text" = "Ny aktivitet på Wikipedia";
 "notifications-push-talk-body-format" = "$1 nye $2 på $3";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|melding|meldinger}}";
+"notifications-push-talk-title-format" = "Ny $1";
 "number-billions" = "$1 mrd.";
 "number-millions" = "$1 mill.";
 "number-thousands" = "$1 tusen";
@@ -716,6 +719,7 @@
 "places-unknown-distance" = "ukjent avstand";
 "potd-description-prefix" = "Dagens bilde $1";
 "potd-empty-error-description" = "Klarte ikke hente dagens bilde $1";
+"potd-widget-description" = "Beundre et vakkert daglig bilde valgt av samfunnet vårt.";
 "potd-widget-title" = "Dagens bilde";
 "preference-summary-eventlogging-opt-in" = "Tillatt at Wikimedia Foundation samler informasjon om hvordan du bruker appen for å gjøre den bedre";
 "preference-title-eventlogging-opt-in" = "Send bruksrapporter";

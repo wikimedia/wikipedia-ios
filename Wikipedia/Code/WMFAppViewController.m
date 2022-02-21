@@ -1223,12 +1223,20 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self showSettingsWithSubViewController:appearanceSettingsVC animated:animated];
         } break;
         case WMFUserActivityTypeNotificationSettings: {
-            [self dismissPresentedViewControllers];
-            [self setSelectedIndex:WMFAppTabTypeMain];
-            [self.navigationController popToRootViewControllerAnimated:YES];
             WMFNotificationSettingsViewController *notificationSettingsVC = [[WMFNotificationSettingsViewController alloc] initWithAuthManager:self.dataStore.authenticationManager notificationsController:self.notificationsController];
             [notificationSettingsVC applyTheme:self.theme];
-            [self showSettingsWithSubViewController:notificationSettingsVC animated:animated];
+            [self dismissPresentedViewControllers];
+            switch ([NSUserDefaults standardUserDefaults].defaultTabType) {
+                case WMFAppDefaultTabTypeExplore: {
+                    [self setSelectedIndex:WMFAppTabTypeMain];
+                    [self.navigationController popToRootViewControllerAnimated:YES];
+                    [self showSettingsWithSubViewController:notificationSettingsVC animated:animated];
+                } break;
+                case WMFAppDefaultTabTypeSettings: {
+                    [self.navigationController popToRootViewControllerAnimated:YES];
+                    [self.navigationController pushViewController:notificationSettingsVC animated:YES];
+                } break;
+            }
         } break;
         default: {
             NSURL *linkURL = [activity wmf_linkURL];
