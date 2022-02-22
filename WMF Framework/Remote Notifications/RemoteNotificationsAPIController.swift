@@ -446,7 +446,6 @@ public class RemoteNotificationsAPIController: Fetcher {
         
         static func markAllAsSeen(project: RemoteNotificationsProject) -> Parameters? {
             let dictionary = ["action": "echomarkseen",
-                              "all": "true",
                               "wikis": project.notificationsApiWikiIdentifier,
                               "format": "json",
                               "type": "all"]

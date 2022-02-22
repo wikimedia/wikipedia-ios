@@ -192,6 +192,9 @@ final class NotificationsCenterViewModel: NSObject {
         remoteNotificationsController.markAllAsSeen { result in
             switch result {
             case let .failure(error):
+                guard !self.remoteNotificationsController.areFiltersEnabled else {
+                    return
+                }
                 DDLogError("Error marking all notifications as seen: \(error)")
                 //TODO: show some sort of error state
             default:
