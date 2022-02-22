@@ -5,6 +5,7 @@ final class NotificationsCenterCellViewModel {
     // MARK: - Properties
 
     let notification: RemoteNotification
+    let key: String
     let project: RemoteNotificationsProject
     private(set) var displayState: NotificationsCenterCellDisplayState
 
@@ -14,11 +15,13 @@ final class NotificationsCenterCellViewModel {
         
         //Validation - all notifications must have a recognized project for display (wikidata, commons, or app-supported language)
         guard let wiki = notification.wiki,
+              let key = notification.key,
               let project = RemoteNotificationsProject(apiIdentifier: wiki, languageLinkController: languageLinkController) else {
             return nil
         }
         
         self.notification = notification
+        self.key = key
         self.project = project
         
         self.displayState = Self.displayStateFor(isEditing: isEditing, isSelected: false, isRead: notification.isRead)
@@ -66,10 +69,10 @@ final class NotificationsCenterCellViewModel {
 
 extension NotificationsCenterCellViewModel: Equatable, Hashable {
     func hash(into hasher: inout Hasher) {
-        hasher.combine(notification.key)
+        hasher.combine(key)
     }
 
     static func == (lhs: NotificationsCenterCellViewModel, rhs: NotificationsCenterCellViewModel) -> Bool {
-        return lhs.notification.key == rhs.notification.key
+        return lhs.key == rhs.key
     }
 }

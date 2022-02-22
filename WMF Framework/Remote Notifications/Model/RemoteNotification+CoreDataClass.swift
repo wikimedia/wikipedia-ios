@@ -138,7 +138,7 @@ public class RemoteNotification: NSManagedObject {
         case .thanks:
             return ["edit-thank"]
         case .translationMilestone: //Note: this will include the other translation type associated values
-            return ["cx-first-translation", "cx-tenth-translation, cx-hundredth-translation"]
+            return ["cx-first-translation", "cx-tenth-translation", "cx-hundredth-translation"]
         case .editMilestone:
             return ["thank-you-edit"]
         case .welcome:

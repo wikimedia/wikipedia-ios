@@ -480,12 +480,15 @@
 "notifications-center-subheader-login-success-unknown-device" = "Bejelentkezés ismeretlen eszközről";
 "notifications-center-subheader-page-reviewed" = "Ellenőrzött szócikk";
 "notifications-center-subheader-thanks" = "Köszönetek";
+"notifications-center-subheader-translate-milestone" = "Fordítási mérföldkő";
 "notifications-center-subheader-user-rights-change" = "Szerkesztői jog módosulása";
 "notifications-center-subheader-welcome" = "Üdvözlet!";
 "notifications-center-swipe-mark-as-read" = "Jelölés olvasottként";
 "notifications-center-swipe-mark-as-unread" = "Jelölés olvasatlanként";
 "notifications-center-swipe-more" = "Tovább";
 "notifications-center-title" = "Értesítések";
+"notifications-push-talk-messages-format" = "{{PLURAL:$1|üzenet|üzenet}}";
+"notifications-push-talk-title-format" = "Új $1";
 "number-billions" = "$1 Mrd";
 "number-millions" = "$1M";
 "number-thousands" = "$1k";
