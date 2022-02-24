@@ -1,17 +1,6 @@
 import CocoaLumberjackSwift
 
 public class RemoteNotificationsAPIController: Fetcher {
-    // MARK: NotificationsAPI constants
-
-    private struct NotificationsAPI {
-        static let components: URLComponents = {
-            var components = URLComponents()
-            components.scheme = "https"
-            components.host = "www.mediawiki.org"
-            components.path = "/w/api.php"
-            return components
-        }()
-    }
 
     // MARK: Decodable: NotificationsResult
 
@@ -110,6 +99,7 @@ public class RemoteNotificationsAPIController: Fetcher {
             let readString: String?
             let revisionID: String?
             let message: Message?
+            let sources: [String: [String: String]]?
 
             enum CodingKeys: String, CodingKey {
                 case wiki
@@ -123,6 +113,7 @@ public class RemoteNotificationsAPIController: Fetcher {
                 case readString = "read"
                 case revisionID = "revid"
                 case message = "*"
+                case sources
             }
             
             public func hash(into hasher: inout Hasher) {
@@ -158,6 +149,7 @@ public class RemoteNotificationsAPIController: Fetcher {
                 }
                 
                 message = try? values.decode(Message.self, forKey: .message)
+                sources = try? values.decode([String: [String: String]].self, forKey: .sources)
             }
         }
         
@@ -166,7 +158,7 @@ public class RemoteNotificationsAPIController: Fetcher {
 
     // MARK: Decodable: MarkReadResult
 
-    struct MarkReadResult: Decodable {
+    private struct MarkReadResult: Decodable {
         let query: Query?
         let error: ResultError?
 
@@ -194,16 +186,9 @@ public class RemoteNotificationsAPIController: Fetcher {
         case unknown
         case multiple([Error])
     }
-
-    private func notifications(from result: NotificationsResult?) -> Set<NotificationsResult.Notification>? {
-        guard let result = result else {
-            return nil
-        }
-        guard let list = result.query?.notifications?.list else {
-            return nil
-        }
-        return Set(list)
-    }
+    
+    //MARK: Public
+    
     public func getUnreadPushNotifications(from project: RemoteNotificationsProject, completion: @escaping (Set<NotificationsResult.Notification>, Error?) -> Void) {
         let completion: (NotificationsResult?, URLResponse?, Error?) -> Void = { result, _, error in
             guard error == nil else {
@@ -216,7 +201,7 @@ public class RemoteNotificationsAPIController: Fetcher {
         request(project: project, queryParameters: Query.notifications(limit: .max, filter: .unread, notifierType: .push, continueId: nil), completion: completion)
     }
     
-    func getAllNotifications(from project: RemoteNotificationsProject, continueId: String?, completion: @escaping (NotificationsResult.Query.Notifications?, Error?) -> Void) {
+    func getAllNotifications(from project: RemoteNotificationsProject, needsCrossWikiSummary: Bool = false, filter: Query.Filter = .none, continueId: String?, completion: @escaping (NotificationsResult.Query.Notifications?, Error?) -> Void) {
         let completion: (NotificationsResult?, URLResponse?, Error?) -> Void = { result, _, error in
             guard error == nil else {
                 completion(nil, error)
@@ -225,10 +210,10 @@ public class RemoteNotificationsAPIController: Fetcher {
             completion(result?.query?.notifications, result?.error)
         }
         
-        request(project: project, queryParameters: Query.notifications(from: [project], limit: .max, filter: .none, continueId: continueId), completion: completion)
+        request(project: project, queryParameters: Query.notifications(from: [project], limit: .max, filter: filter, needsCrossWikiSummary: needsCrossWikiSummary, continueId: continueId), completion: completion)
     }
     
-    public func markAllAsRead(project: RemoteNotificationsProject, completion: @escaping (Error?) -> Void) {
+    func markAllAsRead(project: RemoteNotificationsProject, completion: @escaping (Error?) -> Void) {
         
         request(project: project, queryParameters: Query.markAllAsRead(project: project), method: .post) { (result: MarkReadResult?, _, error) in
             if let error = error {
@@ -252,7 +237,7 @@ public class RemoteNotificationsAPIController: Fetcher {
         }
     }
 
-    public func markAsReadOrUnread(project: RemoteNotificationsProject, identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, completion: @escaping (Error?) -> Void) {
+    func markAsReadOrUnread(project: RemoteNotificationsProject, identifierGroups: Set<RemoteNotification.IdentifierGroup>, shouldMarkRead: Bool, completion: @escaping (Error?) -> Void) {
         let maxNumberOfNotificationsPerRequest = 50
         let identifierGroups = Array(identifierGroups)
         let split = identifierGroups.chunked(into: maxNumberOfNotificationsPerRequest)
@@ -287,26 +272,12 @@ public class RemoteNotificationsAPIController: Fetcher {
             }
         }
     }
+    
+    //MARK: Private
 
     private func request<T: Decodable>(project: RemoteNotificationsProject?, queryParameters: Query.Parameters?, method: Session.Request.Method = .get, completion: @escaping (T?, URLResponse?, Error?) -> Void) {
-        
-        let url: URL?
-        if let project = project {
-            switch project {
-            case .commons:
-                url = configuration.commonsAPIURLComponents(with: queryParameters).url
-            case .wikidata:
-                url = configuration.wikidataAPIURLComponents(with: queryParameters).url
-            case .language(let languageCode, _, _):
-                url = configuration.mediaWikiAPIURLForLanguageCode(languageCode, with: queryParameters).url
-            }
-        } else {
-            var components = NotificationsAPI.components
-            components.replacePercentEncodedQueryWithQueryParameters(queryParameters)
-            url = components.url
-        }
-        
-        guard let url = url else {
+
+        guard let url = project?.mediaWikiAPIURL(configuration: configuration, queryParameters: queryParameters) else {
             completion(nil, nil, RequestError.invalidParameters)
             return
         }
@@ -324,11 +295,21 @@ public class RemoteNotificationsAPIController: Fetcher {
             }
         }
     }
+    
+    private func notifications(from result: NotificationsResult?) -> Set<NotificationsResult.Notification>? {
+        guard let result = result else {
+            return nil
+        }
+        guard let list = result.query?.notifications?.list else {
+            return nil
+        }
+        return Set(list)
+    }
 
     // MARK: Query parameters
 
-    private struct Query {
-        typealias Parameters = [String: String]
+    struct Query {
+        typealias Parameters = [String: Any]
 
         enum Limit {
             case max
@@ -356,8 +337,8 @@ public class RemoteNotificationsAPIController: Fetcher {
             case email
         }
 
-        static func notifications(from projects: [RemoteNotificationsProject] = [], limit: Limit = .max, filter: Filter = .none, notifierType: NotifierType? = nil, continueId: String?) -> Parameters {
-            var dictionary = ["action": "query",
+        static func notifications(from projects: [RemoteNotificationsProject] = [], limit: Limit = .max, filter: Filter = .none, notifierType: NotifierType? = nil, needsCrossWikiSummary: Bool = false, continueId: String?) -> Parameters {
+            var dictionary: [String: Any] = ["action": "query",
                     "format": "json",
                     "formatversion": "2",
                     "notformat": "model",
@@ -371,6 +352,10 @@ public class RemoteNotificationsAPIController: Fetcher {
             
             if let notifierType = notifierType {
                 dictionary["notnotifiertypes"] = notifierType.rawValue
+            }
+            
+            if needsCrossWikiSummary {
+                dictionary["notcrosswikisummary"] = 1
             }
             
             let wikis = projects.map{ $0.notificationsApiWikiIdentifier }
@@ -446,6 +431,8 @@ public extension RemoteNotificationsAPIController.NotificationsResult.Notificati
     }
 }
 
+//MARK: Test Helpers
+
 #if TEST
 
 extension RemoteNotificationsAPIController.NotificationsResult.Notification {
@@ -480,6 +467,7 @@ extension RemoteNotificationsAPIController.NotificationsResult.Notification {
         self.readString = nil
        
         self.message = Message(identifier: identifier)
+        self.sources = nil
     }
 }
 
@@ -515,7 +503,7 @@ extension RemoteNotificationsAPIController.NotificationsResult.Notification.Mess
         self.header = "\(identifier)"
         self.body = "Test body text for identifier: \(identifier)"
         let primaryLink = RemoteNotificationLink(type: nil, url: URL(string:"https://en.wikipedia.org/wiki/Cat")!, label: "Label for primary link")
-        self.links = RemoteNotificationLinks(primary: primaryLink, secondary: nil)
+        self.links = RemoteNotificationLinks(primary: primaryLink, secondary: nil, legacyPrimary: primaryLink)
     }
 }
 

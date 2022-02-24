@@ -30,6 +30,7 @@
 "button-next" = "Кхин дӀа";
 "button-ok" = "ХӀаъ";
 "cancel" = "Йухайаккха";
+"description-edit-title" = "Нисбе хаам";
 "edit-summary-choice-fixed-grammar" = "Нийсайаздар";
 "insert-media-image-position-setting-right" = "Аьтту";
 "languages-settings-title" = "Меттанаш";
@@ -45,7 +46,7 @@
 "main-menu-rate-app" = "ТӀетохаран мах хадор";
 // Fuzzy
 "main-menu-terms-of-use" = "Лелоран хьал";
-"main-menu-title" = "Кхин";
+"main-menu-title" = "Кхин а";
 "main-menu-zero-faq" = "Wikipedia Zero кест-кеста луш долу хаттарш";
 "menu-cancel-accessibility-label" = "Цаоьшу";
 "navbar-title-mode-edit-wikitext-preview" = "Хьалххе хьажар";

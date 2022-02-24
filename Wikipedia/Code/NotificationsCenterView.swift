@@ -5,7 +5,7 @@ final class NotificationsCenterView: SetupView {
     // MARK: - Nested Types
 
     enum EmptyOverlayStrings {
-        static let noUnreadMessages = WMFLocalizedString("notifications-center-empty-no-unread-messages", value: "You have no unread messages", comment: "Text displayed when no Notifications Center notifications are available.")
+        static let noUnreadMessages = WMFLocalizedString("notifications-center-empty-no-messages", value: "You have no messages", comment: "Text displayed when no Notifications Center notifications are available.")
         static let notSubscribed = WMFLocalizedString("notifications-center-empty-not-subscribed", value: "You are not currently subscribed to any Wikipedia Notifications", comment: "Text displayed when user has not subscribed to any Wikipedia notifications.")
         static let checkingForNotifications = WMFLocalizedString("notifications-center-empty-checking-for-notifications", value: "Checking for notifications...", comment: "Text displayed when Notifications Center is checking for notifications.")
     }
@@ -13,22 +13,11 @@ final class NotificationsCenterView: SetupView {
     // MARK: - Properties
 
 	lazy var collectionView: UICollectionView = {
-		let collectionView = UICollectionView(frame: .zero, collectionViewLayout: tableStyleLayout)
+		let collectionView = UICollectionView(frame: .zero, collectionViewLayout: tableStyleLayout())
 		collectionView.register(NotificationsCenterCell.self, forCellWithReuseIdentifier: NotificationsCenterCell.reuseIdentifier)
 		collectionView.alwaysBounceVertical = true
 		collectionView.translatesAutoresizingMaskIntoConstraints = false
 		return collectionView
-	}()
-
-	private lazy var tableStyleLayout: UICollectionViewLayout = {
-        let estimatedHeightDimension = NSCollectionLayoutDimension.estimated(120)
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),heightDimension: estimatedHeightDimension)
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),heightDimension: estimatedHeightDimension)
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,subitems: [item])
-        let section = NSCollectionLayoutSection(group: group)
-        let layout = UICollectionViewCompositionalLayout(section: section)
-        return layout
 	}()
 
     private lazy var emptyScrollView: UIScrollView = {
@@ -76,6 +65,7 @@ final class NotificationsCenterView: SetupView {
         label.adjustsFontForContentSizeCategory = true
         label.textAlignment = .center
         label.numberOfLines = 0
+        label.isUserInteractionEnabled = true
         return label
     }()
 
@@ -87,6 +77,7 @@ final class NotificationsCenterView: SetupView {
         if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
             emptyOverlayHeaderLabel.font = UIFont.wmf_font(.mediumBody, compatibleWithTraitCollection: traitCollection)
             emptyOverlaySubheaderLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
+            calculatedCellHeight = nil
         }
     }
 
@@ -131,14 +122,70 @@ final class NotificationsCenterView: SetupView {
     }
 
     // MARK: - Public
-
-    func updateEmptyOverlay(visible: Bool, headerText: String = "", subheaderText: String = "") {
+    
+    private var subheaderTapGR: UITapGestureRecognizer?
+    
+    func addSubheaderTapGestureRecognizer(target: Any, action: Selector) {
+        let tap = UITapGestureRecognizer(target: target, action: action)
+        self.subheaderTapGR = tap
+        emptyOverlaySubheaderLabel.addGestureRecognizer(tap)
+    }
+    
+    func updateEmptyVisibility(visible: Bool) {
         emptyScrollView.isHidden = !visible
         emptyScrollView.isUserInteractionEnabled = visible
-        emptyOverlayHeaderLabel.text = headerText
-        emptyOverlaySubheaderLabel.text = subheaderText
     }
 
+    func updateEmptyContent(headerText: String = "", subheaderText: String = "", subheaderAttributedString: NSAttributedString?) {
+        emptyOverlayHeaderLabel.text = headerText
+        if let subheaderAttributedString = subheaderAttributedString {
+            emptyOverlaySubheaderLabel.attributedText = subheaderAttributedString
+            subheaderTapGR?.isEnabled = true
+        } else {
+            emptyOverlaySubheaderLabel.text = subheaderText
+            subheaderTapGR?.isEnabled = false
+        }
+    }
+    
+    func updateCalculatedCellHeightIfNeeded() {
+
+        guard let firstCell = collectionView.visibleCells.first else {
+            return
+        }
+
+        if self.calculatedCellHeight == nil {
+            let calculatedCellHeight = firstCell.frame.size.height
+            self.calculatedCellHeight = calculatedCellHeight
+        }
+    }
+    
+//MARK: Private
+    
+    private var calculatedCellHeight: CGFloat? {
+        didSet {
+            if oldValue != calculatedCellHeight {
+                collectionView.setCollectionViewLayout(tableStyleLayout(calculatedCellHeight: calculatedCellHeight), animated: false)
+            }
+        }
+    }
+
+    private func tableStyleLayout(calculatedCellHeight: CGFloat? = nil) -> UICollectionViewLayout {
+        let heightDimension: NSCollectionLayoutDimension
+
+        if let calculatedCellHeight = calculatedCellHeight {
+            heightDimension = NSCollectionLayoutDimension.absolute(calculatedCellHeight)
+        } else {
+            heightDimension = NSCollectionLayoutDimension.estimated(150)
+        }
+
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),heightDimension: heightDimension)
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),heightDimension: heightDimension)
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,subitems: [item])
+        let section = NSCollectionLayoutSection(group: group)
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        return layout
+    }
 }
 
 extension NotificationsCenterView: Themeable {

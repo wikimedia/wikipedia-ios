@@ -11,6 +11,7 @@
 // Author: Orikrin1998
 // Author: Remux
 // Author: Robin van der Vliet
+// Author: Spenĉjo
 // Author: Surfo
 // Author: YvesNevelsteen
 
@@ -476,6 +477,13 @@
 "no-internet-connection" = "Interreta konekto mankas";
 "no-internet-connection-article-reload" = "Nova versio de ĉi tiu artikolo eble estas havebla, sed ne povas esti ŝarĝita sen Interreta konekto";
 "no-internet-connection-article-reload-button" = "Reen al lasta konservita versio";
+"notifications-center-filters-types-item-title-all" = "Ĉiuj tipoj";
+"notifications-center-inbox-title" = "Projektoj";
+"notifications-center-inbox-wikimedia-projects-section-title" = "Vikimediaj projektoj";
+"notifications-center-inbox-wikipedias-section-title" = "Vikipedioj";
+"notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 mesaĝo|$1 mesaĝoj}}";
+"notifications-center-status-in-projects" = "{{PLURAL:$1|1=En 1 projekto|En $1 projektoj}}";
+"notifications-center-status-in-projects-plain" = "{{PLURAL:$1|1=1 projekto|$1 projektoj}}";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1mil";
@@ -797,5 +805,5 @@
 "wikitext-upload-save-anonymously-or-login" = "Redaktoj estos atribuitaj al la IP-adreso de via aparato. Se vi $1Ensalutas$2, vi havos pli da privateco.";
 "wikitext-upload-save-anonymously-warning" = "Redaktoj estos atribuitaj al la IP-adreso de via aparato. Se vi $1, vi havos pli da privateco.";
 "wikitext-upload-save-sign-in" = "Ensaluti";
-"wikitext-upload-save-terms-and-licenses" = "Per publikigo de ŝanĝoj, vi konsentas al la $1Kondiĉoj de Uzo$2 kaj vi nerevokeble konsentas liberigi vian kontribuaĵon sub la permesiloj $3CC BY-SA 3.0$4 (Permesilo de la Krea Komunaĵo Atribuite–Samkondiĉe 3.0) kaj $5GFDL$6 (Permesilo de GNU por Liberaj Dokumentoj). Vi konsentas ke hiperligilo aŭ retpaĝa adreso estas sufiĉa atribuo je la permesilo de la Krea Komunaĵo.";
+"wikitext-upload-save-terms-and-licenses" = "Per publikigo de ŝanĝoj, vi konsentas al la $1Kondiĉoj de Uzo$2 kaj vi nemalfareble konsentas disponebligi vian kontribuaĵon sub la permesiloj $3CC BY-SA 3.0$4 (Permesilo de la Krea Komunaĵo Atribuite–Samkondiĉe 3.0) kaj $5GFDL$6 (Permesilo de GNU por Liberaj Dokumentoj). Vi konsentas ke hiperligilo aŭ URL estas sufiĉa atribuo laŭ la permesilo de Krea Komunaĵo.";
 "wikitext-upload-save-terms-name" = "Uzkondiĉoj";

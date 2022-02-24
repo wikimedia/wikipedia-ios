@@ -2,7 +2,23 @@
 import Foundation
 
 /// Base class for operations that deal with fetching and persisting user notifications. Operation will recursively call the next page, with overrideable hooks to adjust this behavior.
-class RemoteNotificationsPagingOperation: RemoteNotificationsOperation {
+class RemoteNotificationsPagingOperation: RemoteNotificationsProjectOperation {
+    
+    private let needsCrossWikiSummary: Bool
+    private(set) var crossWikiSummaryNotification: RemoteNotificationsAPIController.NotificationsResult.Notification?
+    
+    required init(project: RemoteNotificationsProject, apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController, needsCrossWikiSummary: Bool) {
+        self.needsCrossWikiSummary = needsCrossWikiSummary
+        super.init(project: project, apiController: apiController, modelController: modelController)
+    }
+    
+    required init(project: RemoteNotificationsProject, apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController) {
+        fatalError("init(project:apiController:modelController:) has not been implemented")
+    }
+    
+    required init(apiController: RemoteNotificationsAPIController, modelController: RemoteNotificationsModelController) {
+        fatalError("init(apiController:modelController:) has not been implemented")
+    }
     
     //MARK: Overridable hooks
     
@@ -34,6 +50,11 @@ class RemoteNotificationsPagingOperation: RemoteNotificationsOperation {
         return nil
     }
     
+    /// Override to allow operation to page through a filtered list (read, unread, etc.)
+    var filter: RemoteNotificationsAPIController.Query.Filter {
+        return .none
+    }
+    
     //MARK: General Fetch and Save functionality
     
     override func execute() {
@@ -47,7 +68,7 @@ class RemoteNotificationsPagingOperation: RemoteNotificationsOperation {
     }
     
     private func recursivelyFetchAndSaveNotifications(continueId: String? = nil) {
-        apiController.getAllNotifications(from: project, continueId: continueId) { [weak self] result, error in
+        apiController.getAllNotifications(from: project, needsCrossWikiSummary: needsCrossWikiSummary, filter: filter, continueId: continueId) { [weak self] apiResult, error in
             guard let self = self else {
                 return
             }
@@ -57,26 +78,44 @@ class RemoteNotificationsPagingOperation: RemoteNotificationsOperation {
                 return
             }
 
-            guard let fetchedNotifications = result?.list else {
+            guard let fetchedNotifications = apiResult?.list else {
                 self.finish(with: RequestError.unexpectedResponse)
                 return
             }
-
+            
+            var fetchedNotificationsToPersist = fetchedNotifications
+            if self.needsCrossWikiSummary {
+                
+                let notificationIsSummaryType: (RemoteNotificationsAPIController.NotificationsResult.Notification) -> Bool = { notification in
+                    notification.id == "-1" && notification.type == "foreign"
+                }
+                
+                let crossWikiSummaryNotification = fetchedNotificationsToPersist.first(where: notificationIsSummaryType)
+                self.crossWikiSummaryNotification = crossWikiSummaryNotification
+                
+                fetchedNotificationsToPersist = fetchedNotifications.filter({ notification in
+                    !notificationIsSummaryType(notification)
+                })
+            }
+            
             guard let lastNotification = fetchedNotifications.last else {
                 //Empty notifications list so nothing to import. Exit early.
+                self.didFetchAndSaveAllPages()
                 self.finish()
                 return
             }
 
-            do {
-                let backgroundContext = self.modelController.newBackgroundContext()
-                try self.modelController.createNewNotifications(moc: backgroundContext, notificationsFetchedFromTheServer: Set(fetchedNotifications), completion: { [weak self] in
+            let backgroundContext = self.modelController.newBackgroundContext()
+            self.modelController.createNewNotifications(moc: backgroundContext, notificationsFetchedFromTheServer: Set(fetchedNotificationsToPersist), completion: { [weak self] result in
 
-                    guard let self = self else {
-                        return
-                    }
-
-                    guard let newContinueId = result?.continueId,
+                guard let self = self else {
+                    return
+                }
+                
+                switch result {
+                case .success:
+                    
+                    guard let newContinueId = apiResult?.continueId,
                           newContinueId != continueId,
                           self.shouldContinueToPage(lastNotification: lastNotification) else {
                         self.didFetchAndSaveAllPages()
@@ -86,10 +125,11 @@ class RemoteNotificationsPagingOperation: RemoteNotificationsOperation {
 
                     self.willFetchAndSaveNewPage(newContinueId: newContinueId)
                     self.recursivelyFetchAndSaveNotifications(continueId: newContinueId)
-                })
-            } catch {
-                self.finish(with: error)
-            }
+                    
+                case .failure(let error):
+                    self.finish(with: error)
+                }
+            })
         }
     }
 }

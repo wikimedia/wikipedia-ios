@@ -210,6 +210,21 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(userWasLoggedIn:)
+                                                 name:[WMFAuthenticationManager didLogInNotification]
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleExploreCenterBadgeNeedsUpdateNotification)
+                                                 name:NSNotification.notificationsCenterBadgeNeedsUpdate
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleNotificationsCenterContextDidSave)
+                                                 name:NSNotification.notificationsCenterContextDidSave
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(editWasPublished:)
                                                  name:[WMFSectionEditorViewController editWasPublished]
                                                object:nil];
@@ -379,7 +394,8 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (![self uiIsLoaded]) {
         return;
     }
-    [self.navigationStateController saveNavigationStateFor:self.navigationController in:self.dataStore.viewContext];
+    [self.navigationStateController saveNavigationStateFor:self.navigationController
+                                                        in:self.dataStore.viewContext];
     NSError *saveError = nil;
     if (![self.dataStore save:&saveError]) {
         DDLogError(@"Error saving dataStore: %@", saveError);
@@ -511,21 +527,24 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (!visibleHintPresentingViewController) {
         return;
     }
-    [self toggleHint:self.readingListHintController context:@{WMFReadingListHintController.ContextArticleKey: article}];
+    [self toggleHint:self.readingListHintController
+             context:@{WMFReadingListHintController.ContextArticleKey: article}];
 }
 
 - (void)editWasPublished:(NSNotification *)note {
     if (![NSUserDefaults.standardUserDefaults wmf_didShowFirstEditPublishedPanel]) {
         return;
     }
-    [self toggleHint:self.editHintController context:nil];
+    [self toggleHint:self.editHintController
+             context:nil];
 }
 
 - (void)descriptionEditWasPublished:(NSNotification *)note {
     if (![NSUserDefaults.standardUserDefaults didShowDescriptionPublishedPanel]) {
         return;
     }
-    [self toggleHint:self.editHintController context:nil];
+    [self toggleHint:self.editHintController
+             context:nil];
 }
 
 - (void)talkPageReplyWasPublished:(NSNotification *)note {
@@ -549,7 +568,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (!visibleHintPresentingViewController) {
         return;
     }
-    [hintController toggleWithPresenter:visibleHintPresentingViewController context:context theme:self.theme];
+    [hintController toggleWithPresenter:visibleHintPresentingViewController
+                                context:context
+                                  theme:self.theme];
 }
 
 - (UIViewController *)visibleViewController {
@@ -1202,12 +1223,20 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self showSettingsWithSubViewController:appearanceSettingsVC animated:animated];
         } break;
         case WMFUserActivityTypeNotificationSettings: {
-            [self dismissPresentedViewControllers];
-            [self setSelectedIndex:WMFAppTabTypeMain];
-            [self.navigationController popToRootViewControllerAnimated:YES];
             WMFNotificationSettingsViewController *notificationSettingsVC = [[WMFNotificationSettingsViewController alloc] initWithAuthManager:self.dataStore.authenticationManager notificationsController:self.notificationsController];
             [notificationSettingsVC applyTheme:self.theme];
-            [self showSettingsWithSubViewController:notificationSettingsVC animated:animated];
+            [self dismissPresentedViewControllers];
+            switch ([NSUserDefaults standardUserDefaults].defaultTabType) {
+                case WMFAppDefaultTabTypeExplore: {
+                    [self setSelectedIndex:WMFAppTabTypeMain];
+                    [self.navigationController popToRootViewControllerAnimated:YES];
+                    [self showSettingsWithSubViewController:notificationSettingsVC animated:animated];
+                } break;
+                case WMFAppDefaultTabTypeSettings: {
+                    [self.navigationController popToRootViewControllerAnimated:YES];
+                    [self.navigationController pushViewController:notificationSettingsVC animated:YES];
+                } break;
+            }
         } break;
         default: {
             NSURL *linkURL = [activity wmf_linkURL];
@@ -1373,16 +1402,46 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         _exploreViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-explore"];
         _exploreViewController.title = [WMFCommonStrings exploreTabTitle];
         [_exploreViewController applyTheme:self.theme];
+        [self setNotificationsCenterButtonForExploreViewController:_exploreViewController];
         UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
-        UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc] initWithImage:[self notificationsCenterBellImageWithUnreadNotifications:YES] style:UIBarButtonItemStylePlain target:_exploreViewController action:@selector(userDidTapNotificationsCenter)];
 
         settingsBarButtonItem.accessibilityLabel = [WMFCommonStrings settingsTitle];
-        notificationsBarButton.accessibilityLabel = [WMFCommonStrings notificationsCenterTitle];
 
-        _exploreViewController.navigationItem.leftBarButtonItem = notificationsBarButton;
         _exploreViewController.navigationItem.rightBarButtonItem = settingsBarButtonItem;
     }
     return _exploreViewController;
+}
+
+- (void)setNotificationsCenterButtonForExploreViewController:(ExploreViewController *)exploreViewController {
+    if (self.dataStore.authenticationManager.isLoggedIn) {
+        NSInteger numUnreadNotifications = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
+        UIImage *image = numUnreadNotifications == 0 ? [self notificationsCenterBellImageWithUnreadNotifications:NO] : [self notificationsCenterBellImageWithUnreadNotifications:YES];
+        UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:_exploreViewController action:@selector(userDidTapNotificationsCenter)];
+        notificationsBarButton.accessibilityLabel = [WMFCommonStrings notificationsCenterTitle];
+        exploreViewController.navigationItem.leftBarButtonItem = notificationsBarButton;
+    } else {
+        exploreViewController.navigationItem.leftBarButtonItem = nil;
+    }
+
+    [exploreViewController.navigationBar updateNavigationItems];
+}
+
+- (void)setNotificationsCenterButtonForSettingsViewController:(WMFSettingsViewController *)settingsViewController {
+    [settingsViewController configureBarButtonItems];
+}
+
+- (void)handleExploreCenterBadgeNeedsUpdateNotification {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self setNotificationsCenterButtonForExploreViewController:self.exploreViewController];
+        [self setNotificationsCenterButtonForSettingsViewController:self.settingsViewController];
+    });
+}
+
+- (void)handleNotificationsCenterContextDidSave {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIApplication.sharedApplication.applicationIconBadgeNumber = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
+        [self.dataStore.remoteNotificationsController updateCacheWithCurrentUnreadNotificationsCountAndReturnError:nil];
+    });
 }
 
 - (SearchViewController *)searchViewController {
@@ -1623,6 +1682,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     if (self.navigationController.interactivePopGestureRecognizer == gestureRecognizer) {
         return self.navigationController.viewControllers.count > 1;
+    } else if (_settingsViewController.navigationController.interactivePopGestureRecognizer == gestureRecognizer) {
+        return _settingsViewController.navigationController.viewControllers.count > 1;
     }
     return YES;
 }
@@ -1641,7 +1702,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 // The method will be called on the delegate when the user responded to the notification by opening the application, dismissing the notification or choosing a UNNotificationAction. The delegate must be set before the application returns from applicationDidFinishLaunching:.
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
     NSDictionary *info = response.notification.request.content.userInfo;
-    
+
     //Note: Add back in category and action identifier checks here if In the News notification is restored. Removed in: https://github.com/wikimedia/wikipedia-ios/pull/4046
     [self showNotificationCenterForNotificationInfo:info];
 
@@ -1739,7 +1800,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
     [self applyTheme:theme toNavigationControllers:[self allNavigationControllers]];
     [self.tabBar applyTheme:theme];
-    
+
     [[UISwitch appearance] setOnTintColor:theme.colors.accent];
 
     [self.readingListHintController applyTheme:self.theme];
@@ -1892,7 +1953,8 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         searchVC.dataStore = self.dataStore;
     }
 
-    [nc pushViewController:searchVC animated:true];
+    [nc pushViewController:searchVC
+                  animated:true];
 }
 
 - (nonnull WMFSettingsViewController *)settingsViewController {
@@ -1913,12 +1975,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [self applyTheme:self.theme toNavigationControllers:@[navController]];
         _settingsNavigationController = navController;
         _settingsNavigationController.modalPresentationStyle = UIModalPresentationOverFullScreen;
+        _settingsNavigationController.interactivePopGestureRecognizer.delegate = self;
     }
 
     if (_settingsNavigationController.viewControllers.firstObject != self.settingsViewController) {
         _settingsNavigationController.viewControllers = @[self.settingsViewController];
     }
-
     return _settingsNavigationController;
 }
 
@@ -1958,7 +2020,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 #pragma mark - Remote Notifications
 
-- (void)setRemoteNotificationRegistrationStatusWithDeviceToken: (nullable NSData *)deviceToken error: (nullable NSError *)error{
+- (void)setRemoteNotificationRegistrationStatusWithDeviceToken:(nullable NSData *)deviceToken error:(nullable NSError *)error {
     [self.notificationsController setRemoteNotificationRegistrationStatusWithDeviceToken:deviceToken error:error];
 }
 
@@ -1984,6 +2046,18 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)userWasLoggedOut:(NSNotification *)note {
     [self showLoggedOutPanelIfNeeded];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self setNotificationsCenterButtonForExploreViewController:self.exploreViewController];
+        [self setNotificationsCenterButtonForSettingsViewController:self.settingsViewController];
+        UIApplication.sharedApplication.applicationIconBadgeNumber = 0;
+    });
+}
+
+- (void)userWasLoggedIn:(NSNotification *)note {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self setNotificationsCenterButtonForExploreViewController:self.exploreViewController];
+        [self setNotificationsCenterButtonForSettingsViewController:self.settingsViewController];
+    });
 }
 
 - (void)showLoggedOutPanelIfNeeded {

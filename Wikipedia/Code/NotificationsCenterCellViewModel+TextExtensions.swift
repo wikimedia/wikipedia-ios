@@ -3,7 +3,10 @@ import Foundation
 
 extension NotificationsCenterCellViewModel {
     
-    var headerText: String {
+    var subheaderText: String {
+        let fromText = WMFLocalizedString("notifications-center-subheader-from-agent", value: "From %1$@", comment: "Subheader text for notifications in Notifications Center. %1$@ will be replaced with the origin agent of the notification.")
+        let alertFromText = WMFLocalizedString("notifications-center-header-alert-from-agent", value: "Alert from %1$@", comment: "Subheader text for unknown alert type notifications in Notifications Center. %1$@ will be replaced with the origin agent of the notification.")
+
         switch notification.type {
         case .userTalkPageMessage,
              .mentionInTalkPage,
@@ -19,13 +22,11 @@ extension NotificationsCenterCellViewModel {
                 return genericHeaderText(type: notification.type, project: project)
             }
 
-            return agentName
-
+            return String.localizedStringWithFormat(fromText, agentName)
         case .welcome,
              .editMilestone,
              .translationMilestone:
-            return projectName(project: project, shouldReturnCodedFormat: false)
-
+            return String.localizedStringWithFormat(fromText, project.projectName(shouldReturnCodedFormat: false))
         case .loginFailKnownDevice,
              .loginFailUnknownDevice,
              .loginSuccessUnknownDevice,
@@ -42,11 +43,11 @@ extension NotificationsCenterCellViewModel {
                 return genericHeaderText(type: notification.type, project: project)
             }
 
-            return agentName
+            return String.localizedStringWithFormat(alertFromText, agentName)
         }
     }
     
-    var subheaderText: String? {
+    var headerText: String? {
         
         switch notification.type {
         case .userTalkPageMessage:
@@ -188,9 +189,19 @@ extension NotificationsCenterCellViewModel {
     
     var projectText: String? {
         switch project {
-        case .language(let languageCode, _, _):
+        case .wikipedia(let languageCode, _, _):
             return languageCode.uppercased()
-        case .commons, .wikidata:
+        case .commons,
+                .wikiquote,
+                .wikibooks,
+                .wiktionary,
+                .wikisource,
+                .wikinews,
+                .wikiversity,
+                .wikivoyage,
+                .mediawiki,
+                .wikispecies,
+                .wikidata:
             return nil
         }
     }
@@ -199,43 +210,17 @@ extension NotificationsCenterCellViewModel {
 //MARK: Header text determination helper methods
 
 private extension NotificationsCenterCellViewModel {
-
-    /// Returns formatted descriptive project name
-    /// - Parameters:
-    ///   - project: RemoteNotificationsProject that the notification is from
-    ///   - shouldReturnCodedFormat: Boolean for if you want description in coded format for langauge projects ("EN-Wikipedia" vs  "English Wikipedia"). This is ignored for commons and wikidata projects.
-    /// - Returns: Formatted descriptive project name
-    func projectName(project: RemoteNotificationsProject, shouldReturnCodedFormat: Bool) -> String {
-        
-        switch project {
-        case .language(let languageCode, let localizedLanguageName, _):
-            let format = WMFLocalizedString("notifications-center-language-project-name-format", value: "%1$@ %2$@", comment: "Format used for the ordering of language project name descriptions. This description is inserted into the header text of notifications in Notifications Center. For example, \"English Wikipedia\". Use this format to reorder these words if necessary or insert additional connecting words. Parameters: %1$@ = localized language name (\"English\"), %2$@ = localized name for Wikipedia (\"Wikipedia\")")
-
-            if let localizedLanguageName = localizedLanguageName,
-               !shouldReturnCodedFormat {
-                return String.localizedStringWithFormat(format, localizedLanguageName, CommonStrings.plainWikipediaName)
-            } else {
-                let codedProjectName = "\(languageCode.localizedUppercase)-\(CommonStrings.plainWikipediaName)"
-                return codedProjectName
-            }
-            
-        case .commons:
-            return WMFLocalizedString("notifications-center-commons-project-name", value: "Wikimedia Commons", comment: "Project name description for Wikimedia Commons, used in notification headers.")
-        case .wikidata:
-            return WMFLocalizedString("notifications-center-wikidata-project-name", value: "Wikidata", comment: "Project name description for Wikidata, used in notification headers.")
-        }
-    }
     
     func noticeText(project: RemoteNotificationsProject) -> String {
         let format = WMFLocalizedString("notifications-center-header-notice-from-project", value: "Notice from %1$@", comment: "Header text for notice notifications in Notifications Center. %1$@ is replaced with a project name such as \"EN-Wikipedia\" or \"Wikimedia Commons\".")
-        let projectName = projectName(project: project, shouldReturnCodedFormat: true)
+        let projectName = project.projectName(shouldReturnCodedFormat: true)
         return String.localizedStringWithFormat(format, projectName)
     }
     
     func alertText(project: RemoteNotificationsProject) -> String {
 
         let format = WMFLocalizedString("notifications-center-header-alert-from-project", value: "Alert from %1$@", comment: "Header text for alert notifications in Notifications Center. %1$@ is replaced with a project name such as \"EN-Wikipedia\".")
-        let projectName = projectName(project: project, shouldReturnCodedFormat: true)
+        let projectName = project.projectName(shouldReturnCodedFormat: true)
         return String.localizedStringWithFormat(format, projectName)
     }
     
@@ -256,17 +241,46 @@ private extension NotificationsCenterCellViewModel {
 private extension NotificationsCenterCellViewModel {
     func topicTitleFromTalkPageNotification(_ notification: RemoteNotification) -> String? {
         
-        //We can extract the talk page title from the primary url's first fragment for user talk page message notifications
+        //We can try extracting the talk page title from the primary url's first fragment for user talk page message notifications
         
-        guard let primaryURL = notification.primaryLinkURL else {
-            return nil
+        let extractTitleFromURLBlock: (URL) -> String? = { url in
+            let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+            guard let fragment = components?.fragment else {
+                return nil
+            }
+            
+            return fragment.removingPercentEncoding?.replacingOccurrences(of: "_", with: " ")
         }
         
-        let components = URLComponents(url: primaryURL, resolvingAgainstBaseURL: false)
-        guard let fragment = components?.fragment else {
-            return nil
+        //prefer legacyPrimary, since it seems to retain the section title as a fragment moreso than primary
+        if let legacyPrimaryURL = notification.legacyPrimaryLinkURL,
+        let legacyTitle = extractTitleFromURLBlock(legacyPrimaryURL) {
+            if !legacyTitle.containsTalkPageSignature {
+                return legacyTitle
+            }
         }
         
-        return fragment.removingPercentEncoding?.replacingOccurrences(of: "_", with: " ")
+        if let primaryURL = notification.primaryLinkURL,
+           let title = extractTitleFromURLBlock(primaryURL) {
+            if !title.containsTalkPageSignature {
+                return title
+            }
+        }
+        
+        return nil
+    }
+}
+
+private extension String {
+    var containsISO8601DateText: Bool {
+        let range = NSRange(location: 0, length: self.utf16.count)
+        let regex = try! NSRegularExpression(pattern: ".+[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{3}Z.+")
+        
+        let exists = regex.firstMatch(in: self, options: [], range: range) != nil
+        return exists
+    }
+    
+    var containsTalkPageSignature: Bool {
+        return hasPrefix("c-") || containsISO8601DateText
     }
 }

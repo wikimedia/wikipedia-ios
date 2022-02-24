@@ -102,8 +102,6 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
         emptyViewTarget = self
         emptyViewAction = #selector(presentCreateReadingListViewController)
         setupEditController()
-        // Remove peek & pop for now
-        unregisterForPreviewing()
         isRefreshControlEnabled = true
     }
     

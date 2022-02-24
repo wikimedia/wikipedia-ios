@@ -33,6 +33,7 @@
 // Author: Tonylianlong
 // Author: Viztor
 // Author: VulpesVulpes825
+// Author: Willy1018
 // Author: Wxyveronica
 // Author: Xiplus
 // Author: Yfdyh000
@@ -602,10 +603,20 @@
 "no-internet-connection-article-reload" = "此条目的新版本可用，但由于无互联网连接而无法加载";
 "no-internet-connection-article-reload-button" = "返回至最近保存的版本";
 "notifications-center-change-password" = "更改密码";
-"notifications-center-commons-project-name" = "维基共享资源";
+"notifications-center-checking-for-notifications" = "正在检查通知…";
 "notifications-center-empty-checking-for-notifications" = "正在检查通知……";
-"notifications-center-empty-no-unread-messages" = "没有未读消息";
+"notifications-center-empty-no-messages" = "您没有消息";
 "notifications-center-empty-not-subscribed" = "您目前没有订阅任何维基百科通知";
+"notifications-center-empty-state-filters-subtitle" = "修改$1来查看更多消息";
+"notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 种筛选}}";
+"notifications-center-filters-read-status-item-title-all" = "所有";
+"notifications-center-filters-read-status-item-title-read" = "已读";
+"notifications-center-filters-read-status-item-title-unread" = "未读";
+"notifications-center-filters-read-status-section-title" = "读取状态";
+"notifications-center-filters-title" = "过滤";
+"notifications-center-filters-types-footer" = "修改通知类型来对您的通知收件箱里的进/出内容进行过滤。在类型为关闭时会不显示，内容和任何新通知会在再次切换为打开后可用。";
+"notifications-center-filters-types-item-title-all" = "所有类型";
+"notifications-center-filters-types-section-title" = "通知类型";
 "notifications-center-footer-change-password" = "更改密码";
 "notifications-center-go-to-diff" = "转到差异";
 "notifications-center-go-to-talk-page" = "转到讨论页";
@@ -613,13 +624,25 @@
 "notifications-center-go-to-user-page" = "转到$1的用户页";
 "notifications-center-go-to-wikidata-item" = "转到维基数据项目";
 "notifications-center-go-to-your-talk-page" = "转到您的讨论页";
+"notifications-center-header-alert-from-agent" = "来自$1的提醒";
 "notifications-center-header-alert-from-project" = "来自$1的提醒";
 "notifications-center-header-notice-from-project" = "来自$1的通知";
-"notifications-center-language-project-name-format" = "$1$2";
+"notifications-center-inbox-title" = "项目";
+"notifications-center-inbox-wikimedia-projects-section-footer" = "只有您创建了账号的项目会出现在此处";
+"notifications-center-inbox-wikimedia-projects-section-title" = "维基媒体项目";
+"notifications-center-inbox-wikipedias-section-title" = "维基百科";
 "notifications-center-login-notifications" = "登录通知";
+"notifications-center-mark" = "标记";
+"notifications-center-mark-all-as-read" = "标记所有为已读";
+"notifications-center-mark-all-as-read-confirmation-format" = "您确定要将您所有的 {{PLURAL:$1|$1条消息}} 标记为已读？这会将您所有设备上的通知都标记为已读。";
+"notifications-center-mark-all-as-read-missing-number" = "您确定要将您的所有消息都标记为已读？这会将您所有设备上的通知都标记为已读。";
 "notifications-center-mark-as-read" = "标记为已读";
 "notifications-center-mark-as-unread" = "标记为未读";
 "notifications-center-notifications-settings" = "通知设置";
+"notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 条消息}}";
+"notifications-center-status-all" = "全部";
+"notifications-center-status-all-notifications" = "所有通知";
+"notifications-center-status-read" = "已读";
 "notifications-center-subheader-edit-milestone" = "编辑里程碑";
 "notifications-center-subheader-edit-reverted" = "您的编辑已被回退";
 "notifications-center-subheader-email-from-other-user" = "新邮件";
@@ -640,7 +663,6 @@
 "notifications-center-subheader-welcome" = "欢迎！";
 "notifications-center-subheader-wikidata-connection" = "建立维基数据关联";
 "notifications-center-title" = "通知";
-"notifications-center-wikidata-project-name" = "维基数据";
 "notifications-push-fallback-body-text" = "维基百科上的新活动";
 "notifications-push-talk-body-format" = "$3上的$1条新$2";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|消息}}";

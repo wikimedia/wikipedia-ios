@@ -16,8 +16,7 @@
 "account-creation-logging-in" = "Асистемахь аҭаларҭа...";
 "account-creation-passwords-mismatched" = "Ажәамаӡақәа еиқәшәаӡом.";
 "account-creation-saving" = "Аиқәырхара...";
-// Fuzzy
-"action-find-in-page" = "Иҧшаатәуп адаҟьаҟны";
+"action-find-in-page" = "Иԥшаатәуп адаҟьаҟны";
 "action-read" = "Иаԥхьатәуп";
 "action-save" = "Еиқәырхатәуп";
 "action-saved" = "Еиқәырхоуп";

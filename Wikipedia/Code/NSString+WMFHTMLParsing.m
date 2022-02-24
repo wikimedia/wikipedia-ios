@@ -427,14 +427,14 @@
         }
     }];
 
-    NSMutableDictionary *attribtues = [NSMutableDictionary dictionaryWithCapacity:2];
+    NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithCapacity:2];
     if (font) {
-        [attribtues setObject:font forKey:NSFontAttributeName];
+        [attributes setObject:font forKey:NSFontAttributeName];
     }
     if (color) {
-        [attribtues setObject:color forKey:NSForegroundColorAttributeName];
+        [attributes setObject:color forKey:NSForegroundColorAttributeName];
     }
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:cleanedString attributes:attribtues];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:cleanedString attributes:attributes];
 
     NSRange matchingRange = NSMakeRange(NSNotFound, 0);
 
@@ -446,6 +446,8 @@
         BOOL isBold = [tagsForRange containsObject:@"b"];
         BOOL isSubscript = [tagsForRange containsObject:@"sub"];
         BOOL isSuperscript = [tagsForRange containsObject:@"sup"];
+        BOOL isStrikethrough = [tagsForRange containsObject:@"del"] || [tagsForRange containsObject:@"s"];
+        BOOL isUnderline = [tagsForRange containsObject:@"u"];
         if (isItalic && isBold) {
             [attributedString addAttribute:NSFontAttributeName value:boldItalicFont range:range];
         } else if (isItalic) {
@@ -468,6 +470,14 @@
             if (isSuperscript) {
                 [attributedString addAttribute:(NSString *)kCTSuperscriptAttributeName value:[NSNumber numberWithInt:1] range:range];
             }
+
+            if (isStrikethrough) {
+                [attributedString addAttribute:NSStrikethroughStyleAttributeName value:@2 range:range];
+            }
+
+            if (isUnderline) {
+                [attributedString addAttribute:NSUnderlineStyleAttributeName value:@1 range:range];
+            }
         }
 
         NSURL *linkURL = [linksForRange anyObject];
@@ -486,7 +496,8 @@
             if (attributes.count == 0) {
                 continue;
             }
-            [attributedString addAttributes:attributes range:range];
+            [attributedString addAttributes:attributes
+                                      range:range];
         }
     }];
 
@@ -495,7 +506,7 @@
     [lists enumerateObjectsUsingBlock:^(WMFHTMLElement *_Nonnull list, NSUInteger idx, BOOL *_Nonnull stop) {
         offset += [attributedString performReplacementsForListElement:list currentList:list withAttributes:listAttributes listIndex:0 replacementOffset:offset];
         NSString *newline = @"\n";
-        NSAttributedString *attributedNewline = [[NSAttributedString alloc] initWithString:newline attributes:attribtues];
+        NSAttributedString *attributedNewline = [[NSAttributedString alloc] initWithString:newline attributes:attributes];
         [attributedString insertAttributedString:attributedNewline atIndex:list.endLocation + offset];
         offset += attributedNewline.length;
     }];

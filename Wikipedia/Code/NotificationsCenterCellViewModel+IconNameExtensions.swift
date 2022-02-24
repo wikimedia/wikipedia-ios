@@ -12,14 +12,7 @@ extension NotificationsCenterCellViewModel {
     }
         
     var projectIconName: IconName? {
-        switch project {
-        case .commons:
-            return "notifications-project-commons"
-        case .wikidata:
-            return "notifications-project-wikidata"
-        case .language:
-            return nil
-        }
+        return project.projectIconName
     }
         
     var footerIconType: IconType? {

@@ -306,20 +306,6 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
     func metrics(with size: CGSize, readableWidth: CGFloat, layoutMargins: UIEdgeInsets) -> ColumnarCollectionViewLayoutMetrics {
         return ColumnarCollectionViewLayoutMetrics.tableViewMetrics(with: size, readableWidth: readableWidth, layoutMargins: layoutMargins)
     }
-    
-    // MARK - Previewing
-    
-    final func collectionViewIndexPathForPreviewingContext(_ previewingContext: UIViewControllerPreviewing, location: CGPoint) -> IndexPath? {
-        let translatedLocation = view.convert(location, to: collectionView)
-        guard
-            let indexPath = collectionView.indexPathForItem(at: translatedLocation),
-            let cell = collectionView.cellForItem(at: indexPath)
-        else {
-                return nil
-        }
-        previewingContext.sourceRect = view.convert(cell.bounds, from: cell)
-        return indexPath
-    }
 
     // MARK: - Event logging utiities
 
@@ -347,6 +333,7 @@ class ColumnarCollectionViewController: ViewController, ColumnarCollectionViewLa
     }
 }
 
+// MARK: - UICollectionViewDataSource
 extension ColumnarCollectionViewController: UICollectionViewDataSource {
     open func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 0
@@ -408,5 +395,36 @@ extension ColumnarCollectionViewController {
             FeedFunnel.shared.logArticleInFeedDetailReadingStarted(for: context, index: index, maxViewed: maxViewed)
         }
 
+    }
+}
+
+// MARK: - CollectionViewContextMenuShowing
+extension ColumnarCollectionViewController {
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard let contextMenuCollectionVC = self as? CollectionViewContextMenuShowing, let vc = contextMenuCollectionVC.previewingViewController(for: indexPath, at: point) else {
+            return nil
+        }
+        let previewProvider: () -> UIViewController? = {
+            return vc
+        }
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: previewProvider) { (suggestedActions) -> UIMenu? in
+            guard let previewActions = (vc as? ArticleViewController)?.contextMenuItems else {
+                return nil
+            }
+            return UIMenu(title: "", image: nil, identifier: nil, options: [], children: previewActions)
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+
+        guard let previewedViewController = animator.previewViewController else {
+            assertionFailure("Should be able to find previewed VC")
+            return
+        }
+        animator.addCompletion { [weak self] in
+            (self as? CollectionViewContextMenuShowing)?.poppingIntoVCCompletion()
+            previewedViewController.wmf_removePeekableChildViewControllers()
+            self?.push(previewedViewController, animated: true)
+        }
     }
 }

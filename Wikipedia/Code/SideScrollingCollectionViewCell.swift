@@ -12,6 +12,10 @@ public protocol SideScrollingCollectionViewCellDelegate: AnyObject {
     func sideScrollingCollectionViewCell(_ sideScrollingCollectionViewCell: SideScrollingCollectionViewCell, didSelectArticleWithURL articleURL: URL, at indexPath: IndexPath)
 }
 
+public protocol NestedCollectionViewContextMenuDelegate: AnyObject {
+    func contextMenu(with contentGroup: WMFContentGroup?, for articleURL: URL?, at itemIndex: Int) -> UIContextMenuConfiguration?
+    func willCommitPreview(with animator: UIContextMenuInteractionCommitAnimating)
+}
 
 public protocol SubCellProtocol {
     func deselectSelectedSubItems(animated: Bool)
@@ -40,6 +44,8 @@ open class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtocol 
             collectionView.semanticContentAttribute = semanticContentAttributeOverride
         }
     }
+
+    public weak var contextMenuShowingDelegate: NestedCollectionViewContextMenuDelegate?
     
     internal var articles: [CellArticle] = []
     
@@ -183,6 +189,19 @@ extension SideScrollingCollectionViewCell: UICollectionViewDelegate {
             return
         }
         selectionDelegate?.sideScrollingCollectionViewCell(self, didSelectArticleWithURL: articleURL, at: indexPath)
+    }
+
+    // ContextMenu
+    public func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard let articleURL = articles[safeIndex: indexPath.item]?.articleURL else {
+            return nil
+        }
+
+        return contextMenuShowingDelegate?.contextMenu(with: nil, for: articleURL, at: indexPath.item)
+    }
+
+    public func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+        contextMenuShowingDelegate?.willCommitPreview(with: animator)
     }
 }
 

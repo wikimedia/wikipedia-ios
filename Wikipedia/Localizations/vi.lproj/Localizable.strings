@@ -13,6 +13,7 @@
 // Author: Nghiemtrongdai VN
 // Author: Nguyên Lê
 // Author: Phjtieudoc
+// Author: TARGET6tidiem
 // Author: Thanhtai2009
 // Author: Vinhtantran
 
@@ -562,9 +563,7 @@
 "no-internet-connection-article-reload" = "Bài viết này có thể có một phiên bản mới hơn nhưng không thể tải nó vì không có kết nối Internet";
 "no-internet-connection-article-reload-button" = "Quay về phiên bản cuối cùng được lưu";
 "notifications-center-change-password" = "Thay đổi Mật khẩu";
-"notifications-center-commons-project-name" = "Wikimedia Commons";
 "notifications-center-empty-checking-for-notifications" = "Đang kiểm tra thông báo…";
-"notifications-center-empty-no-unread-messages" = "Bạn không có tin nhắn mới";
 "notifications-center-empty-not-subscribed" = "Bạn hiện không theo dõi thông báo Wikipedia nào";
 "notifications-center-footer-change-password" = "Thay đổi mật khẩu";
 "notifications-center-go-to-diff" = "Xem khác biệt";
@@ -575,8 +574,9 @@
 "notifications-center-go-to-your-talk-page" = "Xem trang thảo luận của bạn";
 "notifications-center-header-alert-from-project" = "Cảnh báo từ $1";
 "notifications-center-header-notice-from-project" = "Thông báo từ $1";
-"notifications-center-language-project-name-format" = "$2 $1";
 "notifications-center-login-notifications" = "Thông báo Lần Đăng nhập";
+"notifications-center-mark" = "Đánh dấu";
+"notifications-center-mark-all-as-read" = "Đánh dấu tất cả là đã đọc";
 "notifications-center-mark-as-read" = "Đánh dấu là Đã đọc";
 "notifications-center-mark-as-unread" = "Đánh dấu là chưa đọc";
 "notifications-center-notifications-settings" = "Tùy chọn thông báo";
@@ -599,8 +599,10 @@
 "notifications-center-subheader-user-rights-change" = "Thay đổi quyền người dùng";
 "notifications-center-subheader-welcome" = "Hoan nghênh!";
 "notifications-center-subheader-wikidata-connection" = "Liên kết từ Wikidata";
+"notifications-center-swipe-mark-as-read" = "Đánh dấu là đã đọc";
+"notifications-center-swipe-mark-as-unread" = "Đánh dấu là chưa đọc";
+"notifications-center-swipe-more" = "Thêm";
 "notifications-center-title" = "Thông báo";
-"notifications-center-wikidata-project-name" = "Wikidata";
 "notifications-push-fallback-body-text" = "Hoạt động mới tại Wikipedia";
 "notifications-push-talk-body-format" = "$1 $2 mới tại $3";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1}}Thông báo";

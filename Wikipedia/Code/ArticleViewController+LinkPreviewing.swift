@@ -27,61 +27,65 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
             completion(getPeekViewController(for: destination))
         }
     }
-    
-    var previewActions: [UIPreviewAction] {
+
+    var contextMenuItems: [UIAction] {
+        // Read action
         let readActionTitle = WMFLocalizedString("button-read-now", value: "Read now", comment: "Read now button text used in various places.")
-        let readAction = UIPreviewAction(title: readActionTitle, style: .default, handler: { (action, vc) in
-            guard let vc = vc as? ArticleViewController else {
-                return
-            }
-            vc.articlePreviewingDelegate?.readMoreArticlePreviewActionSelected(with: vc)
+        let readAction = UIAction(title: readActionTitle, handler: { (action) in
+            self.articlePreviewingDelegate?.readMoreArticlePreviewActionSelected(with: self)
         })
-        let saveActionTitle = article.isAnyVariantSaved ? WMFLocalizedString("button-saved-remove", value: "Remove from saved", comment: "Remove from saved button text used in various places.") : CommonStrings.saveTitle
-        let saveAction = UIPreviewAction(title: saveActionTitle, style: .default) { (action, vc) in
-            guard let vc = vc as? ArticleViewController else {
-                return
-            }
-            let isSaved = vc.dataStore.savedPageList.toggleSavedPage(for: vc.articleURL)
-            let notification = isSaved ? CommonStrings.accessibilitySavedNotification : CommonStrings.accessibilityUnsavedNotification
-            UIAccessibility.post(notification: .announcement, argument: notification)
-            vc.articlePreviewingDelegate?.saveArticlePreviewActionSelected(with: vc, didSave: isSaved, articleURL: vc.articleURL)
-        }
+
+        var actions = [readAction]
+
+        // Save action
         let logReadingListsSaveIfNeeded = { [weak self] in
             guard let delegate = self?.articlePreviewingDelegate as? EventLoggingEventValuesProviding else {
                 return
             }
             self?.readingListsFunnel.logSave(category: delegate.eventLoggingCategory, label: delegate.eventLoggingLabel, articleURL: self?.articleURL)
         }
+        if articleURL.namespace == .main {
+            let saveActionTitle = article.isAnyVariantSaved ? WMFLocalizedString("button-saved-remove", value: "Remove from saved", comment: "Remove from saved button text used in various places.") : CommonStrings.saveTitle
+            let saveAction = UIAction(title: saveActionTitle, handler: { (action) in
+                let isSaved = self.dataStore.savedPageList.toggleSavedPage(for: self.articleURL)
+                let notification = isSaved ? CommonStrings.accessibilitySavedNotification : CommonStrings.accessibilityUnsavedNotification
+                UIAccessibility.post(notification: .announcement, argument: notification)
+                self.articlePreviewingDelegate?.saveArticlePreviewActionSelected(with: self, didSave: isSaved, articleURL: self.articleURL)
+            })
+            actions.append(saveAction)
+        }
+
+        // Location action
+        if article.location != nil {
+            let placeActionTitle = WMFLocalizedString("page-location", value: "View on a map", comment: "Label for button used to show an article on the map")
+            let placeAction = UIAction(title: placeActionTitle, handler: { (action) in
+                self.articlePreviewingDelegate?.viewOnMapArticlePreviewActionSelected(with: self)
+            })
+            actions.append(placeAction)
+        }
+
+        // Share action
         let shareActionTitle = CommonStrings.shareMenuTitle
-        let shareAction = UIPreviewAction(title: shareActionTitle, style: .default) { (action, vc) in
-            guard let vc = vc as? ArticleViewController, let presenter = vc.articlePreviewingDelegate as? UIViewController else {
+        let shareAction = UIAction(title: shareActionTitle, handler: { (action) in
+            guard let presenter = self.articlePreviewingDelegate as? UIViewController else {
                 return
             }
-            let customActivity = vc.addToReadingListActivity(with: presenter, eventLogAction: logReadingListsSaveIfNeeded)
-            guard let shareActivityViewController = vc.sharingActivityViewController(with: nil, button: vc.toolbarController.shareButton, shareFunnel: vc.shareFunnel, customActivity: customActivity) else {
+            let customActivity = self.addToReadingListActivity(with: presenter, eventLogAction: logReadingListsSaveIfNeeded)
+            guard let shareActivityViewController = self.sharingActivityViewController(with: nil, button: self.toolbarController.shareButton, shareFunnel: self.shareFunnel, customActivity: customActivity) else {
                 return
             }
             // Exclude the system Safari reading list activity to avoid confusion with our reading lists
             shareActivityViewController.excludedActivityTypes = [.addToReadingList]
-            vc.articlePreviewingDelegate?.shareArticlePreviewActionSelected(with: vc, shareActivityController: shareActivityViewController)
-        }
-        
-        var actions = [readAction, saveAction]
-        
-        if article.location != nil {
-            let placeActionTitle = WMFLocalizedString("page-location", value: "View on a map", comment: "Label for button used to show an article on the map")
-            let placeAction = UIPreviewAction(title: placeActionTitle, style: .default) { (action, vc) in
-                guard let vc = vc as? ArticleViewController else {
-                    return
-                }
-                vc.articlePreviewingDelegate?.viewOnMapArticlePreviewActionSelected(with: vc)
-            }
-            actions.append(placeAction)
-        }
-        
+            self.articlePreviewingDelegate?.shareArticlePreviewActionSelected(with: self, shareActivityController: shareActivityViewController)
+        })
+
         actions.append(shareAction)
-        
+
         return actions
+    }
+
+    var previewMenuItems: [UIMenuElement]? {
+        return contextMenuItems
     }
 
     func webView(_ webView: WKWebView, contextMenuConfigurationForElement elementInfo: WKContextMenuElementInfo, completionHandler: @escaping (UIContextMenuConfiguration?) -> Void) {
@@ -103,7 +107,6 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
         }
     }
 
-    // This function is used by both Peek/Pop and Context Menu (can remove this note when removing rest of Peek/Pop code, when oldest supported version is iOS 13)
     func getPeekViewController(for destination: Router.Destination) -> UIViewController? {
         switch destination {
         case .article(let articleURL):
@@ -116,11 +119,9 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
         }
     }
 
-    // This function is used by both Peek/Pop and Context Menu (can remove this note when removing rest of Peek/Pop code, when oldest supported version is iOS 13)
     func commitPreview(of viewControllerToCommit: UIViewController) {
         if let vc = viewControllerToCommit as? ArticleViewController {
-            vc.wmf_removePeekableChildViewControllers()
-            push(vc, animated: true)
+            readMoreArticlePreviewActionSelected(with: vc)
         } else {
             if let vc = viewControllerToCommit as? WMFImageGalleryViewController {
                 vc.setOverlayViewTopBarHidden(false)

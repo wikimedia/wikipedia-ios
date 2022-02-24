@@ -594,9 +594,7 @@
 "no-internet-connection-article-reload" = "نسخهٔ جدیدتر این مقاله ممکن است موجود باشد، اما بدون اتصال به اینترنت، قابل دست‌یابی نیست";
 "no-internet-connection-article-reload-button" = "برگشت به آخرین نسخهٔ ذخیره‌شده";
 "notifications-center-change-password" = "تغییر گذرواژه";
-"notifications-center-commons-project-name" = "ویکی‌انبار";
 "notifications-center-empty-checking-for-notifications" = "در حال بررسی اعلان‌ها...";
-"notifications-center-empty-no-unread-messages" = "هیچ پیام خوانده‌نشده‌ای ندارید";
 "notifications-center-empty-not-subscribed" = "در حال حاضر شما در هیچ اعلانی در ویکی‌پدیا مشترک نیستید";
 "notifications-center-footer-change-password" = "تغییر گذرواژه";
 "notifications-center-go-to-diff" = "رفتن به تفاوت";
@@ -607,8 +605,9 @@
 "notifications-center-go-to-your-talk-page" = "رفتن به صفحهٔ بحث خودتان";
 "notifications-center-header-alert-from-project" = "هشدار از $1";
 "notifications-center-header-notice-from-project" = "اعلان از $1";
-"notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "اعلان‌های ورود به حساب";
+"notifications-center-mark" = "نشان‌گذاری";
+"notifications-center-mark-all-as-read" = "نشان‌گذاری همه به عنوان خوانده‌شده";
 "notifications-center-mark-as-read" = "علامت‌گذاری به عنوان خوانده‌شده";
 "notifications-center-mark-as-unread" = "علامت‌گذاری به عنوان خوانده‌نشده";
 "notifications-center-notifications-settings" = "تنظیمات اعلان‌ها";
@@ -630,8 +629,10 @@
 "notifications-center-subheader-user-rights-change" = "تغییرات اختیارات کاربر";
 "notifications-center-subheader-welcome" = "خوش آمدید!";
 "notifications-center-subheader-wikidata-connection" = "ایجاد ارتباط با ویکی‌داده";
+"notifications-center-swipe-mark-as-read" = "علامت‌گذاری به عنوان خوانده‌شده";
+"notifications-center-swipe-mark-as-unread" = "علامت‌گذاری به عنوان خوانده‌نشده";
+"notifications-center-swipe-more" = "بیشتر";
 "notifications-center-title" = "اعلان‌ها";
-"notifications-center-wikidata-project-name" = "ویکی‌داده";
 "number-billions" = "$1میلیارد";
 "number-millions" = "$1میلیون";
 "number-thousands" = "$1هزار";

@@ -6,10 +6,12 @@ public class RemoteNotificationLinks: NSObject, NSSecureCoding, Codable {
     
     let primary: RemoteNotificationLink?
     let secondary: [RemoteNotificationLink]?
+    let legacyPrimary: RemoteNotificationLink?
 
-    init(primary: RemoteNotificationLink?, secondary: [RemoteNotificationLink]?) {
+    init(primary: RemoteNotificationLink?, secondary: [RemoteNotificationLink]?, legacyPrimary: RemoteNotificationLink?) {
         self.primary = primary
         self.secondary = secondary
+        self.legacyPrimary = legacyPrimary
     }
 
     public required convenience init(coder decoder: NSCoder) {
@@ -17,12 +19,14 @@ public class RemoteNotificationLinks: NSObject, NSSecureCoding, Codable {
         let primary = decoder.decodeObject(of: RemoteNotificationLink.self, forKey: "primary")
         let classes = [NSArray.classForCoder(), RemoteNotificationLink.classForCoder()]
         let secondary = decoder.decodeObject(of: classes, forKey: "secondary") as? [RemoteNotificationLink]
-        self.init(primary: primary, secondary: secondary)
+        let legacyPrimary = decoder.decodeObject(of: RemoteNotificationLink.self, forKey: "legacyPrimary")
+        self.init(primary: primary, secondary: secondary, legacyPrimary: legacyPrimary)
     }
 
     public func encode(with coder: NSCoder) {
         coder.encode(primary, forKey: "primary")
         coder.encode(secondary, forKey: "secondary")
+        coder.encode(legacyPrimary, forKey: "legacyPrimary")
     }
 }
 
