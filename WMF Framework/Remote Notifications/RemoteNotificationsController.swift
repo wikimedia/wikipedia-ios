@@ -4,7 +4,6 @@ public enum RemoteNotificationsControllerError: Error {
     case databaseUnavailable
     case attemptingToRefreshBeforeDeadline
     case failurePullingAppLanguage
-    case filtersEnabled
 }
 
 @objc public final class RemoteNotificationsController: NSObject {
@@ -197,12 +196,8 @@ public enum RemoteNotificationsControllerError: Error {
         operationsController.markAllAsRead(languageLinkController: languageLinkController, completion: completion)
     }
     
-    /// Asks server to mark all notifications as seen for wikipedias that contain local unread notifications.
+    /// Asks server to mark all notifications as seen for the primary app language
     public func markAllAsSeen(completion: @escaping ((Result<Void, Error>) -> Void)) {
-        guard !areFiltersEnabled else {
-            completion(.failure(RemoteNotificationsControllerError.filtersEnabled))
-            return
-        }
         
         guard authManager.isLoggedIn else {
             completion(.failure(RequestError.unauthenticated))

@@ -189,14 +189,16 @@ final class NotificationsCenterViewModel: NSObject {
     }
     
     func markAllAsSeen() {
+        
+        //do not mark as seen if view is showing an empty state due to filters or loading
+        if modelController.countOfTrackingModels == 0 && (remoteNotificationsController.areFiltersEnabled || remoteNotificationsController.isLoadingNotifications) {
+            return
+        }
+        
         remoteNotificationsController.markAllAsSeen { result in
             switch result {
             case let .failure(error):
-                guard !self.remoteNotificationsController.areFiltersEnabled else {
-                    return
-                }
                 DDLogError("Error marking all notifications as seen: \(error)")
-                //TODO: show some sort of error state
             default:
                 break
             }
