@@ -46,8 +46,8 @@ public class CommonStrings: NSObject {
     @objc public static let exploreTabTitle = WMFLocalizedString("home-title", value: "Explore", comment: "Title for home interface. {{Identical|Explore}}")
     @objc public static let savedTabTitle = WMFLocalizedString("saved-title", value: "Saved", comment: "Title of the saved screen shown on the saved tab {{Identical|Saved}}")
 
-    @objc public static let notificationsCenterTitle = WMFLocalizedString("notifications-center-title", value: "Notifications", comment: "Title for Notifications Center interface.")
-    @objc public static let notificationsCenterBadgeTitle = WMFLocalizedString("notifications-center-badge-title", value: "Notifications with unread badge", comment: "Title for Notifications Center interface.")
+    @objc public static let notificationsCenterTitle = WMFLocalizedString("notifications-center-title", value: "Notifications", comment: "Title for Notifications Center interface, as well as the accessibility label for the button that navigates to Notifications Center.")
+    @objc public static let notificationsCenterBadgeTitle = WMFLocalizedString("notifications-center-badge-button-accessibility-label", value: "Notifications with unread badge", comment: "Accessibility label for a button that navigates to Notifications Center. This button has a badge indicating there are unread notifications.")
     public static let notificationsCenterGoToTitleFormat = WMFLocalizedString("notifications-center-go-to-title", value: "Go to %1$@", comment: "Button text in Notifications Center that routes to a particular page. %1$@ is replaced with page title.")
     public static let notificationsCenterMarkAsRead = WMFLocalizedString("notifications-center-mark-as-read", value: "Mark as Read", comment: "Button text in Notifications Center to mark a notification as read.")
     public static let notificationsCenterMarkAsUnread = WMFLocalizedString("notifications-center-mark-as-unread", value: "Mark as Unread", comment: "Button text in Notifications Center to mark a notification as unread.")

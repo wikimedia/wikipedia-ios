@@ -287,7 +287,7 @@ private extension NotificationsCenterViewController {
         } else {
             markButton = TextBarButtonItem(title: markText, target: self, action: #selector(didTapMarkButtonIOS13(_:)))
         }
-        markButton.accessibilityLabel = WMFLocalizedString("notifications-toolbar-mark", value: "Mark selected notifications", comment: "Acessibility label for mark button in Notifications Center")
+        markButton.accessibilityLabel = WMFLocalizedString("notifications-center-toolbar-mark-accessibility-label", value: "Mark selected notifications", comment: "Accessibility label for mark button in Notifications Center")
        
         markButton.apply(theme: theme)
         return markButton

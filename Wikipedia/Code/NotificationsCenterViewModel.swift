@@ -317,21 +317,25 @@ extension NotificationsCenterViewModel {
     }
     
     var filterButtonAccessibilityLabel: String {
-        return remoteNotificationsController.filterState.offTypes.count > 0 ?
-        WMFLocalizedString("applied-filters-accesibility-label", value: "Notifications Filter - has filters applied", comment: "Notifications filters button is selected indicating that filters are enabled")
-         : WMFLocalizedString("filters-accesibility-label", value: "Notifications Filter", comment: "Notifications filters button - not selected")
+        return areFiltersApplied ?
+        WMFLocalizedString("notifications-center-applied-filters-accessibility-label", value: "Notifications Filter - has filters applied", comment: "Accessibility label for Notifications Center's filters button. This button is in a selected state indicating that filters are applied.")
+         : WMFLocalizedString("notifications-center-filters-accessibility-label", value: "Notifications Filter", comment: "Accessibility label for Notifications Center's filters button. This button is in an unselected state indicating that filters are not applied.")
     }
-    
+
     var projectFilterAcessibilityLabel: String {
         return remoteNotificationsController.filterState.offProjects.count > 0 ?
-        WMFLocalizedString("applied-project-filters-accesibility-label", value: "Projects Filter - has filters applied", comment: "Project filters button is selected indicating that filters are enabled")
-         : WMFLocalizedString("project-filters-accesibility-label", value: "Projects Filter", comment: "Project filters button - not selected")
+        WMFLocalizedString("notifications-center-applied-project-filters-accessibility-label", value: "Projects Filter - has filters applied", comment: "Accessibility label for Notifications Center's project filters button. This button is in a selected state indicating that project filters are applied.")
+         : WMFLocalizedString("notifications-center-project-filters-accessibility-label", value: "Projects Filter", comment: "Accessibility label for Notifications Center's project filters button. This button is in an unselected state indicating that project filters are not applied.")
     }
 
     var projectFilterButtonImage: UIImage? {
         return toolbarImageForProjectFilter(engaged: remoteNotificationsController.filterState.offProjects.count > 0)
     }
-    
+
+    var areFiltersApplied: Bool {
+        return remoteNotificationsController.filterState.offTypes.count > 0 || remoteNotificationsController.filterState.readStatus != .all
+    }
+
     var filterAndInboxButtonsAreDisabled: Bool {
         modelController.countOfTrackingModels == 0 && isLoading && !remoteNotificationsController.isFullyImported
     }
