@@ -1,4 +1,5 @@
 import CocoaLumberjackSwift
+import CoreData
 
 public extension Notification.Name {
     static let NotificationsCenterContextDidSave = Notification.Name("NotificationsCenterContextDidSave")
@@ -200,7 +201,7 @@ final class RemoteNotificationsModelController {
             
         }
     }
-
+    
     // MARK: Mark as read
     
     func markAllAsRead(moc: NSManagedObjectContext, project: RemoteNotificationsProject, completion: @escaping (Result<Void, Error>) -> Void) {
@@ -268,7 +269,7 @@ final class RemoteNotificationsModelController {
     }
     
     //MARK: Fetch Distinct Wikis
-    
+
     func distinctWikisWithUnreadNotifications() throws -> Set<String> {
         return try distinctWikis(predicate: unreadNotificationsPredicate)
     }
@@ -345,7 +346,7 @@ final class RemoteNotificationsModelController {
     private var unreadNotificationsPredicate: NSPredicate {
         return NSPredicate(format: "isRead == %@", NSNumber(value: false))
     }
-    
+
     private func createNewNotification(moc: NSManagedObjectContext, notification: RemoteNotificationsAPIController.NotificationsResult.Notification) throws {
         guard let date = notification.date else {
             assertionFailure("Notification should have a date")
