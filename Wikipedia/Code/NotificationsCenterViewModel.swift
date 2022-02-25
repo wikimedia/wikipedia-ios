@@ -315,6 +315,18 @@ extension NotificationsCenterViewModel {
     var typeFilterButtonImage: UIImage? {
         return toolbarImageForTypeFilter(engaged: remoteNotificationsController.filterState.offTypes.count > 0 || remoteNotificationsController.filterState.readStatus != .all)
     }
+    
+    var filterButtonAccessibilityLabel: String {
+        return remoteNotificationsController.filterState.offTypes.count > 0 ?
+        WMFLocalizedString("applied-filters-accesibility-label", value: "Notifications Filter - has filters applied", comment: "Notifications filters button is selected indicating that filters are enabled")
+         : WMFLocalizedString("filters-accesibility-label", value: "Notifications Filter", comment: "Notifications filters button - not selected")
+    }
+    
+    var projectFilterAcessibilityLabel: String {
+        return remoteNotificationsController.filterState.offProjects.count > 0 ?
+        WMFLocalizedString("applied-project-filters-accesibility-label", value: "Projects Filter - has filters applied", comment: "Project filters button is selected indicating that filters are enabled")
+         : WMFLocalizedString("project-filters-accesibility-label", value: "Projects Filter", comment: "Project filters button - not selected")
+    }
 
     var projectFilterButtonImage: UIImage? {
         return toolbarImageForProjectFilter(engaged: remoteNotificationsController.filterState.offProjects.count > 0)
