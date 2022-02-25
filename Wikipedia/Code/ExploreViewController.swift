@@ -641,15 +641,6 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return contentGroup.imageURLsCompatibleWithTraitCollection(traitCollection, dataStore: dataStore)
     }
     
-    #if DEBUG
-    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-        guard motion == .motionShake else {
-            return
-        }
-        dataStore.feedContentController.debugChaos()
-    }
-    #endif
-    
     // MARK - CollectionViewUpdaterDelegate
     
     var needsReloadVisibleCells = false

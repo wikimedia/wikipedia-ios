@@ -233,6 +233,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
                                              selector:@selector(descriptionEditWasPublished:)
                                                  name:[DescriptionEditViewController didPublishNotification]
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(shakeDetected:)
+                                                 name:@"shakeNotification"
+                                               object:nil];
+    
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(talkPageReplyWasPublished:) name:WMFTalkPageContainerViewController.WMFReplyPublishedNotificationName object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(talkPageTopicWasPublished:) name:WMFTalkPageContainerViewController.WMFTopicPublishedNotificationName object:nil];
@@ -2104,6 +2110,34 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)logTappedSettingsFromExplore {
     [[WMFNavigationEventsFunnel shared] logTappedSettingsFromExplore];
+}
+
+- (void)shakeDetected:(NSNotification *)note {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(debouncedShakeDetected) object:nil];
+    [self performSelector:@selector(debouncedShakeDetected) withObject:nil afterDelay:0.4];
+}
+
+- (void)debouncedShakeDetected {
+    
+    UNMutableNotificationContent* content = [[UNMutableNotificationContent alloc] init];
+    content.title = [NSString localizedUserNotificationStringForKey:@"This is a fake local push." arguments:nil];
+    content.body = [NSString localizedUserNotificationStringForKey:@"Tap to navigate to Notifications Center."
+            arguments:nil];
+     
+    // Fire now
+    UNTimeIntervalNotificationTrigger* trigger = [UNTimeIntervalNotificationTrigger
+                         triggerWithTimeInterval:0.1 repeats: NO];
+     
+    // Create the request object.
+    UNNotificationRequest* request = [UNNotificationRequest
+           requestWithIdentifier:@"FakePushNotification" content:content trigger:trigger];
+     
+    UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
+    [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+       if (error != nil) {
+           NSLog(@"%@", error.localizedDescription);
+       }
+    }];
 }
 
 @end

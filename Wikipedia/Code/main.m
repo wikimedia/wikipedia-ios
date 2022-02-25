@@ -1,4 +1,5 @@
 #import "AppDelegate.h"
+#import "WMFApplication.h"
 #import "Wikipedia-Swift.h"
 
 #if TEST
@@ -44,6 +45,8 @@ int main(int argc, char *argv[]) {
             delegateClass = NSStringFromClass([WMFMockAppDelegate class]);
         }
 #endif
-            return UIApplicationMain(argc, argv, nil, delegateClass);
+        
+        NSString *appClass = NSStringFromClass([WMFApplication class]);;
+        return UIApplicationMain(argc, argv, appClass, delegateClass);
     }
 }

@@ -1,0 +1,3 @@
+@interface WMFApplication : UIApplication
+
+@end
