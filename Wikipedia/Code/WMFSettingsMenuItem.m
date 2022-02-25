@@ -106,6 +106,16 @@
                                            disclosureText:nil
                                                isSwitchOn:NO];
         }
+        case WMFSettingsMenuItemType_PushNotificationTapDebug: {
+            return
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:@"Push notifications tap debug"
+                                                 iconName:@"settings-notifications"
+                                                iconColor:[UIColor yellowColor]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
+                                           disclosureText:nil
+                                               isSwitchOn:NO];
+        }
         case WMFSettingsMenuItemType_PrivacyPolicy: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type

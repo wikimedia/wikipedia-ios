@@ -748,6 +748,10 @@
 		67DF4D0027C97B6F00936F45 /* WMFApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DF4CFE27C97B6E00936F45 /* WMFApplication.m */; };
 		67DF4D0127C97B6F00936F45 /* WMFApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DF4CFE27C97B6E00936F45 /* WMFApplication.m */; };
 		67DF4D0227C97B6F00936F45 /* WMFApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DF4CFE27C97B6E00936F45 /* WMFApplication.m */; };
+		67DF4D0427C989B400936F45 /* PushNotificationsTapDebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DF4D0327C989B400936F45 /* PushNotificationsTapDebugViewController.swift */; };
+		67DF4D0527C989B400936F45 /* PushNotificationsTapDebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DF4D0327C989B400936F45 /* PushNotificationsTapDebugViewController.swift */; };
+		67DF4D0627C989B400936F45 /* PushNotificationsTapDebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DF4D0327C989B400936F45 /* PushNotificationsTapDebugViewController.swift */; };
+		67DF4D0727C989B400936F45 /* PushNotificationsTapDebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DF4D0327C989B400936F45 /* PushNotificationsTapDebugViewController.swift */; };
 		67E069062238A396008550AC /* FindAndReplaceKeyboardBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E069052238A396008550AC /* FindAndReplaceKeyboardBar.swift */; };
 		67E069082238A5A6008550AC /* WMFFindAndReplaceKeyboardBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67E069072238A5A5008550AC /* WMFFindAndReplaceKeyboardBar.xib */; };
 		67E0690A22399D1C008550AC /* ReadingThemesControlsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09B03F31CE0FB7700009083 /* ReadingThemesControlsViewController.swift */; };
@@ -3983,6 +3987,7 @@
 		67DC5BEE23A1427C00B03A84 /* ActionHandlerScript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionHandlerScript.swift; sourceTree = "<group>"; };
 		67DF4CFD27C97B2700936F45 /* WMFApplication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFApplication.h; sourceTree = "<group>"; };
 		67DF4CFE27C97B6E00936F45 /* WMFApplication.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFApplication.m; sourceTree = "<group>"; };
+		67DF4D0327C989B400936F45 /* PushNotificationsTapDebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsTapDebugViewController.swift; sourceTree = "<group>"; };
 		67E069052238A396008550AC /* FindAndReplaceKeyboardBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindAndReplaceKeyboardBar.swift; sourceTree = "<group>"; };
 		67E069072238A5A5008550AC /* WMFFindAndReplaceKeyboardBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFFindAndReplaceKeyboardBar.xib; sourceTree = "<group>"; };
 		67E06918223B32DF008550AC /* FocusNavigationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FocusNavigationView.xib; sourceTree = "<group>"; };
@@ -5894,6 +5899,7 @@
 				679471DA275F245000621071 /* NotificationsCenterInboxView.swift */,
 				67E5DA5B2761B0AB00CE827D /* NotificationsCenterFilterView.swift */,
 				675175DB276D3B9700CD2974 /* DisappearingCallbackNavigationController.swift */,
+				67DF4D0327C989B400936F45 /* PushNotificationsTapDebugViewController.swift */,
 			);
 			name = "Notifications Center";
 			sourceTree = "<group>";
@@ -10910,6 +10916,7 @@
 				7A27EDA22279F5270010CB24 /* InsertLinkViewController.swift in Sources */,
 				671DF9C525F2AE4E0011799E /* ShortDescriptionController.swift in Sources */,
 				B0CD9DDB1F70997300051843 /* WMFWelcomeLanguagesAnimationView.swift in Sources */,
+				67DF4D0427C989B400936F45 /* PushNotificationsTapDebugViewController.swift in Sources */,
 				6782DB9D2343B7DB003FA21B /* DiffHeaderTitleView.swift in Sources */,
 				830D71CF1F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */,
 				6747117E250703BB00287951 /* ArticleAsLivingDocReferenceCollectionViewCell.swift in Sources */,
@@ -11815,6 +11822,7 @@
 				7A27EDA52279F5270010CB24 /* InsertLinkViewController.swift in Sources */,
 				671DF9C825F2AE4F0011799E /* ShortDescriptionController.swift in Sources */,
 				B0CD9DF01F70997500051843 /* WMFWelcomeLanguagesAnimationView.swift in Sources */,
+				67DF4D0727C989B400936F45 /* PushNotificationsTapDebugViewController.swift in Sources */,
 				67B64D5A2507DE3E00FA27F3 /* ArticleAsLivingDocSectionHeaderView.swift in Sources */,
 				6782DBA02343B7DB003FA21B /* DiffHeaderTitleView.swift in Sources */,
 				830D71D21F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */,
@@ -12662,6 +12670,7 @@
 				D8CE25B11E698E2400DAE2E0 /* WMFBarButtonItemPopoverMessageViewController.m in Sources */,
 				B01E54B0206479CC00374FEE /* ProgressContainer.swift in Sources */,
 				D8CE25B31E698E2400DAE2E0 /* WMFReferencePageViewController.swift in Sources */,
+				67DF4D0627C989B400936F45 /* PushNotificationsTapDebugViewController.swift in Sources */,
 				6782DBC82343FDE4003FA21B /* DiffListContextCell.swift in Sources */,
 				D850A53B1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,
 				B3F21D101EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */,
@@ -13180,6 +13189,7 @@
 				B01E54B1206479CC00374FEE /* ProgressContainer.swift in Sources */,
 				83023C1320E6561900EC7592 /* ViewControllerTransitionsController.swift in Sources */,
 				D8EC3EB01E9BDA35006712EB /* WMFReferencePageViewController.swift in Sources */,
+				67DF4D0527C989B400936F45 /* PushNotificationsTapDebugViewController.swift in Sources */,
 				D850A53C1F8686DE006FD295 /* WMFThemeableNavigationController.m in Sources */,
 				6782DBC92343FDE4003FA21B /* DiffListContextCell.swift in Sources */,
 				B3F21D111EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */,
