@@ -97,13 +97,49 @@ extension WMFAppViewController: NotificationsCenterPresentationDelegate {
 
 extension WMFAppViewController {
     @objc func userDidTapPushNotification() {
-        //TODO: This is a very basic push to Notification Center.
-        //This will need refinement when https://phabricator.wikimedia.org/T287628 is tackled
         
-        dismissPresentedViewControllers()
-        navigationController?.popToRootViewController(animated: false)
+        let pushTapDebugChoice = UserDefaults.standard.integer(forKey: PushNotificationsTapDebugViewController.key)
+        
         let viewModel = NotificationsCenterViewModel(remoteNotificationsController: dataStore.remoteNotificationsController, languageLinkController: dataStore.languageLinkController)
         let notificationsCenterViewController = NotificationsCenterViewController(theme: theme, viewModel: viewModel)
-        navigationController?.pushViewController(notificationsCenterViewController, animated: true)
+        
+        switch pushTapDebugChoice {
+        case 0:
+            let topMostController = topMostController()
+            let navVC = (topMostController as? UINavigationController) ?? topMostController?.navigationController ?? self.navigationController
+            //TODO: maybe confirm this isn't something small like AlertVCs or our little panel modals
+            //This also might require an audit of other modals to make sure they are wrapped up in navigation controllers to be pushed onto.
+            navVC?.isNavigationBarHidden = true
+            navVC?.pushViewController(notificationsCenterViewController, animated: true)
+        case 1:
+            let navigationController = WMFThemeableNavigationController(rootViewController: notificationsCenterViewController, theme: theme, style: .sheet)
+            navigationController.isNavigationBarHidden = true
+            let vcToPresent = topMostController() ?? self
+            //TODO: maybe confirm this isn't something small like AlertVCs or our little panel modals
+            vcToPresent.present(navigationController, animated: true, completion: nil)
+        case 2:
+            dismissPresentedViewControllers()
+            navigationController?.pushViewController(notificationsCenterViewController, animated: true)
+        case 3:
+            dismissPresentedViewControllers()
+            navigationController?.popToRootViewController(animated: false)
+            navigationController?.pushViewController(notificationsCenterViewController, animated: true)
+        default:
+            break
+        }
+    }
+    
+    func topMostController() -> UIViewController? {
+        guard let window = UIApplication.shared.workaroundKeyWindow, let rootViewController = window.rootViewController else {
+            return nil
+        }
+
+        var topController = rootViewController
+
+        while let newTopController = topController.presentedViewController {
+            topController = newTopController
+        }
+
+        return topController
     }
 }

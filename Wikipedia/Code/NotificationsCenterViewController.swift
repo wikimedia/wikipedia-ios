@@ -127,8 +127,18 @@ final class NotificationsCenterViewController: ViewController {
         setToolbarHidden(false, animated: false)
 
         navigationItem.rightBarButtonItem = editButtonItem
+        
+        if let rootVC = navigationController?.viewControllers.first,
+           rootVC == self {
+            let closeButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(tappedClose))
+            navigationItem.leftBarButtonItem = closeButton
+        }
         isEditing = false
 	}
+    
+    @objc func tappedClose() {
+        dismiss(animated: true)
+    }
 
 	// MARK: - Public
     

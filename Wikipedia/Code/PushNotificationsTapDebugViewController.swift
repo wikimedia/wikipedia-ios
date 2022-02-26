@@ -2,7 +2,7 @@
 import UIKit
 import WMF
 
-class PushNotificationsTapDebugViewController: SubSettingsViewController {
+@objc class PushNotificationsTapDebugViewController: SubSettingsViewController {
     
     @objc static let key = "PushNotificationsTapDebugChoice"
     
