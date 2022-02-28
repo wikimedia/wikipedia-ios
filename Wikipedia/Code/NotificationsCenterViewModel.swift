@@ -313,7 +313,7 @@ extension NotificationsCenterViewModel {
     // MARK: - Public
 
     var typeFilterButtonImage: UIImage? {
-        return toolbarImageForTypeFilter(engaged: remoteNotificationsController.filterState.offTypes.count > 0 || remoteNotificationsController.filterState.readStatus != .all)
+        return toolbarImageForTypeFilter(engaged: areFiltersApplied)
     }
     
     var filterButtonAccessibilityLabel: String {
@@ -322,7 +322,7 @@ extension NotificationsCenterViewModel {
          : WMFLocalizedString("notifications-center-filters-accessibility-label", value: "Notifications Filter", comment: "Accessibility label for Notifications Center's filters button. This button is in an unselected state indicating that filters are not applied.")
     }
 
-    var projectFilterAcessibilityLabel: String {
+    var projectFilterAccessibilityLabel: String {
         return remoteNotificationsController.filterState.offProjects.count > 0 ?
         WMFLocalizedString("notifications-center-applied-project-filters-accessibility-label", value: "Projects Filter - has filters applied", comment: "Accessibility label for Notifications Center's project filters button. This button is in a selected state indicating that project filters are applied.")
          : WMFLocalizedString("notifications-center-project-filters-accessibility-label", value: "Projects Filter", comment: "Accessibility label for Notifications Center's project filters button. This button is in an unselected state indicating that project filters are not applied.")

@@ -763,7 +763,7 @@ extension NotificationsCenterViewController {
         statusBarButton.label.attributedText = viewModel.statusBarText(textColor: theme.colors.primaryText, highlightColor: theme.colors.link)
         
         typeFilterButton.accessibilityLabel = viewModel.filterButtonAccessibilityLabel
-        projectFilterButton.accessibilityLabel = viewModel.projectFilterAcessibilityLabel
+        projectFilterButton.accessibilityLabel = viewModel.projectFilterAccessibilityLabel
     }
 
     @objc fileprivate func userDidTapProjectFilterButton() {
