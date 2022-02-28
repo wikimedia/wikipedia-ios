@@ -96,7 +96,45 @@ extension WMFAppViewController: NotificationsCenterPresentationDelegate {
 }
 
 extension WMFAppViewController {
+    
+    @objc func willPresentNotification(completion: (UNNotificationPresentationOptions) -> Void) {
+        
+        if alreadyDisplayingNotificationsCenter() {
+            self.dataStore.remoteNotificationsController.loadNotifications(force: true, completion: nil)
+            completion(.alert)
+            return
+        }
+        
+        let pushTapDebugChoice = UserDefaults.standard.integer(forKey: PushNotificationsTapDebugViewController.key)
+        
+        switch pushTapDebugChoice {
+        case 6:
+            if presentedEditorFlowVC() != nil {
+                completion([])
+                return
+            }
+        default:
+            break
+        }
+        
+        completion(.alert)
+    }
+    
+    func alreadyDisplayingNotificationsCenter() -> Bool {
+        if let topMostController = topMostController(),
+           let navVC = topMostController.navigationController ?? (topMostController as? UINavigationController),
+           let _ = (navVC.viewControllers.last as? NotificationsCenterViewController) {
+            return true
+        }
+        
+        return false
+    }
+    
     @objc func userDidTapPushNotification() {
+        
+        if alreadyDisplayingNotificationsCenter() {
+            return
+        }
         
         let pushTapDebugChoice = UserDefaults.standard.integer(forKey: PushNotificationsTapDebugViewController.key)
         
@@ -124,22 +162,96 @@ extension WMFAppViewController {
             dismissPresentedViewControllers()
             navigationController?.popToRootViewController(animated: false)
             navigationController?.pushViewController(notificationsCenterViewController, animated: true)
+        case 4:
+            presentEditorAlertIfNecessary {
+                self.dismissPresentedViewControllers()
+                self.navigationController?.pushViewController(notificationsCenterViewController, animated: true)
+            }
+            
+        case 5:
+            presentEditorAlertIfNecessary {
+                self.dismissPresentedViewControllers()
+                self.navigationController?.popToRootViewController(animated: false)
+                self.navigationController?.pushViewController(notificationsCenterViewController, animated: true)
+            }
+        case 6:
+            dismissPresentedViewControllers()
+            navigationController?.popToRootViewController(animated: false)
+            navigationController?.pushViewController(notificationsCenterViewController, animated: true)
         default:
             break
         }
     }
     
-    func topMostController() -> UIViewController? {
-        guard let window = UIApplication.shared.workaroundKeyWindow, let rootViewController = window.rootViewController else {
+    func presentEditorAlertIfNecessary(confirmationBlock: @escaping () -> Void) {
+        
+        if let presentedEditorFlowVC = presentedEditorFlowVC() {
+            let ac = UIAlertController(title: "Go to notifications center?", message: "Are you sure you want to go to Notification Center? You will lose your editing changes.", preferredStyle: .alert)
+            let yesAction = UIAlertAction(title: "Yes", style: .destructive) { _ in
+                confirmationBlock()
+            }
+            let noAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+                print("tapped cancel")
+            }
+            
+            ac.addAction(yesAction)
+            ac.addAction(noAction)
+            
+            presentedEditorFlowVC.present(ac, animated: true, completion: nil)
+            return
+        }
+        
+        confirmationBlock()
+    }
+    
+    func presentedEditorFlowVC() -> UIViewController? {
+        
+        guard let topMostController = topMostController() else {
             return nil
         }
+        
+        var loopingTopMostController: UIViewController? = topMostController
+        
+        while loopingTopMostController != nil {
+            
+            if let topNavController = ((loopingTopMostController as? UINavigationController) ?? loopingTopMostController?.navigationController) {
+                for vc in topNavController.viewControllers.reversed() {
+                    if (vc.isPartOfEditorFlow) {
+                        return vc
+                    }
+                }
+            }
+            
+            if (loopingTopMostController?.isPartOfEditorFlow ?? false) {
+                return loopingTopMostController
+            }
+            
+            loopingTopMostController = loopingTopMostController?.presentingViewController
+        }
 
-        var topController = rootViewController
+        return nil
+    }
+    
+    func topMostController() -> UIViewController? {
+        
+        var topController: UIViewController = navigationController ?? self
 
         while let newTopController = topController.presentedViewController {
             topController = newTopController
         }
 
         return topController
+    }
+}
+
+fileprivate extension UIViewController {
+    var isPartOfEditorFlow: Bool {
+        return (self is SectionEditorViewController ||
+                self is InsertLinkViewController ||
+                self is InsertMediaViewController ||
+                self is EditPreviewViewController ||
+                self is InsertMediaSearchResultPreviewingViewController ||
+                self is EditSaveViewController ||
+                self is DescriptionEditViewController)
     }
 }

@@ -23,7 +23,7 @@ import WMF
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 7
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -54,6 +54,18 @@ import WMF
             cell.textLabel?.text = "Option 4"
             cell.detailTextLabel?.text = "Modals dismissed, stack reset to root, then Notifications Center pushed onto stack."
             cell.imageView?.image = UIImage(systemName: "arrow.clockwise.circle.fill")
+        case 4:
+            cell.textLabel?.text = "Option 5"
+            cell.detailTextLabel?.text = "Same as option 3, with alert view confirmation in Editor."
+            cell.imageView?.image = UIImage(systemName: "exclamationmark.bubble.fill")
+        case 5:
+            cell.textLabel?.text = "Option 6"
+            cell.detailTextLabel?.text = "Same as option 4, with alert view confirmation in Editor."
+            cell.imageView?.image = UIImage(systemName: "exclamationmark.arrow.circlepath")
+        case 6:
+            cell.textLabel?.text = "Option 7"
+            cell.detailTextLabel?.text = "Same as option 4, but suppresses push entirely in Editor flow when foregrounded."
+            cell.imageView?.image = UIImage(systemName: "eye.slash.fill")
         default:
             break
         }
