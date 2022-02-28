@@ -99,6 +99,7 @@ final class NotificationsCenterViewController: ViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.refreshNotifications(force: true)
+        viewModel.markAllAsSeen()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
