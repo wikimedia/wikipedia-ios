@@ -29,6 +29,7 @@ let WMFIsSyntaxHighlightingEnabled = "WMFIsSyntaxHighlightingEnabled"
 let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 let WMFAppInstallId = "WMFAppInstallId"
 let WMFSendUsageReports = "WMFSendUsageReports"
+let WMFSubscribedToEchoNotifications = "WMFSubscribedToEchoNotifications"
 
 @objc public enum WMFAppDefaultTabType: Int {
     case explore
@@ -99,6 +100,15 @@ let WMFSendUsageReports = "WMFSendUsageReports"
         }
         set {
             set(newValue, forKey: WMFSendUsageReports)
+        }
+    }
+
+    @objc var wmf_isSubscribedToEchoNotifications: Bool {
+        get {
+            return bool(forKey: WMFSubscribedToEchoNotifications)
+        }
+        set {
+            set(newValue, forKey: WMFSubscribedToEchoNotifications)
         }
     }
 
