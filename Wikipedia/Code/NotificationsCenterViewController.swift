@@ -288,7 +288,8 @@ private extension NotificationsCenterViewController {
         } else {
             markButton = TextBarButtonItem(title: markText, target: self, action: #selector(didTapMarkButtonIOS13(_:)))
         }
-        
+        markButton.accessibilityLabel = WMFLocalizedString("notifications-center-toolbar-mark-accessibility-label", value: "Mark selected notifications", comment: "Accessibility label for mark button in Notifications Center")
+       
         markButton.apply(theme: theme)
         return markButton
     }
@@ -761,6 +762,9 @@ extension NotificationsCenterViewController {
         typeFilterButton.isEnabled = buttonsAreEnabled
         projectFilterButton.isEnabled = buttonsAreEnabled
         statusBarButton.label.attributedText = viewModel.statusBarText(textColor: theme.colors.primaryText, highlightColor: theme.colors.link)
+        
+        typeFilterButton.accessibilityLabel = viewModel.filterButtonAccessibilityLabel
+        projectFilterButton.accessibilityLabel = viewModel.projectFilterAccessibilityLabel
     }
 
     @objc fileprivate func userDidTapProjectFilterButton() {
