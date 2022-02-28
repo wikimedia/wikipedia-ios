@@ -859,7 +859,7 @@
 "settings-language-bar" = "Show languages on search";
 "settings-languages-feed-customization" = "You can manage which languages are shown on your Explore feed by customizing your Explore feed settings.";
 "settings-my-languages" = "My languages";
-"settings-notifications" = "Notifications";
+"settings-notifications" = "Push notifications";
 "settings-notifications-info" = "Be alerted to trending and top read articles on Wikipedia with our push notifications. All provided with respect to privacy and up to the minute data.";
 "settings-notifications-learn-more" = "Learn more about notifications";
 "settings-notifications-push-notifications" = "Push notifications";
