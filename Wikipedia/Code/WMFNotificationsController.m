@@ -96,11 +96,19 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
 
 - (void)subscribeToEchoNotificationsWithCompletionHandler:(nullable void (^)(NSError *__nullable error))completionHandler {
     [self updatePushNotificationsCacheWithNewPrimaryAppLanguage:self.languageLinkController.appLanguage];
-    [self.echoSubscriptionFetcher subscribeWithSiteURL:self.languageLinkController.appLanguage.siteURL deviceToken:self.remoteRegistrationDeviceToken completion:completionHandler];
+    [self.echoSubscriptionFetcher subscribeWithSiteURL:self.languageLinkController.appLanguage.siteURL deviceToken:self.remoteRegistrationDeviceToken completion:^(NSError *__nullable error) {
+        if (error == nil) {
+            NSUserDefaults.standardUserDefaults.wmf_isSubscribedToEchoNotifications = YES;
+        }
+        completionHandler(error);
+    }];
 }
 
 - (void)unsubscribeFromEchoNotificationsWithCompletionHandler:(nullable void (^)(NSError *__nullable error))completionHandler {
-    [self.echoSubscriptionFetcher unsubscribeWithSiteURL:self.languageLinkController.appLanguage.siteURL deviceToken:self.remoteRegistrationDeviceToken completion:completionHandler];
+    [self.echoSubscriptionFetcher unsubscribeWithSiteURL:self.languageLinkController.appLanguage.siteURL deviceToken:self.remoteRegistrationDeviceToken completion:^(NSError *__nullable error) {
+        NSUserDefaults.standardUserDefaults.wmf_isSubscribedToEchoNotifications = NO;
+        completionHandler(error);
+    }];
 }
 
 - (BOOL)isWaitingOnDeviceToken {
