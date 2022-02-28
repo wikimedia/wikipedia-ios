@@ -852,12 +852,11 @@
 "settings-language-bar" = "Title in Settings for toggling the display the language bar in the search view";
 "settings-languages-feed-customization" = "Explanation of how you can manage which languages appear in the feed.";
 "settings-my-languages" = "Title for list of user's preferred languages";
-"settings-notifications" = "Title for button letting user choose notifications settings. {{Identical|Notification}}";
-"settings-notifications-info" = "A short description of notifications shown in settings";
-"settings-notifications-learn-more" = "A title for a button to learn more about notifications";
-"settings-notifications-push-notifications" = "A title for a list of Push notifications";
-"settings-notifications-system-turn-on" = "Title for a button for turnining on notifications in the system settings";
-"settings-notifications-trending" = "Title for the setting for trending notifications";
+"settings-notifications" = "Title for view and button letting users change their push notifications settings.";
+"settings-notifications-echo-failure-message" = "Alert message text informing user of failure when subscribing to Echo Notifications.";
+"settings-notifications-echo-failure-title" = "Alert title text informing user of failure when subscribing to Echo Notifications.";
+"settings-notifications-echo-failure-try-again" = "Alert action text allowing user to retry Echo Notifications subscriptions.";
+"settings-notifications-header" = "Text informing user of benefits of enabling push notifications.";
 "settings-primary-language" = "Label shown next to primary language {{Identical|Primary}}";
 "settings-primary-language-details" = "Explanation of how the first preferred language is used. \"Explore\" is {{msg-wm|Wikipedia-ios-home-title}}.";
 "settings-search-footer-text" = "Footer text for section that allows users to customize certain Search settings";
@@ -975,9 +974,6 @@
 "welcome-languages-add-or-edit-button" = "Title for button for managing languages";
 "welcome-languages-description" = "Title label describing detected languages";
 "welcome-languages-search-title" = "Title for welcome screen describing Wikipedia languages";
-"welcome-notifications-tell-me-more-creation" = "An explanation of how notifications are created";
-"welcome-notifications-tell-me-more-storage" = "An explanation of how notifications are stored";
-"welcome-notifications-tell-me-more-title" = "Title for detailed notification explanation";
 "welcome-send-data-helps-title" = "Title for welcome screen allowing user to opt in to send usage reports";
 "welcome-send-data-learn-more" = "Text for link for learning more about opting-in to anonymous data collection";
 "welcome-send-data-sub-title" = "Sub-title explaining how sending usage reports can help improve the app";
