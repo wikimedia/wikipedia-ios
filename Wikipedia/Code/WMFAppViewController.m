@@ -87,7 +87,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @property (nonatomic, getter=isWaitingToResumeApp) BOOL waitingToResumeApp;
 @property (nonatomic, getter=isMigrationComplete) BOOL migrationComplete;
 @property (nonatomic, getter=isMigrationActive) BOOL migrationActive;
-@property (nonatomic, getter=isResumeComplete) BOOL resumeComplete; //app has fully loaded & login was attempted
+@property (nonatomic, getter=isResumeComplete) BOOL resumeComplete; // app has fully loaded & login was attempted
 
 @property (nonatomic, getter=isCheckingRemoteConfig) BOOL checkingRemoteConfig;
 
@@ -467,7 +467,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     // Reminder: kind of class is checked here because `syncDidFinishErrorKey` is sometimes set to a `WMF.ReadingListError` error type which doesn't bridge to Obj-C (causing the call to `wmf_isNetworkConnectionError` to crash).
     if ([error isKindOfClass:[NSError class]] && error.wmf_isNetworkConnectionError) {
         if (!self.hasSyncErrorBeenShownThisSesssion) {
-            self.hasSyncErrorBeenShownThisSesssion = YES; //only show sync error once for multiple failed syncs
+            self.hasSyncErrorBeenShownThisSesssion = YES; // only show sync error once for multiple failed syncs
             [[WMFAlertManager sharedInstance] showWarningAlert:WMFLocalizedStringWithDefaultValue(@"reading-lists-sync-error-no-internet-connection", nil, nil, @"Syncing will resume when internet connection is available", @"Alert message informing user that syncing will resume when internet connection is available.")
                                                         sticky:YES
                                          dismissPreviousAlerts:NO
@@ -999,10 +999,10 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self.dataStore.feedContentController stopContentSources];
 
     self.houseKeeper = [WMFDatabaseHouseKeeper new];
-    //TODO: these tasks should be converted to async so we can end the background task as soon as possible
+    // TODO: these tasks should be converted to async so we can end the background task as soon as possible
     [self.dataStore clearMemoryCache];
 
-    //TODO: implement completion block to cancel download task with the 2 tasks above
+    // TODO: implement completion block to cancel download task with the 2 tasks above
     NSError *housekeepingError = nil;
     [self.houseKeeper performHouseKeepingOnManagedObjectContext:self.dataStore.viewContext navigationStateController:self.navigationStateController error:&housekeepingError];
     if (housekeepingError) {
@@ -1223,18 +1223,18 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self showSettingsWithSubViewController:appearanceSettingsVC animated:animated];
         } break;
         case WMFUserActivityTypeNotificationSettings: {
-            WMFNotificationSettingsViewController *notificationSettingsVC = [[WMFNotificationSettingsViewController alloc] initWithAuthManager:self.dataStore.authenticationManager notificationsController:self.notificationsController];
-            [notificationSettingsVC applyTheme:self.theme];
+            WMFPushNotificationsSettingsViewController *pushNotificationsVC = [[WMFPushNotificationsSettingsViewController alloc] initWithAuthenticationManager:self.dataStore.authenticationManager notificationsController:self.notificationsController];
+            [pushNotificationsVC applyTheme:self.theme];
             [self dismissPresentedViewControllers];
             switch ([NSUserDefaults standardUserDefaults].defaultTabType) {
                 case WMFAppDefaultTabTypeExplore: {
                     [self setSelectedIndex:WMFAppTabTypeMain];
                     [self.navigationController popToRootViewControllerAnimated:YES];
-                    [self showSettingsWithSubViewController:notificationSettingsVC animated:animated];
+                    [self showSettingsWithSubViewController:pushNotificationsVC animated:animated];
                 } break;
                 case WMFAppDefaultTabTypeSettings: {
                     [self.navigationController popToRootViewControllerAnimated:YES];
-                    [self.navigationController pushViewController:notificationSettingsVC animated:YES];
+                    [self.navigationController pushViewController:pushNotificationsVC animated:YES];
                 } break;
             }
         } break;
@@ -1703,7 +1703,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
     NSDictionary *info = response.notification.request.content.userInfo;
 
-    //Note: Add back in category and action identifier checks here if In the News notification is restored. Removed in: https://github.com/wikimedia/wikipedia-ios/pull/4046
+    // Note: Add back in category and action identifier checks here if In the News notification is restored. Removed in: https://github.com/wikimedia/wikipedia-ios/pull/4046
     [self showNotificationCenterForNotificationInfo:info];
 
     completionHandler();
