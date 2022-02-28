@@ -485,11 +485,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 }
 
 - (void)showPushNotificationTapDebug {
-#if DEBUG
     PushNotificationsTapDebugViewController *vc = [[PushNotificationsTapDebugViewController alloc] init];
     [vc applyTheme:self.theme];
     [self.navigationController pushViewController:vc animated:YES];
-#endif
 }
 
 #pragma mark - Cell reloading
@@ -569,8 +567,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_StorageAndSyncing]];
 #if DEBUG
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_StorageAndSyncingDebug]];
-    [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_PushNotificationTapDebug]];
 #endif
+    [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_PushNotificationTapDebug]];
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ClearCache]];
     WMFSettingsTableViewSection *section = [[WMFSettingsTableViewSection alloc] initWithItems:items headerTitle:nil footerText:nil];
     return section;
