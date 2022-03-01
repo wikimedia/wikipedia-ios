@@ -560,6 +560,7 @@
 "notifications-center-empty-no-messages" = "Text displayed when no Notifications Center notifications are available.";
 "notifications-center-empty-not-subscribed" = "Text displayed when user has not subscribed to any Wikipedia notifications.";
 "notifications-center-empty-state-filters-subtitle" = "Format of empty state subtitle when the user has filters on - $1 is replaced with a string representing the number of filters the user has set.";
+"notifications-center-empty-state-no-projects-selected" = "Empty state subtitle indicating the user has unselected all projects.";
 "notifications-center-empty-state-num-filters" = "Portion of empty state subtitle showing number of filters the user has set in notifications center - $1 is replaced with the number filters.";
 "notifications-center-filters-accessibility-label" = "Accessibility label for Notifications Center's filters button. This button is in an unselected state indicating that filters are not applied.";
 "notifications-center-filters-read-status-item-title-all" = "Title of All option in the read status section of the notifications center filter view. Selecting this allows all read statuses to display in the notifications center.";

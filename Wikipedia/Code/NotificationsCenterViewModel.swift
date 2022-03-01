@@ -399,7 +399,11 @@ extension NotificationsCenterViewModel {
     }
     
     func emptyStateSubheaderAttributedString(theme: Theme, traitCollection: UITraitCollection) -> NSAttributedString? {
-        
+        guard remoteNotificationsController.allInboxProjects.count != remoteNotificationsController.filterState.offProjects.count else {
+            let noProjectsSelected = WMFLocalizedString("notifications-center-empty-state-no-projects-selected", value:"Add projects to see more messages", comment:"Empty state subtitle indicating the user has unselected all projects.")
+            return NSAttributedString(string: noProjectsSelected)
+        }
+
         let filterTypesCount = remoteNotificationsController.filterState.offTypes.count
         guard filterTypesCount > 0 else {
             return nil
