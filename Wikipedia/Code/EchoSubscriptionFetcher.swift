@@ -34,7 +34,7 @@ class EchoSubscriptionFetcher: Fetcher {
                 return
             }
             
-            if let responseError = RequestError.from(result?["error"] as? [String : Any]) {
+            if let responseError = RequestError.from(result) {
                 completion(responseError)
                 return
             }
@@ -71,7 +71,7 @@ class EchoSubscriptionFetcher: Fetcher {
                 return
             }
             
-            if let responseError = RequestError.from(result?["error"] as? [String : Any]) {
+            if let responseError = RequestError.from(result) {
                 completion?(responseError)
                 return
             }
