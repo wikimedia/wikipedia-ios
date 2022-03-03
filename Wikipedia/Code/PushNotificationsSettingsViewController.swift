@@ -264,6 +264,13 @@ extension PushNotificationsSettingsViewController {
         notificationsController.subscribeToEchoNotifications(completionHandler: { error in
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
+                guard error == nil else {
+                    let retryAction = UIAlertAction(title: self.echoAlertFailureTryAgainActionTitle, style: .default, handler: { _ in self.subscribeToEchoNotifications() })
+                    let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { _ in self.updateSections() })
+                    self.wmf_showAlert(title: self.echoAlertFailureTitle, message: self.echoAlertFailureMessage, actions: [retryAction, cancelAction])
+                    return
+                }
+
                 self.updateSections()
             }
         })
@@ -273,6 +280,13 @@ extension PushNotificationsSettingsViewController {
         notificationsController.unsubscribeFromEchoNotifications(completionHandler: { error in
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
+                guard error == nil else {
+                    let retryAction = UIAlertAction(title: self.echoAlertFailureTryAgainActionTitle, style: .default, handler: { _ in self.unsubscribeFromEchoNotifications() })
+                    let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { _ in self.updateSections() })
+                    self.wmf_showAlert(title: self.echoAlertFailureTitle, message: self.echoAlertFailureMessage, actions: [retryAction, cancelAction])
+                    return
+                }
+
                 self.updateSections()
             }
         })
