@@ -37,7 +37,7 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
         self.languageLinkController = languageLinkController;
         self.echoSubscriptionFetcher = [[WMFEchoSubscriptionFetcher alloc] initWithSession:dataStore.session configuration:dataStore.configuration];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAppLanguageDidChangeNotification:) name:WMFAppLanguageDidChangeNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationManagerDidLogOut) name:WMFAuthenticationManager.didLogOutNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationManagerWillLogOut) name:WMFAuthenticationManager.willLogOutNotification object:nil];
         [self silentlyOptInToBadgePermissionsIfNecessary];
     }
     return self;
@@ -47,7 +47,7 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)authenticationManagerDidLogOut {
+- (void)authenticationManagerWillLogOut {
     [self unsubscribeFromEchoNotificationsWithCompletionHandler:^(NSError *__nullable error){}];
 }
 
