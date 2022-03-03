@@ -78,8 +78,14 @@ class EchoSubscriptionFetcher: Fetcher {
             }
             
             if let responseError = RequestError.from(result) {
-                completion?(responseError)
-                return
+                switch responseError {
+                case .api("echo-push-token-not-found"):
+                    // MediaWiki can't find this registered token, which is what we ultimately want, so we can consider this request a success
+                    break
+                default:
+                    completion?(responseError)
+                    return
+                }
             }
             
             completion?(nil)
