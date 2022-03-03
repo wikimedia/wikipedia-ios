@@ -35,8 +35,14 @@ class EchoSubscriptionFetcher: Fetcher {
             }
             
             if let responseError = RequestError.from(result) {
-                completion(responseError)
-                return
+                switch responseError {
+                case .api("echo-push-token-exists"):
+                    // MediaWiki has already registered the requested device token, which is what we ultimately want, so we can consider this request a success
+                    break
+                default:
+                    completion(responseError)
+                    return
+                }
             }
             
             completion(nil)
