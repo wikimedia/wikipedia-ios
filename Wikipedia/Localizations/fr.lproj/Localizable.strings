@@ -584,6 +584,9 @@
 "no-internet-connection" = "Aucune connexion à Internet";
 "no-internet-connection-article-reload" = "Une version plus récente de cet article est peut-être disponible, mais ne peut pas être chargée sans connexion à Internet";
 "no-internet-connection-article-reload-button" = "Retour à la dernière version enregistrée";
+"notifications-center-applied-filters-accessibility-label" = "Filtrage des notifications : a des filtres appliqués";
+"notifications-center-applied-project-filters-accessibility-label" = "Filtrage des projets : a des filtres appliqués";
+"notifications-center-badge-button-accessibility-label" = "Notifications avec un badge non lu";
 "notifications-center-change-password" = "Modifier le mot de passe";
 "notifications-center-checking-for-notifications" = "Vérification des notifications...";
 "notifications-center-empty-checking-for-notifications" = "Vérification des notifications...";
@@ -591,6 +594,7 @@
 "notifications-center-empty-not-subscribed" = "Vous n’êtes actuellement abonné à aucune notification de Wikipédia.";
 "notifications-center-empty-state-filters-subtitle" = "Modifier $1 pour voir plus de messages";
 "notifications-center-empty-state-num-filters" = "$1 filtre{{PLURAL:$1||s}}";
+"notifications-center-filters-accessibility-label" = "Fitrage des notifications";
 "notifications-center-filters-read-status-item-title-all" = "Tous";
 "notifications-center-filters-read-status-item-title-read" = "Lu";
 "notifications-center-filters-read-status-item-title-unread" = "Non lu";
@@ -622,6 +626,7 @@
 "notifications-center-mark-as-unread" = "Marquer comme non lu";
 "notifications-center-notifications-settings" = "Paramètres de notification";
 "notifications-center-num-selected-messages-format" = "$1 message{{PLURAL:$1||s}}";
+"notifications-center-project-filters-accessibility-label" = "Filtrage des projets";
 "notifications-center-status-all" = "Toutes";
 "notifications-center-status-all-notifications" = "Toutes les notifications";
 "notifications-center-status-double-concatenation" = "$1 sur $2";
@@ -656,6 +661,7 @@
 "notifications-center-swipe-mark-as-unread" = "Marquer comme non lu";
 "notifications-center-swipe-more" = "Plus";
 "notifications-center-title" = "Notifications";
+"notifications-center-toolbar-mark-accessibility-label" = "Marquer les notifications sélectionnées";
 "notifications-push-fallback-body-text" = "Nouvelle activité sur Wikipédia";
 "notifications-push-talk-body-format" = "$1 nouveaux $2 sur $3";
 "notifications-push-talk-messages-format" = "message{{PLURAL:$1||s}}";
