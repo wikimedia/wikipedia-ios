@@ -114,7 +114,9 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
 
 - (void)unsubscribeFromEchoNotificationsWithCompletionHandler:(nullable void (^)(NSError *__nullable error))completionHandler {
     [self.echoSubscriptionFetcher unsubscribeWithSiteURL:self.languageLinkController.appLanguage.siteURL deviceToken:self.remoteRegistrationDeviceToken completion:^(NSError *__nullable error) {
-        NSUserDefaults.standardUserDefaults.wmf_isSubscribedToEchoNotifications = NO;
+        if (error == nil) {
+            NSUserDefaults.standardUserDefaults.wmf_isSubscribedToEchoNotifications = NO;
+        }
         completionHandler(error);
     }];
 }
