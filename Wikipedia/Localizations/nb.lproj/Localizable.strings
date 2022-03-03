@@ -572,6 +572,9 @@
 "no-internet-connection" = "Ingen internettforbindelse";
 "no-internet-connection-article-reload" = "Det kan hende at en nyere versjon av denne artikkelen er tilgjengelig, men en fungerende internettforbindelse trengs for å kunne sjekke";
 "no-internet-connection-article-reload-button" = "Tilbake til sist lagrede versjon";
+"notifications-center-applied-filters-accessibility-label" = "Varselfilter – har gjeldende filtre";
+"notifications-center-applied-project-filters-accessibility-label" = "Prosjektfilter – har gjeldende filtre";
+"notifications-center-badge-button-accessibility-label" = "Varsler med merking for ulest";
 "notifications-center-change-password" = "Endre passord";
 "notifications-center-checking-for-notifications" = "Sjekker varsler …";
 "notifications-center-empty-checking-for-notifications" = "Sjekker varsler …";
@@ -579,6 +582,7 @@
 "notifications-center-empty-not-subscribed" = "Du abonnerer for tiden ikke på noen Wikipedia-varsler";
 "notifications-center-empty-state-filters-subtitle" = "Endre $1 for å se flere meldinger";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter|$1 filtre}}";
+"notifications-center-filters-accessibility-label" = "Varselfilter";
 "notifications-center-filters-read-status-item-title-all" = "Alle";
 "notifications-center-filters-read-status-item-title-read" = "Lest";
 "notifications-center-filters-read-status-item-title-unread" = "Ulest";
@@ -610,6 +614,7 @@
 "notifications-center-mark-as-unread" = "Merk som ulest";
 "notifications-center-notifications-settings" = "Varselsinnstillinger";
 "notifications-center-num-selected-messages-format" = "$1 {{PLURAL:$1|melding|meldinger}}";
+"notifications-center-project-filters-accessibility-label" = "Prosjektfilter";
 "notifications-center-status-all" = "Alle";
 "notifications-center-status-all-notifications" = "Alle varsler";
 "notifications-center-status-double-concatenation" = "$1 i $2";
@@ -644,6 +649,7 @@
 "notifications-center-swipe-mark-as-unread" = "Merk som ulest";
 "notifications-center-swipe-more" = "Mer";
 "notifications-center-title" = "Varsler";
+"notifications-center-toolbar-mark-accessibility-label" = "Merk valgte varsler";
 "notifications-push-fallback-body-text" = "Ny aktivitet på Wikipedia";
 "notifications-push-talk-body-format" = "$1 nye $2 på $3";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|melding|meldinger}}";

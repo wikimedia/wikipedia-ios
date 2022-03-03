@@ -563,6 +563,9 @@
 "no-internet-connection" = "Не сте поврзани со семрежјето";
 "no-internet-connection-article-reload" = "Може да постои понова верзија на статијава, но не може да се вчита без врска со семрежјето";
 "no-internet-connection-article-reload-button" = "Врати на последната зачувана верзија";
+"notifications-center-applied-filters-accessibility-label" = "Филтер на известувања — има зададени филтри";
+"notifications-center-applied-project-filters-accessibility-label" = "Филтер на известувања — има зададени филтри";
+"notifications-center-badge-button-accessibility-label" = "Известувања со значка „непрочитано“";
 "notifications-center-change-password" = "Смени лозинка";
 "notifications-center-checking-for-notifications" = "Проверувам известувања...";
 "notifications-center-empty-checking-for-notifications" = "Проверувам известувања...";
@@ -570,6 +573,7 @@
 "notifications-center-empty-not-subscribed" = "Не сте претплатени на никакви известувања од Википедија";
 "notifications-center-empty-state-filters-subtitle" = "Изменете $1 за да видите повеќе пораки";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 филтер|$1 филтри}}";
+"notifications-center-filters-accessibility-label" = "Филтер на известувања";
 "notifications-center-filters-read-status-item-title-all" = "Сите";
 "notifications-center-filters-read-status-item-title-read" = "Прочитани";
 "notifications-center-filters-read-status-item-title-unread" = "Непрочитани";
@@ -601,6 +605,7 @@
 "notifications-center-mark-as-unread" = "Означи како непрочитано";
 "notifications-center-notifications-settings" = "Нагодувања за ивестувања`";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 порака|$1 пораки}}";
+"notifications-center-project-filters-accessibility-label" = "Филтер на проекти";
 "notifications-center-status-all" = "Сите";
 "notifications-center-status-all-notifications" = "Сите известувања";
 "notifications-center-status-double-concatenation" = "$1 на $2";
@@ -635,6 +640,7 @@
 "notifications-center-swipe-mark-as-unread" = "Означи како непрочитано";
 "notifications-center-swipe-more" = "Повеќе";
 "notifications-center-title" = "Известувања";
+"notifications-center-toolbar-mark-accessibility-label" = "Обележи избрани известувања";
 "notifications-push-fallback-body-text" = "Нови активности на Википедија";
 "notifications-push-talk-body-format" = "$1 нови $2 на $3";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|порака|пораки}}";

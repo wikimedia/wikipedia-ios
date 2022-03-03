@@ -576,6 +576,9 @@
 "no-internet-connection" = "אין חיבור אינטרנט";
 "no-internet-connection-article-reload" = "ייתכן שזמינה גרסה חדשה של הערך הזה, אבל אי־אפשר לטעון אותה ללא חיבור לאינטרנט";
 "no-internet-connection-article-reload-button" = "חזרה לגרסה השמורה האחרונה";
+"notifications-center-applied-filters-accessibility-label" = "מסנן עדכונים – מסננים מופעלים";
+"notifications-center-applied-project-filters-accessibility-label" = "מסנן מיזמים – מסננים מופעלים";
+"notifications-center-badge-button-accessibility-label" = "עדכונים עם סמל \"לא נקרא\"";
 "notifications-center-change-password" = "שינוי סיסמה";
 "notifications-center-checking-for-notifications" = "בדיקת התראות...";
 "notifications-center-empty-checking-for-notifications" = "בדיקת התראות...";
@@ -583,6 +586,7 @@
 "notifications-center-empty-not-subscribed" = "אינך מנוי על שום התראות ויקיפדיה";
 "notifications-center-empty-state-filters-subtitle" = "יש לשנות $1 כדי לראות עוד הודעות";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|מסנן אחד|$1 מסננים}}";
+"notifications-center-filters-accessibility-label" = "מסנן עדכונים";
 "notifications-center-filters-read-status-item-title-all" = "הכול";
 "notifications-center-filters-read-status-item-title-read" = "נקראו";
 "notifications-center-filters-read-status-item-title-unread" = "לא נקראו";
@@ -614,6 +618,7 @@
 "notifications-center-mark-as-unread" = "סימון כהודעה שלא נקראה";
 "notifications-center-notifications-settings" = "הגדרות התראות";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|הודעה אחת|$1 הודעות}}";
+"notifications-center-project-filters-accessibility-label" = "מסנן מיזמים";
 "notifications-center-status-all" = "הכול";
 "notifications-center-status-all-notifications" = "כל ההודעות";
 "notifications-center-status-double-concatenation" = "$1 ב־$2";
@@ -648,6 +653,7 @@
 "notifications-center-swipe-mark-as-unread" = "לסמן כהודעה שלא נקראה";
 "notifications-center-swipe-more" = "עוד";
 "notifications-center-title" = "התראות";
+"notifications-center-toolbar-mark-accessibility-label" = "נא לסמן את העדכונים הנבחרים";
 "notifications-push-fallback-body-text" = "פעילות חדשה בוויקיפדיה";
 "notifications-push-talk-body-format" = "$1 $2 בדף $3";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|הודעה חדשה|הודעות חדשות}}";
