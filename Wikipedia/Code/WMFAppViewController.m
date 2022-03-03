@@ -2130,8 +2130,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
                         repeats:NO];
 
     // Create the request object.
+    NSString *identifier = [[NSUUID UUID] UUIDString];
     UNNotificationRequest *request = [UNNotificationRequest
-        requestWithIdentifier:@"FakePushNotification"
+        requestWithIdentifier:identifier
                       content:content
                       trigger:trigger];
 
