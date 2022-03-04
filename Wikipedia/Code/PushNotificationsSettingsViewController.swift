@@ -238,24 +238,25 @@ extension PushNotificationsSettingsViewController {
 
     fileprivate func requestPushPermissions() {
         notificationsController.requestPermissionsIfNecessary(completionHandler: { (authorized, error) in
-            if authorized {
-                if self.notificationsController.remoteRegistrationDeviceToken == nil {
-                    // If we're still awaiting a device token, offer the user the opportunity to retry fetching one
-                    DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                if authorized {
+                    UIApplication.shared.registerForRemoteNotifications()
+                    if self.notificationsController.remoteRegistrationDeviceToken == nil {
+                        // If we're still awaiting a device token, offer the user the opportunity to retry fetching one
                         let retryAction = UIAlertAction(title: self.echoAlertFailureTryAgainActionTitle, style: .default, handler: { _ in self.requestPushPermissions() })
                         let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { _ in self.updateSections() })
                         self.wmf_showAlert(title: self.echoAlertFailureTitle, message: self.echoAlertFailureMessage, actions: [retryAction, cancelAction], completion: {
                             // Silently trigger a remote registration request to fetch a device token
                             UIApplication.shared.registerForRemoteNotifications()
                         })
+                    } else {
+                        // User is authorized for on device push alerts and is now awaiting subscription to Echo Notifications
+                        self.subscribeToEchoNotifications()
                     }
                 } else {
-                    // User is authorized for on device push alerts and is now awaiting subscription to Echo Notifications
-                    self.subscribeToEchoNotifications()
+                    // User isn't authorized, just update sections to a failure state
+                    self.updateSections()
                 }
-            } else {
-                // User isn't authorized, just update sections to a failure state
-                self.updateSections()
             }
         })
     }
