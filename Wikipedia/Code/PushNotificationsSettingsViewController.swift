@@ -65,8 +65,8 @@ final class PushNotificationsSettingsViewController: SubSettingsViewController {
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         tableView.estimatedSectionHeaderHeight = 44
 
-        activeApplicationObservationToken = NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: .main, using: { [weak self] _ in
-            self?.didReceiveActiveApplicationNotification()
+        activeApplicationObservationToken = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main, using: { [weak self] _ in
+            self?.didReceiveWillEnterForegroundNotification()
         })
     }
 
@@ -81,9 +81,9 @@ final class PushNotificationsSettingsViewController: SubSettingsViewController {
         updateSections()
     }
 
-    // MARK: - Application Active Notification
+    // MARK: - Application Foreground Notification
 
-    private func didReceiveActiveApplicationNotification() {
+    private func didReceiveWillEnterForegroundNotification() {
         guard authenticationManager.isLoggedIn else {
             self.navigationController?.popViewController(animated: true)
             return
