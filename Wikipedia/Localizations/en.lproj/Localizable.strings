@@ -109,6 +109,7 @@
 "action-unsave" = "Unsave";
 "action-unsaved-accessibility-notification" = "Article unsaved";
 "action-update" = "Update";
+"action-yes" = "Yes";
 "add-articles-to-reading-list" = "Add {{PLURAL:$1|$1 article|$1 articles}} to reading list";
 "add-citation-title" = "Add citation";
 "announcements-dismiss" = "Dismiss";
@@ -634,6 +635,8 @@
 "notifications-push-talk-body-format" = "$1 new $2 on $3";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|message|messages}}";
 "notifications-push-talk-title-format" = "New $1";
+"notifications-push-tap-confirmation-editor-alert-message" = "Are you sure you want to go to Notifications Center? You will lose your editing changes.";
+"notifications-push-tap-confirmation-editor-alert-title" = "Go to Notifications Center?";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";

@@ -1,4 +1,5 @@
 import UIKit
+import WMF
 
 extension WMFAppViewController {
 
@@ -85,6 +86,8 @@ extension WMFAppViewController {
 
 }
 
+//MARK: Notifications
+
 extension WMFAppViewController: NotificationsCenterPresentationDelegate {
 
     /// Perform conditional presentation logic depending on origin `UIViewController`
@@ -97,13 +100,96 @@ extension WMFAppViewController: NotificationsCenterPresentationDelegate {
 
 extension WMFAppViewController {
     @objc func userDidTapPushNotification() {
-        //TODO: This is a very basic push to Notification Center.
-        //This will need refinement when https://phabricator.wikimedia.org/T287628 is tackled
         
-        dismissPresentedViewControllers()
-        navigationController?.popToRootViewController(animated: false)
+        guard let topMostViewController = self.topMostViewController,
+        !topMostViewController.isDisplayingNotificationsCenter else {
+            return
+        }
+
         let viewModel = NotificationsCenterViewModel(remoteNotificationsController: dataStore.remoteNotificationsController, languageLinkController: dataStore.languageLinkController)
         let notificationsCenterViewController = NotificationsCenterViewController(theme: theme, viewModel: viewModel)
-        navigationController?.pushViewController(notificationsCenterViewController, animated: true)
+        
+        let dismissAndPushBlock = { [weak self] in
+            self?.dismissPresentedViewControllers()
+            self?.navigationController?.pushViewController(notificationsCenterViewController, animated: true)
+        }
+
+        guard editingFlowIsInHierarchy else {
+            dismissAndPushBlock()
+            return
+        }
+        
+        presentEditorAlert(on: topMostViewController, confirmationBlock: dismissAndPushBlock)
+    }
+    
+    private var editingFlowIsInHierarchy: Bool {
+        var currentController: UIViewController? = navigationController
+
+        while let presentedViewController = currentController?.presentedViewController {
+            if let presentedNavigationController = (presentedViewController as? UINavigationController) {
+                for viewController in presentedNavigationController.viewControllers {
+                    if viewController.isPartOfEditorFlow {
+                        return true
+                    }
+                }
+            } else if presentedViewController.isPartOfEditorFlow {
+                return true
+            }
+            
+            currentController = presentedViewController
+        }
+
+        return false
+    }
+    
+    private var topMostViewController: UIViewController? {
+            
+        var topViewController: UIViewController = navigationController ?? self
+
+        while let presentedViewController = topViewController.presentedViewController {
+            topViewController = presentedViewController
+        }
+
+        return topViewController
+    }
+    
+    private func presentEditorAlert(on viewController: UIViewController, confirmationBlock: @escaping () -> Void) {
+        
+        let title = WMFLocalizedString("notifications-push-tap-confirmation-editor-alert-title", value: "Go to Notifications Center?", comment: "Title of navigation to Notifications Center confirmation alert. Presented to the user when they tap a push notification while in an editor flow.")
+        let message = WMFLocalizedString("notifications-push-tap-confirmation-editor-alert-message", value: "Are you sure you want to go to Notifications Center? You will lose your editing changes.", comment: "Message of navigation to Notifications Center confirmation alert. Presented to the user when they tap a push notification while in an editor flow.")
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let yesAction = UIAlertAction(title: CommonStrings.yesActionTitle, style: .destructive) { _ in
+            confirmationBlock()
+        }
+        let noAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
+        
+        alertController.addAction(yesAction)
+        alertController.addAction(noAction)
+        
+        viewController.present(alertController, animated: true, completion: nil)
+        
+    }
+}
+
+fileprivate extension UIViewController {
+    var isPartOfEditorFlow: Bool {
+        return (self is SectionEditorViewController ||
+                self is InsertLinkViewController ||
+                self is InsertMediaViewController ||
+                self is EditPreviewViewController ||
+                self is InsertMediaSearchResultPreviewingViewController ||
+                self is EditSaveViewController ||
+                self is DescriptionEditViewController)
+    }
+    
+    var isDisplayingNotificationsCenter: Bool {
+        
+        if let navigationController = (self as? UINavigationController),
+           (navigationController.viewControllers.last as? NotificationsCenterViewController) != nil {
+            return true
+        }
+        
+        return false
     }
 }
