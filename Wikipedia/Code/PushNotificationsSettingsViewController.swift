@@ -107,11 +107,11 @@ final class PushNotificationsSettingsViewController: SubSettingsViewController {
                     //  - Switch is only on if user is subscribed to echo notifications and authorized for device push alerts
                     let pushSwitchItem = PushNotificationsSettingsSwitchItem(title: CommonStrings.pushNotifications, tag: 0, valueChecker: {
                         return UserDefaults.standard.wmf_isSubscribedToEchoNotifications
-                    }, action: { isOn in
+                    }, action: { [weak self] isOn in
                         if isOn {
-                            self.requestPushPermissions()
+                            self?.requestPushPermissions()
                         } else {
-                            self.unsubscribeFromEchoNotifications()
+                            self?.unsubscribeFromEchoNotifications()
                         }
                     })
 
@@ -123,9 +123,9 @@ final class PushNotificationsSettingsViewController: SubSettingsViewController {
                     //  - Switch is always off. The user toggling the switch will begin the push alert, device token, and echo subscription flow.
                     let pushSwitchItem = PushNotificationsSettingsSwitchItem(title: CommonStrings.pushNotifications, tag: 0, valueChecker: {
                         return false
-                    }, action: { isOn in
+                    }, action: { [weak self] isOn in
                         if isOn {
-                            self.requestPushPermissions()
+                            self?.requestPushPermissions()
                         }
                     })
 
