@@ -155,17 +155,17 @@ extension WMFAppViewController {
     
     private func presentEditorAlert(on viewController: UIViewController, confirmationBlock: @escaping () -> Void) {
         
-        let title = WMFLocalizedString("notifications-push-tap-confirmation-editor-alert-title", value: "Go to Notifications Center?", comment: "Title of navigation to Notifications Center confirmation alert. Presented to the user when they tap a push notification while in an editor flow.")
-        let message = WMFLocalizedString("notifications-push-tap-confirmation-editor-alert-message", value: "Are you sure you want to go to Notifications Center? You will lose your editing changes.", comment: "Message of navigation to Notifications Center confirmation alert. Presented to the user when they tap a push notification while in an editor flow.")
+        let title = CommonStrings.editorExitConfirmationTitle
+        let message = CommonStrings.editorExitConfirmationBody
         
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let yesAction = UIAlertAction(title: CommonStrings.yesActionTitle, style: .destructive) { _ in
+        let discardAction = UIAlertAction(title: CommonStrings.discardEditsActionTitle, style: .destructive) { _ in
             confirmationBlock()
         }
-        let noAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
+        let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
         
-        alertController.addAction(yesAction)
-        alertController.addAction(noAction)
+        alertController.addAction(discardAction)
+        alertController.addAction(cancelAction)
         
         viewController.present(alertController, animated: true, completion: nil)
         
