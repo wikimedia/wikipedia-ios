@@ -23,6 +23,9 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         navigationBar.shouldTransformUnderBarViewWithBar = true
         navigationBar.isShadowHidingEnabled = true
 
+        updateNotificationsCenterButton()
+        updateSettingsButton()
+
         isRefreshControlEnabled = true
         collectionView.refreshControl?.layer.zPosition = 0
         
@@ -86,6 +89,27 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         dataStore.feedContentController.dismissCollapsedContentGroups()
         stopMonitoringReachability()
         collectionViewUpdater?.isGranularUpdatingEnabled = false
+    }
+
+    @objc func updateNotificationsCenterButton() {
+        if self.dataStore.authenticationManager.isLoggedIn {
+            let numberOfUnreadNotifications = try? dataStore.remoteNotificationsController.numberOfUnreadNotifications()
+            let hasUnreadNotifications = numberOfUnreadNotifications?.intValue ?? 0 != 0
+            let bellImage = BarButtonImageStyle.notificationsButtonImage(theme: theme, indicated: hasUnreadNotifications)
+            let notificationsBarButton = UIBarButtonItem(image: bellImage, style: .plain, target: self, action: #selector(userDidTapNotificationsCenter))
+            notificationsBarButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.notificationsCenterBadgeTitle : CommonStrings.notificationsCenterTitle
+            navigationItem.leftBarButtonItem = notificationsBarButton
+        } else {
+            navigationItem.leftBarButtonItem = nil
+        }
+        navigationBar.updateNavigationItems()
+    }
+
+    func updateSettingsButton() {
+        let settingsBarButtonItem = UIBarButtonItem(image: BarButtonImageStyle.settingsButtonImage(theme: theme), style: .plain, target: self, action: #selector(userDidTapSettings))
+        settingsBarButtonItem.accessibilityLabel = CommonStrings.settingsTitle
+        navigationItem.rightBarButtonItem = settingsBarButtonItem
+        navigationBar.updateNavigationItems()
     }
     
     // MARK - NavBar
@@ -542,6 +566,11 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         guard viewIfLoaded != nil else {
             return
         }
+
+        self.theme = theme
+        updateNotificationsCenterButton()
+        updateSettingsButton()
+
         searchBar.apply(theme: theme)
         searchBarContainerView.backgroundColor = theme.colors.paperBackground
         collectionView.backgroundColor = .clear
