@@ -8,6 +8,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     public var shouldRestoreScrollPosition = false
 
     @objc public weak var notificationsCenterPresentationDelegate: NotificationsCenterPresentationDelegate?
+    @objc public weak var settingsPresentationDelegate: SettingsPresentationDelegate?
 
     // MARK - UIViewController
     
@@ -113,6 +114,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         titleView.isAccessibilityElement = false
         return titleView
     }()
+
+    @objc func userDidTapSettings() {
+        settingsPresentationDelegate?.userDidTapSettings(from: self)
+    }
 
     // MARK - Refresh
     

@@ -85,6 +85,17 @@ extension WMFAppViewController {
 
 }
 
+extension WMFAppViewController: SettingsPresentationDelegate {
+
+    public func userDidTapSettings(from viewController: UIViewController?) {
+        if viewController is ExploreViewController {
+            logTappedSettingsFromExplore()
+        }
+        showSettings(animated: true)
+    }
+
+}
+
 extension WMFAppViewController: NotificationsCenterPresentationDelegate {
 
     /// Perform conditional presentation logic depending on origin `UIViewController`
