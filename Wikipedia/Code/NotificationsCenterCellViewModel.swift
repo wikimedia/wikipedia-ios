@@ -47,6 +47,16 @@ final class NotificationsCenterCellViewModel {
         
     }
     
+    func accessibilityText() -> String {
+        let readAccessibilityText = WMFLocalizedString("notifications-center-cell-read-accessibility-label", value: "Read", comment: "Accessibility text for indicating that a notification's contents have been read.")
+        let unreadAccessibilityText = WMFLocalizedString("notifications-center-cell-unread-accessibility-label", value: "Unread", comment: "Accessibility text for indicating that a notification's contents have not been read.")
+
+        let readStatus = isRead ? readAccessibilityText : unreadAccessibilityText
+        
+        let accessibilityLabel = "\(notification.type.filterTitle ?? String()) notification from \(project.projectName(shouldReturnCodedFormat: false)). \(headerText ?? String()). \(readStatus)"
+        return accessibilityLabel
+    }
+
     static func displayStateFor(isEditing: Bool, isSelected: Bool, isRead: Bool) -> NotificationsCenterCellDisplayState {
 
         switch (isEditing, isSelected, isRead) {

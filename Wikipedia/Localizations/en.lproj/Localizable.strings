@@ -551,6 +551,8 @@
 "no-internet-connection" = "No internet connection";
 "no-internet-connection-article-reload" = "A newer version of this article might be available, but cannot be loaded without a connection to the internet";
 "no-internet-connection-article-reload-button" = "Return to last saved version";
+"notifications-center-cell-read-accessibility-label" = "Read";
+"notifications-center-cell-unread-accessibility-label" = "Unread";
 "notifications-center-change-password" = "Change Password";
 "notifications-center-checking-for-notifications" = "Checking for notifications...";
 "notifications-center-empty-checking-for-notifications" = "Checking for notifications...";

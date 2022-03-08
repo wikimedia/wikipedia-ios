@@ -466,6 +466,15 @@ final class NotificationsCenterCell: UICollectionViewCell {
 
     // MARK: - Public
 
+    fileprivate func setupAccessibility(_ viewModel: NotificationsCenterCellViewModel) {
+        accessibilityLabel = viewModel.accessibilityText()
+        isAccessibilityElement = true
+        let moreActionAccessibilityActionLabel = viewModel.isRead ? CommonStrings.notificationsCenterMarkAsUnread : CommonStrings.notificationsCenterMarkAsRead
+        let moreAction = UIAccessibilityCustomAction(name: "More", target: self, selector: #selector(tappedMoreAction))
+        let markasReadorUnreadAction = UIAccessibilityCustomAction(name: moreActionAccessibilityActionLabel, target: self, selector: #selector(tappedReadUnreadAction))
+        accessibilityCustomActions = [moreAction, markasReadorUnreadAction]
+    }
+    
     func configure(viewModel: NotificationsCenterCellViewModel, theme: Theme) {
         self.viewModel = viewModel
         self.theme = theme
@@ -474,6 +483,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         updateLabels(forViewModel: viewModel)
         updateProject(forViewModel: viewModel)
         updateMetaContent(forViewModel: viewModel)
+        setupAccessibility(viewModel)
     }
     
     func configure(theme: Theme) {
@@ -592,5 +602,6 @@ private extension NotificationsCenterCell {
 
     @objc func tappedReadUnreadAction() {
         delegate?.userDidTapMarkAsReadUnreadActionForCell(self)
+        UIAccessibility.post(notification: .screenChanged, argument: nil)
     }
 }
