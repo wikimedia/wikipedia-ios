@@ -187,6 +187,38 @@ public class RemoteNotificationsAPIController: Fetcher {
         case multiple([Error])
     }
     
+    // MARK: Decodable: MarkSeenResult
+    
+    struct MarkSeenResult: Decodable {
+        let query: Query?
+        let error: ResultError?
+        
+        var succeeded: Bool {
+            return query?.markAsSeen?.result == .success
+        }
+        
+        struct Query: Decodable {
+            let markAsSeen: MarkAsSeen?
+            
+            enum CodingKeys: String, CodingKey {
+                case markAsSeen = "echomarkseen"
+            }
+        }
+        
+        struct MarkAsSeen: Decodable {
+            let result: Result?
+        }
+        
+        enum Result: String, Decodable {
+            case success
+        }
+    }
+    
+    enum MarkSeenError: LocalizedError {
+        case noResult
+        case unknown
+    }
+    
     //MARK: Public
     
     public func getUnreadPushNotifications(from project: RemoteNotificationsProject, completion: @escaping (Set<NotificationsResult.Notification>, Error?) -> Void) {
@@ -211,6 +243,32 @@ public class RemoteNotificationsAPIController: Fetcher {
         }
         
         request(project: project, queryParameters: Query.notifications(from: [project], limit: .max, filter: filter, needsCrossWikiSummary: needsCrossWikiSummary, continueId: continueId), completion: completion)
+    }
+    
+    func markAllAsSeen(project: RemoteNotificationsProject, completion: @escaping ((Result<Void, Error>) -> Void)) {
+        request(project: project, queryParameters: Query.markAllAsSeen(project: project), method: .post) { (result: MarkSeenResult?, _, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let result = result else {
+                assertionFailure("Expected result")
+                completion(.failure(MarkSeenError.noResult))
+                return
+            }
+            
+            if let error = result.error {
+                completion(.failure(error))
+                return
+            }
+            
+            if !result.succeeded {
+                completion(.failure(MarkSeenError.unknown))
+                return
+            }
+            completion(.success(()))
+        }
     }
     
     func markAllAsRead(project: RemoteNotificationsProject, completion: @escaping (Error?) -> Void) {
@@ -310,11 +368,11 @@ public class RemoteNotificationsAPIController: Fetcher {
 
     struct Query {
         typealias Parameters = [String: Any]
-
+        
         enum Limit {
             case max
             case numeric(Int)
-
+            
             var value: String {
                 switch self {
                 case .max:
@@ -324,7 +382,7 @@ public class RemoteNotificationsAPIController: Fetcher {
                 }
             }
         }
-
+        
         enum Filter: String {
             case read = "read"
             case unread = "!read"
@@ -336,15 +394,15 @@ public class RemoteNotificationsAPIController: Fetcher {
             case push
             case email
         }
-
+        
         static func notifications(from projects: [RemoteNotificationsProject] = [], limit: Limit = .max, filter: Filter = .none, notifierType: NotifierType? = nil, needsCrossWikiSummary: Bool = false, continueId: String?) -> Parameters {
             var dictionary: [String: Any] = ["action": "query",
-                    "format": "json",
-                    "formatversion": "2",
-                    "notformat": "model",
-                    "meta": "notifications",
-                    "notlimit": limit.value,
-                    "notfilter": filter.rawValue]
+                                             "format": "json",
+                                             "formatversion": "2",
+                                             "notformat": "model",
+                                             "meta": "notifications",
+                                             "notlimit": limit.value,
+                                             "notfilter": filter.rawValue]
 
             if let continueId = continueId {
                 dictionary["notcontinue"] = continueId
@@ -363,7 +421,7 @@ public class RemoteNotificationsAPIController: Fetcher {
             
             return dictionary
         }
-
+        
         static func markAsReadOrUnread(identifierGroups: [RemoteNotification.IdentifierGroup], shouldMarkRead: Bool) -> Parameters? {
             let IDs = identifierGroups.compactMap { $0.id }
             
@@ -383,6 +441,14 @@ public class RemoteNotificationsAPIController: Fetcher {
                               "all": "true",
                               "wikis": project.notificationsApiWikiIdentifier,
                               "format": "json"]
+            return dictionary
+        }
+        
+        static func markAllAsSeen(project: RemoteNotificationsProject) -> Parameters? {
+            let dictionary = ["action": "echomarkseen",
+                              "wikis": project.notificationsApiWikiIdentifier,
+                              "format": "json",
+                              "type": "all"]
             return dictionary
         }
     }

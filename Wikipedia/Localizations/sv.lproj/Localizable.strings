@@ -578,6 +578,9 @@
 "no-internet-connection" = "Ingen Internetanslutning";
 "no-internet-connection-article-reload" = "En nyare version av denna artikel kanske finns tillgänglig, men kan inte läsas in utan en Internetanslutning";
 "no-internet-connection-article-reload-button" = "Gå tillbaka till senast sparade version";
+"notifications-center-applied-filters-accessibility-label" = "Aviseringsfilter - har tillämpade filter";
+"notifications-center-applied-project-filters-accessibility-label" = "Projektfilter - har tillämpade filer";
+"notifications-center-badge-button-accessibility-label" = "Aviseringar med bricka för oläst";
 "notifications-center-change-password" = "Ändra lösenord";
 "notifications-center-checking-for-notifications" = "Letar efter aviseringar...";
 "notifications-center-empty-checking-for-notifications" = "Letar efter aviseringar...";
@@ -585,6 +588,7 @@
 "notifications-center-empty-not-subscribed" = "Du prenumererar för tillfället inte på några av Wikipedias aviseringar";
 "notifications-center-empty-state-filters-subtitle" = "Ändra $1 för att se fler meddelanden";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter}}";
+"notifications-center-filters-accessibility-label" = "Aviseringsfilter";
 "notifications-center-filters-read-status-item-title-all" = "Alla";
 "notifications-center-filters-read-status-item-title-read" = "Lästa";
 "notifications-center-filters-read-status-item-title-unread" = "Olästa";
@@ -616,6 +620,7 @@
 "notifications-center-mark-as-unread" = "Markera som oläst";
 "notifications-center-notifications-settings" = "Aviseringsinställningar";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 meddelande}}";
+"notifications-center-project-filters-accessibility-label" = "Projektfilter";
 "notifications-center-status-all" = "Alla";
 "notifications-center-status-all-notifications" = "Alla aviseringar";
 "notifications-center-status-double-concatenation" = "$1 i $2";
@@ -650,6 +655,7 @@
 "notifications-center-swipe-mark-as-unread" = "Markera som oläst";
 "notifications-center-swipe-more" = "Mer";
 "notifications-center-title" = "Aviseringar";
+"notifications-center-toolbar-mark-accessibility-label" = "Markera markerade aviseringar";
 "notifications-push-fallback-body-text" = "Ny aktivitet på Wikipedia";
 "notifications-push-talk-body-format" = "$1 nytt $2 på $3";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|meddelande|meddelanden}}";
