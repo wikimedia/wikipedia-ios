@@ -1871,11 +1871,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self showSearchInCurrentNavigationControllerAnimated:YES];
 }
 
-- (void)showSettings {
-    [self logTappedSettingsFromExplore];
-    [self showSettingsAnimated:YES];
-}
-
 - (void)dismissReadingThemesPopoverIfActive {
     if ([self.presentedViewController isKindOfClass:[WMFReadingThemesControlsViewController class]]) {
         [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];

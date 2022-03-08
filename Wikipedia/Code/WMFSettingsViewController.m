@@ -451,10 +451,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self.navigationController pushViewController:notificationSettingsVC animated:YES];
 }
 
-- (UIImage *)notificationsCenterBellImageWithUnreadNotifications:(BOOL)hasUnreadNotifications {
-    return [UIImage imageNamed:hasUnreadNotifications ? @"notifications-bell-with-indicator" : @"notifications-bell"];
-}
-
 #pragma mark - Appearance
 
 - (void)showAppearance {
