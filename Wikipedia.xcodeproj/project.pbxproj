@@ -3241,6 +3241,7 @@
 		FFA0641A25A943EB00B9460B /* BasicLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA0641825A943EB00B9460B /* BasicLogger.swift */; };
 		FFA0641B25A943EB00B9460B /* BasicLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA0641825A943EB00B9460B /* BasicLogger.swift */; };
 		FFA0641C25A943EB00B9460B /* BasicLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA0641825A943EB00B9460B /* BasicLogger.swift */; };
+		FFBA8C1927D824D8009E9B65 /* URL+ExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBA8C1827D824D8009E9B65 /* URL+ExtensionTests.swift */; };
 		FFD7B84624AEAB3F005C2471 /* ArticleScrolling.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD7B84524AEAB3F005C2471 /* ArticleScrolling.swift */; };
 		FFD7B84724AEB049005C2471 /* ArticleScrolling.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD7B84524AEAB3F005C2471 /* ArticleScrolling.swift */; };
 		FFD7B84824AEB04A005C2471 /* ArticleScrolling.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD7B84524AEAB3F005C2471 /* ArticleScrolling.swift */; };
@@ -5338,6 +5339,7 @@
 		FF9416D724E203030070FEE7 /* OnThisDayWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnThisDayWidget.swift; sourceTree = "<group>"; usesTabs = 0; };
 		FF9416DD24E2098C0070FEE7 /* OnThisDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnThisDayView.swift; sourceTree = "<group>"; };
 		FFA0641825A943EB00B9460B /* BasicLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicLogger.swift; sourceTree = "<group>"; };
+		FFBA8C1827D824D8009E9B65 /* URL+ExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+ExtensionTests.swift"; sourceTree = "<group>"; };
 		FFD7B84524AEAB3F005C2471 /* ArticleScrolling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleScrolling.swift; sourceTree = "<group>"; };
 		FFD7B85524B3B384005C2471 /* ReferenceBackLinksViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceBackLinksViewControllerDelegate.swift; sourceTree = "<group>"; };
 		FFD7B85824B3CA7A005C2471 /* ReferenceShowing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceShowing.swift; sourceTree = "<group>"; };
@@ -8445,6 +8447,7 @@
 				8386BDE623857F87007EE89D /* URLParsingAndRoutingTests.swift */,
 				A452F9FA24081A7200D8ED09 /* LocationManagerTests.swift */,
 				00D280FB247F019C006BEE23 /* Date+ExtensionTests.swift */,
+				FFBA8C1827D824D8009E9B65 /* URL+ExtensionTests.swift */,
 				00A8F58526BDD5E700175B8E /* WidgetSampleContentTests.swift */,
 			);
 			name = Tests;
@@ -10792,6 +10795,7 @@
 				B0E808B61C0D17070065EBC0 /* LSStubResponseDSL+WithJSON.m in Sources */,
 				B0E809371C0D1A420065EBC0 /* MWKLanguageLinkControllerTests.m in Sources */,
 				673612F224FD7210002A1989 /* ArticleAsLivingDocViewModelTests.swift in Sources */,
+				FFBA8C1927D824D8009E9B65 /* URL+ExtensionTests.swift in Sources */,
 				004281C525E6EFC4004945B3 /* LSStringMatcher.m in Sources */,
 				004281B925E6EFC4004945B3 /* NSURLRequest+DSL.m in Sources */,
 				B0E809411C0D1A820065EBC0 /* NSURL+WMFLinkParsingTests.m in Sources */,
