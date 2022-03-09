@@ -39,6 +39,8 @@ final class PushNotificationsSettingsViewController: SubSettingsViewController {
     private var activeApplicationObservationToken: NSObjectProtocol?
     private var sections: [PushNotificationsSettingsSection] = []
 
+    fileprivate var deviceTokenRetryTask: RetryBlockTask?
+
     fileprivate let headerText = WMFLocalizedString("settings-notifications-header", value: "Be alerted to activity related to your account, such as messages from fellow contributors, alerts, and notices. All provided with respect to privacy and up to the minute data.", comment: "Text informing user of benefits of enabling push notifications.") + "\n"
 
     fileprivate let echoAlertFailureTitle = WMFLocalizedString("settings-notifications-echo-failure-title", value: "Unable to Check for Echo Notification subscriptions", comment: "Alert title text informing user of failure when subscribing to Echo Notifications.")
@@ -71,6 +73,7 @@ final class PushNotificationsSettingsViewController: SubSettingsViewController {
     }
 
     deinit {
+        deviceTokenRetryTask = nil
         if let token = activeApplicationObservationToken {
             NotificationCenter.default.removeObserver(token)
         }
@@ -237,18 +240,31 @@ final class PushNotificationsSettingsViewController: SubSettingsViewController {
 extension PushNotificationsSettingsViewController {
 
     fileprivate func requestPushPermissions() {
-        notificationsController.requestPermissionsIfNecessary(completionHandler: { (authorized, error) in
+        deviceTokenRetryTask = RetryBlockTask { [weak self] in
+            return self?.notificationsController.remoteRegistrationDeviceToken != nil
+        }
+
+        notificationsController.requestPermissionsIfNecessary { (authorized, error) in
             DispatchQueue.main.async {
                 if authorized {
                     UIApplication.shared.registerForRemoteNotifications()
                     if self.notificationsController.remoteRegistrationDeviceToken == nil {
-                        // If we're still awaiting a device token, offer the user the opportunity to retry fetching one
-                        let retryAction = UIAlertAction(title: self.echoAlertFailureTryAgainActionTitle, style: .default, handler: { _ in self.requestPushPermissions() })
-                        let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { _ in self.updateSections() })
-                        self.wmf_showAlert(title: self.echoAlertFailureTitle, message: self.echoAlertFailureMessage, actions: [retryAction, cancelAction], completion: {
-                            // Silently trigger a remote registration request to fetch a device token
-                            UIApplication.shared.registerForRemoteNotifications()
-                        })
+                        // If we still don't have a device token, disable table interaction and retry checking for one
+                        self.scrollView?.isUserInteractionEnabled = false
+                        self.deviceTokenRetryTask?.start { [weak self] success in
+                            guard let self = self else { return }
+                            DispatchQueue.main.async {
+                                self.scrollView?.isUserInteractionEnabled = true
+                            }
+                            if success {
+                                self.subscribeToEchoNotifications()
+                            } else {
+                                // If we're still awaiting a device token, show an alert and offer the user the opportunity to manually retry fetching one
+                                DispatchQueue.main.async {
+                                    self.showDeviceTokenRetryAlert()
+                                }
+                            }
+                        }
                     } else {
                         // User is authorized for on device push alerts and is now awaiting subscription to Echo Notifications
                         self.subscribeToEchoNotifications()
@@ -258,6 +274,15 @@ extension PushNotificationsSettingsViewController {
                     self.updateSections()
                 }
             }
+        }
+    }
+
+    fileprivate func showDeviceTokenRetryAlert() {
+        let retryAction = UIAlertAction(title: echoAlertFailureTryAgainActionTitle, style: .default, handler: { _ in self.requestPushPermissions() })
+        let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { _ in self.updateSections() })
+        self.wmf_showAlert(title: echoAlertFailureTitle, message: echoAlertFailureMessage, actions: [retryAction, cancelAction], completion: {
+            // Silently trigger a remote registration request to fetch a device token
+            UIApplication.shared.registerForRemoteNotifications()
         })
     }
 
