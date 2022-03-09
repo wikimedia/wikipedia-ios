@@ -100,7 +100,6 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
 - (void)setRemoteNotificationRegistrationStatusWithDeviceToken:(nullable NSData *)deviceToken error:(nullable NSError *)error {
     self.remoteRegistrationDeviceToken = deviceToken;
     self.remoteRegistrationError = error;
-    [self.deviceTokenDelegate didUpdateDeviceTokenStatusFromNotificationsController:self];
 }
 
 - (void)subscribeToEchoNotificationsWithCompletionHandler:(nullable void (^)(NSError *__nullable error))completionHandler {
@@ -127,10 +126,6 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
                                                       completionHandler(error);
                                                   }
                                               }];
-}
-
-- (BOOL)isWaitingOnDeviceToken {
-    return self.remoteRegistrationDeviceToken == nil && self.remoteRegistrationError == nil;
 }
 
 - (void)updateCategories {
