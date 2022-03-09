@@ -250,11 +250,11 @@ extension PushNotificationsSettingsViewController {
                     UIApplication.shared.registerForRemoteNotifications()
                     if self.notificationsController.remoteRegistrationDeviceToken == nil {
                         // If we still don't have a device token, disable table interaction and retry checking for one
-                        self.scrollView?.isUserInteractionEnabled = false
+                        self.updatePrimaryPushSwitch(userInteractionEnabled: false)
                         self.deviceTokenRetryTask?.start { [weak self] success in
                             guard let self = self else { return }
                             DispatchQueue.main.async {
-                                self.scrollView?.isUserInteractionEnabled = true
+                                self.updatePrimaryPushSwitch(userInteractionEnabled: true)
                             }
                             if success {
                                 self.subscribeToEchoNotifications()
@@ -287,9 +287,11 @@ extension PushNotificationsSettingsViewController {
     }
 
     fileprivate func subscribeToEchoNotifications() {
+        updatePrimaryPushSwitch(userInteractionEnabled: false)
         notificationsController.subscribeToEchoNotifications(completionHandler: { error in
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
+                self.updatePrimaryPushSwitch(userInteractionEnabled: true)
                 guard error == nil else {
                     let retryAction = UIAlertAction(title: self.echoAlertFailureTryAgainActionTitle, style: .default, handler: { _ in self.subscribeToEchoNotifications() })
                     let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { _ in self.updateSections() })
@@ -303,9 +305,11 @@ extension PushNotificationsSettingsViewController {
     }
 
     fileprivate func unsubscribeFromEchoNotifications() {
+        updatePrimaryPushSwitch(userInteractionEnabled: false)
         notificationsController.unsubscribeFromEchoNotifications(completionHandler: { error in
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
+                self.updatePrimaryPushSwitch(userInteractionEnabled: true)
                 guard error == nil else {
                     let retryAction = UIAlertAction(title: self.echoAlertFailureTryAgainActionTitle, style: .default, handler: { _ in self.unsubscribeFromEchoNotifications() })
                     let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: { _ in self.updateSections() })
@@ -316,6 +320,14 @@ extension PushNotificationsSettingsViewController {
                 self.updateSections()
             }
         })
+    }
+
+    fileprivate func updatePrimaryPushSwitch(userInteractionEnabled: Bool) {
+        guard let primaryPushSwitchCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? WMFSettingsTableViewCell else {
+            return
+        }
+
+        primaryPushSwitchCell.disclosureSwitch.isUserInteractionEnabled = userInteractionEnabled
     }
 
 }
