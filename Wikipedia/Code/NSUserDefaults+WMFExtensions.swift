@@ -29,6 +29,7 @@ let WMFIsSyntaxHighlightingEnabled = "WMFIsSyntaxHighlightingEnabled"
 let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 let WMFAppInstallId = "WMFAppInstallId"
 let WMFSendUsageReports = "WMFSendUsageReports"
+let WMFUserHasOnboardedToNotificationsCenter = "WMFUserHasOnboardedToNotificationsCenter"
 
 @objc public enum WMFAppDefaultTabType: Int {
     case explore
@@ -427,6 +428,15 @@ let WMFSendUsageReports = "WMFSendUsageReports"
     
     @objc func wmf_setDidShowTitleDescriptionEditingIntro(_ didShow: Bool) {
         self.set(didShow, forKey: WMFDidShowTitleDescriptionEditingIntro)
+    }
+
+    @objc var wmf_userHasOnboardedToNotificationsCenter: Bool {
+        get {
+            return bool(forKey: WMFUserHasOnboardedToNotificationsCenter)
+        }
+        set {
+            set(newValue, forKey: WMFUserHasOnboardedToNotificationsCenter)
+        }
     }
 
     var isUserUnawareOfLogout: Bool {
