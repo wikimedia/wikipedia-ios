@@ -114,7 +114,8 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         // If in a tab bar presentation, only show notification bar button item if the user is logged in
         if (self.dataStore.authenticationManager.isLoggedIn) {
             NSInteger numUnreadNotifications = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
-            UIImage *image = numUnreadNotifications == 0 ? [self notificationsCenterBellImageWithUnreadNotifications:NO] : [self notificationsCenterBellImageWithUnreadNotifications:YES];
+            BOOL hasUnreadNotifications = numUnreadNotifications != 0;
+            UIImage *image = [BarButtonImageStyle notificationsButtonImageForTheme:self.theme indicated:hasUnreadNotifications];
             UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(userDidTapNotificationsCenter)];
             notificationsBarButton.accessibilityLabel = numUnreadNotifications == 0 ? [WMFCommonStrings notificationsCenterTitle] : [WMFCommonStrings notificationsCenterBadgeTitle];
             self.navigationItem.leftBarButtonItem = notificationsBarButton;
@@ -448,10 +449,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     WMFNotificationSettingsViewController *notificationSettingsVC = [[WMFNotificationSettingsViewController alloc] initWithAuthManager:self.dataStore.authenticationManager notificationsController:self.dataStore.notificationsController];
     [notificationSettingsVC applyTheme:self.theme];
     [self.navigationController pushViewController:notificationSettingsVC animated:YES];
-}
-
-- (UIImage *)notificationsCenterBellImageWithUnreadNotifications:(BOOL)hasUnreadNotifications {
-    return [UIImage imageNamed:hasUnreadNotifications ? @"notifications-bell-with-indicator" : @"notifications-bell"];
 }
 
 #pragma mark - Appearance

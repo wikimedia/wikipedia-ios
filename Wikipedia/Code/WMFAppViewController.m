@@ -87,7 +87,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @property (nonatomic, getter=isWaitingToResumeApp) BOOL waitingToResumeApp;
 @property (nonatomic, getter=isMigrationComplete) BOOL migrationComplete;
 @property (nonatomic, getter=isMigrationActive) BOOL migrationActive;
-@property (nonatomic, getter=isResumeComplete) BOOL resumeComplete; //app has fully loaded & login was attempted
+@property (nonatomic, getter=isResumeComplete) BOOL resumeComplete; // app has fully loaded & login was attempted
 
 @property (nonatomic, getter=isCheckingRemoteConfig) BOOL checkingRemoteConfig;
 
@@ -467,7 +467,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     // Reminder: kind of class is checked here because `syncDidFinishErrorKey` is sometimes set to a `WMF.ReadingListError` error type which doesn't bridge to Obj-C (causing the call to `wmf_isNetworkConnectionError` to crash).
     if ([error isKindOfClass:[NSError class]] && error.wmf_isNetworkConnectionError) {
         if (!self.hasSyncErrorBeenShownThisSesssion) {
-            self.hasSyncErrorBeenShownThisSesssion = YES; //only show sync error once for multiple failed syncs
+            self.hasSyncErrorBeenShownThisSesssion = YES; // only show sync error once for multiple failed syncs
             [[WMFAlertManager sharedInstance] showWarningAlert:WMFLocalizedStringWithDefaultValue(@"reading-lists-sync-error-no-internet-connection", nil, nil, @"Syncing will resume when internet connection is available", @"Alert message informing user that syncing will resume when internet connection is available.")
                                                         sticky:YES
                                          dismissPreviousAlerts:NO
@@ -999,10 +999,10 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self.dataStore.feedContentController stopContentSources];
 
     self.houseKeeper = [WMFDatabaseHouseKeeper new];
-    //TODO: these tasks should be converted to async so we can end the background task as soon as possible
+    // TODO: these tasks should be converted to async so we can end the background task as soon as possible
     [self.dataStore clearMemoryCache];
 
-    //TODO: implement completion block to cancel download task with the 2 tasks above
+    // TODO: implement completion block to cancel download task with the 2 tasks above
     NSError *housekeepingError = nil;
     [self.houseKeeper performHouseKeepingOnManagedObjectContext:self.dataStore.viewContext navigationStateController:self.navigationStateController error:&housekeepingError];
     if (housekeepingError) {
@@ -1399,41 +1399,18 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         _exploreViewController = [[ExploreViewController alloc] init];
         _exploreViewController.dataStore = self.dataStore;
         _exploreViewController.notificationsCenterPresentationDelegate = self;
+        _exploreViewController.settingsPresentationDelegate = self;
         _exploreViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-explore"];
         _exploreViewController.title = [WMFCommonStrings exploreTabTitle];
         [_exploreViewController applyTheme:self.theme];
-        [self setNotificationsCenterButtonForExploreViewController:_exploreViewController];
-        UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
-
-        settingsBarButtonItem.accessibilityLabel = [WMFCommonStrings settingsTitle];
-
-        _exploreViewController.navigationItem.rightBarButtonItem = settingsBarButtonItem;
     }
     return _exploreViewController;
 }
 
-- (void)setNotificationsCenterButtonForExploreViewController:(ExploreViewController *)exploreViewController {
-    if (self.dataStore.authenticationManager.isLoggedIn) {
-        NSInteger numUnreadNotifications = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
-        UIImage *image = numUnreadNotifications == 0 ? [self notificationsCenterBellImageWithUnreadNotifications:NO] : [self notificationsCenterBellImageWithUnreadNotifications:YES];
-        UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:_exploreViewController action:@selector(userDidTapNotificationsCenter)];
-        notificationsBarButton.accessibilityLabel = numUnreadNotifications == 0 ? [WMFCommonStrings notificationsCenterTitle] : [WMFCommonStrings notificationsCenterBadgeTitle];
-        exploreViewController.navigationItem.leftBarButtonItem = notificationsBarButton;
-    } else {
-        exploreViewController.navigationItem.leftBarButtonItem = nil;
-    }
-
-    [exploreViewController.navigationBar updateNavigationItems];
-}
-
-- (void)setNotificationsCenterButtonForSettingsViewController:(WMFSettingsViewController *)settingsViewController {
-    [settingsViewController configureBarButtonItems];
-}
-
 - (void)handleExploreCenterBadgeNeedsUpdateNotification {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self setNotificationsCenterButtonForExploreViewController:self.exploreViewController];
-        [self setNotificationsCenterButtonForSettingsViewController:self.settingsViewController];
+        [self.exploreViewController updateNotificationsCenterButton];
+        [self.settingsViewController configureBarButtonItems];
     });
 }
 
@@ -1703,7 +1680,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
     NSDictionary *info = response.notification.request.content.userInfo;
 
-    //Note: Add back in category and action identifier checks here if In the News notification is restored. Removed in: https://github.com/wikimedia/wikipedia-ios/pull/4046
+    // Note: Add back in category and action identifier checks here if In the News notification is restored. Removed in: https://github.com/wikimedia/wikipedia-ios/pull/4046
     [self showNotificationCenterForNotificationInfo:info];
 
     completionHandler();
@@ -1894,11 +1871,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self showSearchInCurrentNavigationControllerAnimated:YES];
 }
 
-- (void)showSettings {
-    [self logTappedSettingsFromExplore];
-    [self showSettingsAnimated:YES];
-}
-
 - (void)dismissReadingThemesPopoverIfActive {
     if ([self.presentedViewController isKindOfClass:[WMFReadingThemesControlsViewController class]]) {
         [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
@@ -2036,27 +2008,21 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self showArticleWithURL:articleURL animated:YES];
 }
 
-#pragma mark - Notifications Center
-
-- (UIImage *)notificationsCenterBellImageWithUnreadNotifications:(BOOL)hasUnreadNotifications {
-    return [UIImage imageNamed:hasUnreadNotifications ? @"notifications-bell-with-indicator" : @"notifications-bell"];
-}
-
 #pragma mark - User was logged out
 
 - (void)userWasLoggedOut:(NSNotification *)note {
     [self showLoggedOutPanelIfNeeded];
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self setNotificationsCenterButtonForExploreViewController:self.exploreViewController];
-        [self setNotificationsCenterButtonForSettingsViewController:self.settingsViewController];
+        [self.exploreViewController updateNotificationsCenterButton];
+        [self.settingsViewController configureBarButtonItems];
         UIApplication.sharedApplication.applicationIconBadgeNumber = 0;
     });
 }
 
 - (void)userWasLoggedIn:(NSNotification *)note {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self setNotificationsCenterButtonForExploreViewController:self.exploreViewController];
-        [self setNotificationsCenterButtonForSettingsViewController:self.settingsViewController];
+        [self.exploreViewController updateNotificationsCenterButton];
+        [self.settingsViewController configureBarButtonItems];
     });
 }
 
