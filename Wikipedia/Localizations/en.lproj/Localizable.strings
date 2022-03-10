@@ -554,6 +554,7 @@
 "notifications-center-applied-filters-accessibility-label" = "Notifications Filter - has filters applied";
 "notifications-center-applied-project-filters-accessibility-label" = "Projects Filter - has filters applied";
 "notifications-center-badge-button-accessibility-label" = "Notifications with unread badge";
+"notifications-center-cell-accessibility-label" = "notification from";
 "notifications-center-cell-read-accessibility-label" = "Read";
 "notifications-center-cell-read-ipa-accessibility-attribute" = "rɛd";
 "notifications-center-cell-unread-accessibility-label" = "Unread";
