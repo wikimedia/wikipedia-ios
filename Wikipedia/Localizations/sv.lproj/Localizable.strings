@@ -655,7 +655,7 @@
 "notifications-center-swipe-mark-as-unread" = "Markera som oläst";
 "notifications-center-swipe-more" = "Mer";
 "notifications-center-title" = "Aviseringar";
-"notifications-center-toolbar-mark-accessibility-label" = "Markera markerade aviseringar";
+"notifications-center-toolbar-mark-accessibility-label" = "Markera valda aviseringar";
 "notifications-push-fallback-body-text" = "Ny aktivitet på Wikipedia";
 "notifications-push-talk-body-format" = "$1 nytt $2 på $3";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|meddelande|meddelanden}}";

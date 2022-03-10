@@ -581,6 +581,7 @@
 "notifications-center-empty-no-messages" = "Du har ingen meldinger";
 "notifications-center-empty-not-subscribed" = "Du abonnerer for tiden ikke på noen Wikipedia-varsler";
 "notifications-center-empty-state-filters-subtitle" = "Endre $1 for å se flere meldinger";
+"notifications-center-empty-state-no-projects-selected" = "Legg til prosjekter for å se flere beskjeder";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter|$1 filtre}}";
 "notifications-center-filters-accessibility-label" = "Varselfilter";
 "notifications-center-filters-read-status-item-title-all" = "Alle";

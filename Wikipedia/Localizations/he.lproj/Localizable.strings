@@ -585,6 +585,7 @@
 "notifications-center-empty-no-messages" = "אין לך הודעות";
 "notifications-center-empty-not-subscribed" = "אינך מנוי על שום התראות ויקיפדיה";
 "notifications-center-empty-state-filters-subtitle" = "יש לשנות $1 כדי לראות עוד הודעות";
+"notifications-center-empty-state-no-projects-selected" = "יש להוסיף מיזמים כדי לראות עוד הודעות";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|מסנן אחד|$1 מסננים}}";
 "notifications-center-filters-accessibility-label" = "מסנן עדכונים";
 "notifications-center-filters-read-status-item-title-all" = "הכול";
