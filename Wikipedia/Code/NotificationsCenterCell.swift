@@ -469,10 +469,14 @@ final class NotificationsCenterCell: UICollectionViewCell {
     fileprivate func setupAccessibility(_ viewModel: NotificationsCenterCellViewModel) {
         accessibilityLabel = viewModel.accessibilityText()
         isAccessibilityElement = true
+        
         let moreActionAccessibilityActionLabel = viewModel.isRead ? CommonStrings.notificationsCenterMarkAsUnread : CommonStrings.notificationsCenterMarkAsRead
         let moreAction = UIAccessibilityCustomAction(name: "More", target: self, selector: #selector(tappedMoreAction))
         let markasReadorUnreadAction = UIAccessibilityCustomAction(name: moreActionAccessibilityActionLabel, target: self, selector: #selector(tappedReadUnreadAction))
-        accessibilityCustomActions = [moreAction, markasReadorUnreadAction]
+        let isEditing = viewModel.displayState.isEditing
+        
+        accessibilityCustomActions = isEditing ? nil : [moreAction, markasReadorUnreadAction]
+        
     }
     
     func configure(viewModel: NotificationsCenterCellViewModel, theme: Theme) {
