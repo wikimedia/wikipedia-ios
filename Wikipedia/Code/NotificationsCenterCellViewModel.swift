@@ -47,14 +47,22 @@ final class NotificationsCenterCellViewModel {
         
     }
     
-    func accessibilityText() -> String {
+    func accessibilityText() -> NSAttributedString? {
         let readAccessibilityText = WMFLocalizedString("notifications-center-cell-read-accessibility-label", value: "Read", comment: "Accessibility text for indicating that a notification's contents have been read.")
         let unreadAccessibilityText = WMFLocalizedString("notifications-center-cell-unread-accessibility-label", value: "Unread", comment: "Accessibility text for indicating that a notification's contents have not been read.")
-
-        let readStatus = isRead ? readAccessibilityText : unreadAccessibilityText
+        let readPronounciationAccessibilityAttribute = WMFLocalizedString("notifications-center-cell-read-ipa-accessibility-attribute", value: "rɛd", comment: "Accessibility ipa pronounciation for indicating that a notification's contents have been read.")
+        let unreadPronounciationAccessibilityAttribute = WMFLocalizedString("notifications-center-cell-unread-ipa-accessibility-attribute", value: "ʌnˈrɛd", comment: "Accessibility ipa pronounciation for indicating that a notification's contents have not been read.")
         
-        let accessibilityLabel = "\(notification.type.filterTitle ?? String()) notification from \(project.projectName(shouldReturnCodedFormat: false)). \(headerText ?? String()). \(readStatus)"
-        return accessibilityLabel
+        let readAccessibilityAttributedString = NSAttributedString(string: readAccessibilityText, attributes: [NSAttributedString.Key.accessibilitySpeechIPANotation: readPronounciationAccessibilityAttribute])
+        let unreadAccessibilityAttributedString = NSAttributedString(string: unreadAccessibilityText, attributes: [NSAttributedString.Key.accessibilitySpeechIPANotation: unreadPronounciationAccessibilityAttribute])
+        let readUnreadAccessibilityAttributedString = isRead ? readAccessibilityAttributedString : unreadAccessibilityAttributedString
+        
+        let mutableAttributedString = NSMutableAttributedString(attributedString: readUnreadAccessibilityAttributedString)
+        let accessibilityTextAttributedString = NSAttributedString(string: "\(notification.type.filterTitle ?? String()) notification from \(project.projectName(shouldReturnCodedFormat: false)). \(headerText ?? String()). ")
+        
+        mutableAttributedString.insert(accessibilityTextAttributedString, at: 0)
+        
+        return mutableAttributedString.copy() as? NSAttributedString
     }
 
     static func displayStateFor(isEditing: Bool, isSelected: Bool, isRead: Bool) -> NotificationsCenterCellDisplayState {

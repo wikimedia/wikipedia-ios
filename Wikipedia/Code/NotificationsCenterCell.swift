@@ -467,7 +467,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
     // MARK: - Public
 
     fileprivate func setupAccessibility(_ viewModel: NotificationsCenterCellViewModel) {
-        accessibilityLabel = viewModel.accessibilityText()
+        accessibilityAttributedLabel = viewModel.accessibilityText()
         isAccessibilityElement = true
         
         let moreActionAccessibilityActionLabel = viewModel.isRead ? CommonStrings.notificationsCenterMarkAsUnread : CommonStrings.notificationsCenterMarkAsRead
