@@ -572,6 +572,7 @@
 "notifications-center-empty-no-messages" = "Немате пораки.";
 "notifications-center-empty-not-subscribed" = "Не сте претплатени на никакви известувања од Википедија";
 "notifications-center-empty-state-filters-subtitle" = "Изменете $1 за да видите повеќе пораки";
+"notifications-center-empty-state-no-projects-selected" = "Додајте проекти за да видите повеќе пораки";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 филтер|$1 филтри}}";
 "notifications-center-filters-accessibility-label" = "Филтер на известувања";
 "notifications-center-filters-read-status-item-title-all" = "Сите";
