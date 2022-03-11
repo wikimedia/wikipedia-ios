@@ -714,7 +714,7 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
             if let activeCell = cellSwipeData.activeCell(in: notificationsView.collectionView) {
                 let sourceView = activeCell.swipeMoreStack
                 popoverController.sourceView = sourceView
-                popoverController.sourceRect = CGRect(x: sourceView.bounds.midX, y: sourceView.bounds.midY, width: 0, height: 0)
+                popoverController.sourceRect = CGRect(origin: sourceView.bounds.origin, size: sourceView.bounds.size)
             } else {
                 popoverController.sourceView = cell
                 popoverController.sourceRect = CGRect(x: cell.bounds.midX, y: cell.bounds.midY, width: 0, height: 0)
