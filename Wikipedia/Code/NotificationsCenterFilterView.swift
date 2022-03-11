@@ -3,9 +3,10 @@ import SwiftUI
 import WMF
 
 struct NotificationsCenterFilterItemView: View {
+    @Environment (\.horizontalSizeClass) private var horizontalSizeClass
     @ObservedObject var itemViewModel: NotificationsCenterFiltersViewModel.ItemViewModel
     let theme: Theme
-    
+
     var body: some View {
         
         Group {
@@ -65,6 +66,7 @@ struct NotificationsCenterFilterItemView: View {
                 }
             }
         }
+        .padding(.horizontal, horizontalSizeClass == .regular ? 16 : 0)
         .listRowBackground(Color(theme.colors.paperBackground).edgesIgnoringSafeArea([.all]))
     }
 }
@@ -82,7 +84,7 @@ extension Binding {
 }
 
 struct NotificationsCenterFilterView: View {
-    
+
     let viewModel: NotificationsCenterFiltersViewModel
     let doneAction: () -> Void
     
