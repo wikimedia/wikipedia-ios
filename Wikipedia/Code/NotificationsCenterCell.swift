@@ -337,12 +337,13 @@ final class NotificationsCenterCell: UICollectionViewCell {
         projectSourceContainer.addSubview(projectSourceLabel)
         projectSourceContainer.addSubview(projectSourceImage)
 
+        let minimumSummaryHeight = (traitCollection.horizontalSizeClass == .regular) ? 40.0 : 64.0
         internalVerticalNotificationContentStack.addArrangedSubview(VerticalSpacerView.spacerWith(space: 6))
         internalVerticalNotificationContentStack.addArrangedSubview(subheaderLabel)
         internalVerticalNotificationContentStack.addArrangedSubview(VerticalSpacerView.spacerWith(space: 6))
         internalVerticalNotificationContentStack.addArrangedSubview(messageSummaryLabel)
         NSLayoutConstraint.activate([
-            messageSummaryLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 64)
+            messageSummaryLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: minimumSummaryHeight)
         ])
         internalVerticalNotificationContentStack.addArrangedSubview(VerticalSpacerView.spacerWith(space: 3))
         internalVerticalNotificationContentStack.addArrangedSubview(metaStackView)
