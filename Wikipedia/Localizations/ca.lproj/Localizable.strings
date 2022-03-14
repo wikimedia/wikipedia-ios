@@ -577,13 +577,18 @@
 "no-internet-connection" = "Sense connexió a Internet";
 "no-internet-connection-article-reload" = "Podria haver-hi una nova versió de l'article, però no pot carregar-se perquè no hi ha connexió a Internet.";
 "no-internet-connection-article-reload-button" = "Torna a la darrera versió desada";
+"notifications-center-applied-filters-accessibility-label" = "Filtre de notificacions - té filtres aplicats";
+"notifications-center-applied-project-filters-accessibility-label" = "Filtre de projectes - té filtres aplicats";
+"notifications-center-badge-button-accessibility-label" = "Notificacions amb insígnia no llegida";
 "notifications-center-change-password" = "Canvia la contrasenya";
 "notifications-center-checking-for-notifications" = "Comprovació de les notificacions...";
 "notifications-center-empty-checking-for-notifications" = "S'estan comprovant les notificacions...";
 "notifications-center-empty-no-messages" = "No teniu missatges";
 "notifications-center-empty-not-subscribed" = "No esteu subscrit a cap notificació de la Viquipèdia";
 "notifications-center-empty-state-filters-subtitle" = "Modifiqueu $1 per a mostrar més missatges";
+"notifications-center-empty-state-no-projects-selected" = "Afegeix projectes per a veure més missatges";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filtre|$1 filtres}}";
+"notifications-center-filters-accessibility-label" = "Filtre de notificacions";
 "notifications-center-filters-read-status-item-title-all" = "Tots";
 "notifications-center-filters-read-status-item-title-read" = "Llegit";
 "notifications-center-filters-read-status-item-title-unread" = "Per llegir";
@@ -615,6 +620,7 @@
 "notifications-center-mark-as-unread" = "Marca com a no llegida";
 "notifications-center-notifications-settings" = "Paràmetres de notificació";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 missatge|$1 missatges}}";
+"notifications-center-project-filters-accessibility-label" = "Filtre de projectes";
 "notifications-center-status-all" = "Totes";
 "notifications-center-status-all-notifications" = "Totes les notificacions";
 "notifications-center-status-double-concatenation" = "$1 de $2";
@@ -649,6 +655,7 @@
 "notifications-center-swipe-mark-as-unread" = "Marca com a no llegit";
 "notifications-center-swipe-more" = "Més";
 "notifications-center-title" = "Notificacions";
+"notifications-center-toolbar-mark-accessibility-label" = "Marca les notificacions seleccionades";
 "notifications-push-fallback-body-text" = "Activitat nova a la Viquipèdia";
 "notifications-push-talk-body-format" = "$1 nous $2 a $3";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|missatge|missatges}}";

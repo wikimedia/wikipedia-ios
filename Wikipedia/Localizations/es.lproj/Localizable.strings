@@ -7,6 +7,7 @@
 // Author: Astroemi
 // Author: Canaan9801
 // Author: Carlosmg.dg
+// Author: Chopan050
 // Author: DannyS712
 // Author: David.novella
 // Author: Dgstranz
@@ -589,6 +590,11 @@
 "no-internet-connection" = "Sin conexión a internet";
 "no-internet-connection-article-reload" = "Una versión más reciente de este artículo puede estar disponible, pero se puede cargar sin conexión a internet";
 "no-internet-connection-article-reload-button" = "Volver a la última versión guardada";
+"notifications-center-applied-filters-accessibility-label" = "Filtro de notificaciones - tiene filtros aplicados";
+"notifications-center-applied-project-filters-accessibility-label" = "Filtro de proyectos - tiene filtros aplicados";
+"notifications-center-filters-accessibility-label" = "Filtro de notificaciones";
+"notifications-center-project-filters-accessibility-label" = "Filtro de proyectos";
+"notifications-center-toolbar-mark-accessibility-label" = "Marcar notificaciones seleccionadas";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
