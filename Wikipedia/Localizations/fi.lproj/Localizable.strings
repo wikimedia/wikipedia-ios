@@ -14,6 +14,7 @@
 // Author: MITO
 // Author: McSalama
 // Author: Mediawikitranslator
+// Author: Moottori
 // Author: Nemo bis
 // Author: Nike
 // Author: OneMember
@@ -68,7 +69,7 @@
 "about-libraries" = "Käytetyt kirjastot";
 "about-libraries-complete-list" = "Täydellinen luettelo";
 "about-libraries-license" = "Lisenssi";
-"about-libraries-licenses-title" = "Me rakastamme avoimen lähdekoodin ohjelmistoja $1";
+"about-libraries-licenses-title" = "Me rakastamme avoimia ohjelmistoja $1";
 "about-places-maps-license" = "Paikat-kartan lisenssi";
 "about-places-maps-license-details" = "Paikat käyttää Apple Kartat -palvelun tarjoamia karttoja. $1.";
 "about-places-maps-license-details-link-text" = "Lisenssitiedot";
