@@ -588,12 +588,18 @@
 "no-internet-connection" = "인터넷 연결 없음";
 "no-internet-connection-article-reload" = "이 문서의 더 새로운 판을 볼 수 있으나 인터넷에 연결되지 않으면 불러올 수 없습니다";
 "no-internet-connection-article-reload-button" = "마지막으로 저장한 판으로 돌아가기";
+"notifications-center-applied-filters-accessibility-label" = "알림 필터 - 필터 적용됨";
+"notifications-center-applied-project-filters-accessibility-label" = "프로젝트 필터 - 필터 적용됨";
+"notifications-center-badge-button-accessibility-label" = "읽지 않은 배지의 알림";
 "notifications-center-change-password" = "비밀번호 바꾸기";
 "notifications-center-checking-for-notifications" = "알림을 확인하는 중...";
 "notifications-center-empty-checking-for-notifications" = "알림을 확인하는 중...";
 "notifications-center-empty-no-messages" = "메시지가 없습니다";
 "notifications-center-empty-not-subscribed" = "현재 어느 위키백과 알림에도 구독되어 있지 않습니다";
+"notifications-center-empty-state-filters-subtitle" = "메시지를 더 보려면 $1 수정";
+"notifications-center-empty-state-no-projects-selected" = "메시지를 더 보려면 프로젝트 추가";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1개 필터}}";
+"notifications-center-filters-accessibility-label" = "알림 필터";
 "notifications-center-filters-read-status-item-title-all" = "모두";
 "notifications-center-filters-read-status-item-title-read" = "읽음";
 "notifications-center-filters-read-status-item-title-unread" = "읽지 않음";
@@ -624,6 +630,7 @@
 "notifications-center-mark-as-unread" = "읽지않음으로 표기";
 "notifications-center-notifications-settings" = "알림 설정";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1개 메시지|$1개 메시지}}";
+"notifications-center-project-filters-accessibility-label" = "프로젝트 필터";
 "notifications-center-status-all" = "모두";
 "notifications-center-status-all-notifications" = "모든 알림";
 "notifications-center-status-double-concatenation" = "$2의 $1";
