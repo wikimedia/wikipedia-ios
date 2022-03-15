@@ -257,7 +257,9 @@ extension PushNotificationsSettingsViewController {
                                 self.updatePrimaryPushSwitch(userInteractionEnabled: true)
                             }
                             if success {
-                                self.subscribeToEchoNotifications()
+                                DispatchQueue.main.async {
+                                    self.subscribeToEchoNotifications()
+                                }
                             } else {
                                 // If we're still awaiting a device token, show an alert and offer the user the opportunity to manually retry fetching one
                                 DispatchQueue.main.async {
