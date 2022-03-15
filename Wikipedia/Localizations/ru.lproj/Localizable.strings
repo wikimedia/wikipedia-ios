@@ -635,10 +635,12 @@
 "notifications-center-mark-as-unread" = "Пометить как непрочитанное";
 "notifications-center-notifications-settings" = "Настройки уведомлений";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 сообщение|$1 сообщения|$1 сообщений}}";
+"notifications-center-project-filters-accessibility-label" = "Фильтр проектов";
 "notifications-center-status-all" = "Все";
 "notifications-center-status-all-notifications" = "Все уведомления";
 "notifications-center-status-double-concatenation" = "$1 в $2";
 "notifications-center-status-in-projects-plain" = "{{PLURAL:$1|1=1 проект|$1 проекта|$1 проектов}}";
+"notifications-center-status-triple-concatenation" = "$1 и $2 в $3";
 "notifications-center-subheader-edit-reverted" = "Ваша правка была отменена";
 "notifications-center-subheader-email-from-other-user" = "Новый e-mail";
 "notifications-center-subheader-from-agent" = "От $1";

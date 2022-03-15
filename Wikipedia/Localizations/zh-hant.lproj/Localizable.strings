@@ -211,7 +211,7 @@
 "description-help-about-description" = "條目描述能概括條目，以幫助讀者快速了解內容。";
 "description-help-about-title" = "關於";
 "description-help-about-wikidata" = "關於維基數據";
-"description-help-more-info-description" = "描述會被保管在維基數據，那是維基媒體基金會計畫的另一個專案，是個自由、共同作業、多語言的二級資料庫，支援著維基百科及其它相類專案。";
+"description-help-more-info-description" = "描述會被保管在維基數據，那是維基媒體基金會計畫的另一個專案，是個自由、共同作業、多語言的二級資料庫，支援著維基百科及其它專案。";
 "description-help-more-info-title" = "更多資訊";
 "description-help-tips-description" = "描述盡量使用一行文字，且長度介於 2 到 12 個字元之間。另外除非第一個詞為專有名詞，否則不用大寫。";
 "description-help-tips-example-description-one" = "有關蒙娜麗莎條目的條目描述";
@@ -587,13 +587,18 @@
 "no-internet-connection" = "無網路連線";
 "no-internet-connection-article-reload" = "有可用的此條目新版本，但沒有連上網路無法載入";
 "no-internet-connection-article-reload-button" = "返回上一次儲存的版本";
+"notifications-center-applied-filters-accessibility-label" = "通知篩選 - 已套用篩選";
+"notifications-center-applied-project-filters-accessibility-label" = "專案篩選 - 已套用篩選";
+"notifications-center-badge-button-accessibility-label" = "帶有未讀標記的通知";
 "notifications-center-change-password" = "修改密碼";
 "notifications-center-checking-for-notifications" = "正在檢查通知…";
 "notifications-center-empty-checking-for-notifications" = "正在檢查通知...";
 "notifications-center-empty-no-messages" = "您沒有訊息";
 "notifications-center-empty-not-subscribed" = "您目前沒有訂閱任何維基百科通知";
 "notifications-center-empty-state-filters-subtitle" = "變動$1來查看更多通知";
+"notifications-center-empty-state-no-projects-selected" = "添加專案來查看更多訊息";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1}} 種篩選";
+"notifications-center-filters-accessibility-label" = "通知篩選";
 "notifications-center-filters-read-status-item-title-all" = "所有";
 "notifications-center-filters-read-status-item-title-read" = "已讀";
 "notifications-center-filters-read-status-item-title-unread" = "未讀";
@@ -625,6 +630,7 @@
 "notifications-center-mark-as-unread" = "標記為未讀";
 "notifications-center-notifications-settings" = "通知設置";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1}} 則訊息";
+"notifications-center-project-filters-accessibility-label" = "專案篩選";
 "notifications-center-status-all" = "所有";
 "notifications-center-status-all-notifications" = "所有通知";
 "notifications-center-status-double-concatenation" = "$1在 $2 個專案/收件箱上";
@@ -659,6 +665,7 @@
 "notifications-center-swipe-mark-as-unread" = "標記為未讀";
 "notifications-center-swipe-more" = "更多";
 "notifications-center-title" = "通知";
+"notifications-center-toolbar-mark-accessibility-label" = "標記已選的通知";
 "notifications-push-fallback-body-text" = "在維基百科上的新活動";
 "notifications-push-talk-body-format" = "在$3的 $1 個新$2";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|訊息}}";
@@ -929,7 +936,7 @@
 "sort-by-title-action" = "標題";
 "status-saved-for-later" = "已儲存供日後使用";
 "status-saving-for-later" = "正在儲存供日後使用...";
-"table-of-contents-button-label" = "目錄";
+"table-of-contents-button-label" = "目次";
 "table-of-contents-close-accessibility-hint" = "關閉";
 "table-of-contents-close-accessibility-label" = "關閉目錄";
 "table-of-contents-heading" = "目次";
@@ -967,7 +974,7 @@
 "talk-page-publish-terms-and-licenses" = "儲存更改後，表示您同意$1使用條款$2，並同意依據$3CC BY-SA 3.0$4以及$5GFDL$6授權發佈您的貢獻。";
 "talk-page-reply-title" = "回覆";
 "talk-page-title-article-talk" = "條目對話";
-"talk-page-title-user-talk" = "使用者對話";
+"talk-page-title-user-talk" = "使用者討論";
 "talk-page-topic-title" = "討論";
 "talk-pages-reply-button-title" = "回覆此討論";
 "theme-black-display-name" = "漆黑";

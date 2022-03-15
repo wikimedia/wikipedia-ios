@@ -593,6 +593,7 @@
 "notifications-center-empty-no-messages" = "Vous n’avez aucun message";
 "notifications-center-empty-not-subscribed" = "Vous n’êtes actuellement abonné à aucune notification de Wikipédia.";
 "notifications-center-empty-state-filters-subtitle" = "Modifier $1 pour voir plus de messages";
+"notifications-center-empty-state-no-projects-selected" = "Ajouter des projets pour voir plus de messages";
 "notifications-center-empty-state-num-filters" = "$1 filtre{{PLURAL:$1||s}}";
 "notifications-center-filters-accessibility-label" = "Fitrage des notifications";
 "notifications-center-filters-read-status-item-title-all" = "Tous";

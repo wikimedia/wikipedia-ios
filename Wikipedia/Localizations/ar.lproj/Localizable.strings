@@ -4,6 +4,7 @@
 // Author: Aboulouei1
 // Author: Alaa
 // Author: DRIHEM
+// Author: FiberAhmed
 // Author: Haytham morsy
 // Author: Hhaboh162002
 // Author: Hocinend1
@@ -16,6 +17,7 @@
 // Author: Mido
 // Author: Musab Moahmmed
 // Author: NEHAOUA
+// Author: NancyMilad
 // Author: Nemo bis
 // Author: Omda4wady
 // Author: Shbib Al-Subaie
@@ -559,7 +561,34 @@
 "no-internet-connection" = "لا يوجد اتصال بالإنترنت";
 "no-internet-connection-article-reload" = "قد يتوفر إصدار أحدث من هذه المقالة، ولكن لا يمكن تحميله دون الاتصال بالإنترنت";
 "no-internet-connection-article-reload-button" = "العودة إلى النسخة الأخيرة المحفوظة";
+"notifications-center-applied-filters-accessibility-label" = "تصفية الاشعارات - تم اضافة التصفيات";
+"notifications-center-applied-project-filters-accessibility-label" = "تصفية المشاريع - تمت اضافة التصفية";
+"notifications-center-badge-button-accessibility-label" = "اشعارات بدون اشارة القراءة";
+"notifications-center-empty-state-no-projects-selected" = "اضف المشاريع لرؤية المزيد من الرسائل";
+"notifications-center-filters-accessibility-label" = "مُرشّح الإشعارات";
+"notifications-center-filters-read-status-item-title-all" = "الكل";
+"notifications-center-filters-read-status-item-title-read" = "اقرأ";
+"notifications-center-filters-read-status-item-title-unread" = "غير مقروءة";
+"notifications-center-filters-title" = "المرشحات";
+"notifications-center-filters-types-item-title-all" = "جميع الأنواع";
+"notifications-center-footer-change-password" = "تغيير كلمة السر";
+"notifications-center-inbox-title" = "مشاريع";
+"notifications-center-mark-all-as-read" = "اعتبرها كلها مقروءة";
+"notifications-center-mark-as-read" = "علّم كمقروءة";
+"notifications-center-project-filters-accessibility-label" = "تصفية المشاريع";
+"notifications-center-status-all" = "الكل";
+"notifications-center-status-all-notifications" = "كل الإشعارات";
+"notifications-center-status-read" = "اقرأ";
+"notifications-center-status-unread" = "غير مقروءة";
 "notifications-center-subheader-email-from-other-user" = "بريد إلكتروني جديد";
+"notifications-center-subheader-from-agent" = "من $1";
+"notifications-center-subheader-thanks" = "شكرًا";
+"notifications-center-subheader-welcome" = "مرحبًا!";
+"notifications-center-swipe-mark-as-read" = "علّم كمقروءة";
+"notifications-center-swipe-more" = "المزيد";
+"notifications-center-title" = "الإشعارات";
+"notifications-center-toolbar-mark-accessibility-label" = "حدد الاشعارات المختارة";
+"notifications-push-fallback-body-text" = "نشاط جديد على ويكيبيديا";
 "number-billions" = "$1 مليار";
 "number-millions" = "$1 مليون";
 "number-thousands" = "$1 ألف";
