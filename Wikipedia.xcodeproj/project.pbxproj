@@ -17,6 +17,7 @@
 		0010F93A27A49C7700D77848 /* HorizontalSpacerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010F93827A49C7700D77848 /* HorizontalSpacerView.swift */; };
 		0010F93B27A49C7700D77848 /* HorizontalSpacerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010F93827A49C7700D77848 /* HorizontalSpacerView.swift */; };
 		0010F93C27A49C7700D77848 /* HorizontalSpacerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0010F93827A49C7700D77848 /* HorizontalSpacerView.swift */; };
+		0015712C27D92F6B00F1EB26 /* RetryBlockTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0015712B27D92F6B00F1EB26 /* RetryBlockTask.swift */; };
 		0022DD2925829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0022DD2825829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift */; };
 		0022DD2A25829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0022DD2825829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift */; };
 		0022DD2B25829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0022DD2825829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift */; };
@@ -216,6 +217,10 @@
 		00EBB7CD27D6A86A002025AC /* SettingsPresentationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EBB7CB27D6A86A002025AC /* SettingsPresentationDelegate.swift */; };
 		00EBB7CE27D6A86A002025AC /* SettingsPresentationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EBB7CB27D6A86A002025AC /* SettingsPresentationDelegate.swift */; };
 		00EBB7CF27D6A86A002025AC /* SettingsPresentationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EBB7CB27D6A86A002025AC /* SettingsPresentationDelegate.swift */; };
+		00F5AED027C6C80C006390A8 /* PushNotificationsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F5AECF27C6C80C006390A8 /* PushNotificationsSettingsViewController.swift */; };
+		00F5AED127C6C80C006390A8 /* PushNotificationsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F5AECF27C6C80C006390A8 /* PushNotificationsSettingsViewController.swift */; };
+		00F5AED227C6C80C006390A8 /* PushNotificationsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F5AECF27C6C80C006390A8 /* PushNotificationsSettingsViewController.swift */; };
+		00F5AED327C6C80C006390A8 /* PushNotificationsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F5AECF27C6C80C006390A8 /* PushNotificationsSettingsViewController.swift */; };
 		00FCB2BE26D8398700F5A47A /* NotificationsCenterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FCB2BD26D8398700F5A47A /* NotificationsCenterCell.swift */; };
 		00FCB2BF26D8398700F5A47A /* NotificationsCenterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FCB2BD26D8398700F5A47A /* NotificationsCenterCell.swift */; };
 		00FCB2C026D8398700F5A47A /* NotificationsCenterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FCB2BD26D8398700F5A47A /* NotificationsCenterCell.swift */; };
@@ -2365,7 +2370,6 @@
 		D84B22521DAFD1E1007C44AA /* CIContext+WMFImageProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8046C1C0CE0B40065EBC0 /* CIContext+WMFImageProcessing.m */; };
 		D84B22531DAFD1E1007C44AA /* CIDetector+WMFFaceDetection.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E8046D1C0CE0B40065EBC0 /* CIDetector+WMFFaceDetection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D84B22541DAFD1E1007C44AA /* CIDetector+WMFFaceDetection.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8046E1C0CE0B40065EBC0 /* CIDetector+WMFFaceDetection.m */; };
-		D84BF62D1DB96E7C00E0C85E /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84BF6291DB96D5900E0C85E /* NotificationSettingsViewController.swift */; };
 		D84BF62F1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84BF62E1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift */; };
 		D84C35F11F323CCA00895FA1 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8733C951ECA48490011E379 /* CollectionViewCell.swift */; };
 		D84C35F21F323CD100895FA1 /* ArticleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87721F21EC0CDB60005E634 /* ArticleCollectionViewCell.swift */; };
@@ -2494,7 +2498,6 @@
 		D8A42A771E815A9C00D8E281 /* WMFTableHeaderFooterLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE2438C1DC9889B00066CBD /* WMFTableHeaderFooterLabelView.m */; };
 		D8A42A7C1E815A9C00D8E281 /* WMFDatabaseHouseKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37B38EF1E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift */; };
 		D8A42A7E1E815A9C00D8E281 /* PlaceSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D808DCEC1E438C0C00A3E89C /* PlaceSearch.swift */; };
-		D8A42A7F1E815A9C00D8E281 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84BF6291DB96D5900E0C85E /* NotificationSettingsViewController.swift */; };
 		D8A42A801E815A9C00D8E281 /* PlaceSearchSuggestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D808DCEA1E438BE300A3E89C /* PlaceSearchSuggestionController.swift */; };
 		D8A42A821E815A9C00D8E281 /* WMFPageHistoryRevision.m in Sources */ = {isa = PBXBuildFile; fileRef = B09B03EA1CE0FB2600009083 /* WMFPageHistoryRevision.m */; };
 		D8A42A891E815A9C00D8E281 /* WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF863501C19E4F100006D2D /* WMFEmptyView.m */; };
@@ -2725,7 +2728,6 @@
 		D8CE25001E698E2400DAE2E0 /* WMFTableHeaderFooterLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE2438C1DC9889B00066CBD /* WMFTableHeaderFooterLabelView.m */; };
 		D8CE25051E698E2400DAE2E0 /* WMFDatabaseHouseKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37B38EF1E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift */; };
 		D8CE25071E698E2400DAE2E0 /* PlaceSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D808DCEC1E438C0C00A3E89C /* PlaceSearch.swift */; };
-		D8CE25081E698E2400DAE2E0 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84BF6291DB96D5900E0C85E /* NotificationSettingsViewController.swift */; };
 		D8CE25091E698E2400DAE2E0 /* PlaceSearchSuggestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D808DCEA1E438BE300A3E89C /* PlaceSearchSuggestionController.swift */; };
 		D8CE250B1E698E2400DAE2E0 /* WMFPageHistoryRevision.m in Sources */ = {isa = PBXBuildFile; fileRef = B09B03EA1CE0FB2600009083 /* WMFPageHistoryRevision.m */; };
 		D8CE25121E698E2400DAE2E0 /* WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF863501C19E4F100006D2D /* WMFEmptyView.m */; };
@@ -2967,7 +2969,6 @@
 		D8EC3DF71E9BDA35006712EB /* WMFTableHeaderFooterLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE2438C1DC9889B00066CBD /* WMFTableHeaderFooterLabelView.m */; };
 		D8EC3DFC1E9BDA35006712EB /* WMFDatabaseHouseKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37B38EF1E5F432F00FE11BD /* WMFDatabaseHouseKeeper.swift */; };
 		D8EC3DFE1E9BDA35006712EB /* PlaceSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D808DCEC1E438C0C00A3E89C /* PlaceSearch.swift */; };
-		D8EC3DFF1E9BDA35006712EB /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84BF6291DB96D5900E0C85E /* NotificationSettingsViewController.swift */; };
 		D8EC3E001E9BDA35006712EB /* PlaceSearchSuggestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D808DCEA1E438BE300A3E89C /* PlaceSearchSuggestionController.swift */; };
 		D8EC3E021E9BDA35006712EB /* WMFPageHistoryRevision.m in Sources */ = {isa = PBXBuildFile; fileRef = B09B03EA1CE0FB2600009083 /* WMFPageHistoryRevision.m */; };
 		D8EC3E091E9BDA35006712EB /* WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF863501C19E4F100006D2D /* WMFEmptyView.m */; };
@@ -3588,6 +3589,7 @@
 		00021DEB24D48EFE00476F97 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00021E0324D4A42A00476F97 /* PictureOfTheDayWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureOfTheDayWidget.swift; sourceTree = "<group>"; usesTabs = 0; };
 		0010F93827A49C7700D77848 /* HorizontalSpacerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalSpacerView.swift; sourceTree = "<group>"; };
+		0015712B27D92F6B00F1EB26 /* RetryBlockTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryBlockTask.swift; sourceTree = "<group>"; };
 		0022DD2825829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScribbleIgnoringInteractionDelegate.swift; sourceTree = "<group>"; usesTabs = 0; };
 		002AB86F250BEFBE00ADAC87 /* PictureOfTheDayWidget+LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PictureOfTheDayWidget+LocalizedStrings.swift"; sourceTree = "<group>"; };
 		0033D79724F818EB00CAB5B3 /* TopReadWidget+LocalizedStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TopReadWidget+LocalizedStrings.swift"; sourceTree = "<group>"; };
@@ -3748,6 +3750,7 @@
 		00E2EA8D26E2A45C00B1A741 /* NotificationsCenterCellDisplayState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterCellDisplayState.swift; sourceTree = "<group>"; };
 		00EBB7C627D6878E002025AC /* BarButtonImageStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarButtonImageStyle.swift; sourceTree = "<group>"; };
 		00EBB7CB27D6A86A002025AC /* SettingsPresentationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresentationDelegate.swift; sourceTree = "<group>"; };
+		00F5AECF27C6C80C006390A8 /* PushNotificationsSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsSettingsViewController.swift; sourceTree = "<group>"; };
 		00FCB2BD26D8398700F5A47A /* NotificationsCenterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterCell.swift; sourceTree = "<group>"; };
 		00FCB2C226D839A500F5A47A /* NotificationsCenterCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterCellViewModel.swift; sourceTree = "<group>"; };
 		040E5C4E184566F4007AFE6F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -5063,7 +5066,6 @@
 		D8497F631EE09BE600100CBD /* CircledRankView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CircledRankView.swift; path = Wikipedia/Code/CircledRankView.swift; sourceTree = SOURCE_ROOT; };
 		D8497F681EE09D0200100CBD /* SizeThatFitsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SizeThatFitsView.swift; path = Wikipedia/Code/SizeThatFitsView.swift; sourceTree = SOURCE_ROOT; };
 		D8497F6D1EE09FA100100CBD /* RankedArticleCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RankedArticleCollectionViewCell.swift; path = Wikipedia/Code/RankedArticleCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
-		D84BF6291DB96D5900E0C85E /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		D84BF62E1DBE616D00E0C85E /* UIViewController+WMFAlerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+WMFAlerts.swift"; sourceTree = "<group>"; };
 		D84C363F1F3245A200895FA1 /* ArticleCollectionViewCell+Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ArticleCollectionViewCell+Themeable.swift"; path = "WMF Framework/ArticleCollectionViewCell+Themeable.swift"; sourceTree = SOURCE_ROOT; };
 		D84C36511F33866C00895FA1 /* WMF Framework.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "WMF Framework.xcassets"; sourceTree = "<group>"; };
@@ -8898,7 +8900,7 @@
 		D84BF6281DB96D4700E0C85E /* Notifications */ = {
 			isa = PBXGroup;
 			children = (
-				D84BF6291DB96D5900E0C85E /* NotificationSettingsViewController.swift */,
+				00F5AECF27C6C80C006390A8 /* PushNotificationsSettingsViewController.swift */,
 			);
 			name = Notifications;
 			sourceTree = "<group>";
@@ -9241,6 +9243,7 @@
 				D8A76D811D6F2B2E00E5A798 /* WMFTaskGroup.h */,
 				D8A76D821D6F2B2E00E5A798 /* WMFTaskGroup.m */,
 				67F73382273C163700D7D713 /* TimeInterval+Extensions.swift */,
+				0015712B27D92F6B00F1EB26 /* RetryBlockTask.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -9584,9 +9587,9 @@
 			buildConfigurationList = D844D97B1D6CB2600042D692 /* Build configuration list for PBXNativeTarget "WMF" */;
 			buildPhases = (
 				D87021721EBA69B7000D02D6 /* Update Localizations */,
+				D844D9691D6CB2600042D692 /* Headers */,
 				D844D9671D6CB2600042D692 /* Sources */,
 				D844D9681D6CB2600042D692 /* Frameworks */,
-				D844D9691D6CB2600042D692 /* Headers */,
 				D8FA19151E1BE05B009675C3 /* Resources */,
 				D8D987FD1E1C468F00789CA0 /* ShellScript */,
 			);
@@ -10998,7 +11001,6 @@
 				6761AEE12704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift in Sources */,
 				B3F21D0F1EB0EBB4000ED0BB /* PlaceSearchService.swift in Sources */,
 				7A393281236CBDD500A89C2F /* PageHistoryComparisonSelectionViewController.swift in Sources */,
-				D84BF62D1DB96E7C00E0C85E /* NotificationSettingsViewController.swift in Sources */,
 				BA8203E21F15B4CC00925E93 /* ShareActivityController.swift in Sources */,
 				D808DCEB1E438BE300A3E89C /* PlaceSearchSuggestionController.swift in Sources */,
 				7A8422472268BBE70074648E /* InsertMediaImageInfoView.swift in Sources */,
@@ -11061,6 +11063,7 @@
 				B0524B51214854E900D8FD8D /* DescriptionWelcomeContainerViewController.swift in Sources */,
 				7AF56C2F21DDEC1C00563A9C /* TextFormattingProviding.swift in Sources */,
 				B0ED17341E4912EB008B70AD /* WMFTwoFactorPasswordViewController.swift in Sources */,
+				00F5AED027C6C80C006390A8 /* PushNotificationsSettingsViewController.swift in Sources */,
 				B0B423611EF9D69C00D3DC4C /* OnThisDayViewController.swift in Sources */,
 				0042813125E6E841004945B3 /* NYTPhotosDataSource.m in Sources */,
 				B0CD9DDA1F70997300051843 /* WMFWelcomeExplorationAnimationView.swift in Sources */,
@@ -11703,6 +11706,7 @@
 				67DAEDA123CD1BC9003AA208 /* CacheGatekeeper.swift in Sources */,
 				D881B1131E32874500D33F62 /* WMFArticle+QuadKey.swift in Sources */,
 				00669500265DA01000E23AE4 /* WidgetContentFetcher.swift in Sources */,
+				0015712C27D92F6B00F1EB26 /* RetryBlockTask.swift in Sources */,
 				D8E78FA61FB4C8740094B968 /* Session.swift in Sources */,
 				D8FA18D51E1BD891009675C3 /* NSError+WMFExtensions.m in Sources */,
 				8320332322B906A0004A9EDA /* NavigationState.swift in Sources */,
@@ -11909,7 +11913,6 @@
 				7A84224A2268BBE70074648E /* InsertMediaImageInfoView.swift in Sources */,
 				7AFC79FB21B0367700BB0C50 /* TextFormattingTableViewController.swift in Sources */,
 				D8A42A7E1E815A9C00D8E281 /* PlaceSearch.swift in Sources */,
-				D8A42A7F1E815A9C00D8E281 /* NotificationSettingsViewController.swift in Sources */,
 				6782DBA62343B7EE003FA21B /* DiffHeaderSummaryView.swift in Sources */,
 				D8A42A801E815A9C00D8E281 /* PlaceSearchSuggestionController.swift in Sources */,
 				7AE99B2B21CC4F420092BE7F /* TextSizeFormattingTableViewController.swift in Sources */,
@@ -11967,6 +11970,7 @@
 				7A73B48521E54B4200249E09 /* SectionEditorNavigationItemController.swift in Sources */,
 				D837CC3A231FE9CC00BA6130 /* ThemeableViewController.swift in Sources */,
 				B0FFFB2D21C9BED1001E787E /* TextFormattingButton.swift in Sources */,
+				00F5AED327C6C80C006390A8 /* PushNotificationsSettingsViewController.swift in Sources */,
 				7AF6F76922395BEC00949393 /* EditingWelcomeViewController.swift in Sources */,
 				0042813425E6E841004945B3 /* NYTPhotosDataSource.m in Sources */,
 				672286282540DB330038E332 /* AppTabBarDelegate.swift in Sources */,
@@ -12422,7 +12426,6 @@
 				00BCB72426DEEB1C002C3F72 /* RoundedImageView.swift in Sources */,
 				7A610CB8220A30C900C266AE /* HintViewController.swift in Sources */,
 				83E3E7262440F1FE00AA2E9A /* LoadingAnimationViewController.swift in Sources */,
-				D8CE25081E698E2400DAE2E0 /* NotificationSettingsViewController.swift in Sources */,
 				FF555565277287F300925099 /* CollectionViewContextMenuShowing.swift in Sources */,
 				00BCB71F26DEE1C7002C3F72 /* VerticalSpacerView.swift in Sources */,
 				D8CE25091E698E2400DAE2E0 /* PlaceSearchSuggestionController.swift in Sources */,
@@ -12775,6 +12778,7 @@
 				83B01F9B23DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift in Sources */,
 				D8A47C8623D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift in Sources */,
 				D8CE25F61E698E2400DAE2E0 /* UIScrollView+WMFContentOffsetUtils.m in Sources */,
+				00F5AED227C6C80C006390A8 /* PushNotificationsSettingsViewController.swift in Sources */,
 				83FBE9761F6181E00026C7EB /* ShareAFactActivityImageItemProvider.swift in Sources */,
 				0042813F25E6E841004945B3 /* NYTPhotosViewController.m in Sources */,
 				679471DC275F245000621071 /* NotificationsCenterInboxView.swift in Sources */,
@@ -12951,7 +12955,6 @@
 				67DC5BEB23A03FE700B03A84 /* ArticleToolbarController.swift in Sources */,
 				D8EC3DFE1E9BDA35006712EB /* PlaceSearch.swift in Sources */,
 				7AE1FE3321B4A9790068BE9F /* TextFormattingButtonView.swift in Sources */,
-				D8EC3DFF1E9BDA35006712EB /* NotificationSettingsViewController.swift in Sources */,
 				D8EC3E001E9BDA35006712EB /* PlaceSearchSuggestionController.swift in Sources */,
 				B0B423631EF9D6A300D3DC4C /* OnThisDayViewController.swift in Sources */,
 				D8EC3E021E9BDA35006712EB /* WMFPageHistoryRevision.m in Sources */,
@@ -13294,6 +13297,7 @@
 				83B01F9C23DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift in Sources */,
 				D8A47C8723D7259A002AA823 /* NoIntrinsicContentSizeImageView.swift in Sources */,
 				D8EC3EF21E9BDA35006712EB /* NSAttributedString+WMFModify.m in Sources */,
+				00F5AED127C6C80C006390A8 /* PushNotificationsSettingsViewController.swift in Sources */,
 				D8EC3EF31E9BDA35006712EB /* WMFSettingsViewController.m in Sources */,
 				0042813E25E6E841004945B3 /* NYTPhotosViewController.m in Sources */,
 				679471DE275F245900621071 /* NotificationsCenterInboxView.swift in Sources */,
