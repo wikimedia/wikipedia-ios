@@ -14,6 +14,8 @@ final class NotificationsCenterViewController: ViewController {
     let viewModel: NotificationsCenterViewModel
     
     var didUpdateFiltersCallback: (() -> Void)?
+
+    fileprivate var onboardingHostingViewController: NotificationsCenterOnboardingHostingViewController?
     
     // MARK: Properties - Diffable Data Source
     typealias DataSource = UICollectionViewDiffableDataSource<NotificationsCenterSection, NotificationsCenterCellViewModel>
@@ -100,6 +102,8 @@ final class NotificationsCenterViewController: ViewController {
         super.viewDidAppear(animated)
         viewModel.refreshNotifications(force: true)
         viewModel.markAllAsSeen()
+        
+        presentOnboardingEducationModalIfNecessary()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -151,6 +155,7 @@ final class NotificationsCenterViewController: ViewController {
         super.apply(theme: theme)
 
         notificationsView.apply(theme: theme)
+        onboardingHostingViewController?.apply(theme: theme)
 
         closeSwipeActionsPanelIfNecessary()
         notificationsView.collectionView.reloadData()
@@ -443,6 +448,57 @@ private extension NotificationsCenterViewController {
         nc.modalPresentationStyle = .pageSheet
         self.present(nc, animated: true, completion: nil)
     }
+}
+
+// MARK: - Onboarding Modal and Push Opt in
+
+extension NotificationsCenterViewController: NotificationsCenterOnboardingDelegate {
+
+    func presentOnboardingEducationModalIfNecessary() {
+        guard !UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter else {
+            return
+        }
+
+        let onboardingHostingViewController = NotificationsCenterOnboardingHostingViewController(theme: theme)
+        onboardingHostingViewController.delegate = self
+        onboardingHostingViewController.modalPresentationStyle = .pageSheet
+        self.onboardingHostingViewController = onboardingHostingViewController
+        present(onboardingHostingViewController, animated: true)
+    }
+
+    func presentingOnboardingPushOptInIfNecessary() {
+        guard !UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter else {
+            return
+        }
+
+        let primaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _ in
+            self?.dismiss(animated: true, completion: {
+                self?.userDidTapPushNotificationsOptIn()
+            })
+        }
+
+        let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _ in
+            self?.dismiss(animated: true)
+        }
+
+        let dismissHandler: ScrollableEducationPanelDismissHandler = {
+            UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter = true
+        }
+
+        let panel = NotificationsCenterOnboardingPushPanelViewController(showCloseButton: false, primaryButtonTapHandler: primaryTapHandler, secondaryButtonTapHandler: secondaryTapHandler, dismissHandler: dismissHandler, theme: theme)
+        panel.dismissWhenTappedOutside = true
+        present(panel, animated: true)
+    }
+
+    func userDidDismissNotificationsCenterOnboardingView() {
+        presentingOnboardingPushOptInIfNecessary()
+    }
+
+    func userDidTapPushNotificationsOptIn() {
+        // TODO
+        print("TODO: Push Notifications Systems Permissions and Echo Subscription")
+    }
+
 }
 
 // MARK: - NotificationsCenterViewModelDelegate
