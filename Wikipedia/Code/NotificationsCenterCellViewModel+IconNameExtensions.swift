@@ -6,9 +6,32 @@ extension NotificationsCenterCellViewModel {
     typealias IconName = String
     
     //Use if you need to make the system (SFSymbols) vs custom distinction
-    enum IconType {
+    enum IconType: Equatable {
         case custom(IconName)
         case system(IconName)
+        
+        static var lock: IconType {
+            return .system("lock")
+        }
+        
+        static var link: IconType {
+            return .system("link")
+        }
+        
+        static var personFill: IconType {
+            return .system("person.circle.fill")
+        }
+        
+        static var documentFill: IconType {
+            if #available(iOS 14, *) {
+                return .system("doc.plaintext.fill")
+            }
+            return .system("doc.text.fill")
+        }
+        
+        static var photo: IconType {
+            return .system("photo")
+        }
     }
         
     var projectIconName: IconName? {
@@ -20,13 +43,13 @@ extension NotificationsCenterCellViewModel {
         case .loginFailKnownDevice,
              .loginFailUnknownDevice,
              .loginSuccessUnknownDevice:
-            return .system("lock")
+            return .lock
         case .unknownSystemAlert,
              .unknownSystemNotice,
              .unknownAlert,
              .unknownNotice,
              .unknown:
-            return .system("link")
+            return .link
         default:
             break
         }
@@ -41,14 +64,11 @@ extension NotificationsCenterCellViewModel {
              .userTalk,
              .user:
             //TODO: Should we include the other talk types?
-            return .system("person.circle.fill")
+            return .personFill
         case .main:
-            if #available(iOS 14, *) {
-                return .system("doc.plaintext.fill")
-            }
-            return .system("doc.text.fill")
+            return .documentFill
         case .file:
-            return .system("photo")
+            return .photo
         default:
             return nil
         }
