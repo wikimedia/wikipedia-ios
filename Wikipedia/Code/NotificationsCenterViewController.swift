@@ -15,9 +15,13 @@ final class NotificationsCenterViewController: ViewController {
     
     var didUpdateFiltersCallback: (() -> Void)?
 
+    // MARK: - Properties: Onboarding
+
     fileprivate var onboardingHostingViewController: NotificationsCenterOnboardingHostingViewController?
+    fileprivate var deviceTokenRetryTask: RetryBlockTask?
     
-    // MARK: Properties - Diffable Data Source
+    // MARK: Properties: Diffable Data Source
+
     typealias DataSource = UICollectionViewDiffableDataSource<NotificationsCenterSection, NotificationsCenterCellViewModel>
     typealias Snapshot = NSDiffableDataSourceSnapshot<NotificationsCenterSection, NotificationsCenterCellViewModel>
     private var dataSource: DataSource?
@@ -68,6 +72,11 @@ final class NotificationsCenterViewController: ViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    deinit {
+        deviceTokenRetryTask = nil
+        NotificationCenter.default.removeObserver(self)
+    }
+
     override func loadView() {
         let notificationsCenterView = NotificationsCenterView(frame: UIScreen.main.bounds)
         notificationsCenterView.addSubheaderTapGestureRecognizer(target: self, action: #selector(tappedEmptyStateSubheader))
@@ -94,10 +103,6 @@ final class NotificationsCenterViewController: ViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
     }
 
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.refreshNotifications(force: true)
@@ -495,8 +500,7 @@ extension NotificationsCenterViewController: NotificationsCenterOnboardingDelega
     }
 
     func userDidTapPushNotificationsOptIn() {
-        // TODO
-        print("TODO: Push Notifications Systems Permissions and Echo Subscription")
+        requestPushPermissionsAndSilentlySubscribeToEchoNotifications()
     }
 
 }
@@ -830,4 +834,33 @@ extension NotificationsCenterViewController {
     @objc fileprivate func userDidTapTypeFilterButton() {
         presentFiltersViewController()
     }
+}
+
+
+// MARK: - Device push permissions and silent Echo subscription
+
+extension NotificationsCenterViewController {
+
+    /// Mimics the Settings Push opt in approach, but Echo subscription fails silently to prevent interrupting the experience
+    func requestPushPermissionsAndSilentlySubscribeToEchoNotifications() {
+        deviceTokenRetryTask = RetryBlockTask { [weak self] in
+            return self?.viewModel.notificationsController.remoteRegistrationDeviceToken != nil
+        }
+
+        viewModel.notificationsController.requestPermissionsIfNecessary { [weak self] (authorized, error) in
+            DispatchQueue.main.async {
+                if authorized {
+                    UIApplication.shared.registerForRemoteNotifications()
+                    if self?.viewModel.notificationsController.remoteRegistrationDeviceToken == nil {
+                        self?.deviceTokenRetryTask?.start { [weak self] success in
+                            if success {
+                                self?.viewModel.notificationsController.subscribeToEchoNotifications()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 }
