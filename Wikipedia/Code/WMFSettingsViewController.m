@@ -327,7 +327,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             break;
     }
 
-    if (cell.tag != WMFSettingsMenuItemType_SendUsageReports) { //logged elsewhere via disclosureSwitchChanged:
+    if (cell.tag != WMFSettingsMenuItemType_SendUsageReports) { // logged elsewhere via disclosureSwitchChanged:
         [self logNavigationEventsForMenuType:cell.tag];
     }
 
@@ -446,9 +446,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Notifications
 
 - (void)showNotifications {
-    WMFNotificationSettingsViewController *notificationSettingsVC = [[WMFNotificationSettingsViewController alloc] initWithAuthManager:self.dataStore.authenticationManager notificationsController:self.dataStore.notificationsController];
-    [notificationSettingsVC applyTheme:self.theme];
-    [self.navigationController pushViewController:notificationSettingsVC animated:YES];
+    WMFPushNotificationsSettingsViewController *pushSettingsVC = [[WMFPushNotificationsSettingsViewController alloc] initWithAuthenticationManager:self.authManager notificationsController:self.dataStore.notificationsController];
+    [pushSettingsVC applyTheme:self.theme];
+    [self.navigationController pushViewController:pushSettingsVC animated:YES];
 }
 
 #pragma mark - Appearance
@@ -502,7 +502,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         if (@available(iOS 15.0, *)) {
 
         } else {
-            //Hides odd content inset bug in iOS 13 & 14
+            // Hides odd content inset bug in iOS 13 & 14
             if (section == 0) {
                 return 0;
             }
@@ -546,7 +546,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     NSMutableArray *items = [NSMutableArray arrayWithArray:commonItems];
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ExploreFeed]];
 
-    [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Notifications]];
+    if (_authManager.isLoggedIn) {
+        [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Notifications]];
+    }
 
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Appearance]];
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_StorageAndSyncing]];

@@ -30,6 +30,7 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 let WMFAppInstallId = "WMFAppInstallId"
 let WMFSendUsageReports = "WMFSendUsageReports"
 let WMFUserHasOnboardedToNotificationsCenter = "WMFUserHasOnboardedToNotificationsCenter"
+let WMFSubscribedToEchoNotifications = "WMFSubscribedToEchoNotifications"
 
 @objc public enum WMFAppDefaultTabType: Int {
     case explore
@@ -100,6 +101,15 @@ let WMFUserHasOnboardedToNotificationsCenter = "WMFUserHasOnboardedToNotificatio
         }
         set {
             set(newValue, forKey: WMFSendUsageReports)
+        }
+    }
+
+    @objc var wmf_isSubscribedToEchoNotifications: Bool {
+        get {
+            return bool(forKey: WMFSubscribedToEchoNotifications)
+        }
+        set {
+            set(newValue, forKey: WMFSubscribedToEchoNotifications)
         }
     }
 
