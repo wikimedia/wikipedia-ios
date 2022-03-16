@@ -466,7 +466,7 @@ extension NotificationsCenterViewController: NotificationsCenterOnboardingDelega
         present(onboardingHostingViewController, animated: true)
     }
 
-    func presentingOnboardingPushOptInIfNecessary() {
+    func presentOnboardingPushOptInIfNecessary() {
         guard !UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter else {
             return
         }
@@ -491,7 +491,7 @@ extension NotificationsCenterViewController: NotificationsCenterOnboardingDelega
     }
 
     func userDidDismissNotificationsCenterOnboardingView() {
-        presentingOnboardingPushOptInIfNecessary()
+        presentOnboardingPushOptInIfNecessary()
     }
 
     func userDidTapPushNotificationsOptIn() {
