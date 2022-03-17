@@ -44,8 +44,8 @@ extension NotificationsCenterCellViewModel {
     var sheetActions: [SheetAction] {
         
         var sheetActions: [SheetAction] = []
-        let markAsReadText = CommonStrings.notificationsCenterMarkAsRead
-        let markAsUnreadText = CommonStrings.notificationsCenterMarkAsUnread
+        let markAsReadText = CommonStrings.notificationsCenterMarkAsReadSwipe
+        let markAsUnreadText = CommonStrings.notificationsCenterMarkAsUnreadSwipe
         let markAsReadOrUnreadText = isRead ? markAsUnreadText : markAsReadText
         let markAsReadOrUnreadActionData = SheetActionData(text: markAsReadOrUnreadText, url: nil)
         sheetActions.append(.markAsReadOrUnread(markAsReadOrUnreadActionData))
