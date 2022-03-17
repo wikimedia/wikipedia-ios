@@ -1,5 +1,6 @@
 import UIKit
 import WMF
+import SwiftUI
 
 extension WMFAppViewController {
 
@@ -101,8 +102,13 @@ extension WMFAppViewController: NotificationsCenterPresentationDelegate {
 extension WMFAppViewController {
     @objc func userDidTapPushNotification() {
         
-        guard let topMostViewController = self.topMostViewController,
-        !topMostViewController.isDisplayingNotificationsCenter else {
+        guard let topMostViewController = self.topMostViewController else {
+            return
+        }
+        
+        //If already displaying Notifications Center (or some part of it), exit early
+        if let notificationsCenterFlowViewController = topMostViewController.notificationsCenterFlowViewController {
+            notificationsCenterFlowViewController.tappedPushNotification()
             return
         }
 
@@ -114,7 +120,8 @@ extension WMFAppViewController {
             self?.navigationController?.pushViewController(notificationsCenterViewController, animated: true)
         }
 
-        guard editingFlowIsInHierarchy else {
+        guard let editingFlowViewController = editingFlowViewControllerInHierarchy,
+            editingFlowViewController.shouldDisplayAlert else {
             dismissAndPushBlock()
             return
         }
@@ -122,24 +129,24 @@ extension WMFAppViewController {
         presentEditorAlert(on: topMostViewController, confirmationBlock: dismissAndPushBlock)
     }
     
-    private var editingFlowIsInHierarchy: Bool {
+    private var editingFlowViewControllerInHierarchy: EditingFlowViewController? {
         var currentController: UIViewController? = navigationController
 
         while let presentedViewController = currentController?.presentedViewController {
             if let presentedNavigationController = (presentedViewController as? UINavigationController) {
                 for viewController in presentedNavigationController.viewControllers {
-                    if viewController.isPartOfEditorFlow {
-                        return true
+                    if let editingFlowViewController = viewController as? EditingFlowViewController {
+                        return editingFlowViewController
                     }
                 }
-            } else if presentedViewController.isPartOfEditorFlow {
-                return true
+            } else if let editingFlowViewController = presentedViewController as? EditingFlowViewController {
+                return editingFlowViewController
             }
             
             currentController = presentedViewController
         }
 
-        return false
+        return nil
     }
     
     private var topMostViewController: UIViewController? {
@@ -173,23 +180,40 @@ extension WMFAppViewController {
 }
 
 fileprivate extension UIViewController {
-    var isPartOfEditorFlow: Bool {
-        return (self is SectionEditorViewController ||
-                self is InsertLinkViewController ||
-                self is InsertMediaViewController ||
-                self is EditPreviewViewController ||
-                self is InsertMediaSearchResultPreviewingViewController ||
-                self is EditSaveViewController ||
-                self is DescriptionEditViewController)
-    }
     
-    var isDisplayingNotificationsCenter: Bool {
+    /// Returns self or embedded view controller (if self is a UINavigationController) if conforming to NotificationsCenterFlowViewController
+    /// Does not consider presenting view controllers
+    var notificationsCenterFlowViewController: NotificationsCenterFlowViewController? {
         
-        if let navigationController = (self as? UINavigationController),
-           (navigationController.viewControllers.last as? NotificationsCenterViewController) != nil {
-            return true
+        if let viewController = self as? NotificationsCenterFlowViewController {
+            return viewController
         }
         
-        return false
+        if let navigationController = self as? UINavigationController,
+           let viewController = navigationController.viewControllers.last as? NotificationsCenterFlowViewController {
+            return viewController
+        }
+
+        return nil
     }
+}
+
+
+/// View Controllers that have an editing element (Section editor flow, User talk pages, Article description editor)
+protocol EditingFlowViewController where Self: UIViewController {
+    var shouldDisplayAlert: Bool { get }
+}
+
+extension EditingFlowViewController {
+    var shouldDisplayAlert: Bool {
+        return true
+    }
+}
+
+/// View Controllers that are a part of the Notifications Center flow
+protocol NotificationsCenterFlowViewController where Self: UIViewController {
+    
+    //hook called after the user taps a push notification while in the foregound.
+    //use if needed to tweak the view heirarchy to display the Notifications Center
+    func tappedPushNotification()
 }
