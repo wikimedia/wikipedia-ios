@@ -181,6 +181,7 @@
 "settings-help-and-feedback" = "დახმარება და უკუკავშირი";
 "settings-language-bar" = "ენების ჩვენება ძიებისას";
 "settings-my-languages" = "ჩემი ენები";
+// Fuzzy
 "settings-notifications" = "შეტყობინებები";
 "settings-notifications-system-turn-on" = "შეტყობინებების ჩართვა";
 "settings-primary-language" = "ძირითადი";

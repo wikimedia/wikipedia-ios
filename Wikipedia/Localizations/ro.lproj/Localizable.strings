@@ -805,6 +805,7 @@
 "settings-language-bar" = "Arată limbile la căutări";
 "settings-languages-feed-customization" = "Puteți gestiona limbile care sunt afișate în fluxul dvs. Explore personalizând setările pentru fluxul dvs. Explore.";
 "settings-my-languages" = "Limbile mele";
+// Fuzzy
 "settings-notifications" = "Notificări";
 "settings-notifications-info" = "Fiți atenționat cu privire la articolele din trend și cele mai citite din top pe Wikipedia cu notificările noastre push. Toate furnizate cu respect la confidențialitate și date actualizate în ultimul minut.";
 "settings-notifications-learn-more" = "Aflați mai multe despre notificări";

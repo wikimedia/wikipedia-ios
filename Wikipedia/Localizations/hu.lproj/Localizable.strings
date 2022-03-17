@@ -649,6 +649,7 @@
 "settings-help-and-feedback" = "Súgó és visszajelzés";
 "settings-language-bar" = "Nyelvek megjelenítése keresésnél";
 "settings-my-languages" = "Saját nyelvek";
+// Fuzzy
 "settings-notifications" = "Értesítések";
 "settings-notifications-learn-more" = "További információ az értesítésekről";
 "settings-notifications-push-notifications" = "Push értesítések";

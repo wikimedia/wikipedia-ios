@@ -695,6 +695,7 @@
 "settings-language-bar" = "Prikazuj jezike pri pretrazi";
 "settings-languages-feed-customization" = "Možete da upravljate jezicima za prikaz u fidu „Istraži“ promenom podešavanja.";
 "settings-my-languages" = "Moji jezici";
+// Fuzzy
 "settings-notifications" = "Obaveštenja";
 "settings-notifications-info" = "Budite obavešteni o najčitanijim člancima na Vikipediji pomoću naših push obaveštenja. Sve informacije su trenutne i poštuju vašu privatnost.";
 "settings-notifications-learn-more" = "Saznajte više o obaveštenjima";

@@ -593,6 +593,7 @@
 "settings-help-and-feedback" = "အကူအညီနှင့် အကြံပြုချက်";
 "settings-language-bar" = "ရှာဖွေမှုတွင် ဘာသာစကားများ ပြရန်";
 "settings-my-languages" = "ကျွန်ုပ်၏ ဘာသာစကားများ";
+// Fuzzy
 "settings-notifications" = "အသိပေးချက်များ";
 "settings-notifications-learn-more" = "အသိပေးချက်များအကြောင်း ပိုမိုလေ့လာရန်";
 "settings-notifications-push-notifications" = "အသိပေးချက်များ";
