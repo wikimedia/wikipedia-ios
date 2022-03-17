@@ -895,6 +895,7 @@
 "settings-language-bar" = "搜尋時顯示語言";
 "settings-languages-feed-customization" = "透過自訂您的探索摘要設定，您可以管理在您的探索摘要裡所要顯示出的語言。";
 "settings-my-languages" = "我的語言";
+// Fuzzy
 "settings-notifications" = "通知";
 "settings-notifications-info" = "經由我們推發通知提醒注意在維基百科上的被閱讀最多次以及趨勢條目。所有提供內容皆考量到隱私及最新資料。";
 "settings-notifications-learn-more" = "了解更多通知內容";

@@ -179,6 +179,7 @@
 "settings-clear-cache-cancel" = "Anullar";
 "settings-help-and-feedback" = "Ajuda e comentaris";
 "settings-my-languages" = "Mas lengas";
+// Fuzzy
 "settings-notifications" = "Notificacions";
 "settings-notifications-push-notifications" = "Notificacions mandadas";
 "settings-notifications-system-turn-on" = "Activar las notificacions";

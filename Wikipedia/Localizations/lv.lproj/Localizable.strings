@@ -212,6 +212,7 @@
 "settings-help-and-feedback" = "Palīdzība un atsauksmes";
 "settings-language-bar" = "Rādīt valodas meklēšanā";
 "settings-my-languages" = "Manas valodas";
+// Fuzzy
 "settings-notifications" = "Paziņojumi";
 "settings-notifications-learn-more" = "Uzziniet vairāk par paziņojumiem";
 "settings-notifications-system-turn-on" = "Ieslēgt paziņojumus";

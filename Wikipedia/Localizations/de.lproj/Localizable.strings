@@ -798,6 +798,7 @@
 "settings-language-bar" = "Sprachen in der Suche anzeigen";
 "settings-languages-feed-customization" = "Du kannst bestimmen, welche Sprachen auf deinem Entdecken-Feed angezeigt werden, indem du die Einstellungen für deinen Entdecken-Feed anpasst.";
 "settings-my-languages" = "Meine Sprachen";
+// Fuzzy
 "settings-notifications" = "Benachrichtigungen";
 "settings-notifications-info" = "Werde über beliebte Artikel auf Wikipedia benachrichtigt mit unseren Push-Benachrichtigungen. Alles wird hinsichtlich des Datenschutzes und bis zu den Minutendaten zur Verfügung gestellt.";
 "settings-notifications-learn-more" = "Mehr über Benachrichtigungen erfahren";

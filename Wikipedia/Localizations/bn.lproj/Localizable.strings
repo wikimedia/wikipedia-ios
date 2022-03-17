@@ -370,6 +370,7 @@
 "settings-help-and-feedback" = "সাহায্য ও প্রতিক্রিয়া";
 "settings-language-bar" = "অনুসন্ধানের সময় ভাষাগুলিকে দেখাও";
 "settings-my-languages" = "আমার ভাষাসমূহ";
+// Fuzzy
 "settings-notifications" = "বিজ্ঞপ্তি";
 "settings-notifications-learn-more" = "বিজ্ঞপ্তি সম্পর্কে আরো জানুন";
 "settings-notifications-push-notifications" = "পাঠানো বিজ্ঞপ্তি";
