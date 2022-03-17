@@ -24,6 +24,8 @@ struct NotificationsCenterOnboardingView: View {
     var theme: Theme
     var dismissAction: (() -> Void)?
 
+    let devicePadding: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 64 : 16
+
     var continueButtonTextColor: Color {
         switch theme {
         case .dark, .black:
@@ -54,7 +56,7 @@ struct NotificationsCenterOnboardingView: View {
                     Spacer(minLength: 8)
                     NotificationsCenterOnboardingRowView(theme: theme, image: .push, header: LocalizedStrings.pushTitle, message: LocalizedStrings.pushMessage)
                 }
-                .padding()
+                .padding(devicePadding)
             }
             ZStack(alignment: .bottom, content: {
                 VStack {
@@ -79,6 +81,7 @@ struct NotificationsCenterOnboardingView: View {
                     Spacer().frame(height: 18)
                 }
             })
+            .padding(devicePadding)
         }
     }
 
