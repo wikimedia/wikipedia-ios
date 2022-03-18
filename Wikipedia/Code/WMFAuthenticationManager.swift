@@ -256,6 +256,7 @@ import CocoaLumberjackSwift
      */
     @objc(logoutInitiatedBy:completion:)
     public func logout(initiatedBy logoutInitiator: LogoutInitiator, completion: @escaping () -> Void = {}){
+        NotificationCenter.default.post(name: WMFAuthenticationManager.willLogOutNotification, object: nil)
         if logoutInitiator == .app || logoutInitiator == .server {
             isUserUnawareOfLogout = true
         }
@@ -316,6 +317,7 @@ extension WMFAuthenticationManager {
         case server
     }
 
+    @objc public static let willLogOutNotification = Notification.Name("WMFAuthenticationManagerWillLogOut")
     @objc public static let didLogOutNotification = Notification.Name("WMFAuthenticationManagerDidLogOut")
     @objc public static let didLogInNotification = Notification.Name("WMFAuthenticationManagerDidLogIn")
 

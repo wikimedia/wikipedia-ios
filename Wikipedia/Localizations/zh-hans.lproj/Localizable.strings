@@ -893,6 +893,7 @@
 "settings-language-bar" = "在搜索时显示语言";
 "settings-languages-feed-customization" = "您可以通过自定义您的探索订阅源设置，管理显示在您的探索订阅源的语言。";
 "settings-my-languages" = "我的语言";
+// Fuzzy
 "settings-notifications" = "通知";
 "settings-notifications-info" = "通过我们推送的通知，提醒维基百科上的趋势和最多阅读条目。所有通知都已考虑到隐私和最新数据。";
 "settings-notifications-learn-more" = "了解更多有关通知";

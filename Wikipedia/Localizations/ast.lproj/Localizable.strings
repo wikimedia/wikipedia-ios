@@ -531,6 +531,7 @@
 "settings-help-and-feedback" = "Ayuda y comentarios";
 "settings-language-bar" = "Amosar les llingües na gueta";
 "settings-my-languages" = "Les mios llingües";
+// Fuzzy
 "settings-notifications" = "Avisos";
 "settings-notifications-info" = "Recibe alertes d'artículos n'enclín o más lleíos de Wikipedia coles nueses notificaciones. Toes elles proporcionaes con respetu pola privacidá y actualizaes al minutu.";
 "settings-notifications-learn-more" = "Más información tocante a los avisos";

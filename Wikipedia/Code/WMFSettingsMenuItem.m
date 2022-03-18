@@ -79,7 +79,7 @@
         case WMFSettingsMenuItemType_Notifications: {
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:[WMFCommonStrings notifications]
+                                                    title:[WMFCommonStrings pushNotifications]
                                                  iconName:@"settings-notifications"
                                                 iconColor:[UIColor wmf_colorWithHex:0xFF1B33]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewController

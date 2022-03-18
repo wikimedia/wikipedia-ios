@@ -892,6 +892,7 @@
 "settings-language-bar" = "Talen weergeven bij zoeken";
 "settings-languages-feed-customization" = "U kunt beheren welke talen worden weergegeven in uw Explore-feed door uw instellingen voor Explore-feeds aan te passen.";
 "settings-my-languages" = "Mijn talen";
+// Fuzzy
 "settings-notifications" = "Meldingen";
 "settings-notifications-info" = "Word op de hoogte gesteld van actuele en populaire pagina's op Wikipedia met onze pushberichten. Allemaal geleverd met respect voor privacy en tot op de minuut vernieuwde gegevens.";
 "settings-notifications-learn-more" = "Meer informatie over meldingen";

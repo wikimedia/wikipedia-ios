@@ -802,6 +802,7 @@
 "settings-language-bar" = "Prikaži jezike pri pretrazi";
 "settings-languages-feed-customization" = "Možete upravljati koji jezici će se prikazivati na Vašoj stranici Istraži prilagođavanjem postavki stranice Istraži.";
 "settings-my-languages" = "Moji jezici";
+// Fuzzy
 "settings-notifications" = "Obavještenja";
 "settings-notifications-info" = "Budite obaviješteni o aktualnim i najčitanijim člancima na Wikipediji uz pomoć naših push obavještenja. Sve se nudi s najnovijim podacima, a pritom se poštuje Vaša privatnost.";
 "settings-notifications-learn-more" = "Detaljnije o obavještenjima";

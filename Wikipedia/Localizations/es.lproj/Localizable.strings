@@ -818,6 +818,7 @@
 "settings-language-bar" = "Mostrar los idiomas al buscar";
 "settings-languages-feed-customization" = "\nPuedes controlar qué idiomas se muestran en tu canal Explorar personalizando los ajustes de Explorar.";
 "settings-my-languages" = "Mis idiomas";
+// Fuzzy
 "settings-notifications" = "Notificaciones";
 "settings-notifications-info" = "Mantente en alerta de artículos en tendencia o más leídos en Wikipedia con nuestras notificaciones. Todas ellas proporcionadas con respeto por la privacidad y actualizadas al minuto.";
 "settings-notifications-learn-more" = "Conocer más acerca de las notificaciones";

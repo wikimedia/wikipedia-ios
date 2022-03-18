@@ -884,6 +884,7 @@
 "settings-language-bar" = "הצגת שפות בחיפוש";
 "settings-languages-feed-customization" = "אפשר לנהל אילו שפות מוצגות בהזנת לחקור באמצעות התאמה אישית של ההעדפות שלך עבור הזנת לחקור.";
 "settings-my-languages" = "השפות שלי";
+// Fuzzy
 "settings-notifications" = "עדכונים";
 "settings-notifications-info" = "קבלו התראות על ערכים חמים ומבוקשים בוויקיפדיה עם העדכונים שלנו. כל המידע מסופק תוך כדי כיבוד פרטיות המשתמש ונתונים עדכניים.";
 "settings-notifications-learn-more" = "מידע נוסף על עדכונים";

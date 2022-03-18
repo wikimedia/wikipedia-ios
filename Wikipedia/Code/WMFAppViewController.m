@@ -1223,18 +1223,18 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self showSettingsWithSubViewController:appearanceSettingsVC animated:animated];
         } break;
         case WMFUserActivityTypeNotificationSettings: {
-            WMFNotificationSettingsViewController *notificationSettingsVC = [[WMFNotificationSettingsViewController alloc] initWithAuthManager:self.dataStore.authenticationManager notificationsController:self.notificationsController];
-            [notificationSettingsVC applyTheme:self.theme];
+            WMFPushNotificationsSettingsViewController *pushNotificationsVC = [[WMFPushNotificationsSettingsViewController alloc] initWithAuthenticationManager:self.dataStore.authenticationManager notificationsController:self.notificationsController];
+            [pushNotificationsVC applyTheme:self.theme];
             [self dismissPresentedViewControllers];
             switch ([NSUserDefaults standardUserDefaults].defaultTabType) {
                 case WMFAppDefaultTabTypeExplore: {
                     [self setSelectedIndex:WMFAppTabTypeMain];
                     [self.navigationController popToRootViewControllerAnimated:YES];
-                    [self showSettingsWithSubViewController:notificationSettingsVC animated:animated];
+                    [self showSettingsWithSubViewController:pushNotificationsVC animated:animated];
                 } break;
                 case WMFAppDefaultTabTypeSettings: {
                     [self.navigationController popToRootViewControllerAnimated:YES];
-                    [self.navigationController pushViewController:notificationSettingsVC animated:YES];
+                    [self.navigationController pushViewController:pushNotificationsVC animated:YES];
                 } break;
             }
         } break;

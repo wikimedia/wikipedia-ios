@@ -878,6 +878,7 @@
 "settings-language-bar" = "Vis språk ved søkefeltet";
 "settings-languages-feed-customization" = "Du kan tilpasse hvilke språk som vises på utforskingssiden fra innstillingene for utforskingssiden.";
 "settings-my-languages" = "Mine språk";
+// Fuzzy
 "settings-notifications" = "Varslinger";
 "settings-notifications-info" = "Bli tipset om populære og mye leste artikler på Wikipedia med push-varsler.";
 "settings-notifications-learn-more" = "Lær mer om varsler";
