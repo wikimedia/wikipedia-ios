@@ -470,8 +470,9 @@ final class NotificationsCenterCell: UICollectionViewCell {
         accessibilityAttributedLabel = viewModel.accessibilityText()
         isAccessibilityElement = true
         
+        let moreActionAccessibilityLabel = WMFLocalizedString("notifications-center-more-action-accessibility-label", value: "More", comment: "Acessibility label for the More custom action")
         let moreActionAccessibilityActionLabel = viewModel.isRead ? CommonStrings.notificationsCenterMarkAsUnread : CommonStrings.notificationsCenterMarkAsRead
-        let moreAction = UIAccessibilityCustomAction(name: "More", target: self, selector: #selector(tappedMoreAction))
+        let moreAction = UIAccessibilityCustomAction(name: moreActionAccessibilityLabel, target: self, selector: #selector(tappedMoreAction))
         let markasReadorUnreadAction = UIAccessibilityCustomAction(name: moreActionAccessibilityActionLabel, target: self, selector: #selector(tappedReadUnreadAction))
         let isEditing = viewModel.displayState.isEditing
         

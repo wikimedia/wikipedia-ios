@@ -597,6 +597,7 @@
 "notifications-center-mark-all-as-read-missing-number" = "Are you sure that you want to mark all of your notifications as read? Your notifications will be marked as read on all of your devices.";
 "notifications-center-mark-as-read" = "Mark as Read";
 "notifications-center-mark-as-unread" = "Mark as Unread";
+"notifications-center-more-action-accessibility-label" = "More";
 "notifications-center-notifications-settings" = "Notification settings";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 message|$1 messages}}";
 "notifications-center-project-filters-accessibility-label" = "Projects Filter";
