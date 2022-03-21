@@ -871,8 +871,11 @@
 "settings-language-bar" = "Прикажувај јазици при пребарувањето";
 "settings-languages-feed-customization" = "Можете да изберете кои јазици да се прикажуваат во поставките за тековникот „Истражи“.";
 "settings-my-languages" = "Мои јазици";
-// Fuzzy
-"settings-notifications" = "Известувања";
+"settings-notifications" = "Доставни известувања";
+"settings-notifications-echo-failure-message" = "Се јави грешка при проверката на претплатените известувања поврзани со вашата сметка.";
+"settings-notifications-echo-failure-title" = "Не можам да ја ги проверам претплатените известувања со „Ехо“";
+"settings-notifications-echo-failure-try-again" = "Обиди се пак";
+"settings-notifications-header" = "Добивајте известувања за дејства поврзани со вашата сметка како пораки од колегите, напомени и соопштенија. Сите тие се даваат водејќи се по правилата за приватност и со најнови податоци.";
 "settings-notifications-info" = "Бидете во тек со тековните и најчитаните статии на Википедија со нашите доставни известувања. Сите се нудат со најтековни податоци, притоа почитувајќи ја вашата приватност.";
 "settings-notifications-learn-more" = "Дознајте повеќе за известувањата";
 "settings-notifications-push-notifications" = "Доставни известувања";
