@@ -124,11 +124,7 @@ struct NotificationsCenterCellStyle {
             return image
         }
         
-        if let imageName = notificationType.imageName {
-            return UIImage(named: imageName)
-        }
-        
-        return nil
+        return UIImage(named: notificationType.imageName)
     }
 
 }
