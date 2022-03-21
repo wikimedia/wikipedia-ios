@@ -467,7 +467,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
     // MARK: - Public
 
     fileprivate func setupAccessibility(_ viewModel: NotificationsCenterCellViewModel) {
-        accessibilityAttributedLabel = viewModel.accessibilityText()
+        accessibilityAttributedLabel = viewModel.accessibilityText
         isAccessibilityElement = true
         
         let moreActionAccessibilityLabel = WMFLocalizedString("notifications-center-more-action-accessibility-label", value: "More", comment: "Acessibility label for the More custom action")

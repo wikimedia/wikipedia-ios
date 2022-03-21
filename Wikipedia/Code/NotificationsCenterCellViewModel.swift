@@ -47,7 +47,7 @@ final class NotificationsCenterCellViewModel {
         
     }
     
-    func accessibilityText() -> NSAttributedString? {
+    var accessibilityText: NSAttributedString? {
         let readAccessibilityText = WMFLocalizedString("notifications-center-cell-read-accessibility-label", value: "Read", comment: "Accessibility text for indicating that a notification's contents have been read.")
         let unreadAccessibilityText = WMFLocalizedString("notifications-center-cell-unread-accessibility-label", value: "Unread", comment: "Accessibility text for indicating that a notification's contents have not been read.")
         let readPronounciationAccessibilityAttribute = WMFLocalizedString("notifications-center-cell-read-ipa-accessibility-attribute", value: "rɛd", comment: "Accessibility ipa pronounciation for indicating that a notification's contents have been read.")
