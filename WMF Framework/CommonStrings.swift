@@ -57,6 +57,8 @@ public class CommonStrings: NSObject {
     public static let notificationsCenterReadNotificationsStatus = WMFLocalizedString("notifications-center-status-read", value: "Read", comment: "Text to indicate a read notification in Notifications Center.")
     public static let notificationsCenterUnreadNotificationsStatus = WMFLocalizedString("notifications-center-status-unread", value: "Unread", comment: "Text to indicate an unread notification in Notifications Center.")
     public static let notificationsCenterAgentDescriptionFromFormat = WMFLocalizedString("notifications-center-agent-description-from-format", value: "From %1$@", comment: "Text indicating who triggered a notification in notifications center. %1$@ will be replaced with the origin agent of the notification, which could be a username.")
+    public static let notificationsCenterAlert = WMFLocalizedString("notifications-center-alert", value: "Alert", comment: "Description of various \"alert\" notification types, used on the notification detail view.")
+    public static let notificationsChangePassword = WMFLocalizedString("notifications-center-change-password", value: "Change password", comment: "Button text in Notifications Center that routes user to change password screen.")
 
     @objc public static let exploreFeedTitle = WMFLocalizedString("welcome-exploration-explore-feed-title", value:"Explore feed", comment:"Title for Explore feed")
     @objc public static let featuredArticleTitle = WMFLocalizedString("explore-featured-article-heading", value: "Featured article", comment: "Text for 'Featured article' header")

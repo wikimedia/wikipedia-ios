@@ -1,5 +1,6 @@
 
 import Foundation
+import WMF
 
 extension NotificationsCenterCommonViewModel {
     //Go to [Username]'s user page
@@ -115,7 +116,7 @@ extension NotificationsCenterCommonViewModel {
             return nil
         }
 
-        let text = WMFLocalizedString("notifications-center-login-notifications", value: "Login Notifications", comment: "Button text in Notifications Center that routes user to login notifications help page in web view.")
+        let text = WMFLocalizedString("notifications-center-login-notifications", value: "Login notifications", comment: "Button text in Notifications Center that routes user to login notifications help page in web view.")
 
         let data = NotificationsCenterActionData(text: text, url: url)
         return NotificationsCenterAction.custom(data)
@@ -128,7 +129,7 @@ extension NotificationsCenterCommonViewModel {
             return nil
         }
 
-        let text = WMFLocalizedString("notifications-center-change-password", value: "Change Password", comment: "Button text in Notifications Center that routes user to change password screen.")
+        let text = CommonStrings.notificationsChangePassword
 
         let data = NotificationsCenterActionData(text: text, url: url)
         return NotificationsCenterAction.custom(data)

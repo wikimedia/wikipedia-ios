@@ -121,15 +121,9 @@ class NotificationsCenterFiltersViewModel: ObservableObject, NotificationsCenter
         let typesFooter = WMFLocalizedString("notifications-center-filters-types-footer", value: "Modify notification types to filter them in/out of your notification inbox. Types that are turned off will not be visible, but their content and any new notifications will be available when the toggle is turned on again.", comment: "Footer text for the types toggles in the notifications center filter view. Explains how the types toggles work.")
         let section2 = SectionViewModel(title: typesSectionTitle, footer: typesFooter, items: [item2])
         
-        let items3: [ItemViewModel] = RemoteNotificationType.orderingForFilters.compactMap {
-            
-            guard let title = $0.title else {
-                return nil
-            }
-            
+        let items3: [ItemViewModel] = RemoteNotificationType.orderingForFilters.map {
             let isSelected = !filterState.offTypes.contains($0)
-            return ItemViewModel(title: title, selectionType:.toggle($0), isSelected: isSelected)
-            
+            return ItemViewModel(title: $0.title, selectionType:.toggle($0), isSelected: isSelected)
         }
         
         let section3 = SectionViewModel(title: nil, footer: nil, items: items3)

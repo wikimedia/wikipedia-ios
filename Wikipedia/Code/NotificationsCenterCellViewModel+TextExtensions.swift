@@ -63,7 +63,7 @@ extension NotificationsCenterCellViewModel {
         case .loginFailKnownDevice,
              .loginFailUnknownDevice,
              .loginSuccessUnknownDevice:
-            return WMFLocalizedString("notifications-center-footer-change-password", value: "Change password", comment: "Footer text for login-related notifications in Notifications Center.")
+            return CommonStrings.notificationsChangePassword
         case .unknownSystemAlert,
              .unknownSystemNotice,
              .unknownAlert,
