@@ -864,7 +864,11 @@
 "settings-language-bar" = "Title in Settings for toggling the display the language bar in the search view";
 "settings-languages-feed-customization" = "Explanation of how you can manage which languages appear in the feed.";
 "settings-my-languages" = "Title for list of user's preferred languages";
-"settings-notifications" = "Title for button letting user choose notifications settings. {{Identical|Notification}}";
+"settings-notifications" = "Title for view and button letting users change their push notifications settings.";
+"settings-notifications-echo-failure-message" = "Alert message text informing user of failure when subscribing to Echo Notifications.";
+"settings-notifications-echo-failure-title" = "Alert title text informing user of failure when subscribing to Echo Notifications.";
+"settings-notifications-echo-failure-try-again" = "Alert action text allowing user to retry Echo Notifications subscriptions.";
+"settings-notifications-header" = "Text informing user of benefits of enabling push notifications.";
 "settings-notifications-info" = "A short description of notifications shown in settings";
 "settings-notifications-learn-more" = "A title for a button to learn more about notifications";
 "settings-notifications-push-notifications" = "A title for a list of Push notifications";

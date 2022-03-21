@@ -440,6 +440,7 @@
 "settings-clear-cache-ok" = "Glan taisce";
 "settings-help-and-feedback" = "Cabhair agus aiseolas";
 "settings-my-languages" = "Mo chuid teangacha";
+// Fuzzy
 "settings-notifications" = "Fógraí";
 "settings-notifications-learn-more" = "Foghlaim tuilleadh maidir le fógraí";
 "settings-notifications-push-notifications" = "Brúfhógraí";

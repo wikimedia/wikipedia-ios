@@ -585,6 +585,7 @@
 "notifications-center-empty-no-messages" = "אין לך הודעות";
 "notifications-center-empty-not-subscribed" = "אינך מנוי על שום התראות ויקיפדיה";
 "notifications-center-empty-state-filters-subtitle" = "יש לשנות $1 כדי לראות עוד הודעות";
+"notifications-center-empty-state-no-projects-selected" = "יש להוסיף מיזמים כדי לראות עוד הודעות";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|מסנן אחד|$1 מסננים}}";
 "notifications-center-filters-accessibility-label" = "מסנן עדכונים";
 "notifications-center-filters-read-status-item-title-all" = "הכול";
@@ -883,6 +884,7 @@
 "settings-language-bar" = "הצגת שפות בחיפוש";
 "settings-languages-feed-customization" = "אפשר לנהל אילו שפות מוצגות בהזנת לחקור באמצעות התאמה אישית של ההעדפות שלך עבור הזנת לחקור.";
 "settings-my-languages" = "השפות שלי";
+// Fuzzy
 "settings-notifications" = "עדכונים";
 "settings-notifications-info" = "קבלו התראות על ערכים חמים ומבוקשים בוויקיפדיה עם העדכונים שלנו. כל המידע מסופק תוך כדי כיבוד פרטיות המשתמש ונתונים עדכניים.";
 "settings-notifications-learn-more" = "מידע נוסף על עדכונים";
