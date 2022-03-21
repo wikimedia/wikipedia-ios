@@ -773,8 +773,8 @@
 "settings-clear-cache-cancel" = "రద్దుచేయి";
 "settings-help-and-feedback" = "సహాయమూ, ప్రతిస్పందనా";
 "settings-my-languages" = "నా భాషలు";
-// Fuzzy
-"settings-notifications" = "గమనింపులు";
+"settings-notifications" = "పంపించే గమనింపులు";
+"settings-notifications-echo-failure-try-again" = "మళ్ళీ ప్రయత్నించండి";
 "settings-notifications-learn-more" = "గమనింపుల గురించి మరింత తెలుసుకోండి";
 "settings-notifications-push-notifications" = "పంపించే గమనింపులు";
 "settings-notifications-system-turn-on" = "గమనింపులను ఆన్ చెయ్యి";

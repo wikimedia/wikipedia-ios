@@ -3,6 +3,7 @@
 // Author: Abijeet Patro
 // Author: Adithyavr
 // Author: Anamdas
+// Author: AnupamM
 // Author: JoeWalshWMF
 // Author: Macofe
 // Author: NehalDaveND
@@ -343,6 +344,7 @@
 "settings-my-languages" = "मेरी भाषाएँ";
 // Fuzzy
 "settings-notifications" = "नोटिफिकेशन्स";
+"settings-notifications-echo-failure-try-again" = "पुनः प्रयास करें";
 "settings-notifications-info" = "हमारे पुश नोटिफिकेशन्स के साथ रुझानों में और सर्वाधिक पढ़े गए विकिपीडिया लेखों के बारे में सजग रहें। यह सब आपकी निजता का सम्मान करते और बारीक डेटा के साथ प्रदान किया जाता है।";
 "settings-notifications-learn-more" = "नोटिफिकेशन्स के बारे में अधिक जानें";
 "settings-notifications-push-notifications" = "पुश नोटिफिकेशन्स";
