@@ -470,14 +470,16 @@ final class NotificationsCenterCell: UICollectionViewCell {
         accessibilityAttributedLabel = viewModel.accessibilityText
         isAccessibilityElement = true
         
-        let moreActionAccessibilityLabel = WMFLocalizedString("notifications-center-more-action-accessibility-label", value: "More", comment: "Acessibility label for the More custom action")
-        let moreActionAccessibilityActionLabel = viewModel.isRead ? CommonStrings.notificationsCenterMarkAsUnread : CommonStrings.notificationsCenterMarkAsRead
-        let moreAction = UIAccessibilityCustomAction(name: moreActionAccessibilityLabel, target: self, selector: #selector(tappedMoreAction))
-        let markasReadorUnreadAction = UIAccessibilityCustomAction(name: moreActionAccessibilityActionLabel, target: self, selector: #selector(tappedReadUnreadAction))
-        let isEditing = viewModel.displayState.isEditing
-        
-        accessibilityCustomActions = isEditing ? nil : [moreAction, markasReadorUnreadAction]
-        
+        if !viewModel.displayState.isEditing {
+            let moreActionAccessibilityLabel = WMFLocalizedString("notifications-center-more-action-accessibility-label", value: "More", comment: "Acessibility label for the More custom action")
+            let moreActionAccessibilityActionLabel = viewModel.isRead ? CommonStrings.notificationsCenterMarkAsUnread : CommonStrings.notificationsCenterMarkAsRead
+            let moreAction = UIAccessibilityCustomAction(name: moreActionAccessibilityLabel, target: self, selector: #selector(tappedMoreAction))
+            let markasReadorUnreadAction = UIAccessibilityCustomAction(name: moreActionAccessibilityActionLabel, target: self, selector: #selector(tappedReadUnreadAction))
+    
+            accessibilityCustomActions = [moreAction, markasReadorUnreadAction]
+        } else {
+            accessibilityCustomActions =  nil
+        }
     }
     
     func configure(viewModel: NotificationsCenterCellViewModel, theme: Theme) {
