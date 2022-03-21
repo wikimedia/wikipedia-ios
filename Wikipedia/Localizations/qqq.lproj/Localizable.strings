@@ -553,6 +553,7 @@
 "no-internet-connection-article-reload" = "Subtitle for letting users know article cannot be reloaded without internet connection.";
 "no-internet-connection-article-reload-button" = "Title for button to return to last saved version of article.";
 "notifications-center-agent-description-from-format" = "Text indicating who triggered a notification in notifications center. $1 will be replaced with the origin agent of the notification, which could be a username.";
+"notifications-center-alert" = "Description of various \"alert\" notification types, used on the notification detail view.";
 "notifications-center-applied-filters-accessibility-label" = "Accessibility label for Notifications Center's filters button. This button is in a selected state indicating that filters are applied.";
 "notifications-center-applied-project-filters-accessibility-label" = "Accessibility label for Notifications Center's project filters button. This button is in a selected state indicating that project filters are applied.";
 "notifications-center-badge-button-accessibility-label" = "Accessibility label for a button that navigates to Notifications Center. This button has a badge indicating there are unread notifications.";
@@ -577,7 +578,6 @@
 "notifications-center-filters-types-footer" = "Footer text for the types toggles in the notifications center filter view. Explains how the types toggles work.";
 "notifications-center-filters-types-item-title-all" = "Title of the All types toggle in the notifications center filter view. Selecting this turns on or off all notification type filter toggles.";
 "notifications-center-filters-types-section-title" = "Section title of the notification types filter controls on the notifications center filter view.";
-"notifications-center-footer-change-password" = "Footer text for login-related notifications in Notifications Center.";
 "notifications-center-go-to-diff" = "Button text in Notifications Center that routes to a diff screen of the revision that triggered the notification.";
 "notifications-center-go-to-talk-page" = "Button text in Notifications Center that routes to a talk page.";
 "notifications-center-go-to-title" = "Button text in Notifications Center that routes to a particular page. $1 is replaced with page title.";

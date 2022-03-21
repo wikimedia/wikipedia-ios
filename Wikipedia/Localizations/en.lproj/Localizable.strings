@@ -553,10 +553,11 @@
 "no-internet-connection-article-reload" = "A newer version of this article might be available, but cannot be loaded without a connection to the internet";
 "no-internet-connection-article-reload-button" = "Return to last saved version";
 "notifications-center-agent-description-from-format" = "From $1";
+"notifications-center-alert" = "Alert";
 "notifications-center-applied-filters-accessibility-label" = "Notifications Filter - has filters applied";
 "notifications-center-applied-project-filters-accessibility-label" = "Projects Filter - has filters applied";
 "notifications-center-badge-button-accessibility-label" = "Notifications with unread badge";
-"notifications-center-change-password" = "Change Password";
+"notifications-center-change-password" = "Change password";
 "notifications-center-checking-for-notifications" = "Checking for notifications...";
 "notifications-center-empty-checking-for-notifications" = "Checking for notifications...";
 "notifications-center-empty-no-messages" = "You have no messages";
@@ -577,7 +578,6 @@
 "notifications-center-filters-types-footer" = "Modify notification types to filter them in/out of your notification inbox. Types that are turned off will not be visible, but their content and any new notifications will be available when the toggle is turned on again.";
 "notifications-center-filters-types-item-title-all" = "All types";
 "notifications-center-filters-types-section-title" = "Types of notifications";
-"notifications-center-footer-change-password" = "Change password";
 "notifications-center-go-to-diff" = "Go to diff";
 "notifications-center-go-to-talk-page" = "Go to talk page";
 "notifications-center-go-to-title" = "Go to $1";
@@ -591,7 +591,7 @@
 "notifications-center-inbox-wikimedia-projects-section-footer" = "Only projects you have created an account for will appear here";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Wikimedia Projects";
 "notifications-center-inbox-wikipedias-section-title" = "Wikipedias";
-"notifications-center-login-notifications" = "Login Notifications";
+"notifications-center-login-notifications" = "Login notifications";
 "notifications-center-mark" = "Mark";
 "notifications-center-mark-all-as-read" = "Mark all as read";
 "notifications-center-mark-all-as-read-confirmation-format" = "Are you sure that you want to mark all {{PLURAL:$1|$1 message|$1 messages}} of your notifications as read? Your notifications will be marked as read on all of your devices.";

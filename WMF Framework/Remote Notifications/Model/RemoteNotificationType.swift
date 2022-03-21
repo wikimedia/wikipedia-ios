@@ -183,7 +183,7 @@ public extension RemoteNotificationType {
         ]
     }
     
-    var title: String? {
+    var title: String {
         switch self {
         case .userTalkPageMessage:
             return WMFLocalizedString("notifications-center-type-title-user-talk-page-messsage", value: "Talk page message", comment: "Title of \"user talk page message\" notification type. Used on filters view toggles and the notification detail view.")
@@ -207,7 +207,8 @@ public extension RemoteNotificationType {
             return WMFLocalizedString("notifications-center-type-title-user-rights-change", value: "User rights change", comment: "Title of \"user rights change\" notification type. Used on filters view toggles and the notification detail view.")
         case .editReverted:
             return WMFLocalizedString("notifications-center-type-title-edit-reverted", value: "Edit reverted", comment: "Title of \"edit reverted\" notification type. Used on filters view toggles and the notification detail view.")
-        case .loginFailKnownDevice:
+        case .loginFailKnownDevice,
+                .loginFailUnknownDevice:
             return WMFLocalizedString("notifications-center-type-title-login-issues", value: "Login issues", comment: "Title of \"login issues\" notification type. Used on filters view toggles and the notification detail view.") //for filters this represents any login-related notification (i.e. also loginFailUnknownDevice, loginSuccessUnknownDevice, etc.). todo: clean this up. todo: split up into login attempts vs login success?
         case .editMilestone:
             return WMFLocalizedString("notifications-center-type-title-edit-milestone", value: "Edit milestone", comment: "Title of \"edit milestone\" notification type. Used on filters view toggles and the notification detail view.")
@@ -217,8 +218,15 @@ public extension RemoteNotificationType {
             return WMFLocalizedString("notifications-center-type-title-thanks", value: "Thanks", comment: "Title of \"thanks\" notification type. Used on filters view toggles and the notification detail view.")
         case .welcome:
             return WMFLocalizedString("notifications-center-type-title-welcome", value: "Welcome", comment: "Title of \"welcome\" notification type. Used on filters view toggles and the notification detail view.")
-        default:
-            return nil
+        case .loginSuccessUnknownDevice:
+            return WMFLocalizedString("notifications-center-type-item-description-login-success", value: "Login success", comment: "Description of \"login success\" notification type, used on the notification detail view.")
+        case .unknownSystemAlert,
+                .unknownAlert,
+                .unknown:
+                    return CommonStrings.notificationsCenterAlert
+        case .unknownSystemNotice,
+                .unknownNotice:
+                    return WMFLocalizedString("notifications-center-type-item-description-notice", value: "Notice", comment: "Description of \"notice\" notification types, used on the notification detail view.")
         }
     }
 }
