@@ -101,6 +101,14 @@ extension NotificationsCenterCommonViewModel {
             return notification.messageBody?.removingHTML
         }
     }
+    
+    var dateText: String? {
+        guard let date = notification.date else {
+            return nil
+        }
+
+        return (date as NSDate).wmf_localizedShortDateStringRelative(to: Date())
+    }
 }
 
 //MARK: Talk page topic title determination helper methods
