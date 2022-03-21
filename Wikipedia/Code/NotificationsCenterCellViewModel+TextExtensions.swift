@@ -92,11 +92,7 @@ extension NotificationsCenterCellViewModel {
     }
     
     var dateText: String? {
-        guard let date = notification.date else {
-            return nil
-        }
-
-        return (date as NSDate).wmf_localizedShortDateStringRelative(to: Date())
+        commonViewModel.dateText
     }
     
     var projectText: String? {
