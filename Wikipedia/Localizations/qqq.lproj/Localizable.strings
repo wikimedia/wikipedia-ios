@@ -552,6 +552,7 @@
 "no-internet-connection" = "String used in various places to indicate no internet connection";
 "no-internet-connection-article-reload" = "Subtitle for letting users know article cannot be reloaded without internet connection.";
 "no-internet-connection-article-reload-button" = "Title for button to return to last saved version of article.";
+"notifications-center-agent-description-from-format" = "Text indicating who triggered a notification in notifications center. $1 will be replaced with the origin agent of the notification, which could be a username.";
 "notifications-center-applied-filters-accessibility-label" = "Accessibility label for Notifications Center's filters button. This button is in a selected state indicating that filters are applied.";
 "notifications-center-applied-project-filters-accessibility-label" = "Accessibility label for Notifications Center's project filters button. This button is in a selected state indicating that project filters are applied.";
 "notifications-center-badge-button-accessibility-label" = "Accessibility label for a button that navigates to Notifications Center. This button has a badge indicating there are unread notifications.";
@@ -628,7 +629,6 @@
 "notifications-center-subheader-edit-milestone" = "Subheader text for edit milestone notifications in Notifications Center.";
 "notifications-center-subheader-edit-reverted" = "Subheader text for edit reverted notifications in Notifications Center.";
 "notifications-center-subheader-email-from-other-user" = "Subheader text for 'email from other user' notifications in Notifications Center.";
-"notifications-center-subheader-from-agent" = "Subheader text for notifications in Notifications Center. $1 will be replaced with the origin agent of the notification.";
 "notifications-center-subheader-login-fail-known-device" = "Subheader text for 'Failed login from a known device' notifications in Notifications Center.";
 "notifications-center-subheader-login-fail-unknown-device" = "Subheader text for 'Failed login from an unknown device' notifications in Notifications Center.";
 "notifications-center-subheader-login-success-unknown-device" = "Subheader text for 'Successful login from an unknown device' notifications in Notifications Center.";

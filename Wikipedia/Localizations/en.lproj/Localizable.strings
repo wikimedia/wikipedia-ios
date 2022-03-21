@@ -552,6 +552,7 @@
 "no-internet-connection" = "No internet connection";
 "no-internet-connection-article-reload" = "A newer version of this article might be available, but cannot be loaded without a connection to the internet";
 "no-internet-connection-article-reload-button" = "Return to last saved version";
+"notifications-center-agent-description-from-format" = "From $1";
 "notifications-center-applied-filters-accessibility-label" = "Notifications Filter - has filters applied";
 "notifications-center-applied-project-filters-accessibility-label" = "Projects Filter - has filters applied";
 "notifications-center-badge-button-accessibility-label" = "Notifications with unread badge";
@@ -628,7 +629,6 @@
 "notifications-center-subheader-edit-milestone" = "Editing milestone";
 "notifications-center-subheader-edit-reverted" = "Your edit was reverted";
 "notifications-center-subheader-email-from-other-user" = "New email";
-"notifications-center-subheader-from-agent" = "From $1";
 "notifications-center-subheader-login-fail-known-device" = "Multiple failed log in attempts";
 "notifications-center-subheader-login-fail-unknown-device" = "Failed log in attempt";
 "notifications-center-subheader-login-success-unknown-device" = "Log in from an unfamiliar device";

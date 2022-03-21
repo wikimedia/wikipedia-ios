@@ -1,10 +1,10 @@
 
 import Foundation
+import WMF
 
 extension NotificationsCenterCellViewModel {
     
     var subheaderText: String {
-        let fromText = WMFLocalizedString("notifications-center-subheader-from-agent", value: "From %1$@", comment: "Subheader text for notifications in Notifications Center. %1$@ will be replaced with the origin agent of the notification.")
         let alertFromText = WMFLocalizedString("notifications-center-header-alert-from-agent", value: "Alert from %1$@", comment: "Subheader text for unknown alert type notifications in Notifications Center. %1$@ will be replaced with the origin agent of the notification.")
 
         switch notification.type {
@@ -22,11 +22,11 @@ extension NotificationsCenterCellViewModel {
                 return genericHeaderText(type: notification.type, project: project)
             }
 
-            return String.localizedStringWithFormat(fromText, agentName)
+            return String.localizedStringWithFormat(CommonStrings.notificationsCenterAgentDescriptionFromFormat, agentName)
         case .welcome,
              .editMilestone,
              .translationMilestone:
-            return String.localizedStringWithFormat(fromText, project.projectName(shouldReturnCodedFormat: false))
+            return project.projectName(shouldReturnCodedFormat: false)
         case .loginFailKnownDevice,
              .loginFailUnknownDevice,
              .loginSuccessUnknownDevice,
