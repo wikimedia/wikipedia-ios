@@ -743,6 +743,10 @@
 		67C6F79327E8C03A00B9C864 /* NotificationsCenterAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C6F79127E8C03900B9C864 /* NotificationsCenterAction.swift */; };
 		67C6F79427E8C03A00B9C864 /* NotificationsCenterAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C6F79127E8C03900B9C864 /* NotificationsCenterAction.swift */; };
 		67C6F79527E8C03A00B9C864 /* NotificationsCenterAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C6F79127E8C03900B9C864 /* NotificationsCenterAction.swift */; };
+		67C6F79727E8C0EF00B9C864 /* NotificationsCenterCommonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C6F79627E8C0EF00B9C864 /* NotificationsCenterCommonViewModel.swift */; };
+		67C6F79827E8C0EF00B9C864 /* NotificationsCenterCommonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C6F79627E8C0EF00B9C864 /* NotificationsCenterCommonViewModel.swift */; };
+		67C6F79927E8C0EF00B9C864 /* NotificationsCenterCommonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C6F79627E8C0EF00B9C864 /* NotificationsCenterCommonViewModel.swift */; };
+		67C6F79A27E8C0EF00B9C864 /* NotificationsCenterCommonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C6F79627E8C0EF00B9C864 /* NotificationsCenterCommonViewModel.swift */; };
 		67CE5D20222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
 		67CE5D22222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
 		67CE5D23222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
@@ -4024,6 +4028,7 @@
 		67C6F77D27E3BAC700B9C864 /* NotificationsCenterFlowHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterFlowHostingController.swift; sourceTree = "<group>"; };
 		67C6F78227E8BC2E00B9C864 /* NotificationsCenterIconType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterIconType.swift; sourceTree = "<group>"; };
 		67C6F79127E8C03900B9C864 /* NotificationsCenterAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsCenterAction.swift; sourceTree = "<group>"; };
+		67C6F79627E8C0EF00B9C864 /* NotificationsCenterCommonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterCommonViewModel.swift; sourceTree = "<group>"; };
 		67CEF25E234FCA8100D5CA6C /* DiffListContextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListContextCell.xib; sourceTree = "<group>"; };
 		67CEF2602350C29D00D5CA6C /* DiffListUneditedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListUneditedCell.xib; sourceTree = "<group>"; };
 		67CEF262235110F700D5CA6C /* DiffNetworkModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffNetworkModels.swift; sourceTree = "<group>"; };
@@ -5941,6 +5946,7 @@
 				007CCF0B26D5A5E400D5EA7C /* NotificationsCenterViewModel.swift */,
 				007CCF1026D5BF1300D5EA7C /* NotificationsCenterPresentationDelegate.swift */,
 				00FCB2BD26D8398700F5A47A /* NotificationsCenterCell.swift */,
+				67C6F79627E8C0EF00B9C864 /* NotificationsCenterCommonViewModel.swift */,
 				00FCB2C226D839A500F5A47A /* NotificationsCenterCellViewModel.swift */,
 				6761AEE02704DE4100E47BAD /* NotificationsCenterCellViewModel+TextExtensions.swift */,
 				6761AEE52704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift */,
@@ -11180,6 +11186,7 @@
 				83B01F7723DA5348001185F4 /* ArticleViewController+ArticleToolbarHandling.swift in Sources */,
 				7AF8B7422102297A009772CC /* SearchSettingsViewController.swift in Sources */,
 				D8B3D7661EC34F5B00930C21 /* SaveButtonsController.swift in Sources */,
+				67C6F79727E8C0EF00B9C864 /* NotificationsCenterCommonViewModel.swift in Sources */,
 				7ABE17002239B346006BA309 /* WelcomeViewController.swift in Sources */,
 				832A7A5B23EA138C00D0A750 /* ArticleViewController+References.swift in Sources */,
 				B0524B65214854E900D8FD8D /* DescriptionWelcomeImageViewController.swift in Sources */,
@@ -12092,6 +12099,7 @@
 				D88C701B1EE595E90022A26A /* MapView.swift in Sources */,
 				7AF8B7452102297A009772CC /* SearchSettingsViewController.swift in Sources */,
 				83B01F7A23DA5348001185F4 /* ArticleViewController+ArticleToolbarHandling.swift in Sources */,
+				67C6F79A27E8C0EF00B9C864 /* NotificationsCenterCommonViewModel.swift in Sources */,
 				D8A42ABA1E815A9C00D8E281 /* WMFScrollViewController.swift in Sources */,
 				B0524B68214854E900D8FD8D /* DescriptionWelcomeImageViewController.swift in Sources */,
 				7ABE17032239B346006BA309 /* WelcomeViewController.swift in Sources */,
@@ -12943,6 +12951,7 @@
 				D8CE26121E698E2400DAE2E0 /* TableOfContentsPresentationController.swift in Sources */,
 				7ABE17012239B346006BA309 /* WelcomeViewController.swift in Sources */,
 				7ABAD6C020349B91006A364C /* Collection.swift in Sources */,
+				67C6F79927E8C0EF00B9C864 /* NotificationsCenterCommonViewModel.swift in Sources */,
 				7AB20A0D22FC8432006FECB4 /* PageHistoryCountsViewController.swift in Sources */,
 				671F5E002367EDC600111116 /* GlobalUserInfoFetcher.swift in Sources */,
 				D80BF0A42347735E00B3B522 /* AppSearchButton.swift in Sources */,
@@ -13467,6 +13476,7 @@
 				D8EC3F111E9BDA35006712EB /* TableOfContentsPresentationController.swift in Sources */,
 				7ABE17022239B346006BA309 /* WelcomeViewController.swift in Sources */,
 				7ABAD6C120349B91006A364C /* Collection.swift in Sources */,
+				67C6F79827E8C0EF00B9C864 /* NotificationsCenterCommonViewModel.swift in Sources */,
 				7AB20A0E22FC8432006FECB4 /* PageHistoryCountsViewController.swift in Sources */,
 				671F5E012367EDC600111116 /* GlobalUserInfoFetcher.swift in Sources */,
 				D80BF0A52347735E00B3B522 /* AppSearchButton.swift in Sources */,
