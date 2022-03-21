@@ -5,10 +5,6 @@ import XCTest
 
 class NotificationsCenterViewModelTests: XCTestCase {
 
-    typealias NotificationsCenterIconType = NotificationsCenterCellViewModel.IconType
-    typealias NotificationsCenterAction = NotificationsCenterCellViewModel.SheetAction
-    typealias NotificationsCenterActionData = NotificationsCenterCellViewModel.SheetActionData
-
     enum TestError: Error {
         case failureSettingUpModelController
         case failurePullingFixtures
