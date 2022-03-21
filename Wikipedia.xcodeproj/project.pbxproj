@@ -723,6 +723,10 @@
 		67C6F77A27E2E78800B9C864 /* NotificationsCenterCellViewModelEditRevertedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C6F77027E2E78400B9C864 /* NotificationsCenterCellViewModelEditRevertedTests.swift */; };
 		67C6F77B27E2E78800B9C864 /* NotificationsCenterCellViewModelLoginIssuesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C6F77127E2E78500B9C864 /* NotificationsCenterCellViewModelLoginIssuesTests.swift */; };
 		67C6F77C27E2E78800B9C864 /* NotificationsCenterCellViewModelWelcomeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C6F77227E2E78600B9C864 /* NotificationsCenterCellViewModelWelcomeTests.swift */; };
+		67C6F78327E8BC2E00B9C864 /* NotificationsCenterIconType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C6F78227E8BC2E00B9C864 /* NotificationsCenterIconType.swift */; };
+		67C6F78427E8BC2F00B9C864 /* NotificationsCenterIconType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C6F78227E8BC2E00B9C864 /* NotificationsCenterIconType.swift */; };
+		67C6F78527E8BC2F00B9C864 /* NotificationsCenterIconType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C6F78227E8BC2E00B9C864 /* NotificationsCenterIconType.swift */; };
+		67C6F78627E8BC2F00B9C864 /* NotificationsCenterIconType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C6F78227E8BC2E00B9C864 /* NotificationsCenterIconType.swift */; };
 		67CE5D20222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
 		67CE5D22222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
 		67CE5D23222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
@@ -3999,6 +4003,7 @@
 		67C6F77027E2E78400B9C864 /* NotificationsCenterCellViewModelEditRevertedTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsCenterCellViewModelEditRevertedTests.swift; sourceTree = "<group>"; };
 		67C6F77127E2E78500B9C864 /* NotificationsCenterCellViewModelLoginIssuesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsCenterCellViewModelLoginIssuesTests.swift; sourceTree = "<group>"; };
 		67C6F77227E2E78600B9C864 /* NotificationsCenterCellViewModelWelcomeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsCenterCellViewModelWelcomeTests.swift; sourceTree = "<group>"; };
+		67C6F78227E8BC2E00B9C864 /* NotificationsCenterIconType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterIconType.swift; sourceTree = "<group>"; };
 		67CEF25E234FCA8100D5CA6C /* DiffListContextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListContextCell.xib; sourceTree = "<group>"; };
 		67CEF2602350C29D00D5CA6C /* DiffListUneditedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListUneditedCell.xib; sourceTree = "<group>"; };
 		67CEF262235110F700D5CA6C /* DiffNetworkModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffNetworkModels.swift; sourceTree = "<group>"; };
@@ -5928,6 +5933,7 @@
 				679471DA275F245000621071 /* NotificationsCenterInboxView.swift */,
 				67E5DA5B2761B0AB00CE827D /* NotificationsCenterFilterView.swift */,
 				675175DB276D3B9700CD2974 /* DisappearingCallbackNavigationController.swift */,
+				67C6F78227E8BC2E00B9C864 /* NotificationsCenterIconType.swift */,
 			);
 			name = "Notifications Center";
 			sourceTree = "<group>";
@@ -11250,6 +11256,7 @@
 				B0E805591C0CE0DC0065EBC0 /* UIView+WMFFrameUtils.m in Sources */,
 				B00DDEE31DB5B16E00615FA2 /* WMFWelcomeAnimationViewControllers.swift in Sources */,
 				7AB809DC22679F9300BFAB7C /* InsertMediaAdvancedSettingsViewController.swift in Sources */,
+				67C6F78327E8BC2E00B9C864 /* NotificationsCenterIconType.swift in Sources */,
 				B0E803761C0CD9C10065EBC0 /* TableOfContentsCell.swift in Sources */,
 				B0B0EC221C6999A9006F0D9C /* WMFSettingsMenuItem.m in Sources */,
 				7ADF498721B45E42009EA338 /* TextFormattingGroupedToolbarView.swift in Sources */,
@@ -12157,6 +12164,7 @@
 				D8A42B0B1E815A9C00D8E281 /* TableOfContentsCell.swift in Sources */,
 				7AB809DF22679F9300BFAB7C /* InsertMediaAdvancedSettingsViewController.swift in Sources */,
 				B0C7A0871F710EB1008415E7 /* WMFWelcomeAnalyticsAnimationBackgroundView.swift in Sources */,
+				67C6F78627E8BC2F00B9C864 /* NotificationsCenterIconType.swift in Sources */,
 				D8A42B0D1E815A9C00D8E281 /* WMFSettingsMenuItem.m in Sources */,
 				B0CD9DEE1F70997500051843 /* WMFWelcomeIntroductionAnimationView.swift in Sources */,
 				D8A42B0F1E815A9C00D8E281 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
@@ -12571,6 +12579,7 @@
 				D8CE25521E698E2400DAE2E0 /* WMFArticleTextActivitySource.m in Sources */,
 				8321FCCD2387231E0079F3C7 /* ViewControllerRouter.swift in Sources */,
 				D8BDA8BF1E71B8D10031F4BF /* String?+WMFExtras.swift in Sources */,
+				67C6F78527E8BC2F00B9C864 /* NotificationsCenterIconType.swift in Sources */,
 				D8CE25571E698E2400DAE2E0 /* WMFPasswordResetter.swift in Sources */,
 				D8CE255A1E698E2400DAE2E0 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,
 				67EA9E10228F0358008D9EFD /* TalkPageHeaderView.swift in Sources */,
@@ -13090,6 +13099,7 @@
 				67CEF2712351113000D5CA6C /* DiffController.swift in Sources */,
 				D82117FE1EE58C080076C040 /* MapAnnotation.swift in Sources */,
 				D8EC3E421E9BDA35006712EB /* TableOfContentsViewController.swift in Sources */,
+				67C6F78427E8BC2F00B9C864 /* NotificationsCenterIconType.swift in Sources */,
 				8321FCCE2387231E0079F3C7 /* ViewControllerRouter.swift in Sources */,
 				D8EC3E441E9BDA35006712EB /* ProtectedEditAttemptFunnel.m in Sources */,
 				D8EC3E451E9BDA35006712EB /* WKWebView+WMFWebViewControllerJavascript.m in Sources */,

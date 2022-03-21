@@ -2,43 +2,12 @@
 import Foundation
 
 extension NotificationsCenterCellViewModel {
-    
-    typealias IconName = String
-    
-    //Use if you need to make the system (SFSymbols) vs custom distinction
-    enum IconType: Equatable {
-        case custom(IconName)
-        case system(IconName)
         
-        static var lock: IconType {
-            return .system("lock")
-        }
-        
-        static var link: IconType {
-            return .system("link")
-        }
-        
-        static var personFill: IconType {
-            return .system("person.circle.fill")
-        }
-        
-        static var documentFill: IconType {
-            if #available(iOS 14, *) {
-                return .system("doc.plaintext.fill")
-            }
-            return .system("doc.text.fill")
-        }
-        
-        static var photo: IconType {
-            return .system("photo")
-        }
-    }
-        
-    var projectIconName: IconName? {
+    var projectIconName: NotificationsCenterIconName? {
         return project.projectIconName
     }
         
-    var footerIconType: IconType? {
+    var footerIconType: NotificationsCenterIconType? {
         switch notification.type {
         case .loginFailKnownDevice,
              .loginFailUnknownDevice,
