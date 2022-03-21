@@ -35,7 +35,7 @@ public enum RemoteNotificationType: Hashable {
 }
 
 public extension RemoteNotificationType {
-    var imageName: String? {
+    var imageName: String {
         // Return image for the notification type
         switch self {
         case .userTalkPageMessage:
