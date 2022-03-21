@@ -549,6 +549,7 @@
 "no-internet-connection" = "No internet connection";
 "no-internet-connection-article-reload" = "A newer version of this article might be available, but cannot be loaded without a connection to the internet";
 "no-internet-connection-article-reload-button" = "Return to last saved version";
+"notification-centerfeed-card-title" = "Editing notifications now available";
 "notifications-center-applied-filters-accessibility-label" = "Notifications Filter - has filters applied";
 "notifications-center-applied-project-filters-accessibility-label" = "Projects Filter - has filters applied";
 "notifications-center-badge-button-accessibility-label" = "Notifications with unread badge";
@@ -561,6 +562,7 @@
 "notifications-center-empty-state-no-projects-selected" = "Add projects to see more messages";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter|$1 filters}}";
 "notifications-center-feed-news-notification-button-text" = "Turn on push notifications";
+"notifications-center-feed-news-notification-dismiss-button-text" = "Not now";
 "notifications-center-feed-news-notification-text" = "Editing notifications for all Wikimedia projects are now available through the app. Opt in to push notifications to keep up to date with your messages on Wikipedia while on the go.";
 "notifications-center-filters-accessibility-label" = "Notifications Filter";
 "notifications-center-filters-read-status-item-title-all" = "All";

@@ -549,6 +549,7 @@
 "no-internet-connection" = "String used in various places to indicate no internet connection";
 "no-internet-connection-article-reload" = "Subtitle for letting users know article cannot be reloaded without internet connection.";
 "no-internet-connection-article-reload-button" = "Title for button to return to last saved version of article.";
+"notification-centerfeed-card-title" = "Title for the 'Notification' explore feed card";
 "notifications-center-applied-filters-accessibility-label" = "Accessibility label for Notifications Center's filters button. This button is in a selected state indicating that filters are applied.";
 "notifications-center-applied-project-filters-accessibility-label" = "Accessibility label for Notifications Center's project filters button. This button is in a selected state indicating that project filters are applied.";
 "notifications-center-badge-button-accessibility-label" = "Accessibility label for a button that navigates to Notifications Center. This button has a badge indicating there are unread notifications.";
@@ -561,6 +562,7 @@
 "notifications-center-empty-state-no-projects-selected" = "Empty state subtitle indicating the user has unselected all projects.";
 "notifications-center-empty-state-num-filters" = "Portion of empty state subtitle showing number of filters the user has set in notifications center - $1 is replaced with the number filters.";
 "notifications-center-feed-news-notification-button-text" = "Text for button to turn on push notifications";
+"notifications-center-feed-news-notification-dismiss-button-text" = "Text for the dismiss button on the explore feed notifications card";
 "notifications-center-feed-news-notification-text" = "Text shown to users to notify them that it is now possible to get push notifications for all Wikimedia projects through the app";
 "notifications-center-filters-accessibility-label" = "Accessibility label for Notifications Center's filters button. This button is in an unselected state indicating that filters are not applied.";
 "notifications-center-filters-read-status-item-title-all" = "Title of All option in the read status section of the notifications center filter view. Selecting this allows all read statuses to display in the notifications center.";
