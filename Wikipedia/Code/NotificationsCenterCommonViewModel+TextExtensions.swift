@@ -3,6 +3,10 @@ import Foundation
 
 extension NotificationsCenterCommonViewModel {
     
+    var title: String? {
+        return notification.type.title
+    }
+    
     var verboseTitle: String? {
         switch notification.type {
         case .userTalkPageMessage:

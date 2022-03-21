@@ -123,7 +123,7 @@ class NotificationsCenterFiltersViewModel: ObservableObject, NotificationsCenter
         
         let items3: [ItemViewModel] = RemoteNotificationType.orderingForFilters.compactMap {
             
-            guard let title = $0.filterTitle else {
+            guard let title = $0.title else {
                 return nil
             }
             
