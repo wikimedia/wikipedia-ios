@@ -887,6 +887,7 @@
 "settings-my-languages" = "Les meves llengües";
 // Fuzzy
 "settings-notifications" = "Notificacions";
+"settings-notifications-echo-failure-try-again" = "Torna-ho a provar";
 "settings-notifications-info" = "Estigueu avisat de les tendències i articles més llegits a la Viquipèdia amb les nostres notificacions. Tot està proporcionat amb respecte a la privadesa i actualitzades al minut.";
 "settings-notifications-learn-more" = "Més quant a les notificacions";
 "settings-notifications-push-notifications" = "Notificacions enviades";

@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Nemo bis
 // Author: Pokno Royal
+// Author: Sovichet
 // Author: Y.snsqr
 // Author: គីមស៊្រុន
 
@@ -310,8 +311,8 @@
 "settings-help-and-feedback" = "ជំនួយនិងមតិយោបល់";
 "settings-language-bar" = "បង្ហាញភាសាក្នុងការស្វែងរក";
 "settings-my-languages" = "ភាសារបស់ខ្ញុំ";
-// Fuzzy
 "settings-notifications" = "សារជូនដំណឹង";
+"settings-notifications-echo-failure-try-again" = "ព្យាយាមម្ដងទៀត";
 "settings-notifications-info" = "ទទួលដំណឹងភ្លាមៗអំពីអត្ថបទដែលកំពុងពេញនិយមនិងមានអ្នកអានច្រើនជាងគេនៅលើវិគីភីឌា ដោយប្រើមុខងារសារលោតជូនដំណឹង។ សេវាទាំងអស់នេះផ្ដល់ជូនដោយអនុលោមតាមគោលការណ៍ភាពឯកជននិងទិន្នន័យពេលវេលា។";
 "settings-notifications-learn-more" = "ស្វែងយល់បន្ថែមអំពីសារជូនដំណឹង";
 "settings-notifications-push-notifications" = "សារលោតជូនដំណឹង";
