@@ -577,6 +577,7 @@
 "notifications-center-go-to-talk-page" = "Go to talk page";
 "notifications-center-go-to-title" = "Go to $1";
 "notifications-center-go-to-user-page" = "Go to $1's user page";
+"notifications-center-go-to-user-page-simplified" = "Go to user page";
 "notifications-center-go-to-wikidata-item" = "Go to Wikidata item";
 "notifications-center-go-to-your-talk-page" = "Go to your talk page";
 "notifications-center-header-alert-from-agent" = "Alert from $1";
