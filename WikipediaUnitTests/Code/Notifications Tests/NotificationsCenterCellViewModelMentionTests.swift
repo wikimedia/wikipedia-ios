@@ -141,11 +141,11 @@ class NotificationsCenterCellViewModelMentionTests: NotificationsCenterViewModel
         try testActions(expectedText: expectedText2, expectedURL: expectedURL2, actionToTest: cellViewModel.sheetActions[2])
         
         let expectedText3 = "Go to talk page"
-        let expectedURL3: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
+        let expectedURL3: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Section_Title")!
         try testActions(expectedText: expectedText3, expectedURL: expectedURL3, actionToTest: cellViewModel.sheetActions[3])
         
-        let expectedText4 = "Go to User talk:Fred The Bird"
-        let expectedURL4: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk%3AFred_The_Bird#Section_Title")!
+        let expectedText4 = "Go to talk page"
+        let expectedURL4: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Section_Title")!
         try testActions(expectedText: expectedText4, expectedURL: expectedURL4, actionToTest: cellViewModel.sheetActions[4])
         
         let expectedText5 = "Notification settings"
@@ -184,8 +184,8 @@ class NotificationsCenterCellViewModelMentionTests: NotificationsCenterViewModel
         let expectedURL2: URL? = URL(string: "https://en.wikipedia.org/w/index.php?oldid=1033968849&title=User_talk%253AFred_The_Bird")!
         try testActions(expectedText: expectedText2, expectedURL: expectedURL2, actionToTest: cellViewModel.sheetActions[2])
         
-        let expectedText3 = "Go to User talk:Fred The Bird"
-        let expectedURL3: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk%3AFred_The_Bird")!
+        let expectedText3 = "Go to talk page"
+        let expectedURL3: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
         try testActions(expectedText: expectedText3, expectedURL: expectedURL3, actionToTest: cellViewModel.sheetActions[3])
         
         let expectedText4 = "Notification settings"
@@ -229,12 +229,12 @@ class NotificationsCenterCellViewModelMentionTests: NotificationsCenterViewModel
         let expectedURL2: URL? = URL(string: "https://test.wikipedia.org/w/index.php?oldid=505586&title=Talk%253ABlue_Bird")!
         try testActions(expectedText: expectedText2, expectedURL: expectedURL2, actionToTest: cellViewModel.sheetActions[2])
         
-        let expectedText3 = "Go to talk page"
-        let expectedURL3: URL? = URL(string: "https://test.wikipedia.org/wiki/Talk:Blue_Bird")!
+        let expectedText3 = "Go to Blue Bird talk page"
+        let expectedURL3: URL? = URL(string: "https://test.wikipedia.org/wiki/Talk:Blue_Bird#Section_Title")!
         try testActions(expectedText: expectedText3, expectedURL: expectedURL3, actionToTest: cellViewModel.sheetActions[3])
         
-        let expectedText4 = "Go to Talk:Blue Bird"
-        let expectedURL4: URL? = URL(string: "https://test.wikipedia.org/wiki/Talk%3ABlue_Bird")!
+        let expectedText4 = "Go to Blue Bird"
+        let expectedURL4: URL? = URL(string: "https://test.wikipedia.org/wiki/Blue_Bird")!
         try testActions(expectedText: expectedText4, expectedURL: expectedURL4, actionToTest: cellViewModel.sheetActions[4])
         
         let expectedText5 = "Notification settings"
@@ -304,8 +304,8 @@ class NotificationsCenterCellViewModelMentionTests: NotificationsCenterViewModel
         let expectedURL0: URL? = nil
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0,actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true)
         
-        let expectedText1 = "Go to User talk:Fred The Bird"
-        let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk%3AFred_The_Bird#Section_Title")!
+        let expectedText1 = "Go to talk page"
+        let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Section_Title")!
         try testActions(expectedText: expectedText1, expectedURL: expectedURL1,actionToTest: cellViewModel.sheetActions[1])
         
         let expectedText2 = "Notification settings"
@@ -334,8 +334,8 @@ class NotificationsCenterCellViewModelMentionTests: NotificationsCenterViewModel
         let expectedURL0: URL? = nil
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true)
         
-        let expectedText1 = "Go to User talk:Jack The Cat"
-        let expectedURL1: URL? = URL(string: "https://test.wikipedia.org/wiki/User_talk%3AJack_The_Cat#Section_Title")!
+        let expectedText1 = "Go to talk page"
+        let expectedURL1: URL? = URL(string: "https://test.wikipedia.org/wiki/User_talk:Jack_The_Cat#Section_Title")!
         try testActions(expectedText: expectedText1, expectedURL: expectedURL1, actionToTest: cellViewModel.sheetActions[1])
         
         let expectedText2 = "Notification settings"
@@ -364,8 +364,8 @@ class NotificationsCenterCellViewModelMentionTests: NotificationsCenterViewModel
         let expectedURL0: URL? = nil
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true)
         
-        let expectedText1 = "Go to User talk:Fred The Bird"
-        let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk%3AFred_The_Bird#Section_Title")!
+        let expectedText1 = "Go to talk page"
+        let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Section_Title")!
         try testActions(expectedText: expectedText1, expectedURL: expectedURL1, actionToTest: cellViewModel.sheetActions[1])
         
         let expectedText2 = "Notification settings"
@@ -396,8 +396,8 @@ class NotificationsCenterCellViewModelMentionTests: NotificationsCenterViewModel
         let expectedURL0: URL? = nil
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true)
         
-        let expectedText1 = "Go to User talk:Fred The Bird"
-        let expectedURL1: URL? = URL(string: "https://wikidata.org/wiki/User_talk%3AFred_The_Bird#Section_Title")!
+        let expectedText1 = "Go to talk page"
+        let expectedURL1: URL? = URL(string: "https://wikidata.org/wiki/User_talk:Fred_The_Bird#Section_Title")!
         try testActions(expectedText: expectedText1, expectedURL: expectedURL1, actionToTest: cellViewModel.sheetActions[1])
         
         let expectedText2 = "Notification settings"
@@ -436,12 +436,12 @@ class NotificationsCenterCellViewModelMentionTests: NotificationsCenterViewModel
         let expectedURL2: URL? = URL(string:"https://zh.wikiquote.org/w/index.php?oldid=505586&title=Talk%253ABlue_Bird")!
         try testActions(expectedText: expectedText2, expectedURL: expectedURL2, actionToTest: cellViewModel.sheetActions[2])
         
-        let expectedText3 = "Go to talk page"
-        let expectedURL3: URL? = URL(string: "https://zh.wikiquote.org/wiki/Talk:Blue_Bird")!
+        let expectedText3 = "Go to Blue Bird discussion page"
+        let expectedURL3: URL? = URL(string: "https://zh.wikiquote.org/wiki/Talk:Blue_Bird#Section_Title")!
         try testActions(expectedText: expectedText3, expectedURL: expectedURL3, actionToTest: cellViewModel.sheetActions[3])
         
-        let expectedText4 = "Go to Talk:Blue Bird"
-        let expectedURL4: URL? = URL(string: "https://zh.wikiquote.org/wiki/Talk%3ABlue_Bird")!
+        let expectedText4 = "Go to Blue Bird"
+        let expectedURL4: URL? = URL(string: "https://zh.wikiquote.org/wiki/Blue_Bird")!
         try testActions(expectedText: expectedText4, expectedURL: expectedURL4, actionToTest: cellViewModel.sheetActions[4])
         
         let expectedText5 = "Notification settings"

@@ -190,7 +190,7 @@ class NotificationsCenterCellViewModelUserTalkMessageTests: NotificationsCenterV
         try testActions(expectedText: expectedText2, expectedURL: expectedURL2, actionToTest: cellViewModel.sheetActions[2])
         
         let expectedText3 = "Go to your talk page"
-        let expectedURL3: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
+        let expectedURL3: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Hello")!
         try testActions(expectedText: expectedText3, expectedURL: expectedURL3, actionToTest: cellViewModel.sheetActions[3])
 
         let expectedText4 = "Notification settings"
@@ -229,7 +229,7 @@ class NotificationsCenterCellViewModelUserTalkMessageTests: NotificationsCenterV
         try testActions(expectedText: expectedText2, expectedURL: expectedURL2, actionToTest: cellViewModel.sheetActions[2])
         
         let expectedText3 = "Go to your talk page"
-        let expectedURL3: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
+        let expectedURL3: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Section_Title")!
         try testActions(expectedText: expectedText3, expectedURL: expectedURL3, actionToTest: cellViewModel.sheetActions[3])
 
         let expectedText4 = "Notification settings"
@@ -268,7 +268,7 @@ class NotificationsCenterCellViewModelUserTalkMessageTests: NotificationsCenterV
         try testActions(expectedText: expectedText2, expectedURL: expectedURL2, actionToTest: cellViewModel.sheetActions[2])
         
         let expectedText3 = "Go to your talk page"
-        let expectedURL3: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Jack_The_Cat")!
+        let expectedURL3: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Jack_The_Cat#Section_Title")!
         try testActions(expectedText: expectedText3, expectedURL: expectedURL3, actionToTest: cellViewModel.sheetActions[3])
 
         let expectedText4 = "Notification settings"

@@ -67,8 +67,8 @@ class NotificationsCenterCellViewModelEditRevertedTests: NotificationsCenterView
         let expectedURL3: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
         try testActions(expectedText: expectedText3, expectedURL: expectedURL3, actionToTest: cellViewModel.sheetActions[3])
         
-        let expectedText4 = "Go to User talk:Fred The Bird"
-        let expectedURL4: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk%3AFred_The_Bird")!
+        let expectedText4 = "Go to talk page"
+        let expectedURL4: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
         try testActions(expectedText: expectedText4, expectedURL: expectedURL4, actionToTest: cellViewModel.sheetActions[4])
         
         let expectedText5 = "Notification settings"
@@ -106,7 +106,7 @@ class NotificationsCenterCellViewModelEditRevertedTests: NotificationsCenterView
         let expectedURL2: URL? = URL(string: "https://test.wikipedia.org/w/index.php?oldid=480410&title=Blue_Bird")!
         try testActions(expectedText: expectedText2, expectedURL: expectedURL2, actionToTest: cellViewModel.sheetActions[2])
         
-        let expectedText3 = "Go to talk page"
+        let expectedText3 = "Go to Blue Bird talk page"
         let expectedURL3: URL? = URL(string: "https://test.wikipedia.org/wiki/Talk:Blue_Bird")!
         try testActions(expectedText: expectedText3, expectedURL: expectedURL3, actionToTest: cellViewModel.sheetActions[3])
         
