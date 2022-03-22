@@ -59,8 +59,8 @@ class NotificationsCenterCellViewModelThanksTests: NotificationsCenterViewModelT
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Fred_The_Bird")!
         try testActions(expectedText: expectedText1, expectedURL: expectedURL1, actionToTest: cellViewModel.sheetActions[1])
         
-        let expectedText2 = "Go to User talk:Fred The Bird"
-        let expectedURL2: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk%3AFred_The_Bird")!
+        let expectedText2 = "Go to talk page"
+        let expectedURL2: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
         try testActions(expectedText: expectedText2, expectedURL: expectedURL2, actionToTest: cellViewModel.sheetActions[2])
         
         let expectedText3 = "Go to diff"

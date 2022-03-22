@@ -16,9 +16,10 @@ extension NotificationsCenterCellViewModel {
         switch notification.type {
         case .userTalkPageMessage:
             sheetActions.append(contentsOf: userTalkPageActions)
-        case .mentionInTalkPage,
-             .editReverted:
-            sheetActions.append(contentsOf: mentionInTalkAndEditRevertedPageActions)
+        case .mentionInTalkPage:
+            sheetActions.append(contentsOf: mentionInTalkPageActions)
+        case .editReverted:
+            sheetActions.append(contentsOf: editRevertedActions)
         case .mentionInEditSummary:
             sheetActions.append(contentsOf: mentionInEditSummaryActions)
         case .successfulMention,
@@ -79,14 +80,14 @@ private extension NotificationsCenterCellViewModel {
             sheetActions.append(diffAction)
         }
 
-        if let talkPageAction = commonViewModel.titleTalkPageAction(yourPhrasing: true) {
+        if let talkPageAction = commonViewModel.titleAction(needsConvertToOrFromTalk: false, simplified: false) {
             sheetActions.append(talkPageAction)
         }
 
         return sheetActions
     }
 
-    var mentionInTalkAndEditRevertedPageActions: [NotificationsCenterAction] {
+    var mentionInTalkPageActions: [NotificationsCenterAction] {
         var sheetActions: [NotificationsCenterAction] = []
 
         if let agentUserPageAction = commonViewModel.agentUserPageAction {
@@ -97,11 +98,33 @@ private extension NotificationsCenterCellViewModel {
             sheetActions.append(diffAction)
         }
 
-        if let titleTalkPageAction = commonViewModel.titleTalkPageAction(yourPhrasing: false) {
+        if let titleTalkPageAction = commonViewModel.titleAction(needsConvertToOrFromTalk: false, simplified: false) {
             sheetActions.append(titleTalkPageAction)
         }
 
-        if let titleAction = commonViewModel.titleAction {
+        if let titleAction = commonViewModel.titleAction(needsConvertToOrFromTalk: true, simplified: false) {
+            sheetActions.append(titleAction)
+        }
+
+        return sheetActions
+    }
+    
+    var editRevertedActions: [NotificationsCenterAction] {
+        var sheetActions: [NotificationsCenterAction] = []
+
+        if let agentUserPageAction = commonViewModel.agentUserPageAction {
+            sheetActions.append(agentUserPageAction)
+        }
+
+        if let diffAction = commonViewModel.diffAction {
+            sheetActions.append(diffAction)
+        }
+
+        if let titleTalkPageAction = commonViewModel.titleAction(needsConvertToOrFromTalk: true, simplified: false) {
+            sheetActions.append(titleTalkPageAction)
+        }
+
+        if let titleAction = commonViewModel.titleAction(needsConvertToOrFromTalk: false, simplified: false) {
             sheetActions.append(titleAction)
         }
 
@@ -119,7 +142,7 @@ private extension NotificationsCenterCellViewModel {
             sheetActions.append(diffAction)
         }
 
-        if let titleAction = commonViewModel.titleAction {
+        if let titleAction = commonViewModel.titleAction(needsConvertToOrFromTalk: false, simplified: false) {
             sheetActions.append(titleAction)
         }
 
@@ -127,7 +150,7 @@ private extension NotificationsCenterCellViewModel {
     }
 
     var successfulAndFailedMentionActions: [NotificationsCenterAction] {
-        if let titleAction = commonViewModel.titleAction {
+        if let titleAction = commonViewModel.titleAction(needsConvertToOrFromTalk: false, simplified: false) {
             return [titleAction]
         }
 
@@ -159,7 +182,7 @@ private extension NotificationsCenterCellViewModel {
             sheetActions.append(agentUserPageAction)
         }
 
-        if let titleAction = commonViewModel.titleAction {
+        if let titleAction = commonViewModel.titleAction(needsConvertToOrFromTalk: false, simplified: false) {
             sheetActions.append(titleAction)
         }
 
@@ -179,7 +202,7 @@ private extension NotificationsCenterCellViewModel {
         }
         
         //Article you edited
-        if let titleAction = commonViewModel.titleAction {
+        if let titleAction = commonViewModel.titleAction(needsConvertToOrFromTalk: false, simplified: false) {
             sheetActions.append(titleAction)
         }
 
@@ -197,7 +220,7 @@ private extension NotificationsCenterCellViewModel {
             sheetActions.append(agentUserPageAction)
         }
 
-        if let titleAction = commonViewModel.titleAction {
+        if let titleAction = commonViewModel.titleAction(needsConvertToOrFromTalk: false, simplified: false) {
             sheetActions.append(titleAction)
         }
 
@@ -223,7 +246,7 @@ private extension NotificationsCenterCellViewModel {
             sheetActions.append(agentUserPageAction)
         }
 
-        if let titleAction = commonViewModel.titleAction {
+        if let titleAction = commonViewModel.titleAction(needsConvertToOrFromTalk: false, simplified: false) {
             sheetActions.append(titleAction)
         }
 

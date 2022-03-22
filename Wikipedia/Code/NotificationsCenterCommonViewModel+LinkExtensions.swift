@@ -42,44 +42,36 @@ extension NotificationsCenterCommonViewModel {
 //MARK: Helpers - URL Generation Methods
 
 extension NotificationsCenterCommonViewModel {
-
-    /// Generates a wiki url with the full (i.e. already prefixed) title from the notification
-    var fullTitleURL: URL? {
-
-        guard let data = linkData,
-              let fullTitle = data.fullTitle else {
-            return nil
-        }
-
-        guard let url = configuration.articleURLForHost(data.host, languageVariantCode: data.languageVariantCode, appending: [fullTitle]) else {
-            return nil
-        }
-
-        guard let namespace = data.titleNamespace,
-              namespace == .userTalk,
-              var components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
-            return url
-        }
-
-        //primaryLinkFragment sometimes returns user's talk signature within in, which messes up deep linking to a talk page topic. Prefer legacyPrimaryLinkFragment which seems to not have this signature.
-        components.fragment = data.legacyPrimaryLinkFragment ?? data.primaryLinkFragment
-        return components.url
-    }
     
     /// Generates a wiki url with the titleText value from the notification
     /// Prefixes titleText text with PageNamespace parameter
     func customPrefixTitleURL(pageNamespace: PageNamespace) -> URL? {
         guard let data = linkData,
               let title = data.title,
-              let prefix = pageNamespace.canonicalName.denormalizedPageTitle else {
+              let denormalizedNamespace = pageNamespace.canonicalName.denormalizedPageTitle else {
+            return nil
+        }
+        
+        let prefix = pageNamespace != .main ? "\(denormalizedNamespace):" : ""
+
+        guard let url = configuration.articleURLForHost(data.host, languageVariantCode: data.languageVariantCode, appending: ["\(prefix + title)"]) else {
             return nil
         }
 
-        guard let url = configuration.articleURLForHost(data.host, languageVariantCode: data.languageVariantCode, appending: ["\(prefix):\(title)"]) else {
-            return nil
+        return fragementedURL(pageNamespace: pageNamespace, url: url, linkData: data)
+    }
+    
+    /// Seeks out and appends the url fragment from the primary link to a generated url parameter
+    /// Only does this for user talk page types, to allow deep linking into a particular topic
+    private func fragementedURL(pageNamespace: PageNamespace, url: URL, linkData: LinkData) -> URL? {
+        guard (pageNamespace == .userTalk || pageNamespace == .talk),
+              var components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
+            return url
         }
 
-        return url
+        //primaryLinkFragment sometimes returns user's talk signature within in, which messes up deep linking to a talk page topic. Prefer legacyPrimaryLinkFragment which seems to not have this signature.
+        components.fragment = linkData.legacyPrimaryLinkFragment ?? linkData.primaryLinkFragment
+        return components.url
     }
     
     /// Generates a wiki url with the agentName from the notification
