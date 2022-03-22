@@ -96,6 +96,19 @@ class NotificationsCenterViewModelTests: XCTestCase {
         }
         return managedObject
     }
+    
+    func detailViewModelFromIdentifier(identifier: String) throws -> NotificationsCenterDetailViewModel {
+        
+        let notification = try fetchManagedObject(identifier: identifier)
+        guard let apiIdentifier = notification.wiki,
+              let project = RemoteNotificationsProject(apiIdentifier: apiIdentifier, languageLinkController: languageLinkController) else {
+            throw TestError.failureConvertingManagedObjectToViewModel
+        }
+        
+        let commonViewModel = NotificationsCenterCommonViewModel(configuration: configuration, notification: notification, project: project)
+        
+        return NotificationsCenterDetailViewModel(commonViewModel: commonViewModel)
+    }
 
     private func saveNetworkModels(networkModels: [RemoteNotificationsAPIController.NotificationsResult.Notification], completion: @escaping (Result<Void, Error>) -> Void) {
 

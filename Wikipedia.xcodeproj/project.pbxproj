@@ -792,6 +792,21 @@
 		67DAEDA423CE24DA003AA208 /* SavedArticlesFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DAEDA223CE24DA003AA208 /* SavedArticlesFetcher.swift */; };
 		67DAEDA523CE24DA003AA208 /* SavedArticlesFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DAEDA223CE24DA003AA208 /* SavedArticlesFetcher.swift */; };
 		67DAEDA623CE24DA003AA208 /* SavedArticlesFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DAEDA223CE24DA003AA208 /* SavedArticlesFetcher.swift */; };
+		67DAEDD927E8DCBF005CF9B6 /* NotificationsCenterDetailViewModel+TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DAEDD827E8DCBF005CF9B6 /* NotificationsCenterDetailViewModel+TextExtensions.swift */; };
+		67DAEDDA27E8DCBF005CF9B6 /* NotificationsCenterDetailViewModel+TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DAEDD827E8DCBF005CF9B6 /* NotificationsCenterDetailViewModel+TextExtensions.swift */; };
+		67DAEDDB27E8DCBF005CF9B6 /* NotificationsCenterDetailViewModel+TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DAEDD827E8DCBF005CF9B6 /* NotificationsCenterDetailViewModel+TextExtensions.swift */; };
+		67DAEDDC27E8DCBF005CF9B6 /* NotificationsCenterDetailViewModel+TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DAEDD827E8DCBF005CF9B6 /* NotificationsCenterDetailViewModel+TextExtensions.swift */; };
+		67DAEDE827E8FB63005CF9B6 /* NotificationsCenterDetailViewModelWelcomeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DAEDDD27E8FB5F005CF9B6 /* NotificationsCenterDetailViewModelWelcomeTests.swift */; };
+		67DAEDE927E8FB63005CF9B6 /* NotificationsCenterDetailViewModelLoginIssuesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DAEDDE27E8FB5F005CF9B6 /* NotificationsCenterDetailViewModelLoginIssuesTests.swift */; };
+		67DAEDEA27E8FB63005CF9B6 /* NotificationsCenterDetailViewModelGenericTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DAEDDF27E8FB5F005CF9B6 /* NotificationsCenterDetailViewModelGenericTests.swift */; };
+		67DAEDEB27E8FB63005CF9B6 /* NotificationsCenterDetailViewModelUserRightsChangeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DAEDE027E8FB60005CF9B6 /* NotificationsCenterDetailViewModelUserRightsChangeTests.swift */; };
+		67DAEDEC27E8FB63005CF9B6 /* NotificationsCenterDetailViewModelUserTalkMessageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DAEDE127E8FB60005CF9B6 /* NotificationsCenterDetailViewModelUserTalkMessageTests.swift */; };
+		67DAEDED27E8FB63005CF9B6 /* NotificationsCenterDetailViewModelWikidataConnectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DAEDE227E8FB60005CF9B6 /* NotificationsCenterDetailViewModelWikidataConnectionTests.swift */; };
+		67DAEDEE27E8FB63005CF9B6 /* NotificationsCenterDetailViewModelEditRevertedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DAEDE327E8FB61005CF9B6 /* NotificationsCenterDetailViewModelEditRevertedTests.swift */; };
+		67DAEDEF27E8FB63005CF9B6 /* NotificationsCenterDetailViewModelThanksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DAEDE427E8FB61005CF9B6 /* NotificationsCenterDetailViewModelThanksTests.swift */; };
+		67DAEDF027E8FB63005CF9B6 /* NotificationsCenterDetailViewModelMentionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DAEDE527E8FB62005CF9B6 /* NotificationsCenterDetailViewModelMentionTests.swift */; };
+		67DAEDF127E8FB63005CF9B6 /* NotificationsCenterDetailViewModelEditMilestoneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DAEDE627E8FB62005CF9B6 /* NotificationsCenterDetailViewModelEditMilestoneTests.swift */; };
+		67DAEDF227E8FB63005CF9B6 /* NotificationsCenterDetailViewModelPageLinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DAEDE727E8FB62005CF9B6 /* NotificationsCenterDetailViewModelPageLinkTests.swift */; };
 		67DC5BE323A017CA00B03A84 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE223A017CA00B03A84 /* ArticleViewController.swift */; };
 		67DC5BE423A017CA00B03A84 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE223A017CA00B03A84 /* ArticleViewController.swift */; };
 		67DC5BE523A017CA00B03A84 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DC5BE223A017CA00B03A84 /* ArticleViewController.swift */; };
@@ -4064,6 +4079,18 @@
 		67DA31872720957A0035D40F /* RemoteNotificationsPagingOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsPagingOperation.swift; sourceTree = "<group>"; };
 		67DAEDA023CD1BC9003AA208 /* CacheGatekeeper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheGatekeeper.swift; sourceTree = "<group>"; };
 		67DAEDA223CE24DA003AA208 /* SavedArticlesFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesFetcher.swift; sourceTree = "<group>"; };
+		67DAEDD827E8DCBF005CF9B6 /* NotificationsCenterDetailViewModel+TextExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationsCenterDetailViewModel+TextExtensions.swift"; sourceTree = "<group>"; };
+		67DAEDDD27E8FB5F005CF9B6 /* NotificationsCenterDetailViewModelWelcomeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsCenterDetailViewModelWelcomeTests.swift; sourceTree = "<group>"; };
+		67DAEDDE27E8FB5F005CF9B6 /* NotificationsCenterDetailViewModelLoginIssuesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsCenterDetailViewModelLoginIssuesTests.swift; sourceTree = "<group>"; };
+		67DAEDDF27E8FB5F005CF9B6 /* NotificationsCenterDetailViewModelGenericTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsCenterDetailViewModelGenericTests.swift; sourceTree = "<group>"; };
+		67DAEDE027E8FB60005CF9B6 /* NotificationsCenterDetailViewModelUserRightsChangeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsCenterDetailViewModelUserRightsChangeTests.swift; sourceTree = "<group>"; };
+		67DAEDE127E8FB60005CF9B6 /* NotificationsCenterDetailViewModelUserTalkMessageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsCenterDetailViewModelUserTalkMessageTests.swift; sourceTree = "<group>"; };
+		67DAEDE227E8FB60005CF9B6 /* NotificationsCenterDetailViewModelWikidataConnectionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsCenterDetailViewModelWikidataConnectionTests.swift; sourceTree = "<group>"; };
+		67DAEDE327E8FB61005CF9B6 /* NotificationsCenterDetailViewModelEditRevertedTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsCenterDetailViewModelEditRevertedTests.swift; sourceTree = "<group>"; };
+		67DAEDE427E8FB61005CF9B6 /* NotificationsCenterDetailViewModelThanksTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsCenterDetailViewModelThanksTests.swift; sourceTree = "<group>"; };
+		67DAEDE527E8FB62005CF9B6 /* NotificationsCenterDetailViewModelMentionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsCenterDetailViewModelMentionTests.swift; sourceTree = "<group>"; };
+		67DAEDE627E8FB62005CF9B6 /* NotificationsCenterDetailViewModelEditMilestoneTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsCenterDetailViewModelEditMilestoneTests.swift; sourceTree = "<group>"; };
+		67DAEDE727E8FB62005CF9B6 /* NotificationsCenterDetailViewModelPageLinkTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsCenterDetailViewModelPageLinkTests.swift; sourceTree = "<group>"; };
 		67DC5BE223A017CA00B03A84 /* ArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		67DC5BE823A03FE700B03A84 /* ArticleToolbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleToolbarController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		67DC5BEE23A1427C00B03A84 /* ActionHandlerScript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionHandlerScript.swift; sourceTree = "<group>"; };
@@ -5976,6 +6003,7 @@
 				678D29AD2729F0580036C5D9 /* NotificationsCenterCellViewModel+LinkExtensions.swift */,
 				678D29B2272AF1DA0036C5D9 /* NotificationsCenterCellViewModel+SheetActionExtensions.swift */,
 				67C6F7AA27E8D22400B9C864 /* NotificationsCenterDetailViewModel.swift */,
+				67DAEDD827E8DCBF005CF9B6 /* NotificationsCenterDetailViewModel+TextExtensions.swift */,
 				00E2EA8826E28A9700B1A741 /* NotificationsCenterCellStyle.swift */,
 				00E2EA8D26E2A45C00B1A741 /* NotificationsCenterCellDisplayState.swift */,
 				6761AEF62707E34F00E47BAD /* NotificationsCenterModelController.swift */,
@@ -7157,6 +7185,17 @@
 				67C6F76F27E2E78300B9C864 /* NotificationsCenterCellViewModelUserRightsChangeTests.swift */,
 				67C6F76A27E2E77E00B9C864 /* NotificationsCenterCellViewModelPageLinkTests.swift */,
 				67C6F76B27E2E77E00B9C864 /* NotificationsCenterCellViewModelGenericTests.swift */,
+				67DAEDE127E8FB60005CF9B6 /* NotificationsCenterDetailViewModelUserTalkMessageTests.swift */,
+				67DAEDE527E8FB62005CF9B6 /* NotificationsCenterDetailViewModelMentionTests.swift */,
+				67DAEDE327E8FB61005CF9B6 /* NotificationsCenterDetailViewModelEditRevertedTests.swift */,
+				67DAEDE627E8FB62005CF9B6 /* NotificationsCenterDetailViewModelEditMilestoneTests.swift */,
+				67DAEDE427E8FB61005CF9B6 /* NotificationsCenterDetailViewModelThanksTests.swift */,
+				67DAEDDD27E8FB5F005CF9B6 /* NotificationsCenterDetailViewModelWelcomeTests.swift */,
+				67DAEDE227E8FB60005CF9B6 /* NotificationsCenterDetailViewModelWikidataConnectionTests.swift */,
+				67DAEDDE27E8FB5F005CF9B6 /* NotificationsCenterDetailViewModelLoginIssuesTests.swift */,
+				67DAEDE027E8FB60005CF9B6 /* NotificationsCenterDetailViewModelUserRightsChangeTests.swift */,
+				67DAEDE727E8FB62005CF9B6 /* NotificationsCenterDetailViewModelPageLinkTests.swift */,
+				67DAEDDF27E8FB5F005CF9B6 /* NotificationsCenterDetailViewModelGenericTests.swift */,
 			);
 			path = "Notifications Tests";
 			sourceTree = "<group>";
@@ -10909,12 +10948,14 @@
 				004281C525E6EFC4004945B3 /* LSStringMatcher.m in Sources */,
 				004281B925E6EFC4004945B3 /* NSURLRequest+DSL.m in Sources */,
 				B0E809411C0D1A820065EBC0 /* NSURL+WMFLinkParsingTests.m in Sources */,
+				67DAEDEA27E8FB63005CF9B6 /* NotificationsCenterDetailViewModelGenericTests.swift in Sources */,
 				B0E808981C0D16430065EBC0 /* XCTestCase+WMFLocaleTesting.m in Sources */,
 				004281B825E6EFC4004945B3 /* LSNSURLHook.m in Sources */,
 				BC45FF4B1C1B22C200BAE501 /* NSObject+WMFReflection.m in Sources */,
 				A452F9FD24081B0200D8ED09 /* MockUIDevice.swift in Sources */,
 				B0E808741C0D154C0065EBC0 /* NSBundle+TestAssets.m in Sources */,
 				B0E8093B1C0D1A590065EBC0 /* WMFSafeAssignTests.m in Sources */,
+				67DAEDE827E8FB63005CF9B6 /* NotificationsCenterDetailViewModelWelcomeTests.swift in Sources */,
 				B0E809111C0D18FD0065EBC0 /* WMFSubstringUtilsTests.m in Sources */,
 				B0E808951C0D16330065EBC0 /* NSArray+WMFShuffle.m in Sources */,
 				A452F9FB24081A7200D8ED09 /* LocationManagerTests.swift in Sources */,
@@ -10922,6 +10963,7 @@
 				67C6F76827E2E76E00B9C864 /* NotificationsCenterCellViewModelUserTalkMessageTests.swift in Sources */,
 				B0E8090F1C0D18F30065EBC0 /* WMFMathTests.m in Sources */,
 				671DF9D825F2B59A0011799E /* ShortDescriptionControllerTests.swift in Sources */,
+				67DAEDEE27E8FB63005CF9B6 /* NotificationsCenterDetailViewModelEditRevertedTests.swift in Sources */,
 				B0D530EB1CE151C10078BAED /* CodeFileLocationTests.m in Sources */,
 				6790AAF422D6861500D442D6 /* TalkPageFetcherTests.swift in Sources */,
 				679F0AAD24574AD400EF4A6A /* ArticleViewControllerTests.swift in Sources */,
@@ -10929,6 +10971,7 @@
 				D864D68C1DA3EA3800B86934 /* NumberFormatterExtrasTests.swift in Sources */,
 				670063AF22540AC500E4CE3B /* SectionEditorFindAndReplaceTests.swift in Sources */,
 				A452F9F824081A5500D8ED09 /* MockCLLocationManager.swift in Sources */,
+				67DAEDEC27E8FB63005CF9B6 /* NotificationsCenterDetailViewModelUserTalkMessageTests.swift in Sources */,
 				679F0AA92456FADE00EF4A6A /* ArticleCacheReadingTests.swift in Sources */,
 				67E3992C24786E6D00441831 /* TalkPageManualPerformanceTests.swift in Sources */,
 				B0C06B9F218240CA00E481CC /* Collection+AsyncMapTests.swift in Sources */,
@@ -10937,12 +10980,14 @@
 				D8BDA8C11E71C0760031F4BF /* WMFBlocksKitTests.m in Sources */,
 				B0E8092F1C0D1A0B0065EBC0 /* NSURL+WMFExtrasTests.m in Sources */,
 				B39427441E71F79700D3146D /* NSDictionaryBlocksKitTest.m in Sources */,
+				67DAEDF027E8FB63005CF9B6 /* NotificationsCenterDetailViewModelMentionTests.swift in Sources */,
 				6790AAF522D6861500D442D6 /* TalkPageControllerTests.swift in Sources */,
 				B0E808771C0D155A0065EBC0 /* XCTestCase+WMFBundleConvenience.m in Sources */,
 				004281BC25E6EFC4004945B3 /* LSASIHTTPRequestHook.m in Sources */,
 				67C6F77C27E2E78800B9C864 /* NotificationsCenterCellViewModelWelcomeTests.swift in Sources */,
 				B389CFCB1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift in Sources */,
 				67C6F77927E2E78800B9C864 /* NotificationsCenterCellViewModelUserRightsChangeTests.swift in Sources */,
+				67DAEDE927E8FB63005CF9B6 /* NotificationsCenterDetailViewModelLoginIssuesTests.swift in Sources */,
 				67C6F77B27E2E78800B9C864 /* NotificationsCenterCellViewModelLoginIssuesTests.swift in Sources */,
 				67C6F77527E2E78800B9C864 /* NotificationsCenterCellViewModelGenericTests.swift in Sources */,
 				B0E809601C0D1BA30065EBC0 /* WMFSearchFetcherTests.m in Sources */,
@@ -10953,6 +10998,7 @@
 				B01662B31D1B8CAB006F4544 /* NSURL+WMFQueryParametersTests.m in Sources */,
 				67F73386273C1FBA00D7D713 /* NotificationServiceHelperTests.swift in Sources */,
 				67C6F75027E293C700B9C864 /* NotificationsCenterViewModelTests.swift in Sources */,
+				67DAEDEB27E8FB63005CF9B6 /* NotificationsCenterDetailViewModelUserRightsChangeTests.swift in Sources */,
 				D8D550811DF0D2BD00B90177 /* NSArray+WMFMatching.m in Sources */,
 				8330533323F0388E00123141 /* DataStoreTests.swift in Sources */,
 				00D280FC247F019C006BEE23 /* Date+ExtensionTests.swift in Sources */,
@@ -10964,6 +11010,7 @@
 				679FA104242E651C0095F3C6 /* ArticleManualPerformanceTests.swift in Sources */,
 				004281B725E6EFC4004945B3 /* NSURLRequest+LSHTTPRequest.m in Sources */,
 				D858A7DF1DA6A04A009C3DEB /* WMFDateCalculationTests.m in Sources */,
+				67DAEDF227E8FB63005CF9B6 /* NotificationsCenterDetailViewModelPageLinkTests.swift in Sources */,
 				004281BA25E6EFC4004945B3 /* LSHTTPStubURLProtocol.m in Sources */,
 				B0E809051C0D18A00065EBC0 /* CircularBitwiseRotationTests.m in Sources */,
 				B0E8095E1C0D1B930065EBC0 /* WMFMTLModelSerializationTests.m in Sources */,
@@ -11007,9 +11054,12 @@
 				67C6F74E27E2919B00B9C864 /* RemoteNotificationsModelController+TestExtensions.swift in Sources */,
 				D8800CB11E2FF5B70035D2DB /* QuadKeyTests.swift in Sources */,
 				8386BDE723857F87007EE89D /* URLParsingAndRoutingTests.swift in Sources */,
+				67DAEDED27E8FB63005CF9B6 /* NotificationsCenterDetailViewModelWikidataConnectionTests.swift in Sources */,
 				BCD557BB1C45B1600060A51A /* UIApplication+VisualTestUtils.m in Sources */,
 				B0E809091C0D18BC0065EBC0 /* NSString+WMFHTMLParsingTests.m in Sources */,
 				19A175F095F5197BA20EA8BA /* NSUserActivity+WMFExtensionsTest.m in Sources */,
+				67DAEDEF27E8FB63005CF9B6 /* NotificationsCenterDetailViewModelThanksTests.swift in Sources */,
+				67DAEDF127E8FB63005CF9B6 /* NotificationsCenterDetailViewModelEditMilestoneTests.swift in Sources */,
 				004281C925E6EFC4004945B3 /* LSStubResponseDSL.m in Sources */,
 				004281B225E6EFC4004945B3 /* LSStubRequest.m in Sources */,
 				6790AAF622D6861500D442D6 /* TalkPageTestHelpers.swift in Sources */,
@@ -11524,6 +11574,7 @@
 				B09B30CF1DB813760012281F /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
 				8330532923EF0B4200123141 /* ArticleViewController+Media.swift in Sources */,
 				B09705B4236B29D7006FDB5C /* DiffThanker.swift in Sources */,
+				67DAEDD927E8DCBF005CF9B6 /* NotificationsCenterDetailViewModel+TextExtensions.swift in Sources */,
 				B09B03F51CE0FB7700009083 /* ReadingThemesControlsViewController.swift in Sources */,
 				00BCB71D26DEE1C7002C3F72 /* VerticalSpacerView.swift in Sources */,
 				B0E8036F1C0CD99A0065EBC0 /* TableOfContentsPresentationController.swift in Sources */,
@@ -12441,6 +12492,7 @@
 				D8A42B8D1E815A9C00D8E281 /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
 				D8A42B8F1E815A9C00D8E281 /* TableOfContentsPresentationController.swift in Sources */,
 				8330532C23EF0B4200123141 /* ArticleViewController+Media.swift in Sources */,
+				67DAEDDC27E8DCBF005CF9B6 /* NotificationsCenterDetailViewModel+TextExtensions.swift in Sources */,
 				B09705B7236B29D7006FDB5C /* DiffThanker.swift in Sources */,
 				00BCB72026DEE1C7002C3F72 /* VerticalSpacerView.swift in Sources */,
 				D8A42B921E815A9C00D8E281 /* WMFLoginViewController.swift in Sources */,
@@ -12970,6 +13022,7 @@
 				D8CE26081E698E2400DAE2E0 /* WMFWelcomeLanguageTableViewController.swift in Sources */,
 				D8CE260A1E698E2400DAE2E0 /* WMFLoginFunnel.m in Sources */,
 				D88C70191EE595E90022A26A /* MapView.swift in Sources */,
+				67DAEDDB27E8DCBF005CF9B6 /* NotificationsCenterDetailViewModel+TextExtensions.swift in Sources */,
 				670F766022B0C48E00D87545 /* FakeProgressLoading.swift in Sources */,
 				834CC34C21075B7600F62818 /* UITabBar+Theme.swift in Sources */,
 				83B01F7323DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift in Sources */,
@@ -13499,6 +13552,7 @@
 				D8EC3F071E9BDA35006712EB /* WMFWelcomeLanguageTableViewController.swift in Sources */,
 				830AD2BA24D1D615003EEFE6 /* WebPageUserScript.swift in Sources */,
 				7AEBAD472102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift in Sources */,
+				67DAEDDA27E8DCBF005CF9B6 /* NotificationsCenterDetailViewModel+TextExtensions.swift in Sources */,
 				670F766122B0C48F00D87545 /* FakeProgressLoading.swift in Sources */,
 				D8EC3F091E9BDA35006712EB /* WMFLoginFunnel.m in Sources */,
 				83B01F7423DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift in Sources */,
