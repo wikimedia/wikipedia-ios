@@ -14,30 +14,35 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         let detailViewModel = try detailViewModelFromIdentifier(identifier: "1")
         
         try testMentionInUserTalkText(detailViewModel: detailViewModel)
+        try testMentionInUserTalkActions(detailViewModel: detailViewModel)
     }
     
     func testMentionInUserTalkEditSummary() throws {
         let detailViewModel = try detailViewModelFromIdentifier(identifier: "2")
         
         try testMentionInUserTalkEditSummaryText(detailViewModel: detailViewModel)
+        try testMentionInUserTalkEditSummaryActions(detailViewModel: detailViewModel)
     }
     
     func testMentionInArticleTalk() throws {
         let detailViewModel = try detailViewModelFromIdentifier(identifier: "3")
         
         try testMentionInArticleTalkText(detailViewModel: detailViewModel)
+        try testMentionInArticleTalkActions(detailViewModel: detailViewModel)
     }
     
     func testMentionInArticleTalkEditSummary() throws {
         let detailViewModel = try detailViewModelFromIdentifier(identifier: "4")
         
         try testMentionInArticleTalkEditSummaryText(detailViewModel: detailViewModel)
+        try testMentionInArticleTalkEditSummaryActions(detailViewModel: detailViewModel)
     }
     
     func testMentionFailureAnonymous() throws {
         let detailViewModel = try detailViewModelFromIdentifier(identifier: "5")
         
         try testMentionFailureAnonymousText(detailViewModel: detailViewModel)
+        try testMentionFailureAnonymousActions(detailViewModel: detailViewModel)
     }
     
     func testMentionFailureNotFound() throws {
@@ -45,24 +50,28 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         let detailViewModel = try detailViewModelFromIdentifier(identifier: "6")
         
         try testMentionFailureNotFoundText(detailViewModel: detailViewModel)
+        try testMentionFailureNotFoundActions(detailViewModel: detailViewModel)
     }
     
     func testMentionSuccess() throws {
         let detailViewModel = try detailViewModelFromIdentifier(identifier: "7")
         
         try testMentionSuccessText(detailViewModel: detailViewModel)
+        try testMentionSuccessActions(detailViewModel: detailViewModel)
     }
     
     func testMentionSuccessWikidata() throws {
         let detailViewModel = try detailViewModelFromIdentifier(identifier: "8")
         
         try testMentionSuccessWikidataText(detailViewModel: detailViewModel)
+        try testMentionSuccessWikidataActions(detailViewModel: detailViewModel)
     }
     
     func testMentionInArticleTalkZhWikiquote() throws {
         let detailViewModel = try detailViewModelFromIdentifier(identifier: "9")
         
         try testMentionInArticleTalkZhWikiquoteText(detailViewModel: detailViewModel)
+        try testMentionInArticleTalkZhWikiquoteTextActions(detailViewModel: detailViewModel)
     }
     
     private func testMentionInUserTalkText(detailViewModel: NotificationsCenterDetailViewModel) throws {
@@ -73,12 +82,52 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         XCTAssertEqual(detailViewModel.contentBody, "Reply text mention in talk page User:Jack The Cat", "Invalid contentBody")
     }
     
+    private func testMentionInUserTalkActions(detailViewModel: NotificationsCenterDetailViewModel) throws {
+
+        XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
+        XCTAssertEqual(detailViewModel.secondaryActions.count, 3, "Invalid secondaryActions count")
+        
+        let expectedPrimaryText = "Go to talk page"
+        let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Section_Title")!
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, actionToTest: detailViewModel.primaryAction!)
+        
+        let expectedText0 = "Go to user page"
+        let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Fred_The_Bird")!
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, actionToTest: detailViewModel.secondaryActions[0])
+        
+        let expectedText1 = "Go to diff"
+        let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/w/index.php?oldid=1033968824&title=User_talk%253AFred_The_Bird")!
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, actionToTest: detailViewModel.secondaryActions[1])
+        
+        let expectedText2 = "Go to talk page"
+        let expectedURL2: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Section_Title")!
+        try testActions(expectedText: expectedText2, expectedURL: expectedURL2, actionToTest: detailViewModel.secondaryActions[2])
+    }
+    
     private func testMentionInUserTalkEditSummaryText(detailViewModel: NotificationsCenterDetailViewModel) throws {
         XCTAssertEqual(detailViewModel.headerTitle, "From Fred The Bird", "Invalid headerTitle")
         XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia", "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "7/16/21", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Mention in edit summary", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Edit Summary Text: User:Jack The Cat", "Invalid contentBody")
+    }
+    
+    private func testMentionInUserTalkEditSummaryActions(detailViewModel: NotificationsCenterDetailViewModel) throws {
+
+        XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
+        XCTAssertEqual(detailViewModel.secondaryActions.count, 2, "Invalid secondaryActions count")
+        
+        let expectedPrimaryText = "Go to diff"
+        let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/w/index.php?oldid=1033968849&title=User_talk%253AFred_The_Bird")!
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, actionToTest: detailViewModel.primaryAction!)
+        
+        let expectedText0 = "Go to user page"
+        let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Fred_The_Bird")!
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, actionToTest: detailViewModel.secondaryActions[0])
+        
+        let expectedText1 = "Go to talk page"
+        let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, actionToTest: detailViewModel.secondaryActions[1])
     }
     
     private func testMentionInArticleTalkText(detailViewModel: NotificationsCenterDetailViewModel) throws {
@@ -89,12 +138,52 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         XCTAssertEqual(detailViewModel.contentBody, "Jack The Cat Reply text mention in talk page.", "Invalid contentBody")
     }
     
+    private func testMentionInArticleTalkActions(detailViewModel: NotificationsCenterDetailViewModel) throws {
+
+        XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
+        XCTAssertEqual(detailViewModel.secondaryActions.count, 3, "Invalid secondaryActions count")
+        
+        let expectedPrimaryText = "Go to talk page"
+        let expectedPrimaryURL: URL? = URL(string: "https://test.wikipedia.org/wiki/Talk:Blue_Bird#Section_Title")!
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, actionToTest: detailViewModel.primaryAction!)
+        
+        let expectedText0 = "Go to user page"
+        let expectedURL0: URL? = URL(string: "https://test.wikipedia.org/wiki/User:Fred_The_Bird")!
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, actionToTest: detailViewModel.secondaryActions[0])
+        
+        let expectedText1 = "Go to diff"
+        let expectedURL1: URL? = URL(string: "https://test.wikipedia.org/w/index.php?oldid=505586&title=Talk%253ABlue_Bird")!
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, actionToTest: detailViewModel.secondaryActions[1])
+        
+        let expectedText2 = "Go to article"
+        let expectedURL2: URL? = URL(string: "https://test.wikipedia.org/wiki/Blue_Bird")!
+        try testActions(expectedText: expectedText2, expectedURL: expectedURL2, actionToTest: detailViewModel.secondaryActions[2])
+    }
+    
     private func testMentionInArticleTalkEditSummaryText(detailViewModel: NotificationsCenterDetailViewModel) throws {
         XCTAssertEqual(detailViewModel.headerTitle, "From Fred The Bird", "Invalid headerTitle")
         XCTAssertEqual(detailViewModel.headerSubtitle, "Test Wikipedia", "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "1/6/22", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Mention in edit summary", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Edit Summary Text User:Jack The Cat", "Invalid contentBody")
+    }
+    
+    private func testMentionInArticleTalkEditSummaryActions(detailViewModel: NotificationsCenterDetailViewModel) throws {
+
+        XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
+        XCTAssertEqual(detailViewModel.secondaryActions.count, 2, "Invalid secondaryActions count")
+        
+        let expectedPrimaryText = "Go to diff"
+        let expectedPrimaryURL: URL? = URL(string: "https://test.wikipedia.org/w/index.php?oldid=497048&title=Black_Cat")!
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, actionToTest: detailViewModel.primaryAction!)
+        
+        let expectedText0 = "Go to user page"
+        let expectedURL0: URL? = URL(string: "https://test.wikipedia.org/wiki/User:Fred_The_Bird")!
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, actionToTest: detailViewModel.secondaryActions[0])
+        
+        let expectedText1 = "Go to article"
+        let expectedURL1: URL? = URL(string: "https://test.wikipedia.org/wiki/Black_Cat")!
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, actionToTest: detailViewModel.secondaryActions[1])
     }
     
     private func testMentionFailureAnonymousText(detailViewModel: NotificationsCenterDetailViewModel) throws {
@@ -105,12 +194,32 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         XCTAssertEqual(detailViewModel.contentBody, "Your mention of 47.188.91.144 was not sent because the user is anonymous.", "Invalid contentBody")
     }
     
+    private func testMentionFailureAnonymousActions(detailViewModel: NotificationsCenterDetailViewModel) throws {
+
+        XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
+        XCTAssertEqual(detailViewModel.secondaryActions.count, 0, "Invalid secondaryActions count")
+        
+        let expectedPrimaryText = "Go to talk page"
+        let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Section_Title")!
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, actionToTest: detailViewModel.primaryAction!)
+    }
+    
     private func testMentionFailureNotFoundText(detailViewModel: NotificationsCenterDetailViewModel) throws {
         XCTAssertEqual(detailViewModel.headerTitle, "Mentions", "Invalid headerTitle")
         XCTAssertEqual(detailViewModel.headerSubtitle, "Test Wikipedia", "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "1/6/22", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Failed mention", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Your mention of Fredirufjdjd was not sent because the user was not found.", "Invalid contentBody")
+    }
+    
+    private func testMentionFailureNotFoundActions(detailViewModel: NotificationsCenterDetailViewModel) throws {
+
+        XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
+        XCTAssertEqual(detailViewModel.secondaryActions.count, 0, "Invalid secondaryActions count")
+        
+        let expectedPrimaryText = "Go to talk page"
+        let expectedPrimaryURL: URL? = URL(string: "https://test.wikipedia.org/wiki/User_talk:Jack_The_Cat#Section_Title")!
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, actionToTest: detailViewModel.primaryAction!)
     }
     
     private func testMentionSuccessText(detailViewModel: NotificationsCenterDetailViewModel) throws {
@@ -121,6 +230,16 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         XCTAssertEqual(detailViewModel.contentBody, "Your mention of Jack The Cat was sent.", "Invalid contentBody")
     }
     
+    private func testMentionSuccessActions(detailViewModel: NotificationsCenterDetailViewModel) throws {
+
+        XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
+        XCTAssertEqual(detailViewModel.secondaryActions.count, 0, "Invalid secondaryActions count")
+        
+        let expectedPrimaryText = "Go to talk page"
+        let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Section_Title")!
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, actionToTest: detailViewModel.primaryAction!)
+    }
+    
     private func testMentionSuccessWikidataText(detailViewModel: NotificationsCenterDetailViewModel) throws {
         XCTAssertEqual(detailViewModel.headerTitle, "Mentions", "Invalid headerTitle")
         XCTAssertEqual(detailViewModel.headerSubtitle, "Wikidata", "Invalid headerSubtitle")
@@ -129,12 +248,44 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         XCTAssertEqual(detailViewModel.contentBody, "Your mention of Jack The Cat was sent.", "Invalid contentBody")
     }
     
+    private func testMentionSuccessWikidataActions(detailViewModel: NotificationsCenterDetailViewModel) throws {
+
+        XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
+        XCTAssertEqual(detailViewModel.secondaryActions.count, 0, "Invalid secondaryActions count")
+        
+        let expectedPrimaryText = "Go to talk page"
+        let expectedPrimaryURL: URL? = URL(string: "https://wikidata.org/wiki/User_talk:Fred_The_Bird#Section_Title")!
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, actionToTest: detailViewModel.primaryAction!)
+    }
+    
     private func testMentionInArticleTalkZhWikiquoteText(detailViewModel: NotificationsCenterDetailViewModel) throws {
         XCTAssertEqual(detailViewModel.headerTitle, "From Fred The Bird", "Invalid headerTitle")
         XCTAssertEqual(detailViewModel.headerSubtitle, "Simplified Chinese Wikiquote", "Invalid headerSubtitle")
         XCTAssertEqual(detailViewModel.headerDate, "3/14/22", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Section Title", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Jack The Cat Reply text mention in talk page.", "Invalid contentBody")
+    }
+    
+    private func testMentionInArticleTalkZhWikiquoteTextActions(detailViewModel: NotificationsCenterDetailViewModel) throws {
+
+        XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
+        XCTAssertEqual(detailViewModel.secondaryActions.count, 3, "Invalid secondaryActions count")
+        
+        let expectedPrimaryText = "Go to discussion page"
+        let expectedPrimaryURL: URL? = URL(string: "https://zh.wikiquote.org/wiki/Talk:Blue_Bird#Section_Title")!
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, actionToTest: detailViewModel.primaryAction!)
+        
+        let expectedText0 = "Go to user page"
+        let expectedURL0: URL? = URL(string: "https://zh.wikiquote.org/wiki/User:Fred_The_Bird")!
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, actionToTest: detailViewModel.secondaryActions[0])
+        
+        let expectedText1 = "Go to diff"
+        let expectedURL1: URL? = URL(string: "https://zh.wikiquote.org/w/index.php?oldid=505586&title=Talk%253ABlue_Bird")!
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, actionToTest: detailViewModel.secondaryActions[1])
+        
+        let expectedText2 = "Go to Blue Bird"
+        let expectedURL2: URL? = URL(string: "https://zh.wikiquote.org/wiki/Blue_Bird")!
+        try testActions(expectedText: expectedText2, expectedURL: expectedURL2, actionToTest: detailViewModel.secondaryActions[2])
     }
     
 }

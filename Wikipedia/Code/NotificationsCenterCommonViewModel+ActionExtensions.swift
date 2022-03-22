@@ -137,15 +137,17 @@ extension NotificationsCenterCommonViewModel {
                 return goToDiscussionPageText
             }
 
-        } else {
+        } else if namespace == .main {
 
             switch project {
             case .wikipedia:
                 return goToArticleText
             default:
-                return nil
+                break
             }
         }
+        
+        return nil
     }
     
     private func titleText(namespace: PageNamespace, normalizedTitle: String) -> String {
