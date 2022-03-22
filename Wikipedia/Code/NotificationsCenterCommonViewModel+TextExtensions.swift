@@ -89,7 +89,12 @@ extension NotificationsCenterCommonViewModel {
              .loginFailUnknownDevice,
              .loginFailKnownDevice,
              .loginSuccessUnknownDevice:
-            return notification.messageHeader?.removingHTML
+            
+            if let messageHeader = notification.messageHeader?.removingHTML,
+               !messageHeader.isEmpty {
+                return messageHeader
+            }
+        
         case .userTalkPageMessage,
              .mentionInTalkPage,
              .mentionInEditSummary,
@@ -98,8 +103,14 @@ extension NotificationsCenterCommonViewModel {
              .unknownAlert,
              .unknownNotice,
              .unknown:
-            return notification.messageBody?.removingHTML
+            
+            if let messageBody = notification.messageBody?.removingHTML,
+               !messageBody.isEmpty {
+                return messageBody
+            }
         }
+        
+        return nil
     }
     
     var dateText: String? {

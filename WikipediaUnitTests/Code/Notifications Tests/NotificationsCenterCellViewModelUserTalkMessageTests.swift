@@ -84,7 +84,7 @@ class NotificationsCenterCellViewModelUserTalkMessageTests: NotificationsCenterV
     private func testUserTalkPageGenericMessageText(cellViewModel: NotificationsCenterCellViewModel) throws {
         XCTAssertEqual(cellViewModel.headerText, "Message on your talk page", "Invalid headerText")
         XCTAssertEqual(cellViewModel.subheaderText, "From Jack The Cat", "Invalid subheaderText")
-        XCTAssertEqual(cellViewModel.bodyText, "")
+        XCTAssertEqual(cellViewModel.bodyText, nil)
         XCTAssertEqual(cellViewModel.footerText, "User talk:Fred The Bird", "Invalid footerText")
         XCTAssertEqual(cellViewModel.dateText, "4/11/19", "Invalid dateText")
         XCTAssertEqual(cellViewModel.projectText, "EN", "Invalid projectText")
@@ -123,7 +123,7 @@ class NotificationsCenterCellViewModelUserTalkMessageTests: NotificationsCenterV
     private func testUserTalkPageGenericAnonymousMessageText(cellViewModel: NotificationsCenterCellViewModel) throws {
         XCTAssertEqual(cellViewModel.headerText, "Message on your talk page", "Invalid headerText")
         XCTAssertEqual(cellViewModel.subheaderText, "From 47.184.10.84", "Invalid subheaderText")
-        XCTAssertEqual(cellViewModel.bodyText, "")
+        XCTAssertEqual(cellViewModel.bodyText, nil)
         XCTAssertEqual(cellViewModel.footerText, "User talk:Fred The Bird", "Invalid footerText")
         XCTAssertEqual(cellViewModel.dateText, "5/30/19", "Invalid dateText")
         XCTAssertEqual(cellViewModel.projectText, "EN", "Invalid projectText")
@@ -279,7 +279,7 @@ class NotificationsCenterCellViewModelUserTalkMessageTests: NotificationsCenterV
     private func testUserTalkPageMediaWikiMessageText(cellViewModel: NotificationsCenterCellViewModel) throws {
         XCTAssertEqual(cellViewModel.headerText, "Message on your talk page", "Invalid headerText")
         XCTAssertEqual(cellViewModel.subheaderText, "From MediaWiki message delivery", "Invalid subheaderText")
-        XCTAssertEqual(cellViewModel.bodyText, "")
+        XCTAssertEqual(cellViewModel.bodyText, nil)
         XCTAssertEqual(cellViewModel.footerText, "User talk:Fred The Bird", "Invalid footerText")
         XCTAssertEqual(cellViewModel.dateText, "10/7/19", "Invalid dateText")
         XCTAssertEqual(cellViewModel.projectText, "EN", "Invalid projectText")
