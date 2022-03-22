@@ -33,7 +33,7 @@ class NotificationsCenterDetailViewModelGenericTests: NotificationsCenterViewMod
     private func testPageReviewText(detailViewModel: NotificationsCenterDetailViewModel) throws {
         XCTAssertEqual(detailViewModel.headerTitle, "From Fred The Bird", "Invalid headerTitle")
         XCTAssertEqual(detailViewModel.headerSubtitle, "English Wikipedia", "Invalid headerSubtitle")
-        XCTAssertEqual(detailViewModel.headerDate, "1/18/20", "Invalid headerDate")
+        XCTAssertEqual(detailViewModel.headerDate, "7/20/21", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Alert", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "A reviewer suggested improvements to the page Bird. Tags: notability, blp sources.", "Invalid contentBody")
     }

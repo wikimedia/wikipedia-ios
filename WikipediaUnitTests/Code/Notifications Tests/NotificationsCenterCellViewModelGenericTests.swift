@@ -50,7 +50,7 @@ class NotificationsCenterCellViewModelGenericTests: NotificationsCenterViewModel
         XCTAssertEqual(cellViewModel.subheaderText, "Alert from Fred The Bird", "Invalid subheaderText")
         XCTAssertEqual(cellViewModel.bodyText, nil)
         XCTAssertEqual(cellViewModel.footerText, "View page", "Invalid footerText")
-        XCTAssertEqual(cellViewModel.dateText, "1/18/20", "Invalid dateText")
+        XCTAssertEqual(cellViewModel.dateText, "7/20/21", "Invalid dateText")
         XCTAssertEqual(cellViewModel.projectText, "EN", "Invalid projectText")
     }
     
