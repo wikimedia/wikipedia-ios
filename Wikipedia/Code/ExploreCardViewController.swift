@@ -498,6 +498,13 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         
         return ColumnarCollectionViewLayoutMetrics.exploreCardMetrics(with: size, readableWidth: size.width, layoutMargins: layoutMargins)
     }
+    
+    func userDidTapTurnOnNotifications() {
+        let pushSettingsVC = PushNotificationsSettingsViewController.init(authenticationManager: self.dataStore.authenticationManager, notificationsController: self.dataStore.notificationsController)
+        pushSettingsVC.apply(theme: self.theme)
+        self.navigationController?.pushViewController(pushSettingsVC, animated: true)
+    }
+    
 }
 
 extension ExploreCardViewController: ActionDelegate, ShareableArticlesProvider {
@@ -599,11 +606,7 @@ extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
             LoginFunnel.shared.logLoginStartInFeed()
             dismissAnnouncementCell(cell)
         case .notification:
-            dataStore.notificationsController.requestPermissionsIfNecessary { (granted, error) in
-                if let error = error {
-                    self.wmf_showAlertWithError(error as NSError)
-                }
-            }
+            userDidTapTurnOnNotifications()
             UserDefaults.standard.wmf_setInTheNewsNotificationsEnabled(true)
             dismissAnnouncementCell(cell)
         default:
