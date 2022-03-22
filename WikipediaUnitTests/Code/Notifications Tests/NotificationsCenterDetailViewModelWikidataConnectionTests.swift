@@ -14,6 +14,7 @@ class NotificationsCenterDetailViewModelWikidataConnectionTests: NotificationsCe
         let detailViewModel = try detailViewModelFromIdentifier(identifier: "1")
         
         try testWikidataConnectionText(detailViewModel: detailViewModel)
+        try testWikidataConnectionActions(detailViewModel: detailViewModel)
     }
     
     private func testWikidataConnectionText(detailViewModel: NotificationsCenterDetailViewModel) throws {
@@ -22,6 +23,24 @@ class NotificationsCenterDetailViewModelWikidataConnectionTests: NotificationsCe
         XCTAssertEqual(detailViewModel.headerDate, "1/25/20", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Wikidata connection made", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "The page Blue Bird was connected to the Wikidata item Q83380765, where data relevant to the topic can be collected.", "Invalid contentBody")
+    }
+    
+    private func testWikidataConnectionActions(detailViewModel: NotificationsCenterDetailViewModel) throws {
+
+        XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
+        XCTAssertEqual(detailViewModel.secondaryActions.count, 2, "Invalid secondaryActions count")
+        
+        let expectedPrimaryText = "Go to Wikidata item"
+        let expectedPrimaryURL: URL? = URL(string: "https://www.wikidata.org/wiki/Special:EntityPage/Q83380765")!
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, actionToTest: detailViewModel.primaryAction!)
+        
+        let expectedText0 = "Go to user page"
+        let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Fred_The_Bird")!
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, actionToTest: detailViewModel.secondaryActions[0])
+        
+        let expectedText1 = "Go to article"
+        let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/Blue_Bird")!
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, actionToTest: detailViewModel.secondaryActions[1])
     }
 
 }
