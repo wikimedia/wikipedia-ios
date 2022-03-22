@@ -2,7 +2,7 @@
 import Foundation
 
 extension NotificationsCenterDetailViewModel {
-    var headerTitle: String? {
+    var headerTitle: String {
             
         switch commonViewModel.notification.type {
         case .loginFailKnownDevice,
@@ -14,7 +14,7 @@ extension NotificationsCenterDetailViewModel {
             return WMFLocalizedString("notifications-center-type-item-description-mentions", value: "Mentions", comment: "Description of \"mention\" notification types, used on the notification detail view.")
         case .editMilestone,
              .translationMilestone:
-            return commonViewModel.verboseTitle
+            return commonViewModel.verboseTitle ?? commonViewModel.title
         case .welcome:
             return WMFLocalizedString("notifications-center-type-item-description-welcome-verbose", value: "Welcome message", comment: "Description of \"welcome\" notification types, used on the notification detail view.")
         default:
@@ -28,7 +28,7 @@ extension NotificationsCenterDetailViewModel {
         return commonViewModel.title
     }
 
-    var headerSubtitle: String? {
+    var headerSubtitle: String {
         return commonViewModel.project.projectName(shouldReturnCodedFormat: false)
     }
 
@@ -36,8 +36,8 @@ extension NotificationsCenterDetailViewModel {
         return commonViewModel.dateText
     }
 
-    var contentTitle: String? {
-        return commonViewModel.message != nil ? commonViewModel.verboseTitle : commonViewModel.title
+    var contentTitle: String {
+        return (commonViewModel.message != nil ? commonViewModel.verboseTitle : commonViewModel.title) ?? commonViewModel.title
     }
 
     var contentBody: String? {

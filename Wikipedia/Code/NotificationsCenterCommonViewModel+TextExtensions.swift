@@ -3,7 +3,7 @@ import Foundation
 
 extension NotificationsCenterCommonViewModel {
     
-    var title: String? {
+    var title: String {
         return notification.type.title
     }
     
