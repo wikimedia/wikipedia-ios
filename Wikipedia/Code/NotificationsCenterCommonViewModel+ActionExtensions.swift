@@ -3,15 +3,25 @@ import Foundation
 import WMF
 
 extension NotificationsCenterCommonViewModel {
+    
     //Go to [Username]'s user page
     var agentUserPageAction: NotificationsCenterAction? {
+        return agentUserPageAction()
+    }
+    func agentUserPageAction(simplified: Bool = false) -> NotificationsCenterAction? {
         guard let agentName = notification.agentName,
               let url = customPrefixAgentNameURL(pageNamespace: .user) else {
             return nil
         }
 
-        let format = WMFLocalizedString("notifications-center-go-to-user-page", value: "Go to %1$@'s user page", comment: "Button text in Notifications Center that routes to a web view of the user page of the sender that triggered the notification. %1$@ is replaced with the sender's username.")
-        let text = String.localizedStringWithFormat(format, agentName)
+        let text: String
+        if simplified {
+            text = WMFLocalizedString("notifications-center-go-to-user-page-simplified", value: "Go to user page", comment: "Button text in Notifications Center that routes to a web view of the user page of the sender that triggered the notification.")
+        } else {
+            let format = WMFLocalizedString("notifications-center-go-to-user-page", value: "Go to %1$@'s user page", comment: "Button text in Notifications Center that routes to a web view of the user page of the sender that triggered the notification. %1$@ is replaced with the sender's username.")
+            text = String.localizedStringWithFormat(format, agentName)
+        }
+        
 
         let data = NotificationsCenterActionData(text: text, url: url)
 
@@ -109,15 +119,39 @@ extension NotificationsCenterCommonViewModel {
         let data = NotificationsCenterActionData(text: text, url: url)
         return NotificationsCenterAction.custom(data)
     }
+    
+    //"Go to Help:GettingStarted"
+    var gettingStartedAction: NotificationsCenterAction? {
+        guard let url = gettingStartedURL,
+              let title = url.wmf_title else {
+            return nil
+        }
+
+        let text = String.localizedStringWithFormat(CommonStrings.notificationsCenterGoToTitleFormat, title)
+        let data = NotificationsCenterActionData(text: text, url: url)
+        return NotificationsCenterAction.custom(data)
+    }
 
     //Login Notifications
+    private var loginNotificationsText: String {
+        WMFLocalizedString("notifications-center-login-notifications", value: "Login notifications", comment: "Button text in Notifications Center that routes user to login notifications help page in web view.")
+    }
     var loginNotificationsAction: NotificationsCenterAction? {
         guard let url = loginNotificationsHelpURL else {
             return nil
         }
 
-        let text = WMFLocalizedString("notifications-center-login-notifications", value: "Login notifications", comment: "Button text in Notifications Center that routes user to login notifications help page in web view.")
+        let data = NotificationsCenterActionData(text: loginNotificationsText, url: url)
+        return NotificationsCenterAction.custom(data)
+    }
+    
+    //"Go to Login Notifications"
+    var loginNotificationsGoToAction: NotificationsCenterAction? {
+        guard let url = loginNotificationsHelpURL else {
+            return nil
+        }
 
+        let text = String.localizedStringWithFormat(CommonStrings.notificationsCenterGoToTitleFormat, loginNotificationsText)
         let data = NotificationsCenterActionData(text: text, url: url)
         return NotificationsCenterAction.custom(data)
     }
