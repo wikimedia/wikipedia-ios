@@ -54,27 +54,32 @@ class NotificationsCenterCellViewModelThanksTests: NotificationsCenterViewModelT
         let expectedText0 = "Mark as unread"
         let expectedURL0: URL? = nil
         let expectedIcon0: NotificationsCenterIconType? = nil
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true)
+        let expectedDestinationText0: String? = nil
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true)
         
         let expectedText1 = "Go to Fred The Bird\'s user page"
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Fred_The_Bird")!
         let expectedIcon1: NotificationsCenterIconType = .person
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, actionToTest: cellViewModel.sheetActions[1])
+        let expectedDestinationText1 = "On web"
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: cellViewModel.sheetActions[1])
         
         let expectedText2 = "Go to talk page"
         let expectedURL2: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
         let expectedIcon2: NotificationsCenterIconType = .document
-        try testActions(expectedText: expectedText2, expectedURL: expectedURL2, expectedIcon: expectedIcon2, actionToTest: cellViewModel.sheetActions[2])
+        let expectedDestinationText2 = "In app"
+        try testActions(expectedText: expectedText2, expectedURL: expectedURL2, expectedIcon: expectedIcon2, expectedDestinationText: expectedDestinationText2, actionToTest: cellViewModel.sheetActions[2])
         
         let expectedText3 = "Go to diff"
         let expectedURL3: URL? = URL(string: "https://en.wikipedia.org/w/index.php?oldid=1034387008&title=User_talk%253AFred_The_Bird")!
         let expectedIcon3: NotificationsCenterIconType = .diff
-        try testActions(expectedText: expectedText3, expectedURL: expectedURL3, expectedIcon: expectedIcon3, actionToTest: cellViewModel.sheetActions[3])
+        let expectedDestinationText3 = "In app"
+        try testActions(expectedText: expectedText3, expectedURL: expectedURL3, expectedIcon: expectedIcon3, expectedDestinationText: expectedDestinationText3, actionToTest: cellViewModel.sheetActions[3])
         
         let expectedText4 = "Notification settings"
         let expectedURL4: URL? = nil
         let expectedIcon4: NotificationsCenterIconType? = nil
-        try testActions(expectedText: expectedText4, expectedURL: expectedURL4, expectedIcon: expectedIcon4, actionToTest: cellViewModel.sheetActions[4], isNotificationSettings: true)
+        let expectedDestinationText4: String? = nil
+        try testActions(expectedText: expectedText4, expectedURL: expectedURL4, expectedIcon: expectedIcon4, expectedDestinationText: expectedDestinationText4, actionToTest: cellViewModel.sheetActions[4], isNotificationSettings: true)
     }
     
     private func testThanksOnArticleEditText(cellViewModel: NotificationsCenterCellViewModel) throws {
@@ -98,26 +103,31 @@ class NotificationsCenterCellViewModelThanksTests: NotificationsCenterViewModelT
         let expectedText0 = "Mark as unread"
         let expectedURL0: URL? = nil
         let expectedIcon0: NotificationsCenterIconType? = nil
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true)
+        let expectedDestinationText0: String? = nil
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true)
         
         let expectedText1 = "Go to Fred The Bird\'s user page"
         let expectedURL1: URL? = URL(string: "https://test.wikipedia.org/wiki/User:Fred_The_Bird")!
         let expectedIcon1: NotificationsCenterIconType = .person
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, actionToTest: cellViewModel.sheetActions[1])
+        let expectedDestinationText1 = "On web"
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: cellViewModel.sheetActions[1])
         
         let expectedText2 = "Go to Blue Bird"
         let expectedURL2: URL? = URL(string: "https://test.wikipedia.org/wiki/Blue_Bird")!
         let expectedIcon2: NotificationsCenterIconType = .document
-        try testActions(expectedText: expectedText2, expectedURL: expectedURL2, expectedIcon: expectedIcon2, actionToTest: cellViewModel.sheetActions[2])
+        let expectedDestinationText2 = "In app"
+        try testActions(expectedText: expectedText2, expectedURL: expectedURL2, expectedIcon: expectedIcon2, expectedDestinationText: expectedDestinationText2, actionToTest: cellViewModel.sheetActions[2])
         
         let expectedText3 = "Go to diff"
         let expectedURL3: URL? = URL(string: "https://test.wikipedia.org/w/index.php?oldid=417114&title=Blue_Bird")!
         let expectedIcon3: NotificationsCenterIconType = .diff
-        try testActions(expectedText: expectedText3, expectedURL: expectedURL3, expectedIcon: expectedIcon3, actionToTest: cellViewModel.sheetActions[3])
+        let expectedDestinationText3 = "In app"
+        try testActions(expectedText: expectedText3, expectedURL: expectedURL3, expectedIcon: expectedIcon3, expectedDestinationText: expectedDestinationText3, actionToTest: cellViewModel.sheetActions[3])
         
         let expectedText4 = "Notification settings"
         let expectedURL4: URL? = nil
         let expectedIcon4: NotificationsCenterIconType? = nil
-        try testActions(expectedText: expectedText4, expectedURL: expectedURL4, expectedIcon: expectedIcon4, actionToTest: cellViewModel.sheetActions[4], isNotificationSettings: true)
+        let expectedDestinationText4: String? = nil
+        try testActions(expectedText: expectedText4, expectedURL: expectedURL4, expectedIcon: expectedIcon4, expectedDestinationText: expectedDestinationText4, actionToTest: cellViewModel.sheetActions[4], isNotificationSettings: true)
     }
 }

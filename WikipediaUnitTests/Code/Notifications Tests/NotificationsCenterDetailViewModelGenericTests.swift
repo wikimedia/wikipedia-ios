@@ -49,17 +49,20 @@ class NotificationsCenterDetailViewModelGenericTests: NotificationsCenterViewMod
         let expectedPrimaryText = "View page"
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/Black_Bird?markasread=181035797&markasreadwiki=enwiki")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .link
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, actionToTest: detailViewModel.primaryAction!)
+        let expectedPrimaryDestinationText = "In app"
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!)
         
         let expectedText0 = "Fred The Bird"
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Fred_The_Bird")!
         let expectedIcon0: NotificationsCenterIconType = .link
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, actionToTest: detailViewModel.secondaryActions[0])
+        let expectedDestinationText0 = "On web"
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0])
         
         let expectedText1 = "Thank"
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/Special:Thanks/937441471")!
         let expectedIcon1: NotificationsCenterIconType = .link
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, actionToTest: detailViewModel.secondaryActions[1])
+        let expectedDestinationText1 = "On web"
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: detailViewModel.secondaryActions[1])
     }
     
     private func testFlowReplyText(detailViewModel: NotificationsCenterDetailViewModel) throws {
@@ -78,12 +81,14 @@ class NotificationsCenterDetailViewModelGenericTests: NotificationsCenterViewMod
         let expectedPrimaryText = "View post"
         let expectedPrimaryURL: URL? = URL(string: "https://test.wikipedia.org/w/index.php?title=Topic:Wcd3birxz0ixz4di&topic_showPostId=wd321irw4jqrwsyf&fromnotif=1&markasread=75530&markasreadwiki=testwiki#flow-post-wd321irw4jqrwsyf")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .link
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, actionToTest: detailViewModel.primaryAction!)
+        let expectedPrimaryDestinationText = "On web"
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!)
         
         let expectedText0 = "Go to user page"
         let expectedURL0: URL? = URL(string: "https://test.wikipedia.org/wiki/User:Fred_The_Bird")!
         let expectedIcon0: NotificationsCenterIconType = .person
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, actionToTest: detailViewModel.secondaryActions[0])
+        let expectedDestinationText0 = "On web"
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0])
     }
 
     private func testFlowTopicRenamedText(detailViewModel: NotificationsCenterDetailViewModel) throws {
@@ -102,11 +107,13 @@ class NotificationsCenterDetailViewModelGenericTests: NotificationsCenterViewMod
         let expectedPrimaryText = "View topic"
         let expectedPrimaryURL: URL? = URL(string: "https://test.wikipedia.org/wiki/Topic:Section_Title?markasread=88298&markasreadwiki=testwiki")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .link
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, actionToTest: detailViewModel.primaryAction!)
+        let expectedPrimaryDestinationText = "On web"
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!)
         
         let expectedText0 = "Go to user page"
         let expectedURL0: URL? = URL(string: "https://test.wikipedia.org/wiki/User:47.234.198.142")!
         let expectedIcon0: NotificationsCenterIconType = .person
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, actionToTest: detailViewModel.secondaryActions[0])
+        let expectedDestinationText0 = "On web"
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0])
     }
 }

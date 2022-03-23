@@ -4,6 +4,15 @@ import WMF
 
 extension NotificationsCenterCommonViewModel {
     
+    private func destinationText(for url: URL?) -> String? {
+        
+        guard let url = url else {
+            return nil
+        }
+        
+        return url.doesOpenInBrowser ? CommonStrings.notificationsCenterDestinationWeb : CommonStrings.notificationsCenterDestinationApp
+    }
+    
     //Go to [Username]'s user page
     var agentUserPageAction: NotificationsCenterAction? {
         return agentUserPageAction()
@@ -23,7 +32,7 @@ extension NotificationsCenterCommonViewModel {
         }
         
 
-        let data = NotificationsCenterActionData(text: text, url: url, iconType: .person)
+        let data = NotificationsCenterActionData(text: text, url: url, iconType: .person, destinationText: destinationText(for: url))
 
         return NotificationsCenterAction.custom(data)
     }
@@ -35,7 +44,7 @@ extension NotificationsCenterCommonViewModel {
         }
 
         let text = WMFLocalizedString("notifications-center-go-to-diff", value: "Go to diff", comment: "Button text in Notifications Center that routes to a diff screen of the revision that triggered the notification.")
-        let data = NotificationsCenterActionData(text: text, url: url, iconType: .diff)
+        let data = NotificationsCenterActionData(text: text, url: url, iconType: .diff, destinationText: destinationText(for: url))
         return NotificationsCenterAction.custom(data)
     }
 
@@ -181,7 +190,7 @@ extension NotificationsCenterCommonViewModel {
     private func titleAction(text: String, namespace: PageNamespace, normalizedTitle: String) -> NotificationsCenterAction {
 
         let url = customPrefixTitleURL(pageNamespace: namespace)
-        let data = NotificationsCenterActionData(text: text, url: url, iconType: .document)
+        let data = NotificationsCenterActionData(text: text, url: url, iconType: .document, destinationText: destinationText(for: url))
         return NotificationsCenterAction.custom(data)
     }
 
@@ -193,7 +202,7 @@ extension NotificationsCenterCommonViewModel {
         }
 
         let text = String.localizedStringWithFormat(goToTitleFormat, title)
-        let data = NotificationsCenterActionData(text: text, url: url, iconType: .document)
+        let data = NotificationsCenterActionData(text: text, url: url, iconType: .document, destinationText: destinationText(for: url))
         return NotificationsCenterAction.custom(data)
     }
 
@@ -204,7 +213,7 @@ extension NotificationsCenterCommonViewModel {
         }
 
         let text = WMFLocalizedString("notifications-center-go-to-wikidata-item", value: "Go to Wikidata item", comment: "Button text in Notifications Center that routes to a Wikidata item page.")
-        let data = NotificationsCenterActionData(text: text, url: url, iconType: .wikidata)
+        let data = NotificationsCenterActionData(text: text, url: url, iconType: .wikidata, destinationText: destinationText(for: url))
         return NotificationsCenterAction.custom(data)
     }
 
@@ -217,7 +226,7 @@ extension NotificationsCenterCommonViewModel {
         }
 
         let text = String.localizedStringWithFormat(goToTitleFormat, "\(title)#\(type)")
-        let data = NotificationsCenterActionData(text: text, url: url, iconType: .document)
+        let data = NotificationsCenterActionData(text: text, url: url, iconType: .document, destinationText: destinationText(for: url))
         return NotificationsCenterAction.custom(data)
     }
 
@@ -229,7 +238,7 @@ extension NotificationsCenterCommonViewModel {
         }
 
         let text = String.localizedStringWithFormat(goToTitleFormat, title)
-        let data = NotificationsCenterActionData(text: text, url: url, iconType: .document)
+        let data = NotificationsCenterActionData(text: text, url: url, iconType: .document, destinationText: destinationText(for: url))
         return NotificationsCenterAction.custom(data)
     }
     
@@ -241,7 +250,7 @@ extension NotificationsCenterCommonViewModel {
         }
 
         let text = String.localizedStringWithFormat(goToTitleFormat, title)
-        let data = NotificationsCenterActionData(text: text, url: url, iconType: .document)
+        let data = NotificationsCenterActionData(text: text, url: url, iconType: .document, destinationText: destinationText(for: url))
         return NotificationsCenterAction.custom(data)
     }
 
@@ -254,7 +263,7 @@ extension NotificationsCenterCommonViewModel {
             return nil
         }
 
-        let data = NotificationsCenterActionData(text: loginNotificationsText, url: url, iconType: .document)
+        let data = NotificationsCenterActionData(text: loginNotificationsText, url: url, iconType: .document, destinationText: destinationText(for: url))
         return NotificationsCenterAction.custom(data)
     }
     
@@ -265,7 +274,7 @@ extension NotificationsCenterCommonViewModel {
         }
 
         let text = String.localizedStringWithFormat(goToTitleFormat, loginNotificationsText)
-        let data = NotificationsCenterActionData(text: text, url: url, iconType: .document)
+        let data = NotificationsCenterActionData(text: text, url: url, iconType: .document, destinationText: destinationText(for: url))
         return NotificationsCenterAction.custom(data)
     }
 
@@ -278,7 +287,7 @@ extension NotificationsCenterCommonViewModel {
 
         let text = CommonStrings.notificationsChangePassword
 
-        let data = NotificationsCenterActionData(text: text, url: url, iconType: .lock)
+        let data = NotificationsCenterActionData(text: text, url: url, iconType: .lock, destinationText: destinationText(for: url))
         return NotificationsCenterAction.custom(data)
     }
 
@@ -288,7 +297,7 @@ extension NotificationsCenterCommonViewModel {
             return nil
         }
 
-        let data = NotificationsCenterActionData(text: text, url: url, iconType: .link)
+        let data = NotificationsCenterActionData(text: text, url: url, iconType: .link, destinationText: destinationText(for: url))
         return NotificationsCenterAction.custom(data)
     }
 }

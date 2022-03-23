@@ -32,17 +32,20 @@ class NotificationsCenterDetailViewModelUserGroupRightsChangeTests: Notification
         let expectedPrimaryText = "Go to Special:ListGroupRights"
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/Special:ListGroupRights?")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .document
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, actionToTest: detailViewModel.primaryAction!)
+        let expectedPrimaryDestinationText = "On web"
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!)
         
         let expectedText0 = "Go to Special:ListGroupRights#confirmed"
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/Special:ListGroupRights?#confirmed")!
         let expectedIcon0: NotificationsCenterIconType = .document
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, actionToTest: detailViewModel.secondaryActions[0])
+        let expectedDestinationText0 = "On web"
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0])
         
         let expectedText1 = "Go to user page"
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Jack_The_Cat")!
         let expectedIcon1: NotificationsCenterIconType = .person
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, actionToTest: detailViewModel.secondaryActions[1])
+        let expectedDestinationText1 = "On web"
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: detailViewModel.secondaryActions[1])
     }
 
 }
