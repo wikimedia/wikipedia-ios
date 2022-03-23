@@ -33,17 +33,20 @@ class NotificationsCenterDetailViewModelWikidataConnectionTests: NotificationsCe
         let expectedPrimaryText = "Go to Wikidata item"
         let expectedPrimaryURL: URL? = URL(string: "https://www.wikidata.org/wiki/Special:EntityPage/Q83380765")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .wikidata
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, actionToTest: detailViewModel.primaryAction!)
+        let expectedPrimaryDestinationText = "On web"
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!)
         
         let expectedText0 = "Go to user page"
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Fred_The_Bird")!
         let expectedIcon0: NotificationsCenterIconType = .person
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, actionToTest: detailViewModel.secondaryActions[0])
+        let expectedDestinationText0 = "On web"
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0])
         
         let expectedText1 = "Go to article"
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/Blue_Bird")!
         let expectedIcon1: NotificationsCenterIconType = .document
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, actionToTest: detailViewModel.secondaryActions[1])
+        let expectedDestinationText1 = "In app"
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: detailViewModel.secondaryActions[1])
     }
 
 }

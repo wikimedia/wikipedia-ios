@@ -558,6 +558,8 @@
 "notifications-center-badge-button-accessibility-label" = "Notifications with unread badge";
 "notifications-center-change-password" = "Change password";
 "notifications-center-checking-for-notifications" = "Checking for notifications...";
+"notifications-center-destination-app" = "In app";
+"notifications-center-destination-web" = "On web";
 "notifications-center-empty-checking-for-notifications" = "Checking for notifications...";
 "notifications-center-empty-no-messages" = "You have no messages";
 "notifications-center-empty-not-subscribed" = "You are not currently subscribed to any Wikipedia Notifications";

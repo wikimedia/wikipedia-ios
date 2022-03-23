@@ -33,7 +33,8 @@ class NotificationsCenterDetailViewModelWelcomeTests: NotificationsCenterViewMod
         let expectedPrimaryText = "Go to Help:Getting started"
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/Help:Getting_started")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .document
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, actionToTest: detailViewModel.primaryAction!)
+        let expectedPrimaryDestinationText = "On web"
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!)
     }
 
 }
