@@ -121,7 +121,7 @@ extension WMFAppViewController {
         }
 
         guard let editingFlowViewController = editingFlowViewControllerInHierarchy,
-            editingFlowViewController.shouldDisplayAlert else {
+            editingFlowViewController.shouldDisplayExitConfirmationAlert else {
             dismissAndPushBlock()
             return
         }
@@ -201,11 +201,11 @@ fileprivate extension UIViewController {
 
 /// View Controllers that have an editing element (Section editor flow, User talk pages, Article description editor)
 protocol EditingFlowViewController where Self: UIViewController {
-    var shouldDisplayAlert: Bool { get }
+    var shouldDisplayExitConfirmationAlert: Bool { get }
 }
 
 extension EditingFlowViewController {
-    var shouldDisplayAlert: Bool {
+    var shouldDisplayExitConfirmationAlert: Bool {
         return true
     }
 }

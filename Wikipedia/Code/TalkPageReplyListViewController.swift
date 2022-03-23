@@ -460,7 +460,7 @@ extension TalkPageReplyListViewController: FakeProgressLoading {
 }
 
 extension TalkPageReplyListViewController: EditingFlowViewController {
-    var shouldDisplayAlert: Bool {
+    var shouldDisplayExitConfirmationAlert: Bool {
         return showingCompose
     }
 }
