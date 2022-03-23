@@ -23,7 +23,7 @@ extension NotificationsCenterCommonViewModel {
         }
         
 
-        let data = NotificationsCenterActionData(text: text, url: url)
+        let data = NotificationsCenterActionData(text: text, url: url, iconType: .person)
 
         return NotificationsCenterAction.custom(data)
     }
@@ -35,7 +35,7 @@ extension NotificationsCenterCommonViewModel {
         }
 
         let text = WMFLocalizedString("notifications-center-go-to-diff", value: "Go to diff", comment: "Button text in Notifications Center that routes to a diff screen of the revision that triggered the notification.")
-        let data = NotificationsCenterActionData(text: text, url: url)
+        let data = NotificationsCenterActionData(text: text, url: url, iconType: .diff)
         return NotificationsCenterAction.custom(data)
     }
 
@@ -181,7 +181,7 @@ extension NotificationsCenterCommonViewModel {
     private func titleAction(text: String, namespace: PageNamespace, normalizedTitle: String) -> NotificationsCenterAction {
 
         let url = customPrefixTitleURL(pageNamespace: namespace)
-        let data = NotificationsCenterActionData(text: text, url: url)
+        let data = NotificationsCenterActionData(text: text, url: url, iconType: .document)
         return NotificationsCenterAction.custom(data)
     }
 
@@ -193,7 +193,7 @@ extension NotificationsCenterCommonViewModel {
         }
 
         let text = String.localizedStringWithFormat(goToTitleFormat, title)
-        let data = NotificationsCenterActionData(text: text, url: url)
+        let data = NotificationsCenterActionData(text: text, url: url, iconType: .document)
         return NotificationsCenterAction.custom(data)
     }
 
@@ -204,7 +204,7 @@ extension NotificationsCenterCommonViewModel {
         }
 
         let text = WMFLocalizedString("notifications-center-go-to-wikidata-item", value: "Go to Wikidata item", comment: "Button text in Notifications Center that routes to a Wikidata item page.")
-        let data = NotificationsCenterActionData(text: text, url: url)
+        let data = NotificationsCenterActionData(text: text, url: url, iconType: .wikidata)
         return NotificationsCenterAction.custom(data)
     }
 
@@ -217,7 +217,7 @@ extension NotificationsCenterCommonViewModel {
         }
 
         let text = String.localizedStringWithFormat(goToTitleFormat, "\(title)#\(type)")
-        let data = NotificationsCenterActionData(text: text, url: url)
+        let data = NotificationsCenterActionData(text: text, url: url, iconType: .document)
         return NotificationsCenterAction.custom(data)
     }
 
@@ -229,7 +229,7 @@ extension NotificationsCenterCommonViewModel {
         }
 
         let text = String.localizedStringWithFormat(goToTitleFormat, title)
-        let data = NotificationsCenterActionData(text: text, url: url)
+        let data = NotificationsCenterActionData(text: text, url: url, iconType: .document)
         return NotificationsCenterAction.custom(data)
     }
     
@@ -241,7 +241,7 @@ extension NotificationsCenterCommonViewModel {
         }
 
         let text = String.localizedStringWithFormat(goToTitleFormat, title)
-        let data = NotificationsCenterActionData(text: text, url: url)
+        let data = NotificationsCenterActionData(text: text, url: url, iconType: .document)
         return NotificationsCenterAction.custom(data)
     }
 
@@ -254,7 +254,7 @@ extension NotificationsCenterCommonViewModel {
             return nil
         }
 
-        let data = NotificationsCenterActionData(text: loginNotificationsText, url: url)
+        let data = NotificationsCenterActionData(text: loginNotificationsText, url: url, iconType: .document)
         return NotificationsCenterAction.custom(data)
     }
     
@@ -265,7 +265,7 @@ extension NotificationsCenterCommonViewModel {
         }
 
         let text = String.localizedStringWithFormat(goToTitleFormat, loginNotificationsText)
-        let data = NotificationsCenterActionData(text: text, url: url)
+        let data = NotificationsCenterActionData(text: text, url: url, iconType: .document)
         return NotificationsCenterAction.custom(data)
     }
 
@@ -278,7 +278,7 @@ extension NotificationsCenterCommonViewModel {
 
         let text = CommonStrings.notificationsChangePassword
 
-        let data = NotificationsCenterActionData(text: text, url: url)
+        let data = NotificationsCenterActionData(text: text, url: url, iconType: .lock)
         return NotificationsCenterAction.custom(data)
     }
 
@@ -288,7 +288,7 @@ extension NotificationsCenterCommonViewModel {
             return nil
         }
 
-        let data = NotificationsCenterActionData(text: text, url: url)
+        let data = NotificationsCenterActionData(text: text, url: url, iconType: .link)
         return NotificationsCenterAction.custom(data)
     }
 }

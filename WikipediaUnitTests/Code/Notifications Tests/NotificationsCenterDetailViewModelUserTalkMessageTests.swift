@@ -72,15 +72,18 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
         
         let expectedPrimaryText = "Go to your talk page"
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, actionToTest: detailViewModel.primaryAction!)
+        let expectedPrimaryIcon = NotificationsCenterIconType.document
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, actionToTest: detailViewModel.primaryAction!)
         
         let expectedText0 = "Go to user page"
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Jack_The_Cat")!
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, actionToTest: detailViewModel.secondaryActions[0])
+        let expectedIcon0 = NotificationsCenterIconType.person
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, actionToTest: detailViewModel.secondaryActions[0])
         
         let expectedText1 = "Go to diff"
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/w/index.php?oldid=892051241&title=User_talk%253AFred_The_Bird")!
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, actionToTest: detailViewModel.secondaryActions[1])
+        let expectedIcon1 = NotificationsCenterIconType.diff
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, actionToTest: detailViewModel.secondaryActions[1])
     }
     
     private func testUserTalkPageGenericAnonymousMessageText(detailViewModel: NotificationsCenterDetailViewModel) throws {
@@ -98,15 +101,18 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
         
         let expectedPrimaryText = "Go to your talk page"
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, actionToTest: detailViewModel.primaryAction!)
+        let expectedPrimaryIcon = NotificationsCenterIconType.document
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, actionToTest: detailViewModel.primaryAction!)
         
         let expectedText0 = "Go to user page"
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:47.184.10.84")!
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, actionToTest: detailViewModel.secondaryActions[0])
+        let expectedIcon0 = NotificationsCenterIconType.person
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, actionToTest: detailViewModel.secondaryActions[0])
         
         let expectedText1 = "Go to diff"
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/w/index.php?oldid=899561783&title=User_talk%253AFred_The_Bird")!
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, actionToTest: detailViewModel.secondaryActions[1])
+        let expectedIcon1 = NotificationsCenterIconType.diff
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, actionToTest: detailViewModel.secondaryActions[1])
     }
     
     private func testUserTalkPageSpecificMessageText(detailViewModel: NotificationsCenterDetailViewModel) throws {
@@ -124,15 +130,18 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
         
         let expectedPrimaryText = "Go to your talk page"
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Hello")!
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, actionToTest: detailViewModel.primaryAction!)
+        let expectedPrimaryIcon = NotificationsCenterIconType.document
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, actionToTest: detailViewModel.primaryAction!)
         
         let expectedText0 = "Go to user page"
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Jack_The_Cat")!
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, actionToTest: detailViewModel.secondaryActions[0])
+        let expectedIcon0 = NotificationsCenterIconType.person
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, actionToTest: detailViewModel.secondaryActions[0])
         
         let expectedText1 = "Go to diff"
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/w/index.php?oldid=892043155&title=User_talk%253AFred_The_Bird")!
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, actionToTest: detailViewModel.secondaryActions[1])
+        let expectedIcon1 = NotificationsCenterIconType.diff
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, actionToTest: detailViewModel.secondaryActions[1])
     }
     
     private func testUserTalkPageSpecificAnonymousMessageText(detailViewModel: NotificationsCenterDetailViewModel) throws {
@@ -150,15 +159,18 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
         
         let expectedPrimaryText = "Go to your talk page"
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Section_Title")!
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, actionToTest: detailViewModel.primaryAction!)
+        let expectedPrimaryIcon = NotificationsCenterIconType.document
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, actionToTest: detailViewModel.primaryAction!)
         
         let expectedText0 = "Go to user page"
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:47.184.10.84")!
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, actionToTest: detailViewModel.secondaryActions[0])
+        let expectedIcon0 = NotificationsCenterIconType.person
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, actionToTest: detailViewModel.secondaryActions[0])
         
         let expectedText1 = "Go to diff"
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/w/index.php?oldid=901389754&title=User_talk%253AFred_The_Bird")!
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, actionToTest: detailViewModel.secondaryActions[1])
+        let expectedIcon1 = NotificationsCenterIconType.diff
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, actionToTest: detailViewModel.secondaryActions[1])
     }
     
     private func testUserTalkPageSpecificTruncatedMessageText(detailViewModel: NotificationsCenterDetailViewModel) throws {
@@ -176,15 +188,18 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
         
         let expectedPrimaryText = "Go to your talk page"
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Jack_The_Cat#Section_Title")!
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, actionToTest: detailViewModel.primaryAction!)
+        let expectedPrimaryIcon = NotificationsCenterIconType.document
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, actionToTest: detailViewModel.primaryAction!)
         
         let expectedText0 = "Go to user page"
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Fred_The_Bird")!
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, actionToTest: detailViewModel.secondaryActions[0])
+        let expectedIcon0 = NotificationsCenterIconType.person
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, actionToTest: detailViewModel.secondaryActions[0])
         
         let expectedText1 = "Go to diff"
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/w/index.php?oldid=1076152880&title=User_talk%253AJack_The_Cat")!
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, actionToTest: detailViewModel.secondaryActions[1])
+        let expectedIcon1 = NotificationsCenterIconType.diff
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, actionToTest: detailViewModel.secondaryActions[1])
     }
     
     private func testUserTalkPageMediaWikiMessageText(detailViewModel: NotificationsCenterDetailViewModel) throws {
@@ -202,14 +217,17 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
         
         let expectedPrimaryText = "Go to your talk page"
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, actionToTest: detailViewModel.primaryAction!)
+        let expectedPrimaryIcon = NotificationsCenterIconType.document
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, actionToTest: detailViewModel.primaryAction!)
         
         let expectedText0 = "Go to user page"
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:MediaWiki_message_delivery")!
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, actionToTest: detailViewModel.secondaryActions[0])
+        let expectedIcon0 = NotificationsCenterIconType.person
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, actionToTest: detailViewModel.secondaryActions[0])
         
         let expectedText1 = "Go to diff"
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/w/index.php?oldid=920081372&title=User_talk%253AFred_The_Bird")!
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, actionToTest: detailViewModel.secondaryActions[1])
+        let expectedIcon1 = NotificationsCenterIconType.diff
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, actionToTest: detailViewModel.secondaryActions[1])
     }
 }

@@ -32,11 +32,13 @@ class NotificationsCenterDetailViewModelLoginIssuesTests: NotificationsCenterVie
         
         let expectedPrimaryText = "Change password"
         let expectedPrimaryURL: URL? = URL(string: "https://mediawiki.org/wiki/Special:ChangeCredentials")!
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, actionToTest: detailViewModel.primaryAction!)
+        let expectedPrimaryIcon: NotificationsCenterIconType = .lock
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, actionToTest: detailViewModel.primaryAction!)
         
         let expectedText0 = "Go to Login notifications"
         let expectedURL0: URL? = URL(string: "https://www.mediawiki.org/wiki/Help:Login_notifications")!
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, actionToTest: detailViewModel.secondaryActions[0])
+        let expectedIcon0: NotificationsCenterIconType = .document
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, actionToTest: detailViewModel.secondaryActions[0])
     }
 
 }

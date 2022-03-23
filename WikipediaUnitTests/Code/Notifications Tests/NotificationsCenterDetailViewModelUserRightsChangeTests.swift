@@ -31,15 +31,18 @@ class NotificationsCenterDetailViewModelUserGroupRightsChangeTests: Notification
         
         let expectedPrimaryText = "Go to Special:ListGroupRights"
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/Special:ListGroupRights?")!
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, actionToTest: detailViewModel.primaryAction!)
+        let expectedPrimaryIcon: NotificationsCenterIconType = .document
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, actionToTest: detailViewModel.primaryAction!)
         
         let expectedText0 = "Go to Special:ListGroupRights#confirmed"
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/Special:ListGroupRights?#confirmed")!
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, actionToTest: detailViewModel.secondaryActions[0])
+        let expectedIcon0: NotificationsCenterIconType = .document
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, actionToTest: detailViewModel.secondaryActions[0])
         
         let expectedText1 = "Go to user page"
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Jack_The_Cat")!
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, actionToTest: detailViewModel.secondaryActions[1])
+        let expectedIcon1: NotificationsCenterIconType = .person
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, actionToTest: detailViewModel.secondaryActions[1])
     }
 
 }
