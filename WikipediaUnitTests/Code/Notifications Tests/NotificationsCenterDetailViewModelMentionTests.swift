@@ -89,19 +89,23 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         
         let expectedPrimaryText = "Go to talk page"
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Section_Title")!
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, actionToTest: detailViewModel.primaryAction!)
+        let expectedPrimaryIcon: NotificationsCenterIconType = .document
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, actionToTest: detailViewModel.primaryAction!)
         
         let expectedText0 = "Go to user page"
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Fred_The_Bird")!
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, actionToTest: detailViewModel.secondaryActions[0])
+        let expectedIcon0: NotificationsCenterIconType = .person
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, actionToTest: detailViewModel.secondaryActions[0])
         
         let expectedText1 = "Go to diff"
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/w/index.php?oldid=1033968824&title=User_talk%253AFred_The_Bird")!
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, actionToTest: detailViewModel.secondaryActions[1])
+        let expectedIcon1: NotificationsCenterIconType = .diff
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, actionToTest: detailViewModel.secondaryActions[1])
         
         let expectedText2 = "Go to talk page"
         let expectedURL2: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Section_Title")!
-        try testActions(expectedText: expectedText2, expectedURL: expectedURL2, actionToTest: detailViewModel.secondaryActions[2])
+        let expectedIcon2: NotificationsCenterIconType = .document
+        try testActions(expectedText: expectedText2, expectedURL: expectedURL2, expectedIcon: expectedIcon2, actionToTest: detailViewModel.secondaryActions[2])
     }
     
     private func testMentionInUserTalkEditSummaryText(detailViewModel: NotificationsCenterDetailViewModel) throws {
@@ -119,15 +123,18 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         
         let expectedPrimaryText = "Go to diff"
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/w/index.php?oldid=1033968849&title=User_talk%253AFred_The_Bird")!
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, actionToTest: detailViewModel.primaryAction!)
+        let expectedPrimaryIcon: NotificationsCenterIconType = .diff
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, actionToTest: detailViewModel.primaryAction!)
         
         let expectedText0 = "Go to user page"
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Fred_The_Bird")!
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, actionToTest: detailViewModel.secondaryActions[0])
+        let expectedIcon0: NotificationsCenterIconType = .person
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, actionToTest: detailViewModel.secondaryActions[0])
         
         let expectedText1 = "Go to talk page"
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, actionToTest: detailViewModel.secondaryActions[1])
+        let expectedIcon1: NotificationsCenterIconType = .document
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, actionToTest: detailViewModel.secondaryActions[1])
     }
     
     private func testMentionInArticleTalkText(detailViewModel: NotificationsCenterDetailViewModel) throws {
@@ -145,19 +152,23 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         
         let expectedPrimaryText = "Go to talk page"
         let expectedPrimaryURL: URL? = URL(string: "https://test.wikipedia.org/wiki/Talk:Blue_Bird#Section_Title")!
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, actionToTest: detailViewModel.primaryAction!)
+        let expectedPrimaryIcon: NotificationsCenterIconType = .document
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, actionToTest: detailViewModel.primaryAction!)
         
         let expectedText0 = "Go to user page"
         let expectedURL0: URL? = URL(string: "https://test.wikipedia.org/wiki/User:Fred_The_Bird")!
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, actionToTest: detailViewModel.secondaryActions[0])
+        let expectedIcon0: NotificationsCenterIconType = .person
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, actionToTest: detailViewModel.secondaryActions[0])
         
         let expectedText1 = "Go to diff"
         let expectedURL1: URL? = URL(string: "https://test.wikipedia.org/w/index.php?oldid=505586&title=Talk%253ABlue_Bird")!
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, actionToTest: detailViewModel.secondaryActions[1])
+        let expectedIcon1: NotificationsCenterIconType = .diff
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, actionToTest: detailViewModel.secondaryActions[1])
         
         let expectedText2 = "Go to article"
         let expectedURL2: URL? = URL(string: "https://test.wikipedia.org/wiki/Blue_Bird")!
-        try testActions(expectedText: expectedText2, expectedURL: expectedURL2, actionToTest: detailViewModel.secondaryActions[2])
+        let expectedIcon2: NotificationsCenterIconType = .document
+        try testActions(expectedText: expectedText2, expectedURL: expectedURL2, expectedIcon: expectedIcon2, actionToTest: detailViewModel.secondaryActions[2])
     }
     
     private func testMentionInArticleTalkEditSummaryText(detailViewModel: NotificationsCenterDetailViewModel) throws {
@@ -175,15 +186,18 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         
         let expectedPrimaryText = "Go to diff"
         let expectedPrimaryURL: URL? = URL(string: "https://test.wikipedia.org/w/index.php?oldid=497048&title=Black_Cat")!
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, actionToTest: detailViewModel.primaryAction!)
+        let expectedPrimaryIcon: NotificationsCenterIconType = .diff
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, actionToTest: detailViewModel.primaryAction!)
         
         let expectedText0 = "Go to user page"
         let expectedURL0: URL? = URL(string: "https://test.wikipedia.org/wiki/User:Fred_The_Bird")!
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, actionToTest: detailViewModel.secondaryActions[0])
+        let expectedIcon0: NotificationsCenterIconType = .person
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, actionToTest: detailViewModel.secondaryActions[0])
         
         let expectedText1 = "Go to article"
         let expectedURL1: URL? = URL(string: "https://test.wikipedia.org/wiki/Black_Cat")!
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, actionToTest: detailViewModel.secondaryActions[1])
+        let expectedIcon1: NotificationsCenterIconType = .document
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, actionToTest: detailViewModel.secondaryActions[1])
     }
     
     private func testMentionFailureAnonymousText(detailViewModel: NotificationsCenterDetailViewModel) throws {
@@ -201,7 +215,8 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         
         let expectedPrimaryText = "Go to talk page"
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Section_Title")!
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, actionToTest: detailViewModel.primaryAction!)
+        let expectedPrimaryIcon: NotificationsCenterIconType = .document
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, actionToTest: detailViewModel.primaryAction!)
     }
     
     private func testMentionFailureNotFoundText(detailViewModel: NotificationsCenterDetailViewModel) throws {
@@ -219,7 +234,8 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         
         let expectedPrimaryText = "Go to talk page"
         let expectedPrimaryURL: URL? = URL(string: "https://test.wikipedia.org/wiki/User_talk:Jack_The_Cat#Section_Title")!
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, actionToTest: detailViewModel.primaryAction!)
+        let expectedPrimaryIcon: NotificationsCenterIconType = .document
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, actionToTest: detailViewModel.primaryAction!)
     }
     
     private func testMentionSuccessText(detailViewModel: NotificationsCenterDetailViewModel) throws {
@@ -237,7 +253,8 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         
         let expectedPrimaryText = "Go to talk page"
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Section_Title")!
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, actionToTest: detailViewModel.primaryAction!)
+        let expectedPrimaryIcon: NotificationsCenterIconType = .document
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, actionToTest: detailViewModel.primaryAction!)
     }
     
     private func testMentionSuccessWikidataText(detailViewModel: NotificationsCenterDetailViewModel) throws {
@@ -255,7 +272,8 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         
         let expectedPrimaryText = "Go to talk page"
         let expectedPrimaryURL: URL? = URL(string: "https://wikidata.org/wiki/User_talk:Fred_The_Bird#Section_Title")!
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, actionToTest: detailViewModel.primaryAction!)
+        let expectedPrimaryIcon: NotificationsCenterIconType = .document
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, actionToTest: detailViewModel.primaryAction!)
     }
     
     private func testMentionInArticleTalkZhWikiquoteText(detailViewModel: NotificationsCenterDetailViewModel) throws {
@@ -273,19 +291,23 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         
         let expectedPrimaryText = "Go to discussion page"
         let expectedPrimaryURL: URL? = URL(string: "https://zh.wikiquote.org/wiki/Talk:Blue_Bird#Section_Title")!
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, actionToTest: detailViewModel.primaryAction!)
+        let expectedPrimaryIcon: NotificationsCenterIconType = .document
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, actionToTest: detailViewModel.primaryAction!)
         
         let expectedText0 = "Go to user page"
         let expectedURL0: URL? = URL(string: "https://zh.wikiquote.org/wiki/User:Fred_The_Bird")!
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, actionToTest: detailViewModel.secondaryActions[0])
+        let expectedIcon0: NotificationsCenterIconType = .person
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, actionToTest: detailViewModel.secondaryActions[0])
         
         let expectedText1 = "Go to diff"
         let expectedURL1: URL? = URL(string: "https://zh.wikiquote.org/w/index.php?oldid=505586&title=Talk%253ABlue_Bird")!
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, actionToTest: detailViewModel.secondaryActions[1])
+        let expectedIcon1: NotificationsCenterIconType = .diff
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, actionToTest: detailViewModel.secondaryActions[1])
         
         let expectedText2 = "Go to Blue Bird"
         let expectedURL2: URL? = URL(string: "https://zh.wikiquote.org/wiki/Blue_Bird")!
-        try testActions(expectedText: expectedText2, expectedURL: expectedURL2, actionToTest: detailViewModel.secondaryActions[2])
+        let expectedIcon2: NotificationsCenterIconType = .document
+        try testActions(expectedText: expectedText2, expectedURL: expectedURL2, expectedIcon: expectedIcon2, actionToTest: detailViewModel.secondaryActions[2])
     }
     
 }

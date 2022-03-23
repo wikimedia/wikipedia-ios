@@ -66,11 +66,13 @@ class NotificationsCenterCellViewModelEditMilestoneTests: NotificationsCenterVie
         
         let expectedText0 = "Mark as unread"
         let expectedURL0: URL? = nil
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true)
+        let expectedIcon0: NotificationsCenterIconType? = nil
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true)
         
         let expectedText1 = "Notification settings"
         let expectedURL1: URL? = nil
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, actionToTest: cellViewModel.sheetActions[1], isNotificationSettings: true)
+        let expectedIcon1: NotificationsCenterIconType? = nil
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, actionToTest: cellViewModel.sheetActions[1], isNotificationSettings: true)
         
     }
     
@@ -94,11 +96,13 @@ class NotificationsCenterCellViewModelEditMilestoneTests: NotificationsCenterVie
         
         let expectedText0 = "Mark as unread"
         let expectedURL0: URL? = nil
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true)
+        let expectedIcon0: NotificationsCenterIconType? = nil
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true)
         
         let expectedText1 = "Notification settings"
         let expectedURL1: URL? = nil
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, actionToTest: cellViewModel.sheetActions[1], isNotificationSettings: true)
+        let expectedIcon1: NotificationsCenterIconType? = nil
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, actionToTest: cellViewModel.sheetActions[1], isNotificationSettings: true)
         
     }
     
@@ -122,11 +126,13 @@ class NotificationsCenterCellViewModelEditMilestoneTests: NotificationsCenterVie
         
         let expectedText0 = "Mark as unread"
         let expectedURL0: URL? = nil
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true)
+        let expectedIcon0: NotificationsCenterIconType? = nil
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true)
         
         let expectedText1 = "Notification settings"
         let expectedURL1: URL? = nil
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, actionToTest: cellViewModel.sheetActions[1], isNotificationSettings: true)
+        let expectedIcon1: NotificationsCenterIconType? = nil
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, actionToTest: cellViewModel.sheetActions[1], isNotificationSettings: true)
         
     }
 

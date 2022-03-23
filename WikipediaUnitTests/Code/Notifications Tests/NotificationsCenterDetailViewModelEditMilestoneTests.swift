@@ -49,7 +49,8 @@ class NotificationsCenterDetailViewModelEditMilestoneTests: NotificationsCenterV
         
         let expectedPrimaryText = "Go to User:Fred The Bird"
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Fred_The_Bird")!
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, actionToTest: detailViewModel.primaryAction!)
+        let expectedPrimaryIcon: NotificationsCenterIconType = .document
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, actionToTest: detailViewModel.primaryAction!)
     }
     
     private func testEditMilestoneTenOnArticleText(detailViewModel: NotificationsCenterDetailViewModel) throws {
@@ -67,7 +68,8 @@ class NotificationsCenterDetailViewModelEditMilestoneTests: NotificationsCenterV
         
         let expectedPrimaryText = "Go to article"
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/Blue_Bird")!
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, actionToTest: detailViewModel.primaryAction!)
+        let expectedPrimaryIcon: NotificationsCenterIconType = .document
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, actionToTest: detailViewModel.primaryAction!)
     }
     
     private func testEditMilestoneHundredOnUserTalkPageText(detailViewModel: NotificationsCenterDetailViewModel) throws {
@@ -85,7 +87,8 @@ class NotificationsCenterDetailViewModelEditMilestoneTests: NotificationsCenterV
         
         let expectedPrimaryText = "Go to talk page"
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, actionToTest: detailViewModel.primaryAction!)
+        let expectedPrimaryIcon: NotificationsCenterIconType = .document
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, actionToTest: detailViewModel.primaryAction!)
     }
 
 }
