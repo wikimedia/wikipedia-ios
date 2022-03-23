@@ -14,6 +14,7 @@ class NotificationsCenterDetailViewModelThanksTests: NotificationsCenterViewMode
         let detailViewModel = try detailViewModelFromIdentifier(identifier: "1")
         
         try testThanksOnUserTalkEditText(detailViewModel: detailViewModel)
+        try testThanksOnUserTalkEditImage(detailViewModel: detailViewModel)
         try testThanksOnUserTalkEditActions(detailViewModel: detailViewModel)
     }
     
@@ -31,6 +32,10 @@ class NotificationsCenterDetailViewModelThanksTests: NotificationsCenterViewMode
         XCTAssertEqual(detailViewModel.headerDate, "7/19/21", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Thanks", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Fred The Bird thanked you for your edit on User talk:Fred The Bird.", "Invalid contentBody")
+    }
+    
+    private func testThanksOnUserTalkEditImage(detailViewModel: NotificationsCenterDetailViewModel) throws {
+        XCTAssertEqual(detailViewModel.headerImageName, "notifications-type-thanks", "Invalid headerImageName")
     }
     
     private func testThanksOnUserTalkEditActions(detailViewModel: NotificationsCenterDetailViewModel) throws {

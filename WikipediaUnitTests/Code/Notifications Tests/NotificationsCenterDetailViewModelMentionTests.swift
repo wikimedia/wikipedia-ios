@@ -14,6 +14,7 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         let detailViewModel = try detailViewModelFromIdentifier(identifier: "1")
         
         try testMentionInUserTalkText(detailViewModel: detailViewModel)
+        try testMentionInUserTalkImage(detailViewModel: detailViewModel)
         try testMentionInUserTalkActions(detailViewModel: detailViewModel)
     }
     
@@ -21,6 +22,7 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         let detailViewModel = try detailViewModelFromIdentifier(identifier: "2")
         
         try testMentionInUserTalkEditSummaryText(detailViewModel: detailViewModel)
+        try testMentionInUserTalkEditSummaryImage(detailViewModel: detailViewModel)
         try testMentionInUserTalkEditSummaryActions(detailViewModel: detailViewModel)
     }
     
@@ -28,6 +30,7 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         let detailViewModel = try detailViewModelFromIdentifier(identifier: "3")
         
         try testMentionInArticleTalkText(detailViewModel: detailViewModel)
+        try testMentionInArticleTalkImage(detailViewModel: detailViewModel)
         try testMentionInArticleTalkActions(detailViewModel: detailViewModel)
     }
     
@@ -35,6 +38,7 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         let detailViewModel = try detailViewModelFromIdentifier(identifier: "4")
         
         try testMentionInArticleTalkEditSummaryText(detailViewModel: detailViewModel)
+        try testMentionInArticleTalkEditSummaryImage(detailViewModel: detailViewModel)
         try testMentionInArticleTalkEditSummaryActions(detailViewModel: detailViewModel)
     }
     
@@ -50,6 +54,7 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         let detailViewModel = try detailViewModelFromIdentifier(identifier: "6")
         
         try testMentionFailureNotFoundText(detailViewModel: detailViewModel)
+        try testMentionFailureNotFoundImage(detailViewModel: detailViewModel)
         try testMentionFailureNotFoundActions(detailViewModel: detailViewModel)
     }
     
@@ -57,6 +62,7 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         let detailViewModel = try detailViewModelFromIdentifier(identifier: "7")
         
         try testMentionSuccessText(detailViewModel: detailViewModel)
+        try testMentionSuccessImage(detailViewModel: detailViewModel)
         try testMentionSuccessActions(detailViewModel: detailViewModel)
     }
     
@@ -80,6 +86,10 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         XCTAssertEqual(detailViewModel.headerDate, "7/16/21", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Section Title", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Reply text mention in talk page User:Jack The Cat", "Invalid contentBody")
+    }
+    
+    private func testMentionInUserTalkImage(detailViewModel: NotificationsCenterDetailViewModel) throws {
+        XCTAssertEqual(detailViewModel.headerImageName, "notifications-type-mention", "Invalid headerImageName")
     }
     
     private func testMentionInUserTalkActions(detailViewModel: NotificationsCenterDetailViewModel) throws {
@@ -120,6 +130,10 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         XCTAssertEqual(detailViewModel.contentBody, "Edit Summary Text: User:Jack The Cat", "Invalid contentBody")
     }
     
+    private func testMentionInUserTalkEditSummaryImage(detailViewModel: NotificationsCenterDetailViewModel) throws {
+        XCTAssertEqual(detailViewModel.headerImageName, "notifications-type-mention", "Invalid headerImageName")
+    }
+    
     private func testMentionInUserTalkEditSummaryActions(detailViewModel: NotificationsCenterDetailViewModel) throws {
 
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
@@ -150,6 +164,10 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         XCTAssertEqual(detailViewModel.headerDate, "3/14/22", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Section Title", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Jack The Cat Reply text mention in talk page.", "Invalid contentBody")
+    }
+    
+    private func testMentionInArticleTalkImage(detailViewModel: NotificationsCenterDetailViewModel) throws {
+        XCTAssertEqual(detailViewModel.headerImageName, "notifications-type-mention", "Invalid headerImageName")
     }
     
     private func testMentionInArticleTalkActions(detailViewModel: NotificationsCenterDetailViewModel) throws {
@@ -188,6 +206,10 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         XCTAssertEqual(detailViewModel.headerDate, "1/6/22", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Mention in edit summary", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Edit Summary Text User:Jack The Cat", "Invalid contentBody")
+    }
+    
+    private func testMentionInArticleTalkEditSummaryImage(detailViewModel: NotificationsCenterDetailViewModel) throws {
+        XCTAssertEqual(detailViewModel.headerImageName, "notifications-type-mention", "Invalid headerImageName")
     }
     
     private func testMentionInArticleTalkEditSummaryActions(detailViewModel: NotificationsCenterDetailViewModel) throws {
@@ -242,6 +264,10 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         XCTAssertEqual(detailViewModel.contentBody, "Your mention of Fredirufjdjd was not sent because the user was not found.", "Invalid contentBody")
     }
     
+    private func testMentionFailureNotFoundImage(detailViewModel: NotificationsCenterDetailViewModel) throws {
+        XCTAssertEqual(detailViewModel.headerImageName, "notifications-type-mention", "Invalid headerImageName")
+    }
+    
     private func testMentionFailureNotFoundActions(detailViewModel: NotificationsCenterDetailViewModel) throws {
 
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
@@ -260,6 +286,10 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         XCTAssertEqual(detailViewModel.headerDate, "7/16/21", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Successful mention", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Your mention of Jack The Cat was sent.", "Invalid contentBody")
+    }
+    
+    private func testMentionSuccessImage(detailViewModel: NotificationsCenterDetailViewModel) throws {
+        XCTAssertEqual(detailViewModel.headerImageName, "notifications-type-mention", "Invalid headerImageName")
     }
     
     private func testMentionSuccessActions(detailViewModel: NotificationsCenterDetailViewModel) throws {

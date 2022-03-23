@@ -14,6 +14,7 @@ class NotificationsCenterDetailViewModelWelcomeTests: NotificationsCenterViewMod
         let detailViewModel = try detailViewModelFromIdentifier(identifier: "1")
         
         try testWelcomeText(detailViewModel: detailViewModel)
+        try testWelcomeImage(detailViewModel: detailViewModel)
         try testWelcomeActions(detailViewModel: detailViewModel)
     }
     
@@ -23,6 +24,10 @@ class NotificationsCenterDetailViewModelWelcomeTests: NotificationsCenterViewMod
         XCTAssertEqual(detailViewModel.headerDate, "12/19/18", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Welcome!", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Welcome to Wikipedia, Jack The Cat! We\'re glad you\'re here.", "Invalid contentBody")
+    }
+    
+    private func testWelcomeImage(detailViewModel: NotificationsCenterDetailViewModel) throws {
+        XCTAssertEqual(detailViewModel.headerImageName, "notifications-type-milestone", "Invalid headerImageName")
     }
     
     private func testWelcomeActions(detailViewModel: NotificationsCenterDetailViewModel) throws {

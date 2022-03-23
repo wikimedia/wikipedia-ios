@@ -13,6 +13,7 @@ class NotificationsCenterDetailViewModelPageLinkTests: NotificationsCenterViewMo
         let detailViewModel = try detailViewModelFromIdentifier(identifier: "1")
         
         try testPageLinkText(detailViewModel: detailViewModel)
+        try testPageLinkImage(detailViewModel: detailViewModel)
         try testPageLinkActions(detailViewModel: detailViewModel)
     }
     
@@ -22,6 +23,10 @@ class NotificationsCenterDetailViewModelPageLinkTests: NotificationsCenterViewMo
         XCTAssertEqual(detailViewModel.headerDate, "1/25/20", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Page link", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "A link was made from Black Cat to Blue Bird.", "Invalid contentBody")
+    }
+    
+    private func testPageLinkImage(detailViewModel: NotificationsCenterDetailViewModel) throws {
+        XCTAssertEqual(detailViewModel.headerImageName, "notifications-type-link", "Invalid headerImageName")
     }
     
     private func testPageLinkActions(detailViewModel: NotificationsCenterDetailViewModel) throws {

@@ -14,6 +14,7 @@ class NotificationsCenterDetailViewModelGenericTests: NotificationsCenterViewMod
         let detailViewModel = try detailViewModelFromIdentifier(identifier: "1")
         
         try testPageReviewText(detailViewModel: detailViewModel)
+        try testPageReviewImage(detailViewModel: detailViewModel)
         try testPageReviewActions(detailViewModel: detailViewModel)
     }
     
@@ -22,6 +23,7 @@ class NotificationsCenterDetailViewModelGenericTests: NotificationsCenterViewMod
         let detailViewModel = try detailViewModelFromIdentifier(identifier: "2")
         
         try testFlowReplyText(detailViewModel: detailViewModel)
+        try testFlowReplyImage(detailViewModel: detailViewModel)
         try testFlowReplyActions(detailViewModel: detailViewModel)
     }
     
@@ -39,6 +41,10 @@ class NotificationsCenterDetailViewModelGenericTests: NotificationsCenterViewMod
         XCTAssertEqual(detailViewModel.headerDate, "7/20/21", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Alert", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "A reviewer suggested improvements to the page Bird. Tags: notability, blp sources.", "Invalid contentBody")
+    }
+    
+    private func testPageReviewImage(detailViewModel: NotificationsCenterDetailViewModel) throws {
+        XCTAssertEqual(detailViewModel.headerImageName, "notifications-type-login-notify", "Invalid headerImageName")
     }
     
     private func testPageReviewActions(detailViewModel: NotificationsCenterDetailViewModel) throws {
@@ -71,6 +77,10 @@ class NotificationsCenterDetailViewModelGenericTests: NotificationsCenterViewMod
         XCTAssertEqual(detailViewModel.headerDate, "7/20/21", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Fred The Bird replied in \"Section Title\".", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Reply text", "Invalid contentBody")
+    }
+    
+    private func testFlowReplyImage(detailViewModel: NotificationsCenterDetailViewModel) throws {
+        XCTAssertEqual(detailViewModel.headerImageName, "notifications-type-default", "Invalid headerImageName")
     }
     
     private func testFlowReplyActions(detailViewModel: NotificationsCenterDetailViewModel) throws {

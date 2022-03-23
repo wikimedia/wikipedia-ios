@@ -15,6 +15,7 @@ class NotificationsCenterDetailViewModelEditMilestoneTests: NotificationsCenterV
         let detailViewModel = try detailViewModelFromIdentifier(identifier: "1")
         
         try testEditMilestoneOneOnUserPageText(detailViewModel: detailViewModel)
+        try testEditMilestoneOneOnUserPageImage(detailViewModel: detailViewModel)
         try testEditMilestoneOneOnUserPageActions(detailViewModel: detailViewModel)
     }
     
@@ -40,6 +41,10 @@ class NotificationsCenterDetailViewModelEditMilestoneTests: NotificationsCenterV
         XCTAssertEqual(detailViewModel.headerDate, "4/2/19", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Editing milestone", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "You just made your first edit; thank you, and welcome!", "Invalid contentBody")
+    }
+    
+    private func testEditMilestoneOneOnUserPageImage(detailViewModel: NotificationsCenterDetailViewModel) throws {
+        XCTAssertEqual(detailViewModel.headerImageName, "notifications-type-milestone", "Invalid headerImageName")
     }
     
     private func testEditMilestoneOneOnUserPageActions(detailViewModel: NotificationsCenterDetailViewModel) throws {

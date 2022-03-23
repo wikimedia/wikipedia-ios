@@ -13,6 +13,7 @@ class NotificationsCenterDetailViewModelUserGroupRightsChangeTests: Notification
         let detailViewModel = try detailViewModelFromIdentifier(identifier: "1")
         
         try testUserRightsChangeText(detailViewModel: detailViewModel)
+        try testUserRightsChangeImage(detailViewModel: detailViewModel)
         try testUserRightsChangeActions(detailViewModel: detailViewModel)
     }
     
@@ -22,6 +23,10 @@ class NotificationsCenterDetailViewModelUserGroupRightsChangeTests: Notification
         XCTAssertEqual(detailViewModel.headerDate, "5/13/20", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "User rights change", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Your user rights were changed. You have been added to: Confirmed users.", "Invalid contentBody")
+    }
+    
+    private func testUserRightsChangeImage(detailViewModel: NotificationsCenterDetailViewModel) throws {
+        XCTAssertEqual(detailViewModel.headerImageName, "notifications-type-user-rights", "Invalid headerImageName")
     }
     
     private func testUserRightsChangeActions(detailViewModel: NotificationsCenterDetailViewModel) throws {

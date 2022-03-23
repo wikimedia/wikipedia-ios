@@ -14,6 +14,7 @@ class NotificationsCenterDetailViewModelEditRevertedTests: NotificationsCenterVi
         let detailViewModel = try detailViewModelFromIdentifier(identifier: "1")
         
         try testEditRevertedOnUserTalkEditText(detailViewModel: detailViewModel)
+        try testEditRevertedOnUserTalkEditImage(detailViewModel: detailViewModel)
         try testEditRevertedOnUserTalkEditActions(detailViewModel: detailViewModel)
     }
     
@@ -22,6 +23,7 @@ class NotificationsCenterDetailViewModelEditRevertedTests: NotificationsCenterVi
         let detailViewModel = try detailViewModelFromIdentifier(identifier: "2")
         
         try testEditRevertedOnArticleEditText(detailViewModel: detailViewModel)
+        try testEditRevertedOnArticleEditImage(detailViewModel: detailViewModel)
         try testEditRevertedOnArticleEditActions(detailViewModel: detailViewModel)
     }
     
@@ -31,6 +33,10 @@ class NotificationsCenterDetailViewModelEditRevertedTests: NotificationsCenterVi
         XCTAssertEqual(detailViewModel.headerDate, "7/19/21", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Edit reverted", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Your edit was reverted", "Invalid contentBody")
+    }
+    
+    private func testEditRevertedOnUserTalkEditImage(detailViewModel: NotificationsCenterDetailViewModel) throws {
+        XCTAssertEqual(detailViewModel.headerImageName, "notifications-type-edit-revert", "Invalid headerImageName")
     }
     
     private func testEditRevertedOnUserTalkEditActions(detailViewModel: NotificationsCenterDetailViewModel) throws {
@@ -69,6 +75,10 @@ class NotificationsCenterDetailViewModelEditRevertedTests: NotificationsCenterVi
         XCTAssertEqual(detailViewModel.headerDate, "9/2/21", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Edit reverted", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Your edit was reverted", "Invalid contentBody")
+    }
+    
+    private func testEditRevertedOnArticleEditImage(detailViewModel: NotificationsCenterDetailViewModel) throws {
+        XCTAssertEqual(detailViewModel.headerImageName, "notifications-type-edit-revert", "Invalid headerImageName")
     }
     
     private func testEditRevertedOnArticleEditActions(detailViewModel: NotificationsCenterDetailViewModel) throws {

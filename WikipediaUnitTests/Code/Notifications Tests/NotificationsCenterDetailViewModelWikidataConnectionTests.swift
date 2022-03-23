@@ -14,6 +14,7 @@ class NotificationsCenterDetailViewModelWikidataConnectionTests: NotificationsCe
         let detailViewModel = try detailViewModelFromIdentifier(identifier: "1")
         
         try testWikidataConnectionText(detailViewModel: detailViewModel)
+        try testWikidataConnectionImage(detailViewModel: detailViewModel)
         try testWikidataConnectionActions(detailViewModel: detailViewModel)
     }
     
@@ -23,6 +24,10 @@ class NotificationsCenterDetailViewModelWikidataConnectionTests: NotificationsCe
         XCTAssertEqual(detailViewModel.headerDate, "1/25/20", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Wikidata connection made", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "The page Blue Bird was connected to the Wikidata item Q83380765, where data relevant to the topic can be collected.", "Invalid contentBody")
+    }
+    
+    private func testWikidataConnectionImage(detailViewModel: NotificationsCenterDetailViewModel) throws {
+        XCTAssertEqual(detailViewModel.headerImageName, "notifications-type-link", "Invalid headerImageName")
     }
     
     private func testWikidataConnectionActions(detailViewModel: NotificationsCenterDetailViewModel) throws {

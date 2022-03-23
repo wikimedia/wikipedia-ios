@@ -14,6 +14,7 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
         let detailViewModel = try detailViewModelFromIdentifier(identifier: "1")
         
         try testUserTalkPageGenericMessageText(detailViewModel: detailViewModel)
+        try testUserTalkPageGenericMessageImage(detailViewModel: detailViewModel)
         try testUserTalkPageGenericMessageActions(detailViewModel: detailViewModel)
     }
     
@@ -63,6 +64,10 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
         XCTAssertEqual(detailViewModel.headerDate, "4/11/19", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Talk page message", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "Message on your talk page", "Invalid contentBody")
+    }
+    
+    private func testUserTalkPageGenericMessageImage(detailViewModel: NotificationsCenterDetailViewModel) throws {
+        XCTAssertEqual(detailViewModel.headerImageName, "notifications-type-user-talk-message", "Invalid headerImageName")
     }
     
     private func testUserTalkPageGenericMessageActions(detailViewModel: NotificationsCenterDetailViewModel) throws {
