@@ -514,7 +514,8 @@
 "settings-help-and-feedback" = "Hëllef a Feedback";
 "settings-language-bar" = "Sprooche beim Siche weisen";
 "settings-my-languages" = "Meng Sproochen";
-"settings-notifications" = "Notifikatiounen";
+"settings-notifications" = "Push-Notifikatiounen";
+"settings-notifications-echo-failure-try-again" = "Nach eng Kéier probéieren";
 "settings-notifications-learn-more" = "Méi iwwer d'Notifikatioune gewuer ginn";
 "settings-notifications-push-notifications" = "Push-Notifikatiounen";
 "settings-notifications-system-turn-on" = "Notifikatiounen aschalten";

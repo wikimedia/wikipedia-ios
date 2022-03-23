@@ -335,6 +335,7 @@
 "settings-help-and-feedback" = "Көмө уонна ситим";
 "settings-language-bar" = "Көрдүүргэ омугун тылын көрдөрөр буол";
 "settings-my-languages" = "Мин тылларым";
+// Fuzzy
 "settings-notifications" = "Биллэриилэр";
 "settings-notifications-info" = "Бикипиэдьийэҕэ суруллар саҥаны-сонуну биһиги угуйар биллэриилэрбититтэн тута билиҥ. Маны туһанар киһи тус дааннайа толору көмүскэллээх.";
 "settings-notifications-learn-more" = "Биллэрии туһунан сиһилии";

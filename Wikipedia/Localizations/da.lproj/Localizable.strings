@@ -528,6 +528,7 @@
 "settings-help-and-feedback" = "Hjælp og tilbagemelding";
 "settings-language-bar" = "Vis sprog ved søgning";
 "settings-my-languages" = "Mine sprog";
+// Fuzzy
 "settings-notifications" = "Notifikationer";
 "settings-notifications-info" = "Få meldinger om populære artikler på Wikipedia med vores push-notifikationer. Alle leveret med respekt for privatliv og sidste nye data.";
 "settings-notifications-learn-more" = "Lær mere om notifikationer";

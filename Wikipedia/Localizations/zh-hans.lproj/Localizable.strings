@@ -34,6 +34,7 @@
 // Author: Viztor
 // Author: VulpesVulpes825
 // Author: Willy1018
+// Author: Winston Sung
 // Author: Wxyveronica
 // Author: Xiplus
 // Author: Yfdyh000
@@ -881,7 +882,7 @@
 "search-title" = "搜索";
 "serbian-variants-alert-body" = "维基百科应用现在支持以下塞尔维亚语变体作为应用内的主要语言或次要语言，从而使您更易于阅读，搜索和编辑首选变体：\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "更新塞尔维亚语变体支持";
-"settings-account" = "账户";
+"settings-account" = "账号";
 "settings-appearance" = "阅读参数设置";
 "settings-clear-cache" = "清空缓存的数据";
 "settings-clear-cache-are-you-sure-message" = "清空缓存的数据将腾出约$1空间。这将不会删除您保存的页面。";
@@ -892,7 +893,7 @@
 "settings-language-bar" = "在搜索时显示语言";
 "settings-languages-feed-customization" = "您可以通过自定义您的探索订阅源设置，管理显示在您的探索订阅源的语言。";
 "settings-my-languages" = "我的语言";
-"settings-notifications" = "通知";
+"settings-notifications" = "推送通知";
 "settings-notifications-info" = "通过我们推送的通知，提醒维基百科上的趋势和最多阅读条目。所有通知都已考虑到隐私和最新数据。";
 "settings-notifications-learn-more" = "了解更多有关通知";
 "settings-notifications-push-notifications" = "推送通知";

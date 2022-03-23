@@ -678,6 +678,7 @@
 "settings-language-bar" = "Tampilkan bahasa pada carian";
 "settings-languages-feed-customization" = "Anda boleh mengurus bahasa mana yang ditunjukkan pada suapan Teroka anda dengan menyesuaikan tetapan suapan Teroka anda.";
 "settings-my-languages" = "Bahasa saya";
+// Fuzzy
 "settings-notifications" = "Pemberitahuan";
 "settings-notifications-info" = "Dimaklumkan kepada arah aliran dan membaca bahagian rencana mengenai Wikipedia dengan pemberitahuan menolak kami. Semua yang diperuntukkan berkenaan dengan privasi dan sehingga data minit.";
 "settings-notifications-learn-more" = "Ketahui lebih lanjut mengenai pemberitahuan";

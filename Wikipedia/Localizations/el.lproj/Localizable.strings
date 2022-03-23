@@ -415,6 +415,7 @@
 "settings-help-and-feedback" = "Βοήθεια και ανατροφοδότηση";
 "settings-language-bar" = "Εμφάνιση γλωσσών στην αναζήτηση";
 "settings-my-languages" = "Οι γλώσσες μου";
+// Fuzzy
 "settings-notifications" = "Ενημερώσεις";
 "settings-notifications-learn-more" = "Μάθετε περισσότερα για τις ειδοποιήσεις";
 "settings-notifications-system-turn-on" = "Ενεργοποίηση ειδοποιήσεων";

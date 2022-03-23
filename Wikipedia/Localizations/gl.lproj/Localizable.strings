@@ -682,6 +682,7 @@
 "settings-language-bar" = "Amosar as linguas ó procurar";
 "settings-languages-feed-customization" = "Pode xestionar que linguas se amosan na súa canle de exploración personalizando os parámetros da canle.";
 "settings-my-languages" = "As miñas linguas";
+// Fuzzy
 "settings-notifications" = "Notificacións";
 "settings-notifications-info" = "Ter alertas co noso sistema de notificacións sobre tendencias e artigos máis lidos na Wikipedia. Todo respectando a súa privacidade e actualizado coa última información dispoñible.";
 "settings-notifications-learn-more" = "Saber máis sobre as notificacións";

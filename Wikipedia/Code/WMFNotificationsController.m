@@ -16,7 +16,7 @@ NSString *const WMFNotificationInfoArticleExtractKey = @"articleExtract";
 NSString *const WMFNotificationInfoViewCountsKey = @"viewCounts";
 NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
 
-//const CGFloat WMFNotificationImageCropNormalizedMinDimension = 1; //for some reason, cropping isn't respected if a full dimension (1) is indicated
+// const CGFloat WMFNotificationImageCropNormalizedMinDimension = 1; //for some reason, cropping isn't respected if a full dimension (1) is indicated
 
 @interface WMFNotificationsController ()
 
@@ -37,24 +37,33 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
         self.languageLinkController = languageLinkController;
         self.echoSubscriptionFetcher = [[WMFEchoSubscriptionFetcher alloc] initWithSession:dataStore.session configuration:dataStore.configuration];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAppLanguageDidChangeNotification:) name:WMFAppLanguageDidChangeNotification object:nil];
-
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationManagerWillLogOut) name:WMFAuthenticationManager.willLogOutNotification object:nil];
         [self silentlyOptInToBadgePermissionsIfNecessary];
     }
     return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)authenticationManagerWillLogOut {
+    [self unsubscribeFromEchoNotificationsWithCompletionHandler:nil];
 }
 
 - (void)silentlyOptInToBadgePermissionsIfNecessary {
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings *settings) {
         if (settings.authorizationStatus == UNAuthorizationStatusAuthorized) {
-            [center requestAuthorizationWithOptions:UNAuthorizationOptionBadge completionHandler:^(BOOL granted, NSError *error) {
-                // Silently opt-in a user who has previously authorized the app for alerts and sounds into the app icon badge permission as well
-            }];
+            [center requestAuthorizationWithOptions:UNAuthorizationOptionBadge
+                                  completionHandler:^(BOOL granted, NSError *error){
+                                      // Silently opt-in a user who has previously authorized the app for alerts and sounds into the app icon badge permission as well
+                                  }];
         }
     }];
 }
 
-- (void)handleAppLanguageDidChangeNotification: (NSNotification *)notification {
+- (void)handleAppLanguageDidChangeNotification:(NSNotification *)notification {
     [self updatePushNotificationsCacheWithNewPrimaryAppLanguage:self.languageLinkController.appLanguage];
 }
 
@@ -91,20 +100,32 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
 - (void)setRemoteNotificationRegistrationStatusWithDeviceToken:(nullable NSData *)deviceToken error:(nullable NSError *)error {
     self.remoteRegistrationDeviceToken = deviceToken;
     self.remoteRegistrationError = error;
-    [self.deviceTokenDelegate didUpdateDeviceTokenStatusFromNotificationsController:self];
 }
 
 - (void)subscribeToEchoNotificationsWithCompletionHandler:(nullable void (^)(NSError *__nullable error))completionHandler {
     [self updatePushNotificationsCacheWithNewPrimaryAppLanguage:self.languageLinkController.appLanguage];
-    [self.echoSubscriptionFetcher subscribeWithSiteURL:self.languageLinkController.appLanguage.siteURL deviceToken:self.remoteRegistrationDeviceToken completion:completionHandler];
+    [self.echoSubscriptionFetcher subscribeWithSiteURL:self.languageLinkController.appLanguage.siteURL
+                                           deviceToken:self.remoteRegistrationDeviceToken
+                                            completion:^(NSError *__nullable error) {
+                                                if (error == nil) {
+                                                    NSUserDefaults.standardUserDefaults.wmf_isSubscribedToEchoNotifications = YES;
+                                                }
+                                                completionHandler(error);
+                                            }];
 }
 
 - (void)unsubscribeFromEchoNotificationsWithCompletionHandler:(nullable void (^)(NSError *__nullable error))completionHandler {
-    [self.echoSubscriptionFetcher unsubscribeWithSiteURL:self.languageLinkController.appLanguage.siteURL deviceToken:self.remoteRegistrationDeviceToken completion:completionHandler];
-}
+    [self.echoSubscriptionFetcher unsubscribeWithSiteURL:self.languageLinkController.appLanguage.siteURL
+                                             deviceToken:self.remoteRegistrationDeviceToken
+                                              completion:^(NSError *__nullable error) {
+                                                  if (error == nil) {
+                                                      NSUserDefaults.standardUserDefaults.wmf_isSubscribedToEchoNotifications = NO;
+                                                  }
 
-- (BOOL)isWaitingOnDeviceToken {
-    return self.remoteRegistrationDeviceToken == nil && self.remoteRegistrationError == nil;
+                                                  if (completionHandler) {
+                                                      completionHandler(error);
+                                                  }
+                                              }];
 }
 
 - (void)updateCategories {
@@ -222,30 +243,30 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
                 }
                 success:^(NSValue *faceRectValue) {
                     if (faceRectValue) {
-                        //CGFloat aspect = image.size.width / image.size.height;
-                        //                                                    CGRect cropRect = CGRectMake(0, 0, 1, 1);
-                        //                                                    if (faceRectValue) {
-                        //                                                        CGRect faceRect = [faceRectValue CGRectValue];
-                        //                                                        if (aspect < 1) {
-                        //                                                            CGFloat faceMidY = CGRectGetMidY(faceRect);
-                        //                                                            CGFloat normalizedHeight = WMFNotificationImageCropNormalizedMinDimension * aspect;
-                        //                                                            CGFloat halfNormalizedHeight = 0.5 * normalizedHeight;
-                        //                                                            CGFloat originY = MAX(0, faceMidY - halfNormalizedHeight);
-                        //                                                            CGFloat normalizedWidth = MAX(faceRect.size.width, WMFNotificationImageCropNormalizedMinDimension);
-                        //                                                            CGFloat originX = 0.5 * (1 - normalizedWidth);
-                        //                                                            cropRect = CGRectMake(originX, originY, normalizedWidth, normalizedHeight);
-                        //                                                        } else {
-                        //                                                            CGFloat faceMidX = CGRectGetMidX(faceRect);
-                        //                                                            CGFloat normalizedWidth = WMFNotificationImageCropNormalizedMinDimension / aspect;
-                        //                                                            CGFloat halfNormalizedWidth = 0.5 * normalizedWidth;
-                        //                                                            CGFloat originX = MAX(0, faceMidX - halfNormalizedWidth);
-                        //                                                            CGFloat normalizedHeight = MAX(faceRect.size.height, WMFNotificationImageCropNormalizedMinDimension);
-                        //                                                            CGFloat originY = 0.5 * (1 - normalizedHeight);
-                        //                                                            cropRect = CGRectMake(originX, originY, normalizedWidth, normalizedHeight);
-                        //                                                        }
-                        //                                                    }
+                        // CGFloat aspect = image.size.width / image.size.height;
+                        //                                                     CGRect cropRect = CGRectMake(0, 0, 1, 1);
+                        //                                                     if (faceRectValue) {
+                        //                                                         CGRect faceRect = [faceRectValue CGRectValue];
+                        //                                                         if (aspect < 1) {
+                        //                                                             CGFloat faceMidY = CGRectGetMidY(faceRect);
+                        //                                                             CGFloat normalizedHeight = WMFNotificationImageCropNormalizedMinDimension * aspect;
+                        //                                                             CGFloat halfNormalizedHeight = 0.5 * normalizedHeight;
+                        //                                                             CGFloat originY = MAX(0, faceMidY - halfNormalizedHeight);
+                        //                                                             CGFloat normalizedWidth = MAX(faceRect.size.width, WMFNotificationImageCropNormalizedMinDimension);
+                        //                                                             CGFloat originX = 0.5 * (1 - normalizedWidth);
+                        //                                                             cropRect = CGRectMake(originX, originY, normalizedWidth, normalizedHeight);
+                        //                                                         } else {
+                        //                                                             CGFloat faceMidX = CGRectGetMidX(faceRect);
+                        //                                                             CGFloat normalizedWidth = WMFNotificationImageCropNormalizedMinDimension / aspect;
+                        //                                                             CGFloat halfNormalizedWidth = 0.5 * normalizedWidth;
+                        //                                                             CGFloat originX = MAX(0, faceMidX - halfNormalizedWidth);
+                        //                                                             CGFloat normalizedHeight = MAX(faceRect.size.height, WMFNotificationImageCropNormalizedMinDimension);
+                        //                                                             CGFloat originY = 0.5 * (1 - normalizedHeight);
+                        //                                                             cropRect = CGRectMake(originX, originY, normalizedWidth, normalizedHeight);
+                        //                                                         }
+                        //                                                     }
 
-                        //Since face cropping is broken, don't attach images with faces
+                        // Since face cropping is broken, don't attach images with faces
                         [self sendNotificationWithTitle:title body:body categoryIdentifier:categoryIdentifier userInfo:userInfo atDateComponents:dateComponents withAttachements:nil];
                     } else {
                         [self sendNotificationWithTitle:title body:body categoryIdentifier:categoryIdentifier userInfo:userInfo atDateComponents:dateComponents withAttachements:imageAttachements];

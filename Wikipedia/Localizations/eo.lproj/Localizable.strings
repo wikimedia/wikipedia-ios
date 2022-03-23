@@ -671,6 +671,7 @@
 "settings-language-bar" = "Montri lingvojn dum serĉado";
 "settings-languages-feed-customization" = "Vi povas administri kiuj lingvoj estas montrataj sur via Esplorfluo tajlorante viajn Esplorfluajn agordojn.";
 "settings-my-languages" = "Miaj lingvoj";
+// Fuzzy
 "settings-notifications" = "Sciigoj";
 "settings-notifications-info" = "Estu sciigita pri popularaj kaj plej ofte legitaj artikoloj sur Vikipedio dank'al niaj sciigoj. Ili ĉiuj estas provizataj kun respekto al privateco kaj kun plej ĝisdatigitaj datumoj.";
 "settings-notifications-learn-more" = "Ekscii pli pri sciigoj";

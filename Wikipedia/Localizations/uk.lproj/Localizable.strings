@@ -878,6 +878,7 @@
 "settings-language-bar" = "Показувати мови при пошуку";
 "settings-languages-feed-customization" = "Ви можете зазначити в налаштуваннях, які мови показуватимуться у вашій стрічці.";
 "settings-my-languages" = "Мої мови";
+// Fuzzy
 "settings-notifications" = "Сповіщення";
 "settings-notifications-info" = "Будьте в курсі трендових і найпопулярніших статей у Вікіпедії з нашими push-сповіщеннями. Уся інформація надається зі збереженням конфіденційності та з точністю до хвилини.";
 "settings-notifications-learn-more" = "Дізнатися більше про сповіщення";
