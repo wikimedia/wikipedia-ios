@@ -14,6 +14,7 @@ class NotificationsCenterDetailViewModelLoginIssuesTests: NotificationsCenterVie
         let detailViewModel = try detailViewModelFromIdentifier(identifier: "1")
         
         try testLoginFailKnownDeviceText(detailViewModel: detailViewModel)
+        try testLoginFailKnownDeviceImage(detailViewModel: detailViewModel)
         try testLoginFailKnownDeviceActions(detailViewModel: detailViewModel)
     }
     
@@ -23,6 +24,10 @@ class NotificationsCenterDetailViewModelLoginIssuesTests: NotificationsCenterVie
         XCTAssertEqual(detailViewModel.headerDate, "7/16/21", "Invalid headerDate")
         XCTAssertEqual(detailViewModel.contentTitle, "Multiple failed log in attempts", "Invalid contentTitle")
         XCTAssertEqual(detailViewModel.contentBody, "There have been 5 failed attempts to log in to your account since the last time you logged in. If it wasn\'t you, please make sure your account has a strong password.", "Invalid contentBody")
+    }
+    
+    private func testLoginFailKnownDeviceImage(detailViewModel: NotificationsCenterDetailViewModel) throws {
+        XCTAssertEqual(detailViewModel.headerImageName, "notifications-type-login-notify", "Invalid headerImageName")
     }
     
     private func testLoginFailKnownDeviceActions(detailViewModel: NotificationsCenterDetailViewModel) throws {
