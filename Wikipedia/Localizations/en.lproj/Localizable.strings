@@ -85,6 +85,7 @@
 "action-add-to-reading-list" = "Add to reading list";
 "action-add-to-reading-list-short" = "Add to list";
 "action-cancel" = "Cancel";
+"action-discard-edits" = "Discard edits";
 "action-find-in-page" = "Find in page";
 "action-language-accessibility" = "Change language";
 "action-move-to" = "Move to…";
@@ -295,6 +296,8 @@
 "editing-welcome-impartial-tone-title" = "Write in an impartial tone";
 "editing-welcome-set-knowledge-free-subtitle" = "In order to give everyone access to the world’s knowledge, we need you to participate in its creation by reading, editing, and contributing to the topics that matter most to you.";
 "editing-welcome-set-knowledge-free-title" = "Set knowledge free";
+"editor-exit-confirmation-body" = "Are you sure you want to leave editing mode without publishing first?";
+"editor-exit-confirmation-title" = "Dismiss the editing mode?";
 "empty-diff-compare-title" = "No differences between revisions";
 "empty-diff-single-title" = "No viewable changes made";
 "empty-insert-media-title" = "Select a file from Wikimedia Commons";
