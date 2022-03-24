@@ -402,7 +402,7 @@ private extension NotificationsCenterViewController {
         let filterView = NotificationsCenterFilterView(viewModel: filtersViewModel, doneAction: { [weak self] in
             self?.dismiss(animated: true)
         })
-        
+
         presentView(view: filterView)
     }
     
@@ -500,15 +500,15 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
         }
 
         if !viewModel.isEditing {
-            
             collectionView.deselectItem(at: indexPath, animated: true)
 
-            if let primaryURL = cellViewModel.primaryURL {
-                navigate(to: primaryURL)
-                if !cellViewModel.isRead {
-                    viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true)
-                }
+            if !cellViewModel.isRead {
+                viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true)
             }
+
+            let detailViewModel = NotificationsCenterDetailViewModel(commonViewModel: cellViewModel.commonViewModel)
+            let detailViewController = NotificationsCenterDetailViewController(theme: theme, viewModel: detailViewModel)
+            push(detailViewController)
         } else {
             viewModel.updateCellDisplayStates(cellViewModels: [cellViewModel], isSelected: true)
             let selectedCellViewModels = self.selectedCellViewModels
