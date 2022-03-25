@@ -21,10 +21,14 @@ struct NotificationsCenterOnboardingView: View {
 
     // MARK: - Properties
 
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+
     var theme: Theme
     var dismissAction: (() -> Void)?
 
-    let devicePadding: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 64 : 16
+    var sizeClassPadding: CGFloat {
+        horizontalSizeClass == .regular ? 64 : 16
+    }
 
     var continueButtonTextColor: Color {
         switch theme {
@@ -56,7 +60,7 @@ struct NotificationsCenterOnboardingView: View {
                     Spacer(minLength: 8)
                     NotificationsCenterOnboardingRowView(theme: theme, image: .push, header: LocalizedStrings.pushTitle, message: LocalizedStrings.pushMessage)
                 }
-                .padding(devicePadding)
+                .padding(sizeClassPadding)
             }
             ZStack(alignment: .bottom, content: {
                 VStack {
@@ -81,7 +85,7 @@ struct NotificationsCenterOnboardingView: View {
                     Spacer().frame(height: 18)
                 }
             })
-            .padding(devicePadding)
+            .padding(sizeClassPadding)
         }
     }
 
