@@ -33,7 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFContentGroupKindOnThisDay:
             return WMFCommonStrings.onThisDayTitle;
         case WMFContentGroupKindNotification:
-            return WMFLocalizedStringWithDefaultValue(@"notification-centerfeed-card-title", nil, nil, @"Editing notifications now available", @"Title for the 'Notification' explore feed card");;
+            return WMFLocalizedStringWithDefaultValue(@"notifications-center-feed-card-title", nil, nil, @"Editing notifications now available", @"Title for the 'Notification' explore feed card");
+            ;
         default:
             break;
     }
