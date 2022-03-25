@@ -481,23 +481,34 @@ extension NotificationsCenterViewController: NotificationsCenterOnboardingDelega
             return
         }
 
-        let primaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _ in
-            self?.dismiss(animated: true, completion: {
-                self?.userDidTapPushNotificationsOptIn()
-            })
-        }
+        viewModel.notificationsController.notificationPermissionsStatus { [weak self] status in
+            guard let self = self else { return }
 
-        let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _ in
-            self?.dismiss(animated: true)
-        }
+            guard status != .denied else {
+                UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter = true
+                return
+            }
 
-        let dismissHandler: ScrollableEducationPanelDismissHandler = {
-            UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter = true
-        }
+            DispatchQueue.main.async {
+                let primaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _ in
+                    self?.dismiss(animated: true, completion: {
+                        self?.userDidTapPushNotificationsOptIn()
+                    })
+                }
 
-        let panel = NotificationsCenterOnboardingPushPanelViewController(showCloseButton: false, primaryButtonTapHandler: primaryTapHandler, secondaryButtonTapHandler: secondaryTapHandler, dismissHandler: dismissHandler, theme: theme)
-        panel.dismissWhenTappedOutside = true
-        present(panel, animated: true)
+                let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _ in
+                    self?.dismiss(animated: true)
+                }
+
+                let dismissHandler: ScrollableEducationPanelDismissHandler = {
+                    UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter = true
+                }
+
+                let panel = NotificationsCenterOnboardingPushPanelViewController(showCloseButton: false, primaryButtonTapHandler: primaryTapHandler, secondaryButtonTapHandler: secondaryTapHandler, dismissHandler: dismissHandler, theme: self.theme)
+                panel.dismissWhenTappedOutside = true
+                self.present(panel, animated: true)
+            }
+        }
     }
 
     func userDidDismissNotificationsCenterOnboardingView() {
