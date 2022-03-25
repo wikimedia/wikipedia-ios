@@ -88,8 +88,7 @@ struct NotificationsCenterOnboardingView: View {
     // MARK: - Actions
 
     func userDidTapLearnMore() {
-        // TODO: Replace with actual Meta Wiki FAQ when available
-        guard let url = URL(string: "https://phabricator.wikimedia.org/T302634") else {
+        guard let url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ#Notifications") else {
             return
         }
 
