@@ -23,6 +23,10 @@
 		0022DD2B25829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0022DD2825829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift */; };
 		0022DD2C25829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0022DD2825829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift */; };
 		002AB870250BEFBE00ADAC87 /* PictureOfTheDayWidget+LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002AB86F250BEFBE00ADAC87 /* PictureOfTheDayWidget+LocalizedStrings.swift */; };
+		0030592627DBC4CF00E96757 /* NotificationsCenterOnboardingHostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0030592527DBC4CF00E96757 /* NotificationsCenterOnboardingHostingViewController.swift */; };
+		0030592727DBC4CF00E96757 /* NotificationsCenterOnboardingHostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0030592527DBC4CF00E96757 /* NotificationsCenterOnboardingHostingViewController.swift */; };
+		0030592827DBC4CF00E96757 /* NotificationsCenterOnboardingHostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0030592527DBC4CF00E96757 /* NotificationsCenterOnboardingHostingViewController.swift */; };
+		0030592927DBC4CF00E96757 /* NotificationsCenterOnboardingHostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0030592527DBC4CF00E96757 /* NotificationsCenterOnboardingHostingViewController.swift */; };
 		0033D79924F818EC00CAB5B3 /* TopReadWidget+LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0033D79724F818EB00CAB5B3 /* TopReadWidget+LocalizedStrings.swift */; };
 		0033D79A24F818EC00CAB5B3 /* TopReadWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0033D79824F818EC00CAB5B3 /* TopReadWidget.swift */; };
 		0033D79D24F8193900CAB5B3 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0033D79B24F8193900CAB5B3 /* UIColor+Extensions.swift */; };
@@ -196,6 +200,10 @@
 		00BCB72326DEEB1C002C3F72 /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BCB72126DEEB1C002C3F72 /* RoundedImageView.swift */; };
 		00BCB72426DEEB1C002C3F72 /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BCB72126DEEB1C002C3F72 /* RoundedImageView.swift */; };
 		00BCB72526DEEB1C002C3F72 /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BCB72126DEEB1C002C3F72 /* RoundedImageView.swift */; };
+		00CF2EA027DABCA8006EFDDC /* NotificationsCenterOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CF2E9F27DABCA8006EFDDC /* NotificationsCenterOnboardingView.swift */; };
+		00CF2EA127DABCA8006EFDDC /* NotificationsCenterOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CF2E9F27DABCA8006EFDDC /* NotificationsCenterOnboardingView.swift */; };
+		00CF2EA227DABCA8006EFDDC /* NotificationsCenterOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CF2E9F27DABCA8006EFDDC /* NotificationsCenterOnboardingView.swift */; };
+		00CF2EA327DABCA8006EFDDC /* NotificationsCenterOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CF2E9F27DABCA8006EFDDC /* NotificationsCenterOnboardingView.swift */; };
 		00D280F7247EFFFE006BEE23 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D280F6247EFFFE006BEE23 /* Date+Extensions.swift */; };
 		00D280F8247EFFFE006BEE23 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D280F6247EFFFE006BEE23 /* Date+Extensions.swift */; };
 		00D280F9247EFFFE006BEE23 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D280F6247EFFFE006BEE23 /* Date+Extensions.swift */; };
@@ -3596,6 +3604,7 @@
 		0015712B27D92F6B00F1EB26 /* RetryBlockTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryBlockTask.swift; sourceTree = "<group>"; };
 		0022DD2825829D8C00790EC1 /* ScribbleIgnoringInteractionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScribbleIgnoringInteractionDelegate.swift; sourceTree = "<group>"; usesTabs = 0; };
 		002AB86F250BEFBE00ADAC87 /* PictureOfTheDayWidget+LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PictureOfTheDayWidget+LocalizedStrings.swift"; sourceTree = "<group>"; };
+		0030592527DBC4CF00E96757 /* NotificationsCenterOnboardingHostingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterOnboardingHostingViewController.swift; sourceTree = "<group>"; };
 		0033D79724F818EB00CAB5B3 /* TopReadWidget+LocalizedStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TopReadWidget+LocalizedStrings.swift"; sourceTree = "<group>"; };
 		0033D79824F818EC00CAB5B3 /* TopReadWidget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopReadWidget.swift; sourceTree = "<group>"; usesTabs = 0; };
 		0033D79B24F8193900CAB5B3 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
@@ -3747,6 +3756,7 @@
 		00BCB71726DEE04D002C3F72 /* InsetLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetLabelView.swift; sourceTree = "<group>"; };
 		00BCB71C26DEE1C7002C3F72 /* VerticalSpacerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalSpacerView.swift; sourceTree = "<group>"; };
 		00BCB72126DEEB1C002C3F72 /* RoundedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedImageView.swift; sourceTree = "<group>"; };
+		00CF2E9F27DABCA8006EFDDC /* NotificationsCenterOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterOnboardingView.swift; sourceTree = "<group>"; };
 		00D280F6247EFFFE006BEE23 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; usesTabs = 0; };
 		00D280FB247F019C006BEE23 /* Date+ExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+ExtensionTests.swift"; sourceTree = "<group>"; usesTabs = 0; };
 		00D5593424DB152300C78F08 /* WidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetsExtension.entitlements; sourceTree = "<group>"; };
@@ -5402,10 +5412,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D844D9731D6CB2600042D692 /* WMF.framework in Frameworks */,
 				83AF34F724D3341E000046D6 /* BackgroundTasks.framework in Frameworks */,
 				D8D553621DF1B63200B90177 /* QuartzCore.framework in Frameworks */,
 				D4E6D9121A5C65F9004916C1 /* CoreData.framework in Frameworks */,
-				D844D9731D6CB2600042D692 /* WMF.framework in Frameworks */,
 				D499143B181D51DE00E6073C /* CoreGraphics.framework in Frameworks */,
 				D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */,
 				D4991439181D51DE00E6073C /* Foundation.framework in Frameworks */,
@@ -5462,10 +5472,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8A42BA81E815A9C00D8E281 /* WMF.framework in Frameworks */,
 				83AF34FA24D3343B000046D6 /* BackgroundTasks.framework in Frameworks */,
 				D8A42B9D1E815A9C00D8E281 /* QuartzCore.framework in Frameworks */,
 				D8A42BA71E815A9C00D8E281 /* CoreData.framework in Frameworks */,
-				D8A42BA81E815A9C00D8E281 /* WMF.framework in Frameworks */,
 				D8A42BAA1E815A9C00D8E281 /* CoreGraphics.framework in Frameworks */,
 				D8A42BAD1E815A9C00D8E281 /* UIKit.framework in Frameworks */,
 				D8A42BAF1E815A9C00D8E281 /* Foundation.framework in Frameworks */,
@@ -5484,10 +5494,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8CE262C1E698E2400DAE2E0 /* WMF.framework in Frameworks */,
 				83AF34F924D33432000046D6 /* BackgroundTasks.framework in Frameworks */,
 				D8CE26201E698E2400DAE2E0 /* QuartzCore.framework in Frameworks */,
 				D8CE262B1E698E2400DAE2E0 /* CoreData.framework in Frameworks */,
-				D8CE262C1E698E2400DAE2E0 /* WMF.framework in Frameworks */,
 				D8CE262E1E698E2400DAE2E0 /* CoreGraphics.framework in Frameworks */,
 				D8CE26321E698E2400DAE2E0 /* UIKit.framework in Frameworks */,
 				D8CE26351E698E2400DAE2E0 /* Foundation.framework in Frameworks */,
@@ -5499,10 +5509,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8EC3F2E1E9BDA35006712EB /* WMF.framework in Frameworks */,
 				83AF34F824D33428000046D6 /* BackgroundTasks.framework in Frameworks */,
 				D8EC3F241E9BDA35006712EB /* QuartzCore.framework in Frameworks */,
 				D8EC3F2D1E9BDA35006712EB /* CoreData.framework in Frameworks */,
-				D8EC3F2E1E9BDA35006712EB /* WMF.framework in Frameworks */,
 				D8EC3F301E9BDA35006712EB /* CoreGraphics.framework in Frameworks */,
 				D8EC3F341E9BDA35006712EB /* UIKit.framework in Frameworks */,
 				D8EC3F361E9BDA35006712EB /* Foundation.framework in Frameworks */,
@@ -5889,6 +5899,7 @@
 		007CCF0526D5A10700D5EA7C /* Notifications Center */ = {
 			isa = PBXGroup;
 			children = (
+				00CF2E9E27DABC94006EFDDC /* Onboarding */,
 				007CCF0026D5A10100D5EA7C /* NotificationsCenterViewController.swift */,
 				007CCF0626D5A17200D5EA7C /* NotificationsCenterView.swift */,
 				007CCF0B26D5A5E400D5EA7C /* NotificationsCenterViewModel.swift */,
@@ -5910,6 +5921,15 @@
 				67C6F77D27E3BAC700B9C864 /* NotificationsCenterFlowHostingController.swift */,
 			);
 			name = "Notifications Center";
+			sourceTree = "<group>";
+		};
+		00CF2E9E27DABC94006EFDDC /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				0030592527DBC4CF00E96757 /* NotificationsCenterOnboardingHostingViewController.swift */,
+				00CF2E9F27DABCA8006EFDDC /* NotificationsCenterOnboardingView.swift */,
+			);
+			name = Onboarding;
 			sourceTree = "<group>";
 		};
 		041A3B5718E11ED90079FF1C /* Languages */ = {
@@ -11203,6 +11223,7 @@
 				B027447F1E665D9F00E7B248 /* UIViewController+WMFChildViewController.swift in Sources */,
 				B0CD9DD91F70997300051843 /* WMFWelcomeIntroductionAnimationView.swift in Sources */,
 				B0E805591C0CE0DC0065EBC0 /* UIView+WMFFrameUtils.m in Sources */,
+				0030592627DBC4CF00E96757 /* NotificationsCenterOnboardingHostingViewController.swift in Sources */,
 				B00DDEE31DB5B16E00615FA2 /* WMFWelcomeAnimationViewControllers.swift in Sources */,
 				7AB809DC22679F9300BFAB7C /* InsertMediaAdvancedSettingsViewController.swift in Sources */,
 				B0E803761C0CD9C10065EBC0 /* TableOfContentsCell.swift in Sources */,
@@ -11258,6 +11279,7 @@
 				B08337611DB17DC5002860D2 /* WMFWelcomeAnalyticsViewController.swift in Sources */,
 				6782DBAF2343B812003FA21B /* DiffHeaderCompareView.swift in Sources */,
 				B0D3E70C214AF776007578BA /* DescriptionEditViewController.swift in Sources */,
+				00CF2EA027DABCA8006EFDDC /* NotificationsCenterOnboardingView.swift in Sources */,
 				BC23E4E51C22429100B5AFDE /* WMFRevisionQueryResults.m in Sources */,
 				67ADEE9623A2CFFB0000CAF7 /* ArticleWebMessagingController.swift in Sources */,
 				0042813925E6E841004945B3 /* NYTScalingImageView.m in Sources */,
@@ -12111,6 +12133,7 @@
 				83023C0920E51DDF00EC7592 /* SearchLanguagesBarViewController.swift in Sources */,
 				D8A42B0A1E815A9C00D8E281 /* WMFWelcomeAnimationViewControllers.swift in Sources */,
 				D8A42B0B1E815A9C00D8E281 /* TableOfContentsCell.swift in Sources */,
+				0030592927DBC4CF00E96757 /* NotificationsCenterOnboardingHostingViewController.swift in Sources */,
 				7AB809DF22679F9300BFAB7C /* InsertMediaAdvancedSettingsViewController.swift in Sources */,
 				B0C7A0871F710EB1008415E7 /* WMFWelcomeAnalyticsAnimationBackgroundView.swift in Sources */,
 				D8A42B0D1E815A9C00D8E281 /* WMFSettingsMenuItem.m in Sources */,
@@ -12166,6 +12189,7 @@
 				7A6ED51B20ADBF950001849F /* SettingsFunnel.swift in Sources */,
 				D8A42B3A1E815A9C00D8E281 /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
 				7AF8CEF022653406000B7676 /* InsertMediaSelectedImageView.swift in Sources */,
+				00CF2EA327DABCA8006EFDDC /* NotificationsCenterOnboardingView.swift in Sources */,
 				D8A42B3B1E815A9C00D8E281 /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */,
 				0042813C25E6E841004945B3 /* NYTScalingImageView.m in Sources */,
 				6782DBB22343B812003FA21B /* DiffHeaderCompareView.swift in Sources */,
@@ -12463,6 +12487,7 @@
 				7A60E9D7215D511600F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */,
 				D8CE25211E698E2400DAE2E0 /* UIView+WMFSnapshotting.m in Sources */,
 				D8CE25221E698E2400DAE2E0 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
+				00CF2EA227DABCA8006EFDDC /* NotificationsCenterOnboardingView.swift in Sources */,
 				B0524AF22144D7BE00D8FD8D /* DescriptionHelpViewController.swift in Sources */,
 				7A715668226974D10066FEC4 /* InsertMediaImageSizeSettingsViewController.swift in Sources */,
 				D8CE25231E698E2400DAE2E0 /* UIVIewController+WMFCommonRotationSupport.swift in Sources */,
@@ -12597,6 +12622,7 @@
 				D8A47C9023D7338C002AA823 /* ArticleViewController+TableOfContents.swift in Sources */,
 				83B01F8223DB1235001185F4 /* SectionFetcher.swift in Sources */,
 				67DC5BE423A017CA00B03A84 /* ArticleViewController.swift in Sources */,
+				0030592827DBC4CF00E96757 /* NotificationsCenterOnboardingHostingViewController.swift in Sources */,
 				D81445FF1E7093870078D71E /* UIViewController+WMFChildViewController.swift in Sources */,
 				6782DB9E2343B7DB003FA21B /* DiffHeaderTitleView.swift in Sources */,
 				D8CE25821E698E2400DAE2E0 /* WMFCompassView.m in Sources */,
@@ -12983,6 +13009,7 @@
 				D8EC3E0F1E9BDA35006712EB /* WMFReferencePopoverMessageViewController.m in Sources */,
 				7A60E9D8215D511700F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */,
 				D8EC3E101E9BDA35006712EB /* WMFSearchFetcher.m in Sources */,
+				00CF2EA127DABCA8006EFDDC /* NotificationsCenterOnboardingView.swift in Sources */,
 				B0524AF32144D7BE00D8FD8D /* DescriptionHelpViewController.swift in Sources */,
 				7A715669226974D10066FEC4 /* InsertMediaImageSizeSettingsViewController.swift in Sources */,
 				D8EC3E121E9BDA35006712EB /* LoggingDefaults.swift in Sources */,
@@ -13117,6 +13144,7 @@
 				D8A47C9123D7338C002AA823 /* ArticleViewController+TableOfContents.swift in Sources */,
 				83B01F8323DB1235001185F4 /* SectionFetcher.swift in Sources */,
 				67DC5BE523A017CA00B03A84 /* ArticleViewController.swift in Sources */,
+				0030592727DBC4CF00E96757 /* NotificationsCenterOnboardingHostingViewController.swift in Sources */,
 				B0524B2B214854E900D8FD8D /* DescriptionWelcomePanelViewController.swift in Sources */,
 				6782DB9F2343B7DB003FA21B /* DiffHeaderTitleView.swift in Sources */,
 				B0CD9DE71F70997400051843 /* WMFWelcomeIntroductionAnimationView.swift in Sources */,
