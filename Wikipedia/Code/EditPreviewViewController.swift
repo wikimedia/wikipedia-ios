@@ -297,3 +297,7 @@ extension EditPreviewViewController: ArticleContextMenuPresenting, WKUIDelegate 
         return nil
     }
 }
+
+extension EditPreviewViewController: EditingFlowViewController {
+    
+}

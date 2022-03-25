@@ -641,6 +641,7 @@
 "settings-language-bar" = "แสดงภาษาในหน้าค้นหา";
 "settings-languages-feed-customization" = "คุณสามารถจัดการภาษาที่จะแสดงบนฟีดสำรวจของคุณได้โดยปรับแต่งการตั้งค่าฟีดสำรวจของคุณ";
 "settings-my-languages" = "ภาษาของฉัน";
+// Fuzzy
 "settings-notifications" = "การแจ้งเตือน";
 "settings-notifications-learn-more" = "เรียนรู้เพิ่มเติมเกี่ยวกับการแจ้งเตือน";
 "settings-notifications-push-notifications" = "การแจ้งเตือนแบบพุช";

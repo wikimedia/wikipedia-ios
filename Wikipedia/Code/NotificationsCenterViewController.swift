@@ -427,7 +427,7 @@ private extension NotificationsCenterViewController {
     }
     
     func presentView<T: View>(view: T) {
-        let hostingVC = UIHostingController(rootView: view)
+        let hostingVC = NotificationsCenterModalHostingController(rootView: view)
         
         let currentFilterState = viewModel.remoteNotificationsController.filterState
         
@@ -829,5 +829,13 @@ extension NotificationsCenterViewController {
 
     @objc fileprivate func userDidTapTypeFilterButton() {
         presentFiltersViewController()
+    }
+}
+
+//MARK: Push tap handling
+
+extension NotificationsCenterViewController: NotificationsCenterFlowViewController {
+    func tappedPushNotification() {
+        //do nothing
     }
 }

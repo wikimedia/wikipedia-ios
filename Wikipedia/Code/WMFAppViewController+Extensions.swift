@@ -1,4 +1,6 @@
 import UIKit
+import WMF
+import SwiftUI
 
 extension WMFAppViewController {
 
@@ -85,6 +87,8 @@ extension WMFAppViewController {
 
 }
 
+//MARK: Notifications
+
 extension WMFAppViewController: SettingsPresentationDelegate {
 
     public func userDidTapSettings(from viewController: UIViewController?) {
@@ -108,13 +112,119 @@ extension WMFAppViewController: NotificationsCenterPresentationDelegate {
 
 extension WMFAppViewController {
     @objc func userDidTapPushNotification() {
-        //TODO: This is a very basic push to Notification Center.
-        //This will need refinement when https://phabricator.wikimedia.org/T287628 is tackled
         
-        dismissPresentedViewControllers()
-        navigationController?.popToRootViewController(animated: false)
+        guard let topMostViewController = self.topMostViewController else {
+            return
+        }
+        
+        //If already displaying Notifications Center (or some part of it), exit early
+        if let notificationsCenterFlowViewController = topMostViewController.notificationsCenterFlowViewController {
+            notificationsCenterFlowViewController.tappedPushNotification()
+            return
+        }
+
         let viewModel = NotificationsCenterViewModel(remoteNotificationsController: dataStore.remoteNotificationsController, languageLinkController: dataStore.languageLinkController)
         let notificationsCenterViewController = NotificationsCenterViewController(theme: theme, viewModel: viewModel)
-        navigationController?.pushViewController(notificationsCenterViewController, animated: true)
+        
+        let dismissAndPushBlock = { [weak self] in
+            self?.dismissPresentedViewControllers()
+            self?.navigationController?.pushViewController(notificationsCenterViewController, animated: true)
+        }
+
+        guard let editingFlowViewController = editingFlowViewControllerInHierarchy,
+            editingFlowViewController.shouldDisplayExitConfirmationAlert else {
+            dismissAndPushBlock()
+            return
+        }
+        
+        presentEditorAlert(on: topMostViewController, confirmationBlock: dismissAndPushBlock)
     }
+    
+    private var editingFlowViewControllerInHierarchy: EditingFlowViewController? {
+        var currentController: UIViewController? = navigationController
+
+        while let presentedViewController = currentController?.presentedViewController {
+            if let presentedNavigationController = (presentedViewController as? UINavigationController) {
+                for viewController in presentedNavigationController.viewControllers {
+                    if let editingFlowViewController = viewController as? EditingFlowViewController {
+                        return editingFlowViewController
+                    }
+                }
+            } else if let editingFlowViewController = presentedViewController as? EditingFlowViewController {
+                return editingFlowViewController
+            }
+            
+            currentController = presentedViewController
+        }
+
+        return nil
+    }
+    
+    private var topMostViewController: UIViewController? {
+            
+        var topViewController: UIViewController = navigationController ?? self
+
+        while let presentedViewController = topViewController.presentedViewController {
+            topViewController = presentedViewController
+        }
+
+        return topViewController
+    }
+    
+    private func presentEditorAlert(on viewController: UIViewController, confirmationBlock: @escaping () -> Void) {
+        
+        let title = CommonStrings.editorExitConfirmationTitle
+        let message = CommonStrings.editorExitConfirmationBody
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let discardAction = UIAlertAction(title: CommonStrings.discardEditsActionTitle, style: .destructive) { _ in
+            confirmationBlock()
+        }
+        let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
+        
+        alertController.addAction(discardAction)
+        alertController.addAction(cancelAction)
+        
+        viewController.present(alertController, animated: true, completion: nil)
+        
+    }
+}
+
+fileprivate extension UIViewController {
+    
+    /// Returns self or embedded view controller (if self is a UINavigationController) if conforming to NotificationsCenterFlowViewController
+    /// Does not consider presenting view controllers
+    var notificationsCenterFlowViewController: NotificationsCenterFlowViewController? {
+        
+        if let viewController = self as? NotificationsCenterFlowViewController {
+            return viewController
+        }
+        
+        if let navigationController = self as? UINavigationController,
+           let viewController = navigationController.viewControllers.last as? NotificationsCenterFlowViewController {
+            return viewController
+        }
+
+        return nil
+    }
+}
+
+
+/// View Controllers that have an editing element (Section editor flow, User talk pages, Article description editor)
+protocol EditingFlowViewController where Self: UIViewController {
+    var shouldDisplayExitConfirmationAlert: Bool { get }
+}
+
+extension EditingFlowViewController {
+    var shouldDisplayExitConfirmationAlert: Bool {
+        return true
+    }
+}
+
+/// View Controllers that are a part of the Notifications Center flow
+protocol NotificationsCenterFlowViewController where Self: UIViewController {
+    
+    //hook called after the user taps a push notification while in the foregound.
+    //use if needed to tweak the view heirarchy to display the Notifications Center
+    func tappedPushNotification()
 }

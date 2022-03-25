@@ -270,6 +270,7 @@
 "settings-account" = "একাউণ্ট";
 "settings-clear-cache-ok" = "কেশ্ব পৰিষ্কাৰ কৰক";
 "settings-my-languages" = "সকলো ভাষা";
+// Fuzzy
 "settings-notifications" = "জাননী";
 "settings-primary-language" = "প্ৰাথমিক";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "মচি পেলাওক";

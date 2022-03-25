@@ -839,6 +839,7 @@
 "settings-language-bar" = "Zobraziť pri vyhľadávaní jazyky";
 "settings-languages-feed-customization" = "Prispôsobením kanálu Objaviť môžete nastaviť, ktoré jazyky sa v ňom zobrazia.";
 "settings-my-languages" = "Moje jazyky";
+// Fuzzy
 "settings-notifications" = "Upozornenia";
 "settings-notifications-info" = "Buďte informovaní o trendoch a najčastejšie čítaných článkoch na Wikipédii. Všetko je poskytované s ohľadom na vaše súkromie a podľa najnovších dát.";
 "settings-notifications-learn-more" = "Ďalšie informácie o upozorneniach";

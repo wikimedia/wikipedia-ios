@@ -220,7 +220,7 @@
 "diff-compare-header-from-info-heading" = "Da:";
 "diff-compare-header-heading" = "Confronta versioni";
 "diff-compare-header-to-info-heading" = "A:";
-"diff-compare-title" = "Compara versioni";
+"diff-compare-title" = "Confronta versioni";
 "diff-context-lines-collapsed-button-title" = "Mostra";
 "diff-context-lines-expanded-button-title" = "Nascondi";
 "diff-multi-line-format" = "Righe $1 - $2";
@@ -646,7 +646,8 @@
 "settings-help-and-feedback" = "Aiuto e feedback";
 "settings-language-bar" = "Mostra lingue nella ricerca";
 "settings-my-languages" = "Le mie lingue";
-"settings-notifications" = "Notifiche";
+"settings-notifications" = "Notifiche push";
+"settings-notifications-echo-failure-try-again" = "Riprova";
 "settings-notifications-learn-more" = "Ulteriori informazioni sulle notifiche";
 "settings-notifications-push-notifications" = "Notifiche push";
 "settings-notifications-system-turn-on" = "Attiva le notifiche";

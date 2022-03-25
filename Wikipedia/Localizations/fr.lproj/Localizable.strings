@@ -892,7 +892,11 @@
 "settings-language-bar" = "Afficher les langues dans la recherche";
 "settings-languages-feed-customization" = "Vous pouvez gérer quelles langues sont affichées dans votre fil d’exploration en personnalisant vos paramètres du fil d’exploration.";
 "settings-my-languages" = "Mes langues";
-"settings-notifications" = "Notifications";
+"settings-notifications" = "Notifications envoyées";
+"settings-notifications-echo-failure-message" = "Une erreur s’est produite en vérifiant les abonnements aux notifications liées à votre compte.";
+"settings-notifications-echo-failure-title" = "Impossible de vérifier les abonnements aux notifications d’Echo";
+"settings-notifications-echo-failure-try-again" = "Réessayer";
+"settings-notifications-header" = "Être alerté de l’activité concernant votre compte, comme des messages de contributeurs confrères, des alertes et des avertissements. Tout cela est fourni en respectant la confidentialité et à jour avec les données les plus récentes.";
 "settings-notifications-info" = "Être alerté la tendance et les articles les plus lus sur Wikipédia avec nos notifications envoyées. Tout cela est fourni en respectant la confidentialité et la fraîcheur des données.";
 "settings-notifications-learn-more" = "En savoir plus sur les notifications";
 "settings-notifications-push-notifications" = "Notifications envoyées";
@@ -936,7 +940,7 @@
 "table-of-contents-button-label" = "Table des matières";
 "table-of-contents-close-accessibility-hint" = "Fermer";
 "table-of-contents-close-accessibility-label" = "Fermer la table des matières";
-"table-of-contents-heading" = "Contenus";
+"table-of-contents-heading" = "Sommaire";
 "table-of-contents-hide-button-label" = "Masquer la table des matières";
 "table-of-contents-subheading-label" = "Sous-titre $1";
 "tachelhit-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes du chleuh comme langues primaire ou secondaires dans l’application, le rendant plus facile à lire, rechercher ou modifier dans vos variantes préférées :\n\nⵜⴰⵛⵍⵃⵉⵜ – chleuh tifinagh (shi-tfng)\nTaclḥit – chleuh latin (shi-latn)";

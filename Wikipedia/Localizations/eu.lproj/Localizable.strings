@@ -461,6 +461,7 @@
 "settings-help-and-feedback" = "Laguntza eta iritziak";
 "settings-language-bar" = "Bilaketan hizkuntzak erakutsi";
 "settings-my-languages" = "Nire hizkuntzak";
+// Fuzzy
 "settings-notifications" = "Jakinarazpenak";
 "settings-notifications-info" = "Jakinarazpenak piztuz, top artikuluei buruzko alertak jaso ditzakezu. Dena eskainiko da betiere pribatutasuna eta minutuko datuak errespetatuz.";
 "settings-notifications-learn-more" = "Jakinarazpenei buruzko gehiago ikasi";
