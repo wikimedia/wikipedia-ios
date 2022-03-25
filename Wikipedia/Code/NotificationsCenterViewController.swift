@@ -476,6 +476,11 @@ extension NotificationsCenterViewController: NotificationsCenterOnboardingDelega
             return
         }
 
+        guard !UserDefaults.standard.wmf_isSubscribedToEchoNotifications else {
+            UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter = true
+            return
+        }
+
         let primaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _ in
             self?.dismiss(animated: true, completion: {
                 self?.userDidTapPushNotificationsOptIn()
