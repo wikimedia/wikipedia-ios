@@ -85,6 +85,7 @@
 "action-add-to-reading-list" = "Title of the action that adds selected articles to a reading list";
 "action-add-to-reading-list-short" = "Shorter title for the action that adds selected articles to a reading list";
 "action-cancel" = "Title of the cancel action.";
+"action-discard-edits" = "Title of the discard edits action.";
 "action-find-in-page" = "Title text and accessibility label for find in page action on buttons or info sheets.";
 "action-language-accessibility" = "Accessibility title for the 'Language' toolbar button on articles and talk pages.";
 "action-move-to" = "Title of the action that moves the selection elsewhere.";
@@ -295,6 +296,8 @@
 "editing-welcome-impartial-tone-title" = "Title for editing onboarding screen instructing users to use impartial tone when editing Wikipedia articles";
 "editing-welcome-set-knowledge-free-subtitle" = "Title for editing onboarding screen encouraging users to participate in the creation of Wikipedia content";
 "editing-welcome-set-knowledge-free-title" = "Title for editing onboarding screen encouraging users to participate in the creation of Wikipedia content";
+"editor-exit-confirmation-body" = "Body text of editing mode confirmation alert. Presented to the user when they they are about to be navigated away from the editor flow.";
+"editor-exit-confirmation-title" = "Title text of editing mode confirmation alert. Presented to the user when they they are about to be navigated away from the editor flow.";
 "empty-diff-compare-title" = "Text for placeholder label visible when diff comparision between revisions is empty.";
 "empty-diff-single-title" = "Text for placeholder label visible when diff returned for single revision is empty.";
 "empty-insert-media-title" = "Text for placeholder label visible when no file was selected or uploaded";

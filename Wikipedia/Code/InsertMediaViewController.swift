@@ -337,3 +337,7 @@ extension InsertMediaViewController: UISearchBarDelegate {
         focusSearch(false, additionalAnimations: additionalAnimations)
     }
 }
+
+extension InsertMediaViewController: EditingFlowViewController {
+    
+}
