@@ -873,6 +873,8 @@ extension NotificationsCenterViewController {
                                 self?.viewModel.notificationsController.subscribeToEchoNotifications()
                             }
                         }
+                    } else {
+                        self?.viewModel.notificationsController.subscribeToEchoNotifications()
                     }
                 }
             }
