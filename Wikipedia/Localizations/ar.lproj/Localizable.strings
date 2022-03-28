@@ -808,6 +808,7 @@
 "settings-language-bar" = "إظهار اللغات في البحث";
 "settings-languages-feed-customization" = "أنت يمكنك التحكم في أي اللغات تكون معروضة على تلقيم استكشف الخاص بك عن طريق تعديل إعدادات تلقيم استكشف الخاص بك";
 "settings-my-languages" = "لغاتي";
+// Fuzzy
 "settings-notifications" = "الإشعارات";
 "settings-notifications-info" = "يتم تنبيهك إلى المقالات الشائعة والأعلى قراءة في ويكيبيديا بإخطارات الدفع لدينا، الجميع المقدمة فيما يتعلق بالخصوصية وحتى البيانات الدقيقة.";
 "settings-notifications-learn-more" = "إعرف المزيد عن الإشعارات";

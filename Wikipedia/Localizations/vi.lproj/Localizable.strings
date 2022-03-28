@@ -11,6 +11,7 @@
 // Author: Minh Nguyen
 // Author: Nemo bis
 // Author: Nghiemtrongdai VN
+// Author: NguyenHung
 // Author: Nguyên Lê
 // Author: Phjtieudoc
 // Author: TARGET6tidiem
@@ -828,7 +829,9 @@
 "settings-language-bar" = "Hiển thị ngôn ngữ khi tìm kiếm";
 "settings-languages-feed-customization" = "Bạn có thể quản lý các ngôn ngữ xuất hiện trong nguồn cấp Thám hiểm trong cài đặt nguồn cấp Thám hiểm.";
 "settings-my-languages" = "Ngôn ngữ của tôi";
+// Fuzzy
 "settings-notifications" = "Thông báo";
+"settings-notifications-echo-failure-try-again" = "Thử lại";
 "settings-notifications-info" = "Nhận các thông báo đẩy về các bài thịnh hành và các bài được đọc nhiều nhất tại Wikipedia. Tất cả các thông báo tôn trọng quyền riêng tư và cung cấp dữ liệu mới mẻ.";
 "settings-notifications-learn-more" = "Tìm hiểu thêm về thông báo";
 "settings-notifications-push-notifications" = "Thông báo đẩy";

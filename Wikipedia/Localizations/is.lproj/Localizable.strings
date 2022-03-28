@@ -721,6 +721,7 @@
 "settings-language-bar" = "Sýna tungumál við leit";
 "settings-languages-feed-customization" = "Þú getur stjórnað hvaða tungumál birtst í 'Uppgötva'-streyminu með því að sérsníða stillingar streymisins.";
 "settings-my-languages" = "Tungumálin mín";
+// Fuzzy
 "settings-notifications" = "Tilkynningar";
 "settings-notifications-info" = "Fáðu ábendingar um mál sem eru efst á baugi og mest lesnu greinarnar á Wikipedia með aðstoð ýti-tilkynninga. Allt þetta miðast við ítrustu persónuvernd og allra nýjustu gögn.";
 "settings-notifications-learn-more" = "Lesa meira um tilkynningar";

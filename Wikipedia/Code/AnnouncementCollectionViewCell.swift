@@ -26,7 +26,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
     open override func setup() {
         layoutMargins = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
 
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         contentView.addSubview(imageView)
         

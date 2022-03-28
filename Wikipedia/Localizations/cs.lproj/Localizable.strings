@@ -778,6 +778,7 @@
 "settings-language-bar" = "Ukazovat jazyky při vyhledávání";
 "settings-languages-feed-customization" = "Přizpůsobením kanálu Objevit můžete nastavit, ve kterých jazycích se zobrazí články, z témat které vyberete.";
 "settings-my-languages" = "Moje jazyky";
+// Fuzzy
 "settings-notifications" = "Upozornění";
 "settings-notifications-info" = "Upozornění na trendy a nejčastěji čtené články na Wikipedii. Vše je poskytováno s ohledem na vaše soukromí.";
 "settings-notifications-learn-more" = "Informace o upozorněních";

@@ -886,6 +886,7 @@
 "settings-language-bar" = "Visa språk vid sökfältet";
 "settings-languages-feed-customization" = "Du kan hantera vilka språk som visas i ditt utforskarflöde genom att anpassa inställningarna för utforskarflödet.";
 "settings-my-languages" = "Mina språk";
+// Fuzzy
 "settings-notifications" = "Notiser";
 "settings-notifications-info" = "Bli meddelad om trender och populära artiklar på Wikipedia med våra push-notiser. Allting tillhandahålls med respekt för integritet och uppdaterad data.";
 "settings-notifications-learn-more" = "Läs mer om notiser";

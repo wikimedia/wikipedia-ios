@@ -205,6 +205,7 @@
 "settings-help-and-feedback" = "Pagalba ir atsiliepimai";
 "settings-language-bar" = "Rodyti kalbas paieškoje";
 "settings-my-languages" = "Mano kalbos";
+// Fuzzy
 "settings-notifications" = "Pranešimai";
 "settings-notifications-learn-more" = "Sužinokite daugiau apie pranešimus";
 "settings-notifications-push-notifications" = "Push pranešimai";

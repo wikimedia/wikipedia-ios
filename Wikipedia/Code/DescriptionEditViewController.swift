@@ -314,3 +314,7 @@ private extension UITextView {
         return text
     }
 }
+
+extension DescriptionEditViewController: EditingFlowViewController {
+    
+}

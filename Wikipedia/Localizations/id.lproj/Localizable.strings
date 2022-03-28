@@ -886,6 +886,7 @@
 "settings-language-bar" = "Tampilkan bahasa di pencarian";
 "settings-languages-feed-customization" = "Anda dapat mengelola bahasa mana yang ditampilkan di umpan Jelajahi Anda dengan menyesuaikan pengaturan umpan Jelajahi Anda.";
 "settings-my-languages" = "Bahasa saya";
+// Fuzzy
 "settings-notifications" = "Pemberitahuan";
 "settings-notifications-info" = "Dapatkan pemberitahuan tentang artikel yang sedang tren dan bacaan teratas di Wikipedia dengan pemberitahuan otomatis kami. Semua tersedia sehubungan dengan privasi dan sampai data menit.";
 "settings-notifications-learn-more" = "Pelajari lebih lanjut tentang pemberitahuan";

@@ -448,3 +448,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
         adjustHeightOfSpacerAboveBottomDividerSoContentViewIsAtLeastHeightOfScrollView()
     }
 }
+
+extension EditSaveViewController: EditingFlowViewController {
+    
+}

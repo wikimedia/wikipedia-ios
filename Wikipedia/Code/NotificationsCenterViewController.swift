@@ -432,7 +432,7 @@ private extension NotificationsCenterViewController {
     }
     
     func presentView<T: View>(view: T) {
-        let hostingVC = UIHostingController(rootView: view)
+        let hostingVC = NotificationsCenterModalHostingController(rootView: view)
         
         let currentFilterState = viewModel.remoteNotificationsController.filterState
         
@@ -471,7 +471,7 @@ extension NotificationsCenterViewController: NotificationsCenterOnboardingDelega
         present(onboardingHostingViewController, animated: true)
     }
 
-    func presentingOnboardingPushOptInIfNecessary() {
+    func presentOnboardingPushOptInIfNecessary() {
         guard !UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter else {
             return
         }
@@ -512,7 +512,7 @@ extension NotificationsCenterViewController: NotificationsCenterOnboardingDelega
     }
 
     func userDidDismissNotificationsCenterOnboardingView() {
-        presentingOnboardingPushOptInIfNecessary()
+        presentOnboardingPushOptInIfNecessary()
     }
 
     func userDidTapPushNotificationsOptIn() {
@@ -852,7 +852,6 @@ extension NotificationsCenterViewController {
     }
 }
 
-
 // MARK: - Device push permissions and silent Echo subscription
 
 extension NotificationsCenterViewController {
@@ -881,4 +880,12 @@ extension NotificationsCenterViewController {
         }
     }
 
+}
+
+//MARK: Push tap handling
+
+extension NotificationsCenterViewController: NotificationsCenterFlowViewController {
+    func tappedPushNotification() {
+        //do nothing
+    }
 }

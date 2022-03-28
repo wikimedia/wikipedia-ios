@@ -21,8 +21,14 @@ struct NotificationsCenterOnboardingView: View {
 
     // MARK: - Properties
 
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+
     var theme: Theme
     var dismissAction: (() -> Void)?
+
+    var sizeClassPadding: CGFloat {
+        horizontalSizeClass == .regular ? 64 : 16
+    }
 
     var continueButtonTextColor: Color {
         switch theme {
@@ -54,7 +60,7 @@ struct NotificationsCenterOnboardingView: View {
                     Spacer(minLength: 8)
                     NotificationsCenterOnboardingRowView(theme: theme, image: .push, header: LocalizedStrings.pushTitle, message: LocalizedStrings.pushMessage)
                 }
-                .padding()
+                .padding(sizeClassPadding)
             }
             ZStack(alignment: .bottom, content: {
                 VStack {
@@ -79,14 +85,14 @@ struct NotificationsCenterOnboardingView: View {
                     Spacer().frame(height: 18)
                 }
             })
+            .padding(sizeClassPadding)
         }
     }
 
     // MARK: - Actions
 
     func userDidTapLearnMore() {
-        // TODO: Replace with actual Meta Wiki FAQ when available
-        guard let url = URL(string: "https://phabricator.wikimedia.org/T302634") else {
+        guard let url = URL(string: "https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ#Notifications") else {
             return
         }
 

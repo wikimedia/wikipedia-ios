@@ -359,6 +359,7 @@
 "settings-help-and-feedback" = "Skoazell hag evezhiadennoù";
 "settings-language-bar" = "Diskwel ar yezhoù en enklask";
 "settings-my-languages" = "Ma yezhoù";
+// Fuzzy
 "settings-notifications" = "Kemennoù";
 "settings-notifications-info" = "Gant ar bounter kemennadennoù e c'hallit bezañ kelaouet diwar-benn ar pennadoù diouzh ar c'hiz pe ar re lennet ar muiañ. Pep tra pourvezet en ur zoujañ da brevezded ha da nevezinti ar roadennoù.";
 "settings-notifications-learn-more" = "Evit gouzout hiroc'h diwar-benn ar c'hemennoù";

@@ -723,6 +723,7 @@
 "settings-clear-cache-ok" = "Wyczyść pamięć podręczną";
 "settings-help-and-feedback" = "Pomoc i opinie";
 "settings-my-languages" = "Moje języki";
+// Fuzzy
 "settings-notifications" = "Powiadomienia";
 "settings-notifications-info" = "Otrzymuj powiadomienia o popularnych i najczęściej czytanych artykułach w Wikipedii dzięki naszym powiadomieniom push. Wszystko pod warunkiem poszanowania prywatności i najświeższych danych.";
 "settings-notifications-learn-more" = "Dowiedz się więcej o powiadomieniach";

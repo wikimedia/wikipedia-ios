@@ -387,6 +387,7 @@
 "reference-title" = "Sklic $1";
 "saved-search-default-text" = "Iskanje shranjenih člankov";
 "saved-title" = "Shranjeno";
+"search-did-you-mean" = "Ste mislili $1?";
 "search-title" = "Iskanje";
 "settings-notifications-push-notifications" = "Potisna obvestila";
 "sort-by-title-action" = "Naslov";

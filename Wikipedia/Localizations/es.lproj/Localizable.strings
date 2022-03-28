@@ -11,6 +11,7 @@
 // Author: DannyS712
 // Author: David.novella
 // Author: Dgstranz
+// Author: DiegoAmbrocio
 // Author: Dschultz
 // Author: Elisardojm
 // Author: Fitoschido
@@ -818,7 +819,11 @@
 "settings-language-bar" = "Mostrar los idiomas al buscar";
 "settings-languages-feed-customization" = "\nPuedes controlar qué idiomas se muestran en tu canal Explorar personalizando los ajustes de Explorar.";
 "settings-my-languages" = "Mis idiomas";
-"settings-notifications" = "Notificaciones";
+"settings-notifications" = "Notificaciones emergentes";
+"settings-notifications-echo-failure-message" = "Se ha producido un error al comprobar las suscripciones de notificaciones relacionadas con su cuenta.";
+"settings-notifications-echo-failure-title" = "No se puede comprobar las suscripciones a las notificaciones de Echo";
+"settings-notifications-echo-failure-try-again" = "Intentar de nuevo";
+"settings-notifications-header" = "Reciba alertas de la actividad relacionada con su cuenta, como mensajes de otros contribuyentes, alertas y avisos. Todo ello respetando la privacidad y con datos actualizados.";
 "settings-notifications-info" = "Mantente en alerta de artículos en tendencia o más leídos en Wikipedia con nuestras notificaciones. Todas ellas proporcionadas con respeto por la privacidad y actualizadas al minuto.";
 "settings-notifications-learn-more" = "Conocer más acerca de las notificaciones";
 "settings-notifications-push-notifications" = "Notificaciones";

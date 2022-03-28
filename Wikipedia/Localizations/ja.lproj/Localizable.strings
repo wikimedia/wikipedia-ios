@@ -829,7 +829,8 @@
 "settings-language-bar" = "検索画面で言語を表示";
 "settings-languages-feed-customization" = "探索フィードの設定を変更すると、どの言語で探索フィードを表示するか管理できます。";
 "settings-my-languages" = "使用する言語";
-"settings-notifications" = "通知";
+"settings-notifications" = "プッシュ通知";
+"settings-notifications-echo-failure-try-again" = "もう一度お試しください";
 "settings-notifications-info" = "ウィキペディア上で話題の記事、最も読まれている記事をプッシュ通知で受け取りましょう。通知はすべてプライバシーに配慮して行われ、毎分ごとのデータに基づいています。";
 "settings-notifications-learn-more" = "通知についてさらに詳しく";
 "settings-notifications-push-notifications" = "プッシュ通知";
