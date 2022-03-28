@@ -30,6 +30,13 @@ enum NotificationsCenterAction: Equatable {
             }
         }
     }
+
+    var actionData: NotificationsCenterActionData? {
+        switch self {
+        case .notificationSubscriptionSettings(let data), .markAsReadOrUnread(let data), .custom(let data):
+            return data
+        }
+    }
 }
 
 struct NotificationsCenterActionData: Equatable {

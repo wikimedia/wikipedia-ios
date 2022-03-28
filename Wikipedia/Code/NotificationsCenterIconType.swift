@@ -42,7 +42,11 @@ enum NotificationsCenterIconType: Equatable {
     }
     
     static var diff: NotificationsCenterIconType {
-        return .custom("notifications-icon-diff") //TODO: Need to add icon to project
+        if #available(iOS 15, *) {
+            return .system("chevron.left.forwardslash.chevron.right")
+        } else {
+            return .system("chevron.left.slash.chevron.right")
+        }
     }
     
     static var wikidata: NotificationsCenterIconType {
