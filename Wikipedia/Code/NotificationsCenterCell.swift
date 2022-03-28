@@ -337,12 +337,13 @@ final class NotificationsCenterCell: UICollectionViewCell {
         projectSourceContainer.addSubview(projectSourceLabel)
         projectSourceContainer.addSubview(projectSourceImage)
 
+        let minimumSummaryHeight = (traitCollection.horizontalSizeClass == .regular) ? 40.0 : 64.0
         internalVerticalNotificationContentStack.addArrangedSubview(VerticalSpacerView.spacerWith(space: 6))
         internalVerticalNotificationContentStack.addArrangedSubview(subheaderLabel)
         internalVerticalNotificationContentStack.addArrangedSubview(VerticalSpacerView.spacerWith(space: 6))
         internalVerticalNotificationContentStack.addArrangedSubview(messageSummaryLabel)
         NSLayoutConstraint.activate([
-            messageSummaryLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 64)
+            messageSummaryLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: minimumSummaryHeight)
         ])
         internalVerticalNotificationContentStack.addArrangedSubview(VerticalSpacerView.spacerWith(space: 3))
         internalVerticalNotificationContentStack.addArrangedSubview(metaStackView)
@@ -356,18 +357,18 @@ final class NotificationsCenterCell: UICollectionViewCell {
         // Foreground and Background Container Constraints
 
         NSLayoutConstraint.activate([
-            swipeBackgroundFillView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: NotificationsCenterCell.swipeEdgeBuffer * 2.0),
+            swipeBackgroundFillView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: NotificationsCenterCell.swipeEdgeBuffer * 2.0),
             swipeBackgroundFillView.topAnchor.constraint(equalTo: contentView.topAnchor),
             swipeBackgroundFillView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            swipeBackgroundFillView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            swipeBackgroundFillView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
 
-            backgroundActionsContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            backgroundActionsContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            backgroundActionsContainer.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
+            backgroundActionsContainer.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
             backgroundActionsContainer.topAnchor.constraint(equalTo: contentView.topAnchor),
             backgroundActionsContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 
-            foregroundContentContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            foregroundContentContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            foregroundContentContainer.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
+            foregroundContentContainer.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
             foregroundContentContainer.topAnchor.constraint(equalTo: contentView.topAnchor),
             foregroundContentContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
