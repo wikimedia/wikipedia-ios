@@ -168,6 +168,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     [moc removeAllContentGroupsOfKind:WMFContentGroupKindTopRead];
     [moc removeAllContentGroupsOfKind:WMFContentGroupKindNews];
     [moc removeAllContentGroupsOfKind:WMFContentGroupKindOnThisDay];
+    [moc removeAllContentGroupsOfKind:WMFContentGroupKindNotification];
 }
 
 #pragma mark - Save Groups
@@ -183,7 +184,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         [self saveGroupForTopRead:feedDay.topRead pageViews:pageViews date:date inManagedObjectContext:moc];
         [self saveGroupForPictureOfTheDay:feedDay.pictureOfTheDay date:date inManagedObjectContext:moc];
         [self saveGroupForNews:feedDay.newsStories pageViews:pageViews date:date inManagedObjectContext:moc];
-        [self saveGroupFoNotificationsinManagedObjectContext:moc date:date];
+        [self saveNotificationsGroupInManagedObjectContext:moc date:date];
         [self scheduleNotificationsForFeedDay:feedDay onDate:date inManagedObjectContext:moc];
         
         if (!completion) {
@@ -337,11 +338,22 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     newsGroup.isVisible = isVisible;
 }
 
--(void)saveGroupFoNotificationsinManagedObjectContext:(NSManagedObjectContext *)moc date:(NSDate *)date {
+-(void)createGroupForNotificationsInManagedObjectContext:(NSManagedObjectContext *)moc date:(NSDate *)date {
     WMFContentGroup *notificationsGroup = [self notificationAnnouncementForDate:date inManagedObjectContext:moc];
     
     if (notificationsGroup == nil) {
         notificationsGroup = [moc createGroupOfKind:WMFContentGroupKindNotification forDate:date withSiteURL:self.siteURL associatedContent:nil];
+    }
+}
+
+- (void)saveNotificationsGroupInManagedObjectContext:(NSManagedObjectContext *)moc date:(NSDate *)date {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+
+    if (userDefaults.wmf_shouldShowNotificationsExploreFeedCard && ![userDefaults wmf_didShowNewsNotificationCardInFeed] && self.fetcher.session.isAuthenticated ){
+//        NSURL *URL = [WMFContentGroup notificationContentGroupURLWithLanguageVariantCode:self.siteURL.wmf_languageVariantCode];
+//        [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindNotification forDate:date withSiteURL:self.siteURL associatedContent:nil customizationBlock:NULL];
+        [userDefaults wmf_setDidShowNewsNotificationCardInFeed:YES];
+        [self createGroupForNotificationsInManagedObjectContext:moc date:date];
     }
 }
 
