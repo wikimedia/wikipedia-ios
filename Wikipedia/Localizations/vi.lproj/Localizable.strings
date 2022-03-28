@@ -418,8 +418,6 @@
 "featured-widget-from-language-wikipedia" = "Từ Wikipedia $1";
 "featured-widget-from-wikipedia" = "Từ Wikipedia";
 "featured-widget-title" = "Bài viết chọn lọc";
-"feed-news-notification-button-text" = "Bật thông báo";
-"feed-news-notification-text" = "Nhận thông báo về các bài Wikipedia vào lúc thịnh hành về tin tức.";
 "fetcher-error-generic" = "Đã xuất hiện một lỗi bất ngờ. Xin vui lòng thử lại sau.";
 "fetcher-error-unexpected-response" = "Máy chủ đã phản hồi ứng dụng một cách bất ngờ. Xin vui lòng thử lại sau.";
 "field-alert-captcha-invalid" = "CAPTCHA không hợp lệ";
@@ -566,6 +564,7 @@
 "notifications-center-change-password" = "Thay đổi Mật khẩu";
 "notifications-center-empty-checking-for-notifications" = "Đang kiểm tra thông báo…";
 "notifications-center-empty-not-subscribed" = "Bạn hiện không theo dõi thông báo Wikipedia nào";
+"notifications-center-feed-news-notification-button-text" = "Bật thông báo đẩy";
 "notifications-center-footer-change-password" = "Thay đổi mật khẩu";
 "notifications-center-go-to-diff" = "Xem khác biệt";
 "notifications-center-go-to-talk-page" = "Xem trang thảo luận";

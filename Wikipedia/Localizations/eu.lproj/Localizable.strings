@@ -206,8 +206,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "$1 Wikipediatik";
 "explore-random-article-sub-heading-from-wikipedia" = "Wikipediatik";
 "explore-randomizer" = "Ausazkoa";
-"feed-news-notification-button-text" = "Jakinarazpenak piztu";
-"feed-news-notification-text" = "Jakinarazpenak gaitu, Wikipediak jakinarazteko gehien irakurritako artikuluak agertzen zaizkizunean.";
 "field-alert-captcha-invalid" = "CAPTCHA baliogabetuta";
 "field-alert-password-confirm-mismatch" = "Pasahitzak ez datoz bat.";
 "field-alert-token-invalid" = "Kode okerra";
@@ -295,6 +293,8 @@
 "new-password-instructions" = "Aldi baterako pasahitza erabiliz hasi duzu saioa. \nSaio hasten amaitzeko, pasahitz berria ezarri beharko duzu hemen.";
 "new-password-title" = "Zure pasahitza ezarri";
 "no-email-account-alert" = "Mesedez, ezarri ezazu email kontua zure gailuan eta saiatu zaitez berriz.";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Jakinarazpenak piztu";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";

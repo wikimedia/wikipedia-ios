@@ -256,8 +256,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Fra $1 Wikipedia";
 "explore-random-article-sub-heading-from-wikipedia" = "Fra Wikipedia";
 "explore-randomizer" = "Tilfældig artikel";
-"feed-news-notification-button-text" = "Slå notifikationer til";
-"feed-news-notification-text" = "Aktiver påmindelser for at blive påmindet af Wikipedia når artikler er populære i nyhederne.";
 "fetcher-error-generic" = "Noget gik galt. Prøv venligst igen senere.";
 "field-alert-captcha-invalid" = "Ugyldig CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Adgangskoderne stemmer ikke overens";
@@ -366,6 +364,8 @@
 "no-email-account-alert" = "Opsæt venligst en e-mail-konto på din enhed og forsøg igen.";
 "no-internet-connection" = "Ingen internetforbindelse";
 "no-internet-connection-article-reload-button" = "Vend tilbage til seneste gemte version";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Slå notifikationer til";
 "number-billions" = "$1 mia.";
 "number-millions" = "$1 mio.";
 "number-thousands" = "$1K";

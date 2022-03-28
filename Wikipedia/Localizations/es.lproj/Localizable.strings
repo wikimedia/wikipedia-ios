@@ -446,8 +446,6 @@
 "featured-widget-from-wikipedia" = "De Wikipedia";
 "featured-widget-language-failure" = "Su idioma principal de Wikipedia no soporta Artículo destacado. Puede actualizar su Wikipedia principal en el menú de Configuración de la aplicación.";
 "featured-widget-title" = "Artículo destacado";
-"feed-news-notification-button-text" = "Activar las notificaciones";
-"feed-news-notification-text" = "Activa las notificaciones para recibir avisos de Wikipedia cuando haya artículos en tendencia en las noticias.";
 "fetcher-error-generic" = "Algo falló. Por favor, prueba de nuevo más tarde.";
 "fetcher-error-unexpected-response" = "La app recibió una respuesta inesperada del servidor. Por favor, prueba de nuevo más tarde.";
 "field-alert-captcha-invalid" = "El CAPTCHA no es válido";
@@ -593,6 +591,8 @@
 "no-internet-connection-article-reload-button" = "Volver a la última versión guardada";
 "notifications-center-applied-filters-accessibility-label" = "Filtro de notificaciones - tiene filtros aplicados";
 "notifications-center-applied-project-filters-accessibility-label" = "Filtro de proyectos - tiene filtros aplicados";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Activar las notificaciones";
 "notifications-center-filters-accessibility-label" = "Filtro de notificaciones";
 "notifications-center-project-filters-accessibility-label" = "Filtro de proyectos";
 "notifications-center-toolbar-mark-accessibility-label" = "Marcar notificaciones seleccionadas";

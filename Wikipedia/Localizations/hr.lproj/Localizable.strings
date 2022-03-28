@@ -193,7 +193,6 @@
 "explore-potd-sub-heading" = "Sa Zajedničkog poslužitelja";
 "explore-random-article-heading" = "Slučajni članak";
 "explore-random-article-sub-heading-from-wikipedia" = "S Wikipedije";
-"feed-news-notification-button-text" = "Uključi obavijesti";
 "field-alert-captcha-invalid" = "Netočan CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Zaporke se ne podudaraju";
 "field-alert-token-invalid" = "Neispravan kôd";
@@ -252,6 +251,8 @@
 "main-menu-title" = "Više";
 "menu-cancel-accessibility-label" = "Odustani";
 "more-languages-tooltip-title" = "Dodajte jezike";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Uključi obavijesti";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|poruka|poruke}}";
 "notifications-push-talk-title-format" = "Nove $1";
 "on-this-day-title" = "Na današnji dan";
