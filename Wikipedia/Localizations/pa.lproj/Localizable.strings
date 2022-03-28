@@ -106,7 +106,6 @@
 "explore-potd-heading" = "ਦਿਨ ਦੀ ਤਸਵੀਰ";
 "explore-random-article-heading" = "ਰਲ਼ਵਾਂ ਲੇਖ";
 "explore-randomizer" = "ਰੈੰਡੋਮਾਈਜ਼ਰ";
-"feed-news-notification-button-text" = "ਸੂਚਨਾਵਾਂ ਚਾਲੂ ਕਰੋ";
 "field-alert-token-invalid" = "ਗ਼ਲਤ ਕੋਡ";
 "field-email-title" = "ਈਮੇਲ";
 "field-email-title-optional" = "ਈਮੇਲ (ਚੋਣਵੀਂ)";
@@ -156,6 +155,8 @@
 "nearby-distance-label-meters" = "$1 ਮੀਟਰ";
 "nearby-distance-label-miles" = "$1 ਮੀਲ";
 "no-email-account-alert" = "ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਜੰਤਰ ਤੇ ਇੱਕ ਈਮੇਲ ਖਾਤਾ ਸਥਾਪਤ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "ਸੂਚਨਾਵਾਂ ਚਾਲੂ ਕਰੋ";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";

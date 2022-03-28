@@ -69,7 +69,7 @@
 "about-libraries" = "Käytetyt kirjastot";
 "about-libraries-complete-list" = "Täydellinen luettelo";
 "about-libraries-license" = "Lisenssi";
-"about-libraries-licenses-title" = "Me rakastamme avoimia ohjelmistoja $1";
+"about-libraries-licenses-title" = "Me rakastamme avoimen lähdekoodin ohjelmistoja $1";
 "about-places-maps-license" = "Paikat-kartan lisenssi";
 "about-places-maps-license-details" = "Paikat käyttää Apple Kartat -palvelun tarjoamia karttoja. $1.";
 "about-places-maps-license-details-link-text" = "Lisenssitiedot";
@@ -431,8 +431,6 @@
 "featured-widget-from-wikipedia" = "Wikipediasta";
 "featured-widget-language-failure" = "Ensisijainen Wikipedia-kielesi ei tue Suositeltua artikkelia. Voit päivittää Wikipedian asetuksia sovelluksen asetuksista.";
 "featured-widget-title" = "Suositeltu artikkeli";
-"feed-news-notification-button-text" = "Ota ilmoitukset käyttöön";
-"feed-news-notification-text" = "Kytke ilmoitukset päälle saadaksesi ilmoituksen artikkeleista jotka ovat nousussa uutisissa.";
 "fetcher-error-generic" = "Jotain meni pieleen. Yritä uudelleen myöhemmin";
 "fetcher-error-unexpected-response" = "Sovellus vastaanotti odottamattoman vastauksen palvelimelta. Yritä myöhemmin uudelleen.";
 "field-alert-captcha-invalid" = "Virheellinen kuvavarmennuksen vastaus";
@@ -573,6 +571,8 @@
 "notifications-center-empty-no-messages" = "Sinulla ei ole viestejä";
 "notifications-center-empty-not-subscribed" = "Et ole tilannut Wikipedia-ilmoituksia";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 suodatin|$1 suodatinta}}";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Ota ilmoitukset käyttöön";
 "notifications-center-filters-read-status-item-title-all" = "Kaikki";
 "notifications-center-filters-read-status-item-title-read" = "Luettu";
 "notifications-center-filters-read-status-item-title-unread" = "Lukematon";
