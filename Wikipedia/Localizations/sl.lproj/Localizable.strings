@@ -388,7 +388,9 @@
 "saved-search-default-text" = "Iskanje shranjenih člankov";
 "saved-title" = "Shranjeno";
 "search-did-you-mean" = "Ste mislili $1?";
+"search-recent-clear-cancel" = "Prekliči";
 "search-title" = "Iskanje";
+"settings-clear-cache-cancel" = "Prekliči";
 "settings-notifications-push-notifications" = "Potisna obvestila";
 "sort-by-title-action" = "Naslov";
 "talk-page-reply-title" = "Odgovor";

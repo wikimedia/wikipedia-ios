@@ -274,8 +274,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "De Wikipedia en $1";
 "explore-random-article-sub-heading-from-wikipedia" = "De Wikipedia";
 "explore-randomizer" = "Al debalu";
-"feed-news-notification-button-text" = "Activar los avisos";
-"feed-news-notification-text" = "Activa los avisos pa recibir avisos de Wikipedia cuando los artículos seyan tendencia nes noticies.";
 "field-alert-captcha-invalid" = "CAPTCHA inválidu";
 "field-alert-password-confirm-mismatch" = "Les contraseñes nun casen";
 "field-alert-token-invalid" = "Códigu inválidu";
@@ -365,6 +363,8 @@
 "new-password-instructions" = "Aniciasti sesión con una contraseña temporal. Pa terminar d'aniciar sesión, tienes de configurar una contraseña nueva equí.";
 "new-password-title" = "Configura la contraseña";
 "no-email-account-alert" = "Configura una cuenta de corréu electrónicu nel preséu y téntalo otra vuelta.";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Activar los avisos";
 "number-billions" = "$1";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";

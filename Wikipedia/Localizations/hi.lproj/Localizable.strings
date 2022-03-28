@@ -156,8 +156,6 @@
 "explore-potd-heading" = "आज का चित्र";
 "explore-random-article-heading" = "कोई भी लेख";
 "explore-randomizer" = "कोई भी पृष्ठ";
-"feed-news-notification-button-text" = "नोटिफिकेशन ऑन करें";
-"feed-news-notification-text" = "जब समाचारों में लेख रुझान पर हों, तब विकिपीडिया द्वारा सक्षम सूचनाएं अधिसूचित होनी चाहिए।";
 "field-alert-captcha-invalid" = "अमान्य कैप्चा";
 "field-alert-password-confirm-mismatch" = "पासवर्ड्स मैच नहीं हो रहे";
 "field-alert-token-invalid" = "अमान्य कोड";
@@ -244,6 +242,8 @@
 "new-password-instructions" = "अपने एक अस्थाई पासवर्ड से लॉगिन किया। लॉगिन को पूरा करने के लिए यहाँ एक नया पासवर्ड जोड़ें।";
 "new-password-title" = "एक पासवर्ड जोड़ें";
 "no-email-account-alert" = "कृपया अपनी डिवाइस पर एक ईमेल अकाउंट स्थापित करें और पुनः प्रयास करें।";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "नोटिफिकेशन ऑन करें";
 "notifications-center-subheader-thanks" = "धन्यवाद";
 "notifications-center-subheader-welcome" = "सुस्वागतम्‌!";
 "notifications-center-swipe-more" = "और";

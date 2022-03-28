@@ -118,6 +118,7 @@
 "action-add-to-reading-list" = "Ajouter à la liste de lecture";
 "action-add-to-reading-list-short" = "Ajouter à la liste";
 "action-cancel" = "Annuler";
+"action-discard-edits" = "Abandonner les modifications";
 "action-find-in-page" = "Trouver dans la page";
 "action-language-accessibility" = "Modifier la langue";
 "action-move-to" = "Déplacer vers...";
@@ -328,6 +329,8 @@
 "editing-welcome-impartial-tone-title" = "Écrire sur un ton impartial";
 "editing-welcome-set-knowledge-free-subtitle" = "Afin de donner à chacun accès à la connaissance du monde entier, nous avons besoin de vous pour participer à sa création en lisant, modifiant et contribuant aux sujets qui comptent le plus pour vous.";
 "editing-welcome-set-knowledge-free-title" = "Libérer la connaissance";
+"editor-exit-confirmation-body" = "Voulez-vous vraiment quitter le mode de modification sans d’abord publier ?";
+"editor-exit-confirmation-title" = "Quitter le mode de modification ?";
 "empty-diff-compare-title" = "Aucune différence entre les versions";
 "empty-diff-single-title" = "Aucun changement visible réalisé";
 "empty-insert-media-title" = "Sélectionner un fichier de Wikimedia Commons";
@@ -439,8 +442,6 @@
 "featured-widget-from-wikipedia" = "De Wikipédia";
 "featured-widget-language-failure" = "L’édition de Wikipédia dans votre langue principale ne prend pas en charge l’article mis en avant. Vous pouvez mettre à jour votre édition principale de Wikipédia dans le menu Paramètres de l’application.";
 "featured-widget-title" = "Article mis en avant";
-"feed-news-notification-button-text" = "Activer les notifications";
-"feed-news-notification-text" = "Activer les notifications envoyées par Wikipédia quand des articles suivent la tendance de l’actualité.";
 "fetcher-error-generic" = "Quelque chose s’est mal passé. Veuillez réessayer ultérieurement.";
 "fetcher-error-unexpected-response" = "L’application a reçu une réponse inattendue du serveur. Veuillez réessayer ultérieurement.";
 "field-alert-captcha-invalid" = "CAPTCHA non valide";
@@ -595,6 +596,8 @@
 "notifications-center-empty-state-filters-subtitle" = "Modifier $1 pour voir plus de messages";
 "notifications-center-empty-state-no-projects-selected" = "Ajouter des projets pour voir plus de messages";
 "notifications-center-empty-state-num-filters" = "$1 filtre{{PLURAL:$1||s}}";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Activer les notifications";
 "notifications-center-filters-accessibility-label" = "Fitrage des notifications";
 "notifications-center-filters-read-status-item-title-all" = "Tous";
 "notifications-center-filters-read-status-item-title-read" = "Lu";

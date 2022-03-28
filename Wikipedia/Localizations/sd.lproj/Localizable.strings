@@ -377,8 +377,6 @@
 "featured-widget-from-language-wikipedia" = "$1 وڪيپيڊيا تان";
 "featured-widget-from-wikipedia" = "وڪيپيڊيا تان";
 "featured-widget-title" = "چونڊ مضمون";
-"feed-news-notification-button-text" = "اطلاع آن ڪريو";
-"feed-news-notification-text" = "خبرن ۾ لاڙو رکندڙ وڪيپيڊيا مضمونن بابت اطلاع قابلِڪار ڪريو.";
 "fetcher-error-generic" = "ڪاشيءِ غلط وئي. مھرباني ڪري ٻيھر ڪوشش ڪريو.";
 "fetcher-error-unexpected-response" = "ايپ سرور کان غيرمتوقع جواب حاصل ڪيو. مھرباني ڪري بعد ۾ ٻيھر ڪوشش ڪريو.";
 "field-alert-captcha-invalid" = "ناقابلِڪار ڪيپچا";
@@ -512,6 +510,8 @@
 "notifications-center-empty-not-subscribed" = "توھان پاران في الوقت ڪنھن بہ وڪيپيڊيا اطلاعن لاءِ سبسڪرائب ناھي ڪيل";
 "notifications-center-empty-state-filters-subtitle" = "وڌيڪ پيغام ڏسڻ لاءِ $1 کي بدلايو";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 ڇاڻي|$1 ڇاڻيون}}";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "اطلاع آن ڪريو";
 "notifications-center-filters-read-status-item-title-all" = "سڀ";
 "notifications-center-filters-read-status-item-title-read" = "پڙھيل";
 "notifications-center-filters-read-status-item-title-unread" = "نہ-پڙھيل";

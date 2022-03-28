@@ -179,9 +179,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Eus $1 Wikipedia";
 "explore-random-article-sub-heading-from-wikipedia" = "Eus Wikipedia";
 "explore-randomizer" = "Dre zegouezh";
-"feed-news-notification-button-text" = "Gweredekaat ar c'hemennadennoù";
-// Fuzzy
-"feed-news-notification-text" = "Bremañ e c'hallit resev kemennadennoù diwar-benn pennadoù Wikipedia diouzh ar c'hiz er c'heleier.";
 "field-alert-captcha-invalid" = "N'eo ket mat ar c'hCAPCHA-mañ";
 "field-alert-password-confirm-mismatch" = "Ar gerioù-tremen ne glotont ket an eil gant egile";
 "field-alert-token-invalid" = "Kod direizh";
@@ -272,6 +269,8 @@
 "no-email-account-alert" = "Kendalc'hit, mar plij da gefluniañ ur gemennadenn en hoc'h ardivink ha klaskit en-dro.";
 "no-internet-connection" = "Kevreadur ebet ouzh ar Genrouedad";
 "no-internet-connection-article-reload-button" = "Distreiñ d'an doare diwezhañ enrollet";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Gweredekaat ar c'hemennadennoù";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";

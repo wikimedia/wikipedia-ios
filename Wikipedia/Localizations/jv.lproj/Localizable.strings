@@ -188,8 +188,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Saka Wikipédia $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Saka Wikipédia";
 "explore-randomizer" = "Artikel sembarang";
-"feed-news-notification-button-text" = "Urubaké pambiwara";
-"feed-news-notification-text" = "Urubaké wara-wara supaya panjenengan dikabari Wikipédia yèn artikelé mumbul dadi pawarta.";
 "fetcher-error-generic" = "Ana masalah. Mangga jajal manèh mengko.";
 "field-alert-captcha-invalid" = "CAPTCHA ora trep";
 "field-alert-password-confirm-mismatch" = "Tembung sandiné ora mathuk";
@@ -276,6 +274,8 @@
 "new-password-instructions" = "Panjenengan wis mlebu log mawa tembung sandi sadhéla. Saperlu ngrampungaké olèhé panjenengan mlebu log, setèlen tembung sandi anyar ing kéné.";
 "new-password-title" = "Setèl tembung sandiné panjenengan";
 "no-email-account-alert" = "Mangga setèlen akun layang-èl ing pirantiné panjenengan lan ambali njajal.";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Urubaké pambiwara";
 "number-billions" = "$1 milyar";
 "number-millions" = "$1 yuta";
 "number-thousands" = "$1 éwu";
