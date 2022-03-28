@@ -114,9 +114,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         // If in a tab bar presentation, only show notification bar button item if the user is logged in
         if (self.dataStore.authenticationManager.isLoggedIn) {
             NSInteger numUnreadNotifications = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
-            UIImage *image = numUnreadNotifications == 0 ? [self notificationsCenterBellImageWithUnreadNotifications:NO] : [self notificationsCenterBellImageWithUnreadNotifications:YES];
+            BOOL hasUnreadNotifications = numUnreadNotifications != 0;
+            UIImage *image = [BarButtonImageStyle notificationsButtonImageForTheme:self.theme indicated:hasUnreadNotifications];
             UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(userDidTapNotificationsCenter)];
-            notificationsBarButton.accessibilityLabel = [WMFCommonStrings notificationsCenterTitle];
+            notificationsBarButton.accessibilityLabel = numUnreadNotifications == 0 ? [WMFCommonStrings notificationsCenterTitle] : [WMFCommonStrings notificationsCenterBadgeTitle];
             self.navigationItem.leftBarButtonItem = notificationsBarButton;
         } else {
             self.navigationItem.leftBarButtonItem = nil;
@@ -326,7 +327,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
             break;
     }
 
-    if (cell.tag != WMFSettingsMenuItemType_SendUsageReports) { //logged elsewhere via disclosureSwitchChanged:
+    if (cell.tag != WMFSettingsMenuItemType_SendUsageReports) { // logged elsewhere via disclosureSwitchChanged:
         [self logNavigationEventsForMenuType:cell.tag];
     }
 
@@ -445,13 +446,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Notifications
 
 - (void)showNotifications {
-    WMFNotificationSettingsViewController *notificationSettingsVC = [[WMFNotificationSettingsViewController alloc] initWithAuthManager:self.dataStore.authenticationManager notificationsController:self.dataStore.notificationsController];
-    [notificationSettingsVC applyTheme:self.theme];
-    [self.navigationController pushViewController:notificationSettingsVC animated:YES];
-}
-
-- (UIImage *)notificationsCenterBellImageWithUnreadNotifications:(BOOL)hasUnreadNotifications {
-    return [UIImage imageNamed:hasUnreadNotifications ? @"notifications-bell-with-indicator" : @"notifications-bell"];
+    WMFPushNotificationsSettingsViewController *pushSettingsVC = [[WMFPushNotificationsSettingsViewController alloc] initWithAuthenticationManager:self.authManager notificationsController:self.dataStore.notificationsController];
+    [pushSettingsVC applyTheme:self.theme];
+    [self.navigationController pushViewController:pushSettingsVC animated:YES];
 }
 
 #pragma mark - Appearance
@@ -505,7 +502,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         if (@available(iOS 15.0, *)) {
 
         } else {
-            //Hides odd content inset bug in iOS 13 & 14
+            // Hides odd content inset bug in iOS 13 & 14
             if (section == 0) {
                 return 0;
             }
@@ -549,7 +546,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     NSMutableArray *items = [NSMutableArray arrayWithArray:commonItems];
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ExploreFeed]];
 
-    [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Notifications]];
+    if (_authManager.isLoggedIn) {
+        [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Notifications]];
+    }
 
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Appearance]];
     [items addObject:[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_StorageAndSyncing]];

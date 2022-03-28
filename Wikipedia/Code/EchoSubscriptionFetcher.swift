@@ -34,9 +34,15 @@ class EchoSubscriptionFetcher: Fetcher {
                 return
             }
             
-            if let responseError = RequestError.from(result?["error"] as? [String : Any]) {
-                completion(responseError)
-                return
+            if let responseError = RequestError.from(result) {
+                switch responseError {
+                case .api("echo-push-token-exists"):
+                    // MediaWiki has already registered the requested device token, which is what we ultimately want, so we can consider this request a success
+                    break
+                default:
+                    completion(responseError)
+                    return
+                }
             }
             
             completion(nil)
@@ -71,9 +77,15 @@ class EchoSubscriptionFetcher: Fetcher {
                 return
             }
             
-            if let responseError = RequestError.from(result?["error"] as? [String : Any]) {
-                completion?(responseError)
-                return
+            if let responseError = RequestError.from(result) {
+                switch responseError {
+                case .api("echo-push-token-not-found"):
+                    // MediaWiki can't find this registered token, which is what we ultimately want, so we can consider this request a success
+                    break
+                default:
+                    completion?(responseError)
+                    return
+                }
             }
             
             completion?(nil)

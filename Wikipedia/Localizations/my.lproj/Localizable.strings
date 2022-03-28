@@ -296,7 +296,6 @@
 "featured-widget-from-language-wikipedia" = "$1 ဝီကီပီးဒီးယားမှ";
 "featured-widget-from-wikipedia" = "ဝီကီပီးဒီးယားမှ";
 "featured-widget-title" = "အထူးဆောင်းပါး";
-"feed-news-notification-button-text" = "အသိပေးချက်များ ဖွင့်ရန်။";
 "fetcher-error-generic" = "တစ်ခုခုမှားယွင်းခဲ့ပါသည်။ နောက်မှထပ်မံကြိုးစားပါ။";
 "field-alert-captcha-invalid" = "မမှန်သော CAPTCHA";
 "field-alert-password-confirm-mismatch" = "စကားဝှက်များ ကိုက်ညီမှုမရှိပါ";
@@ -411,6 +410,8 @@
 "no-internet-connection" = "အင်တာနက် ကွန်နက်ရှင် မရှိပါ";
 "no-internet-connection-article-reload" = "ဤဆောင်းပါး၏ ပိုမိုသစ်လွင်သောမူကို ရရှိနိုင်ကောင်းပါသည်၊ သို့သော် အင်တာနက်ကွန်နက်ရှင်မရှိဘဲ မဆွဲတင်နိုင်ပါ။";
 "notifications-center-change-password" = "စကားဝှက် ပြောင်းလဲရန်";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "အသိပေးချက်များ ဖွင့်ရန်။";
 "notifications-center-footer-change-password" = "စကားဝှက် ပြောင်းလဲရန်";
 "notifications-center-go-to-talk-page" = "ဆွေးနွေးစာမျက်နှာသို့ သွားရန်";
 "notifications-center-go-to-title" = "$1 သို့ သွားပါ";
@@ -593,6 +594,7 @@
 "settings-help-and-feedback" = "အကူအညီနှင့် အကြံပြုချက်";
 "settings-language-bar" = "ရှာဖွေမှုတွင် ဘာသာစကားများ ပြရန်";
 "settings-my-languages" = "ကျွန်ုပ်၏ ဘာသာစကားများ";
+// Fuzzy
 "settings-notifications" = "အသိပေးချက်များ";
 "settings-notifications-learn-more" = "အသိပေးချက်များအကြောင်း ပိုမိုလေ့လာရန်";
 "settings-notifications-push-notifications" = "အသိပေးချက်များ";

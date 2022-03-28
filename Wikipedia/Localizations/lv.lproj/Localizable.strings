@@ -94,7 +94,6 @@
 "explore-potd-heading" = "Dienas attēls";
 "explore-random-article-heading" = "Nejauša lapa";
 "explore-randomizer" = "Nejauša lapa";
-"feed-news-notification-button-text" = "Ieslēgt paziņojumus";
 "field-alert-captcha-invalid" = "Nederīgs CAPTCHA";
 "field-alert-token-invalid" = "Nederīgs kods";
 "field-captcha-placeholder" = "CAPTCHA teksts";
@@ -152,6 +151,8 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 jūdzes";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Ieslēgt paziņojumus";
 "notifications-center-mark" = "Atzīmēt";
 "notifications-center-mark-all-as-read" = "Atzīmēt visus kā izlasītus";
 "notifications-center-swipe-mark-as-read" = "Atzīmēt kā lasītu";
@@ -212,6 +213,7 @@
 "settings-help-and-feedback" = "Palīdzība un atsauksmes";
 "settings-language-bar" = "Rādīt valodas meklēšanā";
 "settings-my-languages" = "Manas valodas";
+// Fuzzy
 "settings-notifications" = "Paziņojumi";
 "settings-notifications-learn-more" = "Uzziniet vairāk par paziņojumiem";
 "settings-notifications-system-turn-on" = "Ieslēgt paziņojumus";

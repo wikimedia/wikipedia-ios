@@ -14,6 +14,8 @@ final class NotificationsCenterViewController: ViewController {
     let viewModel: NotificationsCenterViewModel
     
     var didUpdateFiltersCallback: (() -> Void)?
+
+    fileprivate var onboardingHostingViewController: NotificationsCenterOnboardingHostingViewController?
     
     // MARK: Properties - Diffable Data Source
     typealias DataSource = UICollectionViewDiffableDataSource<NotificationsCenterSection, NotificationsCenterCellViewModel>
@@ -99,6 +101,9 @@ final class NotificationsCenterViewController: ViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.refreshNotifications(force: true)
+        viewModel.markAllAsSeen()
+        
+        presentOnboardingEducationModalIfNecessary()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -150,6 +155,7 @@ final class NotificationsCenterViewController: ViewController {
         super.apply(theme: theme)
 
         notificationsView.apply(theme: theme)
+        onboardingHostingViewController?.apply(theme: theme)
 
         closeSwipeActionsPanelIfNecessary()
         notificationsView.collectionView.reloadData()
@@ -287,7 +293,8 @@ private extension NotificationsCenterViewController {
         } else {
             markButton = TextBarButtonItem(title: markText, target: self, action: #selector(didTapMarkButtonIOS13(_:)))
         }
-        
+        markButton.accessibilityLabel = WMFLocalizedString("notifications-center-toolbar-mark-accessibility-label", value: "Mark selected notifications", comment: "Accessibility label for mark button in Notifications Center")
+       
         markButton.apply(theme: theme)
         return markButton
     }
@@ -420,7 +427,7 @@ private extension NotificationsCenterViewController {
     }
     
     func presentView<T: View>(view: T) {
-        let hostingVC = UIHostingController(rootView: view)
+        let hostingVC = NotificationsCenterModalHostingController(rootView: view)
         
         let currentFilterState = viewModel.remoteNotificationsController.filterState
         
@@ -441,6 +448,57 @@ private extension NotificationsCenterViewController {
         nc.modalPresentationStyle = .pageSheet
         self.present(nc, animated: true, completion: nil)
     }
+}
+
+// MARK: - Onboarding Modal and Push Opt in
+
+extension NotificationsCenterViewController: NotificationsCenterOnboardingDelegate {
+
+    func presentOnboardingEducationModalIfNecessary() {
+        guard !UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter else {
+            return
+        }
+
+        let onboardingHostingViewController = NotificationsCenterOnboardingHostingViewController(theme: theme)
+        onboardingHostingViewController.delegate = self
+        onboardingHostingViewController.modalPresentationStyle = .pageSheet
+        self.onboardingHostingViewController = onboardingHostingViewController
+        present(onboardingHostingViewController, animated: true)
+    }
+
+    func presentOnboardingPushOptInIfNecessary() {
+        guard !UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter else {
+            return
+        }
+
+        let primaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _ in
+            self?.dismiss(animated: true, completion: {
+                self?.userDidTapPushNotificationsOptIn()
+            })
+        }
+
+        let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _ in
+            self?.dismiss(animated: true)
+        }
+
+        let dismissHandler: ScrollableEducationPanelDismissHandler = {
+            UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter = true
+        }
+
+        let panel = NotificationsCenterOnboardingPushPanelViewController(showCloseButton: false, primaryButtonTapHandler: primaryTapHandler, secondaryButtonTapHandler: secondaryTapHandler, dismissHandler: dismissHandler, theme: theme)
+        panel.dismissWhenTappedOutside = true
+        present(panel, animated: true)
+    }
+
+    func userDidDismissNotificationsCenterOnboardingView() {
+        presentOnboardingPushOptInIfNecessary()
+    }
+
+    func userDidTapPushNotificationsOptIn() {
+        // TODO
+        print("TODO: Push Notifications Systems Permissions and Echo Subscription")
+    }
+
 }
 
 // MARK: - NotificationsCenterViewModelDelegate
@@ -760,6 +818,9 @@ extension NotificationsCenterViewController {
         typeFilterButton.isEnabled = buttonsAreEnabled
         projectFilterButton.isEnabled = buttonsAreEnabled
         statusBarButton.label.attributedText = viewModel.statusBarText(textColor: theme.colors.primaryText, highlightColor: theme.colors.link)
+        
+        typeFilterButton.accessibilityLabel = viewModel.filterButtonAccessibilityLabel
+        projectFilterButton.accessibilityLabel = viewModel.projectFilterAccessibilityLabel
     }
 
     @objc fileprivate func userDidTapProjectFilterButton() {
@@ -768,5 +829,13 @@ extension NotificationsCenterViewController {
 
     @objc fileprivate func userDidTapTypeFilterButton() {
         presentFiltersViewController()
+    }
+}
+
+//MARK: Push tap handling
+
+extension NotificationsCenterViewController: NotificationsCenterFlowViewController {
+    func tappedPushNotification() {
+        //do nothing
     }
 }

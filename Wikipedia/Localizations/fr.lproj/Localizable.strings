@@ -118,6 +118,7 @@
 "action-add-to-reading-list" = "Ajouter à la liste de lecture";
 "action-add-to-reading-list-short" = "Ajouter à la liste";
 "action-cancel" = "Annuler";
+"action-discard-edits" = "Abandonner les modifications";
 "action-find-in-page" = "Trouver dans la page";
 "action-language-accessibility" = "Modifier la langue";
 "action-move-to" = "Déplacer vers...";
@@ -144,7 +145,7 @@
 "action-update" = "Mettre à jour";
 "add-articles-to-reading-list" = "Ajouter $1 article{{PLURAL:$1||s}} à la liste de lecture";
 "add-citation-title" = "Ajouter une référence";
-"announcements-dismiss" = "Ignorer";
+"announcements-dismiss" = "Fermer";
 "app-store-keywords" = "Wikipédia, référence, wiki, encyclopédie, infos, connaissance, recherche, informations, actualités, découverte, apprendre, étudier, éducation";
 "app-store-release-notes" = "Flux d’exploration complètement personnalisables et plus faciles à lire. Localisation, améliorations des performances et corrections d’anomalies.";
 "app-store-short-description" = "Télécharger l’application Wikipédia pour explorer des lieux proches de vous, synchroniser des articles à lire hors connexion et personnaliser votre expérience de lecture.";
@@ -162,7 +163,7 @@
 "article-deleted-accessibility-notification" = "Article{{PLURAL:$1||s}} supprimé{{PLURAL:$1||s}}";
 "article-fetcher-error-updated-content-timeout" = "L’appli n’a pas pu récupérer le contenu mis à jour dans le temp imparti. Veuillez actualiser cette page plus tard pour voir vos changements apportés.";
 "article-languages-filter-placeholder" = "Trouver la langue";
-"article-languages-label" = "Choisir la langue";
+"article-languages-label" = "Choisissez une langue";
 "article-languages-others" = "Autres langues";
 "article-languages-yours" = "Vos langues";
 "article-read-more-title" = "En lire plus";
@@ -328,6 +329,8 @@
 "editing-welcome-impartial-tone-title" = "Écrire sur un ton impartial";
 "editing-welcome-set-knowledge-free-subtitle" = "Afin de donner à chacun accès à la connaissance du monde entier, nous avons besoin de vous pour participer à sa création en lisant, modifiant et contribuant aux sujets qui comptent le plus pour vous.";
 "editing-welcome-set-knowledge-free-title" = "Libérer la connaissance";
+"editor-exit-confirmation-body" = "Voulez-vous vraiment quitter le mode de modification sans d’abord publier ?";
+"editor-exit-confirmation-title" = "Quitter le mode de modification ?";
 "empty-diff-compare-title" = "Aucune différence entre les versions";
 "empty-diff-single-title" = "Aucun changement visible réalisé";
 "empty-insert-media-title" = "Sélectionner un fichier de Wikimedia Commons";
@@ -439,8 +442,6 @@
 "featured-widget-from-wikipedia" = "De Wikipédia";
 "featured-widget-language-failure" = "L’édition de Wikipédia dans votre langue principale ne prend pas en charge l’article mis en avant. Vous pouvez mettre à jour votre édition principale de Wikipédia dans le menu Paramètres de l’application.";
 "featured-widget-title" = "Article mis en avant";
-"feed-news-notification-button-text" = "Activer les notifications";
-"feed-news-notification-text" = "Activer les notifications envoyées par Wikipédia quand des articles suivent la tendance de l’actualité.";
 "fetcher-error-generic" = "Quelque chose s’est mal passé. Veuillez réessayer ultérieurement.";
 "fetcher-error-unexpected-response" = "L’application a reçu une réponse inattendue du serveur. Veuillez réessayer ultérieurement.";
 "field-alert-captcha-invalid" = "CAPTCHA non valide";
@@ -584,13 +585,20 @@
 "no-internet-connection" = "Aucune connexion à Internet";
 "no-internet-connection-article-reload" = "Une version plus récente de cet article est peut-être disponible, mais ne peut pas être chargée sans connexion à Internet";
 "no-internet-connection-article-reload-button" = "Retour à la dernière version enregistrée";
+"notifications-center-applied-filters-accessibility-label" = "Filtrage des notifications : a des filtres appliqués";
+"notifications-center-applied-project-filters-accessibility-label" = "Filtrage des projets : a des filtres appliqués";
+"notifications-center-badge-button-accessibility-label" = "Notifications avec un badge non lu";
 "notifications-center-change-password" = "Modifier le mot de passe";
 "notifications-center-checking-for-notifications" = "Vérification des notifications...";
 "notifications-center-empty-checking-for-notifications" = "Vérification des notifications...";
 "notifications-center-empty-no-messages" = "Vous n’avez aucun message";
 "notifications-center-empty-not-subscribed" = "Vous n’êtes actuellement abonné à aucune notification de Wikipédia.";
 "notifications-center-empty-state-filters-subtitle" = "Modifier $1 pour voir plus de messages";
+"notifications-center-empty-state-no-projects-selected" = "Ajouter des projets pour voir plus de messages";
 "notifications-center-empty-state-num-filters" = "$1 filtre{{PLURAL:$1||s}}";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Activer les notifications";
+"notifications-center-filters-accessibility-label" = "Fitrage des notifications";
 "notifications-center-filters-read-status-item-title-all" = "Tous";
 "notifications-center-filters-read-status-item-title-read" = "Lu";
 "notifications-center-filters-read-status-item-title-unread" = "Non lu";
@@ -622,6 +630,7 @@
 "notifications-center-mark-as-unread" = "Marquer comme non lu";
 "notifications-center-notifications-settings" = "Paramètres de notification";
 "notifications-center-num-selected-messages-format" = "$1 message{{PLURAL:$1||s}}";
+"notifications-center-project-filters-accessibility-label" = "Filtrage des projets";
 "notifications-center-status-all" = "Toutes";
 "notifications-center-status-all-notifications" = "Toutes les notifications";
 "notifications-center-status-double-concatenation" = "$1 sur $2";
@@ -656,6 +665,7 @@
 "notifications-center-swipe-mark-as-unread" = "Marquer comme non lu";
 "notifications-center-swipe-more" = "Plus";
 "notifications-center-title" = "Notifications";
+"notifications-center-toolbar-mark-accessibility-label" = "Marquer les notifications sélectionnées";
 "notifications-push-fallback-body-text" = "Nouvelle activité sur Wikipédia";
 "notifications-push-talk-body-format" = "$1 nouveaux $2 sur $3";
 "notifications-push-talk-messages-format" = "message{{PLURAL:$1||s}}";
@@ -885,7 +895,11 @@
 "settings-language-bar" = "Afficher les langues dans la recherche";
 "settings-languages-feed-customization" = "Vous pouvez gérer quelles langues sont affichées dans votre fil d’exploration en personnalisant vos paramètres du fil d’exploration.";
 "settings-my-languages" = "Mes langues";
-"settings-notifications" = "Notifications";
+"settings-notifications" = "Notifications envoyées";
+"settings-notifications-echo-failure-message" = "Une erreur s’est produite en vérifiant les abonnements aux notifications liées à votre compte.";
+"settings-notifications-echo-failure-title" = "Impossible de vérifier les abonnements aux notifications d’Echo";
+"settings-notifications-echo-failure-try-again" = "Réessayer";
+"settings-notifications-header" = "Être alerté de l’activité concernant votre compte, comme des messages de contributeurs confrères, des alertes et des avertissements. Tout cela est fourni en respectant la confidentialité et à jour avec les données les plus récentes.";
 "settings-notifications-info" = "Être alerté la tendance et les articles les plus lus sur Wikipédia avec nos notifications envoyées. Tout cela est fourni en respectant la confidentialité et la fraîcheur des données.";
 "settings-notifications-learn-more" = "En savoir plus sur les notifications";
 "settings-notifications-push-notifications" = "Notifications envoyées";
@@ -929,7 +943,7 @@
 "table-of-contents-button-label" = "Table des matières";
 "table-of-contents-close-accessibility-hint" = "Fermer";
 "table-of-contents-close-accessibility-label" = "Fermer la table des matières";
-"table-of-contents-heading" = "Contenus";
+"table-of-contents-heading" = "Sommaire";
 "table-of-contents-hide-button-label" = "Masquer la table des matières";
 "table-of-contents-subheading-label" = "Sous-titre $1";
 "tachelhit-variants-alert-body" = "L’application Wikipédia prend maintenant en charge les variantes suivantes du chleuh comme langues primaire ou secondaires dans l’application, le rendant plus facile à lire, rechercher ou modifier dans vos variantes préférées :\n\nⵜⴰⵛⵍⵃⵉⵜ – chleuh tifinagh (shi-tfng)\nTaclḥit – chleuh latin (shi-latn)";

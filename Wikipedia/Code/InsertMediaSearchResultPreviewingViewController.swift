@@ -51,3 +51,7 @@ extension InsertMediaSearchResultPreviewingViewController: Themeable {
         imageInfoView.apply(theme: theme)
     }
 }
+
+extension InsertMediaSearchResultPreviewingViewController: EditingFlowViewController {
+    
+}
