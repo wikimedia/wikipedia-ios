@@ -183,6 +183,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         [self saveGroupForTopRead:feedDay.topRead pageViews:pageViews date:date inManagedObjectContext:moc];
         [self saveGroupForPictureOfTheDay:feedDay.pictureOfTheDay date:date inManagedObjectContext:moc];
         [self saveGroupForNews:feedDay.newsStories pageViews:pageViews date:date inManagedObjectContext:moc];
+        [self saveGroupFoNotificationsinManagedObjectContext:moc date:date];
         [self scheduleNotificationsForFeedDay:feedDay onDate:date inManagedObjectContext:moc];
         
         if (!completion) {
@@ -261,7 +262,6 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     WMFContentGroup *newsGroupForFeedDate = [self newsForDate:feedDate inManagedObjectContext:moc];
     if (newsGroupForFeedDate) {
         newsGroupForFeedDate.isVisible = YES;
-        [self addNewsNotificationGroupForNewsGroup:newsGroupForFeedDate inManagedObjectContext:moc];
     }
 
     if ([news count] == 0 || feedDate == nil) {
@@ -335,14 +335,22 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         [newsGroup updateContentPreviewWithContent:news];
     }
     newsGroup.isVisible = isVisible;
-    [self addNewsNotificationGroupForNewsGroup:newsGroup inManagedObjectContext:moc];
 }
 
-- (void)addNewsNotificationGroupForNewsGroup:(WMFContentGroup *)newsGroup inManagedObjectContext:(NSManagedObjectContext *)moc {
+-(void)saveGroupFoNotificationsinManagedObjectContext:(NSManagedObjectContext *)moc date:(NSDate *)date {
+    WMFContentGroup *notificationsGroup = [self notificationAnnouncementForDate:date inManagedObjectContext:moc];
+    
+    if (notificationsGroup == nil) {
+        notificationsGroup = [moc createGroupOfKind:WMFContentGroupKindNotification forDate:date withSiteURL:self.siteURL associatedContent:nil];
+    }
+}
+
+- (void)addNotificationsGroupInManagedObjectContext:(NSManagedObjectContext *)moc {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    if (newsGroup && newsGroup.isVisible && ![userDefaults wmf_inTheNewsNotificationsEnabled] && ![userDefaults wmf_didShowNewsNotificationCardInFeed]) {
+    NSDate *date = [NSDate alloc];
+    if (userDefaults.wmf_shouldShowNotificationsExploreFeedCard && ![userDefaults wmf_didShowNewsNotificationCardInFeed] && self.fetcher.session.isAuthenticated ){
         NSURL *URL = [WMFContentGroup notificationContentGroupURLWithLanguageVariantCode:self.siteURL.wmf_languageVariantCode];
-        [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindNotification forDate:newsGroup.date withSiteURL:self.siteURL associatedContent:nil customizationBlock:NULL];
+        [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindNotification forDate:date withSiteURL:self.siteURL associatedContent:nil customizationBlock:NULL];
         [userDefaults wmf_setDidShowNewsNotificationCardInFeed:YES];
     }
 }
@@ -368,6 +376,10 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 - (nullable WMFContentGroup *)onThisDayForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
     return (id)[moc groupOfKind:WMFContentGroupKindOnThisDay forDate:date siteURL:self.siteURL];
+}
+
+- (nullable WMFContentGroup *)notificationAnnouncementForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
+    return (id) [moc groupOfKind: WMFContentGroupKindNotification forDate:date siteURL: self.siteURL];
 }
 
 #pragma mark - Notifications

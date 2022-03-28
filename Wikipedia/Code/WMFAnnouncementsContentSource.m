@@ -93,6 +93,16 @@
     }];
 }
 
+- (void) saveNotificationsGroupInManagedObjectContext:(NSManagedObjectContext *)moc {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSDate *date = [NSDate alloc];
+    if (userDefaults.wmf_shouldShowNotificationsExploreFeedCard && ![userDefaults wmf_didShowNewsNotificationCardInFeed] && self.fetcher.session.isAuthenticated ){
+        NSURL *URL = [WMFContentGroup notificationContentGroupURLWithLanguageVariantCode:self.siteURL.wmf_languageVariantCode];
+        [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindNotification forDate:date withSiteURL:self.siteURL associatedContent:nil customizationBlock:NULL];
+        [userDefaults wmf_setDidShowNewsNotificationCardInFeed:YES]; //not here??
+    }
+}
+
 - (void)updateVisibilityOfNotificationAnnouncementsInManagedObjectContext:(NSManagedObjectContext *)moc addNewContent:(BOOL)shouldAddNewContent {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     //Only make these visible for previous users of the app
