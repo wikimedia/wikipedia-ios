@@ -20,7 +20,7 @@ class SectionEditorViewController: ViewController {
     private var dataStore: MWKDataStore
 
     private var webView: SectionEditorWebView!
-    private let sectionFetcher = SectionFetcher()
+    private let sectionFetcher: SectionFetcher
     
     private var inputViewsController: SectionEditorInputViewsController!
     private var messagingController: SectionEditorWebViewMessagingController!
@@ -75,6 +75,7 @@ class SectionEditorViewController: ViewController {
         self.selectedTextEditInfo = selectedTextEditInfo
         self.messagingController = messagingController ?? SectionEditorWebViewMessagingController()
         languageCode = articleURL.wmf_languageCode ?? NSLocale.current.languageCode ?? "en"
+        self.sectionFetcher = SectionFetcher(session: dataStore.session, configuration: dataStore.configuration)
         super.init(theme: theme)
     }
     
