@@ -63,7 +63,7 @@ final class NotificationsCenterCellViewModel {
         let readUnreadAccessibilityAttributedString = isRead ? readAccessibilityAttributedString : unreadAccessibilityAttributedString
         
         let mutableAttributedString = NSMutableAttributedString(attributedString: readUnreadAccessibilityAttributedString)
-        let accessibilityTextAttributedString = NSAttributedString(string: "\(notification.type.filterTitle ?? String()) \(notificationAcessibilityText) \(project.projectName(shouldReturnCodedFormat: false)). \(headerText ?? String()). ")
+        let accessibilityTextAttributedString = NSAttributedString(string: "\(notification.type.title) \(notificationAcessibilityText) \(project.projectName(shouldReturnCodedFormat: false)). \(headerText ?? String()). ")
         
         mutableAttributedString.insert(accessibilityTextAttributedString, at: 0)
         
