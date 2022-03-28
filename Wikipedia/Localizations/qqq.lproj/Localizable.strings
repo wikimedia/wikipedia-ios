@@ -556,6 +556,11 @@
 "notifications-center-applied-filters-accessibility-label" = "Accessibility label for Notifications Center's filters button. This button is in a selected state indicating that filters are applied.";
 "notifications-center-applied-project-filters-accessibility-label" = "Accessibility label for Notifications Center's project filters button. This button is in a selected state indicating that project filters are applied.";
 "notifications-center-badge-button-accessibility-label" = "Accessibility label for a button that navigates to Notifications Center. This button has a badge indicating there are unread notifications.";
+"notifications-center-cell-accessibility-label" = "Acessibility text for the notifications center cell, indicates where the notification is from";
+"notifications-center-cell-read-accessibility-label" = "Accessibility text for indicating that a notification's contents have been read.";
+"notifications-center-cell-read-ipa-accessibility-attribute" = "Accessibility ipa pronounciation for indicating that a notification's contents have been read.";
+"notifications-center-cell-unread-accessibility-label" = "Accessibility text for indicating that a notification's contents have not been read.";
+"notifications-center-cell-unread-ipa-accessibility-attribute" = "Accessibility ipa pronounciation for indicating that a notification's contents have not been read.";
 "notifications-center-change-password" = "Button text in Notifications Center that routes user to change password screen.";
 "notifications-center-checking-for-notifications" = "Status text displayed in Notifications Center when checking for notifications.";
 "notifications-center-empty-checking-for-notifications" = "Text displayed when Notifications Center is checking for notifications.";
@@ -598,6 +603,7 @@
 "notifications-center-mark-all-as-read-missing-number" = "Title for confirmation alert when choosing \"Mark all as read\" toolbar button in notifications center editing mode, when there was an issue with pulling the count of unread notifications.";
 "notifications-center-mark-as-read" = "Button text in Notifications Center to mark a notification as read.";
 "notifications-center-mark-as-unread" = "Button text in Notifications Center to mark a notification as unread.";
+"notifications-center-more-action-accessibility-label" = "Acessibility label for the More custom action";
 "notifications-center-notifications-settings" = "Button text in Notifications Center that automatically routes to the notifications settings screen.";
 "notifications-center-num-selected-messages-format" = "Title for options menu when choosing \"Mark\" toolbar button in notifications center editing mode - $1 is replaced with the number of selected notifications.";
 "notifications-center-onboarding-modal-continue-action" = "Button title of primary action displayed when first launching the Notifications Center.";
