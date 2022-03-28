@@ -15,9 +15,13 @@ final class NotificationsCenterViewController: ViewController {
     
     var didUpdateFiltersCallback: (() -> Void)?
 
+    // MARK: - Properties: Onboarding
+
     fileprivate var onboardingHostingViewController: NotificationsCenterOnboardingHostingViewController?
+    fileprivate var deviceTokenRetryTask: RetryBlockTask?
     
-    // MARK: Properties - Diffable Data Source
+    // MARK: Properties: Diffable Data Source
+
     typealias DataSource = UICollectionViewDiffableDataSource<NotificationsCenterSection, NotificationsCenterCellViewModel>
     typealias Snapshot = NSDiffableDataSourceSnapshot<NotificationsCenterSection, NotificationsCenterCellViewModel>
     private var dataSource: DataSource?
@@ -68,6 +72,11 @@ final class NotificationsCenterViewController: ViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    deinit {
+        deviceTokenRetryTask = nil
+        NotificationCenter.default.removeObserver(self)
+    }
+
     override func loadView() {
         let notificationsCenterView = NotificationsCenterView(frame: UIScreen.main.bounds)
         notificationsCenterView.addSubheaderTapGestureRecognizer(target: self, action: #selector(tappedEmptyStateSubheader))
@@ -94,10 +103,6 @@ final class NotificationsCenterViewController: ViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
     }
 
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.refreshNotifications(force: true)
@@ -471,23 +476,39 @@ extension NotificationsCenterViewController: NotificationsCenterOnboardingDelega
             return
         }
 
-        let primaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _ in
-            self?.dismiss(animated: true, completion: {
-                self?.userDidTapPushNotificationsOptIn()
-            })
-        }
-
-        let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _ in
-            self?.dismiss(animated: true)
-        }
-
-        let dismissHandler: ScrollableEducationPanelDismissHandler = {
+        guard !UserDefaults.standard.wmf_isSubscribedToEchoNotifications else {
             UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter = true
+            return
         }
 
-        let panel = NotificationsCenterOnboardingPushPanelViewController(showCloseButton: false, primaryButtonTapHandler: primaryTapHandler, secondaryButtonTapHandler: secondaryTapHandler, dismissHandler: dismissHandler, theme: theme)
-        panel.dismissWhenTappedOutside = true
-        present(panel, animated: true)
+        viewModel.notificationsController.notificationPermissionsStatus { [weak self] status in
+            guard let self = self else { return }
+
+            guard status != .denied else {
+                UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter = true
+                return
+            }
+
+            DispatchQueue.main.async {
+                let primaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _ in
+                    self?.dismiss(animated: true, completion: {
+                        self?.userDidTapPushNotificationsOptIn()
+                    })
+                }
+
+                let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _ in
+                    self?.dismiss(animated: true)
+                }
+
+                let dismissHandler: ScrollableEducationPanelDismissHandler = {
+                    UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter = true
+                }
+
+                let panel = NotificationsCenterOnboardingPushPanelViewController(showCloseButton: false, primaryButtonTapHandler: primaryTapHandler, secondaryButtonTapHandler: secondaryTapHandler, dismissHandler: dismissHandler, theme: self.theme)
+                panel.dismissWhenTappedOutside = true
+                self.present(panel, animated: true)
+            }
+        }
     }
 
     func userDidDismissNotificationsCenterOnboardingView() {
@@ -495,8 +516,7 @@ extension NotificationsCenterViewController: NotificationsCenterOnboardingDelega
     }
 
     func userDidTapPushNotificationsOptIn() {
-        // TODO
-        print("TODO: Push Notifications Systems Permissions and Echo Subscription")
+        requestPushPermissionsAndSilentlySubscribeToEchoNotifications()
     }
 
 }
@@ -837,5 +857,34 @@ extension NotificationsCenterViewController {
 extension NotificationsCenterViewController: NotificationsCenterFlowViewController {
     func tappedPushNotification() {
         //do nothing
+    }
+}
+
+// MARK: - Device push permissions and silent Echo subscription
+
+extension NotificationsCenterViewController {
+
+    /// Mimics the Settings Push opt in approach, but Echo subscription fails silently to prevent interrupting the experience
+    func requestPushPermissionsAndSilentlySubscribeToEchoNotifications() {
+        deviceTokenRetryTask = RetryBlockTask { [weak self] in
+            return self?.viewModel.notificationsController.remoteRegistrationDeviceToken != nil
+        }
+
+        viewModel.notificationsController.requestPermissionsIfNecessary { [weak self] (authorized, error) in
+            DispatchQueue.main.async {
+                if authorized {
+                    UIApplication.shared.registerForRemoteNotifications()
+                    if self?.viewModel.notificationsController.remoteRegistrationDeviceToken == nil {
+                        self?.deviceTokenRetryTask?.start { [weak self] success in
+                            if success {
+                                self?.viewModel.notificationsController.subscribeToEchoNotifications()
+                            }
+                        }
+                    } else {
+                        self?.viewModel.notificationsController.subscribeToEchoNotifications()
+                    }
+                }
+            }
+        }
     }
 }
