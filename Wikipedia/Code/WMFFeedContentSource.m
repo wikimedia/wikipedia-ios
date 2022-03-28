@@ -350,20 +350,9 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 
     if (userDefaults.wmf_shouldShowNotificationsExploreFeedCard && ![userDefaults wmf_didShowNewsNotificationCardInFeed] && self.fetcher.session.isAuthenticated ){
-//        NSURL *URL = [WMFContentGroup notificationContentGroupURLWithLanguageVariantCode:self.siteURL.wmf_languageVariantCode];
-//        [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindNotification forDate:date withSiteURL:self.siteURL associatedContent:nil customizationBlock:NULL];
+
         [userDefaults wmf_setDidShowNewsNotificationCardInFeed:YES];
         [self createGroupForNotificationsInManagedObjectContext:moc date:date];
-    }
-}
-
-- (void)addNotificationsGroupInManagedObjectContext:(NSManagedObjectContext *)moc {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSDate *date = [NSDate alloc];
-    if (userDefaults.wmf_shouldShowNotificationsExploreFeedCard && ![userDefaults wmf_didShowNewsNotificationCardInFeed] && self.fetcher.session.isAuthenticated ){
-        NSURL *URL = [WMFContentGroup notificationContentGroupURLWithLanguageVariantCode:self.siteURL.wmf_languageVariantCode];
-        [moc fetchOrCreateGroupForURL:URL ofKind:WMFContentGroupKindNotification forDate:date withSiteURL:self.siteURL associatedContent:nil customizationBlock:NULL];
-        [userDefaults wmf_setDidShowNewsNotificationCardInFeed:YES];
     }
 }
 
