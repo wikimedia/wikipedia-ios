@@ -42,8 +42,8 @@ class NotificationsCenterViewModelTests: XCTestCase {
 
     override func setUp(completion: @escaping (Error?) -> Void) {
 
-        if let utctimeZone = TimeZone(abbreviation: "GMT") {
-            NSTimeZone.default = utctimeZone
+        if let gmtTimeZone = TimeZone(abbreviation: "GMT") {
+            NSTimeZone.default = gmtTimeZone
         }
         
         guard modelController != nil else {
