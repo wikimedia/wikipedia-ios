@@ -39,6 +39,8 @@ extension NotificationsCenterDetailView: Themeable {
     func apply(theme: Theme) {
         backgroundColor = theme.colors.baseBackground
         tableView.backgroundColor = theme.colors.baseBackground
+
+        tableView.reloadData()
     }
 
 }
