@@ -41,11 +41,15 @@ class NotificationsCenterCellViewModelWelcomeTests: NotificationsCenterViewModel
         
         let expectedText0 = "Mark as unread"
         let expectedURL0: URL? = nil
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true)
+        let expectedIcon0: NotificationsCenterIconType? = nil
+        let expectedDestinationText0: String? = nil
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true)
         
         let expectedText1 = "Notification settings"
         let expectedURL1: URL? = nil
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, actionToTest: cellViewModel.sheetActions[1], isNotificationSettings: true)
+        let expectedIcon1: NotificationsCenterIconType? = nil
+        let expectedDestinationText1: String? = nil
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: cellViewModel.sheetActions[1], isNotificationSettings: true)
         
     }
 

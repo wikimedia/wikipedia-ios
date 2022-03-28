@@ -35,4 +35,6 @@ enum NotificationsCenterAction: Equatable {
 struct NotificationsCenterActionData: Equatable {
     let text: String
     let url: URL?
+    let iconType: NotificationsCenterIconType?
+    let destinationText: String?
 }
