@@ -48,7 +48,7 @@ class NotificationsCenterCellViewModelEditMilestoneTests: NotificationsCenterVie
     
     private func testEditMilestoneOneOnUserPageText(cellViewModel: NotificationsCenterCellViewModel) throws {
         XCTAssertEqual(cellViewModel.headerText, "Editing milestone", "Invalid headerText")
-        XCTAssertEqual(cellViewModel.subheaderText, "From English Wikipedia", "Invalid subheaderText")
+        XCTAssertEqual(cellViewModel.subheaderText, "English Wikipedia", "Invalid subheaderText")
         XCTAssertEqual(cellViewModel.bodyText, "You just made your first edit; thank you, and welcome!")
         XCTAssertEqual(cellViewModel.footerText, "User:Fred The Bird", "Invalid footerText")
         XCTAssertEqual(cellViewModel.dateText, "4/2/19", "Invalid dateText")
@@ -76,7 +76,7 @@ class NotificationsCenterCellViewModelEditMilestoneTests: NotificationsCenterVie
     
     private func testEditMilestoneTenOnArticleText(cellViewModel: NotificationsCenterCellViewModel) throws {
         XCTAssertEqual(cellViewModel.headerText, "Editing milestone", "Invalid headerText")
-        XCTAssertEqual(cellViewModel.subheaderText, "From English Wikipedia", "Invalid subheaderText")
+        XCTAssertEqual(cellViewModel.subheaderText, "English Wikipedia", "Invalid subheaderText")
         XCTAssertEqual(cellViewModel.bodyText, "You just made your tenth edit; thank you, and please keep going!")
         XCTAssertEqual(cellViewModel.footerText, "Blue Bird", "Invalid footerText")
         XCTAssertEqual(cellViewModel.dateText, "4/16/19", "Invalid dateText")
@@ -104,7 +104,7 @@ class NotificationsCenterCellViewModelEditMilestoneTests: NotificationsCenterVie
     
     private func testEditMilestoneHundredOnUserTalkPageText(cellViewModel: NotificationsCenterCellViewModel) throws {
         XCTAssertEqual(cellViewModel.headerText, "Editing milestone", "Invalid headerText")
-        XCTAssertEqual(cellViewModel.subheaderText, "From English Wikipedia", "Invalid subheaderText")
+        XCTAssertEqual(cellViewModel.subheaderText, "English Wikipedia", "Invalid subheaderText")
         XCTAssertEqual(cellViewModel.bodyText, "You just made your hundredth edit; thank you very much!")
         XCTAssertEqual(cellViewModel.footerText, "User talk:Fred The Bird", "Invalid footerText")
         XCTAssertEqual(cellViewModel.dateText, "7/16/21", "Invalid dateText")

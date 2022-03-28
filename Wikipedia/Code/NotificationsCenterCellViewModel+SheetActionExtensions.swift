@@ -4,50 +4,13 @@ import WMF
 
 extension NotificationsCenterCellViewModel {
     
-    enum SheetAction: Equatable {
-        case markAsReadOrUnread(SheetActionData)
-        case custom(SheetActionData)
-        case notificationSubscriptionSettings(SheetActionData)
+    var sheetActions: [NotificationsCenterAction] {
         
-        static func == (lhs: SheetAction, rhs: SheetAction) -> Bool {
-            switch lhs {
-            case .markAsReadOrUnread(let lhsActionData):
-                switch rhs {
-                case .markAsReadOrUnread(let rhsActionData):
-                    return lhsActionData == rhsActionData
-                default:
-                    return false
-                }
-            case .custom(let lhsActionData):
-                switch rhs {
-                case .custom(let rhsActionData):
-                    return lhsActionData == rhsActionData
-                default:
-                    return false
-                }
-            case .notificationSubscriptionSettings(let lhsActionData):
-                switch rhs {
-                case .notificationSubscriptionSettings(let rhsActionData):
-                    return lhsActionData == rhsActionData
-                default:
-                    return false
-                }
-            }
-        }
-    }
-    
-    struct SheetActionData: Equatable {
-        let text: String
-        let url: URL?
-    }
-    
-    var sheetActions: [SheetAction] {
-        
-        var sheetActions: [SheetAction] = []
+        var sheetActions: [NotificationsCenterAction] = []
         let markAsReadText = CommonStrings.notificationsCenterMarkAsReadSwipe
         let markAsUnreadText = CommonStrings.notificationsCenterMarkAsUnreadSwipe
         let markAsReadOrUnreadText = isRead ? markAsUnreadText : markAsReadText
-        let markAsReadOrUnreadActionData = SheetActionData(text: markAsReadOrUnreadText, url: nil)
+        let markAsReadOrUnreadActionData = NotificationsCenterActionData(text: markAsReadOrUnreadText, url: nil)
         sheetActions.append(.markAsReadOrUnread(markAsReadOrUnreadActionData))
         
         switch notification.type {
@@ -95,7 +58,7 @@ extension NotificationsCenterCellViewModel {
         
         //TODO: add notification settings destination
         let notificationSubscriptionSettingsText = WMFLocalizedString("notifications-center-notifications-settings", value: "Notification settings", comment: "Button text in Notifications Center that automatically routes to the notifications settings screen.")
-        let notificationSettingsActionData = SheetActionData(text: notificationSubscriptionSettingsText, url: nil)
+        let notificationSettingsActionData = NotificationsCenterActionData(text: notificationSubscriptionSettingsText, url: nil)
         sheetActions.append(.notificationSubscriptionSettings(notificationSettingsActionData))
         
         return sheetActions
@@ -105,368 +68,222 @@ extension NotificationsCenterCellViewModel {
 //MARK: Private Helpers - Aggregate Swipe Action methods
 
 private extension NotificationsCenterCellViewModel {
-    var userTalkPageActions: [SheetAction] {
-        var sheetActions: [SheetAction] = []
+    var userTalkPageActions: [NotificationsCenterAction] {
+        var sheetActions: [NotificationsCenterAction] = []
 
-        if let agentUserPageAction = agentUserPageSheetAction {
+        if let agentUserPageAction = commonViewModel.agentUserPageAction {
             sheetActions.append(agentUserPageAction)
         }
 
-        if let diffAction = diffSheetAction {
+        if let diffAction = commonViewModel.diffAction {
             sheetActions.append(diffAction)
         }
 
-        if let talkPageAction = titleTalkPageSheetAction(yourPhrasing: true) {
+        if let talkPageAction = commonViewModel.titleTalkPageAction(yourPhrasing: true) {
             sheetActions.append(talkPageAction)
         }
 
         return sheetActions
     }
 
-    var mentionInTalkAndEditRevertedPageActions: [SheetAction] {
-        var sheetActions: [SheetAction] = []
+    var mentionInTalkAndEditRevertedPageActions: [NotificationsCenterAction] {
+        var sheetActions: [NotificationsCenterAction] = []
 
-        if let agentUserPageAction = agentUserPageSheetAction {
+        if let agentUserPageAction = commonViewModel.agentUserPageAction {
             sheetActions.append(agentUserPageAction)
         }
 
-        if let diffAction = diffSheetAction {
+        if let diffAction = commonViewModel.diffAction {
             sheetActions.append(diffAction)
         }
 
-        if let titleTalkPageAction = titleTalkPageSheetAction(yourPhrasing: false) {
+        if let titleTalkPageAction = commonViewModel.titleTalkPageAction(yourPhrasing: false) {
             sheetActions.append(titleTalkPageAction)
         }
 
-        if let titleAction = titleSheetAction {
+        if let titleAction = commonViewModel.titleAction {
             sheetActions.append(titleAction)
         }
 
         return sheetActions
     }
 
-    var mentionInEditSummaryActions: [SheetAction] {
-        var sheetActions: [SheetAction] = []
+    var mentionInEditSummaryActions: [NotificationsCenterAction] {
+        var sheetActions: [NotificationsCenterAction] = []
 
-        if let agentUserPageAction = agentUserPageSheetAction {
+        if let agentUserPageAction = commonViewModel.agentUserPageAction {
             sheetActions.append(agentUserPageAction)
         }
 
-        if let diffAction = diffSheetAction {
+        if let diffAction = commonViewModel.diffAction {
             sheetActions.append(diffAction)
         }
 
-        if let titleAction = titleSheetAction {
+        if let titleAction = commonViewModel.titleAction {
             sheetActions.append(titleAction)
         }
 
         return sheetActions
     }
 
-    var successfulAndFailedMentionActions: [SheetAction] {
-        if let titleAction = titleSheetAction {
+    var successfulAndFailedMentionActions: [NotificationsCenterAction] {
+        if let titleAction = commonViewModel.titleAction {
             return [titleAction]
         }
 
         return []
     }
 
-    var userGroupRightsActions: [SheetAction] {
-        var sheetActions: [SheetAction] = []
+    var userGroupRightsActions: [NotificationsCenterAction] {
+        var sheetActions: [NotificationsCenterAction] = []
 
-        if let specificUserGroupRightsAction = specificUserGroupRightsSheetAction {
+        if let specificUserGroupRightsAction = commonViewModel.specificUserGroupRightsAction {
             sheetActions.append(specificUserGroupRightsAction)
         }
 
-        if let agentUserPageAction = agentUserPageSheetAction {
+        if let agentUserPageAction = commonViewModel.agentUserPageAction {
             sheetActions.append(agentUserPageAction)
         }
 
-        if let userGroupRightsAction = userGroupRightsSheetAction {
+        if let userGroupRightsAction = commonViewModel.userGroupRightsAction {
             sheetActions.append(userGroupRightsAction)
         }
 
         return sheetActions
     }
 
-    var pageReviewedActions: [SheetAction] {
-        var sheetActions: [SheetAction] = []
+    var pageReviewedActions: [NotificationsCenterAction] {
+        var sheetActions: [NotificationsCenterAction] = []
 
-        if let agentUserPageAction = agentUserPageSheetAction {
+        if let agentUserPageAction = commonViewModel.agentUserPageAction {
             sheetActions.append(agentUserPageAction)
         }
 
-        if let titleAction = titleSheetAction {
+        if let titleAction = commonViewModel.titleAction {
             sheetActions.append(titleAction)
         }
 
         return sheetActions
     }
 
-    var pageLinkActions: [SheetAction] {
-        var sheetActions: [SheetAction] = []
+    var pageLinkActions: [NotificationsCenterAction] {
+        var sheetActions: [NotificationsCenterAction] = []
 
-        if let agentUserPageAction = agentUserPageSheetAction {
+        if let agentUserPageAction = commonViewModel.agentUserPageAction {
             sheetActions.append(agentUserPageAction)
         }
 
         //Article where link was made
-        if let pageLinkToAction = pageLinkToAction {
+        if let pageLinkToAction = commonViewModel.pageLinkToAction {
             sheetActions.append(pageLinkToAction)
         }
         
         //Article you edited
-        if let titleAction = titleSheetAction {
+        if let titleAction = commonViewModel.titleAction {
             sheetActions.append(titleAction)
         }
 
-        if let diffAction = diffSheetAction {
+        if let diffAction = commonViewModel.diffAction {
             sheetActions.append(diffAction)
         }
 
         return sheetActions
     }
 
-    var connectionWithWikidataActions: [SheetAction] {
-        var sheetActions: [SheetAction] = []
+    var connectionWithWikidataActions: [NotificationsCenterAction] {
+        var sheetActions: [NotificationsCenterAction] = []
 
-        if let agentUserPageAction = agentUserPageSheetAction {
+        if let agentUserPageAction = commonViewModel.agentUserPageAction {
             sheetActions.append(agentUserPageAction)
         }
 
-        if let titleAction = titleSheetAction {
+        if let titleAction = commonViewModel.titleAction {
             sheetActions.append(titleAction)
         }
 
-        if let wikidataItemAction = wikidataItemAction {
+        if let wikidataItemAction = commonViewModel.wikidataItemAction {
             sheetActions.append(wikidataItemAction)
         }
 
         return sheetActions
     }
 
-    var emailFromOtherUserActions: [SheetAction] {
-        if let agentUserPageAction = agentUserPageSheetAction {
+    var emailFromOtherUserActions: [NotificationsCenterAction] {
+        if let agentUserPageAction = commonViewModel.agentUserPageAction {
             return [agentUserPageAction]
         }
 
         return []
     }
 
-    var thanksActions: [SheetAction] {
-        var sheetActions: [SheetAction] = []
+    var thanksActions: [NotificationsCenterAction] {
+        var sheetActions: [NotificationsCenterAction] = []
 
-        if let agentUserPageAction = agentUserPageSheetAction {
+        if let agentUserPageAction = commonViewModel.agentUserPageAction {
             sheetActions.append(agentUserPageAction)
         }
 
-        if let titleAction = titleSheetAction {
+        if let titleAction = commonViewModel.titleAction {
             sheetActions.append(titleAction)
         }
 
-        if let diffAction = diffSheetAction {
+        if let diffAction = commonViewModel.diffAction {
             sheetActions.append(diffAction)
         }
 
         return sheetActions
     }
 
-    var loginActions: [SheetAction] {
-        var sheetActions: [SheetAction] = []
+    var loginActions: [NotificationsCenterAction] {
+        var sheetActions: [NotificationsCenterAction] = []
 
-        if let loginHelpAction = loginNotificationsSheetAction {
+        if let loginHelpAction = commonViewModel.loginNotificationsAction {
             sheetActions.append(loginHelpAction)
         }
 
-        if let changePasswordSheetAction = changePasswordSheetAction {
+        if let changePasswordSheetAction = commonViewModel.changePasswordAction {
             sheetActions.append(changePasswordSheetAction)
         }
 
         return sheetActions
     }
 
-    var genericAlertActions: [SheetAction] {
-        var sheetActions: [SheetAction] = []
+    var genericAlertActions: [NotificationsCenterAction] {
+        var sheetActions: [NotificationsCenterAction] = []
 
         if let secondaryLinks = notification.secondaryLinks {
-            let secondarySheetActions = secondaryLinks.compactMap { sheetActionForGenericLink(link:$0) }
+            let secondarySheetActions = secondaryLinks.compactMap { commonViewModel.actionForGenericLink(link:$0) }
             sheetActions.append(contentsOf: secondarySheetActions)
         }
 
-        if let diffAction = diffSheetAction {
+        if let diffAction = commonViewModel.diffAction {
             sheetActions.append(diffAction)
         }
 
         if let primaryLink = notification.primaryLink,
-           let primarySheetAction = sheetActionForGenericLink(link: primaryLink) {
+           let primarySheetAction = commonViewModel.actionForGenericLink(link: primaryLink) {
             sheetActions.append(primarySheetAction)
         }
 
         return sheetActions
     }
 
-    var genericActions: [SheetAction] {
-        var sheetActions: [SheetAction] = []
+    var genericActions: [NotificationsCenterAction] {
+        var sheetActions: [NotificationsCenterAction] = []
 
-        if let agentUserPageAction = agentUserPageSheetAction {
+        if let agentUserPageAction = commonViewModel.agentUserPageAction {
             sheetActions.append(agentUserPageAction)
         }
 
-        if let diffAction = diffSheetAction {
+        if let diffAction = commonViewModel.diffAction {
             sheetActions.append(diffAction)
         }
 
         if let primaryLink = notification.primaryLink,
-           let primarySheetAction = sheetActionForGenericLink(link: primaryLink) {
+           let primarySheetAction = commonViewModel.actionForGenericLink(link: primaryLink) {
             sheetActions.append(primarySheetAction)
         }
 
         return sheetActions
-    }
-}
-
-//MARK: Private Helpers - Individual Swipe Action methods
-
-private extension NotificationsCenterCellViewModel {
-    //Go to [Username]'s user page
-    var agentUserPageSheetAction: SheetAction? {
-        guard let agentName = notification.agentName,
-              let url = customPrefixAgentNameURL(pageNamespace: .user) else {
-            return nil
-        }
-
-        let format = WMFLocalizedString("notifications-center-go-to-user-page", value: "Go to %1$@'s user page", comment: "Button text in Notifications Center that routes to a web view of the user page of the sender that triggered the notification. %1$@ is replaced with the sender's username.")
-        let text = String.localizedStringWithFormat(format, agentName)
-
-        let data = SheetActionData(text: text, url: url)
-
-        return SheetAction.custom(data)
-    }
-
-    //Go to diff
-    var diffSheetAction: SheetAction? {
-        guard let url = fullTitleDiffURL else {
-            return nil
-        }
-
-        let text = WMFLocalizedString("notifications-center-go-to-diff", value: "Go to diff", comment: "Button text in Notifications Center that routes to a diff screen of the revision that triggered the notification.")
-        let data = SheetActionData(text: text, url: url)
-        return SheetAction.custom(data)
-    }
-
-    //Go to [your?] talk page
-    func titleTalkPageSheetAction(yourPhrasing: Bool = false) -> SheetAction? {
-        
-        guard let linkData = linkData,
-              let namespace = linkData.titleNamespace,
-              let talkEquivalent = namespace.talkEquivalent,
-              let url = customPrefixTitleURL(pageNamespace: talkEquivalent) else {
-            return nil
-        }
-
-        let text = yourPhrasing ? WMFLocalizedString("notifications-center-go-to-your-talk-page", value: "Go to your talk page", comment: "Button text in Notifications Center that routes to user's talk page.") : WMFLocalizedString("notifications-center-go-to-talk-page", value: "Go to talk page", comment: "Button text in Notifications Center that routes to a talk page.")
-
-        let data = SheetActionData(text: text, url: url)
-        return SheetAction.custom(data)
-    }
-
-    //Go to [Name of article]
-    var titleSheetAction: SheetAction? {
-        guard let linkData = linkData,
-              let url = fullTitleURL,
-              let title = notification.titleText else {
-            return nil
-        }
-        
-        var prefix = ""
-        if let namespace = linkData.titleNamespace {
-            prefix = namespace != .main ? "\(namespace.canonicalName):" : ""
-        }
-        let text = String.localizedStringWithFormat(CommonStrings.notificationsCenterGoToTitleFormat, "\(prefix)\(title)")
-        let data = SheetActionData(text: text, url: url)
-        return SheetAction.custom(data)
-    }
-
-    //Go to [Article where link was made]
-    var pageLinkToAction: SheetAction? {
-        guard let url = pageLinkToURL,
-              let title = url.wmf_title else {
-            return nil
-        }
-
-        let text = String.localizedStringWithFormat(CommonStrings.notificationsCenterGoToTitleFormat, title)
-        let data = SheetActionData(text: text, url: url)
-        return SheetAction.custom(data)
-    }
-
-    //Go to Wikidata item
-    var wikidataItemAction: SheetAction? {
-        guard let url = connectionWithWikidataItemURL else {
-            return nil
-        }
-
-        let text = WMFLocalizedString("notifications-center-go-to-wikidata-item", value: "Go to Wikidata item", comment: "Button text in Notifications Center that routes to a Wikidata item page.")
-        let data = SheetActionData(text: text, url: url)
-        return SheetAction.custom(data)
-    }
-
-    //Go to specific Special:UserGroupRights#{Type} page
-    var specificUserGroupRightsSheetAction: SheetAction? {
-        guard let url = specificUserGroupRightsURL,
-              let type = url.fragment,
-              let title = url.wmf_title else {
-            return nil
-        }
-
-        let text = String.localizedStringWithFormat(CommonStrings.notificationsCenterGoToTitleFormat, "\(title)#\(type)")
-        let data = SheetActionData(text: text, url: url)
-        return SheetAction.custom(data)
-    }
-
-    //Go to Special:UserGroupRights
-    var userGroupRightsSheetAction: SheetAction? {
-        guard let url = userGroupRightsURL,
-              let title = url.wmf_title else {
-            return nil
-        }
-
-        let text = String.localizedStringWithFormat(CommonStrings.notificationsCenterGoToTitleFormat, title)
-        let data = SheetActionData(text: text, url: url)
-        return SheetAction.custom(data)
-    }
-
-    //Login Notifications
-    var loginNotificationsSheetAction: SheetAction? {
-        guard let url = loginNotificationsHelpURL else {
-            return nil
-        }
-
-        let text = WMFLocalizedString("notifications-center-login-notifications", value: "Login Notifications", comment: "Button text in Notifications Center that routes user to login notifications help page in web view.")
-
-        let data = SheetActionData(text: text, url: url)
-        return SheetAction.custom(data)
-    }
-
-    //Change password
-    var changePasswordSheetAction: SheetAction? {
-
-        guard let url = changePasswordURL else {
-            return nil
-        }
-
-        let text = WMFLocalizedString("notifications-center-change-password", value: "Change Password", comment: "Button text in Notifications Center that routes user to change password screen.")
-
-        let data = SheetActionData(text: text, url: url)
-        return SheetAction.custom(data)
-    }
-
-    func sheetActionForGenericLink(link: RemoteNotificationLink) -> SheetAction? {
-        guard let url = link.url,
-              let text = link.label else {
-            return nil
-        }
-
-        let data = SheetActionData(text: text, url: url)
-        return SheetAction.custom(data)
     }
 }
