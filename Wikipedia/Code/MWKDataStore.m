@@ -458,7 +458,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
             return;
         }
     }
-    
+
     if (currentLibraryVersion < 14) {
         [self.remoteNotificationsController deleteLegacyDatabaseFilesAndReturnError:nil];
         [NSHTTPCookieStorage migrateCookiesToSharedStorage];
@@ -579,7 +579,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     NSURL *legacyDirectory = [[[NSFileManager defaultManager] wmf_containerURL] URLByAppendingPathComponent:@"Permanent Image Cache" isDirectory:YES];
     NSURL *newDirectory = [[[NSFileManager defaultManager] wmf_containerURL] URLByAppendingPathComponent:@"Permanent Cache" isDirectory:YES];
 
-    //move legacy image cache to new non-image path name
+    // move legacy image cache to new non-image path name
     return [[NSFileManager defaultManager] moveItemAtURL:legacyDirectory toURL:newDirectory error:error];
 }
 
@@ -653,7 +653,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
     return [documentsFolder stringByAppendingPathComponent:@"Data"];
 }
 
-+ (NSString *)appSpecificMainDataStorePath { //deprecated, use the group folder from mainDataStorePath
++ (NSString *)appSpecificMainDataStorePath { // deprecated, use the group folder from mainDataStorePath
     NSString *documentsFolder =
         [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
     return [documentsFolder stringByAppendingPathComponent:@"Data"];
@@ -978,6 +978,10 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 
 - (nullable NSURL *)loginSiteURL {
     return self.primarySiteURL;
+}
+
+- (void)authenticationManagerWillLogOutWithCompletionHandler:(void (^)(void))completionHandler {
+    [self.notificationsController authenticationManagerWillLogOut:completionHandler];
 }
 
 - (void)authenticationManagerDidLogin {
