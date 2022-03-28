@@ -42,6 +42,10 @@ class NotificationsCenterViewModelTests: XCTestCase {
 
     override func setUp(completion: @escaping (Error?) -> Void) {
 
+        if let utctimeZone = TimeZone(abbreviation: "GMT") {
+            NSTimeZone.default = utctimeZone
+        }
+        
         guard modelController != nil else {
             completion(TestError.failureSettingUpModelController)
             return
@@ -81,6 +85,11 @@ class NotificationsCenterViewModelTests: XCTestCase {
                 completion(TestError.failureSavingNetworkNotificationModelsToDatabase)
             }
         }
+    }
+    
+    override func tearDown(completion: @escaping (Error?) -> Void) {
+        NSTimeZone.resetSystemTimeZone()
+        completion(nil)
     }
     
     func fetchManagedObject(identifier: String) throws -> RemoteNotification {
