@@ -559,7 +559,7 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
             
             collectionView.deselectItem(at: indexPath, animated: true)
 
-            if let primaryURL = cellViewModel.primaryURL(for: viewModel.configuration) {
+            if let primaryURL = cellViewModel.primaryURL {
                 navigate(to: primaryURL)
                 if !cellViewModel.isRead {
                     viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true)
@@ -726,7 +726,7 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
             return
         }
 
-        let sheetActions = cellViewModel.sheetActions(for: viewModel.configuration)
+        let sheetActions = cellViewModel.sheetActions
         guard !sheetActions.isEmpty else {
             return
         }

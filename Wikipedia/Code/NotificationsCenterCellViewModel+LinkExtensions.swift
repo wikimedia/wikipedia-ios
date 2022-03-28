@@ -5,7 +5,7 @@ extension NotificationsCenterCellViewModel {
 
     //MARK: Public
     
-    func primaryURL(for configuration: Configuration) -> URL? {
+    var primaryURL: URL? {
 
         //First try to explicitly generate urls based on notification type to limit url side effects
         var calculatedURL: URL? = nil
@@ -18,19 +18,19 @@ extension NotificationsCenterCellViewModel {
              .pageLinked,
              .editMilestone,
              .successfulMention:
-            calculatedURL = fullTitleURL(for: configuration)
+            calculatedURL = fullTitleURL
         case .mentionInEditSummary,
              .editReverted,
              .thanks:
-            calculatedURL = fullTitleDiffURL(for: configuration)
+            calculatedURL = fullTitleDiffURL
         case .userRightsChange:
             calculatedURL = userGroupRightsURL
         case .connectionWithWikidata:
             calculatedURL = connectionWithWikidataItemURL
         case .emailFromOtherUser:
-            calculatedURL = customPrefixAgentNameURL(for: configuration, pageNamespace: .user)
+            calculatedURL = customPrefixAgentNameURL(pageNamespace: .user)
         case .welcome:
-            calculatedURL = gettingStartedURL(for: configuration)
+            calculatedURL = gettingStartedURL
         case .translationMilestone:
 
             //purposefully not allowing default to primaryLinkURL from server below
@@ -40,7 +40,7 @@ extension NotificationsCenterCellViewModel {
         case .loginFailUnknownDevice,
              .loginFailKnownDevice,
              .loginSuccessUnknownDevice:
-            calculatedURL = changePasswordURL(for: configuration)
+            calculatedURL = changePasswordURL
 
         case .unknownSystemAlert,
              .unknownSystemNotice,
@@ -69,7 +69,7 @@ extension NotificationsCenterCellViewModel {
              .thanks,
              .unknownAlert,
              .unknownNotice:
-            calculatedURL = customPrefixAgentNameURL(for: configuration, pageNamespace: .user)
+            calculatedURL = customPrefixAgentNameURL(pageNamespace: .user)
         case .loginFailUnknownDevice,
              .loginFailKnownDevice,
              .loginSuccessUnknownDevice:
@@ -108,7 +108,7 @@ extension NotificationsCenterCellViewModel {
         let languageVariantCode: String?
     }
 
-    func linkData(for configuration: Configuration) -> LinkData? {
+    var linkData: LinkData? {
 
         guard let host = notification.primaryLinkHost ?? configuration.defaultSiteURL.host,
               let wiki = notification.wiki else {
@@ -133,9 +133,9 @@ extension NotificationsCenterCellViewModel {
 extension NotificationsCenterCellViewModel {
 
     /// Generates a wiki url with the full (i.e. already prefixed) title from the notification
-    func fullTitleURL(for configuration: Configuration) -> URL? {
+    var fullTitleURL: URL? {
 
-        guard let data = linkData(for: configuration),
+        guard let data = linkData,
               let fullTitle = data.fullTitle else {
             return nil
         }
@@ -157,8 +157,8 @@ extension NotificationsCenterCellViewModel {
     
     /// Generates a wiki url with the titleText value from the notification
     /// Prefixes titleText text with PageNamespace parameter
-    func customPrefixTitleURL(for configuration: Configuration, pageNamespace: PageNamespace) -> URL? {
-        guard let data = linkData(for: configuration),
+    func customPrefixTitleURL(pageNamespace: PageNamespace) -> URL? {
+        guard let data = linkData,
               let title = data.title,
               let prefix = pageNamespace.canonicalName.denormalizedPageTitle else {
             return nil
@@ -173,8 +173,8 @@ extension NotificationsCenterCellViewModel {
     
     /// Generates a wiki url with the agentName from the notification
     /// Prefixes agentName text with PageNamespace parameter
-    func customPrefixAgentNameURL(for configuration: Configuration, pageNamespace: PageNamespace) -> URL? {
-        guard let data = linkData(for: configuration),
+    func customPrefixAgentNameURL(pageNamespace: PageNamespace) -> URL? {
+        guard let data = linkData,
               let agentName = data.agentName else {
             return nil
         }
@@ -189,8 +189,8 @@ extension NotificationsCenterCellViewModel {
     }
     
     /// Generates a wiki diff url with the full (i.e. already prefixed) title from the notification
-    func fullTitleDiffURL(for configuration: Configuration) -> URL? {
-        guard let data = linkData(for: configuration),
+    var fullTitleDiffURL: URL? {
+        guard let data = linkData,
               let fullTitle = data.fullTitle,
               let revisionID = data.revisionID else {
             return nil
@@ -204,8 +204,8 @@ extension NotificationsCenterCellViewModel {
     }
     
     //https://en.wikipedia.org/wiki/Special:ChangeCredentials
-    func changePasswordURL(for configuration: Configuration) -> URL? {
-        guard let data = linkData(for: configuration) else {
+    var changePasswordURL: URL? {
+        guard let data = linkData else {
             return nil
         }
 
@@ -286,9 +286,9 @@ extension NotificationsCenterCellViewModel {
     }
     
     //https://en.wikipedia.org/wiki/Help:Getting_started
-    func gettingStartedURL(for configuration: Configuration) -> URL? {
+    var gettingStartedURL: URL? {
 
-        guard let data = linkData(for: configuration) else {
+        guard let data = linkData else {
             return nil
         }
 

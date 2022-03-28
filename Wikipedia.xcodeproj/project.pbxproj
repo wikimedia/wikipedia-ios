@@ -722,6 +722,19 @@
 		67C6F77F27E3BAC700B9C864 /* NotificationsCenterFlowHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C6F77D27E3BAC700B9C864 /* NotificationsCenterFlowHostingController.swift */; };
 		67C6F78027E3BAC700B9C864 /* NotificationsCenterFlowHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C6F77D27E3BAC700B9C864 /* NotificationsCenterFlowHostingController.swift */; };
 		67C6F78127E3BAC700B9C864 /* NotificationsCenterFlowHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C6F77D27E3BAC700B9C864 /* NotificationsCenterFlowHostingController.swift */; };
+		67C6F74E27E2919B00B9C864 /* RemoteNotificationsModelController+TestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C6F74D27E2919A00B9C864 /* RemoteNotificationsModelController+TestExtensions.swift */; };
+		67C6F75027E293C700B9C864 /* NotificationsCenterViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C6F74F27E293C700B9C864 /* NotificationsCenterViewModelTests.swift */; };
+		67C6F76827E2E76E00B9C864 /* NotificationsCenterCellViewModelUserTalkMessageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C6F76727E2E76E00B9C864 /* NotificationsCenterCellViewModelUserTalkMessageTests.swift */; };
+		67C6F77327E2E78800B9C864 /* NotificationsCenterCellViewModelWikidataConnectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C6F76927E2E77D00B9C864 /* NotificationsCenterCellViewModelWikidataConnectionTests.swift */; };
+		67C6F77427E2E78800B9C864 /* NotificationsCenterCellViewModelPageLinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C6F76A27E2E77E00B9C864 /* NotificationsCenterCellViewModelPageLinkTests.swift */; };
+		67C6F77527E2E78800B9C864 /* NotificationsCenterCellViewModelGenericTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C6F76B27E2E77E00B9C864 /* NotificationsCenterCellViewModelGenericTests.swift */; };
+		67C6F77627E2E78800B9C864 /* NotificationsCenterCellViewModelMentionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C6F76C27E2E77F00B9C864 /* NotificationsCenterCellViewModelMentionTests.swift */; };
+		67C6F77727E2E78800B9C864 /* NotificationsCenterCellViewModelEditMilestoneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C6F76D27E2E78000B9C864 /* NotificationsCenterCellViewModelEditMilestoneTests.swift */; };
+		67C6F77827E2E78800B9C864 /* NotificationsCenterCellViewModelThanksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C6F76E27E2E78100B9C864 /* NotificationsCenterCellViewModelThanksTests.swift */; };
+		67C6F77927E2E78800B9C864 /* NotificationsCenterCellViewModelUserRightsChangeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C6F76F27E2E78300B9C864 /* NotificationsCenterCellViewModelUserRightsChangeTests.swift */; };
+		67C6F77A27E2E78800B9C864 /* NotificationsCenterCellViewModelEditRevertedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C6F77027E2E78400B9C864 /* NotificationsCenterCellViewModelEditRevertedTests.swift */; };
+		67C6F77B27E2E78800B9C864 /* NotificationsCenterCellViewModelLoginIssuesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C6F77127E2E78500B9C864 /* NotificationsCenterCellViewModelLoginIssuesTests.swift */; };
+		67C6F77C27E2E78800B9C864 /* NotificationsCenterCellViewModelWelcomeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C6F77227E2E78600B9C864 /* NotificationsCenterCellViewModelWelcomeTests.swift */; };
 		67CE5D20222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
 		67CE5D22222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
 		67CE5D23222F70C0007B0A2C /* IconBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F0557222F24FB00FB1084 /* IconBarButtonItem.swift */; };
@@ -3988,6 +4001,19 @@
 		67B64D562507DE3E00FA27F3 /* ArticleAsLivingDocSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocSectionHeaderView.swift; sourceTree = "<group>"; };
 		67B64D5B2507E9FD00FA27F3 /* ArticleAsLivingDocSmallEventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocSmallEventCollectionViewCell.swift; sourceTree = "<group>"; };
 		67C6F77D27E3BAC700B9C864 /* NotificationsCenterFlowHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterFlowHostingController.swift; sourceTree = "<group>"; };
+		67C6F74D27E2919A00B9C864 /* RemoteNotificationsModelController+TestExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteNotificationsModelController+TestExtensions.swift"; sourceTree = "<group>"; };
+		67C6F74F27E293C700B9C864 /* NotificationsCenterViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterViewModelTests.swift; sourceTree = "<group>"; };
+		67C6F76727E2E76E00B9C864 /* NotificationsCenterCellViewModelUserTalkMessageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsCenterCellViewModelUserTalkMessageTests.swift; sourceTree = "<group>"; };
+		67C6F76927E2E77D00B9C864 /* NotificationsCenterCellViewModelWikidataConnectionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsCenterCellViewModelWikidataConnectionTests.swift; sourceTree = "<group>"; };
+		67C6F76A27E2E77E00B9C864 /* NotificationsCenterCellViewModelPageLinkTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsCenterCellViewModelPageLinkTests.swift; sourceTree = "<group>"; };
+		67C6F76B27E2E77E00B9C864 /* NotificationsCenterCellViewModelGenericTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsCenterCellViewModelGenericTests.swift; sourceTree = "<group>"; };
+		67C6F76C27E2E77F00B9C864 /* NotificationsCenterCellViewModelMentionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsCenterCellViewModelMentionTests.swift; sourceTree = "<group>"; };
+		67C6F76D27E2E78000B9C864 /* NotificationsCenterCellViewModelEditMilestoneTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsCenterCellViewModelEditMilestoneTests.swift; sourceTree = "<group>"; };
+		67C6F76E27E2E78100B9C864 /* NotificationsCenterCellViewModelThanksTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsCenterCellViewModelThanksTests.swift; sourceTree = "<group>"; };
+		67C6F76F27E2E78300B9C864 /* NotificationsCenterCellViewModelUserRightsChangeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsCenterCellViewModelUserRightsChangeTests.swift; sourceTree = "<group>"; };
+		67C6F77027E2E78400B9C864 /* NotificationsCenterCellViewModelEditRevertedTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsCenterCellViewModelEditRevertedTests.swift; sourceTree = "<group>"; };
+		67C6F77127E2E78500B9C864 /* NotificationsCenterCellViewModelLoginIssuesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsCenterCellViewModelLoginIssuesTests.swift; sourceTree = "<group>"; };
+		67C6F77227E2E78600B9C864 /* NotificationsCenterCellViewModelWelcomeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsCenterCellViewModelWelcomeTests.swift; sourceTree = "<group>"; };
 		67CEF25E234FCA8100D5CA6C /* DiffListContextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListContextCell.xib; sourceTree = "<group>"; };
 		67CEF2602350C29D00D5CA6C /* DiffListUneditedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListUneditedCell.xib; sourceTree = "<group>"; };
 		67CEF262235110F700D5CA6C /* DiffNetworkModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffNetworkModels.swift; sourceTree = "<group>"; };
@@ -7076,6 +7102,19 @@
 			isa = PBXGroup;
 			children = (
 				67F73385273C1FBA00D7D713 /* NotificationServiceHelperTests.swift */,
+				67C6F74D27E2919A00B9C864 /* RemoteNotificationsModelController+TestExtensions.swift */,
+				67C6F74F27E293C700B9C864 /* NotificationsCenterViewModelTests.swift */,
+				67C6F76727E2E76E00B9C864 /* NotificationsCenterCellViewModelUserTalkMessageTests.swift */,
+				67C6F76C27E2E77F00B9C864 /* NotificationsCenterCellViewModelMentionTests.swift */,
+				67C6F77027E2E78400B9C864 /* NotificationsCenterCellViewModelEditRevertedTests.swift */,
+				67C6F76D27E2E78000B9C864 /* NotificationsCenterCellViewModelEditMilestoneTests.swift */,
+				67C6F76E27E2E78100B9C864 /* NotificationsCenterCellViewModelThanksTests.swift */,
+				67C6F77227E2E78600B9C864 /* NotificationsCenterCellViewModelWelcomeTests.swift */,
+				67C6F76927E2E77D00B9C864 /* NotificationsCenterCellViewModelWikidataConnectionTests.swift */,
+				67C6F77127E2E78500B9C864 /* NotificationsCenterCellViewModelLoginIssuesTests.swift */,
+				67C6F76F27E2E78300B9C864 /* NotificationsCenterCellViewModelUserRightsChangeTests.swift */,
+				67C6F76A27E2E77E00B9C864 /* NotificationsCenterCellViewModelPageLinkTests.swift */,
+				67C6F76B27E2E77E00B9C864 /* NotificationsCenterCellViewModelGenericTests.swift */,
 			);
 			path = "Notifications Tests";
 			sourceTree = "<group>";
@@ -10837,6 +10876,8 @@
 				B0E809111C0D18FD0065EBC0 /* WMFSubstringUtilsTests.m in Sources */,
 				B0E808951C0D16330065EBC0 /* NSArray+WMFShuffle.m in Sources */,
 				A452F9FB24081A7200D8ED09 /* LocationManagerTests.swift in Sources */,
+				67C6F77427E2E78800B9C864 /* NotificationsCenterCellViewModelPageLinkTests.swift in Sources */,
+				67C6F76827E2E76E00B9C864 /* NotificationsCenterCellViewModelUserTalkMessageTests.swift in Sources */,
 				B0E8090F1C0D18F30065EBC0 /* WMFMathTests.m in Sources */,
 				671DF9D825F2B59A0011799E /* ShortDescriptionControllerTests.swift in Sources */,
 				B0D530EB1CE151C10078BAED /* CodeFileLocationTests.m in Sources */,
@@ -10857,13 +10898,19 @@
 				6790AAF522D6861500D442D6 /* TalkPageControllerTests.swift in Sources */,
 				B0E808771C0D155A0065EBC0 /* XCTestCase+WMFBundleConvenience.m in Sources */,
 				004281BC25E6EFC4004945B3 /* LSASIHTTPRequestHook.m in Sources */,
+				67C6F77C27E2E78800B9C864 /* NotificationsCenterCellViewModelWelcomeTests.swift in Sources */,
 				B389CFCB1E6784B600483C06 /* WMFDatabaseHousekeeperTests.swift in Sources */,
+				67C6F77927E2E78800B9C864 /* NotificationsCenterCellViewModelUserRightsChangeTests.swift in Sources */,
+				67C6F77B27E2E78800B9C864 /* NotificationsCenterCellViewModelLoginIssuesTests.swift in Sources */,
+				67C6F77527E2E78800B9C864 /* NotificationsCenterCellViewModelGenericTests.swift in Sources */,
 				B0E809601C0D1BA30065EBC0 /* WMFSearchFetcherTests.m in Sources */,
 				004281C325E6EFC4004945B3 /* LSMatcher.m in Sources */,
 				D820F78B1DD0E5E100806045 /* WMFNotificationTests.m in Sources */,
+				67C6F77727E2E78800B9C864 /* NotificationsCenterCellViewModelEditMilestoneTests.swift in Sources */,
 				004281B325E6EFC4004945B3 /* LSStubResponse.m in Sources */,
 				B01662B31D1B8CAB006F4544 /* NSURL+WMFQueryParametersTests.m in Sources */,
 				67F73386273C1FBA00D7D713 /* NotificationServiceHelperTests.swift in Sources */,
+				67C6F75027E293C700B9C864 /* NotificationsCenterViewModelTests.swift in Sources */,
 				D8D550811DF0D2BD00B90177 /* NSArray+WMFMatching.m in Sources */,
 				8330533323F0388E00123141 /* DataStoreTests.swift in Sources */,
 				00D280FC247F019C006BEE23 /* Date+ExtensionTests.swift in Sources */,
@@ -10894,12 +10941,15 @@
 				004281C825E6EFC4004945B3 /* LSHTTPRequestDSLRepresentation.m in Sources */,
 				B02F96661DFA11DC007DA007 /* WMFArticleListTableViewCell+DynamicTypeFontTests.swift in Sources */,
 				004281B625E6EFC4004945B3 /* LSHTTPClientHook.m in Sources */,
+				67C6F77327E2E78800B9C864 /* NotificationsCenterCellViewModelWikidataConnectionTests.swift in Sources */,
+				67C6F77627E2E78800B9C864 /* NotificationsCenterCellViewModelMentionTests.swift in Sources */,
 				B0E809351C0D1A2F0065EBC0 /* WMFGeometryTests.m in Sources */,
 				6714D6CD245A2C1D00CE5A4A /* ArticleTestHelpers.swift in Sources */,
 				B0E8090B1C0D18D90065EBC0 /* NSString+FormattedAttributedStringTests.m in Sources */,
 				D8396D1B22CF7052005625D8 /* WMFArticleTests.swift in Sources */,
 				B0E8090D1C0D18E70065EBC0 /* WMFImageURLParsingTests.m in Sources */,
 				6790AAF722D6861500D442D6 /* TalkPageLocalHandlerTests.swift in Sources */,
+				67C6F77827E2E78800B9C864 /* NotificationsCenterCellViewModelThanksTests.swift in Sources */,
 				004281B525E6EFC4004945B3 /* LSHTTPRequestDiff.m in Sources */,
 				A452F9F924081A5500D8ED09 /* MockCLHeading.swift in Sources */,
 				00A8F58626BDD5E700175B8E /* WidgetSampleContentTests.swift in Sources */,
@@ -10908,9 +10958,11 @@
 				BCD3200A1C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m in Sources */,
 				B0E808831C0D15A20065EBC0 /* MWKDataStore+TemporaryDataStore.m in Sources */,
 				004281B425E6EFC4004945B3 /* LSNocilla.m in Sources */,
+				67C6F77A27E2E78800B9C864 /* NotificationsCenterCellViewModelEditRevertedTests.swift in Sources */,
 				B37B6FE91EEAFE11007CBB12 /* EventLoggingServiceTests.swift in Sources */,
 				B0E8086D1C0D15170065EBC0 /* WMFCodingStyle.m in Sources */,
 				830ECAD61FBDE77F0080B1EF /* ReadingListsTests.swift in Sources */,
+				67C6F74E27E2919B00B9C864 /* RemoteNotificationsModelController+TestExtensions.swift in Sources */,
 				D8800CB11E2FF5B70035D2DB /* QuadKeyTests.swift in Sources */,
 				8386BDE723857F87007EE89D /* URLParsingAndRoutingTests.swift in Sources */,
 				BCD557BB1C45B1600060A51A /* UIApplication+VisualTestUtils.m in Sources */,

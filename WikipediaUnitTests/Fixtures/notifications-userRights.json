@@ -1,0 +1,60 @@
+{
+    "batchcomplete": true,
+    "limits": {
+        "notifications": 50
+    },
+    "query": {
+        "notifications": {
+            "list": [{
+                "wiki": "enwiki",
+                "id": 1,
+                "type": "user-rights",
+                "category": "user-rights",
+                "section": "alert",
+                "timestamp": {
+                    "utciso8601": "2020-05-13T16:21:18Z",
+                    "utcunix": 1589386878,
+                    "unix": "1589386878",
+                    "utcmw": "20200513162118",
+                    "mw": "20200513162118",
+                    "date": "13 May"
+                },
+                "agent": {
+                    "id": 15991542,
+                    "name": "Jack The Cat"
+                },
+                "read": "20200513162151",
+                "targetpages": [],
+                "*": {
+                    "header": "Your user rights were changed. You have been added to: Confirmed users.",
+                    "compactHeader": "Your user rights were changed. You have been added to: Confirmed users.",
+                    "body": "Test",
+                    "icon": "user-rights",
+                    "links": {
+                        "primary": {
+                            "url": "https://en.wikipedia.org/wiki/Special:ListGroupRights?markasread=189876219&markasreadwiki=enwiki#confirmed",
+                            "label": "Learn more"
+                        },
+                        "secondary": [{
+                                "url": "https://en.wikipedia.org/wiki/User:Jack_The_Cat",
+                                "label": "Jack The Cat",
+                                "tooltip": "",
+                                "description": "",
+                                "icon": "userAvatar",
+                                "prioritized": ""
+                            },
+                            {
+                                "label": "Public log",
+                                "url": "https://en.wikipedia.org/w/index.php?title=Special:Log&type=rights&page=User%3AJack_The_CatTesting&user=Jack_The_Cat",
+                                "description": "",
+                                "prioritized": ""
+                            }
+                        ]
+                    },
+                    "iconUrl": "/w/extensions/Echo/modules/icons/user-rights-progressive.svg"
+                }
+            }],
+            "continue": "1569862285|172771996"
+        }
+    }
+}

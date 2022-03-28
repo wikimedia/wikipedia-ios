@@ -566,8 +566,8 @@ private extension NotificationsCenterCell {
         relativeTimeAgoLabel.text = viewModel.dateText
         swipeMoreStack.label.text = WMFLocalizedString("notifications-center-swipe-more", value: "More", comment: "Button text for the Notifications Center 'More' swipe action.")
         swipeReadUnreadStack.label.text = viewModel.isRead
-            ? WMFLocalizedString("notifications-center-swipe-mark-as-unread", value: "Mark as unread", comment: "Button text in Notifications Center swipe actions to mark a notification as unread.")
-            : WMFLocalizedString("notifications-center-swipe-mark-as-read", value: "Mark as read", comment: "Button text in Notifications Center swipe actions to mark a notification as read.")
+        ? CommonStrings.notificationsCenterMarkAsUnreadSwipe
+        : CommonStrings.notificationsCenterMarkAsReadSwipe
     }
 
     func updateProject(forViewModel viewModel: NotificationsCenterCellViewModel) {

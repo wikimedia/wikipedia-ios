@@ -1,0 +1,372 @@
+{
+    "batchcomplete": true,
+    "limits": {
+        "notifications": 50
+    },
+    "query": {
+        "notifications": {
+            "list": [{
+                "wiki": "enwiki",
+                "id": 1,
+                "type": "edit-user-talk",
+                "category": "edit-user-talk",
+                "section": "alert",
+                "timestamp": {
+                    "utciso8601": "2019-04-11T21:18:06Z",
+                    "utcunix": 1555017486,
+                    "unix": "1555017486",
+                    "utcmw": "20190411211806",
+                    "mw": "20190411211806",
+                    "date": "11 April"
+                },
+                "title": {
+                    "full": "User talk:Fred The Bird",
+                    "namespace": "User_talk",
+                    "namespace-key": 3,
+                    "text": "Fred The Bird"
+                },
+                "agent": {
+                    "id": 28523750,
+                    "name": "Jack The Cat"
+                },
+                "revid": 892051241,
+                "read": "20190411211826",
+                "targetpages": [],
+                "*": {
+                    "header": "Jack The Cat left a message on <strong>your talk page</strong>.",
+                    "compactHeader": "Jack The Cat left you a message.",
+                    "body": "",
+                    "icon": "edit-user-talk",
+                    "links": {
+                        "primary": {
+                            "url": "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird?markasread=160149513&markasreadwiki=enwiki",
+                            "label": "View message"
+                        },
+                        "secondary": [{
+                                "url": "https://en.wikipedia.org/wiki/User:Jack_The_Cat",
+                                "label": "JoeWalsh (WMF)",
+                                "tooltip": "",
+                                "description": "",
+                                "icon": "userAvatar",
+                                "prioritized": true
+                            },
+                            {
+                                "url": "https://en.wikipedia.org/w/index.php?title=User_talk:Fred_The_Bird&oldid=prev&diff=892051241",
+                                "label": "View changes",
+                                "description": "",
+                                "icon": "changes",
+                                "prioritized": true
+                            }
+                        ],
+                        "legacyPrimary": {
+                            "url": "//en.wikipedia.org/wiki/User_talk:Fred_The_Bird?markasread=160149513&markasreadwiki=enwiki",
+                            "label": "View message"
+                        }
+                    },
+                    "iconUrl": "/w/extensions/Echo/modules/icons/edit-user-talk-progressive.svg"
+                }
+            }, {
+                "wiki": "enwiki",
+                "id": 2,
+                "type": "edit-user-talk",
+                "category": "edit-user-talk",
+                "section": "alert",
+                "timestamp": {
+                    "utciso8601": "2019-05-30T21:28:04Z",
+                    "utcunix": 1559251684,
+                    "unix": "1559251684",
+                    "utcmw": "20190530212804",
+                    "mw": "20190530212804",
+                    "date": "30 May"
+                },
+                "title": {
+                    "full": "User talk:Fred The Bird",
+                    "namespace": "User_talk",
+                    "namespace-key": 3,
+                    "text": "Fred The Bird"
+                },
+                "agent": {
+                    "id": 0,
+                    "name": "47.184.10.84"
+                },
+                "revid": 899561783,
+                "read": "20190806164546",
+                "targetpages": [],
+                "*": {
+                    "header": "47.184.10.84 left a message on <strong>your talk page</strong>.",
+                    "compactHeader": "47.184.10.84 left you a message.",
+                    "body": "",
+                    "icon": "edit-user-talk",
+                    "links": {
+                        "primary": {
+                            "url": "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird?markasread=163554671&markasreadwiki=enwiki",
+                            "label": "View message"
+                        },
+                        "secondary": [{
+                                "url": "https://en.wikipedia.org/wiki/Special:Contributions/47.184.10.84",
+                                "label": "47.184.10.84",
+                                "tooltip": "",
+                                "description": "",
+                                "icon": "userAvatar",
+                                "prioritized": true
+                            },
+                            {
+                                "url": "https://en.wikipedia.org/w/index.php?title=User_talk:Fred_The_Bird&oldid=prev&diff=899561783",
+                                "label": "View changes",
+                                "description": "",
+                                "icon": "changes",
+                                "prioritized": true
+                            }
+                        ],
+                        "legacyPrimary": {
+                            "url": "//en.wikipedia.org/wiki/User_talk:Fred_The_Bird?markasread=163554671&markasreadwiki=enwiki",
+                            "label": "View message"
+                        }
+                    },
+                    "iconUrl": "/w/extensions/Echo/modules/icons/edit-user-talk-progressive.svg"
+                }
+            }, {
+                "wiki": "enwiki",
+                "id": 3,
+                "type": "edit-user-talk",
+                "category": "edit-user-talk",
+                "section": "alert",
+                "timestamp": {
+                    "utciso8601": "2019-04-11T20:15:52Z",
+                    "utcunix": 1555013752,
+                    "unix": "1555013752",
+                    "utcmw": "20190411201552",
+                    "mw": "20190411201552",
+                    "date": "11 April"
+                },
+                "title": {
+                    "full": "User talk:Fred The Bird",
+                    "namespace": "User_talk",
+                    "namespace-key": 3,
+                    "text": "Fred The Bird"
+                },
+                "agent": {
+                    "id": 28523750,
+                    "name": "Jack The Cat"
+                },
+                "revid": 892043155,
+                "read": "20190411201628",
+                "targetpages": [],
+                "*": {
+                    "header": "Jack The Cat left a message on <strong>your talk page</strong> in \"<strong>Section Title</strong>\".",
+                    "compactHeader": "Jack The Cat left you a message in \"<strong>Section Title</strong>\".",
+                    "body": "Reply text",
+                    "icon": "edit-user-talk",
+                    "links": {
+                        "primary": {
+                            "url": "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird?markasread=160145430&markasreadwiki=enwiki#Section_Title",
+                            "label": "View message"
+                        },
+                        "secondary": [{
+                                "url": "https://en.wikipedia.org/wiki/User:Jack_The_Cat",
+                                "label": "Jack The Cat",
+                                "tooltip": "",
+                                "description": "",
+                                "icon": "userAvatar",
+                                "prioritized": true
+                            },
+                            {
+                                "url": "https://en.wikipedia.org/w/index.php?title=User_talk:Fred_The_Bird&oldid=prev&diff=892043155",
+                                "label": "View changes",
+                                "description": "",
+                                "icon": "changes",
+                                "prioritized": true
+                            }
+                        ],
+                        "legacyPrimary": {
+                            "url": "//en.wikipedia.org/wiki/User_talk:Fred_The_Bird?markasread=160145430&markasreadwiki=enwiki#Hello",
+                            "label": "View message"
+                        }
+                    },
+                    "iconUrl": "/w/extensions/Echo/modules/icons/edit-user-talk-progressive.svg"
+                }
+            }, {
+                "wiki": "enwiki",
+                "id": 4,
+                "type": "edit-user-talk",
+                "category": "edit-user-talk",
+                "section": "alert",
+                "timestamp": {
+                    "utciso8601": "2019-06-11T15:14:00Z",
+                    "utcunix": 1560266040,
+                    "unix": "1560266040",
+                    "utcmw": "20190611151400",
+                    "mw": "20190611151400",
+                    "date": "11 June"
+                },
+                "title": {
+                    "full": "User talk:Fred The Bird",
+                    "namespace": "User_talk",
+                    "namespace-key": 3,
+                    "text": "Fred The Bird"
+                },
+                "agent": {
+                    "id": 0,
+                    "name": "47.184.10.84"
+                },
+                "revid": 901389754,
+                "read": "20190806164546",
+                "targetpages": [],
+                "*": {
+                    "header": "47.184.10.84 left a message on <strong>your talk page</strong> in \"<strong>Section Title</strong>\".",
+                    "compactHeader": "47.184.10.84 left you a message in \"<strong>Section Title</strong>\".",
+                    "body": "Reply text",
+                    "icon": "edit-user-talk",
+                    "links": {
+                        "primary": {
+                            "url": "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird?markasread=164444960&markasreadwiki=enwiki#Hello",
+                            "label": "View message"
+                        },
+                        "secondary": [{
+                                "url": "https://en.wikipedia.org/wiki/Special:Contributions/47.184.10.84",
+                                "label": "47.184.10.84",
+                                "tooltip": "",
+                                "description": "",
+                                "icon": "userAvatar",
+                                "prioritized": true
+                            },
+                            {
+                                "url": "https://en.wikipedia.org/w/index.php?title=User_talk:Fred_The_Bird&oldid=prev&diff=901389754",
+                                "label": "View changes",
+                                "description": "",
+                                "icon": "changes",
+                                "prioritized": true
+                            }
+                        ],
+                        "legacyPrimary": {
+                            "url": "//en.wikipedia.org/wiki/User_talk:Fred_The_Bird?markasread=164444960&markasreadwiki=enwiki#Section_Title",
+                            "label": "View message"
+                        }
+                    },
+                    "iconUrl": "/w/extensions/Echo/modules/icons/edit-user-talk-progressive.svg"
+                }
+            }, {
+                "wiki": "enwiki",
+                "id": 5,
+                "type": "edit-user-talk",
+                "category": "edit-user-talk",
+                "section": "alert",
+                "timestamp": {
+                    "utciso8601": "2022-03-09T17:02:51Z",
+                    "utcunix": 1646845371,
+                    "unix": "1646845371",
+                    "utcmw": "20220309170251",
+                    "mw": "20220309170251",
+                    "date": "9 March"
+                },
+                "title": {
+                    "full": "User talk:Jack The Cat",
+                    "namespace": "User_talk",
+                    "namespace-key": 3,
+                    "text": "Jack The Cat"
+                },
+                "agent": {
+                    "id": 35904678,
+                    "name": "Fred The Bird"
+                },
+                "revid": 1076152880,
+                "read": "20220311210247",
+                "targetpages": [],
+                "*": {
+                    "header": "Fred The Bird left a message on <strong>your talk page</strong> in \"<strong>Section Title</strong>\".",
+                    "compactHeader": "Fred The Bird left you a message in \"<strong>Section Title</strong>\".",
+                    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Adipiscing elit ut aliq...",
+                    "icon": "edit-user-talk",
+                    "links": {
+                        "primary": {
+                            "url": "https://en.wikipedia.org/wiki/User_talk:Jack_The_Cat?markasread=241957574&markasreadwiki=enwiki#c-Fred_The_Bird-2022-03-09T17:02:00.000Z-Section_Title",
+                            "label": "View message"
+                        },
+                        "secondary": [{
+                                "url": "https://en.wikipedia.org/wiki/User:Fred_The_Bird",
+                                "label": "Fred The Bird",
+                                "tooltip": "",
+                                "description": "",
+                                "icon": "userAvatar",
+                                "prioritized": true
+                            },
+                            {
+                                "url": "https://en.wikipedia.org/w/index.php?title=User_talk:Jack_The_Cat&oldid=prev&diff=1076152880",
+                                "label": "View changes",
+                                "description": "",
+                                "icon": "changes",
+                                "prioritized": true
+                            }
+                        ],
+                        "legacyPrimary": {
+                            "url": "//en.wikipedia.org/wiki/User_talk:Jack_The_Cat?markasread=241957574&markasreadwiki=enwiki#Section_Title",
+                            "label": "View message"
+                        }
+                    },
+                    "iconUrl": "/w/extensions/Echo/modules/icons/edit-user-talk-progressive.svg"
+                }
+            }, {
+                "wiki": "enwiki",
+                "id": 6,
+                "type": "edit-user-talk",
+                "category": "edit-user-talk",
+                "section": "alert",
+                "timestamp": {
+                    "utciso8601": "2019-10-07T15:36:17Z",
+                    "utcunix": 1570462577,
+                    "unix": "1570462577",
+                    "utcmw": "20191007153617",
+                    "mw": "20191007153617",
+                    "date": "7 October"
+                },
+                "title": {
+                    "full": "User talk:Fred The Bird",
+                    "namespace": "User_talk",
+                    "namespace-key": 3,
+                    "text": "Fred The Bird"
+                },
+                "agent": {
+                    "id": 20181147,
+                    "name": "MediaWiki message delivery"
+                },
+                "revid": 920081372,
+                "read": "20191101210059",
+                "targetpages": [],
+                "*": {
+                    "header": "MediaWiki message de... left a message on <strong>your talk page</strong>.",
+                    "compactHeader": "MediaWiki message de... left you a message.",
+                    "body": "",
+                    "icon": "edit-user-talk",
+                    "links": {
+                        "primary": {
+                            "url": "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird?markasread=173273622&markasreadwiki=enwiki",
+                            "label": "View message"
+                        },
+                        "secondary": [{
+                                "url": "https://en.wikipedia.org/wiki/User:MediaWiki_message_delivery",
+                                "label": "MediaWiki messa...",
+                                "tooltip": "MediaWiki message delivery",
+                                "description": "",
+                                "icon": "userAvatar",
+                                "prioritized": true
+                            },
+                            {
+                                "url": "https://en.wikipedia.org/w/index.php?title=User_talk:Fred_The_Bird&oldid=prev&diff=920081372",
+                                "label": "View changes",
+                                "description": "",
+                                "icon": "changes",
+                                "prioritized": true
+                            }
+                        ],
+                        "legacyPrimary": {
+                            "url": "//en.wikipedia.org/wiki/User_talk:Fred_The_Bird?markasread=173273622&markasreadwiki=enwiki",
+                            "label": "View message"
+                        }
+                    },
+                    "iconUrl": "/w/extensions/Echo/modules/icons/edit-user-talk-progressive.svg"
+                }
+            }],
+            "continue": "1569862285|172771996"
+        }
+    }
+}

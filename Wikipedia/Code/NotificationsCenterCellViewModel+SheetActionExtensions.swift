@@ -4,49 +4,75 @@ import WMF
 
 extension NotificationsCenterCellViewModel {
     
-    enum SheetAction {
+    enum SheetAction: Equatable {
         case markAsReadOrUnread(SheetActionData)
         case custom(SheetActionData)
         case notificationSubscriptionSettings(SheetActionData)
+        
+        static func == (lhs: SheetAction, rhs: SheetAction) -> Bool {
+            switch lhs {
+            case .markAsReadOrUnread(let lhsActionData):
+                switch rhs {
+                case .markAsReadOrUnread(let rhsActionData):
+                    return lhsActionData == rhsActionData
+                default:
+                    return false
+                }
+            case .custom(let lhsActionData):
+                switch rhs {
+                case .custom(let rhsActionData):
+                    return lhsActionData == rhsActionData
+                default:
+                    return false
+                }
+            case .notificationSubscriptionSettings(let lhsActionData):
+                switch rhs {
+                case .notificationSubscriptionSettings(let rhsActionData):
+                    return lhsActionData == rhsActionData
+                default:
+                    return false
+                }
+            }
+        }
     }
     
-    struct SheetActionData {
+    struct SheetActionData: Equatable {
         let text: String
         let url: URL?
     }
     
-    func sheetActions(for configuration: Configuration) -> [SheetAction] {
+    var sheetActions: [SheetAction] {
         
         var sheetActions: [SheetAction] = []
-        let markAsReadText = CommonStrings.notificationsCenterMarkAsRead
-        let markAsUnreadText = CommonStrings.notificationsCenterMarkAsUnread
+        let markAsReadText = CommonStrings.notificationsCenterMarkAsReadSwipe
+        let markAsUnreadText = CommonStrings.notificationsCenterMarkAsUnreadSwipe
         let markAsReadOrUnreadText = isRead ? markAsUnreadText : markAsReadText
         let markAsReadOrUnreadActionData = SheetActionData(text: markAsReadOrUnreadText, url: nil)
         sheetActions.append(.markAsReadOrUnread(markAsReadOrUnreadActionData))
         
         switch notification.type {
         case .userTalkPageMessage:
-            sheetActions.append(contentsOf: userTalkPageActions(for: configuration))
+            sheetActions.append(contentsOf: userTalkPageActions)
         case .mentionInTalkPage,
              .editReverted:
-            sheetActions.append(contentsOf: mentionInTalkAndEditRevertedPageActions(for: configuration))
+            sheetActions.append(contentsOf: mentionInTalkAndEditRevertedPageActions)
         case .mentionInEditSummary:
-            sheetActions.append(contentsOf: mentionInEditSummaryActions(for: configuration))
+            sheetActions.append(contentsOf: mentionInEditSummaryActions)
         case .successfulMention,
              .failedMention:
-            sheetActions.append(contentsOf: successfulAndFailedMentionActions(for: configuration))
+            sheetActions.append(contentsOf: successfulAndFailedMentionActions)
         case .userRightsChange:
-            sheetActions.append(contentsOf: userGroupRightsActions(for: configuration))
+            sheetActions.append(contentsOf: userGroupRightsActions)
         case .pageReviewed:
-            sheetActions.append(contentsOf: pageReviewedActions(for: configuration))
+            sheetActions.append(contentsOf: pageReviewedActions)
         case .pageLinked:
-            sheetActions.append(contentsOf: pageLinkActions(for: configuration))
+            sheetActions.append(contentsOf: pageLinkActions)
         case .connectionWithWikidata:
-            sheetActions.append(contentsOf: connectionWithWikidataActions(for: configuration))
+            sheetActions.append(contentsOf: connectionWithWikidataActions)
         case .emailFromOtherUser:
-            sheetActions.append(contentsOf: emailFromOtherUserActions(for: configuration))
+            sheetActions.append(contentsOf: emailFromOtherUserActions)
         case .thanks:
-            sheetActions.append(contentsOf: thanksActions(for: configuration))
+            sheetActions.append(contentsOf: thanksActions)
         case .translationMilestone,
              .editMilestone,
              .welcome:
@@ -54,16 +80,16 @@ extension NotificationsCenterCellViewModel {
         case .loginFailKnownDevice,
              .loginFailUnknownDevice,
              .loginSuccessUnknownDevice:
-            sheetActions.append(contentsOf: loginActions(for: configuration))
+            sheetActions.append(contentsOf: loginActions)
 
         case .unknownAlert,
              .unknownSystemAlert:
-            sheetActions.append(contentsOf: genericAlertActions(for: configuration))
+            sheetActions.append(contentsOf: genericAlertActions)
 
         case .unknownSystemNotice,
              .unknownNotice,
              .unknown:
-            sheetActions.append(contentsOf: genericActions(for: configuration))
+            sheetActions.append(contentsOf: genericActions)
 
         }
         
@@ -79,108 +105,108 @@ extension NotificationsCenterCellViewModel {
 //MARK: Private Helpers - Aggregate Swipe Action methods
 
 private extension NotificationsCenterCellViewModel {
-    func userTalkPageActions(for configuration: Configuration) -> [SheetAction] {
+    var userTalkPageActions: [SheetAction] {
         var sheetActions: [SheetAction] = []
 
-        if let agentUserPageAction = agentUserPageSheetAction(for: configuration) {
+        if let agentUserPageAction = agentUserPageSheetAction {
             sheetActions.append(agentUserPageAction)
         }
 
-        if let diffAction = diffSheetAction(for: configuration) {
+        if let diffAction = diffSheetAction {
             sheetActions.append(diffAction)
         }
 
-        if let talkPageAction = titleTalkPageSheetAction(for: configuration, yourPhrasing: true) {
+        if let talkPageAction = titleTalkPageSheetAction(yourPhrasing: true) {
             sheetActions.append(talkPageAction)
         }
 
         return sheetActions
     }
 
-    func mentionInTalkAndEditRevertedPageActions(for configuration: Configuration) -> [SheetAction] {
+    var mentionInTalkAndEditRevertedPageActions: [SheetAction] {
         var sheetActions: [SheetAction] = []
 
-        if let agentUserPageAction = agentUserPageSheetAction(for: configuration) {
+        if let agentUserPageAction = agentUserPageSheetAction {
             sheetActions.append(agentUserPageAction)
         }
 
-        if let diffAction = diffSheetAction(for: configuration) {
+        if let diffAction = diffSheetAction {
             sheetActions.append(diffAction)
         }
 
-        if let titleTalkPageAction = titleTalkPageSheetAction(for: configuration, yourPhrasing: false) {
+        if let titleTalkPageAction = titleTalkPageSheetAction(yourPhrasing: false) {
             sheetActions.append(titleTalkPageAction)
         }
 
-        if let titleAction = titleSheetAction(for: configuration) {
+        if let titleAction = titleSheetAction {
             sheetActions.append(titleAction)
         }
 
         return sheetActions
     }
 
-    func mentionInEditSummaryActions(for configuration: Configuration) -> [SheetAction] {
+    var mentionInEditSummaryActions: [SheetAction] {
         var sheetActions: [SheetAction] = []
 
-        if let agentUserPageAction = agentUserPageSheetAction(for: configuration) {
+        if let agentUserPageAction = agentUserPageSheetAction {
             sheetActions.append(agentUserPageAction)
         }
 
-        if let diffAction = diffSheetAction(for: configuration) {
+        if let diffAction = diffSheetAction {
             sheetActions.append(diffAction)
         }
 
-        if let titleAction = titleSheetAction(for: configuration) {
+        if let titleAction = titleSheetAction {
             sheetActions.append(titleAction)
         }
 
         return sheetActions
     }
 
-    func successfulAndFailedMentionActions(for configuration: Configuration) -> [SheetAction] {
-        if let titleAction = titleSheetAction(for: configuration) {
+    var successfulAndFailedMentionActions: [SheetAction] {
+        if let titleAction = titleSheetAction {
             return [titleAction]
         }
 
         return []
     }
 
-    func userGroupRightsActions(for configuration: Configuration) -> [SheetAction] {
+    var userGroupRightsActions: [SheetAction] {
         var sheetActions: [SheetAction] = []
 
         if let specificUserGroupRightsAction = specificUserGroupRightsSheetAction {
             sheetActions.append(specificUserGroupRightsAction)
         }
 
-        if let agentUserPageAction = agentUserPageSheetAction(for: configuration) {
+        if let agentUserPageAction = agentUserPageSheetAction {
             sheetActions.append(agentUserPageAction)
         }
 
-        if let userGroupRightsAction = userGroupRightsSheetAction(for: configuration) {
+        if let userGroupRightsAction = userGroupRightsSheetAction {
             sheetActions.append(userGroupRightsAction)
         }
 
         return sheetActions
     }
 
-    func pageReviewedActions(for configuration: Configuration) -> [SheetAction] {
+    var pageReviewedActions: [SheetAction] {
         var sheetActions: [SheetAction] = []
 
-        if let agentUserPageAction = agentUserPageSheetAction(for: configuration) {
+        if let agentUserPageAction = agentUserPageSheetAction {
             sheetActions.append(agentUserPageAction)
         }
 
-        if let titleAction = titleSheetAction(for: configuration) {
+        if let titleAction = titleSheetAction {
             sheetActions.append(titleAction)
         }
 
         return sheetActions
     }
 
-    func pageLinkActions(for configuration: Configuration) -> [SheetAction] {
+    var pageLinkActions: [SheetAction] {
         var sheetActions: [SheetAction] = []
 
-        if let agentUserPageAction = agentUserPageSheetAction(for: configuration) {
+        if let agentUserPageAction = agentUserPageSheetAction {
             sheetActions.append(agentUserPageAction)
         }
 
@@ -190,25 +216,25 @@ private extension NotificationsCenterCellViewModel {
         }
         
         //Article you edited
-        if let titleAction = titleSheetAction(for: configuration) {
+        if let titleAction = titleSheetAction {
             sheetActions.append(titleAction)
         }
 
-        if let diffAction = diffSheetAction(for: configuration) {
+        if let diffAction = diffSheetAction {
             sheetActions.append(diffAction)
         }
 
         return sheetActions
     }
 
-    func connectionWithWikidataActions(for configuration: Configuration) -> [SheetAction] {
+    var connectionWithWikidataActions: [SheetAction] {
         var sheetActions: [SheetAction] = []
 
-        if let agentUserPageAction = agentUserPageSheetAction(for: configuration) {
+        if let agentUserPageAction = agentUserPageSheetAction {
             sheetActions.append(agentUserPageAction)
         }
 
-        if let titleAction = titleSheetAction(for: configuration) {
+        if let titleAction = titleSheetAction {
             sheetActions.append(titleAction)
         }
 
@@ -219,79 +245,79 @@ private extension NotificationsCenterCellViewModel {
         return sheetActions
     }
 
-    func emailFromOtherUserActions(for configuration: Configuration) -> [SheetAction] {
-        if let agentUserPageAction = agentUserPageSheetAction(for: configuration) {
+    var emailFromOtherUserActions: [SheetAction] {
+        if let agentUserPageAction = agentUserPageSheetAction {
             return [agentUserPageAction]
         }
 
         return []
     }
 
-    func thanksActions(for configuration: Configuration) -> [SheetAction] {
+    var thanksActions: [SheetAction] {
         var sheetActions: [SheetAction] = []
 
-        if let agentUserPageAction = agentUserPageSheetAction(for: configuration) {
+        if let agentUserPageAction = agentUserPageSheetAction {
             sheetActions.append(agentUserPageAction)
         }
 
-        if let titleAction = titleSheetAction(for: configuration) {
+        if let titleAction = titleSheetAction {
             sheetActions.append(titleAction)
         }
 
-        if let diffAction = diffSheetAction(for: configuration) {
+        if let diffAction = diffSheetAction {
             sheetActions.append(diffAction)
         }
 
         return sheetActions
     }
 
-    func loginActions(for configuration: Configuration) -> [SheetAction] {
+    var loginActions: [SheetAction] {
         var sheetActions: [SheetAction] = []
 
-        if let loginHelpAction = loginNotificationsSheetAction(for: configuration) {
+        if let loginHelpAction = loginNotificationsSheetAction {
             sheetActions.append(loginHelpAction)
         }
 
-        if let changePasswordSheetAction = changePasswordSheetAction(for: configuration) {
+        if let changePasswordSheetAction = changePasswordSheetAction {
             sheetActions.append(changePasswordSheetAction)
         }
 
         return sheetActions
     }
 
-    func genericAlertActions(for configuration: Configuration) -> [SheetAction] {
+    var genericAlertActions: [SheetAction] {
         var sheetActions: [SheetAction] = []
 
         if let secondaryLinks = notification.secondaryLinks {
-            let secondarySheetActions = secondaryLinks.compactMap { sheetActionForGenericLink(link:$0, configuration:configuration) }
+            let secondarySheetActions = secondaryLinks.compactMap { sheetActionForGenericLink(link:$0) }
             sheetActions.append(contentsOf: secondarySheetActions)
         }
 
-        if let diffAction = diffSheetAction(for: configuration) {
+        if let diffAction = diffSheetAction {
             sheetActions.append(diffAction)
         }
 
         if let primaryLink = notification.primaryLink,
-           let primarySheetAction = sheetActionForGenericLink(link: primaryLink, configuration: configuration) {
+           let primarySheetAction = sheetActionForGenericLink(link: primaryLink) {
             sheetActions.append(primarySheetAction)
         }
 
         return sheetActions
     }
 
-    func genericActions(for configuration: Configuration) -> [SheetAction] {
+    var genericActions: [SheetAction] {
         var sheetActions: [SheetAction] = []
 
-        if let agentUserPageAction = agentUserPageSheetAction(for: configuration) {
+        if let agentUserPageAction = agentUserPageSheetAction {
             sheetActions.append(agentUserPageAction)
         }
 
-        if let diffAction = diffSheetAction(for: configuration) {
+        if let diffAction = diffSheetAction {
             sheetActions.append(diffAction)
         }
 
         if let primaryLink = notification.primaryLink,
-           let primarySheetAction = sheetActionForGenericLink(link: primaryLink, configuration: configuration) {
+           let primarySheetAction = sheetActionForGenericLink(link: primaryLink) {
             sheetActions.append(primarySheetAction)
         }
 
@@ -303,9 +329,9 @@ private extension NotificationsCenterCellViewModel {
 
 private extension NotificationsCenterCellViewModel {
     //Go to [Username]'s user page
-    func agentUserPageSheetAction(for configuration: Configuration) -> SheetAction? {
+    var agentUserPageSheetAction: SheetAction? {
         guard let agentName = notification.agentName,
-              let url = customPrefixAgentNameURL(for: configuration, pageNamespace: .user) else {
+              let url = customPrefixAgentNameURL(pageNamespace: .user) else {
             return nil
         }
 
@@ -318,8 +344,8 @@ private extension NotificationsCenterCellViewModel {
     }
 
     //Go to diff
-    func diffSheetAction(for configuration: Configuration) -> SheetAction? {
-        guard let url = fullTitleDiffURL(for: configuration) else {
+    var diffSheetAction: SheetAction? {
+        guard let url = fullTitleDiffURL else {
             return nil
         }
 
@@ -329,12 +355,12 @@ private extension NotificationsCenterCellViewModel {
     }
 
     //Go to [your?] talk page
-    func titleTalkPageSheetAction(for configuration: Configuration, yourPhrasing: Bool = false) -> SheetAction? {
+    func titleTalkPageSheetAction(yourPhrasing: Bool = false) -> SheetAction? {
         
-        guard let linkData = linkData(for: configuration),
+        guard let linkData = linkData,
               let namespace = linkData.titleNamespace,
               let talkEquivalent = namespace.talkEquivalent,
-              let url = customPrefixTitleURL(for: configuration, pageNamespace: talkEquivalent) else {
+              let url = customPrefixTitleURL(pageNamespace: talkEquivalent) else {
             return nil
         }
 
@@ -345,9 +371,9 @@ private extension NotificationsCenterCellViewModel {
     }
 
     //Go to [Name of article]
-    func titleSheetAction(for configuration: Configuration) -> SheetAction? {
-        guard let linkData = linkData(for: configuration),
-              let url = fullTitleURL(for: configuration),
+    var titleSheetAction: SheetAction? {
+        guard let linkData = linkData,
+              let url = fullTitleURL,
               let title = notification.titleText else {
             return nil
         }
@@ -398,7 +424,7 @@ private extension NotificationsCenterCellViewModel {
     }
 
     //Go to Special:UserGroupRights
-    func userGroupRightsSheetAction(for configuration: Configuration) -> SheetAction? {
+    var userGroupRightsSheetAction: SheetAction? {
         guard let url = userGroupRightsURL,
               let title = url.wmf_title else {
             return nil
@@ -410,7 +436,7 @@ private extension NotificationsCenterCellViewModel {
     }
 
     //Login Notifications
-    func loginNotificationsSheetAction(for configuration: Configuration) -> SheetAction? {
+    var loginNotificationsSheetAction: SheetAction? {
         guard let url = loginNotificationsHelpURL else {
             return nil
         }
@@ -422,9 +448,9 @@ private extension NotificationsCenterCellViewModel {
     }
 
     //Change password
-    func changePasswordSheetAction(for configuration: Configuration) -> SheetAction? {
+    var changePasswordSheetAction: SheetAction? {
 
-        guard let url = changePasswordURL(for: configuration) else {
+        guard let url = changePasswordURL else {
             return nil
         }
 
@@ -434,7 +460,7 @@ private extension NotificationsCenterCellViewModel {
         return SheetAction.custom(data)
     }
 
-    func sheetActionForGenericLink(link: RemoteNotificationLink, configuration: Configuration) -> SheetAction? {
+    func sheetActionForGenericLink(link: RemoteNotificationLink) -> SheetAction? {
         guard let url = link.url,
               let text = link.label else {
             return nil
