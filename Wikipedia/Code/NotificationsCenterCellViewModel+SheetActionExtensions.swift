@@ -8,32 +8,6 @@ extension NotificationsCenterCellViewModel {
         case markAsReadOrUnread(SheetActionData)
         case custom(SheetActionData)
         case notificationSubscriptionSettings(SheetActionData)
-        
-        static func == (lhs: SheetAction, rhs: SheetAction) -> Bool {
-            switch lhs {
-            case .markAsReadOrUnread(let lhsActionData):
-                switch rhs {
-                case .markAsReadOrUnread(let rhsActionData):
-                    return lhsActionData == rhsActionData
-                default:
-                    return false
-                }
-            case .custom(let lhsActionData):
-                switch rhs {
-                case .custom(let rhsActionData):
-                    return lhsActionData == rhsActionData
-                default:
-                    return false
-                }
-            case .notificationSubscriptionSettings(let lhsActionData):
-                switch rhs {
-                case .notificationSubscriptionSettings(let rhsActionData):
-                    return lhsActionData == rhsActionData
-                default:
-                    return false
-                }
-            }
-        }
     }
     
     struct SheetActionData: Equatable {
