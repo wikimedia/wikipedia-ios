@@ -15,7 +15,7 @@ class NotificationsCenterDetailHeaderCell: UITableViewCell, ReusableCell {
     lazy var labelStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.spacing = 6
+        stackView.spacing = 3
         stackView.axis = .vertical
         return stackView
     }()
@@ -48,7 +48,7 @@ class NotificationsCenterDetailHeaderCell: UITableViewCell, ReusableCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 0
-        label.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .bold, size: 15, maximumPointSize: 64)
+        label.font = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .bold, size: 17, maximumPointSize: 64)
         return label
     }()
 

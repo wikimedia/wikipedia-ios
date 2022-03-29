@@ -43,7 +43,7 @@ class NotificationsCenterDetailContentCell: UITableViewCell, ReusableCell {
 
         let bodyContent = viewModel.contentBody != nil ? "\n\n\(viewModel.contentBody!)" : ""
 
-        let boldAttribute = [NSAttributedString.Key.font: UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .semibold, size: 15, maximumPointSize: 64)]
+        let boldAttribute = [NSAttributedString.Key.font: UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .bold, size: 17, maximumPointSize: 64)]
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 1.7
         let bodyTextAttributes = [
