@@ -353,6 +353,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
 
         [userDefaults wmf_setDidShowNewsNotificationCardInFeed:YES];
         [self createGroupForNotificationsInManagedObjectContext:moc date:date];
+        userDefaults.wmf_shouldShowNotificationsExploreFeedCard = NO;
     }
 }
 
