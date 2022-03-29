@@ -84,8 +84,6 @@
 "explore-potd-heading" = "Imatge del jorn";
 "explore-random-article-heading" = "Article a l'azard";
 "explore-randomizer" = "Article a l'azard";
-"feed-news-notification-button-text" = "Activar las notificacions";
-"feed-news-notification-text" = "Activar las notificacions mandadas per la Wikipèdia quand d'articles fòrman la tendéncia de l'actualitat.";
 "field-email-title" = "Corrièr electronic";
 "field-email-title-optional" = "Corrièr electronic (facultatiu)";
 "field-new-password-title" = "Senhal novèl";
@@ -141,6 +139,8 @@
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 millas";
 "new-password-title" = "Definir vòstre senhal";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Activar las notificacions";
 "number-billions" = "$1G";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";

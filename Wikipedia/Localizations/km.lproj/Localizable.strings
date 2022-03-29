@@ -149,8 +149,6 @@
 "explore-potd-heading" = "រូបភាពថ្ងៃនេះ";
 "explore-random-article-heading" = "អត្ថបទចៃដន្យ";
 "explore-randomizer" = "រកមើលចៃដន្យ";
-"feed-news-notification-button-text" = "បើកប្រើសារជូនដំណឹង";
-"feed-news-notification-text" = "បើកប្រើសារជូនដំណឹងដើម្បីអោយវិគីភីឌាជូនដំណឹងមក ពេលដែលអត្ថបទមានការពេញនិយមនៅលើសារព័ត៌មាន។";
 "field-alert-captcha-invalid" = "CAPTCHA មិនត្រឹមត្រូវ";
 "field-alert-password-confirm-mismatch" = "ពាក្យសម្ងាត់មិនត្រូវគ្នាទេ";
 "field-alert-token-invalid" = "លេខកូដមិនត្រឹមត្រូវ";
@@ -236,6 +234,8 @@
 "new-password-instructions" = "អ្នកបានកត់ឈ្មោះចូលដោយប្រើពាក្យសម្ងាត់បណ្ដោះអាសន្ន។ កំណត់ពាក្យសម្ងាត់ថ្មីនៅទីនេះដើម្បីបញ្ចប់ការកាត់ឈ្មោះចូល។";
 "new-password-title" = "កំណត់ពាក្យសម្ងាត់របស់អ្នក";
 "no-email-account-alert" = "សូមកំណត់គណនីអ៊ីមែលលើឧបករណ៍របស់អ្នករួចសាកល្បងម្ដងទៀត។";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "បើកប្រើសារជូនដំណឹង";
 "number-billions" = "$1ពាន់លាន";
 "number-millions" = "$1លាន";
 "number-thousands" = "$1ពាន់";

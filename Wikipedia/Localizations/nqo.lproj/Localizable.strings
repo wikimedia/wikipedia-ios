@@ -295,7 +295,6 @@
 "featured-widget-from-wikipedia" = "ߞߊ߬ ߝߘߊ߫ ߥߞߌߔߋߘߌߦߊ ߟߊ߫";
 "featured-widget-language-failure" = "ߌ ߟߊ߫ ߥߞߌߔߋߘߌߦߊ ߞߊ߲߫ ߝߟߐ ߟߊߘߌ߬ߢߍ߬ߣߍ߲߫ ߕߍ߫ ߞߎߡߘߊ߫ ߡߊ߬ߦߋߙߋ߲ߣߍ߲ ߠߎ߬ ߓߟߏ߫. ߌ ߘߌ߫ ߛߴߌ ߟߊ߫ ߞߊ߲߫ ߝߟߐ ߟߊߞߎߘߦߊ߫ ߟߊ߫ ߟߥߊ߬ߟߌ߬ߟߊ߲ ߟߊ߬ߓߍ߲߬ߢߐ߲߰ߡߦߊ߬ߘߊ ߢߣߊߕߊߟߌ ߘߐ߫.";
 "featured-widget-title" = "ߞߎߡߘߊ߫ ߡߊߦߋߙߋ߲ߣߍ߲ ߠߎ߬";
-"feed-news-notification-button-text" = "ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߓߌ߬ߟߴߊ߬ ߟߊ߫";
 "fetcher-error-generic" = "ߞߏ ߘߏ߫ ߓߍ߲߬ߣߍ߲߫ ߕߎ߲߬ ߕߍ߫. ߊ߬ ߡߊߝߍߣߍ߲߫ ߌߞߐ߫ ߖߊ߰ߣߌ߲߫.";
 "field-alert-captcha-invalid" = "ߛߏ߰ߙߏ߬ߛߊ߯ߙߊ ߓߍ߲߬ߓߊߟߌ";
 "field-alert-password-confirm-mismatch" = "ߕߊ߬ߡߌ߲߬ߞߊ߲ ߡߊ߫ ߕߊ߬ߡߌ߲߬";
@@ -409,6 +408,8 @@
 "notifications-center-change-password" = "ߕߊ߬ߡߌ߲߬ߞߊ߲ ߡߊߝߊ߬ߟߋ߲߬";
 "notifications-center-empty-checking-for-notifications" = "ߊ߬ ߡߊߝߍߣߍ߲߫ ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ߫ ߞߏ ߘߐ߫...";
 "notifications-center-empty-not-subscribed" = "ߌ ߕߐ߮ ߛߓߍߣߍ߲߫ ߕߍ߫ ߥߞߌߔߋߘߌߦߊ ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ߫ ߛߌ߫ ߟߊ߫ ߕߊ߲߬.";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߓߌ߬ߟߴߊ߬ ߟߊ߫";
 "notifications-center-footer-change-password" = "ߕߊ߬ߡߌ߲߬ߞߊ߲ ߡߊߝߊ߬ߟߋ߲߬";
 "notifications-center-go-to-diff" = "ߕߊ߯ ߓߐߣߍ߲ߢߐ߲߰ߡߊ ߞߊ߲߬";
 "notifications-center-go-to-talk-page" = "ߥߊ߫ ߞߎߡߊ߫ ߞߐߜߍ ߞߊ߲߬";

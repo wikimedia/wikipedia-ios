@@ -217,8 +217,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Vu Wikipedia op $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Vu Wikipedia";
 "explore-randomizer" = "Zoufallsgenerator";
-"feed-news-notification-button-text" = "Notifikatiounen aschalten";
-"feed-news-notification-text" = "Notifikatiounen vu Wikipedia aschalte wann Artikelen an den Neiegkeeten opdauchen.";
 "field-alert-captcha-invalid" = "Net valabele CAPTCHA";
 "field-alert-password-confirm-mismatch" = "D'Passwierder déi Dir aginn hutt sinn net identesch";
 "field-alert-token-invalid" = "Net valabele Code";
@@ -331,6 +329,8 @@
 "no-internet-connection-article-reload-button" = "Zréck op déi lescht gespäichert Versioun";
 "notifications-center-change-password" = "Passwuert änneren";
 "notifications-center-empty-no-messages" = "Dir hutt keng Messagen";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Notifikatiounen aschalten";
 "notifications-center-filters-read-status-item-title-all" = "All";
 "notifications-center-filters-read-status-item-title-read" = "Liesen";
 "notifications-center-filters-read-status-item-title-unread" = "Net gelies";

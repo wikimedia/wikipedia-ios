@@ -446,8 +446,6 @@
 "featured-widget-from-wikipedia" = "Uit Wikipedia";
 "featured-widget-language-failure" = "Voor uw primaire Wikipedia-taal worden uitgelichte artikelen niet ondersteund. U kunt uw primaire Wikipedia wijzigen in het menu Instellingen van de app.";
 "featured-widget-title" = "Uitgelicht artikel";
-"feed-news-notification-button-text" = "Meldingen inschakelen";
-"feed-news-notification-text" = "Schakel meldingen in om geïnformeerd te worden door Wikipedia wanneer artikelen trending zijn in het nieuws.";
 "fetcher-error-generic" = "Er is iets misgegaan. Probeer het later opnieuw.";
 "fetcher-error-unexpected-response" = "De toepassing heeft een onverwacht antwoord van de server ontvangen. Probeer het later opnieuw.";
 "field-alert-captcha-invalid" = "Ongeldige CAPTCHA";
@@ -598,6 +596,8 @@
 "notifications-center-empty-not-subscribed" = "U bent op dit moment niet geabonneerd op Wikipedia Notificaties";
 "notifications-center-empty-state-filters-subtitle" = "Wijzig $1 om meer berichten te zien";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter|$1 filters}}";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Meldingen inschakelen";
 "notifications-center-filters-read-status-item-title-all" = "Alle";
 "notifications-center-filters-read-status-item-title-read" = "Gelezen";
 "notifications-center-filters-read-status-item-title-unread" = "Ongelezen";
@@ -892,8 +892,8 @@
 "settings-language-bar" = "Talen weergeven bij zoeken";
 "settings-languages-feed-customization" = "U kunt beheren welke talen worden weergegeven in uw Explore-feed door uw instellingen voor Explore-feeds aan te passen.";
 "settings-my-languages" = "Mijn talen";
-// Fuzzy
-"settings-notifications" = "Meldingen";
+"settings-notifications" = "Pushmeldingen";
+"settings-notifications-echo-failure-try-again" = "Opnieuw proberen";
 "settings-notifications-info" = "Word op de hoogte gesteld van actuele en populaire pagina's op Wikipedia met onze pushberichten. Allemaal geleverd met respect voor privacy en tot op de minuut vernieuwde gegevens.";
 "settings-notifications-learn-more" = "Meer informatie over meldingen";
 "settings-notifications-push-notifications" = "Pushberichten";

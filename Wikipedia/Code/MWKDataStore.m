@@ -461,6 +461,8 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
 
     if (currentLibraryVersion < 14) {
         [self.remoteNotificationsController deleteLegacyDatabaseFilesAndReturnError:nil];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        userDefaults.wmf_shouldShowNotificationsExploreFeedCard = YES;
         [NSHTTPCookieStorage migrateCookiesToSharedStorage];
         [moc wmf_setValue:@(14) forKey:WMFLibraryVersionKey];
         if ([moc hasChanges] && ![moc save:&migrationError]) {

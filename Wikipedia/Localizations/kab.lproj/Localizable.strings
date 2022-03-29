@@ -143,8 +143,6 @@
 "explore-potd-heading" = "Tugna n wass";
 "explore-random-article-heading" = "Amagrad agacuran";
 "explore-randomizer" = "Agacuran";
-"feed-news-notification-button-text" = "Rmed ilɣa";
-"feed-news-notification-text" = "Rmed ilɣa yettwaznen sɣur Wikipedia ticki imagraden skanayen talɣa n isallen.";
 "field-alert-captcha-invalid" = "Yir CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Awalen uffiren ur menṭaḍen ara";
 "field-alert-token-invalid" = "Yir tangalt";
@@ -228,6 +226,8 @@
 "new-password-instructions" = "Teqqneḍ s wawal uffir askudan. Akken ad fakeḍ tuqqna, sekcem awal-nniḍen uffir dagi.";
 "new-password-title" = "Sbadu awal-ik uffir";
 "no-email-account-alert" = "Swel amiḍan n yiznan deg usagu-ik sakin ɛreḍ tikelt-nniḍen.";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Rmed ilɣa";
 "number-billions" = "$1AṬ";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";

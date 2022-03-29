@@ -407,8 +407,6 @@
 "featured-widget-from-wikipedia" = "Von Wikipedia";
 "featured-widget-language-failure" = "Deine primäre Wikipedia-Sprache unterstützt keine vorgestellten Artikel. Du kannst deine primäre Wikipedia-Sprache im Einstellungsmenü der App aktualisieren.";
 "featured-widget-title" = "Vorgestellter Artikel";
-"feed-news-notification-button-text" = "Benachrichtigungen anschalten";
-"feed-news-notification-text" = "Aktiviere Benachrichtigungen, um von Wikipedia benachrichtigt zu werden, wenn Artikel in den Nachrichten erscheinen.";
 "fetcher-error-generic" = "Etwas ist schief gelaufen. Bitte später erneut versuchen.";
 "fetcher-error-unexpected-response" = "Die App hat eine unerwartete Antwort vom Server erhalten. Bitte später erneut versuchen.";
 "field-alert-captcha-invalid" = "Ungültiges CAPTCHA";
@@ -547,6 +545,8 @@
 "notifications-center-empty-not-subscribed" = "Du hast derzeit keine Wikipedia-Benachrichtigungen abonniert";
 "notifications-center-empty-state-filters-subtitle" = "Ändere $1, um mehr Nachrichten zu sehen";
 "notifications-center-empty-state-no-projects-selected" = "Projekte hinzufügen, um mehr Nachrichten zu sehen";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Benachrichtigungen anschalten";
 "notifications-center-filters-accessibility-label" = "Benachrichtigungsfilter";
 "notifications-center-filters-read-status-item-title-all" = "Alle";
 "notifications-center-filters-read-status-item-title-read" = "Gelesen";

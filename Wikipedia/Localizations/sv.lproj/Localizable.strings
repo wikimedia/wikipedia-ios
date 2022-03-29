@@ -433,8 +433,6 @@
 "featured-widget-from-wikipedia" = "Från Wikipedia";
 "featured-widget-language-failure" = "Ditt primära Wikipedia-språk har inte stöd för \"Utvald artikel\". Du kan uppdatera ditt primära Wikipedia-språk i appens inställningsmeny.";
 "featured-widget-title" = "Utmärkt artikel";
-"feed-news-notification-button-text" = "Aktivera notiser";
-"feed-news-notification-text" = "Aktivera notiser för att bli meddelad om Wikipedia-artiklar som är populära aktuella händelser.";
 "fetcher-error-generic" = "Någonting gick fel. Försök igen senare.";
 "fetcher-error-unexpected-response" = "Appen fick ett oväntat svar från servern. Försök igen senare.";
 "field-alert-captcha-invalid" = "Ogiltig CAPTCHA";
@@ -589,6 +587,8 @@
 "notifications-center-empty-state-filters-subtitle" = "Ändra $1 för att se fler meddelanden";
 "notifications-center-empty-state-no-projects-selected" = "Lägg till projekt för att se fler meddelanden";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter}}";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Aktivera notiser";
 "notifications-center-filters-accessibility-label" = "Aviseringsfilter";
 "notifications-center-filters-read-status-item-title-all" = "Alla";
 "notifications-center-filters-read-status-item-title-read" = "Lästa";

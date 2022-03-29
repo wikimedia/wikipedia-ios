@@ -181,8 +181,6 @@
 "explore-potd-heading" = "وێنەی ئەمڕۆ";
 "explore-random-article-heading" = "وتاری هەڕەمەکی";
 "explore-randomizer" = "ھەڵکەوت";
-"feed-news-notification-button-text" = "ئاگادارییەکان کار پێ بکە";
-"feed-news-notification-text" = "لەمەوبەدوا ھۆشدارت پێ دەگات لەبارەی وتارەکانی ویکیپیدیا و ھەواڵە بەناوبانگەکان.";
 "field-alert-captcha-invalid" = "کاپچای ھەڵە";
 "field-alert-password-confirm-mismatch" = "تێپەڕوشەکان ھەماھەنگ نین";
 "field-alert-token-invalid" = "کۆدەکە ھەڵەیە";
@@ -266,6 +264,8 @@
 "new-password-instructions" = "تۆ بە تێپەڕوشەیەکی کاتیی ھاتوویتە ژوورەوە. بۆ تەواوکردنی چوونە ژوورەوە تێپەڕوشەیەکی نوێ لێرە دابنێ.";
 "new-password-title" = "تێپەڕوشەکەت بنووسە";
 "no-email-account-alert" = "تکایە ھەژماری ئیمەیڵێک جێگیر بکە لە ئامێرەکەت و ھەوڵ بدەرەوە.";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "ئاگادارییەکان کار پێ بکە";
 "number-billions" = "$1";
 "number-millions" = "$1";
 "number-thousands" = "$1";

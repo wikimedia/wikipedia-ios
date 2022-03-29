@@ -112,7 +112,7 @@ extension WMFAppViewController: NotificationsCenterPresentationDelegate {
 
 extension WMFAppViewController {
     @objc func userDidTapPushNotification() {
-        
+
         guard let topMostViewController = self.topMostViewController else {
             return
         }
