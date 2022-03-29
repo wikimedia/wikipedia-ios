@@ -519,15 +519,17 @@ private extension NotificationsCenterCell {
         foregroundContentContainer.backgroundColor = isHighlighted || isSelected || displayState.isSelected ? theme.colors.batchSelectionBackground : theme.colors.paperBackground
         cellSeparator.backgroundColor = cellStyle.cellSeparatorColor
 
-        headerLabel.textColor = cellStyle.headerTextColor(displayState)
-        subheaderLabel.textColor = cellStyle.subheaderTextColor(displayState)
-        messageSummaryLabel.textColor = cellStyle.messageTextColor
-        relativeTimeAgoLabel.textColor = cellStyle.relativeTimeAgoColor
-        metaImageView.tintColor = cellStyle.metadataTextColor
-        metaLabel.textColor = cellStyle.metadataTextColor
-        projectSourceLabel.label.textColor = cellStyle.projectSourceColor
-        projectSourceLabel.layer.borderColor = cellStyle.projectSourceColor.cgColor
-        projectSourceImage.tintColor = cellStyle.projectSourceColor
+        let textColor = cellStyle.textColor(displayState)
+
+        headerLabel.textColor = textColor
+        subheaderLabel.textColor = textColor
+        messageSummaryLabel.textColor = textColor
+        relativeTimeAgoLabel.textColor = textColor
+        metaImageView.tintColor = textColor
+        metaLabel.textColor = textColor
+        projectSourceLabel.label.textColor = textColor
+        projectSourceLabel.layer.borderColor = textColor.cgColor
+        projectSourceImage.tintColor = textColor
     }
 
     func updateCellStyle(forDisplayState displayState: NotificationsCenterCellDisplayState) {
