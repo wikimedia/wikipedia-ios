@@ -104,7 +104,7 @@ extension WMFAppViewController: NotificationsCenterPresentationDelegate {
 
     /// Perform conditional presentation logic depending on origin `UIViewController`
     public func userDidTapNotificationsCenter(from viewController: UIViewController? = nil) {
-        let viewModel = NotificationsCenterViewModel(remoteNotificationsController: dataStore.remoteNotificationsController, languageLinkController: self.dataStore.languageLinkController)
+        let viewModel = NotificationsCenterViewModel(notificationsController: dataStore.notificationsController, remoteNotificationsController: dataStore.remoteNotificationsController, languageLinkController: self.dataStore.languageLinkController)
         let notificationsCenterViewController = NotificationsCenterViewController(theme: theme, viewModel: viewModel)
         navigationController?.pushViewController(notificationsCenterViewController, animated: true)
     }
@@ -112,7 +112,6 @@ extension WMFAppViewController: NotificationsCenterPresentationDelegate {
 
 extension WMFAppViewController {
     @objc func userDidTapPushNotification() {
-        
         guard let topMostViewController = self.topMostViewController else {
             return
         }
@@ -123,7 +122,8 @@ extension WMFAppViewController {
             return
         }
 
-        let viewModel = NotificationsCenterViewModel(remoteNotificationsController: dataStore.remoteNotificationsController, languageLinkController: dataStore.languageLinkController)
+        let viewModel = NotificationsCenterViewModel(notificationsController: dataStore.notificationsController, remoteNotificationsController: dataStore.remoteNotificationsController, languageLinkController: dataStore.languageLinkController)
+
         let notificationsCenterViewController = NotificationsCenterViewController(theme: theme, viewModel: viewModel)
         
         let dismissAndPushBlock = { [weak self] in
