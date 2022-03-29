@@ -276,6 +276,9 @@ import CocoaLumberjackSwift
                     }
                     DDLogDebug("Successfully logged out, deleted login tokens and other browser cookies")
                     // It's best to call "action=logout" API *before* clearing local login settings...
+                    self.resetLocalUserLoginSettings()
+                    completion()
+                    postDidLogOutNotification()
                 }
             }
         }
