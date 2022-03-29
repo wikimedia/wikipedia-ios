@@ -97,6 +97,7 @@
 "action-add-to-reading-list" = "Додај во список за читање";
 "action-add-to-reading-list-short" = "Додај во список";
 "action-cancel" = "Откажи";
+"action-discard-edits" = "Отфрли уредувања";
 "action-find-in-page" = "Најди на страницата";
 "action-language-accessibility" = "Смени јазик";
 "action-move-to" = "Премести во...";
@@ -307,6 +308,8 @@
 "editing-welcome-impartial-tone-title" = "Пишувајте со непристрасен тон";
 "editing-welcome-set-knowledge-free-subtitle" = "Со цел да го направиме светското знаење пристапно за секого, ќе треба да учествувате во неовото создавање со читање и уредување на темите кои највеќе ви значат.";
 "editing-welcome-set-knowledge-free-title" = "Да го ослободиме знаењето";
+"editor-exit-confirmation-body" = "Дали сигурно сакате да го напуштите режимот на уредување без да ги објавите измените?";
+"editor-exit-confirmation-title" = "Да го тргнам уредувачкиот режим?";
 "empty-diff-compare-title" = "Нема разлики помеѓу преработките";
 "empty-diff-single-title" = "Нема направено видливи промени";
 "empty-insert-media-title" = "Изберете податотека од Ризницата";
@@ -418,8 +421,6 @@
 "featured-widget-from-wikipedia" = "Од Википедија";
 "featured-widget-language-failure" = "Вашиот главен јазик не поддржува „Избрана статија“. Можете да ја смените главната Википедија во нагодувањата на прилогот.";
 "featured-widget-title" = "Избрана статија";
-"feed-news-notification-button-text" = "Вклучи известувања";
-"feed-news-notification-text" = "Овозможи известувања од статии за Википедија кога се тековни во вестите.";
 "fetcher-error-generic" = "Нешто не е во ред. Обидете се подоцна.";
 "fetcher-error-unexpected-response" = "Прилогот прими неочекуван одговор од опслужувачот. Обидете се повторно.";
 "field-alert-captcha-invalid" = "Неважечка CAPTCHA";
@@ -574,6 +575,8 @@
 "notifications-center-empty-state-filters-subtitle" = "Изменете $1 за да видите повеќе пораки";
 "notifications-center-empty-state-no-projects-selected" = "Додајте проекти за да видите повеќе пораки";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 филтер|$1 филтри}}";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Вклучи известувања";
 "notifications-center-filters-accessibility-label" = "Филтер на известувања";
 "notifications-center-filters-read-status-item-title-all" = "Сите";
 "notifications-center-filters-read-status-item-title-read" = "Прочитани";
@@ -871,8 +874,11 @@
 "settings-language-bar" = "Прикажувај јазици при пребарувањето";
 "settings-languages-feed-customization" = "Можете да изберете кои јазици да се прикажуваат во поставките за тековникот „Истражи“.";
 "settings-my-languages" = "Мои јазици";
-// Fuzzy
-"settings-notifications" = "Известувања";
+"settings-notifications" = "Доставни известувања";
+"settings-notifications-echo-failure-message" = "Се јави грешка при проверката на претплатените известувања поврзани со вашата сметка.";
+"settings-notifications-echo-failure-title" = "Не можам да ја ги проверам претплатените известувања со „Ехо“";
+"settings-notifications-echo-failure-try-again" = "Обиди се пак";
+"settings-notifications-header" = "Добивајте известувања за дејства поврзани со вашата сметка како пораки од колегите, напомени и соопштенија. Сите тие се даваат водејќи се по правилата за приватност и со најнови податоци.";
 "settings-notifications-info" = "Бидете во тек со тековните и најчитаните статии на Википедија со нашите доставни известувања. Сите се нудат со најтековни податоци, притоа почитувајќи ја вашата приватност.";
 "settings-notifications-learn-more" = "Дознајте повеќе за известувањата";
 "settings-notifications-push-notifications" = "Доставни известувања";

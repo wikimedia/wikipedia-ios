@@ -442,8 +442,6 @@
 "featured-widget-from-wikipedia" = "Da Wikipédia";
 "featured-widget-language-failure" = "Seu idioma principal da Wikipédia não oferece suporte a artigos destacados. Você pode atualizar a sua Wikipédia principal no menu Configurações do aplicativo.";
 "featured-widget-title" = "Artigo destacado";
-"feed-news-notification-button-text" = "Ativar notificações";
-"feed-news-notification-text" = "Ative notificações para serem notificadas pela Wikipedia quando os artigos estiverem sendo divulgados nas notícias.";
 "fetcher-error-generic" = "Algo deu errado. Por favor, tente novamente mais tarde.";
 "fetcher-error-unexpected-response" = "O aplicativo recebeu uma resposta inesperada do servidor. Por favor, tente novamente mais tarde.";
 "field-alert-captcha-invalid" = "CAPTCHA invalido";
@@ -589,6 +587,8 @@
 "no-internet-connection-article-reload-button" = "Retornar para a última versão salva";
 "notifications-center-change-password" = "Alterar senha";
 "notifications-center-empty-checking-for-notifications" = "Verificando notificações...";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Ativar notificações";
 "notifications-center-footer-change-password" = "Alterar senha";
 "notifications-center-go-to-talk-page" = "Ir para a página de discussão";
 "notifications-center-go-to-title" = "Ir para $1";

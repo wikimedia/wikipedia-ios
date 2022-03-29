@@ -356,8 +356,6 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Da Wikipedia";
 "explore-randomizer" = "Artigo aleatorio";
 "featured-article-empty-title" = "Hoxe non está dispoñible ningún artigo destacado";
-"feed-news-notification-button-text" = "Activar notificacións";
-"feed-news-notification-text" = "Activar as notificacións enviadas por Wikipedia cando os artigos son tendencia nas novas.";
 "fetcher-error-generic" = "Algo fallou. Por favor, ténteo de novo máis tarde.";
 "fetcher-error-unexpected-response" = "A aplicación recibiu unha resposta inesperada do servidor. Por favor, ténteo de novo máis tarde.";
 "field-alert-captcha-invalid" = "O CAPTCHA non é válido";
@@ -488,6 +486,8 @@
 "no-internet-connection" = "Sen conexión a Internet";
 "no-internet-connection-article-reload" = "Pode haber unha nova versión deste artigo, pero non pode cargarse sen unha conexión a Internet.";
 "no-internet-connection-article-reload-button" = "Volver á última versión gardada";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Activar notificacións";
 "number-billions" = "$1";
 "number-millions" = "$1M";
 "number-thousands" = "$1 mil";

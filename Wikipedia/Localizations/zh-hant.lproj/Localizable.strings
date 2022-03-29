@@ -7,6 +7,7 @@
 // Author: Chubit
 // Author: Cleinman
 // Author: Cwlin0416
+// Author: DinoWP
 // Author: Eric850130
 // Author: Hello903hello
 // Author: Impartial just
@@ -442,8 +443,6 @@
 "featured-widget-from-wikipedia" = "來自維基百科";
 "featured-widget-language-failure" = "您主要使用的維基百科語言目前不支援典範條目，您可以在應用程式設定選單中變更主要使用的維基百科。";
 "featured-widget-title" = "典範條目";
-"feed-news-notification-button-text" = "開啟通知";
-"feed-news-notification-text" = "啟用通知來透過維基百科在條目與趨勢新聞相關時獲得提醒。";
 "fetcher-error-generic" = "發生錯誤。請稍後再試。";
 "fetcher-error-unexpected-response" = "應用程式收到來自伺服器的異常回應。請稍後重試。";
 "field-alert-captcha-invalid" = "無效驗證碼";
@@ -598,6 +597,8 @@
 "notifications-center-empty-state-filters-subtitle" = "變動$1來查看更多通知";
 "notifications-center-empty-state-no-projects-selected" = "添加專案來查看更多訊息";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1}} 種篩選";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "開啟通知";
 "notifications-center-filters-accessibility-label" = "通知篩選";
 "notifications-center-filters-read-status-item-title-all" = "所有";
 "notifications-center-filters-read-status-item-title-read" = "已讀";
@@ -897,6 +898,7 @@
 "settings-my-languages" = "我的語言";
 // Fuzzy
 "settings-notifications" = "通知";
+"settings-notifications-echo-failure-try-again" = "再試一次";
 "settings-notifications-info" = "經由我們推發通知提醒注意在維基百科上的被閱讀最多次以及趨勢條目。所有提供內容皆考量到隱私及最新資料。";
 "settings-notifications-learn-more" = "了解更多通知內容";
 "settings-notifications-push-notifications" = "推發通知";

@@ -424,8 +424,6 @@
 "featured-widget-from-wikipedia" = "Z Wikipédie";
 "featured-widget-language-failure" = "Váš prvotný jazyk Wikipédie nie je pre odporúčaný článok podporovaný. Môžete ho zmeniť v nastaveniach aplikácie.";
 "featured-widget-title" = "Odporúčaný článok";
-"feed-news-notification-button-text" = "Zapnúť upozornenia";
-"feed-news-notification-text" = "Posielať oznámení, ktoré majú byť oznámené Wikipédiou, keď články sú trendy v aktualitách.";
 "fetcher-error-generic" = "Niečo sa nepodarilo. Prosím, skúste to znovu neskôr.";
 "fetcher-error-unexpected-response" = "Aplikácia dostala neočakávanú odpoveď zo servera. Skúste to, prosím, neskôr.";
 "field-alert-captcha-invalid" = "Neplatná CAPTCHA";
@@ -572,6 +570,8 @@
 "notifications-center-change-password" = "Zmeniť heslo";
 "notifications-center-empty-checking-for-notifications" = "Kontrola notifikácií...";
 "notifications-center-empty-not-subscribed" = "Neodoberáte žiadne notifikácie z Wikipédie";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Zapnúť upozornenia";
 "notifications-center-footer-change-password" = "Zmeniť heslo";
 "notifications-center-go-to-diff" = "Prejsť na rozdiely";
 "notifications-center-go-to-talk-page" = "Prejsť na diskusnú stránku";

@@ -67,6 +67,7 @@
 "account-creation-saving" = "সংরক্ষণ হচ্ছে ...";
 "account-creation-title" = "নতুন অ্যাকাউন্ট তৈরি করুন";
 "action-cancel" = "বাতিল";
+"action-discard-edits" = "সম্পাদনা বাতিল করুন";
 "action-find-in-page" = "পাতায় খুঁজুন";
 "action-move-to" = "স্থানান্তর করুন...";
 "action-read" = "পড়ুন";
@@ -127,6 +128,7 @@
 "edit-summary-choice-fixed-grammar" = "ব্যাকরণ ঠিক করা হয়েছে";
 "edit-summary-choice-fixed-typos" = "বানান ঠিক করা হয়েছে";
 "edit-summary-choice-linked-words" = "লিংক সংযোজন";
+"editor-exit-confirmation-title" = "সম্পাদনা মোড বাতিল করবেন?";
 "empty-no-article-message" = "দুঃখিত, নিবন্ধ লোড করা যায়নি";
 "empty-no-feed-action-message" = "আপনি এখনো সংরক্ষিত পাতা পাঠ করতে পারেন।";
 "empty-no-feed-message" = "আপনার সুপারিশকৃত নিবন্ধগুলি দেখতে পারবেন যখন, আপনার ইন্টারনেট সংযোগ থাকবে";
@@ -164,7 +166,6 @@
 "explore-random-article-sub-heading-from-wikipedia" = "উইকিপিডিয়া থেকে";
 "explore-randomizer" = "অজানা পাতা";
 "featured-widget-from-language-wikipedia" = "$1 উইকিপিডিয়া থেকে";
-"feed-news-notification-button-text" = "বিজ্ঞপ্তি চালু";
 "fetcher-error-generic" = "কিছু একটায় ভুল হয়েছে। দয়া করে পরে আবার চেষ্টা করুন।";
 "field-alert-captcha-invalid" = "ক্যাপচা সঠিক নয়";
 "field-alert-password-confirm-mismatch" = "পাসওয়ার্ড মিলেনি";
@@ -253,6 +254,8 @@
 "notifications-center-change-password" = "পাসওয়ার্ড পরিবর্তন";
 "notifications-center-empty-checking-for-notifications" = "বিজ্ঞপ্তির জন্য অনুসন্ধান করা হচ্ছে...";
 "notifications-center-empty-not-subscribed" = "আপনি বর্তমানে কোনো উইকিপিডিয়া বিজ্ঞপ্তির সদস্যতা গ্রহণ করেননি";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "বিজ্ঞপ্তি চালু";
 "notifications-center-footer-change-password" = "পাসওয়ার্ড পরিবর্তন";
 "notifications-center-go-to-diff" = "পরিবর্তনে যান";
 "notifications-center-go-to-talk-page" = "আলাপ পাতায় যান";
@@ -370,8 +373,8 @@
 "settings-help-and-feedback" = "সাহায্য ও প্রতিক্রিয়া";
 "settings-language-bar" = "অনুসন্ধানের সময় ভাষাগুলিকে দেখাও";
 "settings-my-languages" = "আমার ভাষাসমূহ";
-// Fuzzy
-"settings-notifications" = "বিজ্ঞপ্তি";
+"settings-notifications" = "পাঠানো বিজ্ঞপ্তি";
+"settings-notifications-echo-failure-try-again" = "আবার চেষ্টা করুন";
 "settings-notifications-learn-more" = "বিজ্ঞপ্তি সম্পর্কে আরো জানুন";
 "settings-notifications-push-notifications" = "পাঠানো বিজ্ঞপ্তি";
 "settings-notifications-system-turn-on" = "বিজ্ঞপ্তি বন্ধ করুন";

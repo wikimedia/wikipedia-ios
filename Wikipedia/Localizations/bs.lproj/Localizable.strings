@@ -416,8 +416,6 @@
 "featured-widget-from-wikipedia" = "S Wikipedije";
 "featured-widget-language-failure" = "Vaš primarni jezik Wikipedije ne podržava Istaknuti članak. Možete ažurirati svoju primarnu Wikipediju u meniju postavki aplikacije.";
 "featured-widget-title" = "Istaknuti članak";
-"feed-news-notification-button-text" = "Uključi obavještenja";
-"feed-news-notification-text" = "Uključite obavještenja kako bi bili obaviješteni o člancima na Wikipediji koji su aktuelni na vijestima.";
 "fetcher-error-generic" = "Nešto je pošlo po zlu. Pokušajte ponovo kasnije.";
 "fetcher-error-unexpected-response" = "Aplikacija je dobila neočekivani odgovor od servera. Pokušajte ponovo kasnije.";
 "field-alert-captcha-invalid" = "Neispravna CAPTCHA";
@@ -564,6 +562,8 @@
 "notifications-center-change-password" = "Promijeni lozinku";
 "notifications-center-empty-checking-for-notifications" = "Provjera obavijesti...";
 "notifications-center-empty-not-subscribed" = "Trenutno niste pretplaćeni na obavještenja Wikipedije";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Uključi obavještenja";
 "notifications-center-footer-change-password" = "Promijeni lozinku";
 "notifications-center-go-to-talk-page" = "Idi na stranicu za razgovor";
 "notifications-center-go-to-title" = "Idi na $1";
