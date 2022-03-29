@@ -203,6 +203,10 @@ extension URL {
         urlComponents?.percentEncodedPath = path.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) ?? path
         return urlComponents?.wmf_URLWithLanguageVariantCode(wmf_languageVariantCode) ?? self
     }
+
+    public var doesOpenInBrowser: Bool {
+        return Configuration.current.router.doesOpenInBrowser(for: self)
+    }
 }
 
 

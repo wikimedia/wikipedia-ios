@@ -1,4 +1,5 @@
 import CocoaLumberjackSwift
+import CoreData
 
 public extension Notification.Name {
     static let NotificationsCenterContextDidSave = Notification.Name("NotificationsCenterContextDidSave")
@@ -29,6 +30,7 @@ final class RemoteNotificationsModelController {
     
     let viewContext: NSManagedObjectContext
     let persistentContainer: NSPersistentContainer
+    private let containerURL: URL
 
     enum InitializationError: Error {
         case unableToCreateModelURL(String, String, Bundle)
@@ -52,7 +54,8 @@ final class RemoteNotificationsModelController {
     
     static let modelName = "RemoteNotifications"
 
-    required init() throws {
+    required init(containerURL: URL) throws {
+        self.containerURL = containerURL
         let modelName = RemoteNotificationsModelController.modelName
         let modelExtension = "momd"
         let modelBundle = Bundle.wmf
@@ -67,8 +70,7 @@ final class RemoteNotificationsModelController {
             throw error
         }
         let container = NSPersistentContainer(name: modelName, managedObjectModel: model)
-        let sharedAppContainerURL = FileManager.default.wmf_containerURL()
-        let remoteNotificationsStorageURL = sharedAppContainerURL.appendingPathComponent("\(modelName).sqlite")
+        let remoteNotificationsStorageURL = containerURL.appendingPathComponent("\(modelName).sqlite")
 
         let description = NSPersistentStoreDescription(url: remoteNotificationsStorageURL)
         container.persistentStoreDescriptions = [description]
@@ -94,13 +96,12 @@ final class RemoteNotificationsModelController {
     
     func deleteLegacyDatabaseFiles() throws {
         let modelName = Self.modelName
-        let sharedAppContainerURL = FileManager.default.wmf_containerURL()
-        let legacyStorageURL = sharedAppContainerURL.appendingPathComponent(modelName)
+        let legacyStorageURL = containerURL.appendingPathComponent(modelName)
         
         try persistentContainer.persistentStoreCoordinator.destroyPersistentStore(at: legacyStorageURL, ofType: NSSQLiteStoreType, options: nil)
         
-        let legecyJournalShmUrl = sharedAppContainerURL.appendingPathComponent("\(modelName)-shm")
-        let legecyJournalWalUrl = sharedAppContainerURL.appendingPathComponent("\(modelName)-wal")
+        let legecyJournalShmUrl = containerURL.appendingPathComponent("\(modelName)-shm")
+        let legecyJournalWalUrl = containerURL.appendingPathComponent("\(modelName)-wal")
         
         try FileManager.default.removeItem(at: legacyStorageURL)
         try FileManager.default.removeItem(at: legecyJournalShmUrl)
@@ -200,7 +201,7 @@ final class RemoteNotificationsModelController {
             
         }
     }
-
+    
     // MARK: Mark as read
     
     func markAllAsRead(moc: NSManagedObjectContext, project: RemoteNotificationsProject, completion: @escaping (Result<Void, Error>) -> Void) {
@@ -268,7 +269,7 @@ final class RemoteNotificationsModelController {
     }
     
     //MARK: Fetch Distinct Wikis
-    
+
     func distinctWikisWithUnreadNotifications() throws -> Set<String> {
         return try distinctWikis(predicate: unreadNotificationsPredicate)
     }
@@ -345,7 +346,7 @@ final class RemoteNotificationsModelController {
     private var unreadNotificationsPredicate: NSPredicate {
         return NSPredicate(format: "isRead == %@", NSNumber(value: false))
     }
-    
+
     private func createNewNotification(moc: NSManagedObjectContext, notification: RemoteNotificationsAPIController.NotificationsResult.Notification) throws {
         guard let date = notification.date else {
             assertionFailure("Notification should have a date")

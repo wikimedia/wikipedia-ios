@@ -3,6 +3,7 @@ import CocoaLumberjackSwift
 public enum RemoteNotificationsControllerError: Error {
     case databaseUnavailable
     case attemptingToRefreshBeforeDeadline
+    case failurePullingAppLanguage
 }
 
 @objc public final class RemoteNotificationsController: NSObject {
@@ -45,6 +46,10 @@ public enum RemoteNotificationsControllerError: Error {
     public var isLoadingNotifications: Bool {
         return operationsController?.isLoadingNotifications ?? false
     }
+    
+    public var areFiltersEnabled: Bool {
+        return filterState.readStatus != .all || filterState.offProjects.count != 0 || filterState.offTypes.count != 0
+    }
 
     public static let didUpdateFilterStateNotification = NSNotification.Name(rawValue: "RemoteNotificationsControllerDidUpdateFilterState")
     
@@ -60,7 +65,7 @@ public enum RemoteNotificationsControllerError: Error {
         super.init()
         
         do {
-            modelController = try RemoteNotificationsModelController()
+            modelController = try RemoteNotificationsModelController(containerURL: FileManager.default.wmf_containerURL())
         } catch (let error) {
             DDLogError("Failed to initialize RemoteNotificationsModelController: \(error)")
             modelController = nil
@@ -189,6 +194,23 @@ public enum RemoteNotificationsControllerError: Error {
         }
         
         operationsController.markAllAsRead(languageLinkController: languageLinkController, completion: completion)
+    }
+    
+    /// Asks server to mark all notifications as seen for the primary app language
+    public func markAllAsSeen(completion: @escaping ((Result<Void, Error>) -> Void)) {
+        
+        guard authManager.isLoggedIn else {
+            completion(.failure(RequestError.unauthenticated))
+            return
+        }
+        
+        guard let appLanguage = languageLinkController.appLanguage else {
+            completion(.failure(RemoteNotificationsControllerError.failurePullingAppLanguage))
+            return
+        }
+        
+        let appLanguageProject =  RemoteNotificationsProject.wikipedia(appLanguage.languageCode, appLanguage.localizedName, appLanguage.languageVariantCode)
+        apiController.markAllAsSeen(project: appLanguageProject, completion: completion)
     }
     
     /// Passthrough method to listen for NSManagedObjectContextObjectsDidChange notifications on the viewContext, in order to encapsulate viewContext within the WMF Framework.

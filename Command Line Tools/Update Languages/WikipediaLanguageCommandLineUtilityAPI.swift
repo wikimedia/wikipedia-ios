@@ -14,7 +14,7 @@ class WikipediaLanguageCommandLineUtilityAPI {
     //     },
     //    "1":  {
     //      "code": "ab",
-    //      "name":"Аҧсшәа",
+    //      "name":"аԥсшәа",
     //      ...
     //     },
     //     ...

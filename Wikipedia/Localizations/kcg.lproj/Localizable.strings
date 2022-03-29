@@ -334,7 +334,6 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Neet Wikipidya";
 "explore-randomizer" = "A̱tyia̱kpeak";
 "featured-article-empty-title" = "Ghwughwu kidee nshyia̱ a̱fwun ka bah";
-"feed-news-notification-button-text" = "Khwuk shei li̱lak";
 "field-alert-captcha-invalid" = "A̱kace CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Swáng-nwuai tai njhyang bah";
 "field-alert-token-invalid" = "A̱kace zwunzwuo";
@@ -458,6 +457,8 @@
 "nearby-distance-label-km" = "km $1";
 "nearby-distance-label-meters" = "m $1";
 "nearby-distance-label-miles" = "met $1";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Khwuk shei li̱lak";
 "page-history-minor-edits" = "a̱cyuang njhyuk";
 "page-history-revision-author-accessibility-label" = "Author: $1";
 "page-history-revision-comment-accessibility-label" = "Nang $1 a̱di̱dam";

@@ -8,10 +8,11 @@ final class NotificationsCenterCellViewModel {
     let key: String
     let project: RemoteNotificationsProject
     private(set) var displayState: NotificationsCenterCellDisplayState
+    let configuration: Configuration
 
 	// MARK: - Lifecycle
 
-    init?(notification: RemoteNotification, languageLinkController: MWKLanguageLinkController, isEditing: Bool) {
+    init?(notification: RemoteNotification, languageLinkController: MWKLanguageLinkController, isEditing: Bool, configuration: Configuration) {
         
         //Validation - all notifications must have a recognized project for display (wikidata, commons, or app-supported language)
         guard let wiki = notification.wiki,
@@ -23,6 +24,7 @@ final class NotificationsCenterCellViewModel {
         self.notification = notification
         self.key = key
         self.project = project
+        self.configuration = configuration
         
         self.displayState = Self.displayStateFor(isEditing: isEditing, isSelected: false, isRead: notification.isRead)
     }

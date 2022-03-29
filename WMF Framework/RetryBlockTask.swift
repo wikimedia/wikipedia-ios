@@ -39,8 +39,8 @@ public class RetryBlockTask {
             }
 
             self.retryCount -= 1
-            self.queue.asyncAfter(deadline: .now() + self.retryInterval) {
-                self.tick()
+            self.queue.asyncAfter(deadline: .now() + self.retryInterval) { [weak self] in
+                self?.tick()
             }
         }
     }

@@ -421,8 +421,6 @@
 "featured-widget-from-wikipedia" = "De la Wikipedia";
 "featured-widget-language-failure" = "Limba dvs. principală Wikipedia nu susține articolul de calitate. Puteți actualiza Wikipedia principală în meniul Setări al aplicației.";
 "featured-widget-title" = "Articol de calitate";
-"feed-news-notification-button-text" = "Activați notificările";
-"feed-news-notification-text" = "Permiteți notificărilor să fie notificate de Wikipedia atunci când articolele sunt în trend în știri.";
 "fetcher-error-generic" = "Ceva nu a mers bine. Vă rugăm să încercați din nou mai târziu.";
 "fetcher-error-unexpected-response" = "Aplicația a primit un răspuns neașteptat de la server. Vă rugăm să încercați din nou mai târziu.";
 "field-alert-captcha-invalid" = "CAPTCHA nevalid";
@@ -567,6 +565,8 @@
 "no-internet-connection-article-reload" = "O versiune mai recentă a acestui articol poate fi disponibilă, dar nu poate fi încărcată fără o conexiune la internet";
 "no-internet-connection-article-reload-button" = "Reveniți la ultima versiune salvată";
 "notifications-center-change-password" = "Schimbare parolă";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Activați notificările";
 "notifications-center-go-to-diff" = "Mergeți la dif";
 "notifications-center-go-to-talk-page" = "Mergeți la pagina de discuție";
 "notifications-center-go-to-title" = "Mergeți la $1";
@@ -805,6 +805,7 @@
 "settings-language-bar" = "Arată limbile la căutări";
 "settings-languages-feed-customization" = "Puteți gestiona limbile care sunt afișate în fluxul dvs. Explore personalizând setările pentru fluxul dvs. Explore.";
 "settings-my-languages" = "Limbile mele";
+// Fuzzy
 "settings-notifications" = "Notificări";
 "settings-notifications-info" = "Fiți atenționat cu privire la articolele din trend și cele mai citite din top pe Wikipedia cu notificările noastre push. Toate furnizate cu respect la confidențialitate și date actualizate în ultimul minut.";
 "settings-notifications-learn-more" = "Aflați mai multe despre notificări";

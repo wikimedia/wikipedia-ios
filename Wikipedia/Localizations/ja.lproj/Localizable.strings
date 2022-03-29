@@ -122,6 +122,7 @@
 "action-add-to-reading-list" = "あとで読むリストに追加";
 "action-add-to-reading-list-short" = "リストに追加";
 "action-cancel" = "キャンセル";
+"action-discard-edits" = "編集内容を破棄";
 "action-find-in-page" = "ページ内を検索";
 "action-language-accessibility" = "言語を変更";
 "action-move-to" = "次へ移動…";
@@ -328,6 +329,7 @@
 "editing-welcome-impartial-tone-title" = "公平な論調で書く";
 "editing-welcome-set-knowledge-free-subtitle" = "私たちはすべての人が、世界のあらゆる知識にアクセスできるようにしたいと考えています。あなたに一番関係している話題について読んで、編集して、そして貢献することで、その知識の作成にあなたも参加することが、何より必要です。";
 "editing-welcome-set-knowledge-free-title" = "知識を自由に";
+"editor-exit-confirmation-body" = "保存せずに編集から離れてもよろしいですか？";
 "empty-diff-compare-title" = "版間の相違点はありません";
 "empty-diff-single-title" = "目に見える変更はされませんでした";
 "empty-insert-media-title" = "ウィキメディアコモンズからファイルを選択";
@@ -439,8 +441,6 @@
 "featured-widget-from-wikipedia" = "ウィキペディアより";
 "featured-widget-language-failure" = "あなたのメイン言語は秀逸な記事をサポートしていません。アプリの設定メニューからウィキペディアのメイン言語を切り替えることができます。";
 "featured-widget-title" = "秀逸な記事";
-"feed-news-notification-button-text" = "通知をオンにする";
-"feed-news-notification-text" = "ニュースで記事が流行しているときに通知をWikipediaで通知できるようにする。";
 "fetcher-error-generic" = "問題が発生しました。しばらくしてから再度、操作をしてください。";
 "fetcher-error-unexpected-response" = "サーバから異常な応答がありました。しばらくしてから再度、操作してください。";
 "field-alert-captcha-invalid" = "CAPTCHAが無効です";
@@ -577,6 +577,8 @@
 "notifications-center-change-password" = "パスワードを変更";
 "notifications-center-empty-checking-for-notifications" = "通知を確認中...";
 "notifications-center-empty-not-subscribed" = "現在、ウィキペディアの通知を登録していません";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "通知をオンにする";
 "notifications-center-footer-change-password" = "パスワードを変更";
 "notifications-center-go-to-diff" = "履歴へ移動";
 "notifications-center-go-to-talk-page" = "会話ページに移動";
@@ -829,7 +831,8 @@
 "settings-language-bar" = "検索画面で言語を表示";
 "settings-languages-feed-customization" = "探索フィードの設定を変更すると、どの言語で探索フィードを表示するか管理できます。";
 "settings-my-languages" = "使用する言語";
-"settings-notifications" = "通知";
+"settings-notifications" = "プッシュ通知";
+"settings-notifications-echo-failure-try-again" = "もう一度お試しください";
 "settings-notifications-info" = "ウィキペディア上で話題の記事、最も読まれている記事をプッシュ通知で受け取りましょう。通知はすべてプライバシーに配慮して行われ、毎分ごとのデータに基づいています。";
 "settings-notifications-learn-more" = "通知についてさらに詳しく";
 "settings-notifications-push-notifications" = "プッシュ通知";

@@ -87,16 +87,24 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
                 [self requestPermissionsWithCompletionHandler:completionHandler];
                 break;
             case UNAuthorizationStatusDenied:
-                completionHandler(NO, nil);
+                if (completionHandler) {
+                    completionHandler(NO, nil);
+                }
                 break;
             case UNAuthorizationStatusAuthorized:
-                completionHandler(YES, nil);
+                if (completionHandler) {
+                    completionHandler(YES, nil);
+                }
                 break;
             case UNAuthorizationStatusProvisional:
-                completionHandler(YES, nil);
+                if (completionHandler) {
+                    completionHandler(YES, nil);
+                }
                 break;
             case UNAuthorizationStatusEphemeral:
-                completionHandler(YES, nil);
+                if (completionHandler) {
+                    completionHandler(YES, nil);
+                }
                 break;
         }
     }];
@@ -115,7 +123,9 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
                                                 if (error == nil) {
                                                     NSUserDefaults.standardUserDefaults.wmf_isSubscribedToEchoNotifications = YES;
                                                 }
-                                                completionHandler(error);
+                                                if (completionHandler) {
+                                                    completionHandler(error);
+                                                }
                                             }];
 }
 

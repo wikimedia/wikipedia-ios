@@ -13,6 +13,7 @@
 // Author: Nemo bis
 // Author: Patsagorn Y.
 // Author: Pon44695
+// Author: Trisorn Triboon
 
 "aaald-new-discussion" = "การอภิปรายใหม่";
 "aaald-new-website-reference-title" = "เว็บไซต์";
@@ -351,8 +352,6 @@
 "explore-random-article-sub-heading-from-wikipedia" = "จากวิกิพีเดีย";
 "explore-randomizer" = "ตัวสุ่ม";
 "featured-article-empty-title" = "ไม่มีบทความคัดสรรสำหรับวันนี้";
-"feed-news-notification-button-text" = "เปิดการแจ้งเตือน";
-"feed-news-notification-text" = "ให้วิกิพีเดียแจ้งเตือนเมื่อมีเรื่องจากข่าวที่กำลังมาแรง";
 "fetcher-error-generic" = "มีบางอย่างผิดปกติ โปรดลองอีกครั้งในภายหลัง";
 "fetcher-error-unexpected-response" = "แอปได้รับการตอบกลับที่ไม่คาดคิดจากเซิร์ฟเวอร์ โปรดลองอีกครั้งในภายหลัง";
 "field-alert-captcha-invalid" = "CAPTCHA ไม่ถูกต้อง";
@@ -483,6 +482,8 @@
 "no-internet-connection" = "ไม่มีการเชื่อมต่ออินเทอร์เน็ต";
 "no-internet-connection-article-reload" = "อาจมีรุ่นใหม่ของบทความนี้ แต่ไม่สามารถโหลดได้โดยไม่เชื่อมต่อกับอินเทอร์เน็ต";
 "no-internet-connection-article-reload-button" = "กลับไปยังรุ่นที่บันทึกไว้ล่าสุด";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "เปิดการแจ้งเตือน";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
@@ -641,7 +642,8 @@
 "settings-language-bar" = "แสดงภาษาในหน้าค้นหา";
 "settings-languages-feed-customization" = "คุณสามารถจัดการภาษาที่จะแสดงบนฟีดสำรวจของคุณได้โดยปรับแต่งการตั้งค่าฟีดสำรวจของคุณ";
 "settings-my-languages" = "ภาษาของฉัน";
-"settings-notifications" = "การแจ้งเตือน";
+"settings-notifications" = "การแจ้งเตือนแบบพุช";
+"settings-notifications-echo-failure-try-again" = "ลองอีกครั้ง";
 "settings-notifications-learn-more" = "เรียนรู้เพิ่มเติมเกี่ยวกับการแจ้งเตือน";
 "settings-notifications-push-notifications" = "การแจ้งเตือนแบบพุช";
 "settings-notifications-system-turn-on" = "เปิดการแจ้งเตือน";

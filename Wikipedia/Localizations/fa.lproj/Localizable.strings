@@ -11,6 +11,7 @@
 // Author: Arash.pt
 // Author: Arian Ar
 // Author: BaziOnline
+// Author: Beginneruser
 // Author: Darafsh
 // Author: Ebraminio
 // Author: FarsiNevis
@@ -73,7 +74,7 @@
 "aaald-summary-title" = "{{PLURAL:$1|0=۰ تغییر|$1 تغییر|$1 تغییر}} توسط {{PLURAL:$2|0=۰ ویرایشگر|$2 ویرایشگر|$2 ویرایشگر}} در {{PLURAL:$3|0=۰ روز|$3 روز|$3 روز}}";
 "aaald-two-sections-description" = "در بخش‌های $1 و $2";
 "aaald-vandalism-revert-description" = "خرابکاری مشکوک برگردانده شد";
-"aaald-view-full-history-button" = "مشاهده تاریخچه کامل مقاله";
+"aaald-view-full-history-button" = "مشاهده تاریخچۀ کامل مقاله";
 "about-content-license" = "مجوز محتوا";
 "about-content-license-details" = "در صورتی که حالت دیگری اعلام نشود،‌ محتوا تحت $1 در دسترس است.";
 "about-content-license-details-share-alike-license" = "مجوز کریتیو کامنز اشتراک‌گذاری یکسان";
@@ -108,17 +109,17 @@
 "abuse-filter-warning-subheading" = "ویرایش‌تان ممکن است شامل موارد زیر باشد:";
 "account-creation-captcha-cannot-see-image" = "نمی‌توانید تصویر را ببینید؟ $1";
 "account-creation-captcha-obtaining" = "در حال اخذ کپچای تازه...";
-"account-creation-captcha-request-account" = "درخواست یک حساب کاربری.";
+"account-creation-captcha-request-account" = "درخواست حساب.";
 "account-creation-captcha-title" = "کپچای بررسی امنیت";
-"account-creation-create-account" = "ایجاد حساب کاربری شما";
-"account-creation-have-account" = "حساب کاربری دارید؟ $1";
+"account-creation-create-account" = "ایجاد حسابتان";
+"account-creation-have-account" = "از قبل یک حساب دارید؟ $1";
 "account-creation-log-in" = "ورود";
 "account-creation-logging-in" = "در حال ورود به سامانه...";
-"account-creation-missing-fields" = "برای ساخت حساب کاربری، باید نام کاربری، گذرواژه و تأیید گذرواژه را وارد کنید.";
+"account-creation-missing-fields" = "برای ایجاد یک حساب، باید نام کاربری، گذرواژه و تأیید گذرواژه را وارد کنید.";
 "account-creation-passwords-mismatched" = "گذرواژه‌ها همخوانی ندارند.";
 "account-creation-saving" = "در حال ذخیره‌سازی...";
-"account-creation-title" = "ایجاد حساب کاربری جدید";
-"account-group-title" = "حساب کاربری شما";
+"account-creation-title" = "ایجاد یک حساب جدید";
+"account-group-title" = "حساب شما";
 "account-talk-page-title" = "صفحهٔ بحث شما";
 "account-talk-preferences-auto-sign-discussions" = "امضای خودکار بحث‌ها";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "امضای خودکار بحث‌ها از امضای تعریف‌شده در تنظیمات امضا استفاده خواهد کرد";
@@ -164,7 +165,7 @@
 "appearance-settings-image-dimming-footer" = "کم کردن شفافیت تصاویر در پوستهٔ تیره و سیاه";
 "appearance-settings-reading-themes" = "پوسته‌های مطالعه";
 "appearance-settings-set-automatic-table-opening" = "تنظیمات جدول";
-"appearance-settings-text-sizing-example-text" = "لغزنده را بالا ببرید تا اندازهٔ متن مقاله تغییر کند. برای تغییر اندازه سایر متن‌های درون نرم‌افزار باید در تنظیمات سیستم‌تان تغییر ایجاد کنید.";
+"appearance-settings-text-sizing-example-text" = "لغزنده را بالا ببرید تا اندازهٔ متن مقاله تغییر کند. برای تغییر اندازه سایر متن‌های درون نرم‌افزار باید در تنظیمات سامانۀ خودتان تغییر ایجاد کنید.";
 "appearance-settings-theme-options" = "تنظیمات پوسته";
 "article-about-title" = "دربارهٔ این مقاله";
 "article-delete" = "حذف";
@@ -328,7 +329,7 @@
 "edit-unordered-list-accessibility-label" = "تبدیل سطر کنونی به فهرست غیرترتیبی";
 "edit-unordered-list-remove-accessibility-label" = "حذف فهرست غیرترتیبی از سطر کنونی";
 "edit-watch-list-learn-more-text" = "اطلاعات بیشتر در بارهٔ فهرست‌های پی‌گیری";
-"edit-watch-this-page-text" = "پی‌گیری این صفحه";
+"edit-watch-this-page-text" = "پیگیری این صفحه";
 "editing-welcome-be-bold-subtitle" = "جسور باشید، اما در روزآمدسازی مقاله‌ها بی‌ملاحظه نباشید. نگران ایجاد اشتباهات نباشید: نسخه‌های قبلی هر صفحه ذخیره می‌شوند؛ بنابراین اشتباهات می‌توانند به‌راحتی توسط جامعهٔ ما اصلاح شوند.";
 "editing-welcome-be-bold-title" = "صدای شما مهم است";
 "editing-welcome-citations-subtitle" = "همهٔ محتوا باید تأییدپذیر باشند. هنگام افزودن اطلاعات جدید به یک مقاله، ویرایشگران باید یک ارجاع درون‌خطی به یک منبع قابل‌اعتماد ارائه دهند که مستقیماً از مشارکت آن‌ها پشتیبانی کند.";
@@ -448,8 +449,6 @@
 "featured-widget-from-wikipedia" = "از ویکی‌پدیا";
 "featured-widget-language-failure" = "زبان ویکی‌پدیای اصلی شما از مقاله‌های برگزیده پشتیبانی نمی‌کند. می‌توانید ویکی‌پدیای اصلی خود را در منوی تنظیمات نرم‌فازار به‌روز کنید.";
 "featured-widget-title" = "مقالهٔ برگزیده";
-"feed-news-notification-button-text" = "روشن کردن اعلان‌ها";
-"feed-news-notification-text" = "فعال‌کردن اعلان‌ها برای آگاه‌شدن توسط ویکی‌پدیا زمانی که مقالات در اخبار پربازدید هستند.";
 "fetcher-error-generic" = "چیزی اشتباه شده‌است! لطفاً دوباره تلاش کنید.";
 "fetcher-error-unexpected-response" = "نرم‌افزار یک پاسخ دور از انتظار از سرور دریافت کرد. لطفاً بعداً دوباره تلاش کنید.";
 "field-alert-captcha-invalid" = "کپچای نامعتبر";
@@ -558,13 +557,13 @@
 "languages-title" = "تغییر زبان";
 "languages-wikipedia" = "زبان‌های ویکی‌پدیا";
 "logged-out-continue-without-logging-in-button-title" = "ادامه بدون ورود به حساب کاربری";
-"logged-out-log-back-in-button-title" = "ورود دوباره به حساب کاربریتان";
+"logged-out-log-back-in-button-title" = "ورود دوباره به حسابتان";
 "logged-out-subtitle" = "در اعتبارسنجی حساب شما مشکلی پیش آمد. برای همگام‌سازی فهرست خواندن و ویرایش با نام کاربری خود، لطفاً دوباره به سامانه وارد شوید.";
 "logged-out-title" = "شما خارج شده‌اید.";
 "login-forgot-password" = "گذرواژه‌تان را فراموش کردید؟";
 "login-join-wikipedia" = "به ویکی‌پدیا بپیوندید.";
-"login-no-account" = "حساب کاربری ندارید؟ $1";
-"login-title" = "ورود به حساب کاربری";
+"login-no-account" = "یک حساب ندارید؟ $1";
+"login-title" = "ورود به حسابتان";
 "main-menu-about" = "دربارهٔ نرم‌افزار";
 "main-menu-account-login" = "ورود";
 "main-menu-account-logout" = "خروج از سامانه";
@@ -589,13 +588,15 @@
 "nearby-distance-label-miles" = "$1 مایل";
 "new-password-instructions" = "با گذرواژهٔ موقت به سامانه وارد شدید. برای تکمیل ورود، گذرواژهٔ جدید انتخاب کنید.";
 "new-password-title" = "تنظیم گذرواژه";
-"no-email-account-alert" = "لطفاً حساب ایمیل را بر روی دستگاهتان تنظیم کنید و مجدداً تلاش کنید.";
+"no-email-account-alert" = "لطفاً یک حساب ایمیل را بر روی دستگاهتان تنظیم کنید و دوباره تلاش کنید.";
 "no-internet-connection" = "عدم اتصال به اینترنت";
 "no-internet-connection-article-reload" = "نسخهٔ جدیدتر این مقاله ممکن است موجود باشد، اما بدون اتصال به اینترنت، قابل دست‌یابی نیست";
 "no-internet-connection-article-reload-button" = "برگشت به آخرین نسخهٔ ذخیره‌شده";
 "notifications-center-change-password" = "تغییر گذرواژه";
 "notifications-center-empty-checking-for-notifications" = "در حال بررسی اعلان‌ها...";
 "notifications-center-empty-not-subscribed" = "در حال حاضر شما در هیچ اعلانی در ویکی‌پدیا مشترک نیستید";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "روشن کردن اعلان‌ها";
 "notifications-center-footer-change-password" = "تغییر گذرواژه";
 "notifications-center-go-to-diff" = "رفتن به تفاوت";
 "notifications-center-go-to-talk-page" = "رفتن به صفحهٔ بحث";
@@ -617,7 +618,7 @@
 "notifications-center-subheader-login-fail-known-device" = "چندین اقدام ناموفق برای ورود به حساب";
 "notifications-center-subheader-login-fail-unknown-device" = "اقدام ناموفق برای ورود به حساب";
 "notifications-center-subheader-mention-article-talk-page" = "اشاره در بحث مقاله";
-"notifications-center-subheader-mention-edit-summary" = "اشاره در خلاصه ویرایش";
+"notifications-center-subheader-mention-edit-summary" = "اشاره در خلاصۀ ویرایش";
 "notifications-center-subheader-mention-failed" = "اشارهٔ ناموفق";
 "notifications-center-subheader-mention-successful" = "اشارهٔ موفق";
 "notifications-center-subheader-mention-talk-page" = "اشاره در صفحهٔ بحث";
@@ -626,7 +627,7 @@
 "notifications-center-subheader-page-reviewed" = "بازبینی صفحه";
 "notifications-center-subheader-thanks" = "تشکرها";
 "notifications-center-subheader-translate-milestone" = "دستاوردهای ترجمه";
-"notifications-center-subheader-user-rights-change" = "تغییرات اختیارات کاربر";
+"notifications-center-subheader-user-rights-change" = "تغییرات امتیازات کاربر";
 "notifications-center-subheader-welcome" = "خوش آمدید!";
 "notifications-center-subheader-wikidata-connection" = "ایجاد ارتباط با ویکی‌داده";
 "notifications-center-swipe-mark-as-read" = "علامت‌گذاری به عنوان خوانده‌شده";
@@ -716,7 +717,7 @@
 "reading-list-add-generic-hint-title" = "افزودن این مقاله به فهرست مطالعه؟";
 "reading-list-add-hint-title" = "«$1» به یک فهرست مطالعه افزوده شود؟";
 "reading-list-add-saved-button-title" = "بله، اینها را به فهرست‌های مطالعهٔ من بیفزا";
-"reading-list-add-saved-subtitle" = "چند مقاله‌ در نرم‌افزار ویکی‌پدیای شما ذخیره شده است. آیا می‌خواهید آنها را نگه‌ داشته و به‌همراه فهرست‌های مطالعه با حساب خود همگام‌سازی کنید؟";
+"reading-list-add-saved-subtitle" = "چند مقاله‌ در نرم‌افزار ویکی‌پدیای شما ذخیره شده است. آیا می‌خواهید آنها را نگه‌ داشته و با فهرست‌های مطالعه همگام شده با حساب خود ادغام کنید؟";
 "reading-list-add-saved-title" = "مقاله‌های ذخیره‌شده یافت شد";
 "reading-list-api-error-entry-limit" = "این ورودی همگام‌سازی نشد؛ زیرا شما به محدودیت تعداد ورودی‌ها در این فهرست رسیده‌اید.";
 "reading-list-api-error-generic" = "یک خطای غیرمنتظره در هنگام همگام‌سازی فهرست‌های مطالعهٔ شما رخ داد.";
@@ -735,18 +736,18 @@
 "reading-list-keep-button-title" = "بله، مقالات را بر روی دستگاه نگهدار";
 "reading-list-keep-subtitle" = "چند مقاله در حساب کاربری ویکی‌پدیای شما همگام‌سازی شده‌است. آیا می‌خواهید پس از خروج آنها را بر روی این دستگاه نگه دارید؟";
 "reading-list-keep-sync-disabled-additional-subtitle" = "غیرفعال کردن همگام‌سازی، این مقاله‌ها را از حساب کاربری شما حذف خواهد کرد. اگر آن‌ها را از دستگاه خود حذف کنید، با فعال کردن دوبارهٔ همگام‌سازی در آینده، قادر به بازیابی آن‌ها نخواهید بود";
-"reading-list-keep-sync-disabled-remove-article-button-title" = "نه؛ مقاله‌ها را از این دستگاه و از حساب ویکی‌پدیای من حذف کن";
+"reading-list-keep-sync-disabled-remove-article-button-title" = "نه، مقاله‌ها را از دستگاه و حساب ویکی‌پدیای من حذف کن";
 "reading-list-keep-title" = "مقاله‌های ذخیره‌شده روی دستگاه نگهداری شوند؟";
 "reading-list-limit-hit-for-unsorted-articles-button-title" = "مرتب‌کردن مقالات";
 "reading-list-limit-hit-for-unsorted-articles-subtitle" = "محدودیت ۵۰۰۰ مقاله مرتب‌نشده وجود دارد. لطفا مقالاتتان را در فهرست‌ها مرتب کنید تا امکان ادامهٔ همگام‌سازی مقالات مرتب‌نشده فراهم شود.";
 "reading-list-limit-hit-for-unsorted-articles-title" = "به محدودیت مقالات مرتب‌نشده رسیدید";
 "reading-list-list-limit-exceeded-message" = "این فهرست مطالعه و مقاله‌هایی که در آن ذخیره شده‌اند، همگام‌سازی نخواهند شد. برای ادامهٔ همگام‌سازی این فهرست، لطفاً تعداد فهرست‌های خود را به $1 کاهش دهید.";
 "reading-list-list-limit-exceeded-title" = "شما از محدودیت {{PLURAL:$1|$1 فهرست مطالعه|$1 فهرست مطالعه}} به‌ازای هر حساب کاربری عبور کرده‌اید.";
-"reading-list-list-limit-reached" = "شما به سقف محدودیت $1 آیتم در فهرست مطالعه برای هر حساب کاربری رسیده‌اید";
+"reading-list-list-limit-reached" = "شما به محدودۀ $1 فهرست‌های مطالعه برای هر حساب رسیده‌اید";
 "reading-list-login-button-title" = "برای همگام‌سازی مقاله‌های ذخیره‌شده وارد شوید";
-"reading-list-login-or-create-account-button-title" = "ورود به سامانه یا ایجاد حساب کاربری";
+"reading-list-login-or-create-account-button-title" = "ورود یا ایجاد حساب";
 "reading-list-login-or-create-account-title" = "برای همسان‌سازی مقاله‌های ذخیره‌شده وارد شوید";
-"reading-list-login-subtitle" = "برای همگام‌سازی مقالات ذخیره‌شده و فهرست‌های مطالعه در دستگاه‌های دیگر و ذخیرهٔ آنها در ترجیحات کاربری خود، وارد حساب کاربری خود شده یا حساب کاربری بسازید.";
+"reading-list-login-subtitle" = "برای همگام‌سازی مقالات ذخیره‌شده و فهرست‌های مطالعه در دستگاه‌های دیگر و ذخیرهٔ آنها در ترجیحات کاربری خود، وارد حساب کاربری خود شده یا حساب کاربری ایجاد کنید.";
 "reading-list-login-title" = "مقالات ذخیره‌شده همگام‌سازی شوند؟";
 "reading-list-name-user-created-annotation" = "_[ایجاد توسط کاربر]";
 "reading-list-new-list-description-placeholder" = "توضیح کوتاه اختیاری";
@@ -756,8 +757,8 @@
 "reading-list-sync-enable-button-title" = "فعال‌کردن همگام‌سازی";
 "reading-list-sync-enable-subtitle" = "مقاله‌ها و فهرست‌های مطالعه‌تان اکنون می‌تواند در حساب کاربری ویکی‌پدیای شما ذخیره و با همهٔ نرم‌افزارهای ویکی‌پدیا همگام‌سازی شود.";
 "reading-list-sync-enable-title" = "همگام‌سازی فهرست مطالعه فعال شود؟";
-"reading-list-sync-enabled-panel-message" = "همگام‌سازی فهرست مطالعه برای این حساب کاربری فعال است. برای توقف همگام‌سازی، می‌توانید با بروزرسانی تنظیمات خود، همگام‌سازی را برای این حساب کاربری غیرفعال کنید.";
-"reading-list-sync-enabled-panel-title" = "همگام‌سازی برای این حساب کاربری فعال است";
+"reading-list-sync-enabled-panel-message" = "همگام‌سازی فهرست مطالعه برای این حساب فعال است. برای توقف همگام‌سازی، می‌توانید با بروزرسانی تنظیمات خود، همگام‌سازی را برای این حساب غیرفعال کنید.";
+"reading-list-sync-enabled-panel-title" = "همگام‌سازی برای این حساب فعال است";
 "reading-list-unable-to-add-entry" = "هنگام افزودن یک ورودی به فهرست مطالعهٔ شما یک خطای غیرمنتظره رخ داد. لطفا بعداً دوباره تلاش کنید.";
 "reading-list-unable-to-create" = "هنگام ساخت فهرست مطالعهٔ شما یک خطای غیرمنتظره رخ داد. لطفا بعداً دوباره تلاش کنید.";
 "reading-list-unable-to-delete" = "هنگام حذف فهرست مطالعهٔ شما یک خطای غیرمنتظره رخ داد. لطفا بعداً دوباره تلاش کنید.";
@@ -847,7 +848,7 @@
 "search-title" = "جستجو";
 "serbian-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان صربی به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان صربی";
-"settings-account" = "حساب کاربری";
+"settings-account" = "حساب";
 "settings-appearance" = "تنظیمات مطالعه";
 "settings-clear-cache" = "پاک کردن داده‌‌های گرفته‌شده";
 "settings-clear-cache-are-you-sure-message" = "پاک کردن داده‌‌های گرفته‌شده حدود $1 از فضای حافظه را خالی می‌کند. صفحات ذخیره شدهٔ شما حذف نخواهند شد.";
@@ -858,6 +859,7 @@
 "settings-language-bar" = "نمایش زبان‌ها در جستجو";
 "settings-languages-feed-customization" = "می‌توانید با شفارشی‌سازی تنظیمات خوراک بازدید خود، زبان‌هایی که در این خوراک نمایش داده می‌شوند را مدیریت کنید.";
 "settings-my-languages" = "زبان‌های من";
+// Fuzzy
 "settings-notifications" = "اعلان‌ها";
 "settings-notifications-info" = "با اعلان‌های سربع ما، از مقاله‌های پرمخاطب و پربازدیدترین مقاله‌ها در ویکی‌پدیا آگاه شوید. تمام این مقاله‌ها با احترام به حریم خصوصی و با داده‌های به‌روزشده در هر دقیقه فراهم می‌شوند.";
 "settings-notifications-learn-more" = "دربارهٔ آگاه‌سازی بیشتر بدانید";
@@ -918,7 +920,7 @@
 "talk-page-info-active-conversations" = "گفتگوهای فعال در ویکی‌پدیای $1";
 "talk-page-info-active-conversations-generic" = "گفتگوهای فعال در ویکی‌پدیا";
 "talk-page-link-user-action-sheet-app" = "مشاهدهٔ بحث کاربر در نرم‌افزار";
-"talk-page-link-user-action-sheet-safari" = "مشاهدهٔ بحث کاربر در مرورگر سافاری";
+"talk-page-link-user-action-sheet-safari" = "مشاهدهٔ صفحۀ کاربر در مرورگر سافاری";
 "talk-page-link-user-action-sheet-title" = "صفحه‌های کاربر";
 "talk-page-new-banner-subtitle" = "فراموش نکنید که در این‌جا همهٔ ما انسانیم";
 "talk-page-new-banner-title" = "لطفاً مهربان باشید";
@@ -941,7 +943,7 @@
 "theme-black-display-name" = "سیاه";
 "theme-dark-display-name" = "تیره";
 "theme-default-display-name" = "پیش‌فرض";
-"theme-default-explanation" = "تطایق با زمینه سیستم";
+"theme-default-explanation" = "تطایق با زمینه سامانه";
 "theme-light-display-name" = "روشن";
 "theme-sepia-display-name" = "قهوه‌ای";
 "top-read-header-generic" = "ویکی‌پدیا";
@@ -952,10 +954,10 @@
 "top-read-widget-title" = "پربازدیدترین‌ها";
 "two-factor-login-continue" = "ادامه‌دادن ورود به سامانه";
 "two-factor-login-instructions" = "لطفاً کد اعتبارسنجی دوعاملی را وارد کنید";
-"two-factor-login-title" = "ورود به حساب کاربری";
+"two-factor-login-title" = "ورود به حسابتان";
 "two-factor-login-with-backup-code" = "از یکی از کدهای پشتیبانی استفاده کنید";
 "two-factor-login-with-regular-code" = "استفاده از کدهای اعتبارسنجی";
-"unable-to-load-talk-page-title" = "ناتوان در بارگیری صفحه بحث";
+"unable-to-load-talk-page-title" = "ناتوان در بارگیری صفحۀ بحث";
 "unknown-generic-text" = "نامشخص";
 "uzbek-variants-alert-body" = "برنامهٔ ویکی‌پدیا در حال حاضر از لهجه‌های مختلف زبان ازبکی به عنوان زبان‌های اصلی یا ثانویه در برنامه پشتیبانی می‌کند و خواندن، جستجو، و ویرایش در لهجهٔ دلخواه شما را آسان می‌کند:\n\noʻzbekcha lotin Uzbek, Latin (uz-latin)\nўзбекча кирилл Uzbek, Cyrillic (uz-cyrl)";
 "uzbek-variants-alert-title" = "بروزرسانی پشتیبانی از لهجه‌های زبان ازبکی";

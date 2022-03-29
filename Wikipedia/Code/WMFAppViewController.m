@@ -1399,41 +1399,18 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         _exploreViewController = [[ExploreViewController alloc] init];
         _exploreViewController.dataStore = self.dataStore;
         _exploreViewController.notificationsCenterPresentationDelegate = self;
+        _exploreViewController.settingsPresentationDelegate = self;
         _exploreViewController.tabBarItem.image = [UIImage imageNamed:@"tabbar-explore"];
         _exploreViewController.title = [WMFCommonStrings exploreTabTitle];
         [_exploreViewController applyTheme:self.theme];
-        [self setNotificationsCenterButtonForExploreViewController:_exploreViewController];
-        UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
-
-        settingsBarButtonItem.accessibilityLabel = [WMFCommonStrings settingsTitle];
-
-        _exploreViewController.navigationItem.rightBarButtonItem = settingsBarButtonItem;
     }
     return _exploreViewController;
 }
 
-- (void)setNotificationsCenterButtonForExploreViewController:(ExploreViewController *)exploreViewController {
-    if (self.dataStore.authenticationManager.isLoggedIn) {
-        NSInteger numUnreadNotifications = [[self.dataStore.remoteNotificationsController numberOfUnreadNotificationsAndReturnError:nil] integerValue];
-        UIImage *image = numUnreadNotifications == 0 ? [self notificationsCenterBellImageWithUnreadNotifications:NO] : [self notificationsCenterBellImageWithUnreadNotifications:YES];
-        UIBarButtonItem *notificationsBarButton = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:_exploreViewController action:@selector(userDidTapNotificationsCenter)];
-        notificationsBarButton.accessibilityLabel = [WMFCommonStrings notificationsCenterTitle];
-        exploreViewController.navigationItem.leftBarButtonItem = notificationsBarButton;
-    } else {
-        exploreViewController.navigationItem.leftBarButtonItem = nil;
-    }
-
-    [exploreViewController.navigationBar updateNavigationItems];
-}
-
-- (void)setNotificationsCenterButtonForSettingsViewController:(WMFSettingsViewController *)settingsViewController {
-    [settingsViewController configureBarButtonItems];
-}
-
 - (void)handleExploreCenterBadgeNeedsUpdateNotification {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self setNotificationsCenterButtonForExploreViewController:self.exploreViewController];
-        [self setNotificationsCenterButtonForSettingsViewController:self.settingsViewController];
+        [self.exploreViewController updateNotificationsCenterButton];
+        [self.settingsViewController configureBarButtonItems];
     });
 }
 
@@ -1894,11 +1871,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self showSearchInCurrentNavigationControllerAnimated:YES];
 }
 
-- (void)showSettings {
-    [self logTappedSettingsFromExplore];
-    [self showSettingsAnimated:YES];
-}
-
 - (void)dismissReadingThemesPopoverIfActive {
     if ([self.presentedViewController isKindOfClass:[WMFReadingThemesControlsViewController class]]) {
         [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
@@ -2036,27 +2008,21 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self showArticleWithURL:articleURL animated:YES];
 }
 
-#pragma mark - Notifications Center
-
-- (UIImage *)notificationsCenterBellImageWithUnreadNotifications:(BOOL)hasUnreadNotifications {
-    return [UIImage imageNamed:hasUnreadNotifications ? @"notifications-bell-with-indicator" : @"notifications-bell"];
-}
-
 #pragma mark - User was logged out
 
 - (void)userWasLoggedOut:(NSNotification *)note {
     [self showLoggedOutPanelIfNeeded];
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self setNotificationsCenterButtonForExploreViewController:self.exploreViewController];
-        [self setNotificationsCenterButtonForSettingsViewController:self.settingsViewController];
+        [self.exploreViewController updateNotificationsCenterButton];
+        [self.settingsViewController configureBarButtonItems];
         UIApplication.sharedApplication.applicationIconBadgeNumber = 0;
     });
 }
 
 - (void)userWasLoggedIn:(NSNotification *)note {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self setNotificationsCenterButtonForExploreViewController:self.exploreViewController];
-        [self setNotificationsCenterButtonForSettingsViewController:self.settingsViewController];
+        [self.exploreViewController updateNotificationsCenterButton];
+        [self.settingsViewController configureBarButtonItems];
     });
 }
 

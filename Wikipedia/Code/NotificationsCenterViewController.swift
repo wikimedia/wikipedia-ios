@@ -14,8 +14,14 @@ final class NotificationsCenterViewController: ViewController {
     let viewModel: NotificationsCenterViewModel
     
     var didUpdateFiltersCallback: (() -> Void)?
+
+    // MARK: - Properties: Onboarding
+
+    fileprivate var onboardingHostingViewController: NotificationsCenterOnboardingHostingViewController?
+    fileprivate var deviceTokenRetryTask: RetryBlockTask?
     
-    // MARK: Properties - Diffable Data Source
+    // MARK: Properties: Diffable Data Source
+
     typealias DataSource = UICollectionViewDiffableDataSource<NotificationsCenterSection, NotificationsCenterCellViewModel>
     typealias Snapshot = NSDiffableDataSourceSnapshot<NotificationsCenterSection, NotificationsCenterCellViewModel>
     private var dataSource: DataSource?
@@ -66,6 +72,11 @@ final class NotificationsCenterViewController: ViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    deinit {
+        deviceTokenRetryTask = nil
+        NotificationCenter.default.removeObserver(self)
+    }
+
     override func loadView() {
         let notificationsCenterView = NotificationsCenterView(frame: UIScreen.main.bounds)
         notificationsCenterView.addSubheaderTapGestureRecognizer(target: self, action: #selector(tappedEmptyStateSubheader))
@@ -92,13 +103,12 @@ final class NotificationsCenterViewController: ViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
     }
 
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.refreshNotifications(force: true)
+        viewModel.markAllAsSeen()
+        
+        presentOnboardingEducationModalIfNecessary()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -150,6 +160,7 @@ final class NotificationsCenterViewController: ViewController {
         super.apply(theme: theme)
 
         notificationsView.apply(theme: theme)
+        onboardingHostingViewController?.apply(theme: theme)
 
         closeSwipeActionsPanelIfNecessary()
         notificationsView.collectionView.reloadData()
@@ -287,7 +298,8 @@ private extension NotificationsCenterViewController {
         } else {
             markButton = TextBarButtonItem(title: markText, target: self, action: #selector(didTapMarkButtonIOS13(_:)))
         }
-        
+        markButton.accessibilityLabel = WMFLocalizedString("notifications-center-toolbar-mark-accessibility-label", value: "Mark selected notifications", comment: "Accessibility label for mark button in Notifications Center")
+       
         markButton.apply(theme: theme)
         return markButton
     }
@@ -420,7 +432,7 @@ private extension NotificationsCenterViewController {
     }
     
     func presentView<T: View>(view: T) {
-        let hostingVC = UIHostingController(rootView: view)
+        let hostingVC = NotificationsCenterModalHostingController(rootView: view)
         
         let currentFilterState = viewModel.remoteNotificationsController.filterState
         
@@ -441,6 +453,72 @@ private extension NotificationsCenterViewController {
         nc.modalPresentationStyle = .pageSheet
         self.present(nc, animated: true, completion: nil)
     }
+}
+
+// MARK: - Onboarding Modal and Push Opt in
+
+extension NotificationsCenterViewController: NotificationsCenterOnboardingDelegate {
+
+    func presentOnboardingEducationModalIfNecessary() {
+        guard !UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter else {
+            return
+        }
+
+        let onboardingHostingViewController = NotificationsCenterOnboardingHostingViewController(theme: theme)
+        onboardingHostingViewController.delegate = self
+        onboardingHostingViewController.modalPresentationStyle = .pageSheet
+        self.onboardingHostingViewController = onboardingHostingViewController
+        present(onboardingHostingViewController, animated: true)
+    }
+
+    func presentOnboardingPushOptInIfNecessary() {
+        guard !UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter else {
+            return
+        }
+
+        guard !UserDefaults.standard.wmf_isSubscribedToEchoNotifications else {
+            UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter = true
+            return
+        }
+
+        viewModel.notificationsController.notificationPermissionsStatus { [weak self] status in
+            guard let self = self else { return }
+
+            guard status != .denied else {
+                UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter = true
+                return
+            }
+
+            DispatchQueue.main.async {
+                let primaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _ in
+                    self?.dismiss(animated: true, completion: {
+                        self?.userDidTapPushNotificationsOptIn()
+                    })
+                }
+
+                let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _ in
+                    self?.dismiss(animated: true)
+                }
+
+                let dismissHandler: ScrollableEducationPanelDismissHandler = {
+                    UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter = true
+                }
+
+                let panel = NotificationsCenterOnboardingPushPanelViewController(showCloseButton: false, primaryButtonTapHandler: primaryTapHandler, secondaryButtonTapHandler: secondaryTapHandler, dismissHandler: dismissHandler, theme: self.theme)
+                panel.dismissWhenTappedOutside = true
+                self.present(panel, animated: true)
+            }
+        }
+    }
+
+    func userDidDismissNotificationsCenterOnboardingView() {
+        presentOnboardingPushOptInIfNecessary()
+    }
+
+    func userDidTapPushNotificationsOptIn() {
+        requestPushPermissionsAndSilentlySubscribeToEchoNotifications()
+    }
+
 }
 
 // MARK: - NotificationsCenterViewModelDelegate
@@ -501,7 +579,7 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
             
             collectionView.deselectItem(at: indexPath, animated: true)
 
-            if let primaryURL = cellViewModel.primaryURL(for: viewModel.configuration) {
+            if let primaryURL = cellViewModel.primaryURL {
                 navigate(to: primaryURL)
                 if !cellViewModel.isRead {
                     viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true)
@@ -668,7 +746,7 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
             return
         }
 
-        let sheetActions = cellViewModel.sheetActions(for: viewModel.configuration)
+        let sheetActions = cellViewModel.sheetActions
         guard !sheetActions.isEmpty else {
             return
         }
@@ -760,6 +838,9 @@ extension NotificationsCenterViewController {
         typeFilterButton.isEnabled = buttonsAreEnabled
         projectFilterButton.isEnabled = buttonsAreEnabled
         statusBarButton.label.attributedText = viewModel.statusBarText(textColor: theme.colors.primaryText, highlightColor: theme.colors.link)
+        
+        typeFilterButton.accessibilityLabel = viewModel.filterButtonAccessibilityLabel
+        projectFilterButton.accessibilityLabel = viewModel.projectFilterAccessibilityLabel
     }
 
     @objc fileprivate func userDidTapProjectFilterButton() {
@@ -768,5 +849,43 @@ extension NotificationsCenterViewController {
 
     @objc fileprivate func userDidTapTypeFilterButton() {
         presentFiltersViewController()
+    }
+}
+
+// MARK: - Device push permissions and silent Echo subscription
+
+extension NotificationsCenterViewController {
+
+    /// Mimics the Settings Push opt in approach, but Echo subscription fails silently to prevent interrupting the experience
+    func requestPushPermissionsAndSilentlySubscribeToEchoNotifications() {
+        deviceTokenRetryTask = RetryBlockTask { [weak self] in
+            return self?.viewModel.notificationsController.remoteRegistrationDeviceToken != nil
+        }
+
+        viewModel.notificationsController.requestPermissionsIfNecessary { [weak self] (authorized, error) in
+            DispatchQueue.main.async {
+                if authorized {
+                    UIApplication.shared.registerForRemoteNotifications()
+                    if self?.viewModel.notificationsController.remoteRegistrationDeviceToken == nil {
+                        self?.deviceTokenRetryTask?.start { [weak self] success in
+                            if success {
+                                self?.viewModel.notificationsController.subscribeToEchoNotifications()
+                            }
+                        }
+                    } else {
+                        self?.viewModel.notificationsController.subscribeToEchoNotifications()
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+//MARK: Push tap handling
+
+extension NotificationsCenterViewController: NotificationsCenterFlowViewController {
+    func tappedPushNotification() {
+        //do nothing
     }
 }

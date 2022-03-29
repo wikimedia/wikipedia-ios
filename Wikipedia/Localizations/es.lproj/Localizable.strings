@@ -7,9 +7,11 @@
 // Author: Astroemi
 // Author: Canaan9801
 // Author: Carlosmg.dg
+// Author: Chopan050
 // Author: DannyS712
 // Author: David.novella
 // Author: Dgstranz
+// Author: DiegoAmbrocio
 // Author: Dschultz
 // Author: Elisardojm
 // Author: Fitoschido
@@ -444,8 +446,6 @@
 "featured-widget-from-wikipedia" = "De Wikipedia";
 "featured-widget-language-failure" = "Su idioma principal de Wikipedia no soporta Artículo destacado. Puede actualizar su Wikipedia principal en el menú de Configuración de la aplicación.";
 "featured-widget-title" = "Artículo destacado";
-"feed-news-notification-button-text" = "Activar las notificaciones";
-"feed-news-notification-text" = "Activa las notificaciones para recibir avisos de Wikipedia cuando haya artículos en tendencia en las noticias.";
 "fetcher-error-generic" = "Algo falló. Por favor, prueba de nuevo más tarde.";
 "fetcher-error-unexpected-response" = "La app recibió una respuesta inesperada del servidor. Por favor, prueba de nuevo más tarde.";
 "field-alert-captcha-invalid" = "El CAPTCHA no es válido";
@@ -589,6 +589,13 @@
 "no-internet-connection" = "Sin conexión a internet";
 "no-internet-connection-article-reload" = "Una versión más reciente de este artículo puede estar disponible, pero se puede cargar sin conexión a internet";
 "no-internet-connection-article-reload-button" = "Volver a la última versión guardada";
+"notifications-center-applied-filters-accessibility-label" = "Filtro de notificaciones - tiene filtros aplicados";
+"notifications-center-applied-project-filters-accessibility-label" = "Filtro de proyectos - tiene filtros aplicados";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Activar las notificaciones";
+"notifications-center-filters-accessibility-label" = "Filtro de notificaciones";
+"notifications-center-project-filters-accessibility-label" = "Filtro de proyectos";
+"notifications-center-toolbar-mark-accessibility-label" = "Marcar notificaciones seleccionadas";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
@@ -812,7 +819,11 @@
 "settings-language-bar" = "Mostrar los idiomas al buscar";
 "settings-languages-feed-customization" = "\nPuedes controlar qué idiomas se muestran en tu canal Explorar personalizando los ajustes de Explorar.";
 "settings-my-languages" = "Mis idiomas";
-"settings-notifications" = "Notificaciones";
+"settings-notifications" = "Notificaciones emergentes";
+"settings-notifications-echo-failure-message" = "Se ha producido un error al comprobar las suscripciones de notificaciones relacionadas con su cuenta.";
+"settings-notifications-echo-failure-title" = "No se puede comprobar las suscripciones a las notificaciones de Echo";
+"settings-notifications-echo-failure-try-again" = "Intentar de nuevo";
+"settings-notifications-header" = "Reciba alertas de la actividad relacionada con su cuenta, como mensajes de otros contribuyentes, alertas y avisos. Todo ello respetando la privacidad y con datos actualizados.";
 "settings-notifications-info" = "Mantente en alerta de artículos en tendencia o más leídos en Wikipedia con nuestras notificaciones. Todas ellas proporcionadas con respeto por la privacidad y actualizadas al minuto.";
 "settings-notifications-learn-more" = "Conocer más acerca de las notificaciones";
 "settings-notifications-push-notifications" = "Notificaciones";

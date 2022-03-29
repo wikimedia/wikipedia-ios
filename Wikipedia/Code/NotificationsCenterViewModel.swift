@@ -25,11 +25,12 @@ final class NotificationsCenterViewModel: NSObject {
 
     // MARK: - Properties
 
+    let notificationsController: WMFNotificationsController
     let remoteNotificationsController: RemoteNotificationsController
     
     weak var delegate: NotificationsCenterViewModelDelegate?
 
-    lazy private var modelController = NotificationsCenterModelController(languageLinkController: self.languageLinkController, remoteNotificationsController: remoteNotificationsController)
+    lazy private var modelController = NotificationsCenterModelController(languageLinkController: self.languageLinkController, remoteNotificationsController: remoteNotificationsController, configuration: configuration)
 
     let languageLinkController: MWKLanguageLinkController
 
@@ -55,7 +56,8 @@ final class NotificationsCenterViewModel: NSObject {
     // MARK: - Lifecycle
 
     @objc
-    init(remoteNotificationsController: RemoteNotificationsController, languageLinkController: MWKLanguageLinkController) {
+    init(notificationsController: WMFNotificationsController, remoteNotificationsController: RemoteNotificationsController, languageLinkController: MWKLanguageLinkController) {
+        self.notificationsController = notificationsController
         self.remoteNotificationsController = remoteNotificationsController
         self.languageLinkController = languageLinkController
         
@@ -188,6 +190,23 @@ final class NotificationsCenterViewModel: NSObject {
         }
     }
     
+    func markAllAsSeen() {
+        
+        //do not mark as seen if view is showing an empty state due to filters or loading
+        if modelController.countOfTrackingModels == 0 && (remoteNotificationsController.areFiltersEnabled || remoteNotificationsController.isLoadingNotifications) {
+            return
+        }
+        
+        remoteNotificationsController.markAllAsSeen { result in
+            switch result {
+            case let .failure(error):
+                DDLogError("Error marking all notifications as seen: \(error)")
+            default:
+                break
+            }
+        }
+    }
+    
     func fetchFirstPage() {
         
         remoteNotificationsController.fetchNotifications { [weak self] result in
@@ -313,13 +332,29 @@ extension NotificationsCenterViewModel {
     // MARK: - Public
 
     var typeFilterButtonImage: UIImage? {
-        return toolbarImageForTypeFilter(engaged: remoteNotificationsController.filterState.offTypes.count > 0 || remoteNotificationsController.filterState.readStatus != .all)
+        return toolbarImageForTypeFilter(engaged: areFiltersApplied)
+    }
+    
+    var filterButtonAccessibilityLabel: String {
+        return areFiltersApplied ?
+        WMFLocalizedString("notifications-center-applied-filters-accessibility-label", value: "Notifications Filter - has filters applied", comment: "Accessibility label for Notifications Center's filters button. This button is in a selected state indicating that filters are applied.")
+         : WMFLocalizedString("notifications-center-filters-accessibility-label", value: "Notifications Filter", comment: "Accessibility label for Notifications Center's filters button. This button is in an unselected state indicating that filters are not applied.")
+    }
+
+    var projectFilterAccessibilityLabel: String {
+        return remoteNotificationsController.filterState.offProjects.count > 0 ?
+        WMFLocalizedString("notifications-center-applied-project-filters-accessibility-label", value: "Projects Filter - has filters applied", comment: "Accessibility label for Notifications Center's project filters button. This button is in a selected state indicating that project filters are applied.")
+         : WMFLocalizedString("notifications-center-project-filters-accessibility-label", value: "Projects Filter", comment: "Accessibility label for Notifications Center's project filters button. This button is in an unselected state indicating that project filters are not applied.")
     }
 
     var projectFilterButtonImage: UIImage? {
         return toolbarImageForProjectFilter(engaged: remoteNotificationsController.filterState.offProjects.count > 0)
     }
-    
+
+    var areFiltersApplied: Bool {
+        return remoteNotificationsController.filterState.offTypes.count > 0 || remoteNotificationsController.filterState.readStatus != .all
+    }
+
     var filterAndInboxButtonsAreDisabled: Bool {
         modelController.countOfTrackingModels == 0 && isLoading && !remoteNotificationsController.isFullyImported
     }
@@ -366,7 +401,11 @@ extension NotificationsCenterViewModel {
     }
     
     func emptyStateSubheaderAttributedString(theme: Theme, traitCollection: UITraitCollection) -> NSAttributedString? {
-        
+        guard remoteNotificationsController.allInboxProjects.count != remoteNotificationsController.filterState.offProjects.count else {
+            let noProjectsSelected = WMFLocalizedString("notifications-center-empty-state-no-projects-selected", value:"Add projects to see more messages", comment:"Empty state subtitle indicating the user has unselected all projects.")
+            return NSAttributedString(string: noProjectsSelected)
+        }
+
         let filterTypesCount = remoteNotificationsController.filterState.offTypes.count
         guard filterTypesCount > 0 else {
             return nil
