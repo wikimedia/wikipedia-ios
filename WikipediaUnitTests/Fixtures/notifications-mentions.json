@@ -1,0 +1,488 @@
+{
+  "batchcomplete": true,
+  "limits": {
+    "notifications": 50
+  },
+  "query": {
+    "notifications": {
+      "list": [{
+          "wiki": "enwiki",
+          "id": 1,
+          "type": "mention",
+          "category": "mention",
+          "section": "alert",
+          "timestamp": {
+            "utciso8601": "2021-07-16T23:30:03Z",
+            "utcunix": 1626478203,
+            "unix": "1626478203",
+            "utcmw": "20210716233003",
+            "mw": "20210716233003",
+            "date": "16 July"
+          },
+          "title": {
+            "full": "User talk:Fred The Bird",
+            "namespace": "User_talk",
+            "namespace-key": 3,
+            "text": "Fred The Bird"
+          },
+          "agent": {
+            "id": 35904678,
+            "name": "Fred The Bird"
+          },
+          "revid": 1033968824,
+          "read": "20220225154053",
+          "targetpages": [],
+          "*": {
+            "header": "Fred The Bird mentioned you on <strong>their talk page</strong> in \"<strong>Section Title</strong>\".",
+            "compactHeader": "Fred The Bird mentioned you on <strong>their talk page</strong> in \"<strong>Section Title</strong>\".",
+            "body": "Reply text mention in talk page User:Jack The Cat",
+            "icon": "mention",
+            "links": {
+              "primary": {
+                "url": "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird?markasread=223018481&markasreadwiki=enwiki#Section_Title",
+                "label": "View mention"
+              },
+              "secondary": [{
+                  "url": "https://en.wikipedia.org/wiki/User:Fred_The_Bird",
+                  "label": "Fred The Bird",
+                  "tooltip": "",
+                  "description": "",
+                  "icon": "userAvatar",
+                  "prioritized": true
+                },
+                {
+                  "url": "https://en.wikipedia.org/w/index.php?title=User_talk:Fred_The_Bird&oldid=prev&diff=1033968824",
+                  "label": "View changes",
+                  "description": "",
+                  "icon": "changes",
+                  "prioritized": true
+                }
+              ],
+              "legacyPrimary": {
+                "url": "//en.wikipedia.org/wiki/User_talk:Fred_The_Bird?markasread=223018481&markasreadwiki=enwiki#Section_Title",
+                "label": "View mention"
+              }
+            },
+            "iconUrl": "/w/extensions/Echo/modules/icons/mention-progressive.svg"
+          }
+        }, {
+          "wiki": "enwiki",
+          "id": 2,
+          "type": "mention-summary",
+          "category": "mention",
+          "section": "alert",
+          "timestamp": {
+            "utciso8601": "2021-07-16T23:30:22Z",
+            "utcunix": 1626478222,
+            "unix": "1626478222",
+            "utcmw": "20210716233022",
+            "mw": "20210716233022",
+            "date": "16 July"
+          },
+          "title": {
+            "full": "User talk:Fred The Bird",
+            "namespace": "User_talk",
+            "namespace-key": 3,
+            "text": "Fred The Bird"
+          },
+          "agent": {
+            "id": 35904678,
+            "name": "Fred The Bird"
+          },
+          "revid": 1033968849,
+          "read": "20220225154053",
+          "targetpages": [],
+          "*": {
+            "header": "Fred The Bird mentioned you in an edit summary on <strong>User talk:Fred The Bird</strong>.",
+            "compactHeader": "Fred The Bird mentioned you in an edit summary on <strong>User talk:Fred The Bird</strong>.",
+            "body": "Edit Summary Text: User:Jack The Cat",
+            "icon": "mention",
+            "links": {
+              "primary": {
+                "url": "https://en.wikipedia.org/w/index.php?title=User_talk:Fred_The_Bird&oldid=prev&diff=1033968849&markasread=223018510&markasreadwiki=enwiki",
+                "label": "View changes"
+              },
+              "secondary": [{
+                "url": "https://en.wikipedia.org/wiki/User:Fred_The_Bird",
+                "label": "Fred The Bird",
+                "tooltip": "",
+                "description": "",
+                "icon": "userAvatar",
+                "prioritized": true
+              }]
+            },
+            "iconUrl": "/w/extensions/Echo/modules/icons/mention-progressive.svg"
+          }
+        }, {
+            "wiki": "testwiki",
+            "id": 3,
+            "type": "mention",
+            "category": "mention",
+            "section": "alert",
+            "timestamp": {
+              "utciso8601": "2022-03-14T15:22:52Z",
+              "utcunix": 1647271372,
+              "unix": "1647271372",
+              "utcmw": "20220314152252",
+              "mw": "20220314152252",
+              "date": "14 March"
+            },
+            "title": {
+              "full": "Talk:Blue Bird",
+              "namespace": "Talk",
+              "namespace-key": 1,
+              "text": "Blue Bird"
+            },
+            "agent": {
+              "id": 42540,
+              "name": "Fred The Bird"
+            },
+            "revid": 505586,
+            "read": "20220314181246",
+            "targetpages": [],
+            "*": {
+              "header": "Fred The Bird mentioned you on the <strong>Blue Bird</strong> talk page in \"<strong>Section Title</strong>\".",
+              "compactHeader": "Fred The Bird mentioned you on the <strong>Blue Bird</strong> talk page in \"<strong>Section Title</strong>\".",
+              "body": "Jack The Cat Reply text mention in talk page.",
+              "icon": "mention",
+              "links": {
+                "primary": {
+                  "url": "https://test.wikipedia.org/wiki/Talk:Blue_Bird?markasread=90497&markasreadwiki=testwiki#c-Fred_The_Bird-2022-03-14T15:22:00.000Z-New_topic",
+                  "label": "View mention"
+                },
+                "secondary": [
+                  {
+                    "url": "https://test.wikipedia.org/wiki/User:Fred_The_Bird",
+                    "label": "Fred The Bird",
+                    "tooltip": "",
+                    "description": "",
+                    "icon": "userAvatar",
+                    "prioritized": true
+                  },
+                  {
+                    "url": "https://test.wikipedia.org/w/index.php?title=Talk:Blue_Bird&oldid=prev&diff=505586",
+                    "label": "View changes",
+                    "description": "",
+                    "icon": "changes",
+                    "prioritized": true
+                  }
+                ],
+                "legacyPrimary": {
+                  "url": "//test.wikipedia.org/wiki/Talk:Blue_Bird?markasread=90497&markasreadwiki=testwiki#Section_Title",
+                  "label": "View mention"
+                }
+              },
+              "iconUrl": "/w/extensions/Echo/modules/icons/mention-progressive.svg"
+            }
+          }, {
+            "wiki": "testwiki",
+            "id": 4,
+            "type": "mention-summary",
+            "category": "mention",
+            "section": "alert",
+            "timestamp": {
+              "utciso8601": "2022-01-06T20:27:34Z",
+              "utcunix": 1641500854,
+              "unix": "1641500854",
+              "utcmw": "20220106202734",
+              "mw": "20220106202734",
+              "date": "6 January"
+            },
+            "title": {
+              "full": "Black Cat",
+              "namespace": "",
+              "namespace-key": 0,
+              "text": "Black Cat"
+            },
+            "agent": {
+              "id": 42540,
+              "name": "Fred The Bird"
+            },
+            "revid": 497048,
+            "read": "20220217194416",
+            "targetpages": [],
+            "*": {
+              "header": "Fred The Bird mentioned you in an edit summary on <strong>Black Cat</strong>.",
+              "compactHeader": "Fred The Bird mentioned you in an edit summary on <strong>Black Cat</strong>.",
+              "body": "Edit Summary Text User:Jack The Cat",
+              "icon": "mention",
+              "links": {
+                "primary": {
+                  "url": "https://test.wikipedia.org/w/index.php?title=Black_Cat&oldid=prev&diff=497048&markasread=87778&markasreadwiki=testwiki",
+                  "label": "View changes"
+                },
+                "secondary": [
+                  {
+                    "url": "https://test.wikipedia.org/wiki/User:Fred_The_Bird",
+                    "label": "Fred The Bird",
+                    "tooltip": "",
+                    "description": "",
+                    "icon": "userAvatar",
+                    "prioritized": true
+                  }
+                ]
+              },
+              "iconUrl": "/w/extensions/Echo/modules/icons/mention-progressive.svg"
+            }
+          },{
+          "wiki": "enwiki",
+          "id": 5,
+          "type": "mention-failure",
+          "category": "mention-failure",
+          "section": "alert",
+          "timestamp": {
+            "utciso8601": "2021-07-16T23:36:58Z",
+            "utcunix": 1626478618,
+            "unix": "1626478618",
+            "utcmw": "20210716233658",
+            "mw": "20210716233658",
+            "date": "16 July"
+          },
+          "title": {
+            "full": "User talk:Fred The Bird",
+            "namespace": "User_talk",
+            "namespace-key": 3,
+            "text": "Fred The Bird"
+          },
+          "agent": {
+            "id": 35904678,
+            "name": "Fred The Bird"
+          },
+          "revid": 1033969371,
+          "read": "20210811054536",
+          "targetpages": [],
+          "*": {
+            "header": "Your mention of <strong>47.188.91.144</strong> was not sent because the user is anonymous.",
+            "compactHeader": "<strong>IPs cannot be mentioned:</strong> 47.188.91.144",
+            "body": "",
+            "icon": "mention-failure",
+            "links": {
+              "primary": {
+                "url": "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird?markasread=223018803&markasreadwiki=enwiki#Section_Title",
+                "label": "View mention"
+              },
+              "secondary": [{
+                "url": "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Section_Title",
+                "label": "Fred The Bird",
+                "tooltip": "User talk:Fred The Bird",
+                "description": "",
+                "icon": "userSpeechBubble",
+                "prioritized": true
+              }]
+            },
+            "iconUrl": "/w/extensions/Echo/modules/icons/mention-failure.svg"
+          }
+        }, {
+          "wiki": "testwiki",
+          "id": 6,
+          "type": "mention-failure",
+          "category": "mention-failure",
+          "section": "alert",
+          "timestamp": {
+            "utciso8601": "2022-01-06T21:02:30Z",
+            "utcunix": 1641502950,
+            "unix": "1641502950",
+            "utcmw": "20220106210230",
+            "mw": "20220106210230",
+            "date": "6 January"
+          },
+          "title": {
+            "full": "User talk:Jack The Cat",
+            "namespace": "User_talk",
+            "namespace-key": 3,
+            "text": "Jack The Cat"
+          },
+          "agent": {
+            "id": 42481,
+            "name": "Jack The Cat"
+          },
+          "revid": 497054,
+          "read": "20220222154243",
+          "targetpages": [],
+          "*": {
+            "header": "Your mention of <strong>Fredirufjdjd</strong> was not sent because the user was not found.",
+            "compactHeader": "<strong>Username does not exist:</strong> Fredeirufjdjd",
+            "body": "",
+            "icon": "mention-failure",
+            "links": {
+              "primary": {
+                "url": "https://test.wikipedia.org/wiki/User_talk:Jack_The_Cat?markasread=87793&markasreadwiki=testwiki#Section_Title",
+                "label": "View mention"
+              },
+              "secondary": [
+                {
+                  "url": "https://test.wikipedia.org/wiki/User_talk:Jack_The_Cat#Section_Title",
+                  "label": "Jack The Cat",
+                  "tooltip": "User talk:Jack The Cat",
+                  "description": "",
+                  "icon": "userSpeechBubble",
+                  "prioritized": true
+                }
+              ]
+            },
+            "iconUrl": "/w/extensions/Echo/modules/icons/mention-failure.svg"
+          }
+        },{
+            "wiki": "enwiki",
+            "id": 7,
+            "type": "mention-success",
+            "category": "mention-success",
+            "section": "alert",
+            "timestamp": {
+              "utciso8601": "2021-07-16T23:33:57Z",
+              "utcunix": 1626478437,
+              "unix": "1626478437",
+              "utcmw": "20210716233357",
+              "mw": "20210716233357",
+              "date": "16 July"
+            },
+            "title": {
+              "full": "User talk:Fred The Bird",
+              "namespace": "User_talk",
+              "namespace-key": 3,
+              "text": "Fred The Bird"
+            },
+            "agent": {
+              "id": 35904678,
+              "name": "Fred The Bird"
+            },
+            "revid": 1033969130,
+            "read": "20210811054656",
+            "targetpages": [],
+            "*": {
+              "header": "Your mention of <strong>Jack The Cat</strong> was sent.",
+              "compactHeader": "<strong>You mentioned:</strong> Jack The Cat",
+              "body": "",
+              "icon": "mention-success",
+              "links": {
+                "primary": {
+                  "url": "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird?markasread=223018676&markasreadwiki=enwiki#Section_Title",
+                  "label": "View mention"
+                },
+                "secondary": [{
+                  "url": "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Section_Title",
+                  "label": "Fred The Bird",
+                  "tooltip": "User talk:Fred The Bird",
+                  "description": "",
+                  "icon": "userSpeechBubble",
+                  "prioritized": true
+                }]
+              },
+              "iconUrl": "/w/extensions/Echo/modules/icons/mention-success-constructive.svg"
+            }
+          },{
+              "wiki": "wikidatawiki",
+              "id": 8,
+              "type": "mention-success",
+              "category": "mention-success",
+              "section": "alert",
+              "timestamp": {
+                "utciso8601": "2021-07-16T23:33:57Z",
+                "utcunix": 1626478437,
+                "unix": "1626478437",
+                "utcmw": "20210716233357",
+                "mw": "20210716233357",
+                "date": "16 July"
+              },
+              "title": {
+                "full": "User talk:Fred The Bird",
+                "namespace": "User_talk",
+                "namespace-key": 3,
+                "text": "Fred The Bird"
+              },
+              "agent": {
+                "id": 35904678,
+                "name": "Fred The Bird"
+              },
+              "revid": 1033969130,
+              "read": "20210811054656",
+              "targetpages": [],
+              "*": {
+                "header": "Your mention of <strong>Jack The Cat</strong> was sent.",
+                "compactHeader": "<strong>You mentioned:</strong> Jack The Cat",
+                "body": "",
+                "icon": "mention-success",
+                "links": {
+                  "primary": {
+                    "url": "https://wikidata.org/wiki/User_talk:Fred_The_Bird?markasread=223018676&markasreadwiki=enwiki#Section_Title",
+                    "label": "View mention"
+                  },
+                  "secondary": [{
+                    "url": "https://wikidata.org/wiki/User_talk:Fred_The_Bird#Section_Title",
+                    "label": "Fred The Bird",
+                    "tooltip": "User talk:Fred The Bird",
+                    "description": "",
+                    "icon": "userSpeechBubble",
+                    "prioritized": true
+                  }]
+                },
+                "iconUrl": "/w/extensions/Echo/modules/icons/mention-success-constructive.svg"
+              }
+            },
+          {
+              "wiki": "zhwikiquote",
+              "id": 9,
+              "type": "mention",
+              "category": "mention",
+              "section": "alert",
+              "timestamp": {
+                "utciso8601": "2022-03-14T15:22:52Z",
+                "utcunix": 1647271372,
+                "unix": "1647271372",
+                "utcmw": "20220314152252",
+                "mw": "20220314152252",
+                "date": "14 March"
+              },
+              "title": {
+                "full": "Talk:Blue Bird",
+                "namespace": "Talk",
+                "namespace-key": 1,
+                "text": "Blue Bird"
+              },
+              "agent": {
+                "id": 42540,
+                "name": "Fred The Bird"
+              },
+              "revid": 505586,
+              "read": "20220314181246",
+              "targetpages": [],
+              "*": {
+                "header": "Fred The Bird mentioned you on the <strong>Blue Bird</strong> talk page in \"<strong>Section Title</strong>\".",
+                "compactHeader": "Fred The Bird mentioned you on the <strong>Blue Bird</strong> talk page in \"<strong>Section Title</strong>\".",
+                "body": "Jack The Cat Reply text mention in talk page.",
+                "icon": "mention",
+                "links": {
+                  "primary": {
+                    "url": "https://zh.wikiquote.org/wiki/Talk:Blue_Bird?markasread=90497&markasreadwiki=testwiki#c-Fred_The_Bird-2022-03-14T15:22:00.000Z-New_topic",
+                    "label": "View mention"
+                  },
+                  "secondary": [
+                    {
+                      "url": "https://zh.wikiquote.org/wiki/User:Fred_The_Bird",
+                      "label": "Fred The Bird",
+                      "tooltip": "",
+                      "description": "",
+                      "icon": "userAvatar",
+                      "prioritized": true
+                    },
+                    {
+                      "url": "https://zh.wikiquote.org/w/index.php?title=Talk:Blue_Bird&oldid=prev&diff=505586",
+                      "label": "View changes",
+                      "description": "",
+                      "icon": "changes",
+                      "prioritized": true
+                    }
+                  ],
+                  "legacyPrimary": {
+                    "url": "//zh.wikiquote.org/wiki/Talk:Blue_Bird?markasread=90497&markasreadwiki=testwiki#Section_Title",
+                    "label": "View mention"
+                  }
+                },
+                "iconUrl": "/w/extensions/Echo/modules/icons/mention-progressive.svg"
+              }
+            }
+      ],
+      "continue": "1569862285|172771996"
+    }
+  }
+}

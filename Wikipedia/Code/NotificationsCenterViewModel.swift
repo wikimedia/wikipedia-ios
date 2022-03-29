@@ -30,7 +30,7 @@ final class NotificationsCenterViewModel: NSObject {
     
     weak var delegate: NotificationsCenterViewModelDelegate?
 
-    lazy private var modelController = NotificationsCenterModelController(languageLinkController: self.languageLinkController, remoteNotificationsController: remoteNotificationsController)
+    lazy private var modelController = NotificationsCenterModelController(languageLinkController: self.languageLinkController, remoteNotificationsController: remoteNotificationsController, configuration: configuration)
 
     let languageLinkController: MWKLanguageLinkController
 

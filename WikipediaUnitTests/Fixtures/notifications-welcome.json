@@ -1,0 +1,46 @@
+{
+    "batchcomplete": true,
+    "limits": {
+        "notifications": 50
+    },
+    "query": {
+        "notifications": {
+            "list": [{
+                "wiki": "enwiki",
+                "id": 1,
+                "type": "welcome",
+                "category": "system-noemail",
+                "section": "message",
+                "timestamp": {
+                    "utciso8601": "2018-12-19T23:52:15Z",
+                    "utcunix": 1545263535,
+                    "unix": "1545263535",
+                    "utcmw": "20181219235215",
+                    "mw": "20181219235215",
+                    "date": "19 December"
+                },
+                "agent": {
+                    "id": 35425575,
+                    "name": "Jack The Cat"
+                },
+                "read": "20220225154053",
+                "targetpages": [],
+                "*": {
+                    "header": "Welcome to Wikipedia, Jack The Cat! We're glad you're here.",
+                    "compactHeader": "Welcome to Wikipedia, Jack The Cat! We're glad you're here.",
+                    "body": "",
+                    "icon": "site",
+                    "links": {
+                        "primary": {
+                            "url": "https://en.wikipedia.org/wiki/Help:Getting_started?markasread=152039826&markasreadwiki=enwiki",
+                            "label": "Welcome"
+                        },
+                        "secondary": []
+                    },
+                    "iconUrl": "/static/images/project-logos/notifications/120px-Notification-icon-Wikipedia-logo.svg.png"
+                }
+            }],
+            "continue": "1569862285|172771996"
+        }
+    }
+}
