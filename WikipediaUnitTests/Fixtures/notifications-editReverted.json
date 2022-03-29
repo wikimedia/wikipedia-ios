@@ -1,0 +1,129 @@
+{
+  "batchcomplete": true,
+  "limits": {
+    "notifications": 50
+  },
+  "query": {
+    "notifications": {
+      "list": [{
+          "wiki": "enwiki",
+          "id": 1,
+          "type": "reverted",
+          "category": "reverted",
+          "section": "alert",
+          "timestamp": {
+            "utciso8601": "2021-07-19T15:37:55Z",
+            "utcunix": 1626709075,
+            "unix": "1626709075",
+            "utcmw": "20210719153755",
+            "mw": "20210719153755",
+            "date": "19 July"
+          },
+          "title": {
+            "full": "User talk:Fred The Bird",
+            "namespace": "User_talk",
+            "namespace-key": 3,
+            "text": "Fred The Bird"
+          },
+          "agent": {
+            "id": 35904678,
+            "name": "Fred The Bird"
+          },
+          "revid": 1034388502,
+          "read": "20220225154053",
+          "targetpages": [],
+          "*": {
+            "header": "Your edit on <strong>User talk:Fred The Bird</strong> was reverted.",
+            "compactHeader": "Your edit on <strong>User talk:Fred The Bird</strong> was reverted.",
+            "body": "",
+            "icon": "revert",
+            "links": {
+              "primary": {
+                "url": "https://en.wikipedia.org/w/index.php?title=User_talk:Fred_The_Bird&oldid=prev&diff=1034388502&markasread=223226025&markasreadwiki=enwiki",
+                "label": "View changes"
+              },
+              "secondary": [
+                {
+                  "url": "https://en.wikipedia.org/wiki/User:Fred_The_Bird",
+                  "label": "Fred The Bird",
+                  "tooltip": "",
+                  "description": "",
+                  "icon": "userAvatar",
+                  "prioritized": true
+                },
+                {
+                  "url": "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird",
+                  "label": "Fred The Bird",
+                  "tooltip": "User talk:Fred The Bird",
+                  "description": "",
+                  "icon": "userSpeechBubble",
+                  "prioritized": true
+                }
+              ]
+            },
+            "iconUrl": "/w/extensions/Echo/modules/icons/revert.svg"
+          }
+        },{
+            "wiki": "testwiki",
+            "id": 2,
+            "type": "reverted",
+            "category": "reverted",
+            "section": "alert",
+            "timestamp": {
+              "utciso8601": "2021-09-02T23:52:43Z",
+              "utcunix": 1630626763,
+              "unix": "1630626763",
+              "utcmw": "20210902235243",
+              "mw": "20210902235243",
+              "date": "2 September"
+            },
+            "title": {
+              "full": "Blue Bird",
+              "namespace": "",
+              "namespace-key": 0,
+              "text": "Blue Bird"
+            },
+            "agent": {
+              "id": 42540,
+              "name": "Fred The Bird"
+            },
+            "revid": 480410,
+            "read": "20220225154053",
+            "targetpages": [],
+            "*": {
+              "header": "Your edit on <strong>Blue Bird</strong> was reverted.",
+              "compactHeader": "Your edit on <strong>Blue Bird</strong> was reverted.",
+              "body": "",
+              "icon": "revert",
+              "links": {
+                "primary": {
+                  "url": "https://test.wikipedia.org/w/index.php?title=Blue_Bird&oldid=prev&diff=480410&markasread=76294&markasreadwiki=testwiki",
+                  "label": "View changes"
+                },
+                "secondary": [
+                  {
+                    "url": "https://test.wikipedia.org/wiki/User:Fred_The_Bird",
+                    "label": "Fred The Bird",
+                    "tooltip": "",
+                    "description": "",
+                    "icon": "userAvatar",
+                    "prioritized": true
+                  },
+                  {
+                    "url": "https://test.wikipedia.org/wiki/Talk:Blue_Bird",
+                    "label": "Blue Bird",
+                    "tooltip": "Talk:Blue Bird",
+                    "description": "",
+                    "icon": "speechBubbles",
+                    "prioritized": true
+                  }
+                ]
+              },
+              "iconUrl": "/w/extensions/Echo/modules/icons/revert.svg"
+            }
+          }
+      ],
+      "continue": "1569862285|172771996"
+    }
+  }
+}
