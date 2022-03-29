@@ -458,8 +458,6 @@
 "featured-widget-from-wikipedia" = "来自维基百科";
 "featured-widget-language-failure" = "你的首选维基百科语言在今日并不支持该语言。你可以在应用宏程序的设置菜单中更新你的主要维基百科语言。";
 "featured-widget-title" = "特色条目";
-"feed-news-notification-button-text" = "打开通知";
-"feed-news-notification-text" = "当条目在新闻中热门时，启用维基百科通知。";
 "fetcher-error-generic" = "出错了！请稍后重试。";
 "fetcher-error-unexpected-response" = "应用从服务器收到了一个意外的响应代码，请稍后重试。";
 "field-alert-captcha-invalid" = "无效验证码";
@@ -610,6 +608,8 @@
 "notifications-center-empty-not-subscribed" = "您目前没有订阅任何维基百科通知";
 "notifications-center-empty-state-filters-subtitle" = "修改$1来查看更多消息";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 种筛选}}";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "打开通知";
 "notifications-center-filters-read-status-item-title-all" = "所有";
 "notifications-center-filters-read-status-item-title-read" = "已读";
 "notifications-center-filters-read-status-item-title-unread" = "未读";
@@ -893,7 +893,7 @@
 "settings-language-bar" = "在搜索时显示语言";
 "settings-languages-feed-customization" = "您可以通过自定义您的探索订阅源设置，管理显示在您的探索订阅源的语言。";
 "settings-my-languages" = "我的语言";
-"settings-notifications" = "通知";
+"settings-notifications" = "推送通知";
 "settings-notifications-info" = "通过我们推送的通知，提醒维基百科上的趋势和最多阅读条目。所有通知都已考虑到隐私和最新数据。";
 "settings-notifications-learn-more" = "了解更多有关通知";
 "settings-notifications-push-notifications" = "推送通知";

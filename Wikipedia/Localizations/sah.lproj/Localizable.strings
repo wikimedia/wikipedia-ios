@@ -173,8 +173,6 @@
 "explore-potd-heading" = "Күннээҕи ойуу";
 "explore-random-article-heading" = "Түбэспиччэ ыстатыйа";
 "explore-randomizer" = "Рандомизатор";
-"feed-news-notification-button-text" = "Саҥа сонуннар таҕыстахтарына миэхэ биллэр";
-"feed-news-notification-text" = "Ыстатыйа туһунан сонуннарга элбэхтик ахтылыннаҕына Бикипиэдьийэ миэхэ биллэрдин.";
 "field-alert-captcha-invalid" = "Сыыһа CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Аһарыктарыҥ сөп түбэспэтилэр";
 "field-alert-token-invalid" = "Куодуҥ сыыһа";
@@ -275,6 +273,8 @@
 "new-password-instructions" = "Быстах кэмҥэ туттуллар аһарыгынан киирдиҥ.\nТүмүктүүргэ саҥа аһарыгы суруйуохтааххын:";
 "new-password-title" = "Аһарыккын суруй";
 "no-email-account-alert" = "Бука диэн, ҕааддьыккар электрон почталаах бэлиэ-аатта оҥоһун, онтон киирэн көрөөр.";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Саҥа сонуннар таҕыстахтарына миэхэ биллэр";
 "number-billions" = "$1 млрд.";
 "number-millions" = "$1 мөл.";
 "number-thousands" = "$1 тыһ.";
@@ -335,6 +335,7 @@
 "settings-help-and-feedback" = "Көмө уонна ситим";
 "settings-language-bar" = "Көрдүүргэ омугун тылын көрдөрөр буол";
 "settings-my-languages" = "Мин тылларым";
+// Fuzzy
 "settings-notifications" = "Биллэриилэр";
 "settings-notifications-info" = "Бикипиэдьийэҕэ суруллар саҥаны-сонуну биһиги угуйар биллэриилэрбититтэн тута билиҥ. Маны туһанар киһи тус дааннайа толору көмүскэллээх.";
 "settings-notifications-learn-more" = "Биллэрии туһунан сиһилии";

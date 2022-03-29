@@ -432,8 +432,6 @@
 "featured-widget-from-wikipedia" = "De la Viquipèdia";
 "featured-widget-language-failure" = "La Viquipèdia de la vostra llengua primària no té l'opció d'article destacat. Podeu triar canviar la vostra Viquipèdia primària en el menú de configuració de l'aplicació.";
 "featured-widget-title" = "Article destacat";
-"feed-news-notification-button-text" = "Activa les notificacions";
-"feed-news-notification-text" = "Habiliteu les notificacions per a rebre avisos de la Viquipèdia quan els articles siguin tendència a les notícies.";
 "fetcher-error-generic" = "Quelcom ha fallat. Torneu-ho a provar més tard.";
 "fetcher-error-unexpected-response" = "L'aplicació ha rebut una resposta no esperada del servidor. Torneu-ho a provar més tard.";
 "field-alert-captcha-invalid" = "CAPTCHA incorrecte";
@@ -588,6 +586,8 @@
 "notifications-center-empty-state-filters-subtitle" = "Modifiqueu $1 per a mostrar més missatges";
 "notifications-center-empty-state-no-projects-selected" = "Afegeix projectes per a veure més missatges";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filtre|$1 filtres}}";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Activa les notificacions";
 "notifications-center-filters-accessibility-label" = "Filtre de notificacions";
 "notifications-center-filters-read-status-item-title-all" = "Tots";
 "notifications-center-filters-read-status-item-title-read" = "Llegit";
@@ -885,7 +885,9 @@
 "settings-language-bar" = "Mostra llengües a la cerca";
 "settings-languages-feed-customization" = "Podeu gestionar quines llengües es mostren en el canal d'exploració personalitzant els paràmetres del canal d'exploració.";
 "settings-my-languages" = "Les meves llengües";
+// Fuzzy
 "settings-notifications" = "Notificacions";
+"settings-notifications-echo-failure-try-again" = "Torna-ho a provar";
 "settings-notifications-info" = "Estigueu avisat de les tendències i articles més llegits a la Viquipèdia amb les nostres notificacions. Tot està proporcionat amb respecte a la privadesa i actualitzades al minut.";
 "settings-notifications-learn-more" = "Més quant a les notificacions";
 "settings-notifications-push-notifications" = "Notificacions enviades";

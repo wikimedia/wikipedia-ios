@@ -323,8 +323,6 @@
 "explore-random-article-sub-heading-from-wikipedia" = "A Wikipédiáról";
 "explore-randomizer" = "Randomizáló";
 "featured-widget-title" = "Kiemelt szócikk";
-"feed-news-notification-button-text" = "Értesítések bekapcsolása";
-"feed-news-notification-text" = "Engedélyezd az értesítéseket, hogy a Wikipédia jelezze a hírekben felkapott szócikkeket.";
 "fetcher-error-generic" = "Valami félresikerült. Kérlek próbáld újra később.";
 "field-alert-captcha-invalid" = "Érvénytelen CAPTCHA";
 "field-alert-password-confirm-mismatch" = "A jelszavak nem egyeznek";
@@ -457,6 +455,8 @@
 "notifications-center-empty-checking-for-notifications" = "Értesítések keresése...";
 "notifications-center-empty-no-messages" = "Nincsenek üzeneteid";
 "notifications-center-empty-not-subscribed" = "Nincsenek beállítva a Wikipédia értesítések";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Értesítések bekapcsolása";
 "notifications-center-filters-read-status-item-title-all" = "Mind";
 "notifications-center-filters-read-status-item-title-read" = "Olvasva";
 "notifications-center-filters-read-status-item-title-unread" = "Olvasatlan";
@@ -649,6 +649,7 @@
 "settings-help-and-feedback" = "Súgó és visszajelzés";
 "settings-language-bar" = "Nyelvek megjelenítése keresésnél";
 "settings-my-languages" = "Saját nyelvek";
+// Fuzzy
 "settings-notifications" = "Értesítések";
 "settings-notifications-learn-more" = "További információ az értesítésekről";
 "settings-notifications-push-notifications" = "Push értesítések";

@@ -432,8 +432,6 @@
 "featured-widget-from-wikipedia" = "З Вікіпедії";
 "featured-widget-language-failure" = "Ваша основна мова Вікіпедії не підтримує вибрані статті. Ви можете оновити основну мову Вікіпедії у меню налаштувань застосунка.";
 "featured-widget-title" = "Вибрана стаття";
-"feed-news-notification-button-text" = "Увімкнути сповіщення";
-"feed-news-notification-text" = "Увімкніть сповіщення, аби дізнаватися про статті Вікіпедії, що пов'язані з останніми новинами.";
 "fetcher-error-generic" = "Щось пішло не так. Будь ласка, спробуйте ще раз пізніше.";
 "fetcher-error-unexpected-response" = "Від сервера отримана непередбачена відповідь. Будь ласка, спробуйте пізніше.";
 "field-alert-captcha-invalid" = "Недійсна капча";
@@ -584,6 +582,8 @@
 "notifications-center-empty-not-subscribed" = "Наразі ви не підписані на жодні сповіщення Вікіпедії";
 "notifications-center-empty-state-filters-subtitle" = "Відредагуйте $1, аби побачити більше повідомлень";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 фільтр|$1 фільтри|$1 фільтрів}}";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Увімкнути сповіщення";
 "notifications-center-filters-read-status-item-title-all" = "Усі";
 "notifications-center-filters-read-status-item-title-read" = "Прочитане";
 "notifications-center-filters-read-status-item-title-unread" = "Непрочитане";
@@ -878,6 +878,7 @@
 "settings-language-bar" = "Показувати мови при пошуку";
 "settings-languages-feed-customization" = "Ви можете зазначити в налаштуваннях, які мови показуватимуться у вашій стрічці.";
 "settings-my-languages" = "Мої мови";
+// Fuzzy
 "settings-notifications" = "Сповіщення";
 "settings-notifications-info" = "Будьте в курсі трендових і найпопулярніших статей у Вікіпедії з нашими push-сповіщеннями. Уся інформація надається зі збереженням конфіденційності та з точністю до хвилини.";
 "settings-notifications-learn-more" = "Дізнатися більше про сповіщення";

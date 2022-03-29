@@ -448,8 +448,6 @@
 "featured-widget-from-wikipedia" = "Vikipedi'den";
 "featured-widget-language-failure" = "Birincil Vikipedi diliniz seçkin maddeyi desteklemiyor. Birincil Vikipedi'nizi uygulamanın Ayarlar menüsünde güncelleyebilirsiniz.";
 "featured-widget-title" = "Seçkin madde";
-"feed-news-notification-button-text" = "Bildirimleri aç";
-"feed-news-notification-text" = "Gündemde olan Vikipedi maddelerinden haberdar olmak için bildirimleri etkinleştirin.";
 "fetcher-error-generic" = "Bir hata oluştu. Lütfen daha sonra tekrar deneyin.";
 "fetcher-error-unexpected-response" = "Uygulama, sunucudan beklenmeyen bir cevap aldı. Lütfen daha sonra tekrar deneyin.";
 "field-alert-captcha-invalid" = "Geçersiz CAPTCHA";
@@ -601,6 +599,8 @@
 "notifications-center-empty-not-subscribed" = "Herhangi bir Vikipedi Bildirimine üye değilsiniz";
 "notifications-center-empty-state-filters-subtitle" = "Daha fazla mesaj görmek için $1 kısmını değiştirin";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filtre|$1 filtre}}";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Bildirimleri aç";
 "notifications-center-filters-accessibility-label" = "Bildirim filtresi";
 "notifications-center-filters-read-status-item-title-all" = "Tümü";
 "notifications-center-filters-read-status-item-title-read" = "Oku";
@@ -893,7 +893,7 @@
 "settings-language-bar" = "Aramada dilleri göster";
 "settings-languages-feed-customization" = "Keşfet akış ayarlarınızı özelleştirerek Keşfet özet akışınızda hangi dillerin gösterileceğini yönetebilirsiniz.";
 "settings-my-languages" = "Dillerim";
-"settings-notifications" = "Bildirimler";
+"settings-notifications" = "Anlık bildirimler";
 "settings-notifications-info" = "Anlık bildirimlerimizle, gündemde olan ve en çok okunan Vikipedi makalelerinden haberdar olun. Hepsi, gizliliğe ve güncel verilere bağlı olarak sunulmaktadır.";
 "settings-notifications-learn-more" = "Bildirimler hakkında daha fazla bilgi edinin";
 "settings-notifications-push-notifications" = "Anlık bildirimler";

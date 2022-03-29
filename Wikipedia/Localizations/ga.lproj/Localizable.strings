@@ -215,7 +215,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Ón Vicipéid ($1)";
 "explore-random-article-sub-heading-from-wikipedia" = "Ón Vicipéid";
 "explore-randomizer" = "Randamóir";
-"feed-news-notification-button-text" = "Cas air fógraí";
 "field-alert-captcha-invalid" = "CAPTCHA neamhbhailí";
 "field-alert-password-confirm-mismatch" = "Níl na pasfhocail ag teacht le chéile";
 "field-alert-token-invalid" = "Cód neamhbhailí";
@@ -312,6 +311,8 @@
 "nearby-distance-label-miles" = "$1 míle";
 "new-password-instructions" = "Logáil tú isteach le pasfhocal sealadach. Socraigh pasfhocal nua anseo chun an logáil isteach a chríochnú.";
 "new-password-title" = "Socraigh do phasfhocal";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Cas air fógraí";
 "notifications-center-filters-read-status-item-title-all" = "Uile";
 "notifications-center-inbox-wikipedias-section-title" = "Vicipéidí";
 "notifications-center-notifications-settings" = "Socruithe fógraí";
@@ -440,6 +441,7 @@
 "settings-clear-cache-ok" = "Glan taisce";
 "settings-help-and-feedback" = "Cabhair agus aiseolas";
 "settings-my-languages" = "Mo chuid teangacha";
+// Fuzzy
 "settings-notifications" = "Fógraí";
 "settings-notifications-learn-more" = "Foghlaim tuilleadh maidir le fógraí";
 "settings-notifications-push-notifications" = "Brúfhógraí";

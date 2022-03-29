@@ -110,6 +110,7 @@
 "action-add-to-reading-list" = "הוספה לרשימת קריאה";
 "action-add-to-reading-list-short" = "הוספה לרשימה";
 "action-cancel" = "ביטול";
+"action-discard-edits" = "ביטול העריכות";
 "action-find-in-page" = "למצוא בדף";
 "action-language-accessibility" = "החלפת שפה";
 "action-move-to" = "העברה ל־...";
@@ -320,6 +321,8 @@
 "editing-welcome-impartial-tone-title" = "כתבו בנימה חסרת פניות";
 "editing-welcome-set-knowledge-free-subtitle" = "כדי להעניק לכולם גישה למידע עולמי, אנו רוצים לבקש ממך לקחת חלק בקריאה, עריכה ותרומה לנושאים שהכי נוגעים ללבך.";
 "editing-welcome-set-knowledge-free-title" = "להוציא את הידע לחופשי";
+"editor-exit-confirmation-body" = "האם ברצונך באמת לעזוב את מצב העריכה בלי לפרסם קודם?";
+"editor-exit-confirmation-title" = "לצאת ממצב העריכה?";
 "empty-diff-compare-title" = "אין הבדל בין גרסאות";
 "empty-diff-single-title" = "לא נעשו שינויים שאפשר לראות";
 "empty-insert-media-title" = "נא לבחור קובץ מוויקישיתוף";
@@ -431,8 +434,6 @@
 "featured-widget-from-wikipedia" = "מתוך ויקיפדיה";
 "featured-widget-language-failure" = "ויקיפדיה בשפה הראשית שלך אינה תומכת ב״ערך מומלץ״. אפשר לעדכן את שפת הוויקיפדיה הראשית שלך בתפריט ההגדרות של היישום.";
 "featured-widget-title" = "ערך מומלץ";
-"feed-news-notification-button-text" = "הפעלת עדכונים";
-"feed-news-notification-text" = "הפעלת עדכונים כדי לקבל הודעות מוויקיפדיה כשערכים נהיים חמים בחדשות.";
 "fetcher-error-generic" = "משהו השתבש! נא לנסות שוב מאוחר יותר.";
 "fetcher-error-unexpected-response" = "היישום הזה קיבל תשובה בלתי־צפויה מהשרת. נא לנסות שוב מאוחר יותר.";
 "field-alert-captcha-invalid" = "קוד אימות בלתי־תקין";
@@ -587,6 +588,10 @@
 "notifications-center-empty-state-filters-subtitle" = "יש לשנות $1 כדי לראות עוד הודעות";
 "notifications-center-empty-state-no-projects-selected" = "יש להוסיף מיזמים כדי לראות עוד הודעות";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|מסנן אחד|$1 מסננים}}";
+"notifications-center-feed-card-title" = "התראות עריכה זמינות עכשיו";
+"notifications-center-feed-news-notification-button-text" = "הפעלת עדכוני דחיפה";
+"notifications-center-feed-news-notification-dismiss-button-text" = "לא עכשיו";
+"notifications-center-feed-news-notification-text" = "התראות עריכה זמינות עכשיו לכל מיזמי ויקימדיה זמינות עכשיו בכל היישום. אפשר להפעיל את עדכוני הדחיפה כדי להיות מעודכנים עם ההודעות בוויקיפדיה בתנועה.";
 "notifications-center-filters-accessibility-label" = "מסנן עדכונים";
 "notifications-center-filters-read-status-item-title-all" = "הכול";
 "notifications-center-filters-read-status-item-title-read" = "נקראו";
@@ -884,7 +889,11 @@
 "settings-language-bar" = "הצגת שפות בחיפוש";
 "settings-languages-feed-customization" = "אפשר לנהל אילו שפות מוצגות בהזנת לחקור באמצעות התאמה אישית של ההעדפות שלך עבור הזנת לחקור.";
 "settings-my-languages" = "השפות שלי";
-"settings-notifications" = "עדכונים";
+"settings-notifications" = "הודעות דחיפה";
+"settings-notifications-echo-failure-message" = "אירעה שגיאה בעת בדיקת מינויים להתראות שקשורות לחשבון שלך.";
+"settings-notifications-echo-failure-title" = "לא ניתן לבדוק מינויים להתראות Echo";
+"settings-notifications-echo-failure-try-again" = "לנסות שוב";
+"settings-notifications-header" = "באפשרותך לקבל התראות על פעולות שקשורות לחשבון שלך, כגון הודעות מתורמים עמיתים, עדכונים, ומידע אחר. הכול מסופק תוך כדי כיבוד פרטיות ונתונים עדכניים ביותר.";
 "settings-notifications-info" = "קבלו התראות על ערכים חמים ומבוקשים בוויקיפדיה עם העדכונים שלנו. כל המידע מסופק תוך כדי כיבוד פרטיות המשתמש ונתונים עדכניים.";
 "settings-notifications-learn-more" = "מידע נוסף על עדכונים";
 "settings-notifications-push-notifications" = "עדכונים";

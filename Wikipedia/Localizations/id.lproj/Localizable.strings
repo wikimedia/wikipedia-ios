@@ -440,8 +440,6 @@
 "featured-widget-from-wikipedia" = "Dari Wikipedia";
 "featured-widget-language-failure" = "Bahasa Wikipedia utama Anda tidak mendukung artikel pilihan. Anda dapat mengganti bahasa Wikipedia utama Anda di menu Setelan pada aplikasi.";
 "featured-widget-title" = "Artikel pilihan";
-"feed-news-notification-button-text" = "Aktifkan pemberitahuan";
-"feed-news-notification-text" = "Aktifkan pemberitahuan yang akan diberitahu oleh Wikipedia saat artikel sedang tren dalam peristiwa terkini.";
 "fetcher-error-generic" = "Ada yang salah. Silakan coba lagi nanti.";
 "fetcher-error-unexpected-response" = "Aplikasi menerima respons yang tidak terduga dari server. Silakan coba lagi nanti.";
 "field-alert-captcha-invalid" = "CAPTCHA tidak sesuai";
@@ -592,6 +590,8 @@
 "notifications-center-empty-not-subscribed" = "Anda belum berlangganan notifikasi Wikipedia apapun";
 "notifications-center-empty-state-filters-subtitle" = "Ubah $1 untuk melihat lebih banyak pesan";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter}}";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Aktifkan pemberitahuan";
 "notifications-center-filters-read-status-item-title-all" = "Semua";
 "notifications-center-filters-read-status-item-title-read" = "Baca";
 "notifications-center-filters-read-status-item-title-unread" = "Belum dibaca";
@@ -886,6 +886,7 @@
 "settings-language-bar" = "Tampilkan bahasa di pencarian";
 "settings-languages-feed-customization" = "Anda dapat mengelola bahasa mana yang ditampilkan di umpan Jelajahi Anda dengan menyesuaikan pengaturan umpan Jelajahi Anda.";
 "settings-my-languages" = "Bahasa saya";
+// Fuzzy
 "settings-notifications" = "Pemberitahuan";
 "settings-notifications-info" = "Dapatkan pemberitahuan tentang artikel yang sedang tren dan bacaan teratas di Wikipedia dengan pemberitahuan otomatis kami. Semua tersedia sehubungan dengan privasi dan sampai data menit.";
 "settings-notifications-learn-more" = "Pelajari lebih lanjut tentang pemberitahuan";

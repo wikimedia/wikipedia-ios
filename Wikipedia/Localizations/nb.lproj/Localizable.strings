@@ -427,8 +427,6 @@
 "featured-widget-from-wikipedia" = "Fra Wikipedia";
 "featured-widget-language-failure" = "Ditt hoved Wikipedia-språk har ikke støtte for Utmerkede artikler. Du kan oppdatere ditt hoved Wikipedia-språk i applikasjons innstillingene.";
 "featured-widget-title" = "Utvalgt artikkel";
-"feed-news-notification-button-text" = "Slå på varslinger";
-"feed-news-notification-text" = "Slå på varslinger for å bli tipset om Wikipedia-artikler om aktuelle hendelser fra nyhetsbildet.";
 "fetcher-error-generic" = "Noe gikk galt. Prøv igjen senere.";
 "fetcher-error-unexpected-response" = "Appen mottok en uventet respons fra serveren. Prøv igjen senere.";
 "field-alert-captcha-invalid" = "Ugyldig CAPTCHA";
@@ -583,6 +581,8 @@
 "notifications-center-empty-state-filters-subtitle" = "Endre $1 for å se flere meldinger";
 "notifications-center-empty-state-no-projects-selected" = "Legg til prosjekter for å se flere beskjeder";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter|$1 filtre}}";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Slå på varslinger";
 "notifications-center-filters-accessibility-label" = "Varselfilter";
 "notifications-center-filters-read-status-item-title-all" = "Alle";
 "notifications-center-filters-read-status-item-title-read" = "Lest";
@@ -878,6 +878,7 @@
 "settings-language-bar" = "Vis språk ved søkefeltet";
 "settings-languages-feed-customization" = "Du kan tilpasse hvilke språk som vises på utforskingssiden fra innstillingene for utforskingssiden.";
 "settings-my-languages" = "Mine språk";
+// Fuzzy
 "settings-notifications" = "Varslinger";
 "settings-notifications-info" = "Bli tipset om populære og mye leste artikler på Wikipedia med push-varsler.";
 "settings-notifications-learn-more" = "Lær mer om varsler";

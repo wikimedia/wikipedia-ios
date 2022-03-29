@@ -748,6 +748,10 @@ extension SectionEditorViewController: InsertMediaViewControllerDelegate {
     }
 }
 
+extension SectionEditorViewController: EditingFlowViewController {
+    
+}
+
 #if (TEST)
 //MARK: Helpers for testing
 extension SectionEditorViewController {
