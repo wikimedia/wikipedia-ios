@@ -319,7 +319,6 @@ extension WMFAuthenticationManager {
         case server
     }
 
-    @objc public static let willLogOutNotification = Notification.Name("WMFAuthenticationManagerWillLogOut")
     @objc public static let didLogOutNotification = Notification.Name("WMFAuthenticationManagerDidLogOut")
     @objc public static let didLogInNotification = Notification.Name("WMFAuthenticationManagerDidLogIn")
 
