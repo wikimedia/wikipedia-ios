@@ -126,8 +126,8 @@ class NotificationsCenterViewModelTests: XCTestCase {
         }
     }
     
-    func testActions(expectedText: String, expectedURL: URL?, actionToTest: NotificationsCenterAction, isMarkAsRead: Bool = false, isNotificationSettings: Bool = false) throws {
-        let expectedActionData = NotificationsCenterActionData(text: expectedText, url: expectedURL)
+    func testActions(expectedText: String, expectedURL: URL?, expectedIcon: NotificationsCenterIconType?, expectedDestinationText: String?, actionToTest: NotificationsCenterAction, isMarkAsRead: Bool = false, isNotificationSettings: Bool = false) throws {
+        let expectedActionData = NotificationsCenterActionData(text: expectedText, url: expectedURL, iconType: expectedIcon, destinationText: expectedDestinationText)
         let expectedAction: NotificationsCenterAction
         if isMarkAsRead {
             expectedAction = NotificationsCenterAction.markAsReadOrUnread(expectedActionData)
