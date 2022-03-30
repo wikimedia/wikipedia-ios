@@ -74,7 +74,6 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
             }
         }
         success:^(WMFFeedDayResponse *_Nonnull feedDay) {
-
             NSMutableDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *pageViews = [NSMutableDictionary dictionary];
 
             NSDate *startDate = [self startDateForPageViewsForDate:date];
@@ -99,7 +98,6 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
                     endDate:endDate
                     failure:^(NSError *_Nonnull error) {
                         [group leave];
-
                     }
                     success:^(NSDictionary<NSDate *, NSNumber *> *_Nonnull results) {
                         NSDate *topReadDate = feedDay.topRead.date;
@@ -111,7 +109,6 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
                         }
                         pageViews[articleURL] = results;
                         [group leave];
-
                     }];
             }];
 
@@ -143,9 +140,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
             }];
 
             [group waitInBackgroundWithCompletion:^{
-
                 completion(feedDay, pageViews);
-
             }];
         }];
 }
@@ -168,14 +163,12 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     [moc removeAllContentGroupsOfKind:WMFContentGroupKindTopRead];
     [moc removeAllContentGroupsOfKind:WMFContentGroupKindNews];
     [moc removeAllContentGroupsOfKind:WMFContentGroupKindOnThisDay];
-    [moc removeAllContentGroupsOfKind:WMFContentGroupKindNotification];
 }
 
 #pragma mark - Save Groups
 
 - (void)saveContentForFeedDay:(WMFFeedDayResponse *)feedDay pageViews:(NSDictionary<NSURL *, NSDictionary<NSDate *, NSNumber *> *> *)pageViews onDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc completion:(dispatch_block_t)completion {
     [moc performBlock:^{
-
         NSString *key = [WMFFeedDayResponse WMFFeedDayResponseMaxAgeKey];
         NSNumber *value = @(feedDay.maxAge);
         [moc wmf_setValue:value forKey:key];
@@ -184,9 +177,8 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
         [self saveGroupForTopRead:feedDay.topRead pageViews:pageViews date:date inManagedObjectContext:moc];
         [self saveGroupForPictureOfTheDay:feedDay.pictureOfTheDay date:date inManagedObjectContext:moc];
         [self saveGroupForNews:feedDay.newsStories pageViews:pageViews date:date inManagedObjectContext:moc];
-        [self saveNotificationsGroupInManagedObjectContext:moc date:date];
         [self scheduleNotificationsForFeedDay:feedDay onDate:date inManagedObjectContext:moc];
-        
+
         if (!completion) {
             return;
         }
@@ -338,25 +330,6 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     newsGroup.isVisible = isVisible;
 }
 
--(void)createGroupForNotificationsInManagedObjectContext:(NSManagedObjectContext *)moc date:(NSDate *)date {
-    WMFContentGroup *notificationsGroup = [self notificationAnnouncementForDate:date inManagedObjectContext:moc];
-    
-    if (notificationsGroup == nil) {
-        notificationsGroup = [moc createGroupOfKind:WMFContentGroupKindNotification forDate:date withSiteURL:self.siteURL associatedContent:nil];
-    }
-}
-
-- (void)saveNotificationsGroupInManagedObjectContext:(NSManagedObjectContext *)moc date:(NSDate *)date {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-
-    if (userDefaults.wmf_shouldShowNotificationsExploreFeedCard && ![userDefaults wmf_didShowNewsNotificationCardInFeed] && self.fetcher.session.isAuthenticated ){
-
-        [userDefaults wmf_setDidShowNewsNotificationCardInFeed:YES];
-        [self createGroupForNotificationsInManagedObjectContext:moc date:date];
-        userDefaults.wmf_shouldShowNotificationsExploreFeedCard = NO;
-    }
-}
-
 #pragma mark - Find Groups
 
 - (nullable WMFContentGroup *)featuredForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
@@ -378,10 +351,6 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
 
 - (nullable WMFContentGroup *)onThisDayForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
     return (id)[moc groupOfKind:WMFContentGroupKindOnThisDay forDate:date siteURL:self.siteURL];
-}
-
-- (nullable WMFContentGroup *)notificationAnnouncementForDate:(NSDate *)date inManagedObjectContext:(NSManagedObjectContext *)moc {
-    return (id) [moc groupOfKind: WMFContentGroupKindNotification forDate:date siteURL: self.siteURL];
 }
 
 #pragma mark - Notifications
