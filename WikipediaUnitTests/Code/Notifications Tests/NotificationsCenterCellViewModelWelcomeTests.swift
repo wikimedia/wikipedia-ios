@@ -23,7 +23,7 @@ class NotificationsCenterCellViewModelWelcomeTests: NotificationsCenterViewModel
     
     private func testWelcomeText(cellViewModel: NotificationsCenterCellViewModel) throws {
         XCTAssertEqual(cellViewModel.headerText, "Welcome!", "Invalid headerText")
-        XCTAssertEqual(cellViewModel.subheaderText, "From English Wikipedia", "Invalid subheaderText")
+        XCTAssertEqual(cellViewModel.subheaderText, "English Wikipedia", "Invalid subheaderText")
         XCTAssertEqual(cellViewModel.bodyText, "Welcome to Wikipedia, Jack The Cat! We\'re glad you\'re here.")
         XCTAssertEqual(cellViewModel.footerText, nil)
         XCTAssertEqual(cellViewModel.dateText, "12/19/18", "Invalid dateText")

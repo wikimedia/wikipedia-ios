@@ -43,11 +43,11 @@ class NotificationsCenterCellViewModelLoginIssuesTests: NotificationsCenterViewM
         let expectedURL0: URL? = nil
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true)
         
-        let expectedText1 = "Login Notifications"
+        let expectedText1 = "Login notifications"
         let expectedURL1: URL? = URL(string: "https://www.mediawiki.org/wiki/Help:Login_notifications")!
         try testActions(expectedText: expectedText1, expectedURL: expectedURL1, actionToTest: cellViewModel.sheetActions[1])
         
-        let expectedText2 = "Change Password"
+        let expectedText2 = "Change password"
         let expectedURL2: URL? = URL(string: "https://mediawiki.org/wiki/Special:ChangeCredentials")!
         try testActions(expectedText: expectedText2, expectedURL: expectedURL2, actionToTest: cellViewModel.sheetActions[2])
         

@@ -48,9 +48,9 @@ class NotificationsCenterCellViewModelGenericTests: NotificationsCenterViewModel
     private func testPageReviewText(cellViewModel: NotificationsCenterCellViewModel) throws {
         XCTAssertEqual(cellViewModel.headerText, "A reviewer suggested improvements to the page Bird. Tags: notability, blp sources.", "Invalid headerText")
         XCTAssertEqual(cellViewModel.subheaderText, "Alert from Fred The Bird", "Invalid subheaderText")
-        XCTAssertEqual(cellViewModel.bodyText, "")
+        XCTAssertEqual(cellViewModel.bodyText, nil)
         XCTAssertEqual(cellViewModel.footerText, "View page", "Invalid footerText")
-        XCTAssertEqual(cellViewModel.dateText, "1/25/20", "Invalid dateText")
+        XCTAssertEqual(cellViewModel.dateText, "7/20/21", "Invalid dateText")
         XCTAssertEqual(cellViewModel.projectText, "EN", "Invalid projectText")
     }
     
@@ -122,7 +122,7 @@ class NotificationsCenterCellViewModelGenericTests: NotificationsCenterViewModel
     private func testFlowTopicRenamedText(cellViewModel: NotificationsCenterCellViewModel) throws {
         XCTAssertEqual(cellViewModel.headerText, "The topic \"Topic:Section Title\" was renamed to \"Section Title 2\".", "Invalid headerText")
         XCTAssertEqual(cellViewModel.subheaderText, "Alert from 47.234.198.142", "Invalid subheaderText")
-        XCTAssertEqual(cellViewModel.bodyText, "")
+        XCTAssertEqual(cellViewModel.bodyText, nil)
         XCTAssertEqual(cellViewModel.footerText, "View topic", "Invalid footerText")
         XCTAssertEqual(cellViewModel.dateText, "1/30/22", "Invalid dateText")
         XCTAssertEqual(cellViewModel.projectText, "TEST", "Invalid projectText")

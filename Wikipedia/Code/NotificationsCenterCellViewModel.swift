@@ -9,6 +9,7 @@ final class NotificationsCenterCellViewModel {
     let project: RemoteNotificationsProject
     private(set) var displayState: NotificationsCenterCellDisplayState
     let configuration: Configuration
+    let commonViewModel: NotificationsCenterCommonViewModel
 
 	// MARK: - Lifecycle
 
@@ -25,6 +26,8 @@ final class NotificationsCenterCellViewModel {
         self.key = key
         self.project = project
         self.configuration = configuration
+        
+        self.commonViewModel = NotificationsCenterCommonViewModel(configuration: configuration, notification: notification, project: project)
         
         self.displayState = Self.displayStateFor(isEditing: isEditing, isSelected: false, isRead: notification.isRead)
     }
