@@ -699,6 +699,12 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
         if (contentGroup.undoType != WMFContentGroupUndoTypeNone) {
             continue;
         }
+        
+        // Do not let preferences affect the notifications card
+        if (contentGroup.contentGroupKind == WMFContentGroupKindNotification) {
+            continue;
+        }
+        
         BOOL isVisible;
         if ([self isGlobal:contentGroup.contentGroupKind]) {
             NSDictionary *globalCardPreferences = [exploreFeedPreferences objectForKey:WMFExploreFeedPreferencesGlobalCardsKey];
