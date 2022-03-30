@@ -67,6 +67,7 @@
 
 - (void)removeAllContentInManagedObjectContext:(NSManagedObjectContext *)moc addNewContent:(BOOL)shouldAddNewContent {
     [moc removeAllContentGroupsOfKind:WMFContentGroupKindAnnouncement];
+    [moc removeAllContentGroupsOfKind:WMFContentGroupKindNotification];
 }
 
 - (void)saveAnnouncements:(NSArray<WMFAnnouncement *> *)announcements inManagedObjectContext:(NSManagedObjectContext *)moc completion:(nullable dispatch_block_t)completion {
@@ -110,6 +111,8 @@
     } else {
         [moc removeAllContentGroupsOfKind:WMFContentGroupKindReadingList];
     }
+    
+    [self saveNotificationsGroupInManagedObjectContext:moc date:[NSDate date]];
 
     // Workaround for the great fundraising mystery of 2019: https://phabricator.wikimedia.org/T247554
     // TODO: Further investigate the root cause before adding the 2020 fundraising banner: https://phabricator.wikimedia.org/T247976
@@ -120,6 +123,33 @@
             continue;
         }
         [moc deleteObject:announcement];
+    }
+}
+
+- (void)saveNotificationsGroupInManagedObjectContext:(NSManagedObjectContext *)moc date:(NSDate *)date {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    BOOL isLoggedIn = self.fetcher.session.isAuthenticated;
+
+    if (userDefaults.wmf_shouldShowNotificationsExploreFeedCard) {
+
+        WMFContentGroup *currentNotificationsCardGroup = [moc newestGroupOfKind:WMFContentGroupKindNotification];
+
+        if (isLoggedIn) {
+            if (currentNotificationsCardGroup) {
+                if (!currentNotificationsCardGroup.isVisible && !currentNotificationsCardGroup.wasDismissed) {
+                    currentNotificationsCardGroup.isVisible = YES;
+                }
+            } else {
+                WMFContentGroup *newNotificationsCardGroup = [moc createGroupOfKind:WMFContentGroupKindNotification forDate:[NSDate date] withSiteURL:self.siteURL associatedContent:nil];
+                newNotificationsCardGroup.isVisible = YES;
+            }
+        } else {
+            if (currentNotificationsCardGroup) {
+                if (currentNotificationsCardGroup.isVisible) {
+                    currentNotificationsCardGroup.isVisible = NO;
+                }
+            }
+        }
     }
 }
 
