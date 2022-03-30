@@ -153,7 +153,7 @@
         case WMFContentGroupKindUnknown:
             break;
         case WMFContentGroupKindAnnouncement:
-            updatedDailySortPriority = -1;
+            updatedDailySortPriority = -2;
             break;
         case WMFContentGroupKindContinueReading:
             updatedDailySortPriority = 0;
@@ -177,7 +177,7 @@
             updatedDailySortPriority = contentLanguageSortOrder + 6;
             break;
         case WMFContentGroupKindNotification:
-            updatedDailySortPriority = contentLanguageSortOrder + 7;
+            updatedDailySortPriority = -1;
             break;
         case WMFContentGroupKindPictureOfTheDay:
             updatedDailySortPriority = 8;
