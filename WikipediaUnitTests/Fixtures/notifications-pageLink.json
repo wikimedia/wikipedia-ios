@@ -1,0 +1,87 @@
+{
+  "batchcomplete": true,
+  "limits": {
+    "notifications": 50
+  },
+  "query": {
+    "notifications": {
+      "list": [{
+          "wiki": "enwiki",
+          "id": 1,
+          "type": "page-linked",
+          "category": "article-linked",
+          "section": "message",
+          "timestamp": {
+            "utciso8601": "2020-01-25T06:01:28Z",
+            "utcunix": 1579932088,
+            "unix": "1579932088",
+            "utcmw": "20200125060128",
+            "mw": "20200125060128",
+            "date": "25 January"
+          },
+          "title": {
+            "full": "Blue Bird",
+            "namespace": "",
+            "namespace-key": 0,
+            "text": "Blue Bird"
+          },
+          "agent": {
+            "id": 451287,
+            "name": "Jack The Cat"
+          },
+          "revid": 937467985,
+          "read": "20200128233803",
+          "targetpages": [],
+          "*": {
+            "header": "A link was made from <strong>Black Cat</strong> to <strong>Blue Bird</strong>.",
+            "compactHeader": "Linked from <strong>Black Cat</strong>.",
+            "body": "",
+            "icon": "linked",
+            "links": {
+              "primary": {
+                "url": "https://en.wikipedia.org/wiki/Black_Cat?markasread=181046915&markasreadwiki=enwiki",
+                "label": "View page"
+              },
+              "secondary": [{
+                "url": "https://en.wikipedia.org/wiki/Special:WhatLinksHere/Blue_Bird",
+                "label": "All links to this page",
+                "description": "",
+                "icon": "linked",
+                "prioritized": true
+              }, {
+                "url": "https://en.wikipedia.org/w/index.php?title=Black_Cat&diff=937467985&oldid=prev",
+                "label": "View changes",
+                "description": "",
+                "icon": "changes",
+                "prioritized": true
+              }, {
+                "type": "dynamic-action",
+                "label": "Mute link notifications on \"Blue Bird\"",
+                "description": null,
+                "data": {
+                  "tokenType": "csrf",
+                  "params": {
+                    "action": "echomute",
+                    "type": "page-linked-title",
+                    "mute": "Blue Bird"
+                  },
+                  "messages": {
+                    "confirmation": {
+                      "title": "\"Page link\" notifications are now disabled for the page \"Blue Bird\"",
+                      "description": "You can manage your muted pages in <a class=\"external text\" href=\"https://en.wikipedia.org/wiki/Special:Preferences#mw-prefsection-echo-mutedpageslist\">your preferences</a> anytime."
+                    }
+                  }
+                },
+                "url": "https://en.wikipedia.org/wiki/Special:Preferences#mw-prefsection-echo-mutedpageslist",
+                "icon": "unbell"
+              }]
+            },
+            "iconUrl": "/w/extensions/Echo/modules/icons/link-progressive.svg"
+          }
+
+        }
+      ],
+      "continue": "1569862285|172771996"
+    }
+  }
+}

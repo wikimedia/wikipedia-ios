@@ -1,0 +1,128 @@
+{
+    "batchcomplete": true,
+    "limits": {
+        "notifications": 50
+    },
+    "query": {
+        "notifications": {
+            "list": [{
+                    "wiki": "enwiki",
+                    "id": 1,
+                    "type": "edit-thank",
+                    "category": "edit-thank",
+                    "section": "message",
+                    "timestamp": {
+                        "utciso8601": "2021-07-19T15:30:22Z",
+                        "utcunix": 1626708622,
+                        "unix": "1626708622",
+                        "utcmw": "20210719153022",
+                        "mw": "20210719153022",
+                        "date": "19 July"
+                    },
+                    "title": {
+                        "full": "User talk:Fred The Bird",
+                        "namespace": "User_talk",
+                        "namespace-key": 3,
+                        "text": "Fred The Bird"
+                    },
+                    "agent": {
+                        "id": 35904678,
+                        "name": "Fred The Bird"
+                    },
+                    "revid": 1034387008,
+                    "read": "20220225154053",
+                    "targetpages": [],
+                    "*": {
+                        "header": "Fred The Bird thanked you for your edit on <strong>User talk:Fred The Bird</strong>.",
+                        "compactHeader": "Fred The Bird thanked you.",
+                        "body": "Testing edit summary here",
+                        "icon": "thanks",
+                        "links": {
+                            "primary": {
+                                "url": "https://en.wikipedia.org/w/index.php?title=User_talk:Fred_The_Bird&oldid=prev&diff=1034387008&markasread=223225413&markasreadwiki=enwiki",
+                                "label": "View edit"
+                            },
+                            "secondary": [{
+                                    "url": "https://en.wikipedia.org/wiki/User:Fred_The_Bird",
+                                    "label": "Fred The Bird",
+                                    "tooltip": "",
+                                    "description": "",
+                                    "icon": "userAvatar",
+                                    "prioritized": true
+                                },
+                                {
+                                    "url": "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird",
+                                    "label": "Fred The Bird",
+                                    "tooltip": "User talk:Fred The Bird",
+                                    "description": "",
+                                    "icon": "userSpeechBubble",
+                                    "prioritized": true
+                                }
+                            ]
+                        },
+                        "iconUrl": "/w/extensions/Thanks/modules/userTalk-constructive-ltr.svg"
+                    }
+                },
+                {
+                    "wiki": "testwiki",
+                    "id": 2,
+                    "type": "edit-thank",
+                    "category": "edit-thank",
+                    "section": "message",
+                    "timestamp": {
+                        "utciso8601": "2020-03-13T19:44:11Z",
+                        "utcunix": 1584128651,
+                        "unix": "1584128651",
+                        "utcmw": "20200313194411",
+                        "mw": "20200313194411",
+                        "date": "13 March"
+                    },
+                    "title": {
+                        "full": "Blue Bird",
+                        "namespace": "",
+                        "namespace-key": 0,
+                        "text": "Blue Bird"
+                    },
+                    "agent": {
+                        "id": 42540,
+                        "name": "Fred The Bird"
+                    },
+                    "revid": 417114,
+                    "read": "20220225154053",
+                    "targetpages": [],
+                    "*": {
+                        "header": "Fred The Bird thanked you for your edit on <strong>Blue Bird</strong>.",
+                        "compactHeader": "Fred The Bird thanked you.",
+                        "body": " ",
+                        "icon": "thanks",
+                        "links": {
+                            "primary": {
+                                "url": "https://test.wikipedia.org/w/index.php?title=Blue_Bird&oldid=prev&diff=417114&markasread=45561&markasreadwiki=testwiki",
+                                "label": "View edit"
+                            },
+                            "secondary": [{
+                                    "url": "https://test.wikipedia.org/wiki/User:Fred_The_Bird",
+                                    "label": "Fred The Bird",
+                                    "tooltip": "",
+                                    "description": "",
+                                    "icon": "userAvatar",
+                                    "prioritized": true
+                                },
+                                {
+                                    "url": "https://test.wikipedia.org/wiki/Blue_Bird",
+                                    "label": "Blue Bird",
+                                    "tooltip": "Blue Bird",
+                                    "description": "",
+                                    "icon": "article",
+                                    "prioritized": true
+                                }
+                            ]
+                        },
+                        "iconUrl": "/w/extensions/Thanks/modules/userTalk-constructive-ltr.svg"
+                    }
+                }
+            ],
+            "continue": "1569862285|172771996"
+        }
+    }
+}
