@@ -320,9 +320,8 @@
 "notifications-center-empty-checking-for-notifications" = "စဲစ်ထွား ဖေႏသေချက်ဖိုင်ႏတာႏ...";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "ဗွောင် ဖေႏသေချက်ဖိုင်ႏ";
-"notifications-center-footer-change-password" = "ပြောင်ꩻငဝ်းဗိဉ်ႏပလို့ꩻ";
 "notifications-center-go-to-talk-page" = "လွေꩻအိုင်ကိုမ်ဒေါ့ꩻရီလိတ်မဲ့ငါထျꩻ";
-"notifications-center-go-to-title" = "လွေꩻ $1 ထျꩻ";
+"notifications-center-go-to-title-format" = "လွေꩻ $1 ထျꩻ";
 "notifications-center-go-to-user-page" = "လွေꩻ $1 ကေားသုင်ꩻသားလိတ်မဲ့ငါထျꩻ";
 "notifications-center-go-to-your-talk-page" = "လွေꩻ နာꩻအိုင်ကိုမ်ဒေါ့ꩻရီလိတ်မဲ့ငါထျꩻ";
 "notifications-center-header-alert-from-project" = "$1 ဖေႏသေချက်";

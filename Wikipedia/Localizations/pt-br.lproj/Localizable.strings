@@ -33,6 +33,7 @@
 // Author: Tsevener
 // Author: Walesson
 // Author: Webysther
+// Author: YuriNikolai
 
 "aaald-added-text-description-2" = "$1 adicionado";
 "aaald-article-description-updated-description" = "Descrição do artigo atualizada";
@@ -589,10 +590,12 @@
 "notifications-center-empty-checking-for-notifications" = "Verificando notificações...";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "Ativar notificações";
-"notifications-center-footer-change-password" = "Alterar senha";
+"notifications-center-feed-news-notification-dismiss-button-text" = "Agora não";
+"notifications-center-go-to-article" = "Ir para artigo";
 "notifications-center-go-to-talk-page" = "Ir para a página de discussão";
-"notifications-center-go-to-title" = "Ir para $1";
+"notifications-center-go-to-title-format" = "Ir para $1";
 "notifications-center-go-to-user-page" = "Ir para a página de discussão de $1";
+"notifications-center-go-to-user-page-simplified" = "Ir para a página de usuário";
 "notifications-center-mark-as-read" = "Marcar como lida";
 "notifications-center-mark-as-unread" = "Marcar como não lida";
 "notifications-center-notifications-settings" = "Configurações de notificação";
@@ -833,6 +836,7 @@
 "settings-my-languages" = "Meus idiomas";
 // Fuzzy
 "settings-notifications" = "Notificações";
+"settings-notifications-echo-failure-try-again" = "Tente novamente";
 "settings-notifications-info" = "Seja alertado para artigos de tendências e de leitura de topo na Wikipédia com as nossas notificações de envio. Todos equipados com respeito à privacidade e dados atualizados ao minuto.";
 "settings-notifications-learn-more" = "Saber mais sobre notificações";
 "settings-notifications-push-notifications" = "Notificações via push";
