@@ -608,6 +608,7 @@
 "no-internet-connection" = "Нет подключения к интернету";
 "no-internet-connection-article-reload" = "Возможно есть более новая версия статьи, но, чтобы её скачать, требуется подключение к интернету";
 "no-internet-connection-article-reload-button" = "Вернуться к последней сохранённой версии";
+"notifications-center-agent-description-from-format" = "От $1";
 "notifications-center-change-password" = "Изменить пароль";
 "notifications-center-checking-for-notifications" = "Проверка уведомлений…";
 "notifications-center-empty-checking-for-notifications" = "Проверка уведомлений…";
@@ -615,15 +616,15 @@
 "notifications-center-empty-state-num-filters" = "$1 {{PLURAL:$1|фильтр|фильтра|фильтров}}";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "Включить уведомления";
+"notifications-center-feed-news-notification-dismiss-button-text" = "Не сейчас";
 "notifications-center-filters-read-status-item-title-all" = "Все";
 "notifications-center-filters-read-status-item-title-read" = "Читать";
 "notifications-center-filters-read-status-item-title-unread" = "Непрочитанные";
 "notifications-center-filters-title" = "Фильтры";
 "notifications-center-filters-types-item-title-all" = "Все типы";
 "notifications-center-filters-types-section-title" = "Типы уведомлений";
-"notifications-center-footer-change-password" = "Изменить пароль";
 "notifications-center-go-to-talk-page" = "Перейти на страницу обсуждения";
-"notifications-center-go-to-title" = "Перейти к $1";
+"notifications-center-go-to-title-format" = "Перейти к $1";
 "notifications-center-go-to-user-page" = "Перейти на страницу обсуждения $1";
 "notifications-center-go-to-wikidata-item" = "Перейти на элемент Викиданных";
 "notifications-center-go-to-your-talk-page" = "Перейти на вашу страницу обсуждения";
@@ -635,6 +636,9 @@
 "notifications-center-mark-as-unread" = "Пометить как непрочитанное";
 "notifications-center-notifications-settings" = "Настройки уведомлений";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 сообщение|$1 сообщения|$1 сообщений}}";
+"notifications-center-onboarding-modal-continue-action" = "Продолжить";
+"notifications-center-onboarding-modal-filters-title" = "Фильтры";
+"notifications-center-onboarding-panel-secondary-button" = "Нет, спасибо";
 "notifications-center-project-filters-accessibility-label" = "Фильтр проектов";
 "notifications-center-status-all" = "Все";
 "notifications-center-status-all-notifications" = "Все уведомления";
@@ -643,7 +647,6 @@
 "notifications-center-status-triple-concatenation" = "$1 и $2 в $3";
 "notifications-center-subheader-edit-reverted" = "Ваша правка была отменена";
 "notifications-center-subheader-email-from-other-user" = "Новый e-mail";
-"notifications-center-subheader-from-agent" = "От $1";
 "notifications-center-subheader-login-success-unknown-device" = "Вход с незнакомого устройства";
 "notifications-center-subheader-mention-article-talk-page" = "Упоминание на странице обсуждения статьи";
 "notifications-center-subheader-mention-talk-page" = "Упоминание на странице обсуждения";

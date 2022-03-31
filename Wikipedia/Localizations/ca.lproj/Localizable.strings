@@ -575,6 +575,7 @@
 "no-internet-connection" = "Sense connexió a Internet";
 "no-internet-connection-article-reload" = "Podria haver-hi una nova versió de l'article, però no pot carregar-se perquè no hi ha connexió a Internet.";
 "no-internet-connection-article-reload-button" = "Torna a la darrera versió desada";
+"notifications-center-agent-description-from-format" = "De $1";
 "notifications-center-applied-filters-accessibility-label" = "Filtre de notificacions - té filtres aplicats";
 "notifications-center-applied-project-filters-accessibility-label" = "Filtre de projectes - té filtres aplicats";
 "notifications-center-badge-button-accessibility-label" = "Notificacions amb insígnia no llegida";
@@ -597,10 +598,9 @@
 "notifications-center-filters-types-footer" = "Modifiqueu els tipus de notificació per a filtrar-les de la vostra bústia de notificacions. Els tipus desactivats no seran visibles, però llurs continguts i les noves notificacions esdevindran disponibles en activar-se de nou.";
 "notifications-center-filters-types-item-title-all" = "Tots els tipus";
 "notifications-center-filters-types-section-title" = "Tipus de notificacions";
-"notifications-center-footer-change-password" = "Canvia la contrasenya";
 "notifications-center-go-to-diff" = "Vés a la diferència";
 "notifications-center-go-to-talk-page" = "Vés a la pàgina de discussió";
-"notifications-center-go-to-title" = "Vés a $1";
+"notifications-center-go-to-title-format" = "Vés a $1";
 "notifications-center-go-to-user-page" = "Vés a la pàgina d'usuari de $1";
 "notifications-center-go-to-wikidata-item" = "Vés a l'element de Wikidata";
 "notifications-center-go-to-your-talk-page" = "Vés a la vostra pàgina de discussió";
@@ -634,7 +634,6 @@
 "notifications-center-subheader-edit-milestone" = "Fita d'edició";
 "notifications-center-subheader-edit-reverted" = "S'ha revertit la vostra modificació";
 "notifications-center-subheader-email-from-other-user" = "Correu electrònic nou";
-"notifications-center-subheader-from-agent" = "De $1";
 "notifications-center-subheader-login-fail-known-device" = "Múltiples intents d'inici de sessió fallits";
 "notifications-center-subheader-login-fail-unknown-device" = "Intent d'inici de sessió fallit";
 "notifications-center-subheader-login-success-unknown-device" = "Inici de sessió d'un dispositiu no habitual";

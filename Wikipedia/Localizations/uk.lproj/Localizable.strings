@@ -575,6 +575,7 @@
 "no-internet-connection" = "Немає з'єднання з інтернетом";
 "no-internet-connection-article-reload" = "Можливо, доступна новіша версія цієї статті, але вона не може бути завантажена через відсутність підключення до Інтернету";
 "no-internet-connection-article-reload-button" = "Повернутися до останньої збереженої версії";
+"notifications-center-agent-description-from-format" = "З $1";
 "notifications-center-change-password" = "Змінити пароль";
 "notifications-center-checking-for-notifications" = "Перевірка сповіщень…";
 "notifications-center-empty-checking-for-notifications" = "Перевірка сповіщень…";
@@ -592,10 +593,9 @@
 "notifications-center-filters-types-footer" = "Змініть типи сповіщень, щоб відфільтрувати їх у папці вхідних сповіщень. Типи, які вимкнено, не відображатимуться, але їх вміст і будь-які нові сповіщення будуть доступні, коли перемикач знову ввімкнути.";
 "notifications-center-filters-types-item-title-all" = "Усі типи";
 "notifications-center-filters-types-section-title" = "Типи сповіщень";
-"notifications-center-footer-change-password" = "Змінити пароль";
 "notifications-center-go-to-diff" = "Перейти до дифа";
 "notifications-center-go-to-talk-page" = "Перейти на сторінку обговорення";
-"notifications-center-go-to-title" = "Перейти на $1";
+"notifications-center-go-to-title-format" = "Перейти на $1";
 "notifications-center-go-to-user-page" = "Перейти на сторінку користувача $1";
 "notifications-center-go-to-wikidata-item" = "Перейти до елемента Вікіданих";
 "notifications-center-go-to-your-talk-page" = "Перейти на свою сторінку обговорення";
@@ -628,7 +628,6 @@
 "notifications-center-subheader-edit-milestone" = "Етап редагування";
 "notifications-center-subheader-edit-reverted" = "Ваше редагування було відкочено";
 "notifications-center-subheader-email-from-other-user" = "Нова електронна пошта";
-"notifications-center-subheader-from-agent" = "З $1";
 "notifications-center-subheader-login-fail-known-device" = "Кілька невдалих спроб входу";
 "notifications-center-subheader-login-fail-unknown-device" = "Невдала спроба входу";
 "notifications-center-subheader-login-success-unknown-device" = "Увійти з незнайомого пристрою";

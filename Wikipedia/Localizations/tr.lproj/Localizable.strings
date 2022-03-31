@@ -591,6 +591,7 @@
 "no-internet-connection" = "İnternet bağlantısı yok";
 "no-internet-connection-article-reload" = "Bu maddenin daha yeni bir sürümü mevcut olabilir ancak internet bağlantısı olmadan yüklenemez";
 "no-internet-connection-article-reload-button" = "En son kaydedilen sürüme dön";
+"notifications-center-agent-description-from-format" = "$1 kaynağından";
 "notifications-center-applied-filters-accessibility-label" = "Bildirim Filtresi - uygulanan filtreler var";
 "notifications-center-change-password" = "Parolayı Değiştir";
 "notifications-center-checking-for-notifications" = "Bildirimler kontrol ediliyor...";
@@ -609,10 +610,9 @@
 "notifications-center-filters-title" = "Filtreler";
 "notifications-center-filters-types-item-title-all" = "Tüm türler";
 "notifications-center-filters-types-section-title" = "Bildirim türleri";
-"notifications-center-footer-change-password" = "Parolayı değiştir";
 "notifications-center-go-to-diff" = "Farka git";
 "notifications-center-go-to-talk-page" = "Tartışma sayfasına git";
-"notifications-center-go-to-title" = "$1 sayfasına git";
+"notifications-center-go-to-title-format" = "$1 sayfasına git";
 "notifications-center-go-to-user-page" = "$1 kullanıcı sayfasına git";
 "notifications-center-go-to-wikidata-item" = "Vikiveri ögesine git";
 "notifications-center-go-to-your-talk-page" = "Mesaj sayfanıza gidin";
@@ -643,7 +643,6 @@
 "notifications-center-subheader-edit-milestone" = "Dönüm noktası düzenleniyor";
 "notifications-center-subheader-edit-reverted" = "Düzenlemeniz geri alındı";
 "notifications-center-subheader-email-from-other-user" = "Yeni e-posta";
-"notifications-center-subheader-from-agent" = "$1 kaynağından";
 "notifications-center-subheader-login-fail-known-device" = "Birçok başarısız giriş denemesi";
 "notifications-center-subheader-login-fail-unknown-device" = "Başarısız giriş denemesi";
 "notifications-center-subheader-login-success-unknown-device" = "Tanıdık olmayan bir cihazdan giriş";
