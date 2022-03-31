@@ -269,8 +269,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Z tuteje Wikipedije: $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Z Wikipedije";
 "featured-article-empty-title" = "Dźensa žadyn předstajeny zapisk přistupny njeje";
-"feed-news-notification-button-text" = "Zdźělenki zaswěčić";
-"feed-news-notification-text" = "Zaswěč zdźělenki zo by Wikipedija će informowała, hdyž so zapiski w powěsćach jewja.";
 "fetcher-error-generic" = "Něšto je křiwje šło. Prošu spytaj pozdźišo znowa.";
 "fetcher-error-unexpected-response" = "App je njewočakowanu wotmołwu wot serwera dóstała. Prošu spytaj pozdźišo znowa.";
 "field-alert-captcha-invalid" = "Njepłaćiwy CAPTCHA";
@@ -391,6 +389,8 @@
 "no-internet-connection" = "Žadyn zwisk z internetom";
 "no-internet-connection-article-reload" = "Nowša wersija tutoho zapiska je snadź přistupna, njehodźi so pak bjez interneta začitać.";
 "no-internet-connection-article-reload-button" = "Wróćo k poslednjej składowanej wersiji";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Zdźělenki zaswěčić";
 "number-billions" = "$1 mrd.";
 "number-millions" = "$1 mil.";
 "number-thousands" = "$1 tys.";

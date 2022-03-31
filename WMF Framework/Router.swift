@@ -34,6 +34,10 @@ public class Router: NSObject {
         
         return destinationForWikipediaHostURL(url)
     }
+
+    public func doesOpenInBrowser(for url: URL) -> Bool {
+        return [.externalLink(url), .inAppLink(url)].contains(destination(for: url))
+    }
     
     
     // MARK: Internal and Private

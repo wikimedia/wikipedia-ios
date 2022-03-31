@@ -34,6 +34,7 @@
 // Author: Viztor
 // Author: VulpesVulpes825
 // Author: Willy1018
+// Author: Winston Sung
 // Author: Wxyveronica
 // Author: Xiplus
 // Author: Yfdyh000
@@ -457,8 +458,6 @@
 "featured-widget-from-wikipedia" = "来自维基百科";
 "featured-widget-language-failure" = "你的首选维基百科语言在今日并不支持该语言。你可以在应用宏程序的设置菜单中更新你的主要维基百科语言。";
 "featured-widget-title" = "特色条目";
-"feed-news-notification-button-text" = "打开通知";
-"feed-news-notification-text" = "当条目在新闻中热门时，启用维基百科通知。";
 "fetcher-error-generic" = "出错了！请稍后重试。";
 "fetcher-error-unexpected-response" = "应用从服务器收到了一个意外的响应代码，请稍后重试。";
 "field-alert-captcha-invalid" = "无效验证码";
@@ -602,6 +601,7 @@
 "no-internet-connection" = "无互联网连接";
 "no-internet-connection-article-reload" = "此条目的新版本可用，但由于无互联网连接而无法加载";
 "no-internet-connection-article-reload-button" = "返回至最近保存的版本";
+"notifications-center-alert" = "提醒";
 "notifications-center-change-password" = "更改密码";
 "notifications-center-checking-for-notifications" = "正在检查通知…";
 "notifications-center-empty-checking-for-notifications" = "正在检查通知……";
@@ -609,6 +609,7 @@
 "notifications-center-empty-not-subscribed" = "您目前没有订阅任何维基百科通知";
 "notifications-center-empty-state-filters-subtitle" = "修改$1来查看更多消息";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 种筛选}}";
+"notifications-center-feed-news-notification-button-text" = "打开推送通知";
 "notifications-center-filters-read-status-item-title-all" = "所有";
 "notifications-center-filters-read-status-item-title-read" = "已读";
 "notifications-center-filters-read-status-item-title-unread" = "未读";
@@ -617,11 +618,12 @@
 "notifications-center-filters-types-footer" = "修改通知类型来对您的通知收件箱里的进/出内容进行过滤。在类型为关闭时会不显示，内容和任何新通知会在再次切换为打开后可用。";
 "notifications-center-filters-types-item-title-all" = "所有类型";
 "notifications-center-filters-types-section-title" = "通知类型";
-"notifications-center-footer-change-password" = "更改密码";
+"notifications-center-go-to-article" = "前往条目";
 "notifications-center-go-to-diff" = "转到差异";
 "notifications-center-go-to-talk-page" = "转到讨论页";
-"notifications-center-go-to-title" = "转到$1";
+"notifications-center-go-to-title-format" = "转到$1";
 "notifications-center-go-to-user-page" = "转到$1的用户页";
+"notifications-center-go-to-user-page-simplified" = "前往用户页";
 "notifications-center-go-to-wikidata-item" = "转到维基数据项目";
 "notifications-center-go-to-your-talk-page" = "转到您的讨论页";
 "notifications-center-header-alert-from-agent" = "来自$1的提醒";
@@ -663,6 +665,7 @@
 "notifications-center-subheader-welcome" = "欢迎！";
 "notifications-center-subheader-wikidata-connection" = "建立维基数据关联";
 "notifications-center-title" = "通知";
+"notifications-center-type-item-description-mentions" = "提及";
 "notifications-push-fallback-body-text" = "维基百科上的新活动";
 "notifications-push-talk-body-format" = "$3上的$1条新$2";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|消息}}";
@@ -881,7 +884,7 @@
 "search-title" = "搜索";
 "serbian-variants-alert-body" = "维基百科应用现在支持以下塞尔维亚语变体作为应用内的主要语言或次要语言，从而使您更易于阅读，搜索和编辑首选变体：\n\nсрпски ћирилица Serbian, Cyrillic (sr-ec)\nsrpski latinica Serbian, Latin (sr-el)";
 "serbian-variants-alert-title" = "更新塞尔维亚语变体支持";
-"settings-account" = "账户";
+"settings-account" = "账号";
 "settings-appearance" = "阅读参数设置";
 "settings-clear-cache" = "清空缓存的数据";
 "settings-clear-cache-are-you-sure-message" = "清空缓存的数据将腾出约$1空间。这将不会删除您保存的页面。";
@@ -892,7 +895,7 @@
 "settings-language-bar" = "在搜索时显示语言";
 "settings-languages-feed-customization" = "您可以通过自定义您的探索订阅源设置，管理显示在您的探索订阅源的语言。";
 "settings-my-languages" = "我的语言";
-"settings-notifications" = "通知";
+"settings-notifications" = "推送通知";
 "settings-notifications-info" = "通过我们推送的通知，提醒维基百科上的趋势和最多阅读条目。所有通知都已考虑到隐私和最新数据。";
 "settings-notifications-learn-more" = "了解更多有关通知";
 "settings-notifications-push-notifications" = "推送通知";

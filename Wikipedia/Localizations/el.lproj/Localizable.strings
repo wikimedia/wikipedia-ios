@@ -211,8 +211,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Από την $1 Βικιπαίδεια";
 "explore-random-article-sub-heading-from-wikipedia" = "Από τη Βικιπαίδεια";
 "explore-randomizer" = "Τυχαιοποιητής";
-"feed-news-notification-button-text" = "Ενεργοποίηση ειδοποιήσεων";
-"feed-news-notification-text" = "Ενεργοποίηση της ειδοποίησης ειδοποίησεων από την Βικιπαίδεια όταν τα λήμματα είναι στις ειδήσεις.";
 "field-alert-captcha-invalid" = "Μη έγκυρο CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Οι κωδικοί πρόσβασης δεν αντιστοιχούν.";
 "field-alert-token-invalid" = "Μη έγκυρος κωδικός";
@@ -299,6 +297,8 @@
 "new-password-instructions" = "Συνδεθήκατε με έναν προσωρινό κωδικό πρόσβασης. Για να ολοκληρώσετε τη σύνδεση ορίστε ένα νέο κωδικό πρόσβασης εδώ.";
 "new-password-title" = "Εισαγάγετε τον κωδικό σας";
 "no-email-account-alert" = "Παρακαλούμε ρυθμίστε ένα λογαριασμό ηλεκτρονικού ταχυδρομείου στην συσκευή σας και προσπαθήστε ξανά.";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Ενεργοποίηση ειδοποιήσεων";
 "number-billions" = "$1Δ";
 "number-millions" = "$1Ε";
 "number-thousands" = "$1Χ";
@@ -415,6 +415,7 @@
 "settings-help-and-feedback" = "Βοήθεια και ανατροφοδότηση";
 "settings-language-bar" = "Εμφάνιση γλωσσών στην αναζήτηση";
 "settings-my-languages" = "Οι γλώσσες μου";
+// Fuzzy
 "settings-notifications" = "Ενημερώσεις";
 "settings-notifications-learn-more" = "Μάθετε περισσότερα για τις ειδοποιήσεις";
 "settings-notifications-system-turn-on" = "Ενεργοποίηση ειδοποιήσεων";

@@ -133,8 +133,6 @@
 "explore-potd-heading" = "Gambar poé ieu";
 "explore-random-article-heading" = "Artikel acak";
 "explore-randomizer" = "Kaca acak";
-"feed-news-notification-button-text" = "Pareuman iber";
-"feed-news-notification-text" = "Hurungkeun iber nu bakal dibéwarakan ku Wikipédia nalika artikel nu keur trén di kajadian kiwari.";
 "field-alert-captcha-invalid" = "CAPTCHA salah";
 "field-alert-password-confirm-mismatch" = "Kecap sandi teu akur";
 "field-alert-token-invalid" = "Kodeu salah";
@@ -220,6 +218,8 @@
 "new-password-title" = "Atur kecap sandi anjeun";
 "no-email-account-alert" = "Pék siapkeun hiji akun surélék di pakakas anjeun sarta cobaan deui.";
 "no-internet-connection-article-reload-button" = "Balik deui ka vérsi kabucit";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Pareuman iber";
 "number-billions" = "$1 milyar";
 "number-millions" = "$1 yuta";
 "number-thousands" = "$1 rébu";
@@ -307,6 +307,7 @@
 "settings-help-and-feedback" = "Pitulung jeung eupan balik";
 "settings-language-bar" = "Témbongkeun basa dina pamaluruhan";
 "settings-my-languages" = "Basa kami";
+// Fuzzy
 "settings-notifications" = "Iber";
 "settings-notifications-info" = "Meunangkeun iber ngeunaan artikel nu keur trén sarta bacaan pangluhurna di Wikipédia kalawan iber otomatis kami. Sakumna sayaga patalian jeung privasi sarta nepi ka data menit.";
 "settings-notifications-learn-more" = "Tungtik leuwih jero ngeunaan iber";

@@ -65,7 +65,7 @@ public enum RemoteNotificationsControllerError: Error {
         super.init()
         
         do {
-            modelController = try RemoteNotificationsModelController()
+            modelController = try RemoteNotificationsModelController(containerURL: FileManager.default.wmf_containerURL())
         } catch (let error) {
             DDLogError("Failed to initialize RemoteNotificationsModelController: \(error)")
             modelController = nil

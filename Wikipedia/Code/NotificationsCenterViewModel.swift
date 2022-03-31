@@ -25,11 +25,12 @@ final class NotificationsCenterViewModel: NSObject {
 
     // MARK: - Properties
 
+    let notificationsController: WMFNotificationsController
     let remoteNotificationsController: RemoteNotificationsController
     
     weak var delegate: NotificationsCenterViewModelDelegate?
 
-    lazy private var modelController = NotificationsCenterModelController(languageLinkController: self.languageLinkController, remoteNotificationsController: remoteNotificationsController)
+    lazy private var modelController = NotificationsCenterModelController(languageLinkController: self.languageLinkController, remoteNotificationsController: remoteNotificationsController, configuration: configuration)
 
     let languageLinkController: MWKLanguageLinkController
 
@@ -55,7 +56,8 @@ final class NotificationsCenterViewModel: NSObject {
     // MARK: - Lifecycle
 
     @objc
-    init(remoteNotificationsController: RemoteNotificationsController, languageLinkController: MWKLanguageLinkController) {
+    init(notificationsController: WMFNotificationsController, remoteNotificationsController: RemoteNotificationsController, languageLinkController: MWKLanguageLinkController) {
+        self.notificationsController = notificationsController
         self.remoteNotificationsController = remoteNotificationsController
         self.languageLinkController = languageLinkController
         
@@ -399,7 +401,11 @@ extension NotificationsCenterViewModel {
     }
     
     func emptyStateSubheaderAttributedString(theme: Theme, traitCollection: UITraitCollection) -> NSAttributedString? {
-        
+        guard remoteNotificationsController.allInboxProjects.count != remoteNotificationsController.filterState.offProjects.count else {
+            let noProjectsSelected = WMFLocalizedString("notifications-center-empty-state-no-projects-selected", value:"Add projects to see more messages", comment:"Empty state subtitle indicating the user has unselected all projects.")
+            return NSAttributedString(string: noProjectsSelected)
+        }
+
         let filterTypesCount = remoteNotificationsController.filterState.offTypes.count
         guard filterTypesCount > 0 else {
             return nil

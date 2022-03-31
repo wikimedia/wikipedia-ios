@@ -4,6 +4,7 @@
 // Author: Aboulouei1
 // Author: Alaa
 // Author: DRIHEM
+// Author: FiberAhmed
 // Author: Haytham morsy
 // Author: Hhaboh162002
 // Author: Hocinend1
@@ -16,6 +17,7 @@
 // Author: Mido
 // Author: Musab Moahmmed
 // Author: NEHAOUA
+// Author: NancyMilad
 // Author: Nemo bis
 // Author: Omda4wady
 // Author: Shbib Al-Subaie
@@ -421,8 +423,6 @@
 "featured-widget-from-language-wikipedia" = "من ويكيبيديا $1";
 "featured-widget-from-wikipedia" = "من ويكيبيديا";
 "featured-widget-title" = "مقالة متميزة";
-"feed-news-notification-button-text" = "أظهر الإشعارات";
-"feed-news-notification-text" = "تمكين الإخطارات ليتم إعلامك من قبل ويكيبيديا عندما تكون المقالات شائعة في الأخبار.";
 "fetcher-error-generic" = "هناك خطأ ما، الرجاء معاودة المحاولة في وقت لاحق.";
 "fetcher-error-unexpected-response" = "تلقى التطبيق استجابة غير متوقعة من الخادم، الرجاء معاودة المحاولة في وقت لاحق.";
 "field-alert-captcha-invalid" = "تحقق بشري خاطئ";
@@ -559,7 +559,42 @@
 "no-internet-connection" = "لا يوجد اتصال بالإنترنت";
 "no-internet-connection-article-reload" = "قد يتوفر إصدار أحدث من هذه المقالة، ولكن لا يمكن تحميله دون الاتصال بالإنترنت";
 "no-internet-connection-article-reload-button" = "العودة إلى النسخة الأخيرة المحفوظة";
+"notifications-center-agent-description-from-format" = "من $1";
+"notifications-center-applied-filters-accessibility-label" = "تصفية الاشعارات - تم اضافة التصفيات";
+"notifications-center-applied-project-filters-accessibility-label" = "تصفية المشاريع - تمت اضافة التصفية";
+"notifications-center-badge-button-accessibility-label" = "اشعارات بدون اشارة القراءة";
+"notifications-center-change-password" = "تغيير كلمة السر";
+"notifications-center-empty-state-no-projects-selected" = "اضف المشاريع لرؤية المزيد من الرسائل";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "أظهر الإشعارات";
+"notifications-center-filters-accessibility-label" = "مُرشّح الإشعارات";
+"notifications-center-filters-read-status-item-title-all" = "الكل";
+"notifications-center-filters-read-status-item-title-read" = "اقرأ";
+"notifications-center-filters-read-status-item-title-unread" = "غير مقروءة";
+"notifications-center-filters-title" = "المرشحات";
+"notifications-center-filters-types-item-title-all" = "جميع الأنواع";
+"notifications-center-go-to-wikidata-item" = "اذهب إلى عنصر ويكي بيانات";
+"notifications-center-header-alert-from-agent" = "إنذار من $1";
+"notifications-center-header-alert-from-project" = "إنذار من $1";
+"notifications-center-header-notice-from-project" = "إشعار من $1";
+"notifications-center-inbox-title" = "مشاريع";
+"notifications-center-inbox-wikimedia-projects-section-title" = "مشاريع ويكيميديا";
+"notifications-center-inbox-wikipedias-section-title" = "ويكيبيديات";
+"notifications-center-mark-all-as-read" = "اعتبرها كلها مقروءة";
+"notifications-center-mark-as-read" = "علّم كمقروءة";
+"notifications-center-project-filters-accessibility-label" = "تصفية المشاريع";
+"notifications-center-status-all" = "الكل";
+"notifications-center-status-all-notifications" = "كل الإشعارات";
+"notifications-center-status-read" = "اقرأ";
+"notifications-center-status-unread" = "غير مقروءة";
 "notifications-center-subheader-email-from-other-user" = "بريد إلكتروني جديد";
+"notifications-center-subheader-thanks" = "شكرًا";
+"notifications-center-subheader-welcome" = "مرحبًا!";
+"notifications-center-swipe-mark-as-read" = "علّم كمقروءة";
+"notifications-center-swipe-more" = "المزيد";
+"notifications-center-title" = "الإشعارات";
+"notifications-center-toolbar-mark-accessibility-label" = "حدد الاشعارات المختارة";
+"notifications-push-fallback-body-text" = "نشاط جديد على ويكيبيديا";
 "number-billions" = "$1 مليار";
 "number-millions" = "$1 مليون";
 "number-thousands" = "$1 ألف";
@@ -779,7 +814,9 @@
 "settings-language-bar" = "إظهار اللغات في البحث";
 "settings-languages-feed-customization" = "أنت يمكنك التحكم في أي اللغات تكون معروضة على تلقيم استكشف الخاص بك عن طريق تعديل إعدادات تلقيم استكشف الخاص بك";
 "settings-my-languages" = "لغاتي";
+// Fuzzy
 "settings-notifications" = "الإشعارات";
+"settings-notifications-echo-failure-try-again" = "حاول مجددًا";
 "settings-notifications-info" = "يتم تنبيهك إلى المقالات الشائعة والأعلى قراءة في ويكيبيديا بإخطارات الدفع لدينا، الجميع المقدمة فيما يتعلق بالخصوصية وحتى البيانات الدقيقة.";
 "settings-notifications-learn-more" = "إعرف المزيد عن الإشعارات";
 "settings-notifications-push-notifications" = "الإشعارات";
@@ -840,7 +877,7 @@
 "talk-page-link-user-action-sheet-safari" = "عرض صفحة المستخدم في سفاري";
 "talk-page-link-user-action-sheet-title" = "صفحات المستخدمين";
 "talk-page-new-banner-subtitle" = "تذكر، كلنا أناسٌ هنا";
-"talk-page-new-banner-title" = "رجاءً كن لطيفاً";
+"talk-page-new-banner-title" = "رجاءً كُن لطيفًا";
 "talk-page-new-body-textfield-accessibility-label" = "هيئة النقاش";
 "talk-page-new-reply-body-accessibility-label" = "تأليف استجابة";
 "talk-page-new-reply-body-placeholder-text" = "فم بصياغة رد";

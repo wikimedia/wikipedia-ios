@@ -433,8 +433,6 @@
 "featured-widget-from-wikipedia" = "Från Wikipedia";
 "featured-widget-language-failure" = "Ditt primära Wikipedia-språk har inte stöd för \"Utvald artikel\". Du kan uppdatera ditt primära Wikipedia-språk i appens inställningsmeny.";
 "featured-widget-title" = "Utmärkt artikel";
-"feed-news-notification-button-text" = "Aktivera notiser";
-"feed-news-notification-text" = "Aktivera notiser för att bli meddelad om Wikipedia-artiklar som är populära aktuella händelser.";
 "fetcher-error-generic" = "Någonting gick fel. Försök igen senare.";
 "fetcher-error-unexpected-response" = "Appen fick ett oväntat svar från servern. Försök igen senare.";
 "field-alert-captcha-invalid" = "Ogiltig CAPTCHA";
@@ -578,13 +576,21 @@
 "no-internet-connection" = "Ingen Internetanslutning";
 "no-internet-connection-article-reload" = "En nyare version av denna artikel kanske finns tillgänglig, men kan inte läsas in utan en Internetanslutning";
 "no-internet-connection-article-reload-button" = "Gå tillbaka till senast sparade version";
+"notifications-center-agent-description-from-format" = "Från $1";
+"notifications-center-applied-filters-accessibility-label" = "Aviseringsfilter - har tillämpade filter";
+"notifications-center-applied-project-filters-accessibility-label" = "Projektfilter - har tillämpade filer";
+"notifications-center-badge-button-accessibility-label" = "Aviseringar med bricka för oläst";
 "notifications-center-change-password" = "Ändra lösenord";
 "notifications-center-checking-for-notifications" = "Letar efter aviseringar...";
 "notifications-center-empty-checking-for-notifications" = "Letar efter aviseringar...";
 "notifications-center-empty-no-messages" = "Du har inga meddelanden";
 "notifications-center-empty-not-subscribed" = "Du prenumererar för tillfället inte på några av Wikipedias aviseringar";
 "notifications-center-empty-state-filters-subtitle" = "Ändra $1 för att se fler meddelanden";
+"notifications-center-empty-state-no-projects-selected" = "Lägg till projekt för att se fler meddelanden";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter}}";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Aktivera notiser";
+"notifications-center-filters-accessibility-label" = "Aviseringsfilter";
 "notifications-center-filters-read-status-item-title-all" = "Alla";
 "notifications-center-filters-read-status-item-title-read" = "Lästa";
 "notifications-center-filters-read-status-item-title-unread" = "Olästa";
@@ -593,10 +599,9 @@
 "notifications-center-filters-types-footer" = "Ändra aviseringstyper för att filtrera dem i din aviseringsinkorg. Typer som inaktiveras kommer inte att visas, men dess innehåll och alla nya aviseringar kommer att vara tillgängliga när detta aktiveras igen.";
 "notifications-center-filters-types-item-title-all" = "Alla typer";
 "notifications-center-filters-types-section-title" = "Aviseringstyper";
-"notifications-center-footer-change-password" = "Ändra lösenord";
 "notifications-center-go-to-diff" = "Gå till diff";
 "notifications-center-go-to-talk-page" = "Gå till diskussionssida";
-"notifications-center-go-to-title" = "Gå till $1";
+"notifications-center-go-to-title-format" = "Gå till $1";
 "notifications-center-go-to-user-page" = "Gå till $1s användarsida";
 "notifications-center-go-to-wikidata-item" = "Gå till Wikidata-objekt";
 "notifications-center-go-to-your-talk-page" = "Gå till din diskussionssida";
@@ -616,6 +621,7 @@
 "notifications-center-mark-as-unread" = "Markera som oläst";
 "notifications-center-notifications-settings" = "Aviseringsinställningar";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 meddelande}}";
+"notifications-center-project-filters-accessibility-label" = "Projektfilter";
 "notifications-center-status-all" = "Alla";
 "notifications-center-status-all-notifications" = "Alla aviseringar";
 "notifications-center-status-double-concatenation" = "$1 i $2";
@@ -629,7 +635,6 @@
 "notifications-center-subheader-edit-milestone" = "Redigeringsmilstople";
 "notifications-center-subheader-edit-reverted" = "Din redigering ångrades";
 "notifications-center-subheader-email-from-other-user" = "Ny e-post";
-"notifications-center-subheader-from-agent" = "Från $1";
 "notifications-center-subheader-login-fail-known-device" = "Flera misslyckade inloggningsförsök";
 "notifications-center-subheader-login-fail-unknown-device" = "Misslyckat inloggningsförsök";
 "notifications-center-subheader-login-success-unknown-device" = "Inloggning från en okänd enhet";
@@ -650,6 +655,7 @@
 "notifications-center-swipe-mark-as-unread" = "Markera som oläst";
 "notifications-center-swipe-more" = "Mer";
 "notifications-center-title" = "Aviseringar";
+"notifications-center-toolbar-mark-accessibility-label" = "Markera valda aviseringar";
 "notifications-push-fallback-body-text" = "Ny aktivitet på Wikipedia";
 "notifications-push-talk-body-format" = "$1 nytt $2 på $3";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|meddelande|meddelanden}}";
@@ -879,6 +885,7 @@
 "settings-language-bar" = "Visa språk vid sökfältet";
 "settings-languages-feed-customization" = "Du kan hantera vilka språk som visas i ditt utforskarflöde genom att anpassa inställningarna för utforskarflödet.";
 "settings-my-languages" = "Mina språk";
+// Fuzzy
 "settings-notifications" = "Notiser";
 "settings-notifications-info" = "Bli meddelad om trender och populära artiklar på Wikipedia med våra push-notiser. Allting tillhandahålls med respekt för integritet och uppdaterad data.";
 "settings-notifications-learn-more" = "Läs mer om notiser";

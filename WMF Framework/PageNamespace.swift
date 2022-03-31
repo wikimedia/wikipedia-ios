@@ -65,12 +65,12 @@ import Foundation
         }
     }
     
-    public var talkEquivalent: PageNamespace? {
+    public var convertedToOrFromTalk: PageNamespace? {
         switch self {
-        case .main, .talk:
+        case .main:
             return .talk
-        case .user, .userTalk:
-            return .userTalk
+        case .talk:
+            return .main
         default:
             return nil
         }

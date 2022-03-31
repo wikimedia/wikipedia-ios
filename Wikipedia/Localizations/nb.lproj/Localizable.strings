@@ -427,8 +427,6 @@
 "featured-widget-from-wikipedia" = "Fra Wikipedia";
 "featured-widget-language-failure" = "Ditt hoved Wikipedia-språk har ikke støtte for Utmerkede artikler. Du kan oppdatere ditt hoved Wikipedia-språk i applikasjons innstillingene.";
 "featured-widget-title" = "Utvalgt artikkel";
-"feed-news-notification-button-text" = "Slå på varslinger";
-"feed-news-notification-text" = "Slå på varslinger for å bli tipset om Wikipedia-artikler om aktuelle hendelser fra nyhetsbildet.";
 "fetcher-error-generic" = "Noe gikk galt. Prøv igjen senere.";
 "fetcher-error-unexpected-response" = "Appen mottok en uventet respons fra serveren. Prøv igjen senere.";
 "field-alert-captcha-invalid" = "Ugyldig CAPTCHA";
@@ -572,13 +570,21 @@
 "no-internet-connection" = "Ingen internettforbindelse";
 "no-internet-connection-article-reload" = "Det kan hende at en nyere versjon av denne artikkelen er tilgjengelig, men en fungerende internettforbindelse trengs for å kunne sjekke";
 "no-internet-connection-article-reload-button" = "Tilbake til sist lagrede versjon";
+"notifications-center-agent-description-from-format" = "Fra $1";
+"notifications-center-applied-filters-accessibility-label" = "Varselfilter – har gjeldende filtre";
+"notifications-center-applied-project-filters-accessibility-label" = "Prosjektfilter – har gjeldende filtre";
+"notifications-center-badge-button-accessibility-label" = "Varsler med merking for ulest";
 "notifications-center-change-password" = "Endre passord";
 "notifications-center-checking-for-notifications" = "Sjekker varsler …";
 "notifications-center-empty-checking-for-notifications" = "Sjekker varsler …";
 "notifications-center-empty-no-messages" = "Du har ingen meldinger";
 "notifications-center-empty-not-subscribed" = "Du abonnerer for tiden ikke på noen Wikipedia-varsler";
 "notifications-center-empty-state-filters-subtitle" = "Endre $1 for å se flere meldinger";
+"notifications-center-empty-state-no-projects-selected" = "Legg til prosjekter for å se flere beskjeder";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter|$1 filtre}}";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Slå på varslinger";
+"notifications-center-filters-accessibility-label" = "Varselfilter";
 "notifications-center-filters-read-status-item-title-all" = "Alle";
 "notifications-center-filters-read-status-item-title-read" = "Lest";
 "notifications-center-filters-read-status-item-title-unread" = "Ulest";
@@ -587,10 +593,9 @@
 "notifications-center-filters-types-footer" = "Endre varseltyper for å filtrere dem til/fra varselsinnboksen din. Typene som er slått av vil ikke være synlige, men innholdet deres og nye varsler vil være tilgjengelige hvis typen slås på igjen.";
 "notifications-center-filters-types-item-title-all" = "Alle typer";
 "notifications-center-filters-types-section-title" = "Typer varsler";
-"notifications-center-footer-change-password" = "Endre passord";
 "notifications-center-go-to-diff" = "Gå til diff";
 "notifications-center-go-to-talk-page" = "Gå til diskusjonsside";
-"notifications-center-go-to-title" = "Gå til $1";
+"notifications-center-go-to-title-format" = "Gå til $1";
 "notifications-center-go-to-user-page" = "Gå til {{GRAMMAR:genitive|$1}} brukerside";
 "notifications-center-go-to-wikidata-item" = "Gå til Wikidata-element";
 "notifications-center-go-to-your-talk-page" = "Gå til diskusjonssiden din";
@@ -610,6 +615,7 @@
 "notifications-center-mark-as-unread" = "Merk som ulest";
 "notifications-center-notifications-settings" = "Varselsinnstillinger";
 "notifications-center-num-selected-messages-format" = "$1 {{PLURAL:$1|melding|meldinger}}";
+"notifications-center-project-filters-accessibility-label" = "Prosjektfilter";
 "notifications-center-status-all" = "Alle";
 "notifications-center-status-all-notifications" = "Alle varsler";
 "notifications-center-status-double-concatenation" = "$1 i $2";
@@ -623,7 +629,6 @@
 "notifications-center-subheader-edit-milestone" = "Redigeringsmilepæl";
 "notifications-center-subheader-edit-reverted" = "Redigeringen din ble tilbakestilt";
 "notifications-center-subheader-email-from-other-user" = "Ny e-post";
-"notifications-center-subheader-from-agent" = "Fra $1";
 "notifications-center-subheader-login-fail-known-device" = "Flere mislykkede innloggingsforsøk";
 "notifications-center-subheader-login-fail-unknown-device" = "Mislykket innloggingsforsøk";
 "notifications-center-subheader-login-success-unknown-device" = "Innlogging fra ukjent enhet";
@@ -644,6 +649,7 @@
 "notifications-center-swipe-mark-as-unread" = "Merk som ulest";
 "notifications-center-swipe-more" = "Mer";
 "notifications-center-title" = "Varsler";
+"notifications-center-toolbar-mark-accessibility-label" = "Merk valgte varsler";
 "notifications-push-fallback-body-text" = "Ny aktivitet på Wikipedia";
 "notifications-push-talk-body-format" = "$1 nye $2 på $3";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|melding|meldinger}}";
@@ -871,6 +877,7 @@
 "settings-language-bar" = "Vis språk ved søkefeltet";
 "settings-languages-feed-customization" = "Du kan tilpasse hvilke språk som vises på utforskingssiden fra innstillingene for utforskingssiden.";
 "settings-my-languages" = "Mine språk";
+// Fuzzy
 "settings-notifications" = "Varslinger";
 "settings-notifications-info" = "Bli tipset om populære og mye leste artikler på Wikipedia med push-varsler.";
 "settings-notifications-learn-more" = "Lær mer om varsler";
