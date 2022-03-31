@@ -140,7 +140,7 @@
                     currentNotificationsCardGroup.isVisible = YES;
                 }
             } else {
-                WMFContentGroup *newNotificationsCardGroup = [moc createGroupOfKind:WMFContentGroupKindNotification forDate:[NSDate date] withSiteURL:self.siteURL associatedContent:nil];
+                WMFContentGroup *newNotificationsCardGroup = [moc createGroupOfKind:WMFContentGroupKindNotification forDate:date withSiteURL:self.siteURL associatedContent:nil];
                 newNotificationsCardGroup.isVisible = YES;
             }
         } else {
