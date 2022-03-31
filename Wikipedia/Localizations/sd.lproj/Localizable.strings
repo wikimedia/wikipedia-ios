@@ -503,6 +503,7 @@
 "no-internet-connection" = "انٽرنيٽ ڳانڍاپو ناھي";
 "no-internet-connection-article-reload" = "ھن مضمون جو ڪو اڃا نئون ورجاءُ موجود ٿي سگهي ٿو، پر انٽرنيٽ ڏانھن ڪنھن ڳانڍاپي سواءِ لاھي نٿو سگهجي";
 "no-internet-connection-article-reload-button" = "آخري سانڍيل ورجاءَ ڏانھن ورو";
+"notifications-center-agent-description-from-format" = "$1 کان";
 "notifications-center-change-password" = "ڳجهولفظ بدلايو";
 "notifications-center-checking-for-notifications" = "اطلاعن لاءِ چڪاس ڪندي...";
 "notifications-center-empty-checking-for-notifications" = "اطلاعن لاءِ ڏسو...";
@@ -519,10 +520,9 @@
 "notifications-center-filters-title" = "ڇاڻيون";
 "notifications-center-filters-types-item-title-all" = "سڀ قسم";
 "notifications-center-filters-types-section-title" = "اطلاعن جا قسم";
-"notifications-center-footer-change-password" = "ڳجهولفظ بدلايو";
 "notifications-center-go-to-diff" = "تفاوت ڏانھن وڃو";
 "notifications-center-go-to-talk-page" = "بحث صفحي ڏانھن وڃو";
-"notifications-center-go-to-title" = "$1 ڏانھن وڃو";
+"notifications-center-go-to-title-format" = "$1 ڏانھن وڃو";
 "notifications-center-go-to-user-page" = "$1 جي واپرائيندڙ صفحي ڏانھن وڃو";
 "notifications-center-go-to-wikidata-item" = "وڪيڊيٽا آئٽم ڏانھن وڃو";
 "notifications-center-go-to-your-talk-page" = "پنھنجي بحث صفحي ڏانھن وڃو";
@@ -550,7 +550,6 @@
 "notifications-center-subheader-edit-milestone" = "سنوارڻ جا سنگِ-ميلَ";
 "notifications-center-subheader-edit-reverted" = "توھان جي ترميم ورائي وئي";
 "notifications-center-subheader-email-from-other-user" = "نئين ايميل";
-"notifications-center-subheader-from-agent" = "$1 کان";
 "notifications-center-subheader-login-fail-known-device" = "داخل ٿيڻ جون ھيڪاندو ناڪام ڪوششون";
 "notifications-center-subheader-login-fail-unknown-device" = "داخل ٿيڻ جي ناڪام ڪوشش";
 "notifications-center-subheader-login-success-unknown-device" = "اڻ-سونھين ڊوائيس ذريعي داخل ٿيڻ";

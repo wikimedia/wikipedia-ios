@@ -519,6 +519,7 @@
 "new-password-title" = "సంకేతపదం పెట్టుకోండి";
 "no-internet-connection" = "ఇంటర్నెట్ కనెక్షను లేదు";
 "no-internet-connection-article-reload-button" = "చివరిగా భద్రపరచిన కూర్పుకు తిరిగివెళ్ళు";
+"notifications-center-agent-description-from-format" = "$1 నుండి";
 "notifications-center-applied-filters-accessibility-label" = "గమనింపుల వడపోత - వడపోతలను వర్తింపజేసాం";
 "notifications-center-applied-project-filters-accessibility-label" = "ప్రాజెక్టుల వడపోత - వడపోతలను వర్తింపజేసాం";
 "notifications-center-change-password" = "సంకేతపదాన్ని మార్చుకోండి";
@@ -529,8 +530,9 @@
 "notifications-center-empty-state-filters-subtitle" = "మరిన్ని సందేశాలు చూసేందుకు $1 ను మార్చండి";
 "notifications-center-empty-state-no-projects-selected" = "మరిన్ని సందేశాలు చూసేందుకు ప్రాజెక్టులను చేర్చండి";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 వడపోత|$1 వడపోతలు}}";
-// Fuzzy
-"notifications-center-feed-news-notification-button-text" = "గమనింపులను ఆన్ చెయ్యి";
+"notifications-center-feed-card-title" = "ఇప్పుడు దిద్దుబాటు గమనింపులు అందుబాటులో ఉన్నాయి";
+"notifications-center-feed-news-notification-button-text" = "పుష్ గమనింపులను ఆన్ చెయ్యి";
+"notifications-center-feed-news-notification-dismiss-button-text" = "ఇప్పుడు కాదు";
 "notifications-center-filters-accessibility-label" = "గమనింపుల వడపోత";
 "notifications-center-filters-read-status-item-title-all" = "అన్నీ";
 "notifications-center-filters-read-status-item-title-read" = "చదవండి";
@@ -539,10 +541,9 @@
 "notifications-center-filters-title" = "వడపోతలు";
 "notifications-center-filters-types-item-title-all" = "అన్ని రకాలు";
 "notifications-center-filters-types-section-title" = "గమనింపుల రకాలు";
-"notifications-center-footer-change-password" = "సంకేతపదాన్ని మార్చండి";
 "notifications-center-go-to-diff" = "తేడాకు వెళ్ళు";
 "notifications-center-go-to-talk-page" = "చర్చ పేఝీకి వెళ్ళు";
-"notifications-center-go-to-title" = "$1 కు వెళ్ళు";
+"notifications-center-go-to-title-format" = "$1 కు వెళ్ళు";
 "notifications-center-go-to-user-page" = "$1 వాడుకరి పేజీకి వెళ్ళండి";
 "notifications-center-go-to-wikidata-item" = "వికీడేటా అంశానికి వెళ్ళండి";
 "notifications-center-go-to-your-talk-page" = "మీ చర్చ పేజీకి వెళ్ళండి";
@@ -562,6 +563,16 @@
 "notifications-center-mark-as-unread" = "చదవనట్లుగా గుర్తు పెట్టు";
 "notifications-center-notifications-settings" = "గమనింపు సెట్టింగులు";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 సందేశం|$1 సందేశాలు}}";
+"notifications-center-onboarding-modal-continue-action" = "కొనసాగించు";
+"notifications-center-onboarding-modal-filters-title" = "వడపోతలు";
+"notifications-center-onboarding-modal-learn-more-action" = "గమనింపుల గురించి మరింత తెలుసుకోండి";
+"notifications-center-onboarding-modal-notifications-alerts-message" = "గమనింపుల ద్వారా మీ దిద్దుబాట్లు, మీ ఖాతాకు సంబంధించి జరిగే కార్యకలాపాల గురించి తెలుస్తుంది.";
+"notifications-center-onboarding-modal-project-inboxes-title" = "ప్రాజెక్టు ఇన్‌బాక్సులు";
+"notifications-center-onboarding-modal-push-notifications-title" = "పంపించే గమనింపులు";
+"notifications-center-onboarding-modal-title" = "దిద్దుబాటు గమనింపులు";
+"notifications-center-onboarding-panel-heading" = "పంపించే గమనింపులను ఆన్ చెయ్యాలా?";
+"notifications-center-onboarding-panel-primary-button" = "పంపించే గమనింపులను ఆన్ చెయ్యి";
+"notifications-center-onboarding-panel-secondary-button" = "వద్దులే";
 "notifications-center-project-filters-accessibility-label" = "ప్రాజెక్టుల వడపోత";
 "notifications-center-status-all" = "అన్నీ";
 "notifications-center-status-all-notifications" = "గమనింపులన్నీ";
@@ -575,7 +586,6 @@
 "notifications-center-subheader-edit-milestone" = "దిద్దుబాటు మైలురాయి";
 "notifications-center-subheader-edit-reverted" = "ఈ దిద్దుబాటును తిరగ్గొట్టారు";
 "notifications-center-subheader-email-from-other-user" = "కొత్త ఈమెయిలు";
-"notifications-center-subheader-from-agent" = "$1 నుండి";
 "notifications-center-subheader-login-fail-known-device" = "లాగినయ్యేందుకు బహుళ విఫల యత్నాలు";
 "notifications-center-subheader-login-fail-unknown-device" = "విఫలమైన లాగిన్ ప్రయత్నం";
 "notifications-center-subheader-login-success-unknown-device" = "గుర్తుతెలియని పరికరం నుండి లాగినయ్యారు";

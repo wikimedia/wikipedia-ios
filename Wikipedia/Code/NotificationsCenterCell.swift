@@ -518,15 +518,17 @@ private extension NotificationsCenterCell {
         foregroundContentContainer.backgroundColor = isHighlighted || isSelected || displayState.isSelected ? theme.colors.batchSelectionBackground : theme.colors.paperBackground
         cellSeparator.backgroundColor = cellStyle.cellSeparatorColor
 
-        headerLabel.textColor = cellStyle.headerTextColor(displayState)
-        subheaderLabel.textColor = cellStyle.subheaderTextColor(displayState)
-        messageSummaryLabel.textColor = cellStyle.messageTextColor
-        relativeTimeAgoLabel.textColor = cellStyle.relativeTimeAgoColor
-        metaImageView.tintColor = cellStyle.metadataTextColor
-        metaLabel.textColor = cellStyle.metadataTextColor
-        projectSourceLabel.label.textColor = cellStyle.projectSourceColor
-        projectSourceLabel.layer.borderColor = cellStyle.projectSourceColor.cgColor
-        projectSourceImage.tintColor = cellStyle.projectSourceColor
+        let textColor = cellStyle.textColor(displayState)
+
+        headerLabel.textColor = textColor
+        subheaderLabel.textColor = textColor
+        messageSummaryLabel.textColor = textColor
+        relativeTimeAgoLabel.textColor = textColor
+        metaImageView.tintColor = textColor
+        metaLabel.textColor = textColor
+        projectSourceLabel.label.textColor = textColor
+        projectSourceLabel.layer.borderColor = textColor.cgColor
+        projectSourceImage.tintColor = textColor
     }
 
     func updateCellStyle(forDisplayState displayState: NotificationsCenterCellDisplayState) {
@@ -565,8 +567,8 @@ private extension NotificationsCenterCell {
         relativeTimeAgoLabel.text = viewModel.dateText
         swipeMoreStack.label.text = WMFLocalizedString("notifications-center-swipe-more", value: "More", comment: "Button text for the Notifications Center 'More' swipe action.")
         swipeReadUnreadStack.label.text = viewModel.isRead
-            ? WMFLocalizedString("notifications-center-swipe-mark-as-unread", value: "Mark as unread", comment: "Button text in Notifications Center swipe actions to mark a notification as unread.")
-            : WMFLocalizedString("notifications-center-swipe-mark-as-read", value: "Mark as read", comment: "Button text in Notifications Center swipe actions to mark a notification as read.")
+        ? CommonStrings.notificationsCenterMarkAsUnreadSwipe
+        : CommonStrings.notificationsCenterMarkAsReadSwipe
     }
 
     func updateProject(forViewModel viewModel: NotificationsCenterCellViewModel) {
