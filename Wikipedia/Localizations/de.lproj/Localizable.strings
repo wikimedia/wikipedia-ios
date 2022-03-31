@@ -538,6 +538,7 @@
 "no-internet-connection" = "Keine Internetverbindung";
 "no-internet-connection-article-reload" = "Eine neuere Version dieses Artikels könnte verfügbar sein, sie kann jedoch ohne Internetverbindung nicht geladen werden.";
 "no-internet-connection-article-reload-button" = "Zurück zur zuletzt gespeicherten Version";
+"notifications-center-agent-description-from-format" = "Von $1";
 "notifications-center-change-password" = "Passwort ändern";
 "notifications-center-checking-for-notifications" = "Prüfen auf Benachrichtigungen...";
 "notifications-center-empty-checking-for-notifications" = "Prüfen auf Benachrichtigungen...";
@@ -556,7 +557,6 @@
 "notifications-center-filters-types-footer" = "Ändere die Benachrichtigungstypen, um sie in/aus deinem Benachrichtigungseingang zu filtern. Deaktivierte Benachrichtigungstypen sind nicht sichtbar, aber ihr Inhalt und alle neuen Benachrichtigungen sind verfügbar, wenn du den Schalter wieder einschaltest.";
 "notifications-center-filters-types-item-title-all" = "Alle Typen";
 "notifications-center-filters-types-section-title" = "Benachrichtigungstypen";
-"notifications-center-footer-change-password" = "Passwort ändern";
 "notifications-center-go-to-talk-page" = "Zur Diskussionsseite gehen";
 "notifications-center-go-to-wikidata-item" = "Zum Wikidata-Datenobjekt gehen";
 "notifications-center-go-to-your-talk-page" = "Zu deine Diskussionsseite gehen";
@@ -572,7 +572,6 @@
 "notifications-center-subheader-edit-milestone" = "Bearbeitungsmeilenstein";
 "notifications-center-subheader-edit-reverted" = "Deine Bearbeitung wurde rückgängig gemacht";
 "notifications-center-subheader-email-from-other-user" = "Neue E-Mail";
-"notifications-center-subheader-from-agent" = "Von $1";
 "notifications-center-subheader-login-fail-known-device" = "Mehrere fehlgeschlagene Anmeldeversuche";
 "notifications-center-subheader-login-fail-unknown-device" = "Fehlgeschlagener Anmeldeversuch";
 "notifications-center-subheader-login-success-unknown-device" = "Anmeldung von einem unbekannten Gerät";

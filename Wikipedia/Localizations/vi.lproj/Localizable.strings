@@ -565,10 +565,9 @@
 "notifications-center-empty-checking-for-notifications" = "Đang kiểm tra thông báo…";
 "notifications-center-empty-not-subscribed" = "Bạn hiện không theo dõi thông báo Wikipedia nào";
 "notifications-center-feed-news-notification-button-text" = "Bật thông báo đẩy";
-"notifications-center-footer-change-password" = "Thay đổi mật khẩu";
 "notifications-center-go-to-diff" = "Xem khác biệt";
 "notifications-center-go-to-talk-page" = "Xem trang thảo luận";
-"notifications-center-go-to-title" = "Xem $1";
+"notifications-center-go-to-title-format" = "Xem $1";
 "notifications-center-go-to-user-page" = "Xem trang thảo luận của $1";
 "notifications-center-go-to-wikidata-item" = "Xem khoản mục Wikidata";
 "notifications-center-go-to-your-talk-page" = "Xem trang thảo luận của bạn";
