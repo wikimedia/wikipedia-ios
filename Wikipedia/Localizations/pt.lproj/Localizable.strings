@@ -107,6 +107,7 @@
 "action-add-to-reading-list" = "Adicionar à lista de leitura";
 "action-add-to-reading-list-short" = "Adicionar à lista";
 "action-cancel" = "Cancelar";
+"action-discard-edits" = "Descartar edições";
 "action-find-in-page" = "Localizar na página";
 "action-language-accessibility" = "Alterar língua";
 "action-move-to" = "Mover para…";
@@ -317,6 +318,8 @@
 "editing-welcome-impartial-tone-title" = "Escreva de forma imparcial";
 "editing-welcome-set-knowledge-free-subtitle" = "Para dar a todos acesso ao conhecimento mundial, precisamos que participe na sua criação, lendo, editando e contribuindo nos assuntos que mais lhe interessam.";
 "editing-welcome-set-knowledge-free-title" = "Libertar o conhecimento";
+"editor-exit-confirmation-body" = "Tem a certeza de que deseja sair do modo de edição sem antes publicar as alterações?";
+"editor-exit-confirmation-title" = "Sair do modo de edição?";
 "empty-diff-compare-title" = "Não existem diferenças entre as revisões";
 "empty-diff-single-title" = "Não foi efetuada nenhuma alteração visível";
 "empty-insert-media-title" = "Selecionar um ficheiro da wiki Wikimedia Commons";
@@ -571,6 +574,7 @@
 "no-internet-connection" = "Sem ligação à Internet";
 "no-internet-connection-article-reload" = "Talvez esteja disponível uma versão mais recente deste artigo, mas não pode ser carregada sem ligação à Internet";
 "no-internet-connection-article-reload-button" = "Voltar à última versão guardada";
+"notifications-center-agent-description-from-format" = "De $1";
 "notifications-center-applied-filters-accessibility-label" = "Filtro de notificações - tem filtros aplicados";
 "notifications-center-applied-project-filters-accessibility-label" = "Filtro de projetos - tem filtros aplicados";
 "notifications-center-badge-button-accessibility-label" = "Notificações com o marcador 'não lida'";
@@ -582,8 +586,10 @@
 "notifications-center-empty-state-filters-subtitle" = "Modificar $1 para ver mais mensagens";
 "notifications-center-empty-state-no-projects-selected" = "Adicionar projetos para ver mais mensagens";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filtro|$1 filtros}}";
-// Fuzzy
-"notifications-center-feed-news-notification-button-text" = "Ativar as notificações";
+"notifications-center-feed-card-title" = "As notificações de edições já estão disponíveis";
+"notifications-center-feed-news-notification-button-text" = "Ativar as notificações imediatas";
+"notifications-center-feed-news-notification-dismiss-button-text" = "Agora não";
+"notifications-center-feed-news-notification-text" = "As notificações de edições em todos os projetos da Wikimedia estão agora disponíveis através da aplicação. Opte por notificações imediatas para se manter atualizado sobre as suas mensagens na Wikipédia quando estiver ausente.";
 "notifications-center-filters-accessibility-label" = "Filtro de notificações";
 "notifications-center-filters-read-status-item-title-all" = "Todas";
 "notifications-center-filters-read-status-item-title-read" = "Lidas";
@@ -593,10 +599,9 @@
 "notifications-center-filters-types-footer" = "Modificar os tipos de notificações para filtrar e incluí-las ou excluí-las da sua caixa de entrada de notificações. Os tipos que forem desligados não serão visíveis, mas o seu conteúdo e todas as notificações novas estarão disponíveis se esses tipos forem novamente ligados.";
 "notifications-center-filters-types-item-title-all" = "Todos os tipos";
 "notifications-center-filters-types-section-title" = "Tipos de notificações";
-"notifications-center-footer-change-password" = "Alterar palavra-passe";
 "notifications-center-go-to-diff" = "Ir para diferenças";
 "notifications-center-go-to-talk-page" = "Ir para a página de discussão";
-"notifications-center-go-to-title" = "Ir para $1";
+"notifications-center-go-to-title-format" = "Ir para $1";
 "notifications-center-go-to-user-page" = "Ir para a página de utilizador de $1";
 "notifications-center-go-to-wikidata-item" = "Ir para o elemento Wikidata";
 "notifications-center-go-to-your-talk-page" = "Ir para a sua página de discussão";
@@ -616,6 +621,14 @@
 "notifications-center-mark-as-unread" = "Marcar como não lida";
 "notifications-center-notifications-settings" = "Configurações de notificação";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 mensagem|$1 mensagens}}";
+"notifications-center-onboarding-modal-continue-action" = "Continuar";
+"notifications-center-onboarding-modal-filters-message" = "Filtre as suas notificações por estado de leitura e tipo para reduzir facilmente a sua caixa de entrada.";
+"notifications-center-onboarding-modal-filters-title" = "Filtros";
+"notifications-center-onboarding-modal-learn-more-action" = "Mais sobre notificações";
+"notifications-center-onboarding-modal-notifications-alerts-message" = "As notificações ajudam a mantê-lo informado da atividade relacionada com as suas edições e a sua conta.";
+"notifications-center-onboarding-modal-notifications-alerts-title" = "Notificações e alertas";
+"notifications-center-onboarding-modal-project-inboxes-message" = "Ver num só lugar todas as suas mensagens por ler nas wikipédias das diferentes línguas e nos projetos da Wikimedia.";
+"notifications-center-onboarding-modal-project-inboxes-title" = "Caixas de entrada dos projetos";
 "notifications-center-project-filters-accessibility-label" = "Filtro de projetos";
 "notifications-center-status-all" = "Todas";
 "notifications-center-status-all-notifications" = "Todas as notificações";
@@ -630,7 +643,6 @@
 "notifications-center-subheader-edit-milestone" = "Meta de edição";
 "notifications-center-subheader-edit-reverted" = "A sua edição foi revertida";
 "notifications-center-subheader-email-from-other-user" = "Mensagem nova";
-"notifications-center-subheader-from-agent" = "De $1";
 "notifications-center-subheader-login-fail-known-device" = "Várias tentativas falhadas de início de sessão";
 "notifications-center-subheader-login-fail-unknown-device" = "Tentativas falhada de início de sessão";
 "notifications-center-subheader-login-success-unknown-device" = "Início de sessão de dispositivo desconhecido";

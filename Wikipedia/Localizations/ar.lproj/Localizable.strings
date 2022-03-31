@@ -559,6 +559,7 @@
 "no-internet-connection" = "لا يوجد اتصال بالإنترنت";
 "no-internet-connection-article-reload" = "قد يتوفر إصدار أحدث من هذه المقالة، ولكن لا يمكن تحميله دون الاتصال بالإنترنت";
 "no-internet-connection-article-reload-button" = "العودة إلى النسخة الأخيرة المحفوظة";
+"notifications-center-agent-description-from-format" = "من $1";
 "notifications-center-applied-filters-accessibility-label" = "تصفية الاشعارات - تم اضافة التصفيات";
 "notifications-center-applied-project-filters-accessibility-label" = "تصفية المشاريع - تمت اضافة التصفية";
 "notifications-center-badge-button-accessibility-label" = "اشعارات بدون اشارة القراءة";
@@ -572,7 +573,6 @@
 "notifications-center-filters-read-status-item-title-unread" = "غير مقروءة";
 "notifications-center-filters-title" = "المرشحات";
 "notifications-center-filters-types-item-title-all" = "جميع الأنواع";
-"notifications-center-footer-change-password" = "تغيير كلمة السر";
 "notifications-center-go-to-wikidata-item" = "اذهب إلى عنصر ويكي بيانات";
 "notifications-center-header-alert-from-agent" = "إنذار من $1";
 "notifications-center-header-alert-from-project" = "إنذار من $1";
@@ -588,7 +588,6 @@
 "notifications-center-status-read" = "اقرأ";
 "notifications-center-status-unread" = "غير مقروءة";
 "notifications-center-subheader-email-from-other-user" = "بريد إلكتروني جديد";
-"notifications-center-subheader-from-agent" = "من $1";
 "notifications-center-subheader-thanks" = "شكرًا";
 "notifications-center-subheader-welcome" = "مرحبًا!";
 "notifications-center-swipe-mark-as-read" = "علّم كمقروءة";

@@ -470,6 +470,8 @@
 "no-internet-connection" = "Nessuna connessione internet";
 "no-internet-connection-article-reload" = "Potrebbe essere disponibile una versione più recente di questa voce, ma non può essere caricata senza una connessione a internet";
 "no-internet-connection-article-reload-button" = "Torna all'ultima versione salvata";
+"notifications-center-agent-description-from-format" = "Da $1";
+"notifications-center-change-password" = "Cambia password";
 "notifications-center-empty-no-messages" = "Non hai messaggi";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filtro|$1 filtri}}";
 "notifications-center-feed-news-notification-button-text" = "Attiva le notifiche push";
@@ -480,7 +482,6 @@
 "notifications-center-filters-title" = "Filtri";
 "notifications-center-filters-types-item-title-all" = "Tutti i tipi";
 "notifications-center-filters-types-section-title" = "Tipi di notifiche";
-"notifications-center-footer-change-password" = "Cambia password";
 "notifications-center-inbox-title" = "Progetti";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Progetti Wikimedia";
 "notifications-center-inbox-wikipedias-section-title" = "Wikipedia";
@@ -499,7 +500,6 @@
 "notifications-center-status-read" = "Letta";
 "notifications-center-status-triple-concatenation" = "$1 e $2 in $3";
 "notifications-center-status-unread" = "Non lette";
-"notifications-center-subheader-from-agent" = "Da $1";
 "notifications-center-subheader-thanks" = "Ringraziamenti";
 "notifications-center-subheader-welcome" = "Benvenuto/a!";
 "notifications-center-swipe-mark-as-read" = "Segna come già letto";

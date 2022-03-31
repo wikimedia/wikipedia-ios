@@ -576,6 +576,7 @@
 "no-internet-connection" = "Ingen Internetanslutning";
 "no-internet-connection-article-reload" = "En nyare version av denna artikel kanske finns tillgänglig, men kan inte läsas in utan en Internetanslutning";
 "no-internet-connection-article-reload-button" = "Gå tillbaka till senast sparade version";
+"notifications-center-agent-description-from-format" = "Från $1";
 "notifications-center-applied-filters-accessibility-label" = "Aviseringsfilter - har tillämpade filter";
 "notifications-center-applied-project-filters-accessibility-label" = "Projektfilter - har tillämpade filer";
 "notifications-center-badge-button-accessibility-label" = "Aviseringar med bricka för oläst";
@@ -598,10 +599,9 @@
 "notifications-center-filters-types-footer" = "Ändra aviseringstyper för att filtrera dem i din aviseringsinkorg. Typer som inaktiveras kommer inte att visas, men dess innehåll och alla nya aviseringar kommer att vara tillgängliga när detta aktiveras igen.";
 "notifications-center-filters-types-item-title-all" = "Alla typer";
 "notifications-center-filters-types-section-title" = "Aviseringstyper";
-"notifications-center-footer-change-password" = "Ändra lösenord";
 "notifications-center-go-to-diff" = "Gå till diff";
 "notifications-center-go-to-talk-page" = "Gå till diskussionssida";
-"notifications-center-go-to-title" = "Gå till $1";
+"notifications-center-go-to-title-format" = "Gå till $1";
 "notifications-center-go-to-user-page" = "Gå till $1s användarsida";
 "notifications-center-go-to-wikidata-item" = "Gå till Wikidata-objekt";
 "notifications-center-go-to-your-talk-page" = "Gå till din diskussionssida";
@@ -635,7 +635,6 @@
 "notifications-center-subheader-edit-milestone" = "Redigeringsmilstople";
 "notifications-center-subheader-edit-reverted" = "Din redigering ångrades";
 "notifications-center-subheader-email-from-other-user" = "Ny e-post";
-"notifications-center-subheader-from-agent" = "Från $1";
 "notifications-center-subheader-login-fail-known-device" = "Flera misslyckade inloggningsförsök";
 "notifications-center-subheader-login-fail-unknown-device" = "Misslyckat inloggningsförsök";
 "notifications-center-subheader-login-success-unknown-device" = "Inloggning från en okänd enhet";

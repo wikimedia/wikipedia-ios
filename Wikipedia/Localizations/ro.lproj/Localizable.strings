@@ -569,7 +569,7 @@
 "notifications-center-feed-news-notification-button-text" = "Activați notificările";
 "notifications-center-go-to-diff" = "Mergeți la dif";
 "notifications-center-go-to-talk-page" = "Mergeți la pagina de discuție";
-"notifications-center-go-to-title" = "Mergeți la $1";
+"notifications-center-go-to-title-format" = "Mergeți la $1";
 "notifications-center-go-to-user-page" = "Mergeți la pagina de utilizator a lui $1";
 "notifications-center-go-to-wikidata-item" = "Mergeți la elementul Wikidata";
 "notifications-center-go-to-your-talk-page" = "Mergeți la pagina de discuție a dvs.";

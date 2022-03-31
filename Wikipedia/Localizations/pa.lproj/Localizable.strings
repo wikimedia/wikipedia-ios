@@ -1,6 +1,7 @@
 // Messages for Punjabi (ਪੰਜਾਬੀ)
 // Exported from translatewiki.net
 // Author: Aalam
+// Author: AnupamM
 // Author: Babanwalia
 // Author: Jimidar
 // Author: Nachhattardhammu
@@ -155,8 +156,15 @@
 "nearby-distance-label-meters" = "$1 ਮੀਟਰ";
 "nearby-distance-label-miles" = "$1 ਮੀਲ";
 "no-email-account-alert" = "ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਜੰਤਰ ਤੇ ਇੱਕ ਈਮੇਲ ਖਾਤਾ ਸਥਾਪਤ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।";
+"notifications-center-alert" = "ਚੇਤਾਵਨੀ";
+"notifications-center-change-password" = "ਪਾਸਵਰਡ ਬਦਲੋ";
+"notifications-center-destination-app" = "ਐਪ ਵਿੱਚ";
+"notifications-center-destination-web" = "ਵੈੱਬ 'ਤੇ";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "ਸੂਚਨਾਵਾਂ ਚਾਲੂ ਕਰੋ";
+"notifications-center-go-to-article" = "ਲੇਖ 'ਤੇ ਜਾਓ";
+"notifications-center-go-to-discussion-page" = "ਚਰਚਾ ਸਫ਼ੇ 'ਤੇ ਜਾਓ";
+"notifications-center-type-item-description-welcome-verbose" = "ਸੁਆਗਤ ਸੁਨੇਹਾ";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
