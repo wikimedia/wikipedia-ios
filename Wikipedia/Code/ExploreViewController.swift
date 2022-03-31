@@ -1027,7 +1027,9 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         }
         let cancel = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
         sheet.addAction(hideThisCard)
-        sheet.addAction(hideAllCards)
+        if !(group.contentGroupKind == WMFContentGroupKind.notification) {
+            sheet.addAction(hideAllCards)
+        }
         sheet.addAction(customizeExploreFeed)
         sheet.addAction(cancel)
 
