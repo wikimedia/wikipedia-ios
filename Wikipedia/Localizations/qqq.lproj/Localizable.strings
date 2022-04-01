@@ -557,6 +557,7 @@
 "notifications-center-applied-filters-accessibility-label" = "Accessibility label for Notifications Center's filters button. This button is in a selected state indicating that filters are applied.";
 "notifications-center-applied-project-filters-accessibility-label" = "Accessibility label for Notifications Center's project filters button. This button is in a selected state indicating that project filters are applied.";
 "notifications-center-badge-button-accessibility-label" = "Accessibility label for a button that navigates to Notifications Center. This button has a badge indicating there are unread notifications.";
+"notifications-center-cell-notification-type-accessibility-label-format" = "Accessibility label for notifications center cell notification text. $1 parameter: notification type";
 "notifications-center-change-password" = "Button text in Notifications Center that routes user to change password screen.";
 "notifications-center-checking-for-notifications" = "Status text displayed in Notifications Center when checking for notifications.";
 "notifications-center-destination-app" = "Informational text next to each notification center action on the detail screen, informing the user that the action will take them to a native view within the app.";
@@ -608,6 +609,7 @@
 "notifications-center-mark-all-as-read-missing-number" = "Title for confirmation alert when choosing \"Mark all as read\" toolbar button in notifications center editing mode, when there was an issue with pulling the count of unread notifications.";
 "notifications-center-mark-as-read" = "Button text in Notifications Center to mark a notification as read.";
 "notifications-center-mark-as-unread" = "Button text in Notifications Center to mark a notification as unread.";
+"notifications-center-more-action-accessibility-label" = "Acessibility label for the More custom action";
 "notifications-center-notifications-settings" = "Button text in Notifications Center that automatically routes to the notifications settings screen.";
 "notifications-center-num-selected-messages-format" = "Title for options menu when choosing \"Mark\" toolbar button in notifications center editing mode - $1 is replaced with the number of selected notifications.";
 "notifications-center-onboarding-modal-continue-action" = "Button title of primary action displayed when first launching the Notifications Center.";
@@ -948,9 +950,9 @@
 "tajik-variants-alert-title" = "Title of alert used to inform users about Tajik variant support.";
 "talk-page-add-discussion-accessibility-label" = "Accessibility label for a button that opens the add new discussion screen.";
 "talk-page-discussion-accessibility-hint" = "Accessibility hint when user is on a discussion title cell.";
-"talk-page-discussion-read-accessibility-label" = "Accessibility text for indicating that a discussion's contents have been read.";
+"talk-page-discussion-read-accessibility-label" = "Accessibility text for indicating that some content have been read.";
 "talk-page-discussion-read-ipa-accessibility-attribute" = "Accessibility ipa pronounciation for indicating that a discussion's contents have been read.";
-"talk-page-discussion-unread-accessibility-label" = "Accessibility text for indicating that a discussion's contents have not been read.";
+"talk-page-discussion-unread-accessibility-label" = "Accessibility text for indicating that some content have not been read.";
 "talk-page-discussion-unread-ipa-accessibility-attribute" = "Accessibility ipa pronounciation for indicating that a discussion's contents have not been read.";
 "talk-page-error-unable-to-post-reply" = "Error message appearing when user attempts to post a new talk page reply while being offline";
 "talk-page-error-unable-to-post-topic" = "Error message appearing when user attempts to post a new talk page discussion while being offline";
