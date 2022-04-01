@@ -557,7 +557,7 @@
 "notifications-center-applied-filters-accessibility-label" = "Accessibility label for Notifications Center's filters button. This button is in a selected state indicating that filters are applied.";
 "notifications-center-applied-project-filters-accessibility-label" = "Accessibility label for Notifications Center's project filters button. This button is in a selected state indicating that project filters are applied.";
 "notifications-center-badge-button-accessibility-label" = "Accessibility label for a button that navigates to Notifications Center. This button has a badge indicating there are unread notifications.";
-"notifications-center-cell-notification-type-accessibility-label-format" = "Accessibility label for notifications center cell notification text";
+"notifications-center-cell-notification-type-accessibility-label-format" = "Accessibility label for notifications center cell notification text. $1 parameter: notification type";
 "notifications-center-change-password" = "Button text in Notifications Center that routes user to change password screen.";
 "notifications-center-checking-for-notifications" = "Status text displayed in Notifications Center when checking for notifications.";
 "notifications-center-destination-app" = "Informational text next to each notification center action on the detail screen, informing the user that the action will take them to a native view within the app.";

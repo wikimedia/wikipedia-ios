@@ -57,7 +57,7 @@ final class NotificationsCenterCellViewModel {
         let unreadAccessibilityText = CommonStrings.unreadStatusAccessibilityLabel
         let readStatus = isRead ? readAccessibilityText : unreadAccessibilityText
 
-        let notificationFormat = WMFLocalizedString("notifications-center-cell-notification-type-accessibility-label-format", value: "%1$@ notification", comment: "Accessibility label for notifications center cell notification text")
+        let notificationFormat = WMFLocalizedString("notifications-center-cell-notification-type-accessibility-label-format", value: "%1$@ notification", comment: "Accessibility label for notifications center cell notification text. %1$@ parameter: notification type")
         let notificationTypeTitle = notification.type.title
         let notificationString = String.localizedStringWithFormat(notificationFormat, notificationTypeTitle)
         let projectName = project.projectName(shouldReturnCodedFormat: false)
