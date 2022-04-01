@@ -558,6 +558,7 @@
 "notifications-center-applied-filters-accessibility-label" = "Notifications Filter - has filters applied";
 "notifications-center-applied-project-filters-accessibility-label" = "Projects Filter - has filters applied";
 "notifications-center-badge-button-accessibility-label" = "Notifications with unread badge";
+"notifications-center-cell-notification-type-accessibility-label-format" = "$1 notification";
 "notifications-center-change-password" = "Change password";
 "notifications-center-checking-for-notifications" = "Checking for notifications...";
 "notifications-center-destination-app" = "In app";
@@ -609,6 +610,7 @@
 "notifications-center-mark-all-as-read-missing-number" = "Are you sure that you want to mark all of your notifications as read? Your notifications will be marked as read on all of your devices.";
 "notifications-center-mark-as-read" = "Mark as Read";
 "notifications-center-mark-as-unread" = "Mark as Unread";
+"notifications-center-more-action-accessibility-label" = "More";
 "notifications-center-notifications-settings" = "Notification settings";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 message|$1 messages}}";
 "notifications-center-onboarding-modal-continue-action" = "Continue";

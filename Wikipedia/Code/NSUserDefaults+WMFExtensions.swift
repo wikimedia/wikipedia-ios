@@ -29,6 +29,7 @@ let WMFIsSyntaxHighlightingEnabled = "WMFIsSyntaxHighlightingEnabled"
 let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 let WMFAppInstallId = "WMFAppInstallId"
 let WMFSendUsageReports = "WMFSendUsageReports"
+let WMFShowNotificationsExploreFeedCard = "WMFShowNotificationsExploreFeedCard"
 let WMFUserHasOnboardedToNotificationsCenter = "WMFUserHasOnboardedToNotificationsCenter"
 let WMFSubscribedToEchoNotifications = "WMFSubscribedToEchoNotifications"
 
@@ -514,6 +515,16 @@ let WMFSubscribedToEchoNotifications = "WMFSubscribedToEchoNotifications"
             set(newValue, forKey: "SystemDarkMode")
         }
     }
+    
+    @objc var wmf_shouldShowNotificationsExploreFeedCard: Bool {
+        get {
+           return bool(forKey: WMFShowNotificationsExploreFeedCard)
+        }
+        set{
+            set(newValue, forKey: WMFShowNotificationsExploreFeedCard)
+        }
+    }
+
 #if UI_TEST
     @objc func wmf_isFastlaneSnapshotInProgress() -> Bool {
         return bool(forKey: "FASTLANE_SNAPSHOT")
