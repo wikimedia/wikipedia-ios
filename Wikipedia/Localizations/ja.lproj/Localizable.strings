@@ -598,6 +598,7 @@
 "notifications-center-mark-all-as-read" = "すべて既読にする";
 "notifications-center-mark-as-read" = "既読にする";
 "notifications-center-mark-as-unread" = "未読にする";
+"notifications-center-more-action-accessibility-label" = "もっと見る";
 "notifications-center-notifications-settings" = "通知設定";
 "notifications-center-onboarding-modal-continue-action" = "続行";
 "notifications-center-onboarding-modal-filters-title" = "フィルター";

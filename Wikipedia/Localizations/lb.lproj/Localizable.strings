@@ -332,6 +332,7 @@
 "notifications-center-empty-no-messages" = "Dir hutt keng Messagen";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "Notifikatiounen aschalten";
+"notifications-center-feed-news-notification-dismiss-button-text" = "Net elo";
 "notifications-center-filters-read-status-item-title-all" = "All";
 "notifications-center-filters-read-status-item-title-read" = "Liesen";
 "notifications-center-filters-read-status-item-title-unread" = "Net gelies";
@@ -350,6 +351,10 @@
 "notifications-center-mark-all-as-read" = "All als gelies markéieren";
 "notifications-center-mark-as-read" = "Als gelies markéieren";
 "notifications-center-mark-as-unread" = "Als net gelies markéieren";
+"notifications-center-more-action-accessibility-label" = "Méi";
+"notifications-center-onboarding-modal-continue-action" = "Virufueren";
+"notifications-center-onboarding-modal-filters-title" = "Filteren";
+"notifications-center-onboarding-panel-secondary-button" = "Nee, merci";
 "notifications-center-status-all" = "All";
 "notifications-center-status-all-notifications" = "All Notifikatiounen";
 "notifications-center-status-filtered-by" = "Gefiltert vum";

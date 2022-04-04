@@ -597,8 +597,7 @@
 "notifications-center-empty-not-subscribed" = "U bent op dit moment niet geabonneerd op Wikipedia Notificaties";
 "notifications-center-empty-state-filters-subtitle" = "Wijzig $1 om meer berichten te zien";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter|$1 filters}}";
-// Fuzzy
-"notifications-center-feed-news-notification-button-text" = "Meldingen inschakelen";
+"notifications-center-feed-news-notification-button-text" = "Pushmeldingen aanzetten";
 "notifications-center-filters-read-status-item-title-all" = "Alle";
 "notifications-center-filters-read-status-item-title-read" = "Gelezen";
 "notifications-center-filters-read-status-item-title-unread" = "Ongelezen";

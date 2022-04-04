@@ -540,6 +540,7 @@
 "main-menu-account-login" = "Најава";
 "main-menu-account-logout" = "Одјава";
 "main-menu-account-logout-are-you-sure" = "Сигурно сакате да се одјавите?";
+"main-menu-account-logout-are-you-sure-message" = "Одјавувајќи се ќе ги избришете месно складираните податоци од сметката (известувања и пораки), но податоците за сметката ќе останат достапни на семрежјето и ќе бидат повторно вчитани ако се најавите пак.";
 "main-menu-account-logout-cancel" = "Откажи";
 "main-menu-account-title-logged-in" = "Најавени сте како $1";
 "main-menu-heading-legal" = "Лични податоци и услови";
@@ -569,6 +570,7 @@
 "notifications-center-applied-filters-accessibility-label" = "Филтер на известувања — има зададени филтри";
 "notifications-center-applied-project-filters-accessibility-label" = "Филтер на известувања — има зададени филтри";
 "notifications-center-badge-button-accessibility-label" = "Известувања со значка „непрочитано“";
+"notifications-center-cell-notification-type-accessibility-label-format" = "Известување $1";
 "notifications-center-change-password" = "Смени лозинка";
 "notifications-center-checking-for-notifications" = "Проверувам известувања...";
 "notifications-center-destination-app" = "Во прилог";
@@ -620,6 +622,7 @@
 "notifications-center-mark-all-as-read-missing-number" = "Дали сигурно сакате да и означите сите пораки од вашите известувања како {{PLURAL:$1|прочитана|прочитани}}? Прочитаноста ќе се одрази на сите уреди.";
 "notifications-center-mark-as-read" = "Означи како прочитано";
 "notifications-center-mark-as-unread" = "Означи како непрочитано";
+"notifications-center-more-action-accessibility-label" = "Повеќе";
 "notifications-center-notifications-settings" = "Нагодувања за ивестувања`";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 порака|$1 пораки}}";
 "notifications-center-onboarding-modal-continue-action" = "Продолжи";

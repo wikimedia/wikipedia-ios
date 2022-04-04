@@ -271,6 +271,7 @@
 "no-internet-connection-article-reload-button" = "Distreiñ d'an doare diwezhañ enrollet";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "Gweredekaat ar c'hemennadennoù";
+"notifications-center-more-action-accessibility-label" = "Muioc'h";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
