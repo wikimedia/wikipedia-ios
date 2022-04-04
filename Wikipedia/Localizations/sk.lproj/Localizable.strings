@@ -572,10 +572,9 @@
 "notifications-center-empty-not-subscribed" = "Neodoberáte žiadne notifikácie z Wikipédie";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "Zapnúť upozornenia";
-"notifications-center-footer-change-password" = "Zmeniť heslo";
 "notifications-center-go-to-diff" = "Prejsť na rozdiely";
 "notifications-center-go-to-talk-page" = "Prejsť na diskusnú stránku";
-"notifications-center-go-to-title" = "Prejsť na $1";
+"notifications-center-go-to-title-format" = "Prejsť na $1";
 "notifications-center-go-to-user-page" = "Prejsť na stránku používateľa $1";
 "notifications-center-go-to-wikidata-item" = "Prejsť na položku Wikidáta";
 "notifications-center-go-to-your-talk-page" = "Prejsť na svoju diskusnú stránku";

@@ -564,9 +564,8 @@
 "notifications-center-empty-not-subscribed" = "Trenutno niste pretplaćeni na obavještenja Wikipedije";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "Uključi obavještenja";
-"notifications-center-footer-change-password" = "Promijeni lozinku";
 "notifications-center-go-to-talk-page" = "Idi na stranicu za razgovor";
-"notifications-center-go-to-title" = "Idi na $1";
+"notifications-center-go-to-title-format" = "Idi na $1";
 "notifications-center-go-to-user-page" = "Idi na stranicu za razgovor korisnika $1";
 "notifications-center-go-to-wikidata-item" = "Idi na stavku Wikipodataka";
 "notifications-center-go-to-your-talk-page" = "Idi na svoju stranicu za razgovor";

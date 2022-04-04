@@ -570,6 +570,7 @@
 "no-internet-connection" = "Ingen internettforbindelse";
 "no-internet-connection-article-reload" = "Det kan hende at en nyere versjon av denne artikkelen er tilgjengelig, men en fungerende internettforbindelse trengs for å kunne sjekke";
 "no-internet-connection-article-reload-button" = "Tilbake til sist lagrede versjon";
+"notifications-center-agent-description-from-format" = "Fra $1";
 "notifications-center-applied-filters-accessibility-label" = "Varselfilter – har gjeldende filtre";
 "notifications-center-applied-project-filters-accessibility-label" = "Prosjektfilter – har gjeldende filtre";
 "notifications-center-badge-button-accessibility-label" = "Varsler med merking for ulest";
@@ -592,10 +593,9 @@
 "notifications-center-filters-types-footer" = "Endre varseltyper for å filtrere dem til/fra varselsinnboksen din. Typene som er slått av vil ikke være synlige, men innholdet deres og nye varsler vil være tilgjengelige hvis typen slås på igjen.";
 "notifications-center-filters-types-item-title-all" = "Alle typer";
 "notifications-center-filters-types-section-title" = "Typer varsler";
-"notifications-center-footer-change-password" = "Endre passord";
 "notifications-center-go-to-diff" = "Gå til diff";
 "notifications-center-go-to-talk-page" = "Gå til diskusjonsside";
-"notifications-center-go-to-title" = "Gå til $1";
+"notifications-center-go-to-title-format" = "Gå til $1";
 "notifications-center-go-to-user-page" = "Gå til {{GRAMMAR:genitive|$1}} brukerside";
 "notifications-center-go-to-wikidata-item" = "Gå til Wikidata-element";
 "notifications-center-go-to-your-talk-page" = "Gå til diskusjonssiden din";
@@ -629,7 +629,6 @@
 "notifications-center-subheader-edit-milestone" = "Redigeringsmilepæl";
 "notifications-center-subheader-edit-reverted" = "Redigeringen din ble tilbakestilt";
 "notifications-center-subheader-email-from-other-user" = "Ny e-post";
-"notifications-center-subheader-from-agent" = "Fra $1";
 "notifications-center-subheader-login-fail-known-device" = "Flere mislykkede innloggingsforsøk";
 "notifications-center-subheader-login-fail-unknown-device" = "Mislykket innloggingsforsøk";
 "notifications-center-subheader-login-success-unknown-device" = "Innlogging fra ukjent enhet";

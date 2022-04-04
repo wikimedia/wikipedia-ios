@@ -9,6 +9,7 @@ final class NotificationsCenterCellViewModel {
     let project: RemoteNotificationsProject
     private(set) var displayState: NotificationsCenterCellDisplayState
     let configuration: Configuration
+    let commonViewModel: NotificationsCenterCommonViewModel
 
 	// MARK: - Lifecycle
 
@@ -25,6 +26,8 @@ final class NotificationsCenterCellViewModel {
         self.key = key
         self.project = project
         self.configuration = configuration
+        
+        self.commonViewModel = NotificationsCenterCommonViewModel(configuration: configuration, notification: notification, project: project)
         
         self.displayState = Self.displayStateFor(isEditing: isEditing, isSelected: false, isRead: notification.isRead)
     }
@@ -49,6 +52,21 @@ final class NotificationsCenterCellViewModel {
         
     }
     
+    var accessibilityText: String? {
+        let readAccessibilityText = CommonStrings.readStatusAccessibilityLabel
+        let unreadAccessibilityText = CommonStrings.unreadStatusAccessibilityLabel
+        let readStatus = isRead ? readAccessibilityText : unreadAccessibilityText
+
+        let notificationFormat = WMFLocalizedString("notifications-center-cell-notification-type-accessibility-label-format", value: "%1$@ notification", comment: "Accessibility label for notifications center cell notification text. %1$@ parameter: notification type")
+        let notificationTypeTitle = notification.type.title
+        let notificationString = String.localizedStringWithFormat(notificationFormat, notificationTypeTitle)
+        let projectName = project.projectName(shouldReturnCodedFormat: false)
+        let messageContent = headerText
+        let accessibilityLabel = "\(notificationString).  \(projectName). \(messageContent ?? String()). \(readStatus)"
+        return accessibilityLabel
+        
+    }
+
     static func displayStateFor(isEditing: Bool, isSelected: Bool, isRead: Bool) -> NotificationsCenterCellDisplayState {
 
         switch (isEditing, isSelected, isRead) {

@@ -12,40 +12,15 @@ struct NotificationsCenterCellStyle {
     // MARK: - Colors
 
     var cellSeparatorColor: UIColor {
-        return theme.colors.tertiaryText.withAlphaComponent(0.5)
+        return theme.colors.border
     }
 
-    func headerTextColor(_ displayState: NotificationsCenterCellDisplayState) -> UIColor {
+    func textColor(_ displayState: NotificationsCenterCellDisplayState) -> UIColor {
         guard displayState.isUnread else {
             return theme.colors.secondaryText
         }
 
-        switch notificationType {
-        case .loginFailKnownDevice, .loginFailUnknownDevice, .loginSuccessUnknownDevice, .unknownAlert, .unknownSystemAlert:
-            return theme.colors.error
-        default:
-            return theme.colors.primaryText
-        }
-    }
-
-    func subheaderTextColor(_ displayState: NotificationsCenterCellDisplayState) -> UIColor {
-        return theme.colors.secondaryText
-    }
-
-    var messageTextColor: UIColor {
-        return theme.colors.secondaryText
-    }
-
-    var metadataTextColor: UIColor {
-        return theme.colors.secondaryText
-    }
-
-    var relativeTimeAgoColor: UIColor {
-        return theme.colors.secondaryText
-    }
-
-    var projectSourceColor: UIColor {
-        return theme.colors.secondaryText
+        return theme.colors.primaryText
     }
 
     func leadingImageBackgroundColor(_ displayState: NotificationsCenterCellDisplayState) -> UIColor {
@@ -54,7 +29,9 @@ struct NotificationsCenterCellStyle {
             return color
         }
 
-        return notificationType.imageBackgroundColorWithTheme(theme)
+        return displayState.isUnread
+            ? notificationType.imageBackgroundColorWithTheme(theme)
+            : notificationType.imageBackgroundColorWithTheme(theme).withAlphaComponent(0.5)
     }
 
     func leadingImageBorderColor(_ displayState: NotificationsCenterCellDisplayState) -> UIColor {
@@ -63,7 +40,7 @@ struct NotificationsCenterCellStyle {
             return color
         }
 
-        return leadingImageBackgroundColor(displayState)
+        return .clear
     }
 
     var leadingImageTintColor: UIColor {
@@ -124,11 +101,7 @@ struct NotificationsCenterCellStyle {
             return image
         }
         
-        if let imageName = notificationType.imageName {
-            return UIImage(named: imageName)
-        }
-        
-        return nil
+        return UIImage(named: notificationType.imageName)
     }
 
 }

@@ -30,6 +30,7 @@
 // Author: Phenolla
 // Author: Qiyue2001
 // Author: Shizhao
+// Author: StarrySky
 // Author: Tonylianlong
 // Author: Viztor
 // Author: VulpesVulpes825
@@ -137,6 +138,7 @@
 "action-add-to-reading-list" = "添加至阅读列表";
 "action-add-to-reading-list-short" = "添加至列表";
 "action-cancel" = "取消";
+"action-discard-edits" = "放弃编辑";
 "action-find-in-page" = "在页面中查找";
 "action-language-accessibility" = "更改语言";
 "action-move-to" = "移动至…";
@@ -347,6 +349,7 @@
 "editing-welcome-impartial-tone-title" = "用中立的语气书写";
 "editing-welcome-set-knowledge-free-subtitle" = "为了让每个人都能获得世界上的知识，我们需要您通过阅读、编辑和贡献，参与到世界知识的创造中来。";
 "editing-welcome-set-knowledge-free-title" = "解除知识的束缚";
+"editor-exit-confirmation-body" = "您确定要退出编辑模式而不先发布吗？";
 "empty-diff-compare-title" = "版本间无差异";
 "empty-diff-single-title" = "没有可以观察到的变化";
 "empty-insert-media-title" = "从维基共享资源中选择一个文件";
@@ -601,15 +604,20 @@
 "no-internet-connection" = "无互联网连接";
 "no-internet-connection-article-reload" = "此条目的新版本可用，但由于无互联网连接而无法加载";
 "no-internet-connection-article-reload-button" = "返回至最近保存的版本";
+"notifications-center-agent-description-from-format" = "来自$1";
+"notifications-center-alert" = "提醒";
 "notifications-center-change-password" = "更改密码";
 "notifications-center-checking-for-notifications" = "正在检查通知…";
+"notifications-center-destination-app" = "在app";
+"notifications-center-destination-web" = "在网络上";
 "notifications-center-empty-checking-for-notifications" = "正在检查通知……";
 "notifications-center-empty-no-messages" = "您没有消息";
 "notifications-center-empty-not-subscribed" = "您目前没有订阅任何维基百科通知";
 "notifications-center-empty-state-filters-subtitle" = "修改$1来查看更多消息";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 种筛选}}";
-// Fuzzy
-"notifications-center-feed-news-notification-button-text" = "打开通知";
+"notifications-center-feed-news-notification-button-text" = "打开推送通知";
+"notifications-center-feed-news-notification-dismiss-button-text" = "不是现在";
+"notifications-center-filters-accessibility-label" = "通知过滤器";
 "notifications-center-filters-read-status-item-title-all" = "所有";
 "notifications-center-filters-read-status-item-title-read" = "已读";
 "notifications-center-filters-read-status-item-title-unread" = "未读";
@@ -618,11 +626,16 @@
 "notifications-center-filters-types-footer" = "修改通知类型来对您的通知收件箱里的进/出内容进行过滤。在类型为关闭时会不显示，内容和任何新通知会在再次切换为打开后可用。";
 "notifications-center-filters-types-item-title-all" = "所有类型";
 "notifications-center-filters-types-section-title" = "通知类型";
-"notifications-center-footer-change-password" = "更改密码";
+"notifications-center-go-to-article" = "前往条目";
+"notifications-center-go-to-article-discussion-format" = "前往$1讨论页面";
+"notifications-center-go-to-article-talk-format" = "转到$1讨论页";
 "notifications-center-go-to-diff" = "转到差异";
+"notifications-center-go-to-discussion-page" = "前往讨论页面";
 "notifications-center-go-to-talk-page" = "转到讨论页";
-"notifications-center-go-to-title" = "转到$1";
+"notifications-center-go-to-title-format" = "转到$1";
 "notifications-center-go-to-user-page" = "转到$1的用户页";
+"notifications-center-go-to-user-page-format" = "转到$1的用户页";
+"notifications-center-go-to-user-page-simplified" = "前往用户页";
 "notifications-center-go-to-wikidata-item" = "转到维基数据项目";
 "notifications-center-go-to-your-talk-page" = "转到您的讨论页";
 "notifications-center-header-alert-from-agent" = "来自$1的提醒";
@@ -639,11 +652,19 @@
 "notifications-center-mark-all-as-read-missing-number" = "您确定要将您的所有消息都标记为已读？这会将您所有设备上的通知都标记为已读。";
 "notifications-center-mark-as-read" = "标记为已读";
 "notifications-center-mark-as-unread" = "标记为未读";
+"notifications-center-more-action-accessibility-label" = "更多";
 "notifications-center-notifications-settings" = "通知设置";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 条消息}}";
+"notifications-center-onboarding-modal-continue-action" = "继续";
+"notifications-center-onboarding-modal-filters-title" = "过滤器";
+"notifications-center-onboarding-modal-learn-more-action" = "了解更多有关通知";
+"notifications-center-onboarding-modal-title" = "编辑通知";
+"notifications-center-onboarding-panel-heading" = "打开推送通知";
+"notifications-center-onboarding-panel-secondary-button" = "不用了，谢谢";
 "notifications-center-status-all" = "全部";
 "notifications-center-status-all-notifications" = "所有通知";
 "notifications-center-status-read" = "已读";
+"notifications-center-status-unread" = "未读";
 "notifications-center-subheader-edit-milestone" = "编辑里程碑";
 "notifications-center-subheader-edit-reverted" = "您的编辑已被回退";
 "notifications-center-subheader-email-from-other-user" = "新邮件";
@@ -663,7 +684,12 @@
 "notifications-center-subheader-user-rights-change" = "用户权限更改";
 "notifications-center-subheader-welcome" = "欢迎！";
 "notifications-center-subheader-wikidata-connection" = "建立维基数据关联";
+"notifications-center-swipe-mark-as-read" = "标记为已读";
+"notifications-center-swipe-mark-as-unread" = "标记为未读";
+"notifications-center-swipe-more" = "更多";
 "notifications-center-title" = "通知";
+"notifications-center-type-item-description-mentions" = "提及";
+"notifications-center-type-item-description-welcome-verbose" = "欢迎消息";
 "notifications-push-fallback-body-text" = "维基百科上的新活动";
 "notifications-push-talk-body-format" = "$3上的$1条新$2";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|消息}}";
@@ -894,6 +920,7 @@
 "settings-languages-feed-customization" = "您可以通过自定义您的探索订阅源设置，管理显示在您的探索订阅源的语言。";
 "settings-my-languages" = "我的语言";
 "settings-notifications" = "推送通知";
+"settings-notifications-echo-failure-try-again" = "重试";
 "settings-notifications-info" = "通过我们推送的通知，提醒维基百科上的趋势和最多阅读条目。所有通知都已考虑到隐私和最新数据。";
 "settings-notifications-learn-more" = "了解更多有关通知";
 "settings-notifications-push-notifications" = "推送通知";

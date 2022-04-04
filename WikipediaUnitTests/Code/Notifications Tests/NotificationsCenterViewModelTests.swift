@@ -5,10 +5,6 @@ import XCTest
 
 class NotificationsCenterViewModelTests: XCTestCase {
 
-    typealias NotificationsCenterIconType = NotificationsCenterCellViewModel.IconType
-    typealias NotificationsCenterAction = NotificationsCenterCellViewModel.SheetAction
-    typealias NotificationsCenterActionData = NotificationsCenterCellViewModel.SheetActionData
-
     enum TestError: Error {
         case failureSettingUpModelController
         case failurePullingFixtures
@@ -100,6 +96,19 @@ class NotificationsCenterViewModelTests: XCTestCase {
         }
         return managedObject
     }
+    
+    func detailViewModelFromIdentifier(identifier: String) throws -> NotificationsCenterDetailViewModel {
+        
+        let notification = try fetchManagedObject(identifier: identifier)
+        guard let apiIdentifier = notification.wiki,
+              let project = RemoteNotificationsProject(apiIdentifier: apiIdentifier, languageLinkController: languageLinkController) else {
+            throw TestError.failureConvertingManagedObjectToViewModel
+        }
+        
+        let commonViewModel = NotificationsCenterCommonViewModel(configuration: configuration, notification: notification, project: project)
+        
+        return NotificationsCenterDetailViewModel(commonViewModel: commonViewModel)
+    }
 
     private func saveNetworkModels(networkModels: [RemoteNotificationsAPIController.NotificationsResult.Notification], completion: @escaping (Result<Void, Error>) -> Void) {
 
@@ -117,8 +126,8 @@ class NotificationsCenterViewModelTests: XCTestCase {
         }
     }
     
-    func testActions(expectedText: String, expectedURL: URL?, actionToTest: NotificationsCenterAction, isMarkAsRead: Bool = false, isNotificationSettings: Bool = false) throws {
-        let expectedActionData = NotificationsCenterActionData(text: expectedText, url: expectedURL)
+    func testActions(expectedText: String, expectedURL: URL?, expectedIcon: NotificationsCenterIconType?, expectedDestinationText: String?, actionToTest: NotificationsCenterAction, isMarkAsRead: Bool = false, isNotificationSettings: Bool = false) throws {
+        let expectedActionData = NotificationsCenterActionData(text: expectedText, url: expectedURL, iconType: expectedIcon, destinationText: expectedDestinationText)
         let expectedAction: NotificationsCenterAction
         if isMarkAsRead {
             expectedAction = NotificationsCenterAction.markAsReadOrUnread(expectedActionData)

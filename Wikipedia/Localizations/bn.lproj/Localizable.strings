@@ -256,10 +256,9 @@
 "notifications-center-empty-not-subscribed" = "আপনি বর্তমানে কোনো উইকিপিডিয়া বিজ্ঞপ্তির সদস্যতা গ্রহণ করেননি";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "বিজ্ঞপ্তি চালু";
-"notifications-center-footer-change-password" = "পাসওয়ার্ড পরিবর্তন";
 "notifications-center-go-to-diff" = "পরিবর্তনে যান";
 "notifications-center-go-to-talk-page" = "আলাপ পাতায় যান";
-"notifications-center-go-to-title" = "$1-এ যান";
+"notifications-center-go-to-title-format" = "$1-এ যান";
 "notifications-center-go-to-user-page" = "$1-এর আলাপ পাতায় যান";
 "notifications-center-go-to-wikidata-item" = "উইকিউপাত্তের ভুক্তিতে যান";
 "notifications-center-go-to-your-talk-page" = "আপনার আলাপ পাতায় যান";

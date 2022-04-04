@@ -48,7 +48,7 @@ class NotificationsCenterCellViewModelEditMilestoneTests: NotificationsCenterVie
     
     private func testEditMilestoneOneOnUserPageText(cellViewModel: NotificationsCenterCellViewModel) throws {
         XCTAssertEqual(cellViewModel.headerText, "Editing milestone", "Invalid headerText")
-        XCTAssertEqual(cellViewModel.subheaderText, "From English Wikipedia", "Invalid subheaderText")
+        XCTAssertEqual(cellViewModel.subheaderText, "English Wikipedia", "Invalid subheaderText")
         XCTAssertEqual(cellViewModel.bodyText, "You just made your first edit; thank you, and welcome!")
         XCTAssertEqual(cellViewModel.footerText, "User:Fred The Bird", "Invalid footerText")
         XCTAssertEqual(cellViewModel.dateText, "4/2/19", "Invalid dateText")
@@ -66,17 +66,21 @@ class NotificationsCenterCellViewModelEditMilestoneTests: NotificationsCenterVie
         
         let expectedText0 = "Mark as unread"
         let expectedURL0: URL? = nil
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true)
+        let expectedIcon0: NotificationsCenterIconType? = nil
+        let expectedDestinationText0: String? = nil
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true)
         
         let expectedText1 = "Notification settings"
         let expectedURL1: URL? = nil
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, actionToTest: cellViewModel.sheetActions[1], isNotificationSettings: true)
+        let expectedIcon1: NotificationsCenterIconType? = nil
+        let expectedDestinationText1: String? = nil
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: cellViewModel.sheetActions[1], isNotificationSettings: true)
         
     }
     
     private func testEditMilestoneTenOnArticleText(cellViewModel: NotificationsCenterCellViewModel) throws {
         XCTAssertEqual(cellViewModel.headerText, "Editing milestone", "Invalid headerText")
-        XCTAssertEqual(cellViewModel.subheaderText, "From English Wikipedia", "Invalid subheaderText")
+        XCTAssertEqual(cellViewModel.subheaderText, "English Wikipedia", "Invalid subheaderText")
         XCTAssertEqual(cellViewModel.bodyText, "You just made your tenth edit; thank you, and please keep going!")
         XCTAssertEqual(cellViewModel.footerText, "Blue Bird", "Invalid footerText")
         XCTAssertEqual(cellViewModel.dateText, "4/16/19", "Invalid dateText")
@@ -94,17 +98,21 @@ class NotificationsCenterCellViewModelEditMilestoneTests: NotificationsCenterVie
         
         let expectedText0 = "Mark as unread"
         let expectedURL0: URL? = nil
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true)
+        let expectedIcon0: NotificationsCenterIconType? = nil
+        let expectedDestinationText0: String? = nil
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true)
         
         let expectedText1 = "Notification settings"
         let expectedURL1: URL? = nil
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, actionToTest: cellViewModel.sheetActions[1], isNotificationSettings: true)
+        let expectedIcon1: NotificationsCenterIconType? = nil
+        let expectedDestinationText1: String? = nil
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: cellViewModel.sheetActions[1], isNotificationSettings: true)
         
     }
     
     private func testEditMilestoneHundredOnUserTalkPageText(cellViewModel: NotificationsCenterCellViewModel) throws {
         XCTAssertEqual(cellViewModel.headerText, "Editing milestone", "Invalid headerText")
-        XCTAssertEqual(cellViewModel.subheaderText, "From English Wikipedia", "Invalid subheaderText")
+        XCTAssertEqual(cellViewModel.subheaderText, "English Wikipedia", "Invalid subheaderText")
         XCTAssertEqual(cellViewModel.bodyText, "You just made your hundredth edit; thank you very much!")
         XCTAssertEqual(cellViewModel.footerText, "User talk:Fred The Bird", "Invalid footerText")
         XCTAssertEqual(cellViewModel.dateText, "7/16/21", "Invalid dateText")
@@ -122,11 +130,15 @@ class NotificationsCenterCellViewModelEditMilestoneTests: NotificationsCenterVie
         
         let expectedText0 = "Mark as unread"
         let expectedURL0: URL? = nil
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true)
+        let expectedIcon0: NotificationsCenterIconType? = nil
+        let expectedDestinationText0: String? = nil
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true)
         
         let expectedText1 = "Notification settings"
         let expectedURL1: URL? = nil
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, actionToTest: cellViewModel.sheetActions[1], isNotificationSettings: true)
+        let expectedIcon1: NotificationsCenterIconType? = nil
+        let expectedDestinationText1: String? = nil
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: cellViewModel.sheetActions[1], isNotificationSettings: true)
         
     }
 

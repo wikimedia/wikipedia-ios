@@ -229,12 +229,12 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milya";
+"notifications-center-agent-description-from-format" = "$1 dan";
 "notifications-center-filters-read-status-item-title-all" = "Barchasi";
 "notifications-center-filters-read-status-item-title-read" = "Mutolaa";
 "notifications-center-filters-title" = "Filtrlar";
-"notifications-center-footer-change-password" = "Parolni oʻzgartirish";
 "notifications-center-go-to-talk-page" = "Munozara sahifasiga oʻtish";
-"notifications-center-go-to-title" = "$1 sahifasiga oʻtish";
+"notifications-center-go-to-title-format" = "$1 sahifasiga oʻtish";
 "notifications-center-go-to-user-page" = "$1ning foydalanuvchi sahifasiga oʻtish";
 "notifications-center-go-to-wikidata-item" = "Vikimaʼlumotlar bandiga oʻtish";
 "notifications-center-go-to-your-talk-page" = "Munozara sahifangizga oʻtish";
@@ -253,7 +253,6 @@
 "notifications-center-status-read" = "Mutolaa";
 "notifications-center-subheader-edit-reverted" = "Tahriringiz qaytarilgan.";
 "notifications-center-subheader-email-from-other-user" = "Yangi e-pochta";
-"notifications-center-subheader-from-agent" = "$1 dan";
 "notifications-center-subheader-welcome" = "Xush kelibsiz!";
 "notifications-center-swipe-mark-as-read" = "Oʻqilgan deb belgilash";
 "notifications-center-swipe-mark-as-unread" = "Oʻqilmagan deb belgilash";

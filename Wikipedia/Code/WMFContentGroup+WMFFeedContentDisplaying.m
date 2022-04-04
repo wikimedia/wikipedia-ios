@@ -101,7 +101,7 @@ NS_ASSUME_NONNULL_BEGIN
             }
         }
         case WMFContentGroupKindNotification:
-            return [[NSDateFormatter wmf_monthNameDayOfMonthNumberYearDateFormatter] stringFromDate:self.midnightUTCDate];
+            return [[NSDateFormatter wmf_utcDayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.midnightUTCDate];
         default:
             break;
     }

@@ -412,9 +412,8 @@
 "notifications-center-change-password" = "စကားဝှက် ပြောင်းလဲရန်";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "အသိပေးချက်များ ဖွင့်ရန်။";
-"notifications-center-footer-change-password" = "စကားဝှက် ပြောင်းလဲရန်";
 "notifications-center-go-to-talk-page" = "ဆွေးနွေးစာမျက်နှာသို့ သွားရန်";
-"notifications-center-go-to-title" = "$1 သို့ သွားပါ";
+"notifications-center-go-to-title-format" = "$1 သို့ သွားပါ";
 "notifications-center-go-to-user-page" = "$1 ၏ စာမျက်နှာသို့ သွားရန်";
 "notifications-center-go-to-your-talk-page" = "သင်၏ဆွေးနွေးစာမျက်နှာသို့ သွားရန်";
 "notifications-center-header-notice-from-project" = "$1 မှ အသိပေးချက်";

@@ -11,6 +11,7 @@
 // Author: Minh Nguyen
 // Author: Nemo bis
 // Author: Nghiemtrongdai VN
+// Author: Ngoxuannguyenchuong
 // Author: NguyenHung
 // Author: Nguyên Lê
 // Author: Phjtieudoc
@@ -562,13 +563,15 @@
 "no-internet-connection-article-reload" = "Bài viết này có thể có một phiên bản mới hơn nhưng không thể tải nó vì không có kết nối Internet";
 "no-internet-connection-article-reload-button" = "Quay về phiên bản cuối cùng được lưu";
 "notifications-center-change-password" = "Thay đổi Mật khẩu";
+"notifications-center-destination-app" = "Trong ứng dụng";
+"notifications-center-destination-web" = "Trên web";
 "notifications-center-empty-checking-for-notifications" = "Đang kiểm tra thông báo…";
 "notifications-center-empty-not-subscribed" = "Bạn hiện không theo dõi thông báo Wikipedia nào";
 "notifications-center-feed-news-notification-button-text" = "Bật thông báo đẩy";
-"notifications-center-footer-change-password" = "Thay đổi mật khẩu";
+"notifications-center-feed-news-notification-dismiss-button-text" = "Không phải bây giờ";
 "notifications-center-go-to-diff" = "Xem khác biệt";
 "notifications-center-go-to-talk-page" = "Xem trang thảo luận";
-"notifications-center-go-to-title" = "Xem $1";
+"notifications-center-go-to-title-format" = "Xem $1";
 "notifications-center-go-to-user-page" = "Xem trang thảo luận của $1";
 "notifications-center-go-to-wikidata-item" = "Xem khoản mục Wikidata";
 "notifications-center-go-to-your-talk-page" = "Xem trang thảo luận của bạn";
@@ -579,6 +582,7 @@
 "notifications-center-mark-all-as-read" = "Đánh dấu tất cả là đã đọc";
 "notifications-center-mark-as-read" = "Đánh dấu là Đã đọc";
 "notifications-center-mark-as-unread" = "Đánh dấu là chưa đọc";
+"notifications-center-more-action-accessibility-label" = "Thêm";
 "notifications-center-notifications-settings" = "Tùy chọn thông báo";
 "notifications-center-subheader-edit-milestone" = "Cột mốc sửa đổi";
 "notifications-center-subheader-edit-reverted" = "Sửa đổi của bạn bị lùi lại";
