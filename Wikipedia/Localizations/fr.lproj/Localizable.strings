@@ -561,6 +561,7 @@
 "main-menu-account-login" = "Se connecter";
 "main-menu-account-logout" = "Se déconnecter";
 "main-menu-account-logout-are-you-sure" = "Êtes-vous sûr{{GENDER:||e}} de vouloir vous déconnecter ?";
+"main-menu-account-logout-are-you-sure-message" = "La déconnexion supprimera vos données de compte stockées localement (les notifications et messages), mais vos données de compte seront encore disponibles sur le web et seront téléchargées à nouveau lorsque vous vous reconnecterez.";
 "main-menu-account-logout-cancel" = "Annuler";
 "main-menu-account-title-logged-in" = "Connecté{{GENDER:||e}} en tant que $1";
 "main-menu-heading-legal" = "Confidentialité et conditions";
@@ -590,6 +591,7 @@
 "notifications-center-applied-filters-accessibility-label" = "Filtrage des notifications : a des filtres appliqués";
 "notifications-center-applied-project-filters-accessibility-label" = "Filtrage des projets : a des filtres appliqués";
 "notifications-center-badge-button-accessibility-label" = "Notifications avec un badge non lu";
+"notifications-center-cell-notification-type-accessibility-label-format" = "notification $1";
 "notifications-center-change-password" = "Modifier le mot de passe";
 "notifications-center-checking-for-notifications" = "Vérification des notifications...";
 "notifications-center-destination-app" = "Dans l’appli";
@@ -641,6 +643,7 @@
 "notifications-center-mark-all-as-read-missing-number" = "Êtes-vous sûr{{GENDER:||e}} de vouloir marquer toutes vos notifications comme lues ? Vos notifications seront marquées comme lues sur tous vos appareils.";
 "notifications-center-mark-as-read" = "Marquer comme lu";
 "notifications-center-mark-as-unread" = "Marquer comme non lu";
+"notifications-center-more-action-accessibility-label" = "Plus";
 "notifications-center-notifications-settings" = "Paramètres de notification";
 "notifications-center-num-selected-messages-format" = "$1 message{{PLURAL:$1||s}}";
 "notifications-center-onboarding-modal-continue-action" = "Continuer";

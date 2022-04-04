@@ -594,6 +594,7 @@
 "notifications-center-swipe-more" = "المزيد";
 "notifications-center-title" = "الإشعارات";
 "notifications-center-toolbar-mark-accessibility-label" = "حدد الاشعارات المختارة";
+"notifications-center-type-item-description-welcome-verbose" = "رسالة ترحيب";
 "notifications-push-fallback-body-text" = "نشاط جديد على ويكيبيديا";
 "number-billions" = "$1 مليار";
 "number-millions" = "$1 مليون";

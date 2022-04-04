@@ -486,6 +486,7 @@
 "notifications-center-inbox-wikimedia-projects-section-title" = "Progetti Wikimedia";
 "notifications-center-inbox-wikipedias-section-title" = "Wikipedia";
 "notifications-center-mark-all-as-read" = "Segna tutti come letti";
+"notifications-center-more-action-accessibility-label" = "Altro";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 messaggio|$1 messaggi}}";
 "notifications-center-onboarding-modal-continue-action" = "Continua";
 "notifications-center-onboarding-modal-filters-title" = "Filtri";

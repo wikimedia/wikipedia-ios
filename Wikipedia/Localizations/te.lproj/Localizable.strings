@@ -522,8 +522,10 @@
 "notifications-center-agent-description-from-format" = "$1 నుండి";
 "notifications-center-applied-filters-accessibility-label" = "గమనింపుల వడపోత - వడపోతలను వర్తింపజేసాం";
 "notifications-center-applied-project-filters-accessibility-label" = "ప్రాజెక్టుల వడపోత - వడపోతలను వర్తింపజేసాం";
+"notifications-center-cell-notification-type-accessibility-label-format" = "$1 గమనింపు";
 "notifications-center-change-password" = "సంకేతపదాన్ని మార్చుకోండి";
 "notifications-center-checking-for-notifications" = "గమనింపుల కోసం చూస్తున్నాం...";
+"notifications-center-destination-web" = "జాలంలో";
 "notifications-center-empty-checking-for-notifications" = "గమనింపుల కోసం చూస్తున్నాం...";
 "notifications-center-empty-no-messages" = "మీకు సందేశాలేమీ లేవు";
 "notifications-center-empty-not-subscribed" = "మీరు ప్రస్తుతం వికీపీడీయా గమనింపులు దేనికీ చందా కట్టలేదు";
@@ -541,10 +543,18 @@
 "notifications-center-filters-title" = "వడపోతలు";
 "notifications-center-filters-types-item-title-all" = "అన్ని రకాలు";
 "notifications-center-filters-types-section-title" = "గమనింపుల రకాలు";
+"notifications-center-go-to-article" = "వ్యాసానికి వెళ్ళు";
+"notifications-center-go-to-article-collaboration-format" = "$1 చర్చ పేజీకి వెళ్ళు";
+"notifications-center-go-to-article-discussion-format" = "$1 చర్చ పేజీకి వెళ్ళు";
+"notifications-center-go-to-article-talk-format" = "$1 చర్చ పేజీకి వెళ్ళు";
+"notifications-center-go-to-collaboration-page" = "చర్చ పేజీకి వెళ్ళు";
 "notifications-center-go-to-diff" = "తేడాకు వెళ్ళు";
+"notifications-center-go-to-discussion-page" = "చర్చల పేజీకి వెళ్ళు";
 "notifications-center-go-to-talk-page" = "చర్చ పేఝీకి వెళ్ళు";
 "notifications-center-go-to-title-format" = "$1 కు వెళ్ళు";
 "notifications-center-go-to-user-page" = "$1 వాడుకరి పేజీకి వెళ్ళండి";
+"notifications-center-go-to-user-page-format" = "$1 వాడుకరి పేజీకి వెళ్ళు";
+"notifications-center-go-to-user-page-simplified" = "వాడుకరి పేజీకి వెళ్ళు";
 "notifications-center-go-to-wikidata-item" = "వికీడేటా అంశానికి వెళ్ళండి";
 "notifications-center-go-to-your-talk-page" = "మీ చర్చ పేజీకి వెళ్ళండి";
 "notifications-center-header-alert-from-agent" = "$1 నుండి అలర్టు";
@@ -561,6 +571,7 @@
 "notifications-center-mark-all-as-read-missing-number" = "మీ గమనింపులన్నిటినీ చదివేసినట్లుగా గుర్తు పెట్టాలని నిశ్చయించుకున్నారా? మీ గమనింపులను చదివేసినట్లుగా అన్ని డివైసుల్లోనూ గుర్తు పెట్టేస్తాం.";
 "notifications-center-mark-as-read" = "చదివేసినట్లుగా గుర్తు పెట్టు";
 "notifications-center-mark-as-unread" = "చదవనట్లుగా గుర్తు పెట్టు";
+"notifications-center-more-action-accessibility-label" = "మరిన్ని";
 "notifications-center-notifications-settings" = "గమనింపు సెట్టింగులు";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 సందేశం|$1 సందేశాలు}}";
 "notifications-center-onboarding-modal-continue-action" = "కొనసాగించు";
@@ -607,6 +618,8 @@
 "notifications-center-swipe-more" = "మరిన్ని";
 "notifications-center-title" = "గమనింపులు";
 "notifications-center-toolbar-mark-accessibility-label" = "ఎంచుకున్న గమనింపులకు గుర్తు పెట్టు";
+"notifications-center-type-item-description-mentions" = "ప్రస్తావనలు";
+"notifications-center-type-item-description-welcome-verbose" = "స్వాగత సందేశం";
 "notifications-push-fallback-body-text" = "వికీపీడియాలో కొత్త కార్యకలాపం";
 "notifications-push-talk-body-format" = "$3 లో $1 కొత్త $2";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|$1 సందేశం|$1 సందేశాలు}}";

@@ -600,8 +600,8 @@
 "notifications-center-empty-not-subscribed" = "Herhangi bir Vikipedi Bildirimine üye değilsiniz";
 "notifications-center-empty-state-filters-subtitle" = "Daha fazla mesaj görmek için $1 kısmını değiştirin";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filtre|$1 filtre}}";
-// Fuzzy
-"notifications-center-feed-news-notification-button-text" = "Bildirimleri aç";
+"notifications-center-feed-news-notification-button-text" = "BAnında iletme bildirimlerini aç";
+"notifications-center-feed-news-notification-dismiss-button-text" = "Şimdi değil";
 "notifications-center-filters-accessibility-label" = "Bildirim filtresi";
 "notifications-center-filters-read-status-item-title-all" = "Tümü";
 "notifications-center-filters-read-status-item-title-read" = "Oku";
