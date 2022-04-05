@@ -47,6 +47,7 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
 }
 
 - (void)authenticationManagerWillLogOut:(void (^)(void))completionHandler {
+    NSUserDefaults.standardUserDefaults.wmf_didShowNotificationsCenterPushOptInPanel = NO;
     if (NSUserDefaults.standardUserDefaults.wmf_isSubscribedToEchoNotifications) {
         [self unsubscribeFromEchoNotificationsWithCompletionHandler:^(NSError *error) {
             completionHandler();
