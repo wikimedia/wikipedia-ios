@@ -461,6 +461,7 @@ extension NotificationsCenterViewController: NotificationsCenterOnboardingDelega
 
     func presentOnboardingEducationModalIfNecessary() {
         guard !UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter else {
+            presentOnboardingPushOptInIfNecessary()
             return
         }
 
@@ -472,12 +473,13 @@ extension NotificationsCenterViewController: NotificationsCenterOnboardingDelega
     }
 
     func presentOnboardingPushOptInIfNecessary() {
-        guard !UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter else {
+        guard !UserDefaults.standard.wmf_didShowNotificationsCenterPushOptInPanel else {
             return
         }
 
         guard !UserDefaults.standard.wmf_isSubscribedToEchoNotifications else {
             UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter = true
+            UserDefaults.standard.wmf_didShowNotificationsCenterPushOptInPanel = true
             return
         }
 
@@ -486,6 +488,7 @@ extension NotificationsCenterViewController: NotificationsCenterOnboardingDelega
 
             guard status != .denied else {
                 UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter = true
+                UserDefaults.standard.wmf_didShowNotificationsCenterPushOptInPanel = true
                 return
             }
 
@@ -502,6 +505,7 @@ extension NotificationsCenterViewController: NotificationsCenterOnboardingDelega
 
                 let dismissHandler: ScrollableEducationPanelDismissHandler = {
                     UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter = true
+                    UserDefaults.standard.wmf_didShowNotificationsCenterPushOptInPanel = true
                 }
 
                 let panel = NotificationsCenterOnboardingPushPanelViewController(showCloseButton: false, primaryButtonTapHandler: primaryTapHandler, secondaryButtonTapHandler: secondaryTapHandler, dismissHandler: dismissHandler, theme: self.theme)
