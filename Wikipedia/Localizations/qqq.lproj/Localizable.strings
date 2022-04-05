@@ -593,7 +593,6 @@
 "notifications-center-go-to-title-format" = "Button text in Notifications Center that routes to a particular article. $1 is replaced with page title.";
 "notifications-center-go-to-user-page" = "Button text in Notifications Center that routes to a web view of the user page of the sender that triggered the notification. $1 is replaced with the sender's username.";
 "notifications-center-go-to-user-page-format" = "Button text in Notifications Center that routes to a particular user page. $1 is replaced with the username.";
-"notifications-center-go-to-user-page-simplified" = "Button text in Notifications Center that routes to a web view of the user page of the sender that triggered the notification.";
 "notifications-center-go-to-wikidata-item" = "Button text in Notifications Center that routes to a Wikidata item page.";
 "notifications-center-go-to-your-talk-page" = "Button text in Notifications Center that routes to user's talk page.";
 "notifications-center-header-alert-from-agent" = "Subheader text for unknown alert type notifications in Notifications Center. $1 will be replaced with the origin agent of the notification.";

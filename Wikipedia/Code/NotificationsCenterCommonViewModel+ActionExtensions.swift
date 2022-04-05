@@ -1,4 +1,3 @@
-
 import Foundation
 import WMF
 
@@ -13,24 +12,15 @@ extension NotificationsCenterCommonViewModel {
         return url.doesOpenInBrowser ? CommonStrings.notificationsCenterDestinationWeb : CommonStrings.notificationsCenterDestinationApp
     }
     
-    //Go to [Username]'s user page
+    // [Username]'s user page
     var agentUserPageAction: NotificationsCenterAction? {
-        return agentUserPageAction()
-    }
-    func agentUserPageAction(simplified: Bool = false) -> NotificationsCenterAction? {
         guard let agentName = notification.agentName,
               let url = customPrefixAgentNameURL(pageNamespace: .user) else {
             return nil
         }
 
-        let text: String
-        if simplified {
-            text = WMFLocalizedString("notifications-center-go-to-user-page-simplified", value: "Go to user page", comment: "Button text in Notifications Center that routes to a web view of the user page of the sender that triggered the notification.")
-        } else {
-            let format = WMFLocalizedString("notifications-center-go-to-user-page", value: "Go to %1$@'s user page", comment: "Button text in Notifications Center that routes to a web view of the user page of the sender that triggered the notification. %1$@ is replaced with the sender's username.")
-            text = String.localizedStringWithFormat(format, agentName)
-        }
-        
+        let format = WMFLocalizedString("notifications-center-go-to-user-page", value: "%1$@'s user page", comment: "Button text in Notifications Center that routes to a web view of the user page of the sender that triggered the notification. %1$@ is replaced with the sender's username.")
+        let text = String.localizedStringWithFormat(format, agentName)
 
         let data = NotificationsCenterActionData(text: text, url: url, iconType: .person, destinationText: destinationText(for: url))
 
