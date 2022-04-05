@@ -31,6 +31,7 @@ let WMFAppInstallId = "WMFAppInstallId"
 let WMFSendUsageReports = "WMFSendUsageReports"
 let WMFShowNotificationsExploreFeedCard = "WMFShowNotificationsExploreFeedCard"
 let WMFUserHasOnboardedToNotificationsCenter = "WMFUserHasOnboardedToNotificationsCenter"
+let WMFDidShowNotificationsCenterPushOptInPanel = "WMFDidShowNotificationsCenterPushOptInPanel"
 let WMFSubscribedToEchoNotifications = "WMFSubscribedToEchoNotifications"
 
 @objc public enum WMFAppDefaultTabType: Int {
@@ -447,6 +448,15 @@ let WMFSubscribedToEchoNotifications = "WMFSubscribedToEchoNotifications"
         }
         set {
             set(newValue, forKey: WMFUserHasOnboardedToNotificationsCenter)
+        }
+    }
+
+    @objc var wmf_didShowNotificationsCenterPushOptInPanel: Bool {
+        get {
+            return bool(forKey: WMFDidShowNotificationsCenterPushOptInPanel)
+        }
+        set {
+            set(newValue, forKey: WMFDidShowNotificationsCenterPushOptInPanel)
         }
     }
 
