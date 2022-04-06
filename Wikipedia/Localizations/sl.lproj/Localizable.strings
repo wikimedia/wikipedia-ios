@@ -343,6 +343,7 @@
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milj";
 "new-password-title" = "Nastavite svoje geslo";
+"notifications-center-swipe-more" = "Več";
 "on-this-day-detail-header-date-range" = "od $1 – $2";
 "on-this-day-title" = "Na današnji dan";
 "page-location" = "Prikaži na karti";
@@ -387,7 +388,10 @@
 "reference-title" = "Sklic $1";
 "saved-search-default-text" = "Iskanje shranjenih člankov";
 "saved-title" = "Shranjeno";
+"search-did-you-mean" = "Ste mislili $1?";
+"search-recent-clear-cancel" = "Prekliči";
 "search-title" = "Iskanje";
+"settings-clear-cache-cancel" = "Prekliči";
 "settings-notifications-push-notifications" = "Potisna obvestila";
 "sort-by-title-action" = "Naslov";
 "talk-page-reply-title" = "Odgovor";

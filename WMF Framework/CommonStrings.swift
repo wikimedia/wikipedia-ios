@@ -48,12 +48,18 @@ public class CommonStrings: NSObject {
 
     @objc public static let notificationsCenterTitle = WMFLocalizedString("notifications-center-title", value: "Notifications", comment: "Title for Notifications Center interface, as well as the accessibility label for the button that navigates to Notifications Center.")
     @objc public static let notificationsCenterBadgeTitle = WMFLocalizedString("notifications-center-badge-button-accessibility-label", value: "Notifications with unread badge", comment: "Accessibility label for a button that navigates to Notifications Center. This button has a badge indicating there are unread notifications.")
-    public static let notificationsCenterGoToTitleFormat = WMFLocalizedString("notifications-center-go-to-title", value: "Go to %1$@", comment: "Button text in Notifications Center that routes to a particular page. %1$@ is replaced with page title.")
     public static let notificationsCenterMarkAsRead = WMFLocalizedString("notifications-center-mark-as-read", value: "Mark as Read", comment: "Button text in Notifications Center to mark a notification as read.")
+    public static let notificationsCenterMarkAsReadSwipe = WMFLocalizedString("notifications-center-swipe-mark-as-read", value: "Mark as read", comment: "Button text in Notifications Center swipe actions to mark a notification as read.")
     public static let notificationsCenterMarkAsUnread = WMFLocalizedString("notifications-center-mark-as-unread", value: "Mark as Unread", comment: "Button text in Notifications Center to mark a notification as unread.")
+    public static let notificationsCenterMarkAsUnreadSwipe = WMFLocalizedString("notifications-center-swipe-mark-as-unread", value: "Mark as unread", comment: "Button text in Notifications Center swipe actions to mark a notification as unread.")
     public static let notificationsCenterAllNotificationsStatus = WMFLocalizedString("notifications-center-status-all", value: "All", comment: "Text to indicate all notifications in Notifications Center.")
     public static let notificationsCenterReadNotificationsStatus = WMFLocalizedString("notifications-center-status-read", value: "Read", comment: "Text to indicate a read notification in Notifications Center.")
     public static let notificationsCenterUnreadNotificationsStatus = WMFLocalizedString("notifications-center-status-unread", value: "Unread", comment: "Text to indicate an unread notification in Notifications Center.")
+    public static let notificationsCenterAgentDescriptionFromFormat = WMFLocalizedString("notifications-center-agent-description-from-format", value: "From %1$@", comment: "Text indicating who triggered a notification in notifications center. %1$@ will be replaced with the origin agent of the notification, which could be a username.")
+    public static let notificationsCenterAlert = WMFLocalizedString("notifications-center-alert", value: "Alert", comment: "Description of various \"alert\" notification types, used on the notification detail view.")
+    public static let notificationsChangePassword = WMFLocalizedString("notifications-center-change-password", value: "Change password", comment: "Button text in Notifications Center that routes user to change password screen.")
+    public static let notificationsCenterDestinationWeb = WMFLocalizedString("notifications-center-destination-web", value: "On web", comment: "Informational text next to each notification center action on the detail screen, informing the user that the action will take them to a web view or outside of the app.")
+    public static let notificationsCenterDestinationApp = WMFLocalizedString("notifications-center-destination-app", value: "In app", comment: "Informational text next to each notification center action on the detail screen, informing the user that the action will take them to a native view within the app.")
 
     @objc public static let exploreFeedTitle = WMFLocalizedString("welcome-exploration-explore-feed-title", value:"Explore feed", comment:"Title for Explore feed")
     @objc public static let featuredArticleTitle = WMFLocalizedString("explore-featured-article-heading", value: "Featured article", comment: "Text for 'Featured article' header")
@@ -108,6 +114,7 @@ public class CommonStrings: NSObject {
     @objc public static let updateActionTitle = WMFLocalizedString("action-update", value: "Update", comment: "Title of the update action.")
     @objc public static let cancelActionTitle = WMFLocalizedString("action-cancel", value: "Cancel", comment: "Title of the cancel action.")
     @objc public static let retryActionTitle = WMFLocalizedString("action-retry", value: "Retry", comment: "Title of the retry action.")
+    @objc public static let discardEditsActionTitle = WMFLocalizedString("action-discard-edits", value: "Discard edits", comment: "Title of the discard edits action.")
 
     @objc public static let sortActionTitle = WMFLocalizedString("action-sort", value: "Sort", comment: "Title of the sort action.")
 
@@ -201,6 +208,10 @@ public class CommonStrings: NSObject {
     public static let insertLinkTitle = WMFLocalizedString("insert-link-title", value: "Insert link", comment: "Title for the Insert link screen")
     public static let editLinkTitle = WMFLocalizedString("edit-link-title", value: "Edit link", comment: "Title for the Edit link screen")
 
+    public static let readStatusAccessibilityLabel = WMFLocalizedString("talk-page-discussion-read-accessibility-label", value: "Read", comment: "Accessibility text for indicating that some content have been read.")
+    
+    public static let unreadStatusAccessibilityLabel = WMFLocalizedString("talk-page-discussion-unread-accessibility-label", value: "Unread", comment: "Accessibility text for indicating that some content have not been read.")
+    
     public static let talkPageNewBannerTitle = WMFLocalizedString("talk-page-new-banner-title", value: "Please be kind", comment: "Title text on banner that appears once user posts a new reply or discussion topic on their talk page.")
 
     public static let talkPageNewBannerSubtitle = WMFLocalizedString("talk-page-new-banner-subtitle", value: "Remember, we are all humans here", comment: "Subtitle text on banner that appears once user posts a new reply or discussion topic on their talk page.")
@@ -333,6 +344,9 @@ public class CommonStrings: NSObject {
     public static let articleAsLivingDocErrorTitle = WMFLocalizedString("aaald-error-title", value: "Unable to load inline article history", comment: "Title of error banner that appears at the bottom of an article when significant events fail to load.")
 
     public static let articleAsLivingDocErrorSubtitle = WMFLocalizedString("aaald-error-subitle", value: "Refresh to try again", comment: "Subtitle of error banner that appears at the bottom of an article when significant events fail to load.")
+    
+    public static let editorExitConfirmationTitle = WMFLocalizedString("editor-exit-confirmation-title", value: "Dismiss the editing mode?", comment: "Title text of editing mode confirmation alert. Presented to the user when they they are about to be navigated away from the editor flow.")
+    public static let editorExitConfirmationBody =  WMFLocalizedString("editor-exit-confirmation-body", value: "Are you sure you want to leave editing mode without publishing first?", comment: "Body text of editing mode confirmation alert. Presented to the user when they they are about to be navigated away from the editor flow.")
 }
 
 // Language variant strings

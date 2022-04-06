@@ -466,6 +466,22 @@ final class NotificationsCenterCell: UICollectionViewCell {
 
     // MARK: - Public
 
+    fileprivate func setupAccessibility(_ viewModel: NotificationsCenterCellViewModel) {
+        accessibilityLabel = viewModel.accessibilityText
+        isAccessibilityElement = true
+        
+        if !viewModel.displayState.isEditing {
+            let moreActionAccessibilityLabel = WMFLocalizedString("notifications-center-more-action-accessibility-label", value: "More", comment: "Acessibility label for the More custom action")
+            let moreActionAccessibilityActionLabel = viewModel.isRead ? CommonStrings.notificationsCenterMarkAsUnread : CommonStrings.notificationsCenterMarkAsRead
+            let moreAction = UIAccessibilityCustomAction(name: moreActionAccessibilityLabel, target: self, selector: #selector(tappedMoreAction))
+            let markasReadorUnreadAction = UIAccessibilityCustomAction(name: moreActionAccessibilityActionLabel, target: self, selector: #selector(tappedReadUnreadAction))
+    
+            accessibilityCustomActions = [moreAction, markasReadorUnreadAction]
+        } else {
+            accessibilityCustomActions =  nil
+        }
+    }
+    
     func configure(viewModel: NotificationsCenterCellViewModel, theme: Theme) {
         self.viewModel = viewModel
         self.theme = theme
@@ -474,6 +490,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         updateLabels(forViewModel: viewModel)
         updateProject(forViewModel: viewModel)
         updateMetaContent(forViewModel: viewModel)
+        setupAccessibility(viewModel)
     }
     
     func configure(theme: Theme) {
@@ -501,15 +518,17 @@ private extension NotificationsCenterCell {
         foregroundContentContainer.backgroundColor = isHighlighted || isSelected || displayState.isSelected ? theme.colors.batchSelectionBackground : theme.colors.paperBackground
         cellSeparator.backgroundColor = cellStyle.cellSeparatorColor
 
-        headerLabel.textColor = cellStyle.headerTextColor(displayState)
-        subheaderLabel.textColor = cellStyle.subheaderTextColor(displayState)
-        messageSummaryLabel.textColor = cellStyle.messageTextColor
-        relativeTimeAgoLabel.textColor = cellStyle.relativeTimeAgoColor
-        metaImageView.tintColor = cellStyle.metadataTextColor
-        metaLabel.textColor = cellStyle.metadataTextColor
-        projectSourceLabel.label.textColor = cellStyle.projectSourceColor
-        projectSourceLabel.layer.borderColor = cellStyle.projectSourceColor.cgColor
-        projectSourceImage.tintColor = cellStyle.projectSourceColor
+        let textColor = cellStyle.textColor(displayState)
+
+        headerLabel.textColor = textColor
+        subheaderLabel.textColor = textColor
+        messageSummaryLabel.textColor = textColor
+        relativeTimeAgoLabel.textColor = textColor
+        metaImageView.tintColor = textColor
+        metaLabel.textColor = textColor
+        projectSourceLabel.label.textColor = textColor
+        projectSourceLabel.layer.borderColor = textColor.cgColor
+        projectSourceImage.tintColor = textColor
     }
 
     func updateCellStyle(forDisplayState displayState: NotificationsCenterCellDisplayState) {
@@ -548,8 +567,8 @@ private extension NotificationsCenterCell {
         relativeTimeAgoLabel.text = viewModel.dateText
         swipeMoreStack.label.text = WMFLocalizedString("notifications-center-swipe-more", value: "More", comment: "Button text for the Notifications Center 'More' swipe action.")
         swipeReadUnreadStack.label.text = viewModel.isRead
-            ? WMFLocalizedString("notifications-center-swipe-mark-as-unread", value: "Mark as unread", comment: "Button text in Notifications Center swipe actions to mark a notification as unread.")
-            : WMFLocalizedString("notifications-center-swipe-mark-as-read", value: "Mark as read", comment: "Button text in Notifications Center swipe actions to mark a notification as read.")
+        ? CommonStrings.notificationsCenterMarkAsUnreadSwipe
+        : CommonStrings.notificationsCenterMarkAsReadSwipe
     }
 
     func updateProject(forViewModel viewModel: NotificationsCenterCellViewModel) {
@@ -592,5 +611,6 @@ private extension NotificationsCenterCell {
 
     @objc func tappedReadUnreadAction() {
         delegate?.userDidTapMarkAsReadUnreadActionForCell(self)
+        UIAccessibility.post(notification: .screenChanged, argument: nil)
     }
 }

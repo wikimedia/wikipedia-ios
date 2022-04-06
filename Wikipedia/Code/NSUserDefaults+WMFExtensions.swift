@@ -29,7 +29,9 @@ let WMFIsSyntaxHighlightingEnabled = "WMFIsSyntaxHighlightingEnabled"
 let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 let WMFAppInstallId = "WMFAppInstallId"
 let WMFSendUsageReports = "WMFSendUsageReports"
+let WMFShowNotificationsExploreFeedCard = "WMFShowNotificationsExploreFeedCard"
 let WMFUserHasOnboardedToNotificationsCenter = "WMFUserHasOnboardedToNotificationsCenter"
+let WMFDidShowNotificationsCenterPushOptInPanel = "WMFDidShowNotificationsCenterPushOptInPanel"
 let WMFSubscribedToEchoNotifications = "WMFSubscribedToEchoNotifications"
 
 @objc public enum WMFAppDefaultTabType: Int {
@@ -449,6 +451,15 @@ let WMFSubscribedToEchoNotifications = "WMFSubscribedToEchoNotifications"
         }
     }
 
+    @objc var wmf_didShowNotificationsCenterPushOptInPanel: Bool {
+        get {
+            return bool(forKey: WMFDidShowNotificationsCenterPushOptInPanel)
+        }
+        set {
+            set(newValue, forKey: WMFDidShowNotificationsCenterPushOptInPanel)
+        }
+    }
+
     var isUserUnawareOfLogout: Bool {
         get {
             return bool(forKey: UserDefaults.Key.isUserUnawareOfLogout)
@@ -514,6 +525,16 @@ let WMFSubscribedToEchoNotifications = "WMFSubscribedToEchoNotifications"
             set(newValue, forKey: "SystemDarkMode")
         }
     }
+    
+    @objc var wmf_shouldShowNotificationsExploreFeedCard: Bool {
+        get {
+           return bool(forKey: WMFShowNotificationsExploreFeedCard)
+        }
+        set{
+            set(newValue, forKey: WMFShowNotificationsExploreFeedCard)
+        }
+    }
+
 #if UI_TEST
     @objc func wmf_isFastlaneSnapshotInProgress() -> Bool {
         return bool(forKey: "FASTLANE_SNAPSHOT")

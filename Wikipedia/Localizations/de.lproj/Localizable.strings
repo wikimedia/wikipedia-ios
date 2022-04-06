@@ -405,10 +405,8 @@
 "featured-widget-description" = "Entdecke die besten Artikel auf Wikipedia, die täglich von unserer Gemeinschaft ausgewählt werden.";
 "featured-widget-from-language-wikipedia" = "Von der Wikipedia auf $1";
 "featured-widget-from-wikipedia" = "Von Wikipedia";
-"featured-widget-language-failure" = "Deine primäre Wikipedia-Sprache unterstützt keine vorgestellte Artikel. Du kannst deine primäre Wikipedia-Sprache im Einstellungsmenü der App aktualisieren.";
+"featured-widget-language-failure" = "Deine primäre Wikipedia-Sprache unterstützt keine vorgestellten Artikel. Du kannst deine primäre Wikipedia-Sprache im Einstellungsmenü der App aktualisieren.";
 "featured-widget-title" = "Vorgestellter Artikel";
-"feed-news-notification-button-text" = "Benachrichtigungen anschalten";
-"feed-news-notification-text" = "Aktiviere Benachrichtigungen, um von Wikipedia benachrichtigt zu werden, wenn Artikel in den Nachrichten erscheinen.";
 "fetcher-error-generic" = "Etwas ist schief gelaufen. Bitte später erneut versuchen.";
 "fetcher-error-unexpected-response" = "Die App hat eine unerwartete Antwort vom Server erhalten. Bitte später erneut versuchen.";
 "field-alert-captcha-invalid" = "Ungültiges CAPTCHA";
@@ -540,6 +538,7 @@
 "no-internet-connection" = "Keine Internetverbindung";
 "no-internet-connection-article-reload" = "Eine neuere Version dieses Artikels könnte verfügbar sein, sie kann jedoch ohne Internetverbindung nicht geladen werden.";
 "no-internet-connection-article-reload-button" = "Zurück zur zuletzt gespeicherten Version";
+"notifications-center-agent-description-from-format" = "Von $1";
 "notifications-center-change-password" = "Passwort ändern";
 "notifications-center-checking-for-notifications" = "Prüfen auf Benachrichtigungen...";
 "notifications-center-empty-checking-for-notifications" = "Prüfen auf Benachrichtigungen...";
@@ -547,16 +546,17 @@
 "notifications-center-empty-not-subscribed" = "Du hast derzeit keine Wikipedia-Benachrichtigungen abonniert";
 "notifications-center-empty-state-filters-subtitle" = "Ändere $1, um mehr Nachrichten zu sehen";
 "notifications-center-empty-state-no-projects-selected" = "Projekte hinzufügen, um mehr Nachrichten zu sehen";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Benachrichtigungen anschalten";
 "notifications-center-filters-accessibility-label" = "Benachrichtigungsfilter";
 "notifications-center-filters-read-status-item-title-all" = "Alle";
 "notifications-center-filters-read-status-item-title-read" = "Gelesen";
 "notifications-center-filters-read-status-item-title-unread" = "Ungelesen";
-"notifications-center-filters-read-status-section-title" = "Lesstatus";
+"notifications-center-filters-read-status-section-title" = "Lesestatus";
 "notifications-center-filters-title" = "Filter";
 "notifications-center-filters-types-footer" = "Ändere die Benachrichtigungstypen, um sie in/aus deinem Benachrichtigungseingang zu filtern. Deaktivierte Benachrichtigungstypen sind nicht sichtbar, aber ihr Inhalt und alle neuen Benachrichtigungen sind verfügbar, wenn du den Schalter wieder einschaltest.";
 "notifications-center-filters-types-item-title-all" = "Alle Typen";
 "notifications-center-filters-types-section-title" = "Benachrichtigungstypen";
-"notifications-center-footer-change-password" = "Passwort ändern";
 "notifications-center-go-to-talk-page" = "Zur Diskussionsseite gehen";
 "notifications-center-go-to-wikidata-item" = "Zum Wikidata-Datenobjekt gehen";
 "notifications-center-go-to-your-talk-page" = "Zu deine Diskussionsseite gehen";
@@ -572,7 +572,6 @@
 "notifications-center-subheader-edit-milestone" = "Bearbeitungsmeilenstein";
 "notifications-center-subheader-edit-reverted" = "Deine Bearbeitung wurde rückgängig gemacht";
 "notifications-center-subheader-email-from-other-user" = "Neue E-Mail";
-"notifications-center-subheader-from-agent" = "Von $1";
 "notifications-center-subheader-login-fail-known-device" = "Mehrere fehlgeschlagene Anmeldeversuche";
 "notifications-center-subheader-login-fail-unknown-device" = "Fehlgeschlagener Anmeldeversuch";
 "notifications-center-subheader-login-success-unknown-device" = "Anmeldung von einem unbekannten Gerät";
@@ -798,6 +797,7 @@
 "settings-language-bar" = "Sprachen in der Suche anzeigen";
 "settings-languages-feed-customization" = "Du kannst bestimmen, welche Sprachen auf deinem Entdecken-Feed angezeigt werden, indem du die Einstellungen für deinen Entdecken-Feed anpasst.";
 "settings-my-languages" = "Meine Sprachen";
+// Fuzzy
 "settings-notifications" = "Benachrichtigungen";
 "settings-notifications-info" = "Werde über beliebte Artikel auf Wikipedia benachrichtigt mit unseren Push-Benachrichtigungen. Alles wird hinsichtlich des Datenschutzes und bis zu den Minutendaten zur Verfügung gestellt.";
 "settings-notifications-learn-more" = "Mehr über Benachrichtigungen erfahren";

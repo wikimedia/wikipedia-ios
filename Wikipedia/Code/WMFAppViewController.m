@@ -2016,6 +2016,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [self.exploreViewController updateNotificationsCenterButton];
         [self.settingsViewController configureBarButtonItems];
         UIApplication.sharedApplication.applicationIconBadgeNumber = 0;
+
+        if (self.isResumeComplete) {
+            [self.dataStore.feedContentController updateContentSource:[WMFAnnouncementsContentSource class]
+                                                                force:YES
+                                                           completion:nil];
+        }
     });
 }
 
@@ -2023,6 +2029,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.exploreViewController updateNotificationsCenterButton];
         [self.settingsViewController configureBarButtonItems];
+
+        if (self.isResumeComplete) {
+            [self.dataStore.feedContentController updateContentSource:[WMFAnnouncementsContentSource class]
+                                                                force:YES
+                                                           completion:nil];
+        }
     });
 }
 

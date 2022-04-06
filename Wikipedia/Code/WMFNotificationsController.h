@@ -47,6 +47,8 @@ extern NSString *const WMFNotificationInfoFeedNewsStoryKey;
 
 - (void)setRemoteNotificationRegistrationStatusWithDeviceToken:(nullable NSData *)deviceToken error:(nullable NSError *)error;
 
+- (void)authenticationManagerWillLogOut:(void (^)(void))completionHandler;
+
 @end
 
 NS_ASSUME_NONNULL_END

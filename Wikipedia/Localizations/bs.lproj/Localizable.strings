@@ -416,8 +416,6 @@
 "featured-widget-from-wikipedia" = "S Wikipedije";
 "featured-widget-language-failure" = "Vaš primarni jezik Wikipedije ne podržava Istaknuti članak. Možete ažurirati svoju primarnu Wikipediju u meniju postavki aplikacije.";
 "featured-widget-title" = "Istaknuti članak";
-"feed-news-notification-button-text" = "Uključi obavještenja";
-"feed-news-notification-text" = "Uključite obavještenja kako bi bili obaviješteni o člancima na Wikipediji koji su aktuelni na vijestima.";
 "fetcher-error-generic" = "Nešto je pošlo po zlu. Pokušajte ponovo kasnije.";
 "fetcher-error-unexpected-response" = "Aplikacija je dobila neočekivani odgovor od servera. Pokušajte ponovo kasnije.";
 "field-alert-captcha-invalid" = "Neispravna CAPTCHA";
@@ -564,9 +562,10 @@
 "notifications-center-change-password" = "Promijeni lozinku";
 "notifications-center-empty-checking-for-notifications" = "Provjera obavijesti...";
 "notifications-center-empty-not-subscribed" = "Trenutno niste pretplaćeni na obavještenja Wikipedije";
-"notifications-center-footer-change-password" = "Promijeni lozinku";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Uključi obavještenja";
 "notifications-center-go-to-talk-page" = "Idi na stranicu za razgovor";
-"notifications-center-go-to-title" = "Idi na $1";
+"notifications-center-go-to-title-format" = "Idi na $1";
 "notifications-center-go-to-user-page" = "Idi na stranicu za razgovor korisnika $1";
 "notifications-center-go-to-wikidata-item" = "Idi na stavku Wikipodataka";
 "notifications-center-go-to-your-talk-page" = "Idi na svoju stranicu za razgovor";
@@ -802,6 +801,7 @@
 "settings-language-bar" = "Prikaži jezike pri pretrazi";
 "settings-languages-feed-customization" = "Možete upravljati koji jezici će se prikazivati na Vašoj stranici Istraži prilagođavanjem postavki stranice Istraži.";
 "settings-my-languages" = "Moji jezici";
+// Fuzzy
 "settings-notifications" = "Obavještenja";
 "settings-notifications-info" = "Budite obaviješteni o aktualnim i najčitanijim člancima na Wikipediji uz pomoć naših push obavještenja. Sve se nudi s najnovijim podacima, a pritom se poštuje Vaša privatnost.";
 "settings-notifications-learn-more" = "Detaljnije o obavještenjima";

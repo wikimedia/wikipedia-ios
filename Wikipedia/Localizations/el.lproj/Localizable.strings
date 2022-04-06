@@ -17,6 +17,13 @@
 // Author: SucreRouge
 // Author: Tgkarounos
 
+"aaald-article-insert-last-updated" = "Τελευταία ενημέρωση";
+"aaald-article-insert-new-changes" = "Νέες αλλαγές";
+"aaald-new-book-reference-title" = "Βιβλίο";
+"aaald-new-discussion" = "Νέα συζήτηση";
+"aaald-new-journal-reference-volume" = "Ένταση $1:";
+"aaald-new-news-reference-title" = "Νέα";
+"aaald-new-website-reference-title" = "Ιστότοπος";
 "about-content-license" = "Άδεια περιεχομένου";
 "about-content-license-details" = "Όλα τα κείμενα είναι διαθέσιμα υπό την $1· μπορεί να ισχύουν και πρόσθετοι όροι";
 "about-content-license-details-share-alike-license" = "Creative Commons Attribution-ShareAlike License";
@@ -62,6 +69,7 @@
 "action-add-to-reading-list" = "Πρόσθεση στην λίστα ανάγνωσης";
 "action-add-to-reading-list-short" = "Προσθήκη στην λίστα";
 "action-cancel" = "Ακύρωση";
+"action-discard-edits" = "Απόρριψη επεξεργασιών";
 "action-find-in-page" = "Βρείτε στην σελίδα";
 "action-language-accessibility" = "Αλλαγή γλώσσας";
 "action-move-to" = "Μετακίνηση σε...";
@@ -211,8 +219,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Από την $1 Βικιπαίδεια";
 "explore-random-article-sub-heading-from-wikipedia" = "Από τη Βικιπαίδεια";
 "explore-randomizer" = "Τυχαιοποιητής";
-"feed-news-notification-button-text" = "Ενεργοποίηση ειδοποιήσεων";
-"feed-news-notification-text" = "Ενεργοποίηση της ειδοποίησης ειδοποίησεων από την Βικιπαίδεια όταν τα λήμματα είναι στις ειδήσεις.";
 "field-alert-captcha-invalid" = "Μη έγκυρο CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Οι κωδικοί πρόσβασης δεν αντιστοιχούν.";
 "field-alert-token-invalid" = "Μη έγκυρος κωδικός";
@@ -299,6 +305,27 @@
 "new-password-instructions" = "Συνδεθήκατε με έναν προσωρινό κωδικό πρόσβασης. Για να ολοκληρώσετε τη σύνδεση ορίστε ένα νέο κωδικό πρόσβασης εδώ.";
 "new-password-title" = "Εισαγάγετε τον κωδικό σας";
 "no-email-account-alert" = "Παρακαλούμε ρυθμίστε ένα λογαριασμό ηλεκτρονικού ταχυδρομείου στην συσκευή σας και προσπαθήστε ξανά.";
+"notifications-center-alert" = "Προειδοποίηση";
+"notifications-center-change-password" = "Αλλαγή κωδικού πρόσβασης";
+"notifications-center-destination-app" = "Στην εφαρμογή";
+"notifications-center-feed-card-title" = "Οι ειδοποιήσεις επεξεργασίας είναι πλέον διαθέσιμες";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Ενεργοποίηση ειδοποιήσεων";
+"notifications-center-go-to-article" = "Μετάβαση σε άρθρο";
+"notifications-center-go-to-article-discussion-format" = "Μετάβαση στη σελίδα συζητήσεων $1";
+"notifications-center-go-to-article-talk-format" = "Μετάβαση στη σελίδα συνομιλίας $1";
+"notifications-center-go-to-discussion-page" = "Μετάβαση στη σελίδα συζητήσεων";
+"notifications-center-go-to-user-page-format" = "Μετάβαση στη σελίδα του χρήστη $1";
+"notifications-center-go-to-user-page-simplified" = "Μετάβαση στη σελίδα χρήστη";
+"notifications-center-login-notifications" = "Ειδοποιήσεις σύνδεσης";
+"notifications-center-onboarding-modal-continue-action" = "Συνέχεια";
+"notifications-center-onboarding-modal-filters-title" = "Φίλτρα";
+"notifications-center-onboarding-modal-learn-more-action" = "Μάθετε περισσότερα για τις ειδοποιήσεις";
+"notifications-center-onboarding-modal-notifications-alerts-title" = "Ειδοποιήσεις και προειδοποιήσεις";
+"notifications-center-onboarding-modal-title" = "Ειδοποιήσεις επεξεργασίας";
+"notifications-center-onboarding-panel-secondary-button" = "Όχι ευχαριστώ";
+"notifications-center-type-item-description-mentions" = "Αναφορές";
+"notifications-center-type-item-description-welcome-verbose" = "Μήνυμα καλωσορίσματος";
 "number-billions" = "$1Δ";
 "number-millions" = "$1Ε";
 "number-thousands" = "$1Χ";
@@ -415,7 +442,9 @@
 "settings-help-and-feedback" = "Βοήθεια και ανατροφοδότηση";
 "settings-language-bar" = "Εμφάνιση γλωσσών στην αναζήτηση";
 "settings-my-languages" = "Οι γλώσσες μου";
+// Fuzzy
 "settings-notifications" = "Ενημερώσεις";
+"settings-notifications-echo-failure-try-again" = "Δοκιμάστε ξανά";
 "settings-notifications-learn-more" = "Μάθετε περισσότερα για τις ειδοποιήσεις";
 "settings-notifications-system-turn-on" = "Ενεργοποίηση ειδοποιήσεων";
 "settings-primary-language" = "Βασικά";

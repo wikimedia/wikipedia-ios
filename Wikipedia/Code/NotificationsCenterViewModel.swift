@@ -25,11 +25,12 @@ final class NotificationsCenterViewModel: NSObject {
 
     // MARK: - Properties
 
+    let notificationsController: WMFNotificationsController
     let remoteNotificationsController: RemoteNotificationsController
     
     weak var delegate: NotificationsCenterViewModelDelegate?
 
-    lazy private var modelController = NotificationsCenterModelController(languageLinkController: self.languageLinkController, remoteNotificationsController: remoteNotificationsController)
+    lazy private var modelController = NotificationsCenterModelController(languageLinkController: self.languageLinkController, remoteNotificationsController: remoteNotificationsController, configuration: configuration)
 
     let languageLinkController: MWKLanguageLinkController
 
@@ -55,7 +56,8 @@ final class NotificationsCenterViewModel: NSObject {
     // MARK: - Lifecycle
 
     @objc
-    init(remoteNotificationsController: RemoteNotificationsController, languageLinkController: MWKLanguageLinkController) {
+    init(notificationsController: WMFNotificationsController, remoteNotificationsController: RemoteNotificationsController, languageLinkController: MWKLanguageLinkController) {
+        self.notificationsController = notificationsController
         self.remoteNotificationsController = remoteNotificationsController
         self.languageLinkController = languageLinkController
         

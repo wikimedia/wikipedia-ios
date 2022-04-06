@@ -37,7 +37,6 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
         self.languageLinkController = languageLinkController;
         self.echoSubscriptionFetcher = [[WMFEchoSubscriptionFetcher alloc] initWithSession:dataStore.session configuration:dataStore.configuration];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAppLanguageDidChangeNotification:) name:WMFAppLanguageDidChangeNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationManagerWillLogOut) name:WMFAuthenticationManager.willLogOutNotification object:nil];
         [self silentlyOptInToBadgePermissionsIfNecessary];
     }
     return self;
@@ -47,8 +46,15 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)authenticationManagerWillLogOut {
-    [self unsubscribeFromEchoNotificationsWithCompletionHandler:nil];
+- (void)authenticationManagerWillLogOut:(void (^)(void))completionHandler {
+    NSUserDefaults.standardUserDefaults.wmf_didShowNotificationsCenterPushOptInPanel = NO;
+    if (NSUserDefaults.standardUserDefaults.wmf_isSubscribedToEchoNotifications) {
+        [self unsubscribeFromEchoNotificationsWithCompletionHandler:^(NSError *error) {
+            completionHandler();
+        }];
+    } else {
+        completionHandler();
+    }
 }
 
 - (void)silentlyOptInToBadgePermissionsIfNecessary {
@@ -82,16 +88,24 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
                 [self requestPermissionsWithCompletionHandler:completionHandler];
                 break;
             case UNAuthorizationStatusDenied:
-                completionHandler(NO, nil);
+                if (completionHandler) {
+                    completionHandler(NO, nil);
+                }
                 break;
             case UNAuthorizationStatusAuthorized:
-                completionHandler(YES, nil);
+                if (completionHandler) {
+                    completionHandler(YES, nil);
+                }
                 break;
             case UNAuthorizationStatusProvisional:
-                completionHandler(YES, nil);
+                if (completionHandler) {
+                    completionHandler(YES, nil);
+                }
                 break;
             case UNAuthorizationStatusEphemeral:
-                completionHandler(YES, nil);
+                if (completionHandler) {
+                    completionHandler(YES, nil);
+                }
                 break;
         }
     }];
@@ -110,7 +124,9 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
                                                 if (error == nil) {
                                                     NSUserDefaults.standardUserDefaults.wmf_isSubscribedToEchoNotifications = YES;
                                                 }
-                                                completionHandler(error);
+                                                if (completionHandler) {
+                                                    completionHandler(error);
+                                                }
                                             }];
 }
 

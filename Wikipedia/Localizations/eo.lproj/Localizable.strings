@@ -344,8 +344,6 @@
 "explore-random-article-sub-heading-from-wikipedia" = "De Vikipedio";
 "explore-randomizer" = "Hazardumilo";
 "featured-article-empty-title" = "Neniu elstara artikolo estas havebla hodiaŭ";
-"feed-news-notification-button-text" = "Ŝalti sciigojn";
-"feed-news-notification-text" = "Ŝalti sciigojn por esti sciigita de Vikipedio kiam artikoloj estas popularaj en la novaĵoj.";
 "fetcher-error-generic" = "Io misfunkciis. Bonvolu reprovi poste.";
 "fetcher-error-unexpected-response" = "La aplikaĵo ricevis ne atenditan respondon el la servilo. Bonvolu reprovi poste.";
 "field-alert-captcha-invalid" = "Nevalida CAPTCHA";
@@ -477,6 +475,8 @@
 "no-internet-connection" = "Interreta konekto mankas";
 "no-internet-connection-article-reload" = "Nova versio de ĉi tiu artikolo eble estas havebla, sed ne povas esti ŝarĝita sen Interreta konekto";
 "no-internet-connection-article-reload-button" = "Reen al lasta konservita versio";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Ŝalti sciigojn";
 "notifications-center-filters-types-item-title-all" = "Ĉiuj tipoj";
 "notifications-center-inbox-title" = "Projektoj";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Vikimediaj projektoj";
@@ -671,6 +671,7 @@
 "settings-language-bar" = "Montri lingvojn dum serĉado";
 "settings-languages-feed-customization" = "Vi povas administri kiuj lingvoj estas montrataj sur via Esplorfluo tajlorante viajn Esplorfluajn agordojn.";
 "settings-my-languages" = "Miaj lingvoj";
+// Fuzzy
 "settings-notifications" = "Sciigoj";
 "settings-notifications-info" = "Estu sciigita pri popularaj kaj plej ofte legitaj artikoloj sur Vikipedio dank'al niaj sciigoj. Ili ĉiuj estas provizataj kun respekto al privateco kaj kun plej ĝisdatigitaj datumoj.";
 "settings-notifications-learn-more" = "Ekscii pli pri sciigoj";

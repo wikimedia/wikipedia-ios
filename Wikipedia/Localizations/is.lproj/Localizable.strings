@@ -372,8 +372,6 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Af Wikipedia";
 "explore-randomizer" = "Slembið";
 "featured-article-empty-title" = "Engin forsíðugrein tiltæk í dag";
-"feed-news-notification-button-text" = "Kveikja á tilkynningum";
-"feed-news-notification-text" = "Virkja kerfistilkynningar til að fá ábendingar frá Wikipedia þegar greinar eru til umfjöllunar í fréttamiðlum.";
 "fetcher-error-generic" = "Eitthvað fór úrskeiðis. Prófaðu aftur síðar.";
 "fetcher-error-unexpected-response" = "Forritið fékk óvænt svar frá þjóninum. Prófaðu aftur síðar.";
 "field-alert-captcha-invalid" = "Ógilt CAPTCHA";
@@ -510,6 +508,8 @@
 "no-internet-connection" = "Engin internettenging";
 "no-internet-connection-article-reload" = "Nýrri útgáfa af þessari grein gæti verið tiltæk, en ekki er hægt að ná í hana án internettengingar";
 "no-internet-connection-article-reload-button" = "Fara til baka í síðustu vistuðu útgáfu";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Kveikja á tilkynningum";
 "number-billions" = "$1 Ma";
 "number-millions" = "$1 Mi";
 "number-thousands" = "$1 þús.";
@@ -721,6 +721,7 @@
 "settings-language-bar" = "Sýna tungumál við leit";
 "settings-languages-feed-customization" = "Þú getur stjórnað hvaða tungumál birtst í 'Uppgötva'-streyminu með því að sérsníða stillingar streymisins.";
 "settings-my-languages" = "Tungumálin mín";
+// Fuzzy
 "settings-notifications" = "Tilkynningar";
 "settings-notifications-info" = "Fáðu ábendingar um mál sem eru efst á baugi og mest lesnu greinarnar á Wikipedia með aðstoð ýti-tilkynninga. Allt þetta miðast við ítrustu persónuvernd og allra nýjustu gögn.";
 "settings-notifications-learn-more" = "Lesa meira um tilkynningar";
