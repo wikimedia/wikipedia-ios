@@ -234,7 +234,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         footerTextView.attributedText = attributedText
     }
 
-    var primaryButtonBorderWidth: CGFloat = 1 {
+    var primaryButtonBorderWidth: CGFloat = 0 {
         didSet {
             primaryButton?.layer.borderWidth = primaryButtonBorderWidth
         }
