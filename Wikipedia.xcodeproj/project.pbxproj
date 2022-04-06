@@ -1752,6 +1752,7 @@
 		83B01F9B23DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F9923DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift */; };
 		83B01F9C23DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F9923DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift */; };
 		83B01F9D23DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B01F9923DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift */; };
+		83B1218427FC8750006B8CCC /* RemoteNotificationsFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B1218327FC8750006B8CCC /* RemoteNotificationsFunnel.swift */; };
 		83B4CDBF20E3DCD6007D5A6E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */; };
 		83B4CDC020E3DCD6007D5A6E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */; };
 		83B4CDC120E3DCD6007D5A6E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */; };
@@ -4440,6 +4441,7 @@
 		83B01F8F23DB41BE001185F4 /* ArticleViewController+Sharing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+Sharing.swift"; sourceTree = "<group>"; };
 		83B01F9423DB41D7001185F4 /* ArticleViewController+FindInPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+FindInPage.swift"; sourceTree = "<group>"; };
 		83B01F9923DB62CD001185F4 /* ArticleViewController+ArticleInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+ArticleInformation.swift"; sourceTree = "<group>"; };
+		83B1218327FC8750006B8CCC /* RemoteNotificationsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsFunnel.swift; sourceTree = "<group>"; };
 		83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		83B87EC61F713BC200F342F1 /* ArticleCollectionViewCell+ListDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleCollectionViewCell+ListDisplay.swift"; sourceTree = "<group>"; };
 		83BBBE5523F56F9400AD0994 /* LocaleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleTests.swift; sourceTree = "<group>"; };
@@ -6682,6 +6684,7 @@
 				7A4ABA8520AA8966007AA405 /* UserHistoryFunnel.swift */,
 				B0501BBC2110ED8800020BFA /* FeedFunnel.swift */,
 				67FF8E2C2550BB6F0048E741 /* ArticleAsLivingDocFunnel.swift */,
+				83B1218327FC8750006B8CCC /* RemoteNotificationsFunnel.swift */,
 			);
 			name = "WIkimedia Event Logging";
 			sourceTree = "<group>";
@@ -11479,6 +11482,7 @@
 				B0E8065C1C0CE84B0065EBC0 /* WikiTextSectionUploader.m in Sources */,
 				B0E804C91C0CE0B40065EBC0 /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
 				B02376B41D6ECCF9007DBA73 /* UIViewController+WMFDynamicHeightPopoverMessage.m in Sources */,
+				83B1218427FC8750006B8CCC /* RemoteNotificationsFunnel.swift in Sources */,
 				D8C4D3D81FD5D9260089CEC2 /* TUSafariActivity.m in Sources */,
 				7AF8CEED22653406000B7676 /* InsertMediaSelectedImageView.swift in Sources */,
 				B08337611DB17DC5002860D2 /* WMFWelcomeAnalyticsViewController.swift in Sources */,

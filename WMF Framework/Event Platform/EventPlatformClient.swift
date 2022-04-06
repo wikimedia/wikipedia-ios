@@ -88,6 +88,7 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
      */
     public enum Stream: String, Codable {
         case editHistoryCompare = "ios.edit_history_compare"
+        case remoteNotificationsInteraction = "ios.notification_interaction"
     }
     
     /**
@@ -101,6 +102,7 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
      */
     public enum Schema: String, Codable {
         case editHistoryCompare = "/analytics/mobile_apps/ios_edit_history_compare/2.0.0"
+        case remoteNotificationsInteraction = "/analytics/mobile_apps/ios_notification_interaction/1.0.0"
     }
 
     /**
