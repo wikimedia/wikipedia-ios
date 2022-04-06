@@ -5,16 +5,18 @@ final class RemoteNotificationsFunnel: EventLoggingFunnel, EventLoggingStandardE
         case toggleMarkRead
     }
     
+    public static let shared = RemoteNotificationsFunnel()
+    
     private struct Event: EventInterface {
         static let schema: EventPlatformClient.Schema = .remoteNotificationsInteraction
         let action: Action
     }
-    private func log(action: Action, domain: String?) {
+    private func log(action: Action) {
         let event = Event(action: action)
-        EventPlatformClient.shared.submit(stream: .remoteNotificationsInteraction, event: event, domain: domain)
+        EventPlatformClient.shared.submit(stream: .remoteNotificationsInteraction, event: event)
     }
     
-    public func logToggleMarkAsReadOrUnread(url: URL) {
-        log(action: .toggleMarkRead, domain: url.wmf_site?.host)
+    public func logToggleMarkAsReadOrUnread() {
+        log(action: .toggleMarkRead)
     }
 }

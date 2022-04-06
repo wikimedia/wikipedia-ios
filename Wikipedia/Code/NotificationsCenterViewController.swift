@@ -363,7 +363,7 @@ private extension NotificationsCenterViewController {
         if let popoverController = alertController.popoverPresentationController {
             popoverController.barButtonItem = sender
         }
-        
+        RemoteNotificationsFunnel.shared.logToggleMarkAsReadOrUnread()
         present(alertController, animated: true, completion: nil)
     }
     
