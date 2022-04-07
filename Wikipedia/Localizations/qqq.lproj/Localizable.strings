@@ -467,7 +467,6 @@
 "icon-shortcut-random-title" = "Title for app icon force touch shortcut to quickly open a random article. {{Identical|Random article}}";
 "icon-shortcut-search-title" = "Title for app icon force touch shortcut to quickly open the search interface.";
 "image-gallery-unknown-owner" = "Fallback text for when an item in the image gallery doesn't have a specified owner.";
-"in-the-news-currently-trending" = "Currently trending - indicates that the story is trending right now";
 "in-the-news-notification-read-now-action-title" = "Title on the 'Read Now' action button";
 "in-the-news-notification-save-for-later-action-title" = "Title on the 'Save for later' action button";
 "in-the-news-notification-share-action-title" = "Title on the 'Share' action button {{Identical|Share}}";
@@ -937,8 +936,6 @@
 "share-social-mention-format" = "Share format string for social platforms with an @mention. $1 is replaced with the article title, $2 is replaced with the article URL.";
 "sort-by-recently-added-action" = "Title of the sort action that allows sorting items by date added.";
 "sort-by-title-action" = "Title of the sort action that allows sorting items by title.";
-"status-saved-for-later" = "Indicates to the user that the article has been saved for later";
-"status-saving-for-later" = "Indicates to the user that the article is being saved for later";
 "table-of-contents-button-label" = "Accessibility label for the Table of Contents button {{Identical|Table of contents}}";
 "table-of-contents-close-accessibility-hint" = "Accessibility hint for closing table of contents {{Identical|Close}}";
 "table-of-contents-close-accessibility-label" = "Accessibility label for closing table of contents";
