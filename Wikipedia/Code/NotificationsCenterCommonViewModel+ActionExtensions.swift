@@ -95,10 +95,6 @@ extension NotificationsCenterCommonViewModel {
         WMFLocalizedString("notifications-center-go-to-article", value: "Article", comment: "Button text in Notifications Center that routes to article.")
     }
 
-    private var goToUserPageFormat: String {
-        WMFLocalizedString("notifications-center-go-to-user-page-format", value: "%1$@'s user page", comment: "Button text in Notifications Center that routes to a particular user page. %1$@ is replaced with the username.")
-    }
-    
     private var goToArticleTalkFormat: String {
         WMFLocalizedString("notifications-center-go-to-article-talk-format", value: "%1$@ talk page", comment: "Button text in Notifications Center that routes to a particular article talk page. %1$@ is replaced with page title.")
     }

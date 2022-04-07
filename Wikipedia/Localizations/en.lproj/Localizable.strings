@@ -591,7 +591,6 @@
 "notifications-center-go-to-discussion-page" = "Discussion page";
 "notifications-center-go-to-talk-page" = "Talk page";
 "notifications-center-go-to-user-page" = "$1's user page";
-"notifications-center-go-to-user-page-format" = "$1's user page";
 "notifications-center-go-to-wikidata-item" = "Wikidata item";
 "notifications-center-go-to-your-talk-page" = "Your talk page";
 "notifications-center-header-alert-from-agent" = "Alert from $1";
