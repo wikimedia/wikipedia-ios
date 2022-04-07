@@ -66,7 +66,7 @@ struct NotificationsCenterFilterItemView: View {
                 }
             }
         }
-        .padding(.horizontal, horizontalSizeClass == .regular ? 16 : 0)
+        .padding(.horizontal, horizontalSizeClass == .regular ? (UIFont.preferredFont(forTextStyle: .body).pointSize) : 0)
         .listRowBackground(Color(theme.colors.paperBackground).edgesIgnoringSafeArea([.all]))
     }
 }

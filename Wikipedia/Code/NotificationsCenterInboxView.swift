@@ -77,7 +77,7 @@ struct NotificationsCenterInboxView: View {
                             .foregroundColor(Color(viewModel.theme.colors.primaryText))
                         }
             )
-            .padding(.horizontal, horizontalSizeClass == .regular ? 16 : 0)
+            .padding(.horizontal, horizontalSizeClass == .regular ? (UIFont.preferredFont(forTextStyle: .body).pointSize) : 0)
             .background(Color(viewModel.theme.colors.baseBackground).edgesIgnoringSafeArea(.all))
             .navigationBarTitle(Text(WMFLocalizedString("notifications-center-inbox-title", value: "Projects", comment: "Navigation bar title text for the inbox view presented from notifications center. Allows for filtering out notifications by Wikimedia project type.")), displayMode: .inline)
             .onAppear(perform: {
