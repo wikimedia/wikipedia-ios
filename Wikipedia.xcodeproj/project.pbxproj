@@ -1111,10 +1111,6 @@
 		7A5A2777206D288C004CC837 /* NSFileManager+DirectorySize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5A2776206D288C004CC837 /* NSFileManager+DirectorySize.swift */; };
 		7A5AB82C22940D8500B91C9C /* WMFHTMLElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A5AB82B22940D8500B91C9C /* WMFHTMLElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7A5AB82D2294121D00B91C9C /* WMFHTMLElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5AB82522940CE200B91C9C /* WMFHTMLElement.m */; };
-		7A60E9D6215D511500F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A60E9D1215D444100F2D325 /* ReadMoreAboutRevertedEditViewController.swift */; };
-		7A60E9D7215D511600F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A60E9D1215D444100F2D325 /* ReadMoreAboutRevertedEditViewController.swift */; };
-		7A60E9D8215D511700F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A60E9D1215D444100F2D325 /* ReadMoreAboutRevertedEditViewController.swift */; };
-		7A60E9D9215D511700F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A60E9D1215D444100F2D325 /* ReadMoreAboutRevertedEditViewController.swift */; };
 		7A610CB7220A30C900C266AE /* HintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A610CB6220A30C900C266AE /* HintViewController.swift */; };
 		7A610CB8220A30C900C266AE /* HintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A610CB6220A30C900C266AE /* HintViewController.swift */; };
 		7A610CB9220A30C900C266AE /* HintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A610CB6220A30C900C266AE /* HintViewController.swift */; };
@@ -1458,10 +1454,6 @@
 		7AF49F81204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF49F7F204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift */; };
 		7AF49F82204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF49F7F204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift */; };
 		7AF49F83204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF49F7F204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift */; };
-		7AF4B71B215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF4B71A215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib */; };
-		7AF4B71C215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF4B71A215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib */; };
-		7AF4B71D215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF4B71A215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib */; };
-		7AF4B71E215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AF4B71A215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib */; };
 		7AF56C2F21DDEC1C00563A9C /* TextFormattingProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF56C2E21DDEC1C00563A9C /* TextFormattingProviding.swift */; };
 		7AF56C3021DDEC1C00563A9C /* TextFormattingProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF56C2E21DDEC1C00563A9C /* TextFormattingProviding.swift */; };
 		7AF56C3121DDEC1C00563A9C /* TextFormattingProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF56C2E21DDEC1C00563A9C /* TextFormattingProviding.swift */; };
@@ -4199,7 +4191,6 @@
 		7A5A2776206D288C004CC837 /* NSFileManager+DirectorySize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFileManager+DirectorySize.swift"; sourceTree = "<group>"; };
 		7A5AB82522940CE200B91C9C /* WMFHTMLElement.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFHTMLElement.m; sourceTree = "<group>"; };
 		7A5AB82B22940D8500B91C9C /* WMFHTMLElement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFHTMLElement.h; sourceTree = "<group>"; };
-		7A60E9D1215D444100F2D325 /* ReadMoreAboutRevertedEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMoreAboutRevertedEditViewController.swift; sourceTree = "<group>"; };
 		7A610CB6220A30C900C266AE /* HintViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HintViewController.swift; sourceTree = "<group>"; };
 		7A610CBC220A582A00C266AE /* HintController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HintController.swift; sourceTree = "<group>"; };
 		7A630F6B217A3FB100FC93FC /* Array+Chunked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Array+Chunked.swift"; path = "../Wikipedia/Code/Array+Chunked.swift"; sourceTree = "<group>"; };
@@ -4289,7 +4280,6 @@
 		7AF0265522985CB9000E0A06 /* BeKindInputAccessoryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BeKindInputAccessoryView.xib; sourceTree = "<group>"; };
 		7AF1B19520A1E14F000C8DFE /* ReadingListsFunnel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingListsFunnel.swift; sourceTree = "<group>"; };
 		7AF49F7F204EEDCD00578861 /* StorageAndSyncingSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAndSyncingSettingsViewController.swift; sourceTree = "<group>"; };
-		7AF4B71A215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReadMoreAboutRevertedEditViewController.xib; sourceTree = "<group>"; };
 		7AF56C2E21DDEC1C00563A9C /* TextFormattingProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFormattingProviding.swift; sourceTree = "<group>"; };
 		7AF56C3421DE0E2800563A9C /* SectionEditorWebViewMessagingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEditorWebViewMessagingController.swift; sourceTree = "<group>"; };
 		7AF6F76522395BEB00949393 /* EditingWelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingWelcomeViewController.swift; sourceTree = "<group>"; };
@@ -7385,15 +7375,6 @@
 			name = Search;
 			sourceTree = "<group>";
 		};
-		7A60E9D5215D4FD900F2D325 /* Remote Notifications */ = {
-			isa = PBXGroup;
-			children = (
-				7A60E9D1215D444100F2D325 /* ReadMoreAboutRevertedEditViewController.swift */,
-				7AF4B71A215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib */,
-			);
-			name = "Remote Notifications";
-			sourceTree = "<group>";
-		};
 		7A7857E3219F196C00ED1579 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
@@ -8226,7 +8207,6 @@
 				6782DB8F2343B691003FA21B /* Diff */,
 				7A1469BB220BBD5D000A20F1 /* Hint */,
 				007CCF0526D5A10700D5EA7C /* Notifications Center */,
-				7A60E9D5215D4FD900F2D325 /* Remote Notifications */,
 				D87233FC1E1FF05800751E83 /* Places */,
 				0EFB48071B3BAFE900381F99 /* OldArticle */,
 				0E98805F1DA2A0C00058D7F2 /* Feed */,
@@ -10280,7 +10260,6 @@
 				BA7683C31F30C56300A487AA /* ImageDimmingExampleViewController.xib in Resources */,
 				7A9F061E2266432200856321 /* InsertMediaSettingsTextTableViewCell.xib in Resources */,
 				B0E8040B1C0CDE480065EBC0 /* WMFAccountCreationViewController.storyboard in Resources */,
-				7AF4B71B215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib in Resources */,
 				D8D92B621DF22E1700B95311 /* NotificationBackgroundSuccessIcon.png in Resources */,
 				7AE1FE3621B4A9790068BE9F /* TextFormattingButtonView.xib in Resources */,
 				B02B82761C696ECA00B19309 /* WMFSettingsTableViewCell.xib in Resources */,
@@ -10437,7 +10416,6 @@
 				D8A42BEC1E815A9C00D8E281 /* WMFAccountCreationViewController.storyboard in Resources */,
 				6782DC00234537D0003FA21B /* DiffHeaderTitleView.xib in Resources */,
 				7A9F06212266432200856321 /* InsertMediaSettingsTextTableViewCell.xib in Resources */,
-				7AF4B71E215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib in Resources */,
 				D8A42BED1E815A9C00D8E281 /* NotificationBackgroundSuccessIcon.png in Resources */,
 				7AE1FE3921B4A9790068BE9F /* TextFormattingButtonView.xib in Resources */,
 				D8A42BEE1E815A9C00D8E281 /* WMFSettingsTableViewCell.xib in Resources */,
@@ -10564,7 +10542,6 @@
 				D8CE26731E698E2400DAE2E0 /* WMFAccountCreationViewController.storyboard in Resources */,
 				6782DBFA234537D0003FA21B /* DiffHeaderTitleView.xib in Resources */,
 				7A9F061F2266432200856321 /* InsertMediaSettingsTextTableViewCell.xib in Resources */,
-				7AF4B71C215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib in Resources */,
 				D8CE26741E698E2400DAE2E0 /* NotificationBackgroundSuccessIcon.png in Resources */,
 				7AE1FE3721B4A9790068BE9F /* TextFormattingButtonView.xib in Resources */,
 				D8CE26751E698E2400DAE2E0 /* WMFSettingsTableViewCell.xib in Resources */,
@@ -10691,7 +10668,6 @@
 				D8EC3F731E9BDA35006712EB /* WMFAccountCreationViewController.storyboard in Resources */,
 				6782DBFD234537D0003FA21B /* DiffHeaderTitleView.xib in Resources */,
 				7A9F06202266432200856321 /* InsertMediaSettingsTextTableViewCell.xib in Resources */,
-				7AF4B71D215D6EF400F582E0 /* ReadMoreAboutRevertedEditViewController.xib in Resources */,
 				D8EC3F741E9BDA35006712EB /* NotificationBackgroundSuccessIcon.png in Resources */,
 				7AE1FE3821B4A9790068BE9F /* TextFormattingButtonView.xib in Resources */,
 				D8EC3F751E9BDA35006712EB /* WMFSettingsTableViewCell.xib in Resources */,
@@ -11094,7 +11070,6 @@
 				83023C1F20E6584F00EC7592 /* SearchTransition.swift in Sources */,
 				67CEF263235110F700D5CA6C /* DiffNetworkModels.swift in Sources */,
 				7A23CECF211A24FC00441A79 /* FeedFunnel.swift in Sources */,
-				7A60E9D6215D511500F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */,
 				7AC19E322301EF7D00E25B83 /* PageHistoryFilterCountsViewController.swift in Sources */,
 				676070A2227CE60800A81F09 /* TalkPageReplyFooterView.swift in Sources */,
 				BCCB813E1C110702008BC602 /* NSDate+WMFPOTDTitle.m in Sources */,
@@ -12011,7 +11986,6 @@
 				677129A324FFF43000E89CA5 /* ArticleAsLivingDocHorizontallyScrollingCell.swift in Sources */,
 				83DAA9B323FEB611002D5716 /* ReferenceBackLinksViewController.swift in Sources */,
 				D8A42A751E815A9C00D8E281 /* UIViewController+WMFAlerts.swift in Sources */,
-				7A60E9D9215D511700F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */,
 				7A49A20421231510005C574C /* CollectionViewFooter.swift in Sources */,
 				67CEF26C2351111D00D5CA6C /* DiffNetworkModels.swift in Sources */,
 				83B4CDC220E3DCD6007D5A6E /* SearchViewController.swift in Sources */,
@@ -12592,7 +12566,6 @@
 				D8CE251B1E698E2400DAE2E0 /* LoggingDefaults.swift in Sources */,
 				D8CE25201E698E2400DAE2E0 /* MWKTitleLanguageController.m in Sources */,
 				678D79F7235E599B006161FF /* DiffListContextViewModel.swift in Sources */,
-				7A60E9D7215D511600F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */,
 				D8CE25211E698E2400DAE2E0 /* UIView+WMFSnapshotting.m in Sources */,
 				D8CE25221E698E2400DAE2E0 /* UIViewController+WMFStoryboardUtilities.m in Sources */,
 				00CF2EA227DABCA8006EFDDC /* NotificationsCenterOnboardingView.swift in Sources */,
@@ -13131,7 +13104,6 @@
 				D8EC3E0D1E9BDA35006712EB /* UIView+WMFSubviews.swift in Sources */,
 				678D79F8235E599B006161FF /* DiffListContextViewModel.swift in Sources */,
 				D8EC3E0F1E9BDA35006712EB /* WMFReferencePopoverMessageViewController.m in Sources */,
-				7A60E9D8215D511700F2D325 /* ReadMoreAboutRevertedEditViewController.swift in Sources */,
 				D8EC3E101E9BDA35006712EB /* WMFSearchFetcher.m in Sources */,
 				00CF2EA127DABCA8006EFDDC /* NotificationsCenterOnboardingView.swift in Sources */,
 				B0524AF32144D7BE00D8FD8D /* DescriptionHelpViewController.swift in Sources */,

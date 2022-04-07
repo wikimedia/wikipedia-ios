@@ -849,12 +849,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 item replaced|$1 items replaced}}";
 "replace-textfield-accessibility" = "Replace";
 "replace-textfield-placeholder" = "Replace with…";
-"reverted-edit-back-to-article-button-title" = "Back to article";
-"reverted-edit-possible-reasons" = "- Your contribution didn’t follow one of the guidelines. $1 \n\n - Your contribution looked like an experiment or vandalism";
-"reverted-edit-possible-reasons-subtitle" = "We know that you tried your best, but one of the reviewers had a concern.\n\nPossible reasons your edit was reverted include:";
-"reverted-edit-thanks-for-editing-title" = "Thanks for editing Wikipedia!";
 "reverted-edit-title" = "Reverted edit";
-"reverted-edit-view-guidelines-text" = "View guidelines";
 "saved-all-articles-title" = "All articles";
 "saved-default-reading-list-tag" = "This list cannot be deleted";
 "saved-pages-image-download-error" = "Failed to download images for this saved page.";
