@@ -248,9 +248,12 @@
 "notifications-center-destination-web" = "वेब पर";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "नोटिफिकेशन ऑन करें";
+"notifications-center-feed-news-notification-dismiss-button-text" = "अभी नहीं";
 "notifications-center-go-to-article" = "लेख पर जाएं";
 "notifications-center-go-to-discussion-page" = "चर्चा पृष्ठ पर जाएं";
 "notifications-center-go-to-user-page-simplified" = "उपयोगकर्ता पृष्ठ पर जाएं";
+"notifications-center-more-action-accessibility-label" = "और";
+"notifications-center-onboarding-panel-secondary-button" = "नहीं, धन्यवाद";
 "notifications-center-subheader-thanks" = "धन्यवाद";
 "notifications-center-subheader-welcome" = "सुस्वागतम्‌!";
 "notifications-center-swipe-more" = "और";

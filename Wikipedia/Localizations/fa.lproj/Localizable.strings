@@ -151,7 +151,7 @@
 "action-undo" = "واگردانی";
 "action-unsave" = "عدم ذخیره";
 "action-unsaved-accessibility-notification" = "مقاله از ذخیره خارج شد";
-"action-update" = "روزآمدسازی";
+"action-update" = "به‌روزرسانی";
 "add-articles-to-reading-list" = "افزودن {{PLURAL:$1|$1 مقاله|$1 مقاله}} به فهرست مطالعه";
 "add-citation-title" = "افزودن یادکرد";
 "announcements-dismiss" = "پنهان‌سازی";
@@ -392,7 +392,7 @@
 "explore-feed-preferences-languages-footer-text" = "نهفتن همهٔ کارت‌های خوراک بازدید در تمام زبان‌های انتخابی شما، زبانهٔ بازدید را غیرفعال خواهد کرد.";
 "explore-feed-preferences-on-this-day-description" = "رویدادهای تاریخی در این روز";
 "explore-feed-preferences-places-description" = "مقاله‌های ویکی‌پدیا در نزدیکی موقعیت مکانی شما";
-"explore-feed-preferences-potd-description" = "نگاره برگزیدهٔ روزانه از ویکی‌انبار";
+"explore-feed-preferences-potd-description" = "تصویر برگزیدهٔ روزانه از ویکی‌انبار";
 "explore-feed-preferences-randomizer-description" = "تولید مقالاتی تصادفی برای مطالعه";
 "explore-feed-preferences-related-pages-description" = "پیشنهادها بر پایه تاریخچهٔ مطالعه";
 "explore-feed-preferences-show-continue-reading-title" = "نمایش کارت ادامهٔ مطالعه";
@@ -447,7 +447,7 @@
 "featured-widget-description" = "برترین مقاله‌های ویکی‌پدیا، که به‌طور روزانه توسط اجتماع ما انتخاب می‌شوند را بیابید.";
 "featured-widget-from-language-wikipedia" = "از ویکی‌پدیای $1";
 "featured-widget-from-wikipedia" = "از ویکی‌پدیا";
-"featured-widget-language-failure" = "زبان ویکی‌پدیای اصلی شما از مقاله‌های برگزیده پشتیبانی نمی‌کند. می‌توانید ویکی‌پدیای اصلی خود را در منوی تنظیمات نرم‌فازار به‌روز کنید.";
+"featured-widget-language-failure" = "زبان ویکی‌پدیای اصلی شما از مقاله‌های برگزیده پشتیبانی نمی‌کند. می‌توانید ویکی‌پدیای اصلی خود را در منوی تنظیمات نرم‌فازار به‌روزرسانی کنید.";
 "featured-widget-title" = "مقالهٔ برگزیده";
 "fetcher-error-generic" = "چیزی اشتباه شده‌است! لطفاً دوباره تلاش کنید.";
 "fetcher-error-unexpected-response" = "نرم‌افزار یک پاسخ دور از انتظار از سرور دریافت کرد. لطفاً بعداً دوباره تلاش کنید.";
@@ -640,7 +640,7 @@
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 رویداد تاریخی|$1 رویداد تاریخی}}";
 "on-this-day-footer" = "وقایع تاریخی بیشتر برای این روز";
 "on-this-day-footer-showing-event-count" = "{{PLURAL:$1|$1 رویداد تاریخی بیشتر|$1 رویداد تاریخی بیشتر}} در این روز";
-"on-this-day-language-does-not-support-error" = "زبان ویکی‌پدیای اصلی شما از «در این روز» پشتیبانی نمی‌کند. می‌توانید ویکی‌پدیای اصلی خود را در منوی تنظیمات نرم‌افزار به‌روز کنید.";
+"on-this-day-language-does-not-support-error" = "زبان ویکی‌پدیای اصلی شما از «در این روز» پشتیبانی نمی‌کند. می‌توانید ویکی‌پدیای اصلی خود را در منوی تنظیمات نرم‌افزار به‌روزرسانی کنید.";
 "on-this-day-no-internet-error" = "هیچ داده‌ای در دسترس نیست";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 از ویکی‌پدیای $2";
 "on-this-day-title" = "در این روز";
@@ -859,7 +859,7 @@
 "settings-languages-feed-customization" = "می‌توانید با شفارشی‌سازی تنظیمات خوراک بازدید خود، زبان‌هایی که در این خوراک نمایش داده می‌شوند را مدیریت کنید.";
 "settings-my-languages" = "زبان‌های من";
 "settings-notifications" = "آگاه‌سازی‌ها";
-"settings-notifications-info" = "با اعلان‌های سربع ما، از مقاله‌های پرمخاطب و پربازدیدترین مقاله‌ها در ویکی‌پدیا آگاه شوید. تمام این مقاله‌ها با احترام به حریم خصوصی و با داده‌های به‌روزشده در هر دقیقه فراهم می‌شوند.";
+"settings-notifications-info" = "با آگاه‌سازی‌های سریع ما، از مقاله‌های پرمخاطب و پربازدیدترین مقاله‌ها در ویکی‌پدیا آگاه شوید. تمام این مقاله‌ها با احترام به حریم خصوصی و با داده‌های به‌روزشده در هر دقیقه فراهم می‌شوند.";
 "settings-notifications-learn-more" = "دربارهٔ آگاه‌سازی‌ها بیشتر یاد بگیرید";
 "settings-notifications-push-notifications" = "آگاه‌سازی‌های سریع";
 "settings-notifications-system-turn-on" = "روشن کردن آگاه‌سازی‌ها";
@@ -876,8 +876,8 @@
 "settings-storage-and-syncing-erase-saved-articles-footer-text" = "در صورتی که همگام‌سازی را فعال کرده‌باشید، پاک کردن مقاله‌های ذخیره‌شده علاوه بر حذف آن‌ها از این دستگاه، منجر به حذف آن‌ها از حساب کاربری شما نیز خواهد شد.\n\nپاک کردن مقاله‌های ذخیره شده حدود $1 فضا را خالی خواهد کرد.";
 "settings-storage-and-syncing-erase-saved-articles-title" = "پاک‌کردن مقاله‌های ذخیره‌شده";
 "settings-storage-and-syncing-full-sync" = "فهرست‌های مطالعهٔ شما در پس‌زمینه همگام‌سازی خواهند شد";
-"settings-storage-and-syncing-server-sync-footer-text" = "درخواست یک بروزرسانی برای مقاله‌ها و فهرست‌های مطالعهٔ همگام‌سازی شدهٔ شما";
-"settings-storage-and-syncing-server-sync-title" = "بروزرسانی فهرست‌های مطالعهٔ همگام‌سازی شده";
+"settings-storage-and-syncing-server-sync-footer-text" = "درخواست یک به‌روزرسانی برای مقاله‌ها و فهرست‌های مطالعهٔ همگام‌سازی شدهٔ شما";
+"settings-storage-and-syncing-server-sync-title" = "به‌روزرسانی فهرست‌های مطالعهٔ همگام‌سازی شده";
 "settings-storage-and-syncing-show-default-reading-list-footer-text" = "نمایش فهرست مطالعهٔ ذخیره‌شده (مثال: پیش‌فرض) به‌عنوان یک فهرست جداگانه در نمایهٔ فهرست‌های مطالعهٔ شما. این فهرست در دستگاه‌های اندرویدی نمایش می‌یابد.";
 "settings-storage-and-syncing-show-default-reading-list-title" = "نمایش فهرست مطالعهٔ ذخیره‌شده";
 "settings-storage-and-syncing-title" = "مخزن مقاله و همگام‌سازی";
@@ -979,7 +979,7 @@
 "welcome-languages-add-or-edit-button" = "افزودن یا ویرایش زبان‌های ترجیحی";
 "welcome-languages-description" = "این زبان‌ها را روی دستگاه شما یافتیم:";
 "welcome-languages-search-title" = "جستجو در بیش از ۳۰۰ زبان";
-"welcome-notifications-tell-me-more-creation" = "اعلان‌ها توسط نرم‌افزار ایجاد شده و به دستگاه شما ارسال می‌شوند. این اعلان‌ها از سرورهای ما (یا شخص ثالث) نمی‌آیند.";
+"welcome-notifications-tell-me-more-creation" = "آگاه‌سازی‌ها توسط نرم‌افزار ایجاد شده و به دستگاه شما ارسال می‌شوند. این آگاه‌سازی‌ها از سرورهای ما (یا شخص ثالث) نمی‌آیند.";
 "welcome-notifications-tell-me-more-storage" = "ترجیحات اعلان‌ها بر روی دستگاه ذخیره شده‌است و بر پایهٔ اطلاعات یا فعالیت‌های شخصی نیست.";
 "welcome-notifications-tell-me-more-title" = "اطلاعات بیشتر دربارهٔ آگاه‌سازی‌ها";
 "welcome-send-data-helps-title" = "به بهبود نرم‌افزار کمک کنید";
