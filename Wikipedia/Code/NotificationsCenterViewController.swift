@@ -347,6 +347,9 @@ private extension NotificationsCenterViewController {
         let action1 = UIAlertAction(title: CommonStrings.notificationsCenterMarkAsRead, style: .default) { _ in
             self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: true)
             self.isEditing = false
+            for model in selectedCellViewModels {
+                self.logMarkReadOrUnreadAction(model: model)
+            }
         }
         
         let action2 = UIAlertAction(title: CommonStrings.notificationsCenterMarkAsUnread, style: .default) { _ in
@@ -355,7 +358,7 @@ private extension NotificationsCenterViewController {
             self.isEditing = false
             
             for model in selectedCellViewModels {
-                RemoteNotificationsFunnel.shared.logNotificationInteraction(notificationId: Int(model.notification.id ?? "") ?? 0, notificationWiki: model.project.projectName(shouldReturnCodedFormat: false), notificationType: model.notificationType?.title ?? "", actionRank: .markReadOrUnread)
+                self.logMarkReadOrUnreadAction(model: model)
             }
         }
         
@@ -368,6 +371,10 @@ private extension NotificationsCenterViewController {
             popoverController.barButtonItem = sender
         }
         present(alertController, animated: true, completion: nil)
+    }
+    
+    func logMarkReadOrUnreadAction(model: NotificationsCenterCellViewModel) {
+        RemoteNotificationsFunnel.shared.logNotificationInteraction(notificationId: Int(model.notification.id ?? "") ?? 0, notificationWiki: model.project.projectName(shouldReturnCodedFormat: false), notificationType: model.notificationType?.title ?? "", actionRank: .markReadOrUnread)
     }
     
     @objc func didTapMarkAllAsReadButton(_ sender: UIBarButtonItem) {
