@@ -353,6 +353,10 @@ private extension NotificationsCenterViewController {
             
             self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: false)
             self.isEditing = false
+            
+            for model in selectedCellViewModels {
+                RemoteNotificationsFunnel.shared.logNotificationInteraction(notificationId: Int(model.notification.id ?? "") ?? 0, notificationWiki: model.project.projectName(shouldReturnCodedFormat: false), notificationType: model.notificationType?.title ?? "", actionRank: .markReadOrUnread)
+            }
         }
         
         let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil)
@@ -363,7 +367,6 @@ private extension NotificationsCenterViewController {
         if let popoverController = alertController.popoverPresentationController {
             popoverController.barButtonItem = sender
         }
-        RemoteNotificationsFunnel.shared.logToggleMarkAsReadOrUnread()
         present(alertController, animated: true, completion: nil)
     }
     
