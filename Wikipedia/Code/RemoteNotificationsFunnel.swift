@@ -15,15 +15,15 @@ final class RemoteNotificationsFunnel: EventLoggingFunnel, EventLoggingStandardE
         let notification_wiki: String
         let notification_type: String
         let action_rank: Int
-        let selection_token: String
+        let selection_token: String?
     }
-    private func event(notificationId: Int, notificationWiki: String, notificationType: String, actionRank: Rank) {
-        let event = Event(action: .notificationInteraction, anon: isAnon.boolValue, notification_id: 1, notification_wiki: "", notification_type: "", action_rank: actionRank.rawValue, selection_token: "")
+    private func event(notificationId: Int, notificationWiki: String, notificationType: String, actionRank: Rank, selectionToken: String?) {
+        let event = Event(action: .notificationInteraction, anon: isAnon.boolValue, notification_id: 1, notification_wiki: "", notification_type: "", action_rank: actionRank.rawValue, selection_token: selectionToken)
         EventPlatformClient.shared.submit(stream: .remoteNotificationsInteraction, event: event)
     }
     
-    public func logNotificationInteraction(notificationId: Int, notificationWiki: String, notificationType: String, actionRank: Rank) {
-        event(notificationId: notificationId, notificationWiki: notificationWiki, notificationType: notificationType, actionRank: actionRank)
+    public func logNotificationInteraction(notificationId: Int, notificationWiki: String, notificationType: String, actionRank: Rank, selectionToken: String?) {
+        event(notificationId: notificationId, notificationWiki: notificationWiki, notificationType: notificationType, actionRank: actionRank, selectionToken: selectionToken)
         
     }
     
