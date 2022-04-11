@@ -9,8 +9,7 @@ final class RemoteNotificationsFunnel: EventLoggingFunnel, EventLoggingStandardE
     
     private struct Event: EventInterface {
         static let schema: EventPlatformClient.Schema = .remoteNotificationsInteraction
-        let action: Action
-        let anon: Bool
+        let is_anon: Bool
         let notification_id: Int
         let notification_wiki: String
         let notification_type: String
@@ -18,7 +17,7 @@ final class RemoteNotificationsFunnel: EventLoggingFunnel, EventLoggingStandardE
         let selection_token: String?
     }
     private func event(notificationId: Int, notificationWiki: String, notificationType: String, actionRank: Rank, selectionToken: String?) {
-        let event = Event(action: .notificationInteraction, anon: isAnon.boolValue, notification_id: 1, notification_wiki: "", notification_type: "", action_rank: actionRank.rawValue, selection_token: selectionToken)
+        let event = Event(is_anon: isAnon.boolValue, notification_id: 1, notification_wiki: "", notification_type: "", action_rank: actionRank.rawValue, selection_token: selectionToken)
         EventPlatformClient.shared.submit(stream: .remoteNotificationsInteraction, event: event)
     }
     
