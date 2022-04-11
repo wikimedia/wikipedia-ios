@@ -35,7 +35,7 @@ class NotificationsCenterDetailViewModelWelcomeTests: NotificationsCenterViewMod
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
         XCTAssertEqual(detailViewModel.secondaryActions.count, 0, "Invalid secondaryActions count")
         
-        let expectedPrimaryText = "Go to Help:Getting started"
+        let expectedPrimaryText = "Help:Getting started"
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/Help:Getting_started")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .document
         let expectedPrimaryDestinationText = "On web"
