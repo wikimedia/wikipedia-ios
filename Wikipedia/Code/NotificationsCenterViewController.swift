@@ -385,9 +385,9 @@ private extension NotificationsCenterViewController {
     
     private func logMarkReadOrUnreadAction(model: NotificationsCenterCellViewModel, selectionToken: String?) {
         let notificationId = Int(model.notification.id ?? "") ?? 0
-        
-        RemoteNotificationsFunnel.shared.logNotificationInteraction(notificationId: notificationId, notificationWiki: model.project.projectName(shouldReturnCodedFormat: true), notificationType: model.notification.typeString ?? "", actionRank: .markReadOrUnread, selectionToken: selectionToken)
-        print("NOTIF STUFFFF 💡 \(model.notification.typeString), \(model.project.projectName(shouldReturnCodedFormat: true))")
+        let notificationType = model.notification.typeString ?? ""
+        let notificationWiki = model.project.projectName(shouldReturnCodedFormat: true)
+        RemoteNotificationsFunnel.shared.logNotificationInteraction(notificationId: notificationId, notificationWiki: notificationWiki, notificationType: notificationType, actionRank: .markReadOrUnread, selectionToken: selectionToken)
     }
     
     @objc func didTapMarkAllAsReadButton(_ sender: UIBarButtonItem) {

@@ -16,17 +16,20 @@ final class RemoteNotificationsFunnel: EventLoggingFunnel, EventLoggingStandardE
         let action_rank: Int
         let selection_token: String?
     }
-    private func event(notificationId: Int, notificationWiki: String, notificationType: String, actionRank: Rank, selectionToken: String?) {
-        let event = Event(is_anon: isAnon.boolValue, notification_id: 1, notification_wiki: "", notification_type: "", action_rank: actionRank.rawValue, selection_token: selectionToken)
+    private func event(notificationId: Int, notificationWiki: String, notificationType: String, actionRank: ActionRank, selectionToken: String?) {
+        let event = Event(is_anon: isAnon.boolValue, notification_id: notificationId, notification_wiki: notificationWiki, notification_type: notificationType, action_rank: actionRank.rawValue, selection_token: selectionToken)
         EventPlatformClient.shared.submit(stream: .remoteNotificationsInteraction, event: event)
     }
     
-    public func logNotificationInteraction(notificationId: Int, notificationWiki: String, notificationType: String, actionRank: Rank, selectionToken: String?) {
-        event(notificationId: notificationId, notificationWiki: notificationWiki, notificationType: notificationType, actionRank: actionRank, selectionToken: selectionToken)
-        
+    public func logNotificationInteraction(notificationId: Int, notificationWiki: String, notificationType: String, actionRank: ActionRank, selectionToken: String?) {
+        event(notificationId: notificationId,
+              notificationWiki: notificationWiki,
+              notificationType: notificationType,
+              actionRank: actionRank,
+              selectionToken: selectionToken)
     }
     
-    enum Rank: Int {
+    enum ActionRank: Int {
         case markReadOrUnread = 0
     }
 }
