@@ -233,10 +233,13 @@
 "notifications-center-filters-read-status-item-title-all" = "Barchasi";
 "notifications-center-filters-read-status-item-title-read" = "Mutolaa";
 "notifications-center-filters-title" = "Filtrlar";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Munozara sahifasiga oʻtish";
-"notifications-center-go-to-title-format" = "$1 sahifasiga oʻtish";
+// Fuzzy
 "notifications-center-go-to-user-page" = "$1ning foydalanuvchi sahifasiga oʻtish";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "Vikimaʼlumotlar bandiga oʻtish";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "Munozara sahifangizga oʻtish";
 "notifications-center-header-alert-from-agent" = "$1dan kelgan xabarnoma";
 "notifications-center-header-alert-from-project" = "$1dan kelgan xabarnoma";

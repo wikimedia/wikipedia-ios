@@ -593,11 +593,15 @@
 "notifications-center-filters-types-footer" = "Змініть типи сповіщень, щоб відфільтрувати їх у папці вхідних сповіщень. Типи, які вимкнено, не відображатимуться, але їх вміст і будь-які нові сповіщення будуть доступні, коли перемикач знову ввімкнути.";
 "notifications-center-filters-types-item-title-all" = "Усі типи";
 "notifications-center-filters-types-section-title" = "Типи сповіщень";
+// Fuzzy
 "notifications-center-go-to-diff" = "Перейти до дифа";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Перейти на сторінку обговорення";
-"notifications-center-go-to-title-format" = "Перейти на $1";
+// Fuzzy
 "notifications-center-go-to-user-page" = "Перейти на сторінку користувача $1";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "Перейти до елемента Вікіданих";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "Перейти на свою сторінку обговорення";
 "notifications-center-header-alert-from-agent" = "Сповіщення від $1";
 "notifications-center-header-alert-from-project" = "Сповіщення від $1";
