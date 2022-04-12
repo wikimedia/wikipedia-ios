@@ -567,11 +567,15 @@
 "notifications-center-change-password" = "Schimbare parolă";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "Activați notificările";
+// Fuzzy
 "notifications-center-go-to-diff" = "Mergeți la dif";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Mergeți la pagina de discuție";
-"notifications-center-go-to-title-format" = "Mergeți la $1";
+// Fuzzy
 "notifications-center-go-to-user-page" = "Mergeți la pagina de utilizator a lui $1";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "Mergeți la elementul Wikidata";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "Mergeți la pagina de discuție a dvs.";
 "notifications-center-header-alert-from-project" = "Alertă de la $1";
 "notifications-center-header-notice-from-project" = "Înștiințare de la $1";

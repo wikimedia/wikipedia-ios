@@ -601,11 +601,15 @@
 "notifications-center-filters-types-footer" = "Ubah tipe pemberitahuan untuk menyaring mereka ke/dari kotak masuk pemberitahuan Anda. Tipe-tipe yang dimatikan tidak akan dilihat, tetapi konten mereka dan pemberitahuan baru akan bisa dilihat ketika ini dinyalakan kembali.";
 "notifications-center-filters-types-item-title-all" = "Semua tipe";
 "notifications-center-filters-types-section-title" = "Tipe pemberitahuan";
+// Fuzzy
 "notifications-center-go-to-diff" = "Pergi ke perbedaan";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Pergi ke halaman pembicaraan";
-"notifications-center-go-to-title-format" = "Pergi ke $1";
+// Fuzzy
 "notifications-center-go-to-user-page" = "Pergi ke halaman pengguna $1";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "Pergi ke item Wikidata";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "Pergi ke halaman pembicaraan Anda";
 "notifications-center-header-alert-from-agent" = "Peringatan dari $1";
 "notifications-center-header-alert-from-project" = "Peringatan dari $1";
