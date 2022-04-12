@@ -229,12 +229,6 @@ final class NotificationsCenterCell: UICollectionViewCell {
         return view
     }()
 
-    lazy var foregroundReadableContentContainer: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
     lazy var backgroundActionsContainer: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -320,8 +314,8 @@ final class NotificationsCenterCell: UICollectionViewCell {
 
         selectedBackgroundView = nil
 
-        foregroundReadableContentContainer.addSubview(leadingContainer)
-        foregroundReadableContentContainer.addSubview(mainVerticalStackView)
+        foregroundContentContainer.addSubview(leadingContainer)
+        foregroundContentContainer.addSubview(mainVerticalStackView)
 
         backgroundActionsContainer.addSubview(swipeActionButtonStack)
 
@@ -360,8 +354,6 @@ final class NotificationsCenterCell: UICollectionViewCell {
         contentView.addSubview(foregroundContentContainer)
         contentView.addSubview(cellSeparator)
 
-        foregroundContentContainer.addSubview(foregroundReadableContentContainer)
-
         // Foreground and Background Container Constraints
 
         NSLayoutConstraint.activate([
@@ -379,26 +371,21 @@ final class NotificationsCenterCell: UICollectionViewCell {
             foregroundContentContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             foregroundContentContainer.topAnchor.constraint(equalTo: contentView.topAnchor),
             foregroundContentContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-
-            foregroundReadableContentContainer.leadingAnchor.constraint(equalTo: foregroundContentContainer.readableContentGuide.leadingAnchor),
-            foregroundReadableContentContainer.trailingAnchor.constraint(equalTo: foregroundContentContainer.readableContentGuide.trailingAnchor),
-            foregroundReadableContentContainer.topAnchor.constraint(equalTo: foregroundContentContainer.topAnchor),
-            foregroundReadableContentContainer.bottomAnchor.constraint(equalTo: foregroundContentContainer.bottomAnchor),
         ])
 
         // Primary Hierarchy Constraints
 
         NSLayoutConstraint.activate([
-            leadingContainer.leadingAnchor.constraint(equalTo: foregroundReadableContentContainer.leadingAnchor),
+            leadingContainer.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
             leadingContainer.topAnchor.constraint(equalTo: mainVerticalStackView.topAnchor),
-            leadingContainer.bottomAnchor.constraint(equalTo: foregroundReadableContentContainer.bottomAnchor),
+            leadingContainer.bottomAnchor.constraint(equalTo: foregroundContentContainer.bottomAnchor),
             leadingContainer.trailingAnchor.constraint(equalTo: mainVerticalStackView.leadingAnchor),
 
-            mainVerticalStackView.topAnchor.constraint(equalTo: foregroundReadableContentContainer.topAnchor, constant: topMargin),
-            mainVerticalStackView.bottomAnchor.constraint(equalTo: foregroundReadableContentContainer.bottomAnchor, constant: -edgeMargin),
-            mainVerticalStackView.trailingAnchor.constraint(equalTo: foregroundReadableContentContainer.trailingAnchor),
+            mainVerticalStackView.topAnchor.constraint(equalTo: foregroundContentContainer.topAnchor, constant: topMargin),
+            mainVerticalStackView.bottomAnchor.constraint(equalTo: foregroundContentContainer.bottomAnchor, constant: -edgeMargin),
+            mainVerticalStackView.trailingAnchor.constraint(equalTo: foregroundContentContainer.trailingAnchor),
 
-            headerTextContainer.trailingAnchor.constraint(equalTo: foregroundReadableContentContainer.trailingAnchor, constant: -edgeMargin),
+            headerTextContainer.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: -edgeMargin),
 
             cellSeparator.heightAnchor.constraint(equalToConstant: 0.5),
             cellSeparator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
@@ -434,10 +421,10 @@ final class NotificationsCenterCell: UICollectionViewCell {
 
         NSLayoutConstraint.activate([
             projectSourceContainer.widthAnchor.constraint(equalToConstant: 50),
-            projectSourceContainer.trailingAnchor.constraint(equalTo: foregroundReadableContentContainer.trailingAnchor, constant: -edgeMargin),
+            projectSourceContainer.trailingAnchor.constraint(equalTo: foregroundContentContainer.trailingAnchor, constant: -edgeMargin),
 
             projectSourceLabel.topAnchor.constraint(equalTo: subheaderLabel.topAnchor),
-            projectSourceLabel.trailingAnchor.constraint(equalTo: projectSourceContainer.trailingAnchor),
+            projectSourceLabel.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
 
             projectSourceImage.topAnchor.constraint(equalTo: subheaderLabel.topAnchor),
             projectSourceImage.trailingAnchor.constraint(equalTo: projectSourceContainer.trailingAnchor),
