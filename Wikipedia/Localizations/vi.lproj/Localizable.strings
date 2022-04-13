@@ -569,11 +569,15 @@
 "notifications-center-empty-not-subscribed" = "Bạn hiện không theo dõi thông báo Wikipedia nào";
 "notifications-center-feed-news-notification-button-text" = "Bật thông báo đẩy";
 "notifications-center-feed-news-notification-dismiss-button-text" = "Không phải bây giờ";
+// Fuzzy
 "notifications-center-go-to-diff" = "Xem khác biệt";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Xem trang thảo luận";
-"notifications-center-go-to-title-format" = "Xem $1";
+// Fuzzy
 "notifications-center-go-to-user-page" = "Xem trang thảo luận của $1";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "Xem khoản mục Wikidata";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "Xem trang thảo luận của bạn";
 "notifications-center-header-alert-from-project" = "Cảnh báo từ $1";
 "notifications-center-header-notice-from-project" = "Thông báo từ $1";

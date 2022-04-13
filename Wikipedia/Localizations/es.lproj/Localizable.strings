@@ -601,14 +601,18 @@
 "notifications-center-feed-news-notification-button-text" = "Activar las notificaciones";
 "notifications-center-feed-news-notification-dismiss-button-text" = "Ahora no";
 "notifications-center-filters-accessibility-label" = "Filtro de notificaciones";
+// Fuzzy
 "notifications-center-go-to-article" = "Ir al artículo";
+// Fuzzy
 "notifications-center-go-to-article-collaboration-format" = "Ir a la página de colaboración de $1";
+// Fuzzy
 "notifications-center-go-to-article-discussion-format" = "Ir a la página de discusión de $1";
+// Fuzzy
 "notifications-center-go-to-article-talk-format" = "Ir a la página de discusión de $1";
+// Fuzzy
 "notifications-center-go-to-collaboration-page" = "Ir a la página de colaboración";
+// Fuzzy
 "notifications-center-go-to-discussion-page" = "Ir a la página de debate";
-"notifications-center-go-to-user-page-format" = "Ir a la página de usuario de $1";
-"notifications-center-go-to-user-page-simplified" = "Ir a la página de usuario";
 "notifications-center-login-notifications" = "Notificaciones de inicio de sesión";
 "notifications-center-onboarding-modal-continue-action" = "Continuar";
 "notifications-center-onboarding-modal-filters-title" = "Filtros";

@@ -594,12 +594,14 @@
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "Ativar notificações";
 "notifications-center-feed-news-notification-dismiss-button-text" = "Agora não";
+// Fuzzy
 "notifications-center-go-to-article" = "Ir para artigo";
+// Fuzzy
 "notifications-center-go-to-article-discussion-format" = "Ir para a página de discussão de $1";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Ir para a página de discussão";
-"notifications-center-go-to-title-format" = "Ir para $1";
+// Fuzzy
 "notifications-center-go-to-user-page" = "Ir para a página de discussão de $1";
-"notifications-center-go-to-user-page-simplified" = "Ir para a página de usuário";
 "notifications-center-mark-as-read" = "Marcar como lida";
 "notifications-center-mark-as-unread" = "Marcar como não lida";
 "notifications-center-more-action-accessibility-label" = "Mais";

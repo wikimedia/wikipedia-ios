@@ -612,11 +612,15 @@
 "notifications-center-filters-types-footer" = "變動通知類型來對您的通知收件箱裡的進/出內容篩選。在類型為關閉時會不顯示，內容和任何新通知會在再次切換打開後可用。";
 "notifications-center-filters-types-item-title-all" = "所有類型";
 "notifications-center-filters-types-section-title" = "通知類型";
+// Fuzzy
 "notifications-center-go-to-diff" = "轉到差異";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "進入討論頁";
-"notifications-center-go-to-title-format" = "轉到$1";
+// Fuzzy
 "notifications-center-go-to-user-page" = "轉到$1的用戶頁面";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "前往維基數據項";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "轉到您的討論頁";
 "notifications-center-header-alert-from-agent" = "來自$1的告警";
 "notifications-center-header-alert-from-project" = "來自$1的告警";

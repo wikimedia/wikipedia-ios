@@ -32,11 +32,14 @@ class NotificationService: UNNotificationServiceExtension {
         let cache = sharedCache.loadCache()
         let project = RemoteNotificationsProject.wikipedia(cache.settings.primaryLanguageCode, cache.settings.primaryLocalizedName, nil)
         
+        let fallbackPushContent = self.fallbackPushContent
+        
         apiController.getUnreadPushNotifications(from: project) { [weak self] fetchedNotifications, error in
             
             DispatchQueue.main.async {
                 guard let self = self,
                       error == nil else {
+                    bestAttemptContent.body = fallbackPushContent
                     contentHandler(bestAttemptContent)
                     return
                 }
@@ -57,7 +60,7 @@ class NotificationService: UNNotificationServiceExtension {
                        let pushContentText = finalNotificationsToDisplay.first?.pushContentText {
                     bestAttemptContent.body = pushContentText
                 } else {
-                    bestAttemptContent.body = self.fallbackPushContent
+                    bestAttemptContent.body = fallbackPushContent
                 }
 
                 bestAttemptContent.badge = NSNumber(value: newCache.currentUnreadCount + finalNotificationsToDisplay.count)
@@ -71,7 +74,7 @@ class NotificationService: UNNotificationServiceExtension {
         // Called just before the extension will be terminated by the system.
         // Use this as an opportunity to deliver your "best attempt" at modified content, otherwise the original push payload will be used.
         if let contentHandler = contentHandler,
-            let bestAttemptContent =  bestAttemptContent {
+            let bestAttemptContent = bestAttemptContent {
             bestAttemptContent.body = fallbackPushContent
             contentHandler(bestAttemptContent)
         }

@@ -557,8 +557,11 @@
 "notifications-center-filters-types-footer" = "Ändere die Benachrichtigungstypen, um sie in/aus deinem Benachrichtigungseingang zu filtern. Deaktivierte Benachrichtigungstypen sind nicht sichtbar, aber ihr Inhalt und alle neuen Benachrichtigungen sind verfügbar, wenn du den Schalter wieder einschaltest.";
 "notifications-center-filters-types-item-title-all" = "Alle Typen";
 "notifications-center-filters-types-section-title" = "Benachrichtigungstypen";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Zur Diskussionsseite gehen";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "Zum Wikidata-Datenobjekt gehen";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "Zu deine Diskussionsseite gehen";
 "notifications-center-inbox-title" = "Projekte";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Wikimedia-Projekte";

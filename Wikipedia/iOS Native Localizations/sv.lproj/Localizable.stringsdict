@@ -31,7 +31,7 @@
 			<key>other</key>
 			<string>%1$d referenser</string>
 			<key>zero</key>
-			<string>0 referens</string>
+			<string>0 referenser</string>
 		</dict>
 	</dict>
 	<key>aaald-small-change-description</key>
@@ -93,7 +93,7 @@
 			<key>other</key>
 			<string>%3$d dagar</string>
 			<key>zero</key>
-			<string>0 dag</string>
+			<string>0 dagar</string>
 		</dict>
 	</dict>
 	<key>add-articles-to-reading-list</key>
