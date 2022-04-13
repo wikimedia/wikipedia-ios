@@ -105,9 +105,13 @@ final class NotificationsCenterViewController: ViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        viewModel.refreshNotifications(force: true)
-        viewModel.markAllAsSeen()
         
+        if isFirstAppearance {
+            viewModel.refreshNotifications(force: true)
+        }
+        isFirstAppearance = false
+        
+        viewModel.markAllAsSeen()
         presentOnboardingEducationModalIfNecessary()
     }
 
