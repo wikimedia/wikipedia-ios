@@ -583,7 +583,7 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
             collectionView.deselectItem(at: indexPath, animated: true)
 
             if !cellViewModel.isRead {
-                viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true)
+                viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true, shouldDisplayErrorIfNeeded: false)
             }
 
             let detailViewModel = NotificationsCenterDetailViewModel(commonViewModel: cellViewModel.commonViewModel)
