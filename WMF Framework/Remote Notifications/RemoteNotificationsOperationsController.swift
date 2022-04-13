@@ -110,7 +110,6 @@ class RemoteNotificationsOperationsController: NSObject {
             completionOperation.addDependency(operation)
         }
         
-        //MAYBETODO: should we make sure this chunk of operations and mark all chunk of operations happens serially?
         operationQueue.addOperations(operations + [completionOperation], waitUntilFinished: false)
     }
     
@@ -144,7 +143,6 @@ class RemoteNotificationsOperationsController: NSObject {
             completionOperation.addDependency(operation)
         }
         
-        //MAYBETODO: should we make sure this chunk of operations and mark as read or unread chunk of operations happens serially?
         self.operationQueue.addOperations(operations + [completionOperation], waitUntilFinished: false)
     }
     

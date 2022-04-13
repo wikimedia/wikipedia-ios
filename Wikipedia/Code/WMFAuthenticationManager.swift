@@ -163,7 +163,6 @@ import CocoaLumberjackSwift
                 KeychainCredentialsManager.shared.password = password
                 self.session.cloneCentralAuthCookies()
                 self.delegate?.authenticationManagerDidLogin()
-                //TODO: TEMPORARY LOGIC
                 NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
                 completion(.success(result))
             }
@@ -202,7 +201,6 @@ import CocoaLumberjackSwift
                     self.loggedInUserCache[host] = result
                 }
                 self.loggedInUsername = result.name
-                //TODO: TEMPORARY LOGIC
                 NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
                 completion(.alreadyLoggedIn(result))
             }
@@ -210,6 +208,7 @@ import CocoaLumberjackSwift
             DispatchQueue.main.async {
                 guard !(error is URLError) else {
                     self.loggedInUsername = userName
+                    NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
                     let loginResult = WMFAccountLoginResult(status: WMFAccountLoginResult.Status.offline, username: userName, message: nil)
                     completion(.success(loginResult))
                     return
@@ -222,6 +221,7 @@ import CocoaLumberjackSwift
                         case .failure(let error):
                             guard !(error is URLError) else {
                                 self.loggedInUsername = userName
+                                NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
                                 let loginResult = WMFAccountLoginResult(status: WMFAccountLoginResult.Status.offline, username: userName, message: nil)
                                 completion(.success(loginResult))
                                 return

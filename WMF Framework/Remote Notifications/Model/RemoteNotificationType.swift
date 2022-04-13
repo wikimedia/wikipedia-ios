@@ -102,7 +102,7 @@ public extension RemoteNotificationType {
                 self = .userRightsChange
             case "editReverted":
                 self = .editReverted
-            case "loginFailKnownDevice", //for filters this represents any login-related notification (i.e. also loginFailUnknownDevice, loginSuccessUnknownDevice, etc.). todo: clean this up. todo: split up into login attempts vs login success?
+            case "loginFailKnownDevice", //for filters this represents any login-related notification (i.e. also loginFailUnknownDevice, loginSuccessUnknownDevice, etc.).
                     "loginFailUnknownDevice",
                     "loginSuccessUnknownDevice":
                 self = .loginFailKnownDevice
@@ -143,7 +143,7 @@ public extension RemoteNotificationType {
             return "userRightsChange"
         case .editReverted:
             return "editReverted"
-        case .loginFailKnownDevice, //for filters this represents any login-related notification (i.e. also loginFailUnknownDevice, loginSuccessUnknownDevice, etc.). todo: clean this up. todo: split up into login attempts vs login success?
+        case .loginFailKnownDevice, //for filters this represents any login-related notification (i.e. also loginFailUnknownDevice, loginSuccessUnknownDevice, etc.).
                 .loginFailUnknownDevice,
                 .loginSuccessUnknownDevice:
             return "loginFailKnownDevice"
@@ -169,13 +169,13 @@ public extension RemoteNotificationType {
             .pageLinked,
             .connectionWithWikidata,
             .emailFromOtherUser,
-            .mentionInTalkPage, //todo: combine this and edit summary mention to "received mention"?
+            .mentionInTalkPage,
             .mentionInEditSummary,
             .successfulMention,
             .failedMention,
             .userRightsChange,
             .editReverted,
-            .loginFailKnownDevice, //for filters this represents any login-related notification (i.e. also loginFailUnknownDevice, loginSuccessUnknownDevice, etc.). todo: clean this up. todo: split up into login attempts vs login success?
+            .loginFailKnownDevice, //for filters this represents any login-related notification (i.e. also loginFailUnknownDevice, loginSuccessUnknownDevice, etc.).
             .editMilestone,
             .translationMilestone(1), //for filters this represents other translation associated values as well (ten, hundred milestones).
             .thanks,
@@ -209,7 +209,7 @@ public extension RemoteNotificationType {
             return WMFLocalizedString("notifications-center-type-title-edit-reverted", value: "Edit reverted", comment: "Title of \"edit reverted\" notification type. Used on filters view toggles and the notification detail view.")
         case .loginFailKnownDevice,
                 .loginFailUnknownDevice:
-            return WMFLocalizedString("notifications-center-type-title-login-issues", value: "Login issues", comment: "Title of \"login issues\" notification type. Used on filters view toggles and the notification detail view.") //for filters this represents any login-related notification (i.e. also loginFailUnknownDevice, loginSuccessUnknownDevice, etc.). todo: clean this up. todo: split up into login attempts vs login success?
+            return WMFLocalizedString("notifications-center-type-title-login-issues", value: "Login issues", comment: "Title of \"login issues\" notification type. Used on filters view toggles and the notification detail view.") //for filters this represents any login-related notification (i.e. also loginFailUnknownDevice, loginSuccessUnknownDevice, etc.).
         case .editMilestone:
             return WMFLocalizedString("notifications-center-type-title-edit-milestone", value: "Edit milestone", comment: "Title of \"edit milestone\" notification type. Used on filters view toggles and the notification detail view.")
         case .translationMilestone:
