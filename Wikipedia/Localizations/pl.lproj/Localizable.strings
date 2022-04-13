@@ -408,8 +408,6 @@
 "featured-article-empty-title" = "Brak polecanego artykułu";
 "featured-widget-from-wikipedia" = "Z Wikipedii";
 "featured-widget-title" = "Wyróżniony artykuł";
-"feed-news-notification-button-text" = "Włącz powiadomienia";
-"feed-news-notification-text" = "Zezwól na powiadomienia żeby dostać informacje od Wikipedii kiedy artykuły stają się popularne w wiadomościach";
 "fetcher-error-generic" = "Coś poszło nie tak. Spróbuj ponownie później.";
 "fetcher-error-unexpected-response" = "Aplikacja otrzymała nieoczekiwaną odpowiedź z serwera. Spróbuj ponownie później.";
 "field-alert-captcha-invalid" = "Niepoprawna CAPTCHA";
@@ -541,6 +539,8 @@
 "no-internet-connection" = "Brak połączenia z internetem";
 "no-internet-connection-article-reload" = "Nowsza wersja tego artykułu może być dostępna, ale nie można jej załadować bez połączenia z Internetem";
 "no-internet-connection-article-reload-button" = "Wróć do ostatnio zapisanej wersji";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Włącz powiadomienia";
 "number-billions" = "$1 mld";
 "number-millions" = "$1 mln";
 "number-thousands" = "$1 tys.";
@@ -723,6 +723,7 @@
 "settings-clear-cache-ok" = "Wyczyść pamięć podręczną";
 "settings-help-and-feedback" = "Pomoc i opinie";
 "settings-my-languages" = "Moje języki";
+// Fuzzy
 "settings-notifications" = "Powiadomienia";
 "settings-notifications-info" = "Otrzymuj powiadomienia o popularnych i najczęściej czytanych artykułach w Wikipedii dzięki naszym powiadomieniom push. Wszystko pod warunkiem poszanowania prywatności i najświeższych danych.";
 "settings-notifications-learn-more" = "Dowiedz się więcej o powiadomieniach";

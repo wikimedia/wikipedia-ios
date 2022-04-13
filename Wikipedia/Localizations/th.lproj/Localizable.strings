@@ -13,10 +13,14 @@
 // Author: Nemo bis
 // Author: Patsagorn Y.
 // Author: Pon44695
+// Author: Trisorn Triboon
 
 "aaald-new-discussion" = "การอภิปรายใหม่";
+"aaald-new-journal-reference-title" = "วารสาร";
+"aaald-new-news-reference-title" = "ข่าว";
 "aaald-new-website-reference-title" = "เว็บไซต์";
 "aaald-revision-by-anonymous" = "การแก้ไขโดยผู้ใช้นิรนาม";
+"aaald-single-reference-added-description" = "เพิ่มอ้างอิงแล้ว";
 "about-content-license" = "สัญญาอนุญาตเนื้อหา";
 "about-content-license-details" = "นอกเหนือจากที่ระบุไว้ เนื้อหาทั้งหมดใช้ได้ภายใต้ $1";
 "about-content-license-details-share-alike-license" = "สัญญาอนุญาตครีเอทีฟคอมมอนส์แบบแสดงที่มา-อนุญาตแบบเดียวกัน";
@@ -68,6 +72,7 @@
 "action-add-to-reading-list" = "เพิ่มลงในรายการอ่าน";
 "action-add-to-reading-list-short" = "เพิ่มลงในรายการ";
 "action-cancel" = "ยกเลิก";
+"action-discard-edits" = "ทิ้งการแก้ไข";
 "action-find-in-page" = "ค้นหาในหน้า";
 "action-language-accessibility" = "เปลี่ยนภาษา";
 "action-move-to" = "ย้ายลงใน…";
@@ -77,6 +82,7 @@
 "action-remove" = "ลบออก";
 "action-replace" = "แทนที่";
 "action-replace-all" = "แทนที่ทั้งหมด";
+"action-retry" = "ลองใหม่";
 "action-save" = "บันทึก";
 "action-saved" = "บันทึกแล้ว";
 "action-saved-accessibility" = "บันทึกแล้ว เปิดใช้งานเพื่อเลิกบันทึก";
@@ -351,8 +357,6 @@
 "explore-random-article-sub-heading-from-wikipedia" = "จากวิกิพีเดีย";
 "explore-randomizer" = "ตัวสุ่ม";
 "featured-article-empty-title" = "ไม่มีบทความคัดสรรสำหรับวันนี้";
-"feed-news-notification-button-text" = "เปิดการแจ้งเตือน";
-"feed-news-notification-text" = "ให้วิกิพีเดียแจ้งเตือนเมื่อมีเรื่องจากข่าวที่กำลังมาแรง";
 "fetcher-error-generic" = "มีบางอย่างผิดปกติ โปรดลองอีกครั้งในภายหลัง";
 "fetcher-error-unexpected-response" = "แอปได้รับการตอบกลับที่ไม่คาดคิดจากเซิร์ฟเวอร์ โปรดลองอีกครั้งในภายหลัง";
 "field-alert-captcha-invalid" = "CAPTCHA ไม่ถูกต้อง";
@@ -483,6 +487,8 @@
 "no-internet-connection" = "ไม่มีการเชื่อมต่ออินเทอร์เน็ต";
 "no-internet-connection-article-reload" = "อาจมีรุ่นใหม่ของบทความนี้ แต่ไม่สามารถโหลดได้โดยไม่เชื่อมต่อกับอินเทอร์เน็ต";
 "no-internet-connection-article-reload-button" = "กลับไปยังรุ่นที่บันทึกไว้ล่าสุด";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "เปิดการแจ้งเตือน";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
@@ -503,6 +509,7 @@
 "page-protected-can-not-edit-title" = "หน้านี้ถูกล็อก";
 "page-protected-other" = "หน้านี้ถูกป้องกันในระดับ: $1";
 "page-protected-sysop" = "หน้านี้ถูกล็อกแบบสมบูรณ์";
+"panel-compare-revisions-title" = "เปรียบเทียบรุ่นแก้ไข";
 "pictured" = "ในภาพ";
 "places-accessibility-clear-saved-searches" = "ล้างการค้นหาที่บันทึก";
 "places-accessibility-group" = "$1 บทความ";
@@ -538,6 +545,7 @@
 "places-unknown-distance" = "ไม่ทราบระยะทาง";
 "potd-description-prefix" = "รูปภาพประจำวันที่ $1";
 "potd-empty-error-description" = "ไม่สามารถดึงข้อมูลรูปภาพประจำวันที่ $1 ได้";
+"potd-widget-title" = "รูปภาพประจำวัน";
 "preference-summary-eventlogging-opt-in" = "อนุญาตให้มูลนิธิวิกิมีเดียเก็บข้อมูลการใช้แอปของคุณเพื่อพัฒนาแอปให้ดีขึ้น";
 "preference-title-eventlogging-opt-in" = "ส่งรายงานการใช้";
 "rank-accessibility-label" = "หมายเลข $1";
@@ -641,7 +649,8 @@
 "settings-language-bar" = "แสดงภาษาในหน้าค้นหา";
 "settings-languages-feed-customization" = "คุณสามารถจัดการภาษาที่จะแสดงบนฟีดสำรวจของคุณได้โดยปรับแต่งการตั้งค่าฟีดสำรวจของคุณ";
 "settings-my-languages" = "ภาษาของฉัน";
-"settings-notifications" = "การแจ้งเตือน";
+"settings-notifications" = "การแจ้งเตือนแบบพุช";
+"settings-notifications-echo-failure-try-again" = "ลองอีกครั้ง";
 "settings-notifications-learn-more" = "เรียนรู้เพิ่มเติมเกี่ยวกับการแจ้งเตือน";
 "settings-notifications-push-notifications" = "การแจ้งเตือนแบบพุช";
 "settings-notifications-system-turn-on" = "เปิดการแจ้งเตือน";
@@ -698,6 +707,7 @@
 "two-factor-login-with-backup-code" = "ใช้รหัสสำรองข้อมูลของคุณรหัสใดรหัสหนึ่ง";
 "two-factor-login-with-regular-code" = "ใช้รหัสการยืนยัน";
 "unknown-generic-text" = "ไม่ทราบ";
+"variants-alert-dismiss-button" = "ไม่ ขอบคุณ";
 "welcome-exploration-explore-feed-description" = "บทความแนะนำประจำวันจากชุมชนของเรา";
 "welcome-exploration-explore-feed-title" = "ฟีดสำรวจ";
 "welcome-exploration-on-this-day-description" = "ย้อนเวลากลับไปเพื่อเรียนรู้ว่าเกิดอะไรขึ้นในเวลาที่ผ่านมา";

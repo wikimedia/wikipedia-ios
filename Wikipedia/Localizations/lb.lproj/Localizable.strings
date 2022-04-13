@@ -217,8 +217,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Vu Wikipedia op $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Vu Wikipedia";
 "explore-randomizer" = "Zoufallsgenerator";
-"feed-news-notification-button-text" = "Notifikatiounen aschalten";
-"feed-news-notification-text" = "Notifikatiounen vu Wikipedia aschalte wann Artikelen an den Neiegkeeten opdauchen.";
 "field-alert-captcha-invalid" = "Net valabele CAPTCHA";
 "field-alert-password-confirm-mismatch" = "D'Passwierder déi Dir aginn hutt sinn net identesch";
 "field-alert-token-invalid" = "Net valabele Code";
@@ -329,16 +327,25 @@
 "no-email-account-alert" = "Configuréiert wgl. en E-Mail-Kont op Ärem Apparat a probéiert nach eng Kéier.";
 "no-internet-connection" = "Keng Internet Verbindung";
 "no-internet-connection-article-reload-button" = "Zréck op déi lescht gespäichert Versioun";
+"notifications-center-agent-description-from-format" = "Vum $1";
+"notifications-center-alert" = "Warnung";
+"notifications-center-cell-notification-type-accessibility-label-format" = "$1-Notifikatioun";
 "notifications-center-change-password" = "Passwuert änneren";
 "notifications-center-empty-no-messages" = "Dir hutt keng Messagen";
+"notifications-center-feed-news-notification-button-text" = "Push-Notifikatiounen aschalten";
+"notifications-center-feed-news-notification-dismiss-button-text" = "Net elo";
 "notifications-center-filters-read-status-item-title-all" = "All";
 "notifications-center-filters-read-status-item-title-read" = "Liesen";
 "notifications-center-filters-read-status-item-title-unread" = "Net gelies";
 "notifications-center-filters-title" = "Filteren";
 "notifications-center-filters-types-item-title-all" = "All Typpen";
-"notifications-center-footer-change-password" = "Passwuert änneren";
+// Fuzzy
+"notifications-center-go-to-article" = "Op den Artikel goen";
+// Fuzzy
 "notifications-center-go-to-diff" = "Op den Ënnerscheed goen";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Op d'Diskussiounssäit goen";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "Op d'Wikidata-Element goen";
 "notifications-center-header-alert-from-agent" = "Warnung vum $1";
 "notifications-center-header-alert-from-project" = "Warnung vu(n) $1";
@@ -350,6 +357,11 @@
 "notifications-center-mark-all-as-read" = "All als gelies markéieren";
 "notifications-center-mark-as-read" = "Als gelies markéieren";
 "notifications-center-mark-as-unread" = "Als net gelies markéieren";
+"notifications-center-more-action-accessibility-label" = "Méi";
+"notifications-center-onboarding-modal-continue-action" = "Virufueren";
+"notifications-center-onboarding-modal-filters-title" = "Filteren";
+"notifications-center-onboarding-modal-title" = "Notifikatioune bei Ännerungen";
+"notifications-center-onboarding-panel-secondary-button" = "Nee, merci";
 "notifications-center-status-all" = "All";
 "notifications-center-status-all-notifications" = "All Notifikatiounen";
 "notifications-center-status-filtered-by" = "Gefiltert vum";
@@ -360,7 +372,6 @@
 "notifications-center-status-unread" = "Net gelies";
 "notifications-center-subheader-edit-reverted" = "Är Ännerung gouf zréckgesat";
 "notifications-center-subheader-email-from-other-user" = "Nei E-Mail";
-"notifications-center-subheader-from-agent" = "Vum $1";
 "notifications-center-subheader-login-success-unknown-device" = "Alogge vun engem onbekannten Apparat";
 "notifications-center-subheader-page-reviewed" = "Säit nogekuckt";
 "notifications-center-subheader-thanks" = "Merci";
@@ -370,6 +381,8 @@
 "notifications-center-swipe-mark-as-unread" = "Als net gelies markéieren";
 "notifications-center-swipe-more" = "Méi";
 "notifications-center-title" = "Notifikatiounen";
+"notifications-center-type-item-description-mentions" = "Mentiounen";
+"notifications-center-type-item-description-welcome-verbose" = "Begréissungs-Message";
 "notifications-push-fallback-body-text" = "Nei Aktivitéit op Wikipedia";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|Message|Messagen}}";
 "notifications-push-talk-title-format" = "Nei $1";
@@ -412,7 +425,7 @@
 "places-filter-saved-articles" = "Gespäichert Artikelen";
 "places-filter-top-articles" = "Am dackste gelies";
 "places-filter-top-articles-count" = "{{PLURAL:$1|Een Artikel|$1 Artikelen}}";
-"places-filter-top-read-articles" = "Am dackste geliest Artikelen";
+"places-filter-top-read-articles" = "Am dackste gelies Artikelen";
 "places-no-saved-articles-have-location" = "Kee vun Äre gespäicherten Artikelen huet Lokalisatiouns-Informatiounen";
 "places-search-default-text" = "Plaze sichen";
 "places-search-did-you-mean" = "Mengt Dir $1?";
@@ -514,7 +527,8 @@
 "settings-help-and-feedback" = "Hëllef a Feedback";
 "settings-language-bar" = "Sprooche beim Siche weisen";
 "settings-my-languages" = "Meng Sproochen";
-"settings-notifications" = "Notifikatiounen";
+"settings-notifications" = "Push-Notifikatiounen";
+"settings-notifications-echo-failure-try-again" = "Nach eng Kéier probéieren";
 "settings-notifications-learn-more" = "Méi iwwer d'Notifikatioune gewuer ginn";
 "settings-notifications-push-notifications" = "Push-Notifikatiounen";
 "settings-notifications-system-turn-on" = "Notifikatiounen aschalten";

@@ -448,8 +448,6 @@
 "featured-widget-from-wikipedia" = "Vikipedi'den";
 "featured-widget-language-failure" = "Birincil Vikipedi diliniz seçkin maddeyi desteklemiyor. Birincil Vikipedi'nizi uygulamanın Ayarlar menüsünde güncelleyebilirsiniz.";
 "featured-widget-title" = "Seçkin madde";
-"feed-news-notification-button-text" = "Bildirimleri aç";
-"feed-news-notification-text" = "Gündemde olan Vikipedi maddelerinden haberdar olmak için bildirimleri etkinleştirin.";
 "fetcher-error-generic" = "Bir hata oluştu. Lütfen daha sonra tekrar deneyin.";
 "fetcher-error-unexpected-response" = "Uygulama, sunucudan beklenmeyen bir cevap aldı. Lütfen daha sonra tekrar deneyin.";
 "field-alert-captcha-invalid" = "Geçersiz CAPTCHA";
@@ -593,6 +591,8 @@
 "no-internet-connection" = "İnternet bağlantısı yok";
 "no-internet-connection-article-reload" = "Bu maddenin daha yeni bir sürümü mevcut olabilir ancak internet bağlantısı olmadan yüklenemez";
 "no-internet-connection-article-reload-button" = "En son kaydedilen sürüme dön";
+"notifications-center-agent-description-from-format" = "$1 kaynağından";
+"notifications-center-applied-filters-accessibility-label" = "Bildirim Filtresi - uygulanan filtreler var";
 "notifications-center-change-password" = "Parolayı Değiştir";
 "notifications-center-checking-for-notifications" = "Bildirimler kontrol ediliyor...";
 "notifications-center-empty-checking-for-notifications" = "Bildirimler kontrol ediliyor...";
@@ -600,18 +600,25 @@
 "notifications-center-empty-not-subscribed" = "Herhangi bir Vikipedi Bildirimine üye değilsiniz";
 "notifications-center-empty-state-filters-subtitle" = "Daha fazla mesaj görmek için $1 kısmını değiştirin";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filtre|$1 filtre}}";
+"notifications-center-feed-news-notification-button-text" = "BAnında iletme bildirimlerini aç";
+"notifications-center-feed-news-notification-dismiss-button-text" = "Şimdi değil";
+"notifications-center-filters-accessibility-label" = "Bildirim filtresi";
 "notifications-center-filters-read-status-item-title-all" = "Tümü";
 "notifications-center-filters-read-status-item-title-read" = "Oku";
 "notifications-center-filters-read-status-item-title-unread" = "Okunmayan";
+"notifications-center-filters-read-status-section-title" = "Okuma Durumu";
 "notifications-center-filters-title" = "Filtreler";
 "notifications-center-filters-types-item-title-all" = "Tüm türler";
 "notifications-center-filters-types-section-title" = "Bildirim türleri";
-"notifications-center-footer-change-password" = "Parolayı değiştir";
+// Fuzzy
 "notifications-center-go-to-diff" = "Farka git";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Tartışma sayfasına git";
-"notifications-center-go-to-title" = "$1 sayfasına git";
+// Fuzzy
 "notifications-center-go-to-user-page" = "$1 kullanıcı sayfasına git";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "Vikiveri ögesine git";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "Mesaj sayfanıza gidin";
 "notifications-center-header-alert-from-agent" = "$1 kaynağından uyarı";
 "notifications-center-header-alert-from-project" = "$1 sitesinden uyarı";
@@ -625,17 +632,21 @@
 "notifications-center-mark-as-read" = "Okunmuş olarak İşaretle";
 "notifications-center-mark-as-unread" = "Okunmamış olarak İşaretle";
 "notifications-center-notifications-settings" = "Bildirim ayarları";
+"notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 mesaj|$1 mesaj}}";
+"notifications-center-project-filters-accessibility-label" = "Proje filtresi";
 "notifications-center-status-all" = "Tümü";
 "notifications-center-status-all-notifications" = "Bütün bildirimler";
+"notifications-center-status-double-concatenation" = "$1/$2";
 "notifications-center-status-filtered-by" = "Filtreleme";
 "notifications-center-status-in-projects" = "{{PLURAL:$1|1=1 projede|$1 projede}}";
 "notifications-center-status-in-projects-plain" = "{{PLURAL:$1|1=1 proje|$1 proje}}";
 "notifications-center-status-in-types" = "{{PLURAL:$1|1=1 tip|$1 tip}}";
 "notifications-center-status-read" = "Oku";
+"notifications-center-status-triple-concatenation" = "$1 ile $2/$3";
 "notifications-center-status-unread" = "Okunmayan";
+"notifications-center-subheader-edit-milestone" = "Dönüm noktası düzenleniyor";
 "notifications-center-subheader-edit-reverted" = "Düzenlemeniz geri alındı";
 "notifications-center-subheader-email-from-other-user" = "Yeni e-posta";
-"notifications-center-subheader-from-agent" = "$1 kaynağından";
 "notifications-center-subheader-login-fail-known-device" = "Birçok başarısız giriş denemesi";
 "notifications-center-subheader-login-fail-unknown-device" = "Başarısız giriş denemesi";
 "notifications-center-subheader-login-success-unknown-device" = "Tanıdık olmayan bir cihazdan giriş";
@@ -655,7 +666,9 @@
 "notifications-center-swipe-mark-as-unread" = "Okunmadı olarak işaretle";
 "notifications-center-swipe-more" = "Daha fazla";
 "notifications-center-title" = "Bildirimler";
+"notifications-center-toolbar-mark-accessibility-label" = "Seçili bildirimleri işaretle";
 "notifications-push-fallback-body-text" = "Vikipedi'de yeni etkinlik";
+"notifications-push-talk-body-format" = "$3 sayfasında $1 yeni $2";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|mesaj}}";
 "notifications-push-talk-title-format" = "Yeni $1";
 "number-billions" = "$1Mr";
@@ -883,7 +896,7 @@
 "settings-language-bar" = "Aramada dilleri göster";
 "settings-languages-feed-customization" = "Keşfet akış ayarlarınızı özelleştirerek Keşfet özet akışınızda hangi dillerin gösterileceğini yönetebilirsiniz.";
 "settings-my-languages" = "Dillerim";
-"settings-notifications" = "Bildirimler";
+"settings-notifications" = "Anlık bildirimler";
 "settings-notifications-info" = "Anlık bildirimlerimizle, gündemde olan ve en çok okunan Vikipedi makalelerinden haberdar olun. Hepsi, gizliliğe ve güncel verilere bağlı olarak sunulmaktadır.";
 "settings-notifications-learn-more" = "Bildirimler hakkında daha fazla bilgi edinin";
 "settings-notifications-push-notifications" = "Anlık bildirimler";

@@ -32,6 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
             return WMFLocalizedStringWithDefaultValue(@"in-the-news-title", nil, nil, @"In the news", @"Title for the 'In the news' notification & feed section");
         case WMFContentGroupKindOnThisDay:
             return WMFCommonStrings.onThisDayTitle;
+        case WMFContentGroupKindNotification:
+            return WMFLocalizedStringWithDefaultValue(@"notifications-center-feed-card-title", nil, nil, @"Editing notifications now available", @"Title for the 'Notification' explore feed card");
+            ;
         default:
             break;
     }
@@ -97,6 +100,8 @@ NS_ASSUME_NONNULL_BEGIN
                 return [[NSDateFormatter wmf_utcMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.midnightUTCDate];
             }
         }
+        case WMFContentGroupKindNotification:
+            return [[NSDateFormatter wmf_utcDayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.midnightUTCDate];
         default:
             break;
     }
@@ -352,7 +357,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (WMFFeedHeaderType)headerType {
     switch (self.contentGroupKind) {
         case WMFContentGroupKindNotification:
-            return WMFFeedHeaderTypeNone;
+            return WMFFeedHeaderTypeStandard;
         case WMFContentGroupKindTheme:
             return WMFFeedHeaderTypeNone;
         case WMFContentGroupKindReadingList:

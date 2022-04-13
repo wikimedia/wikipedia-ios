@@ -11,6 +11,7 @@
 // Author: DannyS712
 // Author: David.novella
 // Author: Dgstranz
+// Author: DiegoAmbrocio
 // Author: Dschultz
 // Author: Elisardojm
 // Author: Fitoschido
@@ -128,6 +129,7 @@
 "action-add-to-reading-list" = "Añadir a una lista de lectura";
 "action-add-to-reading-list-short" = "Añadir a la lista";
 "action-cancel" = "Cancelar";
+"action-discard-edits" = "Descartar ediciones";
 "action-find-in-page" = "Buscar en la página";
 "action-language-accessibility" = "Cambiar idioma";
 "action-move-to" = "Mover a…";
@@ -338,6 +340,7 @@
 "editing-welcome-impartial-tone-title" = "Escribe en un tono imparcial";
 "editing-welcome-set-knowledge-free-subtitle" = "Para poder dar a todos acceso al conocimiento mundial, necesitamos que participes en su creación leyendo, editando y contribuyendo con los temas que más te importan.";
 "editing-welcome-set-knowledge-free-title" = "Da libertad al conocimiento";
+"editor-exit-confirmation-title" = "¿Desactivar el modo de edición?";
 "empty-diff-compare-title" = "No hay diferencias entre revisiones";
 "empty-diff-single-title" = "No se hicieron cambios visibles";
 "empty-insert-media-title" = "Seleccionar un archivo de Wikimedia Commons";
@@ -445,8 +448,6 @@
 "featured-widget-from-wikipedia" = "De Wikipedia";
 "featured-widget-language-failure" = "Su idioma principal de Wikipedia no soporta Artículo destacado. Puede actualizar su Wikipedia principal en el menú de Configuración de la aplicación.";
 "featured-widget-title" = "Artículo destacado";
-"feed-news-notification-button-text" = "Activar las notificaciones";
-"feed-news-notification-text" = "Activa las notificaciones para recibir avisos de Wikipedia cuando haya artículos en tendencia en las noticias.";
 "fetcher-error-generic" = "Algo falló. Por favor, prueba de nuevo más tarde.";
 "fetcher-error-unexpected-response" = "La app recibió una respuesta inesperada del servidor. Por favor, prueba de nuevo más tarde.";
 "field-alert-captcha-invalid" = "El CAPTCHA no es válido";
@@ -590,11 +591,41 @@
 "no-internet-connection" = "Sin conexión a internet";
 "no-internet-connection-article-reload" = "Una versión más reciente de este artículo puede estar disponible, pero se puede cargar sin conexión a internet";
 "no-internet-connection-article-reload-button" = "Volver a la última versión guardada";
+"notifications-center-alert" = "Alerta";
 "notifications-center-applied-filters-accessibility-label" = "Filtro de notificaciones - tiene filtros aplicados";
 "notifications-center-applied-project-filters-accessibility-label" = "Filtro de proyectos - tiene filtros aplicados";
+"notifications-center-change-password" = "Cambiar contraseña";
+"notifications-center-destination-app" = "En la aplicación";
+"notifications-center-destination-web" = "En la web";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Activar las notificaciones";
+"notifications-center-feed-news-notification-dismiss-button-text" = "Ahora no";
 "notifications-center-filters-accessibility-label" = "Filtro de notificaciones";
+// Fuzzy
+"notifications-center-go-to-article" = "Ir al artículo";
+// Fuzzy
+"notifications-center-go-to-article-collaboration-format" = "Ir a la página de colaboración de $1";
+// Fuzzy
+"notifications-center-go-to-article-discussion-format" = "Ir a la página de discusión de $1";
+// Fuzzy
+"notifications-center-go-to-article-talk-format" = "Ir a la página de discusión de $1";
+// Fuzzy
+"notifications-center-go-to-collaboration-page" = "Ir a la página de colaboración";
+// Fuzzy
+"notifications-center-go-to-discussion-page" = "Ir a la página de debate";
+"notifications-center-login-notifications" = "Notificaciones de inicio de sesión";
+"notifications-center-onboarding-modal-continue-action" = "Continuar";
+"notifications-center-onboarding-modal-filters-title" = "Filtros";
+"notifications-center-onboarding-modal-notifications-alerts-title" = "Notificaciones y alertas";
+"notifications-center-onboarding-modal-project-inboxes-title" = "Bandejas de entrada de proyectos";
+"notifications-center-onboarding-modal-push-notifications-title" = "Notificaciones emergentes";
+"notifications-center-onboarding-modal-title" = "Editar las notificaciones";
+"notifications-center-onboarding-panel-primary-button" = "Activar las notificaciones push";
+"notifications-center-onboarding-panel-secondary-button" = "No, gracias";
 "notifications-center-project-filters-accessibility-label" = "Filtro de proyectos";
 "notifications-center-toolbar-mark-accessibility-label" = "Marcar notificaciones seleccionadas";
+"notifications-center-type-item-description-mentions" = "Menciones";
+"notifications-center-type-item-description-welcome-verbose" = "Mensaje de bienvenida";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
@@ -818,7 +849,11 @@
 "settings-language-bar" = "Mostrar los idiomas al buscar";
 "settings-languages-feed-customization" = "\nPuedes controlar qué idiomas se muestran en tu canal Explorar personalizando los ajustes de Explorar.";
 "settings-my-languages" = "Mis idiomas";
-"settings-notifications" = "Notificaciones";
+"settings-notifications" = "Notificaciones emergentes";
+"settings-notifications-echo-failure-message" = "Se ha producido un error al comprobar las suscripciones de notificaciones relacionadas con su cuenta.";
+"settings-notifications-echo-failure-title" = "No se puede comprobar las suscripciones a las notificaciones de Echo";
+"settings-notifications-echo-failure-try-again" = "Intentar de nuevo";
+"settings-notifications-header" = "Reciba alertas de la actividad relacionada con su cuenta, como mensajes de otros contribuyentes, alertas y avisos. Todo ello respetando la privacidad y con datos actualizados.";
 "settings-notifications-info" = "Mantente en alerta de artículos en tendencia o más leídos en Wikipedia con nuestras notificaciones. Todas ellas proporcionadas con respeto por la privacidad y actualizadas al minuto.";
 "settings-notifications-learn-more" = "Conocer más acerca de las notificaciones";
 "settings-notifications-push-notifications" = "Notificaciones";

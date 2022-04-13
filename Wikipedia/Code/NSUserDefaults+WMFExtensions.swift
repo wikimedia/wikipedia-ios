@@ -29,6 +29,10 @@ let WMFIsSyntaxHighlightingEnabled = "WMFIsSyntaxHighlightingEnabled"
 let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 let WMFAppInstallId = "WMFAppInstallId"
 let WMFSendUsageReports = "WMFSendUsageReports"
+let WMFShowNotificationsExploreFeedCard = "WMFShowNotificationsExploreFeedCard"
+let WMFUserHasOnboardedToNotificationsCenter = "WMFUserHasOnboardedToNotificationsCenter"
+let WMFDidShowNotificationsCenterPushOptInPanel = "WMFDidShowNotificationsCenterPushOptInPanel"
+let WMFSubscribedToEchoNotifications = "WMFSubscribedToEchoNotifications"
 
 @objc public enum WMFAppDefaultTabType: Int {
     case explore
@@ -99,6 +103,15 @@ let WMFSendUsageReports = "WMFSendUsageReports"
         }
         set {
             set(newValue, forKey: WMFSendUsageReports)
+        }
+    }
+
+    @objc var wmf_isSubscribedToEchoNotifications: Bool {
+        get {
+            return bool(forKey: WMFSubscribedToEchoNotifications)
+        }
+        set {
+            set(newValue, forKey: WMFSubscribedToEchoNotifications)
         }
     }
 
@@ -429,6 +442,24 @@ let WMFSendUsageReports = "WMFSendUsageReports"
         self.set(didShow, forKey: WMFDidShowTitleDescriptionEditingIntro)
     }
 
+    @objc var wmf_userHasOnboardedToNotificationsCenter: Bool {
+        get {
+            return bool(forKey: WMFUserHasOnboardedToNotificationsCenter)
+        }
+        set {
+            set(newValue, forKey: WMFUserHasOnboardedToNotificationsCenter)
+        }
+    }
+
+    @objc var wmf_didShowNotificationsCenterPushOptInPanel: Bool {
+        get {
+            return bool(forKey: WMFDidShowNotificationsCenterPushOptInPanel)
+        }
+        set {
+            set(newValue, forKey: WMFDidShowNotificationsCenterPushOptInPanel)
+        }
+    }
+
     var isUserUnawareOfLogout: Bool {
         get {
             return bool(forKey: UserDefaults.Key.isUserUnawareOfLogout)
@@ -494,6 +525,16 @@ let WMFSendUsageReports = "WMFSendUsageReports"
             set(newValue, forKey: "SystemDarkMode")
         }
     }
+    
+    @objc var wmf_shouldShowNotificationsExploreFeedCard: Bool {
+        get {
+           return bool(forKey: WMFShowNotificationsExploreFeedCard)
+        }
+        set{
+            set(newValue, forKey: WMFShowNotificationsExploreFeedCard)
+        }
+    }
+
 #if UI_TEST
     @objc func wmf_isFastlaneSnapshotInProgress() -> Bool {
         return bool(forKey: "FASTLANE_SNAPSHOT")

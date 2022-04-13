@@ -1,0 +1,204 @@
+{
+    "batchcomplete": true,
+    "limits": {
+        "notifications": 50
+    },
+    "query": {
+        "notifications": {
+            "list": [{
+                "wiki": "enwiki",
+                "id": 1,
+                "type": "pagetriage-add-maintenance-tag",
+                "category": "page-review",
+                "section": "alert",
+                "timestamp": {
+                    "utciso8601": "2021-07-20T15:26:19Z",
+                    "utcunix": 1626794779,
+                    "unix": "1626794779",
+                    "utcmw": "20210720152619",
+                    "mw": "20210720152619",
+                    "date": "20 July"
+                },
+                "title": {
+                    "full": "Black Bird",
+                    "namespace": "",
+                    "namespace-key": 0,
+                    "text": "Black Bird"
+                },
+                "agent": {
+                    "id": 15250126,
+                    "name": "Fred The Bird"
+                },
+                "targetpages": [],
+                "*": {
+                    "header": "A reviewer suggested improvements to the page <b>Bird</b>. Tags: notability, blp sources.",
+                    "compactHeader": "A reviewer suggested improvements to the page <b>Bird</b>. Tags: notability, blp sources.",
+                    "body": "",
+                    "icon": "reviewed",
+                    "links": {
+                        "primary": {
+                            "url": "https://en.wikipedia.org/wiki/Black_Bird?markasread=181035797&markasreadwiki=enwiki",
+                            "label": "View page"
+                        },
+                        "secondary": [{
+                            "url": "https://en.wikipedia.org/wiki/User:Fred_The_Bird",
+                            "label": "Fred The Bird",
+                            "tooltip": "",
+                            "description": "",
+                            "icon": "userAvatar",
+                            "prioritized": true
+                        }, {
+                            "label": "Thank",
+                            "url": "https://en.wikipedia.org/wiki/Special:Thanks/937441471",
+                            "icon": "thanks",
+                            "description": "Publicly thank the reviewer",
+                            "prioritized": true
+                        }]
+                    },
+                    "iconUrl": "/w/extensions/Echo/modules/icons/articleCheck-progressive.svg"
+                }
+            }, {
+                "wiki": "testwiki",
+                "id": 2,
+                "type": "flow-post-reply",
+                "category": "flow-discussion",
+                "section": "message",
+                "timestamp": {
+                    "utciso8601": "2021-07-20T15:26:19Z",
+                    "utcunix": 1626794779,
+                    "unix": "1626794779",
+                    "utcmw": "20210720152619",
+                    "mw": "20210720152619",
+                    "date": "20 July"
+                },
+                "title": {
+                    "full": "Talk:Black Cat",
+                    "namespace": "Talk",
+                    "namespace-key": 1,
+                    "text": "Black Cat"
+                },
+                "agent": {
+                    "id": 42540,
+                    "name": "Fred The Bird"
+                },
+                "read": "20220225154053",
+                "targetpages": [],
+                "*": {
+                    "header": "Fred The Bird replied in \"<strong>Section Title</strong>\".",
+                    "compactHeader": "Fred The Bird: <em>Reply text</em>.",
+                    "body": "Reply text",
+                    "icon": "chat",
+                    "links": {
+                        "primary": {
+                            "url": "https://test.wikipedia.org/w/index.php?title=Topic:Wcd3birxz0ixz4di&topic_showPostId=wd321irw4jqrwsyf&fromnotif=1&markasread=75530&markasreadwiki=testwiki#flow-post-wd321irw4jqrwsyf",
+                            "label": "View post"
+                        },
+                        "secondary": [{
+                                "url": "https://test.wikipedia.org/wiki/User:Fred_The_Bird",
+                                "label": "Fred The Bird",
+                                "tooltip": "",
+                                "description": "",
+                                "icon": "userAvatar",
+                                "prioritized": true
+                            },
+                            {
+                                "url": "https://test.wikipedia.org/wiki/Talk:Black_Cat",
+                                "label": "Black Cat",
+                                "tooltip": "Talk:Black Cat",
+                                "description": "",
+                                "icon": "speechBubbles",
+                                "prioritized": true
+                            }
+                        ]
+                    },
+                    "iconUrl": "/w/extensions/Echo/modules/icons/speechBubbles-ltr-progressive.svg"
+                }
+            }, {
+                "wiki": "testwiki",
+                "id": 3,
+                "type": "flow-topic-renamed",
+                "category": "flow-discussion",
+                "section": "message",
+                "timestamp": {
+                    "utciso8601": "2022-01-30T17:39:49Z",
+                    "utcunix": 1643564389,
+                    "unix": "1643564389",
+                    "utcmw": "20220130173949",
+                    "mw": "20220130173949",
+                    "date": "30 January"
+                },
+                "title": {
+                    "full": "Talk:Blue Bird",
+                    "namespace": "Talk",
+                    "namespace-key": 1,
+                    "text": "Blue Bird"
+                },
+                "agent": {
+                    "id": 0,
+                    "name": "47.234.198.142"
+                },
+                "read": "20220225154053",
+                "targetpages": [],
+                "*": {
+                    "header": "The topic \"<strong>Topic:Section Title</strong>\" was renamed to \"<strong>Section Title 2</strong>\".",
+                    "compactHeader": "The topic \"<strong>Topic:Section Title</strong>\" was renamed to \"<strong>Section Title 2</strong>\".",
+                    "body": "",
+                    "icon": "flow-topic-renamed",
+                    "links": {
+                        "primary": {
+                            "url": "https://test.wikipedia.org/wiki/Topic:Section_Title?markasread=88298&markasreadwiki=testwiki",
+                            "label": "View topic"
+                        },
+                        "secondary": [{
+                                "url": "https://test.wikipedia.org/wiki/Special:Contributions/47.234.198.142",
+                                "label": "47.234.198.142",
+                                "tooltip": "",
+                                "description": "",
+                                "icon": "userAvatar",
+                                "prioritized": true
+                            },
+                            {
+                                "url": "https://test.wikipedia.org/w/index.php?title=Talk:Blue_Bird&topiclist_sortby=newest",
+                                "label": "Blue Bird",
+                                "tooltip": "Talk:Blue Bird",
+                                "description": "",
+                                "icon": "speechBubbles",
+                                "prioritized": true
+                            },
+                            {
+                                "url": "https://test.wikipedia.org/w/index.php?title=Topic:Section_Title&action=compare-post-revisions&topic_newRevision=wp3f66xotg0iluh5",
+                                "label": "View changes",
+                                "description": "",
+                                "icon": "changes",
+                                "prioritized": false
+                            },
+                            {
+                                "type": "dynamic-action",
+                                "label": "Stop watching this topic",
+                                "description": null,
+                                "data": {
+                                    "tokenType": "watch",
+                                    "params": {
+                                        "action": "watch",
+                                        "titles": "Topic:Section Title",
+                                        "unwatch": 1
+                                    },
+                                    "messages": {
+                                        "confirmation": {
+                                            "title": "You are no longer watching \"\"",
+                                            "description": "You can watch <a class=\"external text\" href=\"https://test.wikipedia.org/wiki/Topic:Section_Title\">this topic</a> anytime."
+                                        }
+                                    }
+                                },
+                                "url": "https://test.wikipedia.org/w/index.php?title=Topic:Section_Title&action=unwatch",
+                                "icon": "star"
+                            }
+                        ]
+                    },
+                    "iconUrl": "/w/extensions/Flow/modules/notification/icon/flow-topic-renamed-ltr.svg"
+                }
+            }],
+            "continue": "1569862285|172771996"
+        }
+    }
+}

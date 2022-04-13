@@ -432,8 +432,6 @@
 "featured-widget-from-wikipedia" = "De la Viquipèdia";
 "featured-widget-language-failure" = "La Viquipèdia de la vostra llengua primària no té l'opció d'article destacat. Podeu triar canviar la vostra Viquipèdia primària en el menú de configuració de l'aplicació.";
 "featured-widget-title" = "Article destacat";
-"feed-news-notification-button-text" = "Activa les notificacions";
-"feed-news-notification-text" = "Habiliteu les notificacions per a rebre avisos de la Viquipèdia quan els articles siguin tendència a les notícies.";
 "fetcher-error-generic" = "Quelcom ha fallat. Torneu-ho a provar més tard.";
 "fetcher-error-unexpected-response" = "L'aplicació ha rebut una resposta no esperada del servidor. Torneu-ho a provar més tard.";
 "field-alert-captcha-invalid" = "CAPTCHA incorrecte";
@@ -577,13 +575,25 @@
 "no-internet-connection" = "Sense connexió a Internet";
 "no-internet-connection-article-reload" = "Podria haver-hi una nova versió de l'article, però no pot carregar-se perquè no hi ha connexió a Internet.";
 "no-internet-connection-article-reload-button" = "Torna a la darrera versió desada";
+"notifications-center-agent-description-from-format" = "De $1";
+"notifications-center-alert" = "Alerta";
+"notifications-center-applied-filters-accessibility-label" = "Filtre de notificacions - té filtres aplicats";
+"notifications-center-applied-project-filters-accessibility-label" = "Filtre de projectes - té filtres aplicats";
+"notifications-center-badge-button-accessibility-label" = "Notificacions amb insígnia no llegida";
 "notifications-center-change-password" = "Canvia la contrasenya";
 "notifications-center-checking-for-notifications" = "Comprovació de les notificacions...";
+"notifications-center-destination-app" = "A l'aplicació";
+"notifications-center-destination-web" = "Al web";
 "notifications-center-empty-checking-for-notifications" = "S'estan comprovant les notificacions...";
 "notifications-center-empty-no-messages" = "No teniu missatges";
 "notifications-center-empty-not-subscribed" = "No esteu subscrit a cap notificació de la Viquipèdia";
 "notifications-center-empty-state-filters-subtitle" = "Modifiqueu $1 per a mostrar més missatges";
+"notifications-center-empty-state-no-projects-selected" = "Afegeix projectes per a veure més missatges";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filtre|$1 filtres}}";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Activa les notificacions";
+"notifications-center-feed-news-notification-dismiss-button-text" = "Ara no";
+"notifications-center-filters-accessibility-label" = "Filtre de notificacions";
 "notifications-center-filters-read-status-item-title-all" = "Tots";
 "notifications-center-filters-read-status-item-title-read" = "Llegit";
 "notifications-center-filters-read-status-item-title-unread" = "Per llegir";
@@ -592,12 +602,17 @@
 "notifications-center-filters-types-footer" = "Modifiqueu els tipus de notificació per a filtrar-les de la vostra bústia de notificacions. Els tipus desactivats no seran visibles, però llurs continguts i les noves notificacions esdevindran disponibles en activar-se de nou.";
 "notifications-center-filters-types-item-title-all" = "Tots els tipus";
 "notifications-center-filters-types-section-title" = "Tipus de notificacions";
-"notifications-center-footer-change-password" = "Canvia la contrasenya";
+// Fuzzy
+"notifications-center-go-to-article" = "Vés a l’article";
+// Fuzzy
 "notifications-center-go-to-diff" = "Vés a la diferència";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Vés a la pàgina de discussió";
-"notifications-center-go-to-title" = "Vés a $1";
+// Fuzzy
 "notifications-center-go-to-user-page" = "Vés a la pàgina d'usuari de $1";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "Vés a l'element de Wikidata";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "Vés a la vostra pàgina de discussió";
 "notifications-center-header-alert-from-agent" = "Alerta de $1";
 "notifications-center-header-alert-from-project" = "Alerta de $1";
@@ -613,8 +628,15 @@
 "notifications-center-mark-all-as-read-missing-number" = "Esteu segur que voleu marcar totes les notificacions com a llegides? Les notificacions es marcaran com a llegides en tots els vostres dispositius.";
 "notifications-center-mark-as-read" = "Marca com a llegida";
 "notifications-center-mark-as-unread" = "Marca com a no llegida";
+"notifications-center-more-action-accessibility-label" = "Més";
 "notifications-center-notifications-settings" = "Paràmetres de notificació";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 missatge|$1 missatges}}";
+"notifications-center-onboarding-modal-continue-action" = "Continua";
+"notifications-center-onboarding-modal-filters-title" = "Filtres";
+"notifications-center-onboarding-modal-learn-more-action" = "Més informació sobre les notificacions";
+"notifications-center-onboarding-modal-notifications-alerts-title" = "Notificacions i alertes";
+"notifications-center-onboarding-panel-secondary-button" = "No, gràcies";
+"notifications-center-project-filters-accessibility-label" = "Filtre de projectes";
 "notifications-center-status-all" = "Totes";
 "notifications-center-status-all-notifications" = "Totes les notificacions";
 "notifications-center-status-double-concatenation" = "$1 de $2";
@@ -628,7 +650,6 @@
 "notifications-center-subheader-edit-milestone" = "Fita d'edició";
 "notifications-center-subheader-edit-reverted" = "S'ha revertit la vostra modificació";
 "notifications-center-subheader-email-from-other-user" = "Correu electrònic nou";
-"notifications-center-subheader-from-agent" = "De $1";
 "notifications-center-subheader-login-fail-known-device" = "Múltiples intents d'inici de sessió fallits";
 "notifications-center-subheader-login-fail-unknown-device" = "Intent d'inici de sessió fallit";
 "notifications-center-subheader-login-success-unknown-device" = "Inici de sessió d'un dispositiu no habitual";
@@ -649,6 +670,9 @@
 "notifications-center-swipe-mark-as-unread" = "Marca com a no llegit";
 "notifications-center-swipe-more" = "Més";
 "notifications-center-title" = "Notificacions";
+"notifications-center-toolbar-mark-accessibility-label" = "Marca les notificacions seleccionades";
+"notifications-center-type-item-description-mentions" = "Mencions";
+"notifications-center-type-item-description-welcome-verbose" = "Missatge de benvinguda";
 "notifications-push-fallback-body-text" = "Activitat nova a la Viquipèdia";
 "notifications-push-talk-body-format" = "$1 nous $2 a $3";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|missatge|missatges}}";
@@ -878,7 +902,8 @@
 "settings-language-bar" = "Mostra llengües a la cerca";
 "settings-languages-feed-customization" = "Podeu gestionar quines llengües es mostren en el canal d'exploració personalitzant els paràmetres del canal d'exploració.";
 "settings-my-languages" = "Les meves llengües";
-"settings-notifications" = "Notificacions";
+"settings-notifications" = "Notificacions emergents";
+"settings-notifications-echo-failure-try-again" = "Torna-ho a provar";
 "settings-notifications-info" = "Estigueu avisat de les tendències i articles més llegits a la Viquipèdia amb les nostres notificacions. Tot està proporcionat amb respecte a la privadesa i actualitzades al minut.";
 "settings-notifications-learn-more" = "Més quant a les notificacions";
 "settings-notifications-push-notifications" = "Notificacions enviades";

@@ -432,8 +432,6 @@
 "featured-widget-from-wikipedia" = "З Вікіпедії";
 "featured-widget-language-failure" = "Ваша основна мова Вікіпедії не підтримує вибрані статті. Ви можете оновити основну мову Вікіпедії у меню налаштувань застосунка.";
 "featured-widget-title" = "Вибрана стаття";
-"feed-news-notification-button-text" = "Увімкнути сповіщення";
-"feed-news-notification-text" = "Увімкніть сповіщення, аби дізнаватися про статті Вікіпедії, що пов'язані з останніми новинами.";
 "fetcher-error-generic" = "Щось пішло не так. Будь ласка, спробуйте ще раз пізніше.";
 "fetcher-error-unexpected-response" = "Від сервера отримана непередбачена відповідь. Будь ласка, спробуйте пізніше.";
 "field-alert-captcha-invalid" = "Недійсна капча";
@@ -577,6 +575,7 @@
 "no-internet-connection" = "Немає з'єднання з інтернетом";
 "no-internet-connection-article-reload" = "Можливо, доступна новіша версія цієї статті, але вона не може бути завантажена через відсутність підключення до Інтернету";
 "no-internet-connection-article-reload-button" = "Повернутися до останньої збереженої версії";
+"notifications-center-agent-description-from-format" = "З $1";
 "notifications-center-change-password" = "Змінити пароль";
 "notifications-center-checking-for-notifications" = "Перевірка сповіщень…";
 "notifications-center-empty-checking-for-notifications" = "Перевірка сповіщень…";
@@ -584,6 +583,8 @@
 "notifications-center-empty-not-subscribed" = "Наразі ви не підписані на жодні сповіщення Вікіпедії";
 "notifications-center-empty-state-filters-subtitle" = "Відредагуйте $1, аби побачити більше повідомлень";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 фільтр|$1 фільтри|$1 фільтрів}}";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Увімкнути сповіщення";
 "notifications-center-filters-read-status-item-title-all" = "Усі";
 "notifications-center-filters-read-status-item-title-read" = "Прочитане";
 "notifications-center-filters-read-status-item-title-unread" = "Непрочитане";
@@ -592,12 +593,15 @@
 "notifications-center-filters-types-footer" = "Змініть типи сповіщень, щоб відфільтрувати їх у папці вхідних сповіщень. Типи, які вимкнено, не відображатимуться, але їх вміст і будь-які нові сповіщення будуть доступні, коли перемикач знову ввімкнути.";
 "notifications-center-filters-types-item-title-all" = "Усі типи";
 "notifications-center-filters-types-section-title" = "Типи сповіщень";
-"notifications-center-footer-change-password" = "Змінити пароль";
+// Fuzzy
 "notifications-center-go-to-diff" = "Перейти до дифа";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Перейти на сторінку обговорення";
-"notifications-center-go-to-title" = "Перейти на $1";
+// Fuzzy
 "notifications-center-go-to-user-page" = "Перейти на сторінку користувача $1";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "Перейти до елемента Вікіданих";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "Перейти на свою сторінку обговорення";
 "notifications-center-header-alert-from-agent" = "Сповіщення від $1";
 "notifications-center-header-alert-from-project" = "Сповіщення від $1";
@@ -628,7 +632,6 @@
 "notifications-center-subheader-edit-milestone" = "Етап редагування";
 "notifications-center-subheader-edit-reverted" = "Ваше редагування було відкочено";
 "notifications-center-subheader-email-from-other-user" = "Нова електронна пошта";
-"notifications-center-subheader-from-agent" = "З $1";
 "notifications-center-subheader-login-fail-known-device" = "Кілька невдалих спроб входу";
 "notifications-center-subheader-login-fail-unknown-device" = "Невдала спроба входу";
 "notifications-center-subheader-login-success-unknown-device" = "Увійти з незнайомого пристрою";
@@ -878,6 +881,7 @@
 "settings-language-bar" = "Показувати мови при пошуку";
 "settings-languages-feed-customization" = "Ви можете зазначити в налаштуваннях, які мови показуватимуться у вашій стрічці.";
 "settings-my-languages" = "Мої мови";
+// Fuzzy
 "settings-notifications" = "Сповіщення";
 "settings-notifications-info" = "Будьте в курсі трендових і найпопулярніших статей у Вікіпедії з нашими push-сповіщеннями. Уся інформація надається зі збереженням конфіденційності та з точністю до хвилини.";
 "settings-notifications-learn-more" = "Дізнатися більше про сповіщення";

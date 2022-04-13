@@ -465,8 +465,6 @@
 "featured-widget-from-wikipedia" = "Из Википедии";
 "featured-widget-language-failure" = "Язык вашей основной Википедии не поддерживает «Избранные статьи». Вы можете изменить вашу основную Википедию в меню настроек приложения.";
 "featured-widget-title" = "Избранная статья";
-"feed-news-notification-button-text" = "Включить уведомления";
-"feed-news-notification-text" = "Включить уведомления, чтобы узнавать от Википедии, когда статьи попадают в тренды новостей.";
 "fetcher-error-generic" = "Что-то пошло не так. Пожалуйста, повторите попытку позже.";
 "fetcher-error-unexpected-response" = "От сервера получен непредвиденный ответ. Пожалуйста, попробуйте позже.";
 "field-alert-captcha-invalid" = "Неверная капча";
@@ -610,22 +608,28 @@
 "no-internet-connection" = "Нет подключения к интернету";
 "no-internet-connection-article-reload" = "Возможно есть более новая версия статьи, но, чтобы её скачать, требуется подключение к интернету";
 "no-internet-connection-article-reload-button" = "Вернуться к последней сохранённой версии";
+"notifications-center-agent-description-from-format" = "От $1";
 "notifications-center-change-password" = "Изменить пароль";
 "notifications-center-checking-for-notifications" = "Проверка уведомлений…";
 "notifications-center-empty-checking-for-notifications" = "Проверка уведомлений…";
 "notifications-center-empty-no-messages" = "У вас нет сообщений";
 "notifications-center-empty-state-num-filters" = "$1 {{PLURAL:$1|фильтр|фильтра|фильтров}}";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Включить уведомления";
+"notifications-center-feed-news-notification-dismiss-button-text" = "Не сейчас";
 "notifications-center-filters-read-status-item-title-all" = "Все";
 "notifications-center-filters-read-status-item-title-read" = "Читать";
 "notifications-center-filters-read-status-item-title-unread" = "Непрочитанные";
 "notifications-center-filters-title" = "Фильтры";
 "notifications-center-filters-types-item-title-all" = "Все типы";
 "notifications-center-filters-types-section-title" = "Типы уведомлений";
-"notifications-center-footer-change-password" = "Изменить пароль";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Перейти на страницу обсуждения";
-"notifications-center-go-to-title" = "Перейти к $1";
+// Fuzzy
 "notifications-center-go-to-user-page" = "Перейти на страницу обсуждения $1";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "Перейти на элемент Викиданных";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "Перейти на вашу страницу обсуждения";
 "notifications-center-inbox-title" = "Проекты";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Проекты Викимедиа";
@@ -635,13 +639,17 @@
 "notifications-center-mark-as-unread" = "Пометить как непрочитанное";
 "notifications-center-notifications-settings" = "Настройки уведомлений";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 сообщение|$1 сообщения|$1 сообщений}}";
+"notifications-center-onboarding-modal-continue-action" = "Продолжить";
+"notifications-center-onboarding-modal-filters-title" = "Фильтры";
+"notifications-center-onboarding-panel-secondary-button" = "Нет, спасибо";
+"notifications-center-project-filters-accessibility-label" = "Фильтр проектов";
 "notifications-center-status-all" = "Все";
 "notifications-center-status-all-notifications" = "Все уведомления";
 "notifications-center-status-double-concatenation" = "$1 в $2";
 "notifications-center-status-in-projects-plain" = "{{PLURAL:$1|1=1 проект|$1 проекта|$1 проектов}}";
+"notifications-center-status-triple-concatenation" = "$1 и $2 в $3";
 "notifications-center-subheader-edit-reverted" = "Ваша правка была отменена";
 "notifications-center-subheader-email-from-other-user" = "Новый e-mail";
-"notifications-center-subheader-from-agent" = "От $1";
 "notifications-center-subheader-login-success-unknown-device" = "Вход с незнакомого устройства";
 "notifications-center-subheader-mention-article-talk-page" = "Упоминание на странице обсуждения статьи";
 "notifications-center-subheader-mention-talk-page" = "Упоминание на странице обсуждения";
@@ -878,6 +886,7 @@
 "settings-language-bar" = "Показывать языки при поиске";
 "settings-languages-feed-customization" = "В настройках вы можете указать, какие языки будут показаны в вашей Ленте.";
 "settings-my-languages" = "Мои языки";
+// Fuzzy
 "settings-notifications" = "Уведомления";
 "settings-notifications-info" = "Будьте в курсе трендов и самых читаемых статей Википедии используя push-уведомления. Вся информация предоставляется актуальной и с сохранением конфиденциальности.";
 "settings-notifications-learn-more" = "Узнать подробнее об уведомлениях";

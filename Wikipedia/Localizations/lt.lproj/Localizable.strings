@@ -88,7 +88,6 @@
 "explore-potd-heading" = "Dienos nuotrauka";
 "explore-random-article-heading" = "Atsitiktinis straipsnis";
 "explore-randomizer" = "Atsitiktinis";
-"feed-news-notification-button-text" = "Įjungti pranešimus";
 "field-alert-captcha-invalid" = "Neteisingas CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Slaptažodžiai nesutampa";
 "field-alert-token-invalid" = "Netinkamas kodas";
@@ -152,6 +151,8 @@
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 mylių";
 "no-email-account-alert" = "Prašome nustatyti el. pašto paskyrą savo įrenginyje ir bandyti dar kartą.";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Įjungti pranešimus";
 "notifications-center-mark" = "Pažymėti";
 "notifications-center-mark-all-as-read" = "Pažymėti kaip perskaitytą";
 "notifications-center-swipe-mark-as-unread" = "Pažymėti kaip neskaitytą";
@@ -205,6 +206,7 @@
 "settings-help-and-feedback" = "Pagalba ir atsiliepimai";
 "settings-language-bar" = "Rodyti kalbas paieškoje";
 "settings-my-languages" = "Mano kalbos";
+// Fuzzy
 "settings-notifications" = "Pranešimai";
 "settings-notifications-learn-more" = "Sužinokite daugiau apie pranešimus";
 "settings-notifications-push-notifications" = "Push pranešimai";
