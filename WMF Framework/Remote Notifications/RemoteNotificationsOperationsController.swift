@@ -1,8 +1,22 @@
 import CocoaLumberjackSwift
 
-public enum RemoteNotificationsOperationsError: Error {
+enum RemoteNotificationsOperationsError: LocalizedError {
     case failurePullingAppLanguage
     case individualErrors([Error])
+    
+    var errorDescription: String? {
+        
+        switch self {
+        case .individualErrors(let errors):
+            if let firstError = errors.first {
+                return (firstError as NSError).alertMessage()
+            }
+        default:
+            break
+        }
+        
+        return CommonStrings.genericErrorDescription
+    }
 }
 
 public extension Notification.Name {

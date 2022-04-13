@@ -46,10 +46,14 @@ final class RemoteNotificationsModelController {
         }
     }
     
-    enum ReadWriteError: Error {
+    enum ReadWriteError: LocalizedError {
         case unexpectedResultsForDistinctWikis
         case missingNotifications
         case missingDateInNotification
+        
+        var errorDescription: String? {
+            return CommonStrings.genericErrorDescription
+        }
     }
     
     static let modelName = "RemoteNotifications"
@@ -59,6 +63,7 @@ final class RemoteNotificationsModelController {
         let modelName = RemoteNotificationsModelController.modelName
         let modelExtension = "momd"
         let modelBundle = Bundle.wmf
+        
         guard let modelURL = modelBundle.url(forResource: modelName, withExtension: modelExtension) else {
             let error = InitializationError.unableToCreateModelURL(modelName, modelExtension, modelBundle)
             assertionFailure(error.localizedDescription)
