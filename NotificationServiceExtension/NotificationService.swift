@@ -27,7 +27,11 @@ class NotificationService: UNNotificationServiceExtension {
         
         self.bestAttemptContent = bestAttemptContent
         
-        //TODO: Should we consider versioning here? Bail now and show fallback content if current content is anything other than "checkEchoV1".
+        guard bestAttemptContent.body == "checkEchoV1" else {
+            bestAttemptContent.body = fallbackPushContent
+            contentHandler(bestAttemptContent)
+            return
+        }
         
         let cache = sharedCache.loadCache()
         let project = RemoteNotificationsProject.wikipedia(cache.settings.primaryLanguageCode, cache.settings.primaryLocalizedName, nil)

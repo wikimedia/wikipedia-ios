@@ -76,7 +76,6 @@ final class NotificationsCenterViewModel: NSObject {
     
     @objc func contextObjectsDidChange(_ notification: NSNotification) {
         
-        //TODO: Handle other key types? (Deleted, Updated, Invalidated)
         let refreshedNotifications = notification.userInfo?[NSRefreshedObjectsKey] as? Set<RemoteNotification> ?? []
         let insertedNotifications = notification.userInfo?[NSInsertedObjectsKey] as? Set<RemoteNotification> ?? []
         
@@ -147,7 +146,6 @@ final class NotificationsCenterViewModel: NSObject {
     // MARK: - Public
     
     func setup() {
-        //TODO: Revisit and enable importing empty states in a delayed manner to avoid flashing.
         isLoading = remoteNotificationsController.isLoadingNotifications
         delegate?.update(types: [.emptyDisplay(true), .toolbarDisplay])
     }
