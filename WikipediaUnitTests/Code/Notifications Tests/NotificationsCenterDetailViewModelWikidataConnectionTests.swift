@@ -35,19 +35,19 @@ class NotificationsCenterDetailViewModelWikidataConnectionTests: NotificationsCe
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
         XCTAssertEqual(detailViewModel.secondaryActions.count, 2, "Invalid secondaryActions count")
         
-        let expectedPrimaryText = "Go to Wikidata item"
+        let expectedPrimaryText = "Wikidata item"
         let expectedPrimaryURL: URL? = URL(string: "https://www.wikidata.org/wiki/Special:EntityPage/Q83380765")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .wikidata
         let expectedPrimaryDestinationText = "On web"
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!)
         
-        let expectedText0 = "Go to user page"
+        let expectedText0 = "Fred The Bird's user page"
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Fred_The_Bird")!
         let expectedIcon0: NotificationsCenterIconType = .person
         let expectedDestinationText0 = "On web"
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0])
         
-        let expectedText1 = "Go to article"
+        let expectedText1 = "Article"
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/Blue_Bird")!
         let expectedIcon1: NotificationsCenterIconType = .document
         let expectedDestinationText1 = "In app"

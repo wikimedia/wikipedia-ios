@@ -604,19 +604,27 @@
 "notifications-center-filters-types-footer" = "Modificar os tipos de notificações para filtrar e incluí-las ou excluí-las da sua caixa de entrada de notificações. Os tipos que forem desligados não serão visíveis, mas o seu conteúdo e todas as notificações novas estarão disponíveis se esses tipos forem novamente ligados.";
 "notifications-center-filters-types-item-title-all" = "Todos os tipos";
 "notifications-center-filters-types-section-title" = "Tipos de notificações";
+// Fuzzy
 "notifications-center-go-to-article" = "Ir para o artigo";
+// Fuzzy
 "notifications-center-go-to-article-collaboration-format" = "Ir para a página de colaboração de $1";
+// Fuzzy
 "notifications-center-go-to-article-discussion-format" = "Ir para a página de discussão de $1";
+// Fuzzy
 "notifications-center-go-to-article-talk-format" = "Ir para a página de discussão de $1";
+// Fuzzy
 "notifications-center-go-to-collaboration-page" = "Ir para a página de colaboração";
+// Fuzzy
 "notifications-center-go-to-diff" = "Ir para diferenças";
+// Fuzzy
 "notifications-center-go-to-discussion-page" = "Ir para a página de discussão";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Ir para a página de discussão";
-"notifications-center-go-to-title-format" = "Ir para $1";
+// Fuzzy
 "notifications-center-go-to-user-page" = "Ir para a página de utilizador de $1";
-"notifications-center-go-to-user-page-format" = "Ir para a página de utilizador de $1";
-"notifications-center-go-to-user-page-simplified" = "Ir para a página de utilizador";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "Ir para o elemento Wikidata";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "Ir para a sua página de discussão";
 "notifications-center-header-alert-from-agent" = "Alerta de $1";
 "notifications-center-header-alert-from-project" = "Alerta de $1";
