@@ -251,9 +251,11 @@
 "notifications-center-feed-news-notification-dismiss-button-text" = "अभी नहीं";
 // Fuzzy
 "notifications-center-go-to-article" = "लेख पर जाएं";
+"notifications-center-go-to-diff" = "अन्तर";
 // Fuzzy
 "notifications-center-go-to-discussion-page" = "चर्चा पृष्ठ पर जाएं";
 "notifications-center-more-action-accessibility-label" = "और";
+"notifications-center-onboarding-modal-continue-action" = "जारी रखें";
 "notifications-center-onboarding-panel-secondary-button" = "नहीं, धन्यवाद";
 "notifications-center-subheader-thanks" = "धन्यवाद";
 "notifications-center-subheader-welcome" = "सुस्वागतम्‌!";

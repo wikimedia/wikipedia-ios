@@ -595,10 +595,11 @@
 "no-internet-connection-article-reload" = "نسخهٔ جدیدتر این مقاله ممکن است موجود باشد، اما بدون اتصال به اینترنت، قابل دست‌یابی نیست";
 "no-internet-connection-article-reload-button" = "برگشت به آخرین نسخهٔ ذخیره‌شده";
 "notifications-center-alert" = "هشدار";
+"notifications-center-cell-notification-type-accessibility-label-format" = "اعلان $1";
 "notifications-center-change-password" = "تغییر رمز عبور";
 "notifications-center-destination-app" = "درون اپ";
 "notifications-center-destination-web" = "روی وب";
-"notifications-center-empty-checking-for-notifications" = "در حال بررسی آگاه‌سازی‌ها...";
+"notifications-center-empty-checking-for-notifications" = "در حال بررسی اعلان‌ها...";
 "notifications-center-empty-not-subscribed" = "در حال حاضر شما مشترک هیچ آگاه‌سازی‌ ویکی‌پدیایی نیستید";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "روشن کردن اعلان‌ها";
@@ -613,7 +614,7 @@
 "notifications-center-go-to-your-talk-page" = "صفحهٔ بحث خودتان";
 "notifications-center-header-alert-from-project" = "هشدار از $1";
 "notifications-center-header-notice-from-project" = "اعلان از $1";
-"notifications-center-login-notifications" = "آگاه‌سازی‌های ورود به حساب";
+"notifications-center-login-notifications" = "اعلان‌های ورود به حساب";
 "notifications-center-mark" = "نشان‌گذاری";
 "notifications-center-mark-all-as-read" = "نشان‌گذاری همه به عنوان خوانده‌شده";
 "notifications-center-mark-as-read" = "علامت‌گذاری به عنوان خوانده‌شده";
@@ -621,8 +622,10 @@
 "notifications-center-more-action-accessibility-label" = "بیشتر";
 "notifications-center-notifications-settings" = "تنظیمات اعلان‌ها";
 "notifications-center-onboarding-modal-filters-title" = "پالایه‌ها";
-"notifications-center-onboarding-modal-learn-more-action" = "دربارهٔ آگاه‌سازی‌ها بیشتر یاد بگیرید";
+"notifications-center-onboarding-modal-learn-more-action" = "دربارهٔ اعلان‌ها بیشتر یاد بگیرید";
+"notifications-center-onboarding-modal-notifications-alerts-title" = "اعلان‌ها و هشدارها";
 "notifications-center-onboarding-modal-title" = "اعلان‌های ویراش";
+"notifications-center-onboarding-panel-secondary-button" = "نه ممنون";
 "notifications-center-subheader-edit-milestone" = "دستاورد ویرایشی";
 "notifications-center-subheader-edit-reverted" = "برگردانده‌شدن ویرایش شما";
 "notifications-center-subheader-email-from-other-user" = "ایمیل تازه";
@@ -638,13 +641,13 @@
 "notifications-center-subheader-page-reviewed" = "بازبینی صفحه";
 "notifications-center-subheader-thanks" = "تشکرها";
 "notifications-center-subheader-translate-milestone" = "دستاوردهای ترجمه";
-"notifications-center-subheader-user-rights-change" = "تغییرات امتیازات کاربر";
+"notifications-center-subheader-user-rights-change" = "تغییرات اختیارات کاربر";
 "notifications-center-subheader-welcome" = "خوش آمدید!";
 "notifications-center-subheader-wikidata-connection" = "ایجاد ارتباط با ویکی‌داده";
 "notifications-center-swipe-mark-as-read" = "علامت‌گذاری به عنوان خوانده‌شده";
 "notifications-center-swipe-mark-as-unread" = "علامت‌گذاری به عنوان خوانده‌نشده";
 "notifications-center-swipe-more" = "بیشتر";
-"notifications-center-title" = "آگاه‌سازی‌ها";
+"notifications-center-title" = "اعلان‌ها";
 "notifications-center-type-item-description-mentions" = "اشاره‌ها";
 "notifications-center-type-item-description-welcome-verbose" = "پیام خوشامدگویی";
 "number-billions" = "$1میلیارد";
@@ -872,12 +875,12 @@
 "settings-language-bar" = "نمایش زبان‌ها در جستجو";
 "settings-languages-feed-customization" = "می‌توانید با شفارشی‌سازی تنظیمات خوراک بازدید خود، زبان‌هایی که در این خوراک نمایش داده می‌شوند را مدیریت کنید.";
 "settings-my-languages" = "زبان‌های من";
-"settings-notifications" = "آگاه‌سازی‌ها";
+"settings-notifications" = "اعلان‌های تشویقی";
 "settings-notifications-echo-failure-try-again" = "مجدداً سعی کنید";
 "settings-notifications-info" = "با آگاه‌سازی‌های سریع ما، از مقاله‌های پرمخاطب و پربازدیدترین مقاله‌ها در ویکی‌پدیا آگاه شوید. تمام این مقاله‌ها با احترام به حریم خصوصی و با داده‌های به‌روزشده در هر دقیقه فراهم می‌شوند.";
-"settings-notifications-learn-more" = "دربارهٔ آگاه‌سازی‌ها بیشتر یاد بگیرید";
-"settings-notifications-push-notifications" = "آگاه‌سازی‌های سریع";
-"settings-notifications-system-turn-on" = "روشن کردن آگاه‌سازی‌ها";
+"settings-notifications-learn-more" = "دربارهٔ اعلان‌ها بیشتر یاد بگیرید";
+"settings-notifications-push-notifications" = "اعلان‌های تشویقی";
+"settings-notifications-system-turn-on" = "روشن کردن اعلان‌ها";
 "settings-notifications-trending" = "رویدادهای کنونی پرمخاطب";
 "settings-primary-language" = "ابتدایی";
 "settings-primary-language-details" = "اولین زبان موجود در این فهرست به‌عنوان زبان اصلی نرم‌افزار به کار می‌رود.";
@@ -996,7 +999,7 @@
 "welcome-languages-search-title" = "جستجو در بیش از ۳۰۰ زبان";
 "welcome-notifications-tell-me-more-creation" = "آگاه‌سازی‌ها توسط نرم‌افزار ایجاد شده و به دستگاه شما ارسال می‌شوند. این آگاه‌سازی‌ها از سرورهای ما (یا شخص ثالث) نمی‌آیند.";
 "welcome-notifications-tell-me-more-storage" = "ترجیحات اعلان‌ها بر روی دستگاه ذخیره شده‌است و بر پایهٔ اطلاعات یا فعالیت‌های شخصی نیست.";
-"welcome-notifications-tell-me-more-title" = "اطلاعات بیشتر دربارهٔ آگاه‌سازی‌ها";
+"welcome-notifications-tell-me-more-title" = "اطلاعات بیشتر دربارهٔ اعلان‌ها";
 "welcome-send-data-helps-title" = "به بهبود نرم‌افزار کمک کنید";
 "welcome-send-data-learn-more" = "اطلاعات بیشتر در مورد داده‌های جمع‌آوری‌شده";
 "welcome-send-data-sub-title" = "با آگاه‌کردن بنیاد ویکی‌مدیا از نحوهٔ استفادهٔ خود از این نرم‌افزار، به بهتر کردن آن کمک کنید. داده‌ها به‌صورت ناشناس جمع‌آوری می‌شوند.";
