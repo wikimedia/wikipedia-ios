@@ -4,7 +4,7 @@ protocol NotificationsCenterOnboardingDelegate: AnyObject {
     func userDidDismissNotificationsCenterOnboardingView()
 }
 
-final class NotificationsCenterOnboardingHostingViewController: UIHostingController<NotificationsCenterOnboardingView>, UIAdaptivePresentationControllerDelegate, Themeable {
+final class NotificationsCenterOnboardingHostingViewController: UIHostingController<NotificationsCenterOnboardingView>, UIAdaptivePresentationControllerDelegate, Themeable, RMessageSuppressing {
 
     // MARK: - Properties
 

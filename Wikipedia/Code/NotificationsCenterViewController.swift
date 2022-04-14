@@ -105,9 +105,13 @@ final class NotificationsCenterViewController: ViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        viewModel.refreshNotifications(force: true)
-        viewModel.markAllAsSeen()
         
+        if isFirstAppearance {
+            viewModel.refreshNotifications(force: true)
+        }
+        isFirstAppearance = false
+        
+        viewModel.markAllAsSeen()
         presentOnboardingEducationModalIfNecessary()
     }
 
@@ -583,7 +587,7 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
             collectionView.deselectItem(at: indexPath, animated: true)
 
             if !cellViewModel.isRead {
-                viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true)
+                viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true, shouldDisplayErrorIfNeeded: false)
             }
 
             let detailViewModel = NotificationsCenterDetailViewModel(commonViewModel: cellViewModel.commonViewModel)

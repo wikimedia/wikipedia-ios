@@ -155,19 +155,23 @@ final class NotificationsCenterViewModel: NSObject {
             switch result {
             case .failure(let error):
                 DDLogError("Error refreshing notifications: \(error)")
+                WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             default:
                 break
             }
         }
     }
     
-    func markAsReadOrUnread(viewModels: [NotificationsCenterCellViewModel], shouldMarkRead: Bool) {
+    func markAsReadOrUnread(viewModels: [NotificationsCenterCellViewModel], shouldMarkRead: Bool, shouldDisplayErrorIfNeeded: Bool = true) {
         
         let identifierGroups = viewModels.map { $0.notification.identifierGroup }
         remoteNotificationsController.markAsReadOrUnread(identifierGroups: Set(identifierGroups), shouldMarkRead: shouldMarkRead) { result in
             switch result {
             case .failure(let error):
                 DDLogError("Error marking notifications as read or unread: \(error)")
+                if shouldDisplayErrorIfNeeded {
+                    WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
+                }
             default:
                 break
             }
@@ -179,6 +183,7 @@ final class NotificationsCenterViewModel: NSObject {
             switch result {
             case .failure(let error):
                 DDLogError("Error marking all notifications as read or unread: \(error)")
+                WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             default:
                 break
             }
@@ -226,6 +231,7 @@ final class NotificationsCenterViewModel: NSObject {
                 self.remoteNotificationsController.addObserverForViewContextChanges(observer: self, selector: #selector(self.contextObjectsDidChange(_:)))
             case .failure(let error):
                 DDLogError("Error fetching first page of notifications: \(error)")
+                WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             }
         }
     }
