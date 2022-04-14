@@ -39,25 +39,28 @@ struct NotificationsCenterOnboardingView: View {
         }
     }
 
+    private let titleFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .bold, size: 28)
+    private let primaryButtonFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .semibold, size: 17)
+    private let secondaryButtonFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .medium, size: 17)
+
     // MARK: - Content
 
     var body: some View {
         Group {
             ScrollView() {
                 VStack {
-                    Spacer(minLength: 70)
+                    Spacer(minLength: 64)
                     Text(LocalizedStrings.title)
-                        .font(.largeTitle)
-                        .bold()
+                        .font(Font(titleFont))
                         .multilineTextAlignment(.center)
                         .foregroundColor(Color(theme.colors.primaryText))
                     Spacer(minLength: 50)
                     NotificationsCenterOnboardingRowView(theme: theme, image: .notificationsAndAlerts, header: LocalizedStrings.notificationsAlertsTitle, message: LocalizedStrings.notificationsAlertsMessage)
-                    Spacer(minLength: 8)
+                    Spacer().frame(height: 0)
                     NotificationsCenterOnboardingRowView(theme: theme, image: .filter, header: LocalizedStrings.filterTitle, message: LocalizedStrings.filterMessage)
-                    Spacer(minLength: 8)
+                    Spacer().frame(height: 0)
                     NotificationsCenterOnboardingRowView(theme: theme, image: .inbox, header: LocalizedStrings.inboxTitle, message: LocalizedStrings.inboxMessage)
-                    Spacer(minLength: 8)
+                    Spacer().frame(height: 0)
                     NotificationsCenterOnboardingRowView(theme: theme, image: .push, header: LocalizedStrings.pushTitle, message: LocalizedStrings.pushMessage)
                 }
                 .padding(sizeClassPadding)
@@ -68,19 +71,20 @@ struct NotificationsCenterOnboardingView: View {
                         dismissAction?()
                     }, label: {
                         Text(LocalizedStrings.continueButton)
-                            .font(.body.bold())
+                            .font(Font(primaryButtonFont))
                             .foregroundColor(continueButtonTextColor)
                             .padding()
                             .frame(maxWidth: .infinity)
+                            .frame(width: 335, height: 46)
                             .background(Color(theme.colors.link))
                             .cornerRadius(8)
                             .padding()
                     })
-                    Spacer().frame(height: 8)
+                    Spacer().frame(height: 4)
                     Button(LocalizedStrings.learnMoreButton) {
                         userDidTapLearnMore()
                     }
-                        .font(.body.weight(.semibold))
+                        .font(Font(secondaryButtonFont))
                         .foregroundColor(Color(theme.colors.link))
                     Spacer().frame(height: 18)
                 }
@@ -110,6 +114,9 @@ fileprivate struct NotificationsCenterOnboardingRowView: View {
     var header: String
     var message: String
 
+    private let headerFont = UIFont.wmf_scaledSystemFont(forTextStyle: .headline, weight: .semibold, size: 15)
+    private let bodyFont = UIFont.wmf_scaledSystemFont(forTextStyle: .body, weight: .regular, size: 13)
+
     // MARK: - Content
 
     var body: some View {
@@ -123,13 +130,12 @@ fileprivate struct NotificationsCenterOnboardingRowView: View {
             Spacer().frame(width: 16)
             VStack(alignment: .leading) {
                 Text(header)
-                    .font(.subheadline)
-                    .bold()
+                    .font(Font(headerFont))
                     .foregroundColor(Color(theme.colors.primaryText))
                     .frame(maxWidth: .infinity, alignment: .topLeading)
                 Spacer().frame(height: 5)
                 Text(message)
-                    .font(.subheadline)
+                    .font(Font(bodyFont))
                     .foregroundColor(Color(theme.colors.secondaryText))
                     .frame(maxWidth: .infinity, alignment: .topLeading)
             }

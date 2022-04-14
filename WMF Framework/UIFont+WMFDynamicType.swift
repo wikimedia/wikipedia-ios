@@ -92,6 +92,10 @@ public extension UIFont {
         return UIFont.wmf_font(dynamicTextStyle, compatibleWithTraitCollection: UITraitCollection(preferredContentSizeCategory: .large))
     }
 
+    class func wmf_scaledSystemFont(forTextStyle style: UIFont.TextStyle, weight: UIFont.Weight, size: CGFloat) -> UIFont {
+        return UIFontMetrics(forTextStyle: style).scaledFont(for: UIFont.systemFont(ofSize: size, weight: weight))
+    }
+
     class func wmf_scaledSystemFont(forTextStyle style: UIFont.TextStyle, weight: UIFont.Weight, size: CGFloat, maximumPointSize: CGFloat) -> UIFont {
         return UIFontMetrics(forTextStyle: style).scaledFont(for: UIFont.systemFont(ofSize: size, weight: weight), maximumPointSize: maximumPointSize)
     }
