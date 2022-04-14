@@ -623,14 +623,13 @@
 "notifications-center-filters-title" = "Фильтры";
 "notifications-center-filters-types-item-title-all" = "Все типы";
 "notifications-center-filters-types-section-title" = "Типы уведомлений";
-// Fuzzy
-"notifications-center-go-to-talk-page" = "Перейти на страницу обсуждения";
-// Fuzzy
-"notifications-center-go-to-user-page" = "Перейти на страницу обсуждения $1";
-// Fuzzy
-"notifications-center-go-to-wikidata-item" = "Перейти на элемент Викиданных";
-// Fuzzy
-"notifications-center-go-to-your-talk-page" = "Перейти на вашу страницу обсуждения";
+"notifications-center-go-to-article" = "Статья";
+"notifications-center-go-to-article-talk-format" = "Страница обсуждения $1";
+"notifications-center-go-to-discussion-page" = "Страница обсуждений";
+"notifications-center-go-to-talk-page" = "Страница обсуждения";
+"notifications-center-go-to-user-page" = "Страница участника $1";
+"notifications-center-go-to-wikidata-item" = "Элемент Викиданных";
+"notifications-center-go-to-your-talk-page" = "Ваша страница обсуждения";
 "notifications-center-inbox-title" = "Проекты";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Проекты Викимедиа";
 "notifications-center-inbox-wikipedias-section-title" = "Википедии";

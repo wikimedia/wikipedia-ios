@@ -17,6 +17,7 @@
 // Author: Giacomo Checchin
 // Author: Gianfranco
 // Author: Giuseppe Forte
+// Author: GpieroMW
 // Author: Greis
 // Author: IrsY
 // Author: JackLantern
@@ -485,7 +486,10 @@
 "notifications-center-filters-types-section-title" = "Tipi di notifiche";
 "notifications-center-go-to-article" = "Voce";
 "notifications-center-go-to-discussion-page" = "Pagina di discussione";
+"notifications-center-go-to-talk-page" = "Pagina di discussione";
+"notifications-center-go-to-user-page" = "pagina utente di $1";
 "notifications-center-go-to-wikidata-item" = "Elemento Wikidata";
+"notifications-center-go-to-your-talk-page" = "La tua pagina di discussione";
 "notifications-center-inbox-title" = "Progetti";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Progetti Wikimedia";
 "notifications-center-inbox-wikipedias-section-title" = "Wikipedia";
