@@ -564,10 +564,13 @@
 "notifications-center-empty-not-subscribed" = "Trenutno niste pretplaćeni na obavještenja Wikipedije";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "Uključi obavještenja";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Idi na stranicu za razgovor";
-"notifications-center-go-to-title-format" = "Idi na $1";
+// Fuzzy
 "notifications-center-go-to-user-page" = "Idi na stranicu za razgovor korisnika $1";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "Idi na stavku Wikipodataka";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "Idi na svoju stranicu za razgovor";
 "notifications-center-mark" = "Označi";
 "notifications-center-mark-all-as-read" = "Označi sve kao pročitano";

@@ -28,6 +28,11 @@
 
 @end
 
+NS_SWIFT_NAME(RMessageSuppressing)
+@protocol RMessageSuppressProtocol <NSObject>
+
+@end
+
 @interface RMessageView : UIView
 
 @property (nonatomic, weak) id<RMessageViewProtocol> delegate;

@@ -3,8 +3,21 @@ import Foundation
 
 class RemoteNotificationsRefreshCrossWikiGroupOperation: RemoteNotificationsOperation {
     
-    enum CrossWikiGroupError: Error {
+    enum CrossWikiGroupError: LocalizedError {
         case individualErrors([Error])
+        
+        var errorDescription: String? {
+            
+            switch self {
+            case .individualErrors(let errors):
+                if let firstError = errors.first {
+                    return (firstError as NSError).alertMessage()
+                }
+            }
+            
+            return CommonStrings.genericErrorDescription
+            
+        }
     }
     
     var crossWikiSummaryNotification: RemoteNotificationsAPIController.NotificationsResult.Notification?

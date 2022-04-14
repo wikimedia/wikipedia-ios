@@ -37,7 +37,7 @@ extension NotificationsCenterDetailViewModel {
                 return wikidataItemAction
             }
         case .emailFromOtherUser:
-            if let agentUserPageAction = commonViewModel.agentUserPageAction(simplified: true) {
+            if let agentUserPageAction = commonViewModel.agentUserPageAction {
                 return agentUserPageAction
             }
         case .thanks:
@@ -132,7 +132,7 @@ private extension NotificationsCenterDetailViewModel {
     var userTalkPageActions: [NotificationsCenterAction] {
         var actions: [NotificationsCenterAction] = []
 
-        if let agentUserPageAction = commonViewModel.agentUserPageAction(simplified: true) {
+        if let agentUserPageAction = commonViewModel.agentUserPageAction {
             actions.append(agentUserPageAction)
         }
 
@@ -146,7 +146,7 @@ private extension NotificationsCenterDetailViewModel {
     var mentionInTalkPageActions: [NotificationsCenterAction] {
         var actions: [NotificationsCenterAction] = []
 
-        if let agentUserPageAction = commonViewModel.agentUserPageAction(simplified: true) {
+        if let agentUserPageAction = commonViewModel.agentUserPageAction {
             actions.append(agentUserPageAction)
         }
 
@@ -164,7 +164,7 @@ private extension NotificationsCenterDetailViewModel {
     var mentionInEditSummaryActions: [NotificationsCenterAction] {
         var actions: [NotificationsCenterAction] = []
 
-        if let agentUserPageAction = commonViewModel.agentUserPageAction(simplified: true) {
+        if let agentUserPageAction = commonViewModel.agentUserPageAction {
             actions.append(agentUserPageAction)
         }
 
@@ -182,7 +182,7 @@ private extension NotificationsCenterDetailViewModel {
     var editRevertedActions: [NotificationsCenterAction] {
         var actions: [NotificationsCenterAction] = []
 
-        if let agentUserPageAction = commonViewModel.agentUserPageAction(simplified: true) {
+        if let agentUserPageAction = commonViewModel.agentUserPageAction {
             actions.append(agentUserPageAction)
         }
 
@@ -204,7 +204,7 @@ private extension NotificationsCenterDetailViewModel {
             actions.append(specificUserGroupRightsAction)
         }
 
-        if let agentUserPageAction = commonViewModel.agentUserPageAction(simplified: true) {
+        if let agentUserPageAction = commonViewModel.agentUserPageAction {
             actions.append(agentUserPageAction)
         }
 
@@ -214,7 +214,7 @@ private extension NotificationsCenterDetailViewModel {
     var pageReviewedActions: [NotificationsCenterAction] {
         var actions: [NotificationsCenterAction] = []
 
-        if let agentUserPageAction = commonViewModel.agentUserPageAction(simplified: true) {
+        if let agentUserPageAction = commonViewModel.agentUserPageAction {
             actions.append(agentUserPageAction)
         }
 
@@ -224,7 +224,7 @@ private extension NotificationsCenterDetailViewModel {
     var pageLinkActions: [NotificationsCenterAction] {
         var actions: [NotificationsCenterAction] = []
 
-        if let agentUserPageAction = commonViewModel.agentUserPageAction(simplified: true) {
+        if let agentUserPageAction = commonViewModel.agentUserPageAction {
             actions.append(agentUserPageAction)
         }
 
@@ -243,7 +243,7 @@ private extension NotificationsCenterDetailViewModel {
     var connectionWithWikidataActions: [NotificationsCenterAction] {
         var actions: [NotificationsCenterAction] = []
 
-        if let agentUserPageAction = commonViewModel.agentUserPageAction(simplified: true) {
+        if let agentUserPageAction = commonViewModel.agentUserPageAction {
             actions.append(agentUserPageAction)
         }
 
@@ -261,7 +261,7 @@ private extension NotificationsCenterDetailViewModel {
     var thanksActions: [NotificationsCenterAction] {
         var actions: [NotificationsCenterAction] = []
 
-        if let agentUserPageAction = commonViewModel.agentUserPageAction(simplified: true) {
+        if let agentUserPageAction = commonViewModel.agentUserPageAction {
             actions.append(agentUserPageAction)
         }
 
@@ -300,7 +300,7 @@ private extension NotificationsCenterDetailViewModel {
     var genericActions: [NotificationsCenterAction] {
         var actions: [NotificationsCenterAction] = []
 
-        if let agentUserPageAction = commonViewModel.agentUserPageAction(simplified: true) {
+        if let agentUserPageAction = commonViewModel.agentUserPageAction {
             actions.append(agentUserPageAction)
         }
 

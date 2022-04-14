@@ -3,14 +3,6 @@ import MessageUI
 
 extension NSError {
     
-    public func alertMessage() -> String {
-        if self.wmf_isNetworkConnectionError() {
-            return CommonStrings.noInternetConnection
-        } else {
-            return self.localizedDescription
-        }
-    }
-    
     public func alertType() -> RMessageType {
         if self.wmf_isNetworkConnectionError() {
             return .warning

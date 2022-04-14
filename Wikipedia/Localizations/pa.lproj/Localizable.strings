@@ -162,7 +162,9 @@
 "notifications-center-destination-web" = "ਵੈੱਬ 'ਤੇ";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "ਸੂਚਨਾਵਾਂ ਚਾਲੂ ਕਰੋ";
+// Fuzzy
 "notifications-center-go-to-article" = "ਲੇਖ 'ਤੇ ਜਾਓ";
+// Fuzzy
 "notifications-center-go-to-discussion-page" = "ਚਰਚਾ ਸਫ਼ੇ 'ਤੇ ਜਾਓ";
 "notifications-center-type-item-description-welcome-verbose" = "ਸੁਆਗਤ ਸੁਨੇਹਾ";
 "number-billions" = "$1B";

@@ -21,7 +21,6 @@ extension NotificationsCenterCommonViewModel {
                 
                 guard let namespace = PageNamespace(rawValue: Int(notification.titleNamespaceKey)),
                       namespace == .talk else {
-                    //TODO: Should we target other talk page types and have a more specific string? See PageNamespace options.
                     return WMFLocalizedString("notifications-center-subheader-mention-talk-page", value: "Mention on talk page", comment: "Subheader text for non-Talk namespace mention notifications in Notifications Center.")
                 }
                 

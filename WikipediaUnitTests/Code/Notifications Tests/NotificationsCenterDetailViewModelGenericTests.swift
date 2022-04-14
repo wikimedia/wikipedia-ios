@@ -94,7 +94,7 @@ class NotificationsCenterDetailViewModelGenericTests: NotificationsCenterViewMod
         let expectedPrimaryDestinationText = "On web"
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!)
         
-        let expectedText0 = "Go to user page"
+        let expectedText0 = "Fred The Bird's user page"
         let expectedURL0: URL? = URL(string: "https://test.wikipedia.org/wiki/User:Fred_The_Bird")!
         let expectedIcon0: NotificationsCenterIconType = .person
         let expectedDestinationText0 = "On web"
@@ -120,7 +120,7 @@ class NotificationsCenterDetailViewModelGenericTests: NotificationsCenterViewMod
         let expectedPrimaryDestinationText = "On web"
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!)
         
-        let expectedText0 = "Go to user page"
+        let expectedText0 = "47.234.198.142's user page"
         let expectedURL0: URL? = URL(string: "https://test.wikipedia.org/wiki/User:47.234.198.142")!
         let expectedIcon0: NotificationsCenterIconType = .person
         let expectedDestinationText0 = "On web"

@@ -44,8 +44,7 @@
 "main-menu-privacy-policy" = "Къайлаха политика";
 // Fuzzy
 "main-menu-rate-app" = "ТӀетохаран мах хадор";
-// Fuzzy
-"main-menu-terms-of-use" = "Лелоран хьал";
+"main-menu-terms-of-use" = "Лелоран биллам";
 "main-menu-title" = "Кхин а";
 "main-menu-zero-faq" = "Wikipedia Zero кест-кеста луш долу хаттарш";
 "menu-cancel-accessibility-label" = "Цаоьшу";
@@ -79,4 +78,4 @@
 // Fuzzy
 "wikitext-upload-save" = "Ӏалашъеш ю...";
 "wikitext-upload-save-sign-in" = "ЧугӀо";
-"wikitext-upload-save-terms-name" = "Лелоран хьал";
+"wikitext-upload-save-terms-name" = "Лелоран статус";

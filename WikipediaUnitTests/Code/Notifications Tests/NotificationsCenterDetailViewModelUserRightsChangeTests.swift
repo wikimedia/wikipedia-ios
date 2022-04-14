@@ -34,19 +34,19 @@ class NotificationsCenterDetailViewModelUserGroupRightsChangeTests: Notification
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
         XCTAssertEqual(detailViewModel.secondaryActions.count, 2, "Invalid secondaryActions count")
         
-        let expectedPrimaryText = "Go to Special:ListGroupRights"
+        let expectedPrimaryText = "Special:ListGroupRights"
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/Special:ListGroupRights?")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .document
         let expectedPrimaryDestinationText = "On web"
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!)
         
-        let expectedText0 = "Go to Special:ListGroupRights#confirmed"
+        let expectedText0 = "Special:ListGroupRights#confirmed"
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/Special:ListGroupRights?#confirmed")!
         let expectedIcon0: NotificationsCenterIconType = .document
         let expectedDestinationText0 = "On web"
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0])
         
-        let expectedText1 = "Go to user page"
+        let expectedText1 = "Jack The Cat's user page"
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Jack_The_Cat")!
         let expectedIcon1: NotificationsCenterIconType = .person
         let expectedDestinationText1 = "On web"
