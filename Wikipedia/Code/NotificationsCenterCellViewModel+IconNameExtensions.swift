@@ -32,7 +32,6 @@ extension NotificationsCenterCellViewModel {
         case .talk,
              .userTalk,
              .user:
-            //TODO: Should we include the other talk types?
             return .personFill
         case .main:
             return .documentFill

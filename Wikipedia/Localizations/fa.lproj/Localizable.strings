@@ -30,6 +30,7 @@
 // Author: Maspadana
 // Author: Mehdi
 // Author: Mohammad ebz
+// Author: Mojtabakd
 // Author: Namo
 // Author: Nemo bis
 // Author: Ni eu
@@ -128,6 +129,7 @@
 "action-add-to-reading-list" = "افزودن به فهرست مطالعه";
 "action-add-to-reading-list-short" = "افزودن به فهرست";
 "action-cancel" = "لغو";
+"action-discard-edits" = "رد ویرایش‌ها";
 "action-find-in-page" = "پیدا کردن در صفحه";
 "action-language-accessibility" = "تغییر زبان";
 "action-move-to" = "انتقال به...";
@@ -592,17 +594,23 @@
 "no-internet-connection" = "عدم اتصال به اینترنت";
 "no-internet-connection-article-reload" = "نسخهٔ جدیدتر این مقاله ممکن است موجود باشد، اما بدون اتصال به اینترنت، قابل دست‌یابی نیست";
 "no-internet-connection-article-reload-button" = "برگشت به آخرین نسخهٔ ذخیره‌شده";
+"notifications-center-alert" = "هشدار";
 "notifications-center-change-password" = "تغییر رمز عبور";
+"notifications-center-destination-app" = "درون اپ";
+"notifications-center-destination-web" = "روی وب";
 "notifications-center-empty-checking-for-notifications" = "در حال بررسی آگاه‌سازی‌ها...";
 "notifications-center-empty-not-subscribed" = "در حال حاضر شما مشترک هیچ آگاه‌سازی‌ ویکی‌پدیایی نیستید";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "روشن کردن اعلان‌ها";
-"notifications-center-go-to-diff" = "رفتن به تفاوت";
-"notifications-center-go-to-talk-page" = "رفتن به صفحهٔ بحث";
-"notifications-center-go-to-title-format" = "رفتن به $1";
-"notifications-center-go-to-user-page" = "رفتن به صفحهٔ بحث $1";
-"notifications-center-go-to-wikidata-item" = "رفتن به آیتم ویکی‌داده";
-"notifications-center-go-to-your-talk-page" = "رفتن به صفحهٔ بحث خودتان";
+"notifications-center-feed-news-notification-dismiss-button-text" = "حالا نه";
+"notifications-center-go-to-article" = "مقاله";
+"notifications-center-go-to-collaboration-page" = "صفحه مشارکت";
+"notifications-center-go-to-diff" = "تفاوت";
+"notifications-center-go-to-discussion-page" = "صفحه بحث";
+"notifications-center-go-to-talk-page" = "صفحهٔ بحث";
+"notifications-center-go-to-user-page" = "صفحهٔ بحث کاربر $1";
+"notifications-center-go-to-wikidata-item" = "آیتم ویکی‌داده";
+"notifications-center-go-to-your-talk-page" = "صفحهٔ بحث خودتان";
 "notifications-center-header-alert-from-project" = "هشدار از $1";
 "notifications-center-header-notice-from-project" = "اعلان از $1";
 "notifications-center-login-notifications" = "آگاه‌سازی‌های ورود به حساب";
@@ -610,7 +618,11 @@
 "notifications-center-mark-all-as-read" = "نشان‌گذاری همه به عنوان خوانده‌شده";
 "notifications-center-mark-as-read" = "علامت‌گذاری به عنوان خوانده‌شده";
 "notifications-center-mark-as-unread" = "علامت‌گذاری به عنوان خوانده‌نشده";
+"notifications-center-more-action-accessibility-label" = "بیشتر";
 "notifications-center-notifications-settings" = "تنظیمات اعلان‌ها";
+"notifications-center-onboarding-modal-filters-title" = "پالایه‌ها";
+"notifications-center-onboarding-modal-learn-more-action" = "دربارهٔ آگاه‌سازی‌ها بیشتر یاد بگیرید";
+"notifications-center-onboarding-modal-title" = "اعلان‌های ویراش";
 "notifications-center-subheader-edit-milestone" = "دستاورد ویرایشی";
 "notifications-center-subheader-edit-reverted" = "برگردانده‌شدن ویرایش شما";
 "notifications-center-subheader-email-from-other-user" = "ایمیل تازه";
@@ -633,6 +645,8 @@
 "notifications-center-swipe-mark-as-unread" = "علامت‌گذاری به عنوان خوانده‌نشده";
 "notifications-center-swipe-more" = "بیشتر";
 "notifications-center-title" = "آگاه‌سازی‌ها";
+"notifications-center-type-item-description-mentions" = "اشاره‌ها";
+"notifications-center-type-item-description-welcome-verbose" = "پیام خوشامدگویی";
 "number-billions" = "$1میلیارد";
 "number-millions" = "$1میلیون";
 "number-thousands" = "$1هزار";
@@ -859,6 +873,7 @@
 "settings-languages-feed-customization" = "می‌توانید با شفارشی‌سازی تنظیمات خوراک بازدید خود، زبان‌هایی که در این خوراک نمایش داده می‌شوند را مدیریت کنید.";
 "settings-my-languages" = "زبان‌های من";
 "settings-notifications" = "آگاه‌سازی‌ها";
+"settings-notifications-echo-failure-try-again" = "مجدداً سعی کنید";
 "settings-notifications-info" = "با آگاه‌سازی‌های سریع ما، از مقاله‌های پرمخاطب و پربازدیدترین مقاله‌ها در ویکی‌پدیا آگاه شوید. تمام این مقاله‌ها با احترام به حریم خصوصی و با داده‌های به‌روزشده در هر دقیقه فراهم می‌شوند.";
 "settings-notifications-learn-more" = "دربارهٔ آگاه‌سازی‌ها بیشتر یاد بگیرید";
 "settings-notifications-push-notifications" = "آگاه‌سازی‌های سریع";

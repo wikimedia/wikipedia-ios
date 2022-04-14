@@ -311,12 +311,14 @@
 "notifications-center-feed-card-title" = "Οι ειδοποιήσεις επεξεργασίας είναι πλέον διαθέσιμες";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "Ενεργοποίηση ειδοποιήσεων";
+// Fuzzy
 "notifications-center-go-to-article" = "Μετάβαση σε άρθρο";
+// Fuzzy
 "notifications-center-go-to-article-discussion-format" = "Μετάβαση στη σελίδα συζητήσεων $1";
+// Fuzzy
 "notifications-center-go-to-article-talk-format" = "Μετάβαση στη σελίδα συνομιλίας $1";
+// Fuzzy
 "notifications-center-go-to-discussion-page" = "Μετάβαση στη σελίδα συζητήσεων";
-"notifications-center-go-to-user-page-format" = "Μετάβαση στη σελίδα του χρήστη $1";
-"notifications-center-go-to-user-page-simplified" = "Μετάβαση στη σελίδα χρήστη";
 "notifications-center-login-notifications" = "Ειδοποιήσεις σύνδεσης";
 "notifications-center-onboarding-modal-continue-action" = "Συνέχεια";
 "notifications-center-onboarding-modal-filters-title" = "Φίλτρα";

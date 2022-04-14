@@ -607,19 +607,27 @@
 "notifications-center-filters-types-footer" = "לשנות את סוגי העדכונים כדי לסנן אותם בתיבה. סוגים כבויים לא יוצגו, אבל התוכן שלהם, וכל העדכונים החדשים יהיו זמינים כשזה יופעל שוב.";
 "notifications-center-filters-types-item-title-all" = "כל הסוגים";
 "notifications-center-filters-types-section-title" = "סוגי העדכונים";
+// Fuzzy
 "notifications-center-go-to-article" = "לעבור לערך";
+// Fuzzy
 "notifications-center-go-to-article-collaboration-format" = "לעבור לדף השיחה של $1";
+// Fuzzy
 "notifications-center-go-to-article-discussion-format" = "לעבור לדף השיחה של $1";
+// Fuzzy
 "notifications-center-go-to-article-talk-format" = "לעבור לדף השיחה של $1";
+// Fuzzy
 "notifications-center-go-to-collaboration-page" = "לעבור לדף השיחה";
+// Fuzzy
 "notifications-center-go-to-diff" = "לעבור להשוואה";
+// Fuzzy
 "notifications-center-go-to-discussion-page" = "לעבור לדף השיחה";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "לעבור לדף השיחה";
-"notifications-center-go-to-title-format" = "לעבור לדף $1";
+// Fuzzy
 "notifications-center-go-to-user-page" = "לעבור לדף המשתמש של $1";
-"notifications-center-go-to-user-page-format" = "לעבור לדף המשתמש של $1";
-"notifications-center-go-to-user-page-simplified" = "לעבור לדף המשתמש";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "לעבור לפריט ויקינתונים";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "לעבור לדף השיחה שלך";
 "notifications-center-header-alert-from-agent" = "התראה מאת $1";
 "notifications-center-header-alert-from-project" = "התראה מאתר $1";
