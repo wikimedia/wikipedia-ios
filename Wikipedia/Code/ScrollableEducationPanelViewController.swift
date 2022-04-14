@@ -234,7 +234,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         footerTextView.attributedText = attributedText
     }
 
-    var primaryButtonBorderWidth: CGFloat = 1 {
+    var primaryButtonBorderWidth: CGFloat = 0 {
         didSet {
             primaryButton?.layer.borderWidth = primaryButtonBorderWidth
         }
@@ -440,7 +440,12 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         primaryButton?.tintColor = theme.colors.link
         secondaryButton?.tintColor = theme.colors.secondaryText
         primaryButton?.layer.borderColor = theme.colors.link.cgColor
-        primaryButton.backgroundColor = theme.colors.cardButtonBackground
+
+        if theme == .sepia {
+            primaryButton.backgroundColor = theme.colors.baseBackground
+        } else {
+            primaryButton.backgroundColor = theme.colors.cardButtonBackground
+        }
 
         if isUrgent {
             roundedCornerContainer.layer.borderWidth = 3

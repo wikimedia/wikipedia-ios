@@ -591,17 +591,23 @@
 "notifications-center-filters-title" = "Suodattimet";
 "notifications-center-filters-types-item-title-all" = "Kaikki tyypit";
 "notifications-center-filters-types-section-title" = "Ilmoitusten tyypit";
+// Fuzzy
 "notifications-center-go-to-article" = "Mene artikkeliin";
+// Fuzzy
 "notifications-center-go-to-article-discussion-format" = "Mene sivun $1 keskustelusivulle";
+// Fuzzy
 "notifications-center-go-to-article-talk-format" = "Mene sivun $1 keskustelusivulle";
+// Fuzzy
 "notifications-center-go-to-diff" = "Siirry versioon";
+// Fuzzy
 "notifications-center-go-to-discussion-page" = "Mene keskustelusivulle";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Mene keskustelusivulle";
-"notifications-center-go-to-title-format" = "Mene sivulle $1";
+// Fuzzy
 "notifications-center-go-to-user-page" = "Mene käyttäjän $1 käyttäjäsivulle";
-"notifications-center-go-to-user-page-format" = "Mene käyttäjän $1 käyttäjäsivulle";
-"notifications-center-go-to-user-page-simplified" = "Mene käyttäjäsivulle";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "Mene Wikidata-kohteeseen";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "Mene keskustelusivullesi";
 "notifications-center-header-alert-from-project" = "Ilmoitus projektista $1";
 "notifications-center-header-notice-from-project" = "Ilmoitus projektista $1";

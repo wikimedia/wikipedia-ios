@@ -522,12 +522,17 @@
 "notifications-center-filters-title" = "ڇاڻيون";
 "notifications-center-filters-types-item-title-all" = "سڀ قسم";
 "notifications-center-filters-types-section-title" = "اطلاعن جا قسم";
+// Fuzzy
 "notifications-center-go-to-article" = "مضمون ڏانھن وڃو";
+// Fuzzy
 "notifications-center-go-to-diff" = "تفاوت ڏانھن وڃو";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "بحث صفحي ڏانھن وڃو";
-"notifications-center-go-to-title-format" = "$1 ڏانھن وڃو";
+// Fuzzy
 "notifications-center-go-to-user-page" = "$1 جي واپرائيندڙ صفحي ڏانھن وڃو";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "وڪيڊيٽا آئٽم ڏانھن وڃو";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "پنھنجي بحث صفحي ڏانھن وڃو";
 "notifications-center-header-alert-from-agent" = "$1 مان خبر";
 "notifications-center-header-alert-from-project" = "$1 مان خبر";

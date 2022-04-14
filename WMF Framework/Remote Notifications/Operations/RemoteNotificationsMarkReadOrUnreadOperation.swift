@@ -33,7 +33,6 @@ class RemoteNotificationsMarkReadOrUnreadOperation: RemoteNotificationsProjectOp
                 
                 self.apiController.markAsReadOrUnread(project: self.project, identifierGroups: self.identifierGroups, shouldMarkRead: self.shouldMarkRead) { error in
                     if let error = error {
-                        //MAYBETODO: Revert to old values?
                         self.finish(with: error)
                         return
                     }

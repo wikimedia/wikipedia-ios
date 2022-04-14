@@ -410,11 +410,15 @@
 "notifications-center-empty-not-subscribed" = "ߌ ߕߐ߮ ߛߓߍߣߍ߲߫ ߕߍ߫ ߥߞߌߔߋߘߌߦߊ ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ߫ ߛߌ߫ ߟߊ߫ ߕߊ߲߬.";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߓߌ߬ߟߴߊ߬ ߟߊ߫";
+// Fuzzy
 "notifications-center-go-to-diff" = "ߕߊ߯ ߓߐߣߍ߲ߢߐ߲߰ߡߊ ߞߊ߲߬";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "ߥߊ߫ ߞߎߡߊ߫ ߞߐߜߍ ߞߊ߲߬";
-"notifications-center-go-to-title-format" = "ߥߊ߫ $1 ߞߊ߲߬";
+// Fuzzy
 "notifications-center-go-to-user-page" = "ߥߊ߫ $1 ߟߊ߫ ߟߊ߬ߓߊ߰ߙߊ߬ߟߌ߬ ߞߐߜߍ ߞߊ߲߬";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "ߕߊ߯ ߥߞߌߘߕߊ ߝߌ߬ߛߌ ߞߊ߲߬";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "ߕߊ߯ ߌ ߟߊ߫ ߞߎߡߊ߫ ߞߐߜߍ ߞߊ߲߬";
 "notifications-center-header-alert-from-project" = "ߟߊ߬ߛߏ߬ߓߌ߬ߟߌ ߞߊ߬ ߝߘߊ߫ $1 ߟߊ߫";
 "notifications-center-header-notice-from-project" = "ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߞߊ߬ ߝߘߊ߫ $1 ߟߊ߫";

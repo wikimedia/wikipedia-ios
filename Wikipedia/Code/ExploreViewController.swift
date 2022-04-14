@@ -19,7 +19,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         navigationItem.titleView = titleView
         navigationBar.addUnderNavigationBarView(searchBarContainerView)
         navigationBar.isUnderBarViewHidingEnabled = true
-        navigationBar.displayType = .centeredLargeTitle
+        navigationBar.displayType = dataStore.authenticationManager.isLoggedIn ? .centeredLargeTitle : .largeTitle
         navigationBar.shouldTransformUnderBarViewWithBar = true
         navigationBar.isShadowHidingEnabled = true
 
@@ -99,8 +99,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
             let notificationsBarButton = UIBarButtonItem(image: bellImage, style: .plain, target: self, action: #selector(userDidTapNotificationsCenter))
             notificationsBarButton.accessibilityLabel = hasUnreadNotifications ? CommonStrings.notificationsCenterBadgeTitle : CommonStrings.notificationsCenterTitle
             navigationItem.leftBarButtonItem = notificationsBarButton
+            navigationBar.displayType = .centeredLargeTitle
         } else {
             navigationItem.leftBarButtonItem = nil
+            navigationBar.displayType = .largeTitle
         }
         navigationBar.updateNavigationItems()
     }
