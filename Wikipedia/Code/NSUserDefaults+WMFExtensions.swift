@@ -2,10 +2,6 @@ let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"
 let WMFShouldRestoreNavigationStackOnResume = "WMFShouldRestoreNavigationStackOnResume"
 let WMFAppSiteKey = "Domain"
 let WMFSearchURLKey = "WMFSearchURLKey"
-let WMFMostRecentInTheNewsNotificationDateKey = "WMFMostRecentInTheNewsNotificationDate"
-let WMFInTheNewsMostRecentDateNotificationCountKey = "WMFInTheNewsMostRecentDateNotificationCount"
-let WMFDidShowNewsNotificatonInFeedKey = "WMFDidShowNewsNotificatonInFeedKey"
-let WMFInTheNewsNotificationsEnabled = "WMFInTheNewsNotificationsEnabled"
 let WMFFeedRefreshDateKey = "WMFFeedRefreshDateKey"
 let WMFLocationAuthorizedKey = "WMFLocationAuthorizedKey"
 let WMFPlacesDidPromptForLocationAuthorization = "WMFPlacesDidPromptForLocationAuthorization"
@@ -321,38 +317,6 @@ let WMFSubscribedToEchoNotifications = "WMFSubscribedToEchoNotifications"
     
     @objc func wmf_didFinishLegacySavedArticleImageMigration() -> Bool {
         return self.bool(forKey: "DidFinishLegacySavedArticleImageMigration2")
-    }
-    
-    @objc func wmf_mostRecentInTheNewsNotificationDate() -> Date? {
-        return self.wmf_dateForKey(WMFMostRecentInTheNewsNotificationDateKey)
-    }
-    
-    @objc func wmf_setMostRecentInTheNewsNotificationDate(_ date: Date) {
-        self.set(date, forKey: WMFMostRecentInTheNewsNotificationDateKey)
-    }
-    
-    @objc func wmf_inTheNewsMostRecentDateNotificationCount() -> Int {
-        return self.integer(forKey: WMFInTheNewsMostRecentDateNotificationCountKey)
-    }
-    
-    @objc func wmf_setInTheNewsMostRecentDateNotificationCount(_ count: Int) {
-        self.set(count, forKey: WMFInTheNewsMostRecentDateNotificationCountKey)
-    }
-    
-    @objc func wmf_inTheNewsNotificationsEnabled() -> Bool {
-        return self.bool(forKey: WMFInTheNewsNotificationsEnabled)
-    }
-    
-    @objc func wmf_setInTheNewsNotificationsEnabled(_ enabled: Bool) {
-        self.set(enabled, forKey: WMFInTheNewsNotificationsEnabled)
-    }
-
-    @objc func wmf_setDidShowNewsNotificationCardInFeed(_ didShow: Bool) {
-        self.set(didShow, forKey: WMFDidShowNewsNotificatonInFeedKey)
-    }
-    
-    @objc func wmf_didShowNewsNotificationCardInFeed() -> Bool {
-        return self.bool(forKey: WMFDidShowNewsNotificatonInFeedKey)
     }
 
     @objc func wmf_setDidShowEnableReadingListSyncPanel(_ didShow: Bool) {

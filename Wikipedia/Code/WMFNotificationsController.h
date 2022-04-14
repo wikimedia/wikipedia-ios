@@ -3,18 +3,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSString *const WMFInTheNewsNotificationCategoryIdentifier;
-extern NSString *const WMFInTheNewsNotificationReadNowActionIdentifier;
-extern NSString *const WMFInTheNewsNotificationSaveForLaterActionIdentifier;
-extern NSString *const WMFInTheNewsNotificationShareActionIdentifier;
-
-extern NSString *const WMFNotificationInfoArticleTitleKey;
-extern NSString *const WMFNotificationInfoArticleURLStringKey;
-extern NSString *const WMFNotificationInfoThumbnailURLStringKey;
-extern NSString *const WMFNotificationInfoArticleExtractKey;
-extern NSString *const WMFNotificationInfoViewCountsKey;
-extern NSString *const WMFNotificationInfoFeedNewsStoryKey;
-
 @class MWKDataStore, MWKLanguageLinkController;
 
 @interface WMFNotificationsController : NSObject
@@ -39,11 +27,6 @@ extern NSString *const WMFNotificationInfoFeedNewsStoryKey;
 /// Asks server to remove device token, so server can stop sending push notifications to APNS
 /// @param completionHandler Called when unsubscribe call completes with success flag and error with more details
 - (void)unsubscribeFromEchoNotificationsWithCompletionHandler:(nullable void (^)(NSError *__nullable error))completionHandler;
-
-- (void)sendNotificationWithTitle:(NSString *)title body:(NSString *)body categoryIdentifier:(NSString *)categoryIdentifier userInfo:(NSDictionary *)userInfo atDateComponents:(nullable NSDateComponents *)dateComponents; //null date components will send the notification ASAP
-
-/// Registers notification categories for the app. Should only be called once at launch.
-- (void)updateCategories;
 
 - (void)setRemoteNotificationRegistrationStatusWithDeviceToken:(nullable NSData *)deviceToken error:(nullable NSError *)error;
 

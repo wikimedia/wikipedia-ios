@@ -467,10 +467,6 @@
 "icon-shortcut-random-title" = "Random article";
 "icon-shortcut-search-title" = "Search Wikipedia";
 "image-gallery-unknown-owner" = "Author unknown.";
-"in-the-news-currently-trending" = "Currently trending";
-"in-the-news-notification-read-now-action-title" = "Read Now";
-"in-the-news-notification-save-for-later-action-title" = "Save for later";
-"in-the-news-notification-share-action-title" = "Share…";
 "in-the-news-sub-title-from-language-wikipedia" = "From $1 Wikipedia";
 "in-the-news-sub-title-from-wikipedia" = "From Wikipedia";
 "in-the-news-title" = "In the news";
@@ -850,12 +846,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 item replaced|$1 items replaced}}";
 "replace-textfield-accessibility" = "Replace";
 "replace-textfield-placeholder" = "Replace with…";
-"reverted-edit-back-to-article-button-title" = "Back to article";
-"reverted-edit-possible-reasons" = "- Your contribution didn’t follow one of the guidelines. $1 \n\n - Your contribution looked like an experiment or vandalism";
-"reverted-edit-possible-reasons-subtitle" = "We know that you tried your best, but one of the reviewers had a concern.\n\nPossible reasons your edit was reverted include:";
-"reverted-edit-thanks-for-editing-title" = "Thanks for editing Wikipedia!";
 "reverted-edit-title" = "Reverted edit";
-"reverted-edit-view-guidelines-text" = "View guidelines";
 "saved-all-articles-title" = "All articles";
 "saved-default-reading-list-tag" = "This list cannot be deleted";
 "saved-pages-image-download-error" = "Failed to download images for this saved page.";
@@ -934,8 +925,6 @@
 "share-social-mention-format" = "“$1” via @Wikipedia: $2";
 "sort-by-recently-added-action" = "Recently added";
 "sort-by-title-action" = "Title";
-"status-saved-for-later" = "Saved for later";
-"status-saving-for-later" = "Saving for later...";
 "table-of-contents-button-label" = "Table of contents";
 "table-of-contents-close-accessibility-hint" = "Close";
 "table-of-contents-close-accessibility-label" = "Close Table of contents";

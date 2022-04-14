@@ -26,18 +26,6 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
         super.init()
         RMessage.shared().delegate = self
     }
-    
-    
-    @objc func showInTheNewsAlert(_ message: String?, sticky:Bool, dismissPreviousAlerts:Bool, tapCallBack: (() -> Void)?) {
-        
-        if (message ?? "").isEmpty {
-            return
-        }
-        showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
-            let title = CommonStrings.inTheNewsTitle
-            RMessage.showNotification(in: nil, title: title, subtitle: message, iconImage: UIImage(named:"trending-notification-icon"), type: .normal, customTypeName: nil, duration: sticky ? -1 : 2, callback: tapCallBack, buttonTitle: nil, buttonCallback: nil, at: .top, canBeDismissedByUser: true)
-        })
-    }
 
     @objc func showAlertWithReadMore(_ title: String?, type: RMessageType, dismissPreviousAlerts: Bool, buttonCallback: (() -> Void)?, tapCallBack: (() -> Void)?) {
         showAlert(dismissPreviousAlerts) {

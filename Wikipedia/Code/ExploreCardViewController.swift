@@ -607,7 +607,6 @@ extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
             dismissAnnouncementCell(cell)
         case .notification:
             userDidTapTurnOnNotifications()
-            UserDefaults.standard.wmf_setInTheNewsNotificationsEnabled(true)
             dismissAnnouncementCell(cell)
         default:
             guard let announcement = contentGroup?.contentPreview as? WMFAnnouncement,
