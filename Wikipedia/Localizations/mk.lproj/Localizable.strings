@@ -594,19 +594,27 @@
 "notifications-center-filters-types-footer" = "Изменете ги видовите известувања за да ги филтрирате од приемното сандаче за известувања. Исклучените видови известувања нема да бидат видливи, но нивната содржина и новите известувања ќе бидат достапни кога повторнјо ќе го вклучите префрлањето.";
 "notifications-center-filters-types-item-title-all" = "Сите видови";
 "notifications-center-filters-types-section-title" = "Видови известувања";
+// Fuzzy
 "notifications-center-go-to-article" = "Оди на статијата";
+// Fuzzy
 "notifications-center-go-to-article-collaboration-format" = "Оди на соработната страница $1";
+// Fuzzy
 "notifications-center-go-to-article-discussion-format" = "Оди на разговорната страница $1";
+// Fuzzy
 "notifications-center-go-to-article-talk-format" = "Оди на разговорната страница $1";
+// Fuzzy
 "notifications-center-go-to-collaboration-page" = "Оди на соработната страница";
+// Fuzzy
 "notifications-center-go-to-diff" = "Оди на разл.";
+// Fuzzy
 "notifications-center-go-to-discussion-page" = "Оди на разговорната страница";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Оди на разговорната страница";
-"notifications-center-go-to-title-format" = "Оди на $1";
+// Fuzzy
 "notifications-center-go-to-user-page" = "Оди на корисничката страница на $1";
-"notifications-center-go-to-user-page-format" = "Оди на корисничката страница на $1";
-"notifications-center-go-to-user-page-simplified" = "Оди на корисничката страница";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "Оди на предметот на Википодатоци";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "Оди на мојата разговорна страница";
 "notifications-center-header-alert-from-agent" = "Напомена од $1";
 "notifications-center-header-alert-from-project" = "Напомена од $1";

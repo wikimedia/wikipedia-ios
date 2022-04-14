@@ -610,11 +610,15 @@
 "notifications-center-filters-title" = "Filtreler";
 "notifications-center-filters-types-item-title-all" = "Tüm türler";
 "notifications-center-filters-types-section-title" = "Bildirim türleri";
+// Fuzzy
 "notifications-center-go-to-diff" = "Farka git";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Tartışma sayfasına git";
-"notifications-center-go-to-title-format" = "$1 sayfasına git";
+// Fuzzy
 "notifications-center-go-to-user-page" = "$1 kullanıcı sayfasına git";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "Vikiveri ögesine git";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "Mesaj sayfanıza gidin";
 "notifications-center-header-alert-from-agent" = "$1 kaynağından uyarı";
 "notifications-center-header-alert-from-project" = "$1 sitesinden uyarı";

@@ -200,6 +200,7 @@
 "description-edit-publish" = "Julkaise kuvaus";
 "description-edit-title" = "Muokkaa kuvausta";
 "description-edit-warning" = "Yritä pitää kuvaus lyhyenä, jotta käyttäjät ymmärtäisivät artikkelin aiheen yhdellä silmäyksellä";
+"description-edit-warning-casing" = "Ainoastaan erisnimet tulisi kirjoittaa isolla alkukirjaimella, jopa lauseen alussa.";
 "description-help-about-description" = "Lyhyet kuvaukset tiivistävät artikkelin aiheen ja auttavat ymmärtämään sen yhdellä silmäyksellä.";
 "description-help-about-title" = "Tietoja";
 "description-help-about-wikidata" = "Tietoja Wikidatasta";
@@ -323,6 +324,8 @@
 "editing-welcome-impartial-tone-title" = "Kirjoita puolueettomaan sävyyn";
 "editing-welcome-set-knowledge-free-subtitle" = "Tarvitsemme sinua lukemaan, kirjoittamaan ja parantamaan sinua kiinnostavia aiheita, jotta voisimme tarjota kaikille maailman parasta tietoa.";
 "editing-welcome-set-knowledge-free-title" = "Vapauta tieto";
+"editor-exit-confirmation-body" = "Haluatko varmasti poistua muokkaustilasta julkaisematta ensin muutoksiasi?";
+"editor-exit-confirmation-title" = "Piilota muokkaustila?";
 "empty-diff-compare-title" = "Ei eroavaisuuksia versioiden välillä";
 "empty-diff-single-title" = "Näkyviä muutoksia ei tehty";
 "empty-insert-media-title" = "Valitse tiedosto";
@@ -544,6 +547,7 @@
 "main-menu-account-login" = "Kirjaudu sisään";
 "main-menu-account-logout" = "Kirjaudu ulos";
 "main-menu-account-logout-are-you-sure" = "Haluatko varmasti kirjautua ulos?";
+"main-menu-account-logout-are-you-sure-message" = "Uloskirjautuminen poistaa paikallisesti tallennetut tunnustietosi (ilmoitukset ja viestit), mutta tunnuksesi tiedot ovat silti käytettävissä verkossa ja ne ladataan uudelleen mikäli kirjaudut takaisin sisään.";
 "main-menu-account-logout-cancel" = "Peruuta";
 "main-menu-account-title-logged-in" = "Olet kirjautunut käyttäjänä $1";
 "main-menu-heading-legal" = "Tietosuoja ja Ehdot";
@@ -570,10 +574,13 @@
 "no-internet-connection-article-reload-button" = "Palaa viimeksi tallennettuun versioon";
 "notifications-center-change-password" = "Vaihda salasana";
 "notifications-center-checking-for-notifications" = "Tarkistetaan ilmoituksia...";
+"notifications-center-destination-app" = "Sovelluksessa";
+"notifications-center-destination-web" = "Verkossa";
 "notifications-center-empty-checking-for-notifications" = "Tarkistetaan ilmoituksia...";
 "notifications-center-empty-no-messages" = "Sinulla ei ole viestejä";
 "notifications-center-empty-not-subscribed" = "Et ole tilannut Wikipedia-ilmoituksia";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 suodatin|$1 suodatinta}}";
+"notifications-center-feed-card-title" = "Muokkausilmoitukset nyt saatavilla";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "Ota ilmoitukset käyttöön";
 "notifications-center-feed-news-notification-dismiss-button-text" = "Ei nyt";
@@ -584,17 +591,23 @@
 "notifications-center-filters-title" = "Suodattimet";
 "notifications-center-filters-types-item-title-all" = "Kaikki tyypit";
 "notifications-center-filters-types-section-title" = "Ilmoitusten tyypit";
+// Fuzzy
 "notifications-center-go-to-article" = "Mene artikkeliin";
+// Fuzzy
 "notifications-center-go-to-article-discussion-format" = "Mene sivun $1 keskustelusivulle";
+// Fuzzy
 "notifications-center-go-to-article-talk-format" = "Mene sivun $1 keskustelusivulle";
+// Fuzzy
 "notifications-center-go-to-diff" = "Siirry versioon";
+// Fuzzy
 "notifications-center-go-to-discussion-page" = "Mene keskustelusivulle";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Mene keskustelusivulle";
-"notifications-center-go-to-title-format" = "Mene sivulle $1";
+// Fuzzy
 "notifications-center-go-to-user-page" = "Mene käyttäjän $1 käyttäjäsivulle";
-"notifications-center-go-to-user-page-format" = "Mene käyttäjän $1 käyttäjäsivulle";
-"notifications-center-go-to-user-page-simplified" = "Mene käyttäjäsivulle";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "Mene Wikidata-kohteeseen";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "Mene keskustelusivullesi";
 "notifications-center-header-alert-from-project" = "Ilmoitus projektista $1";
 "notifications-center-header-notice-from-project" = "Ilmoitus projektista $1";
@@ -606,18 +619,22 @@
 "notifications-center-mark-all-as-read" = "Merkitse kaikki luetuksi";
 "notifications-center-mark-as-read" = "Merkitse luetuksi";
 "notifications-center-mark-as-unread" = "Merkitse lukemattomaksi";
+"notifications-center-more-action-accessibility-label" = "Lisää";
 "notifications-center-notifications-settings" = "Ilmoitusasetukset";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 viesti|$1 viestiä}}";
 "notifications-center-onboarding-modal-continue-action" = "Jatka";
+"notifications-center-onboarding-modal-filters-message" = "Suodata ilmoituksiasi niiden lukutilan ja tyypin mukaan helposti rajataksesi saapuneita ilmoituksiasi.";
 "notifications-center-onboarding-modal-filters-title" = "Suodattimet";
 "notifications-center-onboarding-modal-learn-more-action" = "Lue lisää ilmoituksista";
 "notifications-center-onboarding-modal-notifications-alerts-message" = "Ilmoitukset auttavat sinua pysymään ajan tasalla muokkauksiisi ja tunnukseesi liittyvistä ajankohtaisista asioista.";
 "notifications-center-onboarding-modal-notifications-alerts-title" = "Ilmoitukset ja hälytykset";
 "notifications-center-onboarding-modal-project-inboxes-message" = "Lue kaikki lukemattomat viestisi erikielisistä Wikipedioista ja Wikimedia-projekteista yhdessä paikassa.";
+"notifications-center-onboarding-modal-title" = "Muokkausilmoitukset";
 "notifications-center-onboarding-panel-secondary-button" = "Ei kiitos";
 "notifications-center-project-filters-accessibility-label" = "Projektisuodatin";
 "notifications-center-status-all" = "Kaikki";
 "notifications-center-status-all-notifications" = "Kaikki ilmoitukset";
+"notifications-center-status-in-projects" = "{{PLURAL:$1|1=Yhdessä projektissa|$1 projektissa}}";
 "notifications-center-status-in-projects-plain" = "{{PLURAL:$1|1=1 projekti|$1 projektia}}";
 "notifications-center-status-in-types" = "{{PLURAL:$1|1=1 tyyppi|$1 tyyppiä}}";
 "notifications-center-status-read" = "Luettu";
@@ -645,6 +662,7 @@
 "notifications-center-swipe-mark-as-unread" = "Merkitse lukemattomaksi";
 "notifications-center-swipe-more" = "Lisää";
 "notifications-center-title" = "Ilmoitukset";
+"notifications-center-toolbar-mark-accessibility-label" = "Merkitse valitut ilmoitukset";
 "notifications-center-type-item-description-mentions" = "Maininnat";
 "notifications-center-type-item-description-welcome-verbose" = "Tervetuloviesti";
 "notifications-push-fallback-body-text" = "Uusi toiminta Wikipediassa";

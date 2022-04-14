@@ -307,8 +307,6 @@ final class RemoteNotificationsModelController {
     }
     
     //MARK: WMFLibraryValue Helpers
-    //TODO: Cache this (see EventLoggingService as an example)
-    
     func libraryValue(forKey key: String) -> NSCoding? {
         var result: NSCoding? = nil
         let backgroundContext = newBackgroundContext()

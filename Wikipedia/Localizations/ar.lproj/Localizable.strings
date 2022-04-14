@@ -573,6 +573,7 @@
 "notifications-center-filters-read-status-item-title-unread" = "غير مقروءة";
 "notifications-center-filters-title" = "المرشحات";
 "notifications-center-filters-types-item-title-all" = "جميع الأنواع";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "اذهب إلى عنصر ويكي بيانات";
 "notifications-center-header-alert-from-agent" = "إنذار من $1";
 "notifications-center-header-alert-from-project" = "إنذار من $1";
