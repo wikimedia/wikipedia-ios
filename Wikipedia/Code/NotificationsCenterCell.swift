@@ -383,7 +383,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
 
             mainVerticalStackView.topAnchor.constraint(equalTo: foregroundContentContainer.topAnchor, constant: topMargin),
             mainVerticalStackView.bottomAnchor.constraint(equalTo: foregroundContentContainer.bottomAnchor, constant: -edgeMargin),
-            mainVerticalStackView.trailingAnchor.constraint(equalTo: foregroundContentContainer.trailingAnchor),
+            mainVerticalStackView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
 
             headerTextContainer.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: -edgeMargin),
 
@@ -421,10 +421,10 @@ final class NotificationsCenterCell: UICollectionViewCell {
 
         NSLayoutConstraint.activate([
             projectSourceContainer.widthAnchor.constraint(equalToConstant: 50),
-            projectSourceContainer.trailingAnchor.constraint(equalTo: foregroundContentContainer.trailingAnchor, constant: -edgeMargin),
+            projectSourceContainer.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: -edgeMargin),
 
             projectSourceLabel.topAnchor.constraint(equalTo: subheaderLabel.topAnchor),
-            projectSourceLabel.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            projectSourceLabel.trailingAnchor.constraint(equalTo: projectSourceContainer.trailingAnchor),
 
             projectSourceImage.topAnchor.constraint(equalTo: subheaderLabel.topAnchor),
             projectSourceImage.trailingAnchor.constraint(equalTo: projectSourceContainer.trailingAnchor),
