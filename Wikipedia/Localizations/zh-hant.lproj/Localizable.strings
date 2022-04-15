@@ -7,6 +7,7 @@
 // Author: Chubit
 // Author: Cleinman
 // Author: Cwlin0416
+// Author: DinoWP
 // Author: Eric850130
 // Author: Hello903hello
 // Author: Impartial just
@@ -113,14 +114,15 @@
 "account-creation-saving" = "儲存中...";
 "account-creation-title" = "建立新帳號";
 "account-group-title" = "您的帳號";
-"account-talk-page-title" = "您的討論頁";
+"account-talk-page-title" = "您的對話頁";
 "account-talk-preferences-auto-sign-discussions" = "自動簽名討論";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "討論的自動簽名，會使用在簽名設定裡所定義的簽名";
-"account-talk-preferences-title" = "討論頁偏好設定";
+"account-talk-preferences-title" = "對話頁偏好設定";
 "action-add-to" = "新增至…";
 "action-add-to-reading-list" = "新增至閱讀清單";
 "action-add-to-reading-list-short" = "加入至清單";
 "action-cancel" = "取消";
+"action-discard-edits" = "放棄編輯";
 "action-find-in-page" = "在頁面裡尋找";
 "action-language-accessibility" = "變更語言";
 "action-move-to" = "移動至…";
@@ -211,7 +213,7 @@
 "description-help-about-description" = "條目描述能概括條目，以幫助讀者快速了解內容。";
 "description-help-about-title" = "關於";
 "description-help-about-wikidata" = "關於維基數據";
-"description-help-more-info-description" = "描述會被保管在維基數據，那是維基媒體基金會計畫的另一個專案，是個自由、共同作業、多語言的二級資料庫，支援著維基百科及其它相類專案。";
+"description-help-more-info-description" = "描述會被保管在維基數據，那是維基媒體基金會計畫的另一個專案，是個自由、共同作業、多語言的二級資料庫，支援著維基百科及其它專案。";
 "description-help-more-info-title" = "更多資訊";
 "description-help-tips-description" = "描述盡量使用一行文字，且長度介於 2 到 12 個字元之間。另外除非第一個詞為專有名詞，否則不用大寫。";
 "description-help-tips-example-description-one" = "有關蒙娜麗莎條目的條目描述";
@@ -331,6 +333,8 @@
 "editing-welcome-impartial-tone-title" = "以客觀語氣編寫";
 "editing-welcome-set-knowledge-free-subtitle" = "為了讓任何人能取用世界上的知識，我們需要您透過閱讀、編輯、貢獻您最感興趣的主題來參與創建。";
 "editing-welcome-set-knowledge-free-title" = "讓知識能自由取得";
+"editor-exit-confirmation-body" = "您確定要放棄發布並離開編輯模式嗎？";
+"editor-exit-confirmation-title" = "關閉編輯模式？";
 "empty-diff-compare-title" = "修訂之間無差異";
 "empty-diff-single-title" = "沒有做出可觀察到的變更";
 "empty-insert-media-title" = "選擇來自維基共享資源的檔案";
@@ -442,8 +446,6 @@
 "featured-widget-from-wikipedia" = "來自維基百科";
 "featured-widget-language-failure" = "您主要使用的維基百科語言目前不支援典範條目，您可以在應用程式設定選單中變更主要使用的維基百科。";
 "featured-widget-title" = "典範條目";
-"feed-news-notification-button-text" = "開啟通知";
-"feed-news-notification-text" = "啟用通知來透過維基百科在條目與趨勢新聞相關時獲得提醒。";
 "fetcher-error-generic" = "發生錯誤。請稍後再試。";
 "fetcher-error-unexpected-response" = "應用程式收到來自伺服器的異常回應。請稍後重試。";
 "field-alert-captcha-invalid" = "無效驗證碼";
@@ -587,13 +589,25 @@
 "no-internet-connection" = "無網路連線";
 "no-internet-connection-article-reload" = "有可用的此條目新版本，但沒有連上網路無法載入";
 "no-internet-connection-article-reload-button" = "返回上一次儲存的版本";
+"notifications-center-agent-description-from-format" = "來自$1";
+"notifications-center-alert" = "警告";
+"notifications-center-applied-filters-accessibility-label" = "通知篩選 - 已套用篩選";
+"notifications-center-applied-project-filters-accessibility-label" = "專案篩選 - 已套用篩選";
+"notifications-center-badge-button-accessibility-label" = "帶有未讀標記的通知";
+"notifications-center-cell-notification-type-accessibility-label-format" = "$1通知";
 "notifications-center-change-password" = "修改密碼";
 "notifications-center-checking-for-notifications" = "正在檢查通知…";
+"notifications-center-destination-app" = "在 App";
+"notifications-center-destination-web" = "在 Web";
 "notifications-center-empty-checking-for-notifications" = "正在檢查通知...";
 "notifications-center-empty-no-messages" = "您沒有訊息";
 "notifications-center-empty-not-subscribed" = "您目前沒有訂閱任何維基百科通知";
 "notifications-center-empty-state-filters-subtitle" = "變動$1來查看更多通知";
+"notifications-center-empty-state-no-projects-selected" = "添加專案來查看更多訊息";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1}} 種篩選";
+"notifications-center-feed-news-notification-button-text" = "開啟推送通知";
+"notifications-center-feed-news-notification-dismiss-button-text" = "現在不要";
+"notifications-center-filters-accessibility-label" = "通知篩選";
 "notifications-center-filters-read-status-item-title-all" = "所有";
 "notifications-center-filters-read-status-item-title-read" = "已讀";
 "notifications-center-filters-read-status-item-title-unread" = "未讀";
@@ -602,13 +616,15 @@
 "notifications-center-filters-types-footer" = "變動通知類型來對您的通知收件箱裡的進/出內容篩選。在類型為關閉時會不顯示，內容和任何新通知會在再次切換打開後可用。";
 "notifications-center-filters-types-item-title-all" = "所有類型";
 "notifications-center-filters-types-section-title" = "通知類型";
-"notifications-center-footer-change-password" = "變更密碼";
-"notifications-center-go-to-diff" = "轉到差異";
-"notifications-center-go-to-talk-page" = "進入討論頁";
-"notifications-center-go-to-title" = "轉到$1";
-"notifications-center-go-to-user-page" = "轉到$1的用戶頁面";
-"notifications-center-go-to-wikidata-item" = "前往維基數據項";
-"notifications-center-go-to-your-talk-page" = "轉到您的討論頁";
+"notifications-center-go-to-article" = "條目";
+"notifications-center-go-to-article-discussion-format" = "$1討論頁";
+"notifications-center-go-to-article-talk-format" = "$1對話頁";
+"notifications-center-go-to-diff" = "差異";
+"notifications-center-go-to-discussion-page" = "討論頁";
+"notifications-center-go-to-talk-page" = "對話頁";
+"notifications-center-go-to-user-page" = "$1的使用者頁面";
+"notifications-center-go-to-wikidata-item" = "維基數據項目";
+"notifications-center-go-to-your-talk-page" = "您的對話頁";
 "notifications-center-header-alert-from-agent" = "來自$1的告警";
 "notifications-center-header-alert-from-project" = "來自$1的告警";
 "notifications-center-header-notice-from-project" = "$1起的通知";
@@ -623,8 +639,19 @@
 "notifications-center-mark-all-as-read-missing-number" = "您確定要將您的所有通知標記為已讀？這將會在您的所有裝置上的通知標記為已讀。";
 "notifications-center-mark-as-read" = "標記為已讀";
 "notifications-center-mark-as-unread" = "標記為未讀";
+"notifications-center-more-action-accessibility-label" = "更多";
 "notifications-center-notifications-settings" = "通知設置";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1}} 則訊息";
+"notifications-center-onboarding-modal-continue-action" = "繼續";
+"notifications-center-onboarding-modal-filters-title" = "篩選";
+"notifications-center-onboarding-modal-learn-more-action" = "了解更多通知";
+"notifications-center-onboarding-modal-notifications-alerts-title" = "通知與告警";
+"notifications-center-onboarding-modal-push-notifications-title" = "推送通知";
+"notifications-center-onboarding-modal-title" = "編輯通知";
+"notifications-center-onboarding-panel-heading" = "開啟推送通知？";
+"notifications-center-onboarding-panel-primary-button" = "開啟推送通知";
+"notifications-center-onboarding-panel-secondary-button" = "不用了，謝謝";
+"notifications-center-project-filters-accessibility-label" = "專案篩選";
 "notifications-center-status-all" = "所有";
 "notifications-center-status-all-notifications" = "所有通知";
 "notifications-center-status-double-concatenation" = "$1在 $2 個專案/收件箱上";
@@ -638,16 +665,15 @@
 "notifications-center-subheader-edit-milestone" = "編輯里程碑";
 "notifications-center-subheader-edit-reverted" = "您的修改已被還原";
 "notifications-center-subheader-email-from-other-user" = "新郵件";
-"notifications-center-subheader-from-agent" = "來自$1";
 "notifications-center-subheader-login-fail-known-device" = "多次登錄嘗試失敗";
 "notifications-center-subheader-login-fail-unknown-device" = "登錄嘗試失敗";
 "notifications-center-subheader-login-success-unknown-device" = "從不熟悉的設備登錄";
-"notifications-center-subheader-mention-article-talk-page" = "在條目討論頁提及";
+"notifications-center-subheader-mention-article-talk-page" = "在條目對話頁提及";
 "notifications-center-subheader-mention-edit-summary" = "在編輯摘要中提及";
 "notifications-center-subheader-mention-failed" = "未提及";
 "notifications-center-subheader-mention-successful" = "成功提及";
-"notifications-center-subheader-mention-talk-page" = "在討論頁提及";
-"notifications-center-subheader-message-user-talk-page" = "在您的討論頁留言";
+"notifications-center-subheader-mention-talk-page" = "在對話頁提及";
+"notifications-center-subheader-message-user-talk-page" = "在您的對話頁留言";
 "notifications-center-subheader-page-link" = "頁面鏈接";
 "notifications-center-subheader-page-reviewed" = "頁面審核";
 "notifications-center-subheader-thanks" = "感謝";
@@ -659,6 +685,9 @@
 "notifications-center-swipe-mark-as-unread" = "標記為未讀";
 "notifications-center-swipe-more" = "更多";
 "notifications-center-title" = "通知";
+"notifications-center-toolbar-mark-accessibility-label" = "標記已選的通知";
+"notifications-center-type-item-description-mentions" = "提及";
+"notifications-center-type-item-description-welcome-verbose" = "歡迎訊息";
 "notifications-push-fallback-body-text" = "在維基百科上的新活動";
 "notifications-push-talk-body-format" = "在$3的 $1 個新$2";
 "notifications-push-talk-messages-format" = "{{PLURAL:$1|訊息}}";
@@ -888,7 +917,8 @@
 "settings-language-bar" = "搜尋時顯示語言";
 "settings-languages-feed-customization" = "透過自訂您的探索摘要設定，您可以管理在您的探索摘要裡所要顯示出的語言。";
 "settings-my-languages" = "我的語言";
-"settings-notifications" = "通知";
+"settings-notifications" = "推發通知";
+"settings-notifications-echo-failure-try-again" = "再試一次";
 "settings-notifications-info" = "經由我們推發通知提醒注意在維基百科上的被閱讀最多次以及趨勢條目。所有提供內容皆考量到隱私及最新資料。";
 "settings-notifications-learn-more" = "了解更多通知內容";
 "settings-notifications-push-notifications" = "推發通知";
@@ -949,7 +979,7 @@
 "talk-page-error-unable-to-post-topic" = "沒有連結到網路，無法發佈討論。";
 "talk-page-info-active-conversations" = "在$1維基百科上積極交談";
 "talk-page-info-active-conversations-generic" = "在維基百科上積極交談";
-"talk-page-link-user-action-sheet-app" = "在應用程式上檢視使用者討論頁";
+"talk-page-link-user-action-sheet-app" = "在應用程式上檢視使用者對話頁";
 "talk-page-link-user-action-sheet-safari" = "在 Safari 上檢視使用者頁面";
 "talk-page-link-user-action-sheet-title" = "使用者頁面";
 "talk-page-new-banner-subtitle" = "請記得，在此我們也只是一般人";
@@ -987,7 +1017,7 @@
 "two-factor-login-title" = "登入至您的帳號";
 "two-factor-login-with-backup-code" = "使用您的任一備份代碼";
 "two-factor-login-with-regular-code" = "使用驗證代碼";
-"unable-to-load-talk-page-title" = "無法載入討論頁";
+"unable-to-load-talk-page-title" = "無法載入對話頁";
 "unknown-generic-text" = "未知";
 "uzbek-variants-alert-body" = "維基百科應用程式現在支援下列烏茲別克語異體字作為應用程式裡的主要語言或次要語言，能以您首選的異體字來更易於閱讀、搜尋、編輯：\n\noʻzbekcha lotin，拉丁字母烏茲別克語（uz-latin）\nўзбекча кирилл，西里爾字母烏茲別克語（uz-cyrl）";
 "uzbek-variants-alert-title" = "烏茲別克語異體字支援更新";

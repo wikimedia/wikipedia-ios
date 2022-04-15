@@ -88,3 +88,7 @@ extension InsertLinkViewController: Themeable {
         searchViewController.apply(theme: theme)
     }
 }
+
+extension InsertLinkViewController: EditingFlowViewController {
+    
+}

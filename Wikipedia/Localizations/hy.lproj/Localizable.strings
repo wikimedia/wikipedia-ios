@@ -146,6 +146,10 @@
 "nearby-distance-label-km" = "$1 կմ";
 "nearby-distance-label-meters" = "$1 մ";
 "nearby-distance-label-miles" = "$1 մղոն";
+"notifications-center-go-to-article" = "Հոդված";
+"notifications-center-go-to-article-talk-format" = "$1 քննարկման էջ";
+"notifications-center-go-to-wikidata-item" = "Վիկիտվյալների տառռ";
+"notifications-center-go-to-your-talk-page" = "Ձեր քննարկման էջ";
 "notifications-center-mark" = "Նշել";
 "notifications-center-swipe-mark-as-read" = "Նշել ընթերցված";
 "notifications-center-swipe-mark-as-unread" = "Նշել չընթերցված";
@@ -183,6 +187,7 @@
 "settings-account" = "Հաշիվ";
 "settings-clear-cache-cancel" = "Չեղարկել";
 "settings-my-languages" = "Իմ լեզուններ";
+// Fuzzy
 "settings-notifications" = "Ծանուցումներ";
 "settings-notifications-learn-more" = "Կարդալ ավելին ծանուցումների մասին";
 "settings-notifications-system-turn-on" = "Միացնել ծանուցումներ";

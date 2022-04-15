@@ -353,8 +353,6 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Sa Vikipedije";
 "explore-randomizer" = "Slučajni članak";
 "featured-article-empty-title" = "Danas nema dostupnih preporučenih članaka";
-"feed-news-notification-button-text" = "Uključi obaveštenja";
-"feed-news-notification-text" = "Omogućite obaveštenja da biste saznali kada članci postanu trenutni u vestima.";
 "fetcher-error-generic" = "Nešto je krenulo naopako. Molimo pokušajte kasnije.";
 "fetcher-error-unexpected-response" = "Aplikacija je dobila neočekivan odgovor od strane servera. Molimo pokušajte kasnije.";
 "field-alert-captcha-invalid" = "Nevažeća CAPTCHA";
@@ -485,6 +483,8 @@
 "no-internet-connection" = "Nema internet veze";
 "no-internet-connection-article-reload" = "Novija verzija ovog članka je možda dostupna, ali ne može biti učitana bez internet konekcije.";
 "no-internet-connection-article-reload-button" = "Vrati se na prethodno sačuvanu verziju";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Uključi obaveštenja";
 "number-billions" = "$1 mlrd.";
 "number-millions" = "$1 mil.";
 "number-thousands" = "$1 hilj.";
@@ -695,6 +695,7 @@
 "settings-language-bar" = "Prikazuj jezike pri pretrazi";
 "settings-languages-feed-customization" = "Možete da upravljate jezicima za prikaz u fidu „Istraži“ promenom podešavanja.";
 "settings-my-languages" = "Moji jezici";
+// Fuzzy
 "settings-notifications" = "Obaveštenja";
 "settings-notifications-info" = "Budite obavešteni o najčitanijim člancima na Vikipediji pomoću naših push obaveštenja. Sve informacije su trenutne i poštuju vašu privatnost.";
 "settings-notifications-learn-more" = "Saznajte više o obaveštenjima";

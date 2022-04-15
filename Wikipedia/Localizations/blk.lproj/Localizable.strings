@@ -210,7 +210,6 @@
 "featured-widget-from-language-wikipedia" = "အဝ်ႏ$1 ဝီခီပီးဒီးယား";
 "featured-widget-from-wikipedia" = "အဝ်ႏဝီခီပီးဒီးယား";
 "featured-widget-title" = "ရောမ်ဖြုဲင်ꩻတဲးဝါး";
-"feed-news-notification-button-text" = "ဗွောင် ဖေႏသေချက်ဖိုင်ႏ";
 "field-alert-captcha-invalid" = "CAPTCHA မဲဉ်ႏတဝ်း";
 "field-alert-password-confirm-mismatch" = "ငဝ်းဗိဉ်ႏပလို့ꩻဖိုင်ႏ မဲဉ်ႏစွို့ꩻတဝ်းဩ။";
 "field-alert-token-invalid" = "ကိုဒ်အမာႏ";
@@ -319,10 +318,13 @@
 "no-internet-connection" = "အိဉ်တာနဲက်လဲင်း အဝ်ႏတဝ်းသြ";
 "notifications-center-change-password" = "ပြောင်ꩻငဝ်းဗိဉ်ႏပလို့ꩻ";
 "notifications-center-empty-checking-for-notifications" = "စဲစ်ထွား ဖေႏသေချက်ဖိုင်ႏတာႏ...";
-"notifications-center-footer-change-password" = "ပြောင်ꩻငဝ်းဗိဉ်ႏပလို့ꩻ";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "ဗွောင် ဖေႏသေချက်ဖိုင်ႏ";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "လွေꩻအိုင်ကိုမ်ဒေါ့ꩻရီလိတ်မဲ့ငါထျꩻ";
-"notifications-center-go-to-title" = "လွေꩻ $1 ထျꩻ";
+// Fuzzy
 "notifications-center-go-to-user-page" = "လွေꩻ $1 ကေားသုင်ꩻသားလိတ်မဲ့ငါထျꩻ";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "လွေꩻ နာꩻအိုင်ကိုမ်ဒေါ့ꩻရီလိတ်မဲ့ငါထျꩻ";
 "notifications-center-header-alert-from-project" = "$1 ဖေႏသေချက်";
 "notifications-center-header-notice-from-project" = "$1 ဖေႏသတိꩻချက်";
@@ -465,6 +467,7 @@
 "settings-help-and-feedback" = "အစွဲးအကမ်းတောမ်ႏ ဖေႏကျံႏညဏ်ႏချက်";
 "settings-language-bar" = "အွောန်ႏနယ်ဘာႏသာႏငဝ်းငွါ ထိုမ်ႏထွားမုꩻကို";
 "settings-my-languages" = "ခွေသွဉ်းဘာႏသာႏငဝ်းငွါဖိုင်ႏ";
+// Fuzzy
 "settings-notifications" = "ဖေႏသေချက်ဖုံႏ";
 "settings-notifications-learn-more" = "လွူꩻထွားစဲင်းထဲင်း ဖေႏသေချက်ဖိုင်ႏခရာႏ";
 "settings-notifications-push-notifications" = "ပေ့ꩻ ဖေႏသေချက်ဖိုင်ႏ";

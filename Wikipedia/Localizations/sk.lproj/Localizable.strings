@@ -424,8 +424,6 @@
 "featured-widget-from-wikipedia" = "Z Wikipédie";
 "featured-widget-language-failure" = "Váš prvotný jazyk Wikipédie nie je pre odporúčaný článok podporovaný. Môžete ho zmeniť v nastaveniach aplikácie.";
 "featured-widget-title" = "Odporúčaný článok";
-"feed-news-notification-button-text" = "Zapnúť upozornenia";
-"feed-news-notification-text" = "Posielať oznámení, ktoré majú byť oznámené Wikipédiou, keď články sú trendy v aktualitách.";
 "fetcher-error-generic" = "Niečo sa nepodarilo. Prosím, skúste to znovu neskôr.";
 "fetcher-error-unexpected-response" = "Aplikácia dostala neočakávanú odpoveď zo servera. Skúste to, prosím, neskôr.";
 "field-alert-captcha-invalid" = "Neplatná CAPTCHA";
@@ -572,12 +570,17 @@
 "notifications-center-change-password" = "Zmeniť heslo";
 "notifications-center-empty-checking-for-notifications" = "Kontrola notifikácií...";
 "notifications-center-empty-not-subscribed" = "Neodoberáte žiadne notifikácie z Wikipédie";
-"notifications-center-footer-change-password" = "Zmeniť heslo";
+"notifications-center-feed-news-notification-button-text" = "Zapnúť upozornenia";
+"notifications-center-feed-news-notification-dismiss-button-text" = "Teraz nie";
+// Fuzzy
 "notifications-center-go-to-diff" = "Prejsť na rozdiely";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Prejsť na diskusnú stránku";
-"notifications-center-go-to-title" = "Prejsť na $1";
+// Fuzzy
 "notifications-center-go-to-user-page" = "Prejsť na stránku používateľa $1";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "Prejsť na položku Wikidáta";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "Prejsť na svoju diskusnú stránku";
 "notifications-center-header-alert-from-project" = "Upozornenie z $1";
 "notifications-center-header-notice-from-project" = "Oznámenie z $1";
@@ -839,7 +842,9 @@
 "settings-language-bar" = "Zobraziť pri vyhľadávaní jazyky";
 "settings-languages-feed-customization" = "Prispôsobením kanálu Objaviť môžete nastaviť, ktoré jazyky sa v ňom zobrazia.";
 "settings-my-languages" = "Moje jazyky";
+// Fuzzy
 "settings-notifications" = "Upozornenia";
+"settings-notifications-echo-failure-try-again" = "Skúsiť znova";
 "settings-notifications-info" = "Buďte informovaní o trendoch a najčastejšie čítaných článkoch na Wikipédii. Všetko je poskytované s ohľadom na vaše súkromie a podľa najnovších dát.";
 "settings-notifications-learn-more" = "Ďalšie informácie o upozorneniach";
 "settings-notifications-push-notifications" = "Push upozornenia";

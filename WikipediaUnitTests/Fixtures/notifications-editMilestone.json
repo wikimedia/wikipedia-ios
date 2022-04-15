@@ -1,0 +1,134 @@
+{
+  "batchcomplete": true,
+  "limits": {
+    "notifications": 50
+  },
+  "query": {
+    "notifications": {
+      "list": [
+        {
+          "wiki": "enwiki",
+          "id": 1,
+          "type": "thank-you-edit",
+          "category": "thank-you-edit",
+          "section": "message",
+          "timestamp": {
+            "utciso8601": "2019-04-02T19:56:59Z",
+            "utcunix": 1554235019,
+            "unix": "1554235019",
+            "utcmw": "20190402195659",
+            "mw": "20190402195659",
+            "date": "2 April"
+          },
+          "title": {
+            "full": "User:Fred The Bird",
+            "namespace": "User",
+            "namespace-key": 2,
+            "text": "Fred The Bird"
+          },
+          "agent": {
+            "id": 35904678,
+            "name": "Fred The Bird"
+          },
+          "read": "20201207204405",
+          "targetpages": [],
+          "*": {
+            "header": "You just made your first edit; thank you, and welcome!",
+            "compactHeader": "You just made your first edit; thank you, and welcome!",
+            "body": "",
+            "icon": "edit",
+            "links": {
+              "primary": {
+                "url": "https://en.wikipedia.org/wiki/User:Fred_The_Bird/sandbox?markasread=159522784&markasreadwiki=enwiki",
+                "label": "Your edit"
+              },
+              "secondary": []
+            },
+            "iconUrl": "/w/extensions/Echo/modules/icons/edit-progressive.svg"
+          }
+        }, {
+          "wiki": "enwiki",
+          "id": 2,
+          "type": "thank-you-edit",
+          "category": "thank-you-edit",
+          "section": "message",
+          "timestamp": {
+            "utciso8601": "2019-04-16T20:35:07Z",
+            "utcunix": 1555446907,
+            "unix": "1555446907",
+            "utcmw": "20190416203507",
+            "mw": "20190416203507",
+            "date": "16 April"
+          },
+          "title": {
+            "full": "Blue Bird",
+            "namespace": "",
+            "namespace-key": 0,
+            "text": "Blue Bird"
+          },
+          "agent": {
+            "id": 35904678,
+            "name": "Fred The Bird"
+          },
+          "read": "20201207204405",
+          "targetpages": [],
+          "*": {
+            "header": "You just made your tenth edit; thank you, and please keep going!",
+            "compactHeader": "You just made your tenth edit; thank you, and please keep going!",
+            "body": "",
+            "icon": "edit",
+            "links": {
+              "primary": {
+                "url": "https://en.wikipedia.org/wiki/Blue_Bird?markasread=160476513&markasreadwiki=enwiki",
+                "label": "Your edit"
+              },
+              "secondary": []
+            },
+            "iconUrl": "/w/extensions/Echo/modules/icons/edit-progressive.svg"
+          }
+        }, {
+          "wiki": "enwiki",
+          "id": 3,
+          "type": "thank-you-edit",
+          "category": "thank-you-edit",
+          "section": "message",
+          "timestamp": {
+            "utciso8601": "2021-07-16T22:47:22Z",
+            "utcunix": 1626475642,
+            "unix": "1626475642",
+            "utcmw": "20210716224722",
+            "mw": "20210716224722",
+            "date": "16 July"
+          },
+          "title": {
+            "full": "User talk:Fred The Bird",
+            "namespace": "User_talk",
+            "namespace-key": 3,
+            "text": "Fred The Bird"
+          },
+          "agent": {
+            "id": 35904678,
+            "name": "Fred The Bird"
+          },
+          "read": "20210810203656",
+          "targetpages": [],
+          "*": {
+            "header": "You just made your hundredth edit; thank you very much!",
+            "compactHeader": "You just made your hundredth edit; thank you very much!",
+            "body": "",
+            "icon": "edit",
+            "links": {
+              "primary": {
+                "url": "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird?markasread=223016532&markasreadwiki=enwiki",
+                "label": "Your edit"
+              },
+              "secondary": []
+            },
+            "iconUrl": "/w/extensions/Echo/modules/icons/edit-progressive.svg"
+          }
+        }
+      ],
+      "continue": "1569862285|172771996"
+    }
+  }
+}

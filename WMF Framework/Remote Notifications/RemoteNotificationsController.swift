@@ -1,9 +1,14 @@
 import CocoaLumberjackSwift
+import Foundation
 
-public enum RemoteNotificationsControllerError: Error {
+public enum RemoteNotificationsControllerError: LocalizedError {
     case databaseUnavailable
     case attemptingToRefreshBeforeDeadline
     case failurePullingAppLanguage
+    
+    public var errorDescription: String? {
+        return CommonStrings.genericErrorDescription
+    }
 }
 
 @objc public final class RemoteNotificationsController: NSObject {
@@ -65,7 +70,7 @@ public enum RemoteNotificationsControllerError: Error {
         super.init()
         
         do {
-            modelController = try RemoteNotificationsModelController()
+            modelController = try RemoteNotificationsModelController(containerURL: FileManager.default.wmf_containerURL())
         } catch (let error) {
             DDLogError("Failed to initialize RemoteNotificationsModelController: \(error)")
             modelController = nil

@@ -30,7 +30,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         let fontSize = UserDefaults.standard.wmf_articleFontSizeMultiplier().intValue
         let theme = userDefaults.themeAnalyticsName
         let isFeedDisabled = userDefaults.defaultTabType != .explore
-        let isNewsNotificationEnabled = UserDefaults.standard.wmf_inTheNewsNotificationsEnabled()
+        let isNewsNotificationEnabled = false
         let appOpensOnSearchTab = UserDefaults.standard.wmf_openAppOnSearchTab
 
         var event: [String: Any] = ["primary_language": primaryLanguage(), "is_anon": isAnon, "measure_font_size": fontSize, "theme": theme, "feed_disabled": isFeedDisabled, "trend_notify": isNewsNotificationEnabled, "search_tab": appOpensOnSearchTab]
@@ -57,8 +57,8 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
             event["device_level_enabled"] = getDeviceNotificationStatus(status)
         }
         
-        let inboxCount = dataStore.remoteNotificationsController.numberOfAllNotifications
-        event["inbox_count"] = inboxCount
+        let inboxCount = try? dataStore.remoteNotificationsController.numberOfAllNotifications()
+        event["inbox_count"] = inboxCount ?? 0
 
         return wholeEvent(with: event)
     }

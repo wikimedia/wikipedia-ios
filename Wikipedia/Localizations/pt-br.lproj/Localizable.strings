@@ -33,6 +33,7 @@
 // Author: Tsevener
 // Author: Walesson
 // Author: Webysther
+// Author: YuriNikolai
 
 "aaald-added-text-description-2" = "$1 adicionado";
 "aaald-article-description-updated-description" = "Descrição do artigo atualizada";
@@ -442,8 +443,6 @@
 "featured-widget-from-wikipedia" = "Da Wikipédia";
 "featured-widget-language-failure" = "Seu idioma principal da Wikipédia não oferece suporte a artigos destacados. Você pode atualizar a sua Wikipédia principal no menu Configurações do aplicativo.";
 "featured-widget-title" = "Artigo destacado";
-"feed-news-notification-button-text" = "Ativar notificações";
-"feed-news-notification-text" = "Ative notificações para serem notificadas pela Wikipedia quando os artigos estiverem sendo divulgados nas notícias.";
 "fetcher-error-generic" = "Algo deu errado. Por favor, tente novamente mais tarde.";
 "fetcher-error-unexpected-response" = "O aplicativo recebeu uma resposta inesperada do servidor. Por favor, tente novamente mais tarde.";
 "field-alert-captcha-invalid" = "CAPTCHA invalido";
@@ -587,15 +586,27 @@
 "no-internet-connection" = "Sem conexão com a internet";
 "no-internet-connection-article-reload" = "Uma versão mais recente deste artigo pode estar disponível, mas não pode ser carregada sem uma conexão com a Internet";
 "no-internet-connection-article-reload-button" = "Retornar para a última versão salva";
+"notifications-center-alert" = "Alerta";
+"notifications-center-cell-notification-type-accessibility-label-format" = "notificação $1";
 "notifications-center-change-password" = "Alterar senha";
+"notifications-center-destination-app" = "No app";
 "notifications-center-empty-checking-for-notifications" = "Verificando notificações...";
-"notifications-center-footer-change-password" = "Alterar senha";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Ativar notificações";
+"notifications-center-feed-news-notification-dismiss-button-text" = "Agora não";
+// Fuzzy
+"notifications-center-go-to-article" = "Ir para artigo";
+// Fuzzy
+"notifications-center-go-to-article-discussion-format" = "Ir para a página de discussão de $1";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Ir para a página de discussão";
-"notifications-center-go-to-title" = "Ir para $1";
+// Fuzzy
 "notifications-center-go-to-user-page" = "Ir para a página de discussão de $1";
 "notifications-center-mark-as-read" = "Marcar como lida";
 "notifications-center-mark-as-unread" = "Marcar como não lida";
+"notifications-center-more-action-accessibility-label" = "Mais";
 "notifications-center-notifications-settings" = "Configurações de notificação";
+"notifications-center-onboarding-panel-secondary-button" = "Não, {{GENDER:|obrigado|obrigada|obrigado}}";
 "notifications-center-subheader-login-success-unknown-device" = "Entrar em um dispositivo desconhecido";
 "notifications-center-subheader-mention-failed" = "Menção falhada";
 "notifications-center-subheader-mention-successful" = "Menção bem sucedida";
@@ -606,6 +617,7 @@
 "notifications-center-subheader-user-rights-change" = "Mudanças nos direitos do usuário";
 "notifications-center-subheader-welcome" = "Bem-vindo!";
 "notifications-center-title" = "Notificações";
+"notifications-center-type-item-description-mentions" = "Menções";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
@@ -831,7 +843,9 @@
 "settings-language-bar" = "Mostrar idiomas ao buscar";
 "settings-languages-feed-customization" = "Você pode gerenciar quais idiomas são exibidos no seu feed do Explore, personalizando as configurações do feed do Explore.";
 "settings-my-languages" = "Meus idiomas";
+// Fuzzy
 "settings-notifications" = "Notificações";
+"settings-notifications-echo-failure-try-again" = "Tente novamente";
 "settings-notifications-info" = "Seja alertado para artigos de tendências e de leitura de topo na Wikipédia com as nossas notificações de envio. Todos equipados com respeito à privacidade e dados atualizados ao minuto.";
 "settings-notifications-learn-more" = "Saber mais sobre notificações";
 "settings-notifications-push-notifications" = "Notificações via push";

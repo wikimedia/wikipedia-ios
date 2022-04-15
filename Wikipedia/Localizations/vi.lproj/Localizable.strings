@@ -11,6 +11,8 @@
 // Author: Minh Nguyen
 // Author: Nemo bis
 // Author: Nghiemtrongdai VN
+// Author: Ngoxuannguyenchuong
+// Author: NguyenHung
 // Author: Nguyên Lê
 // Author: Phjtieudoc
 // Author: TARGET6tidiem
@@ -417,8 +419,6 @@
 "featured-widget-from-language-wikipedia" = "Từ Wikipedia $1";
 "featured-widget-from-wikipedia" = "Từ Wikipedia";
 "featured-widget-title" = "Bài viết chọn lọc";
-"feed-news-notification-button-text" = "Bật thông báo";
-"feed-news-notification-text" = "Nhận thông báo về các bài Wikipedia vào lúc thịnh hành về tin tức.";
 "fetcher-error-generic" = "Đã xuất hiện một lỗi bất ngờ. Xin vui lòng thử lại sau.";
 "fetcher-error-unexpected-response" = "Máy chủ đã phản hồi ứng dụng một cách bất ngờ. Xin vui lòng thử lại sau.";
 "field-alert-captcha-invalid" = "CAPTCHA không hợp lệ";
@@ -563,14 +563,21 @@
 "no-internet-connection-article-reload" = "Bài viết này có thể có một phiên bản mới hơn nhưng không thể tải nó vì không có kết nối Internet";
 "no-internet-connection-article-reload-button" = "Quay về phiên bản cuối cùng được lưu";
 "notifications-center-change-password" = "Thay đổi Mật khẩu";
+"notifications-center-destination-app" = "Trong ứng dụng";
+"notifications-center-destination-web" = "Trên web";
 "notifications-center-empty-checking-for-notifications" = "Đang kiểm tra thông báo…";
 "notifications-center-empty-not-subscribed" = "Bạn hiện không theo dõi thông báo Wikipedia nào";
-"notifications-center-footer-change-password" = "Thay đổi mật khẩu";
+"notifications-center-feed-news-notification-button-text" = "Bật thông báo đẩy";
+"notifications-center-feed-news-notification-dismiss-button-text" = "Không phải bây giờ";
+// Fuzzy
 "notifications-center-go-to-diff" = "Xem khác biệt";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Xem trang thảo luận";
-"notifications-center-go-to-title" = "Xem $1";
+// Fuzzy
 "notifications-center-go-to-user-page" = "Xem trang thảo luận của $1";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "Xem khoản mục Wikidata";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "Xem trang thảo luận của bạn";
 "notifications-center-header-alert-from-project" = "Cảnh báo từ $1";
 "notifications-center-header-notice-from-project" = "Thông báo từ $1";
@@ -579,6 +586,7 @@
 "notifications-center-mark-all-as-read" = "Đánh dấu tất cả là đã đọc";
 "notifications-center-mark-as-read" = "Đánh dấu là Đã đọc";
 "notifications-center-mark-as-unread" = "Đánh dấu là chưa đọc";
+"notifications-center-more-action-accessibility-label" = "Thêm";
 "notifications-center-notifications-settings" = "Tùy chọn thông báo";
 "notifications-center-subheader-edit-milestone" = "Cột mốc sửa đổi";
 "notifications-center-subheader-edit-reverted" = "Sửa đổi của bạn bị lùi lại";
@@ -828,7 +836,9 @@
 "settings-language-bar" = "Hiển thị ngôn ngữ khi tìm kiếm";
 "settings-languages-feed-customization" = "Bạn có thể quản lý các ngôn ngữ xuất hiện trong nguồn cấp Thám hiểm trong cài đặt nguồn cấp Thám hiểm.";
 "settings-my-languages" = "Ngôn ngữ của tôi";
+// Fuzzy
 "settings-notifications" = "Thông báo";
+"settings-notifications-echo-failure-try-again" = "Thử lại";
 "settings-notifications-info" = "Nhận các thông báo đẩy về các bài thịnh hành và các bài được đọc nhiều nhất tại Wikipedia. Tất cả các thông báo tôn trọng quyền riêng tư và cung cấp dữ liệu mới mẻ.";
 "settings-notifications-learn-more" = "Tìm hiểu thêm về thông báo";
 "settings-notifications-push-notifications" = "Thông báo đẩy";

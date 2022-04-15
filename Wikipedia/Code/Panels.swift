@@ -32,7 +32,6 @@ class AnnouncementPanelViewController : ScrollableEducationPanelViewController {
         buttonCornerRadius = 8
         buttonTopSpacing = 10
         primaryButtonTitleEdgeInsets = UIEdgeInsets(top: 14, left: 14, bottom: 14, right: 14)
-        primaryButtonBorderWidth = 0
         dismissWhenTappedOutside = true
         contentHorizontalPadding = 20
     }
@@ -332,6 +331,18 @@ class LanguageVariantEducationalPanelViewController: ScrollableEducationPanelVie
             return ""
         }
     }
+}
+
+class NotificationsCenterOnboardingPushPanelViewController: ScrollableEducationPanelViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        heading = WMFLocalizedString("notifications-center-onboarding-panel-heading", value:"Turn on push notifications?", comment:"Title for Notifications Center onboarding panel.")
+        subheading = WMFLocalizedString("notifications-center-onboarding-panel-subheading", value:"Wikipedia is a collaborative project and turning on push notifications can make it easier to keep up to date with messages, alerts, and \"thanks\" from fellow editors.", comment:"Message for Notifications Center onboarding panel.")
+        primaryButtonTitle = WMFLocalizedString("notifications-center-onboarding-panel-primary-button", value:"Turn on push notifications", comment:"Title for Notifications Center onboarding panel primary button.")
+        secondaryButtonTitle = WMFLocalizedString("notifications-center-onboarding-panel-secondary-button", value:"No thanks", comment:"Title for Notifications Center onboarding panel secondary button.")
+    }
+
 }
 
 extension UIViewController {

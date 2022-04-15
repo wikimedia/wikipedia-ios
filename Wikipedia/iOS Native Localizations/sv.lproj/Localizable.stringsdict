@@ -31,7 +31,7 @@
 			<key>other</key>
 			<string>%1$d referenser</string>
 			<key>zero</key>
-			<string>0 referens</string>
+			<string>0 referenser</string>
 		</dict>
 	</dict>
 	<key>aaald-small-change-description</key>
@@ -93,7 +93,7 @@
 			<key>other</key>
 			<string>%3$d dagar</string>
 			<key>zero</key>
-			<string>0 dag</string>
+			<string>0 dagar</string>
 		</dict>
 	</dict>
 	<key>add-articles-to-reading-list</key>
@@ -347,8 +347,10 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>other</key>
+			<key>one</key>
 			<string>%1$d meddelande</string>
+			<key>other</key>
+			<string>%1$d meddelanden</string>
 		</dict>
 	</dict>
 	<key>notifications-center-status-in-projects</key>
@@ -442,9 +444,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d till historisk händelse</string>
+			<string>%1$d ytterligare historisk händelse</string>
 			<key>other</key>
-			<string>%1$d fler historiska händelser</string>
+			<string>%1$d ytterligare historiska händelser</string>
 		</dict>
 	</dict>
 	<key>page-history-revision-size-diff-addition</key>
