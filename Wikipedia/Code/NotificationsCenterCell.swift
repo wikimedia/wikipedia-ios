@@ -337,12 +337,13 @@ final class NotificationsCenterCell: UICollectionViewCell {
         projectSourceContainer.addSubview(projectSourceLabel)
         projectSourceContainer.addSubview(projectSourceImage)
 
+        let minimumSummaryHeight = (traitCollection.horizontalSizeClass == .regular) ? 40.0 : 64.0
         internalVerticalNotificationContentStack.addArrangedSubview(VerticalSpacerView.spacerWith(space: 6))
         internalVerticalNotificationContentStack.addArrangedSubview(subheaderLabel)
         internalVerticalNotificationContentStack.addArrangedSubview(VerticalSpacerView.spacerWith(space: 6))
         internalVerticalNotificationContentStack.addArrangedSubview(messageSummaryLabel)
         NSLayoutConstraint.activate([
-            messageSummaryLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 64)
+            messageSummaryLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: minimumSummaryHeight)
         ])
         internalVerticalNotificationContentStack.addArrangedSubview(VerticalSpacerView.spacerWith(space: 3))
         internalVerticalNotificationContentStack.addArrangedSubview(metaStackView)
@@ -375,16 +376,16 @@ final class NotificationsCenterCell: UICollectionViewCell {
         // Primary Hierarchy Constraints
 
         NSLayoutConstraint.activate([
-            leadingContainer.leadingAnchor.constraint(equalTo: foregroundContentContainer.leadingAnchor),
+            leadingContainer.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
             leadingContainer.topAnchor.constraint(equalTo: mainVerticalStackView.topAnchor),
             leadingContainer.bottomAnchor.constraint(equalTo: foregroundContentContainer.bottomAnchor),
             leadingContainer.trailingAnchor.constraint(equalTo: mainVerticalStackView.leadingAnchor),
 
             mainVerticalStackView.topAnchor.constraint(equalTo: foregroundContentContainer.topAnchor, constant: topMargin),
             mainVerticalStackView.bottomAnchor.constraint(equalTo: foregroundContentContainer.bottomAnchor, constant: -edgeMargin),
-            mainVerticalStackView.trailingAnchor.constraint(equalTo: foregroundContentContainer.trailingAnchor),
+            mainVerticalStackView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
 
-            headerTextContainer.trailingAnchor.constraint(equalTo: foregroundContentContainer.trailingAnchor, constant: -edgeMargin),
+            headerTextContainer.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: -edgeMargin),
 
             cellSeparator.heightAnchor.constraint(equalToConstant: 0.5),
             cellSeparator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
@@ -420,7 +421,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
 
         NSLayoutConstraint.activate([
             projectSourceContainer.widthAnchor.constraint(equalToConstant: 50),
-            projectSourceContainer.trailingAnchor.constraint(equalTo: foregroundContentContainer.trailingAnchor, constant: -edgeMargin),
+            projectSourceContainer.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: -edgeMargin),
 
             projectSourceLabel.topAnchor.constraint(equalTo: subheaderLabel.topAnchor),
             projectSourceLabel.trailingAnchor.constraint(equalTo: projectSourceContainer.trailingAnchor),
