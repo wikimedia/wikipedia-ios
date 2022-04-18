@@ -192,11 +192,6 @@
 "icon-shortcut-random-title" = "Amagrad agacuran";
 "icon-shortcut-search-title" = "Nadi di Wikipedia";
 "image-gallery-unknown-owner" = "Ameskar arussin.";
-"in-the-news-currently-trending" = "D atrar tura";
-"in-the-news-notification-read-now-action-title" = "Ɣeṛ tura";
-"in-the-news-notification-save-for-later-action-title" = "Sekles i ticki";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Bḍu...";
 "in-the-news-title" = "Deg isallen";
 "languages-title" = "Fren tutlayt";
 "languages-wikipedia" = "Tutlayin n wikipedia";
@@ -333,8 +328,6 @@
 "share-open-in-maps" = "Ldi di Maps";
 "share-social-format" = "“$1” s Wikipedia: $2";
 "share-social-mention-format" = "“$1” s @Wikipedia: $2";
-"status-saved-for-later" = "Yettwasekles i ticki";
-"status-saving-for-later" = "Asekles i ticki...";
 "table-of-contents-button-label" = "Agbur";
 "table-of-contents-close-accessibility-hint" = "Mdel";
 "table-of-contents-close-accessibility-label" = "Mdel agbur";

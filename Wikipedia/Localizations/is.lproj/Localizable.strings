@@ -428,10 +428,6 @@
 "icon-shortcut-random-title" = "Handahófsvalin grein";
 "icon-shortcut-search-title" = "Leita á Wikipedia";
 "image-gallery-unknown-owner" = "Óþekktur höfundur.";
-"in-the-news-currently-trending" = "Núna í umræðunni";
-"in-the-news-notification-read-now-action-title" = "Lesa núna";
-"in-the-news-notification-save-for-later-action-title" = "Vista til síðari tíma";
-"in-the-news-notification-share-action-title" = "Deila...";
 "in-the-news-sub-title-from-language-wikipedia" = "Af $1 Wikipedia";
 "in-the-news-sub-title-from-wikipedia" = "Af Wikipedia";
 "in-the-news-title" = "Í fréttum";
@@ -682,12 +678,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 atriði skipt út|$1 atriðum skipt út}}";
 "replace-textfield-accessibility" = "Skipta út";
 "replace-textfield-placeholder" = "Skipta út með…";
-"reverted-edit-back-to-article-button-title" = "Til baka í grein";
-"reverted-edit-possible-reasons" = "- Framlagið þitt fylgdi ekki einni af reglunum. $1 \n\n - framlagið þitt lítur út eins og tilraunastarfsemi eða jafnvel skemmdarverk";
-"reverted-edit-possible-reasons-subtitle" = "Við vitum að þú reyndir þitt besta, en einn í yfirlestrarhópnum var í vafa. \n\nHugsanlegar ástæður fyrir því að breytingunni þinni var hafnað, gætu meðal annars verið:";
-"reverted-edit-thanks-for-editing-title" = "Takk fyrir framlag þitt til Wikipedia!";
 "reverted-edit-title" = "Afturkölluð breyting";
-"reverted-edit-view-guidelines-text" = "Skoða leiðbeiningar";
 "saved-all-articles-title" = "Allar greinar";
 "saved-default-reading-list-tag" = "Ekki er hægt að eyða þessum lista";
 "saved-pages-image-download-error" = "Tókst ekki að sækja myndir fyrir þessa vistuðu síðu.";
@@ -761,8 +752,6 @@
 "share-social-mention-format" = "“$1” með @Wikipedia: $2";
 "sort-by-recently-added-action" = "Nýlega bætt við";
 "sort-by-title-action" = "Titill";
-"status-saved-for-later" = "Vistað til síðari tíma";
-"status-saving-for-later" = "Vista til síðari tíma...";
 "table-of-contents-button-label" = "Efnisyfirlit";
 "table-of-contents-close-accessibility-hint" = "Loka";
 "table-of-contents-close-accessibility-label" = "Loka efnisyfirliti";

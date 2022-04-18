@@ -254,10 +254,6 @@
 "icon-shortcut-random-title" = "Ausazko artikulua";
 "icon-shortcut-search-title" = "Bilatu Wikipedian";
 "image-gallery-unknown-owner" = "Egile ezezaguna.";
-"in-the-news-currently-trending" = "Modan dagoena";
-"in-the-news-notification-read-now-action-title" = "Irakurri orain";
-"in-the-news-notification-save-for-later-action-title" = "Gorde gerorako";
-"in-the-news-notification-share-action-title" = "Partekatu…";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 Wikipediatik";
 "in-the-news-sub-title-from-wikipedia" = "Wikipediatik";
 "in-the-news-title" = "Albisteak";
@@ -500,8 +496,6 @@
 "share-social-mention-format" = "“$1” @Wikipedia -(r)ren bidez: $2";
 "sort-by-recently-added-action" = "Berriki gehituak";
 "sort-by-title-action" = "Izenburua";
-"status-saved-for-later" = "Gorde gerorako";
-"status-saving-for-later" = "Gerorako gordetzen...";
 "table-of-contents-button-label" = "Eduki-taula";
 "table-of-contents-close-accessibility-hint" = "Itxi";
 "table-of-contents-close-accessibility-label" = "Itxi eduki-taula";

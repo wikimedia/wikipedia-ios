@@ -182,11 +182,6 @@
 "icon-shortcut-random-title" = "Artikel acak";
 "icon-shortcut-search-title" = "Paluruh Wikipédia";
 "image-gallery-unknown-owner" = "Nu nyieun teu dipikanyaho.";
-"in-the-news-currently-trending" = "Kiwari ngetrén";
-"in-the-news-notification-read-now-action-title" = "Baca ayeuna";
-"in-the-news-notification-save-for-later-action-title" = "Simpen jang engké";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Bagikeun...";
 "in-the-news-title" = "Dina warta";
 "insert-media-image-preview-select-image-action-title" = "Pilih gambar";
 "languages-title" = "Robah basa";
@@ -332,8 +327,6 @@
 "share-social-format" = "“$1” liwat Wikipedia: $2";
 "share-social-mention-format" = "“$1” liwat @Wikipedia: $2";
 "sort-by-title-action" = "Judul";
-"status-saved-for-later" = "Disimpen jang engké";
-"status-saving-for-later" = "Nyimpen jang engké...";
 "table-of-contents-button-label" = "Daptar Eusi";
 "table-of-contents-close-accessibility-hint" = "Tutup";
 "table-of-contents-close-accessibility-label" = "Tutup daptar eusi";

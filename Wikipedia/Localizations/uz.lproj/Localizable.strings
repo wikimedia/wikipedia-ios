@@ -188,8 +188,6 @@
 "history-title" = "Tarix";
 "icon-shortcut-random-title" = "Tasodifiy maqola";
 "image-gallery-unknown-owner" = "Muallif noʼmalum.";
-"in-the-news-notification-read-now-action-title" = "Hozir oʻqish";
-"in-the-news-notification-share-action-title" = "Ulashish…";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 Vikipediyadan";
 "in-the-news-sub-title-from-wikipedia" = "Vikipediyadan";
 "in-the-news-title" = "Yangiliklar";
@@ -292,7 +290,6 @@
 "relative-date-min-ago" = "{{PLURAL:$1|0=Hozir|$1 daqiqa avval}}";
 "replace-textfield-accessibility" = "Almashtirish";
 "replace-textfield-placeholder" = "Quyidagiga almashtirish:";
-"reverted-edit-back-to-article-button-title" = "Maqolaga qaytish";
 "saved-title" = "Saqlandi";
 "search-button-accessibility-label" = "Vikipediyadan izlash";
 "search-clear-title" = "Tozalash";

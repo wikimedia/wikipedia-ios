@@ -506,10 +506,6 @@
 "icon-shortcut-random-title" = "Artículo aleatorio";
 "icon-shortcut-search-title" = "Buscar en Wikipedia";
 "image-gallery-unknown-owner" = "Autor desconocido.";
-"in-the-news-currently-trending" = "En tendencia";
-"in-the-news-notification-read-now-action-title" = "Leer ahora";
-"in-the-news-notification-save-for-later-action-title" = "Guardar para después";
-"in-the-news-notification-share-action-title" = "Compartir…";
 "in-the-news-sub-title-from-language-wikipedia" = "De Wikipedia en $1";
 "in-the-news-sub-title-from-wikipedia" = "De Wikipedia";
 "in-the-news-title" = "Actualidad";
@@ -808,12 +804,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 elemento fue reemplazado|$1 elementos fueron reemplazados}}";
 "replace-textfield-accessibility" = "Reemplazar";
 "replace-textfield-placeholder" = "Reemplazar por…";
-"reverted-edit-back-to-article-button-title" = "Volver al artículo";
-"reverted-edit-possible-reasons" = "- Tu contribución no sigue alguna de las guías. $1\n\n- Tu contribución parece un experimento o un acto vandálico";
-"reverted-edit-possible-reasons-subtitle" = "Sabemos intentaste hacer lo mejor, pero uno de los revisores planteó una duda.\n\n\nPosibles razones por las que tu edición se rechazó:";
-"reverted-edit-thanks-for-editing-title" = "¡Gracias por editar en Wikipedia!";
 "reverted-edit-title" = "Edición rechazada";
-"reverted-edit-view-guidelines-text" = "Ver guías";
 "saved-all-articles-title" = "Todos los artículos";
 "saved-default-reading-list-tag" = "No se puede eliminar esta lista";
 "saved-pages-image-download-error" = "Error al descargar las imágenes de esta página guardada.";
@@ -892,8 +883,6 @@
 "share-social-mention-format" = "«$1» vía @Wikipedia: $2";
 "sort-by-recently-added-action" = "Añadidos recientemente";
 "sort-by-title-action" = "Título";
-"status-saved-for-later" = "Guardado para después";
-"status-saving-for-later" = "Guardando para después…";
 "table-of-contents-button-label" = "Sumario";
 "table-of-contents-close-accessibility-hint" = "Cerrar";
 "table-of-contents-close-accessibility-label" = "Cerrar el sumario";

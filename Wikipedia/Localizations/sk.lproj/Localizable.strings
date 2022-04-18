@@ -482,10 +482,6 @@
 "icon-shortcut-random-title" = "Náhodný článok";
 "icon-shortcut-search-title" = "Hľadať";
 "image-gallery-unknown-owner" = "Neznámy autor.";
-"in-the-news-currently-trending" = "Aktuálne trendy";
-"in-the-news-notification-read-now-action-title" = "Čítať";
-"in-the-news-notification-save-for-later-action-title" = "Uložiť na neskôr";
-"in-the-news-notification-share-action-title" = "Zdielať…";
 "in-the-news-sub-title-from-language-wikipedia" = "Z Wikipédie v jazyku $1";
 "in-the-news-sub-title-from-wikipedia" = "Z Wikipédie";
 "in-the-news-title" = "Správy";
@@ -801,12 +797,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 položka zmenená|$1 položky zmenené|$1 položiek zmenených}}";
 "replace-textfield-accessibility" = "Nahradiť";
 "replace-textfield-placeholder" = "Nahradiť za...";
-"reverted-edit-back-to-article-button-title" = "Späť na článok";
-"reverted-edit-possible-reasons" = "- Váš príspevok nezodpovedal niektorému z pokynov. $1\n\n\n- Váš príspevok vyzeral (alebo bol) experiment alebo vandalizmus.";
-"reverted-edit-possible-reasons-subtitle" = "Vieme, že ste sa snažili o to najlepšie, ale jeden z redaktorov vrátil úpravu.\n\nMožné dôvody vrátenie úpravy sú:";
-"reverted-edit-thanks-for-editing-title" = "Ďakujeme za úpravu Wikipédie!";
 "reverted-edit-title" = "Vrátená úprava";
-"reverted-edit-view-guidelines-text" = "Zobraziť pravidlá";
 "saved-all-articles-title" = "Všetky články";
 "saved-default-reading-list-tag" = "Tento zoznam nie je možné odstrániť";
 "saved-pages-image-download-error" = "Nepodarilo sa stiahnuť obrázky pre túto uloženú stránku.";
@@ -883,8 +874,6 @@
 "share-social-mention-format" = "„$1“ na @Wikipédi: $2";
 "sort-by-recently-added-action" = "Nedávno pridané";
 "sort-by-title-action" = "Podľa názvu";
-"status-saved-for-later" = "Uložené na neskôr";
-"status-saving-for-later" = "Ukladanie na neskôr...";
 "table-of-contents-button-label" = "Obsah";
 "table-of-contents-close-accessibility-hint" = "Zavrieť";
 "table-of-contents-close-accessibility-label" = "Zavrieť obsah";

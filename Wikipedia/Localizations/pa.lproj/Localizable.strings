@@ -128,10 +128,6 @@
 "icon-shortcut-search-title" = "ਵਿਕੀਪੀਡੀਆ ਖੋਜੋ";
 // Fuzzy
 "image-gallery-unknown-owner" = "ਚੜ੍ਹਾੳੁਣ ਵਾਲਾ ਅਣ-ਪਛਾਤਾ ਹੈ";
-"in-the-news-notification-read-now-action-title" = "ਹੁਣ ਪਡ਼੍ਹੋ";
-"in-the-news-notification-save-for-later-action-title" = "ਬਾਅਦ ਲਈ ਸੰਭਾਲੋ";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "ਸਾਂਝਾ ਕਰੋ...";
 "in-the-news-title" = "ਖ਼ਬਰਾਂ 'ਚ";
 "languages-title" = "ਭਾਸ਼ਾ ਬਦਲੋ";
 "login-join-wikipedia" = "ਵਿਕੀਪੀਡੀਆ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ";
@@ -217,8 +213,6 @@
 "share-menu-item" = "ਸਾਂਝਾ ਕਰੋ";
 "share-on-twitter-sign-off" = "@Wikipedia ਦੁਆਰਾ";
 "share-open-in-maps" = "ਨਕਸ਼ੇ 'ਚ ਖੋਲ੍ਹੋ";
-"status-saved-for-later" = "ਬਾਅਦ ਲਈ ਸੰਭਾਲਿਆ";
-"status-saving-for-later" = "ਬਾਅਦ ਲਈ ਸੰਭਾਲੋ";
 "table-of-contents-button-label" = "ਸਮੱਗਰੀ ਸਾਰਣੀ";
 "table-of-contents-close-accessibility-hint" = "ਬੰਦ";
 "table-of-contents-close-accessibility-label" = "ਸਮੱਗਰੀ ਸਾਰਣੀ ਬੰਦ ਕਰੋ";

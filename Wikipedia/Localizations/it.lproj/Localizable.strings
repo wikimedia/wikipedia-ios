@@ -395,10 +395,6 @@
 "icon-shortcut-random-title" = "Voce a caso";
 "icon-shortcut-search-title" = "Cerca su Wikipedia";
 "image-gallery-unknown-owner" = "Autore sconosciuto.";
-"in-the-news-currently-trending" = "Attualmente popolare";
-"in-the-news-notification-read-now-action-title" = "Leggi ora";
-"in-the-news-notification-save-for-later-action-title" = "Salva per dopo";
-"in-the-news-notification-share-action-title" = "Condividi…";
 "in-the-news-sub-title-from-language-wikipedia" = "Da Wikipedia in $1";
 "in-the-news-sub-title-from-wikipedia" = "Da Wikipedia";
 "in-the-news-title" = "Novità";
@@ -631,11 +627,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 elemento sostituito|$1 elementi sostituiti}}";
 "replace-textfield-accessibility" = "Sostituisci";
 "replace-textfield-placeholder" = "Sostituisci con…";
-"reverted-edit-back-to-article-button-title" = "Torna alla voce";
-"reverted-edit-possible-reasons" = "- Il tuo contributo non segue alcune linee guida. $1\n\n- Il tuo contributo è sembrato un test o un vandalismo";
-"reverted-edit-thanks-for-editing-title" = "Grazie per aver modificato Wikipedia!";
 "reverted-edit-title" = "Modifica annullata";
-"reverted-edit-view-guidelines-text" = "Vedi le linee guida";
 "saved-all-articles-title" = "Tutte le voci";
 "saved-default-reading-list-tag" = "Questo elenco non può essere cancellato";
 "saved-pages-image-download-error" = "Impossibile scaricare le immagini per questa pagina salvata.";
@@ -689,8 +681,6 @@
 "share-social-mention-format" = "“$1” tramite @Wikipedia: $2";
 "sort-by-recently-added-action" = "Aggiunti di recente";
 "sort-by-title-action" = "Titolo";
-"status-saved-for-later" = "Salvato per dopo";
-"status-saving-for-later" = "Salvataggio per dopo...";
 "table-of-contents-button-label" = "Indice";
 "table-of-contents-close-accessibility-hint" = "Chiudi";
 "table-of-contents-close-accessibility-label" = "Chiudi l'indice";

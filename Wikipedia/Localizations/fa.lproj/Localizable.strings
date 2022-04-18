@@ -509,10 +509,6 @@
 "icon-shortcut-random-title" = "مقاله تصادفی";
 "icon-shortcut-search-title" = "جستجو در ویکی‌پدیا";
 "image-gallery-unknown-owner" = "پدیدآورنده ناشناخته است.";
-"in-the-news-currently-trending" = "پرمخاطل در حال حاضر";
-"in-the-news-notification-read-now-action-title" = "الان بخوانید";
-"in-the-news-notification-save-for-later-action-title" = "ذخیره برای بعد";
-"in-the-news-notification-share-action-title" = "اشتراک‌گذاری...";
 "in-the-news-sub-title-from-language-wikipedia" = "از ویکی‌پدیای $1";
 "in-the-news-sub-title-from-wikipedia" = "از ویکی‌پدیا";
 "in-the-news-title" = "از میان خبرها";
@@ -595,7 +591,7 @@
 "no-internet-connection-article-reload" = "نسخهٔ جدیدتر این مقاله ممکن است موجود باشد، اما بدون اتصال به اینترنت، قابل دست‌یابی نیست";
 "no-internet-connection-article-reload-button" = "برگشت به آخرین نسخهٔ ذخیره‌شده";
 "notifications-center-alert" = "هشدار";
-"notifications-center-cell-notification-type-accessibility-label-format" = "اعلان $1";
+"notifications-center-cell-notification-type-accessibility-label-format" = "آگاه‌سازی $1";
 "notifications-center-change-password" = "تغییر رمز عبور";
 "notifications-center-destination-app" = "درون اپ";
 "notifications-center-destination-web" = "روی وب";
@@ -834,12 +830,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 مورد جایگزین شد|$1 مورد جایگزین شد}}";
 "replace-textfield-accessibility" = "جایگزینی";
 "replace-textfield-placeholder" = "جایگزینی با…";
-"reverted-edit-back-to-article-button-title" = "برگشت به مقاله";
-"reverted-edit-possible-reasons" = "- مشارکت شما از یکی از رهنمودها تبعیت نکرد. $1\n\n- مشارکت شما شبیه یک آزمایش یا خرابکاری به نظر رسید.";
-"reverted-edit-possible-reasons-subtitle" = "می‌دانیم که شما بهترین تلاش‌تان را کردید، اما یکی از بازبین‌های ما یک نگرانی داشته است.\n\nدلایل احتمالی برگردانده‌شدن ویرایش شما شامل موارد زیر است:";
-"reverted-edit-thanks-for-editing-title" = "سپاس بابت ویرایش در ویکی‌پدیا!";
 "reverted-edit-title" = "ویرایش‌های واگردانی‌شده";
-"reverted-edit-view-guidelines-text" = "مشاهدهٔ رهنمودها";
 "saved-all-articles-title" = "همهٔ مقالات";
 "saved-default-reading-list-tag" = "این فهرست را نمی‌توان حذف کرد";
 "saved-pages-image-download-error" = "ناتوان در بارگیری تصاویر برای این صفحهٔ ذخیره‌شده.";
@@ -915,8 +906,6 @@
 "share-social-mention-format" = "«$1» توسط @ویکی‌پدیا: $2";
 "sort-by-recently-added-action" = "به‌تازگی اضافه‌شده";
 "sort-by-title-action" = "عنوان";
-"status-saved-for-later" = "برای بعد ذخیره‌شد";
-"status-saving-for-later" = "در حال ذخیره برای بعد...";
 "table-of-contents-button-label" = "جعبه محتویات";
 "table-of-contents-close-accessibility-hint" = "بستن";
 "table-of-contents-close-accessibility-label" = "بستن جعبه محتویات";

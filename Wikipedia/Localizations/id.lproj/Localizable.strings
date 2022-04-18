@@ -498,10 +498,6 @@
 "icon-shortcut-random-title" = "Artikel acak";
 "icon-shortcut-search-title" = "Telusuri Wikipedia";
 "image-gallery-unknown-owner" = "Pembuat tidak diketahui.";
-"in-the-news-currently-trending" = "Saat ini ngetren";
-"in-the-news-notification-read-now-action-title" = "Baca Sekarang";
-"in-the-news-notification-save-for-later-action-title" = "Simpan untuk nanti";
-"in-the-news-notification-share-action-title" = "Bagikan...";
 "in-the-news-sub-title-from-language-wikipedia" = "Dari Wikipedia $1";
 "in-the-news-sub-title-from-wikipedia" = "Dari Wikipedia";
 "in-the-news-title" = "Peristiwa terkini";
@@ -848,12 +844,7 @@
 "replace-replace-all-results-count" = "$1 butir diganti";
 "replace-textfield-accessibility" = "Ganti";
 "replace-textfield-placeholder" = "Ganti dengan...";
-"reverted-edit-back-to-article-button-title" = "Kembali ke artikel";
-"reverted-edit-possible-reasons" = "- Kontribusi Anda tidak mengikuti salah satu pedoman. $1 \n\n - Kontribusi Anda tampak seperti eksperimen atau vandalisme";
-"reverted-edit-possible-reasons-subtitle" = "Kami tahu bahwa Anda telah mencoba yang terbaik, tetapi salah satu peninjau memiliki kekhawatiran.\n\nKemungkinan alasan suntingan Anda dikembalikan meliputi:";
-"reverted-edit-thanks-for-editing-title" = "Terima kasih telah menyunting di Wikipedia!";
 "reverted-edit-title" = "Suntingan dikembalikan";
-"reverted-edit-view-guidelines-text" = "Lihat pedoman";
 "saved-all-articles-title" = "Semua artikel";
 "saved-default-reading-list-tag" = "Daftar ini tidak dapat dihapus";
 "saved-pages-image-download-error" = "Gagal mengunduh gambar untuk halaman ini";
@@ -929,8 +920,6 @@
 "share-social-mention-format" = "“$1” melalui @Wikipedia: $2";
 "sort-by-recently-added-action" = "Baru-baru ini ditambahkan";
 "sort-by-title-action" = "Judul";
-"status-saved-for-later" = "Disimpan untuk nanti";
-"status-saving-for-later" = "Menyimpan untuk nanti...";
 "table-of-contents-button-label" = "Daftar isi";
 "table-of-contents-close-accessibility-hint" = "Tutup";
 "table-of-contents-close-accessibility-label" = "Tutup daftar isi";

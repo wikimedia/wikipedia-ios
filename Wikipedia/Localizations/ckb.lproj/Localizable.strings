@@ -228,10 +228,6 @@
 "icon-shortcut-random-title" = "وتاری هەڕەمەکی";
 "icon-shortcut-search-title" = "گەڕان بە ویکیپیدیادا";
 "image-gallery-unknown-owner" = "نووسەر نەناسراوە.";
-"in-the-news-currently-trending" = "بەناوبانگ لە ئێستادا";
-"in-the-news-notification-read-now-action-title" = "ئێستە بیخوێنەوە";
-"in-the-news-notification-save-for-later-action-title" = "خەزێنەکردن بۆ دواتر";
-"in-the-news-notification-share-action-title" = "ھاوبەشکردن…";
 "in-the-news-title" = "لە ھەواڵەکاندا";
 "insert-media-image-preview-more-information-action-title" = "زانیاریی زیاتر";
 "languages-title" = "گۆڕینی زمان";
@@ -369,8 +365,6 @@
 "share-open-in-maps" = "کردنەوە لە نەخشەدا";
 "share-social-format" = "«$1» بە ویکیپیدیا: $2";
 "share-social-mention-format" = "«$1» بە @ویکیپیدیا: $2";
-"status-saved-for-later" = "خەزێنە کرا بۆ دواتر";
-"status-saving-for-later" = "خەزێنە دەکرێت بۆ دواتر...";
 "table-of-contents-button-label" = "خشتەی ناوەڕۆکەکان";
 "table-of-contents-close-accessibility-hint" = "داخستن";
 "table-of-contents-close-accessibility-label" = "داخستنی خشتەی ناوەڕۆکەکان";

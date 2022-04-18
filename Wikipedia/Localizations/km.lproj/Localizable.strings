@@ -197,11 +197,6 @@
 "icon-shortcut-random-title" = "អត្ថបទចៃដន្យ";
 "icon-shortcut-search-title" = "ស្វែងរកក្នុងវិគីភីឌា";
 "image-gallery-unknown-owner" = "អ្នកនិពន្ធមិនស្គាល់។";
-"in-the-news-currently-trending" = "កំពុងពេញនិយម";
-"in-the-news-notification-read-now-action-title" = "អានឥឡូវ";
-"in-the-news-notification-save-for-later-action-title" = "រក្សាទុកសម្រាប់អានពេលក្រោយ";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "ចែកចាយ...";
 "in-the-news-title" = "នៅក្នុងសារព័ត៌មាន";
 "languages-title" = "ប្ដូរភាសា";
 "languages-wikipedia" = "ភាសាវិគីភីឌា";
@@ -335,8 +330,6 @@
 "share-open-in-maps" = "បើកក្នុងកម្មវិធីផែនទី";
 "share-social-format" = "“$1” តាមរយៈវិគីភីឌា៖ $2";
 "share-social-mention-format" = "“$1” តាមរយៈ@Wikipedia៖ $2";
-"status-saved-for-later" = "រក្សាទុករួចសម្រាប់លើកក្រោយ";
-"status-saving-for-later" = "កំពុងរក្សាទុកសម្រាប់លើកក្រោយ...";
 "table-of-contents-button-label" = "មាតិកា";
 "table-of-contents-close-accessibility-hint" = "បិទ";
 "table-of-contents-close-accessibility-label" = "បិទមាតិកា";

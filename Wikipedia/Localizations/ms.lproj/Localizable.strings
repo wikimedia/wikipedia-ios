@@ -415,10 +415,6 @@
 "icon-shortcut-random-title" = "Rencana sembarang";
 "icon-shortcut-search-title" = "Cari dalam Wikipedia";
 "image-gallery-unknown-owner" = "Pengarang tidak dikenali.";
-"in-the-news-currently-trending" = "Semasa ini ngetren";
-"in-the-news-notification-read-now-action-title" = "Baca Sekarang";
-"in-the-news-notification-save-for-later-action-title" = "Simpan untuk nanti";
-"in-the-news-notification-share-action-title" = "Kongsikan…";
 "in-the-news-sub-title-from-language-wikipedia" = "Dari Wikipedia $1";
 "in-the-news-sub-title-from-wikipedia" = "Dari Wikipedia";
 "in-the-news-title" = "Berita terkini";
@@ -485,6 +481,13 @@
 "no-internet-connection-article-reload-button" = "Kembali ke versi terakhir yang disimpan";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "Hidupkan pemberitahuan";
+"notifications-center-go-to-article" = "Rencana";
+"notifications-center-go-to-article-talk-format" = "Laman perbincangan $1";
+"notifications-center-go-to-diff" = "Beza";
+"notifications-center-go-to-discussion-page" = "Laman perbincangan";
+"notifications-center-go-to-talk-page" = "Laman perbincangan";
+"notifications-center-go-to-wikidata-item" = "Butir Wikidata";
+"notifications-center-go-to-your-talk-page" = "Laman perbincangan anda";
 "number-billions" = "$1 bilion";
 "number-millions" = "$1 juta";
 "number-thousands" = "$1 ribu";
@@ -639,12 +642,7 @@
 "replace-infolabel-method-replace-all" = "Ganti semua";
 "replace-textfield-accessibility" = "Ganti";
 "replace-textfield-placeholder" = "Ganti dengan...";
-"reverted-edit-back-to-article-button-title" = "Kembali ke rencana";
-"reverted-edit-possible-reasons" = "- Sumbangan anda tidak mengikuti salah satu garis panduan. $1 \n\n - Sumbangan anda kelihatan seperti percubaan atau vandalisme";
-"reverted-edit-possible-reasons-subtitle" = "Kami tahu bahawa anda mencuba yang terbaik, tetapi salah seorang pengulas mempunyai kebimbangan.\n\nSebab-sebab yang mungkin penyuntingan anda dikembalikan termasuk:";
-"reverted-edit-thanks-for-editing-title" = "Terima kasih kerana menyunting di Wikipedia!";
 "reverted-edit-title" = "Suntingan semula";
-"reverted-edit-view-guidelines-text" = "Lihat garis panduan";
 "saved-all-articles-title" = "Semua rencana";
 "saved-default-reading-list-tag" = "Senarai ini tidak dapat dipadamkan";
 "saved-pages-image-download-error" = "Gagal untuk memuat turun imej untuk laman tersimpan ini.";
@@ -718,8 +716,6 @@
 "share-social-mention-format" = "“$1” melalui @Wikipedia: $2";
 "sort-by-recently-added-action" = "Baru sahaja ditambah";
 "sort-by-title-action" = "Tajuk";
-"status-saved-for-later" = "Disimpan untuk nanti";
-"status-saving-for-later" = "Menyimpan untuk nanti...";
 "table-of-contents-button-label" = "Jadual isi kandungan";
 "table-of-contents-close-accessibility-hint" = "Tutup";
 "table-of-contents-close-accessibility-label" = "Tutup jadual isi kandungan";

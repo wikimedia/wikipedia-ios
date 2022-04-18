@@ -264,10 +264,6 @@
 "icon-shortcut-random-title" = "Alt randamach";
 "icon-shortcut-search-title" = "Cuardaigh Vicipéid";
 "image-gallery-unknown-owner" = "Údar anaithnid.";
-"in-the-news-currently-trending" = "Ag treochtáil faoi láthair";
-"in-the-news-notification-read-now-action-title" = "Léigh Anois";
-"in-the-news-notification-save-for-later-action-title" = "Sábháil le léamh níos déanaí";
-"in-the-news-notification-share-action-title" = "Comhroinn...";
 "in-the-news-sub-title-from-language-wikipedia" = "Ó Vicipéid ($1)";
 "in-the-news-sub-title-from-wikipedia" = "Ón Vicipéid";
 "in-the-news-title" = "Sa nuacht";
@@ -414,9 +410,6 @@
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Le déanaí|$1 uair amháin ó shin|$1 uair ó shin}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Díreach anois|$1 nóiméad amháin ó shin|$1 nóiméad ó shin}}";
 "relative-date-years-ago" = "{{PLURAL:$1|0=I mbliana|1=I mbliana|$1 bliana ó shin}}";
-"reverted-edit-back-to-article-button-title" = "Siar go halt";
-"reverted-edit-thanks-for-editing-title" = "Go raibh maith agat as Vicipéid a chur in eagar!";
-"reverted-edit-view-guidelines-text" = "Féach ar treoirlínte";
 "saved-all-articles-title" = "Na hailt uile";
 "saved-default-reading-list-tag" = "Ní féidir an liosta seo a scriosadh";
 "saved-pages-progress-syncing" = "Alt á íoslódáil...";
@@ -469,8 +462,6 @@
 "share-social-mention-format" = "“$1” trí @Wikipedia: $2";
 "sort-by-recently-added-action" = "Curtha leis le déanaí";
 "sort-by-title-action" = "Teideal";
-"status-saved-for-later" = "Sábháilte le léamh níos déanaí";
-"status-saving-for-later" = "Ag sábháil le léamh níos déanaí...";
 "table-of-contents-button-label" = "Clár ábhair";
 "table-of-contents-close-accessibility-hint" = "Dún";
 "table-of-contents-close-accessibility-label" = "Dún Clár ábhair";
