@@ -307,10 +307,6 @@
 "icon-shortcut-random-title" = "Tilfældig artikel";
 "icon-shortcut-search-title" = "Søg i Wikipedia";
 "image-gallery-unknown-owner" = "Ophavsmand ukendt.";
-"in-the-news-currently-trending" = "Populært nu";
-"in-the-news-notification-read-now-action-title" = "Læs nu";
-"in-the-news-notification-save-for-later-action-title" = "Gem til senere";
-"in-the-news-notification-share-action-title" = "Del…";
 "in-the-news-sub-title-from-language-wikipedia" = "Fra $1 Wikipedia";
 "in-the-news-sub-title-from-wikipedia" = "Fra Wikipedia";
 "in-the-news-title" = "I nyhederne";
@@ -493,10 +489,7 @@
 "replace-infolabel-method-replace-all" = "Erstat alle";
 "replace-textfield-accessibility" = "Erstat";
 "replace-textfield-placeholder" = "Erstat med...";
-"reverted-edit-back-to-article-button-title" = "Tilbage til artiklen";
-"reverted-edit-thanks-for-editing-title" = "Tak fordi du redigerer Wikipedia!";
 "reverted-edit-title" = "Omgjort redigering";
-"reverted-edit-view-guidelines-text" = "Vis retningslinjer";
 "saved-all-articles-title" = "Alle artikler";
 "saved-default-reading-list-tag" = "Denne liste kan ikke slettes";
 "saved-pages-image-download-error" = "Hentning af billeder mislykkedes for denne gemte side.";
@@ -571,8 +564,6 @@
 "share-social-mention-format" = "»$1« via @Wikipedia: $2";
 "sort-by-recently-added-action" = "Tilføjet for nylig";
 "sort-by-title-action" = "Titel";
-"status-saved-for-later" = "Gemt til senere";
-"status-saving-for-later" = "Gemmer til senere...";
 "table-of-contents-button-label" = "Indholdsfortegnelse";
 "table-of-contents-close-accessibility-hint" = "Afslut";
 "table-of-contents-close-accessibility-label" = "Luk indholdsfortegnelse";

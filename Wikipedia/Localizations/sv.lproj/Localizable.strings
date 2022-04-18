@@ -494,10 +494,6 @@
 "icon-shortcut-random-title" = "Slumpartikel";
 "icon-shortcut-search-title" = "Sök på Wikipedia";
 "image-gallery-unknown-owner" = "Okänd författare.";
-"in-the-news-currently-trending" = "Populärt just nu";
-"in-the-news-notification-read-now-action-title" = "Läs nu";
-"in-the-news-notification-save-for-later-action-title" = "Spara till senare";
-"in-the-news-notification-share-action-title" = "Dela…";
 "in-the-news-sub-title-from-language-wikipedia" = "Från Wikipedia på $1";
 "in-the-news-sub-title-from-wikipedia" = "Från Wikipedia";
 "in-the-news-title" = "I nyheterna";
@@ -877,12 +873,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 instans ersättes|$1 instanser ersättes}}";
 "replace-textfield-accessibility" = "Ersätt";
 "replace-textfield-placeholder" = "Ersätt med…";
-"reverted-edit-back-to-article-button-title" = "Tillbaka till artikeln";
-"reverted-edit-possible-reasons" = "- Ditt bidrag följde inte en av riktlinjerna. $1 \n\n - Ditt bidrag såg ut som ett experiment eller vandalism";
-"reverted-edit-possible-reasons-subtitle" = "Vi vet att du försökte ditt bästa men en av granskarna hade en invändning.\n\nMöjliga anledningar till att din redigering återställdes inkluderar:";
-"reverted-edit-thanks-for-editing-title" = "Tack för att du redigerar på Wikipedia!";
 "reverted-edit-title" = "Återställd redigering";
-"reverted-edit-view-guidelines-text" = "Visa riktlinjerna";
 "saved-all-articles-title" = "Alla artiklar";
 "saved-default-reading-list-tag" = "Denna lista kan inte raderas";
 "saved-pages-image-download-error" = "Gick inte att ladda ner bilder för den här sparade sidan.";
@@ -961,8 +952,6 @@
 "share-social-mention-format" = "“$1” via @Wikipedia: $2";
 "sort-by-recently-added-action" = "Nyligen tillagda";
 "sort-by-title-action" = "Titel";
-"status-saved-for-later" = "Sparades till senare";
-"status-saving-for-later" = "Spara till senare...";
 "table-of-contents-button-label" = "Innehållsförteckning";
 "table-of-contents-close-accessibility-hint" = "Stäng";
 "table-of-contents-close-accessibility-label" = "Fäll ihop innehållsförteckning";

@@ -141,10 +141,6 @@
 "home-title" = "Verken";
 // Fuzzy
 "image-gallery-unknown-owner" = "Oplaaier onbekend.";
-"in-the-news-notification-read-now-action-title" = "Lees Nou";
-"in-the-news-notification-save-for-later-action-title" = "Bewaar vir later";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Deel…";
 "in-the-news-sub-title-from-language-wikipedia" = "Uit Wikipedia in $1";
 "in-the-news-sub-title-from-wikipedia" = "Uit Wikipedia";
 "in-the-news-title" = "In die nuus";
@@ -237,8 +233,6 @@
 "share-open-in-maps" = "Open in Kaarte";
 "sort-by-recently-added-action" = "Onlangs bygevoeg";
 "sort-by-title-action" = "Titel";
-"status-saved-for-later" = "Bewaar vir later";
-"status-saving-for-later" = "Bewaar vir later…";
 "table-of-contents-button-label" = "Inhoudsopgawe";
 "table-of-contents-close-accessibility-hint" = "Sluit";
 "table-of-contents-close-accessibility-label" = "Sluit Inhoudsopgawe";

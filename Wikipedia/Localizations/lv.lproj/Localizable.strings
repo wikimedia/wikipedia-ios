@@ -118,9 +118,6 @@
 "icon-shortcut-random-title" = "Nejauša lapa";
 "icon-shortcut-search-title" = "Meklēt Vikipēdijā";
 "image-gallery-unknown-owner" = "Autors nezināms.";
-"in-the-news-notification-read-now-action-title" = "Lasīt tagad";
-"in-the-news-notification-save-for-later-action-title" = "Saglabāt vēlākam laikam";
-"in-the-news-notification-share-action-title" = "Dalīties…";
 "in-the-news-title" = "Ziņās";
 "insert-action-title" = "Ievietot";
 "insert-link-title" = "Ievietot saiti";
@@ -193,10 +190,7 @@
 "replace-infolabel-method-replace-all" = "Aizvietot visus";
 "replace-textfield-accessibility" = "Aizvietot";
 "replace-textfield-placeholder" = "Aizvietot ar...";
-"reverted-edit-back-to-article-button-title" = "Atpakaļ uz rakstu";
-"reverted-edit-thanks-for-editing-title" = "Paldies par Vikipēdijas labošanu!";
 "reverted-edit-title" = "Atcelts labojums";
-"reverted-edit-view-guidelines-text" = "Skatīt vadlīnijas";
 "saved-all-articles-title" = "Visi raksti";
 // Fuzzy
 "saved-search-default-text" = "Meklēt";
@@ -226,8 +220,6 @@
 "share-get-directions-in-maps" = "Saņemt norādes";
 "share-menu-item" = "Dalīties...";
 "share-open-in-maps" = "Atvērt iekš Maps";
-"status-saved-for-later" = "Saglabāts vēlākam laikam";
-"status-saving-for-later" = "Saglabā vēlākam laikam...";
 "table-of-contents-button-label" = "Satura rādītājs";
 "table-of-contents-close-accessibility-hint" = "Aizvērt";
 "table-of-contents-close-accessibility-label" = "Aizvērt satura rādītāju";

@@ -490,10 +490,6 @@
 "icon-shortcut-random-title" = "Випадкова стаття";
 "icon-shortcut-search-title" = "Пошук по Вікіпедії";
 "image-gallery-unknown-owner" = "Автор невідомий.";
-"in-the-news-currently-trending" = "Зараз популярні";
-"in-the-news-notification-read-now-action-title" = "Читати зараз";
-"in-the-news-notification-save-for-later-action-title" = "Зберегти на потім";
-"in-the-news-notification-share-action-title" = "Поділитися…";
 "in-the-news-sub-title-from-language-wikipedia" = "Із Вікіпедії мовою «$1»";
 "in-the-news-sub-title-from-wikipedia" = "З Вікіпедії";
 "in-the-news-title" = "У новинах";
@@ -840,12 +836,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|виконана 1 заміна|виконані $1 заміни|виконано $1 замін}}";
 "replace-textfield-accessibility" = "Замінити";
 "replace-textfield-placeholder" = "Замінити на…";
-"reverted-edit-back-to-article-button-title" = "Назад до статті";
-"reverted-edit-possible-reasons" = "- Ваш внесок не відповідає одній з настанов. $1\n\n- Ваш внесок схожий на вандалізм";
-"reverted-edit-possible-reasons-subtitle" = "Ми знаємо, що ви старалися як могли, але в одного з перевіряльників виникли сумніви.\n\nЙмовірні причини скасування вашого редагування:";
-"reverted-edit-thanks-for-editing-title" = "Дякуємо за редагування Вікіпедії!";
 "reverted-edit-title" = "Відкинуте редагування";
-"reverted-edit-view-guidelines-text" = "Переглянути настанови";
 "saved-all-articles-title" = "Усі статті";
 "saved-default-reading-list-tag" = "Цей список не можна вилучити";
 "saved-pages-image-download-error" = "Не вдалося завантажити малюнки для цієї збереженої сторінки.";
@@ -921,8 +912,6 @@
 "share-social-mention-format" = "«$1» у Вікіпедії мовою «$2»";
 "sort-by-recently-added-action" = "Нещодавно додані";
 "sort-by-title-action" = "Назва";
-"status-saved-for-later" = "Збережено на потім";
-"status-saving-for-later" = "Збереження на потім…";
 "table-of-contents-button-label" = "Вміст";
 "table-of-contents-close-accessibility-hint" = "Закрити";
 "table-of-contents-close-accessibility-label" = "Закрити зміст";

@@ -265,10 +265,6 @@
 "icon-shortcut-random-title" = "Zoufällegen Artikel";
 "icon-shortcut-search-title" = "Op Wikipedia sichen";
 "image-gallery-unknown-owner" = "Auteur onbekannt.";
-"in-the-news-currently-trending" = "Aktuell beléift";
-"in-the-news-notification-read-now-action-title" = "Elo Liesen";
-"in-the-news-notification-save-for-later-action-title" = "Fir spéider späicheren";
-"in-the-news-notification-share-action-title" = "Deelen...";
 "in-the-news-sub-title-from-language-wikipedia" = "Vu Wikipedia op $1";
 "in-the-news-sub-title-from-wikipedia" = "Vu Wikipedia";
 "in-the-news-title" = "An den Neiegkeeten";
@@ -496,7 +492,6 @@
 "replace-infolabel-method-replace-all" = "All ersetzen";
 "replace-textfield-accessibility" = "Ersetzen";
 "replace-textfield-placeholder" = "Ersetzen duerch...";
-"reverted-edit-back-to-article-button-title" = "Zréck op den Artikel";
 "saved-all-articles-title" = "All Artikelen";
 "saved-default-reading-list-tag" = "Dës Lëscht kann net geläscht ginn";
 "saved-pages-image-download-error" = "D'Biller fir dës gespäichert Säit konnten net erofgeluede ginn.";
@@ -557,8 +552,6 @@
 "share-social-mention-format" = "\"$1\" via @Wikipedia: $2";
 "sort-by-recently-added-action" = "Rezent derbäigesat";
 "sort-by-title-action" = "Titel";
-"status-saved-for-later" = "Fir spéider gespäichert";
-"status-saving-for-later" = "Fir spéider späicheren...";
 "table-of-contents-button-label" = "Inhaltsverzeechnes";
 "table-of-contents-close-accessibility-hint" = "Zoumaachen";
 "table-of-contents-close-accessibility-label" = "Inhaltsverzeechnes zoumaachen";

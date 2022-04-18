@@ -224,11 +224,6 @@
 "icon-shortcut-random-title" = "Ur pennad dre zegouezh";
 "icon-shortcut-search-title" = "Klask e Wikipedia";
 "image-gallery-unknown-owner" = "Aozer dianav.";
-"in-the-news-currently-trending" = "Diouzh ar c'hiz bremañ";
-"in-the-news-notification-read-now-action-title" = "Lenn bremañ";
-"in-the-news-notification-save-for-later-action-title" = "Enrollañ evit diwezhatoc'h";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Rannañ...";
 "in-the-news-sub-title-from-language-wikipedia" = "Eus $1 Wikipedia";
 "in-the-news-sub-title-from-wikipedia" = "Eus Wikipedia";
 "in-the-news-title" = "Er C'heleier";
@@ -375,8 +370,6 @@
 "share-get-directions-in-maps" = "Kaout an tuioù";
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-open-in-maps" = "Digor e Kartennoù";
-"status-saved-for-later" = "Enrollet evit diwezhatoc'h";
-"status-saving-for-later" = "Enrollañ evit diwezhatoc'h...";
 "table-of-contents-button-label" = "Taolenn";
 "table-of-contents-close-accessibility-hint" = "Serriñ";
 "table-of-contents-close-accessibility-label" = "Serriñ an daolenn";

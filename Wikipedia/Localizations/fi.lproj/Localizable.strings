@@ -493,10 +493,6 @@
 "icon-shortcut-random-title" = "Satunnainen artikkeli";
 "icon-shortcut-search-title" = "Etsi Wikipediasta";
 "image-gallery-unknown-owner" = "Tuntematon tekijä.";
-"in-the-news-currently-trending" = "Tällä hetkellä suosittuja";
-"in-the-news-notification-read-now-action-title" = "Lue nyt";
-"in-the-news-notification-save-for-later-action-title" = "Tallenna myöhemmäksi";
-"in-the-news-notification-share-action-title" = "Jaa…";
 "in-the-news-sub-title-from-language-wikipedia" = "Wikipedian kieliversiossa $1";
 "in-the-news-sub-title-from-wikipedia" = "Wikipediasta";
 "in-the-news-title" = "Uutisissa";
@@ -844,12 +840,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 kohde korvattu|$1 kohdetta korvattu}}";
 "replace-textfield-accessibility" = "Korvaa";
 "replace-textfield-placeholder" = "Korvaa seuraavalla...";
-"reverted-edit-back-to-article-button-title" = "Takaisin artikkeliin";
-"reverted-edit-possible-reasons" = "- Muutoksesi ei noudata yhtä suuntaviivoista. $1 \n\n - Muutoksesi näyttää kokeilulta tai vandalismilta";
-"reverted-edit-possible-reasons-subtitle" = "Teit varmasti parhaasi, mutta muokkauksessasi oli puutteita.\n\nKumoamisen syy saattoi olla:";
-"reverted-edit-thanks-for-editing-title" = "Kiitos Wikipedian muokkaamisesta!";
 "reverted-edit-title" = "Kumottu muokkaus";
-"reverted-edit-view-guidelines-text" = "Näytä suuntaviivat";
 "saved-all-articles-title" = "Kaikki artikkelit";
 "saved-default-reading-list-tag" = "Tätä listaa ei voi poistaa";
 "saved-pages-image-download-error" = "Tämän tallennetun sivun kuvien lataaminen epäonnistui.";
@@ -923,8 +914,6 @@
 "share-social-mention-format" = "“$1” @Wikipedian kautta: $2";
 "sort-by-recently-added-action" = "Äskettäin lisätyt";
 "sort-by-title-action" = "Otsikko";
-"status-saved-for-later" = "Tallennettu myöhempää varten";
-"status-saving-for-later" = "Tallennetaan myöhempää varten...";
 "table-of-contents-button-label" = "Sisällysluettelo";
 "table-of-contents-close-accessibility-hint" = "Sulje";
 "table-of-contents-close-accessibility-label" = "Sulje sisällysluettelo";

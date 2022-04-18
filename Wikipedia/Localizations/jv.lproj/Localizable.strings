@@ -238,10 +238,6 @@
 "icon-shortcut-random-title" = "Artikel sembarang";
 "icon-shortcut-search-title" = "Golèk ing Wikipédia";
 "image-gallery-unknown-owner" = "Kang nganggit ora kaweruhan.";
-"in-the-news-currently-trending" = "Lagi mumbul";
-"in-the-news-notification-read-now-action-title" = "Waca Saiki";
-"in-the-news-notification-save-for-later-action-title" = "Simpen kanggo mengko";
-"in-the-news-notification-share-action-title" = "Ngedum…";
 "in-the-news-sub-title-from-language-wikipedia" = "Saka Wikipédia $1";
 "in-the-news-sub-title-from-wikipedia" = "Saka Wikipédia";
 "in-the-news-title" = "Lagi dadi warta";
@@ -338,7 +334,6 @@
 "replace-infolabel-method-replace-all" = "Ganti kabèh";
 "replace-textfield-accessibility" = "Ganti";
 "replace-textfield-placeholder" = "Ganti mawa...";
-"reverted-edit-back-to-article-button-title" = "Bali menyang artikel";
 "saved-all-articles-title" = "Kabèh artikel";
 "saved-default-reading-list-tag" = "Pratélan iki ora bisa dibusek";
 "saved-pages-image-download-error" = "Wurung ngundhuh gambar tumrap kaca simpenan iki.";
@@ -390,8 +385,6 @@
 "share-social-mention-format" = "“$1” lumantar @Wikipedia: $2";
 "sort-by-recently-added-action" = "Mentas kawuwuhaké";
 "sort-by-title-action" = "Sesirah";
-"status-saved-for-later" = "Kasimpen kanggo mengko";
-"status-saving-for-later" = "Nyimpen kanggo mengko...";
 "table-of-contents-button-label" = "Pratélan isi";
 "table-of-contents-close-accessibility-hint" = "Tutup";
 "table-of-contents-close-accessibility-label" = "Tutup Pratélan isi";

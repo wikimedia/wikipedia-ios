@@ -219,11 +219,6 @@
 "icon-shortcut-random-title" = "Түбэспиччэ ыстатыйа";
 "icon-shortcut-search-title" = "Бикипиэдьийэттэн булуу";
 "image-gallery-unknown-owner" = "Ааптара биллибэт.";
-"in-the-news-currently-trending" = "Билигин ордук сэргэнэр";
-"in-the-news-notification-read-now-action-title" = "Билигин ааҕыам";
-"in-the-news-notification-save-for-later-action-title" = "Кэлин бигэргэтиэм";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Тарҕат...";
 "in-the-news-title" = "Сонуннарга ахтыллар";
 "insert-action-title" = "Ук";
 "insert-link-title" = "Сигэни ук";
@@ -351,8 +346,6 @@
 "share-get-directions-in-maps" = "Суолу салҕаа";
 "share-on-twitter-sign-off" = "@Wikipedia нөҥүө";
 "share-open-in-maps" = "Каартаҕа арый";
-"status-saved-for-later" = "Хойут бигэргэтэргэ хаалларыллыбыт";
-"status-saving-for-later" = "Кэлин бигэргэтэргэ...";
 "table-of-contents-button-label" = "Иһинээҕитэ";
 "table-of-contents-close-accessibility-hint" = "Сап";
 "table-of-contents-close-accessibility-label" = "Ис хоһоонун тиһилигин сап";

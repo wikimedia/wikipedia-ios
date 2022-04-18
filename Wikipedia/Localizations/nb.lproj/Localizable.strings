@@ -485,10 +485,6 @@
 "icon-shortcut-random-title" = "Tilfeldig artikkel";
 "icon-shortcut-search-title" = "Søk i Wikipedia";
 "image-gallery-unknown-owner" = "Ukjent forfatter.";
-"in-the-news-currently-trending" = "Populært nå";
-"in-the-news-notification-read-now-action-title" = "Les nå";
-"in-the-news-notification-save-for-later-action-title" = "Lagre til senere";
-"in-the-news-notification-share-action-title" = "Del …";
 "in-the-news-sub-title-from-language-wikipedia" = "Fra Wikipedia på $1";
 "in-the-news-sub-title-from-wikipedia" = "Fra Wikipedia";
 "in-the-news-title" = "Aktuelt";
@@ -840,12 +836,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 forekomst erstattet|$1 forekomster erstattet}}";
 "replace-textfield-accessibility" = "Erstatt";
 "replace-textfield-placeholder" = "Erstatt med…";
-"reverted-edit-back-to-article-button-title" = "Tilbake til artikkelen";
-"reverted-edit-possible-reasons" = "- Bidraget ditt brøt med en av retningslinjene. $ 1\n\n- Bidraget fremsto som testing eller vandalisme";
-"reverted-edit-possible-reasons-subtitle" = "Vi regner med at du prøvde ditt beste, men redigeringen passerte ikke kvalitetskontrollen.\n\nMulige årsaker til at redigeringen din ble tilbakestilt inkluderer:";
-"reverted-edit-thanks-for-editing-title" = "Takk for at du redigerer Wikipedia!";
 "reverted-edit-title" = "Tilbakestilt redigering";
-"reverted-edit-view-guidelines-text" = "Vis retningslinjer";
 "saved-all-articles-title" = "Alle artikler";
 "saved-default-reading-list-tag" = "Listen kan ikke slettes";
 "saved-pages-image-download-error" = "Klarte ikke laste ned bilder for den lagrede siden.";
@@ -921,8 +912,6 @@
 "share-social-mention-format" = "«$1» via @Wikipedia: $2";
 "sort-by-recently-added-action" = "Nylig lagt til";
 "sort-by-title-action" = "Tittel";
-"status-saved-for-later" = "Lagret til senere";
-"status-saving-for-later" = "Lagre til senere...";
 "table-of-contents-button-label" = "Innholdsfortegnelse";
 "table-of-contents-close-accessibility-hint" = "Lukk";
 "table-of-contents-close-accessibility-label" = "Lukk innholdsfortegnelsen";

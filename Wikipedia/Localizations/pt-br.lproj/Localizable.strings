@@ -501,10 +501,6 @@
 "icon-shortcut-random-title" = "Artigo aleatório";
 "icon-shortcut-search-title" = "Pesquisar na Wikipédia";
 "image-gallery-unknown-owner" = "Ator desconhecido";
-"in-the-news-currently-trending" = "Popular atualmente";
-"in-the-news-notification-read-now-action-title" = "Ler agora";
-"in-the-news-notification-save-for-later-action-title" = "Salvar para mais tarde";
-"in-the-news-notification-share-action-title" = "Compartilhar...";
 "in-the-news-sub-title-from-language-wikipedia" = "Da Wikipédia em $1";
 "in-the-news-sub-title-from-wikipedia" = "Da Wikipédia";
 "in-the-news-title" = "Eventos recentes";
@@ -594,8 +590,7 @@
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "Ativar notificações";
 "notifications-center-feed-news-notification-dismiss-button-text" = "Agora não";
-// Fuzzy
-"notifications-center-go-to-article" = "Ir para artigo";
+"notifications-center-go-to-article" = "Artigo";
 // Fuzzy
 "notifications-center-go-to-article-discussion-format" = "Ir para a página de discussão de $1";
 // Fuzzy
@@ -802,12 +797,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 item substituído|$1 itens substituídos}}";
 "replace-textfield-accessibility" = "Substituir";
 "replace-textfield-placeholder" = "Substituir com…";
-"reverted-edit-back-to-article-button-title" = "Voltar ao artigo";
-"reverted-edit-possible-reasons" = "- Sua contribuição não seguiu uma das diretrizes. $1 \n\n - Sua contribuição parecia um experimento ou vandalismo";
-"reverted-edit-possible-reasons-subtitle" = "Sabemos que você tentou o seu melhor, mas um dos revisores teve uma preocupação.\n\nPossíveis razões pelas quais sua edição foi revertida incluem:";
-"reverted-edit-thanks-for-editing-title" = "Obrigado por editar a Wikipédia!";
 "reverted-edit-title" = "Edição revertida";
-"reverted-edit-view-guidelines-text" = "Veja as diretrizes";
 "saved-all-articles-title" = "Todos os artigos";
 "saved-default-reading-list-tag" = "Esta lista não pode ser eliminada";
 "saved-pages-image-download-error" = "Erro em baixar imagens desta página salva.";
@@ -884,8 +874,6 @@
 "share-social-mention-format" = "“$1” via @Wikipedia: $2";
 "sort-by-recently-added-action" = "Adicionado recentemente";
 "sort-by-title-action" = "Título";
-"status-saved-for-later" = "Salvo para mais tarde";
-"status-saving-for-later" = "Salvar para mais tarde ...";
 "table-of-contents-button-label" = "Tabela de conteúdos";
 "table-of-contents-close-accessibility-hint" = "Fechar";
 "table-of-contents-close-accessibility-label" = "Fechar Tabela de conteúdos";

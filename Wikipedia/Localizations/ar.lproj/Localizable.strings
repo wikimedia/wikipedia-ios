@@ -479,10 +479,6 @@
 "icon-shortcut-random-title" = "مقالة عشوائية";
 "icon-shortcut-search-title" = "البحث في ويكيبيديا";
 "image-gallery-unknown-owner" = "المؤلف غير معروف.";
-"in-the-news-currently-trending" = "الأكثر زيارة حاليا";
-"in-the-news-notification-read-now-action-title" = "اقرأ الآن";
-"in-the-news-notification-save-for-later-action-title" = "احفظها لوقت لاحق";
-"in-the-news-notification-share-action-title" = "شارك...";
 "in-the-news-sub-title-from-language-wikipedia" = "من ويكيبيديا $1";
 "in-the-news-sub-title-from-wikipedia" = "من ويكيبيديا";
 "in-the-news-title" = "في الأخبار";
@@ -776,12 +772,7 @@
 "replace-replace-all-results-count" = "تم استبدال {{PLURAL:$1|$1 عنصر|$1 عناصر}}";
 "replace-textfield-accessibility" = "استبدال";
 "replace-textfield-placeholder" = "استبدل بـ…";
-"reverted-edit-back-to-article-button-title" = "العودة إلى المقالة";
-"reverted-edit-possible-reasons" = "- لم تتوافق مساهمتك مع إحدى الإرشادات، $1\n - بدت مساهمتك كتجربة أو تخريب";
-"reverted-edit-possible-reasons-subtitle" = "نحن نعلم أنك جربت أفضل ما لديك، ولكن كان أحد المراجعين قلقا.\n\nمن بين الأسباب المحتملة لإعادة تعديلك:";
-"reverted-edit-thanks-for-editing-title" = "شكرا على تحرير ويكيبيديا!";
 "reverted-edit-title" = "تم إرجاع التعديل";
-"reverted-edit-view-guidelines-text" = "عرض الإرشادات";
 "saved-all-articles-title" = "كل المقالات";
 "saved-default-reading-list-tag" = "لا يمكن حذف هذه القائمة";
 "saved-pages-image-download-error" = "فشل تنزيل الصور لهذه الصفحة المحفوظة.";
@@ -857,8 +848,6 @@
 "share-social-mention-format" = "“$1” عبر ويكيبيديا: $2";
 "sort-by-recently-added-action" = "أُضيف مؤخرا";
 "sort-by-title-action" = "العنوان";
-"status-saved-for-later" = "محفوظة لوقت لاحق";
-"status-saving-for-later" = "تُحفظ لوقت لاحق...";
 "table-of-contents-button-label" = "قائمة المحتويات";
 "table-of-contents-close-accessibility-hint" = "أغلق";
 "table-of-contents-close-accessibility-label" = "أغلق قائمة المحتويات";
