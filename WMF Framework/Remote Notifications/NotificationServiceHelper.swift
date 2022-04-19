@@ -48,7 +48,7 @@ public class NotificationServiceHelper {
         let subtitle: String
         let body: String
         
-        subtitle = String.localizedStringWithFormat(WMFLocalizedString("notifications-push-talk-title-format", value: "{{PLURAL:%1$d|New message|New messages}}", comment: "Title text for a push notification that represents talk page messages."), notifications.count)
+        subtitle = String.localizedStringWithFormat(WMFLocalizedString("notifications-push-talk-title-format", value: "{{PLURAL:%1$d|New message|New messages}}", comment: "Title text for a push notification that represents talk page messages. %1$d is used to determine the text to display."), notifications.count)
         
         if notifications.count == 1,
            let pushContentText = notifications.first?.pushContentText {
