@@ -124,6 +124,18 @@ extension NotificationsCenterDetailViewModel {
         }
         return secondaryActions
     }
+
+    /// Do not include secondary action if its destination is the same as the primary action
+    var uniqueSecondaryActions: [NotificationsCenterAction] {
+        guard let primaryActionURL = primaryAction?.actionData?.url else {
+            return secondaryActions
+        }
+
+        return secondaryActions.filter({ action in
+            action.actionData?.url != primaryActionURL
+        })
+    }
+
 }
 
 //MARK: Private Helpers - Aggregate Swipe Action methods
