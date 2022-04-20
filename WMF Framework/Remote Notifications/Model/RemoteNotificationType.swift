@@ -271,8 +271,10 @@ public extension RemoteNotificationType {
             return (.passive, 0.65)
         case .welcome:
             return (.active, 0.8)
-        case .loginFailUnknownDevice, .loginFailKnownDevice, .loginSuccessUnknownDevice:
+        case .loginSuccessUnknownDevice:
             return (.passive, 0.7)
+        case .loginFailUnknownDevice, .loginFailKnownDevice:
+            return (.active, 0.85)
         default:
             return (.passive, 0.1)
         }
