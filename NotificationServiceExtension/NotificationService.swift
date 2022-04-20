@@ -74,8 +74,13 @@ class NotificationService: UNNotificationServiceExtension {
                         bestAttemptContent.interruptionLevel = priority.interruptionLevel
                         bestAttemptContent.relevanceScore = priority.relevanceScore
                     } else {
-                        bestAttemptContent.interruptionLevel = RemoteNotificationType.bulkPriority.interruptionLevel
-                        bestAttemptContent.relevanceScore = RemoteNotificationType.bulkPriority.relevanceScore
+                        if NotificationServiceHelper.allNotificationsAreForSameTalkPage(notifications: finalNotificationsToDisplay) {
+                            bestAttemptContent.interruptionLevel = RemoteNotificationType.mentionInTalkPage.priority.interruptionLevel
+                            bestAttemptContent.relevanceScore = RemoteNotificationType.mentionInTalkPage.priority.relevanceScore
+                        } else {
+                            bestAttemptContent.interruptionLevel = RemoteNotificationType.bulkPriority.interruptionLevel
+                            bestAttemptContent.relevanceScore = RemoteNotificationType.bulkPriority.relevanceScore
+                        }
                     }
                 }
 
