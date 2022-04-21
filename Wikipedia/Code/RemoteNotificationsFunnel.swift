@@ -5,7 +5,12 @@ final class RemoteNotificationsFunnel: EventLoggingFunnel, EventLoggingStandardE
         case notificationInteraction = "ios_notification_interaction"
     }
     
-    public static let shared = RemoteNotificationsFunnel()
+    public static let shared = RemoteNotificationsFunnel(dataStore: MWKDataStore.shared())
+    private let dataStore: MWKDataStore
+    required init(dataStore: MWKDataStore) {
+        self.dataStore = dataStore
+        super.init()
+    }
     
     private struct Event: EventInterface {
         static let schema: EventPlatformClient.Schema = .remoteNotificationsInteraction
@@ -15,10 +20,21 @@ final class RemoteNotificationsFunnel: EventLoggingFunnel, EventLoggingStandardE
         let notification_type: String
         let action: String
         let selection_token: String?
+        let primary_language: String
+        let device_level_enabled: String
     }
     private func event(notificationId: Int, notificationWiki: String, notificationType: String, action: RemoteNotificationAction, selectionToken: String?) {
-        let event = Event(is_anon: isAnon.boolValue, notification_id: notificationId, notification_wiki: notificationWiki, notification_type: notificationType, action: action.rawValue, selection_token: selectionToken)
-        EventPlatformClient.shared.submit(stream: .remoteNotificationsInteraction, event: event)
+        dataStore.notificationsController.notificationPermissionsStatus { [weak self] authStatus in
+            guard let self = self else {
+                return
+            }
+            
+            DispatchQueue.main.async {
+                let event = Event(is_anon: self.isAnon.boolValue, notification_id: notificationId, notification_wiki: notificationWiki, notification_type: notificationType, action: action.rawValue, selection_token: selectionToken, primary_language: self.primaryLanguage(), device_level_enabled: authStatus.getAuthorizationStatusString())
+                EventPlatformClient.shared.submit(stream: .remoteNotificationsInteraction, event: event)
+            }
+        }
+        
     }
     
     public func logNotificationInteraction(notificationId: Int, notificationWiki: String, notificationType: String, action: RemoteNotificationAction, selectionToken: String?) {
