@@ -3,7 +3,7 @@ import Foundation
 
 //Testable helper methods for service extension logic
 public class NotificationServiceHelper {
-    static func allNotificationsAreForSameTalkPage(notifications: Set<RemoteNotificationsAPIController.NotificationsResult.Notification>) -> Bool {
+    public static func allNotificationsAreForSameTalkPage(notifications: Set<RemoteNotificationsAPIController.NotificationsResult.Notification>) -> Bool {
         
         guard let firstTitle = notifications.first?.titleFull,
               let firstNamespace = notifications.first?.namespace,

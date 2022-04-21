@@ -67,6 +67,23 @@ class NotificationService: UNNotificationServiceExtension {
                     bestAttemptContent.body = fallbackPushContent
                 }
 
+                // Assigning interruption level and relevance score only available starting on iOS 15
+                if #available(iOS 15.0, *) {
+                    if finalNotifications.notificationsToDisplay.count == 1, let notification = finalNotifications.notificationsToDisplay.first {
+                        let priority = RemoteNotification.typeFrom(notification: notification).priority
+                        bestAttemptContent.interruptionLevel = priority.interruptionLevel
+                        bestAttemptContent.relevanceScore = priority.relevanceScore
+                    } else {
+                        if NotificationServiceHelper.allNotificationsAreForSameTalkPage(notifications: finalNotificationsToDisplay) {
+                            bestAttemptContent.interruptionLevel = RemoteNotificationType.mentionInTalkPage.priority.interruptionLevel
+                            bestAttemptContent.relevanceScore = RemoteNotificationType.mentionInTalkPage.priority.relevanceScore
+                        } else {
+                            bestAttemptContent.interruptionLevel = RemoteNotificationType.bulkPriority.interruptionLevel
+                            bestAttemptContent.relevanceScore = RemoteNotificationType.bulkPriority.relevanceScore
+                        }
+                    }
+                }
+
                 bestAttemptContent.badge = NSNumber(value: newCache.currentUnreadCount + finalNotificationsToDisplay.count)
                 
                 contentHandler(bestAttemptContent)
