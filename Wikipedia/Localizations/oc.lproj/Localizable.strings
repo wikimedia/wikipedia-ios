@@ -110,11 +110,6 @@
 "icon-shortcut-nearby-title" = "Articles vesins";
 "icon-shortcut-random-title" = "Article a l'azard";
 "icon-shortcut-search-title" = "Recercar dins Wikipèdia";
-"in-the-news-currently-trending" = "Actualament a la mòda";
-"in-the-news-notification-read-now-action-title" = "Legir ara";
-"in-the-news-notification-save-for-later-action-title" = "Enregistrar per mai tard";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Partejar...";
 "in-the-news-title" = "Dins l'actualitat";
 "languages-title" = "Cambiar de lenga";
 "login-forgot-password" = "Senhal doblidat ?";
@@ -190,8 +185,6 @@
 "settings-title" = "Paramètres";
 "share-article-name-on-wikipedia" = "« $1 » sus @Wikipedia:";
 "share-on-twitter-sign-off" = "via @Wikipèdia";
-"status-saved-for-later" = "Enregistrat per mai tard";
-"status-saving-for-later" = "Enregistrament per mai tard…";
 "table-of-contents-button-label" = "Ensenhador";
 "table-of-contents-close-accessibility-hint" = "Tampar";
 "table-of-contents-close-accessibility-label" = "Tampar l'ensenhador";

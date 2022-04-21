@@ -115,9 +115,6 @@
 "home-more-like-footer" = "$1 ನೆನ್ನ ಲೆಕೋ";
 "icon-shortcut-random-title" = "ಒಟ್ಟಾರೆ ಲೇಖನೊಲು";
 "icon-shortcut-search-title" = "ವಿಕಿಪೀಡಿಯಟ್ ನಾಡ್ಲೇ";
-"in-the-news-notification-save-for-later-action-title" = "ಬುಕ್ಕ ಒರಿಪಾಪುಂಡು";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "ಪಟ್ಟುಲೇ...";
 "languages-settings-title" = "ಭಾಸೆಲು";
 "languages-title" = "ಬಾಸೆ ಬದಲ್ ಮಾನ್ಪಿ";
 "languages-wikipedia" = "ವಿಕಿಪೀಡಿಯ ಬಾಸೆ";
@@ -177,8 +174,6 @@
 "share-article-name-on-wikipedia" = "\"$1\" on @ವಿಕಿಪೀಡಿಯಾ:";
 "share-on-twitter-sign-off" = "ವಿಕಿಪೀಡಿಯ ಒಟ್ಟುಗೂ @";
 "share-open-in-maps" = "ನಕಾಶೆಡ್ ತೊಜಾಲೆ";
-"status-saved-for-later" = "ಬುಕ್ಕ ಒರಿಪಾಪುಂಡು";
-"status-saving-for-later" = "ಬುಕ್ಕ ಒರಿಪಕೋ...";
 "table-of-contents-button-label" = "ಪರಿವಿಡಿ";
 "table-of-contents-close-accessibility-hint" = "ಮುಚ್ಚಿಲೆ";
 "table-of-contents-heading" = "ವಿಸಯೊಳು";

@@ -479,10 +479,6 @@
 "icon-shortcut-random-title" = "Случајна статија";
 "icon-shortcut-search-title" = "Пребарај ја Википедија";
 "image-gallery-unknown-owner" = "Подигачот е непознат.";
-"in-the-news-currently-trending" = "Најчитани";
-"in-the-news-notification-read-now-action-title" = "Прочитај сега";
-"in-the-news-notification-save-for-later-action-title" = "Зачувај за подоцна";
-"in-the-news-notification-share-action-title" = "Сподели...";
 "in-the-news-sub-title-from-language-wikipedia" = "Од Википедија на $1";
 "in-the-news-sub-title-from-wikipedia" = "Од Википедија";
 "in-the-news-title" = "Вести";
@@ -862,12 +858,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|Заменета $1 ставка|Заменети $1 ставки}}";
 "replace-textfield-accessibility" = "Замени";
 "replace-textfield-placeholder" = "Замени со...";
-"reverted-edit-back-to-article-button-title" = "Назад на статијата";
-"reverted-edit-possible-reasons" = "- Вашето уредување не беше во склад со едно од напатствијата. $1 \n\n - Вашето уредување делуваше како проба или вандализам";
-"reverted-edit-possible-reasons-subtitle" = "Знаеме дека се трудите да напишете што подобро, но еден од прегледувачите има примедба за уреденото. \n\nВеројатни причини за отповиканото уредување се:";
-"reverted-edit-thanks-for-editing-title" = "Ви благодариме што ја уредувате Википедија!";
 "reverted-edit-title" = "Отповикано уредување";
-"reverted-edit-view-guidelines-text" = "Погл. напатствија";
 "saved-all-articles-title" = "Сите статии";
 "saved-default-reading-list-tag" = "Овој список не може да се избрише";
 "saved-pages-image-download-error" = "Не успеав да ги преземам сликите за оваа зачувана страница.";
@@ -946,8 +937,6 @@
 "share-social-mention-format" = "„$1“ преку @Википедија: $2";
 "sort-by-recently-added-action" = "Неодамна додадени";
 "sort-by-title-action" = "Наслов";
-"status-saved-for-later" = "Зачувано за подоцна";
-"status-saving-for-later" = "Зачувувам за подоцна...";
 "table-of-contents-button-label" = "Содржина";
 "table-of-contents-close-accessibility-hint" = "Затвори";
 "table-of-contents-close-accessibility-label" = "Затвори ја Содржината";

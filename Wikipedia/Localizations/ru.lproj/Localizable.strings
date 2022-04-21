@@ -523,10 +523,6 @@
 "icon-shortcut-random-title" = "Случайная статья";
 "icon-shortcut-search-title" = "Поиск по Википедии";
 "image-gallery-unknown-owner" = "Автор неизвестен.";
-"in-the-news-currently-trending" = "В настоящее время популярные";
-"in-the-news-notification-read-now-action-title" = "Прочитать сейчас";
-"in-the-news-notification-save-for-later-action-title" = "Сохранить на потом";
-"in-the-news-notification-share-action-title" = "Поделиться…";
 "in-the-news-sub-title-from-language-wikipedia" = "Раздел Википедии: $1";
 "in-the-news-sub-title-from-wikipedia" = "Из Википедии";
 "in-the-news-title" = "В новостях";
@@ -844,12 +840,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|выполнена 1 замена|выполнены $1 замены|выполнены $1 замен}}";
 "replace-textfield-accessibility" = "Заменить";
 "replace-textfield-placeholder" = "Заменить на…";
-"reverted-edit-back-to-article-button-title" = "Назад к статье";
-"reverted-edit-possible-reasons" = "- Ваш вклад не соответствует одному из руководств. $1 \n\n - Ваш вклад похож на вандальный";
-"reverted-edit-possible-reasons-subtitle" = "Мы знаем, что вы старались, но один из участников заметил что-то некорректное. \n\nВозможные причины, почему ваша правка была отменена:";
-"reverted-edit-thanks-for-editing-title" = "Спасибо за редактирование Википедии!";
 "reverted-edit-title" = "Отменённая правка";
-"reverted-edit-view-guidelines-text" = "Просмотр руководств";
 "saved-all-articles-title" = "Все статьи";
 "saved-default-reading-list-tag" = "Этот список не может быть удалён";
 "saved-pages-image-download-error" = "Не удалось загрузить изображения для этой сохранённой страницы.";
@@ -925,8 +916,6 @@
 "share-social-mention-format" = "«$1» в Википедии: $2";
 "sort-by-recently-added-action" = "Недавно добавленный";
 "sort-by-title-action" = "Заголовок";
-"status-saved-for-later" = "Сохранено на потом";
-"status-saving-for-later" = "Сохранение на потом...";
 "table-of-contents-button-label" = "Содержание";
 "table-of-contents-close-accessibility-hint" = "Закрыть";
 "table-of-contents-close-accessibility-label" = "Закрыть содержание";

@@ -504,10 +504,6 @@
 "icon-shortcut-random-title" = "隨機條目";
 "icon-shortcut-search-title" = "搜尋維基百科";
 "image-gallery-unknown-owner" = "作者未知。";
-"in-the-news-currently-trending" = "最新動態";
-"in-the-news-notification-read-now-action-title" = "立刻讀取";
-"in-the-news-notification-save-for-later-action-title" = "儲存以供日後使用";
-"in-the-news-notification-share-action-title" = "分享…";
 "in-the-news-sub-title-from-language-wikipedia" = "來自$1維基百科";
 "in-the-news-sub-title-from-wikipedia" = "來自維基百科";
 "in-the-news-title" = "新聞動態";
@@ -876,12 +872,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 個項目已取代}}";
 "replace-textfield-accessibility" = "取代";
 "replace-textfield-placeholder" = "取代為：";
-"reverted-edit-back-to-article-button-title" = "返回條目";
-"reverted-edit-possible-reasons" = "- 您的貢獻並沒有遵循以下指引之一。$1 \n\n - 您的貢獻內容看起來像是試驗性質的，或是有心破壞";
-"reverted-edit-possible-reasons-subtitle" = "我們知道您已盡力了，但有編者檢閱內容有所疑慮而做出還原。\n\n您的編輯被回退的原因可能是：";
-"reverted-edit-thanks-for-editing-title" = "感謝編輯維基百科！";
 "reverted-edit-title" = "已回退的編輯";
-"reverted-edit-view-guidelines-text" = "檢視指引";
 "saved-all-articles-title" = "所有條目";
 "saved-default-reading-list-tag" = "此清單不能被刪除";
 "saved-pages-image-download-error" = "下載此儲存頁面裡的圖片失敗。";
@@ -957,8 +948,6 @@
 "share-social-mention-format" = "「$1」經由@維基百科：$2";
 "sort-by-recently-added-action" = "最近新增的";
 "sort-by-title-action" = "標題";
-"status-saved-for-later" = "已儲存供日後使用";
-"status-saving-for-later" = "正在儲存供日後使用...";
 "table-of-contents-button-label" = "目次";
 "table-of-contents-close-accessibility-hint" = "關閉";
 "table-of-contents-close-accessibility-label" = "關閉目錄";

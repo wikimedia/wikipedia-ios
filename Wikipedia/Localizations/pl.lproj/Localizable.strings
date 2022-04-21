@@ -464,10 +464,6 @@
 "icon-shortcut-random-title" = "Losowy artykuł";
 "icon-shortcut-search-title" = "Szukaj w Wikipedii";
 "image-gallery-unknown-owner" = "Autor nieznany.";
-"in-the-news-currently-trending" = "Obecnie na topie";
-"in-the-news-notification-read-now-action-title" = "Przeczytaj teraz";
-"in-the-news-notification-save-for-later-action-title" = "Zapisz na później";
-"in-the-news-notification-share-action-title" = "Udostępnij…";
 "in-the-news-sub-title-from-language-wikipedia" = "Z $1 Wikipedii";
 "in-the-news-sub-title-from-wikipedia" = "Z Wikipedii";
 "in-the-news-title" = "W wiadomościach";
@@ -692,11 +688,7 @@
 "replace-infolabel-method-replace-all" = "Zamień wszystkie";
 "replace-textfield-accessibility" = "Zamień";
 "replace-textfield-placeholder" = "Zastąp przez";
-"reverted-edit-back-to-article-button-title" = "Wróć do artykułu";
-"reverted-edit-possible-reasons-subtitle" = "Wiemy, że starałeś się jak najlepiej, ale jeden z recenzentów miał obawy. \n\nMożliwe przyczyny cofnięcia edycji obejmują:";
-"reverted-edit-thanks-for-editing-title" = "Dziękujemy za edytowanie Wikipedii!";
 "reverted-edit-title" = "Cofnięto edycję";
-"reverted-edit-view-guidelines-text" = "Zobacz wytyczne";
 "saved-all-articles-title" = "Wszystkie artykuły";
 "saved-default-reading-list-tag" = "Tej listy nie można usunąć";
 "saved-pages-image-download-error" = "Nie udało się pobrać obrazów dla tej zapisanej strony.";
@@ -755,8 +747,6 @@
 "share-social-mention-format" = "“$1” via @Wikipedia: $2";
 "sort-by-recently-added-action" = "Ostatnio dodane";
 "sort-by-title-action" = "Tytuł";
-"status-saved-for-later" = "Zapisane na później";
-"status-saving-for-later" = "Zapisywanie na później";
 "table-of-contents-button-label" = "Spis treści";
 "table-of-contents-close-accessibility-hint" = "Zamknij";
 "table-of-contents-close-accessibility-label" = "Zamknij spis treści";
