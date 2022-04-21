@@ -230,3 +230,54 @@ public extension RemoteNotificationType {
         }
     }
 }
+
+/// Interruption levels and and relevance scores
+@available(iOS 15.0, *) public extension RemoteNotificationType {
+
+    typealias Priority = (interruptionLevel: UNNotificationInterruptionLevel, relevanceScore: Double)
+
+    /// Multiple notifications coalesced into a single alert
+    static var bulkPriority: Priority = (.passive, 0.2)
+
+    var priority: Priority {
+        switch self {
+        case .userTalkPageMessage:
+            return (.timeSensitive, 1)
+        case .mentionInTalkPage:
+            return (.timeSensitive, 0.9)
+        case .mentionInEditSummary:
+            return (.timeSensitive, 0.85)
+        case .editReverted:
+            return (.timeSensitive, 0.9)
+        case .userRightsChange:
+            return (.active, 0.6)
+        case .pageReviewed:
+            return (.active, 0.7)
+        case .pageLinked:
+            return (.passive, 0.2)
+        case .connectionWithWikidata:
+            return (.passive, 0.3)
+        case .emailFromOtherUser:
+            return (.passive, 0.5)
+        case .thanks:
+            return (.active, 0.7)
+        case .translationMilestone(_):
+            return (.passive, 0.5)
+        case .editMilestone:
+            return (.passive, 0.4)
+        case .failedMention:
+            return (.active, 0.5)
+        case .successfulMention:
+            return (.passive, 0.65)
+        case .welcome:
+            return (.active, 0.8)
+        case .loginSuccessUnknownDevice:
+            return (.passive, 0.7)
+        case .loginFailUnknownDevice, .loginFailKnownDevice:
+            return (.active, 0.85)
+        default:
+            return (.passive, 0.1)
+        }
+    }
+
+}
