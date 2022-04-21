@@ -430,7 +430,7 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Från Wikipedia";
 "explore-randomizer" = "Slumpgenerator";
 "featured-article-empty-title" = "Inga tillgängliga utmärkta artiklar idag";
-"featured-widget-content-failure-for-date" = "En utmärkt artikel finns inte tillgänglig för detta datum.";
+"featured-widget-content-failure-for-date" = "Det finns ingen utmärkt artikel för detta datum.";
 "featured-widget-description" = "Upptäck de bästa artiklarna på Wikipedia som väljs ut dagligen av vår gemenskap.";
 "featured-widget-from-language-wikipedia" = "Från Wikipedia på $1";
 "featured-widget-from-wikipedia" = "Från Wikipedia";
@@ -705,7 +705,7 @@
 "page-history-bot-edits" = "botredigeringar";
 "page-history-compare-accessibility-hint" = "Tryck för att välja två versioner att jämföra";
 "page-history-compare-title" = "Jämför";
-"page-history-graph-accessibility-label" = "Graf över redigeringar över tid";
+"page-history-graph-accessibility-label" = "Diagram över redigeringar över tid";
 "page-history-minor-edits" = "mindre redigeringar";
 "page-history-revision-author-accessibility-label" = "Författare: $1";
 "page-history-revision-comment-accessibility-label" = "Kommentar $1";
