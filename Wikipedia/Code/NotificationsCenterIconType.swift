@@ -3,7 +3,7 @@ import Foundation
 typealias NotificationsCenterIconName = String
 
 //Use if you need to make the system (SFSymbols) vs custom distinction
-enum NotificationsCenterIconType: Equatable {
+enum NotificationsCenterIconType: Equatable, Hashable {
     case custom(NotificationsCenterIconName)
     case system(NotificationsCenterIconName)
     
