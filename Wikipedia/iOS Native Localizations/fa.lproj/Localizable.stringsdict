@@ -514,7 +514,7 @@
 	<key>reading-lists-large-sync-completed</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@v1@ و %#@v2@ از حساب شما همگام‌سازی شد</string>
+		<string>%#@v1@ و %#@v2@ از حساب کاربری شما همگام‌سازی شد</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

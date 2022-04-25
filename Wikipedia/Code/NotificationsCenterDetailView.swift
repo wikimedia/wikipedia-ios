@@ -10,6 +10,7 @@ final class NotificationsCenterDetailView: SetupView {
         tableView.register(NotificationsCenterDetailContentCell.self, forCellReuseIdentifier: NotificationsCenterDetailContentCell.reuseIdentifier)
         tableView.register(NotificationsCenterDetailActionCell.self, forCellReuseIdentifier: NotificationsCenterDetailActionCell.reuseIdentifier)
 
+        tableView.cellLayoutMarginsFollowReadableWidth = true
         tableView.estimatedRowHeight = 44
         tableView.rowHeight = UITableView.automaticDimension
         
