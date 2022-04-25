@@ -685,8 +685,9 @@
 "notifications-center-type-item-description-mentions" = "提及";
 "notifications-center-type-item-description-welcome-verbose" = "歡迎訊息";
 "notifications-push-fallback-body-text" = "在維基百科上的新活動";
+// Fuzzy
 "notifications-push-talk-body-format" = "在$3的 $1 個新$2";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|訊息}}";
+// Fuzzy
 "notifications-push-talk-title-format" = "新$1";
 "number-billions" = "$1十億";
 "number-millions" = "$1百萬";

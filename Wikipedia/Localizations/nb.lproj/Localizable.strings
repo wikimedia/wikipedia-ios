@@ -651,8 +651,9 @@
 "notifications-center-title" = "Varsler";
 "notifications-center-toolbar-mark-accessibility-label" = "Merk valgte varsler";
 "notifications-push-fallback-body-text" = "Ny aktivitet på Wikipedia";
+// Fuzzy
 "notifications-push-talk-body-format" = "$1 nye $2 på $3";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|melding|meldinger}}";
+// Fuzzy
 "notifications-push-talk-title-format" = "Ny $1";
 "number-billions" = "$1 mrd.";
 "number-millions" = "$1 mill.";
