@@ -101,12 +101,12 @@ extension NotificationsCenterDetailViewController: UITableViewDelegate, UITableV
     }
     
     private func logNotificationInteraction(with action: NotificationsCenterAction?) {
-        let notif = viewModel.commonViewModel.notification
-        guard let notificationId = notif.id else { return }
+        let notification = viewModel.commonViewModel.notification
+        guard let notificationId = notification.id else { return }
         RemoteNotificationsFunnel.shared.logNotificationInteraction(
             notificationId: Int(notificationId) ?? Int(),
-            notificationWiki: notif.wiki ?? String(),
-            notificationType: notif.typeString ?? String(),
+            notificationWiki: notification.wiki ?? String(),
+            notificationType: notification.typeString ?? String(),
             action: action?.actionData?.actionType,
             selectionToken: nil)
     }
