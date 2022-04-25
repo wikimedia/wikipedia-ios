@@ -1,6 +1,7 @@
 // Messages for Turkish (Türkçe)
 // Exported from translatewiki.net
 // Author: 1917 Ekim Devrimi
+// Author: Ahmetlii
 // Author: Alikaan
 // Author: Alpkant
 // Author: Ayrıntılı Bilgi
@@ -506,10 +507,6 @@
 "icon-shortcut-random-title" = "Rastgele madde";
 "icon-shortcut-search-title" = "Vikipedi'de Ara";
 "image-gallery-unknown-owner" = "Yazar bilinmiyor.";
-"in-the-news-currently-trending" = "Şu anki trendler";
-"in-the-news-notification-read-now-action-title" = "Şimdi Oku";
-"in-the-news-notification-save-for-later-action-title" = "Sonrası için kaydet";
-"in-the-news-notification-share-action-title" = "Paylaş…";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 Vikipedi'den";
 "in-the-news-sub-title-from-wikipedia" = "Vikipedi'den";
 "in-the-news-title" = "Haberlerde";
@@ -610,12 +607,11 @@
 "notifications-center-filters-title" = "Filtreler";
 "notifications-center-filters-types-item-title-all" = "Tüm türler";
 "notifications-center-filters-types-section-title" = "Bildirim türleri";
-"notifications-center-go-to-diff" = "Farka git";
-"notifications-center-go-to-talk-page" = "Tartışma sayfasına git";
-"notifications-center-go-to-title-format" = "$1 sayfasına git";
-"notifications-center-go-to-user-page" = "$1 kullanıcı sayfasına git";
-"notifications-center-go-to-wikidata-item" = "Vikiveri ögesine git";
-"notifications-center-go-to-your-talk-page" = "Mesaj sayfanıza gidin";
+"notifications-center-go-to-diff" = "Fark";
+"notifications-center-go-to-talk-page" = "Tartışma sayfası";
+"notifications-center-go-to-user-page" = "$1'in kullanıcı sayfasına git";
+"notifications-center-go-to-wikidata-item" = "Vikiveri ögesi";
+"notifications-center-go-to-your-talk-page" = "Mesaj sayfanız";
 "notifications-center-header-alert-from-agent" = "$1 kaynağından uyarı";
 "notifications-center-header-alert-from-project" = "$1 sitesinden uyarı";
 "notifications-center-header-notice-from-project" = "$1 sitesinden bildiri";
@@ -664,9 +660,8 @@
 "notifications-center-title" = "Bildirimler";
 "notifications-center-toolbar-mark-accessibility-label" = "Seçili bildirimleri işaretle";
 "notifications-push-fallback-body-text" = "Vikipedi'de yeni etkinlik";
-"notifications-push-talk-body-format" = "$3 sayfasında $1 yeni $2";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|mesaj}}";
-"notifications-push-talk-title-format" = "Yeni $1";
+"notifications-push-talk-body-format" = "$2 sayfasında {{PLURAL:$1|$1 yeni mesaj|$1 yeni mesajlar}}";
+"notifications-push-talk-title-format" = "{{PLURAL:$1|Yeni mesaj|Yeni mesajlar}}";
 "number-billions" = "$1Mr";
 "number-millions" = "$1Mn";
 "number-thousands" = "$1B";
@@ -851,12 +846,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 öge değiştirildi|$1 öge değiştirildi}}";
 "replace-textfield-accessibility" = "Değiştir";
 "replace-textfield-placeholder" = "Şununla değiştir:";
-"reverted-edit-back-to-article-button-title" = "Maddeye dön";
-"reverted-edit-possible-reasons" = "- Katkınız kurallarımızdan birini ihlal etti. $1 \n\n - Katkınız bir deneme ya da vandalizme benziyor";
-"reverted-edit-possible-reasons-subtitle" = "Elinizden gelenin en iyisini yaptığınızı biliyoruz, ancak inceleyicilerden birinin endişesi vardı.\n\n\nDüzenlemenizin geri alınmasının olası nedenleri şunlardır:";
-"reverted-edit-thanks-for-editing-title" = "Vikipedi'yi düzenlediğiniz için teşekkürler!";
 "reverted-edit-title" = "Geri alınan düzenleme";
-"reverted-edit-view-guidelines-text" = "Kılavuzu görüntüle";
 "saved-all-articles-title" = "Tüm maddeler";
 "saved-default-reading-list-tag" = "Bu liste silinemedi";
 "saved-pages-image-download-error" = "Bu kaydedilen sayfa için görseller indirilemedi.";
@@ -931,8 +921,6 @@
 "share-social-mention-format" = "@Wikipedia'dan $1: $2";
 "sort-by-recently-added-action" = "Son eklenenler";
 "sort-by-title-action" = "Başlık";
-"status-saved-for-later" = "Sonrası için kaydedildi";
-"status-saving-for-later" = "Daha sonrası için kaydediliyor...";
 "table-of-contents-button-label" = "İçindekiler";
 "table-of-contents-close-accessibility-hint" = "Kapat";
 "table-of-contents-close-accessibility-label" = "İçindekileri kapat";

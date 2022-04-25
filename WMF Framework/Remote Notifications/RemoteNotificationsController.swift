@@ -1,9 +1,14 @@
 import CocoaLumberjackSwift
+import Foundation
 
-public enum RemoteNotificationsControllerError: Error {
+public enum RemoteNotificationsControllerError: LocalizedError {
     case databaseUnavailable
     case attemptingToRefreshBeforeDeadline
     case failurePullingAppLanguage
+    
+    public var errorDescription: String? {
+        return CommonStrings.genericErrorDescription
+    }
 }
 
 @objc public final class RemoteNotificationsController: NSObject {

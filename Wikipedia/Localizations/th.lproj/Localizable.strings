@@ -413,10 +413,6 @@
 "icon-shortcut-random-title" = "สุ่มบทความ";
 "icon-shortcut-search-title" = "ค้นหาวิกิพีเดีย";
 "image-gallery-unknown-owner" = "ไม่รู้จักผู้เขียน";
-"in-the-news-currently-trending" = "มาแรงในตอนนี้";
-"in-the-news-notification-read-now-action-title" = "อ่านตอนนี้";
-"in-the-news-notification-save-for-later-action-title" = "บันทึกไว้อ่านในภายหลัง";
-"in-the-news-notification-share-action-title" = "แบ่งปัน...";
 "in-the-news-sub-title-from-language-wikipedia" = "จากวิกิพีเดียภาษา$1";
 "in-the-news-sub-title-from-wikipedia" = "จากวิกิพีเดีย";
 "in-the-news-title" = "เรื่องจากข่าว";
@@ -614,10 +610,7 @@
 "replace-infolabel-method-replace-all" = "แทนที่ทั้งหมด";
 "replace-textfield-accessibility" = "แทนที่";
 "replace-textfield-placeholder" = "แทนที่ด้วย…";
-"reverted-edit-back-to-article-button-title" = "กลับไปยังบทความ";
-"reverted-edit-thanks-for-editing-title" = "ขอบคุณที่แก้ไขวิกิพีเดีย!";
 "reverted-edit-title" = "การแก้ไขที่ถูกย้อน";
-"reverted-edit-view-guidelines-text" = "ดูแนวทาง";
 "saved-all-articles-title" = "บทความทั้งหมด";
 "saved-default-reading-list-tag" = "ไม่สามารถลบรายการนี้ได้";
 "saved-pages-image-download-error" = "ไม่สามารถดาวน์โหลดรูปภาพสำหรับหน้าที่บันทึกไว้นี้ได้";
@@ -675,8 +668,6 @@
 "share-social-mention-format" = "“$1” ผ่านทาง @Wikipedia: $2";
 "sort-by-recently-added-action" = "ที่เพิ่งเพิ่มล่าสุด";
 "sort-by-title-action" = "ชื่อเรื่อง";
-"status-saved-for-later" = "บันทึกไว้อ่านในภายหลังแล้ว";
-"status-saving-for-later" = "กำลังบันทึกไว้อ่านในภายหลัง...";
 "table-of-contents-button-label" = "สารบัญ";
 "table-of-contents-close-accessibility-hint" = "ปิด";
 "table-of-contents-close-accessibility-label" = "ปิดสารบัญ";

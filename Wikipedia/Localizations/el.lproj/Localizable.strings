@@ -264,11 +264,6 @@
 "icon-shortcut-random-title" = "Τυχαίο άρθρο";
 "icon-shortcut-search-title" = "Αναζήτηση στη Βικιπαίδεια";
 "image-gallery-unknown-owner" = "Ο συγγραφέας είναι άγνωστος";
-"in-the-news-currently-trending" = "Τρέχουσες τάσεις";
-"in-the-news-notification-read-now-action-title" = "Ανάγνωση τώρα";
-"in-the-news-notification-save-for-later-action-title" = "Αποθήκευση για αργότερα";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Κοινοποίηση...";
 "in-the-news-sub-title-from-language-wikipedia" = "Από την $1 Βικιπαίδεια";
 "in-the-news-sub-title-from-wikipedia" = "Από την Βικιπαίδεια";
 "in-the-news-title" = "Στις ειδήσεις";
@@ -311,12 +306,14 @@
 "notifications-center-feed-card-title" = "Οι ειδοποιήσεις επεξεργασίας είναι πλέον διαθέσιμες";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "Ενεργοποίηση ειδοποιήσεων";
+// Fuzzy
 "notifications-center-go-to-article" = "Μετάβαση σε άρθρο";
+// Fuzzy
 "notifications-center-go-to-article-discussion-format" = "Μετάβαση στη σελίδα συζητήσεων $1";
+// Fuzzy
 "notifications-center-go-to-article-talk-format" = "Μετάβαση στη σελίδα συνομιλίας $1";
+// Fuzzy
 "notifications-center-go-to-discussion-page" = "Μετάβαση στη σελίδα συζητήσεων";
-"notifications-center-go-to-user-page-format" = "Μετάβαση στη σελίδα του χρήστη $1";
-"notifications-center-go-to-user-page-simplified" = "Μετάβαση στη σελίδα χρήστη";
 "notifications-center-login-notifications" = "Ειδοποιήσεις σύνδεσης";
 "notifications-center-onboarding-modal-continue-action" = "Συνέχεια";
 "notifications-center-onboarding-modal-filters-title" = "Φίλτρα";
@@ -470,8 +467,6 @@
 "share-social-mention-format" = "“$1” μέσω του @Βικιπαίδεια: $2";
 "sort-by-recently-added-action" = "Προστέθηκαν πρόσφατα";
 "sort-by-title-action" = "Τίτλος";
-"status-saved-for-later" = "Αποθηκεύτηκε για αργότερα";
-"status-saving-for-later" = "Αποθήκευση για αργότερα...";
 "table-of-contents-button-label" = "Πίνακας περιεχομένων";
 "table-of-contents-close-accessibility-hint" = "Κλείσιμο";
 "table-of-contents-close-accessibility-label" = "Κλείσιμο του Πίνακα περιεχομένων";

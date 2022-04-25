@@ -490,10 +490,6 @@
 "icon-shortcut-random-title" = "Випадкова стаття";
 "icon-shortcut-search-title" = "Пошук по Вікіпедії";
 "image-gallery-unknown-owner" = "Автор невідомий.";
-"in-the-news-currently-trending" = "Зараз популярні";
-"in-the-news-notification-read-now-action-title" = "Читати зараз";
-"in-the-news-notification-save-for-later-action-title" = "Зберегти на потім";
-"in-the-news-notification-share-action-title" = "Поділитися…";
 "in-the-news-sub-title-from-language-wikipedia" = "Із Вікіпедії мовою «$1»";
 "in-the-news-sub-title-from-wikipedia" = "З Вікіпедії";
 "in-the-news-title" = "У новинах";
@@ -593,11 +589,15 @@
 "notifications-center-filters-types-footer" = "Змініть типи сповіщень, щоб відфільтрувати їх у папці вхідних сповіщень. Типи, які вимкнено, не відображатимуться, але їх вміст і будь-які нові сповіщення будуть доступні, коли перемикач знову ввімкнути.";
 "notifications-center-filters-types-item-title-all" = "Усі типи";
 "notifications-center-filters-types-section-title" = "Типи сповіщень";
+// Fuzzy
 "notifications-center-go-to-diff" = "Перейти до дифа";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Перейти на сторінку обговорення";
-"notifications-center-go-to-title-format" = "Перейти на $1";
+// Fuzzy
 "notifications-center-go-to-user-page" = "Перейти на сторінку користувача $1";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "Перейти до елемента Вікіданих";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "Перейти на свою сторінку обговорення";
 "notifications-center-header-alert-from-agent" = "Сповіщення від $1";
 "notifications-center-header-alert-from-project" = "Сповіщення від $1";
@@ -649,8 +649,9 @@
 "notifications-center-swipe-more" = "Ще";
 "notifications-center-title" = "Сповіщення";
 "notifications-push-fallback-body-text" = "Нова активність у Вікіпедії";
+// Fuzzy
 "notifications-push-talk-body-format" = "$1 новий $2 на $3";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|повідомлення|повідомлень}}";
+// Fuzzy
 "notifications-push-talk-title-format" = "Новий $1";
 "number-billions" = "$1 млрд";
 "number-millions" = "$1 млн";
@@ -836,12 +837,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|виконана 1 заміна|виконані $1 заміни|виконано $1 замін}}";
 "replace-textfield-accessibility" = "Замінити";
 "replace-textfield-placeholder" = "Замінити на…";
-"reverted-edit-back-to-article-button-title" = "Назад до статті";
-"reverted-edit-possible-reasons" = "- Ваш внесок не відповідає одній з настанов. $1\n\n- Ваш внесок схожий на вандалізм";
-"reverted-edit-possible-reasons-subtitle" = "Ми знаємо, що ви старалися як могли, але в одного з перевіряльників виникли сумніви.\n\nЙмовірні причини скасування вашого редагування:";
-"reverted-edit-thanks-for-editing-title" = "Дякуємо за редагування Вікіпедії!";
 "reverted-edit-title" = "Відкинуте редагування";
-"reverted-edit-view-guidelines-text" = "Переглянути настанови";
 "saved-all-articles-title" = "Усі статті";
 "saved-default-reading-list-tag" = "Цей список не можна вилучити";
 "saved-pages-image-download-error" = "Не вдалося завантажити малюнки для цієї збереженої сторінки.";
@@ -917,8 +913,6 @@
 "share-social-mention-format" = "«$1» у Вікіпедії мовою «$2»";
 "sort-by-recently-added-action" = "Нещодавно додані";
 "sort-by-title-action" = "Назва";
-"status-saved-for-later" = "Збережено на потім";
-"status-saving-for-later" = "Збереження на потім…";
 "table-of-contents-button-label" = "Вміст";
 "table-of-contents-close-accessibility-hint" = "Закрити";
 "table-of-contents-close-accessibility-label" = "Закрити зміст";

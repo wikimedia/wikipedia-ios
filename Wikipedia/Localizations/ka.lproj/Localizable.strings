@@ -119,10 +119,6 @@
 "icon-shortcut-random-title" = "შემთხვევითი სტატია";
 "icon-shortcut-search-title" = "ძიება ვიკიპედიაში";
 "image-gallery-unknown-owner" = "ავტორი უცნობია.";
-"in-the-news-notification-read-now-action-title" = "წაიკითხეთ";
-"in-the-news-notification-save-for-later-action-title" = "შემდგომისთვის შენახვა";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "გაზიარება...";
 "in-the-news-title" = "სიახლეებში";
 "insert-media-alternative-text-title" = "ალტერნატიული ტექსტი";
 "languages-title" = "ენის შეცვლა";
@@ -188,7 +184,6 @@
 "settings-support" = "მხარი დაუჭირე ვიკიპედიას";
 "settings-title" = "კონფიგურაცია";
 "share-article-name-on-wikipedia" = "„$1“ @ვიკიპედიაზე";
-"status-saved-for-later" = "შემდგომისთვის შენახვა";
 "table-of-contents-button-label" = "სარჩევი";
 "table-of-contents-close-accessibility-hint" = "დახურვა";
 "table-of-contents-close-accessibility-label" = "სარჩევის დახურვა";

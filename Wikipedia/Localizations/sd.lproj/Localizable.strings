@@ -78,7 +78,7 @@
 "account-creation-log-in" = "داخل ٿيو.";
 "account-creation-logging-in" = "داخل ٿيندي...";
 "account-creation-missing-fields" = "کاتو کولڻ لاءِ توھان کي لازمي ڪو واپرائيندڙ-نانءُ، ڳجهولفظ، ۽ ڳجهي-لفظ جي پڪ داخل ڪرڻي پوندي.";
-"account-creation-passwords-mismatched" = "ڳجھي-لفظ جون جڳھون مشابھت نٿيون رکن.";
+"account-creation-passwords-mismatched" = "ڳجهي-لفظ جون جڳھون مشابھت نٿيون رکن.";
 "account-creation-saving" = "سانڍيندي...";
 "account-creation-title" = "نئون کاتو کوليو";
 "account-group-title" = "توهان جو کاتو";
@@ -390,7 +390,7 @@
 "field-email-title" = "ايميل";
 "field-email-title-optional" = "ايميل (اختياري)";
 "field-new-password-confirm-placeholder" = "نئون ڳجهولفظ ٻيھر داخل ڪريو";
-"field-new-password-confirm-title" = "نيئن ڳجھي-لفظ جي پڪ ڪريو";
+"field-new-password-confirm-title" = "نيئن ڳجهي-لفظ جي پڪ ڪريو";
 "field-new-password-placeholder" = "نئون ڳجهولفظ داخل ڪريو";
 "field-new-password-title" = "نئون ڳجهولفظ";
 "field-password-confirm-placeholder" = "ڳجهولفظ ٻيھر داخل ڪريو";
@@ -431,10 +431,6 @@
 "icon-shortcut-random-title" = "بلا ترتيب مضمون";
 "icon-shortcut-search-title" = "وڪيپيڊيا ۾ ڳوليو";
 "image-gallery-unknown-owner" = "ليکڪ اڻڄاتل.";
-"in-the-news-currently-trending" = "ھاڻوڪا رجحان";
-"in-the-news-notification-read-now-action-title" = "ھاڻي پڙھو";
-"in-the-news-notification-save-for-later-action-title" = "بعد لاءِ سانڍيو";
-"in-the-news-notification-share-action-title" = "ونڊيو…";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 وڪيپيڊيا مان";
 "in-the-news-sub-title-from-wikipedia" = "وڪيپيڊيا تان";
 "in-the-news-title" = "خبرن ۾";
@@ -522,12 +518,17 @@
 "notifications-center-filters-title" = "ڇاڻيون";
 "notifications-center-filters-types-item-title-all" = "سڀ قسم";
 "notifications-center-filters-types-section-title" = "اطلاعن جا قسم";
+// Fuzzy
 "notifications-center-go-to-article" = "مضمون ڏانھن وڃو";
+// Fuzzy
 "notifications-center-go-to-diff" = "تفاوت ڏانھن وڃو";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "بحث صفحي ڏانھن وڃو";
-"notifications-center-go-to-title-format" = "$1 ڏانھن وڃو";
+// Fuzzy
 "notifications-center-go-to-user-page" = "$1 جي واپرائيندڙ صفحي ڏانھن وڃو";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "وڪيڊيٽا آئٽم ڏانھن وڃو";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "پنھنجي بحث صفحي ڏانھن وڃو";
 "notifications-center-header-alert-from-agent" = "$1 مان خبر";
 "notifications-center-header-alert-from-project" = "$1 مان خبر";
@@ -554,7 +555,7 @@
 "notifications-center-status-read" = "پڙھيل";
 "notifications-center-status-unread" = "نہ-پڙھيل";
 "notifications-center-subheader-edit-milestone" = "سنوارڻ جا سنگِ-ميلَ";
-"notifications-center-subheader-edit-reverted" = "توھان جي ترميم ورائي وئي";
+"notifications-center-subheader-edit-reverted" = "توھان جي سنوار موٽائي وئي";
 "notifications-center-subheader-email-from-other-user" = "نئين ايميل";
 "notifications-center-subheader-login-fail-known-device" = "داخل ٿيڻ جون ھيڪاندو ناڪام ڪوششون";
 "notifications-center-subheader-login-fail-unknown-device" = "داخل ٿيڻ جي ناڪام ڪوشش";
@@ -577,7 +578,7 @@
 "notifications-center-swipe-more" = "وڌيڪ";
 "notifications-center-title" = "اطلاع";
 "notifications-push-fallback-body-text" = "وڪيپيڊيا تي نئين سرگرمي";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|پيغام|پيغامَ}}";
+// Fuzzy
 "notifications-push-talk-title-format" = "نوان $1";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
@@ -720,12 +721,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 شيءِ مٽائجي وئي|$1 شيون مٽائجي ويون}}";
 "replace-textfield-accessibility" = "مٽايو";
 "replace-textfield-placeholder" = "سان مٽايو…";
-"reverted-edit-back-to-article-button-title" = "مضمون ڏانھن واپس";
-"reverted-edit-possible-reasons" = "- توھان جي ڀاڱيداريءَ ھدايتن مان ڪنھن ھڪ جي پيرو نہ ڪئي. \n\n - توھان جي ڀاڱيداري ڪنھن تجربي يا تخريبڪاري وانگر لڳي";
-"reverted-edit-possible-reasons-subtitle" = "اسين ڄاڻون ٿا تہ توھان پنھنجي بھترين ڪوشش ڪئي، پر نظرثانيڪارن مان ھڪ کي شبھو آھي.\n\nتوھان جي سنوار ورائجڻ جي ممڪن سببن ۾ شامل آھن:";
-"reverted-edit-thanks-for-editing-title" = "وڪيپيڊيا سنوارڻ لاءِ مھرباني!";
 "reverted-edit-title" = "ورايل سنوار";
-"reverted-edit-view-guidelines-text" = "ھدايتون ڏسو";
 "saved-all-articles-title" = "سڀ مضمون";
 "saved-default-reading-list-tag" = "ھي فھرست نٿي ڊاھي سگهجي";
 "saved-pages-image-download-error" = "هن سانڍيل صفحي لاءِ عڪس لاھڻ ۾ ناڪامي ٿي.";
@@ -790,8 +786,6 @@
 "share-social-mention-format" = "“$1” وايه @وڪيپيڊيا: $2";
 "sort-by-recently-added-action" = "تازو ئي وڌل";
 "sort-by-title-action" = "عنوان";
-"status-saved-for-later" = "بعد لاءِ سانڍيل";
-"status-saving-for-later" = "بعد لاءِ سانڍڻ...";
 "table-of-contents-button-label" = "عنوانن جي فھرست";
 "table-of-contents-close-accessibility-hint" = "بند ڪريو";
 "table-of-contents-close-accessibility-label" = "عنوانن جي فھرست بند ڪريو";

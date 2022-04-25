@@ -377,10 +377,6 @@
 "icon-shortcut-random-title" = "Lap találomra";
 "icon-shortcut-search-title" = "Keresés a Wikipédiában";
 "image-gallery-unknown-owner" = "Ismeretlen szerző.";
-"in-the-news-currently-trending" = "Jelenleg felkapott";
-"in-the-news-notification-read-now-action-title" = "Olvasás most";
-"in-the-news-notification-save-for-later-action-title" = "Elmentés későbbre";
-"in-the-news-notification-share-action-title" = "Megosztás…";
 "in-the-news-sub-title-from-language-wikipedia" = "A(z) $1 Wikipédiáról";
 "in-the-news-sub-title-from-wikipedia" = "A Wikipédiáról";
 "in-the-news-title" = "A hírekben";
@@ -486,7 +482,7 @@
 "notifications-center-swipe-mark-as-unread" = "Jelölés olvasatlanként";
 "notifications-center-swipe-more" = "Tovább";
 "notifications-center-title" = "Értesítések";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|üzenet|üzenet}}";
+// Fuzzy
 "notifications-push-talk-title-format" = "Új $1";
 "number-billions" = "$1 Mrd";
 "number-millions" = "$1M";
@@ -614,10 +610,7 @@
 "replace-infolabel-method-replace-all" = "Összes cseréje";
 "replace-textfield-accessibility" = "Csere";
 "replace-textfield-placeholder" = "Csere a következőre...";
-"reverted-edit-back-to-article-button-title" = "Vissza a szócikkhez";
-"reverted-edit-thanks-for-editing-title" = "Köszönjük, hogy szerkesztetted a Wikipédiát!";
 "reverted-edit-title" = "Visszavont szerkesztés";
-"reverted-edit-view-guidelines-text" = "Útmutatók megtekintése";
 "saved-all-articles-title" = "Minden szócikk";
 "saved-default-reading-list-tag" = "Ezt a listát nem lehet törölni";
 "saved-pages-image-download-error" = "A képek letöltése sikertelen ehhez a mentett laphoz.";
@@ -671,8 +664,6 @@
 "share-social-mention-format" = "„$1” @Wikipedia: $2";
 "sort-by-recently-added-action" = "Nemrég hozzáadva";
 "sort-by-title-action" = "Cím";
-"status-saved-for-later" = "Mentve későbbre";
-"status-saving-for-later" = "Mentés későbbre…";
 "table-of-contents-button-label" = "Tartalomjegyzék";
 "table-of-contents-close-accessibility-hint" = "Bezárás";
 "table-of-contents-close-accessibility-label" = "Tartalomjegyzék bezárása";

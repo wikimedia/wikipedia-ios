@@ -41,7 +41,7 @@ class NotificationsCenterDetailViewModelLoginIssuesTests: NotificationsCenterVie
         let expectedPrimaryDestinationText = "On web"
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!)
         
-        let expectedText0 = "Go to Login notifications"
+        let expectedText0 = "Login notifications"
         let expectedURL0: URL? = URL(string: "https://www.mediawiki.org/wiki/Help:Login_notifications")!
         let expectedIcon0: NotificationsCenterIconType = .document
         let expectedDestinationText0 = "On web"

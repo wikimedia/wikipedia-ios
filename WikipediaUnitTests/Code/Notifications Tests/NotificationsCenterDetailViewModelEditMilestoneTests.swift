@@ -52,7 +52,7 @@ class NotificationsCenterDetailViewModelEditMilestoneTests: NotificationsCenterV
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
         XCTAssertEqual(detailViewModel.secondaryActions.count, 0, "Invalid secondaryActions count")
         
-        let expectedPrimaryText = "Go to User:Fred The Bird"
+        let expectedPrimaryText = "User:Fred The Bird"
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Fred_The_Bird")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .document
         let expectedPrimaryDestinationText = "On web"
@@ -72,7 +72,7 @@ class NotificationsCenterDetailViewModelEditMilestoneTests: NotificationsCenterV
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
         XCTAssertEqual(detailViewModel.secondaryActions.count, 0, "Invalid secondaryActions count")
         
-        let expectedPrimaryText = "Go to article"
+        let expectedPrimaryText = "Article"
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/Blue_Bird")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .document
         let expectedPrimaryDestinationText = "In app"
@@ -92,7 +92,7 @@ class NotificationsCenterDetailViewModelEditMilestoneTests: NotificationsCenterV
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
         XCTAssertEqual(detailViewModel.secondaryActions.count, 0, "Invalid secondaryActions count")
         
-        let expectedPrimaryText = "Go to talk page"
+        let expectedPrimaryText = "Talk page"
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .document
         let expectedPrimaryDestinationText = "In app"

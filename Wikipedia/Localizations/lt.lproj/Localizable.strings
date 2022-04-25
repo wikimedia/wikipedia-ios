@@ -124,9 +124,6 @@
 "icon-shortcut-random-title" = "Atsitiktinis straipsnis";
 "icon-shortcut-search-title" = "Ieškoti Vikipedijoje";
 "image-gallery-unknown-owner" = "Autorius nežinomas.";
-"in-the-news-currently-trending" = "Šiuo metu populiaru";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Dalintis...";
 "in-the-news-title" = "Naujienos";
 "languages-title" = "Keisti kalbą";
 "login-join-wikipedia" = "Prisijunkite prie Vikipedijos.";
@@ -217,8 +214,6 @@
 "share-get-directions-in-maps" = "Gauti Nuorodas";
 "share-on-twitter-sign-off" = "per @Wikipedia";
 "share-open-in-maps" = "Atidaryti Žemėlapiuose";
-"status-saved-for-later" = "Išsaugota ateičiai";
-"status-saving-for-later" = "Išsaugoma ateičiai...";
 "table-of-contents-button-label" = "Turinys";
 "table-of-contents-close-accessibility-hint" = "Uždaryti";
 "table-of-contents-close-accessibility-label" = "Uždaryti Turinio lentelę";

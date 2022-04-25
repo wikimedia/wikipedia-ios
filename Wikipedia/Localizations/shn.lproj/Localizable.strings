@@ -397,11 +397,6 @@
 "icon-shortcut-random-title" = "ပွင်ႈလိၵ်ႈၵမ်ႉမၢၼ်";
 "icon-shortcut-search-title" = "ၶူၼ်ႉႁႃ ဝီႇၶီႇၽီးတီးယႃး";
 "image-gallery-unknown-owner" = "ဢမ်ႇႁူႉ ၽူႈတႅမ်ႈလိၵ်ႈ";
-"in-the-news-currently-trending" = "သၢႆတၢင်းယၢမ်းလဵဝ်";
-"in-the-news-notification-read-now-action-title" = "လူယၢမ်းလဵဝ်";
-"in-the-news-notification-save-for-later-action-title" = "သိမ်းဝႆႉတႃႇဝၢႆးလင်";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "ၽႄႈတိုၼ်း...";
 "in-the-news-sub-title-from-language-wikipedia" = "မႃးတီႈ ဝီႇၶီႇၽီးတီးယႃး $1";
 "in-the-news-sub-title-from-wikipedia" = "မႃးတီႈ ဝီႇၶီႇၽီးတီးယႃး";
 "in-the-news-title" = "တီႈၼႂ်းၶၢဝ်ႇ";
@@ -622,12 +617,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|တႅၼ်းတီႈယဝ်ႉ $1 ဢၼ် |တႅၼ်းတီႈယဝ်ႉ $1 ဢၼ်}}";
 "replace-textfield-accessibility" = "တႅၼ်းတီႈ";
 "replace-textfield-placeholder" = "တႅၼ်းတီႈတင်း...";
-"reverted-edit-back-to-article-button-title" = "ႁူၼ်လင်ၸူး ပွင်ႈၵႂၢမ်း";
-"reverted-edit-possible-reasons" = "- လွင်ႈၶဝ်ႈႁူမ်ႈၸဝ်ႈၵဝ်ႇၼႆ့ ဢမ်ႇလႆႈၸွမ်းလင် ၽိုၼ်သုင်မႃးသေဢၼ်။ $1\n\n - လွင်ႈၶဝ်ႈႁူမ်ႈၸဝ်ႈၵဝ်ႇၼႆႉ လဵပ်ႈမိူၼ် လွင်ႈၶူၼ်ႉၶႂႃႉ ဢမ်ႇၼၼ် လႅပ်းပဵၼ် လွင်ႈတိၼ်လူၼ်းမိုဝ်းၶိုၼ်းဝႆ့";
-"reverted-edit-possible-reasons-subtitle" = "ႁဝ်းၶႃႈႁူႉဝႃႈ ၸဝ်ႈၵဝ်ႇ ၶတ်းၸႂ်ၼင်ႇပဵၼ်လႆႈ၊ ၵူၺ်းၵႃႈ ၽူႈထတ်းသၢင် တၢင်ႇၵေႃႉ ၵေႃႈ ပဵၼ်ဢၼ်ၶဝ်ႈၵပ်းၵၢႆႇဝႆႉ။ ၼႆႉပဵၼ် လွင်ႈတၢင်းဢၼ်ပွင်ႈလိၵ်ႈၸဝ်ႈၵဝ်ႇ ထုၵ်ႇၶိုၼ်ၶိုၼ်း:";
-"reverted-edit-thanks-for-editing-title" = "ယိၼ်းၸူမ်းၶွပ်ႈၸႂ် တႃႇ လွင်ႈမႄးထတ်း ဝီႇၶီႇၽီးတီးယႃး!";
 "reverted-edit-title" = "လွင်ႈမႄးထတ်း ဢၼ်ၶိုၼ်ၶိုၼ်းဝႆ့";
-"reverted-edit-view-guidelines-text" = "တူၺ်း ၽိုၼ်ၸုင်";
 "saved-all-articles-title" = "ပွင်ႈလိၵ်ႈတင်းသဵင်ႈ";
 "saved-default-reading-list-tag" = "သဵၼ်ႈမၢႆဢၼ်ၼႆႉ ဢမ်ႇၸၢင်ႈမွတ်ႇ";
 "saved-pages-image-download-error" = "မီးလွင်ႈၽိတ်းပိူင်ႈ တွၼ်ႈတႃႇလူတ်ႇလူင်းဢဝ် ၶႅပ်းႁၢင်ႈတႃႇ ၼႃႈလိၵ်ႈဢၼ်သိမ်းဝႆႉဢၼ်ၼႆႉၼႆႉ။";
@@ -701,8 +691,6 @@
 "share-social-mention-format" = "“$1” ၵႃႈတီႈ @ဝီႇၶီႇၽီးတီးယႃး: $2";
 "sort-by-recently-added-action" = "ဢၼ်တိုၵ်ႉႁႃထႅမ်သႂ်ႇၵႂႃႇ";
 "sort-by-title-action" = "ႁူဝ်ၶေႃႈ";
-"status-saved-for-later" = "တွၼ်ႈတႃႇဝၢႆးလင် သိမ်းဝႆႉယဝ်ႉ";
-"status-saving-for-later" = "တိုၵ်ႉသိမ်းဝႆႉ တႃႇဝၢႆးလင်...";
 "table-of-contents-button-label" = "လမ်းၼႂ်း";
 "table-of-contents-close-accessibility-hint" = "ႁပ်း";
 "table-of-contents-close-accessibility-label" = "ႁပ်းလမ်းၼႂ်း";

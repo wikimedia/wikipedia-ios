@@ -75,19 +75,19 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
         XCTAssertEqual(detailViewModel.secondaryActions.count, 2, "Invalid secondaryActions count")
         
-        let expectedPrimaryText = "Go to your talk page"
+        let expectedPrimaryText = "Your talk page"
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
         let expectedPrimaryIcon = NotificationsCenterIconType.document
         let expectedPrimaryDestination = "In app"
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestination, actionToTest: detailViewModel.primaryAction!)
         
-        let expectedText0 = "Go to user page"
+        let expectedText0 = "Jack The Cat's user page"
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Jack_The_Cat")!
         let expectedIcon0 = NotificationsCenterIconType.person
         let expectedDestinationText0 = "On web"
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0])
         
-        let expectedText1 = "Go to diff"
+        let expectedText1 = "Diff"
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/w/index.php?oldid=892051241&title=User_talk%253AFred_The_Bird")!
         let expectedIcon1 = NotificationsCenterIconType.diff
         let expectedDestinationText1 = "In app"
@@ -107,19 +107,19 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
         XCTAssertEqual(detailViewModel.secondaryActions.count, 2, "Invalid secondaryActions count")
         
-        let expectedPrimaryText = "Go to your talk page"
+        let expectedPrimaryText = "Your talk page"
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
         let expectedPrimaryIcon = NotificationsCenterIconType.document
         let expectedPrimaryDestination = "In app"
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestination, actionToTest: detailViewModel.primaryAction!)
         
-        let expectedText0 = "Go to user page"
+        let expectedText0 = "47.184.10.84's user page"
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:47.184.10.84")!
         let expectedIcon0 = NotificationsCenterIconType.person
         let expectedDestinationText0 = "On web"
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0])
         
-        let expectedText1 = "Go to diff"
+        let expectedText1 = "Diff"
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/w/index.php?oldid=899561783&title=User_talk%253AFred_The_Bird")!
         let expectedIcon1 = NotificationsCenterIconType.diff
         let expectedDestinationText1 = "In app"
@@ -139,19 +139,19 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
         XCTAssertEqual(detailViewModel.secondaryActions.count, 2, "Invalid secondaryActions count")
         
-        let expectedPrimaryText = "Go to your talk page"
+        let expectedPrimaryText = "Your talk page"
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Hello")!
         let expectedPrimaryIcon = NotificationsCenterIconType.document
         let expectedPrimaryDestination = "In app"
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestination, actionToTest: detailViewModel.primaryAction!)
         
-        let expectedText0 = "Go to user page"
+        let expectedText0 = "Jack The Cat's user page"
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Jack_The_Cat")!
         let expectedIcon0 = NotificationsCenterIconType.person
         let expectedDestinationText0 = "On web"
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0])
         
-        let expectedText1 = "Go to diff"
+        let expectedText1 = "Diff"
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/w/index.php?oldid=892043155&title=User_talk%253AFred_The_Bird")!
         let expectedIcon1 = NotificationsCenterIconType.diff
         let expectedDestinationText1 = "In app"
@@ -171,19 +171,19 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
         XCTAssertEqual(detailViewModel.secondaryActions.count, 2, "Invalid secondaryActions count")
         
-        let expectedPrimaryText = "Go to your talk page"
+        let expectedPrimaryText = "Your talk page"
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Section_Title")!
         let expectedPrimaryIcon = NotificationsCenterIconType.document
         let expectedPrimaryDestination = "In app"
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestination, actionToTest: detailViewModel.primaryAction!)
         
-        let expectedText0 = "Go to user page"
+        let expectedText0 = "47.184.10.84's user page"
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:47.184.10.84")!
         let expectedIcon0 = NotificationsCenterIconType.person
         let expectedDestinationText0 = "On web"
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0])
         
-        let expectedText1 = "Go to diff"
+        let expectedText1 = "Diff"
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/w/index.php?oldid=901389754&title=User_talk%253AFred_The_Bird")!
         let expectedIcon1 = NotificationsCenterIconType.diff
         let expectedDestinationText1 = "In app"
@@ -203,19 +203,19 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
         XCTAssertEqual(detailViewModel.secondaryActions.count, 2, "Invalid secondaryActions count")
         
-        let expectedPrimaryText = "Go to your talk page"
+        let expectedPrimaryText = "Your talk page"
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Jack_The_Cat#Section_Title")!
         let expectedPrimaryIcon = NotificationsCenterIconType.document
         let expectedPrimaryDestination = "In app"
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestination, actionToTest: detailViewModel.primaryAction!)
         
-        let expectedText0 = "Go to user page"
+        let expectedText0 = "Fred The Bird's user page"
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Fred_The_Bird")!
         let expectedIcon0 = NotificationsCenterIconType.person
         let expectedDestinationText0 = "On web"
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0])
         
-        let expectedText1 = "Go to diff"
+        let expectedText1 = "Diff"
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/w/index.php?oldid=1076152880&title=User_talk%253AJack_The_Cat")!
         let expectedIcon1 = NotificationsCenterIconType.diff
         let expectedDestinationText1 = "In app"
@@ -235,19 +235,19 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
         XCTAssertEqual(detailViewModel.secondaryActions.count, 2, "Invalid secondaryActions count")
         
-        let expectedPrimaryText = "Go to your talk page"
+        let expectedPrimaryText = "Your talk page"
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
         let expectedPrimaryIcon = NotificationsCenterIconType.document
         let expectedPrimaryDestination = "In app"
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestination, actionToTest: detailViewModel.primaryAction!)
         
-        let expectedText0 = "Go to user page"
+        let expectedText0 = "MediaWiki message delivery's user page"
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:MediaWiki_message_delivery")!
         let expectedIcon0 = NotificationsCenterIconType.person
         let expectedDestinationText0 = "On web"
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0])
         
-        let expectedText1 = "Go to diff"
+        let expectedText1 = "Diff"
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/w/index.php?oldid=920081372&title=User_talk%253AFred_The_Bird")!
         let expectedIcon1 = NotificationsCenterIconType.diff
         let expectedDestinationText1 = "In app"

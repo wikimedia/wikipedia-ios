@@ -26,6 +26,7 @@
 // Author: Jduranboger
 // Author: Joanmp17
 // Author: Josecurioso
+// Author: Josuert
 // Author: Juan Cuartas
 // Author: Koavf
 // Author: Luisangelrg
@@ -506,10 +507,6 @@
 "icon-shortcut-random-title" = "Artículo aleatorio";
 "icon-shortcut-search-title" = "Buscar en Wikipedia";
 "image-gallery-unknown-owner" = "Autor desconocido.";
-"in-the-news-currently-trending" = "En tendencia";
-"in-the-news-notification-read-now-action-title" = "Leer ahora";
-"in-the-news-notification-save-for-later-action-title" = "Guardar para después";
-"in-the-news-notification-share-action-title" = "Compartir…";
 "in-the-news-sub-title-from-language-wikipedia" = "De Wikipedia en $1";
 "in-the-news-sub-title-from-wikipedia" = "De Wikipedia";
 "in-the-news-title" = "Actualidad";
@@ -601,14 +598,18 @@
 "notifications-center-feed-news-notification-button-text" = "Activar las notificaciones";
 "notifications-center-feed-news-notification-dismiss-button-text" = "Ahora no";
 "notifications-center-filters-accessibility-label" = "Filtro de notificaciones";
+// Fuzzy
 "notifications-center-go-to-article" = "Ir al artículo";
+// Fuzzy
 "notifications-center-go-to-article-collaboration-format" = "Ir a la página de colaboración de $1";
+// Fuzzy
 "notifications-center-go-to-article-discussion-format" = "Ir a la página de discusión de $1";
+// Fuzzy
 "notifications-center-go-to-article-talk-format" = "Ir a la página de discusión de $1";
+// Fuzzy
 "notifications-center-go-to-collaboration-page" = "Ir a la página de colaboración";
+// Fuzzy
 "notifications-center-go-to-discussion-page" = "Ir a la página de debate";
-"notifications-center-go-to-user-page-format" = "Ir a la página de usuario de $1";
-"notifications-center-go-to-user-page-simplified" = "Ir a la página de usuario";
 "notifications-center-login-notifications" = "Notificaciones de inicio de sesión";
 "notifications-center-onboarding-modal-continue-action" = "Continuar";
 "notifications-center-onboarding-modal-filters-title" = "Filtros";
@@ -622,6 +623,7 @@
 "notifications-center-toolbar-mark-accessibility-label" = "Marcar notificaciones seleccionadas";
 "notifications-center-type-item-description-mentions" = "Menciones";
 "notifications-center-type-item-description-welcome-verbose" = "Mensaje de bienvenida";
+"notifications-push-talk-title-format" = "{{PLURAL:$1|Nuevo mensaje|Nuevos mensajes}}";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
@@ -804,12 +806,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 elemento fue reemplazado|$1 elementos fueron reemplazados}}";
 "replace-textfield-accessibility" = "Reemplazar";
 "replace-textfield-placeholder" = "Reemplazar por…";
-"reverted-edit-back-to-article-button-title" = "Volver al artículo";
-"reverted-edit-possible-reasons" = "- Tu contribución no sigue alguna de las guías. $1\n\n- Tu contribución parece un experimento o un acto vandálico";
-"reverted-edit-possible-reasons-subtitle" = "Sabemos intentaste hacer lo mejor, pero uno de los revisores planteó una duda.\n\n\nPosibles razones por las que tu edición se rechazó:";
-"reverted-edit-thanks-for-editing-title" = "¡Gracias por editar en Wikipedia!";
 "reverted-edit-title" = "Edición rechazada";
-"reverted-edit-view-guidelines-text" = "Ver guías";
 "saved-all-articles-title" = "Todos los artículos";
 "saved-default-reading-list-tag" = "No se puede eliminar esta lista";
 "saved-pages-image-download-error" = "Error al descargar las imágenes de esta página guardada.";
@@ -888,8 +885,6 @@
 "share-social-mention-format" = "«$1» vía @Wikipedia: $2";
 "sort-by-recently-added-action" = "Añadidos recientemente";
 "sort-by-title-action" = "Título";
-"status-saved-for-later" = "Guardado para después";
-"status-saving-for-later" = "Guardando para después…";
 "table-of-contents-button-label" = "Sumario";
 "table-of-contents-close-accessibility-hint" = "Cerrar";
 "table-of-contents-close-accessibility-label" = "Cerrar el sumario";

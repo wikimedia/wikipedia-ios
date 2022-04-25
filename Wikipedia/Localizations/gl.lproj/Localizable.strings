@@ -412,10 +412,6 @@
 "icon-shortcut-random-title" = "Artigo ao chou";
 "icon-shortcut-search-title" = "Procurar na Wikipedia";
 "image-gallery-unknown-owner" = "Autor descoñecido.";
-"in-the-news-currently-trending" = "Popular actualmente";
-"in-the-news-notification-read-now-action-title" = "Ler agora";
-"in-the-news-notification-save-for-later-action-title" = "Gardar para máis tarde";
-"in-the-news-notification-share-action-title" = "Compartir...";
 "in-the-news-sub-title-from-language-wikipedia" = "Da Wikipedia en $1";
 "in-the-news-sub-title-from-wikipedia" = "Da Wikipedia";
 "in-the-news-title" = "Actualidade";
@@ -643,12 +639,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 instancia substituída|$1 instancias substituídas}}";
 "replace-textfield-accessibility" = "Substituír";
 "replace-textfield-placeholder" = "Substituír por...";
-"reverted-edit-back-to-article-button-title" = "Voltar ó artigo";
-"reverted-edit-possible-reasons" = "- A súa contribución non segue algunha das recomendacións. $1 \n\n - A súa contribución parece un experimento ou vandalismo";
-"reverted-edit-possible-reasons-subtitle" = "Sabemos que tentou facelo o mellor posible, pero un dos revisores non concorda.\n\nAs posibles razóns de que a súa edición fose revertida inclúenː";
-"reverted-edit-thanks-for-editing-title" = "Grazas por editar a Wikipediaǃ";
 "reverted-edit-title" = "Edición revertida";
-"reverted-edit-view-guidelines-text" = "Ver as recomendacións";
 "saved-all-articles-title" = "Todos os artigos";
 "saved-default-reading-list-tag" = "Esta lista non pode ser eliminada";
 "saved-pages-image-download-error" = "Erro ó descargar as imaxes desta páxina gardada.";
@@ -722,8 +713,6 @@
 "share-social-mention-format" = "“$1” vía @Wikipedia: $2";
 "sort-by-recently-added-action" = "Engadidos recentemente";
 "sort-by-title-action" = "Título";
-"status-saved-for-later" = "Gardado para máis tarde";
-"status-saving-for-later" = "Gardando para máis tarde...";
 "table-of-contents-button-label" = "Táboa de contidos";
 "table-of-contents-close-accessibility-hint" = "Pechar";
 "table-of-contents-close-accessibility-label" = "Pechar táboa de contidos";

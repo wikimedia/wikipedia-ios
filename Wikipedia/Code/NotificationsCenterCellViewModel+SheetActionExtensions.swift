@@ -58,7 +58,6 @@ extension NotificationsCenterCellViewModel {
 
         }
         
-        //TODO: add notification settings destination
         let notificationSubscriptionSettingsText = WMFLocalizedString("notifications-center-notifications-settings", value: "Notification settings", comment: "Button text in Notifications Center that automatically routes to the notifications settings screen.")
         let notificationSettingsActionData = NotificationsCenterActionData(text: notificationSubscriptionSettingsText, url: nil, iconType: nil, destinationText: nil, actionType: .settings)
         sheetActions.append(.notificationSubscriptionSettings(notificationSettingsActionData))

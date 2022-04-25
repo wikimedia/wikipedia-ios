@@ -21,6 +21,7 @@
 // Author: Purodha
 // Author: Ubahnverleih
 // Author: Umlaut
+// Author: ZiqiLiang
 
 "aaald-added-text-description-2" = "$1 hinzugefügt";
 "aaald-article-description-updated-description" = "Die Artikelbeschreibung wurde aktualisiert";
@@ -94,6 +95,7 @@
 "action-add-to-reading-list" = "Zu Leseliste hinzufügen";
 "action-add-to-reading-list-short" = "Zu Liste hinzufügen";
 "action-cancel" = "Abbrechen";
+"action-discard-edits" = "Bearbeitungen verwerfen";
 "action-find-in-page" = "In Seite finden";
 "action-language-accessibility" = "Sprache ändern";
 "action-move-to" = "Verschieben nach …";
@@ -463,10 +465,6 @@
 "icon-shortcut-random-title" = "Zufälliger Artikel";
 "icon-shortcut-search-title" = "Wikipedia durchsuchen";
 "image-gallery-unknown-owner" = "Autor unbekannt.";
-"in-the-news-currently-trending" = "Aktuell beliebt";
-"in-the-news-notification-read-now-action-title" = "Jetzt lesen";
-"in-the-news-notification-save-for-later-action-title" = "Für später speichern";
-"in-the-news-notification-share-action-title" = "Teilen …";
 "in-the-news-sub-title-from-language-wikipedia" = "Von der Wikipedia auf $1";
 "in-the-news-sub-title-from-wikipedia" = "Von Wikipedia";
 "in-the-news-title" = "In den Nachrichten";
@@ -548,6 +546,7 @@
 "notifications-center-empty-state-no-projects-selected" = "Projekte hinzufügen, um mehr Nachrichten zu sehen";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "Benachrichtigungen anschalten";
+"notifications-center-feed-news-notification-dismiss-button-text" = "Nicht jetzt";
 "notifications-center-filters-accessibility-label" = "Benachrichtigungsfilter";
 "notifications-center-filters-read-status-item-title-all" = "Alle";
 "notifications-center-filters-read-status-item-title-read" = "Gelesen";
@@ -557,8 +556,13 @@
 "notifications-center-filters-types-footer" = "Ändere die Benachrichtigungstypen, um sie in/aus deinem Benachrichtigungseingang zu filtern. Deaktivierte Benachrichtigungstypen sind nicht sichtbar, aber ihr Inhalt und alle neuen Benachrichtigungen sind verfügbar, wenn du den Schalter wieder einschaltest.";
 "notifications-center-filters-types-item-title-all" = "Alle Typen";
 "notifications-center-filters-types-section-title" = "Benachrichtigungstypen";
+"notifications-center-go-to-article" = "Artikel";
+"notifications-center-go-to-discussion-page" = "Diskussionsseite";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Zur Diskussionsseite gehen";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "Zum Wikidata-Datenobjekt gehen";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "Zu deine Diskussionsseite gehen";
 "notifications-center-inbox-title" = "Projekte";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Wikimedia-Projekte";
@@ -566,6 +570,10 @@
 "notifications-center-mark-all-as-read" = "Alle als gelesen markieren";
 "notifications-center-mark-as-read" = "Als gelesen markieren";
 "notifications-center-mark-as-unread" = "Als ungelesen markieren";
+"notifications-center-more-action-accessibility-label" = "Mehr";
+"notifications-center-onboarding-modal-continue-action" = "Fortfahren";
+"notifications-center-onboarding-modal-filters-title" = "Filter";
+"notifications-center-onboarding-panel-secondary-button" = "Nein danke";
 "notifications-center-status-read" = "Gelesen";
 "notifications-center-status-triple-concatenation" = "$1 und $2 in $3";
 "notifications-center-status-unread" = "Ungelesen";
@@ -581,6 +589,7 @@
 "notifications-center-swipe-mark-as-read" = "Als gelesen markieren";
 "notifications-center-swipe-mark-as-unread" = "Als ungelesen markieren";
 "notifications-center-swipe-more" = "Mehr";
+"notifications-center-type-item-description-mentions" = "Erwähnungen";
 "number-billions" = "$1 Mrd.";
 "number-millions" = "$1 Mio.";
 "number-thousands" = "$1 T";
@@ -758,12 +767,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|Ein Objekt|$1 Objekte}} ersetzt";
 "replace-textfield-accessibility" = "Ersetzen";
 "replace-textfield-placeholder" = "Ersetzen durch …";
-"reverted-edit-back-to-article-button-title" = "Zurück zum Artikel";
-"reverted-edit-possible-reasons" = "- Dein Beitrag folgte nicht einer der Richtlinien. $1\n\n- Dein Beitrag sieht nach einem Experiment oder Vandalismus aus.";
-"reverted-edit-possible-reasons-subtitle" = "Wir wissen, dass du dein Bestes versucht hast, aber einer der Überprüfer hatte einen Bedenken.\n\nMögliche Gründe, warum deine Bearbeitung zurückgesetzt wurde, sind:";
-"reverted-edit-thanks-for-editing-title" = "Vielen Dank für deine Bearbeitungen auf Wikipedia!";
 "reverted-edit-title" = "Zurückgesetzte Bearbeitung";
-"reverted-edit-view-guidelines-text" = "Richtlinien ansehen";
 "saved-all-articles-title" = "Alle Artikel";
 "saved-default-reading-list-tag" = "Diese Liste kann nicht gelöscht werden";
 "saved-pages-image-download-error" = "Die Bilder für diese gespeicherte Seite konnten nicht heruntergeladen werden.";
@@ -837,8 +841,6 @@
 "share-social-mention-format" = "„$1“ über @Wikipedia: $2";
 "sort-by-recently-added-action" = "Kürzlich hinzugefügt";
 "sort-by-title-action" = "Titel";
-"status-saved-for-later" = "Für später gespeichert";
-"status-saving-for-later" = "Für später speichern …";
 "table-of-contents-button-label" = "Inhaltsverzeichnis";
 "table-of-contents-close-accessibility-hint" = "Schließen";
 "table-of-contents-close-accessibility-label" = "Inhaltsverzeichnis schließen";

@@ -498,10 +498,6 @@
 "icon-shortcut-random-title" = "おまかせ記事";
 "icon-shortcut-search-title" = "ウィキペディア内を検索";
 "image-gallery-unknown-owner" = "作者不明。";
-"in-the-news-currently-trending" = "現在のトレンド";
-"in-the-news-notification-read-now-action-title" = "すぐ読む";
-"in-the-news-notification-save-for-later-action-title" = "保存してあとで読む";
-"in-the-news-notification-share-action-title" = "共有...";
 "in-the-news-sub-title-from-language-wikipedia" = "$1版ウィキペディアより";
 "in-the-news-sub-title-from-wikipedia" = "ウィキペディアより";
 "in-the-news-title" = "ニュースに関する記事";
@@ -582,16 +578,15 @@
 "notifications-center-feed-card-title" = "編集の通知が利用可能になりました";
 "notifications-center-feed-news-notification-button-text" = "プッシュ通知をオンにする";
 "notifications-center-feed-news-notification-dismiss-button-text" = "今はしない";
-"notifications-center-go-to-article" = "記事へ移動する";
-"notifications-center-go-to-article-talk-format" = "$1の会話ページに移動";
-"notifications-center-go-to-diff" = "履歴へ移動";
-"notifications-center-go-to-discussion-page" = "議論ページに移動";
-"notifications-center-go-to-talk-page" = "会話ページに移動";
-"notifications-center-go-to-title-format" = "$1に移動";
-"notifications-center-go-to-user-page" = "$1の利用者ページに移動";
-"notifications-center-go-to-user-page-format" = "$1の利用者ページに移動";
-"notifications-center-go-to-user-page-simplified" = "利用者ページに移動";
-"notifications-center-go-to-your-talk-page" = "あなたの会話ページに移動";
+"notifications-center-go-to-article" = "記事";
+"notifications-center-go-to-article-discussion-format" = "$1の議論ページ";
+"notifications-center-go-to-article-talk-format" = "$1の会話ページ";
+"notifications-center-go-to-diff" = "差分";
+"notifications-center-go-to-discussion-page" = "議論ページ";
+"notifications-center-go-to-talk-page" = "トークページ";
+"notifications-center-go-to-user-page" = "$1の利用者ページ";
+"notifications-center-go-to-wikidata-item" = "ウィキデータ項目";
+"notifications-center-go-to-your-talk-page" = "あなたの会話ページ";
 "notifications-center-header-alert-from-project" = "$1からの通知";
 "notifications-center-header-notice-from-project" = "$1からの通知";
 "notifications-center-login-notifications" = "ログイン通知";
@@ -627,8 +622,9 @@
 "notifications-center-type-item-description-mentions" = "言及";
 "notifications-center-type-item-description-welcome-verbose" = "ようこそメッセージ";
 "notifications-push-fallback-body-text" = "ウィキペディア内の新しいアクティビティ";
+// Fuzzy
 "notifications-push-talk-body-format" = "$3の$1件の#2";
-"notifications-push-talk-messages-format" = "メッセージ";
+// Fuzzy
 "notifications-push-talk-title-format" = "新しい$1";
 "number-billions" = "$1";
 "number-millions" = "$1";
@@ -811,12 +807,7 @@
 "replace-replace-all-results-count" = "$1件置換しました";
 "replace-textfield-accessibility" = "置換";
 "replace-textfield-placeholder" = "置換後の文字列";
-"reverted-edit-back-to-article-button-title" = "記事に戻る";
-"reverted-edit-possible-reasons" = "- あなたの貢献の内容がガイドラインのひとつに反しています。$1 \n\n - あなたの貢献の内容は実験か不正行為と見なされました";
-"reverted-edit-possible-reasons-subtitle" = "あなたがベストを尽くそうとしたのはよく分かりますが、レビュアーは懸念を持ったようです。\n\nあなたの編集が差し戻された理由としては、以下のような可能性があります。";
-"reverted-edit-thanks-for-editing-title" = "ウィキペディアを編集していただきありがとうございます!";
 "reverted-edit-title" = "差し戻された編集";
-"reverted-edit-view-guidelines-text" = "ガイドラインを表示";
 "saved-all-articles-title" = "すべての記事";
 "saved-default-reading-list-tag" = "このリストは削除できません";
 "saved-pages-image-download-error" = "保存したページの画像のダウンロードに失敗しました。";
@@ -890,8 +881,6 @@
 "share-social-mention-format" = "“$1” ウィキペディア@経由: $2";
 "sort-by-recently-added-action" = "最近の追加";
 "sort-by-title-action" = "記事名";
-"status-saved-for-later" = "保存しました";
-"status-saving-for-later" = "保存しています...";
 "table-of-contents-button-label" = "目次";
 "table-of-contents-close-accessibility-hint" = "閉じる";
 "table-of-contents-close-accessibility-label" = "目次を閉じる";

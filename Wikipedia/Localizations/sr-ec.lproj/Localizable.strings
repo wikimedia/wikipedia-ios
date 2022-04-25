@@ -430,10 +430,6 @@
 "icon-shortcut-random-title" = "Случајни чланак";
 "icon-shortcut-search-title" = "Претражи Википедију";
 "image-gallery-unknown-owner" = "Отпремалац је непознат.";
-"in-the-news-currently-trending" = "Најчитаније";
-"in-the-news-notification-read-now-action-title" = "Прочитај одмах";
-"in-the-news-notification-save-for-later-action-title" = "Сачувај за касније";
-"in-the-news-notification-share-action-title" = "Дели…";
 "in-the-news-sub-title-from-language-wikipedia" = "Језик Википедије: $1";
 "in-the-news-sub-title-from-wikipedia" = "Са Википедије";
 "in-the-news-title" = "Вести";
@@ -675,12 +671,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 измењена ставка|$1 измењене ставке}}";
 "replace-textfield-accessibility" = "Замени";
 "replace-textfield-placeholder" = "Замени са…";
-"reverted-edit-back-to-article-button-title" = "Назад на чланак";
-"reverted-edit-possible-reasons" = "- Ваш допринос није пратио једну од смерница. $1\n\n - Ваш допринос је изгледао као експеримент или вандализам";
-"reverted-edit-possible-reasons-subtitle" = "Знамо да сте дали све од себе, али један од прегледача има примедбу.\n\nМогући разлози због чега је ваша измена поништена:";
-"reverted-edit-thanks-for-editing-title" = "Хвала вам што уређујете Википедију!";
 "reverted-edit-title" = "Враћена измена";
-"reverted-edit-view-guidelines-text" = "Прикажи смернице";
 "saved-all-articles-title" = "Сви чланци";
 "saved-default-reading-list-tag" = "Ова листа не може да се избрише";
 "saved-pages-image-download-error" = "Преузимање слика за ову сачувану страницу није успело.";
@@ -756,8 +747,6 @@
 "share-social-mention-format" = "„$1” преко @Википедија: $2";
 "sort-by-recently-added-action" = "Недавно додато";
 "sort-by-title-action" = "Наслов";
-"status-saved-for-later" = "Сачувано за касније";
-"status-saving-for-later" = "Чувам за касније…";
 "table-of-contents-button-label" = "Садржај";
 "table-of-contents-close-accessibility-hint" = "Затвори";
 "table-of-contents-close-accessibility-label" = "Затвори садржај";

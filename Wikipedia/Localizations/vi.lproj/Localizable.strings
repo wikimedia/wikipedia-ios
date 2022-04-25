@@ -477,10 +477,6 @@
 "icon-shortcut-random-title" = "Bài viết ngẫu nhiên";
 "icon-shortcut-search-title" = "Tìm trong Wikipedia";
 "image-gallery-unknown-owner" = "Tác giả không rõ.";
-"in-the-news-currently-trending" = "Đang thịnh hành";
-"in-the-news-notification-read-now-action-title" = "Đọc ngay";
-"in-the-news-notification-save-for-later-action-title" = "Lưu để đọc sau";
-"in-the-news-notification-share-action-title" = "Chia sẻ…";
 "in-the-news-sub-title-from-language-wikipedia" = "Từ Wikipedia $1";
 "in-the-news-sub-title-from-wikipedia" = "Từ Wikipedia";
 "in-the-news-title" = "Tin tức";
@@ -569,11 +565,15 @@
 "notifications-center-empty-not-subscribed" = "Bạn hiện không theo dõi thông báo Wikipedia nào";
 "notifications-center-feed-news-notification-button-text" = "Bật thông báo đẩy";
 "notifications-center-feed-news-notification-dismiss-button-text" = "Không phải bây giờ";
+// Fuzzy
 "notifications-center-go-to-diff" = "Xem khác biệt";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Xem trang thảo luận";
-"notifications-center-go-to-title-format" = "Xem $1";
+// Fuzzy
 "notifications-center-go-to-user-page" = "Xem trang thảo luận của $1";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "Xem khoản mục Wikidata";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "Xem trang thảo luận của bạn";
 "notifications-center-header-alert-from-project" = "Cảnh báo từ $1";
 "notifications-center-header-notice-from-project" = "Thông báo từ $1";
@@ -608,8 +608,9 @@
 "notifications-center-swipe-more" = "Thêm";
 "notifications-center-title" = "Thông báo";
 "notifications-push-fallback-body-text" = "Hoạt động mới tại Wikipedia";
+// Fuzzy
 "notifications-push-talk-body-format" = "$1 $2 mới tại $3";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1}}Thông báo";
+// Fuzzy
 "notifications-push-talk-title-format" = "$1 mới";
 "number-billions" = "$1 tỷ";
 "number-millions" = "$1 triệu";
@@ -791,12 +792,7 @@
 "replace-replace-all-results-count" = "$1 mục được thay thế";
 "replace-textfield-accessibility" = "Thay thế";
 "replace-textfield-placeholder" = "Thay thế bằng…";
-"reverted-edit-back-to-article-button-title" = "Quay lại bài viết";
-"reverted-edit-possible-reasons" = "- Đóng góp của bạn không tuân theo quy định. $1 \n\n - Đóng góp của bạn có vẻ như thử nghiệm hoặc phá hoại";
-"reverted-edit-possible-reasons-subtitle" = "Rất tiếc, bạn đã cố gắng sửa đổi một cách chính xác, nhưng một người xem lại đã nhận thấy vấn đề.\n\nHọ đã lùi lại sửa đổi của bạn, có thể do một lý do sau:";
-"reverted-edit-thanks-for-editing-title" = "Cảm ơn bạn đã đóng góp cho Wikipedia!";
 "reverted-edit-title" = "Sửa đổi đã bị lùi lại";
-"reverted-edit-view-guidelines-text" = "Xem quy định";
 "saved-all-articles-title" = "Tất cả các bài";
 "saved-default-reading-list-tag" = "Không thể xóa danh sách này";
 "saved-pages-image-download-error" = "Tải xuống hình ảnh khi lưu trang này thất bại.";
@@ -873,8 +869,6 @@
 "share-social-mention-format" = "“$1” tại @Wikipedia: $2";
 "sort-by-recently-added-action" = "Thêm gần đây";
 "sort-by-title-action" = "Tựa đề";
-"status-saved-for-later" = "Đã lưu để đọc sau";
-"status-saving-for-later" = "Đang lưu để đọc sau…";
 "table-of-contents-button-label" = "Mục lục";
 "table-of-contents-close-accessibility-hint" = "Đóng";
 "table-of-contents-close-accessibility-label" = "Đóng Mục lục";

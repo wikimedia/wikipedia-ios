@@ -105,9 +105,13 @@ final class NotificationsCenterViewController: ViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        viewModel.refreshNotifications(force: true)
-        viewModel.markAllAsSeen()
         
+        if isFirstAppearance {
+            viewModel.refreshNotifications(force: true)
+        }
+        isFirstAppearance = false
+        
+        viewModel.markAllAsSeen()
         presentOnboardingEducationModalIfNecessary()
     }
 
@@ -607,7 +611,7 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
             collectionView.deselectItem(at: indexPath, animated: true)
 
             if !cellViewModel.isRead {
-                viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true)
+                viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true, shouldDisplayErrorIfNeeded: false)
                 logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: nil, shouldMarkRead: true)
             }
 
@@ -822,7 +826,7 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
             if let activeCell = cellSwipeData.activeCell(in: notificationsView.collectionView) {
                 let sourceView = activeCell.swipeMoreStack
                 popoverController.sourceView = sourceView
-                popoverController.sourceRect = CGRect(x: sourceView.bounds.midX, y: sourceView.bounds.midY, width: 0, height: 0)
+                popoverController.sourceRect = sourceView.bounds
             } else {
                 popoverController.sourceView = cell
                 popoverController.sourceRect = CGRect(x: cell.bounds.midX, y: cell.bounds.midY, width: 0, height: 0)

@@ -205,11 +205,6 @@
 "icon-shortcut-random-title" = "कोईभी लेख";
 "icon-shortcut-search-title" = "विकिपीडिया में खोजें";
 "image-gallery-unknown-owner" = "अज्ञात लेखक";
-"in-the-news-currently-trending" = "वर्तमान में रुझानों में";
-"in-the-news-notification-read-now-action-title" = "अभी पढ़ें";
-"in-the-news-notification-save-for-later-action-title" = "बाद के लिए सहेजें";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "साझा करें...";
 "in-the-news-title" = "समाचारों में";
 "languages-title" = "भाषा बदलें";
 "languages-wikipedia" = "विकिपीडिया भाषाएँ";
@@ -248,9 +243,15 @@
 "notifications-center-destination-web" = "वेब पर";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "नोटिफिकेशन ऑन करें";
+"notifications-center-feed-news-notification-dismiss-button-text" = "अभी नहीं";
+// Fuzzy
 "notifications-center-go-to-article" = "लेख पर जाएं";
+"notifications-center-go-to-diff" = "अन्तर";
+// Fuzzy
 "notifications-center-go-to-discussion-page" = "चर्चा पृष्ठ पर जाएं";
-"notifications-center-go-to-user-page-simplified" = "उपयोगकर्ता पृष्ठ पर जाएं";
+"notifications-center-more-action-accessibility-label" = "और";
+"notifications-center-onboarding-modal-continue-action" = "जारी रखें";
+"notifications-center-onboarding-panel-secondary-button" = "नहीं, धन्यवाद";
 "notifications-center-subheader-thanks" = "धन्यवाद";
 "notifications-center-subheader-welcome" = "सुस्वागतम्‌!";
 "notifications-center-swipe-more" = "और";
@@ -378,8 +379,6 @@
 "share-social-mention-format" = "विकिपीडिया@: $2 के द्वारा \"$1\"";
 "sort-by-recently-added-action" = "हाल ही में जोड़ा गया";
 "sort-by-title-action" = "शीर्षक";
-"status-saved-for-later" = "बाद के लिए सहेजा गया";
-"status-saving-for-later" = "बाद के लिए सहेजा जा रहा है...";
 "table-of-contents-button-label" = "सामग्री सारणी (टेबल)";
 "table-of-contents-close-accessibility-hint" = "बंद करें";
 "table-of-contents-close-accessibility-label" = "सामग्री सारणी को बंद करें";

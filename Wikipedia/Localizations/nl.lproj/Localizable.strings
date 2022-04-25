@@ -504,10 +504,6 @@
 "icon-shortcut-random-title" = "Willekeurige pagina";
 "icon-shortcut-search-title" = "Zoeken in Wikipedia";
 "image-gallery-unknown-owner" = "Auteur onbekend.";
-"in-the-news-currently-trending" = "Nu populair";
-"in-the-news-notification-read-now-action-title" = "Nu lezen";
-"in-the-news-notification-save-for-later-action-title" = "Opslaan voor later";
-"in-the-news-notification-share-action-title" = "Delen…";
 "in-the-news-sub-title-from-language-wikipedia" = "Van Wikipedia in het $1";
 "in-the-news-sub-title-from-wikipedia" = "Uit Wikipedia";
 "in-the-news-title" = "Actueel";
@@ -598,6 +594,7 @@
 "notifications-center-empty-state-filters-subtitle" = "Wijzig $1 om meer berichten te zien";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter|$1 filters}}";
 "notifications-center-feed-news-notification-button-text" = "Pushmeldingen aanzetten";
+"notifications-center-feed-news-notification-dismiss-button-text" = "Nu niet";
 "notifications-center-filters-read-status-item-title-all" = "Alle";
 "notifications-center-filters-read-status-item-title-read" = "Gelezen";
 "notifications-center-filters-read-status-item-title-unread" = "Ongelezen";
@@ -606,12 +603,11 @@
 "notifications-center-filters-types-footer" = "Wijzig de soorten meldingen om ze in/uit uw inbox voor meldingen te filteren. Soorten die zijn uitgeschakeld, zijn niet zichtbaar, maar hun inhoud en eventuele nieuwe meldingen zijn beschikbaar wanneer die optie weer wordt ingeschakeld.";
 "notifications-center-filters-types-item-title-all" = "Alle typen";
 "notifications-center-filters-types-section-title" = "Soorten meldingen";
-"notifications-center-go-to-diff" = "Ga naar diff";
-"notifications-center-go-to-talk-page" = "Ga naar overlegpagina";
-"notifications-center-go-to-title-format" = "Ga naar $1";
-"notifications-center-go-to-user-page" = "Ga naar de gebruikerspagina van $1";
-"notifications-center-go-to-wikidata-item" = "Ga naar het Wikidata-item";
-"notifications-center-go-to-your-talk-page" = "Ga naar uw overlegpagina";
+"notifications-center-go-to-diff" = "Wijz";
+"notifications-center-go-to-talk-page" = "Overlegpagina";
+"notifications-center-go-to-user-page" = "Gebruikerspagina van $1";
+"notifications-center-go-to-wikidata-item" = "Wikidata-item";
+"notifications-center-go-to-your-talk-page" = "Uw overlegpagina";
 "notifications-center-header-alert-from-agent" = "Melding van $1";
 "notifications-center-header-alert-from-project" = "Melding van $1";
 "notifications-center-header-notice-from-project" = "Notificatie van $1";
@@ -626,8 +622,11 @@
 "notifications-center-mark-all-as-read-missing-number" = "Weet u zeker dat u al uw meldingen als gelezen wilt markeren? Uw meldingen worden op al uw apparaten gemarkeerd als gelezen.";
 "notifications-center-mark-as-read" = "Als gelezen markeren";
 "notifications-center-mark-as-unread" = "Als ongelezen markeren";
+"notifications-center-more-action-accessibility-label" = "Meer";
 "notifications-center-notifications-settings" = "Instellingen voor meldingen";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 bericht|$1 berichten}}";
+"notifications-center-onboarding-modal-continue-action" = "Doorgaan";
+"notifications-center-onboarding-panel-secondary-button" = "Nee, bedankt";
 "notifications-center-status-all" = "Alle";
 "notifications-center-status-all-notifications" = "Alle meldingen";
 "notifications-center-status-double-concatenation" = "$1 in $2";
@@ -662,8 +661,9 @@
 "notifications-center-swipe-more" = "Meer";
 "notifications-center-title" = "Meldingen";
 "notifications-push-fallback-body-text" = "Nieuwe activiteit op Wikipedia";
+// Fuzzy
 "notifications-push-talk-body-format" = "$1 nieuwe $2 op $3";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|bericht|berichten}}";
+// Fuzzy
 "notifications-push-talk-title-format" = "Nieuw(e) $1";
 "number-billions" = "$1 mld.";
 "number-millions" = "$1 mln.";
@@ -849,12 +849,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 item vervangen|$1 items vervangen}}";
 "replace-textfield-accessibility" = "Vervangen";
 "replace-textfield-placeholder" = "Vervangen door...";
-"reverted-edit-back-to-article-button-title" = "Terug naar artikel";
-"reverted-edit-possible-reasons" = "- Uw bijdrage voldeed niet aan een van de richtlijnen $1\n\n- Uw bijdrage leek op een experiment of vandalisme.";
-"reverted-edit-possible-reasons-subtitle" = "We weten dat u uw best heeft gedaan, maar een van de reviewers maakt zich zorgen.\n\nMogelijke redenen waarom uw bewerking is teruggedraaid, zijn onder meer:";
-"reverted-edit-thanks-for-editing-title" = "Bedankt voor het bewerken van Wikipedia!";
 "reverted-edit-title" = "Teruggedraaide bewerking";
-"reverted-edit-view-guidelines-text" = "Bekijk de richtlijnen";
 "saved-all-articles-title" = "Alle pagina's";
 "saved-default-reading-list-tag" = "Deze lijst kan niet worden verwijderd";
 "saved-pages-image-download-error" = "Er is een fout opgetreden tijdens het ophalen van de afbeeldingen van deze opgeslagen pagina.";
@@ -930,8 +925,6 @@
 "share-social-mention-format" = "“$1” via @Wikipedia: $2";
 "sort-by-recently-added-action" = "Recent toegevoegd";
 "sort-by-title-action" = "Naam";
-"status-saved-for-later" = "Opgeslagen voor later";
-"status-saving-for-later" = "Aan het opslaan voor later...";
 "table-of-contents-button-label" = "Inhoudsopgave";
 "table-of-contents-close-accessibility-hint" = "Sluiten";
 "table-of-contents-close-accessibility-label" = "Inhoudsopgave sluiten";

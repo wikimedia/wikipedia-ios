@@ -2,6 +2,34 @@ import UIKit
 
 class NotificationsCenterDetailActionCell: UITableViewCell, ReusableCell {
 
+    // MARK: - UI Elements
+
+    lazy var stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.distribution = .fill
+        return stackView
+    }()
+
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.adjustsFontForContentSizeCategory = true
+        label.textAlignment = UIApplication.shared.wmf_isRTL ? .right : .left
+        label.font = UIFont.wmf_font(.body)
+        label.numberOfLines = 1
+        return label
+    }()
+
+    lazy var destinationLabel: UILabel = {
+        let label = UILabel()
+        label.adjustsFontForContentSizeCategory = true
+        label.textAlignment = UIApplication.shared.wmf_isRTL ? .left : .right
+        label.font = UIFont.wmf_scaledSystemFont(forTextStyle: .footnote, weight: .regular, size: 13, maximumPointSize: 64)
+        label.numberOfLines = 1
+        return label
+    }()
+
     // MARK: - Properties
 
     var action: NotificationsCenterAction?
@@ -10,7 +38,7 @@ class NotificationsCenterDetailActionCell: UITableViewCell, ReusableCell {
     // MARK: - Lifecycle
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: .value1, reuseIdentifier: reuseIdentifier)
+        super.init(style: .default, reuseIdentifier: reuseIdentifier)
         setup()
     }
 
@@ -24,7 +52,25 @@ class NotificationsCenterDetailActionCell: UITableViewCell, ReusableCell {
     }
 
     func setup() {
-        detailTextLabel?.font = UIFont.wmf_scaledSystemFont(forTextStyle: .footnote, weight: .regular, size: 13, maximumPointSize: 64)
+        contentView.addSubview(stackView)
+
+        stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(HorizontalSpacerView.spacerWith(space: 3))
+        stackView.addArrangedSubview(destinationLabel)
+
+        guard let imageView = imageView else {
+            return
+        }
+
+        NSLayoutConstraint.activate([
+            stackView.leadingAnchor.constraint(equalToSystemSpacingAfter: imageView.trailingAnchor, multiplier: 2),
+            stackView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
+            stackView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
+        ])
+
+        titleLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        destinationLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
     }
 
     // MARK: - Configuration
@@ -37,8 +83,8 @@ class NotificationsCenterDetailActionCell: UITableViewCell, ReusableCell {
         selectedBackgroundView?.backgroundColor = theme.colors.midBackground
 
         imageView?.tintColor = theme.colors.link
-        textLabel?.textColor = theme.colors.link
-        detailTextLabel?.textColor = theme.colors.secondaryText
+        titleLabel.textColor = theme.colors.link
+        destinationLabel.textColor = theme.colors.secondaryText
 
         guard let action = action else { return }
 
@@ -46,8 +92,8 @@ class NotificationsCenterDetailActionCell: UITableViewCell, ReusableCell {
 
         if let actionData = action.actionData {
             let imageType = actionData.iconType
-            textLabel?.text = actionData.text
-            detailTextLabel?.text = actionData.destinationText
+            titleLabel.text = actionData.text
+            destinationLabel.text = actionData.destinationText
             switch imageType {
             case .custom(let name):
                 imageView?.image = UIImage(named: name)

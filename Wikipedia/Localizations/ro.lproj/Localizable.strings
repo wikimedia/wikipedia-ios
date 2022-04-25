@@ -479,10 +479,6 @@
 "icon-shortcut-random-title" = "Articol aleatoriu";
 "icon-shortcut-search-title" = "Căutare în Wikipedia";
 "image-gallery-unknown-owner" = "Autor necunoscut.";
-"in-the-news-currently-trending" = "În prezent, în trend";
-"in-the-news-notification-read-now-action-title" = "Citește acum";
-"in-the-news-notification-save-for-later-action-title" = "Salvează pentru mai târziu";
-"in-the-news-notification-share-action-title" = "Distribuie...";
 "in-the-news-sub-title-from-language-wikipedia" = "De la $1 Wikipedia";
 "in-the-news-sub-title-from-wikipedia" = "De la Wikipedia";
 "in-the-news-title" = "Știri";
@@ -567,11 +563,15 @@
 "notifications-center-change-password" = "Schimbare parolă";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "Activați notificările";
+// Fuzzy
 "notifications-center-go-to-diff" = "Mergeți la dif";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Mergeți la pagina de discuție";
-"notifications-center-go-to-title-format" = "Mergeți la $1";
+// Fuzzy
 "notifications-center-go-to-user-page" = "Mergeți la pagina de utilizator a lui $1";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "Mergeți la elementul Wikidata";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "Mergeți la pagina de discuție a dvs.";
 "notifications-center-header-alert-from-project" = "Alertă de la $1";
 "notifications-center-header-notice-from-project" = "Înștiințare de la $1";
@@ -764,12 +764,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 element înlocuit|$1 elemente înlocuite}}";
 "replace-textfield-accessibility" = "Înlocuiește";
 "replace-textfield-placeholder" = "Înlocuiește cu...";
-"reverted-edit-back-to-article-button-title" = "Înapoi la articol";
-"reverted-edit-possible-reasons" = "- Contribuția dvs. nu a respectat niciuna din îndrumările. $1 \n\n- Contribuția ta arăta ca un experiment sau un vandalism";
-"reverted-edit-possible-reasons-subtitle" = "Știm că ai oferit ce aveai mai bun din tine, dar unul dintre recenzori avea o îndoială.\n\nPosibilele motive pentru care modificarea dvs. a fost anulată includ:";
-"reverted-edit-thanks-for-editing-title" = "Mulțumim pentru editarea Wikipedia!";
 "reverted-edit-title" = "Modificare anulată";
-"reverted-edit-view-guidelines-text" = "Vezi îndrumări";
 "saved-all-articles-title" = "Toate articolele";
 "saved-default-reading-list-tag" = "Această listă nu poate fi ștearsă";
 "saved-pages-image-download-error" = "Nu se pot descărca imaginile pentru această pagină salvată.";
@@ -845,8 +840,6 @@
 "share-social-mention-format" = "“$1” via @Wikipedia: $2";
 "sort-by-recently-added-action" = "Adaugat recent";
 "sort-by-title-action" = "Titlu";
-"status-saved-for-later" = "Salvat pentru mai târziu";
-"status-saving-for-later" = "Salvare pentru mai târziu ...";
 "table-of-contents-button-label" = "Cuprins";
 "table-of-contents-close-accessibility-hint" = "Închide";
 "table-of-contents-close-accessibility-label" = "Închide cuprinsul";

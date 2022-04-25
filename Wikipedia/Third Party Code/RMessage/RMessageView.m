@@ -138,7 +138,13 @@ static NSMutableDictionary *globalDesignDictionary;
     }
     UIViewController *presentedViewController = nil;
     do {
-        presentedViewController = viewController.presentedViewController;
+        
+        if (![viewController.presentedViewController conformsToProtocol:@protocol(RMessageSuppressProtocol)]) {
+            presentedViewController = viewController.presentedViewController;
+        } else {
+            presentedViewController = nil;
+        }
+        
         if (presentedViewController) {
             if (presentedViewController.popoverPresentationController != nil) {
                 break;

@@ -474,10 +474,6 @@
 "icon-shortcut-random-title" = "Nasumičan članak";
 "icon-shortcut-search-title" = "Pretraži Wikipediju";
 "image-gallery-unknown-owner" = "Autor je nepoznat.";
-"in-the-news-currently-trending" = "Aktualno";
-"in-the-news-notification-read-now-action-title" = "Čitaj sada";
-"in-the-news-notification-save-for-later-action-title" = "Sačuvaj za kasnije";
-"in-the-news-notification-share-action-title" = "Podijeli...";
 "in-the-news-sub-title-from-language-wikipedia" = "S Wikipedije ($1)";
 "in-the-news-sub-title-from-wikipedia" = "s Wikipedije";
 "in-the-news-title" = "Vijesti";
@@ -564,10 +560,13 @@
 "notifications-center-empty-not-subscribed" = "Trenutno niste pretplaćeni na obavještenja Wikipedije";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "Uključi obavještenja";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Idi na stranicu za razgovor";
-"notifications-center-go-to-title-format" = "Idi na $1";
+// Fuzzy
 "notifications-center-go-to-user-page" = "Idi na stranicu za razgovor korisnika $1";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "Idi na stavku Wikipodataka";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "Idi na svoju stranicu za razgovor";
 "notifications-center-mark" = "Označi";
 "notifications-center-mark-all-as-read" = "Označi sve kao pročitano";
@@ -760,12 +759,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 stavka zamjenjena|$1 stavke zamjenjene|$1 stavki zamjenjeno}}";
 "replace-textfield-accessibility" = "Zamijeni";
 "replace-textfield-placeholder" = "Zamijeni sa...";
-"reverted-edit-back-to-article-button-title" = "Nazad na članak";
-"reverted-edit-possible-reasons" = "- Vaš doprinos nije slijedio jednu od smjernica. $1 \n\n - Vaš doprinos je izgledao kao eksperiment ili vandalizam";
-"reverted-edit-possible-reasons-subtitle" = "Znamo da ste dali sve od sebe, ali jedan od pregledavača je procijenio da izmjena ne može biti prihvaćena.\n\nMogući razlozi zašto je Vaša izmjena vraćena uključuju:";
-"reverted-edit-thanks-for-editing-title" = "Hvala za uređivanje Wikipedije!";
 "reverted-edit-title" = "Vraćena izmjena";
-"reverted-edit-view-guidelines-text" = "Pogledajte smjernice";
 "saved-all-articles-title" = "Svi članci";
 "saved-default-reading-list-tag" = "Ovaj spisak se ne može isbrisati";
 "saved-pages-image-download-error" = "Ne mogu preuzeti slike za ovu sačuvanu stranicu.";
@@ -841,8 +835,6 @@
 "share-social-mention-format" = "“$1” na @Wikipedia: $2";
 "sort-by-recently-added-action" = "Nedavno dodano";
 "sort-by-title-action" = "Naslov";
-"status-saved-for-later" = "Sačuvano za kasnije";
-"status-saving-for-later" = "Čuvam za kasnije...";
 "table-of-contents-button-label" = "Sadržaj";
 "table-of-contents-close-accessibility-hint" = "Zatvori";
 "table-of-contents-close-accessibility-label" = "Zatvori sadržaj";
