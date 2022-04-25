@@ -93,10 +93,22 @@ extension NotificationsCenterDetailViewController: UITableViewDelegate, UITableV
         }
 
         if let actionData = actionCell.action?.actionData, let url = actionData.url {
+            logNotificationInteraction(with: actionCell.action)
             navigate(to: url)
         }
 
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    private func logNotificationInteraction(with action: NotificationsCenterAction?) {
+        let notif = viewModel.commonViewModel.notification
+        guard let notificationId = notif.id else { return }
+        RemoteNotificationsFunnel.shared.logNotificationInteraction(
+            notificationId: Int(notificationId) ?? Int(),
+            notificationWiki: notif.wiki ?? String(),
+            notificationType: notif.typeString ?? String(),
+            action: action?.actionData?.actionType,
+            selectionToken: nil)
     }
 
 }

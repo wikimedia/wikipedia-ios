@@ -10,7 +10,8 @@ extension NotificationsCenterCellViewModel {
         let markAsReadText = CommonStrings.notificationsCenterMarkAsReadSwipe
         let markAsUnreadText = CommonStrings.notificationsCenterMarkAsUnreadSwipe
         let markAsReadOrUnreadText = isRead ? markAsUnreadText : markAsReadText
-        let markAsReadOrUnreadActionData = NotificationsCenterActionData(text: markAsReadOrUnreadText, url: nil, iconType: nil, destinationText: nil)
+        let markAsReadOrUnreadAction: RemoteNotificationAction = isRead ? .markUnread : .markRead
+        let markAsReadOrUnreadActionData = NotificationsCenterActionData(text: markAsReadOrUnreadText, url: nil, iconType: nil, destinationText: nil, actionType: markAsReadOrUnreadAction)
         sheetActions.append(.markAsReadOrUnread(markAsReadOrUnreadActionData))
         
         switch notification.type {
@@ -59,7 +60,7 @@ extension NotificationsCenterCellViewModel {
         
         //TODO: add notification settings destination
         let notificationSubscriptionSettingsText = WMFLocalizedString("notifications-center-notifications-settings", value: "Notification settings", comment: "Button text in Notifications Center that automatically routes to the notifications settings screen.")
-        let notificationSettingsActionData = NotificationsCenterActionData(text: notificationSubscriptionSettingsText, url: nil, iconType: nil, destinationText: nil)
+        let notificationSettingsActionData = NotificationsCenterActionData(text: notificationSubscriptionSettingsText, url: nil, iconType: nil, destinationText: nil, actionType: .settings)
         sheetActions.append(.notificationSubscriptionSettings(notificationSettingsActionData))
         
         return sheetActions

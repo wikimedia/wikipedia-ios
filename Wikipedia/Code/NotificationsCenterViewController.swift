@@ -608,6 +608,7 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
 
             if !cellViewModel.isRead {
                 viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true)
+                logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: nil, shouldMarkRead: true)
             }
 
             let detailViewModel = NotificationsCenterDetailViewModel(commonViewModel: cellViewModel.commonViewModel)
@@ -797,6 +798,7 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
                     NSUserActivity.wmf_navigate(to: userActivity)
                     if !cellViewModel.isRead {
                         self.viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true)
+                        self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: nil, shouldMarkRead: true)
                     }
                 })
             case .custom(let data):
@@ -805,6 +807,7 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
                     self.navigate(to: url)
                     if !cellViewModel.isRead {
                         self.viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true)
+                        self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: nil, shouldMarkRead: true)
                     }
                 })
             }
