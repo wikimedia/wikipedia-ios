@@ -393,7 +393,20 @@ private extension NotificationsCenterViewController {
         let notificationWiki = model.project.projectName(shouldReturnCodedFormat: true)
         let action: RemoteNotificationActionType = shouldMarkRead ? .markRead : .markUnread
         RemoteNotificationsFunnel.shared.logNotificationInteraction(notificationId: notificationId, notificationWiki: notificationWiki, notificationType: notificationType, action: action, selectionToken: selectionToken)
+        }
     }
+    
+    private func logNotificationInteraction(with action: RemoteNotificationActionType?, model: NotificationsCenterCellViewModel) {
+        let notification = model.notification
+        let project = model.project.projectName(shouldReturnCodedFormat: true)
+        if let notificationId = notification.id, let notificationType = notification.typeString {
+        RemoteNotificationsFunnel.shared.logNotificationInteraction(
+            notificationId: Int(notificationId) ?? Int(),
+            notificationWiki: project,
+            notificationType: notificationType,
+            action: action,
+            selectionToken: nil)
+        }
     }
     
     @objc func didTapMarkAllAsReadButton(_ sender: UIBarButtonItem) {
@@ -808,6 +821,7 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
                 })
             case .custom(let data):
                 alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
+                    self.logNotificationInteraction(with: data.actionType, model: cellViewModel)
                     let url = data.url
                     self.navigate(to: url)
                     if !cellViewModel.isRead {
