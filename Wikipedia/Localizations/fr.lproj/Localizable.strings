@@ -692,9 +692,8 @@
 "notifications-center-type-item-description-mentions" = "Mentions";
 "notifications-center-type-item-description-welcome-verbose" = "Message de bienvenue";
 "notifications-push-fallback-body-text" = "Nouvelle activité sur Wikipédia";
-"notifications-push-talk-body-format" = "$1 nouveaux $2 sur $3";
-"notifications-push-talk-messages-format" = "message{{PLURAL:$1||s}}";
-"notifications-push-talk-title-format" = "Nouveau $1";
+"notifications-push-talk-body-format" = "$1 nouveau{{PLURAL:$1||x}} message{{PLURAL:$1||s}} sur $2";
+"notifications-push-talk-title-format" = "Nouveau{{PLURAL:$1||x}} message{{PLURAL:$1||s}}";
 "number-billions" = "$1 G";
 "number-millions" = "$1 M";
 "number-thousands" = "$1 k";

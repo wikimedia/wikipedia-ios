@@ -649,8 +649,9 @@
 "notifications-center-swipe-more" = "Ще";
 "notifications-center-title" = "Сповіщення";
 "notifications-push-fallback-body-text" = "Нова активність у Вікіпедії";
+// Fuzzy
 "notifications-push-talk-body-format" = "$1 новий $2 на $3";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|повідомлення|повідомлень}}";
+// Fuzzy
 "notifications-push-talk-title-format" = "Новий $1";
 "number-billions" = "$1 млрд";
 "number-millions" = "$1 млн";

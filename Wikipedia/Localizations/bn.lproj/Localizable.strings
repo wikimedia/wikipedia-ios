@@ -5,6 +5,7 @@
 // Author: Ankan
 // Author: Bodhisattwa
 // Author: Elias Ahmmad
+// Author: FARMER
 // Author: JoeWalshWMF
 // Author: Kayser Ahmad
 // Author: Macofe
@@ -22,6 +23,7 @@
 // Author: আজিজ
 // Author: আফতাবুজ্জামান
 // Author: ফাহাদ কাজমী
+// Author: মোঃ মারুফ হাসান24
 
 "aaald-article-description-updated-description" = "নিবন্ধের বিবরণ হালনাগাদ করা হয়েছে";
 "about-content-license" = "বিষয়বস্তুর লাইসেন্স";
@@ -285,6 +287,8 @@
 "notifications-center-swipe-mark-as-unread" = "অপঠিত হিসেবে চিহ্নিত করুন";
 "notifications-center-swipe-more" = "আরও";
 "notifications-center-title" = "বিজ্ঞপ্তি";
+"notifications-push-talk-body-format" = "$2-এ {{PLURAL:$1|$1টি নতুন বার্তা|$1টি নতুন বার্তা}}";
+"notifications-push-talk-title-format" = "{{PLURAL:$1|নতুন বার্তা|নতুন বার্তা}}";
 "number-billions" = "$1 বিলিয়ন";
 "number-millions" = "$1 মিলিয়ন";
 "number-thousands" = "$1 হাজার";

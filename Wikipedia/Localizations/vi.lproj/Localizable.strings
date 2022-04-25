@@ -608,8 +608,9 @@
 "notifications-center-swipe-more" = "Thêm";
 "notifications-center-title" = "Thông báo";
 "notifications-push-fallback-body-text" = "Hoạt động mới tại Wikipedia";
+// Fuzzy
 "notifications-push-talk-body-format" = "$1 $2 mới tại $3";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1}}Thông báo";
+// Fuzzy
 "notifications-push-talk-title-format" = "$1 mới";
 "number-billions" = "$1 tỷ";
 "number-millions" = "$1 triệu";

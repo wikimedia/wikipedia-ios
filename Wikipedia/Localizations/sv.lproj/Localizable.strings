@@ -686,8 +686,9 @@
 "notifications-center-type-item-description-mentions" = "Omnämnanden";
 "notifications-center-type-item-description-welcome-verbose" = "Välkomstmeddelande";
 "notifications-push-fallback-body-text" = "Ny aktivitet på Wikipedia";
+// Fuzzy
 "notifications-push-talk-body-format" = "$1 nytt $2 på $3";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|meddelande|meddelanden}}";
+// Fuzzy
 "notifications-push-talk-title-format" = "Nytt $1";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
@@ -913,7 +914,7 @@
 "settings-notifications-echo-failure-message" = "Det uppstod ett fel när aviseringsprenumerationer som rör ditt konto skulle kontrolleras.";
 "settings-notifications-echo-failure-title" = "Kunde inte kontrollera prenumerationer på Echo-aviseringar";
 "settings-notifications-echo-failure-try-again" = "Försök igen";
-"settings-notifications-header" = "Bli uppmärksammad på aktiviteter relaterade till ditt konto, till exempel meddelanden från andra bidragsgivare, varningar och meddelanden. Allt tillhandahålls med hänsyn till integritet och aktuell och uppdaterad data.";
+"settings-notifications-header" = "Meddelas om aktiviteter som rör ditt konto, till exempel meddelanden från andra bidragsgivare, varningar och meddelanden. Allt tillhandahålls med hänsyn till integritet och aktuell och uppdaterad data.";
 "settings-notifications-info" = "Bli meddelad om trender och populära artiklar på Wikipedia med våra push-notiser. Allting tillhandahålls med respekt för integritet och uppdaterad data.";
 "settings-notifications-learn-more" = "Läs mer om notiser";
 "settings-notifications-push-notifications" = "Push-notiser";
