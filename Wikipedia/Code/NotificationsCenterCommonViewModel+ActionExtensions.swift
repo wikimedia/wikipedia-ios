@@ -57,8 +57,6 @@ extension NotificationsCenterCommonViewModel {
 
             // [your] talk page
             // Talk page
-            // Collaboration page
-            // Discussion page
             // Article
             
             let simplifiedText = simplifiedTitleText(namespace: namespace, normalizedTitle: normalizedTitle) ?? titleText(namespace: namespace, normalizedTitle: normalizedTitle)
@@ -67,8 +65,6 @@ extension NotificationsCenterCommonViewModel {
 
         // [your] talk page
         // [article] talk page
-        // [article] collaboration page
-        // [article] discussion page
         // [article]
         
         let text = titleText(namespace: namespace, normalizedTitle: normalizedTitle)
@@ -77,14 +73,6 @@ extension NotificationsCenterCommonViewModel {
     
     private var goToTalkPageText: String {
         WMFLocalizedString("notifications-center-go-to-talk-page", value: "Talk page", comment: "Button text in Notifications Center that routes to a talk page.")
-    }
-    
-    private var goToDiscussionPageText: String {
-        WMFLocalizedString("notifications-center-go-to-discussion-page", value: "Discussion page", comment: "Button text in Notifications Center that routes to a discussion page.")
-    }
-    
-    private var goToCollaborationPageText: String {
-        WMFLocalizedString("notifications-center-go-to-collaboration-page", value: "Collaboration page", comment: "Button text in Notifications Center that routes to a collaboration page.")
     }
     
     private var goToYourTalkPageText: String {
@@ -99,35 +87,16 @@ extension NotificationsCenterCommonViewModel {
         WMFLocalizedString("notifications-center-go-to-article-talk-format", value: "%1$@ talk page", comment: "Button text in Notifications Center that routes to a particular article talk page. %1$@ is replaced with page title.")
     }
     
-    private var goToArticleDiscussionFormat: String {
-        WMFLocalizedString("notifications-center-go-to-article-discussion-format", value: "%1$@ discussion page", comment: "Button text in Notifications Center that routes to a particular article discussion page. %1$@ is replaced with page title.")
-    }
-    
-    private var goToArticleCollaborationFormat: String {
-        WMFLocalizedString("notifications-center-go-to-article-collaboration-format", value: "%1$@ collaboration page", comment: "Button text in Notifications Center that routes to a particular article collaboration page. %1$@ is replaced with page title.")
-    }
-    
     private func simplifiedTitleText(namespace: PageNamespace, normalizedTitle: String) -> String? {
         
         if notification.type == .userTalkPageMessage {
             
             return goToYourTalkPageText
             
-        } else if namespace == .userTalk {
+        } else if namespace == .userTalk || namespace == .talk {
             
             return goToTalkPageText
             
-        } else if namespace == .talk {
-
-            switch project {
-            case .wikipedia:
-                return goToTalkPageText
-            case .wikinews:
-                return goToCollaborationPageText
-            default:
-                return goToDiscussionPageText
-            }
-
         } else if namespace == .main {
 
             switch project {
@@ -152,14 +121,7 @@ extension NotificationsCenterCommonViewModel {
             
         } else if namespace == .talk {
 
-            switch project {
-            case .wikipedia:
-                return String.localizedStringWithFormat(goToArticleTalkFormat, normalizedTitle)
-            case .wikinews:
-                return String.localizedStringWithFormat(goToArticleCollaborationFormat, normalizedTitle)
-            default:
-                return String.localizedStringWithFormat(goToArticleDiscussionFormat, normalizedTitle)
-            }
+            return String.localizedStringWithFormat(goToArticleTalkFormat, normalizedTitle)
 
         } else {
 

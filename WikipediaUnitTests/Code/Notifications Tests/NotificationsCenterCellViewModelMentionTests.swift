@@ -498,7 +498,7 @@ class NotificationsCenterCellViewModelMentionTests: NotificationsCenterViewModel
         let expectedDestinationText0: String? = nil
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true)
 
-        let expectedText1 = "Blue Bird discussion page"
+        let expectedText1 = "Blue Bird talk page"
         let expectedURL1: URL? = URL(string: "https://zh.wikiquote.org/wiki/Talk:Blue_Bird#Section_Title")!
         let expectedIcon1: NotificationsCenterIconType = .document
         let expectedDestinationText1 = "On web"

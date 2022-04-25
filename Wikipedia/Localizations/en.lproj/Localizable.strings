@@ -579,12 +579,8 @@
 "notifications-center-filters-types-item-title-all" = "All types";
 "notifications-center-filters-types-section-title" = "Types of notifications";
 "notifications-center-go-to-article" = "Article";
-"notifications-center-go-to-article-collaboration-format" = "$1 collaboration page";
-"notifications-center-go-to-article-discussion-format" = "$1 discussion page";
 "notifications-center-go-to-article-talk-format" = "$1 talk page";
-"notifications-center-go-to-collaboration-page" = "Collaboration page";
 "notifications-center-go-to-diff" = "Diff";
-"notifications-center-go-to-discussion-page" = "Discussion page";
 "notifications-center-go-to-talk-page" = "Talk page";
 "notifications-center-go-to-user-page" = "$1's user page";
 "notifications-center-go-to-wikidata-item" = "Wikidata item";
