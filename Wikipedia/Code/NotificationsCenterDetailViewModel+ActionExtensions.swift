@@ -125,15 +125,17 @@ extension NotificationsCenterDetailViewModel {
         return secondaryActions
     }
 
-    /// Do not include secondary action if its destination is the same as the primary action
+    /// Do not include secondary action if its destination is the same as the primary action or any other secondary action
     var uniqueSecondaryActions: [NotificationsCenterAction] {
         guard let primaryActionURL = primaryAction?.actionData?.url else {
             return secondaryActions
         }
 
-        return secondaryActions.filter({ action in
+        let filteredArray = secondaryActions.filter({ action in
             action.actionData?.url != primaryActionURL
         })
+
+        return NSOrderedSet(array: filteredArray).compactMap { $0 as? NotificationsCenterAction }
     }
 
 }
