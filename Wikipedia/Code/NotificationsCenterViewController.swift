@@ -391,7 +391,7 @@ private extension NotificationsCenterViewController {
         let notificationId = Int(model.notification.id ?? "") ?? 0
         let notificationType = model.notification.typeString ?? ""
         let notificationWiki = model.project.projectName(shouldReturnCodedFormat: true)
-        let action: RemoteNotificationAction = shouldMarkRead ? .markRead : .markUnread
+        let action: RemoteNotificationActionType = shouldMarkRead ? .markRead : .markUnread
         RemoteNotificationsFunnel.shared.logNotificationInteraction(notificationId: notificationId, notificationWiki: notificationWiki, notificationType: notificationType, action: action, selectionToken: selectionToken)
     }
     

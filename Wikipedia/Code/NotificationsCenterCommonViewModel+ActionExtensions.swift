@@ -168,7 +168,7 @@ extension NotificationsCenterCommonViewModel {
             
         }
     }
-    private func getActionType(namespace: PageNamespace) -> RemoteNotificationAction {
+    private func getActionType(namespace: PageNamespace) -> RemoteNotificationActionType {
         if notification.type == .userTalkPageMessage {
             return .userTalk
         } else if namespace == .userTalk {

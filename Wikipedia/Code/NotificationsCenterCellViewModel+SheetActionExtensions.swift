@@ -10,7 +10,7 @@ extension NotificationsCenterCellViewModel {
         let markAsReadText = CommonStrings.notificationsCenterMarkAsReadSwipe
         let markAsUnreadText = CommonStrings.notificationsCenterMarkAsUnreadSwipe
         let markAsReadOrUnreadText = isRead ? markAsUnreadText : markAsReadText
-        let markAsReadOrUnreadAction: RemoteNotificationAction = isRead ? .markUnread : .markRead
+        let markAsReadOrUnreadAction: RemoteNotificationActionType = isRead ? .markUnread : .markRead
         let markAsReadOrUnreadActionData = NotificationsCenterActionData(text: markAsReadOrUnreadText, url: nil, iconType: nil, destinationText: nil, actionType: markAsReadOrUnreadAction)
         sheetActions.append(.markAsReadOrUnread(markAsReadOrUnreadActionData))
         

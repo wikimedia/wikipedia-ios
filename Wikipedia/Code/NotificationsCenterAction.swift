@@ -18,10 +18,10 @@ struct NotificationsCenterActionData: Equatable {
     let url: URL?
     let iconType: NotificationsCenterIconType?
     let destinationText: String?
-    let actionType: RemoteNotificationAction?
+    let actionType: RemoteNotificationActionType?
 }
 
-public enum RemoteNotificationAction: String {
+public enum RemoteNotificationActionType: String {
      case markRead = "mark_read"
      case markUnread = "mark_unread"
      case userTalk = "user_talk"
