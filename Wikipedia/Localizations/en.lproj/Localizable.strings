@@ -586,8 +586,6 @@
 "notifications-center-go-to-wikidata-item" = "Wikidata item";
 "notifications-center-go-to-your-talk-page" = "Your talk page";
 "notifications-center-header-alert-from-agent" = "Alert from $1";
-"notifications-center-header-alert-from-project" = "Alert from $1";
-"notifications-center-header-notice-from-project" = "Notice from $1";
 "notifications-center-inbox-title" = "Projects";
 "notifications-center-inbox-wikimedia-projects-section-footer" = "Only projects you have created an account for will appear here";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Wikimedia Projects";
@@ -653,6 +651,7 @@
 "notifications-center-title" = "Notifications";
 "notifications-center-toolbar-mark-accessibility-label" = "Mark selected notifications";
 "notifications-center-type-item-description-mentions" = "Mentions";
+"notifications-center-type-item-description-notice" = "Notice";
 "notifications-center-type-item-description-welcome-verbose" = "Welcome message";
 "notifications-push-fallback-body-text" = "New activity on Wikipedia";
 "notifications-push-talk-body-format" = "{{PLURAL:$1|$1 new message|$1 new messages}} on $2";

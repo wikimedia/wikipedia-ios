@@ -550,7 +550,7 @@
 "no-internet-connection-article-reload" = "Subtitle for letting users know article cannot be reloaded without internet connection.";
 "no-internet-connection-article-reload-button" = "Title for button to return to last saved version of article.";
 "notifications-center-agent-description-from-format" = "Text indicating who triggered a notification in notifications center. $1 will be replaced with the origin agent of the notification, which could be a username.";
-"notifications-center-alert" = "Description of various \"alert\" notification types, used on the notification detail view.";
+"notifications-center-alert" = "Description of various \"alert\" notification types, used on the notifications cell and detail views.";
 "notifications-center-applied-filters-accessibility-label" = "Accessibility label for Notifications Center's filters button. This button is in a selected state indicating that filters are applied.";
 "notifications-center-applied-project-filters-accessibility-label" = "Accessibility label for Notifications Center's project filters button. This button is in a selected state indicating that project filters are applied.";
 "notifications-center-badge-button-accessibility-label" = "Accessibility label for a button that navigates to Notifications Center. This button has a badge indicating there are unread notifications.";
@@ -586,8 +586,6 @@
 "notifications-center-go-to-wikidata-item" = "Button text in Notifications Center that routes to a Wikidata item page.";
 "notifications-center-go-to-your-talk-page" = "Button text in Notifications Center that routes to user's talk page.";
 "notifications-center-header-alert-from-agent" = "Subheader text for unknown alert type notifications in Notifications Center. $1 will be replaced with the origin agent of the notification.";
-"notifications-center-header-alert-from-project" = "Header text for alert notifications in Notifications Center. $1 is replaced with a project name such as \"EN-Wikipedia\".";
-"notifications-center-header-notice-from-project" = "Header text for notice notifications in Notifications Center. $1 is replaced with a project name such as \"EN-Wikipedia\" or \"Wikimedia Commons\".";
 "notifications-center-inbox-title" = "Navigation bar title text for the inbox view presented from notifications center. Allows for filtering out notifications by Wikimedia project type.";
 "notifications-center-inbox-wikimedia-projects-section-footer" = "Footer of the \"Wikimedia Projects\" section on the notifications center inbox view. This section only lists projects that user has an account at.";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Title of the \"Wikimedia Projects\" section on the notifications center inbox view. This section allows the user to remove other (non-Wikipedia) Wikimedia projects from displaying in their Notifications Center.";
@@ -653,6 +651,7 @@
 "notifications-center-title" = "Title for Notifications Center interface, as well as the accessibility label for the button that navigates to Notifications Center.";
 "notifications-center-toolbar-mark-accessibility-label" = "Accessibility label for mark button in Notifications Center";
 "notifications-center-type-item-description-mentions" = "Description of \"mention\" notification types, used on the notification detail view.";
+"notifications-center-type-item-description-notice" = "Description of \"notice\" notification types, used on the notification cell and detail views.";
 "notifications-center-type-item-description-welcome-verbose" = "Description of \"welcome\" notification types, used on the notification detail view.";
 "notifications-push-fallback-body-text" = "Fallback body content of a push notification whose content cannot be determined. Could be either due multiple notifications represented or errors.";
 "notifications-push-talk-body-format" = "Body text for a push notification that represents talk page messages. $1 is replaced with the number of talk page messages, $2 is replaced with the talk page title. For example, \"3 new messages on User talk: Username\"";
