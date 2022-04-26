@@ -38,19 +38,22 @@ class NotificationsCenterDetailViewModelUserGroupRightsChangeTests: Notification
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/Special:ListGroupRights?")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .document
         let expectedPrimaryDestinationText = "On web"
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!)
+        let expectedAction: RemoteNotificationActionType = .listGroupRights
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
         
         let expectedText0 = "Special:ListGroupRights#confirmed"
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/Special:ListGroupRights?#confirmed")!
         let expectedIcon0: NotificationsCenterIconType = .document
         let expectedDestinationText0 = "On web"
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0])
+        let expectedAction0: RemoteNotificationActionType = .listGroupRights
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0], actionType: expectedAction0)
         
         let expectedText1 = "Jack The Cat's user page"
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Jack_The_Cat")!
         let expectedIcon1: NotificationsCenterIconType = .person
         let expectedDestinationText1 = "On web"
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: detailViewModel.secondaryActions[1])
+        let expectedAction1: RemoteNotificationActionType = .senderPage
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: detailViewModel.secondaryActions[1], actionType: expectedAction1)
     }
 
 }

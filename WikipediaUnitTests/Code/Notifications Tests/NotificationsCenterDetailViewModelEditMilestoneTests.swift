@@ -56,7 +56,8 @@ class NotificationsCenterDetailViewModelEditMilestoneTests: NotificationsCenterV
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Fred_The_Bird")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .document
         let expectedPrimaryDestinationText = "On web"
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!)
+        let expectedAction:RemoteNotificationActionType = .senderPage
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
     }
     
     private func testEditMilestoneTenOnArticleText(detailViewModel: NotificationsCenterDetailViewModel) throws {
@@ -76,7 +77,8 @@ class NotificationsCenterDetailViewModelEditMilestoneTests: NotificationsCenterV
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/Blue_Bird")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .document
         let expectedPrimaryDestinationText = "In app"
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!)
+        let expectedAction: RemoteNotificationActionType = .article
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
     }
     
     private func testEditMilestoneHundredOnUserTalkPageText(detailViewModel: NotificationsCenterDetailViewModel) throws {
@@ -96,7 +98,8 @@ class NotificationsCenterDetailViewModelEditMilestoneTests: NotificationsCenterV
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .document
         let expectedPrimaryDestinationText = "In app"
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!)
+        let expectedAction: RemoteNotificationActionType = .userTalk
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
     }
 
 }
