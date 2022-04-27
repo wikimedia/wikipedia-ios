@@ -1,6 +1,6 @@
 import Foundation
 
-enum NotificationsCenterAction: Equatable {
+enum NotificationsCenterAction: Hashable {
     case markAsReadOrUnread(NotificationsCenterActionData)
     case custom(NotificationsCenterActionData)
     case notificationSubscriptionSettings(NotificationsCenterActionData)
@@ -13,7 +13,7 @@ enum NotificationsCenterAction: Equatable {
     }
 }
 
-struct NotificationsCenterActionData: Equatable {
+struct NotificationsCenterActionData: Hashable {
     let text: String
     let url: URL?
     let iconType: NotificationsCenterIconType?
