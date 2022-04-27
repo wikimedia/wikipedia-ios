@@ -685,8 +685,9 @@
 "notifications-center-type-item-description-mentions" = "Mencions";
 "notifications-center-type-item-description-welcome-verbose" = "Missatge de benvinguda";
 "notifications-push-fallback-body-text" = "Activitat nova a la Viquipèdia";
+// Fuzzy
 "notifications-push-talk-body-format" = "$1 nous $2 a $3";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|missatge|missatges}}";
+// Fuzzy
 "notifications-push-talk-title-format" = "Nous $1";
 "number-billions" = "$1B";
 "number-millions" = "$1M";

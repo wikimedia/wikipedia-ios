@@ -153,7 +153,7 @@
 "action-undo" = "واگردانی";
 "action-unsave" = "عدم ذخیره";
 "action-unsaved-accessibility-notification" = "مقاله از ذخیره خارج شد";
-"action-update" = "به‌روزرسانی";
+"action-update" = "روزآمدسازی";
 "add-articles-to-reading-list" = "افزودن {{PLURAL:$1|$1 مقاله|$1 مقاله}} به فهرست مطالعه";
 "add-citation-title" = "افزودن یادکرد";
 "announcements-dismiss" = "پنهان‌سازی";
@@ -767,7 +767,7 @@
 "reading-list-sync-disabled-panel-message" = "همگام‌سازی فهرست مطالعه برای حساب ویکی‌پدیای شما بر روی دستگاه دیگری غیرفعال شده است. می‌توانید با بروزرسانی تنظیمات خود، قابلیت همگام‌سازی را دوباره فعال کنید.";
 "reading-list-sync-disabled-panel-title" = "همگام‌سازی غیر فعال شد";
 "reading-list-sync-enable-button-title" = "فعال‌کردن همگام‌سازی";
-"reading-list-sync-enable-subtitle" = "مقاله‌ها و فهرست‌های مطالعه‌تان اکنون می‌تواند در حساب ویکی‌پدیای شما ذخیره و با همهٔ نرم‌افزارهای ویکی‌پدیا همگام‌سازی شود.";
+"reading-list-sync-enable-subtitle" = "مقاله‌ها و فهرست‌های مطالعه‌تان اکنون می‌تواند در حساب کاربری ویکی‌پدیای شما ذخیره و با همهٔ نرم‌افزارهای ویکی‌پدیا همگام‌سازی شود.";
 "reading-list-sync-enable-title" = "همگام‌سازی فهرست مطالعه فعال شود؟";
 "reading-list-sync-enabled-panel-message" = "همگام‌سازی فهرست مطالعه برای این حساب فعال است. برای توقف همگام‌سازی، می‌توانید با بروزرسانی تنظیمات خود، همگام‌سازی را برای این حساب غیرفعال کنید.";
 "reading-list-sync-enabled-panel-title" = "همگام‌سازی برای این حساب فعال است";
@@ -792,7 +792,7 @@
 "reading-lists-default-list-title" = "ذخیره‌شده";
 "reading-lists-delete-reading-list-alert-message" = "این کار را نمی‌توان لغو کرد. هر مقاله‌ای که فقط در {{PLURAL:$1|این فهرست|این فهرست‌ها}} ذخیره شده‌باشد، به صورت دخیره‌‌نشده در خواهد آمد.";
 "reading-lists-delete-reading-list-alert-title" = "{{PLURAL:$1|فهرست حذف شود|فهرست‌ها حذف شوند}}؟";
-"reading-lists-large-sync-completed" = "{{PLURAL:$1|$1 مقاله|$1 مقاله}} و {{PLURAL:$2|$2 فهرست مطالعه|$2 فهرست مطالعه}} از حساب شما همگام‌سازی شد";
+"reading-lists-large-sync-completed" = "{{PLURAL:$1|$1 مقاله|$1 مقاله}} و {{PLURAL:$2|$2 فهرست مطالعه|$2 فهرست مطالعه}} از حساب کاربری شما همگام‌سازی شد";
 "reading-lists-list-not-synced-limit-exceeded" = "فهرست همگام‌سازی نشد، محدودیت پر شده است";
 "reading-lists-sort-saved-articles" = "مرتب‌سازی مقاله‌های ذخیره‌شده";
 "reading-lists-split-notification" = "محدودیت $1 مقاله برای هر فهرست وجود دارد. فهرست‌هایی که بیش از این تعداد مقاله داشته‌اند، به چند فهرست تقسیم شده‌اند.";

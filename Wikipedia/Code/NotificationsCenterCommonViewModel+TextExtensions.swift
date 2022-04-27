@@ -60,7 +60,7 @@ extension NotificationsCenterCommonViewModel {
         case .loginFailKnownDevice:
             return WMFLocalizedString("notifications-center-subheader-login-fail-known-device", value: "Multiple failed log in attempts", comment: "Subheader text for 'Failed login from a known device' notifications in Notifications Center.")
         case .loginSuccessUnknownDevice:
-            return WMFLocalizedString("notifications-center-subheader-login-success-unknown-device", value: "Log in from an unfamiliar device", comment: "Subheader text for 'Successful login from an unknown device' notifications in Notifications Center.")
+            return CommonStrings.notificationsCenterLoginSuccessDescription
         case .unknownSystemNotice,
              .unknownSystemAlert,
              .unknownNotice,

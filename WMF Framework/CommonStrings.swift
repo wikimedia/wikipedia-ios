@@ -60,6 +60,7 @@ public class CommonStrings: NSObject {
     public static let notificationsChangePassword = WMFLocalizedString("notifications-center-change-password", value: "Change password", comment: "Button text in Notifications Center that routes user to change password screen.")
     public static let notificationsCenterDestinationWeb = WMFLocalizedString("notifications-center-destination-web", value: "On web", comment: "Informational text next to each notification center action on the detail screen, informing the user that the action will take them to a web view or outside of the app.")
     public static let notificationsCenterDestinationApp = WMFLocalizedString("notifications-center-destination-app", value: "In app", comment: "Informational text next to each notification center action on the detail screen, informing the user that the action will take them to a native view within the app.")
+    public static let notificationsCenterLoginSuccessDescription = WMFLocalizedString("notifications-center-subheader-login-success-unknown-device", value: "Login from an unfamiliar device", comment: "Subtitle text for 'Successful login from an unknown device' notifications in Notifications Center and filters.")
 
     @objc public static let exploreFeedTitle = WMFLocalizedString("welcome-exploration-explore-feed-title", value:"Explore feed", comment:"Title for Explore feed")
     @objc public static let featuredArticleTitle = WMFLocalizedString("explore-featured-article-heading", value: "Featured article", comment: "Text for 'Featured article' header")

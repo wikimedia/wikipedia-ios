@@ -5,9 +5,11 @@
 // Author: Ankan
 // Author: Bodhisattwa
 // Author: Elias Ahmmad
+// Author: FARMER
 // Author: JoeWalshWMF
 // Author: Kayser Ahmad
 // Author: Macofe
+// Author: Meghmollar2017
 // Author: Mohammed Galib Hasan
 // Author: Nemo bis
 // Author: R4356th
@@ -21,6 +23,7 @@
 // Author: আজিজ
 // Author: আফতাবুজ্জামান
 // Author: ফাহাদ কাজমী
+// Author: মোঃ মারুফ হাসান24
 
 "aaald-article-description-updated-description" = "নিবন্ধের বিবরণ হালনাগাদ করা হয়েছে";
 "about-content-license" = "বিষয়বস্তুর লাইসেন্স";
@@ -44,11 +47,8 @@
 "about-wikimedia-foundation" = "উইকিমিডিয়া ফাউন্ডেশন";
 "about-wikipedia" = "উইকিপিডিয়া";
 "abuse-filter-disallow-heading" = "আপনি এই সম্পাদনা প্রকাশ করতে পারবেন না";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "একটি স্বয়ংক্রিয় ফিল্টার এই সম্পাদনা সম্ভাব্য অ-গঠনমূলক বা ধ্বংসপ্রবণতার প্রচেষ্টা হিসাবে চিহ্নিত করেছে।";
-// Fuzzy
-"abuse-filter-warning-blanking" = "নিবন্ধ খালি করা বা স্প্যামিং করা";
-// Fuzzy
+"abuse-filter-disallow-unconstructive" = "একটি স্বয়ংক্রিয় ছাঁকনি এই সম্পাদনাকে সম্ভাব্য অ-গঠনমূলক বা ধ্বংসপ্রবণতার প্রচেষ্টা হিসেবে চিহ্নিত করেছে। অনুগ্রহ করে ফিরে চলুন ও আপনার সম্পাদনা পরিবর্তন করুন।";
+"abuse-filter-warning-blanking" = "অনুচ্ছেদ বা নিবন্ধ খালি করা";
 "abuse-filter-warning-caps" = "সব বড় হাতের অক্ষরে লেখা";
 "abuse-filter-warning-heading" = "এটি অ-গঠনমূলক সম্পাদনা বলে মনে হচ্ছে, আপনি কি নিশ্চিতভাবে এটি প্রকাশ করতে চান?";
 "abuse-filter-warning-irrelevant" = "অপ্রাসঙ্গিক বাহ্যিক লিঙ্ক বা চিত্র";
@@ -83,8 +83,7 @@
 "app-store-subtitle" = "একটি মুক্ত বিশ্বকোষ";
 "appearance-settings-adjust-text-sizing" = "নিবন্ধের পাঠ্যের আকার সমন্বয় করুন";
 "appearance-settings-expand-tables" = "টেবিল সম্প্রসারণ করুন";
-// Fuzzy
-"appearance-settings-image-dimming-footer" = "আঁধার থিমে ছবিগুলির অস্বচ্ছতা হ্রাস করুন";
+"appearance-settings-image-dimming-footer" = "অন্ধকার ও কালো থিমে চিত্রগুলোর অস্বচ্ছতা হ্রাস করুন";
 "appearance-settings-theme-options" = "থিমের বিকল্প";
 "article-delete" = "অপসারণ";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|নিবন্ধ}} অপসারিত হয়েছে";
@@ -250,17 +249,11 @@
 "notifications-center-change-password" = "পাসওয়ার্ড পরিবর্তন";
 "notifications-center-empty-checking-for-notifications" = "বিজ্ঞপ্তির জন্য অনুসন্ধান করা হচ্ছে...";
 "notifications-center-empty-not-subscribed" = "আপনি বর্তমানে কোনো উইকিপিডিয়া বিজ্ঞপ্তির সদস্যতা গ্রহণ করেননি";
-// Fuzzy
-"notifications-center-feed-news-notification-button-text" = "বিজ্ঞপ্তি চালু";
-// Fuzzy
-"notifications-center-go-to-diff" = "পরিবর্তনে যান";
-// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "বিজ্ঞপ্তি পাঠানো চালু করুন";
+"notifications-center-go-to-diff" = "পার্থক্য দেখুন";
 "notifications-center-go-to-talk-page" = "আলাপ পাতায় যান";
-// Fuzzy
 "notifications-center-go-to-user-page" = "$1-এর আলাপ পাতায় যান";
-// Fuzzy
-"notifications-center-go-to-wikidata-item" = "উইকিউপাত্তের ভুক্তিতে যান";
-// Fuzzy
+"notifications-center-go-to-wikidata-item" = "উইকিউপাত্ত আইটেমে যান";
 "notifications-center-go-to-your-talk-page" = "আপনার আলাপ পাতায় যান";
 "notifications-center-header-alert-from-project" = "$1 থেকে সতর্কতা";
 "notifications-center-header-notice-from-project" = "$1 হতে বিজ্ঞপ্তি";
@@ -294,6 +287,8 @@
 "notifications-center-swipe-mark-as-unread" = "অপঠিত হিসেবে চিহ্নিত করুন";
 "notifications-center-swipe-more" = "আরও";
 "notifications-center-title" = "বিজ্ঞপ্তি";
+"notifications-push-talk-body-format" = "$2-এ {{PLURAL:$1|$1টি নতুন বার্তা|$1টি নতুন বার্তা}}";
+"notifications-push-talk-title-format" = "{{PLURAL:$1|নতুন বার্তা|নতুন বার্তা}}";
 "number-billions" = "$1 বিলিয়ন";
 "number-millions" = "$1 মিলিয়ন";
 "number-thousands" = "$1 হাজার";

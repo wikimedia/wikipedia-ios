@@ -380,7 +380,7 @@
 "notifications-center-type-item-description-mentions" = "Mentiounen";
 "notifications-center-type-item-description-welcome-verbose" = "Begréissungs-Message";
 "notifications-push-fallback-body-text" = "Nei Aktivitéit op Wikipedia";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|Message|Messagen}}";
+// Fuzzy
 "notifications-push-talk-title-format" = "Nei $1";
 "number-billions" = "$1 Mrd.";
 "number-millions" = "$1 Mio.";

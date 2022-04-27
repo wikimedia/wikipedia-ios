@@ -615,8 +615,9 @@
 "notifications-center-type-item-description-mentions" = "ప్రస్తావనలు";
 "notifications-center-type-item-description-welcome-verbose" = "స్వాగత సందేశం";
 "notifications-push-fallback-body-text" = "వికీపీడియాలో కొత్త కార్యకలాపం";
+// Fuzzy
 "notifications-push-talk-body-format" = "$3 లో $1 కొత్త $2";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|$1 సందేశం|$1 సందేశాలు}}";
+// Fuzzy
 "notifications-push-talk-title-format" = "కొత్త $1";
 "number-billions" = "$1B";
 "number-millions" = "$1M";

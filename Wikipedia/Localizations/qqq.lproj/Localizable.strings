@@ -554,7 +554,7 @@
 "notifications-center-applied-filters-accessibility-label" = "Accessibility label for Notifications Center's filters button. This button is in a selected state indicating that filters are applied.";
 "notifications-center-applied-project-filters-accessibility-label" = "Accessibility label for Notifications Center's project filters button. This button is in a selected state indicating that project filters are applied.";
 "notifications-center-badge-button-accessibility-label" = "Accessibility label for a button that navigates to Notifications Center. This button has a badge indicating there are unread notifications.";
-"notifications-center-cell-notification-type-accessibility-label-format" = "Accessibility label for notifications center cell notification text. $1 parameter: notification type";
+"notifications-center-cell-notification-type-accessibility-label-format" = "Accessibility label for Notifications Center cell's notification text. $1 is replaced with a description of the type of notification, which may be a single noun (e.g. Thanks, Welcome) or a short phrase (e.g. Talk page message, Edit milestone). The first letter should be capitalized.";
 "notifications-center-change-password" = "Button text in Notifications Center that routes user to change password screen.";
 "notifications-center-checking-for-notifications" = "Status text displayed in Notifications Center when checking for notifications.";
 "notifications-center-destination-app" = "Informational text next to each notification center action on the detail screen, informing the user that the action will take them to a native view within the app.";
@@ -637,7 +637,7 @@
 "notifications-center-subheader-email-from-other-user" = "Subheader text for 'email from other user' notifications in Notifications Center.";
 "notifications-center-subheader-login-fail-known-device" = "Subheader text for 'Failed login from a known device' notifications in Notifications Center.";
 "notifications-center-subheader-login-fail-unknown-device" = "Subheader text for 'Failed login from an unknown device' notifications in Notifications Center.";
-"notifications-center-subheader-login-success-unknown-device" = "Subheader text for 'Successful login from an unknown device' notifications in Notifications Center.";
+"notifications-center-subheader-login-success-unknown-device" = "Subtitle text for 'Successful login from an unknown device' notifications in Notifications Center and filters.";
 "notifications-center-subheader-mention-article-talk-page" = "Subheader text for Talk namespace mention notifications in Notifications Center.";
 "notifications-center-subheader-mention-edit-summary" = "Subheader text for 'mention in edit summary' notifications in Notifications Center.";
 "notifications-center-subheader-mention-failed" = "Subheader text for failed mention notifications in Notifications Center.";
@@ -658,10 +658,10 @@
 "notifications-center-toolbar-mark-accessibility-label" = "Accessibility label for mark button in Notifications Center";
 "notifications-center-type-item-description-mentions" = "Description of \"mention\" notification types, used on the notification detail view.";
 "notifications-center-type-item-description-welcome-verbose" = "Description of \"welcome\" notification types, used on the notification detail view.";
+"notifications-center-type-title-login-attempts-subtitle" = "Subtitle of \"Login attempts\" notification type filter toggle. Represents failed logins from both a known and unknown device.";
 "notifications-push-fallback-body-text" = "Fallback body content of a push notification whose content cannot be determined. Could be either due multiple notifications represented or errors.";
-"notifications-push-talk-body-format" = "Body text for a push notification that represents talk page messages - $1 is replaced with the number of talk page messages, $2 is replaced with \"messages\" text (can be plural or singular), and $3 is replaced with the talk page title. For example, \"3 new messages on User talk: Username\"";
-"notifications-push-talk-messages-format" = "Plural messages text to be inserted into push notification content - $1 is replaced with the number of talk page messages.";
-"notifications-push-talk-title-format" = "Title text for a push notification that represents talk page messages - $1 is replaced with \"Messages\" text (can be plural or singular).";
+"notifications-push-talk-body-format" = "Body text for a push notification that represents talk page messages. $1 is replaced with the number of talk page messages, $2 is replaced with the talk page title. For example, \"3 new messages on User talk: Username\"";
+"notifications-push-talk-title-format" = "Title text for a push notification that represents talk page messages. $1 is used to determine the text to display.";
 "number-billions" = "$1B - $1 is replaced with a number represented in billions. In English 'B' is commonly used after a number to indicate that number is in 'billions'. So the 'B' should be changed to a character or short string indicating billions. For example 5,100,000,000 would become 5.1B. If there is no simple translation for this in the target language, make the translation $1 with no other characters and the full number will be shown.";
 "number-millions" = "$1M - $1 is replaced with a number represented in millions. In English 'M' is commonly used after a number to indicate that number is in 'millions'. So the 'M' should be changed to a character or short string indicating millions. For example 500,000,000 would become 500M. If there is no simple translation for this in the target language, make the translation $1 with no other characters and the full number will be shown.";
 "number-thousands" = "$1K - $1 is replaced with a number represented in thousands. In English the letter 'K' is commonly used after a number to indicate that number is in 'thousands'. So the letter 'K' should be changed to a character or short string indicating thousands. For example 500,000 would become 500K. If there is no simple translation for this in the target language, make the translation $1 with no other characters and the full number will be shown. {{Identical|$1k}}";
