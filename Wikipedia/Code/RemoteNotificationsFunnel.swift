@@ -45,7 +45,4 @@ final class RemoteNotificationsFunnel: EventLoggingFunnel, EventLoggingStandardE
               action: action,
               selectionToken: selectionToken)
     }
-
 }
-
-
