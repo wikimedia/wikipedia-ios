@@ -329,17 +329,17 @@ private extension NotificationsCenterViewController {
         let optionsMenu = UIMenu(title: title, children: [
             UIAction.init(title: CommonStrings.notificationsCenterMarkAsRead, image: UIImage(systemName: "envelope.open"), handler: { _ in
                 self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: true)
+                let identifier = UUID()
                 for cellViewModel in selectedCellViewModels {
-                    let identifier = UUID()
                     self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: identifier.uuidString, shouldMarkRead: true)
                 }
                 self.isEditing = false
             }),
             UIAction(title: CommonStrings.notificationsCenterMarkAsUnread, image: UIImage(systemName: "envelope"), handler: { _ in
                 self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: false)
+                let identifier = UUID()
                 for cellViewModel in selectedCellViewModels {
-                    let identifier = UUID()
-                    self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: identifier.uuidString, shouldMarkRead: true)
+                    self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: identifier.uuidString, shouldMarkRead: false)
                 }
                 self.isEditing = false
             })
@@ -388,20 +388,19 @@ private extension NotificationsCenterViewController {
     }
     
     private func logMarkReadOrUnreadAction(model: NotificationsCenterCellViewModel, selectionToken: String?, shouldMarkRead: Bool) {
-        if let notificationId = Int(model.notification.id ?? ""),
-           let notificationType = model.notification.typeString {
-        let notificationWiki = model.project.projectName(shouldReturnCodedFormat: true)
+        guard let notificationId = model.notification.id else { return }
+        if let notificationId = Int(notificationId), let notificationType = model.notification.typeString, let notificationWiki = model.notification.wiki {
         let action: RemoteNotificationActionType = shouldMarkRead ? .markRead : .markUnread
         RemoteNotificationsFunnel.shared.logNotificationInteraction(notificationId: notificationId, notificationWiki: notificationWiki, notificationType: notificationType, action: action, selectionToken: selectionToken)
         }
     }
     
     private func logNotificationInteraction(with action: RemoteNotificationActionType?, model: NotificationsCenterCellViewModel) {
-        let notification = model.notification
-        if let notificationId = notification.id, let notificationType = notification.typeString, let project = notification.wiki {
+        guard let notificationId = model.notification.id else { return }
+        if let notificationId = Int(notificationId), let notificationType = model.notification.typeString, let notificationWiki = model.notification.wiki {
         RemoteNotificationsFunnel.shared.logNotificationInteraction(
-            notificationId: Int(notificationId) ?? Int(),
-            notificationWiki: project,
+            notificationId: notificationId,
+            notificationWiki: notificationWiki,
             notificationType: notificationType,
             action: action,
             selectionToken: nil)
