@@ -23,7 +23,7 @@ final class RemoteNotificationsFunnel: EventLoggingFunnel, EventLoggingStandardE
         let primary_language: String
         let device_level_enabled: String
     }
-    private func event(notificationId: Int, notificationWiki: String, notificationType: String, action: RemoteNotificationActionType?, selectionToken: String?) {
+    private func logEvent(notificationId: Int, notificationWiki: String, notificationType: String, action: RemoteNotificationActionType?, selectionToken: String?) {
         dataStore.notificationsController.notificationPermissionsStatus { [weak self] authStatus in
             guard let self = self else {
                 return
@@ -38,7 +38,7 @@ final class RemoteNotificationsFunnel: EventLoggingFunnel, EventLoggingStandardE
     }
     
     public func logNotificationInteraction(notificationId: Int, notificationWiki: String, notificationType: String, action: RemoteNotificationActionType?, selectionToken: String?) {
-        event(notificationId: notificationId,
+        logEvent(notificationId: notificationId,
               notificationWiki: notificationWiki,
               notificationType: notificationType,
               action: action,
