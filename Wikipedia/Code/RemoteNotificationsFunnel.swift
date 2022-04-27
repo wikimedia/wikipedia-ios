@@ -1,10 +1,6 @@
 import Foundation
 
 final class RemoteNotificationsFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
-    private enum Action: String, Codable {
-        case notificationInteraction = "ios_notification_interaction"
-    }
-    
     public static let shared = RemoteNotificationsFunnel(dataStore: MWKDataStore.shared())
     private let dataStore: MWKDataStore
     required init(dataStore: MWKDataStore) {
