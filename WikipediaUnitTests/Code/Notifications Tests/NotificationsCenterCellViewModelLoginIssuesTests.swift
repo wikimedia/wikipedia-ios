@@ -43,7 +43,7 @@ class NotificationsCenterCellViewModelLoginIssuesTests: NotificationsCenterViewM
         let expectedURL0: URL? = nil
         let expectedIcon0: NotificationsCenterIconType? = nil
         let expectedDestinationText0: String? = nil
-        let expectedAction0: RemoteNotificationActionType = .markUnread
+        let expectedAction0: NotificationsCenterActionData.LoggingLabel = .markUnread
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true, actionType: expectedAction0)
 
         let expectedText1 = "Change password"
@@ -62,7 +62,7 @@ class NotificationsCenterCellViewModelLoginIssuesTests: NotificationsCenterViewM
         let expectedURL3: URL? = nil
         let expectedIcon3: NotificationsCenterIconType? = nil
         let expectedDestinationText4: String? = nil
-        let expectedAction3: RemoteNotificationActionType = .settings
+        let expectedAction3: NotificationsCenterActionData.LoggingLabel = .settings
         try testActions(expectedText: expectedText3, expectedURL: expectedURL3, expectedIcon: expectedIcon3, expectedDestinationText: expectedDestinationText4, actionToTest: cellViewModel.sheetActions[3], isNotificationSettings: true, actionType: expectedAction3)
         
     }

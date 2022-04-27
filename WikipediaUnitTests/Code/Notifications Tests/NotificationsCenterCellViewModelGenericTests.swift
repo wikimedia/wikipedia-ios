@@ -67,7 +67,7 @@ class NotificationsCenterCellViewModelGenericTests: NotificationsCenterViewModel
         let expectedURL0: URL? = nil
         let expectedIcon0: NotificationsCenterIconType? = nil
         let expectedDestinationText0: String? = nil
-        let expectedAction0: RemoteNotificationActionType = .markRead
+        let expectedAction0: NotificationsCenterActionData.LoggingLabel = .markRead
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true, actionType: expectedAction0)
 
         let expectedText1 = "View page"
@@ -92,7 +92,7 @@ class NotificationsCenterCellViewModelGenericTests: NotificationsCenterViewModel
         let expectedURL4: URL? = nil
         let expectedIcon4: NotificationsCenterIconType? = nil
         let expectedDestinationText4: String? = nil
-        let expectedAction4: RemoteNotificationActionType = .settings
+        let expectedAction4: NotificationsCenterActionData.LoggingLabel = .settings
         try testActions(expectedText: expectedText4, expectedURL: expectedURL4, expectedIcon: expectedIcon4, expectedDestinationText: expectedDestinationText4, actionToTest: cellViewModel.sheetActions[4], isNotificationSettings: true, actionType: expectedAction4)
     }
     
@@ -118,7 +118,7 @@ class NotificationsCenterCellViewModelGenericTests: NotificationsCenterViewModel
         let expectedURL0: URL? = nil
         let expectedIcon0: NotificationsCenterIconType? = nil
         let expectedDestinationText0: String? = nil
-        let expectedAction0: RemoteNotificationActionType = .markUnread
+        let expectedAction0: NotificationsCenterActionData.LoggingLabel = .markUnread
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true, actionType: expectedAction0)
 
         let expectedText1 = "View post"
@@ -131,14 +131,14 @@ class NotificationsCenterCellViewModelGenericTests: NotificationsCenterViewModel
         let expectedURL2: URL? = URL(string: "https://test.wikipedia.org/wiki/User:Fred_The_Bird")!
         let expectedIcon2: NotificationsCenterIconType = .person
         let expectedDestinationText2 = "On web"
-        let expectedAction2: RemoteNotificationActionType = .senderPage
+        let expectedAction2: NotificationsCenterActionData.LoggingLabel = .senderPage
         try testActions(expectedText: expectedText2, expectedURL: expectedURL2, expectedIcon: expectedIcon2, expectedDestinationText: expectedDestinationText2, actionToTest: cellViewModel.sheetActions[2], actionType: expectedAction2)
 
         let expectedText3 = "Notification settings"
         let expectedURL3: URL? = nil
         let expectedIcon3: NotificationsCenterIconType? = nil
         let expectedDestinationText3: String? = nil
-        let expectedAction3: RemoteNotificationActionType = .settings
+        let expectedAction3: NotificationsCenterActionData.LoggingLabel = .settings
         try testActions(expectedText: expectedText3, expectedURL: expectedURL3, expectedIcon: expectedIcon3, expectedDestinationText: expectedDestinationText3, actionToTest: cellViewModel.sheetActions[3], isNotificationSettings: true, actionType: expectedAction3)
     }
 
@@ -164,7 +164,7 @@ class NotificationsCenterCellViewModelGenericTests: NotificationsCenterViewModel
         let expectedURL0: URL? = nil
         let expectedIcon0: NotificationsCenterIconType? = nil
         let expectedDestinationText0: String? = nil
-        let expectedAction0: RemoteNotificationActionType = .markUnread
+        let expectedAction0: NotificationsCenterActionData.LoggingLabel = .markUnread
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true, actionType: expectedAction0)
 
         let expectedText1 = "View topic"
@@ -177,14 +177,14 @@ class NotificationsCenterCellViewModelGenericTests: NotificationsCenterViewModel
         let expectedURL2: URL? = URL(string: "https://test.wikipedia.org/wiki/User:47.234.198.142")!
         let expectedIcon2: NotificationsCenterIconType = .person
         let expectedDestinationText2 = "On web"
-        let expectedAction2: RemoteNotificationActionType = .senderPage
+        let expectedAction2: NotificationsCenterActionData.LoggingLabel = .senderPage
         try testActions(expectedText: expectedText2, expectedURL: expectedURL2, expectedIcon: expectedIcon2, expectedDestinationText: expectedDestinationText2, actionToTest: cellViewModel.sheetActions[2], actionType: expectedAction2)
 
         let expectedText3 = "Notification settings"
         let expectedURL3: URL? = nil
         let expectedIcon3: NotificationsCenterIconType? = nil
         let expectedDestinationText3: String? = nil
-        let expectedAction3: RemoteNotificationActionType = .settings
+        let expectedAction3: NotificationsCenterActionData.LoggingLabel = .settings
         try testActions(expectedText: expectedText3, expectedURL: expectedURL3, expectedIcon: expectedIcon3, expectedDestinationText: expectedDestinationText3, actionToTest: cellViewModel.sheetActions[3], isNotificationSettings: true, actionType: expectedAction3)
     }
 }

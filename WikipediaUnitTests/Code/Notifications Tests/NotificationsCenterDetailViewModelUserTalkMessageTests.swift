@@ -79,21 +79,21 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
         let expectedPrimaryIcon = NotificationsCenterIconType.document
         let expectedPrimaryDestination = "In app"
-        let expectedAction: RemoteNotificationActionType = .userTalk
+        let expectedAction: NotificationsCenterActionData.LoggingLabel = .userTalk
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestination, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
         
         let expectedText0 = "Jack The Cat's user page"
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Jack_The_Cat")!
         let expectedIcon0 = NotificationsCenterIconType.person
         let expectedDestinationText0 = "On web"
-        let expectedAction0: RemoteNotificationActionType = .senderPage
+        let expectedAction0: NotificationsCenterActionData.LoggingLabel = .senderPage
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0], actionType: expectedAction0)
         
         let expectedText1 = "Diff"
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/w/index.php?oldid=892051241&title=User_talk%253AFred_The_Bird")!
         let expectedIcon1 = NotificationsCenterIconType.diff
         let expectedDestinationText1 = "In app"
-        let expectedAction1: RemoteNotificationActionType = .diff
+        let expectedAction1: NotificationsCenterActionData.LoggingLabel = .diff
         try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: detailViewModel.secondaryActions[1], actionType: expectedAction1)
     }
     
@@ -114,21 +114,21 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
         let expectedPrimaryIcon = NotificationsCenterIconType.document
         let expectedPrimaryDestination = "In app"
-        let expectedAction: RemoteNotificationActionType = .userTalk
+        let expectedAction: NotificationsCenterActionData.LoggingLabel = .userTalk
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestination, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
         
         let expectedText0 = "47.184.10.84's user page"
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:47.184.10.84")!
         let expectedIcon0 = NotificationsCenterIconType.person
         let expectedDestinationText0 = "On web"
-        let expectedAction0: RemoteNotificationActionType = .senderPage
+        let expectedAction0: NotificationsCenterActionData.LoggingLabel = .senderPage
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0], actionType: expectedAction0)
         
         let expectedText1 = "Diff"
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/w/index.php?oldid=899561783&title=User_talk%253AFred_The_Bird")!
         let expectedIcon1 = NotificationsCenterIconType.diff
         let expectedDestinationText1 = "In app"
-        let expectedAction1: RemoteNotificationActionType = .diff
+        let expectedAction1: NotificationsCenterActionData.LoggingLabel = .diff
         try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: detailViewModel.secondaryActions[1], actionType: expectedAction1)
     }
     
@@ -149,21 +149,21 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Hello")!
         let expectedPrimaryIcon = NotificationsCenterIconType.document
         let expectedPrimaryDestination = "In app"
-        let expectedAction: RemoteNotificationActionType = .userTalk
+        let expectedAction: NotificationsCenterActionData.LoggingLabel = .userTalk
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestination, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
         
         let expectedText0 = "Jack The Cat's user page"
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Jack_The_Cat")!
         let expectedIcon0 = NotificationsCenterIconType.person
         let expectedDestinationText0 = "On web"
-        let expectedAction0: RemoteNotificationActionType = .senderPage
+        let expectedAction0: NotificationsCenterActionData.LoggingLabel = .senderPage
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0], actionType: expectedAction0)
         
         let expectedText1 = "Diff"
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/w/index.php?oldid=892043155&title=User_talk%253AFred_The_Bird")!
         let expectedIcon1 = NotificationsCenterIconType.diff
         let expectedDestinationText1 = "In app"
-        let expectedAction1: RemoteNotificationActionType = .diff
+        let expectedAction1: NotificationsCenterActionData.LoggingLabel = .diff
         try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: detailViewModel.secondaryActions[1], actionType: expectedAction1)
     }
     
@@ -184,21 +184,21 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Section_Title")!
         let expectedPrimaryIcon = NotificationsCenterIconType.document
         let expectedPrimaryDestination = "In app"
-        let expectedAction: RemoteNotificationActionType = .userTalk
+        let expectedAction: NotificationsCenterActionData.LoggingLabel = .userTalk
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestination, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
         
         let expectedText0 = "47.184.10.84's user page"
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:47.184.10.84")!
         let expectedIcon0 = NotificationsCenterIconType.person
         let expectedDestinationText0 = "On web"
-        let expectedAction0: RemoteNotificationActionType = .senderPage
+        let expectedAction0: NotificationsCenterActionData.LoggingLabel = .senderPage
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0], actionType: expectedAction0)
         
         let expectedText1 = "Diff"
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/w/index.php?oldid=901389754&title=User_talk%253AFred_The_Bird")!
         let expectedIcon1 = NotificationsCenterIconType.diff
         let expectedDestinationText1 = "In app"
-        let expectedAction1: RemoteNotificationActionType = .diff
+        let expectedAction1: NotificationsCenterActionData.LoggingLabel = .diff
         try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: detailViewModel.secondaryActions[1], actionType: expectedAction1)
     }
     
@@ -219,21 +219,21 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Jack_The_Cat#Section_Title")!
         let expectedPrimaryIcon = NotificationsCenterIconType.document
         let expectedPrimaryDestination = "In app"
-        let expectedAction: RemoteNotificationActionType = .userTalk
+        let expectedAction: NotificationsCenterActionData.LoggingLabel = .userTalk
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestination, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
         
         let expectedText0 = "Fred The Bird's user page"
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Fred_The_Bird")!
         let expectedIcon0 = NotificationsCenterIconType.person
         let expectedDestinationText0 = "On web"
-        let expectedAction0: RemoteNotificationActionType = .senderPage
+        let expectedAction0: NotificationsCenterActionData.LoggingLabel = .senderPage
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0], actionType: expectedAction0)
         
         let expectedText1 = "Diff"
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/w/index.php?oldid=1076152880&title=User_talk%253AJack_The_Cat")!
         let expectedIcon1 = NotificationsCenterIconType.diff
         let expectedDestinationText1 = "In app"
-        let expectedAction1: RemoteNotificationActionType = .diff
+        let expectedAction1: NotificationsCenterActionData.LoggingLabel = .diff
         try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: detailViewModel.secondaryActions[1], actionType: expectedAction1)
     }
     
@@ -254,21 +254,21 @@ class NotificationsCenterDetailViewModelUserTalkMessageTests: NotificationsCente
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
         let expectedPrimaryIcon = NotificationsCenterIconType.document
         let expectedPrimaryDestination = "In app"
-        let expectedAction: RemoteNotificationActionType = .userTalk
+        let expectedAction: NotificationsCenterActionData.LoggingLabel = .userTalk
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestination, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
         
         let expectedText0 = "MediaWiki message delivery's user page"
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:MediaWiki_message_delivery")!
         let expectedIcon0 = NotificationsCenterIconType.person
         let expectedDestinationText0 = "On web"
-        let expectedAction0: RemoteNotificationActionType = .senderPage
+        let expectedAction0: NotificationsCenterActionData.LoggingLabel = .senderPage
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0], actionType: expectedAction0)
         
         let expectedText1 = "Diff"
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/w/index.php?oldid=920081372&title=User_talk%253AFred_The_Bird")!
         let expectedIcon1 = NotificationsCenterIconType.diff
         let expectedDestinationText1 = "In app"
-        let expectedAction1: RemoteNotificationActionType = .diff
+        let expectedAction1: NotificationsCenterActionData.LoggingLabel = .diff
         try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: detailViewModel.secondaryActions[1], actionType: expectedAction1)
     }
 }

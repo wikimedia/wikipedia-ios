@@ -98,7 +98,7 @@ class NotificationsCenterDetailViewModelGenericTests: NotificationsCenterViewMod
         let expectedURL0: URL? = URL(string: "https://test.wikipedia.org/wiki/User:Fred_The_Bird")!
         let expectedIcon0: NotificationsCenterIconType = .person
         let expectedDestinationText0 = "On web"
-        let expectedAction0: RemoteNotificationActionType = .senderPage
+        let expectedAction0: NotificationsCenterActionData.LoggingLabel = .senderPage
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0], actionType: expectedAction0)
     }
 
@@ -125,7 +125,7 @@ class NotificationsCenterDetailViewModelGenericTests: NotificationsCenterViewMod
         let expectedURL0: URL? = URL(string: "https://test.wikipedia.org/wiki/User:47.234.198.142")!
         let expectedIcon0: NotificationsCenterIconType = .person
         let expectedDestinationText0 = "On web"
-        let expectedAction0: RemoteNotificationActionType = .senderPage
+        let expectedAction0: NotificationsCenterActionData.LoggingLabel = .senderPage
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0], actionType: expectedAction0)
     }
 }

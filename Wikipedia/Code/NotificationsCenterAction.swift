@@ -18,19 +18,19 @@ struct NotificationsCenterActionData: Equatable {
     let url: URL?
     let iconType: NotificationsCenterIconType?
     let destinationText: String?
-    let actionType: RemoteNotificationActionType?
+    let actionType: LoggingLabel?
+    
+    public enum LoggingLabel: String {
+        case markRead = "mark_read"
+        case markUnread = "mark_unread"
+        case userTalk = "user_talk"
+        case senderPage = "sender_page"
+        case diff = "diff"
+        case articleTalk = "article_talk"
+        case article = "article"
+        case wikidataItem = "wikidata_item"
+        case listGroupRights = "list_group_rights"
+        case linkedFromArticle = "linked_from_article"
+        case settings = "settings"
+    }
 }
-
-public enum RemoteNotificationActionType: String {
-     case markRead = "mark_read"
-     case markUnread = "mark_unread"
-     case userTalk = "user_talk"
-     case senderPage = "sender_page"
-     case diff = "diff"
-     case articleTalk = "article_talk"
-     case article = "article"
-     case wikidataItem = "wikidata_item"
-     case listGroupRights = "list_group_rights"
-     case linkedFromArticle = "linked_from_article"
-     case settings = "settings"
- }

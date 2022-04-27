@@ -390,12 +390,12 @@ private extension NotificationsCenterViewController {
     private func logMarkReadOrUnreadAction(model: NotificationsCenterCellViewModel, selectionToken: String?, shouldMarkRead: Bool) {
         guard let notificationId = model.notification.id else { return }
         if let notificationId = Int(notificationId), let notificationType = model.notification.typeString, let notificationWiki = model.notification.wiki {
-        let action: RemoteNotificationActionType = shouldMarkRead ? .markRead : .markUnread
+        let action: NotificationsCenterActionData.LoggingLabel = shouldMarkRead ? .markRead : .markUnread
         RemoteNotificationsFunnel.shared.logNotificationInteraction(notificationId: notificationId, notificationWiki: notificationWiki, notificationType: notificationType, action: action, selectionToken: selectionToken)
         }
     }
     
-    private func logNotificationInteraction(with action: RemoteNotificationActionType?, model: NotificationsCenterCellViewModel) {
+    private func logNotificationInteraction(with action: NotificationsCenterActionData.LoggingLabel?, model: NotificationsCenterCellViewModel) {
         guard let notificationId = model.notification.id else { return }
         if let notificationId = Int(notificationId), let notificationType = model.notification.typeString, let notificationWiki = model.notification.wiki {
         RemoteNotificationsFunnel.shared.logNotificationInteraction(

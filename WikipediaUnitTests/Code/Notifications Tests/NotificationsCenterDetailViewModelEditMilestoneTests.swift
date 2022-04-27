@@ -56,7 +56,7 @@ class NotificationsCenterDetailViewModelEditMilestoneTests: NotificationsCenterV
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Fred_The_Bird")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .document
         let expectedPrimaryDestinationText = "On web"
-        let expectedAction:RemoteNotificationActionType = .senderPage
+        let expectedAction:NotificationsCenterActionData.LoggingLabel = .senderPage
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
     }
     
@@ -77,7 +77,7 @@ class NotificationsCenterDetailViewModelEditMilestoneTests: NotificationsCenterV
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/Blue_Bird")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .document
         let expectedPrimaryDestinationText = "In app"
-        let expectedAction: RemoteNotificationActionType = .article
+        let expectedAction: NotificationsCenterActionData.LoggingLabel = .article
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
     }
     
@@ -98,7 +98,7 @@ class NotificationsCenterDetailViewModelEditMilestoneTests: NotificationsCenterV
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .document
         let expectedPrimaryDestinationText = "In app"
-        let expectedAction: RemoteNotificationActionType = .userTalk
+        let expectedAction: NotificationsCenterActionData.LoggingLabel = .userTalk
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
     }
 

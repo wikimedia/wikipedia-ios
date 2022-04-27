@@ -19,7 +19,7 @@ final class RemoteNotificationsFunnel: EventLoggingFunnel, EventLoggingStandardE
         let primary_language: String
         let device_level_enabled: String
     }
-    private func logEvent(notificationId: Int, notificationWiki: String, notificationType: String, action: RemoteNotificationActionType?, selectionToken: String?) {
+    private func logEvent(notificationId: Int, notificationWiki: String, notificationType: String, action: NotificationsCenterActionData.LoggingLabel?, selectionToken: String?) {
         
         guard let action = action else {
             return
@@ -38,7 +38,7 @@ final class RemoteNotificationsFunnel: EventLoggingFunnel, EventLoggingStandardE
         
     }
     
-    public func logNotificationInteraction(notificationId: Int, notificationWiki: String, notificationType: String, action: RemoteNotificationActionType?, selectionToken: String?) {
+    public func logNotificationInteraction(notificationId: Int, notificationWiki: String, notificationType: String, action: NotificationsCenterActionData.LoggingLabel?, selectionToken: String?) {
         logEvent(notificationId: notificationId,
               notificationWiki: notificationWiki,
               notificationType: notificationType,
