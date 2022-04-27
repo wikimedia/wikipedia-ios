@@ -84,7 +84,7 @@ class NotificationsCenterCellViewModelEditRevertedTests: NotificationsCenterView
         let expectedIcon4: NotificationsCenterIconType = .document
         let expectedDestinationText4 = "In app"
         let expectedAction4: RemoteNotificationActionType = .userTalk
-        try testActions(expectedText: expectedText4, expectedURL: expectedURL4, expectedIcon: expectedIcon4, expectedDestinationText: expectedDestinationText4, actionToTest: cellViewModel.sheetActions[4], isNotificationSettings: true, actionType: expectedAction4)
+        try testActions(expectedText: expectedText4, expectedURL: expectedURL4, expectedIcon: expectedIcon4, expectedDestinationText: expectedDestinationText4, actionToTest: cellViewModel.sheetActions[4], actionType: expectedAction4)
         
         let expectedText5 = "Notification settings"
         let expectedURL5: URL? = nil
@@ -145,12 +145,13 @@ class NotificationsCenterCellViewModelEditRevertedTests: NotificationsCenterView
         let expectedIcon4: NotificationsCenterIconType = .document
         let expectedDestinationText4 = "In app"
         let expectedAction4: RemoteNotificationActionType = .article
-        try testActions(expectedText: expectedText4, expectedURL: expectedURL4, expectedIcon: expectedIcon4, expectedDestinationText: expectedDestinationText4, actionToTest: cellViewModel.sheetActions[4], isNotificationSettings: true, actionType: expectedAction4)
+        try testActions(expectedText: expectedText4, expectedURL: expectedURL4, expectedIcon: expectedIcon4, expectedDestinationText: expectedDestinationText4, actionToTest: cellViewModel.sheetActions[4], actionType: expectedAction4)
         
         let expectedText5 = "Notification settings"
         let expectedURL5: URL? = nil
         let expectedIcon5: NotificationsCenterIconType? = nil
         let expectedDestinationText5: String? = nil
         let expectedAction5: RemoteNotificationActionType = .settings
-        try testActions(expectedText: expectedText5, expectedURL: expectedURL5, expectedIcon: expectedIcon5, expectedDestinationText: expectedDestinationText5, actionToTest: cellViewModel.sheetActions[5], isNotificationSettings: true, actionType: expectedAction5)    }
+        try testActions(expectedText: expectedText5, expectedURL: expectedURL5, expectedIcon: expectedIcon5, expectedDestinationText: expectedDestinationText5, actionToTest: cellViewModel.sheetActions[5], isNotificationSettings: true, actionType: expectedAction5)
+    }
 }
