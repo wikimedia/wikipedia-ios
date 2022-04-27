@@ -55,11 +55,6 @@
 			<string>%1$d bài viết</string>
 		</dict>
 	</dict>
-	<key>notifications-push-talk-messages-format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>Thông báo</string>
-	</dict>
 	<key>reading-lists-delete-reading-list-alert-message</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

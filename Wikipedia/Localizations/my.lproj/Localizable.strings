@@ -425,7 +425,7 @@
 "notifications-center-subheader-translate-milestone" = "ဘာသာပြန်မှု မိုင်တိုင်";
 "notifications-center-subheader-welcome" = "ကြိုဆိုပါသည်!";
 "notifications-center-title" = "အသိပေးချက်များ";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|မက်ဆေ့|မက်ဆေ့များ}}";
+// Fuzzy
 "notifications-push-talk-title-format" = "အသစ် $1";
 "number-billions" = "$1B";
 "number-millions" = "$1M";

@@ -610,8 +610,9 @@
 "notifications-center-swipe-more" = "Viac";
 "notifications-center-title" = "Upozornenia";
 "notifications-push-fallback-body-text" = "Nová aktivita na Wikipédii";
+// Fuzzy
 "notifications-push-talk-body-format" = "$1 nové $2 na $3";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|správa|správy|správ}}";
+// Fuzzy
 "notifications-push-talk-title-format" = "Nové $1";
 "number-billions" = "$1";
 "number-millions" = "$1";
