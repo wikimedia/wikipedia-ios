@@ -578,7 +578,7 @@
 "notifications-center-swipe-more" = "وڌيڪ";
 "notifications-center-title" = "اطلاع";
 "notifications-push-fallback-body-text" = "وڪيپيڊيا تي نئين سرگرمي";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|پيغام|پيغامَ}}";
+// Fuzzy
 "notifications-push-talk-title-format" = "نوان $1";
 "number-billions" = "$1B";
 "number-millions" = "$1M";

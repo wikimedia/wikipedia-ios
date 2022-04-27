@@ -338,6 +338,7 @@
 "notifications-center-swipe-mark-as-unread" = "မာꩻနုဲင်းဟော်ꩻဗာႏဒွိုန်း";
 "notifications-center-swipe-more" = "ထဲင်းယင်း";
 "notifications-center-title" = "ဖေႏသေချက်ဖိုင်ႏ";
+// Fuzzy
 "notifications-push-talk-title-format" = "အတသာ $1";
 "number-billions" = "$1 ဗီလီယံ";
 "number-millions" = "$1 မီလီယံ";

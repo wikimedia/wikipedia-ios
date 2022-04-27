@@ -681,9 +681,8 @@
 "notifications-center-type-item-description-mentions" = "Menções";
 "notifications-center-type-item-description-welcome-verbose" = "Mensagem de boas-vindas";
 "notifications-push-fallback-body-text" = "Atividade nova na Wikipédia";
-"notifications-push-talk-body-format" = "$1 $2 em $3";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|mensagem nova|mensagens novas}}";
-"notifications-push-talk-title-format" = "Tem $1";
+"notifications-push-talk-body-format" = "{{PLURAL:$1|$1 mensagem nova|$1 mensagens novas}} em $2";
+"notifications-push-talk-title-format" = "{{PLURAL:$1|Mensagem nova|Mensagens novas}}";
 "number-billions" = "$1";
 "number-millions" = "$1 M";
 "number-thousands" = "$1 K";

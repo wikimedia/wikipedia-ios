@@ -3,8 +3,17 @@ import CoreData
 
 @objc(RemoteNotification)
 public class RemoteNotification: NSManagedObject {
+
     public var type: RemoteNotificationType {
-        switch (categoryString, typeString) {
+        return RemoteNotification.typeFrom(category: self.categoryString, type: self.typeString, section: self.section)
+    }
+
+    public static func typeFrom(notification: RemoteNotificationsAPIController.NotificationsResult.Notification) -> RemoteNotificationType {
+        return typeFrom(category: notification.category, type: notification.type, section: notification.section)
+    }
+
+    public static func typeFrom(category: String?, type: String?, section: String?) -> RemoteNotificationType {
+        switch (category, type) {
         case ("edit-user-talk", "edit-user-talk"):
             return .userTalkPageMessage
         case ("mention", "mention"):
@@ -50,7 +59,7 @@ public class RemoteNotification: NSManagedObject {
              ("system-noemail", _),
              ("system-emailonly", _):
             
-            switch self.section {
+            switch section {
             case "alert":
                 return .unknownSystemAlert
             case "message":
@@ -60,8 +69,7 @@ public class RemoteNotification: NSManagedObject {
             }
             
         default:
-            
-            switch self.section {
+            switch section {
             case "alert":
                 return .unknownAlert
             case "message":

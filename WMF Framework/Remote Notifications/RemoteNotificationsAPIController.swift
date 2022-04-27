@@ -371,16 +371,6 @@ public class RemoteNotificationsAPIController: Fetcher {
             }
         }
     }
-    
-    private func notifications(from result: NotificationsResult?) -> Set<NotificationsResult.Notification>? {
-        guard let result = result else {
-            return nil
-        }
-        guard let list = result.query?.notifications?.list else {
-            return nil
-        }
-        return Set(list)
-    }
 
     // MARK: Query parameters
 
