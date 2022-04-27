@@ -74,15 +74,13 @@ class NotificationsCenterCellViewModelGenericTests: NotificationsCenterViewModel
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/Black_Bird?markasread=181035797&markasreadwiki=enwiki")!
         let expectedIcon1: NotificationsCenterIconType = .link
         let expectedDestinationText1 = "In app"
-        let expectedAction1: RemoteNotificationActionType = .article
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: cellViewModel.sheetActions[1], actionType: expectedAction1)
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: cellViewModel.sheetActions[1], actionType: nil)
 
         let expectedText2 = "Fred The Bird"
         let expectedURL2: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Fred_The_Bird")!
         let expectedIcon2: NotificationsCenterIconType = .link
         let expectedDestinationText2 = "On web"
-        let expectedAction2: RemoteNotificationActionType = .article
-        try testActions(expectedText: expectedText2, expectedURL: expectedURL2, expectedIcon: expectedIcon2, expectedDestinationText: expectedDestinationText2, actionToTest: cellViewModel.sheetActions[2], actionType: expectedAction2)
+        try testActions(expectedText: expectedText2, expectedURL: expectedURL2, expectedIcon: expectedIcon2, expectedDestinationText: expectedDestinationText2, actionToTest: cellViewModel.sheetActions[2], actionType: nil)
         
         let expectedText3 = "Thank"
         let expectedURL3: URL? = URL(string: "https://en.wikipedia.org/wiki/Special:Thanks/937441471")!
@@ -127,8 +125,7 @@ class NotificationsCenterCellViewModelGenericTests: NotificationsCenterViewModel
         let expectedURL1: URL? = URL(string: "https://test.wikipedia.org/w/index.php?title=Topic:Wcd3birxz0ixz4di&topic_showPostId=wd321irw4jqrwsyf&fromnotif=1&markasread=75530&markasreadwiki=testwiki#flow-post-wd321irw4jqrwsyf")!
         let expectedIcon1: NotificationsCenterIconType = .link
         let expectedDestinationText1 = "On web"
-        let expectedAction1: RemoteNotificationActionType = .article
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: cellViewModel.sheetActions[1], actionType: expectedAction1)
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: cellViewModel.sheetActions[1], actionType: nil)
 
         let expectedText2 = "Fred The Bird\'s user page"
         let expectedURL2: URL? = URL(string: "https://test.wikipedia.org/wiki/User:Fred_The_Bird")!
@@ -174,8 +171,7 @@ class NotificationsCenterCellViewModelGenericTests: NotificationsCenterViewModel
         let expectedURL1: URL? = URL(string: "https://test.wikipedia.org/wiki/Topic:Section_Title?markasread=88298&markasreadwiki=testwiki")!
         let expectedIcon1: NotificationsCenterIconType = .link
         let expectedDestinationText1 = "On web"
-        let expectedAction1: RemoteNotificationActionType = .article
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: cellViewModel.sheetActions[1], actionType: expectedAction1)
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: cellViewModel.sheetActions[1], actionType: nil)
 
         let expectedText2 = "47.234.198.142\'s user page"
         let expectedURL2: URL? = URL(string: "https://test.wikipedia.org/wiki/User:47.234.198.142")!
@@ -188,7 +184,7 @@ class NotificationsCenterCellViewModelGenericTests: NotificationsCenterViewModel
         let expectedURL3: URL? = nil
         let expectedIcon3: NotificationsCenterIconType? = nil
         let expectedDestinationText3: String? = nil
-        let expectedAction3: RemoteNotificationActionType = .senderPage
+        let expectedAction3: RemoteNotificationActionType = .settings
         try testActions(expectedText: expectedText3, expectedURL: expectedURL3, expectedIcon: expectedIcon3, expectedDestinationText: expectedDestinationText3, actionToTest: cellViewModel.sheetActions[3], isNotificationSettings: true, actionType: expectedAction3)
     }
 }

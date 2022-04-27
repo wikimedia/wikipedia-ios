@@ -108,7 +108,7 @@ class NotificationsCenterDetailViewModelEditRevertedTests: NotificationsCenterVi
         let expectedURL1: URL? = URL(string: "https://test.wikipedia.org/wiki/Talk:Blue_Bird")!
         let expectedIcon1: NotificationsCenterIconType = .document
         let expectedDestinationText1 = "On web"
-        let expetedAction1: RemoteNotificationActionType = .userTalk
+        let expetedAction1: RemoteNotificationActionType = .articleTalk
         try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: detailViewModel.secondaryActions[1], actionType: expetedAction1)
         
         let expectedText2 = "Article"

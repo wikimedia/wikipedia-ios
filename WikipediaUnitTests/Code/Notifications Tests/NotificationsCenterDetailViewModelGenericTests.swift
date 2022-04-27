@@ -56,15 +56,13 @@ class NotificationsCenterDetailViewModelGenericTests: NotificationsCenterViewMod
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/Black_Bird?markasread=181035797&markasreadwiki=enwiki")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .link
         let expectedPrimaryDestinationText = "In app"
-        let expectedAction: RemoteNotificationActionType = .article
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!, actionType: nil)
         
         let expectedText0 = "Fred The Bird"
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Fred_The_Bird")!
         let expectedIcon0: NotificationsCenterIconType = .link
         let expectedDestinationText0 = "On web"
-        let expectedAction0: RemoteNotificationActionType = .senderPage
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0], actionType: expectedAction0)
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0], actionType: nil)
         
         let expectedText1 = "Thank"
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/Special:Thanks/937441471")!

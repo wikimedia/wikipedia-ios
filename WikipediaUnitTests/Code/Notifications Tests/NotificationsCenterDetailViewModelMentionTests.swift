@@ -186,7 +186,7 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         let expectedPrimaryURL: URL? = URL(string: "https://test.wikipedia.org/wiki/Talk:Blue_Bird#Section_Title")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .document
         let expectedPrimaryDestinationText = "On web"
-        let expectedAction: RemoteNotificationActionType = .userTalk
+        let expectedAction: RemoteNotificationActionType = .articleTalk
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
         
         let expectedText0 = "Fred The Bird's user page"

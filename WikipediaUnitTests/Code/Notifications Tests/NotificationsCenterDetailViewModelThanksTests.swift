@@ -61,7 +61,7 @@ class NotificationsCenterDetailViewModelThanksTests: NotificationsCenterViewMode
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
         let expectedIcon1: NotificationsCenterIconType = .document
         let expectedDestinationText1 = "In app"
-        let expectedAction1: RemoteNotificationActionType = .senderPage
+        let expectedAction1: RemoteNotificationActionType = .userTalk
         try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: detailViewModel.secondaryActions[1], actionType: expectedAction1)
     }
     
