@@ -398,8 +398,7 @@ private extension NotificationsCenterViewController {
     
     private func logNotificationInteraction(with action: RemoteNotificationActionType?, model: NotificationsCenterCellViewModel) {
         let notification = model.notification
-        let project = model.project.projectName(shouldReturnCodedFormat: true)
-        if let notificationId = notification.id, let notificationType = notification.typeString {
+        if let notificationId = notification.id, let notificationType = notification.typeString, let project = notification.wiki {
         RemoteNotificationsFunnel.shared.logNotificationInteraction(
             notificationId: Int(notificationId) ?? Int(),
             notificationWiki: project,
