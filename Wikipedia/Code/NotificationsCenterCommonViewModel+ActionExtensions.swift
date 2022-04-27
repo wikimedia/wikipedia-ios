@@ -172,7 +172,7 @@ extension NotificationsCenterCommonViewModel {
         if notification.type == .userTalkPageMessage {
             return .userTalk
         } else if namespace == .userTalk {
-            return .senderPage
+            return .userTalk
         } else if namespace == .talk {
             return .articleTalk
         } else {
