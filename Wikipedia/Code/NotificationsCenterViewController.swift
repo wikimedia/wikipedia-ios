@@ -803,7 +803,8 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
             switch action {
             case .markAsReadOrUnread(let data):
                 alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
-                    let shouldMarkRead = cellViewModel.isRead ? false : true
+                    let shouldMarkRead = data.actionType == .markRead
+                    print(shouldMarkRead)
                     self.viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: shouldMarkRead)
                     self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: nil, shouldMarkRead: shouldMarkRead)
                     self.closeSwipeActionsPanelIfNecessary()
@@ -816,6 +817,7 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
                         self.viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true)
                         self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: nil, shouldMarkRead: true)
                     }
+                    self.logNotificationInteraction(with: data.actionType, model: cellViewModel)
                 })
             case .custom(let data):
                 alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
