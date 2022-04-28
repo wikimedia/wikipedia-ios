@@ -54,13 +54,36 @@ import Foundation
     
     public var canonicalName: String {
         switch self {
-        case .talk:
-            return "Talk"
-        case .userTalk:
-            return "User talk"
-        case .user:
-            return "User"
-        default: // add these as needed
+        case .media: return "Media"
+        case .special: return "Special"
+        case .talk: return "Talk"
+        case .user: return "User"
+        case .userTalk: return "User talk"
+        case .wikipedia: return "Wikipedia"
+        case .wikipediaTalk: return "Wikipedia talk"
+        case .file: return "File"
+        case .fileTalk: return "File talk"
+        case .mediawiki: return "MediaWiki"
+        case .mediawikiTalk: return "MediaWiki talk"
+        case .template: return "Template"
+        case .templateTalk: return "Template talk"
+        case .help: return "Help"
+        case .helpTalk: return "Help talk"
+        case .category: return "Category"
+        case .cateogryTalk: return "Category talk"
+        case .portal: return "Portal"
+        case .portalTalk: return "Portal talk"
+        case .draft: return "Draft"
+        case .draftTalk: return "Draft talk"
+        case .timedText: return "TimedText"
+        case .timedTextTalk: return "TimedText talk"
+        case .module: return "Module"
+        case .moduleTalk: return "Module talk"
+        case .gadget: return "Gadget"
+        case .gadgetTalk: return "Gadget talk"
+        case .gadgetDefinition: return "Gadget definition"
+        case .gadgetDefinitionTalk: return "Gadget definition talk"
+        default:
             return ""
         }
     }

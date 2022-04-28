@@ -126,8 +126,8 @@ class NotificationsCenterViewModelTests: XCTestCase {
         }
     }
     
-    func testActions(expectedText: String, expectedURL: URL?, expectedIcon: NotificationsCenterIconType?, expectedDestinationText: String?, actionToTest: NotificationsCenterAction, isMarkAsRead: Bool = false, isNotificationSettings: Bool = false) throws {
-        let expectedActionData = NotificationsCenterActionData(text: expectedText, url: expectedURL, iconType: expectedIcon, destinationText: expectedDestinationText)
+    func testActions(expectedText: String, expectedURL: URL?, expectedIcon: NotificationsCenterIconType?, expectedDestinationText: String?, actionToTest: NotificationsCenterAction, isMarkAsRead: Bool = false, isNotificationSettings: Bool = false, actionType: NotificationsCenterActionData.LoggingLabel?) throws {
+        let expectedActionData = NotificationsCenterActionData(text: expectedText, url: expectedURL, iconType: expectedIcon, destinationText: expectedDestinationText, actionType: actionType)
         let expectedAction: NotificationsCenterAction
         if isMarkAsRead {
             expectedAction = NotificationsCenterAction.markAsReadOrUnread(expectedActionData)
@@ -138,5 +138,6 @@ class NotificationsCenterViewModelTests: XCTestCase {
         }
 
         XCTAssertEqual(expectedAction, actionToTest, "Invalid action")
+        XCTAssertEqual(expectedActionData.actionType?.stringValue, actionToTest.actionData?.actionType?.stringValue)
     }
 }
