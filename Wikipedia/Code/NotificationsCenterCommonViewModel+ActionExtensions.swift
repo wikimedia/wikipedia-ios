@@ -178,7 +178,7 @@ extension NotificationsCenterCommonViewModel {
         } else if namespace == .main {
             return .article
         } else {
-            return nil
+            return .link(namespace)
         }
     }
     

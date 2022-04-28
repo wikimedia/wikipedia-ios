@@ -138,5 +138,6 @@ class NotificationsCenterViewModelTests: XCTestCase {
         }
 
         XCTAssertEqual(expectedAction, actionToTest, "Invalid action")
+        XCTAssertEqual(expectedActionData.actionType?.stringValue, actionToTest.actionData?.actionType?.stringValue)
     }
 }

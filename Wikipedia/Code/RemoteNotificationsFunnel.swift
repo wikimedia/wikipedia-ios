@@ -31,7 +31,7 @@ final class RemoteNotificationsFunnel: EventLoggingFunnel, EventLoggingStandardE
             }
             
             DispatchQueue.main.async {
-                let event = Event(is_anon: self.isAnon.boolValue, notification_id: notificationId, notification_wiki: notificationWiki, notification_type: notificationType, action: action.rawValue, selection_token: selectionToken, primary_language: self.primaryLanguage(), device_level_enabled: authStatus.getAuthorizationStatusString())
+                let event = Event(is_anon: self.isAnon.boolValue, notification_id: notificationId, notification_wiki: notificationWiki, notification_type: notificationType, action: action.stringValue, selection_token: selectionToken, primary_language: self.primaryLanguage(), device_level_enabled: authStatus.getAuthorizationStatusString())
                 EventPlatformClient.shared.submit(stream: .remoteNotificationsInteraction, event: event)
             }
         }
