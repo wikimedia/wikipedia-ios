@@ -668,6 +668,7 @@
 "notifications-center-subheader-email-from-other-user" = "Новый e-mail";
 "notifications-center-subheader-login-fail-known-device" = "Много неудавшихся попыток входа";
 "notifications-center-subheader-login-fail-unknown-device" = "Неудавшаяся попытка входа";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Вход с незнакомого устройства";
 "notifications-center-subheader-mention-article-talk-page" = "Упоминание на странице обсуждения статьи";
 "notifications-center-subheader-mention-edit-summary" = "Упоминание в комментарии к правке";

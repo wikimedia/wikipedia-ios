@@ -649,6 +649,7 @@
 "notifications-center-subheader-email-from-other-user" = "Нова е-пошта";
 "notifications-center-subheader-login-fail-known-device" = "Повеќе неуспешни обиди за најава";
 "notifications-center-subheader-login-fail-unknown-device" = "Неуспешен обид за најава";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Најава од непознат уред";
 "notifications-center-subheader-mention-article-talk-page" = "Спомнување на статиска разговорна страница";
 "notifications-center-subheader-mention-edit-summary" = "Спомнување во опис на уредување";

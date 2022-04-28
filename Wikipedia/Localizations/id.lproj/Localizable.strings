@@ -657,6 +657,7 @@
 "notifications-center-subheader-email-from-other-user" = "Email baru";
 "notifications-center-subheader-login-fail-known-device" = "Beberapa upaya masuk gagal";
 "notifications-center-subheader-login-fail-unknown-device" = "Upaya masuk gagal";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Masuk log dari gawai tak dikenal";
 "notifications-center-subheader-mention-article-talk-page" = "Sebutan pada halaman pembicaraan artikel";
 "notifications-center-subheader-mention-edit-summary" = "Sebutan dalam ringkasan suntingan";

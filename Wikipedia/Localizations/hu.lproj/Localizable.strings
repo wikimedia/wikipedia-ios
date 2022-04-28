@@ -472,6 +472,7 @@
 "notifications-center-subheader-edit-reverted" = "Szerkesztésedet visszavonták";
 "notifications-center-subheader-email-from-other-user" = "Új email";
 "notifications-center-subheader-login-fail-unknown-device" = "Sikertelen bejelentkezés";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Bejelentkezés ismeretlen eszközről";
 "notifications-center-subheader-page-reviewed" = "Ellenőrzött szócikk";
 "notifications-center-subheader-thanks" = "Köszönetek";
