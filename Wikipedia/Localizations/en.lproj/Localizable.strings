@@ -651,7 +651,6 @@
 "notifications-center-swipe-more" = "More";
 "notifications-center-title" = "Notifications";
 "notifications-center-toolbar-mark-accessibility-label" = "Mark selected notifications";
-"notifications-center-type-item-description-login-success" = "Login success";
 "notifications-center-type-item-description-mentions" = "Mentions";
 "notifications-center-type-item-description-notice" = "Notice";
 "notifications-center-type-item-description-welcome-verbose" = "Welcome message";
@@ -660,7 +659,9 @@
 "notifications-center-type-title-edit-reverted" = "Edit reverted";
 "notifications-center-type-title-edit-summary-mention" = "Edit summary mention";
 "notifications-center-type-title-email-from-other-user" = "Email from other user";
-"notifications-center-type-title-login-issues" = "Login issues";
+"notifications-center-type-title-login-attempts" = "Login attempts";
+"notifications-center-type-title-login-attempts-subtitle" = "Failed login attempts to your account";
+"notifications-center-type-title-login-success" = "Login success";
 "notifications-center-type-title-page-link" = "Page link";
 "notifications-center-type-title-page-review" = "Page review";
 "notifications-center-type-title-sent-mention-failure" = "Sent mention failure";
@@ -671,7 +672,6 @@
 "notifications-center-type-title-user-rights-change" = "User rights change";
 "notifications-center-type-title-user-talk-page-messsage" = "Talk page message";
 "notifications-center-type-title-welcome" = "Welcome";
-"notifications-center-type-title-login-attempts-subtitle" = "Failed login attempts to your account";
 "notifications-push-fallback-body-text" = "New activity on Wikipedia";
 "notifications-push-talk-body-format" = "{{PLURAL:$1|$1 new message|$1 new messages}} on $2";
 "notifications-push-talk-title-format" = "{{PLURAL:$1|New message|New messages}}";

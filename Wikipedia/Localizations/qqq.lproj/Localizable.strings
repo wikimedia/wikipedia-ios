@@ -651,7 +651,6 @@
 "notifications-center-swipe-more" = "Button text for the Notifications Center 'More' swipe action.";
 "notifications-center-title" = "Title for Notifications Center interface, as well as the accessibility label for the button that navigates to Notifications Center.";
 "notifications-center-toolbar-mark-accessibility-label" = "Accessibility label for mark button in Notifications Center";
-"notifications-center-type-item-description-login-success" = "Description of \"login success\" notification type, used on the notification detail view.";
 "notifications-center-type-item-description-mentions" = "Description of \"mention\" notification types, used on the notification detail view.";
 "notifications-center-type-item-description-notice" = "Description of \"notice\" notification types, used on the notification cell and detail views.";
 "notifications-center-type-item-description-welcome-verbose" = "Description of \"welcome\" notification types, used on the notification detail view.";
@@ -660,7 +659,9 @@
 "notifications-center-type-title-edit-reverted" = "Title of \"edit reverted\" notification type. Used on filters view toggles and the notification detail view.";
 "notifications-center-type-title-edit-summary-mention" = "Title of \"edit summary mention\" notification type. Used on filters view toggles and the notification detail view.";
 "notifications-center-type-title-email-from-other-user" = "Title of \"email from other user\" notification type. Used on filters view toggles and the notification detail view.";
-"notifications-center-type-title-login-issues" = "Title of \"login issues\" notification type. Used on filters view toggles and the notification detail view.";
+"notifications-center-type-title-login-attempts" = "Title of \"Login attempts\" notification type. Used on filters view toggles and the notification detail view. Represents failed logins from both a known and unknown device.";
+"notifications-center-type-title-login-attempts-subtitle" = "Subtitle of \"Login attempts\" notification type filter toggle. Represents failed logins from both a known and unknown device.";
+"notifications-center-type-title-login-success" = "Title of \"login success\" notification type. Used on filters view toggles and the notification detail view. Represents successful logins from an unknown device.";
 "notifications-center-type-title-page-link" = "Title of \"page link\" notification type. Used on filters view toggles and the notification detail view.";
 "notifications-center-type-title-page-review" = "Title of \"page review\" notification type. Used on filters view toggles and the notification detail view.";
 "notifications-center-type-title-sent-mention-failure" = "Title of \"sent mention failure\" notification type. Used on filters view toggles and the notification detail view.";
@@ -671,7 +672,6 @@
 "notifications-center-type-title-user-rights-change" = "Title of \"user rights change\" notification type. Used on filters view toggles and the notification detail view.";
 "notifications-center-type-title-user-talk-page-messsage" = "Title of \"user talk page message\" notification type. Used on filters view toggles and the notification detail view.";
 "notifications-center-type-title-welcome" = "Title of \"welcome\" notification type. Used on filters view toggles and the notification detail view.";
-"notifications-center-type-title-login-attempts-subtitle" = "Subtitle of \"Login attempts\" notification type filter toggle. Represents failed logins from both a known and unknown device.";
 "notifications-push-fallback-body-text" = "Fallback body content of a push notification whose content cannot be determined. Could be either due multiple notifications represented or errors.";
 "notifications-push-talk-body-format" = "Body text for a push notification that represents talk page messages. $1 is replaced with the number of talk page messages, $2 is replaced with the talk page title. For example, \"3 new messages on User talk: Username\"";
 "notifications-push-talk-title-format" = "Title text for a push notification that represents talk page messages. $1 is used to determine the text to display.";
