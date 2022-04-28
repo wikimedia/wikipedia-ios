@@ -589,6 +589,7 @@
 "notifications-center-subheader-email-from-other-user" = "Thư điện tử mới";
 "notifications-center-subheader-login-fail-known-device" = "Nhiều lần đăng nhập không thành công";
 "notifications-center-subheader-login-fail-unknown-device" = "Lần đăng nhập không thành công";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Đăng nhập từ thiết bị không quen";
 "notifications-center-subheader-mention-article-talk-page" = "Lời nhắc đến tại trang thảo luận bài viết";
 "notifications-center-subheader-mention-edit-summary" = "Lời nhắc đến trong tóm lược sửa đổi";

@@ -62,7 +62,7 @@ extension NotificationsCenterCellViewModel {
         let notificationSettingsActionData = NotificationsCenterActionData(text: notificationSubscriptionSettingsText, url: nil, iconType: nil, destinationText: nil, actionType: .settings)
         sheetActions.append(.notificationSubscriptionSettings(notificationSettingsActionData))
         
-        return sheetActions
+        return NSOrderedSet(array: sheetActions).compactMap { $0 as? NotificationsCenterAction }
     }
 }
 

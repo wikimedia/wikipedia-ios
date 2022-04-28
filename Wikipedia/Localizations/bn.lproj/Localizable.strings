@@ -269,6 +269,7 @@
 "notifications-center-subheader-email-from-other-user" = "নতুন ইমেইল";
 "notifications-center-subheader-login-fail-known-device" = "একাধিক ব্যর্থ প্রবেশের প্রচেষ্টা";
 "notifications-center-subheader-login-fail-unknown-device" = "ব্যর্থ প্রবেশের প্রচেষ্টা";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "একটি অপরিচিত ডিভাইস থেকে প্রবেশ";
 "notifications-center-subheader-mention-article-talk-page" = "নিবন্ধের আলাপ পাতায় উল্লেখ";
 "notifications-center-subheader-mention-edit-summary" = "সম্পাদনা সারাংশে উল্লেখ করুন";

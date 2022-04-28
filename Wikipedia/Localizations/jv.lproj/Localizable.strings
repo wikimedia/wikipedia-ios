@@ -352,11 +352,11 @@
 "search-title" = "Golèk";
 "settings-account" = "Akun";
 "settings-appearance" = "Pepilihaning wewacan";
-"settings-clear-cache" = "Resiki dhata ing telih";
-"settings-clear-cache-are-you-sure-message" = "Mbusak dhata ing telih bisa ngosongaké ruwang $1. Laku iki ora bakal mbusek kaca simpenané panjenengan.";
-"settings-clear-cache-are-you-sure-title" = "Resiki dhata ing telih?";
+"settings-clear-cache" = "Resiki dhata ing cache";
+"settings-clear-cache-are-you-sure-message" = "Mbusak dhata ing cache bisa ngosongaké ruwang $1. Laku iki ora bakal mbusek kaca simpenané panjenengan.";
+"settings-clear-cache-are-you-sure-title" = "Resiki dhata ing cache?";
 "settings-clear-cache-cancel" = "Wurung";
-"settings-clear-cache-ok" = "Busak telih";
+"settings-clear-cache-ok" = "Resiki cache";
 "settings-help-and-feedback" = "Pitulung lan pamrayoga";
 "settings-language-bar" = "Tuduhaké basa ing panggolèkan";
 "settings-my-languages" = "Basa-basaku";

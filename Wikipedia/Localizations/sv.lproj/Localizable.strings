@@ -664,6 +664,7 @@
 "notifications-center-subheader-email-from-other-user" = "Ny e-post";
 "notifications-center-subheader-login-fail-known-device" = "Flera misslyckade inloggningsförsök";
 "notifications-center-subheader-login-fail-unknown-device" = "Misslyckat inloggningsförsök";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Inloggning från en okänd enhet";
 "notifications-center-subheader-mention-article-talk-page" = "Omnämnande på en artikels diskussionssida";
 "notifications-center-subheader-mention-edit-summary" = "Omnämnande i redigeringssammanfattning";

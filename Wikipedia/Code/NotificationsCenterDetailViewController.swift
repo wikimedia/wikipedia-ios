@@ -65,7 +65,7 @@ extension NotificationsCenterDetailViewController: UITableViewDelegate, UITableV
             }
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: NotificationsCenterDetailActionCell.reuseIdentifier) as? NotificationsCenterDetailActionCell ?? NotificationsCenterDetailActionCell()
-            cell.configure(action: viewModel.secondaryActions[indexPath.row], theme: theme)
+            cell.configure(action: viewModel.uniqueSecondaryActions[indexPath.row], theme: theme)
             return cell
         }
     }
@@ -83,7 +83,7 @@ extension NotificationsCenterDetailViewController: UITableViewDelegate, UITableV
 
             return 2
         default:
-            return viewModel.secondaryActions.count
+            return viewModel.uniqueSecondaryActions.count
         }
     }
 
