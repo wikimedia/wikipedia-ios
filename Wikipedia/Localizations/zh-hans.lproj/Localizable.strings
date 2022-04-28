@@ -664,6 +664,7 @@
 "notifications-center-subheader-email-from-other-user" = "新邮件";
 "notifications-center-subheader-login-fail-known-device" = "多次失败的登录尝试";
 "notifications-center-subheader-login-fail-unknown-device" = "失败的登录尝试";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "来自不熟悉设备的登录";
 "notifications-center-subheader-mention-article-talk-page" = "条目讨论页上的提及";
 "notifications-center-subheader-mention-edit-summary" = "编辑摘要中的提及";

@@ -582,6 +582,7 @@
 "notifications-center-subheader-email-from-other-user" = "Neue E-Mail";
 "notifications-center-subheader-login-fail-known-device" = "Mehrere fehlgeschlagene Anmeldeversuche";
 "notifications-center-subheader-login-fail-unknown-device" = "Fehlgeschlagener Anmeldeversuch";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Anmeldung von einem unbekannten Gerät";
 "notifications-center-subheader-translate-milestone" = "Übersetzungsmeilenstein";
 "notifications-center-subheader-user-rights-change" = "Änderung der Benutzerrechte";

@@ -662,6 +662,7 @@
 "notifications-center-subheader-email-from-other-user" = "דוא\"ל חדש";
 "notifications-center-subheader-login-fail-known-device" = "ניסיונות כניסה כושלים מרובים";
 "notifications-center-subheader-login-fail-unknown-device" = "ניסיון כניסה כושל";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "כניסה ממכשיר לא מוכר";
 "notifications-center-subheader-mention-article-talk-page" = "אזכור בדף שיחה של ערך";
 "notifications-center-subheader-mention-edit-summary" = "אזכור בתקציר עריכה";

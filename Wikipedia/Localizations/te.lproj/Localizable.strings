@@ -593,6 +593,7 @@
 "notifications-center-subheader-email-from-other-user" = "కొత్త ఈమెయిలు";
 "notifications-center-subheader-login-fail-known-device" = "లాగినయ్యేందుకు బహుళ విఫల యత్నాలు";
 "notifications-center-subheader-login-fail-unknown-device" = "విఫలమైన లాగిన్ ప్రయత్నం";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "గుర్తుతెలియని పరికరం నుండి లాగినయ్యారు";
 "notifications-center-subheader-mention-article-talk-page" = "వ్యాసపు చర్చ పేజీలో ప్రస్తావన";
 "notifications-center-subheader-mention-edit-summary" = "దిద్దుబాటు సారాంశంలో ప్రస్తావన";
