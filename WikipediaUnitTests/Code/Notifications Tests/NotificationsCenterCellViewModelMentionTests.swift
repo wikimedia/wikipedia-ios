@@ -344,7 +344,7 @@ class NotificationsCenterCellViewModelMentionTests: NotificationsCenterViewModel
     
     private func testMentionFailureAnonymousText(cellViewModel: NotificationsCenterCellViewModel) throws {
         XCTAssertEqual(cellViewModel.headerText, "Failed mention")
-        XCTAssertEqual(cellViewModel.subheaderText, "Alert from EN-Wikipedia", "Invalid subheaderText")
+        XCTAssertEqual(cellViewModel.subheaderText, "Alert", "Invalid subheaderText")
         XCTAssertEqual(cellViewModel.bodyText, "Your mention of 47.188.91.144 was not sent because the user is anonymous.")
         XCTAssertEqual(cellViewModel.footerText, "User talk:Fred The Bird", "Invalid footerText")
         XCTAssertEqual(cellViewModel.dateText, "7/16/21", "Invalid dateText")
@@ -383,7 +383,7 @@ class NotificationsCenterCellViewModelMentionTests: NotificationsCenterViewModel
     
     private func testMentionFailureNotFoundText(cellViewModel: NotificationsCenterCellViewModel) throws {
         XCTAssertEqual(cellViewModel.headerText, "Failed mention")
-        XCTAssertEqual(cellViewModel.subheaderText, "Alert from TEST-Wikipedia", "Invalid subheaderText")
+        XCTAssertEqual(cellViewModel.subheaderText, "Alert", "Invalid subheaderText")
         XCTAssertEqual(cellViewModel.bodyText, "Your mention of Fredirufjdjd was not sent because the user was not found.")
         XCTAssertEqual(cellViewModel.footerText, "User talk:Jack The Cat", "Invalid footerText")
         XCTAssertEqual(cellViewModel.dateText, "1/6/22", "Invalid dateText")
@@ -422,7 +422,7 @@ class NotificationsCenterCellViewModelMentionTests: NotificationsCenterViewModel
     
     private func testMentionSuccessText(cellViewModel: NotificationsCenterCellViewModel) throws {
         XCTAssertEqual(cellViewModel.headerText, "Successful mention")
-        XCTAssertEqual(cellViewModel.subheaderText, "Alert from EN-Wikipedia", "Invalid subheaderText")
+        XCTAssertEqual(cellViewModel.subheaderText, "Alert", "Invalid subheaderText")
         XCTAssertEqual(cellViewModel.bodyText, "Your mention of Jack The Cat was sent.")
         XCTAssertEqual(cellViewModel.footerText, "User talk:Fred The Bird", "Invalid footerText")
         XCTAssertEqual(cellViewModel.dateText, "7/16/21", "Invalid dateText")
@@ -462,7 +462,7 @@ class NotificationsCenterCellViewModelMentionTests: NotificationsCenterViewModel
     private func testMentionSuccessWikidataText(cellViewModel: NotificationsCenterCellViewModel) throws {
         
         XCTAssertEqual(cellViewModel.headerText, "Successful mention")
-        XCTAssertEqual(cellViewModel.subheaderText, "Alert from Wikidata", "Invalid subheaderText")
+        XCTAssertEqual(cellViewModel.subheaderText, "Alert", "Invalid subheaderText")
         XCTAssertEqual(cellViewModel.bodyText, "Your mention of Jack The Cat was sent.")
         XCTAssertEqual(cellViewModel.footerText, "User talk:Fred The Bird", "Invalid footerText")
         XCTAssertEqual(cellViewModel.dateText, "7/16/21", "Invalid dateText")
@@ -526,7 +526,7 @@ class NotificationsCenterCellViewModelMentionTests: NotificationsCenterViewModel
         let expectedAction0: NotificationsCenterActionData.LoggingLabel = .markUnread
         try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true, actionType: expectedAction0)
 
-        let expectedText1 = "Blue Bird discussion page"
+        let expectedText1 = "Blue Bird talk page"
         let expectedURL1: URL? = URL(string: "https://zh.wikiquote.org/wiki/Talk:Blue_Bird#Section_Title")!
         let expectedIcon1: NotificationsCenterIconType = .document
         let expectedDestinationText1 = "On web"

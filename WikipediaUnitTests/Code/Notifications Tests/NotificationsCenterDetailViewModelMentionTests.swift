@@ -355,7 +355,7 @@ class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewMod
         XCTAssertNotNil(detailViewModel.primaryAction, "Invalid primaryAction")
         XCTAssertEqual(detailViewModel.secondaryActions.count, 3, "Invalid secondaryActions count")
         
-        let expectedPrimaryText = "Discussion page"
+        let expectedPrimaryText = "Talk page"
         let expectedPrimaryURL: URL? = URL(string: "https://zh.wikiquote.org/wiki/Talk:Blue_Bird#Section_Title")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .document
         let expectedPrimaryDestinationText = "On web"

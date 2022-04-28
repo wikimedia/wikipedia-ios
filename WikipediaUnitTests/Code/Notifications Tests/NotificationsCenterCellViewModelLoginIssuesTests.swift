@@ -23,7 +23,7 @@ class NotificationsCenterCellViewModelLoginIssuesTests: NotificationsCenterViewM
     
     private func testLoginFailKnownDeviceText(cellViewModel: NotificationsCenterCellViewModel) throws {
         XCTAssertEqual(cellViewModel.headerText, "Multiple failed log in attempts", "Invalid headerText")
-        XCTAssertEqual(cellViewModel.subheaderText, "Alert from EN-Wikipedia", "Invalid subheaderText")
+        XCTAssertEqual(cellViewModel.subheaderText, "Alert", "Invalid subheaderText")
         XCTAssertEqual(cellViewModel.bodyText, "There have been 5 failed attempts to log in to your account since the last time you logged in. If it wasn\'t you, please make sure your account has a strong password.")
         XCTAssertEqual(cellViewModel.footerText, "Change password")
         XCTAssertEqual(cellViewModel.dateText, "7/16/21", "Invalid dateText")
