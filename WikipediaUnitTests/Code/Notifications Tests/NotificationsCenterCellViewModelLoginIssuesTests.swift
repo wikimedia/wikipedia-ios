@@ -50,13 +50,13 @@ class NotificationsCenterCellViewModelLoginIssuesTests: NotificationsCenterViewM
         let expectedURL1: URL? = URL(string: "https://mediawiki.org/wiki/Special:ChangeCredentials")!
         let expectedIcon1: NotificationsCenterIconType = .lock
         let expectedDestinationText1 = "On web"
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: cellViewModel.sheetActions[1], actionType: nil)
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: cellViewModel.sheetActions[1], actionType: .changePassword)
 
         let expectedText2 = "Login notifications"
         let expectedURL2: URL? = URL(string: "https://www.mediawiki.org/wiki/Help:Login_notifications")!
         let expectedIcon2: NotificationsCenterIconType = .document
         let expectedDestinationText2 = "On web"
-        try testActions(expectedText: expectedText2, expectedURL: expectedURL2, expectedIcon: expectedIcon2, expectedDestinationText: expectedDestinationText2, actionToTest: cellViewModel.sheetActions[2], actionType: nil)
+        try testActions(expectedText: expectedText2, expectedURL: expectedURL2, expectedIcon: expectedIcon2, expectedDestinationText: expectedDestinationText2, actionToTest: cellViewModel.sheetActions[2], actionType: .login)
 
         let expectedText3 = "Notification settings"
         let expectedURL3: URL? = nil

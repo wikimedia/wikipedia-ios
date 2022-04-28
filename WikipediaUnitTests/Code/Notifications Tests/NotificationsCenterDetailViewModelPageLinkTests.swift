@@ -38,7 +38,7 @@ class NotificationsCenterDetailViewModelPageLinkTests: NotificationsCenterViewMo
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/wiki/Black_Cat?")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .document
         let expectedPrimaryDestinationText = "In app"
-        let expectedAction: NotificationsCenterActionData.LoggingLabel = .article
+        let expectedAction: NotificationsCenterActionData.LoggingLabel = .linkedFromArticle
         try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!, actionType: expectedAction)
         
         let expectedText0 = "Jack The Cat's user page"

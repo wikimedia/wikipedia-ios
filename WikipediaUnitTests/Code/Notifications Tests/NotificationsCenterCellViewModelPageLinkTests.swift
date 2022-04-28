@@ -49,7 +49,7 @@ class NotificationsCenterCellViewModelPageLinkTests: NotificationsCenterViewMode
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/Black_Cat?")!
         let expectedIcon1: NotificationsCenterIconType = .document
         let expectedDestinationText1 = "In app"
-        let expectedAction1: NotificationsCenterActionData.LoggingLabel = .article
+        let expectedAction1: NotificationsCenterActionData.LoggingLabel = .linkedFromArticle
         try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: cellViewModel.sheetActions[1], actionType: expectedAction1)
 
         let expectedText2 = "Jack The Cat\'s user page"
