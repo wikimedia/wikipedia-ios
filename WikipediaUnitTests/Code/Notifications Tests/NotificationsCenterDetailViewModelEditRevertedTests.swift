@@ -48,25 +48,29 @@ class NotificationsCenterDetailViewModelEditRevertedTests: NotificationsCenterVi
         let expectedPrimaryURL: URL? = URL(string: "https://en.wikipedia.org/w/index.php?oldid=1034388502&title=User_talk%253AFred_The_Bird")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .diff
         let expectedPrimaryDestinationText = "In app"
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!)
+        let expetedAction: NotificationsCenterActionData.LoggingLabel = .diff
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!, actionType: expetedAction)
         
         let expectedText0 = "Fred The Bird's user page"
         let expectedURL0: URL? = URL(string: "https://en.wikipedia.org/wiki/User:Fred_The_Bird")!
         let expectedIcon0: NotificationsCenterIconType = .person
         let expectedDestinationText0 = "On web"
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0])
+        let expetedAction0: NotificationsCenterActionData.LoggingLabel = .senderPage
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0], actionType: expetedAction0)
         
         let expectedText1 = "Talk page"
         let expectedURL1: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
         let expectedIcon1: NotificationsCenterIconType = .document
         let expectedDestinationText1 = "In app"
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: detailViewModel.secondaryActions[1])
+        let expetedAction1: NotificationsCenterActionData.LoggingLabel = .userTalk
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: detailViewModel.secondaryActions[1], actionType: expetedAction1)
         
         let expectedText2 = "Talk page"
         let expectedURL2: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
         let expectedIcon2: NotificationsCenterIconType = .document
         let expectedDestinationText2 = "In app"
-        try testActions(expectedText: expectedText2, expectedURL: expectedURL2, expectedIcon: expectedIcon2, expectedDestinationText: expectedDestinationText2, actionToTest: detailViewModel.secondaryActions[2])
+        let expetedAction2: NotificationsCenterActionData.LoggingLabel = .userTalk
+        try testActions(expectedText: expectedText2, expectedURL: expectedURL2, expectedIcon: expectedIcon2, expectedDestinationText: expectedDestinationText2, actionToTest: detailViewModel.secondaryActions[2], actionType: expetedAction2)
     }
     
     private func testEditRevertedOnArticleEditText(detailViewModel: NotificationsCenterDetailViewModel) throws {
@@ -90,25 +94,29 @@ class NotificationsCenterDetailViewModelEditRevertedTests: NotificationsCenterVi
         let expectedPrimaryURL: URL? = URL(string: "https://test.wikipedia.org/w/index.php?oldid=480410&title=Blue_Bird")!
         let expectedPrimaryIcon: NotificationsCenterIconType = .diff
         let expectedPrimaryDestinationText = "In app"
-        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!)
+        let expetedAction: NotificationsCenterActionData.LoggingLabel = .diff
+        try testActions(expectedText: expectedPrimaryText, expectedURL: expectedPrimaryURL, expectedIcon: expectedPrimaryIcon, expectedDestinationText: expectedPrimaryDestinationText, actionToTest: detailViewModel.primaryAction!, actionType: expetedAction)
         
         let expectedText0 = "Fred The Bird's user page"
         let expectedURL0: URL? = URL(string: "https://test.wikipedia.org/wiki/User:Fred_The_Bird")!
         let expectedIcon0: NotificationsCenterIconType = .person
         let expectedDestinationText0 = "On web"
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0])
+        let expetedAction0: NotificationsCenterActionData.LoggingLabel = .senderPage
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: detailViewModel.secondaryActions[0], actionType: expetedAction0)
         
         let expectedText1 = "Talk page"
         let expectedURL1: URL? = URL(string: "https://test.wikipedia.org/wiki/Talk:Blue_Bird")!
         let expectedIcon1: NotificationsCenterIconType = .document
         let expectedDestinationText1 = "On web"
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: detailViewModel.secondaryActions[1])
+        let expetedAction1: NotificationsCenterActionData.LoggingLabel = .articleTalk
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: detailViewModel.secondaryActions[1], actionType: expetedAction1)
         
         let expectedText2 = "Article"
         let expectedURL2: URL? = URL(string: "https://test.wikipedia.org/wiki/Blue_Bird")!
         let expectedIcon2: NotificationsCenterIconType = .document
         let expectedDestinationText2 = "In app"
-        try testActions(expectedText: expectedText2, expectedURL: expectedURL2, expectedIcon: expectedIcon2, expectedDestinationText: expectedDestinationText2, actionToTest: detailViewModel.secondaryActions[2])
+        let expetedAction2: NotificationsCenterActionData.LoggingLabel = .article
+        try testActions(expectedText: expectedText2, expectedURL: expectedURL2, expectedIcon: expectedIcon2, expectedDestinationText: expectedDestinationText2, actionToTest: detailViewModel.secondaryActions[2], actionType: expetedAction2)
     }
 
 }

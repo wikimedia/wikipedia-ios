@@ -10,7 +10,8 @@ extension NotificationsCenterCellViewModel {
         let markAsReadText = CommonStrings.notificationsCenterMarkAsReadSwipe
         let markAsUnreadText = CommonStrings.notificationsCenterMarkAsUnreadSwipe
         let markAsReadOrUnreadText = isRead ? markAsUnreadText : markAsReadText
-        let markAsReadOrUnreadActionData = NotificationsCenterActionData(text: markAsReadOrUnreadText, url: nil, iconType: nil, destinationText: nil)
+        let markAsReadOrUnreadAction: NotificationsCenterActionData.LoggingLabel = isRead ? .markUnread : .markRead
+        let markAsReadOrUnreadActionData = NotificationsCenterActionData(text: markAsReadOrUnreadText, url: nil, iconType: nil, destinationText: nil, actionType: markAsReadOrUnreadAction)
         sheetActions.append(.markAsReadOrUnread(markAsReadOrUnreadActionData))
         
         switch notification.type {
@@ -58,7 +59,7 @@ extension NotificationsCenterCellViewModel {
         }
         
         let notificationSubscriptionSettingsText = WMFLocalizedString("notifications-center-notifications-settings", value: "Notification settings", comment: "Button text in Notifications Center that automatically routes to the notifications settings screen.")
-        let notificationSettingsActionData = NotificationsCenterActionData(text: notificationSubscriptionSettingsText, url: nil, iconType: nil, destinationText: nil)
+        let notificationSettingsActionData = NotificationsCenterActionData(text: notificationSubscriptionSettingsText, url: nil, iconType: nil, destinationText: nil, actionType: .settings)
         sheetActions.append(.notificationSubscriptionSettings(notificationSettingsActionData))
         
         return NSOrderedSet(array: sheetActions).compactMap { $0 as? NotificationsCenterAction }
@@ -192,8 +193,8 @@ private extension NotificationsCenterCellViewModel {
         var sheetActions: [NotificationsCenterAction] = []
 
         //Article where link was made
-        if let pageLinkToAction = commonViewModel.pageLinkToAction {
-            sheetActions.append(pageLinkToAction)
+        if let pageLinkFromAction = commonViewModel.pageLinkFromAction {
+            sheetActions.append(pageLinkFromAction)
         }
 
         if let agentUserPageAction = commonViewModel.agentUserPageAction {
