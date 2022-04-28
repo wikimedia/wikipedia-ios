@@ -196,7 +196,7 @@ extension NotificationsCenterCommonViewModel {
             return nil
         }
 
-        let data = NotificationsCenterActionData(text: title, url: url, iconType: .document, destinationText: destinationText(for: url), actionType: .linkedFromArticle) //?????
+        let data = NotificationsCenterActionData(text: title, url: url, iconType: .document, destinationText: destinationText(for: url), actionType: .linkedFromArticle)
         return NotificationsCenterAction.custom(data)
     }
 

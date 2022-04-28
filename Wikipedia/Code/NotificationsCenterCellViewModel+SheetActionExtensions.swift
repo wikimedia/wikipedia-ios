@@ -193,8 +193,8 @@ private extension NotificationsCenterCellViewModel {
         var sheetActions: [NotificationsCenterAction] = []
 
         //Article where link was made
-        if let pageLinkToAction = commonViewModel.pageLinkFromAction {
-            sheetActions.append(pageLinkToAction)
+        if let pageLinkFromAction = commonViewModel.pageLinkFromAction {
+            sheetActions.append(pageLinkFromAction)
         }
 
         if let agentUserPageAction = commonViewModel.agentUserPageAction {
