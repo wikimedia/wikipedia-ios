@@ -126,7 +126,7 @@ class NotificationsCenterCellViewModelMentionTests: NotificationsCenterViewModel
     
     private func testMentionInUserTalkActions(cellViewModel: NotificationsCenterCellViewModel) throws {
 
-        XCTAssertEqual(cellViewModel.sheetActions.count, 6, "Invalid sheetActionsCount")
+        XCTAssertEqual(cellViewModel.sheetActions.count, 5, "Invalid sheetActionsCount")
         
         let expectedText0 = "Mark as unread"
         let expectedURL0: URL? = nil
@@ -155,20 +155,13 @@ class NotificationsCenterCellViewModelMentionTests: NotificationsCenterViewModel
         let expectedDestinationText3 = "In app"
         let expectedAction3: NotificationsCenterActionData.LoggingLabel = .diff
         try testActions(expectedText: expectedText3, expectedURL: expectedURL3, expectedIcon: expectedIcon3, expectedDestinationText: expectedDestinationText3, actionToTest: cellViewModel.sheetActions[3], actionType: expectedAction3)
-
-        let expectedText4 = "Talk page"
-        let expectedURL4: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird#Section_Title")!
-        let expectedIcon4: NotificationsCenterIconType = .document
-        let expectedDestinationText4 = "In app"
-        let expectedAction4: NotificationsCenterActionData.LoggingLabel = .userTalk
-        try testActions(expectedText: expectedText4, expectedURL: expectedURL4, expectedIcon: expectedIcon4, expectedDestinationText: expectedDestinationText4, actionToTest: cellViewModel.sheetActions[4], actionType: expectedAction4)
         
-        let expectedText5 = "Notification settings"
-        let expectedURL5: URL? = nil
-        let expectedIcon5: NotificationsCenterIconType? = nil
-        let expectedDestinationText5: String? = nil
-        let expectedAction5: NotificationsCenterActionData.LoggingLabel = .settings
-        try testActions(expectedText: expectedText5, expectedURL: expectedURL5, expectedIcon: expectedIcon5, expectedDestinationText: expectedDestinationText5, actionToTest: cellViewModel.sheetActions[5], isNotificationSettings: true, actionType: expectedAction5)
+        let expectedText4 = "Notification settings"
+        let expectedURL4: URL? = nil
+        let expectedIcon4: NotificationsCenterIconType? = nil
+        let expectedDestinationText4: String? = nil
+        let expectedAction4: NotificationsCenterActionData.LoggingLabel = .settings
+        try testActions(expectedText: expectedText4, expectedURL: expectedURL4, expectedIcon: expectedIcon4, expectedDestinationText: expectedDestinationText4, actionToTest: cellViewModel.sheetActions[4], isNotificationSettings: true, actionType: expectedAction4)
     }
     
     private func testMentionInUserTalkEditSummaryText(cellViewModel: NotificationsCenterCellViewModel) throws {
