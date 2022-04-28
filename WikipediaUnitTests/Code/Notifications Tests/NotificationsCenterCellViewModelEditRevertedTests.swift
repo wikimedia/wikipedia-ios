@@ -49,7 +49,7 @@ class NotificationsCenterCellViewModelEditRevertedTests: NotificationsCenterView
     
     private func testEditRevertedOnUserTalkEditActions(cellViewModel: NotificationsCenterCellViewModel) throws {
 
-        XCTAssertEqual(cellViewModel.sheetActions.count, 6, "Invalid sheetActionsCount")
+        XCTAssertEqual(cellViewModel.sheetActions.count, 5, "Invalid sheetActionsCount")
         
         let expectedText0 = "Mark as unread"
         let expectedURL0: URL? = nil
@@ -74,18 +74,12 @@ class NotificationsCenterCellViewModelEditRevertedTests: NotificationsCenterView
         let expectedIcon3: NotificationsCenterIconType = .document
         let expectedDestinationText3 = "In app"
         try testActions(expectedText: expectedText3, expectedURL: expectedURL3, expectedIcon: expectedIcon3, expectedDestinationText: expectedDestinationText3, actionToTest: cellViewModel.sheetActions[3])
-        
-        let expectedText4 = "Talk page"
-        let expectedURL4: URL? = URL(string: "https://en.wikipedia.org/wiki/User_talk:Fred_The_Bird")!
-        let expectedIcon4: NotificationsCenterIconType = .document
-        let expectedDestinationText4 = "In app"
-        try testActions(expectedText: expectedText4, expectedURL: expectedURL4, expectedIcon: expectedIcon4, expectedDestinationText: expectedDestinationText4, actionToTest: cellViewModel.sheetActions[4])
-        
-        let expectedText5 = "Notification settings"
-        let expectedURL5: URL? = nil
-        let expectedIcon5: NotificationsCenterIconType? = nil
-        let expectedDestinationText5: String? = nil
-        try testActions(expectedText: expectedText5, expectedURL: expectedURL5, expectedIcon: expectedIcon5, expectedDestinationText: expectedDestinationText5, actionToTest: cellViewModel.sheetActions[5], isNotificationSettings: true)
+
+        let expectedText4 = "Notification settings"
+        let expectedURL4: URL? = nil
+        let expectedIcon4: NotificationsCenterIconType? = nil
+        let expectedDestinationText4: String? = nil
+        try testActions(expectedText: expectedText4, expectedURL: expectedURL4, expectedIcon: expectedIcon4, expectedDestinationText: expectedDestinationText4, actionToTest: cellViewModel.sheetActions[4], isNotificationSettings: true)
     }
     
     private func testEditRevertedOnArticleEditText(cellViewModel: NotificationsCenterCellViewModel) throws {
