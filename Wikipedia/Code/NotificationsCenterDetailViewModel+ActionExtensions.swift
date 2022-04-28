@@ -29,7 +29,7 @@ extension NotificationsCenterDetailViewModel {
                 return userGroupRightsAction
             }
         case .pageLinked:
-            if let pageLinkToAction = commonViewModel.pageLinkToAction {
+            if let pageLinkToAction = commonViewModel.pageLinkFromAction {
                 return pageLinkToAction
             }
         case .connectionWithWikidata:

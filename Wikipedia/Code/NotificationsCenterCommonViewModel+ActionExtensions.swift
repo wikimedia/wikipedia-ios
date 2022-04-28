@@ -190,7 +190,7 @@ extension NotificationsCenterCommonViewModel {
     }
 
     // [Article where link was made]
-    var pageLinkToAction: NotificationsCenterAction? {
+    var pageLinkFromAction: NotificationsCenterAction? {
         guard let url = pageLinkToURL,
               let title = url.wmf_title else {
             return nil
