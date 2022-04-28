@@ -102,10 +102,11 @@ public extension RemoteNotificationType {
                 self = .userRightsChange
             case "editReverted":
                 self = .editReverted
-            case "loginFailKnownDevice", //for filters this represents any login-related notification (i.e. also loginFailUnknownDevice, loginSuccessUnknownDevice, etc.).
-                    "loginFailUnknownDevice",
-                    "loginSuccessUnknownDevice":
+            case "loginFailKnownDevice", //for filters this represents both known and unknown devices
+                    "loginFailUnknownDevice":
                 self = .loginFailKnownDevice
+            case "loginSuccessUnknownDevice":
+                self = .loginSuccessUnknownDevice
             case "editMilestone":
                 self = .editMilestone
             case "translationMilestone":
@@ -143,10 +144,11 @@ public extension RemoteNotificationType {
             return "userRightsChange"
         case .editReverted:
             return "editReverted"
-        case .loginFailKnownDevice, //for filters this represents any login-related notification (i.e. also loginFailUnknownDevice, loginSuccessUnknownDevice, etc.).
-                .loginFailUnknownDevice,
-                .loginSuccessUnknownDevice:
+        case .loginFailKnownDevice, //for filters this represents both known and unknown devices
+                .loginFailUnknownDevice:
             return "loginFailKnownDevice"
+        case .loginSuccessUnknownDevice:
+            return "loginSuccessUnknownDevice"
         case .editMilestone:
             return "editMilestone"
         case .translationMilestone:
@@ -162,6 +164,7 @@ public extension RemoteNotificationType {
 }
 
 public extension RemoteNotificationType {
+    
     static var orderingForFilters: [RemoteNotificationType] {
         return [
             .userTalkPageMessage,
@@ -175,7 +178,8 @@ public extension RemoteNotificationType {
             .failedMention,
             .userRightsChange,
             .editReverted,
-            .loginFailKnownDevice, //for filters this represents any login-related notification (i.e. also loginFailUnknownDevice, loginSuccessUnknownDevice, etc.).
+            .loginFailKnownDevice, //for filters this represents both known and unknown devices
+            .loginSuccessUnknownDevice,
             .editMilestone,
             .translationMilestone(1), //for filters this represents other translation associated values as well (ten, hundred milestones).
             .thanks,
@@ -209,7 +213,9 @@ public extension RemoteNotificationType {
             return WMFLocalizedString("notifications-center-type-title-edit-reverted", value: "Edit reverted", comment: "Title of \"edit reverted\" notification type. Used on filters view toggles and the notification detail view.")
         case .loginFailKnownDevice,
                 .loginFailUnknownDevice:
-            return WMFLocalizedString("notifications-center-type-title-login-issues", value: "Login issues", comment: "Title of \"login issues\" notification type. Used on filters view toggles and the notification detail view.") //for filters this represents any login-related notification (i.e. also loginFailUnknownDevice, loginSuccessUnknownDevice, etc.).
+            return WMFLocalizedString("notifications-center-type-title-login-attempts", value: "Login attempts", comment: "Title of \"Login attempts\" notification type. Used on filters view toggles and the notification detail view. Represents failed logins from both a known and unknown device.")
+        case .loginSuccessUnknownDevice:
+            return WMFLocalizedString("notifications-center-type-title-login-success", value: "Login success", comment: "Title of \"login success\" notification type. Used on filters view toggles and the notification detail view. Represents successful logins from an unknown device.")
         case .editMilestone:
             return WMFLocalizedString("notifications-center-type-title-edit-milestone", value: "Edit milestone", comment: "Title of \"edit milestone\" notification type. Used on filters view toggles and the notification detail view.")
         case .translationMilestone:
@@ -218,8 +224,6 @@ public extension RemoteNotificationType {
             return WMFLocalizedString("notifications-center-type-title-thanks", value: "Thanks", comment: "Title of \"thanks\" notification type. Used on filters view toggles and the notification detail view.")
         case .welcome:
             return WMFLocalizedString("notifications-center-type-title-welcome", value: "Welcome", comment: "Title of \"welcome\" notification type. Used on filters view toggles and the notification detail view.")
-        case .loginSuccessUnknownDevice:
-            return WMFLocalizedString("notifications-center-type-item-description-login-success", value: "Login success", comment: "Description of \"login success\" notification type, used on the notification detail view.")
         case .unknownSystemAlert,
                 .unknownAlert,
                 .unknown:

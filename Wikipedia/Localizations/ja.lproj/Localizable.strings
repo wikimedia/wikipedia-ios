@@ -611,6 +611,7 @@
 "notifications-center-status-read" = "既読";
 "notifications-center-status-unread" = "未読";
 "notifications-center-subheader-email-from-other-user" = "新しいメール";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "身に覚えのない端末からのログイン";
 "notifications-center-subheader-mention-failed" = "メンションに失敗しました";
 "notifications-center-subheader-mention-successful" = "メンションに成功しました";

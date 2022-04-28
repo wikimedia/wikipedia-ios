@@ -184,7 +184,7 @@
 "button-report-a-bug" = "回報程式錯誤";
 "button-save-for-later" = "儲存以供日後使用";
 "button-saved-for-later" = "儲存以供日後使用";
-"button-saved-remove" = "從已保存移除";
+"button-saved-remove" = "從已儲存移除";
 "button-skip" = "略過";
 "cancel" = "取消";
 "cc-zero" = "創用CC公眾領域貢獻宣告";
@@ -663,6 +663,7 @@
 "notifications-center-subheader-email-from-other-user" = "新郵件";
 "notifications-center-subheader-login-fail-known-device" = "多次登錄嘗試失敗";
 "notifications-center-subheader-login-fail-unknown-device" = "登錄嘗試失敗";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "從不熟悉的設備登錄";
 "notifications-center-subheader-mention-article-talk-page" = "在條目對話頁提及";
 "notifications-center-subheader-mention-edit-summary" = "在編輯摘要中提及";

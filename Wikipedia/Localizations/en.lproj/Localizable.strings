@@ -632,7 +632,7 @@
 "notifications-center-subheader-email-from-other-user" = "New email";
 "notifications-center-subheader-login-fail-known-device" = "Multiple failed log in attempts";
 "notifications-center-subheader-login-fail-unknown-device" = "Failed log in attempt";
-"notifications-center-subheader-login-success-unknown-device" = "Log in from an unfamiliar device";
+"notifications-center-subheader-login-success-unknown-device" = "Login from an unfamiliar device";
 "notifications-center-subheader-mention-article-talk-page" = "Mention on article talk page";
 "notifications-center-subheader-mention-edit-summary" = "Mention in edit summary";
 "notifications-center-subheader-mention-failed" = "Failed mention";
@@ -671,6 +671,7 @@
 "notifications-center-type-title-user-rights-change" = "User rights change";
 "notifications-center-type-title-user-talk-page-messsage" = "Talk page message";
 "notifications-center-type-title-welcome" = "Welcome";
+"notifications-center-type-title-login-attempts-subtitle" = "Failed login attempts to your account";
 "notifications-push-fallback-body-text" = "New activity on Wikipedia";
 "notifications-push-talk-body-format" = "{{PLURAL:$1|$1 new message|$1 new messages}} on $2";
 "notifications-push-talk-title-format" = "{{PLURAL:$1|New message|New messages}}";

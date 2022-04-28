@@ -659,6 +659,7 @@
 "notifications-center-subheader-email-from-other-user" = "Mensagem nova";
 "notifications-center-subheader-login-fail-known-device" = "Várias tentativas falhadas de início de sessão";
 "notifications-center-subheader-login-fail-unknown-device" = "Tentativas falhada de início de sessão";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Início de sessão de dispositivo desconhecido";
 "notifications-center-subheader-mention-article-talk-page" = "Menção na página de discussão de um artigo";
 "notifications-center-subheader-mention-edit-summary" = "Menção no resumo de uma edição";

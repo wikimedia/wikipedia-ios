@@ -591,6 +591,7 @@
 "notifications-center-subheader-email-from-other-user" = "Nový email";
 "notifications-center-subheader-login-fail-known-device" = "Viacero neúspešných pokusov o prihlásenie";
 "notifications-center-subheader-login-fail-unknown-device" = "Neúspešný pokus o prihlásenie";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Prihlásenie z neznámeho zariadenia";
 "notifications-center-subheader-mention-article-talk-page" = "Zmienka na diskusnej stránke článku";
 "notifications-center-subheader-mention-edit-summary" = "Zmienka v sumári úprav";
