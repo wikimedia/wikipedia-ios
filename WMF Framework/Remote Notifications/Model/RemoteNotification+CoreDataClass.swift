@@ -112,8 +112,10 @@ public class RemoteNotification: NSManagedObject {
             return ["thank-you-edit"]
         case .welcome:
             return ["system-noemail"]
-        case .loginFailKnownDevice: //Note: this will include the other login types
-            return ["login-fail", "login-success"]
+        case .loginFailKnownDevice: //Note: this will include both known and unknown device login failure types
+            return ["login-fail"]
+        case .loginSuccessUnknownDevice:
+            return ["login-success"]
         default:
             return []
         }
@@ -151,8 +153,10 @@ public class RemoteNotification: NSManagedObject {
             return ["thank-you-edit"]
         case .welcome:
             return ["welcome"]
-        case .loginFailKnownDevice: //Note: this will include the other login types
-            return ["login-fail-new", "login-fail-known", "login-success"]
+        case .loginFailKnownDevice: //Note: this includes both known and unknown device login failure types
+            return ["login-fail-new", "login-fail-known"]
+        case .loginSuccessUnknownDevice:
+            return ["login-success"]
         default:
             return []
         }
