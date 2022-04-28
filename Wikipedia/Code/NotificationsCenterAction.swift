@@ -34,6 +34,10 @@ struct NotificationsCenterActionData: Equatable {
         case listGroupRights
         case linkedFromArticle
         case settings
+        case gettingStarted
+        case login
+        case changePassword
+        case linkNonspecific
         case link(PageNamespace)
         
         var stringValue: String {
@@ -49,6 +53,10 @@ struct NotificationsCenterActionData: Equatable {
             case .listGroupRights: return "list_group_rights"
             case .linkedFromArticle: return "linked_from_article"
             case .settings: return "settings"
+            case .gettingStarted: return "getting_started"
+            case .login: return "login_notification"
+            case .changePassword: return "change_password"
+            case .linkNonspecific: return "link_nonspecific"
             case .link(let namespace):
                 return "link_\(namespace.stringValue)"
             }
