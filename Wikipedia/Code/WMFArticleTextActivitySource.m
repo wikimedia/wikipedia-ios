@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
         }
     }
 
-    return [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"share-article-name-on-wikipedia", nil, nil, @"\"%1$@\" on @Wikipedia:", @"Formatted string expressing article being on Wikipedia with at symbol handle. Please do not translate the \"@Wikipedia\" in the message, and preserve the spaces around it, as it refers specifically to the Wikipedia Twitter account. %1$@ will be an article title, which should be wrapped in the localized double quote marks."), self.title]; //send just the title for other sharing services
+    return [NSString localizedStringWithFormat:WMFLocalizedStringWithDefaultValue(@"share-article-name-on-wikipedia", nil, nil, @"\"%1$@\" on Wikipedia:", @"Formatted string expressing article being on Wikipedia. %1$@ will be an article title, which should be wrapped in the localized double quote marks."), self.title]; //send just the title for other sharing services
 }
 
 - (NSString *)activityViewController:(UIActivityViewController *)activityViewController subjectForActivityType:(nullable NSString *)activityType {

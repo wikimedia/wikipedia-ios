@@ -141,7 +141,7 @@ class ShareActivityController: UIActivityViewController {
         var items = [Any]()
         
         if let title = article.displayTitle {
-            let text = "\"\(title)\" on @Wikipedia"
+            let text = "\"\(title)\" on Wikipedia"
             items.append(text)
         }
         
