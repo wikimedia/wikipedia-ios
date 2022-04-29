@@ -18,7 +18,7 @@ open class WMFImageTextActivitySource: NSObject, UIActivityItemSource  {
         var text: String?
 
         if activityType == UIActivity.ActivityType.postToTwitter {
-            text = WMFLocalizedString("share-on-twitter-sign-off", value:"via @Wikipedia", comment:"Text placed at the end of a tweet when sharing. Contains the wikipedia twitter handle")
+            text = WMFLocalizedString("share-on-twitter-sign-off", value:"via Wikipedia", comment:"Text placed at the end of a tweet when sharing. Contains the wikipedia twitter handle")
         }else if activityType == UIActivity.ActivityType.postToFacebook ||
             activityType == UIActivity.ActivityType.mail ||
             activityType == UIActivity.ActivityType.postToFlickr {

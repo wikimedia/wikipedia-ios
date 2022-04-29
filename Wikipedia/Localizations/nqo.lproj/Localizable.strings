@@ -295,7 +295,6 @@
 "featured-widget-from-wikipedia" = "ߞߊ߬ ߝߘߊ߫ ߥߞߌߔߋߘߌߦߊ ߟߊ߫";
 "featured-widget-language-failure" = "ߌ ߟߊ߫ ߥߞߌߔߋߘߌߦߊ ߞߊ߲߫ ߝߟߐ ߟߊߘߌ߬ߢߍ߬ߣߍ߲߫ ߕߍ߫ ߞߎߡߘߊ߫ ߡߊ߬ߦߋߙߋ߲ߣߍ߲ ߠߎ߬ ߓߟߏ߫. ߌ ߘߌ߫ ߛߴߌ ߟߊ߫ ߞߊ߲߫ ߝߟߐ ߟߊߞߎߘߦߊ߫ ߟߊ߫ ߟߥߊ߬ߟߌ߬ߟߊ߲ ߟߊ߬ߓߍ߲߬ߢߐ߲߰ߡߦߊ߬ߘߊ ߢߣߊߕߊߟߌ ߘߐ߫.";
 "featured-widget-title" = "ߞߎߡߘߊ߫ ߡߊߦߋߙߋ߲ߣߍ߲ ߠߎ߬";
-"feed-news-notification-button-text" = "ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߓߌ߬ߟߴߊ߬ ߟߊ߫";
 "fetcher-error-generic" = "ߞߏ ߘߏ߫ ߓߍ߲߬ߣߍ߲߫ ߕߎ߲߬ ߕߍ߫. ߊ߬ ߡߊߝߍߣߍ߲߫ ߌߞߐ߫ ߖߊ߰ߣߌ߲߫.";
 "field-alert-captcha-invalid" = "ߛߏ߰ߙߏ߬ߛߊ߯ߙߊ ߓߍ߲߬ߓߊߟߌ";
 "field-alert-password-confirm-mismatch" = "ߕߊ߬ߡߌ߲߬ߞߊ߲ ߡߊ߫ ߕߊ߬ߡߌ߲߬";
@@ -340,10 +339,6 @@
 "icon-shortcut-random-title" = "ߓߍ߲߬ߛߋ߲߬ߡߊ߫ ߞߎߡߘߊ";
 "icon-shortcut-search-title" = "ߊ߬ ߢߌߣߌ߲߫ ߥߞߌߔߋߘߌߦߊ ߞߊ߲߬";
 "image-gallery-unknown-owner" = "ߛߓߍߦߟߊ߫ ߡߊߟߐ߲ߓߊߟߌ";
-"in-the-news-currently-trending" = "ߡߍ߲ ߠߎ߬ ߦߋ߫ ߝߌߙߌ߲ߝߌߙߌ߲ ߞߊ߲߬ ߕߊ߲߬";
-"in-the-news-notification-read-now-action-title" = "ߊ߬ ߘߐߞߊ߬ߙߊ߲߬ ߛߌߣߍ߲߬";
-"in-the-news-notification-save-for-later-action-title" = "ߊ߬ ߟߊߞߎ߲߬ߘߎ߫ ߞߐߝߍߟߊ ߦߋ߫";
-"in-the-news-notification-share-action-title" = "ߊ߬ ߟߊߖߍ߲ߛߍ߲߫...";
 "in-the-news-sub-title-from-language-wikipedia" = "ߞߊ߬ ߝߘߊ߫ $1 ߥߞߌߔߋߘߌߦߊ ߟߊ߫";
 "in-the-news-sub-title-from-wikipedia" = "ߞߊ߬ ߝߘߊ߫ ߥߞߌߔߋߘߌߦߊ ߟߊ߫";
 "in-the-news-title" = "ߞߎߘߊ ߟߎ߬ ߘߐ߫";
@@ -409,12 +404,17 @@
 "notifications-center-change-password" = "ߕߊ߬ߡߌ߲߬ߞߊ߲ ߡߊߝߊ߬ߟߋ߲߬";
 "notifications-center-empty-checking-for-notifications" = "ߊ߬ ߡߊߝߍߣߍ߲߫ ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ߫ ߞߏ ߘߐ߫...";
 "notifications-center-empty-not-subscribed" = "ߌ ߕߐ߮ ߛߓߍߣߍ߲߫ ߕߍ߫ ߥߞߌߔߋߘߌߦߊ ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ߫ ߛߌ߫ ߟߊ߫ ߕߊ߲߬.";
-"notifications-center-footer-change-password" = "ߕߊ߬ߡߌ߲߬ߞߊ߲ ߡߊߝߊ߬ߟߋ߲߬";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߓߌ߬ߟߴߊ߬ ߟߊ߫";
+// Fuzzy
 "notifications-center-go-to-diff" = "ߕߊ߯ ߓߐߣߍ߲ߢߐ߲߰ߡߊ ߞߊ߲߬";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "ߥߊ߫ ߞߎߡߊ߫ ߞߐߜߍ ߞߊ߲߬";
-"notifications-center-go-to-title" = "ߥߊ߫ $1 ߞߊ߲߬";
+// Fuzzy
 "notifications-center-go-to-user-page" = "ߥߊ߫ $1 ߟߊ߫ ߟߊ߬ߓߊ߰ߙߊ߬ߟߌ߬ ߞߐߜߍ ߞߊ߲߬";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "ߕߊ߯ ߥߞߌߘߕߊ ߝߌ߬ߛߌ ߞߊ߲߬";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "ߕߊ߯ ߌ ߟߊ߫ ߞߎߡߊ߫ ߞߐߜߍ ߞߊ߲߬";
 "notifications-center-header-alert-from-project" = "ߟߊ߬ߛߏ߬ߓߌ߬ߟߌ ߞߊ߬ ߝߘߊ߫ $1 ߟߊ߫";
 "notifications-center-header-notice-from-project" = "ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߞߊ߬ ߝߘߊ߫ $1 ߟߊ߫";

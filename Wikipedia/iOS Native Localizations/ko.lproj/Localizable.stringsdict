@@ -385,7 +385,7 @@
 			<string>%1$d개 유형</string>
 		</dict>
 	</dict>
-	<key>notifications-push-talk-messages-format</key>
+	<key>notifications-push-talk-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v1@</string>
@@ -396,7 +396,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>other</key>
-			<string>메시지</string>
+			<string>새 메시지</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>

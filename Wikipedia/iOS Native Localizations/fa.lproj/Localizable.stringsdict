@@ -418,7 +418,7 @@
 	<key>reading-list-entry-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>شما به محدودیت %#@v1@ برای هر حساب کاربری رسیده‌اید.</string>
+		<string>شما به محدودیت %#@v1@ برای هر حساب رسیده‌اید.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -450,7 +450,7 @@
 	<key>reading-list-list-limit-exceeded-title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>شما از محدودیت %#@v1@ به‌ازای هر حساب کاربری عبور کرده‌اید.</string>
+		<string>شما از محدودیت %#@v1@ به‌ازای هر حساب عبور کرده‌اید.</string>
 		<key>v1</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>

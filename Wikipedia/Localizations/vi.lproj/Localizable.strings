@@ -11,6 +11,8 @@
 // Author: Minh Nguyen
 // Author: Nemo bis
 // Author: Nghiemtrongdai VN
+// Author: Ngoxuannguyenchuong
+// Author: NguyenHung
 // Author: Nguyên Lê
 // Author: Phjtieudoc
 // Author: TARGET6tidiem
@@ -417,8 +419,6 @@
 "featured-widget-from-language-wikipedia" = "Từ Wikipedia $1";
 "featured-widget-from-wikipedia" = "Từ Wikipedia";
 "featured-widget-title" = "Bài viết chọn lọc";
-"feed-news-notification-button-text" = "Bật thông báo";
-"feed-news-notification-text" = "Nhận thông báo về các bài Wikipedia vào lúc thịnh hành về tin tức.";
 "fetcher-error-generic" = "Đã xuất hiện một lỗi bất ngờ. Xin vui lòng thử lại sau.";
 "fetcher-error-unexpected-response" = "Máy chủ đã phản hồi ứng dụng một cách bất ngờ. Xin vui lòng thử lại sau.";
 "field-alert-captcha-invalid" = "CAPTCHA không hợp lệ";
@@ -477,10 +477,6 @@
 "icon-shortcut-random-title" = "Bài viết ngẫu nhiên";
 "icon-shortcut-search-title" = "Tìm trong Wikipedia";
 "image-gallery-unknown-owner" = "Tác giả không rõ.";
-"in-the-news-currently-trending" = "Đang thịnh hành";
-"in-the-news-notification-read-now-action-title" = "Đọc ngay";
-"in-the-news-notification-save-for-later-action-title" = "Lưu để đọc sau";
-"in-the-news-notification-share-action-title" = "Chia sẻ…";
 "in-the-news-sub-title-from-language-wikipedia" = "Từ Wikipedia $1";
 "in-the-news-sub-title-from-wikipedia" = "Từ Wikipedia";
 "in-the-news-title" = "Tin tức";
@@ -563,14 +559,21 @@
 "no-internet-connection-article-reload" = "Bài viết này có thể có một phiên bản mới hơn nhưng không thể tải nó vì không có kết nối Internet";
 "no-internet-connection-article-reload-button" = "Quay về phiên bản cuối cùng được lưu";
 "notifications-center-change-password" = "Thay đổi Mật khẩu";
+"notifications-center-destination-app" = "Trong ứng dụng";
+"notifications-center-destination-web" = "Trên web";
 "notifications-center-empty-checking-for-notifications" = "Đang kiểm tra thông báo…";
 "notifications-center-empty-not-subscribed" = "Bạn hiện không theo dõi thông báo Wikipedia nào";
-"notifications-center-footer-change-password" = "Thay đổi mật khẩu";
+"notifications-center-feed-news-notification-button-text" = "Bật thông báo đẩy";
+"notifications-center-feed-news-notification-dismiss-button-text" = "Không phải bây giờ";
+// Fuzzy
 "notifications-center-go-to-diff" = "Xem khác biệt";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Xem trang thảo luận";
-"notifications-center-go-to-title" = "Xem $1";
+// Fuzzy
 "notifications-center-go-to-user-page" = "Xem trang thảo luận của $1";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "Xem khoản mục Wikidata";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "Xem trang thảo luận của bạn";
 "notifications-center-header-alert-from-project" = "Cảnh báo từ $1";
 "notifications-center-header-notice-from-project" = "Thông báo từ $1";
@@ -579,12 +582,14 @@
 "notifications-center-mark-all-as-read" = "Đánh dấu tất cả là đã đọc";
 "notifications-center-mark-as-read" = "Đánh dấu là Đã đọc";
 "notifications-center-mark-as-unread" = "Đánh dấu là chưa đọc";
+"notifications-center-more-action-accessibility-label" = "Thêm";
 "notifications-center-notifications-settings" = "Tùy chọn thông báo";
 "notifications-center-subheader-edit-milestone" = "Cột mốc sửa đổi";
 "notifications-center-subheader-edit-reverted" = "Sửa đổi của bạn bị lùi lại";
 "notifications-center-subheader-email-from-other-user" = "Thư điện tử mới";
 "notifications-center-subheader-login-fail-known-device" = "Nhiều lần đăng nhập không thành công";
 "notifications-center-subheader-login-fail-unknown-device" = "Lần đăng nhập không thành công";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Đăng nhập từ thiết bị không quen";
 "notifications-center-subheader-mention-article-talk-page" = "Lời nhắc đến tại trang thảo luận bài viết";
 "notifications-center-subheader-mention-edit-summary" = "Lời nhắc đến trong tóm lược sửa đổi";
@@ -604,8 +609,9 @@
 "notifications-center-swipe-more" = "Thêm";
 "notifications-center-title" = "Thông báo";
 "notifications-push-fallback-body-text" = "Hoạt động mới tại Wikipedia";
+// Fuzzy
 "notifications-push-talk-body-format" = "$1 $2 mới tại $3";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1}}Thông báo";
+// Fuzzy
 "notifications-push-talk-title-format" = "$1 mới";
 "number-billions" = "$1 tỷ";
 "number-millions" = "$1 triệu";
@@ -787,12 +793,7 @@
 "replace-replace-all-results-count" = "$1 mục được thay thế";
 "replace-textfield-accessibility" = "Thay thế";
 "replace-textfield-placeholder" = "Thay thế bằng…";
-"reverted-edit-back-to-article-button-title" = "Quay lại bài viết";
-"reverted-edit-possible-reasons" = "- Đóng góp của bạn không tuân theo quy định. $1 \n\n - Đóng góp của bạn có vẻ như thử nghiệm hoặc phá hoại";
-"reverted-edit-possible-reasons-subtitle" = "Rất tiếc, bạn đã cố gắng sửa đổi một cách chính xác, nhưng một người xem lại đã nhận thấy vấn đề.\n\nHọ đã lùi lại sửa đổi của bạn, có thể do một lý do sau:";
-"reverted-edit-thanks-for-editing-title" = "Cảm ơn bạn đã đóng góp cho Wikipedia!";
 "reverted-edit-title" = "Sửa đổi đã bị lùi lại";
-"reverted-edit-view-guidelines-text" = "Xem quy định";
 "saved-all-articles-title" = "Tất cả các bài";
 "saved-default-reading-list-tag" = "Không thể xóa danh sách này";
 "saved-pages-image-download-error" = "Tải xuống hình ảnh khi lưu trang này thất bại.";
@@ -828,7 +829,9 @@
 "settings-language-bar" = "Hiển thị ngôn ngữ khi tìm kiếm";
 "settings-languages-feed-customization" = "Bạn có thể quản lý các ngôn ngữ xuất hiện trong nguồn cấp Thám hiểm trong cài đặt nguồn cấp Thám hiểm.";
 "settings-my-languages" = "Ngôn ngữ của tôi";
+// Fuzzy
 "settings-notifications" = "Thông báo";
+"settings-notifications-echo-failure-try-again" = "Thử lại";
 "settings-notifications-info" = "Nhận các thông báo đẩy về các bài thịnh hành và các bài được đọc nhiều nhất tại Wikipedia. Tất cả các thông báo tôn trọng quyền riêng tư và cung cấp dữ liệu mới mẻ.";
 "settings-notifications-learn-more" = "Tìm hiểu thêm về thông báo";
 "settings-notifications-push-notifications" = "Thông báo đẩy";
@@ -867,8 +870,6 @@
 "share-social-mention-format" = "“$1” tại @Wikipedia: $2";
 "sort-by-recently-added-action" = "Thêm gần đây";
 "sort-by-title-action" = "Tựa đề";
-"status-saved-for-later" = "Đã lưu để đọc sau";
-"status-saving-for-later" = "Đang lưu để đọc sau…";
 "table-of-contents-button-label" = "Mục lục";
 "table-of-contents-close-accessibility-hint" = "Đóng";
 "table-of-contents-close-accessibility-label" = "Đóng Mục lục";

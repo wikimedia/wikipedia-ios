@@ -55,7 +55,6 @@
 "explore-nearby-sub-heading-your-location" = "Vendndodhja juaj";
 "explore-potd-heading" = "Fotografia e ditës";
 "explore-random-article-heading" = "Artikull i rastit";
-"feed-news-notification-button-text" = "Aktivizo njoftimet";
 "history-clear-all" = "Pastro";
 "history-clear-cancel" = "Anulo";
 // Fuzzy
@@ -85,6 +84,8 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milje (1 milje = 1.60934 km)";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Aktivizo njoftimet";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
@@ -105,8 +106,6 @@
 "settings-primary-language" = "Primar";
 "settings-title" = "Cilësimet";
 "share-article-name-on-wikipedia" = "\"$1\" në @Wikipedia:";
-"status-saved-for-later" = "Ruajtur për më vonë";
-"status-saving-for-later" = "Duke ruajtur për më vonë...";
 "table-of-contents-close-accessibility-hint" = "Mbyll";
 "table-of-contents-heading" = "Përmbajtja";
 "wikitext-downloading" = "Duke ngarkuar përmbajtjen...";

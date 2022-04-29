@@ -415,7 +415,7 @@
 			<string>%1$d סוגים</string>
 		</dict>
 	</dict>
-	<key>notifications-push-talk-messages-format</key>
+	<key>notifications-push-talk-title-format</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v1@</string>

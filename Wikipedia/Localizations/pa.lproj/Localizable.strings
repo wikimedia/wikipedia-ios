@@ -1,6 +1,7 @@
 // Messages for Punjabi (ਪੰਜਾਬੀ)
 // Exported from translatewiki.net
 // Author: Aalam
+// Author: AnupamM
 // Author: Babanwalia
 // Author: Jimidar
 // Author: Nachhattardhammu
@@ -106,7 +107,6 @@
 "explore-potd-heading" = "ਦਿਨ ਦੀ ਤਸਵੀਰ";
 "explore-random-article-heading" = "ਰਲ਼ਵਾਂ ਲੇਖ";
 "explore-randomizer" = "ਰੈੰਡੋਮਾਈਜ਼ਰ";
-"feed-news-notification-button-text" = "ਸੂਚਨਾਵਾਂ ਚਾਲੂ ਕਰੋ";
 "field-alert-token-invalid" = "ਗ਼ਲਤ ਕੋਡ";
 "field-email-title" = "ਈਮੇਲ";
 "field-email-title-optional" = "ਈਮੇਲ (ਚੋਣਵੀਂ)";
@@ -128,10 +128,6 @@
 "icon-shortcut-search-title" = "ਵਿਕੀਪੀਡੀਆ ਖੋਜੋ";
 // Fuzzy
 "image-gallery-unknown-owner" = "ਚੜ੍ਹਾੳੁਣ ਵਾਲਾ ਅਣ-ਪਛਾਤਾ ਹੈ";
-"in-the-news-notification-read-now-action-title" = "ਹੁਣ ਪਡ਼੍ਹੋ";
-"in-the-news-notification-save-for-later-action-title" = "ਬਾਅਦ ਲਈ ਸੰਭਾਲੋ";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "ਸਾਂਝਾ ਕਰੋ...";
 "in-the-news-title" = "ਖ਼ਬਰਾਂ 'ਚ";
 "languages-title" = "ਭਾਸ਼ਾ ਬਦਲੋ";
 "login-join-wikipedia" = "ਵਿਕੀਪੀਡੀਆ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ";
@@ -156,6 +152,17 @@
 "nearby-distance-label-meters" = "$1 ਮੀਟਰ";
 "nearby-distance-label-miles" = "$1 ਮੀਲ";
 "no-email-account-alert" = "ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਜੰਤਰ ਤੇ ਇੱਕ ਈਮੇਲ ਖਾਤਾ ਸਥਾਪਤ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।";
+"notifications-center-alert" = "ਚੇਤਾਵਨੀ";
+"notifications-center-change-password" = "ਪਾਸਵਰਡ ਬਦਲੋ";
+"notifications-center-destination-app" = "ਐਪ ਵਿੱਚ";
+"notifications-center-destination-web" = "ਵੈੱਬ 'ਤੇ";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "ਸੂਚਨਾਵਾਂ ਚਾਲੂ ਕਰੋ";
+// Fuzzy
+"notifications-center-go-to-article" = "ਲੇਖ 'ਤੇ ਜਾਓ";
+// Fuzzy
+"notifications-center-go-to-discussion-page" = "ਚਰਚਾ ਸਫ਼ੇ 'ਤੇ ਜਾਓ";
+"notifications-center-type-item-description-welcome-verbose" = "ਸੁਆਗਤ ਸੁਨੇਹਾ";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
@@ -192,6 +199,7 @@
 "settings-help-and-feedback" = "ਮਦਦ ਅਤੇ ਫੀਡਬੈਕ";
 "settings-language-bar" = "ਖੋਜ ਵਿੱਚ ਭਾਸ਼ਾਵਾੰ ਵਿਖਾਓ";
 "settings-my-languages" = "ਮੇਰੀਆੰ ਭਾਸ਼ਾਵਾੰ";
+// Fuzzy
 "settings-notifications" = "ਸੂਚਨਾਵਾਂ";
 "settings-notifications-learn-more" = "ਸੂਚਨਾਵਾਂ ਬਾਰੇ ਹੋਰ ਪਡ਼੍ਹੋ";
 "settings-notifications-system-turn-on" = "ਸੂਚਨਾਵਾਂ ਚਾਲੂ ਕਰੋ";
@@ -205,8 +213,6 @@
 "share-menu-item" = "ਸਾਂਝਾ ਕਰੋ";
 "share-on-twitter-sign-off" = "@Wikipedia ਦੁਆਰਾ";
 "share-open-in-maps" = "ਨਕਸ਼ੇ 'ਚ ਖੋਲ੍ਹੋ";
-"status-saved-for-later" = "ਬਾਅਦ ਲਈ ਸੰਭਾਲਿਆ";
-"status-saving-for-later" = "ਬਾਅਦ ਲਈ ਸੰਭਾਲੋ";
 "table-of-contents-button-label" = "ਸਮੱਗਰੀ ਸਾਰਣੀ";
 "table-of-contents-close-accessibility-hint" = "ਬੰਦ";
 "table-of-contents-close-accessibility-label" = "ਸਮੱਗਰੀ ਸਾਰਣੀ ਬੰਦ ਕਰੋ";

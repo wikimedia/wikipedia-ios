@@ -372,8 +372,6 @@
 "explore-random-article-sub-heading-from-wikipedia" = "နူ ဝဳကဳဒဳပဳယာ";
 "explore-randomizer" = "ဇျောမ်";
 "featured-article-empty-title" = "လိက်ပရေင်တၟေင် ပ္ဍဲတ္ၚဲဏအ် ဟွံမဲ";
-"feed-news-notification-button-text" = "ပံက် နုတိဝှိကေရှေန်";
-"feed-news-notification-text" = "နကဵု ဝဳကဳပဳယာ ကဵု နု ပ္ဍဲနုတိဝှိကေရှေန် ဟွံဂွံ အခိင်လိက်ပရေင်ဂှ် မကတဵုဒှ်ဒၟံင် ပ္ဍဲပရိုင်၊၊";
 "fetcher-error-generic" = "အရာမွဲမွဲဗၠေတ်ဒၟံင်။ ပဂုန်တုဲ ကၠောန်မွဲတဲပၠန်။";
 "fetcher-error-unexpected-response" = "အာပ် စုက်လုက် ကုအရာမဟွံစၟဳမွဲမွဲ နူကဵု သာပါ။ ပဂုန်တုဲ ကၠောန်မွဲဝါပၠန်ညိ။";
 "field-alert-captcha-invalid" = "CAPTCHA ဟွံဍာံပြ";
@@ -430,10 +428,6 @@
 "icon-shortcut-random-title" = "လိက်ပရေင် ဇယောမ် (ဇျောမ်)";
 "icon-shortcut-search-title" = "ဂၠာဲ ပ္ဍဲ ဝဳကဳပဳဒဳယာ";
 "image-gallery-unknown-owner" = "အစာချူလိက် ဟွံတီ";
-"in-the-news-currently-trending" = "အဃော မပလေဝ်ပလေတ်ဒၟံင်";
-"in-the-news-notification-read-now-action-title" = "ဗှ် လၟုဟ်";
-"in-the-news-notification-save-for-later-action-title" = "ဂိုင်သိပ် သွက် လက္ကရဴ";
-"in-the-news-notification-share-action-title" = "ပါ်ပရအ်...";
 "in-the-news-sub-title-from-language-wikipedia" = "နူ $1 ဝဳကဳဒဳပဳယာ";
 "in-the-news-sub-title-from-wikipedia" = "နူ ဝဳကဳဒဳပဳယာ";
 "in-the-news-title" = "ပ္ဍဲကဵု ပရိုင်";
@@ -510,6 +504,8 @@
 "no-internet-connection" = "အေန်တနေတ် ဟွံတောဲလဝ်";
 "no-internet-connection-article-reload" = "မူတၟိအိုတ် လိက်ပရေင်ဏအ်ဂှ် နွံဒၟံင်၊ ဆဂး ထ္ၜးဟွံဂွံ ဟိုတ်နူကဵု အေန်တနေတ် ဟွံတောဲလဝ်";
 "no-internet-connection-article-reload-button" = "ကလေင်အာ မူမဂိုင်ဒေပ်လဝ် လက်ကရဴအိုတ်";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "ပံက် နုတိဝှိကေရှေန်";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1လ္ၚီ";
@@ -685,12 +681,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 အရာ မစုတ်လဝ်စၞး|$1 အရာ မစုတ်လဝ်စၞးဂမၠိုင်}}";
 "replace-textfield-accessibility" = "စုတ်စၞး";
 "replace-textfield-placeholder" = "စုတ်စၞး နကဵု…";
-"reverted-edit-back-to-article-button-title" = "ကလေင်အာ ဇရေင် လိက်ပရေင်";
-"reverted-edit-possible-reasons" = "- အရာမၞးမကၠောန်ပတိတ်ဂှ် ဟွံဒှ်အတိုင် လၟေင်ဂၠံင် $1 \n\n - အရာမၞးမကၠောန်ပတိတ်ဂှ် ဒှ်ဒၟံင် ညံင်ကဵု ဆစမ်ဝေင် ဟွံသေင်မ္ဂး မကြာန်ဓမာန်";
-"reverted-edit-possible-reasons-subtitle" = "ပိုယ်တီ မၞးဂစာန်ကၠောန်လဝ် ၜိုတ်မၞးမသၟဟ်အစောမ်ရ၊ ဆဂး ပရေင်ပလေဝ်မၞးမွဲဂှ် ဒးဒုင်တးပါဲ။\n\nဟိုတ်ဍေဟ်ဂှ် ပလေဝ်ဒါန်မၞးဂှ် ဟိုတ်နူကဵု တင်တအ်ဏအ် ဒှ်မာန်ရ။";
-"reverted-edit-thanks-for-editing-title" = "တင်ဂုန်ရ ဟိုတ် မပလေဝ်ဒါန်လဝ် ဝဳကဳပဳဒဳယာ!";
 "reverted-edit-title" = "မၞိဟ်တမ် ပလေဝ်ဒါန်";
-"reverted-edit-view-guidelines-text" = "ရံင် လၟေင်ဂၠံင်တရဴ";
 "saved-all-articles-title" = "လိက်ပရေင်ဂမၠိုင်";
 "saved-default-reading-list-tag" = "စရင်ဏအ် ဇိုတ်ပလီု ဟွံဂွံ";
 "saved-pages-image-download-error" = "တံင်လုပ်ကေတ် ဗီုရုပ် သွက် မုက်လိက် မဂိုင်သိပ်ဏအ် ဟွံအံင်ဇၞး";
@@ -724,6 +715,7 @@
 "settings-language-bar" = "ထ္ၜး အရေဝ်ဘာသာဂမၠိုင် ပ္ဍဲ ဒၞာဲမဂၠာဲ";
 "settings-languages-feed-customization" = "နကဵု မဖျေဟ်ဒၞာဲ အတိုင်ပၟိက်စိုတ် ပ္ဍဲဒၞာဲမုက် မထ္ၜးဂှ် မၞးရုဲကေတ် နကဵု အရေဝ်ဘာသာ လဵု မၞးမိက်ဂွံစကာ ပ္ဍဲ ဒၞာဲမုက် မထ္ၜး မၞး ဂွံရ၊၊";
 "settings-my-languages" = "အရေဝ်ဘာသာ အဲ";
+// Fuzzy
 "settings-notifications" = "တင်မကဵုသမ္တီ";
 "settings-notifications-info" = "နကဵု တင်မကဵုသမ္တီ ပ္ဍဲ ဝဳကဳပဳဒဳယာဂှ် မၞးကဵုသမ္တီ လိက်မၞိဟ်မဗှ်ဂၠိုင်အိုတ် ဂွံရ၊၊ အရာ မၞးမကဵုသမ္တီဂှ် မဂွံရှ်ေသှ်ေ အခေါင်ပူဂဵု ကေုာံ တင်မဂိုင်ဒိပ် တင်ဂၞင်တအ်ရ၊၊";
 "settings-notifications-learn-more" = "ဆက်လ္ၚတ် ပရူ တင်မကဵုသမ္တီ";
@@ -763,8 +755,6 @@
 "share-social-mention-format" = "“$1” မွဲကဆံင် နကဵု @Wikipedia: $2";
 "sort-by-recently-added-action" = "မစုတ်လဝ် ပြဟ်ဟ်ဏအ်";
 "sort-by-title-action" = "က္ဍိုပ်လိက်";
-"status-saved-for-later" = "ဂိုင်သိပ် သွက် လက္ကရဴ";
-"status-saving-for-later" = "ဂိုင်သိပ်ဒၟံင် သွက် လက္ကရဴ...";
 "table-of-contents-button-label" = "စရင် မာတိကာ";
 "table-of-contents-close-accessibility-hint" = "ကၟာတ်";
 "table-of-contents-close-accessibility-label" = "ကၟာတ သ္ၚိအင် မာတိကာ";

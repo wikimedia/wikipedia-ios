@@ -256,8 +256,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Fra $1 Wikipedia";
 "explore-random-article-sub-heading-from-wikipedia" = "Fra Wikipedia";
 "explore-randomizer" = "Tilfældig artikel";
-"feed-news-notification-button-text" = "Slå notifikationer til";
-"feed-news-notification-text" = "Aktiver påmindelser for at blive påmindet af Wikipedia når artikler er populære i nyhederne.";
 "fetcher-error-generic" = "Noget gik galt. Prøv venligst igen senere.";
 "field-alert-captcha-invalid" = "Ugyldig CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Adgangskoderne stemmer ikke overens";
@@ -309,10 +307,6 @@
 "icon-shortcut-random-title" = "Tilfældig artikel";
 "icon-shortcut-search-title" = "Søg i Wikipedia";
 "image-gallery-unknown-owner" = "Ophavsmand ukendt.";
-"in-the-news-currently-trending" = "Populært nu";
-"in-the-news-notification-read-now-action-title" = "Læs nu";
-"in-the-news-notification-save-for-later-action-title" = "Gem til senere";
-"in-the-news-notification-share-action-title" = "Del…";
 "in-the-news-sub-title-from-language-wikipedia" = "Fra $1 Wikipedia";
 "in-the-news-sub-title-from-wikipedia" = "Fra Wikipedia";
 "in-the-news-title" = "I nyhederne";
@@ -366,6 +360,8 @@
 "no-email-account-alert" = "Opsæt venligst en e-mail-konto på din enhed og forsøg igen.";
 "no-internet-connection" = "Ingen internetforbindelse";
 "no-internet-connection-article-reload-button" = "Vend tilbage til seneste gemte version";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Slå notifikationer til";
 "number-billions" = "$1 mia.";
 "number-millions" = "$1 mio.";
 "number-thousands" = "$1K";
@@ -493,10 +489,7 @@
 "replace-infolabel-method-replace-all" = "Erstat alle";
 "replace-textfield-accessibility" = "Erstat";
 "replace-textfield-placeholder" = "Erstat med...";
-"reverted-edit-back-to-article-button-title" = "Tilbage til artiklen";
-"reverted-edit-thanks-for-editing-title" = "Tak fordi du redigerer Wikipedia!";
 "reverted-edit-title" = "Omgjort redigering";
-"reverted-edit-view-guidelines-text" = "Vis retningslinjer";
 "saved-all-articles-title" = "Alle artikler";
 "saved-default-reading-list-tag" = "Denne liste kan ikke slettes";
 "saved-pages-image-download-error" = "Hentning af billeder mislykkedes for denne gemte side.";
@@ -528,6 +521,7 @@
 "settings-help-and-feedback" = "Hjælp og tilbagemelding";
 "settings-language-bar" = "Vis sprog ved søgning";
 "settings-my-languages" = "Mine sprog";
+// Fuzzy
 "settings-notifications" = "Notifikationer";
 "settings-notifications-info" = "Få meldinger om populære artikler på Wikipedia med vores push-notifikationer. Alle leveret med respekt for privatliv og sidste nye data.";
 "settings-notifications-learn-more" = "Lær mere om notifikationer";
@@ -570,8 +564,6 @@
 "share-social-mention-format" = "»$1« via @Wikipedia: $2";
 "sort-by-recently-added-action" = "Tilføjet for nylig";
 "sort-by-title-action" = "Titel";
-"status-saved-for-later" = "Gemt til senere";
-"status-saving-for-later" = "Gemmer til senere...";
 "table-of-contents-button-label" = "Indholdsfortegnelse";
 "table-of-contents-close-accessibility-hint" = "Afslut";
 "table-of-contents-close-accessibility-label" = "Luk indholdsfortegnelse";

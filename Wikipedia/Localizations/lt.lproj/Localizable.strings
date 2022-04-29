@@ -88,7 +88,6 @@
 "explore-potd-heading" = "Dienos nuotrauka";
 "explore-random-article-heading" = "Atsitiktinis straipsnis";
 "explore-randomizer" = "Atsitiktinis";
-"feed-news-notification-button-text" = "Įjungti pranešimus";
 "field-alert-captcha-invalid" = "Neteisingas CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Slaptažodžiai nesutampa";
 "field-alert-token-invalid" = "Netinkamas kodas";
@@ -125,9 +124,6 @@
 "icon-shortcut-random-title" = "Atsitiktinis straipsnis";
 "icon-shortcut-search-title" = "Ieškoti Vikipedijoje";
 "image-gallery-unknown-owner" = "Autorius nežinomas.";
-"in-the-news-currently-trending" = "Šiuo metu populiaru";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Dalintis...";
 "in-the-news-title" = "Naujienos";
 "languages-title" = "Keisti kalbą";
 "login-join-wikipedia" = "Prisijunkite prie Vikipedijos.";
@@ -152,6 +148,8 @@
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 mylių";
 "no-email-account-alert" = "Prašome nustatyti el. pašto paskyrą savo įrenginyje ir bandyti dar kartą.";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Įjungti pranešimus";
 "notifications-center-mark" = "Pažymėti";
 "notifications-center-mark-all-as-read" = "Pažymėti kaip perskaitytą";
 "notifications-center-swipe-mark-as-unread" = "Pažymėti kaip neskaitytą";
@@ -205,6 +203,7 @@
 "settings-help-and-feedback" = "Pagalba ir atsiliepimai";
 "settings-language-bar" = "Rodyti kalbas paieškoje";
 "settings-my-languages" = "Mano kalbos";
+// Fuzzy
 "settings-notifications" = "Pranešimai";
 "settings-notifications-learn-more" = "Sužinokite daugiau apie pranešimus";
 "settings-notifications-push-notifications" = "Push pranešimai";
@@ -215,8 +214,6 @@
 "share-get-directions-in-maps" = "Gauti Nuorodas";
 "share-on-twitter-sign-off" = "per @Wikipedia";
 "share-open-in-maps" = "Atidaryti Žemėlapiuose";
-"status-saved-for-later" = "Išsaugota ateičiai";
-"status-saving-for-later" = "Išsaugoma ateičiai...";
 "table-of-contents-button-label" = "Turinys";
 "table-of-contents-close-accessibility-hint" = "Uždaryti";
 "table-of-contents-close-accessibility-label" = "Uždaryti Turinio lentelę";

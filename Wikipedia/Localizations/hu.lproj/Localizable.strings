@@ -323,8 +323,6 @@
 "explore-random-article-sub-heading-from-wikipedia" = "A Wikipédiáról";
 "explore-randomizer" = "Randomizáló";
 "featured-widget-title" = "Kiemelt szócikk";
-"feed-news-notification-button-text" = "Értesítések bekapcsolása";
-"feed-news-notification-text" = "Engedélyezd az értesítéseket, hogy a Wikipédia jelezze a hírekben felkapott szócikkeket.";
 "fetcher-error-generic" = "Valami félresikerült. Kérlek próbáld újra később.";
 "field-alert-captcha-invalid" = "Érvénytelen CAPTCHA";
 "field-alert-password-confirm-mismatch" = "A jelszavak nem egyeznek";
@@ -379,10 +377,6 @@
 "icon-shortcut-random-title" = "Lap találomra";
 "icon-shortcut-search-title" = "Keresés a Wikipédiában";
 "image-gallery-unknown-owner" = "Ismeretlen szerző.";
-"in-the-news-currently-trending" = "Jelenleg felkapott";
-"in-the-news-notification-read-now-action-title" = "Olvasás most";
-"in-the-news-notification-save-for-later-action-title" = "Elmentés későbbre";
-"in-the-news-notification-share-action-title" = "Megosztás…";
 "in-the-news-sub-title-from-language-wikipedia" = "A(z) $1 Wikipédiáról";
 "in-the-news-sub-title-from-wikipedia" = "A Wikipédiáról";
 "in-the-news-title" = "A hírekben";
@@ -457,6 +451,8 @@
 "notifications-center-empty-checking-for-notifications" = "Értesítések keresése...";
 "notifications-center-empty-no-messages" = "Nincsenek üzeneteid";
 "notifications-center-empty-not-subscribed" = "Nincsenek beállítva a Wikipédia értesítések";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Értesítések bekapcsolása";
 "notifications-center-filters-read-status-item-title-all" = "Mind";
 "notifications-center-filters-read-status-item-title-read" = "Olvasva";
 "notifications-center-filters-read-status-item-title-unread" = "Olvasatlan";
@@ -464,7 +460,6 @@
 "notifications-center-filters-types-footer" = "Módosítsa az értesítési típusokat, hogy kiszűrje őket a beérkező értesítések között. A kikapcsolt típusok nem lesznek láthatóak, de a tartalmuk és az új értesítések elérhetőek lesznek, ha a kapcsolót újra bekapcsolja.";
 "notifications-center-filters-types-item-title-all" = "Minden típus";
 "notifications-center-filters-types-section-title" = "Értesítések típusai";
-"notifications-center-footer-change-password" = "Jelszó módosítása";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Wikimédia-projektek";
 "notifications-center-inbox-wikipedias-section-title" = "Wikipédiák";
 "notifications-center-mark-all-as-read" = "Az összes megjelölése olvasottként";
@@ -477,6 +472,7 @@
 "notifications-center-subheader-edit-reverted" = "Szerkesztésedet visszavonták";
 "notifications-center-subheader-email-from-other-user" = "Új email";
 "notifications-center-subheader-login-fail-unknown-device" = "Sikertelen bejelentkezés";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Bejelentkezés ismeretlen eszközről";
 "notifications-center-subheader-page-reviewed" = "Ellenőrzött szócikk";
 "notifications-center-subheader-thanks" = "Köszönetek";
@@ -487,7 +483,7 @@
 "notifications-center-swipe-mark-as-unread" = "Jelölés olvasatlanként";
 "notifications-center-swipe-more" = "Tovább";
 "notifications-center-title" = "Értesítések";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|üzenet|üzenet}}";
+// Fuzzy
 "notifications-push-talk-title-format" = "Új $1";
 "number-billions" = "$1 Mrd";
 "number-millions" = "$1M";
@@ -615,10 +611,7 @@
 "replace-infolabel-method-replace-all" = "Összes cseréje";
 "replace-textfield-accessibility" = "Csere";
 "replace-textfield-placeholder" = "Csere a következőre...";
-"reverted-edit-back-to-article-button-title" = "Vissza a szócikkhez";
-"reverted-edit-thanks-for-editing-title" = "Köszönjük, hogy szerkesztetted a Wikipédiát!";
 "reverted-edit-title" = "Visszavont szerkesztés";
-"reverted-edit-view-guidelines-text" = "Útmutatók megtekintése";
 "saved-all-articles-title" = "Minden szócikk";
 "saved-default-reading-list-tag" = "Ezt a listát nem lehet törölni";
 "saved-pages-image-download-error" = "A képek letöltése sikertelen ehhez a mentett laphoz.";
@@ -649,6 +642,7 @@
 "settings-help-and-feedback" = "Súgó és visszajelzés";
 "settings-language-bar" = "Nyelvek megjelenítése keresésnél";
 "settings-my-languages" = "Saját nyelvek";
+// Fuzzy
 "settings-notifications" = "Értesítések";
 "settings-notifications-learn-more" = "További információ az értesítésekről";
 "settings-notifications-push-notifications" = "Push értesítések";
@@ -671,8 +665,6 @@
 "share-social-mention-format" = "„$1” @Wikipedia: $2";
 "sort-by-recently-added-action" = "Nemrég hozzáadva";
 "sort-by-title-action" = "Cím";
-"status-saved-for-later" = "Mentve későbbre";
-"status-saving-for-later" = "Mentés későbbre…";
 "table-of-contents-button-label" = "Tartalomjegyzék";
 "table-of-contents-close-accessibility-hint" = "Bezárás";
 "table-of-contents-close-accessibility-label" = "Tartalomjegyzék bezárása";

@@ -302,3 +302,7 @@ extension TalkPageTopicNewViewController: BeKindInputAccessoryViewDelegate {
         setBodyHeightIfNeeded()
     }
 }
+
+extension TalkPageTopicNewViewController: EditingFlowViewController {
+    
+}

@@ -424,8 +424,6 @@
 "featured-widget-from-wikipedia" = "Z Wikipédie";
 "featured-widget-language-failure" = "Váš prvotný jazyk Wikipédie nie je pre odporúčaný článok podporovaný. Môžete ho zmeniť v nastaveniach aplikácie.";
 "featured-widget-title" = "Odporúčaný článok";
-"feed-news-notification-button-text" = "Zapnúť upozornenia";
-"feed-news-notification-text" = "Posielať oznámení, ktoré majú byť oznámené Wikipédiou, keď články sú trendy v aktualitách.";
 "fetcher-error-generic" = "Niečo sa nepodarilo. Prosím, skúste to znovu neskôr.";
 "fetcher-error-unexpected-response" = "Aplikácia dostala neočakávanú odpoveď zo servera. Skúste to, prosím, neskôr.";
 "field-alert-captcha-invalid" = "Neplatná CAPTCHA";
@@ -484,10 +482,6 @@
 "icon-shortcut-random-title" = "Náhodný článok";
 "icon-shortcut-search-title" = "Hľadať";
 "image-gallery-unknown-owner" = "Neznámy autor.";
-"in-the-news-currently-trending" = "Aktuálne trendy";
-"in-the-news-notification-read-now-action-title" = "Čítať";
-"in-the-news-notification-save-for-later-action-title" = "Uložiť na neskôr";
-"in-the-news-notification-share-action-title" = "Zdielať…";
 "in-the-news-sub-title-from-language-wikipedia" = "Z Wikipédie v jazyku $1";
 "in-the-news-sub-title-from-wikipedia" = "Z Wikipédie";
 "in-the-news-title" = "Správy";
@@ -572,12 +566,17 @@
 "notifications-center-change-password" = "Zmeniť heslo";
 "notifications-center-empty-checking-for-notifications" = "Kontrola notifikácií...";
 "notifications-center-empty-not-subscribed" = "Neodoberáte žiadne notifikácie z Wikipédie";
-"notifications-center-footer-change-password" = "Zmeniť heslo";
+"notifications-center-feed-news-notification-button-text" = "Zapnúť upozornenia";
+"notifications-center-feed-news-notification-dismiss-button-text" = "Teraz nie";
+// Fuzzy
 "notifications-center-go-to-diff" = "Prejsť na rozdiely";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Prejsť na diskusnú stránku";
-"notifications-center-go-to-title" = "Prejsť na $1";
+// Fuzzy
 "notifications-center-go-to-user-page" = "Prejsť na stránku používateľa $1";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "Prejsť na položku Wikidáta";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "Prejsť na svoju diskusnú stránku";
 "notifications-center-header-alert-from-project" = "Upozornenie z $1";
 "notifications-center-header-notice-from-project" = "Oznámenie z $1";
@@ -592,6 +591,7 @@
 "notifications-center-subheader-email-from-other-user" = "Nový email";
 "notifications-center-subheader-login-fail-known-device" = "Viacero neúspešných pokusov o prihlásenie";
 "notifications-center-subheader-login-fail-unknown-device" = "Neúspešný pokus o prihlásenie";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Prihlásenie z neznámeho zariadenia";
 "notifications-center-subheader-mention-article-talk-page" = "Zmienka na diskusnej stránke článku";
 "notifications-center-subheader-mention-edit-summary" = "Zmienka v sumári úprav";
@@ -611,8 +611,9 @@
 "notifications-center-swipe-more" = "Viac";
 "notifications-center-title" = "Upozornenia";
 "notifications-push-fallback-body-text" = "Nová aktivita na Wikipédii";
+// Fuzzy
 "notifications-push-talk-body-format" = "$1 nové $2 na $3";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|správa|správy|správ}}";
+// Fuzzy
 "notifications-push-talk-title-format" = "Nové $1";
 "number-billions" = "$1";
 "number-millions" = "$1";
@@ -798,12 +799,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 položka zmenená|$1 položky zmenené|$1 položiek zmenených}}";
 "replace-textfield-accessibility" = "Nahradiť";
 "replace-textfield-placeholder" = "Nahradiť za...";
-"reverted-edit-back-to-article-button-title" = "Späť na článok";
-"reverted-edit-possible-reasons" = "- Váš príspevok nezodpovedal niektorému z pokynov. $1\n\n\n- Váš príspevok vyzeral (alebo bol) experiment alebo vandalizmus.";
-"reverted-edit-possible-reasons-subtitle" = "Vieme, že ste sa snažili o to najlepšie, ale jeden z redaktorov vrátil úpravu.\n\nMožné dôvody vrátenie úpravy sú:";
-"reverted-edit-thanks-for-editing-title" = "Ďakujeme za úpravu Wikipédie!";
 "reverted-edit-title" = "Vrátená úprava";
-"reverted-edit-view-guidelines-text" = "Zobraziť pravidlá";
 "saved-all-articles-title" = "Všetky články";
 "saved-default-reading-list-tag" = "Tento zoznam nie je možné odstrániť";
 "saved-pages-image-download-error" = "Nepodarilo sa stiahnuť obrázky pre túto uloženú stránku.";
@@ -839,7 +835,9 @@
 "settings-language-bar" = "Zobraziť pri vyhľadávaní jazyky";
 "settings-languages-feed-customization" = "Prispôsobením kanálu Objaviť môžete nastaviť, ktoré jazyky sa v ňom zobrazia.";
 "settings-my-languages" = "Moje jazyky";
+// Fuzzy
 "settings-notifications" = "Upozornenia";
+"settings-notifications-echo-failure-try-again" = "Skúsiť znova";
 "settings-notifications-info" = "Buďte informovaní o trendoch a najčastejšie čítaných článkoch na Wikipédii. Všetko je poskytované s ohľadom na vaše súkromie a podľa najnovších dát.";
 "settings-notifications-learn-more" = "Ďalšie informácie o upozorneniach";
 "settings-notifications-push-notifications" = "Push upozornenia";
@@ -878,8 +876,6 @@
 "share-social-mention-format" = "„$1“ na @Wikipédi: $2";
 "sort-by-recently-added-action" = "Nedávno pridané";
 "sort-by-title-action" = "Podľa názvu";
-"status-saved-for-later" = "Uložené na neskôr";
-"status-saving-for-later" = "Ukladanie na neskôr...";
 "table-of-contents-button-label" = "Obsah";
 "table-of-contents-close-accessibility-hint" = "Zavrieť";
 "table-of-contents-close-accessibility-label" = "Zavrieť obsah";

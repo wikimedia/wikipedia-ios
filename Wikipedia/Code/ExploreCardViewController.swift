@@ -335,8 +335,9 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
             cell.isImageViewHidden = false
             cell.imageView.image = UIImage(named: "feed-card-notification")
             cell.imageViewDimension = cell.imageView.image?.size.height ?? 0
-            cell.messageHTML = WMFLocalizedString("feed-news-notification-text", value: "Enable notifications to be notified by Wikipedia when articles are trending in the news.", comment: "Text shown to users to notify them that it is now possible to get notifications for articles related to trending news")
-            cell.actionButton.setTitle(WMFLocalizedString("feed-news-notification-button-text", value: "Turn on notifications", comment: "Text for button to turn on trending news notifications"), for:.normal)
+            cell.messageHTML = WMFLocalizedString("notifications-center-feed-news-notification-text", value: "Editing notifications for all Wikimedia projects are now available through the app. Opt in to push notifications to keep up to date with your messages on Wikipedia while on the go.", comment: "Text shown to users to notify them that it is now possible to get push notifications for all Wikimedia projects through the app")
+            cell.actionButton.setTitle(WMFLocalizedString("notifications-center-feed-news-notification-button-text", value: "Turn on push notifications", comment: "Text for button to turn on push notifications"), for:.normal)
+            cell.dismissButton.setTitle(WMFLocalizedString("notifications-center-feed-news-notification-dismiss-button-text", value: "Not now", comment: "Text for the dismiss button on the explore feed notifications card"), for: .normal)
         case .theme:
             cell.isImageViewHidden = false
             cell.imageView.image = UIImage(named: "feed-card-themes")
@@ -497,6 +498,13 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         
         return ColumnarCollectionViewLayoutMetrics.exploreCardMetrics(with: size, readableWidth: size.width, layoutMargins: layoutMargins)
     }
+    
+    func userDidTapTurnOnNotifications() {
+        let pushSettingsVC = PushNotificationsSettingsViewController.init(authenticationManager: self.dataStore.authenticationManager, notificationsController: self.dataStore.notificationsController)
+        pushSettingsVC.apply(theme: self.theme)
+        self.navigationController?.pushViewController(pushSettingsVC, animated: true)
+    }
+    
 }
 
 extension ExploreCardViewController: ActionDelegate, ShareableArticlesProvider {
@@ -598,12 +606,7 @@ extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
             LoginFunnel.shared.logLoginStartInFeed()
             dismissAnnouncementCell(cell)
         case .notification:
-            dataStore.notificationsController.requestPermissionsIfNecessary { (granted, error) in
-                if let error = error {
-                    self.wmf_showAlertWithError(error as NSError)
-                }
-            }
-            UserDefaults.standard.wmf_setInTheNewsNotificationsEnabled(true)
+            userDidTapTurnOnNotifications()
             dismissAnnouncementCell(cell)
         default:
             guard let announcement = contentGroup?.contentPreview as? WMFAnnouncement,

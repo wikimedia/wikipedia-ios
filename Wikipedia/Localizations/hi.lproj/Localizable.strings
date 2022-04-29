@@ -3,6 +3,7 @@
 // Author: Abijeet Patro
 // Author: Adithyavr
 // Author: Anamdas
+// Author: AnupamM
 // Author: JoeWalshWMF
 // Author: Macofe
 // Author: NehalDaveND
@@ -155,8 +156,6 @@
 "explore-potd-heading" = "आज का चित्र";
 "explore-random-article-heading" = "कोई भी लेख";
 "explore-randomizer" = "कोई भी पृष्ठ";
-"feed-news-notification-button-text" = "नोटिफिकेशन ऑन करें";
-"feed-news-notification-text" = "जब समाचारों में लेख रुझान पर हों, तब विकिपीडिया द्वारा सक्षम सूचनाएं अधिसूचित होनी चाहिए।";
 "field-alert-captcha-invalid" = "अमान्य कैप्चा";
 "field-alert-password-confirm-mismatch" = "पासवर्ड्स मैच नहीं हो रहे";
 "field-alert-token-invalid" = "अमान्य कोड";
@@ -206,11 +205,6 @@
 "icon-shortcut-random-title" = "कोईभी लेख";
 "icon-shortcut-search-title" = "विकिपीडिया में खोजें";
 "image-gallery-unknown-owner" = "अज्ञात लेखक";
-"in-the-news-currently-trending" = "वर्तमान में रुझानों में";
-"in-the-news-notification-read-now-action-title" = "अभी पढ़ें";
-"in-the-news-notification-save-for-later-action-title" = "बाद के लिए सहेजें";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "साझा करें...";
 "in-the-news-title" = "समाचारों में";
 "languages-title" = "भाषा बदलें";
 "languages-wikipedia" = "विकिपीडिया भाषाएँ";
@@ -243,9 +237,26 @@
 "new-password-instructions" = "अपने एक अस्थाई पासवर्ड से लॉगिन किया। लॉगिन को पूरा करने के लिए यहाँ एक नया पासवर्ड जोड़ें।";
 "new-password-title" = "एक पासवर्ड जोड़ें";
 "no-email-account-alert" = "कृपया अपनी डिवाइस पर एक ईमेल अकाउंट स्थापित करें और पुनः प्रयास करें।";
+"notifications-center-alert" = "चेतावनी";
+"notifications-center-change-password" = "पासवर्ड बदलें";
+"notifications-center-destination-app" = "ऐप में";
+"notifications-center-destination-web" = "वेब पर";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "नोटिफिकेशन ऑन करें";
+"notifications-center-feed-news-notification-dismiss-button-text" = "अभी नहीं";
+// Fuzzy
+"notifications-center-go-to-article" = "लेख पर जाएं";
+"notifications-center-go-to-diff" = "अन्तर";
+// Fuzzy
+"notifications-center-go-to-discussion-page" = "चर्चा पृष्ठ पर जाएं";
+"notifications-center-more-action-accessibility-label" = "और";
+"notifications-center-onboarding-modal-continue-action" = "जारी रखें";
+"notifications-center-onboarding-panel-secondary-button" = "नहीं, धन्यवाद";
 "notifications-center-subheader-thanks" = "धन्यवाद";
 "notifications-center-subheader-welcome" = "सुस्वागतम्‌!";
 "notifications-center-swipe-more" = "और";
+"notifications-center-type-item-description-mentions" = "उल्लेख";
+"notifications-center-type-item-description-welcome-verbose" = "स्वागत संदेश";
 "number-billions" = "$1 बिलियन";
 "number-millions" = "$1 मिलियन";
 "number-thousands" = "$1 हज़ार";
@@ -341,7 +352,9 @@
 "settings-help-and-feedback" = "सहायता व फीडबैक";
 "settings-language-bar" = "खोज में भाषाओं को दिखाएँ";
 "settings-my-languages" = "मेरी भाषाएँ";
+// Fuzzy
 "settings-notifications" = "नोटिफिकेशन्स";
+"settings-notifications-echo-failure-try-again" = "पुनः प्रयास करें";
 "settings-notifications-info" = "हमारे पुश नोटिफिकेशन्स के साथ रुझानों में और सर्वाधिक पढ़े गए विकिपीडिया लेखों के बारे में सजग रहें। यह सब आपकी निजता का सम्मान करते और बारीक डेटा के साथ प्रदान किया जाता है।";
 "settings-notifications-learn-more" = "नोटिफिकेशन्स के बारे में अधिक जानें";
 "settings-notifications-push-notifications" = "पुश नोटिफिकेशन्स";
@@ -366,8 +379,6 @@
 "share-social-mention-format" = "विकिपीडिया@: $2 के द्वारा \"$1\"";
 "sort-by-recently-added-action" = "हाल ही में जोड़ा गया";
 "sort-by-title-action" = "शीर्षक";
-"status-saved-for-later" = "बाद के लिए सहेजा गया";
-"status-saving-for-later" = "बाद के लिए सहेजा जा रहा है...";
 "table-of-contents-button-label" = "सामग्री सारणी (टेबल)";
 "table-of-contents-close-accessibility-hint" = "बंद करें";
 "table-of-contents-close-accessibility-label" = "सामग्री सारणी को बंद करें";

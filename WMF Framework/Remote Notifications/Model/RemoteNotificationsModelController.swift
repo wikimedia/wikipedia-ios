@@ -30,6 +30,7 @@ final class RemoteNotificationsModelController {
     
     let viewContext: NSManagedObjectContext
     let persistentContainer: NSPersistentContainer
+    private let containerURL: URL
 
     enum InitializationError: Error {
         case unableToCreateModelURL(String, String, Bundle)
@@ -45,18 +46,24 @@ final class RemoteNotificationsModelController {
         }
     }
     
-    enum ReadWriteError: Error {
+    enum ReadWriteError: LocalizedError {
         case unexpectedResultsForDistinctWikis
         case missingNotifications
         case missingDateInNotification
+        
+        var errorDescription: String? {
+            return CommonStrings.genericErrorDescription
+        }
     }
     
     static let modelName = "RemoteNotifications"
 
-    required init() throws {
+    required init(containerURL: URL) throws {
+        self.containerURL = containerURL
         let modelName = RemoteNotificationsModelController.modelName
         let modelExtension = "momd"
         let modelBundle = Bundle.wmf
+        
         guard let modelURL = modelBundle.url(forResource: modelName, withExtension: modelExtension) else {
             let error = InitializationError.unableToCreateModelURL(modelName, modelExtension, modelBundle)
             assertionFailure(error.localizedDescription)
@@ -68,8 +75,7 @@ final class RemoteNotificationsModelController {
             throw error
         }
         let container = NSPersistentContainer(name: modelName, managedObjectModel: model)
-        let sharedAppContainerURL = FileManager.default.wmf_containerURL()
-        let remoteNotificationsStorageURL = sharedAppContainerURL.appendingPathComponent("\(modelName).sqlite")
+        let remoteNotificationsStorageURL = containerURL.appendingPathComponent("\(modelName).sqlite")
 
         let description = NSPersistentStoreDescription(url: remoteNotificationsStorageURL)
         container.persistentStoreDescriptions = [description]
@@ -95,13 +101,12 @@ final class RemoteNotificationsModelController {
     
     func deleteLegacyDatabaseFiles() throws {
         let modelName = Self.modelName
-        let sharedAppContainerURL = FileManager.default.wmf_containerURL()
-        let legacyStorageURL = sharedAppContainerURL.appendingPathComponent(modelName)
+        let legacyStorageURL = containerURL.appendingPathComponent(modelName)
         
         try persistentContainer.persistentStoreCoordinator.destroyPersistentStore(at: legacyStorageURL, ofType: NSSQLiteStoreType, options: nil)
         
-        let legecyJournalShmUrl = sharedAppContainerURL.appendingPathComponent("\(modelName)-shm")
-        let legecyJournalWalUrl = sharedAppContainerURL.appendingPathComponent("\(modelName)-wal")
+        let legecyJournalShmUrl = containerURL.appendingPathComponent("\(modelName)-shm")
+        let legecyJournalWalUrl = containerURL.appendingPathComponent("\(modelName)-wal")
         
         try FileManager.default.removeItem(at: legacyStorageURL)
         try FileManager.default.removeItem(at: legecyJournalShmUrl)
@@ -307,8 +312,6 @@ final class RemoteNotificationsModelController {
     }
     
     //MARK: WMFLibraryValue Helpers
-    //TODO: Cache this (see EventLoggingService as an example)
-    
     func libraryValue(forKey key: String) -> NSCoding? {
         var result: NSCoding? = nil
         let backgroundContext = newBackgroundContext()

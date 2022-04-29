@@ -426,8 +426,6 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Z Wikipedie";
 "explore-randomizer" = "Náhodný článek";
 "featured-article-empty-title" = "Není dostupný doporučený článek";
-"feed-news-notification-button-text" = "Zapnout oznámení";
-"feed-news-notification-text" = "Posílat oznámení, která mají být oznámeny Wikipedií, když články jsou trendy v aktualitách.";
 "fetcher-error-generic" = "Něco se nepovedlo. Prosím zkuste to později znovu.";
 "fetcher-error-unexpected-response" = "Aplikace přijala neočekávanou odpověď ze serveru. Prosím zkuste to znovu později.";
 "field-alert-captcha-invalid" = "Neplatná CAPTCHA";
@@ -484,10 +482,6 @@
 "icon-shortcut-random-title" = "Náhodný článek";
 "icon-shortcut-search-title" = "Hledat ve Wikipedii";
 "image-gallery-unknown-owner" = "Neznámý autor";
-"in-the-news-currently-trending" = "Aktuální trendy";
-"in-the-news-notification-read-now-action-title" = "Přečíst";
-"in-the-news-notification-save-for-later-action-title" = "Uložit na později";
-"in-the-news-notification-share-action-title" = "Sdílet…";
 "in-the-news-sub-title-from-language-wikipedia" = "Z Wikipedie v jazyce $1";
 "in-the-news-sub-title-from-wikipedia" = "Z Wikipedie";
 "in-the-news-title" = "Aktuality";
@@ -563,6 +557,9 @@
 "no-internet-connection" = "Nejste připojeni k internetu.";
 "no-internet-connection-article-reload" = "Novější verze tohoto článku může být k dispozici, ale nelze ji načíst bez připojení k internetu.";
 "no-internet-connection-article-reload-button" = "Vrátit se k předchozí uložené verzi";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Zapnout oznámení";
+"notifications-center-go-to-wikidata-item" = "Položka Wikidat";
 "number-billions" = "$1 mld.";
 "number-millions" = "$1 mil.";
 "number-thousands" = "$1 tis.";
@@ -739,12 +736,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 položka změněna|$1 položky změněny|$1 položek změněno}}";
 "replace-textfield-accessibility" = "Nahradit";
 "replace-textfield-placeholder" = "Nahradit za...";
-"reverted-edit-back-to-article-button-title" = "Zpět do článku";
-"reverted-edit-possible-reasons" = "- Váš příspěvek neodpovídal některému z pokynů. $ 1\n\n- Váš příspěvek vypadal (anebo byl) experiment nebo vandalismus.";
-"reverted-edit-possible-reasons-subtitle" = "Víme, že jste se snažili o to nejlepší, ale jeden z wikipedistů revertoval editaci. \n\nMožné důvody revertu jsou:";
-"reverted-edit-thanks-for-editing-title" = "Děkujeme, že editujete Wikipediiǃ";
 "reverted-edit-title" = "Revertovaná editace";
-"reverted-edit-view-guidelines-text" = "Zobrazit pravidla";
 "saved-all-articles-title" = "Všechny články";
 "saved-default-reading-list-tag" = "Tento seznam nemůže být odstraněn";
 "saved-pages-image-download-error" = "Nepodařilo se stáhnout obrázky pro tuto uloženou stránku.";
@@ -778,6 +770,7 @@
 "settings-language-bar" = "Ukazovat jazyky při vyhledávání";
 "settings-languages-feed-customization" = "Přizpůsobením kanálu Objevit můžete nastavit, ve kterých jazycích se zobrazí články, z témat které vyberete.";
 "settings-my-languages" = "Moje jazyky";
+// Fuzzy
 "settings-notifications" = "Upozornění";
 "settings-notifications-info" = "Upozornění na trendy a nejčastěji čtené články na Wikipedii. Vše je poskytováno s ohledem na vaše soukromí.";
 "settings-notifications-learn-more" = "Informace o upozorněních";
@@ -817,8 +810,6 @@
 "share-social-mention-format" = "„$1“ na @Wikipedia: $2";
 "sort-by-recently-added-action" = "Nedávno přidáno";
 "sort-by-title-action" = "Název";
-"status-saved-for-later" = "Uloženo na později";
-"status-saving-for-later" = "Ukládání na později…";
 "table-of-contents-button-label" = "Obsah";
 "table-of-contents-close-accessibility-hint" = "Zavřít";
 "table-of-contents-close-accessibility-label" = "Schovat obsah";

@@ -3,6 +3,7 @@ import CocoaLumberjackSwift
 
 @objc protocol WMFAuthenticationManagerDelegate: NSObjectProtocol {
     var loginSiteURL: URL? { get }
+    func authenticationManagerWillLogOut(completionHandler: @escaping ()->Void) // allows interested objects to perform authenticated clean up actions before log out
     func authenticationManagerDidLogin()
     func authenticationManagerDidReset()
 }
@@ -162,7 +163,6 @@ import CocoaLumberjackSwift
                 KeychainCredentialsManager.shared.password = password
                 self.session.cloneCentralAuthCookies()
                 self.delegate?.authenticationManagerDidLogin()
-                //TODO: TEMPORARY LOGIC
                 NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
                 completion(.success(result))
             }
@@ -201,7 +201,6 @@ import CocoaLumberjackSwift
                     self.loggedInUserCache[host] = result
                 }
                 self.loggedInUsername = result.name
-                //TODO: TEMPORARY LOGIC
                 NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
                 completion(.alreadyLoggedIn(result))
             }
@@ -209,6 +208,7 @@ import CocoaLumberjackSwift
             DispatchQueue.main.async {
                 guard !(error is URLError) else {
                     self.loggedInUsername = userName
+                    NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
                     let loginResult = WMFAccountLoginResult(status: WMFAccountLoginResult.Status.offline, username: userName, message: nil)
                     completion(.success(loginResult))
                     return
@@ -221,6 +221,7 @@ import CocoaLumberjackSwift
                         case .failure(let error):
                             guard !(error is URLError) else {
                                 self.loggedInUsername = userName
+                                NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
                                 let loginResult = WMFAccountLoginResult(status: WMFAccountLoginResult.Status.offline, username: userName, message: nil)
                                 completion(.success(loginResult))
                                 return
@@ -256,27 +257,29 @@ import CocoaLumberjackSwift
      */
     @objc(logoutInitiatedBy:completion:)
     public func logout(initiatedBy logoutInitiator: LogoutInitiator, completion: @escaping () -> Void = {}){
-        if logoutInitiator == .app || logoutInitiator == .server {
-            isUserUnawareOfLogout = true
-        }
-        let postDidLogOutNotification = {
-            NotificationCenter.default.post(name: WMFAuthenticationManager.didLogOutNotification, object: nil)
-        }
-        performTokenizedMediaWikiAPIPOST(to: loginSiteURL, with: ["action": "logout", "format": "json"], reattemptLoginOn401Response: false) { (result, response, error) in
-            DispatchQueue.main.async {
-                if let error = error {
-                    // ...but if "action=logout" fails we *still* want to clear local login settings, which still effectively logs the user out.
-                    DDLogDebug("Failed to log out, delete login tokens and other browser cookies: \(error)")
+        delegate?.authenticationManagerWillLogOut {
+            if logoutInitiator == .app || logoutInitiator == .server {
+                self.isUserUnawareOfLogout = true
+            }
+            let postDidLogOutNotification = {
+                NotificationCenter.default.post(name: WMFAuthenticationManager.didLogOutNotification, object: nil)
+            }
+            self.performTokenizedMediaWikiAPIPOST(to: self.loginSiteURL, with: ["action": "logout", "format": "json"], reattemptLoginOn401Response: false) { (result, response, error) in
+                DispatchQueue.main.async {
+                    if let error = error {
+                        // ...but if "action=logout" fails we *still* want to clear local login settings, which still effectively logs the user out.
+                        DDLogDebug("Failed to log out, delete login tokens and other browser cookies: \(error)")
+                        self.resetLocalUserLoginSettings()
+                        completion()
+                        postDidLogOutNotification()
+                        return
+                    }
+                    DDLogDebug("Successfully logged out, deleted login tokens and other browser cookies")
+                    // It's best to call "action=logout" API *before* clearing local login settings...
                     self.resetLocalUserLoginSettings()
                     completion()
                     postDidLogOutNotification()
-                    return
                 }
-                DDLogDebug("Successfully logged out, deleted login tokens and other browser cookies")
-                // It's best to call "action=logout" API *before* clearing local login settings...
-                self.resetLocalUserLoginSettings()
-                completion()
-                postDidLogOutNotification()
             }
         }
     }

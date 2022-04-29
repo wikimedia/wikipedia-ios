@@ -1,0 +1,53 @@
+{
+  "batchcomplete": true,
+  "limits": {
+    "notifications": 50
+  },
+  "query": {
+    "notifications": {
+      "list": [{
+          "wiki": "enwiki",
+          "id": 1,
+          "type": "login-fail-known",
+          "category": "login-fail",
+          "section": "alert",
+          "timestamp": {
+            "utciso8601": "2021-07-16T23:47:48Z",
+            "utcunix": 1626479268,
+            "unix": "1626479268",
+            "utcmw": "20210716234748",
+            "mw": "20210716234748",
+            "date": "16 July"
+          },
+          "agent": {
+            "id": 35425575,
+            "name": "Jack The Cat"
+          },
+          "read": "20220225154053",
+          "targetpages": [],
+          "*": {
+            "header": "There have been <b>5 failed attempts</b> to log in to your account since the last time you logged in. If it wasn't you, please make sure your account has a strong password.",
+            "compactHeader": "There have been <b>5 failed attempts</b> to log in to your account since the last time you logged in. If it wasn't you, please make sure your account has a strong password.",
+            "body": "",
+            "icon": "LoginNotify-user-avatar",
+            "links": {
+              "primary": {
+                "url": "https://mediawiki.org/wiki/Special:MyLanguage/Help:Login_notifications?markasread=223019364&markasreadwiki=enwiki",
+                "label": "Help"
+              },
+              "secondary": [{
+                "url": "https://en.wikipedia.org/wiki/Special:ChangePassword",
+                "label": "Change password",
+                "description": "",
+                "icon": "lock",
+                "prioritized": true
+              }]
+            },
+            "iconUrl": "/w/extensions/LoginNotify/UserAvatar.svg"
+          }
+        }
+      ],
+      "continue": "1569862285|172771996"
+    }
+  }
+}

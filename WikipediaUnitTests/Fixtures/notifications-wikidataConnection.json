@@ -1,0 +1,66 @@
+{
+  "batchcomplete": true,
+  "limits": {
+    "notifications": 50
+  },
+  "query": {
+    "notifications": {
+      "list": [{
+          "wiki": "enwiki",
+          "id": 1,
+          "type": "page-connection",
+          "category": "wikibase-action",
+          "section": "message",
+          "timestamp": {
+            "utciso8601": "2020-01-25T06:39:36Z",
+            "utcunix": 1579934376,
+            "unix": "1579934376",
+            "utcmw": "20200125063936",
+            "mw": "20200125063936",
+            "date": "25 January"
+          },
+          "title": {
+            "full": "Blue Bird",
+            "namespace": "",
+            "namespace-key": 0,
+            "text": "Blue Bird"
+          },
+          "agent": {
+            "id": 19014806,
+            "name": "Fred The Bird"
+          },
+          "read": "20200424160635",
+          "targetpages": [],
+          "*": {
+            "header": "The page <strong>Blue Bird</strong> was connected to the Wikidata item Q83380765, where data relevant to the topic can be collected.",
+            "compactHeader": "The page <strong>Blue Bird</strong> was connected to the Wikidata item Q83380765, where data relevant to the topic can be collected.",
+            "body": "",
+            "icon": "page-connection",
+            "links": {
+              "primary": {
+                "url": "https://en.wikipedia.org/wiki/Blue_Bird?markasread=181048334&markasreadwiki=enwiki",
+                "label": "Blue Bird"
+              },
+              "secondary": [{
+                "url": "https://en.wikipedia.org/wiki/User:Fred_The_Bird",
+                "label": "Fred The Bird",
+                "tooltip": "",
+                "description": "",
+                "icon": "userAvatar",
+                "prioritized": true
+              }, {
+                "url": "https://www.wikidata.org/wiki/Special:EntityPage/Q83380765",
+                "label": "View item",
+                "description": "",
+                "icon": "changes",
+                "prioritized": true
+              }]
+            },
+            "iconUrl": "/static/images/wikibase/echoIcon.svg"
+          }
+        }
+      ],
+      "continue": "1569862285|172771996"
+    }
+  }
+}

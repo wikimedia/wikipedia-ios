@@ -79,6 +79,10 @@ final class NotificationsCenterView: SetupView {
             emptyOverlaySubheaderLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
             calculatedCellHeight = nil
         }
+
+        if previousTraitCollection?.horizontalSizeClass != traitCollection.horizontalSizeClass {
+             calculatedCellHeight = nil
+        }
     }
 
     override func layoutSubviews() {

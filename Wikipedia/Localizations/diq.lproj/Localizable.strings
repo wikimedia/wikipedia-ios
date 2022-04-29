@@ -96,8 +96,6 @@
 "history-title" = "Tarix";
 "icon-shortcut-nearby-title" = "Nezdıra wesiqey";
 "icon-shortcut-random-title" = "Nuşteyo raştameye";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Vıla ke...";
 "insert-media-alternative-text-title" = "Metıno alternatif";
 "insert-media-caption-title" = "Bınnuşte";
 "insert-media-image-position-setting-center" = "Merkez";
@@ -136,6 +134,7 @@
 "page-history-revision-author-accessibility-label" = "Nuştekar: $1";
 "page-history-revision-comment-accessibility-label" = "Mışewre $1";
 "page-history-revision-minor-edit-accessibility-label" = "Vurriyayışo werdi";
+"rank-accessibility-label" = "Numre $1";
 "reading-list-create-new-list-description" = "Şınasnayış";
 "reading-list-entry-limit-exceeded-title" = "Sinorê yew hesabi ra {{PLURAL:$1|$1 meqale vêrd|$1 meqaleyi vêrdi}} ra.";
 "reading-list-list-limit-exceeded-title" = "Sinorê yew hesabi ra {{PLURAL:$1|$1 lista wendışi vêrde|$1 listeyê wendışi vêrdi}} ra.";
@@ -161,6 +160,7 @@
 "settings-help-and-feedback" = "Peşti u peyd rışten";
 "settings-language-bar" = "Cı geyrayış dı zıwana bıasne";
 "settings-my-languages" = "Zıwanê mı";
+// Fuzzy
 "settings-notifications" = "Tebliği (Pêhesnayışi)";
 "settings-primary-language" = "Verorên";
 "settings-support" = "Wikimedya rê desteg be";

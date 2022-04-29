@@ -174,7 +174,6 @@
 "explore-random-article-heading" = "ക്രമരഹിത ലേഖനം";
 "explore-random-article-sub-heading-from-language-wikipedia" = "$1 വിക്കിപീഡിയയിൽ നിന്നും";
 "explore-random-article-sub-heading-from-wikipedia" = "വിക്കിപീഡിയയിൽ നിന്ന്";
-"feed-news-notification-button-text" = "അറിയിപ്പുകൾ ഒഴിവാക്കുക";
 "field-alert-captcha-invalid" = "ക്യാപ്ടച്ച തെറ്റാണ്";
 "field-alert-password-confirm-mismatch" = "രഹസ്യവാക്കുകൾ ഒത്തുപോകുന്നില്ല";
 "field-alert-token-invalid" = "തെറ്റായ കോഡ്";
@@ -206,6 +205,8 @@
 "main-menu-title" = "കൂടുതൽ";
 "main-menu-zero-faq" = "വിക്കിപീഡിയ സീറോ പതിവുചോദ്യങ്ങൾ";
 "navbar-title-mode-edit-wikitext-preview" = "എങ്ങനെയുണ്ടെന്ന് കാണുക";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "അറിയിപ്പുകൾ ഒഴിവാക്കുക";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$2 വിക്കിപീഡിയയിൽ നിന്ന് $1 മുതൽ";
 "original-tab-button-popover-description" = "നിങ്ങൾ ആരംഭിച്ച ടാബിലേക്ക് മടങ്ങാൻ 'W' ൽ ടാപ്പുചെയ്യുക";
 "page-history-revision-author-accessibility-label" = "സ്രഷ്ടാവ്: $1";

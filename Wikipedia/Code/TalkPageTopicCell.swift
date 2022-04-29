@@ -66,8 +66,8 @@ class TalkPageTopicCell: CollectionViewCell {
     
     private func configureAccessibility(title: String, isRead: Bool) {
         
-        let readAccessibilityText = WMFLocalizedString("talk-page-discussion-read-accessibility-label", value: "Read", comment: "Accessibility text for indicating that a discussion's contents have been read.")
-        let unreadAccessibilityText = WMFLocalizedString("talk-page-discussion-unread-accessibility-label", value: "Unread", comment: "Accessibility text for indicating that a discussion's contents have not been read.")
+        let readAccessibilityText = CommonStrings.readStatusAccessibilityLabel
+        let unreadAccessibilityText = CommonStrings.unreadStatusAccessibilityLabel
         let readPronounciationAccessibilityAttribute = WMFLocalizedString("talk-page-discussion-read-ipa-accessibility-attribute", value: "rɛd", comment: "Accessibility ipa pronounciation for indicating that a discussion's contents have been read.")
         let unreadPronounciationAccessibilityAttribute = WMFLocalizedString("talk-page-discussion-unread-ipa-accessibility-attribute", value: "ʌnˈrɛd", comment: "Accessibility ipa pronounciation for indicating that a discussion's contents have not been read.")
         

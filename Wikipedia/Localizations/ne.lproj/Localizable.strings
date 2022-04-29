@@ -178,7 +178,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "विकिपिडिया $1 बाट";
 "explore-random-article-sub-heading-from-wikipedia" = "विकिपिडियाबाट";
 "explore-randomizer" = "क्रमरहित ढङ्गले चुनिएको लेख";
-"feed-news-notification-button-text" = "जानकारीहरू बन्द गर्नुहोस्";
 "field-alert-captcha-invalid" = "अमान्य CAPTCHA";
 "field-alert-password-confirm-mismatch" = "पासवर्डहरू मिलेनन्";
 "field-alert-token-invalid" = "अमान्य कोड";
@@ -219,10 +218,6 @@
 "icon-shortcut-random-title" = "कुनै लेख";
 "icon-shortcut-search-title" = "विकिपिडियामा खोज्नुहोस्";
 "image-gallery-unknown-owner" = "अज्ञात लेखक।";
-"in-the-news-currently-trending" = "हाल रूचीमा रहेको";
-"in-the-news-notification-read-now-action-title" = "अहिले पढ्नुहोस्";
-"in-the-news-notification-save-for-later-action-title" = "पछिको लागि सङ्ग्रह गर्नुहोस्";
-"in-the-news-notification-share-action-title" = "साझेदारी गर्नुहोस्...";
 "in-the-news-sub-title-from-wikipedia" = "विकिपिडियाबाट";
 "in-the-news-title" = "समाचारमा";
 "insert-action-title" = "घुसाउनुहोस्";
@@ -269,6 +264,8 @@
 "new-password-instructions" = "तपाईँ अस्थायी पासवर्ड प्रयोग गरेर लगइन गर्नु भएको छ। लग इन कार्य सकाउन यहाँ नयाँ पासवर्ड राख्नुहोस्।";
 "new-password-title" = "नयाँ पासवर्ड राख्नुहोस्";
 "no-email-account-alert" = "तपाईँको उपकरणमा नयाँ इमेल ठेगाना राख्नुहोस् र पुनःप्रयास गर्नुहोस्।";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "जानकारीहरू बन्द गर्नुहोस्";
 "number-billions" = "$1 बिलियन";
 "number-millions" = "$1 मिलियन";
 "number-thousands" = "$1 हजार";
@@ -318,8 +315,6 @@
 "reference-title" = "सन्दर्भ $1";
 "replace-infolabel-method-replace" = "बदल्नुहोस्";
 "replace-infolabel-method-replace-all" = "सबै बदल्नुहोस्";
-"reverted-edit-back-to-article-button-title" = "लेखमा फर्कनुहोस्";
-"reverted-edit-thanks-for-editing-title" = "विकिपिडियामा सम्पादन गर्नुभएको धन्यवाद!";
 "saved-all-articles-title" = "सबै लेखहरू";
 "saved-reading-lists-title" = "अध्ययन सूचीहरू";
 "saved-search-default-text" = "खोजिएका पृष्ठहरू सुरक्षित";
@@ -337,6 +332,7 @@
 "settings-appearance" = "अध्ययन अभिरूचिहरू";
 "settings-clear-cache-cancel" = "रद्द गर्नुहोस्";
 "settings-my-languages" = "मेरा भाषाहरू";
+// Fuzzy
 "settings-notifications" = "सूचनाहरू";
 "settings-primary-language" = "प्राथमिक";
 "settings-search-open-app-on-search" = "खोजी ट्याबमा एप खोल्नुहोस्";
@@ -350,8 +346,6 @@
 "share-open-in-maps" = "नक्सामा खोल्नुहोस्";
 "sort-by-recently-added-action" = "भर्खरै थपिएका";
 "sort-by-title-action" = "शीर्षक";
-"status-saved-for-later" = "पछिको लागि सङ्ग्रह गरिएको";
-"status-saving-for-later" = "पछिको लागि सङ्ग्रह गर्नुहोस्...";
 "table-of-contents-button-label" = "विषयसूची";
 "table-of-contents-close-accessibility-hint" = "बन्द गर्नुहोस्";
 "table-of-contents-close-accessibility-label" = "विषयसूची बन्द गर्नहोस्";

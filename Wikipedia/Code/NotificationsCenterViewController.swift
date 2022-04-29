@@ -14,8 +14,14 @@ final class NotificationsCenterViewController: ViewController {
     let viewModel: NotificationsCenterViewModel
     
     var didUpdateFiltersCallback: (() -> Void)?
+
+    // MARK: - Properties: Onboarding
+
+    fileprivate var onboardingHostingViewController: NotificationsCenterOnboardingHostingViewController?
+    fileprivate var deviceTokenRetryTask: RetryBlockTask?
     
-    // MARK: Properties - Diffable Data Source
+    // MARK: Properties: Diffable Data Source
+
     typealias DataSource = UICollectionViewDiffableDataSource<NotificationsCenterSection, NotificationsCenterCellViewModel>
     typealias Snapshot = NSDiffableDataSourceSnapshot<NotificationsCenterSection, NotificationsCenterCellViewModel>
     private var dataSource: DataSource?
@@ -66,6 +72,11 @@ final class NotificationsCenterViewController: ViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    deinit {
+        deviceTokenRetryTask = nil
+        NotificationCenter.default.removeObserver(self)
+    }
+
     override func loadView() {
         let notificationsCenterView = NotificationsCenterView(frame: UIScreen.main.bounds)
         notificationsCenterView.addSubheaderTapGestureRecognizer(target: self, action: #selector(tappedEmptyStateSubheader))
@@ -92,14 +103,16 @@ final class NotificationsCenterViewController: ViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
     }
 
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        viewModel.refreshNotifications(force: true)
+        
+        if isFirstAppearance {
+            viewModel.refreshNotifications(force: true)
+        }
+        isFirstAppearance = false
+        
         viewModel.markAllAsSeen()
+        presentOnboardingEducationModalIfNecessary()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -151,6 +164,7 @@ final class NotificationsCenterViewController: ViewController {
         super.apply(theme: theme)
 
         notificationsView.apply(theme: theme)
+        onboardingHostingViewController?.apply(theme: theme)
 
         closeSwipeActionsPanelIfNecessary()
         notificationsView.collectionView.reloadData()
@@ -315,10 +329,18 @@ private extension NotificationsCenterViewController {
         let optionsMenu = UIMenu(title: title, children: [
             UIAction.init(title: CommonStrings.notificationsCenterMarkAsRead, image: UIImage(systemName: "envelope.open"), handler: { _ in
                 self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: true)
+                let identifier = UUID()
+                for cellViewModel in selectedCellViewModels {
+                    self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: identifier.uuidString, shouldMarkRead: true)
+                }
                 self.isEditing = false
             }),
             UIAction(title: CommonStrings.notificationsCenterMarkAsUnread, image: UIImage(systemName: "envelope"), handler: { _ in
                 self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: false)
+                let identifier = UUID()
+                for cellViewModel in selectedCellViewModels {
+                    self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: identifier.uuidString, shouldMarkRead: false)
+                }
                 self.isEditing = false
             })
         ])
@@ -337,12 +359,20 @@ private extension NotificationsCenterViewController {
         let action1 = UIAlertAction(title: CommonStrings.notificationsCenterMarkAsRead, style: .default) { _ in
             self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: true)
             self.isEditing = false
+            let identifier = UUID()
+            for cellViewModel in selectedCellViewModels {
+                self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: identifier.uuidString, shouldMarkRead: true)
+            }
         }
         
         let action2 = UIAlertAction(title: CommonStrings.notificationsCenterMarkAsUnread, style: .default) { _ in
             
             self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: false)
             self.isEditing = false
+            let identifier = UUID()
+            for cellViewModel in selectedCellViewModels {
+                self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: identifier.uuidString, shouldMarkRead: false)
+            }
         }
         
         let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil)
@@ -353,8 +383,27 @@ private extension NotificationsCenterViewController {
         if let popoverController = alertController.popoverPresentationController {
             popoverController.barButtonItem = sender
         }
-        
         present(alertController, animated: true, completion: nil)
+    }
+    
+    private func logMarkReadOrUnreadAction(model: NotificationsCenterCellViewModel, selectionToken: String?, shouldMarkRead: Bool) {
+        guard let notificationId = model.notification.id else { return }
+        if let notificationId = Int(notificationId), let notificationType = model.notification.typeString, let notificationWiki = model.notification.wiki {
+        let action: NotificationsCenterActionData.LoggingLabel = shouldMarkRead ? .markRead : .markUnread
+        RemoteNotificationsFunnel.shared.logNotificationInteraction(notificationId: notificationId, notificationWiki: notificationWiki, notificationType: notificationType, action: action, selectionToken: selectionToken)
+        }
+    }
+    
+    private func logNotificationInteraction(with action: NotificationsCenterActionData.LoggingLabel?, model: NotificationsCenterCellViewModel) {
+        guard let notificationId = model.notification.id else { return }
+        if let notificationId = Int(notificationId), let notificationType = model.notification.typeString, let notificationWiki = model.notification.wiki {
+        RemoteNotificationsFunnel.shared.logNotificationInteraction(
+            notificationId: notificationId,
+            notificationWiki: notificationWiki,
+            notificationType: notificationType,
+            action: action,
+            selectionToken: nil)
+        }
     }
     
     @objc func didTapMarkAllAsReadButton(_ sender: UIBarButtonItem) {
@@ -402,7 +451,7 @@ private extension NotificationsCenterViewController {
         let filterView = NotificationsCenterFilterView(viewModel: filtersViewModel, doneAction: { [weak self] in
             self?.dismiss(animated: true)
         })
-        
+
         presentView(view: filterView)
     }
     
@@ -422,7 +471,7 @@ private extension NotificationsCenterViewController {
     }
     
     func presentView<T: View>(view: T) {
-        let hostingVC = UIHostingController(rootView: view)
+        let hostingVC = NotificationsCenterModalHostingController(rootView: view)
         
         let currentFilterState = viewModel.remoteNotificationsController.filterState
         
@@ -443,6 +492,76 @@ private extension NotificationsCenterViewController {
         nc.modalPresentationStyle = .pageSheet
         self.present(nc, animated: true, completion: nil)
     }
+}
+
+// MARK: - Onboarding Modal and Push Opt in
+
+extension NotificationsCenterViewController: NotificationsCenterOnboardingDelegate {
+
+    func presentOnboardingEducationModalIfNecessary() {
+        guard !UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter else {
+            presentOnboardingPushOptInIfNecessary()
+            return
+        }
+
+        let onboardingHostingViewController = NotificationsCenterOnboardingHostingViewController(theme: theme)
+        onboardingHostingViewController.delegate = self
+        onboardingHostingViewController.modalPresentationStyle = .pageSheet
+        self.onboardingHostingViewController = onboardingHostingViewController
+        present(onboardingHostingViewController, animated: true)
+    }
+
+    func presentOnboardingPushOptInIfNecessary() {
+        guard !UserDefaults.standard.wmf_didShowNotificationsCenterPushOptInPanel else {
+            return
+        }
+
+        guard !UserDefaults.standard.wmf_isSubscribedToEchoNotifications else {
+            UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter = true
+            UserDefaults.standard.wmf_didShowNotificationsCenterPushOptInPanel = true
+            return
+        }
+
+        viewModel.notificationsController.notificationPermissionsStatus { [weak self] status in
+            guard let self = self else { return }
+
+            guard status != .denied else {
+                UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter = true
+                UserDefaults.standard.wmf_didShowNotificationsCenterPushOptInPanel = true
+                return
+            }
+
+            DispatchQueue.main.async {
+                let primaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _ in
+                    self?.dismiss(animated: true, completion: {
+                        self?.userDidTapPushNotificationsOptIn()
+                    })
+                }
+
+                let secondaryTapHandler: ScrollableEducationPanelButtonTapHandler = { [weak self] _ in
+                    self?.dismiss(animated: true)
+                }
+
+                let dismissHandler: ScrollableEducationPanelDismissHandler = {
+                    UserDefaults.standard.wmf_userHasOnboardedToNotificationsCenter = true
+                    UserDefaults.standard.wmf_didShowNotificationsCenterPushOptInPanel = true
+                }
+
+                let panel = NotificationsCenterOnboardingPushPanelViewController(showCloseButton: false, primaryButtonTapHandler: primaryTapHandler, secondaryButtonTapHandler: secondaryTapHandler, dismissHandler: dismissHandler, theme: self.theme)
+                panel.dismissWhenTappedOutside = true
+                self.present(panel, animated: true)
+            }
+        }
+    }
+
+    func userDidDismissNotificationsCenterOnboardingView() {
+        presentOnboardingPushOptInIfNecessary()
+    }
+
+    func userDidTapPushNotificationsOptIn() {
+        requestPushPermissionsAndSilentlySubscribeToEchoNotifications()
+    }
+
 }
 
 // MARK: - NotificationsCenterViewModelDelegate
@@ -500,15 +619,16 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
         }
 
         if !viewModel.isEditing {
-            
             collectionView.deselectItem(at: indexPath, animated: true)
 
-            if let primaryURL = cellViewModel.primaryURL(for: viewModel.configuration) {
-                navigate(to: primaryURL)
-                if !cellViewModel.isRead {
-                    viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true)
-                }
+            if !cellViewModel.isRead {
+                viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true, shouldDisplayErrorIfNeeded: false)
+                logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: nil, shouldMarkRead: true)
             }
+
+            let detailViewModel = NotificationsCenterDetailViewModel(commonViewModel: cellViewModel.commonViewModel)
+            let detailViewController = NotificationsCenterDetailViewController(theme: theme, viewModel: detailViewModel)
+            push(detailViewController)
         } else {
             viewModel.updateCellDisplayStates(cellViewModels: [cellViewModel], isSelected: true)
             let selectedCellViewModels = self.selectedCellViewModels
@@ -670,7 +790,7 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
             return
         }
 
-        let sheetActions = cellViewModel.sheetActions(for: viewModel.configuration)
+        let sheetActions = cellViewModel.sheetActions
         guard !sheetActions.isEmpty else {
             return
         }
@@ -682,8 +802,9 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
             switch action {
             case .markAsReadOrUnread(let data):
                 alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
-                    let shouldMarkRead = cellViewModel.isRead ? false : true
+                    let shouldMarkRead = data.actionType == .markRead
                     self.viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: shouldMarkRead)
+                    self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: nil, shouldMarkRead: shouldMarkRead)
                     self.closeSwipeActionsPanelIfNecessary()
                 })
             case .notificationSubscriptionSettings(let data):
@@ -692,14 +813,18 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
                     NSUserActivity.wmf_navigate(to: userActivity)
                     if !cellViewModel.isRead {
                         self.viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true)
+                        self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: nil, shouldMarkRead: true)
                     }
+                    self.logNotificationInteraction(with: data.actionType, model: cellViewModel)
                 })
             case .custom(let data):
                 alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
+                    self.logNotificationInteraction(with: data.actionType, model: cellViewModel)
                     let url = data.url
                     self.navigate(to: url)
                     if !cellViewModel.isRead {
                         self.viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true)
+                        self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: nil, shouldMarkRead: true)
                     }
                 })
             }
@@ -714,7 +839,7 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
             if let activeCell = cellSwipeData.activeCell(in: notificationsView.collectionView) {
                 let sourceView = activeCell.swipeMoreStack
                 popoverController.sourceView = sourceView
-                popoverController.sourceRect = CGRect(x: sourceView.bounds.midX, y: sourceView.bounds.midY, width: 0, height: 0)
+                popoverController.sourceRect = sourceView.bounds
             } else {
                 popoverController.sourceView = cell
                 popoverController.sourceRect = CGRect(x: cell.bounds.midX, y: cell.bounds.midY, width: 0, height: 0)
@@ -732,6 +857,7 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
 
         closeSwipeActionsPanelIfNecessary()
         viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: !cellViewModel.isRead)
+        self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: nil, shouldMarkRead: !cellViewModel.isRead)
     }
     
 }
@@ -773,5 +899,43 @@ extension NotificationsCenterViewController {
 
     @objc fileprivate func userDidTapTypeFilterButton() {
         presentFiltersViewController()
+    }
+}
+
+// MARK: - Device push permissions and silent Echo subscription
+
+extension NotificationsCenterViewController {
+
+    /// Mimics the Settings Push opt in approach, but Echo subscription fails silently to prevent interrupting the experience
+    func requestPushPermissionsAndSilentlySubscribeToEchoNotifications() {
+        deviceTokenRetryTask = RetryBlockTask { [weak self] in
+            return self?.viewModel.notificationsController.remoteRegistrationDeviceToken != nil
+        }
+
+        viewModel.notificationsController.requestPermissionsIfNecessary { [weak self] (authorized, error) in
+            DispatchQueue.main.async {
+                if authorized {
+                    UIApplication.shared.registerForRemoteNotifications()
+                    if self?.viewModel.notificationsController.remoteRegistrationDeviceToken == nil {
+                        self?.deviceTokenRetryTask?.start { [weak self] success in
+                            if success {
+                                self?.viewModel.notificationsController.subscribeToEchoNotifications()
+                            }
+                        }
+                    } else {
+                        self?.viewModel.notificationsController.subscribeToEchoNotifications()
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+//MARK: Push tap handling
+
+extension NotificationsCenterViewController: NotificationsCenterFlowViewController {
+    func tappedPushNotification() {
+        //do nothing
     }
 }

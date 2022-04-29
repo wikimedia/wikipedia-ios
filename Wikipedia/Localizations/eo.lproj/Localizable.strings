@@ -344,8 +344,6 @@
 "explore-random-article-sub-heading-from-wikipedia" = "De Vikipedio";
 "explore-randomizer" = "Hazardumilo";
 "featured-article-empty-title" = "Neniu elstara artikolo estas havebla hodiaŭ";
-"feed-news-notification-button-text" = "Ŝalti sciigojn";
-"feed-news-notification-text" = "Ŝalti sciigojn por esti sciigita de Vikipedio kiam artikoloj estas popularaj en la novaĵoj.";
 "fetcher-error-generic" = "Io misfunkciis. Bonvolu reprovi poste.";
 "fetcher-error-unexpected-response" = "La aplikaĵo ricevis ne atenditan respondon el la servilo. Bonvolu reprovi poste.";
 "field-alert-captcha-invalid" = "Nevalida CAPTCHA";
@@ -402,11 +400,6 @@
 "icon-shortcut-random-title" = "Hazarda artikolo";
 "icon-shortcut-search-title" = "Serĉi tra Vikipedio";
 "image-gallery-unknown-owner" = "Aŭtoro estas nekonata.";
-"in-the-news-currently-trending" = "Nuntempe populara";
-"in-the-news-notification-read-now-action-title" = "Legi nun";
-"in-the-news-notification-save-for-later-action-title" = "Konservi por poste";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Konigi...";
 "in-the-news-sub-title-from-language-wikipedia" = "De $1 Vikipedio";
 "in-the-news-sub-title-from-wikipedia" = "De Vikipedio";
 "in-the-news-title" = "En la novaĵoj";
@@ -477,6 +470,8 @@
 "no-internet-connection" = "Interreta konekto mankas";
 "no-internet-connection-article-reload" = "Nova versio de ĉi tiu artikolo eble estas havebla, sed ne povas esti ŝarĝita sen Interreta konekto";
 "no-internet-connection-article-reload-button" = "Reen al lasta konservita versio";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Ŝalti sciigojn";
 "notifications-center-filters-types-item-title-all" = "Ĉiuj tipoj";
 "notifications-center-inbox-title" = "Projektoj";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Vikimediaj projektoj";
@@ -632,12 +627,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 ero anstataŭigita|$1 eroj anstataŭigitaj}}";
 "replace-textfield-accessibility" = "Anstataŭigi";
 "replace-textfield-placeholder" = "Anstataŭigi per…";
-"reverted-edit-back-to-article-button-title" = "Reen al la artikolo";
-"reverted-edit-possible-reasons" = "- Via kontribuo ne estas farita laŭ unu de la gvidnormoj. $1 \n\n - Via kontribuo aspektis kiel eksperimento aŭ vandalismo";
-"reverted-edit-possible-reasons-subtitle" = "Ni scias ke vi provis vian plej bonan, sed unu el la reviziantoj esprimis sian dubon.\n\nEblaj kialoj ke via redakto estas malfarita inkluzivas:";
-"reverted-edit-thanks-for-editing-title" = "Dankon pro tio ke vi redaktas Vikipedion!";
 "reverted-edit-title" = "Malfarita redakto";
-"reverted-edit-view-guidelines-text" = "Vidi la gvidnormojn";
 "saved-all-articles-title" = "Ĉiuj artikoloj";
 "saved-default-reading-list-tag" = "Ĉi tiu listo ne povas esti forigita";
 "saved-pages-image-download-error" = "Malsukcesis elŝuti bildojn por ĉi tiu konservita paĝo.";
@@ -671,6 +661,7 @@
 "settings-language-bar" = "Montri lingvojn dum serĉado";
 "settings-languages-feed-customization" = "Vi povas administri kiuj lingvoj estas montrataj sur via Esplorfluo tajlorante viajn Esplorfluajn agordojn.";
 "settings-my-languages" = "Miaj lingvoj";
+// Fuzzy
 "settings-notifications" = "Sciigoj";
 "settings-notifications-info" = "Estu sciigita pri popularaj kaj plej ofte legitaj artikoloj sur Vikipedio dank'al niaj sciigoj. Ili ĉiuj estas provizataj kun respekto al privateco kaj kun plej ĝisdatigitaj datumoj.";
 "settings-notifications-learn-more" = "Ekscii pli pri sciigoj";
@@ -710,8 +701,6 @@
 "share-social-mention-format" = "“$1” pere de @Vikipedio: $2";
 "sort-by-recently-added-action" = "Ĵus aldonita";
 "sort-by-title-action" = "Titolo";
-"status-saved-for-later" = "Konservita por poste";
-"status-saving-for-later" = "Konservas por poste...";
 "table-of-contents-button-label" = "Enhavtabelo";
 "table-of-contents-close-accessibility-hint" = "Fermi";
 "table-of-contents-close-accessibility-label" = "Fermi enhavtabelon";

@@ -39,6 +39,7 @@
 // Author: おはぐろ蜻蛉
 // Author: きこねす
 // Author: ネイ
+// Author: 春春眠眠
 // Author: 아라
 
 "aaald-added-text-description-2" = "$1追加";
@@ -122,6 +123,7 @@
 "action-add-to-reading-list" = "あとで読むリストに追加";
 "action-add-to-reading-list-short" = "リストに追加";
 "action-cancel" = "キャンセル";
+"action-discard-edits" = "編集内容を破棄";
 "action-find-in-page" = "ページ内を検索";
 "action-language-accessibility" = "言語を変更";
 "action-move-to" = "次へ移動…";
@@ -328,6 +330,7 @@
 "editing-welcome-impartial-tone-title" = "公平な論調で書く";
 "editing-welcome-set-knowledge-free-subtitle" = "私たちはすべての人が、世界のあらゆる知識にアクセスできるようにしたいと考えています。あなたに一番関係している話題について読んで、編集して、そして貢献することで、その知識の作成にあなたも参加することが、何より必要です。";
 "editing-welcome-set-knowledge-free-title" = "知識を自由に";
+"editor-exit-confirmation-body" = "保存せずに編集から離れてもよろしいですか？";
 "empty-diff-compare-title" = "版間の相違点はありません";
 "empty-diff-single-title" = "目に見える変更はされませんでした";
 "empty-insert-media-title" = "ウィキメディアコモンズからファイルを選択";
@@ -439,8 +442,6 @@
 "featured-widget-from-wikipedia" = "ウィキペディアより";
 "featured-widget-language-failure" = "あなたのメイン言語は秀逸な記事をサポートしていません。アプリの設定メニューからウィキペディアのメイン言語を切り替えることができます。";
 "featured-widget-title" = "秀逸な記事";
-"feed-news-notification-button-text" = "通知をオンにする";
-"feed-news-notification-text" = "ニュースで記事が流行しているときに通知をWikipediaで通知できるようにする。";
 "fetcher-error-generic" = "問題が発生しました。しばらくしてから再度、操作をしてください。";
 "fetcher-error-unexpected-response" = "サーバから異常な応答がありました。しばらくしてから再度、操作してください。";
 "field-alert-captcha-invalid" = "CAPTCHAが無効です";
@@ -497,10 +498,6 @@
 "icon-shortcut-random-title" = "おまかせ記事";
 "icon-shortcut-search-title" = "ウィキペディア内を検索";
 "image-gallery-unknown-owner" = "作者不明。";
-"in-the-news-currently-trending" = "現在のトレンド";
-"in-the-news-notification-read-now-action-title" = "すぐ読む";
-"in-the-news-notification-save-for-later-action-title" = "保存してあとで読む";
-"in-the-news-notification-share-action-title" = "共有...";
 "in-the-news-sub-title-from-language-wikipedia" = "$1版ウィキペディアより";
 "in-the-news-sub-title-from-wikipedia" = "ウィキペディアより";
 "in-the-news-title" = "ニュースに関する記事";
@@ -574,22 +571,39 @@
 "no-internet-connection" = "インターネットに接続されていません";
 "no-internet-connection-article-reload" = "この記事の新しい版があるかもしれませんが、インターネットに接続するまで読みこめません。";
 "no-internet-connection-article-reload-button" = "最後に保存した版に戻る";
+"notifications-center-alert" = "アラート";
 "notifications-center-change-password" = "パスワードを変更";
 "notifications-center-empty-checking-for-notifications" = "通知を確認中...";
 "notifications-center-empty-not-subscribed" = "現在、ウィキペディアの通知を登録していません";
-"notifications-center-footer-change-password" = "パスワードを変更";
-"notifications-center-go-to-diff" = "履歴へ移動";
-"notifications-center-go-to-talk-page" = "会話ページに移動";
-"notifications-center-go-to-title" = "$1に移動";
-"notifications-center-go-to-user-page" = "$1の利用者ページに移動";
-"notifications-center-go-to-your-talk-page" = "あなたの会話ページに移動";
+"notifications-center-feed-card-title" = "編集の通知が利用可能になりました";
+"notifications-center-feed-news-notification-button-text" = "プッシュ通知をオンにする";
+"notifications-center-feed-news-notification-dismiss-button-text" = "今はしない";
+"notifications-center-go-to-article" = "記事";
+"notifications-center-go-to-article-discussion-format" = "$1の議論ページ";
+"notifications-center-go-to-article-talk-format" = "$1の会話ページ";
+"notifications-center-go-to-diff" = "差分";
+"notifications-center-go-to-discussion-page" = "議論ページ";
+"notifications-center-go-to-talk-page" = "トークページ";
+"notifications-center-go-to-user-page" = "$1の利用者ページ";
+"notifications-center-go-to-wikidata-item" = "ウィキデータ項目";
+"notifications-center-go-to-your-talk-page" = "あなたの会話ページ";
 "notifications-center-header-alert-from-project" = "$1からの通知";
 "notifications-center-header-notice-from-project" = "$1からの通知";
 "notifications-center-login-notifications" = "ログイン通知";
 "notifications-center-mark-all-as-read" = "すべて既読にする";
 "notifications-center-mark-as-read" = "既読にする";
 "notifications-center-mark-as-unread" = "未読にする";
+"notifications-center-more-action-accessibility-label" = "もっと見る";
 "notifications-center-notifications-settings" = "通知設定";
+"notifications-center-onboarding-modal-continue-action" = "続行";
+"notifications-center-onboarding-modal-filters-title" = "フィルター";
+"notifications-center-onboarding-modal-learn-more-action" = "通知についてさらに詳しく知る";
+"notifications-center-onboarding-modal-notifications-alerts-title" = "通知とアラート";
+"notifications-center-onboarding-modal-push-notifications-title" = "プッシュ通知";
+"notifications-center-onboarding-modal-title" = "編集の通知";
+"notifications-center-onboarding-panel-heading" = "プッシュ通知をオンにしますか？";
+"notifications-center-onboarding-panel-primary-button" = "プッシュ通知をオンにする";
+"notifications-center-onboarding-panel-secondary-button" = "いいえ、結構です";
 "notifications-center-status-all" = "すべて";
 "notifications-center-status-all-notifications" = "すべての通知";
 "notifications-center-status-in-projects-plain" = "$1プロジェクト";
@@ -597,6 +611,7 @@
 "notifications-center-status-read" = "既読";
 "notifications-center-status-unread" = "未読";
 "notifications-center-subheader-email-from-other-user" = "新しいメール";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "身に覚えのない端末からのログイン";
 "notifications-center-subheader-mention-failed" = "メンションに失敗しました";
 "notifications-center-subheader-mention-successful" = "メンションに成功しました";
@@ -605,9 +620,12 @@
 "notifications-center-swipe-mark-as-read" = "既読にする";
 "notifications-center-swipe-mark-as-unread" = "未読にする";
 "notifications-center-title" = "通知";
+"notifications-center-type-item-description-mentions" = "言及";
+"notifications-center-type-item-description-welcome-verbose" = "ようこそメッセージ";
 "notifications-push-fallback-body-text" = "ウィキペディア内の新しいアクティビティ";
+// Fuzzy
 "notifications-push-talk-body-format" = "$3の$1件の#2";
-"notifications-push-talk-messages-format" = "メッセージ";
+// Fuzzy
 "notifications-push-talk-title-format" = "新しい$1";
 "number-billions" = "$1";
 "number-millions" = "$1";
@@ -790,12 +808,7 @@
 "replace-replace-all-results-count" = "$1件置換しました";
 "replace-textfield-accessibility" = "置換";
 "replace-textfield-placeholder" = "置換後の文字列";
-"reverted-edit-back-to-article-button-title" = "記事に戻る";
-"reverted-edit-possible-reasons" = "- あなたの貢献の内容がガイドラインのひとつに反しています。$1 \n\n - あなたの貢献の内容は実験か不正行為と見なされました";
-"reverted-edit-possible-reasons-subtitle" = "あなたがベストを尽くそうとしたのはよく分かりますが、レビュアーは懸念を持ったようです。\n\nあなたの編集が差し戻された理由としては、以下のような可能性があります。";
-"reverted-edit-thanks-for-editing-title" = "ウィキペディアを編集していただきありがとうございます!";
 "reverted-edit-title" = "差し戻された編集";
-"reverted-edit-view-guidelines-text" = "ガイドラインを表示";
 "saved-all-articles-title" = "すべての記事";
 "saved-default-reading-list-tag" = "このリストは削除できません";
 "saved-pages-image-download-error" = "保存したページの画像のダウンロードに失敗しました。";
@@ -829,7 +842,8 @@
 "settings-language-bar" = "検索画面で言語を表示";
 "settings-languages-feed-customization" = "探索フィードの設定を変更すると、どの言語で探索フィードを表示するか管理できます。";
 "settings-my-languages" = "使用する言語";
-"settings-notifications" = "通知";
+"settings-notifications" = "プッシュ通知";
+"settings-notifications-echo-failure-try-again" = "もう一度お試しください";
 "settings-notifications-info" = "ウィキペディア上で話題の記事、最も読まれている記事をプッシュ通知で受け取りましょう。通知はすべてプライバシーに配慮して行われ、毎分ごとのデータに基づいています。";
 "settings-notifications-learn-more" = "通知についてさらに詳しく";
 "settings-notifications-push-notifications" = "プッシュ通知";
@@ -868,8 +882,6 @@
 "share-social-mention-format" = "“$1” ウィキペディア@経由: $2";
 "sort-by-recently-added-action" = "最近の追加";
 "sort-by-title-action" = "記事名";
-"status-saved-for-later" = "保存しました";
-"status-saving-for-later" = "保存しています...";
 "table-of-contents-button-label" = "目次";
 "table-of-contents-close-accessibility-hint" = "閉じる";
 "table-of-contents-close-accessibility-label" = "目次を閉じる";

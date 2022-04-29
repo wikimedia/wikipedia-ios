@@ -408,8 +408,6 @@
 "featured-article-empty-title" = "Brak polecanego artykułu";
 "featured-widget-from-wikipedia" = "Z Wikipedii";
 "featured-widget-title" = "Wyróżniony artykuł";
-"feed-news-notification-button-text" = "Włącz powiadomienia";
-"feed-news-notification-text" = "Zezwól na powiadomienia żeby dostać informacje od Wikipedii kiedy artykuły stają się popularne w wiadomościach";
 "fetcher-error-generic" = "Coś poszło nie tak. Spróbuj ponownie później.";
 "fetcher-error-unexpected-response" = "Aplikacja otrzymała nieoczekiwaną odpowiedź z serwera. Spróbuj ponownie później.";
 "field-alert-captcha-invalid" = "Niepoprawna CAPTCHA";
@@ -466,10 +464,6 @@
 "icon-shortcut-random-title" = "Losowy artykuł";
 "icon-shortcut-search-title" = "Szukaj w Wikipedii";
 "image-gallery-unknown-owner" = "Autor nieznany.";
-"in-the-news-currently-trending" = "Obecnie na topie";
-"in-the-news-notification-read-now-action-title" = "Przeczytaj teraz";
-"in-the-news-notification-save-for-later-action-title" = "Zapisz na później";
-"in-the-news-notification-share-action-title" = "Udostępnij…";
 "in-the-news-sub-title-from-language-wikipedia" = "Z $1 Wikipedii";
 "in-the-news-sub-title-from-wikipedia" = "Z Wikipedii";
 "in-the-news-title" = "W wiadomościach";
@@ -541,6 +535,8 @@
 "no-internet-connection" = "Brak połączenia z internetem";
 "no-internet-connection-article-reload" = "Nowsza wersja tego artykułu może być dostępna, ale nie można jej załadować bez połączenia z Internetem";
 "no-internet-connection-article-reload-button" = "Wróć do ostatnio zapisanej wersji";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Włącz powiadomienia";
 "number-billions" = "$1 mld";
 "number-millions" = "$1 mln";
 "number-thousands" = "$1 tys.";
@@ -692,11 +688,7 @@
 "replace-infolabel-method-replace-all" = "Zamień wszystkie";
 "replace-textfield-accessibility" = "Zamień";
 "replace-textfield-placeholder" = "Zastąp przez";
-"reverted-edit-back-to-article-button-title" = "Wróć do artykułu";
-"reverted-edit-possible-reasons-subtitle" = "Wiemy, że starałeś się jak najlepiej, ale jeden z recenzentów miał obawy. \n\nMożliwe przyczyny cofnięcia edycji obejmują:";
-"reverted-edit-thanks-for-editing-title" = "Dziękujemy za edytowanie Wikipedii!";
 "reverted-edit-title" = "Cofnięto edycję";
-"reverted-edit-view-guidelines-text" = "Zobacz wytyczne";
 "saved-all-articles-title" = "Wszystkie artykuły";
 "saved-default-reading-list-tag" = "Tej listy nie można usunąć";
 "saved-pages-image-download-error" = "Nie udało się pobrać obrazów dla tej zapisanej strony.";
@@ -723,6 +715,7 @@
 "settings-clear-cache-ok" = "Wyczyść pamięć podręczną";
 "settings-help-and-feedback" = "Pomoc i opinie";
 "settings-my-languages" = "Moje języki";
+// Fuzzy
 "settings-notifications" = "Powiadomienia";
 "settings-notifications-info" = "Otrzymuj powiadomienia o popularnych i najczęściej czytanych artykułach w Wikipedii dzięki naszym powiadomieniom push. Wszystko pod warunkiem poszanowania prywatności i najświeższych danych.";
 "settings-notifications-learn-more" = "Dowiedz się więcej o powiadomieniach";
@@ -754,8 +747,6 @@
 "share-social-mention-format" = "“$1” via @Wikipedia: $2";
 "sort-by-recently-added-action" = "Ostatnio dodane";
 "sort-by-title-action" = "Tytuł";
-"status-saved-for-later" = "Zapisane na później";
-"status-saving-for-later" = "Zapisywanie na później";
 "table-of-contents-button-label" = "Spis treści";
 "table-of-contents-close-accessibility-hint" = "Zamknij";
 "table-of-contents-close-accessibility-label" = "Zamknij spis treści";

@@ -17,7 +17,9 @@ public struct APIURLComponentsBuilder {
     }
     
     func components(byAssigningPayloadToPercentEncodedQuery payload: NSObject) throws -> URLComponents {
-        
+        guard JSONSerialization.isValidJSONObject(payload) else {
+            throw APIURLComponentsBuilderError.failureConvertingJsonDataToString
+        }
         let payloadJsonData = try JSONSerialization.data(withJSONObject:payload, options: [])
         
         guard let payloadString = String(data: payloadJsonData, encoding: .utf8) else {

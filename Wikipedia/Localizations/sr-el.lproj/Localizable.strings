@@ -353,8 +353,6 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Sa Vikipedije";
 "explore-randomizer" = "Slučajni članak";
 "featured-article-empty-title" = "Danas nema dostupnih preporučenih članaka";
-"feed-news-notification-button-text" = "Uključi obaveštenja";
-"feed-news-notification-text" = "Omogućite obaveštenja da biste saznali kada članci postanu trenutni u vestima.";
 "fetcher-error-generic" = "Nešto je krenulo naopako. Molimo pokušajte kasnije.";
 "fetcher-error-unexpected-response" = "Aplikacija je dobila neočekivan odgovor od strane servera. Molimo pokušajte kasnije.";
 "field-alert-captcha-invalid" = "Nevažeća CAPTCHA";
@@ -411,11 +409,6 @@
 "icon-shortcut-random-title" = "Slučajni članak";
 "icon-shortcut-search-title" = "Pretraži Vikipediju";
 "image-gallery-unknown-owner" = "Otpremalac je nepoznat.";
-"in-the-news-currently-trending" = "Najčitanije";
-"in-the-news-notification-read-now-action-title" = "Pročitaj odmah";
-"in-the-news-notification-save-for-later-action-title" = "Sačuvaj za kasnije";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Deli…";
 "in-the-news-sub-title-from-language-wikipedia" = "Jezik Vikipedije: $1";
 "in-the-news-sub-title-from-wikipedia" = "Sa Vikipedije";
 "in-the-news-title" = "Vesti";
@@ -485,6 +478,8 @@
 "no-internet-connection" = "Nema internet veze";
 "no-internet-connection-article-reload" = "Novija verzija ovog članka je možda dostupna, ali ne može biti učitana bez internet konekcije.";
 "no-internet-connection-article-reload-button" = "Vrati se na prethodno sačuvanu verziju";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Uključi obaveštenja";
 "number-billions" = "$1 mlrd.";
 "number-millions" = "$1 mil.";
 "number-thousands" = "$1 hilj.";
@@ -654,12 +649,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 izmenjena stavka|$1 izmenjene stavke}}";
 "replace-textfield-accessibility" = "Zameni";
 "replace-textfield-placeholder" = "Zameni sa…";
-"reverted-edit-back-to-article-button-title" = "Nazad na članak";
-"reverted-edit-possible-reasons" = "- Vaš doprinos nije pratio jednu od smernica. $1\n\n - Vaš doprinos je izgledao kao eksperiment ili vandalizam";
-"reverted-edit-possible-reasons-subtitle" = "Znamo da ste dali sve od sebe, ali jedan od pregledača ima primedbu.\n\nMogući razlozi zbog čega je vaša izmena poništena:";
-"reverted-edit-thanks-for-editing-title" = "Hvala vam što uređujete Vikipediju!";
 "reverted-edit-title" = "Vraćena izmena";
-"reverted-edit-view-guidelines-text" = "Prikaži smernice";
 "saved-all-articles-title" = "Svi članci";
 "saved-default-reading-list-tag" = "Ova lista ne može da se izbriše";
 "saved-pages-image-download-error" = "Preuzimanje slika za ovu sačuvanu stranicu nije uspelo.";
@@ -695,6 +685,7 @@
 "settings-language-bar" = "Prikazuj jezike pri pretrazi";
 "settings-languages-feed-customization" = "Možete da upravljate jezicima za prikaz u fidu „Istraži“ promenom podešavanja.";
 "settings-my-languages" = "Moji jezici";
+// Fuzzy
 "settings-notifications" = "Obaveštenja";
 "settings-notifications-info" = "Budite obavešteni o najčitanijim člancima na Vikipediji pomoću naših push obaveštenja. Sve informacije su trenutne i poštuju vašu privatnost.";
 "settings-notifications-learn-more" = "Saznajte više o obaveštenjima";
@@ -734,8 +725,6 @@
 "share-social-mention-format" = "„$1” preko @Vikipedija: $2";
 "sort-by-recently-added-action" = "Nedavno dodato";
 "sort-by-title-action" = "Naslov";
-"status-saved-for-later" = "Sačuvano za kasnije";
-"status-saving-for-later" = "Čuvam za kasnije…";
 "table-of-contents-button-label" = "Sadržaj";
 "table-of-contents-close-accessibility-hint" = "Zatvori";
 "table-of-contents-close-accessibility-label" = "Zatvori sadržaj";

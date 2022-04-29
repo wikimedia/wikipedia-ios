@@ -341,8 +341,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "မႃးတီႈ ဝီႇၶီႇၽီးတီးယႃး $1";
 "explore-random-article-sub-heading-from-wikipedia" = "မႃးတီႈ ဝီႇၶီႇၽီးတီးယႃး";
 "explore-randomizer" = "တူဝ်မၢၼ်";
-"feed-news-notification-button-text" = "ပိုတ်ႇလွင်ႈပၼ်ၾၢင်ႉ";
-"feed-news-notification-text" = "ပိုတ်ႇလွင်ႈပၼ်ၽၢင်ႉ တွၼ်ႈႁပ်ႉဢဝ်လႆႈ လွင်ႈပၼ်ၾၢင်ႉ ၵပ်းၵၢႆႇလူၺ်ႈ ပွင်ႈလိၵ်ႈ ဝီႇၶီႇၽီးတီးယႃး ၸိူဝ်းပဵၼ် သၢႆၵိင်ႇ တီႈၼႂ်းၶၢဝ်ႇ။";
 "fetcher-error-generic" = "ၽိတ်းပိူင်ႈၵႂႃႇသေဢၼ်ဢၼ်။ ၶႅၼ်းတေႃႈၶတ်းၸႂ်တူၺ်းထႅင်ႈလႄႈ။";
 "fetcher-error-unexpected-response" = "ဢႅပ်ႉႁပ်ႉလႆႈ လွင်ႈတွပ်ႇၶိုၼ်းၵႃႈတီႈ သႃႇပိူဝ်ႇ ဢၼ်ဢမ်ႇလႆႈမုင်ႈမွင်းဝႆႉ။ ၶႅၼ်းတေႃႈ ၶိုၼ်းၶတ်းၸႂ်တူၺ်းလႄႈ။";
 "field-alert-captcha-invalid" = "တူဝ်ၼႄႉၼွၼ်း ၽိတ်းဝႆႉ";
@@ -399,11 +397,6 @@
 "icon-shortcut-random-title" = "ပွင်ႈလိၵ်ႈၵမ်ႉမၢၼ်";
 "icon-shortcut-search-title" = "ၶူၼ်ႉႁႃ ဝီႇၶီႇၽီးတီးယႃး";
 "image-gallery-unknown-owner" = "ဢမ်ႇႁူႉ ၽူႈတႅမ်ႈလိၵ်ႈ";
-"in-the-news-currently-trending" = "သၢႆတၢင်းယၢမ်းလဵဝ်";
-"in-the-news-notification-read-now-action-title" = "လူယၢမ်းလဵဝ်";
-"in-the-news-notification-save-for-later-action-title" = "သိမ်းဝႆႉတႃႇဝၢႆးလင်";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "ၽႄႈတိုၼ်း...";
 "in-the-news-sub-title-from-language-wikipedia" = "မႃးတီႈ ဝီႇၶီႇၽီးတီးယႃး $1";
 "in-the-news-sub-title-from-wikipedia" = "မႃးတီႈ ဝီႇၶီႇၽီးတီးယႃး";
 "in-the-news-title" = "တီႈၼႂ်းၶၢဝ်ႇ";
@@ -474,6 +467,8 @@
 "no-internet-connection" = "ဢမ်ႇမီးၵွင်ႉသၢၼ်ဢိၼ်ႇထႃႇၼႅတ်ႉ";
 "no-internet-connection-article-reload" = "ပိူင်ဢွၵ်ႇမႂ်ႇမႂ်ႇႁင်း ပွင်ႈၵႂၢမ်းဢၼ်ၼႆႉ လႅပ်ႈတေၸႂ်ႉလႆႈယဝ်ႉ၊ ၵူၺ်းၵႃႈဝႃႈ ပေႃးဢမ်ႇပႆႇမီး ၵွင်ႉသၢၼ်ဢိၼ်ႇထႃႇၼႅတ်ႉ လႅပ်ႈတေပႆႇၸၢင်ႈပိုတ်ႇတူၺ်းလႆႈ";
 "no-internet-connection-article-reload-button" = "ၶိုၼ်းဝိၼ်ႇၸူး ပိူင်ဢွၵ်ႇ ဢၼ်သိမ်းဝႆႉလိုၼ်းလင်သုတ်း";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "ပိုတ်ႇလွင်ႈပၼ်ၾၢင်ႉ";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
@@ -622,12 +617,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|တႅၼ်းတီႈယဝ်ႉ $1 ဢၼ် |တႅၼ်းတီႈယဝ်ႉ $1 ဢၼ်}}";
 "replace-textfield-accessibility" = "တႅၼ်းတီႈ";
 "replace-textfield-placeholder" = "တႅၼ်းတီႈတင်း...";
-"reverted-edit-back-to-article-button-title" = "ႁူၼ်လင်ၸူး ပွင်ႈၵႂၢမ်း";
-"reverted-edit-possible-reasons" = "- လွင်ႈၶဝ်ႈႁူမ်ႈၸဝ်ႈၵဝ်ႇၼႆ့ ဢမ်ႇလႆႈၸွမ်းလင် ၽိုၼ်သုင်မႃးသေဢၼ်။ $1\n\n - လွင်ႈၶဝ်ႈႁူမ်ႈၸဝ်ႈၵဝ်ႇၼႆႉ လဵပ်ႈမိူၼ် လွင်ႈၶူၼ်ႉၶႂႃႉ ဢမ်ႇၼၼ် လႅပ်းပဵၼ် လွင်ႈတိၼ်လူၼ်းမိုဝ်းၶိုၼ်းဝႆ့";
-"reverted-edit-possible-reasons-subtitle" = "ႁဝ်းၶႃႈႁူႉဝႃႈ ၸဝ်ႈၵဝ်ႇ ၶတ်းၸႂ်ၼင်ႇပဵၼ်လႆႈ၊ ၵူၺ်းၵႃႈ ၽူႈထတ်းသၢင် တၢင်ႇၵေႃႉ ၵေႃႈ ပဵၼ်ဢၼ်ၶဝ်ႈၵပ်းၵၢႆႇဝႆႉ။ ၼႆႉပဵၼ် လွင်ႈတၢင်းဢၼ်ပွင်ႈလိၵ်ႈၸဝ်ႈၵဝ်ႇ ထုၵ်ႇၶိုၼ်ၶိုၼ်း:";
-"reverted-edit-thanks-for-editing-title" = "ယိၼ်းၸူမ်းၶွပ်ႈၸႂ် တႃႇ လွင်ႈမႄးထတ်း ဝီႇၶီႇၽီးတီးယႃး!";
 "reverted-edit-title" = "လွင်ႈမႄးထတ်း ဢၼ်ၶိုၼ်ၶိုၼ်းဝႆ့";
-"reverted-edit-view-guidelines-text" = "တူၺ်း ၽိုၼ်ၸုင်";
 "saved-all-articles-title" = "ပွင်ႈလိၵ်ႈတင်းသဵင်ႈ";
 "saved-default-reading-list-tag" = "သဵၼ်ႈမၢႆဢၼ်ၼႆႉ ဢမ်ႇၸၢင်ႈမွတ်ႇ";
 "saved-pages-image-download-error" = "မီးလွင်ႈၽိတ်းပိူင်ႈ တွၼ်ႈတႃႇလူတ်ႇလူင်းဢဝ် ၶႅပ်းႁၢင်ႈတႃႇ ၼႃႈလိၵ်ႈဢၼ်သိမ်းဝႆႉဢၼ်ၼႆႉၼႆႉ။";
@@ -661,6 +651,7 @@
 "settings-language-bar" = "ၼႄ ၽႃႇသႃႇၵႂၢမ်း တီႈလွင်ႈၶူၼ်ႉႁႃ";
 "settings-languages-feed-customization" = "မႄးတမ်း ၵၢၼ်တင်ႈၶေႃႈမုၼ်းမႂ်ႇၸဝ်ႈၵဝ်ႇ သေၵေႃႈ ၸဝ်ႈၵဝ်ႇၸၢင်ႈၸတ်းၵၢတ် ဝႃႈ ၽႃႇသႃႇၵႂၢမ်းဢၼ်လႂ် ဢၼ်ဢွၵ်ႇၼႄတီႈ ၶေႃႈမုၼ်းမႂ်ႇၼၼ်ႉ။";
 "settings-my-languages" = "ၽႃႇသႃႇၵႂၢမ်း ၵဝ်ၶႃႈ";
+// Fuzzy
 "settings-notifications" = "ၶေႃႈမၢႆ";
 "settings-notifications-info" = "ယူႇသၢၼ်ႈၸွမ်းၼင်ႇ ပွင်ႈလိၵ်ႈလူလိူဝ်သုတ်း ၵႃႈတီႈ ဝီႇၶီႇၽီးတီးယႃး ၸွမ်းၼင်ႇ ၶေႃႈပၼ်ၾၢင်ႉႁဝ်းၶႃႈလႄႈ။ ၸိူဝ်းၵမ်ႉထႅမ်ဝႆႉပၼ်ၼႆႉ မီးလွင်ႈၼပ်ႉယမ်ၼိူဝ် သုၼ်ႇႁူမ်ႇလူမ်ႈၶွင်တူဝ်လႄႈ ႁၢၼ်ႉတေႃႇ ၶေႃႈမုၼ်းၸူဝ်ႈၵႅပ်ႉ။";
 "settings-notifications-learn-more" = "လဵပ်ႈႁဵၼ်းလိူဝ် လွင်ႈပၼ်ၶေႃႈၾၢင်ႉ";
@@ -700,8 +691,6 @@
 "share-social-mention-format" = "“$1” ၵႃႈတီႈ @ဝီႇၶီႇၽီးတီးယႃး: $2";
 "sort-by-recently-added-action" = "ဢၼ်တိုၵ်ႉႁႃထႅမ်သႂ်ႇၵႂႃႇ";
 "sort-by-title-action" = "ႁူဝ်ၶေႃႈ";
-"status-saved-for-later" = "တွၼ်ႈတႃႇဝၢႆးလင် သိမ်းဝႆႉယဝ်ႉ";
-"status-saving-for-later" = "တိုၵ်ႉသိမ်းဝႆႉ တႃႇဝၢႆးလင်...";
 "table-of-contents-button-label" = "လမ်းၼႂ်း";
 "table-of-contents-close-accessibility-hint" = "ႁပ်း";
 "table-of-contents-close-accessibility-label" = "ႁပ်းလမ်းၼႂ်း";

@@ -168,7 +168,7 @@
 "diff-compare-header-to-info-heading" = "A:";
 "diff-compare-title" = "Comparar revisiones";
 "diff-context-lines-collapsed-button-title" = "Amosar";
-"diff-context-lines-expanded-button-title" = "Tapecer";
+"diff-context-lines-expanded-button-title" = "Anubrir";
 "diff-multi-line-format" = "Ringleres $1-$2";
 "diff-paragraph-moved" = "Párrafu movíu";
 "diff-paragraph-moved-direction-down" = "abaxo";
@@ -237,8 +237,8 @@
 "explore-feed-preferences-global-cards-description" = "Tarxetes independientes de la llingua";
 "explore-feed-preferences-global-cards-subtitle" = "Independiente de la llingua";
 "explore-feed-preferences-global-cards-title" = "Tarxetes globales";
-"explore-feed-preferences-hide-card-action-title" = "Tapecer esta tarxeta";
-"explore-feed-preferences-hide-feed-cards-action-title" = "Tapecer toles tarxetes «$1»";
+"explore-feed-preferences-hide-card-action-title" = "Anubrir esta tarxeta";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Anubrir toles tarxetes «$1»";
 "explore-feed-preferences-in-the-news-description" = "Artículos sobro actividaes de recién";
 "explore-feed-preferences-languages-footer-text" = "Tapecer toles tarxetes de la canal d'esploración en tolos idiomes desactivará la llingüeta Esplorar.";
 "explore-feed-preferences-on-this-day-description" = "Acontecimientos históricos de güei";
@@ -254,7 +254,7 @@
 "explore-feed-preferences-show-on-this-day-footer-text" = "Desactivar la tarxeta d'Un día como güei desactivará la tarxeta en tolos idiomes disponibles.";
 "explore-feed-preferences-show-on-this-day-title" = "Amosar la tarxeta Un día como güei";
 "explore-feed-preferences-show-picture-of-the-day-title" = "Amosar la tarxeta d'Imaxe del día";
-"explore-hide-card-prompt" = "Tapecer esta tarxeta";
+"explore-hide-card-prompt" = "Anubrir esta tarxeta";
 "explore-main-page-description" = "Páxina principal de los proyeutos de Wikimedia";
 "explore-main-page-heading" = "Güei en Wikipedia";
 "explore-most-read-footer" = "Tolos artículos más lleíos";
@@ -274,8 +274,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "De Wikipedia en $1";
 "explore-random-article-sub-heading-from-wikipedia" = "De Wikipedia";
 "explore-randomizer" = "Al debalu";
-"feed-news-notification-button-text" = "Activar los avisos";
-"feed-news-notification-text" = "Activa los avisos pa recibir avisos de Wikipedia cuando los artículos seyan tendencia nes noticies.";
 "field-alert-captcha-invalid" = "CAPTCHA inválidu";
 "field-alert-password-confirm-mismatch" = "Les contraseñes nun casen";
 "field-alert-token-invalid" = "Códigu inválidu";
@@ -324,10 +322,6 @@
 "icon-shortcut-random-title" = "Artículu al debalu";
 "icon-shortcut-search-title" = "Guetar na Wikipedia";
 "image-gallery-unknown-owner" = "Autor desconocíu.";
-"in-the-news-currently-trending" = "Tendencia agora";
-"in-the-news-notification-read-now-action-title" = "Lleer agora";
-"in-the-news-notification-save-for-later-action-title" = "Guardar pa después";
-"in-the-news-notification-share-action-title" = "Compartir…";
 "in-the-news-sub-title-from-language-wikipedia" = "De Wikipedia en $1";
 "in-the-news-sub-title-from-wikipedia" = "De Wikipedia";
 "in-the-news-title" = "Actualidá";
@@ -365,6 +359,8 @@
 "new-password-instructions" = "Aniciasti sesión con una contraseña temporal. Pa terminar d'aniciar sesión, tienes de configurar una contraseña nueva equí.";
 "new-password-title" = "Configura la contraseña";
 "no-email-account-alert" = "Configura una cuenta de corréu electrónicu nel preséu y téntalo otra vuelta.";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Activar los avisos";
 "number-billions" = "$1";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
@@ -531,6 +527,7 @@
 "settings-help-and-feedback" = "Ayuda y comentarios";
 "settings-language-bar" = "Amosar les llingües na gueta";
 "settings-my-languages" = "Les mios llingües";
+// Fuzzy
 "settings-notifications" = "Avisos";
 "settings-notifications-info" = "Recibe alertes d'artículos n'enclín o más lleíos de Wikipedia coles nueses notificaciones. Toes elles proporcionaes con respetu pola privacidá y actualizaes al minutu.";
 "settings-notifications-learn-more" = "Más información tocante a los avisos";
@@ -568,8 +565,6 @@
 "share-social-mention-format" = "«$1» vía @Wikipedia: $2";
 "sort-by-recently-added-action" = "Añadíos recién";
 "sort-by-title-action" = "Títulu";
-"status-saved-for-later" = "Guardao pa dempués";
-"status-saving-for-later" = "Guardando para dempués…";
 "table-of-contents-button-label" = "Tabla de conteníu";
 "table-of-contents-close-accessibility-hint" = "Zarrar";
 "table-of-contents-close-accessibility-label" = "Zarrar la tabla de conteníu";

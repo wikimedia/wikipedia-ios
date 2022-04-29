@@ -296,7 +296,6 @@
 "featured-widget-from-language-wikipedia" = "$1 ဝီကီပီးဒီးယားမှ";
 "featured-widget-from-wikipedia" = "ဝီကီပီးဒီးယားမှ";
 "featured-widget-title" = "အထူးဆောင်းပါး";
-"feed-news-notification-button-text" = "အသိပေးချက်များ ဖွင့်ရန်။";
 "fetcher-error-generic" = "တစ်ခုခုမှားယွင်းခဲ့ပါသည်။ နောက်မှထပ်မံကြိုးစားပါ။";
 "field-alert-captcha-invalid" = "မမှန်သော CAPTCHA";
 "field-alert-password-confirm-mismatch" = "စကားဝှက်များ ကိုက်ညီမှုမရှိပါ";
@@ -345,10 +344,6 @@
 "icon-shortcut-random-title" = "ကျပန်း ဆောင်းပါး";
 "icon-shortcut-search-title" = "ဝီကီပီးဒီးယားထဲတွင် ရှာဖွေပါ";
 "image-gallery-unknown-owner" = "စာရေးသူ မသိရ";
-"in-the-news-currently-trending" = "လက်ရှိ ရေပန်းစားမှု";
-"in-the-news-notification-read-now-action-title" = "ယခုဖတ်ရန်။";
-"in-the-news-notification-save-for-later-action-title" = "နောင်အတွက် သိမ်းဆည်းရန်";
-"in-the-news-notification-share-action-title" = "မျှဝေပါ...";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 ဝီကီပီးဒီးယားမှ";
 "in-the-news-sub-title-from-wikipedia" = "ဝီကီပီးဒီးယားမှ";
 "in-the-news-title" = "သတင်းထဲတွင်";
@@ -411,10 +406,13 @@
 "no-internet-connection" = "အင်တာနက် ကွန်နက်ရှင် မရှိပါ";
 "no-internet-connection-article-reload" = "ဤဆောင်းပါး၏ ပိုမိုသစ်လွင်သောမူကို ရရှိနိုင်ကောင်းပါသည်၊ သို့သော် အင်တာနက်ကွန်နက်ရှင်မရှိဘဲ မဆွဲတင်နိုင်ပါ။";
 "notifications-center-change-password" = "စကားဝှက် ပြောင်းလဲရန်";
-"notifications-center-footer-change-password" = "စကားဝှက် ပြောင်းလဲရန်";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "အသိပေးချက်များ ဖွင့်ရန်။";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "ဆွေးနွေးစာမျက်နှာသို့ သွားရန်";
-"notifications-center-go-to-title" = "$1 သို့ သွားပါ";
+// Fuzzy
 "notifications-center-go-to-user-page" = "$1 ၏ စာမျက်နှာသို့ သွားရန်";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "သင်၏ဆွေးနွေးစာမျက်နှာသို့ သွားရန်";
 "notifications-center-header-notice-from-project" = "$1 မှ အသိပေးချက်";
 "notifications-center-login-notifications" = "လော့ဂ်အင် အသိပေးချက်များ";
@@ -427,7 +425,7 @@
 "notifications-center-subheader-translate-milestone" = "ဘာသာပြန်မှု မိုင်တိုင်";
 "notifications-center-subheader-welcome" = "ကြိုဆိုပါသည်!";
 "notifications-center-title" = "အသိပေးချက်များ";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|မက်ဆေ့|မက်ဆေ့များ}}";
+// Fuzzy
 "notifications-push-talk-title-format" = "အသစ် $1";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
@@ -560,12 +558,7 @@
 "replace-infolabel-method-replace-all" = "အကုန်လုံး အစားထိုးရန်";
 "replace-textfield-accessibility" = "အစားထိုးရန်";
 "replace-textfield-placeholder" = "...ဖြင့် အစားထိုးရန်";
-"reverted-edit-back-to-article-button-title" = "ဆောင်းပါးသို့ ပြန်သွားရန်";
-"reverted-edit-possible-reasons" = "- သင်၏ပံ့ပိုးမှုမှာ လမ်းညွှန်ချက်များထဲမှတစ်ခုဖြင့် မကိုက်ညီပါ။ $1\n\n- သင်၏ပံ့ပိုးမှုမှာ စမ်းသပ်ချက် သို့မဟုတ် အလွဲသုံးစားပြုလုပ်မှုတစ်ခုနှင့် တူပါသည်။";
-"reverted-edit-possible-reasons-subtitle" = "သင် အကောင်းဆုံးကြိုးစားခဲ့မှန်း ကျွန်ုပ်တို့ သိရှိပါသည်၊ သို့သော် ပြန်လည်စစ်ဆေးသူများထဲက တစ်ယောက်တွင် စိုးရိမ်မှုတစ်ခု ရှိခဲ့သည်။ သင်၏တည်းဖြတ်မှုကို နောက်ပြန်ပြင်လိုက်သည့် ဖြစ်နိုင်ခြေရှိသော အကြောင်းပြချက်တွင်:";
-"reverted-edit-thanks-for-editing-title" = "ဝီကီပီဒီးယား တည်းဖြတ်မှုအတွက် ကျေးဇူးတင်ပါသည်";
 "reverted-edit-title" = "နောက်ပြန်ပြင်သော တည်းဖြတ်မှု";
-"reverted-edit-view-guidelines-text" = "လမ်းညွန်များကို ကြည့်ရန်";
 "saved-all-articles-title" = "ဆောင်းပါးများ အားလုံး";
 "saved-default-reading-list-tag" = "ဤစာရင်းကို မဖျက်ပစ်နိုင်ပါ";
 "saved-pages-image-download-error" = "ဤသိမ်းထားသောစာမျက်နှာအတွက် ရုပ်ပုံများ ဒေါင်းလုတ်ဆွဲရာတွင် မအောင်မြင်ပါ။";
@@ -593,6 +586,7 @@
 "settings-help-and-feedback" = "အကူအညီနှင့် အကြံပြုချက်";
 "settings-language-bar" = "ရှာဖွေမှုတွင် ဘာသာစကားများ ပြရန်";
 "settings-my-languages" = "ကျွန်ုပ်၏ ဘာသာစကားများ";
+// Fuzzy
 "settings-notifications" = "အသိပေးချက်များ";
 "settings-notifications-learn-more" = "အသိပေးချက်များအကြောင်း ပိုမိုလေ့လာရန်";
 "settings-notifications-push-notifications" = "အသိပေးချက်များ";
@@ -621,8 +615,6 @@
 "share-social-mention-format" = "@ဝီကီပီးဒီးယားမှတဆင့် “$1”: $2";
 "sort-by-recently-added-action" = "မကြာသေးခင်က ထည့်ပေါင်းခဲ့သည်";
 "sort-by-title-action" = "ခေါင်းစဉ်";
-"status-saved-for-later" = "နောင်အတွက် သိမ်းဆည်းပြီး";
-"status-saving-for-later" = "နောင်အတွက် သိမ်းဆည်းနေသည်...";
 "table-of-contents-button-label" = "မာတိကာ";
 "table-of-contents-close-accessibility-hint" = "ပိတ်ရန်";
 "table-of-contents-close-accessibility-label" = "မာတိကာ ပိတ်ရန်";

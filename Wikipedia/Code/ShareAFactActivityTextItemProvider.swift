@@ -53,7 +53,7 @@ class ShareAFactActivityTextItemProvider: UIActivityItemProvider {
     }
 
     var socialMentionRepresentation: String {
-        let format = WMFLocalizedString("share-social-mention-format", value: "“%1$@” via @Wikipedia: %2$@", comment: "Share format string for social platforms with an @mention. %1$@ is replaced with the article title, %2$@ is replaced with the article URL.")
+        let format = WMFLocalizedString("share-social-mention-format", value: "“%1$@” via Wikipedia: %2$@", comment: "Share format string for social platforms with an @mention. %1$@ is replaced with the article title, %2$@ is replaced with the article URL.")
         return String.localizedStringWithFormat(format, articleTitle, articleURL.wmf_URLForImageSharing.absoluteString)
     }
 }
