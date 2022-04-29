@@ -632,6 +632,7 @@
 "notifications-center-subheader-email-from-other-user" = "Uusi sähköposti";
 "notifications-center-subheader-login-fail-known-device" = "Useita epäonnistuneita kirjautumisyrityksiä";
 "notifications-center-subheader-login-fail-unknown-device" = "Epäonnistunut kirjautumisyritys";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Kirjautuminen tuntemattomalta laitteelta";
 "notifications-center-subheader-mention-article-talk-page" = "Maininta artikkelin keskustelusivulla";
 "notifications-center-subheader-mention-edit-summary" = "Maininta muokkausyhteenvedossa";
@@ -654,8 +655,9 @@
 "notifications-center-type-item-description-mentions" = "Maininnat";
 "notifications-center-type-item-description-welcome-verbose" = "Tervetuloviesti";
 "notifications-push-fallback-body-text" = "Uusi toiminta Wikipediassa";
+// Fuzzy
 "notifications-push-talk-body-format" = "$1 $2 sivulla $3";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|uusi viesti|uutta viestiä}}";
+// Fuzzy
 "notifications-push-talk-title-format" = "Uusi $1";
 "number-billions" = "$1 mrd.";
 "number-millions" = "$1 milj.";

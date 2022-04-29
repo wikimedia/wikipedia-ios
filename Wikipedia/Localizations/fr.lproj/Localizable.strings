@@ -670,6 +670,7 @@
 "notifications-center-subheader-email-from-other-user" = "Nouveau courriel";
 "notifications-center-subheader-login-fail-known-device" = "Échecs multiples de tentatives de connexion";
 "notifications-center-subheader-login-fail-unknown-device" = "Tentative de connexion échouée";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Connexion depuis un appareil inhabituel";
 "notifications-center-subheader-mention-article-talk-page" = "Mention sur la page de discussion de l’article";
 "notifications-center-subheader-mention-edit-summary" = "Mention dans un résumé de modifications";
@@ -692,9 +693,8 @@
 "notifications-center-type-item-description-mentions" = "Mentions";
 "notifications-center-type-item-description-welcome-verbose" = "Message de bienvenue";
 "notifications-push-fallback-body-text" = "Nouvelle activité sur Wikipédia";
-"notifications-push-talk-body-format" = "$1 nouveaux $2 sur $3";
-"notifications-push-talk-messages-format" = "message{{PLURAL:$1||s}}";
-"notifications-push-talk-title-format" = "Nouveau $1";
+"notifications-push-talk-body-format" = "$1 nouveau{{PLURAL:$1||x}} message{{PLURAL:$1||s}} sur $2";
+"notifications-push-talk-title-format" = "Nouveau{{PLURAL:$1||x}} message{{PLURAL:$1||s}}";
 "number-billions" = "$1 G";
 "number-millions" = "$1 M";
 "number-thousands" = "$1 k";

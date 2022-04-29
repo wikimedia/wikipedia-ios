@@ -19,7 +19,7 @@ extension NotificationsCenterCellViewModel {
              .connectionWithWikidata,
              .emailFromOtherUser:
             guard let agentName = notification.agentName else {
-                return genericHeaderText(type: notification.type, project: project)
+                return genericHeaderText(type: notification.type)
             }
 
             return String.localizedStringWithFormat(CommonStrings.notificationsCenterAgentDescriptionFromFormat, agentName)
@@ -32,7 +32,7 @@ extension NotificationsCenterCellViewModel {
              .loginSuccessUnknownDevice,
              .failedMention,
              .successfulMention:
-            return alertText(project: project)
+            return CommonStrings.notificationsCenterAlert
             
         case .unknownSystemAlert,
              .unknownSystemNotice,
@@ -40,7 +40,7 @@ extension NotificationsCenterCellViewModel {
              .unknownNotice,
              .unknown:
             guard let agentName = notification.agentName else {
-                return genericHeaderText(type: notification.type, project: project)
+                return genericHeaderText(type: notification.type)
             }
 
             return String.localizedStringWithFormat(alertFromText, agentName)
@@ -95,6 +95,7 @@ extension NotificationsCenterCellViewModel {
         commonViewModel.dateText
     }
     
+    
     var projectText: String? {
         switch project {
         case .wikipedia(let languageCode, _, _):
@@ -119,27 +120,14 @@ extension NotificationsCenterCellViewModel {
 
 private extension NotificationsCenterCellViewModel {
     
-    func noticeText(project: RemoteNotificationsProject) -> String {
-        let format = WMFLocalizedString("notifications-center-header-notice-from-project", value: "Notice from %1$@", comment: "Header text for notice notifications in Notifications Center. %1$@ is replaced with a project name such as \"EN-Wikipedia\" or \"Wikimedia Commons\".")
-        let projectName = project.projectName(shouldReturnCodedFormat: true)
-        return String.localizedStringWithFormat(format, projectName)
-    }
-    
-    func alertText(project: RemoteNotificationsProject) -> String {
-
-        let format = WMFLocalizedString("notifications-center-header-alert-from-project", value: "Alert from %1$@", comment: "Header text for alert notifications in Notifications Center. %1$@ is replaced with a project name such as \"EN-Wikipedia\".")
-        let projectName = project.projectName(shouldReturnCodedFormat: true)
-        return String.localizedStringWithFormat(format, projectName)
-    }
-    
-    func genericHeaderText(type: RemoteNotificationType, project: RemoteNotificationsProject) -> String {
+    func genericHeaderText(type: RemoteNotificationType) -> String {
         switch type {
         case .unknownSystemAlert, .unknownAlert:
-            return alertText(project: project)
+            return CommonStrings.notificationsCenterAlert
         case .unknownSystemNotice, .unknownNotice:
-            return noticeText(project: project)
+            return CommonStrings.notificationsCenterNotice
         default:
-            return noticeText(project: project)
+            return CommonStrings.notificationsCenterNotice
         }
     }
 }

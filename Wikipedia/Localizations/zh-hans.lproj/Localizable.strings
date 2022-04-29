@@ -602,6 +602,7 @@
 "no-internet-connection-article-reload-button" = "返回至最近保存的版本";
 "notifications-center-agent-description-from-format" = "来自$1";
 "notifications-center-alert" = "提醒";
+"notifications-center-cell-notification-type-accessibility-label-format" = "$1通知";
 "notifications-center-change-password" = "更改密码";
 "notifications-center-checking-for-notifications" = "正在检查通知…";
 "notifications-center-destination-app" = "在app";
@@ -663,6 +664,7 @@
 "notifications-center-subheader-email-from-other-user" = "新邮件";
 "notifications-center-subheader-login-fail-known-device" = "多次失败的登录尝试";
 "notifications-center-subheader-login-fail-unknown-device" = "失败的登录尝试";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "来自不熟悉设备的登录";
 "notifications-center-subheader-mention-article-talk-page" = "条目讨论页上的提及";
 "notifications-center-subheader-mention-edit-summary" = "编辑摘要中的提及";
@@ -684,9 +686,8 @@
 "notifications-center-type-item-description-mentions" = "提及";
 "notifications-center-type-item-description-welcome-verbose" = "欢迎消息";
 "notifications-push-fallback-body-text" = "维基百科上的新活动";
-"notifications-push-talk-body-format" = "$3上的$1条新$2";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|消息}}";
-"notifications-push-talk-title-format" = "新$1";
+"notifications-push-talk-body-format" = "$2上的{{PLURAL:$1|$1条新消息}}";
+"notifications-push-talk-title-format" = "{{PLURAL:$1|新消息}}";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";

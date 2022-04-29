@@ -472,6 +472,7 @@
 "notifications-center-subheader-edit-reverted" = "Szerkesztésedet visszavonták";
 "notifications-center-subheader-email-from-other-user" = "Új email";
 "notifications-center-subheader-login-fail-unknown-device" = "Sikertelen bejelentkezés";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Bejelentkezés ismeretlen eszközről";
 "notifications-center-subheader-page-reviewed" = "Ellenőrzött szócikk";
 "notifications-center-subheader-thanks" = "Köszönetek";
@@ -482,7 +483,7 @@
 "notifications-center-swipe-mark-as-unread" = "Jelölés olvasatlanként";
 "notifications-center-swipe-more" = "Tovább";
 "notifications-center-title" = "Értesítések";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|üzenet|üzenet}}";
+// Fuzzy
 "notifications-push-talk-title-format" = "Új $1";
 "number-billions" = "$1 Mrd";
 "number-millions" = "$1M";

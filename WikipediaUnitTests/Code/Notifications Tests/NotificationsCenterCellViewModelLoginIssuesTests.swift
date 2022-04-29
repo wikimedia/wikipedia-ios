@@ -23,7 +23,7 @@ class NotificationsCenterCellViewModelLoginIssuesTests: NotificationsCenterViewM
     
     private func testLoginFailKnownDeviceText(cellViewModel: NotificationsCenterCellViewModel) throws {
         XCTAssertEqual(cellViewModel.headerText, "Multiple failed log in attempts", "Invalid headerText")
-        XCTAssertEqual(cellViewModel.subheaderText, "Alert from EN-Wikipedia", "Invalid subheaderText")
+        XCTAssertEqual(cellViewModel.subheaderText, "Alert", "Invalid subheaderText")
         XCTAssertEqual(cellViewModel.bodyText, "There have been 5 failed attempts to log in to your account since the last time you logged in. If it wasn\'t you, please make sure your account has a strong password.")
         XCTAssertEqual(cellViewModel.footerText, "Change password")
         XCTAssertEqual(cellViewModel.dateText, "7/16/21", "Invalid dateText")
@@ -43,27 +43,27 @@ class NotificationsCenterCellViewModelLoginIssuesTests: NotificationsCenterViewM
         let expectedURL0: URL? = nil
         let expectedIcon0: NotificationsCenterIconType? = nil
         let expectedDestinationText0: String? = nil
-        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true)
-        
-        let expectedText1 = "Login notifications"
-        let expectedURL1: URL? = URL(string: "https://www.mediawiki.org/wiki/Help:Login_notifications")!
-        let expectedIcon1: NotificationsCenterIconType = .document
+        let expectedAction0: NotificationsCenterActionData.LoggingLabel = .markUnread
+        try testActions(expectedText: expectedText0, expectedURL: expectedURL0, expectedIcon: expectedIcon0, expectedDestinationText: expectedDestinationText0, actionToTest: cellViewModel.sheetActions[0], isMarkAsRead: true, actionType: expectedAction0)
+
+        let expectedText1 = "Change password"
+        let expectedURL1: URL? = URL(string: "https://mediawiki.org/wiki/Special:ChangeCredentials")!
+        let expectedIcon1: NotificationsCenterIconType = .lock
         let expectedDestinationText1 = "On web"
-        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: cellViewModel.sheetActions[1])
-        
-        let expectedText2 = "Change password"
-        let expectedURL2: URL? = URL(string: "https://mediawiki.org/wiki/Special:ChangeCredentials")!
-        let expectedIcon2: NotificationsCenterIconType = .lock
+        try testActions(expectedText: expectedText1, expectedURL: expectedURL1, expectedIcon: expectedIcon1, expectedDestinationText: expectedDestinationText1, actionToTest: cellViewModel.sheetActions[1], actionType: .changePassword)
+
+        let expectedText2 = "Login notifications"
+        let expectedURL2: URL? = URL(string: "https://www.mediawiki.org/wiki/Help:Login_notifications")!
+        let expectedIcon2: NotificationsCenterIconType = .document
         let expectedDestinationText2 = "On web"
-        try testActions(expectedText: expectedText2, expectedURL: expectedURL2, expectedIcon: expectedIcon2, expectedDestinationText: expectedDestinationText2, actionToTest: cellViewModel.sheetActions[2])
-        
+        try testActions(expectedText: expectedText2, expectedURL: expectedURL2, expectedIcon: expectedIcon2, expectedDestinationText: expectedDestinationText2, actionToTest: cellViewModel.sheetActions[2], actionType: .login)
+
         let expectedText3 = "Notification settings"
         let expectedURL3: URL? = nil
         let expectedIcon3: NotificationsCenterIconType? = nil
         let expectedDestinationText4: String? = nil
-        try testActions(expectedText: expectedText3, expectedURL: expectedURL3, expectedIcon: expectedIcon3, expectedDestinationText: expectedDestinationText4, actionToTest: cellViewModel.sheetActions[3], isNotificationSettings: true)
-        
-        
+        let expectedAction3: NotificationsCenterActionData.LoggingLabel = .settings
+        try testActions(expectedText: expectedText3, expectedURL: expectedURL3, expectedIcon: expectedIcon3, expectedDestinationText: expectedDestinationText4, actionToTest: cellViewModel.sheetActions[3], isNotificationSettings: true, actionType: expectedAction3)
         
     }
 

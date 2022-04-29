@@ -602,6 +602,7 @@
 "notifications-center-more-action-accessibility-label" = "Mais";
 "notifications-center-notifications-settings" = "Configurações de notificação";
 "notifications-center-onboarding-panel-secondary-button" = "Não, {{GENDER:|obrigado|obrigada|obrigado}}";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Entrar em um dispositivo desconhecido";
 "notifications-center-subheader-mention-failed" = "Menção falhada";
 "notifications-center-subheader-mention-successful" = "Menção bem sucedida";

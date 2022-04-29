@@ -1,6 +1,7 @@
 // Messages for Turkish (Türkçe)
 // Exported from translatewiki.net
 // Author: 1917 Ekim Devrimi
+// Author: Ahmetlii
 // Author: Alikaan
 // Author: Alpkant
 // Author: Ayrıntılı Bilgi
@@ -606,16 +607,11 @@
 "notifications-center-filters-title" = "Filtreler";
 "notifications-center-filters-types-item-title-all" = "Tüm türler";
 "notifications-center-filters-types-section-title" = "Bildirim türleri";
-// Fuzzy
-"notifications-center-go-to-diff" = "Farka git";
-// Fuzzy
-"notifications-center-go-to-talk-page" = "Tartışma sayfasına git";
-// Fuzzy
-"notifications-center-go-to-user-page" = "$1 kullanıcı sayfasına git";
-// Fuzzy
-"notifications-center-go-to-wikidata-item" = "Vikiveri ögesine git";
-// Fuzzy
-"notifications-center-go-to-your-talk-page" = "Mesaj sayfanıza gidin";
+"notifications-center-go-to-diff" = "Fark";
+"notifications-center-go-to-talk-page" = "Tartışma sayfası";
+"notifications-center-go-to-user-page" = "$1'in kullanıcı sayfasına git";
+"notifications-center-go-to-wikidata-item" = "Vikiveri ögesi";
+"notifications-center-go-to-your-talk-page" = "Mesaj sayfanız";
 "notifications-center-header-alert-from-agent" = "$1 kaynağından uyarı";
 "notifications-center-header-alert-from-project" = "$1 sitesinden uyarı";
 "notifications-center-header-notice-from-project" = "$1 sitesinden bildiri";
@@ -645,6 +641,7 @@
 "notifications-center-subheader-email-from-other-user" = "Yeni e-posta";
 "notifications-center-subheader-login-fail-known-device" = "Birçok başarısız giriş denemesi";
 "notifications-center-subheader-login-fail-unknown-device" = "Başarısız giriş denemesi";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Tanıdık olmayan bir cihazdan giriş";
 "notifications-center-subheader-mention-article-talk-page" = "Tartışma sayfasında bahsetme";
 "notifications-center-subheader-mention-edit-summary" = "Düzenleme özetinde bahsetme";
@@ -664,9 +661,8 @@
 "notifications-center-title" = "Bildirimler";
 "notifications-center-toolbar-mark-accessibility-label" = "Seçili bildirimleri işaretle";
 "notifications-push-fallback-body-text" = "Vikipedi'de yeni etkinlik";
-"notifications-push-talk-body-format" = "$3 sayfasında $1 yeni $2";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|mesaj}}";
-"notifications-push-talk-title-format" = "Yeni $1";
+"notifications-push-talk-body-format" = "$2 sayfasında {{PLURAL:$1|$1 yeni mesaj|$1 yeni mesajlar}}";
+"notifications-push-talk-title-format" = "{{PLURAL:$1|Yeni mesaj|Yeni mesajlar}}";
 "number-billions" = "$1Mr";
 "number-millions" = "$1Mn";
 "number-thousands" = "$1B";

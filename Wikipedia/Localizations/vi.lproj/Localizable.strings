@@ -589,6 +589,7 @@
 "notifications-center-subheader-email-from-other-user" = "Thư điện tử mới";
 "notifications-center-subheader-login-fail-known-device" = "Nhiều lần đăng nhập không thành công";
 "notifications-center-subheader-login-fail-unknown-device" = "Lần đăng nhập không thành công";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Đăng nhập từ thiết bị không quen";
 "notifications-center-subheader-mention-article-talk-page" = "Lời nhắc đến tại trang thảo luận bài viết";
 "notifications-center-subheader-mention-edit-summary" = "Lời nhắc đến trong tóm lược sửa đổi";
@@ -608,8 +609,9 @@
 "notifications-center-swipe-more" = "Thêm";
 "notifications-center-title" = "Thông báo";
 "notifications-push-fallback-body-text" = "Hoạt động mới tại Wikipedia";
+// Fuzzy
 "notifications-push-talk-body-format" = "$1 $2 mới tại $3";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1}}Thông báo";
+// Fuzzy
 "notifications-push-talk-title-format" = "$1 mới";
 "number-billions" = "$1 tỷ";
 "number-millions" = "$1 triệu";

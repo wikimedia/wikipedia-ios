@@ -611,6 +611,7 @@
 "notifications-center-status-read" = "既読";
 "notifications-center-status-unread" = "未読";
 "notifications-center-subheader-email-from-other-user" = "新しいメール";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "身に覚えのない端末からのログイン";
 "notifications-center-subheader-mention-failed" = "メンションに失敗しました";
 "notifications-center-subheader-mention-successful" = "メンションに成功しました";
@@ -622,8 +623,9 @@
 "notifications-center-type-item-description-mentions" = "言及";
 "notifications-center-type-item-description-welcome-verbose" = "ようこそメッセージ";
 "notifications-push-fallback-body-text" = "ウィキペディア内の新しいアクティビティ";
+// Fuzzy
 "notifications-push-talk-body-format" = "$3の$1件の#2";
-"notifications-push-talk-messages-format" = "メッセージ";
+// Fuzzy
 "notifications-push-talk-title-format" = "新しい$1";
 "number-billions" = "$1";
 "number-millions" = "$1";

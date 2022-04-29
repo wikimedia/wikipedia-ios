@@ -430,7 +430,7 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Från Wikipedia";
 "explore-randomizer" = "Slumpgenerator";
 "featured-article-empty-title" = "Inga tillgängliga utmärkta artiklar idag";
-"featured-widget-content-failure-for-date" = "En utmärkt artikel finns inte tillgänglig för detta datum.";
+"featured-widget-content-failure-for-date" = "Det finns ingen utmärkt artikel för detta datum.";
 "featured-widget-description" = "Upptäck de bästa artiklarna på Wikipedia som väljs ut dagligen av vår gemenskap.";
 "featured-widget-from-language-wikipedia" = "Från Wikipedia på $1";
 "featured-widget-from-wikipedia" = "Från Wikipedia";
@@ -664,6 +664,7 @@
 "notifications-center-subheader-email-from-other-user" = "Ny e-post";
 "notifications-center-subheader-login-fail-known-device" = "Flera misslyckade inloggningsförsök";
 "notifications-center-subheader-login-fail-unknown-device" = "Misslyckat inloggningsförsök";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Inloggning från en okänd enhet";
 "notifications-center-subheader-mention-article-talk-page" = "Omnämnande på en artikels diskussionssida";
 "notifications-center-subheader-mention-edit-summary" = "Omnämnande i redigeringssammanfattning";
@@ -686,8 +687,9 @@
 "notifications-center-type-item-description-mentions" = "Omnämnanden";
 "notifications-center-type-item-description-welcome-verbose" = "Välkomstmeddelande";
 "notifications-push-fallback-body-text" = "Ny aktivitet på Wikipedia";
+// Fuzzy
 "notifications-push-talk-body-format" = "$1 nytt $2 på $3";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|meddelande|meddelanden}}";
+// Fuzzy
 "notifications-push-talk-title-format" = "Nytt $1";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
@@ -705,7 +707,7 @@
 "page-history-bot-edits" = "botredigeringar";
 "page-history-compare-accessibility-hint" = "Tryck för att välja två versioner att jämföra";
 "page-history-compare-title" = "Jämför";
-"page-history-graph-accessibility-label" = "Graf över redigeringar över tid";
+"page-history-graph-accessibility-label" = "Diagram över redigeringar över tid";
 "page-history-minor-edits" = "mindre redigeringar";
 "page-history-revision-author-accessibility-label" = "Författare: $1";
 "page-history-revision-comment-accessibility-label" = "Kommentar $1";
@@ -913,7 +915,7 @@
 "settings-notifications-echo-failure-message" = "Det uppstod ett fel när aviseringsprenumerationer som rör ditt konto skulle kontrolleras.";
 "settings-notifications-echo-failure-title" = "Kunde inte kontrollera prenumerationer på Echo-aviseringar";
 "settings-notifications-echo-failure-try-again" = "Försök igen";
-"settings-notifications-header" = "Bli uppmärksammad på aktiviteter relaterade till ditt konto, till exempel meddelanden från andra bidragsgivare, varningar och meddelanden. Allt tillhandahålls med hänsyn till integritet och aktuell och uppdaterad data.";
+"settings-notifications-header" = "Meddelas om aktiviteter som rör ditt konto, till exempel meddelanden från andra bidragsgivare, varningar och meddelanden. Allt tillhandahålls med hänsyn till integritet och aktuell och uppdaterad data.";
 "settings-notifications-info" = "Bli meddelad om trender och populära artiklar på Wikipedia med våra push-notiser. Allting tillhandahålls med respekt för integritet och uppdaterad data.";
 "settings-notifications-learn-more" = "Läs mer om notiser";
 "settings-notifications-push-notifications" = "Push-notiser";

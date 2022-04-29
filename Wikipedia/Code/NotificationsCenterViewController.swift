@@ -329,10 +329,18 @@ private extension NotificationsCenterViewController {
         let optionsMenu = UIMenu(title: title, children: [
             UIAction.init(title: CommonStrings.notificationsCenterMarkAsRead, image: UIImage(systemName: "envelope.open"), handler: { _ in
                 self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: true)
+                let identifier = UUID()
+                for cellViewModel in selectedCellViewModels {
+                    self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: identifier.uuidString, shouldMarkRead: true)
+                }
                 self.isEditing = false
             }),
             UIAction(title: CommonStrings.notificationsCenterMarkAsUnread, image: UIImage(systemName: "envelope"), handler: { _ in
                 self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: false)
+                let identifier = UUID()
+                for cellViewModel in selectedCellViewModels {
+                    self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: identifier.uuidString, shouldMarkRead: false)
+                }
                 self.isEditing = false
             })
         ])
@@ -351,12 +359,20 @@ private extension NotificationsCenterViewController {
         let action1 = UIAlertAction(title: CommonStrings.notificationsCenterMarkAsRead, style: .default) { _ in
             self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: true)
             self.isEditing = false
+            let identifier = UUID()
+            for cellViewModel in selectedCellViewModels {
+                self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: identifier.uuidString, shouldMarkRead: true)
+            }
         }
         
         let action2 = UIAlertAction(title: CommonStrings.notificationsCenterMarkAsUnread, style: .default) { _ in
             
             self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: false)
             self.isEditing = false
+            let identifier = UUID()
+            for cellViewModel in selectedCellViewModels {
+                self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: identifier.uuidString, shouldMarkRead: false)
+            }
         }
         
         let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil)
@@ -367,8 +383,27 @@ private extension NotificationsCenterViewController {
         if let popoverController = alertController.popoverPresentationController {
             popoverController.barButtonItem = sender
         }
-        
         present(alertController, animated: true, completion: nil)
+    }
+    
+    private func logMarkReadOrUnreadAction(model: NotificationsCenterCellViewModel, selectionToken: String?, shouldMarkRead: Bool) {
+        guard let notificationId = model.notification.id else { return }
+        if let notificationId = Int(notificationId), let notificationType = model.notification.typeString, let notificationWiki = model.notification.wiki {
+        let action: NotificationsCenterActionData.LoggingLabel = shouldMarkRead ? .markRead : .markUnread
+        RemoteNotificationsFunnel.shared.logNotificationInteraction(notificationId: notificationId, notificationWiki: notificationWiki, notificationType: notificationType, action: action, selectionToken: selectionToken)
+        }
+    }
+    
+    private func logNotificationInteraction(with action: NotificationsCenterActionData.LoggingLabel?, model: NotificationsCenterCellViewModel) {
+        guard let notificationId = model.notification.id else { return }
+        if let notificationId = Int(notificationId), let notificationType = model.notification.typeString, let notificationWiki = model.notification.wiki {
+        RemoteNotificationsFunnel.shared.logNotificationInteraction(
+            notificationId: notificationId,
+            notificationWiki: notificationWiki,
+            notificationType: notificationType,
+            action: action,
+            selectionToken: nil)
+        }
     }
     
     @objc func didTapMarkAllAsReadButton(_ sender: UIBarButtonItem) {
@@ -588,6 +623,7 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
 
             if !cellViewModel.isRead {
                 viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true, shouldDisplayErrorIfNeeded: false)
+                logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: nil, shouldMarkRead: true)
             }
 
             let detailViewModel = NotificationsCenterDetailViewModel(commonViewModel: cellViewModel.commonViewModel)
@@ -766,8 +802,9 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
             switch action {
             case .markAsReadOrUnread(let data):
                 alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
-                    let shouldMarkRead = cellViewModel.isRead ? false : true
+                    let shouldMarkRead = data.actionType == .markRead
                     self.viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: shouldMarkRead)
+                    self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: nil, shouldMarkRead: shouldMarkRead)
                     self.closeSwipeActionsPanelIfNecessary()
                 })
             case .notificationSubscriptionSettings(let data):
@@ -776,14 +813,18 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
                     NSUserActivity.wmf_navigate(to: userActivity)
                     if !cellViewModel.isRead {
                         self.viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true)
+                        self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: nil, shouldMarkRead: true)
                     }
+                    self.logNotificationInteraction(with: data.actionType, model: cellViewModel)
                 })
             case .custom(let data):
                 alertAction = UIAlertAction(title: data.text, style: .default, handler: { alertAction in
+                    self.logNotificationInteraction(with: data.actionType, model: cellViewModel)
                     let url = data.url
                     self.navigate(to: url)
                     if !cellViewModel.isRead {
                         self.viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: true)
+                        self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: nil, shouldMarkRead: true)
                     }
                 })
             }
@@ -816,6 +857,7 @@ extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
 
         closeSwipeActionsPanelIfNecessary()
         viewModel.markAsReadOrUnread(viewModels: [cellViewModel], shouldMarkRead: !cellViewModel.isRead)
+        self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: nil, shouldMarkRead: !cellViewModel.isRead)
     }
     
 }

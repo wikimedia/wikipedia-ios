@@ -663,6 +663,7 @@
 "notifications-center-subheader-email-from-other-user" = "Correu electrònic nou";
 "notifications-center-subheader-login-fail-known-device" = "Múltiples intents d'inici de sessió fallits";
 "notifications-center-subheader-login-fail-unknown-device" = "Intent d'inici de sessió fallit";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Inici de sessió d'un dispositiu no habitual";
 "notifications-center-subheader-mention-article-talk-page" = "Menció en la pàgina de discussió d'un article";
 "notifications-center-subheader-mention-edit-summary" = "Menció en un resum d'edició";
@@ -685,8 +686,9 @@
 "notifications-center-type-item-description-mentions" = "Mencions";
 "notifications-center-type-item-description-welcome-verbose" = "Missatge de benvinguda";
 "notifications-push-fallback-body-text" = "Activitat nova a la Viquipèdia";
+// Fuzzy
 "notifications-push-talk-body-format" = "$1 nous $2 a $3";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|missatge|missatges}}";
+// Fuzzy
 "notifications-push-talk-title-format" = "Nous $1";
 "number-billions" = "$1B";
 "number-millions" = "$1M";

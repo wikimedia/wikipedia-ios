@@ -630,6 +630,7 @@
 "notifications-center-subheader-email-from-other-user" = "Нова електронна пошта";
 "notifications-center-subheader-login-fail-known-device" = "Кілька невдалих спроб входу";
 "notifications-center-subheader-login-fail-unknown-device" = "Невдала спроба входу";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Увійти з незнайомого пристрою";
 "notifications-center-subheader-mention-article-talk-page" = "Згадка на сторінці обговорення статті";
 "notifications-center-subheader-mention-edit-summary" = "Згадка в описі редагування";
@@ -649,8 +650,9 @@
 "notifications-center-swipe-more" = "Ще";
 "notifications-center-title" = "Сповіщення";
 "notifications-push-fallback-body-text" = "Нова активність у Вікіпедії";
+// Fuzzy
 "notifications-push-talk-body-format" = "$1 новий $2 на $3";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|повідомлення|повідомлень}}";
+// Fuzzy
 "notifications-push-talk-title-format" = "Новий $1";
 "number-billions" = "$1 млрд";
 "number-millions" = "$1 млн";

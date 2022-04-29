@@ -119,6 +119,7 @@
 "action-add-to-reading-list" = "Tambahkan ke daftar bacaan";
 "action-add-to-reading-list-short" = "Tambah ke daftar";
 "action-cancel" = "Batal";
+"action-discard-edits" = "Buang suntingan";
 "action-find-in-page" = "Cari di halaman";
 "action-language-accessibility" = "Ubah bahasa";
 "action-move-to" = "Pindahkan ke...";
@@ -329,6 +330,7 @@
 "editing-welcome-impartial-tone-title" = "Tulislah dengan nada netral";
 "editing-welcome-set-knowledge-free-subtitle" = "Untuk memberikan segala orang akses ke pengetahuan dunia, kami membutuhkan anda untuk berpartisipasi dalam pembuatannya dengan membaca, menyunting, dan berkontribusi kepada topik yang paling penting untuk anda.";
 "editing-welcome-set-knowledge-free-title" = "Bebaskan pengetahuan";
+"editor-exit-confirmation-body" = "Apakah Anda yakin ingin meninggalkan mode penyuntingan tanpa menerbitkannya terlebih dahulu?";
 "empty-diff-compare-title" = "Tidak ada perbedaan antar revisi";
 "empty-diff-single-title" = "Tidak ada perubahan yang bisa dilihat";
 "empty-insert-media-title" = "Pilih berkas dari Wikimedia Commons";
@@ -580,15 +582,22 @@
 "no-internet-connection-article-reload" = "Versi yang lebih baru dari artikel ini mungkin tersedia, tetapi tidak dapat dimuat tanpa sambungan ke internet";
 "no-internet-connection-article-reload-button" = "Kembali ke versi terakhir yang disimpan";
 "notifications-center-agent-description-from-format" = "Dari $1";
+"notifications-center-cell-notification-type-accessibility-label-format" = "$1 pemberitahuan";
 "notifications-center-change-password" = "Ganti Kata Sandi";
 "notifications-center-checking-for-notifications" = "Memeriksa notifikasi...";
+"notifications-center-destination-app" = "Di aplikasi";
+"notifications-center-destination-web" = "Di web";
 "notifications-center-empty-checking-for-notifications" = "Memeriksa notifikasi...";
 "notifications-center-empty-no-messages" = "Anda tidak memiliki pesan";
 "notifications-center-empty-not-subscribed" = "Anda belum berlangganan notifikasi Wikipedia apapun";
 "notifications-center-empty-state-filters-subtitle" = "Ubah $1 untuk melihat lebih banyak pesan";
+"notifications-center-empty-state-no-projects-selected" = "Tambah proyek untuk melihat lebih banyak pesan";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter}}";
+"notifications-center-feed-card-title" = "Pemberitahuan suntingan sekarang tersedia";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "Aktifkan pemberitahuan";
+"notifications-center-feed-news-notification-dismiss-button-text" = "Nanti";
+"notifications-center-filters-accessibility-label" = "Saringan Pemberitahuan";
 "notifications-center-filters-read-status-item-title-all" = "Semua";
 "notifications-center-filters-read-status-item-title-read" = "Baca";
 "notifications-center-filters-read-status-item-title-unread" = "Belum dibaca";
@@ -597,16 +606,17 @@
 "notifications-center-filters-types-footer" = "Ubah tipe pemberitahuan untuk menyaring mereka ke/dari kotak masuk pemberitahuan Anda. Tipe-tipe yang dimatikan tidak akan dilihat, tetapi konten mereka dan pemberitahuan baru akan bisa dilihat ketika ini dinyalakan kembali.";
 "notifications-center-filters-types-item-title-all" = "Semua tipe";
 "notifications-center-filters-types-section-title" = "Tipe pemberitahuan";
-// Fuzzy
-"notifications-center-go-to-diff" = "Pergi ke perbedaan";
-// Fuzzy
-"notifications-center-go-to-talk-page" = "Pergi ke halaman pembicaraan";
-// Fuzzy
-"notifications-center-go-to-user-page" = "Pergi ke halaman pengguna $1";
-// Fuzzy
-"notifications-center-go-to-wikidata-item" = "Pergi ke item Wikidata";
-// Fuzzy
-"notifications-center-go-to-your-talk-page" = "Pergi ke halaman pembicaraan Anda";
+"notifications-center-go-to-article" = "Arikel";
+"notifications-center-go-to-article-collaboration-format" = "Halaman pembicaraan $1";
+"notifications-center-go-to-article-discussion-format" = "Halaman pembicaraan $1";
+"notifications-center-go-to-article-talk-format" = "Halaman pembicaraan $1";
+"notifications-center-go-to-collaboration-page" = "Halaman pembicaraan";
+"notifications-center-go-to-diff" = "Beda";
+"notifications-center-go-to-discussion-page" = "Halaman pembicaraan";
+"notifications-center-go-to-talk-page" = "Halaman pembicaraan";
+"notifications-center-go-to-user-page" = "Halaman pengguna $1";
+"notifications-center-go-to-wikidata-item" = "Butir Wikidata";
+"notifications-center-go-to-your-talk-page" = "Halaman pembicaraan Anda";
 "notifications-center-header-alert-from-agent" = "Peringatan dari $1";
 "notifications-center-header-alert-from-project" = "Peringatan dari $1";
 "notifications-center-header-notice-from-project" = "Pemberitahuan dari $1";
@@ -621,8 +631,17 @@
 "notifications-center-mark-all-as-read-missing-number" = "Apakah Anda yakin Anda ingin menandai semua pemberitahuan Anda sudah dibaca? Pemberitahuan Anda akan ditandai sebagai sudah dibaca di semua gawai Anda.";
 "notifications-center-mark-as-read" = "Tandai sudah dibaca";
 "notifications-center-mark-as-unread" = "Tandai belum dibaca";
+"notifications-center-more-action-accessibility-label" = "Lainnya";
 "notifications-center-notifications-settings" = "Setelan notifikasi";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 pesan}}";
+"notifications-center-onboarding-modal-continue-action" = "Lanjutkan";
+"notifications-center-onboarding-modal-filters-message" = "Saring pemberitahuan Anda berdasarkan status baca dan jenis agar Anda bisa mempersempit kotak masuk Anda.";
+"notifications-center-onboarding-modal-filters-title" = "Penyaring";
+"notifications-center-onboarding-modal-learn-more-action" = "Pelajari lebih lanjut tentang pemberitahuan";
+"notifications-center-onboarding-modal-notifications-alerts-message" = "Pemberitahuan membantu Anda selalu tahu akan aktivitas yang berkaitan dengan suntingan dan akun Anda.";
+"notifications-center-onboarding-modal-notifications-alerts-title" = "Pemberitahuan dan peringatan";
+"notifications-center-onboarding-modal-project-inboxes-message" = "Baca semua pesan belum dibaca dari berbagai bahasa Wikipedia dan proyek Wikimedia di satu tempat.";
+"notifications-center-onboarding-modal-project-inboxes-title" = "Kotak masuk proyek";
 "notifications-center-status-all" = "Semua";
 "notifications-center-status-all-notifications" = "Semua pemberitahuan";
 "notifications-center-status-double-concatenation" = "$1 dalam $2";
@@ -638,6 +657,7 @@
 "notifications-center-subheader-email-from-other-user" = "Email baru";
 "notifications-center-subheader-login-fail-known-device" = "Beberapa upaya masuk gagal";
 "notifications-center-subheader-login-fail-unknown-device" = "Upaya masuk gagal";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Masuk log dari gawai tak dikenal";
 "notifications-center-subheader-mention-article-talk-page" = "Sebutan pada halaman pembicaraan artikel";
 "notifications-center-subheader-mention-edit-summary" = "Sebutan dalam ringkasan suntingan";
@@ -656,10 +676,10 @@
 "notifications-center-swipe-mark-as-unread" = "Tandai belum dibaca";
 "notifications-center-swipe-more" = "Lainnya";
 "notifications-center-title" = "Pemberitahuan";
+"notifications-center-type-item-description-welcome-verbose" = "Pesan selamat datang";
 "notifications-push-fallback-body-text" = "Aktivitas baru di Wikipedia";
-"notifications-push-talk-body-format" = "$1 $2 baru di $3";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|pesan|pesan}}";
-"notifications-push-talk-title-format" = "$1 baru";
+"notifications-push-talk-body-format" = "{{PLURAL:$1|$1 pesan baru}} di $2";
+"notifications-push-talk-title-format" = "{{PLURAL:$1|Pesan baru}}";
 "number-billions" = "$1 miliar";
 "number-millions" = "$1 juta";
 "number-thousands" = "$1 ribu";
@@ -882,6 +902,7 @@
 "settings-my-languages" = "Bahasa saya";
 // Fuzzy
 "settings-notifications" = "Pemberitahuan";
+"settings-notifications-echo-failure-try-again" = "Coba lagi";
 "settings-notifications-info" = "Dapatkan pemberitahuan tentang artikel yang sedang tren dan bacaan teratas di Wikipedia dengan pemberitahuan otomatis kami. Semua tersedia sehubungan dengan privasi dan sampai data menit.";
 "settings-notifications-learn-more" = "Pelajari lebih lanjut tentang pemberitahuan";
 "settings-notifications-push-notifications" = "Pemberitahuan otomatis";

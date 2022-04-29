@@ -649,6 +649,7 @@
 "notifications-center-subheader-email-from-other-user" = "Нова е-пошта";
 "notifications-center-subheader-login-fail-known-device" = "Повеќе неуспешни обиди за најава";
 "notifications-center-subheader-login-fail-unknown-device" = "Неуспешен обид за најава";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Најава од непознат уред";
 "notifications-center-subheader-mention-article-talk-page" = "Спомнување на статиска разговорна страница";
 "notifications-center-subheader-mention-edit-summary" = "Спомнување во опис на уредување";
@@ -671,9 +672,8 @@
 "notifications-center-type-item-description-mentions" = "Споменувања";
 "notifications-center-type-item-description-welcome-verbose" = "Прака за добредојде";
 "notifications-push-fallback-body-text" = "Нови активности на Википедија";
-"notifications-push-talk-body-format" = "$1 нови $2 на $3";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|порака|пораки}}";
-"notifications-push-talk-title-format" = "Нови $1";
+"notifications-push-talk-body-format" = "{{PLURAL:$1|$1 нова порака|$1 нови пораки}} на $2";
+"notifications-push-talk-title-format" = "{{PLURAL:$1|Нова порака|Нови пораки}}";
 "number-billions" = "$1 млрд.";
 "number-millions" = "$1 млн.";
 "number-thousands" = "$1 илј.";

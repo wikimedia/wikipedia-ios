@@ -631,6 +631,7 @@
 "notifications-center-subheader-email-from-other-user" = "Ny e-post";
 "notifications-center-subheader-login-fail-known-device" = "Flere mislykkede innloggingsforsøk";
 "notifications-center-subheader-login-fail-unknown-device" = "Mislykket innloggingsforsøk";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Innlogging fra ukjent enhet";
 "notifications-center-subheader-mention-article-talk-page" = "Nevnt på diskusjonsside";
 "notifications-center-subheader-mention-edit-summary" = "Nevnt i redigeringssammendrag";
@@ -651,8 +652,9 @@
 "notifications-center-title" = "Varsler";
 "notifications-center-toolbar-mark-accessibility-label" = "Merk valgte varsler";
 "notifications-push-fallback-body-text" = "Ny aktivitet på Wikipedia";
+// Fuzzy
 "notifications-push-talk-body-format" = "$1 nye $2 på $3";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|melding|meldinger}}";
+// Fuzzy
 "notifications-push-talk-title-format" = "Ny $1";
 "number-billions" = "$1 mrd.";
 "number-millions" = "$1 mill.";

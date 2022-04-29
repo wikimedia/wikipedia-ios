@@ -591,6 +591,7 @@
 "notifications-center-subheader-email-from-other-user" = "Nový email";
 "notifications-center-subheader-login-fail-known-device" = "Viacero neúspešných pokusov o prihlásenie";
 "notifications-center-subheader-login-fail-unknown-device" = "Neúspešný pokus o prihlásenie";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Prihlásenie z neznámeho zariadenia";
 "notifications-center-subheader-mention-article-talk-page" = "Zmienka na diskusnej stránke článku";
 "notifications-center-subheader-mention-edit-summary" = "Zmienka v sumári úprav";
@@ -610,8 +611,9 @@
 "notifications-center-swipe-more" = "Viac";
 "notifications-center-title" = "Upozornenia";
 "notifications-push-fallback-body-text" = "Nová aktivita na Wikipédii";
+// Fuzzy
 "notifications-push-talk-body-format" = "$1 nové $2 na $3";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|správa|správy|správ}}";
+// Fuzzy
 "notifications-push-talk-title-format" = "Nové $1";
 "number-billions" = "$1";
 "number-millions" = "$1";

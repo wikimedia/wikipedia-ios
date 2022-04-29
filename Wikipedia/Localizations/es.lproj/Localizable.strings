@@ -26,6 +26,7 @@
 // Author: Jduranboger
 // Author: Joanmp17
 // Author: Josecurioso
+// Author: Josuert
 // Author: Juan Cuartas
 // Author: Koavf
 // Author: Luisangelrg
@@ -622,6 +623,7 @@
 "notifications-center-toolbar-mark-accessibility-label" = "Marcar notificaciones seleccionadas";
 "notifications-center-type-item-description-mentions" = "Menciones";
 "notifications-center-type-item-description-welcome-verbose" = "Mensaje de bienvenida";
+"notifications-push-talk-title-format" = "{{PLURAL:$1|Nuevo mensaje|Nuevos mensajes}}";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
