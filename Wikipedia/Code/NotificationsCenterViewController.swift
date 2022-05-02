@@ -387,9 +387,14 @@ private extension NotificationsCenterViewController {
         }
         
         let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil)
+        if !selectedCellViewModels.contains(where: { $0.isRead }) {
+            action1.isEnabled = false
+        } else if !selectedCellViewModels.contains(where: { !$0.isRead }) {
+            action2.isEnabled = false
+        }
         alertController.addAction(action1)
         alertController.addAction(action2)
-        action2.isEnabled = false
+        
         alertController.addAction(cancelAction)
         
         if let popoverController = alertController.popoverPresentationController {
