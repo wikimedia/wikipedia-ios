@@ -326,26 +326,38 @@ private extension NotificationsCenterViewController {
     func markButtonOptionsMenuForNumberOfSelectedMessages(selectedCellViewModels: [NotificationsCenterCellViewModel]) -> UIMenu {
         let titleFormat = numSelectedMessagesFormat
         let title = String.localizedStringWithFormat(titleFormat, selectedCellViewModels.count)
-        let optionsMenu = UIMenu(title: title, children: [
-            UIAction.init(title: CommonStrings.notificationsCenterMarkAsRead, image: UIImage(systemName: "envelope.open"), handler: { _ in
-                self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: true)
-                let identifier = UUID()
-                for cellViewModel in selectedCellViewModels {
-                    self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: identifier.uuidString, shouldMarkRead: true)
-                }
-                self.isEditing = false
-            }),
-            UIAction(title: CommonStrings.notificationsCenterMarkAsUnread, image: UIImage(systemName: "envelope"), handler: { _ in
-                self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: false)
-                let identifier = UUID()
-                for cellViewModel in selectedCellViewModels {
-                    self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: identifier.uuidString, shouldMarkRead: false)
-                }
-                self.isEditing = false
-            })
-        ])
         
-        return optionsMenu
+        let actionMarkAsRead = UIAction(title: CommonStrings.notificationsCenterMarkAsRead, image: UIImage(systemName: "envelope.open"), handler: { _ in
+            self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: true)
+            let identifier = UUID()
+            for cellViewModel in selectedCellViewModels {
+                self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: identifier.uuidString, shouldMarkRead: true)
+            }
+            self.isEditing = false
+        })
+        
+        let actionMarkAsUnread =  UIAction(title: CommonStrings.notificationsCenterMarkAsUnread, image: UIImage(systemName: "envelope"), handler: { _ in
+            self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: false)
+            let identifier = UUID()
+            for cellViewModel in selectedCellViewModels {
+                self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: identifier.uuidString, shouldMarkRead: false)
+            }
+            self.isEditing = false
+        })
+        
+        if !selectedCellViewModels.contains(where: { $0.isRead }) {
+            return UIMenu(title: title, children: [
+                actionMarkAsRead
+            ])
+        } else if !selectedCellViewModels.contains(where: { !$0.isRead }){
+            return UIMenu(title: title, children: [
+                actionMarkAsUnread
+            ])
+        } else {
+            return UIMenu(title: title, children: [
+                actionMarkAsRead, actionMarkAsUnread
+            ])
+        }
     }
     
     @objc func didTapMarkButtonIOS13(_ sender: UIBarButtonItem) {
@@ -366,7 +378,6 @@ private extension NotificationsCenterViewController {
         }
         
         let action2 = UIAlertAction(title: CommonStrings.notificationsCenterMarkAsUnread, style: .default) { _ in
-            
             self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: false)
             self.isEditing = false
             let identifier = UUID()
@@ -378,6 +389,7 @@ private extension NotificationsCenterViewController {
         let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil)
         alertController.addAction(action1)
         alertController.addAction(action2)
+        action2.isEnabled = false
         alertController.addAction(cancelAction)
         
         if let popoverController = alertController.popoverPresentationController {
