@@ -368,7 +368,7 @@ private extension NotificationsCenterViewController {
         let title = String.localizedStringWithFormat(titleFormat, selectedCellViewModels.count)
 
         let alertController = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
-        let action1 = UIAlertAction(title: CommonStrings.notificationsCenterMarkAsRead, style: .default) { _ in
+        let markRead = UIAlertAction(title: CommonStrings.notificationsCenterMarkAsRead, style: .default) { _ in
             self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: true)
             self.isEditing = false
             let identifier = UUID()
@@ -377,7 +377,7 @@ private extension NotificationsCenterViewController {
             }
         }
         
-        let action2 = UIAlertAction(title: CommonStrings.notificationsCenterMarkAsUnread, style: .default) { _ in
+        let markUnread = UIAlertAction(title: CommonStrings.notificationsCenterMarkAsUnread, style: .default) { _ in
             self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: false)
             self.isEditing = false
             let identifier = UUID()
@@ -387,14 +387,15 @@ private extension NotificationsCenterViewController {
         }
         
         let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil)
-        if !selectedCellViewModels.contains(where: { $0.isRead }) {
-            action1.isEnabled = false
-        } else if !selectedCellViewModels.contains(where: { !$0.isRead }) {
-            action2.isEnabled = false
-        }
-        alertController.addAction(action1)
-        alertController.addAction(action2)
         
+        if !selectedCellViewModels.contains(where: { $0.isRead }) {
+            alertController.addAction(markRead)
+        } else if !selectedCellViewModels.contains(where: { !$0.isRead }) {
+            alertController.addAction(markUnread)
+        } else {
+            alertController.addAction(markRead)
+            alertController.addAction(markUnread)
+        }
         alertController.addAction(cancelAction)
         
         if let popoverController = alertController.popoverPresentationController {
