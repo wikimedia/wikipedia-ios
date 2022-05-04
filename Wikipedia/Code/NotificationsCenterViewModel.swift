@@ -159,6 +159,9 @@ final class NotificationsCenterViewModel: NSObject {
         remoteNotificationsController.loadNotifications(force: force) { result in
             switch result {
             case .failure(let error):
+                if case RemoteNotificationsControllerError.attemptingToRefreshBeforeDeadline = error {
+                    break
+                }
                 DDLogError("Error refreshing notifications: \(error)")
                 WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             default:
