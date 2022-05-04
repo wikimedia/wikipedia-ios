@@ -100,6 +100,8 @@ final class NotificationsCenterViewController: ViewController {
         cellPanGestureRecognizer.addTarget(self, action: #selector(userDidPanCell(_:)))
         cellPanGestureRecognizer.delegate = self
 
+        notificationsView.refreshControl.addTarget(self, action: #selector(userDidPullToRefresh), for: .valueChanged)
+
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
     }
 
@@ -117,6 +119,7 @@ final class NotificationsCenterViewController: ViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        endRefreshing()
         closeSwipeActionsPanelIfNecessary()
     }
 
@@ -569,9 +572,7 @@ extension NotificationsCenterViewController: NotificationsCenterOnboardingDelega
 extension NotificationsCenterViewController: NotificationsCenterViewModelDelegate {
     
     func update(types: [NotificationsCenterUpdateType]) {
-        
         for type in types {
-            
             switch type {
             case .reconfigureCells(let cellViewModels):
                 reconfigureCells(with: cellViewModels)
@@ -584,7 +585,9 @@ extension NotificationsCenterViewController: NotificationsCenterViewModelDelegat
             case .emptyContent:
                 refreshEmptyContent()
             case .updateSnapshot(let cellViewModels):
-                applySnapshot(cellViewModels: cellViewModels, animatingDifferences: true)
+                applySnapshot(cellViewModels: cellViewModels)
+            case .endRefreshing:
+                endRefreshing()
             }
         }
     }
@@ -938,4 +941,18 @@ extension NotificationsCenterViewController: NotificationsCenterFlowViewControll
     func tappedPushNotification() {
         //do nothing
     }
+}
+
+// MARK: - Refresh Control
+
+extension NotificationsCenterViewController {
+
+    @objc func userDidPullToRefresh() {
+        viewModel.refreshNotifications(force: true)
+    }
+
+    func endRefreshing() {
+        notificationsView.refreshControl.endRefreshing()
+    }
+
 }
