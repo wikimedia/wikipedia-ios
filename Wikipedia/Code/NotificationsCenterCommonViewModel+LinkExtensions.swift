@@ -21,7 +21,7 @@ extension NotificationsCenterCommonViewModel {
 
     var linkData: LinkData? {
 
-        guard let host = notification.primaryLinkHost ?? configuration.defaultSiteURL.host,
+        guard let host = notification.linkHost,
               let wiki = notification.wiki else {
             return nil
         }
