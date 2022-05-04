@@ -204,8 +204,7 @@ private extension NotificationsCenterViewController {
         })
     }
     
-    func applySnapshot(cellViewModels: [NotificationsCenterCellViewModel], animatingDifferences: Bool = true) {
-        
+    func applySnapshot(cellViewModels: [NotificationsCenterCellViewModel]) {
         guard let dataSource = dataSource else {
             return
         }
@@ -213,8 +212,8 @@ private extension NotificationsCenterViewController {
         snapshotUpdateQueue.async {
             var snapshot = Snapshot()
             snapshot.appendSections([.main])
-            snapshot.appendItems(cellViewModels)
-            dataSource.apply(snapshot, animatingDifferences: animatingDifferences) {
+            snapshot.appendItems(cellViewModels, toSection: .main)
+            dataSource.apply(snapshot, animatingDifferences: true) {
                 //Note: API docs indicate this completion block is already called on the main thread
                 self.notificationsView.updateCalculatedCellHeightIfNeeded()
             }
@@ -240,7 +239,6 @@ private extension NotificationsCenterViewController {
     }
     
     func reconfigureCells(with viewModels: [NotificationsCenterCellViewModel]? = nil) {
-        
         if #available(iOS 15.0, *) {
             snapshotUpdateQueue.async {
                 if var snapshot = self.dataSource?.snapshot() {
@@ -252,11 +250,10 @@ private extension NotificationsCenterViewController {
                     }
                     
                     snapshot.reconfigureItems(Array(viewModelsToUpdate))
-                    self.dataSource?.apply(snapshot, animatingDifferences: false)
+                    self.dataSource?.applySnapshotUsingReloadData(snapshot)
                 }
             }
         } else {
-            
             let cellsToReconfigure: [NotificationsCenterCell]
             if let viewModels = viewModels, let dataSource = dataSource {
                 let indexPathsToReconfigure = viewModels.compactMap { dataSource.indexPath(for: $0) }
