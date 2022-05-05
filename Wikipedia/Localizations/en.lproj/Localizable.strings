@@ -402,6 +402,8 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "From $1 Wikipedia";
 "explore-random-article-sub-heading-from-wikipedia" = "From Wikipedia";
 "explore-randomizer" = "Randomizer";
+"export-user-data" = "Export User Data";
+"export-user-data-space-error" = "You do not have enough device space to export your user data. Please try again later.";
 "featured-article-empty-title" = "No featured article available today";
 "featured-widget-content-failure-for-date" = "A featured article is not available for this date.";
 "featured-widget-description" = "Discover the best articles on Wikipedia, selected daily by our community.";
