@@ -402,6 +402,8 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Subtext beneath the 'Random article' header describing which Wikipedia the random article came from. $1 will be replaced with the language - for example, 'From English Wikipedia'";
 "explore-random-article-sub-heading-from-wikipedia" = "Subtext beneath the 'Random article' header when the specific language wikipedia is unknown.";
 "explore-randomizer" = "Displayed on a button that loads another random article - it's a 'Randomizer'";
+"export-user-data" = "Button for exporting user data";
+"export-user-data-space-error" = "Error message displayed after user has tried exporting their data and the system determines it doesn't have space to do so.";
 "featured-article-empty-title" = "Title that displays when featured article is not available";
 "featured-widget-content-failure-for-date" = "Text displayed when Featured article is not available on the current date.";
 "featured-widget-description" = "Text for description of Featured article widget displayed when adding to home screen.";
@@ -936,7 +938,7 @@
 "settings-support" = "Title for button letting user make a donation.";
 "settings-title" = "Title of the view where app settings are displayed. {{Identical|Settings}}";
 "share-a-fact-made-with" = "Indicates that the share-a-fact card was made with the Wikipedia app";
-"share-article-name-on-wikipedia" = "Formatted string expressing article being on Wikipedia with at symbol handle. Please do not translate the \"@Wikipedia\" in the message, and preserve the spaces around it, as it refers specifically to the Wikipedia Twitter account. $1 will be an article title, which should be wrapped in the localized double quote marks.";
+"share-article-name-on-wikipedia" = "Formatted string expressing article being on Wikipedia. $1 will be an article title, which should be wrapped in the localized double quote marks.";
 "share-building" = "Shown while Share-a-fact card is being constructed";
 "share-default-format" = "Default share format string. $1 is replaced with the selected text, $2 is replaced with the article title, $3 is replaced with the articleURL.";
 "share-email-format" = "Share format string for email. $1 is replaced with the selected text, $2 is replaced with the article title, $3 is replaced with the articleURL.";

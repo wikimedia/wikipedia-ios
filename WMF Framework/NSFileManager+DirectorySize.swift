@@ -1,7 +1,7 @@
 import Foundation
 
-@objc extension FileManager {
-    @objc func sizeOfDirectory(at url: URL) -> Int64 {
+@objc public extension FileManager {
+    @objc public  func sizeOfDirectory(at url: URL) -> Int64 {
         var size: Int64 = 0
         let prefetchedProperties: [URLResourceKey] = [.isRegularFileKey, .fileAllocatedSizeKey, .totalFileAllocatedSizeKey]
         if let enumerator = self.enumerator(at: url, includingPropertiesForKeys: prefetchedProperties) {
