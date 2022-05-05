@@ -609,8 +609,6 @@
 "notifications-center-go-to-wikidata-item" = "Wikidata-item";
 "notifications-center-go-to-your-talk-page" = "Uw overlegpagina";
 "notifications-center-header-alert-from-agent" = "Melding van $1";
-"notifications-center-header-alert-from-project" = "Melding van $1";
-"notifications-center-header-notice-from-project" = "Notificatie van $1";
 "notifications-center-inbox-title" = "Projecten";
 "notifications-center-inbox-wikimedia-projects-section-footer" = "Alleen projecten waarvoor u een account heeft aangemaakt verschijnen hier";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Wikimedia-projecten";
@@ -642,7 +640,6 @@
 "notifications-center-subheader-email-from-other-user" = "Nieuwe e-mail";
 "notifications-center-subheader-login-fail-known-device" = "Meerdere mislukte login pogingen";
 "notifications-center-subheader-login-fail-unknown-device" = "Mislukte login poging";
-// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Aanmelding vanaf een onbekend apparaat";
 "notifications-center-subheader-mention-article-talk-page" = "Vermelding op overlegpagina van een artikel";
 "notifications-center-subheader-mention-edit-summary" = "Vermelding in bewerkingssamenvatting";

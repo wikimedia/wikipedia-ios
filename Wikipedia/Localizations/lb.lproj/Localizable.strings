@@ -344,8 +344,6 @@
 // Fuzzy
 "notifications-center-go-to-wikidata-item" = "Op d'Wikidata-Element goen";
 "notifications-center-header-alert-from-agent" = "Warnung vum $1";
-"notifications-center-header-alert-from-project" = "Warnung vu(n) $1";
-"notifications-center-header-notice-from-project" = "Informatioun vu(n) $1";
 "notifications-center-inbox-title" = "Projeten";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Wikimedia Projeten";
 "notifications-center-inbox-wikipedias-section-title" = "Wikipediaen";

@@ -323,8 +323,7 @@
 "notifications-center-go-to-user-page" = "လွေꩻ $1 ကေားသုင်ꩻသားလိတ်မဲ့ငါထျꩻ";
 // Fuzzy
 "notifications-center-go-to-your-talk-page" = "လွေꩻ နာꩻအိုင်ကိုမ်ဒေါ့ꩻရီလိတ်မဲ့ငါထျꩻ";
-"notifications-center-header-alert-from-project" = "$1 ဖေႏသေချက်";
-"notifications-center-header-notice-from-project" = "$1 ဖေႏသတိꩻချက်";
+"notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "နွို့အကောက် ဖေႏသေချက်ဖိုင်ႏ";
 "notifications-center-mark-all-as-read" = "ဒင်ႏမုဲင် နုဲင်းဟော်ꩻထွားထွူလို့လဲဉ်းအကျောင်ꩻ";
 "notifications-center-mark-as-read" = "မာꩻနုဲင်းဟော်ꩻထွူလဲဉ်း";

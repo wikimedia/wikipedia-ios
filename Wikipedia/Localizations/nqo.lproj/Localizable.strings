@@ -416,8 +416,7 @@
 "notifications-center-go-to-wikidata-item" = "ߕߊ߯ ߥߞߌߘߕߊ ߝߌ߬ߛߌ ߞߊ߲߬";
 // Fuzzy
 "notifications-center-go-to-your-talk-page" = "ߕߊ߯ ߌ ߟߊ߫ ߞߎߡߊ߫ ߞߐߜߍ ߞߊ߲߬";
-"notifications-center-header-alert-from-project" = "ߟߊ߬ߛߏ߬ߓߌ߬ߟߌ ߞߊ߬ ߝߘߊ߫ $1 ߟߊ߫";
-"notifications-center-header-notice-from-project" = "ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߞߊ߬ ߝߘߊ߫ $1 ߟߊ߫";
+"notifications-center-language-project-name-format" = "$2 $1";
 "notifications-center-login-notifications" = "ߜߊ߲߬ߞߎ߲߬ߠߌ߲ ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ ߟߎ߬";
 "notifications-center-mark-all-as-read" = "ߊ߬ ߓߍ߯ ߣߐ߬ߣߐ߫ ߘߐ߬ߞߊ߬ߙߊ߲߬ߣߍ߲ ߘߌ߫";
 "notifications-center-mark-as-read" = "ߊ߬ ߞߍ߫ ߘߐ߬ߞߊ߬ߙߊ߲߬ߣߍ߲ ߘߌ߫";

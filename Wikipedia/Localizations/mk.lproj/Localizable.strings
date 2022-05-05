@@ -591,23 +591,18 @@
 "notifications-center-filters-types-item-title-all" = "Сите видови";
 "notifications-center-filters-types-section-title" = "Видови известувања";
 "notifications-center-go-to-article" = "Статија";
-"notifications-center-go-to-article-collaboration-format" = "Соработна страница $1";
-"notifications-center-go-to-article-discussion-format" = "Разговорна страница $1";
 "notifications-center-go-to-article-talk-format" = "Разговорна страница $1";
-"notifications-center-go-to-collaboration-page" = "Соработна страница";
 "notifications-center-go-to-diff" = "Разл.";
-"notifications-center-go-to-discussion-page" = "Разговорна страница";
 "notifications-center-go-to-talk-page" = "Разговорна страница";
 "notifications-center-go-to-user-page" = "Корисничка страница на $1";
 "notifications-center-go-to-wikidata-item" = "Предмет на Википодатоците";
 "notifications-center-go-to-your-talk-page" = "Вашата разговорна страница";
 "notifications-center-header-alert-from-agent" = "Напомена од $1";
-"notifications-center-header-alert-from-project" = "Напомена од $1";
-"notifications-center-header-notice-from-project" = "Известување од $1";
 "notifications-center-inbox-title" = "Проекти";
 "notifications-center-inbox-wikimedia-projects-section-footer" = "Тука ќе се прикажуваат само проектите за кои имате создадено сметка";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Викимедиини проекти";
 "notifications-center-inbox-wikipedias-section-title" = "Википедии";
+"notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "Известувања за најава";
 "notifications-center-mark" = "Означи";
 "notifications-center-mark-all-as-read" = "Означи ги сите како прочитани";
@@ -649,7 +644,6 @@
 "notifications-center-subheader-email-from-other-user" = "Нова е-пошта";
 "notifications-center-subheader-login-fail-known-device" = "Повеќе неуспешни обиди за најава";
 "notifications-center-subheader-login-fail-unknown-device" = "Неуспешен обид за најава";
-// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Најава од непознат уред";
 "notifications-center-subheader-mention-article-talk-page" = "Спомнување на статиска разговорна страница";
 "notifications-center-subheader-mention-edit-summary" = "Спомнување во опис на уредување";
@@ -671,6 +665,7 @@
 "notifications-center-toolbar-mark-accessibility-label" = "Обележи избрани известувања";
 "notifications-center-type-item-description-mentions" = "Споменувања";
 "notifications-center-type-item-description-welcome-verbose" = "Прака за добредојде";
+"notifications-center-type-title-login-attempts-subtitle" = "Неуспешни обиди за најава на вашата сметка";
 "notifications-push-fallback-body-text" = "Нови активности на Википедија";
 "notifications-push-talk-body-format" = "{{PLURAL:$1|$1 нова порака|$1 нови пораки}} на $2";
 "notifications-push-talk-title-format" = "{{PLURAL:$1|Нова порака|Нови пораки}}";

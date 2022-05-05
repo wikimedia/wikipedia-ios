@@ -24,6 +24,7 @@
 // Author: Sonic N800
 // Author: Tarawneh
 // Author: Zpizza
+// Author: أَحمد
 // Author: بدارين
 // Author: ديفيد
 // Author: محمد أحمد عبد الفتاح
@@ -572,8 +573,6 @@
 // Fuzzy
 "notifications-center-go-to-wikidata-item" = "اذهب إلى عنصر ويكي بيانات";
 "notifications-center-header-alert-from-agent" = "إنذار من $1";
-"notifications-center-header-alert-from-project" = "إنذار من $1";
-"notifications-center-header-notice-from-project" = "إشعار من $1";
 "notifications-center-inbox-title" = "مشاريع";
 "notifications-center-inbox-wikimedia-projects-section-title" = "مشاريع ويكيميديا";
 "notifications-center-inbox-wikipedias-section-title" = "ويكيبيديات";
@@ -592,6 +591,7 @@
 "notifications-center-title" = "الإشعارات";
 "notifications-center-toolbar-mark-accessibility-label" = "حدد الاشعارات المختارة";
 "notifications-center-type-item-description-welcome-verbose" = "رسالة ترحيب";
+"notifications-center-type-title-user-rights-change" = "تغييرات صلاحيات المستخدم";
 "notifications-push-fallback-body-text" = "نشاط جديد على ويكيبيديا";
 "number-billions" = "$1 مليار";
 "number-millions" = "$1 مليون";
@@ -668,6 +668,10 @@
 "potd-widget-title" = "صورة اليوم";
 "preference-summary-eventlogging-opt-in" = "السماح لويكيميديا بجمع المعلومات حول كيفية استخدام التطبيق لتحسينه";
 "preference-title-eventlogging-opt-in" = "إرسال تقارير الاستخدام";
+"project-name-mediawiki" = "ميدياويكي";
+"project-name-wikimedia-commons" = "ويكيميديا كومنز";
+"project-name-wikinews" = "ويكي الأخبار";
+"project-name-wikisource" = "ويكي مصدر";
 "rank-accessibility-label" = "رقم $1";
 "readers-accessibility-label" = "$1 قارئ";
 "reading-list-add-generic-hint-title" = "إضافة هذه المقالة لقائمة قراءة؟";

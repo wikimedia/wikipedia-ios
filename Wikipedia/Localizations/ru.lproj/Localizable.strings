@@ -629,16 +629,15 @@
 "notifications-center-go-to-article" = "Статья";
 "notifications-center-go-to-article-talk-format" = "Страница обсуждения $1";
 "notifications-center-go-to-diff" = "Разн.";
-"notifications-center-go-to-discussion-page" = "Страница обсуждений";
 "notifications-center-go-to-talk-page" = "Страница обсуждения";
 "notifications-center-go-to-user-page" = "Страница участника $1";
 "notifications-center-go-to-wikidata-item" = "Элемент Викиданных";
 "notifications-center-go-to-your-talk-page" = "Ваша страница обсуждения";
 "notifications-center-header-alert-from-agent" = "Оповещение от $1";
-"notifications-center-header-alert-from-project" = "Оповещение от $1";
 "notifications-center-inbox-title" = "Проекты";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Проекты Викимедиа";
 "notifications-center-inbox-wikipedias-section-title" = "Википедии";
+"notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "Уведомления о входе";
 "notifications-center-mark" = "Пометить";
 "notifications-center-mark-all-as-read" = "Отметить всё прочитанным";
@@ -668,7 +667,6 @@
 "notifications-center-subheader-email-from-other-user" = "Новый e-mail";
 "notifications-center-subheader-login-fail-known-device" = "Много неудавшихся попыток входа";
 "notifications-center-subheader-login-fail-unknown-device" = "Неудавшаяся попытка входа";
-// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Вход с незнакомого устройства";
 "notifications-center-subheader-mention-article-talk-page" = "Упоминание на странице обсуждения статьи";
 "notifications-center-subheader-mention-edit-summary" = "Упоминание в комментарии к правке";

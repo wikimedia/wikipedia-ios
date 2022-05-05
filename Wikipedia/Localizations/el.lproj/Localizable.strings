@@ -309,11 +309,7 @@
 // Fuzzy
 "notifications-center-go-to-article" = "Μετάβαση σε άρθρο";
 // Fuzzy
-"notifications-center-go-to-article-discussion-format" = "Μετάβαση στη σελίδα συζητήσεων $1";
-// Fuzzy
 "notifications-center-go-to-article-talk-format" = "Μετάβαση στη σελίδα συνομιλίας $1";
-// Fuzzy
-"notifications-center-go-to-discussion-page" = "Μετάβαση στη σελίδα συζητήσεων";
 "notifications-center-login-notifications" = "Ειδοποιήσεις σύνδεσης";
 "notifications-center-onboarding-modal-continue-action" = "Συνέχεια";
 "notifications-center-onboarding-modal-filters-title" = "Φίλτρα";
