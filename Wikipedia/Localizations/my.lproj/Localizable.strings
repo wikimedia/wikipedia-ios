@@ -414,7 +414,6 @@
 "notifications-center-go-to-user-page" = "$1 ၏ စာမျက်နှာသို့ သွားရန်";
 // Fuzzy
 "notifications-center-go-to-your-talk-page" = "သင်၏ဆွေးနွေးစာမျက်နှာသို့ သွားရန်";
-"notifications-center-header-notice-from-project" = "$1 မှ အသိပေးချက်";
 "notifications-center-login-notifications" = "လော့ဂ်အင် အသိပေးချက်များ";
 "notifications-center-mark-as-read" = "ဖတ်ပြီးကြောင်း မှတ်သားရန်";
 "notifications-center-notifications-settings" = "အသိပေးချက် အပြင်အဆင်များ";

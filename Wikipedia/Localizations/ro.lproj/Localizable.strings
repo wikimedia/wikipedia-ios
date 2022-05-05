@@ -573,8 +573,6 @@
 "notifications-center-go-to-wikidata-item" = "Mergeți la elementul Wikidata";
 // Fuzzy
 "notifications-center-go-to-your-talk-page" = "Mergeți la pagina de discuție a dvs.";
-"notifications-center-header-alert-from-project" = "Alertă de la $1";
-"notifications-center-header-notice-from-project" = "Înștiințare de la $1";
 "notifications-center-subheader-edit-reverted" = "Editarea dvs. a fost anulată";
 "notifications-center-subheader-mention-failed" = "Menționare eșuată";
 "notifications-center-subheader-mention-successful" = "Menționare reușită";

@@ -601,15 +601,7 @@
 // Fuzzy
 "notifications-center-go-to-article" = "Ir al artículo";
 // Fuzzy
-"notifications-center-go-to-article-collaboration-format" = "Ir a la página de colaboración de $1";
-// Fuzzy
-"notifications-center-go-to-article-discussion-format" = "Ir a la página de discusión de $1";
-// Fuzzy
 "notifications-center-go-to-article-talk-format" = "Ir a la página de discusión de $1";
-// Fuzzy
-"notifications-center-go-to-collaboration-page" = "Ir a la página de colaboración";
-// Fuzzy
-"notifications-center-go-to-discussion-page" = "Ir a la página de debate";
 "notifications-center-login-notifications" = "Notificaciones de inicio de sesión";
 "notifications-center-onboarding-modal-continue-action" = "Continuar";
 "notifications-center-onboarding-modal-filters-title" = "Filtros";

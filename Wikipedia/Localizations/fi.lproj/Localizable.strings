@@ -588,17 +588,13 @@
 "notifications-center-filters-types-item-title-all" = "Kaikki tyypit";
 "notifications-center-filters-types-section-title" = "Ilmoitusten tyypit";
 "notifications-center-go-to-article" = "Artikkeli";
-"notifications-center-go-to-article-discussion-format" = "Sivun $1 keskustelusivu";
 "notifications-center-go-to-article-talk-format" = "Sivun $1 keskustelusivu";
 // Fuzzy
 "notifications-center-go-to-diff" = "Siirry versioon";
-"notifications-center-go-to-discussion-page" = "Keskustelusivu";
 "notifications-center-go-to-talk-page" = "Keskustelusivu";
 "notifications-center-go-to-user-page" = "Käyttäjän $1 käyttäjäsivu";
 "notifications-center-go-to-wikidata-item" = "Wikidata-kohde";
 "notifications-center-go-to-your-talk-page" = "Oma keskustelusivu";
-"notifications-center-header-alert-from-project" = "Ilmoitus projektista $1";
-"notifications-center-header-notice-from-project" = "Ilmoitus projektista $1";
 "notifications-center-inbox-title" = "Projektit";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Wikimedian projektit";
 "notifications-center-inbox-wikipedias-section-title" = "Wikipediat";

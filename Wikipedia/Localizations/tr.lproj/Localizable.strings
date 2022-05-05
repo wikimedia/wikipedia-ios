@@ -15,6 +15,7 @@
 // Author: Incelemeelemani
 // Author: JoeWalshWMF
 // Author: Joseph
+// Author: Khalvar
 // Author: Kumkumuk
 // Author: Macofe
 // Author: Mavrikant
@@ -609,15 +610,14 @@
 "notifications-center-filters-types-section-title" = "Bildirim türleri";
 "notifications-center-go-to-diff" = "Fark";
 "notifications-center-go-to-talk-page" = "Tartışma sayfası";
-"notifications-center-go-to-user-page" = "$1'in kullanıcı sayfasına git";
+"notifications-center-go-to-user-page" = "$1'in kullanıcı sayfası";
 "notifications-center-go-to-wikidata-item" = "Vikiveri ögesi";
 "notifications-center-go-to-your-talk-page" = "Mesaj sayfanız";
 "notifications-center-header-alert-from-agent" = "$1 kaynağından uyarı";
-"notifications-center-header-alert-from-project" = "$1 sitesinden uyarı";
-"notifications-center-header-notice-from-project" = "$1 sitesinden bildiri";
 "notifications-center-inbox-title" = "Projeler";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Wikimedia Projeleri";
 "notifications-center-inbox-wikipedias-section-title" = "Vikipediler";
+"notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "Giriş Bildirimleri";
 "notifications-center-mark" = "İşaretle";
 "notifications-center-mark-all-as-read" = "Tümünü okundu olarak işaretle";
@@ -641,8 +641,7 @@
 "notifications-center-subheader-email-from-other-user" = "Yeni e-posta";
 "notifications-center-subheader-login-fail-known-device" = "Birçok başarısız giriş denemesi";
 "notifications-center-subheader-login-fail-unknown-device" = "Başarısız giriş denemesi";
-// Fuzzy
-"notifications-center-subheader-login-success-unknown-device" = "Tanıdık olmayan bir cihazdan giriş";
+"notifications-center-subheader-login-success-unknown-device" = "Bilinmeyen bir cihazdan giriş";
 "notifications-center-subheader-mention-article-talk-page" = "Tartışma sayfasında bahsetme";
 "notifications-center-subheader-mention-edit-summary" = "Düzenleme özetinde bahsetme";
 "notifications-center-subheader-mention-failed" = "Başarısız bahsetme";

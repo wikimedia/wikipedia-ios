@@ -579,16 +579,13 @@
 "notifications-center-feed-news-notification-button-text" = "プッシュ通知をオンにする";
 "notifications-center-feed-news-notification-dismiss-button-text" = "今はしない";
 "notifications-center-go-to-article" = "記事";
-"notifications-center-go-to-article-discussion-format" = "$1の議論ページ";
 "notifications-center-go-to-article-talk-format" = "$1の会話ページ";
 "notifications-center-go-to-diff" = "差分";
-"notifications-center-go-to-discussion-page" = "議論ページ";
 "notifications-center-go-to-talk-page" = "トークページ";
 "notifications-center-go-to-user-page" = "$1の利用者ページ";
 "notifications-center-go-to-wikidata-item" = "ウィキデータ項目";
 "notifications-center-go-to-your-talk-page" = "あなたの会話ページ";
-"notifications-center-header-alert-from-project" = "$1からの通知";
-"notifications-center-header-notice-from-project" = "$1からの通知";
+"notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "ログイン通知";
 "notifications-center-mark-all-as-read" = "すべて既読にする";
 "notifications-center-mark-as-read" = "既読にする";
@@ -611,7 +608,6 @@
 "notifications-center-status-read" = "既読";
 "notifications-center-status-unread" = "未読";
 "notifications-center-subheader-email-from-other-user" = "新しいメール";
-// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "身に覚えのない端末からのログイン";
 "notifications-center-subheader-mention-failed" = "メンションに失敗しました";
 "notifications-center-subheader-mention-successful" = "メンションに成功しました";
@@ -622,6 +618,7 @@
 "notifications-center-title" = "通知";
 "notifications-center-type-item-description-mentions" = "言及";
 "notifications-center-type-item-description-welcome-verbose" = "ようこそメッセージ";
+"notifications-center-type-title-login-attempts-subtitle" = "あなたのアカウントで失敗したログイン試行";
 "notifications-push-fallback-body-text" = "ウィキペディア内の新しいアクティビティ";
 // Fuzzy
 "notifications-push-talk-body-format" = "$3の$1件の#2";

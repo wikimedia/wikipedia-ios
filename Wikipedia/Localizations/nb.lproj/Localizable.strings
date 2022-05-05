@@ -600,8 +600,6 @@
 // Fuzzy
 "notifications-center-go-to-your-talk-page" = "Gå til diskusjonssiden din";
 "notifications-center-header-alert-from-agent" = "Varsel fra $1";
-"notifications-center-header-alert-from-project" = "Varsel fra $1";
-"notifications-center-header-notice-from-project" = "Notis fra $1";
 "notifications-center-inbox-title" = "Prosjekter";
 "notifications-center-inbox-wikimedia-projects-section-footer" = "Bare prosjekter du har opprettet konto på dukker opp her";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Wikimedia-prosjekter";
