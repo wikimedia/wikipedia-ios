@@ -150,6 +150,13 @@ final class NotificationsCenterViewController: ViewController {
     
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
+
+        if editing {
+            notificationsView.collectionView.refreshControl?.endRefreshing()
+            notificationsView.collectionView.refreshControl = nil
+        } else {
+            notificationsView.collectionView.refreshControl = notificationsView.refreshControl
+        }
         
         notificationsView.collectionView.allowsMultipleSelection = editing
         deselectCells()
