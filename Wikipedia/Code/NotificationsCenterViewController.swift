@@ -239,32 +239,17 @@ private extension NotificationsCenterViewController {
     }
     
     func reconfigureCells(with viewModels: [NotificationsCenterCellViewModel]? = nil) {
-        if #available(iOS 15.0, *) {
-            snapshotUpdateQueue.async {
-                if var snapshot = self.dataSource?.snapshot() {
-                    
-                    let itemIdentifiers = Set(snapshot.itemIdentifiers)
-                    var viewModelsToUpdate = itemIdentifiers
-                    if let viewModels = viewModels {
-                        viewModelsToUpdate = itemIdentifiers.union(Set(viewModels))
-                    }
-                    
-                    snapshot.reconfigureItems(Array(viewModelsToUpdate))
-                    self.dataSource?.applySnapshotUsingReloadData(snapshot)
-                }
-            }
+        let cellsToReconfigure: [NotificationsCenterCell]
+
+        if let viewModels = viewModels, let dataSource = dataSource {
+            let indexPathsToReconfigure = viewModels.compactMap { dataSource.indexPath(for: $0) }
+            cellsToReconfigure = indexPathsToReconfigure.compactMap { notificationsView.collectionView.cellForItem(at: $0) as? NotificationsCenterCell }
         } else {
-            let cellsToReconfigure: [NotificationsCenterCell]
-            if let viewModels = viewModels, let dataSource = dataSource {
-                let indexPathsToReconfigure = viewModels.compactMap { dataSource.indexPath(for: $0) }
-                cellsToReconfigure = indexPathsToReconfigure.compactMap { notificationsView.collectionView.cellForItem(at: $0) as? NotificationsCenterCell}
-            } else {
-                cellsToReconfigure = notificationsView.collectionView.visibleCells as? [NotificationsCenterCell] ?? []
-            }
-            
-            cellsToReconfigure.forEach { cell in
-                cell.configure(theme: theme)
-            }
+            cellsToReconfigure = notificationsView.collectionView.visibleCells as? [NotificationsCenterCell] ?? []
+        }
+
+        cellsToReconfigure.forEach { cell in
+            cell.configure(theme: theme)
         }
     }
     
