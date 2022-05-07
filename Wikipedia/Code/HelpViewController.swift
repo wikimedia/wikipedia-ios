@@ -166,6 +166,12 @@ class HelpViewController: SinglePageWebViewController {
             }
         }
         
+        do {
+            try fileManager.removeItem(at: temporaryAppContainerURL)
+        } catch (let error) {
+            DDLogError("Error deleting temp app container: \(error).")
+        }
+        
         fileManager.delegate = nil
         
     }
