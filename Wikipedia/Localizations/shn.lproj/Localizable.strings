@@ -678,6 +678,7 @@
 "settings-support" = "ၵမ်ႉထႅမ် ဝီႇၶီႇၽီးတီးယႃး";
 "settings-title" = "ၵၢၼ်တင်ႈ";
 "share-a-fact-made-with" = "ႁဵတ်းဝႆႉတင်း ဢႅပ်ႉဝီႇၶီႇၽီးတီးယႃး";
+// Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" ၵႃႈတီႈ @ဝီႇၶီႇၽီးတီးယႃး :";
 "share-building" = "ၵေႃႇသၢင်ႈ ၶႅပ်းၽႄႈတိုၼ်းၶေႃႈမုၼ်း...";
 "share-default-format" = "\"$1\" မႃးတီႈ \"$2\":$3";
@@ -685,9 +686,11 @@
 "share-get-directions-in-maps" = "ဢဝ် တၢင်းၵႂႃႇ";
 "share-menu-item" = "ၽႄႈတိုၼ်း...";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "ၵႃႈတီႈ @ဝီႇၶီႇၽီးတီးယႃး";
 "share-open-in-maps" = "ပိုတ်ႇတီႈၼႂ်း ႁၢင်ႈၽႅၼ်ႇလိၼ်";
 "share-social-format" = "“$1” ၵႃႈတီႈ ဝီႇၶီႇၽီးတီးယႃး: $2";
+// Fuzzy
 "share-social-mention-format" = "“$1” ၵႃႈတီႈ @ဝီႇၶီႇၽီးတီးယႃး: $2";
 "sort-by-recently-added-action" = "ဢၼ်တိုၵ်ႉႁႃထႅမ်သႂ်ႇၵႂႃႇ";
 "sort-by-title-action" = "ႁူဝ်ၶေႃႈ";

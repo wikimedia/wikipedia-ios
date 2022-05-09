@@ -655,13 +655,16 @@
 "settings-support" = "Támogasd a Wikipédiát!";
 "settings-title" = "Beállítások";
 "share-a-fact-made-with" = "A Wikipédia appal készült";
+// Fuzzy
 "share-article-name-on-wikipedia" = "„$1” a @Wikipedia szabad enciklopédiában:";
 "share-get-directions-in-maps" = "Útvonalterv";
 "share-menu-item" = "Megosztás";
 "share-message-format" = "„$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "a @Wikipedia szabad enciklopédián keresztül";
 "share-open-in-maps" = "Megnyitás a Térképekben";
 "share-social-format" = "„$1” a Wikipédián: $2";
+// Fuzzy
 "share-social-mention-format" = "„$1” @Wikipedia: $2";
 "sort-by-recently-added-action" = "Nemrég hozzáadva";
 "sort-by-title-action" = "Cím";

@@ -609,8 +609,6 @@
 "notifications-center-go-to-wikidata-item" = "Wikidata-item";
 "notifications-center-go-to-your-talk-page" = "Uw overlegpagina";
 "notifications-center-header-alert-from-agent" = "Melding van $1";
-"notifications-center-header-alert-from-project" = "Melding van $1";
-"notifications-center-header-notice-from-project" = "Notificatie van $1";
 "notifications-center-inbox-title" = "Projecten";
 "notifications-center-inbox-wikimedia-projects-section-footer" = "Alleen projecten waarvoor u een account heeft aangemaakt verschijnen hier";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Wikimedia-projecten";
@@ -642,7 +640,6 @@
 "notifications-center-subheader-email-from-other-user" = "Nieuwe e-mail";
 "notifications-center-subheader-login-fail-known-device" = "Meerdere mislukte login pogingen";
 "notifications-center-subheader-login-fail-unknown-device" = "Mislukte login poging";
-// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Aanmelding vanaf een onbekend apparaat";
 "notifications-center-subheader-mention-article-talk-page" = "Vermelding op overlegpagina van een artikel";
 "notifications-center-subheader-mention-edit-summary" = "Vermelding in bewerkingssamenvatting";
@@ -911,6 +908,7 @@
 "settings-support" = "Wikipedia steunen";
 "settings-title" = "Instellingen";
 "share-a-fact-made-with" = "Gemaakt met de Wikipedia-app";
+// Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" op @Wikipedia:";
 "share-building" = "Deel-een-feit-kaart aan het maken…";
 "share-default-format" = "“$1” uit “$2”: $3";
@@ -918,9 +916,11 @@
 "share-get-directions-in-maps" = "Routebeschrijving";
 "share-menu-item" = "Delen…";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-open-in-maps" = "Openen in Kaarten";
 "share-social-format" = "“$1” via Wikipedia: $2";
+// Fuzzy
 "share-social-mention-format" = "“$1” via @Wikipedia: $2";
 "sort-by-recently-added-action" = "Recent toegevoegd";
 "sort-by-title-action" = "Naam";

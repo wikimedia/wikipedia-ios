@@ -613,21 +613,18 @@
 "notifications-center-filters-types-item-title-all" = "所有類型";
 "notifications-center-filters-types-section-title" = "通知類型";
 "notifications-center-go-to-article" = "條目";
-"notifications-center-go-to-article-discussion-format" = "$1討論頁";
 "notifications-center-go-to-article-talk-format" = "$1對話頁";
 "notifications-center-go-to-diff" = "差異";
-"notifications-center-go-to-discussion-page" = "討論頁";
 "notifications-center-go-to-talk-page" = "對話頁";
 "notifications-center-go-to-user-page" = "$1的使用者頁面";
 "notifications-center-go-to-wikidata-item" = "維基數據項目";
 "notifications-center-go-to-your-talk-page" = "您的對話頁";
 "notifications-center-header-alert-from-agent" = "來自$1的告警";
-"notifications-center-header-alert-from-project" = "來自$1的告警";
-"notifications-center-header-notice-from-project" = "$1起的通知";
 "notifications-center-inbox-title" = "專案";
 "notifications-center-inbox-wikimedia-projects-section-footer" = "僅有您有建立帳號的專案來出現在此";
 "notifications-center-inbox-wikimedia-projects-section-title" = "維基媒體專案";
 "notifications-center-inbox-wikipedias-section-title" = "維基百科";
+"notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "登錄通知";
 "notifications-center-mark" = "標記";
 "notifications-center-mark-all-as-read" = "標記所有為已讀";
@@ -663,8 +660,7 @@
 "notifications-center-subheader-email-from-other-user" = "新郵件";
 "notifications-center-subheader-login-fail-known-device" = "多次登錄嘗試失敗";
 "notifications-center-subheader-login-fail-unknown-device" = "登錄嘗試失敗";
-// Fuzzy
-"notifications-center-subheader-login-success-unknown-device" = "從不熟悉的設備登錄";
+"notifications-center-subheader-login-success-unknown-device" = "使用不熟悉的裝置登入";
 "notifications-center-subheader-mention-article-talk-page" = "在條目對話頁提及";
 "notifications-center-subheader-mention-edit-summary" = "在編輯摘要中提及";
 "notifications-center-subheader-mention-failed" = "未提及";
@@ -937,6 +933,7 @@
 "settings-support" = "支持維基百科";
 "settings-title" = "設定";
 "share-a-fact-made-with" = "用維基百科應用程式製作";
+// Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\"在 @Wikipedia：";
 "share-building" = "建立分享預覽卡…";
 "share-default-format" = "「$1」來自於「$2」：$3";
@@ -944,9 +941,11 @@
 "share-get-directions-in-maps" = "取得路線";
 "share-menu-item" = "分享…";
 "share-message-format" = "「$1」 $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "來自@Wikipedia";
 "share-open-in-maps" = "在地圖中開啟";
 "share-social-format" = "「$1」經由維基百科：$2";
+// Fuzzy
 "share-social-mention-format" = "「$1」經由@維基百科：$2";
 "sort-by-recently-added-action" = "最近新增的";
 "sort-by-title-action" = "標題";

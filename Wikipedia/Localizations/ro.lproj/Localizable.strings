@@ -573,8 +573,6 @@
 "notifications-center-go-to-wikidata-item" = "Mergeți la elementul Wikidata";
 // Fuzzy
 "notifications-center-go-to-your-talk-page" = "Mergeți la pagina de discuție a dvs.";
-"notifications-center-header-alert-from-project" = "Alertă de la $1";
-"notifications-center-header-notice-from-project" = "Înștiințare de la $1";
 "notifications-center-subheader-edit-reverted" = "Editarea dvs. a fost anulată";
 "notifications-center-subheader-mention-failed" = "Menționare eșuată";
 "notifications-center-subheader-mention-successful" = "Menționare reușită";
@@ -827,6 +825,7 @@
 "settings-support" = "Susțineți Wikipedia";
 "settings-title" = "Setări";
 "share-a-fact-made-with" = "Realizat cu aplicația Wikipedia";
+// Fuzzy
 "share-article-name-on-wikipedia" = "„$1” la @Wikipedia:";
 "share-building" = "Crearea unui card „Împărtășește o informație” ...";
 "share-default-format" = "“$1” de la “$2”: $3";
@@ -834,9 +833,11 @@
 "share-get-directions-in-maps" = "Indicații de orientare";
 "share-menu-item" = "Distribuie...";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-open-in-maps" = "Deschide în Maps";
 "share-social-format" = "“$1” via Wikipedia: $2";
+// Fuzzy
 "share-social-mention-format" = "“$1” via @Wikipedia: $2";
 "sort-by-recently-added-action" = "Adaugat recent";
 "sort-by-title-action" = "Titlu";

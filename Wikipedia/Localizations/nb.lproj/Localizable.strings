@@ -600,8 +600,6 @@
 // Fuzzy
 "notifications-center-go-to-your-talk-page" = "Gå til diskusjonssiden din";
 "notifications-center-header-alert-from-agent" = "Varsel fra $1";
-"notifications-center-header-alert-from-project" = "Varsel fra $1";
-"notifications-center-header-notice-from-project" = "Notis fra $1";
 "notifications-center-inbox-title" = "Prosjekter";
 "notifications-center-inbox-wikimedia-projects-section-footer" = "Bare prosjekter du har opprettet konto på dukker opp her";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Wikimedia-prosjekter";
@@ -901,6 +899,7 @@
 "settings-support" = "Støtt Wikipedia";
 "settings-title" = "Innstillinger";
 "share-a-fact-made-with" = "Laget med Wikipedia-appen";
+// Fuzzy
 "share-article-name-on-wikipedia" = "«$1» på @Wikipedia:";
 "share-building" = "Bygger faktadelingskort …";
 "share-default-format" = "«$1» fra «$2»: $3";
@@ -908,9 +907,11 @@
 "share-get-directions-in-maps" = "Veibeskrivelse";
 "share-menu-item" = "Del …";
 "share-message-format" = "«$1» $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-open-in-maps" = "Vis på kart";
 "share-social-format" = "«$1» via Wikipedia: $2";
+// Fuzzy
 "share-social-mention-format" = "«$1» via @Wikipedia: $2";
 "sort-by-recently-added-action" = "Nylig lagt til";
 "sort-by-title-action" = "Tittel";

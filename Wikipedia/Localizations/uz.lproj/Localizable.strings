@@ -113,6 +113,7 @@
 "description-help-about-title" = "Haqida";
 "description-help-about-wikidata" = "Vikimaʼlumotlar haqida";
 "description-help-more-info-title" = "Batafsil maʼlumot";
+"description-help-tips-example-title-one" = "Leonardo Da Vinci chizgan surat";
 "description-help-tips-for-example" = "Misol uchun:";
 "description-published-button-title" = "Bajarildi";
 "description-welcome-start-editing-button" = "Tahrirlashni boshlash";
@@ -240,8 +241,6 @@
 // Fuzzy
 "notifications-center-go-to-your-talk-page" = "Munozara sahifangizga oʻtish";
 "notifications-center-header-alert-from-agent" = "$1dan kelgan xabarnoma";
-"notifications-center-header-alert-from-project" = "$1dan kelgan xabarnoma";
-"notifications-center-header-notice-from-project" = "$1dan kelgan bildirishnoma";
 "notifications-center-inbox-title" = "Loyihalar";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Vikimedia loyihalari";
 "notifications-center-inbox-wikipedias-section-title" = "Vikipediyalar";

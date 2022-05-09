@@ -72,6 +72,7 @@
 "share-menu-item" = "Екха...";
 "share-message-format" = "«$1» $2";
 "share-social-format" = "«$1» Википеди чохь: $2";
+// Fuzzy
 "share-social-mention-format" = "«$1» Википеди чохь: $2";
 "table-of-contents-heading" = "Чулацам";
 "wikitext-downloading" = "Чулацам чубаккхар...";
