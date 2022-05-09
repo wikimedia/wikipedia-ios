@@ -366,8 +366,10 @@
 "settings-primary-language-details" = "Ar yezh kentañ er roll-mañ eo ar yezh implijet en arload. Ma cheñchit an dibarzh-mañ e cheñcho an danvez diskouezet war Ergerzhiñ (evel pennad an talbenn).";
 "settings-support" = "Skoazellañ Wikimedia";
 "settings-title" = "Arventennoù";
+// Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" war @Wikipedia:";
 "share-get-directions-in-maps" = "Kaout an tuioù";
+// Fuzzy
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-open-in-maps" = "Digor e Kartennoù";
 "table-of-contents-button-label" = "Taolenn";

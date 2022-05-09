@@ -483,6 +483,7 @@
 "settings-support" = "Wikipedia Lagundu";
 "settings-title" = "Ezarpenak";
 "share-a-fact-made-with" = "Wikipedia aplikazioarekin eginda";
+// Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" @Wikipedian:";
 "share-building" = "Gertakaria-Partekatu txartela sortzen...";
 "share-default-format" = "“$2” “$1”(r)engandik: $3";
@@ -490,9 +491,11 @@
 "share-get-directions-in-maps" = "Helbidea lortu";
 "share-menu-item" = "Partekatu";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-open-in-maps" = "Mapsen ireki";
 "share-social-format" = "“$1” Wikipediaren bidez: $2";
+// Fuzzy
 "share-social-mention-format" = "“$1” @Wikipedia -(r)ren bidez: $2";
 "sort-by-recently-added-action" = "Berriki gehituak";
 "sort-by-title-action" = "Izenburua";

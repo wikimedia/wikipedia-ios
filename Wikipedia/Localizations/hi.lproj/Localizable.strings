@@ -247,8 +247,6 @@
 // Fuzzy
 "notifications-center-go-to-article" = "लेख पर जाएं";
 "notifications-center-go-to-diff" = "अन्तर";
-// Fuzzy
-"notifications-center-go-to-discussion-page" = "चर्चा पृष्ठ पर जाएं";
 "notifications-center-more-action-accessibility-label" = "और";
 "notifications-center-onboarding-modal-continue-action" = "जारी रखें";
 "notifications-center-onboarding-panel-secondary-button" = "नहीं, धन्यवाद";
@@ -366,6 +364,7 @@
 "settings-support" = "विकिपीडिया को समर्थन दें";
 "settings-title" = "सेटिंग्स";
 "share-a-fact-made-with" = "विकिपीडिया एप के साथ बनाया गया";
+// Fuzzy
 "share-article-name-on-wikipedia" = "@Wikipedia पर \"$1\" :";
 "share-building" = "तथ्य को साझा कर कार्ड को बनायें";
 "share-default-format" = "\"$1\" से \"$2\": $3";
@@ -373,9 +372,11 @@
 "share-get-directions-in-maps" = "दिशानिर्देश पाएं";
 "share-menu-item" = "साझा करें";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "@विकिपीडिया के माध्यम से";
 "share-open-in-maps" = "नक्शों में खोलें";
 "share-social-format" = "\"$1\" विकिपीडिया: $2 के माध्यम से";
+// Fuzzy
 "share-social-mention-format" = "विकिपीडिया@: $2 के द्वारा \"$1\"";
 "sort-by-recently-added-action" = "हाल ही में जोड़ा गया";
 "sort-by-title-action" = "शीर्षक";

@@ -605,23 +605,18 @@
 "notifications-center-filters-types-item-title-all" = "Tots els tipus";
 "notifications-center-filters-types-section-title" = "Tipus de notificacions";
 "notifications-center-go-to-article" = "Article";
-"notifications-center-go-to-article-collaboration-format" = "Pàgina de col·laboració de $1";
-"notifications-center-go-to-article-discussion-format" = "Pàgina de discussió de $1";
 "notifications-center-go-to-article-talk-format" = "Pàgina de discussió de $1";
-"notifications-center-go-to-collaboration-page" = "Pàgina de col·laboració";
 "notifications-center-go-to-diff" = "Diferència";
-"notifications-center-go-to-discussion-page" = "Pàgina de discussió";
 "notifications-center-go-to-talk-page" = "Pàgina de discussió";
 "notifications-center-go-to-user-page" = "Pàgina d'usuari de $1";
 "notifications-center-go-to-wikidata-item" = "Element de Wikidata";
 "notifications-center-go-to-your-talk-page" = "La vostra pàgina de discussió";
 "notifications-center-header-alert-from-agent" = "Alerta de $1";
-"notifications-center-header-alert-from-project" = "Alerta de $1";
-"notifications-center-header-notice-from-project" = "Avís de $1";
 "notifications-center-inbox-title" = "Projectes";
 "notifications-center-inbox-wikimedia-projects-section-footer" = "Només els projectes on heu creat un compte apareixeran aquí";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Projectes Wikimedia";
 "notifications-center-inbox-wikipedias-section-title" = "Viquipèdies";
+"notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "Notificacions d'inici de sessió";
 "notifications-center-mark" = "Marca";
 "notifications-center-mark-all-as-read" = "Marca'ls tots com a llegits";
@@ -663,7 +658,6 @@
 "notifications-center-subheader-email-from-other-user" = "Correu electrònic nou";
 "notifications-center-subheader-login-fail-known-device" = "Múltiples intents d'inici de sessió fallits";
 "notifications-center-subheader-login-fail-unknown-device" = "Intent d'inici de sessió fallit";
-// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Inici de sessió d'un dispositiu no habitual";
 "notifications-center-subheader-mention-article-talk-page" = "Menció en la pàgina de discussió d'un article";
 "notifications-center-subheader-mention-edit-summary" = "Menció en un resum d'edició";
@@ -685,11 +679,10 @@
 "notifications-center-toolbar-mark-accessibility-label" = "Marca les notificacions seleccionades";
 "notifications-center-type-item-description-mentions" = "Mencions";
 "notifications-center-type-item-description-welcome-verbose" = "Missatge de benvinguda";
+"notifications-center-type-title-login-attempts-subtitle" = "Intents d'inici de sessió fallits al vostre compte";
 "notifications-push-fallback-body-text" = "Activitat nova a la Viquipèdia";
-// Fuzzy
-"notifications-push-talk-body-format" = "$1 nous $2 a $3";
-// Fuzzy
-"notifications-push-talk-title-format" = "Nous $1";
+"notifications-push-talk-body-format" = "{{PLURAL:$1|$1 missatge nou|$1 missatges nous}} a $2";
+"notifications-push-talk-title-format" = "{{PLURAL:$1|Missatge nou|Missatges nous}}";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1k";
@@ -940,6 +933,7 @@
 "settings-support" = "Doneu suport a la Viquipèdia";
 "settings-title" = "Configuració";
 "share-a-fact-made-with" = "Fet amb l'aplicació de Viquipèdia";
+// Fuzzy
 "share-article-name-on-wikipedia" = "«$1» a la @Viquipedia:";
 "share-building" = "S'està creant una targeta de Comparteix-un-fet…";
 "share-default-format" = "«$1» de «$2»: $3";
@@ -947,9 +941,11 @@
 "share-get-directions-in-maps" = "Aconsegueix direccions";
 "share-menu-item" = "Comparteix…";
 "share-message-format" = "«$1» $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "via @Viquipedia";
 "share-open-in-maps" = "Obre a Mapes";
 "share-social-format" = "«$1» des de la Viquipèdia: $2";
+// Fuzzy
 "share-social-mention-format" = "«$1» des de la @Viquipedia: $2";
 "sort-by-recently-added-action" = "S'ha afegit recentment";
 "sort-by-title-action" = "Títol";

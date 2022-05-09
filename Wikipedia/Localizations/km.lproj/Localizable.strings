@@ -319,6 +319,7 @@
 "settings-support" = "គាំទ្រវិគីភីឌា";
 "settings-title" = "ការកំណត់";
 "share-a-fact-made-with" = "បង្កើតឡើងដោយប្រើកម្មវិធីវិគីភីឌា";
+// Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" នៅលើ @Wikipedia៖";
 "share-building" = "ធ្វើកាតចែកចាយព័ត៌មាន...";
 "share-default-format" = "“$1” ពី “$2”: $3";
@@ -326,9 +327,11 @@
 "share-get-directions-in-maps" = "ស្វែងរកផ្លូវ";
 "share-menu-item" = "ចែកចាយ...";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "តាមរយៈ @Wikipedia";
 "share-open-in-maps" = "បើកក្នុងកម្មវិធីផែនទី";
 "share-social-format" = "“$1” តាមរយៈវិគីភីឌា៖ $2";
+// Fuzzy
 "share-social-mention-format" = "“$1” តាមរយៈ@Wikipedia៖ $2";
 "table-of-contents-button-label" = "មាតិកា";
 "table-of-contents-close-accessibility-hint" = "បិទ";

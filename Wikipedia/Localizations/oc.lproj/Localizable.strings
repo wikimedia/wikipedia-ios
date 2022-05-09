@@ -183,7 +183,9 @@
 "settings-storage-and-syncing-server-sync-title" = "Actualizar listas de lectura sincronizadas";
 "settings-support" = "Sosténer Wikipèdia";
 "settings-title" = "Paramètres";
+// Fuzzy
 "share-article-name-on-wikipedia" = "« $1 » sus @Wikipedia:";
+// Fuzzy
 "share-on-twitter-sign-off" = "via @Wikipèdia";
 "table-of-contents-button-label" = "Ensenhador";
 "table-of-contents-close-accessibility-hint" = "Tampar";
