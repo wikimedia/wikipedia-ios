@@ -899,6 +899,7 @@
 "settings-support" = "Tue Wikipediaa";
 "settings-title" = "Asetukset";
 "share-a-fact-made-with" = "Tehty Wikipedia-sovelluksen avulla";
+// Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" @Wikipedia'ssa:";
 "share-building" = "Luodaan Share-a-fact korttia...";
 "share-default-format" = "“$1” artikkelista “$2”: $3";
@@ -906,9 +907,11 @@
 "share-get-directions-in-maps" = "Hae reittiohjeet";
 "share-menu-item" = "Jaa…";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "@Wikipedia'n kautta";
 "share-open-in-maps" = "Avaa Kartoissa";
 "share-social-format" = "“$1” Wikipedian kautta: $2";
+// Fuzzy
 "share-social-mention-format" = "“$1” @Wikipedian kautta: $2";
 "sort-by-recently-added-action" = "Äskettäin lisätyt";
 "sort-by-title-action" = "Otsikko";

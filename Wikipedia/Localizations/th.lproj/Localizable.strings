@@ -656,15 +656,18 @@
 "settings-storage-and-syncing-server-sync-title" = "อัปเดตรายการอ่านที่ซิงค์";
 "settings-support" = "สนับสนุนวิกิพีเดีย";
 "settings-title" = "การตั้งค่า";
+// Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" บน @Wikipedia:";
 "share-default-format" = "“$1” จาก “$2”: $3";
 "share-email-format" = "“$1”\n\nจาก “$2”\n\n$3";
 "share-get-directions-in-maps" = "ขอเส้นทาง";
 "share-menu-item" = "แบ่งปัน";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "ผ่าน @Wikipedia";
 "share-open-in-maps" = "เปิดในแผนที่";
 "share-social-format" = "“$1” ผ่านทางวิกิพีเดีย: $2";
+// Fuzzy
 "share-social-mention-format" = "“$1” ผ่านทาง @Wikipedia: $2";
 "sort-by-recently-added-action" = "ที่เพิ่งเพิ่มล่าสุด";
 "sort-by-title-action" = "ชื่อเรื่อง";

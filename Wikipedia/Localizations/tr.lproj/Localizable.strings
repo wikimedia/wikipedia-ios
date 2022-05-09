@@ -908,6 +908,7 @@
 "settings-support" = "Vikipedi'yi destekleyin";
 "settings-title" = "Ayarlar";
 "share-a-fact-made-with" = "Vikipedi uygulamasıyla hazırlandı";
+// Fuzzy
 "share-article-name-on-wikipedia" = "@Wikipedia üzerinde \"$1\":";
 "share-building" = "Bir bilgi kartı paylaşımı oluşturun...";
 "share-default-format" = "$3 sayfasındaki $2 maddesinden $1";
@@ -915,9 +916,11 @@
 "share-get-directions-in-maps" = "Yol tarifi al";
 "share-menu-item" = "Paylaş...";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "@Wikipedia aracılığıyla";
 "share-open-in-maps" = "Haritalar'da aç";
 "share-social-format" = "Vikipedi'den $1: $2";
+// Fuzzy
 "share-social-mention-format" = "@Wikipedia'dan $1: $2";
 "sort-by-recently-added-action" = "Son eklenenler";
 "sort-by-title-action" = "Başlık";

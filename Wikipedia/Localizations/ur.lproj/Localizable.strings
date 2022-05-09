@@ -347,14 +347,17 @@
 "settings-support" = "ویکیپیڈیا سے تعاون کریں";
 "settings-title" = "ترجیحات";
 "share-a-fact-made-with" = "وکیپیڈیا ایپ کے ساتھ تشکیل دے دیا گیا";
+// Fuzzy
 "share-article-name-on-wikipedia" = "@Wikipedia پر \"$1\":";
 "share-building" = "اشتراک-حقائق کارڈ زیر تخلیق…";
 "share-email-format" = "«$1»\n\nاز «$2»\n\n$3";
 "share-menu-item" = "شیئر…";
 "share-message-format" = "«$1» $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "بتوسط @UrduWikipedia";
 "share-open-in-maps" = "نقشوں میں کھولیں";
 "share-social-format" = "”$1“ بذریعہ ویکیپیڈیا: $2";
+// Fuzzy
 "share-social-mention-format" = "«$1» بتوسط @UrduWikipedia: $2";
 "sort-by-title-action" = "عنوان";
 "table-of-contents-button-label" = "فہرست";

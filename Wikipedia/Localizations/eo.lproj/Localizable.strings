@@ -688,6 +688,7 @@
 "settings-support" = "Subteni Vikipedion";
 "settings-title" = "Agordoj";
 "share-a-fact-made-with" = "Farita per la vikipedia aplikaĵo";
+// Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" ĉe @Wikipedia:";
 "share-building" = "Konstruas karton Konigi-fakton";
 "share-default-format" = "“$1” de “$2”: $3";
@@ -695,9 +696,11 @@
 "share-get-directions-in-maps" = "Vojpriskribo";
 "share-menu-item" = "Konigi....";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "per @Wikipedia";
 "share-open-in-maps" = "Malfermi en Maps";
 "share-social-format" = "“$1” pere de Vikipedio: $2";
+// Fuzzy
 "share-social-mention-format" = "“$1” pere de @Vikipedio: $2";
 "sort-by-recently-added-action" = "Ĵus aldonita";
 "sort-by-title-action" = "Titolo";

@@ -804,15 +804,18 @@
 "settings-support" = "వికీపీడియాకి తోడ్పడండి";
 "settings-title" = "అమరికలు";
 "share-a-fact-made-with" = "వికీపీడియా యాప్‌తో చేసినది";
+// Fuzzy
 "share-article-name-on-wikipedia" = "@Wikipedia లో \"$1\":";
 "share-default-format" = "“$2” నుండి “$1”: $3";
 "share-email-format" = "“$2”\n\nనుండి “$1”\n\n$3";
 "share-get-directions-in-maps" = "మార్గసూచనలను పొందండి";
 "share-menu-item" = "పంచుకోండి…";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "@Wikipedia ద్వారా";
 "share-open-in-maps" = "మ్యాప్స్‌లో తెరువు";
 "share-social-format" = "వికీపీడియా ద్వారా “$1”: $2";
+// Fuzzy
 "share-social-mention-format" = "వికీపీడియా ద్వారా “$1”: $2";
 "sort-by-recently-added-action" = "ఇటీవల చేర్చినవి";
 "sort-by-title-action" = "శీర్షిక";

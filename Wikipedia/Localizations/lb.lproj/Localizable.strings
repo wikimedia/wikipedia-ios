@@ -539,15 +539,18 @@
 "settings-support" = "Wikipedia ënnerstëtzen";
 "settings-title" = "Astellungen";
 "share-a-fact-made-with" = "Mat der Wikipedia-App gemaach";
+// Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" op @Wikipedia:";
 "share-default-format" = "\"$1\" vu(n) \"$2\": $3";
 "share-email-format" = "\"$1\"\n\nvu(n) \"$2\"\n\n$3";
 "share-get-directions-in-maps" = "Richtunge kréien";
 "share-menu-item" = "Deelen...";
 "share-message-format" = "\"$1\" $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "iwwer @Wikipedia";
 "share-open-in-maps" = "Op der Kaart opmaachen";
 "share-social-format" = "\"$1\" iwwer Wikipedia: $2";
+// Fuzzy
 "share-social-mention-format" = "\"$1\" via @Wikipedia: $2";
 "sort-by-recently-added-action" = "Rezent derbäigesat";
 "sort-by-title-action" = "Titel";

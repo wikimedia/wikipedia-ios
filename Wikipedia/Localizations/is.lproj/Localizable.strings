@@ -812,6 +812,7 @@
 "settings-support" = "Styðja Wikipedia";
 "settings-title" = "Stillingar";
 "share-a-fact-made-with" = "Gert með Wikipedia-forritinu";
+// Fuzzy
 "share-article-name-on-wikipedia" = "„$1“ á @Wikipedia:";
 "share-building" = "Útbý 'Deila-staðreynd' spjald...";
 "share-default-format" = "“$1” frá “$2”: $3";
@@ -819,9 +820,11 @@
 "share-get-directions-in-maps" = "Fá leiðsögn";
 "share-menu-item" = "Deila…";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "með @Wikipedia";
 "share-open-in-maps" = "Opna í Kortum";
 "share-social-format" = "“$1” með Wikipedia: $2";
+// Fuzzy
 "share-social-mention-format" = "“$1” með @Wikipedia: $2";
 "sort-by-recently-added-action" = "Nýlega bætt við";
 "sort-by-title-action" = "Titill";
