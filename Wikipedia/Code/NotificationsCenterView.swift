@@ -12,14 +12,14 @@ final class NotificationsCenterView: SetupView {
 
     // MARK: - Properties
 
-	lazy var collectionView: UICollectionView = {
+    lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: tableStyleLayout())
         collectionView.register(NotificationsCenterCell.self, forCellWithReuseIdentifier: NotificationsCenterCell.reuseIdentifier)
         collectionView.alwaysBounceVertical = true
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.refreshControl = refreshControl
         return collectionView
-	}()
+    }()
 
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
