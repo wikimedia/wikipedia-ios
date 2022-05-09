@@ -316,9 +316,9 @@ private extension NotificationsCenterViewController {
     }
     
     func updateMarkButtonsEnabledStates(numSelectedCells: Int) {
-        let unreadNotifications = viewModel.numberOfUnreadNotifications >= 1
+        let hasUnreadNotifications = viewModel.numberOfUnreadNotifications >= 1
         markButton?.isEnabled = numSelectedCells > 0
-        markAllAsReadButton.isEnabled = numSelectedCells == 0 && unreadNotifications
+        markAllAsReadButton.isEnabled = numSelectedCells == 0 && hasUnreadNotifications
     }
     
     var numSelectedMessagesFormat: String { WMFLocalizedString("notifications-center-num-selected-messages-format", value:"{{PLURAL:%1$d|%1$d message|%1$d messages}}", comment:"Title for options menu when choosing \"Mark\" toolbar button in notifications center editing mode - %1$d is replaced with the number of selected notifications.")
@@ -337,7 +337,7 @@ private extension NotificationsCenterViewController {
             self.isEditing = false
         })
         
-        let actionMarkAsUnread =  UIAction(title: CommonStrings.notificationsCenterMarkAsUnread, image: UIImage(systemName: "envelope"), handler: { _ in
+        let actionMarkAsUnread = UIAction(title: CommonStrings.notificationsCenterMarkAsUnread, image: UIImage(systemName: "envelope"), handler: { _ in
             self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: false)
             let identifier = UUID()
             for cellViewModel in selectedCellViewModels {
