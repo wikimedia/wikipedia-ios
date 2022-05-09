@@ -160,8 +160,6 @@
 "notifications-center-feed-news-notification-button-text" = "ਸੂਚਨਾਵਾਂ ਚਾਲੂ ਕਰੋ";
 // Fuzzy
 "notifications-center-go-to-article" = "ਲੇਖ 'ਤੇ ਜਾਓ";
-// Fuzzy
-"notifications-center-go-to-discussion-page" = "ਚਰਚਾ ਸਫ਼ੇ 'ਤੇ ਜਾਓ";
 "notifications-center-type-item-description-welcome-verbose" = "ਸੁਆਗਤ ਸੁਨੇਹਾ";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
@@ -208,9 +206,11 @@
 "settings-primary-language-details" = "ਇਸ ਸੂਚੀ ਦੀ ਪਹਿਲੀ ਭਾਸ਼ਾ ਐਪ ਦੀ ਮੁੱਖ ਭਾਸ਼ਾ ਦੇ ਤੌਰ ਤੇ ਵਰਤੀ ਜਾੰਦੀ ਹੈ। ਇਸ ਨੂੰ ਬਦਲਣ ਨਾਲ ਤੁਹਾਡੀ ਰੋਜ਼ਾਨਾ ਸਮੱਗਰੀ (ਜਿਵੇੰ ਵਿਸ਼ੇਸ਼ ਲੇਖ) ਜੋ ਕਿ ਪੜਚੋਲ ਵਿੱਚ ਵਿਖਾਈ ਜਾੰਦੀ ਹੈ ਵੀ ਬਦਲ ਜਾਏਗੀ।";
 "settings-support" = "ਵਿਕੀਪੀਡੀਆ ਨੂੰ ਸਹਿਯੋਗ ਦੇਵੋ";
 "settings-title" = "ਮੁਰੰਮਤਾਂ";
+// Fuzzy
 "share-article-name-on-wikipedia" = "@ਵਿਕੀਪੀਡੀਆ ੳੁੱਤੋੇ '\"$1\":";
 "share-get-directions-in-maps" = "ਦਿਸ਼ਾਵਾਂ ਪ੍ਰਾਪਤ ਕਰੋ";
 "share-menu-item" = "ਸਾਂਝਾ ਕਰੋ";
+// Fuzzy
 "share-on-twitter-sign-off" = "@Wikipedia ਦੁਆਰਾ";
 "share-open-in-maps" = "ਨਕਸ਼ੇ 'ਚ ਖੋਲ੍ਹੋ";
 "table-of-contents-button-label" = "ਸਮੱਗਰੀ ਸਾਰਣੀ";

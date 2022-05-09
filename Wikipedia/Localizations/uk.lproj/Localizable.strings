@@ -600,12 +600,11 @@
 // Fuzzy
 "notifications-center-go-to-your-talk-page" = "Перейти на свою сторінку обговорення";
 "notifications-center-header-alert-from-agent" = "Сповіщення від $1";
-"notifications-center-header-alert-from-project" = "Сповіщення від $1";
-"notifications-center-header-notice-from-project" = "Повідомлення від $1";
 "notifications-center-inbox-title" = "Проєкти";
 "notifications-center-inbox-wikimedia-projects-section-footer" = "Тут показуватимуться тільки ті проєкти, для яких ви створили акаунт";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Проєкти Вікімедіа";
 "notifications-center-inbox-wikipedias-section-title" = "Усі мовні розділи Вікіпедії";
+"notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "Повідомлення про вхід";
 "notifications-center-mark" = "Позначити";
 "notifications-center-mark-all-as-read" = "Позначити всі як прочитані";
@@ -901,6 +900,7 @@
 "settings-support" = "Підтримати Вікіпедію";
 "settings-title" = "Налаштування";
 "share-a-fact-made-with" = "Створено за допомоги додатку Вікіпедія";
+// Fuzzy
 "share-article-name-on-wikipedia" = "«$1» у @Wikipedia:";
 "share-building" = "Створення картки «Поділися фактом»...";
 "share-default-format" = "«$1» з «$2»: $3";
@@ -908,9 +908,11 @@
 "share-get-directions-in-maps" = "Отримати напрямки";
 "share-menu-item" = "Поширити…";
 "share-message-format" = "«$1» $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "через @Wikipedia";
 "share-open-in-maps" = "Відкрити на Мапах";
 "share-social-format" = "«$1» у Вікіпедії мовою «$2»";
+// Fuzzy
 "share-social-mention-format" = "«$1» у Вікіпедії мовою «$2»";
 "sort-by-recently-added-action" = "Нещодавно додані";
 "sort-by-title-action" = "Назва";

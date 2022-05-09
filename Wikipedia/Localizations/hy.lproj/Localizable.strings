@@ -145,14 +145,15 @@
 "nearby-distance-label-miles" = "$1 մղոն";
 "notifications-center-go-to-article" = "Հոդված";
 "notifications-center-go-to-article-talk-format" = "$1 քննարկման էջ";
+"notifications-center-go-to-talk-page" = "Քննարկման էջ";
 "notifications-center-go-to-wikidata-item" = "Վիկիտվյալների տառռ";
 "notifications-center-go-to-your-talk-page" = "Ձեր քննարկման էջ";
 "notifications-center-mark" = "Նշել";
 "notifications-center-swipe-mark-as-read" = "Նշել ընթերցված";
 "notifications-center-swipe-mark-as-unread" = "Նշել չընթերցված";
 "notifications-center-swipe-more" = "Ավելին";
-// Fuzzy
-"notifications-push-talk-title-format" = "Նոր $1";
+"notifications-push-talk-body-format" = "{{PLURAL:$1|Նոր հաղորդագրություն|Նոր հաղորդագրություններ}} $2-ում";
+"notifications-push-talk-title-format" = "{{PLURAL:$1|Նոր հաղորդագրություն|Նոր հաղորդագրություններ}}";
 "page-history-compare-title" = "Համեմատել";
 "page-history-minor-edits" = "չնչին խմբագրումներ";
 "page-history-revision-author-accessibility-label" = "Հեղինակ. 1";

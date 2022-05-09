@@ -60,6 +60,7 @@
 "search-field-placeholder-text" = "Serca su Wikipedia";
 "search-recent-clear-cancel" = "Descançełare";
 "search-recent-clear-delete-all" = "Scancela tuto";
+// Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" so @Wikipèdia Vèneta:";
 "table-of-contents-heading" = "Contegnùi";
 "talk-page-add-discussion-accessibility-label" = "Xonta discusion";

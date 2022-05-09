@@ -552,6 +552,7 @@
 "settings-support" = "Sofita Wikimedia";
 "settings-title" = "Configuración";
 "share-a-fact-made-with" = "Fecho cola app de Wikipedia";
+// Fuzzy
 "share-article-name-on-wikipedia" = "«$1» en @Wikipedia:";
 "share-building" = "Construyendo una tarxeta Comparte-un fechu…";
 "share-default-format" = "«$1» de «$2»: $3";
@@ -559,9 +560,11 @@
 "share-get-directions-in-maps" = "Recibir indicaciones";
 "share-menu-item" = "Compartir…";
 "share-message-format" = "«$1» $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-open-in-maps" = "Abrir en Mapes";
 "share-social-format" = "«$1» vía Wikipedia: $2";
+// Fuzzy
 "share-social-mention-format" = "«$1» vía @Wikipedia: $2";
 "sort-by-recently-added-action" = "Añadíos recién";
 "sort-by-title-action" = "Títulu";

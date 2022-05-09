@@ -171,7 +171,9 @@
 "settings-notifications" = "ಸೂಚನೆಲು";
 "settings-support" = "ವಿಕಿಪೀಡಿಯತಾ ಬೆಂಬಲಾ";
 "settings-title" = "ಸಂಯೋಜನೆಲು";
+// Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" on @ವಿಕಿಪೀಡಿಯಾ:";
+// Fuzzy
 "share-on-twitter-sign-off" = "ವಿಕಿಪೀಡಿಯ ಒಟ್ಟುಗೂ @";
 "share-open-in-maps" = "ನಕಾಶೆಡ್ ತೊಜಾಲೆ";
 "table-of-contents-button-label" = "ಪರಿವಿಡಿ";
