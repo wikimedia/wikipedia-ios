@@ -603,10 +603,10 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 - (void)performDatabaseHousekeepingWithCompletion:(void (^)(NSError *))completion {
     
-    WMFDatabaseHouseKeeper *houseKeeper = [WMFDatabaseHouseKeeper new];
+    WMFDatabaseHousekeeper *housekeeper = [WMFDatabaseHousekeeper new];
 
     NSError *housekeepingError = nil;
-    [houseKeeper performHouseKeepingOnManagedObjectContext:self.dataStore.viewContext navigationStateController:self.navigationStateController error:&housekeepingError];
+    [housekeeper performHousekeepingOnManagedObjectContext:self.dataStore.viewContext navigationStateController:self.navigationStateController error:&housekeepingError];
     if (housekeepingError) {
         DDLogError(@"Error on cleanup: %@", housekeepingError);
         housekeepingError = nil;
