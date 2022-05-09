@@ -828,6 +828,7 @@
 "settings-support" = "Wikipedia unterstützen";
 "settings-title" = "Einstellungen";
 "share-a-fact-made-with" = "Erstellt mit der Wikipedia-App";
+// Fuzzy
 "share-article-name-on-wikipedia" = "„$1“ auf @Wikipedia:";
 "share-building" = "Erstelle Teile-einen-Fakt-Karte …";
 "share-default-format" = "„$1“ von „$2“: $3";
@@ -835,9 +836,11 @@
 "share-get-directions-in-maps" = "Richtungen abrufen";
 "share-menu-item" = "Teilen …";
 "share-message-format" = "„$1“ $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "über @Wikipedia";
 "share-open-in-maps" = "In Karten öffnen";
 "share-social-format" = "„$1“ über Wikipedia: $2";
+// Fuzzy
 "share-social-mention-format" = "„$1“ über @Wikipedia: $2";
 "sort-by-recently-added-action" = "Kürzlich hinzugefügt";
 "sort-by-title-action" = "Titel";

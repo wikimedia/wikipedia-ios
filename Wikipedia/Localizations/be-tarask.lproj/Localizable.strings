@@ -107,6 +107,7 @@
 "search-result-redirected-from" = "Перанакіравана з: $1";
 "search-title" = "Пошук";
 "settings-title" = "Налады";
+// Fuzzy
 "share-article-name-on-wikipedia" = "«$1» у @Wikipedia:";
 "table-of-contents-button-label" = "Зьмест";
 "table-of-contents-heading" = "Зьмест";

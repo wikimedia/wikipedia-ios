@@ -900,6 +900,7 @@
 "settings-support" = "Підтримати Вікіпедію";
 "settings-title" = "Налаштування";
 "share-a-fact-made-with" = "Створено за допомоги додатку Вікіпедія";
+// Fuzzy
 "share-article-name-on-wikipedia" = "«$1» у @Wikipedia:";
 "share-building" = "Створення картки «Поділися фактом»...";
 "share-default-format" = "«$1» з «$2»: $3";
@@ -907,9 +908,11 @@
 "share-get-directions-in-maps" = "Отримати напрямки";
 "share-menu-item" = "Поширити…";
 "share-message-format" = "«$1» $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "через @Wikipedia";
 "share-open-in-maps" = "Відкрити на Мапах";
 "share-social-format" = "«$1» у Вікіпедії мовою «$2»";
+// Fuzzy
 "share-social-mention-format" = "«$1» у Вікіпедії мовою «$2»";
 "sort-by-recently-added-action" = "Нещодавно додані";
 "sort-by-title-action" = "Назва";

@@ -354,6 +354,7 @@
 "settings-support" = "پشتگیریی ویکیپیدیا بکە";
 "settings-title" = "ڕێکخستنەکان";
 "share-a-fact-made-with" = "بە بەرنامەی ویکیپیدیا دروستکراوە";
+// Fuzzy
 "share-article-name-on-wikipedia" = "«$1» لەسەر @Wikipedia:";
 "share-building" = "کارتێکی ڕاستییەک-ھاوبەش-بکە دروست دەکرێت...";
 "share-default-format" = "«$1» لە «$2»: $3";
@@ -361,9 +362,11 @@
 "share-get-directions-in-maps" = "وەرگرتنی ئاڕاستەکان";
 "share-menu-item" = "ھاوبەشکردن...";
 "share-message-format" = "«$1» $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "لەڕێی @ویکیپیدیا";
 "share-open-in-maps" = "کردنەوە لە نەخشەدا";
 "share-social-format" = "«$1» بە ویکیپیدیا: $2";
+// Fuzzy
 "share-social-mention-format" = "«$1» بە @ویکیپیدیا: $2";
 "table-of-contents-button-label" = "خشتەی ناوەڕۆکەکان";
 "table-of-contents-close-accessibility-hint" = "داخستن";

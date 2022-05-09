@@ -862,6 +862,7 @@
 "settings-support" = "Podporte Wikipédiu";
 "settings-title" = "Nastavenia";
 "share-a-fact-made-with" = "Vytvorené s aplikácie Wikipédie";
+// Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipédii:";
 "share-building" = "Vytváranie Zdieľanie faktu...";
 "share-default-format" = "„$1” z „$1”: $3";
@@ -869,9 +870,11 @@
 "share-get-directions-in-maps" = "Nájsť trasu";
 "share-menu-item" = "Zdieľať…";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "prostredníctvom @Wikipedia";
 "share-open-in-maps" = "Otvoriť v aplikácii Mapy";
 "share-social-format" = "„$1“ na Wikipédii: $2";
+// Fuzzy
 "share-social-mention-format" = "„$1“ na @Wikipédi: $2";
 "sort-by-recently-added-action" = "Nedávno pridané";
 "sort-by-title-action" = "Podľa názvu";

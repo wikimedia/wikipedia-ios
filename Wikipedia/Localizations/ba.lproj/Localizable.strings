@@ -148,7 +148,9 @@
 "settings-primary-language" = "Төп";
 "settings-support" = "Википедияға ярҙам";
 "settings-title" = "Көйләүҙәр";
+// Fuzzy
 "share-article-name-on-wikipedia" = " @Wikipedia-ла «$1»";
+// Fuzzy
 "share-on-twitter-sign-off" = "@Wikipedia аша";
 // Fuzzy
 "table-of-contents-button-label" = "Йөкмәткеһе";

@@ -923,6 +923,7 @@
 "settings-support" = "Dukung Wikipedia";
 "settings-title" = "Pengaturan";
 "share-a-fact-made-with" = "Dibuat dengan aplikasi Wikipedia";
+// Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" pada @Wikipedia:";
 "share-building" = "Membangun kartu Bagikan-fakta...";
 "share-default-format" = "“$1” dari “$2”: $3";
@@ -930,9 +931,11 @@
 "share-get-directions-in-maps" = "Dapatkan Petunjuk Arah";
 "share-menu-item" = "Bagikan...";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "melalui @Wikipedia";
 "share-open-in-maps" = "Buka di Peta";
 "share-social-format" = "“$1” melalui Wikipedia: $2";
+// Fuzzy
 "share-social-mention-format" = "“$1” melalui @Wikipedia: $2";
 "sort-by-recently-added-action" = "Baru-baru ini ditambahkan";
 "sort-by-title-action" = "Judul";

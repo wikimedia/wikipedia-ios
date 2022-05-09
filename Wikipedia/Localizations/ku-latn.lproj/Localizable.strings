@@ -74,8 +74,10 @@
 "settings-support" = "Piştgiriyê bide Wîkîpediyayê";
 "settings-title" = "Eyar";
 "share-menu-item" = "Parve bike...";
+// Fuzzy
 "share-on-twitter-sign-off" = "bi rêya @Wîkîpediya";
 "share-social-format" = "\"$1\" li Wîkîpediya:$2";
+// Fuzzy
 "share-social-mention-format" = "\"$1\" li @Wîkîpediya:$2";
 "table-of-contents-close-accessibility-hint" = "Bigre";
 "table-of-contents-heading" = "Naverok";

@@ -856,6 +856,7 @@
 "settings-support" = "Hỗ trợ Wikimedia";
 "settings-title" = "Cài đặt";
 "share-a-fact-made-with" = "Tạo bằng ứng dụng Wikipedia";
+// Fuzzy
 "share-article-name-on-wikipedia" = "“$1” trên @Wikipedia:";
 "share-building" = "Đang tạo phiếu chia sẻ sự thật…";
 "share-default-format" = "“$1” từ “$2”: $3";
@@ -863,9 +864,11 @@
 "share-get-directions-in-maps" = "Chỉ đường";
 "share-menu-item" = "Chia sẻ…";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "qua @Wikipedia";
 "share-open-in-maps" = "Mở trọng Bản đồ";
 "share-social-format" = "“$1” tại Wikipedia: $2";
+// Fuzzy
 "share-social-mention-format" = "“$1” tại @Wikipedia: $2";
 "sort-by-recently-added-action" = "Thêm gần đây";
 "sort-by-title-action" = "Tựa đề";

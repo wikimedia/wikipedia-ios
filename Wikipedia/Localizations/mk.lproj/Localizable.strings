@@ -664,8 +664,26 @@
 "notifications-center-title" = "Известувања";
 "notifications-center-toolbar-mark-accessibility-label" = "Обележи избрани известувања";
 "notifications-center-type-item-description-mentions" = "Споменувања";
+"notifications-center-type-item-description-notice" = "Напомена";
 "notifications-center-type-item-description-welcome-verbose" = "Прака за добредојде";
+"notifications-center-type-title-connection-with-wikidata" = "Поврзаност со Википодатоците";
+"notifications-center-type-title-edit-milestone" = "Уредувачко достигнување";
+"notifications-center-type-title-edit-reverted" = "Вратено уредување";
+"notifications-center-type-title-edit-summary-mention" = "Соменување во опис на уредување";
+"notifications-center-type-title-email-from-other-user" = "Е-пошта од друг корисник";
+"notifications-center-type-title-login-attempts" = "Обиди за најава";
 "notifications-center-type-title-login-attempts-subtitle" = "Неуспешни обиди за најава на вашата сметка";
+"notifications-center-type-title-login-success" = "Успешна најава";
+"notifications-center-type-title-page-link" = "Врска до страница";
+"notifications-center-type-title-page-review" = "Оценка на страница";
+"notifications-center-type-title-sent-mention-failure" = "Неуспешно испратено споменување";
+"notifications-center-type-title-sent-mention-success" = "Успешно испратено споменување";
+"notifications-center-type-title-talk-page-mention" = "Споменување во разговорна страница";
+"notifications-center-type-title-thanks" = "Благодарност";
+"notifications-center-type-title-translation-milestone" = "Преведувачко достигнување";
+"notifications-center-type-title-user-rights-change" = "Измена во кориснички права";
+"notifications-center-type-title-user-talk-page-messsage" = "Порака на разговорна страница";
+"notifications-center-type-title-welcome" = "Добредојде";
 "notifications-push-fallback-body-text" = "Нови активности на Википедија";
 "notifications-push-talk-body-format" = "{{PLURAL:$1|$1 нова порака|$1 нови пораки}} на $2";
 "notifications-push-talk-title-format" = "{{PLURAL:$1|Нова порака|Нови пораки}}";
@@ -747,6 +765,17 @@
 "potd-widget-title" = "Слика на денот";
 "preference-summary-eventlogging-opt-in" = "Ѝ овозможува на Фондацијата Викимедија да собира информации за тоа како го користите прилогот, за да може да го подобри";
 "preference-title-eventlogging-opt-in" = "Испраќај извештаи за употребата";
+"project-name-mediawiki" = "МедијаВики";
+"project-name-wikibooks" = "Викикниги";
+"project-name-wikidata" = "Википодатоци";
+"project-name-wikimedia-commons" = "Ризница";
+"project-name-wikinews" = "Викивести";
+"project-name-wikiquote" = "Викицитат";
+"project-name-wikisource" = "Викиизвор";
+"project-name-wikispecies" = "Викивидови";
+"project-name-wikiversity" = "Викиуниверзитет";
+"project-name-wikivoyage" = "Википатување";
+"project-name-wiktionary" = "Викиречник";
 "rank-accessibility-label" = "Број $1";
 "readers-accessibility-label" = "$1 читатели";
 "reading-list-add-generic-hint-title" = "Да ја додадам статијава во списокот за читање?";
@@ -919,6 +948,7 @@
 "settings-support" = "Поддржете ја Википедија";
 "settings-title" = "Нагодувања";
 "share-a-fact-made-with" = "Направено до прилогот на Википедија";
+// Fuzzy
 "share-article-name-on-wikipedia" = "„$1“ на @Wikipedia:";
 "share-building" = "Создавам карта за споделување факт...";
 "share-default-format" = "„$1“ од „$2“: $3";
@@ -926,9 +956,11 @@
 "share-get-directions-in-maps" = "Дај насоки";
 "share-menu-item" = "Сподели...";
 "share-message-format" = "„$1“ $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "преку @Wikipedia";
 "share-open-in-maps" = "Отвори во Карти";
 "share-social-format" = "„$1“ преку Википедија: $2";
+// Fuzzy
 "share-social-mention-format" = "„$1“ преку @Википедија: $2";
 "sort-by-recently-added-action" = "Неодамна додадени";
 "sort-by-title-action" = "Наслов";

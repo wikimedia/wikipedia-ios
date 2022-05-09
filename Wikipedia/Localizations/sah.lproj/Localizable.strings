@@ -342,8 +342,10 @@
 "settings-primary-language-details" = "Бу тиһиликкэ бастакыннан ааттаммыт тыл дьибилгэт сүрүн тылын быһыытынан туттуллар. Бу тылы уларыттаххына Эйиэхэ күн аайы көрдөрүллэр уларыйан сөп (холобура Бастыҥ ыстатыйа).";
 "settings-support" = "Бикипиэдьийэни өйөө";
 "settings-title" = "Туруоруулар";
+// Fuzzy
 "share-article-name-on-wikipedia" = "«$1» @Wikipedia:";
 "share-get-directions-in-maps" = "Суолу салҕаа";
+// Fuzzy
 "share-on-twitter-sign-off" = "@Wikipedia нөҥүө";
 "share-open-in-maps" = "Каартаҕа арый";
 "table-of-contents-button-label" = "Иһинээҕитэ";
