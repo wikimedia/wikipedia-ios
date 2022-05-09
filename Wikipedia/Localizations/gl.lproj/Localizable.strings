@@ -700,6 +700,7 @@
 "settings-support" = "Apoie a Wikipedia";
 "settings-title" = "Configuración";
 "share-a-fact-made-with" = "Feito coa aplicación de Wikipedia";
+// Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" en @Wikipedia:";
 "share-building" = "Creando unha tarxeta comparte-un-feito...";
 "share-default-format" = "“$1” de “$2”: $3";
@@ -707,9 +708,11 @@
 "share-get-directions-in-maps" = "Obter as direccións";
 "share-menu-item" = "Compartir…";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "vía @Wikipedia";
 "share-open-in-maps" = "Abrir en Maps";
 "share-social-format" = "“$1” vía Wikipedia: $2";
+// Fuzzy
 "share-social-mention-format" = "“$1” vía @Wikipedia: $2";
 "sort-by-recently-added-action" = "Engadidos recentemente";
 "sort-by-title-action" = "Título";

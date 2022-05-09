@@ -309,11 +309,7 @@
 // Fuzzy
 "notifications-center-go-to-article" = "Μετάβαση σε άρθρο";
 // Fuzzy
-"notifications-center-go-to-article-discussion-format" = "Μετάβαση στη σελίδα συζητήσεων $1";
-// Fuzzy
 "notifications-center-go-to-article-talk-format" = "Μετάβαση στη σελίδα συνομιλίας $1";
-// Fuzzy
-"notifications-center-go-to-discussion-page" = "Μετάβαση στη σελίδα συζητήσεων";
 "notifications-center-login-notifications" = "Ειδοποιήσεις σύνδεσης";
 "notifications-center-onboarding-modal-continue-action" = "Συνέχεια";
 "notifications-center-onboarding-modal-filters-title" = "Φίλτρα";
@@ -454,6 +450,7 @@
 "settings-support" = "Υποστηρίξτε τη Βικιπαίδεια";
 "settings-title" = "Ρυθμίσεις";
 "share-a-fact-made-with" = "Δημιουργήθηκε με την εφαρμογή Βικιπαίδεια";
+// Fuzzy
 "share-article-name-on-wikipedia" = "«$1» στη @Wikipedia:";
 "share-building" = "Χτίζοντας μια κάρτα κοινοποίησης ενός γεγονότος...";
 "share-default-format" = "“$1” από “$2”: $3";
@@ -461,9 +458,11 @@
 "share-get-directions-in-maps" = "Λάβετε κατευθύνσεις";
 "share-menu-item" = "Κοινοποίηση...";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "μέσω @Wikipedia";
 "share-open-in-maps" = "Άνοιγμα στους χάρτες";
 "share-social-format" = "“$1” μέσω της Βικιπαίδειας: $2";
+// Fuzzy
 "share-social-mention-format" = "“$1” μέσω του @Βικιπαίδεια: $2";
 "sort-by-recently-added-action" = "Προστέθηκαν πρόσφατα";
 "sort-by-title-action" = "Τίτλος";

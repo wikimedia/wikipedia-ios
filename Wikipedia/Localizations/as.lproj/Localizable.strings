@@ -272,8 +272,10 @@
 "settings-storage-and-syncing-erase-saved-articles-title" = "সাঁচি থোৱা প্ৰবন্ধসমূহ মচি পেলাওক";
 "settings-support" = "ৱিকিপিডিয়াক সমৰ্থন কৰক";
 "settings-title" = "ছেটিংছ";
+// Fuzzy
 "share-article-name-on-wikipedia" = "@Wikipedia -ত \"$1\":";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "@Wikipedia ৰ মাধ্যমেৰে";
 "share-social-format" = "ৱিকিপিডিয়াৰ মাধ্যমেৰে “$1”: $2";
 "sort-by-title-action" = "শিৰোনাম";

@@ -373,15 +373,18 @@
 "settings-support" = "Sengkuyung Wikipédia";
 "settings-title" = "Setèlan";
 "share-a-fact-made-with" = "Digawé nganggo aplikasi Wikipédia";
+// Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" ing @Wikipedia:";
 "share-default-format" = "“$1” saka “$2”: $3";
 "share-email-format" = "“$1”\n\nsaka “$2”\n\n$3";
 "share-get-directions-in-maps" = "Golèk Lor-Kidul";
 "share-menu-item" = "Dum...";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "lumantar @Wikipedia";
 "share-open-in-maps" = "Bukak ing Maps";
 "share-social-format" = "“$1” lumantar Wikipédia: $2";
+// Fuzzy
 "share-social-mention-format" = "“$1” lumantar @Wikipedia: $2";
 "sort-by-recently-added-action" = "Mentas kawuwuhaké";
 "sort-by-title-action" = "Sesirah";

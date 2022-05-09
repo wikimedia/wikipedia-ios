@@ -129,6 +129,7 @@
 "nearby-distance-label-meters" = "$1 metre";
 "nearby-distance-label-miles" = "$1 mil";
 "no-internet-connection" = "Gıredayışê interneti çıniyo";
+"notifications-center-status-all" = "Pêro";
 "number-thousands" = "$1 Hezar";
 "page-history-compare-title" = "Miqayese";
 "page-history-revision-author-accessibility-label" = "Nuştekar: $1";
@@ -165,7 +166,9 @@
 "settings-primary-language" = "Verorên";
 "settings-support" = "Wikimedya rê desteg be";
 "settings-title" = "Eyari";
+// Fuzzy
 "share-article-name-on-wikipedia" = "@Wikipedia de $1 :";
+// Fuzzy
 "share-on-twitter-sign-off" = "@Wikipedia ya";
 "table-of-contents-button-label" = "Tabloyê zerreki";
 "table-of-contents-close-accessibility-hint" = "Kip ke";

@@ -317,6 +317,7 @@
 "settings-support" = "Mudd afus i Wikipedia";
 "settings-title" = "Iɣewwaren";
 "share-a-fact-made-with" = "Yettwag s usnas Wikipedia";
+// Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" di @Wikipedia:";
 "share-building" = "Rnu takarḍa Bḍu-tigawt...";
 "share-default-format" = "“$1” si “$2”: $3";
@@ -324,9 +325,11 @@
 "share-get-directions-in-maps" = "Awi iwellihen";
 "share-menu-item" = "Bḍu...";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "s @Wikipedia";
 "share-open-in-maps" = "Ldi di Maps";
 "share-social-format" = "“$1” s Wikipedia: $2";
+// Fuzzy
 "share-social-mention-format" = "“$1” s @Wikipedia: $2";
 "table-of-contents-button-label" = "Agbur";
 "table-of-contents-close-accessibility-hint" = "Mdel";
