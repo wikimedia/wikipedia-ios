@@ -10,6 +10,7 @@ enum NotificationsCenterUpdateType {
     case toolbarContent
     case reconfigureCells([NotificationsCenterCellViewModel]) //reconfigures cells without instantiating new cells or updating the snapshot
     case updateSnapshot([NotificationsCenterCellViewModel]) //updates the snapshot for inserting / deleting cells
+    case endRefreshing
 }
 
 protocol NotificationsCenterViewModelDelegate: AnyObject {
@@ -40,7 +41,11 @@ final class NotificationsCenterViewModel: NSObject {
             //This setter may be called often due to quickly firing NSNotifications.
             //Don't allow a view update unless something has actually changed.
             if oldValue != isLoading {
-                delegate?.update(types: [.emptyContent, .toolbarContent])
+                var updateTypes: [NotificationsCenterUpdateType] = [.emptyContent, .toolbarContent]
+                if !isLoading {
+                    updateTypes.insert(.endRefreshing, at: 0)
+                }
+                delegate?.update(types: updateTypes)
             }
         }
     }
@@ -154,6 +159,9 @@ final class NotificationsCenterViewModel: NSObject {
         remoteNotificationsController.loadNotifications(force: force) { result in
             switch result {
             case .failure(let error):
+                if case RemoteNotificationsControllerError.attemptingToRefreshBeforeDeadline = error {
+                    break
+                }
                 DDLogError("Error refreshing notifications: \(error)")
                 WMFAlertManager.sharedInstance.showErrorAlert(error, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)
             default:
