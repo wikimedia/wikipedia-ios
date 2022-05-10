@@ -100,6 +100,8 @@ final class NotificationsCenterViewController: ViewController {
         cellPanGestureRecognizer.addTarget(self, action: #selector(userDidPanCell(_:)))
         cellPanGestureRecognizer.delegate = self
 
+        notificationsView.refreshControl.addTarget(self, action: #selector(userDidPullToRefresh), for: .valueChanged)
+
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
     }
 
@@ -117,6 +119,7 @@ final class NotificationsCenterViewController: ViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        endRefreshing()
         closeSwipeActionsPanelIfNecessary()
     }
 
@@ -147,6 +150,13 @@ final class NotificationsCenterViewController: ViewController {
     
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
+
+        if editing {
+            notificationsView.collectionView.refreshControl?.endRefreshing()
+            notificationsView.collectionView.refreshControl = nil
+        } else {
+            notificationsView.collectionView.refreshControl = notificationsView.refreshControl
+        }
         
         notificationsView.collectionView.allowsMultipleSelection = editing
         deselectCells()
@@ -201,8 +211,7 @@ private extension NotificationsCenterViewController {
         })
     }
     
-    func applySnapshot(cellViewModels: [NotificationsCenterCellViewModel], animatingDifferences: Bool = true) {
-        
+    func applySnapshot(cellViewModels: [NotificationsCenterCellViewModel]) {
         guard let dataSource = dataSource else {
             return
         }
@@ -210,8 +219,8 @@ private extension NotificationsCenterViewController {
         snapshotUpdateQueue.async {
             var snapshot = Snapshot()
             snapshot.appendSections([.main])
-            snapshot.appendItems(cellViewModels)
-            dataSource.apply(snapshot, animatingDifferences: animatingDifferences) {
+            snapshot.appendItems(cellViewModels, toSection: .main)
+            dataSource.apply(snapshot, animatingDifferences: true) {
                 //Note: API docs indicate this completion block is already called on the main thread
                 self.notificationsView.updateCalculatedCellHeightIfNeeded()
             }
@@ -237,34 +246,17 @@ private extension NotificationsCenterViewController {
     }
     
     func reconfigureCells(with viewModels: [NotificationsCenterCellViewModel]? = nil) {
-        
-        if #available(iOS 15.0, *) {
-            snapshotUpdateQueue.async {
-                if var snapshot = self.dataSource?.snapshot() {
-                    
-                    let itemIdentifiers = Set(snapshot.itemIdentifiers)
-                    var viewModelsToUpdate = itemIdentifiers
-                    if let viewModels = viewModels {
-                        viewModelsToUpdate = itemIdentifiers.union(Set(viewModels))
-                    }
-                    
-                    snapshot.reconfigureItems(Array(viewModelsToUpdate))
-                    self.dataSource?.apply(snapshot, animatingDifferences: false)
-                }
-            }
+        let cellsToReconfigure: [NotificationsCenterCell]
+
+        if let viewModels = viewModels, let dataSource = dataSource {
+            let indexPathsToReconfigure = viewModels.compactMap { dataSource.indexPath(for: $0) }
+            cellsToReconfigure = indexPathsToReconfigure.compactMap { notificationsView.collectionView.cellForItem(at: $0) as? NotificationsCenterCell }
         } else {
-            
-            let cellsToReconfigure: [NotificationsCenterCell]
-            if let viewModels = viewModels, let dataSource = dataSource {
-                let indexPathsToReconfigure = viewModels.compactMap { dataSource.indexPath(for: $0) }
-                cellsToReconfigure = indexPathsToReconfigure.compactMap { notificationsView.collectionView.cellForItem(at: $0) as? NotificationsCenterCell}
-            } else {
-                cellsToReconfigure = notificationsView.collectionView.visibleCells as? [NotificationsCenterCell] ?? []
-            }
-            
-            cellsToReconfigure.forEach { cell in
-                cell.configure(theme: theme)
-            }
+            cellsToReconfigure = notificationsView.collectionView.visibleCells as? [NotificationsCenterCell] ?? []
+        }
+
+        cellsToReconfigure.forEach { cell in
+            cell.configure(theme: theme)
         }
     }
     
@@ -569,9 +561,7 @@ extension NotificationsCenterViewController: NotificationsCenterOnboardingDelega
 extension NotificationsCenterViewController: NotificationsCenterViewModelDelegate {
     
     func update(types: [NotificationsCenterUpdateType]) {
-        
         for type in types {
-            
             switch type {
             case .reconfigureCells(let cellViewModels):
                 reconfigureCells(with: cellViewModels)
@@ -584,7 +574,9 @@ extension NotificationsCenterViewController: NotificationsCenterViewModelDelegat
             case .emptyContent:
                 refreshEmptyContent()
             case .updateSnapshot(let cellViewModels):
-                applySnapshot(cellViewModels: cellViewModels, animatingDifferences: true)
+                applySnapshot(cellViewModels: cellViewModels)
+            case .endRefreshing:
+                endRefreshing()
             }
         }
     }
@@ -938,4 +930,18 @@ extension NotificationsCenterViewController: NotificationsCenterFlowViewControll
     func tappedPushNotification() {
         //do nothing
     }
+}
+
+// MARK: - Refresh Control
+
+extension NotificationsCenterViewController {
+
+    @objc func userDidPullToRefresh() {
+        viewModel.refreshNotifications(force: true)
+    }
+
+    func endRefreshing() {
+        notificationsView.refreshControl.endRefreshing()
+    }
+
 }
