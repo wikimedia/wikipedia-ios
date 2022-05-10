@@ -1679,7 +1679,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
     NSDictionary *info = response.notification.request.content.userInfo;
 
-    [self showNotificationCenterForNotificationInfo:info];
+    if ([response.notification.request.content.threadIdentifier isEqualToString:EchoModelVersion.current]) {
+        [self showNotificationCenterForNotificationInfo:info];
+    }
 
     completionHandler();
 }
