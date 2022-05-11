@@ -24,6 +24,7 @@ public enum RemoteNotificationType: Hashable {
     case unknownNotice //No specific type ID, notice type
     case unknownAlert //No specific type ID, alert type
     case unknown
+    case other
     
 //Possible flow-related notifications to target. Leaving it to default handling for now but we may need to bring these in for special handling.
 //    case flowUserTalkPageNewTopic //Message on your talk page
