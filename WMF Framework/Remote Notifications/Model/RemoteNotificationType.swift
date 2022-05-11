@@ -184,7 +184,8 @@ public extension RemoteNotificationType {
             .editMilestone,
             .translationMilestone(1), //for filters this represents other translation associated values as well (ten, hundred milestones).
             .thanks,
-            .welcome
+            .welcome,
+            .other
         ]
     }
     
@@ -225,6 +226,8 @@ public extension RemoteNotificationType {
             return WMFLocalizedString("notifications-center-type-title-thanks", value: "Thanks", comment: "Title of \"thanks\" notification type. Used on filters view toggles and the notification detail view.")
         case .welcome:
             return WMFLocalizedString("notifications-center-type-title-welcome", value: "Welcome", comment: "Title of \"welcome\" notification type. Used on filters view toggles and the notification detail view.")
+        case .other:
+            return WMFLocalizedString("notifications-center-type-title-other", value: "Other", comment: "Title of \"other\" notifications filter. Used on filter toggles.")
         case .unknownSystemAlert,
                 .unknownAlert,
                 .unknown:
