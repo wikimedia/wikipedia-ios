@@ -116,6 +116,8 @@ public extension RemoteNotificationType {
                 self = .thanks
             case "welcome":
                 self = .welcome
+            case "other":
+                self = .other
             default:
                 return nil
         }
@@ -158,6 +160,8 @@ public extension RemoteNotificationType {
             return "thanks"
         case .welcome:
             return "welcome"
+        case .other:
+            return "other"
         default:
             return nil
         }
