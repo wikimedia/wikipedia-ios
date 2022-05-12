@@ -40,6 +40,12 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
 #endif
     }
+    
+    @objc var isGranularUpdatingEnabled: Bool = true {
+        didSet {
+            collectionViewUpdater?.isGranularUpdatingEnabled = isGranularUpdatingEnabled
+        }
+    }
 
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -63,7 +69,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        collectionViewUpdater?.isGranularUpdatingEnabled = true
+        isGranularUpdatingEnabled = true
         restoreScrollPositionIfNeeded()
 
         /// Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
@@ -88,7 +94,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         super.viewDidDisappear(animated)
         dataStore.feedContentController.dismissCollapsedContentGroups()
         stopMonitoringReachability()
-        collectionViewUpdater?.isGranularUpdatingEnabled = false
+        isGranularUpdatingEnabled = false
     }
 
     @objc func updateNotificationsCenterButton() {
