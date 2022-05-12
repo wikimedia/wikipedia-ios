@@ -101,6 +101,7 @@ final class NotificationsCenterViewController: ViewController {
         cellPanGestureRecognizer.delegate = self
 
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(pushNotificationBannerDidDisplayInForeground(_:)), name: .pushNotificationBannerDidDisplayInForeground, object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -938,4 +939,19 @@ extension NotificationsCenterViewController: NotificationsCenterFlowViewControll
     func tappedPushNotification() {
         //do nothing
     }
+}
+
+// MARK: - Notification Banner Display
+
+@objc extension NotificationsCenterViewController {
+
+    func pushNotificationBannerDidDisplayInForeground(_ notification: Notification) {
+        // Here's how to access the identifiers of the soon to displayed Echo notifications
+        // if let userInfo = notification.userInfo {
+        //    let contentIdentifiers = PushNotificationContentIdentifier.load(from: userInfo)
+        // }
+
+        viewModel.refreshNotifications(force: true)
+    }
+
 }

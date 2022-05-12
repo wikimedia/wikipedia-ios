@@ -34,6 +34,8 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         NotificationCenter.default.addObserver(self, selector: #selector(exploreFeedPreferencesDidSave(_:)), name: NSNotification.Name.WMFExploreFeedPreferencesDidSave, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(articleDidChange(_:)), name: NSNotification.Name.WMFArticleUpdated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(articleDeleted(_:)), name: NSNotification.Name.WMFArticleDeleted, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(pushNotificationBannerDidDisplayInForeground(_:)), name: .pushNotificationBannerDidDisplayInForeground, object: nil)
+
 #if UI_TEST
         if UserDefaults.standard.wmf_isFastlaneSnapshotInProgress() {
             collectionView.decelerationRate = .fast
@@ -1069,6 +1071,10 @@ extension ExploreViewController {
 
     @objc func userDidTapNotificationsCenter() {
         notificationsCenterPresentationDelegate?.userDidTapNotificationsCenter(from: self)
+    }
+
+    @objc func pushNotificationBannerDidDisplayInForeground(_ notification: Notification) {
+        dataStore.remoteNotificationsController.loadNotifications(force: true)
     }
 
 }
