@@ -124,19 +124,21 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
         }
         
         let sectionCountsMatch = (previousSectionCounts.count + sectionDelta) == sectionCounts.count
-        guard !forceReload, sectionCountsMatch, objectChanges.count < 1000 && sectionChanges.count < 10 else { // reload data for invalid changes & larger changes
+        let currentNumberOfSections = collectionView.numberOfSections
+        let previousSectionCountsEqualCurrentNumberOfSections = previousSectionCounts.count == currentNumberOfSections
+        guard !forceReload, sectionCountsMatch, previousSectionCountsEqualCurrentNumberOfSections, objectChanges.count < 1000 && sectionChanges.count < 10 else { // reload data for invalid changes & larger changes
             collectionView.reloadData()
             delegate?.collectionViewUpdater(self, didUpdate: self.collectionView)
             return
         }
         
         guard isSlidingNewContentInFromTheTopEnabled else {
-            performBatchUpdates()
+            performBatchUpdates(consideredNumberOfSections: currentNumberOfSections)
             return
         }
 
         guard let columnarLayout = collectionView.collectionViewLayout as? ColumnarCollectionViewLayout else {
-            performBatchUpdates()
+            performBatchUpdates(consideredNumberOfSections: currentNumberOfSections)
             return
         }
         
@@ -145,24 +147,32 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
                 columnarLayout.animateItems = true
                 columnarLayout.slideInNewContentFromTheTop = false
                 UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
-                    self.performBatchUpdates()
+                    self.performBatchUpdates(consideredNumberOfSections: currentNumberOfSections)
                 }, completion: nil)
             } else {
                 columnarLayout.animateItems = false
                 columnarLayout.slideInNewContentFromTheTop = false
-                performBatchUpdates()
+                performBatchUpdates(consideredNumberOfSections: currentNumberOfSections)
             }
             return
         }
         columnarLayout.animateItems = true
         columnarLayout.slideInNewContentFromTheTop = true
         UIView.animate(withDuration: 0.7 + 0.1 * TimeInterval(objectsInSectionDelta), delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
-            self.performBatchUpdates()
+            self.performBatchUpdates(consideredNumberOfSections: currentNumberOfSections)
         }, completion: nil)
     }
     
-    func performBatchUpdates() {
+    func performBatchUpdates(consideredNumberOfSections: Int) {
         let collectionView = self.collectionView
+        
+        //Here we are giving it one last chance to force reload, in case the numberOfSections have changed since the last time we considered it for force reloading, to try to avoid invalid update crashes. //https://phabricator.wikimedia.org/T253762
+        guard consideredNumberOfSections == collectionView.numberOfSections else {
+            collectionView.reloadData()
+            delegate?.collectionViewUpdater(self, didUpdate: self.collectionView)
+            return
+        }
+        
         collectionView.performBatchUpdates({
             DDLogDebug("=== WMFBU BATCH UPDATE START \(String(describing: self.delegate)) ===")
             for objectChange in objectChanges {
