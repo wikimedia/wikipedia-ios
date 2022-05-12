@@ -382,6 +382,10 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (![self uiIsLoaded]) {
         return;
     }
+    
+    if ([self visibleViewController] == self.exploreViewController) {
+        self.exploreViewController.isGranularUpdatingEnabled = YES;
+    }
 
     if (self.isResumeComplete) {
         [self performTasksThatShouldOccurAfterBecomeActiveAndResume];
@@ -393,6 +397,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (![self uiIsLoaded]) {
         return;
     }
+    
+    self.exploreViewController.isGranularUpdatingEnabled = NO;
+    
     [self.navigationStateController saveNavigationStateFor:self.navigationController
                                                         in:self.dataStore.viewContext];
     NSError *saveError = nil;
