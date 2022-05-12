@@ -1672,6 +1672,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 // The method will be called on the delegate only if the application is in the foreground. If the method is not implemented or the handler is not called in a timely manner then the notification will not be presented. The application can choose to have the notification presented as a sound, badge, alert and/or in the notification list. This decision should be based on whether the information in the notification is otherwise visible to the user.
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
+    if([notification.request.content.threadIdentifier isEqualToString:EchoModelVersion.current]) {
+        [NSNotificationCenter.defaultCenter postNotificationName:NSNotification.pushNotificationBannerDidDisplayInForeground object:nil userInfo:notification.request.content.userInfo];
+    }
+
     completionHandler(UNNotificationPresentationOptionAlert);
 }
 
