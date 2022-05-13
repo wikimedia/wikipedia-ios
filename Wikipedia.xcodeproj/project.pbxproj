@@ -179,6 +179,8 @@
 		00A7946E245CA4E60063BA18 /* ArticleSurveyTimerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A7946A245CA4E60063BA18 /* ArticleSurveyTimerController.swift */; };
 		00A8F58626BDD5E700175B8E /* WidgetSampleContentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A8F58526BDD5E700175B8E /* WidgetSampleContentTests.swift */; };
 		00A8F58826BDD88700175B8E /* Featured Article Widget Preview Content.json in Resources */ = {isa = PBXBuildFile; fileRef = 00550D2526B1E7DB0055C496 /* Featured Article Widget Preview Content.json */; };
+		00A988082829D92B006D800B /* PushNotificationContentIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A988072829D92B006D800B /* PushNotificationContentIdentifier.swift */; };
+		00A988092829D92B006D800B /* PushNotificationContentIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A988072829D92B006D800B /* PushNotificationContentIdentifier.swift */; };
 		00AA5AA7276BF29E005295B0 /* StatusTextBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AA5AA6276BF29E005295B0 /* StatusTextBarButtonItem.swift */; };
 		00AA5AA8276BF29E005295B0 /* StatusTextBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AA5AA6276BF29E005295B0 /* StatusTextBarButtonItem.swift */; };
 		00AA5AA9276BF29E005295B0 /* StatusTextBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AA5AA6276BF29E005295B0 /* StatusTextBarButtonItem.swift */; };
@@ -209,6 +211,8 @@
 		00D280F9247EFFFE006BEE23 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D280F6247EFFFE006BEE23 /* Date+Extensions.swift */; };
 		00D280FA247EFFFE006BEE23 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D280F6247EFFFE006BEE23 /* Date+Extensions.swift */; };
 		00D280FC247F019C006BEE23 /* Date+ExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D280FB247F019C006BEE23 /* Date+ExtensionTests.swift */; };
+		00D4B1B4282996A2008C705C /* EchoModelVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D4B1B3282996A2008C705C /* EchoModelVersion.swift */; };
+		00D4B1B5282996A2008C705C /* EchoModelVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D4B1B3282996A2008C705C /* EchoModelVersion.swift */; };
 		00E2EA8926E28A9700B1A741 /* NotificationsCenterCellStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E2EA8826E28A9700B1A741 /* NotificationsCenterCellStyle.swift */; };
 		00E2EA8A26E28A9700B1A741 /* NotificationsCenterCellStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E2EA8826E28A9700B1A741 /* NotificationsCenterCellStyle.swift */; };
 		00E2EA8B26E28A9700B1A741 /* NotificationsCenterCellStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E2EA8826E28A9700B1A741 /* NotificationsCenterCellStyle.swift */; };
@@ -3806,6 +3810,7 @@
 		007F5C6C275AA74200E4B02C /* StackedImageLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedImageLabelView.swift; sourceTree = "<group>"; usesTabs = 0; };
 		00A7946A245CA4E60063BA18 /* ArticleSurveyTimerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSurveyTimerController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		00A8F58526BDD5E700175B8E /* WidgetSampleContentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSampleContentTests.swift; sourceTree = "<group>"; };
+		00A988072829D92B006D800B /* PushNotificationContentIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationContentIdentifier.swift; sourceTree = "<group>"; };
 		00AA5AA6276BF29E005295B0 /* StatusTextBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTextBarButtonItem.swift; sourceTree = "<group>"; };
 		00AA5AAB276BF2AE005295B0 /* TextBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBarButtonItem.swift; sourceTree = "<group>"; };
 		00BCB71726DEE04D002C3F72 /* InsetLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetLabelView.swift; sourceTree = "<group>"; };
@@ -3814,6 +3819,7 @@
 		00CF2E9F27DABCA8006EFDDC /* NotificationsCenterOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterOnboardingView.swift; sourceTree = "<group>"; };
 		00D280F6247EFFFE006BEE23 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; usesTabs = 0; };
 		00D280FB247F019C006BEE23 /* Date+ExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+ExtensionTests.swift"; sourceTree = "<group>"; usesTabs = 0; };
+		00D4B1B3282996A2008C705C /* EchoModelVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EchoModelVersion.swift; sourceTree = "<group>"; };
 		00D5593424DB152300C78F08 /* WidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetsExtension.entitlements; sourceTree = "<group>"; };
 		00E2EA8826E28A9700B1A741 /* NotificationsCenterCellStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterCellStyle.swift; sourceTree = "<group>"; };
 		00E2EA8D26E2A45C00B1A741 /* NotificationsCenterCellDisplayState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsCenterCellDisplayState.swift; sourceTree = "<group>"; };
@@ -7278,6 +7284,8 @@
 				6761AEDE2704CF0000E47BAD /* RemoteNotificationsProject.swift */,
 				6761AEEC2706247800E47BAD /* PushNotificationsSettings.swift */,
 				6761AEEE2706249300E47BAD /* PushNotificationsCache.swift */,
+				00D4B1B3282996A2008C705C /* EchoModelVersion.swift */,
+				00A988072829D92B006D800B /* PushNotificationContentIdentifier.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -10853,6 +10861,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				676C864726D40AEB00A704C1 /* NotificationService.swift in Sources */,
+				00D4B1B5282996A2008C705C /* EchoModelVersion.swift in Sources */,
+				00A988092829D92B006D800B /* PushNotificationContentIdentifier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -11624,6 +11634,8 @@
 				67D6C0202405B3D2005709B1 /* CacheGroup+CoreDataClass.swift in Sources */,
 				7A5357AB215552E7007998DC /* RemoteNotificationsOperation.swift in Sources */,
 				D84C361E1F32404700895FA1 /* NewsCollectionViewCell.swift in Sources */,
+				00D4B1B4282996A2008C705C /* EchoModelVersion.swift in Sources */,
+				00A988082829D92B006D800B /* PushNotificationContentIdentifier.swift in Sources */,
 				D844D9F61D6CC0440042D692 /* Cancellable.swift in Sources */,
 				7A3AD05B20ADB1DF00C92E04 /* WMFCurrentlyLoggedInUserFetcher.swift in Sources */,
 				D89D44031D74D40100F7862E /* MWKSearchResult.m in Sources */,

@@ -100,6 +100,8 @@ final class NotificationsCenterViewController: ViewController {
         cellPanGestureRecognizer.addTarget(self, action: #selector(userDidPanCell(_:)))
         cellPanGestureRecognizer.delegate = self
 
+        notificationsView.refreshControl.addTarget(self, action: #selector(userDidPullToRefresh), for: .valueChanged)
+
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
     }
 
@@ -117,6 +119,7 @@ final class NotificationsCenterViewController: ViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        endRefreshing()
         closeSwipeActionsPanelIfNecessary()
     }
 
@@ -147,6 +150,13 @@ final class NotificationsCenterViewController: ViewController {
     
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
+
+        if editing {
+            notificationsView.collectionView.refreshControl?.endRefreshing()
+            notificationsView.collectionView.refreshControl = nil
+        } else {
+            notificationsView.collectionView.refreshControl = notificationsView.refreshControl
+        }
         
         notificationsView.collectionView.allowsMultipleSelection = editing
         deselectCells()
@@ -201,8 +211,7 @@ private extension NotificationsCenterViewController {
         })
     }
     
-    func applySnapshot(cellViewModels: [NotificationsCenterCellViewModel], animatingDifferences: Bool = true) {
-        
+    func applySnapshot(cellViewModels: [NotificationsCenterCellViewModel]) {
         guard let dataSource = dataSource else {
             return
         }
@@ -210,8 +219,8 @@ private extension NotificationsCenterViewController {
         snapshotUpdateQueue.async {
             var snapshot = Snapshot()
             snapshot.appendSections([.main])
-            snapshot.appendItems(cellViewModels)
-            dataSource.apply(snapshot, animatingDifferences: animatingDifferences) {
+            snapshot.appendItems(cellViewModels, toSection: .main)
+            dataSource.apply(snapshot, animatingDifferences: true) {
                 //Note: API docs indicate this completion block is already called on the main thread
                 self.notificationsView.updateCalculatedCellHeightIfNeeded()
             }
@@ -237,34 +246,17 @@ private extension NotificationsCenterViewController {
     }
     
     func reconfigureCells(with viewModels: [NotificationsCenterCellViewModel]? = nil) {
-        
-        if #available(iOS 15.0, *) {
-            snapshotUpdateQueue.async {
-                if var snapshot = self.dataSource?.snapshot() {
-                    
-                    let itemIdentifiers = Set(snapshot.itemIdentifiers)
-                    var viewModelsToUpdate = itemIdentifiers
-                    if let viewModels = viewModels {
-                        viewModelsToUpdate = itemIdentifiers.union(Set(viewModels))
-                    }
-                    
-                    snapshot.reconfigureItems(Array(viewModelsToUpdate))
-                    self.dataSource?.apply(snapshot, animatingDifferences: false)
-                }
-            }
+        let cellsToReconfigure: [NotificationsCenterCell]
+
+        if let viewModels = viewModels, let dataSource = dataSource {
+            let indexPathsToReconfigure = viewModels.compactMap { dataSource.indexPath(for: $0) }
+            cellsToReconfigure = indexPathsToReconfigure.compactMap { notificationsView.collectionView.cellForItem(at: $0) as? NotificationsCenterCell }
         } else {
-            
-            let cellsToReconfigure: [NotificationsCenterCell]
-            if let viewModels = viewModels, let dataSource = dataSource {
-                let indexPathsToReconfigure = viewModels.compactMap { dataSource.indexPath(for: $0) }
-                cellsToReconfigure = indexPathsToReconfigure.compactMap { notificationsView.collectionView.cellForItem(at: $0) as? NotificationsCenterCell}
-            } else {
-                cellsToReconfigure = notificationsView.collectionView.visibleCells as? [NotificationsCenterCell] ?? []
-            }
-            
-            cellsToReconfigure.forEach { cell in
-                cell.configure(theme: theme)
-            }
+            cellsToReconfigure = notificationsView.collectionView.visibleCells as? [NotificationsCenterCell] ?? []
+        }
+
+        cellsToReconfigure.forEach { cell in
+            cell.configure(theme: theme)
         }
     }
     
@@ -316,8 +308,9 @@ private extension NotificationsCenterViewController {
     }
     
     func updateMarkButtonsEnabledStates(numSelectedCells: Int) {
+        let hasUnreadNotifications = viewModel.numberOfUnreadNotifications >= 1
         markButton?.isEnabled = numSelectedCells > 0
-        markAllAsReadButton.isEnabled = numSelectedCells == 0
+        markAllAsReadButton.isEnabled = numSelectedCells == 0 && hasUnreadNotifications
     }
     
     var numSelectedMessagesFormat: String { WMFLocalizedString("notifications-center-num-selected-messages-format", value:"{{PLURAL:%1$d|%1$d message|%1$d messages}}", comment:"Title for options menu when choosing \"Mark\" toolbar button in notifications center editing mode - %1$d is replaced with the number of selected notifications.")
@@ -326,26 +319,38 @@ private extension NotificationsCenterViewController {
     func markButtonOptionsMenuForNumberOfSelectedMessages(selectedCellViewModels: [NotificationsCenterCellViewModel]) -> UIMenu {
         let titleFormat = numSelectedMessagesFormat
         let title = String.localizedStringWithFormat(titleFormat, selectedCellViewModels.count)
-        let optionsMenu = UIMenu(title: title, children: [
-            UIAction.init(title: CommonStrings.notificationsCenterMarkAsRead, image: UIImage(systemName: "envelope.open"), handler: { _ in
-                self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: true)
-                let identifier = UUID()
-                for cellViewModel in selectedCellViewModels {
-                    self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: identifier.uuidString, shouldMarkRead: true)
-                }
-                self.isEditing = false
-            }),
-            UIAction(title: CommonStrings.notificationsCenterMarkAsUnread, image: UIImage(systemName: "envelope"), handler: { _ in
-                self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: false)
-                let identifier = UUID()
-                for cellViewModel in selectedCellViewModels {
-                    self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: identifier.uuidString, shouldMarkRead: false)
-                }
-                self.isEditing = false
-            })
-        ])
         
-        return optionsMenu
+        let actionMarkAsRead = UIAction(title: CommonStrings.notificationsCenterMarkAsRead, image: UIImage(systemName: "envelope.open"), handler: { _ in
+            self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: true)
+            let identifier = UUID()
+            for cellViewModel in selectedCellViewModels {
+                self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: identifier.uuidString, shouldMarkRead: true)
+            }
+            self.isEditing = false
+        })
+        
+        let actionMarkAsUnread = UIAction(title: CommonStrings.notificationsCenterMarkAsUnread, image: UIImage(systemName: "envelope"), handler: { _ in
+            self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: false)
+            let identifier = UUID()
+            for cellViewModel in selectedCellViewModels {
+                self.logMarkReadOrUnreadAction(model: cellViewModel, selectionToken: identifier.uuidString, shouldMarkRead: false)
+            }
+            self.isEditing = false
+        })
+        
+        if !selectedCellViewModels.contains(where: { $0.isRead }) {
+            return UIMenu(title: title, children: [
+                actionMarkAsRead
+            ])
+        } else if !selectedCellViewModels.contains(where: { !$0.isRead }){
+            return UIMenu(title: title, children: [
+                actionMarkAsUnread
+            ])
+        } else {
+            return UIMenu(title: title, children: [
+                actionMarkAsRead, actionMarkAsUnread
+            ])
+        }
     }
     
     @objc func didTapMarkButtonIOS13(_ sender: UIBarButtonItem) {
@@ -356,7 +361,7 @@ private extension NotificationsCenterViewController {
         let title = String.localizedStringWithFormat(titleFormat, selectedCellViewModels.count)
 
         let alertController = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
-        let action1 = UIAlertAction(title: CommonStrings.notificationsCenterMarkAsRead, style: .default) { _ in
+        let markRead = UIAlertAction(title: CommonStrings.notificationsCenterMarkAsRead, style: .default) { _ in
             self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: true)
             self.isEditing = false
             let identifier = UUID()
@@ -365,8 +370,7 @@ private extension NotificationsCenterViewController {
             }
         }
         
-        let action2 = UIAlertAction(title: CommonStrings.notificationsCenterMarkAsUnread, style: .default) { _ in
-            
+        let markUnread = UIAlertAction(title: CommonStrings.notificationsCenterMarkAsUnread, style: .default) { _ in
             self.viewModel.markAsReadOrUnread(viewModels: selectedCellViewModels, shouldMarkRead: false)
             self.isEditing = false
             let identifier = UUID()
@@ -376,8 +380,15 @@ private extension NotificationsCenterViewController {
         }
         
         let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel, handler: nil)
-        alertController.addAction(action1)
-        alertController.addAction(action2)
+        
+        if !selectedCellViewModels.contains(where: { $0.isRead }) {
+            alertController.addAction(markRead)
+        } else if !selectedCellViewModels.contains(where: { !$0.isRead }) {
+            alertController.addAction(markUnread)
+        } else {
+            alertController.addAction(markRead)
+            alertController.addAction(markUnread)
+        }
         alertController.addAction(cancelAction)
         
         if let popoverController = alertController.popoverPresentationController {
@@ -569,9 +580,7 @@ extension NotificationsCenterViewController: NotificationsCenterOnboardingDelega
 extension NotificationsCenterViewController: NotificationsCenterViewModelDelegate {
     
     func update(types: [NotificationsCenterUpdateType]) {
-        
         for type in types {
-            
             switch type {
             case .reconfigureCells(let cellViewModels):
                 reconfigureCells(with: cellViewModels)
@@ -584,7 +593,9 @@ extension NotificationsCenterViewController: NotificationsCenterViewModelDelegat
             case .emptyContent:
                 refreshEmptyContent()
             case .updateSnapshot(let cellViewModels):
-                applySnapshot(cellViewModels: cellViewModels, animatingDifferences: true)
+                applySnapshot(cellViewModels: cellViewModels)
+            case .endRefreshing:
+                endRefreshing()
             }
         }
     }
@@ -938,4 +949,18 @@ extension NotificationsCenterViewController: NotificationsCenterFlowViewControll
     func tappedPushNotification() {
         //do nothing
     }
+}
+
+// MARK: - Refresh Control
+
+extension NotificationsCenterViewController {
+
+    @objc func userDidPullToRefresh() {
+        viewModel.refreshNotifications(force: true)
+    }
+
+    func endRefreshing() {
+        notificationsView.refreshControl.endRefreshing()
+    }
+
 }

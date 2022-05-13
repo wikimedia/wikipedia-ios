@@ -380,6 +380,10 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (![self uiIsLoaded]) {
         return;
     }
+    
+    if ([self visibleViewController] == self.exploreViewController) {
+        self.exploreViewController.isGranularUpdatingEnabled = YES;
+    }
 
     if (self.isResumeComplete) {
         [self performTasksThatShouldOccurAfterBecomeActiveAndResume];
@@ -391,6 +395,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (![self uiIsLoaded]) {
         return;
     }
+    
+    self.exploreViewController.isGranularUpdatingEnabled = NO;
+    
     [self.navigationStateController saveNavigationStateFor:self.navigationController
                                                         in:self.dataStore.viewContext];
     NSError *saveError = nil;
@@ -1683,7 +1690,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
     NSDictionary *info = response.notification.request.content.userInfo;
 
-    [self showNotificationCenterForNotificationInfo:info];
+    if ([response.notification.request.content.threadIdentifier isEqualToString:EchoModelVersion.current]) {
+        [self showNotificationCenterForNotificationInfo:info];
+    }
 
     completionHandler();
 }

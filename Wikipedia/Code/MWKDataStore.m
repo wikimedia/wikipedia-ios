@@ -859,7 +859,7 @@ NSString *MWKCreateImageURLWithPath(NSString *path) {
                              });
                          }];
     // Remote config
-    NSURL *remoteConfigURL = [NSURL URLWithString:@"https://meta.wikimedia.org/static/current/extensions/MobileApp/config/ios.json"];
+    NSURL *remoteConfigURL = [NSURL URLWithString:@"https://meta.wikimedia.org/w/extensions/MobileApp/config/ios.json"];
     [taskGroup enter];
     [self.session getJSONDictionaryFromURL:remoteConfigURL
                                ignoreCache:YES
