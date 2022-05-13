@@ -35,14 +35,20 @@
 // Author: Woytecr
 
 "aaald-added-text-description-2" = "Dodano $1";
+"aaald-article-description-updated-description" = "Zaktualizowano opis artykułu";
 "aaald-article-insert-header" = "Istotne aktualizacje";
+"aaald-article-insert-last-updated" = "Ostatnia aktualizacja";
+"aaald-article-insert-new-changes" = "Nowe zmiany";
+"aaald-article-insert-read-more" = "Przeczytaj więcej zaktualizowanych";
 "aaald-characters-text-description" = "{{PLURAL:$1|symbol|symbole|symboli}}";
 "aaald-deleted-text-description-2" = "Usunięto $1";
+"aaald-error-subitle" = "Odśwież, aby spróbować ponownie";
 "aaald-many-sections-description" = "w $1 sekcjach";
 "aaald-multiple-changes-description" = "Wykonano wiele zmian";
 "aaald-multiple-references-added-description" = "Podano wiele przypisów";
 "aaald-new-book-reference-title" = "Książka";
 "aaald-new-discussion" = "Nowa dyskusja";
+"aaald-new-website-reference-title" = "Strona internetowa";
 "aaald-one-section-description" = "w sekcji „$1”";
 "aaald-vandalism-revert-description" = "Wycofano domniemany wandalizm";
 "about-content-license" = "Licencja";
@@ -166,6 +172,7 @@
 "compass-direction" = "O $1 godzinie";
 "continue-reading-empty-description" = "Przeglądaj Wikipedię, aby przeczytać więcej artykułów";
 "continue-reading-empty-title" = "Brak ostatnio czytanych artykułów";
+"data-migration-status" = "Aktualizowanie...";
 "description-add-title" = "Dodaj opis";
 "description-edit-for-article" = "Opis artykułu dla $1";
 "description-edit-learn-more" = "Dowiedz się więcej";
@@ -535,6 +542,11 @@
 "no-internet-connection" = "Brak połączenia z internetem";
 "no-internet-connection-article-reload" = "Nowsza wersja tego artykułu może być dostępna, ale nie można jej załadować bez połączenia z Internetem";
 "no-internet-connection-article-reload-button" = "Wróć do ostatnio zapisanej wersji";
+"notifications-center-alert" = "Uwaga";
+"notifications-center-applied-filters-accessibility-label" = "Filtr powiadomień - ma zastosowane filtry";
+"notifications-center-applied-project-filters-accessibility-label" = "Filtr projektów - ma zastosowane filtry";
+"notifications-center-empty-checking-for-notifications" = "Sprawdzanie powiadomień...";
+"notifications-center-empty-no-messages" = "Nie masz żadnych wiadomości";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "Włącz powiadomienia";
 "number-billions" = "$1 mld";
