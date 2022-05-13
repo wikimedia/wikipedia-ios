@@ -10,6 +10,7 @@
 
 static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 static NSString *const WMFBackgroundAppRefreshTaskIdentifier = @"org.wikimedia.wikipedia.appRefresh";
+static NSString *const WMFBackgroundDatabaseHousekeeperTaskIdentifier = @"org.wikimedia.wikipedia.databaseHousekeeper";
 
 @interface AppDelegate ()
 
@@ -195,11 +196,12 @@ static NSString *const WMFBackgroundAppRefreshTaskIdentifier = @"org.wikimedia.w
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     [self updateDynamicIconShortcutItems];
     [self scheduleBackgroundAppRefreshTask];
+    [self scheduleDatabaseHousekeeperTask];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    [self applicationDidEnterBackground:application];
+    [self updateDynamicIconShortcutItems];
     [[WMFMetricsClientBridge sharedInstance] appWillClose];
 }
 
@@ -228,6 +230,18 @@ static NSString *const WMFBackgroundAppRefreshTaskIdentifier = @"org.wikimedia.w
                                                                [self scheduleBackgroundAppRefreshTask];
                                                            }];
                                                        }];
+
+    [[BGTaskScheduler sharedScheduler] registerForTaskWithIdentifier:WMFBackgroundDatabaseHousekeeperTaskIdentifier
+                                                          usingQueue:dispatch_get_main_queue()
+                                                       launchHandler:^(__kindof BGTask *_Nonnull task) {
+                                                           [self.appViewController performDatabaseHousekeepingWithCompletion:^(NSError *error) {
+                                                               if (error != nil) {
+                                                                   [task setTaskCompletedWithSuccess:NO];
+                                                               } else {
+                                                                   [task setTaskCompletedWithSuccess:YES];
+                                                               }
+                                                           }];
+                                                       }];
 }
 
 /// Schedule the next background refresh, if applicable on the current platform
@@ -236,6 +250,15 @@ static NSString *const WMFBackgroundAppRefreshTaskIdentifier = @"org.wikimedia.w
     appRefreshTask.earliestBeginDate = [NSDate dateWithTimeIntervalSinceNow:WMFBackgroundFetchInterval];
     NSError *taskSubmitError = nil;
     if (![[BGTaskScheduler sharedScheduler] submitTaskRequest:appRefreshTask error:&taskSubmitError]) {
+        DDLogError(@"Unable to schedule background task: %@", taskSubmitError);
+    }
+}
+
+- (void)scheduleDatabaseHousekeeperTask {
+    BGProcessingTaskRequest *databaseHousekeeperTask = [[BGProcessingTaskRequest alloc] initWithIdentifier:WMFBackgroundDatabaseHousekeeperTaskIdentifier];
+    databaseHousekeeperTask.earliestBeginDate = nil; // Docs indicate nil = no start delay.
+    NSError *taskSubmitError = nil;
+    if (![[BGTaskScheduler sharedScheduler] submitTaskRequest:databaseHousekeeperTask error:&taskSubmitError]) {
         DDLogError(@"Unable to schedule background task: %@", taskSubmitError);
     }
 }

@@ -73,8 +73,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
 
-@property (nonatomic, strong) WMFDatabaseHouseKeeper *houseKeeper;
-
 @property (nonatomic) BOOL isPresentingOnboarding;
 
 @property (nonatomic, strong) NSUserActivity *unprocessedUserActivity;
@@ -412,7 +410,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (![self uiIsLoaded]) {
         return;
     }
-    [self startHousekeepingBackgroundTask];
+    [self startPauseAppBackgroundTask];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self pauseApp];
     });
@@ -608,6 +606,22 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     });
 }
 
+#pragma mark - Background Processing
+
+- (void)performDatabaseHousekeepingWithCompletion:(void (^)(NSError *))completion {
+    
+    WMFDatabaseHousekeeper *housekeeper = [WMFDatabaseHousekeeper new];
+
+    NSError *housekeepingError = nil;
+    [housekeeper performHousekeepingOnManagedObjectContext:self.dataStore.viewContext navigationStateController:self.navigationStateController error:&housekeepingError];
+    if (housekeepingError) {
+        DDLogError(@"Error on cleanup: %@", housekeepingError);
+        housekeepingError = nil;
+    }
+    
+    completion(housekeepingError);
+}
+
 #pragma mark - Background Tasks
 
 - (UIBackgroundTaskIdentifier)backgroundTaskIdentifierForKey:(NSString *)key {
@@ -636,12 +650,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     }
 }
 
-- (UIBackgroundTaskIdentifier)housekeepingBackgroundTaskIdentifier {
-    return [self backgroundTaskIdentifierForKey:@"housekeeping"];
+- (UIBackgroundTaskIdentifier)pauseAppBackgroundTaskIdentifier {
+    return [self backgroundTaskIdentifierForKey:@"pauseApp"];
 }
 
-- (void)setHousekeepingBackgroundTaskIdentifier:(UIBackgroundTaskIdentifier)identifier {
-    [self setBackgroundTaskIdentifier:identifier forKey:@"housekeeping"];
+- (void)setPauseAppBackgroundTaskIdentifier:(UIBackgroundTaskIdentifier)identifier {
+    [self setBackgroundTaskIdentifier:identifier forKey:@"pauseApp"];
 }
 
 - (UIBackgroundTaskIdentifier)migrationBackgroundTaskIdentifier {
@@ -688,21 +702,21 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskToStop];
 }
 
-- (void)startHousekeepingBackgroundTask {
-    if (self.housekeepingBackgroundTaskIdentifier != UIBackgroundTaskInvalid) {
+- (void)startPauseAppBackgroundTask {
+    if (self.pauseAppBackgroundTaskIdentifier != UIBackgroundTaskInvalid) {
         return;
     }
-    self.housekeepingBackgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-        [self endHousekeepingBackgroundTask];
+    self.pauseAppBackgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        [self endPauseAppBackgroundTask];
     }];
 }
 
-- (void)endHousekeepingBackgroundTask {
-    if (self.housekeepingBackgroundTaskIdentifier == UIBackgroundTaskInvalid) {
+- (void)endPauseAppBackgroundTask {
+    if (self.pauseAppBackgroundTaskIdentifier == UIBackgroundTaskInvalid) {
         return;
     }
-    UIBackgroundTaskIdentifier backgroundTaskToStop = self.housekeepingBackgroundTaskIdentifier;
-    self.housekeepingBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
+    UIBackgroundTaskIdentifier backgroundTaskToStop = self.pauseAppBackgroundTaskIdentifier;
+    self.pauseAppBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
     [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskToStop];
 }
 
@@ -982,6 +996,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self logSessionEnd];
 
     if (![self uiIsLoaded]) {
+        [self endPauseAppBackgroundTask];
         return;
     }
 
@@ -1003,20 +1018,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     self.settingsViewController = nil;
 
     [self.dataStore.feedContentController stopContentSources];
-
-    self.houseKeeper = [WMFDatabaseHouseKeeper new];
-    // TODO: these tasks should be converted to async so we can end the background task as soon as possible
     [self.dataStore clearMemoryCache];
 
-    // TODO: implement completion block to cancel download task with the 2 tasks above
-    NSError *housekeepingError = nil;
-    [self.houseKeeper performHouseKeepingOnManagedObjectContext:self.dataStore.viewContext navigationStateController:self.navigationStateController error:&housekeepingError];
-    if (housekeepingError) {
-        DDLogError(@"Error on cleanup: %@", housekeepingError);
-        housekeepingError = nil;
-    }
-
-    [self endHousekeepingBackgroundTask];
+    [self endPauseAppBackgroundTask];
 }
 
 #pragma mark - Memory Warning

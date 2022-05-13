@@ -1,9 +1,9 @@
 import Foundation
 
-@objc class WMFDatabaseHouseKeeper : NSObject {
+@objc class WMFDatabaseHousekeeper : NSObject {
     
     // Returns deleted URLs
-    @discardableResult @objc func performHouseKeepingOnManagedObjectContext(_ moc: NSManagedObjectContext, navigationStateController: NavigationStateController) throws -> [URL] {
+    @discardableResult @objc func performHousekeepingOnManagedObjectContext(_ moc: NSManagedObjectContext, navigationStateController: NavigationStateController) throws -> [URL] {
         
         let urls = try deleteStaleUnreferencedArticles(moc, navigationStateController: navigationStateController)
 
