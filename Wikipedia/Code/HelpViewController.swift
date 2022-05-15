@@ -81,99 +81,104 @@ class HelpViewController: SinglePageWebViewController {
     
     @objc func exportUserData() {
         
-        FileManager.default.delegate = self
-        
-        let fileManager = FileManager.default
-        let containerURL = fileManager.wmf_containerURL()
-        let logFilePath = DDLog.wmf_currentLogFilePath()
-        
-        var enoughSpace: Bool = true
-        do {
-            enoughSpace = try userHasEnoughSpace(containerURL: containerURL, logFilePath: logFilePath)
-        } catch (let error) {
-            DDLogError("Error determining if there's enough free space: \(error)")
-        }
-        
-        guard enoughSpace else {
-            wmf_showAlertWithMessage(WMFLocalizedString("export-user-data-space-error", value: "You do not have enough device space to export your user data. Please try again later.", comment: "Error message displayed after user has tried exporting their data and the system determines it doesn't have space to do so."))
-            return
-        }
-        
-        //first copy container URL into temporary directory
-        
-        let temporaryAppContainerURL = fileManager.temporaryDirectory.appendingPathComponent(WMFApplicationGroupIdentifier)
-        
-        do {
-            try fileManager.copyItem(at: containerURL, to: temporaryAppContainerURL)
-        } catch (let error) {
-            print(error)
-        }
-        
-        let newLogURL = temporaryAppContainerURL.appendingPathComponent("console.log")
-        
-        //then copy logFile into document directory.
-        if let logFilePath = DDLog.wmf_currentLogFilePath() {
-            do {
-                let logFileURL = URL(fileURLWithPath: logFilePath)
-                try fileManager.copyItem(at: logFileURL, to: newLogURL)
-            } catch (let error) {
-                DDLogError("Error moving log file to app container: \(error)")
-            }
-        }
-        
-        //Then zip up app container
-        
-        //Inspired by https://recoursive.com/2021/02/25/create_zip_archive_using_only_foundation/
-        //Thanks!
-        
-        var archiveURL: URL?
-        var error: NSError?
-        
-        let coordinator = NSFileCoordinator()
-
-        coordinator.coordinate(readingItemAt: temporaryAppContainerURL, options: [.forUploading], error: &error) { (zipURL) in
+        //Moving everything to a background queue so the UI doesn't freeze
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             
-            // zipURL points to the zip file created by the coordinator
-            // zipURL is valid only until the end of this block, so we move the file to a temporary folder
+            FileManager.default.delegate = self
             
+            let fileManager = FileManager.default
+            let containerURL = fileManager.wmf_containerURL()
+            let logFilePath = DDLog.wmf_currentLogFilePath()
+            
+            var enoughSpace: Bool = true
             do {
-                let tempURL = try fileManager.url(
-                    for: .itemReplacementDirectory,
-                    in: .userDomainMask,
-                    appropriateFor: zipURL,
-                    create: true
-                ).appendingPathComponent("app-container.zip")
-                try fileManager.moveItem(at: zipURL, to: tempURL)
-
-                // store the URL so we can use it outside the block
-                archiveURL = tempURL
+                if let self = self {
+                    enoughSpace = try self.userHasEnoughSpace(containerURL: containerURL, logFilePath: logFilePath)
+                }
             } catch (let error) {
-                DDLogError("Error moving zip file to temporary directory: \(error)")
+                DDLogError("Error determining if there's enough free space: \(error)")
             }
             
-        }
+            guard enoughSpace else {
+                self?.wmf_showAlertWithMessage(WMFLocalizedString("export-user-data-space-error", value: "You do not have enough device space to export your user data. Please try again later.", comment: "Error message displayed after user has tried exporting their data and the system determines it doesn't have space to do so."))
+                return
+            }
+            
+            //first copy container URL into temporary directory
+            
+            let temporaryAppContainerURL = fileManager.temporaryDirectory.appendingPathComponent(WMFApplicationGroupIdentifier)
+            
+            do {
+                try fileManager.copyItem(at: containerURL, to: temporaryAppContainerURL)
+            } catch (let error) {
+                print(error)
+            }
+            
+            let newLogURL = temporaryAppContainerURL.appendingPathComponent("console.log")
+            
+            //then copy logFile into document directory.
+            if let logFilePath = DDLog.wmf_currentLogFilePath() {
+                do {
+                    let logFileURL = URL(fileURLWithPath: logFilePath)
+                    try fileManager.copyItem(at: logFileURL, to: newLogURL)
+                } catch (let error) {
+                    DDLogError("Error moving log file to app container: \(error)")
+                }
+            }
+            
+            //Then zip up app container
+            
+            //Inspired by https://recoursive.com/2021/02/25/create_zip_archive_using_only_foundation/
+            //Thanks!
+            
+            var archiveURL: URL?
+            var error: NSError?
+            
+            let coordinator = NSFileCoordinator()
 
-        if let archiveURL = archiveURL,
-        error == nil {
-            // bring up the share sheet so we can send the archive with AirDrop for example
-            let avc = UIActivityViewController(activityItems: [archiveURL], applicationActivities: nil)
-            present(avc, animated: true)
-        } else {
-            if let error = error {
-                DDLogError("Error zipping up app container: \(error)")
+            coordinator.coordinate(readingItemAt: temporaryAppContainerURL, options: [.forUploading], error: &error) { (zipURL) in
+                
+                // zipURL points to the zip file created by the coordinator
+                // zipURL is valid only until the end of this block, so we move the file to a temporary folder
+                
+                do {
+                    let tempURL = try fileManager.url(
+                        for: .itemReplacementDirectory,
+                        in: .userDomainMask,
+                        appropriateFor: zipURL,
+                        create: true
+                    ).appendingPathComponent("app-container.zip")
+                    try fileManager.moveItem(at: zipURL, to: tempURL)
+
+                    // store the URL so we can use it outside the block
+                    archiveURL = tempURL
+                } catch (let error) {
+                    DDLogError("Error moving zip file to temporary directory: \(error)")
+                }
+                
+            }
+
+            if let archiveURL = archiveURL,
+            error == nil {
+                // bring up the share sheet so we can send the archive with AirDrop for example
+                let avc = UIActivityViewController(activityItems: [archiveURL], applicationActivities: nil)
+                self?.present(avc, animated: true)
             } else {
-                DDLogError("Error zipping up app container.")
+                if let error = error {
+                    DDLogError("Error zipping up app container: \(error)")
+                } else {
+                    DDLogError("Error zipping up app container.")
+                }
             }
+            
+            do {
+                try fileManager.removeItem(at: temporaryAppContainerURL)
+            } catch (let error) {
+                DDLogError("Error deleting temp app container: \(error).")
+            }
+            
+            fileManager.delegate = nil
         }
-        
-        do {
-            try fileManager.removeItem(at: temporaryAppContainerURL)
-        } catch (let error) {
-            DDLogError("Error deleting temp app container: \(error).")
-        }
-        
-        fileManager.delegate = nil
-        
     }
     
     @objc func sendEmail() {
