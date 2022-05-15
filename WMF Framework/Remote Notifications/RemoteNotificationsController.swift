@@ -164,6 +164,12 @@ public enum RemoteNotificationsControllerError: LocalizedError {
         
         refreshDeadlineController.reset()
     }
+
+    /// Triggers fetching notifications from the server and saving them into the local database with no completion handler. Used as a bridge for Objective-C use as the `Result` type is unavailable there.
+    /// - Parameter force: Flag to force an API call, otherwise this will exit early if it's been less than 30 seconds since the last load attempt.
+    @objc public func triggerLoadNotifications(force: Bool) {
+        loadNotifications(force: force)
+    }
     
     /// Marks notifications as read or unread in the local database and on the server. Errors are not returned. Updates local database on a backgroundContext.
     /// - Parameters:

@@ -60,6 +60,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     self.authManager = self.dataStore.authenticationManager;
 
     self.navigationBar.displayType = NavigationBarDisplayTypeLargeTitle;
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushNotificationBannerDidDisplayInForeground:) name:NSNotification.pushNotificationBannerDidDisplayInForeground object:nil];
+
 #if UI_TEST
     if ([[NSUserDefaults standardUserDefaults] wmf_isFastlaneSnapshotInProgress]) {
         self.tableView.decelerationRate = UIScrollViewDecelerationRateFast;
@@ -87,6 +90,7 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_settingsViewActivity]];
+    [self.dataStore.remoteNotificationsController triggerLoadNotificationsWithForce:NO];
 }
 
 - (UIScrollView *_Nullable)scrollView {
@@ -650,6 +654,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 
 - (void)userDidTapNotificationsCenter {
     [self.notificationsCenterPresentationDelegate userDidTapNotificationsCenterFrom:self];
+}
+
+- (void)pushNotificationBannerDidDisplayInForeground:(NSNotification*)notification {
+    [self.dataStore.remoteNotificationsController triggerLoadNotificationsWithForce:YES];
 }
 
 @end
