@@ -212,7 +212,6 @@
 		00D280FA247EFFFE006BEE23 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D280F6247EFFFE006BEE23 /* Date+Extensions.swift */; };
 		00D280FC247F019C006BEE23 /* Date+ExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D280FB247F019C006BEE23 /* Date+ExtensionTests.swift */; };
 		00D4B1B4282996A2008C705C /* EchoModelVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D4B1B3282996A2008C705C /* EchoModelVersion.swift */; };
-		00D4B1B5282996A2008C705C /* EchoModelVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D4B1B3282996A2008C705C /* EchoModelVersion.swift */; };
 		00E2EA8926E28A9700B1A741 /* NotificationsCenterCellStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E2EA8826E28A9700B1A741 /* NotificationsCenterCellStyle.swift */; };
 		00E2EA8A26E28A9700B1A741 /* NotificationsCenterCellStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E2EA8826E28A9700B1A741 /* NotificationsCenterCellStyle.swift */; };
 		00E2EA8B26E28A9700B1A741 /* NotificationsCenterCellStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E2EA8826E28A9700B1A741 /* NotificationsCenterCellStyle.swift */; };
@@ -518,7 +517,6 @@
 		6761AEF82707E34F00E47BAD /* NotificationsCenterModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEF62707E34F00E47BAD /* NotificationsCenterModelController.swift */; };
 		6761AEF92707E34F00E47BAD /* NotificationsCenterModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEF62707E34F00E47BAD /* NotificationsCenterModelController.swift */; };
 		6761AEFA2707E34F00E47BAD /* NotificationsCenterModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761AEF62707E34F00E47BAD /* NotificationsCenterModelController.swift */; };
-		676C864726D40AEB00A704C1 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676C864626D40AEB00A704C1 /* NotificationService.swift */; };
 		676C864B26D40AEB00A704C1 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 676C864426D40AEA00A704C1 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		676C867026D416FB00A704C1 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 676C864426D40AEA00A704C1 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		676C867326D4170100A704C1 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 676C864426D40AEA00A704C1 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -568,6 +566,7 @@
 		6780D5C1237AF8AE0087A5D1 /* DiffToolbarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6780D5BF237AF8AE0087A5D1 /* DiffToolbarView.xib */; };
 		6780D5C2237AF8AE0087A5D1 /* DiffToolbarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6780D5BF237AF8AE0087A5D1 /* DiffToolbarView.xib */; };
 		6780D5C3237AF8AE0087A5D1 /* DiffToolbarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6780D5BF237AF8AE0087A5D1 /* DiffToolbarView.xib */; };
+		6780D76D2830A7A200265F10 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676C864626D40AEB00A704C1 /* NotificationService.swift */; };
 		6782DB912343B6F9003FA21B /* DiffContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782DB902343B6F9003FA21B /* DiffContainerViewController.swift */; };
 		6782DB922343B6F9003FA21B /* DiffContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782DB902343B6F9003FA21B /* DiffContainerViewController.swift */; };
 		6782DB932343B6F9003FA21B /* DiffContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782DB902343B6F9003FA21B /* DiffContainerViewController.swift */; };
@@ -10860,8 +10859,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				676C864726D40AEB00A704C1 /* NotificationService.swift in Sources */,
-				00D4B1B5282996A2008C705C /* EchoModelVersion.swift in Sources */,
+				6780D76D2830A7A200265F10 /* NotificationService.swift in Sources */,
 				00A988092829D92B006D800B /* PushNotificationContentIdentifier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
