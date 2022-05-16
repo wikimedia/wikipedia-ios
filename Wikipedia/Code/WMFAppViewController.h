@@ -28,6 +28,8 @@ extern NSString *const WMFLanguageVariantAlertsLibraryVersion; // NSNumber
 
 - (void)performBackgroundFetchWithCompletion:(void (^)(UIBackgroundFetchResult))completion;
 
+- (void)performDatabaseHousekeepingWithCompletion:(void (^)(NSError *))completion;
+
 - (void)applyTheme:(WMFTheme *)theme;
 
 - (void)showSearchInCurrentNavigationController;
