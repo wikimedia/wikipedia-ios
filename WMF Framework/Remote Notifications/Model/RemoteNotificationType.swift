@@ -24,6 +24,7 @@ public enum RemoteNotificationType: Hashable {
     case unknownNotice //No specific type ID, notice type
     case unknownAlert //No specific type ID, alert type
     case unknown
+    case other
     
 //Possible flow-related notifications to target. Leaving it to default handling for now but we may need to bring these in for special handling.
 //    case flowUserTalkPageNewTopic //Message on your talk page
@@ -115,6 +116,8 @@ public extension RemoteNotificationType {
                 self = .thanks
             case "welcome":
                 self = .welcome
+            case "other":
+                self = .other
             default:
                 return nil
         }
@@ -157,6 +160,8 @@ public extension RemoteNotificationType {
             return "thanks"
         case .welcome:
             return "welcome"
+        case .other:
+            return "other"
         default:
             return nil
         }
@@ -183,7 +188,8 @@ public extension RemoteNotificationType {
             .editMilestone,
             .translationMilestone(1), //for filters this represents other translation associated values as well (ten, hundred milestones).
             .thanks,
-            .welcome
+            .welcome,
+            .other
         ]
     }
     
@@ -224,6 +230,8 @@ public extension RemoteNotificationType {
             return WMFLocalizedString("notifications-center-type-title-thanks", value: "Thanks", comment: "Title of \"thanks\" notification type. Used on filters view toggles and the notification detail view.")
         case .welcome:
             return WMFLocalizedString("notifications-center-type-title-welcome", value: "Welcome", comment: "Title of \"welcome\" notification type. Used on filters view toggles and the notification detail view.")
+        case .other:
+            return WMFLocalizedString("notifications-center-type-title-other", value: "Other", comment: "Title of \"other\" notifications filter. Used on filter toggles.")
         case .unknownSystemAlert,
                 .unknownAlert,
                 .unknown:
