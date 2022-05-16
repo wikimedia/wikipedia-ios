@@ -65,7 +65,8 @@ extension NotificationsCenterCommonViewModel {
              .unknownSystemAlert,
              .unknownNotice,
              .unknownAlert,
-             .unknown:
+             .unknown,
+             .other:
             return notification.messageHeader?.removingHTML
         }
     }
@@ -101,7 +102,8 @@ extension NotificationsCenterCommonViewModel {
              .unknownSystemNotice,
              .unknownAlert,
              .unknownNotice,
-             .unknown:
+             .unknown,
+             .other:
             
             if let messageBody = notification.messageBody?.removingHTML,
                !messageBody.isEmpty {
