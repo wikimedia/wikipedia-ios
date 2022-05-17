@@ -602,8 +602,10 @@
 "notifications-center-empty-state-filters-subtitle" = "메시지를 더 보려면 $1 수정";
 "notifications-center-empty-state-no-projects-selected" = "메시지를 더 보려면 프로젝트 추가";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1개 필터}}";
+"notifications-center-feed-card-title" = "지금 편집 알림을 사용할 수 있습니다";
 "notifications-center-feed-news-notification-button-text" = "푸시 알림 켜기";
 "notifications-center-feed-news-notification-dismiss-button-text" = "지금은 괜찮습니다";
+"notifications-center-feed-news-notification-text" = "모든 위키미디어 프로젝트의 편집 알림을 이제 앱을 통해 사용할 수 있습니다. 위키백과에서 계속 들어오는 메시지와 최신화를 유지하려면 푸시 알림을 활성화하십시오.";
 "notifications-center-filters-accessibility-label" = "알림 필터";
 "notifications-center-filters-read-status-item-title-all" = "모두";
 "notifications-center-filters-read-status-item-title-read" = "읽음";
