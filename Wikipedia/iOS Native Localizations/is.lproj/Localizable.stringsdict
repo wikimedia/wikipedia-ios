@@ -38,6 +38,68 @@
 			<string>0 tilvísun</string>
 		</dict>
 	</dict>
+	<key>aaald-small-change-description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d minniháttar breyting gerð</string>
+			<key>other</key>
+			<string>%1$d minniháttar breytingar gerðar</string>
+			<key>zero</key>
+			<string>Engar minniháttar breytingar gerðar</string>
+		</dict>
+	</dict>
+	<key>aaald-summary-title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ frá %#@v2@ síðustu %#@v3@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d breyting</string>
+			<key>other</key>
+			<string>%1$d breytingar</string>
+			<key>zero</key>
+			<string>0 breytingar</string>
+		</dict>
+		<key>v2</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%2$d ritara</string>
+			<key>other</key>
+			<string>%2$d riturum</string>
+			<key>zero</key>
+			<string>0 ritara</string>
+		</dict>
+		<key>v3</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%3$d dag</string>
+			<key>other</key>
+			<string>%3$d daga</string>
+			<key>zero</key>
+			<string>0 dag</string>
+		</dict>
+	</dict>
 	<key>add-articles-to-reading-list</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -379,6 +441,22 @@
 			<string>%1$d sögulegir atburðir</string>
 		</dict>
 	</dict>
+	<key>on-this-day-footer-showing-event-count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@ á þessum degi</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%1$d sögulegur atburður til viðbótar</string>
+			<key>other</key>
+			<string>%1$d fleiri sögulegir atburðir</string>
+		</dict>
+	</dict>
 	<key>page-history-revision-size-diff-addition</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -598,6 +676,42 @@
 			<string>Fyrir %1$d klukkutímum síðan</string>
 			<key>zero</key>
 			<string>Fyrir stuttu</string>
+		</dict>
+	</dict>
+	<key>relative-date-hrs-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Fyrir %1$d klukkutíma síðan</string>
+			<key>other</key>
+			<string>Fyrir %1$d klukkutímum síðan</string>
+			<key>zero</key>
+			<string>Fyrir stuttu</string>
+		</dict>
+	</dict>
+	<key>relative-date-min-ago</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@v1@</string>
+		<key>v1</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Fyrir %1$d mínútu síðan</string>
+			<key>other</key>
+			<string>Fyrir %1$d mínútum síðan</string>
+			<key>zero</key>
+			<string>Rétt í þessu</string>
 		</dict>
 	</dict>
 	<key>relative-date-minutes-ago</key>
