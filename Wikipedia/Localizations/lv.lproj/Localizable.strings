@@ -94,7 +94,6 @@
 "explore-potd-heading" = "Dienas attēls";
 "explore-random-article-heading" = "Nejauša lapa";
 "explore-randomizer" = "Nejauša lapa";
-"feed-news-notification-button-text" = "Ieslēgt paziņojumus";
 "field-alert-captcha-invalid" = "Nederīgs CAPTCHA";
 "field-alert-token-invalid" = "Nederīgs kods";
 "field-captcha-placeholder" = "CAPTCHA teksts";
@@ -119,9 +118,6 @@
 "icon-shortcut-random-title" = "Nejauša lapa";
 "icon-shortcut-search-title" = "Meklēt Vikipēdijā";
 "image-gallery-unknown-owner" = "Autors nezināms.";
-"in-the-news-notification-read-now-action-title" = "Lasīt tagad";
-"in-the-news-notification-save-for-later-action-title" = "Saglabāt vēlākam laikam";
-"in-the-news-notification-share-action-title" = "Dalīties…";
 "in-the-news-title" = "Ziņās";
 "insert-action-title" = "Ievietot";
 "insert-link-title" = "Ievietot saiti";
@@ -152,6 +148,8 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 jūdzes";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Ieslēgt paziņojumus";
 "notifications-center-mark" = "Atzīmēt";
 "notifications-center-mark-all-as-read" = "Atzīmēt visus kā izlasītus";
 "notifications-center-swipe-mark-as-read" = "Atzīmēt kā lasītu";
@@ -192,10 +190,7 @@
 "replace-infolabel-method-replace-all" = "Aizvietot visus";
 "replace-textfield-accessibility" = "Aizvietot";
 "replace-textfield-placeholder" = "Aizvietot ar...";
-"reverted-edit-back-to-article-button-title" = "Atpakaļ uz rakstu";
-"reverted-edit-thanks-for-editing-title" = "Paldies par Vikipēdijas labošanu!";
 "reverted-edit-title" = "Atcelts labojums";
-"reverted-edit-view-guidelines-text" = "Skatīt vadlīnijas";
 "saved-all-articles-title" = "Visi raksti";
 // Fuzzy
 "saved-search-default-text" = "Meklēt";
@@ -212,6 +207,7 @@
 "settings-help-and-feedback" = "Palīdzība un atsauksmes";
 "settings-language-bar" = "Rādīt valodas meklēšanā";
 "settings-my-languages" = "Manas valodas";
+// Fuzzy
 "settings-notifications" = "Paziņojumi";
 "settings-notifications-learn-more" = "Uzziniet vairāk par paziņojumiem";
 "settings-notifications-system-turn-on" = "Ieslēgt paziņojumus";
@@ -224,8 +220,6 @@
 "share-get-directions-in-maps" = "Saņemt norādes";
 "share-menu-item" = "Dalīties...";
 "share-open-in-maps" = "Atvērt iekš Maps";
-"status-saved-for-later" = "Saglabāts vēlākam laikam";
-"status-saving-for-later" = "Saglabā vēlākam laikam...";
 "table-of-contents-button-label" = "Satura rādītājs";
 "table-of-contents-close-accessibility-hint" = "Aizvērt";
 "table-of-contents-close-accessibility-label" = "Aizvērt satura rādītāju";

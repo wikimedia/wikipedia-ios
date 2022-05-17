@@ -99,10 +99,6 @@
 "icon-shortcut-random-title" = "अविशिष्ट लेख";
 "icon-shortcut-search-title" = "विकिपीडिया मध्ये शोधा";
 "image-gallery-unknown-owner" = "लेखक अज्ञात.";
-"in-the-news-notification-read-now-action-title" = "आता वाचा";
-"in-the-news-notification-save-for-later-action-title" = "नंतरसाठी जतन करा";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "सहभाग करा";
 "languages-title" = "भाषा बदला";
 "main-menu-about" = "अॅप विषयी";
 "main-menu-account-login" = "सनोंद-प्रवेश करा";
@@ -160,6 +156,7 @@
 "settings-help-and-feedback" = "साहाय्य व प्रतिसाद";
 "settings-language-bar" = "शोधात भाषा दाखवा";
 "settings-my-languages" = "माझ्या भाषा";
+// Fuzzy
 "settings-notifications" = "अधिसूचना";
 "settings-primary-language" = "प्राथमिक";
 // Fuzzy

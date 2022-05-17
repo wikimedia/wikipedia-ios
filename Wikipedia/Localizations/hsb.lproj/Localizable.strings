@@ -269,8 +269,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Z tuteje Wikipedije: $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Z Wikipedije";
 "featured-article-empty-title" = "Dźensa žadyn předstajeny zapisk přistupny njeje";
-"feed-news-notification-button-text" = "Zdźělenki zaswěčić";
-"feed-news-notification-text" = "Zaswěč zdźělenki zo by Wikipedija će informowała, hdyž so zapiski w powěsćach jewja.";
 "fetcher-error-generic" = "Něšto je křiwje šło. Prošu spytaj pozdźišo znowa.";
 "fetcher-error-unexpected-response" = "App je njewočakowanu wotmołwu wot serwera dóstała. Prošu spytaj pozdźišo znowa.";
 "field-alert-captcha-invalid" = "Njepłaćiwy CAPTCHA";
@@ -322,10 +320,6 @@
 "icon-shortcut-random-title" = "Připadny zapisk";
 "icon-shortcut-search-title" = "Wikipediju přepytać";
 "image-gallery-unknown-owner" = "Awtor njeznaty.";
-"in-the-news-currently-trending" = "Tuchwilu woblubowane";
-"in-the-news-notification-read-now-action-title" = "Nětko čitać";
-"in-the-news-notification-save-for-later-action-title" = "Za pozdźišo składować";
-"in-the-news-notification-share-action-title" = "Dźělić...";
 "in-the-news-sub-title-from-language-wikipedia" = "Z tuteje Wikipedije: $1";
 "in-the-news-sub-title-from-wikipedia" = "Z Wikipedije";
 "in-the-news-title" = "W powěsćach";
@@ -391,6 +385,8 @@
 "no-internet-connection" = "Žadyn zwisk z internetom";
 "no-internet-connection-article-reload" = "Nowša wersija tutoho zapiska je snadź přistupna, njehodźi so pak bjez interneta začitać.";
 "no-internet-connection-article-reload-button" = "Wróćo k poslednjej składowanej wersiji";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Zdźělenki zaswěčić";
 "number-billions" = "$1 mrd.";
 "number-millions" = "$1 mil.";
 "number-thousands" = "$1 tys.";
@@ -412,7 +408,6 @@
 "places-filter-top-articles" = "Najhusćišo čitane";
 "places-filter-top-read-articles" = "Najhusćišo čitane zapiski";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Dźensa|1=Wčera|2=Předwčerawšim|Před $1 dnjemi}}";
-"reverted-edit-thanks-for-editing-title" = "Měj dźak za wobdźěłanje Wikipedije!";
 "search-button-accessibility-label" = "Wikipediju přepytać";
 "search-did-you-mean" = "Měnješe ty $1?";
 "search-field-placeholder-text" = "Wikipediju přepytać";
@@ -427,7 +422,9 @@
 "settings-support" = "Wikipediju podpěrać";
 "settings-title" = "Nastajenja";
 "share-a-fact-made-with" = "Wutworjene z Wikipedija-app";
+// Fuzzy
 "share-article-name-on-wikipedia" = "„$1“ na @Wikipedia:";
+// Fuzzy
 "share-on-twitter-sign-off" = "přez @Wikipedia";
 "share-social-format" = "„$1“ přez Wikipediju: $2";
 "talk-page-info-active-conversations" = "Aktiwne diskusije we Wikipediji ($1)";

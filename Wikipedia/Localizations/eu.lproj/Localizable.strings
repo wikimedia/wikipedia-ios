@@ -206,8 +206,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "$1 Wikipediatik";
 "explore-random-article-sub-heading-from-wikipedia" = "Wikipediatik";
 "explore-randomizer" = "Ausazkoa";
-"feed-news-notification-button-text" = "Jakinarazpenak piztu";
-"feed-news-notification-text" = "Jakinarazpenak gaitu, Wikipediak jakinarazteko gehien irakurritako artikuluak agertzen zaizkizunean.";
 "field-alert-captcha-invalid" = "CAPTCHA baliogabetuta";
 "field-alert-password-confirm-mismatch" = "Pasahitzak ez datoz bat.";
 "field-alert-token-invalid" = "Kode okerra";
@@ -256,10 +254,6 @@
 "icon-shortcut-random-title" = "Ausazko artikulua";
 "icon-shortcut-search-title" = "Bilatu Wikipedian";
 "image-gallery-unknown-owner" = "Egile ezezaguna.";
-"in-the-news-currently-trending" = "Modan dagoena";
-"in-the-news-notification-read-now-action-title" = "Irakurri orain";
-"in-the-news-notification-save-for-later-action-title" = "Gorde gerorako";
-"in-the-news-notification-share-action-title" = "Partekatu…";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 Wikipediatik";
 "in-the-news-sub-title-from-wikipedia" = "Wikipediatik";
 "in-the-news-title" = "Albisteak";
@@ -295,6 +289,8 @@
 "new-password-instructions" = "Aldi baterako pasahitza erabiliz hasi duzu saioa. \nSaio hasten amaitzeko, pasahitz berria ezarri beharko duzu hemen.";
 "new-password-title" = "Zure pasahitza ezarri";
 "no-email-account-alert" = "Mesedez, ezarri ezazu email kontua zure gailuan eta saiatu zaitez berriz.";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Jakinarazpenak piztu";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
@@ -461,6 +457,7 @@
 "settings-help-and-feedback" = "Laguntza eta iritziak";
 "settings-language-bar" = "Bilaketan hizkuntzak erakutsi";
 "settings-my-languages" = "Nire hizkuntzak";
+// Fuzzy
 "settings-notifications" = "Jakinarazpenak";
 "settings-notifications-info" = "Jakinarazpenak piztuz, top artikuluei buruzko alertak jaso ditzakezu. Dena eskainiko da betiere pribatutasuna eta minutuko datuak errespetatuz.";
 "settings-notifications-learn-more" = "Jakinarazpenei buruzko gehiago ikasi";
@@ -486,6 +483,7 @@
 "settings-support" = "Wikipedia Lagundu";
 "settings-title" = "Ezarpenak";
 "share-a-fact-made-with" = "Wikipedia aplikazioarekin eginda";
+// Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" @Wikipedian:";
 "share-building" = "Gertakaria-Partekatu txartela sortzen...";
 "share-default-format" = "“$2” “$1”(r)engandik: $3";
@@ -493,14 +491,14 @@
 "share-get-directions-in-maps" = "Helbidea lortu";
 "share-menu-item" = "Partekatu";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-open-in-maps" = "Mapsen ireki";
 "share-social-format" = "“$1” Wikipediaren bidez: $2";
+// Fuzzy
 "share-social-mention-format" = "“$1” @Wikipedia -(r)ren bidez: $2";
 "sort-by-recently-added-action" = "Berriki gehituak";
 "sort-by-title-action" = "Izenburua";
-"status-saved-for-later" = "Gorde gerorako";
-"status-saving-for-later" = "Gerorako gordetzen...";
 "table-of-contents-button-label" = "Eduki-taula";
 "table-of-contents-close-accessibility-hint" = "Itxi";
 "table-of-contents-close-accessibility-label" = "Itxi eduki-taula";

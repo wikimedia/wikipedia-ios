@@ -52,7 +52,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAlertsLibraryVersion";
 
-@interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable, ReadMoreAboutRevertedEditViewControllerDelegate, WMFWorkerControllerDelegate, WMFThemeableNavigationControllerDelegate, WMFAppTabBarDelegate>
+@interface WMFAppViewController () <UITabBarControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, WMFThemeable, WMFWorkerControllerDelegate, WMFThemeableNavigationControllerDelegate, WMFAppTabBarDelegate>
 
 @property (nonatomic, strong) WMFPeriodicWorkerController *periodicWorkerController;
 @property (nonatomic, strong) WMFBackgroundFetcherController *backgroundFetcherController;
@@ -72,8 +72,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 @property (nonatomic, strong) WMFMobileViewToMobileHTMLMigrationController *mobileViewToMobileHTMLMigrationController;
 
 @property (nonatomic, strong, readwrite) MWKDataStore *dataStore;
-
-@property (nonatomic, strong) WMFDatabaseHouseKeeper *houseKeeper;
 
 @property (nonatomic) BOOL isPresentingOnboarding;
 
@@ -308,8 +306,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
     UITabBarItem *savedTabBarItem = [self.savedViewController tabBarItem];
     self.savedTabBarItemProgressBadgeManager = [[SavedTabBarItemProgressBadgeManager alloc] initWithTabBarItem:savedTabBarItem];
-
-    [self.dataStore.notificationsController updateCategories];
 }
 
 - (void)configureTabController {
@@ -333,6 +329,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     BOOL shouldOpenAppOnSearchTab = [NSUserDefaults standardUserDefaults].wmf_openAppOnSearchTab;
     if (shouldOpenAppOnSearchTab && self.selectedIndex != WMFAppTabTypeSearch) {
         [self setSelectedIndex:WMFAppTabTypeSearch];
+        [[self searchViewController] makeSearchBarBecomeFirstResponder];
     } else if (self.selectedIndex != WMFAppTabTypeMain) {
         [self setSelectedIndex:WMFAppTabTypeMain];
     }
@@ -383,6 +380,10 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (![self uiIsLoaded]) {
         return;
     }
+    
+    if ([self visibleViewController] == self.exploreViewController) {
+        self.exploreViewController.isGranularUpdatingEnabled = YES;
+    }
 
     if (self.isResumeComplete) {
         [self performTasksThatShouldOccurAfterBecomeActiveAndResume];
@@ -394,6 +395,9 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (![self uiIsLoaded]) {
         return;
     }
+    
+    self.exploreViewController.isGranularUpdatingEnabled = NO;
+    
     [self.navigationStateController saveNavigationStateFor:self.navigationController
                                                         in:self.dataStore.viewContext];
     NSError *saveError = nil;
@@ -406,7 +410,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (![self uiIsLoaded]) {
         return;
     }
-    [self startHousekeepingBackgroundTask];
+    [self startPauseAppBackgroundTask];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self pauseApp];
     });
@@ -602,6 +606,22 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     });
 }
 
+#pragma mark - Background Processing
+
+- (void)performDatabaseHousekeepingWithCompletion:(void (^)(NSError *))completion {
+    
+    WMFDatabaseHousekeeper *housekeeper = [WMFDatabaseHousekeeper new];
+
+    NSError *housekeepingError = nil;
+    [housekeeper performHousekeepingOnManagedObjectContext:self.dataStore.viewContext navigationStateController:self.navigationStateController error:&housekeepingError];
+    if (housekeepingError) {
+        DDLogError(@"Error on cleanup: %@", housekeepingError);
+        housekeepingError = nil;
+    }
+    
+    completion(housekeepingError);
+}
+
 #pragma mark - Background Tasks
 
 - (UIBackgroundTaskIdentifier)backgroundTaskIdentifierForKey:(NSString *)key {
@@ -630,12 +650,12 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     }
 }
 
-- (UIBackgroundTaskIdentifier)housekeepingBackgroundTaskIdentifier {
-    return [self backgroundTaskIdentifierForKey:@"housekeeping"];
+- (UIBackgroundTaskIdentifier)pauseAppBackgroundTaskIdentifier {
+    return [self backgroundTaskIdentifierForKey:@"pauseApp"];
 }
 
-- (void)setHousekeepingBackgroundTaskIdentifier:(UIBackgroundTaskIdentifier)identifier {
-    [self setBackgroundTaskIdentifier:identifier forKey:@"housekeeping"];
+- (void)setPauseAppBackgroundTaskIdentifier:(UIBackgroundTaskIdentifier)identifier {
+    [self setBackgroundTaskIdentifier:identifier forKey:@"pauseApp"];
 }
 
 - (UIBackgroundTaskIdentifier)migrationBackgroundTaskIdentifier {
@@ -682,21 +702,21 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskToStop];
 }
 
-- (void)startHousekeepingBackgroundTask {
-    if (self.housekeepingBackgroundTaskIdentifier != UIBackgroundTaskInvalid) {
+- (void)startPauseAppBackgroundTask {
+    if (self.pauseAppBackgroundTaskIdentifier != UIBackgroundTaskInvalid) {
         return;
     }
-    self.housekeepingBackgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-        [self endHousekeepingBackgroundTask];
+    self.pauseAppBackgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        [self endPauseAppBackgroundTask];
     }];
 }
 
-- (void)endHousekeepingBackgroundTask {
-    if (self.housekeepingBackgroundTaskIdentifier == UIBackgroundTaskInvalid) {
+- (void)endPauseAppBackgroundTask {
+    if (self.pauseAppBackgroundTaskIdentifier == UIBackgroundTaskInvalid) {
         return;
     }
-    UIBackgroundTaskIdentifier backgroundTaskToStop = self.housekeepingBackgroundTaskIdentifier;
-    self.housekeepingBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
+    UIBackgroundTaskIdentifier backgroundTaskToStop = self.pauseAppBackgroundTaskIdentifier;
+    self.pauseAppBackgroundTaskIdentifier = UIBackgroundTaskInvalid;
     [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskToStop];
 }
 
@@ -976,6 +996,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [self logSessionEnd];
 
     if (![self uiIsLoaded]) {
+        [self endPauseAppBackgroundTask];
         return;
     }
 
@@ -994,23 +1015,10 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         }
     }
 
-    self.settingsViewController = nil;
-
     [self.dataStore.feedContentController stopContentSources];
-
-    self.houseKeeper = [WMFDatabaseHouseKeeper new];
-    // TODO: these tasks should be converted to async so we can end the background task as soon as possible
     [self.dataStore clearMemoryCache];
 
-    // TODO: implement completion block to cancel download task with the 2 tasks above
-    NSError *housekeepingError = nil;
-    [self.houseKeeper performHouseKeepingOnManagedObjectContext:self.dataStore.viewContext navigationStateController:self.navigationStateController error:&housekeepingError];
-    if (housekeepingError) {
-        DDLogError(@"Error on cleanup: %@", housekeepingError);
-        housekeepingError = nil;
-    }
-
-    [self endHousekeepingBackgroundTask];
+    [self endPauseAppBackgroundTask];
 }
 
 #pragma mark - Memory Warning
@@ -1223,18 +1231,18 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
             [self showSettingsWithSubViewController:appearanceSettingsVC animated:animated];
         } break;
         case WMFUserActivityTypeNotificationSettings: {
-            WMFNotificationSettingsViewController *notificationSettingsVC = [[WMFNotificationSettingsViewController alloc] initWithAuthManager:self.dataStore.authenticationManager notificationsController:self.notificationsController];
-            [notificationSettingsVC applyTheme:self.theme];
+            WMFPushNotificationsSettingsViewController *pushNotificationsVC = [[WMFPushNotificationsSettingsViewController alloc] initWithAuthenticationManager:self.dataStore.authenticationManager notificationsController:self.notificationsController];
+            [pushNotificationsVC applyTheme:self.theme];
             [self dismissPresentedViewControllers];
             switch ([NSUserDefaults standardUserDefaults].defaultTabType) {
                 case WMFAppDefaultTabTypeExplore: {
                     [self setSelectedIndex:WMFAppTabTypeMain];
                     [self.navigationController popToRootViewControllerAnimated:YES];
-                    [self showSettingsWithSubViewController:notificationSettingsVC animated:animated];
+                    [self showSettingsWithSubViewController:pushNotificationsVC animated:animated];
                 } break;
                 case WMFAppDefaultTabTypeSettings: {
                     [self.navigationController popToRootViewControllerAnimated:YES];
-                    [self.navigationController pushViewController:notificationSettingsVC animated:YES];
+                    [self.navigationController pushViewController:pushNotificationsVC animated:YES];
                 } break;
             }
         } break;
@@ -1673,6 +1681,10 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 // The method will be called on the delegate only if the application is in the foreground. If the method is not implemented or the handler is not called in a timely manner then the notification will not be presented. The application can choose to have the notification presented as a sound, badge, alert and/or in the notification list. This decision should be based on whether the information in the notification is otherwise visible to the user.
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
+    if([notification.request.content.threadIdentifier isEqualToString:EchoModelVersion.current]) {
+        [NSNotificationCenter.defaultCenter postNotificationName:NSNotification.pushNotificationBannerDidDisplayInForeground object:nil userInfo:notification.request.content.userInfo];
+    }
+
     completionHandler(UNNotificationPresentationOptionAlert);
 }
 
@@ -1680,8 +1692,9 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
     NSDictionary *info = response.notification.request.content.userInfo;
 
-    // Note: Add back in category and action identifier checks here if In the News notification is restored. Removed in: https://github.com/wikimedia/wikipedia-ios/pull/4046
-    [self showNotificationCenterForNotificationInfo:info];
+    if ([response.notification.request.content.threadIdentifier isEqualToString:EchoModelVersion.current]) {
+        [self showNotificationCenterForNotificationInfo:info];
+    }
 
     completionHandler();
 }
@@ -1996,18 +2009,6 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self.notificationsController setRemoteNotificationRegistrationStatusWithDeviceToken:deviceToken error:error];
 }
 
-- (void)showReadMoreAboutRevertedEditViewControllerWithArticleURL:(NSURL *)articleURL completion:(void (^)(void))completion {
-    ReadMoreAboutRevertedEditViewController *readMoreViewController = [[ReadMoreAboutRevertedEditViewController alloc] initWithNibName:@"ReadMoreAboutRevertedEditViewController" bundle:nil];
-    readMoreViewController.delegate = self;
-    readMoreViewController.articleURL = articleURL;
-    WMFThemeableNavigationController *navController = [[WMFThemeableNavigationController alloc] initWithRootViewController:readMoreViewController theme:self.theme];
-    [self presentViewController:navController animated:YES completion:completion];
-}
-
-- (void)readMoreAboutRevertedEditViewControllerDidPressGoToArticleButton:(nonnull NSURL *)articleURL {
-    [self showArticleWithURL:articleURL animated:YES];
-}
-
 #pragma mark - User was logged out
 
 - (void)userWasLoggedOut:(NSNotification *)note {
@@ -2016,6 +2017,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         [self.exploreViewController updateNotificationsCenterButton];
         [self.settingsViewController configureBarButtonItems];
         UIApplication.sharedApplication.applicationIconBadgeNumber = 0;
+
+        if (self.isResumeComplete) {
+            [self.dataStore.feedContentController updateContentSource:[WMFAnnouncementsContentSource class]
+                                                                force:YES
+                                                           completion:nil];
+        }
     });
 }
 
@@ -2023,6 +2030,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.exploreViewController updateNotificationsCenterButton];
         [self.settingsViewController configureBarButtonItems];
+
+        if (self.isResumeComplete) {
+            [self.dataStore.feedContentController updateContentSource:[WMFAnnouncementsContentSource class]
+                                                                force:YES
+                                                           completion:nil];
+        }
     });
 }
 

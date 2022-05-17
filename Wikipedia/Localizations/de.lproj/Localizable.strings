@@ -21,6 +21,7 @@
 // Author: Purodha
 // Author: Ubahnverleih
 // Author: Umlaut
+// Author: ZiqiLiang
 
 "aaald-added-text-description-2" = "$1 hinzugefügt";
 "aaald-article-description-updated-description" = "Die Artikelbeschreibung wurde aktualisiert";
@@ -94,6 +95,7 @@
 "action-add-to-reading-list" = "Zu Leseliste hinzufügen";
 "action-add-to-reading-list-short" = "Zu Liste hinzufügen";
 "action-cancel" = "Abbrechen";
+"action-discard-edits" = "Bearbeitungen verwerfen";
 "action-find-in-page" = "In Seite finden";
 "action-language-accessibility" = "Sprache ändern";
 "action-move-to" = "Verschieben nach …";
@@ -405,10 +407,8 @@
 "featured-widget-description" = "Entdecke die besten Artikel auf Wikipedia, die täglich von unserer Gemeinschaft ausgewählt werden.";
 "featured-widget-from-language-wikipedia" = "Von der Wikipedia auf $1";
 "featured-widget-from-wikipedia" = "Von Wikipedia";
-"featured-widget-language-failure" = "Deine primäre Wikipedia-Sprache unterstützt keine vorgestellte Artikel. Du kannst deine primäre Wikipedia-Sprache im Einstellungsmenü der App aktualisieren.";
+"featured-widget-language-failure" = "Deine primäre Wikipedia-Sprache unterstützt keine vorgestellten Artikel. Du kannst deine primäre Wikipedia-Sprache im Einstellungsmenü der App aktualisieren.";
 "featured-widget-title" = "Vorgestellter Artikel";
-"feed-news-notification-button-text" = "Benachrichtigungen anschalten";
-"feed-news-notification-text" = "Aktiviere Benachrichtigungen, um von Wikipedia benachrichtigt zu werden, wenn Artikel in den Nachrichten erscheinen.";
 "fetcher-error-generic" = "Etwas ist schief gelaufen. Bitte später erneut versuchen.";
 "fetcher-error-unexpected-response" = "Die App hat eine unerwartete Antwort vom Server erhalten. Bitte später erneut versuchen.";
 "field-alert-captcha-invalid" = "Ungültiges CAPTCHA";
@@ -465,10 +465,6 @@
 "icon-shortcut-random-title" = "Zufälliger Artikel";
 "icon-shortcut-search-title" = "Wikipedia durchsuchen";
 "image-gallery-unknown-owner" = "Autor unbekannt.";
-"in-the-news-currently-trending" = "Aktuell beliebt";
-"in-the-news-notification-read-now-action-title" = "Jetzt lesen";
-"in-the-news-notification-save-for-later-action-title" = "Für später speichern";
-"in-the-news-notification-share-action-title" = "Teilen …";
 "in-the-news-sub-title-from-language-wikipedia" = "Von der Wikipedia auf $1";
 "in-the-news-sub-title-from-wikipedia" = "Von Wikipedia";
 "in-the-news-title" = "In den Nachrichten";
@@ -540,6 +536,7 @@
 "no-internet-connection" = "Keine Internetverbindung";
 "no-internet-connection-article-reload" = "Eine neuere Version dieses Artikels könnte verfügbar sein, sie kann jedoch ohne Internetverbindung nicht geladen werden.";
 "no-internet-connection-article-reload-button" = "Zurück zur zuletzt gespeicherten Version";
+"notifications-center-agent-description-from-format" = "Von $1";
 "notifications-center-change-password" = "Passwort ändern";
 "notifications-center-checking-for-notifications" = "Prüfen auf Benachrichtigungen...";
 "notifications-center-empty-checking-for-notifications" = "Prüfen auf Benachrichtigungen...";
@@ -547,18 +544,24 @@
 "notifications-center-empty-not-subscribed" = "Du hast derzeit keine Wikipedia-Benachrichtigungen abonniert";
 "notifications-center-empty-state-filters-subtitle" = "Ändere $1, um mehr Nachrichten zu sehen";
 "notifications-center-empty-state-no-projects-selected" = "Projekte hinzufügen, um mehr Nachrichten zu sehen";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Benachrichtigungen anschalten";
+"notifications-center-feed-news-notification-dismiss-button-text" = "Nicht jetzt";
 "notifications-center-filters-accessibility-label" = "Benachrichtigungsfilter";
 "notifications-center-filters-read-status-item-title-all" = "Alle";
 "notifications-center-filters-read-status-item-title-read" = "Gelesen";
 "notifications-center-filters-read-status-item-title-unread" = "Ungelesen";
-"notifications-center-filters-read-status-section-title" = "Lesstatus";
+"notifications-center-filters-read-status-section-title" = "Lesestatus";
 "notifications-center-filters-title" = "Filter";
 "notifications-center-filters-types-footer" = "Ändere die Benachrichtigungstypen, um sie in/aus deinem Benachrichtigungseingang zu filtern. Deaktivierte Benachrichtigungstypen sind nicht sichtbar, aber ihr Inhalt und alle neuen Benachrichtigungen sind verfügbar, wenn du den Schalter wieder einschaltest.";
 "notifications-center-filters-types-item-title-all" = "Alle Typen";
 "notifications-center-filters-types-section-title" = "Benachrichtigungstypen";
-"notifications-center-footer-change-password" = "Passwort ändern";
+"notifications-center-go-to-article" = "Artikel";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Zur Diskussionsseite gehen";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "Zum Wikidata-Datenobjekt gehen";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "Zu deine Diskussionsseite gehen";
 "notifications-center-inbox-title" = "Projekte";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Wikimedia-Projekte";
@@ -566,15 +569,19 @@
 "notifications-center-mark-all-as-read" = "Alle als gelesen markieren";
 "notifications-center-mark-as-read" = "Als gelesen markieren";
 "notifications-center-mark-as-unread" = "Als ungelesen markieren";
+"notifications-center-more-action-accessibility-label" = "Mehr";
+"notifications-center-onboarding-modal-continue-action" = "Fortfahren";
+"notifications-center-onboarding-modal-filters-title" = "Filter";
+"notifications-center-onboarding-panel-secondary-button" = "Nein danke";
 "notifications-center-status-read" = "Gelesen";
 "notifications-center-status-triple-concatenation" = "$1 und $2 in $3";
 "notifications-center-status-unread" = "Ungelesen";
 "notifications-center-subheader-edit-milestone" = "Bearbeitungsmeilenstein";
 "notifications-center-subheader-edit-reverted" = "Deine Bearbeitung wurde rückgängig gemacht";
 "notifications-center-subheader-email-from-other-user" = "Neue E-Mail";
-"notifications-center-subheader-from-agent" = "Von $1";
 "notifications-center-subheader-login-fail-known-device" = "Mehrere fehlgeschlagene Anmeldeversuche";
 "notifications-center-subheader-login-fail-unknown-device" = "Fehlgeschlagener Anmeldeversuch";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Anmeldung von einem unbekannten Gerät";
 "notifications-center-subheader-translate-milestone" = "Übersetzungsmeilenstein";
 "notifications-center-subheader-user-rights-change" = "Änderung der Benutzerrechte";
@@ -582,6 +589,7 @@
 "notifications-center-swipe-mark-as-read" = "Als gelesen markieren";
 "notifications-center-swipe-mark-as-unread" = "Als ungelesen markieren";
 "notifications-center-swipe-more" = "Mehr";
+"notifications-center-type-item-description-mentions" = "Erwähnungen";
 "number-billions" = "$1 Mrd.";
 "number-millions" = "$1 Mio.";
 "number-thousands" = "$1 T";
@@ -759,12 +767,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|Ein Objekt|$1 Objekte}} ersetzt";
 "replace-textfield-accessibility" = "Ersetzen";
 "replace-textfield-placeholder" = "Ersetzen durch …";
-"reverted-edit-back-to-article-button-title" = "Zurück zum Artikel";
-"reverted-edit-possible-reasons" = "- Dein Beitrag folgte nicht einer der Richtlinien. $1\n\n- Dein Beitrag sieht nach einem Experiment oder Vandalismus aus.";
-"reverted-edit-possible-reasons-subtitle" = "Wir wissen, dass du dein Bestes versucht hast, aber einer der Überprüfer hatte einen Bedenken.\n\nMögliche Gründe, warum deine Bearbeitung zurückgesetzt wurde, sind:";
-"reverted-edit-thanks-for-editing-title" = "Vielen Dank für deine Bearbeitungen auf Wikipedia!";
 "reverted-edit-title" = "Zurückgesetzte Bearbeitung";
-"reverted-edit-view-guidelines-text" = "Richtlinien ansehen";
 "saved-all-articles-title" = "Alle Artikel";
 "saved-default-reading-list-tag" = "Diese Liste kann nicht gelöscht werden";
 "saved-pages-image-download-error" = "Die Bilder für diese gespeicherte Seite konnten nicht heruntergeladen werden.";
@@ -798,6 +801,7 @@
 "settings-language-bar" = "Sprachen in der Suche anzeigen";
 "settings-languages-feed-customization" = "Du kannst bestimmen, welche Sprachen auf deinem Entdecken-Feed angezeigt werden, indem du die Einstellungen für deinen Entdecken-Feed anpasst.";
 "settings-my-languages" = "Meine Sprachen";
+// Fuzzy
 "settings-notifications" = "Benachrichtigungen";
 "settings-notifications-info" = "Werde über beliebte Artikel auf Wikipedia benachrichtigt mit unseren Push-Benachrichtigungen. Alles wird hinsichtlich des Datenschutzes und bis zu den Minutendaten zur Verfügung gestellt.";
 "settings-notifications-learn-more" = "Mehr über Benachrichtigungen erfahren";
@@ -824,6 +828,7 @@
 "settings-support" = "Wikipedia unterstützen";
 "settings-title" = "Einstellungen";
 "share-a-fact-made-with" = "Erstellt mit der Wikipedia-App";
+// Fuzzy
 "share-article-name-on-wikipedia" = "„$1“ auf @Wikipedia:";
 "share-building" = "Erstelle Teile-einen-Fakt-Karte …";
 "share-default-format" = "„$1“ von „$2“: $3";
@@ -831,14 +836,14 @@
 "share-get-directions-in-maps" = "Richtungen abrufen";
 "share-menu-item" = "Teilen …";
 "share-message-format" = "„$1“ $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "über @Wikipedia";
 "share-open-in-maps" = "In Karten öffnen";
 "share-social-format" = "„$1“ über Wikipedia: $2";
+// Fuzzy
 "share-social-mention-format" = "„$1“ über @Wikipedia: $2";
 "sort-by-recently-added-action" = "Kürzlich hinzugefügt";
 "sort-by-title-action" = "Titel";
-"status-saved-for-later" = "Für später gespeichert";
-"status-saving-for-later" = "Für später speichern …";
 "table-of-contents-button-label" = "Inhaltsverzeichnis";
 "table-of-contents-close-accessibility-hint" = "Schließen";
 "table-of-contents-close-accessibility-label" = "Inhaltsverzeichnis schließen";

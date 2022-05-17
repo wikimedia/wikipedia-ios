@@ -337,12 +337,13 @@ final class NotificationsCenterCell: UICollectionViewCell {
         projectSourceContainer.addSubview(projectSourceLabel)
         projectSourceContainer.addSubview(projectSourceImage)
 
+        let minimumSummaryHeight = (traitCollection.horizontalSizeClass == .regular) ? 40.0 : 64.0
         internalVerticalNotificationContentStack.addArrangedSubview(VerticalSpacerView.spacerWith(space: 6))
         internalVerticalNotificationContentStack.addArrangedSubview(subheaderLabel)
         internalVerticalNotificationContentStack.addArrangedSubview(VerticalSpacerView.spacerWith(space: 6))
         internalVerticalNotificationContentStack.addArrangedSubview(messageSummaryLabel)
         NSLayoutConstraint.activate([
-            messageSummaryLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 64)
+            messageSummaryLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: minimumSummaryHeight)
         ])
         internalVerticalNotificationContentStack.addArrangedSubview(VerticalSpacerView.spacerWith(space: 3))
         internalVerticalNotificationContentStack.addArrangedSubview(metaStackView)
@@ -375,16 +376,16 @@ final class NotificationsCenterCell: UICollectionViewCell {
         // Primary Hierarchy Constraints
 
         NSLayoutConstraint.activate([
-            leadingContainer.leadingAnchor.constraint(equalTo: foregroundContentContainer.leadingAnchor),
+            leadingContainer.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
             leadingContainer.topAnchor.constraint(equalTo: mainVerticalStackView.topAnchor),
             leadingContainer.bottomAnchor.constraint(equalTo: foregroundContentContainer.bottomAnchor),
             leadingContainer.trailingAnchor.constraint(equalTo: mainVerticalStackView.leadingAnchor),
 
             mainVerticalStackView.topAnchor.constraint(equalTo: foregroundContentContainer.topAnchor, constant: topMargin),
             mainVerticalStackView.bottomAnchor.constraint(equalTo: foregroundContentContainer.bottomAnchor, constant: -edgeMargin),
-            mainVerticalStackView.trailingAnchor.constraint(equalTo: foregroundContentContainer.trailingAnchor),
+            mainVerticalStackView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
 
-            headerTextContainer.trailingAnchor.constraint(equalTo: foregroundContentContainer.trailingAnchor, constant: -edgeMargin),
+            headerTextContainer.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: -edgeMargin),
 
             cellSeparator.heightAnchor.constraint(equalToConstant: 0.5),
             cellSeparator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
@@ -420,7 +421,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
 
         NSLayoutConstraint.activate([
             projectSourceContainer.widthAnchor.constraint(equalToConstant: 50),
-            projectSourceContainer.trailingAnchor.constraint(equalTo: foregroundContentContainer.trailingAnchor, constant: -edgeMargin),
+            projectSourceContainer.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: -edgeMargin),
 
             projectSourceLabel.topAnchor.constraint(equalTo: subheaderLabel.topAnchor),
             projectSourceLabel.trailingAnchor.constraint(equalTo: projectSourceContainer.trailingAnchor),
@@ -466,6 +467,22 @@ final class NotificationsCenterCell: UICollectionViewCell {
 
     // MARK: - Public
 
+    fileprivate func setupAccessibility(_ viewModel: NotificationsCenterCellViewModel) {
+        accessibilityLabel = viewModel.accessibilityText
+        isAccessibilityElement = true
+        
+        if !viewModel.displayState.isEditing {
+            let moreActionAccessibilityLabel = WMFLocalizedString("notifications-center-more-action-accessibility-label", value: "More", comment: "Acessibility label for the More custom action")
+            let moreActionAccessibilityActionLabel = viewModel.isRead ? CommonStrings.notificationsCenterMarkAsUnread : CommonStrings.notificationsCenterMarkAsRead
+            let moreAction = UIAccessibilityCustomAction(name: moreActionAccessibilityLabel, target: self, selector: #selector(tappedMoreAction))
+            let markasReadorUnreadAction = UIAccessibilityCustomAction(name: moreActionAccessibilityActionLabel, target: self, selector: #selector(tappedReadUnreadAction))
+    
+            accessibilityCustomActions = [moreAction, markasReadorUnreadAction]
+        } else {
+            accessibilityCustomActions =  nil
+        }
+    }
+    
     func configure(viewModel: NotificationsCenterCellViewModel, theme: Theme) {
         self.viewModel = viewModel
         self.theme = theme
@@ -474,6 +491,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         updateLabels(forViewModel: viewModel)
         updateProject(forViewModel: viewModel)
         updateMetaContent(forViewModel: viewModel)
+        setupAccessibility(viewModel)
     }
     
     func configure(theme: Theme) {
@@ -501,15 +519,17 @@ private extension NotificationsCenterCell {
         foregroundContentContainer.backgroundColor = isHighlighted || isSelected || displayState.isSelected ? theme.colors.batchSelectionBackground : theme.colors.paperBackground
         cellSeparator.backgroundColor = cellStyle.cellSeparatorColor
 
-        headerLabel.textColor = cellStyle.headerTextColor(displayState)
-        subheaderLabel.textColor = cellStyle.subheaderTextColor(displayState)
-        messageSummaryLabel.textColor = cellStyle.messageTextColor
-        relativeTimeAgoLabel.textColor = cellStyle.relativeTimeAgoColor
-        metaImageView.tintColor = cellStyle.metadataTextColor
-        metaLabel.textColor = cellStyle.metadataTextColor
-        projectSourceLabel.label.textColor = cellStyle.projectSourceColor
-        projectSourceLabel.layer.borderColor = cellStyle.projectSourceColor.cgColor
-        projectSourceImage.tintColor = cellStyle.projectSourceColor
+        let textColor = cellStyle.textColor(displayState)
+
+        headerLabel.textColor = textColor
+        subheaderLabel.textColor = textColor
+        messageSummaryLabel.textColor = textColor
+        relativeTimeAgoLabel.textColor = textColor
+        metaImageView.tintColor = textColor
+        metaLabel.textColor = textColor
+        projectSourceLabel.label.textColor = textColor
+        projectSourceLabel.layer.borderColor = textColor.cgColor
+        projectSourceImage.tintColor = textColor
     }
 
     func updateCellStyle(forDisplayState displayState: NotificationsCenterCellDisplayState) {
@@ -548,8 +568,8 @@ private extension NotificationsCenterCell {
         relativeTimeAgoLabel.text = viewModel.dateText
         swipeMoreStack.label.text = WMFLocalizedString("notifications-center-swipe-more", value: "More", comment: "Button text for the Notifications Center 'More' swipe action.")
         swipeReadUnreadStack.label.text = viewModel.isRead
-            ? WMFLocalizedString("notifications-center-swipe-mark-as-unread", value: "Mark as unread", comment: "Button text in Notifications Center swipe actions to mark a notification as unread.")
-            : WMFLocalizedString("notifications-center-swipe-mark-as-read", value: "Mark as read", comment: "Button text in Notifications Center swipe actions to mark a notification as read.")
+        ? CommonStrings.notificationsCenterMarkAsUnreadSwipe
+        : CommonStrings.notificationsCenterMarkAsReadSwipe
     }
 
     func updateProject(forViewModel viewModel: NotificationsCenterCellViewModel) {
@@ -592,5 +612,6 @@ private extension NotificationsCenterCell {
 
     @objc func tappedReadUnreadAction() {
         delegate?.userDidTapMarkAsReadUnreadActionForCell(self)
+        UIAccessibility.post(notification: .screenChanged, argument: nil)
     }
 }

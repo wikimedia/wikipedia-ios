@@ -5,9 +5,11 @@
 // Author: Ankan
 // Author: Bodhisattwa
 // Author: Elias Ahmmad
+// Author: FARMER
 // Author: JoeWalshWMF
 // Author: Kayser Ahmad
 // Author: Macofe
+// Author: Meghmollar2017
 // Author: Mohammed Galib Hasan
 // Author: Nemo bis
 // Author: R4356th
@@ -21,6 +23,7 @@
 // Author: আজিজ
 // Author: আফতাবুজ্জামান
 // Author: ফাহাদ কাজমী
+// Author: মোঃ মারুফ হাসান24
 
 "aaald-article-description-updated-description" = "নিবন্ধের বিবরণ হালনাগাদ করা হয়েছে";
 "about-content-license" = "বিষয়বস্তুর লাইসেন্স";
@@ -44,11 +47,8 @@
 "about-wikimedia-foundation" = "উইকিমিডিয়া ফাউন্ডেশন";
 "about-wikipedia" = "উইকিপিডিয়া";
 "abuse-filter-disallow-heading" = "আপনি এই সম্পাদনা প্রকাশ করতে পারবেন না";
-// Fuzzy
-"abuse-filter-disallow-unconstructive" = "একটি স্বয়ংক্রিয় ফিল্টার এই সম্পাদনা সম্ভাব্য অ-গঠনমূলক বা ধ্বংসপ্রবণতার প্রচেষ্টা হিসাবে চিহ্নিত করেছে।";
-// Fuzzy
-"abuse-filter-warning-blanking" = "নিবন্ধ খালি করা বা স্প্যামিং করা";
-// Fuzzy
+"abuse-filter-disallow-unconstructive" = "একটি স্বয়ংক্রিয় ছাঁকনি এই সম্পাদনাকে সম্ভাব্য অ-গঠনমূলক বা ধ্বংসপ্রবণতার প্রচেষ্টা হিসেবে চিহ্নিত করেছে। অনুগ্রহ করে ফিরে চলুন ও আপনার সম্পাদনা পরিবর্তন করুন।";
+"abuse-filter-warning-blanking" = "অনুচ্ছেদ বা নিবন্ধ খালি করা";
 "abuse-filter-warning-caps" = "সব বড় হাতের অক্ষরে লেখা";
 "abuse-filter-warning-heading" = "এটি অ-গঠনমূলক সম্পাদনা বলে মনে হচ্ছে, আপনি কি নিশ্চিতভাবে এটি প্রকাশ করতে চান?";
 "abuse-filter-warning-irrelevant" = "অপ্রাসঙ্গিক বাহ্যিক লিঙ্ক বা চিত্র";
@@ -67,6 +67,7 @@
 "account-creation-saving" = "সংরক্ষণ হচ্ছে ...";
 "account-creation-title" = "নতুন অ্যাকাউন্ট তৈরি করুন";
 "action-cancel" = "বাতিল";
+"action-discard-edits" = "সম্পাদনা বাতিল করুন";
 "action-find-in-page" = "পাতায় খুঁজুন";
 "action-move-to" = "স্থানান্তর করুন...";
 "action-read" = "পড়ুন";
@@ -82,8 +83,7 @@
 "app-store-subtitle" = "একটি মুক্ত বিশ্বকোষ";
 "appearance-settings-adjust-text-sizing" = "নিবন্ধের পাঠ্যের আকার সমন্বয় করুন";
 "appearance-settings-expand-tables" = "টেবিল সম্প্রসারণ করুন";
-// Fuzzy
-"appearance-settings-image-dimming-footer" = "আঁধার থিমে ছবিগুলির অস্বচ্ছতা হ্রাস করুন";
+"appearance-settings-image-dimming-footer" = "অন্ধকার ও কালো থিমে চিত্রগুলোর অস্বচ্ছতা হ্রাস করুন";
 "appearance-settings-theme-options" = "থিমের বিকল্প";
 "article-delete" = "অপসারণ";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|নিবন্ধ}} অপসারিত হয়েছে";
@@ -127,6 +127,7 @@
 "edit-summary-choice-fixed-grammar" = "ব্যাকরণ ঠিক করা হয়েছে";
 "edit-summary-choice-fixed-typos" = "বানান ঠিক করা হয়েছে";
 "edit-summary-choice-linked-words" = "লিংক সংযোজন";
+"editor-exit-confirmation-title" = "সম্পাদনা মোড বাতিল করবেন?";
 "empty-no-article-message" = "দুঃখিত, নিবন্ধ লোড করা যায়নি";
 "empty-no-feed-action-message" = "আপনি এখনো সংরক্ষিত পাতা পাঠ করতে পারেন।";
 "empty-no-feed-message" = "আপনার সুপারিশকৃত নিবন্ধগুলি দেখতে পারবেন যখন, আপনার ইন্টারনেট সংযোগ থাকবে";
@@ -164,7 +165,6 @@
 "explore-random-article-sub-heading-from-wikipedia" = "উইকিপিডিয়া থেকে";
 "explore-randomizer" = "অজানা পাতা";
 "featured-widget-from-language-wikipedia" = "$1 উইকিপিডিয়া থেকে";
-"feed-news-notification-button-text" = "বিজ্ঞপ্তি চালু";
 "fetcher-error-generic" = "কিছু একটায় ভুল হয়েছে। দয়া করে পরে আবার চেষ্টা করুন।";
 "field-alert-captcha-invalid" = "ক্যাপচা সঠিক নয়";
 "field-alert-password-confirm-mismatch" = "পাসওয়ার্ড মিলেনি";
@@ -212,10 +212,6 @@
 "icon-shortcut-random-title" = "অজানা নিবন্ধ";
 "icon-shortcut-search-title" = "উইকিপিডিয়া অনুসন্ধান";
 "image-gallery-unknown-owner" = "লেখক অজানা।";
-"in-the-news-currently-trending" = "বর্তমান প্রবণতা";
-"in-the-news-notification-read-now-action-title" = "এখন পড়ুন";
-"in-the-news-notification-save-for-later-action-title" = "পরবর্তীর জন্য সংরক্ষণ করুন";
-"in-the-news-notification-share-action-title" = "বণ্টন…";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 উইকিপিডিয়া থেকে";
 "in-the-news-sub-title-from-wikipedia" = "উইকিপিডিয়া থেকে";
 "in-the-news-title" = "সংবাদে";
@@ -253,26 +249,26 @@
 "notifications-center-change-password" = "পাসওয়ার্ড পরিবর্তন";
 "notifications-center-empty-checking-for-notifications" = "বিজ্ঞপ্তির জন্য অনুসন্ধান করা হচ্ছে...";
 "notifications-center-empty-not-subscribed" = "আপনি বর্তমানে কোনো উইকিপিডিয়া বিজ্ঞপ্তির সদস্যতা গ্রহণ করেননি";
-"notifications-center-footer-change-password" = "পাসওয়ার্ড পরিবর্তন";
-"notifications-center-go-to-diff" = "পরিবর্তনে যান";
+"notifications-center-feed-news-notification-button-text" = "বিজ্ঞপ্তি পাঠানো চালু করুন";
+"notifications-center-go-to-diff" = "পার্থক্য দেখুন";
 "notifications-center-go-to-talk-page" = "আলাপ পাতায় যান";
-"notifications-center-go-to-title" = "$1-এ যান";
 "notifications-center-go-to-user-page" = "$1-এর আলাপ পাতায় যান";
-"notifications-center-go-to-wikidata-item" = "উইকিউপাত্তের ভুক্তিতে যান";
+"notifications-center-go-to-wikidata-item" = "উইকিউপাত্ত আইটেমে যান";
 "notifications-center-go-to-your-talk-page" = "আপনার আলাপ পাতায় যান";
-"notifications-center-header-alert-from-project" = "$1 থেকে সতর্কতা";
-"notifications-center-header-notice-from-project" = "$1 হতে বিজ্ঞপ্তি";
+"notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "প্রবেশের বিজ্ঞপ্তি";
 "notifications-center-mark" = "চিহ্নিত করুন";
 "notifications-center-mark-all-as-read" = "সব পঠিত হিসেবে চিহ্নিত করুন";
 "notifications-center-mark-as-read" = "পঠিত হিসেবে চিহ্নিত করুন";
 "notifications-center-mark-as-unread" = "অপঠিত হিসেবে চিহ্নিত করুন";
+"notifications-center-more-action-accessibility-label" = "আরও";
 "notifications-center-notifications-settings" = "বিজ্ঞপ্তির সেটিংস";
 "notifications-center-subheader-edit-milestone" = "সম্পাদনার মাইলফলক";
 "notifications-center-subheader-edit-reverted" = "আপনার সম্পাদনা সরিয়ে আগের অবস্থায় নিয়ে যাওয়া হয়েছে";
 "notifications-center-subheader-email-from-other-user" = "নতুন ইমেইল";
 "notifications-center-subheader-login-fail-known-device" = "একাধিক ব্যর্থ প্রবেশের প্রচেষ্টা";
 "notifications-center-subheader-login-fail-unknown-device" = "ব্যর্থ প্রবেশের প্রচেষ্টা";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "একটি অপরিচিত ডিভাইস থেকে প্রবেশ";
 "notifications-center-subheader-mention-article-talk-page" = "নিবন্ধের আলাপ পাতায় উল্লেখ";
 "notifications-center-subheader-mention-edit-summary" = "সম্পাদনা সারাংশে উল্লেখ করুন";
@@ -291,6 +287,11 @@
 "notifications-center-swipe-mark-as-unread" = "অপঠিত হিসেবে চিহ্নিত করুন";
 "notifications-center-swipe-more" = "আরও";
 "notifications-center-title" = "বিজ্ঞপ্তি";
+"notifications-center-type-item-description-notice" = "বিজ্ঞপ্তি";
+"notifications-center-type-title-login-success" = "প্রবেশ সফল";
+"notifications-center-type-title-thanks" = "ধন্যবাদ";
+"notifications-push-talk-body-format" = "$2-এ {{PLURAL:$1|$1টি নতুন বার্তা|$1টি নতুন বার্তা}}";
+"notifications-push-talk-title-format" = "{{PLURAL:$1|নতুন বার্তা|নতুন বার্তা}}";
 "number-billions" = "$1 বিলিয়ন";
 "number-millions" = "$1 মিলিয়ন";
 "number-thousands" = "$1 হাজার";
@@ -333,6 +334,8 @@
 "potd-empty-error-description" = "$1 দিনের ছবি পুনরুদ্ধার করতে ব্যর্থ হয়েছে";
 "preference-summary-eventlogging-opt-in" = "অ্যাপ আরও ভালো করতে উইকিমিডিয়া ফাউন্ডেশনকে আপনি কিভাবে অ্যাপ্লিকেশন ব্যবহার করছেন সেই সম্পর্কে তথ্য সংগ্রহ করার অনুমতি দিন";
 "preference-title-eventlogging-opt-in" = "ব্যবহারের রিপোর্ট পাঠান";
+"project-name-wikimedia-commons" = "উইকিমিডিয়া কমন্স";
+"project-name-wikiquote" = "উইকিউক্তি";
 "rank-accessibility-label" = "$1 নং";
 "readers-accessibility-label" = "$1 জন পাঠক";
 "reading-list-create-new-list-description" = "বিবরণ";
@@ -349,7 +352,6 @@
 "relative-date-min-ago" = "{{PLURAL:$1|0=এইমাত্র|$1 মিনিট আগে}}";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=এইমাত্র|$1 মিনিট আগে}}";
 "relative-date-months-ago" = "{{PLURAL:$1|0=এই মাস|1=গত মাস|$1 মাস আগে}}";
-"reverted-edit-thanks-for-editing-title" = "উইকিপিডিয়ায় সম্পাদনা করার জন্য ধন্যবাদ!";
 "saved-all-articles-title" = "সব নিবন্ধ";
 "saved-pages-image-download-error" = "এই সংরক্ষিত পাতার জন্য চিত্র ডাউনলোড করা ব্যর্থ হয়েছে।";
 "saved-search-default-text" = "সংরক্ষিত নিবন্ধগুলি অনুসন্ধান করুন";
@@ -370,7 +372,8 @@
 "settings-help-and-feedback" = "সাহায্য ও প্রতিক্রিয়া";
 "settings-language-bar" = "অনুসন্ধানের সময় ভাষাগুলিকে দেখাও";
 "settings-my-languages" = "আমার ভাষাসমূহ";
-"settings-notifications" = "বিজ্ঞপ্তি";
+"settings-notifications" = "পাঠানো বিজ্ঞপ্তি";
+"settings-notifications-echo-failure-try-again" = "আবার চেষ্টা করুন";
 "settings-notifications-learn-more" = "বিজ্ঞপ্তি সম্পর্কে আরো জানুন";
 "settings-notifications-push-notifications" = "পাঠানো বিজ্ঞপ্তি";
 "settings-notifications-system-turn-on" = "বিজ্ঞপ্তি বন্ধ করুন";
@@ -378,16 +381,15 @@
 "settings-primary-language-details" = "এই তালিকার প্রথম ভাষাটি অ্যাপের প্রাথমিক ভাষা হিসেবে ব্যবহৃত হয়।";
 "settings-support" = "উইকিপিডিয়াকে সাহায্য করুন";
 "settings-title" = "সেটিংস";
+// Fuzzy
 "share-article-name-on-wikipedia" = "@Wikipedia -এ \"$1\":";
 "share-default-format" = "“$2” থেকে “$1”: $3";
 "share-email-format" = "“$2” থেকে\n\n“$1”\n\n$3";
 "share-get-directions-in-maps" = "দিক নির্দেশনা পান";
 "share-message-format" = "“$1” $2";
-"share-on-twitter-sign-off" = "@উইকিপিডিয়া হয়ে";
+"share-on-twitter-sign-off" = "উইকিপিডিয়া হয়ে";
 "share-open-in-maps" = "মানচিত্রে খুলুন";
 "sort-by-title-action" = "শিরোনাম";
-"status-saved-for-later" = "পরবর্তীর জন্য সংরক্ষণ করুন";
-"status-saving-for-later" = "পরবর্তীর জন্য সংরক্ষণ করা হচ্ছে...";
 "table-of-contents-button-label" = "সূচিপত্র";
 "table-of-contents-close-accessibility-hint" = "বন্ধ করুন";
 "table-of-contents-close-accessibility-label" = "বিষয়বস্তুর সূচিপত্র বন্ধ করুন";

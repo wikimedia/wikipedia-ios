@@ -8,10 +8,12 @@ final class NotificationsCenterCellViewModel {
     let key: String
     let project: RemoteNotificationsProject
     private(set) var displayState: NotificationsCenterCellDisplayState
+    let configuration: Configuration
+    let commonViewModel: NotificationsCenterCommonViewModel
 
 	// MARK: - Lifecycle
 
-    init?(notification: RemoteNotification, languageLinkController: MWKLanguageLinkController, isEditing: Bool) {
+    init?(notification: RemoteNotification, languageLinkController: MWKLanguageLinkController, isEditing: Bool, configuration: Configuration) {
         
         //Validation - all notifications must have a recognized project for display (wikidata, commons, or app-supported language)
         guard let wiki = notification.wiki,
@@ -23,6 +25,9 @@ final class NotificationsCenterCellViewModel {
         self.notification = notification
         self.key = key
         self.project = project
+        self.configuration = configuration
+        
+        self.commonViewModel = NotificationsCenterCommonViewModel(configuration: configuration, notification: notification, project: project)
         
         self.displayState = Self.displayStateFor(isEditing: isEditing, isSelected: false, isRead: notification.isRead)
     }
@@ -47,6 +52,21 @@ final class NotificationsCenterCellViewModel {
         
     }
     
+    var accessibilityText: String? {
+        let readAccessibilityText = CommonStrings.readStatusAccessibilityLabel
+        let unreadAccessibilityText = CommonStrings.unreadStatusAccessibilityLabel
+        let readStatus = isRead ? readAccessibilityText : unreadAccessibilityText
+
+        let notificationFormat = WMFLocalizedString("notifications-center-cell-notification-type-accessibility-label-format", value: "%1$@ notification", comment: "Accessibility label for Notifications Center cell's notification text. %1$@ is replaced with a description of the type of notification, which may be a single noun (e.g. Thanks, Welcome) or a short phrase (e.g. Talk page message, Edit milestone). The first letter should be capitalized.")
+        let notificationTypeTitle = notification.type.title
+        let notificationString = String.localizedStringWithFormat(notificationFormat, notificationTypeTitle)
+        let projectName = project.projectName(shouldReturnCodedFormat: false)
+        let messageContent = headerText
+        let accessibilityLabel = "\(notificationString).  \(projectName). \(messageContent ?? String()). \(readStatus)"
+        return accessibilityLabel
+        
+    }
+
     static func displayStateFor(isEditing: Bool, isSelected: Bool, isRead: Bool) -> NotificationsCenterCellDisplayState {
 
         switch (isEditing, isSelected, isRead) {

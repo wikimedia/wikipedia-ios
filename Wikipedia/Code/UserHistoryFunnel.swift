@@ -30,7 +30,7 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         let fontSize = UserDefaults.standard.wmf_articleFontSizeMultiplier().intValue
         let theme = userDefaults.themeAnalyticsName
         let isFeedDisabled = userDefaults.defaultTabType != .explore
-        let isNewsNotificationEnabled = UserDefaults.standard.wmf_inTheNewsNotificationsEnabled()
+        let isNewsNotificationEnabled = false
         let appOpensOnSearchTab = UserDefaults.standard.wmf_openAppOnSearchTab
 
         var event: [String: Any] = ["primary_language": primaryLanguage(), "is_anon": isAnon, "measure_font_size": fontSize, "theme": theme, "feed_disabled": isFeedDisabled, "trend_notify": isNewsNotificationEnabled, "search_tab": appOpensOnSearchTab]
@@ -54,30 +54,13 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         }
         
         if let status = authorizationStatus {
-            event["device_level_enabled"] = getDeviceNotificationStatus(status)
+            event["device_level_enabled"] = status.getAuthorizationStatusString()
         }
         
-        let inboxCount = dataStore.remoteNotificationsController.numberOfAllNotifications
-        event["inbox_count"] = inboxCount
+        let inboxCount = try? dataStore.remoteNotificationsController.numberOfAllNotifications()
+        event["inbox_count"] = inboxCount ?? 0
 
         return wholeEvent(with: event)
-    }
-    
-    private func getDeviceNotificationStatus(_ status: UNAuthorizationStatus) -> String {
-        switch status {
-        case .notDetermined:
-            return "notDetermined"
-        case .denied:
-            return "denied"
-        case .authorized:
-            return "authorized"
-        case .provisional:
-            return "provisional"
-        case .ephemeral:
-            return "ephemeral"
-        @unknown default:
-            return "notDetermined"
-        }
     }
     
     private func feedEnabledListPayload() -> [String: Any] {

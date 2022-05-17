@@ -173,8 +173,6 @@
 "explore-potd-heading" = "Күннээҕи ойуу";
 "explore-random-article-heading" = "Түбэспиччэ ыстатыйа";
 "explore-randomizer" = "Рандомизатор";
-"feed-news-notification-button-text" = "Саҥа сонуннар таҕыстахтарына миэхэ биллэр";
-"feed-news-notification-text" = "Ыстатыйа туһунан сонуннарга элбэхтик ахтылыннаҕына Бикипиэдьийэ миэхэ биллэрдин.";
 "field-alert-captcha-invalid" = "Сыыһа CAPTCHA";
 "field-alert-password-confirm-mismatch" = "Аһарыктарыҥ сөп түбэспэтилэр";
 "field-alert-token-invalid" = "Куодуҥ сыыһа";
@@ -221,11 +219,6 @@
 "icon-shortcut-random-title" = "Түбэспиччэ ыстатыйа";
 "icon-shortcut-search-title" = "Бикипиэдьийэттэн булуу";
 "image-gallery-unknown-owner" = "Ааптара биллибэт.";
-"in-the-news-currently-trending" = "Билигин ордук сэргэнэр";
-"in-the-news-notification-read-now-action-title" = "Билигин ааҕыам";
-"in-the-news-notification-save-for-later-action-title" = "Кэлин бигэргэтиэм";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Тарҕат...";
 "in-the-news-title" = "Сонуннарга ахтыллар";
 "insert-action-title" = "Ук";
 "insert-link-title" = "Сигэни ук";
@@ -275,6 +268,8 @@
 "new-password-instructions" = "Быстах кэмҥэ туттуллар аһарыгынан киирдиҥ.\nТүмүктүүргэ саҥа аһарыгы суруйуохтааххын:";
 "new-password-title" = "Аһарыккын суруй";
 "no-email-account-alert" = "Бука диэн, ҕааддьыккар электрон почталаах бэлиэ-аатта оҥоһун, онтон киирэн көрөөр.";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Саҥа сонуннар таҕыстахтарына миэхэ биллэр";
 "number-billions" = "$1 млрд.";
 "number-millions" = "$1 мөл.";
 "number-thousands" = "$1 тыһ.";
@@ -335,6 +330,7 @@
 "settings-help-and-feedback" = "Көмө уонна ситим";
 "settings-language-bar" = "Көрдүүргэ омугун тылын көрдөрөр буол";
 "settings-my-languages" = "Мин тылларым";
+// Fuzzy
 "settings-notifications" = "Биллэриилэр";
 "settings-notifications-info" = "Бикипиэдьийэҕэ суруллар саҥаны-сонуну биһиги угуйар биллэриилэрбититтэн тута билиҥ. Маны туһанар киһи тус дааннайа толору көмүскэллээх.";
 "settings-notifications-learn-more" = "Биллэрии туһунан сиһилии";
@@ -346,12 +342,12 @@
 "settings-primary-language-details" = "Бу тиһиликкэ бастакыннан ааттаммыт тыл дьибилгэт сүрүн тылын быһыытынан туттуллар. Бу тылы уларыттаххына Эйиэхэ күн аайы көрдөрүллэр уларыйан сөп (холобура Бастыҥ ыстатыйа).";
 "settings-support" = "Бикипиэдьийэни өйөө";
 "settings-title" = "Туруоруулар";
+// Fuzzy
 "share-article-name-on-wikipedia" = "«$1» @Wikipedia:";
 "share-get-directions-in-maps" = "Суолу салҕаа";
+// Fuzzy
 "share-on-twitter-sign-off" = "@Wikipedia нөҥүө";
 "share-open-in-maps" = "Каартаҕа арый";
-"status-saved-for-later" = "Хойут бигэргэтэргэ хаалларыллыбыт";
-"status-saving-for-later" = "Кэлин бигэргэтэргэ...";
 "table-of-contents-button-label" = "Иһинээҕитэ";
 "table-of-contents-close-accessibility-hint" = "Сап";
 "table-of-contents-close-accessibility-label" = "Ис хоһоонун тиһилигин сап";

@@ -24,6 +24,7 @@
 // Author: Sonic N800
 // Author: Tarawneh
 // Author: Zpizza
+// Author: أَحمد
 // Author: بدارين
 // Author: ديفيد
 // Author: محمد أحمد عبد الفتاح
@@ -99,7 +100,7 @@
 "account-creation-missing-fields" = "يجب عليك إدخال اسم مستخدم، وكلمة سر، وتأكيد كلمة السر لإنشاء حساب.";
 "account-creation-passwords-mismatched" = "كلمتا السر لا تتطابقان";
 "account-creation-saving" = "جارٍ الحفظ...";
-"account-creation-title" = "أنشئ حسابا جديدا";
+"account-creation-title" = "أنشئ حسابًا جديدًا";
 "account-group-title" = "حسابك";
 "account-talk-page-title" = "صفحة النقاش الخاصة بك";
 "account-talk-preferences-auto-sign-discussions" = "التوقيع التلقائي للنقاشات";
@@ -423,8 +424,6 @@
 "featured-widget-from-language-wikipedia" = "من ويكيبيديا $1";
 "featured-widget-from-wikipedia" = "من ويكيبيديا";
 "featured-widget-title" = "مقالة متميزة";
-"feed-news-notification-button-text" = "أظهر الإشعارات";
-"feed-news-notification-text" = "تمكين الإخطارات ليتم إعلامك من قبل ويكيبيديا عندما تكون المقالات شائعة في الأخبار.";
 "fetcher-error-generic" = "هناك خطأ ما، الرجاء معاودة المحاولة في وقت لاحق.";
 "fetcher-error-unexpected-response" = "تلقى التطبيق استجابة غير متوقعة من الخادم، الرجاء معاودة المحاولة في وقت لاحق.";
 "field-alert-captcha-invalid" = "تحقق بشري خاطئ";
@@ -481,10 +480,6 @@
 "icon-shortcut-random-title" = "مقالة عشوائية";
 "icon-shortcut-search-title" = "البحث في ويكيبيديا";
 "image-gallery-unknown-owner" = "المؤلف غير معروف.";
-"in-the-news-currently-trending" = "الأكثر زيارة حاليا";
-"in-the-news-notification-read-now-action-title" = "اقرأ الآن";
-"in-the-news-notification-save-for-later-action-title" = "احفظها لوقت لاحق";
-"in-the-news-notification-share-action-title" = "شارك...";
 "in-the-news-sub-title-from-language-wikipedia" = "من ويكيبيديا $1";
 "in-the-news-sub-title-from-wikipedia" = "من ويكيبيديا";
 "in-the-news-title" = "في الأخبار";
@@ -561,18 +556,26 @@
 "no-internet-connection" = "لا يوجد اتصال بالإنترنت";
 "no-internet-connection-article-reload" = "قد يتوفر إصدار أحدث من هذه المقالة، ولكن لا يمكن تحميله دون الاتصال بالإنترنت";
 "no-internet-connection-article-reload-button" = "العودة إلى النسخة الأخيرة المحفوظة";
+"notifications-center-agent-description-from-format" = "من $1";
 "notifications-center-applied-filters-accessibility-label" = "تصفية الاشعارات - تم اضافة التصفيات";
 "notifications-center-applied-project-filters-accessibility-label" = "تصفية المشاريع - تمت اضافة التصفية";
 "notifications-center-badge-button-accessibility-label" = "اشعارات بدون اشارة القراءة";
+"notifications-center-change-password" = "تغيير كلمة السر";
 "notifications-center-empty-state-no-projects-selected" = "اضف المشاريع لرؤية المزيد من الرسائل";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "أظهر الإشعارات";
 "notifications-center-filters-accessibility-label" = "مُرشّح الإشعارات";
 "notifications-center-filters-read-status-item-title-all" = "الكل";
 "notifications-center-filters-read-status-item-title-read" = "اقرأ";
 "notifications-center-filters-read-status-item-title-unread" = "غير مقروءة";
 "notifications-center-filters-title" = "المرشحات";
 "notifications-center-filters-types-item-title-all" = "جميع الأنواع";
-"notifications-center-footer-change-password" = "تغيير كلمة السر";
+// Fuzzy
+"notifications-center-go-to-wikidata-item" = "اذهب إلى عنصر ويكي بيانات";
+"notifications-center-header-alert-from-agent" = "إنذار من $1";
 "notifications-center-inbox-title" = "مشاريع";
+"notifications-center-inbox-wikimedia-projects-section-title" = "مشاريع ويكيميديا";
+"notifications-center-inbox-wikipedias-section-title" = "ويكيبيديات";
 "notifications-center-mark-all-as-read" = "اعتبرها كلها مقروءة";
 "notifications-center-mark-as-read" = "علّم كمقروءة";
 "notifications-center-project-filters-accessibility-label" = "تصفية المشاريع";
@@ -581,13 +584,16 @@
 "notifications-center-status-read" = "اقرأ";
 "notifications-center-status-unread" = "غير مقروءة";
 "notifications-center-subheader-email-from-other-user" = "بريد إلكتروني جديد";
-"notifications-center-subheader-from-agent" = "من $1";
 "notifications-center-subheader-thanks" = "شكرًا";
 "notifications-center-subheader-welcome" = "مرحبًا!";
 "notifications-center-swipe-mark-as-read" = "علّم كمقروءة";
 "notifications-center-swipe-more" = "المزيد";
 "notifications-center-title" = "الإشعارات";
 "notifications-center-toolbar-mark-accessibility-label" = "حدد الاشعارات المختارة";
+"notifications-center-type-item-description-welcome-verbose" = "رسالة ترحيب";
+"notifications-center-type-title-page-link" = "وصلة صفحة";
+"notifications-center-type-title-user-rights-change" = "تغييرات صلاحيات المستخدم";
+"notifications-center-type-title-user-talk-page-messsage" = "رسالة صفحة نقاش";
 "notifications-push-fallback-body-text" = "نشاط جديد على ويكيبيديا";
 "number-billions" = "$1 مليار";
 "number-millions" = "$1 مليون";
@@ -664,6 +670,14 @@
 "potd-widget-title" = "صورة اليوم";
 "preference-summary-eventlogging-opt-in" = "السماح لويكيميديا بجمع المعلومات حول كيفية استخدام التطبيق لتحسينه";
 "preference-title-eventlogging-opt-in" = "إرسال تقارير الاستخدام";
+"project-name-mediawiki" = "ميدياويكي";
+"project-name-wikibooks" = "ويكي الكتب";
+"project-name-wikidata" = "ويكي بيانات";
+"project-name-wikimedia-commons" = "ويكيميديا كومنز";
+"project-name-wikinews" = "ويكي الأخبار";
+"project-name-wikisource" = "ويكي مصدر";
+"project-name-wikiversity" = "ويكي الجامعة";
+"project-name-wikivoyage" = "ويكي الرحلات";
 "rank-accessibility-label" = "رقم $1";
 "readers-accessibility-label" = "$1 قارئ";
 "reading-list-add-generic-hint-title" = "إضافة هذه المقالة لقائمة قراءة؟";
@@ -768,12 +782,7 @@
 "replace-replace-all-results-count" = "تم استبدال {{PLURAL:$1|$1 عنصر|$1 عناصر}}";
 "replace-textfield-accessibility" = "استبدال";
 "replace-textfield-placeholder" = "استبدل بـ…";
-"reverted-edit-back-to-article-button-title" = "العودة إلى المقالة";
-"reverted-edit-possible-reasons" = "- لم تتوافق مساهمتك مع إحدى الإرشادات، $1\n - بدت مساهمتك كتجربة أو تخريب";
-"reverted-edit-possible-reasons-subtitle" = "نحن نعلم أنك جربت أفضل ما لديك، ولكن كان أحد المراجعين قلقا.\n\nمن بين الأسباب المحتملة لإعادة تعديلك:";
-"reverted-edit-thanks-for-editing-title" = "شكرا على تحرير ويكيبيديا!";
 "reverted-edit-title" = "تم إرجاع التعديل";
-"reverted-edit-view-guidelines-text" = "عرض الإرشادات";
 "saved-all-articles-title" = "كل المقالات";
 "saved-default-reading-list-tag" = "لا يمكن حذف هذه القائمة";
 "saved-pages-image-download-error" = "فشل تنزيل الصور لهذه الصفحة المحفوظة.";
@@ -808,7 +817,9 @@
 "settings-language-bar" = "إظهار اللغات في البحث";
 "settings-languages-feed-customization" = "أنت يمكنك التحكم في أي اللغات تكون معروضة على تلقيم استكشف الخاص بك عن طريق تعديل إعدادات تلقيم استكشف الخاص بك";
 "settings-my-languages" = "لغاتي";
+// Fuzzy
 "settings-notifications" = "الإشعارات";
+"settings-notifications-echo-failure-try-again" = "حاول مجددًا";
 "settings-notifications-info" = "يتم تنبيهك إلى المقالات الشائعة والأعلى قراءة في ويكيبيديا بإخطارات الدفع لدينا، الجميع المقدمة فيما يتعلق بالخصوصية وحتى البيانات الدقيقة.";
 "settings-notifications-learn-more" = "إعرف المزيد عن الإشعارات";
 "settings-notifications-push-notifications" = "الإشعارات";
@@ -834,6 +845,7 @@
 "settings-support" = "ادعم ويكبيديا";
 "settings-title" = "إعدادات";
 "share-a-fact-made-with" = "صُنعت بتطبيق ويكيبيديا";
+// Fuzzy
 "share-article-name-on-wikipedia" = "«$1» على @Wikipedia:";
 "share-building" = "جارٍ بناء بطاقة مشاركة حقيقة...";
 "share-default-format" = "“$1” من “$2”: $3";
@@ -841,14 +853,14 @@
 "share-get-directions-in-maps" = "احصل على الاتجاهات";
 "share-menu-item" = "شارك...";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "عبر @Wikipedia";
 "share-open-in-maps" = "افتح في الخرائط";
 "share-social-format" = "عبر “$1” ويكيبيديا: $2";
+// Fuzzy
 "share-social-mention-format" = "“$1” عبر ويكيبيديا: $2";
 "sort-by-recently-added-action" = "أُضيف مؤخرا";
 "sort-by-title-action" = "العنوان";
-"status-saved-for-later" = "محفوظة لوقت لاحق";
-"status-saving-for-later" = "تُحفظ لوقت لاحق...";
 "table-of-contents-button-label" = "قائمة المحتويات";
 "table-of-contents-close-accessibility-hint" = "أغلق";
 "table-of-contents-close-accessibility-label" = "أغلق قائمة المحتويات";
@@ -869,7 +881,7 @@
 "talk-page-link-user-action-sheet-safari" = "عرض صفحة المستخدم في سفاري";
 "talk-page-link-user-action-sheet-title" = "صفحات المستخدمين";
 "talk-page-new-banner-subtitle" = "تذكر، كلنا أناسٌ هنا";
-"talk-page-new-banner-title" = "رجاءً كن لطيفاً";
+"talk-page-new-banner-title" = "رجاءً كُن لطيفًا";
 "talk-page-new-body-textfield-accessibility-label" = "هيئة النقاش";
 "talk-page-new-reply-body-accessibility-label" = "تأليف استجابة";
 "talk-page-new-reply-body-placeholder-text" = "فم بصياغة رد";

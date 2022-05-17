@@ -175,9 +175,6 @@
 "home-title-accessibility-label" = "ৱিকিপিডিয়া, অন্বেষণৰ আৰম্ভণিলৈ যাওক";
 "icon-shortcut-search-title" = "ৱিকিপিডিয়াত সন্ধান কৰক";
 "image-gallery-unknown-owner" = "লেখক অজ্ঞাত।";
-"in-the-news-notification-read-now-action-title" = "এতিয়া পঢ়ক";
-"in-the-news-notification-save-for-later-action-title" = "পাছত পঢ়াৰ বাবে সাঁচি থওক";
-"in-the-news-notification-share-action-title" = "ভাগবতৰা কৰক…";
 "in-the-news-sub-title-from-language-wikipedia" = "$1 ৱিকিপিডিয়াৰ পৰা";
 "in-the-news-sub-title-from-wikipedia" = "ৱিকিপিডিয়াৰ পৰা";
 "in-the-news-title" = "বাতৰিৰ শীৰ্ষত";
@@ -253,8 +250,6 @@
 "replace-infolabel-method-replace-all" = "সকলো বদলি কৰক";
 "replace-textfield-accessibility" = "বদলি কৰক";
 "replace-textfield-placeholder" = "…ৰে বদলি কৰক";
-"reverted-edit-back-to-article-button-title" = "প্ৰবন্ধলৈ ঘূৰি যাওক";
-"reverted-edit-thanks-for-editing-title" = "ৱিকিপিডিয়া সম্পাদনা কৰাৰ বাবে ধন্যবাদ!";
 "saved-all-articles-title" = "সকলো প্ৰবন্ধ";
 "saved-default-reading-list-tag" = "এই প্ৰবন্ধ মচিব নোৱাৰি";
 "search-button-accessibility-label" = "ৱিকিপিডিয়াত সন্ধান কৰক";
@@ -270,14 +265,17 @@
 "settings-account" = "একাউণ্ট";
 "settings-clear-cache-ok" = "কেশ্ব পৰিষ্কাৰ কৰক";
 "settings-my-languages" = "সকলো ভাষা";
+// Fuzzy
 "settings-notifications" = "জাননী";
 "settings-primary-language" = "প্ৰাথমিক";
 "settings-storage-and-syncing-erase-saved-articles-button-title" = "মচি পেলাওক";
 "settings-storage-and-syncing-erase-saved-articles-title" = "সাঁচি থোৱা প্ৰবন্ধসমূহ মচি পেলাওক";
 "settings-support" = "ৱিকিপিডিয়াক সমৰ্থন কৰক";
 "settings-title" = "ছেটিংছ";
+// Fuzzy
 "share-article-name-on-wikipedia" = "@Wikipedia -ত \"$1\":";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "@Wikipedia ৰ মাধ্যমেৰে";
 "share-social-format" = "ৱিকিপিডিয়াৰ মাধ্যমেৰে “$1”: $2";
 "sort-by-title-action" = "শিৰোনাম";

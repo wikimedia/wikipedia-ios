@@ -3,9 +3,10 @@ import SwiftUI
 import WMF
 
 struct NotificationsCenterFilterItemView: View {
+    @Environment (\.horizontalSizeClass) private var horizontalSizeClass
     @ObservedObject var itemViewModel: NotificationsCenterFiltersViewModel.ItemViewModel
     let theme: Theme
-    
+
     var body: some View {
         
         Group {
@@ -27,27 +28,29 @@ struct NotificationsCenterFilterItemView: View {
                         }
                     }
                 }
-            case .toggle(let remoteNotificationType):
+            case .toggle(let type):
                 
                 HStack {
 
                     let iconColor = theme.colors.paperBackground
-                    let iconBackgroundColor = remoteNotificationType.imageBackgroundColorWithTheme(theme)
-                    if let iconName = remoteNotificationType.imageName {
+                    let iconBackgroundColor = type.imageBackgroundColorWithTheme(theme)
+                    if let iconName = type.imageName {
                         NotificationsCenterIconImage(iconName: iconName, iconColor: Color(iconColor), iconBackgroundColor: Color(iconBackgroundColor), padding: 0)
                     }
                     
+                    let customBinding = $itemViewModel.isSelected.didSet { (state) in
+                        itemViewModel.toggleSelectionForToggleType()
+                    }
+                    
                     if #available(iOS 14.0, *) {
-                        Toggle(itemViewModel.title, isOn: $itemViewModel.isSelected.didSet { (state) in
-                            itemViewModel.toggleSelectionForToggleType()
-                        })
-                            .foregroundColor(Color(theme.colors.primaryText))
-                            .toggleStyle(SwitchToggleStyle(tint: Color(theme.colors.accent)))
+                        Toggle(isOn: customBinding) {
+                            customLabelForToggle(type: type)
+                        }
+                        .toggleStyle(SwitchToggleStyle(tint: Color(theme.colors.accent)))
                     } else {
-                        Toggle(itemViewModel.title, isOn: $itemViewModel.isSelected.didSet { (state) in
-                            itemViewModel.toggleSelectionForToggleType()
-                        })
-                            .foregroundColor(Color(theme.colors.primaryText))
+                        Toggle(isOn: customBinding) {
+                            customLabelForToggle(type: type)
+                        }
                     }
                 }
             case .toggleAll:
@@ -65,7 +68,34 @@ struct NotificationsCenterFilterItemView: View {
                 }
             }
         }
+        .padding(.horizontal, horizontalSizeClass == .regular ? (UIFont.preferredFont(forTextStyle: .body).pointSize) : 0)
         .listRowBackground(Color(theme.colors.paperBackground).edgesIgnoringSafeArea([.all]))
+    }
+    
+    private func customLabelForToggle(type: RemoteNotificationType) -> some View {
+        Group {
+            switch type {
+            case .loginFailKnownDevice, //represents both known and unknown devices
+                    .loginSuccessUnknownDevice:
+                
+                let subtitle = type == .loginFailKnownDevice ? WMFLocalizedString("notifications-center-type-title-login-attempts-subtitle", value: "Failed login attempts to your account", comment: "Subtitle of \"Login attempts\" notification type filter toggle. Represents failed logins from both a known and unknown device.")
+                 :  CommonStrings.notificationsCenterLoginSuccessDescription
+                
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(itemViewModel.title)
+                        .foregroundColor(Color(theme.colors.primaryText))
+                        .font(.body)
+                    Text(subtitle)
+                        .foregroundColor(Color(theme.colors.secondaryText))
+                        .font(.footnote)
+                }
+            default:
+                Text(itemViewModel.title)
+                    .font(.body)
+                    .foregroundColor(Color(theme.colors.primaryText))
+            }
+        }
+        
     }
 }
 
@@ -82,7 +112,7 @@ extension Binding {
 }
 
 struct NotificationsCenterFilterView: View {
-    
+
     let viewModel: NotificationsCenterFiltersViewModel
     let doneAction: () -> Void
     

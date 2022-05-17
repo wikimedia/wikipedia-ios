@@ -27,16 +27,23 @@ class NotificationService: UNNotificationServiceExtension {
         
         self.bestAttemptContent = bestAttemptContent
         
-        //TODO: Should we consider versioning here? Bail now and show fallback content if current content is anything other than "checkEchoV1".
+        guard bestAttemptContent.body == EchoModelVersion.current else {
+            bestAttemptContent.body = fallbackPushContent
+            contentHandler(bestAttemptContent)
+            return
+        }
         
         let cache = sharedCache.loadCache()
         let project = RemoteNotificationsProject.wikipedia(cache.settings.primaryLanguageCode, cache.settings.primaryLocalizedName, nil)
+        
+        let fallbackPushContent = self.fallbackPushContent
         
         apiController.getUnreadPushNotifications(from: project) { [weak self] fetchedNotifications, error in
             
             DispatchQueue.main.async {
                 guard let self = self,
                       error == nil else {
+                    bestAttemptContent.body = fallbackPushContent
                     contentHandler(bestAttemptContent)
                     return
                 }
@@ -57,8 +64,28 @@ class NotificationService: UNNotificationServiceExtension {
                        let pushContentText = finalNotificationsToDisplay.first?.pushContentText {
                     bestAttemptContent.body = pushContentText
                 } else {
-                    bestAttemptContent.body = self.fallbackPushContent
+                    bestAttemptContent.body = fallbackPushContent
                 }
+
+                // Assigning interruption level and relevance score only available starting on iOS 15
+                if #available(iOS 15.0, *) {
+                    if finalNotifications.notificationsToDisplay.count == 1, let notification = finalNotifications.notificationsToDisplay.first {
+                        let priority = RemoteNotification.typeFrom(notification: notification).priority
+                        bestAttemptContent.interruptionLevel = priority.interruptionLevel
+                        bestAttemptContent.relevanceScore = priority.relevanceScore
+                    } else {
+                        if NotificationServiceHelper.allNotificationsAreForSameTalkPage(notifications: finalNotificationsToDisplay) {
+                            bestAttemptContent.interruptionLevel = RemoteNotificationType.mentionInTalkPage.priority.interruptionLevel
+                            bestAttemptContent.relevanceScore = RemoteNotificationType.mentionInTalkPage.priority.relevanceScore
+                        } else {
+                            bestAttemptContent.interruptionLevel = RemoteNotificationType.bulkPriority.interruptionLevel
+                            bestAttemptContent.relevanceScore = RemoteNotificationType.bulkPriority.relevanceScore
+                        }
+                    }
+                }
+
+                let displayContentIdentifiers = finalNotificationsToDisplay.compactMap { PushNotificationContentIdentifier(key: $0.key, date: $0.date) }
+                PushNotificationContentIdentifier.save(displayContentIdentifiers, to: &bestAttemptContent.userInfo)
 
                 bestAttemptContent.badge = NSNumber(value: newCache.currentUnreadCount + finalNotificationsToDisplay.count)
                 
@@ -71,7 +98,7 @@ class NotificationService: UNNotificationServiceExtension {
         // Called just before the extension will be terminated by the system.
         // Use this as an opportunity to deliver your "best attempt" at modified content, otherwise the original push payload will be used.
         if let contentHandler = contentHandler,
-            let bestAttemptContent =  bestAttemptContent {
+            let bestAttemptContent = bestAttemptContent {
             bestAttemptContent.body = fallbackPushContent
             contentHandler(bestAttemptContent)
         }

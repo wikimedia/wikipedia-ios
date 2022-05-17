@@ -185,6 +185,20 @@ public class RemoteNotificationsAPIController: Fetcher {
         case noResult
         case unknown
         case multiple([Error])
+        
+        var errorDescription: String? {
+            
+            switch self {
+            case .multiple(let errors):
+                if let firstError = errors.first {
+                    return (firstError as NSError).alertMessage()
+                }
+            case .noResult, .unknown:
+                return RequestError.unexpectedResponse.errorDescription ?? CommonStrings.genericErrorDescription
+            }
+            
+            return CommonStrings.genericErrorDescription
+        }
     }
     
     // MARK: Decodable: MarkSeenResult
@@ -217,6 +231,10 @@ public class RemoteNotificationsAPIController: Fetcher {
     enum MarkSeenError: LocalizedError {
         case noResult
         case unknown
+        
+        var errorDescription: String? {
+            return RequestError.unexpectedResponse.errorDescription ?? CommonStrings.genericErrorDescription
+        }
     }
     
     //MARK: Public
@@ -352,16 +370,6 @@ public class RemoteNotificationsAPIController: Fetcher {
                 }
             }
         }
-    }
-    
-    private func notifications(from result: NotificationsResult?) -> Set<NotificationsResult.Notification>? {
-        guard let result = result else {
-            return nil
-        }
-        guard let list = result.query?.notifications?.list else {
-            return nil
-        }
-        return Set(list)
     }
 
     // MARK: Query parameters

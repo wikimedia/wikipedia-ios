@@ -61,7 +61,6 @@
 "history-clear-delete-all" = "Ааи, ианыхтәуп зегьы";
 "history-title" = "Аҭоурых";
 "home-title" = "Иҭышәҵаала!";
-"in-the-news-notification-read-now-action-title" = "Иаԥхьатәуп уажәы";
 "languages-title" = "Иԥсахтәуп абызшәа";
 "languages-wikipedia" = "Википедиа Абызшәақәа";
 "login-forgot-password" = "Ишәхашҭыма ажәамаӡа?";
@@ -97,8 +96,10 @@
 "settings-clear-cache-cancel" = "Аҟәыхра";
 "settings-my-languages" = "Сара сбызшәақәа";
 "settings-title" = "Архиарақәа";
+// Fuzzy
 "share-article-name-on-wikipedia" = "«$1» @Wikipedia аҟны:";
 "share-message-format" = "«$1» $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "@Wikipedia ала";
 "table-of-contents-close-accessibility-hint" = "Иарктәуп";
 "theme-black-display-name" = "Аиқәаҵәа";

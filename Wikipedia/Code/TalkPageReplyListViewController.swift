@@ -458,3 +458,9 @@ extension TalkPageReplyListViewController: TalkPageHeaderViewDelegate {
 
 extension TalkPageReplyListViewController: FakeProgressLoading {
 }
+
+extension TalkPageReplyListViewController: EditingFlowViewController {
+    var shouldDisplayExitConfirmationAlert: Bool {
+        return showingCompose
+    }
+}

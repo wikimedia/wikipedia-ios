@@ -103,6 +103,7 @@
 "action-add-to-reading-list" = "Pridať do zoznamu na prečítanie";
 "action-add-to-reading-list-short" = "Pridať do zoznamu";
 "action-cancel" = "Zrušiť";
+"action-discard-edits" = "Zahodiť úpravy";
 "action-find-in-page" = "Nájsť na stránke";
 "action-language-accessibility" = "Zmeniť jazyk";
 "action-move-to" = "Presunúť do…";
@@ -313,6 +314,8 @@
 "editing-welcome-impartial-tone-title" = "Píšte nestranne";
 "editing-welcome-set-knowledge-free-subtitle" = "Aby mali všetci prístup k vedomostiam sveta, potrebujeme, aby ste sa podieľali na jeho tvorbe čítaním, upravovaním a prispievaním k témam, ktoré sú podľa vás najdôležitejšie a zaujímajú vás.";
 "editing-welcome-set-knowledge-free-title" = "Osloboďte vedomosti";
+"editor-exit-confirmation-body" = "Naozaj chcete opustiť režim úprav bez uloženia zmien?";
+"editor-exit-confirmation-title" = "Opustiť režim úprav?";
 "empty-diff-compare-title" = "Žiaden rozdiel medzi revíziami";
 "empty-diff-single-title" = "Žiadne zobraziteľné zmeny";
 "empty-insert-media-title" = "Vybrať súbor z Wikimedia Commons";
@@ -424,8 +427,6 @@
 "featured-widget-from-wikipedia" = "Z Wikipédie";
 "featured-widget-language-failure" = "Váš prvotný jazyk Wikipédie nie je pre odporúčaný článok podporovaný. Môžete ho zmeniť v nastaveniach aplikácie.";
 "featured-widget-title" = "Odporúčaný článok";
-"feed-news-notification-button-text" = "Zapnúť upozornenia";
-"feed-news-notification-text" = "Posielať oznámení, ktoré majú byť oznámené Wikipédiou, keď články sú trendy v aktualitách.";
 "fetcher-error-generic" = "Niečo sa nepodarilo. Prosím, skúste to znovu neskôr.";
 "fetcher-error-unexpected-response" = "Aplikácia dostala neočakávanú odpoveď zo servera. Skúste to, prosím, neskôr.";
 "field-alert-captcha-invalid" = "Neplatná CAPTCHA";
@@ -484,10 +485,6 @@
 "icon-shortcut-random-title" = "Náhodný článok";
 "icon-shortcut-search-title" = "Hľadať";
 "image-gallery-unknown-owner" = "Neznámy autor.";
-"in-the-news-currently-trending" = "Aktuálne trendy";
-"in-the-news-notification-read-now-action-title" = "Čítať";
-"in-the-news-notification-save-for-later-action-title" = "Uložiť na neskôr";
-"in-the-news-notification-share-action-title" = "Zdielať…";
 "in-the-news-sub-title-from-language-wikipedia" = "Z Wikipédie v jazyku $1";
 "in-the-news-sub-title-from-wikipedia" = "Z Wikipédie";
 "in-the-news-title" = "Správy";
@@ -545,6 +542,7 @@
 "main-menu-account-login" = "Prihlásiť sa";
 "main-menu-account-logout" = "Odhlásiť sa";
 "main-menu-account-logout-are-you-sure" = "Ste si istý, že sa chcete odhlásiť?";
+"main-menu-account-logout-are-you-sure-message" = "Odhlásenie sa vymaže vaše lokálne uložené údaje (oznámenia a správy), ale vaše údaje o účte budú stále dostupné na webe a budú sa dať znovu stiahnuť ak sa znovu prihlásite.";
 "main-menu-account-logout-cancel" = "Zrušiť";
 "main-menu-account-title-logged-in" = "Prihlásený ako $1";
 "main-menu-heading-legal" = "Ochrana osobných údajov a podmienky používania";
@@ -569,18 +567,43 @@
 "no-internet-connection" = "Žiadne pripojenie na internet";
 "no-internet-connection-article-reload" = "Môže byť dostupná novšia verzia tohto článku, ale nedá sa ju načítať bez pripojenia k internetu.";
 "no-internet-connection-article-reload-button" = "Vrátiť sa k poslednej uloženej verzii";
+"notifications-center-agent-description-from-format" = "Od $1";
+"notifications-center-alert" = "Upozornenie";
+"notifications-center-applied-filters-accessibility-label" = "Filter oznámení - má vybraný filter";
+"notifications-center-applied-project-filters-accessibility-label" = "Filter projektov - má vybraný filter";
+"notifications-center-badge-button-accessibility-label" = "Neprečítané oznámenia";
+"notifications-center-cell-notification-type-accessibility-label-format" = "$1 oznámenie";
 "notifications-center-change-password" = "Zmeniť heslo";
+"notifications-center-checking-for-notifications" = "Overovanie oznámení...";
+"notifications-center-destination-app" = "v aplikácii";
+"notifications-center-destination-web" = "na webe";
 "notifications-center-empty-checking-for-notifications" = "Kontrola notifikácií...";
+"notifications-center-empty-no-messages" = "Nemáte žiadne správy";
 "notifications-center-empty-not-subscribed" = "Neodoberáte žiadne notifikácie z Wikipédie";
-"notifications-center-footer-change-password" = "Zmeniť heslo";
+"notifications-center-empty-state-filters-subtitle" = "Upraviť $1 pre zobrazenie viac správ";
+"notifications-center-empty-state-no-projects-selected" = "Pridať projekty pre zobrazenie viac správ";
+"notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter|$1 filtre|$1 filtrov}}";
+"notifications-center-feed-card-title" = "Upravovanie oznámení je teraz dostupné";
+"notifications-center-feed-news-notification-button-text" = "Zapnúť upozornenia";
+"notifications-center-feed-news-notification-dismiss-button-text" = "Teraz nie";
+"notifications-center-feed-news-notification-text" = "Upravovanie oznámení pre všetky projekty Wikimédia je teraz dostupné v aplikácii. Pre priebežnú aktualizáciu nových správ zapnite push oznámenia.";
+"notifications-center-filters-accessibility-label" = "Filter notifikácií";
+"notifications-center-filters-read-status-item-title-all" = "Všetky";
+"notifications-center-filters-read-status-item-title-read" = "Prečítané";
+"notifications-center-filters-read-status-item-title-unread" = "Neprečítané";
+"notifications-center-filters-read-status-section-title" = "Stav prečítania";
+"notifications-center-filters-title" = "Filtre";
+// Fuzzy
 "notifications-center-go-to-diff" = "Prejsť na rozdiely";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Prejsť na diskusnú stránku";
-"notifications-center-go-to-title" = "Prejsť na $1";
+// Fuzzy
 "notifications-center-go-to-user-page" = "Prejsť na stránku používateľa $1";
+// Fuzzy
 "notifications-center-go-to-wikidata-item" = "Prejsť na položku Wikidáta";
+// Fuzzy
 "notifications-center-go-to-your-talk-page" = "Prejsť na svoju diskusnú stránku";
-"notifications-center-header-alert-from-project" = "Upozornenie z $1";
-"notifications-center-header-notice-from-project" = "Oznámenie z $1";
+"notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "Prihlasovacie oznámenia";
 "notifications-center-mark" = "Označiť";
 "notifications-center-mark-all-as-read" = "Označiť všetky ako prečítané";
@@ -592,6 +615,7 @@
 "notifications-center-subheader-email-from-other-user" = "Nový email";
 "notifications-center-subheader-login-fail-known-device" = "Viacero neúspešných pokusov o prihlásenie";
 "notifications-center-subheader-login-fail-unknown-device" = "Neúspešný pokus o prihlásenie";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Prihlásenie z neznámeho zariadenia";
 "notifications-center-subheader-mention-article-talk-page" = "Zmienka na diskusnej stránke článku";
 "notifications-center-subheader-mention-edit-summary" = "Zmienka v sumári úprav";
@@ -611,8 +635,9 @@
 "notifications-center-swipe-more" = "Viac";
 "notifications-center-title" = "Upozornenia";
 "notifications-push-fallback-body-text" = "Nová aktivita na Wikipédii";
+// Fuzzy
 "notifications-push-talk-body-format" = "$1 nové $2 na $3";
-"notifications-push-talk-messages-format" = "{{PLURAL:$1|správa|správy|správ}}";
+// Fuzzy
 "notifications-push-talk-title-format" = "Nové $1";
 "number-billions" = "$1";
 "number-millions" = "$1";
@@ -798,12 +823,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 položka zmenená|$1 položky zmenené|$1 položiek zmenených}}";
 "replace-textfield-accessibility" = "Nahradiť";
 "replace-textfield-placeholder" = "Nahradiť za...";
-"reverted-edit-back-to-article-button-title" = "Späť na článok";
-"reverted-edit-possible-reasons" = "- Váš príspevok nezodpovedal niektorému z pokynov. $1\n\n\n- Váš príspevok vyzeral (alebo bol) experiment alebo vandalizmus.";
-"reverted-edit-possible-reasons-subtitle" = "Vieme, že ste sa snažili o to najlepšie, ale jeden z redaktorov vrátil úpravu.\n\nMožné dôvody vrátenie úpravy sú:";
-"reverted-edit-thanks-for-editing-title" = "Ďakujeme za úpravu Wikipédie!";
 "reverted-edit-title" = "Vrátená úprava";
-"reverted-edit-view-guidelines-text" = "Zobraziť pravidlá";
 "saved-all-articles-title" = "Všetky články";
 "saved-default-reading-list-tag" = "Tento zoznam nie je možné odstrániť";
 "saved-pages-image-download-error" = "Nepodarilo sa stiahnuť obrázky pre túto uloženú stránku.";
@@ -839,7 +859,9 @@
 "settings-language-bar" = "Zobraziť pri vyhľadávaní jazyky";
 "settings-languages-feed-customization" = "Prispôsobením kanálu Objaviť môžete nastaviť, ktoré jazyky sa v ňom zobrazia.";
 "settings-my-languages" = "Moje jazyky";
+// Fuzzy
 "settings-notifications" = "Upozornenia";
+"settings-notifications-echo-failure-try-again" = "Skúsiť znova";
 "settings-notifications-info" = "Buďte informovaní o trendoch a najčastejšie čítaných článkoch na Wikipédii. Všetko je poskytované s ohľadom na vaše súkromie a podľa najnovších dát.";
 "settings-notifications-learn-more" = "Ďalšie informácie o upozorneniach";
 "settings-notifications-push-notifications" = "Push upozornenia";
@@ -865,6 +887,7 @@
 "settings-support" = "Podporte Wikipédiu";
 "settings-title" = "Nastavenia";
 "share-a-fact-made-with" = "Vytvorené s aplikácie Wikipédie";
+// Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipédii:";
 "share-building" = "Vytváranie Zdieľanie faktu...";
 "share-default-format" = "„$1” z „$1”: $3";
@@ -872,14 +895,14 @@
 "share-get-directions-in-maps" = "Nájsť trasu";
 "share-menu-item" = "Zdieľať…";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "prostredníctvom @Wikipedia";
 "share-open-in-maps" = "Otvoriť v aplikácii Mapy";
 "share-social-format" = "„$1“ na Wikipédii: $2";
+// Fuzzy
 "share-social-mention-format" = "„$1“ na @Wikipédi: $2";
 "sort-by-recently-added-action" = "Nedávno pridané";
 "sort-by-title-action" = "Podľa názvu";
-"status-saved-for-later" = "Uložené na neskôr";
-"status-saving-for-later" = "Ukladanie na neskôr...";
 "table-of-contents-button-label" = "Obsah";
 "table-of-contents-close-accessibility-hint" = "Zavrieť";
 "table-of-contents-close-accessibility-label" = "Zavrieť obsah";

@@ -196,16 +196,18 @@ public class NavigationBarHider: NSObject {
                     targetContentOffset.pointee = CGPoint(x: 0, y: top + totalHideableHeight)
                 }
             } else {
+                let targetContentOffsetX = CGFloat(targetContentOffset.pointee.x)
+                
                 if targetOffsetY < 0.5 * underBarViewHideableHeight && targetOffsetY < maxTargetOffsetY { // show everything if underbar view is less than half hidden and we are not at the bottom
-                    targetContentOffset.pointee = CGPoint(x: 0, y: top)
+                    targetContentOffset.pointee = CGPoint(x: targetContentOffsetX, y: top)
                 } else if targetOffsetY < underBarViewHideableHeight + 0.5 * extendedViewHideableHeight { // just hide underbar view if it's more than half hidden and extended view is less than half hidden
-                    targetContentOffset.pointee = CGPoint(x: 0, y: top + underBarViewHideableHeight)
+                    targetContentOffset.pointee = CGPoint(x: targetContentOffsetX, y: top + underBarViewHideableHeight)
                 } else if targetOffsetY < underBarViewHideableHeight + extendedViewHideableHeight + 0.5 * topSpacingHideableHeight { // hide extended & under bar views
-                    targetContentOffset.pointee = CGPoint(x: 0, y: top + underBarViewHideableHeight + extendedViewHideableHeight)
+                    targetContentOffset.pointee = CGPoint(x: targetContentOffsetX, y: top + underBarViewHideableHeight + extendedViewHideableHeight)
                 } else if targetOffsetY < underBarViewHideableHeight + extendedViewHideableHeight + topSpacingHideableHeight + 0.5 * barHideableHeight  { // hide top spacing
-                    targetContentOffset.pointee = CGPoint(x: 0, y: top + underBarViewHideableHeight + extendedViewHideableHeight + topSpacingHideableHeight)
+                    targetContentOffset.pointee = CGPoint(x: targetContentOffsetX, y: top + underBarViewHideableHeight + extendedViewHideableHeight + topSpacingHideableHeight)
                 } else { // hide everything
-                    targetContentOffset.pointee = CGPoint(x: 0, y: top + totalHideableHeight)
+                    targetContentOffset.pointee = CGPoint(x: targetContentOffsetX, y: top + totalHideableHeight)
                 }
             }
             return

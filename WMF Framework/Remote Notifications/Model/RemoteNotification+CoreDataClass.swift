@@ -3,8 +3,17 @@ import CoreData
 
 @objc(RemoteNotification)
 public class RemoteNotification: NSManagedObject {
+
     public var type: RemoteNotificationType {
-        switch (categoryString, typeString) {
+        return RemoteNotification.typeFrom(category: self.categoryString, type: self.typeString, section: self.section)
+    }
+
+    public static func typeFrom(notification: RemoteNotificationsAPIController.NotificationsResult.Notification) -> RemoteNotificationType {
+        return typeFrom(category: notification.category, type: notification.type, section: notification.section)
+    }
+
+    public static func typeFrom(category: String?, type: String?, section: String?) -> RemoteNotificationType {
+        switch (category, type) {
         case ("edit-user-talk", "edit-user-talk"):
             return .userTalkPageMessage
         case ("mention", "mention"):
@@ -50,7 +59,7 @@ public class RemoteNotification: NSManagedObject {
              ("system-noemail", _),
              ("system-emailonly", _):
             
-            switch self.section {
+            switch section {
             case "alert":
                 return .unknownSystemAlert
             case "message":
@@ -60,8 +69,7 @@ public class RemoteNotification: NSManagedObject {
             }
             
         default:
-            
-            switch self.section {
+            switch section {
             case "alert":
                 return .unknownAlert
             case "message":
@@ -104,8 +112,10 @@ public class RemoteNotification: NSManagedObject {
             return ["thank-you-edit"]
         case .welcome:
             return ["system-noemail"]
-        case .loginFailKnownDevice: //Note: this will include the other login types
-            return ["login-fail", "login-success"]
+        case .loginFailKnownDevice: //Note: this will include both known and unknown device login failure types
+            return ["login-fail"]
+        case .loginSuccessUnknownDevice:
+            return ["login-success"]
         default:
             return []
         }
@@ -143,8 +153,10 @@ public class RemoteNotification: NSManagedObject {
             return ["thank-you-edit"]
         case .welcome:
             return ["welcome"]
-        case .loginFailKnownDevice: //Note: this will include the other login types
-            return ["login-fail-new", "login-fail-known", "login-success"]
+        case .loginFailKnownDevice: //Note: this includes both known and unknown device login failure types
+            return ["login-fail-new", "login-fail-known"]
+        case .loginSuccessUnknownDevice:
+            return ["login-success"]
         default:
             return []
         }

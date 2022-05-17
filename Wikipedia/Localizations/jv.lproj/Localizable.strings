@@ -188,8 +188,6 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Saka Wikipédia $1";
 "explore-random-article-sub-heading-from-wikipedia" = "Saka Wikipédia";
 "explore-randomizer" = "Artikel sembarang";
-"feed-news-notification-button-text" = "Urubaké pambiwara";
-"feed-news-notification-text" = "Urubaké wara-wara supaya panjenengan dikabari Wikipédia yèn artikelé mumbul dadi pawarta.";
 "fetcher-error-generic" = "Ana masalah. Mangga jajal manèh mengko.";
 "field-alert-captcha-invalid" = "CAPTCHA ora trep";
 "field-alert-password-confirm-mismatch" = "Tembung sandiné ora mathuk";
@@ -240,10 +238,6 @@
 "icon-shortcut-random-title" = "Artikel sembarang";
 "icon-shortcut-search-title" = "Golèk ing Wikipédia";
 "image-gallery-unknown-owner" = "Kang nganggit ora kaweruhan.";
-"in-the-news-currently-trending" = "Lagi mumbul";
-"in-the-news-notification-read-now-action-title" = "Waca Saiki";
-"in-the-news-notification-save-for-later-action-title" = "Simpen kanggo mengko";
-"in-the-news-notification-share-action-title" = "Ngedum…";
 "in-the-news-sub-title-from-language-wikipedia" = "Saka Wikipédia $1";
 "in-the-news-sub-title-from-wikipedia" = "Saka Wikipédia";
 "in-the-news-title" = "Lagi dadi warta";
@@ -276,6 +270,8 @@
 "new-password-instructions" = "Panjenengan wis mlebu log mawa tembung sandi sadhéla. Saperlu ngrampungaké olèhé panjenengan mlebu log, setèlen tembung sandi anyar ing kéné.";
 "new-password-title" = "Setèl tembung sandiné panjenengan";
 "no-email-account-alert" = "Mangga setèlen akun layang-èl ing pirantiné panjenengan lan ambali njajal.";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Urubaké pambiwara";
 "number-billions" = "$1 milyar";
 "number-millions" = "$1 yuta";
 "number-thousands" = "$1 éwu";
@@ -338,7 +334,6 @@
 "replace-infolabel-method-replace-all" = "Ganti kabèh";
 "replace-textfield-accessibility" = "Ganti";
 "replace-textfield-placeholder" = "Ganti mawa...";
-"reverted-edit-back-to-article-button-title" = "Bali menyang artikel";
 "saved-all-articles-title" = "Kabèh artikel";
 "saved-default-reading-list-tag" = "Pratélan iki ora bisa dibusek";
 "saved-pages-image-download-error" = "Wurung ngundhuh gambar tumrap kaca simpenan iki.";
@@ -357,14 +352,15 @@
 "search-title" = "Golèk";
 "settings-account" = "Akun";
 "settings-appearance" = "Pepilihaning wewacan";
-"settings-clear-cache" = "Resiki dhata ing telih";
-"settings-clear-cache-are-you-sure-message" = "Mbusak dhata ing telih bisa ngosongaké ruwang $1. Laku iki ora bakal mbusek kaca simpenané panjenengan.";
-"settings-clear-cache-are-you-sure-title" = "Resiki dhata ing telih?";
+"settings-clear-cache" = "Resiki dhata ing cache";
+"settings-clear-cache-are-you-sure-message" = "Mbusak dhata ing cache bisa ngosongaké ruwang $1. Laku iki ora bakal mbusek kaca simpenané panjenengan.";
+"settings-clear-cache-are-you-sure-title" = "Resiki dhata ing cache?";
 "settings-clear-cache-cancel" = "Wurung";
-"settings-clear-cache-ok" = "Busak telih";
+"settings-clear-cache-ok" = "Resiki cache";
 "settings-help-and-feedback" = "Pitulung lan pamrayoga";
 "settings-language-bar" = "Tuduhaké basa ing panggolèkan";
 "settings-my-languages" = "Basa-basaku";
+// Fuzzy
 "settings-notifications" = "Wara-wara";
 "settings-notifications-info" = "Kabari ngenani artikel sing mumbul lan akèh diwaca ing Wikipédia sarana wara-wara otomatisé awak dhéwé. Kabèh iku cumepak sauga tanpa nglirwakaké privasi lan tumeka dhata-dhata sing nyumlik.";
 "settings-notifications-learn-more" = "Sinaua terus ngenani wara-wara";
@@ -377,20 +373,21 @@
 "settings-support" = "Sengkuyung Wikipédia";
 "settings-title" = "Setèlan";
 "share-a-fact-made-with" = "Digawé nganggo aplikasi Wikipédia";
+// Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" ing @Wikipedia:";
 "share-default-format" = "“$1” saka “$2”: $3";
 "share-email-format" = "“$1”\n\nsaka “$2”\n\n$3";
 "share-get-directions-in-maps" = "Golèk Lor-Kidul";
 "share-menu-item" = "Dum...";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "lumantar @Wikipedia";
 "share-open-in-maps" = "Bukak ing Maps";
 "share-social-format" = "“$1” lumantar Wikipédia: $2";
+// Fuzzy
 "share-social-mention-format" = "“$1” lumantar @Wikipedia: $2";
 "sort-by-recently-added-action" = "Mentas kawuwuhaké";
 "sort-by-title-action" = "Sesirah";
-"status-saved-for-later" = "Kasimpen kanggo mengko";
-"status-saving-for-later" = "Nyimpen kanggo mengko...";
 "table-of-contents-button-label" = "Pratélan isi";
 "table-of-contents-close-accessibility-hint" = "Tutup";
 "table-of-contents-close-accessibility-label" = "Tutup Pratélan isi";

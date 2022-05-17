@@ -96,8 +96,6 @@
 "history-title" = "Tarix";
 "icon-shortcut-nearby-title" = "Nezdıra wesiqey";
 "icon-shortcut-random-title" = "Nuşteyo raştameye";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Vıla ke...";
 "insert-media-alternative-text-title" = "Metıno alternatif";
 "insert-media-caption-title" = "Bınnuşte";
 "insert-media-image-position-setting-center" = "Merkez";
@@ -131,11 +129,13 @@
 "nearby-distance-label-meters" = "$1 metre";
 "nearby-distance-label-miles" = "$1 mil";
 "no-internet-connection" = "Gıredayışê interneti çıniyo";
+"notifications-center-status-all" = "Pêro";
 "number-thousands" = "$1 Hezar";
 "page-history-compare-title" = "Miqayese";
 "page-history-revision-author-accessibility-label" = "Nuştekar: $1";
 "page-history-revision-comment-accessibility-label" = "Mışewre $1";
 "page-history-revision-minor-edit-accessibility-label" = "Vurriyayışo werdi";
+"rank-accessibility-label" = "Numre $1";
 "reading-list-create-new-list-description" = "Şınasnayış";
 "reading-list-entry-limit-exceeded-title" = "Sinorê yew hesabi ra {{PLURAL:$1|$1 meqale vêrd|$1 meqaleyi vêrdi}} ra.";
 "reading-list-list-limit-exceeded-title" = "Sinorê yew hesabi ra {{PLURAL:$1|$1 lista wendışi vêrde|$1 listeyê wendışi vêrdi}} ra.";
@@ -161,11 +161,14 @@
 "settings-help-and-feedback" = "Peşti u peyd rışten";
 "settings-language-bar" = "Cı geyrayış dı zıwana bıasne";
 "settings-my-languages" = "Zıwanê mı";
+// Fuzzy
 "settings-notifications" = "Tebliği (Pêhesnayışi)";
 "settings-primary-language" = "Verorên";
 "settings-support" = "Wikimedya rê desteg be";
 "settings-title" = "Eyari";
+// Fuzzy
 "share-article-name-on-wikipedia" = "@Wikipedia de $1 :";
+// Fuzzy
 "share-on-twitter-sign-off" = "@Wikipedia ya";
 "table-of-contents-button-label" = "Tabloyê zerreki";
 "table-of-contents-close-accessibility-hint" = "Kip ke";

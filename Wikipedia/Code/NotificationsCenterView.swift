@@ -12,13 +12,20 @@ final class NotificationsCenterView: SetupView {
 
     // MARK: - Properties
 
-	lazy var collectionView: UICollectionView = {
-		let collectionView = UICollectionView(frame: .zero, collectionViewLayout: tableStyleLayout())
-		collectionView.register(NotificationsCenterCell.self, forCellWithReuseIdentifier: NotificationsCenterCell.reuseIdentifier)
-		collectionView.alwaysBounceVertical = true
-		collectionView.translatesAutoresizingMaskIntoConstraints = false
-		return collectionView
-	}()
+    lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: tableStyleLayout())
+        collectionView.register(NotificationsCenterCell.self, forCellWithReuseIdentifier: NotificationsCenterCell.reuseIdentifier)
+        collectionView.alwaysBounceVertical = true
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.refreshControl = refreshControl
+        return collectionView
+    }()
+
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.layer.zPosition = -100
+        return refreshControl
+    }()
 
     private lazy var emptyScrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -78,6 +85,10 @@ final class NotificationsCenterView: SetupView {
             emptyOverlayHeaderLabel.font = UIFont.wmf_font(.mediumBody, compatibleWithTraitCollection: traitCollection)
             emptyOverlaySubheaderLabel.font = UIFont.wmf_font(.subheadline, compatibleWithTraitCollection: traitCollection)
             calculatedCellHeight = nil
+        }
+
+        if previousTraitCollection?.horizontalSizeClass != traitCollection.horizontalSizeClass {
+             calculatedCellHeight = nil
         }
     }
 
@@ -193,6 +204,7 @@ extension NotificationsCenterView: Themeable {
     func apply(theme: Theme) {
         backgroundColor = theme.colors.paperBackground
         collectionView.backgroundColor = theme.colors.paperBackground
+        refreshControl.tintColor = theme.colors.refreshControlTint
         emptyOverlayHeaderLabel.textColor = theme.colors.primaryText
         emptyOverlaySubheaderLabel.textColor = theme.colors.primaryText
     }

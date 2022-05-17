@@ -84,8 +84,6 @@
 "explore-potd-heading" = "Imatge del jorn";
 "explore-random-article-heading" = "Article a l'azard";
 "explore-randomizer" = "Article a l'azard";
-"feed-news-notification-button-text" = "Activar las notificacions";
-"feed-news-notification-text" = "Activar las notificacions mandadas per la Wikipèdia quand d'articles fòrman la tendéncia de l'actualitat.";
 "field-email-title" = "Corrièr electronic";
 "field-email-title-optional" = "Corrièr electronic (facultatiu)";
 "field-new-password-title" = "Senhal novèl";
@@ -112,11 +110,6 @@
 "icon-shortcut-nearby-title" = "Articles vesins";
 "icon-shortcut-random-title" = "Article a l'azard";
 "icon-shortcut-search-title" = "Recercar dins Wikipèdia";
-"in-the-news-currently-trending" = "Actualament a la mòda";
-"in-the-news-notification-read-now-action-title" = "Legir ara";
-"in-the-news-notification-save-for-later-action-title" = "Enregistrar per mai tard";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "Partejar...";
 "in-the-news-title" = "Dins l'actualitat";
 "languages-title" = "Cambiar de lenga";
 "login-forgot-password" = "Senhal doblidat ?";
@@ -141,6 +134,8 @@
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 millas";
 "new-password-title" = "Definir vòstre senhal";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Activar las notificacions";
 "number-billions" = "$1G";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
@@ -179,6 +174,7 @@
 "settings-clear-cache-cancel" = "Anullar";
 "settings-help-and-feedback" = "Ajuda e comentaris";
 "settings-my-languages" = "Mas lengas";
+// Fuzzy
 "settings-notifications" = "Notificacions";
 "settings-notifications-push-notifications" = "Notificacions mandadas";
 "settings-notifications-system-turn-on" = "Activar las notificacions";
@@ -187,10 +183,10 @@
 "settings-storage-and-syncing-server-sync-title" = "Actualizar listas de lectura sincronizadas";
 "settings-support" = "Sosténer Wikipèdia";
 "settings-title" = "Paramètres";
+// Fuzzy
 "share-article-name-on-wikipedia" = "« $1 » sus @Wikipedia:";
+// Fuzzy
 "share-on-twitter-sign-off" = "via @Wikipèdia";
-"status-saved-for-later" = "Enregistrat per mai tard";
-"status-saving-for-later" = "Enregistrament per mai tard…";
 "table-of-contents-button-label" = "Ensenhador";
 "table-of-contents-close-accessibility-hint" = "Tampar";
 "table-of-contents-close-accessibility-label" = "Tampar l'ensenhador";

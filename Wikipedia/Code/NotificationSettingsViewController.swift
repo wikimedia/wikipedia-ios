@@ -58,7 +58,7 @@ class NotificationSettingsViewController: SubSettingsViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = CommonStrings.notifications
+        title = CommonStrings.pushNotifications
         tableView.register(WMFSettingsTableViewCell.wmf_classNib(), forCellReuseIdentifier: WMFSettingsTableViewCell.identifier)
         observationToken = NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: OperationQueue.main) { [weak self] (note) in
             self?.updateSections()

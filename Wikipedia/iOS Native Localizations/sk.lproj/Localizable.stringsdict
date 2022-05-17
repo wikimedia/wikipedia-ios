@@ -319,7 +319,7 @@
 			<string>%1$d článkov</string>
 		</dict>
 	</dict>
-	<key>notifications-push-talk-messages-format</key>
+	<key>notifications-center-empty-state-num-filters</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@v1@</string>
@@ -330,9 +330,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>správa</string>
+			<string>%1$d filter</string>
 			<key>other</key>
-			<string>správ</string>
+			<string>%1$d filtrov</string>
 		</dict>
 	</dict>
 	<key>on-this-day-detail-header-title</key>

@@ -33,6 +33,7 @@
 // Author: Tsevener
 // Author: Walesson
 // Author: Webysther
+// Author: YuriNikolai
 
 "aaald-added-text-description-2" = "$1 adicionado";
 "aaald-article-description-updated-description" = "Descrição do artigo atualizada";
@@ -442,8 +443,6 @@
 "featured-widget-from-wikipedia" = "Da Wikipédia";
 "featured-widget-language-failure" = "Seu idioma principal da Wikipédia não oferece suporte a artigos destacados. Você pode atualizar a sua Wikipédia principal no menu Configurações do aplicativo.";
 "featured-widget-title" = "Artigo destacado";
-"feed-news-notification-button-text" = "Ativar notificações";
-"feed-news-notification-text" = "Ative notificações para serem notificadas pela Wikipedia quando os artigos estiverem sendo divulgados nas notícias.";
 "fetcher-error-generic" = "Algo deu errado. Por favor, tente novamente mais tarde.";
 "fetcher-error-unexpected-response" = "O aplicativo recebeu uma resposta inesperada do servidor. Por favor, tente novamente mais tarde.";
 "field-alert-captcha-invalid" = "CAPTCHA invalido";
@@ -502,10 +501,6 @@
 "icon-shortcut-random-title" = "Artigo aleatório";
 "icon-shortcut-search-title" = "Pesquisar na Wikipédia";
 "image-gallery-unknown-owner" = "Ator desconhecido";
-"in-the-news-currently-trending" = "Popular atualmente";
-"in-the-news-notification-read-now-action-title" = "Ler agora";
-"in-the-news-notification-save-for-later-action-title" = "Salvar para mais tarde";
-"in-the-news-notification-share-action-title" = "Compartilhar...";
 "in-the-news-sub-title-from-language-wikipedia" = "Da Wikipédia em $1";
 "in-the-news-sub-title-from-wikipedia" = "Da Wikipédia";
 "in-the-news-title" = "Eventos recentes";
@@ -587,15 +582,25 @@
 "no-internet-connection" = "Sem conexão com a internet";
 "no-internet-connection-article-reload" = "Uma versão mais recente deste artigo pode estar disponível, mas não pode ser carregada sem uma conexão com a Internet";
 "no-internet-connection-article-reload-button" = "Retornar para a última versão salva";
+"notifications-center-alert" = "Alerta";
+"notifications-center-cell-notification-type-accessibility-label-format" = "notificação $1";
 "notifications-center-change-password" = "Alterar senha";
+"notifications-center-destination-app" = "No app";
 "notifications-center-empty-checking-for-notifications" = "Verificando notificações...";
-"notifications-center-footer-change-password" = "Alterar senha";
+// Fuzzy
+"notifications-center-feed-news-notification-button-text" = "Ativar notificações";
+"notifications-center-feed-news-notification-dismiss-button-text" = "Agora não";
+"notifications-center-go-to-article" = "Artigo";
+// Fuzzy
 "notifications-center-go-to-talk-page" = "Ir para a página de discussão";
-"notifications-center-go-to-title" = "Ir para $1";
+// Fuzzy
 "notifications-center-go-to-user-page" = "Ir para a página de discussão de $1";
 "notifications-center-mark-as-read" = "Marcar como lida";
 "notifications-center-mark-as-unread" = "Marcar como não lida";
+"notifications-center-more-action-accessibility-label" = "Mais";
 "notifications-center-notifications-settings" = "Configurações de notificação";
+"notifications-center-onboarding-panel-secondary-button" = "Não, {{GENDER:|obrigado|obrigada|obrigado}}";
+// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Entrar em um dispositivo desconhecido";
 "notifications-center-subheader-mention-failed" = "Menção falhada";
 "notifications-center-subheader-mention-successful" = "Menção bem sucedida";
@@ -606,6 +611,7 @@
 "notifications-center-subheader-user-rights-change" = "Mudanças nos direitos do usuário";
 "notifications-center-subheader-welcome" = "Bem-vindo!";
 "notifications-center-title" = "Notificações";
+"notifications-center-type-item-description-mentions" = "Menções";
 "number-billions" = "$1B";
 "number-millions" = "$1M";
 "number-thousands" = "$1K";
@@ -790,12 +796,7 @@
 "replace-replace-all-results-count" = "{{PLURAL:$1|$1 item substituído|$1 itens substituídos}}";
 "replace-textfield-accessibility" = "Substituir";
 "replace-textfield-placeholder" = "Substituir com…";
-"reverted-edit-back-to-article-button-title" = "Voltar ao artigo";
-"reverted-edit-possible-reasons" = "- Sua contribuição não seguiu uma das diretrizes. $1 \n\n - Sua contribuição parecia um experimento ou vandalismo";
-"reverted-edit-possible-reasons-subtitle" = "Sabemos que você tentou o seu melhor, mas um dos revisores teve uma preocupação.\n\nPossíveis razões pelas quais sua edição foi revertida incluem:";
-"reverted-edit-thanks-for-editing-title" = "Obrigado por editar a Wikipédia!";
 "reverted-edit-title" = "Edição revertida";
-"reverted-edit-view-guidelines-text" = "Veja as diretrizes";
 "saved-all-articles-title" = "Todos os artigos";
 "saved-default-reading-list-tag" = "Esta lista não pode ser eliminada";
 "saved-pages-image-download-error" = "Erro em baixar imagens desta página salva.";
@@ -831,7 +832,9 @@
 "settings-language-bar" = "Mostrar idiomas ao buscar";
 "settings-languages-feed-customization" = "Você pode gerenciar quais idiomas são exibidos no seu feed do Explore, personalizando as configurações do feed do Explore.";
 "settings-my-languages" = "Meus idiomas";
+// Fuzzy
 "settings-notifications" = "Notificações";
+"settings-notifications-echo-failure-try-again" = "Tente novamente";
 "settings-notifications-info" = "Seja alertado para artigos de tendências e de leitura de topo na Wikipédia com as nossas notificações de envio. Todos equipados com respeito à privacidade e dados atualizados ao minuto.";
 "settings-notifications-learn-more" = "Saber mais sobre notificações";
 "settings-notifications-push-notifications" = "Notificações via push";
@@ -857,6 +860,7 @@
 "settings-support" = "Ajude a Wikipédia";
 "settings-title" = "Configurações";
 "share-a-fact-made-with" = "Feito com o aplicativo Wikipedia";
+// Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipédia:";
 "share-building" = "Construindo um cartão de compartilhamento...";
 "share-default-format" = "“$1” de “$2”: $3";
@@ -864,14 +868,14 @@
 "share-get-directions-in-maps" = "Obter direções";
 "share-menu-item" = "Compartilhar...";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "via @Wikipedia";
 "share-open-in-maps" = "Abrir no Maps";
 "share-social-format" = "“$1” via Wikipedia: $2";
+// Fuzzy
 "share-social-mention-format" = "“$1” via @Wikipedia: $2";
 "sort-by-recently-added-action" = "Adicionado recentemente";
 "sort-by-title-action" = "Título";
-"status-saved-for-later" = "Salvo para mais tarde";
-"status-saving-for-later" = "Salvar para mais tarde ...";
 "table-of-contents-button-label" = "Tabela de conteúdos";
 "table-of-contents-close-accessibility-hint" = "Fechar";
 "table-of-contents-close-accessibility-label" = "Fechar Tabela de conteúdos";

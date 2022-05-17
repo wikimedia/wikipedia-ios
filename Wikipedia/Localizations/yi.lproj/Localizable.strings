@@ -3,6 +3,7 @@
 // Author: Alefbeis
 // Author: Har-wradim
 // Author: Nemo bis
+// Author: Pacha Tchernof
 // Author: פוילישער
 
 "about-contributors" = "בײַשטײַערער";
@@ -46,13 +47,10 @@
 "history-clear-cancel" = "אַנולירן";
 "history-clear-confirmation-heading" = "איר ווילט טאקע אויסמעקן אלע אייערע לעצטיקע אביעקטן?";
 "history-clear-delete-all" = "יא, אויסמעקן אלץ";
-"history-title" = "היסטאריע";
+"history-title" = "היסטאָריע";
 "home-title" = "אויספארשן";
 "icon-shortcut-random-title" = "צופֿעליגער ארטיקל";
 "icon-shortcut-search-title" = "זוכן וויקיפעדיע";
-"in-the-news-notification-read-now-action-title" = "לייענען אצינד";
-// Fuzzy
-"in-the-news-notification-share-action-title" = "טיילן…";
 "languages-title" = "ענדערן שפּראַך";
 "login-forgot-password" = "פֿאַרגעסן אײַער פאַסווארט?";
 "main-menu-about" = "וועגן דעם אפ";
@@ -103,9 +101,11 @@
 "settings-help-and-feedback" = "הילף און פֿידבעק";
 "settings-language-bar" = "ווייזן שפראכן ביים זוך";
 "settings-my-languages" = "מיינע שפראכן";
+// Fuzzy
 "settings-notifications" = "אנזאגן";
 "settings-support" = "שטיצן וויקיפעדיע";
 "settings-title" = "איינשטעלונגען";
+// Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" אויף @Wikipedia:";
 "table-of-contents-close-accessibility-hint" = "פארמאכן";
 "table-of-contents-heading" = "אינהאַלט";

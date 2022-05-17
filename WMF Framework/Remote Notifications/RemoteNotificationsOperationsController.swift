@@ -1,8 +1,22 @@
 import CocoaLumberjackSwift
 
-public enum RemoteNotificationsOperationsError: Error {
+enum RemoteNotificationsOperationsError: LocalizedError {
     case failurePullingAppLanguage
     case individualErrors([Error])
+    
+    var errorDescription: String? {
+        
+        switch self {
+        case .individualErrors(let errors):
+            if let firstError = errors.first {
+                return (firstError as NSError).alertMessage()
+            }
+        default:
+            break
+        }
+        
+        return CommonStrings.genericErrorDescription
+    }
 }
 
 public extension Notification.Name {
@@ -110,7 +124,6 @@ class RemoteNotificationsOperationsController: NSObject {
             completionOperation.addDependency(operation)
         }
         
-        //MAYBETODO: should we make sure this chunk of operations and mark all chunk of operations happens serially?
         operationQueue.addOperations(operations + [completionOperation], waitUntilFinished: false)
     }
     
@@ -144,7 +157,6 @@ class RemoteNotificationsOperationsController: NSObject {
             completionOperation.addDependency(operation)
         }
         
-        //MAYBETODO: should we make sure this chunk of operations and mark as read or unread chunk of operations happens serially?
         self.operationQueue.addOperations(operations + [completionOperation], waitUntilFinished: false)
     }
     
@@ -197,28 +209,28 @@ class RemoteNotificationsOperationsController: NSObject {
         //BEGIN: chained cross wiki operations
         //this generates additional API calls to fetch extra unread messages by inspecting the app language operation's cross wiki summary notification object in its response
         let crossWikiGroupOperation = RemoteNotificationsRefreshCrossWikiGroupOperation(appLanguageProject: appLanguageProject, secondaryProjects: secondaryProjects, languageLinkController: languageLinkController, apiController: apiController, modelController: modelController)
-        let crossWikiAdapterOperation = BlockOperation {
-            crossWikiGroupOperation.crossWikiSummaryNotification = appLanguageOperation.crossWikiSummaryNotification
+        let crossWikiAdapterOperation = BlockOperation { [weak crossWikiGroupOperation] in
+            crossWikiGroupOperation?.crossWikiSummaryNotification = appLanguageOperation.crossWikiSummaryNotification
         }
         crossWikiAdapterOperation.addDependency(appLanguageOperation)
         crossWikiGroupOperation.addDependency(crossWikiAdapterOperation)
         //END: chained cross wiki operations
-        
+
         //BEGIN: chained reauthentication operations
         //these will ask the authManager to reauthenticate if the app language operation has an unauthenticaated error code in it's response
         //then it will cancel existing operations running and recursively call kickoffPagingOperations again
         let reauthenticateOperation = RemoteNotificationsReauthenticateOperation(authManager: authManager)
-        let reauthenticateAdapterOperation = BlockOperation {
-            reauthenticateOperation.appLanguageOperationError = appLanguageOperation.error
+        let reauthenticateAdapterOperation = BlockOperation { [weak reauthenticateOperation] in
+            reauthenticateOperation?.appLanguageOperationError = appLanguageOperation.error
         }
         reauthenticateAdapterOperation.addDependency(appLanguageOperation)
         reauthenticateOperation.addDependency(reauthenticateAdapterOperation)
         let recursiveKickoffOperation = BlockOperation { [weak self] in
-            
+
             guard let self = self else {
                 return
             }
-            
+
             if reauthenticateOperation.didReauthenticate {
                 DispatchQueue.main.async {
                     self.operationQueue.cancelAllOperations()
