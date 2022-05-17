@@ -22,42 +22,44 @@ public enum RemoteNotificationFilterType: String, CaseIterable {
     
     init?(from filterIdentifier: String) {
         switch filterIdentifier {
-            case "userTalkPageMessage":
-                self = .userTalkPageMessage
-            case "pageReviewed":
-                self = .pageReviewed
-            case "pageLinked":
-                self = .pageLinked
-            case "connectionWithWikidata":
-                self = .connectionWithWikidata
-            case "emailFromOtherUser":
-                self = .emailFromOtherUser
-            case "mentionInTalkPage":
-                self = .mentionInTalkPage
-            case "mentionInEditSummary":
-                self = .mentionInEditSummary
-            case "successfulMention":
-                self = .successfulMention
-            case "failedMention":
-                self = .failedMention
-            case "userRightsChange":
-                self = .userRightsChange
-            case "editReverted":
-                self = .editReverted
-            case "loginAttempts":
-                self = .loginAttempts
-            case "editMilestone":
-                self = .editMilestone
-            case "translationMilestone":
-                self = .translationMilestone
-            case "thanks":
-                self = .thanks
-            case "welcome":
-                self = .welcome
-            case "other":
-                self = .other
-            default:
-                return nil
+        case "userTalkPageMessage":
+            self = .userTalkPageMessage
+        case "pageReviewed":
+            self = .pageReviewed
+        case "pageLinked":
+            self = .pageLinked
+        case "connectionWithWikidata":
+            self = .connectionWithWikidata
+        case "emailFromOtherUser":
+            self = .emailFromOtherUser
+        case "mentionInTalkPage":
+            self = .mentionInTalkPage
+        case "mentionInEditSummary":
+            self = .mentionInEditSummary
+        case "successfulMention":
+            self = .successfulMention
+        case "failedMention":
+            self = .failedMention
+        case "userRightsChange":
+            self = .userRightsChange
+        case "editReverted":
+            self = .editReverted
+        case "loginAttempts":
+            self = .loginAttempts
+        case "loginSuccess":
+            self = .loginSuccess
+        case "editMilestone":
+            self = .editMilestone
+        case "translationMilestone":
+            self = .translationMilestone
+        case "thanks":
+            self = .thanks
+        case "welcome":
+            self = .welcome
+        case "other":
+            self = .other
+        default:
+            return nil
         }
     }
     
@@ -144,7 +146,6 @@ public enum RemoteNotificationFilterType: String, CaseIterable {
     
     public static func typeStringForFilterType(type: RemoteNotificationFilterType) -> [String] {
         switch type {
-            
         case .userTalkPageMessage:
             return ["edit-user-talk"]
         case .pageReviewed:
@@ -188,35 +189,35 @@ public enum RemoteNotificationFilterType: String, CaseIterable {
         }
     }
     
-   public var imageName: String {
-       // Return image for the notification type
-       switch self {
-       case .userTalkPageMessage:
-           return "notifications-type-user-talk-message"
-       case .mentionInTalkPage, .mentionInEditSummary, .successfulMention, .failedMention:
-           return "notifications-type-mention"
-       case .editReverted:
-           return "notifications-type-edit-revert"
-       case .userRightsChange:
-           return "notifications-type-user-rights"
-       case .pageReviewed:
-           return "notifications-type-page-reviewed"
-       case .pageLinked, .connectionWithWikidata:
-           return "notifications-type-link"
-       case .thanks:
-           return "notifications-type-thanks"
-       case .welcome, .translationMilestone, .editMilestone:
-           return "notifications-type-milestone"
-       case .loginAttempts, .loginSuccess:
-           return "notifications-type-login-notify"
-       case .emailFromOtherUser:
-           return "notifications-type-email"
-       case .other:
-           return "notifications-type-default"
-       }
-   }
+    public var imageName: String {
+        // Return image for the notification type
+        switch self {
+        case .userTalkPageMessage:
+            return "notifications-type-user-talk-message"
+        case .mentionInTalkPage, .mentionInEditSummary, .successfulMention, .failedMention:
+            return "notifications-type-mention"
+        case .editReverted:
+            return "notifications-type-edit-revert"
+        case .userRightsChange:
+            return "notifications-type-user-rights"
+        case .pageReviewed:
+            return "notifications-type-page-reviewed"
+        case .pageLinked, .connectionWithWikidata:
+            return "notifications-type-link"
+        case .thanks:
+            return "notifications-type-thanks"
+        case .welcome, .translationMilestone, .editMilestone:
+            return "notifications-type-milestone"
+        case .loginAttempts, .loginSuccess:
+            return "notifications-type-login-notify"
+        case .emailFromOtherUser:
+            return "notifications-type-email"
+        case .other:
+            return "notifications-type-default"
+        }
+    }
     
-   public func imageBackgroundColorWithTheme(_ theme: Theme) -> UIColor {
+    public func imageBackgroundColorWithTheme(_ theme: Theme) -> UIColor {
         switch self {
         case .editMilestone, .translationMilestone, .welcome, .thanks:
             return theme.colors.accent
@@ -229,68 +230,69 @@ public enum RemoteNotificationFilterType: String, CaseIterable {
         }
     }
     
-   public static var orderingForFilters: [RemoteNotificationFilterType] {
-       return [
-        .userTalkPageMessage,
-        .pageReviewed,
-        .pageLinked,
-        .connectionWithWikidata,
-        .emailFromOtherUser,
-        .mentionInTalkPage,
-        .mentionInEditSummary,
-        .successfulMention,
-        .failedMention,
-        .userRightsChange,
-        .editReverted,
-        .loginAttempts,
-        .loginSuccess,
-        .editMilestone,
-        .translationMilestone,
-        .thanks,
-        .welcome,
-        .other
-       ]
-   }
+    public static var orderingForFilters: [RemoteNotificationFilterType] {
+        return [
+            .userTalkPageMessage,
+            .pageReviewed,
+            .pageLinked,
+            .connectionWithWikidata,
+            .emailFromOtherUser,
+            .mentionInTalkPage,
+            .mentionInEditSummary,
+            .successfulMention,
+            .failedMention,
+            .userRightsChange,
+            .editReverted,
+            .loginAttempts,
+            .loginSuccess,
+            .editMilestone,
+            .translationMilestone,
+            .thanks,
+            .welcome,
+            .other
+        ]
+    }
     
     public var title: String {
         switch self {
-        case .userTalkPageMessage:
-            return WMFLocalizedString("notifications-center-type-title-user-talk-page-messsage", value: "Talk page message", comment: "Title of \"user talk page message\" notification type. Used on filters view toggles and the notification detail view.")
-        case .pageReviewed:
-            return WMFLocalizedString("notifications-center-type-title-page-review", value: "Page review", comment: "Title of \"page review\" notification type. Used on filters view toggles and the notification detail view.")
-        case .pageLinked:
-            return WMFLocalizedString("notifications-center-type-title-page-link", value: "Page link", comment: "Title of \"page link\" notification type. Used on filters view toggles and the notification detail view.")
-        case .connectionWithWikidata:
-            return WMFLocalizedString("notifications-center-type-title-connection-with-wikidata", value: "Connection with Wikidata", comment: "Title of \"connection with Wikidata\" notification type. Used on filters view toggles and the notification detail view.")
-        case .emailFromOtherUser:
-            return WMFLocalizedString("notifications-center-type-title-email-from-other-user", value: "Email from other user", comment: "Title of \"email from other user\" notification type. Used on filters view toggles and the notification detail view.")
-        case .mentionInTalkPage:
-            return WMFLocalizedString("notifications-center-type-title-talk-page-mention", value: "Talk page mention", comment: "Title of \"talk page mention\" notification type. Used on filters view toggles and the notification detail view.")
-        case .mentionInEditSummary:
-            return WMFLocalizedString("notifications-center-type-title-edit-summary-mention", value: "Edit summary mention", comment: "Title of \"edit summary mention\" notification type. Used on filters view toggles and the notification detail view.")
-        case .successfulMention:
-            return WMFLocalizedString("notifications-center-type-title-sent-mention-success", value: "Sent mention success", comment: "Title of \"sent mention success\" notification type. Used on filters view toggles and the notification detail view.")
-        case .failedMention:
-            return WMFLocalizedString("notifications-center-type-title-sent-mention-failure", value: "Sent mention failure", comment: "Title of \"sent mention failure\" notification type. Used on filters view toggles and the notification detail view.")
-        case .userRightsChange:
-            return WMFLocalizedString("notifications-center-type-title-user-rights-change", value: "User rights change", comment: "Title of \"user rights change\" notification type. Used on filters view toggles and the notification detail view.")
-        case .editReverted:
-            return WMFLocalizedString("notifications-center-type-title-edit-reverted", value: "Edit reverted", comment: "Title of \"edit reverted\" notification type. Used on filters view toggles and the notification detail view.")
-        case .loginAttempts:
-            return WMFLocalizedString("notifications-center-type-title-login-attempts", value: "Login attempts", comment: "Title of \"Login attempts\" notification type. Used on filters view toggles and the notification detail view. Represents failed logins from both a known and unknown device.")
-        case .loginSuccess:
-            return WMFLocalizedString("notifications-center-type-title-login-success", value: "Login success", comment: "Title of \"login success\" notification type. Used on filters view toggles and the notification detail view. Represents successful logins from an unknown device.")
-        case .editMilestone:
-            return WMFLocalizedString("notifications-center-type-title-edit-milestone", value: "Edit milestone", comment: "Title of \"edit milestone\" notification type. Used on filters view toggles and the notification detail view.")
-        case .translationMilestone:
-            return WMFLocalizedString("notifications-center-type-title-translation-milestone", value: "Translation milestone", comment: "Title of \"translation milestone\" notification type. Used on filters view toggles and the notification detail view.")
-        case .thanks:
-            return WMFLocalizedString("notifications-center-type-title-thanks", value: "Thanks", comment: "Title of \"thanks\" notification type. Used on filters view toggles and the notification detail view.")
-        case .welcome:
-            return WMFLocalizedString("notifications-center-type-title-welcome", value: "Welcome", comment: "Title of \"welcome\" notification type. Used on filters view toggles and the notification detail view.")
-        case .other:
-            return WMFLocalizedString("notifications-center-type-title-other", value: "Other", comment: "Title of \"other\" notifications filter. Used on filter toggles.")
+            case .userTalkPageMessage:
+                return CommonStrings.notificationsCenterUserTalkPageMessage
+            case .pageReviewed:
+                return CommonStrings.notificationsCenterPageReviewed
+            case .pageLinked:
+                return CommonStrings.notificationsCenterPageLinked
+            case .connectionWithWikidata:
+                return CommonStrings.notificationsCenterConnectionWithWikidata
+            case .emailFromOtherUser:
+                return CommonStrings.notificationsCenterEmailFromOtherUser
+            case .mentionInTalkPage:
+                return CommonStrings.notificationsCenterMentionInTalkPage
+            case .mentionInEditSummary:
+                return CommonStrings.notificationsCenterMentionInEditSummary
+            case .successfulMention:
+                return CommonStrings.notificationsCenterSuccessfulMention
+            case .failedMention:
+                return CommonStrings.notificationsCenterFailedMention
+            case .userRightsChange:
+                return CommonStrings.notificationsCenterUserRightsChange
+            case .editReverted:
+                return CommonStrings.notificationsCenterEditReverted
+            case .loginAttempts:
+                return CommonStrings.notificationsCenterloginAttempts
+            case .loginSuccess:
+                return CommonStrings.notificationsCenterLoginSuccess
+            case .editMilestone:
+                return CommonStrings.notificationsCenterEditMilestone
+            case .translationMilestone:
+                return CommonStrings.notificationsCenterTranslationMilestone
+            case .thanks:
+                return CommonStrings.notificationsCenterThanks
+            case .welcome:
+                return CommonStrings.notificationsCenterWelcome
+            case .other:
+                return CommonStrings.notificationsCenterOtherFilter
+            
         }
+        
     }
-    
 }
