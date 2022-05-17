@@ -75,9 +75,11 @@ struct NotificationsCenterFilterItemView: View {
     private func customLabelForToggle(type: RemoteNotificationFilterType) -> some View {
         Group {
             switch type {
-            case .loginAttempts:
-                
-                let subtitle = WMFLocalizedString("notifications-center-type-title-login-attempts-subtitle", value: "Failed login attempts to your account", comment: "Subtitle of \"Login attempts\" notification type filter toggle. Represents failed logins from both a known and unknown device.")
+            case .loginAttempts, //represents both known and unknown devices
+                    .loginSuccess:
+
+                let subtitle = type == .loginAttempts ? WMFLocalizedString("notifications-center-type-title-login-attempts-subtitle", value: "Failed login attempts to your account", comment: "Subtitle of \"Login attempts\" notification type filter toggle. Represents failed logins from both a known and unknown device.")
+                 :  CommonStrings.notificationsCenterLoginSuccessDescription
                  
                 VStack(alignment: .leading, spacing: 2) {
                     Text(itemViewModel.title)
