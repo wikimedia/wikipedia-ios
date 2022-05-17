@@ -474,15 +474,18 @@
 "settings-support" = "စွဲးကမ်း ဝီခီပီးဒီးယား";
 "settings-title" = "အဖျင်အဆင်ဖိုင်ႏ";
 "share-a-fact-made-with" = "မာꩻထူႏတောမ်ႏ ဝီခီပီးဒီးယား အဲပ်";
+// Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" @Wikipediaကို:";
 "share-default-format" = "“$1” အဝ်ႏ “$2”: $3 ကို";
 "share-email-format" = "“$1”\n\nအဝ်ႏ “$2”\n\n$3 ကို";
 "share-get-directions-in-maps" = "ထူႏယီးနယ်ချက်ဖိုင်ႏ";
 "share-menu-item" = "ဖန်းဖြယ်...";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "အဝ်ႏ @Wikipedia";
 "share-open-in-maps" = "ဗွောင်ဟံႏပုင်ႏကို";
 "share-social-format" = "“$1” အဝ်ႏ Wikipediaကို: $2";
+// Fuzzy
 "share-social-mention-format" = "“$1” အဝ်ႏ @Wikipediaကို: $2";
 "sort-by-recently-added-action" = "ထဲမ်သော့ꩻခါꩻလဲဉ်း နဝ်ꩻဟွောန်ႏ";
 "sort-by-title-action" = "ကꩻတူႏရဲန်ႏ";

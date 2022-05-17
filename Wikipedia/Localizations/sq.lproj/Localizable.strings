@@ -105,6 +105,7 @@
 "search-recent-title" = "Kërkimet e fundit";
 "settings-primary-language" = "Primar";
 "settings-title" = "Cilësimet";
+// Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" në @Wikipedia:";
 "table-of-contents-close-accessibility-hint" = "Mbyll";
 "table-of-contents-heading" = "Përmbajtja";

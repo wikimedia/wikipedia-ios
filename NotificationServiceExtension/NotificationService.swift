@@ -27,7 +27,7 @@ class NotificationService: UNNotificationServiceExtension {
         
         self.bestAttemptContent = bestAttemptContent
         
-        guard bestAttemptContent.body == "checkEchoV1" else {
+        guard bestAttemptContent.body == EchoModelVersion.current else {
             bestAttemptContent.body = fallbackPushContent
             contentHandler(bestAttemptContent)
             return
@@ -83,6 +83,9 @@ class NotificationService: UNNotificationServiceExtension {
                         }
                     }
                 }
+
+                let displayContentIdentifiers = finalNotificationsToDisplay.compactMap { PushNotificationContentIdentifier(key: $0.key, date: $0.date) }
+                PushNotificationContentIdentifier.save(displayContentIdentifiers, to: &bestAttemptContent.userInfo)
 
                 bestAttemptContent.badge = NSNumber(value: newCache.currentUnreadCount + finalNotificationsToDisplay.count)
                 

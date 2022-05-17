@@ -35,14 +35,22 @@
 // Author: Woytecr
 
 "aaald-added-text-description-2" = "Dodano $1";
+"aaald-article-description-updated-description" = "Zaktualizowano opis artykułu";
 "aaald-article-insert-header" = "Istotne aktualizacje";
+"aaald-article-insert-last-updated" = "Ostatnia aktualizacja";
+"aaald-article-insert-new-changes" = "Nowe zmiany";
+"aaald-article-insert-read-more" = "Przeczytaj więcej zaktualizowanych";
 "aaald-characters-text-description" = "{{PLURAL:$1|symbol|symbole|symboli}}";
 "aaald-deleted-text-description-2" = "Usunięto $1";
+"aaald-error-subitle" = "Odśwież, aby spróbować ponownie";
+"aaald-error-title" = "Nie można wczytać wbudowanej historii artykułów";
 "aaald-many-sections-description" = "w $1 sekcjach";
 "aaald-multiple-changes-description" = "Wykonano wiele zmian";
 "aaald-multiple-references-added-description" = "Podano wiele przypisów";
 "aaald-new-book-reference-title" = "Książka";
 "aaald-new-discussion" = "Nowa dyskusja";
+"aaald-new-news-reference-title" = "Aktualności";
+"aaald-new-website-reference-title" = "Strona internetowa";
 "aaald-one-section-description" = "w sekcji „$1”";
 "aaald-vandalism-revert-description" = "Wycofano domniemany wandalizm";
 "about-content-license" = "Licencja";
@@ -166,6 +174,7 @@
 "compass-direction" = "O $1 godzinie";
 "continue-reading-empty-description" = "Przeglądaj Wikipedię, aby przeczytać więcej artykułów";
 "continue-reading-empty-title" = "Brak ostatnio czytanych artykułów";
+"data-migration-status" = "Aktualizowanie...";
 "description-add-title" = "Dodaj opis";
 "description-edit-for-article" = "Opis artykułu dla $1";
 "description-edit-learn-more" = "Dowiedz się więcej";
@@ -178,17 +187,14 @@
 "description-edit-publish" = "Opublikuj opis";
 "description-edit-title" = "Edytuj opis";
 "description-edit-warning" = "Staraj się, aby opisy były krótkie, aby użytkownicy mogli szybko zrozumieć temat artykułu";
-// Fuzzy
-"description-help-about-description" = "Opisy tytułów podsumowują artykuł, aby pomóc czytelnikom w zrozumieniu tematu na pierwszy rzut oka.";
+"description-help-about-description" = "Opisy artykułów podsumowują artykuł, aby ułatwić czytelnikom szybkie zrozumienie tematu.";
 "description-help-about-title" = "O tytule";
 "description-help-about-wikidata" = "O Wikidanych";
 "description-help-more-info-description" = "Opisy są przechowywane i przechowywane w Wikidata, projekcie Fundacji Wikimedia, który zapewnia bezpłatną, współpracującą, wielojęzyczną, wtórną bazę danych wspierającą Wikipedię i inne projekty.";
 "description-help-more-info-title" = "Więcej informacji";
 "description-help-tips-description" = "Opisy powinny idealnie pasować do jednej linii i zawierać od dwóch do dwunastu słów. Nie są one pisane wielkimi literami, chyba że pierwsze słowo jest właściwym rzeczownikiem.";
-// Fuzzy
-"description-help-tips-example-description-one" = "opis tytułu dla artykułu o Mona Lisie";
-// Fuzzy
-"description-help-tips-example-description-two" = "opis tytułu dla artykułu o Mount Everest";
+"description-help-tips-example-description-one" = "opis artykułu dla artykułu o Mona Lisie";
+"description-help-tips-example-description-two" = "opis artykułu dla artykułu o Mount Everest";
 "description-help-tips-example-title-one" = "obraz Leonarda da Vinci";
 "description-help-tips-example-title-two" = "najwyższy szczyt Ziemi";
 "description-help-tips-for-example" = "Na przykład:";
@@ -302,6 +308,7 @@
 "editing-welcome-impartial-tone-title" = "Pisz bezstronnym tonem";
 "editing-welcome-set-knowledge-free-subtitle" = "Aby zapewnić wszystkim dostęp do wiedzy o świecie, musimy uczestniczyć w jej tworzeniu, czytając, edytując i przyczyniając się do tematów, które są dla Ciebie najważniejsze.";
 "editing-welcome-set-knowledge-free-title" = "Uwolnij wiedzę";
+"editor-exit-confirmation-title" = "Porzucić tryb edycji?";
 "empty-diff-compare-title" = "Nie ma różnic pomiędzy wersjami";
 "empty-diff-single-title" = "Nie wprowadzono widocznych zmian";
 "empty-insert-media-title" = "Wybierz plik z Wikimedia Commons";
@@ -535,8 +542,14 @@
 "no-internet-connection" = "Brak połączenia z internetem";
 "no-internet-connection-article-reload" = "Nowsza wersja tego artykułu może być dostępna, ale nie można jej załadować bez połączenia z Internetem";
 "no-internet-connection-article-reload-button" = "Wróć do ostatnio zapisanej wersji";
-// Fuzzy
-"notifications-center-feed-news-notification-button-text" = "Włącz powiadomienia";
+"notifications-center-alert" = "Uwaga";
+"notifications-center-applied-filters-accessibility-label" = "Filtr powiadomień - ma zastosowane filtry";
+"notifications-center-applied-project-filters-accessibility-label" = "Filtr projektów - ma zastosowane filtry";
+"notifications-center-badge-button-accessibility-label" = "Powiadomienia z nieprzeczytaną plakietką";
+"notifications-center-empty-checking-for-notifications" = "Sprawdzanie powiadomień...";
+"notifications-center-empty-no-messages" = "Nie masz żadnych wiadomości";
+"notifications-center-feed-news-notification-button-text" = "Włącz powiadomienia push";
+"notifications-center-feed-news-notification-dismiss-button-text" = "Nie teraz";
 "number-billions" = "$1 mld";
 "number-millions" = "$1 mln";
 "number-thousands" = "$1 tys.";
@@ -567,8 +580,7 @@
 "page-protected-other" = "Ta strona została zabezpieczona do następujących poziomów: $1";
 "page-protected-sysop" = "Ta strona jest całkowicie zabezpieczona.";
 "page-similar-titles" = "Podobne strony";
-// Fuzzy
-"panel-compare-revisions-text" = "Porównywanie wersji pomaga zobaczyć jak artykuł zmieniał się na przestrzeni czasu. Podczas porównywania dwóch wersji generowane są różnice pomiędzy nimi.";
+"panel-compare-revisions-text" = "Porównanie wersji pomaga pokazać, jak artykuł zmieniał się na przestrzeni czasu. Porównanie dwóch wersji artykułu pokaże różnicę między tymi wersjami poprzez podświetlenie dowolnej treści, która została zmieniona.";
 "panel-compare-revisions-title" = "Porównaj wersje";
 "pictured" = "z obrazkiem";
 "places-accessibility-clear-saved-searches" = "Wyczyść zapisane wyszukiwania";
@@ -715,8 +727,7 @@
 "settings-clear-cache-ok" = "Wyczyść pamięć podręczną";
 "settings-help-and-feedback" = "Pomoc i opinie";
 "settings-my-languages" = "Moje języki";
-// Fuzzy
-"settings-notifications" = "Powiadomienia";
+"settings-notifications" = "Powiadomienia push";
 "settings-notifications-info" = "Otrzymuj powiadomienia o popularnych i najczęściej czytanych artykułach w Wikipedii dzięki naszym powiadomieniom push. Wszystko pod warunkiem poszanowania prywatności i najświeższych danych.";
 "settings-notifications-learn-more" = "Dowiedz się więcej o powiadomieniach";
 "settings-notifications-system-turn-on" = "Włączenie powiadomień";
@@ -735,16 +746,16 @@
 "settings-support" = "Wspomóż Wikimedię";
 "settings-title" = "Ustawienia";
 "share-a-fact-made-with" = "Wykonane za pomocą aplikacji Wikipedia";
-"share-article-name-on-wikipedia" = "\"$1\" na @Wikipedia:";
+"share-article-name-on-wikipedia" = "\"$1\" na Wikipedii:";
 "share-default-format" = "„$1” z „$1”: $3";
 "share-email-format" = "„$1”\n\nz „$2”\n\n$3";
 "share-get-directions-in-maps" = "Uzyskaj wskazówki";
 "share-menu-item" = "Udostępnij...";
 "share-message-format" = "„$1” $2";
-"share-on-twitter-sign-off" = "via @Wikipedia";
+"share-on-twitter-sign-off" = "przez Wikipedia";
 "share-open-in-maps" = "Otworzyć na Mapach";
 "share-social-format" = "“$1” via Wikipedia: $2";
-"share-social-mention-format" = "“$1” via @Wikipedia: $2";
+"share-social-mention-format" = "\"$1\" przez Wikipedię: $2";
 "sort-by-recently-added-action" = "Ostatnio dodane";
 "sort-by-title-action" = "Tytuł";
 "table-of-contents-button-label" = "Spis treści";

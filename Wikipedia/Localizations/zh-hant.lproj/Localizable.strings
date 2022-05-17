@@ -933,6 +933,7 @@
 "settings-support" = "支持維基百科";
 "settings-title" = "設定";
 "share-a-fact-made-with" = "用維基百科應用程式製作";
+// Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\"在 @Wikipedia：";
 "share-building" = "建立分享預覽卡…";
 "share-default-format" = "「$1」來自於「$2」：$3";
@@ -940,9 +941,11 @@
 "share-get-directions-in-maps" = "取得路線";
 "share-menu-item" = "分享…";
 "share-message-format" = "「$1」 $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "來自@Wikipedia";
 "share-open-in-maps" = "在地圖中開啟";
 "share-social-format" = "「$1」經由維基百科：$2";
+// Fuzzy
 "share-social-mention-format" = "「$1」經由@維基百科：$2";
 "sort-by-recently-added-action" = "最近新增的";
 "sort-by-title-action" = "標題";

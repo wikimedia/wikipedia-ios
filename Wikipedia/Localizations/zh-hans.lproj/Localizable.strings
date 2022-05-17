@@ -39,6 +39,7 @@
 // Author: Wxyveronica
 // Author: Xiplus
 // Author: Yfdyh000
+// Author: Yining Chen
 // Author: Ywang
 // Author: Zhang8569
 // Author: 予弦
@@ -680,13 +681,19 @@
 "notifications-center-swipe-more" = "更多";
 "notifications-center-title" = "通知";
 "notifications-center-type-item-description-mentions" = "提及";
-"notifications-center-type-item-description-notice" = "公告";
+"notifications-center-type-item-description-notice" = "提示";
 "notifications-center-type-item-description-welcome-verbose" = "欢迎消息";
 "notifications-center-type-title-edit-milestone" = "编辑里程碑";
-"notifications-center-type-title-email-from-other-user" = "其他用户的Email";
+"notifications-center-type-title-edit-reverted" = "编辑已回退";
+"notifications-center-type-title-edit-summary-mention" = "编辑摘要提及";
+"notifications-center-type-title-email-from-other-user" = "来自其他用户的Email";
+"notifications-center-type-title-login-attempts" = "登陆尝试";
+"notifications-center-type-title-login-success" = "登录成功";
 "notifications-center-type-title-page-link" = "页面链接";
 "notifications-center-type-title-page-review" = "页面复核";
+"notifications-center-type-title-talk-page-mention" = "讨论页提及";
 "notifications-center-type-title-thanks" = "感谢";
+"notifications-center-type-title-user-rights-change" = "用户权限更改";
 "notifications-center-type-title-user-talk-page-messsage" = "讨论页消息";
 "notifications-center-type-title-welcome" = "欢迎";
 "notifications-push-fallback-body-text" = "维基百科上的新活动";
@@ -950,17 +957,17 @@
 "settings-support" = "支持维基百科";
 "settings-title" = "设置";
 "share-a-fact-made-with" = "维基百科应用出品";
-"share-article-name-on-wikipedia" = "“$1”在 @Wikipedia:";
+"share-article-name-on-wikipedia" = "维基百科上的“$1”：";
 "share-building" = "正在建立分享预览卡…";
 "share-default-format" = "“$1”来自“$2”：$3";
 "share-email-format" = "“$1”\n\n来自“$2”\n\n$3";
 "share-get-directions-in-maps" = "路线导航";
 "share-menu-item" = "分享…";
 "share-message-format" = "“$1”$2";
-"share-on-twitter-sign-off" = "通过 @Wikipedia";
+"share-on-twitter-sign-off" = "通过维基百科";
 "share-open-in-maps" = "在地图中打开";
 "share-social-format" = "“$1”通过维基百科：$2";
-"share-social-mention-format" = "“$1”通过 @Wikipedia: $2";
+"share-social-mention-format" = "“$1”通过维基百科：$2";
 "sort-by-recently-added-action" = "最近添加";
 "sort-by-title-action" = "标题";
 "table-of-contents-button-label" = "目录";

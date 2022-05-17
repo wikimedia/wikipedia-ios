@@ -183,6 +183,7 @@
 "settings-primary-language" = "ძირითადი";
 "settings-support" = "მხარი დაუჭირე ვიკიპედიას";
 "settings-title" = "კონფიგურაცია";
+// Fuzzy
 "share-article-name-on-wikipedia" = "„$1“ @ვიკიპედიაზე";
 "table-of-contents-button-label" = "სარჩევი";
 "table-of-contents-close-accessibility-hint" = "დახურვა";

@@ -97,7 +97,9 @@
 "settings-my-languages" = "زما ژبې";
 "settings-support" = "د ويکيمېډيا ملاتړ وکړئ";
 "settings-title" = "امستنې";
+// Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" په @Wikipedia کې:";
+// Fuzzy
 "share-on-twitter-sign-off" = "د @ويکيپېډيا له لارې";
 "table-of-contents-button-label" = "نيوليک";
 "table-of-contents-close-accessibility-hint" = "تړل";

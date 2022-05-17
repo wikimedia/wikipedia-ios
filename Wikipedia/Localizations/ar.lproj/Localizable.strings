@@ -591,7 +591,9 @@
 "notifications-center-title" = "الإشعارات";
 "notifications-center-toolbar-mark-accessibility-label" = "حدد الاشعارات المختارة";
 "notifications-center-type-item-description-welcome-verbose" = "رسالة ترحيب";
+"notifications-center-type-title-page-link" = "وصلة صفحة";
 "notifications-center-type-title-user-rights-change" = "تغييرات صلاحيات المستخدم";
+"notifications-center-type-title-user-talk-page-messsage" = "رسالة صفحة نقاش";
 "notifications-push-fallback-body-text" = "نشاط جديد على ويكيبيديا";
 "number-billions" = "$1 مليار";
 "number-millions" = "$1 مليون";
@@ -669,9 +671,13 @@
 "preference-summary-eventlogging-opt-in" = "السماح لويكيميديا بجمع المعلومات حول كيفية استخدام التطبيق لتحسينه";
 "preference-title-eventlogging-opt-in" = "إرسال تقارير الاستخدام";
 "project-name-mediawiki" = "ميدياويكي";
+"project-name-wikibooks" = "ويكي الكتب";
+"project-name-wikidata" = "ويكي بيانات";
 "project-name-wikimedia-commons" = "ويكيميديا كومنز";
 "project-name-wikinews" = "ويكي الأخبار";
 "project-name-wikisource" = "ويكي مصدر";
+"project-name-wikiversity" = "ويكي الجامعة";
+"project-name-wikivoyage" = "ويكي الرحلات";
 "rank-accessibility-label" = "رقم $1";
 "readers-accessibility-label" = "$1 قارئ";
 "reading-list-add-generic-hint-title" = "إضافة هذه المقالة لقائمة قراءة؟";
@@ -839,6 +845,7 @@
 "settings-support" = "ادعم ويكبيديا";
 "settings-title" = "إعدادات";
 "share-a-fact-made-with" = "صُنعت بتطبيق ويكيبيديا";
+// Fuzzy
 "share-article-name-on-wikipedia" = "«$1» على @Wikipedia:";
 "share-building" = "جارٍ بناء بطاقة مشاركة حقيقة...";
 "share-default-format" = "“$1” من “$2”: $3";
@@ -846,9 +853,11 @@
 "share-get-directions-in-maps" = "احصل على الاتجاهات";
 "share-menu-item" = "شارك...";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "عبر @Wikipedia";
 "share-open-in-maps" = "افتح في الخرائط";
 "share-social-format" = "عبر “$1” ويكيبيديا: $2";
+// Fuzzy
 "share-social-mention-format" = "“$1” عبر ويكيبيديا: $2";
 "sort-by-recently-added-action" = "أُضيف مؤخرا";
 "sort-by-title-action" = "العنوان";

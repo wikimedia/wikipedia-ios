@@ -917,6 +917,7 @@
 "settings-support" = "Podržite Wikipediju";
 "settings-title" = "Postavke";
 "share-a-fact-made-with" = "Napravljeno u Wikipedia aplikaciji";
+// Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipedia:";
 "share-building" = "Stvaram karticu za dijeljenje činjenica…";
 "share-default-format" = "“$1” iz “$2”: $3";
@@ -924,9 +925,11 @@
 "share-get-directions-in-maps" = "Dobij uputstva";
 "share-menu-item" = "Podijeli…";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "preko @Wikipedia";
 "share-open-in-maps" = "Otvori u Kartama";
 "share-social-format" = "“$1” na Wikipediji: $2";
+// Fuzzy
 "share-social-mention-format" = "“$1” na @Wikipedia: $2";
 "sort-by-recently-added-action" = "Nedavno dodano";
 "sort-by-title-action" = "Naslov";

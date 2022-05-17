@@ -890,6 +890,7 @@
 "settings-support" = "حمایت از ویکی‌پدیا";
 "settings-title" = "تنظیمات";
 "share-a-fact-made-with" = "ساخته‌شده توسط نرم‌افزار ویکی‌پدیا";
+// Fuzzy
 "share-article-name-on-wikipedia" = "«$1» در @ویکی‌پدیا:";
 "share-building" = "در حال ساخت کارت اشتراک-مطلب...";
 "share-default-format" = "«$1» از «$2»: $3";
@@ -897,9 +898,11 @@
 "share-get-directions-in-maps" = "دریافت مسیر";
 "share-menu-item" = "اشتراک‌گذاری...";
 "share-message-format" = "«$1» $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "از طریق @Wikipedia";
 "share-open-in-maps" = "بازکردن در نقشه";
 "share-social-format" = "«$1» توسط ویکی‌پدیا: $2";
+// Fuzzy
 "share-social-mention-format" = "«$1» توسط @ویکی‌پدیا: $2";
 "sort-by-recently-added-action" = "به‌تازگی اضافه‌شده";
 "sort-by-title-action" = "عنوان";

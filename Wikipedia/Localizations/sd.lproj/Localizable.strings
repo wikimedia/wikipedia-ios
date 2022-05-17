@@ -813,6 +813,7 @@
 "settings-support" = "وڪيپيڊيا جي مدد ڪريو";
 "settings-title" = "ترتيبون";
 "share-a-fact-made-with" = "وڪيپيڊيا ايپ سان ٺھيل";
+// Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" @Wikipedia تي:";
 "share-building" = "ھڪ-نقطو-ونڊيو ڪارڊ اڏيندي...";
 "share-default-format" = "”$1“ کان ”$2“: $3";
@@ -820,9 +821,11 @@
 "share-get-directions-in-maps" = "هدايتون وٺو";
 "share-menu-item" = "ونڊيو...";
 "share-message-format" = "”$1“ $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "وايہ @وڪيپيڊيا";
 "share-open-in-maps" = "نقشن ۾ کوليو";
 "share-social-format" = "”$1“ وايه وڪيپيڊيا: $2";
+// Fuzzy
 "share-social-mention-format" = "“$1” وايه @وڪيپيڊيا: $2";
 "sort-by-recently-added-action" = "تازو ئي وڌل";
 "sort-by-title-action" = "عنوان";

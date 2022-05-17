@@ -933,6 +933,7 @@
 "settings-support" = "Doneu suport a la Viquipèdia";
 "settings-title" = "Configuració";
 "share-a-fact-made-with" = "Fet amb l'aplicació de Viquipèdia";
+// Fuzzy
 "share-article-name-on-wikipedia" = "«$1» a la @Viquipedia:";
 "share-building" = "S'està creant una targeta de Comparteix-un-fet…";
 "share-default-format" = "«$1» de «$2»: $3";
@@ -940,9 +941,11 @@
 "share-get-directions-in-maps" = "Aconsegueix direccions";
 "share-menu-item" = "Comparteix…";
 "share-message-format" = "«$1» $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "via @Viquipedia";
 "share-open-in-maps" = "Obre a Mapes";
 "share-social-format" = "«$1» des de la Viquipèdia: $2";
+// Fuzzy
 "share-social-mention-format" = "«$1» des de la @Viquipedia: $2";
 "sort-by-recently-added-action" = "S'ha afegit recentment";
 "sort-by-title-action" = "Títol";

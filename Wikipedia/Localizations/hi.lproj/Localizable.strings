@@ -254,7 +254,10 @@
 "notifications-center-subheader-welcome" = "सुस्वागतम्‌!";
 "notifications-center-swipe-more" = "और";
 "notifications-center-type-item-description-mentions" = "उल्लेख";
+"notifications-center-type-item-description-notice" = "सूचना";
 "notifications-center-type-item-description-welcome-verbose" = "स्वागत संदेश";
+"notifications-center-type-title-thanks" = "धन्यवाद";
+"notifications-center-type-title-welcome" = "सुस्वागतम्‌";
 "number-billions" = "$1 बिलियन";
 "number-millions" = "$1 मिलियन";
 "number-thousands" = "$1 हज़ार";
@@ -364,6 +367,7 @@
 "settings-support" = "विकिपीडिया को समर्थन दें";
 "settings-title" = "सेटिंग्स";
 "share-a-fact-made-with" = "विकिपीडिया एप के साथ बनाया गया";
+// Fuzzy
 "share-article-name-on-wikipedia" = "@Wikipedia पर \"$1\" :";
 "share-building" = "तथ्य को साझा कर कार्ड को बनायें";
 "share-default-format" = "\"$1\" से \"$2\": $3";
@@ -371,9 +375,11 @@
 "share-get-directions-in-maps" = "दिशानिर्देश पाएं";
 "share-menu-item" = "साझा करें";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "@विकिपीडिया के माध्यम से";
 "share-open-in-maps" = "नक्शों में खोलें";
 "share-social-format" = "\"$1\" विकिपीडिया: $2 के माध्यम से";
+// Fuzzy
 "share-social-mention-format" = "विकिपीडिया@: $2 के द्वारा \"$1\"";
 "sort-by-recently-added-action" = "हाल ही में जोड़ा गया";
 "sort-by-title-action" = "शीर्षक";

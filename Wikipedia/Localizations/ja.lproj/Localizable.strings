@@ -617,8 +617,18 @@
 "notifications-center-swipe-mark-as-unread" = "未読にする";
 "notifications-center-title" = "通知";
 "notifications-center-type-item-description-mentions" = "言及";
+"notifications-center-type-item-description-notice" = "お知らせ";
 "notifications-center-type-item-description-welcome-verbose" = "ようこそメッセージ";
+"notifications-center-type-title-edit-reverted" = "編集が差し戻されました";
+"notifications-center-type-title-email-from-other-user" = "他の利用者からのメール";
+"notifications-center-type-title-login-attempts" = "ログイン試行";
 "notifications-center-type-title-login-attempts-subtitle" = "あなたのアカウントで失敗したログイン試行";
+"notifications-center-type-title-login-success" = "ログインに成功しました";
+"notifications-center-type-title-page-link" = "ページリンク";
+"notifications-center-type-title-thanks" = "感謝";
+"notifications-center-type-title-user-rights-change" = "利用者権限の変更";
+"notifications-center-type-title-user-talk-page-messsage" = "会話ページのメッセージ";
+"notifications-center-type-title-welcome" = "ようこそ";
 "notifications-push-fallback-body-text" = "ウィキペディア内の新しいアクティビティ";
 // Fuzzy
 "notifications-push-talk-body-format" = "$3の$1件の#2";
@@ -700,6 +710,17 @@
 "potd-widget-title" = "今日の一枚";
 "preference-summary-eventlogging-opt-in" = "このアプリの改善に役立てるため、ウィキメディア財団がアプリの使用情報を収集することを許可する";
 "preference-title-eventlogging-opt-in" = "利用状況レポートを送信";
+"project-name-mediawiki" = "MediaWiki";
+"project-name-wikibooks" = "ウィキブックス";
+"project-name-wikidata" = "ウィキデータ";
+"project-name-wikimedia-commons" = "ウィキメディア・コモンズ";
+"project-name-wikinews" = "ウィキニュース";
+"project-name-wikiquote" = "ウィキクォート";
+"project-name-wikisource" = "ウィキソース";
+"project-name-wikispecies" = "ウィキスピーシーズ";
+"project-name-wikiversity" = "ウィキバーシティ";
+"project-name-wikivoyage" = "ウィキボヤージュ";
+"project-name-wiktionary" = "ウィクショナリー";
 "rank-accessibility-label" = "$1位";
 "readers-accessibility-label" = "$1人の読者";
 "reading-list-add-generic-hint-title" = "この記事をあとで読むリストに追加しますか?";
@@ -866,16 +887,17 @@
 "settings-support" = "ウィキペディアを支援";
 "settings-title" = "設定";
 "share-a-fact-made-with" = "ウィキペディアアプリで作成";
-"share-article-name-on-wikipedia" = "\"$1\"の記事を@Wikipediaで:";
+"share-article-name-on-wikipedia" = "\"$1\"の記事をWikipediaで:";
 "share-building" = "シェア・ア・ファクトカードの構築";
 "share-default-format" = "“$1” から “$2”: $3";
 "share-email-format" = "“$1”\n\nから “$2”\n\n$3";
 "share-get-directions-in-maps" = "道順を取得する";
 "share-menu-item" = "共有…";
 "share-message-format" = "“$1” $2";
-"share-on-twitter-sign-off" = "@Wikipediaから";
+"share-on-twitter-sign-off" = "Wikipediaから";
 "share-open-in-maps" = "マップで開く";
 "share-social-format" = "“$1” ウィキペディア経由: $2";
+// Fuzzy
 "share-social-mention-format" = "“$1” ウィキペディア@経由: $2";
 "sort-by-recently-added-action" = "最近の追加";
 "sort-by-title-action" = "記事名";

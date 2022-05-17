@@ -650,6 +650,9 @@
 "notifications-center-toolbar-mark-accessibility-label" = "Merkitse valitut ilmoitukset";
 "notifications-center-type-item-description-mentions" = "Maininnat";
 "notifications-center-type-item-description-welcome-verbose" = "Tervetuloviesti";
+"notifications-center-type-title-login-success" = "Kirjautuminen onnistui";
+"notifications-center-type-title-page-link" = "Sivulinkki";
+"notifications-center-type-title-welcome" = "Tervetuloa";
 "notifications-push-fallback-body-text" = "Uusi toiminta Wikipediassa";
 // Fuzzy
 "notifications-push-talk-body-format" = "$1 $2 sivulla $3";
@@ -732,6 +735,13 @@
 "potd-widget-title" = "Päivän kuva";
 "preference-summary-eventlogging-opt-in" = "Salli Wikimedia-säätiön kerätä tietoja sovelluksen käyttämisestä käyttökokemuksen parantamiseksi.";
 "preference-title-eventlogging-opt-in" = "Lähetä käyttöraportteja";
+"project-name-wikibooks" = "Wikikirjasto";
+"project-name-wikinews" = "Wikiuutiset";
+"project-name-wikiquote" = "Wikisitaatit";
+"project-name-wikisource" = "Wikiaineisto";
+"project-name-wikiversity" = "Wikiopisto";
+"project-name-wikivoyage" = "Wikimatkat";
+"project-name-wiktionary" = "Wikisanakirja";
 "rank-accessibility-label" = "Numero $1";
 "readers-accessibility-label" = "$1 lukijaa";
 "reading-list-add-generic-hint-title" = "Lisätäänkö artikkeli lukulistaan?";
@@ -899,17 +909,17 @@
 "settings-support" = "Tue Wikipediaa";
 "settings-title" = "Asetukset";
 "share-a-fact-made-with" = "Tehty Wikipedia-sovelluksen avulla";
-"share-article-name-on-wikipedia" = "\"$1\" @Wikipedia'ssa:";
+"share-article-name-on-wikipedia" = "\"$1\" Wikipediassa:";
 "share-building" = "Luodaan Share-a-fact korttia...";
 "share-default-format" = "“$1” artikkelista “$2”: $3";
 "share-email-format" = "“$1”\n\nartikkelista “$2”\n\n$3";
 "share-get-directions-in-maps" = "Hae reittiohjeet";
 "share-menu-item" = "Jaa…";
 "share-message-format" = "“$1” $2";
-"share-on-twitter-sign-off" = "@Wikipedia'n kautta";
+"share-on-twitter-sign-off" = "Wikipedian kautta";
 "share-open-in-maps" = "Avaa Kartoissa";
 "share-social-format" = "“$1” Wikipedian kautta: $2";
-"share-social-mention-format" = "“$1” @Wikipedian kautta: $2";
+"share-social-mention-format" = "“$1” Wikipedian kautta: $2";
 "sort-by-recently-added-action" = "Äskettäin lisätyt";
 "sort-by-title-action" = "Otsikko";
 "table-of-contents-button-label" = "Sisällysluettelo";

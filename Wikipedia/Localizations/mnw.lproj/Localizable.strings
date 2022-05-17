@@ -742,6 +742,7 @@
 "settings-support" = "ထံက်ပင် ဝဳကဳပဳဒဳယာ";
 "settings-title" = "ဒၞာဲမဖျေဟ်ဒၞာဲဂမၠိုင်";
 "share-a-fact-made-with" = "ကၠောန် နကဵု Wikipedia app";
+// Fuzzy
 "share-article-name-on-wikipedia" = "\"$1\" ပ္ဍဲ @Wikipedia:";
 "share-building" = "သြိုင်ကၠောန် Share-a-fact card…";
 "share-default-format" = "“$1” နူ “$2”: $3";
@@ -749,9 +750,11 @@
 "share-get-directions-in-maps" = "ကေတ် directions";
 "share-menu-item" = "ပါ်ပရအ်";
 "share-message-format" = "“$1” $2";
+// Fuzzy
 "share-on-twitter-sign-off" = "မွဲကဆံင် @Wikipedia";
 "share-open-in-maps" = "ပံက် ပ္ဍဲ ဗီုတိဂမၠိုင်";
 "share-social-format" = "“$1” မကဆံင် နကဵု Wikipedia: $2";
+// Fuzzy
 "share-social-mention-format" = "“$1” မွဲကဆံင် နကဵု @Wikipedia: $2";
 "sort-by-recently-added-action" = "မစုတ်လဝ် ပြဟ်ဟ်ဏအ်";
 "sort-by-title-action" = "က္ဍိုပ်လိက်";
