@@ -1605,7 +1605,6 @@
 		834CC34D21075B7600F62818 /* UITabBar+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834CC34A21075B7600F62818 /* UITabBar+Theme.swift */; };
 		834CC34E21075B7600F62818 /* UITabBar+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834CC34A21075B7600F62818 /* UITabBar+Theme.swift */; };
 		834F47F42833D91F00F86C80 /* RemoteNotificationFilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834F47F32833D91F00F86C80 /* RemoteNotificationFilterType.swift */; };
-		834F47F52833D91F00F86C80 /* RemoteNotificationFilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834F47F32833D91F00F86C80 /* RemoteNotificationFilterType.swift */; };
 		8350FC4C20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8350FC4B20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift */; };
 		8350FC4D20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8350FC4B20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift */; };
 		8350FC4E20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8350FC4B20DA937B00C19D60 /* ArticleLocationAuthorizationCollectionViewCell.swift */; };
@@ -10867,7 +10866,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				834F47F52833D91F00F86C80 /* RemoteNotificationFilterType.swift in Sources */,
 				676C864726D40AEB00A704C1 /* NotificationService.swift in Sources */,
 				00D4B1B5282996A2008C705C /* EchoModelVersion.swift in Sources */,
 				00A988092829D92B006D800B /* PushNotificationContentIdentifier.swift in Sources */,

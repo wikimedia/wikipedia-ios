@@ -405,7 +405,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
         //Note: The nature of the type and project predicates may feel backwards, but it allows unknown notification types to be caught by the filter `Other`. Writing these predicates by going through a list of types and projects toggled ON, with a predicate format of each like "categoryString IN %@ AND typeString IN %@" excludes unknown notification types when any filter is enabled. If the server started returning notifications with categoryString and typeStrings the app doesn't recognize (but is capable of displaying in a generic way), we would filter them generically as `other`. So instead we are going through a list of types and projects toggled OFF, and writing the predicates as "NOT (categoryString IN %@ AND typeString IN %@)" for notifications with known types. We're filtering projects in a similar manner for the sake of consistency.
         
         let offTypes = filterState.offTypes
-        let onTypes = RemoteNotificationType.orderingForFilters.filter {!offTypes.contains($0)}
+        let onTypes = RemoteNotificationFilterType.orderingForFilters.filter {!offTypes.contains($0)}
         
         var typePredicates: [NSPredicate] = []
         let otherIsOff = offTypes.contains(.other)
@@ -416,8 +416,8 @@ public enum RemoteNotificationsControllerError: LocalizedError {
         
         if otherIsOff {
             typePredicates = onTypes.compactMap { settingType in
-                let categoryStrings = RemoteNotification.categoryStringsForRemoteNotificationType(type: settingType)
-                let typeStrings = RemoteNotification.typeStringsForRemoteNotificationType(type: settingType)
+                let categoryStrings = RemoteNotificationFilterType.categoryStringsForFilterType(type: settingType)
+                let typeStrings = RemoteNotificationFilterType.typeStringForFilterType(type: settingType)
                 
                 guard categoryStrings.count > 0 && typeStrings.count > 0 else {
                     return nil
@@ -427,8 +427,8 @@ public enum RemoteNotificationsControllerError: LocalizedError {
             }
         } else {
             typePredicates = offTypes.compactMap { settingType in
-                let categoryStrings = RemoteNotification.categoryStringsForRemoteNotificationType(type: settingType)
-                let typeStrings = RemoteNotification.typeStringsForRemoteNotificationType(type: settingType)
+                let categoryStrings = RemoteNotificationFilterType.categoryStringsForFilterType(type: settingType)
+                let typeStrings = RemoteNotificationFilterType.typeStringForFilterType(type: settingType)
                 
                 guard categoryStrings.count > 0 && typeStrings.count > 0 else {
                     return nil
@@ -501,10 +501,10 @@ public struct RemoteNotificationsFilterState: Equatable {
     }
     
     public let readStatus: ReadStatus
-    public let offTypes: Set<RemoteNotificationType>
+    public let offTypes: Set<RemoteNotificationFilterType>
     public let offProjects: Set<RemoteNotificationsProject>
     
-    public init(readStatus: ReadStatus, offTypes: Set<RemoteNotificationType>, offProjects: Set<RemoteNotificationsProject>) {
+    public init(readStatus: ReadStatus, offTypes: Set<RemoteNotificationFilterType>, offProjects: Set<RemoteNotificationsProject>) {
         self.readStatus = readStatus
         self.offTypes = offTypes
         self.offProjects = offProjects
@@ -618,7 +618,7 @@ public struct RemoteNotificationsFilterState: Equatable {
                   return nil
               }
         
-        let offTypes = offTypeIdentifiers.compactMap { RemoteNotificationType(from: $0 as String) }
+        let offTypes = offTypeIdentifiers.compactMap { RemoteNotificationFilterType(from: $0 as String) }
         let offProjects = offProjectApiIdentifiers.compactMap { RemoteNotificationsProject(apiIdentifier: $0 as String, languageLinkController: languageLinkController) }
         
         self.readStatus = readStatus

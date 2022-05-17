@@ -72,15 +72,13 @@ struct NotificationsCenterFilterItemView: View {
         .listRowBackground(Color(theme.colors.paperBackground).edgesIgnoringSafeArea([.all]))
     }
     
-    private func customLabelForToggle(type: RemoteNotificationType) -> some View {
+    private func customLabelForToggle(type: RemoteNotificationFilterType) -> some View {
         Group {
             switch type {
-            case .loginFailKnownDevice, //represents both known and unknown devices
-                    .loginSuccessUnknownDevice:
+            case .loginAttempts:
                 
-                let subtitle = type == .loginFailKnownDevice ? WMFLocalizedString("notifications-center-type-title-login-attempts-subtitle", value: "Failed login attempts to your account", comment: "Subtitle of \"Login attempts\" notification type filter toggle. Represents failed logins from both a known and unknown device.")
-                 :  CommonStrings.notificationsCenterLoginSuccessDescription
-                
+                let subtitle = WMFLocalizedString("notifications-center-type-title-login-attempts-subtitle", value: "Failed login attempts to your account", comment: "Subtitle of \"Login attempts\" notification type filter toggle. Represents failed logins from both a known and unknown device.")
+                 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(itemViewModel.title)
                         .foregroundColor(Color(theme.colors.primaryText))
