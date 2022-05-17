@@ -80,8 +80,20 @@ public class RemoteNotification: NSManagedObject {
         }
     }
 
-    public var primaryLinkHost: String? {
-        return messageLinks?.primary?.url?.host
+    public var linkHost: String? {
+        if let primaryLinkHost = messageLinks?.primary?.url?.host {
+            return primaryLinkHost
+        }
+        
+        if let secondaryLinks = messageLinks?.secondary {
+            for secondaryLink in secondaryLinks {
+                if let secondaryHost = secondaryLink.url?.host {
+                    return secondaryHost
+                }
+            }
+        }
+        
+        return nil
     }
 
     public var primaryLinkFragment: String? {
