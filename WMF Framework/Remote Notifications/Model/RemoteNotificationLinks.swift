@@ -31,7 +31,7 @@ public class RemoteNotificationLinks: NSObject, NSSecureCoding, Codable {
 }
 
 @objc(RemoteNotificationLink)
-public class RemoteNotificationLink: NSObject, NSSecureCoding, Codable {
+public final class RemoteNotificationLink: NSObject, NSSecureCoding, Codable {
     public static var supportsSecureCoding: Bool = true
     
     let type: String?
@@ -42,6 +42,20 @@ public class RemoteNotificationLink: NSObject, NSSecureCoding, Codable {
         self.type = type as String?
         self.url = url
         self.label = label as String?
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        type = try? values.decode(String.self, forKey: .type)
+        
+        let urlString = try? values.decode(String.self, forKey: .url)
+        if let urlString = urlString {
+            url = URL(string: urlString)
+        } else {
+            url = nil
+        }
+        
+        label = try? values.decode(String.self, forKey: .label)
     }
 
     public required convenience init(coder decoder: NSCoder) {
