@@ -291,8 +291,6 @@ public enum RemoteNotificationFilterType: String, CaseIterable {
                 return CommonStrings.notificationsCenterWelcome
             case .other:
                 return CommonStrings.notificationsCenterOtherFilter
-            
         }
-        
     }
 }

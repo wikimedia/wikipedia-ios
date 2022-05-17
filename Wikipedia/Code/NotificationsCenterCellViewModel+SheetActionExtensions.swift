@@ -53,8 +53,7 @@ extension NotificationsCenterCellViewModel {
 
         case .unknownSystemNotice,
              .unknownNotice,
-             .unknown,
-             .other:
+             .unknown:
             sheetActions.append(contentsOf: genericActions)
 
         }
