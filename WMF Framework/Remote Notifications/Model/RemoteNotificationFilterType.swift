@@ -90,7 +90,7 @@ public enum RemoteNotificationFilterType: String, CaseIterable {
         case .loginAttempts:
             return "loginAttempts"
         case .loginSuccess:
-            return "loginSucess"
+            return "loginSuccess"
         case .editMilestone:
             return "editMilestone"
         case .translationMilestone:
