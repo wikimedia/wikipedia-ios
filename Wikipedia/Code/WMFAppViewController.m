@@ -1015,8 +1015,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         }
     }
 
-    self.settingsViewController = nil;
-
     [self.dataStore.feedContentController stopContentSources];
     [self.dataStore clearMemoryCache];
 
