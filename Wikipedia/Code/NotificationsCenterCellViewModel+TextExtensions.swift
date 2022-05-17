@@ -38,7 +38,8 @@ extension NotificationsCenterCellViewModel {
              .unknownSystemNotice,
              .unknownAlert,
              .unknownNotice,
-             .unknown:
+             .unknown,
+             .other:
             guard let agentName = notification.agentName else {
                 return genericHeaderText(type: notification.type)
             }
@@ -68,7 +69,8 @@ extension NotificationsCenterCellViewModel {
              .unknownSystemNotice,
              .unknownAlert,
              .unknownNotice,
-             .unknown:
+             .unknown,
+             .other:
             guard let primaryLinkLabel = notification.primaryLinkLabel else {
                 return nil
             }

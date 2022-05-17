@@ -662,6 +662,7 @@
 "notifications-center-type-title-login-attempts" = "Login attempts";
 "notifications-center-type-title-login-attempts-subtitle" = "Failed login attempts to your account";
 "notifications-center-type-title-login-success" = "Login success";
+"notifications-center-type-title-other" = "Other";
 "notifications-center-type-title-page-link" = "Page link";
 "notifications-center-type-title-page-review" = "Page review";
 "notifications-center-type-title-sent-mention-failure" = "Sent mention failure";

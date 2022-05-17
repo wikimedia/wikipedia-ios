@@ -84,6 +84,7 @@ class RemoteNotificationsPagingOperation: RemoteNotificationsProjectOperation {
             }
             
             var fetchedNotificationsToPersist = fetchedNotifications
+            var lastNotification = fetchedNotifications.last
             if self.needsCrossWikiSummary {
                 
                 let notificationIsSummaryType: (RemoteNotificationsAPIController.NotificationsResult.Notification) -> Bool = { notification in
@@ -96,9 +97,10 @@ class RemoteNotificationsPagingOperation: RemoteNotificationsProjectOperation {
                 fetchedNotificationsToPersist = fetchedNotifications.filter({ notification in
                     !notificationIsSummaryType(notification)
                 })
+                lastNotification = fetchedNotificationsToPersist.last
             }
             
-            guard let lastNotification = fetchedNotifications.last else {
+            guard let lastNotification = lastNotification else {
                 //Empty notifications list so nothing to import. Exit early.
                 self.didFetchAndSaveAllPages()
                 self.finish()
