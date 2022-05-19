@@ -687,6 +687,7 @@
 "notifications-center-type-title-login-attempts" = "ניסיונות כניסה לחשבון";
 "notifications-center-type-title-login-attempts-subtitle" = "ניסיונות כניסה כושלים לחשבון שלך";
 "notifications-center-type-title-login-success" = "כניסה מוצלחת";
+"notifications-center-type-title-other" = "אחרות";
 "notifications-center-type-title-page-link" = "קישור לדף";
 "notifications-center-type-title-page-review" = "סקירת דף";
 "notifications-center-type-title-sent-mention-failure" = "אזכור כושל";

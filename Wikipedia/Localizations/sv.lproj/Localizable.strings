@@ -689,8 +689,11 @@
 "notifications-center-type-title-login-attempts" = "Inloggningsförsök";
 "notifications-center-type-title-login-attempts-subtitle" = "Misslyckat inloggningsförsök på ditt konto";
 "notifications-center-type-title-login-success" = "Inloggning genomfördes.";
+"notifications-center-type-title-other" = "Övrigt";
 "notifications-center-type-title-page-link" = "Sidlänk";
 "notifications-center-type-title-page-review" = "Sidgranskning";
+"notifications-center-type-title-sent-mention-failure" = "Misslyckades att skicka omnämnande";
+"notifications-center-type-title-sent-mention-success" = "Omnämnande skickades";
 "notifications-center-type-title-talk-page-mention" = "Omnämnande på diskussionssida";
 "notifications-center-type-title-thanks" = "Tack";
 "notifications-center-type-title-translation-milestone" = "Översättningsmilstolpe";

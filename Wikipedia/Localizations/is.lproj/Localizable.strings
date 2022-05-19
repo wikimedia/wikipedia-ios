@@ -1,6 +1,7 @@
 // Messages for Icelandic (íslenska)
 // Exported from translatewiki.net
 // Author: Fitoschido
+// Author: LoveIceLang
 // Author: Macofe
 // Author: Maxí
 // Author: MyraMidnight
@@ -654,6 +655,7 @@
 "notifications-center-type-title-login-attempts" = "Tilraunir til innskráningar";
 "notifications-center-type-title-login-attempts-subtitle" = "Misheppnaðar innskráningartilraunir inn á aðganginn þinn";
 "notifications-center-type-title-login-success" = "Innskráning tókst";
+"notifications-center-type-title-other" = "Annað";
 "notifications-center-type-title-page-link" = "Síðutengill";
 "notifications-center-type-title-page-review" = "Yfirferð síðu";
 "notifications-center-type-title-talk-page-mention" = "Minnst á í spjallsíðu";
