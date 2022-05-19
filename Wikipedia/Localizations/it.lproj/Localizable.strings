@@ -517,6 +517,7 @@
 "notifications-center-type-title-edit-reverted" = "Modifica annullata";
 "notifications-center-type-title-login-attempts" = "Tentativi di accesso";
 "notifications-center-type-title-login-success" = "Accesso effettuato";
+"notifications-center-type-title-other" = "Altro";
 "notifications-center-type-title-talk-page-mention" = "Menzione pagina di discussione";
 "notifications-center-type-title-thanks" = "Ringraziamenti";
 "notifications-center-type-title-user-rights-change" = "Modifica diritti utente";

@@ -624,6 +624,7 @@
 "notifications-center-type-title-login-attempts" = "ログイン試行";
 "notifications-center-type-title-login-attempts-subtitle" = "あなたのアカウントで失敗したログイン試行";
 "notifications-center-type-title-login-success" = "ログインに成功しました";
+"notifications-center-type-title-other" = "その他";
 "notifications-center-type-title-page-link" = "ページリンク";
 "notifications-center-type-title-thanks" = "感謝";
 "notifications-center-type-title-user-rights-change" = "利用者権限の変更";

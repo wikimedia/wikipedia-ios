@@ -623,7 +623,7 @@
 "notifications-center-inbox-wikimedia-projects-section-footer" = "Seuls les projets pour lesquels vous avez créé un compte apparaîtront ici";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Projets Wikimedia";
 "notifications-center-inbox-wikipedias-section-title" = "Wikipédias";
-"notifications-center-language-project-name-format" = "$1 $2";
+"notifications-center-language-project-name-format" = "$2 en $1";
 "notifications-center-login-notifications" = "Notifications de connexion";
 "notifications-center-mark" = "Marquer";
 "notifications-center-mark-all-as-read" = "Marquer tout comme lu";
@@ -695,6 +695,7 @@
 "notifications-center-type-title-login-attempts" = "Tentatives de connexion";
 "notifications-center-type-title-login-attempts-subtitle" = "Tentatives échouées de connexion à votre compte";
 "notifications-center-type-title-login-success" = "Connexion réussie";
+"notifications-center-type-title-other" = "Autres";
 "notifications-center-type-title-page-link" = "Lien de page";
 "notifications-center-type-title-page-review" = "Revue de la page";
 "notifications-center-type-title-sent-mention-failure" = "Échec d’envoi de mention";
