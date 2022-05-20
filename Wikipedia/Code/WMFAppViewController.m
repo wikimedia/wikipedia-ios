@@ -236,6 +236,7 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(talkPageTopicWasPublished:) name:WMFTalkPageContainerViewController.WMFTopicPublishedNotificationName object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(referenceLinkTapped:) name:WMFReferenceLinkTappedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateVoiceOverLayout) name: UIAccessibilityVoiceOverStatusDidChangeNotification object:nil];
 
     [self setupReadingListsHelpers];
     self.editHintController = [[WMFEditHintController alloc] init];
@@ -505,6 +506,10 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 - (void)exploreFeedPreferencesDidChange:(NSNotification *)note {
     ExploreFeedPreferencesUpdateCoordinator *exploreFeedPreferencesUpdateCoordinator = (ExploreFeedPreferencesUpdateCoordinator *)note.object;
     [exploreFeedPreferencesUpdateCoordinator coordinateUpdateFrom:self];
+}
+
+- (void)updateVoiceOverLayout {
+    [self.exploreViewController updateBarVisibility];
 }
 
 #pragma mark - Explore feed preferences

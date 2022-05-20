@@ -25,6 +25,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
         updateNotificationsCenterButton()
         updateSettingsButton()
+        updateBarVisibility()
 
         isRefreshControlEnabled = true
         collectionView.refreshControl?.layer.zPosition = 0
@@ -115,6 +116,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         navigationBar.updateNavigationItems()
     }
 
+    @objc public func updateBarVisibility() {
+        navigationBar.isBarHidingEnabled = UIAccessibility.isVoiceOverRunning ? false : true
+    }
+    
     func updateSettingsButton() {
         let settingsBarButtonItem = UIBarButtonItem(image: BarButtonImageStyle.settingsButtonImage(theme: theme), style: .plain, target: self, action: #selector(userDidTapSettings))
         settingsBarButtonItem.accessibilityLabel = CommonStrings.settingsTitle
