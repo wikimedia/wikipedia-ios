@@ -19,7 +19,7 @@
 // Author: Милан Јелисавчић
 // Author: Сербијана
 
-"aaald-article-description-updated-description" = "Опис чланка измењен";
+"aaald-article-description-updated-description" = "Опис чланка је измењен";
 "aaald-article-insert-last-updated" = "Последње ажурирање";
 "aaald-article-insert-new-changes" = "Нове промене";
 "aaald-error-subitle" = "Освежи";
@@ -378,7 +378,7 @@
 "explore-random-article-sub-heading-from-wikipedia" = "Са Википедије";
 "explore-randomizer" = "Случајни чланак";
 "featured-article-empty-title" = "Данас нема доступних препоручених чланака";
-"featured-widget-from-wikipedia" = "Са Википедије";
+"featured-widget-from-wikipedia" = "С Википедије";
 "featured-widget-title" = "Сјајан чланак";
 "fetcher-error-generic" = "Нешто је кренуло наопако. Покушајте поново касније.";
 "fetcher-error-unexpected-response" = "Апликација је добила неочекиван одговор од стране сервера. Молимо покушајте касније.";
