@@ -1895,6 +1895,12 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     while (presented.presentedViewController != nil) {
         presented = presented.presentedViewController;
     }
+
+    // This next block fixes a weird bug: https://phabricator.wikimedia.org/T305112#7936784
+    if ([NSStringFromClass([presented class]) isEqualToString: @"DDParsecCollectionViewController"] && presented.presentingViewController != nil) {
+        presented = presented.presentingViewController;
+    }
+
     if ([presented isKindOfClass:[UINavigationController class]]) {
         return (UINavigationController *)presented;
     } else {

@@ -6,6 +6,7 @@
 // Author: Alpkant
 // Author: Ayrıntılı Bilgi
 // Author: BaRaN6161 TURK
+// Author: Betseg
 // Author: Botansahin
 // Author: Bulgu
 // Author: Can
@@ -659,6 +660,7 @@
 "notifications-center-swipe-more" = "Daha fazla";
 "notifications-center-title" = "Bildirimler";
 "notifications-center-toolbar-mark-accessibility-label" = "Seçili bildirimleri işaretle";
+"notifications-center-type-title-welcome" = "Hoş geldiniz";
 "notifications-push-fallback-body-text" = "Vikipedi'de yeni etkinlik";
 "notifications-push-talk-body-format" = "$2 sayfasında {{PLURAL:$1|$1 yeni mesaj|$1 yeni mesajlar}}";
 "notifications-push-talk-title-format" = "{{PLURAL:$1|Yeni mesaj|Yeni mesajlar}}";
@@ -740,6 +742,17 @@
 "potd-widget-title" = "Günün resmi";
 "preference-summary-eventlogging-opt-in" = "Wikimedia Vakfı'nın uygulamayı geliştirmek için uygulamayı nasıl kullandığınız hakkında bilgi toplamasına izin verin";
 "preference-title-eventlogging-opt-in" = "Kullanım raporlarını gönder";
+"project-name-mediawiki" = "MediaWiki";
+"project-name-wikibooks" = "Vikikitap";
+"project-name-wikidata" = "Vikiveri";
+"project-name-wikimedia-commons" = "Wikimedia Commons";
+"project-name-wikinews" = "Vikihaber";
+"project-name-wikiquote" = "Vikisöz";
+"project-name-wikisource" = "Vikikaynak";
+"project-name-wikispecies" = "Vikitür";
+"project-name-wikiversity" = "Vikiversite";
+"project-name-wikivoyage" = "Vikigezgin";
+"project-name-wiktionary" = "Vikisözlük";
 "rank-accessibility-label" = "Sıra $1";
 "readers-accessibility-label" = "$1 okuyucu";
 "reading-list-add-generic-hint-title" = "Bu makaleyi bir okuma listesine eklemek istediğinize emin misiniz?";
@@ -883,6 +896,7 @@
 "settings-languages-feed-customization" = "Keşfet akış ayarlarınızı özelleştirerek Keşfet özet akışınızda hangi dillerin gösterileceğini yönetebilirsiniz.";
 "settings-my-languages" = "Dillerim";
 "settings-notifications" = "Anlık bildirimler";
+"settings-notifications-echo-failure-try-again" = "Tekrar dene";
 "settings-notifications-info" = "Anlık bildirimlerimizle, gündemde olan ve en çok okunan Vikipedi makalelerinden haberdar olun. Hepsi, gizliliğe ve güncel verilere bağlı olarak sunulmaktadır.";
 "settings-notifications-learn-more" = "Bildirimler hakkında daha fazla bilgi edinin";
 "settings-notifications-push-notifications" = "Anlık bildirimler";
@@ -908,20 +922,17 @@
 "settings-support" = "Vikipedi'yi destekleyin";
 "settings-title" = "Ayarlar";
 "share-a-fact-made-with" = "Vikipedi uygulamasıyla hazırlandı";
-// Fuzzy
-"share-article-name-on-wikipedia" = "@Wikipedia üzerinde \"$1\":";
+"share-article-name-on-wikipedia" = "Vikipedi'de \"$1\":";
 "share-building" = "Bir bilgi kartı paylaşımı oluşturun...";
 "share-default-format" = "$3 sayfasındaki $2 maddesinden $1";
 "share-email-format" = "“$1”\n\n“$2” maddesinden\n\n$3";
 "share-get-directions-in-maps" = "Yol tarifi al";
 "share-menu-item" = "Paylaş...";
 "share-message-format" = "“$1” $2";
-// Fuzzy
-"share-on-twitter-sign-off" = "@Wikipedia aracılığıyla";
+"share-on-twitter-sign-off" = "Vikipedi üzerinden";
 "share-open-in-maps" = "Haritalar'da aç";
 "share-social-format" = "Vikipedi'den $1: $2";
-// Fuzzy
-"share-social-mention-format" = "@Wikipedia'dan $1: $2";
+"share-social-mention-format" = "Vikipedi'den $1: $2";
 "sort-by-recently-added-action" = "Son eklenenler";
 "sort-by-title-action" = "Başlık";
 "table-of-contents-button-label" = "İçindekiler";
