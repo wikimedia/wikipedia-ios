@@ -278,7 +278,7 @@ public enum RemoteNotificationFilterType: String, CaseIterable {
             case .editReverted:
                 return CommonStrings.notificationsCenterEditReverted
             case .loginAttempts:
-                return CommonStrings.notificationsCenterloginAttempts
+                return CommonStrings.notificationsCenterLoginAttempts
             case .loginSuccess:
                 return CommonStrings.notificationsCenterLoginSuccess
             case .editMilestone:

@@ -107,7 +107,7 @@ public extension RemoteNotificationType {
             return CommonStrings.notificationsCenterEditReverted
         case .loginFailKnownDevice,
                 .loginFailUnknownDevice:
-            return CommonStrings.notificationsCenterloginAttempts
+            return CommonStrings.notificationsCenterLoginAttempts
         case .loginSuccessUnknownDevice:
             return CommonStrings.notificationsCenterLoginSuccess
         case .editMilestone:
