@@ -1,7 +1,10 @@
 extension ArticleViewController {
     func shareArticle() {
         themesPresenter.dismissReadingThemesPopoverIfActive(from: self)
-        webView.wmf_getSelectedText({ selectedText in
+        webView.wmf_getSelectedText({ [weak self] selectedText in
+            guard let self = self else {
+                return
+            }
             self.shareArticle(with: selectedText)
         })
     }
@@ -20,11 +23,11 @@ extension ArticleViewController {
             }
             return
         }
-          let shareAFactActivity = CustomShareActivity(title: "Share-a-fact", imageName: "share-a-fact", action: {
+        let shareAFactActivity = CustomShareActivity(title: "Share-a-fact", imageName: "share-a-fact", action: {
             self.shareFunnel?.logHighlight()
             self.shareAFact(with: text)
-          })
-        guard let vc = sharingActivityViewController(with: nil, button: toolbarController.shareButton, shareFunnel: shareFunnel, customActivity: shareAFactActivity) else {
+        })
+        guard let vc = sharingActivityViewController(with: text, button: toolbarController.shareButton, shareFunnel: shareFunnel, customActivity: shareAFactActivity) else {
             return
         }
         present(vc, animated: true)
@@ -35,7 +38,7 @@ extension ArticleViewController {
         let vc: ShareActivityController
         let textActivitySource = WMFArticleTextActivitySource(article: article, shareText: textSnippet)
         if let customActivity = customActivity {
-            vc = ShareActivityController(customActivity: customActivity, article: article, textActivitySource:textActivitySource)
+            vc = ShareActivityController(customActivity: customActivity, article: article, textActivitySource: textActivitySource)
         } else {
             vc = ShareActivityController(article: article, textActivitySource: textActivitySource)
         }

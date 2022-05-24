@@ -9,9 +9,7 @@ extension ArticleViewController {
     }
     
     @objc func shareMenuItemTapped() {
-        webView.wmf_getSelectedText { (text) in
-            self.shareArticle(with: text)
-        }
+        self.shareArticle()
     }
     
     @objc func editMenuItemTapped() {
