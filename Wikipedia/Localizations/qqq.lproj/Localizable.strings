@@ -664,6 +664,7 @@
 "notifications-center-type-title-login-attempts" = "Title of \"Login attempts\" notification type. Used on filters view toggles and the notification detail view. Represents failed logins from both a known and unknown device.";
 "notifications-center-type-title-login-attempts-subtitle" = "Subtitle of \"Login attempts\" notification type filter toggle. Represents failed logins from both a known and unknown device.";
 "notifications-center-type-title-login-success" = "Title of \"login success\" notification type. Used on filters view toggles and the notification detail view. Represents successful logins from an unknown device.";
+"notifications-center-type-title-other" = "Title of \"other\" notifications filter. Used on filter toggles.";
 "notifications-center-type-title-page-link" = "Title of \"page link\" notification type. Used on filters view toggles and the notification detail view.";
 "notifications-center-type-title-page-review" = "Title of \"page review\" notification type. Used on filters view toggles and the notification detail view.";
 "notifications-center-type-title-sent-mention-failure" = "Title of \"sent mention failure\" notification type. Used on filters view toggles and the notification detail view.";

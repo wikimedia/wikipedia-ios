@@ -6,7 +6,7 @@ version: 2.1
 executors:
   xcode:
     macos:
-      xcode: 13.1.0
+      xcode: 13.4.0
 
 commands:
   install_dependencies:

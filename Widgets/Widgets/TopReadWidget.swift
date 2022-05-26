@@ -222,7 +222,7 @@ struct TopReadView: View {
             Text(TopReadWidget.LocalizedStrings.widgetTitle)
                 .font(.subheadline)
                 .fontWeight(.bold)
-            ForEach(entry?.rankedElements.indices.prefix(rowCount) ?? 0..<0) { elementIndex in
+            ForEach(entry?.rankedElements.indices.prefix(rowCount) ?? 0..<0, id: \.self) { elementIndex in
                 if let articleURL = entry?.rankedElements[elementIndex].articleURL {
                     Link(destination: articleURL, label: {
                         elementRow(elementIndex, rowCount: rowCount, showSparkline: showSparkline)

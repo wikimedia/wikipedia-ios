@@ -602,8 +602,10 @@
 "notifications-center-empty-state-filters-subtitle" = "메시지를 더 보려면 $1 수정";
 "notifications-center-empty-state-no-projects-selected" = "메시지를 더 보려면 프로젝트 추가";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1개 필터}}";
+"notifications-center-feed-card-title" = "지금 편집 알림을 사용할 수 있습니다";
 "notifications-center-feed-news-notification-button-text" = "푸시 알림 켜기";
 "notifications-center-feed-news-notification-dismiss-button-text" = "지금은 괜찮습니다";
+"notifications-center-feed-news-notification-text" = "모든 위키미디어 프로젝트의 편집 알림을 이제 앱을 통해 사용할 수 있습니다. 위키백과에서 계속 들어오는 메시지와 최신화를 유지하려면 푸시 알림을 활성화하십시오.";
 "notifications-center-filters-accessibility-label" = "알림 필터";
 "notifications-center-filters-read-status-item-title-all" = "모두";
 "notifications-center-filters-read-status-item-title-read" = "읽음";
@@ -642,6 +644,7 @@
 "notifications-center-onboarding-modal-notifications-alerts-title" = "알림 및 중요 알림";
 "notifications-center-onboarding-modal-project-inboxes-message" = "각기 다른 언어의 위키백과와 위키미디어 프로젝트의 읽지 않은 메시지를 한 장소에서 모두 봅니다";
 "notifications-center-onboarding-modal-project-inboxes-title" = "프로젝트 수신함";
+"notifications-center-onboarding-modal-push-notifications-message" = "항상 편집 메시지와 중요 알림을 최신화하려면 푸시 알림을 활성화하십시오.";
 "notifications-center-onboarding-modal-push-notifications-title" = "푸시 알림";
 "notifications-center-onboarding-modal-title" = "알림 편집";
 "notifications-center-onboarding-panel-heading" = "푸시 알림을 켜시겠습니까?";
@@ -691,6 +694,7 @@
 "notifications-center-type-title-login-attempts" = "로그인 시도";
 "notifications-center-type-title-login-attempts-subtitle" = "계정에 실패한 로그인 시도";
 "notifications-center-type-title-login-success" = "로그인 성공";
+"notifications-center-type-title-other" = "기타";
 "notifications-center-type-title-page-link" = "문서 링크";
 "notifications-center-type-title-page-review" = "문서 검토";
 "notifications-center-type-title-talk-page-mention" = "토론 문서 언급";
@@ -700,8 +704,7 @@
 "notifications-center-type-title-user-talk-page-messsage" = "토론 문서 메시지";
 "notifications-center-type-title-welcome" = "환영합니다";
 "notifications-push-fallback-body-text" = "위키백과의 새 활동";
-// Fuzzy
-"notifications-push-talk-body-format" = "$3에 새 $2가 $1개 있습니다";
+"notifications-push-talk-body-format" = "$2에 {{PLURAL:$1|새 메시지 $1개}}가 있습니다";
 "notifications-push-talk-title-format" = "{{PLURAL:$1|새 메시지}}";
 "number-billions" = "$1B";
 "number-millions" = "$1M";

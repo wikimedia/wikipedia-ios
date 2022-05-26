@@ -674,6 +674,7 @@
 "notifications-center-type-title-login-attempts" = "Обиди за најава";
 "notifications-center-type-title-login-attempts-subtitle" = "Неуспешни обиди за најава на вашата сметка";
 "notifications-center-type-title-login-success" = "Успешна најава";
+"notifications-center-type-title-other" = "Друго";
 "notifications-center-type-title-page-link" = "Врска до страница";
 "notifications-center-type-title-page-review" = "Оценка на страница";
 "notifications-center-type-title-sent-mention-failure" = "Неуспешно испратено споменување";
@@ -948,20 +949,17 @@
 "settings-support" = "Поддржете ја Википедија";
 "settings-title" = "Нагодувања";
 "share-a-fact-made-with" = "Направено до прилогот на Википедија";
-// Fuzzy
-"share-article-name-on-wikipedia" = "„$1“ на @Wikipedia:";
+"share-article-name-on-wikipedia" = "„$1“ на Википедија:";
 "share-building" = "Создавам карта за споделување факт...";
 "share-default-format" = "„$1“ од „$2“: $3";
 "share-email-format" = "„$1“\n\nод „$2“\n\n$3";
 "share-get-directions-in-maps" = "Дај насоки";
 "share-menu-item" = "Сподели...";
 "share-message-format" = "„$1“ $2";
-// Fuzzy
-"share-on-twitter-sign-off" = "преку @Wikipedia";
+"share-on-twitter-sign-off" = "преку Википедија";
 "share-open-in-maps" = "Отвори во Карти";
 "share-social-format" = "„$1“ преку Википедија: $2";
-// Fuzzy
-"share-social-mention-format" = "„$1“ преку @Википедија: $2";
+"share-social-mention-format" = "„$1“ преку Википедија: $2";
 "sort-by-recently-added-action" = "Неодамна додадени";
 "sort-by-title-action" = "Наслов";
 "table-of-contents-button-label" = "Содржина";

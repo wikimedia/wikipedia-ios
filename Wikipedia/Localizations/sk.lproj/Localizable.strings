@@ -593,16 +593,21 @@
 "notifications-center-filters-read-status-item-title-unread" = "Neprečítané";
 "notifications-center-filters-read-status-section-title" = "Stav prečítania";
 "notifications-center-filters-title" = "Filtre";
-// Fuzzy
-"notifications-center-go-to-diff" = "Prejsť na rozdiely";
-// Fuzzy
-"notifications-center-go-to-talk-page" = "Prejsť na diskusnú stránku";
-// Fuzzy
-"notifications-center-go-to-user-page" = "Prejsť na stránku používateľa $1";
-// Fuzzy
-"notifications-center-go-to-wikidata-item" = "Prejsť na položku Wikidáta";
-// Fuzzy
-"notifications-center-go-to-your-talk-page" = "Prejsť na svoju diskusnú stránku";
+"notifications-center-filters-types-footer" = "Upraviť typy oznámení pre filtrovanie v oznámení v doručenej pošte. Typy, ktoré budú vypnuté nebude vidno, ale ich obsah ako aj nové oznámenia budú dostupné akonáhle ich znovu zapnete.";
+"notifications-center-filters-types-item-title-all" = "Všetky typy";
+"notifications-center-filters-types-section-title" = "Typy oznámení";
+"notifications-center-go-to-article" = "Článok";
+"notifications-center-go-to-article-talk-format" = "diskusná stránka $1";
+"notifications-center-go-to-diff" = "Rozdiely";
+"notifications-center-go-to-talk-page" = "Diskusná stránka";
+"notifications-center-go-to-user-page" = "Stránka používateľa $1";
+"notifications-center-go-to-wikidata-item" = "Položka Wikidáta";
+"notifications-center-go-to-your-talk-page" = "Vaša diskusná stránka";
+"notifications-center-header-alert-from-agent" = "Upozornenie od $1";
+"notifications-center-inbox-title" = "Projekty";
+"notifications-center-inbox-wikimedia-projects-section-footer" = "Tu sa zobrazia iba projekty pre ktoré ste vytvorili účet";
+"notifications-center-inbox-wikimedia-projects-section-title" = "Projekty Wikimedie";
+"notifications-center-inbox-wikipedias-section-title" = "Wikipédia";
 "notifications-center-language-project-name-format" = "$1 $2";
 "notifications-center-login-notifications" = "Prihlasovacie oznámenia";
 "notifications-center-mark" = "Označiť";

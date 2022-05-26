@@ -164,6 +164,12 @@ public enum RemoteNotificationsControllerError: LocalizedError {
         
         refreshDeadlineController.reset()
     }
+
+    /// Triggers fetching notifications from the server and saving them into the local database with no completion handler. Used as a bridge for Objective-C use as the `Result` type is unavailable there.
+    /// - Parameter force: Flag to force an API call, otherwise this will exit early if it's been less than 30 seconds since the last load attempt.
+    @objc public func triggerLoadNotifications(force: Bool) {
+        loadNotifications(force: force)
+    }
     
     /// Marks notifications as read or unread in the local database and on the server. Errors are not returned. Updates local database on a backgroundContext.
     /// - Parameters:
@@ -396,30 +402,56 @@ public enum RemoteNotificationsControllerError: LocalizedError {
             readStatusPredicate = NSPredicate(format: "isRead == %@", NSNumber(value: false))
         }
         
-        //Note: The nature of the type and project predicates may feel backwards, but it allows unknown notification types to get past the filter. We COULD write these predicates by going through a list of types and projects toggled ON, with a predicate format of each like "categoryString IN %@ AND typeString IN %@", but this would then exclude unknown notification types when any filter is enabled. If the server started returning notifications with categoryString and typeStrings the app doesn't recognize (but is capable of displaying in a generic way), we would unintentionally filter them out with this style of predicate. So instead we are going through a list of types and projects toggled OFF, and writing the predicates as "NOT (categoryString IN %@ AND typeString IN %@)". We're filtering projects in a similar manner for the sake of consistency.
+        //Note: The nature of the type and project predicates may feel backwards, but it allows unknown notification types to be caught by the filter `Other`. Writing these predicates by going through a list of types and projects toggled ON, with a predicate format of each like "categoryString IN %@ AND typeString IN %@" excludes unknown notification types when any filter is enabled. If the server started returning notifications with categoryString and typeStrings the app doesn't recognize (but is capable of displaying in a generic way), we would filter them generically as `other`. So instead we are going through a list of types and projects toggled OFF, and writing the predicates as "NOT (categoryString IN %@ AND typeString IN %@)" for notifications with known types. We're filtering projects in a similar manner for the sake of consistency.
         
         let offTypes = filterState.offTypes
-        let offTypePredicates: [NSPredicate] = offTypes.compactMap { settingType in
-            let categoryStrings = RemoteNotification.categoryStringsForRemoteNotificationType(type: settingType)
-            let typeStrings = RemoteNotification.typeStringsForRemoteNotificationType(type: settingType)
-            
-            guard categoryStrings.count > 0 && typeStrings.count > 0 else {
-                return nil
+        let onTypes = RemoteNotificationFilterType.orderingForFilters.filter {!offTypes.contains($0)}
+        
+        var typePredicates: [NSPredicate] = []
+        let otherIsOff = offTypes.contains(.other)
+        
+        if onTypes.isEmpty {
+            return NSPredicate(format: "FALSEPREDICATE")
+        }
+        
+        if otherIsOff {
+            typePredicates = onTypes.compactMap { settingType in
+                let categoryStrings = RemoteNotificationFilterType.categoryStringsForFilterType(type: settingType)
+                let typeStrings = RemoteNotificationFilterType.typeStringForFilterType(type: settingType)
+                
+                guard categoryStrings.count > 0 && typeStrings.count > 0 else {
+                    return nil
+                }
+                
+                return NSPredicate(format: "(categoryString IN %@ AND typeString IN %@)", categoryStrings, typeStrings)
             }
-            
-            return NSPredicate(format: "NOT (categoryString IN %@ AND typeString IN %@)", categoryStrings, typeStrings)
+        } else {
+            typePredicates = offTypes.compactMap { settingType in
+                let categoryStrings = RemoteNotificationFilterType.categoryStringsForFilterType(type: settingType)
+                let typeStrings = RemoteNotificationFilterType.typeStringForFilterType(type: settingType)
+                
+                guard categoryStrings.count > 0 && typeStrings.count > 0 else {
+                    return nil
+                }
+                
+                return NSPredicate(format: "NOT (categoryString IN %@ AND typeString IN %@)", categoryStrings, typeStrings)
+            }
         }
         
         let offProjects = filterState.offProjects
         let offProjectPredicates: [NSPredicate] = offProjects.compactMap { return NSPredicate(format: "NOT (wiki == %@)", $0.notificationsApiWikiIdentifier) }
         
-        guard readStatusPredicate != nil || offTypePredicates.count > 0 || offProjectPredicates.count > 0 else {
+        guard readStatusPredicate != nil || typePredicates.count > 0 || offProjectPredicates.count > 0 else {
             return nil
         }
         
         var combinedOffTypePredicate: NSPredicate? = nil
-        if offTypePredicates.count > 0 {
-            combinedOffTypePredicate = NSCompoundPredicate(andPredicateWithSubpredicates: offTypePredicates)
+        if typePredicates.count > 0 {
+            if otherIsOff {
+                combinedOffTypePredicate = NSCompoundPredicate(orPredicateWithSubpredicates: typePredicates)
+            } else {
+                combinedOffTypePredicate = NSCompoundPredicate(andPredicateWithSubpredicates: typePredicates)
+            }
         }
         
         var combinedOffProjectPredicate: NSPredicate? = nil
@@ -469,10 +501,10 @@ public struct RemoteNotificationsFilterState: Equatable {
     }
     
     public let readStatus: ReadStatus
-    public let offTypes: Set<RemoteNotificationType>
+    public let offTypes: Set<RemoteNotificationFilterType>
     public let offProjects: Set<RemoteNotificationsProject>
     
-    public init(readStatus: ReadStatus, offTypes: Set<RemoteNotificationType>, offProjects: Set<RemoteNotificationsProject>) {
+    public init(readStatus: ReadStatus, offTypes: Set<RemoteNotificationFilterType>, offProjects: Set<RemoteNotificationsProject>) {
         self.readStatus = readStatus
         self.offTypes = offTypes
         self.offProjects = offProjects
@@ -586,7 +618,7 @@ public struct RemoteNotificationsFilterState: Equatable {
                   return nil
               }
         
-        let offTypes = offTypeIdentifiers.compactMap { RemoteNotificationType(from: $0 as String) }
+        let offTypes = offTypeIdentifiers.compactMap { RemoteNotificationFilterType(from: $0 as String) }
         let offProjects = offProjectApiIdentifiers.compactMap { RemoteNotificationsProject(apiIdentifier: $0 as String, languageLinkController: languageLinkController) }
         
         self.readStatus = readStatus

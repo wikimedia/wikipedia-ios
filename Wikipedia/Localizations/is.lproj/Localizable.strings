@@ -1,6 +1,7 @@
 // Messages for Icelandic (íslenska)
 // Exported from translatewiki.net
 // Author: Fitoschido
+// Author: LoveIceLang
 // Author: Macofe
 // Author: Maxí
 // Author: MyraMidnight
@@ -36,6 +37,9 @@
 "aaald-revision-by-anonymous" = "Breyting frá óþekktum notanda";
 "aaald-revision-userInfo" = "Breyting frá $1 ($2 breytingar)";
 "aaald-single-reference-added-description" = "Tilvísun bætt við";
+"aaald-small-change-description" = "{{PLURAL:$1|0=Engar minniháttar breytingar gerðar|$1 minniháttar breyting gerð|$1 minniháttar breytingar gerðar}}";
+"aaald-summary-title" = "{{PLURAL:$1|0=0 breytingar|$1 breyting|$1 breytingar}} frá {{PLURAL:$2|0=0 ritara|$2 ritara|$2 riturum}} síðustu {{PLURAL:$3|0=0 dag|$3 dag|$3 daga}}";
+"aaald-two-sections-description" = "í $1 og $2 efnishlutunum";
 "aaald-vandalism-revert-description" = "Afturkallaði grun um skemmdarverk";
 "aaald-view-full-history-button" = "Skoða fulla breytingaskrá greinar";
 "about-content-license" = "Notkunarleyfi efnis";
@@ -134,6 +138,7 @@
 "article-about-title" = "Um þessa grein";
 "article-delete" = "Eyða";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|grein|greinum}} eytt";
+"article-fetcher-error-updated-content-timeout" = "Appinu tókst ekki að ná í uppfærða efnið í tíma. Endurlestu þessa síðu til að sjá breytingarnar þínar birtast.";
 "article-languages-filter-placeholder" = "Finna tungumál";
 "article-languages-label" = "Velja tungumál";
 "article-languages-others" = "Önnur tungumál";
@@ -156,11 +161,13 @@
 "button-skip" = "Sleppa";
 "cancel" = "Hætta við";
 "cc-zero" = "Creative Commons CC0";
+"chinese-variants-alert-title" = "Uppfærslur á stuðningi við tilbrigði kínversku";
 "clear-title-accessibility-label" = "Hreinsa";
 "close-button-accessibility-label" = "Loka";
 "compass-direction" = "klukkan $1 á áttavita";
 "continue-reading-empty-description" = "Kanna hvort Wikipedia sé með fleiri greinar til að lesa";
 "continue-reading-empty-title" = "Engar nýlega lesnar greinar";
+"crimean-tatar-variants-alert-title" = "Uppfærslur á stuðningi við tilbrigði tatarísku frá Krím";
 "data-migration-status" = "Uppfæri...";
 "description-add-title" = "Bæta við lýsingu";
 "description-edit-for-article" = "Lýsing á grein fyrir $1";
@@ -173,6 +180,7 @@
 "description-edit-publish" = "Birta lýsingu";
 "description-edit-title" = "Breyta lýsingu";
 "description-edit-warning" = "Reyndu að halda lýsingum stuttum til að hjálpa lesendum að skilja umfjöllunarefnið í fljótu bragði";
+"description-edit-warning-casing" = "Aðeins sérnöfn ættu að byrja á hástöfum, einnig í byrjun setningar.";
 "description-help-about-description" = "Lýsingar á greinum draga saman efni greinar í örfáum orðum til að hjálpa lesendum að skilja umfjöllunarefnið í fljótu bragði.";
 "description-help-about-title" = "Um hugbúnaðinn";
 "description-help-about-wikidata" = "Um Wikidata";
@@ -297,6 +305,7 @@
 "editing-welcome-set-knowledge-free-subtitle" = "Til þess að gefa öllum aðgang að þeirri þekkingu sem fyrirfinnst í heiminum, þurfum við að fá þig til að taka þátt í þessu með okkur, með því að lesa, skrifa, breyta og laga þau efni sem þú hefur virkilegan áhuga á.";
 "editing-welcome-set-knowledge-free-title" = "Slepptu þekkingunni lausri";
 "editor-exit-confirmation-body" = "Ertu viss um að þú viljir hætta í breytingarham án þess að birta fyrst ?";
+"editor-exit-confirmation-title" = "Fara út úr breytingaham?";
 "empty-diff-compare-title" = "Enginn munur á útgáfunum";
 "empty-diff-single-title" = "Engar sjáanlegar breytingar voru gerðar";
 "empty-insert-media-title" = "Veldu skrá frá Wikimedia Commons";
@@ -305,6 +314,7 @@
 "empty-no-feed-message" = "Þú getur séð þær greinar sem mælt er með fyrir þig þegar þú ert með virka nettengingu";
 "empty-no-history-message" = "Haltu utan um það sem þú hefur verið að lesa hérna";
 "empty-no-history-title" = "Enginn breytingaferill sem hægt er að birta";
+"empty-no-other-article-languages-message" = "Þessi grein hefur enn ekki verið skrifuð á neinum öðrum tungumálum";
 "empty-no-other-article-languages-title" = "Engin önnur tungumál tiltæk";
 "empty-no-reading-lists-message" = "Útbúðu lista yfir staði til að heimsækja, eftirlætisumræðuefni og margt fleira";
 "empty-no-reading-lists-title" = "Skipuleggðu vistaðar greinar með leslistum";
@@ -400,9 +410,12 @@
 "explore-random-article-sub-heading-from-language-wikipedia" = "Af $1 Wikipedia";
 "explore-random-article-sub-heading-from-wikipedia" = "Af Wikipedia";
 "explore-randomizer" = "Slembið";
-"featured-article-empty-title" = "Engin forsíðugrein tiltæk í dag";
+"featured-article-empty-title" = "Engin forsíðugrein er tiltæk í dag";
+"featured-widget-content-failure-for-date" = "Engin forsíðugrein er tiltæk fyrir þessa dagsetningu.";
+"featured-widget-description" = "Uppgötvaðu bestu greinarnar á Wikipedia, valdar af þátttakendunum okkar.";
 "featured-widget-from-language-wikipedia" = "Af $1 Wikipedia";
 "featured-widget-from-wikipedia" = "Af Wikipedia";
+"featured-widget-language-failure" = "Aðaltungumál þítt á Wikipedia styður ekki Forsíðugreinar. Þú getur skipt um aðaltungumál Wikipedia í stillingavalmynd forritsins.";
 "featured-widget-title" = "Forsíðugrein";
 "fetcher-error-generic" = "Eitthvað fór úrskeiðis. Prófaðu aftur síðar.";
 "fetcher-error-unexpected-response" = "Forritið fékk óvænt svar frá þjóninum. Prófaðu aftur síðar.";
@@ -439,6 +452,7 @@
 "forgot-password-instructions" = "Fylltu í einn af reitunum hér fyrir neðan til að fá tölvupóst með leiðbeiningum varðandi endurstillingu lykilorðs";
 "forgot-password-title" = "Endurstilla lykilorð";
 "forgot-password-username-or-email-title" = "eða";
+"gan-variants-alert-title" = "Uppfærslur á stuðningi við tilbrigði Gan";
 "history-clear-all" = "Hreinsa";
 "history-clear-cancel" = "Hætta við";
 "history-clear-confirmation-heading" = "Á að eyða öllum nýlegum atriðum?";
@@ -496,6 +510,9 @@
 "intermediate-edits-editors-count-limited" = "$1+ millibreytingar frá $2+ notendum ekki birtar";
 "intermediate-edits-editors-limited-count" = "{{PLURAL:$1|$1 millibreyting ekki birt|$1 millibreytingar ekki birtar}} frá $2+ notendum";
 "intermediate-edits-limited-editors-count" = "$1+ millibreytingar frá {{PLURAL:$2|$2 notanda|$2 notendum}} ekki birtar";
+"inuktitut-variants-alert-title" = "Uppfærslur á stuðningi við tilbrigði Inuktitut";
+"kazakh-variants-alert-title" = "Uppfærslur á stuðningi við tilbrigði kasakísku";
+"kurdish-variants-alert-title" = "Uppfærslur á stuðningi við tilbrigði kúrdísku";
 "languages-settings-title" = "Tungumál";
 "languages-title" = "Skipta um tungumál";
 "languages-wikipedia" = "Tungumál á Wikipediu";
@@ -537,6 +554,9 @@
 "no-internet-connection-article-reload-button" = "Fara til baka í síðustu vistuðu útgáfu";
 "notifications-center-agent-description-from-format" = "Frá $1";
 "notifications-center-alert" = "Aðvörun";
+"notifications-center-applied-filters-accessibility-label" = "Tilkynningasía - er með virkar síur";
+"notifications-center-applied-project-filters-accessibility-label" = "Verkefnasía - er með virkar síur";
+"notifications-center-badge-button-accessibility-label" = "Tilkynningar með ólesið-merki";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 tilkynning";
 "notifications-center-change-password" = "Breyta lykilorði";
 "notifications-center-checking-for-notifications" = "Athuga með tilkynningar...";
@@ -544,15 +564,21 @@
 "notifications-center-destination-web" = "Á vefnum";
 "notifications-center-empty-checking-for-notifications" = "Athuga með tilkynningar...";
 "notifications-center-empty-no-messages" = "Þú átt engin skilaboð";
+"notifications-center-empty-not-subscribed" = "Í augnablikinu ert þú ekki áskrifandi að neinum Wikipedia-tilkynningum";
+"notifications-center-empty-state-filters-subtitle" = "Breyttu $1 til að sjá fleiri skilaboð";
+"notifications-center-empty-state-no-projects-selected" = "Bættu við verkefnum til að sjá fleiri skilaboð";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 sía|$1 síur}}";
+"notifications-center-feed-card-title" = "Núna er hægt að fá tilkynningar vegna breytinga";
 "notifications-center-feed-news-notification-button-text" = "Kveikja á ýti-tilkynningum";
 "notifications-center-feed-news-notification-dismiss-button-text" = "Ekki núna";
+"notifications-center-filters-accessibility-label" = "Tilkynningasía";
 "notifications-center-filters-read-status-item-title-all" = "Allt";
 "notifications-center-filters-read-status-item-title-read" = "Lesið";
 "notifications-center-filters-read-status-item-title-unread" = "Ólesið";
 "notifications-center-filters-read-status-section-title" = "Staða lesturs";
 "notifications-center-filters-title" = "Síur";
 "notifications-center-filters-types-item-title-all" = "Allar tegundir";
+"notifications-center-filters-types-section-title" = "Tegundir tilkynninga";
 "notifications-center-go-to-article" = "Grein";
 "notifications-center-go-to-article-talk-format" = "$1 spjallsíða";
 "notifications-center-go-to-diff" = "Mismunur";
@@ -577,6 +603,7 @@
 "notifications-center-onboarding-modal-filters-title" = "Síur";
 "notifications-center-onboarding-modal-learn-more-action" = "Lesa meira um tilkynningar";
 "notifications-center-onboarding-modal-notifications-alerts-title" = "Tilkynningar og aðvaranir";
+"notifications-center-onboarding-modal-project-inboxes-title" = "Pósthólf verkefna";
 "notifications-center-onboarding-modal-push-notifications-title" = "Ýti-tilkynningar";
 "notifications-center-onboarding-modal-title" = "Breyti tilkynningum";
 "notifications-center-onboarding-panel-heading" = "Kveikja á ýti-tilkynningum?";
@@ -596,6 +623,7 @@
 "notifications-center-subheader-edit-milestone" = "Breyti áfanga";
 "notifications-center-subheader-edit-reverted" = "Breytingin þín var afturkölluð";
 "notifications-center-subheader-email-from-other-user" = "Nýr tölvupóstur";
+"notifications-center-subheader-login-fail-known-device" = "Margar misheppnaðar tilraunir til innskráninga";
 "notifications-center-subheader-login-fail-unknown-device" = "Misheppnuð tilraun til innskráningar";
 "notifications-center-subheader-login-success-unknown-device" = "Innskráning frá óþekktu tæki";
 "notifications-center-subheader-mention-article-talk-page" = "Minnst á í spjallsíðu greinar";
@@ -627,6 +655,7 @@
 "notifications-center-type-title-login-attempts" = "Tilraunir til innskráningar";
 "notifications-center-type-title-login-attempts-subtitle" = "Misheppnaðar innskráningartilraunir inn á aðganginn þinn";
 "notifications-center-type-title-login-success" = "Innskráning tókst";
+"notifications-center-type-title-other" = "Annað";
 "notifications-center-type-title-page-link" = "Síðutengill";
 "notifications-center-type-title-page-review" = "Yfirferð síðu";
 "notifications-center-type-title-talk-page-mention" = "Minnst á í spjallsíðu";
@@ -644,6 +673,8 @@
 "on-this-day-detail-header-date-range" = "frá $1 - $2";
 "on-this-day-detail-header-title" = "{{PLURAL:$1|$1 sögulegur atburður|$1 sögulegir atburðir}}";
 "on-this-day-footer" = "Fleiri sögulegir atburðir á þessum degi";
+"on-this-day-footer-showing-event-count" = "{{PLURAL:$1|$1 sögulegur atburður til viðbótar|$1 fleiri sögulegir atburðir}} á þessum degi";
+"on-this-day-language-does-not-support-error" = "Aðaltungumál þítt á Wikipedia styður ekki Á þessum degi. Þú getur skipt um aðaltungumál Wikipedia í stillingavalmynd forritsins.";
 "on-this-day-no-internet-error" = "Engin gögn tiltæk";
 "on-this-day-sub-title-for-date-from-language-wikipedia" = "$1 af $2 Wikipedia";
 "on-this-day-title" = "Á þessum degi";
@@ -709,6 +740,7 @@
 "places-unknown-distance" = "óþekkt vegalengd";
 "potd-description-prefix" = "Mynd dagsins þann $1";
 "potd-empty-error-description" = "Mistókst að ná í mynd dagsins fyrir $1";
+"potd-widget-description" = "Uppgötvaðu fallegar myndir fyrir hvern dag, valdar af þátttakendunum okkar.";
 "potd-widget-title" = "Mynd dagsins";
 "preference-summary-eventlogging-opt-in" = "Leyfa Wikimedia til að safna upplýsingum um hvernig þú notar appið til að geta gert það betra";
 "preference-title-eventlogging-opt-in" = "Senda notkunarskýrslur";
@@ -804,11 +836,14 @@
 "reading-themes-controls-accessibility-syntax-highlighting-switch" = "Áherslulitun á málskipan";
 "reading-themes-controls-accessibility-text-size-slider" = "Sleði fyrir textastærð";
 "reading-themes-controls-syntax-highlighting" = "Áherslulitun á málskipan";
+"reference-section-button-accessibility-label" = "Fara í tilvísanahlutann";
 "reference-title" = "Tilvísun $1";
 "relative-date-days-ago" = "{{PLURAL:$1|0=Í dag|1=Í gær|Fyrir $1 dögum síðan}}";
 "relative-date-hours-abbreviated" = "$1klst";
 "relative-date-hours-ago" = "{{PLURAL:$1|0=Fyrir stuttu|Fyrir $1 klukkutíma síðan|Fyrir $1 klukkutímum síðan}}";
 "relative-date-hours-ago-abbreviated" = "$1klst síðan";
+"relative-date-hrs-ago" = "{{PLURAL:$1|0=Fyrir stuttu|Fyrir $1 klukkutíma síðan|Fyrir $1 klukkutímum síðan}}";
+"relative-date-min-ago" = "{{PLURAL:$1|0=Rétt í þessu|Fyrir $1 mínútu síðan|Fyrir $1 mínútum síðan}}";
 "relative-date-minutes-abbreviated" = "$1mín";
 "relative-date-minutes-ago" = "{{PLURAL:$1|0=Rétt í þessu|Fyrir $1 mínútu síðan|Fyrir $1 mínútum síðan}}";
 "relative-date-minutes-ago-abbreviated" = "$1mín síðan";
@@ -849,6 +884,7 @@
 "search-recent-title" = "Nýlega leitað";
 "search-result-redirected-from" = "Endurbeint frá: $1";
 "search-title" = "Leita";
+"serbian-variants-alert-title" = "Uppfærslur á stuðningi við tilbrigði serbnesku";
 "settings-account" = "Aðgangur";
 "settings-appearance" = "Kjörstillingar við lestur";
 "settings-clear-cache" = "Hreinsa gögn úr skyndiminni";
@@ -861,6 +897,7 @@
 "settings-languages-feed-customization" = "Þú getur stjórnað hvaða tungumál birtst í 'Uppgötva'-streyminu með því að sérsníða stillingar streymisins.";
 "settings-my-languages" = "Tungumálin mín";
 "settings-notifications" = "Ýti-tilkynningar";
+"settings-notifications-echo-failure-message" = "Upp kom villa þegar verið var að athuga með áskriftir að tilkynningum tengdum notandaaðgangnum þínum.";
 "settings-notifications-echo-failure-try-again" = "Reyndu aftur";
 "settings-notifications-info" = "Fáðu ábendingar um mál sem eru efst á baugi og mest lesnu greinarnar á Wikipedia með aðstoð ýti-tilkynninga. Allt þetta miðast við ítrustu persónuvernd og allra nýjustu gögn.";
 "settings-notifications-learn-more" = "Lesa meira um tilkynningar";
@@ -906,6 +943,8 @@
 "table-of-contents-heading" = "Efni";
 "table-of-contents-hide-button-label" = "Fela efnisyfirlit";
 "table-of-contents-subheading-label" = "Undirfyrirsögn $1";
+"tachelhit-variants-alert-title" = "Uppfærslur á stuðningi við tilbrigði Tachelhit";
+"tajik-variants-alert-title" = "Uppfærslur á stuðningi við tilbrigði tadsikísku";
 "talk-page-add-discussion-accessibility-label" = "Bæta við umræðu";
 "talk-page-discussion-accessibility-hint" = "Tvíbankaðu til að opna umræðuþráð";
 "talk-page-discussion-read-accessibility-label" = "Lesið";
@@ -946,6 +985,7 @@
 "top-read-header-generic" = "Wikipedia";
 "top-read-header-with-language" = "$1 Wikipedia";
 "top-read-see-more" = "Sjá fleiri mikið lesnar";
+"top-read-widget-description" = "Sjáðu hvað heimurinn er að lesa um í dag á Wikipedia.";
 "top-read-widget-readers-count" = "$1 lesendur";
 "top-read-widget-title" = "Mest lesið";
 "two-factor-login-continue" = "Halda innskráningu áfram";
@@ -955,6 +995,7 @@
 "two-factor-login-with-regular-code" = "Nota staðfestingarkóða";
 "unable-to-load-talk-page-title" = "Gat ekki hlaðið inn spjallsíðu";
 "unknown-generic-text" = "Óþekkt";
+"uzbek-variants-alert-title" = "Uppfærslur á stuðningi við tilbrigði úsbekísku";
 "variants-alert-dismiss-button" = "Nei, takk";
 "variants-alert-preferences-button" = "Yfirfarðu kjörstillingarnar þínar";
 "welcome-exploration-explore-feed-description" = "Lesefni sem mælt er með og daglegar greinar frá samfélaginu okkar";
@@ -982,6 +1023,9 @@
 "welcome-send-data-learn-more" = "Vita meira um gagnasöfnunina";
 "welcome-send-data-sub-title" = "Hjálpaðu okkur að bæta forritið með því að leyfa okkur að sjá hvernig þú notar það. Gögnum er safnað án persónuauðkenna.";
 "welcome-volunteer-send-usage-reports" = "Senda notkunarskýrslur";
+"widget-onthisday-description" = "Sjáðu hvað gerðist á þessum degi í sögulegu samhengi.";
+"widget-onthisday-placeholder-article-snippet" = "Frjálst alfræðirit sem allir geta tekið þátt í að bæta";
+"widget-onthisday-placeholder-event-snippet" = "Wikipedia, frjálsa alfræðiritið með wiki-efni, fór á netið.";
 "wikitext-downloading" = "Hleður efni...";
 "wikitext-preview-changes" = "Sækir forskoðun á breytingum þínum...";
 "wikitext-preview-changes-none" = "Engar breytingar voru gerðar sem geta verið forskoðaðar.";

@@ -609,6 +609,7 @@
 "notifications-center-toolbar-mark-accessibility-label" = "ఎంచుకున్న గమనింపులకు గుర్తు పెట్టు";
 "notifications-center-type-item-description-mentions" = "ప్రస్తావనలు";
 "notifications-center-type-item-description-welcome-verbose" = "స్వాగత సందేశం";
+"notifications-center-type-title-other" = "ఇతర";
 "notifications-push-fallback-body-text" = "వికీపీడియాలో కొత్త కార్యకలాపం";
 // Fuzzy
 "notifications-push-talk-body-format" = "$3 లో $1 కొత్త $2";

@@ -1,7 +1,7 @@
 import XCTest
 import WMF
 
-class WMFDatabaseHouseKeeperTests: XCTestCase {
+class WMFDatabaseHousekeeperTests: XCTestCase {
     
     func testDaysBefore() {
         

@@ -7,6 +7,7 @@
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>org.wikimedia.wikipedia.appRefresh</string>
+		<string>org.wikimedia.wikipedia.databaseHousekeeper</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
