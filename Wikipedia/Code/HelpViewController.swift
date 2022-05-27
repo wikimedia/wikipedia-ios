@@ -34,7 +34,7 @@ class HelpViewController: SinglePageWebViewController {
     }()
     
     lazy var exportUserDataToolbarItem: UIBarButtonItem = {
-        return UIBarButtonItem(title: WMFLocalizedString("export-user-data", value: "Export User Data", comment: "Button for exporting user data"), style: .plain, target: self, action: #selector(exportUserData))
+        return UIBarButtonItem(title: WMFLocalizedString("export-user-data-title", value: "Export User Data", comment: "Button title for exporting user data"), style: .plain, target: self, action: #selector(exportUserData))
     }()
     
     lazy var activityIndicator: UIActivityIndicatorView = {
@@ -83,6 +83,48 @@ class HelpViewController: SinglePageWebViewController {
         case unableToDetectLogSize
     }
     
+    @objc func exportUserData() {
+        
+        let confirmationTitle = WMFLocalizedString("export-user-data-confirmation-title", value: "Share app library?", comment: "Title of confirmation modal after user taps \"Export User Data\" button.")
+        let confirmationMessage = WMFLocalizedString("export-user-data-confirmation-message", value: "Sharing your app library includes data on your Reading lists and history, preferences and Explore feed content. This data file should only be shared with a trusted recipient to use for technical diagnostic purposes.", comment: "Message of confirmation modal after user taps \"Export User Data\" button.")
+        let shareAction = UIAlertAction(title: CommonStrings.shareActionTitle, style: .default) { _ in
+            self.kickoffExportUserDataProcess()
+        }
+        let cancelAction = UIAlertAction(title: CommonStrings.cancelActionTitle, style: .cancel)
+        wmf_showAlert(title: confirmationTitle, message: confirmationMessage, actions: [shareAction, cancelAction])
+    }
+    
+    @objc func sendEmail() {
+        let address = HelpViewController.emailAddress
+        let subject = HelpViewController.emailSubject
+        let body = "\n\n\n\nVersion: \(WikipediaAppUtils.versionedUserAgent())"
+        let mailto = "mailto:\(address)?subject=\(subject)&body=\(body)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+
+        guard let encodedMailto = mailto, let mailtoURL = URL(string: encodedMailto), UIApplication.shared.canOpenURL(mailtoURL) else {
+            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(WMFLocalizedString("no-email-account-alert", value: "Please setup an email account on your device and try again.", comment: "Displayed to the user when they try to send a feedback email, but they have never set up an account on their device"), sticky: false, dismissPreviousAlerts: false)
+            return
+        }
+
+        UIApplication.shared.open(mailtoURL)
+    }
+
+}
+
+extension HelpViewController: FileManagerDelegate {
+    func fileManager(_ fileManager: FileManager, shouldProceedAfterError error: Error, copyingItemAt srcURL: URL, to dstURL: URL) -> Bool {
+        print(error)
+        return true
+    }
+    
+    func fileManager(_ fileManager: FileManager, shouldProceedAfterError error: Error, copyingItemAtPath srcPath: String, toPath dstPath: String) -> Bool {
+        print(error)
+        return true
+    }
+}
+
+// MARK: Exporting User Data Helpers
+
+private extension HelpViewController {
     func userHasEnoughSpace(containerURL: URL, logFilePath: String?) throws -> Bool {
         
         let systemAttributes = try FileManager.default.attributesOfFileSystem(forPath: NSHomeDirectory() as String)
@@ -106,7 +148,7 @@ class HelpViewController: SinglePageWebViewController {
         return systemFreeSpace > containerSize + logSize
     }
     
-    private func saveSyncedReadingListResultsToAppContainer(completion: @escaping () -> Void) {
+    func saveSyncedReadingListResultsToAppContainer(completion: @escaping () -> Void) {
         guard dataStore.authenticationManager.isLoggedIn else {
             completion()
             return
@@ -148,14 +190,106 @@ class HelpViewController: SinglePageWebViewController {
         }
     }
     
-    @objc func exportUserData() {
+    func copyLogFile(temporaryAppContainerURL: URL, fileManager: FileManager) {
+        let newLogURL = temporaryAppContainerURL.appendingPathComponent("console.log")
         
+        if let logFilePath = DDLog.wmf_currentLogFilePath() {
+            do {
+                let logFileURL = URL(fileURLWithPath: logFilePath)
+                try fileManager.copyItem(at: logFileURL, to: newLogURL)
+            } catch (let error) {
+                DDLogError("Error moving log file to app container: \(error)")
+            }
+        }
+    }
+    
+    func removeUnnecessaryFilesAndSubdirectories(temporaryAppContainerURL: URL, fileManager: FileManager) {
+        var urlsToRemove: [URL] = []
+        urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("Event Logging"))
+        urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("Event Platform"))
+        urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("Library"))
+        urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("Push Notifications Cache").appendingPathExtension("json"))
+        urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("RemoteNotifications").appendingPathExtension("sqlite"))
+        urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("RemoteNotifications").appendingPathExtension("sqlite-shm"))
+        urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("RemoteNotifications").appendingPathExtension("sqlite-wal"))
+        urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("Widget Cache").appendingPathExtension("json"))
+        for url in urlsToRemove {
+            do {
+                try fileManager.removeItem(at: url)
+            } catch (let error) {
+                DDLogError("Error deleting unnecessary files from app container: \(error)")
+            }
+        }
+    }
+    
+    func zipUpAndShare(temporaryAppContainerURL: URL, fileManager: FileManager) {
+
+        // Inspired by https://recoursive.com/2021/02/25/create_zip_archive_using_only_foundation/
+        var zipURL: URL?
+        var error: NSError?
+        
+        let coordinator = NSFileCoordinator()
+
+        coordinator.coordinate(readingItemAt: temporaryAppContainerURL, options: [.forUploading], error: &error) { (url) in
+            
+            do {
+                zipURL = try fileManager.url(
+                    for: .itemReplacementDirectory,
+                    in: .userDomainMask,
+                    appropriateFor: url,
+                    create: true
+                ).appendingPathComponent("app-container.zip")
+                
+                if let zipURL = zipURL {
+                    try fileManager.moveItem(at: url, to: zipURL)
+                }
+                
+               
+            } catch (let error) {
+                DDLogError("Error moving zip file to temporary directory: \(error)")
+            }
+            
+        }
+
+        if let zipURL = zipURL,
+           error == nil {
+            DispatchQueue.main.async {
+                let avc = UIActivityViewController(activityItems: [zipURL], applicationActivities: nil)
+                self.present(avc, animated: true)
+                self.setupToolbarItems(isExportingUserData: false)
+            }
+        } else {
+            if let error = error {
+                DDLogError("Error zipping up app container: \(error)")
+            } else {
+                DDLogError("Error zipping up app container.")
+            }
+            
+            DispatchQueue.main.async {
+                self.setupToolbarItems(isExportingUserData: false)
+            }
+        }
+        
+        do {
+            try fileManager.removeItem(at: temporaryAppContainerURL)
+        } catch (let error) {
+            DDLogError("Error deleting temp app container: \(error).")
+        }
+        
+        fileManager.delegate = nil
+    }
+    
+    func kickoffExportUserDataProcess() {
         // Set export button to spinner
         setupToolbarItems(isExportingUserData: true)
 
         saveSyncedReadingListResultsToAppContainer {
             
             DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+                
+                guard let self = self else {
+                    return
+                }
          
                 FileManager.default.delegate = self
                 
@@ -166,22 +300,20 @@ class HelpViewController: SinglePageWebViewController {
                 // Because we'll be copying the app container over to something that can be zipped up, we must check that we have at least enough free space for another container + log file
                 var enoughSpace: Bool = true
                 do {
-                    if let self = self {
-                        enoughSpace = try self.userHasEnoughSpace(containerURL: containerURL, logFilePath: logFilePath)
-                    }
+                    enoughSpace = try self.userHasEnoughSpace(containerURL: containerURL, logFilePath: logFilePath)
                 } catch (let error) {
                     DDLogError("Error determining if there's enough free space: \(error)")
                 }
                 
                 guard enoughSpace else {
                     DispatchQueue.main.async {
-                        self?.wmf_showAlertWithMessage(WMFLocalizedString("export-user-data-space-error", value: "You do not have enough device space to export your user data. Please try again later.", comment: "Error message displayed after user has tried exporting their data and the system determines it doesn't have space to do so."))
-                        self?.setupToolbarItems(isExportingUserData: false)
+                        self.wmf_showAlertWithMessage(WMFLocalizedString("export-user-data-space-error", value: "You do not have enough device space to export your user data. Please try again later.", comment: "Error message displayed after user has tried exporting their data and the system determines it doesn't have space to do so."))
+                        self.setupToolbarItems(isExportingUserData: false)
                     }
                     return
                 }
                 
-                // First copy container URL into temporary temporary directory
+                // First copy container into temporary directory
                 let temporaryAppContainerURL = fileManager.temporaryDirectory.appendingPathComponent(WMFApplicationGroupIdentifier)
                 
                 do {
@@ -190,121 +322,11 @@ class HelpViewController: SinglePageWebViewController {
                     print(error)
                 }
                 
-                // Then copy log file into temporary container directory.
-                let newLogURL = temporaryAppContainerURL.appendingPathComponent("console.log")
-                
-                if let logFilePath = DDLog.wmf_currentLogFilePath() {
-                    do {
-                        let logFileURL = URL(fileURLWithPath: logFilePath)
-                        try fileManager.copyItem(at: logFileURL, to: newLogURL)
-                    } catch (let error) {
-                        DDLogError("Error moving log file to app container: \(error)")
-                    }
-                }
-                
-                // Delete files and subdirectories unrelated to reading lists
-                var urlsToRemove: [URL] = []
-                urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("Event Logging"))
-                urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("Event Platform"))
-                urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("Library"))
-                urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("Push Notifications Cache").appendingPathExtension("json"))
-                urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("RemoteNotifications").appendingPathExtension("sqlite"))
-                urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("RemoteNotifications").appendingPathExtension("sqlite-shm"))
-                urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("RemoteNotifications").appendingPathExtension("sqlite-wal"))
-                urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("Widget Cache").appendingPathExtension("json"))
-                for url in urlsToRemove {
-                    do {
-                        try fileManager.removeItem(at: url)
-                    } catch (let error) {
-                        DDLogError("Error deleting unnecessary files from app container: \(error)")
-                    }
-                }
-                
-                // Then zip up app container
-                
-                // Inspired by https://recoursive.com/2021/02/25/create_zip_archive_using_only_foundation/
-                // Thanks!
-                
-                var zipURL: URL?
-                var error: NSError?
-                
-                let coordinator = NSFileCoordinator()
-
-                coordinator.coordinate(readingItemAt: temporaryAppContainerURL, options: [.forUploading], error: &error) { (url) in
-                    
-                    do {
-                        zipURL = try fileManager.url(
-                            for: .itemReplacementDirectory,
-                            in: .userDomainMask,
-                            appropriateFor: url,
-                            create: true
-                        ).appendingPathComponent("app-container.zip")
-                        
-                        if let zipURL = zipURL {
-                            try fileManager.moveItem(at: url, to: zipURL)
-                        }
-                        
-                       
-                    } catch (let error) {
-                        DDLogError("Error moving zip file to temporary directory: \(error)")
-                    }
-                    
-                }
-
-                if let zipURL = zipURL,
-                   error == nil {
-                    DispatchQueue.main.async {
-                        let avc = UIActivityViewController(activityItems: [zipURL], applicationActivities: nil)
-                        self?.present(avc, animated: true)
-                        self?.setupToolbarItems(isExportingUserData: false)
-                    }
-                } else {
-                    if let error = error {
-                        DDLogError("Error zipping up app container: \(error)")
-                    } else {
-                        DDLogError("Error zipping up app container.")
-                    }
-                    
-                    DispatchQueue.main.async {
-                        self?.setupToolbarItems(isExportingUserData: false)
-                    }
-                }
-                
-                do {
-                    try fileManager.removeItem(at: temporaryAppContainerURL)
-                } catch (let error) {
-                    DDLogError("Error deleting temp app container: \(error).")
-                }
-                
-                fileManager.delegate = nil
+                //Add log file, prune, zip and export temporary app container directory
+                self.copyLogFile(temporaryAppContainerURL: temporaryAppContainerURL, fileManager: fileManager)
+                self.removeUnnecessaryFilesAndSubdirectories(temporaryAppContainerURL: temporaryAppContainerURL, fileManager: fileManager)
+                self.zipUpAndShare(temporaryAppContainerURL: temporaryAppContainerURL, fileManager: fileManager)
             }
         }
-    }
-    
-    @objc func sendEmail() {
-        let address = HelpViewController.emailAddress
-        let subject = HelpViewController.emailSubject
-        let body = "\n\n\n\nVersion: \(WikipediaAppUtils.versionedUserAgent())"
-        let mailto = "mailto:\(address)?subject=\(subject)&body=\(body)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-
-        guard let encodedMailto = mailto, let mailtoURL = URL(string: encodedMailto), UIApplication.shared.canOpenURL(mailtoURL) else {
-            WMFAlertManager.sharedInstance.showErrorAlertWithMessage(WMFLocalizedString("no-email-account-alert", value: "Please setup an email account on your device and try again.", comment: "Displayed to the user when they try to send a feedback email, but they have never set up an account on their device"), sticky: false, dismissPreviousAlerts: false)
-            return
-        }
-
-        UIApplication.shared.open(mailtoURL)
-    }
-
-}
-
-extension HelpViewController: FileManagerDelegate {
-    func fileManager(_ fileManager: FileManager, shouldProceedAfterError error: Error, copyingItemAt srcURL: URL, to dstURL: URL) -> Bool {
-        print(error)
-        return true
-    }
-    
-    func fileManager(_ fileManager: FileManager, shouldProceedAfterError error: Error, copyingItemAtPath srcPath: String, toPath dstPath: String) -> Bool {
-        print(error)
-        return true
     }
 }
