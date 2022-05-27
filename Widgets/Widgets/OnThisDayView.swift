@@ -83,7 +83,6 @@ struct OnThisDayView: View {
 }
 
 struct LargeYValuePreferenceKey: PreferenceKey {
-    typealias value = CGFloat
     static var defaultValue: CGFloat = 20
     static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
         value = nextValue()
@@ -91,7 +90,6 @@ struct LargeYValuePreferenceKey: PreferenceKey {
 }
 
 struct SmallYValuePreferenceKey: PreferenceKey {
-    typealias value = CGFloat
     static var defaultValue: CGFloat = 20
     static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
         value = nextValue()
