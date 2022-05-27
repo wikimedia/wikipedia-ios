@@ -5,9 +5,7 @@ import XCTest
 class NotificationsCenterDetailViewModelMentionTests: NotificationsCenterViewModelTests {
 
     override var dataFileName: String {
-        get {
-            return "notifications-mentions"
-        }
+        return "notifications-mentions"
     }
     
     func testMentionInUserTalk() throws {

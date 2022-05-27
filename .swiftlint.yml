@@ -17,7 +17,6 @@ disabled_rules:
     - function_body_length
     - function_parameter_count
     - identifier_name
-    - implicit_getter
     - is_disjoint
     - large_tuple
     - leading_whitespace

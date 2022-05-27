@@ -21,9 +21,7 @@ let threeSignificantDigitWholeNumberFormatterGlobal = { () -> NumberFormatter in
 extension NumberFormatter {
     
     public class var threeSignificantDigitWholeNumberFormatter: NumberFormatter {
-        get {
-            return threeSignificantDigitWholeNumberFormatterGlobal
-        }
+        return threeSignificantDigitWholeNumberFormatterGlobal
     }
     
     public class func localizedThousandsStringFromNumber(_ number: NSNumber) -> String {

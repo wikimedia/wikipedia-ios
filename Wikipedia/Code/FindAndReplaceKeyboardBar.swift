@@ -100,9 +100,7 @@ final class FindAndReplaceKeyboardBar: UIInputView {
     }
     
     @objc var isVisible: Bool {
-        get {
-            return findTextField.isFirstResponder || replaceTextField.isFirstResponder
-        }
+        return findTextField.isFirstResponder || replaceTextField.isFirstResponder
     }
     
     override func awakeFromNib() {

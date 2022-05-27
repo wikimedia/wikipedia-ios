@@ -76,13 +76,11 @@ public class Session: NSObject {
     
     // event logging uuid, set if enabled, nil if disabled
     private var xWMFUUID: String? {
-        get {
-            let userDefaults = UserDefaults.standard
-            if userDefaults.wmf_sendUsageReports {
-                return userDefaults.wmf_appInstallId
-            }
-            return nil
+        let userDefaults = UserDefaults.standard
+        if userDefaults.wmf_sendUsageReports {
+            return userDefaults.wmf_appInstallId
         }
+        return nil
     }
     
     private static let defaultCookieStorage: HTTPCookieStorage = {

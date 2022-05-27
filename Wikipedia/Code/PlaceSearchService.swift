@@ -34,19 +34,15 @@ class PlaceSearchService
     }
     
     var fetchRequestForSavedArticlesWithLocation: NSFetchRequest<WMFArticle> {
-        get {
-            let savedRequest = WMFArticle.fetchRequest()
-            savedRequest.predicate = NSPredicate(format: "savedDate != NULL && signedQuadKey != NULL")
-            return savedRequest
-        }
+        let savedRequest = WMFArticle.fetchRequest()
+        savedRequest.predicate = NSPredicate(format: "savedDate != NULL && signedQuadKey != NULL")
+        return savedRequest
     }
     
     var fetchRequestForSavedArticles: NSFetchRequest<WMFArticle> {
-        get {
-            let savedRequest = WMFArticle.fetchRequest()
-            savedRequest.predicate = NSPredicate(format: "savedDate != NULL")
-            return savedRequest
-        }
+        let savedRequest = WMFArticle.fetchRequest()
+        savedRequest.predicate = NSPredicate(format: "savedDate != NULL")
+        return savedRequest
     }
 
     public func performSearch(_ search: PlaceSearch, defaultSiteURL: URL, region: MKCoordinateRegion, completion: @escaping (PlaceSearchResult) -> Void) {

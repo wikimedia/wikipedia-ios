@@ -4,9 +4,7 @@ import XCTest
 class NotificationsCenterCellViewModelUserGroupRightsChangeTests: NotificationsCenterViewModelTests {
 
     override var dataFileName: String {
-        get {
-            return "notifications-userRights"
-        }
+        return "notifications-userRights"
     }
     
     func testUserRightsChange() throws {

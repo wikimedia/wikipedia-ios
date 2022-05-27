@@ -63,15 +63,13 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
     }
     
     @objc var solution:String? {
-        get{
-            guard
-                let captchaSolution = captchaTextField.text,
-                !captchaSolution.isEmpty
-                else {
-                    return nil
-            }
-            return captchaTextField.text
+        guard
+            let captchaSolution = captchaTextField.text,
+            !captchaSolution.isEmpty
+            else {
+                return nil
         }
+        return captchaTextField.text
     }
 
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
