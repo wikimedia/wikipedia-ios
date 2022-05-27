@@ -109,7 +109,7 @@ public typealias ReadingListsController = WMFReadingListsController
     @objc public static let userDidSaveOrUnsaveArticleNotification = NSNotification.Name(rawValue: "WMFUserDidSaveOrUnsaveArticleNotification")
 
     internal weak var dataStore: MWKDataStore!
-    internal let apiController: ReadingListsAPIController
+    public let apiController: ReadingListsAPIController
         
     private let operationQueue = OperationQueue()
     

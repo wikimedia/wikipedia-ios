@@ -1,16 +1,19 @@
 import MessageUI
 import CocoaLumberjackSwift
+import WMF
 
 @objc(WMFHelpViewController)
 class HelpViewController: SinglePageWebViewController {
     static let faqURLString = "https://m.mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ"
     static let emailAddress = "mobile-ios-wikipedia@wikimedia.org"
     static let emailSubject = "Bug:"
+    let dataStore: MWKDataStore
     
     @objc init?(dataStore: MWKDataStore, theme: Theme) {
         guard let faqURL = URL(string: HelpViewController.faqURLString) else {
             return nil
         }
+        self.dataStore = dataStore
         super.init(url: faqURL, theme: theme)
     }
     
@@ -103,117 +106,160 @@ class HelpViewController: SinglePageWebViewController {
         return systemFreeSpace > containerSize + logSize
     }
     
+    private func saveSyncedReadingListResultsToAppContainer(completion: @escaping () -> Void) {
+        guard dataStore.authenticationManager.isLoggedIn else {
+            completion()
+            return
+        }
+        
+        let readingListsController = self.dataStore.readingListsController
+        let apiController = readingListsController.apiController
+        let appSettingsShowSavedReadingList = readingListsController.isDefaultListEnabled
+        let appSettingsSyncSavedArticlesAndLists = readingListsController.isSyncEnabled
+        
+        let dispatchQueue = DispatchQueue.global(qos: .userInitiated)
+        dispatchQueue.async {
+
+            let sharedCache = SharedContainerCache<UserDataExportSyncInfo>.init(pathComponent: .userDataExportSyncInfo, defaultCache: { UserDataExportSyncInfo(serverReadingLists: [], serverReadingListEntries: [], appSettingsSyncSavedArticlesAndLists: false, appSettingsShowSavedReadingList: false) })
+            
+            apiController.getAllReadingLists { (serverReadingLists, since, error) in
+                dispatchQueue.async {
+                    let group = DispatchGroup()
+                    
+                    var serverReadingListEntries: [APIReadingListEntry] = []
+                    
+                    for remoteReadingList in serverReadingLists {
+                        group.enter()
+                        apiController.getAllEntriesForReadingListWithID(readingListID: remoteReadingList.id, completion: { (entries, error) in
+                            dispatchQueue.async {
+                                serverReadingListEntries.append(contentsOf: entries)
+                                group.leave()
+                            }
+                        })
+                    }
+                    
+                    group.notify(queue: dispatchQueue) {
+                        let userDataExportSyncInfo = UserDataExportSyncInfo(serverReadingLists: serverReadingLists, serverReadingListEntries: serverReadingListEntries, appSettingsSyncSavedArticlesAndLists: appSettingsSyncSavedArticlesAndLists, appSettingsShowSavedReadingList: appSettingsShowSavedReadingList)
+                        sharedCache.saveCache(userDataExportSyncInfo)
+                        completion()
+                    }
+                }
+            }
+        }
+    }
+    
     @objc func exportUserData() {
         
         //set export button to spinner
         setupToolbarItems(isExportingUserData: true)
-        
-        //Moving everything to a background queue so the UI doesn't freeze
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            
-            FileManager.default.delegate = self
-            
-            let fileManager = FileManager.default
-            let containerURL = fileManager.wmf_containerURL()
-            let logFilePath = DDLog.wmf_currentLogFilePath()
-            
-            //Because we'll be copying the app container over to something that can be zipped up, we must check that we have at least enough free space for another container + log file
-            var enoughSpace: Bool = true
-            do {
-                if let self = self {
-                    enoughSpace = try self.userHasEnoughSpace(containerURL: containerURL, logFilePath: logFilePath)
-                }
-            } catch (let error) {
-                DDLogError("Error determining if there's enough free space: \(error)")
-            }
-            
-            guard enoughSpace else {
-                DispatchQueue.main.async {
-                    self?.wmf_showAlertWithMessage(WMFLocalizedString("export-user-data-space-error", value: "You do not have enough device space to export your user data. Please try again later.", comment: "Error message displayed after user has tried exporting their data and the system determines it doesn't have space to do so."))
-                    self?.setupToolbarItems(isExportingUserData: false)
-                }
-                return
-            }
-            
-            //first copy container URL into temporary temporary directory
-            
-            let temporaryAppContainerURL = fileManager.temporaryDirectory.appendingPathComponent(WMFApplicationGroupIdentifier)
-            
-            do {
-                try fileManager.copyItem(at: containerURL, to: temporaryAppContainerURL)
-            } catch (let error) {
-                print(error)
-            }
-            
-            let newLogURL = temporaryAppContainerURL.appendingPathComponent("console.log")
-            
-            //then copy log file into temporary container directory.
-            if let logFilePath = DDLog.wmf_currentLogFilePath() {
-                do {
-                    let logFileURL = URL(fileURLWithPath: logFilePath)
-                    try fileManager.copyItem(at: logFileURL, to: newLogURL)
-                } catch (let error) {
-                    DDLogError("Error moving log file to app container: \(error)")
-                }
-            }
-            
-            //Then zip up app container
-            
-            //Inspired by https://recoursive.com/2021/02/25/create_zip_archive_using_only_foundation/
-            //Thanks!
-            
-            var zipURL: URL?
-            var error: NSError?
-            
-            let coordinator = NSFileCoordinator()
 
-            coordinator.coordinate(readingItemAt: temporaryAppContainerURL, options: [.forUploading], error: &error) { (url) in
+        saveSyncedReadingListResultsToAppContainer {
+            
+            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+         
+                FileManager.default.delegate = self
+                
+                let fileManager = FileManager.default
+                let containerURL = fileManager.wmf_containerURL()
+                let logFilePath = DDLog.wmf_currentLogFilePath()
+                
+                //Because we'll be copying the app container over to something that can be zipped up, we must check that we have at least enough free space for another container + log file
+                var enoughSpace: Bool = true
+                do {
+                    if let self = self {
+                        enoughSpace = try self.userHasEnoughSpace(containerURL: containerURL, logFilePath: logFilePath)
+                    }
+                } catch (let error) {
+                    DDLogError("Error determining if there's enough free space: \(error)")
+                }
+                
+                guard enoughSpace else {
+                    DispatchQueue.main.async {
+                        self?.wmf_showAlertWithMessage(WMFLocalizedString("export-user-data-space-error", value: "You do not have enough device space to export your user data. Please try again later.", comment: "Error message displayed after user has tried exporting their data and the system determines it doesn't have space to do so."))
+                        self?.setupToolbarItems(isExportingUserData: false)
+                    }
+                    return
+                }
+                
+                //First copy container URL into temporary temporary directory
+                let temporaryAppContainerURL = fileManager.temporaryDirectory.appendingPathComponent(WMFApplicationGroupIdentifier)
                 
                 do {
-                    zipURL = try fileManager.url(
-                        for: .itemReplacementDirectory,
-                        in: .userDomainMask,
-                        appropriateFor: url,
-                        create: true
-                    ).appendingPathComponent("app-container.zip")
+                    try fileManager.copyItem(at: containerURL, to: temporaryAppContainerURL)
+                } catch (let error) {
+                    print(error)
+                }
+                
+                let newLogURL = temporaryAppContainerURL.appendingPathComponent("console.log")
+                
+                //then copy log file into temporary container directory.
+                if let logFilePath = DDLog.wmf_currentLogFilePath() {
+                    do {
+                        let logFileURL = URL(fileURLWithPath: logFilePath)
+                        try fileManager.copyItem(at: logFileURL, to: newLogURL)
+                    } catch (let error) {
+                        DDLogError("Error moving log file to app container: \(error)")
+                    }
+                }
+                
+                //Then zip up app container
+                
+                //Inspired by https://recoursive.com/2021/02/25/create_zip_archive_using_only_foundation/
+                //Thanks!
+                
+                var zipURL: URL?
+                var error: NSError?
+                
+                let coordinator = NSFileCoordinator()
+
+                coordinator.coordinate(readingItemAt: temporaryAppContainerURL, options: [.forUploading], error: &error) { (url) in
                     
-                    if let zipURL = zipURL {
-                        try fileManager.moveItem(at: url, to: zipURL)
+                    do {
+                        zipURL = try fileManager.url(
+                            for: .itemReplacementDirectory,
+                            in: .userDomainMask,
+                            appropriateFor: url,
+                            create: true
+                        ).appendingPathComponent("app-container.zip")
+                        
+                        if let zipURL = zipURL {
+                            try fileManager.moveItem(at: url, to: zipURL)
+                        }
+                        
+                       
+                    } catch (let error) {
+                        DDLogError("Error moving zip file to temporary directory: \(error)")
                     }
                     
-                   
-                } catch (let error) {
-                    DDLogError("Error moving zip file to temporary directory: \(error)")
                 }
-                
-            }
 
-            if let zipURL = zipURL,
-               error == nil {
-                DispatchQueue.main.async {
-                    let avc = UIActivityViewController(activityItems: [zipURL], applicationActivities: nil)
-                    self?.present(avc, animated: true)
-                    self?.setupToolbarItems(isExportingUserData: false)
-                }
-            } else {
-                if let error = error {
-                    DDLogError("Error zipping up app container: \(error)")
+                if let zipURL = zipURL,
+                   error == nil {
+                    DispatchQueue.main.async {
+                        let avc = UIActivityViewController(activityItems: [zipURL], applicationActivities: nil)
+                        self?.present(avc, animated: true)
+                        self?.setupToolbarItems(isExportingUserData: false)
+                    }
                 } else {
-                    DDLogError("Error zipping up app container.")
+                    if let error = error {
+                        DDLogError("Error zipping up app container: \(error)")
+                    } else {
+                        DDLogError("Error zipping up app container.")
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self?.setupToolbarItems(isExportingUserData: false)
+                    }
                 }
                 
-                DispatchQueue.main.async {
-                    self?.setupToolbarItems(isExportingUserData: false)
+                do {
+                    try fileManager.removeItem(at: temporaryAppContainerURL)
+                } catch (let error) {
+                    DDLogError("Error deleting temp app container: \(error).")
                 }
+                
+                fileManager.delegate = nil
             }
-            
-            do {
-                try fileManager.removeItem(at: temporaryAppContainerURL)
-            } catch (let error) {
-                DDLogError("Error deleting temp app container: \(error).")
-            }
-            
-            fileManager.delegate = nil
         }
     }
     

@@ -745,6 +745,10 @@
 		67ADEE9723A2CFFB0000CAF7 /* ArticleWebMessagingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67ADEE9523A2CFFB0000CAF7 /* ArticleWebMessagingController.swift */; };
 		67ADEE9823A2CFFB0000CAF7 /* ArticleWebMessagingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67ADEE9523A2CFFB0000CAF7 /* ArticleWebMessagingController.swift */; };
 		67ADEE9923A2CFFB0000CAF7 /* ArticleWebMessagingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67ADEE9523A2CFFB0000CAF7 /* ArticleWebMessagingController.swift */; };
+		67B5334128416C0D00C33E13 /* UserDataExportCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B5333B28416A3B00C33E13 /* UserDataExportCache.swift */; };
+		67B5334228416C0E00C33E13 /* UserDataExportCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B5333B28416A3B00C33E13 /* UserDataExportCache.swift */; };
+		67B5334328416C0E00C33E13 /* UserDataExportCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B5333B28416A3B00C33E13 /* UserDataExportCache.swift */; };
+		67B5334428416C0F00C33E13 /* UserDataExportCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B5333B28416A3B00C33E13 /* UserDataExportCache.swift */; };
 		67B64D572507DE3E00FA27F3 /* ArticleAsLivingDocSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B64D562507DE3E00FA27F3 /* ArticleAsLivingDocSectionHeaderView.swift */; };
 		67B64D582507DE3E00FA27F3 /* ArticleAsLivingDocSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B64D562507DE3E00FA27F3 /* ArticleAsLivingDocSectionHeaderView.swift */; };
 		67B64D592507DE3E00FA27F3 /* ArticleAsLivingDocSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B64D562507DE3E00FA27F3 /* ArticleAsLivingDocSectionHeaderView.swift */; };
@@ -4058,6 +4062,7 @@
 		67A6F13D23BFEF4200736539 /* ArticleCacheController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCacheController.swift; sourceTree = "<group>"; };
 		67A6F13F23BFF62200736539 /* ImageCacheController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheController.swift; sourceTree = "<group>"; };
 		67ADEE9523A2CFFB0000CAF7 /* ArticleWebMessagingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleWebMessagingController.swift; sourceTree = "<group>"; };
+		67B5333B28416A3B00C33E13 /* UserDataExportCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataExportCache.swift; sourceTree = "<group>"; };
 		67B64D562507DE3E00FA27F3 /* ArticleAsLivingDocSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocSectionHeaderView.swift; sourceTree = "<group>"; };
 		67B64D5B2507E9FD00FA27F3 /* ArticleAsLivingDocSmallEventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAsLivingDocSmallEventCollectionViewCell.swift; sourceTree = "<group>"; };
 		67C6F74D27E2919A00B9C864 /* RemoteNotificationsModelController+TestExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteNotificationsModelController+TestExtensions.swift"; sourceTree = "<group>"; };
@@ -8199,6 +8204,7 @@
 				7A16C4E4212D941C00F0D5EC /* SubSettingsViewController.swift */,
 				7A16C4E5212D941C00F0D5EC /* SubSettingsViewController.xib */,
 				00EBB7CB27D6A86A002025AC /* SettingsPresentationDelegate.swift */,
+				67B5333B28416A3B00C33E13 /* UserDataExportCache.swift */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -11145,6 +11151,7 @@
 				B0E803441C0CD7980065EBC0 /* WMFSearchFetcher.m in Sources */,
 				83B01F7C23DB0BA2001185F4 /* ArticleViewController+Editing.swift in Sources */,
 				BCA15AE51C0E213300D0A3EA /* LoggingDefaults.swift in Sources */,
+				67B5334128416C0D00C33E13 /* UserDataExportCache.swift in Sources */,
 				7A741DCA207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */,
 				7A0CD24021DFA34100066F68 /* TextFormattingToolbarView.swift in Sources */,
 				6782DBF6234537CF003FA21B /* DiffHeaderExtendedView.swift in Sources */,
@@ -12068,6 +12075,7 @@
 				8351CE7B20D4424100E32FC1 /* CollectionViewHeader.swift in Sources */,
 				6734EE7922976AED00F00B05 /* ActionButton.swift in Sources */,
 				7A0CD24321DFA34100066F68 /* TextFormattingToolbarView.swift in Sources */,
+				67B5334428416C0F00C33E13 /* UserDataExportCache.swift in Sources */,
 				83B01F7F23DB0BA2001185F4 /* ArticleViewController+Editing.swift in Sources */,
 				D8A42A901E815A9C00D8E281 /* WMFSearchFetcher.m in Sources */,
 				7A741DCD207FB9CC00CBAAE2 /* SearchBarExtendedViewController.swift in Sources */,
@@ -12729,6 +12737,7 @@
 				7AC19E462301F79700E25B83 /* PageHistoryFilterCountCollectionViewCell.swift in Sources */,
 				B0C7A0831F710E94008415E7 /* WMFWelcomeLanguagesAnimationBackgroundView.swift in Sources */,
 				7AFC79F921B0367700BB0C50 /* TextFormattingTableViewController.swift in Sources */,
+				67B5334328416C0E00C33E13 /* UserDataExportCache.swift in Sources */,
 				8361474C24223689003E49D3 /* ArticleViewController+Announcements.swift in Sources */,
 				83023C2020E6584F00EC7592 /* SearchTransition.swift in Sources */,
 				677129A224FFF43000E89CA5 /* ArticleAsLivingDocHorizontallyScrollingCell.swift in Sources */,
@@ -13269,6 +13278,7 @@
 				7AC19E472301F79700E25B83 /* PageHistoryFilterCountCollectionViewCell.swift in Sources */,
 				B0C7A07F1F710E94008415E7 /* WMFWelcomeLanguagesAnimationBackgroundView.swift in Sources */,
 				8361474D24223689003E49D3 /* ArticleViewController+Announcements.swift in Sources */,
+				67B5334228416C0E00C33E13 /* UserDataExportCache.swift in Sources */,
 				7AFC79FA21B0367700BB0C50 /* TextFormattingTableViewController.swift in Sources */,
 				6782DBC32343FDCA003FA21B /* DiffListChangeCell.swift in Sources */,
 				D8EC3E631E9BDA35006712EB /* WMFWelcomeContainerViewController.swift in Sources */,

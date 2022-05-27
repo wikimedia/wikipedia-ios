@@ -45,7 +45,7 @@ struct APIReadingLists: Codable {
     }
 }
 
-struct APIReadingList: Codable {
+public struct APIReadingList: Codable {
     enum CodingKeys: String, CodingKey {
         case id
         case name
@@ -56,7 +56,7 @@ struct APIReadingList: Codable {
         case isDefault = "default"
     }
     
-    let id: Int64
+    public let id: Int64
     let name: String
     let description: String
     let created: String
@@ -70,7 +70,7 @@ struct APIReadingListEntries: Codable {
     let next: String?
 }
 
-struct APIReadingListEntry: Codable {
+public struct APIReadingListEntry: Codable {
     let id: Int64
     let project: String
     let title: String
@@ -129,10 +129,10 @@ extension APIReadingListEntry {
     }
 }
 
-class ReadingListsAPIController: Fetcher {
+public class ReadingListsAPIController: Fetcher {
     private let builder = Configuration.current.pageContentServiceBuilder(withWikiHost: "en.wikipedia.org")
     private let basePathComponents = ["data", "lists"]
-    public var lastRequestType: APIReadingListRequestType?
+    var lastRequestType: APIReadingListRequestType?
 
     fileprivate func get<T: Codable>(path: [String], queryParameters: [String: Any]? = nil, completionHandler: @escaping (T?, URLResponse?, Error?) -> Swift.Void) {
         let key = UUID().uuidString
@@ -509,7 +509,7 @@ class ReadingListsAPIController: Fetcher {
          - since: The string to use for the next /changes/since call
          - error: Any error
      */
-    func getAllReadingLists(next: String? = nil, nextSince: String? = nil, lists: [APIReadingList] = [], completion: @escaping ([APIReadingList], String?, Error?) -> Swift.Void ) {
+    public func getAllReadingLists(next: String? = nil, nextSince: String? = nil, lists: [APIReadingList] = [], completion: @escaping ([APIReadingList], String?, Error?) -> Swift.Void ) {
         var queryParameters: [String: Any]? = nil
         if let next = next {
             queryParameters = ["next": next]
@@ -531,7 +531,7 @@ class ReadingListsAPIController: Fetcher {
         }
     }
     
-    func getAllEntriesForReadingListWithID(next: String? = nil, entries: [APIReadingListEntry] = [], readingListID: Int64, completion: @escaping ([APIReadingListEntry], Error?) -> Swift.Void ) {
+    public func getAllEntriesForReadingListWithID(next: String? = nil, entries: [APIReadingListEntry] = [], readingListID: Int64, completion: @escaping ([APIReadingListEntry], Error?) -> Swift.Void ) {
         var queryParameters: [String: Any]? = nil
         if let next = next {
             queryParameters = ["next": next]

@@ -7,6 +7,7 @@ public final class SharedContainerCache<T: Codable> {
     public enum PathComponent: String {
         case widgetCache = "Widget Cache"
         case pushNotificationsCache = "Push Notifications Cache"
+        case userDataExportSyncInfo = "User Data Export Sync Info"
     }
     
     private let pathComponent: PathComponent
