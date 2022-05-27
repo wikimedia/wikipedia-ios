@@ -50,4 +50,3 @@ disabled_rules:
     - unused_closure_parameter
     - vertical_whitespace
     - void_return
-    - xctfail_message
