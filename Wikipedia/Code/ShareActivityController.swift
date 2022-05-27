@@ -75,7 +75,6 @@ extension ShareableArticlesProvider where Self: UIViewController & EventLoggingE
             shareActivityController.popoverPresentationController?.sourceView = sourceView ?? view
             shareActivityController.popoverPresentationController?.sourceRect = sourceView?.bounds ?? view.bounds
         }
-        shareActivityController.excludedActivityTypes = [.addToReadingList]
         present(shareActivityController, animated: true, completion: nil)
         return true
     }
@@ -155,6 +154,7 @@ class ShareActivityController: UIActivityViewController {
         
         articleApplicationActivities.append(contentsOf: customActivities)
         super.init(activityItems: items, applicationActivities: articleApplicationActivities)
+        excludedActivityTypes = [.addToReadingList]
     }
 
     @objc init(customActivities: [UIActivity], article: WMFArticle, textActivitySource: WMFArticleTextActivitySource) {
@@ -171,6 +171,7 @@ class ShareActivityController: UIActivityViewController {
 
         articleApplicationActivities.append(contentsOf: customActivities)
         super.init(activityItems: items, applicationActivities: articleApplicationActivities)
+        excludedActivityTypes = [.addToReadingList]
     }
     
     @objc init(article: WMFArticle, textActivitySource: WMFArticleTextActivitySource) {
@@ -186,6 +187,7 @@ class ShareActivityController: UIActivityViewController {
         }
         
         super.init(activityItems: items, applicationActivities: articleApplicationActivities)
+        excludedActivityTypes = [.addToReadingList]
     }
     
     @objc init(article: WMFArticle, image: UIImage?, title: String) {
@@ -206,6 +208,7 @@ class ShareActivityController: UIActivityViewController {
         }
         
         super.init(activityItems: items, applicationActivities: [])
+        excludedActivityTypes = [.addToReadingList]
     }
     
     @objc init(imageInfo: MWKImageInfo, imageDownload: ImageDownload) {
@@ -217,6 +220,7 @@ class ShareActivityController: UIActivityViewController {
         items.append(contentsOf: [WMFImageTextActivitySource(info: imageInfo), WMFImageURLActivitySource(info: imageInfo), imageToShare])
         
         super.init(activityItems: items, applicationActivities: [])
+        excludedActivityTypes = [.addToReadingList]
     }
     
 }

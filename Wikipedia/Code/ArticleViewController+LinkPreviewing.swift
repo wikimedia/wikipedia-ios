@@ -74,8 +74,6 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
             guard let shareActivityViewController = self.sharingActivityViewController(with: nil, button: self.toolbarController.shareButton, shareFunnel: self.shareFunnel, customActivities: [customActivity]) else {
                 return
             }
-            // Exclude the system Safari reading list activity to avoid confusion with our reading lists
-            shareActivityViewController.excludedActivityTypes = [.addToReadingList]
             self.articlePreviewingDelegate?.shareArticlePreviewActionSelected(with: self, shareActivityController: shareActivityViewController)
         })
 

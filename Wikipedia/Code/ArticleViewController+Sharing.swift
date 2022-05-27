@@ -23,11 +23,10 @@ extension ArticleViewController {
             })
             activities.append(shareAFactActivity)
         }
-        
+
         guard let vc = sharingActivityViewController(with: selectedText, button: toolbarController.shareButton, shareFunnel: shareFunnel, customActivities: activities) else {
             return
         }
-        vc.excludedActivityTypes = [.addToReadingList]
         present(vc, animated: true)
     }
     
