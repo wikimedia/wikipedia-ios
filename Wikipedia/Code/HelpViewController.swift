@@ -150,7 +150,7 @@ class HelpViewController: SinglePageWebViewController {
     
     @objc func exportUserData() {
         
-        //set export button to spinner
+        // Set export button to spinner
         setupToolbarItems(isExportingUserData: true)
 
         saveSyncedReadingListResultsToAppContainer {
@@ -163,7 +163,7 @@ class HelpViewController: SinglePageWebViewController {
                 let containerURL = fileManager.wmf_containerURL()
                 let logFilePath = DDLog.wmf_currentLogFilePath()
                 
-                //Because we'll be copying the app container over to something that can be zipped up, we must check that we have at least enough free space for another container + log file
+                // Because we'll be copying the app container over to something that can be zipped up, we must check that we have at least enough free space for another container + log file
                 var enoughSpace: Bool = true
                 do {
                     if let self = self {
@@ -181,7 +181,7 @@ class HelpViewController: SinglePageWebViewController {
                     return
                 }
                 
-                //First copy container URL into temporary temporary directory
+                // First copy container URL into temporary temporary directory
                 let temporaryAppContainerURL = fileManager.temporaryDirectory.appendingPathComponent(WMFApplicationGroupIdentifier)
                 
                 do {
@@ -190,9 +190,9 @@ class HelpViewController: SinglePageWebViewController {
                     print(error)
                 }
                 
+                // Then copy log file into temporary container directory.
                 let newLogURL = temporaryAppContainerURL.appendingPathComponent("console.log")
                 
-                //then copy log file into temporary container directory.
                 if let logFilePath = DDLog.wmf_currentLogFilePath() {
                     do {
                         let logFileURL = URL(fileURLWithPath: logFilePath)
@@ -202,10 +202,28 @@ class HelpViewController: SinglePageWebViewController {
                     }
                 }
                 
-                //Then zip up app container
+                // Delete files and subdirectories unrelated to reading lists
+                var urlsToRemove: [URL] = []
+                urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("Event Logging"))
+                urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("Event Platform"))
+                urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("Library"))
+                urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("Push Notifications Cache").appendingPathExtension("json"))
+                urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("RemoteNotifications").appendingPathExtension("sqlite"))
+                urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("RemoteNotifications").appendingPathExtension("sqlite-shm"))
+                urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("RemoteNotifications").appendingPathExtension("sqlite-wal"))
+                urlsToRemove.append(temporaryAppContainerURL.appendingPathComponent("Widget Cache").appendingPathExtension("json"))
+                for url in urlsToRemove {
+                    do {
+                        try fileManager.removeItem(at: url)
+                    } catch (let error) {
+                        DDLogError("Error deleting unnecessary files from app container: \(error)")
+                    }
+                }
                 
-                //Inspired by https://recoursive.com/2021/02/25/create_zip_archive_using_only_foundation/
-                //Thanks!
+                // Then zip up app container
+                
+                // Inspired by https://recoursive.com/2021/02/25/create_zip_archive_using_only_foundation/
+                // Thanks!
                 
                 var zipURL: URL?
                 var error: NSError?
