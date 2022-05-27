@@ -30,7 +30,6 @@ disabled_rules:
     - no_space_in_method_call
     - opening_brace
     - operator_whitespace
-    - orphaned_doc_comment
     - private_over_fileprivate
     - redundant_discardable_let
     - redundant_objc_attribute
