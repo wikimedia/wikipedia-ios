@@ -6,11 +6,6 @@ import UIKit
 
 extension UIStackView {
     fileprivate var wmf_isCollapsed: Bool {
-        set {
-            for subview in arrangedSubviews {
-                subview.isHidden = newValue
-            }
-        }
         get {
             for subview in arrangedSubviews {
                 if !subview.isHidden {
@@ -18,6 +13,11 @@ extension UIStackView {
                 }
             }
             return true
+        }
+        set {
+            for subview in arrangedSubviews {
+                subview.isHidden = newValue
+            }
         }
     }
 }

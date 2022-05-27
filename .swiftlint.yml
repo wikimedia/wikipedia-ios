@@ -5,7 +5,6 @@ disabled_rules:
     - comma
     - comment_spacing
     - compiler_protocol_init
-    - computed_accessors_order
     - control_statement
     - cyclomatic_complexity
     - empty_enum_arguments

@@ -396,6 +396,9 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     fileprivate var _mapRegion: MKCoordinateRegion?
     
     fileprivate var mapRegion: MKCoordinateRegion? {
+        get {
+            return _mapRegion
+        }
         set {
             guard let value = newValue else {
                 _mapRegion = nil
@@ -423,10 +426,6 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             }
 
             mapView.setRegion(region, animated: true)
-        }
-        
-        get {
-            return _mapRegion
         }
     }
     

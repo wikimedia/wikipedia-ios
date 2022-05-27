@@ -105,11 +105,11 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     var showLanguageBar: Bool?
 
     var searchTerm: String? {
-        set {
-            searchBar.text = newValue
-        }
         get {
             return searchBar.text
+        }
+        set {
+            searchBar.text = newValue
         }
     }
 

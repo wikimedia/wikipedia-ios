@@ -29,12 +29,12 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     }
     
     public var titleHTML: String? {
+        get {
+            return _titleHTML
+        }
         set {
             _titleHTML = newValue
             updateTitleLabel()
-        }
-        get {
-            return _titleHTML
         }
     }
     
@@ -45,12 +45,12 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     }
     
     public var actions: [Action] {
+        get {
+            return actionsView.actions
+        }
         set {
             actionsView.actions = newValue
             updateAccessibilityElements()
-        }
-        get {
-            return actionsView.actions
         }
     }
 
@@ -239,13 +239,13 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     fileprivate var _articleSemanticContentAttribute: UISemanticContentAttribute = .unspecified
     fileprivate var _effectiveArticleSemanticContentAttribute: UISemanticContentAttribute = .unspecified
     open var articleSemanticContentAttribute: UISemanticContentAttribute {
+        get {
+            return _effectiveArticleSemanticContentAttribute
+        }
         set {
             _articleSemanticContentAttribute = newValue
             updateEffectiveArticleSemanticContentAttribute()
             setNeedsLayout()
-        }
-        get {
-            return _effectiveArticleSemanticContentAttribute
         }
     }
 
