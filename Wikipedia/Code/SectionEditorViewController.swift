@@ -294,7 +294,7 @@ class SectionEditorViewController: ViewController {
                     self?.didSetWikitextToWebView = true
                     if let selectedTextEditInfo = self?.selectedTextEditInfo {
                         self?.messagingController.highlightAndScrollToText(for: selectedTextEditInfo){ [weak self] (error) in
-                            if let _ = error {
+                            if error != nil {
                                 self?.showCouldNotFindSelectionInWikitextAlert()
                             }
                         }

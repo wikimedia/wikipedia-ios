@@ -323,7 +323,7 @@ public class Session: NSObject {
                 }
             }
             
-            if let _ = error {
+            if error != nil {
                 
                 if let cachedResponse = self?.permanentCache?.urlCache.cachedResponse(for: request) {
                     completionHandler(cachedResponse.data, cachedResponse.response, nil)
@@ -509,9 +509,7 @@ public class Session: NSObject {
                 }
             }
             
-            if let _ = error,
-                request.prefersPersistentCacheOverError {
-                
+            if error != nil, request.prefersPersistentCacheOverError {                
                 if let cachedResponse = self.permanentCache?.urlCache.cachedResponse(for: request),
                     let responseObject = try? JSONSerialization.jsonObject(with: cachedResponse.data, options: []) as? [String: Any] {
                     completionHandler(responseObject, cachedResponse.response as? HTTPURLResponse, nil)

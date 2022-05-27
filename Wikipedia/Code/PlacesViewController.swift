@@ -744,7 +744,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         for result in searchResults {
             guard let articleURL = result.articleURL(forSiteURL: siteURL),
                 let article = self.dataStore.viewContext.fetchOrCreateArticle(with: articleURL, updatedWith: result),
-                let _ = article.quadKey,
+                article.quadKey != nil,
                 let articleKey = article.key else {
                     continue
             }
@@ -1454,7 +1454,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             let identifier = ArticlePlace.identifierForArticles(articles: group.articles)
             
             //check for identical place already on the map
-            if let _ = annotationsToRemove.removeValue(forKey: identifier) {
+            if annotationsToRemove.removeValue(forKey: identifier) != nil {
                 continue
             }
             
@@ -1927,7 +1927,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     }
     
     @objc public func showNearbyArticles() {
-        guard let _ = view else { // force view instantiation
+        guard view != nil else { // force view instantiation
             return
         }
         
@@ -1941,7 +1941,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     
     @objc public func showArticleURL(_ articleURL: URL) {
         guard let article = dataStore.fetchArticle(with: articleURL), let title = articleURL.wmf_title,
-            let _ = view else { // force view instantiation
+            view != nil else { // force view instantiation
             return
         }
         let region = self.region(thatFits: [article])

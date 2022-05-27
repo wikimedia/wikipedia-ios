@@ -218,7 +218,7 @@ class SavedViewController: ViewController {
         
         let savedArticlesWasNil = savedArticlesViewController == nil
         setSavedArticlesViewControllerIfNeeded()
-        if let _ = savedArticlesViewController,
+        if savedArticlesViewController != nil,
             currentView == .savedArticles,
             savedArticlesWasNil {
             //reassign so activeEditableCollection gets reset

@@ -223,7 +223,7 @@ extension ArticleCacheDBWriter {
             for item in items {
                 
                 guard let url = item.url,
-                    let _ = item.urlRequest else {
+                    item.urlRequest != nil else {
                         assertionFailure("These need to be populated at this point. They are only optional to be able to compare cleanly with a set of converted CacheItems to NetworkItems")
                         continue
                 }

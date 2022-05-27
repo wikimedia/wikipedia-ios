@@ -344,8 +344,7 @@ class ArticleAsLivingDocController: NSObject {
             return
         }
         
-        if let _ = articleAsLivingDocViewModel {
-            
+        if articleAsLivingDocViewModel != nil {            
             articleAsLivingDocViewController = ArticleAsLivingDocViewController(articleTitle: delegate.article.displayTitle, editMetrics: articleAsLivingDocEditMetrics, theme: delegate.theme, delegate: delegate, scrollToInitialIndexPath: initialIndexPath)
             articleAsLivingDocViewController?.apply(theme: delegate.theme)
             

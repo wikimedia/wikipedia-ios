@@ -154,7 +154,7 @@ extension ArticleViewController: UIContextMenuInteractionDelegate {
 
     func contextMenuInteraction(_ interaction: UIContextMenuInteraction, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
         animator.addCompletion {
-            if let _ = self.mediaList {
+            if self.mediaList != nil {
                 self.showLeadImage()
             } else {
                 // fetchAndDisplayGalleryViewController() is very similar to showLeadImage(). In both cases, if self.mediaList doesn't exist, we make

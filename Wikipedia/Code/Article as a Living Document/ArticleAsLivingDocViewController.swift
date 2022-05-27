@@ -37,7 +37,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
     
     required init?(articleTitle: String?, editMetrics: [NSNumber]?, theme: Theme, locale: Locale = Locale.current, delegate: ArticleAsLivingDocViewControllerDelegate, scrollToInitialIndexPath initialIndexPath: IndexPath?) {
         
-        guard let _ = delegate.articleAsLivingDocViewModel else {
+        guard delegate.articleAsLivingDocViewModel != nil else {
             return nil
         }
         
