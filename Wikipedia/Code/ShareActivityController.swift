@@ -156,20 +156,20 @@ class ShareActivityController: UIActivityViewController {
         articleApplicationActivities.append(contentsOf: customActivities)
         super.init(activityItems: items, applicationActivities: articleApplicationActivities)
     }
-    
-    @objc init(customActivity: UIActivity, article: WMFArticle, textActivitySource: WMFArticleTextActivitySource) {
+
+    @objc init(customActivities: [UIActivity], article: WMFArticle, textActivitySource: WMFArticleTextActivitySource) {
         var items = [Any]()
         items.append(textActivitySource)
-        
+
         if let shareURL = article.url?.wmf_URLForTextSharing {
             items.append(shareURL)
         }
-        
+
         if let mapItem = article.mapItem {
             items.append(mapItem)
         }
-        
-        articleApplicationActivities.append(customActivity)
+
+        articleApplicationActivities.append(contentsOf: customActivities)
         super.init(activityItems: items, applicationActivities: articleApplicationActivities)
     }
     
