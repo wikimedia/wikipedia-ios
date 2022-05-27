@@ -146,12 +146,11 @@ class DiffTransformer {
                         let fromSectionOrder = fromSectionOrder,
                         let toSectionOrder = toSectionOrder {
                             
-                        switch (fromSectionTitle == toSectionTitle, fromSectionOrder == toSectionOrder) {
-                            
-                            case (false, false):
-                                moveDistance = .section(amount: abs(fromSectionOrder - toSectionOrder))
-                            default:
-                                break
+                        switch (fromSectionTitle == toSectionTitle, fromSectionOrder == toSectionOrder) {                            
+                        case (false, false):
+                            moveDistance = .section(amount: abs(fromSectionOrder - toSectionOrder))
+                        default:
+                            break
                         }
                     }
                     

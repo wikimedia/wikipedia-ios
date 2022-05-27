@@ -39,7 +39,6 @@ disabled_rules:
     - return_arrow_whitespace
     - shorthand_operator
     - statement_position
-    - switch_case_alignment
     - syntactic_sugar
     - todo
     - trailing_comma

@@ -430,8 +430,8 @@ extension ArticleAsLivingDocViewController: ArticleAsLivingDocHorizontallyScroll
             return
         }
         switch Configuration.current.router.destination(for: fullURL) {
-            case .article(let articleURL): showInternalLink(url: articleURL)
-            default: navigate(to: fullURL)
+        case .article(let articleURL): showInternalLink(url: articleURL)
+        default: navigate(to: fullURL)
         }
     }
 }

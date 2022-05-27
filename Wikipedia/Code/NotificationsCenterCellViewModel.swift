@@ -70,18 +70,18 @@ final class NotificationsCenterCellViewModel {
     static func displayStateFor(isEditing: Bool, isSelected: Bool, isRead: Bool) -> NotificationsCenterCellDisplayState {
 
         switch (isEditing, isSelected, isRead) {
-            case (false, _, true):
-                return .defaultRead
-            case (false, _, false):
-                return .defaultUnread
-            case (true, true, true):
-                return .editSelectedRead
-            case (true, true, false):
-                return .editSelectedUnread
-            case (true, false, true):
-                return .editUnselectedRead
-            case (true, false, false):
-                return .editUnselectedUnread
+        case (false, _, true):
+            return .defaultRead
+        case (false, _, false):
+            return .defaultUnread
+        case (true, true, true):
+            return .editSelectedRead
+        case (true, true, false):
+            return .editSelectedUnread
+        case (true, false, true):
+            return .editUnselectedRead
+        case (true, false, false):
+            return .editUnselectedUnread
         }
     }
     
