@@ -628,7 +628,6 @@
 "notifications-center-subheader-email-from-other-user" = "Uusi sähköposti";
 "notifications-center-subheader-login-fail-known-device" = "Useita epäonnistuneita kirjautumisyrityksiä";
 "notifications-center-subheader-login-fail-unknown-device" = "Epäonnistunut kirjautumisyritys";
-// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Kirjautuminen tuntemattomalta laitteelta";
 "notifications-center-subheader-mention-article-talk-page" = "Maininta artikkelin keskustelusivulla";
 "notifications-center-subheader-mention-edit-summary" = "Maininta muokkausyhteenvedossa";
