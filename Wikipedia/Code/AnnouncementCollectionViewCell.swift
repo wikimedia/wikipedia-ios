@@ -110,7 +110,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         pStyle.lineBreakMode = .byWordWrapping
         pStyle.baseWritingDirection = .natural
         let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.paragraphStyle: pStyle]
-        attributedText.addAttributes(attributes, range: NSMakeRange(0, attributedText.length))
+        attributedText.addAttributes(attributes, range: NSRange(location: 0, length: attributedText.length))
         captionTextView.attributedText = attributedText
         isCaptionHidden = false
     }
@@ -147,7 +147,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         let pStyle = NSMutableParagraphStyle()
         pStyle.lineHeightMultiple = messageLineHeightMultiple
         let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.paragraphStyle: pStyle]
-        attributedText.addAttributes(attributes, range: NSMakeRange(0, attributedText.length))
+        attributedText.addAttributes(attributes, range: NSRange(location: 0, length: attributedText.length))
         messageTextView.attributedText = attributedText
     }
     

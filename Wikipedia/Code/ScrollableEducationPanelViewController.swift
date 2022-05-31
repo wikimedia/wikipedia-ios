@@ -148,7 +148,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             if let subheadingParagraphStyle = subheadingParagraphStyle {
                 attributes[NSAttributedString.Key.paragraphStyle] = subheadingParagraphStyle
             }
-            attributedText.addAttributes(attributes, range: NSMakeRange(0, attributedText.length))
+            attributedText.addAttributes(attributes, range: NSRange(location: 0, length: attributedText.length))
             subheadingLabel.attributedText = attributedText
         }
     }
@@ -230,7 +230,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         if let footerParagraphStyle = footerParagraphStyle {
             attributes[NSAttributedString.Key.paragraphStyle] = footerParagraphStyle
         }
-        attributedText.addAttributes(attributes, range: NSMakeRange(0, attributedText.length))
+        attributedText.addAttributes(attributes, range: NSRange(location: 0, length: attributedText.length))
         footerTextView.attributedText = attributedText
     }
 

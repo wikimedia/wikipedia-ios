@@ -97,7 +97,7 @@ extension String {
         var location = 0
         for result in results {
             // append the next part of the string after the last match and before this one
-            format += nsSelf.substring(with: NSMakeRange(location, result.range.location - location)).iOSNativeLocalization(tokens: tokens)
+            format += nsSelf.substring(with: NSRange(location: location, length: result.range.location - location)).iOSNativeLocalization(tokens: tokens)
             location = result.range.location + result.range.length
             
             // get the contents of the match - the content between {{ and }}
@@ -204,7 +204,7 @@ extension String {
             format += "%#@\(key)@"
         }
         // append the final part of the string after the last match
-        format += nsSelf.substring(with: NSMakeRange(location, nsSelf.length - location)).iOSNativeLocalization(tokens: tokens)
+        format += nsSelf.substring(with: NSRange(location: location, length: nsSelf.length - location)).iOSNativeLocalization(tokens: tokens)
         mutableDictionary["NSStringLocalizedFormatKey"] = format
         return mutableDictionary
     }
