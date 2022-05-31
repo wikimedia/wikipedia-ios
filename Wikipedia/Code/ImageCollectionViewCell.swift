@@ -49,7 +49,7 @@ class ImageCollectionViewCell: CollectionViewCell {
         var size = super.sizeThatFits(size, apply: apply)
         if size.width != UIView.noIntrinsicMetric {
             size.height = round(ratio * size.width)
-        }else if size.height != UIView.noIntrinsicMetric {
+        } else if size.height != UIView.noIntrinsicMetric {
             size.width = round(size.height / ratio)
         }
         if apply {

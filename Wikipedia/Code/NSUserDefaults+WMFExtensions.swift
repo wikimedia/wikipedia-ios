@@ -56,7 +56,7 @@ let WMFSubscribedToEchoNotifications = "WMFSubscribedToEchoNotifications"
     @objc func wmf_setAppResignActiveDate(_ date: Date?) {
         if let date = date {
             self.set(date, forKey: WMFAppResignActiveDateKey)
-        }else {
+        } else {
             self.removeObject(forKey: WMFAppResignActiveDateKey)
         }
     }
@@ -252,7 +252,7 @@ let WMFSubscribedToEchoNotifications = "WMFSubscribedToEchoNotifications"
     @objc func wmf_showSearchLanguageBar() -> Bool {
         if let enabled = self.object(forKey: "ShowLanguageBar") as? NSNumber {
             return enabled.boolValue
-        }else {
+        } else {
             return false
         }
     }
@@ -271,8 +271,11 @@ let WMFSubscribedToEchoNotifications = "WMFSubscribedToEchoNotifications"
     }
     
     @objc func wmf_setCurrentSearchContentLanguageCode(_ code: String?) {
-        if let code = code { set(code, forKey: WMFSearchLanguageKey) }
-        else { removeObject(forKey: WMFSearchLanguageKey) }
+        if let code = code {
+            set(code, forKey: WMFSearchLanguageKey)
+        } else {
+            removeObject(forKey: WMFSearchLanguageKey)
+        }
     }
     
     @objc func wmf_setDidShowWIconPopover(_ shown: Bool) {
@@ -282,7 +285,7 @@ let WMFSubscribedToEchoNotifications = "WMFSubscribedToEchoNotifications"
     @objc func wmf_didShowWIconPopover() -> Bool {
         if let enabled = self.object(forKey: "ShowWIconPopover") as? NSNumber {
             return enabled.boolValue
-        }else {
+        } else {
             return false
         }
     }
@@ -294,7 +297,7 @@ let WMFSubscribedToEchoNotifications = "WMFSubscribedToEchoNotifications"
     @objc func wmf_didShowMoreLanguagesTooltip() -> Bool {
         if let enabled = self.object(forKey: "ShowMoreLanguagesTooltip") as? NSNumber {
             return enabled.boolValue
-        }else {
+        } else {
             return false
         }
     }
@@ -306,7 +309,7 @@ let WMFSubscribedToEchoNotifications = "WMFSubscribedToEchoNotifications"
     @objc func wmf_isTableOfContentsVisibleInline() -> Bool {
         if let enabled = self.object(forKey: "TableOfContentsIsVisibleInline") as? NSNumber {
             return enabled.boolValue
-        }else {
+        } else {
             return true
         }
     }

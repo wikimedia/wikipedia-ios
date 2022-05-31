@@ -33,7 +33,7 @@ public class WMFPasswordResetter: Fetcher {
         
         if let userName = userName, !userName.isEmpty {
             parameters["user"] = userName
-        }else {
+        } else {
             if let email = email, !email.isEmpty {
                 parameters["email"] = email
             }

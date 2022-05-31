@@ -198,7 +198,7 @@ class ViewController: ThemeableViewController, NavigationBarHiderDelegate {
             showsNavigationBar = true
             ownsNavigationBar = false
             navigationBar = parentVC.navigationBar
-        }  else if let navigationController = navigationController {
+        } else if let navigationController = navigationController {
             ownsNavigationBar = true
             showsNavigationBar = (parent is UITabBarController || parent == navigationController) && navigationController.isNavigationBarHidden
             navigationBar.updateNavigationItems()

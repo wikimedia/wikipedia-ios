@@ -98,7 +98,7 @@ class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewContr
     open func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         if self.isInteractive {
             return self
-        }else {
+        } else {
             return nil
         }
     }
@@ -106,7 +106,7 @@ class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewContr
     open func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         if self.isInteractive {
             return self
-        }else {
+        } else {
             return nil
         }
     }
@@ -121,8 +121,7 @@ class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewContr
             removeDismissalGestureRecognizer()
             addDismissalGestureRecognizer(transitionContext.containerView)
             animatePresentationWithTransitionContext(transitionContext)
-        }
-        else {
+        } else {
             animateDismissalWithTransitionContext(transitionContext)
         }
     }
@@ -190,7 +189,7 @@ class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewContr
                     completion?(completed)
             })
     
-        }else {
+        } else {
             UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .allowUserInteraction, animations: {
                 animations()
                 }, completion: {(completed: Bool) -> Void in

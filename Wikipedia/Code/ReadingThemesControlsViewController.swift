@@ -136,7 +136,7 @@ class ReadingThemesControlsViewController: UIViewController {
     @objc open func setValuesWithSteps(_ steps: Int, current: Int) {
         if self.isViewLoaded {
             self.setValues(0, maximum: steps-1, current: current)
-        }else {
+        } else {
             maximumValue = steps-1
             currentValue = current
         }
