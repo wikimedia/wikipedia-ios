@@ -354,7 +354,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
     
     // MARK: Internal
     
-    @objc func deleteLegacyDatabaseFiles() throws -> Void {
+    @objc func deleteLegacyDatabaseFiles() throws {
         
         guard let modelController = modelController else {
             throw RemoteNotificationsControllerError.databaseUnavailable

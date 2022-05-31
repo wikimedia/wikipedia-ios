@@ -273,7 +273,7 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
     /**
      * Unset the session
      */
-    private func resetSession() -> Void {
+    private func resetSession() {
         queue.async {
             self._sessionID = nil
         }
