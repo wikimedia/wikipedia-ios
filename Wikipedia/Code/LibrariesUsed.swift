@@ -112,14 +112,14 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
         cell.textLabel?.semanticContentAttribute = .forceLeftToRight
         cell.textLabel?.textAlignment = .left
         
-        cell.backgroundColor = theme.colors.paperBackground;
-        cell.textLabel?.textColor = theme.colors.primaryText;
+        cell.backgroundColor = theme.colors.paperBackground
+        cell.textLabel?.textColor = theme.colors.primaryText
         
         cell.selectionStyle = .default
         cell.selectedBackgroundView = UIView()
         cell.selectedBackgroundView?.backgroundColor = theme.colors.midBackground
         
-        let library:LibraryUsed = self.libraries[indexPath.row];
+        let library:LibraryUsed = self.libraries[indexPath.row]
         cell.textLabel?.text = library.title
         return cell
     }
@@ -128,7 +128,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
         tableView.deselectRow(at: indexPath, animated: true)
         let libraryVC = LibraryUsedViewController.wmf_viewControllerFromStoryboardNamed(LibrariesUsedViewController.storyboardName)
         libraryVC.apply(theme: self.theme)
-        let library = self.libraries[indexPath.row];
+        let library = self.libraries[indexPath.row]
         libraryVC.library = library
         libraryVC.title = library.title
         navigationController?.pushViewController(libraryVC, animated: true)

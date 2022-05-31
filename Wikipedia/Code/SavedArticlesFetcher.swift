@@ -160,7 +160,7 @@ private extension SavedArticlesFetcher {
         do {
             article = try moc.fetch(request).first
         } catch let error {
-            DDLogError("Error fetching next article to download: \(error)");
+            DDLogError("Error fetching next article to download: \(error)")
         }
         
         let updateAgain = {
@@ -207,7 +207,7 @@ private extension SavedArticlesFetcher {
             do {
                 articleToDelete = try moc.fetch(downloadedRequest).first
             } catch let error {
-                DDLogError("Error fetching downloaded unsaved articles: \(error)");
+                DDLogError("Error fetching downloaded unsaved articles: \(error)")
             }
             
             let noArticleToDeleteCompletion = {
@@ -355,7 +355,7 @@ private extension SavedArticlesFetcher {
         do {
             try dataStore.save()
         } catch let error {
-            DDLogError("Error saving after saved articles fetch: \(error)");
+            DDLogError("Error saving after saved articles fetch: \(error)")
         }
     }
 }

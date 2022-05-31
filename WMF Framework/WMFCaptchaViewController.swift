@@ -50,7 +50,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
             guard let captcha = captcha else {
                 captchaTextField.text = nil
                 stackView.wmf_isCollapsed = true
-                return;
+                return
             }
             stackView.wmf_isCollapsed = false
             captchaTextField.text = ""

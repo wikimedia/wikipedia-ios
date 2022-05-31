@@ -52,7 +52,7 @@ extension ReferenceShowing where Self: ViewController & WMFReferencePageViewAppe
 
     /// Show references that were tapped in the article as a popover
     func showReferencesPopover(with reference: WMFLegacyReference, referenceRectInScrollCoordinates: CGRect, animated: Bool) {
-        let width = min(min(view.frame.size.width, view.frame.size.height) - 20, 355);
+        let width = min(min(view.frame.size.width, view.frame.size.height) - 20, 355)
         guard let popoverVC = WMFReferencePopoverMessageViewController.wmf_initialViewControllerFromClassStoryboard() else {
             showGenericError()
             return
@@ -68,7 +68,7 @@ extension ReferenceShowing where Self: ViewController & WMFReferencePageViewAppe
         presenter?.passthroughViews = [webView]
         presenter?.delegate = popoverVC
         presenter?.permittedArrowDirections = [.up, .down]
-        presenter?.backgroundColor = theme.colors.paperBackground;
+        presenter?.backgroundColor = theme.colors.paperBackground
         presenter?.sourceView = view
         presenter?.sourceRect = view.convert(referenceRectInScrollCoordinates, from: webView.scrollView)
 

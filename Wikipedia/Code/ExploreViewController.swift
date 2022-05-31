@@ -492,7 +492,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        var titleAreaTapped = false;
+        var titleAreaTapped = false
         if let cell = collectionView.cellForItem(at: indexPath) as? ExploreCardCollectionViewCell {
             detailTransitionSourceRect = view.convert(cell.frame, from: collectionView)
             if

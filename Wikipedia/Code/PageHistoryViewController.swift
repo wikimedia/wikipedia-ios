@@ -34,11 +34,11 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         if batchComplete || isLoadingData {
             return false
         }
-        let maxY = collectionView.contentOffset.y + collectionView.frame.size.height + 200.0;
+        let maxY = collectionView.contentOffset.y + collectionView.frame.size.height + 200.0
         if maxY >= collectionView.contentSize.height {
             return true
         }
-        return false;
+        return false
     }
 
     private lazy var countsViewController = PageHistoryCountsViewController(pageTitle: pageTitle, locale: NSLocale.wmf_locale(for: pageURL.wmf_languageCode))

@@ -212,7 +212,7 @@ private extension PermanentlyPersistableURLCache {
     }
     
     func imageInfoItemKeyForURL(_ url: URL) -> String? {
-        return url.absoluteString.precomposedStringWithCanonicalMapping;
+        return url.absoluteString.precomposedStringWithCanonicalMapping
     }
     
     func imageVariantForURL(_ url: URL) -> String? {

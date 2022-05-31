@@ -12,8 +12,8 @@ enum PlaceFilterType: UInt {
     
     var stringValue : String {
         switch self {
-        case .top: return "top";
-        case .saved: return "saved";
+        case .top: return "top"
+        case .saved: return "saved"
         }
     }
 }

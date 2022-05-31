@@ -650,7 +650,7 @@ private extension TalkPageContainerViewController {
                 return
             }
             
-            UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: self.headerView?.infoLabel);
+            UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: self.headerView?.infoLabel)
         }
     }
 }

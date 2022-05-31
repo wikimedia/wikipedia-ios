@@ -1071,7 +1071,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                     let changeDetail = ChangeDetail.snippet(Snippet(description: attributedString))
                     changeDetails.append(changeDetail)
                 case .deletedText:
-                    continue;
+                    continue
                 case .newTemplate(let newTemplate):
                     for template in newTemplate.typedTemplates {
                         

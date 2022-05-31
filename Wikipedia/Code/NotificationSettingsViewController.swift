@@ -267,7 +267,7 @@ class NotificationSettingsViewController: SubSettingsViewController {
             th.apply(theme: theme)
         }
         header.text = sections[section].headerTitle
-        return header;
+        return header
     }
     
     @objc func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

@@ -26,7 +26,6 @@ disabled_rules:
     - shorthand_operator
     - todo
     - trailing_newline
-    - trailing_semicolon
     - trailing_whitespace
     - type_body_length
     - type_name

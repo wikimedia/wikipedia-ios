@@ -19,6 +19,6 @@ import Foundation
                 view.apply(theme: theme)
             }
             
-            return view;
+            return view
     }
 }

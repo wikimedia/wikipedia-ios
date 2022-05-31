@@ -72,7 +72,7 @@ extension CABasicAnimation {
         anim.isRemovedOnCompletion = false
         anim.toValue = NSValue(caTransform3D: transform)
         anim.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        return anim;
+        return anim
     }
     class func wmf_animationToOpacity(_ opacity: Double, delay: Double, duration: Double) -> CABasicAnimation {
         let anim = CABasicAnimation(keyPath: "opacity")
@@ -82,7 +82,7 @@ extension CABasicAnimation {
         anim.isRemovedOnCompletion = false
         anim.toValue = opacity
         anim.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        return anim;
+        return anim
     }
 }
 

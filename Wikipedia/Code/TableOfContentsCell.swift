@@ -9,7 +9,7 @@ class TableOfContentsCell: UITableViewCell {
     
     var titleIndentationLevel: Int = 0 {
         didSet {
-            titleLabelTopConstraint.constant = titleIndentationLevel == 0 ? 19 : 11;
+            titleLabelTopConstraint.constant = titleIndentationLevel == 0 ? 19 : 11
             indentationConstraint.constant =  indentationWidth * CGFloat(1 + titleIndentationLevel)
             if titleIndentationLevel == 0 {
                 accessibilityTraits = .header
@@ -53,7 +53,7 @@ class TableOfContentsCell: UITableViewCell {
     // MARK: - Init
 
     public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder);
+        super.init(coder: aDecoder)
         indentationWidth = 10
     }
     

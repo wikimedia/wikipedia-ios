@@ -29,7 +29,7 @@ public class WMFPasswordResetter: Fetcher {
         var parameters = [
             "action": "resetpassword",
             "format": "json"
-        ];
+        ]
         
         if let userName = userName, !userName.isEmpty {
             parameters["user"] = userName

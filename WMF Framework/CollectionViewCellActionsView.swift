@@ -8,7 +8,7 @@ public class Action: UIAccessibilityCustomAction {
 
     public init(accessibilityTitle: String, icon: UIImage?, confirmationIcon: UIImage?, type: ActionType, indexPath: IndexPath, target: Any?, selector: Selector) {
         self.icon = icon
-        self.confirmationIcon = confirmationIcon;
+        self.confirmationIcon = confirmationIcon
         self.type = type
         self.indexPath = indexPath
         super.init(name: accessibilityTitle, target: target, selector: selector)

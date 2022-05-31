@@ -304,7 +304,7 @@ func writeStrings(fromDictionary dictionary: NSDictionary, toFile: String) throw
                 }
                 shouldWrite = !existingValue.isEqual(to: value)
                 if shouldWrite {
-                    break;
+                    break
                 }
             }
         }
