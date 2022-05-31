@@ -52,7 +52,7 @@ public extension RemoteNotificationType {
             return "notifications-type-link"
         case .thanks:
             return "notifications-type-thanks"
-        case .welcome, .translationMilestone(_), .editMilestone:
+        case .welcome, .translationMilestone, .editMilestone:
             return "notifications-type-milestone"
         case .loginFailKnownDevice, .loginFailUnknownDevice, .loginSuccessUnknownDevice,
              .unknownSystemAlert, .unknownAlert:
@@ -66,7 +66,7 @@ public extension RemoteNotificationType {
     
     func imageBackgroundColorWithTheme(_ theme: Theme) -> UIColor {
         switch self {
-        case .editMilestone, .translationMilestone(_), .welcome, .thanks:
+        case .editMilestone, .translationMilestone, .welcome, .thanks:
             return theme.colors.accent
         case .loginFailKnownDevice, .loginFailUnknownDevice, .loginSuccessUnknownDevice:
             return theme.colors.error
@@ -159,7 +159,7 @@ public extension RemoteNotificationType {
             return (.passive, 0.5)
         case .thanks:
             return (.active, 0.7)
-        case .translationMilestone(_):
+        case .translationMilestone:
             return (.passive, 0.5)
         case .editMilestone:
             return (.passive, 0.4)

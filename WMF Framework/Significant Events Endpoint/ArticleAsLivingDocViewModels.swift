@@ -463,7 +463,7 @@ public extension ArticleAsLivingDocViewModel {
 
         public var isSmall: Bool {
             switch self {
-            case .small(_):
+            case .small:
                 return true
             default:
                 return false

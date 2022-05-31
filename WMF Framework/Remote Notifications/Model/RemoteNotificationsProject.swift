@@ -134,21 +134,21 @@ public enum RemoteNotificationsProject: Hashable {
         // See https://phabricator.wikimedia.org/T297620
         
         switch self {
-        case .wikipedia(_, _, _):
+        case .wikipedia:
             return CommonStrings.plainWikipediaName
-        case .wikibooks(_, _):
+        case .wikibooks:
             return WMFLocalizedString("project-name-wikibooks", value:"Wikibooks", comment: "Project name for Wikibooks.")
-        case .wiktionary(_, _):
+        case .wiktionary:
             return WMFLocalizedString("project-name-wiktionary", value:"Wiktionary", comment: "Project name for Wiktionary.")
-        case .wikiquote(_, _):
+        case .wikiquote:
             return WMFLocalizedString("project-name-wikiquote", value:"Wikiquote", comment: "Project name for Wikiquote.")
-        case .wikisource(_, _):
+        case .wikisource:
             return WMFLocalizedString("project-name-wikisource", value:"Wikisource", comment: "Project name for Wikisource.")
-        case .wikinews(_, _):
+        case .wikinews:
             return WMFLocalizedString("project-name-wikinews", value:"Wikinews", comment: "Project name for Wikinews.")
-        case .wikiversity(_, _):
+        case .wikiversity:
             return WMFLocalizedString("project-name-wikiversity", value:"Wikiversity", comment: "Project name for Wikiversity.")
-        case .wikivoyage(_, _):
+        case .wikivoyage:
             return WMFLocalizedString("project-name-wikivoyage", value:"Wikivoyage", comment: "Project name for Wikivoyage.")
         case .commons:
             return WMFLocalizedString("project-name-wikimedia-commons", value:"Wikimedia Commons", comment: "Project name for Wikimedia Commons.")
