@@ -75,11 +75,11 @@ private typealias ContentGroupKindAndLoggingCode = (kind: WMFContentGroupKind, l
         
         var feedEnabledList = [String: Any]()
         
-        WMFExploreFeedContentController.globalContentGroupKindNumbers().compactMap(contentGroupKindAndLoggingCodeFromNumber).forEach() {
+        WMFExploreFeedContentController.globalContentGroupKindNumbers().compactMap(contentGroupKindAndLoggingCodeFromNumber).forEach {
             feedEnabledList[$0.loggingCode] = $0.kind.isInFeed
         }
         
-        WMFExploreFeedContentController.customizableContentGroupKindNumbers().compactMap(contentGroupKindAndLoggingCodeFromNumber).forEach() {
+        WMFExploreFeedContentController.customizableContentGroupKindNumbers().compactMap(contentGroupKindAndLoggingCodeFromNumber).forEach {
             feedEnabledList[$0.loggingCode] = $0.kind.userHistorySchemaLanguageInfo
         }
 

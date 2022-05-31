@@ -68,7 +68,7 @@ class RemoteNotificationsOperationsController: NSObject {
         isLoadingNotifications = true
         NotificationCenter.default.post(name: Notification.Name.NotificationsCenterLoadingDidStart, object: nil)
         
-        kickoffPagingOperations() { [weak self] result in
+        kickoffPagingOperations { [weak self] result in
             DispatchQueue.main.async {
                 self?.isLoadingNotifications = false
                 self?.loadingNotificationsCompletionBlocks.forEach { completionBlock in

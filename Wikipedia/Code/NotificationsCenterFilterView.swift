@@ -138,7 +138,7 @@ struct NotificationsCenterFilterView: View {
                             }
                         }
                     } else {
-                        Section() {
+                        Section {
                             ForEach(section.items) { item in
                                 NotificationsCenterFilterItemView(itemViewModel: item, theme: viewModel.theme)
                             }
