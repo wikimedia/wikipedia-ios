@@ -179,9 +179,9 @@ private extension XCUIElementQuery {
 
 struct ScrollItem {
     let key: String
-    let success: (XCUIElement) -> ()
+    let success: (XCUIElement) -> Void
     let predicate: NSPredicate
-    init(key: String, success: @escaping (XCUIElement) -> ()) {
+    init(key: String, success: @escaping (XCUIElement) -> Void) {
         self.key = key
         self.success = success
         self.predicate = ElementPropertyType.`self`.wildcardPredicate(for: WMFLocalizedString(key, value: "", comment: ""))

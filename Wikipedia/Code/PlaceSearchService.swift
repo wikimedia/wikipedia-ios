@@ -108,7 +108,7 @@ class PlaceSearchService {
         }
     }
 
-    public func fetchSavedArticles(searchString: String?, completion: @escaping (NSFetchRequest<WMFArticle>?) -> () = {_ in }) {
+    public func fetchSavedArticles(searchString: String?, completion: @escaping (NSFetchRequest<WMFArticle>?) -> Void = {_ in }) {
         let moc = dataStore.viewContext
         let done = {
             let request = WMFArticle.fetchRequest()

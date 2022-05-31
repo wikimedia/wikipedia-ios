@@ -1,8 +1,8 @@
 import UIKit
 
-typealias ScrollableEducationPanelButtonTapHandler = ((_ sender: Any) -> ())
-typealias ScrollableEducationPanelDismissHandler = (() -> ())
-typealias ScrollableEducationPanelTraceableDismissHandler = ((ScrollableEducationPanelViewController.LastAction) -> ())
+typealias ScrollableEducationPanelButtonTapHandler = ((_ sender: Any) -> Void)
+typealias ScrollableEducationPanelDismissHandler = (() -> Void)
+typealias ScrollableEducationPanelTraceableDismissHandler = ((ScrollableEducationPanelViewController.LastAction) -> Void)
 
 /*
  Education panels typically have the following items, from top to bottom:
