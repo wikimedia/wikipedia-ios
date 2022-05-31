@@ -1,6 +1,5 @@
 disabled_rules:
     - class_delegate_protocol
-    - closing_brace
     - colon
     - comma
     - comment_spacing

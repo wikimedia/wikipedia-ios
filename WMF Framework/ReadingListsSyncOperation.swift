@@ -814,7 +814,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             finalReadingListsByEntryID = [:]
             var readingListsByReadingListID: [Int64: ReadingList] = [:]
             let localReadingListsFetch: NSFetchRequest<ReadingList> = ReadingList.fetchRequest()
-            localReadingListsFetch.predicate = NSPredicate(format: "readingListID IN %@", readingListEntries.compactMap { $0.listId } )
+            localReadingListsFetch.predicate = NSPredicate(format: "readingListID IN %@", readingListEntries.compactMap { $0.listId })
             let localReadingLists = try moc.fetch(localReadingListsFetch)
             for localReadingList in localReadingLists {
                 guard let localReadingListID = localReadingList.readingListID?.int64Value else {
