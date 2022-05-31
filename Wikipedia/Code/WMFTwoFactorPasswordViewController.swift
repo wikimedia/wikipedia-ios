@@ -87,7 +87,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
             }
             return true
         case .shortNumeric:
-            return oathTokenFields.first(where:{ $0.text.wmf_safeCharacterCount == 0 }) == nil
+            return oathTokenFields.first(where: { $0.text.wmf_safeCharacterCount == 0 }) == nil
         }
     }
     
@@ -178,7 +178,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         // Support numeric code pasting when showing individual digit UITextFields - i.e. when displayMode == .shortNumeric.
         // If displayMode == .shortNumeric 'string' has been verified to be comprised of decimal digits by this point.
         // Backup code (when displayMode == .longAlphaNumeric) pasting already works as-is because it uses a single UITextField.
-        if displayMode == .shortNumeric && string.count == oathTokenFields.count{
+        if displayMode == .shortNumeric && string.count == oathTokenFields.count {
             for (field, char) in zip(oathTokenFields, string) {
                 field.text = String(char)
             }
@@ -221,7 +221,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         // Cast fields once here to set 'deleteBackwardDelegate' rather than casting everywhere else UITextField is expected.
         if let fields = oathTokenFields as? [WMFDeleteBackwardReportingTextField] {
             fields.forEach {$0.deleteBackwardDelegate = self}
-        }else{
+        }else {
             assertionFailure("Underlying oathTokenFields from storyboard were expected to be of type 'WMFDeleteBackwardReportingTextField'.")
         }
         

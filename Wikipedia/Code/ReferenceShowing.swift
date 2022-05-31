@@ -81,7 +81,7 @@ extension ReferenceShowing where Self: ViewController & WMFReferencePageViewAppe
     }
 }
 
-private extension ReferenceShowing where Self: ViewController  {
+private extension ReferenceShowing where Self: ViewController {
     // MARK: - Utilities
     func getBoundingClientRect(for references: [WMFLegacyReference]) -> CGRect {
         guard var rect = references.first?.rect else {

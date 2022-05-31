@@ -430,7 +430,7 @@ class ArticleAsLivingDocController: NSObject {
         presentArticleAsLivingDoc(scrollToInitialIndexPath: indexPath)
     }
     
-    private func show(hintViewController: HintViewController){
+    private func show(hintViewController: HintViewController) {
         
         guard let delegate = delegate else {
             return

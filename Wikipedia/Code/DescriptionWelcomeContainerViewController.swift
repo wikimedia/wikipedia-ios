@@ -63,7 +63,7 @@ class DescriptionWelcomeContainerViewController: UIViewController, Themeable {
             vc.nextButtonAction = nextButtonAction
             vc.pageType = pageType
             vc.apply(theme: theme)
-        } else if let vc = segue.destination as? DescriptionWelcomeImageViewController{
+        } else if let vc = segue.destination as? DescriptionWelcomeImageViewController {
             vc.pageType = pageType
         }
     }

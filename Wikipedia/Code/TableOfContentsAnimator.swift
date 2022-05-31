@@ -99,7 +99,7 @@ class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewContr
     open func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         if self.isInteractive {
             return self
-        }else{
+        }else {
             return nil
         }
     }
@@ -107,7 +107,7 @@ class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewContr
     open func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         if self.isInteractive {
             return self
-        }else{
+        }else {
             return nil
         }
     }
@@ -117,7 +117,7 @@ class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewContr
         return 0.4
     }
     
-    open func animateTransition(using transitionContext: UIViewControllerContextTransitioning)  {
+    open func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         if isPresenting {
             removeDismissalGestureRecognizer()
             addDismissalGestureRecognizer(transitionContext.containerView)
@@ -182,16 +182,16 @@ class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewContr
         })
     }
     
-    func animateTransition(_ interactive: Bool, duration: TimeInterval, animations: @escaping () -> Void, completion: ((Bool) -> Void)?){
+    func animateTransition(_ interactive: Bool, duration: TimeInterval, animations: @escaping () -> Void, completion: ((Bool) -> Void)?) {
         
-        if(interactive){
+        if(interactive) {
             UIView.animate(withDuration: duration, delay: 0.0, options: UIView.AnimationOptions(), animations: { () -> Void in
                 animations()
                 }, completion: { (completed: Bool) -> Void in
                     completion?(completed)
             })
     
-        }else{
+        }else {
             UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .allowUserInteraction, animations: {
                 animations()
                 }, completion: {(completed: Bool) -> Void in
@@ -236,19 +236,19 @@ class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewContr
             let velocityRequiredToDismiss = -velocityRequiredToPresent
             
             let velocityX = gesture.velocity(in: gesture.view).x
-            if velocityX*velocityRequiredToDismiss > 1 && abs(velocityX) > abs(velocityRequiredToDismiss){
+            if velocityX*velocityRequiredToDismiss > 1 && abs(velocityX) > abs(velocityRequiredToDismiss) {
                 cancel()
                 return
             }
             
-            if velocityX*velocityRequiredToPresent > 1 && abs(velocityX) > abs(velocityRequiredToPresent){
+            if velocityX*velocityRequiredToPresent > 1 && abs(velocityX) > abs(velocityRequiredToPresent) {
                 finish()
                 return
             }
             
             let progressRequiredToPresent = 0.33
             
-            if(self.percentComplete >= CGFloat(progressRequiredToPresent)){
+            if(self.percentComplete >= CGFloat(progressRequiredToPresent)) {
                 finish()
                 return
             }
@@ -282,19 +282,19 @@ class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewContr
             let velocityRequiredToDismiss = -velocityRequiredToPresent
             
             let velocityX = gesture.velocity(in: gesture.view).x
-            if velocityX*velocityRequiredToDismiss > 1 && abs(velocityX) > abs(velocityRequiredToDismiss){
+            if velocityX*velocityRequiredToDismiss > 1 && abs(velocityX) > abs(velocityRequiredToDismiss) {
                 finish()
                 return
             }
             
-            if velocityX*velocityRequiredToPresent > 1 && abs(velocityX) > abs(velocityRequiredToPresent){
+            if velocityX*velocityRequiredToPresent > 1 && abs(velocityX) > abs(velocityRequiredToPresent) {
                 cancel()
                 return
             }
             
             let progressRequiredToDismiss = 0.50
             
-            if(self.percentComplete >= CGFloat(progressRequiredToDismiss)){
+            if(self.percentComplete >= CGFloat(progressRequiredToDismiss)) {
                 finish()
                 return
             }
@@ -318,14 +318,14 @@ class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewContr
         }
         
         let isRTL = UIApplication.shared.wmf_isRTL
-        guard (isRTL && displaySide == .left) || (!isRTL && displaySide == .right) else  {
+        guard (isRTL && displaySide == .left) || (!isRTL && displaySide == .right) else {
             return false
         }
         
         if gestureRecognizer == self.dismissalGesture {
             
             if let translation = self.dismissalGesture?.translation(in: dismissalGesture?.view) {
-                if (translation.x * tocMultiplier > 0){
+                if (translation.x * tocMultiplier > 0) {
                     return true
                 } else {
                     return false

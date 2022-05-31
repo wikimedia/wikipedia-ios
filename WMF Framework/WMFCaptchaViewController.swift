@@ -22,7 +22,7 @@ extension UIStackView {
     }
 }
 
-@objc public protocol WMFCaptchaViewControllerDelegate{
+@objc public protocol WMFCaptchaViewControllerDelegate {
     func captchaReloadPushed(_ sender: AnyObject)
     func captchaSolutionChanged(_ sender: AnyObject, solutionText: String?)
     func captchaSiteURL() -> URL
@@ -119,7 +119,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
             return nil
         }
         components.queryItems = nil
-        guard let url = components.url else{
+        guard let url = components.url else {
             assertionFailure("Could not extract url")
             return nil
         }
@@ -136,7 +136,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let captchaDelegate = captchaDelegate else{
+        guard let captchaDelegate = captchaDelegate else {
             assertionFailure("Required delegate is unset")
             return
         }

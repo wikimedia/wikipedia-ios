@@ -47,7 +47,7 @@ class WMFWelcomeAnalyticsViewController: ThemeableViewController {
         toggle.accessibilityLabel = WMFLocalizedString("welcome-volunteer-send-usage-reports", value:"Send usage reports", comment:"Text for switch allowing user to choose whether to send usage reports")
     }
     
-    @IBAction func toggleAnalytics(withSender sender: UISwitch){
+    @IBAction func toggleAnalytics(withSender sender: UISwitch) {
         UserDefaults.standard.wmf_sendUsageReports = sender.isOn
         updateToggleLabelTitleForUsageReportsIsOn(sender.isOn)
     }

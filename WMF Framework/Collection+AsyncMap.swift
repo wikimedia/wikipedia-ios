@@ -62,7 +62,7 @@ public extension Collection {
             })
         }
         group.notify(queue: DispatchQueue.global(qos: .default)) {
-            completion(results.compactMap{$0})
+            completion(results.compactMap {$0})
         }
     }
     

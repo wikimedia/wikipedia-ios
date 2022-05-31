@@ -130,7 +130,7 @@ open class TableOfContentsPresentationController: UIPresentationController, Them
 
         containerView.addSubview(self.backgroundView)
         
-        if(self.traitCollection.verticalSizeClass == .compact){
+        if(self.traitCollection.verticalSizeClass == .compact) {
             self.statusBarBackground.isHidden = true
         }
         
@@ -151,14 +151,14 @@ open class TableOfContentsPresentationController: UIPresentationController, Them
         }
     }
     
-    override open func presentationTransitionDidEnd(_ completed: Bool)  {
+    override open func presentationTransitionDidEnd(_ completed: Bool) {
         if !completed {
             self.backgroundView.removeFromSuperview()
 
         }
     }
     
-    override open func dismissalTransitionWillBegin()  {
+    override open func dismissalTransitionWillBegin() {
         if let transitionCoordinator = self.presentingViewController.transitionCoordinator {
             transitionCoordinator.animate(alongsideTransition: {(context: UIViewControllerTransitionCoordinatorContext!) -> Void in
                 self.backgroundView.alpha  = 0.0
@@ -188,7 +188,7 @@ open class TableOfContentsPresentationController: UIPresentationController, Them
         var frame = containerView.bounds
         var bgWidth = self.minimumVisibleBackgroundWidth
         var tocWidth = frame.size.width - bgWidth
-        if(tocWidth > self.maximumTableOfContentsWidth){
+        if(tocWidth > self.maximumTableOfContentsWidth) {
             tocWidth = self.maximumTableOfContentsWidth
             bgWidth = frame.size.width - tocWidth
         }

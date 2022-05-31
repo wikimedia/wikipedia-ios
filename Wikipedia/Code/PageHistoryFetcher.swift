@@ -265,7 +265,7 @@ open class HistoryFetchResults: NSObject {
         return PageHistoryRequestParameters(title: articleURL.wmf_title ?? "", pagingInfo: pagingInfo, lastRevisionFromPreviousCall: lastRevision)
     }
     
-    @objc open func items() -> [PageHistorySection]  {
+    @objc open func items() -> [PageHistorySection] {
         return self.revisionsByDay.keys.sorted(by: <).compactMap() { self.revisionsByDay[$0] }
     }
     

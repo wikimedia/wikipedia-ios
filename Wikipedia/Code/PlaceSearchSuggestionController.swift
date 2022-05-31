@@ -42,7 +42,7 @@ class PlaceSearchSuggestionController: NSObject, UITableViewDataSource, UITableV
         }
     }
     
-    var searches: [[PlaceSearch]] = [[],[],[],[]]{
+    var searches: [[PlaceSearch]] = [[],[],[],[]] {
         didSet {
             tableView.reloadData()
         }

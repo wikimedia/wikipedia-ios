@@ -9,7 +9,7 @@ extension ArticleLocationCollectionViewCell {
 
         distance = articleLocation.distance(from: userLocation)
 
-        if let heading = heading  {
+        if let heading = heading {
             bearing = userLocation.wmf_bearing(to: articleLocation, forCurrentHeading: heading)
         } else {
             bearing = userLocation.wmf_bearing(to: articleLocation)

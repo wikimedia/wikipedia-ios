@@ -136,13 +136,13 @@ class ReadingThemesControlsViewController: UIViewController {
     @objc open func setValuesWithSteps(_ steps: Int, current: Int) {
         if self.isViewLoaded {
             self.setValues(0, maximum: steps-1, current: current)
-        }else{
+        }else {
             maximumValue = steps-1
             currentValue = current
         }
     }
     
-    func setValues(_ minimum: Int, maximum: Int, current: Int){
+    func setValues(_ minimum: Int, maximum: Int, current: Int) {
         self.slider.minimumValue = minimum
         self.slider.maximumValue = maximum
         self.slider.value = current
@@ -164,7 +164,7 @@ class ReadingThemesControlsViewController: UIViewController {
         syntaxHighlightingLabel.font = UIFont.wmf_font(.body, compatibleWithTraitCollection: traitCollection)
     }
     
-    @objc func screenBrightnessChangedInApp(notification: Notification){
+    @objc func screenBrightnessChangedInApp(notification: Notification) {
         brightnessSlider.value = Float(UIScreen.main.brightness)
     }
 

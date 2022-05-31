@@ -126,7 +126,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             return panGestureRecognizerShouldBegin(panGestureRecognizer)
         }
         
-        if gestureRecognizer === longPressGestureRecognizer  {
+        if gestureRecognizer === longPressGestureRecognizer {
             return longPressGestureRecognizerShouldBegin(longPressGestureRecognizer)
         }
         
@@ -244,7 +244,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             return true
         }
         
-        if gestureRecognizer is UIPanGestureRecognizer{
+        if gestureRecognizer is UIPanGestureRecognizer {
             return otherGestureRecognizer is UILongPressGestureRecognizer
         }
         

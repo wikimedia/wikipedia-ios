@@ -215,7 +215,7 @@ extension ArticleViewController: DescriptionEditViewControllerDelegate {
     func descriptionEditViewControllerEditSucceeded(_ descriptionEditViewController: DescriptionEditViewController, result: ArticleDescriptionPublishResult) {
         injectNewDescriptionIntoArticleContent(result.newDescription) { [weak self] injectResult in
             
-            guard let self = self else  {
+            guard let self = self else {
                 return
             }
             

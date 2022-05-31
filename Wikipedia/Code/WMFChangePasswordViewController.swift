@@ -25,7 +25,7 @@ class WMFChangePasswordViewController: WMFScrollViewController, Themeable {
         guard
             let password = passwordField.text,
             let retype = retypeField.text
-            else{
+            else {
                 enableProgressiveButton(false)
                 return
         }

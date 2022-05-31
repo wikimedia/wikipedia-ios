@@ -26,7 +26,7 @@ public struct WMFPasswordResetterResult {
 }
 
 public class WMFPasswordResetter: Fetcher {
-    public func resetPassword(siteURL: URL, userName:String?, email:String?, success: @escaping WMFPasswordResetterResultBlock, failure: @escaping WMFErrorHandler){
+    public func resetPassword(siteURL: URL, userName:String?, email:String?, success: @escaping WMFPasswordResetterResultBlock, failure: @escaping WMFErrorHandler) {
         var parameters = [
             "action": "resetpassword",
             "format": "json"

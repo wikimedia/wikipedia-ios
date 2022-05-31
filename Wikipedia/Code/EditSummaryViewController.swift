@@ -44,7 +44,7 @@ class EditSummaryViewController: UIViewController, Themeable {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        cannedEditSummaryButtons.compactMap{ $0.titleLabel }.forEach {
+        cannedEditSummaryButtons.compactMap { $0.titleLabel }.forEach {
             $0.numberOfLines = 1
             $0.setContentCompressionResistancePriority(.required, for: .horizontal)
         }
@@ -65,7 +65,7 @@ class EditSummaryViewController: UIViewController, Themeable {
         delegate?.learnMoreButtonTapped(sender: sender)
     }
 
-    @objc public func textFieldDidChange(textField: UITextField){
+    @objc public func textFieldDidChange(textField: UITextField) {
         notifyDelegateOfSummaryChange()
     }
 
@@ -118,7 +118,7 @@ extension EditSummaryViewController: UITextFieldDelegate {
 public class SummaryButtonScrollView: UIScrollView {
     @IBOutlet private var cannedEditSummaryButtons: [UIButton]!
     private func sizeEncompassingTallestButton() -> CGSize {
-        let heightOfTallestButton = cannedEditSummaryButtons.map{ $0.intrinsicContentSize.height }.max()
+        let heightOfTallestButton = cannedEditSummaryButtons.map { $0.intrinsicContentSize.height }.max()
         return CGSize(width: UIView.noIntrinsicMetric, height: heightOfTallestButton ?? UIView.noIntrinsicMetric)
     }
     override public var intrinsicContentSize: CGSize {

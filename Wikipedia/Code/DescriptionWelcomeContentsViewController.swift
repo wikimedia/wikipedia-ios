@@ -20,7 +20,7 @@ class DescriptionWelcomeContentsViewController: UIViewController, Themeable {
         view.wmf_configureSubviewsForDynamicType()
     }
     
-    private func updateUIStrings(){
+    private func updateUIStrings() {
         switch pageType {
         case .intro:
             descriptionLabel?.text = WMFLocalizedString("description-welcome-descriptions-sub-title", value:"Summarizes an article to help readers understand the subject at a glance", comment:"Subtitle text explaining article descriptions")

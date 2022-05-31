@@ -424,7 +424,7 @@ public class RemoteNotificationsAPIController: Fetcher {
                 dictionary["notcrosswikisummary"] = 1
             }
             
-            let wikis = projects.map{ $0.notificationsApiWikiIdentifier }
+            let wikis = projects.map { $0.notificationsApiWikiIdentifier }
             dictionary["notwikis"] = wikis.isEmpty ? "*" : wikis.joined(separator: "|")
             
             return dictionary

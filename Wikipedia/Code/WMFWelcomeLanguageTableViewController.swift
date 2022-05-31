@@ -68,7 +68,7 @@ class WMFWelcomeLanguageTableViewController: ThemeableViewController, WMFPreferr
         present(navC, animated: true, completion: nil)
     }
     
-    func languagesController(_ controller: WMFPreferredLanguagesViewController, didUpdatePreferredLanguages languages:[MWKLanguageLink]){
+    func languagesController(_ controller: WMFPreferredLanguagesViewController, didUpdatePreferredLanguages languages:[MWKLanguageLink]) {
         languageTableView.reloadData()
         languageTableView.layoutIfNeeded() // Needed for the content offset reset below to work
         languageTableView.contentOffset = .zero

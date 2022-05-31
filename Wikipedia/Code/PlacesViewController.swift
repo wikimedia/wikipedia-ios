@@ -1980,8 +1980,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         }
     }
     
-    func updateSearchCompletionsFromSearchBarTextForTopArticles()
-    {
+    func updateSearchCompletionsFromSearchBarTextForTopArticles() {
         guard let text = searchBar.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines), text != "" else {
             updateSearchSuggestions(withCompletions: [], isSearchDone: false)
             self.isWaitingForSearchSuggestionUpdate = false

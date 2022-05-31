@@ -106,7 +106,7 @@ public final class ArticleAsLivingDocFunnel: EventLoggingFunnel, EventLoggingSta
         return ["primary_language": primaryLanguage(), "is_anon": isAnon]
     }
     
-    private func event(action: Action) -> [String: Any]  {
+    private func event(action: Action) -> [String: Any] {
         
         return baseEvent
             .appendingAction(action: action)

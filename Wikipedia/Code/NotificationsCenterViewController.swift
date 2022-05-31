@@ -343,7 +343,7 @@ private extension NotificationsCenterViewController {
             return UIMenu(title: title, children: [
                 actionMarkAsRead
             ])
-        } else if !selectedCellViewModels.contains(where: { !$0.isRead }){
+        } else if !selectedCellViewModels.contains(where: { !$0.isRead }) {
             return UIMenu(title: title, children: [
                 actionMarkAsUnread
             ])
@@ -798,7 +798,7 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
 extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
 
     func userDidTapMoreActionForCell(_ cell: NotificationsCenterCell) {
-        guard let cellViewModel = cell.viewModel else  {
+        guard let cellViewModel = cell.viewModel else {
             return
         }
 

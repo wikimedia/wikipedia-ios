@@ -47,7 +47,7 @@ extension WKWebView {
     }
 }
 
-class SelectedAndAdjacentText  {
+class SelectedAndAdjacentText {
     public let selectedText: String
     public let textAfterSelectedText: String
     public let textBeforeSelectedText: String

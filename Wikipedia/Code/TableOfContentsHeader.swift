@@ -9,7 +9,7 @@ open class TableOfContentsHeader: UIView {
         get {
             return url
         }
-        set(newURL){
+        set(newURL) {
             self.contentsLabel.text = self.headerTextForURL(newURL)
             url = newURL
         }

@@ -3,8 +3,7 @@ import MapKit
 import WMF
 import CocoaLumberjackSwift
 
-struct PlaceSearchResult
-{
+struct PlaceSearchResult {
     let locationResults: [MWKSearchResult]?
     let fetchRequest: NSFetchRequest<WMFArticle>?
     let error: Error?
@@ -22,8 +21,7 @@ struct PlaceSearchResult
     }
 }
 
-class PlaceSearchService
-{
+class PlaceSearchService {
     public let dataStore: MWKDataStore
     private let locationSearchFetcher = WMFLocationSearchFetcher()
     private let wikidataFetcher: WikidataFetcher

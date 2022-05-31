@@ -1,6 +1,6 @@
 import UIKit
 
-open class WMFImageTextActivitySource: NSObject, UIActivityItemSource  {
+open class WMFImageTextActivitySource: NSObject, UIActivityItemSource {
 
     let info: MWKImageInfo
     

@@ -56,12 +56,12 @@ class TalkPageLocalHandlerTests: XCTestCase {
         XCTAssertEqual(dbTalkPage.revisionId, 1, "Unexpected revisionId")
         XCTAssertEqual(dbTalkPage.topics?.count, 6, "Unexpected topic count")
         
-        let topics = dbTalkPage.topics?.allObjects.sorted{ ($0 as! TalkPageTopic).sort < ($1 as! TalkPageTopic).sort }
+        let topics = dbTalkPage.topics?.allObjects.sorted { ($0 as! TalkPageTopic).sort < ($1 as! TalkPageTopic).sort }
         
         if let introTopic = topics?[0] as? TalkPageTopic {
             XCTAssertEqual(introTopic.title, "", "Unexpected topic title")
             XCTAssertEqual(introTopic.replies?.count, 1, "Unexpected replies count")
-            let replies = introTopic.replies?.allObjects.sorted{ ($0 as! TalkPageReply).sort < ($1 as! TalkPageReply).sort }
+            let replies = introTopic.replies?.allObjects.sorted { ($0 as! TalkPageReply).sort < ($1 as! TalkPageReply).sort }
             if let firstReply = replies?[0] as? TalkPageReply {
                 XCTAssertEqual(firstReply.text, "Hello!  This is some introduction text on my talk page. L8erz, <a href='./User:TSevener_(WMF)' title='User:TSevener (WMF)'>TSevener (WMF)</a> (<a href='./User_talk:TSevener_(WMF)' title='User talk:TSevener (WMF)'>talk</a>) 20:48, 21 June 2019 (UTC)", "Unexpected replies html")
             } else {
@@ -75,7 +75,7 @@ class TalkPageLocalHandlerTests: XCTestCase {
             XCTAssertEqual(firstTopic.title, "Let’s talk about talk pages", "Unexpected topic title")
             XCTAssertEqual(firstTopic.replies?.count, 3, "Unexpected topic items count")
             
-            let replies = firstTopic.replies?.allObjects.sorted{ ($0 as! TalkPageReply).sort < ($1 as! TalkPageReply).sort }
+            let replies = firstTopic.replies?.allObjects.sorted { ($0 as! TalkPageReply).sort < ($1 as! TalkPageReply).sort }
             if let firstReply = replies?[0] as? TalkPageReply {
                 XCTAssertEqual(firstReply.text, "Hello, I am testing a new topic from the <a href='./IOS' title='IOS'>iOS</a> app. It is fun. <a href='./Special:Contributions/47.184.10.84' title='Special:Contributions/47.184.10.84'>47.184.10.84</a> 20:50, 21 June 2019 (UTC)")
                 XCTAssertEqual(firstReply.depth, 0, "Unexpected reply depth")
@@ -198,7 +198,7 @@ class TalkPageLocalHandlerTests: XCTestCase {
         }
         
         //mark last topic as read to confirm it stays read after updating.
-        let topics = dbTalkPage.topics?.allObjects.sorted{ ($0 as! TalkPageTopic).sort < ($1 as! TalkPageTopic).sort }
+        let topics = dbTalkPage.topics?.allObjects.sorted { ($0 as! TalkPageTopic).sort < ($1 as! TalkPageTopic).sort }
         if let fifthTopic = topics?[5] as? TalkPageTopic {
             fifthTopic.content?.isRead = true
             do {
@@ -223,12 +223,12 @@ class TalkPageLocalHandlerTests: XCTestCase {
         
         XCTAssertEqual(updatedDbTalkPage.topics?.count, 3, "Unexpected topic count")
         
-        let updatedTopics = updatedDbTalkPage.topics?.allObjects.sorted{ ($0 as! TalkPageTopic).sort < ($1 as! TalkPageTopic).sort }
+        let updatedTopics = updatedDbTalkPage.topics?.allObjects.sorted { ($0 as! TalkPageTopic).sort < ($1 as! TalkPageTopic).sort }
         
         if let introTopic = updatedTopics?[0] as? TalkPageTopic {
             XCTAssertEqual(introTopic.title, "", "Unexpected topic title")
             XCTAssertEqual(introTopic.replies?.count, 1, "Unexpected replies count")
-            let replies = introTopic.replies?.allObjects.sorted{ ($0 as! TalkPageReply).sort < ($1 as! TalkPageReply).sort }
+            let replies = introTopic.replies?.allObjects.sorted { ($0 as! TalkPageReply).sort < ($1 as! TalkPageReply).sort }
             if let firstReply = replies?[0] as? TalkPageReply {
                 XCTAssertEqual(firstReply.text, "Hello!  This is some introduction text on my talk page. L8erz, <a href='./User:TSevener_(WMF)' title='User:TSevener (WMF)'>TSevener (WMF)</a> (<a href='./User_talk:TSevener_(WMF)' title='User talk:TSevener (WMF)'>talk</a>) 20:48, 21 June 2019 (UTC)", "Unexpected replies html")
             } else {
@@ -242,7 +242,7 @@ class TalkPageLocalHandlerTests: XCTestCase {
             XCTAssertEqual(firstTopic.title, "Topic <a href='./Part' title='Part'>Part</a> Deux", "Unexpected topic title")
             XCTAssertEqual(firstTopic.replies?.count, 11, "Unexpected topic items count")
             
-            let replies = firstTopic.replies?.allObjects.sorted{ ($0 as! TalkPageReply).sort < ($1 as! TalkPageReply).sort }
+            let replies = firstTopic.replies?.allObjects.sorted { ($0 as! TalkPageReply).sort < ($1 as! TalkPageReply).sort }
             if let firstReply = replies?[0] as? TalkPageReply {
                 XCTAssertEqual(firstReply.text, "Also injecting something in the front because why not. 🤷‍♀️ <a href='./User:TSevener_(WMF)' title='User:TSevener (WMF)'>TSevener (WMF)</a> (<a href='./User_talk:TSevener_(WMF)' title='User talk:TSevener (WMF)'>talk</a>) 21:17, 21 June 2019 (UTC)")
                 XCTAssertEqual(firstReply.depth, 0, "Unexpected reply depth")

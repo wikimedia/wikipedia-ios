@@ -29,7 +29,7 @@ public typealias WMFCurrentlyLoggedInUserBlock = (WMFCurrentlyLoggedInUser) -> V
 }
 
 public class WMFCurrentlyLoggedInUserFetcher: Fetcher {
-    public func fetch(siteURL: URL, success: @escaping WMFCurrentlyLoggedInUserBlock, failure: @escaping WMFErrorHandler){
+    public func fetch(siteURL: URL, success: @escaping WMFCurrentlyLoggedInUserBlock, failure: @escaping WMFErrorHandler) {
         let parameters = [
             "action": "query",
             "meta": "userinfo",

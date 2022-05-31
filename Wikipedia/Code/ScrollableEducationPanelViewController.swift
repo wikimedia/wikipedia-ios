@@ -323,7 +323,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     
     @IBAction func overlayTapped(_ sender: UITapGestureRecognizer) {
         lastAction = .tappedBackground
-        if (showCloseButton || dismissWhenTappedOutside) && sender.view == view  {
+        if (showCloseButton || dismissWhenTappedOutside) && sender.view == view {
             dismiss(animated: true, completion: nil)
         }
     }

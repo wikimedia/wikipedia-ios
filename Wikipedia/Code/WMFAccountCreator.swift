@@ -34,7 +34,7 @@ public struct WMFAccountCreatorResult {
 }
 
 public class WMFAccountCreator: Fetcher {
-    public func createAccount(username: String, password: String, retypePassword: String, email: String?, captchaID: String?, captchaWord: String?, siteURL: URL, success: @escaping WMFAccountCreatorResultBlock, failure: @escaping WMFErrorHandler){
+    public func createAccount(username: String, password: String, retypePassword: String, email: String?, captchaID: String?, captchaWord: String?, siteURL: URL, success: @escaping WMFAccountCreatorResultBlock, failure: @escaping WMFErrorHandler) {
         var parameters: [String: String] = [
             "action": "createaccount",
             "username": username,

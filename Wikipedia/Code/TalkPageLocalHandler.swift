@@ -109,7 +109,7 @@ extension NSManagedObjectContext {
         
         //update common topics
         let commonTopicShas = oldTopicSetShas.intersection(newTopicSetShas)
-        do  {
+        do {
             try updateCommonTopics(localTalkPage: localTalkPage, with: networkTalkPage, commonTopicShas: commonTopicShas)
         
             //add new topics

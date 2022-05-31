@@ -3,7 +3,7 @@
 class WMFAuthButton: AutoLayoutSafeMultiLineButton, Themeable {
     fileprivate var theme: Theme = Theme.standard
     
-    override open var isEnabled:Bool{
+    override open var isEnabled:Bool {
         didSet {
             layer.borderColor = borderColor(forIsEnabled: isEnabled)
         }

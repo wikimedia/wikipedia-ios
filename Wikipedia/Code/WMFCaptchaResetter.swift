@@ -22,7 +22,7 @@ public struct WMFCaptchaResetterResult {
 }
 
 public class WMFCaptchaResetter: Fetcher {
-    public func resetCaptcha(siteURL: URL, success: @escaping WMFCaptchaResetterResultBlock, failure: @escaping WMFErrorHandler){
+    public func resetCaptcha(siteURL: URL, success: @escaping WMFCaptchaResetterResultBlock, failure: @escaping WMFErrorHandler) {
         let parameters = [
             "action": "fancycaptchareload",
             "format": "json"

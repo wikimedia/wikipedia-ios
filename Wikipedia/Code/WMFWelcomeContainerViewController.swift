@@ -88,7 +88,7 @@ class WMFWelcomeContainerViewController: ThemeableViewController {
         if let vc = segue.destination as? WMFWelcomePanelViewController {
             vc.welcomePageType = welcomePageType
             vc.apply(theme: theme)
-        } else if let vc = segue.destination as? WMFWelcomeAnimationViewController{
+        } else if let vc = segue.destination as? WMFWelcomeAnimationViewController {
             vc.welcomePageType = welcomePageType
             vc.apply(theme: theme)
         }

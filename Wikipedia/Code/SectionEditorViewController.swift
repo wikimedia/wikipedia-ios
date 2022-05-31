@@ -293,7 +293,7 @@ class SectionEditorViewController: ViewController {
                 DispatchQueue.main.async {
                     self?.didSetWikitextToWebView = true
                     if let selectedTextEditInfo = self?.selectedTextEditInfo {
-                        self?.messagingController.highlightAndScrollToText(for: selectedTextEditInfo){ [weak self] (error) in
+                        self?.messagingController.highlightAndScrollToText(for: selectedTextEditInfo) { [weak self] (error) in
                             if error != nil {
                                 self?.showCouldNotFindSelectionInWikitextAlert()
                             }

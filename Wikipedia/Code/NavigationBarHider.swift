@@ -76,7 +76,7 @@ public class NavigationBarHider: NSObject {
         }
 
         guard scrollView.contentSize.height > 0 else {
-            if navigationBar.isAdjustingHidingFromContentInsetChangesEnabled  {
+            if navigationBar.isAdjustingHidingFromContentInsetChangesEnabled {
                 navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: 0, animated: false)
                 if navigationBar.isShadowHidingEnabled {
                     navigationBar.shadowAlpha = 0
@@ -164,7 +164,7 @@ public class NavigationBarHider: NSObject {
         guard currentExtendedViewPercentHidden != extendedViewPercentHidden || currentNavigationBarPercentHidden !=  navigationBarPercentHidden || currentUnderBarViewPercentHidden != underBarViewPercentHidden || currentTopSpacingPercentHidden != topSpacingPercentHidden else {
             return
         }
-        navigationBar.setNavigationBarPercentHidden(navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, topSpacingPercentHidden: topSpacingPercentHidden, animated: animated, additionalAnimations:{
+        navigationBar.setNavigationBarPercentHidden(navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, topSpacingPercentHidden: topSpacingPercentHidden, animated: animated, additionalAnimations: {
             self.delegate?.navigationBarHider(self, didSetNavigationBarPercentHidden: navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, animated: animated)
         })
     }
@@ -204,7 +204,7 @@ public class NavigationBarHider: NSObject {
                     targetContentOffset.pointee = CGPoint(x: targetContentOffsetX, y: top + underBarViewHideableHeight)
                 } else if targetOffsetY < underBarViewHideableHeight + extendedViewHideableHeight + 0.5 * topSpacingHideableHeight { // hide extended & under bar views
                     targetContentOffset.pointee = CGPoint(x: targetContentOffsetX, y: top + underBarViewHideableHeight + extendedViewHideableHeight)
-                } else if targetOffsetY < underBarViewHideableHeight + extendedViewHideableHeight + topSpacingHideableHeight + 0.5 * barHideableHeight  { // hide top spacing
+                } else if targetOffsetY < underBarViewHideableHeight + extendedViewHideableHeight + topSpacingHideableHeight + 0.5 * barHideableHeight { // hide top spacing
                     targetContentOffset.pointee = CGPoint(x: targetContentOffsetX, y: top + underBarViewHideableHeight + extendedViewHideableHeight + topSpacingHideableHeight)
                 } else { // hide everything
                     targetContentOffset.pointee = CGPoint(x: targetContentOffsetX, y: top + totalHideableHeight)
@@ -250,7 +250,7 @@ public class NavigationBarHider: NSObject {
             return
         }
 
-        navigationBar.setNavigationBarPercentHidden(navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, topSpacingPercentHidden: currentTopSpacingPercentHidden, animated: animated, additionalAnimations:{
+        navigationBar.setNavigationBarPercentHidden(navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, topSpacingPercentHidden: currentTopSpacingPercentHidden, animated: animated, additionalAnimations: {
             self.delegate?.navigationBarHider(self, didSetNavigationBarPercentHidden: navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, animated: animated)
         })
     }
