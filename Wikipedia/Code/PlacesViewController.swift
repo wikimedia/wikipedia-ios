@@ -85,7 +85,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         edgesForExtendedLayout = UIRectEdge.all
     }
 
-    // MARK - Search
+    // MARK: - Search
 
     lazy var searchBarContainerView: UIView = {
         let searchBarContainerView = UIView()
@@ -350,7 +350,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         }
     }
 
-    // MARKL - Filtering
+    // MARK: - Filtering
 
     // hax
     private func setCheckmark(for alertAction: UIAlertAction, in alertController: UIAlertController) {

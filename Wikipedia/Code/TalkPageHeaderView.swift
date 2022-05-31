@@ -151,7 +151,7 @@ class TalkPageHeaderView: UIView {
         delegate?.tappedIntro(headerView: self)
     }
     
-    // MARK - Dynamic Type
+    // MARK: - Dynamic Type
     // Only applies new fonts if the content size category changes
     
     open override func setNeedsLayout() {

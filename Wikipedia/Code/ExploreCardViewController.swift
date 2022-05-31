@@ -52,7 +52,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
     
     var dataStore: MWKDataStore!
     
-    // MARK - View Lifecycle
+    // MARK: - View Lifecycle
     
     override func loadView() {
         super.loadView()
@@ -121,7 +121,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         delegateVC.dismiss(animated: flag, completion: completion)
     }
     
-    // MARK - Data
+    // MARK: - Data
     private var visibleLocationCellCount: Int = 0
 
     public var contentGroup: WMFContentGroup? {
@@ -213,7 +213,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         return dataStore.fetchArticle(with: url)
     }
     
-    // MARK - cell configuration
+    // MARK: - cell configuration
     
     private func configureArticleCell(_ cell: UICollectionViewCell, forItemAt indexPath: IndexPath, with displayType: WMFFeedDisplayType, layoutOnly: Bool) {
         guard let cell = cell as? ArticleCollectionViewCell, let articleURL = articleURL(at: indexPath), let article = dataStore?.fetchArticle(with: articleURL) else {
@@ -386,7 +386,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         }
     }
 
-    // MARK - UICollectionViewDataSource
+    // MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let displayType = displayTypeAt(indexPath)
@@ -420,7 +420,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         editController.deconfigureSwipeableCell(cell, forItemAt: indexPath)
     }
     
-    // MARK - UICollectionViewDelegate
+    // MARK: - UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return contentGroup?.isSelectable ?? false
@@ -430,7 +430,7 @@ class ExploreCardViewController: UIViewController, UICollectionViewDataSource, U
         delegate?.exploreCardViewController(self, didSelectItemAtIndexPath: indexPath)
     }
     
-    // MARK - ColumnarCollectionViewLayoutDelegate
+    // MARK: - ColumnarCollectionViewLayoutDelegate
     
     func collectionView(_ collectionView: UICollectionView, estimatedHeightForItemAt indexPath: IndexPath, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         let displayType = displayTypeAt(indexPath)

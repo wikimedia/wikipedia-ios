@@ -552,7 +552,7 @@ extension SectionEditorViewController: WKNavigationDelegate {
     }
 }
 
-// MARK - EditSaveViewControllerDelegate
+// MARK: - EditSaveViewControllerDelegate
 
 extension SectionEditorViewController: EditSaveViewControllerDelegate {
     func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<SectionEditorChanges, Error>) {
@@ -564,7 +564,7 @@ extension SectionEditorViewController: EditSaveViewControllerDelegate {
     }
 }
 
-// MARK - EditPreviewViewControllerDelegate
+// MARK: - EditPreviewViewControllerDelegate
 
 extension SectionEditorViewController: EditPreviewViewControllerDelegate {
     func editPreviewViewControllerDidTapNext(_ editPreviewViewController: EditPreviewViewController) {

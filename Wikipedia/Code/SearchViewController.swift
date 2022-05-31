@@ -1,7 +1,7 @@
 import UIKit
 
 class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate {
-    // MARK - UIViewController
+    // MARK: - UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,7 +70,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         })
     }
     
-    // MARK - State
+    // MARK: - State
     
     var shouldAnimateSearchBar: Bool = true
     var isAnimatingSearchBarState: Bool = false
@@ -236,7 +236,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         return .sections
     }
 
-    // MARK - Search
+    // MARK: - Search
     
     lazy var fetcher: WMFSearchFetcher = {
        return WMFSearchFetcher()
@@ -409,7 +409,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         return FakeProgressController(progress: navigationBar, delegate: navigationBar)
     }()
     
-    // MARK - Recent Search Saving
+    // MARK: - Recent Search Saving
     
     
     func saveLastSearch() {
@@ -425,7 +425,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         reloadRecentSearches()
     }
     
-    // MARK - UISearchBarDelegate
+    // MARK: - UISearchBarDelegate
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         guard !isAnimatingSearchBarState else {
@@ -490,7 +490,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         }
     }
 
-    // MARK - Theme
+    // MARK: - Theme
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)

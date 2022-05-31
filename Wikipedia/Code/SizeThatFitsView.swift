@@ -6,7 +6,7 @@ import UIKit
 @objc(WMFSizeThatFitsView)
 open class SizeThatFitsView: SetupView {
 
-    // MARK - Methods for subclassing
+    // MARK: - Methods for subclassing
     
     // Subclassers should override setup instead of any of the initializers. Subclassers must call super.setup()
     override open func setup() {
@@ -30,7 +30,7 @@ open class SizeThatFitsView: SetupView {
         
     }
     
-    // MARK - Layout
+    // MARK: - Layout
     
     final override public func layoutSubviews() {
         super.layoutSubviews()

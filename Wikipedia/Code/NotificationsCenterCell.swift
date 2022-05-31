@@ -151,7 +151,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         return button
     }()
 
-    // MARK - UI Elements - Stacks
+    // MARK: - UI Elements - Stacks
 
     lazy var mainVerticalStackView: UIStackView = {
         let stackView = UIStackView()

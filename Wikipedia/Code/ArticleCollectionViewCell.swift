@@ -205,7 +205,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         return size
     }
     
-    // MARK - View configuration
+    // MARK: - View configuration
     // These properties can mutate with each use of the cell. They should be reset by the `reset` function. Call setsNeedLayout after adjusting any of these properties
     
     public var titleTextStyle: DynamicTextStyle!
@@ -234,7 +234,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         alertButton.titleLabel?.font = UIFont.wmf_font(.semiboldCaption2, compatibleWithTraitCollection: traitCollection)
     }
     
-    // MARK - Semantic content
+    // MARK: - Semantic content
     
     fileprivate var _articleSemanticContentAttribute: UISemanticContentAttribute = .unspecified
     fileprivate var _effectiveArticleSemanticContentAttribute: UISemanticContentAttribute = .unspecified
@@ -275,7 +275,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         super.traitCollectionDidChange(previousTraitCollection)
     }
     
-    // MARK - Accessibility
+    // MARK: - Accessibility
     
     open override func updateAccessibilityElements() {
         var updatedAccessibilityElements: [Any] = []

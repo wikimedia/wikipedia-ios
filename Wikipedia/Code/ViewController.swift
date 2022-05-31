@@ -74,7 +74,7 @@ class ViewController: ThemeableViewController, NavigationBarHiderDelegate {
         }
     }
     
-    // MARK - Close Button
+    // MARK: - Close Button
     
     @objc private func close() {
         navigationController?.popViewController(animated: true)
@@ -247,7 +247,7 @@ class ViewController: ThemeableViewController, NavigationBarHiderDelegate {
         updateScrollViewInsets()
     }
     
-    // MARK - Scroll View Insets
+    // MARK: - Scroll View Insets
     
     override func viewSafeAreaInsetsDidChange() {
         super.viewSafeAreaInsetsDidChange()

@@ -15,7 +15,6 @@ disabled_rules:
     - large_tuple
     - legacy_random
     - line_length
-    - mark
     - multiple_closures_with_trailing_closure
     - nesting
     - no_fallthrough_only

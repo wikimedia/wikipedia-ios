@@ -1,4 +1,4 @@
-// MARK:- Context Menu for ArticleVC (iOS 13 and later)
+// MARK: - Context Menu for ArticleVC (iOS 13 and later)
 // All functions in this extension are for Context Menus (used in iOS 13 and later)
 extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
     func getPeekViewControllerAsync(for destination: Router.Destination, completion: @escaping (UIViewController?) -> Void) {

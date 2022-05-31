@@ -10,7 +10,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     @objc public weak var notificationsCenterPresentationDelegate: NotificationsCenterPresentationDelegate?
     @objc public weak var settingsPresentationDelegate: SettingsPresentationDelegate?
 
-    // MARK - UIViewController
+    // MARK: - UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -122,7 +122,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         navigationBar.updateNavigationItems()
     }
     
-    // MARK - NavBar
+    // MARK: - NavBar
     
     @objc func titleBarButtonPressed(_ sender: UIButton?) {
         scrollToTop()
@@ -153,7 +153,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         settingsPresentationDelegate?.userDidTapSettings(from: self)
     }
 
-    // MARK - Refresh
+    // MARK: - Refresh
     
     override func refreshControlActivated() {
         super.refreshControlActivated()
@@ -166,7 +166,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
     }
     
-    // MARK - Scroll
+    // MARK: - Scroll
     
     var isLoadingOlderContent: Bool = false
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -244,7 +244,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
     }
     
-    // MARK - Search
+    // MARK: - Search
 
     public var wantsCustomSearchTransition: Bool {
         return true
@@ -289,7 +289,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
     }
 
-    // MARK - UISearchBarDelegate
+    // MARK: - UISearchBarDelegate
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         let searchActivity = NSUserActivity.wmf_searchView()
@@ -297,7 +297,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return false
     }
     
-    // MARK - State
+    // MARK: - State
     
     @objc var dataStore: MWKDataStore!
     private var fetchedResultsController: NSFetchedResultsController<WMFContentGroup>?
@@ -447,15 +447,15 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         super.contentSizeCategoryDidChange(notification)
     }
     
-    // MARK - ImageScaleTransitionProviding
+    // MARK: - ImageScaleTransitionProviding
     
     var imageScaleTransitionView: UIImageView?
     
-    // MARK - DetailTransitionSourceProviding
+    // MARK: - DetailTransitionSourceProviding
     
     var detailTransitionSourceRect: CGRect?
     
-    // MARK - UICollectionViewDataSource
+    // MARK: - UICollectionViewDataSource
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
        return numberOfItemsInSection(section)
@@ -482,7 +482,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return header
     }
     
-    // MARK - UICollectionViewDelegate
+    // MARK: - UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         guard let group = group(at: indexPath) else {
@@ -643,7 +643,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return false
     }
     
-    // MARK - ExploreCardViewControllerDelegate
+    // MARK: - ExploreCardViewControllerDelegate
     
     func exploreCardViewController(_ exploreCardViewController: ExploreCardViewController, didSelectItemAtIndexPath indexPath: IndexPath) {
         guard
@@ -676,7 +676,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
     }
     
-    // MARK - Prefetching
+    // MARK: - Prefetching
     
     override func imageURLsForItemAt(_ indexPath: IndexPath) -> Set<URL>? {
         guard let contentGroup = group(at: indexPath) else {
@@ -694,7 +694,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     #endif
     
-    // MARK - CollectionViewUpdaterDelegate
+    // MARK: - CollectionViewUpdaterDelegate
     
     var needsReloadVisibleCells = false
     var indexPathsForCollapsedCellsThatCanReappear = Set<IndexPath>()
@@ -840,7 +840,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     var addArticlesToReadingListVCDidDisappear: (() -> Void)? = nil
 }
 
-// MARK - Analytics
+// MARK: - Analytics
 extension ExploreViewController {
     private func logArticleSavedStateChange(_ wasArticleSaved: Bool, saveButton: SaveButton?, article: WMFArticle, userInfo: Any?) {
         guard let articleURL = article.url else {

@@ -37,7 +37,7 @@ class SizeThatFitsReusableView: UICollectionReusableView {
         
     }
     
-    // MARK - Initializers
+    // MARK: - Initializers
     // Don't override these initializers, use setup() instead
     
     public override init(frame: CGRect) {
@@ -50,14 +50,14 @@ class SizeThatFitsReusableView: UICollectionReusableView {
         setup()
     }
     
-    // MARK - Cell lifecycle
+    // MARK: - Cell lifecycle
     
     open override func prepareForReuse() {
         super.prepareForReuse()
         reset()
     }
     
-    // MARK - Layout
+    // MARK: - Layout
     
     final override public func layoutSubviews() {
         super.layoutSubviews()
@@ -101,7 +101,7 @@ class SizeThatFitsReusableView: UICollectionReusableView {
         }
     }
     
-    // MARK - Dynamic Type
+    // MARK: - Dynamic Type
     // Only applies new fonts if the content size category changes
     
     override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

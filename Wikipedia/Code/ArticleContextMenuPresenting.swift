@@ -15,7 +15,7 @@ enum ContextMenuCompletionType {
     case success
 }
 
-// MARK:- Context Menu for Protocol
+// MARK: - Context Menu for Protocol
 // All functions in this extension are for Context Menus
 /// The ArticleContextMenuPresenting protocol extension has functions that are called by various classes' WKUIDelegate functions, but the WKUIDelegate functions themselves
 /// reside within the actual classes. This is because in testing, the delegate methods were never called when they lived in the protocol extension - there would just be a silent failure.
