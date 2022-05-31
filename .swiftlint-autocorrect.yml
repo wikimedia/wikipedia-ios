@@ -23,7 +23,6 @@ disabled_rules:
     - redundant_objc_attribute
     - redundant_optional_initialization
     - redundant_string_enum_value
-    - return_arrow_whitespace
     - shorthand_operator
     - statement_position
     - syntactic_sugar

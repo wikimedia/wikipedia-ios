@@ -55,7 +55,7 @@ public struct APIURLComponentsBuilder {
         }
         
         /// Returns a block that will return a builder for a given host. For production, the host is the host of the wiki: https://en.wikipedia.org/api/rest_v1/
-        private static func productionBuilder(withWikiHost wikiHost: String? = nil) ->  APIURLComponentsBuilder {
+        private static func productionBuilder(withWikiHost wikiHost: String? = nil) -> APIURLComponentsBuilder {
             var components = URLComponents()
             components.host = wikiHost ?? Configuration.Domain.englishWikipedia
             components.scheme = Configuration.Scheme.https

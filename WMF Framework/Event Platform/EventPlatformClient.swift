@@ -678,7 +678,7 @@ private extension EventPlatformClient {
         DDLogDebug("EPC: Attempting to POST events")
         let request = session.request(with: url, method: .post, bodyData: body, bodyEncoding: .json)
         let task = session.dataTask(with: request, completionHandler: { (_, response, error) in
-            let fail: (PostEventError) ->  Void = { error in
+            let fail: (PostEventError) -> Void = { error in
                 DDLogDebug("EPC: An error occurred sending the request: \(error)")
                 completion(.failure(error))
             }

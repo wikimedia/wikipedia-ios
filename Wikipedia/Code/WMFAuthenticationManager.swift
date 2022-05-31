@@ -2,7 +2,7 @@ import CocoaLumberjackSwift
 
 @objc protocol WMFAuthenticationManagerDelegate: NSObjectProtocol {
     var loginSiteURL: URL? { get }
-    func authenticationManagerWillLogOut(completionHandler: @escaping ()->Void) // allows interested objects to perform authenticated clean up actions before log out
+    func authenticationManagerWillLogOut(completionHandler: @escaping () -> Void) // allows interested objects to perform authenticated clean up actions before log out
     func authenticationManagerDidLogin()
     func authenticationManagerDidReset()
 }
