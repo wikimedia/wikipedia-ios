@@ -1,4 +1,3 @@
-
 import Foundation
 enum SignificantEventsDecodeError: Error {
     case unableToParseIntoTypedEvents

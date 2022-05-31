@@ -1,4 +1,3 @@
-
 struct WMFKeychainCredentials {
     
     // Based on:

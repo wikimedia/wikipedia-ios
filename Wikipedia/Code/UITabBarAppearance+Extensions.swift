@@ -1,4 +1,3 @@
-
 import Foundation
 
 @objc extension UITabBarAppearance {

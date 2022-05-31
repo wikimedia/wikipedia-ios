@@ -1,4 +1,3 @@
-
 import XCTest
 import CoreData
 @testable import Wikipedia

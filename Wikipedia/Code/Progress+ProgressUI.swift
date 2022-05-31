@@ -1,4 +1,3 @@
-
 let WMFMinProgressDurationBeforeShowingProgressUI = 2.0
 
 extension Progress {

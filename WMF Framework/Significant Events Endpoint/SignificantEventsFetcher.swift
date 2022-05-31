@@ -1,4 +1,3 @@
-
 import Foundation
 
 enum SignificantEventsFetcherError: Error {

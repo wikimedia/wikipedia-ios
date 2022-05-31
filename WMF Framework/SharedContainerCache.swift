@@ -1,4 +1,3 @@
-
 import Foundation
 
 public final class SharedContainerCache<T: Codable> {

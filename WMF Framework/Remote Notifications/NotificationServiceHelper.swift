@@ -1,4 +1,3 @@
-
 import Foundation
 
 // Testable helper methods for service extension logic

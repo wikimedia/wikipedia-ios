@@ -1,4 +1,3 @@
-
 import WebKit
 import CocoaLumberjackSwift
 

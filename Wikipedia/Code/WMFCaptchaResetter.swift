@@ -1,4 +1,3 @@
-
 public enum WMFCaptchaResetterError: LocalizedError {
     case cannotExtractCaptchaIndex
     case zeroLengthIndex

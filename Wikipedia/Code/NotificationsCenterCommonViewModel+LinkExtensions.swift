@@ -1,4 +1,3 @@
-
 import Foundation
 
 // MARK: Private Helpers - LinkData

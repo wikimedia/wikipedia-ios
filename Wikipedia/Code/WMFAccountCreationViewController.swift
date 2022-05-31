@@ -1,4 +1,3 @@
-
 import UIKit
 
 class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate, Themeable {

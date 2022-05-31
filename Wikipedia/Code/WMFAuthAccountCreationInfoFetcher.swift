@@ -1,4 +1,3 @@
-
 public enum WMFAuthAccountCreationError: LocalizedError {
     case cannotExtractInfo
     case cannotCreateAccountsNow

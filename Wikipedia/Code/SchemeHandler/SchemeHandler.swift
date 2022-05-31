@@ -1,4 +1,3 @@
-
 import WebKit
 
 enum SchemeHandlerError: Error {

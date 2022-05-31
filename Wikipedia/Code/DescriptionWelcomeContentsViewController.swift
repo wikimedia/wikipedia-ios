@@ -1,4 +1,3 @@
-
 class DescriptionWelcomeContentsViewController: UIViewController, Themeable {
     private var theme = Theme.standard
     func apply(theme: Theme) {

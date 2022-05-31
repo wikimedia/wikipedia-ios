@@ -1,4 +1,3 @@
-
 enum DiffThankerError: LocalizedError {
     case thanksStatusNotSuccess
     case thanksError(String)

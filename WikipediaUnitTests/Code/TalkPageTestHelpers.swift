@@ -1,4 +1,3 @@
-
 import Foundation
 @testable import Wikipedia
 @testable import WMF

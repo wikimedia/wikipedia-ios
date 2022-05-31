@@ -1,4 +1,3 @@
-
 private extension CGFloat {
     func constrainedBetween(minHeight: Int, maxPercentOfScreenHeight: Int, availableHeight: CGFloat) -> CGFloat {
         assert(minHeight >= 0, "minHeight should be at least 0")

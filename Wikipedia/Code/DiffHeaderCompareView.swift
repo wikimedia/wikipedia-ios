@@ -1,4 +1,3 @@
-
 import UIKit
 
 class DiffHeaderCompareView: UIView {

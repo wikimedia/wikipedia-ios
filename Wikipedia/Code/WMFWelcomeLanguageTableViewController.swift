@@ -1,4 +1,3 @@
-
 // https://stackoverflow.com/a/34902501/135557
 class WMFWelcomeLanguageIntrinsicTableView: UITableView {
     override var contentSize: CGSize {

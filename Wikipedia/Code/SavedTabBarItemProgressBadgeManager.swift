@@ -1,4 +1,3 @@
-
 @objcMembers class SavedTabBarItemProgressBadgeManager: NSObject {
     private var progressObjectWasSetObservation: NSKeyValueObservation?
     private var progressFractionCompletedObservation: NSKeyValueObservation?

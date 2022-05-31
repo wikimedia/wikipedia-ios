@@ -1,4 +1,3 @@
-
 public enum WMFPasswordResetterError: LocalizedError {
     case cannotExtractResetStatus
     case resetStatusNotSuccess

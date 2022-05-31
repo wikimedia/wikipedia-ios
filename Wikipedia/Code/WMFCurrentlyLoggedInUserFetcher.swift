@@ -1,4 +1,3 @@
-
 public enum WMFCurrentlyLoggedInUserFetcherError: LocalizedError {
     case cannotExtractUserInfo
     case userIsAnonymous

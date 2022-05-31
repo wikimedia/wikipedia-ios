@@ -1,5 +1,3 @@
-
-
 import Foundation
 
 @objc public protocol ABTestsPersisting: AnyObject {

@@ -1,4 +1,3 @@
-
 import Foundation
 
 fileprivate extension Dictionary where Key == String, Value == Any {

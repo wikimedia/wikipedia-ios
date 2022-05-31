@@ -1,4 +1,3 @@
-
 /// Protocol for notifying a delegate that a UITextField's keyboard delete button 
 /// was pressed even if the text field is empty, which doesn't appear to get 
 /// reported to other UITextFieldDelegate methods. 

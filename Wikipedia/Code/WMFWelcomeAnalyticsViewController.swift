@@ -1,4 +1,3 @@
-
 class WMFWelcomeAnalyticsViewController: ThemeableViewController {
     
     override func apply(theme: Theme) {

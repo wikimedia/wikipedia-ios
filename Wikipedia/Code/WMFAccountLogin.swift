@@ -1,4 +1,3 @@
-
 public enum WMFAccountLoginError: LocalizedError {
     case cannotExtractLoginStatus
     case statusNotPass(String?)

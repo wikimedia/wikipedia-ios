@@ -13,7 +13,6 @@ disabled_rules:
     - identifier_name
     - is_disjoint
     - large_tuple
-    - leading_whitespace
     - legacy_constructor
     - legacy_random
     - line_length

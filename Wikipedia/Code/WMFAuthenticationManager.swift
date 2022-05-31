@@ -1,4 +1,3 @@
-
 import CocoaLumberjackSwift
 
 @objc protocol WMFAuthenticationManagerDelegate: NSObjectProtocol {

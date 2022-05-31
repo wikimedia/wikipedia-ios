@@ -1,4 +1,3 @@
-
 import Foundation
 
 // tonitodo: It makes more sense for this to live in the app. Can we move out of WMF?

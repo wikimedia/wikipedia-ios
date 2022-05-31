@@ -1,4 +1,3 @@
-
 public enum WMFAuthLoginError: LocalizedError {
     case cannotExtractInfo
     case cannotAuthenticateNow

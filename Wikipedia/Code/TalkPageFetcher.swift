@@ -1,4 +1,3 @@
-
 class NetworkTalkPage {
     let url: URL
     let topics: [NetworkTopic]
