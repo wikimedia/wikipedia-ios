@@ -1,7 +1,7 @@
 
 import Foundation
 
-//Testable helper methods for service extension logic
+// Testable helper methods for service extension logic
 public class NotificationServiceHelper {
     public static func allNotificationsAreForSameTalkPage(notifications: Set<RemoteNotificationsAPIController.NotificationsResult.Notification>) -> Bool {
         
@@ -23,16 +23,16 @@ public class NotificationServiceHelper {
     
     public static func determineNotificationsToDisplayAndCache(fetchedNotifications: Set<RemoteNotificationsAPIController.NotificationsResult.Notification>, cachedNotifications: Set<RemoteNotificationsAPIController.NotificationsResult.Notification>) -> (notificationsToDisplay: Set<RemoteNotificationsAPIController.NotificationsResult.Notification>, notificationsToCache: Set<RemoteNotificationsAPIController.NotificationsResult.Notification>) {
 
-        //Prune persisted keys of any > 1 day ago so the cache doesn't grow too big
+        // Prune persisted keys of any > 1 day ago so the cache doesn't grow too big
         let recentCachedNotifications = cachedNotifications.filter { $0.isNewerThan(timeAgo: TimeInterval.oneDay) }
         
-        //Prune fetched notifications > 10mins ago since a server delay should be no longer than that.
+        // Prune fetched notifications > 10mins ago since a server delay should be no longer than that.
         let recentFetchedNotifications = fetchedNotifications.filter { $0.isNewerThan(timeAgo: TimeInterval.tenMinutes) }
         
-        //Only consider new notifications that don't exist in cache for display
+        // Only consider new notifications that don't exist in cache for display
         let notificationsToDisplay = recentFetchedNotifications.subtracting(recentCachedNotifications)
         
-        //New cache should keep track of recently cached notifications + new notifications to display
+        // New cache should keep track of recently cached notifications + new notifications to display
         let notificationsToCache = notificationsToDisplay.union(recentCachedNotifications)
         
         return (notificationsToDisplay, notificationsToCache)

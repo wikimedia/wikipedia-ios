@@ -230,7 +230,7 @@ open class TableOfContentsPresentationController: UIPresentationController, Them
             return
         }
         
-        //Add shadow to the presented view
+        // Add shadow to the presented view
         self.presentedView?.layer.shadowOpacity = 0.8
         self.presentedView?.layer.shadowColor = theme.colors.shadow.cgColor
         self.presentedView?.layer.shadowOffset = CGSize(width: 3, height: 5)

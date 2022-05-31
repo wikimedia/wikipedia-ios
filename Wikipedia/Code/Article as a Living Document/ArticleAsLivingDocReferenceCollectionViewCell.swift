@@ -45,7 +45,7 @@ class ArticleAsLivingDocReferenceCollectionViewCell: ArticleAsLivingDocHorizonta
         super.setup()
         descriptionTextView.textContainer.maximumNumberOfLines = 0
         contentView.addSubview(titleLabel)
-        //adding icon badge in configure
+        // adding icon badge in configure
     }
     
     override func reset() {

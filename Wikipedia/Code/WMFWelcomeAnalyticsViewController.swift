@@ -28,7 +28,7 @@ class WMFWelcomeAnalyticsViewController: ThemeableViewController {
         
         updateToggleLabelTitleForUsageReportsIsOn(false)
         
-        //Set state of the toggle. Also make sure crash manager setting is in sync with this setting - likely to happen on first launch or for previous users.
+        // Set state of the toggle. Also make sure crash manager setting is in sync with this setting - likely to happen on first launch or for previous users.
         let loggingEnabled = EventLoggingService.shared?.isEnabled ?? false
         if (loggingEnabled) {
             toggle.isOn = true
@@ -40,7 +40,7 @@ class WMFWelcomeAnalyticsViewController: ThemeableViewController {
     }
     
     private func updateToggleLabelTitleForUsageReportsIsOn(_ isOn: Bool) {
-        //Hide accessibility of label because switch will become the label by default.
+        // Hide accessibility of label because switch will become the label by default.
         toggleLabel.isAccessibilityElement = false
         
         toggleLabel.isHidden = !isOn

@@ -257,7 +257,7 @@ class ViewController: ThemeableViewController, NavigationBarHiderDelegate {
     
     var useNavigationBarVisibleHeightForScrollViewInsets: Bool = false
     
-    //override if needed to preserve scroll view inset animation
+    // override if needed to preserve scroll view inset animation
     public var shouldAnimateWhileUpdatingScrollViewInsets: Bool {
         return false
     }
@@ -334,11 +334,11 @@ class ViewController: ThemeableViewController, NavigationBarHiderDelegate {
     }
     
     @objc func keyboardWillHide(_ notification: Notification) {
-        //subclasses to override if needed
+        // subclasses to override if needed
     }
     
     @objc func keyboardWillShow(_ notification: Notification) {
-        //subclasses to override if needed
+        // subclasses to override if needed
     }
     
     // MARK: - Scrolling

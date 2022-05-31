@@ -97,7 +97,7 @@ final class RemoteNotificationsModelController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    //MARK: Public
+    // MARK: Public
     
     func deleteLegacyDatabaseFiles() throws {
         let modelName = Self.modelName
@@ -134,13 +134,13 @@ final class RemoteNotificationsModelController {
         let request: NSFetchRequest<NSFetchRequestResult> = RemoteNotification.fetchRequest()
         let libraryRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest<NSFetchRequestResult>(entityName: "WMFKeyValue")
         
-        //batch delete all notification managed objects from Core Data
+        // batch delete all notification managed objects from Core Data
         try batchDeleteBlock(request, backgroundContext)
         
-        //batch delete all library values from Core Data
+        // batch delete all library values from Core Data
         try batchDeleteBlock(libraryRequest, backgroundContext)
         
-        //remove notifications from shared cache (referenced by the NotificationsService extension)
+        // remove notifications from shared cache (referenced by the NotificationsService extension)
         let sharedCache = SharedContainerCache<PushNotificationsCache>.init(pathComponent: .pushNotificationsCache, defaultCache: { PushNotificationsCache(settings: .default, notifications: []) })
         var cache = sharedCache.loadCache()
         cache.notifications = []
@@ -156,7 +156,7 @@ final class RemoteNotificationsModelController {
         return backgroundContext
     }
     
-    //MARK: Count convenience helpers
+    // MARK: Count convenience helpers
     
     func numberOfUnreadNotifications() throws -> Int {
         assert(Thread.isMainThread)
@@ -171,7 +171,7 @@ final class RemoteNotificationsModelController {
         return try viewContext.count(for: fetchRequest)
     }
     
-    //MARK: Fetch and create
+    // MARK: Fetch and create
     
     func fetchNotifications(fetchLimit: Int = 50, fetchOffset: Int = 0, predicate: NSPredicate?) throws -> [RemoteNotification] {
         assert(Thread.isMainThread)
@@ -273,7 +273,7 @@ final class RemoteNotificationsModelController {
         }
     }
     
-    //MARK: Fetch Distinct Wikis
+    // MARK: Fetch Distinct Wikis
 
     func distinctWikisWithUnreadNotifications() throws -> Set<String> {
         return try distinctWikis(predicate: unreadNotificationsPredicate)
@@ -301,7 +301,7 @@ final class RemoteNotificationsModelController {
         }
     }
     
-    //MARK: Filter Settings
+    // MARK: Filter Settings
     
     func getFilterSettingsFromLibrary() -> NSDictionary? {
         return libraryValue(forKey: LibraryKey.filterSettings.rawValue) as? NSDictionary
@@ -311,7 +311,7 @@ final class RemoteNotificationsModelController {
         setLibraryValue(dictionary, forKey: LibraryKey.filterSettings.rawValue)
     }
     
-    //MARK: WMFLibraryValue Helpers
+    // MARK: WMFLibraryValue Helpers
     func libraryValue(forKey key: String) -> NSCoding? {
         var result: NSCoding? = nil
         let backgroundContext = newBackgroundContext()
@@ -344,7 +344,7 @@ final class RemoteNotificationsModelController {
         return nsNumber.boolValue
     }
     
-    //MARK: Private
+    // MARK: Private
     
     private var unreadNotificationsPredicate: NSPredicate {
         return NSPredicate(format: "isRead == %@", NSNumber(value: false))

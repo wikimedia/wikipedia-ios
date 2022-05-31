@@ -5,13 +5,13 @@ final class CacheGatekeeper {
 
     private let queue = DispatchQueue(label: "org.wikimedia.cache.gatekeeper")
     
-    //Used when adding or removing the same uniqueKey rapidly. Individual completion block is queued here until uniqueKey is determined complete in CacheController. Note this complete can come from another groupKey. Queued completions are then called and cleaned out.
+    // Used when adding or removing the same uniqueKey rapidly. Individual completion block is queued here until uniqueKey is determined complete in CacheController. Note this complete can come from another groupKey. Queued completions are then called and cleaned out.
     private var individualCompletions: [CacheController.UniqueKey: [CacheController.IndividualCompletionBlock]] = [:]
     
-    //Used when adding or removing the same groupKey rapidly. Completion block is queued here until group is determined complete in CacheController. Queued completions are then called and cleaned out.
+    // Used when adding or removing the same groupKey rapidly. Completion block is queued here until group is determined complete in CacheController. Queued completions are then called and cleaned out.
     private var groupCompletions: [CacheController.GroupKey: [CacheController.GroupCompletionBlock]] = [:]
     
-    //Used when adding THEN removing (or vice versa) the same group key rapidly. Completion blocks are queued here until an add or remove completes. Queued completions are then called and cleaned out.
+    // Used when adding THEN removing (or vice versa) the same group key rapidly. Completion blocks are queued here until an add or remove completes. Queued completions are then called and cleaned out.
     private var queuedAddsWhileWaitingOnRemoves: [CacheController.GroupKey: [() -> Void]] = [:]
     private var queuedRemovesWhileWaitingOnAdds: [CacheController.GroupKey: [() -> Void]] = [:]
     private var currentlyAdding: [CacheController.GroupKey] = []

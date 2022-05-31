@@ -136,7 +136,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         switch largeEvent.buttonsToDisplay {
         case .thankAndViewChanges:
             
-            //Note: AlignedImageButton overrides wmf_preferredFrame and adjusts the frame origin x value by the leftPadding amount. I'm not sure why it does this but to prevent risk with tinkering on a widespread view we are resetting that offset here.
+            // Note: AlignedImageButton overrides wmf_preferredFrame and adjusts the frame origin x value by the leftPadding amount. I'm not sure why it does this but to prevent risk with tinkering on a widespread view we are resetting that offset here.
             let thankXOffset = thankButton.leftPadding
             let thankOrigin = CGPoint(x: x + thankXOffset, y: userInfoFrame.maxY + userInfoButtonsSpacing)
 
@@ -149,7 +149,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
             viewChangesButton.cornerRadius = thankFrame.height / 2
         case .viewDiscussion:
             
-            //Note: See above note on thankXOffset for reasons for this offset.
+            // Note: See above note on thankXOffset for reasons for this offset.
             let viewDiscussionXOffset = viewDiscussionButton.leftPadding
             let viewDiscussionOrigin = CGPoint(x: x + viewDiscussionXOffset, y: userInfoFrame.maxY + userInfoButtonsSpacing)
             let viewDiscussionFrame = viewDiscussionButton.wmf_preferredFrame(at: viewDiscussionOrigin, maximumWidth: widthToFit, horizontalAlignment: .left, apply: apply)
@@ -431,7 +431,7 @@ extension ArticleAsLivingDocLargeEventCollectionViewCell: UITextViewDelegate {
             return false
         }
         
-        //note for now only userInfoTextView's delegate is self, and the only link possible in that text view is the username, so it's safe to log this
+        // note for now only userInfoTextView's delegate is self, and the only link possible in that text view is the username, so it's safe to log this
         let loggingPosition = largeEvent.loggingPosition
         let eventTypes = ArticleAsLivingDocFunnel.EventType.eventTypesFromLargeEvent(largeEvent)
         ArticleAsLivingDocFunnel.shared.logModalEditorNameTapped(position: loggingPosition, types: eventTypes)

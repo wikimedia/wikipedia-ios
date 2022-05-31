@@ -14,7 +14,7 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
             "titles": requestParams.title as AnyObject,
             "continue": requestParams.pagingInfo.continueKey as AnyObject? ?? "" as AnyObject,
             "format": "json" as AnyObject
-            //,"rvdiffto": -1 //Add this to fake out "error" api response.
+            // ,"rvdiffto": -1 //Add this to fake out "error" api response.
         ]
         
         if let rvContinueKey = requestParams.pagingInfo.rvContinueKey {
@@ -296,7 +296,7 @@ open class PageHistoryRequestParameters: NSObject {
         self.lastRevisionFromPreviousCall = lastRevisionFromPreviousCall
     }
     
-    //TODO: get rid of this when the VC is swift and we can use default values in the other init
+    // TODO: get rid of this when the VC is swift and we can use default values in the other init
     @objc public init(title: String) {
         self.title = title
         pagingInfo = (nil, nil, false)

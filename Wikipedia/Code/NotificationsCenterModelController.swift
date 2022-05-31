@@ -2,7 +2,7 @@
 import Foundation
 import WMF
 
-//Keeps track of the RemoteNotification managed objects and NotificationsCenterCellViewModels that power Notification Center in a performant way
+// Keeps track of the RemoteNotification managed objects and NotificationsCenterCellViewModels that power Notification Center in a performant way
 final class NotificationsCenterModelController {
     
     typealias RemoteNotificationKey = String
@@ -27,7 +27,7 @@ final class NotificationsCenterModelController {
         var newCellViewModels: [NotificationsCenterCellViewModel] = []
         for notification in notifications {
             
-            //Instantiate new view model and insert it into tracking properties
+            // Instantiate new view model and insert it into tracking properties
             
             guard let key = notification.key,
                   let newCellViewModel = NotificationsCenterCellViewModel(notification: notification, languageLinkController: languageLinkController, isEditing: isEditing, configuration: configuration) else {
@@ -45,7 +45,7 @@ final class NotificationsCenterModelController {
     }
     
     @discardableResult func evaluateUpdatedNotifications(updatedNotifications: [RemoteNotification], isEditing: Bool) -> [NotificationsCenterUpdateType] {
-        //Find existing cell view models via tracking properties
+        // Find existing cell view models via tracking properties
         
         var didRemoveValueFromTrackingProperties: Bool = false
         let viewModelsToUpdate: [NotificationsCenterCellViewModel] = updatedNotifications.compactMap { notification in
@@ -58,7 +58,7 @@ final class NotificationsCenterModelController {
                 return nil
             }
             
-            //updated notification read state may cause tracked models here to be out of date (i.e. models only contain unread notifications due to filter, and user marks a notification as read). Remove model from tracking properties if filter indicates we should. This allows cell to disappear from screen when marking it's read/unread state while a read/unread filter is on.
+            // updated notification read state may cause tracked models here to be out of date (i.e. models only contain unread notifications due to filter, and user marks a notification as read). Remove model from tracking properties if filter indicates we should. This allows cell to disappear from screen when marking it's read/unread state while a read/unread filter is on.
             let filterState = remoteNotificationsController.filterState
             if (filterState.readStatus == .read && !notification.isRead) ||
                 (filterState.readStatus == .unread && notification.isRead) {

@@ -95,7 +95,7 @@ class DiffHeaderCompareItemView: UIView {
         let spacingDelta = maxContainerStackViewSpacing - minContainerStackViewSpacing
         containerStackView.spacing = maxContainerStackViewSpacing - (spacingDelta * percentage)
 
-        //tonitodo: shrink font size
+        // tonitodo: shrink font size
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

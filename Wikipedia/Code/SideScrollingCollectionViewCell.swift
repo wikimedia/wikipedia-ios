@@ -65,7 +65,7 @@ open class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtocol 
         
         wmf_configureSubviewsForDynamicType()
 
-        //Setup the prototype cell with placeholder content so we can get an accurate height calculation for the collection view that accounts for dynamic type changes
+        // Setup the prototype cell with placeholder content so we can get an accurate height calculation for the collection view that accounts for dynamic type changes
         prototypeCell.configure(with: CellArticle(articleURL: nil, title: "Lorem", titleHTML: "Lorem", description: "Ipsum", imageURL: nil), semanticContentAttribute: .forceLeftToRight, theme: self.theme, layoutOnly: true)
 
         prototypeCell.isHidden = true

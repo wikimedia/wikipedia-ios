@@ -27,7 +27,7 @@ class ShortDescriptionController: ArticleDescriptionControlling {
     
     fileprivate static let templateRegex = "(\\{\\{\\s*[sS]hort description\\|(?:1=)?)([^}|]+)([^}]*\\}\\})"
     
-//MARK: Public
+// MARK: Public
     
     /// Inits for use of updating EN Wikipedia article description
     /// - Parameters:
@@ -97,7 +97,7 @@ class ShortDescriptionController: ArticleDescriptionControlling {
     }
 }
 
-//MARK: Private helpers
+// MARK: Private helpers
 
 private extension ShortDescriptionController {
     

@@ -162,7 +162,7 @@ class DiffController {
         
         if let revisionRetrievingDelegate = revisionRetrievingDelegate {
             
-            //optimization - first try to grab a revision we might already have in memory from the revisionRetrievingDelegate
+            // optimization - first try to grab a revision we might already have in memory from the revisionRetrievingDelegate
             switch direction {
             case .next:
                 if let nextRevision = revisionRetrievingDelegate.retrieveNextRevision(with: sourceRevision) {

@@ -44,7 +44,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     @IBOutlet fileprivate weak var headingLabel: UILabel!
     @IBOutlet fileprivate weak var subheadingLabel: UILabel!
     
-    //use as an indication of what triggered a dismissal
+    // use as an indication of what triggered a dismissal
     private var lastAction: LastAction = .none
     
     let originalSubheadingTopConstraint = CGFloat(0)
@@ -73,7 +73,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     fileprivate var primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
     fileprivate var secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
     
-    //traceableDismissHandler takes priority if it's populated. It will pass back a LastAction indicating the action that triggered the dismissal, for the caller to react with.
+    // traceableDismissHandler takes priority if it's populated. It will pass back a LastAction indicating the action that triggered the dismissal, for the caller to react with.
     fileprivate var dismissHandler: ScrollableEducationPanelDismissHandler?
     fileprivate var traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?
     

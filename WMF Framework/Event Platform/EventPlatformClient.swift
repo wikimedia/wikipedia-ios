@@ -611,7 +611,7 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
     }
 }
 
-//MARK: Thread-safe accessors for collection properties
+// MARK: Thread-safe accessors for collection properties
 private extension EventPlatformClient {
 
     /**
@@ -659,7 +659,7 @@ private extension EventPlatformClient {
     }
 }
 
-//MARK: NetworkIntegration
+// MARK: NetworkIntegration
 
 private extension EventPlatformClient {
     /// PostEventError describes the possible failure cases when POSTing an event

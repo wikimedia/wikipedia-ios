@@ -158,7 +158,7 @@ extension DiffToolbarView: Themeable {
         toolbar.barTintColor = theme.colors.chromeBackground
         contentView.backgroundColor = theme.colors.chromeBackground
         
-        //avoid toolbar disappearing when empty/error states are shown
+        // avoid toolbar disappearing when empty/error states are shown
         if theme == Theme.black {
             switch parentViewState {
             case .error, .empty:

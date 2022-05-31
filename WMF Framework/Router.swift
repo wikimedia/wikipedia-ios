@@ -138,7 +138,7 @@ public class Router: NSObject {
             maybeDir != nil,
             let action = maybeAction,
             action == "history" {
-            //TODO: push history 'slice'
+            // TODO: push history 'slice'
             return .articleHistory(url, articleTitle: title)
         } else if let action = maybeAction,
             action == "history" {

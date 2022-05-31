@@ -1,7 +1,7 @@
 
 import Foundation
 
-//tonitodo: It makes more sense for this to live in the app. Can we move out of WMF?
+// tonitodo: It makes more sense for this to live in the app. Can we move out of WMF?
 
 public struct ArticleAsLivingDocViewModel {
     
@@ -32,7 +32,7 @@ public struct ArticleAsLivingDocViewModel {
         self.nextRvStartId = significantEvents.nextRvStartId
         self.sha = significantEvents.sha
         
-        //initialize summary text
+        // initialize summary text
         var summaryText: String? = nil
         if let earliestDate = isoDateFormatter.date(from: significantEvents.summary.earliestTimestampString) {
             
@@ -63,7 +63,7 @@ public struct ArticleAsLivingDocViewModel {
                 maybeEvent = .small(smallEventViewModel)
             } else if let largeEventViewModel = Event.Large(typedEvent: originalEvent) {
                 
-                //this is just an optimization to have collection view height calculations sooner so it doesn't happen while the user is scrolling
+                // this is just an optimization to have collection view height calculations sooner so it doesn't happen while the user is scrolling
                 largeEventViewModel.calculateSideScrollingCollectionViewHeightForTraitCollection(traitCollection, theme: theme)
                 maybeEvent = .large(largeEventViewModel)
             }
@@ -92,7 +92,7 @@ public struct ArticleAsLivingDocViewModel {
             if let previousTimestamp = maybePreviousTimestamp {
                 let calendar = NSCalendar.current
                 if !calendar.isDate(previousTimestamp, inSameDayAs: currentTimestamp) {
-                    //multiple days have passed since last event, package up current sections into new section
+                    // multiple days have passed since last event, package up current sections into new section
                     let section = SectionHeader(timestamp: previousTimestamp, typedEvents: currentSectionEvents, subtitleDateFormatter: dayMonthNumberYearDateFormatter)
                     sections.append(section)
                     currentSectionEvents.removeAll()
@@ -108,14 +108,14 @@ public struct ArticleAsLivingDocViewModel {
             }
         }
     
-        //capture any final currentSectionEvents into new section
+        // capture any final currentSectionEvents into new section
         if let currentTimestamp = maybeCurrentTimestamp {
             let section = SectionHeader(timestamp: currentTimestamp, typedEvents: currentSectionEvents, subtitleDateFormatter: dayMonthNumberYearDateFormatter)
             sections.append(section)
             currentSectionEvents.removeAll()
         }
         
-        //collapse sibling small event view models
+        // collapse sibling small event view models
         var finalSections: [SectionHeader] = []
         for section in sections {
             var collapsedEventViewModels: [TypedEvent] = []
@@ -135,7 +135,7 @@ public struct ArticleAsLivingDocViewModel {
                 }
             }
             
-            //add any final small changes
+            // add any final small changes
             if currentSmallChanges.count > 0 {
                 collapsedEventViewModels.append(.small(Event.Small(smallChanges: currentSmallChanges)))
                 currentSmallChanges.removeAll()
@@ -148,7 +148,7 @@ public struct ArticleAsLivingDocViewModel {
         finalSections = ArticleAsLivingDocViewModel.collapseSmallEvents(from: finalSections)
         self.sections = finalSections
 
-        //grab first 3 large event html snippets
+        // grab first 3 large event html snippets
         var articleInsertHtmlSnippets: [String] = []
         var lastUpdatedTimestamp: String?
         let htmlSnippetCountMax = 3
@@ -327,7 +327,7 @@ public struct ArticleAsLivingDocViewModel {
     }
 }
 
-//MARK: SectionHeader
+// MARK: SectionHeader
 
 public extension ArticleAsLivingDocViewModel {
     
@@ -421,7 +421,7 @@ public extension ArticleAsLivingDocViewModel {
     }
 }
 
-//MARK: Events
+// MARK: Events
 
 public extension ArticleAsLivingDocViewModel {
     
@@ -523,7 +523,7 @@ public extension ArticleAsLivingDocViewModel {
                 return lhs.smallChanges == rhs.smallChanges
             }
             
-            //Only used in the html portion of the feature
+            // Only used in the html portion of the feature
             func timestampForDisplay() -> String? {
                 
                 guard let timestampString = smallChanges.first?.timestampString else {
@@ -539,7 +539,7 @@ public extension ArticleAsLivingDocViewModel {
         public class Large: Equatable {
             
             public enum ChangeDetail {
-                case snippet(Snippet) //use for a basic horizontally scrolling snippet cell (will contain talk page topic snippets, added text snippets, article description updated snippets)
+                case snippet(Snippet) // use for a basic horizontally scrolling snippet cell (will contain talk page topic snippets, added text snippets, article description updated snippets)
                 case reference(Reference)
             }
             
@@ -654,7 +654,7 @@ public extension ArticleAsLivingDocViewModel {
     }
 }
 
-//MARK: Large Event Type Helper methods
+// MARK: Large Event Type Helper methods
 
 public extension ArticleAsLivingDocViewModel.Event.Large {
     
@@ -817,7 +817,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
     }
     
     struct IndividualDescription {
-        let priority: Int //used for sorting
+        let priority: Int // used for sorting
         let text: String
     }
     
@@ -905,14 +905,14 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             set = Set<String>()
         }
         
-        //strip == signs from all section titles
+        // strip == signs from all section titles
         let finalSet = set.map { Self.sectionTitleWithWikitextAndHtmlStripped(originalTitle: $0) }
 
         return Set(finalSet)
     }
     
-    //remove one or more equal signs and zero or more spaces on either side of the title text
-    //also removing html for display and potential javascript injection issues - https://phabricator.wikimedia.org/T268201
+    // remove one or more equal signs and zero or more spaces on either side of the title text
+    // also removing html for display and potential javascript injection issues - https://phabricator.wikimedia.org/T268201
     private static func sectionTitleWithWikitextAndHtmlStripped(originalTitle: String) -> String {
         var loopTitle = originalTitle.removingHTML
         
@@ -1063,7 +1063,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
             for typedChange in largeChange.typedChanges {
                 switch typedChange {
                 case .addedText(let addedText):
-                    //TODO: Add highlighting here. For snippetType 1, add a highlighting attribute across the whole string. Otherwise, seek out highlight-add span ranges and add those attributes
+                    // TODO: Add highlighting here. For snippetType 1, add a highlighting attribute across the whole string. Otherwise, seek out highlight-add span ranges and add those attributes
                     guard let snippet = addedText.snippet else {
                         continue
                     }
@@ -1085,7 +1085,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
                             let attributedString = NSAttributedString(string: articleDescription.text, attributes: attributes)
                             let changeDetail = ChangeDetail.snippet(Snippet(description: attributedString))
                             changeDetails.append(changeDetail)
-                            //tonitodo: these code blocks are all very similar. make a generic method instead?
+                            // tonitodo: these code blocks are all very similar. make a generic method instead?
                         case .bookCitation(let bookCitation):
                             let typeText = referenceTypeForTemplate(template, traitCollection: traitCollection, theme: theme)
                             let accessYear = accessDateYearForTemplate(template, traitCollection: traitCollection, theme: theme)
@@ -1571,7 +1571,7 @@ public extension ArticleAsLivingDocViewModel.Event.Large {
         }
     }
     
-    //Only used in the html portion of the feature
+    // Only used in the html portion of the feature
     func fullyRelativeTimestampForDisplay() -> String? {
         
         guard let timestampString = getTimestampString() else {

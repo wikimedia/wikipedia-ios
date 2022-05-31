@@ -92,10 +92,10 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     var fromNavigationStateRestoration: Bool = false
     private var cancellationKey: String?
     
-    //If populated, talk page will automatically route to matching reply thread after topic list loads
+    // If populated, talk page will automatically route to matching reply thread after topic list loads
     private var sectionTitleFragment: String?
     
-    //Overlay and activity indicator that displays while routing to reply thread
+    // Overlay and activity indicator that displays while routing to reply thread
     private lazy var replyRoutingOverlay: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -270,7 +270,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     }
 }
 
-//MARK: Private
+// MARK: Private
 
 private extension TalkPageContainerViewController {
     
@@ -703,7 +703,7 @@ extension TalkPageContainerViewController {
     }
     
     private func syncViewState() {
-        //catches cases where view state may get out of sync with the topic data
+        // catches cases where view state may get out of sync with the topic data
         if let talkPage = talkPage {
             switch (viewState, talkPage.topics?.count ?? 0) {
             case (.fetchFinishedResultData, 0):
@@ -717,7 +717,7 @@ extension TalkPageContainerViewController {
     }
 }
 
-//MARK: TalkPageTopicNewViewControllerDelegate
+// MARK: TalkPageTopicNewViewControllerDelegate
 
 extension TalkPageContainerViewController: TalkPageTopicNewViewControllerDelegate {
     func tappedPublish(subject: String, body: String, viewController: TalkPageTopicNewViewController) {
@@ -760,7 +760,7 @@ extension TalkPageContainerViewController: TalkPageTopicNewViewControllerDelegat
     }
 }
 
-//MARK: TalkPageTopicListDelegate
+// MARK: TalkPageTopicListDelegate
 
 extension TalkPageContainerViewController: TalkPageTopicListDelegate {    
     func scrollViewDidScroll(_ scrollView: UIScrollView, viewController: TalkPageTopicListViewController) {
@@ -776,7 +776,7 @@ extension TalkPageContainerViewController: TalkPageTopicListDelegate {
     }
 }
 
-//MARK: TalkPageReplyListViewControllerDelegate
+// MARK: TalkPageReplyListViewControllerDelegate
 
 extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelegate {
     func tappedPublish(topic: TalkPageTopic, composeText: String, viewController: TalkPageReplyListViewController) {
@@ -818,7 +818,7 @@ extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelega
     }
 }
 
-//MARK: TalkPageHeaderViewDelegate
+// MARK: TalkPageHeaderViewDelegate
 
 extension TalkPageContainerViewController: TalkPageHeaderViewDelegate {
     func tappedLink(_ url: URL, headerView: TalkPageHeaderView, sourceView: UIView, sourceRect: CGRect?) {
@@ -832,7 +832,7 @@ extension TalkPageContainerViewController: TalkPageHeaderViewDelegate {
     }
 }
 
-//MARK: EmptyViewControllerDelegate
+// MARK: EmptyViewControllerDelegate
 
 extension TalkPageContainerViewController: EmptyViewControllerDelegate {
     func emptyViewScrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -846,7 +846,7 @@ extension TalkPageContainerViewController: EmptyViewControllerDelegate {
     }
 }
 
-//MARK: WMFPreferredLanguagesViewControllerDelegate
+// MARK: WMFPreferredLanguagesViewControllerDelegate
 
 extension TalkPageContainerViewController: WMFPreferredLanguagesViewControllerDelegate {
     func languagesController(_ controller: WMFLanguagesViewController, didSelectLanguage language: MWKLanguageLink) {
@@ -864,7 +864,7 @@ extension TalkPageContainerViewController: WMFPreferredLanguagesViewControllerDe
     }
 }
 
-//MARK: FakeProgressLoading
+// MARK: FakeProgressLoading
 
 extension TalkPageContainerViewController: FakeProgressLoading {
 }

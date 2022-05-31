@@ -140,7 +140,7 @@ extension NotificationsCenterDetailViewModel {
 
 }
 
-//MARK: Private Helpers - Aggregate Swipe Action methods
+// MARK: Private Helpers - Aggregate Swipe Action methods
 
 private extension NotificationsCenterDetailViewModel {
     var userTalkPageActions: [NotificationsCenterAction] {
@@ -242,7 +242,7 @@ private extension NotificationsCenterDetailViewModel {
             actions.append(agentUserPageAction)
         }
 
-        //Article you edited
+        // Article you edited
         if let titleAction = commonViewModel.titleAction(needsConvertToOrFromTalk: false, simplified: false) {
             actions.append(titleAction)
         }

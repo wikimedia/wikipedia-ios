@@ -106,7 +106,7 @@ class EditSummaryViewController: UIViewController, Themeable {
 
 extension EditSummaryViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        //save()
+        // save()
         return true
     }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

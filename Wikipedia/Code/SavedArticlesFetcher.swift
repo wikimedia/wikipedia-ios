@@ -2,7 +2,7 @@ import Foundation
 import WMF
 import CocoaLumberjackSwift
 
-//WMFLocalizedStringWithDefaultValue(@"saved-pages-image-download-error", nil, nil, @"Failed to download images for this saved page.", @"Error message shown when one or more images fails to save for offline use.")
+// WMFLocalizedStringWithDefaultValue(@"saved-pages-image-download-error", nil, nil, @"Failed to download images for this saved page.", @"Error message shown when one or more images fails to save for offline use.")
 
 @objc(WMFSavedArticlesFetcher)
 final class SavedArticlesFetcher: NSObject {

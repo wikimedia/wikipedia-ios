@@ -47,9 +47,9 @@ class NotificationsCenterFiltersViewModel: ObservableObject, NotificationsCenter
         }
         
         func toggleSelectionForCheckmarkType() {
-            //note, this is called directly from view instead of isSelected property observer. because setFilterReadStatus resets the OTHER view models isSelected status, the property observer calling this method caused an infinite loop.
+            // note, this is called directly from view instead of isSelected property observer. because setFilterReadStatus resets the OTHER view models isSelected status, the property observer calling this method caused an infinite loop.
             
-            //do not allow a selected status to be deselected
+            // do not allow a selected status to be deselected
             guard !isSelected else {
                 return
             }
@@ -64,7 +64,7 @@ class NotificationsCenterFiltersViewModel: ObservableObject, NotificationsCenter
         
         func toggleSelectionForAll() {
             
-            //note, this is called directly from view instead of isSelected property observer. because appendAllFilterTypes/removeAllFilterTypes resets the OTHER view models isSelected status, the property observer calling this method will cause an infinite loop.
+            // note, this is called directly from view instead of isSelected property observer. because appendAllFilterTypes/removeAllFilterTypes resets the OTHER view models isSelected status, the property observer calling this method will cause an infinite loop.
             
             switch selectionType {
             case .toggleAll:

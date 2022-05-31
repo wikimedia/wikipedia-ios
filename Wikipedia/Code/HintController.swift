@@ -18,8 +18,8 @@ class HintController: NSObject {
 
     var theme = Theme.standard
     
-    //if true, hint will extend below safe area to the bottom of the view, and hint content within will align to safe area
-    //must also override extendsUnderSafeArea to true in HintViewController
+    // if true, hint will extend below safe area to the bottom of the view, and hint content within will align to safe area
+    // must also override extendsUnderSafeArea to true in HintViewController
     var extendsUnderSafeArea: Bool {
         return false
     }

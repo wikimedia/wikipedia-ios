@@ -97,7 +97,7 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
         var itemViewModels: [DiffListChangeItemViewModel] = []
         for (index, item) in diffItems.enumerated() {
             
-            //passing in next middle item to avoid double-space calculations for moved items
+            // passing in next middle item to avoid double-space calculations for moved items
             let nextItem: TransformDiffItem? = diffItems[safeIndex: index + 1]
             let changeItemViewModel = DiffListChangeItemViewModel(item: item, traitCollection: traitCollection, theme: theme, type: type, diffItemType: item.type, nextMiddleItem: nextItem, semanticContentAttribute: semanticContentAttribute)
 
@@ -232,7 +232,7 @@ final class DiffListChangeViewModel: DiffListGroupViewModel {
             }
         }
         
-        //add heading height
+        // add heading height
         height += headingPadding.top
         height += headingPadding.bottom
         if let headingAttributedString = headingAttributedString {

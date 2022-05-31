@@ -59,7 +59,7 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        //T226732 - workaround for when navigation bar maxY doesn't include top safe area height when returning from state restoration which results in a scroll view inset bug
+        // T226732 - workaround for when navigation bar maxY doesn't include top safe area height when returning from state restoration which results in a scroll view inset bug
         if fromNavigationStateRestoration {
             navigationBar.setNeedsLayout()
             navigationBar.layoutIfNeeded()
@@ -158,7 +158,7 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
     }
 }
 
-//MARK: Private
+// MARK: Private
 
 private extension TalkPageTopicListViewController {
     
@@ -188,7 +188,7 @@ private extension TalkPageTopicListViewController {
     }
 }
 
-//MARK: CollectionViewUpdaterDelegate
+// MARK: CollectionViewUpdaterDelegate
 
 extension TalkPageTopicListViewController: CollectionViewUpdaterDelegate {
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) where T : NSFetchRequestResult {
@@ -202,6 +202,6 @@ extension TalkPageTopicListViewController: CollectionViewUpdaterDelegate {
     }
     
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
-        //no-op
+        // no-op
     }
 }

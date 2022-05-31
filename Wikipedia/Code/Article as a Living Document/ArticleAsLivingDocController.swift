@@ -43,7 +43,7 @@ class ArticleAsLivingDocController: NSObject {
         }
         set {
             guard let newValue = newValue else {
-                //should only occur when resetting to nil shortly before a pull to refresh was triggered.
+                // should only occur when resetting to nil shortly before a pull to refresh was triggered.
                 _articleAsLivingDocViewModel = nil
                 return
             }
@@ -60,8 +60,8 @@ class ArticleAsLivingDocController: NSObject {
             } else {
                 // should only be triggered via pull to refresh or fresh load. update everything
                 _articleAsLivingDocViewModel = newValue
-                //note, we aren't updating data source in VC here. So far we won't reach this situation where a refresh
-                //is triggered while the events modal is still on screen, so not needed at this point.
+                // note, we aren't updating data source in VC here. So far we won't reach this situation where a refresh
+                // is triggered while the events modal is still on screen, so not needed at this point.
             }
         }
     }
@@ -360,8 +360,8 @@ class ArticleAsLivingDocController: NSObject {
     }
     
     func toggleContentVisibilityExceptLeadImage(shouldHide: Bool) {
-        //seems usually thanks to a margin update taking a little bit of time, pushing the
-        //unhide out a little bit gives us a smoother experience
+        // seems usually thanks to a margin update taking a little bit of time, pushing the
+        // unhide out a little bit gives us a smoother experience
         
         guard let delegate = delegate else {
             return
@@ -412,7 +412,7 @@ class ArticleAsLivingDocController: NSObject {
             return
         }
         
-        //example: anchor of "significant-events-1-2-3" means scroll to initial index path (item: 1, section: 2) and log ArticleContentInsertEventDescriptionType(rawValue: 3)
+        // example: anchor of "significant-events-1-2-3" means scroll to initial index path (item: 1, section: 2) and log ArticleContentInsertEventDescriptionType(rawValue: 3)
         guard splitItems.count == 5,
               let item = Int(splitItems[2]),
               let section = Int(splitItems[3]),
@@ -450,7 +450,7 @@ class ArticleAsLivingDocController: NSObject {
         }
     }
     
-    //MARK: Fetcher Methods
+    // MARK: Fetcher Methods
     private let fetcher = SignificantEventsFetcher()
     func fetchArticleAsLivingDocViewModel(rvStartId: UInt? = nil, title: String, siteURL: URL, traitCollection: UITraitCollection, theme: Theme, completion: @escaping ((Result<ArticleAsLivingDocViewModel, Error>) -> Void)) {
         fetcher.fetchSignificantEvents(rvStartId: rvStartId, title: title, siteURL: siteURL) { (result) in

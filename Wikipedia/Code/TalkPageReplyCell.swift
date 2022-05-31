@@ -41,7 +41,7 @@ class TalkPageReplyCell: CollectionViewCell {
         if depth > 0 {
             var depthIndicatorX = isRTL ? size.width - adjustedMargins.right : adjustedMargins.left
             
-            let depthAdjustmentMultiplier = CGFloat(13) //todo: may want to shift this higher or lower depending on screen size. Also possibly give it a max value
+            let depthAdjustmentMultiplier = CGFloat(13) // todo: may want to shift this higher or lower depending on screen size. Also possibly give it a max value
             if isRTL {
                 depthIndicatorX -= (CGFloat(depth) - 1) * depthAdjustmentMultiplier
             } else {
@@ -121,7 +121,7 @@ class TalkPageReplyCell: CollectionViewCell {
     }
 }
 
-//MARK: Themeable
+// MARK: Themeable
 
 extension TalkPageReplyCell: Themeable {
     func apply(theme: Theme) {
@@ -133,7 +133,7 @@ extension TalkPageReplyCell: Themeable {
     }
 }
 
-//MARK: UITextViewDelegate
+// MARK: UITextViewDelegate
 
 extension TalkPageReplyCell: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {

@@ -17,7 +17,7 @@ class TalkPageReplyComposeView: SizeThatFitsView {
     
     private var licenseTitleTextViewAttributedString: NSAttributedString {
         
-        //since this is just colors it shouldn't affect sizing
+        // since this is just colors it shouldn't affect sizing
         let colorTheme = theme ?? Theme.light
         
         let localizedString = WMFLocalizedString("talk-page-publish-terms-and-licenses", value: "By saving changes, you agree to the %1$@Terms of Use%2$@, and agree to release your contribution under the %3$@CC BY-SA 3.0%4$@ and the %5$@GFDL%6$@ licenses.", comment: "Text for information about the Terms of Use and edit licenses on talk pages. Parameters:\n* %1$@ - app-specific non-text formatting, %2$@ - app-specific non-text formatting, %3$@ - app-specific non-text formatting, %4$@ - app-specific non-text formatting, %5$@ - app-specific non-text formatting,  %6$@ - app-specific non-text formatting.")
@@ -65,7 +65,7 @@ class TalkPageReplyComposeView: SizeThatFitsView {
         let finePrintTextViewWidth = size.width - adjustedMargins.left - adjustedMargins.right
         
         
-        let finePrintFrame = finePrintTextView.wmf_preferredFrame(at: finePrintTextViewOrigin, maximumWidth: finePrintTextViewWidth, minimumWidth: finePrintTextViewWidth, alignedBy: semanticContentAttribute, apply: false) //will apply below
+        let finePrintFrame = finePrintTextView.wmf_preferredFrame(at: finePrintTextViewOrigin, maximumWidth: finePrintTextViewWidth, minimumWidth: finePrintTextViewWidth, alignedBy: semanticContentAttribute, apply: false) // will apply below
 
         let forcedComposeHeight = (delegate?.collectionViewFrame.size ?? size).height * 0.67 - finePrintFrame.height - inputAccessoryViewHeight
         
@@ -109,7 +109,7 @@ class TalkPageReplyComposeView: SizeThatFitsView {
     }
 }
 
-//MARK: Private
+// MARK: Private
 
 private extension TalkPageReplyComposeView {
     func setupView() {
@@ -131,7 +131,7 @@ private extension TalkPageReplyComposeView {
     }
 }
 
-//MARK: Themeable
+// MARK: Themeable
 
 extension TalkPageReplyComposeView: Themeable {
     func apply(theme: Theme) {
@@ -143,7 +143,7 @@ extension TalkPageReplyComposeView: Themeable {
     }
 }
 
-//MARK: ThemeableTextViewPlaceholderDelegate
+// MARK: ThemeableTextViewPlaceholderDelegate
 
 extension TalkPageReplyComposeView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {

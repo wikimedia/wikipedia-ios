@@ -9,7 +9,7 @@ class RemoteNotificationsRefreshOperation: RemoteNotificationsPagingOperation {
         var shouldContinueToPage = true
         backgroundContext.performAndWait {
             
-            //Is last (i.e. most recent) notification already in the database? If so, don't continue to page.
+            // Is last (i.e. most recent) notification already in the database? If so, don't continue to page.
             let fetchRequest = RemoteNotification.fetchRequest()
             fetchRequest.fetchLimit = 1
             let predicate = NSPredicate(format: "key == %@", lastNotification.key)

@@ -5,7 +5,7 @@ class RemoteNotificationsMarkAllAsReadOperation: RemoteNotificationsProjectOpera
     
     override func execute() {
         
-        //optimistically mark in database first for UI to reflect, then in API.
+        // optimistically mark in database first for UI to reflect, then in API.
         
         let backgroundContext = modelController.newBackgroundContext()
         self.modelController.markAllAsRead(moc: backgroundContext, project: project) { [weak self] result in

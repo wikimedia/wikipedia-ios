@@ -357,7 +357,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         if let expandedAction = expandedAction {
             let translation = isRTL ? cell.bounds.width : 0 - cell.bounds.width
             animateActionPane(of: cell, to: translation, with: velocity, expandedAction: expandedAction, completion: { (finished) in
-                //don't set isSwiping to false so that the expanded action stays visible through the fade
+                // don't set isSwiping to false so that the expanded action stays visible through the fade
                 completion(finished)
             })
         } else {

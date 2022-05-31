@@ -237,7 +237,7 @@ public class RemoteNotificationsAPIController: Fetcher {
         }
     }
     
-    //MARK: Public
+    // MARK: Public
     
     public func getUnreadPushNotifications(from project: RemoteNotificationsProject, completion: @escaping (Set<NotificationsResult.Notification>, Error?) -> Void) {
         let completion: (NotificationsResult?, URLResponse?, Error?) -> Void = { result, _, error in
@@ -349,7 +349,7 @@ public class RemoteNotificationsAPIController: Fetcher {
         }
     }
     
-    //MARK: Private
+    // MARK: Private
 
     private func request<T: Decodable>(project: RemoteNotificationsProject?, queryParameters: Query.Parameters?, method: Session.Request.Method = .get, completion: @escaping (T?, URLResponse?, Error?) -> Void) {
 
@@ -468,7 +468,7 @@ extension RemoteNotificationsAPIController.ResultError: LocalizedError {
     }
 }
 
-//MARK: Public Notification Extensions
+// MARK: Public Notification Extensions
 
 public extension RemoteNotificationsAPIController.NotificationsResult.Notification {
 
@@ -505,7 +505,7 @@ public extension RemoteNotificationsAPIController.NotificationsResult.Notificati
     }
 }
 
-//MARK: Test Helpers
+// MARK: Test Helpers
 
 #if TEST
 

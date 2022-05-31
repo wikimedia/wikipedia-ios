@@ -77,14 +77,14 @@ class TalkPageController {
                     return
                 }
                 
-                //fixes bug where revisionID fetch fails due to missing talk page
+                // fixes bug where revisionID fetch fails due to missing talk page
                 if localTalkPage.isMissing {
                     let fetchResult = FetchResult(objectID: localTalkPage.objectID, isInitialLocalResult: false)
                     completion?(.success(fetchResult))
                     return
                 }
                 
-                //return initial local result early to display data while API is being called
+                // return initial local result early to display data while API is being called
                 let fetchResult = FetchResult(objectID: localTalkPage.objectID, isInitialLocalResult: true)
                 completion?(.success(fetchResult))
                 
@@ -93,7 +93,7 @@ class TalkPageController {
                 self.fetchLatestRevisionID(endingWithRevision: localRevisionID, urlTitle: urlTitle) { (result) in
                     switch result {
                     case .success(let lastRevisionID):
-                        //if latest revision ID is the same return local talk page. else forward revision ID onto talk page fetcher
+                        // if latest revision ID is the same return local talk page. else forward revision ID onto talk page fetcher
                         if localRevisionID == lastRevisionID && localTalkPage.forceRefresh == false {
                             let fetchResult = FetchResult(objectID: localObjectID, isInitialLocalResult: false)
                             completion?(.success(fetchResult))
@@ -204,7 +204,7 @@ class TalkPageController {
     }
 }
 
-//MARK: Private
+// MARK: Private
 
 private extension TalkPageController {
     
@@ -236,7 +236,7 @@ private extension TalkPageController {
         let revisionIDNumber: NSNumber? = revisionID != nil ? NSNumber(value: revisionID!) : nil
         let revisionFetcherTask = articleRevisionFetcher.fetchLatestRevisions(forArticleURL: revisionURL, resultLimit: 1, startingWithRevision: nil, endingWithRevision: revisionIDNumber, failure: errorHandler, success: successIDHandler)
         
-        //todo: task tracking
+        // todo: task tracking
         revisionFetcherTask?.resume()
     }
     
@@ -250,8 +250,8 @@ private extension TalkPageController {
     }
     
     func fetchAndCreateLocalTalkPage(with urlTitle: String, taskURL: URL, in moc: NSManagedObjectContext, completion: ((Result<NSManagedObjectID, Error>) -> Void)? = nil) {
-        //If no local talk page to reference, fetch latest revision ID & latest talk page in grouped calls.
-        //Update network talk page with latest revision & save to db
+        // If no local talk page to reference, fetch latest revision ID & latest talk page in grouped calls.
+        // Update network talk page with latest revision & save to db
         
         let taskGroup = WMFTaskGroup()
         

@@ -430,7 +430,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
         return session.isCachedWithURLRequest(request, completion: completion)
     }
     
-    //MARK: Bundled offline resources
+    // MARK: Bundled offline resources
     
     struct BundledOfflineResources {
         let baseCSS: URL

@@ -56,8 +56,8 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     @objc public var isExtendedViewHidingEnabled: Bool = false
     @objc public var isExtendedViewFadingEnabled: Bool = true // fade out extended view as it hides
     public var shouldTransformUnderBarViewWithBar: Bool = false // hide/show underbar view when bar is hidden/shown // TODO: change this stupid name
-    public var allowsUnderbarHitsFallThrough: Bool = false //if true, this only considers underBarView's subviews for hitTest, not self. Use if you need underlying view controller's scroll view to capture scrolling.
-    public var allowsExtendedHitsFallThrough: Bool = false //if true, this only considers extendedView's subviews for hitTest, not self. Use if you need underlying view controller's scroll view to capture scrolling.
+    public var allowsUnderbarHitsFallThrough: Bool = false // if true, this only considers underBarView's subviews for hitTest, not self. Use if you need underlying view controller's scroll view to capture scrolling.
+    public var allowsExtendedHitsFallThrough: Bool = false // if true, this only considers extendedView's subviews for hitTest, not self. Use if you need underlying view controller's scroll view to capture scrolling.
     
     private var theme = Theme.standard
 
@@ -470,7 +470,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         }
         
         setNeedsLayout()
-        //DDLogDebug("nb: \(navigationBarPercentHidden) ev: \(extendedViewPercentHidden)")
+        // DDLogDebug("nb: \(navigationBarPercentHidden) ev: \(extendedViewPercentHidden)")
         let applyChanges = {
             let changes = {
                 if shadowAlpha >= 0 {

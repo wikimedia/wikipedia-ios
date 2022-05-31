@@ -2,15 +2,15 @@ import CocoaLumberjackSwift
 
 class RemoteNotificationsImportOperation: RemoteNotificationsPagingOperation {
     
-    //MARK: Overrides
+    // MARK: Overrides
     
     override var shouldExecute: Bool {
-        //isAlreadyImported computed property fetches a persisted flag
+        // isAlreadyImported computed property fetches a persisted flag
         return !isAlreadyImported
     }
     
     override var initialContinueId: String? {
-        //continueId computed property fetches a persisted continue id, so we can pick up importing where we left off
+        // continueId computed property fetches a persisted continue id, so we can pick up importing where we left off
         return continueId
     }
     
@@ -22,7 +22,7 @@ class RemoteNotificationsImportOperation: RemoteNotificationsPagingOperation {
         saveContinueId(newContinueId)
     }
     
-    //MARK: Private
+    // MARK: Private
     
     private func saveLanguageAsImportCompleted() {
         let key = RemoteNotificationsModelController.LibraryKey.completedImportFlags.fullKeyForProject(project)
@@ -35,7 +35,7 @@ class RemoteNotificationsImportOperation: RemoteNotificationsPagingOperation {
     }
 }
 
-//MARK: Library Key Value helpers
+// MARK: Library Key Value helpers
 
 private extension RemoteNotificationsImportOperation {
     var continueId: String? {

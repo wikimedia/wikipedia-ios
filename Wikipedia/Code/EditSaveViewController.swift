@@ -316,7 +316,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
                 self.captchaViewController?.captchaTextFieldBecomeFirstResponder()
             }
         case .abuseFilterDisallowed, .abuseFilterWarning, .abuseFilterOther:
-            //NSString *warningHtml = error.userInfo[@"warning"];
+            // NSString *warningHtml = error.userInfo[@"warning"];
 
             wmf_hideKeyboard()
             

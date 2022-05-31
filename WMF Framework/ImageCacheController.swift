@@ -8,10 +8,10 @@ enum ImageCacheControllerError: Error {
 public final class ImageCacheController: CacheController {
     // MARK: Permanent Cache
     
-    //batch inserts to db and selectively decides which file variant to download. Used when inserting multiple image urls from media-list endpoint via ArticleCacheController.
+    // batch inserts to db and selectively decides which file variant to download. Used when inserting multiple image urls from media-list endpoint via ArticleCacheController.
     func add(urls: [URL], groupKey: GroupKey, individualCompletion: @escaping IndividualCompletionBlock, groupCompletion: @escaping GroupCompletionBlock) {
 
-        //todo: could use DRY gatekeeper logic with superclass. this will likely get refactored out so holding off.
+        // todo: could use DRY gatekeeper logic with superclass. this will likely get refactored out so holding off.
         if gatekeeper.shouldQueueAddCompletion(groupKey: groupKey) {
             gatekeeper.queueAddCompletion(groupKey: groupKey) {
                 self.add(urls: urls, groupKey: groupKey, individualCompletion: individualCompletion, groupCompletion: groupCompletion)
@@ -33,7 +33,7 @@ public final class ImageCacheController: CacheController {
         }
     }
     
-    //MARK: Logic taken from ImageController
+    // MARK: Logic taken from ImageController
     
     private let imageFetcher: ImageFetcher
     fileprivate let memoryCache: NSCache<NSString, Image>
@@ -41,7 +41,7 @@ public final class ImageCacheController: CacheController {
     init(moc: NSManagedObjectContext, session: Session, configuration: Configuration) {
         self.imageFetcher = ImageFetcher(session: session, configuration: configuration)
         memoryCache = NSCache<NSString, Image>()
-        memoryCache.totalCostLimit = 10000000 //pixel count
+        memoryCache.totalCostLimit = 10000000 // pixel count
         let fileWriter = CacheFileWriter(fetcher: imageFetcher)
         let dbWriter = ImageCacheDBWriter(imageFetcher: imageFetcher, cacheBackgroundContext: moc)
         super.init(dbWriter: dbWriter, fileWriter: fileWriter)
@@ -54,7 +54,7 @@ public final class ImageCacheController: CacheController {
     
     private var dataCompletionManager = ImageControllerCompletionManager<ImageControllerDataCompletion>()
     
-    //called when saving an image to persistent cache has completed. Hook here to allow additional saving into memoryCache.
+    // called when saving an image to persistent cache has completed. Hook here to allow additional saving into memoryCache.
     override func finishFileSave(data: Data, mimeType: String?, uniqueKey: CacheController.UniqueKey, url: URL) {
         
         guard let image = self.createImage(data: data, mimeType: mimeType) else {
@@ -112,7 +112,7 @@ public final class ImageCacheController: CacheController {
                 }
                 
                 self.dataCompletionManager.complete(uniqueKey, enumerator: { (completion) in
-                    //DDLogDebug("complete: \(url) \(token)")
+                    // DDLogDebug("complete: \(url) \(token)")
                     switch result {
                     case .success(let result):
                         completion.success(result.data, result.response)

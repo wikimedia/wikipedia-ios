@@ -78,7 +78,7 @@ class ArticleViewController: ViewController, HintPresenting {
         return tapGR
     }()
     
-    //BEGIN: Article As Living Doc properties
+    // BEGIN: Article As Living Doc properties
     private(set) var surveyTimerController: ArticleSurveyTimerController?
     
     lazy var articleAsLivingDocController = ArticleAsLivingDocController(delegate: self)
@@ -86,7 +86,7 @@ class ArticleViewController: ViewController, HintPresenting {
     var surveyAnnouncementResult: SurveyAnnouncementsController.SurveyAnnouncementResult? {
         SurveyAnnouncementsController.shared.activeSurveyAnnouncementResultForArticleURL(articleURL)
     }
-    //END: Article As Living Doc properties
+    // END: Article As Living Doc properties
     
     @objc init?(articleURL: URL, dataStore: MWKDataStore, theme: Theme, schemeHandler: SchemeHandler? = nil) {
         guard let article = dataStore.fetchOrCreateArticle(with: articleURL) else {
@@ -549,14 +549,14 @@ class ArticleViewController: ViewController, HintPresenting {
                 self?.scrollRestorationState = .scrollToAnchor(anchor, attempt: attempt + 1, maxAttempts: maxAttempts, completion: completion)
             }
             
-            //HACK: Sometimes the `scroll_to_anchor` message is not triggered from the web view over the JS bridge, even after prepareForScrollToAnchor successfully goes through. This means the completion block above is queued to scrollToAnchorCompletions but never run. We are trying to scroll again here once more after a slight delay in hopes of triggering `scroll_to_anchor` again.
+            // HACK: Sometimes the `scroll_to_anchor` message is not triggered from the web view over the JS bridge, even after prepareForScrollToAnchor successfully goes through. This means the completion block above is queued to scrollToAnchorCompletions but never run. We are trying to scroll again here once more after a slight delay in hopes of triggering `scroll_to_anchor` again.
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) { [weak self] in
                 
                 guard let self = self else {
                     return
                 }
                 
-                //This conditional check should target the bug a little closer, since scrollToAnchorCompletions are cleaned out after the last `scroll_to_anchor` message is received. Remaining scrollToAnchorCompletions at this point indicates that likely we're hitting the missing `scroll_to_anchor` message bug.
+                // This conditional check should target the bug a little closer, since scrollToAnchorCompletions are cleaned out after the last `scroll_to_anchor` message is received. Remaining scrollToAnchorCompletions at this point indicates that likely we're hitting the missing `scroll_to_anchor` message bug.
                 if (self.scrollToAnchorCompletions.count > 0) {
                     self.scroll(to: anchor, animated: false)
                 }
@@ -1169,7 +1169,7 @@ extension ViewController { // Putting extension on ViewController rather than Ar
     }
 }
 
-//MARK: Article As Living Doc Protocols
+// MARK: Article As Living Doc Protocols
 
 extension ArticleViewController: ArticleAsLivingDocViewControllerDelegate {
     func livingDocViewWillPush() {

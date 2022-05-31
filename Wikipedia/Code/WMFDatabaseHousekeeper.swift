@@ -148,7 +148,7 @@ import Foundation
         */
         
         let articlesToDeleteFetchRequest = WMFArticle.fetchRequest()
-        //savedDate == NULL && isDownloaded == YES will be picked up by SavedArticlesFetcher for deletion
+        // savedDate == NULL && isDownloaded == YES will be picked up by SavedArticlesFetcher for deletion
         let articlesToDeletePredicate = NSPredicate(format: "viewedDate == NULL && savedDate == NULL && isDownloaded == NO && placesSortOrder == 0 && isExcludedFromFeed == NO")
         
         if let preservedArticleKeys = navigationStateController.allPreservedArticleKeys(in: moc) {

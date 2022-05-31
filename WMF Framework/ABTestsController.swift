@@ -55,7 +55,7 @@ public class ABTestsController: NSObject {
         super.init()
     }
     
-    //this will only generate a new bucket as needed (i.e. if the percentage is different than the last time bucket was generated)
+    // this will only generate a new bucket as needed (i.e. if the percentage is different than the last time bucket was generated)
     @discardableResult
     func determineBucketForExperiment(_ experiment: Experiment, withPercentage percentage: NSNumber) throws -> BucketValue {
         
@@ -63,7 +63,7 @@ public class ABTestsController: NSObject {
             throw ABTestsError.invalidPercentage
         }
         
-        //if we have previously generated a bucket with the same percentage, return that value
+        // if we have previously generated a bucket with the same percentage, return that value
         let maybeOldPercentage = percentageForExperiment(experiment)
         let maybeOldBucket = bucketForExperiment(experiment)
         
@@ -73,7 +73,7 @@ public class ABTestsController: NSObject {
             return oldBucket
         }
         
-        //otherwise generate new bucket
+        // otherwise generate new bucket
         let randomInt = Int.random(in: 1...100)
         let isInTest = randomInt <= percentage.intValue
         let bucket: BucketValue
@@ -89,7 +89,7 @@ public class ABTestsController: NSObject {
         return bucket
     }
     
-    //MARK: Persistence setters/getters
+    // MARK: Persistence setters/getters
     
     func percentageForExperiment(_ experiment: Experiment) -> NSNumber? {
         

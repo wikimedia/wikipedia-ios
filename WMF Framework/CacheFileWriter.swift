@@ -109,7 +109,7 @@ final class CacheFileWriter: CacheTaskTracking {
         var responseHeaderRemoveError: Error? = nil
         var responseRemoveError: Error? = nil
 
-        //remove response from file system
+        // remove response from file system
         let responseCachedFileURL = CacheFileWriterHelper.fileURL(for: fileName)
         do {
             try FileManager.default.removeItem(at: responseCachedFileURL)
@@ -119,7 +119,7 @@ final class CacheFileWriter: CacheTaskTracking {
             }
         }
         
-        //remove response header from file system
+        // remove response header from file system
         let responseHeaderCachedFileURL = CacheFileWriterHelper.fileURL(for: headerFileName)
         do {
             try FileManager.default.removeItem(at: responseHeaderCachedFileURL)
@@ -152,11 +152,11 @@ final class CacheFileWriter: CacheTaskTracking {
     
 }
 
-//MARK: Migration
+// MARK: Migration
 
 extension CacheFileWriter {
     
-    //assumes urlRequest is already populated with the right type header
+    // assumes urlRequest is already populated with the right type header
     func addMobileHtmlContentForMigration(content: String, urlRequest: URLRequest, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
         
         guard let url =  urlRequest.url else {
@@ -164,7 +164,7 @@ extension CacheFileWriter {
                 return
         }
         
-        //artificially create HTTPURLResponse
+        // artificially create HTTPURLResponse
         guard let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: ["Content-Type": "text/html"]) else {
             failure(CacheFileWriterError.unableToGenerateHTTPURLResponse)
             return

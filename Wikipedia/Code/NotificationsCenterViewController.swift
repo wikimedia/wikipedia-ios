@@ -189,7 +189,7 @@ final class NotificationsCenterViewController: ViewController {
     
 }
 
-//MARK: Private - Data & Snapshot Updating
+// MARK: Private - Data & Snapshot Updating
 
 private extension NotificationsCenterViewController {
 
@@ -222,7 +222,7 @@ private extension NotificationsCenterViewController {
             snapshot.appendSections([.main])
             snapshot.appendItems(cellViewModels, toSection: .main)
             dataSource.apply(snapshot, animatingDifferences: true) {
-                //Note: API docs indicate this completion block is already called on the main thread
+                // Note: API docs indicate this completion block is already called on the main thread
                 self.notificationsView.updateCalculatedCellHeightIfNeeded()
             }
         }
@@ -263,7 +263,7 @@ private extension NotificationsCenterViewController {
     
 }
 
-//MARK: Private - Empty State Handling
+// MARK: Private - Empty State Handling
 
 private extension NotificationsCenterViewController {
     
@@ -283,7 +283,7 @@ private extension NotificationsCenterViewController {
     
 }
 
-//MARK: Mark Button Handling
+// MARK: Mark Button Handling
 
 private extension NotificationsCenterViewController {
     
@@ -448,7 +448,7 @@ private extension NotificationsCenterViewController {
     
 }
 
-//MARK: Filters and Inbox
+// MARK: Filters and Inbox
 
 private extension NotificationsCenterViewController {
     
@@ -494,7 +494,7 @@ private extension NotificationsCenterViewController {
                 return
             }
             
-            //only reset if filter has actually changed since first presenting
+            // only reset if filter has actually changed since first presenting
             if currentFilterState != self.viewModel.remoteNotificationsController.filterState {
                 self.viewModel.resetAndRefreshData()
                 self.scrollToTop()
@@ -793,7 +793,7 @@ extension NotificationsCenterViewController: UICollectionViewDelegate {
 
 }
 
-//MARK: NotificationCenterCellDelegate
+// MARK: NotificationCenterCellDelegate
 
 extension NotificationsCenterViewController: NotificationsCenterCellDelegate {
 
@@ -944,11 +944,11 @@ extension NotificationsCenterViewController {
 
 }
 
-//MARK: Push tap handling
+// MARK: Push tap handling
 
 extension NotificationsCenterViewController: NotificationsCenterFlowViewController {
     func tappedPushNotification() {
-        //do nothing
+        // do nothing
     }
 }
 

@@ -213,7 +213,7 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
     public var extractTextStyle: DynamicTextStyle!
     public var saveButtonTextStyle: DynamicTextStyle!
     
-    public var imageViewDimension: CGFloat = 0 //used as height on full width cell, width & height on right aligned
+    public var imageViewDimension: CGFloat = 0 // used as height on full width cell, width & height on right aligned
     public var spacing: CGFloat = 3
 
     public var isImageViewHidden = false {

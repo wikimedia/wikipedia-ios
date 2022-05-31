@@ -975,7 +975,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     }
     
     fileprivate func updateTraitBasedViewMode() {
-        //forces an update
+        // forces an update
         let oldViewMode = self.viewMode
         self.viewMode = .none
         self.viewMode = oldViewMode
@@ -1260,7 +1260,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     func merge(group: ArticleGroup, key: String, groups: [String: ArticleGroup], groupingDistance: CLLocationDistance) -> Set<String> {
         var toMerge = Set<String>()
         if let keyToSelect = articleKeyToSelect, group.articles.first?.key == keyToSelect {
-            //no grouping with the article to select
+            // no grouping with the article to select
             return toMerge
         }
         
@@ -1282,7 +1282,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                         continue
                     }
                     if let keyToSelect = articleKeyToSelect, adjacentGroup.articles.first?.key == keyToSelect {
-                        //no grouping with the article to select
+                        // no grouping with the article to select
                         continue
                     }
                     guard group.articles.count > 1 || adjacentGroup.articles.count > 1 else {
@@ -1452,7 +1452,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             
             let identifier = ArticlePlace.identifierForArticles(articles: group.articles)
             
-            //check for identical place already on the map
+            // check for identical place already on the map
             if annotationsToRemove.removeValue(forKey: identifier) != nil {
                 continue
             }

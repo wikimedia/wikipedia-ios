@@ -42,7 +42,7 @@ enum DiffTransformerError: Error {
     case failureParsingFirstRevisionWikitext
 }
 
-//takes a DiffResponse and turns it into  [DiffListGroupViewModel]
+// takes a DiffResponse and turns it into  [DiffListGroupViewModel]
 class DiffTransformer {
     
     let type: DiffContainerViewModel.DiffType
@@ -155,7 +155,7 @@ class DiffTransformer {
                     }
                     
                     if moveDistance == nil {
-                        //fallback to line numbers
+                        // fallback to line numbers
                         if let firstLineNumber = zippedItem.0.lineNumber,
                             let nextLineNumber = correspondingMoveItem.linkItem.lineNumber {
                             moveDistance = .line(amount: abs(firstLineNumber - nextLineNumber))
@@ -202,7 +202,7 @@ class DiffTransformer {
         var toIsIntro = false
         for item in response.diff {
             
-            //from side
+            // from side
             var fromSide: TransformSectionInfo.Side?
             
             if let itemFromOffset = item.offset.from {
@@ -225,7 +225,7 @@ class DiffTransformer {
             }
             
             
-            //to side
+            // to side
             var toSide: TransformSectionInfo.Side?
             
             if let itemToOffset = item.offset.to {
@@ -315,7 +315,7 @@ class DiffTransformer {
         let packageUpSectionItemsIfNeeded = {
             
             if sectionItems.count > 0 {
-                //package contexts up into change view model, append to result
+                // package contexts up into change view model, append to result
 
                 let changeViewModel = DiffListChangeViewModel(type: .singleRevison, diffItems: sectionItems, theme: theme, width: 0, traitCollection: traitCollection, semanticContentAttribute: self.semanticContentAttribute)
 
@@ -362,7 +362,7 @@ class DiffTransformer {
         let packageUpContextItemsIfNeeded = {
             
             if contextItems.count > 0 {
-                //package contexts up into context view model, append to result
+                // package contexts up into context view model, append to result
                 let contextViewModel = DiffListContextViewModel(diffItems: contextItems, isExpanded: false, theme: theme, width: 0, traitCollection: traitCollection, semanticContentAttribute: self.semanticContentAttribute)
                 result.append(contextViewModel)
                 contextItems.removeAll()
@@ -372,7 +372,7 @@ class DiffTransformer {
         let packageUpChangeItemsIfNeeded = {
             
             if changeItems.count > 0 {
-                //package contexts up into change view model, append to result
+                // package contexts up into change view model, append to result
 
                 let changeViewModel = DiffListChangeViewModel(type: .compareRevision, diffItems: changeItems, theme: theme, width: 0, traitCollection: traitCollection, semanticContentAttribute: self.semanticContentAttribute)
 
@@ -392,7 +392,7 @@ class DiffTransformer {
                     packageUpContextItemsIfNeeded()
                     packageUpChangeItemsIfNeeded()
                     
-                    //insert unedited lines view model
+                    // insert unedited lines view model
                     let uneditedViewModel = DiffListUneditedViewModel(numberOfUneditedLines: delta, theme: theme, width: 0, traitCollection: traitCollection)
                     result.append(uneditedViewModel)
                 }

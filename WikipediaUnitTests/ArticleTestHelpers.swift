@@ -226,7 +226,7 @@ class ArticleTestHelpers {
         let mobileHTMLURLString = "https://en.wikipedia.org/api/rest_v1/page/mobile-html/United_States"
         let cssString = "https://en.wikipedia.org/api/rest_v1/data/css/mobile/site"
         
-        //save objects database
+        // save objects database
         guard let cacheGroup = CacheDBWriterHelper.createCacheGroup(with: mobileHTMLURLString, in: moc),
             let htmlCacheItem = CacheDBWriterHelper.createCacheItem(with: URL(string: mobileHTMLURLString)!, itemKey: mobileHTMLURLString, variant: nil, in: moc),
             let imageCacheItem = CacheDBWriterHelper.createCacheItem(with: URL(string: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/960px-Flag_of_the_United_States.svg.png")!, itemKey: "upload.wikimedia.org__Flag_of_the_United_States.svg", variant: "960", in: moc),
@@ -249,7 +249,7 @@ class ArticleTestHelpers {
             }
         }
         
-        //set up file names and content
+        // set up file names and content
         let fileNameGenerator = PermanentlyPersistableURLCache(moc: moc)
         guard let htmlURL = URL(string: "https://en.wikipedia.org/api/rest_v1/page/mobile-html/United_States"),
             let uniqueHTMLFileName = fileNameGenerator.uniqueFileNameForURL(htmlURL, type: .article),
@@ -277,7 +277,7 @@ class ArticleTestHelpers {
                 return
         }
         
-        //save content in file system
+        // save content in file system
         CacheFileWriterHelper.saveData(data: fixtureData.cachedHTML, toNewFileWithKey: uniqueHTMLFileName) { (result) in
             switch result {
             case .success, .exists:
@@ -305,7 +305,7 @@ class ArticleTestHelpers {
             }
         }
         
-        //save headers in file system
+        // save headers in file system
         let htmlHeaders: [String: String] = ["Content-Type": "text/html; charset=utf-8;"]
         
         CacheFileWriterHelper.saveResponseHeader(headerFields: htmlHeaders, toNewFileName: uniqueHTMLHeaderFileName) { (result) in
@@ -349,7 +349,7 @@ class ArticleTestHelpers {
         let cssString = "https://zh.wikipedia.org/api/rest_v1/data/css/mobile/site"
         let imageURLString = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Flag_of_the_United_States_%28Pantone%29.svg/640px-Flag_of_the_United_States_%28Pantone%29.svg.png"
         
-        //save objects database
+        // save objects database
         guard let cacheGroup = CacheDBWriterHelper.createCacheGroup(with: mobileHTMLURLString, in: moc),
             let htmlCacheItem = CacheDBWriterHelper.createCacheItem(with: URL(string: mobileHTMLURLString)!, itemKey: mobileHTMLURLString, variant: "zh-hans", in: moc),
             let imageCacheItem = CacheDBWriterHelper.createCacheItem(with: URL(string: imageURLString)!, itemKey: "upload.wikimedia.org__Flag_of_the_United_States_%28Pantone%29.svg", variant: "640", in: moc),
@@ -372,7 +372,7 @@ class ArticleTestHelpers {
             }
         }
         
-        //set up file names and content
+        // set up file names and content
         let fileNameGenerator = PermanentlyPersistableURLCache(moc: moc)
         guard let htmlURL = URL(string: mobileHTMLURLString),
             let uniqueHTMLFileName = fileNameGenerator.uniqueFileNameForURL(htmlURL, type: .article),
@@ -400,7 +400,7 @@ class ArticleTestHelpers {
                 return
         }
         
-        //save content in file system
+        // save content in file system
         CacheFileWriterHelper.saveData(data: fixtureData.cachedZhansHTML, toNewFileWithKey: uniqueHTMLFileName) { (result) in
             switch result {
             case .success, .exists:
@@ -428,7 +428,7 @@ class ArticleTestHelpers {
             }
         }
         
-        //save headers in file system
+        // save headers in file system
         let htmlHeaders: [String: String] = ["Content-Type": "text/html; charset=utf-8;",
                                              "Vary": "Accept-Language, Accept-Encoding"]
         

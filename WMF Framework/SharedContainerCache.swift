@@ -3,7 +3,7 @@ import Foundation
 
 public final class SharedContainerCache<T: Codable> {
     
-    //values must all be distinct
+    // values must all be distinct
     public enum PathComponent: String {
         case widgetCache = "Widget Cache"
         case pushNotificationsCache = "Push Notifications Cache"

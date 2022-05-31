@@ -503,7 +503,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
     }
 }
 
-//MARK: - Private
+// MARK: - Private
 
 private extension NotificationsCenterCell {
     

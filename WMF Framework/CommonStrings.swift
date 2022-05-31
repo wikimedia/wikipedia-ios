@@ -273,7 +273,7 @@ public class CommonStrings: NSObject {
 
     public static let compareRevisionsTitle = WMFLocalizedString("diff-compare-header-heading", value: "Compare Revisions", comment: "Heading label in header when comparing two revisions.")
 
-    //Article As A Living Doucment Strings - for some reason build script doesn't auto generate these when used directly in SignificantEventsViewModels.swift
+    // Article As A Living Doucment Strings - for some reason build script doesn't auto generate these when used directly in SignificantEventsViewModels.swift
 
     public static let viewFullHistoryText = WMFLocalizedString("aaald-view-full-history-button", value: "View full article history", comment: "Text displayed in a button for pushing to the full article history view on the article as a living document screen.")
 
@@ -340,7 +340,7 @@ public class CommonStrings: NSObject {
     static let newNewsReferenceRetrievedDate = WMFLocalizedString("aaald-new-news-reference-retrieved-date",
     value:"Retrieved %1$@", comment: "Retrieved date text for a new news reference type that was added in an article as a living document cell. %1$@ is replaced by the reference's retrieved date.")
 
-    //tonitodo: this fails with EXC_BADACCESS when I try to use plural edits
+    // tonitodo: this fails with EXC_BADACCESS when I try to use plural edits
     static let revisionUserInfo = WMFLocalizedString(
     "aaald-revision-userInfo",
     value:"Edit by %1$@ (%2$@ edits)", comment: "Text describing details about the user that made a significant revision in the article as a living document view. %1$@ is replaced by the editor name and %2$d is replaced by the number of edits they have made.")

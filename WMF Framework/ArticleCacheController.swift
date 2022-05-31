@@ -17,7 +17,7 @@ public final class ArticleCacheController: CacheController {
         case invalidDBWriterType
     }
     
-    //syncs already cached resources with mobile-html-offline-resources and media-list endpoints (caches new urls, removes old urls)
+    // syncs already cached resources with mobile-html-offline-resources and media-list endpoints (caches new urls, removes old urls)
     public func syncCachedResources(url: URL, groupKey: CacheController.GroupKey, groupCompletion: @escaping GroupCompletionBlock) {
         
         guard let articleDBWriter = dbWriter as? ArticleCacheDBWriter else {
@@ -36,7 +36,7 @@ public final class ArticleCacheController: CacheController {
                 var successfulRemoveKeys: [CacheController.UniqueKey] = []
                 var failedRemoveKeys: [(CacheController.UniqueKey, Error)] = []
                 
-                //add new urls in file system
+                // add new urls in file system
                 for urlRequest in syncResult.addURLRequests {
                     
                     guard let uniqueKey = self.fileWriter.uniqueFileNameForURLRequest(urlRequest), urlRequest.url != nil else {
@@ -73,7 +73,7 @@ public final class ArticleCacheController: CacheController {
                     }
                 }
                 
-                //remove old urls in file system
+                // remove old urls in file system
                 for key in syncResult.removeItemKeyAndVariants {
                     
                     guard let uniqueKey = self.fileWriter.uniqueFileNameForItemKey(key.itemKey, variant: key.variant) else {
@@ -126,7 +126,7 @@ public final class ArticleCacheController: CacheController {
         }
     }
     
-    public func cacheFromMigration(desktopArticleURL: URL, content: String, completionHandler: @escaping ((Error?) -> Void)) { //articleURL should be desktopURL
+    public func cacheFromMigration(desktopArticleURL: URL, content: String, completionHandler: @escaping ((Error?) -> Void)) { // articleURL should be desktopURL
         
         guard let articleDBWriter = dbWriter as? ArticleCacheDBWriter else {
             completionHandler(ArticleCacheControllerError.invalidDBWriterType)
@@ -170,7 +170,7 @@ public final class ArticleCacheController: CacheController {
         return articleDBWriter.bundledResourcesAreCached()
     }
     
-    private func cacheBundledResourcesIfNeeded(desktopArticleURL: URL, completionHandler: @escaping ((Error?) -> Void)) { //articleURL should be desktopURL
+    private func cacheBundledResourcesIfNeeded(desktopArticleURL: URL, completionHandler: @escaping ((Error?) -> Void)) { // articleURL should be desktopURL
         
         guard let articleDBWriter = dbWriter as? ArticleCacheDBWriter else {
             completionHandler(ArticleCacheControllerError.invalidDBWriterType)

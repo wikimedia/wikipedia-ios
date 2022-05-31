@@ -37,7 +37,7 @@ extension ArticleContextMenuPresenting {
             return
         }
 
-        //moving into separate function for easier testability
+        // moving into separate function for easier testability
         contextMenuConfigurationForLinkURL(linkURL) { (completionType, menuConfig) in
             guard completionType != .bail && completionType != .timeout else {
                 nullCompletion()

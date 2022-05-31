@@ -339,7 +339,7 @@ extension SectionEditorInputViewsController: FindAndReplaceKeyboardBarDelegate {
     }
     
     func keyboardBarDidTapClose(_ keyboardBar: FindAndReplaceKeyboardBar) {
-         //no-op, FindAndReplaceKeyboardBar not showing close button in Editor context
+         // no-op, FindAndReplaceKeyboardBar not showing close button in Editor context
     }
     
     func keyboardBarDidTapClear(_ keyboardBar: FindAndReplaceKeyboardBar) {
@@ -366,7 +366,7 @@ extension SectionEditorInputViewsController: FindAndReplaceKeyboardBarDelegate {
 }
 
 #if (TEST)
-//MARK: Helpers for testing
+// MARK: Helpers for testing
 extension SectionEditorInputViewsController {
     var findAndReplaceViewForTesting: FindAndReplaceKeyboardBar? {
         return findAndReplaceView

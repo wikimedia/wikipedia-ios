@@ -11,7 +11,7 @@ extension ArticleViewController {
         let contentGroups = dataStore.viewContext.orderedGroups(of: .announcement, with: predicate)
         let currentDate = Date()
         
-        //get the first content group with a valid date
+        // get the first content group with a valid date
         let contentGroup = contentGroups?.first(where: { (group) -> Bool in
             guard group.contentType == .announcement,
                   let announcement = group.contentPreview as? WMFAnnouncement,

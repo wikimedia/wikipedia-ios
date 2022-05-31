@@ -35,7 +35,7 @@ class CacheItemMigrationPolicy: NSEntityMigrationPolicy {
                 }
                 let fileURL = CacheFileWriterHelper.fileURL(for: fileName)
                 let filePath = fileURL.path
-                //artifically create and save image response header
+                // artifically create and save image response header
                 var headers: [String: String] = [:]
                 headers["Content-Type"] = FileManager.default.getValueForExtendedFileAttributeNamed(WMFExtendedFileAttributeNameMIMEType, forFileAtPath: filePath)
                 let values = try? fileURL.resourceValues(forKeys: [URLResourceKey.fileSizeKey])

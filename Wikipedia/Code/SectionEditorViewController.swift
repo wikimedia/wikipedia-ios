@@ -753,7 +753,7 @@ extension SectionEditorViewController: EditingFlowViewController {
 }
 
 #if (TEST)
-//MARK: Helpers for testing
+// MARK: Helpers for testing
 extension SectionEditorViewController {
     func openFindAndReplaceForTesting() {
         inputViewsController.textFormattingProvidingDidTapFindInPage()

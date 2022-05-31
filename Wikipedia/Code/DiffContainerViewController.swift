@@ -93,7 +93,7 @@ class DiffContainerViewController: ViewController {
                 return nil
         }
         
-        if toModel.revisionSize == 0 { //indication that this has not been calculated yet from Page History, need fromModel for calculation
+        if toModel.revisionSize == 0 { // indication that this has not been calculated yet from Page History, need fromModel for calculation
             
             guard let fromModel = fromModel else {
                 return isOnFirstRevisionInHistory ? toModel.articleSizeAtRevision : nil
@@ -279,7 +279,7 @@ class DiffContainerViewController: ViewController {
     }
 }
 
-//MARK: Private
+// MARK: Private
 
 private extension DiffContainerViewController {
     
@@ -352,8 +352,8 @@ private extension DiffContainerViewController {
             return
         }
         
-        //early exit for first revision
-        //there is no previous revision from toModel in this case
+        // early exit for first revision
+        // there is no previous revision from toModel in this case
         if isOnFirstRevisionInHistory {
             midSetup()
             completeSetup()
@@ -381,7 +381,7 @@ private extension DiffContainerViewController {
         setupToolbarIfNeeded()
         containerViewModel.state = .loading
         
-        //For some reason this is needed when coming from Article As A Living Document screens
+        // For some reason this is needed when coming from Article As A Living Document screens
         if (needsSetNavDelegate) {
             navigationController?.delegate = self
         }
@@ -416,7 +416,7 @@ private extension DiffContainerViewController {
             fetchDiff()
         }
         
-        //Still need models for enabling/disabling prev/next buttons
+        // Still need models for enabling/disabling prev/next buttons
         populatePrevNextModelsForToolbar()
     }
     
@@ -435,7 +435,7 @@ private extension DiffContainerViewController {
                 return
         }
         
-        //populate nextModel for enabling previous/next button
+        // populate nextModel for enabling previous/next button
         let nextFromModel = toModel
         var nextToModel: WMFPageHistoryRevision?
         diffController.fetchAdjacentRevisionModel(sourceRevision: nextFromModel, direction: .next, articleTitle: articleTitle) { [weak self] (result) in
@@ -457,7 +457,7 @@ private extension DiffContainerViewController {
             }
         }
         
-        //if on first or second revision, fromModel will be nil and attempting to fetch previous revision will fail.
+        // if on first or second revision, fromModel will be nil and attempting to fetch previous revision will fail.
         if isOnFirstRevisionInHistory {
             diffToolbarView?.setNextButtonState(isEnabled: true)
             return
@@ -472,7 +472,7 @@ private extension DiffContainerViewController {
             return
         }
         
-        //populate prevModel for enabling previous/next button
+        // populate prevModel for enabling previous/next button
         var prevFromModel: WMFPageHistoryRevision?
         let prevToModel = fromModel
         diffController.fetchAdjacentRevisionModel(sourceRevision: prevToModel, direction: .previous, articleTitle: articleTitle) { [weak self] (result) in
@@ -514,7 +514,7 @@ private extension DiffContainerViewController {
     
     func evaluateState(oldState: DiffContainerViewModel.State) {
         
-        //need up update background color if state is error/empty or not
+        // need up update background color if state is error/empty or not
         switch containerViewModel.state {
         case .error, .empty:
             switch oldState {
@@ -683,7 +683,7 @@ private extension DiffContainerViewController {
     
     func updateHeaderWithEditCount(_ editCount: Int) {
         
-        //update view model
+        // update view model
         guard let headerViewModel = containerViewModel.headerViewModel else {
             return
         }
@@ -696,7 +696,7 @@ private extension DiffContainerViewController {
             return
         }
         
-        //update view
+        // update view
         headerExtendedView?.update(headerViewModel)
     }
     
@@ -864,7 +864,7 @@ private extension DiffContainerViewController {
     }
     
     func setupSafeAreaBottomAlignView() {
-        //add alignment view view
+        // add alignment view view
         safeAreaBottomAlignView.translatesAutoresizingMaskIntoConstraints = false
         safeAreaBottomAlignView.isHidden = true
         view.addSubview(safeAreaBottomAlignView)
@@ -979,7 +979,7 @@ extension DiffContainerViewController: DiffListDelegate {
 
 extension DiffContainerViewController: EmptyViewControllerDelegate {
     func triggeredRefresh(refreshCompletion: @escaping () -> Void) {
-        //no refreshing
+        // no refreshing
     }
     
     func emptyViewScrollViewDidScroll(_ scrollView: UIScrollView) {

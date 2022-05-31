@@ -62,7 +62,7 @@ public struct APIURLComponentsBuilder {
             return APIURLComponentsBuilder(hostComponents: components, basePathComponents: Configuration.Path.restBaseAPIComponents)
         }
  
-        //For staging and local, the host is the staging host and the wiki host is in the path:
+        // For staging and local, the host is the staging host and the wiki host is in the path:
         // https://mobileapps.wmflabs.org/en.wikipedia.org/v1/
         private static func stagingBuilderForAppsLabsPCS(withWikiHost wikiHost: String? = nil) -> APIURLComponentsBuilder {
             var components = URLComponents()
@@ -74,7 +74,7 @@ public struct APIURLComponentsBuilder {
             return APIURLComponentsBuilder(hostComponents: components, basePathComponents: baseComponents)
         }
         
-        ////For staging and local, the host is the staging host and the wiki host is in the path: http://localhost:8888/en.wikipedia.org/v1/
+        //// For staging and local, the host is the staging host and the wiki host is in the path: http://localhost:8888/en.wikipedia.org/v1/
         private static func localBuilderForPCS(withWikiHost wikiHost: String? = nil) -> APIURLComponentsBuilder {
             var components = URLComponents()
             components.scheme = Configuration.Scheme.http
@@ -86,7 +86,7 @@ public struct APIURLComponentsBuilder {
             return APIURLComponentsBuilder(hostComponents: components, basePathComponents: baseComponents)
         }
 
-        //For staging and local, the host is the staging host and the wiki host is in the path: http://localhost:8889/en.wikipedia.org/v1/
+        // For staging and local, the host is the staging host and the wiki host is in the path: http://localhost:8889/en.wikipedia.org/v1/
         private static func localBuilderForAnnouncements(withWikiHost wikiHost: String? = nil) -> APIURLComponentsBuilder {
             var components = URLComponents()
             components.scheme = Configuration.Scheme.http

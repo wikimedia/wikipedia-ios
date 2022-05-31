@@ -185,7 +185,7 @@ public class NavigationBarHider: NSObject {
         let top = 0 - scrollView.contentInset.top
         let targetOffsetY = targetContentOffset.pointee.y - top
         
-        //the maximum amount targetOffsetY is expected to get considering bounds + content size & insets
+        // the maximum amount targetOffsetY is expected to get considering bounds + content size & insets
         let maxTargetOffsetY = scrollView.contentSize.height - (scrollView.bounds.height - scrollView.contentInset.top - scrollView.contentInset.bottom)
 
         if targetOffsetY < totalHideableHeight {

@@ -270,7 +270,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     }
     
     lazy var availableBatchEditToolbarActions: [BatchEditToolbarAction] = {
-        //let updateItem = BatchEditToolbarActionType.update.action(with: self)
+        // let updateItem = BatchEditToolbarActionType.update.action(with: self)
         let deleteItem = BatchEditToolbarActionType.delete.action(with: self)
         return [deleteItem]
     }()

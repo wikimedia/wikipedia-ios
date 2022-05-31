@@ -1,7 +1,7 @@
 
 import Foundation
 
-//tonitodo: rename since unedited lines isn't really a group
+// tonitodo: rename since unedited lines isn't really a group
 protocol DiffListGroupViewModel {
     var theme: Theme { get set }
     var width: CGFloat { get set }

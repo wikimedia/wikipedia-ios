@@ -41,7 +41,7 @@ final class DiffHeaderViewModel: Themeable {
                     return nil
             }
             
-            formatString = "HH:mm zzz, dd MMM yyyy" //tonitodo: "UTC" instead of "GMT" in result?
+            formatString = "HH:mm zzz, dd MMM yyyy" // tonitodo: "UTC" instead of "GMT" in result?
             DiffHeaderViewModel.dateFormatter.dateFormat = formatString
             
             var heading: String?
@@ -150,7 +150,7 @@ final class DiffHeaderViewModel: Themeable {
 }
 
 final class DiffHeaderTitleViewModel {
-    let heading: String? //tonitodo: because WMFPageHistoryRevision revisionDate is nullable and that's displayed as a title in single revision view, can we make it not optional. same with title
+    let heading: String? // tonitodo: because WMFPageHistoryRevision revisionDate is nullable and that's displayed as a title in single revision view, can we make it not optional. same with title
     let title: String?
     let subtitle: String?
     let subtitleTextStyle: DynamicTextStyle
@@ -168,7 +168,7 @@ final class DiffHeaderTitleViewModel {
 final class DiffHeaderEditSummaryViewModel {
     let heading: String
     let isMinor: Bool
-    let summary: String? //tonitodo - because WMFPageHistoryRevision.parsedComment is nullable, can we make that not optional
+    let summary: String? // tonitodo - because WMFPageHistoryRevision.parsedComment is nullable, can we make that not optional
     
     init(heading: String, isMinor: Bool, summary: String?) {
         self.heading = heading
@@ -180,14 +180,14 @@ final class DiffHeaderEditSummaryViewModel {
 final class DiffHeaderEditorViewModel {
     
     let heading: String
-    let username: String? //tonitodo: because WMFPageHistoryRevision user is nullable, can we make that not nullable
+    let username: String? // tonitodo: because WMFPageHistoryRevision user is nullable, can we make that not nullable
     var numberOfEdits: Int? {
         didSet {
             guard let numberOfEdits = numberOfEdits else {
                 return
             }
             
-            //tonitodo: should we go larger than int?
+            // tonitodo: should we go larger than int?
             numberOfEditsForDisplay =  String.localizedStringWithFormat(numberOfEditsFormat, numberOfEdits)
         }
     }
@@ -218,10 +218,10 @@ final class DiffHeaderCompareViewModel: Themeable {
 final class DiffHeaderCompareItemViewModel: Themeable {
     let type: DiffHeaderCompareType
     let heading: String
-    let username: String? //tonitodo: because WMFPageHistoryRevision.user is nullable, can we make not nullable
+    let username: String? // tonitodo: because WMFPageHistoryRevision.user is nullable, can we make not nullable
     let isMinor: Bool
-    let summary: String? //tonitodo: because WMFPageHistoryRevision.parsedComment is nullable, can we make not nullable
-    let timestampString: String? //tonitodo: because WMFPageHistoryRevision.revisionDate is nullable, can we make not nullable
+    let summary: String? // tonitodo: because WMFPageHistoryRevision.parsedComment is nullable, can we make not nullable
+    let timestampString: String? // tonitodo: because WMFPageHistoryRevision.revisionDate is nullable, can we make not nullable
     var accentColor: UIColor
     let revisionID: Int
     
@@ -247,7 +247,7 @@ final class DiffHeaderCompareItemViewModel: Themeable {
         
         self.revisionID = revisionID
         
-        accentColor = theme.colors.link //compile error without this, overwrite in apply(theme:)
+        accentColor = theme.colors.link // compile error without this, overwrite in apply(theme:)
         apply(theme: theme)
     }
     

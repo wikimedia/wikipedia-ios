@@ -375,7 +375,7 @@ extension ArticleWebMessagingController: WKScriptMessageHandler {
     }
 }
 
-//Article as a Living Document Scripts
+// Article as a Living Document Scripts
 
 extension ArticleWebMessagingController {
     
@@ -679,9 +679,9 @@ extension ArticleWebMessagingController {
         }
     }
     
-    //should be used only when significant events is active
-    //we are manually suppressing left and right body margins in standard view
-    //and adding back in as padding so we get the edge to edge gray background
+    // should be used only when significant events is active
+    // we are manually suppressing left and right body margins in standard view
+    // and adding back in as padding so we get the edge to edge gray background
     func customUpdateMargins(with layoutMargins: UIEdgeInsets, leadImageHeight: CGFloat) {
         let javascript = """
             function customUpdateMargins() {

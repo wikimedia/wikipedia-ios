@@ -70,7 +70,7 @@ open class CollectionViewCell: UICollectionViewCell {
             self.labelBackgroundColor = .clear
         }
 
-        //Then update the completion block to set the actual opaque color we want after the animation completes
+        // Then update the completion block to set the actual opaque color we want after the animation completes
         let existingCompletionBlock = CATransaction.completionBlock()
         CATransaction.setCompletionBlock {
             if let block = existingCompletionBlock {

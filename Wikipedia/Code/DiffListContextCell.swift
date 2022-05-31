@@ -85,7 +85,7 @@ private extension DiffListContextCell {
             
             if item != nil {
                 
-                //needs label
+                // needs label
                 let label = UILabel()
                 label.numberOfLines = 0
                 label.lineBreakMode = .byWordWrapping

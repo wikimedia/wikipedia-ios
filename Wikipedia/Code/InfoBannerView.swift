@@ -104,7 +104,7 @@ class InfoBannerView: SetupView {
     }
 }
 
-//MARK: Themable
+// MARK: Themable
 
 extension InfoBannerView: Themeable {
     func apply(theme: Theme) {

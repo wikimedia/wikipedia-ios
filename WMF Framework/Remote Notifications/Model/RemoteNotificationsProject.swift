@@ -130,8 +130,8 @@ public enum RemoteNotificationsProject: Hashable {
     
     private var projectName: String {
         
-        //TODO: This would be better as a generated mapping file from translatewiki's project translations (for example: https://translatewiki.net/wiki/Special:ExportTranslations?group=ext-wikimediaprojectnames&language=he&format=export-to-file)
-        //See https://phabricator.wikimedia.org/T297620
+        // TODO: This would be better as a generated mapping file from translatewiki's project translations (for example: https://translatewiki.net/wiki/Special:ExportTranslations?group=ext-wikimediaprojectnames&language=he&format=export-to-file)
+        // See https://phabricator.wikimedia.org/T297620
         
         switch self {
         case .wikipedia(_, _, _):
@@ -302,7 +302,7 @@ public enum RemoteNotificationsProject: Hashable {
             for suffix in suffixes {
                 let strippedIdentifier = apiIdentifier.hasSuffix(suffix) ? String(apiIdentifier.dropLast(suffix.count)) : apiIdentifier
                 
-                //confirm it is a recognized language
+                // confirm it is a recognized language
                 let recognizedLanguage = languageLinkController.allLanguages.first { languageLink in
                     languageLink.languageCode == strippedIdentifier
                 }

@@ -178,7 +178,7 @@ let WMFSubscribedToEchoNotifications = "WMFSubscribedToEchoNotifications"
     @objc var wmf_IsSyntaxHighlightingEnabled: Bool {
         get {
             if object(forKey: WMFIsSyntaxHighlightingEnabled) == nil {
-                return true //default to highlighting enabled
+                return true // default to highlighting enabled
             }
             
             return bool(forKey: WMFIsSyntaxHighlightingEnabled)

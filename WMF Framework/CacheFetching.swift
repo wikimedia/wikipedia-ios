@@ -18,15 +18,15 @@ public protocol CacheFetching {
     typealias DownloadCompletion = (Error?, URLRequest?, URLResponse?, TemporaryFileURL?, MIMEType?) -> Void
     typealias DataCompletion = (Result<CacheFetchingResult, Error>) -> Void
     
-    //internally populates urlRequest with cache header fields
+    // internally populates urlRequest with cache header fields
     func dataForURL(_ url: URL, persistType: Header.PersistItemType, headers: [String: String], completion: @escaping DataCompletion) -> URLSessionTask?
     
-    //assumes urlRequest is already populated with cache header fields
+    // assumes urlRequest is already populated with cache header fields
     func dataForURLRequest(_ urlRequest: URLRequest, completion: @escaping DataCompletion) -> URLSessionTask?
     
-    //Session Passthroughs
+    // Session Passthroughs
     func cachedResponseForURL(_ url: URL, type: Header.PersistItemType) -> CachedURLResponse?
-    func cachedResponseForURLRequest(_ urlRequest: URLRequest) -> CachedURLResponse? //assumes urlRequest is already populated with the proper cache headers
+    func cachedResponseForURLRequest(_ urlRequest: URLRequest) -> CachedURLResponse? // assumes urlRequest is already populated with the proper cache headers
     func uniqueKeyForURL(_ url: URL, type: Header.PersistItemType) -> String?
     func cacheResponse(httpUrlResponse: HTTPURLResponse, content: CacheResponseContentType, urlRequest: URLRequest, success: @escaping () -> Void, failure: @escaping (Error) -> Void)
     func uniqueFileNameForItemKey(_ itemKey: CacheController.ItemKey, variant: String?) -> String?
@@ -35,7 +35,7 @@ public protocol CacheFetching {
     func itemKeyForURLRequest(_ urlRequest: URLRequest) -> String?
     func variantForURLRequest(_ urlRequest: URLRequest) -> String?
     
-    //Bundled migration only - copies files into cache
+    // Bundled migration only - copies files into cache
     func writeBundledFiles(mimeType: String, bundledFileURL: URL, urlRequest: URLRequest, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
@@ -83,7 +83,7 @@ extension CacheFetching where Self:Fetcher {
     }
 }
 
-//MARK: Session Passthroughs
+// MARK: Session Passthroughs
 
 extension CacheFetching where Self:Fetcher {
     

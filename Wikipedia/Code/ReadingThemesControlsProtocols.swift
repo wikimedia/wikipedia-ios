@@ -147,6 +147,6 @@ extension ReadingThemesControlsArticlePresenter: ReadingThemesControlsResponding
     }
     
     func toggleSyntaxHighlighting(_ controller: ReadingThemesControlsViewController) {
-        //do nothing
+        // do nothing
     }
 }

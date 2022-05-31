@@ -26,7 +26,7 @@ class TalkPageLocalHandlerTests: XCTestCase {
     
     func testCreateFirstTalkPageSavesToDatabase() {
         
-        //confirm no talk pages in DB
+        // confirm no talk pages in DB
         let fetchRequest: NSFetchRequest<TalkPage> = TalkPage.fetchRequest()
         
         guard let firstResults = try? tempDataStore.viewContext.fetch(fetchRequest) else {
@@ -36,20 +36,20 @@ class TalkPageLocalHandlerTests: XCTestCase {
         
         XCTAssertEqual(firstResults.count, 0, "Expected zero existing talk pages at first")
         
-        //add network talk page
+        // add network talk page
         guard let json = wmf_bundle().wmf_data(fromContentsOfFile: TalkPageTestHelpers.TalkPageJSONType.original.fileName, ofType: "json"),
             let talkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, data: json, revisionId: 1) else {
             XCTFail("Failure stubbing out network talk page")
             return
         }
 
-        //create db talk page
+        // create db talk page
         guard let dbTalkPage = moc.createTalkPage(with: talkPage) else {
             XCTFail("Failure to create db talk page")
             return
         }
         
-        //assert db talk page values
+        // assert db talk page values
         let keyedUrlString = URL(string: urlString1)?.wmf_databaseKey
         XCTAssertNotNil(dbTalkPage.key)
         XCTAssertEqual(dbTalkPage.key, keyedUrlString, "Unexpected key")
@@ -121,7 +121,7 @@ class TalkPageLocalHandlerTests: XCTestCase {
             XCTAssertEqual(fifthTopic.replies?.count, 1, "Unexpected topic items count")
         }
         
-        //confirm one talk page exists in DB
+        // confirm one talk page exists in DB
         guard let secondResults = try? tempDataStore.viewContext.fetch(fetchRequest) else {
             XCTFail("Failure fetching saved talk pages")
             return
@@ -133,7 +133,7 @@ class TalkPageLocalHandlerTests: XCTestCase {
     
     func testExistingTalkPagePullsFromDB() {
         
-        //confirm no talk pages in DB
+        // confirm no talk pages in DB
         let fetchRequest: NSFetchRequest<TalkPage> = TalkPage.fetchRequest()
         
         guard let firstResults = try? tempDataStore.viewContext.fetch(fetchRequest) else {
@@ -143,20 +143,20 @@ class TalkPageLocalHandlerTests: XCTestCase {
         
         XCTAssertEqual(firstResults.count, 0, "Expected zero existing talk pages at first")
         
-        //add network talk page
+        // add network talk page
         guard let json = wmf_bundle().wmf_data(fromContentsOfFile: TalkPageTestHelpers.TalkPageJSONType.original.fileName, ofType: "json"),
             let talkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, data: json, revisionId: 1) else {
             XCTFail("Failure stubbing out network talk page")
             return
         }
         
-        //create db talk page
+        // create db talk page
         guard let dbTalkPage = moc.createTalkPage(with: talkPage) else {
             XCTFail("Failure to create db talk page")
             return
         }
         
-        //confirm asking for existing talk page with key pulls same talk page
+        // confirm asking for existing talk page with key pulls same talk page
         guard let existingTalkPage = try? moc.talkPage(for: URL(string: urlString1)!) else {
             XCTFail("Pull existing talk page fails")
             return
@@ -164,7 +164,7 @@ class TalkPageLocalHandlerTests: XCTestCase {
         
         XCTAssertEqual(existingTalkPage, dbTalkPage, "Unexpected existing talk page value")
         
-        //confirm asking for urlString2 pulls nothing
+        // confirm asking for urlString2 pulls nothing
         do {
             let nonexistantTalkPage = try moc.talkPage(for: URL(string: urlString2)!)
             XCTAssertNil(nonexistantTalkPage)
@@ -174,7 +174,7 @@ class TalkPageLocalHandlerTests: XCTestCase {
     }
     
     func testUpdateExistingTalkPageUpdatesValues() {
-        //confirm no talk pages in DB
+        // confirm no talk pages in DB
         let fetchRequest: NSFetchRequest<TalkPage> = TalkPage.fetchRequest()
         
         guard let firstResults = try? tempDataStore.viewContext.fetch(fetchRequest) else {
@@ -184,20 +184,20 @@ class TalkPageLocalHandlerTests: XCTestCase {
         
         XCTAssertEqual(firstResults.count, 0, "Expected zero existing talk pages at first")
         
-        //add network talk page
+        // add network talk page
         guard let originalJson = wmf_bundle().wmf_data(fromContentsOfFile: TalkPageTestHelpers.TalkPageJSONType.original.fileName, ofType: "json"),
             let talkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, data: originalJson, revisionId: 1) else {
             XCTFail("Failure stubbing out network talk page")
             return
         }
         
-        //create db talk page
+        // create db talk page
         guard let dbTalkPage = moc.createTalkPage(with: talkPage) else {
             XCTFail("Failure to create db talk page")
             return
         }
         
-        //mark last topic as read to confirm it stays read after updating.
+        // mark last topic as read to confirm it stays read after updating.
         let topics = dbTalkPage.topics?.allObjects.sorted { ($0 as! TalkPageTopic).sort < ($1 as! TalkPageTopic).sort }
         if let fifthTopic = topics?[5] as? TalkPageTopic {
             fifthTopic.content?.isRead = true
@@ -208,14 +208,14 @@ class TalkPageLocalHandlerTests: XCTestCase {
             }
         }
         
-        //get updated talk page payload
+        // get updated talk page payload
         guard let updatedJson = wmf_bundle().wmf_data(fromContentsOfFile: TalkPageTestHelpers.TalkPageJSONType.updated.fileName, ofType: "json"),
             let updatedTalkPage = TalkPageTestHelpers.networkTalkPage(for: urlString1, data: updatedJson, revisionId: 1) else {
             XCTFail("Failure stubbing out network talk page")
             return
         }
         
-        //update local talk page with new talk page
+        // update local talk page with new talk page
         guard let updatedDbTalkPage = moc.updateTalkPage(dbTalkPage, with: updatedTalkPage) else {
             XCTFail("Failure updating existing local talk page")
             return
@@ -274,7 +274,7 @@ class TalkPageLocalHandlerTests: XCTestCase {
             XCTAssertTrue(secondTopic.content?.isRead ?? false, "isRead flag flipped back to false after reorder.")
         }
         
-        //confirm one talk page exists in DB
+        // confirm one talk page exists in DB
         guard let secondResults = try? tempDataStore.viewContext.fetch(fetchRequest) else {
             XCTFail("Failure fetching saved talk pages")
             return

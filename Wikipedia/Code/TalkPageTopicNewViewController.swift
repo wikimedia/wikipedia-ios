@@ -165,7 +165,7 @@ class TalkPageTopicNewViewController: ViewController {
     }
 }
 
-//MARK: Private
+// MARK: Private
 
 private extension TalkPageTopicNewViewController {
     
@@ -246,7 +246,7 @@ private extension TalkPageTopicNewViewController {
                 return
         }
         
-        //first get the size bodyTextView wants to be without a height limit (bodyTextView.contentSize.height doesn't seem reliable here)
+        // first get the size bodyTextView wants to be without a height limit (bodyTextView.contentSize.height doesn't seem reliable here)
         bodyContainerViewHeightConstraint.isActive = false
         bodyTextView.setNeedsLayout()
         bodyTextView.layoutIfNeeded()
@@ -287,7 +287,7 @@ private extension TalkPageTopicNewViewController {
     }
 }
 
-//MARK: ThemeableTextViewPlaceholderDelegate
+// MARK: ThemeableTextViewPlaceholderDelegate
 
 extension TalkPageTopicNewViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
@@ -295,7 +295,7 @@ extension TalkPageTopicNewViewController: UITextViewDelegate {
     }
 }
 
-//MARK: BeKindInputAccessoryViewDelegate
+// MARK: BeKindInputAccessoryViewDelegate
 
 extension TalkPageTopicNewViewController: BeKindInputAccessoryViewDelegate {
     func didUpdateHeight(view: BeKindInputAccessoryView) {

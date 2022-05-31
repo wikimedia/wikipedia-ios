@@ -609,7 +609,7 @@ public class Colors: NSObject {
     public let diffCompareAccent: UIColor
     public let diffCompareChangeHeading: UIColor
     
-    //Someday, when the app is all swift, make this class a struct.
+    // Someday, when the app is all swift, make this class a struct.
     init(baseBackground: UIColor, midBackground: UIColor, paperBackground: UIColor, chromeBackground: UIColor, popoverBackground: UIColor, subCellBackground: UIColor, overlayBackground: UIColor, batchSelectionBackground: UIColor, referenceHighlightBackground: UIColor, hintBackground: UIColor, hintWarningBackground: UIColor, animationBackground: UIColor, overlayText: UIColor, searchFieldBackground: UIColor, keyboardBarSearchFieldBackground: UIColor, primaryText: UIColor, secondaryText: UIColor, tertiaryText: UIColor, disabledText: UIColor, disabledLink: UIColor, chromeText: UIColor, link: UIColor, accent: UIColor, border: UIColor, shadow: UIColor, chromeShadow: UIColor, cardBackground: UIColor, selectedCardBackground: UIColor, cardBorder: UIColor, cardShadow: UIColor, cardButtonBackground: UIColor, cardButtonSelectedBackground: UIColor, secondaryAction: UIColor, icon: UIColor?, iconBackground: UIColor?, destructive: UIColor, error: UIColor, warning: UIColor, unselected: UIColor, blurEffectStyle: UIBlurEffect.Style, blurEffectBackground: UIColor, tagText: UIColor, tagBackground: UIColor, tagSelectedBackground: UIColor, rankGradientStart: UIColor, rankGradientEnd: UIColor, distanceBorder: UIColor, descriptionBackground: UIColor, descriptionWarning: UIColor, inputAccessoryBackground: UIColor, inputAccessoryButtonTint: UIColor, pageIndicator: UIColor, pageIndicatorCurrent: UIColor, unreadIndicator: UIColor, depthMarker: UIColor, diffTextAdd: UIColor = .base10, diffTextDelete: UIColor = .base10, diffHighlightAdd: UIColor? = .green90, diffHighlightDelete: UIColor? = .red90, diffStrikethroughColor: UIColor = .base0, diffContextItemBackground: UIColor = .base90, diffContextItemBorder: UIColor = .darkBase90, diffMoveParagraphBackground: UIColor = .base90, diffCompareAccent: UIColor = .orange50, diffCompareChangeHeading: UIColor = .base100) {
         self.baseBackground = baseBackground
         self.midBackground = midBackground
@@ -892,5 +892,5 @@ public class Theme: NSObject {
 @objc(WMFThemeable)
 public protocol Themeable: AnyObject {
     @objc(applyTheme:)
-    func apply(theme: Theme) //this might be better as a var theme: Theme { get set } - common VC superclasses could check for viewIfLoaded and call an update method in the setter. This would elminate the need for the viewIfLoaded logic in every applyTheme:
+    func apply(theme: Theme) // this might be better as a var theme: Theme { get set } - common VC superclasses could check for viewIfLoaded and call an update method in the setter. This would elminate the need for the viewIfLoaded logic in every applyTheme:
 }

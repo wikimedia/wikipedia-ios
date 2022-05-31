@@ -125,7 +125,7 @@ class TalkPageFetcher: Fetcher {
             return
         }
         
-        //todo: should sectionID in CoreData be string?
+        // todo: should sectionID in CoreData be string?
         sectionUploader.append(toSection: String(topic.sectionID), text: body, forArticleURL: url) { (result, error) in
             if let error = error {
                 completion(.failure(error))
@@ -149,7 +149,7 @@ class TalkPageFetcher: Fetcher {
             return
         }
     
-        //todo: track tasks/cancel
+        // todo: track tasks/cancel
         session.jsonDecodableTask(with: taskURLWithRevID) { (networkBase: NetworkBase?, response: URLResponse?, error: Error?) in
             
             if let statusCode = (response as? HTTPURLResponse)?.statusCode,
@@ -168,8 +168,8 @@ class TalkPageFetcher: Fetcher {
                 return
             }
             
-            //update sort
-            //todo performance: should we go back to NSOrderedSets or move sort up into endpoint?
+            // update sort
+            // todo performance: should we go back to NSOrderedSets or move sort up into endpoint?
             for (topicIndex, topic) in networkBase.topics.enumerated() {
                 
                 topic.sort = topicIndex
@@ -189,7 +189,7 @@ class TalkPageFetcher: Fetcher {
     }
 }
 
-//MARK: Private
+// MARK: Private
 
 private extension TalkPageFetcher {
     

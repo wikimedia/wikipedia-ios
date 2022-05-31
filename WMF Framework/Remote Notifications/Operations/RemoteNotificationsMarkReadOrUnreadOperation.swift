@@ -19,7 +19,7 @@ class RemoteNotificationsMarkReadOrUnreadOperation: RemoteNotificationsProjectOp
     
     override func execute() {
         
-        //optimistically mark in database first for UI to reflect, then in API.
+        // optimistically mark in database first for UI to reflect, then in API.
         
         let backgroundContext = modelController.newBackgroundContext()
         modelController.markAsReadOrUnread(moc: backgroundContext, identifierGroups: identifierGroups, shouldMarkRead: shouldMarkRead) { [weak self]  result in
