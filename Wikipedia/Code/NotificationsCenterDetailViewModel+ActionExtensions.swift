@@ -66,8 +66,7 @@ extension NotificationsCenterDetailViewModel {
 
         case .unknownSystemNotice,
              .unknownNotice,
-             .unknown,
-             .other:
+             .unknown:
             if let primaryLink = commonViewModel.notification.primaryLink,
                let primaryAction = commonViewModel.actionForGenericLink(link: primaryLink) {
                 return primaryAction
@@ -119,8 +118,7 @@ extension NotificationsCenterDetailViewModel {
 
         case .unknownSystemNotice,
              .unknownNotice,
-             .unknown,
-             .other:
+             .unknown:
             secondaryActions.append(contentsOf: genericActions)
 
         }

@@ -80,6 +80,7 @@
 "action-add-to-reading-list" = "ߊ߬ ߟߊߘߏ߲߬ ߘߐ߬ߞߊ߬ߙߊ߲߬ߠߌ߲߬ ߛߙߍߘߍ ߘߐ߫";
 "action-add-to-reading-list-short" = "ߊ߬ ߝߙߊ߬ ߛߙߍߘߍ ߟߊ߫";
 "action-cancel" = "ߊ߬ ߘߐߛߊ߬";
+"action-discard-edits" = "ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ ߠߎ߬ ߡߊߓߌ߬ߟߊ߫";
 "action-find-in-page" = "ߊ߬ ߢߌߣߌ߲߫ ߞߐߜߍ ߘߐ߫";
 "action-language-accessibility" = "ߞߊ߲ ߡߊߝߊ߬ߟߋ߲߬";
 "action-move-to" = "ߊ߬ ߛߋ߲߬ߓߐ߫...";
@@ -179,10 +180,12 @@
 "diff-context-lines-collapsed-button-title" = "ߊ߬ ߦߌ߬ߘߊ߬";
 "diff-context-lines-expanded-button-title" = "ߊ߬ ߢߡߊߘߏ߲߰";
 "diff-multi-line-format" = "ߛߌ߬ߕߊߙߌ $1 - $2 ߟߎ߫";
+"diff-paragraph-moved" = "ߛߌ߬ߘߊ߬ߙߋ߲ ߓߘߊ߫ ߛߋ߲߬ߓߐ߫";
 "diff-paragraph-moved-direction-down" = "ߘߎ߰ߟߊ߫";
 "diff-paragraph-moved-direction-up" = "ߛߊ߲ߝߍ߬";
 "diff-paragraph-moved-distance-line" = "{{PLURAL:$1|ߛߌ߬ߕߊ߬ߙߌ߬ $1|ߛߌ߬ߕߊ߬ߙߌ $1 ߟߎ߬}}";
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|ߕߍߕߍ߯ $1|ߕߍߕߍ߮ $1 ߟߎ߬}}";
+"diff-paragraph-moved-format" = "ߛߌ߰ߘߊ߬ߙߋ߲ ߓߘߊ߫ ߓߐ߫ $1 ߟߊ߫ ߞߵߊ߬ ߓߌ߬ߟߊ߬ $2 ߟߊ߫";
 "diff-revision-error-title" = "ߛߊߞߍߟߌ ߕߍ߫ ߛߐ߲߬ ߠߊߢߎ߲߫ ߠߊ߫";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ $1|ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߌ߲ $1ߠߎ߬}}";
 "diff-single-header-editor-title" = "ߡߊ߬ߦߟߍ߬ߡߊ߲߬ߠߊ ߞߌ߬ߓߊ߬ߙߏ߬ߦߊ";
@@ -267,6 +270,7 @@
 "explore-feed-preferences-feed-card-visibility-all-languages-on" = "ߊ߬ ߓߍ߯ ߘߐ߫";
 "explore-feed-preferences-feed-card-visibility-global-cards-on" = "ߊ߬ ߟߊ߫";
 "explore-feed-preferences-global-cards-subtitle" = "ߞߊ߲߫ ߞߙߍߞߙߍߣߍ߲ ߞߏ߫ ߕߍ߫";
+"explore-feed-preferences-in-the-news-description" = "ߞߎߡߘߊ ߡߍ߲ ߠߎ߬ ߦߋ߫ ߛߋ߲߬ߠߊ߬ ߞߐߜߍ ߣߌ߲߬ ߞߊ߲߬";
 "explore-feed-preferences-on-this-day-description" = "ߖߊ߲߬ߖߏ߲ ߡߍ߲ ߦߋ߫ ߘߐ߬ߝߐ ߘߐ߫ ߟߏ߲ ߣߌ߲߬ ߡߊ߬";
 "explore-feed-preferences-places-description" = "ߥߞߌߔߋߘߌߦߊ߫ ߞߎߡߘߊ ߡߍ߲ ߦߴߌ ߘߌ߲߬ߞߌߙߊ ߕߙߐߝߍ߬";
 "explore-feed-preferences-potd-description" = "ߕߋ߬ߟߋ ߖߌ߬ߦߊ߬ߓߍ߬ ߡߊߦߋߙߋ߲ߣߍ߲ ߠߎ߬ ߥߞߌߡߋߘߌߦߊ߫ ߞߐߡߐ߲ ߞߊ߲߬";
@@ -318,6 +322,9 @@
 "field-username-title" = "ߟߊ߬ߓߊ߰ߙߊ߬ߟߊ ߕߐ߮";
 "find-clear-button-accessibility" = "ߢߌߣߌ߲ߠߌ߲߫ ߛߊߣߌ߲ߡߊ߲";
 "find-infolabel-number-matches" = "$1\\$2 ߟߊ߫";
+"find-previous-button-accessibility" = "ߛߐ߬ߘߐ߲߬ߣߍ߲߫ ߞߘߐ ߟߎ߬ ߞߐߝߟߌ";
+"find-replace-header" = "ߊ߬ ߢߌߣߌ߲߫ ߞߵߊ߬ ߣߐ߬ߘߐߓߌ߬ߟߊ߬";
+"find-replace-header-close-accessibility" = "ߊ߬ ߢߌߣߌ߲߫ ߞߵߊ߬ ߣߐ߬ߘߐߓߌ߬ߟߊ ߘߊߕߎ߲߯";
 "forgot-password-email-sent" = "ߢߎߡߍߙߋ߲ ߘߏ߫ ߓߘߊ߫ ߗߋ߫ ߕߊ߬ߡߌ߲߬ߞߊ߲ ߡߊߝߊ߬ߟߋ߲߬ߠߌ߲ ߟߊ߬ߘߏ߲߬ߠߌ߲ ߘߌ߫";
 "forgot-password-title" = "ߕߊ߬ߡߌ߲߬ߞߊ߲ ߡߊߦߟߍ߬ߡߊ߲߬";
 "forgot-password-username-or-email-title" = "ߥߟߊ߫";
@@ -401,6 +408,8 @@
 "new-password-title" = "ߌ ߟߊ߫ ߕߊ߬ߡߌ߲߬ߞߊ߲ ߠߊߘߏ߲߬";
 "no-internet-connection" = "ߓߟߐߟߐ ߜߊ߲߬ߞߎ߲߬ߠߌ߲߬ ߕߴߦߋ߲߬";
 "no-internet-connection-article-reload-button" = "ߌ ߞߐߛߊ߬ߦߌ߬ ߞߐߟߊ߫ ߦߌߟߡߊ߫ ߟߊߞߎ߲߬ߘߎ߬ߣߍ߲ ߡߊ߬";
+"notifications-center-agent-description-from-format" = "ߞߊ߬ ߝߘߊ߫ $1";
+"notifications-center-alert" = "ߟߊ߬ߛߏ߬ߓߌ߬ߟߌ";
 "notifications-center-change-password" = "ߕߊ߬ߡߌ߲߬ߞߊ߲ ߡߊߝߊ߬ߟߋ߲߬";
 "notifications-center-empty-checking-for-notifications" = "ߊ߬ ߡߊߝߍߣߍ߲߫ ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ߫ ߞߏ ߘߐ߫...";
 "notifications-center-empty-not-subscribed" = "ߌ ߕߐ߮ ߛߓߍߣߍ߲߫ ߕߍ߫ ߥߞߌߔߋߘߌߦߊ ߖߊ߲߬ߓߌ߬ߟߊ߬ߟߌ߫ ߛߌ߫ ߟߊ߫ ߕߊ߲߬.";

@@ -628,7 +628,6 @@
 "notifications-center-subheader-email-from-other-user" = "Uusi sähköposti";
 "notifications-center-subheader-login-fail-known-device" = "Useita epäonnistuneita kirjautumisyrityksiä";
 "notifications-center-subheader-login-fail-unknown-device" = "Epäonnistunut kirjautumisyritys";
-// Fuzzy
 "notifications-center-subheader-login-success-unknown-device" = "Kirjautuminen tuntemattomalta laitteelta";
 "notifications-center-subheader-mention-article-talk-page" = "Maininta artikkelin keskustelusivulla";
 "notifications-center-subheader-mention-edit-summary" = "Maininta muokkausyhteenvedossa";
@@ -651,6 +650,7 @@
 "notifications-center-type-item-description-mentions" = "Maininnat";
 "notifications-center-type-item-description-welcome-verbose" = "Tervetuloviesti";
 "notifications-center-type-title-login-success" = "Kirjautuminen onnistui";
+"notifications-center-type-title-other" = "Muu";
 "notifications-center-type-title-page-link" = "Sivulinkki";
 "notifications-center-type-title-welcome" = "Tervetuloa";
 "notifications-push-fallback-body-text" = "Uusi toiminta Wikipediassa";

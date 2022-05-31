@@ -678,8 +678,18 @@
 "notifications-center-title" = "Notificacions";
 "notifications-center-toolbar-mark-accessibility-label" = "Marca les notificacions seleccionades";
 "notifications-center-type-item-description-mentions" = "Mencions";
+"notifications-center-type-item-description-notice" = "Avís";
 "notifications-center-type-item-description-welcome-verbose" = "Missatge de benvinguda";
+"notifications-center-type-title-connection-with-wikidata" = "Connexió amb Wikidata";
+"notifications-center-type-title-edit-milestone" = "Fita d'edició";
 "notifications-center-type-title-login-attempts-subtitle" = "Intents d'inici de sessió fallits al vostre compte";
+"notifications-center-type-title-page-link" = "Enllaç de pàgina";
+"notifications-center-type-title-page-review" = "Revisió de la pàgina";
+"notifications-center-type-title-thanks" = "Agraïments";
+"notifications-center-type-title-translation-milestone" = "Fita de traducció";
+"notifications-center-type-title-user-rights-change" = "Canvi dels permisos d'usuari";
+"notifications-center-type-title-user-talk-page-messsage" = "Missatge de la pàgina de discussió";
+"notifications-center-type-title-welcome" = "Benvinguda";
 "notifications-push-fallback-body-text" = "Activitat nova a la Viquipèdia";
 "notifications-push-talk-body-format" = "{{PLURAL:$1|$1 missatge nou|$1 missatges nous}} a $2";
 "notifications-push-talk-title-format" = "{{PLURAL:$1|Missatge nou|Missatges nous}}";
@@ -761,6 +771,7 @@
 "potd-widget-title" = "Imatge del dia";
 "preference-summary-eventlogging-opt-in" = "Permeteu a la Fundació Wikimedia recollir informació sobre com utilitzeu l'aplicació per poder-la millorar";
 "preference-title-eventlogging-opt-in" = "Envia informes d'ús";
+"project-name-mediawiki" = "MediaWiki";
 "rank-accessibility-label" = "Número $1";
 "readers-accessibility-label" = "$1 lectors";
 "reading-list-add-generic-hint-title" = "Voleu afegir l'article a una llista de lectura?";
@@ -933,20 +944,17 @@
 "settings-support" = "Doneu suport a la Viquipèdia";
 "settings-title" = "Configuració";
 "share-a-fact-made-with" = "Fet amb l'aplicació de Viquipèdia";
-// Fuzzy
-"share-article-name-on-wikipedia" = "«$1» a la @Viquipedia:";
+"share-article-name-on-wikipedia" = "«$1» a la Viquipèdia:";
 "share-building" = "S'està creant una targeta de Comparteix-un-fet…";
 "share-default-format" = "«$1» de «$2»: $3";
 "share-email-format" = "«$1»\n\nde «$2»\n\n$3";
 "share-get-directions-in-maps" = "Aconsegueix direccions";
 "share-menu-item" = "Comparteix…";
 "share-message-format" = "«$1» $2";
-// Fuzzy
-"share-on-twitter-sign-off" = "via @Viquipedia";
+"share-on-twitter-sign-off" = "via Viquipèdia";
 "share-open-in-maps" = "Obre a Mapes";
 "share-social-format" = "«$1» des de la Viquipèdia: $2";
-// Fuzzy
-"share-social-mention-format" = "«$1» des de la @Viquipedia: $2";
+"share-social-mention-format" = "«$1» des de la Viquipèdia: $2";
 "sort-by-recently-added-action" = "S'ha afegit recentment";
 "sort-by-title-action" = "Títol";
 "table-of-contents-button-label" = "Taula de continguts";
