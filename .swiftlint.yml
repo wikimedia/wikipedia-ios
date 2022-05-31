@@ -25,7 +25,6 @@ disabled_rules:
     - redundant_string_enum_value
     - shorthand_operator
     - todo
-    - trailing_comma
     - trailing_newline
     - trailing_semicolon
     - trailing_whitespace

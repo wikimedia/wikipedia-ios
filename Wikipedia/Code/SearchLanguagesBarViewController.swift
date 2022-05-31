@@ -79,7 +79,7 @@ class SearchLanguageButton: UnderlineButton {
             languageCodeLabel.centerYAnchor.constraint(equalTo: languageCodeContainer.centerYAnchor),
             languageCodeLabel.centerXAnchor.constraint(equalTo: languageCodeContainer.centerXAnchor),
             languageCodeLabel.leadingAnchor.constraint(equalTo: languageCodeContainer.leadingAnchor, constant: 2),
-            languageCodeLabel.trailingAnchor.constraint(equalTo: languageCodeContainer.trailingAnchor, constant: -2),
+            languageCodeLabel.trailingAnchor.constraint(equalTo: languageCodeContainer.trailingAnchor, constant: -2)
         ])
 
         let isRTL = effectiveUserInterfaceLayoutDirection == .rightToLeft
