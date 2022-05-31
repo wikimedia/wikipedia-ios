@@ -540,6 +540,3 @@ extension ReadingListEntryCollectionViewController: SavedViewControllerDelegate 
         navigationBar.isInteractiveHidingEnabled = true
     }
 }
-
-
-

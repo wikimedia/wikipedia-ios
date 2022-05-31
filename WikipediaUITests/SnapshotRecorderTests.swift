@@ -268,8 +268,6 @@ class WikipediaUITests: XCTestCase {
         app.wmf_tapFirstButton(withTranslationIn: ["button-save-for-later"])
         
         app.wmf_tapFirstButton(withTranslationIn: ["home-button-explore-accessibility-label"])
-
-
         
         // SETTINGS
         app.wmf_tapFirstButton(withTranslationIn: ["settings-title"])

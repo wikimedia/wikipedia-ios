@@ -116,9 +116,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         if !isImageGridHidden || !isImageViewHidden {
             widthMinusMargins = widthMinusMargins - spacing - imageViewDimension - labelsAdditionalSpacing
         }
-        
-        
-        
+
         var x = layoutMargins.left
         if isArticleRTL {
             x = size.width - x - widthMinusMargins

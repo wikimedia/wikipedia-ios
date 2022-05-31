@@ -27,9 +27,7 @@ open class TableOfContentsPresentationController: UIPresentationController, Them
     }
     
     // MARK: - Views
-    
 
-    
     lazy var statusBarBackground: UIView = {
         let view = UIView(frame: CGRect.zero)
         view.autoresizingMask = .flexibleWidth

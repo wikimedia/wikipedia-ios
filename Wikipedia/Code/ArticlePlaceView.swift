@@ -271,7 +271,6 @@ class ArticlePlaceView: MapAnnotationView {
             done()
         }
     }
-    
 
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
@@ -282,9 +281,7 @@ class ArticlePlaceView: MapAnnotationView {
         
         selectedImageButton.addTarget(self, action: #selector(selectedImageViewWasTapped), for: .touchUpInside)
     }
-    
 
-    
     @objc func selectedImageViewWasTapped(_ sender: UIButton) {
         delegate?.articlePlaceViewWasTapped(self)
     }

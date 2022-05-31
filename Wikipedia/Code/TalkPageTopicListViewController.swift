@@ -170,9 +170,7 @@ private extension TalkPageTopicListViewController {
         collectionViewUpdater?.delegate = self
         collectionViewUpdater?.performFetch()
     }
-    
-    
-    
+
     func configure(cell: TalkPageTopicCell, at indexPath: IndexPath) {
         let topic = fetchedResultsController.object(at: indexPath)
         guard let title = topic.title else {

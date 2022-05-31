@@ -298,8 +298,6 @@ fileprivate extension Error {
     }
 }
 
-
-
 @objc(WMFTypedImageData)
 open class TypedImageData: NSObject {
     @objc public let data:Data?
