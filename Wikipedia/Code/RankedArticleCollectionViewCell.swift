@@ -24,7 +24,7 @@ public class RankedArticleCollectionViewCell: ArticleRightAlignedImageCollection
         let x = isLTR ? layoutMargins.left - layoutMarginsAdditions.left : size.width - layoutMargins.left + layoutMarginsAdditions.left - minimumRankDimension
         let maximumHeight = superSize.height - layoutMargins.top  - layoutMargins.bottom
         let maximumWidth = minimumRankDimension
-        let _ = rankView.wmf_preferredFrame(at: CGPoint(x: x, y: layoutMargins.top), maximumSize: CGSize(width: maximumWidth, height: maximumHeight), minimumSize: CGSize(width: minimumRankDimension, height: minimumRankDimension), horizontalAlignment: isLTR ? .right : .right, verticalAlignment: .center, apply: apply)
+        _ = rankView.wmf_preferredFrame(at: CGPoint(x: x, y: layoutMargins.top), maximumSize: CGSize(width: maximumWidth, height: maximumHeight), minimumSize: CGSize(width: minimumRankDimension, height: minimumRankDimension), horizontalAlignment: isLTR ? .right : .right, verticalAlignment: .center, apply: apply)
         return superSize
     }
 

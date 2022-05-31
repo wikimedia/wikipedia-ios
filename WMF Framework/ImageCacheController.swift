@@ -132,7 +132,7 @@ public final class ImageCacheController: CacheController {
     }
     
     func fetchData(withURL url: URL, failure: @escaping (Error) -> Void, success: @escaping (Data, URLResponse) -> Void) {
-        let _ = fetchData(withURL: url, priority: URLSessionTask.defaultPriority, failure: failure, success: success)
+        _ = fetchData(withURL: url, priority: URLSessionTask.defaultPriority, failure: failure, success: success)
     }
     
     /// Fetches an image from a given URL. Coalesces completion blocks so the same data isn't requested multiple times.
@@ -161,7 +161,7 @@ public final class ImageCacheController: CacheController {
     }
     
     public func fetchImage(withURL url: URL?, failure: @escaping (Error) -> Void, success: @escaping (ImageDownload) -> Void) {
-        let _ = fetchImage(withURL: url, priority: URLSessionTask.defaultPriority, failure: failure, success: success)
+        _ = fetchImage(withURL: url, priority: URLSessionTask.defaultPriority, failure: failure, success: success)
     }
     
    public func cancelFetch(withURL url: URL?, token: String?) {
@@ -182,7 +182,7 @@ public final class ImageCacheController: CacheController {
     
     /// Populate the cache for a given URL
     public func prefetch(withURL url: URL?, completion: @escaping () -> Void) {
-        let _ =  fetchImage(withURL: url, priority: URLSessionTask.lowPriority, failure: { (error) in }) { (download) in }
+        _ =  fetchImage(withURL: url, priority: URLSessionTask.lowPriority, failure: { (error) in }) { (download) in }
     }
     
     // MARK: Cache

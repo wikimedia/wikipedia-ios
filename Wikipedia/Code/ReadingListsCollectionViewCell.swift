@@ -294,7 +294,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         isImageViewHidden = !(isImageGridHidden && imageURLs.count >= 1) // we need at least one image to display
         
         if !layoutOnly && !isImageGridHidden {
-            let _ = zip(gridImageViews, imageURLs).compactMap { $0.wmf_setImage(with: $1, detectFaces: true, onGPU: true, failure: { (error) in }, success: { })}
+            _ = zip(gridImageViews, imageURLs).compactMap { $0.wmf_setImage(with: $1, detectFaces: true, onGPU: true, failure: { (error) in }, success: { })}
         }
         
         if isImageGridHidden, let imageURL = imageURLs.first {

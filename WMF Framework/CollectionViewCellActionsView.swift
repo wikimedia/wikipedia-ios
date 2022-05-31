@@ -167,14 +167,14 @@ public class ActionsView: SizeThatFitsView, Themeable {
     @objc func willPerformAction(_ sender: UIButton) {
         activeSender = sender
         let action = actions[sender.tag]
-        let _ = delegate?.willPerformAction(action)
+        _ = delegate?.willPerformAction(action)
     }
     
     func updateConfirmationImage(for action: Action, completion: @escaping () -> Bool) -> Bool {
         if let image = action.confirmationIcon {
             activeSender?.setImage(image, for: .normal)
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
-                let _ = completion()
+                _ = completion()
             }
         } else {
             return completion()

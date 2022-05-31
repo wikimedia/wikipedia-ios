@@ -138,7 +138,7 @@ open class CollectionViewCell: UICollectionViewCell {
         backgroundView?.frame = bounds
         selectedBackgroundView?.frame = bounds
         let size = bounds.size
-        let _ = sizeThatFits(size, apply: true)
+        _ = sizeThatFits(size, apply: true)
         updateAccessibilityElements()
         #if DEBUG
             for view in subviews {

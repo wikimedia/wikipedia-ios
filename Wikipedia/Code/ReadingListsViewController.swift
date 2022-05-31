@@ -266,7 +266,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        let _ = editController.isClosed
+        _ = editController.isClosed
     }
     
     lazy var availableBatchEditToolbarActions: [BatchEditToolbarAction] = {
@@ -375,10 +375,10 @@ extension ReadingListsViewController: ActionDelegate {
         }
         let alertController = ReadingListsAlertController()
         let cancel = ReadingListsAlertActionType.cancel.action()
-        let delete = ReadingListsAlertActionType.delete.action { let _ = self.editController.didPerformAction(action) }
+        let delete = ReadingListsAlertActionType.delete.action { _ = self.editController.didPerformAction(action) }
         alertController.showAlertIfNeeded(presenter: self, for: [readingList], with: [cancel, delete]) { showed in
             if !showed {
-                let _ = self.editController.didPerformAction(action)
+                _ = self.editController.didPerformAction(action)
             }
         }
         return true

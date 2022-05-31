@@ -150,7 +150,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         }
         let activatedAction = action.type == .delete ? action : nil
         closeActionPane(with: activatedAction) { (finished) in
-            let _ = self.delegate?.didPerformAction(action)
+            _ = self.delegate?.didPerformAction(action)
         }
         return true
     }

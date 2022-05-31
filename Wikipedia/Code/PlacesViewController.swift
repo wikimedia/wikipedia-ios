@@ -2021,7 +2021,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                         var combinedResults: [MWKSearchResult] = searchResult.results ?? []
                         let newResults = locationSearchResults.results as [MWKSearchResult]
                         combinedResults.append(contentsOf: newResults)
-                        let _ = self.handleCompletion(searchResults: combinedResults, siteURL: siteURL)
+                        _ = self.handleCompletion(searchResults: combinedResults, siteURL: siteURL)
                     }
                 }) { (error) in }
             }

@@ -64,7 +64,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
         
         stubRequest("POST", url.absoluteString as NSString)
         
-        let _ = stubRequest("GET", regex)
+        _ = stubRequest("GET", regex)
             .andReturn(200)?
             .withHeaders(["Content-Type": "application/json"])?
             .withBody(json as NSData)
@@ -86,7 +86,7 @@ class SectionEditorFindAndReplaceTests: XCTestCase {
         sectionEditorViewController.delegate = self
         
         UIApplication.shared.workaroundKeyWindow?.rootViewController = sectionEditorViewController
-        let _ = sectionEditorViewController.view
+        _ = sectionEditorViewController.view
         
         wait(for: [focusedSectionEditorExpectation], timeout: timeout)
     }

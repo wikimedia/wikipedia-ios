@@ -16,7 +16,7 @@ public class SignificantEventsFetcher: Fetcher {
         
         let request = URLRequest(url: url)
         
-        let _ = session.jsonDecodableTask(with: request) { (significantEvents: SignificantEvents?, response, error) in
+        _ = session.jsonDecodableTask(with: request) { (significantEvents: SignificantEvents?, response, error) in
             if let error = error {
                 completion(.failure(error))
                 return

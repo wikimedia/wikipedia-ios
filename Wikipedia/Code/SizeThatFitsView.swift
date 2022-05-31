@@ -35,7 +35,7 @@ open class SizeThatFitsView: SetupView {
     final override public func layoutSubviews() {
         super.layoutSubviews()
         let size = bounds.size
-        let _ = sizeThatFits(size, apply: true)
+        _ = sizeThatFits(size, apply: true)
         updateAccessibilityElements()
         #if DEBUG
             for view in subviews {

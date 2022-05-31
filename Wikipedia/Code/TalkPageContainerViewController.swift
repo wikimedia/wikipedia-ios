@@ -378,7 +378,7 @@ private extension TalkPageContainerViewController {
         emptyViewController.theme = theme
         emptyViewController.delegate = self
         emptyViewController.apply(theme: theme)
-        let _ = addChildViewController(childViewController: emptyViewController, belowSubview: toolbar, topAnchorPadding: 0)
+        _ = addChildViewController(childViewController: emptyViewController, belowSubview: toolbar, topAnchorPadding: 0)
         emptyViewController.view.isHidden = true
     }
     
@@ -394,7 +394,7 @@ private extension TalkPageContainerViewController {
                 toggleReplyRoutingOverlay(show: true)
             }
             
-            let _ = addChildViewController(childViewController: topicListViewController, belowSubview: emptyViewController.view, topAnchorPadding: 0)
+            _ = addChildViewController(childViewController: topicListViewController, belowSubview: emptyViewController.view, topAnchorPadding: 0)
             topicListViewController.delegate = self
             self.topicListViewController = topicListViewController
             

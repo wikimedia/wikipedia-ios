@@ -20,7 +20,6 @@ disabled_rules:
     - no_fallthrough_only
     - operator_whitespace
     - private_over_fileprivate
-    - redundant_discardable_let
     - redundant_objc_attribute
     - redundant_optional_initialization
     - redundant_string_enum_value
