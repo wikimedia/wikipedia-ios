@@ -137,7 +137,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
                 fakeProgressController.stop()
                 navigationItem.rightBarButtonItem?.isEnabled = true
                 showEmptyView(of: .emptyTalkPage)
-            case .fetchFailure (let error):
+            case .fetchFailure(let error):
                 fakeProgressController.stop()
                 if oldValue != TalkPageContainerViewState.fetchInitialResultData {
                     showEmptyView(of: .unableToLoadTalkPage)

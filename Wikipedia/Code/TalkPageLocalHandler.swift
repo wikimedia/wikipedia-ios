@@ -77,7 +77,7 @@ extension NSManagedObjectContext {
         
         localTalkPage.revisionId = NSNumber(value: revisionID)
         
-        guard let topicShas = (localTalkPage.topics as? Set<TalkPageTopic>)?.compactMap ({ return $0.textSha }) else {
+        guard let topicShas = (localTalkPage.topics as? Set<TalkPageTopic>)?.compactMap({ return $0.textSha }) else {
             return nil
         }
         
@@ -185,7 +185,7 @@ private extension NSManagedObjectContext {
             return
         }
         
-        let sameNetworkTopics = networkTalkPage.topics.filter ({ commonTopicShas.contains($0.shas.html) }).sorted(by: { $0.shas.html < $1.shas.html })
+        let sameNetworkTopics = networkTalkPage.topics.filter({ commonTopicShas.contains($0.shas.html) }).sorted(by: { $0.shas.html < $1.shas.html })
         
         guard sameLocalTopics.count == sameNetworkTopics.count else {
             return
@@ -208,7 +208,7 @@ private extension NSManagedObjectContext {
 
             try fetchOrCreateTalkPageTopicContent(with: networkTopic.shas.indicator, for: localTopic)
 
-            guard let replyShas = (localTopic.replies as? Set<TalkPageReply>)?.compactMap ({ return $0.sha }) else {
+            guard let replyShas = (localTopic.replies as? Set<TalkPageReply>)?.compactMap({ return $0.sha }) else {
                 continue
             }
             
@@ -255,7 +255,7 @@ private extension NSManagedObjectContext {
                 return
             }
             
-            let sameNetworkReplies = networkTopic.replies.filter ({ commonReplyShas.contains($0.sha) }).sorted(by: { $0.sha < $1.sha })
+            let sameNetworkReplies = networkTopic.replies.filter({ commonReplyShas.contains($0.sha) }).sorted(by: { $0.sha < $1.sha })
             
             guard sameLocalReplies.count == sameNetworkReplies.count else { continue }
             

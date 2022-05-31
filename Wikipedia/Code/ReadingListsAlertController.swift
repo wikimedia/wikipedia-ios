@@ -42,7 +42,7 @@ public class ReadingListsAlertController: NSObject {
     }
 
     private func shouldPresentAlertForArticles(_ articles: [WMFArticle]) -> Bool {
-        guard articles.filter ({ $0.isOnlyInDefaultList }).count != articles.count else {
+        guard articles.filter({ $0.isOnlyInDefaultList }).count != articles.count else {
             return false
         }
         return true

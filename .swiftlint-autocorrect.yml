@@ -18,7 +18,6 @@ disabled_rules:
     - multiple_closures_with_trailing_closure
     - nesting
     - no_fallthrough_only
-    - no_space_in_method_call
     - operator_whitespace
     - private_over_fileprivate
     - redundant_discardable_let
