@@ -61,7 +61,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     }()
     
     @objc
-    public func log(event: Dictionary<String, Any>, schema: String, revision: Int, wiki: String) {
+    public func log(event: [String: Any], schema: String, revision: Int, wiki: String) {
         let event: NSDictionary = ["event": event, "schema": schema, "revision": revision, "wiki": wiki]
         logEvent(event)
     }

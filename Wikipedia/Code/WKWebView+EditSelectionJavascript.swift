@@ -2,9 +2,9 @@ import WebKit
 import CocoaLumberjackSwift
 
 extension WKWebView {
-    private func selectedTextEditInfo(from dictionary: Dictionary<String, Any>) -> SelectedTextEditInfo? {
+    private func selectedTextEditInfo(from dictionary: [String: Any]) -> SelectedTextEditInfo? {
         guard
-            let selectedAndAdjacentTextDict = dictionary["selectedAndAdjacentText"] as? Dictionary<String, Any>,
+            let selectedAndAdjacentTextDict = dictionary["selectedAndAdjacentText"] as? [String: Any],
             let selectedText = selectedAndAdjacentTextDict["selectedText"] as? String,
             let textBeforeSelectedText = selectedAndAdjacentTextDict["textBeforeSelectedText"] as? String,
             let textAfterSelectedText = selectedAndAdjacentTextDict["textAfterSelectedText"] as? String,
@@ -31,7 +31,7 @@ extension WKWebView {
                     return
                 }
                 guard
-                    let resultDict = result as? Dictionary<String, Any>,
+                    let resultDict = result as? [String: Any],
                     let selectedTextEditInfo = self?.selectedTextEditInfo(from: resultDict)
                 else {
                     DDLogError("Error handling 'getSelectedTextEditInfo()' dictionary response")

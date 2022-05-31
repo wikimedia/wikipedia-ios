@@ -180,7 +180,7 @@ class ReadingListsViewController: ColumnarCollectionViewController, EditableColl
             return
         }
         let articleCount = readingList.countOfEntries
-        let lastFourArticlesWithLeadImages = Array(readingList.previewArticles ?? []) as? Array<WMFArticle> ?? []
+        let lastFourArticlesWithLeadImages = Array(readingList.previewArticles ?? []) as? [WMFArticle] ?? []
         
         cell.layoutMargins = layout.itemLayoutMargins
         

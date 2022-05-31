@@ -25,7 +25,7 @@ final class EditHistoryCompareFunnel: EventLoggingFunnel, EventLoggingStandardEv
         super.init(schema: "MobileWikiAppiOSEditHistoryCompare", version: 19795952)
     }
     
-    private func event(action: Action) -> Dictionary<String, Any> {
+    private func event(action: Action) -> [String: Any] {
         let event: [String: Any] = ["action": action.rawValue, "primary_language": primaryLanguage(), "is_anon": isAnon]
         return event
     }

@@ -37,7 +37,7 @@ final class NavigationEventsFunnel: EventLoggingFunnel, EventLoggingStandardEven
         super.init(schema: "MobileWikiAppiOSNavigationEvents", version: 21426269)
     }
     
-    private func event(action: Action) -> Dictionary<String, Any> {
+    private func event(action: Action) -> [String: Any] {
         let event: [String: Any] = ["action": action.rawValue, "primary_language": primaryLanguage(), "is_anon": isAnon]
         return event
     }

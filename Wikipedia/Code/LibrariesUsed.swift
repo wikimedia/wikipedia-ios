@@ -76,7 +76,7 @@ class LibrariesUsedViewController: UIViewController, UITableViewDelegate, UITabl
     private func librariesUsed(from plistPath: String) -> [LibraryUsed] {
         guard
             let dict = NSDictionary(contentsOfFile: plistPath) as? [String: Any],
-            let librariesUsedDataArray = dict[LibrariesUsedViewController.plistLibrariesUsedKey] as? Array<Dictionary<String, Any>>
+            let librariesUsedDataArray = dict[LibrariesUsedViewController.plistLibrariesUsedKey] as? [[String: Any]]
         else {
             assertionFailure("\n\nUnexpected items found in '\(plistPath)' or its '\(LibrariesUsedViewController.plistLibrariesUsedKey)' array.\n\n")
             return []
