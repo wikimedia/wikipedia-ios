@@ -133,7 +133,7 @@ class RemoteNotificationsOperationsController: NSObject {
         let wikisWithUnreadNotifications: Set<String>
         do {
             wikisWithUnreadNotifications = try modelController.distinctWikisWithUnreadNotifications()
-        } catch (let error) {
+        } catch let error {
             completion?(.failure(error))
             return
         }

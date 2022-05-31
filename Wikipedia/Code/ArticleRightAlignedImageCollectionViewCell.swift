@@ -70,15 +70,15 @@ open class ArticleRightAlignedImageCollectionViewCell: ArticleCollectionViewCell
         origin.y += layoutMargins.bottom
         let height = ceil(max(origin.y, minHeight))
         
-        if (apply && !bottomSeparator.isHidden) {
+        if apply && !bottomSeparator.isHidden {
             bottomSeparator.frame = CGRect(x: areSeparatorsAlignedWithLabels ? origin.x : 0, y: bounds.maxY - singlePixelDimension, width: areSeparatorsAlignedWithLabels ? widthMinusMargins : size.width, height: singlePixelDimension)
         }
         
-        if (apply && !topSeparator.isHidden) {
+        if apply && !topSeparator.isHidden {
             topSeparator.frame = CGRect(x: areSeparatorsAlignedWithLabels ? origin.x : 0, y: 0, width: areSeparatorsAlignedWithLabels ? widthMinusMargins : size.width, height: singlePixelDimension)
         }
         
-        if (apply && !isImageViewHidden) {
+        if apply && !isImageViewHidden {
             let imageViewY = floor(0.5*height - 0.5*imageViewDimension)
             var x = layoutMargins.right
             if !isRTL {

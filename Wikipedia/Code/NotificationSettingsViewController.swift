@@ -84,7 +84,7 @@ class NotificationSettingsViewController: SubSettingsViewController {
             return false
             }, switchAction: { [weak self] (isOn) in
                 
-                if (isOn) {
+                if isOn {
                     self?.requestPermissionsIfNeededAndRegisterDeviceToken()
                 }
         })]

@@ -86,7 +86,7 @@ final class NotificationsCenterViewModel: NSObject {
         
         let insertedNotificationsToDisplay = notificationsToDisplayFromManagedObjectContextInsert(insertedNotifications: insertedNotifications)
         
-        guard (refreshedNotifications.count > 0 || insertedNotificationsToDisplay.count > 0) else {
+        guard refreshedNotifications.count > 0 || insertedNotificationsToDisplay.count > 0 else {
             return
         }
         

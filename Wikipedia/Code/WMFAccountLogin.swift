@@ -87,7 +87,7 @@ public class WMFAccountLogin: Fetcher {
             guard status == "PASS" else {
                 
                 if let messageCode = clientlogin["messagecode"] as? String {
-                    switch(messageCode) {
+                    switch messageCode {
                     case "wrongpassword":
                         failure(WMFAccountLoginError.wrongPassword(message))
                         return

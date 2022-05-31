@@ -87,8 +87,8 @@ public class ActionsView: SizeThatFitsView, Themeable {
     
     public override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let superSize = super.sizeThatFits(size, apply: apply)
-        if (apply) {
-            if (size.width > 0 && needsSubviews) {
+        if apply {
+            if size.width > 0 && needsSubviews {
                 createSubviews(for: actions)
                 needsSubviews = false
             }
@@ -137,7 +137,7 @@ public class ActionsView: SizeThatFitsView, Themeable {
             button.titleLabel?.numberOfLines = 1
             button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
             button.tag = index
-            switch (action.type) {
+            switch action.type {
             case .delete:
                 button.backgroundColor = theme.colors.destructive
             case .share:

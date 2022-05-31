@@ -6,7 +6,7 @@ private extension CGFloat {
         let proportionOfScreenHeight = availableHeight > 0.0 ? self / availableHeight : 0.0
         var constrainedHeight = self
         let maxAllowedProportionOfScreenHeight = CGFloat(maxPercentOfScreenHeight) / 100.0
-        if (proportionOfScreenHeight > maxAllowedProportionOfScreenHeight) {
+        if proportionOfScreenHeight > maxAllowedProportionOfScreenHeight {
             constrainedHeight = availableHeight * maxAllowedProportionOfScreenHeight
         }
         return fmax(CGFloat(minHeight), constrainedHeight)

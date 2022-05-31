@@ -120,7 +120,7 @@ public extension UIColor {
         getRed(&r, green: &g, blue: &b, alpha: &a)
         
         var hexString = String(format: "%02X%02X%02X", Int(255.0 * r), Int(255.0 * g), Int(255.0 * b))
-        if (includeAlpha) {
+        if includeAlpha {
             hexString = hexString.appendingFormat("%02X", Int(255.0 * a))
         }
         return hexString

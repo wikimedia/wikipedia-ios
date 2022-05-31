@@ -171,7 +171,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         var origin = CGPoint(x: layoutMargins.left + layoutMarginsAdditions.left, y: 0)
         
         if !isImageViewHidden {
-            if (apply) {
+            if apply {
                 imageView.frame = CGRect(x: 0, y: 0, width: size.width, height: imageViewDimension)
             }
             origin.y += imageViewDimension
@@ -181,7 +181,7 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         
         let messageTextSize = messageTextView.sizeThatFits(CGSize(width: widthMinusMargins, height: CGFloat.greatestFiniteMagnitude))
         let messageFrame = CGRect(origin: origin, size: CGSize(width: widthMinusMargins, height: messageTextSize.height))
-        if (apply) {
+        if apply {
             messageTextView.frame = messageFrame
         }
         origin.y += messageFrame.layoutHeight(with: messageSpacing)
@@ -195,14 +195,14 @@ open class AnnouncementCollectionViewCell: CollectionViewCell {
         if !isCaptionHidden {
             origin.y += dismissButtonSpacing
             let separatorFrame = CGRect(x: origin.x, y: origin.y, width: widthMinusMargins, height: 1.0 / displayScale)
-            if (apply) {
+            if apply {
                 captionSeparatorView.frame = separatorFrame
             }
             origin.y += separatorFrame.height
             origin.y += captionSpacing
             let captionTextViewSize = captionTextView.sizeThatFits(CGSize(width: widthMinusMargins, height: CGFloat.greatestFiniteMagnitude))
             let captionFrame = CGRect(origin: origin, size: CGSize(width: widthMinusMargins, height: captionTextViewSize.height))
-            if (apply) {
+            if apply {
                 captionTextView.frame = captionFrame
             }
             origin.y += captionFrame.height

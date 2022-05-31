@@ -159,7 +159,7 @@ class ArticleAsLivingDocController: NSObject {
     }
     
     func setupLeadImageView() {
-        if (shouldAttemptToShowArticleAsLivingDoc) {
+        if shouldAttemptToShowArticleAsLivingDoc {
             toggleContentVisibilityExceptLeadImage(shouldHide: true)
         }
     }
@@ -203,7 +203,7 @@ class ArticleAsLivingDocController: NSObject {
                 }
             }
             
-            if (success) {
+            if success {
                 self.delegate?.updateArticleMargins()
                 completion()
             } else {
@@ -322,7 +322,7 @@ class ArticleAsLivingDocController: NSObject {
                     return
                 }
                 
-                if (success) {
+                if success {
                     self.hasSkeleton = false
                     delegate?.updateArticleMargins()
                 }

@@ -167,7 +167,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         // Disallow invalid characters.
-        guard (string.rangeOfCharacter(from: allowedCharacterSet().inverted) == nil) else {
+        guard string.rangeOfCharacter(from: allowedCharacterSet().inverted) == nil else {
             return false
         }
         // Always allow backspace.

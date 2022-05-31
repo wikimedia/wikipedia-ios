@@ -71,7 +71,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
         
         do {
             modelController = try RemoteNotificationsModelController(containerURL: FileManager.default.wmf_containerURL())
-        } catch (let error) {
+        } catch let error {
             DDLogError("Failed to initialize RemoteNotificationsModelController: \(error)")
             modelController = nil
         }
@@ -110,7 +110,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
             filterState = RemoteNotificationsFilterState(readStatus: .all, offTypes: [], offProjects: [])
             allInboxProjects = []
             try modelController?.resetDatabaseAndSharedCache()
-        } catch (let error) {
+        } catch let error {
             DDLogError("Error resetting notifications database on logout: \(error)")
         }
         
@@ -154,7 +154,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
                 do {
                     try self.updateAllInboxProjects()
                     completion?(.success(()))
-                } catch (let error) {
+                } catch let error {
                     completion?(.failure(error))
                 }
             case .failure(let error):
@@ -258,7 +258,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
             do {
                 let notifications = try modelController.fetchNotifications(fetchLimit: fetchLimit, fetchOffset: fetchOffset, predicate: predicate)
                 completion(.success(notifications))
-            } catch (let error) {
+            } catch let error {
                 completion(.failure(error))
             }
         }

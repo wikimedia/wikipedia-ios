@@ -11,7 +11,7 @@ extension ArticleViewController {
         let request: URLRequest
         do {
             request = try fetcher.mobileHTMLMediaListRequest(articleURL: articleURL)
-        } catch (let error) {
+        } catch let error {
             completion(.failure(error))
             return
         }

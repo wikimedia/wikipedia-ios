@@ -75,7 +75,7 @@ class TalkPageReplyCell: CollectionViewCell {
             depthMarker.frame = CGRect(origin: depthIndicatorOrigin, size: CGSize(width: 2, height: titleTextViewFrame.height))
         }
         
-        if (apply) {
+        if apply {
             titleTextView.textAlignment = textAlignmentOverride
         }
         

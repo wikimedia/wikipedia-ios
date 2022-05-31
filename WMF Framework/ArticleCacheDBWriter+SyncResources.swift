@@ -44,7 +44,7 @@ extension ArticleCacheDBWriter {
             mediaListURL  = try articleFetcher.mediaListURL(articleURL: url)
             mobileHTMLRequest = try articleFetcher.mobileHTMLRequest(articleURL: url)
             mediaListRequest = try articleFetcher.mobileHTMLMediaListRequest(articleURL: url)
-        } catch (let error) {
+        } catch let error {
            completion(.failure(error))
            return
         }

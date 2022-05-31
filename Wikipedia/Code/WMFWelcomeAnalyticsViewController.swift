@@ -30,7 +30,7 @@ class WMFWelcomeAnalyticsViewController: ThemeableViewController {
         
         // Set state of the toggle. Also make sure crash manager setting is in sync with this setting - likely to happen on first launch or for previous users.
         let loggingEnabled = EventLoggingService.shared?.isEnabled ?? false
-        if (loggingEnabled) {
+        if loggingEnabled {
             toggle.isOn = true
         } else {
             toggle.isOn = false

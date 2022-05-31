@@ -21,7 +21,7 @@ struct NotificationsCenterFilterItemView: View {
                         Text(itemViewModel.title)
                             .foregroundColor(Color(theme.colors.primaryText))
                         Spacer()
-                        if (itemViewModel.isSelected) {
+                        if itemViewModel.isSelected {
                             Image(systemName: "checkmark")
                                 .font(Font.body.weight(.semibold))
                                 .foregroundColor(Color(theme.colors.link))

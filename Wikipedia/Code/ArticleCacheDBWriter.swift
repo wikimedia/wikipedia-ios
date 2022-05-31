@@ -59,7 +59,7 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
                 do {
                     mobileHTMLRequest = try self.articleFetcher.mobileHTMLRequest(articleURL: url)
                     mobileHTMLMediaListRequest = try self.articleFetcher.mobileHTMLMediaListRequest(articleURL: url)
-                } catch (let error) {
+                } catch let error {
                     completion(.failure(error))
                     return
                 }
@@ -175,7 +175,7 @@ extension ArticleCacheDBWriter {
         do {
             
             mobileHTMLRequest = try articleFetcher.mobileHTMLRequest(articleURL: desktopArticleURL)
-        } catch (let error) {
+        } catch let error {
             failure(error)
             return
         }

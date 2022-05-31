@@ -150,7 +150,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
                 let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: origin.x, y: layoutMargins.top), maximumSize: CGSize(width: widthMinusMargins, height: UIView.noIntrinsicMetric), minimumSize: CGSize(width: UIView.noIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: labelHorizontalAlignment, verticalAlignment: .center, apply: apply)
                 origin.y += titleLabelFrame.layoutHeight(with: 0)
             }
-        } else if (descriptionLabel.wmf_hasText || !isImageGridHidden || !isImageViewHidden) {
+        } else if descriptionLabel.wmf_hasText || !isImageGridHidden || !isImageViewHidden {
             let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += titleLabelFrame.layoutHeight(with: spacing)
             
@@ -171,17 +171,17 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         let separatorXPositon: CGFloat = 0
         let separatorWidth = size.width
 
-        if (apply) {
-            if (!bottomSeparator.isHidden) {
+        if apply {
+            if !bottomSeparator.isHidden {
                 bottomSeparator.frame = CGRect(x: separatorXPositon, y: height - singlePixelDimension, width: separatorWidth, height: singlePixelDimension)
             }
             
-            if (!topSeparator.isHidden) {
+            if !topSeparator.isHidden {
                 topSeparator.frame = CGRect(x: separatorXPositon, y: 0, width: separatorWidth, height: singlePixelDimension)
             }
         }
         
-        if (apply) {
+        if apply {
             let imageViewY = floor(0.5*height - 0.5*imageViewDimension)
             var x = layoutMargins.right
             if !isArticleRTL {
@@ -191,7 +191,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
             imageGrid.isHidden = isImageGridHidden
         }
         
-        if (apply && !isImageViewHidden) {
+        if apply && !isImageViewHidden {
             let imageViewY = floor(0.5*height - 0.5*imageViewDimension)
             var x = layoutMargins.right
             if !isArticleRTL {

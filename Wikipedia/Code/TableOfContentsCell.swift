@@ -11,7 +11,7 @@ class TableOfContentsCell: UITableViewCell {
         didSet {
             titleLabelTopConstraint.constant = titleIndentationLevel == 0 ? 19 : 11;
             indentationConstraint.constant =  indentationWidth * CGFloat(1 + titleIndentationLevel)
-            if (titleIndentationLevel == 0) {
+            if titleIndentationLevel == 0 {
                 accessibilityTraits = .header
             } else {
                 accessibilityValue = String.localizedStringWithFormat(WMFLocalizedString("table-of-contents-subheading-label", value:"Subheading %1$d", comment:"VoiceOver label to indicate level of subheading in table of contents. %1$d is replaced by the level of subheading."), titleIndentationLevel)
@@ -68,7 +68,7 @@ class TableOfContentsCell: UITableViewCell {
     // MARK: - Accessors
     
     func setSectionSelected(_ selected: Bool, animated: Bool) {
-        if (selected) {
+        if selected {
             setSelectionIndicatorVisible(titleIndentationLevel == 0)
         } else {
             setSelectionIndicatorVisible(false)
@@ -92,7 +92,7 @@ class TableOfContentsCell: UITableViewCell {
     
     
     func setSelectionIndicatorVisible(_ visible: Bool) {
-        if (visible) {
+        if visible {
             selectedSectionIndicator.backgroundColor = titleSelectionColor
             selectedSectionIndicator.alpha = 1.0
         } else {

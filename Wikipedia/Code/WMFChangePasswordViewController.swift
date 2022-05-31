@@ -56,9 +56,9 @@ class WMFChangePasswordViewController: WMFScrollViewController, Themeable {
     }
     
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if (textField == passwordField) {
+        if textField == passwordField {
             retypeField.becomeFirstResponder()
-        } else if (textField == retypeField) {
+        } else if textField == retypeField {
             save()
         }
         return true

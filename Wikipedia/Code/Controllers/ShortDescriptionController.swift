@@ -112,7 +112,7 @@ private extension ShortDescriptionController {
                 
             replaceDescriptionInWikitextAndUpload(wikitext, newDescription: newDescription, baseRevisionID: baseRevisionID, completion: completion)
             
-        } catch (let error) {
+        } catch let error {
             completion(.failure(error))
         }
     }
@@ -170,7 +170,7 @@ private extension ShortDescriptionController {
                 completion(.success(ArticleDescriptionPublishResult(newRevisionID: revisionID, newDescription: newDescription)))
             })
             
-        } catch (let error) {
+        } catch let error {
             completion(.failure(error))
         }
     }

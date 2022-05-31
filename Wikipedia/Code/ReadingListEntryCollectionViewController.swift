@@ -221,7 +221,7 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
     
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         super.scrollViewWillBeginDragging(scrollView)
-        if (editController.isTextEditing) {
+        if editController.isTextEditing {
             editController.isTextEditing = false
         }
     }

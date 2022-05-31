@@ -55,7 +55,7 @@ extension ArticleContextMenuPresenting {
         var didCallCompletion = false
 
         dispatchAfterDelayInSeconds(1.0, DispatchQueue.main) {
-            if (!didCallCompletion) {
+            if !didCallCompletion {
                 completionHandler(.timeout, nil)
                 didCallCompletion = true
             }
@@ -64,7 +64,7 @@ extension ArticleContextMenuPresenting {
         getPeekViewControllerAsync(for: linkURL) { (peekParentVC) in
             assert(Thread.isMainThread)
             guard let peekParentVC = peekParentVC else {
-                if (!didCallCompletion) {
+                if !didCallCompletion {
                     completionHandler(.bail, nil)
                     didCallCompletion = true
                 }
@@ -83,13 +83,13 @@ extension ArticleContextMenuPresenting {
             if let articlePeekVC = peekVC as? ArticlePeekPreviewViewController {
                 articlePeekVC.fetchArticle {
                     assert(Thread.isMainThread)
-                    if (!didCallCompletion) {
+                    if !didCallCompletion {
                         completionHandler(.success, config)
                         didCallCompletion = true
                     }
                 }
             } else {
-                if (!didCallCompletion) {
+                if !didCallCompletion {
                     completionHandler(.success, config)
                     didCallCompletion = true
                 }

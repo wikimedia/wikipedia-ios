@@ -73,7 +73,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
     }
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        if (traitCollection.horizontalSizeClass == .compact) {
+        if traitCollection.horizontalSizeClass == .compact {
             layoutMarginsAdditions = UIEdgeInsets(top: 0, left: -5, bottom: 20, right: 0)
         } else {
             layoutMarginsAdditions = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
@@ -110,7 +110,7 @@ class ArticleAsLivingDocLargeEventCollectionViewCell: CollectionViewCell {
         }
         let collectionViewItemSpacing: CGFloat = 10
 
-        if (apply) {
+        if apply {
             flowLayout?.minimumInteritemSpacing = collectionViewItemSpacing
             flowLayout?.minimumLineSpacing = 15
             flowLayout?.sectionInset = UIEdgeInsets(top: 0, left: x, bottom: 0, right: layoutMargins.right)

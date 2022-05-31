@@ -35,7 +35,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
             return false
         }
         let maxY = collectionView.contentOffset.y + collectionView.frame.size.height + 200.0;
-        if (maxY >= collectionView.contentSize.height) {
+        if maxY >= collectionView.contentSize.height {
             return true
         }
         return false;

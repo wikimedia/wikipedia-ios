@@ -188,7 +188,7 @@ private extension NSManagedObjectContext {
         
         let sameNetworkTopics = networkTalkPage.topics.filter ({ commonTopicShas.contains($0.shas.html) }).sorted(by: { $0.shas.html < $1.shas.html })
         
-        guard (sameLocalTopics.count == sameNetworkTopics.count) else {
+        guard sameLocalTopics.count == sameNetworkTopics.count else {
             return
         }
         

@@ -276,7 +276,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                     }
                     record.failed = true
                 }
-                if (completedRecordIDs.count == eventRecords.count) {
+                if completedRecordIDs.count == eventRecords.count {
                     self.managedObjectContext.wmf_setValue(NSNumber(value: CFAbsoluteTimeGetCurrent()), forKey: Key.lastSuccessfulPost)
                     DDLogDebug("EventLoggingService: All records succeeded")
                 } else {

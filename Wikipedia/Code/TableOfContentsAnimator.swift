@@ -184,7 +184,7 @@ class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewContr
     
     func animateTransition(_ interactive: Bool, duration: TimeInterval, animations: @escaping () -> Void, completion: ((Bool) -> Void)?) {
         
-        if(interactive) {
+        if interactive {
             UIView.animate(withDuration: duration, delay: 0.0, options: UIView.AnimationOptions(), animations: { () -> Void in
                 animations()
                 }, completion: { (completed: Bool) -> Void in
@@ -222,7 +222,7 @@ class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewContr
     }
     @objc func handlePresentationGesture(_ gesture: UIScreenEdgePanGestureRecognizer) {
         
-        switch(gesture.state) {
+        switch gesture.state {
         case (.began):
             self.isInteractive = true
             self.presentingViewController?.present(self.presentedViewController!, animated: true, completion: nil)
@@ -248,7 +248,7 @@ class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewContr
             
             let progressRequiredToPresent = 0.33
             
-            if(self.percentComplete >= CGFloat(progressRequiredToPresent)) {
+            if self.percentComplete >= CGFloat(progressRequiredToPresent) {
                 finish()
                 return
             }
@@ -266,7 +266,7 @@ class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewContr
     
     @objc func handleDismissalGesture(_ gesture: UIScreenEdgePanGestureRecognizer) {
         
-        switch(gesture.state) {
+        switch gesture.state {
         case .began:
             self.isInteractive = true
             self.presentingViewController?.dismiss(animated: true, completion: nil)
@@ -294,7 +294,7 @@ class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewContr
             
             let progressRequiredToDismiss = 0.50
             
-            if(self.percentComplete >= CGFloat(progressRequiredToDismiss)) {
+            if self.percentComplete >= CGFloat(progressRequiredToDismiss) {
                 finish()
                 return
             }
@@ -325,7 +325,7 @@ class TableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIViewContr
         if gestureRecognizer == self.dismissalGesture {
             
             if let translation = self.dismissalGesture?.translation(in: dismissalGesture?.view) {
-                if (translation.x * tocMultiplier > 0) {
+                if translation.x * tocMultiplier > 0 {
                     return true
                 } else {
                     return false

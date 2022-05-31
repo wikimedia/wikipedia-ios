@@ -89,7 +89,7 @@ private extension SavedArticlesFetcher {
         do {
             let count = try moc.count(for: request)
             return (count >= 0) ? Int64(count) : nil
-        } catch(let error) {
+        } catch let error {
             DDLogError("Error counting number of article to be downloaded: \(error)")
             return nil
         }
@@ -159,7 +159,7 @@ private extension SavedArticlesFetcher {
         var article: WMFArticle?
         do {
             article = try moc.fetch(request).first
-        } catch (let error) {
+        } catch let error {
             DDLogError("Error fetching next article to download: \(error)");
         }
         
@@ -206,7 +206,7 @@ private extension SavedArticlesFetcher {
             var articleToDelete: WMFArticle?
             do {
                 articleToDelete = try moc.fetch(downloadedRequest).first
-            } catch (let error) {
+            } catch let error {
                 DDLogError("Error fetching downloaded unsaved articles: \(error)");
             }
             
@@ -354,7 +354,7 @@ private extension SavedArticlesFetcher {
         articleBlock(article)
         do {
             try dataStore.save()
-        } catch (let error) {
+        } catch let error {
             DDLogError("Error saving after saved articles fetch: \(error)");
         }
     }
@@ -415,7 +415,7 @@ class MobileViewToMobileHTMLMigrationController: NSObject {
         var article: WMFArticle?
         do {
             article = try moc.fetch(mostRecentArticleToBeConvertedFetchRequest).first
-        } catch (let error) {
+        } catch let error {
             DDLogError("No articles to convert: \(error)")
         }
 
@@ -439,7 +439,7 @@ class MobileViewToMobileHTMLMigrationController: NSObject {
                     return
                 }
                 self.convertOneArticleIfNecessaryAgain()
-            } catch(let error) {
+            } catch let error {
                 DDLogError("Error counting number of article to be converted: \(error)")
                 self.stop()
             }

@@ -52,9 +52,9 @@ class WMFForgotPasswordViewController: WMFScrollViewController, Themeable {
     }
     
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if (textField == usernameField) {
+        if textField == usernameField {
             emailField.becomeFirstResponder()
-        } else if (textField == emailField) {
+        } else if textField == emailField {
             save()
         }
         return true

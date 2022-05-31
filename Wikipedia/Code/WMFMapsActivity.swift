@@ -12,7 +12,7 @@ class WMFMapsActivity : UIActivity {
     override open func canPerform(withActivityItems activityItems: [Any]) -> Bool {
         
         for activityItem in activityItems {
-            if (activityItem is MKMapItem) {
+            if activityItem is MKMapItem {
                 return true
             }
         }

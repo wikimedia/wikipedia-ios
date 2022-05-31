@@ -449,7 +449,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     }
     
     @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, topSpacingPercentHidden: CGFloat, shadowAlpha: CGFloat = -1, animated: Bool, additionalAnimations: (() -> Void)? = nil) {
-        if (animated) {
+        if animated {
             layoutIfNeeded()
         }
 
@@ -476,7 +476,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
                 if shadowAlpha >= 0 {
                     self.shadowAlpha = shadowAlpha
                 }
-                if (animated) {
+                if animated {
                     self.layoutIfNeeded()
                 }
                 additionalAnimations?()

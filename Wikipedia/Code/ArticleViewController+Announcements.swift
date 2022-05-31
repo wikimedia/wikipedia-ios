@@ -4,7 +4,7 @@ import CocoaLumberjackSwift
 extension ArticleViewController {
     
     func showAnnouncementIfNeeded() {
-        guard ((isInValidSurveyCampaignAndArticleList && userHasSeenSurveyPrompt) || !isInValidSurveyCampaignAndArticleList) else {
+        guard (isInValidSurveyCampaignAndArticleList && userHasSeenSurveyPrompt) || !isInValidSurveyCampaignAndArticleList else {
             return
         }
         let predicate = NSPredicate(format: "placement == 'article' && isVisible == YES")

@@ -51,7 +51,7 @@ public class WMFCurrentlyLoggedInUserFetcher: Fetcher {
                     failure(WMFCurrentlyLoggedInUserFetcherError.cannotExtractUserInfo)
                     return
             }
-            guard (userinfo["anon"] == nil) else {
+            guard userinfo["anon"] == nil else {
                 failure(WMFCurrentlyLoggedInUserFetcherError.userIsAnonymous)
                 return
             }

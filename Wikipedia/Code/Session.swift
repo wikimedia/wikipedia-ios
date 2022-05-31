@@ -369,7 +369,7 @@ public class Session: NSObject {
         }
         switch httpResponse.statusCode {
         case 401:
-            if (reattemptLoginOn401Response) {
+            if reattemptLoginOn401Response {
                 authenticationDelegate?.attemptReauthentication()
             } else {
                 authenticationDelegate?.deauthenticate()

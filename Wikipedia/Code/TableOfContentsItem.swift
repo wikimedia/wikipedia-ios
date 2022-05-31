@@ -7,7 +7,7 @@ public enum TableOfContentsItemType {
     case secondary
     
     var titleTextStyle: DynamicTextStyle {
-        switch (self) {
+        switch self {
         case .primary:
             return .georgiaTitle3
         case .secondary:

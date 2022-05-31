@@ -30,7 +30,7 @@ class ArticleAsLivingDocSmallEventCollectionViewCell: CollectionViewCell {
     
     override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         
-        if (traitCollection.horizontalSizeClass == .compact) {
+        if traitCollection.horizontalSizeClass == .compact {
             layoutMarginsAdditions = UIEdgeInsets(top: 0, left: -5, bottom: 20, right: 0)
         } else {
             layoutMarginsAdditions = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)

@@ -200,7 +200,7 @@ class DiffController {
                     let viewModels = try self.transformer.firstRevisionViewModels(from: wikitext, theme: theme, traitCollection: traitCollection)
 
                     completion(.success(viewModels))
-                } catch (let error) {
+                } catch let error {
                     completion(.failure(error))
                 }
             case .failure(let error):
@@ -249,7 +249,7 @@ class DiffController {
                     let viewModels = try self.transformer.viewModels(from: diffResponse, theme: theme, traitCollection: traitCollection)
 
                     completion(.success(viewModels))
-                } catch (let error) {
+                } catch let error {
                     completion(.failure(error))
                 }
             case .failure(let error):

@@ -271,7 +271,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         var swipeTranslation = deltaX + initialSwipeTranslation
         let normalizedSwipeTranslation = isRTL ? swipeTranslation : -swipeTranslation
         let normalizedMaxSwipeTranslation = abs(cell.swipeTranslationWhenOpen)
-        switch (sender.state) {
+        switch sender.state {
         case .began:
             cell.swipeState = .swiping
             fallthrough
@@ -315,7 +315,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             return
         }
         
-        switch (sender.state) {
+        switch sender.state {
         case .ended:
             closeActionPane()
         default:

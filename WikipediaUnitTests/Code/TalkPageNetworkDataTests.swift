@@ -32,7 +32,7 @@ class TalkPageNetworkDataTests: XCTestCase {
             XCTAssertEqual(thirdItem.html, "Yes I see, I am nested as well. <a href='./Special:Contributions/47.184.10.84' title='Special:Contributions/47.184.10.84'>47.184.10.84</a> 20:52, 21 June 2019 (UTC)", "Unexpected reply text")
             XCTAssertEqual(thirdItem.depth, 2, "Unexpected reply depth")
             
-        } catch (let error) {
+        } catch let error {
             XCTFail("Talk Page json failed to decode \(error)")
         }
     }

@@ -263,7 +263,7 @@ class ArticleViewController: ViewController, HintPresenting {
             self.messagingController.updateMargins(with: self.articleMargins, leadImageHeight: self.leadImageHeightConstraint.constant)
         }
         
-        if (articleAsLivingDocController.shouldAttemptToShowArticleAsLivingDoc) {
+        if articleAsLivingDocController.shouldAttemptToShowArticleAsLivingDoc {
             messagingController.customUpdateMargins(with: articleMargins, leadImageHeight: self.leadImageHeightConstraint.constant)
         } else {
             defaultUpdateBlock()
@@ -557,7 +557,7 @@ class ArticleViewController: ViewController, HintPresenting {
                 }
                 
                 // This conditional check should target the bug a little closer, since scrollToAnchorCompletions are cleaned out after the last `scroll_to_anchor` message is received. Remaining scrollToAnchorCompletions at this point indicates that likely we're hitting the missing `scroll_to_anchor` message bug.
-                if (self.scrollToAnchorCompletions.count > 0) {
+                if self.scrollToAnchorCompletions.count > 0 {
                     self.scroll(to: anchor, animated: false)
                 }
             }
@@ -608,13 +608,13 @@ class ArticleViewController: ViewController, HintPresenting {
         let scrollPosition = CGFloat(article.viewedScrollPosition)
         if scrollPosition > 0 {
             scrollRestorationState = .scrollToOffset(scrollPosition, animated: false, completion: { [weak self] success, maxedAttempts in
-                if (success || maxedAttempts) {
+                if success || maxedAttempts {
                     self?.setWebViewHidden(false, animated: true)
                 }
             })
         } else if let fragment = article.viewedFragment {
             scrollRestorationState = .scrollToAnchor(fragment, completion: { [weak self] success, maxedAttempts in
-                if (success || maxedAttempts) {
+                if success || maxedAttempts {
                     self?.setWebViewHidden(false, animated: true)
                 }
             })

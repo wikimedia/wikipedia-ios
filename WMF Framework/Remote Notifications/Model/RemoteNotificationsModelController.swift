@@ -200,7 +200,7 @@ final class RemoteNotificationsModelController {
                 try self.save(moc: moc)
                 NotificationCenter.default.post(name: Notification.Name.NotificationsCenterBadgeNeedsUpdate, object: nil)
                 completion(.success(()))
-            } catch (let error) {
+            } catch let error {
                 completion(.failure(error))
             }
             
@@ -238,7 +238,7 @@ final class RemoteNotificationsModelController {
                 
                 NotificationCenter.default.post(name: Notification.Name.NotificationsCenterBadgeNeedsUpdate, object: nil)
                 completion(.success(()))
-            } catch (let error) {
+            } catch let error {
                 completion(.failure(error))
             }
         }
@@ -267,7 +267,7 @@ final class RemoteNotificationsModelController {
                 NotificationCenter.default.post(name: Notification.Name.NotificationsCenterBadgeNeedsUpdate, object: nil)
                 completion(.success(()))
                 
-            } catch (let error) {
+            } catch let error {
                 completion(.failure(error))
             }
         }
@@ -294,7 +294,7 @@ final class RemoteNotificationsModelController {
             do {
                 let results = try self.distinctWikis(moc: backgroundContext, predicate: predicate)
                 completion(.success(results))
-            } catch (let error) {
+            } catch let error {
                 completion(.failure(error))
             }
             

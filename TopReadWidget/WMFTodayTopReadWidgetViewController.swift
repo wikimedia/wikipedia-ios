@@ -90,7 +90,7 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
         coordinator.animate(alongsideTransition: { (context) in
             self.layoutForSize(size)
         }) { (context) in
-            if (!context.isAnimated) {
+            if !context.isAnimated {
                 self.layoutForSize(size)
             }
         }
@@ -189,10 +189,10 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
                     continue
                 }
                 let floatValue = CGFloat(number.doubleValue)
-                if (floatValue < dataValueMin) {
+                if floatValue < dataValueMin {
                     dataValueMin = floatValue
                 }
-                if (floatValue > dataValueMax) {
+                if floatValue > dataValueMax {
                     dataValueMax = floatValue
                 }
             }
@@ -201,7 +201,7 @@ class WMFTodayTopReadWidgetViewController: ExtensionViewController, NCWidgetProv
         var i = 0
         while i < count {
             var vc: WMFArticlePreviewViewController
-            if (i < articlePreviewViewControllers.count) {
+            if i < articlePreviewViewControllers.count {
                 vc = articlePreviewViewControllers[i]
             } else {
                 vc = WMFArticlePreviewViewController()

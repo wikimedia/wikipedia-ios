@@ -296,14 +296,14 @@ func writeStrings(fromDictionary dictionary: NSDictionary, toFile: String) throw
     
     if let existingDictionary = NSDictionary(contentsOfFile: toFile) {
         shouldWrite = existingDictionary.count != dictionary.count
-        if (!shouldWrite) {
+        if !shouldWrite {
             for (key, value) in dictionary {
                 guard let value = value as? String, let existingValue = existingDictionary[key] as? NSString else {
                     shouldWrite = true
                     break
                 }
                 shouldWrite = !existingValue.isEqual(to: value)
-                if (shouldWrite) {
+                if shouldWrite {
                     break;
                 }
             }

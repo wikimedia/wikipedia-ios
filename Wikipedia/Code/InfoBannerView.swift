@@ -36,7 +36,7 @@ class InfoBannerView: SetupView {
         
         let finalHeight = adjustedMargins.top + titleLabelFrame.size.height + subtitleLabelFrame.height + adjustedMargins.bottom
         
-        if (apply) {
+        if apply {
             iconImageView.frame = isRTL ? CGRect(x: adjustedMargins.left + titleLabelWidth + iconTextSpacing, y: (finalHeight / 2) - (iconImageSideLength / 2), width: iconImageSideLength, height: iconImageSideLength) : CGRect(x: adjustedMargins.left, y: (finalHeight / 2) - (iconImageSideLength / 2), width: iconImageSideLength, height: iconImageSideLength)
         }
         

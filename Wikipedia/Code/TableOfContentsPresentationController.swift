@@ -130,7 +130,7 @@ open class TableOfContentsPresentationController: UIPresentationController, Them
 
         containerView.addSubview(self.backgroundView)
         
-        if(self.traitCollection.verticalSizeClass == .compact) {
+        if self.traitCollection.verticalSizeClass == .compact {
             self.statusBarBackground.isHidden = true
         }
         
@@ -188,7 +188,7 @@ open class TableOfContentsPresentationController: UIPresentationController, Them
         var frame = containerView.bounds
         var bgWidth = self.minimumVisibleBackgroundWidth
         var tocWidth = frame.size.width - bgWidth
-        if(tocWidth > self.maximumTableOfContentsWidth) {
+        if tocWidth > self.maximumTableOfContentsWidth {
             tocWidth = self.maximumTableOfContentsWidth
             bgWidth = frame.size.width - tocWidth
         }

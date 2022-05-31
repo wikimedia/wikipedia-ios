@@ -65,7 +65,7 @@ class MediaListGalleryViewController: WMFImageGalleryViewController {
     }
     
     func fetchImageForPhoto(_ photo: MediaListItemNYTPhotoWrapper, imageInfo: MWKImageInfo) {
-        if (photo.imageInfo == nil) {
+        if photo.imageInfo == nil {
             // Set the image info on the photo object
             // And update the overlay info so the caption is shown
             photo.imageInfo = imageInfo

@@ -190,7 +190,7 @@ public extension TalkPage {
             
             var revisionIDs = UserDefaults.standard.talkPageForceRefreshRevisionIDs ?? Set<Int>()
             
-            if (newValue == true) {
+            if newValue == true {
                 revisionIDs.insert(revisionID)
             } else {
                 revisionIDs.remove(revisionID)

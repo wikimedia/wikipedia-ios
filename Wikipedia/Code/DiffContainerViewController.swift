@@ -382,7 +382,7 @@ private extension DiffContainerViewController {
         containerViewModel.state = .loading
         
         // For some reason this is needed when coming from Article As A Living Document screens
-        if (needsSetNavDelegate) {
+        if needsSetNavDelegate {
             navigationController?.delegate = self
         }
     }
@@ -929,7 +929,7 @@ private extension DiffContainerViewController {
     
     func showDiffPanelOnce() {
         let key = "didShowDiffPanel"
-        if (UserDefaults.standard.bool(forKey: key)) {
+        if UserDefaults.standard.bool(forKey: key) {
             return
         }
         let panelVC = DiffEducationalPanelViewController(showCloseButton: false, primaryButtonTapHandler: { [weak self] (action) in

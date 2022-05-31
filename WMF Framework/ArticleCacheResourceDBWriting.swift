@@ -128,7 +128,7 @@ extension ArticleCacheResourceDBWriting {
         do {
             mobileHTMLOfflineResourcesRequest = try articleFetcher.mobileHTMLOfflineResourcesRequest(articleURL: articleURL)
             mobileHTMLMediaListRequest = try articleFetcher.mobileHTMLMediaListRequest(articleURL: articleURL)
-        } catch (let error) {
+        } catch let error {
             completion(.failure(error))
             return
         }

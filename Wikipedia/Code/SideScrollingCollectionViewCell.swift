@@ -109,7 +109,7 @@ open class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtocol 
         var origin = CGPoint(x: layoutMargins.left, y: layoutMargins.top)
         let widthToFit = size.width - layoutMargins.left - layoutMargins.right
         if !isImageViewHidden {
-            if (apply) {
+            if apply {
                 let imageViewWidth = size.width - widthToFit > 50 ? widthToFit : size.width
                 imageView.frame = CGRect(x: round(0.5 * (size.width - imageViewWidth)), y: 0, width: imageViewWidth, height: imageViewHeight)
             }
@@ -136,7 +136,7 @@ open class SideScrollingCollectionViewCell: CollectionViewCell, SubCellProtocol 
             height = 0
         }
 
-        if (apply) {
+        if apply {
             flowLayout?.itemSize = CGSize(width: 250, height: height - 2*collectionViewSpacing)
             flowLayout?.minimumInteritemSpacing = collectionViewSpacing
             flowLayout?.minimumLineSpacing = 15

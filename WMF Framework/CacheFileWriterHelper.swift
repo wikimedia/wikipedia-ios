@@ -109,7 +109,7 @@ final class CacheFileWriterHelper {
             
             completion(.success)
             
-        } catch (let error) {
+        } catch let error {
             completion(.failure(error))
         }
     }

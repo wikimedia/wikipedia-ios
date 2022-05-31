@@ -250,7 +250,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 
         editFunnel?.logSectionSaveAttempt(source: editFunnelSource, language: languageCode)
 
-        if (savedPagesFunnel != nil) {
+        if savedPagesFunnel != nil {
             savedPagesFunnel?.logEditAttempt(withArticleURL: articleURL)
         }
         
@@ -320,7 +320,7 @@ class EditSaveViewController: WMFScrollViewController, Themeable, UITextFieldDel
 
             wmf_hideKeyboard()
             
-            if (errorType == .abuseFilterDisallowed) {
+            if errorType == .abuseFilterDisallowed {
                 WMFAlertManager.sharedInstance.showErrorAlert(nsError, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                 mode = .abuseFilterDisallow
                 abuseFilterCode = nsError.userInfo["code"] as! String

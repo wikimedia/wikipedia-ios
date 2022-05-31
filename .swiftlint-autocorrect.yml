@@ -3,7 +3,6 @@ disabled_rules:
     - colon
     - comma
     - compiler_protocol_init
-    - control_statement
     - cyclomatic_complexity
     - empty_enum_arguments
     - empty_parentheses_with_trailing_closure

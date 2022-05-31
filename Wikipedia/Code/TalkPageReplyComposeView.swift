@@ -71,7 +71,7 @@ class TalkPageReplyComposeView: SizeThatFitsView {
         
         let composeTextViewFrame = CGRect(x: composeTextViewOrigin.x, y: composeTextViewOrigin.y, width: composeTextViewWidth, height: forcedComposeHeight)
         
-        if (apply) {
+        if apply {
             composeTextView.frame = composeTextViewFrame
             finePrintTextView.frame = CGRect(x: adjustedMargins.left, y: composeTextViewFrame.minY + composeTextViewFrame.height, width: finePrintTextViewWidth, height: finePrintFrame.height)
         }

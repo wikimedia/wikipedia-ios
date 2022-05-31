@@ -136,7 +136,7 @@ struct WMFKeychainCredentials {
             return
         }
         
-        if (status == errSecDuplicateItem) {
+        if status == errSecDuplicateItem {
             do {
                 return try update(value: value, forKey: key)
             } catch {
@@ -154,7 +154,7 @@ struct WMFKeychainCredentials {
         dataDict[kSecValueData as String] = valueData as AnyObject?
         dataDict[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlock
         let status = SecItemUpdate(query as CFDictionary, dataDict as CFDictionary)
-        if (status != errSecSuccess) {
+        if status != errSecSuccess {
             throw WMFKeychainCredentialsError.unhandledError(status: status)
         }
     }

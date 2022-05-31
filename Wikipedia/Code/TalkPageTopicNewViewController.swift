@@ -271,7 +271,7 @@ private extension TalkPageTopicNewViewController {
     }
     
     func updateContentInsets() {
-        if (!bodyContainerViewHeightConstraint.isActive) {
+        if !bodyContainerViewHeightConstraint.isActive {
             talkPageScrollView.contentInset.bottom += beKindInputAccessoryView.height
         }
     }

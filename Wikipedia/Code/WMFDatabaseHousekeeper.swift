@@ -27,7 +27,7 @@ import Foundation
             moc.delete(announcementGroup)
         }
         
-        if (moc.hasChanges) {
+        if moc.hasChanges {
             try moc.save()
         }
     }
@@ -177,7 +177,7 @@ import Foundation
         }
         
         
-        if (moc.hasChanges) {
+        if moc.hasChanges {
             try moc.save()
         }
         
