@@ -130,8 +130,10 @@ public class NavigationBarHider: NSObject {
                     underBarViewPercentHidden = (adjustedScrollY/underBarViewHeight).wmf_normalizedPercentage
                 } else if scrollY <= totalHideableHeight {
                     underBarViewPercentHidden = min(initialNavigationBarPercentHidden, (scrollY/underBarViewHeight).wmf_normalizedPercentage)
-                } else if initialNavigationBarPercentHidden == 0 && initialScrollY > extendedViewHeight + barHeight + underBarViewHeight {
+                } else if initialNavigationBarPercentHidden == 0 && !isScrollingUp(currentY: scrollY) && initialScrollY > extendedViewHeight + barHeight + underBarViewHeight {
                     underBarViewPercentHidden = ((adjustedScrollY - initialScrollY)/underBarViewHeight).wmf_normalizedPercentage
+                } else if initialNavigationBarPercentHidden == 1 && isScrollingUp(currentY: scrollY) && initialScrollY > extendedViewHeight + barHeight + underBarViewHeight {
+                    underBarViewPercentHidden = 1 - ((initialScrollY - adjustedScrollY - barHeight -  underBarViewHeight)/underBarViewHeight).wmf_normalizedPercentage
                 }
             } else {
                 underBarViewPercentHidden = (adjustedScrollY/underBarViewHeight).wmf_normalizedPercentage
@@ -153,11 +155,19 @@ public class NavigationBarHider: NSObject {
             navigationBarPercentHidden = (adjustedScrollY/barHeight).wmf_normalizedPercentage
         } else if scrollY <= totalHideableHeight {
             navigationBarPercentHidden = min(initialNavigationBarPercentHidden, (adjustedScrollY/barHeight).wmf_normalizedPercentage)
-        } else if initialNavigationBarPercentHidden == 0 && initialScrollY > totalHideableHeight {
-            if navigationBar.shouldTransformUnderBarViewWithBar {
-                navigationBarPercentHidden = ((scrollY - initialScrollY - underBarViewHeight)/barHeight).wmf_normalizedPercentage
-            } else {
-                navigationBarPercentHidden = ((scrollY - initialScrollY)/barHeight).wmf_normalizedPercentage
+        } else if initialScrollY > totalHideableHeight {
+            if initialNavigationBarPercentHidden == 0 && !isScrollingUp(currentY: scrollY) {
+                if navigationBar.shouldTransformUnderBarViewWithBar {
+                    navigationBarPercentHidden = ((scrollY - initialScrollY - underBarViewHeight)/barHeight).wmf_normalizedPercentage
+                } else {
+                    navigationBarPercentHidden = ((scrollY - initialScrollY)/barHeight).wmf_normalizedPercentage
+                }
+            } else if initialNavigationBarPercentHidden == 1 && isScrollingUp(currentY: scrollY) {
+                if navigationBar.shouldTransformUnderBarViewWithBar {
+                    navigationBarPercentHidden = 1 - ((initialScrollY - scrollY)/barHeight).wmf_normalizedPercentage
+                } else {
+                    navigationBarPercentHidden = 1 - ((initialScrollY - scrollY)/barHeight).wmf_normalizedPercentage
+                }
             }
         }
 
@@ -229,17 +239,14 @@ public class NavigationBarHider: NSObject {
         var navigationBarPercentHidden: CGFloat = currentNavigationBarPercentHidden
         var underBarViewPercentHidden: CGFloat = currentUnderBarViewPercentHidden
 
-        
         if !navigationBar.isBarHidingEnabled {
             navigationBarPercentHidden = 0
         } else if velocity.y > 0 {
             navigationBarPercentHidden = 1
         } else if velocity.y < 0 {
             navigationBarPercentHidden = 0
-        } else if navigationBarPercentHidden < 0.5 {
-            navigationBarPercentHidden = 0
         } else {
-            navigationBarPercentHidden = 1
+            navigationBarPercentHidden = round(navigationBarPercentHidden)
         }
 
         if navigationBar.shouldTransformUnderBarViewWithBar {
@@ -273,5 +280,9 @@ public class NavigationBarHider: NSObject {
 
     @objc public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         isScrollingToTop = false
+    }
+
+    private func isScrollingUp(currentY: CGFloat) -> Bool {
+        return currentY < initialScrollY
     }
 }
