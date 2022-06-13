@@ -4,6 +4,7 @@
 // Author: Fohanno
 // Author: Fulup
 // Author: Gwenn-Ael
+// Author: Huñvreüs
 // Author: JoeWalshWMF
 // Author: Macofe
 // Author: Mhurd
@@ -59,6 +60,7 @@
 "action-add-to" = "Ouzhpennañ da";
 "action-add-to-reading-list" = "Ouzhpennañ d'ar roll lenn.";
 "action-cancel" = "Nullañ";
+"action-discard-edits" = "Nullañ kemmoù";
 "action-find-in-page" = "Klask er bajenn";
 "action-move-to" = "Dilec'hiañ war-zu :";
 "action-move-to-reading-list" = "Dilec'hiañ war-zu ar roll lenn";
