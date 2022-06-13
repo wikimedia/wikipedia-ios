@@ -44,7 +44,7 @@ class TalkPageFetcherTests: XCTestCase {
     }
     
     func testTalkPageFetchReturnsTalkPage() {
-        let fetcher = TalkPageFetcher(session: mockSession, configuration: Configuration.current)
+        let fetcher = OldTalkPageFetcher(session: mockSession, configuration: Configuration.current)
         
         let fetchExpectation = expectation(description: "Waiting for fetch callback")
         
@@ -72,7 +72,7 @@ class TalkPageFetcherTests: XCTestCase {
     }
     
     func testTalkPageFetchWithPrefixTitleReturnsTalkPage() {
-        let fetcher = TalkPageFetcher(session: mockSession, configuration: Configuration.current)
+        let fetcher = OldTalkPageFetcher(session: mockSession, configuration: Configuration.current)
         
         let fetchExpectation = expectation(description: "Waiting for fetch callback")
         

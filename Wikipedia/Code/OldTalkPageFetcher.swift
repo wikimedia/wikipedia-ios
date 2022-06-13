@@ -92,7 +92,7 @@ enum TalkPageFetcherError: Error {
     case talkPageDoesNotExist
 }
 
-class TalkPageFetcher: Fetcher {
+class OldTalkPageFetcher: Fetcher {
     
     private let sectionUploader = WikiTextSectionUploader()
     
@@ -191,7 +191,7 @@ class TalkPageFetcher: Fetcher {
 
 //MARK: Private
 
-private extension TalkPageFetcher {
+private extension OldTalkPageFetcher {
     
     func getURL(for urlTitle: String, siteURL: URL, revisionID: Int?) -> URL? {
         

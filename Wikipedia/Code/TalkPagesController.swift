@@ -28,7 +28,7 @@ enum TalkPageAppendSuccessResult {
 }
 
 class TalkPageController {
-    let fetcher: TalkPageFetcher
+    let fetcher: OldTalkPageFetcher
     let articleRevisionFetcher: WMFArticleRevisionFetcher
     let moc: NSManagedObjectContext
     let title: String
@@ -39,7 +39,7 @@ class TalkPageController {
         return type.titleWithoutNamespacePrefix(title: title)
     }
     
-    required init(fetcher: TalkPageFetcher = TalkPageFetcher(), articleRevisionFetcher: WMFArticleRevisionFetcher = WMFArticleRevisionFetcher(), moc: NSManagedObjectContext, title: String, siteURL: URL, type: TalkPageType) {
+    required init(fetcher: OldTalkPageFetcher = OldTalkPageFetcher(), articleRevisionFetcher: WMFArticleRevisionFetcher = WMFArticleRevisionFetcher(), moc: NSManagedObjectContext, title: String, siteURL: URL, type: TalkPageType) {
         self.fetcher = fetcher
         self.articleRevisionFetcher = articleRevisionFetcher
         self.moc = moc

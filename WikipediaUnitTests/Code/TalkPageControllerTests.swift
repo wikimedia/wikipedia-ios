@@ -3,7 +3,7 @@ import XCTest
 @testable import Wikipedia
 @testable import WMF
 
-fileprivate class MockTalkPageFetcher: TalkPageFetcher {
+fileprivate class MockTalkPageFetcher: OldTalkPageFetcher {
     
     static var name = "Username1"
     static var domain = "en.wikipedia.org"
