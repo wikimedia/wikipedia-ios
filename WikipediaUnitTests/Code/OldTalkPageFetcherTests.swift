@@ -29,7 +29,7 @@ fileprivate class MockSession: Session {
     }
 }
 
-class TalkPageFetcherTests: XCTestCase {
+class OldTalkPageFetcherTests: XCTestCase {
     
     fileprivate var mockSession: MockSession!
     
