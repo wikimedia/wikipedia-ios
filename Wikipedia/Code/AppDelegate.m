@@ -16,6 +16,7 @@ static NSString *const WMFBackgroundDatabaseHousekeeperTaskIdentifier = @"org.wi
 
 @property (nonatomic, strong) WMFAppViewController *appViewController;
 @property (nonatomic) BOOL appNeedsResume;
+@property (nonatomic) NSDictionary *model;
 
 @end
 
@@ -86,10 +87,19 @@ static NSString *const WMFBackgroundDatabaseHousekeeperTaskIdentifier = @"org.wi
     [UNUserNotificationCenter currentNotificationCenter].delegate = vc; // this needs to be set before the end of didFinishLaunchingWithOptions:
     [vc launchAppInWindow:self.window waitToResumeApp:self.appNeedsResume];
     self.appViewController = vc;
+    [self loadModel];
 
     [self updateDynamicIconShortcutItems];
 
     return YES;
+}
+
+// An artificial "regression" added, where we do a common startup task (JSON parsing)
+- (void)loadModel
+{
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"model" ofType:@"json"];
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    self.model = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
