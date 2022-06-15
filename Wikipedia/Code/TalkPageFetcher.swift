@@ -2,18 +2,22 @@ import Foundation
 import WMF
 
 struct TalkPageResponse: Codable {
-    let pageInfo: TalkPageThreadItems?
+    let threads: TalkPageThreadItems?
     
     enum CodingKeys: String, CodingKey {
-        case pageInfo = "discussiontoolspageinfo"
+        case threads = "discussiontoolspageinfo"
     }
 }
 
 struct TalkPageThreadItems: Codable {
-    let threadItemsHTML: [TalkPageItem]?
+    let threadItems: [TalkPageItem]?
     
     enum CodingKeys: String, CodingKey {
-        case threadItemsHTML = "threaditemshtml"
+        case threadItems = "threaditemshtml"
+    }
+    
+    init(items: [TalkPageItem]) {
+        self.threadItems = items
     }
 }
 
@@ -29,14 +33,23 @@ struct TalkPageItem: Codable {
 
 class TalkPageFetcher: Fetcher {
     
-    func fetchTalkPageContent() {
-       guard let thisURL = URL(string:
-                                "https://en.wikipedia.org/w/api.php?action=discussiontoolspageinfo&format=json&page=User_talk:Tsevener&prop=threaditemshtml&formatversion=2") else {
-           return
-       }
-        
-        session.jsonDecodableTask(with: thisURL) { (result: TalkPageResponse?, response: URLResponse?, error: Error? ) in
-            print("RESULT \(result), ERROR \(error)")
+    func fetchTalkPageContent(url: URL, completion: @escaping (Result<TalkPageThreadItems, Error>) -> Void) {
+        guard let talkPageURL = getTalkURL(url: url) else {
+            completion(.failure(RequestError.invalidParameters))
+            return
         }
+        
+        session.jsonDecodableTask(with: talkPageURL) { (result: TalkPageResponse?, response: URLResponse?, error: Error? ) in
+            guard let result = result?.threads?.threadItems else {
+                completion(.failure(RequestError.unexpectedResponse))
+                return
+            }
+            let page = TalkPageThreadItems(items: result)
+            completion(.success(page))
+        }
+    }
+    
+    func getTalkURL(url: URL) -> URL? {
+        return url
     }
 }
