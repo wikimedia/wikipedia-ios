@@ -304,9 +304,9 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         }
     }
     
-    var underBarViewTopBarBottomConstraint: NSLayoutConstraint!
-    var underBarViewTopTitleBarBottomConstraint: NSLayoutConstraint!
-    var underBarViewTopBottomConstraint: NSLayoutConstraint!
+    private var underBarViewTopBarBottomConstraint: NSLayoutConstraint!
+    private var underBarViewTopTitleBarBottomConstraint: NSLayoutConstraint!
+    private var underBarViewTopBottomConstraint: NSLayoutConstraint!
 
     /// See `updateHackyConstraint` for details
     public var needsUnderBarHack: Bool = false {
@@ -493,7 +493,6 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     }
     
     @objc dynamic public var visibleHeight: CGFloat = 0
-    @objc dynamic public var insetTop: CGFloat = 0
     @objc public var hiddenHeight: CGFloat = 0
 
     public var shadowAlpha: CGFloat {
@@ -688,8 +687,6 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         
         self.progressView.transform = isShadowBelowUnderBarView ? underBarTransform : totalTransform
         self.shadow.transform = isShadowBelowUnderBarView ? underBarTransform : totalTransform
-    
-        insetTop = visibleHeight
     }
     
     
