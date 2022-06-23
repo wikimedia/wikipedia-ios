@@ -3,6 +3,7 @@
 // Author: ASHmed
 // Author: Aboulouei1
 // Author: Alaa
+// Author: Asma
 // Author: DRIHEM
 // Author: FiberAhmed
 // Author: Haytham morsy
@@ -591,6 +592,7 @@
 "notifications-center-title" = "الإشعارات";
 "notifications-center-toolbar-mark-accessibility-label" = "حدد الاشعارات المختارة";
 "notifications-center-type-item-description-welcome-verbose" = "رسالة ترحيب";
+"notifications-center-type-title-other" = "أخرى";
 "notifications-center-type-title-page-link" = "وصلة صفحة";
 "notifications-center-type-title-user-rights-change" = "تغييرات صلاحيات المستخدم";
 "notifications-center-type-title-user-talk-page-messsage" = "رسالة صفحة نقاش";
