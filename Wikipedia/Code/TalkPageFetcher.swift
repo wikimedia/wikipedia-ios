@@ -15,10 +15,6 @@ struct TalkPageThreadItems: Codable {
     enum CodingKeys: String, CodingKey {
         case threadItems = "threaditemshtml"
     }
-    
-    init(items: [TalkPageItem]) {
-        self.threadItems = items
-    }
 }
 
 struct TalkPageItem: Codable {
@@ -33,7 +29,7 @@ struct TalkPageItem: Codable {
 
 class TalkPageFetcher: Fetcher {
     
-    func fetchTalkPageContent(url: URL, completion: @escaping (Result<TalkPageAPIResponse?, Error>) -> Void) {
+    func fetchTalkPageContent(url: URL, completion: @escaping (Result<TalkPageThreadItems?, Error>) -> Void) {
         guard let pageTitle = url.wmf_title else {
             return
         }
@@ -48,7 +44,7 @@ class TalkPageFetcher: Fetcher {
         performDecodableMediaWikiAPIGET(for: url, with: params) { (result: Result<TalkPageAPIResponse?, Error>) in
             switch result {
             case let .success(talk):
-                completion(.success(talk))
+                completion(.success(talk?.threads))
                 
             case .failure:
                 completion(.failure(RequestError.invalidParameters))
