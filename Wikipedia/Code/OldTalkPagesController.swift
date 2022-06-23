@@ -27,7 +27,7 @@ enum TalkPageAppendSuccessResult {
     case success
 }
 
-class TalkPageController {
+class OldTalkPageController {
     let fetcher: OldTalkPageFetcher
     let articleRevisionFetcher: WMFArticleRevisionFetcher
     let moc: NSManagedObjectContext
@@ -206,7 +206,7 @@ class TalkPageController {
 
 //MARK: Private
 
-private extension TalkPageController {
+private extension OldTalkPageController {
     
     func fetchLatestRevisionID(endingWithRevision revisionID: Int?, urlTitle: String, completion: @escaping (Result<Int, Error>) -> Void) {
         
@@ -280,7 +280,7 @@ private extension TalkPageController {
             case .success(let resultNetworkTalkPage):
                 networkTalkPage = resultNetworkTalkPage
             case .failure(let error):
-                if let talkPageFetcherError = error as? TalkPageFetcherError,
+                if let talkPageFetcherError = error as? OldTalkPageFetcherError,
                     talkPageFetcherError == .talkPageDoesNotExist {
                     talkPageDoesNotExist = true
                 }

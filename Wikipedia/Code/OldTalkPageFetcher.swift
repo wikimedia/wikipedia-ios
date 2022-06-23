@@ -88,7 +88,7 @@ enum TalkPageType: Int {
     }
 }
 
-enum TalkPageFetcherError: Error {
+enum OldTalkPageFetcherError: Error {
     case talkPageDoesNotExist
 }
 
@@ -154,7 +154,7 @@ class OldTalkPageFetcher: Fetcher {
             
             if let statusCode = (response as? HTTPURLResponse)?.statusCode,
                 statusCode == 404 {
-                completion(.failure(TalkPageFetcherError.talkPageDoesNotExist))
+                completion(.failure(OldTalkPageFetcherError.talkPageDoesNotExist))
                 return
             }
             

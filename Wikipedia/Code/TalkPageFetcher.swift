@@ -1,7 +1,7 @@
 import Foundation
 import WMF
 
-struct TalkPageResponse: Codable {
+struct TalkPageAPIResponse: Codable {
     let threads: TalkPageThreadItems?
     
     enum CodingKeys: String, CodingKey {
@@ -33,23 +33,27 @@ struct TalkPageItem: Codable {
 
 class TalkPageFetcher: Fetcher {
     
-    func fetchTalkPageContent(url: URL, completion: @escaping (Result<TalkPageThreadItems, Error>) -> Void) {
-        guard let talkPageURL = getTalkURL(url: url) else {
-            completion(.failure(RequestError.invalidParameters))
+    func fetchTalkPageContent(url: URL, completion: @escaping (Result<TalkPageAPIResponse?, Error>) -> Void) {
+        guard let pageTitle = url.wmf_title else {
             return
         }
         
-        session.jsonDecodableTask(with: talkPageURL) { (result: TalkPageResponse?, response: URLResponse?, error: Error? ) in
-            guard let result = result?.threads?.threadItems else {
-                completion(.failure(RequestError.unexpectedResponse))
-                return
+        let params = ["action" : "discussiontoolspageinfo",
+                      "page" : pageTitle,
+                      "format": "json",
+                      "prop" : "threaditemshtml",
+                      "fomatversion" : "2"
+        ]
+
+        performDecodableMediaWikiAPIGET(for: url, with: params) { (result: Result<TalkPageAPIResponse?, Error>) in
+            switch result {
+            case let .success(talk):
+                completion(.success(talk))
+                
+            case .failure:
+                completion(.failure(RequestError.invalidParameters))
             }
-            let page = TalkPageThreadItems(items: result)
-            completion(.success(page))
         }
     }
-    
-    func getTalkURL(url: URL) -> URL? {
-        return url
-    }
+
 }

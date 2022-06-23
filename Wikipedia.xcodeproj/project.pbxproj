@@ -440,10 +440,10 @@
 		6734115522735789005B31DA /* OldTalkPageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E8B0A7226A654D00537BC9 /* OldTalkPageFetcher.swift */; };
 		673411562273578A005B31DA /* OldTalkPageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E8B0A7226A654D00537BC9 /* OldTalkPageFetcher.swift */; };
 		673411572273578A005B31DA /* OldTalkPageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E8B0A7226A654D00537BC9 /* OldTalkPageFetcher.swift */; };
-		6734115922735832005B31DA /* TalkPagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E8B0A4226A64CB00537BC9 /* TalkPagesController.swift */; };
-		6734115A22735832005B31DA /* TalkPagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E8B0A4226A64CB00537BC9 /* TalkPagesController.swift */; };
-		6734115B22735833005B31DA /* TalkPagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E8B0A4226A64CB00537BC9 /* TalkPagesController.swift */; };
-		6734115C22735833005B31DA /* TalkPagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E8B0A4226A64CB00537BC9 /* TalkPagesController.swift */; };
+		6734115922735832005B31DA /* OldTalkPagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E8B0A4226A64CB00537BC9 /* OldTalkPagesController.swift */; };
+		6734115A22735832005B31DA /* OldTalkPagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E8B0A4226A64CB00537BC9 /* OldTalkPagesController.swift */; };
+		6734115B22735833005B31DA /* OldTalkPagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E8B0A4226A64CB00537BC9 /* OldTalkPagesController.swift */; };
+		6734115C22735833005B31DA /* OldTalkPagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E8B0A4226A64CB00537BC9 /* OldTalkPagesController.swift */; };
 		6734116422739CA2005B31DA /* TalkPageLocalHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116322739CA2005B31DA /* TalkPageLocalHandler.swift */; };
 		6734116522739CCB005B31DA /* TalkPageLocalHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116322739CA2005B31DA /* TalkPageLocalHandler.swift */; };
 		6734116622739CCB005B31DA /* TalkPageLocalHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734116322739CA2005B31DA /* TalkPageLocalHandler.swift */; };
@@ -4126,7 +4126,7 @@
 		67E5DA6A276416A600CE827D /* RemoteNotificationsRefreshCrossWikiOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteNotificationsRefreshCrossWikiOperation.swift; sourceTree = "<group>"; };
 		67E8B0732268DA8B00537BC9 /* TalkPageTopicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageTopicCell.swift; sourceTree = "<group>"; };
 		67E8B0752268DE4B00537BC9 /* TalkPageContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageContainerViewController.swift; sourceTree = "<group>"; };
-		67E8B0A4226A64CB00537BC9 /* TalkPagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPagesController.swift; sourceTree = "<group>"; };
+		67E8B0A4226A64CB00537BC9 /* OldTalkPagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldTalkPagesController.swift; sourceTree = "<group>"; };
 		67E8B0A7226A654D00537BC9 /* OldTalkPageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldTalkPageFetcher.swift; sourceTree = "<group>"; };
 		67E8B0AB226A6DCA00537BC9 /* TalkPageNetworkDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageNetworkDataTests.swift; sourceTree = "<group>"; };
 		67E8B0AD226A74C200537BC9 /* OldTalkPageFetcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldTalkPageFetcherTests.swift; sourceTree = "<group>"; };
@@ -7224,17 +7224,17 @@
 			name = Account;
 			sourceTree = "<group>";
 		};
-		67F73E6B2267B77C0079DEEF /* Talk Pages */ = {
+		67F73E6B2267B77C0079DEEF /* Old Talk Pages */ = {
 			isa = PBXGroup;
 			children = (
-				67E8B0A4226A64CB00537BC9 /* TalkPagesController.swift */,
+				67E8B0A4226A64CB00537BC9 /* OldTalkPagesController.swift */,
 				6734116322739CA2005B31DA /* TalkPageLocalHandler.swift */,
 				833D6B47229EE872003CB650 /* TalkPageTopic+Extensions.swift */,
 				67E8B0782268F8F100537BC9 /* Views */,
 				67E8B0772268F8E300537BC9 /* View Controllers */,
 				6789FA2D22E7790900E43842 /* TalkPage+Extensions.swift */,
 			);
-			name = "Talk Pages";
+			name = "Old Talk Pages";
 			sourceTree = "<group>";
 		};
 		67F9AE5423AD7FF1003D4F5E /* MobileHTML Article Cache */ = {
@@ -8249,7 +8249,7 @@
 				0E2B06F91B2D128D00EA2F53 /* Search */,
 				BC45D5871C32F849007C72F3 /* Settings */,
 				67F73E6A2267B7650079DEEF /* Account */,
-				67F73E6B2267B77C0079DEEF /* Talk Pages */,
+				67F73E6B2267B77C0079DEEF /* Old Talk Pages */,
 				BC45D59F1C33018C007C72F3 /* User */,
 				B0524B0121484F1F00D8FD8D /* Description Editing */,
 				0E26B0541C0E28E60004D687 /* Welcome */,
@@ -11493,7 +11493,7 @@
 				83B01F9523DB41D7001185F4 /* ArticleViewController+FindInPage.swift in Sources */,
 				B0E804BF1C0CE0B40065EBC0 /* DDLog+WMFLogger.m in Sources */,
 				0E281A331DC263DE00FA1AB1 /* WMFLegacyReference.swift in Sources */,
-				6734115922735832005B31DA /* TalkPagesController.swift in Sources */,
+				6734115922735832005B31DA /* OldTalkPagesController.swift in Sources */,
 				7ABAD6BF20349B91006A364C /* Collection.swift in Sources */,
 				7A5A0543225FBE0500BBEAC1 /* InsertMediaSearchResultCollectionViewCell.swift in Sources */,
 				6761AEE62704FD3F00E47BAD /* NotificationsCenterCellViewModel+IconNameExtensions.swift in Sources */,
@@ -12423,7 +12423,7 @@
 				671DF9C425F2AE4E0011799E /* ArticleDescriptionControlling.swift in Sources */,
 				D8A42B801E815A9C00D8E281 /* WMFLegacyReference.swift in Sources */,
 				D8A42B811E815A9C00D8E281 /* WMFWelcomePageViewController.swift in Sources */,
-				6734115C22735833005B31DA /* TalkPagesController.swift in Sources */,
+				6734115C22735833005B31DA /* OldTalkPagesController.swift in Sources */,
 				67CEF2722351113000D5CA6C /* DiffController.swift in Sources */,
 				7A5A0546225FBE0500BBEAC1 /* InsertMediaSearchResultCollectionViewCell.swift in Sources */,
 				83836ECF1F615E5B007D1A05 /* ShareViewController.swift in Sources */,
@@ -12674,7 +12674,7 @@
 				83AE1C811F34BB59004B62E0 /* ImageDimmingExampleViewController.swift in Sources */,
 				67E0691022399D2F008550AC /* ReadingThemesControlsProtocols.swift in Sources */,
 				D8CE254B1E698E2400DAE2E0 /* TableOfContentsViewController.swift in Sources */,
-				6734115A22735832005B31DA /* TalkPagesController.swift in Sources */,
+				6734115A22735832005B31DA /* OldTalkPagesController.swift in Sources */,
 				D8CE254D1E698E2400DAE2E0 /* ProtectedEditAttemptFunnel.m in Sources */,
 				7A1469BE220BBE44000A20F1 /* EditHintViewController.swift in Sources */,
 				D8CE254E1E698E2400DAE2E0 /* WKWebView+WMFWebViewControllerJavascript.m in Sources */,
@@ -13215,7 +13215,7 @@
 				7AFEB3F71FE8511700D7BC57 /* SavedArticlesCollectionViewCell.swift in Sources */,
 				67E0690F22399D2E008550AC /* ReadingThemesControlsProtocols.swift in Sources */,
 				7ADEAB051FD75B9100BB4727 /* AddArticlesToReadingListViewController.swift in Sources */,
-				6734115B22735833005B31DA /* TalkPagesController.swift in Sources */,
+				6734115B22735833005B31DA /* OldTalkPagesController.swift in Sources */,
 				7AF8B7442102297A009772CC /* SearchSettingsViewController.swift in Sources */,
 				7A1469BF220BBE44000A20F1 /* EditHintViewController.swift in Sources */,
 				D8EC3E3E1E9BDA35006712EB /* PageHistorySection.swift in Sources */,
