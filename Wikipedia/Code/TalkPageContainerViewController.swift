@@ -321,6 +321,7 @@ private extension TalkPageContainerViewController {
                 self.completedActivityType = activityType
             }
         }
+        activityViewController.excludedActivityTypes = [.addToReadingList]
         
         if let popover = activityViewController.popoverPresentationController {
             popover.sourceView = sender
