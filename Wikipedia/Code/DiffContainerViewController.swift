@@ -1148,6 +1148,7 @@ extension DiffContainerViewController: DiffToolbarViewDelegate {
         
         let activityViewController = UIActivityViewController(activityItems: [diffURL], applicationActivities: [TUSafariActivity()])
         activityViewController.popoverPresentationController?.barButtonItem = sender
+        activityViewController.excludedActivityTypes = [.addToReadingList]
         
         present(activityViewController, animated: true)
     }

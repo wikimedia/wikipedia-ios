@@ -1669,7 +1669,6 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                 sourceRect = view.convert(shareButton.frame, from: shareButton.superview)
             }
             shareActivityController.popoverPresentationController?.sourceRect = sourceRect
-            shareActivityController.excludedActivityTypes = [.addToReadingList]
             present(shareActivityController, animated: true, completion: nil)
             break
         case .none:
