@@ -340,6 +340,7 @@
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-miles" = "$1 milj";
 "new-password-title" = "Nastavite svoje geslo";
+"notifications-center-status-all" = "Vse";
 "notifications-center-swipe-more" = "Več";
 "on-this-day-detail-header-date-range" = "od $1 – $2";
 "on-this-day-title" = "Na današnji dan";

@@ -573,7 +573,7 @@
 "notifications-center-destination-web" = "Во прелистувач";
 "notifications-center-empty-checking-for-notifications" = "Проверувам известувања...";
 "notifications-center-empty-no-messages" = "Немате пораки.";
-"notifications-center-empty-not-subscribed" = "Не сте претплатени на никакви известувања од Википедија";
+"notifications-center-empty-not-subscribed" = "Не следите никакви известувања од Википедија";
 "notifications-center-empty-state-filters-subtitle" = "Изменете $1 за да видите повеќе пораки";
 "notifications-center-empty-state-no-projects-selected" = "Додајте проекти за да видите повеќе пораки";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 филтер|$1 филтри}}";
@@ -920,8 +920,8 @@
 "settings-languages-feed-customization" = "Можете да изберете кои јазици да се прикажуваат во поставките за тековникот „Истражи“.";
 "settings-my-languages" = "Мои јазици";
 "settings-notifications" = "Доставни известувања";
-"settings-notifications-echo-failure-message" = "Се јави грешка при проверката на претплатените известувања поврзани со вашата сметка.";
-"settings-notifications-echo-failure-title" = "Не можам да ја ги проверам претплатените известувања со „Ехо“";
+"settings-notifications-echo-failure-message" = "Се јави грешка при проверката на следените известувања поврзани со вашата сметка.";
+"settings-notifications-echo-failure-title" = "Не можам да ја ги проверам следените известувања со „Ехо“";
 "settings-notifications-echo-failure-try-again" = "Обиди се пак";
 "settings-notifications-header" = "Добивајте известувања за дејства поврзани со вашата сметка како пораки од колегите, напомени и соопштенија. Сите тие се даваат водејќи се по правилата за приватност и со најнови податоци.";
 "settings-notifications-info" = "Бидете во тек со тековните и најчитаните статии на Википедија со нашите доставни известувања. Сите се нудат со најтековни податоци, притоа почитувајќи ја вашата приватност.";
