@@ -1,4 +1,3 @@
-
 extension String {
     public var wmf_hasText: Bool {
         return !isEmpty

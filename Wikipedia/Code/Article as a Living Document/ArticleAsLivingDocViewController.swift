@@ -1,4 +1,3 @@
-
 import UIKit
 import WMF
 
@@ -338,7 +337,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
         self.goToHistory()
     }
 
-    // MARK:- CollectionView functions
+    // MARK: - CollectionView functions
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 70)
@@ -423,7 +422,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
     }
 }
 
-// MARK:- ArticleAsLivingDocHorizontallyScrollingCellDelegate
+// MARK: - ArticleAsLivingDocHorizontallyScrollingCellDelegate
 extension ArticleAsLivingDocViewController: ArticleAsLivingDocHorizontallyScrollingCellDelegate, InternalLinkPreviewing {
     func tappedLink(_ url: URL) {
         guard let fullURL = delegate?.articleURL.resolvingRelativeWikiHref(url.absoluteString) else {

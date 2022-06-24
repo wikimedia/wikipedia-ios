@@ -66,7 +66,7 @@ class ViewControllerTransitionsController: NSObject, UINavigationControllerDeleg
         
         if let searchVC = actualToVC as? SearchViewController {
             return SearchTransition(searchViewController: searchVC, exploreViewController: exploreVC, isEnteringSearch: true)
-        } else if let searchVC = actualFromVC as? SearchViewController  {
+        } else if let searchVC = actualFromVC as? SearchViewController {
             return SearchTransition(searchViewController: searchVC, exploreViewController: exploreVC, isEnteringSearch: false)
         }
         

@@ -168,7 +168,7 @@ public class TimelineView: UIView {
         }
     }
     
-    private func drawVerticalLine(in context: CGContext, rect: CGRect){
+    private func drawVerticalLine(in context: CGContext, rect: CGRect) {
         context.setLineWidth(verticalLineWidth)
         context.setStrokeColor(color)
         let lineTopY = extendTimelineAboveDot ? rect.minY : dotsY
@@ -236,7 +236,7 @@ public class TimelineView: UIView {
         lastDotRadiusNormal = radiusNormal
     }
     
-    private func updateDotsRadii(to radiusNormal: CGFloat, at center: CGPoint){
+    private func updateDotsRadii(to radiusNormal: CGFloat, at center: CGPoint) {
         outerDotShapeLayer.updateDotRadius(dotRadius * max(radiusNormal, dotMinRadiusNormal), center: center)
         innerDotShapeLayer.updateDotRadius(dotRadius * max((radiusNormal - dotMinRadiusNormal), 0.0), center: center)
     }

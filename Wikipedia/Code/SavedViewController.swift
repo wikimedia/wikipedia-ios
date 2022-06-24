@@ -221,7 +221,7 @@ class SavedViewController: ViewController {
         if savedArticlesViewController != nil,
             currentView == .savedArticles,
             savedArticlesWasNil {
-            //reassign so activeEditableCollection gets reset
+            // reassign so activeEditableCollection gets reset
             currentView = .savedArticles
         }
 

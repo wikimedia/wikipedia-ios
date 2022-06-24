@@ -56,7 +56,7 @@ public extension String {
         return unlinkedName.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.wmf_encodeURIComponentAllowed())
     }
     
-    //assumes string is already normalized
+    // assumes string is already normalized
     var googleFormPercentEncodedPageTitle: String? {
         return googleFormPageTitle?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
     }

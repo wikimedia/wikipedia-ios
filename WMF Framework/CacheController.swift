@@ -1,4 +1,3 @@
-
 import Foundation
 
 public enum CacheControllerError: Error {
@@ -35,7 +34,7 @@ public class CacheController {
         return url
     }()
     
-    //todo: Settings hook, logout don't sync hook, etc.
+    // todo: Settings hook, logout don't sync hook, etc.
     public static var totalCacheSizeInBytes: Int64 {
         return FileManager.default.sizeOfDirectory(at: cacheURL)
     }
@@ -60,7 +59,7 @@ public class CacheController {
 
     static func createCacheContext(cacheURL: URL) -> NSManagedObjectContext? {
         
-        //create cacheURL directory
+        // create cacheURL directory
         do {
             try FileManager.default.createDirectory(at: cacheURL, withIntermediateDirectories: true, attributes: nil)
         } catch let error {
@@ -68,14 +67,14 @@ public class CacheController {
             return nil
         }
         
-        //create ManagedObjectModel based on Cache.momd
+        // create ManagedObjectModel based on Cache.momd
         guard let modelURL = Bundle.wmf.url(forResource: "Cache", withExtension: "momd"),
             let model = NSManagedObjectModel(contentsOf: modelURL) else {
                 assertionFailure("Failure to create managed object model")
                 return nil
         }
 
-        //create persistent store coordinator / persistent store
+        // create persistent store coordinator / persistent store
         let dbURL = cacheURL.appendingPathComponent("Cache.sqlite", isDirectory: false)
         let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
 
@@ -109,7 +108,7 @@ public class CacheController {
     
     public typealias ItemKey = String
     public typealias GroupKey = String
-    public typealias UniqueKey = String //combo of item key + variant
+    public typealias UniqueKey = String // combo of item key + variant
     public typealias IndividualCompletionBlock = (FinalIndividualResult) -> Void
     public typealias GroupCompletionBlock = (FinalGroupResult) -> Void
     
@@ -285,7 +284,7 @@ public class CacheController {
     }
     
     func finishFileSave(data: Data, mimeType: String?, uniqueKey: CacheController.UniqueKey, url: URL) {
-        //hook to allow subclasses to do any additional work with data
+        // hook to allow subclasses to do any additional work with data
     }
     
     public func remove(groupKey: GroupKey, individualCompletion: @escaping IndividualCompletionBlock, groupCompletion: @escaping GroupCompletionBlock) {

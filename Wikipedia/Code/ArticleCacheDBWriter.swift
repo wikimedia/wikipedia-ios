@@ -1,4 +1,3 @@
-
 import Foundation
 
 public enum ArticleCacheDBWriterError: Error {
@@ -40,7 +39,7 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
         assertionFailure("ArticleCacheDBWriter not setup for batch url inserts.")
     }
     
-    //note, this comes in as desktopArticleURL via WMFArticle's key
+    // note, this comes in as desktopArticleURL via WMFArticle's key
     func add(url: URL, groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletionWithURLRequests) {
         
         fetchImageAndResourceURLsForArticleURL(url, groupKey: groupKey) { [weak self] (result) in
@@ -59,7 +58,7 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
                 do {
                     mobileHTMLRequest = try self.articleFetcher.mobileHTMLRequest(articleURL: url)
                     mobileHTMLMediaListRequest = try self.articleFetcher.mobileHTMLMediaListRequest(articleURL: url)
-                } catch (let error) {
+                } catch let error {
                     completion(.failure(error))
                     return
                 }
@@ -67,7 +66,7 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
                 mustHaveURLRequests.append(mobileHTMLRequest)
                 mustHaveURLRequests.append(mobileHTMLMediaListRequest)
                 
-                //append mobile-html-offline-resource URLRequests
+                // append mobile-html-offline-resource URLRequests
                 for var url in urls.offlineResourcesURLs {
                     // We're OK with any Content-Type here because we don't use them directly, they're the related files that mobile-html might request
                     let acceptAnyContentType = ["Accept": "*/*"]
@@ -81,7 +80,7 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
                     mustHaveURLRequests.append(urlRequest)
                 }
                 
-                //append image info URLRequests
+                // append image info URLRequests
                 for url in urls.imageInfoURLs {
                     guard let urlRequest = self.imageInfoFetcher.urlRequestFor(from: url) else {
                         completion(.failure(ArticleCacheDBWriterError.failureMakingRequestFromMustHaveResource))
@@ -91,14 +90,14 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
                     mustHaveURLRequests.append(urlRequest)
                 }
                 
-                //send image urls straight to imageController to deal with
+                // send image urls straight to imageController to deal with
                 self.imageController.add(urls: urls.mediaListURLs, groupKey: groupKey, individualCompletion: { (result) in
                     
                 }) { (result) in
                     
                 }
                 
-                //write URLs to database
+                // write URLs to database
                 self.cacheURLs(groupKey: groupKey, mustHaveURLRequests: mustHaveURLRequests, niceToHaveURLRequests: []) { (result) in
                     switch result {
                     case .success:
@@ -151,7 +150,7 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
     }
     
     func shouldDownloadVariant(itemKey: CacheController.ItemKey, variant: String?) -> Bool {
-        //maybe tonitodo: if we reach a point where we add all language variation keys to db, we should limit this based on their NSLocale language preferences.
+        // maybe tonitodo: if we reach a point where we add all language variation keys to db, we should limit this based on their NSLocale language preferences.
         return true
     }
     
@@ -160,11 +159,11 @@ final class ArticleCacheDBWriter: ArticleCacheResourceDBWriting {
     }
 }
 
-//Migration
+// Migration
 
 extension ArticleCacheDBWriter {
     
-    func addMobileHtmlURLForMigration(desktopArticleURL: URL, success: @escaping (URLRequest) -> Void, failure: @escaping (Error) -> Void) { //articleURL should be desktopURL
+    func addMobileHtmlURLForMigration(desktopArticleURL: URL, success: @escaping (URLRequest) -> Void, failure: @escaping (Error) -> Void) { // articleURL should be desktopURL
         
         guard let groupKey = desktopArticleURL.wmf_databaseKey else {
             failure(ArticleCacheDBWriterError.unableToDetermineDatabaseKey)
@@ -175,7 +174,7 @@ extension ArticleCacheDBWriter {
         do {
             
             mobileHTMLRequest = try articleFetcher.mobileHTMLRequest(articleURL: desktopArticleURL)
-        } catch (let error) {
+        } catch let error {
             failure(error)
             return
         }

@@ -293,7 +293,7 @@ class SectionEditorViewController: ViewController {
                 DispatchQueue.main.async {
                     self?.didSetWikitextToWebView = true
                     if let selectedTextEditInfo = self?.selectedTextEditInfo {
-                        self?.messagingController.highlightAndScrollToText(for: selectedTextEditInfo){ [weak self] (error) in
+                        self?.messagingController.highlightAndScrollToText(for: selectedTextEditInfo) { [weak self] (error) in
                             if error != nil {
                                 self?.showCouldNotFindSelectionInWikitextAlert()
                             }
@@ -552,7 +552,7 @@ extension SectionEditorViewController: WKNavigationDelegate {
     }
 }
 
-// MARK - EditSaveViewControllerDelegate
+// MARK: - EditSaveViewControllerDelegate
 
 extension SectionEditorViewController: EditSaveViewControllerDelegate {
     func editSaveViewControllerDidSave(_ editSaveViewController: EditSaveViewController, result: Result<SectionEditorChanges, Error>) {
@@ -564,7 +564,7 @@ extension SectionEditorViewController: EditSaveViewControllerDelegate {
     }
 }
 
-// MARK - EditPreviewViewControllerDelegate
+// MARK: - EditPreviewViewControllerDelegate
 
 extension SectionEditorViewController: EditPreviewViewControllerDelegate {
     func editPreviewViewControllerDidTapNext(_ editPreviewViewController: EditPreviewViewController) {
@@ -753,7 +753,7 @@ extension SectionEditorViewController: EditingFlowViewController {
 }
 
 #if (TEST)
-//MARK: Helpers for testing
+// MARK: Helpers for testing
 extension SectionEditorViewController {
     func openFindAndReplaceForTesting() {
         inputViewsController.textFormattingProvidingDidTapFindInPage()

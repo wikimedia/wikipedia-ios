@@ -42,9 +42,7 @@ class WMFTodayContinueReadingWidgetViewController: ExtensionViewController, NCWi
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleTapGestureRecognizer(_:))))
     }
-    
 
-    
     @objc func handleTapGestureRecognizer(_ recognizer: UITapGestureRecognizer) {
         switch recognizer.state {
         case .ended:
@@ -52,8 +50,7 @@ class WMFTodayContinueReadingWidgetViewController: ExtensionViewController, NCWi
         default:
             break
         }
-    }
-    
+    }    
 
     func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
         WidgetController.shared.startWidgetUpdateTask(completionHandler) { (dataStore, completion) in

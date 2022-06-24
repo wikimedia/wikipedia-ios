@@ -1,4 +1,3 @@
-
 struct WMFKeychainCredentials {
     
     // Based on:
@@ -17,7 +16,7 @@ struct WMFKeychainCredentials {
         get {
             do {
                 return try getValue(forKey: userNameKey)
-            } catch  {
+            } catch {
                 return nil
             }
         }
@@ -34,14 +33,14 @@ struct WMFKeychainCredentials {
         get {
             do {
                 return try getValue(forKey: passwordKey)
-            } catch  {
+            } catch {
                 return nil
             }
         }
         set(newPassword) {
             do {
                 return try set(value: newPassword, forKey: passwordKey)
-            } catch  {
+            } catch {
                 assertionFailure("\(error)")
             }
         }
@@ -51,14 +50,14 @@ struct WMFKeychainCredentials {
         get {
             do {
                 return try getValue(forKey: hostKey)
-            } catch  {
+            } catch {
                 return nil
             }
         }
         set {
             do {
                 return try set(value: newValue, forKey: hostKey)
-            } catch  {
+            } catch {
                 assertionFailure("\(error)")
             }
         }
@@ -101,7 +100,7 @@ struct WMFKeychainCredentials {
         }
         
         // update accessibility of value from kSecAttrAccessibleWhenUnlocked to kSecAttrAccessibleAfterFirstUnlock
-        if let attrAccessible = dictionary[kSecAttrAccessible as String] as? String, attrAccessible == (kSecAttrAccessibleWhenUnlocked as String)  {
+        if let attrAccessible = dictionary[kSecAttrAccessible as String] as? String, attrAccessible == (kSecAttrAccessibleWhenUnlocked as String) {
             try? update(value: value, forKey: key)
         }
         
@@ -119,7 +118,7 @@ struct WMFKeychainCredentials {
         guard let value = value else {
             do {
                 try deleteValue(forKey: key)
-            } catch  {
+            } catch {
                 throw WMFKeychainCredentialsError.couldNotDeleteData
             }
             return
@@ -136,10 +135,10 @@ struct WMFKeychainCredentials {
             return
         }
         
-        if (status == errSecDuplicateItem) {
+        if status == errSecDuplicateItem {
             do {
                 return try update(value: value, forKey: key)
-            } catch  {
+            } catch {
                 throw WMFKeychainCredentialsError.unhandledError(status: status)
             }
         } else {
@@ -154,7 +153,7 @@ struct WMFKeychainCredentials {
         dataDict[kSecValueData as String] = valueData as AnyObject?
         dataDict[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlock
         let status = SecItemUpdate(query as CFDictionary, dataDict as CFDictionary)
-        if (status != errSecSuccess) {
+        if status != errSecSuccess {
             throw WMFKeychainCredentialsError.unhandledError(status: status)
         }
     }

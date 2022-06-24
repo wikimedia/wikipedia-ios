@@ -134,7 +134,7 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
         isLayoutValid = true
     }
     
-    // MARK - Invalidation
+    // MARK: - Invalidation
     
     override public func invalidateLayout(with context: UICollectionViewLayoutInvalidationContext) {
         defer {
@@ -181,7 +181,7 @@ public class ColumnarCollectionViewLayout: UICollectionViewLayout {
         return context
     }
 
-    // MARK - Animation
+    // MARK: - Animation
     
     var maxNewSection: Int = -1
     var newSectionDeltaY: CGFloat = 0

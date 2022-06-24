@@ -38,7 +38,7 @@ public final class PermanentCacheController: NSObject {
     }
     
     @objc public func fetchImage(withURL url: URL?, failure: @escaping (Error) -> Void, success: @escaping (ImageDownload) -> Void) {
-        let _ = imageCache.fetchImage(withURL: url, failure: failure, success: success)
+        imageCache.fetchImage(withURL: url, failure: failure, success: success)
     }
     
     @objc public func memoryCachedImage(withURL url: URL) -> Image? {

@@ -4,7 +4,7 @@ class GroupedAccessibilityView: UIView {
 
     var arrangedAccessibilityViews: [UIView] = []
     
-    //convienene outlets
+    // convienene outlets
     @IBOutlet weak var accessibilityView0: UIView?
     @IBOutlet weak var accessibilityView1: UIView?
     @IBOutlet weak var accessibilityView2: UIView?

@@ -51,7 +51,7 @@ class AnnouncementPanelViewController : ScrollableEducationPanelViewController {
         }
         
         if style == .minimal {
-            //avoid scrolling on SE landscape, otherwise add a bit of padding
+            // avoid scrolling on SE landscape, otherwise add a bit of padding
             let subheadingExtraTopBottomSpacing = size.height <= 320 ? 0 : CGFloat(10)
             subheadingTopConstraint.constant = originalSubheadingTopConstraint + CGFloat(subheadingExtraTopBottomSpacing)
             subheadingBottomConstraint.constant = originalSubheadingTopConstraint + CGFloat(subheadingExtraTopBottomSpacing)

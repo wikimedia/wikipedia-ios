@@ -12,7 +12,7 @@ public class Configuration: NSObject {
 
         public static let appsLabsforPCS = StagingOptions(rawValue: 1 << 0)
         public static let deploymentLabsForEventLogging = StagingOptions(rawValue: 1 << 1)
-        public static let betaCluster = StagingOptions(rawValue: 1 << 2) //note, this will force beta cluster for PCS (thus ignoring an appsLabsforPCS value if also set) and force deploymentLabsForEventLogging
+        public static let betaCluster = StagingOptions(rawValue: 1 << 2) // note, this will force beta cluster for PCS (thus ignoring an appsLabsforPCS value if also set) and force deploymentLabsForEventLogging
         
         public init(rawValue: Int) {
             self.rawValue = rawValue
@@ -231,7 +231,7 @@ public class Configuration: NSObject {
         self.eventLoggingAPIType = eventLoggingAPIType
     }
     
-    //MARK: Page Content Service
+    // MARK: Page Content Service
     
     public func pageContentServiceBuilder(withWikiHost wikiHost: String? = nil) -> APIURLComponentsBuilder {
         let builder = pageContentServiceAPIType.builder(withWikiHost: wikiHost)
@@ -262,7 +262,7 @@ public class Configuration: NSObject {
         }
     }
     
-    //MARK: Metrics
+    // MARK: Metrics
     
     /// The metrics API lives only on wikimedia.org: https://wikimedia.org/api/rest_v1/
     @objc(metricsAPIURLComponentsAppendingPathComponents:)
@@ -271,7 +271,7 @@ public class Configuration: NSObject {
         return builder.components(byAppending: ["metrics"] + pathComponents)
     }
     
-    //MARK: Wikifeeds (Feed Content and Announcements)
+    // MARK: Wikifeeds (Feed Content and Announcements)
     
     /// Feed content is located in the wikifeeds repository. It can be run locally with: https://gerrit.wikimedia.org/r/admin/projects/mediawiki/services/wikifeeds
     /// On production, it is run through RESTBase at  https://en.wikipedia.org/api/rest_v1/ (works for all language wikis)
@@ -291,7 +291,7 @@ public class Configuration: NSObject {
         return components.wmf_URLWithLanguageVariantCode(url?.wmf_languageVariantCode)
     }
     
-    //MARK: Event Logging
+    // MARK: Event Logging
     
     @objc(eventLoggingAPIURLWithPayload:)
     public func eventLoggingAPIURL(with payload: NSObject) -> URL? {
@@ -300,7 +300,7 @@ public class Configuration: NSObject {
         return components?.url
     }
     
-    //MARK: MediaWiki Rest
+    // MARK: MediaWiki Rest
     
     public func mediaWikiRestAPIURLForURL(_ url: URL? = nil, appending pathComponents: [String] = [""], queryParameters: [String: Any]? = nil) -> URL? {
         let builder = mediaWikiRestAPIType.builder(withWikiHost: url?.host)
@@ -308,7 +308,7 @@ public class Configuration: NSObject {
         return components.wmf_URLWithLanguageVariantCode(url?.wmf_languageVariantCode)
     }
     
-    //MARK: MediaWiki
+    // MARK: MediaWiki
     
     @objc(mediaWikiAPIURLForURL:withQueryParameters:)
     public func mediaWikiAPIURLForURL(_ url: URL?, with queryParameters: [String: Any]? = nil) -> URL? {
@@ -330,14 +330,14 @@ public class Configuration: NSObject {
         return mediaWikiAPIURLForHost(host, with: queryParameters)
     }
     
-    //MARK: Wikidata
+    // MARK: Wikidata
     
     public func wikidataAPIURLComponents(with queryParameters: [String: Any]?) -> URLComponents {
         let builder = wikidataAPIType.builder()
         return builder.components(queryParameters: queryParameters)
     }
     
-    //MARK: Commons
+    // MARK: Commons
 
     @objc(commonsAPIURLComponentsWithQueryParameters:)
     public func commonsAPIURLComponents(with queryParameters: [String: Any]?) -> URLComponents {
@@ -345,7 +345,7 @@ public class Configuration: NSObject {
         return builder.components(queryParameters: queryParameters)
     }
     
-    //MARK: Article URLs
+    // MARK: Article URLs
     
     func articleURLComponentsBuilder(for host: String) -> APIURLComponentsBuilder {
         var components = URLComponents()
@@ -367,15 +367,15 @@ public class Configuration: NSObject {
         return components.wmf_URLWithLanguageVariantCode(languageVariantCode)
     }
     
-    //Uses format https://en.wikipedia.org/w/index.php?title=Main_Page
-    //As opposed to https://en.wikipedia.org/wiki/Main_Page
+    // Uses format https://en.wikipedia.org/w/index.php?title=Main_Page
+    // As opposed to https://en.wikipedia.org/wiki/Main_Page
     public func expandedArticleURLForHost(_ host: String, languageVariantCode: String?, queryParameters: [String: Any]?) -> URL? {
         let builder = expandedArticleURLComponentsBuilder(for: host)
         let components = builder.components(byAppending: [], queryParameters: queryParameters)
         return components.wmf_URLWithLanguageVariantCode(languageVariantCode)
     }
     
-    //MARK: Routing Helpers
+    // MARK: Routing Helpers
 
     public func isWikipediaHost(_ host: String?) -> Bool {
         guard let host = host else {

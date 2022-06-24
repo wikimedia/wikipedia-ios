@@ -74,7 +74,7 @@ class ViewController: ThemeableViewController, NavigationBarHiderDelegate {
         }
     }
     
-    // MARK - Close Button
+    // MARK: - Close Button
     
     @objc private func close() {
         navigationController?.popViewController(animated: true)
@@ -198,7 +198,7 @@ class ViewController: ThemeableViewController, NavigationBarHiderDelegate {
             showsNavigationBar = true
             ownsNavigationBar = false
             navigationBar = parentVC.navigationBar
-        }  else if let navigationController = navigationController {
+        } else if let navigationController = navigationController {
             ownsNavigationBar = true
             showsNavigationBar = (parent is UITabBarController || parent == navigationController) && navigationController.isNavigationBarHidden
             navigationBar.updateNavigationItems()
@@ -247,7 +247,7 @@ class ViewController: ThemeableViewController, NavigationBarHiderDelegate {
         updateScrollViewInsets()
     }
     
-    // MARK - Scroll View Insets
+    // MARK: - Scroll View Insets
     
     override func viewSafeAreaInsetsDidChange() {
         super.viewSafeAreaInsetsDidChange()
@@ -257,7 +257,7 @@ class ViewController: ThemeableViewController, NavigationBarHiderDelegate {
     
     var useNavigationBarVisibleHeightForScrollViewInsets: Bool = false
     
-    //override if needed to preserve scroll view inset animation
+    // override if needed to preserve scroll view inset animation
     public var shouldAnimateWhileUpdatingScrollViewInsets: Bool {
         return false
     }
@@ -334,11 +334,11 @@ class ViewController: ThemeableViewController, NavigationBarHiderDelegate {
     }
     
     @objc func keyboardWillHide(_ notification: Notification) {
-        //subclasses to override if needed
+        // subclasses to override if needed
     }
     
     @objc func keyboardWillShow(_ notification: Notification) {
-        //subclasses to override if needed
+        // subclasses to override if needed
     }
     
     // MARK: - Scrolling

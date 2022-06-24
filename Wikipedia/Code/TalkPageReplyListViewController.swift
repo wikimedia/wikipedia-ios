@@ -1,4 +1,3 @@
-
 import UIKit
 import CocoaLumberjackSwift
 
@@ -169,7 +168,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     override func keyboardDidChangeFrame(from oldKeyboardFrame: CGRect?, newKeyboardFrame: CGRect?) {
         super.keyboardDidChangeFrame(from: oldKeyboardFrame, newKeyboardFrame: newKeyboardFrame)
         
-        //animate content offset so text view is in window
+        // animate content offset so text view is in window
         guard let composeTextView = footerView?.composeTextView,
         let newKeyboardFrame = newKeyboardFrame,
         newKeyboardFrame.minY < (view.bounds.height - beKindInputAccessoryView.frame.height),
@@ -279,7 +278,7 @@ class TalkPageReplyListViewController: ColumnarCollectionViewController {
     }
 }
 
-//MARK: CollectionViewUpdaterDelegate
+// MARK: CollectionViewUpdaterDelegate
 
 extension TalkPageReplyListViewController: CollectionViewUpdaterDelegate {
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) where T : NSFetchRequestResult {
@@ -294,11 +293,11 @@ extension TalkPageReplyListViewController: CollectionViewUpdaterDelegate {
     }
     
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, updateItemAtIndexPath indexPath: IndexPath, in collectionView: UICollectionView) where T : NSFetchRequestResult {
-        //no-op
+        // no-op
     }
 }
 
-//MARK: Private
+// MARK: Private
 
 private extension TalkPageReplyListViewController {
     
@@ -414,7 +413,7 @@ private extension TalkPageReplyListViewController {
     }
 }
 
-//MARK: TalkPageReplyCellDelegate
+// MARK: TalkPageReplyCellDelegate
 
 extension TalkPageReplyListViewController: TalkPageReplyCellDelegate {
     func tappedLink(_ url: URL, cell: TalkPageReplyCell, sourceView: UIView, sourceRect: CGRect?) {
@@ -423,7 +422,7 @@ extension TalkPageReplyListViewController: TalkPageReplyCellDelegate {
     }
 }
 
-//MARK: ReplyButtonFooterViewDelegate
+// MARK: ReplyButtonFooterViewDelegate
 
 extension TalkPageReplyListViewController: ReplyButtonFooterViewDelegate {
     func composeTextDidChange(text: String?) {
@@ -442,7 +441,7 @@ extension TalkPageReplyListViewController: ReplyButtonFooterViewDelegate {
     }
 }
 
-//MARK: TalkPageHeaderViewDelegate
+// MARK: TalkPageHeaderViewDelegate
 
 extension TalkPageReplyListViewController: TalkPageHeaderViewDelegate {
     func tappedLink(_ url: URL, headerView: TalkPageHeaderView, sourceView: UIView, sourceRect: CGRect?) {
@@ -454,7 +453,7 @@ extension TalkPageReplyListViewController: TalkPageHeaderViewDelegate {
     }
 }
 
-//MARK: FakeProgressLoading
+// MARK: FakeProgressLoading
 
 extension TalkPageReplyListViewController: FakeProgressLoading {
 }

@@ -1,4 +1,3 @@
-
 struct WMFAuthLinkLabelStrings {
     /// String containing "%1$@" substring.
     var dollarSignString: String

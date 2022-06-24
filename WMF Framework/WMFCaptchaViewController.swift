@@ -1,4 +1,3 @@
-
 import UIKit
 
 // Presently it is assumed this view controller will be used only as a
@@ -22,7 +21,7 @@ extension UIStackView {
     }
 }
 
-@objc public protocol WMFCaptchaViewControllerDelegate{
+@objc public protocol WMFCaptchaViewControllerDelegate {
     func captchaReloadPushed(_ sender: AnyObject)
     func captchaSolutionChanged(_ sender: AnyObject, solutionText: String?)
     func captchaSiteURL() -> URL
@@ -51,7 +50,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
             guard let captcha = captcha else {
                 captchaTextField.text = nil
                 stackView.wmf_isCollapsed = true
-                return;
+                return
             }
             stackView.wmf_isCollapsed = false
             captchaTextField.text = ""
@@ -119,7 +118,7 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
             return nil
         }
         components.queryItems = nil
-        guard let url = components.url else{
+        guard let url = components.url else {
             assertionFailure("Could not extract url")
             return nil
         }
@@ -136,15 +135,13 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let captchaDelegate = captchaDelegate else{
+        guard let captchaDelegate = captchaDelegate else {
             assertionFailure("Required delegate is unset")
             return
         }
         
         assert(stackView.wmf_firstArrangedSubviewWithRequiredNonZeroHeightConstraint() == nil, stackView.wmf_anArrangedSubviewHasRequiredNonZeroHeightConstraintAssertString())
         
-        
-
         captcha = nil
         captchaTextFieldTitleLabel.text = WMFLocalizedString("field-captcha-title", value:"Enter the text you see above", comment: "Title for captcha field")
         captchaTextField.placeholder = WMFLocalizedString("field-captcha-placeholder", value:"CAPTCHA text", comment: "Placeholder text shown inside captcha field until user taps on it")

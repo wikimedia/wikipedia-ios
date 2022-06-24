@@ -19,7 +19,7 @@ class DeviceInfo {
         "iPad5", // iPad Air 2
         "iPhone6", // iPhone 5s
         "iPhone7", // iPhone 6
-        "iPod7", // iPod Touch (6th gen)
+        "iPod7" // iPod Touch (6th gen)
     ]
     
     lazy var isOlderDevice: Bool = {

@@ -1,4 +1,3 @@
-
 import Foundation
 enum SignificantEventsDecodeError: Error {
     case unableToParseIntoTypedEvents
@@ -61,8 +60,8 @@ public struct SignificantEvents: Decodable {
             }
         }
 
-        //zero untyped events is a valid case if the user has paged to the end of the endpoint cache
-        //unTypedEvents > 0 and typedEvents == 0 is invalid, meaning all events failed to convert
+        // zero untyped events is a valid case if the user has paged to the end of the endpoint cache
+        // unTypedEvents > 0 and typedEvents == 0 is invalid, meaning all events failed to convert
         guard typedEvents.count > 0 || untypedEvents.count == 0 else {
             throw SignificantEventsDecodeError.unableToParseIntoTypedEvents
         }
@@ -104,7 +103,7 @@ public struct SignificantEvents: Decodable {
     }
 }
 
-//MARK: Events
+// MARK: Events
 
 public extension SignificantEvents {
     
@@ -261,7 +260,7 @@ public extension SignificantEvents {
     }
 }
 
-//MARK: Changes
+// MARK: Changes
 
 public extension SignificantEvents {
     
@@ -345,7 +344,7 @@ public extension SignificantEvents {
     }
 }
 
-//MARK: Templates
+// MARK: Templates
 
 public extension SignificantEvents {
     
@@ -538,7 +537,7 @@ public extension SignificantEvents {
     
 }
 
-//MARK: Untyped
+// MARK: Untyped
 
 public extension SignificantEvents {
     struct UntypedEvent: Decodable {

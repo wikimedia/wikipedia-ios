@@ -23,7 +23,7 @@ open class WMFWelcomeAnimationBackgroundView: WMFWelcomeAnimationView {
             assertionFailure("Expected models")
             return nil
         }
-        return imageModels.map{ (model) in
+        return imageModels.map { (model) in
             let imgView = UIImageView()
             imgView.image = UIImage(named: model.name)
             imgView.contentMode = UIView.ContentMode.scaleAspectFit
@@ -32,13 +32,13 @@ open class WMFWelcomeAnimationBackgroundView: WMFWelcomeAnimationView {
         }
     }()
     
-    override open func addAnimationElementsScaledToCurrentFrameSize(){
+    override open func addAnimationElementsScaledToCurrentFrameSize() {
         super.addAnimationElementsScaledToCurrentFrameSize()
         removeExistingSubviewsAndSublayers()
         guard let imageViewsAndModels = imageViewsAndModels else {
             return
         }
-        imageViewsAndModels.forEach{ (imageViewAndModel) in
+        imageViewsAndModels.forEach { (imageViewAndModel) in
             addSubview(imageViewAndModel.imageView)
             // Start all images in the center. imageModel unitDestination assumes center origin.
             imageViewAndModel.imageView.center = CGPoint(x: bounds.midX, y: bounds.midY)
@@ -78,7 +78,7 @@ open class WMFWelcomeAnimationBackgroundView: WMFWelcomeAnimationView {
         guard let imageViewsAndModels = imageViewsAndModels else {
             return
         }
-        imageViewsAndModels.forEach{ (imageViewAndModel) in
+        imageViewsAndModels.forEach { (imageViewAndModel) in
             let dest = imageViewAndModel.model.unitDestination.wmf_denormalizeUsingSize(frame.size)
             let tx = CATransform3DMakeTranslation(dest.x, dest.y, 1.0)
             imageViewAndModel.imageView.layer.wmf_animateToOpacity(1.0, transform: tx, delay: imageViewAndModel.model.delay, duration: imageViewAndModel.model.duration)

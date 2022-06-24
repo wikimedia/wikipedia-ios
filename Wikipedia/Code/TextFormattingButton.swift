@@ -3,7 +3,7 @@ class TextFormattingButton: UIButton, Themeable {
     var kind: SectionEditorButton.Kind?
     
     override var isSelected: Bool {
-        didSet{
+        didSet {
             updateColors()
             if isSelected {
                 accessibilityLabel = kind?.selectedAccessibilityLabel

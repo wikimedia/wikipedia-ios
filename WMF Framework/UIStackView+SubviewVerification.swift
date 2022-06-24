@@ -6,7 +6,7 @@ public extension UIView {
                 constraint.firstAttribute == .height,
                 constraint.priority == UILayoutPriority.required,
                 constraint.constant != 0
-                else{
+                else {
                     return false
             }
             return true

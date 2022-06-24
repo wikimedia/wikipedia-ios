@@ -1,31 +1,31 @@
 import Foundation
 
 public enum RemoteNotificationType: Hashable {
-    case userTalkPageMessage //Message on your talk page
-    case mentionInTalkPage //Mention in article talk
-    case mentionInEditSummary //Mention in edit summary
-    case successfulMention //Successful mention
-    case failedMention //Failed mention
-    case editReverted //Edit reverted
-    case userRightsChange //Usage rights change
-    case pageReviewed //Page review
-    case pageLinked //Page link
-    case connectionWithWikidata //Wikidata link
-    case emailFromOtherUser //Email from other user
-    case thanks //Thanks
-    case translationMilestone(Int) //Translation milestone
-    case editMilestone //Editing milestone
-    case welcome //Welcome
-    case loginFailUnknownDevice //Failed log in from an unfamiliar device
-    case loginFailKnownDevice //Log in Notify
-    case loginSuccessUnknownDevice //Successful log in unfamiliar device
-    case unknownSystemAlert //No specific type ID, system alert type
-    case unknownSystemNotice //No specific type ID, system notice type
-    case unknownNotice //No specific type ID, notice type
-    case unknownAlert //No specific type ID, alert type
+    case userTalkPageMessage // Message on your talk page
+    case mentionInTalkPage // Mention in article talk
+    case mentionInEditSummary // Mention in edit summary
+    case successfulMention // Successful mention
+    case failedMention // Failed mention
+    case editReverted // Edit reverted
+    case userRightsChange // Usage rights change
+    case pageReviewed // Page review
+    case pageLinked // Page link
+    case connectionWithWikidata // Wikidata link
+    case emailFromOtherUser // Email from other user
+    case thanks // Thanks
+    case translationMilestone(Int) // Translation milestone
+    case editMilestone // Editing milestone
+    case welcome // Welcome
+    case loginFailUnknownDevice // Failed log in from an unfamiliar device
+    case loginFailKnownDevice // Log in Notify
+    case loginSuccessUnknownDevice // Successful log in unfamiliar device
+    case unknownSystemAlert // No specific type ID, system alert type
+    case unknownSystemNotice // No specific type ID, system notice type
+    case unknownNotice // No specific type ID, notice type
+    case unknownAlert // No specific type ID, alert type
     case unknown
     
-//Possible flow-related notifications to target. Leaving it to default handling for now but we may need to bring these in for special handling.
+// Possible flow-related notifications to target. Leaving it to default handling for now but we may need to bring these in for special handling.
 //    case flowUserTalkPageNewTopic //Message on your talk page
 //    case flowUserTalkPageReply //Reply on your talk page
 //    case flowDiscussionNewTopic //??
@@ -52,7 +52,7 @@ public extension RemoteNotificationType {
             return "notifications-type-link"
         case .thanks:
             return "notifications-type-thanks"
-        case .welcome, .translationMilestone(_), .editMilestone:
+        case .welcome, .translationMilestone, .editMilestone:
             return "notifications-type-milestone"
         case .loginFailKnownDevice, .loginFailUnknownDevice, .loginSuccessUnknownDevice,
              .unknownSystemAlert, .unknownAlert:
@@ -66,7 +66,7 @@ public extension RemoteNotificationType {
     
     func imageBackgroundColorWithTheme(_ theme: Theme) -> UIColor {
         switch self {
-        case .editMilestone, .translationMilestone(_), .welcome, .thanks:
+        case .editMilestone, .translationMilestone, .welcome, .thanks:
             return theme.colors.accent
         case .loginFailKnownDevice, .loginFailUnknownDevice, .loginSuccessUnknownDevice:
             return theme.colors.error
@@ -159,7 +159,7 @@ public extension RemoteNotificationType {
             return (.passive, 0.5)
         case .thanks:
             return (.active, 0.7)
-        case .translationMilestone(_):
+        case .translationMilestone:
             return (.passive, 0.5)
         case .editMilestone:
             return (.passive, 0.4)

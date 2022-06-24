@@ -2,7 +2,7 @@ import Foundation
 
 @objc
 public protocol Cancellable {
-    func cancel() -> Void
+    func cancel()
 }
 
 extension Operation: Cancellable {}

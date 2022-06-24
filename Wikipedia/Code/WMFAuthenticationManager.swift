@@ -1,9 +1,8 @@
-
 import CocoaLumberjackSwift
 
 @objc protocol WMFAuthenticationManagerDelegate: NSObjectProtocol {
     var loginSiteURL: URL? { get }
-    func authenticationManagerWillLogOut(completionHandler: @escaping ()->Void) // allows interested objects to perform authenticated clean up actions before log out
+    func authenticationManagerWillLogOut(completionHandler: @escaping () -> Void) // allows interested objects to perform authenticated clean up actions before log out
     func authenticationManagerDidLogin()
     func authenticationManagerDidReset()
 }
@@ -204,7 +203,7 @@ import CocoaLumberjackSwift
                 NotificationCenter.default.post(name: WMFAuthenticationManager.didLogInNotification, object: nil)
                 completion(.alreadyLoggedIn(result))
             }
-        }, failure:{ error in
+        }, failure: { error in
             DispatchQueue.main.async {
                 guard !(error is URLError) else {
                     self.loggedInUsername = userName
@@ -256,7 +255,7 @@ import CocoaLumberjackSwift
      *  Logs out any authenticated user and clears out any associated cookies
      */
     @objc(logoutInitiatedBy:completion:)
-    public func logout(initiatedBy logoutInitiator: LogoutInitiator, completion: @escaping () -> Void = {}){
+    public func logout(initiatedBy logoutInitiator: LogoutInitiator, completion: @escaping () -> Void = {}) {
         delegate?.authenticationManagerWillLogOut {
             if logoutInitiator == .app || logoutInitiator == .server {
                 self.isUserUnawareOfLogout = true

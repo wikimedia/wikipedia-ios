@@ -1,4 +1,3 @@
-
 import XCTest
 
 class ReadingListManualPerformanceTests: XCTestCase {

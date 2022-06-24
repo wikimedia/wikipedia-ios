@@ -1,4 +1,3 @@
-
 class DescriptionWelcomePanelViewController: UIViewController, Themeable {
     private var theme = Theme.standard
     func apply(theme: Theme) {
@@ -49,7 +48,7 @@ class DescriptionWelcomePanelViewController: UIViewController, Themeable {
         containerController.didMove(toParent: self)
     }
     
-    private func updateUIStrings(){
+    private func updateUIStrings() {
         switch pageType {
         case .intro:
             titleLabel.text = WMFLocalizedString("description-welcome-descriptions-title", value:"Article descriptions", comment:"Title text explaining article descriptions")

@@ -84,7 +84,7 @@ public enum ReadingListError: Error, Equatable {
     }
     
     public static func ==(lhs: ReadingListError, rhs: ReadingListError) -> Bool {
-        return lhs.localizedDescription == rhs.localizedDescription //shrug
+        return lhs.localizedDescription == rhs.localizedDescription // shrug
     }
 }
 

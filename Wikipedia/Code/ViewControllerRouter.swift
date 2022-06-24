@@ -34,7 +34,7 @@ class ViewControllerRouter: NSObject {
             }
         }
         
-        //pass along doesUseSimpleNavigationBar SinglePageWebViewController settings to the next one if needed
+        // pass along doesUseSimpleNavigationBar SinglePageWebViewController settings to the next one if needed
         if let lastWebVC = navigationController.children.last as? SinglePageWebViewController,
            let nextWebVC = viewController as? SinglePageWebViewController {
             nextWebVC.doesUseSimpleNavigationBar = lastWebVC.doesUseSimpleNavigationBar

@@ -9,7 +9,7 @@ extension UIView {
 }
 
 extension UIButton {
-    override open func wmf_configureSubviewsForDynamicType(){
+    override open func wmf_configureSubviewsForDynamicType() {
         guard let titleLabel = titleLabel else {
             return
         }
@@ -19,14 +19,14 @@ extension UIButton {
 }
 
 extension UILabel {
-    override open func wmf_configureSubviewsForDynamicType(){
+    override open func wmf_configureSubviewsForDynamicType() {
         adjustsFontForContentSizeCategory = true
         super.wmf_configureSubviewsForDynamicType()
     }
 }
 
 extension UITextField {
-    override open func wmf_configureSubviewsForDynamicType(){
+    override open func wmf_configureSubviewsForDynamicType() {
          adjustsFontForContentSizeCategory = true
         super.wmf_configureSubviewsForDynamicType()
     }

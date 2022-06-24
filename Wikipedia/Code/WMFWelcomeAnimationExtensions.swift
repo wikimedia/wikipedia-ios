@@ -7,7 +7,7 @@ extension CGFloat {
     func wmf_normalizeUsingReference (_ reference: CGFloat) -> CGFloat {
         return self / (reference == 0 ? 0.0000001 : reference)
     }
-    func wmf_radiansFromDegrees() -> CGFloat{
+    func wmf_radiansFromDegrees() -> CGFloat {
         return ((self) / 180.0 * CGFloat(Double.pi))
     }
 }
@@ -57,7 +57,7 @@ extension CGRect {
 }
 
 extension CALayer {
-    public func wmf_animateToOpacity(_ opacity: Double, transform: CATransform3D, delay: Double, duration: Double){
+    public func wmf_animateToOpacity(_ opacity: Double, transform: CATransform3D, delay: Double, duration: Double) {
         add(CABasicAnimation.wmf_animationToTransform(transform, delay: delay, duration: duration), forKey: nil)
         add(CABasicAnimation.wmf_animationToOpacity(opacity, delay: delay, duration: duration), forKey: nil)
     }
@@ -72,7 +72,7 @@ extension CABasicAnimation {
         anim.isRemovedOnCompletion = false
         anim.toValue = NSValue(caTransform3D: transform)
         anim.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        return anim;
+        return anim
     }
     class func wmf_animationToOpacity(_ opacity: Double, delay: Double, duration: Double) -> CABasicAnimation {
         let anim = CABasicAnimation(keyPath: "opacity")
@@ -82,7 +82,7 @@ extension CABasicAnimation {
         anim.isRemovedOnCompletion = false
         anim.toValue = opacity
         anim.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        return anim;
+        return anim
     }
 }
 

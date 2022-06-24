@@ -13,7 +13,7 @@ class SettingsFunnel: EventLoggingFunnel, EventLoggingStandardEventProviding {
         super.init(schema: "MobileWikiAppiOSSettingAction", version: 18064085)
     }
     
-    private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action) -> Dictionary<String, Any> {
+    private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action) -> [String: Any] {
         let category = category.rawValue
         let action = action.rawValue
         

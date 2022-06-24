@@ -42,7 +42,7 @@ extension WMFArticle {
         }
     }
     
-    //allows us to keep coordinate optional above
+    // allows us to keep coordinate optional above
     @objc public func update(scalarCoordinate: CLLocationCoordinate2D) {
         coordinate = CLLocationCoordinate2DIsValid(scalarCoordinate) ? scalarCoordinate : nil
     }
