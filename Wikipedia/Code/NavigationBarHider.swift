@@ -70,7 +70,7 @@ public class NavigationBarHider: NSObject {
         }
 
         if isProgramaticallyScrolling {
-            /// When programatically scrolling on a just-created scroll view, we need a layout pass to get accurate heights.
+            // When programatically scrolling on a just-created scroll view, we need a layout pass to get accurate heights.
             scrollView.layoutIfNeeded()
             navigationBar.layoutIfNeeded()
         }

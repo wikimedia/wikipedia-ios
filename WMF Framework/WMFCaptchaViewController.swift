@@ -6,11 +6,6 @@ import UIKit
 
 extension UIStackView {
     fileprivate var wmf_isCollapsed: Bool {
-        set {
-            for subview in arrangedSubviews {
-                subview.isHidden = newValue
-            }
-        }
         get {
             for subview in arrangedSubviews {
                 if !subview.isHidden {
@@ -18,6 +13,11 @@ extension UIStackView {
                 }
             }
             return true
+        }
+        set {
+            for subview in arrangedSubviews {
+                subview.isHidden = newValue
+            }
         }
     }
 }
@@ -63,15 +63,13 @@ class WMFCaptchaViewController: UIViewController, UITextFieldDelegate, Themeable
     }
     
     @objc var solution:String? {
-        get{
-            guard
-                let captchaSolution = captchaTextField.text,
-                !captchaSolution.isEmpty
-                else {
-                    return nil
-            }
-            return captchaTextField.text
+        guard
+            let captchaSolution = captchaTextField.text,
+            !captchaSolution.isEmpty
+            else {
+                return nil
         }
+        return captchaTextField.text
     }
 
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {

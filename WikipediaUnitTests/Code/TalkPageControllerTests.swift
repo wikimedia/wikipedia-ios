@@ -96,7 +96,7 @@ class TalkPageControllerTests: XCTestCase {
         let fetchRequest: NSFetchRequest<TalkPage> = TalkPage.fetchRequest()
         
         guard let firstResults = try? tempDataStore.viewContext.fetch(fetchRequest) else {
-            XCTFail()
+            XCTFail("Unable to fetch results from fetch request")
             return
         }
         
@@ -107,7 +107,7 @@ class TalkPageControllerTests: XCTestCase {
         do {
             try tempDataStore.save()
         } catch {
-            XCTFail()
+            XCTFail("Failure saving temporary data store")
         }
         
         

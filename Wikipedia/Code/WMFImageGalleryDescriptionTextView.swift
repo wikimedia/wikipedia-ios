@@ -22,9 +22,7 @@ private extension CGFloat {
 
     private let minHeight = 30
     private var maxPercentOfScreenHeight: Int {
-        get {
-            return openStatePercent.rawValue
-        }
+        return openStatePercent.rawValue
     }
     
     public var openStatePercent: GalleryDescriptionOpenStatePercent = .normal {

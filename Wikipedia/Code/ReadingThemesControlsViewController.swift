@@ -121,15 +121,15 @@ class ReadingThemesControlsViewController: UIViewController {
     }
     
     var isTextSizeSliderHidden: Bool {
+        get {
+            return textSizeSliderViews.first?.isHidden ?? false
+        }
         set {
             let _ = self.view //ensure view is loaded
             for slideView in textSizeSliderViews {
                 slideView.isHidden = newValue
             }
             updatePreferredContentSize()
-        }
-        get {
-            return textSizeSliderViews.first?.isHidden ?? false
         }
     }
     

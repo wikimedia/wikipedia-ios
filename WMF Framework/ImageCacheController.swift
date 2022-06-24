@@ -294,10 +294,8 @@ private extension ImageCacheController {
 
 fileprivate extension Error {
     var isCancellationError: Bool {
-        get {
-            let potentialCancellationError = self as NSError
-            return potentialCancellationError.domain == NSURLErrorDomain && potentialCancellationError.code == NSURLErrorCancelled
-        }
+        let potentialCancellationError = self as NSError
+        return potentialCancellationError.domain == NSURLErrorDomain && potentialCancellationError.code == NSURLErrorCancelled
     }
 }
 

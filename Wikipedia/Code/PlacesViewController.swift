@@ -64,13 +64,11 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
 
     fileprivate var _displayCountForTopPlaces: Int?
     fileprivate var displayCountForTopPlaces: Int {
-        get {
-            switch (self.currentSearchFilter) {
-            case .top:
-                return articleFetchedResultsController?.fetchedObjects?.count ?? 0
-            case .saved:
-                return _displayCountForTopPlaces ?? 0
-            }
+        switch (self.currentSearchFilter) {
+        case .top:
+            return articleFetchedResultsController?.fetchedObjects?.count ?? 0
+        case .saved:
+            return _displayCountForTopPlaces ?? 0
         }
     }
 
@@ -235,7 +233,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             defaults.wmf_setPlacesHasAppeared(true)
         }
 
-        /// Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
+        // Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
         (parent as? WMFAppViewController)?.navigationItem.backButtonTitle = title
         
         guard locationManager.isAuthorized else {
@@ -398,6 +396,9 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     fileprivate var _mapRegion: MKCoordinateRegion?
     
     fileprivate var mapRegion: MKCoordinateRegion? {
+        get {
+            return _mapRegion
+        }
         set {
             guard let value = newValue else {
                 _mapRegion = nil
@@ -425,10 +426,6 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             }
 
             mapView.setRegion(region, animated: true)
-        }
-        
-        get {
-            return _mapRegion
         }
     }
     
@@ -746,7 +743,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         for result in searchResults {
             guard let articleURL = result.articleURL(forSiteURL: siteURL),
                 let article = self.dataStore.viewContext.fetchOrCreateArticle(with: articleURL, updatedWith: result),
-                let _ = article.quadKey,
+                article.quadKey != nil,
                 let articleKey = article.key else {
                     continue
             }
@@ -837,9 +834,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     }
     
     var useOverlay: Bool {
-        get {
-            return traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular
-        }
+        return traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular
     }
     
     func updateLayout(_ traitCollection: UITraitCollection, animated: Bool) {
@@ -881,14 +876,10 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     
     let overlayMidHeight: CGFloat = 388
     var overlayMinHeight: CGFloat {
-        get {
-            return 100 + listAndSearchOverlaySliderHeightConstraint.constant
-        }
+        return 100 + listAndSearchOverlaySliderHeightConstraint.constant
     }
     var overlayMaxHeight: CGFloat {
-        get {
-            return view.bounds.size.height - listAndSearchOverlayContainerView.frame.minY - listAndSearchOverlayBottomConstraint.constant
-        }
+        return view.bounds.size.height - listAndSearchOverlayContainerView.frame.minY - listAndSearchOverlayBottomConstraint.constant
     }
 
     enum OverlayState {
@@ -991,9 +982,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     }
     
     var isViewModeOverlay: Bool {
-        get {
-            return traitBasedViewMode == .listOverlay || traitBasedViewMode == .searchOverlay
-        }
+        return traitBasedViewMode == .listOverlay || traitBasedViewMode == .searchOverlay
     }
     
     var traitBasedViewMode: ViewMode = .none {
@@ -1251,9 +1240,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         var baseQuadKey: QuadKey = 0
         var baseQuadKeyPrecision: QuadKeyPrecision = 0
         var location: CLLocation {
-            get {
-                return CLLocation(latitude: (latitudeSum + latitudeAdjustment)/CLLocationDegrees(articles.count), longitude: (longitudeSum + longitudeAdjustment)/CLLocationDegrees(articles.count))
-            }
+            return CLLocation(latitude: (latitudeSum + latitudeAdjustment)/CLLocationDegrees(articles.count), longitude: (longitudeSum + longitudeAdjustment)/CLLocationDegrees(articles.count))
         }
         
         init () {
@@ -1466,7 +1453,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             let identifier = ArticlePlace.identifierForArticles(articles: group.articles)
             
             //check for identical place already on the map
-            if let _ = annotationsToRemove.removeValue(forKey: identifier) {
+            if annotationsToRemove.removeValue(forKey: identifier) != nil {
                 continue
             }
             
@@ -1938,7 +1925,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     }
     
     @objc public func showNearbyArticles() {
-        guard let _ = view else { // force view instantiation
+        guard view != nil else { // force view instantiation
             return
         }
         
@@ -1952,7 +1939,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     
     @objc public func showArticleURL(_ articleURL: URL) {
         guard let article = dataStore.fetchArticle(with: articleURL), let title = articleURL.wmf_title,
-            let _ = view else { // force view instantiation
+            view != nil else { // force view instantiation
             return
         }
         let region = self.region(thatFits: [article])

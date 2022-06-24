@@ -5,7 +5,6 @@ disabled_rules:
     - comma
     - comment_spacing
     - compiler_protocol_init
-    - computed_accessors_order
     - control_statement
     - cyclomatic_complexity
     - empty_enum_arguments
@@ -17,7 +16,6 @@ disabled_rules:
     - function_body_length
     - function_parameter_count
     - identifier_name
-    - implicit_getter
     - is_disjoint
     - large_tuple
     - leading_whitespace
@@ -31,7 +29,6 @@ disabled_rules:
     - no_space_in_method_call
     - opening_brace
     - operator_whitespace
-    - orphaned_doc_comment
     - private_over_fileprivate
     - redundant_discardable_let
     - redundant_objc_attribute
@@ -41,7 +38,6 @@ disabled_rules:
     - return_arrow_whitespace
     - shorthand_operator
     - statement_position
-    - switch_case_alignment
     - syntactic_sugar
     - todo
     - trailing_comma
@@ -52,7 +48,5 @@ disabled_rules:
     - type_name
     - unneeded_break_in_switch
     - unused_closure_parameter
-    - unused_optional_binding
     - vertical_whitespace
     - void_return
-    - xctfail_message

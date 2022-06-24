@@ -77,7 +77,7 @@ class DiffContainerViewController: ViewController {
     
     private var isOnSecondRevisionInHistory: Bool {
             if type == .single,
-                let _ = toModel,
+                toModel != nil,
                 let fromModel = fromModel,
                 let firstRevision = firstRevision,
                 fromModel.revisionID == firstRevision.revisionID {
@@ -388,7 +388,7 @@ private extension DiffContainerViewController {
     }
     
     func midSetup() {
-        guard let _ = toModel else {
+        guard toModel != nil else {
             assertionFailure("Expecting at least toModel to be populated for this method.")
             return
         }
@@ -404,7 +404,7 @@ private extension DiffContainerViewController {
     
     func completeSetup() {
         
-        guard let _ = toModel,
+        guard toModel != nil,
             (fromModel != nil || isOnFirstRevisionInHistory) else {
                 assertionFailure("Both models must be populated at this point or needs to be on the first revision.")
                 return

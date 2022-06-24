@@ -109,8 +109,8 @@ public class WMFAccountLogin: Fetcher {
                         return id.hasSuffix("PasswordAuthenticationRequest")
                     }),
                         let fields = passwordAuthRequest["fields"] as? [String : AnyObject],
-                        let _ = fields["password"] as? [String : AnyObject],
-                        let _ = fields["retype"] as? [String : AnyObject]
+                        fields["password"] as? [String : AnyObject] != nil,
+                        fields["retype"] as? [String : AnyObject] != nil
                     {
                         failure(WMFAccountLoginError.temporaryPasswordNeedsChange(message))
                         return
@@ -122,7 +122,7 @@ public class WMFAccountLogin: Fetcher {
                         return id.hasSuffix("TOTPAuthenticationRequest")
                     }),
                         let fields = OATHTokenRequest["fields"] as? [String : AnyObject],
-                        let _ = fields["OATHToken"] as? [String : AnyObject]
+                        fields["OATHToken"] as? [String : AnyObject] != nil
                     {
                         failure(WMFAccountLoginError.needsOathTokenFor2FA(message))
                         return

@@ -26,7 +26,7 @@ class ViewControllerRouter: NSObject {
             }
         }
 
-        /// For Article as a Living Doc modal - fix the nav bar in place
+        // For Article as a Living Doc modal - fix the nav bar in place
         if navigationController.children.contains(where: { $0 is ArticleAsLivingDocViewController }) {
             if let vc = viewController as? SinglePageWebViewController, navigationController.modalPresentationStyle == .pageSheet {
                 vc.doesUseSimpleNavigationBar = true

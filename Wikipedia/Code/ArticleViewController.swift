@@ -468,10 +468,10 @@ class ArticleViewController: ViewController, HintPresenting {
             
             self.cacheController.syncCachedResources(url: self.articleURL, groupKey: groupKey) { (result) in
                 switch result {
-                    case .success(let itemKeys):
-                        DDLogDebug("successfully synced \(itemKeys.count) resources")
-                    case .failure(let error):
-                        DDLogDebug("failed to synced resources for \(groupKey): \(error)")
+                case .success(let itemKeys):
+                    DDLogDebug("successfully synced \(itemKeys.count) resources")
+                case .failure(let error):
+                    DDLogDebug("failed to synced resources for \(groupKey): \(error)")
                 }
             }
         }

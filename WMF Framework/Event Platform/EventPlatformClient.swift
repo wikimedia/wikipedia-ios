@@ -186,16 +186,14 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
      * representing a uniformly random 80-bit integer.
      */
     internal var sessionID: String {
-        get {
-            queue.sync {
-                guard let sID = _sessionID else {
-                    let newID = generateID()
-                    _sessionID = newID
-                    return newID
-                }
-
-                return sID
+        queue.sync {
+            guard let sID = _sessionID else {
+                let newID = generateID()
+                _sessionID = newID
+                return newID
             }
+
+            return sID
         }
     }
     private var _sessionID: String?

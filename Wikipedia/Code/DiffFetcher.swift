@@ -28,7 +28,7 @@ class DiffFetcher: Fetcher {
                 return
             }
             
-            guard let _ = urlResponse else {
+            guard urlResponse != nil else {
                 completion(.failure(DiffError.missingUrlResponseFailure))
                 return
             }

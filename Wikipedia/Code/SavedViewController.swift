@@ -218,14 +218,14 @@ class SavedViewController: ViewController {
         
         let savedArticlesWasNil = savedArticlesViewController == nil
         setSavedArticlesViewControllerIfNeeded()
-        if let _ = savedArticlesViewController,
+        if savedArticlesViewController != nil,
             currentView == .savedArticles,
             savedArticlesWasNil {
             //reassign so activeEditableCollection gets reset
             currentView = .savedArticles
         }
 
-        /// Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
+        // Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
         (parent as? WMFAppViewController)?.navigationItem.backButtonTitle = title
     }
     

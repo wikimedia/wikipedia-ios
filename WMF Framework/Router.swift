@@ -134,8 +134,8 @@ public class Router: NSObject {
             return defaultActivity
         }
         
-        if let _ = maybeLimit,
-            let _ = maybeDir,
+        if maybeLimit != nil,
+            maybeDir != nil,
             let action = maybeAction,
             action == "history" {
             //TODO: push history 'slice'

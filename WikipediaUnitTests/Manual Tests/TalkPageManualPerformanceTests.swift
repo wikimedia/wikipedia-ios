@@ -53,7 +53,7 @@ class TalkPageManualPerformanceTests: XCTestCase {
             }
             
             //update local copy
-            guard let _ = moc.updateTalkPage(talkPage, with: updatedNetworkTalkPage) else {
+            guard moc.updateTalkPage(talkPage, with: updatedNetworkTalkPage) != nil else {
                 XCTFail("Failure updating existing local talk page")
                 return
             }
@@ -91,7 +91,7 @@ class TalkPageManualPerformanceTests: XCTestCase {
             }
             
             //update local copy
-            guard let _ = moc.updateTalkPage(talkPage, with: updatedNetworkTalkPage) else {
+            guard moc.updateTalkPage(talkPage, with: updatedNetworkTalkPage) != nil else {
                 XCTFail("Failure updating existing local talk page")
                 return
             }

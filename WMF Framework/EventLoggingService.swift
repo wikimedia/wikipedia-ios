@@ -373,9 +373,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     }
     
     @objc public var isEnabled: Bool {
-        get {
-            return UserDefaults.standard.wmf_sendUsageReports
-        }
+        return UserDefaults.standard.wmf_sendUsageReports
     }
     
     @objc public var lastLoggedSnapshot: NSCoding? {

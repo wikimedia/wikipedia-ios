@@ -63,7 +63,7 @@ public class AlignedImageButton: UIButton {
         // (Details: The button image's width is calculated as 12, however on screen the image takes a width of 13.)
         let defaultSize = super.wmf_sizeThatFits(maximumSize)
 
-        guard let _ = self.image(for: .normal) else {
+        guard self.image(for: .normal) != nil else {
             // If image, it should layout fine.
             return defaultSize
         }

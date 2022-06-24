@@ -60,50 +60,46 @@ struct PlaceSearch {
     
     
     var key: String {
-        get {
-            var key = "\(type.rawValue)|\(filter.rawValue)|\(sortStyle.rawValue)"
-            if let searchResult = searchResult {
-                if let siteURL = siteURL, let articleURL = searchResult.articleURL(forSiteURL: siteURL), let articleKey = articleURL.wmf_databaseKey {
-                    key.append("|\(articleKey)")
-                } else {
-                    let lang = siteURL?.wmf_languageCode ?? ""
-                    key.append("|\(lang)|\(searchResult.displayTitle?.precomposedStringWithCanonicalMapping ?? "")")
-                }
-                
-            } else if let string = string {
-                key.append("|\(string.lowercased().precomposedStringWithCanonicalMapping)")
+        var key = "\(type.rawValue)|\(filter.rawValue)|\(sortStyle.rawValue)"
+        if let searchResult = searchResult {
+            if let siteURL = siteURL, let articleURL = searchResult.articleURL(forSiteURL: siteURL), let articleKey = articleURL.wmf_databaseKey {
+                key.append("|\(articleKey)")
+            } else {
+                let lang = siteURL?.wmf_languageCode ?? ""
+                key.append("|\(lang)|\(searchResult.displayTitle?.precomposedStringWithCanonicalMapping ?? "")")
             }
-            return key
+
+        } else if let string = string {
+            key.append("|\(string.lowercased().precomposedStringWithCanonicalMapping)")
         }
+        return key
     }
     
     var dictionaryValue: [String: NSCoding] {
-        get {
-            var dictionary: [String: NSCoding] = [:]
-            dictionary["type"] = NSNumber(value: type.rawValue)
-            dictionary["filter"] = NSNumber(value: filter.rawValue)
-            dictionary["origin"] = NSNumber(value: origin.rawValue)
-            dictionary["sortStyle"] = NSNumber(value: sortStyle.rawValue)
-            if let string = string {
-                dictionary["string"] = string as NSString
-            }
-            if let region = region {
-                dictionary["lat"] = NSNumber(value: region.center.latitude)
-                dictionary["lon"] = NSNumber(value: region.center.longitude)
-                dictionary["latd"] = NSNumber(value: region.span.latitudeDelta)
-                dictionary["lond"] = NSNumber(value: region.span.longitudeDelta)
-            }
-            if let localizedDescription = localizedDescription {
-                dictionary["localizedDescription"] = localizedDescription as NSString
-            }
-            if let result = searchResult {
-                dictionary["searchResult"] = result
-            }
-            if let siteURL = siteURL {
-                dictionary["siteURL"] = siteURL.absoluteString as NSString
-            }
-            return dictionary
+        var dictionary: [String: NSCoding] = [:]
+        dictionary["type"] = NSNumber(value: type.rawValue)
+        dictionary["filter"] = NSNumber(value: filter.rawValue)
+        dictionary["origin"] = NSNumber(value: origin.rawValue)
+        dictionary["sortStyle"] = NSNumber(value: sortStyle.rawValue)
+        if let string = string {
+            dictionary["string"] = string as NSString
         }
+        if let region = region {
+            dictionary["lat"] = NSNumber(value: region.center.latitude)
+            dictionary["lon"] = NSNumber(value: region.center.longitude)
+            dictionary["latd"] = NSNumber(value: region.span.latitudeDelta)
+            dictionary["lond"] = NSNumber(value: region.span.longitudeDelta)
+        }
+        if let localizedDescription = localizedDescription {
+            dictionary["localizedDescription"] = localizedDescription as NSString
+        }
+        if let result = searchResult {
+            dictionary["searchResult"] = result
+        }
+        if let siteURL = siteURL {
+            dictionary["siteURL"] = siteURL.absoluteString as NSString
+        }
+        return dictionary
     }
     
     init?(dictionary: [String: Any]) {
