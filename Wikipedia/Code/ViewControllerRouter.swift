@@ -94,7 +94,13 @@ class ViewControllerRouter: NSObject {
                 completion()
                 return false
             }
-            return presentOrPush(talkPageVC, with: completion)
+            let newTalkPage = TalkPageViewController(theme: theme)
+            if FeatureFlags.needsNewTalkPage {
+                return presentOrPush(newTalkPage, with: completion)
+            } else {
+                return presentOrPush(talkPageVC, with: completion)
+            }
+
         case .onThisDay(let indexOfSelectedEvent):
             let dataStore = appViewController.dataStore
             guard let contentGroup = dataStore.viewContext.newestVisibleGroup(of: .onThisDay, forSiteURL: dataStore.primarySiteURL), let onThisDayVC = contentGroup.detailViewControllerWithDataStore(dataStore, theme: theme) as? OnThisDayViewController else {

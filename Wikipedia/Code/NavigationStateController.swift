@@ -140,6 +140,14 @@ final class NavigationStateController: NSObject {
                 
                 let talkPageContainer = TalkPageContainerViewController.talkPageContainer(title: title, siteURL: siteURL, type: type, dataStore: dataStore, theme: theme)
                 navigationController.isNavigationBarHidden = true
+                
+                let newTalkPage = TalkPageViewController(theme: theme)
+                if FeatureFlags.needsNewTalkPage {
+                    navigationController.pushViewController(newTalkPage, animated: false)
+                } else {
+                    navigationController.pushViewController(talkPageContainer, animated: false)
+                }
+                
                 navigationController.pushViewController(talkPageContainer, animated: false)
             case (.talkPageReplyList, let info?):
                 guard
@@ -148,7 +156,13 @@ final class NavigationStateController: NSObject {
                 else {
                     return
                 }
-                talkPageContainerVC.pushToReplyThread(topic: talkPageTopic, animated: false)
+                
+                let newTalkPage = TalkPageViewController(theme: theme)
+                if FeatureFlags.needsNewTalkPage {
+                    navigationController.pushViewController(newTalkPage, animated: false)
+                } else {
+                    talkPageContainerVC.pushToReplyThread(topic: talkPageTopic, animated: false)
+                }
             case (.readingListDetail, let info?):
                 guard let readingList = managedObject(with: info.readingListURIString, in: moc) as? ReadingList else {
                     return

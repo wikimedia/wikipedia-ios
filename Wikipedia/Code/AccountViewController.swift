@@ -122,7 +122,13 @@ class AccountViewController: SubSettingsViewController {
                 
                 let loadingFlowController = TalkPageContainerViewController.talkPageContainer(title: title, siteURL: siteURL,  type: .user, dataStore: dataStore, theme: theme)
                 
-                self.navigationController?.pushViewController(loadingFlowController, animated: true)
+                let newTalkPage = TalkPageViewController(theme: theme)
+                if FeatureFlags.needsNewTalkPage {
+                    self.navigationController?.pushViewController(newTalkPage, animated: true)
+                } else {
+                    self.navigationController?.pushViewController(loadingFlowController, animated: true)
+                }
+                
             }
         default:
             break
