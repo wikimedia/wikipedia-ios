@@ -1585,6 +1585,9 @@
 		8330533023EF107D00123141 /* MediaListGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8330532D23EF107D00123141 /* MediaListGalleryViewController.swift */; };
 		8330533123EF107D00123141 /* MediaListGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8330532D23EF107D00123141 /* MediaListGalleryViewController.swift */; };
 		8330533323F0388E00123141 /* DataStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8330533223F0388E00123141 /* DataStoreTests.swift */; };
+		8334EC4C286A443B00929DF2 /* TalkPageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838790B22858009000067B1D /* TalkPageFetcher.swift */; };
+		8334EC4D286A443B00929DF2 /* TalkPageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838790B22858009000067B1D /* TalkPageFetcher.swift */; };
+		8334EC4E286A443C00929DF2 /* TalkPageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838790B22858009000067B1D /* TalkPageFetcher.swift */; };
 		8336F1432119BD6E000CDE02 /* MediaWikiAcceptLanguageMapping.json in Resources */ = {isa = PBXBuildFile; fileRef = 8336F1422119BD6E000CDE02 /* MediaWikiAcceptLanguageMapping.json */; };
 		8338AF8D21F7B33E000C4055 /* WMFLegacyFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 8338AF8B21F7B33E000C4055 /* WMFLegacyFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8338AF8E21F7B33E000C4055 /* WMFLegacyFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8338AF8C21F7B33E000C4055 /* WMFLegacyFetcher.m */; };
@@ -12386,6 +12389,7 @@
 				833B8C8B281AE2120021C12C /* RemoteNotificationsFunnel.swift in Sources */,
 				8382F8D020D9206000AE5250 /* ImageCollectionViewCell.swift in Sources */,
 				D8A42B371E815A9C00D8E281 /* WikiTextSectionUploader.m in Sources */,
+				8334EC4E286A443C00929DF2 /* TalkPageFetcher.swift in Sources */,
 				7A6ED51B20ADBF950001849F /* SettingsFunnel.swift in Sources */,
 				D8A42B3A1E815A9C00D8E281 /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
 				7AF8CEF022653406000B7676 /* InsertMediaSelectedImageView.swift in Sources */,
@@ -13100,6 +13104,7 @@
 				D8CE26151E698E2400DAE2E0 /* WMFLoginViewController.swift in Sources */,
 				67C6F79E27E8C51500B9C864 /* NotificationsCenterCommonViewModel+LinkExtensions.swift in Sources */,
 				8330532A23EF0B4200123141 /* ArticleViewController+Media.swift in Sources */,
+				8334EC4D286A443B00929DF2 /* TalkPageFetcher.swift in Sources */,
 				7A0161E11FE8B4CA00AEDC3D /* TagCollectionViewCell.swift in Sources */,
 				8330532F23EF107D00123141 /* MediaListGalleryViewController.swift in Sources */,
 				D837CC38231FE9CC00BA6130 /* ThemeableViewController.swift in Sources */,
@@ -13640,6 +13645,7 @@
 				D8EC3F141E9BDA35006712EB /* WMFLoginViewController.swift in Sources */,
 				67C6F79D27E8C51500B9C864 /* NotificationsCenterCommonViewModel+LinkExtensions.swift in Sources */,
 				8330532B23EF0B4200123141 /* ArticleViewController+Media.swift in Sources */,
+				8334EC4C286A443B00929DF2 /* TalkPageFetcher.swift in Sources */,
 				D837CC39231FE9CC00BA6130 /* ThemeableViewController.swift in Sources */,
 				8330533023EF107D00123141 /* MediaListGalleryViewController.swift in Sources */,
 				7A0161E21FE8B4CA00AEDC3D /* TagCollectionViewCell.swift in Sources */,
