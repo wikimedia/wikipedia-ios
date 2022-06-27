@@ -262,7 +262,7 @@ platform :ios do
     sh "xcodebuild -exportArchive -exportOptionsPlist ExportOptions.plist -archivePath \"#{build_dir}/#{product_name}.xcarchive\" -exportPath \"#{build_dir}\""
   end
 
-  desc "Pushes the production app to TestFlight and tags the release. Only releases to internal testers. (This is very similar to `push_production`, although this command also tags the build in git.)"
+  desc "Pushes both the production and staging app to TestFlight and tags the release. Only releases to internal testers. (This is very similar to `push_production`, although this command also tags the build in git.)"
   lane :deploy do |options|
     tag_prefix = "betas"
     last_build = get_latest_build_number(prefix: tag_prefix)
@@ -282,6 +282,7 @@ platform :ios do
 
     push_production(build: build, changelog: brief_changelog)
     tag(prefix: tag_prefix, build_number: build, message: full_changelog)
+    push_staging(build: build)
   end
 
   desc "Updates version, builds, and pushes the production build to TestFlight. Only releases to internal testers."
