@@ -47,7 +47,7 @@ struct NotificationsCenterOnboardingView: View {
 
     var body: some View {
         Group {
-            ScrollView() {
+            ScrollView {
                 VStack {
                     Spacer(minLength: 64)
                     Text(LocalizedStrings.title)

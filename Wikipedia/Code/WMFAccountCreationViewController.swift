@@ -1,4 +1,3 @@
-
 import UIKit
 
 class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewControllerDelegate, UITextFieldDelegate, UIScrollViewDelegate, Themeable {
@@ -155,7 +154,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         case emailField:
             if captchaIsVisible() {
                 captchaViewController?.captchaTextFieldBecomeFirstResponder()
-            }else{
+            } else {
                 save()
             }
         default:
@@ -220,7 +219,7 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
         let password = passwordField.text ?? ""
         dataStore.authenticationManager.login(username: username, password: password, retypePassword: nil, oathToken: nil, captchaID: nil, captchaWord: nil) { (loginResult) in
             switch loginResult {
-            case .success(_):
+            case .success:
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), self.usernameField.text ?? "")
                 WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                 if let start = self.startDate {

@@ -60,9 +60,9 @@ fileprivate var countPrefixRegex: NSRegularExpression? = {
 // lookup from translatewiki prefix to iOS-supported stringsdict key
 let keysByPrefix = [
     "0":"zero",
-    //"1":"one" digits on translatewiki mean only use the translation when the replacement number === that digit. On iOS one, two, and few are more generic. for example, the translation for one could map to 1, 21, 31, etc
-    //"2":"two",
-    //"3":"few"
+    // "1":"one" digits on translatewiki mean only use the translation when the replacement number === that digit. On iOS one, two, and few are more generic. for example, the translation for one could map to 1, 21, 31, etc
+    // "2":"two",
+    // "3":"few"
     "zero":"zero",
     "one":"one",
     "two":"two",
@@ -97,7 +97,7 @@ extension String {
         var location = 0
         for result in results {
             // append the next part of the string after the last match and before this one
-            format += nsSelf.substring(with: NSMakeRange(location, result.range.location - location)).iOSNativeLocalization(tokens: tokens)
+            format += nsSelf.substring(with: NSRange(location: location, length: result.range.location - location)).iOSNativeLocalization(tokens: tokens)
             location = result.range.location + result.range.length
             
             // get the contents of the match - the content between {{ and }}
@@ -204,7 +204,7 @@ extension String {
             format += "%#@\(key)@"
         }
         // append the final part of the string after the last match
-        format += nsSelf.substring(with: NSMakeRange(location, nsSelf.length - location)).iOSNativeLocalization(tokens: tokens)
+        format += nsSelf.substring(with: NSRange(location: location, length: nsSelf.length - location)).iOSNativeLocalization(tokens: tokens)
         mutableDictionary["NSStringLocalizedFormatKey"] = format
         return mutableDictionary
     }
@@ -296,15 +296,15 @@ func writeStrings(fromDictionary dictionary: NSDictionary, toFile: String) throw
     
     if let existingDictionary = NSDictionary(contentsOfFile: toFile) {
         shouldWrite = existingDictionary.count != dictionary.count
-        if (!shouldWrite) {
+        if !shouldWrite {
             for (key, value) in dictionary {
                 guard let value = value as? String, let existingValue = existingDictionary[key] as? NSString else {
                     shouldWrite = true
                     break
                 }
                 shouldWrite = !existingValue.isEqual(to: value)
-                if (shouldWrite) {
-                    break;
+                if shouldWrite {
+                    break
                 }
             }
         }
@@ -320,7 +320,7 @@ func writeStrings(fromDictionary dictionary: NSDictionary, toFile: String) throw
         try FileManager.default.createDirectory(atPath: folder, withIntermediateDirectories: true, attributes: nil)
     } catch { }
     let output = dictionary.descriptionInStringsFileFormat
-    try output.write(toFile: toFile, atomically: true, encoding: .utf16) //From Apple: Note: It is recommended that you save strings files using the UTF-16 encoding, which is the default encoding for standard strings files. It is possible to create strings files using other property-list formats, including binary property-list formats and XML formats that use the UTF-8 encoding, but doing so is not recommended. For more information about Unicode and its text encodings, go to http://www.unicode.org/ or http://en.wikipedia.org/wiki/Unicode.
+    try output.write(toFile: toFile, atomically: true, encoding: .utf16) // From Apple: Note: It is recommended that you save strings files using the UTF-16 encoding, which is the default encoding for standard strings files. It is possible to create strings files using other property-list formats, including binary property-list formats and XML formats that use the UTF-8 encoding, but doing so is not recommended. For more information about Unicode and its text encodings, go to http://www.unicode.org/ or http://en.wikipedia.org/wiki/Unicode.
 }
 
 // See "Localized Metadata" section here: https://docs.fastlane.tools/actions/deliver/
@@ -454,7 +454,7 @@ func importLocalizationsFromTWN(_ path: String) {
             "da": ["da"],
             "de": ["de-de"],
             "el": ["el"],
-            //"en": ["en-au", "en-ca", "en-gb"],
+            // "en": ["en-au", "en-ca", "en-gb"],
             "es": ["es-mx", "es-es"],
             "fi": ["fi"],
             "fr": ["fr-ca", "fr-fr"],
@@ -476,7 +476,7 @@ func importLocalizationsFromTWN(_ path: String) {
         ]
         
         let contents = try fm.contentsOfDirectory(atPath: "\(path)/Wikipedia/Localizations")
-        var pathsForEnglishPlurals: [String] = [] //write english plurals to these paths as placeholders
+        var pathsForEnglishPlurals: [String] = [] // write english plurals to these paths as placeholders
         var englishPluralDictionary: NSMutableDictionary?
         for filename in contents {
             guard let locale = filename.components(separatedBy: ".").first?.lowercased() else {

@@ -10,7 +10,7 @@ open class WMFWelcomeIntroductionAnimationView : WMFWelcomeAnimationView {
         return imgView
     }()
 
-    override open func addAnimationElementsScaledToCurrentFrameSize(){
+    override open func addAnimationElementsScaledToCurrentFrameSize() {
         super.addAnimationElementsScaledToCurrentFrameSize()
         removeExistingSubviewsAndSublayers()
         addSubview(image)

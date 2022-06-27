@@ -43,7 +43,7 @@ public final class WidgetController: NSObject {
     /// For requesting background time from widgets
     /// - Parameter userCompletion: the completion block to call with the result
     /// - Parameter task: block that takes the `MWKDataStore` to use for updates and the completion block to call when done as parameters
-    public func startWidgetUpdateTask<T>(_ userCompletion: @escaping (T) -> Void, _ task: @escaping (MWKDataStore, @escaping (T) -> Void) -> Void)  {
+    public func startWidgetUpdateTask<T>(_ userCompletion: @escaping (T) -> Void, _ task: @escaping (MWKDataStore, @escaping (T) -> Void) -> Void) {
         getRetainedSharedDataStore { dataStore in
             task(dataStore, { result in
                 DispatchQueue.main.async {

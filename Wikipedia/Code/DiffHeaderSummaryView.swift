@@ -1,4 +1,3 @@
-
 import UIKit
 
 class DiffHeaderSummaryView: UIView, Themeable {
@@ -17,8 +16,6 @@ class DiffHeaderSummaryView: UIView, Themeable {
         commonInit()
     }
     
-    
-
     func update(_ viewModel: DiffHeaderEditSummaryViewModel) {
 
         headingLabel.text = viewModel.heading

@@ -56,7 +56,7 @@ extension MobileviewToMobileHTMLConverter {
             return sectionDict
         }
         mobileviewDict["sections"] = sectionDictionaries
-        if (mobileviewDict["normalizedtitle"] == nil) {
+        if mobileviewDict["normalizedtitle"] == nil {
             mobileviewDict["normalizedtitle"] = articleURL.wmf_title
         }
         let jsonDict = ["mobileview": mobileviewDict]

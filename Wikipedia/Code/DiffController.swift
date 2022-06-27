@@ -1,4 +1,3 @@
-
 import Foundation
 
 
@@ -162,7 +161,7 @@ class DiffController {
         
         if let revisionRetrievingDelegate = revisionRetrievingDelegate {
             
-            //optimization - first try to grab a revision we might already have in memory from the revisionRetrievingDelegate
+            // optimization - first try to grab a revision we might already have in memory from the revisionRetrievingDelegate
             switch direction {
             case .next:
                 if let nextRevision = revisionRetrievingDelegate.retrieveNextRevision(with: sourceRevision) {
@@ -200,7 +199,7 @@ class DiffController {
                     let viewModels = try self.transformer.firstRevisionViewModels(from: wikitext, theme: theme, traitCollection: traitCollection)
 
                     completion(.success(viewModels))
-                } catch (let error) {
+                } catch let error {
                     completion(.failure(error))
                 }
             case .failure(let error):
@@ -249,7 +248,7 @@ class DiffController {
                     let viewModels = try self.transformer.viewModels(from: diffResponse, theme: theme, traitCollection: traitCollection)
 
                     completion(.success(viewModels))
-                } catch (let error) {
+                } catch let error {
                     completion(.failure(error))
                 }
             case .failure(let error):

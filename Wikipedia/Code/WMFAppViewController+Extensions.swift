@@ -87,7 +87,7 @@ extension WMFAppViewController {
 
 }
 
-//MARK: Notifications
+// MARK: Notifications
 
 extension WMFAppViewController: SettingsPresentationDelegate {
 
@@ -116,7 +116,7 @@ extension WMFAppViewController {
             return
         }
         
-        //If already displaying Notifications Center (or some part of it), exit early
+        // If already displaying Notifications Center (or some part of it), exit early
         if let notificationsCenterFlowViewController = topMostViewController.notificationsCenterFlowViewController {
             notificationsCenterFlowViewController.tappedPushNotification()
             return
@@ -224,7 +224,7 @@ extension EditingFlowViewController {
 /// View Controllers that are a part of the Notifications Center flow
 protocol NotificationsCenterFlowViewController where Self: UIViewController {
     
-    //hook called after the user taps a push notification while in the foregound.
-    //use if needed to tweak the view heirarchy to display the Notifications Center
+    // hook called after the user taps a push notification while in the foregound.
+    // use if needed to tweak the view heirarchy to display the Notifications Center
     func tappedPushNotification()
 }

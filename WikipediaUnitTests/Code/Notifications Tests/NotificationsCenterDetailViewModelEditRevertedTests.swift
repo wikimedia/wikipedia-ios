@@ -4,9 +4,7 @@ import XCTest
 class NotificationsCenterDetailViewModelEditRevertedTests: NotificationsCenterViewModelTests {
 
     override var dataFileName: String {
-        get {
-            return "notifications-editReverted"
-        }
+        return "notifications-editReverted"
     }
     
     func testEditRevertedOnUserTalkEdit() throws {

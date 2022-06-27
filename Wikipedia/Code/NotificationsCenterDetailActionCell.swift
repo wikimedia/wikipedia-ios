@@ -66,7 +66,7 @@ class NotificationsCenterDetailActionCell: UITableViewCell, ReusableCell {
             stackView.leadingAnchor.constraint(equalToSystemSpacingAfter: imageView.trailingAnchor, multiplier: 2),
             stackView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
             stackView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
+            stackView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
         ])
 
         titleLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)

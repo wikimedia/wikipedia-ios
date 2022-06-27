@@ -1,4 +1,3 @@
-
 import UIKit
 
 fileprivate enum WMFTwoFactorNextFirstResponderDirection: Int {
@@ -87,7 +86,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
             }
             return true
         case .shortNumeric:
-            return oathTokenFields.first(where:{ $0.text.wmf_safeCharacterCount == 0 }) == nil
+            return oathTokenFields.first(where: { $0.text.wmf_safeCharacterCount == 0 }) == nil
         }
     }
     
@@ -167,7 +166,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         // Disallow invalid characters.
-        guard (string.rangeOfCharacter(from: allowedCharacterSet().inverted) == nil) else {
+        guard string.rangeOfCharacter(from: allowedCharacterSet().inverted) == nil else {
             return false
         }
         // Always allow backspace.
@@ -178,7 +177,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         // Support numeric code pasting when showing individual digit UITextFields - i.e. when displayMode == .shortNumeric.
         // If displayMode == .shortNumeric 'string' has been verified to be comprised of decimal digits by this point.
         // Backup code (when displayMode == .longAlphaNumeric) pasting already works as-is because it uses a single UITextField.
-        if displayMode == .shortNumeric && string.count == oathTokenFields.count{
+        if displayMode == .shortNumeric && string.count == oathTokenFields.count {
             for (field, char) in zip(oathTokenFields, string) {
                 field.text = String(char)
             }
@@ -221,7 +220,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
         // Cast fields once here to set 'deleteBackwardDelegate' rather than casting everywhere else UITextField is expected.
         if let fields = oathTokenFields as? [WMFDeleteBackwardReportingTextField] {
             fields.forEach {$0.deleteBackwardDelegate = self}
-        }else{
+        } else {
             assertionFailure("Underlying oathTokenFields from storyboard were expected to be of type 'WMFDeleteBackwardReportingTextField'.")
         }
         
@@ -269,7 +268,7 @@ class WMFTwoFactorPasswordViewController: WMFScrollViewController, UITextFieldDe
 
         MWKDataStore.shared().authenticationManager.login(username: userName, password: password, retypePassword: nil, oathToken: token(), captchaID: captchaID, captchaWord: captchaWord) { (loginResult) in
             switch loginResult {
-            case .success(_):
+            case .success:
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), userName)
                 WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                 let presenter = self.presentingViewController

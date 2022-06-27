@@ -8,7 +8,7 @@ public class Action: UIAccessibilityCustomAction {
 
     public init(accessibilityTitle: String, icon: UIImage?, confirmationIcon: UIImage?, type: ActionType, indexPath: IndexPath, target: Any?, selector: Selector) {
         self.icon = icon
-        self.confirmationIcon = confirmationIcon;
+        self.confirmationIcon = confirmationIcon
         self.type = type
         self.indexPath = indexPath
         super.init(name: accessibilityTitle, target: target, selector: selector)
@@ -87,8 +87,8 @@ public class ActionsView: SizeThatFitsView, Themeable {
     
     public override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
         let superSize = super.sizeThatFits(size, apply: apply)
-        if (apply) {
-            if (size.width > 0 && needsSubviews) {
+        if apply {
+            if size.width > 0 && needsSubviews {
                 createSubviews(for: actions)
                 needsSubviews = false
             }
@@ -137,7 +137,7 @@ public class ActionsView: SizeThatFitsView, Themeable {
             button.titleLabel?.numberOfLines = 1
             button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
             button.tag = index
-            switch (action.type) {
+            switch action.type {
             case .delete:
                 button.backgroundColor = theme.colors.destructive
             case .share:
@@ -167,14 +167,14 @@ public class ActionsView: SizeThatFitsView, Themeable {
     @objc func willPerformAction(_ sender: UIButton) {
         activeSender = sender
         let action = actions[sender.tag]
-        let _ = delegate?.willPerformAction(action)
+        _ = delegate?.willPerformAction(action)
     }
     
     func updateConfirmationImage(for action: Action, completion: @escaping () -> Bool) -> Bool {
         if let image = action.confirmationIcon {
             activeSender?.setImage(image, for: .normal)
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
-                let _ = completion()
+                _ = completion()
             }
         } else {
             return completion()

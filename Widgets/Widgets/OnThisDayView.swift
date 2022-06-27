@@ -83,7 +83,6 @@ struct OnThisDayView: View {
 }
 
 struct LargeYValuePreferenceKey: PreferenceKey {
-    typealias value = CGFloat
     static var defaultValue: CGFloat = 20
     static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
         value = nextValue()
@@ -91,7 +90,6 @@ struct LargeYValuePreferenceKey: PreferenceKey {
 }
 
 struct SmallYValuePreferenceKey: PreferenceKey {
-    typealias value = CGFloat
     static var defaultValue: CGFloat = 20
     static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
         value = nextValue()
@@ -331,7 +329,7 @@ struct MainOnThisDayTopElement: View {
                         .font(.subheadline)
                         .foregroundColor(OnThisDayColors.blueColor(colorScheme))
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .overlay (
+                        .overlay(
                             GeometryReader { geometryProxy in
                               Color.clear
                                 .preference(key: LargeYValuePreferenceKey.self, value: startYOfCircle(viewHeight: geometryProxy.size.height, circleHeight: TimelineLargeCircleElement.largeCircleHeight, topPadding: eventYearPadding))
@@ -430,7 +428,7 @@ struct OnThisDayAdditionalEventsElement: View {
                 .foregroundColor(OnThisDayColors.blueColor(colorScheme))
                 .frame(maxWidth: .infinity, alignment: .topLeading)
             .padding(.top, 2)
-            .overlay (
+            .overlay(
                 GeometryReader { geometryProxy in
                   Color.clear
                     .preference(key: SmallYValuePreferenceKey.self, value: startYOfCircle(viewHeight: geometryProxy.size.height, circleHeight: TimelineSmallCircleElement.smallCircleHeight, topPadding: 0))

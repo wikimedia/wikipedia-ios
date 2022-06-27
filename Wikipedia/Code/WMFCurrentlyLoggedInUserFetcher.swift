@@ -1,4 +1,3 @@
-
 public enum WMFCurrentlyLoggedInUserFetcherError: LocalizedError {
     case cannotExtractUserInfo
     case userIsAnonymous
@@ -29,7 +28,7 @@ public typealias WMFCurrentlyLoggedInUserBlock = (WMFCurrentlyLoggedInUser) -> V
 }
 
 public class WMFCurrentlyLoggedInUserFetcher: Fetcher {
-    public func fetch(siteURL: URL, success: @escaping WMFCurrentlyLoggedInUserBlock, failure: @escaping WMFErrorHandler){
+    public func fetch(siteURL: URL, success: @escaping WMFCurrentlyLoggedInUserBlock, failure: @escaping WMFErrorHandler) {
         let parameters = [
             "action": "query",
             "meta": "userinfo",
@@ -51,7 +50,7 @@ public class WMFCurrentlyLoggedInUserFetcher: Fetcher {
                     failure(WMFCurrentlyLoggedInUserFetcherError.cannotExtractUserInfo)
                     return
             }
-            guard (userinfo["anon"] == nil) else {
+            guard userinfo["anon"] == nil else {
                 failure(WMFCurrentlyLoggedInUserFetcherError.userIsAnonymous)
                 return
             }

@@ -25,7 +25,7 @@ class SavedProgressViewController: UIViewController, Themeable {
         endProgressObservations()
     }
     
-    private func beginProgressObservations(){
+    private func beginProgressObservations() {
         // Observe any time a new Progress object is set. (NSProgress are not re-usable so you need to reset it if you're tracking a new progression)
         progressObjectWasSetObservation = ProgressContainer.shared.observe(\ProgressContainer.articleFetcherProgress, options: [.new, .initial]) { [weak self] (progressContainer, change) in
             self?.progressView.observedProgress = progressContainer.articleFetcherProgress
@@ -54,7 +54,7 @@ class SavedProgressViewController: UIViewController, Themeable {
         }
     }
 
-    private func endProgressObservations(){
+    private func endProgressObservations() {
         progressIsFinishedObservation?.invalidate()
         progressIsFinishedObservation = nil
         progressObjectWasSetObservation?.invalidate()

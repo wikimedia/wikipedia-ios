@@ -1,4 +1,3 @@
-
 extension UIView {
     func wmf_zeroLayerOpacity() {
         layer.opacity = 0

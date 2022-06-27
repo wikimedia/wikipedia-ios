@@ -1,4 +1,3 @@
-
 import Foundation
 
 /// Shared cache object used by the Notifications Service Extension for persisted values set in the main app, and vice versa.

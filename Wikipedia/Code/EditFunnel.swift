@@ -55,7 +55,7 @@
         }
     }
 
-    private func event(action: Action, source: EditFunnelSource? = nil, sessionToken: String? = nil, wikidataDescriptionEdit: WikidataDescriptionEdit? = nil, editSummaryType: EditSummaryViewCannedButtonType? = nil, abuseFilterName: String? = nil, errorText: String? = nil, revision: UInt64? = nil) -> Dictionary<String, Any> {
+    private func event(action: Action, source: EditFunnelSource? = nil, sessionToken: String? = nil, wikidataDescriptionEdit: WikidataDescriptionEdit? = nil, editSummaryType: EditSummaryViewCannedButtonType? = nil, abuseFilterName: String? = nil, errorText: String? = nil, revision: UInt64? = nil) -> [String: Any] {
         var event: [String : Any] = ["action": action.rawValue]
 
         if let source = source, let stringValue = source.stringValue {

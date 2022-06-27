@@ -151,7 +151,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
         return button
     }()
 
-    // MARK - UI Elements - Stacks
+    // MARK: - UI Elements - Stacks
 
     lazy var mainVerticalStackView: UIStackView = {
         let stackView = UIStackView()
@@ -370,7 +370,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
             foregroundContentContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             foregroundContentContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             foregroundContentContainer.topAnchor.constraint(equalTo: contentView.topAnchor),
-            foregroundContentContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            foregroundContentContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
 
         // Primary Hierarchy Constraints
@@ -390,7 +390,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
             cellSeparator.heightAnchor.constraint(equalToConstant: 0.5),
             cellSeparator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             cellSeparator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            cellSeparator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            cellSeparator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
 
         // Leading Image Constraints
@@ -427,13 +427,13 @@ final class NotificationsCenterCell: UICollectionViewCell {
             projectSourceLabel.trailingAnchor.constraint(equalTo: projectSourceContainer.trailingAnchor),
 
             projectSourceImage.topAnchor.constraint(equalTo: subheaderLabel.topAnchor),
-            projectSourceImage.trailingAnchor.constraint(equalTo: projectSourceContainer.trailingAnchor),
+            projectSourceImage.trailingAnchor.constraint(equalTo: projectSourceContainer.trailingAnchor)
         ])
 
         // Meta Content
 
         NSLayoutConstraint.activate([
-            metaImageView.widthAnchor.constraint(equalTo: metaImageView.heightAnchor),
+            metaImageView.widthAnchor.constraint(equalTo: metaImageView.heightAnchor)
         ])
 
         // Swipe Actions
@@ -461,7 +461,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
             swipeMarkAsReadUnreadActionButton.trailingAnchor.constraint(equalTo: swipeReadUnreadStack.trailingAnchor),
 
             swipeMoreStack.heightAnchor.constraint(equalTo: contentView.heightAnchor),
-            swipeReadUnreadStack.heightAnchor.constraint(equalTo: contentView.heightAnchor),
+            swipeReadUnreadStack.heightAnchor.constraint(equalTo: contentView.heightAnchor)
         ])
     }
 
@@ -503,7 +503,7 @@ final class NotificationsCenterCell: UICollectionViewCell {
     }
 }
 
-//MARK: - Private
+// MARK: - Private
 
 private extension NotificationsCenterCell {
     

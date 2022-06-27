@@ -137,7 +137,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         case passwordField:
             if captchaIsVisible() {
                 captchaViewController?.captchaTextFieldBecomeFirstResponder()
-            }else{
+            } else {
                 save()
             }
         default:
@@ -166,7 +166,7 @@ class WMFLoginViewController: WMFScrollViewController, UITextFieldDelegate, WMFC
         }
         dataStore.authenticationManager.login(username: username, password: password, retypePassword: nil, oathToken: nil, captchaID: captchaViewController?.captcha?.captchaID, captchaWord: captchaViewController?.solution) { (loginResult) in
             switch loginResult {
-            case .success(_):
+            case .success:
                 let loggedInMessage = String.localizedStringWithFormat(WMFLocalizedString("main-menu-account-title-logged-in", value:"Logged in as %1$@", comment:"Header text used when account is logged in. %1$@ will be replaced with current username."), self.usernameField.text ?? "")
                 WMFAlertManager.sharedInstance.showSuccessAlert(loggedInMessage, sticky: false, dismissPreviousAlerts: true, tapCallBack: nil)
                 self.loginSuccessCompletion?()

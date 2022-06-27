@@ -167,7 +167,7 @@ class FeaturedArticleWidget: ExtensionViewController, NCWidgetProviding {
             sizeThatFits = expandedArticleView.sizeThatFits(CGSize(width: maximumSize.width, height:UIView.noIntrinsicMetric), apply: true)
             expandedArticleView.frame = CGRect(origin: .zero, size:sizeThatFits)
         } else {
-            collapsedArticleView.imageViewDimension = maximumSize.height - 30 //hax
+            collapsedArticleView.imageViewDimension = maximumSize.height - 30 // hax
             sizeThatFits = collapsedArticleView.sizeThatFits(CGSize(width: maximumSize.width, height:UIView.noIntrinsicMetric), apply: true)
             collapsedArticleView.frame = CGRect(origin: .zero, size:sizeThatFits)
         }

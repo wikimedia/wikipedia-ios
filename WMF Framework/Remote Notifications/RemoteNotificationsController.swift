@@ -71,7 +71,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
         
         do {
             modelController = try RemoteNotificationsModelController(containerURL: FileManager.default.wmf_containerURL())
-        } catch (let error) {
+        } catch let error {
             DDLogError("Failed to initialize RemoteNotificationsModelController: \(error)")
             modelController = nil
         }
@@ -110,7 +110,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
             filterState = RemoteNotificationsFilterState(readStatus: .all, offTypes: [], offProjects: [])
             allInboxProjects = []
             try modelController?.resetDatabaseAndSharedCache()
-        } catch (let error) {
+        } catch let error {
             DDLogError("Error resetting notifications database on logout: \(error)")
         }
         
@@ -120,7 +120,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
         loadNotifications(force: true)
     }
     
-    //MARK: Public
+    // MARK: Public
     
     /// Fetches notifications from the server and saves them into the local database. Updates local database on a backgroundContext.
     /// - Parameters:
@@ -154,7 +154,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
                 do {
                     try self.updateAllInboxProjects()
                     completion?(.success(()))
-                } catch (let error) {
+                } catch let error {
                     completion?(.failure(error))
                 }
             case .failure(let error):
@@ -258,7 +258,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
             do {
                 let notifications = try modelController.fetchNotifications(fetchLimit: fetchLimit, fetchOffset: fetchOffset, predicate: predicate)
                 completion(.success(notifications))
-            } catch (let error) {
+            } catch let error {
                 completion(.failure(error))
             }
         }
@@ -329,7 +329,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
                 return
             }
             
-            //save to library
+            // save to library
             modelController.setFilterSettingsToLibrary(dictionary: filterState.serialize())
             
             NotificationCenter.default.post(name: RemoteNotificationsController.didUpdateFilterStateNotification, object: nil)
@@ -352,9 +352,9 @@ public enum RemoteNotificationsControllerError: LocalizedError {
         return true
     }
     
-    //MARK: Internal
+    // MARK: Internal
     
-    @objc func deleteLegacyDatabaseFiles() throws -> Void {
+    @objc func deleteLegacyDatabaseFiles() throws {
         
         guard let modelController = modelController else {
             throw RemoteNotificationsControllerError.databaseUnavailable
@@ -363,7 +363,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
         try modelController.deleteLegacyDatabaseFiles()
     }
     
-    //MARK: Private
+    // MARK: Private
     
     /// Pulls filter state from local persistence and saves it in memory
     private func populateFilterStateFromPersistence() {
@@ -402,7 +402,7 @@ public enum RemoteNotificationsControllerError: LocalizedError {
             readStatusPredicate = NSPredicate(format: "isRead == %@", NSNumber(value: false))
         }
         
-        //Note: The nature of the type and project predicates may feel backwards, but it allows unknown notification types to be caught by the filter `Other`. Writing these predicates by going through a list of types and projects toggled ON, with a predicate format of each like "categoryString IN %@ AND typeString IN %@" excludes unknown notification types when any filter is enabled. If the server started returning notifications with categoryString and typeStrings the app doesn't recognize (but is capable of displaying in a generic way), we would filter them generically as `other`. So instead we are going through a list of types and projects toggled OFF, and writing the predicates as "NOT (categoryString IN %@ AND typeString IN %@)" for notifications with known types. We're filtering projects in a similar manner for the sake of consistency.
+        // Note: The nature of the type and project predicates may feel backwards, but it allows unknown notification types to be caught by the filter `Other`. Writing these predicates by going through a list of types and projects toggled ON, with a predicate format of each like "categoryString IN %@ AND typeString IN %@" excludes unknown notification types when any filter is enabled. If the server started returning notifications with categoryString and typeStrings the app doesn't recognize (but is capable of displaying in a generic way), we would filter them generically as `other`. So instead we are going through a list of types and projects toggled OFF, and writing the predicates as "NOT (categoryString IN %@ AND typeString IN %@)" for notifications with known types. We're filtering projects in a similar manner for the sake of consistency.
         
         let offTypes = filterState.offTypes
         let onTypes = RemoteNotificationFilterType.orderingForFilters.filter {!offTypes.contains($0)}

@@ -1,4 +1,3 @@
-
 import XCTest
 @testable import Wikipedia
 @testable import WMF
@@ -21,7 +20,7 @@ fileprivate class MockSession: Session {
         do {
             let result: NetworkBase = try jsonDecodeData(data: data)
             completionHandler(result as? T, nil, nil)
-        } catch (let error) {
+        } catch let error {
             XCTFail("Talk Page json failed to decode \(error)")
         }
     

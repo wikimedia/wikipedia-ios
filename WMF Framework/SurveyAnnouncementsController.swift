@@ -1,4 +1,3 @@
-
 import Foundation
 
 @objc(WMFSurveyAnnouncementsController)
@@ -8,7 +7,7 @@ public final class SurveyAnnouncementsController: NSObject {
     
     private let queue = DispatchQueue(label: "SurveyAnnouncementsQueue")
     
-    //ex: 'en.wikipedia.org'
+    // ex: 'en.wikipedia.org'
     typealias AnnouncementsHost = String
     private var announcementsByHost: [AnnouncementsHost: [WMFAnnouncement]] = [:]
     
@@ -35,8 +34,8 @@ public final class SurveyAnnouncementsController: NSObject {
             announcementsByHost[host] = surveyAnnouncements
         }
         
-        //assign and persist ab test bucket &  percentage
-        //this works for now since we only have one experiment for this release but will likely need to change as we expand
+        // assign and persist ab test bucket &  percentage
+        // this works for now since we only have one experiment for this release but will likely need to change as we expand
         if let articleAsLivingDocAnnouncement = surveyAnnouncements.first(where: { ($0.identifier?.hasPrefix("IOSAAALDSURVEY")) ?? false }),
            let percentage = articleAsLivingDocAnnouncement.percentReceivingExperiment {
             
@@ -67,8 +66,8 @@ public final class SurveyAnnouncementsController: NSObject {
         return announcements
     }
     
-    //Use for determining whether to show user a survey prompt or not.
-    //Considers domain, campaign start/end dates, and whether articleURL is within allowlist of article titles in campaign
+    // Use for determining whether to show user a survey prompt or not.
+    // Considers domain, campaign start/end dates, and whether articleURL is within allowlist of article titles in campaign
     public func activeSurveyAnnouncementResultForArticleURL(_ articleURL: URL) -> SurveyAnnouncementResult? {
         
         guard let articleTitle = articleURL.wmf_title?.denormalizedPageTitle, let siteURL = articleURL.wmf_site else {

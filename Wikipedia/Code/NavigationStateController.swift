@@ -262,12 +262,12 @@ final class NavigationStateController: NSObject {
         let kind: ViewController.Kind?
         let info: Info?
         switch obj {
-            case let articleViewController as ArticleViewController:
-                kind = obj is RandomArticleViewController ? .random : .article
-                info = Info(articleKey: articleViewController.articleURL.wmf_databaseKey)
-            case let talkPageContainerVC as TalkPageContainerViewController:
-                kind = .talkPage
-                info = Info(talkPageSiteURLString: talkPageContainerVC.siteURL.absoluteString, talkPageTitle: talkPageContainerVC.talkPageTitle, talkPageTypeRawValue: talkPageContainerVC.type.rawValue)
+        case let articleViewController as ArticleViewController:
+            kind = obj is RandomArticleViewController ? .random : .article
+            info = Info(articleKey: articleViewController.articleURL.wmf_databaseKey)
+        case let talkPageContainerVC as TalkPageContainerViewController:
+            kind = .talkPage
+            info = Info(talkPageSiteURLString: talkPageContainerVC.siteURL.absoluteString, talkPageTitle: talkPageContainerVC.talkPageTitle, talkPageTypeRawValue: talkPageContainerVC.type.rawValue)
         default:
             kind = nil
             info = nil

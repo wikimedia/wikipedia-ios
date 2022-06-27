@@ -34,11 +34,11 @@ class PageHistoryViewController: ColumnarCollectionViewController {
         if batchComplete || isLoadingData {
             return false
         }
-        let maxY = collectionView.contentOffset.y + collectionView.frame.size.height + 200.0;
-        if (maxY >= collectionView.contentSize.height) {
+        let maxY = collectionView.contentOffset.y + collectionView.frame.size.height + 200.0
+        if maxY >= collectionView.contentSize.height {
             return true
         }
-        return false;
+        return false
     }
 
     private lazy var countsViewController = PageHistoryCountsViewController(pageTitle: pageTitle, locale: NSLocale.wmf_locale(for: pageURL.wmf_languageCode))
@@ -612,7 +612,7 @@ class PageHistoryViewController: ColumnarCollectionViewController {
 
             var sectionOffset = 0
             var fromItemIndex = indexPath.item + 1
-            //if last revision in section, go to next section for selecting second
+            // if last revision in section, go to next section for selecting second
             let isLastInSection = indexPath.item == section.items.count - 1
             
             if isLastInSection {
@@ -768,7 +768,7 @@ extension PageHistoryViewController: PageHistoryComparisonSelectionViewControlle
                 return
         }
 
-        //show older revision as "from" no matter what order was selected
+        // show older revision as "from" no matter what order was selected
         let fromRevision: WMFPageHistoryRevision
         let toRevision: WMFPageHistoryRevision
         if date1.compare(date2) == .orderedAscending {
@@ -816,7 +816,7 @@ extension PageHistoryViewController: DiffRevisionRetrieving {
                         
                         guard let previousSection = previousSection else {
                             
-                            //user tapped latest revision, no later revision available.
+                            // user tapped latest revision, no later revision available.
                             return nil
                         }
                         

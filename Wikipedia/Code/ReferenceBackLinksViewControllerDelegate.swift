@@ -60,6 +60,6 @@ extension ReferenceBackLinksViewControllerDelegate where Self: ViewController {
             return true
         }
 
-        return false //default
+        return false // default
     }
 }

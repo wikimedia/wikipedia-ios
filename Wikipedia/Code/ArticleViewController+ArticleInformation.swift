@@ -62,8 +62,6 @@ extension ArticleViewController {
     }
 }
 
-
-
 extension ArticleViewController: WMFLanguagesViewControllerDelegate {
     func languagesController(_ controller: WMFLanguagesViewController, didSelectLanguage language: MWKLanguageLink) {
         dismiss(animated: true) {

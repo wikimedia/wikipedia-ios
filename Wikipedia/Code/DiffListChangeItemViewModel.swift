@@ -1,4 +1,3 @@
-
 import Foundation
 
 final class DiffListChangeItemViewModel {
@@ -63,7 +62,7 @@ final class DiffListChangeItemViewModel {
         self.moveInfo = item.moveInfo
         self.semanticContentAttribute = semanticContentAttribute
         
-        //account for utf8 offsets in highlighted ranges
+        // account for utf8 offsets in highlighted ranges
         var convertedHighlightedRanges: [DiffHighlightRange] = []
         if let diffHighlightedRanges = item.highlightRanges {
             for diffHighlightedRange in diffHighlightedRanges {
@@ -133,7 +132,7 @@ final class DiffListChangeItemViewModel {
 
         var modifiedText = text
         
-        //additional move changes that are specific to the client
+        // additional move changes that are specific to the client
         if let moveIndex = moveInfo.groupedIndex {
             
             let moveIndexString = "  \(moveIndex + 1)  "
@@ -183,11 +182,11 @@ final class DiffListChangeItemViewModel {
             
             let mutableAttributedString = NSMutableAttributedString(string: modifiedText)
 
-            //insert move index number
+            // insert move index number
             let indexAttributedString = NSAttributedString(string: moveIndexString)
             mutableAttributedString.insert(indexAttributedString, at: 0)
             
-            //insert move arrow
+            // insert move arrow
             mutableAttributedString.insert(imageString, at:0)
             mutableAttributedString.addAttributes([NSAttributedString.Key.baselineOffset: -2], range: NSRange(location: 0, length: 1))
             

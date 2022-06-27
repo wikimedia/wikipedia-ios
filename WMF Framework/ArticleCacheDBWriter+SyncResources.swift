@@ -1,4 +1,3 @@
-
 import Foundation
 
 enum ArticleCacheDBWriterSyncError: Error {
@@ -32,7 +31,7 @@ extension ArticleCacheDBWriter {
         }
     }
         
-    //adds new resources to DB, returns old resources in completion
+    // adds new resources to DB, returns old resources in completion
     func syncResources(url: URL, groupKey: CacheController.GroupKey, completion: @escaping (Result<CacheDBWritingSyncSuccessResult, Error>) -> Void) {
         
         let mobileHTMLURL: URL
@@ -44,7 +43,7 @@ extension ArticleCacheDBWriter {
             mediaListURL  = try articleFetcher.mediaListURL(articleURL: url)
             mobileHTMLRequest = try articleFetcher.mobileHTMLRequest(articleURL: url)
             mediaListRequest = try articleFetcher.mobileHTMLMediaListRequest(articleURL: url)
-        } catch (let error) {
+        } catch let error {
            completion(.failure(error))
            return
         }
@@ -72,7 +71,7 @@ extension ArticleCacheDBWriter {
             switch result {
             case .success(let urls):
                 
-                //package offline resource urls into NetworkItems
+                // package offline resource urls into NetworkItems
                 let offlineResourceItems = urls.offlineResourcesURLs.compactMap { (url) -> NetworkItem? in
                     guard let itemKey = self.articleFetcher.itemKeyForURL(url, type: .article) else {
                         return nil
@@ -88,7 +87,7 @@ extension ArticleCacheDBWriter {
                     return NetworkItem(itemKeyAndVariant: itemKeyAndVariant, url: url, urlRequest: urlRequest, cacheItem: nil)
                 }
                 
-                //begin package media list urls into NetworkItems
+                // begin package media list urls into NetworkItems
                 let mediaListItems = urls.mediaListURLs.compactMap { (url) -> NetworkItem? in
                     guard let itemKey = self.articleFetcher.itemKeyForURL(url, type: .image) else {
                         return nil
@@ -104,7 +103,7 @@ extension ArticleCacheDBWriter {
                     return NetworkItem(itemKeyAndVariant: itemKeyAndVariant, url: url, urlRequest: urlRequest, cacheItem: nil)
                 }
                 
-                //group into dictionary of the same itemKey for use in filtering out variants
+                // group into dictionary of the same itemKey for use in filtering out variants
                 var similarItemsDictionary: [CacheController.ItemKey: [NetworkItem]] = [:]
                 for item in mediaListItems {
                     if var existingItems = similarItemsDictionary[item.itemKeyAndVariant.itemKey] {
@@ -115,7 +114,7 @@ extension ArticleCacheDBWriter {
                     }
                 }
                 
-                //filter out any variants that image cache controller should not download (i.e. multiple sizes of the same image)
+                // filter out any variants that image cache controller should not download (i.e. multiple sizes of the same image)
                 var finalMediaListItems: [NetworkItem] = []
                 for item in mediaListItems {
                     guard let similarItems = similarItemsDictionary[item.itemKeyAndVariant.itemKey] else {
@@ -127,9 +126,9 @@ extension ArticleCacheDBWriter {
                         finalMediaListItems.append(item)
                     }
                 }
-                //end package media list urls into NetworkItems
+                // end package media list urls into NetworkItems
                 
-                //begin image info urls into NetworkItems
+                // begin image info urls into NetworkItems
                 let imageInfoItems = urls.imageInfoURLs.compactMap { (url) -> NetworkItem? in
                     guard let itemKey = self.articleFetcher.itemKeyForURL(url, type: .imageInfo) else {
                         return nil
@@ -144,8 +143,8 @@ extension ArticleCacheDBWriter {
                     return NetworkItem(itemKeyAndVariant: itemKeyAndVariant, url: url, urlRequest: urlRequest, cacheItem: nil)
                 }
                 
-                //consolidate list of network items to compare with downloaded cached items
-                //remove list also contains mobile-html & media-list urls for comparison purposes only, otherwise it will think they should be removed from cache.
+                // consolidate list of network items to compare with downloaded cached items
+                // remove list also contains mobile-html & media-list urls for comparison purposes only, otherwise it will think they should be removed from cache.
                 let networkItemsForAdd: Set<NetworkItem> = Set(offlineResourceItems + finalMediaListItems + imageInfoItems)
                 let networkItemsForRemove: Set<NetworkItem> = Set([mobileHTMLNetworkItem] + [mediaListNetworkItem] + offlineResourceItems + finalMediaListItems + imageInfoItems)
                 
@@ -174,14 +173,14 @@ extension ArticleCacheDBWriter {
                     
                     let downloadedCacheItemsSet = Set(downloadedCacheItems)
                     
-                    //determine final set of new items that need to be cached
+                    // determine final set of new items that need to be cached
                     let filteredNewItems = networkItemsForAdd.subtracting(downloadedCacheItemsSet)
                     let filteredNewURLRequests = filteredNewItems.compactMap { $0.urlRequest }
                     
-                    //determine set of old items that need to be removed
+                    // determine set of old items that need to be removed
                     let filteredOldItems = downloadedCacheItemsSet.subtracting(networkItemsForRemove)
                     
-                    //create list of unique item key and variants (those with 1 cache group) to return to CacheController for file deletion. Otherwise delete from group.
+                    // create list of unique item key and variants (those with 1 cache group) to return to CacheController for file deletion. Otherwise delete from group.
                     var uniqueOldItemKeyAndVariants: [CacheController.ItemKeyAndVariant] = []
                     for filteredOldItem in filteredOldItems {
                         if let cacheItem = filteredOldItem.cacheItem {
@@ -193,7 +192,7 @@ extension ArticleCacheDBWriter {
                         }
                     }
                     
-                    //cache nonCached urls
+                    // cache nonCached urls
                     self.cacheItems(groupKey: groupKey, items: filteredNewItems) { (result) in
                         switch result {
                         case .success:
@@ -223,7 +222,7 @@ extension ArticleCacheDBWriter {
             for item in items {
                 
                 guard let url = item.url,
-                    let _ = item.urlRequest else {
+                    item.urlRequest != nil else {
                         assertionFailure("These need to be populated at this point. They are only optional to be able to compare cleanly with a set of converted CacheItems to NetworkItems")
                         continue
                 }

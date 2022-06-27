@@ -8,8 +8,8 @@ enum NotificationsCenterUpdateType {
     case emptyContent
     case toolbarDisplay
     case toolbarContent
-    case reconfigureCells([NotificationsCenterCellViewModel]) //reconfigures cells without instantiating new cells or updating the snapshot
-    case updateSnapshot([NotificationsCenterCellViewModel]) //updates the snapshot for inserting / deleting cells
+    case reconfigureCells([NotificationsCenterCellViewModel]) // reconfigures cells without instantiating new cells or updating the snapshot
+    case updateSnapshot([NotificationsCenterCellViewModel]) // updates the snapshot for inserting / deleting cells
     case endRefreshing
 }
 
@@ -38,8 +38,8 @@ final class NotificationsCenterViewModel: NSObject {
     private var isLoading: Bool = false {
         didSet {
             
-            //This setter may be called often due to quickly firing NSNotifications.
-            //Don't allow a view update unless something has actually changed.
+            // This setter may be called often due to quickly firing NSNotifications.
+            // Don't allow a view update unless something has actually changed.
             if oldValue != isLoading {
                 var updateTypes: [NotificationsCenterUpdateType] = [.emptyContent, .toolbarContent]
                 if !isLoading {
@@ -77,7 +77,7 @@ final class NotificationsCenterViewModel: NSObject {
         NotificationCenter.default.removeObserver(self)
     }
     
-    //MARK: NSNotifications
+    // MARK: NSNotifications
     
     @objc func contextObjectsDidChange(_ notification: NSNotification) {
         
@@ -86,7 +86,7 @@ final class NotificationsCenterViewModel: NSObject {
         
         let insertedNotificationsToDisplay = notificationsToDisplayFromManagedObjectContextInsert(insertedNotifications: insertedNotifications)
         
-        guard (refreshedNotifications.count > 0 || insertedNotificationsToDisplay.count > 0) else {
+        guard refreshedNotifications.count > 0 || insertedNotificationsToDisplay.count > 0 else {
             return
         }
         
@@ -109,14 +109,14 @@ final class NotificationsCenterViewModel: NSObject {
     
     private func notificationsToDisplayFromManagedObjectContextInsert(insertedNotifications: Set<RemoteNotification>) -> Set<RemoteNotification> {
         
-        //run new notifications through saved filter so we're not inserting objects that shouldn't display
+        // run new notifications through saved filter so we're not inserting objects that shouldn't display
         var notificationsToDisplay = insertedNotifications
         if let predicate = remoteNotificationsController.filterPredicate {
             notificationsToDisplay = (insertedNotifications as NSSet).filtered(using: predicate) as? Set<RemoteNotification> ?? insertedNotifications
         }
         
-        //do not insert any notifications older than the oldest displayed notification.
-        //subsequent page fetches should eventually pull these
+        // do not insert any notifications older than the oldest displayed notification.
+        // subsequent page fetches should eventually pull these
         if let oldestDisplayedDate = modelController.oldestDisplayedNotificationDate {
             notificationsToDisplay = notificationsToDisplay.filter({ notification in
                 if let notificationDate = notification.date {
@@ -132,8 +132,8 @@ final class NotificationsCenterViewModel: NSObject {
     }
     
     @objc private func remoteNotificationsControllerDidUpdateFilterState() {
-        //Not doing anything here yet
-        //Because filter screen disapperances call self.resetAndRefreshData from the view controller, which fetches the first page again and relays state changes back to the view controller, there's no need to react to this notification.
+        // Not doing anything here yet
+        // Because filter screen disapperances call self.resetAndRefreshData from the view controller, which fetches the first page again and relays state changes back to the view controller, there's no need to react to this notification.
     }
     
     @objc private func loadingDidStart() {
@@ -200,7 +200,7 @@ final class NotificationsCenterViewModel: NSObject {
     
     func markAllAsSeen() {
         
-        //do not mark as seen if view is showing an empty state due to filters or loading
+        // do not mark as seen if view is showing an empty state due to filters or loading
         if modelController.countOfTrackingModels == 0 && (remoteNotificationsController.areFiltersEnabled || remoteNotificationsController.isLoadingNotifications) {
             return
         }
@@ -234,8 +234,8 @@ final class NotificationsCenterViewModel: NSObject {
                 
                 self.delegate?.update(types: updateTypes)
                 
-                //This allows the collection view to react to new inserted or updated objects from a refresh or mark as read/unread call.
-                //But we don't care to listen for it until after the first page is already fetched from the database and is displaying on screen.
+                // This allows the collection view to react to new inserted or updated objects from a refresh or mark as read/unread call.
+                // But we don't care to listen for it until after the first page is already fetched from the database and is displaying on screen.
                 self.remoteNotificationsController.addObserverForViewContextChanges(observer: self, selector: #selector(self.contextObjectsDidChange(_:)))
             case .failure(let error):
                 DDLogError("Error fetching first page of notifications: \(error)")
@@ -390,11 +390,11 @@ extension NotificationsCenterViewModel {
     }
 }
 
-//MARK: - Empty State
+// MARK: - Empty State
 
 extension NotificationsCenterViewModel {
     
-    //MARK: Public
+    // MARK: Public
     
     var emptyStateHeaderText: String {
         return NotificationsCenterView.EmptyOverlayStrings.noUnreadMessages

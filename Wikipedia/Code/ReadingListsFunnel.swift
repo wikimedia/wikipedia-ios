@@ -15,7 +15,7 @@
         super.init(schema: "MobileWikiAppiOSReadingLists", version: 18280648)
     }
     
-    private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measure: Int = 1, measureAge: Int? = nil, measurePosition: Int? = nil) -> Dictionary<String, Any> {
+    private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measure: Int = 1, measureAge: Int? = nil, measurePosition: Int? = nil) -> [String: Any] {
         let category = category.rawValue
         let action = action.rawValue
         

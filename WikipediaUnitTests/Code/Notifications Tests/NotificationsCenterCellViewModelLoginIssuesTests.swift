@@ -4,9 +4,7 @@ import XCTest
 class NotificationsCenterCellViewModelLoginIssuesTests: NotificationsCenterViewModelTests {
 
     override var dataFileName: String {
-        get {
-            return "notifications-loginIssues"
-        }
+        return "notifications-loginIssues"
     }
     
     func testLoginFailKnownDevice() throws {

@@ -12,11 +12,9 @@ fileprivate var fontSizeMultipliers: [Int] {
 }
 
 fileprivate var indexOfCurrentFontSize: Int {
-    get {
-        let fontSize = UserDefaults.standard.wmf_articleFontSizeMultiplier()
-        let index = fontSizeMultipliers.firstIndex(of: fontSize.intValue) ?? fontSizeMultipliers.count / 2
-        return index
-    }
+    let fontSize = UserDefaults.standard.wmf_articleFontSizeMultiplier()
+    let index = fontSizeMultipliers.firstIndex(of: fontSize.intValue) ?? fontSizeMultipliers.count / 2
+    return index
 }
 
 protocol ReadingThemesControlsPresenting: UIPopoverPresentationControllerDelegate {
@@ -149,6 +147,6 @@ extension ReadingThemesControlsArticlePresenter: ReadingThemesControlsResponding
     }
     
     func toggleSyntaxHighlighting(_ controller: ReadingThemesControlsViewController) {
-        //do nothing
+        // do nothing
     }
 }

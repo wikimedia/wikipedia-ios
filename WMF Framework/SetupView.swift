@@ -6,7 +6,7 @@ open class SetupView: UIView {
     open func setup() {
     }
     
-    // MARK - Initializers
+    // MARK: - Initializers
     // Don't override these initializers, use setup() instead
     
     public override init(frame: CGRect) {

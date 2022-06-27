@@ -166,7 +166,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         
         descriptionLabel.isHidden = !descriptionLabel.wmf_hasText
         
-        if (apply && !isStatusViewHidden) {
+        if apply && !isStatusViewHidden {
             let x = isArticleRTL ? titleLabel.frame.minX - spacing - statusViewDimension : titleLabel.frame.maxX + spacing
             let statusViewFrame = CGRect(x: x, y: (titleLabel.frame.midY - 0.5 * statusViewDimension), width: statusViewDimension, height: statusViewDimension)
             statusView.frame = statusViewFrame
@@ -179,17 +179,17 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         let separatorXPositon: CGFloat = 0
         let separatorWidth = size.width
         
-        if (apply) {
-            if (!bottomSeparator.isHidden) {
+        if apply {
+            if !bottomSeparator.isHidden {
                 bottomSeparator.frame = CGRect(x: separatorXPositon, y: height - singlePixelDimension, width: separatorWidth, height: singlePixelDimension)
             }
             
-            if (!topSeparator.isHidden) {
+            if !topSeparator.isHidden {
                 topSeparator.frame = CGRect(x: separatorXPositon, y: 0, width: separatorWidth, height: singlePixelDimension)
             }
         }
         
-        if (apply) {
+        if apply {
             let imageViewY = floor(0.5*height - 0.5*imageViewDimension)
             var x = layoutMargins.right
             if !isArticleRTL {
@@ -204,7 +204,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             yAlignedWithImageBottom -= layoutMargins.bottom
         }
         
-        if (apply && !isAlertButtonHidden) {
+        if apply && !isAlertButtonHidden {
             let effectiveImageDimension = isImageViewHidden ? 0 : imageViewDimension + spacing
             let xPosition = isArticleRTL ? layoutMargins.right + effectiveImageDimension : layoutMargins.left
             let maxButtonHeight: CGFloat = 44
@@ -214,7 +214,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             alertButton.wmf_preferredFrame(at: origin, maximumSize: CGSize(width: availableWidth, height: maxButtonHeight), minimumSize: .zero, horizontalAlignment: isArticleRTL ? .right : .left, verticalAlignment: .bottom, apply: apply)
         }
         
-        if (apply && !isTagsViewHidden) {
+        if apply && !isTagsViewHidden {
             collectionViewAvailableWidth = widthMinusMargins
             collectionView.frame = CGRect(x: origin.x, y: yAlignedWithImageBottom, width: collectionViewAvailableWidth, height: collectionViewHeight)
             collectionView.semanticContentAttribute = articleSemanticContentAttribute

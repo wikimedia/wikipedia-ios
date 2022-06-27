@@ -1,4 +1,3 @@
-
 import UIKit
 
 protocol TalkPageHeaderViewDelegate: AnyObject {
@@ -152,7 +151,7 @@ class TalkPageHeaderView: UIView {
         delegate?.tappedIntro(headerView: self)
     }
     
-    // MARK - Dynamic Type
+    // MARK: - Dynamic Type
     // Only applies new fonts if the content size category changes
     
     open override func setNeedsLayout() {
@@ -197,7 +196,7 @@ extension TalkPageHeaderView: Themeable {
     }
 }
 
-//MARK: UITextViewDelegate
+// MARK: UITextViewDelegate
 
 extension TalkPageHeaderView: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {

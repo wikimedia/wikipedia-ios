@@ -9686,6 +9686,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D499146A181D51DF00E6073C /* Build configuration list for PBXNativeTarget "Wikipedia" */;
 			buildPhases = (
+				00966EAA284033ED006C6E27 /* SwiftLint */,
 				D4991431181D51DE00E6073C /* Sources */,
 				D4991432181D51DE00E6073C /* Frameworks */,
 				D4991433181D51DE00E6073C /* Resources */,
@@ -9802,6 +9803,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D8A42C211E815A9C00D8E281 /* Build configuration list for PBXNativeTarget "User Testing" */;
 			buildPhases = (
+				00966EAD28403EA7006C6E27 /* SwiftLint */,
 				D8A42A561E815A9C00D8E281 /* Sources */,
 				D8A42B9B1E815A9C00D8E281 /* Frameworks */,
 				D8A42BB21E815A9C00D8E281 /* Resources */,
@@ -9840,6 +9842,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D8CE26A81E698E2400DAE2E0 /* Build configuration list for PBXNativeTarget "Experimental" */;
 			buildPhases = (
+				00966EAC28403E80006C6E27 /* SwiftLint */,
 				D8CE24E01E698E2400DAE2E0 /* Sources */,
 				D8CE261E1E698E2400DAE2E0 /* Frameworks */,
 				D8CE26391E698E2400DAE2E0 /* Resources */,
@@ -9864,6 +9867,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D8EC3FA81E9BDA35006712EB /* Build configuration list for PBXNativeTarget "Staging" */;
 			buildPhases = (
+				00966EAB28403D4D006C6E27 /* SwiftLint */,
 				D8EC3DD71E9BDA35006712EB /* Sources */,
 				D8EC3F1D1E9BDA35006712EB /* Frameworks */,
 				D8EC3F391E9BDA35006712EB /* Resources */,
@@ -10773,6 +10777,78 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		00966EAA284033ED006C6E27 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n\tswiftlint --fix --config \".swiftlint-autocorrect.yml\" && swiftlint\nelse\n\techo \"warning: SwiftLint not installed, run \\\"scripts/brew_install\\\" script to install\"\nfi\n";
+		};
+		00966EAB28403D4D006C6E27 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n\tswiftlint --fix --config \".swiftlint-autocorrect.yml\" && swiftlint\nelse\n\techo \"warning: SwiftLint not installed, run \\\"scripts/brew_install\\\" script to install\"\nfi\n";
+		};
+		00966EAC28403E80006C6E27 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n\tswiftlint --fix --config \".swiftlint-autocorrect.yml\" && swiftlint\nelse\n\techo \"warning: SwiftLint not installed, run \\\"scripts/brew_install\\\" script to install\"\nfi\n";
+		};
+		00966EAD28403EA7006C6E27 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n\tswiftlint --fix --config \".swiftlint-autocorrect.yml\" && swiftlint\nelse\n\techo \"warning: SwiftLint not installed, run \\\"scripts/brew_install\\\" script to install\"\nfi\n";
+		};
 		B033620620D0573A006BCDCE /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 8;
