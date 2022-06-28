@@ -41,7 +41,7 @@ struct TalkPageItem: Codable {
 
 class TalkPageFetcher: Fetcher {
     
-    func fetchTalkPageContent(url: URL, completion: @escaping (_ result: Result<[TalkPageItem], Error>) -> Void) {
+    func fetchTalkPageContent(url: URL, completion: @escaping (Result<[TalkPageItem], Error>) -> Void) {
         guard let pageTitle = url.wmf_title else {
             completion(.failure(RequestError.invalidParameters))
             return
