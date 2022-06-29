@@ -1,4 +1,3 @@
-
 private extension CGFloat {
     var roundedColumnWidth: Int {
         return Int(self*100)

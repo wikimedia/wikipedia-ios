@@ -27,9 +27,7 @@ open class TableOfContentsPresentationController: UIPresentationController, Them
     }
     
     // MARK: - Views
-    
 
-    
     lazy var statusBarBackground: UIView = {
         let view = UIView(frame: CGRect.zero)
         view.autoresizingMask = .flexibleWidth
@@ -130,7 +128,7 @@ open class TableOfContentsPresentationController: UIPresentationController, Them
 
         containerView.addSubview(self.backgroundView)
         
-        if(self.traitCollection.verticalSizeClass == .compact){
+        if self.traitCollection.verticalSizeClass == .compact {
             self.statusBarBackground.isHidden = true
         }
         
@@ -151,14 +149,14 @@ open class TableOfContentsPresentationController: UIPresentationController, Them
         }
     }
     
-    override open func presentationTransitionDidEnd(_ completed: Bool)  {
+    override open func presentationTransitionDidEnd(_ completed: Bool) {
         if !completed {
             self.backgroundView.removeFromSuperview()
 
         }
     }
     
-    override open func dismissalTransitionWillBegin()  {
+    override open func dismissalTransitionWillBegin() {
         if let transitionCoordinator = self.presentingViewController.transitionCoordinator {
             transitionCoordinator.animate(alongsideTransition: {(context: UIViewControllerTransitionCoordinatorContext!) -> Void in
                 self.backgroundView.alpha  = 0.0
@@ -188,7 +186,7 @@ open class TableOfContentsPresentationController: UIPresentationController, Them
         var frame = containerView.bounds
         var bgWidth = self.minimumVisibleBackgroundWidth
         var tocWidth = frame.size.width - bgWidth
-        if(tocWidth > self.maximumTableOfContentsWidth){
+        if tocWidth > self.maximumTableOfContentsWidth {
             tocWidth = self.maximumTableOfContentsWidth
             bgWidth = frame.size.width - tocWidth
         }
@@ -230,7 +228,7 @@ open class TableOfContentsPresentationController: UIPresentationController, Them
             return
         }
         
-        //Add shadow to the presented view
+        // Add shadow to the presented view
         self.presentedView?.layer.shadowOpacity = 0.8
         self.presentedView?.layer.shadowColor = theme.colors.shadow.cgColor
         self.presentedView?.layer.shadowOffset = CGSize(width: 3, height: 5)

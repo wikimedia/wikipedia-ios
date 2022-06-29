@@ -8,18 +8,18 @@
 }
 
 public protocol EventLoggingStandardEventProviding {
-    var standardEvent: Dictionary<String, Any> { get }
+    var standardEvent: [String: Any] { get }
 }
 
 public extension EventLoggingStandardEventProviding where Self: EventLoggingFunnel {
-    var standardEvent: Dictionary<String, Any> {
+    var standardEvent: [String: Any] {
         guard let aii = appInstallID, let si = sessionID else {
             return ["event_dt": timestamp]
         }
         return ["app_install_id": aii, "session_id": si, "event_dt": timestamp]
     }
     
-    func wholeEvent(with event: Dictionary<AnyHashable, Any>) -> Dictionary<String, Any> {
+    func wholeEvent(with event: [AnyHashable: Any]) -> [String: Any] {
         guard let event = event as? [String: Any] else {
             assertionFailure("Expected dictionary with keys of type String")
             return [:]

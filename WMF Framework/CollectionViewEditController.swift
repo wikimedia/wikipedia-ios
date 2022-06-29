@@ -126,7 +126,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             return panGestureRecognizerShouldBegin(panGestureRecognizer)
         }
         
-        if gestureRecognizer === longPressGestureRecognizer  {
+        if gestureRecognizer === longPressGestureRecognizer {
             return longPressGestureRecognizerShouldBegin(longPressGestureRecognizer)
         }
         
@@ -150,7 +150,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         }
         let activatedAction = action.type == .delete ? action : nil
         closeActionPane(with: activatedAction) { (finished) in
-            let _ = self.delegate?.didPerformAction(action)
+            _ = self.delegate?.didPerformAction(action)
         }
         return true
     }
@@ -244,7 +244,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             return true
         }
         
-        if gestureRecognizer is UIPanGestureRecognizer{
+        if gestureRecognizer is UIPanGestureRecognizer {
             return otherGestureRecognizer is UILongPressGestureRecognizer
         }
         
@@ -271,7 +271,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         var swipeTranslation = deltaX + initialSwipeTranslation
         let normalizedSwipeTranslation = isRTL ? swipeTranslation : -swipeTranslation
         let normalizedMaxSwipeTranslation = abs(cell.swipeTranslationWhenOpen)
-        switch (sender.state) {
+        switch sender.state {
         case .began:
             cell.swipeState = .swiping
             fallthrough
@@ -315,7 +315,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
             return
         }
         
-        switch (sender.state) {
+        switch sender.state {
         case .ended:
             closeActionPane()
         default:
@@ -357,7 +357,7 @@ public class CollectionViewEditController: NSObject, UIGestureRecognizerDelegate
         if let expandedAction = expandedAction {
             let translation = isRTL ? cell.bounds.width : 0 - cell.bounds.width
             animateActionPane(of: cell, to: translation, with: velocity, expandedAction: expandedAction, completion: { (finished) in
-                //don't set isSwiping to false so that the expanded action stays visible through the fade
+                // don't set isSwiping to false so that the expanded action stays visible through the fade
                 completion(finished)
             })
         } else {

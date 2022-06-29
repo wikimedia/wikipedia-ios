@@ -1,4 +1,3 @@
-
 extension UIView {
     func wmf_firstSubviewOfType<T>(_ type:T.Type) -> T? {
         for subview in self.subviews {

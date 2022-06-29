@@ -16,7 +16,7 @@ class SectionFetcher: Fetcher {
             let revisions: [Revision]?
             let protection: [Protection]?
         }
-        struct Revision: Codable  {
+        struct Revision: Codable {
             let revid: Int
             let slots: [String: Slot]?
         }

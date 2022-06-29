@@ -25,7 +25,7 @@ class ReadingListsTests: XCTestCase {
             XCTAssert(false, "Should be able to create \(originalName) reading list: \(error)")
         }
         do {
-            let _ = try dataStore.readingListsController.createReadingList(named: casedName, description: "Foo")
+            _ = try dataStore.readingListsController.createReadingList(named: casedName, description: "Foo")
             XCTAssert(true, "Should be able to create list with same title and different case")
         } catch let error {
             XCTAssert(false, "Should not throw an error: \(error) when creating a list with the same title and different case")

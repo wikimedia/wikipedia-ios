@@ -27,7 +27,7 @@ public class MetricsClientBridge: NSObject {
     
 }
 
-//MARK: PeriodicWorker
+// MARK: PeriodicWorker
 
 extension MetricsClientBridge: PeriodicWorker {
     public func doPeriodicWork(_ completion: @escaping () -> Void) {
@@ -40,7 +40,7 @@ extension MetricsClientBridge: PeriodicWorker {
     }
 }
 
-//MARK: BackgroundFetcher
+// MARK: BackgroundFetcher
 
 extension MetricsClientBridge: BackgroundFetcher {
     public func performBackgroundFetch(_ completion: @escaping (UIBackgroundFetchResult) -> Void) {

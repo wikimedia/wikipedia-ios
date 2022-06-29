@@ -28,7 +28,7 @@ class ArticleManualPerformanceTests: XCTestCase {
         LSNocilla.sharedInstance().stop()
     }
 
-    //represents the speed at which article content is seen on screen
+    // represents the speed at which article content is seen on screen
     func testArticleSetupTime() {
 
         self.measure {
@@ -53,7 +53,7 @@ class ArticleManualPerformanceTests: XCTestCase {
         }
     }
     
-    //represents the speed at which the context menu configuration is generated from a 3D touch on an article link
+    // represents the speed at which the context menu configuration is generated from a 3D touch on an article link
     func testContextMenuConfigTime() {
         
         let dataStore = MWKDataStore.temporary()

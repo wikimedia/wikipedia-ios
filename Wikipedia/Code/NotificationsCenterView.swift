@@ -170,7 +170,7 @@ final class NotificationsCenterView: SetupView {
         }
     }
     
-//MARK: Private
+// MARK: Private
     
     private var calculatedCellHeight: CGFloat? {
         didSet {

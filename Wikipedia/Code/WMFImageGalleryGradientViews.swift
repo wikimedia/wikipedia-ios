@@ -1,4 +1,3 @@
-
 @objcMembers class WMFImageGalleryBottomGradientView: SetupGradientView {
     override public func setup(gradientLayer: CAGradientLayer) {
         gradientLayer.locations = [0.0, 0.5, 1.0]

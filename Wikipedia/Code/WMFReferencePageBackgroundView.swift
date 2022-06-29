@@ -1,4 +1,3 @@
-
 class WMFReferencePageBackgroundView: UIView, Themeable {
     var referenceHighlightBackground: UIColor = .clear
     override init(frame: CGRect) {

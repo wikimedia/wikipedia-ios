@@ -1,4 +1,3 @@
-
 import UIKit
 
 protocol DiffListDelegate: AnyObject {
@@ -8,8 +7,8 @@ protocol DiffListDelegate: AnyObject {
 class DiffListViewController: ViewController {
     
     enum ListUpdateType {
-        case itemExpandUpdate(indexPath: IndexPath) //tapped context cell to expand
-        case layoutUpdate(collectionViewWidth: CGFloat, traitCollection: UITraitCollection) //willTransitionToSize - simple rotation that keeps size class
+        case itemExpandUpdate(indexPath: IndexPath) // tapped context cell to expand
+        case layoutUpdate(collectionViewWidth: CGFloat, traitCollection: UITraitCollection) // willTransitionToSize - simple rotation that keeps size class
         case initialLoad(width: CGFloat)
         case theme(theme: Theme)
     }
@@ -87,11 +86,11 @@ class DiffListViewController: ViewController {
         
         if updateWidthsOnLayoutSubviews {
             
-            //More improvements could be size caching & putting layoutSubviewsHeightCalculationsSerialQueue instead into an NSOperation to be cancelled if another viewDidLayoutSubviews is called.
-            //tonitodo: clean up - move this and updateListViewModel methods into separate class, DiffListSizeCalculator or something
+            // More improvements could be size caching & putting layoutSubviewsHeightCalculationsSerialQueue instead into an NSOperation to be cancelled if another viewDidLayoutSubviews is called.
+            // tonitodo: clean up - move this and updateListViewModel methods into separate class, DiffListSizeCalculator or something
             let updateType = ListUpdateType.layoutUpdate(collectionViewWidth: self.collectionView.frame.width, traitCollection: self.traitCollection)
             
-            //actually not sure if this serial queue is needed or simply calling on the main thread (also serial) is the same. this also seems faster than without though.
+            // actually not sure if this serial queue is needed or simply calling on the main thread (also serial) is the same. this also seems faster than without though.
             layoutSubviewsHeightCalculationsSerialQueue.async {
                 
                 self.backgroundUpdateListViewModels(listViewModel: self.dataSource, updateType: updateType) {
@@ -121,7 +120,7 @@ class DiffListViewController: ViewController {
         self.indexPathBeforeRotating = centerIndexPath
         coordinator.animate(alongsideTransition: { (context) in
             
-            //nothing
+            // nothing
             
         }) { (context) in
             self.updateWidthsOnLayoutSubviews = false
@@ -295,7 +294,7 @@ extension DiffListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, targetContentOffsetForProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
         
         if !isRotating {
-            //prevents jumping when expanding/collapsing context cell
+            // prevents jumping when expanding/collapsing context cell
             return collectionView.contentOffset
         } else {
             return proposedContentOffset
@@ -347,17 +346,17 @@ extension DiffListViewController: DiffListChangeCellDelegate {
             let indexPathOfOtherMoveCell = IndexPath(item: indexOfOtherMoveCell, section: 0)
             let visibleIndexPaths = collectionView.indexPathsForVisibleItems
             
-            if visibleIndexPaths.contains(indexPathOfOtherMoveCell) { //cell already configured, skip straight to detecting offset needed to get top of *item* on screen.
+            if visibleIndexPaths.contains(indexPathOfOtherMoveCell) { // cell already configured, skip straight to detecting offset needed to get top of *item* on screen.
                 
                 scrollToChangeItem(cellIndexPath: indexPathOfOtherMoveCell, itemIndex: changeItemToScrollTo)
             } else {
                 
-                //avoids weird bouncing when scrolling up if we choose the index path below
+                // avoids weird bouncing when scrolling up if we choose the index path below
                 let indexAfterIndexOfOtherMoveCell = indexOfOtherMoveCell + 1
                 let indexToScrollTo = moveDirection == .down ? indexOfOtherMoveCell : ((dataSource.count) > indexAfterIndexOfOtherMoveCell) ? indexAfterIndexOfOtherMoveCell : indexOfOtherMoveCell
                 let indexPathToScrollTo = IndexPath(item: indexToScrollTo, section: 0)
                 
-                //first scroll to cell, scrollViewDidEndAnimation will then scroll to item
+                // first scroll to cell, scrollViewDidEndAnimation will then scroll to item
                 scrollDidFinishInfo = (indexPathOfOtherMoveCell, changeItemToScrollTo)
                 collectionView.scrollToItem(at: indexPathToScrollTo, at: UICollectionView.ScrollPosition.top, animated: true)
             }

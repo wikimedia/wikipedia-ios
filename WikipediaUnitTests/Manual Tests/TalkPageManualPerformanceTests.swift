@@ -24,7 +24,7 @@ class TalkPageManualPerformanceTests: XCTestCase {
     }
 
     func testPerformanceLargeToLargeUpdateTalkPages() {
-        //confirm no talk pages in DB
+        // confirm no talk pages in DB
         let fetchRequest: NSFetchRequest<TalkPage> = TalkPage.fetchRequest()
         
         guard let firstResults = try? tempDataStore.viewContext.fetch(fetchRequest) else {
@@ -46,14 +46,14 @@ class TalkPageManualPerformanceTests: XCTestCase {
         measure {
             i += 1
             
-            //create db talk page
+            // create db talk page
             guard let talkPage = moc.createTalkPage(with: networkTalkPage) else {
                 XCTFail("Failure to create db talk page")
                 return
             }
             
-            //update local copy
-            guard let _ = moc.updateTalkPage(talkPage, with: updatedNetworkTalkPage) else {
+            // update local copy
+            guard moc.updateTalkPage(talkPage, with: updatedNetworkTalkPage) != nil else {
                 XCTFail("Failure updating existing local talk page")
                 return
             }
@@ -62,7 +62,7 @@ class TalkPageManualPerformanceTests: XCTestCase {
     }
     
     func testPerformanceSmallToLargeUpdateTalkPages() {
-        //confirm no talk pages in DB
+        // confirm no talk pages in DB
         let fetchRequest: NSFetchRequest<TalkPage> = TalkPage.fetchRequest()
         
         guard let firstResults = try? tempDataStore.viewContext.fetch(fetchRequest) else {
@@ -84,14 +84,14 @@ class TalkPageManualPerformanceTests: XCTestCase {
         measure {
             i += 1
             
-            //create db talk page
+            // create db talk page
             guard let talkPage = moc.createTalkPage(with: networkTalkPage) else {
                 XCTFail("Failure to create db talk page")
                 return
             }
             
-            //update local copy
-            guard let _ = moc.updateTalkPage(talkPage, with: updatedNetworkTalkPage) else {
+            // update local copy
+            guard moc.updateTalkPage(talkPage, with: updatedNetworkTalkPage) != nil else {
                 XCTFail("Failure updating existing local talk page")
                 return
             }

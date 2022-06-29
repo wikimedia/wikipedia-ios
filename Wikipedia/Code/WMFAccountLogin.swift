@@ -1,4 +1,3 @@
-
 public enum WMFAccountLoginError: LocalizedError {
     case cannotExtractLoginStatus
     case statusNotPass(String?)
@@ -43,7 +42,7 @@ public class WMFAccountLoginResult: NSObject {
 }
 
 public class WMFAccountLogin: Fetcher {
-    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, siteURL: URL, reattemptOn401Response: Bool = false, success: @escaping WMFAccountLoginResultBlock, failure: @escaping WMFErrorHandler){
+    public func login(username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, siteURL: URL, reattemptOn401Response: Bool = false, success: @escaping WMFAccountLoginResultBlock, failure: @escaping WMFErrorHandler) {
         
         var parameters = [
             "action": "clientlogin",
@@ -87,7 +86,7 @@ public class WMFAccountLogin: Fetcher {
             guard status == "PASS" else {
                 
                 if let messageCode = clientlogin["messagecode"] as? String {
-                    switch(messageCode) {
+                    switch messageCode {
                     case "wrongpassword":
                         failure(WMFAccountLoginError.wrongPassword(message))
                         return
@@ -109,9 +108,8 @@ public class WMFAccountLogin: Fetcher {
                         return id.hasSuffix("PasswordAuthenticationRequest")
                     }),
                         let fields = passwordAuthRequest["fields"] as? [String : AnyObject],
-                        let _ = fields["password"] as? [String : AnyObject],
-                        let _ = fields["retype"] as? [String : AnyObject]
-                    {
+                        fields["password"] as? [String : AnyObject] != nil,
+                        fields["retype"] as? [String : AnyObject] != nil {
                         failure(WMFAccountLoginError.temporaryPasswordNeedsChange(message))
                         return
                     }
@@ -122,8 +120,7 @@ public class WMFAccountLogin: Fetcher {
                         return id.hasSuffix("TOTPAuthenticationRequest")
                     }),
                         let fields = OATHTokenRequest["fields"] as? [String : AnyObject],
-                        let _ = fields["OATHToken"] as? [String : AnyObject]
-                    {
+                        fields["OATHToken"] as? [String : AnyObject] != nil {
                         failure(WMFAccountLoginError.needsOathTokenFor2FA(message))
                         return
                     }

@@ -130,7 +130,7 @@ class RandomArticleViewController: ArticleViewController {
         if isSecondToolbarHidden {
             let shouldShowRandomButton = newContentOffsetY <= 0 || (!scrollView.isTracking && scrollView.isDecelerating && newContentOffsetY < previousContentOffsetY && newContentOffsetY < (scrollView.contentSize.height - scrollView.bounds.size.height))
             shouldHideRandomButton = !shouldShowRandomButton
-        } else if (scrollView.isTracking || scrollView.isDecelerating) {
+        } else if scrollView.isTracking || scrollView.isDecelerating {
             shouldHideRandomButton = newContentOffsetY > 0 && newContentOffsetY > previousContentOffsetY
         } else {
             shouldHideRandomButton = isSecondToolbarHidden

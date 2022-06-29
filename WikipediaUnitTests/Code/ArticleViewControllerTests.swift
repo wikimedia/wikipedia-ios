@@ -31,7 +31,7 @@ class ArticleViewControllerTests: XCTestCase {
 
     func testArticleVCAccessesSchemeHandler() throws {
         
-        //test that articleVC converts articleURL to proper scheme and sets up SchemeHandler to ensure it is accessed during a load
+        // test that articleVC converts articleURL to proper scheme and sets up SchemeHandler to ensure it is accessed during a load
         let dataStore = MWKDataStore.temporary()
         let theme = Theme.light
         let url = URL(string: "https://en.wikipedia.org/wiki/Dog")!

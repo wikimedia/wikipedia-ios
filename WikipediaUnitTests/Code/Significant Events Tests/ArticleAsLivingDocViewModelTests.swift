@@ -1,4 +1,3 @@
-
 import XCTest
 @testable import Wikipedia
 @testable import WMF
@@ -108,7 +107,7 @@ class ArticleAsLivingDocViewModelTests: XCTestCase {
                         XCTAssertEqual(font.fontName, ".SFUI-Regular")
                         XCTAssertEqual(color, Theme.light.colors.primaryText)
 
-                        //bump up the dynamic type and change theme, confirm font size & color changes
+                        // bump up the dynamic type and change theme, confirm font size & color changes
 
                         let largerTraitCollection = UITraitCollection(preferredContentSizeCategory: UIContentSizeCategory.extraLarge)
                         let darkTheme = Theme.black

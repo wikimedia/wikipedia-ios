@@ -1,5 +1,4 @@
-
-// MARK:- Context Menu for ArticleVC (iOS 13 and later)
+// MARK: - Context Menu for ArticleVC (iOS 13 and later)
 // All functions in this extension are for Context Menus (used in iOS 13 and later)
 extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
     func getPeekViewControllerAsync(for destination: Router.Destination, completion: @escaping (UIViewController?) -> Void) {
@@ -71,11 +70,9 @@ extension ArticleViewController: ArticleContextMenuPresenting, WKUIDelegate {
                 return
             }
             let customActivity = self.addToReadingListActivity(with: presenter, eventLogAction: logReadingListsSaveIfNeeded)
-            guard let shareActivityViewController = self.sharingActivityViewController(with: nil, button: self.toolbarController.shareButton, shareFunnel: self.shareFunnel, customActivity: customActivity) else {
+            guard let shareActivityViewController = self.sharingActivityViewController(with: nil, button: self.toolbarController.shareButton, shareFunnel: self.shareFunnel, customActivities: [customActivity]) else {
                 return
             }
-            // Exclude the system Safari reading list activity to avoid confusion with our reading lists
-            shareActivityViewController.excludedActivityTypes = [.addToReadingList]
             self.articlePreviewingDelegate?.shareArticlePreviewActionSelected(with: self, shareActivityController: shareActivityViewController)
         })
 
@@ -154,7 +151,7 @@ extension ArticleViewController: UIContextMenuInteractionDelegate {
 
     func contextMenuInteraction(_ interaction: UIContextMenuInteraction, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
         animator.addCompletion {
-            if let _ = self.mediaList {
+            if self.mediaList != nil {
                 self.showLeadImage()
             } else {
                 // fetchAndDisplayGalleryViewController() is very similar to showLeadImage(). In both cases, if self.mediaList doesn't exist, we make

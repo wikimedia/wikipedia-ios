@@ -46,6 +46,9 @@ final class InsertMediaImageTypeSettingsViewController: ViewController {
     }
 
     private var autolayoutTableViewFooter: UIView? {
+        get {
+            return tableView.tableFooterView
+        }
         set {
             tableView.tableFooterView = newValue
             guard let footer = newValue else { return }
@@ -54,9 +57,6 @@ final class InsertMediaImageTypeSettingsViewController: ViewController {
             footer.frame.size =
                 footer.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
            tableView.tableFooterView = footer
-        }
-        get {
-            return tableView.tableFooterView
         }
     }
 

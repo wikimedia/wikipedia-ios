@@ -16,10 +16,8 @@ class NotificationsCenterViewModelTests: XCTestCase {
     }
 
     var dataFileName: String {
-        get {
-            XCTFail("Must override dataFileName.")
-            return ""
-        }
+        XCTFail("Must override dataFileName.")
+        return ""
     }
 
     private var data: Data!

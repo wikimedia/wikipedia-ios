@@ -56,8 +56,8 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     @objc public var isExtendedViewHidingEnabled: Bool = false
     @objc public var isExtendedViewFadingEnabled: Bool = true // fade out extended view as it hides
     public var shouldTransformUnderBarViewWithBar: Bool = false // hide/show underbar view when bar is hidden/shown // TODO: change this stupid name
-    public var allowsUnderbarHitsFallThrough: Bool = false //if true, this only considers underBarView's subviews for hitTest, not self. Use if you need underlying view controller's scroll view to capture scrolling.
-    public var allowsExtendedHitsFallThrough: Bool = false //if true, this only considers extendedView's subviews for hitTest, not self. Use if you need underlying view controller's scroll view to capture scrolling.
+    public var allowsUnderbarHitsFallThrough: Bool = false // if true, this only considers underBarView's subviews for hitTest, not self. Use if you need underlying view controller's scroll view to capture scrolling.
+    public var allowsExtendedHitsFallThrough: Bool = false // if true, this only considers extendedView's subviews for hitTest, not self. Use if you need underlying view controller's scroll view to capture scrolling.
     
     private var theme = Theme.standard
 
@@ -449,7 +449,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
     }
     
     @objc public func setNavigationBarPercentHidden(_ navigationBarPercentHidden: CGFloat, underBarViewPercentHidden: CGFloat, extendedViewPercentHidden: CGFloat, topSpacingPercentHidden: CGFloat, shadowAlpha: CGFloat = -1, animated: Bool, additionalAnimations: (() -> Void)? = nil) {
-        if (animated) {
+        if animated {
             layoutIfNeeded()
         }
 
@@ -470,13 +470,13 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         }
         
         setNeedsLayout()
-        //DDLogDebug("nb: \(navigationBarPercentHidden) ev: \(extendedViewPercentHidden)")
+        // DDLogDebug("nb: \(navigationBarPercentHidden) ev: \(extendedViewPercentHidden)")
         let applyChanges = {
             let changes = {
-                if shadowAlpha >= 0  {
+                if shadowAlpha >= 0 {
                     self.shadowAlpha = shadowAlpha
                 }
-                if (animated) {
+                if animated {
                     self.layoutIfNeeded()
                 }
                 additionalAnimations?()

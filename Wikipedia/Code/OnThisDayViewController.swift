@@ -14,7 +14,7 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
     var shouldShowNavigationBar: Bool = false {
         didSet {
             if shouldShowNavigationBar {
-                /// Prepare the VC to be presented as a push - remove the "X" button in top right, remove the bottom button.
+                // Prepare the VC to be presented as a push - remove the "X" button in top right, remove the bottom button.
                 navigationMode = .bar
                 footerButtonTitle = nil
                 title = nil
@@ -151,7 +151,7 @@ class OnThisDayViewController: ColumnarCollectionViewController, DetailPresentin
     
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
 
-        /// When presenting with navigation bar, first two section headers do not exist.
+        // When presenting with navigation bar, first two section headers do not exist.
         guard !shouldShowNavigationBar || section >= 2 else {
             return ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 0)
         }
@@ -301,8 +301,6 @@ extension OnThisDayViewController {
         return false
     }
 }
-
-
 
 // MARK: - SideScrollingCollectionViewCellDelegate
 extension OnThisDayViewController: SideScrollingCollectionViewCellDelegate {

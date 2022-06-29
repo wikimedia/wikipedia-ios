@@ -1,4 +1,3 @@
-
 import Foundation
 
 enum ImageCacheControllerError: Error {
@@ -8,10 +7,10 @@ enum ImageCacheControllerError: Error {
 public final class ImageCacheController: CacheController {
     // MARK: Permanent Cache
     
-    //batch inserts to db and selectively decides which file variant to download. Used when inserting multiple image urls from media-list endpoint via ArticleCacheController.
+    // batch inserts to db and selectively decides which file variant to download. Used when inserting multiple image urls from media-list endpoint via ArticleCacheController.
     func add(urls: [URL], groupKey: GroupKey, individualCompletion: @escaping IndividualCompletionBlock, groupCompletion: @escaping GroupCompletionBlock) {
 
-        //todo: could use DRY gatekeeper logic with superclass. this will likely get refactored out so holding off.
+        // todo: could use DRY gatekeeper logic with superclass. this will likely get refactored out so holding off.
         if gatekeeper.shouldQueueAddCompletion(groupKey: groupKey) {
             gatekeeper.queueAddCompletion(groupKey: groupKey) {
                 self.add(urls: urls, groupKey: groupKey, individualCompletion: individualCompletion, groupCompletion: groupCompletion)
@@ -33,7 +32,7 @@ public final class ImageCacheController: CacheController {
         }
     }
     
-    //MARK: Logic taken from ImageController
+    // MARK: Logic taken from ImageController
     
     private let imageFetcher: ImageFetcher
     fileprivate let memoryCache: NSCache<NSString, Image>
@@ -41,7 +40,7 @@ public final class ImageCacheController: CacheController {
     init(moc: NSManagedObjectContext, session: Session, configuration: Configuration) {
         self.imageFetcher = ImageFetcher(session: session, configuration: configuration)
         memoryCache = NSCache<NSString, Image>()
-        memoryCache.totalCostLimit = 10000000 //pixel count
+        memoryCache.totalCostLimit = 10000000 // pixel count
         let fileWriter = CacheFileWriter(fetcher: imageFetcher)
         let dbWriter = ImageCacheDBWriter(imageFetcher: imageFetcher, cacheBackgroundContext: moc)
         super.init(dbWriter: dbWriter, fileWriter: fileWriter)
@@ -54,7 +53,7 @@ public final class ImageCacheController: CacheController {
     
     private var dataCompletionManager = ImageControllerCompletionManager<ImageControllerDataCompletion>()
     
-    //called when saving an image to persistent cache has completed. Hook here to allow additional saving into memoryCache.
+    // called when saving an image to persistent cache has completed. Hook here to allow additional saving into memoryCache.
     override func finishFileSave(data: Data, mimeType: String?, uniqueKey: CacheController.UniqueKey, url: URL) {
         
         guard let image = self.createImage(data: data, mimeType: mimeType) else {
@@ -112,7 +111,7 @@ public final class ImageCacheController: CacheController {
                 }
                 
                 self.dataCompletionManager.complete(uniqueKey, enumerator: { (completion) in
-                    //DDLogDebug("complete: \(url) \(token)")
+                    // DDLogDebug("complete: \(url) \(token)")
                     switch result {
                     case .success(let result):
                         completion.success(result.data, result.response)
@@ -133,7 +132,7 @@ public final class ImageCacheController: CacheController {
     }
     
     func fetchData(withURL url: URL, failure: @escaping (Error) -> Void, success: @escaping (Data, URLResponse) -> Void) {
-        let _ = fetchData(withURL: url, priority: URLSessionTask.defaultPriority, failure: failure, success: success)
+        _ = fetchData(withURL: url, priority: URLSessionTask.defaultPriority, failure: failure, success: success)
     }
     
     /// Fetches an image from a given URL. Coalesces completion blocks so the same data isn't requested multiple times.
@@ -162,7 +161,7 @@ public final class ImageCacheController: CacheController {
     }
     
     public func fetchImage(withURL url: URL?, failure: @escaping (Error) -> Void, success: @escaping (ImageDownload) -> Void) {
-        let _ = fetchImage(withURL: url, priority: URLSessionTask.defaultPriority, failure: failure, success: success)
+        _ = fetchImage(withURL: url, priority: URLSessionTask.defaultPriority, failure: failure, success: success)
     }
     
    public func cancelFetch(withURL url: URL?, token: String?) {
@@ -183,7 +182,7 @@ public final class ImageCacheController: CacheController {
     
     /// Populate the cache for a given URL
     public func prefetch(withURL url: URL?, completion: @escaping () -> Void) {
-        let _ =  fetchImage(withURL: url, priority: URLSessionTask.lowPriority, failure: { (error) in }) { (download) in }
+        _ =  fetchImage(withURL: url, priority: URLSessionTask.lowPriority, failure: { (error) in }) { (download) in }
     }
     
     // MARK: Cache
@@ -294,14 +293,10 @@ private extension ImageCacheController {
 
 fileprivate extension Error {
     var isCancellationError: Bool {
-        get {
-            let potentialCancellationError = self as NSError
-            return potentialCancellationError.domain == NSURLErrorDomain && potentialCancellationError.code == NSURLErrorCancelled
-        }
+        let potentialCancellationError = self as NSError
+        return potentialCancellationError.domain == NSURLErrorDomain && potentialCancellationError.code == NSURLErrorCancelled
     }
 }
-
-
 
 @objc(WMFTypedImageData)
 open class TypedImageData: NSObject {

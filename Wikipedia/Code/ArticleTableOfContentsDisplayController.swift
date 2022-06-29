@@ -1,4 +1,3 @@
-
 // Handles hide/display of article table of contents
 // Manages a stack view and the associated constraints
 

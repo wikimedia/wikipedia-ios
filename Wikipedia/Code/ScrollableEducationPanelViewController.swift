@@ -1,8 +1,8 @@
 import UIKit
 
-typealias ScrollableEducationPanelButtonTapHandler = ((_ sender: Any) -> ())
-typealias ScrollableEducationPanelDismissHandler = (() -> ())
-typealias ScrollableEducationPanelTraceableDismissHandler = ((ScrollableEducationPanelViewController.LastAction) -> ())
+typealias ScrollableEducationPanelButtonTapHandler = ((_ sender: Any) -> Void)
+typealias ScrollableEducationPanelDismissHandler = (() -> Void)
+typealias ScrollableEducationPanelTraceableDismissHandler = ((ScrollableEducationPanelViewController.LastAction) -> Void)
 
 /*
  Education panels typically have the following items, from top to bottom:
@@ -44,7 +44,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     @IBOutlet fileprivate weak var headingLabel: UILabel!
     @IBOutlet fileprivate weak var subheadingLabel: UILabel!
     
-    //use as an indication of what triggered a dismissal
+    // use as an indication of what triggered a dismissal
     private var lastAction: LastAction = .none
     
     let originalSubheadingTopConstraint = CGFloat(0)
@@ -73,7 +73,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     fileprivate var primaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
     fileprivate var secondaryButtonTapHandler: ScrollableEducationPanelButtonTapHandler?
     
-    //traceableDismissHandler takes priority if it's populated. It will pass back a LastAction indicating the action that triggered the dismissal, for the caller to react with.
+    // traceableDismissHandler takes priority if it's populated. It will pass back a LastAction indicating the action that triggered the dismissal, for the caller to react with.
     fileprivate var dismissHandler: ScrollableEducationPanelDismissHandler?
     fileprivate var traceableDismissHandler: ScrollableEducationPanelTraceableDismissHandler?
     
@@ -148,7 +148,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
             if let subheadingParagraphStyle = subheadingParagraphStyle {
                 attributes[NSAttributedString.Key.paragraphStyle] = subheadingParagraphStyle
             }
-            attributedText.addAttributes(attributes, range: NSMakeRange(0, attributedText.length))
+            attributedText.addAttributes(attributes, range: NSRange(location: 0, length: attributedText.length))
             subheadingLabel.attributedText = attributedText
         }
     }
@@ -230,7 +230,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
         if let footerParagraphStyle = footerParagraphStyle {
             attributes[NSAttributedString.Key.paragraphStyle] = footerParagraphStyle
         }
-        attributedText.addAttributes(attributes, range: NSMakeRange(0, attributedText.length))
+        attributedText.addAttributes(attributes, range: NSRange(location: 0, length: attributedText.length))
         footerTextView.attributedText = attributedText
     }
 
@@ -323,7 +323,7 @@ class ScrollableEducationPanelViewController: UIViewController, Themeable {
     
     @IBAction func overlayTapped(_ sender: UITapGestureRecognizer) {
         lastAction = .tappedBackground
-        if (showCloseButton || dismissWhenTappedOutside) && sender.view == view  {
+        if (showCloseButton || dismissWhenTappedOutside) && sender.view == view {
             dismiss(animated: true, completion: nil)
         }
     }

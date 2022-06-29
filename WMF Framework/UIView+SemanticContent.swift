@@ -147,7 +147,7 @@ extension UIButton {
 }
 
 extension AlignedImageButton {
-    @discardableResult override public func wmf_preferredFrame(at point: CGPoint, maximumSize: CGSize = NoIntrinsicSize, minimumSize: CGSize = NoIntrinsicSize, horizontalAlignment: HorizontalAlignment = .center, verticalAlignment: VerticalAlignment = .center, apply: Bool = false) -> CGRect  {
+    @discardableResult override public func wmf_preferredFrame(at point: CGPoint, maximumSize: CGSize = NoIntrinsicSize, minimumSize: CGSize = NoIntrinsicSize, horizontalAlignment: HorizontalAlignment = .center, verticalAlignment: VerticalAlignment = .center, apply: Bool = false) -> CGRect {
         let adjustedPoint = CGPoint(x: point.x - leftPadding, y: point.y - verticalPadding)
         var adjustedSize = maximumSize
         if adjustedSize.width != UIView.noIntrinsicMetric {

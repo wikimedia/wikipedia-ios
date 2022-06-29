@@ -14,7 +14,7 @@ extension WMFContentGroupKind {
         return WMFExploreFeedContentController.globalContentGroupKindNumbers().contains(NSNumber(value: rawValue))
     }
 
-    var contentLanguageCodes: Array<String> {
+    var contentLanguageCodes: [String] {
         return feedContentController.contentLanguageCodes(for: self)
     }
 

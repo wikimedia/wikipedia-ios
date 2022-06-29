@@ -1,4 +1,3 @@
-
 @objcMembers class SetupGradientView: SetupView {
     override class var layerClass: AnyClass {
         return CAGradientLayer.self

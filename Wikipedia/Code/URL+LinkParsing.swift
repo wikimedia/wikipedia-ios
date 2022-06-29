@@ -209,8 +209,6 @@ extension URL {
     }
 }
 
-
-
 @objc extension NSURL {
     /// deprecated - use namespace methods
     @objc var wmf_isWikiResource: Bool {

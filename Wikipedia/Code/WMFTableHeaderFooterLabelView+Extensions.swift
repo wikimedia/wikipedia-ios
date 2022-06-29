@@ -1,4 +1,3 @@
-
 import Foundation
 
 @objc extension WMFTableHeaderFooterLabelView {
@@ -20,6 +19,6 @@ import Foundation
                 view.apply(theme: theme)
             }
             
-            return view;
+            return view
     }
 }

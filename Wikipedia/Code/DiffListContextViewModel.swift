@@ -1,4 +1,3 @@
-
 import Foundation
 
 final class DiffListContextItemViewModel {
@@ -128,7 +127,7 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
             }
             
         } else {
-            self.heading = "" //tonitodo: optional would be better
+            self.heading = "" // tonitodo: optional would be better
         }
         
         let contextFont = UIFont.wmf_font(contextDynamicTextStyle, compatibleWithTraitCollection: traitCollection)
@@ -192,7 +191,7 @@ final class DiffListContextViewModel: DiffListGroupViewModel {
 
         var height: CGFloat = 0
         
-        //add heading height
+        // add heading height
 
         height += innerPadding.top
         let attributedString = NSAttributedString(string: heading, attributes: [NSAttributedString.Key.font: headingFont])

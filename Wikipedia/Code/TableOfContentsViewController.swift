@@ -256,7 +256,7 @@ class TableOfContentsViewController: UIViewController, UITableViewDelegate, UITa
         let isHighlighted = index == indexOfSelectedItem
         cell.setTitleHTML(item.titleHTML, with: item.itemType.titleTextStyle, highlighted: isHighlighted, color: color, selectionColor: selectionColor)
 
-        if (isHighlighted) {
+        if isHighlighted {
             // This makes no difference to sighted users; it allows VoiceOver to read highlighted cell as selected.
             cell.accessibilityTraits = .selected
         }

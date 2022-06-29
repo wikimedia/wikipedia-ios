@@ -1,4 +1,3 @@
-
 public extension WMFFeedArticlePreview {
     @objc var descriptionOrSnippet: String? {
         if let wikidataDescription = wikidataDescription, !wikidataDescription.isEmpty {

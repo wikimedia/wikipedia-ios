@@ -7,6 +7,9 @@ extension ArticleCollectionViewCell {
     }
     
     @objc public var imageURL: URL? {
+        get {
+            return imageView.wmf_imageURLToFetch
+        }
         set {
             guard let newURL = newValue else {
                 isImageViewHidden = true
@@ -15,9 +18,6 @@ extension ArticleCollectionViewCell {
             }
             isImageViewHidden = false
             imageView.wmf_setImage(with: newURL, detectFaces: true, onGPU: true, failure: WMFIgnoreErrorHandler, success: WMFIgnoreSuccessHandler)
-        }
-        get {
-            return imageView.wmf_imageURLToFetch
         }
     }
 }

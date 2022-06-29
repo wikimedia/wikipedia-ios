@@ -1,4 +1,3 @@
-
 class WMFWelcomeExplorationViewController: ThemeableViewController {
 
     @IBOutlet private var exploreTitleLabel:UILabel!

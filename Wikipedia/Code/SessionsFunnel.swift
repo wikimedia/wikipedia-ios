@@ -12,7 +12,7 @@
         case sessionEnd = "session_end"
     }
     
-    private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measure: Double? = nil) -> Dictionary<String, Any> {
+    private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measure: Double? = nil) -> [String: Any] {
         let category = category.rawValue
         let action = action.rawValue
         

@@ -6,15 +6,13 @@ class WMFMapsActivity : UIActivity {
     public var mapItem: MKMapItem?
     
     override open var activityType: UIActivity.ActivityType? {
-        get {
-            return UIActivity.ActivityType(rawValue: String(describing: self))
-        }
+        return UIActivity.ActivityType(rawValue: String(describing: self))
     }
     
     override open func canPerform(withActivityItems activityItems: [Any]) -> Bool {
         
         for activityItem in activityItems {
-            if (activityItem is MKMapItem) {
+            if activityItem is MKMapItem {
                 return true
             }
         }
@@ -38,15 +36,11 @@ class WMFOpenInMapsActivity : WMFMapsActivity {
 
     
     override open var activityTitle: String? {
-        get {
-            return WMFLocalizedString("share-open-in-maps", value:"Open in Maps", comment:"Button to open current article's location in the Maps app.")
-        }
+        return WMFLocalizedString("share-open-in-maps", value:"Open in Maps", comment:"Button to open current article's location in the Maps app.")
     }
     
     override open var activityImage: UIImage? {
-        get {
-            return UIImage(named: "share-open-in-maps")
-        }
+        return UIImage(named: "share-open-in-maps")
     }
     
     override func perform() {
@@ -67,15 +61,11 @@ class WMFOpenInMapsActivity : WMFMapsActivity {
 class WMFGetDirectionsInMapsActivity : WMFMapsActivity {
 
     override open var activityTitle: String? {
-        get {
-            return  WMFLocalizedString("share-get-directions-in-maps", value:"Get Directions", comment:"Button to get directions to the current article's location in the Maps app.")
-        }
+        return WMFLocalizedString("share-get-directions-in-maps", value:"Get Directions", comment:"Button to get directions to the current article's location in the Maps app.")
     }
     
     override open var activityImage: UIImage? {
-        get {
-            return UIImage(named: "share-get-directions")
-        }
+        return UIImage(named: "share-get-directions")
     }
     
     override func perform() {

@@ -93,7 +93,7 @@ public extension NSManagedObjectContext {
         var end: Int = 0
         while start < results.count {
             end = min(start + batchSize, results.count)
-            try handler(Array<T>(results[start..<end]))
+            try handler([T](results[start..<end]))
             if hasChanges {
                 try save()
             }
