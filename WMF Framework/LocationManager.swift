@@ -220,7 +220,7 @@ extension LocationManager: CLLocationManagerDelegate {
     }
 }
 
-//MARK: LocationManagerProtocol
+// MARK: LocationManagerProtocol
 
 extension LocationManager: LocationManagerProtocol {
     

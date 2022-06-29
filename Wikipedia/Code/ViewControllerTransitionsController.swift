@@ -31,7 +31,7 @@ class ViewControllerTransitionsController: NSObject, UINavigationControllerDeleg
     private func diffRevisionAnimationController(for operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         guard
             let fromDiffVC = fromVC as? (DiffRevisionAnimating & DiffContainerViewController),
-            let _ = toVC as? (DiffRevisionAnimating & DiffContainerViewController),
+            toVC as? (DiffRevisionAnimating & DiffContainerViewController) != nil,
             let direction = fromDiffVC.animateDirection,
             operation == .push else {
                 return nil
@@ -66,7 +66,7 @@ class ViewControllerTransitionsController: NSObject, UINavigationControllerDeleg
         
         if let searchVC = actualToVC as? SearchViewController {
             return SearchTransition(searchViewController: searchVC, exploreViewController: exploreVC, isEnteringSearch: true)
-        } else if let searchVC = actualFromVC as? SearchViewController  {
+        } else if let searchVC = actualFromVC as? SearchViewController {
             return SearchTransition(searchViewController: searchVC, exploreViewController: exploreVC, isEnteringSearch: false)
         }
         

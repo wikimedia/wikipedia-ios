@@ -4,7 +4,7 @@ import WMF
 public typealias EditCountsGroupedByType = [PageHistoryFetcher.EditCountType: (count: Int, limit: Bool)]
 
 public final class PageHistoryFetcher: WMFLegacyFetcher {
-    @objc func fetchRevisionInfo(_ siteURL: URL, requestParams: PageHistoryRequestParameters, failure: @escaping WMFErrorHandler, success: @escaping (HistoryFetchResults) -> Void) -> Void {
+    @objc func fetchRevisionInfo(_ siteURL: URL, requestParams: PageHistoryRequestParameters, failure: @escaping WMFErrorHandler, success: @escaping (HistoryFetchResults) -> Void) {
         var params: [String: AnyObject] = [
             "action": "query" as AnyObject,
             "prop": "revisions" as AnyObject,
@@ -14,7 +14,7 @@ public final class PageHistoryFetcher: WMFLegacyFetcher {
             "titles": requestParams.title as AnyObject,
             "continue": requestParams.pagingInfo.continueKey as AnyObject? ?? "" as AnyObject,
             "format": "json" as AnyObject
-            //,"rvdiffto": -1 //Add this to fake out "error" api response.
+            // ,"rvdiffto": -1 //Add this to fake out "error" api response.
         ]
         
         if let rvContinueKey = requestParams.pagingInfo.rvContinueKey {
@@ -265,8 +265,8 @@ open class HistoryFetchResults: NSObject {
         return PageHistoryRequestParameters(title: articleURL.wmf_title ?? "", pagingInfo: pagingInfo, lastRevisionFromPreviousCall: lastRevision)
     }
     
-    @objc open func items() -> [PageHistorySection]  {
-        return self.revisionsByDay.keys.sorted(by: <).compactMap() { self.revisionsByDay[$0] }
+    @objc open func items() -> [PageHistorySection] {
+        return self.revisionsByDay.keys.sorted(by: <).compactMap { self.revisionsByDay[$0] }
     }
     
     @objc open func batchComplete() -> Bool {
@@ -296,7 +296,7 @@ open class PageHistoryRequestParameters: NSObject {
         self.lastRevisionFromPreviousCall = lastRevisionFromPreviousCall
     }
     
-    //TODO: get rid of this when the VC is swift and we can use default values in the other init
+    // TODO: get rid of this when the VC is swift and we can use default values in the other init
     @objc public init(title: String) {
         self.title = title
         pagingInfo = (nil, nil, false)

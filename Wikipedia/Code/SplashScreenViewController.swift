@@ -92,7 +92,7 @@ class SplashScreenViewController: ThemeableViewController {
         }
     }
     
-    //MARK: Themable
+    // MARK: Themable
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)

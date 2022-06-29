@@ -124,7 +124,7 @@ extension Locale {
         guard let langCode = self.languageCode else {
             return false
         }
-        return (langCode == "en" || langCode.hasPrefix("en-")) ? true : false;
+        return (langCode == "en" || langCode.hasPrefix("en-")) ? true : false
     }
 }
 

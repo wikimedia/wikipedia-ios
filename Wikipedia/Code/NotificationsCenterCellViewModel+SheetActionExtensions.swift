@@ -1,4 +1,3 @@
-
 import Foundation
 import WMF
 
@@ -66,7 +65,7 @@ extension NotificationsCenterCellViewModel {
     }
 }
 
-//MARK: Private Helpers - Aggregate Swipe Action methods
+// MARK: Private Helpers - Aggregate Swipe Action methods
 
 private extension NotificationsCenterCellViewModel {
     var userTalkPageActions: [NotificationsCenterAction] {
@@ -192,7 +191,7 @@ private extension NotificationsCenterCellViewModel {
     var pageLinkActions: [NotificationsCenterAction] {
         var sheetActions: [NotificationsCenterAction] = []
 
-        //Article where link was made
+        // Article where link was made
         if let pageLinkFromAction = commonViewModel.pageLinkFromAction {
             sheetActions.append(pageLinkFromAction)
         }
@@ -201,7 +200,7 @@ private extension NotificationsCenterCellViewModel {
             sheetActions.append(agentUserPageAction)
         }
 
-        //Article you edited
+        // Article you edited
         if let titleAction = commonViewModel.titleAction(needsConvertToOrFromTalk: false, simplified: false) {
             sheetActions.append(titleAction)
         }

@@ -10,7 +10,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     @objc public weak var notificationsCenterPresentationDelegate: NotificationsCenterPresentationDelegate?
     @objc public weak var settingsPresentationDelegate: SettingsPresentationDelegate?
 
-    // MARK - UIViewController
+    // MARK: - UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +25,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
 
         updateNotificationsCenterButton()
         updateSettingsButton()
+        updateNavigationBarVisibility()
 
         isRefreshControlEnabled = true
         collectionView.refreshControl?.layer.zPosition = 0
@@ -74,7 +75,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         isGranularUpdatingEnabled = true
         restoreScrollPositionIfNeeded()
 
-        /// Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
+        // Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
         (parent as? WMFAppViewController)?.navigationItem.backButtonTitle = title
     }
 
@@ -115,6 +116,10 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         navigationBar.updateNavigationItems()
     }
 
+    @objc public func updateNavigationBarVisibility() {
+        navigationBar.isBarHidingEnabled = UIAccessibility.isVoiceOverRunning ? false : true
+    }
+    
     func updateSettingsButton() {
         let settingsBarButtonItem = UIBarButtonItem(image: BarButtonImageStyle.settingsButtonImage(theme: theme), style: .plain, target: self, action: #selector(userDidTapSettings))
         settingsBarButtonItem.accessibilityLabel = CommonStrings.settingsTitle
@@ -122,7 +127,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         navigationBar.updateNavigationItems()
     }
     
-    // MARK - NavBar
+    // MARK: - NavBar
     
     @objc func titleBarButtonPressed(_ sender: UIButton?) {
         scrollToTop()
@@ -153,7 +158,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         settingsPresentationDelegate?.userDidTapSettings(from: self)
     }
 
-    // MARK - Refresh
+    // MARK: - Refresh
     
     override func refreshControlActivated() {
         super.refreshControlActivated()
@@ -166,7 +171,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
     }
     
-    // MARK - Scroll
+    // MARK: - Scroll
     
     var isLoadingOlderContent: Bool = false
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -244,7 +249,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
     }
     
-    // MARK - Search
+    // MARK: - Search
 
     public var wantsCustomSearchTransition: Bool {
         return true
@@ -289,7 +294,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
     }
 
-    // MARK - UISearchBarDelegate
+    // MARK: - UISearchBarDelegate
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         let searchActivity = NSUserActivity.wmf_searchView()
@@ -297,7 +302,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return false
     }
     
-    // MARK - State
+    // MARK: - State
     
     @objc var dataStore: MWKDataStore!
     private var fetchedResultsController: NSFetchedResultsController<WMFContentGroup>?
@@ -447,15 +452,15 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         super.contentSizeCategoryDidChange(notification)
     }
     
-    // MARK - ImageScaleTransitionProviding
+    // MARK: - ImageScaleTransitionProviding
     
     var imageScaleTransitionView: UIImageView?
     
-    // MARK - DetailTransitionSourceProviding
+    // MARK: - DetailTransitionSourceProviding
     
     var detailTransitionSourceRect: CGRect?
     
-    // MARK - UICollectionViewDataSource
+    // MARK: - UICollectionViewDataSource
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
        return numberOfItemsInSection(section)
@@ -482,7 +487,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return header
     }
     
-    // MARK - UICollectionViewDelegate
+    // MARK: - UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         guard let group = group(at: indexPath) else {
@@ -492,7 +497,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        var titleAreaTapped = false;
+        var titleAreaTapped = false
         if let cell = collectionView.cellForItem(at: indexPath) as? ExploreCardCollectionViewCell {
             detailTransitionSourceRect = view.convert(cell.frame, from: collectionView)
             if
@@ -643,7 +648,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         return false
     }
     
-    // MARK - ExploreCardViewControllerDelegate
+    // MARK: - ExploreCardViewControllerDelegate
     
     func exploreCardViewController(_ exploreCardViewController: ExploreCardViewController, didSelectItemAtIndexPath indexPath: IndexPath) {
         guard
@@ -676,7 +681,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         }
     }
     
-    // MARK - Prefetching
+    // MARK: - Prefetching
     
     override func imageURLsForItemAt(_ indexPath: IndexPath) -> Set<URL>? {
         guard let contentGroup = group(at: indexPath) else {
@@ -694,7 +699,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     }
     #endif
     
-    // MARK - CollectionViewUpdaterDelegate
+    // MARK: - CollectionViewUpdaterDelegate
     
     var needsReloadVisibleCells = false
     var indexPathsForCollapsedCellsThatCanReappear = Set<IndexPath>()
@@ -840,7 +845,7 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
     var addArticlesToReadingListVCDidDisappear: (() -> Void)? = nil
 }
 
-// MARK - Analytics
+// MARK: - Analytics
 extension ExploreViewController {
     private func logArticleSavedStateChange(_ wasArticleSaved: Bool, saveButton: SaveButton?, article: WMFArticle, userInfo: Any?) {
         guard let articleURL = article.url else {

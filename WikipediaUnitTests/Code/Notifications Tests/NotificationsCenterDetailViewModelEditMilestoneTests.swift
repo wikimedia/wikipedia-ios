@@ -5,9 +5,7 @@ import XCTest
 class NotificationsCenterDetailViewModelEditMilestoneTests: NotificationsCenterViewModelTests {
 
     override var dataFileName: String {
-        get {
-            return "notifications-editMilestone"
-        }
+        return "notifications-editMilestone"
     }
     
     func testEditMilestoneOneOnUserPage() throws {

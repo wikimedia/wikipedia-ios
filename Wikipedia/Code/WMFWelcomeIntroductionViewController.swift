@@ -1,4 +1,3 @@
-
 class WMFWelcomeIntroductionViewController: ThemeableViewController {
     override func apply(theme: Theme) {
         super.apply(theme: theme)

@@ -1,4 +1,3 @@
-
 enum DiffThankerError: LocalizedError {
     case thanksStatusNotSuccess
     case thanksError(String)
@@ -28,7 +27,7 @@ class DiffThanker: Fetcher {
             "source": "diff",
             "errorsuselocal": "1",
             "format": "json"
-        ];
+        ]
         performTokenizedMediaWikiAPIPOST(to: siteURL, with: parameters) { (result, response, error) in
             if let error = error {
                 completion(.failure(error))

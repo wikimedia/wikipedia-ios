@@ -1,4 +1,3 @@
-
 public enum WMFPasswordResetterError: LocalizedError {
     case cannotExtractResetStatus
     case resetStatusNotSuccess
@@ -26,15 +25,15 @@ public struct WMFPasswordResetterResult {
 }
 
 public class WMFPasswordResetter: Fetcher {
-    public func resetPassword(siteURL: URL, userName:String?, email:String?, success: @escaping WMFPasswordResetterResultBlock, failure: @escaping WMFErrorHandler){
+    public func resetPassword(siteURL: URL, userName:String?, email:String?, success: @escaping WMFPasswordResetterResultBlock, failure: @escaping WMFErrorHandler) {
         var parameters = [
             "action": "resetpassword",
             "format": "json"
-        ];
+        ]
         
         if let userName = userName, !userName.isEmpty {
             parameters["user"] = userName
-        }else {
+        } else {
             if let email = email, !email.isEmpty {
                 parameters["email"] = email
             }

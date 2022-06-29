@@ -3,8 +3,7 @@ import MapKit
 import WMF
 import CocoaLumberjackSwift
 
-struct PlaceSearchResult
-{
+struct PlaceSearchResult {
     let locationResults: [MWKSearchResult]?
     let fetchRequest: NSFetchRequest<WMFArticle>?
     let error: Error?
@@ -22,8 +21,7 @@ struct PlaceSearchResult
     }
 }
 
-class PlaceSearchService
-{
+class PlaceSearchService {
     public let dataStore: MWKDataStore
     private let locationSearchFetcher = WMFLocationSearchFetcher()
     private let wikidataFetcher: WikidataFetcher
@@ -34,19 +32,15 @@ class PlaceSearchService
     }
     
     var fetchRequestForSavedArticlesWithLocation: NSFetchRequest<WMFArticle> {
-        get {
-            let savedRequest = WMFArticle.fetchRequest()
-            savedRequest.predicate = NSPredicate(format: "savedDate != NULL && signedQuadKey != NULL")
-            return savedRequest
-        }
+        let savedRequest = WMFArticle.fetchRequest()
+        savedRequest.predicate = NSPredicate(format: "savedDate != NULL && signedQuadKey != NULL")
+        return savedRequest
     }
     
     var fetchRequestForSavedArticles: NSFetchRequest<WMFArticle> {
-        get {
-            let savedRequest = WMFArticle.fetchRequest()
-            savedRequest.predicate = NSPredicate(format: "savedDate != NULL")
-            return savedRequest
-        }
+        let savedRequest = WMFArticle.fetchRequest()
+        savedRequest.predicate = NSPredicate(format: "savedDate != NULL")
+        return savedRequest
     }
 
     public func performSearch(_ search: PlaceSearch, defaultSiteURL: URL, region: MKCoordinateRegion, completion: @escaping (PlaceSearchResult) -> Void) {
@@ -114,7 +108,7 @@ class PlaceSearchService
         }
     }
 
-    public func fetchSavedArticles(searchString: String?, completion: @escaping (NSFetchRequest<WMFArticle>?) -> () = {_ in }) {
+    public func fetchSavedArticles(searchString: String?, completion: @escaping (NSFetchRequest<WMFArticle>?) -> Void = {_ in }) {
         let moc = dataStore.viewContext
         let done = {
             let request = WMFArticle.fetchRequest()

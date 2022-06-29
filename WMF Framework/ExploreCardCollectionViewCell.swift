@@ -360,7 +360,7 @@ public class ExploreCardCollectionViewCell: CollectionViewCell, CardBackgroundVi
         delegate?.exploreCardCollectionViewCellWantsToUndoCustomization(self)
     }
     
-    // MARK - Accessibility
+    // MARK: - Accessibility
     
     override open func updateAccessibilityElements() {
         var updatedAccessibilityElements: [Any] = []

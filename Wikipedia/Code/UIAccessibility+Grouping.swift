@@ -1,4 +1,3 @@
-
 extension UIAccessibility {
     public static func groupedAccessibilityLabel(for optionalStringArray: [String?]) -> String? {
         return optionalStringArray

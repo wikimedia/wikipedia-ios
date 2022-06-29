@@ -15,7 +15,7 @@ class WMFWelcomeAnimationViewController: ThemeableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if (!hasAlreadyAnimated) {
+        if !hasAlreadyAnimated {
             guard let animationView = animationView else {
                 return
             }

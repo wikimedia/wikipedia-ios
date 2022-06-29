@@ -15,7 +15,7 @@ final class NotificationsCenterCellViewModel {
 
     init?(notification: RemoteNotification, languageLinkController: MWKLanguageLinkController, isEditing: Bool, configuration: Configuration) {
         
-        //Validation - all notifications must have a recognized project for display (wikidata, commons, or app-supported language)
+        // Validation - all notifications must have a recognized project for display (wikidata, commons, or app-supported language)
         guard let wiki = notification.wiki,
               let key = notification.key,
               let project = RemoteNotificationsProject(apiIdentifier: wiki, languageLinkController: languageLinkController) else {
@@ -44,7 +44,7 @@ final class NotificationsCenterCellViewModel {
     
     func updateDisplayState(isEditing: Bool? = nil, isSelected: Bool? = nil) {
         
-        //preserve current values for isEditing and isSelected if not specified
+        // preserve current values for isEditing and isSelected if not specified
         let newIsEditingState = isEditing ?? displayState.isEditing
         let newIsSelectedState = isSelected ?? displayState.isSelected
         
@@ -70,18 +70,18 @@ final class NotificationsCenterCellViewModel {
     static func displayStateFor(isEditing: Bool, isSelected: Bool, isRead: Bool) -> NotificationsCenterCellDisplayState {
 
         switch (isEditing, isSelected, isRead) {
-            case (false, _, true):
-                return .defaultRead
-            case (false, _, false):
-                return .defaultUnread
-            case (true, true, true):
-                return .editSelectedRead
-            case (true, true, false):
-                return .editSelectedUnread
-            case (true, false, true):
-                return .editUnselectedRead
-            case (true, false, false):
-                return .editUnselectedUnread
+        case (false, _, true):
+            return .defaultRead
+        case (false, _, false):
+            return .defaultUnread
+        case (true, true, true):
+            return .editSelectedRead
+        case (true, true, false):
+            return .editSelectedUnread
+        case (true, false, true):
+            return .editUnselectedRead
+        case (true, false, false):
+            return .editUnselectedUnread
         }
     }
     

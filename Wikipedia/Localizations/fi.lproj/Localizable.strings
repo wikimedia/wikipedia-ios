@@ -589,8 +589,7 @@
 "notifications-center-filters-types-section-title" = "Ilmoitusten tyypit";
 "notifications-center-go-to-article" = "Artikkeli";
 "notifications-center-go-to-article-talk-format" = "Sivun $1 keskustelusivu";
-// Fuzzy
-"notifications-center-go-to-diff" = "Siirry versioon";
+"notifications-center-go-to-diff" = "Ero";
 "notifications-center-go-to-talk-page" = "Keskustelusivu";
 "notifications-center-go-to-user-page" = "Käyttäjän $1 käyttäjäsivu";
 "notifications-center-go-to-wikidata-item" = "Wikidata-kohde";
@@ -601,6 +600,7 @@
 "notifications-center-login-notifications" = "Kirjautumisilmoitukset";
 "notifications-center-mark" = "Merkitse";
 "notifications-center-mark-all-as-read" = "Merkitse kaikki luetuksi";
+"notifications-center-mark-all-as-read-missing-number" = "Haluatko varmasti merkitä kaikki ilmoituksesi luetuksi? Ilmoituksesi merkitään luetuiksi kaikilla laitteillasi.";
 "notifications-center-mark-as-read" = "Merkitse luetuksi";
 "notifications-center-mark-as-unread" = "Merkitse lukemattomaksi";
 "notifications-center-more-action-accessibility-label" = "Lisää";
@@ -654,10 +654,8 @@
 "notifications-center-type-title-page-link" = "Sivulinkki";
 "notifications-center-type-title-welcome" = "Tervetuloa";
 "notifications-push-fallback-body-text" = "Uusi toiminta Wikipediassa";
-// Fuzzy
-"notifications-push-talk-body-format" = "$1 $2 sivulla $3";
-// Fuzzy
-"notifications-push-talk-title-format" = "Uusi $1";
+"notifications-push-talk-body-format" = "{{PLURAL:$1|$1 uusi viesti|$1 uutta viestiä}} sivulla $2";
+"notifications-push-talk-title-format" = "{{PLURAL:$1|Uusi viesti|Uusia viestejä}}";
 "number-billions" = "$1 mrd.";
 "number-millions" = "$1 milj.";
 "number-thousands" = "$1 t.";

@@ -11,7 +11,7 @@ import UIKit
 // 3. Handling RTL content on LTR devices and vice versa
 
 open class CollectionViewCell: UICollectionViewCell {
-    // MARK - Methods for subclassing
+    // MARK: - Methods for subclassing
     
     // Subclassers should override setup instead of any of the initializers. Subclassers must call super.setup()
     open func setup() {
@@ -70,7 +70,7 @@ open class CollectionViewCell: UICollectionViewCell {
             self.labelBackgroundColor = .clear
         }
 
-        //Then update the completion block to set the actual opaque color we want after the animation completes
+        // Then update the completion block to set the actual opaque color we want after the animation completes
         let existingCompletionBlock = CATransaction.completionBlock()
         CATransaction.setCompletionBlock {
             if let block = existingCompletionBlock {
@@ -105,7 +105,7 @@ open class CollectionViewCell: UICollectionViewCell {
         
     }
     
-    // MARK - Initializers
+    // MARK: - Initializers
     // Don't override these initializers, use setup() instead
     
     public override init(frame: CGRect) {
@@ -118,14 +118,14 @@ open class CollectionViewCell: UICollectionViewCell {
         setup()
     }
     
-    // MARK - Cell lifecycle
+    // MARK: - Cell lifecycle
     
     open override func prepareForReuse() {
         super.prepareForReuse()
         reset()
     }
     
-    // MARK - Layout
+    // MARK: - Layout
 
     open override func layoutMarginsDidChange() {
         super.layoutMarginsDidChange()
@@ -138,7 +138,7 @@ open class CollectionViewCell: UICollectionViewCell {
         backgroundView?.frame = bounds
         selectedBackgroundView?.frame = bounds
         let size = bounds.size
-        let _ = sizeThatFits(size, apply: true)
+        _ = sizeThatFits(size, apply: true)
         updateAccessibilityElements()
         #if DEBUG
             for view in subviews {
@@ -180,7 +180,7 @@ open class CollectionViewCell: UICollectionViewCell {
         }
     }
     
-    // MARK - Dynamic Type
+    // MARK: - Dynamic Type
     // Only applies new fonts if the content size category changes
     
     open override func setNeedsLayout() {
@@ -207,7 +207,7 @@ open class CollectionViewCell: UICollectionViewCell {
         
     }
     
-    // MARK - Layout Margins
+    // MARK: - Layout Margins
     
     public var layoutMarginsAdditions: UIEdgeInsets = .zero
     public var layoutMarginsInteractiveAdditions: UIEdgeInsets = .zero

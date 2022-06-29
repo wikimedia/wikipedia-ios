@@ -94,7 +94,7 @@ extension ArticleCacheResourceDBWriting {
                         return
                 }
                 
-                //note, we purposefully do not set variant here. We need to wait until CacheFileWriter determines if the response varies on language, then set it when we call markDownloaded
+                // note, we purposefully do not set variant here. We need to wait until CacheFileWriter determines if the response varies on language, then set it when we call markDownloaded
                 guard let item = CacheDBWriterHelper.fetchOrCreateCacheItem(with: url, itemKey: itemKey, variant: nil, in: self.context) else {
                     completion(.failure(ArticleCacheDBWriterError.failureFetchOrCreateMustHaveCacheItem))
                     return
@@ -128,7 +128,7 @@ extension ArticleCacheResourceDBWriting {
         do {
             mobileHTMLOfflineResourcesRequest = try articleFetcher.mobileHTMLOfflineResourcesRequest(articleURL: articleURL)
             mobileHTMLMediaListRequest = try articleFetcher.mobileHTMLMediaListRequest(articleURL: articleURL)
-        } catch (let error) {
+        } catch let error {
             completion(.failure(error))
             return
         }
@@ -173,7 +173,7 @@ extension ArticleCacheResourceDBWriting {
                 let imageTitles = items.map { $0.imageTitle }
                 let dedupedTitles = Set(imageTitles)
                 
-                //add imageInfoFetcher's urls for deduped titles (for captions/licensing info in gallery)
+                // add imageInfoFetcher's urls for deduped titles (for captions/licensing info in gallery)
                 for title in dedupedTitles {
                     if let imageInfoURL = self.imageInfoFetcher.galleryInfoURL(forImageTitles: [title], fromSiteURL: articleURL) {
                         imageInfoURLs.append(imageInfoURL)

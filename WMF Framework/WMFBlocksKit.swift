@@ -37,7 +37,7 @@ extension NSArray {
                 mutableSelf.add(array.wmf_arrayByRecursivelyRemovingNullObjects())
             } else if let set = value as? NSSet {
                 mutableSelf.add(set.wmf_setByRecursivelyRemovingNullObjects())
-            } else if let _ = value as? NSNull {
+            } else if value as? NSNull != nil {
                 
             } else {
                 mutableSelf.add(value)
@@ -89,7 +89,7 @@ extension NSSet {
                 mutableSelf.add(array.wmf_arrayByRecursivelyRemovingNullObjects())
             } else if let set = value as? NSSet {
                 mutableSelf.add(set.wmf_setByRecursivelyRemovingNullObjects())
-            } else if let _ = value as? NSNull {
+            } else if value as? NSNull != nil {
                 
             } else {
                 mutableSelf.add(value)
@@ -156,9 +156,9 @@ extension NSDictionary {
                 mutableSelf[key] = array.wmf_arrayByRecursivelyRemovingNullObjects()
             } else if let set = value as? NSSet {
                 mutableSelf[key] = set.wmf_setByRecursivelyRemovingNullObjects()
-            } else if let _ = value as? NSNull {
+            } else if value as? NSNull != nil {
                 
-            } else if let _ = key as? NSNull {
+            } else if key as? NSNull != nil {
                 
             } else {
                 mutableSelf[key] = value

@@ -1,4 +1,3 @@
-
 private extension CGFloat {
     func constrainedBetween(minHeight: Int, maxPercentOfScreenHeight: Int, availableHeight: CGFloat) -> CGFloat {
         assert(minHeight >= 0, "minHeight should be at least 0")
@@ -6,7 +5,7 @@ private extension CGFloat {
         let proportionOfScreenHeight = availableHeight > 0.0 ? self / availableHeight : 0.0
         var constrainedHeight = self
         let maxAllowedProportionOfScreenHeight = CGFloat(maxPercentOfScreenHeight) / 100.0
-        if (proportionOfScreenHeight > maxAllowedProportionOfScreenHeight) {
+        if proportionOfScreenHeight > maxAllowedProportionOfScreenHeight {
             constrainedHeight = availableHeight * maxAllowedProportionOfScreenHeight
         }
         return fmax(CGFloat(minHeight), constrainedHeight)
@@ -22,9 +21,7 @@ private extension CGFloat {
 
     private let minHeight = 30
     private var maxPercentOfScreenHeight: Int {
-        get {
-            return openStatePercent.rawValue
-        }
+        return openStatePercent.rawValue
     }
     
     public var openStatePercent: GalleryDescriptionOpenStatePercent = .normal {

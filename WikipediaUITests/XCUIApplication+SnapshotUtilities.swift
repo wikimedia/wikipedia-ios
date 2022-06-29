@@ -127,7 +127,7 @@ extension XCUIElement {
     // Scrolls to first element for each ScrollItem key in single scrolling pass (i.e. without scrolling back to top between items).
     func wmf_scrollToFirstElements(matching type: XCUIElement.ElementType, yOffset: CGFloat, items: [ScrollItem], timeout seconds: Double = 180) {
         let start = Date()
-        var keys = items.map{$0.key}
+        var keys = items.map {$0.key}
         scrollLoop: repeat {
             if let element = descendants(matching: type).wmf_firstElement(with: .label, withTranslationIn: keys, convertTranslationSubstitutionStringsToWildcards: true, timeout: 1) {
                 if let item = items.first(where: {$0.predicate.evaluate(with: element.label)}) {
@@ -162,16 +162,16 @@ private enum ElementPropertyType: String {
     }
     
     func predicate(for texts: [String]) -> NSPredicate {
-        return NSCompoundPredicate(orPredicateWithSubpredicates: texts.map{text in predicate(for: text)})
+        return NSCompoundPredicate(orPredicateWithSubpredicates: texts.map {text in predicate(for: text)})
     }
     func wildcardPredicate(for texts: [String]) -> NSPredicate {
-        return NSCompoundPredicate(orPredicateWithSubpredicates: texts.map{text in wildcardPredicate(for: text)})
+        return NSCompoundPredicate(orPredicateWithSubpredicates: texts.map {text in wildcardPredicate(for: text)})
     }
 }
 
 private extension XCUIElementQuery {
     func wmf_firstElement(with propertyType: ElementPropertyType, withTranslationIn keys: [String], convertTranslationSubstitutionStringsToWildcards shouldConvert: Bool = false, timeout: TimeInterval = 10) -> XCUIElement? {
-        let translations = keys.map{key in WMFLocalizedString(key, value: "", comment: "")} // localization strings are copied into this scheme during a build phase: https://stackoverflow.com/a/38133902/135557
+        let translations = keys.map {key in WMFLocalizedString(key, value: "", comment: "")} // localization strings are copied into this scheme during a build phase: https://stackoverflow.com/a/38133902/135557
         let predicate = shouldConvert ? propertyType.wildcardPredicate(for: translations) : propertyType.predicate(for: translations)
         return matching(predicate).element(boundBy: 0).wmf_waitUntilExists(timeout: timeout)
     }
@@ -179,9 +179,9 @@ private extension XCUIElementQuery {
 
 struct ScrollItem {
     let key: String
-    let success: (XCUIElement) -> ()
+    let success: (XCUIElement) -> Void
     let predicate: NSPredicate
-    init(key: String, success: @escaping (XCUIElement) -> ()) {
+    init(key: String, success: @escaping (XCUIElement) -> Void) {
         self.key = key
         self.success = success
         self.predicate = ElementPropertyType.`self`.wildcardPredicate(for: WMFLocalizedString(key, value: "", comment: ""))

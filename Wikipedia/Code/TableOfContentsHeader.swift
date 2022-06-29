@@ -9,7 +9,7 @@ open class TableOfContentsHeader: UIView {
         get {
             return url
         }
-        set(newURL){
+        set(newURL) {
             self.contentsLabel.text = self.headerTextForURL(newURL)
             url = newURL
         }
@@ -17,7 +17,7 @@ open class TableOfContentsHeader: UIView {
     
     open func headerTextForURL(_ url: URL) -> String {
         let headerString = WMFLocalizedString("table-of-contents-heading", languageCode: url.wmf_languageCode, value: "Contents", comment: "Header text appearing above the first section in the table of contents {{Identical|Content}}")
-        if (Locale.current.isEnglish) {
+        if Locale.current.isEnglish {
             return headerString.uppercased(with: Locale.current)
         } else {
             return headerString

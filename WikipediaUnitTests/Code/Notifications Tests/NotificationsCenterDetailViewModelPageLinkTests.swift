@@ -4,9 +4,7 @@ import XCTest
 class NotificationsCenterDetailViewModelPageLinkTests: NotificationsCenterViewModelTests {
     
     override var dataFileName: String {
-        get {
-            return "notifications-pageLink"
-        }
+        return "notifications-pageLink"
     }
 
     func testPageLink() throws {

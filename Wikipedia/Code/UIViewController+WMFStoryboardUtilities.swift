@@ -1,4 +1,3 @@
-
 extension UIViewController {
     /**
      * Convenience method for creating an instance of the receiver from a storyboard.

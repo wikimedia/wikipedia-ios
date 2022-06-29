@@ -1,4 +1,3 @@
-
 enum AbuseFilterAlertType {
     case warning
     case disallow

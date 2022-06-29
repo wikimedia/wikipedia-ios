@@ -1,4 +1,3 @@
-
 import WebKit
 
 enum SchemeHandlerError: Error {
@@ -109,8 +108,8 @@ private extension SchemeHandler {
         var mutableRequest = originalRequest
         mutableRequest.url = newURL
         
-        //set persistentCacheItemType in header if it doesn't already exist
-        //set If-None-Match in header if it doesn't already exist
+        // set persistentCacheItemType in header if it doesn't already exist
+        // set If-None-Match in header if it doesn't already exist
         
         let containsType = mutableRequest.allHTTPHeaderFields?[Header.persistentCacheItemType] != nil
         let containsIfNoneMatch = mutableRequest.allHTTPHeaderFields?[URLRequest.ifNoneMatchHeaderKey] != nil

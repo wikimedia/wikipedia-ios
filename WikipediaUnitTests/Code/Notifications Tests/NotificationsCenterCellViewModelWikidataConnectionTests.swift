@@ -4,9 +4,7 @@ import XCTest
 class NotificationsCenterCellViewModelWikidataConnectionTests: NotificationsCenterViewModelTests {
 
     override var dataFileName: String {
-        get {
-            return "notifications-wikidataConnection"
-        }
+        return "notifications-wikidataConnection"
     }
     
     func testWikidataConnection() throws {

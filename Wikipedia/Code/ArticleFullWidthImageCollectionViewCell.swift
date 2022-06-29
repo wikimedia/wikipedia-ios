@@ -7,26 +7,26 @@ open class ArticleFullWidthImageCollectionViewCell: ArticleCollectionViewCell {
     fileprivate let headerBackgroundView = UIView()
     
     public var headerBackgroundColor: UIColor? {
+        get {
+            return headerBackgroundView.backgroundColor
+        }
         set {
             headerBackgroundView.backgroundColor = newValue
             titleLabel.backgroundColor = newValue
             descriptionLabel.backgroundColor = newValue
         }
-        get {
-            return headerBackgroundView.backgroundColor
-        }
     }
     
     public var isHeaderBackgroundViewHidden: Bool {
+        get {
+            return headerBackgroundView.superview == nil
+        }
         set {
             if newValue {
                 headerBackgroundView.removeFromSuperview()
             } else {
                 contentView.insertSubview(headerBackgroundView, at: 0)
             }
-        }
-        get {
-            return headerBackgroundView.superview == nil
         }
     }
     

@@ -1,4 +1,3 @@
-
 import UIKit
 
 class InfoBannerView: SetupView {
@@ -36,7 +35,7 @@ class InfoBannerView: SetupView {
         
         let finalHeight = adjustedMargins.top + titleLabelFrame.size.height + subtitleLabelFrame.height + adjustedMargins.bottom
         
-        if (apply) {
+        if apply {
             iconImageView.frame = isRTL ? CGRect(x: adjustedMargins.left + titleLabelWidth + iconTextSpacing, y: (finalHeight / 2) - (iconImageSideLength / 2), width: iconImageSideLength, height: iconImageSideLength) : CGRect(x: adjustedMargins.left, y: (finalHeight / 2) - (iconImageSideLength / 2), width: iconImageSideLength, height: iconImageSideLength)
         }
         
@@ -55,7 +54,7 @@ class InfoBannerView: SetupView {
         accessibilityLabel = "\(title)\n\(subtitle)"
     }
     
-    // MARK - Dynamic Type
+    // MARK: - Dynamic Type
     // Only applies new fonts if the content size category changes
     
     open override func setNeedsLayout() {
@@ -104,7 +103,7 @@ class InfoBannerView: SetupView {
     }
 }
 
-//MARK: Themable
+// MARK: Themable
 
 extension InfoBannerView: Themeable {
     func apply(theme: Theme) {

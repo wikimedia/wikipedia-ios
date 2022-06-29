@@ -186,16 +186,14 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
      * representing a uniformly random 80-bit integer.
      */
     internal var sessionID: String {
-        get {
-            queue.sync {
-                guard let sID = _sessionID else {
-                    let newID = generateID()
-                    _sessionID = newID
-                    return newID
-                }
-
-                return sID
+        queue.sync {
+            guard let sID = _sessionID else {
+                let newID = generateID()
+                _sessionID = newID
+                return newID
             }
+
+            return sID
         }
     }
     private var _sessionID: String?
@@ -275,7 +273,7 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
     /**
      * Unset the session
      */
-    private func resetSession() -> Void {
+    private func resetSession() {
         queue.async {
             self._sessionID = nil
         }
@@ -613,7 +611,7 @@ public class EventPlatformClient: NSObject, SamplingControllerDelegate {
     }
 }
 
-//MARK: Thread-safe accessors for collection properties
+// MARK: Thread-safe accessors for collection properties
 private extension EventPlatformClient {
 
     /**
@@ -661,7 +659,7 @@ private extension EventPlatformClient {
     }
 }
 
-//MARK: NetworkIntegration
+// MARK: NetworkIntegration
 
 private extension EventPlatformClient {
     /// PostEventError describes the possible failure cases when POSTing an event
@@ -680,7 +678,7 @@ private extension EventPlatformClient {
         DDLogDebug("EPC: Attempting to POST events")
         let request = session.request(with: url, method: .post, bodyData: body, bodyEncoding: .json)
         let task = session.dataTask(with: request, completionHandler: { (_, response, error) in
-            let fail: (PostEventError) ->  Void = { error in
+            let fail: (PostEventError) -> Void = { error in
                 DDLogDebug("EPC: An error occurred sending the request: \(error)")
                 completion(.failure(error))
             }

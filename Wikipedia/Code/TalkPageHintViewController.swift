@@ -1,7 +1,6 @@
-
 import UIKit
 
-//todo: combine these into 1 view controller & one controller
+// todo: combine these into 1 view controller & one controller
 
 @objc(WMFTalkPageTopicHintViewController)
 class TalkPageTopicHintViewController: HintViewController {

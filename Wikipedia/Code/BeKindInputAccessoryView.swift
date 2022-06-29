@@ -4,7 +4,7 @@ protocol BeKindInputAccessoryViewDelegate: AnyObject {
     func didUpdateHeight(view: BeKindInputAccessoryView)
 }
 
-class BeKindInputAccessoryView: UIView, Themeable{
+class BeKindInputAccessoryView: UIView, Themeable {
     @IBOutlet private weak var beKindView: InfoBannerView!
     @IBOutlet private weak var heightConstraint: NSLayoutConstraint!
     

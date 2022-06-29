@@ -18,7 +18,7 @@ open class ExtensionViewController: UIViewController, Themeable {
     private func updateThemeFromTraitCollection(force: Bool = false) {
         let compatibleTheme = Theme.widgetThemeCompatible(with: traitCollection)
         guard theme !== compatibleTheme else {
-            if (force) {
+            if force {
                 apply(theme: theme)
             }
             return

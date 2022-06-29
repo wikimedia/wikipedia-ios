@@ -80,7 +80,7 @@ open class WMFAlertManager: NSObject, RMessageProtocol, Themeable {
         })
     }
 
-    @objc func showAlert(_ dismissPreviousAlerts:Bool, alertBlock: @escaping ()->()){
+    @objc func showAlert(_ dismissPreviousAlerts:Bool, alertBlock: @escaping () -> Void) {
         DispatchQueue.main.async {
             if dismissPreviousAlerts {
                 self.dismissAllAlerts {

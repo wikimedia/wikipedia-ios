@@ -49,7 +49,7 @@ class FontSizeSliderViewController: UIViewController {
         }
     }
     
-    func setValues(_ minimum: Int, maximum: Int, current: Int){
+    func setValues(_ minimum: Int, maximum: Int, current: Int) {
         slider.minimumValue = minimum
         slider.maximumValue = maximum
         slider.value = current

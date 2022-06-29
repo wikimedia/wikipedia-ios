@@ -1,4 +1,3 @@
-
 import Foundation
 
 enum SaveResult {
@@ -47,7 +46,7 @@ protocol CacheDBWriting: CacheTaskTracking {
     func shouldDownloadVariantForAllVariantItems(variant: String?, _ allVariantItems: [CacheController.ItemKeyAndVariant]) -> Bool
     var fetcher: CacheFetching { get }
 
-    //default implementations
+    // default implementations
     func remove(itemAndVariantKey: CacheController.ItemKeyAndVariant, completion: @escaping (CacheDBWritingResult) -> Void)
     func remove(groupKey: String, completion: @escaping (CacheDBWritingResult) -> Void)
     func fetchKeysToRemove(for groupKey: CacheController.GroupKey, completion: @escaping CacheDBWritingCompletionWithItemAndVariantKeys)

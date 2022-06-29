@@ -1,4 +1,3 @@
-
 import Foundation
 import WMF
 
@@ -27,7 +26,7 @@ class ShortDescriptionController: ArticleDescriptionControlling {
     
     fileprivate static let templateRegex = "(\\{\\{\\s*[sS]hort description\\|(?:1=)?)([^}|]+)([^}]*\\}\\})"
     
-//MARK: Public
+// MARK: Public
     
     /// Inits for use of updating EN Wikipedia article description
     /// - Parameters:
@@ -97,7 +96,7 @@ class ShortDescriptionController: ArticleDescriptionControlling {
     }
 }
 
-//MARK: Private helpers
+// MARK: Private helpers
 
 private extension ShortDescriptionController {
     
@@ -112,7 +111,7 @@ private extension ShortDescriptionController {
                 
             replaceDescriptionInWikitextAndUpload(wikitext, newDescription: newDescription, baseRevisionID: baseRevisionID, completion: completion)
             
-        } catch (let error) {
+        } catch let error {
             completion(.failure(error))
         }
     }
@@ -170,7 +169,7 @@ private extension ShortDescriptionController {
                 completion(.success(ArticleDescriptionPublishResult(newRevisionID: revisionID, newDescription: newDescription)))
             })
             
-        } catch (let error) {
+        } catch let error {
             completion(.failure(error))
         }
     }

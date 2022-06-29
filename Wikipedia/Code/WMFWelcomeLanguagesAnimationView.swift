@@ -22,7 +22,7 @@ open class WMFWelcomeLanguagesAnimationView : WMFWelcomeAnimationView {
         return imgView
     }()
     
-    override open func addAnimationElementsScaledToCurrentFrameSize(){
+    override open func addAnimationElementsScaledToCurrentFrameSize() {
         super.addAnimationElementsScaledToCurrentFrameSize()
         removeExistingSubviewsAndSublayers()
         addSubview(bubbleLeftImgView)
