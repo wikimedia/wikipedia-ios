@@ -20,16 +20,16 @@ struct TalkPageThreadItems: Codable {
 struct TalkPageItem: Codable {
     let type: TalkPageItemType
     let level: Int?
-    let id: String?
+    let id: String
     let html: String?
+    let name: String
     let headingLevel: Int?
-    let placeholderHeading: Bool?
     let replies: [TalkPageItem]
     let otherContent: String?
 
     
     enum CodingKeys: String, CodingKey {
-        case type, level, id, html,headingLevel, placeholderHeading, replies
+        case type, level, id, html, name ,headingLevel, replies
         case otherContent = "othercontent"
     }
     
@@ -41,20 +41,20 @@ struct TalkPageItem: Codable {
 
 class TalkPageFetcher: Fetcher {
     
-    func fetchTalkPageContent(url: URL, completion: @escaping (Result<[TalkPageItem], Error>) -> Void) {
-        guard let pageTitle = url.wmf_title else {
+    func fetchTalkPageContent(talkPageTitle: String, siteURL: URL, completion: @escaping (Result<[TalkPageItem], Error>) -> Void) {
+        guard let title = talkPageTitle.denormalizedPageTitle else {
             completion(.failure(RequestError.invalidParameters))
             return
         }
         
         let params = ["action" : "discussiontoolspageinfo",
-                      "page" : pageTitle,
+                      "page" : title,
                       "format": "json",
                       "prop" : "threaditemshtml",
                       "fomatversion" : "2"
         ]
 
-        performDecodableMediaWikiAPIGET(for: url, with: params) { (result: Result<TalkPageAPIResponse, Error>) in
+        performDecodableMediaWikiAPIGET(for: siteURL, with: params) { (result: Result<TalkPageAPIResponse, Error>) in
             switch result {
             case let .success(talk):
                 completion(.success(talk.threads.threadItems))
