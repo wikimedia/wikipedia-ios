@@ -91,9 +91,7 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
 
     func pushUserTalkPage(title: String, siteURL: URL) {
         if FeatureFlags.needsNewTalkPage {
-            guard let newTalkPage = TalkPageViewController(url: siteURL, theme: theme) else {
-                return
-            }
+            let newTalkPage = TalkPageViewController(talkPageTitle: title, siteURL: siteURL, theme: theme) 
             push(newTalkPage, animated: true)
         } else {
             let talkPageContainer = TalkPageContainerViewController.talkPageContainer(title: title, siteURL: siteURL, type: .user, dataStore: dataStore, theme: theme)
