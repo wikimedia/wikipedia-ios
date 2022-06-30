@@ -7,6 +7,7 @@ public class Router: NSObject {
         case articleHistory(_: URL, articleTitle: String)
         case articleDiffCompare(_: URL, fromRevID: Int?, toRevID: Int?)
         case articleDiffSingle(_: URL, fromRevID: Int?, toRevID: Int?)
+        case talk(_: URL)
         case userTalk(_: URL)
         case search(_: URL, term: String?)
         case audio(_: URL)
@@ -56,6 +57,8 @@ public class Router: NSObject {
         let title = namespaceAndTitle.1
         let inAppLinkDestination = Destination.inAppLink(url)
         switch namespace {
+        case .talk:
+            return .talk(url)
         case .userTalk:
             return .userTalk(url)
         case .special:
