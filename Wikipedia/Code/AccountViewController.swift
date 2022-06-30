@@ -116,19 +116,19 @@ class AccountViewController: SubSettingsViewController {
         case .logout:
             showLogoutAlert()
         case .talkPage:
-            if let username = dataStore.authenticationManager.loggedInUsername,
-               let siteURL = dataStore.primarySiteURL {
-                let title = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: username, siteURL: siteURL)
-                
-                let loadingFlowController = TalkPageContainerViewController.talkPageContainer(title: title, siteURL: siteURL,  type: .user, dataStore: dataStore, theme: theme)
-                
-                let newTalkPage = TalkPageViewController(theme: theme)
-                if FeatureFlags.needsNewTalkPage {
+            guard let username = dataStore.authenticationManager.loggedInUsername,
+                  let siteURL = dataStore.primarySiteURL else {
+                return
+            }
+            
+            if FeatureFlags.needsNewTalkPage {
+                if let newTalkPage = TalkPageViewController(url: siteURL, theme: theme) {
                     self.navigationController?.pushViewController(newTalkPage, animated: true)
-                } else {
-                    self.navigationController?.pushViewController(loadingFlowController, animated: true)
                 }
-                
+            } else {
+                let title = TalkPageType.user.titleWithCanonicalNamespacePrefix(title: username, siteURL: siteURL)
+                let loadingFlowController = TalkPageContainerViewController.talkPageContainer(title: title, siteURL: siteURL,  type: .user, dataStore: dataStore, theme: theme)
+                self.navigationController?.pushViewController(loadingFlowController, animated: true)
             }
         default:
             break

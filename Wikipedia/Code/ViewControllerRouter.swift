@@ -90,14 +90,18 @@ class ViewControllerRouter: NSObject {
             vc.player = player
             return presentOrPush(vc, with: completion)
         case .userTalk(let linkURL):
-            guard let talkPageVC = TalkPageContainerViewController.userTalkPageContainer(url: linkURL, dataStore: appViewController.dataStore, theme: theme) else {
-                completion()
-                return false
-            }
-            let newTalkPage = TalkPageViewController(theme: theme)
+            
             if FeatureFlags.needsNewTalkPage {
+                guard let newTalkPage = TalkPageViewController(url: linkURL, theme: theme) else {
+                    completion()
+                    return false
+                }
                 return presentOrPush(newTalkPage, with: completion)
             } else {
+                guard let talkPageVC = TalkPageContainerViewController.userTalkPageContainer(url: linkURL, dataStore: appViewController.dataStore, theme: theme) else {
+                    completion()
+                    return false
+                }
                 return presentOrPush(talkPageVC, with: completion)
             }
 
