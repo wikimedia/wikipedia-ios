@@ -138,17 +138,33 @@ final class NavigationStateController: NSObject {
                     return
                 }
                 
-                let talkPageContainer = TalkPageContainerViewController.talkPageContainer(title: title, siteURL: siteURL, type: type, dataStore: dataStore, theme: theme)
-                navigationController.isNavigationBarHidden = true
-                navigationController.pushViewController(talkPageContainer, animated: false)
-            case (.talkPageReplyList, let info?):
-                guard
-                    let talkPageTopic = managedObject(with: info.contentGroupIDURIString, in: moc) as? TalkPageTopic,
-                    let talkPageContainerVC = navigationController.viewControllers.last as? TalkPageContainerViewController
-                else {
-                    return
+                if FeatureFlags.needsNewTalkPage {
+                    let newTalkPage = TalkPageViewController(talkPageTitle: title, siteURL: siteURL, theme: theme)
+                    navigationController.pushViewController(newTalkPage, animated: false)
+                } else {
+                    let talkPageContainer = TalkPageContainerViewController.talkPageContainer(title: title, siteURL: siteURL, type: type, dataStore: dataStore, theme: theme)
+                    navigationController.pushViewController(talkPageContainer, animated: false)
                 }
-                talkPageContainerVC.pushToReplyThread(topic: talkPageTopic, animated: false)
+                
+                navigationController.isNavigationBarHidden = true
+            case (.talkPageReplyList, let info?):
+                if FeatureFlags.needsNewTalkPage {
+                    guard let siteURLString = info.talkPageSiteURLString,
+                          let title = info.talkPageTitle,
+                          let siteURL = URL(string: siteURLString) else {
+                        return
+                    }
+                    let newTalkPage = TalkPageViewController(talkPageTitle: title, siteURL: siteURL, theme: theme)
+                    navigationController.pushViewController(newTalkPage, animated: false)
+                } else {
+                    guard
+                        let talkPageTopic = managedObject(with: info.contentGroupIDURIString, in: moc) as? TalkPageTopic,
+                        let talkPageContainerVC = navigationController.viewControllers.last as? TalkPageContainerViewController
+                    else {
+                        return
+                    }
+                    talkPageContainerVC.pushToReplyThread(topic: talkPageTopic, animated: false)
+                }
             case (.readingListDetail, let info?):
                 guard let readingList = managedObject(with: info.readingListURIString, in: moc) as? ReadingList else {
                     return

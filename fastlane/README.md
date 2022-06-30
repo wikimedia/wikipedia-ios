@@ -100,7 +100,7 @@ Build the app for distribution
 ```
 fastlane ios deploy
 ```
-Pushes the production app to TestFlight and tags the release. Only releases to internal testers. (This is very similar to `push_production`, although this command also tags the build in git.)
+Pushes both the production and staging apps to TestFlight and tags the release. Only releases to internal testers. (This is very similar to `push_production`, although this command also tags the build in git.)
 ### ios push_production
 ```
 fastlane ios push_production
