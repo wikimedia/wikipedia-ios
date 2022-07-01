@@ -59,7 +59,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     private(set) var siteURL: URL
     let type: TalkPageType
     private let dataStore: MWKDataStore
-    private(set) var controller: TalkPageController
+    private(set) var controller: OldTalkPageController
     private(set) var talkPageSemanticContentAttribute: UISemanticContentAttribute
     private let emptyViewController = EmptyViewController(nibName: "EmptyViewController", bundle: nil)
     private var talkPage: TalkPage? {
@@ -158,7 +158,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         }
     }
     
-    required init(title: String, sectionTitleFragment: String? = nil, siteURL: URL, type: TalkPageType, dataStore: MWKDataStore, controller: TalkPageController? = nil, theme: Theme) {
+    required init(title: String, sectionTitleFragment: String? = nil, siteURL: URL, type: TalkPageType, dataStore: MWKDataStore, controller: OldTalkPageController? = nil, theme: Theme) {
         self.talkPageTitle = title
         self.siteURL = siteURL
         self.type = type
@@ -168,7 +168,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
         if let controller = controller {
             self.controller = controller
         } else {
-            self.controller = TalkPageController(moc: dataStore.viewContext, title: talkPageTitle, siteURL: siteURL, type: type)
+            self.controller = OldTalkPageController(moc: dataStore.viewContext, title: talkPageTitle, siteURL: siteURL, type: type)
         }
         
         assert(title.contains(":"), "Title must already be prefixed with namespace.")
@@ -642,7 +642,7 @@ private extension TalkPageContainerViewController {
     }
     
     func changeLanguage(siteURL: URL) {
-        controller = TalkPageController(moc: dataStore.viewContext, title: talkPageTitle, siteURL: siteURL, type: type)
+        controller = OldTalkPageController(moc: dataStore.viewContext, title: talkPageTitle, siteURL: siteURL, type: type)
         let contentLanguageCode = siteURL.wmf_contentLanguageCode
         talkPageSemanticContentAttribute = MWKLanguageLinkController.semanticContentAttribute(forContentLanguageCode: contentLanguageCode)
         resetTopicList()
