@@ -1,8 +1,8 @@
 import Foundation
 
-struct FeatureFlags {
+public struct FeatureFlags {
     
-    static var needsNewTalkPage: Bool {
+    public static var needsNewTalkPage: Bool {
         #if WMF_STAGING
             return true
         #else

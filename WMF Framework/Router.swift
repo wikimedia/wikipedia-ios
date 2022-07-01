@@ -58,7 +58,11 @@ public class Router: NSObject {
         let inAppLinkDestination = Destination.inAppLink(url)
         switch namespace {
         case .talk:
-            return .talk(url)
+            if FeatureFlags.needsNewTalkPage {
+                return .talk(url)
+            } else {
+                return .inAppLink(url)
+            }
         case .userTalk:
             return .userTalk(url)
         case .special:

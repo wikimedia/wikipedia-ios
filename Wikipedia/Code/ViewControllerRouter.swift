@@ -91,16 +91,11 @@ class ViewControllerRouter: NSObject {
             return presentOrPush(vc, with: completion)
         case .talk(let linkURL):
             
-            if FeatureFlags.needsNewTalkPage {
-                guard let newTalkPage = TalkPageViewController(url: linkURL, theme: theme) else {
-                    completion()
-                    return false
-                }
-                return presentOrPush(newTalkPage, with: completion)
-            } else {
-                let singlePageVC = SinglePageWebViewController(url: linkURL, theme: theme)
-                return presentOrPush(singlePageVC, with: completion)
+            guard let newTalkPage = TalkPageViewController(url: linkURL, theme: theme) else {
+                completion()
+                return false
             }
+            return presentOrPush(newTalkPage, with: completion)
             
         case .userTalk(let linkURL):
             
