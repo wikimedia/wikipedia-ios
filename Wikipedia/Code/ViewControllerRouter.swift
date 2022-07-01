@@ -89,6 +89,14 @@ class ViewControllerRouter: NSObject {
             let player = AVPlayer(url: audioURL)
             vc.player = player
             return presentOrPush(vc, with: completion)
+        case .talk(let linkURL):
+            
+            guard let newTalkPage = TalkPageViewController(url: linkURL, theme: theme) else {
+                completion()
+                return false
+            }
+            return presentOrPush(newTalkPage, with: completion)
+            
         case .userTalk(let linkURL):
             
             if FeatureFlags.needsNewTalkPage {
