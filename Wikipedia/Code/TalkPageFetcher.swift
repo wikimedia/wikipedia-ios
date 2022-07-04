@@ -87,4 +87,23 @@ class TalkPageFetcher: Fetcher {
         }
     }
     
+    func postTopic(talkPageTitle: String, siteURL: URL, topicTitle: String, topicBody: String, completion: @escaping(Result<[AnyHashable: Any], Error>) -> Void) {
+        guard let title = talkPageTitle.denormalizedPageTitle else {
+            completion(.failure(RequestError.invalidParameters))
+            return
+        }
+        let params = ["action": "discussiontoolsedit",
+                      "paction": "addcomment",
+                      "page": title,
+                      "format": "json",
+                      "fomatversion" : "2",
+                      "sectiontitle": topicTitle,
+                      "wikitext": topicBody
+        ]
+        
+        performTokenizedMediaWikiAPIPOST(tokenType: .login, to: siteURL, with: params, reattemptLoginOn401Response: false) { (response: [String: Any]?, httpResponse: HTTPURLResponse?, error: Error?) in
+            
+        }
+        
+    }
 }
