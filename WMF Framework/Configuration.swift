@@ -50,7 +50,7 @@ public class Configuration: NSObject {
 			.deploymentLabsForEventLogging = labs instance for testing event logging endpoints
 			All other endpoints would point to production */
 		
-        return Configuration.staging(options: [.betaCluster])
+        return Configuration.staging(options: [.deploymentLabsForEventLogging])
         #else
         return .production
         #endif

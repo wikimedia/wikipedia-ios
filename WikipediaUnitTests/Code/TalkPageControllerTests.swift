@@ -2,7 +2,7 @@ import XCTest
 @testable import Wikipedia
 @testable import WMF
 
-fileprivate class MockTalkPageFetcher: TalkPageFetcher {
+fileprivate class MockTalkPageFetcher: OldTalkPageFetcher {
     
     static var name = "Username1"
     static var domain = "en.wikipedia.org"
@@ -69,7 +69,7 @@ fileprivate class MockArticleRevisionFetcher: WMFArticleRevisionFetcher {
 class TalkPageControllerTests: XCTestCase {
 
     var tempDataStore: MWKDataStore!
-    var talkPageController: TalkPageController!
+    var talkPageController: OldTalkPageController!
     fileprivate var talkPageFetcher: MockTalkPageFetcher!
     fileprivate var articleRevisionFetcher: MockArticleRevisionFetcher!
 
@@ -84,7 +84,7 @@ class TalkPageControllerTests: XCTestCase {
         }
         
         articleRevisionFetcher = MockArticleRevisionFetcher()
-        talkPageController = TalkPageController(fetcher: talkPageFetcher, articleRevisionFetcher: articleRevisionFetcher, moc: tempDataStore.viewContext, title: "User talk:Username1", siteURL: URL(string: "https://en.wikipedia.org")!, type: .user)
+        talkPageController = OldTalkPageController(fetcher: talkPageFetcher, articleRevisionFetcher: articleRevisionFetcher, moc: tempDataStore.viewContext, title: "User talk:Username1", siteURL: URL(string: "https://en.wikipedia.org")!, type: .user)
         MockArticleRevisionFetcher.revisionId = 894272715
         
     }
@@ -247,7 +247,7 @@ class TalkPageControllerTests: XCTestCase {
         
         // fetch again for ES language
         MockTalkPageFetcher.domain = "es.wikipedia.org"
-        talkPageController = TalkPageController(fetcher: talkPageFetcher, articleRevisionFetcher: articleRevisionFetcher, moc: tempDataStore.viewContext, title: "User talk:Username1", siteURL: URL(string: "https://es.wikipedia.org")!, type: .user)
+        talkPageController = OldTalkPageController(fetcher: talkPageFetcher, articleRevisionFetcher: articleRevisionFetcher, moc: tempDataStore.viewContext, title: "User talk:Username1", siteURL: URL(string: "https://es.wikipedia.org")!, type: .user)
         
         let nextFetchCallback = expectation(description: "Waiting for next fetch callback")
         talkPageController.fetchTalkPage { (result) in
@@ -299,7 +299,7 @@ class TalkPageControllerTests: XCTestCase {
         wait(for: [initialFetchCallback], timeout: 5)
         
         MockTalkPageFetcher.name = "Username2"
-        talkPageController = TalkPageController(fetcher: talkPageFetcher, articleRevisionFetcher: articleRevisionFetcher, moc: tempDataStore.viewContext, title: "User talk:Username2", siteURL: URL(string: "https://en.wikipedia.org")!, type: .user)
+        talkPageController = OldTalkPageController(fetcher: talkPageFetcher, articleRevisionFetcher: articleRevisionFetcher, moc: tempDataStore.viewContext, title: "User talk:Username2", siteURL: URL(string: "https://en.wikipedia.org")!, type: .user)
         
         let nextFetchCallback = expectation(description: "Waiting for next fetch callback")
         talkPageController.fetchTalkPage { (result) in
