@@ -27,7 +27,6 @@ struct TalkPageItem: Codable {
     let replies: [TalkPageItem]
     let otherContent: String?
     
-    
     enum CodingKeys: String, CodingKey {
         case type, level, id, html, name ,headingLevel, replies
         case otherContent = "othercontent"
@@ -53,7 +52,7 @@ class TalkPageFetcher: Fetcher {
                       "prop" : "threaditemshtml",
                       "formatversion" : "2"
         ]
-        
+
         performDecodableMediaWikiAPIGET(for: siteURL, with: params) { (result: Result<TalkPageAPIResponse, Error>) in
             switch result {
             case let .success(talk):
