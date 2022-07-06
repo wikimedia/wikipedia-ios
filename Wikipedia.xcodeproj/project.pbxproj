@@ -923,6 +923,10 @@
 		67ED8EB124F99FF400DD5D39 /* SignificantEventsFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67ED8EB024F99FF400DD5D39 /* SignificantEventsFetcherTests.swift */; };
 		67F1375E23C986CD00512B61 /* CacheTaskTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F1375D23C986CD00512B61 /* CacheTaskTracking.swift */; };
 		67F1A180286F34A5000D0F74 /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836BF56B2869EC2600B98321 /* FeatureFlags.swift */; };
+		67F1A1822876380D000D0F74 /* TalkPageWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F1A1812876380D000D0F74 /* TalkPageWebViewController.swift */; };
+		67F1A1832876380D000D0F74 /* TalkPageWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F1A1812876380D000D0F74 /* TalkPageWebViewController.swift */; };
+		67F1A1842876380D000D0F74 /* TalkPageWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F1A1812876380D000D0F74 /* TalkPageWebViewController.swift */; };
+		67F1A1852876380D000D0F74 /* TalkPageWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F1A1812876380D000D0F74 /* TalkPageWebViewController.swift */; };
 		67F73383273C163700D7D713 /* TimeInterval+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F73382273C163700D7D713 /* TimeInterval+Extensions.swift */; };
 		67F73386273C1FBA00D7D713 /* NotificationServiceHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F73385273C1FBA00D7D713 /* NotificationServiceHelperTests.swift */; };
 		67F73388273C26A000D7D713 /* NotificationServiceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F73387273C26A000D7D713 /* NotificationServiceHelper.swift */; };
@@ -4142,6 +4146,7 @@
 		67E9A11B25536B6F00C5ED31 /* ABTestsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABTestsController.swift; sourceTree = "<group>"; };
 		67ED8EB024F99FF400DD5D39 /* SignificantEventsFetcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignificantEventsFetcherTests.swift; sourceTree = "<group>"; };
 		67F1375D23C986CD00512B61 /* CacheTaskTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheTaskTracking.swift; sourceTree = "<group>"; };
+		67F1A1812876380D000D0F74 /* TalkPageWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageWebViewController.swift; sourceTree = "<group>"; };
 		67F35A6523E875B900C3D6C7 /* WMFLanguagesViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFLanguagesViewControllerDelegate.h; sourceTree = "<group>"; };
 		67F73382273C163700D7D713 /* TimeInterval+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extensions.swift"; sourceTree = "<group>"; };
 		67F73385273C1FBA00D7D713 /* NotificationServiceHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationServiceHelperTests.swift; sourceTree = "<group>"; };
@@ -8264,6 +8269,7 @@
 				B0524B0121484F1F00D8FD8D /* Description Editing */,
 				0E26B0541C0E28E60004D687 /* Welcome */,
 				836BF56D2869F9C200B98321 /* TalkPageViewController.swift */,
+				67F1A1812876380D000D0F74 /* TalkPageWebViewController.swift */,
 			);
 			name = Features;
 			sourceTree = "<group>";
@@ -11149,6 +11155,7 @@
 				00E75B7627EB946D00A45B78 /* ReusableCell.swift in Sources */,
 				00E2EA8E26E2A45C00B1A741 /* NotificationsCenterCellDisplayState.swift in Sources */,
 				B01E54AF206479CC00374FEE /* ProgressContainer.swift in Sources */,
+				67F1A1822876380D000D0F74 /* TalkPageWebViewController.swift in Sources */,
 				00AA5AAC276BF2AE005295B0 /* TextBarButtonItem.swift in Sources */,
 				67C6F79227E8C03A00B9C864 /* NotificationsCenterAction.swift in Sources */,
 				B0CD9DDC1F70997300051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
@@ -12075,6 +12082,7 @@
 				00E75B7927EB946D00A45B78 /* ReusableCell.swift in Sources */,
 				00E2EA9126E2A45C00B1A741 /* NotificationsCenterCellDisplayState.swift in Sources */,
 				B0CD9DF11F70997500051843 /* WMFWelcomeAnalyticsAnimationView.swift in Sources */,
+				67F1A1852876380D000D0F74 /* TalkPageWebViewController.swift in Sources */,
 				00AA5AAF276BF2AE005295B0 /* TextBarButtonItem.swift in Sources */,
 				67C6F79527E8C03A00B9C864 /* NotificationsCenterAction.swift in Sources */,
 				7A420DB722A029780005689B /* EditFunnel.swift in Sources */,
@@ -12850,6 +12858,7 @@
 				D8A47C9023D7338C002AA823 /* ArticleViewController+TableOfContents.swift in Sources */,
 				83B01F8223DB1235001185F4 /* SectionFetcher.swift in Sources */,
 				67DC5BE423A017CA00B03A84 /* ArticleViewController.swift in Sources */,
+				67F1A1842876380D000D0F74 /* TalkPageWebViewController.swift in Sources */,
 				0030592827DBC4CF00E96757 /* NotificationsCenterOnboardingHostingViewController.swift in Sources */,
 				D81445FF1E7093870078D71E /* UIViewController+WMFChildViewController.swift in Sources */,
 				6782DB9E2343B7DB003FA21B /* DiffHeaderTitleView.swift in Sources */,
@@ -13392,6 +13401,7 @@
 				D8A47C9123D7338C002AA823 /* ArticleViewController+TableOfContents.swift in Sources */,
 				83B01F8323DB1235001185F4 /* SectionFetcher.swift in Sources */,
 				67DC5BE523A017CA00B03A84 /* ArticleViewController.swift in Sources */,
+				67F1A1832876380D000D0F74 /* TalkPageWebViewController.swift in Sources */,
 				0030592727DBC4CF00E96757 /* NotificationsCenterOnboardingHostingViewController.swift in Sources */,
 				B0524B2B214854E900D8FD8D /* DescriptionWelcomePanelViewController.swift in Sources */,
 				6782DB9F2343B7DB003FA21B /* DiffHeaderTitleView.swift in Sources */,

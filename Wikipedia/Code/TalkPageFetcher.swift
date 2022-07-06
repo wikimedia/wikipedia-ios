@@ -20,7 +20,7 @@ struct TalkPageThreadItems: Codable {
 struct TalkPageItem: Codable {
     let type: TalkPageItemType
     let level: Int?
-    let id: String
+    let id: String?
     let html: String?
     let name: String?
     let headingLevel: Int?
