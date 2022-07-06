@@ -26,7 +26,7 @@ struct TalkPageItem: Codable {
     let headingLevel: Int?
     let replies: [TalkPageItem]
     let otherContent: String?
-
+    
     
     enum CodingKeys: String, CodingKey {
         case type, level, id, html, name ,headingLevel, replies
@@ -51,9 +51,9 @@ class TalkPageFetcher: Fetcher {
                       "page" : title,
                       "format": "json",
                       "prop" : "threaditemshtml",
-                      "fomatversion" : "2"
+                      "formatversion" : "2"
         ]
-
+        
         performDecodableMediaWikiAPIGET(for: siteURL, with: params) { (result: Result<TalkPageAPIResponse, Error>) in
             switch result {
             case let .success(talk):
@@ -76,13 +76,27 @@ class TalkPageFetcher: Fetcher {
                       "paction": "addcomment",
                       "page": title,
                       "format": "json",
-                      "fomatversion" : "2",
+                      "formatversion" : "2",
                       "commentid": commentId,
                       "wikitext": comment
-          
+                      
         ]
         
-        performTokenizedMediaWikiAPIPOST(tokenType: .login, to: siteURL, with: params, reattemptLoginOn401Response: false) { (response: [String: Any]?, httpResponse: HTTPURLResponse?, error: Error?) in
+        performTokenizedMediaWikiAPIPOST(to: siteURL, with: params, reattemptLoginOn401Response: false) { result, httpResponse, error in
+            
+            if let error = error {
+                completion(.failure(error))
+            }
+            
+            if let resultError = result?["error"] as? [String: Any],
+               let info = resultError["info"] as? String {
+                completion(.failure(RequestError.api(info)))
+                return
+            }
+            
+            if let resultSuccess = result?["success"] as? [String: Any] {
+                completion(.success(resultSuccess))
+            }
             
         }
     }
@@ -93,15 +107,28 @@ class TalkPageFetcher: Fetcher {
             return
         }
         let params = ["action": "discussiontoolsedit",
-                      "paction": "addcomment",
+                      "paction": "addtopic",
                       "page": title,
                       "format": "json",
-                      "fomatversion" : "2",
+                      "formatversion" : "2",
                       "sectiontitle": topicTitle,
-                      "wikitext": topicBody
-        ]
+                      "wikitext": topicBody        ]
         
-        performTokenizedMediaWikiAPIPOST(tokenType: .login, to: siteURL, with: params, reattemptLoginOn401Response: false) { (response: [String: Any]?, httpResponse: HTTPURLResponse?, error: Error?) in
+        performTokenizedMediaWikiAPIPOST(to: siteURL, with: params, reattemptLoginOn401Response: false) { result, httpResponse, error in
+            
+            if let error = error {
+                completion(.failure(error))
+            }
+            
+            if let resultError = result?["error"] as? [String: Any],
+               let info = resultError["info"] as? String {
+                completion(.failure(RequestError.api(info)))
+                return
+            }
+            
+            if let resultSuccess = result?["success"] as? [String: Any] {
+                completion(.success(resultSuccess))
+            }
             
         }
         
