@@ -648,6 +648,8 @@
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 сообщение|$1 сообщения|$1 сообщений}}";
 "notifications-center-onboarding-modal-continue-action" = "Продолжить";
 "notifications-center-onboarding-modal-filters-title" = "Фильтры";
+"notifications-center-onboarding-modal-learn-more-action" = "Узнать подробнее об уведомлениях";
+"notifications-center-onboarding-modal-notifications-alerts-title" = "Уведомления и оповещения";
 "notifications-center-onboarding-modal-push-notifications-title" = "Пуш-уведомления";
 "notifications-center-onboarding-modal-title" = "Редактирование уведомлений";
 "notifications-center-onboarding-panel-heading" = "Включить пуш-уведомления?";
