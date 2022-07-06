@@ -65,7 +65,6 @@ class TalkPageFetcher: Fetcher {
         }
     }
     
-    
     func postReply(talkPageTitle: String, siteURL: URL, commentId: String, comment: String, completion: @escaping(Result<[AnyHashable: Any], Error>) -> Void) {
         guard let title = talkPageTitle.denormalizedPageTitle else {
             completion(.failure(RequestError.invalidParameters))
@@ -97,15 +96,16 @@ class TalkPageFetcher: Fetcher {
             if let resultSuccess = result?["success"] as? [String: Any] {
                 completion(.success(resultSuccess))
             }
-            
         }
     }
     
     func postTopic(talkPageTitle: String, siteURL: URL, topicTitle: String, topicBody: String, completion: @escaping(Result<[AnyHashable: Any], Error>) -> Void) {
+        
         guard let title = talkPageTitle.denormalizedPageTitle else {
             completion(.failure(RequestError.invalidParameters))
             return
         }
+        
         let params = ["action": "discussiontoolsedit",
                       "paction": "addtopic",
                       "page": title,
@@ -129,8 +129,6 @@ class TalkPageFetcher: Fetcher {
             if let resultSuccess = result?["success"] as? [String: Any] {
                 completion(.success(resultSuccess))
             }
-            
         }
-        
     }
 }
