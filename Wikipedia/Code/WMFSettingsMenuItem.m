@@ -36,10 +36,21 @@
                                            disclosureText:userName
                                                isSwitchOn:NO];
         }
-        case WMFSettingsMenuItemType_Support: {
+        case WMFSettingsMenuItemType_ApplePay: {
+            // TODO: Apple Pay icon name
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
-                                                    title:WMFLocalizedStringWithDefaultValue(@"settings-support", nil, nil, @"Support Wikipedia", @"Title for button letting user make a donation.")
+                                                    title:WMFLocalizedStringWithDefaultValue(@"settings-donate-apple-pay", nil, nil, @"Donate Via Apple Pay", @"Title for button letting user make a donation via Apple Pay.")
+                                                 iconName:@"settings-support"
+                                                iconColor:[UIColor wmf_colorWithHex:0xFF1B33]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
+                                           disclosureText:nil
+                                               isSwitchOn:NO];
+        }
+        case WMFSettingsMenuItemType_Support: {
+            NSString *title = (WMFFeatureFlags.needsApplePay) ? WMFLocalizedStringWithDefaultValue(@"settings-donate-web", nil, nil, @"Donate Via the Web", @"Title for button letting user make a donation via a web browser.") : WMFLocalizedStringWithDefaultValue(@"settings-support", nil, nil, @"Support Wikipedia", @"Title for button letting user make a donation.");
+               return  [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:title
                                                  iconName:@"settings-support"
                                                 iconColor:[UIColor wmf_colorWithHex:0xFF1B33]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink

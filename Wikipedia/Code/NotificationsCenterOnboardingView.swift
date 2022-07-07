@@ -132,7 +132,7 @@ fileprivate struct NotificationsCenterOnboardingRowView: View {
                 Text(header)
                     .font(Font(headerFont))
                     .foregroundColor(Color(theme.colors.primaryText))
-                    .frame(maxWidth: .infinity, alignment: .topLeading)
+                     
                 Spacer().frame(height: 5)
                 Text(message)
                     .font(Font(bodyFont))

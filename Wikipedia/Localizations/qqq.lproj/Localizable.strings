@@ -125,6 +125,9 @@
 "appearance-settings-set-automatic-table-opening" = "Tables in article will be opened automatically";
 "appearance-settings-text-sizing-example-text" = "Example text of the Adjust article text sizing section in Appearance settings";
 "appearance-settings-theme-options" = "Title of the Theme options section in Appearance settings";
+"apple-pay-error-invalid-amount" = "Error that presents when the user enters an invalid donation amount.";
+"apple-pay-item-description" = "Apple Pay item description. Appears in the Apple Pay payment sheet.";
+"apple-pay-title" = "Title of the Apple Pay donation screen";
 "article-about-title" = "The text that is displayed before the 'about' section at the bottom of an article";
 "article-delete" = "Title of the action that deletes the selected articles article.";
 "article-deleted-accessibility-notification" = "Notification spoken after user deletes an article from the list. $1 will be replaced with the number of deleted articles.";
@@ -903,6 +906,8 @@
 "settings-clear-cache-are-you-sure-title" = "Title for the confirmation presented to the user to verify they are sure they want to clear clear cached data.";
 "settings-clear-cache-cancel" = "Cancel action to clear cached data {{Identical|Cancel}}";
 "settings-clear-cache-ok" = "Confirm action to clear cached data";
+"settings-donate-apple-pay" = "Title for button letting user make a donation via Apple Pay.";
+"settings-donate-web" = "Title for button letting user make a donation via a web browser.";
 "settings-help-and-feedback" = "Title for showing showing a screen that displays the FAQ and allows users to submit bug reports";
 "settings-language-bar" = "Title in Settings for toggling the display the language bar in the search view";
 "settings-languages-feed-customization" = "Explanation of how you can manage which languages appear in the feed.";
