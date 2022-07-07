@@ -14,6 +14,7 @@ typedef NS_ENUM(NSUInteger, WMFSettingsMenuItemType) {
     WMFSettingsMenuItemType_LoginAccount,
     WMFSettingsMenuItemType_StorageAndSyncing,
     WMFSettingsMenuItemType_StorageAndSyncingDebug,
+    WMFSettingsMenuItemType_ApplePay,
     WMFSettingsMenuItemType_Support,
     WMFSettingsMenuItemType_SearchLanguage,
     WMFSettingsMenuItemType_Search,

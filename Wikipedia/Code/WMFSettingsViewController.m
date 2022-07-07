@@ -239,6 +239,9 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         case WMFSettingsMenuItemType_StorageAndSyncingDebug:
             [[WMFNavigationEventsFunnel shared] logTappedSettingsReadingListDangerZone];
             break;
+        case WMFSettingsMenuItemType_ApplePay:
+            //TODO: Apple Pay logging
+            break;
         case WMFSettingsMenuItemType_Support:
             [[WMFNavigationEventsFunnel shared] logTappedSettingsSupportWikipedia];
             break;
@@ -298,6 +301,10 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
         }
         case WMFSettingsMenuItemType_StorageAndSyncingDebug: {
             [self showStorageAndSyncingDebug];
+            break;
+        }
+        case WMFSettingsMenuItemType_ApplePay: {
+            [self showApplePay];
             break;
         }
         case WMFSettingsMenuItemType_Support:
@@ -463,6 +470,12 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self.navigationController pushViewController:appearanceSettingsVC animated:YES];
 }
 
+#pragma mark - Apple Pay
+
+- (void)showApplePay {
+    
+}
+
 #pragma mark - Storage and syncing
 
 - (void)showStorageAndSyncing {
@@ -536,8 +549,12 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
 #pragma mark - Section structure
 
 - (WMFSettingsTableViewSection *)section_1 {
-    NSArray *items = @[[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_LoginAccount],
-                       [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Support]];
+    NSArray *items = (WMFFeatureFlags.needsApplePay) ? @[[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_LoginAccount],
+                                                         [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_ApplePay],
+                                                         [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Support]] :
+                                                        @[[WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_LoginAccount],
+                                                          [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_Support]];
+    
     WMFSettingsTableViewSection *section = [[WMFSettingsTableViewSection alloc] initWithItems:items
                                                                                   headerTitle:nil
                                                                                    footerText:nil];
