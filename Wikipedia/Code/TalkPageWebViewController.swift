@@ -31,9 +31,17 @@ class TalkPageWebViewController: ViewController {
         let config = WKWebViewConfiguration()
         let controller = WKUserContentController()
         let script = """
-            document.body.innerHTML = `
-        \(self.introText.sanitizedForJavaScriptTemplateLiterals)
-        `;
+            var parserOutputElement = document.getElementsByClassName('mw-parser-output')[0];
+            if (parserOutputElement) {
+                parserOutputElement.innerHTML = `
+                    \(self.introText.sanitizedForJavaScriptTemplateLiterals)
+                `;
+                document.body.innerHTML = parserOutputElement.parentElement.innerHTML;
+            } else {
+                    document.body.innerHTML = `
+                        \(self.introText.sanitizedForJavaScriptTemplateLiterals)
+                    `;
+            }
         """
         controller.addUserScript(PageUserScript(source: script, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
         config.userContentController = controller
