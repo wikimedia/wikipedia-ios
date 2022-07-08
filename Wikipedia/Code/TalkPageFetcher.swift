@@ -64,5 +64,38 @@ class TalkPageFetcher: Fetcher {
             }
         }
     }
+    
+    func subscribeToTopic(talkPageTitle: String, siteURL: URL, topic: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+        
+        guard let title = talkPageTitle.denormalizedPageTitle else {
+            completion(.failure(RequestError.invalidParameters))
+            return
+        }
+        
+        let params = ["actions": "discussiontoolssubscribe",
+                      "page": title,
+                      "format": "json",
+                      "commentname": topic,
+                      "subscribe": "1",
+                      "formatversion": "2"
+        ]
+        
+        performTokenizedMediaWikiAPIPOST(to: siteURL, with: params, reattemptLoginOn401Response: true) { result, hhtpResponse, error in
+            if let error = error {
+                completion(.failure(error))
+            }
+            
+            if let resultError = result?["error"] as? [String: Any],
+                let info = resultError["info"] as? String {
+                    completion(.failure(RequestError.api(info)))
+            }
+            
+            if let resultSuccess = result?["subscribe"] as? Bool {
+                if resultSuccess {
+                    completion(.success(true))
+                }
+            }
+        }
+    }
 
 }
