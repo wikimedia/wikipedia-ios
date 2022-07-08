@@ -65,36 +65,42 @@ class TalkPageFetcher: Fetcher {
         }
     }
     
-    func subscribeToTopic(talkPageTitle: String, siteURL: URL, topic: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+    func subscribeToTopic(talkPageTitle: String, siteURL: URL, topic: String, shouldSubscribe: Bool, completion: @escaping (Result<Bool, Error>) -> Void) {
         
         guard let title = talkPageTitle.denormalizedPageTitle else {
             completion(.failure(RequestError.invalidParameters))
             return
         }
-        
-        let params = ["actions": "discussiontoolssubscribe",
+                
+        var params = ["action": "discussiontoolssubscribe",
                       "page": title,
                       "format": "json",
                       "commentname": topic,
-                      "subscribe": "1",
                       "formatversion": "2"
         ]
         
-        performTokenizedMediaWikiAPIPOST(to: siteURL, with: params, reattemptLoginOn401Response: true) { result, hhtpResponse, error in
+        if shouldSubscribe {
+            params["subscribe"] = "1"
+        }
+        
+        performTokenizedMediaWikiAPIPOST(to: siteURL, with: params, reattemptLoginOn401Response: true) { result, httpResponse, error in
             if let error = error {
                 completion(.failure(error))
+                return
             }
             
             if let resultError = result?["error"] as? [String: Any],
-                let info = resultError["info"] as? String {
-                    completion(.failure(RequestError.api(info)))
+               let info = resultError["info"] as? String {
+                completion(.failure(RequestError.api(info)))
+                return
             }
             
-            if let resultSuccess = result?["subscribe"] as? Bool {
-                if resultSuccess {
-                    completion(.success(true))
-                }
+            if let resultSuccess = result?["discussiontoolssubscribe"] as? [String: Any],
+                let didSubscribe = resultSuccess["subscribe"] as? Bool {
+                completion(.success(didSubscribe))
+                return
             }
+            completion(.failure(RequestError.unexpectedResponse))
         }
     }
 
