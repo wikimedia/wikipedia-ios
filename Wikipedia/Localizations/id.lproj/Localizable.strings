@@ -331,6 +331,7 @@
 "editing-welcome-set-knowledge-free-subtitle" = "Untuk memberikan segala orang akses ke pengetahuan dunia, kami membutuhkan anda untuk berpartisipasi dalam pembuatannya dengan membaca, menyunting, dan berkontribusi kepada topik yang paling penting untuk anda.";
 "editing-welcome-set-knowledge-free-title" = "Bebaskan pengetahuan";
 "editor-exit-confirmation-body" = "Apakah Anda yakin ingin meninggalkan mode penyuntingan tanpa menerbitkannya terlebih dahulu?";
+"editor-exit-confirmation-title" = "Tutup mode penyuntingan?";
 "empty-diff-compare-title" = "Tidak ada perbedaan antar revisi";
 "empty-diff-single-title" = "Tidak ada perubahan yang bisa dilihat";
 "empty-insert-media-title" = "Pilih berkas dari Wikimedia Commons";
@@ -582,6 +583,7 @@
 "no-internet-connection-article-reload" = "Versi yang lebih baru dari artikel ini mungkin tersedia, tetapi tidak dapat dimuat tanpa sambungan ke internet";
 "no-internet-connection-article-reload-button" = "Kembali ke versi terakhir yang disimpan";
 "notifications-center-agent-description-from-format" = "Dari $1";
+"notifications-center-alert" = "Peringatan";
 "notifications-center-cell-notification-type-accessibility-label-format" = "$1 pemberitahuan";
 "notifications-center-change-password" = "Ganti Kata Sandi";
 "notifications-center-checking-for-notifications" = "Memeriksa notifikasi...";
@@ -594,8 +596,7 @@
 "notifications-center-empty-state-no-projects-selected" = "Tambah proyek untuk melihat lebih banyak pesan";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 filter}}";
 "notifications-center-feed-card-title" = "Pemberitahuan suntingan sekarang tersedia";
-// Fuzzy
-"notifications-center-feed-news-notification-button-text" = "Aktifkan pemberitahuan";
+"notifications-center-feed-news-notification-button-text" = "Aktifkan pemberitahuan otomatis";
 "notifications-center-feed-news-notification-dismiss-button-text" = "Nanti";
 "notifications-center-filters-accessibility-label" = "Saringan Pemberitahuan";
 "notifications-center-filters-read-status-item-title-all" = "Semua";
@@ -637,6 +638,11 @@
 "notifications-center-onboarding-modal-notifications-alerts-title" = "Pemberitahuan dan peringatan";
 "notifications-center-onboarding-modal-project-inboxes-message" = "Baca semua pesan belum dibaca dari berbagai bahasa Wikipedia dan proyek Wikimedia di satu tempat.";
 "notifications-center-onboarding-modal-project-inboxes-title" = "Kotak masuk proyek";
+"notifications-center-onboarding-modal-push-notifications-title" = "Pemberitahuan otomatis";
+"notifications-center-onboarding-modal-title" = "Pemberitahuan suntingan";
+"notifications-center-onboarding-panel-heading" = "Aktifkan pemberitahuan otomatis?";
+"notifications-center-onboarding-panel-primary-button" = "Aktifkan pemberitahuan otomatis";
+"notifications-center-onboarding-panel-secondary-button" = "Tidak, terima kasih";
 "notifications-center-status-all" = "Semua";
 "notifications-center-status-all-notifications" = "Semua pemberitahuan";
 "notifications-center-status-double-concatenation" = "$1 dalam $2";
@@ -652,8 +658,7 @@
 "notifications-center-subheader-email-from-other-user" = "Email baru";
 "notifications-center-subheader-login-fail-known-device" = "Beberapa upaya masuk gagal";
 "notifications-center-subheader-login-fail-unknown-device" = "Upaya masuk gagal";
-// Fuzzy
-"notifications-center-subheader-login-success-unknown-device" = "Masuk log dari gawai tak dikenal";
+"notifications-center-subheader-login-success-unknown-device" = "Masuk log dari perangkat tak dikenal";
 "notifications-center-subheader-mention-article-talk-page" = "Sebutan pada halaman pembicaraan artikel";
 "notifications-center-subheader-mention-edit-summary" = "Sebutan dalam ringkasan suntingan";
 "notifications-center-subheader-mention-failed" = "Sebutan gagal";
@@ -671,7 +676,23 @@
 "notifications-center-swipe-mark-as-unread" = "Tandai belum dibaca";
 "notifications-center-swipe-more" = "Lainnya";
 "notifications-center-title" = "Pemberitahuan";
+"notifications-center-toolbar-mark-accessibility-label" = "Tandai notifikasi yang dipilih";
+"notifications-center-type-item-description-mentions" = "Sebutan";
+"notifications-center-type-item-description-notice" = "Perhatian";
 "notifications-center-type-item-description-welcome-verbose" = "Pesan selamat datang";
+"notifications-center-type-title-connection-with-wikidata" = "Hubungan dengan Wikidata";
+"notifications-center-type-title-edit-milestone" = "Pencapaian suntingan";
+"notifications-center-type-title-edit-reverted" = "Suntingan dibalikkan";
+"notifications-center-type-title-edit-summary-mention" = "Sebutan ringkasan suntingan";
+"notifications-center-type-title-email-from-other-user" = "Email dari pengguna lain";
+"notifications-center-type-title-login-attempts" = "Upaya masuk";
+"notifications-center-type-title-login-success" = "Berhasil masuk log";
+"notifications-center-type-title-other" = "Lainnya";
+"notifications-center-type-title-page-link" = "Pranala halaman";
+"notifications-center-type-title-page-review" = "Tinjauan halaman";
+"notifications-center-type-title-thanks" = "Terima kasih";
+"notifications-center-type-title-translation-milestone" = "Pencapaian terjemahan";
+"notifications-center-type-title-user-rights-change" = "Perubahan hak pengguna";
 "notifications-push-fallback-body-text" = "Aktivitas baru di Wikipedia";
 "notifications-push-talk-body-format" = "{{PLURAL:$1|$1 pesan baru}} di $2";
 "notifications-push-talk-title-format" = "{{PLURAL:$1|Pesan baru}}";
@@ -895,8 +916,7 @@
 "settings-language-bar" = "Tampilkan bahasa di pencarian";
 "settings-languages-feed-customization" = "Anda dapat mengelola bahasa mana yang ditampilkan di umpan Jelajahi Anda dengan menyesuaikan pengaturan umpan Jelajahi Anda.";
 "settings-my-languages" = "Bahasa saya";
-// Fuzzy
-"settings-notifications" = "Pemberitahuan";
+"settings-notifications" = "Pemberitahuan otomatis";
 "settings-notifications-echo-failure-try-again" = "Coba lagi";
 "settings-notifications-info" = "Dapatkan pemberitahuan tentang artikel yang sedang tren dan bacaan teratas di Wikipedia dengan pemberitahuan otomatis kami. Semua tersedia sehubungan dengan privasi dan sampai data menit.";
 "settings-notifications-learn-more" = "Pelajari lebih lanjut tentang pemberitahuan";
@@ -923,20 +943,17 @@
 "settings-support" = "Dukung Wikipedia";
 "settings-title" = "Pengaturan";
 "share-a-fact-made-with" = "Dibuat dengan aplikasi Wikipedia";
-// Fuzzy
-"share-article-name-on-wikipedia" = "\"$1\" pada @Wikipedia:";
+"share-article-name-on-wikipedia" = "\"$1\" pada Wikipedia:";
 "share-building" = "Membangun kartu Bagikan-fakta...";
 "share-default-format" = "“$1” dari “$2”: $3";
 "share-email-format" = "“$1”\n\ndari “$2”\n\n$3";
 "share-get-directions-in-maps" = "Dapatkan Petunjuk Arah";
 "share-menu-item" = "Bagikan...";
 "share-message-format" = "“$1” $2";
-// Fuzzy
-"share-on-twitter-sign-off" = "melalui @Wikipedia";
+"share-on-twitter-sign-off" = "melalui Wikipedia";
 "share-open-in-maps" = "Buka di Peta";
 "share-social-format" = "“$1” melalui Wikipedia: $2";
-// Fuzzy
-"share-social-mention-format" = "“$1” melalui @Wikipedia: $2";
+"share-social-mention-format" = "“$1” melalui Wikipedia: $2";
 "sort-by-recently-added-action" = "Baru-baru ini ditambahkan";
 "sort-by-title-action" = "Judul";
 "table-of-contents-button-label" = "Daftar isi";
