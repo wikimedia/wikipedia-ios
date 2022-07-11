@@ -103,5 +103,40 @@ class TalkPageFetcher: Fetcher {
             completion(.failure(RequestError.unexpectedResponse))
         }
     }
-
+    
+    func getAllSubscriptions(siteURL: URL, topics: [String], completion: @escaping (Result<[String], Error>) -> Void) {
+        
+        let joinedString = topics.joined(separator: "|")
+        
+        let params = ["action": "discussiontoolsgetsubscriptions",
+                       "format": "json",
+                       "commentname": joinedString,
+                       "formatversion": "2"
+        ]
+        
+        performMediaWikiAPIGET(for: siteURL, with: params, cancellationKey: nil) { result, httpResponse, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            if let resultError = result?["error"] as? [String: Any],
+               let info = resultError["info"] as? String {
+                completion(.failure(RequestError.api(info)))
+                return
+            }
+            
+            if let resultSuccess = result?["subscriptions"] as? [String: Any] {
+                var subscribedTopics = [String]()
+                for (topicId, _) in resultSuccess {
+                    subscribedTopics.append(topicId)
+                }
+                completion(.success(subscribedTopics))
+                return
+            }
+            completion(.failure(RequestError.unexpectedResponse))
+        }
+        
+    }
+    
 }
