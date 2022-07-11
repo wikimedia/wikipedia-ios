@@ -1633,6 +1633,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
         userActivity.eligibleForSearch = YES;
         userActivity.eligibleForPrediction = YES;
         userActivity.title = @"Go To Saved Articles";
+        userActivity.userInfo = @{@"WMFPage": @"Saved"};
         viewController.userActivity = userActivity;
     }
     [self wmf_hideKeyboard];
