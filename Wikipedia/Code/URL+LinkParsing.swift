@@ -81,6 +81,10 @@ extension URL {
         return (self as NSURL).wmf_site
     }
     
+    public static func wmf_URL(withSiteURL siteURL: URL, title: String) -> URL? {
+        return NSURL.wmf_URL(withSiteURL: siteURL, title: title, fragment: nil, query: nil)
+    }
+    
     public func wmf_URL(withTitle title: String) -> URL? {
         return (self as NSURL).wmf_URL(withTitle: title)
     }

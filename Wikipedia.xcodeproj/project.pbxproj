@@ -678,6 +678,7 @@
 		67861A1C223C13990044F69D /* FocusNavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67E06918223B32DF008550AC /* FocusNavigationView.xib */; };
 		67861A1D223C13990044F69D /* FocusNavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67E06918223B32DF008550AC /* FocusNavigationView.xib */; };
 		67861A1E223C13990044F69D /* FocusNavigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67E06918223B32DF008550AC /* FocusNavigationView.xib */; };
+		67898B85287E0ADF003D8662 /* ModernSearchFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67898B84287E0ADF003D8662 /* ModernSearchFetcher.swift */; };
 		6789FA2E22E7790900E43842 /* TalkPage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789FA2D22E7790900E43842 /* TalkPage+Extensions.swift */; };
 		6789FA2F22E7790900E43842 /* TalkPage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789FA2D22E7790900E43842 /* TalkPage+Extensions.swift */; };
 		6789FA3022E7790900E43842 /* TalkPage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789FA2D22E7790900E43842 /* TalkPage+Extensions.swift */; };
@@ -4096,6 +4097,7 @@
 		6782DC0A23453D7D003FA21B /* DiffHeaderCompareItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffHeaderCompareItemView.swift; sourceTree = "<group>"; };
 		6782DC102346920B003FA21B /* DiffContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffContainerViewModel.swift; sourceTree = "<group>"; };
 		6782DC162347EE59003FA21B /* DiffListChangeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiffListChangeCell.xib; sourceTree = "<group>"; };
+		67898B84287E0ADF003D8662 /* ModernSearchFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernSearchFetcher.swift; sourceTree = "<group>"; };
 		6789FA2D22E7790900E43842 /* TalkPage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TalkPage+Extensions.swift"; sourceTree = "<group>"; };
 		678C7C2923BE67F0001AC4D5 /* CacheController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheController.swift; sourceTree = "<group>"; };
 		678C7C2D23BE705C001AC4D5 /* CacheDBWriting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheDBWriting.swift; sourceTree = "<group>"; };
@@ -6614,6 +6616,7 @@
 			children = (
 				B0E807CB1C0CF04A0065EBC0 /* MWKSearchResult.h */,
 				B0E807CC1C0CF04A0065EBC0 /* MWKSearchResult.m */,
+				67898B84287E0ADF003D8662 /* ModernSearchFetcher.swift */,
 			);
 			name = Search;
 			sourceTree = "<group>";
@@ -12119,6 +12122,7 @@
 				0042806C25E6E395004945B3 /* FLAnimatedImage.m in Sources */,
 				830177FA1FBF3E490005681C /* ReadingListsAPIController.swift in Sources */,
 				D84C35F61F323CF000895FA1 /* AlignedImageButton.swift in Sources */,
+				67898B85287E0ADF003D8662 /* ModernSearchFetcher.swift in Sources */,
 				D84C361A1F32403D00895FA1 /* NewsCollectionViewCell+WMFFeedContentDisplaying.swift in Sources */,
 				7AEF527120ADD74D00DDF791 /* WMFCaptcha.swift in Sources */,
 				678C7C2A23BE67F0001AC4D5 /* CacheController.swift in Sources */,
