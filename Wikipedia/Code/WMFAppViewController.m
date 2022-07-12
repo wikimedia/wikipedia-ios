@@ -1149,6 +1149,13 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 }
 
 - (BOOL)processUserActivity:(NSUserActivity *)activity animated:(BOOL)animated completion:(dispatch_block_t)done {
+    
+    if ([activity.activityType isEqualToString:@"PersonInfoIntent"]) {
+        INInteraction *interaction = activity.interaction;
+        done();
+        return YES;
+    }
+    
     if (![self canProcessUserActivity:activity]) {
         done();
         return NO;

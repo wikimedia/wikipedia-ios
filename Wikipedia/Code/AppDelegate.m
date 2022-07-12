@@ -138,6 +138,7 @@ static NSString *const WMFBackgroundDatabaseHousekeeperTaskIdentifier = @"org.wi
 }
 
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> *__nullable restorableObjects))restorationHandler {
+    
     [self.appViewController showSplashView];
 
     BOOL result = [self.appViewController processUserActivity:userActivity
