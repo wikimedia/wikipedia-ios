@@ -88,6 +88,7 @@ static NSString *const WMFBackgroundDatabaseHousekeeperTaskIdentifier = @"org.wi
     self.appViewController = vc;
 
     [self updateDynamicIconShortcutItems];
+    [self donateRequiredIntents];
 
     return YES;
 }
@@ -159,6 +160,22 @@ static NSString *const WMFBackgroundDatabaseHousekeeperTaskIdentifier = @"org.wi
 
 - (void)application:(UIApplication *)application didUpdateUserActivity:(NSUserActivity *)userActivity {
     DDLogDebug(@"didUpdateUserActivity: %@", userActivity);
+}
+
+- (void)donateRequiredIntents {
+    GenerateReadingListIntent *generateReadingListIntent = [[GenerateReadingListIntent alloc] init];
+    
+    generateReadingListIntent.sourceTexts = nil;
+    generateReadingListIntent.readingListName = nil;
+    INInteraction *interaction = [[INInteraction alloc] initWithIntent:generateReadingListIntent response:nil];
+    
+    [interaction donateInteractionWithCompletion:^(NSError * _Nullable error)
+        {
+            if (error)
+            {
+                NSLog(@"Failed to donate interaction: %@ ", [error localizedDescription] );
+            }
+        }];
 }
 
 #pragma mark - NSURL Handling

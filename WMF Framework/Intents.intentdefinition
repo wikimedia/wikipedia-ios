@@ -22,19 +22,19 @@
 			<key>INIntentConfigurable</key>
 			<true/>
 			<key>INIntentDescription</key>
-			<string>Add Person Info</string>
+			<string>Generate a reading list based a given set of text inputs</string>
 			<key>INIntentDescriptionID</key>
 			<string>lnxxdS</string>
 			<key>INIntentLastParameterTag</key>
-			<integer>3</integer>
+			<integer>4</integer>
 			<key>INIntentManagedParameterCombinations</key>
 			<dict>
-				<key>firstName,lastName,companyName</key>
+				<key>sourceTexts,readingListName</key>
 				<dict>
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
 					<true/>
 					<key>INIntentParameterCombinationTitle</key>
-					<string>Add info ${firstName}${lastName}${companyName}</string>
+					<string>Add ${sourceTexts}, name reading list ${readingListName}</string>
 					<key>INIntentParameterCombinationTitleID</key>
 					<string>Urbcmo</string>
 					<key>INIntentParameterCombinationUpdatesLinked</key>
@@ -42,17 +42,17 @@
 				</dict>
 			</dict>
 			<key>INIntentName</key>
-			<string>PersonInfo</string>
+			<string>GenerateReadingList</string>
 			<key>INIntentParameterCombinations</key>
 			<dict>
-				<key>firstName,lastName,companyName</key>
+				<key>sourceTexts,readingListName</key>
 				<dict>
 					<key>INIntentParameterCombinationIsLinked</key>
 					<true/>
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
 					<true/>
 					<key>INIntentParameterCombinationTitle</key>
-					<string>Add info ${firstName}${lastName}${companyName}</string>
+					<string>Add ${sourceTexts}, name reading list ${readingListName}</string>
 					<key>INIntentParameterCombinationTitleID</key>
 					<string>nQnPnW</string>
 				</dict>
@@ -63,7 +63,7 @@
 					<key>INIntentParameterConfigurable</key>
 					<true/>
 					<key>INIntentParameterDisplayName</key>
-					<string>First Name</string>
+					<string>Source Texts</string>
 					<key>INIntentParameterDisplayNameID</key>
 					<string>3qFhrl</string>
 					<key>INIntentParameterDisplayPriority</key>
@@ -76,7 +76,7 @@
 						<string>u9YpAp</string>
 					</dict>
 					<key>INIntentParameterName</key>
-					<string>firstName</string>
+					<string>sourceTexts</string>
 					<key>INIntentParameterPromptDialogs</key>
 					<array>
 						<dict>
@@ -89,17 +89,19 @@
 							<key>INIntentParameterPromptDialogCustom</key>
 							<true/>
 							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>What's your first Name?</string>
+							<string>What source text would you like to base your reading list on?</string>
 							<key>INIntentParameterPromptDialogFormatStringID</key>
 							<string>6uZNeS</string>
 							<key>INIntentParameterPromptDialogType</key>
 							<string>Primary</string>
 						</dict>
 					</array>
+					<key>INIntentParameterSupportsMultipleValues</key>
+					<true/>
 					<key>INIntentParameterSupportsResolution</key>
 					<true/>
 					<key>INIntentParameterTag</key>
-					<integer>1</integer>
+					<integer>4</integer>
 					<key>INIntentParameterType</key>
 					<string>String</string>
 				</dict>
@@ -107,7 +109,7 @@
 					<key>INIntentParameterConfigurable</key>
 					<true/>
 					<key>INIntentParameterDisplayName</key>
-					<string>Last Name</string>
+					<string>Reading List Name</string>
 					<key>INIntentParameterDisplayNameID</key>
 					<string>2YEFpo</string>
 					<key>INIntentParameterDisplayPriority</key>
@@ -120,7 +122,7 @@
 						<string>gHjivm</string>
 					</dict>
 					<key>INIntentParameterName</key>
-					<string>lastName</string>
+					<string>readingListName</string>
 					<key>INIntentParameterPromptDialogs</key>
 					<array>
 						<dict>
@@ -133,7 +135,7 @@
 							<key>INIntentParameterPromptDialogCustom</key>
 							<true/>
 							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>What's your last Name?</string>
+							<string>What would you like to name your generated reading list?</string>
 							<key>INIntentParameterPromptDialogFormatStringID</key>
 							<string>Yz2Hpb</string>
 							<key>INIntentParameterPromptDialogType</key>
@@ -147,58 +149,18 @@
 					<key>INIntentParameterType</key>
 					<string>String</string>
 				</dict>
-				<dict>
-					<key>INIntentParameterConfigurable</key>
-					<true/>
-					<key>INIntentParameterDisplayName</key>
-					<string>Company Name</string>
-					<key>INIntentParameterDisplayNameID</key>
-					<string>izMWMy</string>
-					<key>INIntentParameterDisplayPriority</key>
-					<integer>3</integer>
-					<key>INIntentParameterMetadata</key>
-					<dict>
-						<key>INIntentParameterMetadataCapitalization</key>
-						<string>Sentences</string>
-						<key>INIntentParameterMetadataDefaultValueID</key>
-						<string>tyB3U7</string>
-					</dict>
-					<key>INIntentParameterName</key>
-					<string>companyName</string>
-					<key>INIntentParameterPromptDialogs</key>
-					<array>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Configuration</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>What's your company Name?</string>
-							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>Wd8oSC</string>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Primary</string>
-						</dict>
-					</array>
-					<key>INIntentParameterSupportsResolution</key>
-					<true/>
-					<key>INIntentParameterTag</key>
-					<integer>3</integer>
-					<key>INIntentParameterType</key>
-					<string>String</string>
-				</dict>
 			</array>
 			<key>INIntentResponse</key>
 			<dict>
 				<key>INIntentResponseCodes</key>
 				<array>
 					<dict>
+						<key>INIntentResponseCodeConciseFormatString</key>
+						<string>Success! ${result}</string>
+						<key>INIntentResponseCodeConciseFormatStringID</key>
+						<string>u74PQQ</string>
 						<key>INIntentResponseCodeFormatString</key>
-						<string>Your contact is create ${result}</string>
+						<string>Success! ${result}</string>
 						<key>INIntentResponseCodeFormatStringID</key>
 						<string>ygNQHN</string>
 						<key>INIntentResponseCodeName</key>
@@ -207,8 +169,12 @@
 						<true/>
 					</dict>
 					<dict>
+						<key>INIntentResponseCodeConciseFormatString</key>
+						<string>Failure generating reading list. Sorry!</string>
+						<key>INIntentResponseCodeConciseFormatStringID</key>
+						<string>fFsLqn</string>
 						<key>INIntentResponseCodeFormatString</key>
-						<string>Could not fetch response</string>
+						<string>Failure generating reading list. Sorry!</string>
 						<key>INIntentResponseCodeFormatStringID</key>
 						<string>HZl7Bl</string>
 						<key>INIntentResponseCodeName</key>
@@ -236,7 +202,7 @@
 				</array>
 			</dict>
 			<key>INIntentTitle</key>
-			<string>Person Info</string>
+			<string>Generate Reading List</string>
 			<key>INIntentTitleID</key>
 			<string>3Onn7X</string>
 			<key>INIntentType</key>

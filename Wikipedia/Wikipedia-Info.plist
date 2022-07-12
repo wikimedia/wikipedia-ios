@@ -7,6 +7,8 @@
 		<string>org.wikimedia.wikipedia.appRefresh</string>
 		<string>org.wikimedia.wikipedia.databaseHousekeeper</string>
 	</array>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -45,6 +47,10 @@
 	<true/>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>mailto</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -59,14 +65,14 @@
 	<string>Save photos from Wikipedia to your photo library</string>
 	<key>NSUserActivityTypes</key>
 	<array>
-		<string>org.wikimedia.wikipedia.explore</string>
-		<string>org.wikimedia.wikipedia.settings</string>
-		<string>org.wikimedia.wikipedia.saved</string>
-		<string>org.wikimedia.wikipedia.history</string>
-		<string>org.wikimedia.wikipedia.search</string>
+		<string>GenerateReadingListIntent</string>
 		<string>org.wikimedia.wikipedia.article</string>
+		<string>org.wikimedia.wikipedia.explore</string>
+		<string>org.wikimedia.wikipedia.history</string>
+		<string>org.wikimedia.wikipedia.saved</string>
+		<string>org.wikimedia.wikipedia.search</string>
 		<string>org.wikimedia.wikipedia.searchresults</string>
-		<string>PersonInfoIntent</string>
+		<string>org.wikimedia.wikipedia.settings</string>
 	</array>
 	<key>UIApplicationShortcutWidget</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER).TopReadWidget</string>
@@ -102,12 +108,6 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>mailto</string>
-	</array>
-	<key>CADisableMinimumFrameDurationOnPhone</key>
-	<true/>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
 </dict>

@@ -4,48 +4,50 @@ import WMF
 class IntentHandler: INExtension {
     
     override func handler(for intent: INIntent) -> Any {
-                guard intent is PersonInfoIntent else {
+                guard intent is GenerateReadingListIntent else {
                     fatalError("Unhandled Intent error : \(intent)")
                 }
-        return PersonInfoIntentHandler()
+        return GenerateReadingListIntentHandler()
     }
     
 }
 
-class PersonInfoIntentHandler : NSObject, PersonInfoIntentHandling {
-    func handle(intent: PersonInfoIntent, completion: @escaping (PersonInfoIntentResponse) -> Void) {
-        print("testing overall!")
-        print(intent.firstName!)
-        print(intent.lastName!)
-        print(intent.companyName!)
-        completion(PersonInfoIntentResponse.success(result: "Successfully"))
+class GenerateReadingListIntentHandler : NSObject, GenerateReadingListIntentHandling {
+    
+    func handle(intent: GenerateReadingListIntent) async -> GenerateReadingListIntentResponse {
+        guard let sourceTexts = intent.sourceTexts,
+              let readingListName = intent.readingListName else {
+            return GenerateReadingListIntentResponse(code: .failure, userActivity: nil)
+        }
+        
+        for sourceText in sourceTexts {
+            print(sourceText)
+        }
+        
+        let dispatchGroup = DispatchGroup()
+        
+        return GenerateReadingListIntentResponse.success(result: "Your \"\(readingListName)\" reading list was generated from \(sourceTexts.count) source texts.")
     }
     
-    func resolveFirstName(for intent: PersonInfoIntent, with completion: @escaping (INStringResolutionResult) -> Void) {
-        print("testing first!")
-        if intent.firstName == "firstName" {
-            completion(INStringResolutionResult.needsValue())
-        } else {
-            completion(INStringResolutionResult.success(with: intent.firstName ?? ""))
+    func resolveSourceTexts(for intent: GenerateReadingListIntent) async -> [INStringResolutionResult] {
+        print("resolvingSourceTexts!")
+
+        guard let sourceTexts = intent.sourceTexts else {
+            // for some reason I can't seem to trigger MULTIPLE source texxt prompts. I'm not sure what I need to do.
+            return [INStringResolutionResult.needsValue(), INStringResolutionResult.needsValue()]
         }
+
+        return sourceTexts.map { INStringResolutionResult.success(with: $0) }
     }
     
-    func resolveLastName(for intent: PersonInfoIntent, with completion: @escaping (INStringResolutionResult) -> Void) {
-        print("testing last!")
-        if intent.lastName == "lastName" {
-            completion(INStringResolutionResult.needsValue())
-        } else {
-            completion(INStringResolutionResult.success(with: intent.lastName ?? ""))
+    func resolveReadingListName(for intent: GenerateReadingListIntent) async -> INStringResolutionResult {
+        print("Resolving reading list name!")
+        
+        guard let readingListName = intent.readingListName else {
+            return INStringResolutionResult.needsValue()
         }
-    }
-    
-    func resolveCompanyName(for intent: PersonInfoIntent, with completion: @escaping (INStringResolutionResult) -> Void) {
-        print("testing company!")
-        if intent.companyName == "companyName" {
-            completion(INStringResolutionResult.needsValue())
-        } else {
-            completion(INStringResolutionResult.success(with: intent.companyName ?? ""))
-        }
+        
+        return INStringResolutionResult.success(with: readingListName)
     }
     
     

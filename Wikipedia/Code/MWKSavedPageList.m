@@ -127,20 +127,6 @@
 }
 
 - (void)addSavedPageWithURL:(NSURL *)url {
-    PersonInfoIntent *personIntent = [[PersonInfoIntent alloc] init];
-    personIntent.firstName = @"firstName";
-    personIntent.lastName = @"lastName";
-    personIntent.companyName = @"companyName";
-    
-    INInteraction *interaction = [[INInteraction alloc] initWithIntent:personIntent response:nil];
-    [interaction donateInteractionWithCompletion:^(NSError * _Nullable error)
-        {
-            if (error)
-            {
-                NSLog(@"Failed to donate interaction: %@ ", [error localizedDescription] );
-            }
-        }];
-    
     WMFArticle *article = [self.dataStore fetchOrCreateArticleWithURL:url];
     [self.dataStore.readingListsController userSave:article];
 }

@@ -12,7 +12,7 @@
 			<array/>
 			<key>IntentsSupported</key>
 			<array>
-				<string>PersonInfoIntent</string>
+				<string>GenerateReadingListIntent</string>
 			</array>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>
