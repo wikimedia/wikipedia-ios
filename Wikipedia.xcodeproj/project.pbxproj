@@ -435,7 +435,7 @@
 		6728DF28287D3004006E27F0 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6728DF27287D3004006E27F0 /* Intents.framework */; };
 		6728DF29287D30F6006E27F0 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 6728DF1E287D2C0E006E27F0 /* Intents.intentdefinition */; settings = {ATTRIBUTES = (no_codegen, ); }; };
 		6728DF2A287D3384006E27F0 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 6728DF1E287D2C0E006E27F0 /* Intents.intentdefinition */; settings = {ATTRIBUTES = (no_codegen, ); }; };
-		6728DF2B287D3387006E27F0 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 6728DF1E287D2C0E006E27F0 /* Intents.intentdefinition */; settings = {ATTRIBUTES = (no_codegen, ); }; };
+		6728DF2D287D45B1006E27F0 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 6728DF1E287D2C0E006E27F0 /* Intents.intentdefinition */; settings = {ATTRIBUTES = (no_codegen, ); }; };
 		672B127822A450F000CC85A5 /* TalkPageHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 672B127722A450F000CC85A5 /* TalkPageHeaderView.xib */; };
 		672C35EB22D8E7CA007B8D46 /* EmptyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672C35EA22D8E7C9007B8D46 /* EmptyViewController.swift */; };
 		672C35EC22D8E7D2007B8D46 /* EmptyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672C35EA22D8E7C9007B8D46 /* EmptyViewController.swift */; };
@@ -11807,7 +11807,7 @@
 				7A2432BE1FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
 				7A0DE50020CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */,
 				B0E805611C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m in Sources */,
-				6728DF2B287D3387006E27F0 /* Intents.intentdefinition in Sources */,
+				6728DF2D287D45B1006E27F0 /* Intents.intentdefinition in Sources */,
 				B09B30CF1DB813760012281F /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
 				8330532923EF0B4200123141 /* ArticleViewController+Media.swift in Sources */,
 				B09705B4236B29D7006FDB5C /* DiffThanker.swift in Sources */,

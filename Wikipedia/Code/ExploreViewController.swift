@@ -64,28 +64,28 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         detailTransitionSourceRect = nil
         logFeedImpressionAfterDelay()
         dataStore.remoteNotificationsController.loadNotifications(force: false)
-        donateInteraction()
+        // donateInteraction()
     }
 
-    func donateInteraction() {
-        
-        let intent = PersonInfoIntent()
-        intent.suggestedInvocationPhrase = "Add person Info"
-        intent.firstName = "firstName"
-        intent.lastName = "lastName"
-        intent.companyName = "companyName"
-        let interaction = INInteraction(intent: intent, response: nil)
-        
-        interaction.donate { (error) in
-            // if error != nil {
-                if let error = error as NSError? {
-                    print("Interaction donation failed: \(error.description)")
-                } else {
-                    print("Successfully donated interaction")
-                }
-            // }
-        }
-    }
+//    func donateInteraction() {
+//
+//        let intent = PersonInfoIntent()
+//        intent.suggestedInvocationPhrase = "Add person Info"
+//        intent.firstName = "firstName"
+//        intent.lastName = "lastName"
+//        intent.companyName = "companyName"
+//        let interaction = INInteraction(intent: intent, response: nil)
+//
+//        interaction.donate { (error) in
+//            // if error != nil {
+//                if let error = error as NSError? {
+//                    print("Interaction donation failed: \(error.description)")
+//                } else {
+//                    print("Successfully donated interaction")
+//                }
+//            // }
+//        }
+//    }
     
     override func viewWillHaveFirstAppearance(_ animated: Bool) {
          super.viewWillHaveFirstAppearance(animated)
