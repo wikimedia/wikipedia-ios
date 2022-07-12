@@ -66,6 +66,7 @@
 		<string>org.wikimedia.wikipedia.search</string>
 		<string>org.wikimedia.wikipedia.article</string>
 		<string>org.wikimedia.wikipedia.searchresults</string>
+		<string>PersonInfoIntent</string>
 	</array>
 	<key>UIApplicationShortcutWidget</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER).TopReadWidget</string>
