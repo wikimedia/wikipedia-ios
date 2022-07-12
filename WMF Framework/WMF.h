@@ -131,3 +131,5 @@ FOUNDATION_EXPORT const unsigned char WMFVersionString[];
 //Deprecated
 #import <WMF/MWKList.h>
 #import <WMF/MWKList+Subclass.h>
+
+@import Intents;

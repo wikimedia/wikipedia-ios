@@ -1,4 +1,5 @@
 import Intents
+import WMF
 
 class IntentHandler: INExtension {
     

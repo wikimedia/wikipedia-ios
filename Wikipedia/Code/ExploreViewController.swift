@@ -77,13 +77,13 @@ class ExploreViewController: ColumnarCollectionViewController, ExploreCardViewCo
         let interaction = INInteraction(intent: intent, response: nil)
         
         interaction.donate { (error) in
-            if error != nil {
+            // if error != nil {
                 if let error = error as NSError? {
                     print("Interaction donation failed: \(error.description)")
                 } else {
                     print("Successfully donated interaction")
                 }
-            }
+            // }
         }
     }
     
