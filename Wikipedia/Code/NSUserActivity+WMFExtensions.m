@@ -36,6 +36,7 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
     activity.eligibleForHandoff = YES;
     activity.eligibleForSearch = YES;
     activity.eligibleForPublicIndexing = YES;
+    activity.eligibleForPrediction = YES;
     activity.keywords = [NSSet setWithArray:@[@"Wikipedia", @"Wikimedia", @"Wiki"]];
 
     return activity;
@@ -76,6 +77,11 @@ __attribute__((annotate("returns_localized_nsstring"))) static inline NSString *
 
 + (instancetype)wmf_exploreViewActivity {
     NSUserActivity *activity = [self wmf_pageActivityWithName:@"Explore"];
+    return activity;
+}
+
++ (instancetype)wmf_placesViewActivity {
+    NSUserActivity *activity = [self wmf_pageActivityWithName:@"Places"];
     return activity;
 }
 

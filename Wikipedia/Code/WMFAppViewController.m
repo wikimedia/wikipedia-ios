@@ -1635,14 +1635,22 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
 
-    if ([viewController isKindOfClass:[WMFSavedViewController class]]) {
-        NSUserActivity *userActivity = [[NSUserActivity alloc] initWithActivityType:@"org.wikimedia.wikipedia.saved"];
-        userActivity.eligibleForSearch = YES;
-        userActivity.eligibleForPrediction = YES;
-        userActivity.title = @"Go To Saved Articles";
-        userActivity.userInfo = @{@"WMFPage": @"Saved"};
-        viewController.userActivity = userActivity;
+    NSUserActivity *userActivity;
+    if (viewController == self.exploreViewController) {
+        userActivity = [NSUserActivity wmf_exploreViewActivity];
+    } else if (viewController == self.placesViewController) {
+        userActivity = [NSUserActivity wmf_placesViewActivity];
+    } else if (viewController == self.savedViewController) {
+        userActivity = [NSUserActivity wmf_savedPagesViewActivity];
+    } else if (viewController == self.recentArticlesViewController) {
+        userActivity = [NSUserActivity wmf_recentViewActivity];
+    } else if (viewController == self.searchViewController) {
+        userActivity = [NSUserActivity wmf_searchViewActivity];
+    } else if (viewController == self.settingsViewController) {
+        userActivity = [NSUserActivity wmf_settingsViewActivity];
     }
+    
+    viewController.userActivity = userActivity;
     [self wmf_hideKeyboard];
 }
 
