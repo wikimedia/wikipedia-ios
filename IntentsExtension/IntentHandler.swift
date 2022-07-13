@@ -20,7 +20,6 @@ class GenerateReadingListIntentHandler : NSObject, GenerateReadingListIntentHand
     }
     
     let siteURL = URL(string: "https://en.wikipedia.org")!
-    var searchFetcher: ModernSearchFetcher?
 
     func handle(intent: GenerateReadingListIntent) async -> GenerateReadingListIntentResponse {
         guard let sourceTexts = intent.sourceTexts,
@@ -29,8 +28,12 @@ class GenerateReadingListIntentHandler : NSObject, GenerateReadingListIntentHand
         }
         
         do {
-            let results = try await fetchArticles(searchTerms: sourceTexts)
-            try await createReadingList(named: readingListName, searchResults: results)
+            let searchResults = try await fetchArticles(searchTerms: sourceTexts)
+            let articleTitles = searchResults.map { $0.title }
+            let relatedResults = try await fetchRelatedArticles(articleTitles: articleTitles)
+            let finalResults = searchResults + relatedResults
+            try await createArticleSummaries(finalResults: finalResults)
+            try await createReadingList(named: readingListName, results: finalResults)
             return GenerateReadingListIntentResponse.success(result: "Your \"\(readingListName)\" reading list was generated from \(sourceTexts.count) source texts.")
         } catch {
             return GenerateReadingListIntentResponse(code: .failure, userActivity: nil)
@@ -40,7 +43,6 @@ class GenerateReadingListIntentHandler : NSObject, GenerateReadingListIntentHand
     @MainActor // ModernSearchFetcher init fails without this
     func fetchArticles(searchTerms: [String]) async throws -> [ModernSearchFetcher.SearchResult] {
         let modernFetcher = ModernSearchFetcher()
-        self.searchFetcher = modernFetcher
         
         return try await withThrowingTaskGroup(of: ModernSearchFetcher.SearchResult.self) { group -> [ModernSearchFetcher.SearchResult] in
             for searchTerm in searchTerms {
@@ -64,22 +66,57 @@ class GenerateReadingListIntentHandler : NSObject, GenerateReadingListIntentHand
         }
     }
     
+    @MainActor // RelatedSearchFetcher init probably fails without this
+    func fetchRelatedArticles(articleTitles: [String]) async throws -> Set<ModernSearchFetcher.SearchResult> {
+        let relatedFetcher = ModernRelatedSearchFetcher()
+        
+        let maxNumberOfRelated = 20 / articleTitles.count
+        
+        let dedupedRelatedSearchResults: Set<ModernSearchFetcher.SearchResult> = try await withThrowingTaskGroup(of: [ModernSearchFetcher.SearchResult].self) { group -> Set<ModernSearchFetcher.SearchResult> in
+            for title in articleTitles {
+                group.addTask {
+                    return try await relatedFetcher.fetchRelatedArticles(articleTitle: title, siteURL: self.siteURL)
+                }
+            }
+                    
+            var finalResults = Set<ModernSearchFetcher.SearchResult>()
+                    
+            for try await searchResults in group {
+                for searchResult in searchResults.prefix(maxNumberOfRelated) {
+                    finalResults.insert(searchResult)
+                }
+            }
+                    
+            return finalResults
+        }
+        
+        return dedupedRelatedSearchResults
+    }
+    
     @MainActor
-    func createReadingList(named name: String, searchResults: [ModernSearchFetcher.SearchResult]) throws {
+    func createArticleSummaries(finalResults: [ModernSearchFetcher.SearchResult]) async throws {
         let dataStore = MWKDataStore.shared()
-        let articles = searchResults.compactMap { dataStore.fetchOrCreateArticle(with: $0.url)}
+        let articleSummaryController = ModernArticleSummaryController(dataStore: dataStore)
+        let keys = finalResults.compactMap { $0.url.wmf_inMemoryKey }
+        _ = try await articleSummaryController.updateOrCreateArticleSummariesForArticles(withKeys: keys)
+    }
+    
+    @MainActor
+    func createReadingList(named name: String, results: [ModernSearchFetcher.SearchResult]) throws {
+        let dataStore = MWKDataStore.shared()
+        let articles = results.compactMap { dataStore.fetchOrCreateArticle(with: $0.url)}
         guard !articles.isEmpty else {
             throw HandlerError.unableToCreateWMFArticles
         }
         
-        _ = try dataStore.readingListsController.createReadingList(named: name, description: "I hope this works!", with: articles)
+        _ = try dataStore.readingListsController.createReadingList(named: name, description: nil, with: articles)
     }
     
     func resolveSourceTexts(for intent: GenerateReadingListIntent) async -> [INStringResolutionResult] {
         print("resolvingSourceTexts!")
 
         guard let sourceTexts = intent.sourceTexts else {
-            // for some reason I can't seem to trigger MULTIPLE source texxt prompts. I'm not sure what I need to do.
+            // for some reason I can't seem to trigger MULTIPLE source text prompts. I'm not sure what I need to do.
             return [INStringResolutionResult.needsValue(), INStringResolutionResult.needsValue()]
         }
 

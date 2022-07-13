@@ -1,7 +1,7 @@
 import Foundation
 
 @objc(WMFRelatedSearchFetcher)
-final class RelatedSearchFetcher: Fetcher {
+public final class RelatedSearchFetcher: Fetcher {
     private struct RelatedPages: Decodable {
         let pages: [ArticleSummary]?
     }
@@ -15,8 +15,12 @@ final class RelatedSearchFetcher: Fetcher {
             return
         }
 
+        fetchRelatedArticles(articleTitle: articleTitle, siteURL: articleURL, completion: completion)
+    }
+    
+    func fetchRelatedArticles(articleTitle: String, siteURL: URL, completion: @escaping (Error?, [WMFInMemoryURLKey: ArticleSummary]?) -> Void) {
         let pathComponents = ["page", "related", articleTitle]
-        guard let taskURL = configuration.pageContentServiceAPIURLForURL(articleURL, appending: pathComponents) else {
+        guard let taskURL = configuration.pageContentServiceAPIURLForURL(siteURL, appending: pathComponents) else {
             completion(Fetcher.invalidParametersError, nil)
             return
         }
@@ -44,7 +48,7 @@ final class RelatedSearchFetcher: Fetcher {
             }
             
             let summaryKeysWithValues: [(WMFInMemoryURLKey, ArticleSummary)] = summaries.compactMap { (summary) -> (WMFInMemoryURLKey, ArticleSummary)? in
-                summary.languageVariantCode = articleURL.wmf_languageVariantCode
+                summary.languageVariantCode = siteURL.wmf_languageVariantCode
                 guard let articleKey = summary.key else {
                     return nil
                 }

@@ -475,7 +475,7 @@ final public class ArticleFetcher: Fetcher, CacheFetching {
     // MARK: - Article Summaries from /api/rest_v1/page/summary
     
     /// Returns the API URL to fetch an article summary for the given canonical article URL
-    private func summaryURL(articleURL: URL) throws -> URL {
+    func summaryURL(articleURL: URL) throws -> URL {
         guard
             let articleTitle = articleURL.wmf_title,
             let percentEncodedTitle = articleTitle.percentEncodedPageTitleForPathComponents,

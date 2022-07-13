@@ -3,10 +3,14 @@ import Foundation
 @MainActor
 public class ModernSearchFetcher: Fetcher {
     
-    public struct SearchResult {
+    public struct SearchResult: Hashable {
         public let url: URL
-        let title: String
+        public let title: String
         let pageId: Int
+        
+        public func hash(into hasher: inout Hasher) {
+            hasher.combine(pageId)
+        }
     }
     
     public func fetchArticles(searchTerm: String, siteURL: URL, resultLimit: UInt) async throws -> [SearchResult] {
