@@ -33,8 +33,8 @@ class GenerateReadingListIntentHandler : NSObject, GenerateReadingListIntentHand
             let relatedResults = try await fetchRelatedArticles(articleTitles: articleTitles)
             let finalResults = searchResults + relatedResults
             try await createArticleSummaries(finalResults: finalResults)
-            try await createReadingList(named: readingListName, results: finalResults)
-            return GenerateReadingListIntentResponse.success(result: "Your \"\(readingListName)\" reading list was generated from \(sourceTexts.count) source texts.")
+            try await createReadingList(named: readingListName, results: finalResults.reversed()) // reversed so original search results show up first
+            return GenerateReadingListIntentResponse.success(result: "Your \"\(readingListName)\" reading list was generated with \(finalResults.count) articles, sourced from \(sourceTexts.count) source texts.")
         } catch {
             return GenerateReadingListIntentResponse(code: .failure, userActivity: nil)
         }
@@ -109,7 +109,7 @@ class GenerateReadingListIntentHandler : NSObject, GenerateReadingListIntentHand
             throw HandlerError.unableToCreateWMFArticles
         }
         
-        _ = try dataStore.readingListsController.createReadingList(named: name, description: nil, with: articles)
+        _ = try dataStore.readingListsController.createReadingList(named: name, description: "Generated from Siri Shortcuts", with: articles)
     }
     
     func resolveSourceTexts(for intent: GenerateReadingListIntent) async -> [INStringResolutionResult] {

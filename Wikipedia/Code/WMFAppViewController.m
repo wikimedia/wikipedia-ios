@@ -1118,6 +1118,11 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
     if (!activity) {
         return NO;
     }
+    
+    if ([activity.activityType isEqualToString:@"GenerateReadingListIntent"]) {
+        return YES;
+    }
+    
     switch ([activity wmf_type]) {
         case WMFUserActivityTypeExplore:
         case WMFUserActivityTypePlaces:
@@ -1150,12 +1155,6 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
 
 - (BOOL)processUserActivity:(NSUserActivity *)activity animated:(BOOL)animated completion:(dispatch_block_t)done {
     
-    if ([activity.activityType isEqualToString:@"PersonInfoIntent"]) {
-        INInteraction *interaction = activity.interaction;
-        done();
-        return YES;
-    }
-    
     if (![self canProcessUserActivity:activity]) {
         done();
         return NO;
@@ -1166,6 +1165,16 @@ NSString *const WMFLanguageVariantAlertsLibraryVersion = @"WMFLanguageVariantAle
         return YES;
     }
     self.unprocessedUserActivity = nil;
+    
+    if ([activity.activityType isEqualToString:@"GenerateReadingListIntent"]) {
+        INInteraction *interaction = activity.interaction;
+        GenerateReadingListIntent *intent = (GenerateReadingListIntent *)interaction.intent;
+        [self dismissPresentedViewControllers];
+        [self setSelectedIndex:WMFAppTabTypeSaved];
+        return [self.router routeToReadingListWithNamed:intent.readingListName dataStore:self.dataStore completion:^{
+            done();
+        }];
+    }
 
     WMFUserActivityType type = [activity wmf_type];
 

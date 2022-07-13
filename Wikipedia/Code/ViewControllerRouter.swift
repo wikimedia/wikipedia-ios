@@ -130,4 +130,15 @@ class ViewControllerRouter: NSObject {
         }
     }
     
+    @objc public func routeToReadingList(named name: String, dataStore: MWKDataStore, completion: @escaping () -> Void) -> Bool {
+        assert(Thread.isMainThread)
+        guard let readingList = dataStore.viewContext.wmf_fetch(objectForEntityName: "ReadingList", withValue: name, forKey: "canonicalName") as? ReadingList else {
+            completion()
+            return false
+        }
+        
+        let readingListViewController = ReadingListDetailViewController(for: readingList, with: dataStore)
+        return presentOrPush(readingListViewController, with: completion)
+    }
+    
 }
