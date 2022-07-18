@@ -712,7 +712,8 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
             }
             
             if let request = dataTask.originalRequest,
-                request.prefersPersistentCacheOverError && httpResponse.statusCode != 200 {
+                request.prefersPersistentCacheOverError &&
+                !HTTPStatusCode.isSuccessful(httpResponse.statusCode) {
                 shouldCheckPersistentCache = true
             }
             

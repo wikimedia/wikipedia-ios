@@ -89,12 +89,30 @@ class ViewControllerRouter: NSObject {
             let player = AVPlayer(url: audioURL)
             vc.player = player
             return presentOrPush(vc, with: completion)
-        case .userTalk(let linkURL):
-            guard let talkPageVC = TalkPageContainerViewController.userTalkPageContainer(url: linkURL, dataStore: appViewController.dataStore, theme: theme) else {
+        case .talk(let linkURL):
+            
+            guard let newTalkPage = TalkPageViewController(url: linkURL, theme: theme) else {
                 completion()
                 return false
             }
-            return presentOrPush(talkPageVC, with: completion)
+            return presentOrPush(newTalkPage, with: completion)
+            
+        case .userTalk(let linkURL):
+            
+            if FeatureFlags.needsNewTalkPage {
+                guard let newTalkPage = TalkPageViewController(url: linkURL, theme: theme) else {
+                    completion()
+                    return false
+                }
+                return presentOrPush(newTalkPage, with: completion)
+            } else {
+                guard let talkPageVC = TalkPageContainerViewController.userTalkPageContainer(url: linkURL, dataStore: appViewController.dataStore, theme: theme) else {
+                    completion()
+                    return false
+                }
+                return presentOrPush(talkPageVC, with: completion)
+            }
+
         case .onThisDay(let indexOfSelectedEvent):
             let dataStore = appViewController.dataStore
             guard let contentGroup = dataStore.viewContext.newestVisibleGroup(of: .onThisDay, forSiteURL: dataStore.primarySiteURL), let onThisDayVC = contentGroup.detailViewControllerWithDataStore(dataStore, theme: theme) as? OnThisDayViewController else {
