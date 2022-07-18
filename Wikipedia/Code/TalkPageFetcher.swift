@@ -82,21 +82,10 @@ class TalkPageFetcher: Fetcher {
         
         performTokenizedMediaWikiAPIPOST(to: siteURL, with: params, reattemptLoginOn401Response: false) { result, httpResponse, error in
             
-            if let error = error {
-                completion(.failure(error))
-            }
-            
-            if let resultError = result?["error"] as? [String: Any],
-               let info = resultError["info"] as? String {
-                completion(.failure(RequestError.api(info)))
-                return
-            }
-            
-            if let resultSuccess = result?["success"] as? [String: Any] {
-                completion(.success(resultSuccess))
-            }
+            self.performTalkPagePost(error, result, completion: completion)
         }
     }
+    
     
     func postTopic(talkPageTitle: String, siteURL: URL, topicTitle: String, topicBody: String, completion: @escaping(Result<[AnyHashable: Any], Error>) -> Void) {
         
@@ -115,19 +104,28 @@ class TalkPageFetcher: Fetcher {
         
         performTokenizedMediaWikiAPIPOST(to: siteURL, with: params, reattemptLoginOn401Response: false) { result, httpResponse, error in
             
-            if let error = error {
-                completion(.failure(error))
-            }
-            
-            if let resultError = result?["error"] as? [String: Any],
-               let info = resultError["info"] as? String {
-                completion(.failure(RequestError.api(info)))
-                return
-            }
-            
-            if let resultSuccess = result?["success"] as? [String: Any] {
-                completion(.success(resultSuccess))
-            }
+            self.performTalkPagePost(error, result, completion: completion)
         }
     }
+    
+    fileprivate func performTalkPagePost(_ error: Error?, _ result: [String : Any]?, completion: @escaping(Result<[AnyHashable: Any], Error>) -> Void) {
+        if let error = error {
+            completion(.failure(error))
+            return
+        }
+        
+        if let resultError = result?["error"] as? [String: Any],
+           let info = resultError["info"] as? String {
+            completion(.failure(RequestError.api(info)))
+            return
+        }
+        
+        if let resultSuccess = result?["discussiontoolsedit"] as? [String: Any] {
+            completion(.success(resultSuccess))
+            return
+        }
+        
+        completion(.failure(RequestError.invalidParameters))
+    }
+    
 }
