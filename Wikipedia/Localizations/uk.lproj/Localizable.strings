@@ -23,6 +23,7 @@
 // Author: Vlad5250
 // Author: Ата
 // Author: Дар'я Козлова
+// Author: Пан Хаунд
 
 "aaald-added-text-description-2" = "$1 додано";
 "aaald-article-description-updated-description" = "Опис заголовку статті оновлено";
@@ -572,8 +573,13 @@
 "no-internet-connection-article-reload" = "Можливо, доступна новіша версія цієї статті, але вона не може бути завантажена через відсутність підключення до Інтернету";
 "no-internet-connection-article-reload-button" = "Повернутися до останньої збереженої версії";
 "notifications-center-agent-description-from-format" = "З $1";
+"notifications-center-alert" = "Сповіщення";
+"notifications-center-applied-filters-accessibility-label" = "Фільтр сповіщень – має застосовані фільтри";
+"notifications-center-applied-project-filters-accessibility-label" = "Фільтр Проектів – має застосовані фільтри";
 "notifications-center-change-password" = "Змінити пароль";
 "notifications-center-checking-for-notifications" = "Перевірка сповіщень…";
+"notifications-center-destination-app" = "У додатку";
+"notifications-center-destination-web" = "В Інтернеті";
 "notifications-center-empty-checking-for-notifications" = "Перевірка сповіщень…";
 "notifications-center-empty-no-messages" = "У вас нема повідомлень";
 "notifications-center-empty-not-subscribed" = "Наразі ви не підписані на жодні сповіщення Вікіпедії";
@@ -589,16 +595,15 @@
 "notifications-center-filters-types-footer" = "Змініть типи сповіщень, щоб відфільтрувати їх у папці вхідних сповіщень. Типи, які вимкнено, не відображатимуться, але їх вміст і будь-які нові сповіщення будуть доступні, коли перемикач знову ввімкнути.";
 "notifications-center-filters-types-item-title-all" = "Усі типи";
 "notifications-center-filters-types-section-title" = "Типи сповіщень";
+"notifications-center-go-to-article" = "Стаття";
 // Fuzzy
 "notifications-center-go-to-diff" = "Перейти до дифа";
-// Fuzzy
-"notifications-center-go-to-talk-page" = "Перейти на сторінку обговорення";
+"notifications-center-go-to-talk-page" = "Сторінка обговорення";
 // Fuzzy
 "notifications-center-go-to-user-page" = "Перейти на сторінку користувача $1";
 // Fuzzy
 "notifications-center-go-to-wikidata-item" = "Перейти до елемента Вікіданих";
-// Fuzzy
-"notifications-center-go-to-your-talk-page" = "Перейти на свою сторінку обговорення";
+"notifications-center-go-to-your-talk-page" = "Ваша сторінка обговорення";
 "notifications-center-header-alert-from-agent" = "Сповіщення від $1";
 "notifications-center-inbox-title" = "Проєкти";
 "notifications-center-inbox-wikimedia-projects-section-footer" = "Тут показуватимуться тільки ті проєкти, для яких ви створили акаунт";
@@ -614,6 +619,7 @@
 "notifications-center-mark-as-unread" = "Позначити як непрочитане";
 "notifications-center-notifications-settings" = "Налаштування сповіщень";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 повідомлення|$1 повідомлення|$1 повідомлень}}";
+"notifications-center-onboarding-modal-filters-title" = "Фільтри";
 "notifications-center-status-all" = "Усі";
 "notifications-center-status-all-notifications" = "Усі сповіщення";
 "notifications-center-status-double-concatenation" = "$1 у $2";
@@ -900,16 +906,14 @@
 "settings-support" = "Підтримати Вікіпедію";
 "settings-title" = "Налаштування";
 "share-a-fact-made-with" = "Створено за допомоги додатку Вікіпедія";
-// Fuzzy
-"share-article-name-on-wikipedia" = "«$1» у @Wikipedia:";
+"share-article-name-on-wikipedia" = "\"$1\" у Wikipedia:";
 "share-building" = "Створення картки «Поділися фактом»...";
 "share-default-format" = "«$1» з «$2»: $3";
 "share-email-format" = "«$1»\n\nз «$2»\n\n$3";
 "share-get-directions-in-maps" = "Отримати напрямки";
 "share-menu-item" = "Поширити…";
 "share-message-format" = "«$1» $2";
-// Fuzzy
-"share-on-twitter-sign-off" = "через @Wikipedia";
+"share-on-twitter-sign-off" = "через Wikipedia";
 "share-open-in-maps" = "Відкрити на Мапах";
 "share-social-format" = "«$1» у Вікіпедії мовою «$2»";
 // Fuzzy

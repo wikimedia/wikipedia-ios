@@ -609,6 +609,10 @@
 "no-internet-connection-article-reload-button" = "Вернуться к последней сохранённой версии";
 "notifications-center-agent-description-from-format" = "От $1";
 "notifications-center-alert" = "Оповещение";
+"notifications-center-applied-filters-accessibility-label" = "Фильтр уведомлений: с применёнными фильтрами";
+"notifications-center-applied-project-filters-accessibility-label" = "Фильтр проектов: с применёнными фильтрами";
+"notifications-center-badge-button-accessibility-label" = "Уведомления со значком непрочитанности";
+"notifications-center-cell-notification-type-accessibility-label-format" = "Уведомление «$1»";
 "notifications-center-change-password" = "Изменить пароль";
 "notifications-center-checking-for-notifications" = "Проверка уведомлений…";
 "notifications-center-destination-app" = "В приложке";
@@ -620,9 +624,11 @@
 "notifications-center-feed-card-title" = "Теперь доступно редактирование уведомлений";
 "notifications-center-feed-news-notification-button-text" = "Включить пуш-уведомления";
 "notifications-center-feed-news-notification-dismiss-button-text" = "Не сейчас";
+"notifications-center-filters-accessibility-label" = "Фильтр уведомлений";
 "notifications-center-filters-read-status-item-title-all" = "Все";
 "notifications-center-filters-read-status-item-title-read" = "Читать";
 "notifications-center-filters-read-status-item-title-unread" = "Непрочитанные";
+"notifications-center-filters-read-status-section-title" = "Статус прочтения";
 "notifications-center-filters-title" = "Фильтры";
 "notifications-center-filters-types-item-title-all" = "Все типы";
 "notifications-center-filters-types-section-title" = "Типы уведомлений";
@@ -650,6 +656,7 @@
 "notifications-center-onboarding-modal-filters-title" = "Фильтры";
 "notifications-center-onboarding-modal-learn-more-action" = "Узнать подробнее об уведомлениях";
 "notifications-center-onboarding-modal-notifications-alerts-title" = "Уведомления и оповещения";
+"notifications-center-onboarding-modal-project-inboxes-title" = "Входящие проектов";
 "notifications-center-onboarding-modal-push-notifications-title" = "Пуш-уведомления";
 "notifications-center-onboarding-modal-title" = "Редактирование уведомлений";
 "notifications-center-onboarding-panel-heading" = "Включить пуш-уведомления?";
@@ -660,7 +667,9 @@
 "notifications-center-status-all-notifications" = "Все уведомления";
 "notifications-center-status-double-concatenation" = "$1 в $2";
 "notifications-center-status-filtered-by" = "Отфильтровано по";
+"notifications-center-status-in-projects" = "{{PLURAL:$1|1=В одном проекте|В $1 проектах}}";
 "notifications-center-status-in-projects-plain" = "{{PLURAL:$1|1=1 проект|$1 проекта|$1 проектов}}";
+"notifications-center-status-in-types" = "{{PLURAL:$1|1=1 тип|$1 типа|$1 типов}}";
 "notifications-center-status-read" = "Прочитано";
 "notifications-center-status-triple-concatenation" = "$1 и $2 в $3";
 "notifications-center-status-unread" = "Не прочитано";
@@ -697,9 +706,13 @@
 "notifications-center-type-title-edit-summary-mention" = "Упоминание в описании изменений";
 "notifications-center-type-title-email-from-other-user" = "Эл. письмо от другого участника";
 "notifications-center-type-title-login-attempts" = "Попытки входа";
+"notifications-center-type-title-login-attempts-subtitle" = "Попытки войти в вашу учётную запись не удались.";
 "notifications-center-type-title-login-success" = "Успешный вход";
+"notifications-center-type-title-other" = "Другое";
 "notifications-center-type-title-page-link" = "Ссылка на страницу";
 "notifications-center-type-title-page-review" = "Проверка страниц";
+"notifications-center-type-title-sent-mention-failure" = "Не удалось отправить упоминание";
+"notifications-center-type-title-sent-mention-success" = "Упоминание успешно отправлено";
 "notifications-center-type-title-talk-page-mention" = "Упоминание на странице обсуждения";
 "notifications-center-type-title-thanks" = "Спасибо";
 "notifications-center-type-title-translation-milestone" = "Веха в переводах";
