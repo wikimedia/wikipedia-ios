@@ -32,6 +32,7 @@
 // Author: Wwycheuk
 // Author: Xiplus
 // Author: 予弦
+// Author: 人工知能
 // Author: 沈澄心
 // Author: 烈羽
 // Author: 神樂坂秀吉
@@ -602,6 +603,7 @@
 "notifications-center-empty-state-filters-subtitle" = "變動$1來查看更多通知";
 "notifications-center-empty-state-no-projects-selected" = "添加專案來查看更多訊息";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1}} 種篩選";
+"notifications-center-feed-card-title" = "編輯通知現已可用";
 "notifications-center-feed-news-notification-button-text" = "開啟推送通知";
 "notifications-center-feed-news-notification-dismiss-button-text" = "現在不要";
 "notifications-center-filters-accessibility-label" = "通知篩選";
@@ -639,7 +641,9 @@
 "notifications-center-onboarding-modal-continue-action" = "繼續";
 "notifications-center-onboarding-modal-filters-title" = "篩選";
 "notifications-center-onboarding-modal-learn-more-action" = "了解更多通知";
+"notifications-center-onboarding-modal-notifications-alerts-message" = "通知可幫助您隨時了解與您的編輯和帳戶相關的活動。";
 "notifications-center-onboarding-modal-notifications-alerts-title" = "通知與告警";
+"notifications-center-onboarding-modal-project-inboxes-title" = "項目收件箱";
 "notifications-center-onboarding-modal-push-notifications-title" = "推送通知";
 "notifications-center-onboarding-modal-title" = "編輯通知";
 "notifications-center-onboarding-panel-heading" = "開啟推送通知？";
@@ -681,7 +685,21 @@
 "notifications-center-title" = "通知";
 "notifications-center-toolbar-mark-accessibility-label" = "標記已選的通知";
 "notifications-center-type-item-description-mentions" = "提及";
+"notifications-center-type-item-description-notice" = "提示";
 "notifications-center-type-item-description-welcome-verbose" = "歡迎訊息";
+"notifications-center-type-title-login-attempts" = "登入嘗試";
+"notifications-center-type-title-login-success" = "登入成功";
+"notifications-center-type-title-other" = "其他";
+"notifications-center-type-title-page-link" = "頁面連結";
+"notifications-center-type-title-page-review" = "頁面審核";
+"notifications-center-type-title-sent-mention-failure" = "傳送提及失敗";
+"notifications-center-type-title-sent-mention-success" = "傳送提及成功";
+"notifications-center-type-title-talk-page-mention" = "討論頁面提及";
+"notifications-center-type-title-thanks" = "感謝";
+"notifications-center-type-title-translation-milestone" = "翻譯里程碑";
+"notifications-center-type-title-user-rights-change" = "使用者權限更改";
+"notifications-center-type-title-user-talk-page-messsage" = "討論頁面訊息";
+"notifications-center-type-title-welcome" = "歡迎";
 "notifications-push-fallback-body-text" = "在維基百科上的新活動";
 // Fuzzy
 "notifications-push-talk-body-format" = "在$3的 $1 個新$2";
@@ -765,6 +783,17 @@
 "potd-widget-title" = "每日圖片";
 "preference-summary-eventlogging-opt-in" = "允許維基媒體基金會收集有關您如何使用應用程式的資訊，來讓此應用程式能更好";
 "preference-title-eventlogging-opt-in" = "傳送使用情況報告";
+"project-name-mediawiki" = "MediaWiki";
+"project-name-wikibooks" = "維基教科書";
+"project-name-wikidata" = "維基數據";
+"project-name-wikimedia-commons" = "維基共享資源";
+"project-name-wikinews" = "維基新聞";
+"project-name-wikiquote" = "維基語錄";
+"project-name-wikisource" = "維基文庫";
+"project-name-wikispecies" = "維基物種";
+"project-name-wikiversity" = "維基學院";
+"project-name-wikivoyage" = "維基導遊";
+"project-name-wiktionary" = "維基詞典";
 "rank-accessibility-label" = "號碼$1";
 "readers-accessibility-label" = "$1個讀者";
 "reading-list-add-generic-hint-title" = "新增此條目至閱讀清單？";
@@ -942,12 +971,10 @@
 "share-get-directions-in-maps" = "取得路線";
 "share-menu-item" = "分享…";
 "share-message-format" = "「$1」 $2";
-// Fuzzy
-"share-on-twitter-sign-off" = "來自@Wikipedia";
+"share-on-twitter-sign-off" = "透過維基百科";
 "share-open-in-maps" = "在地圖中開啟";
 "share-social-format" = "「$1」經由維基百科：$2";
-// Fuzzy
-"share-social-mention-format" = "「$1」經由@維基百科：$2";
+"share-social-mention-format" = "“$1” 透過維基百科：$2";
 "sort-by-recently-added-action" = "最近新增的";
 "sort-by-title-action" = "標題";
 "table-of-contents-button-label" = "目次";

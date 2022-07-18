@@ -159,7 +159,7 @@
 "article-delete" = "Poista";
 "article-deleted-accessibility-notification" = "{{PLURAL:$1|artikkeli|artikkelia}} poistettu";
 "article-fetcher-error-updated-content-timeout" = "Muokkausten näyttäminen epäonnistui, aikakatkaisu. Tarkastele muutoksia myöhemmin palaamalle tälle sivulle.";
-"article-languages-filter-placeholder" = "Löydä kieli";
+"article-languages-filter-placeholder" = "Hae kieliä";
 "article-languages-label" = "Valitse kieli";
 "article-languages-others" = "Muut kielet";
 "article-languages-yours" = "Omat kielet";
@@ -375,7 +375,7 @@
 "explore-feed-preferences-global-cards-subtitle" = "Kielestä riippumaton";
 "explore-feed-preferences-global-cards-title" = "Globaalit kortit";
 "explore-feed-preferences-hide-card-action-title" = "Piilota tämä kortti";
-"explore-feed-preferences-hide-feed-cards-action-title" = "Piilota kaikki ”$1”-kortit";
+"explore-feed-preferences-hide-feed-cards-action-title" = "Piilota kaikki $1-kortit";
 "explore-feed-preferences-in-the-news-description" = "Artikkelit ajankohtaisista tapahtumista";
 "explore-feed-preferences-languages-footer-text" = "Kaikkien Tutki-syötekorttien poistaminen käytöstä kaikilla kielillä poistaa Tutki-välilehden käytöstä.";
 "explore-feed-preferences-on-this-day-description" = "Tapahtumat historiassa tänä päivänä";
@@ -472,6 +472,7 @@
 "forgot-password-instructions" = "Saat ohjeet salasanan palauttamiseen sähköpostitse täytettyäsi yhden alla olevista kentistä";
 "forgot-password-title" = "Salasanan palauttaminen";
 "forgot-password-username-or-email-title" = "tai";
+"gan-variants-alert-title" = "Päivityksiä Gan-version tukeen";
 "history-clear-all" = "Tyhjennä";
 "history-clear-cancel" = "Peruuta";
 "history-clear-confirmation-heading" = "Haluatko varmasti poistaa kaikki tuoreet kohteesi?";
@@ -502,6 +503,7 @@
 "insert-media-alternative-text-placeholder" = "Kuvaile tätä kuvaa";
 "insert-media-alternative-text-title" = "Vaihtoehtoinen teksti";
 "insert-media-caption-caption-placeholder" = "Kuinka tämä kuva liittyy artikkeliin?";
+"insert-media-caption-description" = "Tunniste, joka näkyy kohteen vieressä kaikille lukijoille";
 "insert-media-caption-title" = "Kuvateksti";
 "insert-media-image-position-setting-center" = "Keski";
 "insert-media-image-position-setting-left" = "Vasen";
@@ -528,6 +530,12 @@
 "intermediate-edits-editors-count-limited" = "$1+ välissä olevaa versiota $2+ käyttäjän tekeminä ei näytetä";
 "intermediate-edits-editors-limited-count" = "{{PLURAL:$1|Yhtä välissä olevaa versiota|$1 välissä olevaa versiota}} $2+ käyttäjän tekeminä ei näytetä";
 "intermediate-edits-limited-editors-count" = "$1+ välissä olevaa versiota {{PLURAL:$2|toisen käyttäjän tekemänä|$2 käyttäjän tekeminä}} ei näytetä";
+"inuktitut-variants-alert-body" = "Wikipedia-sovellus tukee nyt seuraavia inuktitut-muunnelmia ensi- tai toissijaisina kielinä sovelluksessa, mikä helpottaa lukemista, etsimistä ja muokkaamista näillä versioilla:\n\nᐃᓄᒃᑎᑐᑦ ᑎᑎᕋᐅᓯᖅ ᓄᑖᖅ Inuktitut, tavumerkistö (ike-cans)\nInuktitut ilisautik, Inuktitut, latinalaiset aakkoset (ike-latn)";
+"inuktitut-variants-alert-title" = "Päivitykset Inuktitut-varianttien tukeen";
+"kazakh-variants-alert-body" = "Wikipedia-sovellus tukee nyt seuraavia kazakin muunnelmia ensi- tai toissijaisina kielinä sovelluksessa, mikä helpottaa lukemista, etsimistä ja muokkaamista näillä versioilla:\n\nҚазақша Kazakh (kk)\nҚазақша Кирил Kazakh, kyrillinen kirjaimisto (kk-cyrl)\nqazaqşa latina kazakstani, latinalainen kirjaimisto (kk-latn)\nتوتە قازاقشا Kazakh, arabialainen kirjaimisto (kk-arab)";
+"kazakh-variants-alert-title" = "Päivitykset kazakin varianttien tukeen";
+"kurdish-variants-alert-body" = "Wikipedia-sovellus tukee nyt seuraavia kurdin muunnelmia ensi- tai toissijaisina kielinä sovelluksessa, mikä helpottaa lukemista, hakua ja muokkaamista näillä versioilla:\n\nKurdî Latînî Kurdish, latinalainen kirjaimisto (ku-latn)\nكوردی Kurdish, arabialainen kirjaimisto (kk-arab)";
+"kurdish-variants-alert-title" = "Päivitykset kurdin varianttien tukeen";
 "languages-settings-title" = "Kielet";
 "languages-title" = "Kielenvaihto";
 "languages-wikipedia" = "Wikipedian kielet";
@@ -584,7 +592,9 @@
 "notifications-center-filters-read-status-item-title-all" = "Kaikki";
 "notifications-center-filters-read-status-item-title-read" = "Luettu";
 "notifications-center-filters-read-status-item-title-unread" = "Lukematon";
+"notifications-center-filters-read-status-section-title" = "Luettu";
 "notifications-center-filters-title" = "Suodattimet";
+"notifications-center-filters-types-footer" = "Valitse ilmoituksissa näytettävät ilmoitustyypit. Pois käytöstä otetut ilmoitukset piilotetaan, mutta ne säilyvät ja palautetaan näkymään jos ne otetaan jälleen käyttöön.";
 "notifications-center-filters-types-item-title-all" = "Kaikki tyypit";
 "notifications-center-filters-types-section-title" = "Ilmoitusten tyypit";
 "notifications-center-go-to-article" = "Artikkeli";
@@ -595,8 +605,10 @@
 "notifications-center-go-to-wikidata-item" = "Wikidata-kohde";
 "notifications-center-go-to-your-talk-page" = "Oma keskustelusivu";
 "notifications-center-inbox-title" = "Projektit";
+"notifications-center-inbox-wikimedia-projects-section-footer" = "Listassa näytetään vain projektit, joihin olet luonut tunnuksen.";
 "notifications-center-inbox-wikimedia-projects-section-title" = "Wikimedian projektit";
 "notifications-center-inbox-wikipedias-section-title" = "Wikipediat";
+"notifications-center-language-project-name-format" = "$2 ($1)";
 "notifications-center-login-notifications" = "Kirjautumisilmoitukset";
 "notifications-center-mark" = "Merkitse";
 "notifications-center-mark-all-as-read" = "Merkitse kaikki luetuksi";
@@ -605,7 +617,7 @@
 "notifications-center-mark-as-unread" = "Merkitse lukemattomaksi";
 "notifications-center-more-action-accessibility-label" = "Lisää";
 "notifications-center-notifications-settings" = "Ilmoitusasetukset";
-"notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 viesti|$1 viestiä}}";
+"notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 ilmoitus|$1 ilmoitusta}}";
 "notifications-center-onboarding-modal-continue-action" = "Jatka";
 "notifications-center-onboarding-modal-filters-message" = "Suodata ilmoituksiasi niiden lukutilan ja tyypin mukaan helposti rajataksesi saapuneita ilmoituksiasi.";
 "notifications-center-onboarding-modal-filters-title" = "Suodattimet";
@@ -882,6 +894,7 @@
 "settings-my-languages" = "Omat kielet";
 "settings-notifications" = "Push-ilmoitukset";
 "settings-notifications-echo-failure-try-again" = "Yritä uudelleen";
+"settings-notifications-header" = "Ilmoituksia lähetetään esimerkiksi kanssamuokkaajilta, hälytyksistä ja huomautuksista tietoturvallisesti ja ajankohtaisista tapahtumista.";
 "settings-notifications-info" = "Saat ilmoituksia luetuimmista ja nousussa olevista Wikipedian artikkeleista ilmoitusviesteillä. Ne perustuvat ajankohtaiseen dataan ja kunnioittavat yksityisyyttäsi.";
 "settings-notifications-learn-more" = "Lue lisää ilmoituksista";
 "settings-notifications-push-notifications" = "Ilmoitusviestit";

@@ -658,6 +658,7 @@
 "notifications-center-swipe-mark-as-unread" = "Als ongelezen markeren";
 "notifications-center-swipe-more" = "Meer";
 "notifications-center-title" = "Meldingen";
+"notifications-center-type-title-welcome" = "Welkom";
 "notifications-push-fallback-body-text" = "Nieuwe activiteit op Wikipedia";
 "notifications-push-talk-body-format" = "$1 {{PLURAL:$1|nieuw bericht|nieuwe berichten}} op $2";
 "notifications-push-talk-title-format" = "{{PLURAL:$1|Nieuw bericht|Nieuwe berichten}}";
