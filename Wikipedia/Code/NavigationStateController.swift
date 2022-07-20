@@ -139,7 +139,8 @@ final class NavigationStateController: NSObject {
                 }
                 
                 if FeatureFlags.needsNewTalkPage {
-                    let newTalkPage = TalkPageViewController(talkPageTitle: title, siteURL: siteURL, theme: theme)
+                    let viewModel = TalkPageViewModel(pageTitle: title, siteURL: siteURL)
+                    let newTalkPage = TalkPageViewController(theme: theme, viewModel: viewModel)
                     navigationController.pushViewController(newTalkPage, animated: false)
                 } else {
                     let talkPageContainer = TalkPageContainerViewController.talkPageContainer(title: title, siteURL: siteURL, type: type, dataStore: dataStore, theme: theme)
@@ -154,7 +155,8 @@ final class NavigationStateController: NSObject {
                           let siteURL = URL(string: siteURLString) else {
                         return
                     }
-                    let newTalkPage = TalkPageViewController(talkPageTitle: title, siteURL: siteURL, theme: theme)
+                    let viewModel = TalkPageViewModel(pageTitle: title, siteURL: siteURL)
+                    let newTalkPage = TalkPageViewController(theme: theme, viewModel: viewModel)
                     navigationController.pushViewController(newTalkPage, animated: false)
                 } else {
                     guard
