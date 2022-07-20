@@ -1,16 +1,16 @@
 import UIKit
 
-protocol TalkPageReplyComposeViewDelegate: AnyObject {
+protocol OldTalkPageReplyComposeViewDelegate: AnyObject {
     func composeTextDidChange(text: String?)
      var collectionViewFrame: CGRect { get }
 }
 
-class TalkPageReplyComposeView: SizeThatFitsView {
+class OldTalkPageReplyComposeView: SizeThatFitsView {
     
     lazy private(set) var composeTextView: ThemeableTextView = ThemeableTextView()
     lazy private var finePrintTextView: UITextView = UITextView()
     
-    weak var delegate: TalkPageReplyComposeViewDelegate?
+    weak var delegate: OldTalkPageReplyComposeViewDelegate?
     
     private var theme: Theme?
     
@@ -110,7 +110,7 @@ class TalkPageReplyComposeView: SizeThatFitsView {
 
 // MARK: Private
 
-private extension TalkPageReplyComposeView {
+private extension OldTalkPageReplyComposeView {
     func setupView() {
         preservesSuperviewLayoutMargins = false
         insetsLayoutMarginsFromSafeArea = false
@@ -132,7 +132,7 @@ private extension TalkPageReplyComposeView {
 
 // MARK: Themeable
 
-extension TalkPageReplyComposeView: Themeable {
+extension OldTalkPageReplyComposeView: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
         composeTextView.apply(theme: theme)
@@ -144,7 +144,7 @@ extension TalkPageReplyComposeView: Themeable {
 
 // MARK: ThemeableTextViewPlaceholderDelegate
 
-extension TalkPageReplyComposeView: UITextViewDelegate {
+extension OldTalkPageReplyComposeView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         delegate?.composeTextDidChange(text: textView.text)
     }
