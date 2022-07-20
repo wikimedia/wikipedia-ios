@@ -2,33 +2,33 @@ import UIKit
 import WMF
 
 class TalkPageViewController: ViewController {
-    
-    private let talkPageTitle: String
-    private let siteURL: URL
-    
-    convenience init?(url: URL, theme: Theme) {
-        guard let talkPageTitle = url.wmf_title,
-              let siteURL = (url as NSURL).wmf_site else {
-            return nil
-        }
-        self.init(talkPageTitle: talkPageTitle, siteURL: siteURL, theme: theme)
+
+    // MARK: - Properties
+
+    fileprivate let viewModel: TalkPageViewModel
+
+    // MARK: - Lifecycle
+
+    init(theme: Theme, viewModel: TalkPageViewModel) {
+        self.viewModel = viewModel
+        super.init(theme: theme)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    required init(talkPageTitle: String, siteURL: URL, theme: Theme) {
-        self.talkPageTitle = talkPageTitle
-        self.siteURL = siteURL
-        super.init(theme: theme)
+
+    override func loadView() {
+        self.view = UIView()
+        view.backgroundColor = theme.colors.baseBackground
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "New talk page beta testing"
-        view = UIView()
-        view.backgroundColor = self.theme.colors.baseBackground
+        navigationItem.title = WMFLocalizedString("talk-pages-view-title", value: "Talk", comment: "Title of user and article talk pages view.")
     }
-    
+
+    // MARK: - Public
+
+
 }
