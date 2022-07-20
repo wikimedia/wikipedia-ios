@@ -11,7 +11,7 @@ class ColumnarCollectionViewLayoutManager {
         self.collectionView = collectionView
     }
     
-    // MARK - Cell & View Registration
+    // MARK: - Cell & View Registration
     
     final private func placeholderForIdentifier(_ identifier: String) -> UICollectionReusableView? {
         let view = placeholders[identifier]

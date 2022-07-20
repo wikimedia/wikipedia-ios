@@ -48,7 +48,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
     
     @objc var completionBlock: (() -> Void)?
     
-    func showNextWelcomePage(_ sender: AnyObject){
+    func showNextWelcomePage(_ sender: AnyObject) {
         guard let sender = sender as? UIViewController, let index = pageControllers.firstIndex(of: sender), index != pageControllers.count - 1 else {
             dismiss(animated: true, completion:completionBlock)
             return
@@ -121,7 +121,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         apply(theme: theme)
     }
     
-    private func configureAndAddNextButton(){
+    private func configureAndAddNextButton() {
         nextButton.translatesAutoresizingMaskIntoConstraints = false
         nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
         nextButton.isUserInteractionEnabled = true
@@ -140,7 +140,7 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         view.addConstraints([leading, trailing])
     }
 
-    private func configureAndAddSkipButton(){
+    private func configureAndAddSkipButton() {
         skipButton.translatesAutoresizingMaskIntoConstraints = false
         skipButton.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
         skipButton.isUserInteractionEnabled = true
@@ -216,13 +216,13 @@ class WMFWelcomePageViewController: UIPageViewController, UIPageViewControllerDa
         return index == 0 ? nil : pageControllers[index - 1]
     }
     
-    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool){
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if completed {
             hideButtons(for: pageControllers[presentationIndex(for: pageViewController)])
         }
     }
 
-    func hideButtons(for vc: UIViewController){
+    func hideButtons(for vc: UIViewController) {
         let isLastPage = pageControllers.firstIndex(of: vc) == pageControllers.count - 1
         let newAlpha:CGFloat = isLastPage ? 0.0 : 1.0
         let alphaChanged = pageControl?.alpha != newAlpha

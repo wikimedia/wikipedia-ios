@@ -201,7 +201,7 @@ class EditPreviewViewController: ViewController, WMFPreviewAnchorTapAlertDelegat
     }
 }
 
-// MARK:- References
+// MARK: - References
 extension EditPreviewViewController: WMFReferencePageViewAppearanceDelegate, ReferenceViewControllerDelegate, UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         didFinishAnimating(pageViewController)
@@ -260,7 +260,7 @@ extension EditPreviewViewController: ArticleWebMessageHandling {
     }
 }
 
-// MARK:- Context Menu
+// MARK: - Context Menu
 
 extension EditPreviewViewController: ArticleContextMenuPresenting, WKUIDelegate {
     var configuration: Configuration {

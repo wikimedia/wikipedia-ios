@@ -1,4 +1,3 @@
-
 import Foundation
 
 /// Base class for operations that deal with fetching and persisting user notifications. Operation will recursively call the next page, with overrideable hooks to adjust this behavior.
@@ -20,9 +19,9 @@ class RemoteNotificationsPagingOperation: RemoteNotificationsProjectOperation {
         fatalError("init(apiController:modelController:) has not been implemented")
     }
     
-    //MARK: Overridable hooks
+    // MARK: Overridable hooks
     
-    ///Boolean logic for allowing operation execution. Override to add any validation before executing this operation.
+    /// Boolean logic for allowing operation execution. Override to add any validation before executing this operation.
     var shouldExecute: Bool {
         return true
     }
@@ -55,7 +54,7 @@ class RemoteNotificationsPagingOperation: RemoteNotificationsProjectOperation {
         return .none
     }
     
-    //MARK: General Fetch and Save functionality
+    // MARK: General Fetch and Save functionality
     
     override func execute() {
         
@@ -101,7 +100,7 @@ class RemoteNotificationsPagingOperation: RemoteNotificationsProjectOperation {
             }
             
             guard let lastNotification = lastNotification else {
-                //Empty notifications list so nothing to import. Exit early.
+                // Empty notifications list so nothing to import. Exit early.
                 self.didFetchAndSaveAllPages()
                 self.finish()
                 return

@@ -79,7 +79,7 @@ class SearchLanguageButton: UnderlineButton {
             languageCodeLabel.centerYAnchor.constraint(equalTo: languageCodeContainer.centerYAnchor),
             languageCodeLabel.centerXAnchor.constraint(equalTo: languageCodeContainer.centerXAnchor),
             languageCodeLabel.leadingAnchor.constraint(equalTo: languageCodeContainer.leadingAnchor, constant: 2),
-            languageCodeLabel.trailingAnchor.constraint(equalTo: languageCodeContainer.trailingAnchor, constant: -2),
+            languageCodeLabel.trailingAnchor.constraint(equalTo: languageCodeContainer.trailingAnchor, constant: -2)
         ])
 
         let isRTL = effectiveUserInterfaceLayoutDirection == .rightToLeft
@@ -301,7 +301,7 @@ class SearchLanguagesBarViewController: UIViewController, WMFPreferredLanguagesV
     
     func languagesController(_ controller: WMFLanguagesViewController, didSelectLanguage language: MWKLanguageLink) {
         // If the selected language will not be displayed because we only display max 3 languages, move it to index 2
-        if(languageBarLanguages().firstIndex(of: language) == nil && languageBarLanguages().count > 2){
+        if languageBarLanguages().firstIndex(of: language) == nil && languageBarLanguages().count > 2 {
             MWKDataStore.shared().languageLinkController.reorderPreferredLanguage(language, to: 2)
         }
         

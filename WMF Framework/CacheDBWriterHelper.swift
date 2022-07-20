@@ -1,4 +1,3 @@
-
 import Foundation
 
 final class CacheDBWriterHelper {
@@ -70,7 +69,7 @@ final class CacheDBWriterHelper {
         return item
     }
     
-    static func isCached(itemKey: CacheController.ItemKey, variant: String?, in moc: NSManagedObjectContext, completion: @escaping (Bool) -> Void){
+    static func isCached(itemKey: CacheController.ItemKey, variant: String?, in moc: NSManagedObjectContext, completion: @escaping (Bool) -> Void) {
         return moc.perform {
             let isCached = CacheDBWriterHelper.cacheItem(with: itemKey, variant: variant, in: moc) != nil
             completion(isCached)

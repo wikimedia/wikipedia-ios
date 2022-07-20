@@ -1,4 +1,3 @@
-
 import UIKit
 import WMF
 
@@ -37,7 +36,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
     
     required init?(articleTitle: String?, editMetrics: [NSNumber]?, theme: Theme, locale: Locale = Locale.current, delegate: ArticleAsLivingDocViewControllerDelegate, scrollToInitialIndexPath initialIndexPath: IndexPath?) {
         
-        guard let _ = delegate.articleAsLivingDocViewModel else {
+        guard delegate.articleAsLivingDocViewModel != nil else {
             return nil
         }
         
@@ -338,7 +337,7 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
         self.goToHistory()
     }
 
-    // MARK:- CollectionView functions
+    // MARK: - CollectionView functions
     override func collectionView(_ collectionView: UICollectionView, estimatedHeightForHeaderInSection section: Int, forColumnWidth columnWidth: CGFloat) -> ColumnarCollectionViewLayoutHeightEstimate {
         
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 70)
@@ -423,15 +422,15 @@ class ArticleAsLivingDocViewController: ColumnarCollectionViewController {
     }
 }
 
-// MARK:- ArticleAsLivingDocHorizontallyScrollingCellDelegate
+// MARK: - ArticleAsLivingDocHorizontallyScrollingCellDelegate
 extension ArticleAsLivingDocViewController: ArticleAsLivingDocHorizontallyScrollingCellDelegate, InternalLinkPreviewing {
     func tappedLink(_ url: URL) {
         guard let fullURL = delegate?.articleURL.resolvingRelativeWikiHref(url.absoluteString) else {
             return
         }
         switch Configuration.current.router.destination(for: fullURL) {
-            case .article(let articleURL): showInternalLink(url: articleURL)
-            default: navigate(to: fullURL)
+        case .article(let articleURL): showInternalLink(url: articleURL)
+        default: navigate(to: fullURL)
         }
     }
 }

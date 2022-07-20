@@ -7,7 +7,7 @@ extension UIBezierPath {
         return CGPoint(x: 0.5*(fromPoint.x + toPoint.x), y: 0.5*(fromPoint.y + toPoint.y))
     }
     
-    static func CGPointGetQuadCurveControlPointFromPoint(_ fromPoint: CGPoint, toPoint: CGPoint) -> CGPoint  {
+    static func CGPointGetQuadCurveControlPointFromPoint(_ fromPoint: CGPoint, toPoint: CGPoint) -> CGPoint {
         var controlPoint = CGPointGetMidPointFromPoint(fromPoint, toPoint: toPoint)
         let deltaY = toPoint.y - controlPoint.y
         controlPoint.y += deltaY

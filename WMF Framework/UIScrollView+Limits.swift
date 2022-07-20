@@ -18,12 +18,12 @@ extension UIScrollView {
     }
 
     public var isAtTop: Bool {
-        /// Rounded: Sometimes when we expect them to be equal, these are less than .2 different (due to rounding in earleir calculation) - and with multiple layout passes, it caused a large scrolling bug on a VC's launch.
+        // Rounded: Sometimes when we expect them to be equal, these are less than .2 different (due to rounding in earleir calculation) - and with multiple layout passes, it caused a large scrolling bug on a VC's launch.
         return contentOffset.y.rounded(.up) <= topOffsetY.rounded(.up)
     }
 
     private var isAtBottom: Bool {
-        /// Rounded: Sometimes when we expect them to be equal, these are less than .2 different (due to rounding in earleir calculation) - and with multiple layout passes, it caused a large scrolling bug on a VC's launch.
+        // Rounded: Sometimes when we expect them to be equal, these are less than .2 different (due to rounding in earleir calculation) - and with multiple layout passes, it caused a large scrolling bug on a VC's launch.
         return contentOffset.y.rounded(.up) >= bottomOffsetY.rounded(.up)
     }
     

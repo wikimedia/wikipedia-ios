@@ -26,20 +26,20 @@ class ArticleCacheReadingTests: XCTestCase {
                 return
         }
         
-        let _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/960px-Flag_of_the_United_States.svg.png" as NSString)
+        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/960px-Flag_of_the_United_States.svg.png" as NSString)
             .andReturnRawResponse(fixtureData.image)
         
-        let _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/page/mobile-html/United_States" as NSString)
+        _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/page/mobile-html/United_States" as NSString)
         .andReturn(200)?
         .withHeaders(["Cache-Control": "public, max-age=86400, s-maxage=86400"])?
             .withBody(fixtureData.html as NSData)
         
-        let _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/data/css/mobile/site" as NSString)
+        _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/data/css/mobile/site" as NSString)
         .andReturn(200)?
         .withHeaders(["Cache-Control": "public, max-age=86400, s-maxage=86400"])?
             .withBody(fixtureData.css as NSData)
         
-        let _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/data/css/mobile/site" as NSString)
+        _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/data/css/mobile/site" as NSString)
         .andReturn(200)?
         .withHeaders(["Cache-Control": "public, max-age=86400, s-maxage=86400"])?
             .withBody(fixtureData.css as NSData)
@@ -47,37 +47,37 @@ class ArticleCacheReadingTests: XCTestCase {
     
     func stub304Responses() {
         
-        let _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/960px-Flag_of_the_United_States.svg.png" as NSString)
+        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/960px-Flag_of_the_United_States.svg.png" as NSString)
         .andReturn(304)
         
-        let _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/page/mobile-html/United_States" as NSString)
+        _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/page/mobile-html/United_States" as NSString)
         .andReturn(304)
         
-        let _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/data/css/mobile/site" as NSString)
+        _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/data/css/mobile/site" as NSString)
         .andReturn(304)
     }
     
     func stub500Responses() {
         
-        let _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/960px-Flag_of_the_United_States.svg.png" as NSString)
+        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/960px-Flag_of_the_United_States.svg.png" as NSString)
         .andReturn(500)
         
-        let _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/page/mobile-html/United_States" as NSString)
+        _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/page/mobile-html/United_States" as NSString)
         .andReturn(500)
         
-        let _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/data/css/mobile/site" as NSString)
+        _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/data/css/mobile/site" as NSString)
         .andReturn(500)
     }
     
     func stub500ZhResponses() {
         
-        let _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Flag_of_the_United_States_%28Pantone%29.svg/960px-Flag_of_the_United_States_%28Pantone%29.svg.png" as NSString)
+        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Flag_of_the_United_States_%28Pantone%29.svg/960px-Flag_of_the_United_States_%28Pantone%29.svg.png" as NSString)
         .andReturn(500)
         
-        let _ = stubRequest("GET", "https://zh.wikipedia.org/api/rest_v1/page/mobile-html/%E7%BE%8E%E5%9B%BD" as NSString)
+        _ = stubRequest("GET", "https://zh.wikipedia.org/api/rest_v1/page/mobile-html/%E7%BE%8E%E5%9B%BD" as NSString)
         .andReturn(500)
         
-        let _ = stubRequest("GET", "https://zh.wikipedia.org/api/rest_v1/data/css/mobile/site" as NSString)
+        _ = stubRequest("GET", "https://zh.wikipedia.org/api/rest_v1/data/css/mobile/site" as NSString)
         .andReturn(500)
     }
     

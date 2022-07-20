@@ -1,4 +1,3 @@
-
 class WMFWelcomeAnalyticsViewController: ThemeableViewController {
     
     override func apply(theme: Theme) {
@@ -28,9 +27,9 @@ class WMFWelcomeAnalyticsViewController: ThemeableViewController {
         
         updateToggleLabelTitleForUsageReportsIsOn(false)
         
-        //Set state of the toggle. Also make sure crash manager setting is in sync with this setting - likely to happen on first launch or for previous users.
+        // Set state of the toggle. Also make sure crash manager setting is in sync with this setting - likely to happen on first launch or for previous users.
         let loggingEnabled = EventLoggingService.shared?.isEnabled ?? false
-        if (loggingEnabled) {
+        if loggingEnabled {
             toggle.isOn = true
         } else {
             toggle.isOn = false
@@ -40,14 +39,14 @@ class WMFWelcomeAnalyticsViewController: ThemeableViewController {
     }
     
     private func updateToggleLabelTitleForUsageReportsIsOn(_ isOn: Bool) {
-        //Hide accessibility of label because switch will become the label by default.
+        // Hide accessibility of label because switch will become the label by default.
         toggleLabel.isAccessibilityElement = false
         
         toggleLabel.isHidden = !isOn
         toggle.accessibilityLabel = WMFLocalizedString("welcome-volunteer-send-usage-reports", value:"Send usage reports", comment:"Text for switch allowing user to choose whether to send usage reports")
     }
     
-    @IBAction func toggleAnalytics(withSender sender: UISwitch){
+    @IBAction func toggleAnalytics(withSender sender: UISwitch) {
         UserDefaults.standard.wmf_sendUsageReports = sender.isOn
         updateToggleLabelTitleForUsageReportsIsOn(sender.isOn)
     }

@@ -32,7 +32,7 @@ class NotificationsCenterDetailContentCell: UITableViewCell, ReusableCell {
             contentLabel.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
             contentLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
             contentLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
-            contentLabel.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
+            contentLabel.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
         ])
     }
 

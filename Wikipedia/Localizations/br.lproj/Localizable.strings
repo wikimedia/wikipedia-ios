@@ -4,6 +4,7 @@
 // Author: Fohanno
 // Author: Fulup
 // Author: Gwenn-Ael
+// Author: Huñvreüs
 // Author: JoeWalshWMF
 // Author: Macofe
 // Author: Mhurd
@@ -59,6 +60,7 @@
 "action-add-to" = "Ouzhpennañ da";
 "action-add-to-reading-list" = "Ouzhpennañ d'ar roll lenn.";
 "action-cancel" = "Nullañ";
+"action-discard-edits" = "Nullañ kemmoù";
 "action-find-in-page" = "Klask er bajenn";
 "action-move-to" = "Dilec'hiañ war-zu :";
 "action-move-to-reading-list" = "Dilec'hiañ war-zu ar roll lenn";
@@ -127,6 +129,7 @@
 "edit-summary-learn-more-text" = "Gouzout hiroc'h";
 "edit-summary-placeholder-text" = "Penaos eo bet gwellaet ar pennad-mañ ganeoc'h ?";
 "edit-text-size-table-view-title" = "Ment an destenn";
+"editor-exit-confirmation-body" = "Ha sur oc’h e fell deoc’h mont kuit eus ar mod kemmañ hep embann?";
 "empty-no-article-message" = "Ho tigarez, n'eus ket bet gallet kargañ ar pennad";
 "empty-no-feed-action-message" = "Gallout a reot lenn ar pajennoù enrollet";
 "empty-no-feed-message" = "Gallout a reot gwelet ho pennadoù erbedet p'ho pez ar Genrouedad.";

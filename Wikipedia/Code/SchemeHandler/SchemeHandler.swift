@@ -1,4 +1,3 @@
-
 import WebKit
 
 enum SchemeHandlerError: Error {
@@ -109,8 +108,8 @@ private extension SchemeHandler {
         var mutableRequest = originalRequest
         mutableRequest.url = newURL
         
-        //set persistentCacheItemType in header if it doesn't already exist
-        //set If-None-Match in header if it doesn't already exist
+        // set persistentCacheItemType in header if it doesn't already exist
+        // set If-None-Match in header if it doesn't already exist
         
         let containsType = mutableRequest.allHTTPHeaderFields?[Header.persistentCacheItemType] != nil
         let containsIfNoneMatch = mutableRequest.allHTTPHeaderFields?[URLRequest.ifNoneMatchHeaderKey] != nil
@@ -166,7 +165,7 @@ private extension SchemeHandler {
                 guard self.schemeTaskIsActive(urlSchemeTask: urlSchemeTask) else {
                     return
                 }
-                if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
+                if let httpResponse = response as? HTTPURLResponse, !HTTPStatusCode.isSuccessful(httpResponse.statusCode) {
                     let error = RequestError.from(code: httpResponse.statusCode)
                     self.removeSessionTask(request: urlSchemeTask.request)
                     urlSchemeTask.didFailWithError(error)

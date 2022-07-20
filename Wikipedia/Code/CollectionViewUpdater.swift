@@ -166,7 +166,7 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
     func performBatchUpdates(consideredNumberOfSections: Int) {
         let collectionView = self.collectionView
         
-        //Here we are giving it one last chance to force reload, in case the numberOfSections have changed since the last time we considered it for force reloading, to try to avoid invalid update crashes. //https://phabricator.wikimedia.org/T253762
+        // Here we are giving it one last chance to force reload, in case the numberOfSections have changed since the last time we considered it for force reloading, to try to avoid invalid update crashes. //https://phabricator.wikimedia.org/T253762
         guard consideredNumberOfSections == collectionView.numberOfSections else {
             collectionView.reloadData()
             delegate?.collectionViewUpdater(self, didUpdate: self.collectionView)

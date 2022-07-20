@@ -67,8 +67,8 @@ class NotificationServiceHelperTest: XCTestCase {
     }
     
     func testDetermineNotificationsToDisplayAndCache() {
-        //Business logic:
-        //Sending in a set of cached notifications (some of which are quite old) along with a set of newly fetched notifications (some of which are also quite old) with some overlap amongst both sets should return only the fetched notifications within the last 10 minutes that are not already in the cached notifications set as notifications to display. The new set of cached notifications returned should be the calculated notifications to display, plus the old cached notifications that aren't older than 1 day
+        // Business logic:
+        // Sending in a set of cached notifications (some of which are quite old) along with a set of newly fetched notifications (some of which are also quite old) with some overlap amongst both sets should return only the fetched notifications within the last 10 minutes that are not already in the cached notifications set as notifications to display. The new set of cached notifications returned should be the calculated notifications to display, plus the old cached notifications that aren't older than 1 day
         
         let dateOneYearAgo = Date(timeInterval: -TimeInterval.oneYear, since: Date())
         let dateThirtyDaysAgo = Date(timeInterval: -TimeInterval.thirtyDays, since: Date())
@@ -81,11 +81,11 @@ class NotificationServiceHelperTest: XCTestCase {
         let commonID2hours = "commonNotification2hours"
         let commonID9minutes = "commonNotification9minutes"
         
-        //cached notifications has a two older than one day, two within the last day (one overlaps with fetched notifications), three within the last 10 minutes (one overlaps with fetched notifications)
+        // cached notifications has a two older than one day, two within the last day (one overlaps with fetched notifications), three within the last 10 minutes (one overlaps with fetched notifications)
         
-        //fetched notifications has a one older than one day, two within the last day (one overlaps with cached notifications), three within the last 10 minutes (one overlaps with cached notifications)
+        // fetched notifications has a one older than one day, two within the last day (one overlaps with cached notifications), three within the last 10 minutes (one overlaps with cached notifications)
         
-        //setup cached notifications
+        // setup cached notifications
         guard let cachedOneYearAgo = standardUserTalkMessageNotification(customID: "cachedNotification1year", date: dateOneYearAgo),
               let cachedThirtyDaysAgo = standardUserTalkMessageNotification(customID: "cachedNotification30days", date: dateThirtyDaysAgo),
               let cachedTwelveHoursAgo = standardUserTalkMessageNotification(customID: "cachedNotification12hours", date: dateTwelveHoursAgo),
@@ -98,8 +98,8 @@ class NotificationServiceHelperTest: XCTestCase {
         
         let cachedNotifications = Set<RemoteNotificationsAPIController.NotificationsResult.Notification>([cachedOneYearAgo, cachedThirtyDaysAgo, cachedTwelveHoursAgo, cachedTwoHoursAgo, cachedNineMinutesAgo, cachedSevenMinutesAgo, cachedFiveMinutesAgo])
         
-        //setup fetched notifications
-        //purposefully not reusing cached notifications - we should test them as separate objects between cached and fetched so that their IDs are compared for identity
+        // setup fetched notifications
+        // purposefully not reusing cached notifications - we should test them as separate objects between cached and fetched so that their IDs are compared for identity
         guard let fetchedThirtyDaysAgo = standardUserTalkMessageNotification(customID: "fetchedNotification30days", date: dateThirtyDaysAgo),
               let fetchedTwelveHoursAgo = standardUserTalkMessageNotification(customID: "fetchedNotification12hours", date: dateTwelveHoursAgo),
               let fetchedTwoHoursAgo = standardUserTalkMessageNotification(customID: commonID2hours, date: dateTwoHoursAgo),
@@ -123,11 +123,11 @@ class NotificationServiceHelperTest: XCTestCase {
         
         XCTAssert(newNotificationsToCache.contains(cachedTwelveHoursAgo), "Unexpected items in new notifications to cache.")
         
-        //Note these are seen as the same identity, because they were instantiated with the same customID.
+        // Note these are seen as the same identity, because they were instantiated with the same customID.
         XCTAssert(newNotificationsToCache.contains(cachedTwoHoursAgo), "Unexpected items in new notifications to cache.")
         XCTAssert(newNotificationsToCache.contains(fetchedTwoHoursAgo), "Unexpected items in new notifications to cache.")
         
-        //Note these are seen as the same identity, because they were instantiated with the same customID.
+        // Note these are seen as the same identity, because they were instantiated with the same customID.
         XCTAssert(newNotificationsToCache.contains(cachedNineMinutesAgo), "Unexpected items in new notifications to cache.")
         XCTAssert(newNotificationsToCache.contains(fetchedNineMinutesAgo), "Unexpected items in new notifications to cache.")
         

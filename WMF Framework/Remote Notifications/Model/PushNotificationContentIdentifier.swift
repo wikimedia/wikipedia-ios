@@ -26,7 +26,7 @@ import Foundation
         }
     }
 
-    @objc public static func load(from userInfo: Dictionary<AnyHashable, Any>) -> [PushNotificationContentIdentifier] {
+    @objc public static func load(from userInfo: [AnyHashable: Any]) -> [PushNotificationContentIdentifier] {
         guard let data = userInfo[dictionaryKey] as? Data, let decoded = try? JSONDecoder().decode([PushNotificationContentIdentifier].self, from: data) else {
             return []
         }

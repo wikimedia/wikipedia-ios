@@ -37,7 +37,7 @@
         case closeCard = "close_card"
     }
     
-    private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measureAge: NSNumber? = nil, measurePosition: Int? = nil, measureTime: Double? = nil, measureMaxViewed: Double? = nil) -> Dictionary<String, Any> {
+    private func event(category: EventLoggingCategory, label: EventLoggingLabel?, action: Action, measureAge: NSNumber? = nil, measurePosition: Int? = nil, measureTime: Double? = nil, measureMaxViewed: Double? = nil) -> [String: Any] {
         let category = category.rawValue
         let action = action.rawValue
         

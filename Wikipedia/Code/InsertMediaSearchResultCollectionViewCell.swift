@@ -67,7 +67,7 @@ final class InsertMediaSearchResultCollectionViewCell: CollectionViewCell {
         let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom
         let height = max(origin.y, minHeight)
 
-        if (apply) {
+        if apply {
             imageView.frame = CGRect(x: origin.x, y: origin.y, width: imageViewDimension, height: imageViewDimension)
             imageView.wmf_setImage(with: scaledImageURL, detectFaces: false, onGPU: true, failure: {_ in }, success: {
                 self.imageView.backgroundColor = .clear

@@ -1,9 +1,8 @@
-
 import Foundation
 
 extension NotificationsCenterCellViewModel {
 
-    //MARK: Public
+    // MARK: Public
     
     var primaryURL: URL? {
 

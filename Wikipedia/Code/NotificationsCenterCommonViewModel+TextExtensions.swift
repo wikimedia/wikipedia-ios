@@ -1,4 +1,3 @@
-
 import Foundation
 
 extension NotificationsCenterCommonViewModel {
@@ -49,7 +48,7 @@ extension NotificationsCenterCommonViewModel {
             return WMFLocalizedString("notifications-center-subheader-email-from-other-user", value: "New email", comment: "Subheader text for 'email from other user' notifications in Notifications Center.")
         case .thanks:
             return WMFLocalizedString("notifications-center-subheader-thanks", value: "Thanks", comment: "Subheader text for thanks notifications in Notifications Center.")
-        case .translationMilestone(_):
+        case .translationMilestone:
             return WMFLocalizedString("notifications-center-subheader-translate-milestone", value: "Translation milestone", comment: "Subheader text for translation milestone notifications in Notifications Center.")
         case .editMilestone:
             return WMFLocalizedString("notifications-center-subheader-edit-milestone", value: "Editing milestone", comment: "Subheader text for edit milestone notifications in Notifications Center.")
@@ -121,12 +120,12 @@ extension NotificationsCenterCommonViewModel {
     }
 }
 
-//MARK: Talk page topic title determination helper methods
+// MARK: Talk page topic title determination helper methods
 
 private extension NotificationsCenterCommonViewModel {
     func topicTitleFromTalkPageNotification(_ notification: RemoteNotification) -> String? {
         
-        //We can try extracting the talk page title from the primary url's first fragment for user talk page message notifications
+        // We can try extracting the talk page title from the primary url's first fragment for user talk page message notifications
         
         let extractTitleFromURLBlock: (URL) -> String? = { url in
             let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
@@ -137,7 +136,7 @@ private extension NotificationsCenterCommonViewModel {
             return fragment.removingPercentEncoding?.replacingOccurrences(of: "_", with: " ")
         }
         
-        //prefer legacyPrimary, since it seems to retain the section title as a fragment moreso than primary
+        // prefer legacyPrimary, since it seems to retain the section title as a fragment moreso than primary
         if let legacyPrimaryURL = notification.legacyPrimaryLinkURL,
         let legacyTitle = extractTitleFromURLBlock(legacyPrimaryURL) {
             if !legacyTitle.containsTalkPageSignature {

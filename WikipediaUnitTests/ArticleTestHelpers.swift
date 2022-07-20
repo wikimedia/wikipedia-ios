@@ -134,89 +134,89 @@ class ArticleTestHelpers {
             return
         }
 
-        let _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/page/summary/Dog" as NSString)
+        _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/page/summary/Dog" as NSString)
             .andReturn(200)?
             .withHeaders(["Content-Type": "application/json"])?
             .withBody(dogSummaryJSONData as NSData)
         
 
-        let _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Collage_of_Nine_Dogs.jpg/1280px-Collage_of_Nine_Dogs.jpg" as NSString)
+        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Collage_of_Nine_Dogs.jpg/1280px-Collage_of_Nine_Dogs.jpg" as NSString)
             .andReturnRawResponse(dogCollageImageData)
         
-        let _ = stubRequest("POST", "https://en.wikipedia.org/w/api.php" as NSString)
+        _ = stubRequest("POST", "https://en.wikipedia.org/w/api.php" as NSString)
             .withBody("action=query&format=json&meta=userinfo&uiprop=groups" as NSString)?
             .andReturn(200)?
             .withBody(userGroupsData as NSData)
         
-        let _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/page/mobile-html/Dog" as NSString)
+        _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/page/mobile-html/Dog" as NSString)
             .andReturn(200)?
             .withBody(mobileHTMLData as NSData)
         
-        let _ = stubRequest("GET", "https://mobileapps-ios-experiments.wmflabs.org/en.wikipedia.org/v1/page/significant-events/Dog" as NSString)
+        _ = stubRequest("GET", "https://mobileapps-ios-experiments.wmflabs.org/en.wikipedia.org/v1/page/significant-events/Dog" as NSString)
             .andReturn(200)?
             .withBody(significantEventsData as NSData)
         
-        let _ = stubRequest("GET", dailyMetricsRegex)
+        _ = stubRequest("GET", dailyMetricsRegex)
             .andReturn(200)?
             .withBody(dailyMetricsData as NSData)
         
-        let _ = stubRequest("GET", "https://meta.wikimedia.org/api/rest_v1/data/css/mobile/base" as NSString)
+        _ = stubRequest("GET", "https://meta.wikimedia.org/api/rest_v1/data/css/mobile/base" as NSString)
             .andReturn(200)?
             .withBody(mobileBaseCSSData as NSData)
         
-        let _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/data/css/mobile/site" as NSString)
+        _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/data/css/mobile/site" as NSString)
         .andReturn(200)?
         .withBody(mobileSiteCSSData as NSData)
         
-        let _ = stubRequest("GET", "https://meta.wikimedia.org/api/rest_v1/data/css/mobile/pcs" as NSString)
+        _ = stubRequest("GET", "https://meta.wikimedia.org/api/rest_v1/data/css/mobile/pcs" as NSString)
         .andReturn(200)?
         .withBody(mobilePCSCSSData as NSData)
         
-        let _ = stubRequest("GET", "https://meta.wikimedia.org/api/rest_v1/data/javascript/mobile/pcs" as NSString)
+        _ = stubRequest("GET", "https://meta.wikimedia.org/api/rest_v1/data/javascript/mobile/pcs" as NSString)
         .andReturn(200)?
         .withBody(mobilePCSJSData as NSData)
         
-        let _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/7/74/Red_Pencil_Icon.png" as NSString)
+        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/7/74/Red_Pencil_Icon.png" as NSString)
         .andReturnRawResponse(redPencilImageData)
         
-        let _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/Commons-logo.svg/59px-Commons-logo.svg.png" as NSString)
+        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/Commons-logo.svg/59px-Commons-logo.svg.png" as NSString)
         .andReturnRawResponse(commonsLogoImageData)
         
-        let _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Aussie-blacktri.jpg/64px-Aussie-blacktri.jpg" as NSString)
+        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Aussie-blacktri.jpg/64px-Aussie-blacktri.jpg" as NSString)
         .andReturnRawResponse(footerDog1ImageData)
         
-        let _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Okapi2.jpg/64px-Okapi2.jpg" as NSString)
+        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Okapi2.jpg/64px-Okapi2.jpg" as NSString)
         .andReturnRawResponse(footerDog2ImageData)
         
-        let _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Okapi2.jpg/64px-Okapi2.jpg" as NSString)
+        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Okapi2.jpg/64px-Okapi2.jpg" as NSString)
         .andReturnRawResponse(footerDog2ImageData)
         
-        let _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/en/thumb/0/06/Wiktionary-logo-v2.svg/54px-Wiktionary-logo-v2.svg.png" as NSString)
+        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/en/thumb/0/06/Wiktionary-logo-v2.svg/54px-Wiktionary-logo-v2.svg.png" as NSString)
         .andReturnRawResponse(wiktionaryLogoImageData)
         
-        let _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/Commons-logo.svg/40px-Commons-logo.svg.png" as NSString)
+        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/Commons-logo.svg/40px-Commons-logo.svg.png" as NSString)
         .andReturnRawResponse(smallCommonsLogoImageData)
         
-        let _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Wikinews-logo.svg/54px-Wikinews-logo.svg.png" as NSString)
+        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Wikinews-logo.svg/54px-Wikinews-logo.svg.png" as NSString)
         .andReturnRawResponse(wikiNewsLogoImageData)
         
-        let _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Wikiquote-logo.svg/46px-Wikiquote-logo.svg.png" as NSString)
+        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Wikiquote-logo.svg/46px-Wikiquote-logo.svg.png" as NSString)
         .andReturnRawResponse(wikiQuoteLogoImageData)
         
-        let _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Wikisource-logo.svg/51px-Wikisource-logo.svg.png" as NSString)
+        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Wikisource-logo.svg/51px-Wikisource-logo.svg.png" as NSString)
         .andReturnRawResponse(wikiSourceLogoImageData)
         
-        let _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Wikibooks-logo.svg/54px-Wikibooks-logo.svg.png" as NSString)
+        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Wikibooks-logo.svg/54px-Wikibooks-logo.svg.png" as NSString)
         .andReturnRawResponse(wikiBooksLogoImageData)
         
-        let _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Wikispecies-logo.svg/46px-Wikispecies-logo.svg.png" as NSString)
+        _ = stubRequest("GET", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Wikispecies-logo.svg/46px-Wikispecies-logo.svg.png" as NSString)
         .andReturnRawResponse(wikiSpeciesLogoImageData)
         
-        let _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/data/i18n/pcs" as NSString)
+        _ = stubRequest("GET", "https://en.wikipedia.org/api/rest_v1/data/i18n/pcs" as NSString)
         .andReturn(200)?
         .withBody(i18PCSData as NSData)
         
-        let _ = stubRequest("GET", imageRegex)
+        _ = stubRequest("GET", imageRegex)
         .andReturnRawResponse(genericDogImageData)
     }
     
@@ -226,7 +226,7 @@ class ArticleTestHelpers {
         let mobileHTMLURLString = "https://en.wikipedia.org/api/rest_v1/page/mobile-html/United_States"
         let cssString = "https://en.wikipedia.org/api/rest_v1/data/css/mobile/site"
         
-        //save objects database
+        // save objects database
         guard let cacheGroup = CacheDBWriterHelper.createCacheGroup(with: mobileHTMLURLString, in: moc),
             let htmlCacheItem = CacheDBWriterHelper.createCacheItem(with: URL(string: mobileHTMLURLString)!, itemKey: mobileHTMLURLString, variant: nil, in: moc),
             let imageCacheItem = CacheDBWriterHelper.createCacheItem(with: URL(string: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/960px-Flag_of_the_United_States.svg.png")!, itemKey: "upload.wikimedia.org__Flag_of_the_United_States.svg", variant: "960", in: moc),
@@ -249,7 +249,7 @@ class ArticleTestHelpers {
             }
         }
         
-        //set up file names and content
+        // set up file names and content
         let fileNameGenerator = PermanentlyPersistableURLCache(moc: moc)
         guard let htmlURL = URL(string: "https://en.wikipedia.org/api/rest_v1/page/mobile-html/United_States"),
             let uniqueHTMLFileName = fileNameGenerator.uniqueFileNameForURL(htmlURL, type: .article),
@@ -277,7 +277,7 @@ class ArticleTestHelpers {
                 return
         }
         
-        //save content in file system
+        // save content in file system
         CacheFileWriterHelper.saveData(data: fixtureData.cachedHTML, toNewFileWithKey: uniqueHTMLFileName) { (result) in
             switch result {
             case .success, .exists:
@@ -305,7 +305,7 @@ class ArticleTestHelpers {
             }
         }
         
-        //save headers in file system
+        // save headers in file system
         let htmlHeaders: [String: String] = ["Content-Type": "text/html; charset=utf-8;"]
         
         CacheFileWriterHelper.saveResponseHeader(headerFields: htmlHeaders, toNewFileName: uniqueHTMLHeaderFileName) { (result) in
@@ -349,7 +349,7 @@ class ArticleTestHelpers {
         let cssString = "https://zh.wikipedia.org/api/rest_v1/data/css/mobile/site"
         let imageURLString = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Flag_of_the_United_States_%28Pantone%29.svg/640px-Flag_of_the_United_States_%28Pantone%29.svg.png"
         
-        //save objects database
+        // save objects database
         guard let cacheGroup = CacheDBWriterHelper.createCacheGroup(with: mobileHTMLURLString, in: moc),
             let htmlCacheItem = CacheDBWriterHelper.createCacheItem(with: URL(string: mobileHTMLURLString)!, itemKey: mobileHTMLURLString, variant: "zh-hans", in: moc),
             let imageCacheItem = CacheDBWriterHelper.createCacheItem(with: URL(string: imageURLString)!, itemKey: "upload.wikimedia.org__Flag_of_the_United_States_%28Pantone%29.svg", variant: "640", in: moc),
@@ -372,7 +372,7 @@ class ArticleTestHelpers {
             }
         }
         
-        //set up file names and content
+        // set up file names and content
         let fileNameGenerator = PermanentlyPersistableURLCache(moc: moc)
         guard let htmlURL = URL(string: mobileHTMLURLString),
             let uniqueHTMLFileName = fileNameGenerator.uniqueFileNameForURL(htmlURL, type: .article),
@@ -400,7 +400,7 @@ class ArticleTestHelpers {
                 return
         }
         
-        //save content in file system
+        // save content in file system
         CacheFileWriterHelper.saveData(data: fixtureData.cachedZhansHTML, toNewFileWithKey: uniqueHTMLFileName) { (result) in
             switch result {
             case .success, .exists:
@@ -428,7 +428,7 @@ class ArticleTestHelpers {
             }
         }
         
-        //save headers in file system
+        // save headers in file system
         let htmlHeaders: [String: String] = ["Content-Type": "text/html; charset=utf-8;",
                                              "Vary": "Accept-Language, Accept-Encoding"]
         

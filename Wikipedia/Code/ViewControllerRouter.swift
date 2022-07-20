@@ -26,7 +26,7 @@ class ViewControllerRouter: NSObject {
             }
         }
 
-        /// For Article as a Living Doc modal - fix the nav bar in place
+        // For Article as a Living Doc modal - fix the nav bar in place
         if navigationController.children.contains(where: { $0 is ArticleAsLivingDocViewController }) {
             if let vc = viewController as? SinglePageWebViewController, navigationController.modalPresentationStyle == .pageSheet {
                 vc.doesUseSimpleNavigationBar = true
@@ -34,7 +34,7 @@ class ViewControllerRouter: NSObject {
             }
         }
         
-        //pass along doesUseSimpleNavigationBar SinglePageWebViewController settings to the next one if needed
+        // pass along doesUseSimpleNavigationBar SinglePageWebViewController settings to the next one if needed
         if let lastWebVC = navigationController.children.last as? SinglePageWebViewController,
            let nextWebVC = viewController as? SinglePageWebViewController {
             nextWebVC.doesUseSimpleNavigationBar = lastWebVC.doesUseSimpleNavigationBar
@@ -89,12 +89,30 @@ class ViewControllerRouter: NSObject {
             let player = AVPlayer(url: audioURL)
             vc.player = player
             return presentOrPush(vc, with: completion)
-        case .userTalk(let linkURL):
-            guard let talkPageVC = TalkPageContainerViewController.userTalkPageContainer(url: linkURL, dataStore: appViewController.dataStore, theme: theme) else {
+        case .talk(let linkURL):
+            
+            guard let newTalkPage = TalkPageViewController(url: linkURL, theme: theme) else {
                 completion()
                 return false
             }
-            return presentOrPush(talkPageVC, with: completion)
+            return presentOrPush(newTalkPage, with: completion)
+            
+        case .userTalk(let linkURL):
+            
+            if FeatureFlags.needsNewTalkPage {
+                guard let newTalkPage = TalkPageViewController(url: linkURL, theme: theme) else {
+                    completion()
+                    return false
+                }
+                return presentOrPush(newTalkPage, with: completion)
+            } else {
+                guard let talkPageVC = TalkPageContainerViewController.userTalkPageContainer(url: linkURL, dataStore: appViewController.dataStore, theme: theme) else {
+                    completion()
+                    return false
+                }
+                return presentOrPush(talkPageVC, with: completion)
+            }
+
         case .onThisDay(let indexOfSelectedEvent):
             let dataStore = appViewController.dataStore
             guard let contentGroup = dataStore.viewContext.newestVisibleGroup(of: .onThisDay, forSiteURL: dataStore.primarySiteURL), let onThisDayVC = contentGroup.detailViewControllerWithDataStore(dataStore, theme: theme) as? OnThisDayViewController else {

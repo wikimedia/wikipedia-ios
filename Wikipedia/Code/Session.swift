@@ -63,7 +63,7 @@ public class Session: NSObject {
         let data: ((Data) -> Void)?
         let success: (() -> Void)
         let failure: ((Error) -> Void)
-        let cacheFallbackError: ((Error) -> Void)? //Extra handling block when session signals a success and returns data because it's leaning on cache, but actually reached a server error.
+        let cacheFallbackError: ((Error) -> Void)? // Extra handling block when session signals a success and returns data because it's leaning on cache, but actually reached a server error.
         
         public init(response: ((URLResponse) -> Void)?, data: ((Data) -> Void)?, success: @escaping () -> Void, failure: @escaping (Error) -> Void, cacheFallbackError: ((Error) -> Void)?) {
             self.response = response
@@ -76,13 +76,11 @@ public class Session: NSObject {
     
     // event logging uuid, set if enabled, nil if disabled
     private var xWMFUUID: String? {
-        get {
-            let userDefaults = UserDefaults.standard
-            if userDefaults.wmf_sendUsageReports {
-                return userDefaults.wmf_appInstallId
-            }
-            return nil
+        let userDefaults = UserDefaults.standard
+        if userDefaults.wmf_sendUsageReports {
+            return userDefaults.wmf_appInstallId
         }
+        return nil
     }
     
     private static let defaultCookieStorage: HTTPCookieStorage = {
@@ -276,7 +274,7 @@ public class Session: NSObject {
     
     public func dataTask(with request: URLRequest, callback: Callback) -> URLSessionTask? {
         
-        //odd workaround to show an article as living doc icons in the article content web view.
+        // odd workaround to show an article as living doc icons in the article content web view.
         let botIconName = ArticleAsLivingDocViewModel.Event.Large.botIconName
         if let url = request.url,
            url.absoluteString.contains(botIconName),
@@ -325,7 +323,7 @@ public class Session: NSObject {
                 }
             }
             
-            if let _ = error {
+            if error != nil {
                 
                 if let cachedResponse = self?.permanentCache?.urlCache.cachedResponse(for: request) {
                     completionHandler(cachedResponse.data, cachedResponse.response, nil)
@@ -341,7 +339,7 @@ public class Session: NSObject {
         return task
     }
     
-    //tonitodo: utlilize Callback & addCallback/session delegate stuff instead of completionHandler
+    // tonitodo: utlilize Callback & addCallback/session delegate stuff instead of completionHandler
     public func downloadTask(with url: URL, completionHandler: @escaping (URL?, URLResponse?, Error?) -> Void) -> URLSessionDownloadTask {
         return defaultURLSession.downloadTask(with: url, completionHandler: completionHandler)
     }
@@ -371,7 +369,7 @@ public class Session: NSObject {
         }
         switch httpResponse.statusCode {
         case 401:
-            if (reattemptLoginOn401Response) {
+            if reattemptLoginOn401Response {
                 authenticationDelegate?.attemptReauthentication()
             } else {
                 authenticationDelegate?.deauthenticate()
@@ -511,9 +509,7 @@ public class Session: NSObject {
                 }
             }
             
-            if let _ = error,
-                request.prefersPersistentCacheOverError {
-                
+            if error != nil, request.prefersPersistentCacheOverError {                
                 if let cachedResponse = self.permanentCache?.urlCache.cachedResponse(for: request),
                     let responseObject = try? JSONSerialization.jsonObject(with: cachedResponse.data, options: []) as? [String: Any] {
                     completionHandler(responseObject, cachedResponse.response as? HTTPURLResponse, nil)
@@ -586,7 +582,7 @@ public class Session: NSObject {
     }
 }
 
-//MARK: PermanentlyPersistableURLCache Passthroughs
+// MARK: PermanentlyPersistableURLCache Passthroughs
 
 enum SessionPermanentCacheError: Error {
     case unexpectedURLCacheType
@@ -644,7 +640,7 @@ extension Session {
         return cachedResponseForURLRequest(request)
     }
     
-    //assumes urlRequest is already populated with the proper cache headers
+    // assumes urlRequest is already populated with the proper cache headers
     func cachedResponseForURLRequest(_ urlRequest: URLRequest) -> CachedURLResponse? {
         return permanentCache?.urlCache.cachedResponse(for: urlRequest)
     }
@@ -682,7 +678,7 @@ extension Session {
         return permanentCache?.urlCache.uniqueHeaderFileNameForItemKey(itemKey, variant: variant)
     }
     
-    //Bundled migration only - copies files into cache
+    // Bundled migration only - copies files into cache
     func writeBundledFiles(mimeType: String, bundledFileURL: URL, urlRequest: URLRequest, completion: @escaping (Result<Void, Error>) -> Void) {
         
         permanentCache?.urlCache.writeBundledFiles(mimeType: mimeType, bundledFileURL: bundledFileURL, urlRequest: urlRequest, completion: completion)
@@ -716,7 +712,8 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionDataDelegate {
             }
             
             if let request = dataTask.originalRequest,
-                request.prefersPersistentCacheOverError && httpResponse.statusCode != 200 {
+                request.prefersPersistentCacheOverError &&
+                !HTTPStatusCode.isSuccessful(httpResponse.statusCode) {
                 shouldCheckPersistentCache = true
             }
             

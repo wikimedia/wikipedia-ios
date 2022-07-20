@@ -160,8 +160,7 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
             cell.iconBackgroundColor = .base50
             cell.iconColor = .white
             cell.selectionStyle = .none
-        }
-        else if item is AppearanceSettingsAutomaticTableOpenSwitchItem {
+        } else if item is AppearanceSettingsAutomaticTableOpenSwitchItem {
             cell.disclosureType = .switch
             cell.disclosureSwitch.isEnabled = true
             cell.disclosureSwitch.isOn = UserDefaults.standard.wmf_isAutomaticTableOpeningEnabled

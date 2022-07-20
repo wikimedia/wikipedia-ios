@@ -7,7 +7,7 @@ public class OnThisDayExploreCollectionViewCell: OnThisDayCollectionViewCell {
     var isLast: Bool = false
 
     override public func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        if (apply) {
+        if apply {
             let topGradientHeight: CGFloat = 17
             let bottomGradientHeight: CGFloat = 43
             let topGradientSize = CGSize(width: timelineView.frame.size.width, height: topGradientHeight)

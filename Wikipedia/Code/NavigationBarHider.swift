@@ -24,7 +24,8 @@ extension CGFloat {
     }
 }
 
-
+// This class works in concert w/ `NavigationBar` to implement our custom Navigation Bar.
+// This `NavigationBar` class holds the properties and subviews, and `NavigationBarHider` implements the hiding logic when `isInteractiveHidingEnabled` is true.
 @objc(WMFNavigationBarHider)
 public class NavigationBarHider: NSObject {
     @objc public weak var navigationBar: NavigationBar?
@@ -33,8 +34,8 @@ public class NavigationBarHider: NSObject {
     fileprivate var isUserScrolling: Bool = false
     fileprivate var isScrollingToTop: Bool = false
     fileprivate var isProgramaticallyScrolling: Bool = false
-    var initialScrollY: CGFloat = 0
-    var initialNavigationBarPercentHidden: CGFloat = 0
+    fileprivate var initialScrollY: CGFloat = 0
+    fileprivate var initialNavigationBarPercentHidden: CGFloat = 0
 
     private func setDataForScroll(yOffset: CGFloat, topContentInset: CGFloat) {
         guard let navigationBar = navigationBar else {
@@ -44,6 +45,7 @@ public class NavigationBarHider: NSObject {
         initialNavigationBarPercentHidden = navigationBar.navigationBarPercentHidden
     }
 
+    // This is used by OnThisDayViewController to fix a problem with the UnderbarView
     public func setIsProgramaticallyScrolling(_ isProgramaticallyScrolling: Bool, yOffset: CGFloat, topContentInset: CGFloat) {
         guard navigationBar?.isInteractiveHidingEnabled == true else {
             return
@@ -64,19 +66,20 @@ public class NavigationBarHider: NSObject {
         setDataForScroll(yOffset: scrollView.contentOffset.y, topContentInset: scrollView.contentInset.top)
     }
 
+    // During the scroll, adjusts the amount of the navigation bar, under bar view, extended view, and top spacing is hidden. This is called frequently during scrolling.
     @objc public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let navigationBar = navigationBar else {
             return
         }
 
         if isProgramaticallyScrolling {
-            /// When programatically scrolling on a just-created scroll view, we need a layout pass to get accurate heights.
+            // When programatically scrolling on a just-created scroll view, we need a layout pass to get accurate heights.
             scrollView.layoutIfNeeded()
             navigationBar.layoutIfNeeded()
         }
 
         guard scrollView.contentSize.height > 0 else {
-            if navigationBar.isAdjustingHidingFromContentInsetChangesEnabled  {
+            if navigationBar.isAdjustingHidingFromContentInsetChangesEnabled {
                 navigationBar.setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: 0, animated: false)
                 if navigationBar.isShadowHidingEnabled {
                     navigationBar.shadowAlpha = 0
@@ -107,9 +110,7 @@ public class NavigationBarHider: NSObject {
         guard navigationBar.isInteractiveHidingEnabled, isUserScrolling || isScrollingToTop || isProgramaticallyScrolling || scrollY < totalHideableHeight else {
             return
         }
-        
-        let animated = false
-        
+
         let currentTopSpacingPercentHidden = navigationBar.topSpacingPercentHidden
         let currentNavigationBarPercentHidden = navigationBar.navigationBarPercentHidden
         let currentUnderBarViewPercentHidden = navigationBar.underBarViewPercentHidden
@@ -174,11 +175,14 @@ public class NavigationBarHider: NSObject {
         guard currentExtendedViewPercentHidden != extendedViewPercentHidden || currentNavigationBarPercentHidden !=  navigationBarPercentHidden || currentUnderBarViewPercentHidden != underBarViewPercentHidden || currentTopSpacingPercentHidden != topSpacingPercentHidden else {
             return
         }
-        navigationBar.setNavigationBarPercentHidden(navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, topSpacingPercentHidden: topSpacingPercentHidden, animated: animated, additionalAnimations:{
+
+        let animated = false
+        navigationBar.setNavigationBarPercentHidden(navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, topSpacingPercentHidden: topSpacingPercentHidden, animated: animated, additionalAnimations: {
             self.delegate?.navigationBarHider(self, didSetNavigationBarPercentHidden: navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, animated: animated)
         })
     }
-    
+
+    // After the scroll is complete, adjusts (w/ animation) the final hidden status of the navigation bar, under bar view, extended view, and top spacing.
     @objc public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         
         guard let navigationBar = navigationBar, navigationBar.isInteractiveHidingEnabled else {
@@ -195,7 +199,7 @@ public class NavigationBarHider: NSObject {
         let top = 0 - scrollView.contentInset.top
         let targetOffsetY = targetContentOffset.pointee.y - top
         
-        //the maximum amount targetOffsetY is expected to get considering bounds + content size & insets
+        // the maximum amount targetOffsetY is expected to get considering bounds + content size & insets
         let maxTargetOffsetY = scrollView.contentSize.height - (scrollView.bounds.height - scrollView.contentInset.top - scrollView.contentInset.bottom)
 
         if targetOffsetY < totalHideableHeight {
@@ -214,7 +218,7 @@ public class NavigationBarHider: NSObject {
                     targetContentOffset.pointee = CGPoint(x: targetContentOffsetX, y: top + underBarViewHideableHeight)
                 } else if targetOffsetY < underBarViewHideableHeight + extendedViewHideableHeight + 0.5 * topSpacingHideableHeight { // hide extended & under bar views
                     targetContentOffset.pointee = CGPoint(x: targetContentOffsetX, y: top + underBarViewHideableHeight + extendedViewHideableHeight)
-                } else if targetOffsetY < underBarViewHideableHeight + extendedViewHideableHeight + topSpacingHideableHeight + 0.5 * barHideableHeight  { // hide top spacing
+                } else if targetOffsetY < underBarViewHideableHeight + extendedViewHideableHeight + topSpacingHideableHeight + 0.5 * barHideableHeight { // hide top spacing
                     targetContentOffset.pointee = CGPoint(x: targetContentOffsetX, y: top + underBarViewHideableHeight + extendedViewHideableHeight + topSpacingHideableHeight)
                 } else { // hide everything
                     targetContentOffset.pointee = CGPoint(x: targetContentOffsetX, y: top + totalHideableHeight)
@@ -228,8 +232,6 @@ public class NavigationBarHider: NSObject {
         }
 
         isUserScrolling = false
-
-        let animated = true
 
         let currentTopSpacingPercentHidden: CGFloat = navigationBar.topSpacingPercentHidden
         let extendedViewPercentHidden: CGFloat = navigationBar.extendedViewPercentHidden
@@ -257,7 +259,8 @@ public class NavigationBarHider: NSObject {
             return
         }
 
-        navigationBar.setNavigationBarPercentHidden(navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, topSpacingPercentHidden: currentTopSpacingPercentHidden, animated: animated, additionalAnimations:{
+        let animated = true
+        navigationBar.setNavigationBarPercentHidden(navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, topSpacingPercentHidden: currentTopSpacingPercentHidden, animated: animated, additionalAnimations: {
             self.delegate?.navigationBarHider(self, didSetNavigationBarPercentHidden: navigationBarPercentHidden, underBarViewPercentHidden: underBarViewPercentHidden, extendedViewPercentHidden: extendedViewPercentHidden, animated: animated)
         })
     }

@@ -1,4 +1,3 @@
-
 // MARK: - Extension for arrays comprised of UITextFields
 extension Array where Element: UITextField {
     /// Determines whether all UITextFields in this array have had text characters entered into them.

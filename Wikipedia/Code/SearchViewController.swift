@@ -1,7 +1,7 @@
 import UIKit
 
 class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate {
-    // MARK - UIViewController
+    // MARK: - UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,11 +30,11 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
             searchBar.becomeFirstResponder()
         }
 
-        /// Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
+        // Terrible hack to make back button text appropriate for iOS 14 - need to set the title on `WMFAppViewController`. For all app tabs, this is set in `viewWillAppear`.
         if let appVC = parent as? WMFAppViewController {
             appVC.navigationItem.backButtonTitle = title
         } else if #available(iOS 14.0, *) {
-            /// If the parent isn't `WMFAppViewController`, then its being presented from an articleVC and we need to set the back button title in the typical way.
+            // If the parent isn't `WMFAppViewController`, then its being presented from an articleVC and we need to set the back button title in the typical way.
             self.navigationItem.backButtonTitle = CommonStrings.searchTitle
             self.navigationItem.backButtonDisplayMode = .generic
         }
@@ -70,7 +70,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         })
     }
     
-    // MARK - State
+    // MARK: - State
     
     var shouldAnimateSearchBar: Bool = true
     var isAnimatingSearchBarState: Bool = false
@@ -105,11 +105,11 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     var showLanguageBar: Bool?
 
     var searchTerm: String? {
-        set {
-            searchBar.text = newValue
-        }
         get {
             return searchBar.text
+        }
+        set {
+            searchBar.text = newValue
         }
     }
 
@@ -236,7 +236,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         return .sections
     }
 
-    // MARK - Search
+    // MARK: - Search
     
     lazy var fetcher: WMFSearchFetcher = {
        return WMFSearchFetcher()
@@ -409,7 +409,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         return FakeProgressController(progress: navigationBar, delegate: navigationBar)
     }()
     
-    // MARK - Recent Search Saving
+    // MARK: - Recent Search Saving
     
     
     func saveLastSearch() {
@@ -425,7 +425,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         reloadRecentSearches()
     }
     
-    // MARK - UISearchBarDelegate
+    // MARK: - UISearchBarDelegate
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         guard !isAnimatingSearchBarState else {
@@ -490,7 +490,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         }
     }
 
-    // MARK - Theme
+    // MARK: - Theme
     
     override func apply(theme: Theme) {
         super.apply(theme: theme)

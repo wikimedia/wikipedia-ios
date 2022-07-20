@@ -1,4 +1,3 @@
-
 import UIKit
 
 protocol ReplyButtonFooterViewDelegate: AnyObject {
@@ -8,7 +7,7 @@ protocol ReplyButtonFooterViewDelegate: AnyObject {
 }
 
 class TalkPageReplyFooterView: SizeThatFitsReusableView {
-    let composeView = TalkPageReplyComposeView(frame: .zero)
+    let composeView = OldTalkPageReplyComposeView(frame: .zero)
     weak var delegate: ReplyButtonFooterViewDelegate?
     private let replyButton = ActionButton(frame: .zero)
     let dividerView = UIView(frame: .zero)
@@ -53,8 +52,8 @@ class TalkPageReplyFooterView: SizeThatFitsReusableView {
             
             var replyButtonFrame = replyButton.wmf_preferredFrame(at: buttonOrigin, maximumSize: CGSize(width: maximumWidth, height: UIView.noIntrinsicMetric), minimumSize: NoIntrinsicSize, alignedBy:semanticContentAttribute, apply: apply)
             
-            //update frame to be centered
-            if (apply) {
+            // update frame to be centered
+            if apply {
                 replyButtonFrame.origin = CGPoint(x: (size.width / 2) - (replyButtonFrame.width / 2), y: replyButtonFrame.origin.y)
                 replyButton.frame = replyButtonFrame
                 dividerView.frame = CGRect(x: 0, y: adjustedMargins.top, width: size.width, height: dividerHeight)
@@ -72,7 +71,7 @@ class TalkPageReplyFooterView: SizeThatFitsReusableView {
             
             let composeViewFrame = CGRect(origin: composeViewOrigin, size: composeViewSize)
             
-            if (apply) {
+            if apply {
                 composeView.frame = composeViewFrame
                 dividerView.frame = CGRect(x: 0, y: adjustedMargins.top, width: size.width, height: dividerHeight)
             }
@@ -104,7 +103,7 @@ class TalkPageReplyFooterView: SizeThatFitsReusableView {
     }
 }
 
-//MARK: Themeable
+// MARK: Themeable
 
 extension TalkPageReplyFooterView: Themeable {
     func apply(theme: Theme) {
@@ -115,9 +114,9 @@ extension TalkPageReplyFooterView: Themeable {
     }
 }
 
-//MARK: TalkPageReplyComposeViewDelegate
+// MARK: TalkPageReplyComposeViewDelegate
 
-extension TalkPageReplyFooterView: TalkPageReplyComposeViewDelegate {
+extension TalkPageReplyFooterView: OldTalkPageReplyComposeViewDelegate {
     func composeTextDidChange(text: String?) {
         delegate?.composeTextDidChange(text: text)
     }

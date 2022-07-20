@@ -115,7 +115,8 @@ class SinglePageWebViewController: ViewController {
             popover.barButtonItem = sender
             popover.permittedArrowDirections = .any
         }
-        
+
+        activityViewController.excludedActivityTypes = [.addToReadingList]
         present(activityViewController, animated: true)
     }
     

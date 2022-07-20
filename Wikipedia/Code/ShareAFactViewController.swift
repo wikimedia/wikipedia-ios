@@ -29,7 +29,7 @@ class ShareAFactViewController: UIViewController {
     @IBOutlet var imageViewLetterboxConstraints: [NSLayoutConstraint]!
     
     override func viewDidLoad() {
-        let theme = Theme.standard //always use the standard theme for now
+        let theme = Theme.standard // always use the standard theme for now
         view.backgroundColor = theme.colors.paperBackground
         articleTitleLabel.textColor = theme.colors.primaryText
         separatorView.backgroundColor = theme.colors.border

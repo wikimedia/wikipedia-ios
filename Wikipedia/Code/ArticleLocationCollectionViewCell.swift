@@ -88,7 +88,7 @@ class ArticleLocationCollectionViewCell: ArticleCollectionViewCell {
         origin.y += layoutMargins.bottom
         let height = max(origin.y, minHeight)
         
-        if (apply && !isImageViewHidden) {
+        if apply && !isImageViewHidden {
             let compassViewY = floor(0.5 * (height - compassViewDimension))
             let compassViewX = isLTR ? layoutMargins.left : size.width - layoutMargins.right - compassViewDimension
             compassView.frame = CGRect(x: compassViewX, y: compassViewY, width: compassViewDimension, height: compassViewDimension)

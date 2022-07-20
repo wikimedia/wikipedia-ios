@@ -90,8 +90,14 @@ class ArticleCollectionViewController: ColumnarCollectionViewController, Editabl
     }
 
     func pushUserTalkPage(title: String, siteURL: URL) {
-        let talkPageContainer = TalkPageContainerViewController.talkPageContainer(title: title, siteURL: siteURL, type: .user, dataStore: dataStore, theme: theme)
-        push(talkPageContainer, animated: true)
+        if FeatureFlags.needsNewTalkPage {
+            let newTalkPage = TalkPageViewController(talkPageTitle: title, siteURL: siteURL, theme: theme) 
+            push(newTalkPage, animated: true)
+        } else {
+            let talkPageContainer = TalkPageContainerViewController.talkPageContainer(title: title, siteURL: siteURL, type: .user, dataStore: dataStore, theme: theme)
+            push(talkPageContainer, animated: true)
+        }
+        
         return
     }
     
@@ -225,11 +231,11 @@ extension ArticleCollectionViewController: ActionDelegate {
         }
         let alertController = ReadingListsAlertController()
         let cancel = ReadingListsAlertActionType.cancel.action()
-        let delete = ReadingListsAlertActionType.unsave.action { let _ = self.editController.didPerformAction(action) }
+        let delete = ReadingListsAlertActionType.unsave.action { _ = self.editController.didPerformAction(action) }
         let actions = [cancel, delete]
         alertController.showAlertIfNeeded(presenter: self, for: [article], with: actions) { showed in
             if !showed {
-                let _ = self.editController.didPerformAction(action)
+                _ = self.editController.didPerformAction(action)
             }
         }
         return true

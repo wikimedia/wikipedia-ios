@@ -131,6 +131,6 @@ extension ArticleViewController: FindAndReplaceKeyboardBarDelegate {
     }
     
     func keyboardBarDidTapReplace(_ keyboardBar: FindAndReplaceKeyboardBar, replaceText: String, replaceType: ReplaceType) {
-        //no-op, not showing replace bar in this context
+        // no-op, not showing replace bar in this context
     }
 }

@@ -5,7 +5,7 @@ import UIKit
     @objc static func appearanceForTheme(_ theme: Theme, style: WMFThemeableNavigationControllerStyle) -> UINavigationBarAppearance {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = theme.colors.chromeBackground;
+        appearance.backgroundColor = theme.colors.chromeBackground
         appearance.titleTextAttributes = theme.navigationBarTitleTextAttributes
         switch style {
         case .editor:

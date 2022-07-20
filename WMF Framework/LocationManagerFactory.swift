@@ -1,4 +1,3 @@
-
 import Foundation
 
 @objc public final class LocationManagerFactory: NSObject {

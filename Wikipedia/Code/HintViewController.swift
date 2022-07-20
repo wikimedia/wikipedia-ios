@@ -28,8 +28,8 @@ class HintViewController: UIViewController {
     var backgroundColor: UIColor?
     var primaryColor: UIColor?
     
-    //if true, hint will extend below safe area to the bottom of the view, and hint content within will align to safe area
-    //must also override extendsUnderSafeArea to true in HintController
+    // if true, hint will extend below safe area to the bottom of the view, and hint content within will align to safe area
+    // must also override extendsUnderSafeArea to true in HintController
     var extendsUnderSafeArea: Bool {
         return false
     }

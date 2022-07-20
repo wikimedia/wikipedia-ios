@@ -116,7 +116,7 @@ class ExploreFeedSettingsLanguage: ExploreFeedSettingsItem {
     }
 
     func updateIsOn(for displayType: ExploreFeedSettingsDisplayType) {
-        switch (displayType) {
+        switch displayType {
         case .singleLanguage:
             return
         case .multipleLanguages:

@@ -1,4 +1,3 @@
-
 import UIKit
 
 class ActionButton: SetupButton {
@@ -12,7 +11,7 @@ class ActionButton: SetupButton {
         updateFonts(with: traitCollection)
     }
     
-    // MARK - Dynamic Type
+    // MARK: - Dynamic Type
     // Only applies new fonts if the content size category changes
     
     override open func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
