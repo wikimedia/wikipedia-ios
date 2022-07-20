@@ -2,7 +2,7 @@ import XCTest
 @testable import Wikipedia
 @testable import WMF
 
-fileprivate class MockTalkPageFetcher: OldTalkPageFetcher {
+fileprivate class OldMockTalkPageFetcher: OldTalkPageFetcher {
     
     static var name = "Username1"
     static var domain = "en.wikipedia.org"
@@ -22,7 +22,7 @@ fileprivate class MockTalkPageFetcher: OldTalkPageFetcher {
         
         fetchCalled = true
         
-        if let networkTalkPage = TalkPageTestHelpers.networkTalkPage(for: "https://\(MockTalkPageFetcher.domain)/api/rest_v1/page/talk/\(urlTitle)", data: data, revisionId: MockArticleRevisionFetcher.revisionId) {
+        if let networkTalkPage = OldTalkPageTestHelpers.networkTalkPage(for: "https://\(OldMockTalkPageFetcher.domain)/api/rest_v1/page/talk/\(urlTitle)", data: data, revisionId: MockArticleRevisionFetcher.revisionId) {
             completion(.success(networkTalkPage))
         } else {
             XCTFail("Expected network talk page from helper")
@@ -66,19 +66,19 @@ fileprivate class MockArticleRevisionFetcher: WMFArticleRevisionFetcher {
     }
 }
 
-class TalkPageControllerTests: XCTestCase {
+class oldTalkPageControllerTests: XCTestCase {
 
     var tempDataStore: MWKDataStore!
     var talkPageController: OldTalkPageController!
-    fileprivate var talkPageFetcher: MockTalkPageFetcher!
+    fileprivate var talkPageFetcher: OldMockTalkPageFetcher!
     fileprivate var articleRevisionFetcher: MockArticleRevisionFetcher!
 
     override func setUp() {
         super.setUp()
         tempDataStore = MWKDataStore.temporary()
         
-        if let data = wmf_bundle().wmf_data(fromContentsOfFile: TalkPageTestHelpers.TalkPageJSONType.original.fileName, ofType: "json") {
-            talkPageFetcher = MockTalkPageFetcher(session: tempDataStore.session, configuration: tempDataStore.configuration, data: data)
+        if let data = wmf_bundle().wmf_data(fromContentsOfFile: OldTalkPageTestHelpers.TalkPageJSONType.original.fileName, ofType: "json") {
+            talkPageFetcher = OldMockTalkPageFetcher(session: tempDataStore.session, configuration: tempDataStore.configuration, data: data)
         } else {
             XCTFail("Failure setting up MockTalkPageFetcher")
         }
@@ -246,7 +246,7 @@ class TalkPageControllerTests: XCTestCase {
         wait(for: [initialFetchCallback], timeout: 5)
         
         // fetch again for ES language
-        MockTalkPageFetcher.domain = "es.wikipedia.org"
+        OldMockTalkPageFetcher.domain = "es.wikipedia.org"
         talkPageController = OldTalkPageController(fetcher: talkPageFetcher, articleRevisionFetcher: articleRevisionFetcher, moc: tempDataStore.viewContext, title: "User talk:Username1", siteURL: URL(string: "https://es.wikipedia.org")!, type: .user)
         
         let nextFetchCallback = expectation(description: "Waiting for next fetch callback")
@@ -298,7 +298,7 @@ class TalkPageControllerTests: XCTestCase {
         
         wait(for: [initialFetchCallback], timeout: 5)
         
-        MockTalkPageFetcher.name = "Username2"
+        OldMockTalkPageFetcher.name = "Username2"
         talkPageController = OldTalkPageController(fetcher: talkPageFetcher, articleRevisionFetcher: articleRevisionFetcher, moc: tempDataStore.viewContext, title: "User talk:Username2", siteURL: URL(string: "https://en.wikipedia.org")!, type: .user)
         
         let nextFetchCallback = expectation(description: "Waiting for next fetch callback")

@@ -2,13 +2,13 @@ import XCTest
 @testable import Wikipedia
 @testable import WMF
 
-class TalkPageNetworkDataTests: XCTestCase {
+class OldTalkPageNetworkDataTests: XCTestCase {
     
     let session = MWKDataStore.temporary().session
 
     func testLocalJsonDecodesToTalkPage() {
         
-        guard let json = wmf_bundle().wmf_data(fromContentsOfFile: TalkPageTestHelpers.TalkPageJSONType.original.fileName, ofType: "json") else {
+        guard let json = wmf_bundle().wmf_data(fromContentsOfFile: OldTalkPageTestHelpers.TalkPageJSONType.original.fileName, ofType: "json") else {
             XCTFail("Failure pulling local talk page json")
             return
         }

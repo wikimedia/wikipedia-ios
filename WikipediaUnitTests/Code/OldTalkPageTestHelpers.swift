@@ -3,7 +3,7 @@ import Foundation
 @testable import WMF
 import XCTest
 
-class TalkPageTestHelpers {
+class OldTalkPageTestHelpers {
     
     enum TalkPageJSONType {
         case original

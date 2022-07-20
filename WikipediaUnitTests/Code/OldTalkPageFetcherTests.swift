@@ -35,7 +35,7 @@ class OldTalkPageFetcherTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        if let data = wmf_bundle().wmf_data(fromContentsOfFile: TalkPageTestHelpers.TalkPageJSONType.original.fileName, ofType: "json") {
+        if let data = wmf_bundle().wmf_data(fromContentsOfFile: OldTalkPageTestHelpers.TalkPageJSONType.original.fileName, ofType: "json") {
             mockSession = MockSession(configuration: Configuration.current, data: data)
         } else {
             XCTFail("Failure setting up MockTalkPageFetcher")
