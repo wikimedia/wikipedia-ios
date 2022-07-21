@@ -408,14 +408,18 @@
 "notifications-center-change-password" = "စကားဝှက် ပြောင်းလဲရန်";
 // Fuzzy
 "notifications-center-feed-news-notification-button-text" = "အသိပေးချက်များ ဖွင့်ရန်။";
+"notifications-center-go-to-article" = "ဆောင်းပါး";
 // Fuzzy
 "notifications-center-go-to-talk-page" = "ဆွေးနွေးစာမျက်နှာသို့ သွားရန်";
 // Fuzzy
 "notifications-center-go-to-user-page" = "$1 ၏ စာမျက်နှာသို့ သွားရန်";
 // Fuzzy
 "notifications-center-go-to-your-talk-page" = "သင်၏ဆွေးနွေးစာမျက်နှာသို့ သွားရန်";
+"notifications-center-inbox-title" = "ပရောဂျက်များ";
+"notifications-center-inbox-wikimedia-projects-section-title" = "ဝီကီမီဒီယာ ပရောဂျက်များ";
 "notifications-center-login-notifications" = "လော့ဂ်အင် အသိပေးချက်များ";
 "notifications-center-mark-as-read" = "ဖတ်ပြီးကြောင်း မှတ်သားရန်";
+"notifications-center-more-action-accessibility-label" = "ပို၍";
 "notifications-center-notifications-settings" = "အသိပေးချက် အပြင်အဆင်များ";
 "notifications-center-subheader-edit-milestone" = "မိုင်တိုင် တည်းဖြတ်မှု";
 "notifications-center-subheader-email-from-other-user" = "အီးမေးလ်အသစ်";
@@ -483,6 +487,17 @@
 "potd-widget-title" = "ယနေ့အတွက် ဓာတ်ပုံ";
 "preference-summary-eventlogging-opt-in" = "အက်ပ်အား ပိုမိုကောင်းမွန်လာစေရန် သင်အသုံးပြုပုံ အချက်အလက်များ ရယူစုဆောင်းနိုင်ရန် ဝီကီမီဒီယာအား ခွင့်ပြုပါ";
 "preference-title-eventlogging-opt-in" = "အသုံးပြုမှု အစီရင်ခံချက်များအား ပို့ရန်";
+"project-name-mediawiki" = "မီဒီယာဝီကီ";
+"project-name-wikibooks" = "ဝီကီစာအုပ်များ";
+"project-name-wikidata" = "ဝီကီဒေတာ";
+"project-name-wikimedia-commons" = "ဝီကီမီဒီယာ ကွန်မွန်းစ်";
+"project-name-wikinews" = "ဝီကီသတင်း";
+"project-name-wikiquote" = "ဝီကီအဆိုအမိန့်";
+"project-name-wikisource" = "ဝီကီရင်းမြစ်";
+"project-name-wikispecies" = "ဝီကီမျိုးစိတ်";
+"project-name-wikiversity" = "ဝီကီဗာစတီ";
+"project-name-wikivoyage" = "ဝီကီခရီးသွား";
+"project-name-wiktionary" = "ဝစ်ရှင်နရီ";
 "rank-accessibility-label" = "နံပါတ် $1";
 "readers-accessibility-label" = "$1 စာဖတ်သူများ";
 "reading-list-add-generic-hint-title" = "ဤဆောင်းပါးအား စာဖတ်စာရင်းတစ်ခုသို့ ပေါင်းထည့်မည်လော";
