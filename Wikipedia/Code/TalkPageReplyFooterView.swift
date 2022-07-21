@@ -7,7 +7,7 @@ protocol ReplyButtonFooterViewDelegate: AnyObject {
 }
 
 class TalkPageReplyFooterView: SizeThatFitsReusableView {
-    let composeView = TalkPageReplyComposeView(frame: .zero)
+    let composeView = OldTalkPageReplyComposeView(frame: .zero)
     weak var delegate: ReplyButtonFooterViewDelegate?
     private let replyButton = ActionButton(frame: .zero)
     let dividerView = UIView(frame: .zero)
@@ -116,7 +116,7 @@ extension TalkPageReplyFooterView: Themeable {
 
 // MARK: TalkPageReplyComposeViewDelegate
 
-extension TalkPageReplyFooterView: TalkPageReplyComposeViewDelegate {
+extension TalkPageReplyFooterView: OldTalkPageReplyComposeViewDelegate {
     func composeTextDidChange(text: String?) {
         delegate?.composeTextDidChange(text: text)
     }

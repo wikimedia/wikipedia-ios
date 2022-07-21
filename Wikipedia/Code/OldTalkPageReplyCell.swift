@@ -1,12 +1,12 @@
 import UIKit
 
-protocol TalkPageReplyCellDelegate: AnyObject {
-    func tappedLink(_ url: URL, cell: TalkPageReplyCell, sourceView: UIView, sourceRect: CGRect?)
+protocol OldTalkPageReplyCellDelegate: AnyObject {
+    func tappedLink(_ url: URL, cell: OldTalkPageReplyCell, sourceView: UIView, sourceRect: CGRect?)
 }
 
-class TalkPageReplyCell: CollectionViewCell {
+class OldTalkPageReplyCell: CollectionViewCell {
     
-    weak var delegate: TalkPageReplyCellDelegate?
+    weak var delegate: OldTalkPageReplyCellDelegate?
     
     private let titleTextView = UITextView()
     private let depthMarker = UIView()
@@ -122,7 +122,7 @@ class TalkPageReplyCell: CollectionViewCell {
 
 // MARK: Themeable
 
-extension TalkPageReplyCell: Themeable {
+extension OldTalkPageReplyCell: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
         titleTextView.textColor = theme.colors.primaryText
@@ -134,7 +134,7 @@ extension TalkPageReplyCell: Themeable {
 
 // MARK: UITextViewDelegate
 
-extension TalkPageReplyCell: UITextViewDelegate {
+extension OldTalkPageReplyCell: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         delegate?.tappedLink(URL, cell: self, sourceView: textView, sourceRect: textView.frame(of: characterRange))
         return false

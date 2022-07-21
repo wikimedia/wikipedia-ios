@@ -77,7 +77,7 @@ class TalkPageContainerViewController: ViewController, HintPresenting {
     private var topicListViewController: TalkPageTopicListViewController?
     private var replyListViewController: TalkPageReplyListViewController?
     private var emptyView: WMFEmptyView?
-    private var headerView: TalkPageHeaderView?
+    private var headerView: OldTalkPageHeaderView?
     private var addButton: UIBarButtonItem?
     
     private var shareIcon: IconBarButtonItem?
@@ -514,7 +514,7 @@ private extension TalkPageContainerViewController {
         
         setupAddBarButton()
         
-        if let headerView = TalkPageHeaderView.wmf_viewFromClassNib() {
+        if let headerView = OldTalkPageHeaderView.wmf_viewFromClassNib() {
             self.headerView = headerView
             configure(header: headerView, introTopic: nil)
             headerView.delegate = self
@@ -530,7 +530,7 @@ private extension TalkPageContainerViewController {
         }
     }
     
-    func configure(header: TalkPageHeaderView, introTopic: TalkPageTopic?) {
+    func configure(header: OldTalkPageHeaderView, introTopic: TalkPageTopic?) {
         
         var headerText: String
         switch type {
@@ -553,7 +553,7 @@ private extension TalkPageContainerViewController {
             introText = replyTexts.joined(separator: "<br />")
         }
         
-        let viewModel = TalkPageHeaderView.ViewModel(header: headerText, title: controller.displayTitle, info: infoText, intro: introText)
+        let viewModel = OldTalkPageHeaderView.ViewModel(header: headerText, title: controller.displayTitle, info: infoText, intro: introText)
         
         header.configure(viewModel: viewModel)
         header.delegate = self
@@ -820,12 +820,12 @@ extension TalkPageContainerViewController: TalkPageReplyListViewControllerDelega
 
 // MARK: TalkPageHeaderViewDelegate
 
-extension TalkPageContainerViewController: TalkPageHeaderViewDelegate {
-    func tappedLink(_ url: URL, headerView: TalkPageHeaderView, sourceView: UIView, sourceRect: CGRect?) {
+extension TalkPageContainerViewController: OldTalkPageHeaderViewDelegate {
+    func tappedLink(_ url: URL, headerView: OldTalkPageHeaderView, sourceView: UIView, sourceRect: CGRect?) {
         tappedLink(url, loadingViewController: self, sourceView: sourceView, sourceRect: sourceRect)
     }
     
-    func tappedIntro(headerView: TalkPageHeaderView) {
+    func tappedIntro(headerView: OldTalkPageHeaderView) {
         if let introTopic = self.introTopic {
             pushToReplyThread(topic: introTopic)
         }
