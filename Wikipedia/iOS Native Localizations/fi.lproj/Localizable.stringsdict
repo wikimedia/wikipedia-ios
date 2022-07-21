@@ -346,9 +346,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%1$d viesti</string>
+			<string>%1$d ilmoitus</string>
 			<key>other</key>
-			<string>%1$d viestiä</string>
+			<string>%1$d ilmoitusta</string>
 		</dict>
 	</dict>
 	<key>notifications-center-status-in-projects</key>

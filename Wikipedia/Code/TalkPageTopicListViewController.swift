@@ -111,7 +111,7 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? TalkPageTopicCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? OldTalkPageTopicCell else {
                 return UICollectionViewCell()
         }
         
@@ -127,7 +127,7 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
             return estimate
         }
         var estimate = ColumnarCollectionViewLayoutHeightEstimate(precalculated: false, height: 54)
-        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? TalkPageTopicCell else {
+        guard let placeholderCell = layoutManager.placeholder(forCellWithReuseIdentifier: reuseIdentifier) as? OldTalkPageTopicCell else {
             return estimate
         }
         configure(cell: placeholderCell, at: indexPath)
@@ -162,7 +162,7 @@ class TalkPageTopicListViewController: ColumnarCollectionViewController {
 private extension TalkPageTopicListViewController {
     
     func registerCells() {
-        layoutManager.register(TalkPageTopicCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
+        layoutManager.register(OldTalkPageTopicCell.self, forCellWithReuseIdentifier: reuseIdentifier, addPlaceholder: true)
     }
     
     func setupCollectionViewUpdater() {
@@ -171,7 +171,7 @@ private extension TalkPageTopicListViewController {
         collectionViewUpdater?.performFetch()
     }
 
-    func configure(cell: TalkPageTopicCell, at indexPath: IndexPath) {
+    func configure(cell: OldTalkPageTopicCell, at indexPath: IndexPath) {
         let topic = fetchedResultsController.object(at: indexPath)
         guard let title = topic.title else {
             return
@@ -190,7 +190,7 @@ private extension TalkPageTopicListViewController {
 extension TalkPageTopicListViewController: CollectionViewUpdaterDelegate {
     func collectionViewUpdater<T>(_ updater: CollectionViewUpdater<T>, didUpdate collectionView: UICollectionView) where T : NSFetchRequestResult {
         for indexPath in collectionView.indexPathsForVisibleItems {
-            guard let cell = collectionView.cellForItem(at: indexPath) as? TalkPageTopicCell else {
+            guard let cell = collectionView.cellForItem(at: indexPath) as? OldTalkPageTopicCell else {
                 continue
             }
             

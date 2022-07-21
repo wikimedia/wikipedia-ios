@@ -14,6 +14,7 @@
 // Author: Rishi.Singh
 // Author: Sachinkatiyar
 // Author: Sahilrathod
+// Author: Saurmandal
 // Author: Sfic
 // Author: Shypoetess
 // Author: Vivek Rai
@@ -341,7 +342,7 @@
 "search-recent-clear-confirmation-sub-heading" = "इस क्रिया को वापस नहीं लिया जा सकता!";
 "search-recent-clear-delete-all" = "सभी हटाएँ";
 "search-recent-title" = "हाल ही में खोजा गया";
-"search-result-redirected-from" = "$1 से पुनर्निर्देशित";
+"search-result-redirected-from" = "$1 से अनुप्रेषित";
 "search-title" = "खोजें";
 // Fuzzy
 "settings-appearance" = "दिखावट";

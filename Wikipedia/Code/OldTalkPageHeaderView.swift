@@ -1,13 +1,13 @@
 import UIKit
 
-protocol TalkPageHeaderViewDelegate: AnyObject {
-    func tappedLink(_ url: URL, headerView: TalkPageHeaderView, sourceView: UIView, sourceRect: CGRect?)
-    func tappedIntro(headerView: TalkPageHeaderView)
+protocol OldTalkPageHeaderViewDelegate: AnyObject {
+    func tappedLink(_ url: URL, headerView: OldTalkPageHeaderView, sourceView: UIView, sourceRect: CGRect?)
+    func tappedIntro(headerView: OldTalkPageHeaderView)
 }
 
-class TalkPageHeaderView: UIView {
+class OldTalkPageHeaderView: UIView {
     
-    weak var delegate: TalkPageHeaderViewDelegate?
+    weak var delegate: OldTalkPageHeaderViewDelegate?
     
     struct ViewModel {
         let header: String
@@ -183,7 +183,7 @@ class TalkPageHeaderView: UIView {
     }
 }
 
-extension TalkPageHeaderView: Themeable {
+extension OldTalkPageHeaderView: Themeable {
     func apply(theme: Theme) {
         self.theme = theme
         titleTextView.backgroundColor = theme.colors.paperBackground
@@ -198,7 +198,7 @@ extension TalkPageHeaderView: Themeable {
 
 // MARK: UITextViewDelegate
 
-extension TalkPageHeaderView: UITextViewDelegate {
+extension OldTalkPageHeaderView: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         delegate?.tappedLink(URL, headerView: self, sourceView: textView, sourceRect: textView.frame(of: characterRange))
         return false
