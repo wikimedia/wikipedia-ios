@@ -58,7 +58,6 @@ class TalkPageFetcher: Fetcher {
             switch result {
             case let .success(talk):
                 completion(.success(talk.threads.threadItems))
-                
             case let .failure(error):
                 completion(.failure(error))
             }
