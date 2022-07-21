@@ -128,15 +128,16 @@ class TalkPageFetcher: Fetcher {
             
             if let resultSuccess = result?["subscriptions"] as? [String: Any] {
                 var subscribedTopics = [String]()
-                for (topicId, _) in resultSuccess {
-                    subscribedTopics.append(topicId)
+                for (topicId, subStatus) in resultSuccess {
+                    if subStatus as? Int == 1 {
+                        subscribedTopics.append(topicId)
+                    }
                 }
                 completion(.success(subscribedTopics))
                 return
             }
             completion(.failure(RequestError.unexpectedResponse))
         }
-        
     }
     
 }
