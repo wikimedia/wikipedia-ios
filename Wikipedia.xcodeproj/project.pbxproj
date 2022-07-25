@@ -498,6 +498,14 @@
 		675FE06C288F349500EE8E72 /* ScrollingSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675FE06A288F349500EE8E72 /* ScrollingSwiftUIViewController.swift */; };
 		675FE06D288F349500EE8E72 /* ScrollingSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675FE06A288F349500EE8E72 /* ScrollingSwiftUIViewController.swift */; };
 		675FE06E288F349500EE8E72 /* ScrollingSwiftUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675FE06A288F349500EE8E72 /* ScrollingSwiftUIViewController.swift */; };
+		675FE071288F388E00EE8E72 /* WMFSettingsViewController+ApplePay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675FE070288F388E00EE8E72 /* WMFSettingsViewController+ApplePay.swift */; };
+		675FE072288F388E00EE8E72 /* WMFSettingsViewController+ApplePay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675FE070288F388E00EE8E72 /* WMFSettingsViewController+ApplePay.swift */; };
+		675FE073288F388E00EE8E72 /* WMFSettingsViewController+ApplePay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675FE070288F388E00EE8E72 /* WMFSettingsViewController+ApplePay.swift */; };
+		675FE074288F388E00EE8E72 /* WMFSettingsViewController+ApplePay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675FE070288F388E00EE8E72 /* WMFSettingsViewController+ApplePay.swift */; };
+		675FE076288F3A8100EE8E72 /* ApplePayContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675FE075288F3A8100EE8E72 /* ApplePayContentView.swift */; };
+		675FE077288F3A8100EE8E72 /* ApplePayContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675FE075288F3A8100EE8E72 /* ApplePayContentView.swift */; };
+		675FE078288F3A8100EE8E72 /* ApplePayContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675FE075288F3A8100EE8E72 /* ApplePayContentView.swift */; };
+		675FE079288F3A8100EE8E72 /* ApplePayContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675FE075288F3A8100EE8E72 /* ApplePayContentView.swift */; };
 		676070A2227CE60800A81F09 /* TalkPageReplyFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676070A1227CE60800A81F09 /* TalkPageReplyFooterView.swift */; };
 		676070A42280987C00A81F09 /* TalkPageTopicNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */; };
 		676070A52280D72400A81F09 /* TalkPageTopicNewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */; };
@@ -3989,6 +3997,8 @@
 		67540CA824D221E3008B2894 /* LocationManagerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerFactory.swift; sourceTree = "<group>"; };
 		675A7CFD227A3F7C0034D9D9 /* OldTalkPageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldTalkPageHeaderView.swift; sourceTree = "<group>"; };
 		675FE06A288F349500EE8E72 /* ScrollingSwiftUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingSwiftUIViewController.swift; sourceTree = "<group>"; };
+		675FE070288F388E00EE8E72 /* WMFSettingsViewController+ApplePay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WMFSettingsViewController+ApplePay.swift"; sourceTree = "<group>"; };
+		675FE075288F3A8100EE8E72 /* ApplePayContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayContentView.swift; sourceTree = "<group>"; };
 		676070A1227CE60800A81F09 /* TalkPageReplyFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkPageReplyFooterView.swift; sourceTree = "<group>"; };
 		676070A32280987C00A81F09 /* TalkPageTopicNewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkPageTopicNewViewController.xib; sourceTree = "<group>"; };
 		6761AED82704BA3800E47BAD /* RemoteNotification+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteNotification+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -6929,6 +6939,15 @@
 			path = "Article Description Tests";
 			sourceTree = "<group>";
 		};
+		675FE06F288F385A00EE8E72 /* Apple Pay */ = {
+			isa = PBXGroup;
+			children = (
+				675FE070288F388E00EE8E72 /* WMFSettingsViewController+ApplePay.swift */,
+				675FE075288F3A8100EE8E72 /* ApplePayContentView.swift */,
+			);
+			name = "Apple Pay";
+			sourceTree = "<group>";
+		};
 		676C864526D40AEB00A704C1 /* NotificationServiceExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -8253,6 +8272,7 @@
 		BC45D58D1C32FD58007C72F3 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				675FE06F288F385A00EE8E72 /* Apple Pay */,
 				6798035A24F94CAE00D765AA /* Article as a Living Document */,
 				67DC5BDB23A00DF500B03A84 /* Article */,
 				6782DB8F2343B691003FA21B /* Diff */,
@@ -11278,6 +11298,7 @@
 				670F765F22B0C10600D87545 /* FakeProgressLoading.swift in Sources */,
 				B0016CC321362DB300FA1096 /* SetupGradientView.swift in Sources */,
 				83DB4410244A57590046FABE /* RootNavigationController.swift in Sources */,
+				675FE071288F388E00EE8E72 /* WMFSettingsViewController+ApplePay.swift in Sources */,
 				D818FEBB21E39EE2001A7A00 /* CodemirrorSetupUserScript.swift in Sources */,
 				0042812925E6E841004945B3 /* NYTPhotoViewController.m in Sources */,
 				BC23E4DD1C223DCB00B5AFDE /* WMFArticleRevisionFetcher.m in Sources */,
@@ -11623,6 +11644,7 @@
 				7A9F06192266432200856321 /* InsertMediaSettingsTextTableViewCell.swift in Sources */,
 				FFD7B84624AEAB3F005C2471 /* ArticleScrolling.swift in Sources */,
 				8367A27F20D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift in Sources */,
+				675FE076288F3A8100EE8E72 /* ApplePayContentView.swift in Sources */,
 				7AEBAD452102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift in Sources */,
 				83F1095F23D09F80003F3E9E /* ArticleViewController+WIconPopover.swift in Sources */,
 				7A25367721B5AA4F00F841A1 /* ContextualHighlightEditToolbarView.swift in Sources */,
@@ -12206,6 +12228,7 @@
 				7AF0265922985CB9000E0A06 /* BeKindInputAccessoryView.swift in Sources */,
 				83B01F7523DA5327001185F4 /* ArticleViewController+ArticleWebMessageHandling.swift in Sources */,
 				D8A42AA11E815A9C00D8E281 /* WMFMapsActivity.swift in Sources */,
+				675FE074288F388E00EE8E72 /* WMFSettingsViewController+ApplePay.swift in Sources */,
 				83DB4413244A57590046FABE /* RootNavigationController.swift in Sources */,
 				0042812C25E6E841004945B3 /* NYTPhotoViewController.m in Sources */,
 				67E0690A22399D1C008550AC /* ReadingThemesControlsViewController.swift in Sources */,
@@ -12551,6 +12574,7 @@
 				7AB20A0F22FC8432006FECB4 /* PageHistoryCountsViewController.swift in Sources */,
 				FFD7B84924AEB04A005C2471 /* ArticleScrolling.swift in Sources */,
 				8367A28220D293BE00249A92 /* ColumnarCollectionViewLayoutManager.swift in Sources */,
+				675FE079288F3A8100EE8E72 /* ApplePayContentView.swift in Sources */,
 				7AEBAD482102117C002FAB41 /* NSFetchedResultsController+IndexPathValidation.swift in Sources */,
 				7A9F061C2266432200856321 /* InsertMediaSettingsTextTableViewCell.swift in Sources */,
 				B068EDE3206B183500C827D1 /* Progress+ProgressUI.swift in Sources */,
@@ -12977,6 +13001,7 @@
 				7A998AC21FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift in Sources */,
 				D8CE25C81E698E2400DAE2E0 /* WMFAppViewController.m in Sources */,
 				7A0161B51FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift in Sources */,
+				675FE073288F388E00EE8E72 /* WMFSettingsViewController+ApplePay.swift in Sources */,
 				B08624311F72EA1900B770FD /* WMFWelcomeAnimationBackgroundView.swift in Sources */,
 				8382F8C820D844C700AE5250 /* ArticleLocationCollectionViewCell.swift in Sources */,
 				6741245227E97DBC0071177D /* NotificationsCenterDetailViewModel+ActionExtensions.swift in Sources */,
@@ -13035,6 +13060,7 @@
 				D8CB32AE1E79D8A0008A0966 /* RoundedCornerView.swift in Sources */,
 				7AE1D33A1FCD10B900393471 /* SavedViewController.swift in Sources */,
 				D8CE25E51E698E2400DAE2E0 /* NSString+FormattedAttributedString.m in Sources */,
+				675FE078288F3A8100EE8E72 /* ApplePayContentView.swift in Sources */,
 				67E8B088226A57E900537BC9 /* TalkPageReplyListViewController.swift in Sources */,
 				7AF56C3621DE0E2800563A9C /* SectionEditorWebViewMessagingController.swift in Sources */,
 				7A610CBE220A582A00C266AE /* HintController.swift in Sources */,
@@ -13520,6 +13546,7 @@
 				7A998AC31FE20F3B007FE06E /* CollectionViewEditControllerNavigationDelegate+Extensions.swift in Sources */,
 				D8EC3EC51E9BDA35006712EB /* WMFRevisionQueryResults.m in Sources */,
 				7A0161B61FE85C6000AEDC3D /* ReadingListsCollectionViewCell.swift in Sources */,
+				675FE072288F388E00EE8E72 /* WMFSettingsViewController+ApplePay.swift in Sources */,
 				D8EC3EC61E9BDA35006712EB /* WMFAppViewController.m in Sources */,
 				8382F8C920D844C700AE5250 /* ArticleLocationCollectionViewCell.swift in Sources */,
 				6741245127E97DBC0071177D /* NotificationsCenterDetailViewModel+ActionExtensions.swift in Sources */,
@@ -13578,6 +13605,7 @@
 				7AE1D33B1FCD10B900393471 /* SavedViewController.swift in Sources */,
 				830D71D11F704DD40080078B /* ArticleFetchedResultsViewController.swift in Sources */,
 				67E8B08F226A57E900537BC9 /* TalkPageReplyListViewController.swift in Sources */,
+				675FE077288F3A8100EE8E72 /* ApplePayContentView.swift in Sources */,
 				7AF56C3721DE0E2800563A9C /* SectionEditorWebViewMessagingController.swift in Sources */,
 				D8EC3EE41E9BDA35006712EB /* NSString+FormattedAttributedString.m in Sources */,
 				7A610CBF220A582A00C266AE /* HintController.swift in Sources */,

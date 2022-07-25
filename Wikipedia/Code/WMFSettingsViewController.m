@@ -470,12 +470,6 @@ static NSString *const WMFSettingsURLDonation = @"https://donate.wikimedia.org/?
     [self.navigationController pushViewController:appearanceSettingsVC animated:YES];
 }
 
-#pragma mark - Apple Pay
-
-- (void)showApplePay {
-    
-}
-
 #pragma mark - Storage and syncing
 
 - (void)showStorageAndSyncing {
