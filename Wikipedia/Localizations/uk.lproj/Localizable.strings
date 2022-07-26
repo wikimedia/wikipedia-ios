@@ -112,6 +112,7 @@
 "action-add-to-reading-list" = "Додати до читального списку";
 "action-add-to-reading-list-short" = "Додати до списку";
 "action-cancel" = "Скасувати";
+"action-discard-edits" = "Відхилити зміни";
 "action-find-in-page" = "Знайти на сторінці";
 "action-language-accessibility" = "Змінити мову";
 "action-move-to" = "Перенести до…";
@@ -230,12 +231,12 @@
 "diff-context-lines-collapsed-button-title" = "Показати";
 "diff-context-lines-expanded-button-title" = "Приховати";
 "diff-multi-line-format" = "Рядки $1—$2";
-"diff-paragraph-moved" = "Параграф переміщено";
+"diff-paragraph-moved" = "Абзац переміщено";
 "diff-paragraph-moved-direction-down" = "нижче";
 "diff-paragraph-moved-direction-up" = "вище";
 "diff-paragraph-moved-distance-line" = "{{PLURAL:$1|$1 рядок|$1 рядки|$1 рядків}}";
 "diff-paragraph-moved-distance-section" = "{{PLURAL:$1|$1 розділ|$1 розділи|$1 розділів}}";
-"diff-paragraph-moved-format" = "Параграф переміщено $1 на $2";
+"diff-paragraph-moved-format" = "Абзац переміщено $1 на $2";
 "diff-revision-error-title" = "Неможливо завантажити версію";
 "diff-single-header-editor-number-edits-format" = "{{PLURAL:$1|$1 редагування|$1 редагування|$1 редагувань}}";
 "diff-single-header-editor-title" = "Інформація редактора";
@@ -322,6 +323,8 @@
 "editing-welcome-impartial-tone-title" = "Пишіть неупереджено";
 "editing-welcome-set-knowledge-free-subtitle" = "Аби надати доступ до знань людства кожному, ми потребуємо вашої участі у їхньому створенні завдяки вичитуванню, редагуванню статей і додаванню інформації на теми, що є найрелевантнішими для вас.";
 "editing-welcome-set-knowledge-free-title" = "Зробіть інформацію доступною всім";
+"editor-exit-confirmation-body" = "Ви дійсно хочете припинити редагування, не опублікувавши зміни?";
+"editor-exit-confirmation-title" = "Закрити режим редагування?";
 "empty-diff-compare-title" = "Немає різниці між версіями";
 "empty-diff-single-title" = "Немає редагувань, які можна переглянути";
 "empty-insert-media-title" = "Оберіть файл з Вікісховища";
@@ -548,6 +551,7 @@
 "main-menu-account-login" = "Увійти";
 "main-menu-account-logout" = "Вихід";
 "main-menu-account-logout-are-you-sure" = "Ви справді хочете вийти?";
+"main-menu-account-logout-are-you-sure-message" = "Вихід призведе до видалення локально збережених даних облікового запису (сповіщень і повідомлень), але дані вашого облікового запису залишаться доступними в інтернеті та будуть повторно завантажені, якщо ви знову ввійдете.";
 "main-menu-account-logout-cancel" = "Скасувати";
 "main-menu-account-title-logged-in" = "Увійшов в систему як $1";
 "main-menu-heading-legal" = "Приватність та умови";
@@ -576,6 +580,8 @@
 "notifications-center-alert" = "Сповіщення";
 "notifications-center-applied-filters-accessibility-label" = "Фільтр сповіщень – має застосовані фільтри";
 "notifications-center-applied-project-filters-accessibility-label" = "Фільтр Проектів – має застосовані фільтри";
+"notifications-center-badge-button-accessibility-label" = "Сповіщення зі значком непрочитаних";
+"notifications-center-cell-notification-type-accessibility-label-format" = "$1 повідомлення";
 "notifications-center-change-password" = "Змінити пароль";
 "notifications-center-checking-for-notifications" = "Перевірка сповіщень…";
 "notifications-center-destination-app" = "У додатку";
@@ -584,9 +590,13 @@
 "notifications-center-empty-no-messages" = "У вас нема повідомлень";
 "notifications-center-empty-not-subscribed" = "Наразі ви не підписані на жодні сповіщення Вікіпедії";
 "notifications-center-empty-state-filters-subtitle" = "Відредагуйте $1, аби побачити більше повідомлень";
+"notifications-center-empty-state-no-projects-selected" = "Додайте проєкти, щоб побачити більше повідомлень";
 "notifications-center-empty-state-num-filters" = "{{PLURAL:$1|$1 фільтр|$1 фільтри|$1 фільтрів}}";
-// Fuzzy
-"notifications-center-feed-news-notification-button-text" = "Увімкнути сповіщення";
+"notifications-center-feed-card-title" = "Тепер доступні сповіщення про редагування";
+"notifications-center-feed-news-notification-button-text" = "Увімкнути push-сповіщення";
+"notifications-center-feed-news-notification-dismiss-button-text" = "Не зараз";
+"notifications-center-feed-news-notification-text" = "У програмці тепер доступні сповіщення про редагування для всіх проєктів Вікімедіа. Увімкніть push-сповіщення, щоб бути в курсі своїх повідомлень у Вікіпедії навіть на ходу.";
+"notifications-center-filters-accessibility-label" = "Фільтр сповіщень";
 "notifications-center-filters-read-status-item-title-all" = "Усі";
 "notifications-center-filters-read-status-item-title-read" = "Прочитане";
 "notifications-center-filters-read-status-item-title-unread" = "Непрочитане";
@@ -596,13 +606,11 @@
 "notifications-center-filters-types-item-title-all" = "Усі типи";
 "notifications-center-filters-types-section-title" = "Типи сповіщень";
 "notifications-center-go-to-article" = "Стаття";
-// Fuzzy
-"notifications-center-go-to-diff" = "Перейти до дифа";
+"notifications-center-go-to-article-talk-format" = "$1 сторінка обговорення";
+"notifications-center-go-to-diff" = "Різниця";
 "notifications-center-go-to-talk-page" = "Сторінка обговорення";
-// Fuzzy
-"notifications-center-go-to-user-page" = "Перейти на сторінку користувача $1";
-// Fuzzy
-"notifications-center-go-to-wikidata-item" = "Перейти до елемента Вікіданих";
+"notifications-center-go-to-user-page" = "Сторінка {{GENDER:$1|користувача $1|користувачки $1}}";
+"notifications-center-go-to-wikidata-item" = "Елемент Вікіданих";
 "notifications-center-go-to-your-talk-page" = "Ваша сторінка обговорення";
 "notifications-center-header-alert-from-agent" = "Сповіщення від $1";
 "notifications-center-inbox-title" = "Проєкти";
@@ -617,9 +625,25 @@
 "notifications-center-mark-all-as-read-missing-number" = "Ви впевнені, що хочете позначити всі сповіщення як прочитані? Усі ваші сповіщення будуть позначені як прочитані на всіх пристроях.";
 "notifications-center-mark-as-read" = "Позначити як прочитане";
 "notifications-center-mark-as-unread" = "Позначити як непрочитане";
+"notifications-center-more-action-accessibility-label" = "Більше";
 "notifications-center-notifications-settings" = "Налаштування сповіщень";
 "notifications-center-num-selected-messages-format" = "{{PLURAL:$1|$1 повідомлення|$1 повідомлення|$1 повідомлень}}";
+"notifications-center-onboarding-modal-continue-action" = "Продовжити";
+"notifications-center-onboarding-modal-filters-message" = "Фільтруйте сповіщення за статусом прочитання та типом, щоб легко звузити список вхідних.";
 "notifications-center-onboarding-modal-filters-title" = "Фільтри";
+"notifications-center-onboarding-modal-learn-more-action" = "Дізнатися більше про сповіщення";
+"notifications-center-onboarding-modal-notifications-alerts-message" = "Сповіщення допомагають тримати вас в курсі активності, пов'язаної з вашими редагуваннями та обліковим записом.";
+"notifications-center-onboarding-modal-notifications-alerts-title" = "Сповіщення та звістки";
+"notifications-center-onboarding-modal-project-inboxes-message" = "Переглядайте всі свої непрочитані повідомлення з різних мовних розділів Вікіпедії і проєктів Вікімедіа в одному місці.";
+"notifications-center-onboarding-modal-project-inboxes-title" = "Вхідні проєктів";
+"notifications-center-onboarding-modal-push-notifications-message" = "Увімкніть push-сповіщення, щоб бути в курсі повідомлень і сповіщень про редагування, навіть на ходу.";
+"notifications-center-onboarding-modal-push-notifications-title" = "Push-сповіщення";
+"notifications-center-onboarding-modal-title" = "Сповіщення про редагування";
+"notifications-center-onboarding-panel-heading" = "Увімкнути push-сповіщення?";
+"notifications-center-onboarding-panel-primary-button" = "Увімкнути push-сповіщення";
+"notifications-center-onboarding-panel-secondary-button" = "Ні, дякую";
+"notifications-center-onboarding-panel-subheading" = "Вікіпедія — це спільний проект, і ввімкнення push-сповіщень може полегшити отримання повідомлень, сповіщень і подяк від колег-редакторів.";
+"notifications-center-project-filters-accessibility-label" = "Фільтр проєктів";
 "notifications-center-status-all" = "Усі";
 "notifications-center-status-all-notifications" = "Усі сповіщення";
 "notifications-center-status-double-concatenation" = "$1 у $2";
@@ -630,13 +654,12 @@
 "notifications-center-status-read" = "Прочитане";
 "notifications-center-status-triple-concatenation" = "$1 та $2 у $3";
 "notifications-center-status-unread" = "Непрочитане";
-"notifications-center-subheader-edit-milestone" = "Етап редагування";
+"notifications-center-subheader-edit-milestone" = "Віха редагування";
 "notifications-center-subheader-edit-reverted" = "Ваше редагування було відкочено";
 "notifications-center-subheader-email-from-other-user" = "Нова електронна пошта";
 "notifications-center-subheader-login-fail-known-device" = "Кілька невдалих спроб входу";
 "notifications-center-subheader-login-fail-unknown-device" = "Невдала спроба входу";
-// Fuzzy
-"notifications-center-subheader-login-success-unknown-device" = "Увійти з незнайомого пристрою";
+"notifications-center-subheader-login-success-unknown-device" = "Вхід у систему з незнайомого пристрою";
 "notifications-center-subheader-mention-article-talk-page" = "Згадка на сторінці обговорення статті";
 "notifications-center-subheader-mention-edit-summary" = "Згадка в описі редагування";
 "notifications-center-subheader-mention-failed" = "Не вдалося згадати";
@@ -646,7 +669,7 @@
 "notifications-center-subheader-page-link" = "Посилання на сторінку";
 "notifications-center-subheader-page-reviewed" = "Сторінку переглянуто";
 "notifications-center-subheader-thanks" = "Подяка";
-"notifications-center-subheader-translate-milestone" = "Етап перекладу";
+"notifications-center-subheader-translate-milestone" = "Віха перекладу";
 "notifications-center-subheader-user-rights-change" = "Зміна прав користувача";
 "notifications-center-subheader-welcome" = "Ласкаво просимо!";
 "notifications-center-subheader-wikidata-connection" = "Встановлено підключення до Вікіданих";
@@ -654,11 +677,32 @@
 "notifications-center-swipe-mark-as-unread" = "Позначити як непрочитане";
 "notifications-center-swipe-more" = "Ще";
 "notifications-center-title" = "Сповіщення";
+"notifications-center-toolbar-mark-accessibility-label" = "Позначити вибрані сповіщення";
+"notifications-center-type-item-description-mentions" = "Згадки";
+"notifications-center-type-item-description-notice" = "Сповіщення";
+"notifications-center-type-item-description-welcome-verbose" = "Вітальне повідомлення";
+"notifications-center-type-title-connection-with-wikidata" = "Пов'язування з Вікіданими";
+"notifications-center-type-title-edit-milestone" = "Віха редагування";
+"notifications-center-type-title-edit-reverted" = "Відкіт редагування";
+"notifications-center-type-title-edit-summary-mention" = "Згадка в описі редагування";
+"notifications-center-type-title-email-from-other-user" = "Електронний лист від іншого користувача";
+"notifications-center-type-title-login-attempts" = "Спроби входу";
+"notifications-center-type-title-login-attempts-subtitle" = "Невдалі спроби входу до вашого облікового запису";
+"notifications-center-type-title-login-success" = "Успішний вхід";
+"notifications-center-type-title-other" = "Інше";
+"notifications-center-type-title-page-link" = "Посилання на сторінку";
+"notifications-center-type-title-page-review" = "Перевірка сторінки";
+"notifications-center-type-title-sent-mention-failure" = "Невдале згадування";
+"notifications-center-type-title-sent-mention-success" = "Успішне згадування";
+"notifications-center-type-title-talk-page-mention" = "Згадка на сторінці обговорення";
+"notifications-center-type-title-thanks" = "Подяка";
+"notifications-center-type-title-translation-milestone" = "Віха перекладу";
+"notifications-center-type-title-user-rights-change" = "Зміна прав користувача";
+"notifications-center-type-title-user-talk-page-messsage" = "Повідомлення на сторінці обговорення";
+"notifications-center-type-title-welcome" = "Вітання";
 "notifications-push-fallback-body-text" = "Нова активність у Вікіпедії";
-// Fuzzy
-"notifications-push-talk-body-format" = "$1 новий $2 на $3";
-// Fuzzy
-"notifications-push-talk-title-format" = "Новий $1";
+"notifications-push-talk-body-format" = "{{PLURAL:$1|$1 нове повідомлення|$1 нові повідомлення|$1 нових повідомлень}} на $2";
+"notifications-push-talk-title-format" = "{{PLURAL:$1|Нове повідомлення|Нові повідомлення}}";
 "number-billions" = "$1 млрд";
 "number-millions" = "$1 млн";
 "number-thousands" = "$1 тис.";
@@ -737,6 +781,17 @@
 "potd-widget-title" = "Зображення дня";
 "preference-summary-eventlogging-opt-in" = "Дозвольте Фондові Вікімедіа збирати відомості про те, як ви користуєтеся додатком, аби вдосконалити його";
 "preference-title-eventlogging-opt-in" = "Надсилати звіти про використання";
+"project-name-mediawiki" = "MediaWiki";
+"project-name-wikibooks" = "Вікіпідручник";
+"project-name-wikidata" = "Вікідані";
+"project-name-wikimedia-commons" = "Вікісховище";
+"project-name-wikinews" = "Вікіновини";
+"project-name-wikiquote" = "Вікіцитати";
+"project-name-wikisource" = "Вікіджерела";
+"project-name-wikispecies" = "Віківиди";
+"project-name-wikiversity" = "Віківерситет";
+"project-name-wikivoyage" = "Вікімандри";
+"project-name-wiktionary" = "Вікісловник";
 "rank-accessibility-label" = "Номер $1";
 "readers-accessibility-label" = "$1 читачів";
 "reading-list-add-generic-hint-title" = "Додати цю статтю до читального списку?";
@@ -879,8 +934,11 @@
 "settings-language-bar" = "Показувати мови при пошуку";
 "settings-languages-feed-customization" = "Ви можете зазначити в налаштуваннях, які мови показуватимуться у вашій стрічці.";
 "settings-my-languages" = "Мої мови";
-// Fuzzy
-"settings-notifications" = "Сповіщення";
+"settings-notifications" = "Push-сповіщення";
+"settings-notifications-echo-failure-message" = "Сталася помилка під час перевірки підписки на сповіщення, пов'язані з вашим обліковим записом.";
+"settings-notifications-echo-failure-title" = "Неможливо перевірити наявність підписок на сповіщення Echo";
+"settings-notifications-echo-failure-try-again" = "Спробуйте ще раз";
+"settings-notifications-header" = "Отримуйте сповіщення про дії, пов'язані з вашим обліковим записом, наприклад повідомлення від інших дописувачів, звістки та сповіщення. Усе це надається з дотриманням конфіденційності та точності даних.";
 "settings-notifications-info" = "Будьте в курсі трендових і найпопулярніших статей у Вікіпедії з нашими push-сповіщеннями. Уся інформація надається зі збереженням конфіденційності та з точністю до хвилини.";
 "settings-notifications-learn-more" = "Дізнатися більше про сповіщення";
 "settings-notifications-push-notifications" = "Push-сповіщення";
@@ -916,8 +974,7 @@
 "share-on-twitter-sign-off" = "через Wikipedia";
 "share-open-in-maps" = "Відкрити на Мапах";
 "share-social-format" = "«$1» у Вікіпедії мовою «$2»";
-// Fuzzy
-"share-social-mention-format" = "«$1» у Вікіпедії мовою «$2»";
+"share-social-mention-format" = "«$1» у Вікіпедії: $2";
 "sort-by-recently-added-action" = "Нещодавно додані";
 "sort-by-title-action" = "Назва";
 "table-of-contents-button-label" = "Вміст";
