@@ -15,8 +15,12 @@ class NavigationBarHiddenUIHostingController<Content: View>: UIHostingController
     }
 }
 
-/// Allows the use of a limited amount of scrolling SwiftUI, embedded within a UIScrollView.
-/// This subclasses ViewController so that we can continue to use our custom navigation bar setup
+
+///  Allows the use of a limited amount of scrolling SwiftUI, embedded within a UIScrollView.
+///  This subclasses ViewController so that we can continue to use our custom navigation bar setup if needed.
+///
+///  Do not use with SwiftUI Views that already contain a ScrollView (like List)
+///  Do not use with SwiftUI Views that act lazily (like LazyVStack)
 class ScrollingSwiftUIViewController<T>: ViewController where T: View {
     
     private let contentView: T
