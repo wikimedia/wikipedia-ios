@@ -1,6 +1,7 @@
 import Foundation
 
-public struct FeatureFlags {
+@objc(WMFFeatureFlags)
+public class FeatureFlags: NSObject {
     
     public static var needsNewTalkPage: Bool {
         #if WMF_STAGING
@@ -10,7 +11,7 @@ public struct FeatureFlags {
         #endif
     }
     
-    public static var needsApplePay: Bool {
+    @objc public static var needsApplePay: Bool {
         // TODO: Apple Pay logging
         // TODO: Apple Pay icon name
         #if WMF_STAGING
@@ -20,13 +21,4 @@ public struct FeatureFlags {
         #endif
     }
     
-}
-
-
-/// Bridging class only for Objective-C access. Put all logic in FeatureFlags
-@objc public class WMFFeatureFlags: NSObject {
-    
-    @objc public class var needsApplePay: Bool {
-        return FeatureFlags.needsApplePay
-    }
 }
