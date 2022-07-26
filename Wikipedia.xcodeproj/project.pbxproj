@@ -1575,6 +1575,10 @@
 		832A7A5E23EA138C00D0A750 /* ArticleViewController+References.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A7A5A23EA138C00D0A750 /* ArticleViewController+References.swift */; };
 		832A7A6023EAE03200D0A750 /* String+JavaScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A7A5F23EAE03200D0A750 /* String+JavaScript.swift */; };
 		832B2B8423D9F9420087EB5F /* NSRegularExpression+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832B2B8323D9F9420087EB5F /* NSRegularExpression+Utilities.swift */; };
+		832BD3B7288F1422002623CA /* VanishAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832BD3B6288F1422002623CA /* VanishAccountViewController.swift */; };
+		832BD3B8288F1422002623CA /* VanishAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832BD3B6288F1422002623CA /* VanishAccountViewController.swift */; };
+		832BD3B9288F1422002623CA /* VanishAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832BD3B6288F1422002623CA /* VanishAccountViewController.swift */; };
+		832BD3BA288F1422002623CA /* VanishAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832BD3B6288F1422002623CA /* VanishAccountViewController.swift */; };
 		8330531F23EF051900123141 /* NSArray+WMFMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 8330531D23EF051900123141 /* NSArray+WMFMapping.m */; };
 		8330532023EF051900123141 /* NSArray+WMFMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 8330531E23EF051900123141 /* NSArray+WMFMapping.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8330532223EF05D000123141 /* WMFBlocksKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8330532123EF05D000123141 /* WMFBlocksKit.swift */; };
@@ -4351,6 +4355,7 @@
 		832A7A5A23EA138C00D0A750 /* ArticleViewController+References.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleViewController+References.swift"; sourceTree = "<group>"; };
 		832A7A5F23EAE03200D0A750 /* String+JavaScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+JavaScript.swift"; sourceTree = "<group>"; };
 		832B2B8323D9F9420087EB5F /* NSRegularExpression+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSRegularExpression+Utilities.swift"; sourceTree = "<group>"; };
+		832BD3B6288F1422002623CA /* VanishAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VanishAccountViewController.swift; sourceTree = "<group>"; };
 		8330531D23EF051900123141 /* NSArray+WMFMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+WMFMapping.m"; sourceTree = "<group>"; };
 		8330531E23EF051900123141 /* NSArray+WMFMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+WMFMapping.h"; sourceTree = "<group>"; };
 		8330532123EF05D000123141 /* WMFBlocksKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFBlocksKit.swift; sourceTree = "<group>"; };
@@ -7232,6 +7237,7 @@
 			isa = PBXGroup;
 			children = (
 				67F73E6C2267B79E0079DEEF /* AccountViewController.swift */,
+				832BD3B6288F1422002623CA /* VanishAccountViewController.swift */,
 			);
 			name = Account;
 			sourceTree = "<group>";
@@ -11624,6 +11630,7 @@
 				7A2432BE1FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
 				7A0DE50020CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */,
 				B0E805611C0CE0DC0065EBC0 /* WKWebView+ElementLocation.m in Sources */,
+				832BD3B7288F1422002623CA /* VanishAccountViewController.swift in Sources */,
 				B09B30CF1DB813760012281F /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
 				8330532923EF0B4200123141 /* ArticleViewController+Media.swift in Sources */,
 				B09705B4236B29D7006FDB5C /* DiffThanker.swift in Sources */,
@@ -12551,6 +12558,7 @@
 				6754E44B22773588005EEAD1 /* OldTalkPageReplyCell.swift in Sources */,
 				7A0DE50320CEEC760032AB57 /* ExploreFeedSettingsViewController.swift in Sources */,
 				7A2432C11FCF401900FB4BA5 /* CreateReadingListViewController.swift in Sources */,
+				832BD3BA288F1422002623CA /* VanishAccountViewController.swift in Sources */,
 				D8A42B8D1E815A9C00D8E281 /* UIViewController+WMFStoryboardUtilities.swift in Sources */,
 				D8A42B8F1E815A9C00D8E281 /* TableOfContentsPresentationController.swift in Sources */,
 				8330532C23EF0B4200123141 /* ArticleViewController+Media.swift in Sources */,
@@ -12633,6 +12641,7 @@
 				B0C7A07D1F710E75008415E7 /* WMFWelcomeExplorationAnimationBackgroundView.swift in Sources */,
 				D8CE24EE1E698E2400DAE2E0 /* WMFReferencePanelViewController.swift in Sources */,
 				7AC19E332301EF7D00E25B83 /* PageHistoryFilterCountsViewController.swift in Sources */,
+				832BD3B9288F1422002623CA /* VanishAccountViewController.swift in Sources */,
 				7A29A5CF1F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
 				7A715662226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */,
 				D818D38C1ED765470076110D /* ArticleLocationCollectionViewController.swift in Sources */,
@@ -13175,6 +13184,7 @@
 				B0C7A0791F710E75008415E7 /* WMFWelcomeExplorationAnimationBackgroundView.swift in Sources */,
 				7AC19E342301EF7D00E25B83 /* PageHistoryFilterCountsViewController.swift in Sources */,
 				7A29A5D01F6C49C600E8F42B /* CollectionViewUpdater.swift in Sources */,
+				832BD3B8288F1422002623CA /* VanishAccountViewController.swift in Sources */,
 				7A715663226972DF0066FEC4 /* InsertMediaImageTypeSettingsViewController.swift in Sources */,
 				D8EC3DE51E9BDA35006712EB /* WMFReferencePanelViewController.swift in Sources */,
 				7A71567B22699D5B0066FEC4 /* InsertMediaLabelTableFooterView.swift in Sources */,
