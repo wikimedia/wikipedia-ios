@@ -14,6 +14,7 @@ public class FeatureFlags: NSObject {
     @objc public static var needsApplePay: Bool {
         // TODO: Apple Pay logging
         // TODO: Apple Pay icon name
+        // TODO: Fix keyboard hiding textfield on iOS13
         #if WMF_STAGING
             return true
         #else
