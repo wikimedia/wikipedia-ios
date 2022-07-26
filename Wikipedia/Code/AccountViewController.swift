@@ -47,10 +47,14 @@ class AccountViewController: SubSettingsViewController {
 
         let autoSignDiscussions = Item(title: WMFLocalizedString("account-talk-preferences-auto-sign-discussions", value: "Auto-sign discussions", comment: "Title for talk page preference that configures adding signature to new posts"), subtitle: nil, iconName: nil, iconColor: nil, iconBackgroundColor: nil, type: .talkPageAutoSignDiscussions)
         let talkPagePreferences = Section(items: [autoSignDiscussions], headerTitle: WMFLocalizedString("account-talk-preferences-title", value: "Talk page preferences", comment: "Title for talk page preference sections in account settings"), footerTitle: WMFLocalizedString("account-talk-preferences-auto-sign-discussions-setting-explanation", value: "Auto-signing of discussions will use the signature defined in Signature settings", comment: "Text explaining how setting the auto-signing of talk page discussions preference works"))
-        let vanishAccount = Item(title: WMFLocalizedString("account-request-vanishing", value: "Request Account Deletion", comment: "This will initiate the process of reuqest your account ot be vanished "), subtitle: nil, iconName: nil, iconColor: nil, iconBackgroundColor: nil, type: .vanishAccount)
+        let vanishAccount = Item(title: WMFLocalizedString("account-request-vanishing", value: "Request account deletion", comment: "This will initiate the process of reuqest your account ot be vanished "), subtitle: nil, iconName: nil, iconColor: nil, iconBackgroundColor: nil, type: .vanishAccount)
         let accountDeletion = Section(items: [vanishAccount], headerTitle: WMFLocalizedString("account-vanishing-section-title", value: "Account deletion", comment: "Section header for the account vanishing process option of account settings"), footerTitle: WMFLocalizedString("account-vanishing-footer-info", value: "Copy TBD", comment: "Footer text for the account deletion/vanishing section on account settings further explaining the process"))
 
-        return [account, talkPagePreferences, accountDeletion]
+        var sections = [account, talkPagePreferences]
+        if dataStore.authenticationManager.isLoggedIn {
+            sections.append(accountDeletion)
+        }
+        return sections
     }()
 
     override func viewDidLoad() {
@@ -100,7 +104,6 @@ class AccountViewController: SubSettingsViewController {
             cell.disclosureSwitch.addTarget(self, action: #selector(autoSignTalkPageDiscussions(_:)), for: .valueChanged)
         case .vanishAccount:
             cell.disclosureType = .viewController
-            cell.disclosureText = "delete account form"
             cell.accessibilityTraits = .button
         }
         
@@ -142,7 +145,9 @@ class AccountViewController: SubSettingsViewController {
             }
             
         case .vanishAccount:
-            self.navigationController?.pushViewController(VanishAccountViewController(theme: theme), animated: true)
+            let vc = VanishAccountViewController(theme: theme)
+            vc.dataStore = dataStore
+            self.navigationController?.pushViewController(vc, animated: true)
         default:
             break
         }

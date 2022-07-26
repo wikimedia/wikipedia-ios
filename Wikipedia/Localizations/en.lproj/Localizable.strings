@@ -77,7 +77,7 @@
 "account-creation-saving" = "Saving...";
 "account-creation-title" = "Create a new account";
 "account-group-title" = "Your Account";
-"account-request-vanishing" = "Request Account Deletion";
+"account-request-vanishing" = "Request account deletion";
 "account-talk-page-title" = "Your talk page";
 "account-talk-preferences-auto-sign-discussions" = "Auto-sign discussions";
 "account-talk-preferences-auto-sign-discussions-setting-explanation" = "Auto-signing of discussions will use the signature defined in Signature settings";
