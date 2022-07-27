@@ -991,6 +991,7 @@
 "talk-page-title-user-talk" = "This title label is displayed at the top of a talk page topic list, if the talk page type is a user talk page.";
 "talk-page-topic-title" = "This header label is displayed at the top of a talk page topic thread.";
 "talk-pages-reply-button-title" = "Text displayed in a reply button for replying to a talk page topic thread.";
+"talk-pages-view-title" = "Title of user and article talk pages view.";
 "theme-black-display-name" = "Black theme name presented to the user";
 "theme-dark-display-name" = "Dark theme name presented to the user";
 "theme-default-display-name" = "Default theme name presented to the user";
